@@ -1,0 +1,94 @@
+<?php
+
+// ----[ Database Settings ]------------------------------------
+$roster_conf['db_host'] =								'localhost';
+$roster_conf['db_name'] =								'db_name';
+$roster_conf['db_user'] =								'db_user_name';
+$roster_conf['db_pass'] =								'db_password';
+$roster_conf['db_prefix'] =								'roster2_';
+$roster_conf['dbtype'] =								'mysql';
+
+
+//////////////////////////// MOVE THESE TO DB SOMEDAY ////////////////////////////
+//guild settings
+//will be removed soon
+$roster_conf['guild_name'] =							"GuildName";
+
+//realm setting
+//will be removed soon
+$roster_conf['realm_name'] =							'RealmName';
+
+/////// NEW UPDATE OPTIONS ///////
+// list of realms allowed. This is an array.
+$roster_conf['allowed_realms'] = array("Realm1", "Realm2");
+// array of arrays containing server->guilds allowed in each server
+$roster_conf['allowed_guilds'] = array("Realm1"=>array("Guild1", "Guild2"),"Realm2"=>array("Guild1", "Guild2"));
+// TODO: Do we allow unguilded characters into the database? LEAVE ON FALSE, THIS DOES NOT YET WORK
+$roster_conf['allow_unguilded'] = false;
+
+//set to true, if you want to display more than one guild (or unguilded)
+$roster_conf['multiple_guilds'] =						false;
+
+//theme template to use
+$roster_conf['theme'] =									'dark_wow';
+
+//default first page
+$roster_conf['first_page'] =							'guilds';
+
+//header logo - path relative to roster base folder
+$roster_conf['roster_logo'] =							'wowlogo.jpg';
+
+//language & location
+$roster_conf['lang'] =									'enUS';
+
+//path for the images (NO BEGINNING OR TRAILING SLASH)
+$roster_conf['imagepath'] =								'images';
+
+//path for wow icons folder (NO BEGINNING OR TRAILING SLASH)
+//this is the directory where the "Interface" folder is
+$roster_conf['iconpath'] =								'images';
+$roster_conf['icon_ext'] =								'jpg';
+
+/************************ [ DEBUG OPTIONS ] **********************/
+
+// This is the overall debug control. Turning this off turns off all of the debug options. (default: false)
+$roster_conf['debug'] =									true;
+// Setting the following value to true will cause your debug logging to show up in the HTTP error log file
+// Setting it to false will cause it to output to your browser: (default: false)
+$roster_conf['debug_to_error_log'] =					true;
+// This turns on logging of SQL queries as they are executed against the server. This generates a LOT
+// of output, so you should normally leave it off. (default: false)
+$roster_conf['debug_database_queries'] = 				false;
+$roster_conf['smarty_debug'] =							true;
+
+/********************** [ OTHER OPTIONS ] **************************/
+
+$roster_conf['gzip_compress'] =							false;
+$roster_conf['roster_version'] =						'2.0.0 pre-alpha';
+
+
+$roster_conf['min_cp_ver'] =							'1.5.1';
+$roster_conf['min_gp_ver'] =							'1.5';
+$roster_conf['min_pvplog_ver'] =						'0.4.8';
+
+$roster_conf['table_type'] = "INNODB";
+
+//////////////////////////// MOVE THESE TO DB SOMEDAY ////////////////////////////
+
+
+// ----[ Prevent Direct Access to this file ]-------------------
+if( eregi('conf.php',$_SERVER['PHP_SELF']) )
+{
+	exit("You can't access this file directly!");
+}
+
+
+// ----[ Globals for roster installed and included ]------------
+define('ROSTER_INCLUDED',true);
+define('ROSTER_INSTALLED',true);
+
+
+// ----[ Include the Initialization file ]----------------------
+require_once('set_env.php');
+
+?>

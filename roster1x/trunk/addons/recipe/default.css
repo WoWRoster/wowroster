@@ -1,0 +1,42 @@
+/******************************
+ * WoWRoster.net  Roster
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ******************************/
+
+
+.difficulty_1:visited {
+	color: #CCCCCC
+}
+.difficulty_1:link    {
+	color: #CCCCCC
+}
+.difficulty_2:visited {
+	color: #339900
+}
+.difficulty_2:link    {
+	color: #339900
+}
+.difficulty_3:visited {
+	color: #FFFF66
+}
+.difficulty_3:link    {
+	color: #FFFF66
+}
+.difficulty_4:visited {
+	color: #FF9900
+}
+.difficulty_4:link    {
+	color: #FF9900
+}

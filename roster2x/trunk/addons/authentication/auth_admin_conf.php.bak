@@ -1,0 +1,157 @@
+<?php
+$path_to_liveuser_dir = '/roster2/html/include/'.PATH_SEPARATOR;
+ini_set('include_path', $path_to_liveuser_dir . ini_get('include_path'));
+
+require_once 'DB.php';
+require_once 'LiveUser.php';
+require_once 'LiveUser/Admin.php';
+
+//$dsn = '{dbtype}://{user}:{passwd}@{dbhost}/{dbname}';
+//$dsn = $roster_conf['dbtype'].'://'.$roster_conf['db_user'].':'.$roster_conf['db_pass'].'@'.$roster_conf['db_host'].'/'.$roster_conf['db_name'];
+$dsn = 'mysql://root:mistikack@localhost/roster2';
+
+$db =& DB::connect($dsn);
+
+if (PEAR::isError($db)) {
+    echo $db->getMessage() . ' ' . $db->getUserInfo();
+}
+
+$db->setFetchMode(DB_FETCHMODE_ASSOC);
+
+
+$addon_conf['authentication'] =
+    array( 
+		'debug' => true,
+		'session'  => array(
+			'name'     => 'PHPSESSION',
+			'varname'  => 'authdata'
+        ),
+        'login' => array(
+            'force'    => false,
+        ),
+        'logout' => array(
+            'destroy'  => true,
+        ),
+		'cookie' => array(
+            'name' => 'roster_loginInfo',  // name of the Remember me cookie
+            'lifetime' => 30,       // cookie lifetime in days
+            'path' => null,         // cookie path ?
+            'domain' => null,       // cookie domain ?
+            'secret' => md5('roster_auth'),     // the encryption key for the RC4 algorithm
+            'savedir' => '.',       // absolute path to writeable directory ?
+                                    // (no trailing slash)
+            'secure' => false,      // whether cookie only send over secure connection
+        ),
+        'authContainers' => array(
+            'DB' => array(
+                'type'          => 'DB',
+                'expireTime'    => 3600,
+                'idleTime'      => 1800,
+				'allowDuplicateHandles' => 0,
+                'allowEmptyPasswords'   => 0,
+				'passwordEncryptionMode' => 'MD5',
+                'storage' => array(
+                    'dsn' => $dsn,
+					'prefix' => 'roster2_addon_auth_',
+                    'alias' => array(
+						'handle' => 'username',
+						'passwd' => 'password',
+                        'last_login' => 'last_login',
+						'is_active' => 'is_active',
+						'owner_user_id' => 'owner_user_id',
+						'owner_group_id' => 'owner_group_id',
+						'email' => 'email',
+                    ),
+                    'fields' => array(
+                        'last_login' => 'timestamp',
+                        'is_active' => 'boolean',
+						'owner_user_id'  => 'integer',
+                        'owner_group_id' => 'integer',
+						'email' => 'text',
+                    ),
+                    'tables' => array(
+                        'users' => array(
+                            'fields' => array(
+                                'last_login' => false,
+                                'is_active' => false,
+								'owner_user_id' => false,
+                                'owner_group_id' => false,
+                                'email' => false
+                            ),
+                        ),
+                    ),
+                )
+            )
+        ),
+		'permContainer' => array(
+        'type' => 'Complex',
+        'storage' => array(
+			'DB' => array(
+				'dsn' => $dsn, 
+				#'prefix' => $roster_conf['db_prefix'].'addon_auth_'
+				'prefix' => 'roster2_addon_auth_',
+				'tables' => array(        	// contains additional tables         
+					'users' => array(
+						'fields' => array(
+							'last_login' => false,
+							'is_active' => false,
+							'owner_user_id' => false,
+							'owner_group_id' => false,
+							'email' => false
+                            ),
+                        ),
+                    ),
+                    'fields' => array(
+                        'last_login' => 'timestamp',
+                        'is_active' => 'boolean',
+						'owner_user_id'  => 'integer',
+                        'owner_group_id' => 'integer',
+						'email' => 'text',
+                    ),
+                    'alias' => array(
+						'handle' => 'username',
+						'passwd' => 'password',
+                        'last_login' => 'last_login',
+						'is_active' => 'is_active',
+						'owner_user_id' => 'owner_user_id',
+						'owner_group_id' => 'owner_group_id',
+						'email' => 'email',
+                    ),
+                )
+            )
+        )
+    );
+
+PEAR::setErrorHandling(PEAR_ERROR_RETURN);
+ 
+$LU =& LiveUser::singleton(&$addon_conf['authentication']);
+ 
+if (!$LU->init())
+  {
+    var_dump($LU->getErrors());
+    die();
+  }
+$handle = (array_key_exists('handle', $_REQUEST)) ? $_REQUEST['handle'] : null;
+$passwd = (array_key_exists('passwd', $_REQUEST)) ? $_REQUEST['passwd'] : null;
+$logout = (array_key_exists('logout', $_REQUEST)) ? $_REQUEST['logout'] : false;
+$remember = (array_key_exists('rememberMe', $_REQUEST)) ? $_REQUEST['rememberMe'] : false;
+if ($logout)
+  {
+  $LU->logout(true);                   // Deletes the remember me cookie
+  }
+elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle))
+  {
+  if (!$handle)
+    {
+    $LU->login(null, null, true);
+    }
+  else
+    {
+    $LU->login($handle, $passwd, $remember);
+    }
+  }
+$LUA =& LiveUser_Admin::factory(&$addon_conf['authentication']);
+$LUA->init();
+
+		
+?>
