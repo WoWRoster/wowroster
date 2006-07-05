@@ -405,7 +405,7 @@ $SetT['Tier_1']['deDE']['Hexenmeister'] = array(
 		'Wrist' => 'Teufelsherzarmschienen|Random-Drop|Geschmolzener Kern',
 		'Chest' => 'Teufelsherzroben|Golemagg der Verbrenner|Geschmolzener Kern',
 		'Hands' => 'Teufelsherzhandschuhe|Shazzrah|Geschmolzener Kern',
-		'Head' => 'TeufelsherzhÃ¶rner|Garr|Geschmolzener Kern',
+		'Head' => 'Teufelsherzhörner|Garr|Geschmolzener Kern',
 		'Legs' => 'Teufelsherzhose|Magmadar|Geschmolzener Kern',
 		'Shoulder' => 'Teufelsherzschulterpolster|Baron Geddon|Geschmolzener Kern'
 	);
@@ -974,7 +974,7 @@ $SetT['PVP_Epic']['deDE']['H']['Schurke'] = array(
 );
 $SetT['PVP_Epic']['deDE']['H']['Schamane'] = array(
 		'Feet'  => 'Panzerstiefel des Kriegsherren|PVP|Rang Kriegsherr',
-		'Chest' => 'Panzerr�stung des Kriegsfürsten|PVP|Rang Kriegsfürst',
+		'Chest' => 'Panzerr�stung des Kriegsfürsten|PVP|Rang Kriegsfürst',
 		'Hands' => 'Panzerstulpen des Kriegsherren|PVP|Rang Kriegsherr',
 		'Head'  => 'Panzerhelm des Kriegsfürsten|PVP|Rang Kriegsfürst',
 		'Legs'  => 'Panzergamaschen des Kriegsherren|PVP|Rang Kriegsherr',
