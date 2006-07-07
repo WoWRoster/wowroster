@@ -26,7 +26,7 @@
 // Most other changes by Zanix
 
 require_once( 'settings.php' );
-require_once( ROSTER_BASE.'lib'.DIR_SEP.'xmlparse.php' );
+require_once( ROSTER_LIB.'xmlparse.php' );
 
 
 //==========[ GET FROM CONF.PHP ]====================================================

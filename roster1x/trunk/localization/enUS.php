@@ -653,7 +653,6 @@ $wordings['enUS']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfil
 $wordings['enUS']['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $wordings['enUS']['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog version allowed to upload";
 $wordings['enUS']['admin']['roster_lang'] = "Roster Main Language|The main language roster will be displayed in";
-$wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['enUS']['admin']['website_address'] = "Website Address|Used for url link for logo, and guildname link in the main menu<br>Some roster addons may also use this";
 $wordings['enUS']['admin']['roster_dir'] = "Roster URL|The URL path to the Roster directory<br>It is critical that this is correct or errors may occur<br>(EX: http://www.site.com/roster )<br><br>A full url is not required but a foreward slash before the directory is<br>(EX: /roster )";
 $wordings['enUS']['admin']['server_name_comp'] = "char.php Compatibility Mode|If your character page does not work, try changing this";
@@ -718,7 +717,8 @@ $wordings['enUS']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for ro
 $wordings['enUS']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
 $wordings['enUS']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['enUS']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
-$wordings['enUS']['admin']['profile'] = "char.php JS File|JavaScript for CharacterPage (char.php)";
+$wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
+$wordings['enUS']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 

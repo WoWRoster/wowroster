@@ -28,7 +28,7 @@ if( $name == '' )
 }
 
 // Include character class file
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'char.php');
+require_once (ROSTER_LIB.'char.php');
 
 
 // Check for server name

@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-require_once( ROSTER_BASE.'lib'.DIR_SEP.'item.php');
+require_once( ROSTER_LIB.'item.php');
 
 class bag extends item
 {

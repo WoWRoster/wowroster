@@ -47,7 +47,7 @@ include_once($roster_root_path.'conf.php');
 include_once($roster_root_path.'lib/wowdb.php');
 
 $DEFAULTS = array(
-	'version'        => '1.7.0',
+	'version'        => '1.7.1',
 );
 
 // ---------------------------------------------------------
@@ -86,6 +86,8 @@ if( !$roster_dblink )
 	$tpl->message_die('Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error(), 'Database Error');
 	exit();
 }
+
+define('CONFIG_TABLE', $db_prefix . 'config');
 
 
 /**
@@ -128,7 +130,7 @@ if( $version >= $DEFAULTS['version'] )
 
 class Upgrade
 {
-	var $versions = array('1.6.0');
+	var $versions = array('1.6.0','1.7.0');
 	var $messages;
 
 
@@ -179,13 +181,34 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
+	function upgrade_170($index)
+	{
+		global $wowdb, $roster_root_path, $db_prefix;
+
+		$db_structure_file = $roster_root_path . 'install/db/upgrade_170.sql';
+
+		// Parse structure file and create database tables
+		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
+		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+
+		$sql = remove_remarks($sql);
+		$sql = parse_sql($sql, ';');
+
+		$sql_count = count($sql);
+		for ( $i = 0; $i < $sql_count; $i++ )
+		{
+			$wowdb->query($sql[$i]);
+		}
+		unset($sql);
+
+		$this->finalize($index);
+	}
+
 	function upgrade_160($index)
 	{
 		global $wowdb, $roster_root_path,
 			$db_host, $db_name, $db_user, $db_passwd, $db_prefix,
 			$roster_lang, $roster_dir, $website_address, $roster_upd_pw, $guild_name, $server_name;
-
-		define('CONFIG_TABLE', $db_prefix . 'config');
 
 		//
 		// Lets get some roster 160 db values before we upgrade the db

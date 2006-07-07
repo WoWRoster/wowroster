@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once(ROSTER_BASE.'lib'.DIR_SEP.'recipes.php');
+require_once(ROSTER_LIB.'recipes.php');
 
 
 $server_name_escape = $wowdb->escape($roster_conf['server_name']);

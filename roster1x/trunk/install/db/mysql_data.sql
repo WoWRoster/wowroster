@@ -11,20 +11,19 @@
 
 INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
-INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '2', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.0', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '3', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.1', 'display', 'master');
 
 # --------------------------------------------------------
 ### Main Roster Config
 
 INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '1.5.2', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '1.5.4', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '1.5.1', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.5.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1040, 'roster_lang', 'enUS', 'function{rosterLangValue', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1050, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1070, 'roster_dir', '', 'text{128|30', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1070, 'roster_dir', '/roster', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1080, 'server_name_comp', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'jpg', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
@@ -95,7 +94,8 @@ INSERT INTO `renprefix_config` VALUES (5000, 'stylesheet', 'css/styles.css', 'te
 INSERT INTO `renprefix_config` VALUES (5005, 'roster_js', 'css/js/mainjs.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5010, 'overlib', 'css/js/overlib.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5015, 'overlib_hide', 'css/js/overlib_hideform.js', 'text{128|30', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5020, 'profile', 'css/js/profile-script.js', 'text{128|30', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '1', 'radio{Image^1|Text^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5040, 'signaturebackground', 'img/default.png', 'text{128|30', 'display_conf');
 
@@ -106,8 +106,8 @@ INSERT INTO `renprefix_config` VALUES (6000, 'questlink_1', '1', 'radio{on^1|off
 INSERT INTO `renprefix_config` VALUES (6010, 'questlink_2', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6020, 'questlink_3', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/viewtopic.php?p=9266', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/viewtopic.php?p=9266', 'text{128|30', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/index.php?name=Downloads&file=details&id=7', 'text{128|30', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/index.php?name=Downloads&c=2', 'text{128|30', 'data_links');
 
 # --------------------------------------------------------
 ### Character Page Settings

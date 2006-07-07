@@ -81,16 +81,16 @@ $option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMB
 $option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.quest_name","quest_name",$questidsafe,"quest_name","indexquests.php?questid");
 
 // Don't forget the menu !!
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+include_once(ROSTER_LIB.'menu.php');
 print("<br />\n");
 
 echo "<table cellspacing=\"6\">\n  <tr>\n";
 echo '    <td valign="top">';
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'search_thot.php');
+include_once(ROSTER_LIB.'search_thot.php');
 echo "    </td>\n";
 
 echo '    <td valign="top">';
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'search_alla.php');
+include_once(ROSTER_LIB.'search_alla.php');
 echo "    </td>\n";
 echo "  </tr>\n</table>\n";
 

@@ -20,13 +20,13 @@
 require_once ('settings.php');
 
 // Roster Login class
-require_once( ROSTER_BASE.'lib'.DIR_SEP.'login.php' );
+require_once( ROSTER_LIB.'login.php' );
 
 // Set the title for the header
 $header_title = $wordings[$roster_conf['roster_lang']]['rosterdiag'];
 
 // Include the library for RosterDiag
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'rosterdiag.lib.php');
+include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
 
 // Loging in as Admin to allow up- / downgrades && Downloads
@@ -234,7 +234,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 }
 
 // Include the menu-box
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+include_once(ROSTER_LIB.'menu.php');
 
 // Diplay Password Box
 if ( $roster_login->getAuthorized() )

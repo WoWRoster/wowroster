@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'item.php');
+require_once (ROSTER_LIB.'item.php');
 
 
 //---[ Check for Guild Info ]------------
@@ -36,7 +36,7 @@ $guildId = $guild_info['guild_id'];
 $faction = $guild_info['faction'];
 
 
-include_once( ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+include_once( ROSTER_LIB.'menu.php');
 print "<br />\n";
 
 // Tooltip colors

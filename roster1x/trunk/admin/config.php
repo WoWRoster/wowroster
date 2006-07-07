@@ -20,7 +20,7 @@ $subdir = '..'.DIRECTORY_SEPARATOR;
 require_once( $subdir.'settings.php' );
 
 // Roster Login class
-require_once( ROSTER_BASE.'lib'.DIR_SEP.'login.php' );
+require_once( ROSTER_LIB.'login.php' );
 
 $script_filename = 'config.php';
 
@@ -32,7 +32,7 @@ $roster_login = new RosterLogin($script_filename);
 if( !$roster_login->getAuthorized() )
 {
 	include_once (ROSTER_BASE.'roster_header.tpl');
-	include_once (ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+	include_once (ROSTER_LIB.'menu.php');
 
 	print
 	'<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['roster_config'].'</span><br />'.
@@ -266,7 +266,7 @@ if( is_array($char_data) )
 include_once( ROSTER_BASE.'roster_header.tpl' );
 
 
-include_once( ROSTER_BASE.'lib'.DIR_SEP.'menu.php' );
+include_once( ROSTER_LIB.'menu.php' );
 
 
 // ----[ Render the entire page ]---------------------------

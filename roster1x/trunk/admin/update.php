@@ -34,18 +34,18 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 
 $subdir = '../';
 require_once( $subdir.'settings.php' );
-require_once( ROSTER_BASE.'lib'.DIR_SEP.'luaparser.php' );
+require_once( ROSTER_LIB.'luaparser.php' );
 
 
 // Update Triggers
 if( $roster_conf['use_update_triggers'] )
-	include_once( ROSTER_BASE.'lib'.DIR_SEP.'update_trigger_lib.php' );
+	include_once( ROSTER_LIB.'update_trigger_lib.php' );
 
 
 if (!$roster_conf['authenticated_user'])
 {
 	$wow_group = $roster_conf['upload_group'];
-	include_once( ROSTER_BASE.'lib'.DIR_SEP.'phpbb.php' );
+	include_once( ROSTER_LIB.'phpbb.php' );
 }
 
 // Set $htmlout to 1 to assume request is from a browser
@@ -391,7 +391,7 @@ $errorstringout = $wowdb->getErrors();
 if( $htmlout )
 {
 	include_once(ROSTER_BASE.'roster_header.tpl');
-	include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+	include_once(ROSTER_LIB.'menu.php');
 	print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br /><br />\n";
 
 	if( $uploadFound )

@@ -52,7 +52,7 @@ if ( $roster_conf['index_motd'] == 1 )
 	}
 }
 
-include_once (ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+include_once (ROSTER_LIB.'menu.php');
 
 
 if( $roster_conf['hspvp_list_disp'] == 'hide' )

@@ -653,7 +653,6 @@ $wordings['deDE']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfil
 $wordings['deDE']['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler Version zum Upload";
 $wordings['deDE']['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog Version zum Upload";
 $wordings['deDE']['admin']['roster_lang'] = "Roster Hauptsprache|Sprache, in der das Roster anzeigen soll";
-$wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|The full URL to the image<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['deDE']['admin']['website_address'] = "Webseitenadresse|Wird benötigt für das Logo, den Gildennamenlink und das Hauptmenü<br>Einige Roster Addons benötigen diese auch";
 $wordings['deDE']['admin']['roster_dir'] = "Roster URL|Der URL Pfad zum Rosterverzeichnis<br>Es ist wichtig, dass diese korrekt ist, da sonst Fehler auftreten können<br>(Beispiel: http://www.site.com/roster )<br><br>Eine vollständige URL wird nicht benötigt wenn vor dem Verzeichnis ein Slashzeichen ist<br>(Beispiel: /roster )";
 $wordings['deDE']['admin']['server_name_comp']  = "char.php Compatibility Mode|Falls deine Charakterseite nicht funktionieren sollte, dann ändere diesen Wert";
@@ -718,7 +717,8 @@ $wordings['deDE']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for ro
 $wordings['deDE']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
 $wordings['deDE']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
-$wordings['deDE']['admin']['profile'] = "char.php JS File|JavaScript for CharacterPage (char.php)";
+$wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|The full URL to the image<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
+$wordings['deDE']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['deDE']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['deDE']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 

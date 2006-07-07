@@ -30,7 +30,7 @@ if( empty($guild_info) )
 // Get guild_id from guild info check above
 $guildId = $guild_info['guild_id'];
 
-include_once (ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+include_once (ROSTER_LIB.'menu.php');
 
 
 if (isset($_GET['type']))

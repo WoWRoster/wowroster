@@ -67,7 +67,7 @@ I'm sorry, but you need some kind of a password set in Roster Config to get in",
 
 
 // ----[ Check log-in ]-------------------------------------
-require_once(ROSTER_BASE.'lib'.DIR_SEP.'login.php');
+require_once(ROSTER_LIB.'login.php');
 $roster_login = new RosterLogin($script_filename);
 
 if( !$roster_login->getAuthorized() )

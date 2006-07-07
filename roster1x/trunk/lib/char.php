@@ -21,13 +21,13 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'item.php');
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'bag.php');
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'skill.php');
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'reputation.php');
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'quest.php');
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'recipes.php');
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'pvp3.php');
+require_once (ROSTER_LIB.'item.php');
+require_once (ROSTER_LIB.'bag.php');
+require_once (ROSTER_LIB.'skill.php');
+require_once (ROSTER_LIB.'reputation.php');
+require_once (ROSTER_LIB.'quest.php');
+require_once (ROSTER_LIB.'recipes.php');
+require_once (ROSTER_LIB.'pvp3.php');
 
 $myBonus = array();
 $myTooltip = array();

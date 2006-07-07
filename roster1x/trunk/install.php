@@ -116,7 +116,7 @@ $DEFAULTS = array(
 // Database settings
 $DBALS    = array(
 	'mysql' => array(
-		'label'       => 'MySQL 3/4/5',
+		'label'       => 'MySQL 4/5',
 		'structure'   => 'mysql',
 		'comments'    => 'remove_remarks',
 		'delim'       => ';',

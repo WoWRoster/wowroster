@@ -43,7 +43,7 @@ if( empty($guild_info) )
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
 
-require_once( ROSTER_BASE.'lib'.DIR_SEP.'char.php' );
+require_once( ROSTER_LIB.'char.php' );
 
 $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
 include_once (ROSTER_BASE.'roster_header.tpl');
@@ -60,7 +60,7 @@ if ($wowdb->sqldebug)
 
 $muleNames = $wowdb->query($muleNameQuery);
 
-include_once (ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+include_once (ROSTER_LIB.'menu.php');
 echo "\n<br />\n";
 
 if ( $roster_conf['bank_money'] )

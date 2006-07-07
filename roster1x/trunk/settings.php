@@ -49,6 +49,11 @@ define('ROSTER_URL',implode('/',$url));
  */
 define('ROSTER_BASE',dirname(__FILE__).DIR_SEP);
 
+/**
+ * Base, absolute roster library directory
+ */
+define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
+
 
 /**
  * Fix $subdir variable
@@ -89,7 +94,7 @@ if ( !defined('ROSTER_INSTALLED') )
 /**
  * Include roster db file
  */
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'wowdb.php');
+require_once (ROSTER_LIB.'wowdb.php');
 
 
 
@@ -113,7 +118,7 @@ $db_passwd = null;
 /**
  * Include constants file
  */
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'constants.php');
+require_once (ROSTER_LIB.'constants.php');
 
 
 
@@ -157,13 +162,16 @@ if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 }
 
 
-/** RE-ENABLE FOR RELEASE
+/**
  * If the install directory or files exist, die()
- *//*
+ */
 if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install') || file_exists(ROSTER_BASE.'upgrade.php') )
 {
-	exit("<center>Please remove the files <b>install.php</b>, <b>upgrade.php</b> and the folder <b>/install/</b> in this directory</center>");
-}*/
+	if( !file_exists(ROSTER_BASE.'version_match.php') )
+	{
+		exit("<center>Please remove the files <b>install.php</b>, <b>upgrade.php</b> and the folder <b>/install/</b> in this directory</center>");
+	}
+}
 
 
 
@@ -224,7 +232,7 @@ if( !headers_sent() )
 /**
  * Include common functions
  **/
-require_once (ROSTER_BASE.'lib'.DIR_SEP.'commonfunctions.lib.php');
+require_once (ROSTER_LIB.'commonfunctions.lib.php');
 
 
 ?>

@@ -29,7 +29,7 @@ define('HEADER_INC',true);
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib_hide']; ?>"></script>
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 </head>
-<body style="background-image:url(img/wowroster_bg.jpg);">
+<body style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);">
 <div class="bodyline">
 
 <?php

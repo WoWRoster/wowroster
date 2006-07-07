@@ -93,10 +93,7 @@ class reputation
 		}
 
 		// Giving each rep a unique id so the onmouseover can work correctly
-		$searchArr  = array(' ','\'');
-		$replaceArr = '';
-
-		$id = strtolower( str_replace($searchArr,$replaceArr,$this->data['faction'].$this->data['name']) );
+		$id = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $this->data['faction'].$this->data['name']));
 
 		$hover_code = "<div style=\"cursor:default;\" onmouseover=\"swapShow('rep_value_$id','rep_standing_$id');\" onmouseout=\"swapShow('rep_value_$id','rep_standing_$id');\">";
 		$value = $hover_code."<div class=\"value\" style=\"display:none;\" id=\"rep_value_$id\">$level/$max</div>".
