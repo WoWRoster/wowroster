@@ -213,7 +213,7 @@ function output_pvp_summary($pvps,$type)
 	}
 
 	$returnstring = '
-'.border('sgray','start','<h3>'.$type.' Log</h3>').'
+'.border('sgray','start',$type.' Log').'
 <table class="bodyline" width="280" cellspacing="0">
 	<tr>
 		<td class="membersRow2" width="200">'.$wordings[$roster_conf['roster_lang']]['totalwins'].'</td>
@@ -533,8 +533,8 @@ function output_duellog($member_id)
 
 	$winpercent = round( ($wins / ($wins + $loss)), 2 ) * 100;
 
-	$returnstring .= border('sorange','start','<h3>'.$wordings[$roster_conf['roster_lang']]['duellog'].'</h3>')."
-		<table width='175' cellpadding='0' cellspacing='0' class='membersList' align='center'>
+	$returnstring .= border('sorange','start',$wordings[$roster_conf['roster_lang']]['duellog'])."
+		<table width='175' cellpadding='0' cellspacing='0' align='center'>
 			<tr>
 				<td class='membersRow2'>".$wordings[$roster_conf['roster_lang']]['wins']."</td>
 				<td class='membersRowRight2'>".$wins."</td>
@@ -602,7 +602,7 @@ function output_pvplog($member_id)
 	$returnstring = "
 <br />
 ".border('sgreen','start',$wordings[$roster_conf['roster_lang']]['world_pvp'])."
-<table width='400' cellpadding='0' cellspacing='0' class='membersList'>
+<table width='400' cellpadding='0' cellspacing='0'>
 	<tr>
 		<th width='10%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['win']." %</div></th>
 		<th width='45%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['best_zone']."</div></th>
@@ -649,7 +649,7 @@ function output_pvplog($member_id)
 <br />
 
 ".border('syellow','start',$wordings[$roster_conf['roster_lang']]['versus_guilds'])."
-<table width='400' cellpadding='0' cellspacing='0' class='membersList'>
+<table width='400' cellpadding='0' cellspacing='0'>
 	<tr>
 		<th width='50%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['most_killed']."</div></th>
 		<th width='50%' class='membersHeaderRight'><div align='center'>".$wordings[$roster_conf['roster_lang']]['most_killed_by']."</div></th>
@@ -725,7 +725,7 @@ function output_pvplog($member_id)
 
 
 	$returnstring .= "
-<table width='400' cellpadding='0' cellspacing='0' class='membersList'>
+<table width='400' cellpadding='0' cellspacing='0'>
 	<tr>
 		<th width='20%' class='membersHeader'>&nbsp;</th>
 		<th width='40%' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['most_killed']."</th>

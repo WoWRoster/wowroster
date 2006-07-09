@@ -45,7 +45,7 @@ $colorcur = 'ffd700;'; // Current color
 $colorno = 'ff0000;';  // Uncomplete color
 
 $striping_counter = 1;
-$tableHeader = '<table cellpadding="0" cellspacing="0" class="membersList">'."\n";
+$tableHeader = '<table cellpadding="0" cellspacing="0">'."\n";
 $tableFooter = "</table>\n";
 
 function borderTop()

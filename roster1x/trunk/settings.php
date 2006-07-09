@@ -56,15 +56,6 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
 
 
 /**
- * Fix $subdir variable
- */
-if( !isset($subdir) )
-{
-	$subdir = '';
-}
-
-
-/**
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
@@ -74,7 +65,7 @@ define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
  */
 if ( !file_exists(ROSTER_CONF_FILE) )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"".$subdir."install.php\">INSTALL</a></center>");
+    exit("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
 }
 else
 {
@@ -87,7 +78,7 @@ else
  */
 if ( !defined('ROSTER_INSTALLED') )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"".$subdir."install.php\">INSTALL</a></center>");
+    exit("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
 }
 
 
@@ -130,7 +121,7 @@ $results = $wowdb->query($sql);
 
 if( !$results || $wowdb->num_rows($results) == 0 )
 {
-	die("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"".$subdir."install.php\">INSTALL</a>");
+	die("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
 }
 
 /**
@@ -158,7 +149,7 @@ if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 	exit("<center>Roster needs to be Upgraded<br />\n".
 		"Your Version <span style=\"color:red;\">".$roster_conf['version']."</span><br />\n".
 		"New Version <span style=\"color:green;\">".ROSTER_VERSION."</span><br />\n".
-		"<a href=\"".$subdir."upgrade.php\">UPGRADE</a></center>");
+		"<a href=\"upgrade.php\">UPGRADE</a></center>");
 }
 
 
@@ -210,6 +201,13 @@ foreach($localeFiles as $file)
 		$roster_conf['multilanguages'][] = substr($file,0,4);
 	}
 }
+
+
+
+/**
+ * Include roster Login class
+ */
+require_once(ROSTER_LIB.'login.php');
 
 
 

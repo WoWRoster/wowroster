@@ -183,13 +183,11 @@ function setActiveTalentWrapper (o,imgurl)
 		for (var i=1; i < 4; i++)
 		{
 			document.getElementById('talentwrapper' +i).style.display = 'none';
-			document.getElementById('tlab' +i).style.fontWeight = 'normal';
-			document.getElementById('tlab' + i).style.color = 'white';
+			document.getElementById('tlab' +i).className = 'tablabel';
 			document.getElementById('tlabbg' +i).src = imgurl + '/itab.gif';
 		}
 		obj.style.display = 'block';
-		document.getElementById('tlab' + o).style.fontWeight = 'bold';
-		document.getElementById('tlab' + o).style.color = '#CDAD0F';
+		document.getElementById('tlab' + o).className = 'tablabelactive';
 		document.getElementById('tlabbg' +o).src = imgurl + '/atab.gif';
 	}
 	return;

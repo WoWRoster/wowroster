@@ -136,7 +136,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 
 	while($zrow = $wowdb->fetch_array($zresult))
 	{
-		print('<h1>'.$zrow['zone']."</h1>\n");
+		print('<div class="headline_1">'.$zrow['zone']."</div>\n");
 
 		$qquery = "SELECT DISTINCT quest_name";
 		$qquery .= " FROM `".ROSTER_QUESTSTABLE."`";
@@ -158,8 +158,8 @@ if (isset($zoneidsafe) or isset($questidsafe))
 			if ($roster_conf['sqldebug'])
 				print ("<!--$query-->");
 
-			$tableHeader = border('syellow','start','<h2>'.$qrow['quest_name'].'</h2>').
-				'<table cellpadding="0" cellspacing="0" class="membersList">';
+			$tableHeader = border('syellow','start',$qrow['quest_name']).
+				'<table cellpadding="0" cellspacing="0">';
 
 			$tableHeaderRow = '  <tr>
     <th class="membersHeader">Zone</th>
@@ -217,7 +217,7 @@ if (isset($questidsafe))
 
 	while($qnrow = $wowdb->fetch_array($qnresult))
 	{
-		print('<h1>'.$qnrow['quest_name'].'</h1><br />');
+		print('<div class="headline_1">'.$qnrow['quest_name']."</div>\n");
 
 		$query = "SELECT q.zone, q.quest_name, q.quest_level, p.name, p.server";
 		$query .= " FROM `".ROSTER_QUESTSTABLE."` q, `".ROSTER_PLAYERSTABLE."` p";
@@ -228,7 +228,7 @@ if (isset($questidsafe))
 		if ($roster_conf['sqldebug'])
 			print ("<!--$query-->");
 
-		$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0" class="membersList">';
+		$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0">';
 
 		$tableHeaderRow = '  <tr>
     <th class="membersHeader">Member</th>

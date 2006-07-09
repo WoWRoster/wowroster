@@ -177,7 +177,7 @@ function sql_highlight( $sql )
  */
 function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 {
-	global $wowdb, $roster_conf, $subdir, $wordings;
+	global $wowdb, $roster_conf, $wordings;
 
 	if( is_object($wowdb) )
 	{

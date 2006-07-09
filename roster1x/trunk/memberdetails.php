@@ -157,7 +157,7 @@ print "\n</div>\n<div align=\"".$roster_conf['char_bodyalign']."\" style=\"margi
 $date_char_data_updated = DateCharDataUpdated($name);
 
 print '<br />
-<p class="lastupdated">'.$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$date_char_data_updated."</p>\n";
+<span class="lastupdated">'.$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$date_char_data_updated."</span><br />\n";
 
 if($roster_conf['show_signature'])
 	print "<img onmouseover=\"return overlib('To access this signature use: ".$roster_conf['roster_dir']."/addons/siggen/sig.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Signature Access',RIGHT);\" onmouseout=\"return nd();\" ".

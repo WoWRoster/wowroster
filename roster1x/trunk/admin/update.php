@@ -32,8 +32,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 }
 
 
-$subdir = '../';
-require_once( $subdir.'settings.php' );
+require_once( 'settings.php' );
 require_once( ROSTER_LIB.'luaparser.php' );
 
 
@@ -341,7 +340,7 @@ if( $roster_conf['pvp_log_allow'] )
 {
 	$pvplogInputField = "
                     <tr>
-                      <td class=\"membersRow2\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$subdir.$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
+                      <td class=\"membersRow2\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
                       <td class=\"membersRowRight2\"><input type=\"file\" accept=\"PvPLog.lua\" name=\"PvPLog\"></td>
                     </tr>";
 }
@@ -349,7 +348,7 @@ if( $roster_conf['pvp_log_allow'] )
 
 // Construct the entire upload form
 $inputForm = "
-                <form action=\"update.php\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
+                <form action=\"$script_filename\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
 $authFields
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
@@ -357,7 +356,7 @@ $authFields
                       <td class=\"membersRowRight1\" colspan=\"2\" align=\"center\"><div align=\"center\"><small>".$wordings[$roster_conf['roster_lang']]['lualocation']."</small></div></td>
                     </tr>
                     <tr>
-                      <td class=\"membersRow2\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$subdir.$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
+                      <td class=\"membersRow2\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
                       <td class=\"membersRowRight2\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
                     </tr>
 $pvplogInputField
@@ -370,7 +369,7 @@ $pvplogInputField
 ".border('sgray','start','Officer Use Only')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$wordings[$roster_conf['roster_lang']]['roster_upd_pw_help']."',CAPTION,'".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$subdir.$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$wordings[$roster_conf['roster_lang']]['roster_upd_pw_help']."',CAPTION,'".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."</td>
                       <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
                     </tr>
                     <tr>
@@ -401,18 +400,18 @@ if( $htmlout )
 		{
 			print
 			'<div id="errorCol" style="display:inline;">
-				'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$subdir.$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
+				'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
 				'.border('sred','end').'
 			</div>
 			<div id="error" style="display:none">
-			'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$subdir.$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
+			'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
 			$errorstringout.
 			border('sred','end').
 			'</div>';
 
 			// Print the downloadable errors separately so we can generate a download
 			print "<br />\n";
-			print '<form method="post" action="update.php" name="post">'."\n";
+			print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="error" />'."\n";
 			print '<input type="submit" name="download" value="Save Error Log" />'."\n";
@@ -432,7 +431,7 @@ if( $htmlout )
 
 		// Print the downloadable messages separately so we can generate a download
 		print "<br />\n";
-		print '<form method="post" action="update.php" name="post">'."\n";
+		print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
 		print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($updateMessages.$updatePvPMessages.$rosterUpdateMessages)).'" />'."\n";
 		print '<input type="hidden" name="send_file" value="update" />'."\n";
 		print '<input type="submit" name="download" value="Save Update Log" />'."\n";
@@ -445,11 +444,11 @@ if( $htmlout )
 		{
 			print
 			'<div id="sqlDebugCol" style="display:inline;">
-				'.border('sgray','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$subdir.$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />SQL Queries</div>").'
+				'.border('sgray','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />SQL Queries</div>").'
 				'.border('sgray','end').'
 			</div>
 			<div id="sqlDebug" style="display:none">
-			'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$subdir.$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
+			'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
 			<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:560px;overflow:auto;">'.
 				nl2br(sql_highlight($sqlstringout)).
 			'</div>
@@ -459,7 +458,7 @@ if( $htmlout )
 
 			// Print the downloadable sql separately so we can generate a download
 			print "<br />\n";
-			print '<form method="post" action="update.php" name="post">'."\n";
+			print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars($sqlstringout).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="sql" />'."\n";
 			print '<input type="submit" name="download" value="Save SQL Log" />'."\n";

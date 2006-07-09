@@ -41,149 +41,33 @@ a:active {
 	text-decoration:none;
 	font-weight:bold;
 }
-h1 {
+img, p {
+	padding:0;
+	margin:0;
+	border:0;
+}
+input {
+	border:1px solid #CBA300;
+	font-size:10px;
+	color:#FFFFFF;
+	font-family:Verdana, Arial;
+	background-color:#202020;
+}
+.headline_1 {
 	margin:0;
 	padding:5px 0 5px 0;
-	font:13px georgia,tahoma,sans-serif;
+	font:14px arial,helvetica,sans-serif;
 	color:#ffffff;
 	font-weight:bold;
 }
-h2 {
-	margin:0;
-	padding:0;
-	font:11px georgia,tahoma,sans-serif;
+.headline_2 {
+	font:12px arial,helvetica,sans-serif;
 	color:#dfb901;
 	font-weight:bold;
-}
-h3 {
-	margin:0;
-	padding:0;
-	font:13px georgia,tahoma,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-}
-h4 {
-	margin:0;
-	padding:0;
-	font:14px georgia,tahoma,sans-serif;
-	color:#0080FF;
-	font-weight:bold;
-}
-h5 {
-	margin:0;
-	padding:0;
-	font:12px Verdana,Geneva,Arial,Helvetica,sans-serif;
-	color:#808080;
-	font-weight:normal;
-}
-h6 {
-	margin:0;
-	padding:0;
-	font:12px Verdana,Geneva,Arial,Helvetica,sans-serif;
-	color:#00bb00;
-	font-weight:normal;
 }
 .title_text {
 	font-size:16px;
 	font-weight:bold;
-}
-p {
-	font-family:arial,helvetica,sans-serif;
-	color:#3e9cdc;
-}
-p.info {
-	font-family:arial,helvetica,sans-serif;
-	color:#AB9364;
-}
-span {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-}
-span.colorRed {
-	font-family:arial,helvetica,sans-serif;
-	color:#DA0000;
-	font-weight:bold;
-}
-span.rankingName {
-	color:#CBA300;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-}
-pre {
-	color:#3e9cdc;
-	font-size:12px;
-}
-blockquote {
-	font-family:arial,helvetica,sans-serif;
-	color:#3e9cdc;
-	font-size:12px;
-}
-cite {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-	font-style:normal;
-	font-size:12px;
-}
-em {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-	font-style:normal;
-}
-b {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-	font-style:normal;
-}
-b.small {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-	font-style:normal;
-	font-size:10px;
-}
-b.normal {
-	font-family:arial,helvetica,sans-serif;
-	color:#ADA8A4;
-	font-weight:bold;
-	font-style:normal;
-	letter-spacing:2px;
-}
-b.gray {
-	font-family:arial,helvetica,sans-serif;
-	color:#aaaaaa;
-	font-weight:bold;
-	font-style:normal;
-}
-small {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-	font-weight:normal;
-	font-style:normal;
-}
-small.normal {
-	font-family:arial,helvetica,sans-serif;
-	color:#3e9cdc;
-	font-weight:normal;
-	font-style:normal;
-}
-small.gray {
-	font-family:arial,helvetica,sans-serif;
-	color:#aaaaaa;
-	font-weight:normal;
-	font-style:normal;
-}
-small.header {
-	font-family:arial,helvetica,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-	font-style:normal;
-}
-img.border {
-	border-style:solid;
-	border-color:#29282D;
 }
 table.expOutline {
 	border-style:solid;
@@ -200,17 +84,10 @@ table.expOutline {
 	width:100%;
 	text-align:center;
 	top:2px;
-	FONT-WEIGHT:bold;
-	FONT-SIZE:10px;
+	font-WEIGHT:bold;
+	font-size:10px;
 	color:#ffffff;
-	FONT-FAMILY:arial,helvetica,sans-serif;
-}
-input {
-	border:1px solid #CBA300;
-	FONT-SIZE:10px;
-	color:#FFFFFF;
-	FONT-FAMILY:Verdana, Arial;
-	background-color:#202020;
+	font-family:arial,helvetica,sans-serif;
 }
 
 .input {
@@ -367,16 +244,12 @@ input {
 .bodyline {
 	border:1px #212121 solid;
 }
-.membersList {
-	padding:0px 0px 0px 0px;
-	margin:0px 0px 0px 0px;
-}
-.members {
+/*.members {
 	padding:3px 3px 3px 3px;
 	margin:0px 0px 0px 0px;
 	font-family:Sans-Serif;
 	width:100%;
-}
+}*/
 .GMOTD {
 	font-size:14px;
 	font-weight:bold;
@@ -419,103 +292,8 @@ input {
 	border-width:1px 1px 0px 1px;
 	padding:0px 6px 0px 6px;
 }
-.membersKeyRow1 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	border-style:solid;
-	border-width:1px 0px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:42px;
-	width:42px;
-}
-.membersKeyRowLeft1 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	border-style:solid;
-	border-width:1px 0px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-}
-.membersKeyRowRight1 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	border-style:solid;
-	border-width:1px 1px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-	width:42px;
-}
 
-.membersKeyRow2 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	border-style:solid;
-	border-width:1px 0px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:42px;
-	width:42px;
-}
-.membersKeyRowLeft2 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	border-style:solid;
-	border-width:1px 0px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-}
-.membersKeyRowRight2 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	border-style:solid;
-	border-width:1px 1px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-	width:42px;
-}
-A.membersRow2 {
-	color:#CBA300;
-	text-decoration:none;
-}
-A.membersRow2:active {
-	color:#CBA300;
-	text-decoration:none;
-}
+
 .membersRow1 {
 	position:relative;
 	text-align:left;
@@ -573,21 +351,13 @@ A.membersRow2:active {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
-A.membersRow2 {
-	color:#CBA300;
-	text-decoration:none;
-}
-A.membersRow2:active {
-	color:#CBA300;
-	text-decoration:none;
-}
 .membersGroup {
 	text-align:left;
 	color:#EABB00;
 	font-family:arial,helvetica,sans-serif;
 	font-weight:bold;
 }
-.membersGroup A {
+.membersGroup a {
 	color:#FFFFFF;
 }
 
@@ -975,19 +745,11 @@ A.membersRow2:active {
 	background-image:url(../img/borders/sgrayborder-bot-right.gif);
 }
 
-.reagentsRow1 {
-	color:#ffffff;
-	border-style:solid;
-	border-width:1px 0px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:0px 0px 0px 3px;
-}
 
 .lastupdated {
 	color:#0099FF;
 	font-size:x-small;
 	font-style:italic;
-	padding-right:355px;
 }
 
 /**
@@ -1124,11 +886,6 @@ A.membersRow2:active {
 	padding:1px 0 0 0;
 	z-index:1;
 }
-img, p {
-	padding:0;
-	margin:0;
-	border:0;
-}
 
 .xp {
 	float:left;
@@ -1162,7 +919,7 @@ img, p {
 	top:0;
 	height:10px;
 	padding:2px 0px 5px 10px;
-	font:10px tahoma, sans-serif;
+	font:9px tahoma, sans-serif;
 	font-weight:bold;
 	color:#ffffff;
 }
@@ -1174,30 +931,20 @@ img, p {
 	width:100%;
 	text-align:center;
 	padding:2px 0px 5px 10px;
-	font:10px tahoma, sans-serif;
+	font:9px tahoma, sans-serif;
 	color:#ffffff;
 	font-weight:bold;
 }
 
-.classDruidtxt { color:#A69D91; }
-.classHuntertxt { color:#FFC835; }
-.classMagetxt { color:#E11C14; }
-.classPaladintxt { color:#B5BDB0; }
-.classPriesttxt { color:#48CBBD; }
-.classRoguetxt { color:#C3EB88; }
-.classShamantxt { color:#7B480C; }
-.classWarlocktxt { color:#A07AAD; }
-.classWarriortxt { color:#3C77B3; }
-
-.classDruidetxt { color:#A69D91; }
-.classJägertxt { color:#FFC835; }
-.classMagiertxt { color:#E11C14; }
-.classPaladintxt { color:#B5BDB0; }
-.classPriestertxt { color:#48CBBD; }
-.classSchurketxt { color:#C3EB88; }
-.classSchamanetxt { color:#7B480C; }
-.classHexenmeistertxt { color:#A07AAD; }
-.classKriegertxt { color:#3C77B3; }
+.classDruidtxt { color:#FF7C0A; }
+.classHuntertxt { color:#AAD372; }
+.classMagetxt { color:#68CCEF; }
+.classPaladintxt { color:#F48CBA; }
+.classPriesttxt { color:#FFFFFF; }
+.classRoguetxt { color:#FFF468; }
+.classShamantxt { color:#F48CBA; }
+.classWarlocktxt { color:#9382C9; }
+.classWarriortxt { color:#C69B6D; }
 
 
 
@@ -1314,13 +1061,6 @@ span.blue {
  * Character Page styles
 **********/
 
-a.charlink {
-	font-weight:bold;
-	color:#22ff22;
-}
-a.title {
-	color:#000000;
-}
 .menubar {
 	background-color:#000000;
 }
@@ -1334,20 +1074,6 @@ a.title {
 	border-style:solid;
 	border-width:1px 0px 0px 1px;
 	white-space:nowrap;
-}
-
-.faction {
-	font-family:verdana, arial, sans-serif;
-	font-size:10px;
-	color:#ffffff;
-}
-.atwar {
-	color:#FF0000;
-}
-.notatwar {
-	font-family:verdana, arial, sans-serif;
-	font-size:8px;
-	color:#00FF00;
 }
 
 .rep {
@@ -1409,7 +1135,7 @@ a.title {
 	top:0;
 	height:15px;
 	padding:3px 0px 5px 10px;
-	font:11px georgia,tahoma,sans-serif;
+	font:11px verdana, arial, sans-serif;
 	font-weight:bold;
 	color:#aa9900;
 }
@@ -1421,7 +1147,7 @@ a.title {
 	width:100%;
 	text-align:center;
 	padding:3px 0px 5px 10px;
-	font:11px georgia,tahoma,sans-serif;
+	font:11px verdana, arial, sans-serif;
 	color:#ffffff;
 	font-weight:bold;
 }
@@ -1433,55 +1159,6 @@ a.title {
 	font-size:12px;
 	font-weight:bold;
 	color:#ffffff;
-}
-
-.treename {
-	float:left;
-	height:20px;
-	width:340px;
-}
-.treename .treenamebox {
-	position:relative;
-	left:0;
-	top:0;
-	width:340px;
-	height:20px;
-}
-.treename .treenamebox .bg {
-	position:absolute;
-	left:5px;
-	top:0;
-	width:340px;
-	height:20px
-}
-.treename .treenamebox .bit {
-	position:absolute;
-	left:5px;
-	top:1px;
-	left:8px;
-	height:18px;
-}
-.treename .treenamebox .name {
-	position:absolute;
-	left:5px;
-	top:0;
-	height:15px;
-	padding:3px 0px 5px 10px;
-	font:11px georgia,tahoma,sans-serif;
-	font-weight:bold;
-	color:#aa9900;
-}
-.treename .treenamebox .level {
-	position:absolute;
-	left:5px;
-	top:0;
-	height:15px;
-	width:100%;
-	text-align:center;
-	padding:3px 0px 5px 10px;
-	font:11px georgia,tahoma,sans-serif;
-	color:#ffffff;
-	font-weight:bold;
 }
 
 .questtype {
@@ -1540,8 +1217,6 @@ a.title {
 	font:11px georgia,tahoma,sans-serif;
 	color:#ffffff;
 	font-weight:bold;
-}
-.quest_link {
 }
 .quest_link a {
 	text-align:center;
@@ -1639,23 +1314,6 @@ a.title {
 	padding-top:7px;
 	padding-left:30px;
 }
-.health span {
-	font-size:10px;
-}
-.mana span {
-	font-size:10px;
-}
-
-.talentPoints {
-	font-weight:bold;
-	font-size:10px;
-	margin-left:5px;
-	height:130px;
-	overflow:hidden;
-}
-.talentPoints span {
-	font-size:10px;
-}
 
 /**********
 * Character tabs
@@ -1730,7 +1388,8 @@ a.title {
 	list-style-type:none;
 	padding:1px 0 0 6px;
 	text-align:left;
-	font:12px georgia,tahoma,sans-serif;
+	/*font:12px georgia,tahoma,sans-serif;*/
+	font:12px verdana, tahoma, sans-serif;
 	font-weight:bold;
 }
 .char .main .page1 .middle .portrait li ul {
@@ -1740,12 +1399,20 @@ a.title {
 }
 .char .main .page1 .middle .portrait ul li span {
 	float:right;
-	font-family:georgia,tahoma,sans-serif;
+	/*font-family:georgia,tahoma,sans-serif;*/
+	font-family:verdana, tahoma, sans-serif;
 	padding:0 6px 0 0;
 	margin-top:-15px;
 }
 .char .main .page1 .middle .portrait ul li ul li span {
 	color:#ffffff;
+}
+.char .main .page1 .middle .portrait .info {
+	font-weight:bold;
+	font-size:10px;
+	margin-left:5px;
+	height:130px;
+	overflow:hidden;
 }
 .char .main .page1 .middle .bottom {
 	float:left;
@@ -1769,9 +1436,9 @@ a.title {
 }
 .char .main .page1 .middle .bottom .padding .stats li {
 	list-style-type:none;
-	padding:1.9px 0 0 6px;
+	padding:2px 0 0 6px;
 	text-align:left;
-	font:11px georgia,tahoma,sans-serif;
+	font:11px verdana, tahoma, sans-serif;
 	font-weight:bold;
 }
 .char .main .page1 .middle .bottom .padding .stats li ul {
@@ -1781,7 +1448,7 @@ a.title {
 }
 .char .main .page1 .middle .bottom .padding .stats li span, .stats ul li span {
 	float:right;
-	font-family:georgia,tahoma,sans-serif;
+	font-family:verdana, tahoma, sans-serif;
 	padding:0 6px 0 0;
 	margin-top:-15px;
 }
@@ -1877,7 +1544,7 @@ a.title {
 	top:0;
 	height:15px;
 	padding:3px 0px 5px 10px;
-	font:11px georgia,tahoma,sans-serif;
+	font:11px verdana, tahoma, sans-serif;
 	font-weight:bold;
 	color:#aa9900;
 }
@@ -1887,7 +1554,7 @@ a.title {
 	top:0;
 	height:15px;
 	padding:3px 5px 5px 0px;
-	font:9px georgia,tahoma,sans-serif;
+	font:9px verdana, tahoma, sans-serif;
 	font-weight:bold;
 	color:#FF0000;
 }
@@ -1897,7 +1564,7 @@ a.title {
 	top:0;
 	height:15px;
 	padding:3px 5px 5px 0px;
-	font:9px georgia,tahoma,sans-serif;
+	font:9px verdana, tahoma, sans-serif;
 	font-weight:bold;
 	color:#00FF00;
 }
@@ -1909,7 +1576,7 @@ a.title {
 	width:100px;
 	text-align:center;
 	padding:3px 0px 5px 18px;
-	font:11px georgia,tahoma,sans-serif;
+	font:11px verdana, tahoma, sans-serif;
 	color:#ffffff;
 	font-weight:bold;
 }
@@ -2268,7 +1935,6 @@ a.title {
 	height:15px;
 	background:url(../img/tab.gif) no-repeat;
 	background-position:left top;
-	font:11px georgia,tahoma,sans-serif;
 	font-weight:bold;
 	padding:5px 5px 5px 5px;
 	text-align:center;
@@ -2523,13 +2189,18 @@ a.title {
 	top:390px;
 }
 .tablabel {
+	font-weight:normal;
+	color:white;
 	cursor:pointer;
+}
+.tablabelactive {
 	font-weight:bold;
+	color:#CBA300;
+	cursor:pointer;
 }
 .talspent {
-	left:-4px;
-	position:relative;
-	top:2px;
+	color:white;
+	font-weight:bold;
 }
 .talvalue {
 	font-weight:bold;
@@ -2556,7 +2227,7 @@ a.title {
 	height:40px;
 }
 .tlink {
-	TEXT-DECORATION:none;
+	text-decoration:none;
 }
 .tbar {
 	left:1px;
@@ -2580,6 +2251,7 @@ a.title {
 }
 .spell_panel_name {
 /* Style and placement of Spellbook */
+	color:white;
 	font-size:13px;
 	font-weight:bold;
 	text-align:center;
@@ -2589,6 +2261,7 @@ a.title {
 }
 .spell_page_back {
 /* Style and placement of Back Page Button */
+	color:white;
 	text-align:left;
 	font-weight:bold;
 	width:100px;
@@ -2604,6 +2277,7 @@ a.title {
 }
 .spell_page_forward {
 /* Style and placement of Forward Page Button */
+	color:white;
 	text-align:right;
 	font-weight:bold;
 	width:100px;
@@ -2641,7 +2315,7 @@ a.title {
 	height:49px;
 	width:38px;
 }
-.spell_skill_tab_icon {
+.spell_skill_tab .spell_skill_tab_icon {
 /* Tab background for inactive tabs */
 	width:34px;
 	height:34px;

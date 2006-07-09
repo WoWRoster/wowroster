@@ -16,14 +16,8 @@
  *
  ******************************/
 
-$subdir = '..'.DIRECTORY_SEPARATOR;
-require_once( $subdir.'settings.php' );
-
 // Roster Login class
 require_once( ROSTER_LIB.'login.php' );
-
-$script_filename = 'config.php';
-
 
 // ----[ Check log-in ]-------------------------------------
 $roster_login = new RosterLogin($script_filename);
@@ -76,7 +70,7 @@ $results = $wowdb->query($sql);
 
 if( !$results || $wowdb->num_rows($results) == 0 )
 {
-	die("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"".$subdir."install.php\">INSTALL</a>");
+	die("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
 }
 
 /**
@@ -582,8 +576,8 @@ function changePassword( $post )
 				if( $wowdb->query("UPDATE `".ROSTER_CONFIGTABLE."` SET `config_value`='".md5($post['new_password1'])."' WHERE `config_name`='roster_upd_pw';") )
 				{
 					$title = 'Roster Password changed';
-					$message = '<center>Your new password is<br /><br /><span style="font-size:11px;color:red;">'.$post['new_password1'].'</span><br /><br />Remember this, do NOT lose it!<br /><br />';
-					$message .= 'Click <form style="display:inline;" name="roster_logout" action="'.$script_filename.'" method="post"><input type="hidden" name="logout" value="1" />[<a href="javascript: document.roster_logout.submit();">HERE</a>]</form> to continue</center>';
+					$message = '<div style="width=100%" align="center">Your new password is<br /><br /><span style="font-size:11px;color:red;">'.$post['new_password1'].'</span><br /><br />Remember this, do NOT lose it!<br /><br />';
+					$message .= 'Click <form style="display:inline;" name="roster_logout" action="'.$script_filename.'" method="post"><input type="hidden" name="logout" value="1" />[<a href="javascript: document.roster_logout.submit();">HERE</a>]</form> to continue</div>';
 					die_quietly($message,$title);
 				}
 				else

@@ -27,17 +27,15 @@ if ( !defined('ROSTER_INSTALLED') )
 <table cellspacing="0" cellpadding="4" border="0" class="bodyline">
   <tr>
     <td valign="middle" class="membersRowRight1">
-      <p align="center">
+      <div align="center">
         <img src="<?php print $roster_conf['img_url']; ?>thottbot.gif" alt="Thottbot" width="158" height="51" /><br />
         <br />
-      </p>
       <form method="post" action="http://www.thottbot.com/">
-        <p align="center">
           <?php print $wordings[$roster_conf['roster_lang']]['search'] ?>:
           <input type="text" name="s" />&nbsp;&nbsp;
           <input class="liteoption" type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'"></span>
-        </p>
-      </form></td>
+      </form>
+      </div></td>
   </tr>
 </table>
 <?php print border('sblue','end'); ?>

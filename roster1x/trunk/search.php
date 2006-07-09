@@ -56,13 +56,13 @@ if (isset($_GET['s']))
 {
 	// Set a ank for link to top of page
 	echo '<a name="top">&nbsp;</a>
-<p style="color:white;text-align;center">
+<div style="color:white;text-align;center">
   <a href="#items">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>
   - <a href="#recipes">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>
-</p><br /><br />';
+</div><br /><br />';
 
 	$search = $_GET['s'];
-	print border('rank','start','<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>').
+	print border('sgray','start','<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>').
 		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
   <tr>
     <td>';
@@ -152,11 +152,11 @@ if (isset($_GET['s']))
 	}
 
 
-	print "</td></tr></table>".border('rank','end');
+	print "</td></tr></table>".border('sgray','end');
 
 	print "<br />\n";
 
-	print border('rank','start','<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>').
+	print border('sgray','start','<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>').
 		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
 <tr>
   <td>';
@@ -249,6 +249,6 @@ if (isset($_GET['s']))
   </tr>'."</table>\n";
 	}
 
-	print "</td></tr></table>".border('rank','end');
+	print "</td></tr></table>".border('sgray','end');
 }
 ?>

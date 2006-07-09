@@ -142,7 +142,7 @@ class char
 		if( isset( $quests[0] ) )
 		{
 			$zone = '';
-			$returnstring .= border('sgray','start','<h3>'.$wordings[$lang]['questlog'].'&nbsp; ('.count($quests).'/20)</h3>').
+			$returnstring .= border('sgray','start',$wordings[$lang]['questlog'].'&nbsp; ('.count($quests).'/20)').
 				'<table class="bodyline" cellspacing="0" cellpadding="0">';
 
 			foreach ($quests as $quest)
@@ -150,7 +150,7 @@ class char
 				if ($zone != $quest->data['zone'])
 				{
 					$zone = $quest->data['zone'];
-					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight"><h2>'.$zone.'</h2></th></tr>';
+					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight">'.$zone.'</th></tr>';
 				}
 				$quest_level = $quest->data['quest_level'];
 				$char_level = $this->data['level'];
@@ -211,7 +211,7 @@ class char
 		if( isset( $recipes[0] ) )
 		{
 			$skill_name = '';
-			$returnstring = '<h1>'.$wordings[$lang]['recipelist'].'</h1>'."\n";
+			$returnstring = '<span class="headline_1">'.$wordings[$lang]['recipelist'].'</span>'."\n";
 
 			// Get char professions for quick links
 			$query = "SELECT `skill_name` FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
@@ -219,7 +219,7 @@ class char
 
 			// Set a ank for link to top of page
 			$returnstring .= "<a name=\"top\">&nbsp;</a>\n";
-			$returnstring .= '<h2 align="center">';
+			$returnstring .= '<div align="center">';
 			$skill_name_divider = '';
 			while( $data = $wowdb->fetch_assoc( $result ) )
 			{
@@ -227,7 +227,7 @@ class char
 				$returnstring .= $skill_name_divider .'<a href="#' . strtolower(str_replace(' ','',$skill_name_header)) . '">' . $skill_name_header . '</a>';
 				$skill_name_divider = '&nbsp;-&nbsp;';
 			}
-			$returnstring .= "</h2>\n<br />\n";
+			$returnstring .= "</div>\n<br />\n";
 
 			$rc = 0;
 			$first_run = 1;
@@ -1069,8 +1069,8 @@ $returnstring .= '  <tr>
 		}
 
 		$tooltipheader = $name;
-		$line = '<span style="color: '.$color.'; font-size: 12px; font-weight: bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color: #DFB801; text-align: left;">'.$tooltip.'</span>';
+		$line = '<span style="color:'.$color.';font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 		$line = str_replace("'", "\'", $line);
 		$line = str_replace('"','&quot;', $line);
 		$line = str_replace('<','&lt;', $line);
@@ -1226,11 +1226,14 @@ $returnstring .= '  <tr>
 			{
 				$g++;
 				$c = 0;
-				$outtalent .='<div class="tablabel" id="tlab'.$g.'" onclick="setActiveTalentWrapper(\''.$g.'\',\''.$roster_conf['img_url'].'\');">'.$tree["tree"].'</div>';
+				if( $g==1 )
+					$outtalent .='<div class="tablabelactive" id="tlab'.$g.'" onclick="setActiveTalentWrapper(\''.$g.'\',\''.$roster_conf['img_url'].'\');">'.$tree["tree"].'</div>';
+				else
+					$outtalent .='<div class="tablabel" id="tlab'.$g.'" onclick="setActiveTalentWrapper(\''.$g.'\',\''.$roster_conf['img_url'].'\');">'.$tree["tree"].'</div>';
 
 				$output .= '<div id="talentwrapper'.$tree['order'].'">';
 				$output .= '<div id="talentpage'.$tree['order'].'" style="background: url('.$roster_conf['interface_url'].$tree['background'].'.'.$roster_conf['img_suffix'].') no-repeat">';
-				$output .= $wordings[$lang]['pointsspent'].' ' . $tree['pointsspent'].'
+				$output .= '<span class="talspent">'.$wordings[$lang]['pointsspent'].' ' . $tree['pointsspent'].'</span>
 	<table align="center" width="100%">
 	  <tr>';
 				while( $c < 4)
@@ -1310,11 +1313,11 @@ $returnstring .= '  <tr>
 
 							if( $talent4['rank'] == $talent4['maxrank'] )
 							{
-								$output .= '<span class="talvalue green">'.$talent4['rank'].'</span>';
+								$output .= '<span class="talvalue yellow">'.$talent4['rank'].'</span>';
 							}
 							elseif( $talent4['rank'] < $talent4['maxrank'] && $talent4['rank'] > 0 )
 							{
-								$output .= '<span class="talvalue yellow">'.$talent4['rank'].'</span>';
+								$output .= '<span class="talvalue green">'.$talent4['rank'].'</span>';
 							}
 
 							$output .= '</div>';
@@ -1504,12 +1507,12 @@ else
 	$RankName = $this->data['RankName'].' ';
 
 ?>
-      <h1><?php print ($RankName.$this->data['name']); ?></h1>
-      <h2>Level <?php print ($this->data['level'].' | '.$this->data['sex'].' '.$this->data['race'].' '.$this->data['class']); ?></h2>
+      <div class="headline_1"><?php print ($RankName.$this->data['name']); ?></div>
+      <div class="headline_2">Level <?php print ($this->data['level'].' - '.$this->data['sex'].' '.$this->data['race'].' '.$this->data['class']); ?></div>
 <?php
 
 if( isset( $this->data['guild_name'] ) )
-	echo '      <h2>'.$this->data['guild_title'].' of '.$this->data['guild_name']."</h2>\n";
+	echo '      <div class="headline_2">'.$this->data['guild_title'].' of '.$this->data['guild_name']."</div>\n";
 
 ?>
     </div><!-- End char-main-top -->
@@ -1549,7 +1552,7 @@ else
 ?>
 
           </div><!-- end char-main-page1-middle-portrait-health_mana -->
-          <div class="talentPoints"><!-- begin char-main-page1-middle-portrait-talentPoints -->
+          <div class="info"><!-- begin char-main-page1-middle-portrait-info -->
 <?php
 
 if( $this->data['crit'] != '0' ) print	$wordings[$lang]['crit'].': <span class="white">'.$this->data['crit'].'%</span><br />'."\n";
@@ -1567,7 +1570,7 @@ print "<br />\n";
 print '            '.$wordings[$lang]['timeplayed'].': <span class="white">'.$TimePlayedConverted[days].$TimePlayedConverted[hours].$TimePlayedConverted[minutes].$TimePlayedConverted[seconds].'</span><br />'."\n";
 print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">'.$TimeLevelPlayedConverted[days].$TimeLevelPlayedConverted[hours].$TimeLevelPlayedConverted[minutes].$TimeLevelPlayedConverted[seconds].'</span>'."\n";
 ?>
-          </div><!-- end char-main-page1-middle-portrait-talentPoints -->
+          </div><!-- end char-main-page1-middle-portrait-info -->
           <div class="xp" style="padding-left:12px;"><!-- begin char-main-page1-middle-portrait-xp -->
             <div class="xpbox">
 <?php

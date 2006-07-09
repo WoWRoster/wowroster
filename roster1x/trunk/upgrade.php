@@ -37,14 +37,15 @@
  *
  ******************************/
 
-$roster_root_path = './';
+define('DIR_SEP',DIRECTORY_SEPARATOR);
+$roster_root_path = dirname(__FILE__).DIR_SEP;
 
 /* THIS WILL ONLY BE NEEDED FOR ROSTER 1.6.0 */
 define('ROSTER_INSTALLED', true);
 /* THIS WILL ONLY BE NEEDED FOR ROSTER 1.6.0 */
 
 include_once($roster_root_path.'conf.php');
-include_once($roster_root_path.'lib/wowdb.php');
+include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
 
 $DEFAULTS = array(
 	'version'        => '1.7.1',
@@ -70,9 +71,9 @@ if( isset($_POST['send_file']) && $_POST['send_file'] == 1 && !empty($_POST['con
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if ( !include_once($roster_root_path . 'install/template.php') )
+if ( !include_once($roster_root_path . 'install'.DIR_SEP.'template.php') )
 {
-	die('Could not include ' . $roster_root_path . 'install/template.php - check to make sure that the file exists!');
+	die('Could not include ' . $roster_root_path . 'install'.DIR_SEP.'template.php - check to make sure that the file exists!');
 }
 
 
@@ -185,7 +186,7 @@ class Upgrade
 	{
 		global $wowdb, $roster_root_path, $db_prefix;
 
-		$db_structure_file = $roster_root_path . 'install/db/upgrade_170.sql';
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_170.sql';
 
 		// Parse structure file and create database tables
 		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
@@ -208,7 +209,7 @@ class Upgrade
 	{
 		global $wowdb, $roster_root_path,
 			$db_host, $db_name, $db_user, $db_passwd, $db_prefix,
-			$roster_lang, $roster_dir, $website_address, $roster_upd_pw, $guild_name, $server_name;
+			$roster_lang, $roster_upd_pw, $guild_name, $server_name;
 
 		//
 		// Lets get some roster 160 db values before we upgrade the db
@@ -228,8 +229,8 @@ class Upgrade
 		}
 
 
-		$db_structure_file = $roster_root_path . 'install/db/upgrade_160.sql';
-		$db_data_file      = $roster_root_path . 'install/db/mysql_data.sql';
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_160.sql';
+		$db_data_file      = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
 
 
 		// Parse structure file and create database tables
@@ -261,12 +262,28 @@ class Upgrade
 		}
 		unset($sql);
 
+	    //
+	    // Determine server settings
+	    //
+	    if (!empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']))
+		{
+			$website_address = 'http://'.((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']);
+		}
+		else if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
+		{
+			$website_address = 'http://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']);
+		}
+		else
+		{
+			$website_address = '';
+		}
+		$server_path = str_replace('/upgrade.php', '', $_SERVER['PHP_SELF']);
 
 		//
 		// Update some config settings
 		//
 		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$roster_lang."' WHERE `config_name`='roster_lang'");
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$roster_dir."' WHERE `config_name`='roster_dir'");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
 		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$website_address."' WHERE `config_name`='website_address'");
 		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".md5($roster_upd_pw)."' WHERE `config_name`='roster_upd_pw';");
 		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$guild_name."' WHERE `config_name`='guild_name'");

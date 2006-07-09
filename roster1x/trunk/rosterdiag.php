@@ -19,9 +19,6 @@
 // The settings.php is a required file before we can continue
 require_once ('settings.php');
 
-// Roster Login class
-require_once( ROSTER_LIB.'login.php' );
-
 // Set the title for the header
 $header_title = $wordings[$roster_conf['roster_lang']]['rosterdiag'];
 

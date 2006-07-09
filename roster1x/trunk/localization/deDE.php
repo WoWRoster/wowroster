@@ -31,9 +31,9 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;achst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/admin/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin/config.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_new\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/admin.php?mode=update\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_new\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
-$wordings['deDE']['update_page']='Gildenmitglied aktualisieren (update.php)';
+$wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
 $wordings['deDE']['guild_nameNotFound']='&quot;*GUILDNAME*&quot; nicht gefunden. Stimmt er mit dem konfigurierten Namen &uuml;berein?';
 $wordings['deDE']['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
@@ -62,7 +62,7 @@ $wordings['deDE']['update_instruct']='
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
-<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/admin/update.php"> Update-Seite</a></li>
+<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/admin.php?mode=update"> Update-Seite</a></li>
 <li>'.$wordings['deDE']['lualocation'].'</li>
 </ol>';
 
@@ -628,7 +628,7 @@ $wordings['deDE']['admin']['char_conf'] = 'Charakterseite';
 $wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus';
 $wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank';
 $wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links';
-$wordings['deDE']['admin']['update_access'] = 'update.php Zugriff';
+$wordings['deDE']['admin']['update_access'] = 'Update Zugriff';
 
 
 // All strings here
@@ -661,7 +661,7 @@ $wordings['deDE']['admin']['img_suffix'] = "Interface Image Extension|Der Dateit
 $wordings['deDE']['admin']['img_url'] = "Roster Images Directory URL|Verzeichnis zu den Roster's Images<br>Das Standartverzeichnis ist &quot;img/&quot;<br><br>Du kannst auch eine andere URL verwenden.";
 $wordings['deDE']['admin']['timezone'] = "Timezone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
 $wordings['deDE']['admin']['localtimeoffset'] = "Time Offest|Der Zeitzonenabstand zur UTC/GMT<br>Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
-$wordings['deDE']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update.php&quot; ausgeblendet.";
+$wordings['deDE']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
 $wordings['deDE']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br>Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 
 // guild_conf
@@ -761,9 +761,9 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Allow Access to Update.php|Controlls access to update.php<br><br>Turn this off when phpBB access control is configured";
+$wordings['deDE']['admin']['authenticated_user'] = "Allow Access to Update|Controlls access to update<br><br>Turn this off when phpBB access control is configured";
 $wordings['deDE']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
-$wordings['deDE']['admin']['upload_group'] = "Usergroup Access to Update.php|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
+$wordings['deDE']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Per-Character Display';

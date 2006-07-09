@@ -31,9 +31,9 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/admin/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin/config.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_new\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/admin.php?mode=update\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_new\">Click here for installation instructions</a>";
 
-$wordings['enUS']['update_page']='Update (update.php)';
+$wordings['enUS']['update_page']='Update';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
 $wordings['enUS']['guild_nameNotFound']='Could not update &quot;*GUILDNAME*&quot;. Maybe its not set in configuration?';
 $wordings['enUS']['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
@@ -62,7 +62,7 @@ $wordings['enUS']['update_instruct']='
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
-<li>Go to <a href="'.$roster_conf['roster_dir'].'/admin/update.php">the update page</a></li>
+<li>Go to <a href="'.$roster_conf['roster_dir'].'/admin.php?mode=update">the update page</a></li>
 <li>'.$wordings['enUS']['lualocation'].'</li>
 </ol>';
 
@@ -628,7 +628,7 @@ $wordings['enUS']['admin']['char_conf'] = 'Character Page';
 $wordings['enUS']['admin']['realmstatus_conf'] = 'Realmstatus';
 $wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank';
 $wordings['enUS']['admin']['data_links'] = 'Item/Quest Data Links';
-$wordings['enUS']['admin']['update_access'] = 'update.php Access';
+$wordings['enUS']['admin']['update_access'] = 'Update Access';
 
 
 // All strings here
@@ -661,7 +661,7 @@ $wordings['enUS']['admin']['img_suffix'] = "Interface Image Extension|The image 
 $wordings['enUS']['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br>Default is &quot;img/&quot;<br><br>You can use a relative path or a full URL";
 $wordings['enUS']['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
 $wordings['enUS']['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br>Times on roster will be displayed as a calculated value using this offset";
-$wordings['enUS']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update.php&quot;";
+$wordings['enUS']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update&quot;";
 $wordings['enUS']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br>Some addons my require that this is turned on for them to function properly";
 
 // guild_conf
@@ -761,9 +761,9 @@ $wordings['enUS']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['enUS']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['enUS']['admin']['authenticated_user'] = "Allow Access to Update.php|Controlls access to update.php<br><br>Turn this off when phpBB access control is configured";
+$wordings['enUS']['admin']['authenticated_user'] = "Allow Access to Update|Controlls access to update<br><br>Turn this off when phpBB access control is configured";
 $wordings['enUS']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
-$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update.php|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
+$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
 
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
