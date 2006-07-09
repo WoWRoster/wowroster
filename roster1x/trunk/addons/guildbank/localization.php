@@ -23,7 +23,7 @@ $wordings['enUS']['reqlevel'] = 'Requires Level';
 $wordings['enUS']['lvlrange'] = 'Level Range';
 
 $wordings['deDE']['filter'] = 'Filter';
-$wordings['deDE']['gbank_charsNotFound'] = $wordings[$roster_conf['roster_lang']]['guildbank'].' '.$wordings[$roster_conf['roster_lang']]['character'].'s night gefunden.';
+$wordings['deDE']['gbank_charsNotFound'] = $wordings[$roster_conf['roster_lang']]['guildbank'].' '.$wordings[$roster_conf['roster_lang']]['character'].'(e) nicht gefunden.';
 $wordings['deDE']['reqlevel'] = 'Benötigt Level';
 $wordings['deDE']['lvlrange'] = 'Level Bereich';
 
