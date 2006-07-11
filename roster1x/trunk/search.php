@@ -130,7 +130,7 @@ if (isset($_GET['s']))
 				}
 				$line = preg_replace('|\\>|','&gt;', $line );
 				$line = preg_replace('|\\<|','&lt;', $line );
-				if( $line == '' )
+				if( $line == '' || $line == ' ' )
 					$line = '&nbsp;';
 				echo "<span style=\"color:#$color\">$line</span><br />";
 			}

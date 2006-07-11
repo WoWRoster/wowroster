@@ -248,7 +248,7 @@ function process_step1()
     // Required?
     $their_mysql = 'Yes';
 
-    $our_gd    = ( function_exists('imageTTFBBox') && function_exists('imageTTFText') && function_exists('imagecreatetruecolor') )  ? '<span class="positive">Yes</span>' : '<span class="negative">No</span> - <a href="gd_info.php" target="_new">More Info</a>';
+    $our_gd    = ( function_exists('imageTTFBBox') && function_exists('imageTTFText') && function_exists('imagecreatetruecolor') )  ? '<span class="positive">Yes</span>' : '<span class="negative">No</span> - <a href="gd_info.php" target="_blank">More Info</a>';
     // Required?
     $their_gd  = 'Optional';
 

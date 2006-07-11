@@ -461,10 +461,10 @@ table.expOutline {
 }
 
 .simplebordertopleft {
-	float:left;
-	background-repeat:no-repeat;
-	background-position:left top;
+	padding:0;
+	margin:0;
 	border:0;
+	background-repeat:no-repeat;
 	height:5px;
 	width:5px;
 	overflow:hidden;
@@ -479,13 +479,11 @@ table.expOutline {
 	overflow:hidden;
 }
 .simpleborderheader {
-	font-weight:bold;
-	font-size:14px;
-	padding:0;
-	padding-left:5px;
-	padding-right:5px;
+	padding:0 5px;
 	margin:0;
 	border:0;
+	font-weight:bold;
+	font-size:14px;
 	border-bottom:1px solid black;
 	background-repeat:repeat-x;
 	height:22px;
@@ -493,39 +491,37 @@ table.expOutline {
 	overflow:hidden;
 }
 .simplebordertopright {
-	float:right;
-	background-repeat:no-repeat;
-	background-position:left top;
+	padding:0;
+	margin:0;
 	border:0;
+	background-repeat:no-repeat;
 	height:5px;
 	width:5px;
 	overflow:hidden;
 }
 .simplebordercenterleft {
 	background-repeat:repeat-y;
-	background-position:left top;
 	padding-left:5px;
 	border:0;
 	overflow:hidden;
 }
 .simplebordercenter {
-	background-color:#1F1E1D;
 	padding:0;
 	margin:0;
 	border:0;
+	background-color:#1F1E1D;
 }
 .simplebordercenterright {
 	background-repeat:repeat-y;
-	background-position:right top;
 	padding-right:5px;
 	border:0;
 	overflow:hidden;
 }
 .simpleborderbotleft {
-	float:left;
-	background-repeat:no-repeat;
-	background-position:left top;
+	padding:0;
+	margin:0;
 	border:0;
+	background-repeat:no-repeat;
 	height:5px;
 	width:5px;
 	overflow:hidden;
@@ -539,10 +535,10 @@ table.expOutline {
 	overflow:hidden;
 }
 .simpleborderbotright {
-	float:right;
+	padding:0;
+	margin:0;
+	border:0;
 	background-repeat:no-repeat;
-	background-position:left top;
-	border:0px;
 	height:5px;
 	width:5px;
 	overflow:hidden;

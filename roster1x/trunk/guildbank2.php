@@ -97,8 +97,14 @@ $mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
 while ($muleRow = $wowdb->fetch_array($muleNames))
 {
+	// Parse the note field for possible html characters
+	$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
+	$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
+
+	$note = preg_replace($prg_find, $prg_rep, $muleRow['member_note']);
+
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_name']);
-	echo border('sgray','start',$muleRow['member_name'].' ('.$muleRow['member_note'].') - Updated: '.$date_char_data_updated).
+	echo border('sgray','start',$muleRow['member_name'].' ('.$note.') - Updated: '.$date_char_data_updated).
 	'<table class="bodyline" cellspacing="0" cellpadding="2">'.
 		 ( $roster_conf['bank_money'] ?
 		 	  '<tr>

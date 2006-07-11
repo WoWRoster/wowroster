@@ -339,7 +339,7 @@ for($c=1;$c<=8;$c++)
     <td valign="top"><?php print border('sgray','start','Colors'); ?>
       <table class="sc_table" cellspacing="0" cellpadding="2">
         <tr>
-          <th class="sc_header_right" align="center" colspan="2"><?php print $functions->createTip( 'Colors are in hex format<br />( ex. black = 000000 : white = FFFFFF )<br /><br />You can also click <img src=&quot;	'.$roster_conf['roster_dir'].'/addons/siggen/inc/color/images/select_arrow.gif&quot;> to pick a color<br /><br />Changes here will not be shown elsewhere<br />until the [Save Settings] button is pressed','Change SigGen Colors' ); ?></th>
+          <th class="sc_header_right" align="center" colspan="2"><?php print $functions->createTip( 'Colors are in hex format<br />( ex. black = 000000 : white = FFFFFF )<br /><br />You can also click <img src=&quot;	'.$roster_conf['roster_dir'].'/addons/siggen/inc/color/images/select_arrow.gif&quot; /> to pick a color<br /><br />Changes here will not be shown elsewhere<br />until the [Save Settings] button is pressed','Change SigGen Colors' ); ?></th>
         </tr>
 <?php
 $row=1;
@@ -349,7 +349,7 @@ for($c=1;$c<=10;$c++)
         <tr>
           <td class="sc_row'.(((++$row)%2)+1).'" align="left">Color '.$c.'</td>
           <td class="sc_row_right'.((($row)%2)+1).'" align="right">
-            <input type="text" maxlength="7" style="background-color:'.$configData['color'.$c].';" value="'.$configData['color'.$c].'" name="color'.$c.'" id="color'.$c.'" size="10"><img src="'.$roster_conf['roster_dir'].'/addons/siggen/inc/color/images/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'color'.$c.'\'))"></td>
+            <input type="text" maxlength="7" style="background-color:'.$configData['color'.$c].';" value="'.$configData['color'.$c].'" name="color'.$c.'" id="color'.$c.'" size="10"><img src="'.$roster_conf['roster_dir'].'/addons/siggen/inc/color/images/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'color'.$c.'\'))" alt="" /></td>
         </tr>
 ';
 }
@@ -717,11 +717,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 1 ]=== -->
         <div id="textT1Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT1Col','textT1')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Name</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT1Col','textT1')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Name</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT1" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT1Col','textT1')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Name</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT1Col','textT1')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Name</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Name</td>
@@ -770,11 +770,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 2 ]=== -->
         <div id="textT2Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT2Col','textT2')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Class</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT2Col','textT2')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Class</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT2" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT2Col','textT2')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Class</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT2Col','textT2')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Class</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Class</td>
@@ -826,11 +826,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 3 ]=== -->
         <div id="textT3Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT3Col','textT3')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />PvP Rank</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT3Col','textT3')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />PvP Rank</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT3" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT3Col','textT3')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />PvP Rank</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT3Col','textT3')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />PvP Rank</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display PvP Rank</td>
@@ -879,11 +879,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 4 ]=== -->
         <div id="textT4Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT4Col','textT4')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Guild Name</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT4Col','textT4')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Guild Name</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT4" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT4Col','textT4')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Guild Name</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT4Col','textT4')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Guild Name</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Guild Name</td>
@@ -935,11 +935,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 5 ]=== -->
         <div id="textT5Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT5Col','textT5')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Guild Title/Rank</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT5Col','textT5')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Guild Title/Rank</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT5" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT5Col','textT5')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Guild Title/Rank</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT5Col','textT5')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Guild Title/Rank</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Guild Title/Rank</td>
@@ -988,11 +988,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 6 ]=== -->
         <div id="textT6Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT6Col','textT6')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Realm Name</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT6Col','textT6')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Realm Name</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT6" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT6Col','textT6')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Realm Name</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT6Col','textT6')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Realm Name</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Realm Name</td>
@@ -1044,11 +1044,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 7 ]=== -->
         <div id="textT7Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT7Col','textT7')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Website Name</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT7Col','textT7')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Website Name</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT7" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT7Col','textT7')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Website Name</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT7Col','textT7')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Website Name</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Website Name</td>
@@ -1106,11 +1106,11 @@ for($c=1;$c<=10;$c++)
 
       <td valign="top"><!-- ===[ Begin Text Config 8 ]=== -->
         <div id="textT8Col" style="display:inline">
-<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT8Col','textT8')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />Custom Text</div>"); ?>
+<?php print border('syellow','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT8Col','textT8')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />Custom Text</div>"); ?>
 <?php print border('syellow','end'); ?>
         </div>
         <div id="textT8" style="display:none">
-<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT8Col','textT8')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />Custom Text</div>"); ?>
+<?php print border('sgreen','start',"<div style=\"cursor:pointer;width:240px;\" onclick=\"swapShow('textT8Col','textT8')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />Custom Text</div>"); ?>
         <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
           <tr>
             <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left">Display Custom Text</td>

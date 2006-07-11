@@ -27,7 +27,7 @@ clearstatcache();
 // ----[ Check for GD Functions ]---------------------------
 if( !function_exists('imageTTFBBox') || !function_exists('imageTTFText') || !function_exists('imagecreatetruecolor') )
 {
-	print errorMode('GD Functions are not available<br />SigGen REQUIRES GD with FreeType support<br /><br /><a href="rosterdiag.php" target="_new">More Info</a>','<span class="red">Fatal Error</span>');
+	print errorMode('GD Functions are not available<br />SigGen REQUIRES GD with FreeType support<br /><br /><a href="rosterdiag.php" target="_blank">More Info</a>','<span class="red">Fatal Error</span>');
 	return;
 }
 

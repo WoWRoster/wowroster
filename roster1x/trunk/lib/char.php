@@ -439,6 +439,8 @@ $returnstring .= '  <tr>
 						$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
 						$item_tooltip .= $line;
 					}
+					elseif( $line == '' || $line == ' ' )
+						$tooltip_out .= "<br />\n";
 					elseif( $line != '')
 						$item_tooltip .= "<span style=\"color:#$color\">$line</span><br />";
 				}
@@ -468,7 +470,7 @@ $returnstring .= '  <tr>
 				}
 				$content .= '<div class="item" onmouseover="overlib(\''.$tooltip.'\',CAPTION,\''.$tooltip_h.'\');" onmouseout="return nd();">';
 
-				$content .= '<a href="'.$itemlink[$this->data['clientLocale']].urlencode(utf8_decode($row['item_name'])).'" target="_itemlink">'."\n".
+				$content .= '<a href="'.$itemlink[$this->data['clientLocale']].urlencode(utf8_decode($row['item_name'])).'" target="_blank">'."\n".
 					'<img src="'.$item_icon.'"'." alt=\"\" /></a>\n";
 
 				if( ($row['item_quantity'] > 1) )
@@ -594,6 +596,8 @@ $returnstring .= '  <tr>
 								$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
 								$tooltip .= $line;
 							}
+							elseif( $line == '' || $line == ' ' )
+								$tooltip_out .= "<br />\n";
 							elseif( $line != '')
 								$tooltip .= "<span style=\"color:#$color\">$line</span><br />";
 						}

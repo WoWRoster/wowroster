@@ -16,7 +16,7 @@
     <li><a href="#" onclick="return expandcontent('t6', this)">Skills Display</a></li>
     <li><a href="#" onclick="return expandcontent('t7', this)">Char/Class/PvP Logo</a></li>
     <li><a href="#" onclick="return expandcontent('t8', this)">Text Config</a></li>
-    <li><a href="http://www.wowroster.net/wiki/index.php/Roster:Addon:SigGen" target="_new">Documentation</a></li>
+    <li><a href="http://www.wowroster.net/wiki/index.php/Roster:Addon:SigGen" target="_blank">Documentation</a></li>
   </ul>
 </div>
 <?php print border('sgray','end'); ?>

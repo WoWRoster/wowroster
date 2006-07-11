@@ -150,11 +150,11 @@ $output .= "\n</table>\n<!-- End Message Box -->\n".border('syellow','end');
 			$message = '
 <!-- Begin SQL Debug Box -->
 <div id="sqlDebugCol" style="display:inline">
-'.border('sgray','start',"<div style=\"cursor:pointer;width:400px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />SigGen SQL Queries</div>").'
+'.border('sgray','start',"<div style=\"cursor:pointer;width:400px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />SigGen SQL Queries</div>").'
 '.border('sgray','end').'
 </div>
 <div id="sqlDebug" style="display:none">
-'.border('sgreen','start',"<div style=\"cursor:pointer;width:100%;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SigGen SQL Queries</div>").'
+'.border('sgreen','start',"<div style=\"cursor:pointer;width:100%;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />SigGen SQL Queries</div>").'
   <table width="100%" class="sc_table" cellspacing="1" cellpadding="2">
     <tr class="sc_row1">
       <td>'.$message.'</td>

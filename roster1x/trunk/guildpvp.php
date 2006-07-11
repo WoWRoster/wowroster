@@ -125,7 +125,7 @@ if ($type == 'guildwins')
 
 		rankLeft((($striping_counter % 2) +1));
 		print('<a href="?type=guildinfo&amp;guild=');
-		print($row['guild']);
+		print urlencode($row['guild']);
 		print('">');
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
@@ -133,10 +133,10 @@ if ($type == 'guildwins')
 			$guildname = $row['guild'];
 
 		print($guildname);
-		print('</a></td>');
+		print("</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -159,7 +159,7 @@ else if($type == 'guildlosses')
 
 		rankLeft((($striping_counter % 2) +1));
 		print('<a href="?type=guildinfo&amp;guild=');
-		print($row['guild']);
+		print urlencode($row['guild']);
 		print('">');
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
@@ -167,10 +167,10 @@ else if($type == 'guildlosses')
 			$guildname = $row['guild'];
 
 		print($guildname);
-		print('</a></td>');
+		print("</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -201,30 +201,30 @@ else if ($type == 'enemywins')
 
 		rankLeft((($striping_counter % 2) +1));
 		print('<a href="?type=playerinfo&amp;player=');
-		print($row['name']);
+		print urlencode($row['name']);
 		print('">');
 		print($row['name']);
-		print('</a></td>');
+		print("</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
-			$guildname = '<a href="?type=guildinfo&guild='.$row['guild'].'">'.$row['guild'].'</a>';
+			$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
 
 		print($guildname);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['race']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['class']);
-		print('</td>');
+		print("</td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['leveldiff']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -255,30 +255,30 @@ else if ($type == 'enemylosses')
 
 		rankLeft((($striping_counter % 2) +1));
 		print('<a href="?type=playerinfo&amp;player=');
-		print($row['name']);
+		print urlencode($row['name']);
 		print('">');
 		print($row['name']);
-		print('</a></td>');
+		print("</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
-			$guildname = '<a href="?type=guildinfo&guild='.$row['guild'].'">'.$row['guild'].'</a>';
+			$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
 
 		print($guildname);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['race']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['class']);
-		print('</td>');
+		print("</td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['leveldiff']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -300,10 +300,10 @@ else if ($type == 'purgewins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn'].'</a></td>');
+		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -325,10 +325,10 @@ else if ($type == 'purgelosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn'].'</a></td>');
+		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -350,7 +350,7 @@ else if ($type == 'purgeavewins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn'].'</a></td>');
+		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
@@ -359,7 +359,7 @@ else if ($type == 'purgeavewins')
 		print($ave);
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -381,7 +381,7 @@ else if ($type == 'purgeavelosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn'].'</a></td>');
+		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
@@ -390,7 +390,7 @@ else if ($type == 'purgeavelosses')
 		print($ave);
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -418,7 +418,7 @@ else if ($type == 'pvpratio')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['name'].'</a></td>');
+		print('<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['name']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		$wins = $row['wtotal'];
 		$battles = $row ['btotal'];
@@ -431,7 +431,7 @@ else if ($type == 'pvpratio')
 			$ratio = round(($wins / ($battles-$wins)), 2);
 			print "$ratio to 1";
 		}
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -478,12 +478,12 @@ else if ($type == 'playerinfo')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		$url = '<a href="?type=playerinfo&amp;player='.$player;
+		$url = '<a href="?type=playerinfo&amp;player='.urlencode($player);
 
 		if ($first)
 		{
 			print('<br /><small>Kill/Loss history for "');
-			print ($player.'" ('.$row['race'].' '.$row['class'].') of <a href="?type=guildinfo&guild='.$row['guild'].'">'.$row['guild'].'</a>');
+			print ($player.'" ('.$row['race'].' '.$row['class'].') of <a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>');
 			print ('</small><br /><br />');
 
 			print($tableHeader);
@@ -506,10 +506,10 @@ else if ($type == 'playerinfo')
 
 		rankLeft((($striping_counter % 2) +1));
 		print($row['date']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
 			$res = 'Win';
@@ -517,10 +517,10 @@ else if ($type == 'playerinfo')
 			$res = 'Lose';
 
 		print($res);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['zone']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['subzone'] == '')
 			$szone = '&nbsp;';
@@ -528,10 +528,10 @@ else if ($type == 'playerinfo')
 			$szone = $row['subzone'];
 
 		print($szone);
-		print('</td>');
+		print("</td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['leveldiff']);
-		print('</td>');
+		print("</td>\n");
 	}
 	$wowdb->free_result($result);
 
@@ -553,7 +553,7 @@ else if ($type == 'guildinfo')
 	print ($guild);
 	print ('"</small><br /><br />');
 	print($tableHeader);
-	$url = '<a href="?type=guildinfo&amp;guild='.$guild;
+	$url = '<a href="?type=guildinfo&amp;guild='.urlencode($guild);
 	tableHeaderRow(array(
 		$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a>',
 		$url.'&amp;s=name">Them</a>',
@@ -600,13 +600,13 @@ else if ($type == 'guildinfo')
 
 		rankLeft((($striping_counter % 2) +1));
 		print($row['date']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
-		print('<a href="?type=playerinfo&amp;player='.$row['name'].'">'.$row['name'].'</a>');
-		print('</td>');
+		print('<a href="?type=playerinfo&amp;player='.urlencode($row['name']).'">'.$row['name'].'</a>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
 			$res = 'Win';
@@ -614,10 +614,10 @@ else if ($type == 'guildinfo')
 			$res = 'Lose';
 
 		print($res);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		print($row['zone']);
-		print('</td>');
+		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['subzone'] == '')
 			$szone = '&nbsp;';
@@ -625,11 +625,10 @@ else if ($type == 'guildinfo')
 			$szone = $row['subzone'];
 
 		print($szone);
-		print('</td>');
+		print("</td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['leveldiff']);
-		print('</td>');
-		print('</td></tr>');
+		print("</td>\n</tr>\n");
 	}
 	$wowdb->free_result($result);
 

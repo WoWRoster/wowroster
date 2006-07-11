@@ -31,7 +31,7 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/admin.php?mode=update\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_new\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/admin.php?mode=update\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Click here for installation instructions</a>";
 
 $wordings['enUS']['update_page']='Update';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -52,12 +52,12 @@ $index_text_uniloader = "(You can download the program from the WoWRoster websit
 $wordings['enUS']['update_instruct']='
 <strong>Recommended automatic updaters:</strong>
 <ul>
-<li>Use <a href="'.$roster_conf['uploadapp'].'" target="_new">UniUploader</a></li>
-&nbsp; '.$index_text_uniloader.'
+<li>Use <a href="'.urlencode($roster_conf['uploadapp']).'" target="_blank">UniUploader</a><br />
+'.$index_text_uniloader.'</li>
 </ul>
 <strong>Updating instructions:</strong>
 <ol>
-<li>Download <a href="'.$roster_conf['profiler'].'" target="_new">Character Profiler</a></li>
+<li>Download <a href="'.urlencode($roster_conf['profiler']).'" target="_blank">Character Profiler</a></li>
 <li>Extract zip into its own dir in C:\Program Files\World of Warcraft\Interface\Addons\ (CharacterProfiler\) directory</li>
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
@@ -69,14 +69,14 @@ $wordings['enUS']['update_instruct']='
 $wordings['enUS']['update_instructpvp']='
 <strong>Optional PvP Stats:</strong>
 <ol>
-<li>Download the <a href="'.$roster_conf['pvplogger'].'" target="_new">PvPLog</a></li>
+<li>Download the <a href="'.urlencode($roster_conf['pvplogger']).'" target="_blank">PvPLog</a></li>
 <li>Extract the PvPLog dir into your Addon dir.</li>
 <li>Duel or PvP</li>
 <li>Upload PvPLog.lua</li>
 </ol>';
 
-$wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_new">Celandro</a>, <a href="http://www.movieobsession.com" target="_new">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_new">Rubricsinger</a> for the original code used for this site.<br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_new">www.wowroster.net</a><br />
+$wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site.<br />
+WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
 
@@ -531,9 +531,9 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['GPver_err']="The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minGPver'];
 
 // Credit page
-$creditspage['enUS']['top']='Props to <a href="http://www.poseidonguild.com" target="_new">Celandro</a>, <a href="http://www.movieobsession.com" target="_new">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_new">Rubricsinger</a> for the original code used for this site
+$creditspage['enUS']['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
 <br />
-Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_new">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_new">icons</a>
+Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
 <br /><br />
 Special Thanks to the DEVs of Roster for helping to build and maintain the package
 <br /><br />';
@@ -603,11 +603,11 @@ Thanks to Cybrey for the Orginal "Made By" addon and Thorus for his mod of this 
 <br />
 Thanks to Cybrey for the Reputation addon.
 <br />
-Advanced Stats & Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
+Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
 <br />
 Thanks to all the coders who have contributed there codes in bug fixes and testing of the roster.
 <br /><br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_new">www.wowroster.net</a>
+WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>
 <br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.';
 

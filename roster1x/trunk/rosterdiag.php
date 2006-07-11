@@ -273,7 +273,7 @@ echo border('syellow','start','Basic Server Info').'
 border('syellow','end').'
 <br />
 '.
-border('syellow','start','PHP Settings&nbsp;&nbsp;&nbsp;<small><a href="phpinfo.php" target="_new"><i>phpinfo() page</i></a></small>').'
+border('syellow','start','PHP Settings&nbsp;&nbsp;&nbsp;<small><a href="phpinfo.php" target="_blank"><i>phpinfo() page</i></a></small>').'
 <table width="300" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">PHP Version</td>
@@ -323,7 +323,7 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display conf.php info
 
-echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<small><a href="?printconf=1" target="_new"><i>Show Entire $roster_conf array</i></small></a>').
+echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<small><a href="?printconf=1" target="_blank"><i>Show Entire $roster_conf array</i></small></a>').
 '<table width="100%" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">version</td>

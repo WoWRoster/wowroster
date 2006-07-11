@@ -85,6 +85,8 @@ class item
 				$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
 				$tooltip .= $line;
 			}
+			elseif( $line == '' || $line == ' ' )
+				$tooltip_out .= "<br />\n";
 			elseif( $line != '')
 				$tooltip .= "<span style=\"color:#$color\">$line</span><br />";
 		}
@@ -99,12 +101,12 @@ class item
 
 		if ($this->data['item_slot'] == 'Ammo')
 		{
-			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_itemlink">'."\n".
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
 			'<img src="'.$path.'" class="iconsmall"'." alt=\"\" /></a>\n";
 		}
 		else
 		{
-			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_itemlink">'."\n".
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
 			'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
 		}
 		if( ($this->data['item_quantity'] > 1) )

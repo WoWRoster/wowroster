@@ -190,9 +190,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 				print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
 				if ($row['server'])
 				{
-					print('<a href="javascript:void(0)"'.
-						'onclick="w = window.open(\'char.php?name='.$row['name'].'&amp;server='.$row['server'].'&amp;action=character\',\'PopUp\',\'width=830,height=750,left=100,top=100,screenX=100,screenY=100,fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes,directories=no,location=no\'); return true;"'.
-						'>'.$row['name'].'</a>');
+					print('<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'" target="_blank">'.$row['name'].'</a>');
 				}
 				else
 					print($row['name']);
@@ -252,9 +250,7 @@ if (isset($questidsafe))
 			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
 			if ($row['server'])
 			{
-				print('<a href="javascript:void(0)"'.
-					'onClick="w = window.open(\'char.php?name='.$row['name'].'&amp;server='.$row['server'].'&amp;action=character\',\'PopUp\',\'width=650,height=750,left=200,top=200,screenX=200,screenY=200,fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes,directories=no,location=no\'); return true;"'.
-					'>'.$row['name'].'</a>');
+				print('<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'" target="_blank">'.$row['name'].'</a>');
 			}
 			else
 				print($row['name']);

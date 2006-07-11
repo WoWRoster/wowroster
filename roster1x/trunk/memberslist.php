@@ -429,8 +429,8 @@ function name_value ( $row )
 {
 	global $wordings, $roster_conf, $guildFaction;
 
-	$prg_find = array("/'/",'/"/','|\\>|','|\\<|',"/\\n/");
-	$prg_rep  = array("\'",'&quot;','&#8250;','&#8249;','<br />');
+	$prg_find = array("/'/",'/"/','|\\>|','|\\<|',"/\\n/",'/&/');
+	$prg_rep  = array("\'",'&quot;','&#8250;','&#8249;','<br />','&amp;');
 
 
 	if( $roster_conf['index_member_tooltip'] )
@@ -827,7 +827,10 @@ function note_value ( $row )
 {
 	if( !empty($row['note']) )
 	{
-		$note = htmlspecialchars(stripslashes($row['note']));
+		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
+		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
+
+		$note = preg_replace($prg_find, $prg_rep, $row['note']);
 	}
 	else
 		$note = '&nbsp;';

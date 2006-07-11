@@ -138,14 +138,19 @@ while($row = $wowdb->fetch_array($result))
 	//echo "<!-- base_id = $base_id -->\n";
 	foreach (array_unique($owners[$base_id]) as $owner)
 	{
-		echo $owner.'&nbsp;('.$mains[$owner].")<br />";
+		// Parse the contact field for possible html characters
+		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
+		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
+
+		$note = preg_replace($prg_find, $prg_rep, $mains[$owner]);
+		echo $owner.'&nbsp;('.$note.")<br />";
 	}
 	echo "</td>\n";
 
 	// Item texture and quantity column
 	echo '    <td class="'.$stripe_class.'"><div class="item">'."\n";
 
-	echo '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($row['item_name'])).'" target="_itemlink">'."\n".
+	echo '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($row['item_name'])).'" target="_blank">'."\n".
 		'      <img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'" class="icon"'.' alt="'.utf8_decode($row['item_name']).'" /></a>';
 	if( ($row['total_quantity'] > 1) && ($itemRow['item_parent'] != 'bags') )
 			echo '<span class="quant">'.$row['total_quantity'].'</span>';
@@ -199,6 +204,8 @@ while($row = $wowdb->fetch_array($result))
 			$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
 			$tooltip_out .= $line;
 		}
+		elseif( $line == '' || $line == ' ' )
+			$tooltip_out .= "<br />\n";
 		elseif( $line != '' )
 			$tooltip_out .= '<span style="color:#'.$color.';">'.$line."</span><br />\n";
 	}

@@ -103,8 +103,8 @@ foreach($conf_arrays as $type)
 
 $menu .='
 	<li><a href="#" onclick="return expandcontent(\'char_disp\',this)">'.$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'].'</a></li>
-	<li><a href="'.$roster_conf['roster_dir'].'/rosterdiag.php" target="_new">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
-    <li><a href="http://www.wowroster.net/wiki" target="_new">Documentation</a></li>
+	<li><a href="'.$roster_conf['roster_dir'].'/rosterdiag.php" target="_blank">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
+    <li><a href="http://www.wowroster.net/wiki" target="_blank">Documentation</a></li>
   </ul>
 </div>
 '.border('sgray','end').'

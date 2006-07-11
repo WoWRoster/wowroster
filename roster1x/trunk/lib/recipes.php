@@ -83,6 +83,8 @@ class recipe
 				$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
 				$tooltip = $tooltip.$line;
 			}
+			elseif( $line == '' || $line == ' ' )
+				$tooltip_out .= "<br />\n";
 			elseif( $line != '')
 				$tooltip = $tooltip."<span style=\"color:#$color\">$line</span><br />";
 		}
@@ -94,7 +96,7 @@ class recipe
 
 		$returnstring = '<div class="item" onmouseover="return overlib(\''.$tooltip.'\');" onmouseout="return nd();">';
 
-		$returnstring .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_itemlink">'.
+		$returnstring .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.
 		'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
 		$returnstring .= '</div>';
 		return $returnstring;
