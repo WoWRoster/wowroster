@@ -28,10 +28,10 @@ $wordings['deDE']['update_instructions']='Updating Instructions';
 
 $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" aus';
 
-$wordings['deDE']['filelocation']='finden unter<br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
+$wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;achst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/admin.php?mode=update\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -62,7 +62,7 @@ $wordings['deDE']['update_instruct']='
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
-<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/admin.php?mode=update"> Update-Seite</a></li>
+<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/update.php"> Update-Seite</a></li>
 <li>'.$wordings['deDE']['lualocation'].'</li>
 </ol>';
 
@@ -100,9 +100,9 @@ $inst_keys['deDE']['A'] = array(
 		'Gnome' => array('Key-Only','Gnome' => 'Werkstattschlüssel|2288'),
 		'SM' => array('Key-Only','SM' => 'Der scharlachrote Schlüssel|4445'),
 		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
-		'Mauro' => array('Parts', 'Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
+		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Shadowforge-Schlüssel|2966','Ironfel|9673'),
+		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
 		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
@@ -116,7 +116,7 @@ $inst_keys['deDE']['H'] = array(
 		'Gnome' => array('Key-Only','Gnome' => 'Werkstattschlüssel|2288'),
 		'SM' => array('Key-Only','SM' => 'Der scharlachrote Schlüssel|4445'),
 		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
-		'Mauro' => array('Parts', 'Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
+		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
 		'BRDs' => array('Parts','BRDs' => 'Shadowforge-Schlüssel|2966','Ironfel|9673'),
 		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),

@@ -30,14 +30,13 @@ define('HEADER_INC',true);
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 </head>
 <body style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);">
-<div class="bodyline">
 
 <?php
 
 if( !isset($roster_conf['char_header_logo']) || $roster_conf['char_header_logo'] )
 {
 	echo '
-<div style="text-align:center;margin:10px;" class="bodyline"><a href="'.$roster_conf['website_address'].'">
+<div style="text-align:center;margin:10px;"><a href="'.$roster_conf['website_address'].'">
   <img src="'.$roster_conf['logo'].'" alt="" style="border:0;margin:10px;" /></a>
 </div>';
 }

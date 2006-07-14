@@ -28,10 +28,10 @@ $wordings['enUS']['update_instructions']='Updating Instructions';
 
 $wordings['enUS']['lualocation']='Click browse and select your *.lua files to upload';
 
-$wordings['enUS']['filelocation']='is located at<br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
+$wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/admin.php?mode=update\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Click here for installation instructions</a>";
 
 $wordings['enUS']['update_page']='Update';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -62,7 +62,7 @@ $wordings['enUS']['update_instruct']='
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
-<li>Go to <a href="'.$roster_conf['roster_dir'].'/admin.php?mode=update">the update page</a></li>
+<li>Go to <a href="'.$roster_conf['roster_dir'].'/update.php">the update page</a></li>
 <li>'.$wordings['enUS']['lualocation'].'</li>
 </ol>';
 
@@ -100,7 +100,7 @@ $inst_keys['enUS']['A'] = array(
 		'Gnome' => array('Key-Only','Gnome' => 'Workshop Key|2288'),
 		'SM' => array('Key-Only','SM' => 'The Scarlet Key|4445'),
 		'ZF' => array('Parts','ZF' => 'Mallet of Zul\\\'Farrak|5695','Sacred Mallet|8250'),
-		'Mauro' => array('Parts', 'Mauro' => 'Scepter of Celebras|19710','Celebrian Rod|19549','Celebrian Diamond|19545'),
+		'Mauro' => array('Parts','Mauro' => 'Scepter of Celebras|19710','Celebrian Rod|19549','Celebrian Diamond|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Prison Cell Key|15545'),
 		'BRDs' => array('Parts','BRDs' => 'Shadowforge Key|2966','Ironfel|9673'),
 		'DM' => array('Key-Only','DM' => 'Crescent Key|35607'),
@@ -115,15 +115,15 @@ $inst_keys['enUS']['H'] = array(
 	    'SG' => array('Key-Only','SG' => 'Key to Searing Gorge|4826'),
 		'Gnome' => array('Key-Only','Gnome' => 'Workshop Key|2288'),
 		'SM' => array('Key-Only','SM' => 'The Scarlet Key|4445'),
-		'ZF' => array('Parts', 'ZF' => 'Mallet of Zul\\\'Farrak|5695','Sacred Mallet|8250'),
-		'Mauro' => array('Parts', 'Mauro' => 'Scepter of Celebras|19710','Celebrian Rod|19549','Celebrian Diamond|19545'),
+		'ZF' => array('Parts','ZF' => 'Mallet of Zul\\\'Farrak|5695','Sacred Mallet|8250'),
+		'Mauro' => array('Parts','Mauro' => 'Scepter of Celebras|19710','Celebrian Rod|19549','Celebrian Diamond|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Prison Cell Key|15545'),
-		'BRDs' => array('Parts', 'BRDs' => 'Shadowforge Key|2966','Ironfel|9673'),
+		'BRDs' => array('Parts','BRDs' => 'Shadowforge Key|2966','Ironfel|9673'),
 		'DM' => array('Key-Only','DM' => 'Crescent Key|35607'),
-		'Scholo' => array('Quests', 'Scholo' => 'Skeleton Key|16854','Scholomance|','Skeletal Fragments|','Mold Rhymes With...|','Fire Plume Forged|','Araj\\\'s Scarab|','The Key to Scholomance|'),
+		'Scholo' => array('Quests','Scholo' => 'Skeleton Key|16854','Scholomance|','Skeletal Fragments|','Mold Rhymes With...|','Fire Plume Forged|','Araj\\\'s Scarab|','The Key to Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Key to the City|13146'),
-		'UBRS' => array('Parts', 'UBRS' => 'Seal of Ascension|17057','Unadorned Seal of Ascension|5370','Gemstone of Spirestone|5379','Gemstone of Smolderthorn|16095','Gemstone of Bloodaxe|21777', 'Unforged Seal of Ascension|24554||MS', 'Forged Seal of Ascension|19463||MS'),
-		'Onyxia' => array('Quests', 'Onyxia' => 'Drakefire Amulet|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
+		'UBRS' => array('Parts','UBRS' => 'Seal of Ascension|17057','Unadorned Seal of Ascension|5370','Gemstone of Spirestone|5379','Gemstone of Smolderthorn|16095','Gemstone of Bloodaxe|21777', 'Unforged Seal of Ascension|24554||MS', 'Forged Seal of Ascension|19463||MS'),
+		'Onyxia' => array('Quests','Onyxia' => 'Drakefire Amulet|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
 		'MC' => array('Key-Only','MC' => 'Eternal Quintessence|22754'),
 	);
 

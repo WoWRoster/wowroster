@@ -349,7 +349,7 @@ if( $roster_conf['pvp_log_allow'] )
 // Construct the entire upload form
 $inputForm = "
                 <form action=\"$script_filename\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
-$authFields
+".$authFields."
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
@@ -360,23 +360,19 @@ $authFields
                       <td class=\"membersRowRight2\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
                     </tr>
 $pvplogInputField
-                    <tr>
-                      <td class=\"membersRowRight1\" colspan=\"2\" align=\"center\"><div align=\"center\"><input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\"></div></td>
-                    </tr>
                   </table>
 ".border('syellow','end')."
 <br />
-".border('sgray','start','Officer Use Only')."
+<br />
+".border('sgray','start','GuildProfiler User Only')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$wordings[$roster_conf['roster_lang']]['roster_upd_pw_help']."',CAPTION,'".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."</td>
                       <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
                     </tr>
-                    <tr>
-                      <td class=\"membersRowRight2\" colspan=\"2\"><div align=\"center\"><input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\"></div></td>
-                    </tr>
                   </table>
-".border('sgray','end')."
+".border('sgray','end')."<br />
+                  <input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">
                 </form>";
 
 
