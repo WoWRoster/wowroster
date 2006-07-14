@@ -597,12 +597,12 @@ class wowdb
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
 		$mail['mail_coin'] = $mail_data['Coin'];
-		$mail['mail_coin_icon'] = preg_replace('|\\\\\\\\|','/', $mail_data['CoinIcon']);
+		$mail['mail_coin_icon'] = str_replace('\\\\','/', $mail_data['CoinIcon']);
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
 
-		$mail['item_icon'] = preg_replace('|\\\\\\\\|','/', $item['Icon']);
+		$mail['item_icon'] = str_replace('\\\\','/', $item['Icon']);
 		$mail['item_name'] = $item['Name'];
 
 		if( isset( $item['Quantity'] ) )
@@ -635,7 +635,7 @@ class wowdb
 		$item['item_slot'] = $slot_name;
 		$item['item_color'] = $item_data['Color'];
 		$item['item_id'] = $item_data['Item'];
-		$item['item_texture'] = preg_replace('|\\\\\\\\|','/', $item_data['Texture']);
+		$item['item_texture'] = str_replace('\\\\','/', $item_data['Texture']);
 
 		if( isset( $item_data['Quantity'] ) )
 			$item['item_quantity'] = $item_data['Quantity'];
@@ -669,7 +669,7 @@ class wowdb
 		$recipe['difficulty'] = $recipe_data['Difficulty'];
 		$recipe['item_color'] = $recipe_data['Color'];
 		$recipe['reagents'] = $recipe_data['Reagents'];
-		$recipe['recipe_texture'] = preg_replace('|\\\\\\\\|','/', $recipe_data['Texture']);
+		$recipe['recipe_texture'] = str_replace('\\\\','/', $recipe_data['Texture']);
 
 		if( !empty($recipe_data['Tooltip']) )
 			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
@@ -909,7 +909,7 @@ class wowdb
 			$item['item_slot'] = 'Bank Contents';
 			$item['item_color'] = 'ffffffff';
 			$item['item_id'] = '';
-			$item['item_texture'] = 'Interface\Icons\INV_Misc_Bag_07';
+			$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_07';
 			$item['item_quantity'] = 24;
 			$item['item_tooltip'] = "Bank Contents\n24 Slot Container";
 			$this->insert_item( $item );
@@ -1171,7 +1171,7 @@ class wowdb
 							if( !empty($spell_name) )
 								$this->add_value('spell_name', $spell_name );
 							if( !empty($data_spell_name['Texture']) )
-								$this->add_value('spell_texture', preg_replace('|\\\\\\\\|','/', $data_spell_name['Texture']) );
+								$this->add_value('spell_texture', str_replace('\\\\','/', $data_spell_name['Texture']) );
 							if( !empty($data_spell_name['Rank']) )
 								$this->add_value('spell_rank', $data_spell_name['Rank'] );
 
@@ -1196,7 +1196,7 @@ class wowdb
 				$this->reset_values();
 				$this->add_value('member_id', $memberId );
 				$this->add_value('spell_type', $spell_type );
-				$this->add_value('spell_texture', preg_replace('|\\\\\\\\|','/', $data_spell_type['Texture']) );
+				$this->add_value('spell_texture', str_replace('\\\\','/', $data_spell_type['Texture']) );
 
 				$querystr = "INSERT INTO `".ROSTER_SPELLTREETABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -1264,7 +1264,7 @@ class wowdb
 					}
 					elseif ( $talent_skill == 'Background')
 					{
-						$tree_background = preg_replace('|\\\\\\\\|','/', $data_talent_skill);
+						$tree_background = str_replace('\\\\','/', $data_talent_skill);
 					}
 					else
 					{
@@ -1282,7 +1282,7 @@ class wowdb
 							$this->add_value('tooltip', $talent_skill );
 
 						if( !empty($data_talent_skill['Texture']) )
-							$this->add_value('texture', preg_replace('|\\\\\\\\|','/', $data_talent_skill['Texture']) );
+							$this->add_value('texture', str_replace('\\\\','/', $data_talent_skill['Texture']) );
 
 						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
 						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
@@ -2083,7 +2083,7 @@ class wowdb
 			if( !empty($data['Loyalty']) )
 				$this->add_value( 'loyalty', $data['Loyalty']);
 			if( !empty($data['Icon']) )
-				$this->add_value( 'icon', preg_replace('|\\\\\\\\|','/', $data['Icon']));
+				$this->add_value( 'icon', str_replace('\\\\','/', $data['Icon']));
 
 			$attack = $data['Melee Attack'];
 			if( !empty($attack['AttackPower']) )
@@ -2200,7 +2200,7 @@ class wowdb
 			$this->add_value( 'RankInfo', (int)$RankInt );
 
 		$this->add_value( 'RankName', $data['Honor']['Current']['Rank'] );
-		$this->add_value( 'RankIcon', preg_replace('|\\\\\\\\|','/', $data['Honor']['Current']['Icon']) );
+		$this->add_value( 'RankIcon', str_replace('\\\\','/', $data['Honor']['Current']['Icon']) );
 		$this->add_value( 'Rankexp', $data['Honor']['Current']['Progress'] );
 		$this->add_value( 'TWContribution', $data['Honor']['ThisWeek']['Contribution'] );
 		$this->add_value( 'TWHK', $data['Honor']['ThisWeek']['HK'] );
