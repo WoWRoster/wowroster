@@ -22,7 +22,8 @@ $wowdb->closeDb();
 ?>
 
 <!-- Begin Roster Footer -->
-
+<br />
+<hr />
 <small>WoW Roster v<?php print $roster_conf['version'] ?></small>
 <br /><br />
 <small><?php echo $wordings[$roster_conf['roster_lang']]['roster_credits']; ?></small>
