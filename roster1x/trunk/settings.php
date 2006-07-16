@@ -44,10 +44,12 @@ array_pop($url);
  */
 define('ROSTER_URL',implode('/',$url));
 
+
 /**
  * Base, absolute roster directory
  */
 define('ROSTER_BASE',dirname(__FILE__).DIR_SEP);
+
 
 /**
  * Base, absolute roster library directory
@@ -59,6 +61,7 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
+
 
 /**
  * If conf.php is not found, then die to installer link
@@ -114,6 +117,13 @@ require_once (ROSTER_LIB.'constants.php');
 
 
 /**
+ * Include common functions
+ **/
+require_once (ROSTER_LIB.'commonfunctions.lib.php');
+
+
+
+/**
  * Get the current config values
  */
 $sql = "SELECT `config_name`, `config_value` FROM `".ROSTER_CONFIGTABLE."` ORDER BY `id` ASC;";
@@ -138,31 +148,6 @@ $wowdb->free_result($results);
  * Set SQL debug value
  */
 $wowdb->setSQLDebug($roster_conf['sqldebug']);
-
-
-
-/**
- * If the version doesnt match the one in constants, redirect to upgrader
- */
-if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
-{
-	exit("<center>Roster needs to be Upgraded<br />\n".
-		"Your Version <span style=\"color:red;\">".$roster_conf['version']."</span><br />\n".
-		"New Version <span style=\"color:green;\">".ROSTER_VERSION."</span><br />\n".
-		"<a href=\"upgrade.php\">UPGRADE</a></center>");
-}
-
-
-/**
- * If the install directory or files exist, die()
- */
-if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install') || file_exists(ROSTER_BASE.'upgrade.php') )
-{
-	if( !file_exists(ROSTER_BASE.'version_match.php') )
-	{
-		exit("<center>Please remove the files <b>install.php</b>, <b>upgrade.php</b> and the folder <b>/install/</b> in this directory</center>");
-	}
-}
 
 
 
@@ -205,6 +190,33 @@ foreach($localeFiles as $file)
 
 
 /**
+ * If the version doesnt match the one in constants, redirect to upgrader
+ */
+if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
+{
+	die_quietly('Looks like you\'ve loaded a new version of Roster<br />
+<br />
+Your Version: <span class="red">'.$roster_conf['version'].'</span><br />
+New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
+<br />
+<a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster');
+}
+
+
+/**
+ * If the install directory or files exist, die()
+ */
+if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install') || file_exists(ROSTER_BASE.'upgrade.php') )
+{
+	if( !file_exists(ROSTER_BASE.'version_match.php') )
+	{
+		die_quietly('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files');
+	}
+}
+
+
+
+/**
  * Include roster Login class
  */
 require_once(ROSTER_LIB.'login.php');
@@ -223,14 +235,6 @@ if( !headers_sent() )
 	if( !eregi('realmstatus.php',$_SERVER['PHP_SELF']) )
 	header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
 }
-
-
-
-
-/**
- * Include common functions
- **/
-require_once (ROSTER_LIB.'commonfunctions.lib.php');
 
 
 ?>

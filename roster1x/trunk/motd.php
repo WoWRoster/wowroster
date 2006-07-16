@@ -44,15 +44,15 @@ motd_img($guildMOTD,$image_path,$font_path);
 function motd_img( $guildMOTD,$image_path,$font_path )
 {
 	// Set ttf font
-	$visitor = $font_path . 'visitor.ttf';
+	$visitor = $font_path . 'VERANDA.TTF';
 
 	// Get sizes of text
-	$dimensions = imagettfbbox( 12, 0, $visitor, $guildMOTD );
+	$dimensions = imagettfbbox( 11, 0, $visitor, $guildMOTD );
 	$text_length = $dimensions[2] - $dimensions[6];
 
 	// Get how many times to print center
 	$image_size = ceil($text_length/198);
-	$final_size = 55 + ($image_size*198);
+	$final_size = 54 + ($image_size*198);
 	$text_loc = ($final_size/2) - ($dimensions[2]/2);
 
 	// Create new image
@@ -75,7 +75,7 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 
 	$textcolor = imagecolorallocate($img, 255, 255, 255);
 
-	imagettftext($img, 12, 0, $text_loc, 22, $textcolor, $visitor, $guildMOTD);
+	imagettftext($img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD);
 
 	header('Content-type: image/png');
 	imagepng($img);

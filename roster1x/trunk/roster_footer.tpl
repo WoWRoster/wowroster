@@ -31,5 +31,6 @@ $wowdb->closeDb();
 <a href="http://validator.w3.org/check?uri=referer" target="_blank">
     <img src="<?php print $roster_conf['roster_dir']; ?>/img/valid-html40.gif" alt="Valid HTML 4.0 Transitional" height="15" width="119"></a>
 
+</div>
 </body>
 </html>

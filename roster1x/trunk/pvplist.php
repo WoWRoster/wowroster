@@ -31,11 +31,11 @@ $guildId = $guild_info['guild_id'];
 $striping_counter = 0;
 $tableHeader = "\n".'<!-- Begin PvPLIST -->
 <div id="PVPLIST_col"'.$pvp_hs_colapse.'>
-'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('PVPLIST_col','PVPLIST_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"\" />".$roster_conf['guild_name'].$wordings[$roster_conf['roster_lang']]['pvplist'].'</div>').'
+'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('PVPLIST_col','PVPLIST_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"\" />".$wordings[$roster_conf['roster_lang']]['pvplist'].'</div>').'
 '.border('sgray','end').'
 </div>
 <div id="PVPLIST_full"'.$pvp_hs_full.'>
-'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('PVPLIST_col','PVPLIST_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$roster_conf['guild_name'].$wordings[$roster_conf['roster_lang']]['pvplist'].'</div>').'
+'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('PVPLIST_col','PVPLIST_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$wordings[$roster_conf['roster_lang']]['pvplist'].'</div>').'
 <table width="100%" cellpadding="0" cellspacing="0" class="bodyline">'."\n";
 
 $tableFooter = "</table>\n".border('sgray','end')."\n</div>\n<!-- End PvPLIST -->\n";

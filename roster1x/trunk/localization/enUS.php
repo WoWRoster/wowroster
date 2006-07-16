@@ -31,7 +31,7 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
 
 $wordings['enUS']['update_page']='Update';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -52,13 +52,13 @@ $index_text_uniloader = "(You can download the program from the WoWRoster websit
 $wordings['enUS']['update_instruct']='
 <strong>Recommended automatic updaters:</strong>
 <ul>
-<li>Use <a href="'.urlencode($roster_conf['uploadapp']).'" target="_blank">UniUploader</a><br />
+<li>Use <a href="'.$roster_conf['uploadapp'].'" target="_blank">UniUploader</a><br />
 '.$index_text_uniloader.'</li>
 </ul>
 <strong>Updating instructions:</strong>
 <ol>
-<li>Download <a href="'.urlencode($roster_conf['profiler']).'" target="_blank">Character Profiler</a></li>
-<li>Extract zip into its own dir in C:\Program Files\World of Warcraft\Interface\Addons\ (CharacterProfiler\) directory</li>
+<li>Download <a href="'.$roster_conf['profiler'].'" target="_blank">Character Profiler</a></li>
+<li>Extract zip into its own directory in C:\Program Files\World of Warcraft\Interface\Addons\CharacterProfiler</li>
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
@@ -69,7 +69,7 @@ $wordings['enUS']['update_instruct']='
 $wordings['enUS']['update_instructpvp']='
 <strong>Optional PvP Stats:</strong>
 <ol>
-<li>Download the <a href="'.urlencode($roster_conf['pvplogger']).'" target="_blank">PvPLog</a></li>
+<li>Download the <a href="'.$roster_conf['pvplogger'].'" target="_blank">PvPLog</a></li>
 <li>Extract the PvPLog dir into your Addon dir.</li>
 <li>Duel or PvP</li>
 <li>Upload PvPLog.lua</li>

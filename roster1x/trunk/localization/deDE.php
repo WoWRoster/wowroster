@@ -31,7 +31,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;achst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -52,13 +52,13 @@ $index_text_uniloader = '(Du kannst dieses Programm von der WoW-Roster-Webseite 
 $wordings['deDE']['update_instruct']='
 <strong>Empfehlung zur automatischen Aktualisierung:</strong>
 <ul>
-<li>Benutze den <a href="'.urlencode($roster_conf['uploadapp']).'" target="_blank">UniUploader</a><br />
+<li>Benutze den <a href="'.$roster_conf['uploadapp'].'" target="_blank">UniUploader</a><br />
 '.$index_text_uniloader.'</li>
 </ul>
 <strong>Anleitung:</strong>
 <ol>
-<li>Lade den <a href="'.urlencode($roster_conf['profiler']).'" target="_blank">Character Profiler</a> herunter</li>
-<li>Extrahiere die Zip-Datei in ein eigenes Verzeichnis unter C:\Program Files\World of Warcraft\Interface\Addons\ (CharacterProfiler\)</li>
+<li>Lade den <a href="'.$roster_conf['profiler'].'" target="_blank">Character Profiler</a> herunter</li>
+<li>Extrahiere die Zip-Datei in ein eigenes Verzeichnis unter C:\Program Files\World of Warcraft\Interface\Addons\CharacterProfiler\</li>
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
@@ -69,7 +69,7 @@ $wordings['deDE']['update_instruct']='
 $wordings['deDE']['update_instructpvp']='
 <strong>Optionale PvP Stats:</strong>
 <ol>
-<li>Lade <a href="'.urlencode($roster_conf['pvplogger']).'" target="_blank">PvPLog</a> herunter</li>
+<li>Lade <a href="'.$roster_conf['pvplogger'].'" target="_blank">PvPLog</a> herunter</li>
 <li>Auch in ein eigenes Addon-Verzeichnis entpacken</li>
 <li>Mache ein paar Duelle oder PvP-Kills</li>
 <li>Lade "PvPLog.lua" &uuml;ber die Update-Seite hoch</li>

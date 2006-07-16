@@ -116,7 +116,7 @@ $DEFAULTS = array(
 // Database settings
 $DBALS    = array(
 	'mysql' => array(
-		'label'       => 'MySQL 3/4/5',
+		'label'       => 'MySQL 4/5',
 		'structure'   => 'mysql',
 		'comments'    => 'remove_remarks',
 		'delim'       => ';',
@@ -222,11 +222,11 @@ function process_step1()
     }
     else
     {
-        @fputs($sh, "GET /roster_update/version.txt HTTP/1.1\r\nHost: wowroster.net\r\nConnection: close\r\n\r\n");
+        @fputs($sh, "GET /roster_updater/version.txt HTTP/1.1\r\nHost: wowroster.net\r\nConnection: close\r\n\r\n");
         while ( !@feof($sh) )
         {
             $content = @fgets($sh, 512);
-            if ( preg_match('#<version>(.+)</version>#i', $content, $version) )
+            if ( preg_match('#<version>(.+)</version>#i',$content,$version) )
             {
                 $their_roster_version = $version[1];
                 break;
