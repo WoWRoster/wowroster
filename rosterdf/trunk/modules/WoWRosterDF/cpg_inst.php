@@ -32,7 +32,7 @@ eval("class {$roster_base}
 		\$this->description = 'World of Warcraft Guild Roster Ported to Dragonfly™';
 		\$this->author = 'WoWRoster Dev Team (Ported to Dragonfly™ by Anaxent)';
 		\$this->website = 'www.wowroster.net';
-		\$this->prefix = strtolower('{$roster_base}').'_';
+		\$this->prefix = strtolower('{$roster_base}').'_roster_';
 		\$this->dbtables = array(
 			\$this->prefix.'account',
 			\$this->prefix.'config',
