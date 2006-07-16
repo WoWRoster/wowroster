@@ -17,7 +17,7 @@
 if (!defined('CPG_NUKE')) { exit; }
 
     $menuitems['_AMENU5'][$module]['URL'] = adminlink($module.'&amp;file=index');
-    $menuitems['_AMENU5'][$module]['IMG'] = '/images/wowrosterdf/wowrosterdf.png');
+    $menuitems['_AMENU5'][$module]['IMG'] = 'images/wowrosterdf/wowrosterdf.png';
     $menuitems['_AMENU5'][$module]['MOD'] = $module;
 	$menuitems['_AMENU5'][$module]['SUB']['Roster Config'] = adminlink($module.'&amp;file=index');
 	$menuitems['_AMENU5'][$module]['SUB']['Upload Profile'] = getlink($module.'&amp;file=updateProfile');
