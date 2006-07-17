@@ -242,10 +242,10 @@ if( isset($_GET['etag']) )
 
 	if( $sig_etag_mode )
 	{
-		$DTS = $sig_updated.$configData['db_ver'];
+		$DTS = strtotime($sig_updated.$configData['db_ver']);
 		$condDTS = ( isset($_SERVER['http_if_modified_since']) ? $_SERVER['http_if_modified_since'] : 0 );
 
-		if( ereg( md5($DTS) , $_SERVER['HTTP_IF_NONE_MATCH']) )
+		if( isset($_SERVER['HTTP_IF_NONE_MATCH']) && ereg( md5($DTS) , $_SERVER['HTTP_IF_NONE_MATCH']) )
 		{
 			header( 'HTTP/1.1 304 Not Modified' );
 			exit(0);

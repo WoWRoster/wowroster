@@ -37,6 +37,11 @@
  *
  ***************************************************************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 //
 // Allow people to reach login page if
 // board is shut down

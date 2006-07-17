@@ -16,6 +16,10 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 class RosterLogin
 {

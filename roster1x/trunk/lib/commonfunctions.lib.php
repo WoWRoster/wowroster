@@ -16,6 +16,11 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 /**
  * Starts or ends fancy bodering containers
  *

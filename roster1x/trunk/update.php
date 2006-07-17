@@ -35,6 +35,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 require_once( 'settings.php' );
 require_once( ROSTER_LIB.'luaparser.php' );
 
+$script_filename = 'update.php';
 
 // Update Triggers
 if( $roster_conf['use_update_triggers'] )
@@ -64,6 +65,9 @@ else
 // Files that we accept for upload
 $filefields[] = 'CharacterProfiler.lua';
 $filefields[] = 'PvPLog.lua';
+
+$uploadFound = false;
+$uploadData = null;
 
 // Loop through each posted file
 foreach ($_FILES as $filefield => $file)
@@ -316,10 +320,10 @@ function processGuildRoster($myProfile)
 // Create the auth fields if needed
 if( !$roster_conf['authenticated_user'] )
 {
-	if( $auth_message != '' )
-	{
+	if( isset($auth_message) && !empty($auth_message) )
 		$auth_message = "<tr>\n<td class=\"membersRowRight1\" colspan=\"2\">$auth_message</td>\n</tr>\n";
-	}
+	else
+		$auth_message = '';
 
 	$authFields = border('syellow','start','Upload Authorization')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
@@ -333,6 +337,10 @@ $auth_message
                       <td class=\"membersRowRight2\"><input type=\"password\" name=\"password\"></td>
                     </tr>
                   </table>".border('syellow','end')."<br />\n";
+}
+else
+{
+	$authFields = '';
 }
 
 // Create the PvPLog input field if selected in conf
