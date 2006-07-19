@@ -67,8 +67,9 @@ $sqlquery =
 	"`players`.`realm` ".
 	"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
 	"LEFT JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` ".
-	"AND `members`.`guild_id` = '$guild_id' ".
+	"WHERE members.guild_id = ".$guild_id." ".
 	"ORDER BY `members`.`name` ASC";
+
 
 // ----[ Query Database for members info ]--------------------
 setSqlQuery($sqlquery);
