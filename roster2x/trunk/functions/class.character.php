@@ -16,6 +16,7 @@ class Character {
 	var $level = false;
 
 	function Character($character_name = false, $guild_name = false, $realm_name = false){
+		// guild and realm name have to be provided if this is to work for multiple guilds on one roster.
 		if($character_name && $guild_name && $realm_name){
 			global $roster_conf;
 			$this->name = $character_name;
