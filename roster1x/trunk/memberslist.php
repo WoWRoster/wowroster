@@ -489,7 +489,7 @@ function honor_value ( $row )
 {
 	global $roster_conf, $wordings;
 
-	$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['img_suffix'];
+	$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
 	$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
 
 	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';

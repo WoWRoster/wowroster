@@ -14,4 +14,5 @@ UPDATE `renprefix_config` SET `id` = '5020', `config_type` = 'display_conf' WHER
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 UPDATE `renprefix_config` SET `config_value` = '1.7.1' WHERE `id` = '4' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '3' WHERE `id` = '3' LIMIT 1;
+INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 ALTER TABLE `renprefix_config` ORDER BY `id`;

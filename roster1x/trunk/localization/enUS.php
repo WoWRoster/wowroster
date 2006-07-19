@@ -658,6 +658,7 @@ $wordings['enUS']['admin']['roster_dir'] = "Roster URL|The URL path to the Roste
 $wordings['enUS']['admin']['server_name_comp'] = "char.php Compatibility Mode|If your character page does not work, try changing this";
 $wordings['enUS']['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br>Default is &quot;img/&quot;<br><br>You can use a relative path or a full URL";
 $wordings['enUS']['admin']['img_suffix'] = "Interface Image Extension|The image type of the Interface images";
+$wordings['enUS']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|The alternate possible image type of the Interface images";
 $wordings['enUS']['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br>Default is &quot;img/&quot;<br><br>You can use a relative path or a full URL";
 $wordings['enUS']['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
 $wordings['enUS']['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br>Times on roster will be displayed as a calculated value using this offset";

@@ -658,6 +658,7 @@ $wordings['deDE']['admin']['roster_dir'] = "Roster URL|Der URL Pfad zum Rosterve
 $wordings['deDE']['admin']['server_name_comp']  = "char.php Compatibility Mode|Falls deine Charakterseite nicht funktionieren sollte, dann ändere diesen Wert";
 $wordings['deDE']['admin']['interface_url'] = "Interface Directory URL|Verzeichnis zu den Interface Images<br>Das Standartverzeichnis ist &quot;img/&quot;<br><br>Du kannst auch eine andere URL verwenden.";
 $wordings['deDE']['admin']['img_suffix'] = "Interface Image Extension|Der Dateityp deiner Interface Images";
+$wordings['deDE']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|Der Dateityp deiner Interface Images";
 $wordings['deDE']['admin']['img_url'] = "Roster Images Directory URL|Verzeichnis zu den Roster's Images<br>Das Standartverzeichnis ist &quot;img/&quot;<br><br>Du kannst auch eine andere URL verwenden.";
 $wordings['deDE']['admin']['timezone'] = "Timezone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
 $wordings['deDE']['admin']['localtimeoffset'] = "Time Offest|Der Zeitzonenabstand zur UTC/GMT<br>Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
