@@ -119,7 +119,7 @@ function ProcessCharacterProfile($data){
 
 	$retval = "";
 	// Make sure we're talking about the right realm, for starters.
-	foreach(GetConfigValue('allowed_realms') as $realm_name){
+	foreach(GetConfigValue('allowed_guilds') as $realm_name => $guild_names){
 		if(!isset($data[$realm_name])){
 		    $retval.=("No characters in proper realm (".$realm_name.") to process.\n");
 		    continue;
@@ -136,20 +136,23 @@ function ProcessCharacterProfile($data){
 
 		// Ok, let's deal with Guild Information now. We'll refactor later.
 		// First, put the guild in the guilds table if it doesn't exist.
-		$res = db_query("SELECT * FROM ".ROSTER_GUILDTABLE." WHERE guild_name = '".escape($roster_conf['guild_name'])."' AND realm='".escape($roster_conf['realm_name'])."'");
-		if($res->numRows()==0){
-			// We need to add the guild to the db
-			$guild_update = array("guild_name"=>$roster_conf['guild_name'], "realm"=>$roster_conf['realm_name'], "faction"=>$guild_data['Faction'],
-			"guild_motd"=>$guild_data['Motd'], "guild_num_members"=>$guild_data['NumMembers'], "guild_dateupdatedutc"=>$guild_data['DateUTC'],
-			"GPversion"=>$guild_data['GPversion'], "update_time"=>date("Y-m-d h:i:s")
-			);
-			db_query_insert_array(ROSTER_GUILDTABLE, array_keys($guild_update), $guild_update);
-		} else {
-			// TODO: update the guild record!
+		foreach($guild_names as $guild_name)
+		{
+			$res = db_query("SELECT * FROM ".ROSTER_GUILDTABLE." WHERE guild_name = '".escape($guild_name)."' AND realm='".escape($realm_name)."'");
+			if($res->numRows()==0){
+				// We need to add the guild to the db
+				$guild_update = array("guild_name"=>$guild_name, "realm"=>$realm_name, "faction"=>$guild_data['Faction'],
+				"guild_motd"=>$guild_data['Motd'], "guild_num_members"=>$guild_data['NumMembers'], "guild_dateupdatedutc"=>$guild_data['DateUTC'],
+				"GPversion"=>$guild_data['GPversion'], "update_time"=>date("Y-m-d h:i:s")
+				);
+				db_query_insert_array(ROSTER_GUILDTABLE, array_keys($guild_update), $guild_update);
+			} else {
+				// TODO: update the guild record!
+			}
 		}
 
 		// Get the guild ID, now that we know it.
-		$guild_id = $guild_handler->GetGuildId($roster_conf['guild_name'], $roster_conf['realm_name']);
+		$guild_id = $guild_handler->GetGuildId($guild_data['Guild'], $realm_name);
 
 		// Second, put all the characters in the members table
 		foreach($guild_data['Members'] as $member_name=>$md){
@@ -171,19 +174,21 @@ function ProcessCharacterProfile($data){
 			if($character_name=="Guild"){
 				continue;
 			}
-
-//			if($character_data['Guild']['GuildName']!=$roster_conf['guild_name']){
-//				// Trim out any characters we don't care about.
-//				$retval.="Character '$character_name' is in ".$character_data['Guild']['GuildName'].", not ".$roster_conf['guild_name'].". Ignoring.\n";
-//				unset($realm_data[$character_name]);
-//			} else {
-				// Process the ones we do care about.
-		    $retval.="Now starting process of $character_name\n";
-				$character = new Character($character_name);
-				$retval .= ($character->PerformUpdate($character_data));
-				unset($character);
-		    $retval.="Finished process of $character_name\n";
-//			}
+			foreach($guild_names as $guild_name)
+			{
+				if($character_data['Guild']['GuildName']!=$guild_name){
+					// Trim out any characters we don't care about.
+					$retval.="Character '$character_name' is in ".$character_data['Guild']['GuildName'].", not ".$guild_name.". Ignoring.\n";
+					//unset($realm_data[$character_name]);
+				} else {
+					// Process the ones we do care about.
+					$retval.="Now starting process of $character_name\n";
+					$character = new Character($character_name, $guild_name, $realm_name);
+					$retval .= ($character->PerformUpdate($character_data));
+					unset($character);
+					$retval.="Finished process of $character_name\n";
+				}
+			}
 		}
 	}
 	return($retval);
