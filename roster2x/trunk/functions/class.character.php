@@ -15,12 +15,12 @@ class Character {
 	var $Id = false;
 	var $level = false;
 
-	function Character($character_name = false){
-		if($character_name){
+	function Character($character_name = false, $guild_name = false, $realm_name = false){
+		if($character_name && $guild_name && $realm_name){
 			global $roster_conf;
 			$this->name = $character_name;
-			$this->guildName = $roster_conf['guild_name'];
-			$this->guildId = Guild::GetGuildId($this->guildName, $roster_conf['realm_name']);
+			$this->guildName = $guild_name;
+			$this->guildId = Guild::GetGuildId($this->guildName, $realm_name);
 			if($this->isValidCharacter()){
 				$this->getAllCharacterData();
 			}
@@ -503,11 +503,11 @@ class Character {
 				foreach($group_detail as $recipe_name=>$recipe_detail){
 					$recipe_id = $recipe_handler->GetRecipeId($profession_name, $group_name, $recipe_name);
 					if(!$recipe_id){
-						$LevelRequired = strpos($recipe_detail['Tooltip'], 'Requires Level');
+						$LevelRequired = strpos(@$recipe_detail['Tooltip'], 'Requires Level');
 						if ($LevelRequired!=0) {
 							$LevelRequired=(rtrim(substr($recipe_detail['Tooltip'], $LevelRequired + 15,2)));
 						}
-						$recipe_id = $recipe_handler->CreateRecipe($profession_name, $group_name, $recipe_name, $recipe_detail['Difficulty'], $recipe_detail['Reagents'], $recipe_detail['Texture'], $recipe_detail['Tooltip'], "", $LevelRequired);
+						$recipe_id = $recipe_handler->CreateRecipe($profession_name, $group_name, $recipe_name, $recipe_detail['Difficulty'], $recipe_detail['Reagents'], $recipe_detail['Texture'], @$recipe_detail['Tooltip'], "", $LevelRequired);
 					}
 					$data = array('member_id'=>$this->Id, 'recipe_id'=>$recipe_id);
 					db_query_insert_array(ROSTER_RECIPESTABLE, array_keys($data), $data);
