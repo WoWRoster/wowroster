@@ -1408,7 +1408,7 @@ $returnstring .= '  <tr>
 				$RankIcon = 'pixel';
 				$roster_conf['img_suffix'] = 'gif';
 			}
-			$Badge = '<img src="'.$roster_conf['interface_url'].$RankIcon.'.'.$roster_conf['img_suffix'].'" alt="" />';
+			$Badge = '<img src="'.$roster_conf['interface_url'].$RankIcon.'.'.$roster_conf['alt_img_suffix'].'" alt="" />';
 		}
 		else
 		{
