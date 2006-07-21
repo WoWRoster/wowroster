@@ -1,0 +1,143 @@
+$Id$
+
+Installer documentation
+=======================
+
+This installer requires the same install file definition as DragonFly CMS, with
+some important exeptions:
+- No seperate index commands. Create, modify, or remove index entries like you
+  would table collumns, keys, or constraints in DF.
+- No rollback data per query. Instead, call the BACKUP command for each table
+  you want restored in case of an upgrade/uninstall failure. Any new tables you
+  create are automatically deleted in rollback.
+- A lot of different required variables to be set.
+
+Using the installer
+===================
+You should create a file called install.def.php with in it a class that is named
+identical to your addon's install directory. This name will be refered to as your
+addon's basename.
+
+var $active
+	Boolean, set to true to activate this addon after installing, set to
+	false if it has to be configured first.
+var $hastriggers
+	Boolean, set to true if your addon has a trigger file
+var $hasconfig
+	Boolean, set to true if your addon has configuration via the admin panel
+var $profiles
+	Array, values are strings, default config profiles to install. Each
+	profile has its own set of tables.
+	
+var $upgrades
+	Array, values are strings, basenames of addons this can upgrade.
+
+var $version
+	String, the current version of your addon. Needs to be compatible with
+	php's version_compare(). Needs to be incremented on every update that
+	includes a database update.
+
+It also has 3 functions:
+
+install()
+	Here you can add all queries for a fresh install. No parameters. Return
+	true on success, false on failure.
+upgrade($oldbasename, $oldversion)
+	Here you can add all queries for an upgrade. 2 parameter, $oldbasename,
+	the basename of the addon to upgrade from, and $oldversion, the version
+	to upgrade from. Return true on success, false on failure.
+	
+	You should supply your own file to be called for upgrades of a Roster
+	1.7 addon since roster can't detect these addons.
+uninstall()
+	Here you should add all queries for an uninstall. No parameters. Return
+	true on success, false on failure
+
+Adding queries
+==============
+Queries are added to the install using the $installer->add_query() function.
+It has 3 parameters
+$query_type
+	the type of query
+$table_name
+	the base table name this query affects. Prefixes are
+	automatically added, you only need to worry about duplicate
+	table names inside your addon.
+$data
+	the other data needed to execute the query. Not needed for
+	query types BACKUP and DROP.
+
+You need to add data to each profile seperately. The profile you're adding data
+to is set using the $installer->profile variable.
+
+Query Types
+===========
+BACKUP:
+Makes a temporary copy of a table and its contents that is put back in case of a rollback
+$table contains the table name to copy
+$data doesn't matter
+
+CREATE:
+Creates a table
+$data contains the collumn/key/index/constraint definitions
+
+DROP:
+Drops a table
+$data doesn't matter
+
+RENAME:
+Renames a table
+$table is the old base table name
+$data is the new base table name
+
+ADD:
+Adds a collumn, key, index, or constraint
+$data contains definition
+
+DEL:
+Removes a collumn, key, index, or constraint
+$data contains definition
+
+CHANGE:
+Changes the name and/or definition of a collumn
+$data contains old name and new definition (with name)
+
+INSERT:
+Adds a record
+$data contains the values
+
+DELETE:
+Removes a record
+$data contains the WHERE condition for the delete
+
+UPDATE:
+Updates a record
+$data contains the collumn=values to insert, WHERE, the condition to define the record(s)
+
+Editing menu entries
+====================
+There are 3 seperate functions for this. Note the title should be unique per addon.
+
+$installer->add_menu_button($title, $url, $active)
+	Adds a menu button. Parameters:
+	$title
+		The localization key for the menu button's title.
+	$url
+		The url parameters this button should call the addon with
+	$active
+		Whether or not this button is initiall active.
+
+$installer->update_menu_button($title, $url, $active)
+	Adds a menu button. Parameters:
+	$title
+		The localization key for the menu button's title. Used to identify
+		the button, so should stay the same
+	$url
+		The url parameters this button should call the addon with.
+	$active
+		Whether or not this button is initiall active.
+
+$installer->add_menu_button($title, $url)
+	Adds a menu button. Parameters:
+	$title
+		The localization key for the menu button's title.
