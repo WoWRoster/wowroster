@@ -882,13 +882,14 @@ function writeBagData( $bagdata , $result )
 
 	$bagtype = 'bag_'.$bagdata['item_quantity'].'_slot';
 
-	if( $bagdata['item_slot'] == 'Bag0' )
-	{
-		$bagtype .= '_back';
-	}
-
 	$bagname = 'bagname';
 	$bagmask = 'bm';
+
+	if( $bagdata['item_slot'] == 'Bag5' )
+	{
+		$bagtype .= '_key';
+		$bagmask = 'kbm';
+	}
 
 	if( $bagdata['item_slot'] == 'Bank Contents' )
 	{
@@ -948,15 +949,16 @@ function bagInit( $data )
 	global $tpl;
 
 	$sqlquery = "SELECT *, CASE `item_slot` ".
-		"WHEN 'Bag4' THEN 0 ".
-		"WHEN 'Bag3' THEN 1 ".
-		"WHEN 'Bag2' THEN 2 ".
-		"WHEN 'Bag1' THEN 3 ".
-		"WHEN 'Bag0' THEN 4 ".
-		"ELSE 5 END AS bagpos ".
+		"WHEN 'Bag5' THEN 0 ".
+		"WHEN 'Bag4' THEN 1 ".
+		"WHEN 'Bag3' THEN 2 ".
+		"WHEN 'Bag2' THEN 3 ".
+		"WHEN 'Bag1' THEN 4 ".
+		"WHEN 'Bag0' THEN 5 ".
+		"ELSE 6 END AS bagpos ".
 		"FROM `".ROSTER_ITEMSTABLE."` ".
 		"WHERE `item_parent` = 'bags' ".
-		"AND (`item_slot` = 'Bag0' OR `item_slot` = 'Bag1' OR `item_slot` = 'Bag2' OR `item_slot` = 'Bag3' OR `item_slot` = 'Bag4') ".
+		"AND (`item_slot` = 'Bag0' OR `item_slot` = 'Bag1' OR `item_slot` = 'Bag2' OR `item_slot` = 'Bag3' OR `item_slot` = 'Bag4' OR `item_slot` = 'Bag5') ".
 		"AND `member_id` = '".$data['member_id']."' ".
 		"ORDER BY bagpos ASC";
 
@@ -1163,29 +1165,19 @@ function writeSpellbook( $member_id )
 				{
 					$icons_result->fetchInto($icons_data);
 
-					if( $i < 14 )
-					{
-						$spells[$p][$i]['name'] = $icons_data['spellinfo_name'];
-						$spells[$p][$i]['type'] = $icons_data['spellinfo_type'];
-						$spells[$p][$i]['icon'] = str_replace('\\','/',$icons_data['spellinfo_icon']);
-						$spells[$p][$i]['rank'] = $icons_data['spellinfo_rank'];
-						setTooltip("spelltip_".$t."_".$p."_".$i,"<span class=\"myYellow\">".addslashes($icons_data['spellinfo_name'])."</span><br />".addslashes($icons_data['spellinfo_rank']));
-
-						$i++;
-					}
-					else
+					if( $i == 14 )
 					{
 						$i=0;
 						$p++;
-
-						$spells[$p][$i]['name'] = $icons_data['spellinfo_name'];
-						$spells[$p][$i]['type'] = $icons_data['spellinfo_type'];
-						$spells[$p][$i]['icon'] = str_replace('\\','/',$icons_data['spellinfo_icon']);
-						$spells[$p][$i]['rank'] = $icons_data['spellinfo_rank'];
-						setTooltip("spelltip_".$t."_".$p."_".$i,"<span class=\"myYellow\">".addslashes($icons_data['spellinfo_name'])."</span><br />".addslashes($icons_data['spellinfo_rank']));
-
-						$i++;
 					}
+
+					$spells[$p][$i]['name'] = $icons_data['spellinfo_name'];
+					$spells[$p][$i]['type'] = $icons_data['spellinfo_type'];
+					$spells[$p][$i]['icon'] = str_replace('\\','/',$icons_data['spellinfo_icon']);
+					$spells[$p][$i]['rank'] = $icons_data['spellinfo_rank'];
+					setTooltip("spelltip_".$t."_".$p."_".$i,"<span class=\"myYellow\">".addslashes($icons_data['spellinfo_name'])."</span><br />".addslashes($icons_data['spellinfo_rank']));
+
+					$i++;
 				}
 				// Assign spells to tree
 				$tree[$t]['spells'] = $spells;

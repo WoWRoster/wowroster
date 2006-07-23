@@ -333,6 +333,7 @@ function getAllTooltips()
 		$ret_string = "<script type=\"text/javascript\">\n";
 		foreach ($tooltips as $var => $content)
 		{
+			$content = str_replace('/','\\/',$content);
 			$ret_string .= "\n\tvar $var = '$content';";
 		}
 		$ret_string .= "\n</script>";

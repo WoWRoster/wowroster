@@ -290,7 +290,7 @@ $roster_wordings['deDE']['credit_page_bottom'] = 'World of Warcraft and Blizzard
 All other trademarks are the property of their respective owners
 <a href="?p=credits">'.$roster_wordings['deDE']['credit_page_link'].'</a>
 
-<a href="http://www.wowroster.net" target="_new"><img style="border:0;width:80px;height:15px" src="'.$roster_conf['imagepath'].'/wowroster_small.gif" alt="WoWRoster Home" /></a>';
+<a href="http://www.wowroster.net" target="_blank"><img style="border:0;width:80px;height:15px" src="'.$roster_conf['imagepath'].'/wowroster_small.gif" alt="WoWRoster Home" /></a>';
 
 // ----[ End Credit Page localization ]---------------------
 

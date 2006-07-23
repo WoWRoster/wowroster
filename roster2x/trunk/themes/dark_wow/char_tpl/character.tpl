@@ -183,17 +183,17 @@
 				{if $pets[pet_id].stats_defense_bonus lt 0}<span class="myRed_nobold">{elseif $pets[pet_id].stats_defense_bonus gt 0}<span class="myGreen_nobold">{else}<span class="myWhite_nobold">{/if}{$pets[pet_id].stats_defense_current}</span><br />
 				{if $pets[pet_id].stats_armor_bonus lt 0}<span class="myRed_nobold">{elseif $pets[pet_id].stats_armor_bonus gt 0}<span class="myGreen_nobold">{else}<span class="myWhite_nobold">{/if}{$pets[pet_id].stats_armor_current}</span></div>
 
-			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_strength_tooltip);" onmouseout="return nd();" style="margin-top:184px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_agility_tooltip);" onmouseout="return nd();" style="margin-top:201px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_stamina_tooltip);" onmouseout="return nd();" style="margin-top:218px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_intellect_tooltip);" onmouseout="return nd();" style="margin-top:235px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_spirit_tooltip);" onmouseout="return nd();" style="margin-top:252px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
+			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_strength_tooltip);" onmouseout="return nd();" style="margin-top:238px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_agility_tooltip);" onmouseout="return nd();" style="margin-top:255px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_stamina_tooltip);" onmouseout="return nd();" style="margin-top:272px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_intellect_tooltip);" onmouseout="return nd();" style="margin-top:289px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats1Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_spirit_tooltip);" onmouseout="return nd();" style="margin-top:306px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
 
-			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_rating_tooltip);" onmouseout="return nd();" style="margin-top:184px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_power_tooltip);" onmouseout="return nd();" style="margin-top:201px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_damage_range_tooltip);" onmouseout="return nd();" style="margin-top:218px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_defense_tooltip);" onmouseout="return nd();" style="margin-top:235px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
-			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_armor_tooltip);" onmouseout="return nd();" style="margin-top:252px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:12px;width:110px;" alt="" /></div>
+			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_rating_tooltip);" onmouseout="return nd();" style="margin-top:238px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_power_tooltip);" onmouseout="return nd();" style="margin-top:255px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_damage_range_tooltip);" onmouseout="return nd();" style="margin-top:272px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_melee_defense_tooltip);" onmouseout="return nd();" style="margin-top:289px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
+			<div class="CharPetStats2Tooltip" onmouseover="overlib(pet_{$smarty.section.pet_id.index}_armor_tooltip);" onmouseout="return nd();" style="margin-top:306px;"><img src="{$roster_conf.imagepath}/spacer.gif" style="height:14px;width:110px;" alt="" /></div>
 
 
 {if $pets[pet_id].xp_total neq 0}
@@ -250,8 +250,6 @@
 						<div class="char_rep_bar_field"><img class="char_rep_bar_image" src="{$roster_conf.imagepath}/spacer.gif" onmouseout="showLayer('rb{$repbarinfo[repid][repbarid].barid}');hideLayer('rbn{$repbarinfo[repid][repbarid].barid}');" onmouseover="hideLayer('rb{$repbarinfo[repid][repbarid].barid}');showLayer('rbn{$repbarinfo[repid][repbarid].barid}');" alt="" /></div>
 {if $repbarinfo[repid][repbarid].atwar eq '1'}
 						<img src="{$roster_conf.imagepath}/char_page/reputationbox_atwar.gif" style="float:right;" alt="" />
-{else}
-						<img src="{$roster_conf.imagepath}/char_page/reputationbox_notatwar.gif" style="float:right;" alt="" />
 {/if}
 					</div>
 {/section}

@@ -611,8 +611,8 @@ table#memberslist td {
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:9px;
 	position:absolute;
-	margin-top:138px;
-	margin-left:50px;
+	margin-top:143px;
+	margin-left:40px;
 	padding-top:3px;
 	padding-bottom:3px;
 	padding-left:22px;
@@ -624,8 +624,8 @@ table#memberslist td {
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:9px;
 	position:absolute;
-	margin-top:160px;
-	margin-left:50px;
+	margin-top:165px;
+	margin-left:40px;
 	padding-top:3px;
 	padding-bottom:3px;
 	padding-left:22px;
@@ -708,7 +708,7 @@ table#memberslist td {
 	text-align:left;
 	color:#FFDD00;
 	position:absolute;
-	margin-top:182px;
+	margin-top:237px;
 	margin-left:58px;
 	line-height:17px;
 }
@@ -717,7 +717,7 @@ table#memberslist td {
 	text-align:right;
 	position:absolute;
 	width:50px;
-	margin-top:182px;
+	margin-top:237px;
 	margin-left:116px;
 	line-height:17px;
 }
@@ -726,7 +726,7 @@ table#memberslist td {
 	text-align:left;
 	color:#FFDD00;
 	position:absolute;
-	margin-top:182px;
+	margin-top:237px;
 	margin-left:177px;
 	line-height:17px;
 }
@@ -735,7 +735,7 @@ table#memberslist td {
 	text-align:right;
 	position:absolute;
 	width:50px;
-	margin-top:182px;
+	margin-top:237px;
 	margin-left:236px;
 	line-height:17px;
 }
@@ -744,7 +744,7 @@ table#memberslist td {
 	width:216px;
 	height:12px;
 	position:absolute;
-	margin-top:273px;
+	margin-top:208px;
 	margin-left:67px;
 }
 .CharPetExpBar {
@@ -752,7 +752,7 @@ table#memberslist td {
 	width:216px;
 	height:12px;
 	position:absolute;
-	margin-top:273px;
+	margin-top:208px;
 	margin-left:67px;
 }
 .CharPetExpText {
@@ -762,7 +762,7 @@ table#memberslist td {
 	font-size:9px;
 	width:216px;
 	position:absolute;
-	margin-top:273px;
+	margin-top:208px;
 	margin-left:67px;
 }
 .CharPetTrainingPts {
@@ -772,13 +772,13 @@ table#memberslist td {
 	font-weight:bold;
 	width:200px;
 	position:absolute;
-	margin-top:408px;
+	margin-top:411px;
 	margin-left:120px;
 }
 .CharPetIcons {
 	width:300px;
 	position:absolute;
-	margin-top:300px;
+	margin-top:355px;
 	margin-left:23px;
 }
 .CharPetIconClick {
@@ -847,7 +847,7 @@ table#memberslist td {
 	/* Position and Style of each rep bar */
 	background-image:url(../../images/char_page/repbar.gif);
 	font-size:11px;
-	width:295px;
+	width:289px;
 	vertical-align:top;
 	height:23px;
 	padding-left:7px;
@@ -1530,102 +1530,6 @@ table#memberslist td {
 
 
 /*********** Bags ***********/
-.BankContents {
-	border-width:0px;
-	margin-left:14px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.BankBag1 {
-	border-width:0px;
-	margin-left:79px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.BankBag2 {
-	border-width:0px;
-	margin-left:121px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.BankBag3 {
-	border-width:0px;
-	margin-left:163px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.BankBag4 {
-	border-width:0px;
-	margin-left:205px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.BankBag5 {
-	border-width:0px;
-	margin-left:247px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.BankBag6 {
-	border-width:0px;
-	margin-left:289px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.Bag4 {
-	border-width:0px;
-	margin-left:353px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.Bag3 {
-	border-width:0px;
-	margin-left:395px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.Bag2 {
-	border-width:0px;
-	margin-left:437px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.Bag1 {
-	border-width:0px;
-	margin-left:479px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
-.Bag0 {
-	border-width:0px;
-	margin-left:521px;
-	margin-top:5px;
-	position:absolute;
-	width:37px;
-	height:37px;
-}
 .bag_4_slot {
 	background-image:url(../../images/bags/4.gif);
 	width:184px;
@@ -1681,16 +1585,28 @@ table#memberslist td {
 	width:184px;
 	height:336px;
 }
-.bag_16_slot_back {
-	background-image:url(../../images/bags/16s.gif);
-	width:184px;
-	height:213px;
-}
 .mainbank_bag_24_slot {
 	background-image:url(../../images/bags/bank24.gif);
 	width:268px;
 	height:213px;
 }
+
+.bag_4_slot_key {
+	background-image:url(../../images/bags/k4.gif);
+	width:184px;
+	height:90px;
+}
+.bag_8_slot_key {
+	background-image:url(../../images/bags/k8.gif);
+	width:184px;
+	height:131px;
+}
+.bag_12_slot_key {
+	background-image:url(../../images/bags/k12.gif);
+	width:184px;
+	height:172px;
+}
+
 .bank_bag_4_slot {
 	background-image:url(../../images/bags/b4.gif);
 	width:184px;
@@ -1746,237 +1662,78 @@ table#memberslist td {
 	width:184px;
 	height:336px;
 }
-.bag_4_slot .bagholder {
+.bag_4_slot_key .bagholder,
+.bag_8_slot_key .bagholder,
+.bag_12_slot_key .bagholder,
+.bag_4_slot .bagholder,
+.bag_8_slot .bagholder,
+.bag_12_slot .bagholder,
+.bag_16_slot .bagholder,
+.bag_20_slot .bagholder,
+.bag_24_slot .bagholder,
+.bag_28_slot .bagholder,
+.mainbank_bag_24_slot .bagholder,
+.bank_bag_4_slot .bagholder,
+.bank_bag_8_slot .bagholder,
+.bank_bag_12_slot .bagholder,
+.bank_bag_16_slot .bagholder,
+.bank_bag_20_slot .bagholder,
+.bank_bag_24_slot .bagholder,
+.bank_bag_28_slot .bagholder
+ {
 	margin-top:47px;
 	margin-left:11px;
 	position:absolute;
 	width:174px;
 }
-.bag_6_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_8_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_10_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_12_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_14_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_16_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_18_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_20_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_24_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_28_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_4_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_6_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_8_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_10_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_12_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_14_slot .bagholder {
-	margin-top:26px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_16_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
+.bag_6_slot .bagholder,
+.bag_10_slot .bagholder,
+.bag_14_slot .bagholder,
+.bag_18_slot .bagholder,
+.bank_bag_6_slot .bagholder,
+.bank_bag_10_slot .bagholder,
+.bank_bag_14_slot .bagholder,
 .bank_bag_18_slot .bagholder {
 	margin-top:26px;
 	margin-left:11px;
 	position:absolute;
 	width:174px;
 }
-.bank_bag_20_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_24_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bank_bag_28_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
-.bag_16_slot_back .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
-	width:174px;
-}
 .mainbank_bag_24_slot .bagholder {
-	margin-top:47px;
-	margin-left:11px;
-	position:absolute;
+	/* Additional define for main bank bag */
 	width:274px;
 }
-.bag_4_slot .bagspacer {
+.bag_4_slot_key .bagspacer,
+.bag_8_slot_key .bagspacer,
+.bag_12_slot_key .bagspacer,
+.bag_4_slot .bagspacer,
+.bag_8_slot .bagspacer,
+.bag_12_slot .bagspacer,
+.bag_16_slot .bagspacer,
+.bag_20_slot .bagspacer,
+.bag_24_slot .bagspacer,
+.bag_28_slot .bagspacer,
+.mainbank_bag_24_slot .bagspacer,
+.bank_bag_4_slot .bagspacer,
+.bank_bag_8_slot .bagspacer,
+.bank_bag_12_slot .bagspacer,
+.bank_bag_16_slot .bagspacer,
+.bank_bag_20_slot .bagspacer,
+.bank_bag_24_slot .bagspacer,
+.bank_bag_28_slot .bagspacer {
 	display:none;
 }
-.bag_6_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bag_8_slot .bagspacer {
-	display:none;
-}
-.bag_10_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bag_12_slot .bagspacer {
-	display:none;
-}
-.bag_14_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bag_16_slot .bagspacer {
-	display:none;
-}
-.bag_18_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bag_20_slot .bagspacer {
-	display:none;
-}
-.bag_24_slot .bagspacer {
-	display:none;
-}
-.bag_28_slot .bagspacer {
-	display:none;
-}
-.bag_16_slot_back .bagspacer {
-	display:none;
-}
-.bank_bag_4_slot .bagspacer {
-	display:none;
-}
-.bank_bag_6_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bank_bag_8_slot .bagspacer {
-	display:none;
-}
-.bank_bag_10_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bank_bag_12_slot .bagspacer {
-	display:none;
-}
-.bank_bag_14_slot .bagspacer {
-	width:42px;
-	height:41px;
-	float:left;
-}
-.bank_bag_16_slot .bagspacer {
-	display:none;
-}
+.bag_6_slot .bagspacer,
+.bag_10_slot .bagspacer,
+.bag_14_slot .bagspacer,
+.bag_18_slot .bagspacer,
+.bank_bag_6_slot .bagspacer,
+.bank_bag_10_slot .bagspacer,
+.bank_bag_14_slot .bagspacer,
 .bank_bag_18_slot .bagspacer {
 	width:42px;
 	height:41px;
 	float:left;
-}
-.bank_bag_20_slot .bagspacer {
-	display:none;
-}
-.bank_bag_24_slot .bagspacer {
-	display:none;
-}
-.bank_bag_28_slot .bagspacer {
-	display:none;
-}
-.mainbank_bag_24_slot .bagspacer {
-	display:none;
 }
 
 .bagitem {
@@ -1984,7 +1741,7 @@ table#memberslist td {
 	height:41px;
 	float:left;
 }
-.bagitem_icon {
+.bagitem .icon {
 	margin-top:0px;
 	margin-left:2px;
 	width:38px;
@@ -1992,18 +1749,12 @@ table#memberslist td {
 	border-width:0px;
 	cursor:pointer;
 }
-.bagitem_noicon {
+.bagitem .noicon {
 	margin-top:0px;
 	margin-left:2px;
 	width:38px;
 	height:38px;
 	border-width:0px;
-}
-.bagicon {
-	position:absolute;
-	width:42px;
-	height:42px;
-	clip:rect(5px 37px 37px 5px);
 }
 .bagmask {
 	position:absolute;
@@ -2011,29 +1762,35 @@ table#memberslist td {
 	height:42px;
 	cursor:pointer;
 }
+.bagicon {
+	position:absolute;
+	width:42px;
+	height:42px;
+	clip:rect(5px 37px 37px 5px);
+}
 .bagname {
 	margin-top:7px;
-	margin-left:44px;
+	margin-left:42px;
 	font-family:Arial, Helvetica, sans-serif;
 	color:#FFFFFF;
 	font-size:12px;
 	position:absolute;
 	text-align:center;
-	width:135px;
-	height:18px;
+	width:140px;
+	height:16px;
 	float:left;
 	overflow:hidden;
 }
 .bagname24 {
 	margin-top:7px;
-	margin-left:44px;
+	margin-left:42px;
 	font-family:Arial, Helvetica, sans-serif;
 	color:#FFFFFF;
 	font-size:12px;
 	position:absolute;
 	text-align:center;
-	width:195px;
-	height:18px;
+	width:224px;
+	height:16px;
 	float:left;
 	overflow:hidden;
 }
