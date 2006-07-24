@@ -1,8 +1,8 @@
 PvPLog 
 Author:			Andrzej Gorski
 Based on Work by:	Josh Estelle, Daniel S. Reichenbach
-Version:		0.4.8
-Last Modified:		2006-01-18
+Version:		0.5.1
+Last Modified:		2006-07-25
 
 README
 
@@ -64,4 +64,4 @@ Use:
         apg24@drexel.edu
 
     Updates for PvPLog are available from these AddOn sites:
-    * http://www.wowprofilers.com
+    * http://www.wowroster.net

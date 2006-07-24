@@ -3,13 +3,13 @@
     PvPLog 
         Author:            Andrzej Gorski 
 	Based on Work by:  Josh Estelle, Daniel S. Reichenbach
-        Version:           0.5.0
-        Last Modified:     2006-03-30
+        Version:           0.5.1
+        Last Modified:     2006-07-25
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "0.5.0";
+VER_NUM = "0.5.1";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.

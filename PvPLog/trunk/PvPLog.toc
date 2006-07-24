@@ -1,9 +1,9 @@
-## Interface: 11000
+## Interface: 11100
 ## Title: PvPLog
 ## Author: Andrzej Gorski
 ## eMail: apg24@drexel.edu
-## URL: http://www.wowprofilers.com
-## Version: 0.5.0
+## URL: http://www.wowroster.net
+## Version: 0.5.1
 ## Notes: Keeps track of your PvP kills and the people who kill you.
 ## Notes-deDE: Zeichnet PvP Siege und Verluste auf, sowie Duelle.
 ## Notes-frFR: Keeps track of your PvP kills and the people who kill you.

@@ -1,13 +1,17 @@
 PvPLog 
 Author:			Andrzej Gorski
 Based on Work by:	Josh Estelle, Daniel S. Reichenbach
-Version:		0.5.0
+Version:		0.5.1
 
 CHANGES
+2006-07-25  * Released 0.5.1 (No functionality changes)
+	    * Updated TOC to 11100
+	    * Minor updates to README.TXT
+
 2006-03-30  * Released 0.5.0
-		* Correct TOC to 11000
-		* Removed the "Sadly the kill was not logged" message for Mobs"
-		* Fixed a nasty bug that re-targetting was causing
+	    * Correct TOC to 11000
+	    * Removed the "Sadly the kill was not logged" message for Mobs"
+	    * Fixed a nasty bug that re-targetting was causing
 
 2006-01-20  * Released 0.4.8
 	    * Corrected .toc patch version (10900)
