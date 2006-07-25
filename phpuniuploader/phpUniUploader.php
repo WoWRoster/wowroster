@@ -16,24 +16,9 @@
  *
  ******************************/
 
-// Account data
-// Your WoW Directory
-$WoWDir               = "/home/mathos/WoW/WoW-Dir";	// You WoW Directory without trailing /
-$AccountName          = "MATHOS";			// You WoW account name, usually uppercase!!
-$UniAdminURL          = "http://elune.mysticwoods.nl/roster/admin/interface.php";
-$CheckLUAFilesDelay   = 5;                              // How often do we check the LUA files (in seconds)
-$CheckSettingsDelay   = 21600;				// How often do we check the AddOns (in seconds)
-$RosterUpdateUser     = "";				// Your Roster User.
-$RosterUpdatePassword = "";				// Your Roster Password.
-$SendUpdatePassword   = TRUE;
-$LogFile              = "";	// LogFile.
-//$LogFile              = "/var/log/phpUniUploader.log";	// LogFile.
-//$UploadResultLog      = "/var/log/phpUniUploader.LastUpload.log";
-$UploadResultLog      = "";
-$TempDir              = "/tmp";				// Temporary Directory to gzip files.
+// ------------ !!! DO NOT EDIT ANYTHING IN THIS FILE !!! -------------- //
 
-
-// ------------ !!! DO NOT EDIT ANYTHING BELOW THIS LINE !!! -------------- //
+require_once 'settings.ini.php';
 
 $luafiles = array();
 $addons = array();
@@ -42,7 +27,7 @@ $phpUniSettings['SYNCHROURL'] = $UniAdminURL;
 
 // Get the Settings from UniAdmin interface
 $getsettings = GetSettings();
-print_r($phpUniSettings);
+
 if ($getsettings)
 {
 	WriteToLog($getsettings);
@@ -154,8 +139,7 @@ function UploadFiles()
 			$filename = $svfile.'.lua';
 			if (isset($phpUniSettings['GZIP']) && $phpUniSettings['GZIP'])
 			{
-				$filename = $WoWDir.'/WTF/Account/'.$AccountName.'/SavedVariables/'.$filename;
-				//$filename = gzCompressFile($WoWDir.'/WTF/Account/'.$AccountName.'/SavedVariables/', $filename);
+				$filename = gzCompressFile($WoWDir.'/WTF/Account/'.$AccountName.'/SavedVariables/', $filename);
 			}
 			else
 			{
@@ -176,9 +160,20 @@ function UploadFiles()
 	}
 	else
 	{
-		print($post_result['output']."\n");
+		print($post_result['output']."\r\n");
 	}
+
+	foreach ($post_data as $svfile => $filename)
+	{
+		$filename = substr($filename, 1);
+		if (file_exists($filename) && pathinfo($filename, PATHINFO_EXTENSION) == 'gz')
+		{
+			//unlink($filename);
+		}
+	}
+			
 	$post_data = array();
+
 }
 
 function GetSettings()
@@ -250,28 +245,28 @@ function WriteToLog($string)
         	{
 			if (($bytes_written = fwrite($logfp, date("d/m/Y H:i - ").$string."\n")) === false)
 			{
-				print (date("d/m/Y H:i - ")."Unable to write to Log File: ".$LogFile.".\nPlease check the file permissions!\n");
-        	        	print (date("d/m/Y H:i - ")."Exiting....\n");
+				print (date("d/m/Y H:i - ")."Unable to write to Log File: ".$LogFile.".\nPlease check the file permissions!\r\n");
+        	        	print (date("d/m/Y H:i - ")."Exiting....\r\n");
 				exit(1);
 			}
 		}
 		else
 		{
-	                print ("Can not open Log File for writing: ".$LogFile."\n");
-        	        print ("Exiting....\n");
+	                print ("Can not open Log File for writing: ".$LogFile."\r\n");
+        	        print ("Exiting....\r\n");
                 	exit(1);
         	}
 	}
 	else
 	{
-		print (date("d/m/Y H:i - ").$string."\n");
+		print (date("d/m/Y H:i - ").$string."\r\n");
 	}
 }
 
 function gzCompressFile($path, $file, $level=false)
 {
-	global $TempDir;
-	$dest = $TempDir.'/'.$file.'.gz';
+	global $WoWDir;
+	$dest = $WoWDir.'/'.$file.'.gz';
 	$mode = 'wb'.$level;
 	$returnvalue = 1;
 	if ($fp_out = gzopen($dest, $mode))
@@ -309,16 +304,22 @@ function gzCompressFile($path, $file, $level=false)
 function LoopHole()
 {
 	global $phpUniSettings, $CheckLUAFilesDelay, $CheckSettingsDelay;
-
+	
+	// Create a loopcount
 	$loopcount = 0;
+	
+	// Start looping
 	while (TRUE)
 	{
+		// If the loopcount reaches a value that it should check the addons, make it so, and reset the loopcount to 1
 		if ($loopcount == ($CheckSettingsDelay/$CheckLUAFilesDelay) || $loopcount == 0)
 		{
+			// Check and verify the addons
 			CheckAddons();
 			$loopcount = 1;
 		}
 		
+		// Check if there were LUA file changes
 		CheckFiles();
 		$loopcount++;
 		sleep($CheckLUAFilesDelay);
@@ -329,25 +330,34 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 {
 	global $post_data;
 	
+	// Declare the return array
 	$returndata = array();
 	$returndata['output'] = '';
 	$returndata['error'] = 0;
-	//function_exists(curl_init)
-	if (0)
+	
+	// If we have cURL, use those libraries to post, if not, use fsockopen().
+	if (function_exists(curl_init))
 	{
+		// Post the data using the cURL libraries
+		
+		// Initialize and fill the cURL data
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $URL);
 		curl_setopt($ch, CURLOPT_USERAGENT, $UserAgent);
 		curl_setopt($ch, CURLOPT_POST, 1 );
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+        	
+        	// Put the results in the return array
 		$returndata['output'] = curl_exec($ch);
-
+		
+		// Check if there were cUrl errors
 		if (curl_errno($ch))
 		{
-        			$returndata['error'] = $Action." Error: ".curl_error($ch);
-        		}
+			// If there were errors, put them in the return array
+        		$returndata['error'] = $Action." Error: ".curl_error($ch);
+        	}
 		else
 		{
 			$returndata['error'] = 0;
@@ -357,28 +367,30 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 	}
 	else
 	{
+		// Post the data via fsockopen()
+		
+		// Declare the data holders
 		$request = '';
 		$data_string = '';
 		$data_stringf = '';
+		
+		// Make a random boundary to seperate the data components
 		srand((double)microtime()*1000000);
 		$boundary = "--".substr(md5(rand(0,32000)),0,10);
 		
+		// Start Building the data string
 		$data_string .= "--".$boundary;
 		foreach($post_data as $index => $data)
 		{
-			print ("Param:".$data." - first char: ".$data{0}." - rest: ".substr($data, 1)."\n");
+			// Check if the data is a file
 			if ($data{0} == '@')
 			{	
-				print ("Using File Method\n");
+				
 				$file = substr($data, 1);
 				
-				if (pathinfo($file, PATHINFO_EXTENSION) == 'gz')
+				if (pathinfo($file, PATHINFO_EXTENSION) == 'gz' && pathinfo($file, PATHINFO_EXTENSION) == 'lua')
 				{
-					$mimetype = 'application/x-gzip';
-				}
-				elseif (pathinfo($file, PATHINFO_EXTENSION) == 'lua')
-				{
-					$mimetype = 'application/x-lua';
+					$mimetype = 'application/octet-stream';
 				}
 				else
 				{
@@ -392,13 +404,11 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 				$data_stringf .= "filename=\"".$filename."\"\r\n";
 				$data_stringf .= "Content-Type: ".$mimetype."\r\n";
 				$data_stringf .= "Content-Transfer-Encoding: binary\r\n\r\n";
-				$data_stringf .= "Binary stuff\r\n";
 				$data_stringf .= $content_file."\r\n";
 				$data_stringf .= "--".$boundary;
 			}
 			else
 			{
-				print ("$index - $data - NOT Using File Method\n");
 				$data_string .= "\r\nContent-Disposition: form-data; ";
 				$data_string .= "name=\"".$index."\"\r\n\r\n";
 				$data_string .= $data."\r\n";
@@ -409,6 +419,7 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 		}
 		$data_string .= "--";
 		
+		// Parse the URL to get the individual parts
 		$URL = parse_url($URL);
 		if (!isset($URL['port']) || $URL['port'] == '')
 		{
@@ -424,13 +435,14 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 			}
 		}
 		
+		// Build the post header
 		$post_header  = "POST ".$URL['path']." HTTP/1.0\r\n";
 		$post_header .= "Host: ".$URL['host']."\r\n"; 
 		$post_header .= "User-Agent: ".$UserAgent."\r\n";
 		$post_header .= "Content-Type: multipart/form-data, boundary=".$boundary."\r\n";
 		$post_header .= "Content-Length: ".strlen($data_string)."\r\n\r\n";
-		//print("\r\n\r\n".$post_header.$data_string."\r\n\r\n");
-		// open the connection
+
+		// Open the connection
 		$fpost = fsockopen($URL['host'], $URL['port'], $error['number'], $error['string']);
 		if (!$fpost)
 		{
@@ -438,17 +450,20 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 		}
 		else
 		{
+			
+			// Post the http
 			fputs($fpost, $post_header.$data_string);
 			
 			// get the response
 			while (!feof($fpost))
 			{
-				$returndata['output'] .= fread($fpost,32000);
+				$returndata['output'] .= fread($fpost,3200000);
 			}
 			fclose($fpost);
 			$returndata['error'] = 0;
 		}
 	}
+	// Return the results of the post
 	return $returndata;
 }
 
