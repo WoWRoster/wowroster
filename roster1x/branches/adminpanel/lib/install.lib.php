@@ -192,25 +192,8 @@ class Install {
 	 * @param boolean $backup true to prepend backup (for temporary tables)
 	 */
 	function table($table, $profile, $backup=false) {
-		global $addata;
-		return (($backup)?'backup_':'').$this->wowdbtable($table, $addata['dbname'], $profile);
-	}
-	
-	# function to be added to wowdb as table
-	/**
-	 * Expand base table name to a full table name
-	 *
-	 * @param string $table the base table name
-	 * @param string $addon the name of the addon, empty for a base roster table
-	 * @param string $profile the name of the addon's config profile.
-	 * @return string tablename as fit for MySQL queries 
-	 */
-	function wowdbtable($table, $addon='', $profile='') {
-		global $db_prefix;
-		if ($addon)
-			return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
-		else
-			return $db_prefix.'_'.$table;
+		global $addata, $wowdb;
+		return (($backup)?'backup_':'').$wowdb->table($table, $addata['dbname'], $profile);
 	}
 	
 	/**

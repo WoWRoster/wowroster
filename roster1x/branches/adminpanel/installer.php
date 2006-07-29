@@ -123,11 +123,11 @@ if( !empty($errorstringout) )
 {
 	print
 	'<div id="errorCol" style="display:inline;">
-		'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
+		'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Install Errors</span></div>").'
 		'.border('sred','end').'
 	</div>
 	<div id="error" style="display:none">
-	'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
+	'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Install Errors</span></div>").
 	$errorstringout.
 	border('sred','end').
 	'</div>';
@@ -194,10 +194,10 @@ function purge($dbname) {
 		while ($row = $wowdb->fetch_assoc($tables)) {
 			$query = 'DROP TABLE `'.$row[0].'`';
 			$dropped = $wowdb->query($query) or die_quetly('Error while dropping '.$row[0].'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
-			wowdb->free_result($dropped)
+			$wowdb->free_result($dropped);
 		}
 	}
-	wowdb->free_result($tables);
+	$wowdb->free_result($tables);
 	
 	// Delete menu entries
 	$query = 'DELETE FROM `'.$db_prefix.'addon_menu` WHERE `addon_name` = "'.$dbname.'"';

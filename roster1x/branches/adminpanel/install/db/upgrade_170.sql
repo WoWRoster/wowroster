@@ -41,5 +41,5 @@ CREATE TABLE `renprefix_addon_menu` (
 	`title` varchar(32),
 	`url` varchar(64),
 	`active` int(1) NOT NULL DEFAULT 0,
-	PRIMARY KEY (`addon_id`,`title`)
+	PRIMARY KEY (`addon_name`,`title`)
 ) TYPE=MyISAM;

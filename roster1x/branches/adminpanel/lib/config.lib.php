@@ -68,12 +68,12 @@ class config
 
 		$menu = '<!-- Begin Config Menu -->'."\n".border('sgray','start','Config Menu')."\n".'<div style="width:145px;">'."\n".'  <ul id="tab_menu">'."\n";
 
-		foreach($this->conf_arrays as $type)
+		if (is_array($this->conf_arrays)) foreach($this->conf_arrays as $type)
 		{
 			$menu .= '    <li><a href="#" onclick="return expandcontent(\''.$type.'\',this)">'.$wordings[$roster_conf['roster_lang']]['admin'][$type].'</a></li>'."\n";
 		}
 		
-		foreach($this->db_values['menu'] as $values)
+		if (is_array($this->db_values['menu'])) foreach($this->db_values['menu'] as $values)
 		{
 			$menu_type = explode('{',$values['form_type']);
 			$URL = str_replace('%addon%',$_REQUEST['addon'],$values['value']);
@@ -111,10 +111,10 @@ class config
 	function buildConfigPage()
 	{
 		global $wordings, $roster_conf;
-
+		
 		// Build the page
 		$html = '';
-		foreach($this->conf_arrays as $type)
+		if (is_array($this->conf_arrays)) foreach($this->conf_arrays as $type)
 		{
 			$html .= "<div id=\"$type\" style=\"display:none;\">\n";
 			$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
@@ -123,7 +123,7 @@ class config
 			$html .= "</div>\n";
 		}
 		
-		foreach($this->db_values['menu'] as $values) 
+		if (is_array($this->db_values['menu'])) foreach($this->db_values['menu'] as $values) 
 		{
 			$type = explode('{',$values['form_type']);
 			$html .= '<div id="'.$values['name'].'" style="display:none;">'."\n";
@@ -138,11 +138,11 @@ class config
 				break;
 			case 'pagehide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= $this->buildPage($values['name'],$type[1]);
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
@@ -153,11 +153,11 @@ class config
 				break;
 			case 'blockhide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= $this->buildBlock($values['name'],$type[1]);
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
@@ -193,27 +193,29 @@ class config
 				break;
 			case 'pagehide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= $this->buildPage($values['name'],$type[1]);
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 			case 'blockframe':
 				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildBlock($values['name'],$type[1]);
+				$html .= $this->buildBlock($values['name']);
 				$html .= "</table>\n".border('sblue','end')."\n";
 				break;
 			case 'blockhide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= $this->buildBlock($values['name'],$type[1]);
+				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">'."\n";
+				$html .= $this->buildBlock($values['name']);
+				$html .= '</table>'."\n";
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 			default:

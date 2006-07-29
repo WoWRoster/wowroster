@@ -29,7 +29,7 @@
  * 
  ******************************/
  
-require_once(settings.php);
+require_once('settings.php');
 
 // ----[ Check log-in ]-------------------------------------
 $roster_login = new RosterLogin($script_filename);
