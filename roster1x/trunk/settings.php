@@ -29,6 +29,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 
 /**
+ * Begin Roster Timing
+ */
+$starttime = explode(' ', microtime() );
+$starttime = $starttime[1] + $starttime[0];
+
+
+
+/**
  * OS specific Directory Seperator
  */
 define('DIR_SEP',DIRECTORY_SEPARATOR);

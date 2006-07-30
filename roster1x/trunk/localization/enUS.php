@@ -76,7 +76,7 @@ $wordings['enUS']['update_instructpvp']='
 </ol>';
 
 $wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site.<br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
+WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
 
@@ -530,86 +530,8 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['PvPLogver_err']="The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minPvPLogver'].", and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua Saved Variables file prior to updating.";
 	$wordings['enUS']['GPver_err']="The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minGPver'];
 
-// Credit page
-$creditspage['enUS']['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
-<br />
-Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
-<br /><br />
-Special Thanks to the DEVs of Roster for helping to build and maintain the package
-<br /><br />';
 
-// This is an array of the dev team
-$creditspage['enUS']['devs'] = array(
-		'active'=>array(
-			array(	"name"=>	"AnthonyB",
-					"info"=>	"Site Admin\nWoW Roster Coordinator"),
-			array(	"name"=>	"Matt Miller",
-					"info"=>	"Gimpy DEV\nAuthor of UniAdmin and UniUploader"),
-			array(	"name"=>	"Calvin",
-					"info"=>	"Gimpy DEV\nAuthor of CharacterProfiler and GuildProfiler"),
-			array(	"name"=>	"Airor/Chris",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"mathos",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Nemm",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"nerk01",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Nostrademous",
-					"info"=>	"WoWRoster Dev\nPvPLog Author"),
-			array(	"name"=>	"peperone",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"RossiRat",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"seleleth",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"silencer-ch-au",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Sphinx",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"Swipe",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"vaccafoeda",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Vich",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"zanix",
-					"info"=>	"WoWRoster Dev\nSigGen Roster-Addon Author"),
-		),
 
-		'inactive'=>array(
-			array(	"name"=>	"dsrbo",
-					"info"=>	"Retired DEV\nRetired PvPLog Author"),
-			array(	"name"=>	"Guppy",
-					"info"=>	"Retired DEV"),
-			array(	"name"=>	"Mordon",
-					"info"=>	"Retired Dev"),
-		),
-
-		'beta'=>array(
-			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Beta Tester\nDragonflyCMS Port of Roster"),
-			array(	"name"=>	"Kieeps",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Thorus",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Zeryl",
-					"info"=>	"WoWRoster Beta Tester"),
-		),
-	);
-
-$creditspage['enUS']['bottom'] = '
-Thanks to Cybrey for the Orginal "Made By" addon and Thorus for his mod of this script.
-<br />
-Thanks to Cybrey for the Reputation addon.
-<br />
-Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
-<br />
-Thanks to all the coders who have contributed there codes in bug fixes and testing of the roster.
-<br /><br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>
-<br />
-World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.';
 
 
 
@@ -769,4 +691,81 @@ $wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
 
+
+
+// Credits page
+// Only defined here because we don't need to translate this for EVERY locale
+
+$creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
+<br />
+Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
+<br /><br />
+Special Thanks to the DEVs of Roster for helping to build and maintain the package
+<br /><br />
+Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
+<br />
+Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
+<br /><br />';
+
+// This is an array of the dev team
+$creditspage['devs'] = array(
+		'active'=>array(
+			array(	"name"=>	"AnthonyB",
+					"info"=>	"Site Admin\nWoWRoster Coordinator"),
+			array(	"name"=>	"Matt Miller",
+					"info"=>	"Gimpy DEV\nAuthor of UniAdmin and UniUploader"),
+			array(	"name"=>	"Calvin",
+					"info"=>	"Gimpy DEV\nAuthor of CharacterProfiler and GuildProfiler"),
+			array(	"name"=>	"Airor/Chris",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"mathos",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Nemm",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"nerk01",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Nostrademous",
+					"info"=>	"WoWRoster Dev\nPvPLog Author"),
+			array(	"name"=>	"peperone",
+					"info"=>	"WoWRoster Dev\nGerman Translator"),
+			array(	"name"=>	"PleegWat",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"RossiRat",
+					"info"=>	"WoWRoster Dev\nGerman Translator"),
+			array(	"name"=>	"seleleth",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"silencer-ch-au",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Sphinx",
+					"info"=>	"WoWRoster Dev\nGerman Translator"),
+			array(	"name"=>	"Swipe",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"vaccafoeda",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Vich",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"zanix",
+					"info"=>	"WoWRoster Dev\nSigGen Roster-Addon Author"),
+		),
+
+		'inactive'=>array(
+			array(	"name"=>	"dsrbo",
+					"info"=>	"Retired DEV\nRetired PvPLog Author"),
+			array(	"name"=>	"Guppy",
+					"info"=>	"Retired DEV"),
+			array(	"name"=>	"Mordon",
+					"info"=>	"Retired Dev"),
+		),
+
+		'beta'=>array(
+			array(	"name"=>	"Anaxent",
+					"info"=>	"WoWRoster Beta Tester\nDragonflyCMS Port of Roster"),
+			array(	"name"=>	"Kieeps",
+					"info"=>	"WoWRoster Beta Tester"),
+			array(	"name"=>	"Thorus",
+					"info"=>	"WoWRoster Beta Tester"),
+			array(	"name"=>	"Zeryl",
+					"info"=>	"WoWRoster Beta Tester"),
+		),
+	);
 ?>

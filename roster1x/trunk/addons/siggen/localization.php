@@ -13,7 +13,10 @@
 		// Example: $siggen_translate['deDE']['Nachtelf']='Night Elf';
 		// Example: $siggen_translate['enUS']['Night Elf']='Night Elf';
 
-
+$wordings['addoncredits']['SigGen'] = array(
+	array(	"name"=>	"Zanix",
+			"info"=>	"Signature and Avatar Generator"),
+);
 
 // ----[ Begin US English (enUS) ]--------------------------
 

@@ -214,13 +214,7 @@ function DateDataUpdated($updateTimeUTC)
 {
 	global $roster_conf, $phptimeformat;
 
-	$day = substr($updateTimeUTC,3,2);
-	$month = substr($updateTimeUTC,0,2);
-	$year = substr($updateTimeUTC,6,2);
-	$hour = substr($updateTimeUTC,9,2);
-	$minute = substr($updateTimeUTC,12,2);
-	$second = substr($updateTimeUTC,15,2);
-
+	list($month,$day,$year,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d/%d/%d %d:%d:%d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 
 	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);

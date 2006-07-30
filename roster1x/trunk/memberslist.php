@@ -535,12 +535,7 @@ function last_up_value ( $row )
 	{
 		$cell_value = $row['last_update'];
 
-		$day = substr($cell_value,3,2);
-		$month = substr($cell_value,0,2);
-		$year = substr($cell_value,6,2);
-		$hour = substr($cell_value,9,2);
-		$minute = substr($cell_value,12,2);
-		$second = substr($cell_value,15,2);
+		list($month,$day,$year,$hour,$minute,$second) = sscanf($cell_value,"%d/%d/%d %d:%d:%d");
 
 		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 		return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
