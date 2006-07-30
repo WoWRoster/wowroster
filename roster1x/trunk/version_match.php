@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ALL);	
 /******************************
  * WoWRoster.net  Roster
  * Copyright 2002-2006
@@ -16,7 +15,8 @@ error_reporting(E_ALL);
  * $Id$
  *
  ******************************/
- 
+error_reporting(E_ALL);
+
 // This file is for on the CVS only, so this should NOT be shipped to the clients!!!
 require_once 'lib/commonfunctions.lib.php';
 require_once 'lib/rosterdiag.lib.php';
@@ -32,8 +32,8 @@ if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 	$realpath_thisfile = realpath($thisfile);
 	$pathparts_thisfile = pathinfo($thisfile);
 	$realpathparts_thisfile = pathinfo($realpath_thisfile);
-	
-		
+
+
 	if (substr($_GET['getfile'], 0, 1) == '.')
 	{
 		$subpath_getfile = substr($pathparts_getfile['dirname'], 2);
@@ -74,7 +74,7 @@ if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 		{
 			print("<pre>[ERROR] FILE NOT READABLE: ".$filename." is not readable!</pre>\n");
 		}
-		
+
 	}
 	exit();
 }
@@ -92,7 +92,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	//$cvsremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the CVS temporarily changes.....Normally the value will come from the local (CVS) lib/rosterdiag.lib.php
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
 
-	
+
 	include_once 'lib/commonfunctions.lib.php';
 	include_once ('roster_header.tpl');
 	$temp_array = split("&", $_SERVER['QUERY_STRING']);
@@ -135,9 +135,9 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			$files[$directory][$file]['local']['versionMD5'] = $fdata['versionMD5'];
 		}
 	}
-	
+
 	VerifyVersions();
-	
+
 	// Make a post form for the download of a Zip Package
 	$zippackage_files = '';
 	foreach ($directories as $directory => $filecount)
@@ -160,7 +160,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			}
 		}
 	}
-	
+
 	if ($zippackage_files != '')
 	{
 		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
@@ -174,7 +174,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		echo '</form></div>';
 		echo border('spurple', 'end').'<br />';
 	}
-	
+
 	// Open the main FileVersion table in total color
 //	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>CVS @ '.str_replace("version_match.php", "", $cvsremote).'</i></span>');
 	// Open the main FileVersion table in total color
@@ -307,7 +307,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		}
 	}
 	echo border('sgray', 'end');
-			
+
 	echo '<!-- Begin Roster Footer -->';
 	echo '</div><!-- End roster main area -->';
 	echo '</div><!-- End main border -->';
@@ -316,7 +316,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 	exit();
 }
-elseif (isset($_POST['filestoget']) && isset($_POST['ziptype'])) 
+elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 {
 
 	$roster_conf['guild_name'] = $_POST['guildname'];
@@ -332,7 +332,7 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 	$filesarray = explode(";", $_POST['filestoget']);
 	$ziptype = $_POST['ziptype']; // targz  or  zip
 	$errors = '';
-	
+
 	if ($ziptype == 'targz')
 	{
 		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.$roster_conf['guild_name'].'_'.date("Ymd_Hi").'.tar.gz');
@@ -343,23 +343,23 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 	}
 
 	$downloadpackage->set_options(array('inmemory' => 1, 'recurse' => 0, 'storepaths' => 1));
-		
+
 	foreach($filesarray as $file)
 	{
 		$getfile = $file;
-				
+
 		$pathparts_getfile = pathinfo($getfile);
 		$realpath_getfile = realpath($pathparts_getfile['dirname']);
 		$realpathparts_getfile = pathinfo($realpath_getfile);
-	
+
 		$thisfile = $_SERVER["SCRIPT_FILENAME"];
 		$realpath_thisfile = realpath($thisfile);
 		$pathparts_thisfile = pathinfo($thisfile);
 		$realpathparts_thisfile = pathinfo($realpath_thisfile);
 
 //		echo $file.', '.$thisfile.', '.		$realpath_thisfile.', '.		$realpathparts_getfile['dirname'].', '.		$realpathparts_thisfile.'<br />';
-		
-			
+
+
 		if (substr($getfile, 0, 1) == '.')
 		{
 			$subpath_getfile = substr($pathparts_getfile['dirname'], 2);
@@ -368,7 +368,7 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 		{
 			$subpath_getfile = $pathparts_getfile['dirname'];
 		}
-	
+
 		if (!checkfile($pathparts_getfile, $realpath_getfile, $realpathparts_thisfile['dirname'].'/'.$subpath_getfile))
 		{
 			$errors .= "[ERROR] INVALID FILE: ".$getfile.", Operation NOT Allowed!!!<br />";
@@ -413,12 +413,12 @@ else
 
 // Check the file requested function
 function checkfile()
-{	
+{
 	global $extensions, $getfile, $pathparts_getfile, $realpath_getfile, $realpathparts_getfile, $thisfile, $realpath_thisfile, $pathparts_thisfile, $realpathparts_thisfile, $subpath_getfile;
 
 	$returnvalue = 0;
 	$unwanted = 0;
-	
+
 	if (!strcmp($realpath_getfile, $realpath_thisfile.'/'.$subpath_getfile))
 	{
 		$unwanted = 1;
@@ -431,7 +431,7 @@ function checkfile()
 	{
 		$unwanted = 1;
 	}
-	
+
 	if ($unwanted)
 	{
 		$returnvalue = 0;
@@ -445,7 +445,7 @@ function checkfile()
 				$returnvalue = 1;
 			}
 		}
-	}					
+	}
 	return $returnvalue;
 }
 
@@ -453,7 +453,7 @@ function checkfile()
 
 /*
 	class: archive:
-	
+
  Examples of Compression:
 
 The following example creates a gzipped tar file:
@@ -478,7 +478,7 @@ The following example creates a gzipped tar file:
 The following example creates a zip file:
 // Create new zip file in the directory below the current one
 	$test = new zip_file("../example.zip");
-// All files added will be relative to the directory in which the script is 
+// All files added will be relative to the directory in which the script is
 //    executing since no basedir is set.
 // Create archive in memory
 // Do not recurse through subdirectories
@@ -515,7 +515,7 @@ The following example extracts a tar file:
 // Write out the name and size of each file extracted
 	foreach ($test->files as $file)
 		print ("File " + $file['name'] + " is " + $file['stat'][7] + " bytes\n");
-	
+
 */
 
 class archive
@@ -854,10 +854,10 @@ class tar_file extends archive
 					continue;
 				}
 			}
-			$block = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12", $current['name2'], sprintf("%07o", 
-				$current['stat'][2]), sprintf("%07o", $current['stat'][4]), sprintf("%07o", $current['stat'][5]), 
-				sprintf("%011o", $current['type'] == 2 ? 0 : $current['stat'][7]), sprintf("%011o", $current['stat'][9]), 
-				"        ", $current['type'], $current['type'] == 2 ? @readlink($current['name']) : "", "ustar ", " ", 
+			$block = pack("a100a8a8a8a12a12a8a1a100a6a2a32a32a8a8a155a12", $current['name2'], sprintf("%07o",
+				$current['stat'][2]), sprintf("%07o", $current['stat'][4]), sprintf("%07o", $current['stat'][5]),
+				sprintf("%011o", $current['type'] == 2 ? 0 : $current['stat'][7]), sprintf("%011o", $current['stat'][9]),
+				"        ", $current['type'], $current['type'] == 2 ? @readlink($current['name']) : "", "ustar ", " ",
 				"Unknown", "Unknown", "", "", !empty ($path) ? $path : "", "");
 
 			$checksum = 0;
@@ -1173,5 +1173,5 @@ class zip_file extends archive
 		return 1;
 	}
 }
-	
+
 ?>
