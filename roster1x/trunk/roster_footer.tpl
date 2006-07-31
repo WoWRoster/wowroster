@@ -35,7 +35,13 @@ $totaltime = ($endtime - $starttime);
 <a href="http://validator.w3.org/check?uri=referer" target="_blank">
     <img src="<?php print $roster_conf['roster_dir']; ?>/img/valid-html40.gif" alt="Valid HTML 4.0 Transitional" height="15" width="119"></a>
   <br /><br />
-  <small>This page was created in <?php echo $totaltime; ?> seconds with <?php echo count($wowdb->sqlstrings); ?> queries executed</small>
+
+<?php
+if( $roster_conf['processtime'] )
+{
+	print '  <small>This page was created in '.$totaltime.' seconds with '.count($wowdb->sqlstrings).' queries executed</small>';
+}
+?>
 
 </div>
 </body>

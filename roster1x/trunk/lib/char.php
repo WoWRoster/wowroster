@@ -67,18 +67,23 @@ class char
 
 			if( isset( $pvps[0] ) )
 			{
-			    if ($type == 'PvP')
-			    {
-					$returnstring .= output_pvplog($this->data['member_id']);
-			    }
-			    elseif ($type == 'BG')
-			    {
-					$returnstring .= output_bglog($this->data['member_id']);
-			    }
-			    else
-			    {
-					$returnstring .= output_duellog($this->data['member_id']);
-			    }
+				switch ($type)
+				{
+					case 'BG':
+						$returnstring .= output_bglog($this->data['member_id']);
+						break;
+
+					case 'PvP':
+						$returnstring .= output_pvplog($this->data['member_id']);
+						break;
+
+					case 'Duel':
+						$returnstring .= output_duellog($this->data['member_id']);
+						break;
+
+					default:
+						break;
+				}
 			}
 
 			$returnstring .= '<br />';

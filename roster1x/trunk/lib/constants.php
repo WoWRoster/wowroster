@@ -29,6 +29,7 @@ define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
 define('ROSTER_CONFIGTABLE',$db_prefix.'config');
 define('ROSTER_ITEMSTABLE',$db_prefix.'items');
 define('ROSTER_MAILBOXTABLE',$db_prefix.'mailbox');
+define('ROSTER_MEMBERLOGTABLE',$db_prefix.'memberlog');
 define('ROSTER_MEMBERSTABLE',$db_prefix.'members');
 define('ROSTER_PETSTABLE',$db_prefix.'pets');
 define('ROSTER_PLAYERSTABLE',$db_prefix.'players');

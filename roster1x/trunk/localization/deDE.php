@@ -154,9 +154,10 @@ $wordings['deDE']['hearthed']='Ruhestein';
 $wordings['deDE']['recipes']='Rezepte';
 $wordings['deDE']['bags']='Taschen';
 $wordings['deDE']['character']='Charakter';
-$wordings['deDE']['bglog']='Bg &Uuml;bersicht';
+$wordings['deDE']['bglog']='BG &Uuml;bersicht';
 $wordings['deDE']['pvplog']='PvP &Uuml;bersicht';
 $wordings['deDE']['duellog']='Duell &Uuml;bersicht';
+$wordings['deDE']['duelsummary']='Duell Summary';
 $wordings['deDE']['money']='Money';
 $wordings['deDE']['bank']='Bank';
 $wordings['deDE']['guildbank']='Gildenbank';
@@ -644,6 +645,7 @@ $wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|The full URL to the
 $wordings['deDE']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['deDE']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['deDE']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
+$wordings['deDE']['admin']['processtime'] = "Page Gen. Time/DB Queries|Display &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; in the footer of roster";
 
 // data_links
 $wordings['deDE']['admin']['questlink_1'] = "Quest Link #1|Item external links<br>Look in your localization-file(s) for link configuration";
@@ -684,7 +686,7 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Allow Access to Update|Controlls access to update<br><br>Turn this off when phpBB access control is configured";
+$wordings['deDE']['admin']['authenticated_user'] = "Allow Access to Update|Controls access to update<br><br>Turn this off when phpBB access control is configured";
 $wordings['deDE']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
 $wordings['deDE']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
 
