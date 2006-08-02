@@ -686,9 +686,10 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Suchtext|Text um den Ban
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Erlaube Zugriff zum Aktualisieren|Kontrolliert den Zugriff auf die Aktualisierung<br><br>Schalte dies aus, wenn die Zugriffskontrolle über phpBB laufen soll";
+$wordings['deDE']['admin']['authenticated_user'] = "Use phpBB update auth|Controls access to profile update<br><br>Turn this <b>on</b> to activate phpBB update access, then configure below";
 $wordings['deDE']['admin']['phpbb_root_path'] = "Pfad zu phpBB|Gib hier an, wo du phpBB installiert hast<br>Der Pfad <u>muß</u> relativ zur Roster-Installation sein";
-$wordings['deDE']['admin']['upload_group'] = "Nutzergruppen Aktualisierungszugriff|Setze hier die Nutzergruppen-IDs, die aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 3, 4, 44 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot; group_id&quot;";
+$wordings['deDE']['admin']['upload_group'] = "Nutzergruppen Aktualisierungszugriff|Setze hier die Nutzergruppen-IDs, die aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 3, 4, 44 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
+$wordings['enUS']['admin']['phpbb_group_admin'] = "Usergroup Access to Guild update|Set the user group id's that have access to update guild data separated by a comma<br>( Bsp.: 1, 12, 56 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';

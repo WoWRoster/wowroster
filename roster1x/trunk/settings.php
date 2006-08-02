@@ -32,7 +32,7 @@ error_reporting(E_ALL ^ E_NOTICE);
  * Begin Roster Timing
  */
 $starttime = explode(' ', microtime() );
-$starttime = $starttime[1] + $starttime[0];
+define('ROSTER_STARTTIME',$starttime[1] + $starttime[0]);
 
 
 

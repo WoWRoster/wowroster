@@ -33,7 +33,7 @@ $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
 $wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
 
-$wordings['enUS']['update_page']='Update';
+$wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
 $wordings['enUS']['guild_nameNotFound']='Could not update &quot;*GUILDNAME*&quot;. Maybe its not set in configuration?';
 $wordings['enUS']['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
@@ -686,9 +686,10 @@ $wordings['enUS']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['enUS']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['enUS']['admin']['authenticated_user'] = "Allow Access to Update|Controls access to update<br><br>Turn this off when phpBB access control is configured";
+$wordings['enUS']['admin']['authenticated_user'] = "Use phpBB update auth|Controls access to profile update<br><br>Turn this <b>on</b> to activate phpBB update access, then configure below";
 $wordings['enUS']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
-$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
+$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot;group_id&quot;";
+$wordings['enUS']['admin']['phpbb_group_admin'] = "Usergroup Access to Guild update|Set the user group id's that have access to update guild data separated by a comma<br>( EX: 1, 12, 56 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot;group_id&quot;";
 
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';

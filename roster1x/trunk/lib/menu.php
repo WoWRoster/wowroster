@@ -256,6 +256,7 @@ function makeAddonList()
 			$menufile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'menu.php';
 			if (file_exists($menufile))
 			{
+				$addonDir = ROSTER_BASE.'addons'.DIR_SEP.$addon.DIR_SEP;
 				$localizationFile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'localization.php';
 				if (file_exists($localizationFile))
 				{

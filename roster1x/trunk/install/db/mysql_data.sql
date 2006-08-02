@@ -150,6 +150,7 @@ INSERT INTO `renprefix_config` VALUES (9030, 'banker_fieldname', 'note', 'select
 # --------------------------------------------------------
 ### Update Access
 
-INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{on^1|off^0', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{off^1|on^0', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10010, 'phpbb_root_path', '../phpbb/', 'text{128|30', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10020, 'upload_group', '3, 4, 44', 'text{128|30', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', 'text{128|30', 'update_access');
