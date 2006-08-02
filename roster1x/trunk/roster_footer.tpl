@@ -21,7 +21,7 @@ $wowdb->closeDb();
 
 $endtime = explode(' ', microtime() );
 $endtime = $endtime[1] + $endtime[0];
-$totaltime = ($endtime - ROSTER_STARTTIME);
+$totaltime = round($endtime - ROSTER_STARTTIME, 2);
 
 ?>
 
