@@ -106,7 +106,7 @@ $inst_keys['deDE']['A'] = array(
 		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein von Spirestone|5379','Edelstein von Smolderthorn|16095','Edelstein von Bloodaxe|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
+		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
 		'Onyxia' => array('Quests','Onyxia' => 'Drachenfeueramulett|4829','Drachkin-Bedrohung|','Die wahren Meister|','Marshal Windsor|','Verlorene Hoffnung|','Eine zusammengeknüllte Notiz|','Ein Funken Hoffnung|','Gefängnisausbruch!|','Treffen in Stormwind|','Die große Maskerade|','Das Großdrachenauge|','Drachenfeuer-Amulett|'),
 		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
 	);
@@ -118,11 +118,11 @@ $inst_keys['deDE']['H'] = array(
 		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
 		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Shadowforge-Schlüssel|2966','Ironfel|9673'),
+		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
 		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein von Spirestone|5379','Edelstein von Smolderthorn|16095','Edelstein von Bloodaxe|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
+		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein von der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
 		'Onyxia' => array('Quests', 'Onyxia' => 'Drachenfeueramulett|4829','Befehl des Kriegsherrn|','Eitriggs Weisheit|','Für die Horde!|','Was der Wind erzählt|','Der Champion der Horde|','Nachricht von Rexxar|','Oculus-Illusionen|','Emberstrife|','Die Prüfung der Schädel, Scryer|','Die Prüfung der Schädel, Somnus|','Die Prüfung der Schädel, Chronalis|','Die Prüfung der Schädel, Axtroz|','Aufstieg...|','Blut des schwarzen Großdrachen-Helden|'),
 		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
 	);
@@ -686,10 +686,10 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Suchtext|Text um den Ban
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Use phpBB update auth|Controls access to profile update<br><br>Turn this <b>on</b> to activate phpBB update access, then configure below";
+$wordings['deDE']['admin']['authenticated_user'] = "Benutze phpBB zur Benutzerauthentifikation|Benutzt phpBB zur Zugriffskontrolle<br><br>Schalte auf <b>on</b> um den Zugriff auf phpBB zu aktivieren, und stelle die benötigten Daten weiter unten korrekt ein";
 $wordings['deDE']['admin']['phpbb_root_path'] = "Pfad zu phpBB|Gib hier an, wo du phpBB installiert hast<br>Der Pfad <u>muß</u> relativ zur Roster-Installation sein";
-$wordings['deDE']['admin']['upload_group'] = "Nutzergruppen Aktualisierungszugriff|Setze hier die Nutzergruppen-IDs, die aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 3, 4, 44 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
-$wordings['enUS']['admin']['phpbb_group_admin'] = "Usergroup Access to Guild update|Set the user group id's that have access to update guild data separated by a comma<br>( Bsp.: 1, 12, 56 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
+$wordings['deDE']['admin']['upload_group'] = "Nutzergruppen Profilaktualisierung|Setze hier die Nutzergruppen-IDs, die ihr Profil aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 3, 4, 44 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
+$wordings['deDE']['admin']['phpbb_group_admin'] = "Nutzergruppen Gildenaktualisierung|Setze hier die Nutzergruppen-IDs, die die Gilde aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 1, 12, 56 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
