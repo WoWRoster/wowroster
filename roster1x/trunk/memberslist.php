@@ -398,18 +398,16 @@ print($tableFooter);
 // Print the update instructions
 if( $roster_conf['index_update_inst'] )
 {
-	print '<br />
-<div align="center" style="font-size:10px;">
-<a name="update"></a>';
+	print "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$wordings[$roster_conf['roster_lang']]['update_instructions']);
-	echo $wordings[$roster_conf['roster_lang']]['update_instruct'];
+	echo '<div align="left" style="font-size:10px;">'.$wordings[$roster_conf['roster_lang']]['update_instruct'];
 
 	if ($roster_conf['pvp_log_allow'] == 1)
+	{
 		echo $wordings[$roster_conf['roster_lang']]['update_instructpvp'];
-	echo border('sgray','end');
-
-	print '</div>';
+	}
+	echo '</div>'.border('sgray','end');
 }
 
 
@@ -441,7 +439,7 @@ function name_value ( $row )
 		}
 
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
-		$tooltip_h = str_replace($tooltip_find, $tooltip_rep, $tooltip_h);
+		$tooltip_h = preg_replace($prg_find, $prg_rep, $tooltip_h);
 
 		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
 
