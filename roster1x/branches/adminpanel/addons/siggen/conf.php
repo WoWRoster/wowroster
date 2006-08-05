@@ -8,7 +8,6 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 	die("You can't access this file directly!");
 }
 
-error_reporting(E_ALL);
 
 //------[ Show the SQL Queries Window? ]------------
 	// This controls the display of the SQL Queries window in the SigGen config page

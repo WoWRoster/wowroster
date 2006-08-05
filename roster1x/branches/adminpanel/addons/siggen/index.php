@@ -432,7 +432,7 @@ if( !empty($messages) )
 
 
 // ----[ Render the entire page ]---------------------------
-print $java.
+print
 '<br />'.
 '<span class="title_text">SigGen Config</span><br />'.
 $roster_login->getMessage().'<br />'.
@@ -457,7 +457,7 @@ $messages.'
       '.$body.'
     </td>
   </tr>
-</table><br />'.$sqldebug;
+</table><br />'.$sqldebug.$java;
 
 // ----[ Output to addon.php ]------------------------------
 
@@ -494,7 +494,7 @@ function errorMode($message,$text=null)
 		$java = ob_get_contents();
 		ob_end_clean();
 
-		return $java.'<br />'.$message.'<br />'.$sql;
+		return '<br />'.$message.'<br />'.$sql.$java;
 	}
 	else
 	{
