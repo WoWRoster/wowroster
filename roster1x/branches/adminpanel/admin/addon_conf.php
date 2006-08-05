@@ -21,11 +21,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
-
 // ----[ Get addon record ]---------------------------------
 $query = 'SELECT * FROM '.$wowdb->table('addon').' WHERE `dbname` = "'.$_GET['addon'].'"';
 $result = $wowdb->query($query) or die_quietly('Could not fetch addon record for '.$_GET['addon'],'Roster Admin Panel',__LINE__,__FILE__,$query);
@@ -56,9 +51,7 @@ $menu .= $config->buildConfigMenu();
 
 $html = $config->buildConfigPage();
 
-$jscript = $config->writeJScript();
-
-$body = $jscript.$config->form_start.$config->submit_button.$html.$config->form_end;
+$body = $config->form_start.$config->submit_button.$html.$config->form_end.$config->jscript;
 
 function profilebox() {
 	global $wowdb;

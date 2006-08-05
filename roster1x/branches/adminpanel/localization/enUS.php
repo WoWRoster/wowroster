@@ -630,6 +630,9 @@ $wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank';
 $wordings['enUS']['admin']['data_links'] = 'Item/Quest Data Links';
 $wordings['enUS']['admin']['update_access'] = 'Update Access';
 
+$wordings['enUS']['admin']['rosterdiag'] = 'Roster Diag';
+$wordings['enUS']['admin']['documentation'] = 'Documentation';
+
 
 // All strings here
 // Each variable must be the same name as the config variable name

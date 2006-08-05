@@ -80,7 +80,7 @@ include(ROSTER_BASE.'admin/pagebar.php');
 // ----[ Render the page ]----------------------------------
 include_once( ROSTER_BASE.'roster_header.tpl' );
 include_once( ROSTER_LIB.'menu.php' );
-echo '<table><tr><td valign="top" align="left">'.
+echo '<table width="100%"><tr><td valign="top" align="left">'.
 	$menu.
 	'</td><td valign="top" align="center">'.
 	$body.

@@ -55,7 +55,7 @@ case 'install':
 		break;
 	}
 	$success = $addon->install();
-	$installer->sql[] = 'INSERT INTO `'.$db_prefix.'addon` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.(int)$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
+	$installer->sql[] = 'INSERT INTO `'.$db_prefix.'addon` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
 	break;
 case 'upgrade':
 	if (!$previous) {
@@ -68,7 +68,7 @@ case 'upgrade':
 		$installer->errors[] = $addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.';
 		break;
 	}
-	$installer->sql[] = 'UPDATE `'.$db_prefix.'addon` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.(int)$addata['hasconfig'].', `hastrigger`='.(int)$addata['hastrigger'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
+	$installer->sql[] = 'UPDATE `'.$db_prefix.'addon` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `hastrigger`='.(int)$addata['hastrigger'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
 	break;
 case 'uninstall':
 	if (!$previous) {

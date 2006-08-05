@@ -13,6 +13,22 @@ INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|m
 INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
 INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '3', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.1', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
+
+# --------------------------------------------------------
+### Menu Entries
+INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (210, 'rosterdiag', '%roster%/rosterdiag.php', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (220, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config

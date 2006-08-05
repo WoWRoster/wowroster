@@ -24,7 +24,8 @@ var $active
 var $hastriggers
 	Boolean, set to true if your addon has a trigger file
 var $hasconfig
-	Boolean, set to true if your addon has configuration via the admin panel
+	String, set to the profile name that holds the default config page, or
+	leave empty for no configuration.
 var $profiles
 	Array, values are strings, default config profiles to install. Each
 	profile has its own set of tables.

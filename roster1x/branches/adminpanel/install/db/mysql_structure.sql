@@ -448,7 +448,7 @@ CREATE TABLE `renprefix_addon` (
 	`basename` varchar(16) NOT NULL DEFAULT '',
 	`dbname` varchar(16) NOT NULL DEFAULT '',
 	`version` varchar(16) NOT NULL DEFAULT '0',
-	`hasconfig` int(1) NOT NULL DEFAULT 0,
+	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
 	`hastrigger` int(1) NOT NULL DEFAULT 0,
 	`active` int(1) NOT NULL DEFAULT 1,
 	PRIMARY KEY (`addon_id`)

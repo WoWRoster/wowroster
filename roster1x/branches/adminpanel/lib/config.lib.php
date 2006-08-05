@@ -26,7 +26,7 @@ class config
 	var $form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"submitonce(this)\">\n";
 	var $submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" />\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 	var $form_end = "</form>\n";
-
+	var $jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
 	
 	/**
 	 * Constructor. We define the config table to work with here.
@@ -37,26 +37,6 @@ class config
 	}
 	
 	/**
-	 * Build the JScript call to select the initial page
-	 *
-	 * @return string $JScript | HTML code for JScript to open default page
-	 */
-
-	function writeJScript()
-	{
-		$JScript = '<script type="text/javascript" language="JavaScript">
-		<!--
-			//Set tab to intially be selected when page loads:
-			//[which tab (1=first tab), ID of tab content to display]:
-			var initialtab=['.$this->db_values['master']['startpage']['value'].', \''.$this->conf_arrays[$this->db_values['master']['startpage']['value']-1].'\'];
-			window.onload=do_onload;
-			window.onunload=savetabstate;
-		//-->
-		</script>';
-		return $JScript;
-	}
-
-	/**
 	 * Build the config page menu
 	 *
 	 * @return string $menu | HTML code for menu/linklist.
@@ -66,17 +46,12 @@ class config
 	{
 		global $wordings, $roster_conf;
 
-		$menu = '<!-- Begin Config Menu -->'."\n".border('sgray','start','Config Menu')."\n".'<div style="width:145px;">'."\n".'  <ul id="tab_menu">'."\n";
+		$menu = '<!-- Begin Config Menu -->'."\n".border('sgray','start','Config Menu')."\n".'<div style="width:145px;">'."\n".'  <ul id="config_tabs" class="tab_menu">'."\n";
 
-		if (is_array($this->conf_arrays)) foreach($this->conf_arrays as $type)
-		{
-			$menu .= '    <li><a href="#" onclick="return expandcontent(\''.$type.'\',this)">'.$wordings[$roster_conf['roster_lang']]['admin'][$type].'</a></li>'."\n";
-		}
-		
 		if (is_array($this->db_values['menu'])) foreach($this->db_values['menu'] as $values)
 		{
 			$menu_type = explode('{',$values['form_type']);
-			$URL = str_replace('%addon%',$_REQUEST['addon'],$values['value']);
+			$URL = str_replace(array('%addon%','%roster%'),array($_REQUEST['addon'],ROSTER_URL),$values['value']);
 			
 			switch ($menu_type[0])
 			{
@@ -92,7 +67,7 @@ class config
 				case 'pagehide':
 				case 'blockframe':
 				case 'blockhide':
-					$menu .= '    <li><a href="#" onclick="return expandcontent(\''.$values['name'].'\',this)">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+					$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value'])?' class="selected"':'').'><a href="#" rel="'.$values['name'].'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 					break;
 				default:
 					break;
@@ -114,14 +89,6 @@ class config
 		
 		// Build the page
 		$html = '';
-		if (is_array($this->conf_arrays)) foreach($this->conf_arrays as $type)
-		{
-			$html .= "<div id=\"$type\" style=\"display:none;\">\n";
-			$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-			$html .= $this->buildBlock($type);
-			$html .= "</table>\n".border('sblue','end')."\n";
-			$html .= "</div>\n";
-		}
 		
 		if (is_array($this->db_values['menu'])) foreach($this->db_values['menu'] as $values) 
 		{
@@ -132,9 +99,11 @@ class config
 				$html .= $this->buildPage($values['name'],$type[1]);
 				break;
 			case 'pageframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n";
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildPage($values['name'],$type[1]);
-				$html .= "</table>\n".border('sblue','end')."\n";
+				$html .= "</table>\n";
+				$html .= border('sblue','end')."\n";
 				break;
 			case 'pagehide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
@@ -143,13 +112,17 @@ class config
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
 				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildPage($values['name'],$type[1]);
+				$html .= "</table>\n";
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 			case 'blockframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n";
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildBlock($values['name'],$type[1]);
-				$html .= "</table>\n".border('sblue','end')."\n";
+				$html .= "</table>\n";
+				$html .= border('sblue','end')."\n";
 				break;
 			case 'blockhide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
@@ -158,7 +131,9 @@ class config
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
 				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildBlock($values['name'],$type[1]);
+				$html .= "</table>\n";
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 			default:
@@ -188,8 +163,10 @@ class config
 				break;
 			case 'pageframe':
 				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildPage($values['name'],$type[1]);
-				$html .= "</table>\n".border('sblue','end')."\n";
+				$html .= "</table>\n";
+				$html .= border('sblue','end');
 				break;
 			case 'pagehide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
@@ -198,13 +175,17 @@ class config
 				$html .= '</div>'."\n";
 				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
 				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildPage($values['name'],$type[1]);
+				$html .= "</table>\n";
 				$html .= border('sblue','end');
 				$html .= '</div>'."\n";
 			case 'blockframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n";
+				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 				$html .= $this->buildBlock($values['name']);
-				$html .= "</table>\n".border('sblue','end')."\n";
+				$html .= "</table>\n";
+				$html .= border('sblue','end')."\n";
 				break;
 			case 'blockhide':
 				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
