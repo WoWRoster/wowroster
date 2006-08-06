@@ -207,7 +207,13 @@ foreach($localeFiles as $file)
 	}
 }
 
+/**
+ * Assign by reference of the active locale's wordings to a variable with a
+ * shorter name. This way the short var will also update if the full wordings
+ * array gets updated.
+ */
 
+$act_words = &$wordings[$roster_conf['roster_lang']];
 
 /**
  * If the version doesnt match the one in constants, redirect to upgrader

@@ -45,7 +45,7 @@ $save_message = $config->processData();
 $config->getConfigData();
 
 // ----[ Build profile select box ]-------------------------
-$menu  = border('sblue','start','Select profile')."\n";
+$menu  = border('sblue','start',$act_words['profileselect'])."\n";
 $menu .= profilebox();
 $menu .= border('sblue','end')."\n";
 $menu .= '<br />'."\n";
@@ -86,7 +86,7 @@ function profilebox()
 	$menu .= '</select>'."\n";
 	$menu .= '<input type="hidden" name="page" value="addon">';
 	$menu .= '<input type="hidden" name="addon" value="'.$_GET['addon'].'">';
-	$menu .= '<input type="submit" value="Go">';
+	$menu .= '<input type="submit" value="'.$act_words['go'].'">';
 	$menu .= '</form>'."\n";
 
 	return $menu;

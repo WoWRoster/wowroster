@@ -21,11 +21,11 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$pagebar  = border('sgray','start','Function')."\n";
+$pagebar  = border('sgray','start',$act_words['pagebar_function'])."\n";
 $pagebar .= '<ul class="tab_menu">'."\n";
-$pagebar .= '<li><a href="?page=roster">Roster Configuration</a></li>'."\n";
-$pagebar .= '<li><a href="?page=character">Per-Character Preferences</a></li>'."\n";
-$pagebar .= '<li><a href="?page=install">Addon Installation Screen</a></li>'."\n";
+$pagebar .= '<li><a href="?page=roster">'.$act_words['pagebar_rosterconf'].'</a></li>'."\n";
+$pagebar .= '<li><a href="?page=character">'.$act_words['pagebar_charpref'].'</a></li>'."\n";
+$pagebar .= '<li><a href="?page=install">'.$act_words['pagebar_addoninst'].'</a></li>'."\n";
 $pagebar .= '</ul>'."\n";
 $pagebar .= border('sgray','end')."\n";
 $pagebar .= "<br />\n";
@@ -39,7 +39,7 @@ if( !$result )
 
 if ($wowdb->num_rows($result))
 {
-	$pagebar .= border('sgray','start','Per-Addon config')."\n";
+	$pagebar .= border('sgray','start',$act_words['pagebar_addonconf'])."\n";
 	$pagebar .= '<ul class="tab_menu">'."\n";
 	while($row = $wowdb->fetch_assoc($result))
 	{

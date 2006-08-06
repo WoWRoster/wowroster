@@ -533,12 +533,43 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 
 
 
+// Addon installer strings
+$wordings['enUS']['installer_install'] = 'Installation';
+$wordings['enUS']['installer_uninstall'] = 'Uninstallation';
+$wordings['enUS']['installer_upgrade'] = 'Upgrade';
+$wordings['enUS']['installer_purge'] = 'Purge';
 
+$wordings['enUS']['installer_success0'] = 'Successful';
+$wordings['enUS']['installer_success1'] = 'Failed but rollback successful';
+$wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
 
 
 /******************************
  * Roster Admin Strings
  ******************************/
+
+// AdminPanel interface wordings
+$wordings['enUS']['profileselect'] = 'Select Profile';
+$wordings['enUS']['profilego'] = 'Go';
+
+$wordings['enUS']['pagebar_function'] = 'Function';
+$wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
+$wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
+$wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
+$wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
+
+// All strings here
+// Each variable must be the same name as the config variable name
+// Example:
+//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
+
+// Each string is separated by a pipe ( | )
+// The first part is the short description, the next part is the tooltip
+// Use <br> to make new lines!
+// Example:
+//   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br>Use with care"
+
 
 // Main Menu words
 $wordings['enUS']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
@@ -554,20 +585,6 @@ $wordings['enUS']['admin']['update_access'] = 'Update Access|Optional phpBB auth
 
 $wordings['enUS']['admin']['rosterdiag'] = 'Roster Diag|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
 $wordings['enUS']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
-
-
-// All strings here
-// Each variable must be the same name as the config variable name
-// Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
-//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
-
-// Each string is separated by a pipe ( | )
-// The first part is the short description, the next part is the tooltip
-// Use <br> to make new lines!
-// Example:
-//   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br>Use with care"
-
 
 // main_conf
 $wordings['enUS']['admin']['roster_upd_pw'] = "Roster Update Password|This is a password to allow guild updates on the update page<br>Some addons may also use this password";

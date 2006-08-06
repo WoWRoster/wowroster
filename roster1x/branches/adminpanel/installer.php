@@ -118,24 +118,10 @@ if (!success)
 else
 {
 	$success = $installer->install();
-	switch ($success)
-	{
-		case 0:
-			$installer->messages[] = '<p>Installation successful</p>';
-			break;
-
-		case 1:
-			$installer->messages[] = '<p>Installation failed, but rollback was successful</p>';
-			break;
-
-		case 2:
-			$installer->messages[] = '<p>Installation failed, rollback also failed. Purge and reinstall is probably the easiest way</p>';
-			break;
-
-		default:
-			$installer->messages[] = '<p>Installation result unknown</p>';
-			break;
-	}
+	$message = '<p>'.$wordings[$roster_conf['roster_lang']]['installer_'.$_GET['type']];
+	$message .= $wordings[$roster_conf['roster_lang']]['Installer_success'.$success];
+	$message .= '</p>';
+	$installer->messages[] = $message;
 }
 
 $errorstringout = $installer->geterrors();

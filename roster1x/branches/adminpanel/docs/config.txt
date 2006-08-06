@@ -1,3 +1,4 @@
+$Id$
 This is the current functionality of the config class. The library works, but
 there's no frontend yet...
 There are two classes of form types: Option blocks for layout, and the actual

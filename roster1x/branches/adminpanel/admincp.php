@@ -42,7 +42,7 @@ if( !$roster_login->getAuthorized() )
 	include_once (ROSTER_LIB.'menu.php');
 
 	print
-	'<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['roster_config'].'</span><br />'.
+	'<span class="title_text">'.$act_words['roster_config'].'</span><br />'.
 	$roster_login->getMessage().
 	$roster_login->getLoginForm();
 
