@@ -95,15 +95,17 @@ $menu = '
 <!-- Begin Config Menu -->
 '.border('sgray','start','Config Menu').'
 <div style="width:145px;">
-  <ul id="tab_menu">'."\n";
+  <ul id="admin_menu" class=tab_menu">'."\n";
 
+$first_tab = ' class="selected"';
 foreach($conf_arrays as $type)
 {
-	$menu .= '    <li><a href="#" onclick="return expandcontent(\''.$type.'\',this)">'.$wordings[$roster_conf['roster_lang']]['admin'][$type].'</a></li>'."\n";
+	$menu .= '    <li'.$first_tab.'><a href="#" rel="'.$type.'">'.$wordings[$roster_conf['roster_lang']]['admin'][$type].'</a></li>'."\n";
+	$first_tab = '';
 }
 
 $menu .='
-	<li><a href="#" onclick="return expandcontent(\'char_disp\',this)">'.$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'].'</a></li>
+	<li><a href="#" rel="char_disp">'.$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'].'</a></li>
 	<li><a href="'.$roster_conf['roster_dir'].'/rosterdiag.php" target="_blank">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
     <li><a href="http://www.wowroster.net/wiki" target="_blank">Documentation</a></li>
   </ul>
@@ -266,15 +268,7 @@ include_once( ROSTER_LIB.'menu.php' );
 
 // ----[ Render the entire page ]---------------------------
 print
-'<script type="text/javascript" language="JavaScript">
-<!--
-	//Set tab to intially be selected when page loads:
-	//[which tab (1=first tab), ID of tab content to display]:
-	var initialtab=[1, \'main_conf\'];
-	window.onload=do_onload;
-	window.onunload=savetabstate;
-//-->
-</script>
+'
 <span class="title_text">'.$wordings[$roster_conf['roster_lang']]['roster_config'].'</span><br />'.
 $roster_login->getMessage().
 $roster_diag_message.
@@ -315,7 +309,12 @@ $roster_diag_message.
 		<!-- End Password Change Box -->
     </td>
   </tr>
-</table>';
+</table>
+<script type="text/javascript" language="JavaScript">
+<!--
+	initializetabcontent("admin_menu")
+//-->
+</script>';
 
 
 

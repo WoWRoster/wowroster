@@ -536,6 +536,9 @@ function processItem($real_itemid, $category)
 		}
 	}
 
+	if (!isset($tooltip))
+		$tooltip = '';
+
 	// Process a line for each Banker that holds 'quantity' of the item inside the Tooltip
 	foreach ($itemrow['banker'] as $itemBankerID => $NumItemsPerBanker)
 	{

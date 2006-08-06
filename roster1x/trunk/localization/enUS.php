@@ -493,8 +493,8 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['search3']='Search by Quest Name';
 
 // serverstatus strings
-	$servertypes['enUS']= array( 'PvP', 'Normal', 'RP', 'RPPVP' );
-	$serverpops['enUS']= array( 'Medium', 'Low', 'High', 'Max' );
+	$servertypes['enUS']= array( 'RPPVP', 'PvP', 'Normal', 'RP' );
+	$serverpops['enUS']= array( 'Low', 'Medium', 'High', 'Max' );
 
 // Definition for item tooltip coloring
 	$wordings['enUS']['tooltip_use']='Use';
