@@ -31,14 +31,20 @@ $pagebar .= border('sgray','end')."\n";
 $pagebar .= "<br />\n";
 
 $query = 'SELECT `basename`,`dbname`,`hasconfig` FROM `'.$wowdb->table('addon').'` WHERE `hasconfig` != ""';
-$result = $wowdb->query($query) or die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,__FILE__,$query);
+$result = $wowdb->query($query);
+if( !$result )
+{
+	die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
+}
 
-if ($wowdb->num_rows($result)) {
+if ($wowdb->num_rows($result))
+{
 	$pagebar .= border('sgray','start','Per-Addon config')."\n";
 	$pagebar .= '<ul class="tab_menu">'."\n";
-	while($row = $wowdb->fetch_assoc($result)) {
-		include(ROSTER_BASE.'addons'.DIR_SEP.$row['basename'].DIR_SEP.'localization.php');
-		$pagebar .= '<li><a href="?page=addon&addon='.$row['dbname'].'&profile='.$row['hasconfig'].'">'.$row['basename'].' - '.$row['dbname'].'</a></li>'."\n";
+	while($row = $wowdb->fetch_assoc($result))
+	{
+		include(ROSTER_ADDONS.$row['basename'].DIR_SEP.'localization.php');
+		$pagebar .= '<li><a href="?page=addon&amp;addon='.$row['dbname'].'&amp;profile='.$row['hasconfig'].'">'.$row['basename'].' - '.$row['dbname'].'</a></li>'."\n";
 	}
 	$pagebar .= '</ul>'."\n";
 	$pagebar .= border('sgray','end')."\n";

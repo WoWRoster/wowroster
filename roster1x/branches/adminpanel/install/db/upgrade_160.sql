@@ -159,30 +159,3 @@ ALTER TABLE `renprefix_talents`
 
 ALTER TABLE `renprefix_talenttree`
   CHANGE `tree` `tree` VARCHAR( 64 ) NOT NULL default '';
-
-# --------------------------------------------------------
-### Addon table
-
-DROP TABLE IF EXISTS `renprefix_addon`;
-CREATE TABLE `renprefix_addon` (
-	`addon_id` int(11) NOT NULL AUTO_INCREMENT,
-	`basename` varchar(16) NOT NULL DEFAULT '',
-	`dbname` varchar(16) NOT NULL DEFAULT '',
-	`version` varchar(16) NOT NULL DEFAULT '0',
-	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
-	`hastrigger` int(1) NOT NULL DEFAULT 0,
-	`active` int(1) NOT NULL DEFAULT 1,
-	PRIMARY KEY (`addon_id`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Addon Menu table
-
-DROP TABLE IF EXISTS `renprefix_addon_menu`;
-CREATE TABLE `renprefix_addon_menu` (
-	`addon_name` varchar(16),
-	`title` varchar(32),
-	`url` varchar(64),
-	`active` int(1) NOT NULL DEFAULT 0,
-	PRIMARY KEY (`addon_name`,`title`)
-) TYPE=MyISAM;

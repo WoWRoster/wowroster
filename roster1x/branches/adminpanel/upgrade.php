@@ -186,6 +186,90 @@ class Upgrade
 	{
 		global $wowdb, $roster_root_path, $db_prefix;
 
+
+		//
+		// Fix those pesky double slashes...
+		//
+		$query_string =	"SELECT `member_id`, `item_texture` FROM `roster_items`";
+		$result = $wowdb->query($query_string);
+
+		$playerData = array();
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']]['item_texture'] = $row['item_texture'];
+		}
+
+
+		$query_string =	"SELECT `member_id`, `mailbox_coin_icon`, `item_icon` FROM `roster_mailbox`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row['mailbox_coin_icon'];
+			$playerData[$row['member_id']][] = $row['item_icon'];
+		}
+
+
+		$query_string =	"SELECT `member_id`, `name`, `icon` FROM `roster_pets`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row['name'];
+			$playerData[$row['member_id']][] = $row['icon'];
+		}
+
+		$query_string =	"SELECT `member_id`, `RankIcon` FROM `roster_players`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row[''];
+		}
+
+		$query_string =	"SELECT `member_id`, `recipe_texture` FROM `roster_recipes`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row[''];
+		}
+
+		$query_string =	"SELECT `member_id`, `spell_texture` FROM `roster_spellbook`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row[''];
+		}
+
+		$query_string =	"SELECT `member_id`, `spell_texture` FROM `roster_spellbooktree`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row[''];
+		}
+
+		$query_string =	"SELECT `member_id`, `texture` FROM `roster_talents`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row[''];
+		}
+
+		$query_string =	"SELECT `member_id`, `background` FROM `roster_talenttree`";
+		$result = $wowdb->query($query_string);
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[$row['member_id']][] = $row[''];
+		}
+
+
+
+
 		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_170.sql';
 
 		// Parse structure file and create database tables

@@ -23,16 +23,20 @@ if ( !defined('ROSTER_INSTALLED') )
 
 // ----[ Get addon record ]---------------------------------
 $query = 'SELECT * FROM '.$wowdb->table('addon').' WHERE `dbname` = "'.$_GET['addon'].'"';
-$result = $wowdb->query($query) or die_quietly('Could not fetch addon record for '.$_GET['addon'],'Roster Admin Panel',__LINE__,__FILE__,$query);
+$result = $wowdb->query($query);
+if( !$result )
+{
+	die_quietly('Could not fetch addon record for '.$_GET['addon'],'Roster Admin Panel',__LINE__,basename(__FILE__),$query);
+}
 $addon = $wowdb->fetch_assoc($result);
 $wowdb->free_result($result);
 
-include(ROSTER_BASE.'addons'.DIR_SEP.$addon['basename'].DIR_SEP.'localization.php');
+include(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'localization.php');
 
 
 // ----[ Set the tablename and create the config class ]----
 $tablename = $wowdb->table('config',$_GET['addon'],$_GET['profile']);
-include(ROSTER_BASE.'lib'.DIR_SEP.'config.lib.php');
+include(ROSTER_LIB.'config.lib.php');
 
 // ----[ Process data if available ]------------------------
 $save_message = $config->processData();
@@ -53,32 +57,38 @@ $html = $config->buildConfigPage();
 
 $body = $config->form_start.$config->submit_button.$html.$config->form_end.$config->jscript;
 
-function profilebox() {
+function profilebox()
+{
 	global $wowdb;
+
 	$menu = '<form method="get" action="">'."\n";
 	$menu .= '<select name="profile">'."\n";
 
 	$query = 'SHOW TABLES LIKE "'.str_replace('_','\_',$wowdb->table('config',$_GET['addon'],'%')).'"';
-	if (!$result = $wowdb->query($query)) {
+	if (!$result = $wowdb->query($query))
+	{
 		return 'Failed to get list of config tables for '.$_GET['addon'].'. MySQL said: '.$wowdb->error();
 	}
-	while ($row = $wowdb->fetch_row($result)) {
+	while ($row = $wowdb->fetch_row($result))
+	{
 		preg_match('|'.$wowdb->table('config',$_GET['addon'],'([\w]+)').'|i',$row[0],$prof);
-		if ($prof[1] = $_GET['profile']) {
+		if ($prof[1] = $_GET['profile'])
+		{
 			$menu .= '<option value="'.$prof[1].'" selected="selected">&gt;'.$prof[1].'&lt;</option>'."\n";
 		}
-		else {
+		else
+		{
 			$menu .= '<option value="'.$prof[1].'">'.$prof[1].'</option>'."\n";
 		}
 	}
 	$wowdb->free_result($result);
-	
+
 	$menu .= '</select>'."\n";
 	$menu .= '<input type="hidden" name="page" value="addon">';
 	$menu .= '<input type="hidden" name="addon" value="'.$_GET['addon'].'">';
 	$menu .= '<input type="submit" value="Go">';
 	$menu .= '</form>'."\n";
-	
+
 	return $menu;
 }
 ?>

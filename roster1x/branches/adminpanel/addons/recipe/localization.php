@@ -16,6 +16,13 @@
  *
  ******************************/
 
+$wordings['addoncredits']['Made By'] = array(
+	array(	"name"=>	"Cybrey",
+			"info"=>	"Lists who can make what in roster"),
+	array(	"name"=>	"Thorus",
+			"info"=>	"Thanks for the mod of this script"),
+);
+
 $wordings['deDE']['MadeBy'] = 'Rezeptesuche';
 $wordings['deDE']['professionfilter'] = 'Fertigkeit:';
 $wordings['deDE']['itemdescription'] = 'Beschreibung';

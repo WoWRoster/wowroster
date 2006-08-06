@@ -30,7 +30,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 
 $wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
-$wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;achst die Mitgliederliste hoch.';
+$wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
 $wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
@@ -76,7 +76,7 @@ $wordings['deDE']['update_instructpvp']='
 </ol>';
 
 $wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> f&uuml;r den originalen Code der Seite. <br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
+WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
 
@@ -106,7 +106,7 @@ $inst_keys['deDE']['A'] = array(
 		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein von Spirestone|5379','Edelstein von Smolderthorn|16095','Edelstein von Bloodaxe|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
+		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
 		'Onyxia' => array('Quests','Onyxia' => 'Drachenfeueramulett|4829','Drachkin-Bedrohung|','Die wahren Meister|','Marshal Windsor|','Verlorene Hoffnung|','Eine zusammengeknüllte Notiz|','Ein Funken Hoffnung|','Gefängnisausbruch!|','Treffen in Stormwind|','Die große Maskerade|','Das Großdrachenauge|','Drachenfeuer-Amulett|'),
 		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
 	);
@@ -118,11 +118,11 @@ $inst_keys['deDE']['H'] = array(
 		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
 		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Shadowforge-Schlüssel|2966','Ironfel|9673'),
+		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
 		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein von Spirestone|5379','Edelstein von Smolderthorn|16095','Edelstein von Bloodaxe|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
+		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein von der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
 		'Onyxia' => array('Quests', 'Onyxia' => 'Drachenfeueramulett|4829','Befehl des Kriegsherrn|','Eitriggs Weisheit|','Für die Horde!|','Was der Wind erzählt|','Der Champion der Horde|','Nachricht von Rexxar|','Oculus-Illusionen|','Emberstrife|','Die Prüfung der Schädel, Scryer|','Die Prüfung der Schädel, Somnus|','Die Prüfung der Schädel, Chronalis|','Die Prüfung der Schädel, Axtroz|','Aufstieg...|','Blut des schwarzen Großdrachen-Helden|'),
 		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
 	);
@@ -154,9 +154,10 @@ $wordings['deDE']['hearthed']='Ruhestein';
 $wordings['deDE']['recipes']='Rezepte';
 $wordings['deDE']['bags']='Taschen';
 $wordings['deDE']['character']='Charakter';
-$wordings['deDE']['bglog']='Bg &Uuml;bersicht';
+$wordings['deDE']['bglog']='BG &Uuml;bersicht';
 $wordings['deDE']['pvplog']='PvP &Uuml;bersicht';
 $wordings['deDE']['duellog']='Duell &Uuml;bersicht';
+$wordings['deDE']['duelsummary']='Duell Summary';
 $wordings['deDE']['money']='Money';
 $wordings['deDE']['bank']='Bank';
 $wordings['deDE']['guildbank']='Gildenbank';
@@ -492,7 +493,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['search3']='Suche nach Questname';
 
 // serverstatus strings
-	$servertypes['deDE']= array( 'PvP', 'Normal', 'RP', 'RSP-PvP' );
+	$servertypes['deDE']= array( 'RSP-PvP', 'PvP', 'Normal', 'RP' );
 	$serverpops['deDE']= array( 'Mittel', 'Niedrig', 'Hoch', 'Max)' );
 
 // Definitions for item tooltip coloring
@@ -530,86 +531,8 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['PvPLogver_err']="Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minPvPLogver']." verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.";
 	$wordings['deDE']['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
 
-// Credit page
-$creditspage['deDE']['top']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> f&uuml;r den originalen Code der Seite
-<br />
-Besonderen Dank an <a href="mailto:calvin@rpgoutfitter.com">calvin</a> von <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> f&uuml;r das Bereitstellen der <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
-<br /><br />
-Special Thanks to the DEVs of Roster for helping to build and maintain the package
-<br /><br />';
 
-// This is an array of the dev team
-$creditspage['deDE']['devs'] = array(
-		'active'=>array(
-			array(	"name"=>	"AnthonyB",
-					"info"=>	"Site Admin\nWoW Roster Coordinator"),
-			array(	"name"=>	"Matt Miller",
-					"info"=>	"Gimpy DEV\nAuthor of UniAdmin and UniUploader"),
-			array(	"name"=>	"Calvin",
-					"info"=>	"Gimpy DEV\nAuthor of CharacterProfiler and GuildProfiler"),
-			array(	"name"=>	"Airor/Chris",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"mathos",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Nemm",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"nerk01",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Nostrademous",
-					"info"=>	"WoWRoster Dev\nPvPLog Author"),
-			array(	"name"=>	"peperone",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"RossiRat",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"seleleth",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"silencer-ch-au",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Sphinx",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"Swipe",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"vaccafoeda",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Vich",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"zanix",
-					"info"=>	"WoWRoster Dev\nSigGen Roster-Addon Author"),
-		),
 
-		'inactive'=>array(
-			array(	"name"=>	"dsrbo",
-					"info"=>	"Retired DEV\nRetired PvPLog Author"),
-			array(	"name"=>	"Guppy",
-					"info"=>	"Retired DEV"),
-			array(	"name"=>	"Mordon",
-					"info"=>	"Retired Dev"),
-		),
-
-		'beta'=>array(
-			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Beta Tester\nDragonflyCMS Port of Roster"),
-			array(	"name"=>	"Kieeps",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Thorus",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Zeryl",
-					"info"=>	"WoWRoster Beta Tester"),
-		),
-	);
-
-$creditspage['deDE']['bottom'] = '
-Thanks to Cybrey for the Orginal "Made By" addon and Thorus for his mod of this script.
-<br />
-Thanks to Cybrey for the Reputation addon.
-<br />
-Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
-<br />
-Thanks to all the coders who have contributed there codes in bug fixes and testing of the roster.
-<br /><br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>
-<br />
-World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.';
 
 
 
@@ -618,17 +541,19 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
  ******************************/
 
 // Main Menu words
-$wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen';
-$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration';
-$wordings['deDE']['admin']['index_conf'] = 'Indexseite';
-$wordings['deDE']['admin']['menu_conf'] = 'Menü';
-$wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen';
-$wordings['deDE']['admin']['misc_conf'] = 'Sonstige Einstellungen';
-$wordings['deDE']['admin']['char_conf'] = 'Charakterseite';
-$wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus';
-$wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank';
-$wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links';
-$wordings['deDE']['admin']['update_access'] = 'Update Zugriff';
+$wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
+$wordings['deDE']['admin']['index_conf'] = 'Indexseite|Options for what shows on the Main Page';
+$wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen|Control what is displayed in the Roster Main Menu';
+$wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen|Misc display settings<br>css, javascript, motd, etc...';
+$wordings['deDE']['admin']['char_conf'] = 'Charakterseite|Control what is displayed in the Character pages';
+$wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank|Set up your guildbank display and characters';
+$wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optional phpBB authorization for update.php';
+
+$wordings['deDE']['admin']['rosterdiag'] = 'Roster Diagnose Seite|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
+$wordings['deDE']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 
 // All strings here
@@ -674,99 +599,101 @@ $wordings['deDE']['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur A
 $wordings['deDE']['admin']['alt_location'] = "Twink Suchfeld|In welchem Feld soll der Twink-Text gesucht werden";
 
 // index_conf
-$wordings['deDE']['admin']['index_pvplist'] = "PvP-Logger Stats|PvP-Logger stats on the index page<br>If you have disabled PvPlog uploading, there is no need to have this on";
-$wordings['deDE']['admin']['index_hslist'] = "Honor System Stats|Honor System stats on the index page";
-$wordings['deDE']['admin']['hspvp_list_disp'] = "PvP/Honor List Display|Controls how the PvP and Honor Lists display on page load<br>The lists can be collapsed and opened by clicking on the header<br><br>&quot;show&quot; will fully display the lists when the page loads<br>&quot;hide&quot; will show the lists collapsed";
-$wordings['deDE']['admin']['index_member_tooltip'] = "Member Info Tooltip|Displays some info about a character in a tooltip";
-$wordings['deDE']['admin']['index_update_inst'] = "Update Instructions|Controls the display of the Update Instructions on the page";
-$wordings['deDE']['admin']['index_sort'] = "Member List Sort|Controls the default sorting";
-$wordings['deDE']['admin']['index_motd'] = "Guild MOTD|Show Guild Message of the Day on the top of the page<br><br>This also controls the display on the &quot;Guild Info&quot; page as well";
-$wordings['deDE']['admin']['index_level_bar'] = "Level Bar|Toggles the display of a visual level percentage bar on the main page";
-$wordings['deDE']['admin']['index_iconsize'] = "Icon Size|Select the size of the icons on the main pages (PvP, tradeskills, class, etc..)";
-$wordings['deDE']['admin']['index_tradeskill_icon'] = "Tradeskill Icons|Enables tradeskill icons on the main pages";
-$wordings['deDE']['admin']['index_tradeskill_loc'] = "Tradeskill Column Display|Select what column to place tradeskill icons";
-$wordings['deDE']['admin']['index_class_color'] = "Class Colorizing|Colorize the class names";
-$wordings['deDE']['admin']['index_classicon'] = "Class Icons|Displays an icon for each class, for each character";
-$wordings['deDE']['admin']['index_honoricon'] = "PvP Honor Icons|Displays a PvP rank icon next to the rank name";
-$wordings['deDE']['admin']['index_prof'] = "Professions Column|This is a specific coulmn for the tradeskill icons<br>If you move them to another column, you might want to turn this off";
-$wordings['deDE']['admin']['index_currenthonor'] = "Honor Column|Toggles the display of the honor column";
-$wordings['deDE']['admin']['index_note'] = "Note Column|Toggles the display of the public note column";
-$wordings['deDE']['admin']['index_title'] = "Guild Title Column|Toggles the display of the guild title column";
-$wordings['deDE']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Toggles the display of the hearthstone location column";
-$wordings['deDE']['admin']['index_zone'] = "Last Zone Loc. Column|Toggles the display of the last zone column";
-$wordings['deDE']['admin']['index_lastonline'] = "Last Seen Online Column|Toggles the display of the last seen online column";
-$wordings['deDE']['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
+$wordings['deDE']['admin']['index_pvplist'] = "PvP-Logger Statistiken|PvP-Logger Statistiken auf der Index-Seite<br>Wenn due PvPLog-Upload deaktiviert hast, brauchst du das nicht aktivieren";
+$wordings['deDE']['admin']['index_hslist'] = "Ehrensystem Statistiken|Ehrensystem Statistiken auf der Index-Seite";
+$wordings['deDE']['admin']['hspvp_list_disp'] = "PvP/Ehren-Listen Anzeige|Wie sollen die PvP- und Ehren Listen initial angezeigt werden:<br>Die Listen können auf- und zugeklappt werden, indem man auf den Kopf klickt<br><br>&quot;show&quot; zeigt die Listen aufgeklappt beim Seitenaufruf<br>&quot;hide&quot; zeigt die Listen zugeklappt";
+$wordings['deDE']['admin']['index_member_tooltip'] = "Mitglied Info Tooltip|Zeigt einige Infos über das Mitglied im Tooltip an";
+$wordings['deDE']['admin']['index_update_inst'] = "Aktualisierungsanleitung|Zeigt die Anleitung zum Aktualisieren auf der Indexseite";
+$wordings['deDE']['admin']['index_sort'] = "Mitgliedsliste Sortierung|Stellt die Standardsortierung ein";
+$wordings['deDE']['admin']['index_motd'] = "Gilden MOTD|Zeige Gilden MOTD auf der Indexseite<br><br>Regelt auch die Anzeige auf der &quot;Gilden Info&quot; Seite";
+$wordings['deDE']['admin']['index_level_bar'] = "Level Balken|Zeigt einen prozentualen Levelbalken auf der Indexseite";
+$wordings['deDE']['admin']['index_iconsize'] = "Icon Größe|Wähle die Größe der Icons auf der Indexseite (PvP, Berufe, Klassen, etc..)";
+$wordings['deDE']['admin']['index_tradeskill_icon'] = "Beruf Icons|Ermöglich die Anzeige von Berufsicons auf der Indexseite";
+$wordings['deDE']['admin']['index_tradeskill_loc'] = "Beruf Spalte Anzeige|In welcher Spalte sollen die Berufsicons angezeigt werden";
+$wordings['deDE']['admin']['index_class_color'] = "Klassenfarben|Färbt die Klassennamen ein";
+$wordings['deDE']['admin']['index_classicon'] = "Klassen Icons|Zeigt ein Icon für jeden Charakter jeder Klasse an";
+$wordings['deDE']['admin']['index_honoricon'] = "PvP Ehrenrang Icons|Zeigt ein Icon des Ehrenrangs neben dem Namen an";
+$wordings['deDE']['admin']['index_prof'] = "Berufs Spalte|Dies ist eine eigene Spalte für die Berufsicons<br>Wenn du sie in einer anderen Spalte anzeigst, kannst du diese deaktivieren.";
+$wordings['deDE']['admin']['index_currenthonor'] = "Ehren Spalte|Zeigt eine Spalte mit dem aktuellen Ehrenrang an";
+$wordings['deDE']['admin']['index_note'] = "Notiz Spalte|Zeigt eine Spalte mit der Spielernotiz an";
+$wordings['deDE']['admin']['index_title'] = "Gildentitel Spalte|Zeigt eine Spalte mit dem Gildentitel an";
+$wordings['deDE']['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Zeigt eine Spalte mit dem Ort des Ruhesteins an";
+$wordings['deDE']['admin']['index_zone'] = "Letztes Gebiet Spalte|Zeigt eine Spalte mit dem letzten Aufenthaltsort an";
+$wordings['deDE']['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, wann der Spieler zuletzt online war";
+$wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
 
 // menu_conf
-$wordings['deDE']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br>This area holds the member quick list";
-$wordings['deDE']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br>This area holds the realmstatus image";
-$wordings['deDE']['admin']['menu_byclass'] = "By Class Link|Controls display of the By Class Link";
-$wordings['deDE']['admin']['menu_alt_page'] = "Alternate View Link|Controls display of the Alternate View Link";
-$wordings['deDE']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
-$wordings['deDE']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
-$wordings['deDE']['admin']['menu_pvp_page'] = "PvPLog Stats Link|Controls display of the PvPLog Stats Link";
-$wordings['deDE']['admin']['menu_honor_page'] = "Honor Page Link|Controls display of the Honor Page Link";
-$wordings['deDE']['admin']['menu_guildbank'] = "Guildbank Link|Controls display of the Guildbank Link";
-$wordings['deDE']['admin']['menu_keys_page'] = "Instance Keys Link|Controls display of the Instance Keys Link";
-$wordings['deDE']['admin']['menu_tradeskills_page'] = "Professions Link|Controls display of the Professions Link";
-$wordings['deDE']['admin']['menu_update_page'] = "Profile Update Link|Controls display of the Profile Update Link";
-$wordings['deDE']['admin']['menu_quests_page'] = "Find Team/Quests Link|Controls display of the Find Team/Quests Link";
-$wordings['deDE']['admin']['menu_search_page'] = "Search Page Link|Controls display of the Search Page Link";
+$wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br>Hier wird eine kurze Mitgliederübersicht gezeigt";
+$wordings['deDE']['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br>Hier wir der Realmstatus angezeigt";
+$wordings['deDE']['admin']['menu_byclass'] = "Nach Klasse|Link zur Anzeige nach Klasse";
+$wordings['deDE']['admin']['menu_alt_page'] = "Alternative Ansicht|Link zur alternativen Ansicht";
+$wordings['deDE']['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
+$wordings['deDE']['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";
+$wordings['deDE']['admin']['menu_pvp_page'] = "PvP Statistiken Link|Link zu den PvP-Statistiken";
+$wordings['deDE']['admin']['menu_honor_page'] = "Ehre Link|Link zur Ehrenseite";
+$wordings['deDE']['admin']['menu_guildbank'] = "Gildenbank Link|Link zur Gildenbank";
+$wordings['deDE']['admin']['menu_keys_page'] = "Schlüssel Link|Link zu den Instanzschlüsseln";
+$wordings['deDE']['admin']['menu_tradeskills_page'] = "Berufe Link|Link zu den Berufen";
+$wordings['deDE']['admin']['menu_update_page'] = "Profil Updaten Link|Link zur Update-Seite";
+$wordings['deDE']['admin']['menu_quests_page'] = "Questgruppe Suchen Link|Link zur Questgruppen-Seite";
+$wordings['deDE']['admin']['menu_search_page'] = "Suche Link|Link zur Suchseite";
 
 // display_conf
-$wordings['deDE']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for roster";
-$wordings['deDE']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
-$wordings['deDE']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
-$wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
-$wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|The full URL to the image<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$wordings['deDE']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$wordings['deDE']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
-$wordings['deDE']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
+$wordings['deDE']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet für das Roster";
+$wordings['deDE']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript Dateiort";
+$wordings['deDE']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript Dateiort";
+$wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript Dateiort für den Fix für Overlib im Internet Explorer";
+$wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br>Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
+$wordings['deDE']['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br>Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
+$wordings['deDE']['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Message of the day) angezeigt werden soll:<br><br>&quot;Text&quot; - Zeigt MOTD in rotem Text<br>&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";
+$wordings['deDE']['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
+$wordings['deDE']['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
 
 // data_links
-$wordings['deDE']['admin']['questlink_1'] = "Quest Link #1|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['deDE']['admin']['questlink_2'] = "Quest Link #2|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['deDE']['admin']['questlink_3'] = "Quest Link #3|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['deDE']['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";
-$wordings['deDE']['admin']['pvplogger'] = "PvPLog download link|URL to download PvPLog";
-$wordings['deDE']['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
+$wordings['deDE']['admin']['questlink_1'] = "Quest Link #1|Externe Verlinkung der Gegenstände<br>Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
+$wordings['deDE']['admin']['questlink_2'] = "Quest Link #2|Externe Verlinkung der Gegenstände<br>Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
+$wordings['deDE']['admin']['questlink_3'] = "Quest Link #3|Externe Verlinkung der Gegenstände<br>Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
+$wordings['deDE']['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das CharacterProfiler-Addon herunterzuladen";
+$wordings['deDE']['admin']['pvplogger'] = "PvPLog Downloadlink|URL um das PvPLog-Addon herunterzuladen";
+$wordings['deDE']['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader herunterzuladen";
 
 // char_conf
-$wordings['deDE']['admin']['char_bodyalign'] = "Character Page Alignment|Alignment of the data on the character page";
-$wordings['deDE']['admin']['char_header_logo'] = "Header Logo|Show the roster header logo on character page";
-$wordings['deDE']['admin']['show_talents'] = "Talents|Controls the display of Talents<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_mail'] = "Mail|Controls the display of Mail<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_inventory'] = "Bags|Controls the display of Bags<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_money'] = "Money|Controls the display of Money<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_bank'] = "Bank|Controls the display of Bank contents<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_recipes'] = "Recipes|Controls the display of Recipes<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_quests'] = "Quests|Controls the display of Quests<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_bg'] = "Battleground PvPLog Data|Controls the display of Battleground PvPLog data<br>Requires upload of PvPLog addon data<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_pvp'] = "PvPLog Data|Controls the display of PvPLog Data<br>Requires upload of PvPLog addon data<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_duels'] = "Duel PvPLog Data|Controls the display of Duel PvPLog Data<br>Requires upload of PvPLog addon data<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_item_bonuses'] = "Item Bonuses|Controls the display of Item Bonuses<br><br>Setting is global and overrides per-user setting";
-$wordings['deDE']['admin']['show_signature'] = "Display Signature|Controls the display of a Signature image<br><span class=\"red\">Requires SigGen Roster Addon</span><br><br>Setting is global";
-$wordings['deDE']['admin']['show_avatar'] = "Display Avatar|Controls the display of an Avatar image<br><span class=\"red\">Requires SigGen Roster Addon</span><br><br>Setting is global";
+$wordings['deDE']['admin']['char_bodyalign'] = "Charakterseiten Ausrichtung|Ausrichtung der Daten auf der Charakterseite";
+$wordings['deDE']['admin']['char_header_logo'] = "Kopf-Logo|Zeigt das Roster-Kopf-Logo auf der Charakterseite";
+$wordings['deDE']['admin']['show_talents'] = "Talente|Anzeige der Talente<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_mail'] = "Postfach|Anzeige des Postfaches<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_inventory'] = "Taschen|Anzeige der Taschen<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_bank'] = "Bank|Anzeige der Bankfächer<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_recipes'] = "Rezepte|Anzeige der Rezepte<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_quests'] = "Quests|Anzeige der Quests<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_bg'] = "Schlachtfeld PvPLog Daten|Anzeige der Schlachtfeld-Statistiken<br>Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_pvp'] = "PvPLog Daten|Anzeige der PvPLog Daten<br>Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_duels'] = "Duell PvPLog Daten|Anzeige der Duell PvPLog Data<br>Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_item_bonuses'] = "Gegenstands Boni|Anzeige der Boni durch angelegte Gegenstände<br><br>Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_signature'] = "Signatur anzeigen|Anzeige der Signatur<br><span class=\"red\">Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$wordings['deDE']['admin']['show_avatar'] = "Avatar anzeigen|Anzeige des Avatars<br><span class=\"red\">Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 
 // realmstatus_conf
-$wordings['deDE']['admin']['realmstatus_url'] = "Realmstatus URL|URL to Blizzard's Realmstatus page";
-$wordings['deDE']['admin']['rs_display'] = "Info Mode|&quot;full&quot; will show status and server name, population, and type<br>&quot;half&quot; will display just the status";
-$wordings['deDE']['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<br><br>&quot;DIV Container&quot; - Shows Realmstatus in a DIV container with text and standard images<br>&quot;Image&quot; - Shows Realmstatus as an image (REQUIRES GD!)";
-$wordings['deDE']['admin']['realmstatus'] = "Alternate Servername|Some server names may cause realmstatus to not work correctly, even if uploading profiles works<br>The actual server name from the game may not match what is used on the server status data page<br>You can set this so serverstatus can use another servername<br><br>Leave blank to use the name set in Guild Config";
+$wordings['deDE']['admin']['realmstatus_url'] = "Realmstatus URL|URL zu Blizzard's Realmstatus Seite";
+$wordings['deDE']['admin']['rs_display'] = "Info Mode|&quot;full&quot; zeigt Status, Name, Population, und Servertyp<br>&quot;half&quot; zeigt nur den Status an";
+$wordings['deDE']['admin']['rs_mode'] = "Display Mode|Wie der Status angezeigt werden soll:<br><br>&quot;DIV Container&quot; - Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern<br>&quot;Image&quot; - Zeigt Realmstatus als ein Bild (BENÖTIGT GD!)";
+$wordings['deDE']['admin']['realmstatus'] = "Alternativer Servername|Manche Servernamen funktionieren hier nicht richtig, auch wenn der Upload von Profilen geht<br>Der tatsächliche Servername stimmt dann mit dem Namen auf der Statusseite von Blizzard nicht überein.<br>Dann kannst du hier einen anderen Servernamen setzen<br><br>Leer lassen, um den Namen in der Gildenkonfiguration einzustellen";
 
 // guildbank_conf
-$wordings['deDE']['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display type<br><br>&quot;Table&quot; is a basic view showing all items available from every bank character in one list<br>&quot;Inventory&quot; shows a table of items for each bank character";
-$wordings['deDE']['admin']['bank_money'] = "Money Display|Controls Money display in guildbanks";
-$wordings['deDE']['admin']['banker_rankname'] = "Banker Search Text|Text used to designate banker characters";
-$wordings['deDE']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
+$wordings['deDE']['admin']['guildbank_ver'] = "Gildenbank Anzeigeeinstellung|Gildenbank Anzeigeeinstellung:<br><br>&quot;Table&quot; ist eine einfache Ansicht die eine Liste aller Sachen der Banker anzeigt<br>&quot;Inventory&quot; zeigt eine eigene Tabelle für jeden Banker";
+$wordings['deDE']['admin']['bank_money'] = "Goldanzeige|Steuert die Anzeige der Goldmenge in der Gildenbank";
+$wordings['deDE']['admin']['banker_rankname'] = "Banker Suchtext|Text um den Banker zu finden";
+$wordings['deDE']['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Allow Access to Update|Controlls access to update<br><br>Turn this off when phpBB access control is configured";
-$wordings['deDE']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
-$wordings['deDE']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
+$wordings['deDE']['admin']['authenticated_user'] = "Benutze phpBB zur Benutzerauthentifikation|Benutzt phpBB zur Zugriffskontrolle<br><br>Schalte auf <b>on</b> um den Zugriff auf phpBB zu aktivieren, und stelle die benötigten Daten weiter unten korrekt ein";
+$wordings['deDE']['admin']['phpbb_root_path'] = "Pfad zu phpBB|Gib hier an, wo du phpBB installiert hast<br>Der Pfad <u>muß</u> relativ zur Roster-Installation sein";
+$wordings['deDE']['admin']['upload_group'] = "Nutzergruppen Profilaktualisierung|Setze hier die Nutzergruppen-IDs, die ihr Profil aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 3, 4, 44 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
+$wordings['deDE']['admin']['phpbb_group_admin'] = "Nutzergruppen Gildenaktualisierung|Setze hier die Nutzergruppen-IDs, die die Gilde aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 1, 12, 56 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
 
 // Character Display Settings
-$wordings['deDE']['admin']['per_character_display'] = 'Per-Character Display';
+$wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
 
 ?>

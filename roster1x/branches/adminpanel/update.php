@@ -39,19 +39,22 @@ $script_filename = 'update.php';
 
 // Update Triggers
 if( $roster_conf['use_update_triggers'] )
+{
 	include_once( ROSTER_LIB.'update_trigger_lib.php' );
+}
 
 
-if (!$roster_conf['authenticated_user'])
+if( !$roster_conf['authenticated_user'] )
 {
 	$wow_group = $roster_conf['upload_group'];
+	$wow_admin_group = $roster_conf['phpbb_group_admin'];
 	include_once( ROSTER_LIB.'phpbb.php' );
 }
 
 // Set $htmlout to 1 to assume request is from a browser
 	$htmlout = 1;
 // See if UU is requesting this page
-if( substr( $_SERVER['HTTP_USER_AGENT'], 0, 11 ) == 'UniUploader' )
+if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 {
 	$htmlout = 0;
 }
@@ -66,6 +69,7 @@ else
 $filefields[] = 'CharacterProfiler.lua';
 $filefields[] = 'PvPLog.lua';
 
+// Initialize some vars
 $uploadFound = false;
 $uploadData = null;
 
@@ -76,14 +80,16 @@ foreach ($_FILES as $filefield => $file)
 	$filemode = '';
 
 	if( substr_count($file['name'],'.gz') > 0 )	// If the file is gzipped
+	{
 		$filemode = 'gz';
+	}
 
 	foreach( $filefields as $acceptedfile )	// Itterate through all the possible filefields
 	{
 		if( $acceptedfile == $file['name'] || $acceptedfile.'.gz' == $file['name'] )
 		{
 			// Filefield is 1 of the kind we accept.
-			if( $roster_conf['authenticated_user'] )
+			if( $roster_conf['authenticated_user'] || $roster_conf['phpbb_authenticated_admin'] )
 			{
 				$uploadFound = true;
 
@@ -109,11 +115,13 @@ foreach ($_FILES as $filefield => $file)
 	@unlink($filename);	// Done with the file, we don't need it anymore
 }
 
-
 // If the roster update password is sent and matches, and $uploadData['myProfile'] is there, update the roster
 if( is_array($uploadData['myProfile']) && isset($_POST['password']) )
 {
-	if( (md5($_POST['password']) == $roster_conf['roster_upd_pw']) || ($_POST['password'] == $roster_conf['roster_upd_pw']) )
+	if( ( md5($_POST['password']) == $roster_conf['roster_upd_pw'] ) ||
+		( $_POST['password'] == $roster_conf['roster_upd_pw'] ) ||
+		( $roster_conf['phpbb_authenticated_admin'] )
+	  )
 	{
 		$rosterUpdateMessages = processGuildRoster($uploadData['myProfile']);
 	}
@@ -317,59 +325,84 @@ function processGuildRoster($myProfile)
 	return $output;
 }
 
-// Create the auth fields if needed
-if( !$roster_conf['authenticated_user'] )
-{
-	if( isset($auth_message) && !empty($auth_message) )
-		$auth_message = "<tr>\n<td class=\"membersRowRight1\" colspan=\"2\">$auth_message</td>\n</tr>\n";
-	else
-		$auth_message = '';
 
-	$authFields = border('syellow','start','Upload Authorization')."
+// Get SQL messages
+$sqlstringout = $wowdb->getSQLStrings();
+$errorstringout = $wowdb->getErrors();
+
+
+/**
+ * Make the html Upload page
+ */
+
+if( $htmlout )
+{
+	// Create the auth fields if needed
+	if( !$roster_conf['authenticated_user'] )
+	{
+		if( isset($auth_message) && !empty($auth_message) )
+		{
+			$auth_message = "<tr>\n<th class=\"membersHeaderRight\" colspan=\"2\">$auth_message</th>\n</tr>\n";
+		}
+		else
+		{
+			$auth_message = '';
+		}
+
+		$authFields = border('syellow','start','phpBB Upload Authorization')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
 $auth_message
                     <tr>
-                      <td class=\"membersRow2\">Username</td>
-                      <td class=\"membersRowRight2\"><input type=\"text\" name=\"username\"></td>
+                      <td class=\"membersRow1\">Username</td>
+                      <td class=\"membersRowRight1\"><input type=\"text\" name=\"username\"></td>
                     </tr>
                     <tr>
-                      <td class=\"membersRow2\">Password</td>
-                      <td class=\"membersRowRight2\"><input type=\"password\" name=\"password\"></td>
+                      <td class=\"membersRow1\">Password</td>
+                      <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
                     </tr>
                   </table>".border('syellow','end')."<br />\n";
-}
-else
-{
-	$authFields = '';
-}
+	}
+	else
+	{
+		$authFields = '';
+	}
 
-// Create the PvPLog input field if selected in conf
-if( $roster_conf['pvp_log_allow'] )
-{
-	$pvplogInputField = "
+	// Create the PvPLog input field if selected in conf
+	if( $roster_conf['pvp_log_allow'] )
+	{
+		$pvplogInputField = "
                     <tr>
-                      <td class=\"membersRow2\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
-                      <td class=\"membersRowRight2\"><input type=\"file\" accept=\"PvPLog.lua\" name=\"PvPLog\"></td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"PvPLog.lua\" name=\"PvPLog\"></td>
                     </tr>";
-}
+	}
+	else
+	{
+		$pvplogInputField = '';
+	}
 
 
-// Construct the entire upload form
-$inputForm = "
+	// Construct the entire upload form
+	$inputForm = "
                 <form action=\"$script_filename\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
 ".$authFields."
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
-                      <td class=\"membersRowRight1\" colspan=\"2\" align=\"center\"><div align=\"center\"><small>".$wordings[$roster_conf['roster_lang']]['lualocation']."</small></div></td>
+                      <th class=\"membersHeaderRight\" colspan=\"2\"><div align=\"center\">".$wordings[$roster_conf['roster_lang']]['lualocation']."</div></th>
                     </tr>
                     <tr>
-                      <td class=\"membersRow2\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
-                      <td class=\"membersRowRight2\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
                     </tr>
 $pvplogInputField
                   </table>
-".border('syellow','end')."
+".border('syellow','end');
+
+
+	if( $roster_conf['authenticated_user'] )
+	{
+		$inputForm .= "
 <br />
 <br />
 ".border('sgray','start','GuildProfiler User Only')."
@@ -380,19 +413,12 @@ $pvplogInputField
                     </tr>
                   </table>
 ".border('sgray','end')."<br />
-                  <input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">
-                </form>";
+                  <input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">";
+	}
+
+	$inputForm .= "\n                </form>";
 
 
-// Construct our page
-
-// Get SQL messages
-$sqlstringout = $wowdb->getSQLStrings();
-$errorstringout = $wowdb->getErrors();
-
-
-if( $htmlout )
-{
 	include_once(ROSTER_BASE.'roster_header.tpl');
 	include_once(ROSTER_LIB.'menu.php');
 	print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br /><br />\n";
@@ -480,13 +506,23 @@ else	// Dont need the header and footer when responding to UU
 {
 	if( $uploadFound )
 	{
-		// Strip all html tags out, then print
-		print stripAllHtml(
-				$auth_message.
-				$updateMessages.
-				$updatePvPMessages.
-				$rosterUpdateMessages
-			);
+		if( !$roster_conf['authenticated_user'] )
+		{
+			if( isset($auth_message) && !empty($auth_message) )
+			{
+				print $auth_message;
+			}
+		}
+		else
+		{
+			// Strip all html tags out, then print
+			print stripAllHtml(
+					$auth_message.
+					$updateMessages.
+					$updatePvPMessages.
+					$rosterUpdateMessages
+				);
+		}
 
 	}
 	else

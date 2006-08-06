@@ -32,18 +32,28 @@ require_once( ROSTER_LIB.'xmlparse.php' );
 //==========[ GET FROM CONF.PHP ]====================================================
 
 if( $roster_conf['realmstatus'] == '' )
+{
 	$realmstatus = utf8_decode($roster_conf['server_name']);
+}
 else
+{
 	$realmstatus = utf8_decode($roster_conf['realmstatus']);
+}
 
 $server = trim($realmstatus);
 
 if($roster_conf['rs_mode'])
+{
 	$generate_image = true;
+}
 elseif(!$roster_conf['rs_mode'])
+{
 	$generate_image = false;
+}
 else
+{
 	$generate_image = true;
+}
 
 
 //==========[ OTHER SETTINGS ]=========================================================
@@ -147,7 +157,7 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 	// Figure out Servertype
 		foreach($types as $t)
 		{
-		$servertype = stristr(substr($html, ($pos + 130), 30), $t);
+			$servertype = stristr(substr($html, ($pos + 130), 30), $t);
 			if($servertype)
 			{
 				$foundtype = 1;
@@ -163,7 +173,7 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 	// Figure out Server Pop.
 		foreach($pops as $p)
 		{
-		$serverpop = stristr(substr($html, ($pos + 290), 35), $p);
+			$serverpop = stristr(substr($html, ($pos + 290), 35), $p);
 			if($serverpop)
 			{
 				$foundpop = 1;

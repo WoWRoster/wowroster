@@ -28,7 +28,7 @@ INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'm
 INSERT INTO `renprefix_config` VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (210, 'rosterdiag', '%roster%/rosterdiag.php', 'newlink', 'menu');
-INSERT INTO `renprefix_config` VALUES (220, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (220, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -115,6 +115,7 @@ INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', '
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '1', 'radio{Image^1|Text^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5040, 'signaturebackground', 'img/default.png', 'text{128|30', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
 
 # --------------------------------------------------------
 ### Links Settings
@@ -165,6 +166,7 @@ INSERT INTO `renprefix_config` VALUES (9030, 'banker_fieldname', 'note', 'select
 # --------------------------------------------------------
 ### Update Access
 
-INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{on^1|off^0', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{off^1|on^0', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10010, 'phpbb_root_path', '../phpbb/', 'text{128|30', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10020, 'upload_group', '3, 4, 44', 'text{128|30', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', 'text{128|30', 'update_access');

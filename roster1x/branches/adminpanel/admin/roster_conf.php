@@ -23,10 +23,10 @@ if ( !defined('ROSTER_INSTALLED') )
 
 // ----[ Set the tablename and create the config class ]----
 $tablename = $wowdb->table('config');
-include(ROSTER_BASE.'lib'.DIR_SEP.'config.lib.php');
+include(ROSTER_LIB.'config.lib.php');
 
 // ----[ Include special functions file ]-------------------
-include(ROSTER_BASE.'admin'.DIR_SEP.'roster_config_functions.php');
+include(ROSTER_ADMIN.'roster_config_functions.php');
 
 // ----[ Process data if available ]------------------------
 $save_message = $config->processData();
@@ -35,10 +35,10 @@ $save_message = $config->processData();
 $config->getConfigData();
 
 // ----[ Build the page items using lib functions ]---------
-$menu .= $config->buildConfigMenu();
+$menu = $config->buildConfigMenu();
 
 $html = $config->buildConfigPage();
 
-$body = $config->form_start.$config->submit_button.$html.$config->form_end.$config->jscript;
+$body = $save_message.$config->form_start.$config->submit_button.$html.$config->form_end.$config->jscript;
 
 ?>

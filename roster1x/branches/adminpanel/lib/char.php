@@ -67,18 +67,23 @@ class char
 
 			if( isset( $pvps[0] ) )
 			{
-			    if ($type == 'PvP')
-			    {
-					$returnstring .= output_pvplog($this->data['member_id']);
-			    }
-			    elseif ($type == 'BG')
-			    {
-					$returnstring .= output_bglog($this->data['member_id']);
-			    }
-			    else
-			    {
-					$returnstring .= output_duellog($this->data['member_id']);
-			    }
+				switch ($type)
+				{
+					case 'BG':
+						$returnstring .= output_bglog($this->data['member_id']);
+						break;
+
+					case 'PvP':
+						$returnstring .= output_pvplog($this->data['member_id']);
+						break;
+
+					case 'Duel':
+						$returnstring .= output_duellog($this->data['member_id']);
+						break;
+
+					default:
+						break;
+				}
 			}
 
 			$returnstring .= '<br />';
@@ -1793,13 +1798,8 @@ function DateCharDataUpdated($name)
 	$result1 = $wowdb->query($query1);
 	$data1 = $wowdb->fetch_assoc($result1);
 	$dateupdatedutc = $data1['dateupdatedutc'];
-	$day = substr($dateupdatedutc,3,2);
-	$month = substr($dateupdatedutc,0,2);
-	$year = substr($dateupdatedutc,6,2);
-	$hour = substr($dateupdatedutc,9,2);
-	$minute = substr($dateupdatedutc,12,2);
-	$second = substr($dateupdatedutc,15,2);
 
+	list($month,$day,$year,$hour,$minute,$second) = sscanf($dateupdatedutc,"%d/%d/%d %d:%d:%d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
 }

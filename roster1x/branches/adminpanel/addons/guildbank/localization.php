@@ -16,6 +16,11 @@
  *
  ******************************/
 
+$wordings['addoncredits']['GuildBank'] = array(
+	array(	"name"=>	"Mathos",
+			"info"=>	"A guild bank that lists items by catagories"),
+);
+
 // Basic wordings used by the Categorised GuildBank
 $wordings['enUS']['filter'] = 'Filter';
 $wordings['enUS']['gbank_charsNotFound'] = 'Could not find any '.$wordings[$roster_conf['roster_lang']]['guildbank'].' '.$wordings[$roster_conf['roster_lang']]['character'].'s.';

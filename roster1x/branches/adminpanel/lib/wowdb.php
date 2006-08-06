@@ -343,6 +343,25 @@ class wowdb
 	}
 
 
+	/**
+	 * Expand base table name to a full table name
+	 *
+	 * @param string $table the base table name
+	 * @param string $addon the name of the addon, empty for a base roster table
+	 * @param string $profile the name of the addon's config profile.
+	 * @return string tablename as fit for MySQL queries
+	 */
+	function table($table, $addon='', $profile='')
+	{
+		global $db_prefix;
+
+		if ($addon)
+			return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
+		else
+			return $db_prefix.$table;
+	}
+
+
 /************************
  * Updating Code
 ************************/
@@ -2393,23 +2412,6 @@ class wowdb
 			$this->update_account( $memberId, $name, $rosterdata);
 		}
 	} //-END function update_char()
-	
-	/**
-	 * Expand base table name to a full table name
-	 *
-	 * @param string $table the base table name
-	 * @param string $addon the name of the addon, empty for a base roster table
-	 * @param string $profile the name of the addon's config profile.
-	 * @return string tablename as fit for MySQL queries 
-	 */
-	function table($table, $addon='', $profile='') {
-		global $db_prefix;
-		if ($addon)
-			return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
-		else
-			return $db_prefix.$table;
-	}
-
 
 } //-END CLASS
 

@@ -25,7 +25,7 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 include_once (ROSTER_LIB.'menu.php');
 
 
-echo "<div style=\"font-size:12px;\">\n".$creditspage[$roster_conf['roster_lang']]['top']."\n</div>\n";
+echo "<div style=\"font-size:12px;\">\n".$creditspage['top']."\n</div>\n";
 
 
 // format table locations
@@ -34,9 +34,13 @@ echo "<table cellspacing=\"10\"><tr><td>\n";
 
 // Print devs
 echo border('sgreen','start','Active Devs')."<table cellspacing=\"0\">\n";
+echo "<tr>
+<th class=\"membersHeader\">Name</th>
+<th class=\"membersHeaderRight\">Info</th>
+";
 
 $strip_count = 1;
-foreach( $creditspage[$roster_conf['roster_lang']]['devs']['active'] as $dev )
+foreach( $creditspage['devs']['active'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -53,10 +57,14 @@ echo "\n</td><td valign=\"top\">\n";
 
 
 // Print inactive devs
-echo border('sred','start','Inactive Devs')."<table cellspacing=\"0\">\n";
+echo border('sred','start','Inactive Devs')."<table width=\"100%\" cellspacing=\"0\">\n";
+echo "<tr>
+<th class=\"membersHeader\">Name</th>
+<th class=\"membersHeaderRight\">Info</th>
+";
 
 $strip_count = 1;
-foreach( $creditspage[$roster_conf['roster_lang']]['devs']['inactive'] as $dev )
+foreach( $creditspage['devs']['inactive'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -69,10 +77,14 @@ echo "</table>\n".border('sred','end')."<br />\n";
 
 
 // Print the beta team
-echo border('syellow','start','WoWRoster Beta Team')."<table cellspacing=\"0\">\n";
+echo border('syellow','start','WoWRoster Beta Team')."<table width=\"100%\" cellspacing=\"0\">\n";
+echo "<tr>
+<th class=\"membersHeader\">Name</th>
+<th class=\"membersHeaderRight\">Info</th>
+";
 
 $strip_count = 1;
-foreach( $creditspage[$roster_conf['roster_lang']]['devs']['beta'] as $dev )
+foreach( $creditspage['devs']['beta'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -84,12 +96,62 @@ foreach( $creditspage[$roster_conf['roster_lang']]['devs']['beta'] as $dev )
 echo "</table>\n".border('syellow','end');
 
 
+$AddonCredits = makeAddonCredits();
+if($AddonCredits != '') {
+	// Print the Addon developer credits
+	echo "<br />\n" . border('sblue','start','WoWRoster Addons') . "<table width=\"100%\" cellspacing=\"0\">\n";
+	echo "<tr>
+<th class=\"membersHeader\">Addon</th>
+<th class=\"membersHeader\">Author</th>
+<th class=\"membersHeaderRight\">Info</th>
+";
+	echo $AddonCredits;
+	echo "</table>\n".border('sblue','end');
+}
+
 // format table locations
 echo "\n</td></tr></table>\n";
 
 
-echo "<div style=\"font-size:12px;\">\n".$creditspage[$roster_conf['roster_lang']]['bottom']."\n</div>\n";
-
 include_once (ROSTER_BASE.'roster_footer.tpl');
 
+/**
+ * Gets the list of currently installed roster addons
+ *
+ * @return string formatted list of addons
+ */
+function makeAddonCredits()
+{
+	global $roster_conf, $wordings;
+
+	$output = '';
+
+	$strip_count = 1;
+	if(isset($wordings['addoncredits']))
+	{
+		foreach( array_keys($wordings['addoncredits']) as $addonName )
+		{
+			$AddOnArray = $wordings['addoncredits'][$addonName];
+			foreach( $AddOnArray as $addonDev )
+			{
+				$stripe_class = 'membersRow' . ( ( ++$strip_count % 2 ) + 1 );
+				$stripe_class_right = 'membersRowRight' . ( ( $strip_count % 2 ) + 1 );
+				$output .= "\t<tr>\n";
+				$output .= "\t\t<td class=\"$stripe_class\">" . $addonName . "</td>\n";
+				$output .= "\t\t<td class=\"$stripe_class\">" . $addonDev['name']."</td>\n";
+				$output .= "\t\t<td class=\"$stripe_class_right\">" . nl2br($addonDev['info']) . "</td>\n";
+				$output .= "\t</tr>\n";
+				$addonName = '&nbsp;';
+				$lCount += 1;
+			}
+		}
+	}
+
+	if ($lCount < 1)
+	{
+		return '';
+	}
+
+	return $output;
+}
 ?>

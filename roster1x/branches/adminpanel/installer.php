@@ -28,12 +28,15 @@
 
 // Include roster environment and install library
 require_once('settings.php');
-include(ROSTER_BASE.'lib'.DIR_SEP.'install.lib.php');
+include(ROSTER_LIB.'install.lib.php');
 
 // Include addon install definitions
-$addonDir = ROSTER_BASE.'addons'.DIR_SEP.$_GET['addon'].DIR_SEP;
+$addonDir = ROSTER_ADDONS.$_GET['addon'].DIR_SEP;
 if (!file_exists($addonDir.'install.def.php'))
+{
 	die_quietly('Files for '.$_GET['addon'].' are not correctly installed','Roster Addon Installer');
+}
+
 require($addonDir.'install.def.php');
 $addon = new $_GET['addon']($_GET['dbname']);
 $addata = (array)$addon;
@@ -48,65 +51,86 @@ $wowdb->free_result($result);
 
 
 // Collect data for this install type
-switch ($_GET['type']) {
-case 'install':
-	if ($previous) {
-		$installer->errors[] = 'Dbname '.$addata['dbname'].' already contains '.$previous['name'].'. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different dbname.';
+switch ($_GET['type'])
+{
+	case 'install':
+		if ($previous)
+		{
+			$installer->errors[] = 'Dbname '.$addata['dbname'].' already contains '.$previous['name'].'. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different dbname.';
+			break;
+		}
+		$success = $addon->install();
+		$installer->sql[] = 'INSERT INTO `'.$db_prefix.'addon` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
 		break;
-	}
-	$success = $addon->install();
-	$installer->sql[] = 'INSERT INTO `'.$db_prefix.'addon` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
-	break;
-case 'upgrade':
-	if (!$previous) {
-		$installer->errors[] = 'Dbname '.$addata['dbname'].' doesn\`t contain an addon to upgrade from';
+
+	case 'upgrade':
+		if (!$previous)
+		{
+			$installer->errors[] = 'Dbname '.$addata['dbname'].' doesn\`t contain an addon to upgrade from';
+			break;
+		}
+		if (in_array($previous['basename'],$addon->upgrades))
+		{
+			$success = $addon->upgrade($previous['basename'],$previous['version']);
+		}
+		else
+		{
+			$installer->errors[] = $addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.';
+			break;
+		}
+		$installer->sql[] = 'UPDATE `'.$db_prefix.'addon` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `hastrigger`='.(int)$addata['hastrigger'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
 		break;
-	}
-	if (in_array($previous['basename'],$addon->upgrades))
-		$success = $addon->upgrade($previous['basename'],$previous['version']);
-	else {
-		$installer->errors[] = $addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.';
+
+	case 'uninstall':
+		if (!$previous)
+		{
+			$installer->errors[] = 'Dbname '.$addata['dbname'].' doesn\'t contain an addon to uninstall';
+			break;
+		}
+		if ($previous['basename'] == $addata['basename'])
+		{
+			$success = $addon->uninstall();
+		}
+		else
+		{
+			$installer->errors[] = $addata['dbname'].' contains an addon with basename '.$previous['basename'].' which must be uninstalled with that addon\'s uninstaller.';
+			break;
+		}
+		$installer->sql[] = 'DELETE FROM `'.$db_prefix.'addon` WHERE `addon_id`='.$previous['addon_id'];
 		break;
-	}
-	$installer->sql[] = 'UPDATE `'.$db_prefix.'addon` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `hastrigger`='.(int)$addata['hastrigger'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
-	break;
-case 'uninstall':
-	if (!$previous) {
-		$installer->errors[] = 'Dbname '.$addata['dbname'].' doesn\'t contain an addon to uninstall';
+
+	case 'purge':
+		$success = purge($addata['dbname']); // Purge is always valid. It also runs its own queries since rolling back would be rather besides the point.
+
+	default:
+		$installer->errors[] = 'Invalid install type '.$_GET['type'];
 		break;
-	}
-	if ($previous['basename'] == $addata['basename'])
-		$success = $addon->uninstall();
-	else {
-		$installer->errors[] = $addata['dbname'].' contains an addon with basename '.$previous['basename'].' which must be uninstalled with that addon\'s uninstaller.';
-		break;
-	}
-	$installer->sql[] = 'DELETE FROM `'.$db_prefix.'addon` WHERE `addon_id`='.$previous['addon_id'];
-	break;
-case 'purge':
-	$success = purge($addata['dbname']); // Purge is always valid. It also runs its own queries since rolling back would be rather besides the point.
-default:
-	$installer->errors[] = 'Invalid install type '.$_GET['type'];
-	break;
 }
 
 if (!success)
+{
 	$installer->errors[] = 'Queries were not successfully added to the installer';
-else {
+}
+else
+{
 	$success = $installer->install();
-	switch ($success) {
-	case 0:
-		$installer->messages[] = '<p>Installation successful</p>';
-		break;
-	case 1:
-		$installer->messages[] = '<p>Installation failed, but rollback was successful</p>';
-		break;
-	case 2:
-		$installer->messages[] = '<p>Installation failed, rollback also failed. Purge and reinstall is probably the easiest way</p>';
-		break;
-	default:
-		$installer->messages[] = '<p>Installation result unknown</p>';
-		break;
+	switch ($success)
+	{
+		case 0:
+			$installer->messages[] = '<p>Installation successful</p>';
+			break;
+
+		case 1:
+			$installer->messages[] = '<p>Installation failed, but rollback was successful</p>';
+			break;
+
+		case 2:
+			$installer->messages[] = '<p>Installation failed, rollback also failed. Purge and reinstall is probably the easiest way</p>';
+			break;
+
+		default:
+			$installer->messages[] = '<p>Installation result unknown</p>';
+			break;
 	}
 }
 
@@ -117,7 +141,8 @@ $sqlstringout = $installer->getsql;
 
 // Time to build the page
 
-include('roster_header.tpl');
+include (ROSTER_BASE.'roster_header.tpl');
+
 // print the error messages
 if( !empty($errorstringout) )
 {
@@ -183,30 +208,38 @@ if( $roster_conf['sqldebug'] )
 	print '<input type="submit" name="download" value="Save SQL Log" />'."\n";
 	print '</form>';
 }
-include('roster_footer.tpl');
+include(ROSTER_BASE.'roster_footer.tpl');
 
-function purge($dbname) {
+function purge($dbname)
+{
 	global $installer, $db_prefix;
-	// Delete addon tables under dbname.	
+
+	// Delete addon tables under dbname.
 	$query = 'SHOW TABLES LIKE `'.$db_prefix.'addons_'.$dbname.'_%';
-	$tables = $wowdb->query($query) or die_quietly('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
-	if ($wowdb->num_rows($tables)) {
-		while ($row = $wowdb->fetch_assoc($tables)) {
+	$tables = $wowdb->query($query);
+	if( !$tables )
+	{
+		die_quietly('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+	}
+	if ($wowdb->num_rows($tables))
+	{
+		while ($row = $wowdb->fetch_assoc($tables))
+		{
 			$query = 'DROP TABLE `'.$row[0].'`';
 			$dropped = $wowdb->query($query) or die_quetly('Error while dropping '.$row[0].'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
 			$wowdb->free_result($dropped);
 		}
 	}
 	$wowdb->free_result($tables);
-	
+
 	// Delete menu entries
-	$query = 'DELETE FROM `'.$db_prefix.'addon_menu` WHERE `addon_name` = "'.$dbname.'"';
+	$query = 'DELETE FROM `'.ROSTER_ADDONSTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
 	$wowdb->query($query) or die_quietly('Error while deleting menu entries for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
-	
+
 	// Delete addon table entry
 	$query = 'DELETE FROM `'.$db_prefix.'addon` WHERE `dbname` = "'.$dbname.'"';
 	$wowdb->query($query) or die_quietly('Error while deleting addon table entry for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
-	
+
 	return true;
 }
 ?>

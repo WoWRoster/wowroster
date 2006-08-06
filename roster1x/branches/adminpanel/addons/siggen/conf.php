@@ -9,6 +9,7 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 }
 
 
+
 //------[ Show the SQL Queries Window? ]------------
 	// This controls the display of the SQL Queries window in the SigGen config page
 	$sc_show_sql_win = 1;

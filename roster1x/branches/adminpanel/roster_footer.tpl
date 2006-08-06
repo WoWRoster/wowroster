@@ -19,17 +19,29 @@
 // Explicitly close the db
 $wowdb->closeDb();
 
+$endtime = explode(' ', microtime() );
+$endtime = $endtime[1] + $endtime[0];
+$totaltime = round($endtime - ROSTER_STARTTIME, 2);
+
 ?>
 
 <!-- Begin Roster Footer -->
 <br />
 <hr />
-<small>WoW Roster v<?php print $roster_conf['version'] ?></small>
+<small>WoWRoster v<?php print $roster_conf['version'] ?></small>
 <br /><br />
 <small><?php echo $wordings[$roster_conf['roster_lang']]['roster_credits']; ?></small>
 <br /><br />
 <a href="http://validator.w3.org/check?uri=referer" target="_blank">
     <img src="<?php print $roster_conf['roster_dir']; ?>/img/valid-html40.gif" alt="Valid HTML 4.0 Transitional" height="15" width="119"></a>
+  <br /><br />
+
+<?php
+if( $roster_conf['processtime'] )
+{
+	print '  <small>This page was created in '.$totaltime.' seconds with '.count($wowdb->sqlstrings).' queries executed</small>';
+}
+?>
 
 </div>
 </body>

@@ -27,7 +27,7 @@ if( empty($guild_info) )
 }
 
 // Get the addon's location
-$addonDir = ROSTER_BASE.'addons'.DIR_SEP.$_REQUEST['roster_addon_name'].DIR_SEP;
+$addonDir = ROSTER_ADDONS.$_REQUEST['roster_addon_name'].DIR_SEP;
 
 // Get the addon's index file
 $addonFile = $addonDir.'index.php';

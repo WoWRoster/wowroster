@@ -95,7 +95,7 @@ $menu = '
 <!-- Begin Config Menu -->
 '.border('sgray','start','Config Menu').'
 <div style="width:145px;">
-  <ul id="admin_tabs" class="tab_menu">'."\n";
+  <ul id="admin_menu" class=tab_menu">'."\n";
 
 $first_tab = ' class="selected"';
 foreach($conf_arrays as $type)
@@ -310,8 +310,10 @@ $roster_diag_message.
     </td>
   </tr>
 </table>
-<script type="text/javascript">
-initializetabcontent("admin_tabs")
+<script type="text/javascript" language="JavaScript">
+<!--
+	initializetabcontent("admin_menu")
+//-->
 </script>';
 
 

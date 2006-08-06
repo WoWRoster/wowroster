@@ -27,50 +27,58 @@ class config
 	var $submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" />\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 	var $form_end = "</form>\n";
 	var $jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
-	
+
 	/**
 	 * Constructor. We define the config table to work with here.
 	 */
-	function config( $tablename)
+	function config( $tablename )
 	{
 		$this->tablename = $tablename;
 	}
-	
+
 	/**
 	 * Build the config page menu
 	 *
 	 * @return string $menu | HTML code for menu/linklist.
 	 */
-
 	function buildConfigMenu()
 	{
 		global $wordings, $roster_conf;
 
-		$menu = '<!-- Begin Config Menu -->'."\n".border('sgray','start','Config Menu')."\n".'<div style="width:145px;">'."\n".'  <ul id="config_tabs" class="tab_menu">'."\n";
+		$menu = '<!-- Begin Config Menu -->'."\n".
+			border('sgray','start','Config Menu')."\n".
+			'<div style="width:145px;">'."\n".
+			'  <ul id="config_tabs" class="tab_menu">'."\n";
 
-		if (is_array($this->db_values['menu'])) foreach($this->db_values['menu'] as $values)
+		if (is_array($this->db_values['menu']))
 		{
-			$menu_type = explode('{',$values['form_type']);
-			$URL = str_replace(array('%addon%','%roster%'),array($_REQUEST['addon'],ROSTER_URL),$values['value']);
-			
-			switch ($menu_type[0])
+			foreach($this->db_values['menu'] as $values)
 			{
-				// in the left menu bar, we print external links and all page/config block types.
-				case 'link':
-					$menu .= '    <li><a href="'.$URL.'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
-					break;
-				case 'newlink':
-					$menu .= '    <li><a href="'.$URL.'" target="_new">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
-					break;
-				case 'page': 	// all pages are the same here
-				case 'pageframe':
-				case 'pagehide':
-				case 'blockframe':
-				case 'blockhide':
-					$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value'])?' class="selected"':'').'><a href="#" rel="'.$values['name'].'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
-					break;
-				default:
-					break;
+				$menu_type = explode('{',$values['form_type']);
+				$URL = str_replace(array('%addon%','%roster%'),array($_REQUEST['addon'],ROSTER_URL),$values['value']);
+
+				switch ($menu_type[0])
+				{
+					// in the left menu bar, we print external links and all page/config block types.
+					case 'link':
+						$menu .= '    <li><a href="'.$URL.'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						break;
+
+					case 'newlink':
+						$menu .= '    <li><a href="'.$URL.'" target="_new">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						break;
+
+					case 'page': 	// all pages are the same here
+					case 'pageframe':
+					case 'pagehide':
+					case 'blockframe':
+					case 'blockhide':
+						$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value'])?' class="selected"':'').'><a href="#" rel="'.$values['name'].'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						break;
+
+					default:
+						break;
+				}
 			}
 		}
 
@@ -86,140 +94,169 @@ class config
 	function buildConfigPage()
 	{
 		global $wordings, $roster_conf;
-		
+
 		// Build the page
 		$html = '';
-		
-		if (is_array($this->db_values['menu'])) foreach($this->db_values['menu'] as $values) 
+
+		if (is_array($this->db_values['menu']))
 		{
-			$type = explode('{',$values['form_type']);
-			$html .= '<div id="'.$values['name'].'" style="display:none;">'."\n";
-			switch ($type[0]) {
-			case 'page':
-				$html .= $this->buildPage($values['name'],$type[1]);
-				break;
-			case 'pageframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n";
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildPage($values['name'],$type[1]);
-				$html .= "</table>\n";
-				$html .= border('sblue','end')."\n";
-				break;
-			case 'pagehide':
-				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildPage($values['name'],$type[1]);
-				$html .= "</table>\n";
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-			case 'blockframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n";
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildBlock($values['name'],$type[1]);
-				$html .= "</table>\n";
-				$html .= border('sblue','end')."\n";
-				break;
-			case 'blockhide':
-				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildBlock($values['name'],$type[1]);
-				$html .= "</table>\n";
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-			default:
-				break;
+			foreach($this->db_values['menu'] as $values)
+			{
+				$type = explode('{',$values['form_type']);
+				$html .= '<div id="'.$values['name'].'" style="display:none;">'."\n";
+
+				$header_text = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]);
+				$header_text = $header_text[0];
+
+				switch ($type[0])
+				{
+					case 'page':
+						$html .= $this->buildPage($values['name'],$type[1]);
+						break;
+
+					case 'pageframe':
+						$html .= border('sblue','start',$header_text)."\n";
+						$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+						$html .= $this->buildPage($values['name'],$type[1]);
+						$html .= "</table>\n";
+						$html .= border('sblue','end')."\n";
+						break;
+
+					case 'pagehide':
+						$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
+						$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$html .= border('sblue','end');
+						$html .= '</div>'."\n";
+						$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
+						$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+						$html .= $this->buildPage($values['name'],$type[1]);
+						$html .= "</table>\n";
+						$html .= border('sblue','end');
+						$html .= '</div>'."\n";
+
+					case 'blockframe':
+						$html .= border('sblue','start',$header_text)."\n";
+						$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+						$html .= $this->buildBlock($values['name'],$type[1]);
+						$html .= "</table>\n";
+						$html .= border('sblue','end')."\n";
+						break;
+
+					case 'blockhide':
+						$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
+						$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$html .= border('sblue','end');
+						$html .= '</div>'."\n";
+						$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
+						$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+						$html .= $this->buildBlock($values['name'],$type[1]);
+						$html .= "</table>\n";
+						$html .= border('sblue','end');
+						$html .= '</div>'."\n";
+
+					default:
+						break;
+				}
+				$html .= "</div>\n";
 			}
-			$html .= "</div>\n";
 		}
 		return $html;
 	}
-	
+
 	/**
 	 * Build a set of config blocks
 	 *
 	 * @param string $page pagename of the page to render
 	 * @return string $html HTML code for the block
 	 */
-	function buildPage($page,$collumns) {
+	function buildPage($page,$columns)
+	{
 		global $wordings, $roster_conf;
+
 		$html = '<table><tr><td>';
 		$i = 0;
-		foreach($this->db_values[$page] as $values) 
+
+
+		foreach($this->db_values[$page] as $values)
 		{
+			$header_text = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]);
+			$header_text = $header_text[0];
+
 			$type = explode('{',$values['form_type']);
-			switch ($type[0]) {
-			case 'page':
-				$html .= $this->buildPage($values['name'],$type[1]);
-				break;
-			case 'pageframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildPage($values['name'],$type[1]);
-				$html .= "</table>\n";
-				$html .= border('sblue','end');
-				break;
-			case 'pagehide':
-				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildPage($values['name'],$type[1]);
-				$html .= "</table>\n";
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-			case 'blockframe':
-				$html .= border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']])."\n";
-				$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-				$html .= $this->buildBlock($values['name']);
-				$html .= "</table>\n";
-				$html .= border('sblue','end')."\n";
-				break;
-			case 'blockhide':
-				$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-				$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-				$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]."</div>");
-				$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">'."\n";
-				$html .= $this->buildBlock($values['name']);
-				$html .= '</table>'."\n";
-				$html .= border('sblue','end');
-				$html .= '</div>'."\n";
-			default:
-				break;
+			switch ($type[0])
+			{
+				case 'page':
+					$html .= $this->buildPage($values['name'],$type[1]);
+					break;
+
+				case 'pageframe':
+					$html .= border('sblue','start',$header_text)."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= $this->buildPage($values['name'],$type[1]);
+					$html .= "</table>\n";
+					$html .= border('sblue','end');
+					break;
+
+				case 'pagehide':
+					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= border('sblue','end');
+					$html .= '</div>'."\n";
+					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= $this->buildPage($values['name'],$type[1]);
+					$html .= "</table>\n";
+					$html .= border('sblue','end');
+					$html .= '</div>'."\n";
+
+				case 'blockframe':
+					$html .= border('sblue','start',$header_text)."\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= $this->buildBlock($values['name']);
+					$html .= "</table>\n";
+					$html .= border('sblue','end')."\n";
+					break;
+
+				case 'blockhide':
+					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= border('sblue','end');
+					$html .= '</div>'."\n";
+					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">'."\n";
+					$html .= $this->buildBlock($values['name']);
+					$html .= '</table>'."\n";
+					$html .= border('sblue','end');
+					$html .= '</div>'."\n";
+
+				default:
+					break;
 			}
-			if ((++$i) % $collumns) {
+			if ((++$i) % $columns)
+			{
 				$html .= '<td>';
 			}
-			else {
+			else
+			{
 				$html .= '<tr><td>';
-			}			
+			}
 		}
 		$html .= '</table>';
 		return $html;
 	}
-	
+
 	/**
 	 * Build one block of config options
 	 *
 	 * @param string $block pagename of the block to render
 	 * @return string $html HTML code for the block
 	 */
-	function buildBlock($block) {
+	function buildBlock($block)
+	{
 		$i = 0;
 		foreach($this->db_values[$block] as $values)
 		{
@@ -233,51 +270,51 @@ class config
 
 			switch ($input_type[0])
 			{
-			case 'text':
-				$length = explode('|',$input_type[1]);
-				$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
-				break;
+				case 'text':
+					$length = explode('|',$input_type[1]);
+					$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+					break;
 
-			case 'radio':
-				$options = explode('|',$input_type[1]);
-				foreach( $options as $value )
-				{
-					$vals = explode('^',$value);
-					$input_field .= '<label class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
-				}
-				break;
-
-			case 'select':
-				$options = explode('|',$input_type[1]);
-				$input_field .= '<select name="config_'.$values['name'].'">'."\n";
-				$select_one = 1;
-				foreach( $options as $value )
-				{
-					$vals = explode('^',$value);
-					if( $values['value'] == $vals[1] && $select_one )
+				case 'radio':
+					$options = explode('|',$input_type[1]);
+					foreach( $options as $value )
 					{
-						$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
-						$select_one = 0;
+						$vals = explode('^',$value);
+						$input_field .= '<label class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
 					}
-					else
+					break;
+
+				case 'select':
+					$options = explode('|',$input_type[1]);
+					$input_field .= '<select name="config_'.$values['name'].'">'."\n";
+					$select_one = 1;
+					foreach( $options as $value )
 					{
-						$input_field .= '  <option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
+						$vals = explode('^',$value);
+						if( $values['value'] == $vals[1] && $select_one )
+						{
+							$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
+							$select_one = 0;
+						}
+						else
+						{
+							$input_field .= '  <option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
+						}
 					}
-				}
-				$input_field .= '</select>';
-				break;
+					$input_field .= '</select>';
+					break;
 
-			case 'function':
-				$input_field = $input_type[1]();
-				break;
+				case 'function':
+					$input_field = $input_type[1]();
+					break;
 
-			case 'display':
-				$input_field = $values['value'];
-				break;
+				case 'display':
+					$input_field = $values['value'];
+					break;
 
-			default:
-				$input_field = $values['value'];
-				break;
+				default:
+					$input_field = $values['value'];
+					break;
 			}
 
 			$html .= '
@@ -298,10 +335,11 @@ class config
 	{
 		global $wowdb, $queries;
 
-		if (!(array_key_exists('process',$_POST) && ($_POST['process'] == 'process'))) {
+		if( !(array_key_exists('process',$_POST) && ($_POST['process'] == 'process')) )
+		{
 			return '';
 		}
-		
+
 		// Slash global data if magic_quotes_gpc is off.
 		if ( !get_magic_quotes_gpc() )
 		{
@@ -351,8 +389,12 @@ class config
 				}
 
 				$get_val = "SELECT `config_value` FROM `".$this->tablename."` WHERE `config_name` = '".$settingName."';";
-				$result = $wowdb->query($get_val)
-					or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
+				$result = $wowdb->query($get_val);
+
+				if( !$result )
+				{
+					die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
+				}
 
 				$config = $wowdb->fetch_assoc($result);
 
@@ -421,7 +463,7 @@ class config
 				$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 
 			}
-			
+
 			$this->conf_arrays = explode('|',$this->db_values['master']['config_list']['value']);
 			return;
 		}
@@ -442,22 +484,23 @@ class config
 	 */
 	function createTip( $disp_text , $content , $caption )
 	{
+		$tipsettings = ",WRAP";
+
 		$content = str_replace("'","\'", $content);
 		$content = str_replace('"','&quot;', $content);
 
-		$caption = str_replace("'","\'", $caption);
-		$caption = str_replace('"','&quot;', $caption);
-
-		$tipsettings = ",WRAP";
-
 		if( !empty($caption) )
-			$caption2 = ",CAPTION,'$caption'";
+		{
+			$caption = str_replace("'","\'", $caption);
+			$caption = str_replace('"','&quot;', $caption);
+			$caption = ",CAPTION,'$caption'";
+		}
 
-		$tip = "<div style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption2$tipsettings);\" onmouseout=\"return nd();\">$disp_text</div>";
+		$tip = "<div style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption$tipsettings);\" onmouseout=\"return nd();\">$disp_text</div>";
 
 		return $tip;
 	}
-	
+
 	/**
 	* Applies addslashes() to the provided data
 	*

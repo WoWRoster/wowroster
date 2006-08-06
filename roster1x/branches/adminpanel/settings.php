@@ -29,6 +29,14 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 
 /**
+ * Begin Roster Timing
+ */
+$starttime = explode(' ', microtime() );
+define('ROSTER_STARTTIME',$starttime[1] + $starttime[0]);
+
+
+
+/**
  * OS specific Directory Seperator
  */
 define('DIR_SEP',DIRECTORY_SEPARATOR);
@@ -55,6 +63,18 @@ define('ROSTER_BASE',dirname(__FILE__).DIR_SEP);
  * Base, absolute roster library directory
  */
 define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
+
+
+/**
+ * Base, absolute roster admin directory
+ */
+define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
+
+
+/**
+ * Base, absolute roster addons directory
+ */
+define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
 
 
 /**

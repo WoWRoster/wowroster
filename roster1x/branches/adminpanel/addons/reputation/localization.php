@@ -16,6 +16,11 @@
  *
  ******************************/
 
+$wordings['addoncredits']['Reputation'] = array(
+	array(	"name"=>	"Cybrey",
+			"info"=>	"Lists faction reputation stats"),
+);
+
 $wordings['deDE']['reputation_addon'] = 'Ruf&uuml;bersicht';
 $wordings['deDE']['applybutton']= 'Start';
 $wordings['deDE']['faction_filter']= 'Fraktion:';

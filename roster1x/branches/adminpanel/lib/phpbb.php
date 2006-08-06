@@ -53,6 +53,13 @@ define('IN_PHPBB', true);
 
 $phpbb_root_path = $roster_conf['phpbb_root_path'];
 
+if( !file_exists($phpbb_root_path . 'extension.inc') || !file_exists($phpbb_root_path . 'common.'.$phpEx) )
+{
+	die_quietly('Roster cannot find phpBB\'s auth files<br /><br />
+	Make sure you have the path set correctly in Roster Config<br /><br />
+	Or turn off &quot;Use phpBB update auth&quot; in Roster Config','phpBB Auth Error');
+}
+
 include_once($phpbb_root_path . 'extension.inc');
 include_once($phpbb_root_path . 'common.'.$phpEx);
 
@@ -68,6 +75,9 @@ init_userprefs($userdata);
 
 
 $php_userid = '';
+$roster_conf['authenticated_user'] = 0;
+$roster_conf['phpbb_authenticated_admin'] = 0;
+
 // Prepare POST data
 if ( isset($HTTP_POST_VARS['username']) && isset($HTTP_POST_VARS['password']))
 {
@@ -95,7 +105,7 @@ if ( isset($HTTP_POST_VARS['username']) && isset($HTTP_POST_VARS['password']))
 		}
 		else
 		{
-			$auth_message = "Invalid user...";
+			$auth_message = 'Invalid user...';
 			// Login failed
 			$roster_conf['authenticated_user'] = 0;
 		}
@@ -109,6 +119,7 @@ else
 		$sql = "SELECT `user_id` ".
 			"FROM `" . USERS_TABLE . "` ".
 			"WHERE `username` = '" . $username . "'";
+
 		if ( !($result = $db->sql_query($sql)) )
 		{
 			die_quietly('Error in obtaining userdata','Database Error',basename(__FILE__),__LINE__,$sql);
@@ -122,16 +133,19 @@ else
 	}
 	else
 	{
-		$auth_message =  "No username passed in";
+		$auth_message =  'No username passed in';
 	}
 }
+
+
+
 if ($php_userid != '')
 {
 	// Verify user belongs to correct group
 	$sql = "SELECT `user_id` ".
-		"FROM " . USER_GROUP_TABLE . " ".
+		"FROM `" . USER_GROUP_TABLE . "` ".
 		"WHERE `user_id` = '" . $php_userid . "' ".
-		"AND `group_id` IN ($wow_group)";
+		"AND `group_id` IN ($wow_group);";
 
 	if ( !($result = $db->sql_query($sql)) )
 	{
@@ -141,14 +155,49 @@ if ($php_userid != '')
 	if( $row = $db->sql_fetchrow($result) )
 	{
 		// User is a member of the specified group
-		$auth_message =  "User verified... allowing upload";
+		$auth_message =  'User verified... allowing upload';
 		$roster_conf['authenticated_user'] = 1;
 	}
 	else
 	{
-		$auth_message =  "Invalid user... insufficient permissions";
+		$auth_message =  'Invalid user... insufficient permissions';
 		$roster_conf['authenticated_user'] = 0;
 	}
 }
+
+
+// Added by Presco
+if ($php_userid != '')
+{
+	if( $roster_conf['phpbb_group_admin'] != 0 && $roster_conf['phpbb_group_admin'] != 1 )
+	{
+		// Verify user belongs to correct group
+		$sql = "SELECT `user_id` ".
+		"FROM `" . USER_GROUP_TABLE . "` ".
+		"WHERE `user_id` = '" . $php_userid . "' ".
+		"AND `group_id` IN ($wow_admin_group);";
+
+		if( !($result = $db->sql_query($sql)) )
+		{
+			die_quietly('Error in obtaining userdata','Database Error',basename(__FILE__),__LINE__,$sql);
+		}
+
+		if( $row = $db->sql_fetchrow($result) )
+		{
+			// User is a member of the specified group
+			$auth_message =  'Admin User verified... allowing upload';
+			$roster_conf['phpbb_authenticated_admin'] = 1;
+		}
+		else
+		{
+			$roster_conf['phpbb_authenticated_admin'] = 0;
+		}
+	}
+	else
+	{
+		$roster_conf['phpbb_authenticated_admin'] = 0;
+	}
+}
+
 
 ?>

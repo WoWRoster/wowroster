@@ -21,13 +21,14 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class Install {
-	var $sql=array();	// install sql
+class Install
+{
+	var $sql=array();		// install sql
 	var $errors=array();	// errors
 	var $messages=array();	// messages
 	var $tables=array();	// $table=>boolean, true to restore, false to drop on rollback.
 	var $profile='default';	// Profile to add tables/data to
-	
+
 	/**
 	 * Add a query to be installed.
 	 *
@@ -38,57 +39,68 @@ class Install {
 	 * @param string $data
 	 *      Contents of the SQL query. Look down for details.
 	 */
-	function add_query($query_type, $table, $data='') {
+	function add_query($query_type, $table, $data='')
+	{
 		global $wowdb, $addon;
-		
-		switch ($query_type) {
+
+		switch ($query_type)
+		{
 		// Backup a table to be restored in case of rollback
 		case 'BACKUP':		// $data is ignored
 			$this->sql[] = 'CREATE TEMPORARY TABLE `'.$this->table($table, $this->profile, true).'` LIKE `'.$this->table($table, $this->profile).'`';
 			$this->sql[] = 'INSERT INTO `'.$this->table($table, $this->profile, true).'` SELECT * FROM `'.$this->table($table, $this->profile).'`';
 			$this->tables[$this->profile.'_'.$table] = true;
 			break;
-		
+
 		// Table queries
-		case 'CREATE':		// $data holds collumn and key definitions
+		case 'CREATE':		// $data holds column and key definitions
 			$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table, $this->profile).'`';
 			$this->sql[] = 'CREATE TABLE `'.$this->table($table, $this->profile).'` ('.$data.') TYPE=MyISAM';
-			if (!array_key_exists($this->profile.'_'.$table,$this->tables)) $this->tables[$this->profile.'_'.$table] = false;
+			if (!array_key_exists($this->profile.'_'.$table,$this->tables))
+				$this->tables[$this->profile.'_'.$table] = false;
 			break;
+
 		case 'DROP':		// $data is ignored
 			$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table, $this->profile).'`';
 			break;
+
 		case 'REN':		// $data hods a table identifier
 			$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table, $this->profile).'`';
 			$this->sql[] = 'RENAME TABLE `'.$this->table($table, $this->profile).'` TO `'.$this->table($data, $this->profile).'`';
-			if (!array_key_exists($this->profile.'_'.$table,$this->tables)) $this->tables[$this->profile.'_'.$table] = false;
+			if (!array_key_exists($this->profile.'_'.$table,$this->tables))
+				$this->tables[$this->profile.'_'.$table] = false;
 			break;
-			
-		// Collumn queries
-		case 'ADD':		// $data hold one collumn, key, index, or constraint definition
+
+		// Column queries
+		case 'ADD':		// $data hold one column, key, index, or constraint definition
 			$this->sql[] = 'ALTER TABLE `'.$this->table($table, $this->profile).'` ADD '.$data;
 			break;
-		case 'DEL':		// $data holds one collumn name, KEY keyname, INDEX indexname, or PRIMARY KEY
+
+		case 'DEL':		// $data holds one column name, KEY keyname, INDEX indexname, or PRIMARY KEY
 			$this->sql[] = 'ALTER TABLE `'.$this->table($table, $this->profile).'` DROP '.$data;
 			break;
-		case 'CHANGE':		// $data holds one collumn name followed by one collumn definition
+
+		case 'CHANGE':		// $data holds one column name followed by one column definition
 			$this->sql[] = 'ALTER TABLE `'.$this->table($table, $this->profile).'` CHANGE '.$data;
-			
+
 		// Data queries
-		case 'INSERT':		// $data holds comma-seperated data for each collumn.
+		case 'INSERT':		// $data holds comma-seperated data for each column.
 			$this->sql[] = 'INSERT INTO `'.$this->table($table, $this->profile).'` VALUES ('.$data.')';
 			break;
-		case 'DELETE':		// $data holds comma-seperated collumn=condition pairs.
+
+		case 'DELETE':		// $data holds comma-seperated column=condition pairs.
 			$this->sql[] = 'DELETE FROM `'.$this->table($table, $this->profile).'` WHERE '.$data;
 			break;
-		case 'UPDATE':		// $data holds collumn=data WHERE collumn=condition
+
+		case 'UPDATE':		// $data holds column=data WHERE column=condition
 			$this->sql[] = 'UPDATE `'.$this->table($table, $this->profile).'` SET '.$data;
 			break;
+
 		default:
 			$this->errors[] = 'Invalid query type '.$query_type.'. Table is '.$table.', active profile is '.$this->profile.', and data is '.$data;
 		}
 	}
-	
+
 	/**
 	 * Add a front page menu button
 	 *
@@ -99,13 +111,15 @@ class Install {
 	 * @param boolean $active
 	 *	If this button should be active initially. If you specify your
 	 *      addon not to be active on install, this parameter means if this
-	 *	button is active after the addon is enabled.
+	 *      button is active after the addon is enabled.
 	 */
-	function add_menu_button($title, $url, $active) {
-		global $db_prefix, $addata;
-		$this->sql[] = 'INSERT INTO `'.$db_prefix.'addon_menu` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.$active.'")';
+	function add_menu_button($title, $url, $active)
+	{
+		global $addata;
+
+		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONSTABLE.'` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.$active.'")';
 	}
-	
+
 	/**
 	 * Modify a front page menu button
 	 *
@@ -118,22 +132,26 @@ class Install {
 	 *      addon not to be active on install, this parameter means if this
 	 *	button is active after the addon is enabled.
 	 */
-	function update_menu_button($title, $url, $active) {
-		global $db_prefix, $addata;
-		$this->sql[] = 'UPDATE `'.$db_prefix.'addon_menu` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
+	function update_menu_button($title, $url, $active)
+	{
+		global $addata;
+
+		$this->sql[] = 'UPDATE `'.ROSTER_ADDONSTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
 	}
-	
+
 	/**
-	 * Add a front page menu button
+	 * Remove a front page menu button
 	 *
 	 * @param string $title
 	 *	Localization key for the button title.
 	 */
-	function remove_menu_button($title) {
-		global $db_prefix, $addata;
-		$this->sql[] = 'DELETE FROM `'.$db_prefix.'addon_menu` WHERE `addon_name`="'.$addata['dbname'].'" AND `title`="'.$title.'"';
+	function remove_menu_button($title)
+	{
+		global $addata;
+
+		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONSTABLE.'` WHERE `addon_name`="'.$addata['dbname'].'" AND `title`="'.$title.'"';
 	}
-	
+
 	/**
 	 * Do the actual installation.
 	 *
@@ -142,40 +160,59 @@ class Install {
 	 *	1 on failure but successful rollback
 	 *	2 on failed rollback
 	 */
-	function install() {
+	function install()
+	{
 		global $wowdb;
+
 		$retval = 0;
-		foreach ($this->sql as $id => $query) {
-			if ($result = $wowdb->query($query)) 
+		foreach ($this->sql as $id => $query)
+		{
+			if ($result = $wowdb->query($query))
+			{
 				$wowdb->free_result($result);
-			else {
+			}
+			else
+			{
 				$this->errors[] = 'Install error in query '.$id.'. MySQL said: '.$wowdb->error().'<br />The query was: '.$query;
 				$retval = 1;
 				break;
 			}
 		}
-		if ($retval) {
-			foreach ($this->tables as $table => $backup) {
+		if ($retval)
+		{
+			foreach ($this->tables as $table => $backup)
+			{
 				$table = explode('_',$table);
 				$query = 'DROP TABLE IF EXISTS `'.$this->table($table[1],$table[0]).'`';
-				if ($result = $wowdb->query($query)) 
+				if ($result = $wowdb->query($query))
+				{
 					$wowdb->free_result($result);
-				else {
+				}
+				else
+				{
 					$this->errors[] = 'Rollback error while dropping '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error();
 					$retval = 2;
 				}
-				if ($backup) {
+				if ($backup)
+				{
 					$query = 'CREATE TABLE `'.$this->table($table[1],$table[0]).'` LIKE `'.$this->table($table[1],$table[0],true).'`';
-					if ($result = $wowdb->query($query)) 
+					if ($result = $wowdb->query($query))
+					{
 						$wowdb->free_result($result);
-					else {
+					}
+					else
+					{
 						$this->errors[] = 'Rollback error while recreating '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error();
 						$retval = 2;
 					}
 					$query = 'INSERT INTO `'.$this->table($table[1],$table[0]).'` SELECT * FROM `'.$this->table($table[1],$table[0],true).'`';
-					if ($result = $wowdb->query($query)) 
+
+					if ($result = $wowdb->query($query))
+					{
 						$wowdb->free_result($result);
-					else {
+					}
+					else
+					{
 						$this->errors[] = 'Rollback error while reinserting data in '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error();
 						$retval = 2;
 					}
@@ -184,42 +221,47 @@ class Install {
 		}
 		return $retval;
 	}
-	
+
 	/**
 	 * Return full table name from base table name for the current addon and config profile.
-	 * 
+	 *
 	 * @param string $table base table name
 	 * @param boolean $backup true to prepend backup (for temporary tables)
 	 */
-	function table($table, $profile, $backup=false) {
+	function table($table, $profile, $backup=false)
+	{
 		global $addata, $wowdb;
+
 		return (($backup)?'backup_':'').$wowdb->table($table, $addata['dbname'], $profile);
 	}
-	
+
 	/**
 	 * Return errors
 	 *
 	 * @return string errors
 	 */
-	function geterrors() {
+	function geterrors()
+	{
 		return implode("<br />\n",$this->errors);
 	}
-	
+
 	/**
 	 * Return messages
 	 *
 	 * @return string messages
 	 */
-	function getmessages() {
+	function getmessages()
+	{
 		return implode("<br />\n",$this->messages);
 	}
-	
+
 	/**
 	 * Return SQL
 	 *
 	 * @return string SQL
 	 */
-	function getsql() {
+	function getsql()
+	{
 		return implode("<br />\n",$this->sql);
 	}
 }

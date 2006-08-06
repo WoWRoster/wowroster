@@ -3,8 +3,9 @@
  * $Id$
  *******************************/
 
-
 require('../../settings.php');			// "settings.php" from WoWRoster
+
+error_reporting(E_ALL);
 
 require( ROSTER_BASE.'addons/siggen/conf.php' );				// Require the siggen config
 

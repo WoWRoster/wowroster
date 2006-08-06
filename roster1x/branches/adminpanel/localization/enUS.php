@@ -33,7 +33,7 @@ $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
 $wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
 
-$wordings['enUS']['update_page']='Update';
+$wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
 $wordings['enUS']['guild_nameNotFound']='Could not update &quot;*GUILDNAME*&quot;. Maybe its not set in configuration?';
 $wordings['enUS']['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
@@ -76,7 +76,7 @@ $wordings['enUS']['update_instructpvp']='
 </ol>';
 
 $wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site.<br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
+WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
 
@@ -157,6 +157,7 @@ $wordings['enUS']['character']='Character';
 $wordings['enUS']['bglog']='BG Log';
 $wordings['enUS']['pvplog']='PvP Log';
 $wordings['enUS']['duellog']='Duel Log';
+$wordings['enUS']['duelsummary']='Duel Summary';
 $wordings['enUS']['money']='Money';
 $wordings['enUS']['bank']='Bank';
 $wordings['enUS']['guildbank']='GuildBank';
@@ -492,8 +493,8 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['search3']='Search by Quest Name';
 
 // serverstatus strings
-	$servertypes['enUS']= array( 'PvP', 'Normal', 'RP', 'RPPVP' );
-	$serverpops['enUS']= array( 'Medium', 'Low', 'High', 'Max' );
+	$servertypes['enUS']= array( 'RPPVP', 'PvP', 'Normal', 'RP' );
+	$serverpops['enUS']= array( 'Low', 'Medium', 'High', 'Max' );
 
 // Definition for item tooltip coloring
 	$wordings['enUS']['tooltip_use']='Use';
@@ -530,86 +531,8 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['PvPLogver_err']="The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minPvPLogver'].", and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua Saved Variables file prior to updating.";
 	$wordings['enUS']['GPver_err']="The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minGPver'];
 
-// Credit page
-$creditspage['enUS']['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
-<br />
-Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
-<br /><br />
-Special Thanks to the DEVs of Roster for helping to build and maintain the package
-<br /><br />';
 
-// This is an array of the dev team
-$creditspage['enUS']['devs'] = array(
-		'active'=>array(
-			array(	"name"=>	"AnthonyB",
-					"info"=>	"Site Admin\nWoW Roster Coordinator"),
-			array(	"name"=>	"Matt Miller",
-					"info"=>	"Gimpy DEV\nAuthor of UniAdmin and UniUploader"),
-			array(	"name"=>	"Calvin",
-					"info"=>	"Gimpy DEV\nAuthor of CharacterProfiler and GuildProfiler"),
-			array(	"name"=>	"Airor/Chris",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"mathos",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Nemm",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"nerk01",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Nostrademous",
-					"info"=>	"WoWRoster Dev\nPvPLog Author"),
-			array(	"name"=>	"peperone",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"RossiRat",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"seleleth",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"silencer-ch-au",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Sphinx",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
-			array(	"name"=>	"Swipe",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"vaccafoeda",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"Vich",
-					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"zanix",
-					"info"=>	"WoWRoster Dev\nSigGen Roster-Addon Author"),
-		),
 
-		'inactive'=>array(
-			array(	"name"=>	"dsrbo",
-					"info"=>	"Retired DEV\nRetired PvPLog Author"),
-			array(	"name"=>	"Guppy",
-					"info"=>	"Retired DEV"),
-			array(	"name"=>	"Mordon",
-					"info"=>	"Retired Dev"),
-		),
-
-		'beta'=>array(
-			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Beta Tester\nDragonflyCMS Port of Roster"),
-			array(	"name"=>	"Kieeps",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Thorus",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Zeryl",
-					"info"=>	"WoWRoster Beta Tester"),
-		),
-	);
-
-$creditspage['enUS']['bottom'] = '
-Thanks to Cybrey for the Orginal "Made By" addon and Thorus for his mod of this script.
-<br />
-Thanks to Cybrey for the Reputation addon.
-<br />
-Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
-<br />
-Thanks to all the coders who have contributed there codes in bug fixes and testing of the roster.
-<br /><br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>
-<br />
-World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.';
 
 
 
@@ -618,20 +541,19 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
  ******************************/
 
 // Main Menu words
-$wordings['enUS']['admin']['main_conf'] = 'Main Settings';
-$wordings['enUS']['admin']['guild_conf'] = 'Guild Config';
-$wordings['enUS']['admin']['index_conf'] = 'Index Page';
-$wordings['enUS']['admin']['menu_conf'] = 'Menu';
-$wordings['enUS']['admin']['display_conf'] = 'Display Config';
-$wordings['enUS']['admin']['misc_conf'] = 'Misc Settings';
-$wordings['enUS']['admin']['char_conf'] = 'Character Page';
-$wordings['enUS']['admin']['realmstatus_conf'] = 'Realmstatus';
-$wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank';
-$wordings['enUS']['admin']['data_links'] = 'Item/Quest Data Links';
-$wordings['enUS']['admin']['update_access'] = 'Update Access';
+$wordings['enUS']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$wordings['enUS']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
+$wordings['enUS']['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
+$wordings['enUS']['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
+$wordings['enUS']['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
+$wordings['enUS']['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
+$wordings['enUS']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
+$wordings['enUS']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$wordings['enUS']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update.php';
 
-$wordings['enUS']['admin']['rosterdiag'] = 'Roster Diag';
-$wordings['enUS']['admin']['documentation'] = 'Documentation';
+$wordings['enUS']['admin']['rosterdiag'] = 'Roster Diag|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
+$wordings['enUS']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 
 // All strings here
@@ -725,6 +647,7 @@ $wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the im
 $wordings['enUS']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
+$wordings['enUS']['admin']['processtime'] = "Page Gen. Time/DB Queries|Display &quot;This page was created in XXX seconds with XX queries executed&quot; in the footer of roster";
 
 // data_links
 $wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br>Look in your localization-file(s) for link configuration";
@@ -765,11 +688,89 @@ $wordings['enUS']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['enUS']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['enUS']['admin']['authenticated_user'] = "Allow Access to Update|Controlls access to update<br><br>Turn this off when phpBB access control is configured";
+$wordings['enUS']['admin']['authenticated_user'] = "Use phpBB update auth|Controls access to profile update<br><br>Turn this <b>on</b> to activate phpBB update access, then configure below";
 $wordings['enUS']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
-$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot; group_id&quot;";
+$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot;group_id&quot;";
+$wordings['enUS']['admin']['phpbb_group_admin'] = "Usergroup Access to Guild update|Set the user group id's that have access to update guild data separated by a comma<br>( EX: 1, 12, 56 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot;group_id&quot;";
 
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
 
+
+
+// Credits page
+// Only defined here because we don't need to translate this for EVERY locale
+
+$creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
+<br />
+Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
+<br /><br />
+Special Thanks to the DEVs of Roster for helping to build and maintain the package
+<br /><br />
+Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
+<br />
+Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
+<br /><br />';
+
+// This is an array of the dev team
+$creditspage['devs'] = array(
+		'active'=>array(
+			array(	"name"=>	"AnthonyB",
+					"info"=>	"Site Admin\nWoWRoster Coordinator"),
+			array(	"name"=>	"Matt Miller",
+					"info"=>	"Gimpy DEV\nAuthor of UniAdmin and UniUploader"),
+			array(	"name"=>	"Calvin",
+					"info"=>	"Gimpy DEV\nAuthor of CharacterProfiler and GuildProfiler"),
+			array(	"name"=>	"Airor/Chris",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"mathos",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Nemm",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"nerk01",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Nostrademous",
+					"info"=>	"WoWRoster Dev\nPvPLog Author"),
+			array(	"name"=>	"peperone",
+					"info"=>	"WoWRoster Dev\nGerman Translator"),
+			array(	"name"=>	"PleegWat",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"RossiRat",
+					"info"=>	"WoWRoster Dev\nGerman Translator"),
+			array(	"name"=>	"seleleth",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"silencer-ch-au",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Sphinx",
+					"info"=>	"WoWRoster Dev\nGerman Translator"),
+			array(	"name"=>	"Swipe",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"vaccafoeda",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"Vich",
+					"info"=>	"WoWRoster Dev"),
+			array(	"name"=>	"zanix",
+					"info"=>	"WoWRoster Dev\nSigGen Roster-Addon Author"),
+		),
+
+		'inactive'=>array(
+			array(	"name"=>	"dsrbo",
+					"info"=>	"Retired DEV\nRetired PvPLog Author"),
+			array(	"name"=>	"Guppy",
+					"info"=>	"Retired DEV"),
+			array(	"name"=>	"Mordon",
+					"info"=>	"Retired Dev"),
+		),
+
+		'beta'=>array(
+			array(	"name"=>	"Anaxent",
+					"info"=>	"WoWRoster Beta Tester\nDragonflyCMS Port of Roster"),
+			array(	"name"=>	"Kieeps",
+					"info"=>	"WoWRoster Beta Tester"),
+			array(	"name"=>	"Thorus",
+					"info"=>	"WoWRoster Beta Tester"),
+			array(	"name"=>	"Zeryl",
+					"info"=>	"WoWRoster Beta Tester"),
+		),
+	);
 ?>
