@@ -66,6 +66,18 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
 
 
 /**
+ * Base, absolute roster admin directory
+ */
+define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
+
+
+/**
+ * Base, absolute roster addons directory
+ */
+define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
+
+
+/**
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');

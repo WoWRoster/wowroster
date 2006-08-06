@@ -546,7 +546,6 @@ $wordings['enUS']['admin']['guild_conf'] = 'Guild Config';
 $wordings['enUS']['admin']['index_conf'] = 'Index Page';
 $wordings['enUS']['admin']['menu_conf'] = 'Menu';
 $wordings['enUS']['admin']['display_conf'] = 'Display Config';
-$wordings['enUS']['admin']['misc_conf'] = 'Misc Settings';
 $wordings['enUS']['admin']['char_conf'] = 'Character Page';
 $wordings['enUS']['admin']['realmstatus_conf'] = 'Realmstatus';
 $wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank';

@@ -546,7 +546,6 @@ $wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration';
 $wordings['deDE']['admin']['index_conf'] = 'Indexseite';
 $wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen';
 $wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen';
-$wordings['deDE']['admin']['misc_conf'] = 'Sonstige Einstellungen';
 $wordings['deDE']['admin']['char_conf'] = 'Charakterseite';
 $wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus';
 $wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank';
