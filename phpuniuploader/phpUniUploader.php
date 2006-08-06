@@ -19,7 +19,7 @@
 // ------------ !!! DO NOT EDIT ANYTHING IN THIS FILE !!! -------------- //
 
 require_once 'settings.ini.php';
-
+require_once 'pclzip.lib.php';
 $luafiles = array();
 $addons = array();
 $post_data = array();
@@ -108,7 +108,7 @@ function CheckFiles()
 
 function UploadFiles()
 {
-	global $post_data, $phpUniSettings, $luafiles, $WoWDir, $AccountName, $RosterUpdatePassword;
+	global $post_data, $phpUniSettings, $luafiles, $WoWDir, $UploadResultLog, $AccountName, $RosterUpdatePassword;
 	
 	$post_data = array();
 	if (isset($phpUniSettings['ADDVARNAME2']) && $phpUniSettings['ADDVARNAME2'])
@@ -157,6 +157,21 @@ function UploadFiles()
 	}
 	if (isset($UploadResultLog) && $UploadResultLog)
 	{
+		if ($logfp = fopen($UploadResultLog, 'wb'))
+        	{
+			if (($bytes_written = fwrite($logfp, date("d/m/Y H:i \r\n").$post_result['output']."\r\n")) === false)
+			{
+				WriteToLog("Unable to write to Output File: ".$UploadResultLog.". Please check the file permissions!");
+			}
+			
+			fclose($logfp);
+		}
+		else
+		{
+	                print ("Can not open Log File for writing: ".$LogFile."\r\n");
+        	        print ("Exiting....\r\n");
+                	exit(1);
+        	}
 	}
 	else
 	{
@@ -168,7 +183,7 @@ function UploadFiles()
 		$filename = substr($filename, 1);
 		if (file_exists($filename) && pathinfo($filename, PATHINFO_EXTENSION) == 'gz')
 		{
-			//unlink($filename);
+			unlink($filename);
 		}
 	}
 			
@@ -232,8 +247,130 @@ function GetSettings()
 
 function CheckAddons()
 {
-	print("Checking Addons\n");
+	global $post_data, $phpUniSettings, $SendUpdatePassword, $TempDir, $WoWDir;
+	
+	$returnvalue = 0;
+	
+	WriteToLog("Checking AddOns");
+	// Declare an array to store the data
+	$addon_data = array();
+	
+	if (isset($phpUniSettings['SYNCHROURL']) && $phpUniSettings['SYNCHROURL'])
+	{
+		$post_data = array();
+		$post_data['OPERATION'] = 'GETADDONLIST';
+		$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetAddOnList');
+
+		if ($post_result['error']) 
+		{
+			$returnvalue = "GetSettings Error: ".$post_result['error'];
+		}
+		
+		preg_match("'<addons.*?>(.*?)</addons>'si", $post_result['output'], $rawxml);
+		preg_match_all("'<addon.*?>(.*?)</addon>'si", $rawxml[0], $rawxml);
+
+		$rawxml = $rawxml[0];
+		foreach ($rawxml as $index => $data)
+		{
+			preg_match("'<addon\sname=\"(.*?)\"\sversion=\"(.*?)\"\s>'", $data, $addon_info);
+			preg_match_all("'<file\sname=\"(.*?)\"\smd5sum=\"(.*?)\"\s\/>'", $data, $addon_files);
+
+			$addon_data[$index]['name'] = $addon_info[1];
+			$addon_data[$index]['version'] = $addon_info[2];
+			
+			foreach ($addon_files[0] as $fileidx => $filedata)
+			{
+				$addon_data[$index]['files'][$fileidx]['file'] = $addon_files[1][$fileidx];
+				$addon_data[$index]['files'][$fileidx]['md5'] = $addon_files[2][$fileidx];
+			}
+		}
+		
+		foreach ($addon_data as $addonindex => $addondata)
+		{
+			WriteToLog("Checking AddOn: ".$addondata['name'].", version ".$addondata['version']);
+			$addon_data[$addonindex]['different'] = 0;
+			foreach ($addondata['files'] as $fileidx => $filedata)
+			{
+				if (file_exists($WoWDir."/".$filedata['file']))
+				{
+					if ($filedata['md5'] == md5_file($WoWDir."/".$filedata['file']))
+					{
+						WriteToLog("File ".$filedata['file']." is the same");
+					}
+					else
+					{
+						WriteToLog("File ".$filedata['file']." is different");
+						$addon_data[$addonindex]['different'] = 1;
+					}
+				}
+				else
+				{
+					WriteToLog("File ".$filedata['file']." does not exist locally");
+					$addon_data[$addonindex]['different'] = 1;
+				}
+			}
+			
+			// Download the file if there are differences and update the addon
+			if ($addon_data[$addonindex]['different'])
+			{
+				// Get the AddOn URL
+				$post_data = array();
+				$post_data['OPERATION'] = 'GETADDON';
+				$post_data['ADDON'] = $addon_data[$addonindex]['name'];
+				$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetAddOnUrl');
+				
+				// Get the AddOn and store it in the tmp folder
+				if ($post_result['error']) 
+				{
+					WriteToLog("GetAddonUrl Error: ".$post_result['error']);
+				}
+				else
+				{
+					preg_match('/Content-Length: ([0-9]+)/', $post_result['output'], $parts);
+					$URL = substr($post_result['output'], - $parts[1]);
+
+					if (isset($URL) && $URL != '')
+					{
+						$downloaded_addon = download_binary($URL, $TempDir."/");
+						if ($downloaded_addon['error'])
+						{
+							WriteToLog("AddOn Download Error: ".$downloaded_addon['error']);
+						}
+						else
+						{
+							WriteToLog("Unzipping AddOn ".$addon_data[$addonindex]['name']." to ".$WoWDir);
+							$archive = new PclZip($downloaded_addon['filename']);
+							if ($archive->extract(PCLZIP_OPT_REPLACE_NEWER, PCLZIP_OPT_PATH, $WoWDir) == 0)
+							{
+								WriteToLog("Error Unzipping: ".$archive->errorInfo(true));
+							}
+							var_dump($archive);
+
+							// Remove the Downloaded AddOn once we are done with it
+							if (file_exists($downloaded_addon['filename']) && is_file($downloaded_addon['filename']))
+							{
+								unlink($downloaded_addon['filename']);
+							}
+						}
+					}
+					else
+					{
+						WriteToLog("AddOn URL Invalid: ".$URL);
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		$returnvalue = 'UniAdmin URL is not configured!';
+	}
+	return $returnvalue;
 }
+
+
+
+
 
 function WriteToLog($string)
 {
@@ -241,7 +378,7 @@ function WriteToLog($string)
 
 	if (isset($LogFile) && $LogFile)
 	{
-		if ($logfp = fopen($LogFile, 'wb'))
+		if ($logfp = fopen($LogFile, 'ab'))
         	{
 			if (($bytes_written = fwrite($logfp, date("d/m/Y H:i - ").$string."\n")) === false)
 			{
@@ -249,6 +386,8 @@ function WriteToLog($string)
         	        	print (date("d/m/Y H:i - ")."Exiting....\r\n");
 				exit(1);
 			}
+			
+			fclose($logfp);
 		}
 		else
 		{
@@ -271,7 +410,7 @@ function gzCompressFile($path, $file, $level=false)
 	$returnvalue = 1;
 	if ($fp_out = gzopen($dest, $mode))
 	{
-		if($fp_in=fopen($path.$file,'rb'))
+		if($fp_in = fopen($path.$file, 'rb'))
 		{
 			while(!feof($fp_in))
 			{
@@ -464,6 +603,70 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
 		}
 	}
 	// Return the results of the post
+	return $returndata;
+}
+
+// Download a file binary save
+function download_binary($URL, $save_path = '')
+{
+	$URL = parse_url($URL);
+	
+	$filename = $save_path.pathinfo($URL['path'], PATHINFO_BASENAME);
+	
+	$returndata['filename'] = $filename;
+	$returndata['error'] = 0;
+	
+	
+	if (!isset($URL['port']) || $URL['port'] == '')
+	{
+		switch ($URL['scheme']) {
+			case "http":
+	  				$URL['port'] = 80;
+				break;
+			case "https":
+	                       	$URL['port'] = 443;
+	                       	break;
+	                       default:
+				$URL['port'] = 80;
+		}
+	}
+
+	$fp = fsockopen($URL['host'], $URL['port']);
+
+	$query  = 'GET ' . $URL['path'] . " HTTP/1.0\n";
+	$query .= 'Host: ' . $URL['host'];
+	$query .= "\r\n\r\n";
+
+	fwrite($fp, $query);
+	while ($tmp = fread($fp, 819200))
+	{
+		$buffer .= $tmp;
+	}
+	
+	preg_match('/Content-Length: ([0-9]+)/', $buffer, $parts);
+	
+	// Let's make sure the file exists and is writable first.
+	if (!file_exists($filename) || is_writable($filename))
+	{
+
+		// In our example we're opening $filename in append mode.
+		// The file pointer is at the bottom of the file hence
+		// that's where $somecontent will go when we fwrite() it.
+		if (!$handle = fopen($filename, 'wb')) {
+			$returndata['error'] = "Cannot open file ($filename)";
+		}
+
+		// Write $somecontent to our opened file.
+		if (fwrite($handle, substr($buffer, - $parts[1])) === FALSE) {
+			$returndata['error'] = "Cannot write to file ($filename)";
+		}
+	  
+		fclose($handle);
+	} 
+	else
+	{
+		$returndata['error'] = "The file $filename is not writable";
+	}
 	return $returndata;
 }
 

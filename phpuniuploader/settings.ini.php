@@ -16,20 +16,20 @@
  *
  ******************************/
 
-// Account data
+//// Account data
 // Your WoW Directory
-$WoWDir               = "/home/mathos/WoW/WoW-Dir";	// You WoW Directory without trailing /
-$AccountName          = "MATHOS";			// You WoW account name, usually uppercase!!
-$UniAdminURL          = "http://elune.mysticwoods.nl/roster/admin/interface.php";
+$WoWDir               = "C:/Program\ Files/World\ of\ Warcraft";	// You WoW Directory without trailing /
+// Your WoW Account Name (Check the directory name for case sensitivity)
+$AccountName          = "ACCOUNT";			// You WoW account name, usually uppercase!!
+// The URL to your UniAdmin interface.php
+$UniAdminURL          = "http://your.domain.com/uniadmin/interface.php";
 $CheckLUAFilesDelay   = 5;                              // How often do we check the LUA files (in seconds)
 $CheckSettingsDelay   = 21600;				// How often do we check the AddOns (in seconds)
 $RosterUpdateUser     = "";				// Your Roster User.
 $RosterUpdatePassword = "";				// Your Roster Password.
-$SendUpdatePassword   = TRUE;
-$LogFile              = "";	// LogFile.
-//$LogFile              = "~/phpUniUploader.log";	// LogFile.
-//$UploadResultLog      = "~/phpUniUploader.LastUpload.log";
-$UploadResultLog      = "";
-$TempDir              = "/tmp";				// Temporary Directory to gzip files.
+$SendUpdatePassword   = FALSE;				// Do you want to send the password? (TRUE or FALSE)
+$LogFile              = "~/phpUniUploader.log";		// LogFile.
+$UploadResultLog      = "~/phpUniUploader.LastUpload.log";
+$TempDir              = $WoWDir;			// Temporary Directory to gzip files.
 
 ?>
