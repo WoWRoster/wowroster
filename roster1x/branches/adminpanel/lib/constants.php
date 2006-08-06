@@ -26,7 +26,8 @@ define('ROSTER_VERSION','1.7.1');
 // Table Names
 define('ROSTER_GUILDTABLE',$db_prefix.'guild');
 define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
-define('ROSTER_ADDONSTABLE',$db_prefix.'addon_menu');
+define('ROSTER_ADDONTABLE',$db_prefix.'addon');
+define('ROSTER_ADDONMENUTABLE',$db_prefix.'addon_menu');
 define('ROSTER_CONFIGTABLE',$db_prefix.'config');
 define('ROSTER_ITEMSTABLE',$db_prefix.'items');
 define('ROSTER_MAILBOXTABLE',$db_prefix.'mailbox');

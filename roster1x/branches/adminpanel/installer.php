@@ -44,8 +44,12 @@ $addata['dbname'] = $_GET['dbname'];
 $addata['basename'] = $_GET['addon'];
 
 // Get existing addon record if available
-$query = 'SELECT * FROM `'.$db_prefix.'addon` WHERE `dbname` = "'.$addata['dbname'].'"';
-$result = $wowdb->query($query) or die_quietly('Failed to fetch addon data for '.$addata['dbname'].'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+$query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `dbname` = "'.$addata['dbname'].'"';
+$result = $wowdb->query($query);
+if( !$result )
+{
+	die_quietly('Failed to fetch addon data for '.$addata['dbname'].'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+}
 $previous = $wowdb->fetch_assoc($result);
 $wowdb->free_result($result);
 
@@ -60,7 +64,7 @@ switch ($_GET['type'])
 			break;
 		}
 		$success = $addon->install();
-		$installer->sql[] = 'INSERT INTO `'.$db_prefix.'addon` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
+		$installer->sql[] = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
 		break;
 
 	case 'upgrade':
@@ -78,7 +82,7 @@ switch ($_GET['type'])
 			$installer->errors[] = $addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.';
 			break;
 		}
-		$installer->sql[] = 'UPDATE `'.$db_prefix.'addon` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `hastrigger`='.(int)$addata['hastrigger'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
+		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `hastrigger`='.(int)$addata['hastrigger'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
 		break;
 
 	case 'uninstall':
@@ -96,7 +100,7 @@ switch ($_GET['type'])
 			$installer->errors[] = $addata['dbname'].' contains an addon with basename '.$previous['basename'].' which must be uninstalled with that addon\'s uninstaller.';
 			break;
 		}
-		$installer->sql[] = 'DELETE FROM `'.$db_prefix.'addon` WHERE `addon_id`='.$previous['addon_id'];
+		$installer->sql[] = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id'];
 		break;
 
 	case 'purge':
@@ -226,19 +230,23 @@ function purge($dbname)
 		while ($row = $wowdb->fetch_assoc($tables))
 		{
 			$query = 'DROP TABLE `'.$row[0].'`';
-			$dropped = $wowdb->query($query) or die_quetly('Error while dropping '.$row[0].'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+			$dropped = $wowdb->query($query);
+			if( !$dropped )
+			{
+				die_quetly('Error while dropping '.$row[0].'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+			}
 			$wowdb->free_result($dropped);
 		}
 	}
 	$wowdb->free_result($tables);
 
 	// Delete menu entries
-	$query = 'DELETE FROM `'.ROSTER_ADDONSTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
-	$wowdb->query($query) or die_quietly('Error while deleting menu entries for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+	$query = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
+	$wowdb->query($query) or die_quietly('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
 
 	// Delete addon table entry
-	$query = 'DELETE FROM `'.$db_prefix.'addon` WHERE `dbname` = "'.$dbname.'"';
-	$wowdb->query($query) or die_quietly('Error while deleting addon table entry for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+	$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `dbname` = "'.$dbname.'"';
+	$wowdb->query($query) or die_quietly('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
 
 	return true;
 }

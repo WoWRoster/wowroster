@@ -117,7 +117,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONSTABLE.'` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.$active.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.$active.'")';
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'UPDATE `'.ROSTER_ADDONSTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
+		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
 	}
 
 	/**
@@ -149,7 +149,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONSTABLE.'` WHERE `addon_name`="'.$addata['dbname'].'" AND `title`="'.$title.'"';
+		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name`="'.$addata['dbname'].'" AND `title`="'.$title.'"';
 	}
 
 	/**
