@@ -84,9 +84,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['enUS']['charset']="charset=utf-8";
 
-//$timeformat['enUS']="%b %d %l%p"; // Time format example - Jul 23 2PM
-$timeformat['enUS']='%b %d %l:%i %p'; // Time format example - Jul 23 2:19 PM
-$phptimeformat['enUS']='M jS D, g:ia'; // Time format example - Mon 23rd Jul, 2:19pm. This is PHP syntax for date() function
+$timeformat['enUS'] = '%b %d %l:%i %p';  // MySQL Time format (example - Jul 23 2:19 PM) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['enUS'] = 'M jS D, g:ia'; // PHP date() Time format (example - Mon 23rd Jul, 2:19pm) - http://www.php.net/manual/en/function.date.php
 
 
 /*

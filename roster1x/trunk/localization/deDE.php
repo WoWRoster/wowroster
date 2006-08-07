@@ -84,9 +84,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['deDE']['charset']="charset=utf-8";
 
-//$timeformat['deDE']="%b %d %l%p"; // Time format example - Jul 23 2PM
-$timeformat['deDE']= '%d.%m. %k:%i'; //Time format example - 23.07. 14:00
-$phptimeformat['deDE']='d.m. g:i'; // Time format example - 23.Jul. 14:00. This is PHP syntax for date() function
+$timeformat['deDE'] = '%d.%m. %k:%i'; // MySQL Time format (example - 23.07. 14:00) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['deDE'] = 'd.m. G:i';  // PHP date() Time format (example - 23.Jul. 14:00) - http://www.php.net/manual/en/function.date.php
 
 
 /*
