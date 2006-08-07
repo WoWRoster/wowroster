@@ -169,25 +169,16 @@ function ProcessCharacterProfile($data){
 			}
 		}
 
-		foreach($realm_data as $character_name=>$character_data){
-			// Leave the "Guild" character alone.
-			if($character_name=="Guild"){
-				continue;
-			}
-			foreach($guild_names as $guild_name)
+		for($i=0; $i<=count($realm_data); $i++)
+		{
+			$character_data = array_shift($realm_data);
+			if(in_array($character_data['Guild']['GuildName'], $guild_names))
 			{
-				if($character_data['Guild']['GuildName']!=$guild_name){
-					// Trim out any characters we don't care about.
-					$retval.="Character '$character_name' is in ".$character_data['Guild']['GuildName'].", not ".$guild_name.". Ignoring.\n";
-					//unset($realm_data[$character_name]);
-				} else {
-					// Process the ones we do care about.
-					$retval.="Now starting process of $character_name\n";
-					$character = new Character($character_name, $guild_name, $realm_name);
-					$retval .= ($character->PerformUpdate($character_data));
-					unset($character);
-					$retval.="Finished process of $character_name\n";
-				}
+				// Process the characters that belong to the currently updating guild.
+				$retval.="--------------------\n";
+				$character = new Character($character_data['Name'], $character_data['Guild']['GuildName'], $realm_name);
+				$retval .= ($character->PerformUpdate($character_data));
+				unset($character_data);
 			}
 		}
 	}
