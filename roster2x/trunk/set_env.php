@@ -311,7 +311,7 @@ function smarty_cache_handler( $action, &$smarty_obj, &$cache_content, $tpl_file
 function getLocaleFiles()
 {
 	$localePath = ROSTER_BASE.'localization';
-    $files_to_ignore = array('.', '..', 'CVS');
+    $files_to_ignore = array('.', '..', 'CVS', '.svn');
 
 	if( $handle = opendir(realpath($localePath)) )
 	{
