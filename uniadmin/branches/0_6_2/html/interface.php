@@ -42,7 +42,7 @@ function OutPutSettings(){
 		echo $row['set_name']."=".$row['set_value']."|";
 	}
 	//sv list
-	$sql = "SELECT * FROM `uniadmin_svlist`";
+	$sql = "SELECT * FROM `".$config['db_tables_svlist']."`";
 	$result = mysql_query($sql,$dblink);
 	echo "SVLIST=";
 	while ($row = mysql_fetch_assoc($result)) {

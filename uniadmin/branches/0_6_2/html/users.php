@@ -51,7 +51,7 @@ function Main($message = ""){
 	$addform .= "
 	<input type='hidden' value='new' name='op'>
 	<tr><td colspan=2><input type='submit' value='Add User'></td></tr>
-	
+
 	</form>
 	</table>";
 
@@ -108,12 +108,12 @@ function CreateUserTable(){
 
 			if (strtoupper($userN) == strtoupper($username) || $currentUserL > 2):
 			$table .= "
-			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=edit&uid=$userI'>Modify</a></td>
-			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=delete&uid=$userI'>Delete</a></td>";
+			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=edit&amp;uid=$userI'>Modify</a></td>
+			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=delete&amp;uid=$userI'>Delete</a></td>";
 			elseif ($currentUserL == "2" && $userL == "1"):
 			$table .= "
-			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=edit&uid=$userI'>Modify</a></td>
-			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=delete&uid=$userI'>Delete</a></td>";
+			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=edit&amp;uid=$userI'>Modify</a></td>
+			<td class=\"$tdClass\"  valign=\"top\"><a href='users.php?op=delete&amp;uid=$userI'>Delete</a></td>";
 
 			endif;
 
@@ -170,7 +170,7 @@ function Modify(){
 	<input type='hidden' value='edit2' name='op'>
 	<input type='hidden' value='$uid' name='uid'>
 	<tr><td colspan=2><input type='submit' value='Modify User'></td></tr>
-	
+
 	</form>
 	</table>";
 
@@ -203,7 +203,7 @@ function Modify2(){
 	if ($userP == "")$userP = $oldPasswordHash; else $userP = md5($userP);
 
 	if ($currentUserL > 1){
-		
+
 		if ($currentUserI != $userI)
 		{
 			if ($currentUserL < 3)$userL = 1;
@@ -268,26 +268,26 @@ function DeleteUser(){
 	$row = mysql_fetch_assoc($result);
 	$currentUserI = $row['id'];
 	$currentUserL = $row['level'];
-	
+
 	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `id` = '$userI'";
 	$result = mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 	$row = mysql_fetch_assoc($result);
 	$userN = $row['name'];
-	
-	
+
+
 	if ($currentUserI == $userI || $currentUserL > 2):
 	$sql = "DELETE FROM `".$config['db_tables_users']."` WHERE `id` = '$userI' LIMIT 1";
 	$result = mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 	Main("<br><center>User '$userN' deleted.</center>");
-	
+
 	elseif ($currentUserL == 2 && $userI == 1):
 	$sql = "DELETE FROM `".$config['db_tables_users']."` WHERE `id` = '$userI' LIMIT 1";
 	$result = mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 	Main("<br><center>User '$userN' deleted.</center>");
-	
+
 	else:
 	die("die hacker!");
 	endif;

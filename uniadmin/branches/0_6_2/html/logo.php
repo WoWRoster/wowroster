@@ -100,17 +100,17 @@ function Main(){
     	";
 
 	if ($logo1['active']=="Yes"){
-		$logo1EnableLink = "<a href='logo.php?op=DISABLE&id=".$logo1['id']."'>Disable</a>";
+		$logo1EnableLink = "<a href='logo.php?op=DISABLE&amp;id=".$logo1['id']."'>Disable</a>";
 	}
 	else{
-		$logo1EnableLink = "<a href='logo.php?op=ENABLE&id=".$logo1['id']."'>Enable</a>";
+		$logo1EnableLink = "<a href='logo.php?op=ENABLE&amp;id=".$logo1['id']."'>Enable</a>";
 	}
 
 	if ($logo2['active']=="Yes"){
-		$logo2EnableLink = "<a href='logo.php?op=DISABLE&id=".$logo2['id']."'>Disable</a>";
+		$logo2EnableLink = "<a href='logo.php?op=DISABLE&amp;id=".$logo2['id']."'>Disable</a>";
 	}
 	else{
-		$logo2EnableLink = "<a href='logo.php?op=ENABLE&id=".$logo2['id']."'>Enable</a>";
+		$logo2EnableLink = "<a href='logo.php?op=ENABLE&amp;id=".$logo2['id']."'>Enable</a>";
 	}
 
 

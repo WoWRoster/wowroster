@@ -10,7 +10,7 @@ function Main(){
 	<table class='uuTABLE' border='1'>
 		<th colspan='2'><center><b>Add / Update Addon</b></center></th>
 		<tr>
-			<td>Required Addon?</td><td><input type='checkbox' checked name='required'></td>
+			<td>Required Addon?</td><td><input type='checkbox' checked='checked' name='required'></td>
 		</tr>
 		<tr>
 			<td>Select file:</td><td><input type='file' name='file'></td>
@@ -20,7 +20,7 @@ function Main(){
 		</tr>
 		<tr>
 			<td>Homepage:</td><td><input type='textbox' name='homepage'></td>
-		</tr> 
+		</tr>
 		<tr>
 			<td colspan='2'><center><input type='submit' value='Add / Update Addon'></center></td>
 		</tr>
@@ -61,20 +61,20 @@ function Main(){
 		$addonID = $row['id'];
 		if ($row['enabled'] == "1"){
 			$enabled = "<font color='green'>yes</font>";
-			$disableHREF = "<a href='addons.php?OPERATION=DISABLEADDON&ADDONID=$addonID'>Disable</a>";
+			$disableHREF = "<a href='addons.php?OPERATION=DISABLEADDON&amp;ADDONID=$addonID'>Disable</a>";
 		}else{
-			$enabled="<font color='red'>no</font>"; $disableHREF = "<a href='addons.php?OPERATION=ENABLEADDON&ADDONID=$addonID'>Enable</a>";
+			$enabled="<font color='red'>no</font>"; $disableHREF = "<a href='addons.php?OPERATION=ENABLEADDON&amp;ADDONID=$addonID'>Enable</a>";
 		}
 		if ($row['homepage'] == ""){
 			$homepage = "./";
 		}
-		
+
 		if ($row['required'] == 1)$required = '<center><font color="red"><b>yes</b></font></center>'; else $required = '<center><font color="green"><b>no</b></font></center>';
 		$toc = '<center>'.$row['toc'].'</center>';
 
 		$AddonPanel .="
 		<tr>
-			<td><a target=_blank href=\"$homepage\">$AddonName</td></a> 
+			<td><a target=_blank href=\"$homepage\">$AddonName</a></td>
 			<td>$toc</td>
 			<td>$required</td>
 			<td>$version</td>
@@ -82,7 +82,7 @@ function Main(){
 			<td><b><center>$enabled</center></b></td>
 			<td><center>$numFiles</center></td>
 			<td><a href='$url' target='_BLANK'>Check</a></td>
-			<td><a href='addons.php?OPERATION=DELADDON&ADDONID=$addonID'>Delete!</a></td>
+			<td><a href='addons.php?OPERATION=DELADDON&amp;ADDONID=$addonID'>Delete!</a></td>
 			<td><center>$disableHREF</center></td>
 		</tr>
 		";
@@ -212,13 +212,13 @@ function processUploadedAddon(){
 		$required = 0;
 
 	if ($homepage == "") {
-		$sql = "SELECT * FROM `uniadmin_addons` WHERE `name` LIKE '".addslashes($addonName)."';";
+		$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
 		$result = mysql_query($sql,$dblink);
 		$row = mysql_fetch_assoc($result);
 		$homepage = $row['homepage'];
 	}
 	if ($version == "") {
-		$sql = "SELECT * FROM `uniadmin_addons` WHERE `name` LIKE '".addslashes($addonName)."';";
+		$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
 		$result = mysql_query($sql,$dblink);
 		$row = mysql_fetch_assoc($result);
 		$version = $row['version'];
@@ -288,7 +288,7 @@ function processUploadedAddon(){
 	}
 
 
-	$sql = "INSERT INTO `uniadmin_addons` ( `id` , `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )VALUES (
+	$sql = "INSERT INTO `".$config['db_tables_addons']."` ( `id` , `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )VALUES (
         '', '".time()."', '".addslashes($version)."', '1', '".addslashes($addonName)."', '".addslashes($downloadLocation)."', '".addslashes($homepage)."', $toc, $required);";
 	mysql_query($sql,$dblink);
 

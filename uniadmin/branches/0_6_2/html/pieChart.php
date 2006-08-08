@@ -18,6 +18,9 @@ function matchset($xx)
     $cnt = $i;
 	return $xy;
 }
+
+$last_angle = 0;
+
 $sliced = matchset($slice);
 $countqw = count($sliced);
 
@@ -43,7 +46,7 @@ for ($y=0; $y<$countqw; $y++)
 	{
 		$degrees[$degCount] = ($sliced[$y]/$sum) * 360;
 		$degCount++;
-	}	
+	}
 }
 
 
@@ -104,12 +107,12 @@ for ($z=0; $z<$countqw; $z++)
 	// calculated with standard mid-point formula
 	$mid_x = round((150+($end_x))/2);
 	$mid_y = round((150+($end_y))/2);
-		
+
 	// depending on which slice, fill with appropriate colour
 	$hexCodeSplit = explode(',',$hexCode[$z]);
 	$WedgeColor = ImageColorAllocate($im, $hexCodeSplit[0],$hexCodeSplit[1],$hexCodeSplit[2]);
-	
-	ImageFillToBorder($im, $mid_x, $mid_y, $black, $WedgeColor);		
+
+	ImageFillToBorder($im, $mid_x, $mid_y, $black, $WedgeColor);
 }
 
 // write string
