@@ -67,6 +67,8 @@ For any support issues, questions, comments, feedback, or suggestions please go 
 CHANGE HISTORY
 ==============
 Beta 0.6.2
+- Added TOC scanning and display for addons
+- Added "Required" addons selection
 - Fixed some areas that were not using the dynamic database table names
   - Thanks DreadPickle  http://www.wowroster.net/Forums/viewtopic/t=260.html
 - Fixed some html encoding errors on some links

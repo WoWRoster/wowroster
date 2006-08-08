@@ -18,7 +18,6 @@ This is a system used to keep the users (who use UniUploader) addons, logos, and
 Rules:<br>
 The uploaded addon must be in zip form only.<br>
 the zip file must have the following directory structure: [folder],{file}, and not literally \"addonName\" or \"addonfile\"<br>
-the zip file's name must be the same as the Addon Name!<br>(the Addon Name is the same as the name of the folder that the Addon's files are in)<br>
 <font color='red'>The zip file must contain no more than 1 wow addon</font><br><br>
 [Interface]<br>
 &nbsp&nbsp&nbsp&nbsp&nbsp[Addons]<br>
@@ -87,6 +86,6 @@ EchoPage("
 		<center>
 			$help
 		</center>
-		
+
 ","help");
 ?>
