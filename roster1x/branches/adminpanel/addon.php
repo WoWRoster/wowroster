@@ -34,19 +34,26 @@ $roster_show_header = true;
 $roster_show_menu = true;
 $roster_show_footer = true;
 
-
-// Check to see if the index file exists
-if( file_exists($addon['index']) )
+// Check if addon is active
+if( $addon['active'] = 1 )
 {
-	// The addon will now assign its output to $content
-	ob_start();
-		include_once( $addon['index'] );
-		$content = ob_get_contents();
-	ob_end_clean();
+	// Check to see if the index file exists
+	if( file_exists($addon['index']) )
+	{
+		// The addon will now assign its output to $content
+		ob_start();
+			include_once( $addon['index'] );
+			$content = ob_get_contents();
+		ob_end_clean();
+	}
+	else
+	{
+		$content = '<b>The addon "'.$addon['basename'].'" installed under dbname "'.$_GET['dbname'].'" does not have an index file!</b>';
+	}
 }
 else
 {
-	$content = '<b>The addon "'.$addon['basename'].'" installed under dbname "'.$_GET['dbname'].'" does not have an index file!</b>';
+	$content = '<b>The addon "'.$addon['basename'].'" installed under dbname "'.$_GET['dbname'].'" has been disabled!</b>';
 }
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines

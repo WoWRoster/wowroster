@@ -40,29 +40,67 @@ if( $guild_data && $guild_data_rows > 0 )
 	{
 		die_quietly($wowdb->error(),'Could not connect to database',basename(__FILE__),__LINE__,$query);
 	}
-
-	$result_menu = $wowdb->query("SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND ".$roster_conf['alt_location']." NOT LIKE '%".$roster_conf['alt_type']."%'") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_non_alts = $wowdb->num_rows($result_menu);
-
-	$result_menu = $wowdb->query("SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND ".$roster_conf['alt_location']." LIKE '%".$roster_conf['alt_type']."%'") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_alts = $wowdb->num_rows($result_menu);
-
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` = 60") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_60 = $wowdb->num_rows($result_menu);
-
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 49 and `level` < 60") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_50_59 = $wowdb->num_rows($result_menu);
-
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 39 and `level` < 50") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_40_49 = $wowdb->num_rows($result_menu);
-
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 29 and `level` < 40") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_30_39 = $wowdb->num_rows($result_menu);
-
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 0 and `level` < 30") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_1_29 = $wowdb->num_rows($result_menu);
-
-	$result_avg = $wowdb->fetch_array($wowdb->query("SELECT AVG(level) FROM `".ROSTER_MEMBERSTABLE."` WHERE guild_id=$guildId")) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
+	
+	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
+		`level` DIV 10 AS levelgroup,
+		COUNT(`level`) AS amount,
+		SUM(`level`) AS sum
+		FROM `".ROSTER_MEMBERSTABLE."`
+		GROUP BY isalt, levelgroup
+		ORDER BY isalt ASC, levelgroup DESC";
+	$result_menu = $wowdb->query($guildstat_query);
+	
+	if (!$result_menu) {
+		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
+	}
+	
+	$num_non_alts = 0;
+	$num_alts = 0;
+	
+	$num_lvl_60 = 0;
+	$num_lvl_50_59 = 0;
+	$num_lvl_40_49 = 0;
+	$num_lvl_30_39 = 0;
+	$num_lvl_1_29 = 0;
+	
+	$level_sum = 0;
+	
+	while ($row = $wowdb->fetch_assoc($result_menu))
+	{
+		if ($row['isalt'])
+		{
+			$num_alts += $row['amount'];
+		}
+		else
+		{
+			$num_non_alts += $row['amount'];
+		}
+		
+		switch ($row['levelgroup'])
+		{
+			case 6:
+				$num_lvl_60 += $row['amount'];
+				break;
+			case 5:
+				$num_lvl_50_59 += $row['amount'];
+				break;
+			case 4:
+				$num_lvl_40_49 += $row['amount'];
+				break;
+			case 3:
+				$num_lvl_30_39 += $row['amount'];
+				break;
+			case 2:
+			case 1:
+			case 0:
+				$num_lvl_1_29 += $row['amount'];
+				break;
+			default:
+		}
+		$level_sum += $row['sum'];
+	}
+	
+	$result_avg = $level_sum/($num_alts + $num_non_alts);
 }
 
 // Get list of addons and their links
@@ -102,7 +140,7 @@ if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
 	print $wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
       <br />
       <ul>
-        <li style="color:#999999;">Average Level: '.round($result_avg[0]).'</li>
+        <li style="color:#999999;">Average Level: '.round($result_avg).'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60: '.$num_lvl_60.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 50-59: '.$num_lvl_50_59.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
@@ -228,66 +266,37 @@ function DateDataUpdated($updateTimeUTC)
  */
 function makeAddonList()
 {
-	global $roster_conf, $wordings;
+	global $act_words, $roster_conf, $wordings, $wowdb;
 
-	$addonsPath = ROSTER_BASE.'addons';
-
-	// Initialize output
+	$query = "SELECT `menu`.`addon_name`,`menu`.`title`,`menu`.`url`,`addon`.`basename` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_name` = `addon`.`dbname` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
+	
+	$result = $wowdb->query($query);
+	
+	if (!$result)
+	{
+		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	}
+	
+	$addons = array();
 	$output = '';
-
-	if ($handle = opendir($addonsPath))
+	while ($row = $wowdb->fetch_assoc($result))
 	{
-		while (false !== ($file = readdir($handle)))
+		if (!in_array($row['addon_name'],$addons))
 		{
-			if ($file != '.' && $file != '..')
+			$addons[] = $row['addon_name'];
+			$addonDir = ROSTER_ADDONS.$row['basename'].DIR_SEP;
+			$localizationFile = $addonDir.'localization.php';
+			if (file_exists($localizationFile))
 			{
-				$addons[] = $file;
+				include_once($localizationFile);
 			}
 		}
+
+		$fullQuery = "?dbname=".$row['addon_name'].$row['url'];
+		$query = str_replace(' ','%20',$fullQuery);
+		$output .= '<li><a href="'.ROSTER_URL.'addon.php'.$query.'">'.$act_words[$row['title']]."</a></li>\n";
 	}
-
-	$aCount = 0; //addon count
-	$lCount = 0; //link count
-
-	if(count($addons) != '')
-	{
-		foreach ($addons as $addon)
-		{
-			$menufile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'menu.php';
-			if (file_exists($menufile))
-			{
-				$addonDir = ROSTER_BASE.'addons'.DIR_SEP.$addon.DIR_SEP;
-				$localizationFile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'localization.php';
-				if (file_exists($localizationFile))
-				{
-					include_once($localizationFile);
-				}
-
-				include_once($menufile);
-
-				if (0 >= $config['menu_min_user_level']) //modify this line for user level / authentication stuff (show the link for user level whatever for this addon)  you understand :P
-				{
-					if (isset($config['menu_index_file'][0]))
-					{
-						//$config['menu_index_file'] is the new array type
-						foreach ($config['menu_index_file'] as $addonLink)
-						{
-							$fullQuery = "?roster_addon_name=$addon" . $addonLink[0];
-							$query = str_replace(' ','%20',$fullQuery);
-							$output .= '<li><a href="'.$roster_conf['roster_dir'].'/addon.php'.$query.'">' . $addonLink[1]."</a></li>\n";
-							$lCount++;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	if ($lCount < 1)
-	{
-		return '';
-	}
-
+	
 	return $output;
 }
 
