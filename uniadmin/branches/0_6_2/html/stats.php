@@ -29,11 +29,11 @@ if (!isset ($_REQUEST)) {
 function Main(){
 	EchoPage("<br><br>".
 	BuildMainTable().
-	"<center><img src='pieChart.php?".BuildPieHosts("host_name")."'>".
-	"<img src='pieChart.php?".BuildPieHosts("ip_addr")."'>".
-	"<img src='pieChart.php?".BuildPieHosts("user_agent")."'>".
-	"<img src='pieChart.php?".BuildPieHosts("action")."'>".
-	"<img src='pieChart.php?".BuildPieHosts("time")."'></center>","Statistics");
+	"<center><img src='pieChart.php?".BuildPieHosts("host_name")."' alt='host_name'>".
+	"<img src='pieChart.php?".BuildPieHosts("ip_addr")."' alt='ip_addr'>".
+	"<img src='pieChart.php?".BuildPieHosts("user_agent")."' alt='user_agent'>".
+	"<img src='pieChart.php?".BuildPieHosts("action")."' alt='action'>".
+	"<img src='pieChart.php?".BuildPieHosts("time")."' alt='time'></center>","Statistics");
 }
 
 function BuildPieHosts($fieldName){
@@ -61,7 +61,7 @@ function BuildPieHosts($fieldName){
 			$finalArray[date("M jS y H:i:s",$HostName)] = mysql_num_rows($result);
 		}
 	}
-	
+
 	//print_r($finalArray);
 	mysql_free_result($result);
 	asort($finalArray,SORT_NUMERIC);
@@ -74,10 +74,15 @@ function BuildPieHosts($fieldName){
 	}
 	$finalArray = array_reverse($finalArray);
 
-	$pie = "title=$fieldName&";
+	$fieldName = urlencode($fieldName);
+
+	$pie = "title=$fieldName&amp;";
 	$i = 0;
 	foreach ($finalArray as $HostName => $numHits){
-		$pie .= "slice[$i]=$numHits&itemName[$i]=$HostName&";
+		$HostName = urlencode($HostName);
+		$numHits = urlencode($numHits);
+
+		$pie .= "slice[$i]=$numHits&amp;itemName[$i]=$HostName&amp;";
 		$i++;
 	}
 	$pie .= "action=drawChart";
@@ -121,13 +126,14 @@ function BuildMainTable(){
 		$direction = "ASC";
 	}
 
-	$table = "<table class='uuTABLE' class=\"stats\" id=\"table_results\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\">
-		<th><div class=\"nowrap\"><a href='stats.php?start=$start&orderby=id&limit=$limit&direction=$direction'>Row</a></div></th>
-		<th><div class=\"nowrap\"><a href='stats.php?start=$start&orderby=action&limit=$limit&direction=$direction'>Action</a></div></th>
-		<th><div class=\"nowrap\"><a href='stats.php?start=$start&orderby=ip_addr&limit=$limit&direction=$direction'>IP Address</a></div></th>
-		<th><div class=\"nowrap\"><a href='stats.php?start=$start&orderby=time&limit=$limit&direction=$direction'>Date/Time</a></div></th>
-		<th><div class=\"nowrap\"><a href='stats.php?start=$start&orderby=user_agent&limit=$limit&direction=$direction'>User Agent</a></div></th>
-		<th><div class=\"nowrap\"><a href='stats.php?start=$start&orderby=host_name&limit=$limit&direction=$direction'>Host Name</a></div></th>
+	$table = "<table class='uuTABLE stats' id=\"table_results\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\">
+	<tr>
+		<th><div class=\"nowrap\"><a href='stats.php?start=$start&amp;orderby=id&amp;limit=$limit&amp;direction=$direction'>Row</a></div></th>
+		<th><div class=\"nowrap\"><a href='stats.php?start=$start&amp;orderby=action&amp;limit=$limit&amp;direction=$direction'>Action</a></div></th>
+		<th><div class=\"nowrap\"><a href='stats.php?start=$start&amp;orderby=ip_addr&amp;limit=$limit&amp;direction=$direction'>IP Address</a></div></th>
+		<th><div class=\"nowrap\"><a href='stats.php?start=$start&amp;orderby=time&amp;limit=$limit&amp;direction=$direction'>Date/Time</a></div></th>
+		<th><div class=\"nowrap\"><a href='stats.php?start=$start&amp;orderby=user_agent&amp;limit=$limit&amp;direction=$direction'>User Agent</a></div></th>
+		<th><div class=\"nowrap\"><a href='stats.php?start=$start&amp;orderby=host_name&amp;limit=$limit&amp;direction=$direction'>Host Name</a></div></th>
 	</tr>";
 
 	while ($row = mysql_fetch_assoc($result)) {
@@ -161,31 +167,31 @@ function BuildMainTable(){
 
 	$PrevStart = $start - $limit;
 	if ($PrevStart > -1){
-		$PrevLink = "<a href='stats.php?start=$PrevStart&orderby=$orderby&limit=$limit&direction=$direction'><< Previous Page</a>";
+		$PrevLink = "<a href='stats.php?start=$PrevStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'><< Previous Page</a>";
 	}
 	$NextStart = $start + $limit;
 	if ($NextStart < $totalRows){
-		$NextLink = "<a href='stats.php?start=$NextStart&orderby=$orderby&limit=$limit&direction=$direction'>Next Page >></a>";
+		$NextLink = "<a href='stats.php?start=$NextStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'>Next Page >></a>";
 	}
 
 	if (isset($PrevLink) && isset($NextLink))$sep = " | ";
-	
-	
+
+
 	$totalPages = floor($totalRows / $limit) + 1;
 	$pageNum =  floor($start / $limit) + 1;
 
-	$table .= "<tr><td class='statsFooter' colspan=4>$PrevLink$sep$NextLink &nbsp&nbsp&nbsp Page $pageNum of $totalPages</td>
+	$table .= "<tr><td class='statsFooter' colspan=4>$PrevLink$sep$NextLink &nbsp;&nbsp;&nbsp; Page $pageNum of $totalPages</td>
 				<td class='statsFooter' colspan=2>
-	
+
 	<form name='changeparams' method='post' ENCTYPE='multipart/form-data' action='stats.php'>
-	
+
 	<input type='submit' value='Show'><input type=textbox name='limit' value='$limit' size='5' maxlength='5'> row(s) starting from record # <input type=textbox name='start' value='$start' size='5' maxlength='5'>
 	<input type='hidden' value='$orderby' name='orderby'>
 	<input type='hidden' value='$direction' name='direction'>
-	
+
 	</form>
-	
-	
+
+
 	</td></tr>";
 	$table .= "</table>";
 

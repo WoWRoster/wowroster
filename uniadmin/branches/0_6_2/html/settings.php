@@ -43,7 +43,7 @@ function Main(){
 	while ($row = mysql_fetch_assoc($result)) {
 		$description = stringChop($row['description'],25,"...");
 		$setname = stringChop($row['set_name'],20,"...");
-		
+
 		if($i % 2){
 			$tdClass = 'data2';
 		}else{
@@ -52,12 +52,12 @@ function Main(){
 
 		$form .= "
 		<tr>
-			<td class='$tdClass' title='".$row['set_name']."' caption='".$row['set_name']."'>$setname</td>
-			<td class='$tdClass' 
+			<td class='$tdClass' title='".$row['set_name']."'>$setname</td>
+			<td class='$tdClass'
 			onmouseover=\"return overlib('<b>".$row['description'].":</b><br><br><img src=images/".$row['set_name'].".jpg>',VAUTO);\" onmouseout=\"return nd();\"
-			>$description</td>      
+			>$description</td>
 			<td class='$tdClass'><input type='textbox' size='50' name='".$row['set_name']."' value='".$row['set_value']."'></td>";
-		
+
 		if ($row['enabled'] == "1"){
 			$form .= "<td class='$tdClass'><center><input type='checkbox' name='".$row['set_name']."enabled' checked></center></td>";
 		}else{
@@ -84,15 +84,15 @@ function Main(){
 		</tr>
 	";
 	while ($row = mysql_fetch_assoc($result)) {
-		
+
 		if($i % 2){
 			$tdClass = 'data2';
 		}else{
 			$tdClass = 'data1';
 		}
-		
+
 		$svTable .= "
-		
+
 		<tr>
 			<td class='$tdClass'>".$row['sv_name']." <b> .lua</b></td>
 			<td class='$tdClass'>
@@ -103,25 +103,29 @@ function Main(){
 				</form>
 			</td>
 		</tr>
-		
 		";
-		
+
 		$i++;
 	}
 	$svTable .= "
+	</table>
+<br />
+<form method='post' ENCTYPE='multipart/form-data' action='settings.php'>
+<input type=hidden value=addsv name=op>
+	<table class='uuTABLE'>
 		<tr>
-			<form method='post' ENCTYPE='multipart/form-data' action='settings.php'>
-				<td class='tableHeader'><input type=text name=svname> <b> .lua</b></td>
-				<td class='tableHeader'><input type=submit value=Add></td>
-				<input type=hidden value=addsv name=op>
-			</form>
+			<td class='tableHeader'><b>Add SavedVariable Filename</b></td>
+			<td class='tableHeader'><b>Add</b></td>
+		</tr>
+		<tr>
+			<td class='$tdClass'><input type=text name=svname> <b> .lua</b></td>
+			<td class='$tdClass'><input type=submit value=Add></td>
 		</tr>
 	</table>
-	
-	
-	
+</form>
+
 	";
-	
+
 	EchoPage("<br><br><center>".$svTable."<br>".$form."</center>","UU Critical Settings");
 }
 
@@ -153,7 +157,7 @@ function addSv(){
 	$sql = "INSERT INTO `".$config['db_tables_svlist']."` ( `id` , `sv_name` ) VALUES ( '', '".$post['svname']."' );";
 	mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
-	
+
 }
 
 function removeSv(){
@@ -161,7 +165,7 @@ function removeSv(){
 	$sql = "DELETE FROM `".$config['db_tables_svlist']."` WHERE `id` = ".$post['svid']." LIMIT 1;";
 	mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
-	
+
 }
 
 switch ($op){
@@ -170,12 +174,12 @@ switch ($op){
 	ProcessUpdate();
 	Main();
 	break;
-	
+
 	case "addsv":
 	addSv();
 	Main();
 	break;
-	
+
 	case "removesv":
 	removeSv();
 	Main();

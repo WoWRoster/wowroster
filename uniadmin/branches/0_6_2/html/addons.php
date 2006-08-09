@@ -8,7 +8,9 @@ function Main(){
 	$addonInputForm ="
 <form method='post' ENCTYPE='multipart/form-data' action='addons.php'>
 	<table class='uuTABLE' border='1'>
-		<th colspan='2'><center><b>Add / Update Addon</b></center></th>
+		<tr>
+			<th colspan='2'><center><b>Add / Update Addon</b></center></th>
+		</tr>
 		<tr>
 			<td>Required Addon?</td><td><input type='checkbox' checked='checked' name='required'></td>
 		</tr>
@@ -31,7 +33,9 @@ function Main(){
 
 	$AddonPanel = "
 		<table class='uuTABLE' border='1'>
-			<th colspan='10'><center>Addon Management</center></th>
+			<tr>
+				<th colspan='10'><center>Addon Management</center></th>
+			</tr>
 			<tr>
 				<td><center><b>Name</b></center></td>
 				<td><center><b>TOC</b></center></td>
@@ -79,7 +83,7 @@ function Main(){
 			<td>$required</td>
 			<td>$version</td>
 			<td>$time</td>
-			<td><b><center>$enabled</center></b></td>
+			<td><center><b>$enabled</b></center></td>
 			<td><center>$numFiles</center></td>
 			<td><a href='$url' target='_BLANK'>Check</a></td>
 			<td><a href='addons.php?OPERATION=DELADDON&amp;ADDONID=$addonID'>Delete!</a></td>

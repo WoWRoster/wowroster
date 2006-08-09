@@ -19,8 +19,8 @@ $loginForm = "
 
 if (isset($_REQUEST['logout'])){
 
-	setcookie("UA","",time()-86400); 
-	echo $loginForm;
+	setcookie("UA","",time()-86400);
+	EchoPage($loginForm);
 	die("");
 
 }else{
@@ -31,24 +31,22 @@ if (isset($_REQUEST['logout'])){
 			$result = mysql_query($sql, $dblink);
 			MySqlCheck($dblink,$sql);
 			$row = mysql_fetch_assoc($result);
-			
+
 			//echo md5($_POST['password']);
 
 			if (md5($_POST['password']) == $row['password']){
 				setcookie("UA",$_POST['name']."|".md5($_POST['password']));
 				$loginForm = "<center>Logged in as: ".$_POST['name']." [<a href='index.php?logout=logout'>Logout</a>]</center><br>";
-				echo $loginForm;
 			}else {
-				echo "<center><font color=red>Wrong userName and/or password</font></center><br>".$loginForm;
+				$loginForm = "<center><font color=red>Wrong userName and/or password</font></center><br>".$loginForm;
+				EchoPage($loginForm);
 				die("");
-				
+
 			}
 		}else{
-			echo $loginForm;
+			EchoPage($loginForm);
 			die("");
 		}
-
-
 
 	}
 	else {
@@ -60,11 +58,10 @@ if (isset($_REQUEST['logout'])){
 
 		if ($BigCookie[1] == $row['password']){
 			$loginForm = "<center>Logged in as: ".$BigCookie[0]." [<a href='index.php?logout=logout'>Logout</a>]</center><br>";
-			echo $loginForm;
 		}
 		else{
-			setcookie("UA","",time()-86400); 
-			echo $loginForm;
+			setcookie("UA","",time()-86400);
+			EchoPage($loginForm);
 			die("");
 		}
 	}

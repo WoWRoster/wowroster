@@ -38,9 +38,10 @@ function Main($message = ""){
 
 
 	$addform = "
-	<table class='uuTABLE'>
 	<form name='modifyuser' method='post' ENCTYPE='multipart/form-data' action='users.php'>
-	<th>Add a user:</th>
+	<input type='hidden' value='new' name='op'>
+	<table class='uuTABLE'>
+	<tr><th>Add a user:</th></tr>
 	<tr><td>Username: <input type=textbox name='name' value='' size='15' maxlength='15'></td></tr>
 	<tr><td>Password: &nbsp;<input type=textbox name='password' value='' size='15' maxlength='15'></td><td>";
 	if ($currentUserL > 2){
@@ -49,11 +50,10 @@ function Main($message = ""){
 		$addform .= "<tr><td>UserLevel: 1</td></tr>";
 	}
 	$addform .= "
-	<input type='hidden' value='new' name='op'>
 	<tr><td colspan=2><input type='submit' value='Add User'></td></tr>
 
-	</form>
-	</table>";
+	</table>
+	</form>";
 
 
 	if ($currentUserL > 1){
@@ -81,10 +81,10 @@ function CreateUserTable(){
 
 	$table = "<table class='uuTABLE' id=\"user_table\" border=\"0\" cellpadding=\"2\" cellspacing=\"1\">
 	<tr>
-		<td><div class=\"tableHeader\">[User Name]</div></td>
-		<td><div class=\"tableHeader\">[User Level]</div></td>
-		<td><div class=\"tableHeader\"><center>&nbsp;</center></div></td>
-		<td><div class=\"tableHeader\"><center>&nbsp;</center></div></td>
+		<th class=\"tableHeader\">User Name</th>
+		<th class=\"tableHeader\">User Level</th>
+		<th class=\"tableHeader\">Modify</th>
+		<th class=\"tableHeader\">Delete</th>
 	</tr>
 	";
 	while ($user = mysql_fetch_assoc($result)) {
@@ -155,8 +155,13 @@ function Modify(){
 
 
 	$form = "
-	<table class='uuTABLE'>
 	<form name='modifyuser' method='post' ENCTYPE='multipart/form-data' action='users.php'>
+	<input type='hidden' value='edit2' name='op'>
+	<input type='hidden' value='$uid' name='uid'>
+	<table class='uuTABLE'>
+	<tr>
+	<th>Edit User</th>
+	</tr>
 	";
 	if ($currentUserL > 1){
 		$form .= "<tr><td>Username: <input type=textbox name='newname' value='$userN' size='15' maxlength='15'></td></tr>";
@@ -167,12 +172,10 @@ function Modify(){
 	}
 	$form .= "
 	<tr><td>Password: &nbsp;<input type=textbox name='newpassword' value='' size='15' maxlength='15'></td><td></td></tr>
-	<input type='hidden' value='edit2' name='op'>
-	<input type='hidden' value='$uid' name='uid'>
 	<tr><td colspan=2><input type='submit' value='Modify User'></td></tr>
 
-	</form>
-	</table>";
+	</table>
+	</form>";
 
 	EchoPage("<br><center>".$form."</center>");
 

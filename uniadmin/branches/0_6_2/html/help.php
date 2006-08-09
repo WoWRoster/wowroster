@@ -20,12 +20,12 @@ The uploaded addon must be in zip form only.<br>
 the zip file must have the following directory structure: [folder],{file}, and not literally \"addonName\" or \"addonfile\"<br>
 <font color='red'>The zip file must contain no more than 1 wow addon</font><br><br>
 [Interface]<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp[Addons]<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[addonName]<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{addonfile}<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{addonfile}<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{addonfile}<br>
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{addonfile}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Addons]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[addonName]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{addonfile}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{addonfile}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{addonfile}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{addonfile}<br>
 <br>
 etc.<br>
 <br>
@@ -50,7 +50,7 @@ access items:<BR>
 #4: statistics management<BR>
 #5.1: change own password<BR>
 #5.2: change own username<BR>
-#5.3: change level 1 usernames & passwords<BR>
+#5.3: change level 1 usernames &amp; passwords<BR>
 #5.4: add level 1 users<BR>
 #5.5: add any level users<BR>
 #5.6: delete level 1 users<BR>

@@ -46,8 +46,8 @@ include('css.php');
 include('cookieFunctions.php');
 
 if (!$interface){
+	include('EchoPage.php');
 	include('login.php');
 	include('header.php');
-	include('EchoPage.php');
 }
 ?>

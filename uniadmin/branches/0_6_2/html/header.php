@@ -2,7 +2,9 @@
 $config['header'] =  "
 		<center>
 			<table class='uuTABLE'>
-				<th>Menu</th>
+				<tr>
+					<th>Menu</th>
+				</tr>
 				<tr>
 					<td><center><a href='help.php'>Help</a></center></td>
 				</tr>
@@ -23,7 +25,7 @@ $config['header'] =  "
 				</tr>
 			</table>
 			<b>
-				Synchronization URL (click to verify): 
+				Synchronization URL (click to verify):
 				<a href='".$config['IntLocation']."' target='_BLANK'>
 					<br>
 					<font color='red'>

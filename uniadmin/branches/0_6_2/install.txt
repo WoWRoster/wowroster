@@ -1,4 +1,4 @@
-UniAdmin 0.6.2 Beta (updated XXth MONTH 2006)
+UniAdmin 0.6.2 Beta (updated 9th August 2006)
 ===============================================
 
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
@@ -71,8 +71,9 @@ Beta 0.6.2
 - Added "Required" addons selection
 - Fixed some areas that were not using the dynamic database table names
   - Thanks DreadPickle  http://www.wowroster.net/Forums/viewtopic/t=260.html
-- Fixed some html encoding errors on some links
 - Fixed the pie charts for php 5.x
+- Updated pclzip.lib from 2.3 to 2.5. zip handling should be faster/safer
+- Fixed many html syntax errors
 
 Beta 0.6.1
 - fixed code to support systems with short_open_tags set to Off in the PHP config
