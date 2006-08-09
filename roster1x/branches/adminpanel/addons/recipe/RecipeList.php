@@ -33,7 +33,7 @@ if ($roster_conf['sqldebug'])
 
 
 $choiceForm = '<form action="addon.php" method="GET" name="myform">
-	<input type="hidden" name="roster_addon_name" value="recipe">
+	<input type="hidden" name="dbname" value="'.$addon['dbname'].'">
 	<table>
 		<tr>
 		<th class="copy">'.$wordings[$roster_conf['roster_lang']]['professionfilter'].'</th>

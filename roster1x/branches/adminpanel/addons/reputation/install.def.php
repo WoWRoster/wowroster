@@ -25,11 +25,11 @@ class reputation
 {
 	var $active = true;
 	var $hastriggers = false;
-	var $hasconfig = 'default';
+	var $hasconfig = '';
 	
 	var $upgrades = array(); // There are no previous versions to upgrade from
 	
-	var $version = 1.0.0;
+	var $version = '1.0.0';
 	
 	function install()
 	{
@@ -47,6 +47,7 @@ class reputation
 	
 	function uninstall()
 	{
+		global $installer;
 		// Since Reputation does not have options it doesn't need to uninstall anything
 		$installer->remove_menu_button('reputation_addon');
 		return true;

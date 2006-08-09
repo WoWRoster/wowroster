@@ -303,4 +303,92 @@ function check_if_image($imagefilename)
 	}
 }
 
+/**
+ * Includes an addon's files to create the addon framework for that addon.
+ *
+ * @param string $dbname | The name of the addon in the database
+ * @return array $addon  | The addon's database record
+ *
+ * @global array $addon_conf | The addon's config data is added to this global array.
+ */
+function getaddon($dbname)
+{
+	global $addon_conf, $wordings, $wowdb;
+	// Get addon registration entry
+	$query = "SELECT * FROM `".$wowdb->table('addon')."` WHERE `dbname` = '$dbname' LIMIT 1";
+	
+	$result = $wowdb->query( $query );
+	
+	if ( !$result )
+	{
+		die_quietly($wowdb->error(),'Roster Addon Framework',__FILE__,__LINE__, $query );
+	}
+	
+	if ( $wowdb->num_rows($result) != 1 )
+	{
+		die_quietly('Attempted to initialize addon framework for noninstalled addon '.$dbname,'Roster Addon Framework',__FILE__,__LINE__);
+	}
+	
+	$addon = $wowdb->fetch_assoc($result);
+	
+	$wowdb->free_result($result);
+
+	// Get the addon's location
+	$addon['dir'] = ROSTER_ADDONS.$addon['basename'].DIR_SEP;
+
+	// Get the addon's index file
+	$addon['index'] = $addon['dir'].'index.php';
+
+	// Get the addon's css style
+	$addon['cssFile'] = $addon['dir'].'default.css';
+	
+	if( file_exists($addon['cssFile']) )
+	{
+		$addon['cssUrl'] = '/addons/'.$addon['basename'].'/default.css';
+	}
+	else
+	{
+		$addon['cssUrl'] = '';
+	}
+
+
+	// Get the addon's locale file
+	$addon['local'] = $addon['dir'].'localization.php';
+
+	// Get the addon's config file
+	$addon['conf'] = $addon['dir'].'conf.php';
+
+	// Get config values for the default profile and insert them into the array
+	if ($addon['hasconfig'] != '')
+	{
+		$query = "SELECT `config_name`, `config_value` FROM `".$wowdb->table('config',$dbname,$addon['hasconfig'])."` ORDER BY `id` ASC;";
+
+		$result = $wowdb->query( $query );
+
+		if ( !$result )
+		{
+			die_quietly($wowdb->error(),'Roster Addon Framework',__FILE__,__LINE__, $query );
+		}
+
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$addon_conf[$dbname][$row['config_name']] = stripslashes($row['config_value']);
+		}
+
+		$wowdb->free_result($result);
+	}
+	// Include localization variables
+	if( file_exists($addon['local']) )
+	{
+		include_once( $addon['local']);
+	}
+
+	// Include addon's conf.php settings
+	if( file_exists($addon['conf']) )
+	{
+		include_once( $addon['conf'] );
+	}
+	
+	return $addon;
+}
 ?>

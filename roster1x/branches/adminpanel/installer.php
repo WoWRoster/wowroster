@@ -64,7 +64,7 @@ switch ($_GET['type'])
 			break;
 		}
 		$success = $addon->install();
-		$installer->sql[] = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'",'.$addata['hasconfig'].','.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
+		$installer->sql[] = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",'.(int)$addata['hastrigger'].','.(int)$addata['active'].')';
 		break;
 
 	case 'upgrade':
@@ -105,6 +105,7 @@ switch ($_GET['type'])
 
 	case 'purge':
 		$success = purge($addata['dbname']); // Purge is always valid. It also runs its own queries since rolling back would be rather besides the point.
+		break;
 
 	default:
 		$installer->errors[] = 'Invalid install type '.$_GET['type'];
@@ -119,7 +120,7 @@ else
 {
 	$success = $installer->install();
 	$message = '<p>'.$wordings[$roster_conf['roster_lang']]['installer_'.$_GET['type']];
-	$message .= $wordings[$roster_conf['roster_lang']]['Installer_success'.$success];
+	$message .= $wordings[$roster_conf['roster_lang']]['Installer_success'.(string)$success];
 	$message .= '</p>';
 	$installer->messages[] = $message;
 }
@@ -202,24 +203,24 @@ include(ROSTER_BASE.'roster_footer.tpl');
 
 function purge($dbname)
 {
-	global $installer, $db_prefix;
+	global $installer, $db_prefix, $wowdb;
 
 	// Delete addon tables under dbname.
-	$query = 'SHOW TABLES LIKE `'.$db_prefix.'addons_'.$dbname.'_%';
+	$query = 'SHOW TABLES LIKE "'.$db_prefix.'addons_'.$dbname.'_%"';
 	$tables = $wowdb->query($query);
 	if( !$tables )
 	{
-		die_quietly('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+		die_quietly('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
 	}
 	if ($wowdb->num_rows($tables))
 	{
-		while ($row = $wowdb->fetch_assoc($tables))
+		while ($row = $wowdb->fetch_row($tables))
 		{
 			$query = 'DROP TABLE `'.$row[0].'`';
 			$dropped = $wowdb->query($query);
 			if( !$dropped )
 			{
-				die_quetly('Error while dropping '.$row[0].'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+				die_quietly('Error while dropping '.$row[0].'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
 			}
 			$wowdb->free_result($dropped);
 		}
@@ -228,11 +229,11 @@ function purge($dbname)
 
 	// Delete menu entries
 	$query = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
-	$wowdb->query($query) or die_quietly('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+	$wowdb->query($query) or die_quietly('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
 
 	// Delete addon table entry
 	$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `dbname` = "'.$dbname.'"';
-	$wowdb->query($query) or die_quietly('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+	$wowdb->query($query) or die_quietly('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
 
 	return true;
 }

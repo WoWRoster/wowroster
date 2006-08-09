@@ -22,16 +22,7 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 // ----[ Get addon record ]---------------------------------
-$query = 'SELECT * FROM '.$wowdb->table('addon').' WHERE `dbname` = "'.$_GET['addon'].'"';
-$result = $wowdb->query($query);
-if( !$result )
-{
-	die_quietly('Could not fetch addon record for '.$_GET['addon'],'Roster Admin Panel',__LINE__,basename(__FILE__),$query);
-}
-$addon = $wowdb->fetch_assoc($result);
-$wowdb->free_result($result);
-
-include(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'localization.php');
+$addon = getaddon($_GET['addon']);
 if (file_exists(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'config.func.php'))
 {
 	include(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'config.func.php');

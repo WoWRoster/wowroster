@@ -29,11 +29,11 @@ class recipe
 	
 	var $upgrades = array(); // There are no previous versions to upgrade from
 	
-	var $version = 1.0.0;
+	var $version = '1.0.0';
 	
 	function install()
 	{
-		global installer;
+		global $installer;
 		$installer->profile = 'default';
 		
 		// Config table

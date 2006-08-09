@@ -54,7 +54,7 @@ $result_fct = $wowdb->query($qry_fct) or die_quietly($wowdb->error(),'Database E
 
 
 $choiceForm = '<form action="addon.php" method="GET">
-	<input type="hidden" name="roster_addon_name" value="reputation">
+	<input type="hidden" name="dbname" value="'.$addon['dbname'].'">
 	'.$wordings[$roster_conf['roster_lang']]['faction_filter'].'
 	<select name="factionfilter">'."\n";
 
