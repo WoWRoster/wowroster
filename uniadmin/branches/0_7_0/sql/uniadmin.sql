@@ -1,20 +1,12 @@
--- phpMyAdmin SQL Dump
--- version 2.8.0.2
--- http://www.phpmyadmin.net
--- 
--- Host: localhost
--- Generation Time: Jun 23, 2006 at 02:09 PM
--- Server version: 4.1.19
--- PHP Version: 4.4.2
--- 
--- Database: `demontes_test`
--- 
+--
+-- MySQL UniAdmin Structure File
+--
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_addons`
--- 
+--
 
 CREATE TABLE `uniadmin_addons` (
   `id` int(11) NOT NULL auto_increment,
@@ -27,18 +19,14 @@ CREATE TABLE `uniadmin_addons` (
   `toc` mediumint(9) NOT NULL default '0',
   `required` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=1 ;
-
--- 
--- Dumping data for table `uniadmin_addons`
--- 
+);
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_files`
--- 
+--
 
 CREATE TABLE `uniadmin_files` (
   `id` int(11) NOT NULL auto_increment,
@@ -46,18 +34,14 @@ CREATE TABLE `uniadmin_files` (
   `filename` varchar(250) NOT NULL default '',
   `md5sum` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=1 ;
-
--- 
--- Dumping data for table `uniadmin_files`
--- 
+);
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_logos`
--- 
+--
 
 CREATE TABLE `uniadmin_logos` (
   `id` int(11) NOT NULL auto_increment,
@@ -68,18 +52,14 @@ CREATE TABLE `uniadmin_logos` (
   `download_url` varchar(250) NOT NULL default '',
   `md5` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=126 ;
-
--- 
--- Dumping data for table `uniadmin_logos`
--- 
+);
 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_settings`
--- 
+--
 
 CREATE TABLE `uniadmin_settings` (
   `id` int(11) NOT NULL auto_increment,
@@ -88,11 +68,11 @@ CREATE TABLE `uniadmin_settings` (
   `enabled` varchar(11) NOT NULL default '',
   `description` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=68 ;
+);
 
--- 
+--
 -- Dumping data for table `uniadmin_settings`
--- 
+--
 
 INSERT INTO `uniadmin_settings` VALUES (4, 'PRIMARYURL', 'http://yourdomain.com/yourinterface.php', '0', 'Primary URL');
 INSERT INTO `uniadmin_settings` VALUES (2, 'LANGUAGE', 'English', '0', 'Language');
@@ -100,9 +80,9 @@ INSERT INTO `uniadmin_settings` VALUES (3, 'PROGRAMMODE', 'Basic', '0', 'Program
 INSERT INTO `uniadmin_settings` VALUES (5, 'AUTOPATH', '1', '1', 'Auto-Path');
 INSERT INTO `uniadmin_settings` VALUES (6, 'ADDONAUTOUPDATE', '1', '0', 'Addon Auto-Update');
 INSERT INTO `uniadmin_settings` VALUES (7, 'UUSETTINGSUPDATER', '1', '0', 'UniUploader Settings Updater');
-INSERT INTO `uniadmin_settings` VALUES (10, 'SYNCHROAUTOURL', '0', '0', 'Synchronization Auto-URL');
 INSERT INTO `uniadmin_settings` VALUES (8, 'UUUPDATERCHECK', '1', '1', 'UniUploader Updater');
 INSERT INTO `uniadmin_settings` VALUES (9, 'SYNCHROURL', 'http://www.demontest.us/UniAdmin/interface.php', '0', 'Synchronization URL');
+INSERT INTO `uniadmin_settings` VALUES (10, 'SYNCHROAUTOURL', '0', '0', 'Synchronization Auto-URL');
 INSERT INTO `uniadmin_settings` VALUES (15, 'SYSTRAY', '0', '0', 'System Tray');
 INSERT INTO `uniadmin_settings` VALUES (17, 'AUTOUPLOADONFILECHANGES', '1', '1', 'Auto Upload on file changes');
 INSERT INTO `uniadmin_settings` VALUES (18, 'ADDVAR1CH', '0', '0', 'Additional variable 1');
@@ -155,11 +135,12 @@ INSERT INTO `uniadmin_settings` VALUES (65, 'DOWNLOADBEFOREWOWL', '0', '0', 'Ini
 INSERT INTO `uniadmin_settings` VALUES (66, 'DOWNLOADBEFOREUPLOAD', '0', '0', 'Initiate Web=>WoW Before UU Uploads');
 INSERT INTO `uniadmin_settings` VALUES (67, 'DOWNLOADAFTERUPLOAD', '1', '0', 'Initiate Web=>WoW After UU Uploads');
 
+
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_stats`
--- 
+--
 
 CREATE TABLE `uniadmin_stats` (
   `id` int(11) NOT NULL auto_increment,
@@ -169,36 +150,34 @@ CREATE TABLE `uniadmin_stats` (
   `time` varchar(15) NOT NULL default '',
   `user_agent` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=118 ;
+);
 
--- 
--- Dumping data for table `uniadmin_stats`
--- 
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_svlist`
--- 
+--
 
 CREATE TABLE `uniadmin_svlist` (
   `id` int(11) NOT NULL auto_increment,
   `sv_name` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=7 ;
+);
 
--- 
+--
 -- Dumping data for table `uniadmin_svlist`
--- 
+--
 
 INSERT INTO `uniadmin_svlist` VALUES (1, 'CharacterProfiler');
-INSERT INTO `uniadmin_svlist` VALUES (6, 'PvPLog');
+INSERT INTO `uniadmin_svlist` VALUES (2, 'PvPLog');
+
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `uniadmin_users`
--- 
+--
 
 CREATE TABLE `uniadmin_users` (
   `id` int(11) NOT NULL auto_increment,
@@ -206,10 +185,10 @@ CREATE TABLE `uniadmin_users` (
   `password` varchar(50) NOT NULL default '',
   `level` char(3) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=14 ;
+);
 
--- 
+--
 -- Dumping data for table `uniadmin_users`
--- 
+--
 
 INSERT INTO `uniadmin_users` VALUES (1, 'Default', '4cb9c8a8048fd02294477fcb1a41191a', '3');

@@ -1,4 +1,4 @@
-UniAdmin 0.6.2 Beta (updated XXth MONTH 2006)
+UniAdmin 0.7.0 Beta (updated 9th August 2006)
 ===============================================
 
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
@@ -66,13 +66,30 @@ For any support issues, questions, comments, feedback, or suggestions please go 
 
 CHANGE HISTORY
 ==============
+Beta 0.7.0
+- Revamped Look and Feel of the interface
+  - Made look across pages more consistent
+  - Changed printing of css.php to a link in html header
+- Turned on php notices and fixed them
+- All pages are accessed by ?p= variable now through index.php
+  - interface.php can still be accessed alone, because UU needs it this way
+
+TO DO:
+- Update all images
+- Create simple db layer
+- Create config interface for UA settings
+- logo image deletion
+- add settings.ini importer/exporter
+- modify cookies to include the IP address in the hash to help prevent cookie copy haxors
+
 Beta 0.6.2
 - Added TOC scanning and display for addons
 - Added "Required" addons selection
 - Fixed some areas that were not using the dynamic database table names
   - Thanks DreadPickle  http://www.wowroster.net/Forums/viewtopic/t=260.html
-- Fixed some html encoding errors on some links
 - Fixed the pie charts for php 5.x
+- Updated pclzip.lib from 2.3 to 2.5. zip handling should be faster/safer
+- Fixed many html syntax errors
 
 Beta 0.6.1
 - fixed code to support systems with short_open_tags set to Off in the PHP config
@@ -107,7 +124,4 @@ Beta .31
 THE FUTURE?
 ===========
 
-to do list for future versions of UA
-
-- add settings.ini importer/exporter
-- modify cookies to include the IP address in the hash to help prevent cookie copy haxors
+To-do list for future versions of UA
