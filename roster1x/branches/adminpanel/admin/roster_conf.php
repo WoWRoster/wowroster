@@ -37,8 +37,13 @@ $config->getConfigData();
 // ----[ Build the page items using lib functions ]---------
 $menu = $config->buildConfigMenu();
 
-$html = $config->buildConfigPage();
+$config->buildConfigPage();
 
-$body = $save_message.$config->form_start.$config->submit_button.$html.$config->form_end.$config->jscript;
+$body = $config->form_start.
+	$config->submit_button.
+	$config->formpages.
+	$config->form_end.
+	$config->nonformpages.
+	$config->jscript;
 
 ?>

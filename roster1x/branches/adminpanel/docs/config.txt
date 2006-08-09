@@ -1,6 +1,5 @@
 $Id$
-This is the current functionality of the config class. The library works, but
-there's no frontend yet...
+This is the current functionality of the config class.
 There are two classes of form types: Option blocks for layout, and the actual
 options. Items of the page, pageframe, and pagehide class contain option blocks.
 Items of the blockframe or blockhide class contain options.
@@ -12,6 +11,9 @@ link:
 	An external link to be opened in the same window
 newlink:
 	An external link to be opened in a new window
+	
+	In the URLs for these links, %roster% is substituted for the roster
+	base url, and %addon% is substituted for the addon's dbname.
 
 Options blocks:
 page{n:
@@ -25,6 +27,10 @@ blockframe
 	A list of options in a border
 blockhide
 	A list of options in a border, witha  show/hide option
+function{name
+	Calls the function called name with no parameters to produce the HTML
+	for the page. If this is a tab (directly linked from the switch menu on
+	the left side) it is put outside the main form so you can put forms in it.
 
 Options:
 text{n|m
@@ -40,3 +46,11 @@ function{name
 	for the option.
 display
 	Displays the option's setting.
+	
+
+config.func.php:
+	Both function types call functions that are defined in a file called
+	'config.func.php' in your addon's directory. If this file sets
+	$addon_hastopbox to true it should define a function topbox(). The html
+	returned by this function will be put above the options in the middle
+	collumn.

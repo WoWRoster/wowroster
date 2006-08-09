@@ -26,12 +26,10 @@ var $hastriggers
 var $hasconfig
 	String, set to the profile name that holds the default config page, or
 	leave empty for no configuration.
-var $profiles
-	Array, values are strings, default config profiles to install. Each
-	profile has its own set of tables.
 	
 var $upgrades
-	Array, values are strings, basenames of addons this can upgrade.
+	Array, values are strings, basenames of addons this can upgrade. The
+	addon's own name should be in this as well.
 
 var $version
 	String, the current version of your addon. Needs to be compatible with
@@ -138,7 +136,7 @@ $installer->update_menu_button($title, $url, $active)
 	$active
 		Whether or not this button is initiall active.
 
-$installer->add_menu_button($title, $url)
+$installer->remove_menu_button($title)
 	Adds a menu button. Parameters:
 	$title
 		The localization key for the menu button's title.

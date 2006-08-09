@@ -32,6 +32,10 @@ $addon = $wowdb->fetch_assoc($result);
 $wowdb->free_result($result);
 
 include(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'localization.php');
+if (file_exists(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'config.func.php'))
+{
+	include(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'config.func.php');
+}
 
 
 // ----[ Set the tablename and create the config class ]----
@@ -53,9 +57,23 @@ $menu .= '<br />'."\n";
 // ----[ Build the page items using lib functions ]---------
 $menu .= $config->buildConfigMenu();
 
-$html = $config->buildConfigPage();
+$config->buildConfigPage();
 
-$body = $config->form_start.$config->submit_button.$html.$config->form_end.$config->jscript;
+if (isset($addon_hastopbox) && $addon_hastopbox)
+{
+	$body = topbox();
+}
+else
+{
+	$body = '';
+}
+
+$body.= $config->form_start.
+	$config->submit_button.
+	$config->formpages.
+	$config->form_end.
+	$config->nonformpages.
+	$config->jscript;
 
 function profilebox()
 {

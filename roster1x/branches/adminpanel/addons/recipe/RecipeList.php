@@ -115,31 +115,31 @@ if (isset($_REQUEST["proffilter"]))
 				//$content .= '</tr>';
 				$content .= '<tr>'."\n";
 
-				if ($display_recipe_icon)
+				if ($addon_conf['recipe']['display_icon'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['item'].'&nbsp;</th>'."\n";
 				}
-				if ($display_recipe_name)
+				if ($addon_conf['recipe']['display_name'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['name'].'&nbsp;</th>'."\n";
 				}
-				if ($display_recipe_level)
+				if ($addon_conf['recipe']['display_level'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['level'].'&nbsp;</th>'."\n";
 				}
-				if ($display_recipe_tooltip)
+				if ($addon_conf['recipe']['display_tooltip'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['itemdescription'].'&nbsp;</th>'."\n";
 				}
-				if ($display_recipe_type)
+				if ($addon_conf['recipe']['display_type'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['type'].'&nbsp;</th>'."\n";
 				}
-				if ($display_recipe_reagents)
+				if ($addon_conf['recipe']['display_reagents'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['reagents'].'&nbsp;</th>'."\n";
 				}
-				if ($display_recipe_makers)
+				if ($addon_conf['recipe']['display_makers'])
 				{
 					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['whocanmakeit'].'&nbsp;</th>'."\n";
 				}
@@ -157,7 +157,7 @@ if (isset($_REQUEST["proffilter"]))
 			$break_counter = 0;
 			while($row_users = $wowdb->fetch_array($result_users))
 			{
-				if ($break_counter == $display_recipe_makers_count)
+				if ($break_counter == $addon_conf['recipe']['display_makers_count'])
 				{
 					$users .= '<br />&nbsp;';
 					$break_counter = 0;
@@ -192,7 +192,7 @@ if (isset($_REQUEST["proffilter"]))
 			str_replace(' ', '+',$recipe->data['recipe_name']).'" target="_thottbot">'.
 			$recipe->data['recipe_name'].'</a>';
 
-			if ($display_recipe_tooltip)
+			if ($addon_conf['recipe']['display_tooltip'])
 			{
 				$tooltip = '';
 				$first_line = true;
@@ -246,33 +246,33 @@ if (isset($_REQUEST["proffilter"]))
 			}
 
 			$content .=  '<tr>'."\n";
-			if ($display_recipe_icon)
+			if ($addon_conf['recipe']['display_icon'])
 			{
 				$content .=  $table_cell_start.'<div class="equip">';
 				$content .=  $recipe->out();
 				$content .=  '</div></td>';
 			}
-			if ($display_recipe_name)
+			if ($addon_conf['recipe']['display_name'])
 			{
 				$content .=  $table_cell_start.'&nbsp;<span style="color:#'.substr( $recipe->data['item_color'], 2, 6 ).';">'.$recipe->data['recipe_name'].'</span>&nbsp;</td>';
 			}
-			if ($display_recipe_level)
+			if ($addon_conf['recipe']['display_level'])
 			{
 				$content .=  $table_cell_start.'&nbsp;'.$recipe->data['level'].'&nbsp;</td>';
 			}
-			if ($display_recipe_tooltip)
+			if ($addon_conf['recipe']['display_tooltip'])
 			{
 				$content .=  $table_cell_start.'<table style="width:220;white-space:normal;"><tr><td>'.$tooltip.'</td></tr></table></td>';
 			}
-			if ($display_recipe_type)
+			if ($addon_conf['recipe']['display_type'])
 			{
 				$content .=  $table_cell_start.'&nbsp;'.$recipe->data['recipe_type'].'&nbsp;</td>';
 			}
-			if ($display_recipe_reagents)
+			if ($addon_conf['recipe']['display_reagents'])
 			{
 				$content .=  $table_cell_start.'&nbsp;'.str_replace('<br>','&nbsp;<br />&nbsp;',$recipe->data['reagents']).'</td>';
 			}
-			if ($display_recipe_makers)
+			if ($addon_conf['recipe']['display_makers'])
 			{
 				$content .=  $table_cell_start.'&nbsp;'.$users.'&nbsp;</td>';
 			}
