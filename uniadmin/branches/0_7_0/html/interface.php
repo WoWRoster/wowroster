@@ -1,25 +1,46 @@
 <?php
 $interface = true;
-include("config.php");
 
-if (!isset ($_REQUEST)) {
-	$request = $request;
-} else {
-	$request = $_REQUEST;
-}
+include('set_env.php');
 
-if ($_REQUEST['OPERATION']=="GETADDONLIST"){OutPutXmL();AddStat();}
-if ($_REQUEST['OPERATION']=="GETADDON"){OutPutUrl();AddStat();}
-if (!isset($_REQUEST['OPERATION'])){echo "UniUploader Update Interface Ready...";AddStat();}
-if ($_REQUEST['OPERATION']=="GETSETTINGS"){OutPutSettings();AddStat();}
+if( isset($_REQUEST['OPERATION']) )
+	$op = $_REQUEST['OPERATION'];
+else
+	$op = '';
 
-if ($_REQUEST['OPERATION']=="GETFILEMD5")
+switch( $op )
 {
-	outputLogoMd5($_REQUEST['FILENAME']);
+	case 'GETADDON':
+		OutPutUrl();
+		AddStat();
+		break;
+
+	case 'GETADDONLIST':
+		OutPutXmL();
+		AddStat();
+		break;
+
+	case 'GETSETTINGS':
+		OutPutSettings();
+		AddStat();
+		break;
+
+	case 'GETFILEMD5':
+		outputLogoMd5($_REQUEST['FILENAME']);
+		break;
+
+	default:
+		echo 'UniUploader Update Interface Ready...';
+		AddStat();
+		break;
 }
 
-function outputLogoMd5($filename){
+
+
+function outputLogoMd5($filename)
+{
 	global $dblink, $config;
+
 	$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `filename` = '$filename'";
 	$result = mysql_query($sql,$dblink);
 	$row = mysql_fetch_assoc($result);
@@ -27,37 +48,46 @@ function outputLogoMd5($filename){
 	//echo $filename;
 }
 
-function OutPutSettings(){
+function OutPutSettings()
+{
 	global $dblink, $config;
+
 	//logos
 	$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `active` = '1'";
 	$result = mysql_query($sql,$dblink);
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = mysql_fetch_assoc($result))
+	{
 		echo "LOGO".$row['logo_num']."=".$row['download_url']."|";
 	}
 	//settings
 	$sql = "SELECT * FROM `".$config['db_tables_settings']."` WHERE `enabled` = '1'";
 	$result = mysql_query($sql,$dblink);
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = mysql_fetch_assoc($result))
+	{
 		echo $row['set_name']."=".$row['set_value']."|";
 	}
 	//sv list
 	$sql = "SELECT * FROM `".$config['db_tables_svlist']."`";
 	$result = mysql_query($sql,$dblink);
 	echo "SVLIST=";
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = mysql_fetch_assoc($result))
+	{
 		echo $row['sv_name'].":";
 	}
 
 }
 
-function AddStat(){
-	global $dblink, $config, $request;
+function AddStat()
+{
+	global $dblink, $config, $op;
 
-	if (isset($request['ADDON'])){
-		$action = addslashes($request['OPERATION']." - ".$request['ADDON']);
-	}else{
-		$action = addslashes($request['OPERATION']);
+	if (isset($_REQUEST['ADDON']))
+	{
+		$action = addslashes($op." - ".$_REQUEST['ADDON']);
+	}
+	else
+	{
+		$action = addslashes($op);
 	}
 	$sql = "INSERT INTO `".$config['db_tables_stats']."` ( `id` , `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
 		( '', '".$_SERVER['REMOTE_ADDR']."', '".addslashes(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".addslashes($_SERVER["HTTP_USER_AGENT"])."' );";
@@ -66,9 +96,10 @@ function AddStat(){
 }
 
 
-function OutPutXmL(){
+function OutPutXmL()
+{
+	global $dblink, $config;
 
-	global $dblink, $config, $_REQUEST, $_SERVER;
 	$xml = "<addons>";
 
 	$sql = "SELECT * FROM `".$config['db_tables_addons']."`";
@@ -76,17 +107,20 @@ function OutPutXmL(){
 
 	while ($row = mysql_fetch_assoc($result))
 	{
-		if ($row['enabled']=="1"){
+		if ($row['enabled']=="1")
+		{
 			$name = $row['name'];
 			$version = $row['version'];
-			$xml .="
+			$xml .= "
 	<addon name=\"$name\" version=\"$version\" >";
 			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($name)."'";
 			$result2 = mysql_query($sql);
-			while ($row2 = mysql_fetch_assoc($result2)) {
+			while ($row2 = mysql_fetch_assoc($result2))
+			{
 				$filename = $row2['filename'];
 				$md5 = $row2['md5sum'];
-				if ($filename != "index.htm" && $filename != "index.html"){
+				if ($filename != "index.htm" && $filename != "index.html")
+				{
 					$xml .="
 		<file name=\"$filename\" md5sum=\"$md5\" />";
 				}
@@ -102,8 +136,10 @@ function OutPutXmL(){
 	echo $xml;
 }
 
-function OutPutUrl(){
-	global $dblink, $config, $_REQUEST, $_SERVER;
+function OutPutUrl()
+{
+	global $dblink, $config;
+
 	$addonName = $_REQUEST['ADDON'];
 	$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` = '".addslashes($addonName)."'";
 	$result = mysql_query($sql,$dblink);

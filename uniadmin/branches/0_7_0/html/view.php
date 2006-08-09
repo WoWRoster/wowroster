@@ -13,30 +13,41 @@ function Main(){
 	global $dblink, $config, $url, $_POST;
 
 	$addonInputForm ="
-	<form method='post' ENCTYPE='multipart/form-data' action='addons.php'>
-		<table border='1'>
-		<th colspan='2'><center><b>Add / Update Addon</b></center></th>
-    	<tr><td>Select file:</td><td><input type='file' name='file'></td></tr>
-    	<tr><td>Version:</td><td><input type='textbox' name='version'></td></tr>
-
-        <tr><td>Homepage:</td><td><input type='textbox' name='homepage'></td></tr>
-
-    	<tr><td colspan='2'><center><input type='submit' value='Add / Update Addon'></center>
-    	<input type='hidden' value='PROCESSUPLOAD' name='OPERATION'></td></tr>
-    	</table>
-    	</form>
+	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."users'>
+	<table border='1'>
+		<th colspan='2'>Add / Update Addon</th>
+    	<tr>
+    		<td>Select file:</td>
+    		<td><input class='file' type='file' name='file'></td>
+    	</tr>
+    	<tr>
+    		<td>Version:</td>
+    		<td><input class='input' type='textbox' name='version'></td>
+    	</tr>
+        <tr>
+        	<td>Homepage:</td>
+        	<td><input class='input' type='textbox' name='homepage'></td>
+        </tr>
+    	<tr>
+    		<td colspan='2'><input class='submit' type='submit' value='Add / Update Addon'>
+    			<input type='hidden' value='PROCESSUPLOAD' name='OPERATION'></td>
+    	</tr>
+    </table>
+    </form>
     	";
 
 	$AddonPanel = "
 		<table border='1'>
-			<th colspan='8'><center>Addon Management</center></th>
 			<tr>
-				<td><center><b>Name</b></center></td>
-				<td><center><b>Version</b></center></td>
-				<td><center><b>Uploaded</b></center></td>
-				<td><center><b>Enabled</b></center></td>
-				<td><center><b>Files</b></center></td>
-				<td><center><b>URL</b></center></td>
+				<th colspan='8'>Addon Management</th>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>Version</td>
+				<td>Uploaded</td>
+				<td>Enabled</td>
+				<td>Files</td>
+				<td>URL</td>
 			</tr>";
 
 	$sql = "SELECT * FROM `uniadmin_addons` ORDER BY `name`";
@@ -55,17 +66,17 @@ function Main(){
 		$addonID = $row['id'];
 		if ($row['enabled'] == "1"){
 			$enabled = "<font color='green'>yes</font>";
-			$disableHREF = "<a href='addons.php?OPERATION=DISABLEADDON&ADDONID=$addonID'>Disable</a>";
+			$disableHREF = "<a href='".UA_FORMACTION."addons&amp;OPERATION=DISABLEADDON&ADDONID=$addonID'>Disable</a>";
 		}else{
-			$enabled="<font color='red'>no</font>"; $disableHREF = "<a href='addons.php?OPERATION=ENABLEADDON&ADDONID=$addonID'>Enable</a>";
+			$enabled="<font color='red'>no</font>"; $disableHREF = "<a href='".UA_FORMACTION."addons&amp;OPERATION=ENABLEADDON&ADDONID=$addonID'>Enable</a>";
 		}
 		$AddonPanel .="
 		<tr>
 			<td><a target=_blank href=\"$homepage\">$AddonName</a></td>
 			<td>$version</td>
 			<td>$time</td>
-			<td><b><center>$enabled</center></b></td>
-			<td><center>$numFiles</center></td>
+			<td>$enabled</td>
+			<td>$numFiles</td>
 			<td><a href='$url' target='_BLANK'>Get</a></td>
 		</tr>
 		";
@@ -78,12 +89,12 @@ function Main(){
 	EchoPage("
 		<br>
 		<br>
-		<center>
-			$AddonPanel 
+
+			$AddonPanel
 			<br>
 			<BR>
 			<BR>
-		</center>","Addons");
+		","Addons");
 }
 
 
@@ -100,7 +111,7 @@ function ls($dir, $array){
 	closedir($handle);
 	return $array;
 }
-        
+
 
 
 //the switch function is bugged in my version of PHP, so had to use this:
