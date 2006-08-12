@@ -58,27 +58,27 @@ if (!array_key_exists('page',$_GET))
 switch ($_GET['page'])
 {
 	case 'roster':
-		// Code to call config library with roster config pages
 		include(ROSTER_ADMIN.'roster_conf.php');
 		break;
 
 	case 'character':
-		// Code to call character preferences screen
 		include(ROSTER_ADMIN.'character_conf.php');
 		break;
 
 	case 'addon':
-		// Code to call config library with addon config pages
 		include(ROSTER_ADMIN.'addon_conf.php');
 		break;
 
 	case 'install':
-		// Code to list all installable/installed addons
 		include(ROSTER_ADMIN.'addon_install.php');
 		break;
 
+	case 'password':
+		include(ROSTER_ADMIN.'admin_pass.php');
+		break;
+
 	default:
-		// Display an error message
+		$body = messagebox('Invalid page specified.','Roster Admin Panel','sred');
 		break;
 }
 

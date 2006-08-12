@@ -391,4 +391,22 @@ function getaddon($dbname)
 	
 	return $addon;
 }
+
+/**
+ * Draw a message box with the specified border color.
+ *
+ * @param string $message | The message to display inside the box
+ * @param string $title | The box title
+ * @param string $style | The border style
+ * @return string $html | The HTML for the messagebox
+ */
+function messagebox($message, $title = 'Message', $style = 'sgray')
+{
+	return
+		border($style, 'start', $title).
+		'<div align="center">'.
+		$message.
+		'</div>'.
+		border($style, 'end');
+}
 ?>
