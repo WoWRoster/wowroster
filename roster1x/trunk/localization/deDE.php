@@ -473,7 +473,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 		//$questlinks[0]['deDE']['url3']='&amp;maxl='';
 
 		$questlinks[1]['deDE']['name']='Blasc DE';
-		$questlinks[1]['deDE']['url1']='http://blasc.planet-multiplayer.de/?f=';
+		$questlinks[1]['deDE']['url1']='http://www.blasc.de/?f=';
 		//$questlinks[1]['deDE']['url2']='';
 		//$questlinks[1]['deDE']['url3']='';
 
@@ -484,7 +484,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 
 // Items external link
 	//$itemlink['deDE'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-	$itemlink['deDE'] = 'http://blasc.planet-multiplayer.de/?f=';
+	$itemlink['deDE'] = 'http://www.blasc.de/?f=';
 
 // definitions for the questsearchpage
 	$wordings['deDE']['search1']="W&auml;hle eine Zone oder eine Quest um zu schauen, wer sie alles hat.<br />\n<small>Beachte: Stimmen die Questlevel bei verschiedenen Gildenleuten nicht &uuml;berein, handelt es sich um verschiedene Teile einer Questreihe.</small>";
