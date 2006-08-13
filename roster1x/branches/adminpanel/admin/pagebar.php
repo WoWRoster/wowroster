@@ -27,6 +27,7 @@ $pagebar .= '<li><a href="?page=roster">'.$act_words['pagebar_rosterconf'].'</a>
 $pagebar .= '<li><a href="?page=character">'.$act_words['pagebar_charpref'].'</a></li>'."\n";
 $pagebar .= '<li><a href="?page=install">'.$act_words['pagebar_addoninst'].'</a></li>'."\n";
 $pagebar .= '<li><a href="?page=password">'.$act_words['pagebar_adminpass'].'</a></li>'."\n";
+$pagebar .= '<li><a href="?page=update">'.$act_words['pagebar_update'].'</a></li>'."\n";
 $pagebar .= '</ul>'."\n";
 $pagebar .= border('sgray','end')."\n";
 $pagebar .= "<br />\n";

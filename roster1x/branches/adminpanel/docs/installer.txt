@@ -124,7 +124,7 @@ $installer->add_menu_button($title, $url, $active)
 	$url
 		The url parameters this button should call the addon with
 	$active
-		Whether or not this button is initiall active.
+		Whether or not this button is initially active.
 
 $installer->update_menu_button($title, $url, $active)
 	Adds a menu button. Parameters:
@@ -134,9 +134,27 @@ $installer->update_menu_button($title, $url, $active)
 	$url
 		The url parameters this button should call the addon with.
 	$active
-		Whether or not this button is initiall active.
+		Whether or not this button is initially active.
 
 $installer->remove_menu_button($title)
 	Adds a menu button. Parameters:
 	$title
 		The localization key for the menu button's title.
+
+Editing trigger registration
+============================
+There are 2 seperate functions to register/unregister for certain file uploads.
+You can register yourself for any lua file.
+
+$installer->add_trigger($file, $active)
+	Register for an additional file. Parameters:
+	$file
+		The name of the addon (e.g. CharacterProfiler if you want your
+		trigger to run if CharacterProfiler.lua is included in the update)
+	$active
+		Whether or not this trigger is initially active
+$installer->remove_trigger($file)
+	Unregister a file. Parameters:
+	$file
+		The name of the addon.
+		

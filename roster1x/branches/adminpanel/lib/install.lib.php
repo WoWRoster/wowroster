@@ -117,7 +117,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.$active.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.(int)$active.'")';
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
+		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.(int)$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
 	}
 
 	/**
@@ -151,6 +151,36 @@ class Install
 
 		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name`="'.$addata['dbname'].'" AND `title`="'.$title.'"';
 	}
+	
+	/**
+	 * Register a file for updates
+	 *
+	 * @param string $file
+	 *	Name of the WoW addon
+	 * @param boolean $active
+	 *	If this trigger should be active initially. If you specify your
+	 *	addon not to be active on install, this parameter means if this
+	 *	trigger is active after the addon in enabled.
+	 */
+	function add_trigger($file, $active)
+	{
+		global $addata, $wowdb;
+		
+		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES ("'.$addata['dbname'].'","'.$file.'","'.(int)$active.'")';
+	}
+	
+	/**
+	 * Unregister a file for updates
+	 *
+	 * @param string $file
+	 *	Name of the WoW addon
+	 */
+	 function remove_trigger($file)
+	 {
+	 	global $addata, $wowdb;
+	 	
+	 	$this->sql[] = 'DELETE FROM `'.$wowdb->table('addon_trigger').'` WHERE `addon_name`="'.$addata['dbname'].'" AND `file`="'.$file.'"';
+	 }
 
 	/**
 	 * Do the actual installation.

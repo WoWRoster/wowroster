@@ -1,0 +1,82 @@
+<?php
+/******************************
+ * WoWRoster.net  Roster
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ******************************/
+
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
+// Include update lib
+require_once(ROSTER_LIB.'update.lib.php');
+$update = new update;
+
+// Fetch addon data.
+$messages = $update->fetchAddonData();
+
+if ($_POST['process'] == 'process')
+{
+	// Parse, process
+	$messages .= $update->parseFiles();
+	$messages .= $update->processFiles();
+
+	// And produce a page with errors, messages, and queries
+	$errors = $wowdb->getErrors();
+	$queries = $wowdb->getSQLStrings();
+	
+	$body = '';
+	
+	if (!empty($errors))
+	{
+		$body .= scrollbox($errors,'Errors','sred');
+		$body .= "<br />\n";
+	}
+	
+	$body .= scrollbox($messages,'Messages','syellow');
+	
+	if ($roster_conf['sqldebug'])
+	{
+		$body .= "<br />\n";
+		$body .= scrollbox(nl2br(sql_highlight($queries)),'SQL Queries','sgreen');
+	}
+}
+else
+{
+	$body  = '<form action="" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this)">'."\n";
+
+	$body .= border('sblue','start','Select files to upload')."\n";
+	$body .= '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	$body .= $update->makeFileFields();
+	$body .= '</table>'."\n";
+	$body .= border('sblue','end')."\n";
+	
+	$body .= "<br />\n";
+	
+	$body .= '<input type="hidden" name="process" value="process">'."\n";
+	$body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['upload'].'">'."\n";
+	$body .= '</form>'."\n";
+	
+	if (!empty($messages))
+	{
+		$body .= "<br />\n";
+		$body .= scrollbox($messages,'Messages','syellow');
+	}
+
+}
+
+
+?>

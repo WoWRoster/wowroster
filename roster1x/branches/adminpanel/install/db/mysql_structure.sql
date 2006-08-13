@@ -465,3 +465,14 @@ CREATE TABLE `renprefix_addon_menu` (
 	`active` int(1) NOT NULL DEFAULT 0,
 	PRIMARY KEY (`addon_name`,`title`)
 ) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Addon Trigger table
+
+DROP TABLE IF EXISTS `renprefix_addon_trigger`;
+CREATE TABLE `renprefix_addon_trigger` (
+	`addon_name` varchar(16),
+	`file` varchar(32),
+	`active` int(1) NOT NULL default '0',
+	PRIMARY KEY  (`addon_name`,`file`)
+) TYPE=MyISAM;

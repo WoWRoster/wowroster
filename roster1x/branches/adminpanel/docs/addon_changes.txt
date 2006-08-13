@@ -19,7 +19,9 @@ These are the changes for the roster addon framework:
   * Config file
 
 
-- The following data is in the addon registration record, stored in $addon:
+- The following data is in the addon registration record, stored in $addon. The
+  last 6 entries are only available if the addon's index.php is called, the
+  others are available on other calls as well.
 
 	Array
 	(
@@ -45,3 +47,8 @@ These are the changes for the roster addon framework:
 
 - You do not know the dbname at design time. Use the $addon['dbname'] variable
   for this at all times.
+  
+- On updates, the addon's trigger.php is only called once, after guild,
+  character, and pvp updates have already ran. The addon is passed a $updateData
+  array with all data uploaded in this update. This trigger file is called if
+  at least 1 file the addon has registered for is in the upload.

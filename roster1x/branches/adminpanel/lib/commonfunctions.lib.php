@@ -409,4 +409,22 @@ function messagebox($message, $title = 'Message', $style = 'sgray')
 		'</div>'.
 		border($style, 'end');
 }
+
+/**
+ * Draw a 300x550px scrolling messagebox with the specified border color.
+ *
+ * @param string $messages | The message to display inside the box
+ * @param string $title | The box title
+ * @param string $style | The border style
+ * @return string $html | The HTML for the messagebox
+ */
+function scrollbox($messages, $title = 'Message', $style = 'sgray')
+{
+	return
+		border($style,'start',$title).
+		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
+			$messages.
+		'</div>'.
+		border($style,'end');
+}
 ?>

@@ -32,6 +32,8 @@
 
 require_once('settings.php');
 
+$script_filename = 'admincp.php'
+
 // ----[ Check log-in ]-------------------------------------
 $roster_login = new RosterLogin($script_filename);
 
@@ -49,6 +51,10 @@ if( !$roster_login->getAuthorized() )
 	include_once (ROSTER_BASE.'roster_footer.tpl');
 
 	exit();
+}
+else
+{
+	$roster_auth_level = 3;
 }
 // ----[ End Check log-in ]---------------------------------
 
@@ -75,6 +81,10 @@ switch ($_GET['page'])
 
 	case 'password':
 		include(ROSTER_ADMIN.'admin_pass.php');
+		break;
+		
+	case 'update':
+		include(ROSTER_ADMIN.'update.php');
 		break;
 
 	default:

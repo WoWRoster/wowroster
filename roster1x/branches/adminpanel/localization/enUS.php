@@ -557,12 +557,13 @@ $wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
 $wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
 $wordings['enUS']['pagebar_adminpass'] = 'Change Roster Admin Password';
 $wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
+$wordings['enUS']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   Assign description text and tooltip for $roster_conf['sqldebug']
 //   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
