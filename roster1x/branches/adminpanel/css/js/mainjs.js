@@ -29,6 +29,16 @@ function submitonce(theform)
 				tempobj.disabled=true;
 		}
 	}
+	return true ;
+}
+
+function confirmSubmit(message)
+{
+var agree=confirm(message);
+if (agree)
+	return true ;
+else
+	return false ;
 }
 
 /* Basic id based show */

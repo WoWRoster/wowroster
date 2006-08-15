@@ -560,6 +560,9 @@ $wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
 $wordings['enUS']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 
+$wordings['enUS']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
+$wordings['enUS']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
+
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:

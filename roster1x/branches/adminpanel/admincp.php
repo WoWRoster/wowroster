@@ -32,7 +32,7 @@
 
 require_once('settings.php');
 
-$script_filename = 'admincp.php'
+$script_filename = 'admincp.php';
 
 // ----[ Check log-in ]-------------------------------------
 $roster_login = new RosterLogin($script_filename);

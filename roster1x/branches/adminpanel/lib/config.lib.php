@@ -22,8 +22,8 @@ class config
 	var $db_values;
 	var $tablename;
 
-	var $form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"submitonce(this)\">\n";
-	var $submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" />\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+	var $form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirmSubmit('This will write the changes to the database. Proceed?') && submitonce(this)\">\n";
+	var $submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirmSubmit('This will undo all changes. Are you sure?')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 	var $form_end = "</form>\n";
 	var $jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
 	
@@ -35,7 +35,11 @@ class config
 	 */
 	function config( $tablename )
 	{
+		global $act_words;
 		$this->tablename = $tablename;
+		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirmSubmit('".$act_words['confirm_config_submit']."') && submitonce(this)\">\n";
+		$this->submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirmSubmit('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+
 	}
 
 	/**
