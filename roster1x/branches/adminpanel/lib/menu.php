@@ -40,7 +40,7 @@ if( $guild_data && $guild_data_rows > 0 )
 	{
 		die_quietly($wowdb->error(),'Could not connect to database',basename(__FILE__),__LINE__,$query);
 	}
-	
+
 	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
 		`level` DIV 10 AS levelgroup,
 		COUNT(`level`) AS amount,
@@ -49,22 +49,22 @@ if( $guild_data && $guild_data_rows > 0 )
 		GROUP BY isalt, levelgroup
 		ORDER BY isalt ASC, levelgroup DESC";
 	$result_menu = $wowdb->query($guildstat_query);
-	
+
 	if (!$result_menu) {
 		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
 	}
-	
+
 	$num_non_alts = 0;
 	$num_alts = 0;
-	
+
 	$num_lvl_60 = 0;
 	$num_lvl_50_59 = 0;
 	$num_lvl_40_49 = 0;
 	$num_lvl_30_39 = 0;
 	$num_lvl_1_29 = 0;
-	
+
 	$level_sum = 0;
-	
+
 	while ($row = $wowdb->fetch_assoc($result_menu))
 	{
 		if ($row['isalt'])
@@ -75,7 +75,7 @@ if( $guild_data && $guild_data_rows > 0 )
 		{
 			$num_non_alts += $row['amount'];
 		}
-		
+
 		switch ($row['levelgroup'])
 		{
 			case 6:
@@ -99,7 +99,7 @@ if( $guild_data && $guild_data_rows > 0 )
 		}
 		$level_sum += $row['sum'];
 	}
-	
+
 	$result_avg = $level_sum/($num_alts + $num_non_alts);
 }
 
@@ -269,14 +269,14 @@ function makeAddonList()
 	global $act_words, $roster_conf, $wordings, $wowdb;
 
 	$query = "SELECT `menu`.`addon_name`,`menu`.`title`,`menu`.`url`,`addon`.`basename` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_name` = `addon`.`dbname` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
-	
+
 	$result = $wowdb->query($query);
-	
+
 	if (!$result)
 	{
 		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	}
-	
+
 	$addons = array();
 	$output = '';
 	while ($row = $wowdb->fetch_assoc($result))
@@ -294,9 +294,9 @@ function makeAddonList()
 
 		$fullQuery = "?dbname=".$row['addon_name'].$row['url'];
 		$query = str_replace(' ','%20',$fullQuery);
-		$output .= '<li><a href="'.ROSTER_URL.'addon.php'.$query.'">'.$act_words[$row['title']]."</a></li>\n";
+		$output .= '<li><a href="'.ROSTER_URL.'/addon.php'.$query.'">'.$act_words[$row['title']]."</a></li>\n";
 	}
-	
+
 	return $output;
 }
 

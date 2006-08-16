@@ -160,7 +160,7 @@ if( !empty($errorstringout) )
 
 // Print the update messages
 print
-	border('syellow','start','Update Log').
+	border('syellow','start','Addon Install Log').
 	'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
 	$messagestringout.
 	'</div>'.
@@ -199,7 +199,10 @@ if( $roster_conf['sqldebug'] )
 	print '<input type="submit" name="download" value="Save SQL Log" />'."\n";
 	print '</form>';
 }
+
 include(ROSTER_BASE.'roster_footer.tpl');
+
+
 
 function purge($dbname)
 {

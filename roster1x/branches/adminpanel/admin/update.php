@@ -37,17 +37,17 @@ if ($_POST['process'] == 'process')
 	// And produce a page with errors, messages, and queries
 	$errors = $wowdb->getErrors();
 	$queries = $wowdb->getSQLStrings();
-	
+
 	$body = '';
-	
+
 	if (!empty($errors))
 	{
 		$body .= scrollbox($errors,'Errors','sred');
 		$body .= "<br />\n";
 	}
-	
+
 	$body .= scrollbox($messages,'Messages','syellow');
-	
+
 	if ($roster_conf['sqldebug'])
 	{
 		$body .= "<br />\n";
@@ -56,20 +56,20 @@ if ($_POST['process'] == 'process')
 }
 else
 {
-	$body  = '<form action="" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this)">'."\n";
+	$body  = '<form action="" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this);">'."\n";
 
 	$body .= border('sblue','start','Select files to upload')."\n";
 	$body .= '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
 	$body .= $update->makeFileFields();
 	$body .= '</table>'."\n";
 	$body .= border('sblue','end')."\n";
-	
+
 	$body .= "<br />\n";
-	
+
 	$body .= '<input type="hidden" name="process" value="process">'."\n";
 	$body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['upload'].'">'."\n";
 	$body .= '</form>'."\n";
-	
+
 	if (!empty($messages))
 	{
 		$body .= "<br />\n";

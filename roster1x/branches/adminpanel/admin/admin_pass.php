@@ -36,12 +36,11 @@ if ( array_key_exists('oldpass',$_POST))
 	{
 		$body = messagebox('Passwords do not match. Please type the exact same password in both new password fields.','Roster Admin Panel','sred');
 	}
-	elseif ( $_POST['newpass1'] === '' || 
-		 $_POST['newpass2'] === '')
+	elseif ( $_POST['newpass1'] === '' || $_POST['newpass2'] === '')
 	{
 		$body = messagebox('No blank passwords. Please enter a password in both fields. Blank passwords are not allowed.','Roster Admin Panel','sred');
 	}
-	elseif ( md5($_POST['newpass1']) == md5(''))
+	elseif ( md5($_POST['newpass1']) == md5('') )
 	{
 		$body = messagebox('No blank passwords. You did not enter a blank password but it does have the same hash. Blank passwords are not allowed.','Roster Admin Panel','sred');
 	}
@@ -52,20 +51,21 @@ if ( array_key_exists('oldpass',$_POST))
 	else // valid password
 	{
 		$query = 'UPDATE `'.$wowdb->table('config').'` SET `config_value` = "'.md5($_POST['newpass1']).'"  WHERE `config_name` = "roster_upd_pw"';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			die_quietly('There was a database error while trying to change the password. MySQL said: <br />'.$wowdb->error(),'Roster Admin Panel',basename(__FILE__),__LINE__,$query);
 		}
-		
+
 		$wowdb->free_result($result);
-		
+
 		die_quietly('Password changed. Your new password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.','Roster Admin Panel');
 	}
 	$body .= '<br />';
 }
+
 $body .='<form action="" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
 	'.border('sred','start','Change Roster Password').'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
@@ -87,6 +87,6 @@ $body .='<form action="" method="post" enctype="multipart/form-data" id="conf_ch
 	    </tr>
 	  </table>
 	'.border('sred','end').'
-	</form>'
+	</form>';
 
 ?>

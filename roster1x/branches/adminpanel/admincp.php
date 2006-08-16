@@ -82,7 +82,7 @@ switch ($_GET['page'])
 	case 'password':
 		include(ROSTER_ADMIN.'admin_pass.php');
 		break;
-		
+
 	case 'update':
 		include(ROSTER_ADMIN.'update.php');
 		break;

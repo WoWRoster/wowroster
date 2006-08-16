@@ -26,7 +26,7 @@ class config
 	var $submit_button;
 	var $form_end;
 	var $jscript;
-	
+
 	var $formpages = '';
 	var $nonformpages = '';
 
@@ -36,8 +36,9 @@ class config
 	function config( $tablename )
 	{
 		global $act_words;
+
 		$this->tablename = $tablename;
-		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this)\">\n";
+		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."');submitonce(this);\">\n";
 		$this->submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
@@ -68,11 +69,11 @@ class config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li><a href="'.$URL.'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="'.$URL.'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li><a href="'.$URL.'" target="_new">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="'.$URL.'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					case 'page': 	// all pages are the same here
@@ -80,7 +81,7 @@ class config
 					case 'pagehide':
 					case 'blockframe':
 					case 'blockhide':
-						$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value'])?' class="selected"':'').'><a href="#" rel="'.$values['name'].'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '').'><a href="#" rel="'.$values['name'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					default:
@@ -252,7 +253,7 @@ class config
 					$html .= border('sblue','end');
 					$html .= '</div>'."\n";
 					break;
-				
+
 				case 'function':
 					$html .= $type[1]();
 					break;
@@ -343,7 +344,7 @@ class config
 
 			$html .= '
 		<tr>
-			<td class="membersRow'.(($i%2)+1).'">'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</td>
+			<td class="membersRow'.(($i%2)+1).'"><div '.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</div></td>
 			<td class="membersRowRight'.(($i%2)+1).'"><div align="right">'.$input_field.'</div></td>
 		</tr>';
 
@@ -519,7 +520,7 @@ class config
 			$caption = ",CAPTION,'$caption'";
 		}
 
-		$tip = "<div style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption$tipsettings);\" onmouseout=\"return nd();\">$disp_text</div>";
+		$tip = " style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption$tipsettings);\" onmouseout=\"return nd();\">$disp_text";
 
 		return $tip;
 	}

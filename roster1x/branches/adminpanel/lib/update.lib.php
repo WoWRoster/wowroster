@@ -21,29 +21,31 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class update {
+class update
+{
 	var $uploadData;
 	var $addons;
 	var $files;
-	
+
 	/**
 	 * Collect info on what files are used
 	 */
-	function fetchAddonData() {
+	function fetchAddonData()
+	{
 		global $wowdb, $roster_conf;
-		
+
 		// Add roster-used tables
 		$this->addons = array();
 		$this->files[] = 'CharacterProfiler';
-		
+
 		if( $roster_conf['pvp_log_allow'] )
 		{
 			$this->files[] = 'PvPLog';
 		}
-		
+
 		$query = 'SELECT `trigger`.`addon_name`,`trigger`.`file` FROM `'.$wowdb->table('addon_trigger').'` AS `trigger` LEFT JOIN `'.$wowdb->table('addon').'` AS `addon` ON `trigger`.`addon_name` = `addon`.`dbname` WHERE `trigger`.`active` = 1 AND `addon`.`active` = 1';
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$output = 'Could not fetch addon trigger usage. Addon triggers will not be run. MySQL said: '.$wowdb->error()."<br />\n";
@@ -60,7 +62,7 @@ class update {
 				}
 			}
 		}
-		
+
 		return $output;
 
 	}
@@ -76,32 +78,44 @@ class update {
 		{
 			return '<span class="red">Upload failed: No files present</span>'."<br />\n";
 		}
-		
+
 		require_once(ROSTER_LIB.'luaparser.php');
-		
+
 		$output = 'Parsing files'."<br />\n".'<ul>';
 		foreach ($_FILES as $file)
 		{
-			$filename = explode('.',$file['name']);
-			$filebase = $filename[0];
-			if (in_array($filebase,$this->files))
+			if( !empty($file['name']) )
 			{
-				// Check if this file is gzipped
-				$filemode = (in_array('gz',$filename))?'gz':'';
-				
-				$this->uploadData[$filebase] = ParseLuaFile( $file['tmp_name'], $filemode );
-				
-				$output .= '<li>Parsed '.$file['name'].'</li>'."\n";
-			}
-			else
-			{
-				$output .= '<li>Did not parse '.$file['name'].'</li>'."\n";
+				$filename = explode('.',$file['name']);
+				$filebase = $filename[0];
+				if (in_array($filebase,$this->files))
+				{
+					// Check if this file is gzipped
+					$filemode = (in_array('gz',$filename))?'gz':'';
+
+					// Get start of parse time
+					$parse_starttime = explode(' ', microtime() );
+					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
+
+					$this->uploadData[$filebase] = ParseLuaFile( $file['tmp_name'], $filemode );
+
+					// Calculate parse time
+					$parse_endtime = explode(' ', microtime() );
+					$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
+					$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
+
+					$output .= '<li>Parsed '.$file['name'].' in '.$parse_totaltime.' seconds</li>'."\n";
+				}
+				else
+				{
+					$output .= '<li>Did not parse '.$file['name'].'</li>'."\n";
+				}
 			}
 		}
 		$output .= '</ul>'."<br />\n";
 		return $output;
 	}
-	
+
 	/**
 	 * Process the files
 	 *
@@ -110,6 +124,7 @@ class update {
 	function processFiles()
 	{
 		global $roster_auth_level;
+
 		if (!is_array($this->uploadData))
 		{
 			return '';
@@ -132,7 +147,7 @@ class update {
 			$output .= $this->processPvP();
 			$output .= "<br />\n";
 		}
-		
+
 		if (is_array($this->addons) && count($this->addons)>0)
 		{
 			foreach ($this->addons as $dbname => $files)
@@ -141,7 +156,7 @@ class update {
 				{
 					$addon = getaddon($dbname);
 					$uploadData = $this->uploadData;
-					
+
 					$output .= 'Running trigger for '.$addon['dbname']."<br />\n";
 
 					ob_start();
@@ -154,7 +169,7 @@ class update {
 			}
 		}
 		return $output;
-	
+
 	}
 
 	/**
@@ -347,18 +362,21 @@ class update {
 		}
 		return $output;
 	}
-	
+
 	/**
 	 * Returns the file input fields for all addon files we need.
 	 *
 	 * @return string $filefields | The HTML, without border
 	 */
-	function makeFileFields() {
+	function makeFileFields()
+	{
 		$filefields = "";
-		if (!is_array($this->files) || (count($this->files) == 0)) { // Just in case
+		if (!is_array($this->files) || (count($this->files) == 0)) // Just in case
+		{
 			return "No files accepted!";
 		}
-		foreach ($this->files as $file) {
+		foreach ($this->files as $file)
+		{
 			$filefields .=
 			'<tr>'."\n".
 				"\t".'<td class="membersRow1">'.$file.'.lua</td>'."\n".
