@@ -46,7 +46,7 @@ foreach( $creditspage['devs']['active'] as $dev )
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
 	print "\t<tr>\n";
 	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".nl2br($dev['info'])."</td>\n";
+	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('sgreen','end');
@@ -70,7 +70,7 @@ foreach( $creditspage['devs']['inactive'] as $dev )
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
 	print "\t<tr>\n";
 	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".nl2br($dev['info'])."</td>\n";
+	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('sred','end')."<br />\n";
@@ -90,7 +90,7 @@ foreach( $creditspage['devs']['beta'] as $dev )
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
 	print "\t<tr>\n";
 	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".nl2br($dev['info'])."</td>\n";
+	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('syellow','end');
@@ -127,7 +127,7 @@ function makeAddonCredits()
 	$output = '';
 
 	$strip_count = 1;
-	if(isset($wordings['addoncredits']))
+	if( isset($wordings['addoncredits']) && is_array($wordings['addoncredits']) )
 	{
 		foreach( array_keys($wordings['addoncredits']) as $addonName )
 		{
@@ -139,7 +139,7 @@ function makeAddonCredits()
 				$output .= "\t<tr>\n";
 				$output .= "\t\t<td class=\"$stripe_class\">" . $addonName . "</td>\n";
 				$output .= "\t\t<td class=\"$stripe_class\">" . $addonDev['name']."</td>\n";
-				$output .= "\t\t<td class=\"$stripe_class_right\">" . nl2br($addonDev['info']) . "</td>\n";
+				$output .= "\t\t<td class=\"$stripe_class_right\">" . $addonDev['info'] . "</td>\n";
 				$output .= "\t</tr>\n";
 				$addonName = '&nbsp;';
 				$lCount += 1;

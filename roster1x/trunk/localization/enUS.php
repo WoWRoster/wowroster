@@ -699,11 +699,13 @@ $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
 
 $creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
 <br />
-Special Thanks to <a href="mailto:calvin@rpgoutfitter.com">calvin</a> from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
+Special Thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
 <br /><br />
 Special Thanks to the DEVs of Roster for helping to build and maintain the package
 <br /><br />
 Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
+<br />
+Thanks to Nick Schaffner from <a href="http://53x11.com" target="_blank">53x11</a> for WoW Server Status used in Roster
 <br />
 Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
 <br /><br />';
@@ -712,11 +714,11 @@ Thanks to all the coders who have contributed their code, bug fixes, time, and t
 $creditspage['devs'] = array(
 		'active'=>array(
 			array(	"name"=>	"AnthonyB",
-					"info"=>	"Site Admin\nWoWRoster Coordinator"),
+					"info"=>	"Site Admin<br />WoWRoster Coordinator"),
 			array(	"name"=>	"Matt Miller",
-					"info"=>	"Gimpy DEV\nAuthor of UniAdmin and UniUploader"),
+					"info"=>	"Gimpy DEV<br />Author of UniAdmin and UniUploader"),
 			array(	"name"=>	"Calvin",
-					"info"=>	"Gimpy DEV\nAuthor of CharacterProfiler and GuildProfiler"),
+					"info"=>	"Gimpy DEV<br />Author of CharacterProfiler and GuildProfiler"),
 			array(	"name"=>	"Airor/Chris",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"mathos",
@@ -726,19 +728,19 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"nerk01",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"Nostrademous",
-					"info"=>	"WoWRoster Dev\nPvPLog Author"),
+					"info"=>	"WoWRoster Dev<br />PvPLog Author"),
 			array(	"name"=>	"peperone",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
+					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"PleegWat",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"RossiRat",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
+					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"seleleth",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"silencer-ch-au",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"Sphinx",
-					"info"=>	"WoWRoster Dev\nGerman Translator"),
+					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"Swipe",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"vaccafoeda",
@@ -746,12 +748,12 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"Vich",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"zanix",
-					"info"=>	"WoWRoster Dev\nSigGen Roster-Addon Author"),
+					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
 		),
 
 		'inactive'=>array(
 			array(	"name"=>	"dsrbo",
-					"info"=>	"Retired DEV\nRetired PvPLog Author"),
+					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
 			array(	"name"=>	"Guppy",
 					"info"=>	"Retired DEV"),
 			array(	"name"=>	"Mordon",
@@ -760,8 +762,10 @@ $creditspage['devs'] = array(
 
 		'beta'=>array(
 			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Beta Tester\nDragonflyCMS Port of Roster"),
+					"info"=>	"WoWRoster Beta Tester<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"Kieeps",
+					"info"=>	"WoWRoster Beta Tester"),
+			array(	"name"=>	"PoloDude",
 					"info"=>	"WoWRoster Beta Tester"),
 			array(	"name"=>	"Thorus",
 					"info"=>	"WoWRoster Beta Tester"),

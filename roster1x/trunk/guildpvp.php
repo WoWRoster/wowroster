@@ -512,9 +512,9 @@ else if ($type == 'playerinfo')
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
-			$res = 'Win';
+			$res = $wordings[$roster_conf['roster_lang']]['win'];
 		else
-			$res = 'Lose';
+			$res = $wordings[$roster_conf['roster_lang']]['loss'];
 
 		print($res);
 		print("</td>\n");
@@ -609,9 +609,9 @@ else if ($type == 'guildinfo')
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
-			$res = 'Win';
+			$res = $wordings[$roster_conf['roster_lang']]['win'];
 		else
-			$res = 'Lose';
+			$res = $wordings[$roster_conf['roster_lang']]['loss'];
 
 		print($res);
 		print("</td>\n");
