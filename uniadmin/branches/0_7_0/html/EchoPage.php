@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 function EchoPage($body, $subTitle = 'Index')
 {
-	global $config, $loginForm;
+	global $config, $loginForm, $uamessages, $uadebug;
 
 	echo "
 <!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
@@ -25,6 +25,50 @@ function EchoPage($body, $subTitle = 'Index')
 ".$loginForm."
 <br />";
 
+	if( !empty($uamessages) && is_array($uamessages) )
+	{
+		echo "<table class='uuTABLE' width='30%'>
+	<tr>
+		<th class='tableHeader'>Messages</th>
+	</tr>
+";
+		$i=0;
+		foreach( $uamessages as $message )
+		{
+			if($i % 2)
+				$tdClass = 'data2';
+			else
+				$tdClass = 'data1';
+
+			echo "<tr>\n<td class='$tdClass'>$message</td>\n</tr>\n";
+
+			$i++;
+		}
+		echo "</table>\n<br />\n";
+	}
+
+	if( !empty($uadebug) && is_array($uadebug) )
+	{
+		echo "<table class='uuTABLE' width='30%'>
+	<tr>
+		<th class='debugHeader'>Debug</th>
+	</tr>
+";
+		$i=0;
+		foreach( $uadebug as $message )
+		{
+			if($i % 2)
+				$tdClass = 'data2';
+			else
+				$tdClass = 'data1';
+
+			echo "<tr>\n<td class='$tdClass'>$message</td>\n</tr>\n";
+
+			$i++;
+		}
+		echo "</table>\n<br />\n";
+	}
+
 if( isset($config['menu']) )
 {
 	echo "
@@ -40,7 +84,7 @@ Synchronization URL (click to verify):
 ".$config['menu']."
 </td>
 <td valign='top'>
-".$body."
+$body
 </td>
 </tr>
 </table>";

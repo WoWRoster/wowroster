@@ -7,12 +7,16 @@ if( !defined('IN_UNIADMIN') )
 
 function debug($debugString)
 {
-	global $config;
+	global $uadebug;
 
-	if ($config['debugSetting'])
-	{
-		echo "<span style='color:red;'><b>DEBUG</b>:</span> $debugString<br>";
-	}
+	$uadebug[] = $debugString;
+}
+
+function message($messageString)
+{
+	global $uamessages;
+
+	$uamessages[] = $messageString;
 }
 
 ?>

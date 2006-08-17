@@ -14,9 +14,10 @@ include(UA_BASEDIR.'config.php');
 
 
 //////////////////////// FOLDER SETTINGS //////////////////////////
-$config['addon_folder'] = 			'addon_zips';
-$config['temp_analyze_folder'] = 	'addon_temp';
-$config['logo_folder'] = 			'logos';
+$config['addon_folder'] =			'addon_zips';
+$config['temp_analyze_folder'] =	'addon_temp';
+$config['logo_folder'] =			'logos';
+$config['date_format'] =			'M jS, Y g:ia';
 
 
 //////////////////// DATABASE TABLE NAMES //////////////////////////
@@ -40,20 +41,49 @@ $config['URL'] =					$url;
 $config['IntLocation'] = 			$config['URL'].'interface.php';
 
 
-$dblink = mysql_connect($config['host'],$config['username'],$config['password']);
-mysql_select_db($config['database'],$dblink);
-
 define('UA_FORMACTION','index.php?p=');
 define('IN_UNIADMIN',true);
 
+
 include(UA_BASEDIR.'debug.php');
 include(UA_BASEDIR.'MySqlCheck.php');
+include(UA_BASEDIR.'EchoPage.php');
+
+$dblink = @mysql_connect($config['host'],$config['username'],$config['password']);
+if( $dblink )
+{
+	$uadb = @mysql_select_db($config['database'],$dblink);
+	if( !$uadb )
+	{
+		debug('Cannot select the database ['.$config['database'].']');
+		debug('MySQL Said: '.mysql_error() );
+		die_ua();
+	}
+}
+else
+{
+	debug('Cannot connect to the database');
+	debug('MySQL Said: '.mysql_error() );
+	die_ua();
+}
+
+
+$uamessages = array();
+$uadebug = array();
+
 include(UA_BASEDIR.'cookieFunctions.php');
 
 if( !isset($interface) )
 {
-	include(UA_BASEDIR.'EchoPage.php');
 	include(UA_BASEDIR.'login.php');
 	include(UA_BASEDIR.'menu.php');
 }
+
+
+function die_ua()
+{
+	EchoPage('','Uniadmin Error');
+	die();
+}
+
 ?>

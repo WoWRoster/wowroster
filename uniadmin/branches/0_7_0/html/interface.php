@@ -1,7 +1,7 @@
 <?php
 $interface = true;
 
-include('set_env.php');
+include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
 if( isset($_REQUEST['OPERATION']) )
 	$op = $_REQUEST['OPERATION'];
@@ -57,22 +57,24 @@ function OutPutSettings()
 	$result = mysql_query($sql,$dblink);
 	while ($row = mysql_fetch_assoc($result))
 	{
-		echo "LOGO".$row['logo_num']."=".$row['download_url']."|";
+		echo 'LOGO'.$row['logo_num'].'='.$row['download_url'].'|';
 	}
+
 	//settings
 	$sql = "SELECT * FROM `".$config['db_tables_settings']."` WHERE `enabled` = '1'";
 	$result = mysql_query($sql,$dblink);
 	while ($row = mysql_fetch_assoc($result))
 	{
-		echo $row['set_name']."=".$row['set_value']."|";
+		echo $row['set_name'].'='.$row['set_value'].'|';
 	}
+
 	//sv list
 	$sql = "SELECT * FROM `".$config['db_tables_svlist']."`";
 	$result = mysql_query($sql,$dblink);
-	echo "SVLIST=";
+	echo 'SVLIST=';
 	while ($row = mysql_fetch_assoc($result))
 	{
-		echo $row['sv_name'].":";
+		echo $row['sv_name'].':';
 	}
 
 }
@@ -83,14 +85,14 @@ function AddStat()
 
 	if (isset($_REQUEST['ADDON']))
 	{
-		$action = addslashes($op." - ".$_REQUEST['ADDON']);
+		$action = addslashes($op.' - '.$_REQUEST['ADDON']);
 	}
 	else
 	{
 		$action = addslashes($op);
 	}
 	$sql = "INSERT INTO `".$config['db_tables_stats']."` ( `id` , `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
-		( '', '".$_SERVER['REMOTE_ADDR']."', '".addslashes(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".addslashes($_SERVER["HTTP_USER_AGENT"])."' );";
+		( '', '".$_SERVER['REMOTE_ADDR']."', '".addslashes(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".addslashes($_SERVER['HTTP_USER_AGENT'])."' );";
 	mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 }
@@ -100,38 +102,37 @@ function OutPutXmL()
 {
 	global $dblink, $config;
 
-	$xml = "<addons>";
+	$xml = '<addons>';
 
 	$sql = "SELECT * FROM `".$config['db_tables_addons']."`";
 	$result = mysql_query($sql,$dblink);
 
 	while ($row = mysql_fetch_assoc($result))
 	{
-		if ($row['enabled']=="1")
+		if ($row['enabled']=='1')
 		{
 			$name = $row['name'];
 			$version = $row['version'];
-			$xml .= "
-	<addon name=\"$name\" version=\"$version\" >";
+			$required = $row['required'];
+			$toc = $row['toc'];
+
+			$xml .= "\n	<addon name=\"$name\" version=\"$version\" required=\"$required\" toc=\"$toc\">";
+
 			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($name)."'";
 			$result2 = mysql_query($sql);
 			while ($row2 = mysql_fetch_assoc($result2))
 			{
 				$filename = $row2['filename'];
 				$md5 = $row2['md5sum'];
-				if ($filename != "index.htm" && $filename != "index.html")
+				if ($filename != 'index.htm' && $filename != 'index.html')
 				{
-					$xml .="
-		<file name=\"$filename\" md5sum=\"$md5\" />";
+					$xml .= "\n		<file name=\"$filename\" md5sum=\"$md5\" />";
 				}
-
 			}
-			$xml .= "
-	</addon>";
+			$xml .= "\n	</addon>";
 		}
 	}
-	$xml .= "
-</addons>";
+	$xml .= "\n</addons>";
 
 	echo $xml;
 }

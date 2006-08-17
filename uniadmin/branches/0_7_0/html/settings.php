@@ -45,12 +45,15 @@ function Main()
 
 	$form = "
 <form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."settings'>
-<table class='uuTABLE'>
+<table class='uuTABLE' width='90%'>
 	<tr>
-		<td class='tableHeader'>Setting Name</td>
-		<td class='tableHeader'>Description</td>
-		<td class='tableHeader'>Value</td>
-		<td class='tableHeader'>Enabled</td>
+		<th colspan='4' class='tableHeader'>Main Settings</th>
+	</tr>
+	<tr>
+		<td class='dataHeader'>Setting Name</td>
+		<td class='dataHeader'>Description</td>
+		<td class='dataHeader'>Value</td>
+		<td class='dataHeader'>Enabled</td>
 	</tr>";
 
 	$i=0;
@@ -92,15 +95,19 @@ function Main()
 	</tr>
 	</table>
 	</form>";
+
 	$sql = "SELECT * FROM `".$config['db_tables_svlist']."` ORDER BY `id` DESC";
 	$result = mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 
 	$svTable = "
-	<table class='uuTABLE'>
+	<table class='uuTABLE' width='40%'>
 		<tr>
-			<td class='tableHeader'>Saved Variable Files</td>
-			<td class='tableHeader'>Remove</td>
+			<th colspan='2' class='tableHeader'>Manage SavedVariable Files</th>
+		</tr>
+		<tr>
+			<td class='dataHeader'>Files</td>
+			<td class='dataHeader' width='10%'>Remove</td>
 		</tr>
 	";
 
@@ -149,10 +156,13 @@ function Main()
 
 	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."settings'>
 	<input type='hidden' value='addsv' name='op'>
-	<table class='uuTABLE'>
+	<table class='uuTABLE' width='40%'>
 		<tr>
-			<td class='tableHeader'>Add Saved Variable File</td>
-			<td class='tableHeader'>Add</td>
+			<th colspan='2' class='tableHeader'>Add SavedVariable Files</th>
+		</tr>
+		<tr>
+			<td class='dataHeader'>Filename</td>
+			<td class='dataHeader' width='10%'>Add</td>
 		</tr>
 		<tr>
 			<td class='$tdClass'><input class='input' type='text' name='svname'> <b>.lua</b></td>

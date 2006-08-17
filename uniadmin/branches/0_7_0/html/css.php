@@ -49,7 +49,11 @@ img, input, select, button {
 .uuTABLE {
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
-	width:90%;
+}
+.debugHeader {
+	color:#000;
+	border:1px solid #B32400;
+	background-color:#FFCCBF;
 }
 .page_title {
 	font-size:18px;
@@ -121,6 +125,7 @@ img, input, select, button {
 .ua_menu li {
 	display:block;
 	margin:2px 2px 2px;
+	background-color:#BFE4FF;
 }
 .ua_menu li a, .ua_menu li a:link {
 	font-weight:bold;
@@ -133,6 +138,6 @@ img, input, select, button {
 	color:#006699;
 }
 .ua_menu li a:hover {
-	color:#000;
+	color:#FFF;
 	background-color:#0066B3;
 }

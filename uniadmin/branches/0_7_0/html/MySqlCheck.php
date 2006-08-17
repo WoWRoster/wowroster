@@ -7,10 +7,10 @@ if( !defined('IN_UNIADMIN') )
 
 function MySqlCheck($dblink,$sql)
 {
-
-	if (mysql_error($dblink) != "")
+	if (mysql_error($dblink) != '')
 	{
-		debug("<font color='red'>ERROR:</font> ".mysql_error($dblink)."<BR>".$sql);
+		debug("<span style='color:red;'>ERROR:</span> ".mysql_error($dblink));
+		debug($sql);
 	}
 }
 

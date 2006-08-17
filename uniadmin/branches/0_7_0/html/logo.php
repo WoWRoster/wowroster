@@ -41,33 +41,38 @@ function Main()
 	$sql = "SELECT * FROM `".$config['db_tables_logos']."`";
 	$result = mysql_query($sql,$dblink);
 
+	$logoDir = $config['logo_folder'];
+
+	$logo1['logo'] = $logoDir.'/logo1_03.gif';
+	$logo1['updated'] = '-';
+	$logo1['active_link'] = '-';
+	$logo2['logo'] = $logoDir.'/logo2_03.gif';
+	$logo2['updated'] = '-';
+	$logo2['active_link'] = '-';
+
 	while ($row = mysql_fetch_assoc($result))
 	{
 		switch ($row['logo_num'])
 		{
 			case '1':
-				$logo1['filename'] = $row['filename'];
-				$logo1['updated'] = date('M jS y H:i',$row['updated']);
-				$logo1['id'] = $row['id'];
-				$logo1['active'] = $row['active'];
+				$logo1['logo'] = ( empty($row['filename']) ? $logo1['logo'] : $logoDir.'/'.$row['filename'] );
+				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($config['date_format'],$row['updated']) );
 
 				if ( $row['active']=='1')
-					$logo1['active_link'] ='<span style="color:green;font-weight:bold;">Yes</span>';
+					$logo1['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=DISABLE&amp;id=".$row['id']."' style='color:green;font-weight:bold;'>Yes</a>]";
 				else
-					$logo1['active_link'] ='<span style="color:red;font-weight:bold;">No</span>';
+					$logo1['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=ENABLE&amp;id=".$row['id']."' style='color:red;font-weight:bold;'>No</a>]";
 
 				break;
 
 			case '2':
-				$logo2['filename'] = $row['filename'];
-				$logo2['updated'] = date('M jS y H:i',$row['updated']);
-				$logo2['id'] = $row['id'];
-				$logo2['active'] = $row['active'];
+				$logo2['logo'] = ( empty($row['filename']) ? $logo2['logo'] : $logoDir.'/'.$row['filename'] );
+				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($config['date_format'],$row['updated']) );
 
 				if ( $row['active']=='1')
-					$logo2['active_link'] ='<span style="color:green;font-weight:bold;">Yes</span>';
+					$logo2['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=DISABLE&amp;id=".$row['id']."' style='color:green;font-weight:bold;'>Yes</a>]";
 				else
-					$logo2['active_link'] ='<span style="color:red;font-weight:bold;">No</span>';
+					$logo2['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=ENABLE&amp;id=".$row['id']."' style='color:red;font-weight:bold;'>No</a>]";
 
 				break;
 
@@ -76,7 +81,6 @@ function Main()
 		}
 
 	}
-	$logoDir = $config['logo_folder'];
 
 
 	$table1 = "<table class='logo_table' border='0' cellpadding='0' cellspacing='0'>
@@ -88,7 +92,7 @@ function Main()
 		<td rowspan='2'>
 			<img src='images/logo1_02.gif' style='width:281px;height:256px;' alt=''></td>
 		<td bgcolor='#e0dfe3'>
-			<img src='$logoDir/".( isset($logo1['filename']) ? $logo1['filename'] : 'logo1_03.gif')."' style='width:201px;height:156px;' alt=''></td>
+			<img src='".$logo1['logo']."' style='width:201px;height:156px;' alt=''></td>
 		<td rowspan='2'>
 			<img src='images/logo1_04.gif' style='width:18px;height:256px;' alt=''></td>
 	</tr>
@@ -108,7 +112,7 @@ function Main()
 		<td rowspan=2>
 			<img src='images/logo2_02.gif' style='width:153px;height:239px;' alt=''></td>
 		<td bgcolor=#e0dfe3>
-			<img src='$logoDir/".( isset($logo2['filename']) ? $logo2['filename'] : 'logo2_03.gif')."' style='width:316px;height:144px;' alt=''></td>
+			<img src='".$logo2['logo']."' style='width:316px;height:144px;' alt=''></td>
 		<td rowspan=2>
 			<img src='images/logo2_04.gif' style='width:31px;height:239px;' alt=''></td>
 	</tr>
@@ -119,63 +123,21 @@ function Main()
 </table>";
 
 
-	if( isset($logo1) )
-	{
-		if($logo1['active']=='1')
-		{
-			$logo1EnableLink = "<a href='".UA_FORMACTION."logo&amp;op=DISABLE&amp;id=".$logo1['id']."'>Disable</a>";
-		}
-		else
-		{
-			$logo1EnableLink = "<a href='".UA_FORMACTION."logo&amp;op=ENABLE&amp;id=".$logo1['id']."'>Enable</a>";
-		}
-		$logo1DeleteLink = "<a href='".UA_FORMACTION."logo&amp;op=DELETE&amp;id=".$logo1['id']."'>Delete</a>";
-	}
-	else
-	{
-		$logo1EnableLink = '-';
-		$logo1DeleteLink = '-';
-	}
-
-	if( isset($logo2) )
-	{
-		if($logo2['active']=='1')
-		{
-			$logo2EnableLink = "<a href='".UA_FORMACTION."logo&amp;op=DISABLE&amp;id=".$logo2['id']."'>Disable</a>";
-		}
-		else
-		{
-			$logo2EnableLink = "<a href='".UA_FORMACTION."logo&amp;op=ENABLE&amp;id=".$logo2['id']."'>Enable</a>";
-		}
-		$logo2DeleteLink = "<a href='".UA_FORMACTION."logo&amp;op=DELETE&amp;id=".$logo2['id']."'>Delete</a>";
-	}
-	else
-	{
-		$logo2EnableLink = '-';
-		$logo2DeleteLink = '-';
-	}
-
-
-
 	$Logo1InputForm ="
 	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."logo'>
 		<table class='uuTABLE'>
 			<tr>
 				<th class='dataHeader'>Update File</th>
 				<th class='dataHeader'>Updated</th>
-				<th class='dataHeader'>Enabled</th>
-				<th class='dataHeader'>Disable / Enable</th>
-				<th class='dataHeader'>Delete!</th>
+				<th class='dataHeader'>Enabled?</th>
 			</tr>
 			<tr>
 				<td class='data1' align='center'>Select file:
 					<input class='file' type='file' name='logo1'>
 					<input class='submit' type='submit' value='Update Logo 1'>
 					<input type='hidden' value='PROCESSUPLOAD' name='op'></td>
-				<td class='data1'>".( isset($logo1['updated']) ? $logo1['updated'] : '-' )."</td>
-				<td class='data1'>".( isset($logo1['active_link']) ? $logo1['active_link'] : '-' )."</td>
-				<td class='data1'>$logo1EnableLink</td>
-				<td class='data1'>$logo1DeleteLink</td>
+				<td class='data1'>".$logo1['updated']."</td>
+				<td class='data1'>".$logo1['active_link']."</td>
 			</tr>
 		</table>
 	</form>
@@ -187,19 +149,15 @@ function Main()
 			<tr>
 				<th class='dataHeader'>Update File</th>
 				<th class='dataHeader'>Updated</th>
-				<th class='dataHeader'>Enabled</th>
-				<th class='dataHeader'>Disable / Enable</th>
-				<th class='dataHeader'>Delete!</th>
+				<th class='dataHeader'>Enabled?</th>
 			</tr>
 			<tr>
 				<td class='data1' align='center'>Select file:
 					<input class='file' type='file' name='logo2'>
 					<input class='submit' type='submit' value='Update Logo 2'>
 					<input type='hidden' value='PROCESSUPLOAD' name='op'></td>
-				<td class='data1'>".( isset($logo2['updated']) ? $logo2['updated'] : '-' )."</td>
-				<td class='data1'>".( isset($logo2['active_link']) ? $logo2['active_link'] : '-' )."</td>
-				<td class='data1'>$logo2EnableLink</td>
-				<td class='data1'>$logo2DeleteLink</td>
+				<td class='data1'>".$logo2['updated']."</td>
+				<td class='data1'>".$logo2['active_link']."</td>
 			</tr>
 		</table>
 	</form>
@@ -207,7 +165,7 @@ function Main()
 
 
 	EchoPage("
-<table class='uuTABLE'>
+<table class='uuTABLE' width='60%'>
 	<tr>
 		<th class='tableHeader'>Logo 1</th>
 	</tr>
@@ -219,7 +177,7 @@ function Main()
 	</tr>
 </table>
 <br />
-<table class='uuTABLE'>
+<table class='uuTABLE' width='60%'>
 	<tr>
 		<th class='tableHeader'>Logo 2</th>
 	</tr>
@@ -314,11 +272,6 @@ switch ($op)
 
 	case 'ENABLE':
 		ToggleLogo();
-		Main();
-		break;
-
-	case 'DELETE':
-		DeleteLogo();
 		Main();
 		break;
 

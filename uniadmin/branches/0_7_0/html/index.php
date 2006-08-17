@@ -1,6 +1,13 @@
 <?php
 
-include('set_env.php');
+// This picks up the view page so people with no login can look at the addons
+if( isset($_GET['p']) && $_GET['p'] == 'view' )
+{
+	include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'view.php');
+	die();
+}
+
+include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
 
 // This is a list of allowed actions that a person can make.

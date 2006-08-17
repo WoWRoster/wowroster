@@ -50,22 +50,25 @@ function Main($message = '')
 	<input type='hidden' value='new' name='op'>
 	<table class='uuTABLE'>
 		<tr>
-			<th class='tableHeader'>Add a user:</th>
+			<th colspan='2' class='tableHeader'>Add a user</th>
 		</tr>
 		<tr>
-			<td>Username: <input class='input' type='textbox' name='name' value='' size='15' maxlength='15'></td>
+			<td class='data1' align='right'>Username:</td>
+			<td class='data1'><input class='input' type='textbox' name='name' value='' size='15' maxlength='15'></td>
 		</tr>
 		<tr>
-			<td>Password: <input class='input' type='textbox' name='password' value='' size='15' maxlength='15'></td>
+			<td class='data2' align='right'>Password:</td>
+			<td class='data2'><input class='input' type='textbox' name='password' value='' size='15' maxlength='15'></td>
 		<tr>
-			<td>";
+			<td class='data1' align='right'>";
 	if ($currentUserL > 2)
 	{
-		$addform .= "UserLevel: <select class='select' name='level'>
-	<option value='1' selected='selected'>basic user (level 1)</option>
-	<option value='2'>power user (level 2)</option>
-	<option value='3'>administrator (level 3)</option>
-</select>";
+		$addform .= "UserLevel:</td>
+		<td class='data1'><select class='select' name='level'>
+				<option value='1' selected='selected'>basic user (level 1)</option>
+				<option value='2'>power user (level 2)</option>
+				<option value='3'>administrator (level 3)</option>
+			</select>";
 	}
 	else
 	{
@@ -74,7 +77,8 @@ function Main($message = '')
 	$addform .= "</td>
 		</tr>
 		<tr>
-			<td colspan='2'><input class='submit' type='submit' value='Add User'></td>
+			<td class='data2'></td>
+			<td class='data2'><input class='submit' type='submit' value='Add User'></td>
 		</tr>
 	</table>
 	</form>";
@@ -112,12 +116,15 @@ function CreateUserTable()
 	MySqlCheck($dblink,$sql);
 
 
-	$table = "<table class='uuTABLE' id='user_table' border='0' cellpadding='2' cellspacing='1'>
+	$table = "<table class='uuTABLE' width='50%'>
 	<tr>
-		<td class='tableHeader'>User Name</td>
-		<td class='tableHeader'>User Level</td>
-		<td class='tableHeader'>Modify</td>
-		<td class='tableHeader'>Delete</td>
+		<th colspan='4' class='tableHeader'>Current Users</th>
+	</tr>
+	<tr>
+		<td class='dataHeader'>User Name</td>
+		<td class='dataHeader'>User Level</td>
+		<td class='dataHeader'>Modify</td>
+		<td class='dataHeader'>Delete</td>
 	</tr>
 	";
 
@@ -204,37 +211,43 @@ function Modify()
 	<input type='hidden' value='$uid' name='uid'>
 	<table class='uuTABLE'>
 		<tr>
-			<th class='tableHeader'>Edit User</th>
+			<th colspan='2' class='tableHeader'>Edit User</th>
 		</tr>
 	";
 	if ($currentUserL > 1)
 	{
 		$form .= "		<tr>
-			<td>Change Username: <input class='input' type='textbox' name='newname' value='$userN' size='15' maxlength='15'></td>
+			<td class='data1' align='right'>Change Username:</td>
+			<td class='data1'><input class='input' type='textbox' name='newname' value='$userN' size='15' maxlength='15'></td>
 		</tr>";
 		if ($currentUserL > 2)$form .= "		<tr>
-			<td>Change UserLevel: <select class='select' name='level'>
-	<option value='1'".($userL == '1' ? " selected='selected'" : '').">basic user (level 1)</option>
-	<option value='2'".($userL == '2' ? " selected='selected'" : '').">power user (level 2)</option>
-	<option value='3'".($userL == '3' ? " selected='selected'" : '').">administrator (level 3)</option>
-</select></td>
+			<td class='data2' align='right'>Change UserLevel:</td>
+			<td class='data2'><select class='select' name='level'>
+					<option value='1'".($userL == '1' ? " selected='selected'" : '').">basic user (level 1)</option>
+					<option value='2'".($userL == '2' ? " selected='selected'" : '').">power user (level 2)</option>
+					<option value='3'".($userL == '3' ? " selected='selected'" : '').">administrator (level 3)</option>
+				</select></td>
 		</tr>";
 	}
 	else
 	{
 		$form .= "		<tr>
-			<td>Username: [$userN]</td>
+			<td class='data1' align='right'>Username:</td>
+			<td class='data1'>[$userN]</td>
 		</tr>
 		<tr>
-			<td>UserLevel: [$userL]</td>
+			<td class='data2' align='right'>UserLevel:</td>
+			<td class='data2'>[$userL]</td>
 		</tr>";
 	}
 	$form .= "
 		<tr>
-			<td>Change Password: <input class='input' type='textbox' name='newpassword' value='' size='15' maxlength='15'></td>
+			<td class='data1' align='right'>Change Password:</td>
+			<td class='data2'><input class='input' type='textbox' name='newpassword' value='' size='15' maxlength='15'></td>
 		</tr>
 		<tr>
-			<td colspan='2'><input class='submit' type='submit' value='Modify User'></td>
+			<td class='data2'>&nbsp;</td>
+			<td class='data2'><input class='submit' type='submit' value='Modify User'></td>
 		</tr>
 	</table>
 	</form>";
@@ -298,7 +311,7 @@ function Modify2()
 		MySqlCheck($dblink,$sql);
 		$userN = $currentUserN;
 	}
-	Main("User '$userN' modified.<br />");
+	message("User '$userN' modified");
 }
 
 function NewUser()
@@ -323,14 +336,14 @@ function NewUser()
 			$sql = "INSERT INTO `".$config['db_tables_users']."` ( `id` , `name` , `password` , `level` )VALUES ('', '$userN', '".md5($userP)."', '$userL');";
 			$result = mysql_query($sql,$dblink);
 			MySqlCheck($dblink,$sql);
-			Main("User '$userN' added.<br />");
+			message("User '$userN' added");
 		}
 		else
 		{
 			$sql = "INSERT INTO `".$config['db_tables_users']."` ( `id` , `name` , `password` , `level` )VALUES ('', '$userN', '".md5($userP)."', '1');";
 			$result = mysql_query($sql,$dblink);
 			MySqlCheck($dblink,$sql);
-			Main("User '$userN' added.<br />");
+			message("User '$userN' added");
 		}
 	}
 	else
@@ -366,14 +379,14 @@ function DeleteUser()
 		$sql = "DELETE FROM `".$config['db_tables_users']."` WHERE `id` = '$userI' LIMIT 1";
 		$result = mysql_query($sql,$dblink);
 		MySqlCheck($dblink,$sql);
-		Main("User '$userN' deleted.<br />");
+		message("User '$userN' deleted");
 	}
 	elseif ($currentUserL == 2 && $userI == 1)
 	{
 		$sql = "DELETE FROM `".$config['db_tables_users']."` WHERE `id` = '$userI' LIMIT 1";
 		$result = mysql_query($sql,$dblink);
 		MySqlCheck($dblink,$sql);
-		Main("User '$userN' deleted.<br />");
+		message("User '$userN' deleted");
 	}
 	else
 	{
@@ -394,14 +407,17 @@ switch ($op)
 
 	case 'edit2':
 		Modify2();
+		Main();
 		break;
 
 	case 'new':
 		newUser();
+		Main();
 		break;
 
 	case 'delete':
 		deleteUser();
+		Main();
 		break;
 
 	default:

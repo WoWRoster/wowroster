@@ -79,7 +79,7 @@ function BuildPieHosts($fieldName)
 			}
 			else
 			{
-				$finalArray[date("M jS y H:i:s",$HostName)] = mysql_num_rows($result);
+				$finalArray[date($config['date_format'],$HostName)] = mysql_num_rows($result);
 			}
 		}
 
@@ -155,7 +155,7 @@ function BuildMainTable()
 		$direction = "ASC";
 	}
 
-	$table = "<table class='uuTABLE stats' id='table_results' border='0' cellpadding='2' cellspacing='1'>
+	$table = "<table class='uuTABLE stats' id='table_results' cellspacing='1' width='90%'>
 	<tr>
 		<th class='tableHeader' colspan='6'>Statistics</th>
 	</tr>
@@ -171,7 +171,7 @@ function BuildMainTable()
 	$i=0;
 	while ($row = mysql_fetch_assoc($result))
 	{
-		$time = date("M jS y H:i",$row['time']);
+		$time = date($config['date_format'],$row['time']);
 		if($i % 2)
 		{
 			$tdClass = 'data2';

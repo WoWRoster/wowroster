@@ -11,7 +11,7 @@ function Main()
 
 	$addonInputForm ="
 <form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."addons'>
-	<table class='uuTABLE' border='0'>
+	<table class='uuTABLE'>
 		<tr>
 			<th class='tableHeader' colspan='2'>Add / Update Addon</th>
 		</tr>
@@ -32,7 +32,8 @@ function Main()
 			<td><input class='input' type='textbox' name='homepage'></td>
 		</tr>
 		<tr>
-			<td colspan='2'><input class='submit' type='submit' value='Add / Update Addon'></td>
+			<td>&nbsp;</td>
+			<td><input class='submit' type='submit' value='Add / Update Addon'></td>
 		</tr>
 	</table>
 	<input type='hidden' value='PROCESSUPLOAD' name='OPERATION'>
@@ -40,21 +41,20 @@ function Main()
     	";
 
 	$AddonPanel = "
-		<table class='uuTABLE' border='0'>
+		<table class='uuTABLE' width='90%'>
 			<tr>
 				<th class='tableHeader' colspan='10'>Addon Management</th>
 			</tr>
 			<tr>
 				<td class='dataHeader'>Name</td>
 				<td class='dataHeader'>TOC</td>
-				<td class='dataHeader'>Required</td>
+				<td class='dataHeader'>Required?</td>
 				<td class='dataHeader'>Version</td>
 				<td class='dataHeader'>Uploaded</td>
-				<td class='dataHeader'>Enabled</td>
+				<td class='dataHeader'>Enabled?</td>
 				<td class='dataHeader'>Files</td>
 				<td class='dataHeader'>URL</td>
 				<td class='dataHeader'>Delete</td>
-				<td class='dataHeader'>Disable / Enable</td>
 			</tr>";
 
 	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
@@ -69,27 +69,33 @@ function Main()
 		$AddonName = $row['name'];
 		$homepage = $row['homepage'];
 		$version = $row['version'];
-		$time = date('M jS y H:i',$row['time_uploaded']);
+		$time = date($config['date_format'],$row['time_uploaded']);
 		$url = $row['dl_url'];
 		$addonID = $row['id'];
+
 		if ($row['enabled'] == '1')
 		{
-			$enabled = "<span style='color:green;font-weight:bold;'>yes</span>";
-			$disableHREF = "<a href='".UA_FORMACTION."addons&amp;OPERATION=DISABLEADDON&amp;ADDONID=$addonID'>Disable</a>";
+			$enabled = "<a href='".UA_FORMACTION."addons&amp;OPERATION=DISABLEADDON&amp;ADDONID=$addonID' style='color:green;font-weight:bold;'>yes</a>";
 		}
 		else
 		{
-			$enabled="<span style='color:red;font-weight:bold;'>no</span>"; $disableHREF = "<a href='".UA_FORMACTION."addons&amp;OPERATION=ENABLEADDON&amp;ADDONID=$addonID'>Enable</a>";
+			$enabled = "<a href='".UA_FORMACTION."addons&amp;OPERATION=ENABLEADDON&amp;ADDONID=$addonID' style='color:red;font-weight:bold;'>no</a>";
 		}
+
 		if ($row['homepage'] == '')
 		{
 			$homepage = './';
 		}
 
 		if ($row['required'] == 1)
-			$required = '<span style="color:red;font-weight:bold;">yes</span>';
+		{
+			$required = "<a href='".UA_FORMACTION."addons&amp;OPERATION=OPTADDON&amp;ADDONID=$addonID'><span style='color:red;font-weight:bold;'>yes</span></a>";
+		}
 		else
-			$required = '<span style="color:green;font-weight:bold;">no</span>';
+		{
+			$required = "<a href='".UA_FORMACTION."addons&amp;OPERATION=REQADDON&amp;ADDONID=$addonID'><span style='color:green;font-weight:bold;'>no</span></a>";
+		}
+
 		$toc = $row['toc'];
 
 		if($i % 2)
@@ -103,16 +109,15 @@ function Main()
 
 		$AddonPanel .="
 		<tr>
-			<td class='$tdClass'><a target='_blank' href=\"$homepage\">$AddonName</a></td>
+			<td class='$tdClass'><a href='$homepage' target='_blank'>$AddonName</a></td>
 			<td class='$tdClass'>$toc</td>
-			<td class='$tdClass'>$required</td>
+			<td class='$tdClass'>[$required]</td>
 			<td class='$tdClass'>$version</td>
 			<td class='$tdClass'>$time</td>
-			<td class='$tdClass'>$enabled</td>
+			<td class='$tdClass'>[$enabled]</td>
 			<td class='$tdClass'>$numFiles</td>
 			<td class='$tdClass'><a href='$url'>Check</a></td>
 			<td class='$tdClass'><a href='".UA_FORMACTION."addons&amp;OPERATION=DELADDON&amp;ADDONID=$addonID'>Delete!</a></td>
-			<td class='$tdClass'>$disableHREF</td>
 		</tr>
 		";
 		$i++;
@@ -124,8 +129,6 @@ function Main()
 
 	EchoPage("
 			$AddonPanel
-			<br />
-			<br />
 			<br />
 			$addonInputForm",'Addons');
 }
@@ -146,6 +149,26 @@ function EnableAddon()
 
 	$id = $_REQUEST['ADDONID'];
 	$sql = "UPDATE `".$config['db_tables_addons']."` SET `enabled` = '1' WHERE `id` = '$id' LIMIT 1 ;";
+	mysql_query($sql,$dblink);
+	MySqlCheck($dblink,$sql);
+}
+
+function RequireAddon()
+{
+	global $dblink, $config, $url;
+
+	$id = $_REQUEST['ADDONID'];
+	$sql = "UPDATE `".$config['db_tables_addons']."` SET `required` = '1' WHERE `id` = '$id' LIMIT 1 ;";
+	mysql_query($sql,$dblink);
+	MySqlCheck($dblink,$sql);
+}
+
+function OptionalAddon()
+{
+	global $dblink, $config, $url;
+
+	$id = $_REQUEST['ADDONID'];
+	$sql = "UPDATE `".$config['db_tables_addons']."` SET `required` = '0' WHERE `id` = '$id' LIMIT 1 ;";
 	mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 }
@@ -300,7 +323,6 @@ function processUploadedAddon()
 	$files = ls($tempFolder,array());
 
 
-
 	$toc = '00000';
 	foreach ($files as $file)
 	{
@@ -324,8 +346,8 @@ function processUploadedAddon()
 
 		if ($fileName != 'index.htm' && $fileName != 'index.html')
 		{
-			$sql = "INSERT INTO `".$config['db_tables_files']."` ( `id` , `addon_name` , `filename` , `md5sum` )VALUES (
-		'', '".addslashes($addonName)."', '".addslashes($fileName)."', '".addslashes($md5)."');";
+			$sql = "INSERT INTO `".$config['db_tables_files']."` ( `id` , `addon_name` , `filename` , `md5sum` )
+				VALUES ('', '".addslashes($addonName)."', '".addslashes($fileName)."', '".addslashes($md5)."');";
 			mysql_query($sql,$dblink);
 			unlink($file);//we have obtained the md5 and inserted the row into the database, now delete the temp file
 		}
@@ -390,6 +412,14 @@ switch($op)
 		break;
 	case 'DELADDON':
 		DeleteAddon();
+		Main();
+		break;
+	case 'REQADDON':
+		RequireAddon();
+		Main();
+		break;
+	case 'OPTADDON':
+		OptionalAddon();
 		Main();
 		break;
 	case 'DISABLEADDON':

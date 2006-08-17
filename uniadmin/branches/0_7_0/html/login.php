@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 $loginForm = "
 <br />
-<form class='ua_loginbox' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+<form class='ua_loginbox' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."help'>
 	<fieldset>
 	<legend>Please Log-In</legend>
 		<p><label for='username'>Username</label> <input class='input' type='text' id='name' name='name' maxlength='30' /></p>

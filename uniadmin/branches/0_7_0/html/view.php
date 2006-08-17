@@ -1,130 +1,96 @@
 <?php
-$interface=1;
-include("config.php");
-include("EchoPage.php");
 
-if (!isset ($_POST['op'])) {
-	$op = "";
-} else {
-	$op = $_POST['op'];
-}
+$interface = true;
 
-function Main(){
-	global $dblink, $config, $url, $_POST;
+include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
-	$addonInputForm ="
-	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."users'>
-	<table border='1'>
-		<th colspan='2'>Add / Update Addon</th>
-    	<tr>
-    		<td>Select file:</td>
-    		<td><input class='file' type='file' name='file'></td>
-    	</tr>
-    	<tr>
-    		<td>Version:</td>
-    		<td><input class='input' type='textbox' name='version'></td>
-    	</tr>
-        <tr>
-        	<td>Homepage:</td>
-        	<td><input class='input' type='textbox' name='homepage'></td>
-        </tr>
-    	<tr>
-    		<td colspan='2'><input class='submit' type='submit' value='Add / Update Addon'>
-    			<input type='hidden' value='PROCESSUPLOAD' name='OPERATION'></td>
-    	</tr>
-    </table>
-    </form>
-    	";
+include(UA_BASEDIR.'EchoPage.php');
+
+
+function Main()
+{
+	global $dblink, $config, $url;
 
 	$AddonPanel = "
-		<table border='1'>
+		<table class='uuTABLE'>
 			<tr>
-				<th colspan='8'>Addon Management</th>
+				<th class='tableHeader' colspan='10'>View Addons</th>
 			</tr>
 			<tr>
-				<td>Name</td>
-				<td>Version</td>
-				<td>Uploaded</td>
-				<td>Enabled</td>
-				<td>Files</td>
-				<td>URL</td>
+				<td class='dataHeader'>Name</td>
+				<td class='dataHeader'>TOC</td>
+				<td class='dataHeader'>Required</td>
+				<td class='dataHeader'>Version</td>
+				<td class='dataHeader'>Uploaded</td>
+				<td class='dataHeader'>Enabled</td>
+				<td class='dataHeader'>Files</td>
+				<td class='dataHeader'>URL</td>
 			</tr>";
 
-	$sql = "SELECT * FROM `uniadmin_addons` ORDER BY `name`";
-	$result = mysql_query($sql);
+	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
+	$result = mysql_query($sql,$dblink);
 
-	while ($row = mysql_fetch_assoc($result)){
-
-		$sql = "SELECT * FROM `uniadmin_files` WHERE `addon_name` = '".addslashes($row['name'])."'";
-		$result2 = mysql_query($sql);
+	$i=0;
+	while ($row = mysql_fetch_assoc($result))
+	{
+		$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($row['name'])."'";
+		$result2 = mysql_query($sql,$dblink);
 		$numFiles = mysql_num_rows($result2);
 		$AddonName = $row['name'];
-		$version = $row['version'];
 		$homepage = $row['homepage'];
-		$time = date("M jS y H:i",$row['time_uploaded']);
+		$version = $row['version'];
+		$time = date($config['date_format'],$row['time_uploaded']);
 		$url = $row['dl_url'];
 		$addonID = $row['id'];
-		if ($row['enabled'] == "1"){
-			$enabled = "<font color='green'>yes</font>";
-			$disableHREF = "<a href='".UA_FORMACTION."addons&amp;OPERATION=DISABLEADDON&ADDONID=$addonID'>Disable</a>";
-		}else{
-			$enabled="<font color='red'>no</font>"; $disableHREF = "<a href='".UA_FORMACTION."addons&amp;OPERATION=ENABLEADDON&ADDONID=$addonID'>Enable</a>";
+		if ($row['enabled'] == '1')
+		{
+			$enabled = "<span style='color:green;font-weight:bold;'>yes</span>";
 		}
+		else
+		{
+			$enabled="<span style='color:red;font-weight:bold;'>no</span>";
+		}
+		if ($row['homepage'] == '')
+		{
+			$homepage = './';
+		}
+
+		if ($row['required'] == 1)
+			$required = '<span style="color:red;font-weight:bold;">yes</span>';
+		else
+			$required = '<span style="color:green;font-weight:bold;">no</span>';
+		$toc = $row['toc'];
+
+		if($i % 2)
+		{
+			$tdClass = 'data2';
+		}
+		else
+		{
+			$tdClass = 'data1';
+		}
+
 		$AddonPanel .="
 		<tr>
-			<td><a target=_blank href=\"$homepage\">$AddonName</a></td>
-			<td>$version</td>
-			<td>$time</td>
-			<td>$enabled</td>
-			<td>$numFiles</td>
-			<td><a href='$url' target='_BLANK'>Get</a></td>
+			<td class='$tdClass'><a target='_blank' href=\"$homepage\">$AddonName</a></td>
+			<td class='$tdClass'>$toc</td>
+			<td class='$tdClass'>$required</td>
+			<td class='$tdClass'>$version</td>
+			<td class='$tdClass'>$time</td>
+			<td class='$tdClass'>$enabled</td>
+			<td class='$tdClass'>$numFiles</td>
+			<td class='$tdClass'><a href='$url'>Download</a></td>
 		</tr>
 		";
+		$i++;
 	}
-	$AddonPanel .= "</table>";
+	$AddonPanel .= '</table>';
 
 
-
-
-	EchoPage("
-		<br>
-		<br>
-
-			$AddonPanel
-			<br>
-			<BR>
-			<BR>
-		","Addons");
+	EchoPage($AddonPanel,'Addons');
 }
-
-
-function ls($dir, $array){
-	$sep = DIRECTORY_SEPARATOR;
-	$handle = opendir($dir);
-	for(;(false !== ($readdir = readdir($handle)));){
-		if($readdir != '.' && $readdir != '..'){
-			$path = $dir.$sep.$readdir;
-			if(is_dir($path))  $array =  ls($path, $array);
-			if(is_file($path)){$array[count($array)] = $path;}
-		}
-	}
-	closedir($handle);
-	return $array;
-}
-
-
-
-//the switch function is bugged in my version of PHP, so had to use this:
-
-if (!isset ($_REQUEST['OPERATION'])) {
-	$op = "";
-} else {
-	$op = $_REQUEST['OPERATION'];
-}
-
 
 Main();
-
 
 
 ?>
