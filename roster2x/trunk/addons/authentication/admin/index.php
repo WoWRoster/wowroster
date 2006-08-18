@@ -2,7 +2,7 @@
 
 require_once '../auth_conf.php';
 require_once '../functions/auth_class.php';
-require_once '../functions/interface_helper_class.php';
+require_once '../functions/interface_helper.php';
 require_once '../functions/login.php';
 include_once '../css/sc_java.js';
 
@@ -47,12 +47,12 @@ $IH->treat_get_post($_REQUEST);
 						</tr>
 						<tr>
 							<td>
-								<?php $IH->list_guilds(); ?>
+								<?php $IH->gui('Guild_Management_Master', 'list_guilds'); ?>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<?php $IH->new_edit_guild_field(@$_GET); ?>
+								<?php $IH->gui('Guild_Management_Master', 'new_edit_guild_field', @$_GET); ?>
 							</td>
 						</tr>
 						</form>
@@ -66,12 +66,12 @@ $IH->treat_get_post($_REQUEST);
 						</tr>
 						<tr>
 							<td>
-								<?php $IH->list_areas(); ?>
+								<?php $IH->gui('Area_Management_Master', 'list_areas'); ?>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<?php $IH->new_edit_area_field(@$_GET); ?>
+								<?php $IH->gui('Area_Management_Master', 'new_edit_area_field', @$_GET); ?>
 							</td>
 						</tr>
 						</form>
@@ -85,12 +85,12 @@ $IH->treat_get_post($_REQUEST);
 						</tr>
 						<tr>
 							<td>
-								<?php $IH->list_groups(); ?>
+								<?php $IH->gui('Group_Management_Master', 'list_groups'); ?>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<?php $IH->new_edit_group_field(@$_GET); ?>
+								<?php $IH->gui('Group_Management_Master', 'new_edit_group_field', @$_GET); ?>
 							</td>
 						</tr>
 						</form>
@@ -107,7 +107,7 @@ $IH->treat_get_post($_REQUEST);
 									</tr>
 									<tr>
 										<td>
-											<?php $IH->users(array('action'=>@$_GET['action'], 'id'=>@$_GET['id'])); ?>
+											<?php $IH->gui('User_Management_Master', 'users', array('action'=>@$_GET['action'], 'id'=>@$_GET['id'])); ?>
 										</td>
 									</tr>
 									</form>
@@ -121,7 +121,7 @@ $IH->treat_get_post($_REQUEST);
 									</tr>
 									<tr>
 										<td>
-											<?php $IH->users('search_box'); ?>
+											<?php $IH->gui('User_Management_Master', 'users', 'search_box'); ?>
 										</td>
 									</tr>
 									</form>
@@ -134,7 +134,7 @@ $IH->treat_get_post($_REQUEST);
 									</tr>
 									<tr>
 										<td>
-											<?php $IH->users('new_user_box'); ?>
+											<?php $IH->gui('User_Management_Master', 'users', 'new_user_box'); ?>
 										</td>
 									</tr>
 									</form>

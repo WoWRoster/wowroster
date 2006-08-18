@@ -1,5 +1,4 @@
 <?php
-require_once '../auth_conf.php';
 class Authentication
 {
 
@@ -59,8 +58,8 @@ class Authentication
 	
 	/*
 		$filter = array('container' => $name_or_rights, // Either 'auth' for user details or 'perm' for his rights
-						'filters' => array(	'perm_user_id' => $user_id, // The following identifiers only apply, 
-											'handle' 	=> $username, 	// if 'auth' was chosen as container.
+						'filters' => array(	'perm_user_id' => $user_id,  
+											'handle' 	=> $username, 	
 											'passwd' 	=> $password,
 											'email'		=> $email,
 											'is_active'	=> $is_active,
@@ -241,18 +240,17 @@ class Authentication
 	}
 	
 	/*
-		$filter = array('area_id' => $area_id,
-						'guild_id' => $guild_id,
-						'area_define_name' => $area_name);
+		$filters = array('filters' => array('area_id' => $area_id,
+											'application_id' => $guild_id,
+											'area_define_name' => $area_name));
 		get_area($filter);  // Get specific area(s)
 		get_area();			// Get all areas
 	*/
-	function get_area($params=array())
+	function get_area($filters=array())
 	{
 		global $LUA;
-    	if(!empty($params)) {
-			$filter = array('filters' => $params);
-    		$areas = $LUA->perm->getAreas($filter);
+    	if(!empty($filters)) {
+    		$areas = $LUA->perm->getAreas($filters);
 		}
 		else
 		{
@@ -562,12 +560,16 @@ class Authentication
 	}
 	
 	/*
-		$data = array('auth_user_id' => $auth_user_id, 'member_id' => $char_id);
+		$data = array('auth_user_id' => $auth_user_id, 'member_id' => $char_id, 'guild_name' => $guild_name);
 	*/
 	function add_user_char_link($data)
 	{
 		global $LUA, $db;
-		$query_string = "SELECT member_id FROM roster2_members WHERE name = '".$data['char_name']."'";
+		if(!empty($data['guild_name']))	{
+			$query_string = "SELECT member_id FROM (roster2_members AS members) INNER JOIN (roster2_guilds AS guilds) ON (members.guild_id = guilds.guild_id AND guilds.guild_name = '".$data['guild_name']."') WHERE name = '".$data['char_name']."'";
+		}else{
+			$query_string = "SELECT member_id FROM roster2_members WHERE name = '".$data['char_name']."'";
+		}
 		$res = &$db->query($query_string);
 		$res->fetchInto($member_id);
 		if(PEAR::isError($res)) {
