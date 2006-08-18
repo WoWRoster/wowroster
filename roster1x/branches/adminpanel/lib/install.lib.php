@@ -197,11 +197,7 @@ class Install
 		$retval = 0;
 		foreach ($this->sql as $id => $query)
 		{
-			if ($result = $wowdb->query($query))
-			{
-				$wowdb->free_result($result);
-			}
-			else
+			if (!$wowdb->query($query))
 			{
 				$this->errors[] = 'Install error in query '.$id.'. MySQL said: '.$wowdb->error().'<br />The query was: '.$query;
 				$retval = 1;
