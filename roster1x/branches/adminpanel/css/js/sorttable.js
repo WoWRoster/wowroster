@@ -160,9 +160,11 @@ function dosort(count)
   newRows.sort(compare);
   
   // We appendChild rows that already exist to the tbody, so it moves them rather than creating new ones
+  j=1;
   for (var i=0;i<newRows.length;i++)
   { 
-    newRows[i].className = "membersRowColor"+(i%2+1);
+    if (newRows[i].style.display == '')
+      newRows[i].className = "membersRowColor"+((j++)%2+1);
     table.tBodies[0].appendChild(newRows[i]);
   }
 }
@@ -190,5 +192,26 @@ function checkfilter(row)
       return false;
     }
   }
+  return true;
+}
+
+function enter_sort(e,count)
+{
+  var key;
+  
+  if(window.event) // IE
+  {
+    key = e.keyCode;
+  }
+  else if(e.which) // Netscape/Firefox/Opera
+  {
+    key = e.which;
+  }
+  
+  if (key == 13) {
+    dosort(count);
+    return false;
+  }
+  
   return true;
 }

@@ -288,7 +288,7 @@ foreach ( $FIELDS as $field => $DATA )
 		'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
 		'</optgroup>'."\n";
 		
-	$filtercells .= '<td><input type="text" id="filter_'.$current_col.'" name="filter_'.$current_col.'">';
+	$filtercells .= '<td><input type="text" id="filter_'.$current_col.'" onkeydown="enter_sort(event,6);" name="filter_'.$current_col.'">';
 
 	$current_col++;
 }
