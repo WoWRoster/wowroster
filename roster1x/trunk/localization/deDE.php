@@ -39,6 +39,7 @@ $wordings['deDE']['guild_nameNotFound']='&quot;%s&quot; nicht gefunden. Stimmt e
 $wordings['deDE']['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
 
 $wordings['deDE']['ignored']='Ignored';
+$wordings['deDE']['update_disabled']='Update.php access has been disabled';
 
 // NOT USED $wordings['deDE']['updGuildMembers']='Mitgliederliste aktualisieren';
 $wordings['deDE']['nofileUploaded']='UniUploader hat keine oder die falschen Dateien hochgeladen.';
@@ -694,10 +695,7 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Suchtext|Text um den Ban
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Benutze phpBB zur Benutzerauthentifikation|Benutzt phpBB zur Zugriffskontrolle<br><br>Schalte auf <b>on</b> um den Zugriff auf phpBB zu aktivieren, und stelle die benötigten Daten weiter unten korrekt ein";
-$wordings['deDE']['admin']['phpbb_root_path'] = "Pfad zu phpBB|Gib hier an, wo du phpBB installiert hast<br>Der Pfad <u>muß</u> relativ zur Roster-Installation sein";
-$wordings['deDE']['admin']['upload_group'] = "Nutzergruppen Profilaktualisierung|Setze hier die Nutzergruppen-IDs, die ihr Profil aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 3, 4, 44 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
-$wordings['deDE']['admin']['phpbb_group_admin'] = "Nutzergruppen Gildenaktualisierung|Setze hier die Nutzergruppen-IDs, die die Gilde aktualisieren dürfen, per Komma getrennt<br>( Bsp.: 1, 12, 56 )<br><br>Du erhälst diese IDs von pbpBB's &quot;user_group&quot; Tabelle, aus der Spalte &quot;group_id&quot;";
+$wordings['deDE']['admin']['authenticated_user'] = "Access to Update.php|Controlls access to update.php<br><br>Turning this off disables access for EVERYONE";
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';

@@ -253,7 +253,7 @@ if( !headers_sent() )
 	if( !eregi('sig.php',$_SERVER['PHP_SELF']) )
 	if( !eregi('av.php',$_SERVER['PHP_SELF']) )
 	if( !eregi('realmstatus.php',$_SERVER['PHP_SELF']) )
-	header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
+	@header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
 }
 
 

@@ -39,6 +39,7 @@ $wordings['enUS']['guild_nameNotFound']='Could not update &quot;%s&quot;. Maybe 
 $wordings['enUS']['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
 
 $wordings['enUS']['ignored']='Ignored';
+$wordings['enUS']['update_disabled']='Update.php access has been disabled';
 
 // NOT USED $wordings['enUS']['updGuildMembers']='Update Guild Members';
 $wordings['enUS']['nofileUploaded']='UniUploader did not upload any file(s), or uploaded the wrong file(s).';
@@ -694,10 +695,7 @@ $wordings['enUS']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['enUS']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['enUS']['admin']['authenticated_user'] = "Use phpBB update auth|Controls access to profile update<br><br>Turn this <b>on</b> to activate phpBB update access, then configure below";
-$wordings['enUS']['admin']['phpbb_root_path'] = "Path to phpBB|Set this to where phpBB is located<br>The path <u>must</u> be realative to where roster is installed";
-$wordings['enUS']['admin']['upload_group'] = "Usergroup Access to Update|Set the user group id's that have access to upload roster data separated by a comma<br>( EX: 3, 4, 44 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot;group_id&quot;";
-$wordings['enUS']['admin']['phpbb_group_admin'] = "Usergroup Access to Guild update|Set the user group id's that have access to update guild data separated by a comma<br>( EX: 1, 12, 56 )<br><br>You can get these id's from pbpBB's &quot;user_group&quot; table, in the column &quot;group_id&quot;";
+$wordings['enUS']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br><br>Turning this off disables access for EVERYONE";
 
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
