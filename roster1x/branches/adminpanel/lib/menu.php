@@ -153,9 +153,6 @@ if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
       <ul>
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/index.php"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
 <?php
-if( $roster_conf['menu_byclass'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/index.php?s=class">'.$wordings[$roster_conf['roster_lang']]['byclass'].'</a></li>'."\n";
-
 if( $roster_conf['menu_alt_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexalt.php">'.$wordings[$roster_conf['roster_lang']]['alternate'].'</a></li>'."\n";
 
@@ -199,7 +196,7 @@ if( $roster_conf['menu_quests_page'] )
 if( $roster_conf['menu_search_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexsearch.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
 ?>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/admin.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
+        <li><a href="<?php print $roster_conf['roster_dir']; ?>/admincp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
       </ul></td>
 <?php

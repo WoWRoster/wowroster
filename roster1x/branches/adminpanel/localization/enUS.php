@@ -212,7 +212,7 @@ $wordings['enUS']['recipe_4'] = 'optimal';
 $wordings['enUS']['recipe_3'] = 'medium';
 $wordings['enUS']['recipe_2'] = 'easy';
 $wordings['enUS']['recipe_1'] = 'trivial';
-$wordings['enUS']['roster_config'] = 'Roster Config';
+$wordings['enUS']['roster_config'] = 'Admin Panel';
 
 $wordings['enUS']['memberssort'] = 'Sorting order and filtering';
 

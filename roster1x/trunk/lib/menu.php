@@ -41,28 +41,66 @@ if( $guild_data && $guild_data_rows > 0 )
 		die_quietly($wowdb->error(),'Could not connect to database',basename(__FILE__),__LINE__,$query);
 	}
 
-	$result_menu = $wowdb->query("SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND ".$roster_conf['alt_location']." NOT LIKE '%".$roster_conf['alt_type']."%'") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_non_alts = $wowdb->num_rows($result_menu);
+	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
+		`level` DIV 10 AS levelgroup,
+		COUNT(`level`) AS amount,
+		SUM(`level`) AS sum
+		FROM `".ROSTER_MEMBERSTABLE."`
+		GROUP BY isalt, levelgroup
+		ORDER BY isalt ASC, levelgroup DESC";
+	$result_menu = $wowdb->query($guildstat_query);
 
-	$result_menu = $wowdb->query("SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND ".$roster_conf['alt_location']." LIKE '%".$roster_conf['alt_type']."%'") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_alts = $wowdb->num_rows($result_menu);
+	if (!$result_menu) {
+		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
+	}
 
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` = 60") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_60 = $wowdb->num_rows($result_menu);
+	$num_non_alts = 0;
+	$num_alts = 0;
 
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 49 and `level` < 60") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_50_59 = $wowdb->num_rows($result_menu);
+	$num_lvl_60 = 0;
+	$num_lvl_50_59 = 0;
+	$num_lvl_40_49 = 0;
+	$num_lvl_30_39 = 0;
+	$num_lvl_1_29 = 0;
 
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 39 and `level` < 50") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_40_49 = $wowdb->num_rows($result_menu);
+	$level_sum = 0;
 
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 29 and `level` < 40") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_30_39 = $wowdb->num_rows($result_menu);
+	while ($row = $wowdb->fetch_assoc($result_menu))
+	{
+		if ($row['isalt'])
+		{
+			$num_alts += $row['amount'];
+		}
+		else
+		{
+			$num_non_alts += $row['amount'];
+		}
 
-	$result_menu = $wowdb->query("SELECT * from `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = $guildId AND `level` > 0 and `level` < 30") or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
-	$num_lvl_1_29 = $wowdb->num_rows($result_menu);
+		switch ($row['levelgroup'])
+		{
+			case 6:
+				$num_lvl_60 += $row['amount'];
+				break;
+			case 5:
+				$num_lvl_50_59 += $row['amount'];
+				break;
+			case 4:
+				$num_lvl_40_49 += $row['amount'];
+				break;
+			case 3:
+				$num_lvl_30_39 += $row['amount'];
+				break;
+			case 2:
+			case 1:
+			case 0:
+				$num_lvl_1_29 += $row['amount'];
+				break;
+			default:
+		}
+		$level_sum += $row['sum'];
+	}
 
-	$result_avg = $wowdb->fetch_array($wowdb->query("SELECT AVG(level) FROM `".ROSTER_MEMBERSTABLE."` WHERE guild_id=$guildId")) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__);
+	$result_avg = $level_sum/($num_alts + $num_non_alts);
 }
 
 // Get list of addons and their links
@@ -102,7 +140,7 @@ if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
 	print $wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
       <br />
       <ul>
-        <li style="color:#999999;">Average Level: '.round($result_avg[0]).'</li>
+        <li style="color:#999999;">Average Level: '.round($result_avg).'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60: '.$num_lvl_60.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 50-59: '.$num_lvl_50_59.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
