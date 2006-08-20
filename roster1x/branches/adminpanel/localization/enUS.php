@@ -214,6 +214,8 @@ $wordings['enUS']['recipe_2'] = 'easy';
 $wordings['enUS']['recipe_1'] = 'trivial';
 $wordings['enUS']['roster_config'] = 'Roster Config';
 
+$wordings['enUS']['memberssort'] = 'Sorting order and filtering';
+
 // Spellbook
 $wordings['enUS']['spellbook'] = 'Spellbook';
 $wordings['enUS']['page'] = 'Page';

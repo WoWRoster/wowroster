@@ -158,14 +158,11 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 	);
 }
 
-ob_start();
-	include_once (ROSTER_BASE.'memberslistnew.php');
-	$page = ob_get_contents();
-ob_end_clean();
+$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
 
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-echo $page;
+include_once (ROSTER_BASE.'memberslist.php');
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

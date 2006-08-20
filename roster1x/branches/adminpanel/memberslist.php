@@ -84,8 +84,6 @@ if ( $roster_conf['index_pvplist'] == 1 )
 
 echo "  </tr>\n</table>\n";
 
-
-
 /*
 this section drives the entire output.
 Later I'll probably write some query string handling for either/or:
@@ -178,6 +176,7 @@ $query =
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
 	'`members`.`zone`, '.
+	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
 	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
 
 // Fields to get from the players table
@@ -253,14 +252,13 @@ $cols = count( $FIELDS );
 
 $tableHeader = "<table>\n  <tr>\n    <td>\n";
 
-function borderTop( $text='' )
-{
-	return "<br />\n".border('syellow','start',$text)."\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n";
-}
-
+$borderTop = "<br />\n".border('syellow','start')."\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"membersData\">\n";
 
 // header row
 $tableHeaderRow = "  <tr>\n";
+$sortHeaderRow = "  <tr>\n";
+$sortoptions = '<option selected value="none"></option>'."\n";
+$filtercells = '<tr>';
 $current_col = 1;
 foreach ( $FIELDS as $field => $DATA )
 {
@@ -274,21 +272,23 @@ foreach ( $FIELDS as $field => $DATA )
 		$th_text = $DATA['lang_field'];
 	}
 
-	// click a sorted field again to reverse sort it
-	// Don't add it if it is detected already
-	if( $_REQUEST['d'] != 'true' )
-	{
-		$desc = ( $order_field == $field ) ? '&amp;d=true' : '';
-	}
-
 	if ( $current_col == $cols )
 	{
-		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="?s='.$field.$desc.'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'">'.$th_text."</th>\n";
+		$sortHeaderRow .= '    <th class="membersHeaderRight">'.$th_text."</th>\n";
 	}
 	else
 	{
-		$tableHeaderRow .= '    <th class="membersHeader"><a href="?s='.$field.$desc.'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'">'.$th_text."</th>\n";
+		$sortHeaderRow .= '    <th class="membersHeader">'.$th_text."</th>\n";
 	}
+
+	$sortoptions .= '<optgroup label="'.$th_text.'">'.
+		'<option value="'.$current_col.'_asc">'.$th_text.' ASC</option>'.
+		'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
+		'</optgroup>'."\n";
+		
+	$filtercells .= '<td><input type="text" id="filter_'.$current_col.'" name="filter_'.$current_col.'">';
 
 	$current_col++;
 }
@@ -302,59 +302,40 @@ $tableFooter = '</td></tr></table>';
 
 print($tableHeader);
 
+// Start filter/multisort code
+echo border('sblue','start',$act_words['memberssort'])."\n".
+	'<table><tr><td colspan="'.$cols.'">'."\n".
+	'<button onclick="dosort(6); return false;">Go</button>'."\n";
+for ($i=0; $i<4; $i++) {
+	echo '<select id="sort'.$i.'" name="sort'.$i.'">'."\n".$sortoptions.'</select>';
+}
+echo
+	'<input type="hidden" id="sort4" name="sort4" value="3_desc">'.
+	'<input type="hidden" id="sort5" name="sort5" value="1_asc">'.
+	$sortHeaderRow.
+	$filtercells.
+	'</table>'."\n".
+	border('sblue','end');
+
+
+// end filter/multisort code
+
+
+
+
+
 
 // Counter for row striping
 $striping_counter = 0;
 
-$last_value = 'some obscurely random string because i\'m too lazy to do this a better way.';
+echo $borderTop.$tableHeaderRow;
 
 while ( $row = $wowdb->fetch_assoc( $result ) )
 {
-	// Adding grouping dividers
-	if ( $ORDER_FIELD['divider'] )
-	{
-		if ( $last_value != $row[$order_field] )
-		{
-			if ( $roster_conf['sqldebug'] )
-			{
-				echo "<!-- $order_field :: $last_value != $row[$order_field] -->\n";
-			}
-			if ( $striping_counter )
-			{
-				echo $borderBottom;
-			}
-
-			if( isset($ORDER_FIELD['divider_value']) )
-			{
-				$divider_text = $ORDER_FIELD['divider_value']( $ORDER_FIELD['divider_prefix'].$row[$order_field] );
-			}
-			else
-			{
-				$divider_text = '<div class="membersGroup">'.$ORDER_FIELD['divider_prefix'].$row[$order_field]."</div>\n";
-			}
-
-			echo
-			borderTop($divider_text).
-			$tableHeaderRow;
-
-			$striping_counter = 0;
-			$last_value = $row[$order_field];
-		}
-	}
-	else if ( $striping_counter == 0 )
-	{
-		echo borderTop().
-			$tableHeaderRow;
-	}
-
 	// actual player rows
-	echo "  <tr>\n";
-
-
 	// Increment counter so rows are colored alternately
 	$stripe_counter = ( ( $striping_counter++ % 2 ) + 1 );
-	$stripe_class = 'membersRow'.$stripe_counter;
-	$stripe_class_right =  'membersRowRight'.$stripe_counter;
+	echo "<tr class='membersRowColor".$stripe_counter."'>\n";
 	$current_col = 1;
 
 
@@ -378,11 +359,11 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 
 		if ( $current_col == $cols ) // last col
 		{
-			echo "    <td class=\"$stripe_class_right\">$cell_value</td>\n";
+			echo "    <td class='membersRowCell'>$cell_value</td>\n";
 		}
 		else
 		{
-			echo "    <td class=\"$stripe_class\">$cell_value</td>\n";
+			echo "    <td class='membersRowRightCell'>$cell_value</td>\n";
 		}
 		$current_col++;
 	}
@@ -476,6 +457,16 @@ function name_value ( $row )
 	}
 }
 
+/**
+ * Controls output of guild title collumn
+ *
+ * @param array $row - of character data
+ * @return string - Formatted output
+ */
+function guild_title_value ( $row )
+{
+	return '<div style="display:none;">'.$row['guild_rank'].'</div>'.$row['guild_title'];
+}
 
 /**
  * Controls Output of the Honor Column
@@ -504,17 +495,17 @@ function honor_value ( $row )
 	{
 		if ( $roster_conf['index_honoricon'] )
 		{
-			$cell_value = "<div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$rankicon.' '.$row['RankName']."</div>";
+			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$rankicon.' '.$row['RankName']."</div>";
 		}
 		else
 		{
-			$cell_value = "<div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
+			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
 		}
 		return $cell_value;
 	}
 	else
 	{
-		return '&nbsp;';
+		return '<div style="display:none;">0</div>';
 	}
 }
 
@@ -536,12 +527,23 @@ function last_up_value ( $row )
 		list($month,$day,$year,$hour,$minute,$second) = sscanf($cell_value,"%d/%d/%d %d:%d:%d");
 
 		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-		return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+		return '<div style="display:none;">'.$localtime.'</div>'.date($phptimeformat[$roster_conf['roster_lang']], $localtime);
 	}
 	else
 	{
 		return '&nbsp;';
 	}
+}
+
+/**
+ * Controls Output of the Last Online Column
+ *
+ * @param array $row - of character data
+ * @return string - Formatted output
+ */
+function last_online_value ( $row )
+{
+	return '<div style="display:none;">'.$row['last_online_stamp'].'</div>'.$row['last_online'];
 }
 
 
@@ -691,11 +693,11 @@ function level_value ( $row )
 	{
 		$percentage = round(($row['level']/60)*100);
 
-		$cell_value .= '<div'.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
-		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
-		$cell_value .= '<tr>';
-		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
-		$cell_value .= '<td width="'.(100 - $percentage).'%"></td>';
+		$cell_value .= '<div'.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>'."\n";
+		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">'."\n";
+		$cell_value .= '<tr>'."\n";
+		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>'."\n";
+		$cell_value .= '<td width="'.(100 - $percentage).'%"></td>'."\n";
 		$cell_value .= "</tr>\n</table>\n</div>\n";
 	}
 	else
@@ -703,7 +705,7 @@ function level_value ( $row )
 		$cell_value = '<div'.$tooltip.' style="cursor:default;">'.$row['level'].'</div>';
 	}
 
-	return $cell_value;
+	return '<div style="display:none">'.$row['level'].'</div>'.$cell_value;
 }
 
 
@@ -792,7 +794,7 @@ function money_value ( $row )
 
 	// Configurlate money if player has it
 	$cell_value = '<div class="money">';
-	$return = '';
+	$return = '<div style="display:none;">'.($row['money_g']*10000+$row['money_s']*100+$row['money_c']).'</div>';
 
 	if( !empty($row['money_g']) )
 		$return .= $row['money_g'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> ';

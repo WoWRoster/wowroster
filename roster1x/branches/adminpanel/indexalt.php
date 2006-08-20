@@ -19,8 +19,6 @@
 require_once( 'settings.php' );
 
 $header_title = $wordings[$roster_conf['roster_lang']]['alternate'];
-include_once (ROSTER_BASE.'roster_header.tpl');
-
 
 // Additional querries needed for this page
 // Make sure the last item in this array DOES NOT have a (,) at the end
@@ -110,6 +108,10 @@ $FIELD[] = array (
 		'value' => 'armor_value',
 	),
 );
+
+$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
+
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 include_once (ROSTER_BASE.'memberslist.php');
 

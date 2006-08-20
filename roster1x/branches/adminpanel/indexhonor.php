@@ -19,7 +19,6 @@
 require_once( 'settings.php' );
 
 $header_title = $wordings[$roster_conf['roster_lang']]['menuhonor'];
-include_once (ROSTER_BASE.'roster_header.tpl');
 
 
 // Additional querries needed for this page
@@ -180,6 +179,10 @@ $FIELD[] = array (
 		'order_d' => array( '`players`.`lifetimeRankName` ASC' ),
 	),
 );
+
+$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
+
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 include_once (ROSTER_BASE.'memberslist.php');
 
