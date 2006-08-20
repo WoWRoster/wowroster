@@ -30,7 +30,6 @@ These are the changes for the roster addon framework:
 	    [dbname] => recipe
 	    [version] => 1.0.0
 	    [hasconfig] => default
-	    [hastrigger] => 0
 	    [active] => 1
 	    [dir] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\
 	    [index] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\index.php

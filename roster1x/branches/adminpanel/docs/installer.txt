@@ -21,8 +21,6 @@ addon's basename.
 var $active
 	Boolean, set to true to activate this addon after installing, set to
 	false if it has to be configured first.
-var $hastriggers
-	Boolean, set to true if your addon has a trigger file
 var $hasconfig
 	String, set to the profile name that holds the default config page, or
 	leave empty for no configuration.

@@ -18,9 +18,6 @@
 
 require_once( 'settings.php' );
 
-include_once (ROSTER_BASE.'roster_header.tpl');
-
-
 // Additional querries needed for this page
 // Make sure the last item in this array DOES NOT have a (,) at the end
 $additional_sql = array(
@@ -74,6 +71,7 @@ if ( $roster_conf['index_title'] == 1 )
 			'divider' => true,
 			'order' => array( '`members`.`guild_rank` ASC' ),
 			'order_d' => array( '`members`.`guild_rank` DESC' ),
+			'value' => 'guild_title_value',
 		),
 	);
 }
@@ -143,6 +141,7 @@ if ( $roster_conf['index_lastonline'] == 1 )
 			'lang_field' => 'lastonline',
 			'order' => array( '`members`.`last_online` DESC' ),
 			'order_d' => array( '`members`.`last_online` ASC' ),
+			'value' => 'last_online_value',
 		),
 	);
 }
@@ -159,7 +158,14 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 	);
 }
 
-include_once (ROSTER_BASE.'memberslist.php');
+ob_start();
+	include_once (ROSTER_BASE.'memberslistnew.php');
+	$page = ob_get_contents();
+ob_end_clean();
+
+include_once (ROSTER_BASE.'roster_header.tpl');
+
+echo $page;
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>
