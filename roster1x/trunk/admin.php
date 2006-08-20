@@ -115,9 +115,9 @@ $menu .='
 
 
 
-$form_start = "<form action=\"$script_filename\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"submitonce(this)\">\n";
+$form_start = "<form action=\"$script_filename\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_submit']."') && submitonce(this)\">\n";
 
-$submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" />\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+$submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 
 $form_end = "</form>\n";
 

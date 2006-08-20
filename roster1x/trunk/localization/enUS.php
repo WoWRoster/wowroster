@@ -545,6 +545,10 @@ $wordings['enUS']['lockpicking']='Lockpicking';
  * Roster Admin Strings
  ******************************/
 
+// Submit/Reset confirm questions
+$wordings['enUS']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
+$wordings['enUS']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
+
 // Main Menu words
 $wordings['enUS']['admin']['main_conf'] = 'Main Settings';
 $wordings['enUS']['admin']['guild_conf'] = 'Guild Config';

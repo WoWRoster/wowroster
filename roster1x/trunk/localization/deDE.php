@@ -545,6 +545,10 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
  * Roster Admin Strings
  ******************************/
 
+// Submit/Reset confirm questions
+$wordings['deDE']['confirm_config_submit'] = 'Dies wird die Änderungen in die Datenbank schreiben. Sind sie sicher?';
+$wordings['deDE']['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurücksetzen indem es am Anfang war. Sind sie sicher?';
+
 // Main Menu words
 $wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen';
 $wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration';
