@@ -173,7 +173,7 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 	// Figure out Server Pop.
 		foreach($pops as $p)
 		{
-			$serverpop = stristr(substr($html, ($pos + 290), 35), $p);
+			$serverpop = stristr(substr($html, ($pos + 288), 35), $p);
 			if($serverpop)
 			{
 				$foundpop = 1;

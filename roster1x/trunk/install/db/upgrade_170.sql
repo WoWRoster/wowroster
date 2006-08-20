@@ -9,6 +9,7 @@
 DELETE FROM `renprefix_config` WHERE `id` = '5020' LIMIT 1;
 
 UPDATE `renprefix_config` SET `config_value` = '1.5.4' WHERE `id` = '1010' LIMIT 1;
+UPDATE `roster_config` SET `config_name` = 'menu_memberlog' WHERE `id` = '4020' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloads/details/id=7.html' WHERE `id` = '6110' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloads/c=2.html' WHERE `id` = '6120' LIMIT 1;
 UPDATE `renprefix_config` SET `id` = '5020', `config_type` = 'display_conf' WHERE `id` = '1050' LIMIT 1;
@@ -20,8 +21,31 @@ INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg'
 INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', 'text{128|30', 'update_access');
 
+# --------------------------------------------------------
+### NEW TABLES
 
-#
+DROP TABLE IF EXISTS `renprefix_memberlog`;
+CREATE TABLE `renprefix_memberlog` (
+  `member_id` int(11) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL default '',
+  `guild_id` int(11) unsigned NOT NULL default '0',
+  `class` varchar(32) NOT NULL default '',
+  `level` int(11) NOT NULL default '0',
+  `note` varchar(255) NOT NULL default '',
+  `guild_rank` int(11) default '0',
+  `guild_title` varchar(64) default NULL,
+  `officer_note` varchar(255) NOT NULL default '',
+  `update_time` datetime default NULL,
+  `type` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`member_id`),
+  KEY `member` (`guild_id`,`name`),
+  KEY `name` (`name`),
+  KEY `class` (`class`),
+  KEY `level` (`level`),
+  KEY `guild_rank` (`guild_rank`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### The roster version and db version MUST be last
 
 UPDATE `renprefix_config` SET `config_value` = '1.7.1' WHERE `id` = '4' LIMIT 1;

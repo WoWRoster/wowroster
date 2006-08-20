@@ -572,6 +572,34 @@ class wowdb
 
 
 	/**
+	 * Update Memberlog function
+	 *
+	 */
+	function updateMemberlog( $data , $type )
+	{
+		$this->reset_values();
+		$this->add_value('member_id', $data['member_id'] );
+		$this->add_value('name', $data['name'] );
+		$this->add_value('guild_id', $data['guild_id'] );
+		$this->add_value('class', $data['class'] );
+		$this->add_value('level', $data['level'] );
+		$this->add_value('note', $data['note'] );
+		$this->add_value('guild_rank', $data['guild_rank'] );
+		$this->add_value('guild_title', $data['guild_title'] );
+		$this->add_value('officer_note', $data['officer_note'] );
+		$this->add_value('update_time', $data['update_time'] );
+		$this->add_value('type', $type );
+
+		$querystr = "INSERT INTO `".ROSTER_MEMBERLOGTABLE."` SET ".$this->assignstr;
+		$result = $this->query($querystr);
+		if( !$result )
+		{
+			$this->setError('Member Log ['.$data['name'].'] could not be inserted',$this->error());
+		}
+	}
+
+
+	/**
 	 * Formats quest data to be inserted to the db
 	 *
 	 * @param array $quest_data
@@ -1471,7 +1499,7 @@ class wowdb
 	 */
 	function remove_guild_members($guild_id, $date)
 	{
-		$querystr = "SELECT `member_id`, `name` FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `update_time` <> '".
+		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `update_time` <> '".
 			$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
 		$result = $this->query($querystr);
 		if( !$result )
@@ -1492,11 +1520,12 @@ class wowdb
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">]</span></li>');
+				$this->setMemberLog($row,0);
+
 			}
 
 			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').'</span></li>');
 			$this->setMessage('<ul>');
-			$this->membersremoved += $num;
 
 			// now that we have our inclause, time to do some deletes
 			$this->deleteMembers($inClause);
@@ -1569,11 +1598,11 @@ class wowdb
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">] since their guild-id does not match</span></li>');
+				$this->setMemberLog($row,0);
 			}
 
 			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\'s' : '').'</span></li>');
 			$this->setMessage('<ul>');
-			$this->membersremoved += $num;
 
 			// now that we have our inclause, time to do some deletes
 			$this->deleteMembers($inClause);
@@ -1603,6 +1632,36 @@ class wowdb
 		$this->closeQuery($result);
 
 		return $retval;
+	}
+
+
+	/**
+	 * Function to prepare the memberlog data
+	 *
+	 * @param array $data | Member info array
+	 * @param multiple $type | Action to update ( 'rem','del,0 | 'add','new',1 )
+	 */
+	function setMemberLog( $data , $type )
+	{
+		if ( is_array($data) )
+		{
+			switch ($type)
+			{
+				case 'del':
+				case 'rem':
+				case 0:
+					$this->membersremoved++;
+					$this->updateMemberlog($data,0);
+					break;
+
+				case 'add':
+				case 'new':
+				case 1:
+					$this->membersadded++;
+					$this->updateMemberlog($data,1);
+					break;
+			}
+		}
 	}
 
 
@@ -1753,13 +1812,33 @@ class wowdb
 
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">Adding member - [</span> '.$name.' <span class="green">]</span></li>');
-			$this->membersadded++;
 		}
 
 		$result = $this->query($querystr);
 		if( !$result )
 		{
 			$this->setError(''.$name_escape.' could not be inserted',$this->error());
+			return;
+		}
+
+		// Update memberlog since this is a new member
+		if( !$memberId )
+		{
+			$insert_id = mysql_insert_id();
+			if( !$insert_id )
+			{
+				$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` = '$insert_id';";
+				$result = $this->query($querystr);
+				if( !$result )
+				{
+					$this->setError('Member could not be selected for MemberLog',$this->error());
+				}
+				else
+				{
+					$row = $this->fetch_array($result);
+					$this->setMemberLog($row,1);
+				}
+			}
 		}
 	}
 

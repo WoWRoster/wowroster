@@ -291,7 +291,7 @@ function processGuildRoster($myProfile)
 							$wowdb->resetMessages();
 							$guild_output .= "</ul>\n";
 							$output .= "<strong>Updating Guild [<span class=\"orange\">$guildName</span>]</strong>\n<ul>\n";
-							$output .= "<li><strong>Members Update Summary</strong></li>\n<ul>\n".
+							$output .= "<li><strong>Member Log</strong></li>\n<ul>\n".
 								"<li>Updated: ".$wowdb->membersupdated."</li>\n".
 								"<li>Added: ".$wowdb->membersadded."</li>\n".
 								"<li>Removed: ".$wowdb->membersremoved."</li>\n".
@@ -308,7 +308,7 @@ function processGuildRoster($myProfile)
 					}
 					else
 					{
-						$output .= str_replace('*GUILDNAME*',$guildName,$wordings[$roster_conf['roster_lang']]['guild_nameNotFound'])."<br />\n";
+						$output .= sprintf($wordings[$roster_conf['roster_lang']]['guild_nameNotFound'],$guildName)."<br />\n";
 					}
 				}
 				else

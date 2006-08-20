@@ -35,7 +35,7 @@ $wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_nam
 
 $wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
-$wordings['enUS']['guild_nameNotFound']='Could not update &quot;*GUILDNAME*&quot;. Maybe its not set in configuration?';
+$wordings['enUS']['guild_nameNotFound']='Could not update &quot;%s&quot;. Maybe its not set in configuration?';
 $wordings['enUS']['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
 
 $wordings['enUS']['ignored']='Ignored';
@@ -188,6 +188,7 @@ $wordings['enUS']['recipelist']='Recipe List';
 $wordings['enUS']['reagents']='Reagents';
 $wordings['enUS']['item']='Item';
 $wordings['enUS']['type']='Type';
+$wordings['enUS']['date']='Date';
 $wordings['enUS']['completedsteps'] = 'Completed Steps';
 $wordings['enUS']['currentstep'] = 'Current Step';
 $wordings['enUS']['uncompletedsteps'] = 'Uncompleted Steps';
@@ -203,6 +204,11 @@ $wordings['enUS']['dodge'] = 'Dodge';
 $wordings['enUS']['parry'] = 'Parry';
 $wordings['enUS']['block'] = 'Block';
 
+// Memberlog
+$wordings['enUS']['memberlog'] = 'Member Log';
+$wordings['enUS']['removed'] = 'Removed';
+$wordings['enUS']['added'] = 'Added';
+$wordings['enUS']['no_memberlog'] = 'No Member Log Recorded';
 
 $wordings['enUS']['rosterdiag'] = 'Roster Diag.';
 $wordings['enUS']['Guild_Info'] = 'Guild Info';
@@ -621,7 +627,7 @@ $wordings['enUS']['admin']['index_lastupdate'] = "Last Updated Column|Display wh
 // menu_conf
 $wordings['enUS']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br>This area holds the member quick list";
 $wordings['enUS']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br>This area holds the realmstatus image";
-$wordings['enUS']['admin']['menu_byclass'] = "By Class Link|Controls display of the By Class Link";
+$wordings['enUS']['admin']['menu_memberlog'] = "Member Log Link|Controls display of the Member Log Link";
 $wordings['enUS']['admin']['menu_alt_page'] = "Alternate View Link|Controls display of the Alternate View Link";
 $wordings['enUS']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
 $wordings['enUS']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
@@ -707,6 +713,8 @@ Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (
 <br />
 Thanks to Nick Schaffner from <a href="http://53x11.com" target="_blank">53x11</a> for WoW Server Status used in Roster
 <br />
+Thanks to Averen for Member Log
+<br /><br />
 Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
 <br /><br />';
 

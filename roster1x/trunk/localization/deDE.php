@@ -35,7 +35,7 @@ $wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
-$wordings['deDE']['guild_nameNotFound']='&quot;*GUILDNAME*&quot; nicht gefunden. Stimmt er mit dem konfigurierten Namen &uuml;berein?';
+$wordings['deDE']['guild_nameNotFound']='&quot;%s&quot; nicht gefunden. Stimmt er mit dem konfigurierten Namen &uuml;berein?';
 $wordings['deDE']['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
 
 $wordings['deDE']['ignored']='Ignored';
@@ -188,6 +188,7 @@ $wordings['deDE']['recipelist']='Rezepte Liste';
 $wordings['deDE']['reagents']='Reagenzien';
 $wordings['deDE']['item']='Gegenstand';
 $wordings['deDE']['type']='Typ';
+$wordings['deDE']['date']='Datum';
 $wordings['deDE']['completedsteps'] = 'Abgeschlossen';
 $wordings['deDE']['currentstep'] = 'Aktuell';
 $wordings['deDE']['uncompletedsteps'] = 'Nicht Abgeschlossen';
@@ -203,6 +204,11 @@ $wordings['deDE']['dodge'] = 'Ausweichen';
 $wordings['deDE']['parry'] = 'Parrieren';
 $wordings['deDE']['block'] = 'Blocken';
 
+// Memberlog
+$wordings['deDE']['memberlog'] = 'Member Log';
+$wordings['deDE']['removed'] = 'Entfernt';
+$wordings['deDE']['added'] = 'Zugef�gt';
+$wordings['deDE']['no_memberlog'] = 'No Member Log Recorded';
 
 $wordings['deDE']['rosterdiag'] = 'Roster Diagnose Seite';
 $wordings['deDE']['Guild_Info'] = 'Gilden Info';
@@ -621,7 +627,7 @@ $wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Ze
 // menu_conf
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br>Hier wird eine kurze Mitgliederübersicht gezeigt";
 $wordings['deDE']['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br>Hier wir der Realmstatus angezeigt";
-$wordings['deDE']['admin']['menu_byclass'] = "Nach Klasse|Link zur Anzeige nach Klasse";
+$wordings['deDE']['admin']['menu_memberlog'] = "Memberlog|Link zur Memberlog";
 $wordings['deDE']['admin']['menu_alt_page'] = "Alternative Ansicht|Link zur alternativen Ansicht";
 $wordings['deDE']['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
 $wordings['deDE']['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";

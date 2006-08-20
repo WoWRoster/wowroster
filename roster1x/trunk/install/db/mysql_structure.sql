@@ -128,6 +128,30 @@ CREATE TABLE `renprefix_members` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Member Log
+
+DROP TABLE IF EXISTS `renprefix_memberlog`;
+CREATE TABLE `renprefix_memberlog` (
+  `member_id` int(11) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL default '',
+  `guild_id` int(11) unsigned NOT NULL default '0',
+  `class` varchar(32) NOT NULL default '',
+  `level` int(11) NOT NULL default '0',
+  `note` varchar(255) NOT NULL default '',
+  `guild_rank` int(11) default '0',
+  `guild_title` varchar(64) default NULL,
+  `officer_note` varchar(255) NOT NULL default '',
+  `update_time` datetime default NULL,
+  `type` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`member_id`),
+  KEY `member` (`guild_id`,`name`),
+  KEY `name` (`name`),
+  KEY `class` (`class`),
+  KEY `level` (`level`),
+  KEY `guild_rank` (`guild_rank`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Pets
 
 DROP TABLE IF EXISTS `renprefix_pets`;
