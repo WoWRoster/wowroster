@@ -188,6 +188,26 @@ class Upgrade
 
 		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_170.sql';
 
+		//
+		// Fix those pesky double slashes...
+		//
+		$query_build = array();
+		$query_build[] = "UPDATE `".$db_prefix."items` SET `item_texture` = REPLACE(`item_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."mailbox` SET `item_icon` = REPLACE(`item_icon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."pets` SET `icon` = REPLACE(`icon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."players` SET `RankIcon` = REPLACE(`RankIcon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."talents` SET `texture` = REPLACE(`texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."talenttree` SET `background` = REPLACE(`background`,'\\\\','/');";
+
+		foreach( $query_build as $query_string )
+		{
+			$result = $wowdb->query($query_string);
+		}
+
 		// Parse structure file and create database tables
 		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
 		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);

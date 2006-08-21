@@ -626,17 +626,24 @@ function tradeskill_icons ( $row )
 {
 	global $wowdb, $roster_conf, $wordings;
 
-	$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$row['clientLocale']]['professions']."' OR `skill_type` = '".$wordings[$row['clientLocale']]['secondary']."') ORDER BY `skill_order` ASC" );
-
-	$cell_value ='';
-	while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
+	if( $row['clientLocale'] != '' )
 	{
-		$toolTip = str_replace(':','/',$r_prof['skill_level']);
-		$toolTiph = $r_prof['skill_name'];
+		$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$row['clientLocale']]['professions']."' OR `skill_type` = '".$wordings[$row['clientLocale']]['secondary']."') ORDER BY `skill_order` ASC" );
 
-		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
+		$cell_value = '';
+		while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
+		{
+			$toolTip = str_replace(':','/',$r_prof['skill_level']);
+			$toolTiph = $r_prof['skill_name'];
 
-		$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+			$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
+
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+		}
+	}
+	else
+	{
+		$cell_value = '&nbsp;';
 	}
 	return $cell_value;
 }
