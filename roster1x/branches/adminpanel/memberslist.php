@@ -109,34 +109,30 @@ $FIELD[] = array (
 		// If this is not found, this table header will show what is placed here
 		'lang_field' => 'lang_key_name',
 
+		// Javascript order field.
+		// If this collumn is best sorted on something other than what is shown in the table, put the name
+		// of the field to sort on in here.
+		'jsort'      => 'fieldname'
+
 		// An ordering array
 		// Some sorts benifit from multiple order fields, name the fields here as you would in the query
-		'order'    => array( '`table`.`field` SORT' ),
+		'order'      => array( '`table`.`field` SORT' ),
 
 		// An ordering descending array
 		// This is the same as above, but this is used when the field sort is reversed
 		// Some sorts benifit from multiple order fields, name the fields here as you would in the query
 		'order_d'    => array( '`table`.`field` SORT' ),
 
-		// This will let you divide out the table on the sections
-		'divider' => true,
-
-		// Prefix this text before the the name of the divider
-		'divider_prefix' => 'Level ',
-
-		// This is in case you need to use a function to modify the value for a divider
-		// See examples at the bottom of this file
-		'divider_value' => 'function_name',
-
-		// Not currently used, but left as a reminder to me that we want to always have at least the name...
-		'required' => true,
+		// Not currently used, required collumn
+		'required'   => true,
 
 		// Not currently used, indicates to show by default
-		'default'  => true,
+		'default'    => true,
 
 		// This is in case you need to use a function to modify the value for a field
-		// See examples at the bottom of this file
-		'value' => 'function_name',
+		// See examples at the bottom of this file.
+		// Remember the JS sorts on the innerHTML of the first node. Make it an invisible div if needed.
+		'value'      => 'function_name',
 	),
 );
 ************************/
@@ -255,7 +251,7 @@ $tableHeader = "<table>\n  <tr>\n    <td>\n";
 $borderTop = "<br />\n".border('syellow','start')."\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"membersData\">\n";
 
 // header row
-$tableHeaderRow = "  <tr>\n";
+$tableHeaderRow = "  <thead><tr>\n";
 $sortHeaderRow = "  <tr>\n";
 $sortoptions = '<option selected value="none"></option>'."\n";
 $filtercells = '<tr>';
@@ -335,7 +331,7 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 	// actual player rows
 	// Increment counter so rows are colored alternately
 	$stripe_counter = ( ( $striping_counter++ % 2 ) + 1 );
-	echo "<tr class='membersRowColor".$stripe_counter."'>\n";
+	echo "<tbody><tr class='membersRowColor".$stripe_counter."'>\n";
 	$current_col = 1;
 
 
@@ -346,9 +342,18 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 		{
 			$cell_value = $DATA['value']( $row );
 		}
+		elseif ( isset( $DATA['jsort'] ) )
+		{
+			$cell_value = '<div style="display:none; ">'.$row[$DATA['jsort']].'</div>'.$row[$field];
+		}
 		else
 		{
-			$cell_value = empty( $row[$field] ) ? '&nbsp;' : $row[$field];
+			$cell_value = '<div>'.$row[$field].'</div>';
+		}
+		
+		if (empty($row[$field]))
+		{
+			$cell_value .= '&nbsp;';
 		}
 
 		//---[ Adding trade skills images ]---------------
@@ -357,6 +362,7 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 			$cell_value .= tradeskill_icons($row);
 		}
 
+		// IMPORTANT do not add any spaces between the td and the $cell_value or the javascript will break
 		if ( $current_col == $cols ) // last col
 		{
 			echo "    <td class='membersRowCell'>$cell_value</td>\n";
@@ -448,24 +454,13 @@ function name_value ( $row )
 	{
 		if ( $row['server'] )
 		{
-			return '<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a>';
+			return "<div style='display:none;'>".$row['name']."</div>".'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a>';
 		}
 		else
 		{
 			return $row['name'];
 		}
 	}
-}
-
-/**
- * Controls output of guild title collumn
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function guild_title_value ( $row )
-{
-	return '<div style="display:none;">'.$row['guild_rank'].'</div>'.$row['guild_title'];
 }
 
 /**
@@ -536,18 +531,6 @@ function last_up_value ( $row )
 }
 
 /**
- * Controls Output of the Last Online Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function last_online_value ( $row )
-{
-	return '<div style="display:none;">'.$row['last_online_stamp'].'</div>'.$row['last_online'];
-}
-
-
-/**
  * Controls Output of the Class Column
  *
  * @param array $row - of character data
@@ -579,42 +562,17 @@ function class_value ( $row )
 		// Class name coloring
 		if ( $roster_conf['index_class_color'] == 1 )
 		{
-		    return $icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
+		    return "<div style='display:none;'>".$row['class']."</div>".$icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
 		}
 		else
 		{
-		    return $icon_value.$row['class'];
+		    return "<div style='display:none;'>".$row['class']."</div>".$icon_value.$row['class'];
 		}
 	}
 	else
 	{
 		return '&nbsp;';
 	}
-}
-
-
-/**
- * Controls Output of the Class Dividers
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function class_divider ( $text )
-{
-	global $wordings, $roster_conf;
-
-	// Class Icon
-	foreach ($roster_conf['multilanguages'] as $language)
-	{
-		$icon_name = $wordings[$language]['class_iconArray'][$text];
-		if( strlen($icon_name) > 0 ) break;
-	}
-	$icon_name = 'Interface/Icons/'.$icon_name;
-
-	$icon_value = '<img class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
-
-	return '<div class="membersGroup">'.$icon_value.$text.'</div>';
-
 }
 
 
@@ -777,7 +735,7 @@ function armor_value ( $row )
 		$cell_value .= '<strong class="'.$color.'">'.$current.'</strong>';
 		$cell_value .= '</span>';
 	}
-	return $cell_value;
+	return "<div style='display:none;'>".$current."</div>".$cell_value;
 }
 
 
@@ -793,8 +751,8 @@ function money_value ( $row )
 
 
 	// Configurlate money if player has it
-	$cell_value = '<div class="money">';
-	$return = '<div style="display:none;">'.($row['money_g']*10000+$row['money_s']*100+$row['money_c']).'</div>';
+	$cell_value = '<div style="display:none;">'.($row['money_g']*10000+$row['money_s']*100+$row['money_c']).'</div><div class="money">';
+	$return = '';
 
 	if( !empty($row['money_g']) )
 		$return .= $row['money_g'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> ';

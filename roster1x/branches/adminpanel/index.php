@@ -43,8 +43,6 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'class' => array(
 		'lang_field' => 'class',
-		'divider' => true,
-		'divider_value' => 'class_divider',
 		'order'    => array( '`members`.`class` ASC' ),
 		'order_d'    => array( '`members`.`class` DESC' ),
 		'default'  => true,
@@ -55,8 +53,6 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'level' => array(
 		'lang_field' => 'level',
-		'divider' => true,
-		'divider_prefix' => 'Level ',
 		'order_d'    => array( '`members`.`level` ASC' ),
 		'default'  => true,
 		'value' => 'level_value',
@@ -68,10 +64,9 @@ if ( $roster_conf['index_title'] == 1 )
 	$FIELD[] = array (
 		'guild_title' => array (
 			'lang_field' => 'title',
-			'divider' => true,
+			'jsort' => 'guild_rank',
 			'order' => array( '`members`.`guild_rank` ASC' ),
 			'order_d' => array( '`members`.`guild_rank` DESC' ),
-			'value' => 'guild_title_value',
 		),
 	);
 }
@@ -81,7 +76,6 @@ if ( $roster_conf['index_currenthonor'] == 1 )
 	$FIELD[] = array (
 		'RankName' => array(
 			'lang_field' => 'currenthonor',
-			'divider' => true,
 			'order' => array( 'risnull','`players`.`RankInfo` DESC' ),
 			'order_d' => array( 'risnull','`players`.`RankInfo` ASC' ),
 			'value' => 'honor_value',
@@ -115,7 +109,6 @@ if ( $roster_conf['index_hearthed'] == 1 )
 	$FIELD[] = array (
 		'hearth' => array(
 			'lang_field' => 'hearthed',
-			'divider' => true,
 			'order' => array( 'hisnull', 'hearth ASC' ),
 			'order_d' => array( 'hisnull', 'hearth DESC' ),
 		),
@@ -127,7 +120,6 @@ if ( $roster_conf['index_zone'] == 1 )
 	$FIELD[] = array (
 		'zone' => array(
 			'lang_field' => 'zone',
-			'divider' => true,
 			'order' => array( '`members`.`zone` ASC' ),
 			'order_d' => array( '`members`.`zone` DESC' ),
 		),
@@ -141,7 +133,6 @@ if ( $roster_conf['index_lastonline'] == 1 )
 			'lang_field' => 'lastonline',
 			'order' => array( '`members`.`last_online` DESC' ),
 			'order_d' => array( '`members`.`last_online` ASC' ),
-			'value' => 'last_online_value',
 		),
 	);
 }
@@ -151,9 +142,9 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 	$FIELD[] = array (
 		'last_update' => array (
 			'lang_field' => 'lastupdate',
+			'jsort' => 'last_online_stamp',
 			'order' => array( 'luisnull','last_update DESC' ),
 			'order_d' => array( 'luisnull','last_update ASC' ),
-			'value' => 'last_up_value',
 		),
 	);
 }

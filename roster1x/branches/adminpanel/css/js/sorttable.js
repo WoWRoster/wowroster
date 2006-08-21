@@ -9,22 +9,9 @@ var FILTER;
 function ts_getInnerText(el) {
 	if (typeof el == "string") return el;
 	if (typeof el == "undefined") { return el };
-	if (el.innerText) return el.innerText;	//Not needed but it is faster
-	var str = "";
-	
-	var cs = el.childNodes;
-	var l = cs.length;
-	for (var i = 0; i < l; i++) {
-		switch (cs[i].nodeType) {
-			case 1: //ELEMENT_NODE
-				str += ts_getInnerText(cs[i]);
-				break;
-			case 3:	//TEXT_NODE
-				str += cs[i].nodeValue;
-				break;
-		}
-	}
-	return str;
+
+    // First node in the cell is a DIV with style="display:none" containing a simple string/number to sort on
+	return el.childNodes[0].innerHTML;
 }
 
 function getParent(el, pTagName) {
@@ -57,24 +44,24 @@ function ts_sort_date(a,b) {
     return 1;
 }
 
-function ts_sort_currency(a,b) { 
+function ts_sort_currency(a,b) {
     aa = ts_getInnerText(a.cells[SORT_COLUMN_INDEX]).replace(/[^0-9.]/g,'');
     bb = ts_getInnerText(b.cells[SORT_COLUMN_INDEX]).replace(/[^0-9.]/g,'');
     return parseFloat(aa) - parseFloat(bb);
 }
 
-function ts_sort_numeric(a,b) { 
+function ts_sort_numeric(a,b) {
     aa = parseFloat(ts_getInnerText(a.cells[SORT_COLUMN_INDEX]));
     if (isNaN(aa)) aa = 0;
-    bb = parseFloat(ts_getInnerText(b.cells[SORT_COLUMN_INDEX])); 
+    bb = parseFloat(ts_getInnerText(b.cells[SORT_COLUMN_INDEX]));
     if (isNaN(bb)) bb = 0;
     return aa-bb;
 }
 
-function ts_sort_numeric_inv(a,b) { 
+function ts_sort_numeric_inv(a,b) {
     aa = parseFloat(ts_getInnerText(a.cells[SORT_COLUMN_INDEX]));
     if (isNaN(aa)) aa = 0;
-    bb = parseFloat(ts_getInnerText(b.cells[SORT_COLUMN_INDEX])); 
+    bb = parseFloat(ts_getInnerText(b.cells[SORT_COLUMN_INDEX]));
     if (isNaN(bb)) bb = 0;
     return bb-aa;
 }
@@ -123,7 +110,7 @@ function dosort(count)
   for (i=0; i<count;i++)
   {
     cs = document.getElementById('sort'+i);
-    
+
     if (cs.value == 'none')
     {
       SORTERS[i] = 'none';
@@ -139,33 +126,41 @@ function dosort(count)
       if (itm == 'note') sortfn = ts_sort_caseinsensitive;
       if (itm == 'hearth') sortfn = ts_sort_caseinsensitive;
       if (itm == 'zone') sortfn = ts_sort_caseinsensitive;
-      
+
       SORTERS[i] = sortfn;
       if (cs.value.indexOf('desc') > -1) SORT_COLUMNS[i] = -SORT_COLUMNS[i];
     }
   }
-  
-  var firstRow = new Array();
+
   var newRows = new Array();
-  for (var i=0;i<table.rows[0].cells.length;i++) 
+  for (var i=0;i<table.rows[0].cells.length;i++)
   {
     FILTER[i] = document.getElementById('filter_'+(i+1));
   }
-  for (var i=1;i<table.rows.length;i++)
+  j=0;
+  for (var i=0;i<table.tBodies.length;i++)
   {
-    newRows[i-1] = table.rows[i];
-    newRows[i-1].style.display = ((checkfilter(newRows[i-1]))?'':'none');
+	// Don't sort filtered rows
+	if (checkfilter(table.tBodies[i].rows[0]))
+	{
+	  newRows[j++] = table.tBodies[i];
+	  table.tBodies[i].style.display = '';
+	}
+	else
+	{
+	  table.tBodies[i].style.display = 'none';
+	}
   }
-    
+
   newRows.sort(compare);
-  
+
   // We appendChild rows that already exist to the tbody, so it moves them rather than creating new ones
-  j=1;
+  j=0;
   for (var i=0;i<newRows.length;i++)
-  { 
+  {
     if (newRows[i].style.display == '')
-      newRows[i].className = "membersRowColor"+((j++)%2+1);
-    table.tBodies[0].appendChild(newRows[i]);
+      newRows[i].rows[0].className = "membersRowColor"+((j++)%2+1);
+    table.appendChild(newRows[i]);
   }
 }
 
@@ -176,7 +171,7 @@ function compare(a,b)
     if (SORTERS[i] != 'none')
     {
       SORT_COLUMN_INDEX = Math.abs(SORT_COLUMNS[i])-1
-      res = SORTERS[i](a,b);
+      res = SORTERS[i](a.rows[0],b.rows[0]);
       if (res) return SORT_COLUMNS[i]*res;
     }
   }
@@ -198,7 +193,7 @@ function checkfilter(row)
 function enter_sort(e,count)
 {
   var key;
-  
+
   if(window.event) // IE
   {
     key = e.keyCode;
@@ -207,11 +202,11 @@ function enter_sort(e,count)
   {
     key = e.which;
   }
-  
+
   if (key == 13) {
     dosort(count);
     return false;
   }
-  
+
   return true;
 }
