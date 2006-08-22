@@ -210,3 +210,22 @@ function enter_sort(e,count)
 
   return true;
 }
+
+function toggleColumn(colnr,dispcell)
+{
+	table = document.getElementById('membersData');
+	if (table.rows[0].cells[colnr].style.display == 'none')
+	{
+		newstyle = '';
+		dispcell.style.backgroundColor = '#2E2D2B';
+	}
+	else
+	{
+		newstyle = 'none';
+		dispcell.style.backgroundColor = '#5b5955';
+	}
+	for (i=0;i<table.rows.length;i++)
+	{
+		table.rows[i].cells[colnr].style.display = newstyle;
+	}
+}

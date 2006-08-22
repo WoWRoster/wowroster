@@ -246,15 +246,12 @@ $result = $wowdb->query( $query ) or die_quietly($wowdb->error(),'Database Error
 
 $cols = count( $FIELDS );
 
-$tableHeader = "<table>\n  <tr>\n    <td>\n";
-
 $borderTop = "<br />\n".border('syellow','start')."\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"membersData\">\n";
 
 // header row
 $tableHeaderRow = "  <thead><tr>\n";
-$sortHeaderRow = "  <tr>\n";
+$sortFields = "";
 $sortoptions = '<option selected value="none"></option>'."\n";
-$filtercells = '<tr>';
 $current_col = 1;
 foreach ( $FIELDS as $field => $DATA )
 {
@@ -271,20 +268,24 @@ foreach ( $FIELDS as $field => $DATA )
 	if ( $current_col == $cols )
 	{
 		$tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'">'.$th_text."</th>\n";
-		$sortHeaderRow .= '    <th class="membersHeaderRight">'.$th_text."</th>\n";
 	}
 	else
 	{
 		$tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'">'.$th_text."</th>\n";
-		$sortHeaderRow .= '    <th class="membersHeader">'.$th_text."</th>\n";
 	}
 
 	$sortoptions .= '<optgroup label="'.$th_text.'">'.
 		'<option value="'.$current_col.'_asc">'.$th_text.' ASC</option>'.
 		'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
 		'</optgroup>'."\n";
-		
-	$filtercells .= '<td><input type="text" id="filter_'.$current_col.'" onkeydown="enter_sort(event,6);" name="filter_'.$current_col.'">';
+	
+
+	if ($current_col > 1)
+	{
+		$sortFields .= '    <tr>';
+	}
+	$sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this)">'.$th_text.'</th>'.
+	'<td><input type="text" id="filter_'.$current_col.'" onkeydown="enter_sort(event,6);" name="filter_'.$current_col.'">'."\n";
 
 	$current_col++;
 }
@@ -293,28 +294,25 @@ $tableHeaderRow .= "  </tr>\n";
 
 $borderBottom = "</table>\n".border('syellow','end');
 
-$tableFooter = '</td></tr></table>';
 
 
-print($tableHeader);
-
-// Start filter/multisort code
-echo border('sblue','start',$act_words['memberssort'])."\n".
-	'<table><tr><td colspan="'.$cols.'">'."\n".
-	'<button onclick="dosort(6); return false;">Go</button>'."\n";
+// Build sort/filter block
+echo border('sblue','start',$act_words['memberssortfilter'])."\n".
+	'<table><tr>'.
+	'<td class="membersHeader">'.$act_words['memberssort'].'</td>'."\n".
+	'<td class="membersHeader">'.$act_words['memberscolshow'].'</td>'."\n".
+	'<td class="membersHeader">'.$act_words['membersfilter'].'</td>'."\n".
+	'<tr><td rowspan="'.$cols.'">'."\n";
 for ($i=0; $i<4; $i++) {
-	echo '<select id="sort'.$i.'" name="sort'.$i.'">'."\n".$sortoptions.'</select>';
+	echo '<select id="sort'.$i.'" name="sort'.$i.'">'."\n".$sortoptions.'</select><br />';
 }
 echo
+	'<button onclick="dosort(6); return false;">Go</button>'."\n".
 	'<input type="hidden" id="sort4" name="sort4" value="3_desc">'.
 	'<input type="hidden" id="sort5" name="sort5" value="1_asc">'.
-	$sortHeaderRow.
-	$filtercells.
+	$sortFields.
 	'</table>'."\n".
 	border('sblue','end');
-
-
-// end filter/multisort code
 
 
 
@@ -377,9 +375,6 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 }
 
 echo $borderBottom;
-
-print($tableFooter);
-
 
 
 // Print the update instructions

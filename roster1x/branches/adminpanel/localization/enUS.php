@@ -214,7 +214,11 @@ $wordings['enUS']['recipe_2'] = 'easy';
 $wordings['enUS']['recipe_1'] = 'trivial';
 $wordings['enUS']['roster_config'] = 'Admin Panel';
 
-$wordings['enUS']['memberssort'] = 'Sorting order and filtering';
+// Memberslist sort/filter box
+$wordings['enUS']['memberssortfilter'] = 'Sorting order and filtering';
+$wordings['enUS']['memberssort'] = 'Sort';
+$wordings['enUS']['memberscolshow'] = 'Show/Hide Columns';
+$wordings['enUS']['membersfilter'] = 'Filter rows';
 
 // Spellbook
 $wordings['enUS']['spellbook'] = 'Spellbook';
