@@ -532,7 +532,7 @@ $returnstring .= '  <tr>
 
 
 				// Get Icons
-				$sqlquery = "SELECT * FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '".$this->data['member_id']."' AND `spell_type` = '".$tree[$t]['name']."' ORDER BY `spell_name`;";
+				$sqlquery = "SELECT * FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '".$this->data['member_id']."' AND `spell_type` = '".$wowdb->escape($tree[$t]['name'])."' ORDER BY `spell_name`;";
 
 				$icons_result = $wowdb->query($sqlquery);
 
