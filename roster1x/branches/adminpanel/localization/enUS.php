@@ -498,10 +498,6 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['search2']='Search by Zone';
 	$wordings['enUS']['search3']='Search by Quest Name';
 
-// serverstatus strings
-	$servertypes['enUS']= array( 'RPPVP', 'PvP', 'Normal', 'RP' );
-	$serverpops['enUS']= array( 'Low', 'Medium', 'High', 'Max' );
-
 // Definition for item tooltip coloring
 	$wordings['enUS']['tooltip_use']='Use';
 	$wordings['enUS']['tooltip_requires']='Requires';

@@ -70,13 +70,6 @@ else
 // URL for status page
 	$url = $roster_conf['realmstatus_url'];
 
-// Servertypes
-	$types = $servertypes[$roster_conf['roster_lang']];
-
-// Server populations
-	$pops = $serverpops[$roster_conf['roster_lang']];
-
-
 #--[ MYSQL CONNECT AND STORE ]=========================================================
 
 // Read info from Database
@@ -135,15 +128,17 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 
 	if (isset($html) && $html)
 	{
-		$pos = strpos($html, str_replace('\\', '',str_replace("'", '&#039;', $server)));
-
-		if (!$pos)
+		if (!preg_match('/\<tr(.(?!\<tr))*('.$server.')(.(?!\<\/tr))*/s',$html,$matches))
 		{
-			$error = $error.', check Realm name';
 			$err = 1;
 		}
+		elseif (preg_match_all('/^[^<]*<[^>]*><[^>]*>([^<]*)/m',$matches[0],$row,PREG_PATTERN_ORDER)!=4)
+		{
+			$err = 1;
+		}
+		
 	// Figure out Serverstatus
-		$serverstatus = stristr(substr($html, ($pos - 165), 15), 'up');
+		$serverstatus = strpos($matches[0], 'uparrow');
 		if (!$serverstatus)
 		{
 			$serverstatus = 'Down';
@@ -155,37 +150,9 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 		}
 
 	// Figure out Servertype
-		foreach($types as $t)
-		{
-			$servertype = stristr(substr($html, ($pos + 130), 30), $t);
-			if($servertype)
-			{
-				$foundtype = 1;
-				$servertype = $t;
-				break;
-			}
-		}
-		if(!$foundtype)
-		{
-			$err = 1;
-		}
-
+		$servertype = $row[1][2];
 	// Figure out Server Pop.
-		foreach($pops as $p)
-		{
-			$serverpop = stristr(substr($html, ($pos + 290), 35), $p);
-			if($serverpop)
-			{
-				$foundpop = 1;
-				$serverpop = $p;
-				break;
-			}
-		}
-		if(!$foundpop)
-		{
-			$err = 1;
-		}
-
+		$serverpop = $row[1][3];
 	}
 	elseif ($xml)
 	{
