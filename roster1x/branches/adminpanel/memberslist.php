@@ -32,8 +32,6 @@ $guildId = $guild_info['guild_id'];
 $guildMOTD = $guild_info['guild_motd'];
 $guildFaction = $guild_info['faction'];
 
-
-
 if( $roster_conf['index_update_inst'] )
 {
 	print '            <a href="#update"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
@@ -86,11 +84,8 @@ echo "  </tr>\n</table>\n";
 
 /*
 this section drives the entire output.
-Later I'll probably write some query string handling for either/or:
-1) fieldsets : given a get request, load a specific set of fields to display (note, will have to add that get string setting to all column sorting headers)
-2) customisation by end user: create a list of individual fields, and load them in based off a checkbox-driven form (probably with defaults) for which columns they wish to see.
-3) optomisation of query: ie, add to the fields here the section of query to add for it, so it only queries what it has to show.
-- at present you need to ensure all fields we will ever display are in the query, the reason I havent done this yet is because of the joins, it makes it narky.
+1) The main query is defined in the calling index file.
+2) So are the fields. Field parameters are below
 */
 
 
@@ -114,15 +109,6 @@ $FIELD[] = array (
 		// of the field to sort on in here.
 		'jsort'      => 'fieldname'
 
-		// An ordering array
-		// Some sorts benifit from multiple order fields, name the fields here as you would in the query
-		'order'      => array( '`table`.`field` SORT' ),
-
-		// An ordering descending array
-		// This is the same as above, but this is used when the field sort is reversed
-		// Some sorts benifit from multiple order fields, name the fields here as you would in the query
-		'order_d'    => array( '`table`.`field` SORT' ),
-
 		// Not currently used, required collumn
 		'required'   => true,
 
@@ -145,101 +131,13 @@ foreach ($FIELD as $field )
 }
 
 
-/************************
- * Set up the default secondary sorting
- * This is what everything will be sorted by after the first sort specified in the arrays
- * DO NOT leave this blank, at least one sort must be here
-************************/
-$always_sort = '`members`.`level` DESC, `members`.`name` ASC';
-
-
-
-// Join the tables. These are small tables thankfully
-
-// remember that any fields added above need to have a column pulled here
-$query =
-	'SELECT '.
-// we limit down what it actually pulls
-// The query is a lot simpler than it looks...
-
-// Fields to get from the members table
-	'`members`.`member_id`, '.
-	'`members`.`name`, '.
-	'`members`.`class`, '.
-	'`members`.`note`, '.
-	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
-	'`members`.`level`, '.
-	'`members`.`guild_rank`, '.
-	'`members`.`guild_title`, '.
-	'`members`.`zone`, '.
-	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
-	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
-
-// Fields to get from the players table
-	'`players`.`RankName`, '.
-	'`players`.`RankInfo`, '.
-	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
-	'`players`.`exp`, '.
-	'`players`.`server`, '.
-	'`players`.`clientLocale` ';
-
-// Get additional SQL from files
-	if( isset($additional_sql) )
-	{
-		$query .= ', ';
-		foreach( $additional_sql as $more_sql )
-		{
-			$query .= $more_sql;
-		}
-	}
-
-// Continue with JOINS
-$query .=
-	"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
-
-// All those people asking about guild searching, here's a spot!  and here's the simple alteration to stop guild filtering in this particular place
-	"LEFT JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = '$guildId' ".
-	"ORDER BY ";
-
-
-// Add custom primary and secondary ORDER BY definitions
-// removed all the switchstring jazz as it wasn't needed
-
-// Get default sort from roster config
-if( !isset($_GET['s']) && !empty($roster_conf['index_sort']) )
-{
-   $_GET['s'] = $roster_conf['index_sort'];
-}
-
-if ( $ORDER_FIELD = $FIELDS[$_GET['s']] )
-{
-	$order_field = $_GET['s'];
-
-	if( $_GET['d'] && isset( $ORDER_FIELD['order_d'] ) )
-	{
-		foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
-		{
-			$query .= $order_field_sql.', ';
-		}
-	}
-	elseif( isset( $ORDER_FIELD['order']) )
-	{
-		foreach ( $ORDER_FIELD['order'] as $order_field_sql )
-		{
-			$query .= $order_field_sql.', ';
-		}
-	}
-}
-$query .= $always_sort;
-
-
 // Print the sql string
 if ( $roster_conf['sqldebug'] )
 {
-	echo "<!-- $query -->\n";
+	echo "<!-- $mainQuery -->\n";
 }
 
-$result = $wowdb->query( $query ) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$result = $wowdb->query( $mainQuery ) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$mainQuery);
 
 
 // switching the quoting around as I loathe printing ugly html, and I like readable code, so I compromise.
@@ -411,7 +309,8 @@ function name_value ( $row )
 
 	$prg_find = array("/'/",'/"/','|\\>|','|\\<|',"/\\n/",'/&/');
 	$prg_rep  = array("\'",'&quot;','&#8250;','&#8249;','<br />','&amp;');
-
+	
+	echo "<!--";print_r($row);echo "-->";
 
 	if( $roster_conf['index_member_tooltip'] )
 	{
@@ -455,73 +354,6 @@ function name_value ( $row )
 		{
 			return $row['name'];
 		}
-	}
-}
-
-/**
- * Controls Output of the Honor Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function honor_value ( $row )
-{
-	global $roster_conf, $wordings;
-
-	$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
-	$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
-
-	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';
-	$toolTip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">';
-	$toolTip .= '<tr>';
-	$toolTip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$row['Rankexp'].'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
-	$toolTip .= '<td width="'.(100 - $row['Rankexp']).'%"></td>';
-	$toolTip .= '</tr>';
-	$toolTip .= '</table>';
-	$toolTip = str_replace('"','&quot;', $toolTip);
-	$toolTip = str_replace("'", "\'", $toolTip);
-
-	if ( $row['RankInfo'] > 0 )
-	{
-		if ( $roster_conf['index_honoricon'] )
-		{
-			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$rankicon.' '.$row['RankName']."</div>";
-		}
-		else
-		{
-			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
-		}
-		return $cell_value;
-	}
-	else
-	{
-		return '<div style="display:none;">0</div>';
-	}
-}
-
-
-/**
- * Controls Output of the Last Updated Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function last_up_value ( $row )
-{
-	global $roster_conf, $phptimeformat;
-
-	if ( $row['last_update'] != '')
-	{
-		$cell_value = $row['last_update'];
-
-		list($month,$day,$year,$hour,$minute,$second) = sscanf($cell_value,"%d/%d/%d %d:%d:%d");
-
-		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-		return '<div style="display:none;">'.$localtime.'</div>'.date($phptimeformat[$roster_conf['roster_lang']], $localtime);
-	}
-	else
-	{
-		return '&nbsp;';
 	}
 }
 
@@ -570,33 +402,6 @@ function class_value ( $row )
 	}
 }
 
-
-/**
- * Controls Output of the Tradeskill Icons Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function tradeskill_icons ( $row )
-{
-	global $wowdb, $roster_conf, $wordings;
-
-	$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$row['clientLocale']]['professions']."' OR `skill_type` = '".$wordings[$row['clientLocale']]['secondary']."') ORDER BY `skill_order` ASC" );
-
-	$cell_value ='';
-	while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
-	{
-		$toolTip = str_replace(':','/',$r_prof['skill_level']);
-		$toolTiph = $r_prof['skill_name'];
-
-		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
-
-		$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
-	}
-	return $cell_value;
-}
-
-
 /**
  * Controls Output of the Level Column
  *
@@ -607,7 +412,7 @@ function level_value ( $row )
 {
 	global $wowdb, $roster_conf, $wordings;
 
-	// Configurlate exp is player has it
+	// Calculate Exp if player has it
 	if( !empty($row['exp']) )
 	{
 		list($current, $max, $rested) = explode( ':', $row['exp'] );
@@ -661,128 +466,45 @@ function level_value ( $row )
 	return '<div style="display:none">'.$row['level'].'</div>'.$cell_value;
 }
 
-
 /**
- * Controls Output of the Armor Column
+ * Controls Output of the Honor Column
  *
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function armor_value ( $row )
+function honor_value ( $row )
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $roster_conf, $wordings;
 
-	$cell_value = '&nbsp;';
+	$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
+	$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
 
-	if( !empty($row['clientLocale']) )
-		$lang = $row['clientLocale'];
-	else
-		$lang = $roster_conf['roster_lang'];
+	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';
+	$toolTip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">';
+	$toolTip .= '<tr>';
+	$toolTip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$row['Rankexp'].'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
+	$toolTip .= '<td width="'.(100 - $row['Rankexp']).'%"></td>';
+	$toolTip .= '</tr>';
+	$toolTip .= '</table>';
+	$toolTip = str_replace('"','&quot;', $toolTip);
+	$toolTip = str_replace("'", "\'", $toolTip);
 
-	// Configurlate armor is player has it
-	if( $row['stat_armor_c'] )
+	if ( $row['RankInfo'] > 0 )
 	{
-		$base = $row['stat_armor'];
-		$current = $row['stat_armor_c'];
-		$buff = $row['stat_armor_b'];
-		$debuff = $row['stat_armor_d'];
-
-		if( $buff == 0 )
+		if ( $roster_conf['index_honoricon'] )
 		{
-			$color = 'white';
-			$mod_symbol = '';
-		}
-		else if( $buff < 0 )
-		{
-			$color = 'purple';
-			$mod_symbol = '-';
+			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$rankicon.' '.$row['RankName']."</div>";
 		}
 		else
 		{
-			$color = 'green';
-			$mod_symbol = '+';
+			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
 		}
-
-
-		$name = $wordings[$lang]['armor'];
-		if( !empty($row['mitigation']) )
-			$tooltip = '<span class="red">'.$wordings[$lang]['tooltip_damage_reduction'].': '.$row['mitigation'].'%</span>';
-
-		if( $mod_symbol == '' )
-		{
-			$tooltipheader = $name.' '.$current;
-		}
-		else
-		{
-			$tooltipheader = "$name $current ($base <span class=\"$color\">$mod_symbol $buff</span>)";
-		}
-
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-		$clean_line = str_replace("'", "\'", $line);
-		$clean_line = str_replace('"','&quot;', $clean_line);
-		$clean_line = str_replace('(',"\(", $clean_line);
-		$clean_line = str_replace(')',"\)", $clean_line);
-		$clean_line = str_replace('<','&lt;', $clean_line);
-		$clean_line = str_replace('>','&gt;', $clean_line);
-
-		$cell_value  = '<span style="cursor:help;" onmouseover="return overlib(\''.$clean_line.'\');" onmouseout="return nd();">';
-		$cell_value .= '<strong class="'.$color.'">'.$current.'</strong>';
-		$cell_value .= '</span>';
+		return $cell_value;
 	}
-	return "<div style='display:none;'>".$current."</div>".$cell_value;
-}
-
-
-/**
- * Controls Output of the Money Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function money_value ( $row )
-{
-	global $wowdb, $roster_conf, $wordings;
-
-
-	// Configurlate money if player has it
-	$cell_value = '<div style="display:none;">'.($row['money_g']*10000+$row['money_s']*100+$row['money_c']).'</div><div class="money">';
-	$return = '';
-
-	if( !empty($row['money_g']) )
-		$return .= $row['money_g'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> ';
-	if( !empty($row['money_s']) )
-		$return .= $row['money_s'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> ';
-	if( !empty($row['money_c']) )
-		$return .= $row['money_c'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/> ';
-
-	if( !empty($return) )
-		$cell_value .= $return.'</div>';
 	else
-		$cell_value =  '&nbsp;';
-
-	return $cell_value;
-}
-
-
-/**
- * Controls Output of a Note Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function note_value ( $row )
-{
-	if( !empty($row['note']) )
 	{
-		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
-		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
-
-		$note = preg_replace($prg_find, $prg_rep, $row['note']);
+		return '<div style="display:none;">0</div>';
 	}
-	else
-		$note = '&nbsp;';
-
-	return $note;
 }
+
 ?>

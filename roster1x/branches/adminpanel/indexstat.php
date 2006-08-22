@@ -20,21 +20,40 @@ require_once( 'settings.php' );
 
 $header_title = $wordings[$roster_conf['roster_lang']]['menustats'];
 
-// Additional querries needed for this page
-// Make sure the last item in this array DOES NOT have a (,) at the end
-$additional_sql = array(
-	"`stat_int_c`, ",
-	"`stat_agl_c`, ",
-	"`stat_sta_c`, ",
-	"`stat_str_c`, ",
-	"`stat_spr_c` ",
-);
+$mainQuery =
+	'SELECT '.
+	'`members`.`member_id`, '.
+	'`members`.`name`, '.
+	'`members`.`class`, '.
+	'`members`.`note`, '.
+	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
+	'`members`.`level`, '.
+	'`members`.`guild_rank`, '.
+	'`members`.`guild_title`, '.
+	'`members`.`zone`, '.
+	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+
+	'`players`.`RankName`, '.
+	'`players`.`RankInfo`, '.
+	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
+	'`players`.`exp`, '.
+	'`players`.`server`, '.
+	'`players`.`clientLocale`, '.
+	'`players`.`stat_int_c`, '.
+	'`players`.`stat_agl_c`, '.
+	'`players`.`stat_sta_c`, '.
+	'`players`.`stat_str_c`, '.
+	'`players`.`stat_spr_c` '.
+
+	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
+	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = 1 '.
+	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+
 
 $FIELD[] = array (
 	'name' => array(
 		'lang_field' => 'name',
-		'order'    => array( '`members`.`name` ASC' ),
-		'order_d'    => array( '`members`.`name` DESC' ),
 		'required' => true,
 		'default'  => true,
 		'value' => 'name_value',
@@ -44,8 +63,6 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'class' => array(
 		'lang_field' => 'class',
-		'order'    => array( '`members`.`class` ASC' ),
-		'order_d'    => array( '`members`.`class` DESC' ),
 		'default'  => true,
 		'value' => 'class_value',
 	),
@@ -54,7 +71,6 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'level' => array(
 		'lang_field' => 'level',
-		'order_d'    => array( '`members`.`level` ASC' ),
 		'default'  => true,
 		'value' => 'level_value',
 	),
@@ -63,48 +79,36 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'stat_int_c' => array (
 		'lang_field' => 'intellect',
-		'order' => array( "`stat_int_c` DESC" ),
-		'order_d' => array( "`stat_int_c` ASC" ),
 	),
 );
 
 $FIELD[] = array (
 	'stat_agl_c' => array (
 		'lang_field' => 'agility',
-		'order' => array( "`stat_agl_c` DESC" ),
-		'order_d' => array( "`stat_agl_c` ASC" ),
 	),
 );
 
 $FIELD[] = array (
 	'stat_sta_c' => array (
 		'lang_field' => 'stamina',
-		'order' => array( "`stat_sta_c` DESC" ),
-		'order_d' => array( "`stat_sta_c` ASC" ),
 	),
 );
 
 $FIELD[] = array (
 	'stat_str_c' => array (
 		'lang_field' => 'strength',
-		'order' => array( "`stat_str_c` DESC" ),
-		'order_d' => array( "`stat_str_c` ASC" ),
 	),
 );
 
 $FIELD[] = array (
 	'stat_spr_c' => array (
 		'lang_field' => 'spirit',
-		'order' => array( "`stat_spr_c` DESC" ),
-		'order_d' => array( "`stat_spr_c` ASC" ),
 	),
 );
 
 $FIELD[] = array (
 	'total' => array (
 		'lang_field' => 'total',
-		'order' => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) DESC" ),
-		'order_d' => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) ASC" ),
 		'value' => 'total_value',
 	),
 );

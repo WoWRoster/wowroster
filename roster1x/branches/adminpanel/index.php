@@ -18,22 +18,43 @@
 
 require_once( 'settings.php' );
 
-// Additional querries needed for this page
-// Make sure the last item in this array DOES NOT have a (,) at the end
-$additional_sql = array(
-	'`players`.`RankIcon`, ',
-	'`players`.`Rankexp`, ',
-	'`players`.`hearth`, ',
-	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ",
-	"`players`.`dateupdatedutc` AS 'last_update', ",
-	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ",
-);
+$mainQuery =
+	'SELECT '.
+	'`members`.`member_id`, '.
+	'`members`.`name`, '.
+	'`members`.`class`, '.
+	'`members`.`note`, '.
+	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
+	'`members`.`level`, '.
+	'`members`.`guild_rank`, '.
+	'`members`.`guild_title`, '.
+	'`members`.`zone`, '.
+	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+
+	'`players`.`RankName`, '.
+	'`players`.`RankInfo`, '.
+	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
+	'`players`.`exp`, '.
+	'`players`.`server`, '.
+	'`players`.`clientLocale`, '.
+	'`players`.`RankIcon`, '.
+	'`players`.`Rankexp`, '.
+	'`players`.`hearth`, '.
+	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
+	"`players`.`dateupdatedutc` AS 'last_update', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ".
+
+	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
+	'LEFT JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = 1 '.
+	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+
+	$always_sort;
+
 
 $FIELD[] = array (
 	'name' => array(
 		'lang_field' => 'name',
-		'order'    => array( '`members`.`name` ASC' ),
-		'order_d'    => array( '`members`.`name` DESC' ),
 		'required' => true,
 		'default'  => true,
 		'value' => 'name_value',
@@ -43,8 +64,6 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'class' => array(
 		'lang_field' => 'class',
-		'order'    => array( '`members`.`class` ASC' ),
-		'order_d'    => array( '`members`.`class` DESC' ),
 		'default'  => true,
 		'value' => 'class_value',
 	),
@@ -53,7 +72,6 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'level' => array(
 		'lang_field' => 'level',
-		'order_d'    => array( '`members`.`level` ASC' ),
 		'default'  => true,
 		'value' => 'level_value',
 	),
@@ -65,8 +83,6 @@ if ( $roster_conf['index_title'] == 1 )
 		'guild_title' => array (
 			'lang_field' => 'title',
 			'jsort' => 'guild_rank',
-			'order' => array( '`members`.`guild_rank` ASC' ),
-			'order_d' => array( '`members`.`guild_rank` DESC' ),
 		),
 	);
 }
@@ -76,8 +92,6 @@ if ( $roster_conf['index_currenthonor'] == 1 )
 	$FIELD[] = array (
 		'RankName' => array(
 			'lang_field' => 'currenthonor',
-			'order' => array( 'risnull','`players`.`RankInfo` DESC' ),
-			'order_d' => array( 'risnull','`players`.`RankInfo` ASC' ),
 			'value' => 'honor_value',
 		),
 	);
@@ -88,8 +102,6 @@ if ( $roster_conf['index_note'] == 1 )
 	$FIELD[] = array (
 		'note' => array(
 			'lang_field' => 'note',
-			'order' => array( 'nisnull','`members`.`note` ASC' ),
-			'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 			'value' => 'note_value',
 		),
 	);
@@ -109,8 +121,6 @@ if ( $roster_conf['index_hearthed'] == 1 )
 	$FIELD[] = array (
 		'hearth' => array(
 			'lang_field' => 'hearthed',
-			'order' => array( 'hisnull', 'hearth ASC' ),
-			'order_d' => array( 'hisnull', 'hearth DESC' ),
 		),
 	);
 }
@@ -120,8 +130,6 @@ if ( $roster_conf['index_zone'] == 1 )
 	$FIELD[] = array (
 		'zone' => array(
 			'lang_field' => 'zone',
-			'order' => array( '`members`.`zone` ASC' ),
-			'order_d' => array( '`members`.`zone` DESC' ),
 		),
 	);
 }
@@ -131,8 +139,6 @@ if ( $roster_conf['index_lastonline'] == 1 )
 	$FIELD[] = array (
 		'last_online' => array (
 			'lang_field' => 'lastonline',
-			'order' => array( '`members`.`last_online` DESC' ),
-			'order_d' => array( '`members`.`last_online` ASC' ),
 		),
 	);
 }
@@ -143,11 +149,81 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 		'last_update' => array (
 			'lang_field' => 'lastupdate',
 			'jsort' => 'last_online_stamp',
-			'order' => array( 'luisnull','last_update DESC' ),
-			'order_d' => array( 'luisnull','last_update ASC' ),
 		),
 	);
 }
+
+/**
+ * Controls Output of the Last Updated Column
+ *
+ * @param array $row - of character data
+ * @return string - Formatted output
+ */
+function last_up_value ( $row )
+{
+	global $roster_conf, $phptimeformat;
+
+	if ( $row['last_update'] != '')
+	{
+		$cell_value = $row['last_update'];
+
+		list($month,$day,$year,$hour,$minute,$second) = sscanf($cell_value,"%d/%d/%d %d:%d:%d");
+
+		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+		return '<div style="display:none;">'.$localtime.'</div>'.date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+	}
+	else
+	{
+		return '&nbsp;';
+	}
+}
+
+/**
+ * Controls Output of the Tradeskill Icons Column
+ *
+ * @param array $row - of character data
+ * @return string - Formatted output
+ */
+function tradeskill_icons ( $row )
+{
+	global $wowdb, $roster_conf, $wordings;
+
+	$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$row['clientLocale']]['professions']."' OR `skill_type` = '".$wordings[$row['clientLocale']]['secondary']."') ORDER BY `skill_order` ASC" );
+
+	$cell_value ='';
+	while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
+	{
+		$toolTip = str_replace(':','/',$r_prof['skill_level']);
+		$toolTiph = $r_prof['skill_name'];
+
+		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
+
+		$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+	}
+	return $cell_value;
+}
+
+/**
+ * Controls Output of a Note Column
+ *
+ * @param array $row - of character data
+ * @return string - Formatted output
+ */
+function note_value ( $row )
+{
+	if( !empty($row['note']) )
+	{
+		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
+		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
+
+		$note = preg_replace($prg_find, $prg_rep, $row['note']);
+	}
+	else
+		$note = '&nbsp;';
+
+	return $note;
+}
+
 
 $more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
 
