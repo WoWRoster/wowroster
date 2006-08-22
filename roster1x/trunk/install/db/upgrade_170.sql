@@ -14,6 +14,7 @@ UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloa
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloads/c=2.html' WHERE `id` = '6120' LIMIT 1;
 UPDATE `renprefix_config` SET `id` = '5020', `config_type` = 'display_conf' WHERE `id` = '1050' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '1', `form_type` = 'radio{enable^1|disable^0' WHERE `id` = '10000' LIMIT 1;
+UPDATE `roster_config` SET `form_type` = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html' WHERE `id` = '8000' LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = '10010' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '10020' LIMIT 1;
@@ -29,7 +30,8 @@ INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', '
 
 DROP TABLE IF EXISTS `renprefix_memberlog`;
 CREATE TABLE `renprefix_memberlog` (
-  `member_id` int(11) unsigned NOT NULL auto_increment,
+  `log_id` int(11) unsigned NOT NULL,
+  `member_id` int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
@@ -40,12 +42,7 @@ CREATE TABLE `renprefix_memberlog` (
   `officer_note` varchar(255) NOT NULL default '',
   `update_time` datetime default NULL,
   `type` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`member_id`),
-  KEY `member` (`guild_id`,`name`),
-  KEY `name` (`name`),
-  KEY `class` (`class`),
-  KEY `level` (`level`),
-  KEY `guild_rank` (`guild_rank`)
+  PRIMARY KEY  (`log_id`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

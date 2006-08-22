@@ -132,7 +132,8 @@ CREATE TABLE `renprefix_members` (
 
 DROP TABLE IF EXISTS `renprefix_memberlog`;
 CREATE TABLE `renprefix_memberlog` (
-  `member_id` int(11) unsigned NOT NULL auto_increment,
+  `log_id` int(11) unsigned NOT NULL,
+  `member_id` int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
@@ -143,12 +144,7 @@ CREATE TABLE `renprefix_memberlog` (
   `officer_note` varchar(255) NOT NULL default '',
   `update_time` datetime default NULL,
   `type` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`member_id`),
-  KEY `member` (`guild_id`,`name`),
-  KEY `name` (`name`),
-  KEY `class` (`class`),
-  KEY `level` (`level`),
-  KEY `guild_rank` (`guild_rank`)
+  PRIMARY KEY  (`log_id`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

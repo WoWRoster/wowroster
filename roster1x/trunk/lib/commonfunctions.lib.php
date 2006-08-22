@@ -303,4 +303,102 @@ function check_if_image($imagefilename)
 	}
 }
 
+function colorTooltip ( $tooltip ,  $caption_color='' , $locale='' , $caption='' )
+{
+	global $wordings, $roster_conf;
+
+
+	$search_array = array("'",'"','<','>');
+	$rep_array = array("\'",'&quot;','&lt;','&gt;',);
+
+
+	if( $locale == '' )
+		$locale = $roster_conf['roster_lang'];
+
+	if( $caption != '' )
+	{
+		if( $caption_color != '' )
+		{
+			if( strlen($caption_color) == 8 )
+				$caption_color = substr( $caption_color, 2, 6 );
+			$caption = '<span style="color:#'.$caption_color.';">'.$caption.'</span>';
+		}
+		$first_line = false;
+	}
+	else
+	{
+		$first_line = true;
+	}
+
+	foreach (explode("\n", $string) as $line )
+	{
+		$color = '';
+
+		if( $first_line )
+		{
+			if( $caption_color == '' )
+				$caption_color = 'ffffff';
+
+			if( strlen($caption_color) == 8 )
+				$color = substr( $caption_color, 2, 6 ) . '; font-size: 12px; font-weight: bold';
+			else
+				$color = $caption_color . '; font-size: 12px; font-weight: bold';
+			$first_line = false;
+		}
+		else
+		{
+			if( substr( $line, 0, 2 ) == '|c' )
+			{
+				$color = substr( $line, 4, 6 );
+				$line = substr( $line, 10, -2 );
+			}
+			else if ( strpos( $line, $wordings[$locale]['tooltip_use'] ) === 0 )
+				$color = '00ff00';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_requires'] ) === 0 )
+				$color = 'ff0000';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_reinforced'] ) === 0 )
+				$color = '00ff00';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_equip'] ) === 0 )
+				$color = '00ff00';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_chance'] ) === 0 )
+				$color = '00ff00';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_enchant'] ) === 0 )
+				$color = '00ff00';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_soulbound'] ) === 0 )
+				$color = '00bbff';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_set'] ) === 0 )
+				$color = '00ff00';
+			else if ( strpos( $line, $wordings[$locale]['tooltip_set'] ) === 4 )
+				$color = 'd9b200';
+			elseif ( strpos( $line, '"' ) )
+				$color = 'ffd517';
+			else
+				$color='ffffff';
+		}
+		$line = preg_replace('|\\>|','&#8250;', $line );
+		$line = preg_replace('|\\<|','&#8249;', $line );
+
+		if( strpos($line,"\t") )
+		{
+			$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
+			$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
+			$tooltip .= $line;
+		}
+		elseif( $line == '' || $line == ' ' )
+			$tooltip_out .= '<br />';
+		elseif( $line != '')
+			$tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+	}
+
+	$tooltip = str_replace($search_array, $rep_array, $tooltip);
+
+	if( $caption != '' )
+	{
+		$caption = str_replace($search_array, $rep_array, $caption);
+
+		$tooltip = "$tooltip,CAPTION,'$caption";
+	}
+	//$tooltip = colorTooltip($this->data['item_tooltip'],$this->data['item_color']);
+}
+
 ?>

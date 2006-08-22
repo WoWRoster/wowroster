@@ -577,7 +577,20 @@ function class_value ( $row )
 		// Class name coloring
 		if ( $roster_conf['index_class_color'] == 1 )
 		{
-		    return $icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
+			foreach( $roster_conf['multilanguages'] as $language )
+			{
+				$class_color = array_search($row['class'],$wordings[$language]);
+				if( strlen($class_color) > 0 )
+				{
+					$class_color = $wordings['enUS'][$class_color];
+					break;
+				}
+			}
+
+			if( $class_color != '' )
+				return $icon_value.'<span class="class'.$class_color.'txt">'.$row['class'].'</span>';
+			else
+				return $icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
 		}
 		else
 		{

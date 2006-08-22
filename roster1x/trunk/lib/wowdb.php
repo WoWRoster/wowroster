@@ -221,6 +221,17 @@ class wowdb
 
 
 	/**
+	 * Get the ID generated from the previous INSERT operation
+	 *
+	 * @return int
+	 */
+	function insert_id()
+	{
+		return @mysql_insert_id($this->db);
+	}
+
+
+	/**
 	 * Sets the SQL Debug output flag
 	 *
 	 * @param bool $sqldebug
@@ -1803,6 +1814,13 @@ class wowdb
 			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
 			$this->setMessage('<li>Updating member - [ '.$name.' ]</li>');
 			$this->membersupdated++;
+
+			$result = $this->query($querystr);
+			if( !$result )
+			{
+				$this->setError(''.$name.' could not be inserted',$this->error());
+				return;
+			}
 		}
 		else
 		{
@@ -1812,32 +1830,24 @@ class wowdb
 
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">Adding member - [</span> '.$name.' <span class="green">]</span></li>');
-		}
 
-		$result = $this->query($querystr);
-		if( !$result )
-		{
-			$this->setError(''.$name_escape.' could not be inserted',$this->error());
-			return;
-		}
-
-		// Update memberlog since this is a new member
-		if( !$memberId )
-		{
-			$insert_id = mysql_insert_id();
-			if( !$insert_id )
+			$result = $this->query($querystr);
+			if( !$result )
 			{
-				$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` = '$insert_id';";
-				$result = $this->query($querystr);
-				if( !$result )
-				{
-					$this->setError('Member could not be selected for MemberLog',$this->error());
-				}
-				else
-				{
-					$row = $this->fetch_array($result);
-					$this->setMemberLog($row,1);
-				}
+				$this->setError(''.$name_escape.' could not be inserted',$this->error());
+				return;
+			}
+
+			$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
+			$result = $this->query($querystr);
+			if( !$result )
+			{
+				$this->setError('Member could not be selected for MemberLog',$this->error());
+			}
+			else
+			{
+				$row = $this->fetch_array($result);
+				$this->setMemberLog($row,1);
 			}
 		}
 	}

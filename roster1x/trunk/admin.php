@@ -127,7 +127,7 @@ $html = '';
 foreach($conf_arrays as $type)
 {
 	$i = 0;
-	$html .= "<div id=\"$type\" style=\"display:none;\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$html .= "<div id=\"$type\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	foreach($db_values[$type] as $values)
 	{
@@ -257,6 +257,10 @@ if( is_array($char_data) )
 	}
 	$html .= "</table>\n".border('syellow','end')."\n</div>\n";
 }
+else
+{
+	$html .= "<div id=\"char_disp\" style=\"display:none;\">\n</div>\n";
+}
 
 
 // ----[ Render the page ]----------------------------------
@@ -312,7 +316,7 @@ $roster_diag_message.
 </table>
 <script type="text/javascript" language="JavaScript">
 <!--
-	initializetabcontent("admin_menu")
+	initializetabcontent("admin_menu");
 //-->
 </script>';
 

@@ -16,6 +16,8 @@
  *
  ******************************/
 
+
+
 if ( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
@@ -59,7 +61,7 @@ $wordings['enUS']['update_instruct']='
 <strong>Updating instructions:</strong>
 <ol>
 <li>Download <a href="'.$roster_conf['profiler'].'" target="_blank">Character Profiler</a></li>
-<li>Extract zip into its own directory in C:\Program Files\World of Warcraft\Interface\Addons\CharacterProfiler</li>
+<li>Extract zip into its own directory in C:\Program Files\World of Warcraft\Interface\Addons\</li>
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
@@ -567,13 +569,13 @@ $wordings['enUS']['admin']['update_access'] = 'Update Access';
 
 // Each string is separated by a pipe ( | )
 // The first part is the short description, the next part is the tooltip
-// Use <br> to make new lines!
+// Use <br /> to make new lines!
 // Example:
-//   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br>Use with care"
+//   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br />Use with care"
 
 
 // main_conf
-$wordings['enUS']['admin']['roster_upd_pw'] = "Roster Update Password|This is a password to allow guild updates on the update page<br>Some addons may also use this password";
+$wordings['enUS']['admin']['roster_upd_pw'] = "Roster Update Password|This is a password to allow guild updates on the update page<br />Some addons may also use this password";
 $wordings['enUS']['admin']['roster_dbver'] = "Roster Database Version|The version of the database";
 $wordings['enUS']['admin']['version'] = "Roster Version|Current version of Roster";
 $wordings['enUS']['admin']['sqldebug'] = "SQL Debug Output|Print MySQL Debug Statements in html comments";
@@ -581,34 +583,34 @@ $wordings['enUS']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfil
 $wordings['enUS']['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $wordings['enUS']['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog version allowed to upload";
 $wordings['enUS']['admin']['roster_lang'] = "Roster Main Language|The main language roster will be displayed in";
-$wordings['enUS']['admin']['website_address'] = "Website Address|Used for url link for logo, and guildname link in the main menu<br>Some roster addons may also use this";
-$wordings['enUS']['admin']['roster_dir'] = "Roster URL|The URL path to the Roster directory<br>It is critical that this is correct or errors may occur<br>(EX: http://www.site.com/roster )<br><br>A full url is not required but a foreward slash before the directory is<br>(EX: /roster )";
+$wordings['enUS']['admin']['website_address'] = "Website Address|Used for url link for logo, and guildname link in the main menu<br />Some roster addons may also use this";
+$wordings['enUS']['admin']['roster_dir'] = "Roster URL|The URL path to the Roster directory<br />It is critical that this is correct or errors may occur<br />(EX: http://www.site.com/roster )<br /><br />A full url is not required but a foreward slash before the directory is<br />(EX: /roster )";
 $wordings['enUS']['admin']['server_name_comp'] = "char.php Compatibility Mode|If your character page does not work, try changing this";
-$wordings['enUS']['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br>Default is &quot;img/&quot;<br><br>You can use a relative path or a full URL";
+$wordings['enUS']['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $wordings['enUS']['admin']['img_suffix'] = "Interface Image Extension|The image type of the Interface images";
 $wordings['enUS']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|The alternate possible image type of the Interface images";
-$wordings['enUS']['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br>Default is &quot;img/&quot;<br><br>You can use a relative path or a full URL";
+$wordings['enUS']['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $wordings['enUS']['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
-$wordings['enUS']['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br>Times on roster will be displayed as a calculated value using this offset";
+$wordings['enUS']['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
 $wordings['enUS']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update&quot;";
-$wordings['enUS']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br>Some addons my require that this is turned on for them to function properly";
+$wordings['enUS']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
 
 // guild_conf
-$wordings['enUS']['admin']['guild_name'] = "Guild Name|This must be spelled exactly as it is in the game<br>or you <u>WILL</u> <u>NOT</u> be able to upload profiles";
-$wordings['enUS']['admin']['server_name'] = "Server Name|This must be spelled exactly as it is in the game<br>or you <u>WILL</u> <u>NOT</u> be able to upload profiles";
+$wordings['enUS']['admin']['guild_name'] = "Guild Name|This must be spelled exactly as it is in the game<br />or you <u>WILL</u> <u>NOT</u> be able to upload profiles";
+$wordings['enUS']['admin']['server_name'] = "Server Name|This must be spelled exactly as it is in the game<br />or you <u>WILL</u> <u>NOT</u> be able to upload profiles";
 $wordings['enUS']['admin']['guild_desc'] = "Guild Description|Enter a short Guild Description";
 $wordings['enUS']['admin']['server_type'] = "Server Type|This for your type of server in WoW";
 $wordings['enUS']['admin']['alt_type'] = "Alt-Text Search|Text used to designate alts for display count in the main menu";
 $wordings['enUS']['admin']['alt_location'] = "Alt-Search Field|Search location, what field to search for Alt-Text";
 
 // index_conf
-$wordings['enUS']['admin']['index_pvplist'] = "PvP-Logger Stats|PvP-Logger stats on the index page<br>If you have disabled PvPlog uploading, there is no need to have this on";
+$wordings['enUS']['admin']['index_pvplist'] = "PvP-Logger Stats|PvP-Logger stats on the index page<br />If you have disabled PvPlog uploading, there is no need to have this on";
 $wordings['enUS']['admin']['index_hslist'] = "Honor System Stats|Honor System stats on the index page";
-$wordings['enUS']['admin']['hspvp_list_disp'] = "PvP/Honor List Display|Controls how the PvP and Honor Lists display on page load<br>The lists can be collapsed and opened by clicking on the header<br><br>&quot;show&quot; will fully display the lists when the page loads<br>&quot;hide&quot; will show the lists collapsed";
+$wordings['enUS']['admin']['hspvp_list_disp'] = "PvP/Honor List Display|Controls how the PvP and Honor Lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
 $wordings['enUS']['admin']['index_member_tooltip'] = "Member Info Tooltip|Displays some info about a character in a tooltip";
 $wordings['enUS']['admin']['index_update_inst'] = "Update Instructions|Controls the display of the Update Instructions on the page";
 $wordings['enUS']['admin']['index_sort'] = "Member List Sort|Controls the default sorting";
-$wordings['enUS']['admin']['index_motd'] = "Guild MOTD|Show Guild Message of the Day on the top of the page<br><br>This also controls the display on the &quot;Guild Info&quot; page as well";
+$wordings['enUS']['admin']['index_motd'] = "Guild MOTD|Show Guild Message of the Day on the top of the page<br /><br />This also controls the display on the &quot;Guild Info&quot; page as well";
 $wordings['enUS']['admin']['index_level_bar'] = "Level Bar|Toggles the display of a visual level percentage bar on the main page";
 $wordings['enUS']['admin']['index_iconsize'] = "Icon Size|Select the size of the icons on the main pages (PvP, tradeskills, class, etc..)";
 $wordings['enUS']['admin']['index_tradeskill_icon'] = "Tradeskill Icons|Enables tradeskill icons on the main pages";
@@ -616,7 +618,7 @@ $wordings['enUS']['admin']['index_tradeskill_loc'] = "Tradeskill Column Display|
 $wordings['enUS']['admin']['index_class_color'] = "Class Colorizing|Colorize the class names";
 $wordings['enUS']['admin']['index_classicon'] = "Class Icons|Displays an icon for each class, for each character";
 $wordings['enUS']['admin']['index_honoricon'] = "PvP Honor Icons|Displays a PvP rank icon next to the rank name";
-$wordings['enUS']['admin']['index_prof'] = "Professions Column|This is a specific coulmn for the tradeskill icons<br>If you move them to another column, you might want to turn this off";
+$wordings['enUS']['admin']['index_prof'] = "Professions Column|This is a specific coulmn for the tradeskill icons<br />If you move them to another column, you might want to turn this off";
 $wordings['enUS']['admin']['index_currenthonor'] = "Honor Column|Toggles the display of the honor column";
 $wordings['enUS']['admin']['index_note'] = "Note Column|Toggles the display of the public note column";
 $wordings['enUS']['admin']['index_title'] = "Guild Title Column|Toggles the display of the guild title column";
@@ -626,8 +628,8 @@ $wordings['enUS']['admin']['index_lastonline'] = "Last Seen Online Column|Toggle
 $wordings['enUS']['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
 
 // menu_conf
-$wordings['enUS']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br>This area holds the member quick list";
-$wordings['enUS']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br>This area holds the realmstatus image";
+$wordings['enUS']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
+$wordings['enUS']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
 $wordings['enUS']['admin']['menu_memberlog'] = "Member Log Link|Controls display of the Member Log Link";
 $wordings['enUS']['admin']['menu_alt_page'] = "Alternate View Link|Controls display of the Alternate View Link";
 $wordings['enUS']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
@@ -646,16 +648,16 @@ $wordings['enUS']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for ro
 $wordings['enUS']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
 $wordings['enUS']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['enUS']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
-$wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$wordings['enUS']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
+$wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
+$wordings['enUS']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
+$wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 $wordings['enUS']['admin']['processtime'] = "Page Gen. Time/DB Queries|Display &quot;This page was created in XXX seconds with XX queries executed&quot; in the footer of roster";
 
 // data_links
-$wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['enUS']['admin']['questlink_2'] = "Quest Link #2|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['enUS']['admin']['questlink_3'] = "Quest Link #3|Item external links<br>Look in your localization-file(s) for link configuration";
+$wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br />Look in your localization-file(s) for link configuration";
+$wordings['enUS']['admin']['questlink_2'] = "Quest Link #2|Item external links<br />Look in your localization-file(s) for link configuration";
+$wordings['enUS']['admin']['questlink_3'] = "Quest Link #3|Item external links<br />Look in your localization-file(s) for link configuration";
 $wordings['enUS']['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";
 $wordings['enUS']['admin']['pvplogger'] = "PvPLog download link|URL to download PvPLog";
 $wordings['enUS']['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
@@ -663,35 +665,35 @@ $wordings['enUS']['admin']['uploadapp'] = "UniUploader download link|URL to down
 // char_conf
 $wordings['enUS']['admin']['char_bodyalign'] = "Character Page Alignment|Alignment of the data on the character page";
 $wordings['enUS']['admin']['char_header_logo'] = "Header Logo|Show the roster header logo on character page";
-$wordings['enUS']['admin']['show_talents'] = "Talents|Controls the display of Talents<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_mail'] = "Mail|Controls the display of Mail<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_inventory'] = "Bags|Controls the display of Bags<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_money'] = "Money|Controls the display of Money<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_bank'] = "Bank|Controls the display of Bank contents<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_recipes'] = "Recipes|Controls the display of Recipes<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_quests'] = "Quests|Controls the display of Quests<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_bg'] = "Battleground PvPLog Data|Controls the display of Battleground PvPLog data<br>Requires upload of PvPLog addon data<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_pvp'] = "PvPLog Data|Controls the display of PvPLog Data<br>Requires upload of PvPLog addon data<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_duels'] = "Duel PvPLog Data|Controls the display of Duel PvPLog Data<br>Requires upload of PvPLog addon data<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_item_bonuses'] = "Item Bonuses|Controls the display of Item Bonuses<br><br>Setting is global and overrides per-user setting";
-$wordings['enUS']['admin']['show_signature'] = "Display Signature|Controls the display of a Signature image<br><span class=\"red\">Requires SigGen Roster Addon</span><br><br>Setting is global";
-$wordings['enUS']['admin']['show_avatar'] = "Display Avatar|Controls the display of an Avatar image<br><span class=\"red\">Requires SigGen Roster Addon</span><br><br>Setting is global";
+$wordings['enUS']['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_mail'] = "Mail|Controls the display of Mail<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_inventory'] = "Bags|Controls the display of Bags<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_money'] = "Money|Controls the display of Money<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_bank'] = "Bank|Controls the display of Bank contents<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_recipes'] = "Recipes|Controls the display of Recipes<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_quests'] = "Quests|Controls the display of Quests<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_bg'] = "Battleground PvPLog Data|Controls the display of Battleground PvPLog data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_pvp'] = "PvPLog Data|Controls the display of PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_duels'] = "Duel PvPLog Data|Controls the display of Duel PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_item_bonuses'] = "Item Bonuses|Controls the display of Item Bonuses<br /><br />Setting is global and overrides per-user setting";
+$wordings['enUS']['admin']['show_signature'] = "Display Signature|Controls the display of a Signature image<br /><span class=\"red\">Requires SigGen Roster Addon</span><br /><br />Setting is global";
+$wordings['enUS']['admin']['show_avatar'] = "Display Avatar|Controls the display of an Avatar image<br /><span class=\"red\">Requires SigGen Roster Addon</span><br /><br />Setting is global";
 
 // realmstatus_conf
 $wordings['enUS']['admin']['realmstatus_url'] = "Realmstatus URL|URL to Blizzard's Realmstatus page";
-$wordings['enUS']['admin']['rs_display'] = "Info Mode|&quot;full&quot; will show status and server name, population, and type<br>&quot;half&quot; will display just the status";
-$wordings['enUS']['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<br><br>&quot;DIV Container&quot; - Shows Realmstatus in a DIV container with text and standard images<br>&quot;Image&quot; - Shows Realmstatus as an image (REQUIRES GD!)";
-$wordings['enUS']['admin']['realmstatus'] = "Alternate Servername|Some server names may cause realmstatus to not work correctly, even if uploading profiles works<br>The actual server name from the game may not match what is used on the server status data page<br>You can set this so serverstatus can use another servername<br><br>Leave blank to use the name set in Guild Config";
+$wordings['enUS']['admin']['rs_display'] = "Info Mode|&quot;full&quot; will show status and server name, population, and type<br />&quot;half&quot; will display just the status";
+$wordings['enUS']['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<br /><br />&quot;DIV Container&quot; - Shows Realmstatus in a DIV container with text and standard images<br />&quot;Image&quot; - Shows Realmstatus as an image (REQUIRES GD!)";
+$wordings['enUS']['admin']['realmstatus'] = "Alternate Servername|Some server names may cause realmstatus to not work correctly, even if uploading profiles works<br />The actual server name from the game may not match what is used on the server status data page<br />You can set this so serverstatus can use another servername<br /><br />Leave blank to use the name set in Guild Config";
 
 // guildbank_conf
-$wordings['enUS']['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display type<br><br>&quot;Table&quot; is a basic view showing all items available from every bank character in one list<br>&quot;Inventory&quot; shows a table of items for each bank character";
+$wordings['enUS']['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display type<br /><br />&quot;Table&quot; is a basic view showing all items available from every bank character in one list<br />&quot;Inventory&quot; shows a table of items for each bank character";
 $wordings['enUS']['admin']['bank_money'] = "Money Display|Controls Money display in guildbanks";
 $wordings['enUS']['admin']['banker_rankname'] = "Banker Search Text|Text used to designate banker characters";
 $wordings['enUS']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['enUS']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br><br>Turning this off disables access for EVERYONE";
+$wordings['enUS']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
 
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';

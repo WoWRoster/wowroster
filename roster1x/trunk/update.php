@@ -440,7 +440,7 @@ $pvplogInputField
 			<div id="sqlDebug" style="display:none">
 			'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
 			<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:560px;overflow:auto;">'.
-				nl2br(sql_highlight($sqlstringout)).
+				nl2br($sqlstringout).
 			'</div>
 			'.border('sgreen','end').
 			'</div>';
