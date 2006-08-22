@@ -26,7 +26,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 //Instructions how to upload, as seen on the mainpage
 $wordings['deDE']['update_link']='Hier klicken um zur Aktualisierungsanleitung zu gelangen';
-$wordings['deDE']['update_instructions']='Updating Instructions';
+$wordings['deDE']['update_instructions']='Anleitung zur Aktualisierung';
 
 $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" aus';
 
@@ -40,8 +40,8 @@ $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 $wordings['deDE']['guild_nameNotFound']='&quot;%s&quot; nicht gefunden. Stimmt er mit dem konfigurierten Namen &uuml;berein?';
 $wordings['deDE']['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
 
-$wordings['deDE']['ignored']='Ignored';
-$wordings['deDE']['update_disabled']='Update.php access has been disabled';
+$wordings['deDE']['ignored']='Ignoriert';
+$wordings['deDE']['update_disabled']='Update.php Zugriff deaktiviert.';
 
 // NOT USED $wordings['deDE']['updGuildMembers']='Mitgliederliste aktualisieren';
 $wordings['deDE']['nofileUploaded']='UniUploader hat keine oder die falschen Dateien hochgeladen.';
@@ -210,7 +210,7 @@ $wordings['deDE']['block'] = 'Blocken';
 // Memberlog
 $wordings['deDE']['memberlog'] = 'Member Log';
 $wordings['deDE']['removed'] = 'Entfernt';
-$wordings['deDE']['added'] = 'Zugefügt';
+$wordings['deDE']['added'] = 'Zugefï¿½gt';
 $wordings['deDE']['no_memberlog'] = 'No Member Log Recorded';
 
 $wordings['deDE']['rosterdiag'] = 'Roster Diagnose Seite';
@@ -545,8 +545,8 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
  ******************************/
 
 // Submit/Reset confirm questions
-$wordings['deDE']['confirm_config_submit'] = 'Dies wird die Änderungen in die Datenbank schreiben. Sind sie sicher?';
-$wordings['deDE']['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurücksetzen in dem es am Anfang war. Sind sie sicher?';
+$wordings['deDE']['confirm_config_submit'] = 'Dies wird die Ã„nderungen in die Datenbank schreiben. Sind sie sicher?';
+$wordings['deDE']['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurÃ¼cksetzen in dem es am Anfang war. Sind sie sicher?';
 
 // Main Menu words
 $wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen';
@@ -693,7 +693,7 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Suchtext|Text um den Ban
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Access to Update.php|Controlls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$wordings['deDE']['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff fÃ¼r JEDEN";
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
