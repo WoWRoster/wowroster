@@ -498,10 +498,6 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['search2']='Suche nach Zone';
 	$wordings['deDE']['search3']='Suche nach Questname';
 
-// serverstatus strings
-	$servertypes['deDE']= array( 'RSP-PvP', 'PvP', 'Normal', 'RP' );
-	$serverpops['deDE']= array( 'Mittel', 'Niedrig', 'Hoch', 'Max)' );
-
 // Definitions for item tooltip coloring
 	$wordings['deDE']['tooltip_use']='Benutzen';
 	$wordings['deDE']['tooltip_requires']='Benötigt';
