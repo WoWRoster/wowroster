@@ -214,6 +214,12 @@ $wordings['deDE']['recipe_2'] = 'leicht';
 $wordings['deDE']['recipe_1'] = 'trivial';
 $wordings['deDE']['roster_config'] = 'Roster Config';
 
+// Memberslist sort/filter box
+$wordings['enUS']['memberssortfilter'] = 'Sorting order and filtering';
+$wordings['enUS']['memberssort'] = 'Sort';
+$wordings['enUS']['memberscolshow'] = 'Show/Hide Columns';
+$wordings['enUS']['membersfilter'] = 'Filter rows';
+
 // Spellbook
 $wordings['deDE']['spellbook'] = 'Zauberspr&uuml;che';
 $wordings['deDE']['page'] = 'Seite';
@@ -492,10 +498,6 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['search2']='Suche nach Zone';
 	$wordings['deDE']['search3']='Suche nach Questname';
 
-// serverstatus strings
-	$servertypes['deDE']= array( 'RSP-PvP', 'PvP', 'Normal', 'RP' );
-	$serverpops['deDE']= array( 'Mittel', 'Niedrig', 'Hoch', 'Max)' );
-
 // Definitions for item tooltip coloring
 	$wordings['deDE']['tooltip_use']='Benutzen';
 	$wordings['deDE']['tooltip_requires']='Benötigt';
@@ -533,12 +535,48 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 
 
 
+// Addon installer strings
+$wordings['enUS']['installer_install'] = 'Installation';
+$wordings['enUS']['installer_uninstall'] = 'Uninstallation';
+$wordings['enUS']['installer_upgrade'] = 'Upgrade';
+$wordings['enUS']['installer_purge'] = 'Purge';
 
+$wordings['enUS']['installer_success0'] = 'Successful';
+$wordings['enUS']['installer_success1'] = 'Failed but rollback successful';
+$wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
 
 
 /******************************
  * Roster Admin Strings
  ******************************/
+
+// AdminPanel interface wordings
+$wordings['enUS']['profileselect'] = 'Select Profile';
+$wordings['enUS']['profilego'] = 'Go';
+
+$wordings['enUS']['pagebar_function'] = 'Function';
+$wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
+$wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
+$wordings['enUS']['pagebar_adminpass'] = 'Change Roster Admin Password';
+$wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
+$wordings['enUS']['pagebar_update'] = 'Update';
+$wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
+
+$wordings['enUS']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
+$wordings['enUS']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
+
+// All strings here
+// Each variable must be the same name as the config variable name
+// Example:
+//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
+
+// Each string is separated by a pipe ( | )
+// The first part is the short description, the next part is the tooltip
+// Use <br> to make new lines!
+// Example:
+//   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br>Use with care"
+
 
 // Main Menu words
 $wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
@@ -554,20 +592,6 @@ $wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optional phpBB aut
 
 $wordings['deDE']['admin']['rosterdiag'] = 'Roster Diagnose Seite|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
 $wordings['deDE']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
-
-
-// All strings here
-// Each variable must be the same name as the config variable name
-// Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
-//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
-
-// Each string is separated by a pipe ( | )
-// The first part is the short description, the next part is the tooltip
-// Use <br> to make new lines!
-// Example:
-//   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br>Use with care"
-
 
 // main_conf
 $wordings['deDE']['admin']['roster_upd_pw'] = "Roster Update Passwort|Dieses Passwort erlaubt die Aktualisierung der Gildenmitglieder<br>Eine Addons benötigen dieses PW auch";
