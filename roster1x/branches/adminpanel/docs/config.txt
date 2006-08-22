@@ -42,8 +42,8 @@ select{op1^val1|op2^val2|op3^val3...
 	A a dropdown box with options op1, op2, op3,... which produce
 	values val1, val2, val3,... Labels are literal, not localization keys.
 function{name
-	Calls the function called name with no parameters to produce the HTML
-	for the option.
+	Calls the function called name with the option record as parameter to
+	produce the HTML for the option.
 display
 	Displays the option's setting.
 	

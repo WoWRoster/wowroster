@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-function rosterLangValue( )
+function rosterLangValue( $values )
 {
 	global $roster_conf;
 
@@ -29,7 +29,7 @@ function rosterLangValue( )
 	$select_one = 1;
 	foreach( $roster_conf['multilanguages'] as $value )
 	{
-		if( $value == $roster_conf['roster_lang'] && $select_one )
+		if( $value == $values['value'] && $select_one )
 		{
 			$input_field .= '  <option value="'.$value.'" selected="selected">&gt;'.$value.'&lt;</option>'."\n";
 			$select_one = 0;

@@ -101,6 +101,7 @@ include_once( ROSTER_LIB.'menu.php' );
 echo '<table width="100%"><tr><td valign="top" align="left">'.
 	$menu.
 	'</td><td valign="top" align="center">'.
+	$roster_login->getMessage().
 	$body.
 	'</td><td valign="top" align="right">'.
 	$pagebar.

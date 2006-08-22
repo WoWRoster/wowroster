@@ -167,10 +167,11 @@ class config
 						$page .= '</div>'."\n";
 						$addpage = true;
 						break;
+						
 					case 'function':
 						$this->nonformpages .= $type[1]();
 						$addpage = false;
-
+						
 					default:
 						$addpage = false;
 						break;
@@ -329,8 +330,12 @@ class config
 					$input_field .= '</select>';
 					break;
 
+				case 'access':
+					$input_field = $roster_login->accessConfig($values);
+					break;
+
 				case 'function':
-					$input_field = $input_type[1]();
+					$input_field = $input_type[1]($values);
 					break;
 
 				case 'display':

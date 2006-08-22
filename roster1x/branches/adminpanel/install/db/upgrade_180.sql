@@ -40,6 +40,13 @@ CREATE TABLE `renprefix_addon_trigger` (
 	PRIMARY KEY  (`addon_name`,`file`)
 ) TYPE=MyISAM;
 
+# --------------------------------------------------------
+### Account table
+
+ALTER TABLE `renprefix_account`
+	ADD `level` int(8) NOT NULL DEFAULT 10;
+
+
 
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
 
