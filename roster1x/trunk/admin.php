@@ -127,7 +127,7 @@ $html = '';
 foreach($conf_arrays as $type)
 {
 	$i = 0;
-	$html .= "<div id=\"$type\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$html .= "<div id=\"$type\" style=\"display:none;\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	foreach($db_values[$type] as $values)
 	{

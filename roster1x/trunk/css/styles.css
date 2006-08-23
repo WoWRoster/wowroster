@@ -53,6 +53,13 @@ input {
 	font-family:Verdana, Arial;
 	background-color:#202020;
 }
+select {
+	border:1px solid #CBA300;
+	font-size:10px;
+	color:#FFFFFF;
+	font-family:Verdana, Arial;
+	background-color:#202020;
+}
 .headline_1 {
 	margin:0;
 	padding:5px 0 5px 0;
