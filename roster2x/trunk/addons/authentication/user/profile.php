@@ -22,7 +22,7 @@
 			<form method="post">
 			<table width="100%"  border="0" cellspacing="1" cellpadding="1" style="border:1px solid #212121; font-weight:bold;">
 				<tr>
-					<td colspan="2" class="sc_menuTH">Change Details </td>
+					<td colspan="2" class="sc_menuTH">Change Details</td>
 				</tr>
 				<tr>
 					<td class="sc_row1">Username</td>
@@ -43,33 +43,27 @@
 						<input name="email" type="text" id="e_mail" value="<?php print $user['email']; ?>" style="width:200px;">
 					</td>
 				</tr>
-				<?php // Master/Super admins can change people's right types except their own, with the limitation of only the Master Admin upgrading people to Super Admins
-				if($LU->getProperty('perm_type') >= LIVEUSER_SUPERADMIN_TYPE_ID && $LU->getProperty('auth_user_id') != $user['auth_user_id']) { ?>
+				<?php // Master admins can change people's right types except their own, only the Master Admin can upgrade people to Super Admins
+				if($LU->getProperty('perm_type') >= LIVEUSER_MASTERADMIN_TYPE_ID && $LU->getProperty('auth_user_id') != $user['auth_user_id']) { ?>
 				<tr>
 					<td class="sc_row1">User Rights Type</td>
 					<td class="sc_row1">
 						<input name="orig_right_level" value="<?php print $user['perm_type']; ?>" type="hidden">
 						<select name="right_level" onchange="this.form.submit()">
-							<option>
+							<option class="sc_row2">
 								<?php 
-								switch ($user['perm_type']) { 
-									case 1: 
-										print 'Member';
-										break; 
-									case 3: 
-										print 'Guild Master';
-										break; 
-									case 4: 
-										print 'Super Admin';
-										break; 
+								if($user['perm_type']==1) {
+									print 'Member';
+								}else{
+									print 'Super Admin';
 								}
 								?>
 							</option>
-							<?php if($LU->getProperty('perm_type') == LIVEUSER_MASTERADMIN_TYPE_ID) { ?>
+							<?php if($user['perm_type'] != LIVEUSER_SUPERADMIN_TYPE_ID) { ?>
 							<option value="<?php print LIVEUSER_SUPERADMIN_TYPE_ID; ?>">Super Admin</option>
-							<?php } ?>
-							<option value="<?php print LIVEUSER_AREAADMIN_TYPE_ID; ?>">Guild Master</option>
+							<?php }else{ ?>
 							<option value="<?php print LIVEUSER_USER_TYPE_ID; ?>">Member</option>
+							<?php } ?>
 						</select>
 					</td>
 				</tr>
@@ -93,11 +87,11 @@
 				<tr>
 					<td colspan="4" class="sc_menuTH">You belong to the following groups:</td>
 				</tr>
-				<tr class="sc_menuTH">
-					<td> Guild </td>
-					<td width="25%"> Group </td>
-					<td width="25%"> Description </td>
-					<td width="15%"> Option </td>
+				<tr>
+					<td class="sc_menuTH"> Guild </td>
+					<td width="25%" class="sc_menuTH"> Group </td>
+					<td width="25%" class="sc_menuTH"> Description </td>
+					<td width="15%" class="sc_menuTH"> Option </td>
 				</tr>
 				<?php 
 				if(is_array($groups)) {
@@ -180,7 +174,7 @@
 												}
 												else
 												{	// List all groups from the second one on under the current guild because none of the above conditions apply
-													$line .= 	'<option value="'.$groups[$j]['group_id'].'">'.ltrim(stristr(stripslashes(base64_decode($groups[$j]['group_define_name'])), '_'), '_').'</option>';
+													$line .= '<option value="'.$groups[$j]['group_id'].'">'.ltrim(stristr(stripslashes(base64_decode($groups[$j]['group_define_name'])), '_'), '_').'</option>';
 												}
 												$previous_guild = $decoded_guild;
 											}
@@ -209,7 +203,7 @@
 			<table width="100%"  border="0" cellspacing="1" cellpadding="1" style="border:1px solid #212121; font-weight:bold;">
 				<tr>
 					<td colspan="4" class="sc_menuTH">These characters are grouped with your account </td>
-					</tr>
+				</tr>
 				<tr>
 					<td class="sc_menuTH">Name</td>
 					<td class="sc_menuTH">Guild</td>
@@ -231,13 +225,16 @@
 					<td>
 						
 						<select name="char_status" onchange="this.form.submit()">
-							<option>'.ucfirst($characters['data'][$j]['status']).'</option>';
+							<option class="'.$line_color.'">'.ucfirst($characters['data'][$j]['status']).'</option>';
 							if($characters['data'][$j]['status'] == 'main'){ $line .= '
 							<option value="alt">Alt</option>
 							<option value="inactive">Inactive</option>'; }
-							else { $line .= '
+							elseif($characters['data'][$j]['status'] == 'alt'){ $line .= '
 							<option value="main">Main</option>
 							<option value="inactive">Inactive</option>'; }
+							elseif($characters['data'][$j]['status'] == 'inactive'){ $line .= '
+							<option value="main">Main</option>
+							<option value="alt">Alt</option>'; }
 							if($LU->getProperty('perm_type') >= LIVEUSER_SUPERADMIN_TYPE_ID)	{ 
 							$line .= '<option value="delete">Ungroup</option>';	}
 							$line .= '
@@ -271,6 +268,13 @@
 									<input name="add_char_link_submit" type="submit" value="Submit" class="sc_menuClick" onmousedown="this.style.background = \'#778899\'" onmouseup="this.style.background = \'#7A7772\'" onmouseover="this.style.background = \'#7A7772\'" onmouseout="this.style.background = \'#2E2D2B\'" style="width:100px;">
 								</td>
 							</tr>
+							<?php if(!@empty($_SESSION['error'])){ ?>
+							<tr>
+								<td class="sc_row1" colspan="3">
+									<b style="color:#FF0000;"><?php print $_SESSION['error']; ?></b>
+								</td>
+							</tr>
+							<?php unset($_SESSION['error']); } ?>
 						</form>
 						</table>
 					</td>

@@ -25,13 +25,13 @@ $IH->treat_get_post($_REQUEST);
 						<li><a href="#" onclick="return expandcontent('t2', this)">Area Management</a></li>
 						<li><a href="#" onclick="return expandcontent('t3', this)">Group Management</a></li>
 						<li><a href="#" onclick="return expandcontent('t4', this)">User Management</a></li>
-						<li><a href="#" onclick="return expandcontent('t5', this)">Permissions</a></li>		
+						<li><a href="#" onclick="return expandcontent('t5', this)">Rights</a></li>		
 						<li><a href="#" onclick="return expandcontent('t6', this)">CMS Authentication</a></li>
 						<li><a href="#" onclick="return expandcontent('t7', this)">Language</a></li>
 						<li><input name="submit" type="submit" value="Logout" class="sc_menuClick" onmousedown="this.style.background = '#778899'" onmouseup="return expandcontent('login', this)" onmouseover="this.style.background = '#7A7772'" onmouseout="this.style.background = '#2E2D2B'" style="width:100%; margin-right:-2px;" align="left"></li>
 						<?php } ?>
 						<li><a href="../../../">Back to Roster</a></li>
-						<li><a href="http://www.wowprofilers.com/wiki/index.php/Roster:Addon:Authentication" target="_new">Documentation</a></li>
+						<li><a href="http://www.wowroster.net/wiki/index.php/Roster:Addon:Authentication" target="_new">Documentation</a></li>
 					</ul>
 				</div>
 			
@@ -90,6 +90,7 @@ $IH->treat_get_post($_REQUEST);
 						</tr>
 						<tr>
 							<td>
+								<br><br>
 								<?php $IH->gui('Group_Management_Master', 'new_edit_group_field', @$_GET); ?>
 							</td>
 						</tr>
@@ -148,6 +149,36 @@ $IH->treat_get_post($_REQUEST);
 								</td>
 							</a>
 						</tr>
+					</table>
+				</div>
+				<div id="t5" style="display:none">
+					<table width="540px" style="border:1px solid #212121; font-weight:bold;">
+						<form method="post">
+						<tr style="cursor:pointer;">
+							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;"><div onclick="return toggleShow('group_rights_management', this)" style="width:100%;">Group Rights Management</div></td>
+						</tr>
+						<?php if(@$_GET['display'] != 'group') { ?>
+						<tr id="group_rights_management" style="display:none;">
+						<?php } else { ?>
+						<tr id="group_rights_management">
+						<?php } ?>
+							<td>
+								<?php $IH->gui('Rights_Management_Master', 'group_rights'); ?>
+							</td>
+						</tr>
+						<tr style="cursor:pointer;">
+							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;"><div onclick="return toggleShow('personal_rights_management', this)" style="width:100%;">Personal Rights Management</div></td>
+						</tr>
+						<?php if(@$_GET['display'] != 'personal') { ?>
+						<tr id="personal_rights_management" style="display:none;">
+						<?php } else { ?>
+						<tr id="personal_rights_management">
+						<?php } ?>
+							<td>
+								<?php $IH->gui('Rights_Management_Master', 'personal_rights'); ?>
+							</td>
+						</tr>
+						</form>
 					</table>
 				</div>
 			<?php }// end if($LU->isLoggedIn()) ?>

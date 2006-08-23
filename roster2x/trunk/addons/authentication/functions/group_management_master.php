@@ -52,7 +52,6 @@ class Group_Management_Master extends Interface_Helper
 		}
 		print $line;
 		print '</table>';
-		print '<br><br>';
 	}
 	
 	function new_edit_group_field($get=NULL)

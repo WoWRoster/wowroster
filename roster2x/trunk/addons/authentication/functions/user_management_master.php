@@ -55,7 +55,6 @@ class User_Management_Master extends Interface_Helper
 								<select name="right_level" style="width:140px;">
 									<option>Select</option>
 									<option value="'.LIVEUSER_SUPERADMIN_TYPE_ID.'">Super Admin</option>
-									<option value="'.LIVEUSER_AREAADMIN_TYPE_ID.'">Guild Master</option>
 									<option value="'.LIVEUSER_USER_TYPE_ID.'">Member</option>
 								</select>
 							</td>

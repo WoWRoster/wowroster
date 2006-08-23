@@ -20,7 +20,7 @@ class Interface_Helper extends Authentication
 		// Make sure the user is logged in and that he has at least GM status
 		if($LU->isLoggedIn())
 		{
-			if($LU->getProperty('perm_type') >= LIVEUSER_AREAADMIN_TYPE_ID)
+			if($LU->getProperty('perm_type') >= LIVEUSER_SUPERADMIN_TYPE_ID)
 			{
 				if(!empty($request['object']))
 				{
@@ -28,30 +28,27 @@ class Interface_Helper extends Authentication
 						#-----| Guild Management |-----#
 						case 'guild':
 						{
-							if($LU->getProperty('perm_type') >= LIVEUSER_SUPERADMIN_TYPE_ID)
+							if($request['action'] == 'delete')
+							{	
+								$this->delete_guild(array('application_id' => intval($request['id'])));
+								header("Location: ".$_SERVER['PHP_SELF']);
+								exit;
+							}
+							elseif($request['action'] == 'new_edit')
 							{
-								if($request['action'] == 'delete')
-								{	
-									$this->delete_guild(array('application_id' => intval($request['id'])));
-									header("Location: ".$_SERVER['PHP_SELF']);
-									exit;
-								}
-								elseif($request['action'] == 'new_edit')
-								{
-									$existing_guilds = $this->get_guild();
-									// check for guild name, if its a changed/new one this will pass
-									if(!$this->deep_in_array(base64_encode($request['guild_input']), $existing_guilds))
-									{	// check again, if its a changed one, this should only pass if its a totally new name, not a change of name
-										if(!@$this->deep_in_array(base64_encode($request['original']), $existing_guilds))
-										{
-											$this->add_guild(base64_encode($request['guild_input']));
-										}
-										else
-										{	// It's certain that it's an existing one to be changed, so go ahead
-											$data = array('application_define_name' => base64_encode($request['guild_input']));
-											$filters = array('application_define_name' => base64_encode($request['original']));
-											$this->change_guild($data, $filters);
-										}
+								$existing_guilds = $this->get_guild();
+								// check for guild name, if its a changed/new one this will pass
+								if(!$this->deep_in_array(base64_encode($request['guild_input']), $existing_guilds))
+								{	// check again, if its a changed one, this should only pass if its a totally new name, not a change of name
+									if(!@$this->deep_in_array(base64_encode($request['original']), $existing_guilds))
+									{
+										$this->add_guild(base64_encode($request['guild_input']));
+									}
+									else
+									{	// It's certain that it's an existing one to be changed, so go ahead
+										$data = array('application_define_name' => base64_encode($request['guild_input']));
+										$filters = array('application_define_name' => base64_encode($request['original']));
+										$this->change_guild($data, $filters);
 									}
 								}
 							}
@@ -248,12 +245,12 @@ class Interface_Helper extends Authentication
 									$this->change_user($user[0]['perm_user_id'], $new_data);
 								}
 								// If the right type has changed, save it
-								if(!empty($request['right_type']) && $request['orig_right_type'] != $request['right_type'])
+								if(!empty($request['right_level']) && $request['orig_right_level'] != $request['right_level'])
 								{
 									$filter = array('container' => 'perm',
 													'filters' => array('auth_user_id' => $request['auth_user_id']));
 									$user = $this->get_user($filter); 
-									$new_data = array('perm_type' => $request['right_type']);
+									$new_data = array('perm_type' => $request['right_level']);
 									$this->change_user($user[0]['perm_user_id'], $new_data);
 								}
 							}
@@ -317,20 +314,13 @@ class Interface_Helper extends Authentication
 							elseif($request['action'] == 'add_char_link')
 							{
 								// Manually link a character to a user
-								if($LU->getProperty('perm_type') == LIVEUSER_AREAADMIN_TYPE_ID)
-								{ 
-									// This imposes the restriction of only being able to assign chars within the same guild as the guild master
-									$filter = array('filters' => array('perm_user_id' => $LU->getProperty('perm_user_id')),
-													'fields' => array('application_define_name'));
-									$guild = $this->get_area($filter);
-									print_r($guild);
-									$data = array('auth_user_id' => $request['auth_user_id'], 'char_name' => utf8_encode(ucwords($request['char_name'])), 'guild_name' => $guild[0]['application_define_name']);
-								}
-								else
-								{ 
+								if(!@empty($request['char_name']))
+								{
 									$data = array('auth_user_id' => $request['auth_user_id'], 'char_name' => utf8_encode(ucwords($request['char_name'])));
+									$error = $this->add_user_char_link($data);
+									if(@$error == 'DB Error: already exists') $_SESSION['error'] = ucwords($request['char_name']).' is already grouped up with an account';
+									if(@$error == 'DB Error: syntax error') $_SESSION['error'] = ucwords($request['char_name']).' could not be found, please check the spelling of the name';
 								}
-								$this->add_user_char_link($data);
 							}
 							elseif($request['action'] == 'remove_from_group')
 							{
@@ -346,6 +336,55 @@ class Interface_Helper extends Authentication
 							}
 							break;
 						} // End of - case 'users'
+						#-----| Rights Management |-----#
+						case 'rights':
+						{
+							if($request['action'] == 'group_rights')
+							{
+								if(@$request['area_id'] != 'Select')
+								{
+									$ticked = array();
+									$unticked = array();
+									if(@$request['view']) $ticked[] = 'View'; else $unticked[] = 'View';
+									if(@$request['use']) $ticked[] = 'Use'; else $unticked[] = 'Use';
+									if(@$request['edit']) $ticked[] = 'Edit'; else $unticked[] = 'Edit';
+									
+									foreach($ticked as $selected){
+										// Check if the right for this area exists
+										$filter = array('filters' => array('area_id' => $request['area_id'], 'right_define_name' => $selected));
+										$right = $this->get_right($filter);
+										if(empty($right)) {// If the right isnt associated with this area yet, create it
+											$this->add_right($request['area_id'], $selected, 0);
+										} 
+										// Now that we're sure that the right exists, get the details
+										$filter = array('filters' => array('area_id' => $request['area_id'], 'right_define_name' => $selected));
+										$right = $this->get_right($filter);
+										if(!empty($right)){ // Check that its not been granted to the group yet (avoid constraint error)
+											$filter = array('filters' => array('group_id' => $request['group_id'], 'right_id' => $right[0]['right_id']));
+											$group_right = $this->get_group($filter);
+											if(empty($group_right)){ // All checks passed, grant the right for this area to the group
+												$data = array('right_id' => $right[0]['right_id'], 'group_id' => $request['group_id']);
+												$this->grant_group_right($data);
+											}
+										}
+									}
+									foreach($unticked as $deselected){ 
+										// A right was not selected, remove the groupright
+										$filter = array('filters' => array('area_id' => $request['area_id'], 'right_define_name' => $deselected));
+										$right = $this->get_right($filter);
+										if(!empty($right)){ 
+											$filter = array('group_id' => $request['group_id'], 'right_id' => $right[0]['right_id']);
+											$this->delete_group_right($filter);
+										}
+									}
+								} // End of - if($request['area_id'] != 'Select')
+							} // End of - if($request['action'] == 'group_rights')
+							elseif($request['action'] == 'personal_rights')
+							{
+								
+							}
+							break;
+						} // End of - case 'rights'
 					} // End of - switch $request['object']
 				} // End of - !emtpy($request['object'])
 			} // End of - Is master or super admin

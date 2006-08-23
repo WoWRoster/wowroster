@@ -2,6 +2,13 @@
 <!-- Begin Java Link -->
 <script type="text/javascript" language="JavaScript">
 <!--
+
+function tick(ElementID)
+{
+	if(document.getElementById)
+		document.getElementById(ElementID).checked = true;
+}
+
 function show(ElementID)
 {
 	if(document.getElementById)
@@ -87,7 +94,7 @@ function detectSourceindex(aobject)
 
 function do_onload()
 {
-	var cookiename = 'siggen_lasttab'
+	var cookiename = 'auth_lasttab'
 	var cookiecheck = window.get_cookie && get_cookie(cookiename).indexOf('|')!=-1
 	collecttablinks()
 
@@ -127,7 +134,7 @@ function get_cookie(Name)
 
 function savetabstate()
 {
-	var cookiename = 'siggen_lasttab'
+	var cookiename = 'auth_lasttab'
 	var cookievalue = tabsourceindex+'|'+previoustab
 
 	document.cookie = cookiename+'='+cookievalue

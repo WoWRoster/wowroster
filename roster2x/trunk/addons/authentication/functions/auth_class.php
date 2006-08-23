@@ -349,7 +349,7 @@ class Authentication
 	}
 	
 	/*
-		$filter = array('group_id' => $group_id);
+		$filter = array('group_id' => $group_id, 'right_id' => $right_id);
 		delete_group_right($filter);
 	*/
 	function delete_group_right($filter)
@@ -573,12 +573,12 @@ class Authentication
 		$res = &$db->query($query_string);
 		$res->fetchInto($member_id);
 		if(PEAR::isError($res)) {
-			die($res->getMessage());
+			return $res->getMessage();
 		} 
-		$query_string = "INSERT INTO roster2_addon_auth_user_char_linktable (auth_user_id, member_id, status) VALUES (".$data['auth_user_id'].", ".$member_id['member_id'].", 'active')";
+		$query_string = "INSERT INTO roster2_addon_auth_user_char_linktable (auth_user_id, member_id) VALUES (".$data['auth_user_id'].", ".$member_id['member_id'].")";
 		$res = &$db->query($query_string);
 		if(PEAR::isError($res)) {
-			die($res->getMessage());
+			return $res->getMessage();
 		} 
 	}
 	
