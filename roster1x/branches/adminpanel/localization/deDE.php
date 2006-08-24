@@ -645,6 +645,7 @@ $wordings['deDE']['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Zeigt eine 
 $wordings['deDE']['admin']['index_zone'] = "Letztes Gebiet Spalte|Zeigt eine Spalte mit dem letzten Aufenthaltsort an";
 $wordings['deDE']['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, wann der Spieler zuletzt online war";
 $wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
+$wordings['enUS']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
 
 // menu_conf
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br>Hier wird eine kurze Mitgliederübersicht gezeigt";

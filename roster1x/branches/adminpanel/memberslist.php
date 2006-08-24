@@ -182,7 +182,7 @@ foreach ( $FIELDS as $field => $DATA )
 	{
 		$sortFields .= '    <tr>';
 	}
-	$sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this)">'.$th_text.'</th>'.
+	$sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this)" style="cursor:pointer;">'.$th_text.'</th>'.
 	'<td><input type="text" id="filter_'.$current_col.'" onkeydown="enter_sort(event,6);" name="filter_'.$current_col.'">'."\n";
 
 	$current_col++;
@@ -195,8 +195,14 @@ $borderBottom = "</table>\n".border('syellow','end');
 
 
 // Build sort/filter block
-echo border('sblue','start',$act_words['memberssortfilter'])."\n".
-	'<table><tr>'.
+echo
+	'<div id="sortfilterCol" style="display:'.(($roster_conf['members_openfilter'])?'none':'inline').';">'."\n".
+	border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$act_words['memberssortfilter']."</div>")."\n".
+	border('sblue','end')."\n".
+	'</div>'."\n".
+	'<div id="sortfilter" style="display:'.(($roster_conf['members_openfilter'])?'inline':'none').';">'."\n".
+	border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$act_words['memberssortfilter']."</div>")."\n".
+	'<table><tr>'."\n".
 	'<td class="membersHeader">'.$act_words['memberssort'].'</td>'."\n".
 	'<td class="membersHeader">'.$act_words['memberscolshow'].'</td>'."\n".
 	'<td class="membersHeader">'.$act_words['membersfilter'].'</td>'."\n".
@@ -210,7 +216,8 @@ echo
 	'<input type="hidden" id="sort5" name="sort5" value="1_asc">'.
 	$sortFields.
 	'</table>'."\n".
-	border('sblue','end');
+	border('sblue','end').
+	'</div>'."\n";
 
 
 

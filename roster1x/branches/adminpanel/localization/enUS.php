@@ -645,6 +645,7 @@ $wordings['enUS']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Toggles 
 $wordings['enUS']['admin']['index_zone'] = "Last Zone Loc. Column|Toggles the display of the last zone column";
 $wordings['enUS']['admin']['index_lastonline'] = "Last Seen Online Column|Toggles the display of the last seen online column";
 $wordings['enUS']['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
+$wordings['enUS']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
 
 // menu_conf
 $wordings['enUS']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br>This area holds the member quick list";

@@ -399,6 +399,60 @@ class RosterLogin
 	{
 		$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
 	}
+	
+	/**
+	 * Get the account ID for an account name
+	 *
+	 * @param string $name
+	 *	The user name
+	 * @return int $account_ID
+	 *	The acount ID or false on error.
+	 */
+	function getAccountID($name)
+	{
+		$query = 'SELECT `account_id` FROM '.$wowdb->table('account').' WHERE `name` = "'.$name.'"';
+		
+		$result = $wowdb->query($query);
+		
+		if (!$result)
+		{
+			$this->message = 'There was a database error while trying to fetch the account ID. MySQL said: <br />'.$wowdb->error();
+			return false;
+		}
+		
+		$row = $wowdb->fetch_assoc($result);
+		
+		$wowdb->free_result($result);
+		
+		return $row['account_id'];
+	}
+	
+	/**
+	 * Get the account name for an account ID
+	 *
+	 * @param int $account_ID
+	 *	The account ID
+	 * @return string $name
+	 *	The user name or false on error
+	 */
+	function getAccountName($account_id)
+	{
+		$query = 'SELECT `name` FROM '.$wowdb->table('account').' WHERE `account_id` = "'.$account_id.'"';
+		
+		$result = $wowdb->query($query);
+		
+		if (!$result)
+		{
+			$this->message = 'There was a database error while trying to fetch the name. MySQL said: <br />'.$wowdb->error();
+			return false;
+		}
+		
+		$row = $wowdb->fetch_assoc($result);
+		
+		$wowdb->free_result($result);
+		
+		return $row['name'];
+	}
 }
 
 ?>
