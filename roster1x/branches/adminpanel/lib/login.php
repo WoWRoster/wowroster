@@ -62,7 +62,7 @@ class RosterLogin
 	function checkLogin()
 	{
 		global $roster_conf, $wowdb;
-		
+
 		if( isset($_COOKIE['roster_pass']) )
 		{
 			if (get_magic_quotes_gpc())
@@ -87,7 +87,7 @@ class RosterLogin
 			$this->level = 10;
 			return;
 		}
-		
+
 		if ($supplied['user'] == 'Roster_Admin')
 		{
 			$proper['name'] = 'Roster_Admin';
@@ -111,7 +111,7 @@ class RosterLogin
 			}
 
 			$proper = $wowdb->fetch_assoc($result);
-			
+
 			if (!$proper)
 			{
 				if( isset($_COOKIE['roster_pass']) )
@@ -119,16 +119,16 @@ class RosterLogin
 				$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 				$this->user = 'Guest';
 				$this->level = 10;
-				return;			
+				return;
 			}
-			
+
 			$wowdb->free_result($result);
 		}
 
 		if( $supplied['hash'] == $proper['hash'] )
 		{
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
-			$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
+			$this->message = '<span style="font-size:10px;"><span style="color:red;">Logged in:</span> '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 			$this->user = $row['name'];
 			$this->level = $row['level'];
 		}
@@ -170,7 +170,7 @@ class RosterLogin
 	 *	For RosterAuth, this is a number, and lower numbers are better
 	 *	credentials.
 	 * @return boolean
-	 *	True for allowed, false for disallowed.	 
+	 *	True for allowed, false for disallowed.
 	 *
 	 * @param array $creds
 	 *	Simple array($key => $creds,...) where $creds are required
@@ -190,14 +190,14 @@ class RosterLogin
 		{
 			return $this->level <= (int)$creds;
 		}
-		
+
 		foreach ($creds as $key => $level)
 		{
 			$perms[$key] = ($this->level <= (int)$level);
 		}
 		return $perms;
 	}
-	
+
 	/**
 	 * Return user name
 	 *
@@ -250,7 +250,7 @@ class RosterLogin
 			</form>
 			<!-- End Password Input Box -->';
 	}
-	
+
 	/**
 	 * Try to create an account
 	 *
@@ -274,19 +274,19 @@ class RosterLogin
 	 		$this->message = 'Passwords do not match. Please type the exact same password in both password fields.';
 	 		return false;
 	 	}
-	 	
+
 	 	if ( $newpass1 === '' || $newpass2 === '')
 	 	{
 	 		$this->message = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed.';
 	 		return false;
 	 	}
-	 	
+
 	 	if ( md5($newpass1) == md5('') )
 	 	{
 	 		$this->message = 'No blank passwords. You did not enter a blank password but it does have the same hash. Blank passwords are not allowed.';
 	 		return false;
 	 	}
-	 	
+
 	 	// valid password
 		$query = 'INSERT INTO `'.$wowdb->table('account').'` VALUES (0, "'.$user.'", "'.md5($newpass1).'", 10)';
 
@@ -301,7 +301,7 @@ class RosterLogin
 		$this->message = 'Account created. Your password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
 		return true;
 	}
-	
+
 	/**
 	 * Try to change the account password. This function does not and should
 	 * never change the admin pass.
@@ -336,7 +336,7 @@ class RosterLogin
 		if (!$row)
 		{
 			$this->message = 'Invalid old user name';
-			return false;			
+			return false;
 		}
 
 		$wowdb->free_result($result);
@@ -346,31 +346,31 @@ class RosterLogin
 	 		$this->message = 'Wrong password. Please enter the correct old password.';
 	 		return false;
 	 	}
-	 	
+
 	 	if ( $newpass1 != $newpass2 )
 	 	{
 	 		$this->message = 'Passwords do not match. Please type the exact same password in both new password fields.';
 	 		return false;
 	 	}
-	 	
+
 	 	if ( $newpass1 === '' || $newpass2 === '')
 	 	{
 	 		$this->message = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed.';
 	 		return false;
 	 	}
-	 	
+
 	 	if ( md5($newpass1) == md5('') )
 	 	{
 	 		$this->message = 'No blank passwords. You did not enter a blank password but it does have the same hash. Blank passwords are not allowed.';
 	 		return false;
 	 	}
-	 	
+
 	 	if ( md5($newpass1) == $row['hash'] )
 	 	{
 	 		$this->message = 'Password not changed. The new password was the same as the old one.';
 	 		return false;
 	 	}
-	 	
+
 	 	// valid password
 		$query = 'UPDATE `'.$wowdb->table('account').'` SET `hash` = "'.md5($newpass1).'"  WHERE `name` = "'.$user.'"';
 
@@ -385,7 +385,7 @@ class RosterLogin
 		$this->message = 'Password changed. Your new password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
 		return true;
 	}
-	
+
 	/**
 	 * Create a options control for setting an access level in Roster config.
 	 *
@@ -399,7 +399,7 @@ class RosterLogin
 	{
 		$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
 	}
-	
+
 	/**
 	 * Get the account ID for an account name
 	 *
@@ -411,22 +411,22 @@ class RosterLogin
 	function getAccountID($name)
 	{
 		$query = 'SELECT `account_id` FROM '.$wowdb->table('account').' WHERE `name` = "'.$name.'"';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$this->message = 'There was a database error while trying to fetch the account ID. MySQL said: <br />'.$wowdb->error();
 			return false;
 		}
-		
+
 		$row = $wowdb->fetch_assoc($result);
-		
+
 		$wowdb->free_result($result);
-		
+
 		return $row['account_id'];
 	}
-	
+
 	/**
 	 * Get the account name for an account ID
 	 *
@@ -438,19 +438,19 @@ class RosterLogin
 	function getAccountName($account_id)
 	{
 		$query = 'SELECT `name` FROM '.$wowdb->table('account').' WHERE `account_id` = "'.$account_id.'"';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$this->message = 'There was a database error while trying to fetch the name. MySQL said: <br />'.$wowdb->error();
 			return false;
 		}
-		
+
 		$row = $wowdb->fetch_assoc($result);
-		
+
 		$wowdb->free_result($result);
-		
+
 		return $row['name'];
 	}
 }

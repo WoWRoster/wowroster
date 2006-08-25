@@ -96,6 +96,13 @@ table.expOutline {
 	font:10px Verdana, Arial;
 	background-color:#202020;
 }
+select {
+	border:1px solid #CBA300;
+	font-size:10px;
+	color:#FFFFFF;
+	font-family:Verdana, Arial;
+	background-color:#202020;
+}
 .checkBox {
 	border:0;
 	color:#FFFFFF;
