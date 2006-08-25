@@ -53,22 +53,21 @@ $choiceArray = array(
 	'guildinfo' => 'Guild Info',
 );
 
-$choiceForm = '<form action="indexpvp.php" method="get">
+$choiceForm = '<form action="indexpvp.php" method="post">
 '.$wordings[$roster_conf['roster_lang']]['pvplist'].':
-<select name="type">
+<select name="type" onchange="top.location.href=this.options[this.selectedIndex].value">
 ';
 foreach( $choiceArray as $item_value => $item_print )
 {
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '<option value="'.$item_value.'" selected="selected">'.$item_print;
+			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
 		else
-			$choiceForm .= '<option value="'.$item_value.'">'.$item_print;
+			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'">'.$item_print;
 	}
 }
 $choiceForm .= '</select>
-<input type="submit" value="Apply" />
 </form><br />';
 
 print $choiceForm;

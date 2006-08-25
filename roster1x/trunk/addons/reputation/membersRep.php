@@ -53,23 +53,22 @@ if ($roster_conf['sqldebug'])
 $result_fct = $wowdb->query($qry_fct) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_fct);
 
 
-$choiceForm = '<form action="addon.php" method="GET">
-	<input type="hidden" name="roster_addon_name" value="reputation">
+$choiceForm = '<form action="'.$script_filename.'" method="POST">
 	'.$wordings[$roster_conf['roster_lang']]['faction_filter'].'
-	<select name="factionfilter">'."\n";
+	<select name="factionfilter" onchange="top.location.href=this.options[this.selectedIndex].value">
+		<option value="">Select Faction....</option>'."\n";
 
 while($row_fct = $wowdb->fetch_array($result_fct))
 {
 	if( $_REQUEST['factionfilter'] == $row_fct['fct_name'] )
-		$choiceForm .= '		<option value="'.$row_fct['fct_name'].'" selected="selected">'.$row_fct['fct_name']."</option>\n";
+		$choiceForm .= '		<option value="'.$script_filename.'&amp;factionfilter='.$row_fct['fct_name'].'" selected="selected">'.$row_fct['fct_name']."</option>\n";
 	else
-		$choiceForm .= '		<option value="'.$row_fct['fct_name'].'">'.$row_fct['fct_name']."</option>\n";
+		$choiceForm .= '		<option value="'.$script_filename.'&amp;factionfilter='.$row_fct['fct_name'].'">'.$row_fct['fct_name']."</option>\n";
 }
 $wowdb->free_result($result_fct);
 
 
 $choiceForm .= '	</select>
-	<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['applybutton'].'" />
 </form><br />';
 
 $content .= ($choiceForm);

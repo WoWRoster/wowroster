@@ -19,6 +19,7 @@ UPDATE `roster_config` SET `form_type` = 'select{US Servers^http://www.worldofwa
 DELETE FROM `renprefix_config` WHERE `id` = '10010' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '10020' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '10030' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` =  '4030' LIMIT 1;
 
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');

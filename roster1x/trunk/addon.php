@@ -53,6 +53,8 @@ $roster_show_footer = true;
 // Check to see if the index file exists
 if( file_exists($addonFile) )
 {
+	$script_filename = 'addon.php?roster_addon_name='.$_REQUEST['roster_addon_name'];
+
 	// Set the css for the template set in conf.php
 	if( file_exists($cssFile) )
 	{
