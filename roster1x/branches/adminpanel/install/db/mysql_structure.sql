@@ -11,6 +11,7 @@ CREATE TABLE `renprefix_account` (
   `account_id` smallint(6) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL default '',
   `hash` varchar(32) NOT NULL default '',
+  `level` int(8) NOT NULL default '10',
   PRIMARY KEY  (`account_id`)
 ) TYPE=MyISAM;
 
