@@ -104,7 +104,7 @@ $inst_keys['frFR']['A'] = array(
 		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Clé de Shadowforge|2966','Ironfel|9673'),
+		'BRDs' => array('Parts','BRDs' => 'Clé de ombreforge|2966','Ironfel|9673'),
 		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
@@ -122,10 +122,10 @@ $inst_keys['frFR']['H'] = array(
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
 		'BRDs' => array('Parts', 'BRDs' => 'Clé de Shadowforge|2966','Ironfel|9673'),
 		'HT' => array('Key-Only','HT' => 'Clé en croissantt|35607'),
-		'Scholo' => array('Quests', 'Scholo' => 'Clé squelette|16854','Scholomance|','Skeletal Fragments|','Mold Rhymes With...|','Fire Plume Forged|','Araj\\\'s Scarab|','The Key to Scholomance|'),
+		'Scholo' => array('Quests', 'Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
-		'UBRS' => array('Parts', 'UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777', 'Unforged Seal of Ascension|24554||MS', 'Forged Seal of Ascension|19463||MS'),
-		'Onyxia' => array('Quests', 'Onyxia' => 'Amulette Drakefire|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
+		'UBRS' => array('Parts', 'UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777','Sceau d\\\'ascension brut |24554||MS','Sceau d\\\'ascension forgé|19463||MS'),
+		'Onyxia' => array('Quests', 'Onyxia' => 'Amulette Drakefeu|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
 		'MC' => array('Key-Only','MC' => 'Quintessence éternelle|22754'),
 	);
 
@@ -662,7 +662,7 @@ $wordings['frFR']['admin']['pvplogger'] = "PvPLog download link|URL to download 
 $wordings['frFR']['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
 
 // char_conf
-$wordings['frFR']['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des données sur la page des personnages";
+$wordings['frFR']['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des donnes sur la page des personnages";
 $wordings['frFR']['admin']['char_header_logo'] = "Logo entête|Montre le logo en entête sur la page des personnages";
 $wordings['frFR']['admin']['show_talents'] = "Talents|Visualisation des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_spellbook'] = "Livre des sorts|Visualisation du livres des sorts<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
@@ -680,10 +680,10 @@ $wordings['frFR']['admin']['show_signature'] = "Signature|Visualisation de l'ima
 $wordings['frFR']['admin']['show_avatar'] = "Avatar|Visualisation de l'image de l'avatar<br /><span class=\"red\">Nécessite l'addon du roster SigGen</span><br /><br />Le paramêtre est global";
 
 // realmstatus_conf
-$wordings['frFR']['admin']['realmstatus_url'] = "Realmstatus URL|URL to Blizzard's Realmstatus page";
-$wordings['frFR']['admin']['rs_display'] = "Info Mode|&quot;full&quot; will show status and server name, population, and type<br />&quot;half&quot; will display just the status";
-$wordings['frFR']['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<br /><br />&quot;DIV Container&quot; - Shows Realmstatus in a DIV container with text and standard images<br />&quot;Image&quot; - Shows Realmstatus as an image (REQUIRES GD!)";
-$wordings['frFR']['admin']['realmstatus'] = "Alternate Servername|Some server names may cause realmstatus to not work correctly, even if uploading profiles works<br />The actual server name from the game may not match what is used on the server status data page<br />You can set this so serverstatus can use another servername<br /><br />Leave blank to use the name set in Guild Config";
+$wordings['frFR']['admin']['realmstatus_url'] = "URL de statut des royaumes|URL vers la page de statut des royaumes de Blizzard";
+$wordings['frFR']['admin']['rs_display'] = "Mode d'information|&quot;full&quot; montrera le statut et le nom du serveur, la population, and le type<br />&quot;half&quot; ne montrera que le statut";
+$wordings['frFR']['admin']['rs_mode'] = "Mode d'affichage|Comment le statut du royaume sera affiché<br /><br />&quot;DIV Container&quot; - Le statut du royaume sera affiché dans une balise DIV avec du texte et des images<br />&quot;Image&quot; - Le statut du royaume sera affiché comme une image (NECESSITE GD !)";
+$wordings['frFR']['admin']['realmstatus'] = "Nom de serveur alternatif|Quelques noms de serveur peuvent faire que le statut du royaume ne fonctionne pas même si le téléchargement de fichier marche<br />Le nom actuel du serveur provenant du jeu peut ne pas correspondre avec celui qui est utilisé sur la page de statut des royaumes<br />Vous pouvez donc régler le statut du royaume sur un autre nom de serveur<br /><br />Laissez vide pour prendre le nom utilisé dans la configuration de la guilde";
 
 // guildbank_conf
 $wordings['frFR']['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display type<br /><br />&quot;Table&quot; is a basic view showing all items available from every bank character in one list<br />&quot;Inventory&quot; shows a table of items for each bank character";
@@ -695,6 +695,6 @@ $wordings['frFR']['admin']['banker_fieldname'] = "Banker Search Field|Banker Sea
 $wordings['frFR']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
 
 // Character Display Settings
-$wordings['frFR']['admin']['per_character_display'] = 'Per-Character Display';
+$wordings['frFR']['admin']['per_character_display'] = 'Affichage par personnage';
 
 ?>
