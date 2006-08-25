@@ -128,7 +128,7 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 
 	if (isset($html) && $html)
 	{
-		if (!preg_match('/\<tr(.(?!\<tr))*('.$server.')(.(?!\<\/tr))*/s',$html,$matches))
+		if (!preg_match('/\<tr(.(?!\<tr))*('.str_replace("'",'&#039;',$server).')(.(?!\<\/tr))*/s',$html,$matches))
 		{
 			$err = 1;
 		}
