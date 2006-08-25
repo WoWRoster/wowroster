@@ -313,12 +313,12 @@ $wordings['enUS']['class_iconArray'] = array (
 
 //skills
 $skilltypes['enUS'] = array(
-		1 => 'Class Skills',
-		2 => 'Professions',
-		3 => 'Secondary Skills',
-		4 => 'Weapon Skills',
-		5 => 'Armor Proficiencies',
-		6 => 'Languages'
+	1 => 'Class Skills',
+	2 => 'Professions',
+	3 => 'Secondary Skills',
+	4 => 'Weapon Skills',
+	5 => 'Armor Proficiencies',
+	6 => 'Languages'
 );
 
 //tabs
@@ -501,11 +501,11 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['search3']='Search by Quest Name';
 
 // Definition for item tooltip coloring
-	$wordings['enUS']['tooltip_use']='Use';
+	$wordings['enUS']['tooltip_use']='Use:';
 	$wordings['enUS']['tooltip_requires']='Requires';
 	$wordings['enUS']['tooltip_reinforced']='Reinforced';
 	$wordings['enUS']['tooltip_soulbound']='Soulbound';
-	$wordings['enUS']['tooltip_equip']='Equip';
+	$wordings['enUS']['tooltip_equip']='Equip:';
 	$wordings['enUS']['tooltip_equip_restores']='Equip: Restores';
 	$wordings['enUS']['tooltip_equip_when']='Equip: When';
 	$wordings['enUS']['tooltip_chance']='Chance';
@@ -631,7 +631,6 @@ $wordings['enUS']['admin']['index_lastupdate'] = "Last Updated Column|Display wh
 $wordings['enUS']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
 $wordings['enUS']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
 $wordings['enUS']['admin']['menu_memberlog'] = "Member Log Link|Controls display of the Member Log Link";
-$wordings['enUS']['admin']['menu_alt_page'] = "Alternate View Link|Controls display of the Alternate View Link";
 $wordings['enUS']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
 $wordings['enUS']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
 $wordings['enUS']['admin']['menu_pvp_page'] = "PvPLog Stats Link|Controls display of the PvPLog Stats Link";

@@ -45,6 +45,9 @@ CREATE TABLE `renprefix_memberlog` (
   PRIMARY KEY  (`log_id`)
 ) TYPE=MyISAM;
 
+ALTER TABLE `renprefix_mailbox`
+  ADD `item_color` varchar(16) NOT NULL default '';
+
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
 

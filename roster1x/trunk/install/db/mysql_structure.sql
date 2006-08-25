@@ -83,6 +83,7 @@ CREATE TABLE `renprefix_mailbox` (
   `item_name` varchar(96) NOT NULL,
   `item_quantity` int(11) default NULL,
   `item_tooltip` mediumtext NOT NULL,
+  `item_color` varchar(16) NOT NULL default '',
   PRIMARY KEY  (`member_id`,`mailbox_slot`)
 ) TYPE=MyISAM;
 

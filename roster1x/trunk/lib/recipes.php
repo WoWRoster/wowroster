@@ -32,69 +32,18 @@ class recipe
 
 	function out()
 	{
-		global $roster_conf, $wordings, $itemlink;
+		global $roster_conf, $wordings, $itemlink, $char;
+
+		if( !is_object($char) )
+			$lang = $roster_conf['roster_lang'];
+		else
+			$lang = $char->data['clientLocale'];
 
 		$path = $roster_conf['interface_url'].$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
 
-		$first_line = True;
-		foreach (explode("\n", $this->data['recipe_tooltip']) as $line )
-		{
-			if( $first_line )
-			{
-				$color = substr( $this->data['item_color'], 2, 6 ) . '; font-size: 12px; font-weight: bold';
-				$first_line = False;
-			}
-			else
-			{
-				if( substr( $line, 0, 2 ) == '|c' )
-				{
-					$color = substr( $line, 4, 6 ).';';
-					$line = substr( $line, 10, -2 );
-				}
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) === 0 )
-					$color = '00ff00;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) === 0 )
-					$color = 'ff0000;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) === 0 )
-					$color = '00ff00;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) === 0 )
-					$color = '00ff00;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) === 0 )
-					$color = '00ff00;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) === 0 )
-					$color = '00ff00;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) === 0 )
-					$color = '00bbff;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_set'] ) === 0 )
-					$color = '00ff00;';
-				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_set'] ) === 4 )
-					$color = 'd9b200;';
-				elseif ( strpos( $line, '"' ) )
-					$color = 'ffd517';
-				else
-					$color='ffffff;';
-			}
-			$line = preg_replace('|\\>|','&#8250;', $line );
-			$line = preg_replace('|\\<|','&#8249;', $line );
+		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
 
-			if( strpos($line,"\t") )
-			{
-				$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
-				$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
-				$tooltip = $tooltip.$line;
-			}
-			elseif( $line == '' || $line == ' ' )
-				$tooltip_out .= "<br />\n";
-			elseif( $line != '')
-				$tooltip = $tooltip."<span style=\"color:#$color\">$line</span><br />";
-		}
-
-		$tooltip = str_replace("'", "\'", $tooltip);
-		$tooltip = str_replace('"','&quot;', $tooltip);
-		$tooltip = str_replace('<','&lt;', $tooltip);
-		$tooltip = str_replace('>','&gt;', $tooltip);
-
-		$returnstring = '<div class="item" onmouseover="return overlib(\''.$tooltip.'\');" onmouseout="return nd();">';
+		$returnstring = '<div class="item" '.$tooltip.'>';
 
 		$returnstring .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.
 		'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";

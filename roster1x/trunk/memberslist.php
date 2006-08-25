@@ -427,10 +427,6 @@ function name_value ( $row )
 {
 	global $wordings, $roster_conf, $guildFaction;
 
-	$prg_find = array("/'/",'/"/','|\\>|','|\\<|',"/\\n/",'/&/');
-	$prg_rep  = array("\'",'&quot;','&#8250;','&#8249;','<br />','&amp;');
-
-
 	if( $roster_conf['index_member_tooltip'] )
 	{
 		if ( $row['RankInfo'] > 0 )
@@ -439,19 +435,16 @@ function name_value ( $row )
 		}
 
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
-		$tooltip_h = preg_replace($prg_find, $prg_rep, $tooltip_h);
 
 		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
 
 		if( isset($rankname) )
 			$tooltip .= $rankname.' of the '.$guildFaction."\n";
 
-		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone']."\n";
-		$tooltip .= ($row['nisnull'] ? '' : $wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']."\n");
+		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
+		$tooltip .= ($row['nisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']);
 
-		$tooltip = preg_replace($prg_find, $prg_rep, $tooltip);
-
-		$tooltip = '<div style="cursor:help;" onmouseover="overlib(\''.$tooltip.'\',CAPTION,\''.$tooltip_h.'\',WRAP);" onmouseout="return nd();">';
+		$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
 
 		if ( $row['server'] )
@@ -487,8 +480,15 @@ function honor_value ( $row )
 {
 	global $roster_conf, $wordings;
 
-	$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
-	$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
+	if ( $roster_conf['index_honoricon'] )
+	{
+		$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
+		$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
+	}
+	else
+	{
+		$rankicon = '';
+	}
 
 	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';
 	$toolTip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">';
@@ -497,19 +497,11 @@ function honor_value ( $row )
 	$toolTip .= '<td width="'.(100 - $row['Rankexp']).'%"></td>';
 	$toolTip .= '</tr>';
 	$toolTip .= '</table>';
-	$toolTip = str_replace('"','&quot;', $toolTip);
-	$toolTip = str_replace("'", "\'", $toolTip);
 
 	if ( $row['RankInfo'] > 0 )
 	{
-		if ( $roster_conf['index_honoricon'] )
-		{
-			$cell_value = "<div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$rankicon.' '.$row['RankName']."</div>";
-		}
-		else
-		{
-			$cell_value = "<div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
-		}
+		$cell_value = "<div ".makeOverlib($toolTip,$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].')','',2,'',',RIGHT,WRAP').">".$rankicon.' '.$row['RankName']."</div>";
+
 		return $cell_value;
 	}
 	else
@@ -651,7 +643,7 @@ function tradeskill_icons ( $row )
 
 			$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
 
-			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
 		}
 	}
 	else
@@ -682,7 +674,7 @@ function level_value ( $row )
 			$rested = ' : '.$rested;
 		}
 		$togo = $max - $current;
-		$togo = $togo.' XP until level '.($row['level']+1);
+		$togo .= ' XP until level '.($row['level']+1);
 
 		$percent_exp =  round(($current/$max)*100);
 
@@ -693,17 +685,15 @@ function level_value ( $row )
 		$tooltip .= '<td width="'.(100 - $percent_exp).'%"></td>';
 		$tooltip .= '</tr>';
 		$tooltip .= '</table>';
-		$tooltip = str_replace('"','&quot;', $tooltip);
-		$tooltip = str_replace("'", "\'", $tooltip);
 
 
 		if( $row['level'] == '60' )
 		{
-			$tooltip = " onmouseover=\"return overlib('".$wordings[$roster_conf['roster_lang']]['max_exp']."',WRAP);\" onmouseout=\"return nd();\"";
+			$tooltip = makeOverlib($wordings[$roster_conf['roster_lang']]['max_exp'],'','',2,'',',WRAP');
 		}
 		else
 		{
-			$tooltip = " onmouseover=\"return overlib('".$tooltip."',CAPTION,'$togo',WRAP);\" onmouseout=\"return nd();\"";
+			$tooltip = makeOverlib($tooltip,$togo,'',2,'',',WRAP');
 		}
 	}
 
@@ -711,7 +701,7 @@ function level_value ( $row )
 	{
 		$percentage = round(($row['level']/60)*100);
 
-		$cell_value .= '<div'.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
+		$cell_value .= '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 		$cell_value .= '<tr>';
 		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
@@ -784,14 +774,8 @@ function armor_value ( $row )
 
 		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-		$clean_line = str_replace("'", "\'", $line);
-		$clean_line = str_replace('"','&quot;', $clean_line);
-		$clean_line = str_replace('(',"\(", $clean_line);
-		$clean_line = str_replace(')',"\)", $clean_line);
-		$clean_line = str_replace('<','&lt;', $clean_line);
-		$clean_line = str_replace('>','&gt;', $clean_line);
 
-		$cell_value  = '<span style="cursor:help;" onmouseover="return overlib(\''.$clean_line.'\');" onmouseout="return nd();">';
+		$cell_value  = '<span style="cursor:help;" '.makeOverlib($line,'','',2).'>';
 		$cell_value .= '<strong class="'.$color.'">'.$current.'</strong>';
 		$cell_value .= '</span>';
 	}

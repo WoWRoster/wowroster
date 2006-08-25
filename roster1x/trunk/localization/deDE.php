@@ -631,7 +631,6 @@ $wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Ze
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
 $wordings['deDE']['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br />Hier wir der Realmstatus angezeigt";
 $wordings['deDE']['admin']['menu_memberlog'] = "Memberlog|Link zur Memberlog";
-$wordings['deDE']['admin']['menu_alt_page'] = "Alternative Ansicht|Link zur alternativen Ansicht";
 $wordings['deDE']['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
 $wordings['deDE']['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";
 $wordings['deDE']['admin']['menu_pvp_page'] = "PvP Statistiken Link|Link zu den PvP-Statistiken";

@@ -26,31 +26,31 @@ if ( !defined('ROSTER_INSTALLED') )
 
 //Instructions how to upload, as seen on the mainpage
 $wordings['frFR']['update_link']='Cliquer ici pour les instructions de mise à jour.';
-$wordings['frFR']['update_instructions']='Updating Instructions';
+$wordings['frFR']['update_instructions']='Instructions de mise à jour.';
 
 $wordings['frFR']['lualocation']='Cliquer parcourir (browse) et télécharger les fichiers *.lua<br />';
 
-$wordings['frFR']['filelocation']='se trouve sous <br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
+$wordings['frFR']['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['frFR']['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
-$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".$roster_conf['roster_dir']."/update.php\">charger votre guilde</a> et <a href=\"".$roster_conf['roster_dir']."/admin.php\">finaliser la configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/docs/\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
+$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".$roster_conf['roster_dir']."/update.php\">charger votre guilde</a> et <a href=\"".$roster_conf['roster_dir']."/admin.php\">finaliser la configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
 
 $wordings['frFR']['update_page']='Mise à jour du profil';
-// NOT USED $wordings['frFR']['updCharInfo']='Update Character Info';
-$wordings['frFR']['guild_nameNotFound']='Impossible de mettre à jour la guilde "*GUILDNAME*". Vérifier la configuration!';
+// NOT USED $wordings['frFR']['updCharInfo']='Mettre à jour les informations du personnage';
+$wordings['frFR']['guild_nameNotFound']='Impossible de mettre à jour la guilde &quot;%s&quot;. Vérifier la configuration!';
 $wordings['frFR']['guild_addonNotFound']='Impossible de trouver la Guilde. L\'Addon GuildProfiler est-il installé correctement?';
 
 $wordings['frFR']['ignored']='Ignoré';
 $wordings['frFR']['update_disabled']='Update.php access has been disabled';
 
-// NOT USED $wordings['frFR']['updGuildMembers']='Update Guild Members';
+// NOT USED $wordings['frFR']['updGuildMembers']='Mettre à jour les membres de la guilde';
 $wordings['frFR']['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
 $wordings['frFR']['roster_upd_pwLabel']='Mot de passe du Roster';
 $wordings['frFR']['roster_upd_pw_help']='(Requis lors d\'une mise à jour de la Guilde)';
 
 // Updating Instructions
 
-$index_text_uniloader = "(You can download the program from the WoWRoster website, look for the UniUploader Installer for the latest version)";
+$index_text_uniloader = '<b><u>Prérequis à l\'utilisation d\'UniUploader:</b></u><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en">Microsoft .NET Framework</a> installé<br />Pour les utilisateurs d\'OS autres que Windows, utiliser JUniUploader qui vous permettra d\'effectuer les mêmes opérations que UniUploader mais en mode Java.';
 
 $wordings['frFR']['update_instruct']='
 <strong>Actualisation automatique recommandée:<strong>
@@ -98,10 +98,10 @@ A part that is marked with 'MS' (milestone) will be designated as an overall sta
 you have this one part it will mark all other parts lower than this one as complete.
 */
 $inst_keys['frFR']['A'] = array(
-		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','The Horn of the Beast|','Proof of Deed|','At Last!|'),
+		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B�te|','Proof of Deed|','Enfin !|'),
 		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
 		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
-		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Sacred Mallet|8250'),
+		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
 		'BRDs' => array('Parts','BRDs' => 'Clé de Shadowforge|2966','Ironfel|9673'),
@@ -110,14 +110,14 @@ $inst_keys['frFR']['A'] = array(
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
 		'UBRS' => array('Parts','UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777','Sceau d\\\'ascension brut |24554||MS','Sceau d\\\'ascension forgé|19463||MS'),
 		'Onyxia' => array('Quests','Onyxia' => 'Amulette Drakefeu|4829','La menace dragonkin|','Les véritables maîtres|','Maréchal Windsor|','Espoir abandonné|','Une Note chiffonnée|','Un espoir en lambeaux|','Evasion !|','Le rendez-vous à Stormwind|','La grande mascarade|','L\\\'Oeil de Dragon|','Amulette drakefeu|'),
-		'MC' => array('Key-Only','MC' => 'Eternal Quintessence|22754'),
+		'MC' => array('Key-Only','MC' => 'Quintessence éternelle|22754'),
 	);
 
 $inst_keys['frFR']['H'] = array(
 	    'SG' => array('Key-Only','SG' => 'Clé de la gorge des Vents brûlants|4826'),
 		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
 		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
-		'ZF' => array('Parts', 'ZF' => 'Marteau de Zul\\\'Farrak|5695','Sacred Mallet|8250'),
+		'ZF' => array('Parts', 'ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
 		'BRDs' => array('Parts', 'BRDs' => 'Clé de Shadowforge|2966','Ironfel|9673'),
@@ -126,7 +126,7 @@ $inst_keys['frFR']['H'] = array(
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
 		'UBRS' => array('Parts', 'UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777', 'Unforged Seal of Ascension|24554||MS', 'Forged Seal of Ascension|19463||MS'),
 		'Onyxia' => array('Quests', 'Onyxia' => 'Amulette Drakefire|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
-		'MC' => array('Key-Only','MC' => 'Eternal Quintessence|22754'),
+		'MC' => array('Key-Only','MC' => 'Quintessence éternelle|22754'),
 	);
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
@@ -159,7 +159,7 @@ $wordings['frFR']['character']='Personnage';
 $wordings['frFR']['bglog']='Journal BG';
 $wordings['frFR']['pvplog']='Journal PvP';
 $wordings['frFR']['duellog']='Journal Duel';
-$wordings['frFR']['duelsummary']='Duel Summary';
+$wordings['frFR']['duelsummary']='Résumé Duel';
 $wordings['frFR']['money']='Argent';
 $wordings['frFR']['bank']='Banque';
 $wordings['frFR']['guildbank']='Banque de la Guilde';
@@ -254,8 +254,8 @@ $wordings['frFR']['Engineering']='Ingénierie';
 $wordings['frFR']['Cooking']='Cuisine';
 $wordings['frFR']['Fishing']='Pêche';
 $wordings['frFR']['First Aid']='Secourisme';
-$wordings['frFR']['backpack']='Backpack';
 $wordings['frFR']['poisons']='Poisons';
+$wordings['frFR']['backpack']='Backpack';
 $wordings['frFR']['PvPRankNone']='none';
 
 //Tradeskill-Array
@@ -313,12 +313,12 @@ $wordings['frFR']['class_iconArray'] = array (
 
 //skills
 $skilltypes['frFR'] = array(
-		1 => 'Compétences de Classe',
-		2 => 'Métiers',
-		3 => 'Compétences secondaires',
-		4 => 'Compétences d’armes',
-		5 => 'Armures portables',
-		6 => 'Langues'
+	1 => 'Compétences de Classe',
+	2 => 'Métiers',
+	3 => 'Compétences secondaires',
+	4 => 'Compétences d’armes',
+	5 => 'Armures portables',
+	6 => 'Langues'
 );
 
 //tabs
@@ -404,41 +404,41 @@ $wordings['frFR']['today']='Aujourd\'hui';
 $wordings['frFR']['yesterday']='Hier';
 $wordings['frFR']['thisweek']='Cette semaine';
 $wordings['frFR']['lastweek']='Semaine passée';
-$wordings['frFR']['alltime']='Lifetime';
+$wordings['frFR']['alltime']='A vie';
 $wordings['frFR']['honorkills']='Vict. Honorables';
 $wordings['frFR']['dishonorkills']='Vict. Déshonorantes';
 $wordings['frFR']['honor']='Honneur';
 $wordings['frFR']['standing']='Position';
 $wordings['frFR']['highestrank']='Plus haut niveau';
 
-$wordings['frFR']['totalwins']='Nombre de victoires:';
-$wordings['frFR']['totallosses']='Nombre de défaites:';
-$wordings['frFR']['totaloverall']='Total général:';
-$wordings['frFR']['win_average']='Average Level Diff (Wins):';
-$wordings['frFR']['loss_average']='Average Level Diff (Losses):';
+$wordings['frFR']['totalwins']='Nombre de victoires :';
+$wordings['frFR']['totallosses']='Nombre de défaites :';
+$wordings['frFR']['totaloverall']='Total général :';
+$wordings['frFR']['win_average']='Différence moyenne de niveaux (victoires) :';
+$wordings['frFR']['loss_average']='Différence moyenne de niveaux (défaites) :';
 
 // These need to be EXACTLY what PvPLog stores them as
-$wordings['frFR']['alterac_valley']="Vallée d'Alterac";
-$wordings['frFR']['arathi_basin']="Bassin d'Arathi";
+$wordings['frFR']['alterac_valley']='Vallée d\'Alterac';
+$wordings['frFR']['arathi_basin']='Bassin d\'Arathi';
 $wordings['frFR']['warsong_gulch']='Goulet des Warsong';
 
 $wordings['frFR']['world_pvp']='JcJ Mondial';
 $wordings['frFR']['versus_guilds']='Contre Guilde';
 $wordings['frFR']['versus_players']='Contre Joueurs';
-$wordings['frFR']['bestsub']='Best Subzone';
-$wordings['frFR']['worstsub']='Worst Subzone';
-$wordings['frFR']['killedmost']='Killed Most';
-$wordings['frFR']['killedmostby']='Killed Most By';
-$wordings['frFR']['gkilledmost']='Guild Killed Most';
+$wordings['frFR']['bestsub']='Meilleure sous-zone';
+$wordings['frFR']['worstsub']='Pire sous-zone';
+$wordings['frFR']['killedmost']='Le plus tué';
+$wordings['frFR']['killedmostby']='Le plus tué par';
+$wordings['frFR']['gkilledmost']='Le plus tué par la guilde';
 $wordings['frFR']['gkilledmostby']='Guild Killed Most By';
 
-$wordings['frFR']['wins']='Wins';
-$wordings['frFR']['losses']='Losses';
-$wordings['frFR']['overall']='Overall';
-$wordings['frFR']['best_zone']='Best Zone';
-$wordings['frFR']['worst_zone']='Worst Zone';
-$wordings['frFR']['most_killed']='Most Killed';
-$wordings['frFR']['most_killed_by']='Most Killed By';
+$wordings['frFR']['wins']='Victoires';
+$wordings['frFR']['losses']='Défaites';
+$wordings['frFR']['overall']='A vie';
+$wordings['frFR']['best_zone']='Meilleure zone';
+$wordings['frFR']['worst_zone']='Pire zone';
+$wordings['frFR']['most_killed']='Le plus tué';
+$wordings['frFR']['most_killed_by']='Le plus tué par';
 
 $wordings['frFR']['when']='Quand';
 $wordings['frFR']['rank']='Rang';
@@ -468,7 +468,7 @@ $wordings['frFR']['atwar']='En guerre';
 $wordings['frFR']['notatwar']='Pas en guerre';
 
 // language definitions for the rogue instance keys 'fix'
-$wordings['frFR']['thievestools']='Outils\\\' de Voleur';
+$wordings['frFR']['thievestools']='Outils de Voleur';
 $wordings['frFR']['lockpicking']='Crochetage';
 // END
 
@@ -496,14 +496,14 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	//$itemlink['frFR']='http://wow.allakhazam.com/search.html?q=';
 
 // definitions for the questsearchpage
-	$wordings['frFR']['search1']="Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />\n<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu'il s'agisse d'une autre partie d'une quête multiple.</small>";
+	$wordings['frFR']['search1']='Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />\n<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu\'il s\'agisse d\'une autre partie d\'une quête multiple.</small>';
 	$wordings['frFR']['search2']='Recherche par Zone';
 	$wordings['frFR']['search3']='Recherche par nom de quête';
 
 // Definition for item tooltip coloring
 	$wordings['frFR']['tooltip_use']='Utiliser';
 	$wordings['frFR']['tooltip_requires']='Niveau';
-	$wordings['frFR']['tooltip_reinforced']='Reinforced';
+	$wordings['frFR']['tooltip_reinforced']='renforcée';
 	$wordings['frFR']['tooltip_soulbound']='Lié';
 	$wordings['frFR']['tooltip_equip']='Equipé';
 	$wordings['frFR']['tooltip_equip_restores']='Equipé : Rend';
@@ -513,12 +513,12 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['tooltip_set']='Set';
 	$wordings['frFR']['tooltip_rank']='Rang';
 	$wordings['frFR']['tooltip_next_rank']='Prochain rang';
-	$wordings['frFR']['tooltip_spell_damage']='Spell Damage';
+	$wordings['frFR']['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
 	$wordings['frFR']['tooltip_school_damage']='\\+.*Spell Damage';
-	$wordings['frFR']['tooltip_healing_power']='Healing Power';
+	$wordings['frFR']['tooltip_healing_power']='les soins prodigués par les sorts et effets';
 	$wordings['frFR']['tooltip_chance_hit']='Chances quand touché :';
-	$wordings['frFR']['tooltip_reinforced_armor']='Reinforced Armor';
-    $wordings['frFR']['tooltip_damage_reduction']='Damage Reduction';
+	$wordings['frFR']['tooltip_reinforced_armor']='Armure renforcée';
+    $wordings['frFR']['tooltip_damage_reduction']='Réduit les points de dégats';
 
 // Warlock pet names for icon displaying
 	$wordings['frFR']['Imp']='Diablotin';
@@ -557,8 +557,8 @@ $wordings['frFR']['admin']['display_conf'] = 'Option Style';
 $wordings['frFR']['admin']['char_conf'] = 'Options Joueurs';
 $wordings['frFR']['admin']['realmstatus_conf'] = 'Option Royaume';
 $wordings['frFR']['admin']['guildbank_conf'] = 'Option Banque';
-$wordings['frFR']['admin']['data_links'] = 'Item/Quest Data Links';
-$wordings['frFR']['admin']['update_access'] = 'update.php Access';
+$wordings['frFR']['admin']['data_links'] = 'Liens vers données objets/quêtes';
+$wordings['frFR']['admin']['update_access'] = 'Accès à la mise à jour';
 
 
 // All strings here
@@ -583,16 +583,16 @@ $wordings['frFR']['admin']['minCPver'] = "Version CP Minimum|Version minimale de
 $wordings['frFR']['admin']['minGPver'] = "Version GP Minimum|Version minimale de GuildProfiler autorisée";
 $wordings['frFR']['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvPLog autorisée";
 $wordings['frFR']['admin']['roster_lang'] = "Langue du Roster|Le code langue principal du Roster";
-$wordings['frFR']['admin']['website_address'] = "Adresse du site Web|Used for url link for logo, and guildname link in the main menu<br />Some roster addons may also use this";
-$wordings['frFR']['admin']['roster_dir'] = "URL du Roster|The URL path to the Roster directory<br />It is critical that this is correct or errors may occur<br />(EX: http://www.site.com/roster )<br /><br />A full url is not required but a foreward slash before the directory is<br />(EX: /roster )";
-$wordings['frFR']['admin']['server_name_comp'] = "char.php Compatibility Mode|If your character page does not work, try changing this";
+$wordings['frFR']['admin']['website_address'] = "Adresse du site Web|Utilisé pour le lien sur le logo et le lien sur le menu principal<br />Certains addon pour le roster peuvent également l'utiliser";
+$wordings['frFR']['admin']['roster_dir'] = "URL du Roster|L'URL du répertoire du roster<br />Ce paramètre est critique et doit être correct sous peine d'erreurs<br />(EX: http://www.site.com/roster )<br /><br />Une URL absolue n'est pas obligatoire mais un chemin relatif depuis la racine du serveur l'est (l'URL doit au moins commencer par un slash)<br />(EX: /roster )";
+$wordings['frFR']['admin']['server_name_comp'] = "Mode de compatibilité char.php|Si la page des personnages ne fonctionne pas, essayez de changer ce paramètre";
 $wordings['frFR']['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $wordings['frFR']['admin']['img_suffix'] = "Interface Image Extension|The image type of the Interface images";
-$wordings['frFR']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|The alternate possible image type of the Interface images";
+$wordings['frFR']['admin']['alt_img_suffix'] = "Extension alternative des images d'interface|Le type alternatif d'images pour les images de l'interface";
 $wordings['frFR']['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $wordings['frFR']['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
 $wordings['frFR']['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
-$wordings['frFR']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update.php&quot;";
+$wordings['frFR']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update&quot;";
 $wordings['frFR']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
 
 // guild_conf
@@ -630,8 +630,7 @@ $wordings['frFR']['admin']['index_lastupdate'] = "Last Updated Column|Display wh
 // menu_conf
 $wordings['frFR']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
 $wordings['frFR']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
-$wordings['frFR']['admin']['menu_memberlog'] = "Member Log Link|Controls display of the Member Log Link";
-$wordings['frFR']['admin']['menu_alt_page'] = "Alternate View Link|Controls display of the Alternate View Link";
+$wordings['frFR']['admin']['menu_memberlog'] = "By Class Link|Controls display of the By Class Link";
 $wordings['frFR']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
 $wordings['frFR']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
 $wordings['frFR']['admin']['menu_pvp_page'] = "PvPLog Stats Link|Controls display of the PvPLog Stats Link";
@@ -648,8 +647,8 @@ $wordings['frFR']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for ro
 $wordings['frFR']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
 $wordings['frFR']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['frFR']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
-$wordings['frFR']['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$wordings['frFR']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
+$wordings['frFR']['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" dans le nom, celà cherchera dans le répertoire img/ du roster";
+$wordings['frFR']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['frFR']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['frFR']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 $wordings['frFR']['admin']['processtime'] = "Page Gen. Time/DB Queries|Display &quot;This page was created in XXX seconds with XX queries executed&quot; in the footer of roster";
@@ -663,22 +662,22 @@ $wordings['frFR']['admin']['pvplogger'] = "PvPLog download link|URL to download 
 $wordings['frFR']['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
 
 // char_conf
-$wordings['frFR']['admin']['char_bodyalign'] = "Character Page Alignment|Alignment of the data on the character page";
-$wordings['frFR']['admin']['char_header_logo'] = "Header Logo|Show the roster header logo on character page";
-$wordings['frFR']['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_mail'] = "Mail|Controls the display of Mail<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_inventory'] = "Bags|Controls the display of Bags<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_money'] = "Money|Controls the display of Money<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_bank'] = "Bank|Controls the display of Bank contents<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_recipes'] = "Recipes|Controls the display of Recipes<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_quests'] = "Quests|Controls the display of Quests<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_bg'] = "Battleground PvPLog Data|Controls the display of Battleground PvPLog data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_pvp'] = "PvPLog Data|Controls the display of PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_duels'] = "Duel PvPLog Data|Controls the display of Duel PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_item_bonuses'] = "Item Bonuses|Controls the display of Item Bonuses<br /><br />Setting is global and overrides per-user setting";
-$wordings['frFR']['admin']['show_signature'] = "Display Signature|Controls the display of a Signature image<br /><span class=\"red\">Requires SigGen Roster Addon</span><br /><br />Setting is global";
-$wordings['frFR']['admin']['show_avatar'] = "Display Avatar|Controls the display of an Avatar image<br /><span class=\"red\">Requires SigGen Roster Addon</span><br /><br />Setting is global";
+$wordings['frFR']['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des données sur la page des personnages";
+$wordings['frFR']['admin']['char_header_logo'] = "Logo entête|Montre le logo en entête sur la page des personnages";
+$wordings['frFR']['admin']['show_talents'] = "Talents|Visualisation des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_spellbook'] = "Livre des sorts|Visualisation du livres des sorts<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_mail'] = "Courrier|Visualisation du courrier<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_inventory'] = "Sacs|Visualisation des sacs<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_money'] = "Argent|Visualisation de l'argent<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_bank'] = "Banque|Visualisation du contenu de la banque<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_recipes'] = "Recettes|Visualisation des recettes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_quests'] = "Quêtes|Visualisation des quêtes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_bg'] = "Champs de bataille|Visualisation des données de champs de bataille<br />Requires upload of PvPLog addon data<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_pvp'] = "Joueur contre joueur|Visualisation des données joueur contre joueur<br />Requires upload of PvPLog addon data<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_duels'] = "Duel|Visualisation des données de duel<br />Requires upload of PvPLog addon data<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_item_bonuses'] = "Bonus d'équipement|Visualisation des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_signature'] = "Signature|Visualisation de l'image de la signature<br /><span class=\"red\">Nécessite l'addon du roster SigGen</span><br /><br />Le paramêtre est global";
+$wordings['frFR']['admin']['show_avatar'] = "Avatar|Visualisation de l'image de l'avatar<br /><span class=\"red\">Nécessite l'addon du roster SigGen</span><br /><br />Le paramêtre est global";
 
 // realmstatus_conf
 $wordings['frFR']['admin']['realmstatus_url'] = "Realmstatus URL|URL to Blizzard's Realmstatus page";

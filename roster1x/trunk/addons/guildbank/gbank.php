@@ -16,6 +16,11 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 // Check if we already assigned something to $content, if not, Declare it
 if (!isset($content))
 {
@@ -470,85 +475,98 @@ function processItem($real_itemid, $category)
 	$itemrow = $itemsarray[$category][$real_itemid];
 
 	// Add the lead to the item-cell
-	$returnstr = '<td><span style="z-index: 1000;" onMouseover="return overlib(\'';
+	$returnstr = '<td><span onmouseover="return overlib(\'';
 
 	// Generate the TOOLTIP code
 	$first_line = 1;
+	$tooltip = '';
+	$itemrow['item_tooltip'] = stripslashes($itemrow['item_tooltip']);
 	foreach (explode("\n", $itemrow['item_tooltip']) as $line )
 	{
-		$line = str_replace("\t",'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',$line);
-		$class='tooltipline';
-		if( $first_line )
+		$color = '';
+
+		if( !empty($line) )
 		{
-			$item_color = substr($itemrow['item_color'], 2, 6 );
-			$color = $item_color.'; font-weight: bold';
-			$first_line = 0;
-			$class='tooltipheader';
-		}
-		else
-		{
-			if( substr( $line, 0, 2 ) == '|c' )	{
-				$color = substr( $line, 4, 6 ).'; font-size: 10px;';
-				$line = substr( $line, 10, -2 );
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_use']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) === 0 )
+			$line = preg_replace('|\\>|','&#8250;', $line );
+			$line = preg_replace('|\\<|','&#8249;', $line );
+			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+
+			// Do this on the first line
+			// This is performed when $caption_color is set
+			if( $first_line )
 			{
-				$color = '00ff00; font-size: 10px;';
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_requires']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) === 0 )
-			{
-				$color = 'ff0000; font-size: 10px;';
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_reinforced']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) === 0 )
-			{
-				$color = '00ff00; font-size: 10px;';
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_equip']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) === 0 )
-			{
-				$color = '00ff00; font-size: 10px;';
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_chance']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) === 0 )
-			{
-				$color = '00ff00; font-size: 10px;';
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_enchant']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) === 0 )
-			{
-				$color = '00ff00; font-size: 10px;';
-			}
-			else if (isset($wordings[$roster_conf['roster_lang']]['tooltip_soulbound']) && strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) === 0 )
-			{
-				$color = '00ffff; font-size: 10px;';
+				if( $itemrow['item_color'] == '' )
+					$itemrow['item_color'] = '9d9d9d';
+
+				if( strlen($itemrow['item_color']) > 6 )
+					$color = substr( $itemrow['item_color'], 2, 6 );
+				else
+					$color = $itemrow['item_color'];
+
+				$item_color = $color;
+				$color .= ';font-size:12px;font-weight:bold';
+
+				$first_line = false;
 			}
 			else
 			{
-				$color='ffffff; font-size: 10px;';
+				if ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_use'],$line) )
+					$color = '00ff00';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_requires'],$line) )
+					$color = 'ff0000';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_reinforced'],$line) )
+					$color = '00ff00';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_equip'],$line) )
+					$color = '00ff00';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_chance'],$line) )
+					$color = '00ff00';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_enchant'],$line) )
+					$color = '00ff00';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_soulbound'],$line) )
+					$color = '00bbff';
+				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_set'],$line) )
+					$color = '00ff00';
+				elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$roster_conf['roster_lang']]['tooltip_set'].'|',$line) )
+					$color = '666666';
+				elseif ( ereg('^\\"',$line) )
+					$color = 'ffd517';
+			}
+
+			// Convert tabs to a formated table
+			if( strpos($line,"\t") )
+			{
+				$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
+				$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
+				$tooltip .= $line;
+			}
+			elseif( !empty($color) )
+			{
+				$tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+			}
+			else
+			{
+				$tooltip .= "$line<br />";
 			}
 		}
-		$line = str_replace(">", "&#8250;", $line);
-		$line = str_replace("<", "&#8249;", $line);
-		if( $line != '')
+		else
 		{
-			if (!isset($tooltip))
-			{
-				$tooltip = '';
-			}
-			$tooltip = $tooltip."<span class=\"".$class."\" style=\"color:#$color\">$line</span><br />";
+			$tooltip .= '<br />';
 		}
 	}
 
 	if (!isset($tooltip))
-		$tooltip = '';
+		$tooltip = $tooltip_out;
 
 	// Process a line for each Banker that holds 'quantity' of the item inside the Tooltip
 	foreach ($itemrow['banker'] as $itemBankerID => $NumItemsPerBanker)
 	{
-		$tooltip = '<span class="'.$class.'" style="color:#5c82a3;">'.$mule[$itemBankerID]['member_name'].'</span><span class="'.$class.'" style="color:#ffffff;"> ('.$NumItemsPerBanker.')</span> - <span class="'.$class.'" style="color:#aaaaaa; font-size:8pt;">Time:'.$mule[$itemBankerID]['updatetime'].'</span><br />' . $tooltip;
+		$tooltip = '<span style="color:#5c82a3;">'.$mule[$itemBankerID]['member_name'].'</span> ('.$NumItemsPerBanker.') - <span style="color:#aaaaaa; font-size:8pt;">Time:'.$mule[$itemBankerID]['updatetime'].'</span><hr />' . $tooltip;
 	}
 	// Normalize the tooltip string
 	$tooltip = str_replace("'", "\'", $tooltip);
 	$tooltip = str_replace('"','&quot;', $tooltip);
 
-	$returnstr .= $tooltip.'\');" onMouseout="return nd();">'."\n";
+	$returnstr .= $tooltip.'\');" onmouseout="return nd();">'."\n";
 	// Free Up memory by clearing the tooltip string
 	$tooltip = '';
 

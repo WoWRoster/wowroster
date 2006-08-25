@@ -136,7 +136,7 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 		{
 			$err = 1;
 		}
-		
+
 	// Figure out Serverstatus
 		$serverstatus = strpos($matches[0], 'uparrow');
 		if (!$serverstatus)

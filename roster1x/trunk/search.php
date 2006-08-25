@@ -95,45 +95,79 @@ if (isset($_GET['s']))
 			print "</td>\n";
 			print '    <td valign="middle" class="membersRowRight1" style="white-space:normal;">';
 
-			$first_line = True;
-			foreach (explode("\n", $data['item_tooltip']) as $line ) {
-				if( $first_line )
+			$first_line = true;
+			$tooltip_out = '';
+			$data['item_tooltip'] = stripslashes($data['item_tooltip']);
+			foreach (explode("\n", $data['item_tooltip']) as $line )
+			{
+				$color = '';
+
+				if( !empty($line) )
 				{
-					$color = substr( $data['item_color'], 2, 6 );
-					$first_line = False;
+					$line = preg_replace('|\\>|','&#8250;', $line );
+					$line = preg_replace('|\\<|','&#8249;', $line );
+					$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+
+					// Do this on the first line
+					// This is performed when $caption_color is set
+					if( $first_line )
+					{
+						if( $data['item_color'] == '' )
+							$data['item_color'] = 'ffffff';
+
+						if( strlen($data['item_color']) > 6 )
+							$color = substr( $data['item_color'], 2, 6 ) . ';font-size:12px;font-weight:bold';
+						else
+							$color = $data['item_color'] . ';font-size:12px;font-weight:bold';
+
+						$first_line = false;
+					}
+					else
+					{
+						if ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_use'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_requires'],$line) )
+							$color = 'ff0000;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_reinforced'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_equip'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_chance'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_enchant'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_soulbound'],$line) )
+							$color = '00bbff;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_set'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$roster_conf['roster_lang']]['tooltip_set'].'|',$line) )
+							$color = '666666;font-size:10px';
+						elseif ( ereg('^\\"',$line) )
+							$color = 'ffd517;font-size:10px';
+					}
+
+					// Convert tabs to a formated table
+					if( strpos($line,"\t") )
+					{
+						$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
+						$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
+						$tooltip_out .= $line;
+					}
+					elseif( !empty($color) )
+					{
+						$tooltip_out .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+					}
+					else
+					{
+						$tooltip_out .= "$line<br />";
+					}
 				}
 				else
 				{
-					if( substr( $line, 0, 2 ) == '|c' )
-					{
-						$color = substr( $line, 4, 6 );
-						$line = substr( $line, 10, -2 );
-					}
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) === 0 )
-						$color = 'ff0000; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) === 0 )
-						$color = '00bbff; font-size: 10px;';
-					elseif ( strpos( $line, '"' ) )
-						$color = 'ffd517; font-size: 10px;';
-					else
-						$color='ffffff; font-size: 10px;';
+					$tooltip_out .= '<br />';
 				}
-				$line = preg_replace('|\\>|','&gt;', $line );
-				$line = preg_replace('|\\<|','&lt;', $line );
-				if( $line == '' || $line == ' ' )
-					$line = '&nbsp;';
-				echo "<span style=\"color:#$color\">$line</span><br />";
 			}
+			print $tooltip_out;
 			print "</td>\n  </tr>\n";
 			$cid = $data['member_id'];
 		}
@@ -189,47 +223,80 @@ if (isset($_GET['s']))
 				print '</td>'."\n";
 			print '<td valign="top" class="membersRow1" style="white-space:normal;">';
 
-			$first_line = True;
+			$first_line = true;
+			$tooltip_out = '';
+			$data['item_tooltip'] = stripslashes($data['recipe_tooltip']);
 			foreach (explode("\n", $data['recipe_tooltip']) as $line )
 			{
-				if( $first_line )
+				$color = '';
+
+				if( !empty($line) )
 				{
-					$color = substr( $data['item_color'], 2, 6 );
-					$first_line = False;
+					$line = preg_replace('|\\>|','&#8250;', $line );
+					$line = preg_replace('|\\<|','&#8249;', $line );
+					$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+
+					// Do this on the first line
+					// This is performed when $caption_color is set
+					if( $first_line )
+					{
+						if( $data['item_color'] == '' )
+							$data['item_color'] = 'ffffff';
+
+						if( strlen($data['item_color']) > 6 )
+							$color = substr( $data['item_color'], 2, 6 ) . ';font-size:12px;font-weight:bold';
+						else
+							$color = $data['item_color'] . ';font-size:12px;font-weight:bold';
+
+						$first_line = false;
+					}
+					else
+					{
+						if ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_use'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_requires'],$line) )
+							$color = 'ff0000;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_reinforced'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_equip'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_chance'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_enchant'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_soulbound'],$line) )
+							$color = '00bbff;font-size:10px';
+						elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_set'],$line) )
+							$color = '00ff00;font-size:10px';
+						elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$roster_conf['roster_lang']]['tooltip_set'].'|',$line) )
+							$color = '666666;font-size:10px';
+						elseif ( ereg('^\\"',$line) )
+							$color = 'ffd517;font-size:10px';
+					}
+
+					// Convert tabs to a formated table
+					if( strpos($line,"\t") )
+					{
+						$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
+						$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
+						$tooltip_out .= $line;
+					}
+					elseif( !empty($color) )
+					{
+						$tooltip_out .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+					}
+					else
+					{
+						$tooltip_out .= "$line<br />";
+					}
 				}
 				else
 				{
-					if( substr( $line, 0, 2 ) == '|c' )
-					{
-						$color = substr( $line, 4, 6 );
-						$line = substr( $line, 10, -2 );
-					}
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) === 0 )
-						$color = 'ff0000; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) === 0 )
-						$color = '00ff00; font-size: 10px;';
-					else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) === 0 )
-						$color = '00bbff; font-size: 10px;';
-					elseif ( strpos( $line, '"' ) )
-						$color = 'ffd517; font-size: 10px;';
-					else
-						$color='ffffff; font-size: 10px;';
+					$tooltip_out .= '<br />';
 				}
-				$line = preg_replace('|\\>|','&gt;', $line );
-				$line = preg_replace('|\\<|','&lt;', $line );
-				if( $line == '' )
-					$line = '&nbsp;';
-
-				echo "<span style=\"color:#$color\">$line</span><br />";
 			}
+			print $tooltip_out;
+
 			print '</td>'."\n".'<td class="membersRowRight1" width="50%" valign="top">';
 			echo "<span class=\"tooltipline\" style=\"color:#ffffff\">".$data['reagents']."</span><br /><br />";
 			print "</td></tr>\n";

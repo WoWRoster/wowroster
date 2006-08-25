@@ -481,7 +481,7 @@ function getConfigData( )
 
 			$db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
 
-			$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;font-size:10px;">'.$row['config_name'].'</span></span>';
+			$db_val_line = '<br /><br />db name: <span style="color:#0099FF;">'.$row['config_name'].'</span>';
 			$db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 
 		}
@@ -611,18 +611,9 @@ function changePassword( )
  */
 function createTip( $disp_text , $content , $caption )
 {
-	$content = str_replace("'","\'", $content);
-	$content = str_replace('"','&quot;', $content);
-
-	$caption = str_replace("'","\'", $caption);
-	$caption = str_replace('"','&quot;', $caption);
-
 	$tipsettings = ",WRAP";
 
-	if( !empty($caption) )
-		$caption2 = ",CAPTION,'$caption'";
-
-	$tip = "<div style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption2$tipsettings);\" onmouseout=\"return nd();\">$disp_text</div>";
+	$tip = "<div style=\"cursor:help;\" ".makeOverlib($content,$caption,'',2,'',$tipsettings).">$disp_text</div>";
 
 	return $tip;
 }

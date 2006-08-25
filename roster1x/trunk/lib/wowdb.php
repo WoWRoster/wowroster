@@ -451,15 +451,25 @@ class wowdb
 	{
 		$tooltip = '';
 
-		if( !is_array( $tipdata ) )
+		if( is_array( $tipdata ) )
 		{
-			$tipdata = explode( '<br>', $tipdata );
+			$first=true;
+			foreach( $tipdata as $tip )
+			{
+				if( $first )
+				{
+					$tooltip .= "$tip";
+					$first=false;
+				}
+				else
+				{
+					$tooltip .= "\n$tip";
+				}
+			}
 		}
-
-		foreach( $tipdata as $tip )
+		else
 		{
-			$tip = str_replace('<br>',"\n",$tip);
-			$tooltip .= "$tip\n";
+			$tooltip = str_replace('<br>',"\n",$tipdata);;
 		}
 		return $tooltip;
 	}
@@ -513,6 +523,7 @@ class wowdb
 		$this->add_value('item_icon', $mail['item_icon'] );
 		$this->add_value('item_name', $mail['item_name'] );
 		$this->add_value('item_tooltip', $mail['item_tooltip'] );
+		$this->add_value('item_color', $mail['item_color'] );
 
 		if( isset( $mail['item_quantity'] ) )
 			$this->add_value('item_quantity', $mail['item_quantity'] );
@@ -662,6 +673,7 @@ class wowdb
 
 		$mail['item_icon'] = str_replace('\\\\','/', $item['Icon']);
 		$mail['item_name'] = $item['Name'];
+		$mail['item_color'] = $item['Color'];
 
 		if( isset( $item['Quantity'] ) )
 			$mail['item_quantity'] = $item['Quantity'];

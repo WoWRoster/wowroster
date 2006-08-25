@@ -345,18 +345,18 @@ $returnstring .= '  <tr>
 
 					$mail_money['c'] = substr($db_money,-2,2);
 					$db_money = substr($db_money,0,-2);
-					$money_included = $mail_money['c'].'<img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/>';
+					$money_included = $mail_money['c'].'<img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c" />';
 
 					if( !empty($db_money) )
 					{
 						$mail_money['s'] = substr($db_money,-2,2);
 						$db_money = substr($db_money,0,-2);
-						$money_included = $mail_money['s'].'<img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.$money_included;
+						$money_included = $mail_money['s'].'<img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s" /> '.$money_included;
 					}
 					if( !empty($db_money) )
 					{
 						$mail_money['g'] = $db_money;
-						$money_included = $mail_money['g'].'<img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.$money_included;
+						$money_included = $mail_money['g'].'<img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g" /> '.$money_included;
 					}
 				}
 
@@ -384,9 +384,9 @@ $returnstring .= '  <tr>
 
 				$expires_line = date($phptimeformat[$this->data['clientLocale']],((($row['mailbox_days']*24 + $roster_conf['localtimeoffset'])*3600)+$maildateutc)).' '.$roster_conf['timezone'];
 				if( (($row['mailbox_days']*24*3600)+$maildateutc) - time() < (3*24*3600) )
-					$color = 'FF0000;';
+					$color = 'ff0000;';
 				else
-					$color = 'FFFFFF;';
+					$color = 'ffffff;';
 
 				$tooltip .= $wordings[$this->data['clientLocale']]['mail_expires'].": <span style=\"color:#$color\">$expires_line</span><br />";
 
@@ -398,69 +398,16 @@ $returnstring .= '  <tr>
 
 
 				// Get item tooltip
-				$first_line = True;
-				$item_tooltip = '';
-				foreach (explode("\n",$row['item_tooltip']) as $line)
-				{
-					if( $first_line )
-					{
-						$color = 'FFFFFF; font-size: 12px; font-weight: bold';
-						$first_line = False;
-					}
-					else
-					{
-						if( substr( $line, 0, 2 ) == '|c' )
-						{
-							$color = substr( $line, 4, 6 ).';';
-							$line = substr( $line, 10, -2 );
-						}
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_use'] ) === 0 )
-							$color = '00ff00;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_requires'] ) === 0 )
-							$color = 'ff0000;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_reinforced'] ) === 0 )
-							$color = '00ff00;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_equip'] ) === 0 )
-							$color = '00ff00;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_chance'] ) === 0 )
-							$color = '00ff00;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_enchant'] ) === 0 )
-							$color = '00ff00;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_soulbound'] ) === 0 )
-							$color = '00bbff;';
-						else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_set'] ) === 0 )
-							$color = '00ff00;';
-						elseif ( strpos( $line, '"' ) === 0 )
-							$color = 'ffd517;';
-						else
-							$color='ffffff;';
-					}
-					$line = preg_replace('|\\>|','&#8250;', $line );
-					$line = preg_replace('|\\<|','&#8249;', $line );
+				$item_tooltip = colorTooltip($row['item_tooltip'],$row['item_color'],$this->data['clientLocale']);
 
-					if( strpos($line,"\t") )
-					{
-						$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
-						$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
-						$item_tooltip .= $line;
-					}
-					elseif( $line == '' || $line == ' ' )
-						$tooltip_out .= "<br />\n";
-					elseif( $line != '')
-						$item_tooltip .= "<span style=\"color:#$color\">$line</span><br />";
-				}
 
 				// If the tip has no info, at least get the item name in there
-				if( $item_tooltip != '' )
-				{
+				if( $item_tooltip != '<br />' )
 					$item_tooltip = '<hr />'.$item_tooltip;
-				}
+
 
 				// Join item tooltip with main tooltip
 				$tooltip .= $item_tooltip;
-
-				$tooltip = str_replace("'", "\'", $tooltip);
-				$tooltip = str_replace('"','&quot;', $tooltip);
 
 				if ($tooltip == '')
 				{
@@ -473,7 +420,10 @@ $returnstring .= '  <tr>
 						$tooltip = "No information";
 					}
 				}
-				$content .= '<div class="item" onmouseover="overlib(\''.$tooltip.'\',CAPTION,\''.$tooltip_h.'\');" onmouseout="return nd();">';
+
+				$tooltip = makeOverlib($tooltip,$tooltip_h,'',2,$this->data['clientLocale']);
+
+				$content .= '<div class="item" '.$tooltip.'>';
 
 				$content .= '<a href="'.$itemlink[$this->data['clientLocale']].urlencode(utf8_decode($row['item_name'])).'" target="_blank">'."\n".
 					'<img src="'.$item_icon.'"'." alt=\"\" /></a>\n";
@@ -555,59 +505,7 @@ $returnstring .= '  <tr>
 						$spells[$p][$i]['rank'] = $icons_data['spell_rank'];
 
 						// Parse the tooltip
-						$first_line = true;
-						$tooltip = '';
-						foreach (explode("\n", $icons_data['spell_tooltip']) as $line )
-						{
-							if( $first_line )
-							{
-								$color = 'FFFFFF; font-size: 12px; font-weight: bold';
-								$first_line = False;
-							}
-							else
-							{
-								if( substr( $line, 0, 2 ) == '|c' )
-								{
-									$color = substr( $line, 4, 6 ).';';
-									$line = substr( $line, 10, -2 );
-								}
-								else if ( strpos( $line, $wordings[$row['clientLocale']]['tooltip_use'] ) === 0 )
-									$color = '00ff00;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_requires'] ) === 0 )
-									$color = 'ff0000;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_reinforced'] ) === 0 )
-									$color = '00ff00;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_equip'] ) === 0 )
-									$color = '00ff00;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_chance'] ) === 0 )
-									$color = '00ff00;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_enchant'] ) === 0 )
-									$color = '00ff00;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_soulbound'] ) === 0 )
-									$color = '00bbff;';
-								else if ( strpos( $line, $wordings[$this->data['clientLocale']]['tooltip_set'] ) === 0 )
-									$color = '00ff00;';
-								elseif ( strpos( $line, '"' ) === 0 )
-									$color = 'ffd517;';
-								else
-									$color='ffffff;';
-							}
-							$line = preg_replace('|\\>|','&#8250;', $line );
-							$line = preg_replace('|\\<|','&#8249;', $line );
-
-							if( strpos($line,"\t") )
-							{
-								$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
-								$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
-								$tooltip .= $line;
-							}
-							elseif( $line == '' || $line == ' ' )
-								$tooltip_out .= "<br />\n";
-							elseif( $line != '')
-								$tooltip .= "<span style=\"color:#$color\">$line</span><br />";
-						}
-						$tooltip = str_replace("'", "\'", $tooltip);
-						$spells[$p][$i]['tooltip'] = str_replace('"', '&quot;', $tooltip);
+						$spells[$p][$i]['tooltip'] = makeOverlib($icons_data['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
 
 						$i++;
 					}
@@ -633,9 +531,10 @@ $returnstring .= '  <tr>
 
 		foreach( $spelltree as $tree )
 		{
+			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
 			$return_string .= '
 		<div class="spell_skill_tab">
-			<img class="spell_skill_tab_icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" onmouseover="overlib(\''.$tree['name'].'\',WRAP,RIGHT);" onmouseout="return nd();" alt="" onclick="showSpellTree(\'spelltree_'.$tree['id'].'\');" />
+			<img class="spell_skill_tab_icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" onclick="showSpellTree(\'spelltree_'.$tree['id'].'\');" />
 		</div>'."\n";
 		}
 		$return_string .= "	</div>\n";
@@ -698,7 +597,7 @@ $returnstring .= '  <tr>
 					}
 					$return_string .= '
 				<div class="spell_info_container">
-					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" onmouseover="overlib(\''.$spellicons['tooltip'].'\',RIGHT);" onmouseout="return nd();" alt="" />
+					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' onmouseout="return nd();" alt="" />
 					<span class="text"><span class="spellYellow">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
@@ -845,7 +744,7 @@ $returnstring .= '  <tr>
 			else
 				$row['icon'] .= '.'.$roster_conf['img_suffix'];
 
-			$icons			.= '<img src="'.$roster_conf['interface_url'].$row['icon'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" onmouseover="overlib(\''.addslashes($row['type']).'\',CAPTION,\''.addslashes($row['name']).'\',WRAP);" onmouseout="return nd();" />';
+			$icons			.= '<img src="'.$roster_conf['interface_url'].$row['icon'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
 			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';
 			$petTitle		.= '<span class="petName" style="top: 30px; left: 95px; display: none;" id="pet_title'.$petNum.'">'.$wordings[$lang]['level'].' '.$row['level'].' ' . stripslashes($row['type']).'</span>';
 			$loyalty		.= '<span class="petName" style="top: 50px; left: 95px; display: none;" id="pet_loyalty'.$petNum.'">'.$row['loyalty'].'</span>';
@@ -1027,14 +926,8 @@ $returnstring .= '  <tr>
 
 		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-		$clean_line = str_replace("'", "\'", $line);
-		$clean_line = str_replace('"','&quot;', $clean_line);
-		$clean_line = str_replace('(',"\(", $clean_line);
-		$clean_line = str_replace(')',"\)", $clean_line);
-		$clean_line = str_replace('<','&lt;', $clean_line);
-		$clean_line = str_replace('>','&gt;', $clean_line);
 
-		$output  = '<span onmouseover="return overlib(\''.$clean_line.'\');" onmouseout="return nd();">';
+		$output  = '<span '.makeOverlib($line,'','',2).'>';
 		$output .= '<strong class="'.$color.'">'.$current.'</strong>';
 		$output .= '</span>';
 
@@ -1080,12 +973,8 @@ $returnstring .= '  <tr>
 		$tooltipheader = $name;
 		$line = '<span style="color:'.$color.';font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
-		$line = str_replace("'", "\'", $line);
-		$line = str_replace('"','&quot;', $line);
-		$line = str_replace('<','&lt;', $line);
-		$line = str_replace('>','&gt;', $line);
 
-		$output .= '<li class="'.substr($resname,4).'" onmouseover="overlib(\''.$line.'\',WRAP);" onmouseout="return nd();">';
+		$output .= '<li class="'.substr($resname,4).'" '.makeOverlib($line,'','',2,'',',WRAP').'>';
 
 		$output .= $this->data[$resname.'_c'];
 		$output .= "</li>\n";
@@ -1106,7 +995,7 @@ $returnstring .= '  <tr>
 		}
 		else
 		{
-			$output = '<div class="item" onmouseover="overlib(\'No item equipped\',CAPTION,\''.$slot.'\',WRAP);" onmouseout="return nd();">'."\n";
+			$output = '<div class="item" '.makeOverlib('No item equipped',$slot,'',2,'',',WRAP').'>'."\n";
 			if ($slot == 'Ammo')
 				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall" alt="" />'."\n";
 			else
@@ -1174,19 +1063,14 @@ $returnstring .= '  <tr>
 
 
 
-		$line = "<span style=\"color: #FFFFFF; font-size: 12px;font-weight: bold;\">$tooltipheader</span><br />";
-		$line .= "<span style=\"color: #DFB801;\">$tooltip</span>";
-		$line = str_replace("'", "\'", $line);
-		$line = str_replace('"','&quot;', $line);
-		$line = str_replace("\n", '', $line);
-		$line = str_replace('<','&lt;', $line);
-		$line = str_replace('>','&gt;', $line);
+		$line = "<span style=\"color:#FFFFFF;font-size:12px;font-weight:bold;\">$tooltipheader</span><br />";
+		$line .= "<span style=\"color:#DFB801;\">$tooltip</span>";
 
 		if($atk == '')
 			$atk = 'N/A';
 
 		$output = '<span>';
-		$output .= '<strong onmouseover="overlib(\''.$line.'\');" onmouseout="return nd();" style="color:#ffffff">'.$atk.'</strong>';
+		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#ffffff">'.$atk.'</strong>';
 		$output .= '</span>';
 
 		return $output;
@@ -1283,42 +1167,37 @@ $returnstring .= '  <tr>
 							{
 								if( $first_line )
 								{
-									$color = 'ffffff; font-size: 12px; font-weight: bold;';
+									$color = 'ffffff;font-size:12px;font-weight: bold;';
 									$first_line = False;
 								}
 								else
 								{
 									if( substr( $line, 0, 2 ) == '|c' )
 									{
-										$color = substr( $line, 4, 6 ).';';
+										$color = substr( $line, 4, 6 );
 										$line = substr( $line, 10, -2 );
 									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_rank'] ) === 0 )
-										$color = '00ff00; font-size: 11px;';
+										$color = '00ff00;font-size:11px';
 									else if ( strpos( $line, $wordings[$lang]['tooltip_next_rank'] ) === 0 )
-										$color = 'ffffff; font-size: 11px;';
+										$color = 'ffffff;font-size:11px';
 									else if ( strpos( $line, $wordings[$lang]['tooltip_requires'] ) === 0 )
-										$color = 'ff0000;';
+										$color = 'ff0000';
 									else
-										$color = 'dfb801;';
+										$color = 'dfb801';
 								}
 								if( $line != '' )
 								{
-									$talent_tooltip .= '<span style="color:#'.$color.'">'.$line.'</span><br />';
+									$talent_tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
 								}
 							}
-
-							$talent_tooltip = str_replace("'", "\'", $talent_tooltip);
-							$talent_tooltip = str_replace('"', '&quot;', $talent_tooltip);
-							$talent_tooltip = str_replace('<','&lt;', $talent_tooltip);
-							$talent_tooltip = str_replace('>','&gt;', $talent_tooltip);
 
 							if ($talent4['rank'] == 0)
 								$class = 'talenticonGreyed';
 							else
 								$class = 'talenticon';
 
-							$output .= '<div class="item" onmouseover="return overlib(\''.$talent_tooltip.'\');" onmouseout="return nd();"><img src="'.$path4.'" class="'.$class.'" width="40" height="40" alt="" />';
+							$output .= '<div class="item" '.makeOverlib($talent_tooltip,'','',2).'><img src="'.$path4.'" class="'.$class.'" width="40" height="40" alt="" />';
 
 							if( $talent4['rank'] == $talent4['maxrank'] )
 							{
@@ -1945,11 +1824,11 @@ function setBonus( $modifier, $string, $item_name, $item_color)
 {
 	global $myBonus, $myTooltip;
 
-	$full = '&lt;span style=&quot;color:#'.$item_color.';&quot;&gt;'.str_replace('\'', '\\\'', $item_name) . '&lt;/span&gt; : ' . $modifier;
+	$full = '<span style="color:#'.$item_color.';">' . $item_name . '</span> : ' . $modifier;
 
 	if (array_key_exists($string, $myBonus)) {
 		$myBonus[$string] = $myBonus[$string] + $modifier;
-		$myTooltip[$string] = $myTooltip[$string] . '&lt;br /&gt;' . $full;
+		$myTooltip[$string] = $myTooltip[$string] . '<br />' . $full;
 	} else {
 		$myBonus[$string] = $modifier;
 		$myTooltip[$string] = $full;
@@ -2051,11 +1930,7 @@ function dumpBonuses($char, $server)
 	foreach ($myBonus as $key => $value)
 	{
 		$bt .= '	<tr>
-		<td class="membersRowRight'.(($row%2)+1).'" style="white-space:normal;" onmouseover="return overlib(\''.
-		$myTooltip[$key].
-		'\',CAPTION,\''.
-		addslashes(str_replace('XX', $value, $key)).
-		'\');" onmouseout="return nd();">'.
+		<td class="membersRowRight'.(($row%2)+1).'" style="white-space:normal;" '.makeOverlib($myTooltip[$key],str_replace('XX', $value, $key),'',2).'>'.
 		str_replace('XX', $value, $key).'</td>
 	</tr>';
 

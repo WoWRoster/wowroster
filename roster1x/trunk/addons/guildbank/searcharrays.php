@@ -16,6 +16,11 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 // Do Not Change These //
 $search_order = array(3,4,5,6,7,8,18,9,27,1,2,31,28,25,10,12,11,13,14,
 		      26,20,21,22,15,16,17,19,24,23,30,32);
