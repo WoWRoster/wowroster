@@ -52,11 +52,9 @@ if( !$roster_login->getAuthorized() )
 
 	exit();
 }
-else
-{
-	$roster_auth_level = 3;
-}
 // ----[ End Check log-in ]---------------------------------
+$menu = '';
+$body = $roster_login->getMessage();
 
 if (!array_key_exists('page',$_GET))
 	$_GET['page'] = 'roster';
@@ -88,7 +86,7 @@ switch ($_GET['page'])
 		break;
 
 	default:
-		$body = messagebox('Invalid page specified.','Roster Admin Panel','sred');
+		$body .= messagebox('Invalid page specified.','Roster Admin Panel','sred');
 		break;
 }
 
@@ -101,7 +99,6 @@ include_once( ROSTER_LIB.'menu.php' );
 echo '<table width="100%"><tr><td valign="top" align="left">'.
 	$menu.
 	'</td><td valign="top" align="center">'.
-	$roster_login->getMessage().
 	$body.
 	'</td><td valign="top" align="right">'.
 	$pagebar.

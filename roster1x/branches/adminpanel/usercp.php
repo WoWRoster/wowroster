@@ -28,7 +28,19 @@ require_once('settings.php');
 
 $script_filename = 'usercp.php';
 
-$roster_auth_level = 1;
+// ----[ Check log-in ]-------------------------------------
+$roster_login = new RosterLogin($script_filename);
+
+if ($roster_login->getUserName() == '')
+{
+	$body = $roster_login->getMessage()."\n".$roster_login->getLoginForm()."<br />\n";
+}
+else
+{
+	$body = $roster_login->getMessage()."<br />\n";
+}
+
+// ----[ End Check log-in ]---------------------------------
 
 if (!array_key_exists('page',$_GET))
 	$_GET['page'] = 'update';
@@ -40,7 +52,7 @@ switch ($_GET['page'])
 		break;
 
 	default:
-		$body = messagebox('Invalid page specified.','Roster User Panel','sred');
+		$body .= messagebox('Invalid page specified.','Roster User Panel','sred');
 		break;
 }
 

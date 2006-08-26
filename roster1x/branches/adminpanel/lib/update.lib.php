@@ -123,7 +123,7 @@ class update
 	 */
 	function processFiles()
 	{
-		global $roster_auth_level;
+		global $roster_login;
 
 		if (!is_array($this->uploadData))
 		{
@@ -133,7 +133,7 @@ class update
 		$gotfiles = array_keys($this->uploadData);
 		if (in_array('CharacterProfiler',$gotfiles))
 		{
-			if ($roster_auth_level >= 2) // Officer or higher.
+			if ($roster_login->getAuthorized('-1')) // Only roster admin till the settings are inserted
 			{
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";

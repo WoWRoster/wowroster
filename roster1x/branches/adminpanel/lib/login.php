@@ -34,7 +34,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class RosterLogin
 {
 	var $user;	// User name. Roster_Admin for roster admin.
-	var $level;	// -1 roster admin, 0 GM, 0-9 guild ranks, 10 anonymous
+	var $level;	// -1 roster admin, 0 GM, 0-9 guild ranks, 10 anonymous/not in guild
 	var $message;	// Login result message
 	var $loginform;	// Login form
 	var $script_filename;
@@ -83,7 +83,7 @@ class RosterLogin
 			if( isset($_COOKIE['roster_pass']) )
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->message = '<span style="font-size:11px;color:red;">Not logged in</span><br />';
-			$this->user = 'Guest';
+			$this->user = '';
 			$this->level = 10;
 			return;
 		}
@@ -105,7 +105,7 @@ class RosterLogin
 				if( isset($_COOKIE['roster_pass']) )
 					setcookie( 'roster_pass','',time()-86400,'/' );
 				$this->message = '<span style="font-size:11px;color:red;">Database problem: Unable to verify supplied credentials. MySQL said: '.$wowdb->error().'</span><br />';
-				$this->user = 'Guest';
+				$this->user = '';
 				$this->level = 10;
 				return;
 			}
@@ -117,7 +117,7 @@ class RosterLogin
 				if( isset($_COOKIE['roster_pass']) )
 					setcookie( 'roster_pass','',time()-86400,'/' );
 				$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
-				$this->user = 'Guest';
+				$this->user = '';
 				$this->level = 10;
 				return;
 			}
@@ -128,16 +128,16 @@ class RosterLogin
 		if( $supplied['hash'] == $proper['hash'] )
 		{
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
-			$this->message = '<span style="font-size:10px;"><span style="color:red;">Logged in:</span> '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-			$this->user = $row['name'];
-			$this->level = $row['level'];
+			$this->message = '<span style="font-size:10px;color:red;">Logged in as '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
+			$this->user = $proper['name'];
+			$this->level = $proper['level'];
 		}
 		else
 		{
 			if( isset($_COOKIE['roster_pass']) )
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
-			$this->user = 'Guest';
+			$this->user = '';
 			$this->level = 10;
 		}
 	}
@@ -152,7 +152,7 @@ class RosterLogin
 			if( isset($_COOKIE['roster_pass']) )
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
-			$this->user = 'Guest';
+			$this->user = '';
 			$this->level = 10;
 		}
 	}
@@ -202,7 +202,7 @@ class RosterLogin
 	 * Return user name
 	 *
 	 * @return string $user
-	 *	The user name
+	 *	The user name. Empty string if not logged in.
 	 */
 	function getUserName()
 	{
@@ -231,7 +231,7 @@ class RosterLogin
 		return '
 			<!-- Begin Password Input Box -->
 			<form action="'.$this->script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)">
-			'.border('sred','start','Authorization Required').'
+			'.border('sred','start','Please log in').'
 			  <table class="bodyline" cellspacing="0" cellpadding="0">
 			    <tr>
 			      <td class="membersRow2">User Name: </td>
@@ -269,26 +269,53 @@ class RosterLogin
 	 */
 	function createAccount($user, $pass1, $pass2)
 	{
+		global $wowdb;
+		
+		if ( $user == 'Roster_Admin')
+		{
+			$this->message = 'Roster_Admin is a protected username';
+			return false;
+		}
+		
+		$query = 'SELECT COUNT(`name`) FROM `'.$wowdb->table('account').'` WHERE `name` = "'.$user.'"';
+		
+		$result = $wowdb->query($query);
+		
+		if (!$result)
+		{
+			$this->message = 'There was a database error while trying to create the account. MySQL said: <br />'.$wowdb->error();
+			return false;
+		}
+		
+		$row = $wowdb->fetch_row($result);
+		$wowdb->free_result($result);
+		
+		if ( $row[0] > 0 )
+		{
+			$this->message = 'An account with that username already exists';
+			return false;
+		}
+
 	 	if ( $newpass1 != $newpass2 )
 	 	{
 	 		$this->message = 'Passwords do not match. Please type the exact same password in both password fields.';
 	 		return false;
 	 	}
 
-	 	if ( $newpass1 === '' || $newpass2 === '')
+	 	if ( $pass1 === '' || $pass2 === '')
 	 	{
 	 		$this->message = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed.';
 	 		return false;
 	 	}
 
-	 	if ( md5($newpass1) == md5('') )
+	 	if ( md5($pass1) == md5('') )
 	 	{
 	 		$this->message = 'No blank passwords. You did not enter a blank password but it does have the same hash. Blank passwords are not allowed.';
 	 		return false;
 	 	}
 
 	 	// valid password
-		$query = 'INSERT INTO `'.$wowdb->table('account').'` VALUES (0, "'.$user.'", "'.md5($newpass1).'", 10)';
+		$query = 'INSERT INTO `'.$wowdb->table('account').'` VALUES (0, "'.$user.'", "'.md5($pass1).'", 10)';
 
 		$result = $wowdb->query($query);
 
@@ -298,7 +325,7 @@ class RosterLogin
 			return false;
 		}
 
-		$this->message = 'Account created. Your password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
+		$this->message = $user.', your password is <span style="font-size:11px;color:red;">'.$pass1.'</span>.<br /> Do not forget this password, it is stored encrypted only.';
 		return true;
 	}
 
