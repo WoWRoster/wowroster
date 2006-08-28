@@ -256,7 +256,7 @@ $wordings['deDE']['Fishing']='Angeln';
 $wordings['deDE']['First Aid']='Erste Hilfe';
 $wordings['deDE']['poisons']='Poisons';
 $wordings['deDE']['backpack']='Rucksack';
-$wordings['deDE']['PvPRankNone']='nichts';
+$wordings['deDE']['PvPRankNone']='none';
 
 //Tradeskill-Array
 $tsArray['deDE'] = array (
@@ -292,7 +292,7 @@ $wordings['deDE']['ts_iconArray'] = array (
 		'Pferdreiten'=>'Ability_Mount_RidingHorse',
 		'Widderreiten'=>'Ability_Mount_MountainRam',
 		'Roboschreiter-Lenken'=>'Ability_Mount_MechaStrider',
-		'Undead Horsemanship'=>'Ability_Mount_Undeadhorse',
+		'Untoten-Reitkunst'=>'Ability_Mount_Undeadhorse',
 		'Raptorreiten'=>'Ability_Mount_Raptor',
 		'Kodoreiten'=>'Ability_Mount_Kodo_03',
 		'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
@@ -481,8 +481,8 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 		//$questlinks[0]['deDE']['url2']='';
 		//$questlinks[0]['deDE']['url3']='&amp;maxl='';
 
-		$questlinks[1]['deDE']['name']='Blasc DE';
-		$questlinks[1]['deDE']['url1']='http://www.blasc.de/?f=';
+		$questlinks[1]['deDE']['name']='Buffed DE';
+		$questlinks[1]['deDE']['url1']='http://www.buffed.de/?f=';
 		//$questlinks[1]['deDE']['url2']='';
 		//$questlinks[1]['deDE']['url3']='';
 
@@ -493,7 +493,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 
 // Items external link
 	//$itemlink['deDE'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-	$itemlink['deDE'] = 'http://www.blasc.de/?f=';
+	$itemlink['deDE'] = 'http://www.buffed.de/?f=';
 
 // definitions for the questsearchpage
 	$wordings['deDE']['search1']="W&auml;hle eine Zone oder eine Quest um zu schauen, wer sie alles hat.<br />\n<small>Beachte: Stimmen die Questlevel bei verschiedenen Gildenleuten nicht &uuml;berein, handelt es sich um verschiedene Teile einer Questreihe.</small>";

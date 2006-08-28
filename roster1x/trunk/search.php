@@ -72,8 +72,10 @@ if (isset($_GET['s']))
 	if( $wowdb->num_rows($result) != 0 )
 	{
 		$cid = '';
+		$rc = 0;
 		while ($data = $wowdb->fetch_assoc( $result ))
 		{
+			$row_st = (($rc%2)+1);
 			$char_url = 'char.php?name='.$data['name'].'&amp;server='.$data['server'];
 
 			if ( $cid != $data['member_id'] )
@@ -84,16 +86,16 @@ if (isset($_GET['s']))
 				}
 				print '<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td colspan="2" class="membersHeaderRight"><a href="'.$char_url.'">'.$data['name'].'</a></td>
+    <th colspan="2" class="membersRowRight2"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></th>
   </tr>';
 			}
 
 			print '  <tr>
-    <td width="45" class="membersRow1">';
+    <td width="45" valign="top" class="membersRow'.$row_st.'">';
 			$item = new item($data);
 			echo $item->out();
 			print "</td>\n";
-			print '    <td valign="middle" class="membersRowRight1" style="white-space:normal;">';
+			print '    <td valign="middle" class="membersRowRight'.$row_st.'" style="white-space:normal;">';
 
 			$first_line = true;
 			$tooltip_out = '';
@@ -170,6 +172,7 @@ if (isset($_GET['s']))
 			print $tooltip_out;
 			print "</td>\n  </tr>\n";
 			$cid = $data['member_id'];
+			$rc++;
 		}
 
 		if ( $cid != '' )
@@ -202,8 +205,11 @@ if (isset($_GET['s']))
 	{
 		$cid = '';
 	//name | server | member_id | recipe_name | skill_name | difficulty | reagents | recipe_texture | recipe_tooltip
+		$rc = 0;
 		while ($data = $wowdb->fetch_assoc( $result ))
 		{
+			$row_st = (($rc%2)+1);
+
 			$char_url = 'char.php?name='.$data['name'].'&amp;server='.$data['server'].'&amp;action=recipes';
 			if ( $cid != $data['member_id'] )
 			{
@@ -213,15 +219,19 @@ if (isset($_GET['s']))
 				}
 				print '<table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td colspan="3" class="membersHeaderRight"><a href="'.$char_url.'">'.$data['name'].'</a></td>';
+    <th colspan="3" class="membersRowRight1"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></th>
+  </tr>
+  <tr>
+    <th colspan="2" class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['item'].'</th>
+    <th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['reagents'].'</th>';
 			}
 
-			print '<tr><td width="45" valign="top" align="center" class="membersRow1">';
+			print '<tr><td width="45" valign="top" align="center" class="membersRow'.$row_st.'">';
 
 			$recipe = new recipe($data);
 			echo $recipe->out();
 				print '</td>'."\n";
-			print '<td valign="top" class="membersRow1" style="white-space:normal;">';
+			print '<td valign="top" class="membersRow'.$row_st.'" style="white-space:normal;">';
 
 			$first_line = true;
 			$tooltip_out = '';
@@ -297,10 +307,11 @@ if (isset($_GET['s']))
 			}
 			print $tooltip_out;
 
-			print '</td>'."\n".'<td class="membersRowRight1" width="50%" valign="top">';
+			print '</td>'."\n".'<td class="membersRowRight'.$row_st.'" width="50%" valign="top">';
 			echo "<span class=\"tooltipline\" style=\"color:#ffffff\">".$data['reagents']."</span><br /><br />";
 			print "</td></tr>\n";
 			$cid = $data['member_id'];
+			$rc++;
 		}
 
 		if ( $cid != '' )
