@@ -565,4 +565,95 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 	return 'onmouseover="return overlib(overlib_'.$num_of_tips.$caption.$extra_parameters.');" onmouseout="return nd();"';
 }
 
+/**
+ * Draw a message box with the specified border color.
+ *
+ * @param string $message | The message to display inside the box
+ * @param string $title | The box title
+ * @param string $style | The border style
+ * @return string $html | The HTML for the messagebox
+ */
+function messagebox($message, $title = 'Message', $style = 'sgray')
+{
+	return
+		border($style, 'start', $title).
+		'<div align="center">'.
+		$message.
+		'</div>'.
+		border($style, 'end');
+}
+
+/**
+ * Draw a 300x550px scrolling messagebox with the specified border color.
+ *
+ * @param string $message | The message to display inside the box
+ * @param string $title | The box title
+ * @param string $style | The border style
+ * @param string $width | Initial width with unit
+ * @param string $height | Initial height with unit
+ * @return string $html | The HTML for the messagebox
+ */
+function scrollbox($message, $title = 'Message', $style = 'sgray', $width = '550px', $height = '300px')
+{
+	return
+		border($style,'start',$title).
+		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:'.$height.';width:'.$width.';overflow:auto;">'.
+			$message.
+		'</div>'.
+		border($style,'end');
+}
+
+// Index to generate unique toggle IDs
+$toggleboxes = 1;
+
+/**
+ * Draw a message box with the specified border color.
+ *
+ * @param string $message | The message to display inside the box
+ * @param string $title | The box title
+ * @param string $style | The border style
+ * @param boolean $open | True if initially open
+ * @param string $width | Initial width with unit
+ * @return string $html | The HTML for the messagebox
+ */
+function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px')
+{
+	global $toggleboxes;
+
+	$toggleboxes++;
+	return
+		'<div id="toggleCol'.$toggleboxes.'" style="display:'.(($open)?'none':'inline').';">'.
+		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$title."</div>").
+		border($style,'end').
+		'</div>'.
+		'<div id="toggle'.$toggleboxes.'" style="display:'.(($open)?'inline':'none').';">'.
+		messagebox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$title."</div>",$style).
+		'</div>';
+}
+
+/**
+ * Draw a 300x550px scrolling messagebox with the specified border color.
+ *
+ * @param string $messages | The message to display inside the box
+ * @param string $title | The box title
+ * @param string $style | The border style
+ * @param string $width | Initial width with unit
+ * @param string $height | Initial height with unit
+ * @return string $html | The HTML for the messagebox
+ */
+function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px', $height = '300px')
+{
+	global $toggleboxes;
+
+	$toggleboxes++;
+	return
+		'<div id="toggleCol'.$toggleboxes.'" style="display:'.(($open)?'none':'inline').';">'.
+		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$title."</div>").
+		border($style,'end').
+		'</div>'.
+		'<div id="toggle'.$toggleboxes.'" style="display:'.(($open)?'inline':'none').';">'.
+		scrollbox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$title."</div>",$style, $width, $height).
+		'</div>';
+}
+
 ?>
