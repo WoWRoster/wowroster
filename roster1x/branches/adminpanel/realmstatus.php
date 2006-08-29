@@ -132,11 +132,13 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 		{
 			$err = 1;
 		}
-		elseif (preg_match_all('/^[^<]*<[^>]*><[^>]*>([^<]*)/m',$matches[0],$row,PREG_PATTERN_ORDER)!=4)
+		elseif (preg_match_all('/^.*color: #([0-9a-fA-F]+);\">([^<]*)/m',$matches[0],$row) != 3)
 		{
 			$err = 1;
 		}
 		
+		print_r($row);
+
 	// Figure out Serverstatus
 		$serverstatus = strpos($matches[0], 'uparrow');
 		if (!$serverstatus)
@@ -150,9 +152,11 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 		}
 
 	// Figure out Servertype
-		$servertype = $row[1][2];
+		$servertype = $row[2][1];
+		$servertypecolor = $row[1][1];
 	// Figure out Server Pop.
-		$serverpop = $row[1][3];
+		$serverpop = $row[2][2];
+		$serverpopcolor = $row[2][1];
 	}
 	elseif ($xml)
 	{
@@ -192,35 +196,45 @@ if( $timestamp >= ($realmData['timestamp']+$timer) || $timestamp < $realmData['t
 								{
 									case 0:
 										$servertype = '(RP-PvP)';
+										$servertypecolor = '535600';
 										break;
 									case 1:
 										$servertype = 'Normal';
+										$servertypecolor = '234303';
 										break;
 									case 2:
 										$servertype = '(PvP)';
+										$servertypecolor = '660D02';
 										break;
 									case 3:
 										$servertype = '(RP)';
+										$servertypecolor = '535600';
 										break;
 									default:
 										$servertype = 'Unknown';
+										$servertypecolor = '860D02';
 								}
 								switch ( $xml_server['L'] )
 								{
 									case 1:
 										$serverpop = 'Low';
+										$serverpopcolor = '234303';
 										break;
 									case 2:
 										$serverpop = 'Medium';
+										$serverpopcolor = '535600';
 										break;
 									case 3:
 										$serverpop = 'High';
+										$serverpopcolor = '660D02';
 										break;
 									case 4:
 										$serverpop = 'Max';
+										$serverpopcolor = '860D02';
 										break;
 									default:
 										$serverpop = 'Error';
+										$serverpopcolor = '860D02';
 								}
 							}
 						}
