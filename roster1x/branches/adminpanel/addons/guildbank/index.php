@@ -15,11 +15,13 @@
  * $Id$
  *
  ******************************/
-error_reporting(E_ALL);
 
-if (eregi("index.php",$_SERVER['PHP_SELF'])) {
-    die("You can't access this file directly!");
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
 }
+
+error_reporting(E_ALL);
 
 $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
 

@@ -44,13 +44,6 @@ if( $roster_conf['use_update_triggers'] )
 }
 
 
-if( !$roster_conf['authenticated_user'] )
-{
-	$wow_group = $roster_conf['upload_group'];
-	$wow_admin_group = $roster_conf['phpbb_group_admin'];
-	include_once( ROSTER_LIB.'phpbb.php' );
-}
-
 // Set $htmlout to 1 to assume request is from a browser
 	$htmlout = 1;
 // See if UU is requesting this page
@@ -89,7 +82,7 @@ foreach ($_FILES as $filefield => $file)
 		if( $acceptedfile == $file['name'] || $acceptedfile.'.gz' == $file['name'] )
 		{
 			// Filefield is 1 of the kind we accept.
-			if( $roster_conf['authenticated_user'] || $roster_conf['phpbb_authenticated_admin'] )
+			if( $roster_conf['authenticated_user'] )
 			{
 				$uploadFound = true;
 
@@ -291,7 +284,7 @@ function processGuildRoster($myProfile)
 							$wowdb->resetMessages();
 							$guild_output .= "</ul>\n";
 							$output .= "<strong>Updating Guild [<span class=\"orange\">$guildName</span>]</strong>\n<ul>\n";
-							$output .= "<li><strong>Members Update Summary</strong></li>\n<ul>\n".
+							$output .= "<li><strong>Member Log</strong></li>\n<ul>\n".
 								"<li>Updated: ".$wowdb->membersupdated."</li>\n".
 								"<li>Added: ".$wowdb->membersadded."</li>\n".
 								"<li>Removed: ".$wowdb->membersremoved."</li>\n".
@@ -308,7 +301,7 @@ function processGuildRoster($myProfile)
 					}
 					else
 					{
-						$output .= str_replace('*GUILDNAME*',$guildName,$wordings[$roster_conf['roster_lang']]['guild_nameNotFound'])."<br />\n";
+						$output .= sprintf($wordings[$roster_conf['roster_lang']]['guild_nameNotFound'],$guildName)."<br />\n";
 					}
 				}
 				else
@@ -337,36 +330,6 @@ $errorstringout = $wowdb->getErrors();
 
 if( $htmlout )
 {
-	// Create the auth fields if needed
-	if( !$roster_conf['authenticated_user'] )
-	{
-		if( isset($auth_message) && !empty($auth_message) )
-		{
-			$auth_message = "<tr>\n<th class=\"membersHeaderRight\" colspan=\"2\">$auth_message</th>\n</tr>\n";
-		}
-		else
-		{
-			$auth_message = '';
-		}
-
-		$authFields = border('syellow','start','phpBB Upload Authorization')."
-                  <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
-$auth_message
-                    <tr>
-                      <td class=\"membersRow1\">Username</td>
-                      <td class=\"membersRowRight1\"><input type=\"text\" name=\"username\"></td>
-                    </tr>
-                    <tr>
-                      <td class=\"membersRow1\">Password</td>
-                      <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
-                    </tr>
-                  </table>".border('syellow','end')."<br />\n";
-	}
-	else
-	{
-		$authFields = '';
-	}
-
 	// Create the PvPLog input field if selected in conf
 	if( $roster_conf['pvp_log_allow'] )
 	{
@@ -385,7 +348,6 @@ $auth_message
 	// Construct the entire upload form
 	$inputForm = "
                 <form action=\"$script_filename\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
-".$authFields."
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
@@ -400,9 +362,7 @@ $pvplogInputField
 ".border('syellow','end');
 
 
-	if( $roster_conf['authenticated_user'] )
-	{
-		$inputForm .= "
+	$inputForm .= "
 <br />
 <br />
 ".border('sgray','start','GuildProfiler User Only')."
@@ -414,7 +374,7 @@ $pvplogInputField
                   </table>
 ".border('sgray','end')."<br />
                   <input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">";
-	}
+
 
 	$inputForm .= "\n                </form>";
 
@@ -480,7 +440,7 @@ $pvplogInputField
 			<div id="sqlDebug" style="display:none">
 			'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
 			<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:560px;overflow:auto;">'.
-				nl2br(sql_highlight($sqlstringout)).
+				nl2br($sqlstringout).
 			'</div>
 			'.border('sgreen','end').
 			'</div>';
@@ -508,16 +468,12 @@ else	// Dont need the header and footer when responding to UU
 	{
 		if( !$roster_conf['authenticated_user'] )
 		{
-			if( isset($auth_message) && !empty($auth_message) )
-			{
-				print $auth_message;
-			}
+			print $wordings[$roster_conf['roster_lang']]['update_disabled'];
 		}
 		else
 		{
 			// Strip all html tags out, then print
 			print stripAllHtml(
-					$auth_message.
 					$updateMessages.
 					$updatePvPMessages.
 					$rosterUpdateMessages

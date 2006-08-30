@@ -92,8 +92,7 @@ INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{o
 
 INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4020, 'menu_byclass', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4030, 'menu_alt_page', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4020, 'menu_memberlog', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4040, 'menu_guild_info', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4050, 'menu_stats_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4055, 'menu_pvp_page', '1', 'radio{on^1|off^0', 'menu_conf');
@@ -151,7 +150,7 @@ INSERT INTO `renprefix_config` VALUES (7140, 'show_avatar', '0', 'radio{yes^1|no
 # --------------------------------------------------------
 ### Realmstatus Settings
 
-INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8010, 'rs_display', 'full', 'select{full^full|half^half', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8020, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8030, 'realmstatus', '', 'text{50|30', 'realmstatus_conf');
@@ -167,7 +166,4 @@ INSERT INTO `renprefix_config` VALUES (9030, 'banker_fieldname', 'note', 'select
 # --------------------------------------------------------
 ### Update Access
 
-INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{off^1|on^0', 'update_access');
-INSERT INTO `renprefix_config` VALUES (10010, 'phpbb_root_path', '../phpbb/', 'text{128|30', 'update_access');
-INSERT INTO `renprefix_config` VALUES (10020, 'upload_group', '3, 4, 44', 'text{128|30', 'update_access');
-INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', 'text{128|30', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');

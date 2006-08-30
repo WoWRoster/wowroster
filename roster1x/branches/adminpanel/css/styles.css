@@ -53,6 +53,13 @@ input {
 	font-family:Verdana, Arial;
 	background-color:#202020;
 }
+select {
+	border:1px solid #CBA300;
+	font-size:10px;
+	color:#FFFFFF;
+	font-family:Verdana, Arial;
+	background-color:#202020;
+}
 .headline_1 {
 	margin:0;
 	padding:5px 0 5px 0;
@@ -1066,17 +1073,6 @@ select {
 .classShamantxt { color:#F48CBA; }
 .classWarlocktxt { color:#9382C9; }
 .classWarriortxt { color:#C69B6D; }
-
-.classDruidetxt { color:#FF7C0A; }
-.classJägertxt { color:#AAD372; }
-.classMagiertxt { color:#68CCEF; }
-.classPaladintxt { color:#F48CBA; }
-.classPriestertxt { color:#FFFFFF; }
-.classSchurketxt { color:#FFF468; }
-.classSchamanetxt { color:#F48CBA; }
-.classHexenmeistertxt { color:#9382C9; }
-.classKriegertxt { color:#C69B6D; }
-
 
 
 /**********

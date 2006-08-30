@@ -29,7 +29,7 @@ function submitonce(theform)
 				tempobj.disabled=true;
 		}
 	}
-	return true ;
+	return true;
 }
 
 /* Basic id based show */

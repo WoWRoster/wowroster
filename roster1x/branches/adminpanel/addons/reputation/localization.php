@@ -22,7 +22,6 @@ $wordings['addoncredits']['Reputation'] = array(
 );
 
 $wordings['deDE']['reputation_addon'] = 'Ruf&uuml;bersicht';
-$wordings['deDE']['applybutton']= 'Start';
 $wordings['deDE']['faction_filter']= 'Fraktion:';
 $wordings['deDE']['rep_name'] = 'Name';
 $wordings['deDE']['rep_group'] = 'Gruppe';
@@ -32,7 +31,6 @@ $wordings['deDE']['rep_value'] = 'Wert';
 $wordings['deDE']['rep_max'] = 'Max-Wert';
 
 $wordings['enUS']['reputation_addon'] = 'Reputation';
-$wordings['enUS']['applybutton']= 'Apply';
 $wordings['enUS']['faction_filter']= 'Faction Filter:';
 $wordings['enUS']['rep_name'] = 'Name';
 $wordings['enUS']['rep_group'] = 'Side';
@@ -43,7 +41,6 @@ $wordings['enUS']['rep_max'] = 'Max';
 
 // translated to frFR by Harut
 $wordings['frFR']['reputation_addon'] = 'Réputation';
-$wordings['frFR']['applybutton']= 'Appliquer';
 $wordings['frFR']['faction_filter']= 'Filtre par factions:';
 $wordings['frFR']['rep_name'] = 'Nom';
 $wordings['frFR']['rep_group'] = 'Coté';

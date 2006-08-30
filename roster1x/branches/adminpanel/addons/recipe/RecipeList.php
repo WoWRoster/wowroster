@@ -129,7 +129,7 @@ if (isset($_REQUEST["proffilter"]))
 				}
 				if ($addon_conf['recipe']['display_tooltip'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['itemdescription'].'&nbsp;</th>'."\n";
+					$content .=  '<th width="220" class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['itemdescription'].'&nbsp;</th>'."\n";
 				}
 				if ($addon_conf['recipe']['display_type'])
 				{
@@ -169,11 +169,11 @@ if (isset($_REQUEST["proffilter"]))
 
 				if (substr($row_users['skill_level'],0,strpos($row_users['skill_level'],':')) < 300)
 				{
-					$users .= '<a onmouseover="return overlib(\''.$row_users['skill_level'].'\',WRAP);" onmouseout="return nd();" class="difficulty_'.$row_users['difficulty'].'" href="./char.php?name='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
+					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'" href="./char.php?name='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
 				}
 				else
 				{
-					$users .= '<a onmouseover="return overlib(\''.$row_users['skill_level'].'\',WRAP);" onmouseout="return nd();" class="difficulty_1" href="./char.php?name='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
+					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1" href="./char.php?name='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
 				}
 				$break_counter++;
 			}
@@ -196,50 +196,75 @@ if (isset($_REQUEST["proffilter"]))
 			{
 				$tooltip = '';
 				$first_line = true;
+				$recipe->data['item_tooltip'] = stripslashes($recipe->data['recipe_tooltip']);
 				foreach (explode("\n", $recipe->data['recipe_tooltip']) as $line )
 				{
-					if( $first_line )
+					$color = '';
+
+					if( !empty($line) )
 					{
-						$color = substr( $recipe->data['item_color'], 2, 6 ) . '; font-size: 12px; font-weight: bold';
-						$first_line = False;
+						$line = preg_replace('|\\>|','&#8250;', $line );
+						$line = preg_replace('|\\<|','&#8249;', $line );
+						$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+
+						// Do this on the first line
+						// This is performed when $caption_color is set
+						if( $first_line )
+						{
+							if( $recipe->data['item_color'] == '' )
+								$recipe->data['item_color'] = '9d9d9d';
+
+							if( strlen($recipe->data['item_color']) > 6 )
+								$color = substr( $recipe->data['item_color'], 2, 6 );
+							else
+								$color = $recipe->data['item_color'];
+
+							$color .= ';font-size:12px;font-weight:bold';
+							$first_line = false;
+						}
+						else
+						{
+							if ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_use'],$line) )
+								$color = '00ff00';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_requires'],$line) )
+								$color = 'ff0000';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_reinforced'],$line) )
+								$color = '00ff00';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_equip'],$line) )
+								$color = '00ff00';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_chance'],$line) )
+								$color = '00ff00';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_enchant'],$line) )
+								$color = '00ff00';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_soulbound'],$line) )
+								$color = '00bbff';
+							elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_set'],$line) )
+								$color = '00ff00';
+							elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$roster_conf['roster_lang']]['tooltip_set'].'|',$line) )
+								$color = '666666';
+							elseif ( ereg('^\\"',$line) )
+								$color = 'ffd517';
+						}
+
+						// Convert tabs to a formated table
+						if( strpos($line,"\t") )
+						{
+							$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
+							$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
+							$tooltip .= $line;
+						}
+						elseif( !empty($color) )
+						{
+							$tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+						}
+						else
+						{
+							$tooltip .= "$line<br />";
+						}
 					}
 					else
 					{
-						if( substr( $line, 0, 2 ) == '|c' )
-						{
-							$color = substr( $line, 4, 6 ).';';
-							$line = substr( $line, 10, -2 );
-						} else if ( substr( $line, 0, 4 ) == $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) {
-							$color = '00ff00;';
-						} else if ( substr( $line, 0, 8 ) == $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) {
-							$color = 'ff0000;';
-						} else if ( substr( $line, 0, 10 ) == $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) {
-							$color = '00ff00;';
-						} else if ( substr( $line, 0, 6 ) == $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) {
-							$color = '00ff00;';
-						} else if ( substr( $line, 0, 6 ) == $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) {
-							$color = '00ff00;';
-						} else if ( substr( $line, 0, 8 ) == $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) {
-							$color = '00ff00;';
-						} else if ( substr( $line, 0, 9 ) == $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) {
-							$color = '00ffff;';
-						} elseif ( strpos( $line, '"' ) ) {
-							$color = 'ffd517;';
-						} else {
-							$color='ffffff;';
-						}
-					}
-					$line = preg_replace('|\\>|','&#8250;', $line );
-					$line = preg_replace('|\\<|','&#8249;', $line );
-					if( strpos($line,"\t") )
-					{
-						$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
-						$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>'."\n";
-						$tooltip .= $line;
-					}
-					elseif( $line != '')
-					{
-						$tooltip .= "<span style=\"color:#$color\">$line</span><br />\n";
+						$tooltip .= '<br />';
 					}
 				}
 				$users = rtrim($users,'<br>');

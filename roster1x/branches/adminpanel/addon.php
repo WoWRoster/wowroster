@@ -40,6 +40,7 @@ if( $addon['active'] = 1 )
 	// Check to see if the index file exists
 	if( file_exists($addon['index']) )
 	{
+		$script_filename = ROSTER_BASE.'addon.php?dbname='.$_GET['dbname'];
 		// The addon will now assign its output to $content
 		ob_start();
 			include_once( $addon['index'] );

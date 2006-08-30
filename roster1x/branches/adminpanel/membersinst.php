@@ -376,13 +376,13 @@ while ($row = $wowdb->fetch_array($result))
 				$bcount = count($parray)-1;
 			}
 
-			$tooltip_h = '<span style="color:#ffffff; font-weight:bold;">'.$key.' '.$wordings[$roster_conf['roster_lang']]['key'].' Status</span>';
+			$tooltip_h = $key.' '.$wordings[$roster_conf['roster_lang']]['key'].' Status';
 			$tooltip = '<span style="color:#'.$colorcmp.'">'.$wordings[$roster_conf['roster_lang']]['completedsteps'].'</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
-				$tooltip = $tooltip . '<span style="color:#'.$colorcur.'">'.$wordings[$roster_conf['roster_lang']]['currentstep'].'</span><br />';
+				$tooltip .= '<span style="color:#'.$colorcur.'">'.$wordings[$roster_conf['roster_lang']]['currentstep'].'</span><br />';
 			}
-			$tooltip = $tooltip . '<span style="color:#'.$colorno.'">'.$wordings[$roster_conf['roster_lang']]['uncompletedsteps'].'</span><br /><br />';
+			$tooltip .= '<span style="color:#'.$colorno.'">'.$wordings[$roster_conf['roster_lang']]['uncompletedsteps'].'</span><br /><br />';
 			if ($items[$key][0] == 'Quests')
 			{
 				for ($i=1;$i<count($items[$key])-1;$i++)
@@ -395,7 +395,7 @@ while ($row = $wowdb->fetch_array($result))
 						$color = $colorno;
 					list($qname,$junk) = explode('|',$items[$key][$i]);
 					$qname = preg_replace('/\\\/', '', $qname);
-					$tooltip = $tooltip . '<span style="color:#'.$color.'">'.$i.': '.$qname.'</span><br />';
+					$tooltip .= '<span style="color:#'.$color.'">'.$i.': '.$qname.'</span><br />';
 				}
 			}
 			else
@@ -414,18 +414,13 @@ while ($row = $wowdb->fetch_array($result))
 					}
 					list($pname,$junk) = explode('|',$items[$key][$i]);
 					$pname = preg_replace('/\\\/', '', $pname);
-					$tooltip = $tooltip . '<span style="color:#'.$color.'">'.$i.': '.$pname.'</span><br />';
+					$tooltip .= '<span style="color:#'.$color.'">'.$i.': '.$pname.'</span><br />';
 				}
 			}
-			$tooltip = str_replace("'", "\'", $tooltip);
-			$tooltip = str_replace('"','&quot;', $tooltip);
-
-			$tooltip_h = str_replace("'", "\'", $tooltip_h);
-			$tooltip_h = str_replace('"','&quot;', $tooltip_h);
 
 			$pcent = round(($bcount/$qcount) * 100);
 
-			echo '<div style="cursor:default;" onmouseover="return overlib(\''.$tooltip.'\',CAPTION,\''.$tooltip_h.'\');" onmouseout="return nd();">'."\n";
+			echo '<div style="cursor:default;" '.makeOverlib($tooltip,$tooltip_h,'',2).'>'."\n";
 			print '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_thottbot">'."\n";
 			print '<span class="name">'.$items[$key][0].'</span></a>'."\n";
 

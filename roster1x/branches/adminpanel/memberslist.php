@@ -248,15 +248,14 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 		elseif ( isset( $DATA['jsort'] ) )
 		{
 			$cell_value = '<div style="display:none; ">'.$row[$DATA['jsort']].'</div>'.$row[$field];
+			if (empty($row[$field]))
+			{
+				$cell_value .= '&nbsp;';
+			}
 		}
 		else
 		{
 			$cell_value = '<div>'.$row[$field].'</div>';
-		}
-		
-		if (empty($row[$field]))
-		{
-			$cell_value .= '&nbsp;';
 		}
 
 		//---[ Adding trade skills images ]---------------
@@ -327,28 +326,25 @@ function name_value ( $row )
 		}
 
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
-		$tooltip_h = preg_replace($prg_find, $prg_rep, $tooltip_h);
 
 		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
 
 		if( isset($rankname) )
 			$tooltip .= $rankname.' of the '.$guildFaction."\n";
 
-		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone']."\n";
-		$tooltip .= ($row['nisnull'] ? '' : $wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']."\n");
+		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
+		$tooltip .= ($row['nisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']);
 
-		$tooltip = preg_replace($prg_find, $prg_rep, $tooltip);
-
-		$tooltip = '<div style="cursor:help;" onmouseover="overlib(\''.$tooltip.'\',CAPTION,\''.$tooltip_h.'\',WRAP);" onmouseout="return nd();">';
+		$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
 
 		if ( $row['server'] )
 		{
-			return $tooltip.'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a></div>';
+			return "<div style='display:none;'>".$row['name']."</div>".$tooltip.'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a></div>';
 		}
 		else
 		{
-			return $tooltip.$row['name'].'</div>';
+			return "<div style='display:none;'>".$row['name']."</div>".$tooltip.$row['name'].'</div>';
 		}
 	}
 	else
@@ -359,7 +355,7 @@ function name_value ( $row )
 		}
 		else
 		{
-			return $row['name'];
+			return '<div>'.$row['name'].'</div>';
 		}
 	}
 }
@@ -396,7 +392,20 @@ function class_value ( $row )
 		// Class name coloring
 		if ( $roster_conf['index_class_color'] == 1 )
 		{
-		    return "<div style='display:none;'>".$row['class']."</div>".$icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
+			foreach( $roster_conf['multilanguages'] as $language )
+			{
+				$class_color = array_search($row['class'],$wordings[$language]);
+				if( strlen($class_color) > 0 )
+				{
+					$class_color = $wordings['enUS'][$class_color];
+					break;
+				}
+			}
+
+			if( $class_color != '' )
+				return $icon_value.'<span class="class'.$class_color.'txt">'.$row['class'].'</span>';
+			else
+				return $icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
 		}
 		else
 		{
@@ -429,7 +438,7 @@ function level_value ( $row )
 			$rested = ' : '.$rested;
 		}
 		$togo = $max - $current;
-		$togo = $togo.' XP until level '.($row['level']+1);
+		$togo .= ' XP until level '.($row['level']+1);
 
 		$percent_exp =  round(($current/$max)*100);
 
@@ -440,17 +449,15 @@ function level_value ( $row )
 		$tooltip .= '<td width="'.(100 - $percent_exp).'%"></td>';
 		$tooltip .= '</tr>';
 		$tooltip .= '</table>';
-		$tooltip = str_replace('"','&quot;', $tooltip);
-		$tooltip = str_replace("'", "\'", $tooltip);
 
 
 		if( $row['level'] == '60' )
 		{
-			$tooltip = " onmouseover=\"return overlib('".$wordings[$roster_conf['roster_lang']]['max_exp']."',WRAP);\" onmouseout=\"return nd();\"";
+			$tooltip = makeOverlib($wordings[$roster_conf['roster_lang']]['max_exp'],'','',2,'',',WRAP');
 		}
 		else
 		{
-			$tooltip = " onmouseover=\"return overlib('".$tooltip."',CAPTION,'$togo',WRAP);\" onmouseout=\"return nd();\"";
+			$tooltip = makeOverlib($tooltip,$togo,'',2,'',',WRAP');
 		}
 	}
 
@@ -506,7 +513,6 @@ function honor_value ( $row )
 		{
 			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
 		}
-		return $cell_value;
 	}
 	else
 	{

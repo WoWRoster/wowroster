@@ -153,14 +153,17 @@ if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
       <ul>
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/index.php"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
 <?php
-if( $roster_conf['menu_alt_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexalt.php">'.$wordings[$roster_conf['roster_lang']]['alternate'].'</a></li>'."\n";
-
 if( $roster_conf['menu_guild_info'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildinfo.php">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
 
 if( $roster_conf['menu_stats_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexstat.php">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
+
+if( $roster_conf['menu_tradeskills_page'] )
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/tradeskills.php">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
+
+if( $roster_conf['menu_guildbank'] )
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildbank'.$roster_conf['guildbank_ver'].'.php">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
 ?>
       </ul></td>
 <!-- Links Column 2 -->
@@ -173,14 +176,11 @@ if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
 if( $roster_conf['menu_honor_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexhonor.php">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
 
-if( $roster_conf['menu_guildbank'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildbank'.$roster_conf['guildbank_ver'].'.php">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
+if( $roster_conf['menu_memberlog'] )
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/memberlog.php">'.$wordings[$roster_conf['roster_lang']]['memberlog'].'</a></li>'."\n";
 
 if( $roster_conf['menu_keys_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexinst.php">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
-
-if( $roster_conf['menu_tradeskills_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/tradeskills.php">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
 ?>
      </ul></td>
 <!-- Links Column 3 -->

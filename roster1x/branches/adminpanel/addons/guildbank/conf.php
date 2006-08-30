@@ -16,6 +16,11 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 /////////////////////////// CONFIGURATION OPTIONS /////////////////////////////
 // Number of columns per category row
 $row_columns = 18;

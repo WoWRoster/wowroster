@@ -16,6 +16,11 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 $wordings['addoncredits']['GuildBank'] = array(
 	array(	"name"=>	"Mathos",
 			"info"=>	"A guild bank that lists items by catagories"),
