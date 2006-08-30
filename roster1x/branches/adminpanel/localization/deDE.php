@@ -208,10 +208,10 @@ $wordings['deDE']['parry'] = 'Parrieren';
 $wordings['deDE']['block'] = 'Blocken';
 
 // Memberlog
-$wordings['deDE']['memberlog'] = 'Member Log';
+$wordings['deDE']['memberlog'] = 'Mitglieder Log';
 $wordings['deDE']['removed'] = 'Entfernt';
-$wordings['deDE']['added'] = 'Zugef�gt';
-$wordings['deDE']['no_memberlog'] = 'No Member Log Recorded';
+$wordings['deDE']['added'] = 'Zugefügt';
+$wordings['deDE']['no_memberlog'] = 'Kein Mitglieder Log gespeichert';
 
 $wordings['deDE']['rosterdiag'] = 'Roster Diagnose Seite';
 $wordings['deDE']['Guild_Info'] = 'Gilden Info';
@@ -220,13 +220,14 @@ $wordings['deDE']['recipe_4'] = 'optimal';
 $wordings['deDE']['recipe_3'] = 'mittel';
 $wordings['deDE']['recipe_2'] = 'leicht';
 $wordings['deDE']['recipe_1'] = 'trivial';
-$wordings['deDE']['roster_config'] = 'Roster Config';
+$wordings['deDE']['roster_config'] = 'Roster Konfiguration';
+$wordings['deDE']['roster_config_menu'] = 'Konfigurationsmenü';
 
 // Memberslist sort/filter box
-$wordings['enUS']['memberssortfilter'] = 'Sorting order and filtering';
-$wordings['enUS']['memberssort'] = 'Sort';
-$wordings['enUS']['memberscolshow'] = 'Show/Hide Columns';
-$wordings['enUS']['membersfilter'] = 'Filter rows';
+$wordings['deDE']['memberssortfilter'] = 'Sortierung und Filterung';
+$wordings['deDE']['memberssort'] = 'Sortierung';
+$wordings['deDE']['memberscolshow'] = 'Zeige/Verstecke Spalten';
+$wordings['deDE']['membersfilter'] = 'Zeilenfilter';
 
 // Spellbook
 $wordings['deDE']['spellbook'] = 'Zauberspr&uuml;che';
@@ -544,14 +545,14 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 
 
 // Addon installer strings
-$wordings['enUS']['installer_install'] = 'Installation';
-$wordings['enUS']['installer_uninstall'] = 'Uninstallation';
-$wordings['enUS']['installer_upgrade'] = 'Upgrade';
-$wordings['enUS']['installer_purge'] = 'Purge';
+$wordings['deDE']['installer_install'] = 'Installation';
+$wordings['deDE']['installer_uninstall'] = 'Deinstallation';
+$wordings['deDE']['installer_upgrade'] = 'Upgrade';
+$wordings['deDE']['installer_purge'] = 'Purge';
 
-$wordings['enUS']['installer_success0'] = 'Successful';
-$wordings['enUS']['installer_success1'] = 'Failed but rollback successful';
-$wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
+$wordings['deDE']['installer_success0'] = 'Erfolgreich';
+$wordings['deDE']['installer_success1'] = 'Fehlgeschlagen, aber Wiederherstellung erfolgreich';
+$wordings['deDE']['installer_success2'] = 'Fehlgeschlagen und Wiederherstellung fehlgeschlagen';
 
 
 /******************************
@@ -559,19 +560,21 @@ $wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
  ******************************/
 
 // AdminPanel interface wordings
-$wordings['enUS']['profileselect'] = 'Select Profile';
-$wordings['enUS']['profilego'] = 'Go';
+$wordings['deDE']['profileselect'] = 'Wähle Profil';
+$wordings['deDE']['profilego'] = 'Go';
 
-$wordings['enUS']['pagebar_function'] = 'Function';
-$wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
-$wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
-$wordings['enUS']['pagebar_adminpass'] = 'Change Roster Admin Password';
-$wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
-$wordings['enUS']['pagebar_update'] = 'Update';
-$wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
+$wordings['deDE']['pagebar_function'] = 'Aufgaben';
+$wordings['deDE']['pagebar_rosterconf'] = 'Konfiguriere Roster';
+$wordings['deDE']['pagebar_charpref'] = 'Character Preferenzen';
+$wordings['deDE']['pagebar_adminpass'] = 'Admin Passwort Änderung';
+$wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
+$wordings['deDE']['pagebar_update'] = 'Update';
+$wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
 
-$wordings['enUS']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
-$wordings['enUS']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
+$wordings['deDE']['config_submit_button'] = 'Speichere Einstellungen';
+$wordings['deDE']['config_reset_button'] = 'Zurücksetzen';
+$wordings['deDE']['confirm_config_submit'] = 'Dies speichert die Änderungen in der Datenbank. Bist du sicher?';
+$wordings['deDE']['confirm_config_reset'] = 'Dies setzt die Einstellungen auf den Stand zurück, als die Seite aufgerufen wurde. Bist du sicher?';
 
 // All strings here
 // Each variable must be the same name as the config variable name
@@ -653,12 +656,12 @@ $wordings['deDE']['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Zeigt eine 
 $wordings['deDE']['admin']['index_zone'] = "Letztes Gebiet Spalte|Zeigt eine Spalte mit dem letzten Aufenthaltsort an";
 $wordings['deDE']['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, wann der Spieler zuletzt online war";
 $wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
-$wordings['enUS']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
+$wordings['enUS']['admin']['members_openfilter'] = "JavaScript Sortierbox|Zeige oder Verstecke die Box mit den Sortieroptionen standardmäßig";
 
 // menu_conf
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
 $wordings['deDE']['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br />Hier wir der Realmstatus angezeigt";
-$wordings['deDE']['admin']['menu_memberlog'] = "Memberlog|Link zur Memberlog";
+$wordings['deDE']['admin']['menu_memberlog'] = "Memberlog|Link zum Memberlog";
 $wordings['deDE']['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
 $wordings['deDE']['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";
 $wordings['deDE']['admin']['menu_pvp_page'] = "PvP Statistiken Link|Link zu den PvP-Statistiken";

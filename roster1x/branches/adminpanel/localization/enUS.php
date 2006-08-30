@@ -221,6 +221,7 @@ $wordings['enUS']['recipe_3'] = 'medium';
 $wordings['enUS']['recipe_2'] = 'easy';
 $wordings['enUS']['recipe_1'] = 'trivial';
 $wordings['enUS']['roster_config'] = 'Admin Panel';
+$wordings['enUS']['roster_config_menu'] = 'Config Menu';
 
 // Memberslist sort/filter box
 $wordings['enUS']['memberssortfilter'] = 'Sorting order and filtering';
@@ -570,6 +571,8 @@ $wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
 $wordings['enUS']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 
+$wordings['enUS']['config_submit_button'] = 'Save Settings';
+$wordings['enUS']['config_reset_button'] = 'Reset';
 $wordings['enUS']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
 $wordings['enUS']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
 

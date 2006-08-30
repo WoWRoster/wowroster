@@ -98,7 +98,7 @@ A part that is marked with 'MS' (milestone) will be designated as an overall sta
 you have this one part it will mark all other parts lower than this one as complete.
 */
 $inst_keys['frFR']['A'] = array(
-		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B�te|','Proof of Deed|','Enfin !|'),
+		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B�te|','Proof of Deed|','Enfin !|'),
 		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
 		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
 		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
@@ -221,12 +221,13 @@ $wordings['frFR']['recipe_3'] = 'moyen';
 $wordings['frFR']['recipe_2'] = 'facile';
 $wordings['frFR']['recipe_1'] = 'insignifiant';
 $wordings['frFR']['roster_config'] = 'Configuration Roster';
+$wordings['frFR']['roster_config_menu'] = 'Config Menu';
 
 // Memberslist sort/filter box
-$wordings['enUS']['memberssortfilter'] = 'Sorting order and filtering';
-$wordings['enUS']['memberssort'] = 'Sort';
-$wordings['enUS']['memberscolshow'] = 'Show/Hide Columns';
-$wordings['enUS']['membersfilter'] = 'Filter rows';
+$wordings['frFR']['memberssortfilter'] = 'Sorting order and filtering';
+$wordings['frFR']['memberssort'] = 'Sort';
+$wordings['frFR']['memberscolshow'] = 'Show/Hide Columns';
+$wordings['frFR']['membersfilter'] = 'Filter rows';
 
 // Spellbook
 $wordings['frFR']['spellbook'] = 'Livre de sorts';
@@ -544,14 +545,14 @@ $wordings['frFR']['lockpicking']='Crochetage';
 
 
 // Addon installer strings
-$wordings['enUS']['installer_install'] = 'Installation';
-$wordings['enUS']['installer_uninstall'] = 'Uninstallation';
-$wordings['enUS']['installer_upgrade'] = 'Upgrade';
-$wordings['enUS']['installer_purge'] = 'Purge';
+$wordings['frFR']['installer_install'] = 'Installation';
+$wordings['frFR']['installer_uninstall'] = 'Uninstallation';
+$wordings['frFR']['installer_upgrade'] = 'Upgrade';
+$wordings['frFR']['installer_purge'] = 'Purge';
 
-$wordings['enUS']['installer_success0'] = 'Successful';
-$wordings['enUS']['installer_success1'] = 'Failed but rollback successful';
-$wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
+$wordings['frFR']['installer_success0'] = 'Successful';
+$wordings['frFR']['installer_success1'] = 'Failed but rollback successful';
+$wordings['frFR']['installer_success2'] = 'Failed and rollback also failed';
 
 
 /******************************
@@ -559,17 +560,19 @@ $wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
  ******************************/
 
 // AdminPanel interface wordings
-$wordings['enUS']['profileselect'] = 'Select Profile';
-$wordings['enUS']['profilego'] = 'Go';
+$wordings['frFR']['profileselect'] = 'Select Profile';
+$wordings['frFR']['profilego'] = 'Go';
 
-$wordings['enUS']['pagebar_function'] = 'Function';
-$wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
-$wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
-$wordings['enUS']['pagebar_adminpass'] = 'Change Roster Admin Password';
-$wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
-$wordings['enUS']['pagebar_update'] = 'Update';
-$wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
+$wordings['frFR']['pagebar_function'] = 'Function';
+$wordings['frFR']['pagebar_rosterconf'] = 'Configure Main Roster';
+$wordings['frFR']['pagebar_charpref'] = 'Character Preferences';
+$wordings['frFR']['pagebar_adminpass'] = 'Change Roster Admin Password';
+$wordings['frFR']['pagebar_addoninst'] = 'Manage addons';
+$wordings['frFR']['pagebar_update'] = 'Update';
+$wordings['frFR']['pagebar_addonconf'] = 'Addon Config';
 
+$wordings['frFR']['config_submit_button'] = 'Save Settings';
+$wordings['frFR']['config_reset_button'] = 'Reset';
 $wordings['frFR']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
 $wordings['frFR']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
 
@@ -587,19 +590,19 @@ $wordings['frFR']['confirm_config_reset'] = 'This will reset the form to how it 
 
 
 // Main Menu words
-$wordings['enUS']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
-$wordings['enUS']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
-$wordings['enUS']['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
-$wordings['enUS']['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
-$wordings['enUS']['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
-$wordings['enUS']['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
-$wordings['enUS']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
-$wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
-$wordings['enUS']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
-$wordings['enUS']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update.php';
+$wordings['frFR']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$wordings['frFR']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
+$wordings['frFR']['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
+$wordings['frFR']['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
+$wordings['frFR']['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
+$wordings['frFR']['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
+$wordings['frFR']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$wordings['frFR']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
+$wordings['frFR']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$wordings['frFR']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update.php';
 
-$wordings['enUS']['admin']['rosterdiag'] = 'Roster Diag|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
-$wordings['enUS']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
+$wordings['frFR']['admin']['rosterdiag'] = 'Roster Diag|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
+$wordings['frFR']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
 $wordings['frFR']['admin']['roster_upd_pw'] = "Mot de passe du Roster|Il s'agit du mot de passe permettant la mise à jour de la liste des membres de la Guilde.<br />Certains addons peuvent aussi utilisé ce mot de passe.";
@@ -653,7 +656,7 @@ $wordings['frFR']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Toggles 
 $wordings['frFR']['admin']['index_zone'] = "Last Zone Loc. Column|Toggles the display of the last zone column";
 $wordings['frFR']['admin']['index_lastonline'] = "Last Seen Online Column|Toggles the display of the last seen online column";
 $wordings['frFR']['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
-$wordings['enUS']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
+$wordings['frFR']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
 
 // menu_conf
 $wordings['frFR']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
