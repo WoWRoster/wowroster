@@ -350,8 +350,10 @@ DROP TABLE IF EXISTS `renprefix_realmstatus`;
 CREATE TABLE `renprefix_realmstatus` (
   `server_name` varchar(20) NOT NULL default '',
   `servertype` varchar(20) NOT NULL default '',
+  `servertypecolor` varchar(8) NOT NULL default '',
   `serverstatus` varchar(20) NOT NULL default '',
   `serverpop` varchar(20) NOT NULL default '',
+  `serverpopcolor` varchar(8) NOT NULL default '',
   `timestamp` tinyint(2) NOT NULL default '0',
   UNIQUE KEY `server_name` (`server_name`)
 ) TYPE=MyISAM;
