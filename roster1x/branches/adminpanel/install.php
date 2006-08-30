@@ -519,7 +519,11 @@ function process_step4()
     //
     if ( $user_password1 != $user_password2 || $user_password1 == '' || $user_password2 == '' )
     {
-        $tpl->message_append('<span style="font-weight: bold; font-size: 14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <b>admin</b>. You can change it by logging into Roster Config');
+        $tpl->message_append('<span style="font-weight: bold; font-size: 14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <b>admin</b>. Your user name is Roster_Admin. ou can change it by logging into Roster Config');
+    }
+    else
+    {
+    	$tpl->message_append('Your password has been set. Your user name is Roster_Admin');
     }
 
 
