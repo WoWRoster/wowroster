@@ -590,23 +590,23 @@ $wordings['deDE']['confirm_config_reset'] = 'Dies setzt die Einstellungen auf de
 
 
 // Main Menu words
-$wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
-$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
-$wordings['deDE']['admin']['index_conf'] = 'Indexseite|Options for what shows on the Main Page';
-$wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen|Control what is displayed in the Roster Main Menu';
-$wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen|Misc display settings<br>css, javascript, motd, etc...';
-$wordings['deDE']['admin']['char_conf'] = 'Charakterseite|Control what is displayed in the Character pages';
-$wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
-$wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank|Set up your guildbank display and characters';
-$wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
-$wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optional phpBB authorization for update.php';
+$wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br>Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
+$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration|Gib deine Gildeninfos ein<br>- Gildenname<br>- Realmname (Server)<br>- Eine kurze Beschreibung<br>- Servertyp<br>- etc...';
+$wordings['deDE']['admin']['index_conf'] = 'Indexseite|Einstellen was auf der Hauptseite angezeigt werden soll';
+$wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im Menü gezeigt werden sollen';
+$wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br>css, javascript, motd, etc...';
+$wordings['deDE']['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den Charakterseite angezeigt werden soll';
+$wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br><br>Um es auszustellen, bitte bei Menüeinstellungen gucken';
+$wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gildenbank';
+$wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
+$wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update.php';
 
-$wordings['deDE']['admin']['rosterdiag'] = 'Roster Diagnose Seite|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
-$wordings['deDE']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
+$wordings['deDE']['admin']['rosterdiag'] = 'Roster Diagnose Seite|Das Schweizer-Messer zur Fehlersuche<br>Zeigt einem Server- und Roster-Einstellungen zur Fehlersuche.';
+$wordings['deDE']['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
 
 // main_conf
 $wordings['deDE']['admin']['roster_upd_pw'] = "Roster Update Passwort|Dieses Passwort erlaubt die Aktualisierung der Gildenmitglieder<br />Eine Addons benötigen dieses PW auch";
-$wordings['deDE']['admin']['roster_dbver'] = "Roster Databank Version|Die Version der Datenbank";
+$wordings['deDE']['admin']['roster_dbver'] = "Roster Datenbank Version|Die Version der Datenbank";
 $wordings['deDE']['admin']['version'] = "Roster Version|Aktuelle Version des Rosters";
 $wordings['deDE']['admin']['sqldebug'] = "SQL Debug Output|Gib MySQL Debug Ausgaben in HTML Kommentaren";
 $wordings['deDE']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler Version zum Upload";
@@ -617,12 +617,12 @@ $wordings['deDE']['admin']['website_address'] = "Webseitenadresse|Wird benötigt
 $wordings['deDE']['admin']['roster_dir'] = "Roster URL|Der URL Pfad zum Rosterverzeichnis<br />Es ist wichtig, dass diese korrekt ist, da sonst Fehler auftreten können<br />(Beispiel: http://www.site.com/roster )<br /><br />Eine vollständige URL wird nicht benötigt wenn vor dem Verzeichnis ein Slashzeichen ist<br />(Beispiel: /roster )";
 $wordings['deDE']['admin']['server_name_comp']  = "char.php Compatibility Mode|Falls deine Charakterseite nicht funktionieren sollte, dann ändere diesen Wert";
 $wordings['deDE']['admin']['interface_url'] = "Interface Directory URL|Verzeichnis zu den Interface Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
-$wordings['deDE']['admin']['img_suffix'] = "Interface Image Extension|Der Dateityp deiner Interface Images";
-$wordings['deDE']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|Der Dateityp deiner Interface Images";
-$wordings['deDE']['admin']['img_url'] = "Roster Images Directory URL|Verzeichnis zu den Roster's Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
-$wordings['deDE']['admin']['timezone'] = "Timezone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
-$wordings['deDE']['admin']['localtimeoffset'] = "Time Offest|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
-$wordings['deDE']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
+$wordings['deDE']['admin']['img_suffix'] = "Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
+$wordings['deDE']['admin']['alt_img_suffix'] = "Alternative Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
+$wordings['deDE']['admin']['img_url'] = "Roster Bilder Verzeichnis URL|Verzeichnis zu den Roster's Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
+$wordings['deDE']['admin']['timezone'] = "Zeitzone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
+$wordings['deDE']['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
+$wordings['deDE']['admin']['pvp_log_allow'] = "Erlaube Upload von PvPLog-Daten|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
 $wordings['deDE']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 
 // guild_conf
@@ -656,7 +656,7 @@ $wordings['deDE']['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Zeigt eine 
 $wordings['deDE']['admin']['index_zone'] = "Letztes Gebiet Spalte|Zeigt eine Spalte mit dem letzten Aufenthaltsort an";
 $wordings['deDE']['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, wann der Spieler zuletzt online war";
 $wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
-$wordings['enUS']['admin']['members_openfilter'] = "JavaScript Sortierbox|Zeige oder Verstecke die Box mit den Sortieroptionen standardmäßig";
+$wordings['deDE']['admin']['members_openfilter'] = "JavaScript Sortierbox|Zeige oder Verstecke die Box mit den Sortieroptionen standardmäßig";
 
 // menu_conf
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
