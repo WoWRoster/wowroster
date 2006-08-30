@@ -33,6 +33,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 class RosterLogin
 {
+	var $account;	// Account ID. -1 for roster admin. 0 for Guest.
 	var $user;	// User name. Roster_Admin for roster admin.
 	var $level;	// -1 roster admin, 0 GM, 0-9 guild ranks, 10 anonymous/not in guild
 	var $message;	// Login result message
@@ -85,18 +86,20 @@ class RosterLogin
 			$this->message = '<span style="font-size:11px;color:red;">Not logged in</span><br />';
 			$this->user = '';
 			$this->level = 10;
+			$this->account = 0;
 			return;
 		}
 
 		if ($supplied['user'] == 'Roster_Admin')
 		{
+			$proper['account_id'] = -1;
 			$proper['name'] = 'Roster_Admin';
 			$proper['hash'] = $roster_conf['roster_upd_pw'];
 			$proper['level'] = -1;
 		}
 		else
 		{
-			$query = 'SELECT `name`, `hash`, `level` FROM '.$wowdb->table('account').' WHERE `name` = "'.$supplied['user'].'"';
+			$query = 'SELECT `account_id`,`name`, `hash`, `level` FROM '.$wowdb->table('account').' WHERE `name` = "'.$supplied['user'].'"';
 
 			$result = $wowdb->query($query);
 
@@ -107,6 +110,7 @@ class RosterLogin
 				$this->message = '<span style="font-size:11px;color:red;">Database problem: Unable to verify supplied credentials. MySQL said: '.$wowdb->error().'</span><br />';
 				$this->user = '';
 				$this->level = 10;
+				$this->account = 0;
 				return;
 			}
 
@@ -119,6 +123,7 @@ class RosterLogin
 				$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 				$this->user = '';
 				$this->level = 10;
+				$this->account = 0;
 				return;
 			}
 
@@ -131,7 +136,8 @@ class RosterLogin
 			$this->message = '<span style="font-size:10px;color:red;">Logged in as '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 			$this->user = $proper['name'];
 			$this->level = $proper['level'];
-		}
+			$this->account = $proper['account_id'];
+	}
 		else
 		{
 			if( isset($_COOKIE['roster_pass']) )
@@ -139,6 +145,7 @@ class RosterLogin
 			$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 			$this->user = '';
 			$this->level = 10;
+			$this->account = 0;
 		}
 	}
 
@@ -154,6 +161,7 @@ class RosterLogin
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 			$this->user = '';
 			$this->level = 10;
+			$this->account = 0;
 		}
 	}
 
@@ -410,6 +418,10 @@ class RosterLogin
 		}
 
 		$this->message = 'Password changed. Your new password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
+		
+		$supplied = array('user' => $user, 'hash', md5($newpass1));
+		setcookie( 'roster_pass',serialize($supplied),0,'/' );
+		
 		return true;
 	}
 
@@ -479,6 +491,59 @@ class RosterLogin
 		$wowdb->free_result($result);
 
 		return $row['name'];
+	}
+	
+	/**
+	 * Called on character update for identity verification.
+	 *
+	 * @param string $char_name
+	 *	The character name
+	 * @return bool $accept
+	 *	True to allow update, false to disallow
+	 */
+	function charUpdate($char_name)
+	{
+		if ($this->account == 0) //Guest
+		{
+			$this->message = 'Please log in before uploading';
+			return false;
+		}
+		elseif ($this->account == -1) // Roster admin
+		{
+			return true;
+		}
+				
+		$query = 'SELECT `account_id` FROM `'.$wowdb->table('members').'` WHERE `name` = "'.$char_name.'"';
+		
+		$result = $wowdb->query($query);
+		
+		if (!$result)
+		{
+			$this->message = 'There was a database error while checking the owner of '.$char_name.'. MySQL said: <br />'.$wowdb->error();
+			return false;
+		}
+		
+		$row = $wowdb->fetch_assoc($result);
+		
+		$wowdb->free_result($result);
+		
+		if ($row['account_id'] == 0)
+		{
+			$query = 'UPDATE `'.$wowdb->table('members').' SET `account_id` = "'.$this->account.'" WHERE `name` = "'.$char_name.'"';
+			
+			$result = $wowdb->query($query);
+			
+			return true;
+		}		
+		elseif ($row['account_id'] == $this->account)
+		{
+			return true;
+		}
+		else
+		{
+			$this->message = 'You cannot update someone else\'s characters.';
+			return false;
+		}
 	}
 }
 

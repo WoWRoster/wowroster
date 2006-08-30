@@ -220,7 +220,7 @@ class update
 	 */
 	function processMyProfile()
 	{
-		global $wowdb, $roster_conf, $wordings;
+		global $wowdb, $roster_conf, $wordings, $roster_login;
 
 		$wowdb->resetMessages();
 
@@ -242,11 +242,18 @@ class update
 							// CP Version Detection, don't allow lower than minVer
 							if( $char['DBversion'] >= $roster_conf['minCPver'] )
 							{
-								$output .= "<strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
-
-								$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
-								$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
-								$wowdb->resetMessages();
+								if ( $roster_login->charUpdate($char_name) )
+								{
+									$output .= "<strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
+	
+									$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
+									$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
+									$wowdb->resetMessages();
+								}
+								else
+								{
+									$output .= "<strong>Not updating Character [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
+								}
 							}
 							else // CP Version not new enough
 							{
