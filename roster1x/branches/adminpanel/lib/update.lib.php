@@ -353,7 +353,7 @@ class update
 						}
 						else
 						{
-							$output .= str_replace('*GUILDNAME*',$guildName,$wordings[$roster_conf['roster_lang']]['guild_nameNotFound'])."<br />\n";
+							$output .= sprintf($wordings[$roster_conf['roster_lang']]['guild_nameNotFound'],$guildName)."<br />\n";
 						}
 					}
 					else
