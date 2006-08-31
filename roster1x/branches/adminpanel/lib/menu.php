@@ -188,7 +188,7 @@ if( $roster_conf['menu_keys_page'] )
       <ul>
 <?php
 if( $roster_conf['menu_update_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/update.php">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/usercp.php">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
 
 if( $roster_conf['menu_quests_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexquests.php">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";

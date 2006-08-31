@@ -571,6 +571,8 @@ $wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
 $wordings['enUS']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 
+$wordings['enUS']['pagebar_userpass'] = 'Change User Password';
+
 $wordings['enUS']['config_submit_button'] = 'Save Settings';
 $wordings['enUS']['config_reset_button'] = 'Reset';
 $wordings['enUS']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';

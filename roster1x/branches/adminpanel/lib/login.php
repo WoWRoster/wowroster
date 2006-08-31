@@ -268,8 +268,6 @@ class RosterLogin
 	 *	The password
 	 * @param string $pass2
 	 *	The confirmed password
-	 * @param int $level
-	 *	The user level for the account to be created
 	 * @return boolean $success
 	 *	True for success, false for failure
 	 *
@@ -367,6 +365,7 @@ class RosterLogin
 	 */
 	function changePass($user, $oldpass, $newpass1, $newpass2)
 	{
+		global $wowdb;
 		$query = 'SELECT `hash` FROM '.$wowdb->table('account').' WHERE `name` = "'.$user.'"';
 
 		$result = $wowdb->query($query);
@@ -428,7 +427,7 @@ class RosterLogin
 			return false;
 		}
 
-		$this->message = 'Password changed. Your new password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
+		$this->message = 'Password changed. The new password for '.$user.' is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
 		
 		if ($this->user == $user)
 		{

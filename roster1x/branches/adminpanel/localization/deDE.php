@@ -571,6 +571,8 @@ $wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
 $wordings['deDE']['pagebar_update'] = 'Update';
 $wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
 
+$wordings['deDE']['pagebar_userpass'] = 'User Passwort Änderung';
+
 $wordings['deDE']['config_submit_button'] = 'Speichere Einstellungen';
 $wordings['deDE']['config_reset_button'] = 'Zurücksetzen';
 $wordings['deDE']['confirm_config_submit'] = 'Dies speichert die Änderungen in der Datenbank. Bist du sicher?';

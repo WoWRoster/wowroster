@@ -98,7 +98,7 @@ A part that is marked with 'MS' (milestone) will be designated as an overall sta
 you have this one part it will mark all other parts lower than this one as complete.
 */
 $inst_keys['frFR']['A'] = array(
-		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B�te|','Proof of Deed|','Enfin !|'),
+		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B?te|','Proof of Deed|','Enfin !|'),
 		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
 		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
 		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
@@ -570,6 +570,8 @@ $wordings['frFR']['pagebar_adminpass'] = 'Change Roster Admin Password';
 $wordings['frFR']['pagebar_addoninst'] = 'Manage addons';
 $wordings['frFR']['pagebar_update'] = 'Update';
 $wordings['frFR']['pagebar_addonconf'] = 'Addon Config';
+
+$wordings['frFR']['pagebar_userpass'] = 'Change User Password';
 
 $wordings['frFR']['config_submit_button'] = 'Save Settings';
 $wordings['frFR']['config_reset_button'] = 'Reset';
