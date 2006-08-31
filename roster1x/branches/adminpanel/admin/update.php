@@ -42,8 +42,6 @@ if ($_POST['process'] == 'process')
 		$_SESSION['uploadData'] =& $update->uploadData;
 	}
 
-	echo $roster_login->getUserName();
-
 	if ($roster_login->getUserName() == '')
 	{
 		if (isset($_POST['user']) && $roster_login->createAccount($_POST['user'],$_POST['pass1'],$_POST['pass2']))

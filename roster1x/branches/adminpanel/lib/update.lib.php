@@ -334,6 +334,9 @@ class update
 								// Remove the members who were not in this list
 								$wowdb->remove_guild_members($guildId, $currentTime);
 								$wowdb->remove_guild_members_id($guildId);
+								
+								// Update account info
+								$roster_login->updateAccounts();
 
 								$guild_output .= $wowdb->getMessages();
 								$wowdb->resetMessages();
@@ -343,6 +346,7 @@ class update
 									"<li>Updated: ".$wowdb->membersupdated."</li>\n".
 									"<li>Added: ".$wowdb->membersadded."</li>\n".
 									"<li>Removed: ".$wowdb->membersremoved."</li>\n".
+									$roster_login->getMessage().
 									"</ul>\n<br />\n";
 								$output .= $guild_output;
 							}

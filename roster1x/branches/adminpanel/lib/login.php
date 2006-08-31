@@ -340,7 +340,7 @@ class RosterLogin
 			$supplied = array('user' => $user, 'hash' => md5($pass1));
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
 			
-			$this->account = $this->getAccountID($user);			
+			$this->account = $wowdb->insert_id();			
 			$this->user = $user;
 			$this->level = 10;
 		}
@@ -572,6 +572,40 @@ class RosterLogin
 		{
 			$this->message = 'You cannot update someone else\'s characters.';
 			return false;
+		}
+	}
+	
+	function updateAccounts()
+	{
+		global $wowdb;
+		$this->message = '';
+		
+		// Set account level to 10 for all accounts who don't have any chars registered.
+		$query = 'UPDATE `'.$wowdb->table('account').'` SET `level` = 10 WHERE `account_id` NOT IN (SELECT DISTINCT `account_id` FROM `'.$wowdb->table('members').'`)';
+		
+		$result = $wowdb->query($query);
+		
+		if (!$result)
+		{
+			$this->message = '<li>Failed setting access level for accounts without characters'."\n";
+		}
+		else
+		{
+			$this->message = '<li>Turned '.$wowdb->affected_rows().' accounts without characters into guest accounts'."\n";
+		}
+		
+		// Update all other accounts.
+		$query = 'UPDATE `'.$wowdb->table('account').'` AS account INNER JOIN (SELECT `account_id`, MIN(`guild_rank`) AS `newlevel` FROM `roster_members` GROUP BY `account_id`) AS `members` ON `account`.`account_id` = `members`.`account_id` SET `account`.`level` = `members`.`newlevel`';
+		
+		$result = $wowdb->query($query);
+		
+		if (!$result)
+		{
+			$this->message .= '<li>Failed at updating access levels for all accounts with members'."\n";
+		}
+		else
+		{
+			$this->message .= '<li>Updated access levels for '.$wowdb->affected_rows().' accounts with characters.'."\n";
 		}
 	}
 }

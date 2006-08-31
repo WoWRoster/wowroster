@@ -205,6 +205,16 @@ class wowdb
 		// Free resultset
 		return @mysql_free_result($query_id);
 	}
+	
+	/**
+	 * Returns number of rows affected by an INSERT, UPDATE, or DELETE operation
+	 *
+	 * @param int $query_id handle
+	 */
+	function affected_rows()
+	{
+		return mysql_affected_rows($this->db);
+	}
 
 
 	/**
