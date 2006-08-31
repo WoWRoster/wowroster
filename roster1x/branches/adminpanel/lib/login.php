@@ -99,7 +99,7 @@ class RosterLogin
 		}
 		else
 		{
-			$query = 'SELECT `account_id`,`name`, `hash`, `level` FROM '.$wowdb->table('account').' WHERE `name` = "'.$supplied['user'].'"';
+			$query = 'SELECT `account_id`, `name`, `hash`, `level` FROM '.$wowdb->table('account').' WHERE `name` = "'.$supplied['user'].'"';
 
 			$result = $wowdb->query($query);
 
@@ -334,6 +334,17 @@ class RosterLogin
 		}
 
 		$this->message = $user.', your password is <span style="font-size:11px;color:red;">'.$pass1.'</span>.<br /> Do not forget this password, it is stored encrypted only.';
+		
+		if ($this->user == '')
+		{
+			$supplied = array('user' => $user, 'hash' => md5($pass1));
+			setcookie( 'roster_pass',serialize($supplied),0,'/' );
+			
+			$this->account = $this->getAccountID($user);			
+			$this->user = $user;
+			$this->level = 10;
+		}
+
 		return true;
 	}
 
@@ -419,8 +430,11 @@ class RosterLogin
 
 		$this->message = 'Password changed. Your new password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
 		
-		$supplied = array('user' => $user, 'hash', md5($newpass1));
-		setcookie( 'roster_pass',serialize($supplied),0,'/' );
+		if ($this->user == $user)
+		{
+			$supplied = array('user' => $user, 'hash' => md5($newpass1));
+			setcookie( 'roster_pass',serialize($supplied),0,'/' );
+		}
 		
 		return true;
 	}
@@ -449,6 +463,7 @@ class RosterLogin
 	 */
 	function getAccountID($name)
 	{
+		global $wowdb;
 		$query = 'SELECT `account_id` FROM '.$wowdb->table('account').' WHERE `name` = "'.$name.'"';
 
 		$result = $wowdb->query($query);
@@ -460,6 +475,12 @@ class RosterLogin
 		}
 
 		$row = $wowdb->fetch_assoc($result);
+		
+		if (!$result)
+		{
+			$this->message = 'There is no account for username '.$name;
+			return false;
+		}
 
 		$wowdb->free_result($result);
 
@@ -476,6 +497,7 @@ class RosterLogin
 	 */
 	function getAccountName($account_id)
 	{
+		global $wowdb;
 		$query = 'SELECT `name` FROM '.$wowdb->table('account').' WHERE `account_id` = "'.$account_id.'"';
 
 		$result = $wowdb->query($query);
@@ -487,6 +509,12 @@ class RosterLogin
 		}
 
 		$row = $wowdb->fetch_assoc($result);
+		
+		if (!$result)
+		{
+			$this->message = 'There is no account with ID '.$account_id;
+			return false;
+		}
 
 		$wowdb->free_result($result);
 
@@ -503,6 +531,7 @@ class RosterLogin
 	 */
 	function charUpdate($char_name)
 	{
+		global $wowdb;
 		if ($this->account == 0) //Guest
 		{
 			$this->message = 'Please log in before uploading';
@@ -529,7 +558,7 @@ class RosterLogin
 		
 		if ($row['account_id'] == 0)
 		{
-			$query = 'UPDATE `'.$wowdb->table('members').' SET `account_id` = "'.$this->account.'" WHERE `name` = "'.$char_name.'"';
+			$query = 'UPDATE `'.$wowdb->table('members').'` SET `account_id` = '.$this->account.' WHERE `name` = "'.$char_name.'"';
 			
 			$result = $wowdb->query($query);
 			

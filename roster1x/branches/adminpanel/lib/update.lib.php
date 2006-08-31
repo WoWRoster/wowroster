@@ -223,6 +223,8 @@ class update
 		global $wowdb, $roster_conf, $wordings, $roster_login;
 
 		$wowdb->resetMessages();
+		
+		$output = 'Updating character profiles'.'<ul>';
 
 		foreach( array_keys( $this->uploadData['CharacterProfiler']['myProfile'] ) as $realm_name )
 		{
@@ -244,7 +246,7 @@ class update
 							{
 								if ( $roster_login->charUpdate($char_name) )
 								{
-									$output .= "<strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
+									$output .= "<li><strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
 	
 									$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
 									$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
@@ -252,29 +254,30 @@ class update
 								}
 								else
 								{
-									$output .= "<strong>Not updating Character [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
+									$output .= "<li><strong>Not updating Character [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
 								}
 							}
 							else // CP Version not new enough
 							{
-								$output .= "<span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
+								$output .= "<li><span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
 								$output .= "Data is from CharacterProfiler v".$char['DBversion']."<br />\n";
 								$output .= $wordings[$roster_conf['roster_lang']]['CPver_err']."\n";
 							}
 						}
 						else
 						{
-							$output .= $wordings[$roster_conf['roster_lang']]['noGuild'];
+							$output .= '<li>'.$wordings[$roster_conf['roster_lang']]['noGuild'];
 						}
 					}
 					else
 					{
-						$output .= $char_name.' @ '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
+						$output .= '<li>'.$char_name.' @ '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."\n";
 					}
 				}
-				$output .= "<br />\n";
+				$output .= "\n";
 			}
 		}
+		$output .= "</ul>\n";
 		return $output;
 	}
 
@@ -285,7 +288,7 @@ class update
 	 */
 	function processGuildRoster()
 	{
-		global $wowdb, $roster_conf, $wordings;
+		global $wowdb, $roster_conf, $wordings, $roster_login;
 
 		$wowdb->resetMessages();
 
