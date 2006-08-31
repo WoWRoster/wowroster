@@ -581,7 +581,12 @@ class RosterLogin
 		$this->message = '';
 		
 		// Set account level to 10 for all accounts who don't have any chars registered.
-		$query = 'UPDATE `'.$wowdb->table('account').'` SET `level` = 10 WHERE `account_id` NOT IN (SELECT DISTINCT `account_id` FROM `'.$wowdb->table('members').'`)';
+		$query = 'UPDATE `'.$wowdb->table('account').'` '.
+			'SET `level` = 10 '.
+			'WHERE `account_id` NOT IN ('.
+				'SELECT DISTINCT `account_id` '.
+				'FROM `'.$wowdb->table('members').
+			'`)';
 		
 		$result = $wowdb->query($query);
 		
@@ -594,8 +599,14 @@ class RosterLogin
 			$this->message = '<li>Turned '.$wowdb->affected_rows().' accounts without characters into guest accounts'."\n";
 		}
 		
-		// Update all other accounts.
-		$query = 'UPDATE `'.$wowdb->table('account').'` AS account INNER JOIN (SELECT `account_id`, MIN(`guild_rank`) AS `newlevel` FROM `roster_members` GROUP BY `account_id`) AS `members` ON `account`.`account_id` = `members`.`account_id` SET `account`.`level` = `members`.`newlevel`';
+		// Update all other accounts by pulling the correct level from the members table.
+		$query = 'UPDATE `'.$wowdb->table('account').'` AS account '.
+			'INNER JOIN ('.
+					'SELECT `account_id`, MIN(`guild_rank`) AS `newlevel` '.
+					'FROM `roster_members` GROUP BY `account_id`'.
+				') AS `members` '.
+				'ON `account`.`account_id` = `members`.`account_id` '.
+			'SET `account`.`level` = `members`.`newlevel`';
 		
 		$result = $wowdb->query($query);
 		
