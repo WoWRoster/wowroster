@@ -196,6 +196,12 @@ function tradeskill_icons ( $row )
 	global $wowdb, $roster_conf, $wordings;
 
 	$cell_value ='';
+	
+	// Don't proceed for characters without data
+	if ($row['clientLocale'] == '')
+	{
+		return '&nbsp;';
+	}
 	$profs = explode(',',$row['professions']);
 	foreach ( $profs as $prof)
 	{
@@ -205,7 +211,10 @@ function tradeskill_icons ( $row )
 
 		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]];
 
-		$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+		// Don't add professions we don't have an icon for. This keeps other skills out.
+		if ($wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]] != '') {
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+		}
 	}
 	return $cell_value;
 }
