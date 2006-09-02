@@ -31,7 +31,7 @@ INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', '
 
 DROP TABLE IF EXISTS `renprefix_memberlog`;
 CREATE TABLE `renprefix_memberlog` (
-  `log_id` int(11) unsigned NOT NULL,
+  `log_id` int(11) unsigned NOT NULL auto_increment,
   `member_id` int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
