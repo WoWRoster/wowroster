@@ -259,7 +259,7 @@ $wordings['enUS']['backpack']='Backpack';
 $wordings['enUS']['PvPRankNone']='none';
 
 // Uses preg_match() to find required level in recipe tooltip
-$wordings['enUS']['requires_level'] = '/Requires level ([\d]+)/';
+$wordings['enUS']['requires_level'] = '/Requires Level ([\d]+)/';
 
 //Tradeskill-Array
 $tsArray['enUS'] = array (
