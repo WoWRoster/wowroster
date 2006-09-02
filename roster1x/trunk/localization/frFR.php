@@ -258,6 +258,9 @@ $wordings['frFR']['poisons']='Poisons';
 $wordings['frFR']['backpack']='Backpack';
 $wordings['frFR']['PvPRankNone']='none';
 
+// Uses preg_match() to find required level in recipie tooltip
+$wordings['frFR']['requires_level'] = '/Niveau ([\d]+) requis/';
+
 //Tradeskill-Array
 $tsArray['frFR'] = array (
 		$wordings['frFR']['Alchemy'],
