@@ -41,7 +41,7 @@ $wordings['frFR']['guild_nameNotFound']='Impossible de mettre à jour la guilde 
 $wordings['frFR']['guild_addonNotFound']='Impossible de trouver la Guilde. L\'Addon GuildProfiler est-il installé correctement?';
 
 $wordings['frFR']['ignored']='Ignoré';
-$wordings['frFR']['update_disabled']='Update.php access has been disabled';
+$wordings['frFR']['update_disabled']='L\'accès à Update.php a été désactivé';
 
 // NOT USED $wordings['frFR']['updGuildMembers']='Mettre à jour les membres de la guilde';
 $wordings['frFR']['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
@@ -87,8 +87,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['frFR']['charset']="charset=utf-8";
 
-$timeformat['frFR'] = '%b %d %l:%i %p';  // MySQL Time format (example - Jul 23 2:19 PM) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['frFR'] = 'D jS M, g:ia'; // PHP date() Time format (example - Mon 23rd Jul, 2:19pm) - http://www.php.net/manual/en/function.date.php
+$timeformat['frFR'] = '%d/%m/%Y %H:%i:%s';  // MySQL Time format (example - %b %d %l:%i %p => Jul 23 2:19 PM) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['frFR'] = 'd/m/Y H:i:s'; // PHP date() Time format (example - D jS M, g:ia => Mon 23rd Jul, 2:19pm) - http://www.php.net/manual/en/function.date.php
 
 
 /*
@@ -104,7 +104,7 @@ $inst_keys['frFR']['A'] = array(
 		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Clé de ombreforge|2966','Ironfel|9673'),
+		'BRDs' => array('Parts','BRDs' => 'Clé ombreforge|2966','Ironfel|9673'),
 		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
@@ -114,18 +114,18 @@ $inst_keys['frFR']['A'] = array(
 	);
 
 $inst_keys['frFR']['H'] = array(
-	    'SG' => array('Key-Only','SG' => 'Clé de la gorge des Vents brûlants|4826'),
+		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B�te|','Proof of Deed|','Enfin !|'),
 		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
 		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
-		'ZF' => array('Parts', 'ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
+		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts', 'BRDs' => 'Clé de Shadowforge|2966','Ironfel|9673'),
-		'HT' => array('Key-Only','HT' => 'Clé en croissantt|35607'),
-		'Scholo' => array('Quests', 'Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
+		'BRDs' => array('Parts','BRDs' => 'Clé ombreforge|2966','Ironfel|9673'),
+		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
+		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
-		'UBRS' => array('Parts', 'UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777','Sceau d\\\'ascension brut |24554||MS','Sceau d\\\'ascension forgé|19463||MS'),
-		'Onyxia' => array('Quests', 'Onyxia' => 'Amulette Drakefeu|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
+		'UBRS' => array('Parts','UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777','Sceau d\\\'ascension brut |24554||MS','Sceau d\\\'ascension forgé|19463||MS'),
+		'Onyxia' => array('Quests','Onyxia' => 'Amulette Drakefeu|4829','La menace dragonkin|','Les véritables maîtres|','Maréchal Windsor|','Espoir abandonné|','Une Note chiffonnée|','Un espoir en lambeaux|','Evasion !|','Le rendez-vous à Stormwind|','La grande mascarade|','L\\\'Oeil de Dragon|','Amulette drakefeu|'),
 		'MC' => array('Key-Only','MC' => 'Quintessence éternelle|22754'),
 	);
 
@@ -517,11 +517,11 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['tooltip_rank']='Rang';
 	$wordings['frFR']['tooltip_next_rank']='Prochain rang';
 	$wordings['frFR']['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
-	$wordings['frFR']['tooltip_school_damage']='\\+.*Spell Damage';
+	$wordings['frFR']['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
 	$wordings['frFR']['tooltip_healing_power']='les soins prodigués par les sorts et effets';
 	$wordings['frFR']['tooltip_chance_hit']='Chances quand touché :';
 	$wordings['frFR']['tooltip_reinforced_armor']='Armure renforcée';
-    $wordings['frFR']['tooltip_damage_reduction']='Réduit les points de dégats';
+	$wordings['frFR']['tooltip_damage_reduction']='Réduit les points de dégats';
 
 // Warlock pet names for icon displaying
 	$wordings['frFR']['Imp']='Diablotin';
@@ -534,9 +534,9 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['max_exp']='Max XP';
 
 // Error messages
-	$wordings['frFR']['CPver_err']="The version of CharacterProfiler used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minCPver']." and have logged onto this character and saved data using this version.";
-	$wordings['frFR']['PvPLogver_err']="The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v$".$roster_conf['minPvPLogver'].", and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua Saved Variables file prior to updating.";
-	$wordings['frFR']['GPver_err']="The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minGPver'];
+	$wordings['frFR']['CPver_err']="La version du CharacterProfiler utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v".$roster_conf['minCPver']." et que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.";
+	$wordings['frFR']['PvPLogver_err']="La version du PvPLog utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v$".$roster_conf['minPvPLogver']." et, si vous venez de mettre �  jour PvPLog, assurez vous que vous avez supprimé cotre ancien fichier PvPLog.lua contenu dans les SavedVariables avant de le mettre �  jour.";
+	$wordings['frFR']['GPver_err']="La version du GuildProfiler utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v".$roster_conf['minGPver'];
 
 
 
