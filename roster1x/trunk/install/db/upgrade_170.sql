@@ -14,7 +14,7 @@ UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloa
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloads/c=2.html' WHERE `id` = '6120' LIMIT 1;
 UPDATE `renprefix_config` SET `id` = '5020', `config_type` = 'display_conf' WHERE `id` = '1050' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '1', `form_type` = 'radio{enable^1|disable^0' WHERE `id` = '10000' LIMIT 1;
-UPDATE `roster_config` SET `form_type` = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html' WHERE `id` = '8000' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html' WHERE `id` = '8000' LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = '10010' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '10020' LIMIT 1;
