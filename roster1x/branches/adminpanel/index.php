@@ -43,10 +43,16 @@ $mainQuery =
 	'`players`.`hearth`, '.
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
 	"`players`.`dateupdatedutc` AS 'last_update', ".
-	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
+
+	'`proftable`.`professions` '.
 
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
-	'LEFT JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = 1 '.
+	'LEFT JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
+		'FROM `roster_skills` '.
+		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
+	'WHERE `members`.`guild_id` = 1 '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 	$always_sort;
@@ -112,6 +118,7 @@ if ( $roster_conf['index_prof'] == 1 )
 	$FIELD[] = array (
 		'professions' => array(
 			'lang_field' => 'professions',
+			'value' => 'tradeskill_icons',
 		),
 	);
 }
@@ -188,15 +195,15 @@ function tradeskill_icons ( $row )
 {
 	global $wowdb, $roster_conf, $wordings;
 
-	$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$row['clientLocale']]['professions']."' OR `skill_type` = '".$wordings[$row['clientLocale']]['secondary']."') ORDER BY `skill_order` ASC" );
-
 	$cell_value ='';
-	while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
+	$profs = explode(',',$row['professions']);
+	foreach ( $profs as $prof)
 	{
-		$toolTip = str_replace(':','/',$r_prof['skill_level']);
-		$toolTiph = $r_prof['skill_name'];
+		$r_prof = explode('|',$prof);
+		$toolTip = str_replace(':','/',$r_prof[1]);
+		$toolTiph = $r_prof[0];
 
-		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
+		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]];
 
 		$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
 	}

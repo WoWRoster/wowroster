@@ -258,12 +258,6 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 			$cell_value = '<div>'.$row[$field].'</div>';
 		}
 
-		//---[ Adding trade skills images ]---------------
-		if ( $roster_conf['index_tradeskill_icon'] == 1 && $field == $roster_conf['index_tradeskill_loc'] )
-		{
-			$cell_value .= tradeskill_icons($row);
-		}
-
 		// IMPORTANT do not add any spaces between the td and the $cell_value or the javascript will break
 		if ( $current_col == $cols ) // last col
 		{
