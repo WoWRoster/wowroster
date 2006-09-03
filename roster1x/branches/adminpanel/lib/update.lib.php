@@ -38,9 +38,14 @@ class update
 		$this->addons = array();
 		$this->files[] = 'CharacterProfiler';
 
-		if( $roster_conf['pvp_log_allow'] )
+		if ( $roster_conf['pvp_log_allow'] )
 		{
 			$this->files[] = 'PvPLog';
+		}
+		
+		if ( !$roster_conf['user_upgrade_triggers'] )
+		{
+			return '';
 		}
 
 		$query = 'SELECT `trigger`.`addon_name`,`trigger`.`file` FROM `'.$wowdb->table('addon_trigger').'` AS `trigger` LEFT JOIN `'.$wowdb->table('addon').'` AS `addon` ON `trigger`.`addon_name` = `addon`.`dbname` WHERE `trigger`.`active` = 1 AND `addon`.`active` = 1';

@@ -66,3 +66,5 @@ INSERT INTO `renprefix_config` VALUES (210, 'rosterdiag', '%roster%/rosterdiag.p
 INSERT INTO `renprefix_config` VALUES (220, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{open^1|closed^0', 'index_conf');
+
+DELETE FROM `renprefix_config` WHERE `id` = 3090
