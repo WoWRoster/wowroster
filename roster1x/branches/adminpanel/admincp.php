@@ -55,6 +55,10 @@ if( !$roster_login->getAuthorized() )
 // ----[ End Check log-in ]---------------------------------
 $menu = '';
 $body = '';
+// Don't move this down. Other functions in login also use this message var to
+// return a reason in addition to their success/fail bool return value
+$loginstatus = $roster_login->getMessage(); 
+
 
 if (!array_key_exists('page',$_GET))
 	$_GET['page'] = 'roster';
@@ -96,14 +100,14 @@ include(ROSTER_ADMIN.'pagebar.php');
 include_once( ROSTER_BASE.'roster_header.tpl' );
 include_once( ROSTER_LIB.'menu.php' );
 
-echo '<table width="100%"><tr><td valign="top" align="left">'.
-	$menu.
-	'</td><td valign="top" align="center">'.
-	$roster_login->getMessage().
-	'<br />'.
-	$body.
-	'</td><td valign="top" align="right">'.
-	$pagebar.
+echo '<table width="100%"><tr><td valign="top" align="left">'."\n".
+	$menu."\n".
+	'</td><td valign="top" align="center">'."\n".
+	$loginstatus."\n".
+	"<br />\n".
+	$body."\n".
+	'</td><td valign="top" align="right">'."\n".
+	$pagebar."\n".
 	'</td></tr></table>';
 
 include_once( ROSTER_BASE.'roster_footer.tpl' );

@@ -394,9 +394,9 @@ function class_value ( $row )
 			}
 
 			if( $class_color != '' )
-				return $icon_value.'<span class="class'.$class_color.'txt">'.$row['class'].'</span>';
+				return "<div style='display:none;'>".$row['class']."</div>".$icon_value.'<span class="class'.$class_color.'txt">'.$row['class'].'</span>';
 			else
-				return $icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
+				return "<div style='display:none;'>".$row['class']."</div>".$icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
 		}
 		else
 		{

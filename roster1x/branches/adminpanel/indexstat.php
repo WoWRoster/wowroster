@@ -64,7 +64,8 @@ $mainQuery =
 	'`players`.`crit`, '.
 	"IF( `players`.`crit` IS NULL OR `players`.`crit` = '', 1, 0 ) AS 'cisnull' ".
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
-	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = 1 '.
+	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+	'WHERE `members`.`guild_id` = 1 '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 

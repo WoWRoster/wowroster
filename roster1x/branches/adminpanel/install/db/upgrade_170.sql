@@ -29,7 +29,7 @@ INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off
 
 DROP TABLE IF EXISTS `renprefix_memberlog`;
 CREATE TABLE `renprefix_memberlog` (
-  `log_id` int(11) unsigned NOT NULL,
+  `log_id` int(11) unsigned NOT NULL auto_increment,
   `member_id` int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
