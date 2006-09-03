@@ -176,7 +176,7 @@ foreach ( $FIELDS as $field => $DATA )
 		'<option value="'.$current_col.'_asc">'.$th_text.' ASC</option>'.
 		'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
 		'</optgroup>'."\n";
-	
+
 
 	if ($current_col > 1)
 	{
@@ -197,11 +197,11 @@ $borderBottom = "</table>\n".border('syellow','end');
 // Build sort/filter block
 echo
 	'<div id="sortfilterCol" style="display:'.(($roster_conf['members_openfilter'])?'none':'inline').';">'."\n".
-	border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$act_words['memberssortfilter']."</div>")."\n".
+	border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"\"/>".$act_words['memberssortfilter']."</div>")."\n".
 	border('sblue','end')."\n".
 	'</div>'."\n".
 	'<div id="sortfilter" style="display:'.(($roster_conf['members_openfilter'])?'inline':'none').';">'."\n".
-	border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$act_words['memberssortfilter']."</div>")."\n".
+	border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\"/>".$act_words['memberssortfilter']."</div>")."\n".
 	'<table><tr>'."\n".
 	'<td class="membersHeader">'.$act_words['memberssort'].'</td>'."\n".
 	'<td class="membersHeader">'.$act_words['memberscolshow'].'</td>'."\n".
@@ -307,9 +307,6 @@ function name_value ( $row )
 {
 	global $wordings, $roster_conf, $guildFaction;
 
-	$prg_find = array("/'/",'/"/','|\\>|','|\\<|',"/\\n/",'/&/');
-	$prg_rep  = array("\'",'&quot;','&#8250;','&#8249;','<br />','&amp;');
-	
 	echo "<!--";print_r($row);echo "-->";
 
 	if( $roster_conf['index_member_tooltip'] )
@@ -459,7 +456,7 @@ function level_value ( $row )
 	{
 		$percentage = round(($row['level']/60)*100);
 
-		$cell_value .= '<div'.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>'."\n";
+		$cell_value .= '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>'."\n";
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">'."\n";
 		$cell_value .= '<tr>'."\n";
 		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>'."\n";
@@ -484,8 +481,15 @@ function honor_value ( $row )
 {
 	global $roster_conf, $wordings;
 
-	$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
-	$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
+	if ( $roster_conf['index_honoricon'] )
+	{
+		$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
+		$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
+	}
+	else
+	{
+		$rankicon = '';
+	}
 
 	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';
 	$toolTip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">';
@@ -494,23 +498,16 @@ function honor_value ( $row )
 	$toolTip .= '<td width="'.(100 - $row['Rankexp']).'%"></td>';
 	$toolTip .= '</tr>';
 	$toolTip .= '</table>';
-	$toolTip = str_replace('"','&quot;', $toolTip);
-	$toolTip = str_replace("'", "\'", $toolTip);
 
 	if ( $row['RankInfo'] > 0 )
 	{
-		if ( $roster_conf['index_honoricon'] )
-		{
-			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$rankicon.' '.$row['RankName']."</div>";
-		}
-		else
-		{
-			$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div onmouseover=\"return overlib('$toolTip',CAPTION,'".$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].")',RIGHT,WRAP);\" onmouseout=\"return nd();\">".$row['RankName']."</div>";
-		}
+		$cell_value = "<div style='display:none;'>".$row['RankInfo']."</div><div ".makeOverlib($toolTip,$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].')','',2,'',',RIGHT,WRAP').">".$rankicon.' '.$row['RankName']."</div>";
+
+		return $cell_value;
 	}
 	else
 	{
-		return '<div style="display:none;">0</div>';
+		return '&nbsp;';
 	}
 }
 

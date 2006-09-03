@@ -54,7 +54,7 @@ if( !$roster_login->getAuthorized() )
 }
 // ----[ End Check log-in ]---------------------------------
 $menu = '';
-$body = $roster_login->getMessage();
+$body = '';
 
 if (!array_key_exists('page',$_GET))
 	$_GET['page'] = 'roster';
@@ -99,6 +99,8 @@ include_once( ROSTER_LIB.'menu.php' );
 echo '<table width="100%"><tr><td valign="top" align="left">'.
 	$menu.
 	'</td><td valign="top" align="center">'.
+	$roster_login->getMessage().
+	'<br />'.
 	$body.
 	'</td><td valign="top" align="right">'.
 	$pagebar.
