@@ -24,12 +24,13 @@ define('HEADER_INC',true);
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
   <link rel="stylesheet" type="text/css" href="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['stylesheet'] ?>">
+<?php echo (isset($more_css) ? $more_css : ''); ?>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib']; ?>"></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib_hide']; ?>"></script>
-<?php echo (isset($more_css) ? $more_css : ''); ?>
+<?php echo (isset($html_head) ? $html_head : ''); ?>
 </head>
-<body style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);">
+<body style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);" <?php echo (isset($body_action) ? $body_action : ''); ?>>
 <div align="center">
 
 <?php
