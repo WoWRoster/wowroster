@@ -20,6 +20,17 @@ require_once( 'settings.php' );
 
 $header_title = $wordings[$roster_conf['roster_lang']]['menuhonor'];
 
+//---[ Check for Guild Info ]------------
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+if( empty($guild_info) )
+{
+	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+}
+// Get guild info from guild info check above
+$guildId = $guild_info['guild_id'];
+$guildMOTD = $guild_info['guild_motd'];
+$guildFaction = $guild_info['faction'];
+
 $mainQuery =
 	'SELECT '.
 	'`members`.`member_id`, '.
@@ -60,115 +71,122 @@ $mainQuery =
 	'WHERE`members`.`guild_id` = 1 '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
-$FIELD[] = array (
-	'name' => array(
-		'lang_field' => 'name',
-		'required' => true,
-		'default'  => true,
-		'value' => 'name_value',
-	),
+$FIELD['name'] = array(
+	'lang_field' => 'name',
+	'required' => true,
+	'default'  => true,
+	'value' => 'name_value',
 );
 
-$FIELD[] = array (
-	'class' => array(
-		'lang_field' => 'class',
-		'default'  => true,
-		'value' => 'class_value',
-	),
+$FIELD['class'] = array(
+	'lang_field' => 'class',
+	'default'  => true,
+	'value' => 'class_value',
 );
 
-$FIELD[] = array (
-	'level' => array(
-		'lang_field' => 'level',
-		'default'  => true,
-		'value' => 'level_value',
-	),
+$FIELD['level'] = array(
+	'lang_field' => 'level',
+	'default'  => true,
+	'value' => 'level_value',
 );
 
-$FIELD[] = array (
-	'RankName' => array(
-		'lang_field' => 'currenthonor',
-		'value' => 'honor_value',
-	),
+$FIELD['RankName'] = array(
+	'lang_field' => 'currenthonor',
+	'value' => 'honor_value',
 );
 
-$FIELD[] = array (
-	'sessionHK' => array(
-		'lang_field' => 'Sess HK',
-	),
+$FIELD['sessionHK'] = array(
+	'lang_field' => 'Sess HK',
 );
 
-$FIELD[] = array (
-	'sessionDK' => array(
-		'lang_field' => 'Sess DK',
-	),
+$FIELD['sessionDK'] = array(
+	'lang_field' => 'Sess DK',
 );
 
-$FIELD[] = array (
-	'yesterdayHK' => array(
-		'lang_field' => 'Yest HK',
-	),
+$FIELD['yesterdayHK'] = array(
+	'lang_field' => 'Yest HK',
 );
 
-$FIELD[] = array (
-	'yesterdayDK' => array(
-		'lang_field' => 'Yest DK',
-	),
+$FIELD['yesterdayDK'] = array(
+	'lang_field' => 'Yest DK',
 );
 
-$FIELD[] = array (
-	'yesterdayContribution' => array(
+$FIELD['yesterdayContribution'] = array(
 		'lang_field' => 'Yest CP',
-	),
 );
 
-$FIELD[] = array (
-	'lastweekHK' => array(
-		'lang_field' => 'LW HK',
-	),
+$FIELD['lastweekHK'] = array(
+	'lang_field' => 'LW HK',
 );
 
-$FIELD[] = array (
-	'lastweekDK' => array(
-		'lang_field' => 'LW DK',
-	),
+$FIELD['lastweekDK'] = array(
+	'lang_field' => 'LW DK',
 );
 
-$FIELD[] = array (
-	'lastweekContribution' => array(
-		'lang_field' => 'LW CP',
-	),
+$FIELD['lastweekContribution'] = array(
+	'lang_field' => 'LW CP',
 );
 
-$FIELD[] = array (
-	'lastweekRank' => array(
-		'lang_field' => 'LW Rank',
-	),
+$FIELD['lastweekRank'] = array(
+	'lang_field' => 'LW Rank',
 );
 
-$FIELD[] = array (
-	'lifetimeHK' => array(
+$FIELD['lifetimeHK'] = array(
 		'lang_field' => 'Life HK',
-	),
 );
 
-$FIELD[] = array (
-	'lifetimeDK' => array(
-		'lang_field' => 'Life DK',
-	),
+$FIELD['lifetimeDK'] = array(
+	'lang_field' => 'Life DK',
 );
 
-$FIELD[] = array (
-	'lifetimeRankName' => array(
-		'lang_field' => 'Highest Rank',
-	),
+$FIELD['lifetimeRankName'] = array(
+	'lang_field' => 'Highest Rank',
 );
+
+include_once (ROSTER_LIB.'memberslist.php');
+
+$memberlist = new memberslist;
+
+$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
 
 $more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
 
+// Start output
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-include_once (ROSTER_BASE.'memberslist.php');
+include_once (ROSTER_LIB.'menu.php');
+
+if( $roster_conf['hspvp_list_disp'] == 'hide' )
+{
+	$pvp_hs_colapse='';
+	$pvp_hs_full   =' style="display:none;"';
+}
+else
+{
+	$pvp_hs_colapse=' style="display:none;"';
+	$pvp_hs_full   ='';
+}
+
+echo "<table>\n  <tr>\n";
+
+if ( $roster_conf['index_hslist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_BASE.'hslist.php');
+	echo "    </td>\n";
+}
+
+if ( $roster_conf['index_pvplist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_BASE.'pvplist.php');
+	echo "    </td>\n";
+}
+
+echo "  </tr>\n</table>\n";
+
+echo $memberlist->makeFilterBox();
+echo $memberlist->makeMembersList();
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

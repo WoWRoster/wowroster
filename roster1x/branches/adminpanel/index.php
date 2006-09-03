@@ -18,6 +18,17 @@
 
 require_once( 'settings.php' );
 
+//---[ Check for Guild Info ]------------
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+if( empty($guild_info) )
+{
+	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+}
+// Get guild info from guild info check above
+$guildId = $guild_info['guild_id'];
+$guildMOTD = $guild_info['guild_motd'];
+$guildFaction = $guild_info['faction'];
+
 $mainQuery =
 	'SELECT '.
 	'`members`.`member_id`, '.
@@ -52,113 +63,172 @@ $mainQuery =
 	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
 		'FROM `roster_skills` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
-	'WHERE `members`.`guild_id` = 1 '.
+	'WHERE `members`.`guild_id` = '.$guildId.' '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 	$always_sort;
 
 
-$FIELD[] = array (
-	'name' => array(
-		'lang_field' => 'name',
-		'required' => true,
-		'default'  => true,
-		'value' => 'name_value',
-	),
+$FIELD['name'] = array (
+	'lang_field' => 'name',
+	'required' => true,
+	'default'  => true,
+	'value' => 'name_value',
 );
 
-$FIELD[] = array (
-	'class' => array(
-		'lang_field' => 'class',
-		'default'  => true,
-		'value' => 'class_value',
-	),
+$FIELD['class'] = array (
+	'lang_field' => 'class',
+	'default'  => true,
+	'value' => 'class_value',
 );
 
-$FIELD[] = array (
-	'level' => array(
-		'lang_field' => 'level',
-		'default'  => true,
-		'value' => 'level_value',
-	),
+$FIELD['level'] = array (
+	'lang_field' => 'level',
+	'default'  => true,
+	'value' => 'level_value',
 );
 
 if ( $roster_conf['index_title'] == 1 )
 {
-	$FIELD[] = array (
-		'guild_title' => array (
-			'lang_field' => 'title',
-			'jsort' => 'guild_rank',
-		),
+	$FIELD['guild_title'] = array (
+		'lang_field' => 'title',
+		'jsort' => 'guild_rank',
 	);
 }
 
 if ( $roster_conf['index_currenthonor'] == 1 )
 {
-	$FIELD[] = array (
-		'RankName' => array(
-			'lang_field' => 'currenthonor',
-			'value' => 'honor_value',
-		),
+	$FIELD['RankName'] = array (
+		'lang_field' => 'currenthonor',
+		'value' => 'honor_value',
 	);
 }
 
 if ( $roster_conf['index_note'] == 1 )
 {
-	$FIELD[] = array (
-		'note' => array(
-			'lang_field' => 'note',
-			'value' => 'note_value',
-		),
+	$FIELD['note'] = array (
+		'lang_field' => 'note',
+		'value' => 'note_value',
 	);
 }
 
 if ( $roster_conf['index_prof'] == 1 )
 {
-	$FIELD[] = array (
-		'professions' => array(
-			'lang_field' => 'professions',
-			'value' => 'tradeskill_icons',
-		),
+	$FIELD['professions'] = array (
+		'lang_field' => 'professions',
+		'value' => 'tradeskill_icons',
 	);
 }
 
 if ( $roster_conf['index_hearthed'] == 1 )
 {
-	$FIELD[] = array (
-		'hearth' => array(
-			'lang_field' => 'hearthed',
-		),
+	$FIELD['hearth'] = array (
+		'lang_field' => 'hearthed',
 	);
 }
 
 if ( $roster_conf['index_zone'] == 1 )
 {
-	$FIELD[] = array (
-		'zone' => array(
-			'lang_field' => 'zone',
-		),
+	$FIELD['zone'] = array (
+		'lang_field' => 'zone',
 	);
 }
 
 if ( $roster_conf['index_lastonline'] == 1 )
 {
-	$FIELD[] = array (
-		'last_online' => array (
-			'lang_field' => 'lastonline',
-		),
+	$FIELD['last_online'] = array (
+		'lang_field' => 'lastonline',
 	);
 }
 
 if ( $roster_conf['index_lastupdate'] == 1 )
 {
-	$FIELD[] = array (
-		'last_update' => array (
-			'lang_field' => 'lastupdate',
-			'jsort' => 'last_online_stamp',
-		),
+	$FIELD['last_update'] = array (
+		'lang_field' => 'lastupdate',
+		'jsort' => 'last_online_stamp',
 	);
 }
+
+include_once (ROSTER_LIB.'memberslist.php');
+
+$memberlist = new memberslist;
+
+$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
+
+$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
+
+
+// Start output
+include_once (ROSTER_BASE.'roster_header.tpl');
+
+if( $roster_conf['index_update_inst'] )
+{
+	print '            <a href="#update"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
+}
+
+
+if ( $roster_conf['index_motd'] == 1 )
+{
+	if( $roster_conf['motd_display_mode'] )
+	{
+		print '<img src="motd.php?motd='.urlencode($guildMOTD).'" alt="Guild Message of the Day" /><br /><br />';
+	}
+	else
+	{
+		echo '<span class="GMOTD">Guild MOTD: '.$guildMOTD.'</span><br /><br />';
+	}
+}
+
+include_once (ROSTER_LIB.'menu.php');
+
+if( $roster_conf['hspvp_list_disp'] == 'hide' )
+{
+	$pvp_hs_colapse='';
+	$pvp_hs_full   =' style="display:none;"';
+}
+else
+{
+	$pvp_hs_colapse=' style="display:none;"';
+	$pvp_hs_full   ='';
+}
+
+echo "<table>\n  <tr>\n";
+
+if ( $roster_conf['index_hslist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_BASE.'hslist.php');
+	echo "    </td>\n";
+}
+
+if ( $roster_conf['index_pvplist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_BASE.'pvplist.php');
+	echo "    </td>\n";
+}
+
+echo "  </tr>\n</table>\n";
+
+echo $memberlist->makeFilterBox();
+echo $memberlist->makeMembersList();
+
+// Print the update instructions
+if( $roster_conf['index_update_inst'] )
+{
+	print "<br />\n\n<a name=\"update\"></a>\n";
+
+	echo border('sgray','start',$wordings[$roster_conf['roster_lang']]['update_instructions']);
+	echo '<div align="left" style="font-size:10px;">'.$wordings[$roster_conf['roster_lang']]['update_instruct'];
+
+	if ($roster_conf['pvp_log_allow'] == 1)
+	{
+		echo $wordings[$roster_conf['roster_lang']]['update_instructpvp'];
+	}
+	echo '</div>'.border('sgray','end');
+}
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
 
 /**
  * Controls Output of the Last Updated Column
@@ -240,12 +310,4 @@ function note_value ( $row )
 	return $note;
 }
 
-
-$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
-
-include_once (ROSTER_BASE.'roster_header.tpl');
-
-include_once (ROSTER_BASE.'memberslist.php');
-
-include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

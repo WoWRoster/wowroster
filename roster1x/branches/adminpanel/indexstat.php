@@ -20,6 +20,17 @@ require_once( 'settings.php' );
 
 $header_title = $wordings[$roster_conf['roster_lang']]['menustats'];
 
+//---[ Check for Guild Info ]------------
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+if( empty($guild_info) )
+{
+	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+}
+// Get guild info from guild info check above
+$guildId = $guild_info['guild_id'];
+$guildMOTD = $guild_info['guild_motd'];
+$guildFaction = $guild_info['faction'];
+
 $mainQuery =
 	'SELECT '.
 	'`members`.`member_id`, '.
@@ -69,111 +80,98 @@ $mainQuery =
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 
-$FIELD[] = array (
-	'name' => array(
-		'lang_field' => 'name',
-		'required' => true,
-		'default'  => true,
-		'value' => 'name_value',
-	),
+$FIELD['name'] = array(
+	'lang_field' => 'name',
+	'required' => true,
+	'default'  => true,
+	'value' => 'name_value',
 );
 
-$FIELD[] = array (
-	'class' => array(
-		'lang_field' => 'class',
-		'default'  => true,
-		'value' => 'class_value',
-	),
+$FIELD['class'] = array(
+	'lang_field' => 'class',
+	'default'  => true,
+	'value' => 'class_value',
 );
 
-$FIELD[] = array (
-	'level' => array(
-		'lang_field' => 'level',
-		'default'  => true,
-		'value' => 'level_value',
-	),
+$FIELD['level'] = array(
+	'lang_field' => 'level',
+	'default'  => true,
+	'value' => 'level_value',
 );
 
-$FIELD[] = array (
-	'stat_int_c' => array (
-		'lang_field' => 'intellect',
-	),
+$FIELD['stat_int_c'] = array (
+	'lang_field' => 'intellect',
 );
 
-$FIELD[] = array (
-	'stat_agl_c' => array (
-		'lang_field' => 'agility',
-	),
+$FIELD['stat_agl_c'] = array (
+	'lang_field' => 'agility',
 );
 
-$FIELD[] = array (
-	'stat_sta_c' => array (
-		'lang_field' => 'stamina',
-	),
+$FIELD['stat_sta_c'] = array (
+	'lang_field' => 'stamina',
 );
 
-$FIELD[] = array (
-	'stat_str_c' => array (
-		'lang_field' => 'strength',
-	),
+$FIELD['stat_str_c'] = array (
+	'lang_field' => 'strength',
 );
 
-$FIELD[] = array (
-	'stat_spr_c' => array (
-		'lang_field' => 'spirit',
-	),
+$FIELD['stat_spr_c'] = array (
+	'lang_field' => 'spirit',
 );
 
-$FIELD[] = array (
-	'total' => array (
-		'lang_field' => 'total',
-		'value' => 'total_value',
-	),
+$FIELD['total'] = array (
+	'lang_field' => 'total',
+	'value' => 'total_value',
 );
 
-$FIELD[] = array (
-	'health' => array (
-		'lang_field' => 'health',
-	),
+$FIELD['health'] = array (
+	'lang_field' => 'health',
 );
 
-$FIELD[] = array (
-	'mana' => array(
-		'lang_field' => 'mana',
-	),
+$FIELD['mana'] = array(
+	'lang_field' => 'mana',
 );
 
-$FIELD[] = array (
-	'stat_armor_c' => array(
-		'lang_field' => 'armor',
-		'value' => 'armor_value',
-	),
+$FIELD['stat_armor_c'] = array(
+	'lang_field' => 'armor',
+	'value' => 'armor_value',
 );
 
 
-$FIELD[] = array (
-	'dodge' => array(
-		'lang_field' => 'dodge',
-	),
+$FIELD['dodge'] = array(
+	'lang_field' => 'dodge',
 );
 
-$FIELD[] = array (
-	'parry' => array(
-		'lang_field' => 'parry',
-	),
+$FIELD['parry'] = array(
+	'lang_field' => 'parry',
 );
 
-$FIELD[] = array (
-	'block' => array(
-		'lang_field' => 'block',
-	),
+$FIELD['block'] = array(
+	'lang_field' => 'block',
 );
 
-$FIELD[] = array (
-	'crit' => array(
-		'lang_field' => 'crit',
-	),
+$FIELD['crit'] = array(
+	'lang_field' => 'crit',
 );
+
+
+include_once (ROSTER_LIB.'memberslist.php');
+
+$memberlist = new memberslist;
+
+$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
+
+$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
+
+// Start output
+include_once (ROSTER_BASE.'roster_header.tpl');
+
+include_once (ROSTER_LIB.'menu.php');
+
+echo $memberlist->makeFilterBox();
+echo $memberlist->makeMembersList();
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
 
 /**
  * Controls Output of the Total Stats value Column
@@ -264,11 +262,4 @@ function armor_value ( $row )
 	return "<div style='display:none;'>".$current."</div>".$cell_value;
 }
 
-$more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/sorttable.js"></script>';
-
-include_once (ROSTER_BASE.'roster_header.tpl');
-
-include_once (ROSTER_BASE.'memberslist.php');
-
-include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

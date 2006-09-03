@@ -99,13 +99,13 @@ function addEvent(elm, evType, fn, useCapture)
   }
 }
 
-function dosort(count)
+function dosort(count,listname)
 {
   SORT_COLUMNS = new Array();
   SORTERS = new Array();
   FILTER = new Array();
 
-  table = document.getElementById('membersData');
+  table = document.getElementById(listname);
 
   for (i=0; i<count;i++)
   {
@@ -211,9 +211,9 @@ function enter_sort(e,count)
   return true;
 }
 
-function toggleColumn(colnr,dispcell)
+function toggleColumn(colnr,dispcell,listname)
 {
-	table = document.getElementById('membersData');
+	table = document.getElementById(listname);
 	if (table.rows[0].cells[colnr].style.display == 'none')
 	{
 		newstyle = '';

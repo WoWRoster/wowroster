@@ -1,0 +1,54 @@
+$Id$
+
+memberlist documentation
+========================
+There are a couple of steps to include this list:
+
+
+Define the $field array
+-----------------------
+The field array contains serveral entries like this:
+
+ // the field name, taken from the main query.
+ // if you add options, be sure the query returns those fields or they'll be blank
+ // This is the only required part
+$FIELD['name'] = array (
+	// This is for the column header, check the lang files for whatever they need to be called
+	// If this is not found, this table header will show what is placed here
+	'lang_field' => 'lang_key_name',
+
+	// Javascript order field.
+	// If this collumn is best sorted on something other than what is shown in the table, put the name
+	// of the field to sort on in here.
+	'jsort'      => 'fieldname'
+
+	// Not currently used, required collumn
+	'required'   => true,
+
+	// Not currently used, indicates to show by default
+	'default'    => true,
+
+	// This is in case you need to use a function to modify the value for a field
+	// See examples at the bottom of this file.
+	// Remember the JS sorts on the innerHTML of the first node. Make it an invisible div if needed.
+	'value'      => 'function_name',
+);
+
+Define the main SQL
+-------------------
+This query needs to pull all data for the list. The 'name' fields, the 'jsort'
+fields, and any fields used by your value functions.
+
+Initialize the table
+--------------------
+* Include ROSTER_LIB/memberslist.php
+* Instantiate the memberslist class ($mylist or similar)
+* Call $mylist->prepareData($query, $fields, $listname)
+  - The $query is the main SQL query you defined
+  - The $fields is the field array you defined
+  - The $listname should be unique if you include multiple lists like this on the same page.
+  
+Display the table
+-----------------
+* Call $mylist->makeFilterBox for the filterbox
+* Call $mylist->makeMembersList for the main table
