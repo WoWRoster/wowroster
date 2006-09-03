@@ -574,6 +574,12 @@ class RosterLogin
 		}
 	}
 	
+	/**
+	 * Called on guild list update after the updater has done its work. Any
+	 * automated access modifications based on guild data can be done here.
+	 *
+	 * If you need the uploaded data on PHP side don't fetch from DB but use $update->uploadData
+	 */
 	function updateAccounts()
 	{
 		global $wowdb;
