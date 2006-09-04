@@ -70,11 +70,11 @@ class memberslist {
 
 			if ( $current_col == $cols )
 			{
-				$this->tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'">'.$th_text."</th>\n";
+				$this->tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
 			}
 			else
 			{
-				$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'">'.$th_text."</th>\n";
+				$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
 			}
 
 			$this->sortoptions .= '<optgroup label="'.$th_text.'">'.
@@ -87,8 +87,8 @@ class memberslist {
 			{
 				$this->sortFields .= '    <tr>';
 			}
-			$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\')" style="cursor:pointer;">'.$th_text.'</th>'.
-			'<td><input type="text" id="filter_'.$current_col.'" onkeydown="enter_sort(event,6);" name="filter_'.$current_col.'">'."\n";
+			$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text.'</th>'.
+			'<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'">'."\n";
 
 			$current_col++;
 		}
@@ -119,12 +119,12 @@ class memberslist {
 			'<td class="membersHeader">'.$act_words['membersfilter'].'</td>'."\n".
 			'<tr><td rowspan="'.$cols.'">'."\n";
 		for ($i=0; $i<4; $i++) {
-			$output .= '<select id="sort'.$i.'" name="sort'.$i.'">'."\n".$this->sortoptions.'</select><br />';
+			$output .= '<select id="'.$this->listname.'_sort_'.$i.'" name="'.$this->listname.'_sort_'.$i.'">'."\n".$this->sortoptions.'</select><br />';
 		}
 		$output .=
 			'<button onclick="dosort(6,\''.$this->listname.'\'); return false;">Go</button>'."\n".
-			'<input type="hidden" id="sort4" name="sort4" value="3_desc">'.
-			'<input type="hidden" id="sort5" name="sort5" value="1_asc">'.
+			'<input type="hidden" id="'.$this->listname.'_sort_4" name="'.$this->listname.'_sort_4" value="3_desc">'.
+			'<input type="hidden" id="'.$this->listname.'_sort_5" name="'.$this->listname.'_sort_5" value="1_asc">'.
 			$this->sortFields.
 			'</table>'."\n".
 			border('sblue','end').
