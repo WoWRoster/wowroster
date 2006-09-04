@@ -211,7 +211,10 @@ if ( $roster_conf['index_pvplist'] == 1 )
 echo "  </tr>\n</table>\n";
 
 echo $memberlist->makeFilterBox();
+
+echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
+echo border('syellow','end');
 
 // Print the update instructions
 if( $roster_conf['index_update_inst'] )

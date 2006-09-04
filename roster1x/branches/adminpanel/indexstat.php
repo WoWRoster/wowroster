@@ -169,7 +169,10 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 include_once (ROSTER_LIB.'menu.php');
 
 echo $memberlist->makeFilterBox();
+
+echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
+echo border('syellow','end');
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
 

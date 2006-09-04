@@ -134,13 +134,14 @@ class memberslist {
 	}
 	
 	/**
-	 * Returns the actual list.
+	 * Returns the actual list. (but not the border)
 	 */
 	function makeMembersList()
 	{
 		global $wowdb, $wordings, $act_words, $roster_conf;
 
-		$output .= "<br />\n".border('syellow','start')."\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n";
+
+		$output  = "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n";
 		$output .= $this->tableHeaderRow;
 
 		$result = $wowdb->query( $this->query );
@@ -195,7 +196,7 @@ class memberslist {
 			$output .= "  </tr>\n";
 		}
 
-		$output .= "</table>\n".border('syellow','end');
+		$output .= "</table>\n";
 		
 		return $output;
 	}
