@@ -27,8 +27,7 @@ INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockfram
 INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (210, 'rosterdiag', '%roster%/rosterdiag.php', 'newlink', 'menu');
-INSERT INTO `renprefix_config` VALUES (220, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -72,7 +71,6 @@ INSERT INTO `renprefix_config` VALUES (3040, 'index_sort', '', 'select{Default S
 INSERT INTO `renprefix_config` VALUES (3050, 'index_motd', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3060, 'index_level_bar', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3070, 'index_iconsize', '16', 'select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3080, 'index_tradeskill_icon', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3100, 'index_class_color', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3110, 'index_classicon', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3120, 'index_honoricon', '1', 'radio{on^1|off^0', 'index_conf');

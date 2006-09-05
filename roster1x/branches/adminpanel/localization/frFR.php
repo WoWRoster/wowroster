@@ -572,6 +572,8 @@ $wordings['frFR']['pagebar_charpref'] = 'Character Preferences';
 $wordings['frFR']['pagebar_adminpass'] = 'Change Roster Admin Password';
 $wordings['frFR']['pagebar_addoninst'] = 'Manage addons';
 $wordings['frFR']['pagebar_update'] = 'Update';
+$wordings['frFR']['pagebar_rosterdiag'] = 'Roster Diag';
+
 $wordings['frFR']['pagebar_addonconf'] = 'Addon Config';
 
 $wordings['frFR']['pagebar_userpass'] = 'Change User Password';
@@ -607,7 +609,6 @@ $wordings['frFR']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank 
 $wordings['frFR']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
 $wordings['frFR']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update.php';
 
-$wordings['frFR']['admin']['rosterdiag'] = 'Roster Diag|The always usefull Roster Diagnostics page<br>This lists various server config values and other roster values as well';
 $wordings['frFR']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
@@ -654,7 +655,7 @@ $wordings['frFR']['admin']['index_tradeskill_loc'] = "Tradeskill Column Display|
 $wordings['frFR']['admin']['index_class_color'] = "Class Colorizing|Colorize the class names";
 $wordings['frFR']['admin']['index_classicon'] = "Class Icons|Displays an icon for each class, for each character";
 $wordings['frFR']['admin']['index_honoricon'] = "PvP Honor Icons|Displays a PvP rank icon next to the rank name";
-$wordings['frFR']['admin']['index_prof'] = "Professions Column|This is a specific coulmn for the tradeskill icons<br />If you move them to another column, you might want to turn this off";
+$wordings['frFR']['admin']['index_prof'] = "Professions Column|Toggles thedisplay of the Professions column";
 $wordings['frFR']['admin']['index_currenthonor'] = "Honor Column|Toggles the display of the honor column";
 $wordings['frFR']['admin']['index_note'] = "Note Column|Toggles the display of the public note column";
 $wordings['frFR']['admin']['index_title'] = "Guild Title Column|Toggles the display of the guild title column";

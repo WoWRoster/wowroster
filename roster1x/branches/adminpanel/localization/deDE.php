@@ -572,6 +572,8 @@ $wordings['deDE']['pagebar_charpref'] = 'Character Preferenzen';
 $wordings['deDE']['pagebar_adminpass'] = 'Admin Passwort Änderung';
 $wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
 $wordings['deDE']['pagebar_update'] = 'Update';
+$wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
+
 $wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
 
 $wordings['deDE']['pagebar_userpass'] = 'User Passwort Änderung';
@@ -607,7 +609,6 @@ $wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gi
 $wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
 $wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update.php';
 
-$wordings['deDE']['admin']['rosterdiag'] = 'Roster Diagnose Seite|Das Schweizer-Messer zur Fehlersuche<br>Zeigt einem Server- und Roster-Einstellungen zur Fehlersuche.';
 $wordings['deDE']['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
 
 // main_conf
@@ -654,7 +655,7 @@ $wordings['deDE']['admin']['index_tradeskill_loc'] = "Beruf Spalte Anzeige|In we
 $wordings['deDE']['admin']['index_class_color'] = "Klassenfarben|Färbt die Klassennamen ein";
 $wordings['deDE']['admin']['index_classicon'] = "Klassen Icons|Zeigt ein Icon für jeden Charakter jeder Klasse an";
 $wordings['deDE']['admin']['index_honoricon'] = "PvP Ehrenrang Icons|Zeigt ein Icon des Ehrenrangs neben dem Namen an";
-$wordings['deDE']['admin']['index_prof'] = "Berufs Spalte|Dies ist eine eigene Spalte für die Berufsicons<br />Wenn du sie in einer anderen Spalte anzeigst, kannst du diese deaktivieren.";
+$wordings['deDE']['admin']['index_prof'] = "Berufs Spalte|Toggles thedisplay of the Professions column";
 $wordings['deDE']['admin']['index_currenthonor'] = "Ehren Spalte|Zeigt eine Spalte mit dem aktuellen Ehrenrang an";
 $wordings['deDE']['admin']['index_note'] = "Notiz Spalte|Zeigt eine Spalte mit der Spielernotiz an";
 $wordings['deDE']['admin']['index_title'] = "Gildentitel Spalte|Zeigt eine Spalte mit dem Gildentitel an";

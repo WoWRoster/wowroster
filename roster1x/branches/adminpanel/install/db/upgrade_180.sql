@@ -62,9 +62,9 @@ INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockfram
 INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (210, 'rosterdiag', '%roster%/rosterdiag.php', 'newlink', 'menu');
-INSERT INTO `renprefix_config` VALUES (220, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{open^1|closed^0', 'index_conf');
 
-DELETE FROM `renprefix_config` WHERE `id` = 3090
+DELETE FROM `renprefix_config` WHERE `id` = 3080;
+DELETE FROM `renprefix_config` WHERE `id` = 3090;
