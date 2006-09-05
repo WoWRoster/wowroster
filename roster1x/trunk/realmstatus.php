@@ -143,10 +143,10 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 		}
 
 	// Figure out Servertype
-		$realmData['servertype'] = $row[2][1];
+		$realmData['servertype'] = html_entity_decode($row[2][1]);
 		$realmData['servertypecolor'] = $row[1][1];
 	// Figure out Server Pop.
-		$realmData['serverpop'] = $row[2][2];
+		$realmData['serverpop'] = html_entity_decode($row[2][2]);
 		$realmData['serverpopcolor'] = $row[1][2];
 	}
 	elseif ($xml)
