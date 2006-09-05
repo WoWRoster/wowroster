@@ -15,18 +15,15 @@
  * $Id$
  *
  ******************************/
-
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+// UU upload file
+$script_filename = 'UU_update.php';
 
 // Include libraries
 require_once('Settings.php');
 
 // Check auth
 $roster_login = new RosterLogin($script_filename);
-$roster_auth_level = (( $roster_login->getAuthorized() )?3:1);
+$auth_message = $roster_login->getMessage();
 
 
 require_once(ROSTER_LIB.'update.lib.php');
