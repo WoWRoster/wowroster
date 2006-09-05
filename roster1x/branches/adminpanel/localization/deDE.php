@@ -575,6 +575,7 @@ $wordings['deDE']['pagebar_update'] = 'Update';
 $wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
 
 $wordings['deDE']['pagebar_userpass'] = 'User Passwort Änderung';
+$wordings['deDE']['pagebar_usercreate'] = 'Create User Account';
 
 $wordings['deDE']['config_submit_button'] = 'Speichere Einstellungen';
 $wordings['deDE']['config_reset_button'] = 'Zurücksetzen';

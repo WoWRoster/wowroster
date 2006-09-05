@@ -24,6 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 $pagebar  = border('sgray','start',$act_words['pagebar_function'])."\n";
 $pagebar .= '<ul class="tab_menu">'."\n";
 $pagebar .= '<li><a href="?page=password">'.$act_words['pagebar_userpass'].'</a></li>'."\n";
+$pagebar .= '<li><a href="?page=create">'.$act_words['pagebar_usercreate'].'</a></li>'."\n";
 $pagebar .= '<li><a href="?page=update">'.$act_words['pagebar_update'].'</a></li>'."\n";
 $pagebar .= '</ul>'."\n";
 $pagebar .= border('sgray','end')."\n";

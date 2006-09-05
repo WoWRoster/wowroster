@@ -49,6 +49,10 @@ switch ($_GET['page'])
 		include(ROSTER_ADMIN.'user_pass.php');
 		break;
 
+	case 'create':
+		include(ROSTER_ADMIN.'user_create.php');
+		break;
+
 	default:
 		$body .= messagebox('Invalid page specified.','Roster User Panel','sred');
 		break;

@@ -575,6 +575,7 @@ $wordings['enUS']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 
 $wordings['enUS']['pagebar_userpass'] = 'Change User Password';
+$wordings['enUS']['pagebar_usercreate'] = 'Create User Account';
 
 $wordings['enUS']['config_submit_button'] = 'Save Settings';
 $wordings['enUS']['config_reset_button'] = 'Reset';
