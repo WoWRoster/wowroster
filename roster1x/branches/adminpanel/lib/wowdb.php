@@ -576,9 +576,12 @@ class wowdb
 	 * Inserts a recipe into the Database
 	 *
 	 * @param array $recipe
+	 * @param string $locale
 	 */
-	function insert_recipe( $recipe )
+	function insert_recipe( $recipe,$locale )
 	{
+		global $wordings;
+
 		$this->reset_values();
 		$this->add_value('member_id', $recipe['member_id'] );
 		$this->add_value('recipe_name', $recipe['recipe_name'] );
@@ -591,8 +594,8 @@ class wowdb
 
 		$this->add_value('recipe_tooltip', $recipe['recipe_tooltip'] );
 
-		if (strpos($recipe['recipe_tooltip'], 'Requires Level') != 0)
-			$this->add_value('level', (rtrim(substr($recipe['recipe_tooltip'], strpos($recipe['recipe_tooltip'], 'Requires Level') + 15,2))) );
+		if( preg_match($wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
+			$this->add_value('level',$level[1]);
 
 		$querystr = "INSERT INTO `".ROSTER_RECIPESTABLE."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
@@ -838,7 +841,7 @@ class wowdb
 					{
 						$recipeDetails = $item[$recipe_name];
 						$recipe = $this->make_recipe( $recipeDetails, $memberId, $skill_name, $recipe_type, $recipe_name );
-						$this->insert_recipe( $recipe );
+						$this->insert_recipe( $recipe,$data['Locale'] );
 					}
 				}
 			}
