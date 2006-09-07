@@ -147,7 +147,7 @@ class char
 		if( isset( $quests[0] ) )
 		{
 			$zone = '';
-			$returnstring .= border('sgray','start',$wordings[$lang]['questlog'].'&nbsp; ('.count($quests).'/20)').
+			$returnstring .= border('sgray','start',$wordings[$lang]['questlog'].' ('.count($quests).'/20)').
 				'<table class="bodyline" cellspacing="0" cellpadding="0">';
 
 			foreach ($quests as $quest)
@@ -161,30 +161,29 @@ class char
 				$char_level = $this->data['level'];
 				$font = 'grey';
 
-				if ($quest_level + 7 < $char_level)
+				if ($quest_level + 9 < $char_level)
 					$font = 'grey';
 				else if ($quest_level + 2 < $char_level)
 					$font = 'green';
-				else if ($quest_level < $char_level+2)
+				else if ( $quest_level < $char_level+3 )
 					$font = 'yellow';
 				else
 					$font = 'red';
-
-				$returnstring .= '        <tr>
-          <td class="membersRow1">';
-				$returnstring .= '&nbsp;&nbsp;&nbsp;&nbsp;<span class="'.$font.'">['.$quest_level.'] </span>';
 
 				$name = $quest->data['quest_name'];
 				if ($name{0} == '[')
 					$name = trim(strstr($name, ' '));
 
-				$returnstring .= $name;
+				$returnstring .= '        <tr>
+          <td class="membersRow1"><span class="'.$font.'">['.$quest_level.'] '.$name.'</span>';
 
 				if ($quest->data['quest_tag'])
 					$returnstring .= ' ('.$quest->data['quest_tag'].')';
 
-				if ($quest->data['is_complete'])
+				if( $quest->data['is_complete'] == 1 )
 					$returnstring .= ' (Complete)';
+				elseif( $quest->data['is_complete'] == -1 )
+					$returnstring .= ' (Failed)';
 
 				$returnstring .= "</td>\n";
 

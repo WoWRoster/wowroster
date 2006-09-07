@@ -84,7 +84,7 @@ function quest_get_many( $member_id, $search )
 {
 	global $wowdb;
 
-	$query= "SELECT * FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$member_id' ORDER BY 'zone', 'quest_level'";
+	$query= "SELECT * FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$member_id' ORDER BY 'quest_index' ASC";
 
 	$result = $wowdb->query( $query );
 

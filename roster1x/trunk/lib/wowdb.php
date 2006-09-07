@@ -632,7 +632,7 @@ class wowdb
 	 * @param string $zone
 	 * @return array
 	 */
-	function make_quest( $quest_data, $memberId, $zone)
+	function make_quest( $quest_data, $memberId, $zone, $slot )
 	{
 		$quest = array();
 		$quest['member_id'] = $memberId;
@@ -640,12 +640,12 @@ class wowdb
 		//Fix quest name if too many 'quest' addons cause level number to be added to title
 		$quest['quest_name'] = preg_replace("/^(\[[[:digit:]]{1,2}(D|R|\+)?\] )?/",'',$quest_data['Title']);
 		$quest['quest_tag'] = $quest_data['Tag'];
-		$quest['quest_index'] = 0;
+		$quest['quest_index'] = $slot;
 		$quest['quest_level'] = $quest_data['Level'];
 		$quest['zone'] = $zone;
 
-		if ($quest_data['Complete'] == 'Complete')
-			$quest['is_complete'] = 1;
+		if( isset($quest_data['Complete']) )
+			$quest['is_complete'] = $quest_data['Complete'];
 		else
 			$quest['is_complete'] = 0;
 
@@ -782,7 +782,7 @@ class wowdb
 				foreach( array_keys($zoneInfo) as $slot)
 				{
 					$slotInfo = $zoneInfo[$slot];
-					$item = $this->make_quest( $slotInfo, $memberId, $zone);
+					$item = $this->make_quest( $slotInfo, $memberId, $zone, $slot );
 					$this->insert_quest( $item );
 					$questnum++;
 				}
