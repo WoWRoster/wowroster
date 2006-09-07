@@ -378,6 +378,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 
 		// Ouput centered $server name
 		$maxw = 62;
+
 		$box = imagettfbbox(6,0,$serverfont,$server);
 		$w = abs($box[0]) + abs($box[2]);
 
@@ -389,7 +390,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 			{
 				$t--;
 				$box = imagettfbbox (6, 0,$serverfont,substr($server,0,$t));
-		  	$i = abs($box[0]) + abs($box[2]);
+			  	$i = abs($box[0]) + abs($box[2]);
 			}
 			$t = strrpos(substr($server, 0, $t), ' ');
 			$output[0] = substr($server, 0, $t);
@@ -413,7 +414,34 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		{
 			$box = imagettfbbox(15,0,$serverpopfont,$realmData['serverpop']);
 			$w = abs($box[0]) + abs($box[2]);
-			writeText($back,15, round(($backwidth-$w)/2), 72,-$popcolor,$serverpopfont,$realmData['serverpop'],$shadow);
+			//writeText($back,15, round(($backwidth-$w)/2), 72,-$popcolor,$serverpopfont,$realmData['serverpop'],$shadow);
+
+			if ($w > $maxw)
+			{
+				$i = $w;
+				$t = strlen($realmData['serverpop']);
+				while ($i > $maxw)
+				{
+					$t--;
+					$box = imagettfbbox (15, 0,$serverpopfont,substr($realmData['serverpop'],0,$t));
+				  	$i = abs($box[0]) + abs($box[2]);
+				}
+				$t = strrpos(substr($realmData['serverpop'], 0, $t), ' ');
+				$output[0] = substr($realmData['serverpop'], 0, $t);
+				$output[1] = ltrim(substr($realmData['serverpop'], $t));
+				$vadj = -6;
+			}
+			else
+				$output[0] = $realmData['serverpop'];
+
+			$i = 0;
+			foreach($output as $value)
+			{
+				$box = imagettfbbox(6,0,$serverfont,$value);
+				$w = abs($box[0]) + abs($box[2]);
+				writeText($back,6, round(($backwidth-$w)/2), 57+($i*8)+$vadj,-$popcolor,$serverpopfont,$value,$shadow);
+				$i++;
+			}
 		}
 
 		// Ouput centered $realmData['servertype']
