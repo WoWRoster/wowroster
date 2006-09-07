@@ -48,7 +48,7 @@ if ($_POST['process'] == 'process')
 	if ($roster_conf['sqldebug'])
 	{
 		$body .= "<br />\n";
-		$body .= scrollbox(nl2br(sql_highlight($queries)),'SQL Queries','sgreen');
+		$body .= scrollbox(nl2br($queries),'SQL Queries','sgreen');
 	}
 }
 else

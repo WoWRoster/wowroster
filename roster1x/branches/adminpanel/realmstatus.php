@@ -379,6 +379,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		// Ouput centered $server name
 		$maxw = 62;
 
+		$output = '';
 		$box = imagettfbbox(6,0,$serverfont,$server);
 		$w = abs($box[0]) + abs($box[2]);
 
@@ -409,6 +410,9 @@ function img_output ($realmData,$err,$image_path,$font_path)
 			$i++;
 		}
 
+		$output = '';
+		$vadj = 0;
+
 		// Ouput centered $realmData['serverpop']
 		if ($realmData['serverpop'] && !$err)
 		{
@@ -429,7 +433,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 				$t = strrpos(substr($realmData['serverpop'], 0, $t), ' ');
 				$output[0] = substr($realmData['serverpop'], 0, $t);
 				$output[1] = ltrim(substr($realmData['serverpop'], $t));
-				$vadj = -6;
+				$vadj = -4;
 			}
 			else
 				$output[0] = $realmData['serverpop'];
@@ -437,9 +441,9 @@ function img_output ($realmData,$err,$image_path,$font_path)
 			$i = 0;
 			foreach($output as $value)
 			{
-				$box = imagettfbbox(6,0,$serverfont,$value);
+				$box = imagettfbbox(15,0,$serverpopfont,$value);
 				$w = abs($box[0]) + abs($box[2]);
-				writeText($back,6, round(($backwidth-$w)/2), 57+($i*8)+$vadj,-$popcolor,$serverpopfont,$value,$shadow);
+				writeText($back,15, round(($backwidth-$w)/2), 72+($i*8)+$vadj,-$popcolor,$serverpopfont,$value,$shadow);
 				$i++;
 			}
 		}
@@ -487,8 +491,7 @@ function writeText( $im,$fontsize,$xpos,$ypos,$color,$font,$text,$shadow_color )
 	}
 
 	// Write the text
-	@imageTTFText( $im,$fontsize,0,$xpos,$ypos,$color,$font,$text )
-		or debugMode((__LINE__),$php_errormsg);
+	@imageTTFText( $im,$fontsize,0,$xpos,$ypos,$color,$font,$text );
 }
 
 // Shadow Text
