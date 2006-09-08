@@ -655,14 +655,14 @@ $wordings['frFR']['admin']['index_tradeskill_loc'] = "Tradeskill Column Display|
 $wordings['frFR']['admin']['index_class_color'] = "Class Colorizing|Colorize the class names";
 $wordings['frFR']['admin']['index_classicon'] = "Class Icons|Displays an icon for each class, for each character";
 $wordings['frFR']['admin']['index_honoricon'] = "PvP Honor Icons|Displays a PvP rank icon next to the rank name";
-$wordings['frFR']['admin']['index_prof'] = "Professions Column|Toggles thedisplay of the Professions column";
-$wordings['frFR']['admin']['index_currenthonor'] = "Honor Column|Toggles the display of the honor column";
-$wordings['frFR']['admin']['index_note'] = "Note Column|Toggles the display of the public note column";
-$wordings['frFR']['admin']['index_title'] = "Guild Title Column|Toggles the display of the guild title column";
-$wordings['frFR']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Toggles the display of the hearthstone location column";
-$wordings['frFR']['admin']['index_zone'] = "Last Zone Loc. Column|Toggles the display of the last zone column";
-$wordings['frFR']['admin']['index_lastonline'] = "Last Seen Online Column|Toggles the display of the last seen online column";
-$wordings['frFR']['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
+$wordings['frFR']['admin']['index_prof'] = "Professions Column|Access level needed to view the Professions column";
+$wordings['frFR']['admin']['index_currenthonor'] = "Honor Column|Access level needed to view the honor column";
+$wordings['frFR']['admin']['index_note'] = "Note Column|Access level needed to view the public note column";
+$wordings['frFR']['admin']['index_title'] = "Guild Title Column|Access level needed to view the guild title column";
+$wordings['frFR']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Access level needed to view the hearthstone location column";
+$wordings['frFR']['admin']['index_zone'] = "Last Zone Loc. Column|Access level needed to view the last zone column";
+$wordings['frFR']['admin']['index_lastonline'] = "Last Seen Online Column|Access level needed to view the last seen online column";
+$wordings['frFR']['admin']['index_lastupdate'] = "Last Updated Column|Access level needed to view when the character last updated their info";
 $wordings['frFR']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
 
 // menu_conf

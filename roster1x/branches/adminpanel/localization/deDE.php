@@ -655,15 +655,15 @@ $wordings['deDE']['admin']['index_tradeskill_loc'] = "Beruf Spalte Anzeige|In we
 $wordings['deDE']['admin']['index_class_color'] = "Klassenfarben|Färbt die Klassennamen ein";
 $wordings['deDE']['admin']['index_classicon'] = "Klassen Icons|Zeigt ein Icon für jeden Charakter jeder Klasse an";
 $wordings['deDE']['admin']['index_honoricon'] = "PvP Ehrenrang Icons|Zeigt ein Icon des Ehrenrangs neben dem Namen an";
-$wordings['deDE']['admin']['index_prof'] = "Berufs Spalte|Toggles thedisplay of the Professions column";
-$wordings['deDE']['admin']['index_currenthonor'] = "Ehren Spalte|Zeigt eine Spalte mit dem aktuellen Ehrenrang an";
-$wordings['deDE']['admin']['index_note'] = "Notiz Spalte|Zeigt eine Spalte mit der Spielernotiz an";
-$wordings['deDE']['admin']['index_title'] = "Gildentitel Spalte|Zeigt eine Spalte mit dem Gildentitel an";
-$wordings['deDE']['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Zeigt eine Spalte mit dem Ort des Ruhesteins an";
-$wordings['deDE']['admin']['index_zone'] = "Letztes Gebiet Spalte|Zeigt eine Spalte mit dem letzten Aufenthaltsort an";
-$wordings['deDE']['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, wann der Spieler zuletzt online war";
-$wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
-$wordings['deDE']['admin']['members_openfilter'] = "JavaScript Sortierbox|Zeige oder Verstecke die Box mit den Sortieroptionen standardmäßig";
+$wordings['deDE']['admin']['index_prof'] = "Berufs Spalte|Access level needed to view the Professions column";
+$wordings['deDE']['admin']['index_currenthonor'] = "Honor Column|Access level needed to view the honor column";
+$wordings['deDE']['admin']['index_note'] = "Note Column|Access level needed to view the public note column";
+$wordings['deDE']['admin']['index_title'] = "Guild Title Column|Access level needed to view the guild title column";
+$wordings['deDE']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Access level needed to view the hearthstone location column";
+$wordings['deDE']['admin']['index_zone'] = "Last Zone Loc. Column|Access level needed to view the last zone column";
+$wordings['deDE']['admin']['index_lastonline'] = "Last Seen Online Column|Access level needed to view the last seen online column";
+$wordings['deDE']['admin']['index_lastupdate'] = "Last Updated Column|Access level needed to view when the character last updated their info";
+$wordings['deDE']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
 
 // menu_conf
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
