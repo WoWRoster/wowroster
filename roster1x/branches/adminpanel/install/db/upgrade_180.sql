@@ -68,3 +68,12 @@ INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{o
 
 DELETE FROM `renprefix_config` WHERE `id` = 3080;
 DELETE FROM `renprefix_config` WHERE `id` = 3090;
+
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3130;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3140;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3150;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3160;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3170;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3180;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3190;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3200;

@@ -283,6 +283,7 @@ class config
 	 */
 	function buildBlock($block)
 	{
+		global $roster_login;
 		$i = 0;
 		foreach($this->db_values[$block] as $values)
 		{

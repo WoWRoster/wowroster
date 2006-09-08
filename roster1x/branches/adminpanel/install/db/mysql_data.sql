@@ -74,14 +74,14 @@ INSERT INTO `renprefix_config` VALUES (3070, 'index_iconsize', '16', 'select{8px
 INSERT INTO `renprefix_config` VALUES (3100, 'index_class_color', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3110, 'index_classicon', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3120, 'index_honoricon', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3130, 'index_prof', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3140, 'index_currenthonor', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3150, 'index_note', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3160, 'index_title', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3170, 'index_hearthed', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3180, 'index_zone', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3190, 'index_lastonline', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '1', 'radio{on^1|off^0', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3130, 'index_prof', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3140, 'index_currenthonor', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3150, 'index_note', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3160, 'index_title', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3170, 'index_hearthed', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3180, 'index_zone', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3190, 'index_lastonline', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '10', 'access', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{open^1|closed^0', 'index_conf');
 
 # --------------------------------------------------------

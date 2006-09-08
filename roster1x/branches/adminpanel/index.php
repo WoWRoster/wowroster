@@ -16,7 +16,10 @@
  *
  ******************************/
 
+$script_filename = 'index.php';
 require_once( 'settings.php' );
+
+$roster_login = new RosterLogin($script_filename);
 
 //---[ Check for Guild Info ]------------
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
@@ -66,8 +69,18 @@ $mainQuery =
 	'WHERE `members`.`guild_id` = '.$guildId.' '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
-	$always_sort;
+$perms = array(
+	'index_title' => $roster_conf['index_title'],
+	'index_currenthonor' => $roster_conf['index_currenthonor'],
+	'index_note' => $roster_conf['index_note'],
+	'index_prof' => $roster_conf['index_prof'],
+	'index_hearthed' => $roster_conf['index_hearthed'],
+	'index_zone' => $roster_conf['index_zone'],
+	'index_lastonline' => $roster_conf['index_lastonline'],
+	'index_lastupdate' => $roster_conf['index_lastupdate']
+);
 
+$perms = $roster_login->getAuthorized($perms);
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
@@ -88,7 +101,7 @@ $FIELD['level'] = array (
 	'value' => 'level_value',
 );
 
-if ( $roster_conf['index_title'] == 1 )
+if ( $perms['index_title'] )
 {
 	$FIELD['guild_title'] = array (
 		'lang_field' => 'title',
@@ -96,7 +109,7 @@ if ( $roster_conf['index_title'] == 1 )
 	);
 }
 
-if ( $roster_conf['index_currenthonor'] == 1 )
+if ( $perms['index_currenthonor'] )
 {
 	$FIELD['RankName'] = array (
 		'lang_field' => 'currenthonor',
@@ -104,7 +117,7 @@ if ( $roster_conf['index_currenthonor'] == 1 )
 	);
 }
 
-if ( $roster_conf['index_note'] == 1 )
+if ( $perms['index_note'] )
 {
 	$FIELD['note'] = array (
 		'lang_field' => 'note',
@@ -112,7 +125,7 @@ if ( $roster_conf['index_note'] == 1 )
 	);
 }
 
-if ( $roster_conf['index_prof'] == 1 )
+if ( $perms['index_prof'] )
 {
 	$FIELD['professions'] = array (
 		'lang_field' => 'professions',
@@ -120,28 +133,28 @@ if ( $roster_conf['index_prof'] == 1 )
 	);
 }
 
-if ( $roster_conf['index_hearthed'] == 1 )
+if ( $perms['index_hearthed'] )
 {
 	$FIELD['hearth'] = array (
 		'lang_field' => 'hearthed',
 	);
 }
 
-if ( $roster_conf['index_zone'] == 1 )
+if ( $perms['index_zone'] )
 {
 	$FIELD['zone'] = array (
 		'lang_field' => 'zone',
 	);
 }
 
-if ( $roster_conf['index_lastonline'] == 1 )
+if ( $perms['index_lastonline'] )
 {
 	$FIELD['last_online'] = array (
 		'lang_field' => 'lastonline',
 	);
 }
 
-if ( $roster_conf['index_lastupdate'] == 1 )
+if ( $perms['index_lastupdate'] )
 {
 	$FIELD['last_update'] = array (
 		'lang_field' => 'lastupdate',
@@ -180,6 +193,8 @@ if ( $roster_conf['index_motd'] == 1 )
 }
 
 include_once (ROSTER_LIB.'menu.php');
+
+echo "\n".$roster_login->getMessage()."<br />\n";
 
 if( $roster_conf['hspvp_list_disp'] == 'hide' )
 {

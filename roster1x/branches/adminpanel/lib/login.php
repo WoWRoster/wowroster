@@ -43,7 +43,7 @@ class RosterLogin
 	/**
 	 * Constructor for Roster Login class
 	 * Parameter is the file any results should be sent to.
-	 * THIS IS A REQUIRED FUNCTION
+	 * THIS IS A REQUIRED FUNCTION SINCE YOU NEED THE $script_filename TO GENERATE PROPER FORMS
 	 *
 	 * @param string $script_filename
 	 * @return RosterLogin
@@ -189,20 +189,21 @@ class RosterLogin
 	 */
 	function getAuthorized($creds = '')
 	{
-		if ($creds = '')
+		if ($creds == '')
 		{
 			return $this->level == -1;
 		}
 
 		if (!is_array($creds))
 		{
-			return $this->level <= (int)$creds;
+			return $this->level <= $creds;
 		}
 
 		foreach ($creds as $key => $level)
 		{
-			$perms[$key] = ($this->level <= (int)$level);
+			$perms[$key] = ($this->level <= $level);
 		}
+		
 		return $perms;
 	}
 
@@ -449,7 +450,7 @@ class RosterLogin
 	 */
 	function accessConfig($values)
 	{
-		$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
+		return '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
 	}
 
 	/**
