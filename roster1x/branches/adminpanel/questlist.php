@@ -76,8 +76,8 @@ function SelectQuery($table,$fieldtoget,$field,$current,$fieldid,$urltorun)
 
 
 // The next two lines call the function SelectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-$option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.zone","zone",$zoneidsafe,"zone","indexquests.php?zoneid");
-$option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.quest_name","quest_name",$questidsafe,"quest_name","indexquests.php?questid");
+$option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` AS quests","DISTINCT quests.zone","zone",$zoneidsafe,"zone","indexquests.php?zoneid");
+$option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` AS quests","DISTINCT quests.quest_name","quest_name",$questidsafe,"quest_name","indexquests.php?questid");
 
 // Don't forget the menu !!
 include_once(ROSTER_LIB.'menu.php');
@@ -125,115 +125,41 @@ print('<br /><br />
 <?php
 print border('sgray','end');
 
-if (isset($zoneidsafe) or isset($questidsafe))
+if (isset($zoneidsafe))
 {
-	$zquery = "SELECT DISTINCT `zone` FROM `".ROSTER_QUESTSTABLE."` WHERE `zone` = '".$zoneidsafe."' ORDER BY `zone`";
+	print('<div class="headline_1">'.stripslashes($zoneidsafe)."</div>\n");
 
-	$zresult = $wowdb->query($zquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$zquery);
+	$qquery = "SELECT DISTINCT quest_name";
+	$qquery .= " FROM `".ROSTER_QUESTSTABLE."`";
+	$qquery .= " WHERE zone = '" .$zoneidsafe . "'";
+	$qquery .= " ORDER BY quest_name";
+
+	$qresult = $wowdb->query($qquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qquery);
 	if ($roster_conf['sqldebug'])
-		print ("<!--$query-->");
+	print ("<!--$query-->");
 
-	while($zrow = $wowdb->fetch_array($zresult))
+	while($qrow = $wowdb->fetch_array($qresult))
 	{
-		print('<div class="headline_1">'.$zrow['zone']."</div>\n");
-
-		$qquery = "SELECT DISTINCT quest_name";
-		$qquery .= " FROM `".ROSTER_QUESTSTABLE."`";
-		$qquery .= " WHERE zone = '" .$zoneidsafe . "'";
-		$qquery .= " ORDER BY quest_name";
-
-		$qresult = $wowdb->query($qquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qquery);
-		if ($roster_conf['sqldebug'])
-		print ("<!--$query-->");
-
-		while($qrow = $wowdb->fetch_array($qresult))
-		{
-			$query = "SELECT q.zone, q.quest_name, q.quest_level, p.name, p.server";
-			$query .= " FROM `".ROSTER_QUESTSTABLE."` q, `".ROSTER_PLAYERSTABLE."` p";
-			$query .= " WHERE q.zone = '" .$zoneidsafe . "' AND q.member_id = p.member_id AND q.quest_name = '" . addslashes($qrow['quest_name']) . "'";
-			$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, p.name";
-
-			$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-			if ($roster_conf['sqldebug'])
-				print ("<!--$query-->");
-
-			$tableHeader = border('syellow','start',$qrow['quest_name']).
-				'<table cellpadding="0" cellspacing="0">';
-
-			$tableHeaderRow = '  <tr>
-    <th class="membersHeader">Zone</th>
-    <th class="membersHeader">Quest Name</th>
-    <th class="membersHeader">Quest Level</th>
-    <th class="membersHeaderRight">Member</th>
-  </tr>';
-
-			$tableFooter = '</table>'.border('syellow','end').'<br />';
-
-			print($tableHeader);
-			print($tableHeaderRow);
-
-			while($row = $wowdb->fetch_array($result))
-			{
-				print('<tr>');
-
-				// Increment counter so rows are colored alternately
-				++$striping_counter;
-
-				// Echoing cells w/ data
-				print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
-				print($row['zone']);
-				print('</td>');
-
-				print('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['quest_name'].'</td>');
-				print('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['quest_level'].'</td>');
-				print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
-				if ($row['server'])
-				{
-					print('<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'" target="_blank">'.$row['name'].'</a>');
-				}
-				else
-					print($row['name']);
-
-				print('</td>');
-				print("</tr>\n");
-			}
-
-			print($tableFooter);
-			$wowdb->free_result($result);
-		}
-	}
-}
-
-if (isset($questidsafe))
-{
-	$qnquery = "SELECT DISTINCT `quest_name` FROM `".ROSTER_QUESTSTABLE."` WHERE `quest_name` = '" .$questidsafe. "' ORDER BY `quest_name`";
-	$qnresult = $wowdb->query($qnquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qnquery);
-
-	if ($roster_conf['sqldebug'])
-		print ("<!--$query-->");
-
-	while($qnrow = $wowdb->fetch_array($qnresult))
-	{
-		print('<div class="headline_1">'.$qnrow['quest_name']."</div>\n");
-
 		$query = "SELECT q.zone, q.quest_name, q.quest_level, p.name, p.server";
 		$query .= " FROM `".ROSTER_QUESTSTABLE."` q, `".ROSTER_PLAYERSTABLE."` p";
-		$query .= " WHERE q.member_id = p.member_id AND q.quest_name = '" . addslashes($qnrow['quest_name'])  . "'";
+		$query .= " WHERE q.zone = '" .$zoneidsafe . "' AND q.member_id = p.member_id AND q.quest_name = '" . addslashes($qrow['quest_name']) . "'";
 		$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, p.name";
 
 		$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 		if ($roster_conf['sqldebug'])
 			print ("<!--$query-->");
 
-		$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0">';
+		$tableHeader = border('syellow','start',$qrow['quest_name']).
+			'<table cellpadding="0" cellspacing="0">';
 
 		$tableHeaderRow = '  <tr>
-    <th class="membersHeader">Member</th>
+    <th class="membersHeader">Zone</th>
+    <th class="membersHeader">Quest Name</th>
     <th class="membersHeader">Quest Level</th>
-    <th class="membersHeaderRight">Zone</th>
+    <th class="membersHeaderRight">Member</th>
   </tr>';
 
-		$tableFooter = '</table>'.border('syellow','end');
+		$tableFooter = '</table>'.border('syellow','end').'<br />';
 
 		print($tableHeader);
 		print($tableHeaderRow);
@@ -247,6 +173,12 @@ if (isset($questidsafe))
 
 			// Echoing cells w/ data
 			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
+			print($row['zone']);
+			print('</td>');
+
+			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['quest_name'].'</td>');
+			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['quest_level'].'</td>');
+			print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
 			if ($row['server'])
 			{
 				print('<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'" target="_blank">'.$row['name'].'</a>');
@@ -255,16 +187,66 @@ if (isset($questidsafe))
 				print($row['name']);
 
 			print('</td>');
-			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['quest_level'].'</td>');
-			print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
-			print($row['zone']);
-			print('</td>');
 			print("</tr>\n");
 		}
 
 		print($tableFooter);
 		$wowdb->free_result($result);
 	}
+}
+
+if (isset($questidsafe))
+{
+	print('<div class="headline_1">'.stripslashes($questidsafe)."</div>\n");
+
+	$query = "SELECT q.zone, q.quest_name, q.quest_level, p.name, p.server";
+	$query .= " FROM `".ROSTER_QUESTSTABLE."` q, `".ROSTER_PLAYERSTABLE."` p";
+	$query .= " WHERE q.member_id = p.member_id AND q.quest_name = '" . $questidsafe  . "'";
+	$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, p.name";
+
+	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	if ($roster_conf['sqldebug'])
+		print ("<!--$query-->");
+
+	$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0">';
+
+	$tableHeaderRow = '  <tr>
+    <th class="membersHeader">Member</th>
+    <th class="membersHeader">Quest Level</th>
+    <th class="membersHeaderRight">Zone</th>
+  </tr>';
+
+	$tableFooter = '</table>'.border('syellow','end');
+
+	print($tableHeader);
+	print($tableHeaderRow);
+
+	while($row = $wowdb->fetch_array($result))
+	{
+		print('<tr>');
+
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+
+		// Echoing cells w/ data
+		print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
+		if ($row['server'])
+		{
+			print('<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'" target="_blank">'.$row['name'].'</a>');
+		}
+		else
+			print($row['name']);
+
+		print('</td>');
+		print('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['quest_level'].'</td>');
+		print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
+		print($row['zone']);
+		print('</td>');
+		print("</tr>\n");
+	}
+
+	print($tableFooter);
+	$wowdb->free_result($result);
 }
 
 ?>
