@@ -22,7 +22,6 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 //---[ Check for Guild Info ]------------
-$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 if( empty($guild_info) )
 {
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );

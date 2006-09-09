@@ -21,25 +21,11 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$guild_name_escaped = $wowdb->escape($roster_conf['guild_name']);
-$server_name_escaped = $wowdb->escape($roster_conf['server_name']);
-$query = "SELECT `guild_id`, `guild_dateupdatedutc` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escaped' AND `server` ='$server_name_escaped'";
-
-$guild_data = $wowdb->query($query);
-$guild_data_rows = $wowdb->num_rows($guild_data);
-
-if( $guild_data && $guild_data_rows > 0 )
+if( !empty($guild_info) )
 {
-	if ($row = $wowdb->fetch_assoc($guild_data))
-	{
-		$guildId = $row['guild_id'];
-		$updateTimeUTC = $row['guild_dateupdatedutc'];
-		$updateTime = DateDataUpdated($updateTimeUTC);
-	}
-	else
-	{
-		die_quietly($wowdb->error(),'Could not connect to database',basename(__FILE__),__LINE__,$query);
-	}
+	$guildId = $guild_info['guild_id'];
+	$updateTimeUTC = $guild_info['guild_dateupdatedutc'];
+	$updateTime = DateDataUpdated($updateTimeUTC);
 
 	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
 		`level` DIV 10 AS levelgroup,
@@ -133,7 +119,7 @@ if( !empty($roster_conf['timezone']) )
   <tr>
 <!-- Links Column 1 -->
 <?php
-if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
+if( $roster_conf['menu_left_pane'] && !empty($guild_info) )
 {
 	print '   <td rowspan="2" valign="top" class="row">';
 
@@ -200,7 +186,7 @@ if( $roster_conf['menu_search_page'] )
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
       </ul></td>
 <?php
-if( $roster_conf['menu_right_pane'] && $guild_data_rows > 0 )
+if( $roster_conf['menu_right_pane'] && !empty($guild_info) )
 {
 	print '    <td rowspan="2" valign="top" class="rowright">';
 

@@ -138,7 +138,7 @@ require_once (ROSTER_LIB.'constants.php');
 
 /**
  * Include common functions
- **/
+ */
 require_once (ROSTER_LIB.'commonfunctions.lib.php');
 
 
@@ -163,6 +163,19 @@ while( $row = $wowdb->fetch_assoc($results) )
 }
 $wowdb->free_result($results);
 
+/**
+ * Get guild info
+ */
+$sql = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '".$wowdb->escape($roster_conf['guild_name'])."' AND `server` = '".$wowdb->escape($roster_conf['server_name'])."'";
+$result = $wowdb->query($sql);
+
+if ( !$results )
+{
+	die('Cannot get guild info from database');
+}
+
+$guild_info = $wowdb->fetch_assoc($result);
+$wowdb->free_result($result);
 
 /**
  * Set SQL debug value
