@@ -209,7 +209,7 @@ if( $roster_conf['menu_right_pane'] && !empty($guild_info) )
 <?php
 if( $addons != '' )
 {
-	print "  <tr>\n    <td colspan=\"3\" align=\"center\" valign=\"top\" class=\"row".(($roster_conf['menu_right_pane'] && $guild_data_rows > 0) ? '' : 'right')." addon\" style=\"width:320px;\">\n";
+	print "  <tr>\n    <td colspan=\"3\" align=\"center\" valign=\"top\" class=\"row".(($roster_conf['menu_right_pane'] && !empty($guild_info)) ? '' : 'right')." addon\" style=\"width:320px;\">\n";
 	print '<span style="color:#0099FF;font-weight:bold;">'.$wordings[$roster_conf['roster_lang']]['Addon'].'</span>';
 	print "    <ul>\n";
 	print $addons;
