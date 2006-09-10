@@ -71,6 +71,11 @@ CREATE TABLE `renprefix_realmstatus` (
 ALTER TABLE `renprefix_mailbox`
   ADD `item_color` varchar(16) NOT NULL default '';
 
+
+ALTER TABLE `renprefix_items`
+  ADD `level` INT( 11 ) default NULL;
+
+
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
 
