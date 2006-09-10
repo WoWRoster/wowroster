@@ -7,11 +7,11 @@ if( !defined('IN_UNIADMIN') )
 
 function Main()
 {
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$addonInputForm ="
-<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."addons'>
-	<table class='uuTABLE'>
+<form name='ua_updateaddon' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+	<table class='uuTABLE' align='center'>
 		<tr>
 			<th class='tableHeader' colspan='2'>Add / Update Addon</th>
 		</tr>
@@ -41,7 +41,7 @@ function Main()
     	";
 
 	$AddonPanel = "
-		<table class='uuTABLE' width='90%'>
+		<table class='uuTABLE' align='center'>
 			<tr>
 				<th class='tableHeader' colspan='10'>Addon Management</th>
 			</tr>
@@ -75,11 +75,11 @@ function Main()
 
 		if ($row['enabled'] == '1')
 		{
-			$enabled = "<a href='".UA_FORMACTION."addons&amp;OPERATION=DISABLEADDON&amp;ADDONID=$addonID' style='color:green;font-weight:bold;'>yes</a>";
+			$enabled = "<form name='ua_disableaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='DISABLEADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:green;' type='submit' value='Yes'></form>";
 		}
 		else
 		{
-			$enabled = "<a href='".UA_FORMACTION."addons&amp;OPERATION=ENABLEADDON&amp;ADDONID=$addonID' style='color:red;font-weight:bold;'>no</a>";
+			$enabled = "<form name='ua_enableaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='ENABLEADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:red;' type='submit' value='No'></form>";
 		}
 
 		if ($row['homepage'] == '')
@@ -89,11 +89,11 @@ function Main()
 
 		if ($row['required'] == 1)
 		{
-			$required = "<a href='".UA_FORMACTION."addons&amp;OPERATION=OPTADDON&amp;ADDONID=$addonID'><span style='color:red;font-weight:bold;'>yes</span></a>";
+			$required = "<form name='ua_optionaladdon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='OPTADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:red;' type='submit' value='Yes'></form>";
 		}
 		else
 		{
-			$required = "<a href='".UA_FORMACTION."addons&amp;OPERATION=REQADDON&amp;ADDONID=$addonID'><span style='color:green;font-weight:bold;'>no</span></a>";
+			$required = "<form name='ua_requireaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='REQADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:green;' type='submit' value='No'></form>";
 		}
 
 		$toc = $row['toc'];
@@ -111,13 +111,13 @@ function Main()
 		<tr>
 			<td class='$tdClass'><a href='$homepage' target='_blank'>$AddonName</a></td>
 			<td class='$tdClass'>$toc</td>
-			<td class='$tdClass'>[$required]</td>
+			<td class='$tdClass'>$required</td>
 			<td class='$tdClass'>$version</td>
 			<td class='$tdClass'>$time</td>
-			<td class='$tdClass'>[$enabled]</td>
+			<td class='$tdClass'>$enabled</td>
 			<td class='$tdClass'>$numFiles</td>
 			<td class='$tdClass'><a href='$url'>Check</a></td>
-			<td class='$tdClass'><a href='".UA_FORMACTION."addons&amp;OPERATION=DELADDON&amp;ADDONID=$addonID'>Delete!</a></td>
+			<td class='$tdClass'><form name='ua_deleteaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='DELADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:red;' type='submit' value='Delete!'></form></td>
 		</tr>
 		";
 		$i++;
@@ -135,7 +135,7 @@ function Main()
 
 function DisableAddon()
 {
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$id = $_REQUEST['ADDONID'];
 	$sql = "UPDATE `".$config['db_tables_addons']."` SET `enabled` = '0' WHERE `id` = '$id' LIMIT 1 ;";
@@ -145,7 +145,7 @@ function DisableAddon()
 
 function EnableAddon()
 {
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$id = $_REQUEST['ADDONID'];
 	$sql = "UPDATE `".$config['db_tables_addons']."` SET `enabled` = '1' WHERE `id` = '$id' LIMIT 1 ;";
@@ -155,7 +155,7 @@ function EnableAddon()
 
 function RequireAddon()
 {
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$id = $_REQUEST['ADDONID'];
 	$sql = "UPDATE `".$config['db_tables_addons']."` SET `required` = '1' WHERE `id` = '$id' LIMIT 1 ;";
@@ -165,7 +165,7 @@ function RequireAddon()
 
 function OptionalAddon()
 {
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$id = $_REQUEST['ADDONID'];
 	$sql = "UPDATE `".$config['db_tables_addons']."` SET `required` = '0' WHERE `id` = '$id' LIMIT 1 ;";
@@ -175,7 +175,7 @@ function OptionalAddon()
 
 function DeleteAddon()
 {
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$sep = DIRECTORY_SEPARATOR;
 	$id = $_REQUEST['ADDONID'];
@@ -189,10 +189,13 @@ function DeleteAddon()
 
 	$LocalPath = UA_BASEDIR.$config['addon_folder'].$sep.$fileName;
 	unlink($LocalPath);
+
 	$sql = "DELETE FROM `".$config['db_tables_addons']."` WHERE `id` = '$id'";
 	mysql_query($sql,$dblink);
+	MySqlCheck($dblink,$sql);
 	$sql = "DELETE FROM `".$config['db_tables_files']."` WHERE `addon_name` LIKE '".addslashes($name)."';";
 	mysql_query($sql,$dblink);
+	MySqlCheck($dblink,$sql);
 }
 
 function unzipUsingPCLZIP($file, $path)
@@ -267,7 +270,7 @@ function ls($dir, $array)
 function processUploadedAddon()
 {
 	$sep = DIRECTORY_SEPARATOR;
-	global $dblink, $config, $url;
+	global $dblink, $config;
 
 	$tempFilename = $_FILES['file']['tmp_name'];
 	$url = $config['URL'];
@@ -286,6 +289,7 @@ function processUploadedAddon()
 	{
 		$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
 		$result = mysql_query($sql,$dblink);
+		MySqlCheck($dblink,$sql);
 		$row = mysql_fetch_assoc($result);
 		$homepage = $row['homepage'];
 	}
@@ -293,6 +297,7 @@ function processUploadedAddon()
 	{
 		$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
 		$result = mysql_query($sql,$dblink);
+		MySqlCheck($dblink,$sql);
 		$row = mysql_fetch_assoc($result);
 		$version = $row['version'];
 	}
@@ -302,10 +307,10 @@ function processUploadedAddon()
 
 	$sql = "DELETE FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
 	mysql_query($sql,$dblink);
+	MySqlCheck($dblink,$sql);
 	$sql = "DELETE FROM `".$config['db_tables_files']."` WHERE `addon_name` LIKE '".addslashes($addonName)."';";
 	mysql_query($sql,$dblink);
-
-
+	MySqlCheck($dblink,$sql);
 
 
 
@@ -346,9 +351,10 @@ function processUploadedAddon()
 
 		if ($fileName != 'index.htm' && $fileName != 'index.html')
 		{
-			$sql = "INSERT INTO `".$config['db_tables_files']."` ( `id` , `addon_name` , `filename` , `md5sum` )
-				VALUES ('', '".addslashes($addonName)."', '".addslashes($fileName)."', '".addslashes($md5)."');";
+			$sql = "INSERT INTO `".$config['db_tables_files']."` ( `addon_name` , `filename` , `md5sum` )
+				VALUES ( '".addslashes($addonName)."', '".addslashes($fileName)."', '".addslashes($md5)."' );";
 			mysql_query($sql,$dblink);
+			MySqlCheck($dblink,$sql);
 			unlink($file);//we have obtained the md5 and inserted the row into the database, now delete the temp file
 		}
 	}
@@ -367,9 +373,10 @@ function processUploadedAddon()
 	}
 
 
-	$sql = "INSERT INTO `".$config['db_tables_addons']."` ( `id` , `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )VALUES (
-        '', '".time()."', '".addslashes($version)."', '1', '".addslashes($addonName)."', '".addslashes($downloadLocation)."', '".addslashes($homepage)."', $toc, $required);";
+	$sql = "INSERT INTO `".$config['db_tables_addons']."` ( `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )
+		VALUES ( '".time()."', '".addslashes($version)."', '1', '".addslashes($addonName)."', '".addslashes($downloadLocation)."', '".addslashes($homepage)."', $toc, $required);";
 	mysql_query($sql,$dblink);
+	MySqlCheck($dblink,$sql);
 
 }
 

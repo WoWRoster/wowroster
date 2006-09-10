@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 $loginForm = "
 <br />
-<form class='ua_loginbox' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."help'>
+<form class='ua_loginbox' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
 	<fieldset>
 	<legend>Please Log-In</legend>
 		<p><label for='username'>Username</label> <input class='input' type='text' id='name' name='name' maxlength='30' /></p>
@@ -42,14 +42,14 @@ else
 			if (md5($_POST['password']) == $row['password'])
 			{
 				setcookie('UA',$_POST['name'].'|'.md5($_POST['password']));
-				$loginForm = 'Logged in as: '.$_POST['name']." <form name='ua_logoutform' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='ua_logout' value='1' />[<a href='javascript:document.ua_logoutform.submit();'>Logout</a>]</form><br />";
+				$loginForm = "<span style='font-size:10px;'>Logged in as [".$_POST['name']."]</span>: <form name='ua_logoutform' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='ua_logout' value='1' /><input class='submit' style='color:red;' type='submit' value='Logout'></form><br />";
+				$currentUser = $row;
 			}
 			else
 			{
-				$loginForm = "<span style='color:red;'>Wrong username and/or password</span><br />".$loginForm;
+				$loginForm = "<span style='font-size:10px;color:red;'>Wrong username and/or password</span><br />".$loginForm;
 				EchoPage('','Log-In');
 				die('');
-
 			}
 		}
 		else
@@ -68,7 +68,8 @@ else
 
 		if ($BigCookie[1] == $row['password'])
 		{
-			$loginForm = 'Logged in as: '.$BigCookie[0]." <form name='ua_logoutform' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='ua_logout' value='1' />[<a href='javascript:document.ua_logoutform.submit();'>Logout</a>]</form><br />";
+			$loginForm = "<span style='font-size:10px;'>Logged in as [".$BigCookie[0]."]</span>: <form name='ua_logoutform' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='ua_logout' value='1' /><input class='submit' style='color:red;' type='submit' value='Logout'></form><br />";
+			$currentUser = $row;
 		}
 		else
 		{

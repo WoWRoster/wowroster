@@ -46,6 +46,26 @@ img, input, select, button {
 	vertical-align:middle;
 }
 
+.maintitle {
+	font-size:18px;
+	font-weight:bold;
+}
+.subtitle {
+	font-size:14px;
+	font-weight:bold;
+}
+
+.ua_menu {
+	border:1px solid #00487D;
+	background-color:#F2F2FF;
+	padding:2px 4px;
+}
+.sync_url {
+	border:1px solid #B32400;
+	background-color:#FFCCBF;
+	padding:2px 4px;
+}
+
 .uuTABLE {
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
@@ -54,10 +74,6 @@ img, input, select, button {
 	color:#000;
 	border:1px solid #B32400;
 	background-color:#FFCCBF;
-}
-.page_title {
-	font-size:18px;
-	font-weight:bold;
 }
 .logo_table {
 	border:0px;
@@ -112,32 +128,4 @@ img, input, select, button {
 	background-color:#FFCCBF;
 	font-size:14px;
 	font-weight:bold;
-}
-
-
-.ua_menu {
-	padding:0;
-	margin:0;
-	font:11px verdana, arial, helvetica, geneva, sans-serif;
-	list-style-type:none;
-	text-align:center;
-}
-.ua_menu li {
-	display:block;
-	margin:2px 2px 2px;
-	background-color:#BFE4FF;
-}
-.ua_menu li a, .ua_menu li a:link {
-	font-weight:bold;
-	display:block;
-	width:140px;
-	color:#006699;
-	background-color:#BFE4FF;
-}
-.ua_menu li a:visited {
-	color:#006699;
-}
-.ua_menu li a:hover {
-	color:#FFF;
-	background-color:#0066B3;
 }

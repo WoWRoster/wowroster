@@ -91,8 +91,8 @@ function AddStat()
 	{
 		$action = addslashes($op);
 	}
-	$sql = "INSERT INTO `".$config['db_tables_stats']."` ( `id` , `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
-		( '', '".$_SERVER['REMOTE_ADDR']."', '".addslashes(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".addslashes($_SERVER['HTTP_USER_AGENT'])."' );";
+	$sql = "INSERT INTO `".$config['db_tables_stats']."` ( `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
+		( '".$_SERVER['REMOTE_ADDR']."', '".addslashes(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".addslashes($_SERVER['HTTP_USER_AGENT'])."' );";
 	mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 }

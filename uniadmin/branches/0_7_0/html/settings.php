@@ -44,8 +44,8 @@ function Main()
 	MySqlCheck($dblink,$sql);
 
 	$form = "
-<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."settings'>
-<table class='uuTABLE' width='90%'>
+<form name='ua_mainsettings' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+<table class='uuTABLE' width='90%' align='center'>
 	<tr>
 		<th colspan='4' class='tableHeader'>Main Settings</th>
 	</tr>
@@ -101,7 +101,7 @@ function Main()
 	MySqlCheck($dblink,$sql);
 
 	$svTable = "
-	<table class='uuTABLE' width='40%'>
+	<table class='uuTABLE' width='40%' align='center'>
 		<tr>
 			<th colspan='2' class='tableHeader'>Manage SavedVariable Files</th>
 		</tr>
@@ -127,7 +127,7 @@ function Main()
 		<tr>
 			<td class='$tdClass'>".$row['sv_name']." <b>.lua</b></td>
 			<td class='$tdClass'>
-				<form style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."settings'>
+				<form name='ua_removesv_".$row['id']."' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
 					<input class='submit' type='submit' value='Remove'>
 					<input type='hidden' value='".$row['id']."' name='svid'>
 					<input type='hidden' value='removesv' name='op'>
@@ -154,9 +154,9 @@ function Main()
 
 	<br />
 
-	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."settings'>
+	<form name='ua_addsv' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
 	<input type='hidden' value='addsv' name='op'>
-	<table class='uuTABLE' width='40%'>
+	<table class='uuTABLE' width='40%' align='center'>
 		<tr>
 			<th colspan='2' class='tableHeader'>Add SavedVariable Files</th>
 		</tr>
@@ -213,7 +213,7 @@ function addSv()
 {
 	global $dblink, $config;
 
-	$sql = "INSERT INTO `".$config['db_tables_svlist']."` ( `id` , `sv_name` ) VALUES ( '', '".$_POST['svname']."' );";
+	$sql = "INSERT INTO `".$config['db_tables_svlist']."` ( `sv_name` ) VALUES ( '".$_POST['svname']."' );";
 	mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 

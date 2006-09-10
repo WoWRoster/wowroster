@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 $help = "
 
-<table class='uuTABLE' width='100%'>
+<table class='uuTABLE' align='center' width='90%'>
 	<tr>
 		<th class='tableHeader'>Help</th>
 	</tr>

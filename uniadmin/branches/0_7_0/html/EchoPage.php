@@ -20,14 +20,37 @@ function EchoPage($body, $subTitle = 'Index')
 </head>
 <body>
 
-<span class='page_title'>UniAdmin Panel v".$config['UAVer']." - $subTitle</span>
+<table width='100%' border='0' cellspacing='1' cellpadding='2'>
+  <tr>
+    <td width='201' valign='top'><img src='images/logo.png' alt='UniAdmin' /></td>
+    <td width='100%' valign='top'>
+      <span class='maintitle'>UniAdmin v".$config['UAVer']."</span><br />
+      ".(isset($subTitle) ? "<span class='subtitle'>".$subTitle.'</span>' : '')."<br />
+      ".$loginForm."<br />";
+
+	if( isset($config['menu']) )
+	{
+		echo "
+	<span class='ua_menu'>
+".$config['menu']."
+	</span>
+	<br /><br />
+	<span class='sync_url'>
+		Synchronization URL (click to verify):
+		<a href='".$config['IntLocation']."' target='_blank'>".$config['IntLocation']."</a>
+	</span>";
+	}
+
+	echo "
+    </td>
+  </tr>
+</table>
 <br />
-".$loginForm."
 <br />";
 
 	if( !empty($uamessages) && is_array($uamessages) )
 	{
-		echo "<table class='uuTABLE' width='30%'>
+		echo "<table class='uuTABLE' width='30%' align='center'>
 	<tr>
 		<th class='tableHeader'>Messages</th>
 	</tr>
@@ -49,7 +72,7 @@ function EchoPage($body, $subTitle = 'Index')
 
 	if( !empty($uadebug) && is_array($uadebug) )
 	{
-		echo "<table class='uuTABLE' width='30%'>
+		echo "<table class='uuTABLE' width='30%' align='center'>
 	<tr>
 		<th class='debugHeader'>Debug</th>
 	</tr>
@@ -69,33 +92,8 @@ function EchoPage($body, $subTitle = 'Index')
 		echo "</table>\n<br />\n";
 	}
 
-if( isset($config['menu']) )
-{
-	echo "
-
-Synchronization URL (click to verify):
- <a href='".$config['IntLocation']."' target='_blank'><span style='color:red;'>".$config['IntLocation']."</span></a>
-<br />
-<br />
-
-<table width='100%' border='0' cellspacing='0' cellpadding='4'>
-<tr>
-<td valign='top' width='145'>
-".$config['menu']."
-</td>
-<td valign='top'>
-$body
-</td>
-</tr>
-</table>";
-}
-else
-{
-	echo $body;
-}
-
-
-echo "
+	echo $body.
+"
 </body>
 </html>";
 }

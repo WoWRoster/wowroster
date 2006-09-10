@@ -41,8 +41,9 @@ $config['URL'] =					$url;
 $config['IntLocation'] = 			$config['URL'].'interface.php';
 
 
-define('UA_FORMACTION','index.php?p=');
-define('IN_UNIADMIN',true);
+define( 'UA_INDEXPAGE','index.php');
+define( 'UA_FORMACTION',UA_INDEXPAGE.( isset($_GET['p']) ? '?p='.$_GET['p'] : '') );
+define( 'IN_UNIADMIN',true );
 
 
 include(UA_BASEDIR.'debug.php');

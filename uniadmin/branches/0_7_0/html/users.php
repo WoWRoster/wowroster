@@ -35,20 +35,12 @@ else
 
 function Main($message = '')
 {
-	global $dblink, $config;
-
-	$username = GetUsername();
-	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$username'";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$row = mysql_fetch_assoc($result);
-	$currentUserL = $row['level'];
-
+	global $currentUser;
 
 	$addform = "
-	<form name='modifyuser' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."users'>
+	<form name='ua_adduser' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
 	<input type='hidden' value='new' name='op'>
-	<table class='uuTABLE'>
+	<table class='uuTABLE' align='center'>
 		<tr>
 			<th colspan='2' class='tableHeader'>Add a user</th>
 		</tr>
@@ -58,10 +50,10 @@ function Main($message = '')
 		</tr>
 		<tr>
 			<td class='data2' align='right'>Password:</td>
-			<td class='data2'><input class='input' type='textbox' name='password' value='' size='15' maxlength='15'></td>
+			<td class='data2'><input class='input' type='password' name='password' value='' size='15' maxlength='15'></td>
 		<tr>
 			<td class='data1' align='right'>";
-	if ($currentUserL > 2)
+	if ($currentUser['level'] > 2)
 	{
 		$addform .= "UserLevel:</td>
 		<td class='data1'><select class='select' name='level'>
@@ -84,7 +76,7 @@ function Main($message = '')
 	</form>";
 
 
-	if ($currentUserL > 1)
+	if ($currentUser['level'] > 1)
 	{
 		EchoPage($message.CreateUserTable()."<br />$addform",'Users');
 	}
@@ -97,26 +89,20 @@ function Main($message = '')
 
 function CreateUserTable()
 {
-	global $dblink, $config;
+	global $dblink, $config, $currentUser;
 
-	$username = GetUsername();
-	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$username'";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$row = mysql_fetch_assoc($result);
-	if ($row['level'] > 1)
+	if ($currentUser['level'] > 1)
 		$canAddEdit = true;
 	else
 		$canAddEdit = false;
 
-	$currentUserL = $row['level'];
 
 	$sql = "SELECT * FROM `".$config['db_tables_users']."` ORDER BY `name` ASC";
 	$result = mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 
 
-	$table = "<table class='uuTABLE' width='50%'>
+	$table = "<table class='uuTABLE' width='50%' align='center'>
 	<tr>
 		<th colspan='4' class='tableHeader'>Current Users</th>
 	</tr>
@@ -144,24 +130,24 @@ function CreateUserTable()
 		$userL = $user['level'];
 		$userI = $user['id'];
 		$table .= '<tr>';
-		if (strtoupper($userN) == strtoupper($username) || $canAddEdit)
+		if (strtoupper($userN) == strtoupper($currentUser['name']) || $canAddEdit)
 		{
 			$table .= "
 			<td class='$tdClass'  valign='top'>$userN</td>
 			<td class='$tdClass'  valign='top'>$userL</td>
 			";
 
-			if (strtoupper($userN) == strtoupper($username) || $currentUserL > 2)
+			if (strtoupper($userN) == strtoupper($currentUser['name']) || $currentUser['level'] > 2)
 			{
 				$table .= "
-			<td class='$tdClass'  valign='top'><a href='".UA_FORMACTION."users&amp;op=edit&amp;uid=$userI'>Modify</a></td>
-			<td class='$tdClass'  valign='top'><a href='".UA_FORMACTION."users&amp;op=delete&amp;uid=$userI'>Delete</a></td>";
+			<td class='$tdClass' valign='top'><form name='ua_edituser_$userI' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='edit' /><input type='hidden' name='uid' value='$userI' /><input class='submit' style='color:green;' type='submit' value='Modify'></form></td>
+			<td class='$tdClass' valign='top'><form name='ua_deleteuser_$userI' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='delete' /><input type='hidden' name='uid' value='$userI' /><input class='submit' style='color:red;' type='submit' value='Delete'></form></td>";
 			}
-			elseif ($currentUserL == '2' && $userL == '1')
+			elseif ($currentUser['level'] == '2' && $userL == '1')
 			{
 				$table .= "
-			<td class='$tdClass'  valign='top'><a href='".UA_FORMACTION."users&amp;op=edit&amp;uid=$userI'>Modify</a></td>
-			<td class='$tdClass'  valign='top'><a href='".UA_FORMACTION."users&amp;op=delete&amp;uid=$userI'>Delete</a></td>";
+			<td class='$tdClass' valign='top'><form name='ua_edituser_$userI' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='edit' /><input type='hidden' name='uid' value='$userI' /><input class='submit' style='color:green;' type='submit' value='Modify'></form></td>
+			<td class='$tdClass' valign='top'><form name='ua_deleteuser_$userI' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='delete' /><input type='hidden' name='uid' value='$userI' /><input class='submit' style='color:red;' type='submit' value='Delete'></form></td>";
 			}
 
 
@@ -186,7 +172,7 @@ function CreateUserTable()
 
 function Modify()
 {
-	global $dblink, $config;
+	global $dblink, $config, $currentUser;
 
 	$uid = $_REQUEST['uid'];
 	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `id` = '$uid'";
@@ -196,32 +182,23 @@ function Modify()
 	$userN = $row['name'];
 	$userL = $row['level'];
 
-	$username = GetUsername();
-	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$username'";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$row = mysql_fetch_assoc($result);
-	$currentUserL = $row['level'];
-
-
-
 	$form = "
-	<form name='modifyuser' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."users'>
+	<form name='ua_modifyuser' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
 	<input type='hidden' value='edit2' name='op'>
 	<input type='hidden' value='$uid' name='uid'>
-	<table class='uuTABLE'>
+	<table class='uuTABLE' align='center'>
 		<tr>
 			<th colspan='2' class='tableHeader'>Edit User</th>
 		</tr>
 	";
-	if ($currentUserL > 1)
+	if ($currentUser['level'] > 1)
 	{
 		$form .= "		<tr>
-			<td class='data1' align='right'>Change Username:</td>
+			<td class='data1' align='right'>Change User Name:</td>
 			<td class='data1'><input class='input' type='textbox' name='newname' value='$userN' size='15' maxlength='15'></td>
 		</tr>";
-		if ($currentUserL > 2)$form .= "		<tr>
-			<td class='data2' align='right'>Change UserLevel:</td>
+		if ($currentUser['level'] > 2)$form .= "		<tr>
+			<td class='data2' align='right'>Change User Level:</td>
 			<td class='data2'><select class='select' name='level'>
 					<option value='1'".($userL == '1' ? " selected='selected'" : '').">basic user (level 1)</option>
 					<option value='2'".($userL == '2' ? " selected='selected'" : '').">power user (level 2)</option>
@@ -232,18 +209,18 @@ function Modify()
 	else
 	{
 		$form .= "		<tr>
-			<td class='data1' align='right'>Username:</td>
+			<td class='data1' align='right'>User Name:</td>
 			<td class='data1'>[$userN]</td>
 		</tr>
 		<tr>
-			<td class='data2' align='right'>UserLevel:</td>
+			<td class='data2' align='right'>User Level:</td>
 			<td class='data2'>[$userL]</td>
 		</tr>";
 	}
 	$form .= "
 		<tr>
 			<td class='data1' align='right'>Change Password:</td>
-			<td class='data2'><input class='input' type='textbox' name='newpassword' value='' size='15' maxlength='15'></td>
+			<td class='data2'><input class='input' type='password' name='newpassword' value='' size='15' maxlength='15'></td>
 		</tr>
 		<tr>
 			<td class='data2'>&nbsp;</td>
@@ -258,21 +235,12 @@ function Modify()
 
 function Modify2()
 {
-	global $dblink, $config;
+	global $dblink, $config, $currentUser;
 
 	$userN = $_POST['newname'];
 	$userI = $_POST['uid'];
 	$userP = $_POST['newpassword'];
 	$userL = $_POST['level'];
-
-	$username = GetUsername();
-	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$username'";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$row = mysql_fetch_assoc($result);
-	$currentUserI = $row['id'];
-	$currentUserL = $row['level'];
-	$currentUserN = $row['name'];
 
 	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$userN'";
 	$result = mysql_query($sql,$dblink);
@@ -285,11 +253,11 @@ function Modify2()
 	else
 		$userP = md5($userP);
 
-	if ($currentUserL > 1)
+	if ($currentUser['level'] > 1)
 	{
-		if ($currentUserI != $userI)
+		if ($currentUser['id'] != $userI)
 		{
-			if ($currentUserL < 3)
+			if ($currentUser['level'] < 3)
 				$userL = 1;
 			$sql = "UPDATE `".$config['db_tables_users']."` SET `name` = '$userN', `level` = '$userL', `password` = '$userP' WHERE `id` = '$userI' LIMIT 1 ;";
 		}
@@ -303,44 +271,37 @@ function Modify2()
 	else
 	{
 		// user is level 1 and changing own password
-		if ($currentUserI != $userI)
+		if ($currentUser['id'] != $userI)
 			die('die hacker!');
 
 		$sql = "UPDATE `".$config['db_tables_users']."` SET `password` = '$userP' WHERE `id` = '$userI' LIMIT 1 ;";
 		$result = mysql_query($sql,$dblink);
 		MySqlCheck($dblink,$sql);
-		$userN = $currentUserN;
+		$userN = $currentUser['name'];
 	}
 	message("User '$userN' modified");
 }
 
 function NewUser()
 {
-	global $dblink, $config;
+	global $dblink, $config, $currentUser;
 
 	$userN = $_POST['name'];
 	$userP = $_POST['password'];
 	$userL = $_POST['level'];
 
-	$username = GetUsername();
-	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$username'";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$row = mysql_fetch_assoc($result);
-	$currentUserL = $row['level'];
-
-	if ($currentUserL > 1)
+	if ($currentUser['level'] > 1)
 	{
-		if ($currentUserL > 2)
+		if ($currentUser['level'] > 2)
 		{
-			$sql = "INSERT INTO `".$config['db_tables_users']."` ( `id` , `name` , `password` , `level` )VALUES ('', '$userN', '".md5($userP)."', '$userL');";
+			$sql = "INSERT INTO `".$config['db_tables_users']."` ( `name` , `password` , `level` )VALUES ( '$userN', '".md5($userP)."', '$userL');";
 			$result = mysql_query($sql,$dblink);
 			MySqlCheck($dblink,$sql);
 			message("User '$userN' added");
 		}
 		else
 		{
-			$sql = "INSERT INTO `".$config['db_tables_users']."` ( `id` , `name` , `password` , `level` )VALUES ('', '$userN', '".md5($userP)."', '1');";
+			$sql = "INSERT INTO `".$config['db_tables_users']."` ( `name` , `password` , `level` )VALUES ( '$userN', '".md5($userP)."', '1');";
 			$result = mysql_query($sql,$dblink);
 			MySqlCheck($dblink,$sql);
 			message("User '$userN' added");
@@ -355,17 +316,9 @@ function NewUser()
 
 function DeleteUser()
 {
-	global $dblink, $config;
+	global $dblink, $config, $currentUser;
 
 	$userI = $_REQUEST['uid'];
-
-	$username = GetUsername();
-	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `name` LIKE '$username'";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$row = mysql_fetch_assoc($result);
-	$currentUserI = $row['id'];
-	$currentUserL = $row['level'];
 
 	$sql = "SELECT * FROM `".$config['db_tables_users']."` WHERE `id` = '$userI'";
 	$result = mysql_query($sql,$dblink);
@@ -374,14 +327,14 @@ function DeleteUser()
 	$userN = $row['name'];
 
 
-	if ($currentUserI == $userI || $currentUserL > 2)
+	if ($currentUser['id'] == $userI || $currentUser['level'] > 2)
 	{
 		$sql = "DELETE FROM `".$config['db_tables_users']."` WHERE `id` = '$userI' LIMIT 1";
 		$result = mysql_query($sql,$dblink);
 		MySqlCheck($dblink,$sql);
 		message("User '$userN' deleted");
 	}
-	elseif ($currentUserL == 2 && $userI == 1)
+	elseif ($currentUser['level'] == 2 && $userI == 1)
 	{
 		$sql = "DELETE FROM `".$config['db_tables_users']."` WHERE `id` = '$userI' LIMIT 1";
 		$result = mysql_query($sql,$dblink);

@@ -39,11 +39,11 @@ function Main()
 {
 	EchoPage(
 	BuildMainTable().
-	"<img src='pieChart.php?".BuildPieHosts("host_name")."' alt='host_name'>\n".
-	"<img src='pieChart.php?".BuildPieHosts("ip_addr")."' alt='ip_addr'>\n".
-	"<img src='pieChart.php?".BuildPieHosts("user_agent")."' alt='user_agent'>\n".
-	"<img src='pieChart.php?".BuildPieHosts("action")."' alt='action'>\n".
-	"<img src='pieChart.php?".BuildPieHosts("time")."' alt='time'>\n","Statistics");
+	"<img src='pieChart.php?".BuildPieHosts('host_name')."' alt='host_name'>\n".
+	"<img src='pieChart.php?".BuildPieHosts('ip_addr')."' alt='ip_addr'>\n".
+	"<img src='pieChart.php?".BuildPieHosts('user_agent')."' alt='user_agent'>\n".
+	"<img src='pieChart.php?".BuildPieHosts('action')."' alt='action'>\n".
+	"<img src='pieChart.php?".BuildPieHosts('time')."' alt='time'>\n","Statistics");
 }
 
 function BuildPieHosts($fieldName)
@@ -155,17 +155,17 @@ function BuildMainTable()
 		$direction = "ASC";
 	}
 
-	$table = "<table class='uuTABLE stats' id='table_results' cellspacing='1' width='90%'>
+	$table = "<table class='uuTABLE stats' id='table_results' cellspacing='1' width='90%' align='center'>
 	<tr>
 		<th class='tableHeader' colspan='6'>Statistics</th>
 	</tr>
 	<tr>
-		<td class='dataHeader'><a href='stats.php?start=$start&amp;orderby=id&amp;limit=$limit&amp;direction=$direction'>Row</a></td>
-		<td class='dataHeader'><a href='stats.php?start=$start&amp;orderby=action&amp;limit=$limit&amp;direction=$direction'>Action</a></td>
-		<td class='dataHeader'><a href='stats.php?start=$start&amp;orderby=ip_addr&amp;limit=$limit&amp;direction=$direction'>IP Address</a></td>
-		<td class='dataHeader'><a href='stats.php?start=$start&amp;orderby=time&amp;limit=$limit&amp;direction=$direction'>Date/Time</a></td>
-		<td class='dataHeader'><a href='stats.php?start=$start&amp;orderby=user_agent&amp;limit=$limit&amp;direction=$direction'>User Agent</a></td>
-		<td class='dataHeader'><a href='stats.php?start=$start&amp;orderby=host_name&amp;limit=$limit&amp;direction=$direction'>Host Name</a></td>
+		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=id&amp;limit=$limit&amp;direction=$direction'>Row</a></td>
+		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=action&amp;limit=$limit&amp;direction=$direction'>Action</a></td>
+		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=ip_addr&amp;limit=$limit&amp;direction=$direction'>IP Address</a></td>
+		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=time&amp;limit=$limit&amp;direction=$direction'>Date/Time</a></td>
+		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=user_agent&amp;limit=$limit&amp;direction=$direction'>User Agent</a></td>
+		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=host_name&amp;limit=$limit&amp;direction=$direction'>Host Name</a></td>
 	</tr>";
 
 	$i=0;
@@ -208,7 +208,7 @@ function BuildMainTable()
 	$PrevStart = $start - $limit;
 	if ($PrevStart > -1)
 	{
-		$PrevLink = "<a href='stats.php?start=$PrevStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'><< Previous Page</a>";
+		$PrevLink = "<a href='".UA_FORMACTION."&amp;start=$PrevStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'><< Previous Page</a>";
 	}
 	else
 	{
@@ -217,7 +217,7 @@ function BuildMainTable()
 	$NextStart = $start + $limit;
 	if ($NextStart < $totalRows)
 	{
-		$NextLink = "<a href='stats.php?start=$NextStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'>Next Page >></a>";
+		$NextLink = "<a href='".UA_FORMACTION."&amp;start=$NextStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'>Next Page >></a>";
 	}
 	else
 	{
@@ -237,7 +237,7 @@ function BuildMainTable()
 		<td class='statsFooter' colspan='4'>$PrevLink$sep$NextLink &nbsp;&nbsp;&nbsp; Page $pageNum of $totalPages</td>
 		<td class='statsFooter' colspan='2'>
 
-		<form style='display:inline;' name='changeparams' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."stats'>
+		<form name='ua_changeparams' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
 			<input class='submit' type='submit' value='Show'>
 			<input class='input' type='textbox' name='limit' value='$limit' size='5' maxlength='5'> row(s) starting from record # <input class='input' type='textbox' name='start' value='$start' size='5' maxlength='5'>
 			<input type='hidden' value='$orderby' name='orderby'>

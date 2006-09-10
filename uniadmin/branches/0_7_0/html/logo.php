@@ -59,9 +59,9 @@ function Main()
 				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($config['date_format'],$row['updated']) );
 
 				if ( $row['active']=='1')
-					$logo1['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=DISABLE&amp;id=".$row['id']."' style='color:green;font-weight:bold;'>Yes</a>]";
+					$logo1['active_link'] = "<form name='ua_disablelogo1' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='DISABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:green;' type='submit' value='Yes'></form>";
 				else
-					$logo1['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=ENABLE&amp;id=".$row['id']."' style='color:red;font-weight:bold;'>No</a>]";
+					$logo1['active_link'] = "<form name='ua_enablelogo1' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='ENABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:red;' type='submit' value='No'></form>";
 
 				break;
 
@@ -70,9 +70,9 @@ function Main()
 				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($config['date_format'],$row['updated']) );
 
 				if ( $row['active']=='1')
-					$logo2['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=DISABLE&amp;id=".$row['id']."' style='color:green;font-weight:bold;'>Yes</a>]";
+					$logo2['active_link'] = "<form name='ua_disablelogo2' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='DISABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:green;' type='submit' value='Yes'></form>";
 				else
-					$logo2['active_link'] ="[<a href='".UA_FORMACTION."logo&amp;op=ENABLE&amp;id=".$row['id']."' style='color:red;font-weight:bold;'>No</a>]";
+					$logo2['active_link'] = "<form name='ua_enablelogo2' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='ENABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:red;' type='submit' value='No'></form>";
 
 				break;
 
@@ -124,7 +124,7 @@ function Main()
 
 
 	$Logo1InputForm ="
-	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."logo'>
+
 		<table class='uuTABLE'>
 			<tr>
 				<th class='dataHeader'>Update File</th>
@@ -132,19 +132,19 @@ function Main()
 				<th class='dataHeader'>Enabled?</th>
 			</tr>
 			<tr>
-				<td class='data1' align='center'>Select file:
+				<td class='data1' align='center'><form name='ua_uploadlogo1' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+					Select file:
 					<input class='file' type='file' name='logo1'>
 					<input class='submit' type='submit' value='Update Logo 1'>
-					<input type='hidden' value='PROCESSUPLOAD' name='op'></td>
+					<input type='hidden' value='PROCESSUPLOAD' name='op'>
+					</form></td>
 				<td class='data1'>".$logo1['updated']."</td>
 				<td class='data1'>".$logo1['active_link']."</td>
 			</tr>
 		</table>
-	</form>
     	";
 
 	$Logo2InputForm ="
-	<form method='post' enctype='multipart/form-data' action='".UA_FORMACTION."logo'>
 		<table class='uuTABLE'>
 			<tr>
 				<th class='dataHeader'>Update File</th>
@@ -152,20 +152,21 @@ function Main()
 				<th class='dataHeader'>Enabled?</th>
 			</tr>
 			<tr>
-				<td class='data1' align='center'>Select file:
+				<td class='data1' align='center'><form name='ua_uploadlogo2' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+					Select file:
 					<input class='file' type='file' name='logo2'>
 					<input class='submit' type='submit' value='Update Logo 2'>
-					<input type='hidden' value='PROCESSUPLOAD' name='op'></td>
+					<input type='hidden' value='PROCESSUPLOAD' name='op'>
+					</form></td>
 				<td class='data1'>".$logo2['updated']."</td>
 				<td class='data1'>".$logo2['active_link']."</td>
 			</tr>
 		</table>
-	</form>
 ";
 
 
 	EchoPage("
-<table class='uuTABLE' width='60%'>
+<table class='uuTABLE' width='60%' align='center'>
 	<tr>
 		<th class='tableHeader'>Logo 1</th>
 	</tr>
@@ -177,7 +178,7 @@ function Main()
 	</tr>
 </table>
 <br />
-<table class='uuTABLE' width='60%'>
+<table class='uuTABLE' width='60%' align='center'>
 	<tr>
 		<th class='tableHeader'>Logo 2</th>
 	</tr>
