@@ -45,6 +45,16 @@ a:hover {
 img, input, select, button {
 	vertical-align:middle;
 }
+img {
+	border:0;
+}
+
+.ua_hr {
+	border:1px outset #00487D;
+}
+.ua_hr hr {
+	display:none;
+}
 
 .maintitle {
 	font-size:18px;
@@ -103,7 +113,9 @@ img, input, select, button {
 	background-color:#BFE4FF;
 	font-size:12px;
 }
-
+.copyright {
+	font-size:10px;
+}
 
 .ua_loginbox label {
 	width:6em;

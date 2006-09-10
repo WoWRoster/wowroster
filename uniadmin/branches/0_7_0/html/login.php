@@ -15,6 +15,9 @@ $loginForm = "
 		<p><input class='submit' type='submit' value='Login'></p>
 	</fieldset>
 </form>
+<br />
+[<a href='".UA_INDEXPAGE."?p=view'>Guest Access</a>]
+
 ";
 
 if( isset($_POST['ua_logout']) && $_POST['ua_logout'] == '1' )

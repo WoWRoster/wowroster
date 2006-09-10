@@ -4,15 +4,13 @@ $interface = true;
 
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
-include(UA_BASEDIR.'EchoPage.php');
-
 
 function Main()
 {
 	global $dblink, $config, $url;
 
 	$AddonPanel = "
-		<table class='uuTABLE'>
+		<table class='uuTABLE' align='center'>
 			<tr>
 				<th class='tableHeader' colspan='10'>View Addons</th>
 			</tr>

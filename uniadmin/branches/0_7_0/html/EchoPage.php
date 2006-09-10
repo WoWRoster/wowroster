@@ -22,7 +22,7 @@ function EchoPage($body, $subTitle = 'Index')
 
 <table width='100%' border='0' cellspacing='1' cellpadding='2'>
   <tr>
-    <td width='201' valign='top'><img src='images/logo.png' alt='UniAdmin' /></td>
+    <td width='201' valign='top'><a href='".UA_INDEXPAGE."'><img src='images/logo.png' alt='UniAdmin' /></a></td>
     <td width='100%' valign='top'>
       <span class='maintitle'>UniAdmin v".$config['UAVer']."</span><br />
       ".(isset($subTitle) ? "<span class='subtitle'>".$subTitle.'</span>' : '')."<br />
@@ -94,6 +94,16 @@ function EchoPage($body, $subTitle = 'Index')
 
 	echo $body.
 "
+<br />
+<!--
+    If you use this software and find it to be useful, we ask that you retain the copyright notice below.
+//-->
+<div class='ua_hr'><hr /></div>
+<br />
+<div align='center'>
+	<span class='copyright'><a href='http://www.wowroster.net/' target='_blank'>UniAdmin</a> v".$config['UAVer']."<br />
+	&copy; 2006 The WoWRoster Dev Team</span><br />
+</div>
 </body>
 </html>";
 }
