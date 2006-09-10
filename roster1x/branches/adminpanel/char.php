@@ -21,7 +21,12 @@ require_once( 'settings.php' );
 define('HEADER_INC',true);
 
 $name = (isset($_GET['name']) ? $_GET['name'] : '');
+$server = (isset($_GET['server']) ? $_GET['server'] : $roster_conf['server_name']);
+
 $header_title = 'Character Stats for: '.$name;
+
+$script_filename = 'char.php?name='.$name.'&amp;server='.$server;
+
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 include_once (ROSTER_BASE.'memberdetails.php');

@@ -66,18 +66,17 @@ if( is_array($char_data) )
 ';
 
 	$i=0;
-	foreach($char_data as $values)
+	foreach($char_data as $name => $data)
 	{
 		$body .= '
 <tr>
-	<td class="membersRow'.(($i%2)+1).'">'.$values['name'].'</td>';
+	<td class="membersRow'.(($i%2)+1).'">'.$name.'</td>';
 
-		foreach( $disp_array as $val_name )
+		foreach( $data as $values )
 		{
 			$body .= '
 	<td class="membersRow'.(($i%2)+1).'">';
-			$body .= '<label class="'.( $values[$val_name] == '1' ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="disp_'.$values['member_id'].':'.$val_name.'" value="1" '.( $values[$val_name] == '1' ? 'checked="checked"' : '' ).' />off</label><br />'."\n";
-			$body .= '<label class="'.( $values[$val_name] == '3' ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="disp_'.$values['member_id'].':'.$val_name.'" value="3" '.( $values[$val_name] == '3' ? 'checked="checked"' : '' ).' />on</label>'."\n";
+			$body .= $roster_login->accessConfig($values);
 			$body .= '</td>';
 		}
 		$body .= '</tr>';
@@ -109,21 +108,23 @@ function getCharData( )
 	global $wowdb, $wordings, $roster_conf;
 
 	$sql = "SELECT ".
-		"`member_id`, ".
-		"`name`, ".
-		"`inv`, ".
-		"`talents`, ".
-		"`quests`, ".
-		"`bank`, ".
-		"`spellbook`, ".
-		"`mail`, ".
-		"`money`, ".
-		"`recipes`, ".
-		"`bg`, ".
-		"`pvp`, ".
-		"`duels`, ".
-		"`item_bonuses`".
-		"FROM `".ROSTER_MEMBERSTABLE."` ORDER BY `name` ASC;";
+		"`members`.`member_id`, ".
+		"`members`.`name`, ".
+		"`members`.`inv`, ".
+		"`members`.`talents`, ".
+		"`members`.`quests`, ".
+		"`members`.`bank`, ".
+		"`members`.`spellbook`, ".
+		"`members`.`mail`, ".
+		"`members`.`money`, ".
+		"`members`.`recipes`, ".
+		"`members`.`bg`, ".
+		"`members`.`pvp`, ".
+		"`members`.`duels`, ".
+		"`members`.`item_bonuses` ".
+		"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
+		"INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` ".
+		"ORDER BY `name` ASC;";
 
 	// Get the current config values
 	$results = $wowdb->query($sql);
@@ -131,10 +132,14 @@ function getCharData( )
 	{
 		while($row = $wowdb->fetch_assoc($results))
 		{
-			// See if player has data uploaded
-			$data = $wowdb->query('SELECT `name` FROM `'.ROSTER_PLAYERSTABLE.'` WHERE `member_id` = \''.$row['member_id'].'\'');
-			if( $wowdb->num_rows($data) > 0 )
-				$db_values[] = $row;
+			foreach ($row as $field => $value)
+			{
+				if ($field != 'name' && $field != 'member_id')
+				{
+					$db_values[$row['name']][$field]['name'] = $row['name'];
+					$db_values[$row['name']][$field]['value'] = $value;
+				}
+			}
 		}
 		return $db_values;
 	}

@@ -129,18 +129,18 @@ INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.
 
 INSERT INTO `renprefix_config` VALUES (7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7010, 'char_header_logo', '1', 'radio{on^1|off^0', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7040, 'show_inventory', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7050, 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7060, 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7070, 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7080, 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7040, 'show_inventory', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7050, 'show_money', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7060, 'show_bank', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7070, 'show_recipes', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7080, 'show_quests', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '10', 'access', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7130, 'show_signature', '0', 'radio{yes^1|no^0', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7140, 'show_avatar', '0', 'radio{yes^1|no^0', 'char_conf');
 

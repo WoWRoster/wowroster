@@ -41,12 +41,16 @@ CREATE TABLE `renprefix_addon_trigger` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
-### Account table
+### Account
 
-ALTER TABLE `renprefix_account`
-	ADD `level` int(8) NOT NULL DEFAULT 10;
-
-
+DROP TABLE IF EXISTS `renprefix_account`;
+CREATE TABLE `renprefix_account` (
+	`account_id` smallint(6) NOT NULL auto_increment,
+	`name` varchar(30) NOT NULL default '',
+	`hash` varchar(32) NOT NULL default '',
+	`level` int(8) NOT NULL default '10',
+	PRIMARY KEY  (`account_id`)
+) TYPE=MyISAM;
 
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
 
@@ -69,6 +73,8 @@ INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{o
 DELETE FROM `renprefix_config` WHERE `id` = 3080;
 DELETE FROM `renprefix_config` WHERE `id` = 3090;
 
+# --------------------------------------------------------
+### Update entries for index column visibility
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3130;
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3140;
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3150;
@@ -77,3 +83,48 @@ UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_v
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3180;
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3190;
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = `config_value` * 10 WHERE `id` = 3200;
+
+# --------------------------------------------------------
+### Update entries for character page visibility (global)
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7015;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7020;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7030;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7040;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7050;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7060;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7070;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7080;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7090;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7100;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7110;
+UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7120;
+
+# --------------------------------------------------------
+### Update character page visibility values per character
+ALTER TABLE `renprefix_members`
+	CHANGE `talents` `talents` tinytext,
+	CHANGE `spellbook` `spellbook` tinytext,
+	CHANGE `mail` `mail` tinytext,
+	CHANGE `inv` `inv` tinytext,
+	CHANGE `money` `money` tinytext,
+	CHANGE `bank` `bank` tinytext,
+	CHANGE `recipes` `recipes` tinytext,
+	CHANGE `quests` `quests` tinytext,
+	CHANGE `bg` `bg` tinytext,
+	CHANGE `pvp` `pvp` tinytext,
+	CHANGE `duels` `duels` tinytext,
+	CHANGE `item_bonuses` `item_bonuses` tinytext;
+
+UPDATE `renprefix_members` SET
+	`talents`	= (`talents`-1)*5,
+	`spellbook`	= (`spellbook`-1)*5,
+	`mail`		= (`mail`-1)*5,
+	`inv`		= (`inv`-1)*5,
+	`money`		= (`money`-1)*5,
+	`bank`		= (`bank`-1)*5,
+	`recipes`	= (`recipes`-1)*5,
+	`quests`	= (`quests`-1)*5,
+	`bg`		= (`bg`-1)*5,
+	`pvp`		= (`pvp`-1)*5,
+	`duels`		= (`duels`-1)*5,
+	`item_bonuses`	= (`item_bonuses`-1)*5;

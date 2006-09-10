@@ -31,10 +31,6 @@ if( $name == '' )
 require_once (ROSTER_LIB.'char.php');
 
 
-// Check for server name
-$server = (isset($_GET['server']) ? $_GET['server'] : $roster_conf['server_name']);
-
-
 // Check for start for pvp log data
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
@@ -69,6 +65,9 @@ if( !$char )
 }
 
 // Get per character display control
+$roster_login = new RosterLogin($script_filename);
+echo $roster_login->getMessage();
+
 // Array of db fields to get ( 'globalsetting'=>'usersetting'
 $disp_array = array(
 	'show_talents'=>'talents',
@@ -87,21 +86,12 @@ $disp_array = array(
 // Loop through this array and set display accordingly
 foreach( $disp_array as $global_setting => $user_setting )
 {
-	if( $roster_conf[$global_setting] == '2' )
-	{
-		switch ($char->get($user_setting))
-		{
-			case '1': // Private setting
-				$roster_conf[$global_setting] = 0;
-				break;
-			case '2': // Guild setting
-				$roster_conf[$global_setting] = 0;
-				break;
-			case '3': // Public Setting
-				$roster_conf[$global_setting] = 1;
-				break;
-		}
-	}
+	$globallevel = $roster_conf[$global_setting];
+	$userlevel = $char->get($user_setting);
+	
+	$roster_conf[$global_setting] =
+		(int)($roster_login->getAuthorized($globallevel) ||
+		$roster_login->getAuthorized($userlevel));
 }
 
 
