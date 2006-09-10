@@ -69,8 +69,13 @@ if (isset($_GET['s']))
 		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
   <tr>
     <td>';
-	$query="SELECT `players`.`name`, `players`.`server`, `items`.* FROM `".ROSTER_ITEMSTABLE."` AS 'items' INNER JOIN `".ROSTER_PLAYERSTABLE."` AS 'players' ON `items`.`member_id` = `players`.`member_id` WHERE `items`.`item_name` LIKE '%$search%' ORDER BY `players`.`name` ASC";
+	$query="SELECT `players`.`name`, `players`.`server`, `items`.* FROM `".ROSTER_ITEMSTABLE."` AS items INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `items`.`member_id` = `players`.`member_id` WHERE `items`.`item_name` LIKE '%$search%' ORDER BY `players`.`name` ASC";
 	$result = $wowdb->query( $query );
+	
+	if (!$result)
+	{
+		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br/>'.$wowdb->error(),'Search',basename(__FILE__),__LINE__,$query);
+	}
 
 	if( $wowdb->num_rows($result) != 0 )
 	{
@@ -201,8 +206,13 @@ if (isset($_GET['s']))
 <tr>
   <td>';
 	//$query="SELECT players.name,players.server,recipes.* FROM recipes,players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' OR recipes.recipe_tooltip LIKE '%$search%' OR recipes.reagents LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";
-	$query="SELECT `players`.`name`, `players`.`server`, `recipes`.* FROM `".ROSTER_RECIPESTABLE."` AS 'recipes' INNER JOIN `".ROSTER_PLAYERSTABLE."` AS 'players' ON `recipes`.`member_id` = `players`.`member_id` WHERE `recipes`.`recipe_name` LIKE '%$search%' ORDER BY `players`.`name` ASC, `recipes`.`recipe_name` ASC";
+	$query="SELECT `players`.`name`, `players`.`server`, `recipes`.* FROM `".ROSTER_RECIPESTABLE."` AS recipes INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `recipes`.`member_id` = `players`.`member_id` WHERE `recipes`.`recipe_name` LIKE '%$search%' ORDER BY `players`.`name` ASC, `recipes`.`recipe_name` ASC";
 	$result = $wowdb->query( $query );
+
+	if (!$result)
+	{
+		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br/>'.$wowdb->error(),'Search',basename(__FILE__),__LINE__,$query);
+	}
 
 	if( $wowdb->num_rows($result) != 0 )
 	{
