@@ -24,7 +24,15 @@ DELETE FROM `renprefix_config` WHERE `id` =  '4030' LIMIT 1;
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (10030, 'phpbb_group_admin', '2, 5, 22', 'text{128|30', 'update_access');
+
+
+# --------------------------------------------------------
+### Player Table
+
+ALTER TABLE `renprefix_players`
+  CHANGE `melee_range` `melee_range` VARCHAR( 32 ) NULL DEFAULT NULL ,
+  CHANGE `ranged_range` `ranged_range` VARCHAR( 32 ) NULL DEFAULT NULL ;
+
 
 # --------------------------------------------------------
 ### NEW TABLES

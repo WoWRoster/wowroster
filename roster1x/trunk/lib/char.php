@@ -1018,6 +1018,10 @@ $returnstring .= '  <tr>
 		if (ereg(':', $atk))
 			$atk = ereg_replace(':', ' - ', $atk);
 
+		preg_match('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|',$atk,$matches);
+		$atkcolor = (isset($matches[1]))?$matches[1]:'ffffff';
+		$atk = preg_replace('|\|c[a-f0-9]{8}(.+?)\|r|','$1',$atk);
+
 		switch($stat)
 		{
 			case 'rating':
@@ -1059,6 +1063,21 @@ $returnstring .= '  <tr>
 				}
 				break;
 		}
+
+
+
+		$line = "<span style=\"color:#FFFFFF;font-size:12px;font-weight:bold;\">$tooltipheader</span><br />";
+		$line .= "<span style=\"color:#DFB801;\">$tooltip</span>";
+
+		if($atk == '')
+			$atk = 'N/A';
+
+		$output = '<span>';
+		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#'.$atkcolor.'">'.$atk.'</strong>';
+		$output .= '</span>';
+
+		return $output;
+	}
 
 
 
