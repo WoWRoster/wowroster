@@ -1649,29 +1649,6 @@ class wowdb
 	}
 
 	/**
-	 * Gets guild info from database
-	 * Returns info as an array
-	 *
-	 * @param string $realmName
-	 * @param string $guildName
-	 * @return array
-	 */
-	function get_guild_info($realmName,$guildName)
-	{
-		$guild_name_escape = $this->escape( $guildName );
-		$server_escape = $this->escape( $realmName );
-
-		$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
-		$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
-
-		$retval = $this->fetch_array( $result );
-		$this->closeQuery($result);
-
-		return $retval;
-	}
-
-
-	/**
 	 * Function to prepare the memberlog data
 	 *
 	 * @param array $data | Member info array
@@ -1713,7 +1690,7 @@ class wowdb
 	 */
 	function update_guild( $realmName, $guildName, $currentTime, $guild )
 	{
-		$guildInfo = $this->get_guild_info($realmName,$guildName);
+		global $guild_info;
 
 		$this->reset_values();
 
@@ -1734,9 +1711,9 @@ class wowdb
 		$this->add_value( 'GPversion', $guild['DBversion'] );
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
 
-		if ($guildInfo)
+		if ($guild_info)
 		{
-			$guildId = $guildInfo['guild_id'];
+			$guildId = $guild_info['guild_id'];
 			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '$guildId'";
 			$output = $guildId;
 		}
@@ -1747,10 +1724,15 @@ class wowdb
 
 		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
-		if( !$guildInfo )
+		if( !$guild_info )
 		{
-			$guildInfo = $this->get_guild_info($realmName,$guildName);
-			$output = $guildInfo['guild_id'];
+			$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '".$this->escape($guildName)."' AND `server` = '".$this->escape($realmName)."'";
+			$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+
+			$guild_info = $this->fetch_array( $result );
+			$this->closeQuery($result);
+
+			$output = $guild_info['guild_id'];
 		}
 
 		return $output;
@@ -1767,6 +1749,7 @@ class wowdb
 	 */
 	function update_guild_member( $guildId, $name, $char, $currentTimestamp )
 	{
+		global $roster_login;
 		$name_escape = $this->escape( $name );
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
@@ -1833,6 +1816,9 @@ class wowdb
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
 			$this->add_time( 'last_online', getDate($lastOnlineTime));
 		}
+		
+		// update account initial credentials
+		$roster_login->addInitialCredentials();
 
 		if( $memberId )
 		{

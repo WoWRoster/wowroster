@@ -625,6 +625,27 @@ class RosterLogin
 			$this->message .= '<li>Updated access levels for '.$wowdb->affected_rows().' accounts with characters.'."\n";
 		}
 	}
+	
+	/**
+	 * Add default credentials to the wowdb query (on member add)
+	 */
+	function addInitialCredentials()
+	{
+		global $wowdb;
+		
+		$wowdb->add_value('talents',$roster_conf['show_talents']);
+		$wowdb->add_value('spellbook',$roster_conf['show_spellbook']);
+		$wowdb->add_value('mail',$roster_conf['show_mail']);
+		$wowdb->add_value('inv',$roster_conf['show_inventory']);
+		$wowdb->add_value('money',$roster_conf['show_money']);
+		$wowdb->add_value('bank',$roster_conf['show_bank']);
+		$wowdb->add_value('recipes',$roster_conf['show_recipes']);
+		$wowdb->add_value('quests',$roster_conf['show_quests']);
+		$wowdb->add_value('bg',$roster_conf['show_bg']);
+		$wowdb->add_value('pvp',$roster_conf['show_php']);
+		$wowdb->add_value('duels',$roster_conf['show_duels']);
+		$wowdb->add_value('item_bonuses',$roster_conf['show_item_bonuses']);
+	}
 }
 
 ?>

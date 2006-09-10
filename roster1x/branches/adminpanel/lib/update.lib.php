@@ -225,7 +225,7 @@ class update
 	 */
 	function processMyProfile()
 	{
-		global $wowdb, $roster_conf, $wordings, $roster_login;
+		global $wowdb, $roster_conf, $wordings, $roster_login, $guild_info;
 
 		$wowdb->resetMessages();
 		
@@ -240,9 +240,7 @@ class update
 				{
 					if ($roster_conf['server_name'] == $realm_name)
 					{
-						$guildInfo = $wowdb->get_guild_info($realm_name,$roster_conf['guild_name']);
-
-						if ($guildInfo)
+						if ($guild_info)
 						{
 							$char = $realm[$char_name];
 
@@ -253,7 +251,7 @@ class update
 								{
 									$output .= "<li><strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
 	
-									$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
+									$wowdb->update_char( $guild_info['guild_id'], $char_name, $char );
 									$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
 									$wowdb->resetMessages();
 								}
