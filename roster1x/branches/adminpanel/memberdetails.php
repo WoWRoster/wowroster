@@ -66,7 +66,8 @@ if( !$char )
 
 // Get per character display control
 $roster_login = new RosterLogin($script_filename);
-echo $roster_login->getMessage();
+
+include (ROSTER_LIB.'menu.php');
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting'
 $disp_array = array(
@@ -101,12 +102,10 @@ $menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
 
 print '<div align="center">'."\n";
 
-
 print border('sorange','start');
 
 print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-echo $menu_cell.'<a href="./index.php">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a></td>'."\n";
 echo $menu_cell.$url.'&amp;action=character">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
 
 if( $roster_conf['show_spellbook'] )
@@ -140,11 +139,11 @@ print "  </tr>\n</table>\n";
 
 print border('sorange','end');
 
-
+echo $roster_login->getMessage();
 
 print "\n</div>\n<div align=\"".$roster_conf['char_bodyalign']."\" style=\"margin:10px;\">\n";
 
-$date_char_data_updated = DateCharDataUpdated($name);
+$date_char_data_updated = $char->getDateUpdateDUTC();
 
 print '<br />
 <span class="lastupdated">'.$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$date_char_data_updated."</span><br />\n";
@@ -292,7 +291,7 @@ print "</td></tr></table>\n";
 
 if ($action == 'character' && $roster_conf['show_item_bonuses'])
 {
-	echo dumpBonuses($name, $server);
+	echo dumpBonuses($char);
 }
 
 print "</div>\n";

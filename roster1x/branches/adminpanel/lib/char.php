@@ -35,6 +35,7 @@ $myTooltip = array();
 class char
 {
 	var $data;
+	var $equip;
 
 	function char( $data )
 	{
@@ -454,13 +455,13 @@ $returnstring .= '  <tr>
 	{
 		global $wowdb, $wordings, $roster_conf;
 
-		$sqlquery = "SELECT `spelltree`.*, `talenttree`.`order` ".
+		$query = "SELECT `spelltree`.*, `talenttree`.`order` ".
 			"FROM `".ROSTER_SPELLTREETABLE."` AS spelltree ".
 			"LEFT JOIN `".ROSTER_TALENTTREETABLE."` AS talenttree ON `spelltree`.`member_id` = `talenttree`.`member_id` AND `spelltree`.`spell_type` = `talenttree`.`tree` ".
 			"WHERE `spelltree` . `member_id` = ".$this->data['member_id']." ".
 			"ORDER BY `talenttree` . `order` ASC";
 
-		$result = $wowdb->query($sqlquery);
+		$result = $wowdb->query($query);
 
 		if( !$result )
 		{
@@ -469,55 +470,55 @@ $returnstring .= '  <tr>
 
 		$num_trees = $wowdb->num_rows($result);
 
-		if( $num_trees > 0 )
-		{
-			for( $t=0; $t < $num_trees; $t++)
-			{
-				$treedata = $wowdb->fetch_assoc($result);
-
-				$tree[$t]['name'] = $treedata['spell_type'];
-				$tree[$t]['icon'] = $treedata['spell_texture'];
-				$tree[$t]['id'] = $t;
-
-
-				// Get Icons
-				$sqlquery = "SELECT * FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '".$this->data['member_id']."' AND `spell_type` = '".$wowdb->escape($tree[$t]['name'])."' ORDER BY `spell_name`;";
-
-				$icons_result = $wowdb->query($sqlquery);
-
-				if( $wowdb->num_rows($icons_result) > 0 )
-				{
-					$i=0;
-					$p=0;
-					for( $r=0; $r < $wowdb->num_rows($icons_result); $r++ )
-					{
-						$icons_data = $wowdb->fetch_assoc($icons_result);
-
-						if( $i >= 14 )
-						{
-							$i=0;
-							$p++;
-						}
-						$spells[$p][$i]['name'] = $icons_data['spell_name'];
-						$spells[$p][$i]['type'] = $icons_data['spell_type'];
-						$spells[$p][$i]['icon'] = $icons_data['spell_texture'];
-						$spells[$p][$i]['rank'] = $icons_data['spell_rank'];
-
-						// Parse the tooltip
-						$spells[$p][$i]['tooltip'] = makeOverlib($icons_data['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
-
-						$i++;
-					}
-					// Assign spells to tree
-					$tree[$t]['spells'] = $spells;
-					unset($spells);
-				}
-			}
-			$spelltree = $tree;
-		}
-		else
+		if( $num_trees == 0 )
 		{
 			return "No ".$wordings[$roster_conf['roster_lang']]['spellbook']." for ".$this->data['name'];
+		}
+		
+		for( $t=0; $t < $num_trees; $t++)
+		{
+			$treedata = $wowdb->fetch_assoc($result);
+
+			$spelltree[$t]['name'] = $treedata['spell_type'];
+			$spelltree[$t]['icon'] = $treedata['spell_texture'];
+			$spelltree[$t]['id'] = $t;
+			
+			$name_id[$treedata['spell_type']] = $t;
+		}
+		
+		$wowdb->free_result($result);
+
+		// Get the spell data
+		$query = "SELECT * FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `spell_name`";
+
+		$result = $wowdb->query($query);
+		
+		while ($row = $wowdb->fetch_assoc($result))
+		{
+			$spelltree[$name_id[$row['spell_type']]]['rawspells'][] = $row;
+		}
+		
+		foreach ($spelltree as $t => $tree)
+		{
+			$i=0;
+			$p=0;
+			foreach ($spelltree[$t]['rawspells'] as $r => $spell)
+			{
+				if( $i >= 14 )
+				{
+					$i=0;
+					$p++;
+				}
+				$spelltree[$t]['spells'][$p][$i]['name'] = $spell['spell_name'];
+				$spelltree[$t]['spells'][$p][$i]['type'] = $spell['spell_type'];
+				$spelltree[$t]['spells'][$p][$i]['icon'] = $spell['spell_texture'];
+				$spelltree[$t]['spells'][$p][$i]['rank'] = $spell['spell_rank'];
+
+				// Parse the tooltip
+				$spelltree[$t]['spells'][$p][$i]['tooltip'] = makeOverlib($spell['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
+
+				$i++;
+			}
 		}
 
 		$return_string .= '
@@ -623,39 +624,26 @@ $returnstring .= '  <tr>
 	}
 
 
-	function getNumPets($name, $server)
+	function getNumPets()
 	{
 		global $wowdb; 				//the object derived from class wowdb used to do queries
 
-		$server = $wowdb->escape( $server );
-		/******************************************************************************************************************
-		returns the number of pets the character has in the database
-		******************************************************************************************************************/
-		$query = "SELECT * FROM `".ROSTER_PLAYERSTABLE."` WHERE `name` = '$name' AND `server` = '$server'";
+		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' order by `level` DESC";
 		$result = $wowdb->query( $query );
-		$row = $wowdb->fetch_assoc( $result );
-		$member_id = $row['member_id'];
-		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$member_id' order by `level` DESC";
-		$result = $wowdb->query( $query );
-		return $wowdb->num_rows($result);
+		$retval = $wowdb->num_rows($result);
+		$wowdb->free_result($result);
+		
+		return $retval;
 	}
 
 
-	function printPet($name, $server)
+	function printPet()
 	{
 		global $wowdb, $wordings, $roster_conf;
 
 		$lang = $this->data['clientLocale'];
 
-		$server = $wowdb->escape( $server );
-		/******************************************************************************************************************
-		Gets all the pets from the database associated with that character from that server.
-		******************************************************************************************************************/
-
-		$query = "SELECT * FROM `".ROSTER_PLAYERSTABLE."` WHERE `name` = '$name' AND `server` = '$server'";
-		$result = $wowdb->query( $query );
-		$row = $wowdb->fetch_assoc( $result );
-		$member_id = $row['member_id'];
+		$member_id = $this->data['member_id'];
 		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$member_id' ORDER BY `level` DESC";
 		$result = $wowdb->query( $query );
 
@@ -981,12 +969,19 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+	function fetchEquip()
+	{
+		if (!is_array($this->equip))
+		{
+			$this->equip = item_get_many($this->data['member_id'], 'equip');
+		}
+	}
 
 	function printEquip( $slot )
 	{
 		global $roster_conf;
 
-		$item = item_get_one( $this->data['member_id'], $slot );
+		$item = $this->equip[$slot];
 
 		if( isset($item) )
 		{
@@ -1017,6 +1012,10 @@ $returnstring .= '  <tr>
 
 		if (ereg(':', $atk))
 			$atk = ereg_replace(':', ' - ', $atk);
+
+		preg_match('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|',$atk,$matches);
+		$atkcolor = (isset($matches[1]))?$matches[1]:'ffffff';
+		$atk = preg_replace('|\|c[a-f0-9]{8}(.+?)\|r|','$1',$atk);
 
 		switch($stat)
 		{
@@ -1069,7 +1068,7 @@ $returnstring .= '  <tr>
 			$atk = 'N/A';
 
 		$output = '<span>';
-		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#ffffff">'.$atk.'</strong>';
+		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#'.$atkcolor.'">'.$atk.'</strong>';
 		$output .= '</span>';
 
 		return $output;
@@ -1114,6 +1113,19 @@ $returnstring .= '  <tr>
 			$outtalent .= '<img id="tlabbg2" height="32" src="'.$roster_conf['img_url'].'itab.gif" width="105" alt="" />';
 			$outtalent .= '<img id="tlabbg3" height="32" src="'.$roster_conf['img_url'].'itab.gif" width="105" alt="" /></div>';
 
+			$query = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '".$member_id."'";
+			$result = $wowdb->query( $query );
+			
+			if (!$result)
+			{
+				die_quietly('Failed to fetch talents','Character Stats',basename(__FILE__),__LINE__,$query);
+			}
+			while ( $talent = $wowdb->fetch_assoc( $result ) )
+			{
+				$talents[$talent['tree']][$talent['column']][$talent['row']] = $talent;
+			}
+			$wowdb->free_result($result);
+			
 			while( $tree = $wowdb->fetch_assoc( $trees ) )
 			{
 				$g++;
@@ -1145,16 +1157,13 @@ $returnstring .= '  <tr>
 						$output .= '        <tr>
 	          <td height="45">';
 
-						$query4 = "SELECT * FROM `".ROSTER_TALENTSTABLE."` where `member_id` = '$member_id' and `tree` = '".$tree['tree']."' and `column` = '" . $c . "' and `row` ='" . $r . "'";
-						$talents4 = $wowdb->query( $query4 );
-
-						if ($wowdb->num_rows($talents4) == 0)
+						if (!isset($talents[$tree['tree']][$c][$r]))
 						{
 							$output .= '<div class="item"><img src="'.$roster_conf['img_url'].'pixel.gif" class="icon" alt="" /></div>';
 						}
 						else
 						{
-							$talent4 = $wowdb->fetch_assoc( $talents4 );
+							$talent4 = $talents[$tree['tree']][$c][$r];
 							$path4 = $roster_conf['interface_url'] . $talent4['texture'] . "." . $roster_conf['img_suffix'];
 
 							$first_line = True;
@@ -1228,26 +1237,14 @@ $returnstring .= '  <tr>
 	{
 		global $skilltypes;
 
-		list( $major, $minor ) = explode( '.', $this->data['version'] );
+		$allskills = skill_get_many( $this->data['member_id']);
 
-		for( $i=1 ; $i<7 ;  $i++ )
+		foreach ($allskills as $cat => $skills)
 		{
-			if( ($major == 0) && ($minor < 96) )
+			$returnstring .= $skills[0]->outHeader();
+			foreach ($skills as $skill)
 			{
-				$skills = skill_get_many_by_type( $this->data['member_id'], $skilltypes[$this->data['clientLocale']][$i] );
-			}
-			else
-			{
-				$skills = skill_get_many_by_order( $this->data['member_id'], $i );
-			}
-
-			if( isset( $skills[0] ) )
-			{
-				$returnstring .= $skills[0]->outHeader();
-				foreach ($skills as $skill)
-				{
-					$returnstring .= $skill->out();
-				}
+				$returnstring .= $skill->out();
 			}
 		}
 		return $returnstring;
@@ -1353,6 +1350,14 @@ $returnstring .= '  <tr>
 
 		return $output;
 	}
+	
+	function getDateUpdateDUTC()
+	{
+		global $roster_conf, $phptimeformat;
+		list($month,$day,$year,$hour,$minute,$second) = sscanf($this->data['dateupdatedutc'],"%d/%d/%d %d:%d:%d");
+		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+		return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+	}
 
 
 	function out()
@@ -1363,13 +1368,15 @@ $returnstring .= '  <tr>
 
 		if ($this->data['name'] != '')
 		{
+			$this->fetchEquip();
+			$petTab = $this->printPet();
 
 ?>
 <script type="text/javascript">
 <!--
   addTab('page1')
 <?php
-if ( $this->getNumPets($this->data['name'], $this->data['server']))
+if ( $petTab != '' )
 	print '  addTab(\'page2\')'."\n";
 ?>
   addTab('page3')
@@ -1536,9 +1543,6 @@ else
     </div><!-- end char-main-page1 -->
 <?php
 
-if ($this->getNumPets($this->data['name'], $this->data['server']) > 0)
-{
-	$petTab = $this->printPet($this->data['name'], $this->data['server']);
 	$tab = '
     <div class="page2" id="page2"><!-- begin char-main-page2 -->
       <div class="left"></div>
@@ -1548,7 +1552,6 @@ if ($this->getNumPets($this->data['name'], $this->data['server']) > 0)
       <div class="right"></div>
 		</div><!-- end char-main-page2 -->';
 	print $tab;
-}
 
 ?>
 
@@ -1597,13 +1600,10 @@ if( $roster_conf['show_talents'] )
 
 print $this->printTab( $wordings[$lang]['tab1'], 'page1', True );
 echo "\n";
-if ($this->data['class'] == $wordings[$lang]['Hunter'] || $this->data['class'] == $wordings[$lang]['Warlock'])
+if ($petTab != '')
 {
-	if ($this->getNumPets($this->data['name'],$this->data['server']) > 0)
-	{
-		print $this->printTab( $wordings[$lang]['tab2'], 'page2' );
-		echo "\n";
-	}
+	print $this->printTab( $wordings[$lang]['tab2'], 'page2' );
+	echo "\n";
 }
 print $this->printTab( $wordings[$lang]['tab3'], 'page3' )."\n";
 print $this->printTab( $wordings[$lang]['tab4'], 'page4' )."\n";
@@ -1665,21 +1665,6 @@ function char_get_one( $name, $server )
 	{
 		return false;
 	}
-}
-
-
-function DateCharDataUpdated($name)
-{
-	global $wowdb, $roster_conf, $phptimeformat;
-
-	$query1 = "SELECT `dateupdatedutc` FROM `".ROSTER_PLAYERSTABLE."` WHERE `name` = '$name'";
-	$result1 = $wowdb->query($query1);
-	$data1 = $wowdb->fetch_assoc($result1);
-	$dateupdatedutc = $data1['dateupdatedutc'];
-
-	list($month,$day,$year,$hour,$minute,$second) = sscanf($dateupdatedutc,"%d/%d/%d %d:%d:%d");
-	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
 }
 
 
@@ -1901,26 +1886,16 @@ function dumpString( $aString)
 }
 
 
-function dumpBonuses($char, $server)
+function dumpBonuses($char)
 {
 	global $myBonus, $myTooltip, $wordings, $roster_conf, $wowdb;
 
-	$server = $wowdb->escape( $server );
-	$qry  = "SELECT i.item_tooltip, i.item_name, i.item_color, p.parry, p.dodge, p.block, p.crit, p.mitigation, p.clientLocale
-			FROM `".ROSTER_ITEMSTABLE."` i, `".ROSTER_PLAYERSTABLE."` p
-			WHERE i.item_parent = 'equip'
-				and i.member_id = p.member_id
-				and p.name = '".$char."'
-				and p.server = '".$server."'";
-
-	$result = $wowdb->query($qry) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry);
-	while($row = $wowdb->fetch_array($result))
+	$char->fetchEquip();
+	
+	foreach($char->equip as $slot=>$item)
 	{
-		sortOutTooltip($row['item_tooltip'], $row['item_name'], substr($row['item_color'], 2, 6),$row['clientLocale'] );
+		sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], substr($item->data['item_color'], 2, 6),$char->data['clientLocale'] );
 	}
-
-	$wowdb->data_seek($result, 0);
-	$row = $wowdb->fetch_array($result);
 
 	$bt .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['itembonuses']).
 		'<table style="width:400px;" class="bodyline" cellspacing="0" cellpadding="0" border="0">'."\n";

@@ -86,23 +86,7 @@ class skill
   }
 }
 
-function skill_get_many_by_type( $member_id, $type )
-{
-  global $wowdb;
-  $type = $wowdb->escape( $type );
-
-  return skill_get_many( $member_id, "`skill_type` = '$type'" );
-}
-
-function skill_get_many_by_order( $member_id, $order )
-{
-  global $wowdb;
-  $order = $wowdb->escape( $order );
-
-  return skill_get_many( $member_id, "`skill_order` = '$order'" );
-}
-
-function skill_get_many( $member_id, $search )
+function skill_get_many( $member_id )
 {
   global $wowdb;
 
@@ -114,7 +98,7 @@ function skill_get_many( $member_id, $search )
   {
   	$server = $wowdb->escape( $server );
   }
-  $query= "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$member_id' AND $search";
+  $query= "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$member_id'";
 
   $result = $wowdb->query( $query );
 
@@ -122,7 +106,7 @@ function skill_get_many( $member_id, $search )
   while( $data = $wowdb->fetch_assoc( $result ) )
   {
     $skill = new skill( $data );
-    $skills[] = $skill;
+    $skills[$skill->data['skill_order']][] = $skill;
   }
   return $skills;
 }
