@@ -62,6 +62,7 @@ CREATE TABLE `renprefix_items` (
   `item_texture` varchar(64) NOT NULL default '',
   `item_quantity` int(11) default NULL,
   `item_tooltip` mediumtext NOT NULL,
+  `level` INT( 11 ) default NULL,
   PRIMARY KEY  (`member_id`,`item_parent`,`item_slot`),
   KEY `parent` (`item_parent`),
   KEY `slot` (`item_slot`),

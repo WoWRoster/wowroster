@@ -29,7 +29,7 @@ echo "<div style=\"font-size:12px;\">\n".$creditspage['top']."\n</div>\n";
 
 
 // format table locations
-echo "<table cellspacing=\"10\"><tr><td>\n";
+echo "<table cellspacing=\"10\"><tr><td valign=\"top\">\n";
 
 
 // Print devs
@@ -95,6 +95,8 @@ foreach( $creditspage['devs']['beta'] as $dev )
 }
 echo "</table>\n".border('syellow','end');
 
+// format table locations
+echo "\n</td></tr></table>\n";
 
 $AddonCredits = makeAddonCredits();
 if($AddonCredits != '') {
@@ -109,8 +111,6 @@ if($AddonCredits != '') {
 	echo "</table>\n".border('sblue','end');
 }
 
-// format table locations
-echo "\n</td></tr></table>\n";
 
 
 include_once (ROSTER_BASE.'roster_footer.tpl');

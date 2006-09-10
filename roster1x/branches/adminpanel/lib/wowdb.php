@@ -491,8 +491,10 @@ class wowdb
 	 * @param string $item
 	 * @return bool
 	 */
-	function insert_item( $item )
+	function insert_item( $item,$locale )
 	{
+		global $wordings;
+
 		$this->reset_values();
 		$this->add_value('member_id', $item['member_id'] );
 		$this->add_value('item_name', $item['item_name'] );
@@ -502,6 +504,9 @@ class wowdb
 		$this->add_value('item_id', $item['item_id'] );
 		$this->add_value('item_texture', $item['item_texture'] );
 		$this->add_value('item_tooltip', $item['item_tooltip'] );
+
+		if( preg_match($wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
+			$this->add_value('level',$level[1]);
 
 		if( isset( $item['item_quantity'] ) )
 			$this->add_value('item_quantity', $item['item_quantity'] );
@@ -878,7 +883,7 @@ class wowdb
 			{
 				$slot = $equip[$slot_name];
 				$item = $this->make_item( $slot, $memberId, 'equip', $slot_name );
-				$this->insert_item( $item );
+				$this->insert_item( $item,$data['Locale'] );
 			}
 		}
 		else
@@ -925,12 +930,12 @@ class wowdb
 				$item = $this->make_item( $bag, $memberId, 'bags', $bag_name );
 				// quantity for a bag means number of slots it has
 				$item['item_quantity'] = $bag['Slots'];
-				$this->insert_item( $item );
+				$this->insert_item( $item,$data['Locale'] );
 				foreach( array_keys( $bag['Contents'] ) as $slot_name )
 				{
 					$slot = $bag['Contents'][$slot_name];
 					$item = $this->make_item( $slot, $memberId, $bag_name, $slot_name );
-					$this->insert_item( $item );
+					$this->insert_item( $item,$data['Locale'] );
 				}
 			}
 			$this->setMessage('</ul>');
@@ -995,7 +1000,7 @@ class wowdb
 			$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_07';
 			$item['item_quantity'] = 24;
 			$item['item_tooltip'] = "Bank Contents\n24 Slot Container";
-			$this->insert_item( $item );
+			$this->insert_item( $item,$data['Locale'] );
 			$bag = $inv;
 
 			$this->setMessage('<li>Bank Contents</li>');
@@ -1003,7 +1008,7 @@ class wowdb
 			{
 				$slot = $bag['Contents'][$slot_name];
 				$item = $this->make_item( $slot, $memberId, 'Bank Contents', $slot_name );
-				$this->insert_item( $item );
+				$this->insert_item( $item,$data['Locale'] );
 			}
 			foreach( array_keys( $inv ) as $bag_name )
 			{
@@ -1016,13 +1021,13 @@ class wowdb
 
 					// quantity for a bag means number of slots it has
 					$item['item_quantity'] = $bag['Slots'];
-					$this->insert_item( $item );
+					$this->insert_item( $item,$data['Locale'] );
 
 					foreach( array_keys( $bag['Contents'] ) as $slot_name )
 					{
 						$slot = $bag['Contents'][$slot_name];
 						$item = $this->make_item( $slot, $memberId, $dbname, $slot_name );
-						$this->insert_item( $item );
+						$this->insert_item( $item,$data['Locale'] );
 					}
 				}
 			}
@@ -1816,7 +1821,7 @@ class wowdb
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
 			$this->add_time( 'last_online', getDate($lastOnlineTime));
 		}
-		
+
 		// update account initial credentials
 		$roster_login->addInitialCredentials();
 
