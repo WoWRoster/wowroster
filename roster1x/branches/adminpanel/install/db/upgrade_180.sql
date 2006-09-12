@@ -128,3 +128,12 @@ UPDATE `renprefix_members` SET
 	`pvp`		= (`pvp`-1)*5,
 	`duels`		= (`duels`-1)*5,
 	`item_bonuses`	= (`item_bonuses`-1)*5;
+
+
+# --------------------------------------------------------
+### The roster version and db version MUST be last
+
+UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '3' WHERE `id` = '3' LIMIT 1;
+
+ALTER TABLE `renprefix_config` ORDER BY `id`;

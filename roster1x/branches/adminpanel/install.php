@@ -98,6 +98,18 @@ if ( defined('ROSTER_INSTALLED') )
 	exit();
 }
 
+
+// Detect Roster 1.6.0
+if ( isset($roster_upd_pw) )
+{
+	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
+	$tpl->message_die('Looks like you\'ve loaded a new version of Roster<br />
+<br />
+<a href="upgrade.php" style="font-weight:bold;border:1px outset white;padding:2px 6px;">UPGRADE</a>', 'Upgrade Roster');
+	exit();
+}
+
+
 // View phpinfo() if requested
 if ( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 {
@@ -519,11 +531,7 @@ function process_step4()
     //
     if ( $user_password1 != $user_password2 || $user_password1 == '' || $user_password2 == '' )
     {
-        $tpl->message_append('<span style="font-weight: bold; font-size: 14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <b>admin</b>. Your user name is Roster_Admin. ou can change it by logging into Roster Config');
-    }
-    else
-    {
-    	$tpl->message_append('Your password has been set. Your user name is Roster_Admin');
+        $tpl->message_append('<span style="font-weight: bold; font-size: 14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <b>admin</b>. You can change it by logging into Roster Config');
     }
 
 

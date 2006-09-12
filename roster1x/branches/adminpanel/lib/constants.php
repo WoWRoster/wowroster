@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','1.7.1');
+define('ROSTER_VERSION','1.8.0');
 
 // Table Names
 define('ROSTER_GUILDTABLE',$db_prefix.'guild');
