@@ -58,6 +58,8 @@ define('ROSTER_URL',implode('/',$url));
  */
 define('ROSTER_BASE',dirname(__FILE__).DIR_SEP);
 
+if( file_exists(ROSTER_BASE.'agree.php') )
+	include(ROSTER_BASE.'agree.php');
 
 /**
  * Base, absolute roster library directory

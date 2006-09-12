@@ -40,6 +40,8 @@
 define('DIR_SEP',DIRECTORY_SEPARATOR);
 $roster_root_path = dirname(__FILE__).DIR_SEP;
 
+if( file_exists($roster_root_path.'agree.php') )
+	include($roster_root_path.'agree.php');
 
 include_once($roster_root_path.'conf.php');
 include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
