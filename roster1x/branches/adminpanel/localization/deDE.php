@@ -18,11 +18,6 @@
 
 // deDE translation by sphinx
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
-
 
 //Instructions how to upload, as seen on the mainpage
 $wordings['deDE']['update_link']='Hier klicken um zur Aktualisierungsanleitung zu gelangen';

@@ -18,11 +18,6 @@
 
 // frFR translation by wowodo, lesablier, Exerladan, and Ansgar
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
-
 
 //Instructions how to upload, as seen on the mainpage
 $wordings['frFR']['update_link']='Cliquer ici pour les instructions de mise à jour.';

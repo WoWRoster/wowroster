@@ -47,18 +47,18 @@ class char
 	{
 		list($current, $max) =
 		explode( ':', $this->data['exp'] );
+
+		$perc='';
 		if ($current > 0)
 		{
 			$perc = round(($current / $max)* 248, 1);
-			return $perc;
 		}
+		return $perc;
 	}
 
 
 	function show_pvp2($type, $url, $sort, $start)
 	{
-		global $roster_conf;
-
 		$pvps = pvp_get_many3( $this->data['member_id'],$type, $sort, -1);
 		$returnstring .= '<div align="center">';
 
@@ -163,13 +163,21 @@ class char
 				$font = 'grey';
 
 				if ($quest_level + 9 < $char_level)
+				{
 					$font = 'grey';
+				}
 				else if ($quest_level + 2 < $char_level)
+				{
 					$font = 'green';
+				}
 				else if ( $quest_level < $char_level+3 )
+				{
 					$font = 'yellow';
+				}
 				else
+				{
 					$font = 'red';
+				}
 
 				$name = $quest->data['quest_name'];
 				if ($name{0} == '[')
@@ -474,7 +482,7 @@ $returnstring .= '  <tr>
 		{
 			return "No ".$wordings[$roster_conf['roster_lang']]['spellbook']." for ".$this->data['name'];
 		}
-		
+
 		for( $t=0; $t < $num_trees; $t++)
 		{
 			$treedata = $wowdb->fetch_assoc($result);
@@ -482,22 +490,22 @@ $returnstring .= '  <tr>
 			$spelltree[$t]['name'] = $treedata['spell_type'];
 			$spelltree[$t]['icon'] = $treedata['spell_texture'];
 			$spelltree[$t]['id'] = $t;
-			
+
 			$name_id[$treedata['spell_type']] = $t;
 		}
-		
+
 		$wowdb->free_result($result);
 
 		// Get the spell data
 		$query = "SELECT * FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `spell_name`";
 
 		$result = $wowdb->query($query);
-		
+
 		while ($row = $wowdb->fetch_assoc($result))
 		{
 			$spelltree[$name_id[$row['spell_type']]]['rawspells'][] = $row;
 		}
-		
+
 		foreach ($spelltree as $t => $tree)
 		{
 			$i=0;
@@ -632,7 +640,7 @@ $returnstring .= '  <tr>
 		$result = $wowdb->query( $query );
 		$retval = $wowdb->num_rows($result);
 		$wowdb->free_result($result);
-		
+
 		return $retval;
 	}
 
@@ -837,7 +845,6 @@ $returnstring .= '  <tr>
 		.$xpBar
 		.$trainingPoints
 		.$hpMana
-		.$PetComboBox
 		.$icons
 		;
 	}
@@ -1013,6 +1020,7 @@ $returnstring .= '  <tr>
 		if (ereg(':', $atk))
 			$atk = ereg_replace(':', ' - ', $atk);
 
+		$matches='';
 		preg_match('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|',$atk,$matches);
 		$atkcolor = (isset($matches[1]))?$matches[1]:'ffffff';
 		$atk = preg_replace('|\|c[a-f0-9]{8}(.+?)\|r|','$1',$atk);
@@ -1115,7 +1123,7 @@ $returnstring .= '  <tr>
 
 			$query = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '".$member_id."'";
 			$result = $wowdb->query( $query );
-			
+
 			if (!$result)
 			{
 				die_quietly('Failed to fetch talents','Character Stats',basename(__FILE__),__LINE__,$query);
@@ -1125,7 +1133,7 @@ $returnstring .= '  <tr>
 				$talents[$talent['tree']][$talent['column']][$talent['row']] = $talent;
 			}
 			$wowdb->free_result($result);
-			
+
 			while( $tree = $wowdb->fetch_assoc( $trees ) )
 			{
 				$g++;
@@ -1186,13 +1194,21 @@ $returnstring .= '  <tr>
 										$line = substr( $line, 10, -2 );
 									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_rank'] ) === 0 )
+									{
 										$color = '00ff00;font-size:11px';
+									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_next_rank'] ) === 0 )
+									{
 										$color = 'ffffff;font-size:11px';
+									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_requires'] ) === 0 )
+									{
 										$color = 'ff0000';
+									}
 									else
+									{
 										$color = 'dfb801';
+									}
 								}
 								if( $line != '' )
 								{
@@ -1235,8 +1251,6 @@ $returnstring .= '  <tr>
 
 	function printSkills()
 	{
-		global $skilltypes;
-
 		$allskills = skill_get_many( $this->data['member_id']);
 
 		foreach ($allskills as $cat => $skills)
@@ -1268,11 +1282,6 @@ $returnstring .= '  <tr>
 		global $roster_conf, $wowdb, $wordings;
 
 		$lang = $this->data['clientLocale'];
-
-		$showhonorxpBar = true;
-
-		if ( strlen($this->data['Rankexp']) < 1 )
-			$honorshowxpBar = false;
 
 		$honorxp_percent = $this->data['Rankexp'];;
 
@@ -1350,7 +1359,7 @@ $returnstring .= '  <tr>
 
 		return $output;
 	}
-	
+
 	function getDateUpdateDUTC()
 	{
 		global $roster_conf, $phptimeformat;
@@ -1630,8 +1639,6 @@ function char_get_one_by_id( $member_id )
 {
 	global $wowdb;
 
-	$name = $wowdb->escape( $name );
-	$server = $wowdb->escape( $server );
 	$query = "SELECT a.*, b.*, c.guild_name FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
 	"WHERE a.member_id = b.member_id AND a.member_id = '$member_id' AND a.guild_id = c.guild_id";
 	$result = $wowdb->query( $query );
@@ -1891,7 +1898,7 @@ function dumpBonuses($char)
 	global $myBonus, $myTooltip, $wordings, $roster_conf, $wowdb;
 
 	$char->fetchEquip();
-	
+
 	foreach($char->equip as $slot=>$item)
 	{
 		sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], substr($item->data['item_color'], 2, 6),$char->data['clientLocale'] );

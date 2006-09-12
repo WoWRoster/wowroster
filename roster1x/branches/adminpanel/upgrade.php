@@ -40,9 +40,6 @@
 define('DIR_SEP',DIRECTORY_SEPARATOR);
 $roster_root_path = dirname(__FILE__).DIR_SEP;
 
-/* THIS WILL ONLY BE NEEDED FOR ROSTER 1.6.0 */
-define('ROSTER_INSTALLED', true);
-/* THIS WILL ONLY BE NEEDED FOR ROSTER 1.6.0 */
 
 include_once($roster_root_path.'conf.php');
 include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
@@ -116,6 +113,8 @@ if( !isset($version) )
 		$version = $row['config_value'];
 	}
 }
+define('ROSTER_OLDVERSION',$version);
+
 
 
 if( $version >= $DEFAULTS['version'] )
@@ -445,8 +444,11 @@ class Upgrade
 
 		foreach ( $this->versions as $version )
 		{
+			$selected = ( $version == ROSTER_OLDVERSION ) ? ' selected="selected"' : '';
+
 			$tpl->assign_block_vars('version_row', array(
 				'VALUE'    => str_replace('.', '', $version),
+				'SELECTED' => $selected,
 				'OPTION'   => 'Roster ' . $version,
 				)
 			);
