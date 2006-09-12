@@ -18,9 +18,9 @@ INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.1', 'display', 'master
 ### Main Roster Config
 
 INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '1.5.4', 'text{10|10', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '1.5.1', 'text{10|10', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.5.0', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '1.6.1', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '1.6.0', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.5.2', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1040, 'roster_lang', 'enUS', 'function{rosterLangValue', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1070, 'roster_dir', '/roster', 'text{128|30', 'main_conf');

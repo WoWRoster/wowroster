@@ -53,7 +53,7 @@ CREATE TABLE `renprefix_guild` (
 DROP TABLE IF EXISTS `renprefix_items`;
 CREATE TABLE `renprefix_items` (
   `member_id` int(11) unsigned NOT NULL default '0',
-  `item_name` varchar(96) NOT NULL,
+  `item_name` varchar(96) NOT NULL default '',
   `item_parent` varchar(64) NOT NULL default '',
   `item_slot` varchar(32) NOT NULL default '',
   `item_color` varchar(16) NOT NULL default '',
@@ -81,7 +81,7 @@ CREATE TABLE `renprefix_mailbox` (
   `mailbox_sender` varchar(30) NOT NULL default '',
   `mailbox_subject` mediumtext NOT NULL,
   `item_icon` varchar(64) NOT NULL default '',
-  `item_name` varchar(96) NOT NULL,
+  `item_name` varchar(96) NOT NULL default '',
   `item_quantity` int(11) default NULL,
   `item_tooltip` mediumtext NOT NULL,
   `item_color` varchar(16) NOT NULL default '',
@@ -441,8 +441,8 @@ CREATE TABLE `renprefix_spellbooktree` (
 DROP TABLE IF EXISTS `renprefix_talents`;
 CREATE TABLE `renprefix_talents` (
   `member_id` int(11) NOT NULL default '0',
-  `name` varchar(64) NOT NULL,
-  `tree` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL default '',
+  `tree` varchar(64) NOT NULL default '',
   `row` tinyint(4) NOT NULL default '0',
   `column` tinyint(4) NOT NULL default '0',
   `rank` tinyint(4) NOT NULL default '0',
@@ -457,7 +457,7 @@ CREATE TABLE `renprefix_talents` (
 DROP TABLE IF EXISTS `renprefix_talenttree`;
 CREATE TABLE `renprefix_talenttree` (
   `member_id` int(11) NOT NULL default '0',
-  `tree` varchar(64) NOT NULL,
+  `tree` varchar(64) NOT NULL default '',
   `background` varchar(64) NOT NULL default '',
   `order` tinyint(4) NOT NULL default '0',
   `pointsspent` tinyint(4) NOT NULL default '0'

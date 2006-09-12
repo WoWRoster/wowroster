@@ -6,9 +6,9 @@
 # --------------------------------------------------------
 ### Config
 
-DELETE FROM `renprefix_config` WHERE `id` = '5020' LIMIT 1;
-
-UPDATE `renprefix_config` SET `config_value` = '1.5.4' WHERE `id` = '1010' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.6.1' WHERE `id` = '1010' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.6.0' WHERE `id` = '1020' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '0.5.2' WHERE `id` = '1030' LIMIT 1;
 UPDATE `renprefix_config` SET `config_name` = 'menu_memberlog' WHERE `id` = '4020' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloads/details/id=7.html' WHERE `id` = '6110' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/Downloads/c=2.html' WHERE `id` = '6120' LIMIT 1;

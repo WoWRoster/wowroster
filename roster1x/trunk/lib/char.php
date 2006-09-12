@@ -46,18 +46,18 @@ class char
 	{
 		list($current, $max) =
 		explode( ':', $this->data['exp'] );
+
+		$perc='';
 		if ($current > 0)
 		{
 			$perc = round(($current / $max)* 248, 1);
-			return $perc;
 		}
+		return $perc;
 	}
 
 
 	function show_pvp2($type, $url, $sort, $start)
 	{
-		global $roster_conf;
-
 		$pvps = pvp_get_many3( $this->data['member_id'],$type, $sort, -1);
 		$returnstring .= '<div align="center">';
 
@@ -162,13 +162,21 @@ class char
 				$font = 'grey';
 
 				if ($quest_level + 9 < $char_level)
+				{
 					$font = 'grey';
+				}
 				else if ($quest_level + 2 < $char_level)
+				{
 					$font = 'green';
+				}
 				else if ( $quest_level < $char_level+3 )
+				{
 					$font = 'yellow';
+				}
 				else
+				{
 					$font = 'red';
+				}
 
 				$name = $quest->data['quest_name'];
 				if ($name{0} == '[')
@@ -849,7 +857,6 @@ $returnstring .= '  <tr>
 		.$xpBar
 		.$trainingPoints
 		.$hpMana
-		.$PetComboBox
 		.$icons
 		;
 	}
@@ -1018,6 +1025,7 @@ $returnstring .= '  <tr>
 		if (ereg(':', $atk))
 			$atk = ereg_replace(':', ' - ', $atk);
 
+		$matches='';
 		preg_match('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|',$atk,$matches);
 		$atkcolor = (isset($matches[1]))?$matches[1]:'ffffff';
 		$atk = preg_replace('|\|c[a-f0-9]{8}(.+?)\|r|','$1',$atk);
@@ -1074,21 +1082,6 @@ $returnstring .= '  <tr>
 
 		$output = '<span>';
 		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#'.$atkcolor.'">'.$atk.'</strong>';
-		$output .= '</span>';
-
-		return $output;
-	}
-
-
-
-		$line = "<span style=\"color:#FFFFFF;font-size:12px;font-weight:bold;\">$tooltipheader</span><br />";
-		$line .= "<span style=\"color:#DFB801;\">$tooltip</span>";
-
-		if($atk == '')
-			$atk = 'N/A';
-
-		$output = '<span>';
-		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#ffffff">'.$atk.'</strong>';
 		$output .= '</span>';
 
 		return $output;
@@ -1196,13 +1189,21 @@ $returnstring .= '  <tr>
 										$line = substr( $line, 10, -2 );
 									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_rank'] ) === 0 )
+									{
 										$color = '00ff00;font-size:11px';
+									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_next_rank'] ) === 0 )
+									{
 										$color = 'ffffff;font-size:11px';
+									}
 									else if ( strpos( $line, $wordings[$lang]['tooltip_requires'] ) === 0 )
+									{
 										$color = 'ff0000';
+									}
 									else
+									{
 										$color = 'dfb801';
+									}
 								}
 								if( $line != '' )
 								{
@@ -1290,11 +1291,6 @@ $returnstring .= '  <tr>
 		global $roster_conf, $wowdb, $wordings;
 
 		$lang = $this->data['clientLocale'];
-
-		$showhonorxpBar = true;
-
-		if ( strlen($this->data['Rankexp']) < 1 )
-			$honorshowxpBar = false;
 
 		$honorxp_percent = $this->data['Rankexp'];;
 
@@ -1649,8 +1645,6 @@ function char_get_one_by_id( $member_id )
 {
 	global $wowdb;
 
-	$name = $wowdb->escape( $name );
-	$server = $wowdb->escape( $server );
 	$query = "SELECT a.*, b.*, c.guild_name FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
 	"WHERE a.member_id = b.member_id AND a.member_id = '$member_id' AND a.guild_id = c.guild_id";
 	$result = $wowdb->query( $query );
