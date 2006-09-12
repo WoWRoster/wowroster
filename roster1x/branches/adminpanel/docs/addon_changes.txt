@@ -13,15 +13,13 @@ These are the changes for the roster addon framework:
   this order:
   
   * Addon registration record
-  * Other constants (locations of important files and the addon base dir)
+  * Other constants (locations of addon files and the addon base dir)
   * Database configuration for the selected default profile.
   * Localization file
   * Config file
 
 
-- The following data is in the addon registration record, stored in $addon. The
-  last 6 entries are only available if the addon's index.php is called, the
-  others are available on other calls as well.
+- The following data is in the addon registration record, stored in $addon.
 
 	Array
 	(
