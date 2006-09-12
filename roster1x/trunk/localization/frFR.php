@@ -513,11 +513,11 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['tooltip_rank']='Rang';
 	$wordings['frFR']['tooltip_next_rank']='Prochain rang';
 	$wordings['frFR']['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
-	$wordings['frFR']['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
+	$wordings['frFR']['tooltip_school_damage']='Dégâts des sorts \\+';
 	$wordings['frFR']['tooltip_healing_power']='les soins prodigués par les sorts et effets';
 	$wordings['frFR']['tooltip_chance_hit']='Chances quand touché :';
 	$wordings['frFR']['tooltip_reinforced_armor']='Armure renforcée';
-	$wordings['frFR']['tooltip_damage_reduction']='Réduit les points de dégats';
+	$wordings['frFR']['tooltip_damage_reduction']='Réduit les points de dégâts';
 
 // Warlock pet names for icon displaying
 	$wordings['frFR']['Imp']='Diablotin';

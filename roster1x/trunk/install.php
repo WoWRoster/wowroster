@@ -98,6 +98,18 @@ if ( defined('ROSTER_INSTALLED') )
 	exit();
 }
 
+
+// Detect Roster 1.6.0
+if ( isset($roster_upd_pw) )
+{
+	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
+	$tpl->message_die('Looks like you\'ve loaded a new version of Roster<br />
+<br />
+<a href="upgrade.php" style="font-weight:bold;border:1px outset white;padding:2px 6px;">UPGRADE</a>', 'Upgrade Roster');
+	exit();
+}
+
+
 // View phpinfo() if requested
 if ( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 {

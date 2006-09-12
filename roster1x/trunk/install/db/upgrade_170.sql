@@ -6,6 +6,8 @@
 # --------------------------------------------------------
 ### Config
 
+DELETE FROM `renprefix_config` WHERE `id` = '5020' LIMIT 1;
+
 UPDATE `renprefix_config` SET `config_value` = '1.6.1' WHERE `id` = '1010' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '1.6.0' WHERE `id` = '1020' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '0.5.2' WHERE `id` = '1030' LIMIT 1;
@@ -32,6 +34,35 @@ INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off
 ALTER TABLE `renprefix_players`
   CHANGE `melee_range` `melee_range` VARCHAR( 32 ) NULL DEFAULT NULL ,
   CHANGE `ranged_range` `ranged_range` VARCHAR( 32 ) NULL DEFAULT NULL ;
+
+
+# --------------------------------------------------------
+### Items Table
+
+ALTER TABLE `renprefix_items`
+  CHANGE `item_name` `item_name` varchar(96) NOT NULL default '';
+
+
+# --------------------------------------------------------
+### Mailbox Table
+
+ALTER TABLE `renprefix_mailbox`
+  CHANGE `item_name` `item_name` varchar(96) NOT NULL default '';
+
+
+# --------------------------------------------------------
+### Talents Table
+
+ALTER TABLE `renprefix_talents`
+  CHANGE `name` `name` varchar(64) NOT NULL default '',
+  CHANGE `tree` `tree` varchar(64) NOT NULL default '';
+
+
+# --------------------------------------------------------
+### Talent Tree Table
+
+ALTER TABLE `renprefix_talenttree`
+  CHANGE `tree` `tree` varchar(64) NOT NULL default '';
 
 
 # --------------------------------------------------------
