@@ -1,0 +1,24 @@
+<!-- * $Id$ -->
+ <form method="post" action="upgrade.php">
+<table border="0" cellspacing="1" cellpadding="2">
+  <tr>
+    <th align="center"><?php print $_tpldata['ROSTER_UPGRADE']; ?></th>
+  </tr>
+  <tr>
+    <td class="row1" align="center">
+      <?php print $_tpldata['SELECT_VERSION']; ?><br /><br />
+      <select name="version" class="input">
+<?php
+foreach( $_tpldata['version_row'] as $print )
+{
+	print '        <option value="'.$print['VALUE'].'"'.$print['SELECTED'].'>'.$print['OPTION']."</option>\n";
+}
+?>
+      </select><br />&nbsp;
+    </td>
+  </tr>
+  <tr>
+    <th><input type="submit" name="upgrade" value="<?php print $_tpldata['UPGRADE']; ?>" class="mainoption" /></th>
+  </tr>
+</table>
+</form>
