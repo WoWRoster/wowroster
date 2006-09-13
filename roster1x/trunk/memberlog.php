@@ -37,6 +37,8 @@ if( !isset($_REQUEST['s']) || empty($_REQUEST['s']) )
 else
 	$get_s = $_REQUEST['s'];
 
+// Check for start for pagination
+$start = (isset($_REQUEST['start']) ? $_REQUEST['start'] : 0);
 
 require( ROSTER_BASE.'roster_header.tpl' );
 require( ROSTER_LIB.'menu.php' );
@@ -130,7 +132,6 @@ switch($get_s)
 	default:
 		$query .= ' ORDER BY `update_time` DESC, `type` ASC';
 		break;
-
 }
 
 $content = '';
@@ -141,27 +142,50 @@ if ($roster_conf['sqldebug'])
 
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-$borderTop = border('sgreen', 'start', $wordings[$roster_conf['roster_lang']]['memberlog']);
+$max = $wowdb->num_rows($result);
+
+$sort_part = ($sort ? "&amp;s=$get_s" : '');
+$sort_part .= ($sort ? "&amp;d=$get_d" : '');
+
+if ($start > 0)
+	$prev = '<a href="?start=0'.$sort_part.'">&lt;&lt;</a> <a href="?start='.($start-30).$sort_part.'">&lt;</a> ';
+
+if (($start+30) < $max)
+{
+	$listing = ' <small>['.$start.' - '.($start+30).'] of '.$max.'</small>';
+	$next = ' <a href="?start='.($start+30).$sort_part.'">&gt;</a> <a href="?start='.($max-30).$sort_part.'">&gt;&gt;</a>';
+}
+else
+	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
+
+
+$borderTop = border('sgreen', 'start', $prev.$wordings[$roster_conf['roster_lang']]['memberlog'].$listing.$next);
 $tableHeader = '<table width="100%" cellspacing="0" class="bodyline">'."\n";
 
 $borderBottom = border('sgreen', 'end');
 $tableFooter = '</table>'."\n";
 
 
+$query .= ' LIMIT '.$start.' , 30';
+$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+
+if ($roster_conf['sqldebug'])
+	$content .= ("<!--$query-->\n");
+
 $striping_counter = 0;
 if( $wowdb->num_rows($result) > 0 )
 {
 	$tableHeaderRow = '	<tr>
-	<th class="membersHeader"><a href="?s=name&amp;d='.$chkd['n'].'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
-	<th class="membersHeader"><a href="?s=class&amp;d='.$chkd['c'].'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></th>
-	<th class="membersHeader"><a href="?s=level&amp;d='.$chkd['l'].'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></th>
-	<th class="membersHeader"><a href="?s=title&amp;d='.$chkd['r'].'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></th>
-	<th class="membersHeader"><a href="?s=type&amp;d='.$chkd['t'].'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></th>
-	<th class="membersHeader"><a href="?s=date&amp;d='.$chkd['d'].'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></th>
+	<th class="membersHeader"><a href="?start='.$start.'&amp;s=name&amp;d='.$chkd['n'].'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
+	<th class="membersHeader"><a href="?start='.$start.'&amp;s=class&amp;d='.$chkd['c'].'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></th>
+	<th class="membersHeader"><a href="?start='.$start.'&amp;s=level&amp;d='.$chkd['l'].'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></th>
+	<th class="membersHeader"><a href="?start='.$start.'&amp;s=title&amp;d='.$chkd['r'].'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></th>
+	<th class="membersHeader"><a href="?start='.$start.'&amp;s=type&amp;d='.$chkd['t'].'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></th>
+	<th class="membersHeader"><a href="?start='.$start.'&amp;s=date&amp;d='.$chkd['d'].'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></th>
 	<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['note'].'</th>
 	</tr>'."\n";
 
-	while ( $row = $wowdb->fetch_assoc( $result ) )
+	while( $row = $wowdb->fetch_assoc($result) )
 	{
 		foreach( $row as $key => $value )
 		{
@@ -174,7 +198,7 @@ if( $wowdb->num_rows($result) > 0 )
 			$row['type'] = '<span class="green">'.$wordings[$roster_conf['roster_lang']]['added'].'</span>';
 
 		if( !empty($row['note']) )
-			$row['note'] = '<img src="'.$roster_conf['img_url'].'note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" '.makeOverlib(stripslashes($row['note']),$wordings[$roster_conf['roster_lang']]['note'],'',1).'>';
+			$row['note'] = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" '.makeOverlib(stripslashes($row['note']),$wordings[$roster_conf['roster_lang']]['note'],'',1).'>';
 		else
 			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'">';
 
@@ -203,6 +227,17 @@ $content .= $tableHeaderRow;
 $content .= $body;
 $content .= $tableFooter;
 $content .= $borderBottom;
+
+if ($start > 0)
+	$content .= $prev;
+
+if (($start+30) < $max)
+{
+	$content .= '['.$start.' - '.($start+30).'] of '.$max;
+	$content .= $next;
+}
+else
+	$content .= '['.$start.' - '.($max).'] of '.$max;
 
 
 $wowdb->closeQuery($result);

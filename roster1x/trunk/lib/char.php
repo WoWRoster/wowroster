@@ -93,16 +93,15 @@ class char
 			$sort_part = $sort ? "&amp;s=$sort" : '';
 
 			if ($start > 0)
-				$prev = $url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
+				$prev = $url.'&amp;start=0'.$sort_part.'">&lt;&lt;</a> '.$url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
 
 			if (($start+50) < $max)
 			{
-				$listing = '<small>['.$start.' - '.($start+50).']</small>';
-				$next = ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>';
+				$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
+				$next = ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>'.$url.'&amp;start='.($max-50).$sort_part.'">&gt;&gt;</a>';
 			}
 			else
-				$listing = '<small>['.$start.' - '.($max).']</small>';
-
+				$listing = '<small>['.$start.' - '.($max).'] of '.$max.'</small>';
 
 			$pvps = pvp_get_many3( $this->data['member_id'],$type, $sort, $start);
 
@@ -116,15 +115,15 @@ class char
 			$returnstring .= '<br />';
 
 			if ($start > 0)
-				$returnstring .= $url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
+				$returnstring .= $prev;
 
 			if (($start+50) < $max)
 			{
-				$returnstring .= $start.' - '.($start+50);
-				$returnstring .= ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>';
+				$returnstring .= '['.$start.' - '.($start+50).'] of '.$max;
+				$returnstring .= $next;
 			}
 			else
-				$returnstring .= $start.' - '.($max);
+				$returnstring .= '['.$start.' - '.($max).'] of '.$max;
 
 			$returnstring .= '</div><br />';
 

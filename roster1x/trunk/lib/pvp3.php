@@ -343,7 +343,7 @@ function output_bglog($member_id)
 				if( !empty($icon_name) )
 				{
 					$icon_name = 'Interface/Icons/'.$icon_name;
-					$class_icon = '<img style="cursor:help;" '.makeOverlib($eclass,'','',2,'',',WRAP').' onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+					$class_icon = '<img style="cursor:help;" '.makeOverlib($eclass,'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
 				}
 				else
 				{
@@ -446,11 +446,11 @@ function output_bglog($member_id)
 
 		$returnstring .= '
 <div id="'.$bgname.'Col" style="display:inline">
-'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'plus.gif" style="float:right;" />'.$wordings[$roster_conf['roster_lang']][$bgname].'</div>').
+'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'plus.gif" style="float:right;" alt="+" />'.$wordings[$roster_conf['roster_lang']][$bgname].'</div>').
 border('sorange','end').
 '</div>
 <div id="'.$bgname.'" style="display:none">
-'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'minus.gif" style="float:right;" />'.$wordings[$roster_conf['roster_lang']][$bgname].'</div>').
+'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'minus.gif" style="float:right;" alt="-" />'.$wordings[$roster_conf['roster_lang']][$bgname].'</div>').
 "			<table width='100%' cellpadding='0' cellspacing='0' class='bodyline'>
 				<tr>
 					<td class='membersRow2'>".$wordings[$roster_conf['roster_lang']]['wins']."</td>

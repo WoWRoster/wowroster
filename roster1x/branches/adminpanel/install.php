@@ -119,7 +119,7 @@ if ( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 
 // System defaults / available database abstraction layers
 $DEFAULTS = array(
-	'version'        => '1.7.1',
+	'version'        => '1.8.0',
 	'default_locale' => 'enUS',
 	'db_prefix'      => 'roster_',
 	'dbal'           => 'mysql',
