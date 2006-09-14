@@ -51,7 +51,7 @@ class RosterLogin
 	function RosterLogin($script_filename)
 	{
 		$this->script_filename = $script_filename;
-		$this->level = 10;
+		$this->level = 11;
 
 		$this->checkLogin();
 		$this->checkLogout();
@@ -85,7 +85,7 @@ class RosterLogin
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->message = '<span style="font-size:11px;color:red;">Not logged in</span><br />';
 			$this->user = '';
-			$this->level = 10;
+			$this->level = 11;
 			$this->account = 0;
 			return;
 		}
@@ -109,7 +109,7 @@ class RosterLogin
 					setcookie( 'roster_pass','',time()-86400,'/' );
 				$this->message = '<span style="font-size:11px;color:red;">Database problem: Unable to verify supplied credentials. MySQL said: '.$wowdb->error().'</span><br />';
 				$this->user = '';
-				$this->level = 10;
+				$this->level = 11;
 				$this->account = 0;
 				return;
 			}
@@ -122,7 +122,7 @@ class RosterLogin
 					setcookie( 'roster_pass','',time()-86400,'/' );
 				$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 				$this->user = '';
-				$this->level = 10;
+				$this->level = 11;
 				$this->account = 0;
 				return;
 			}
@@ -144,7 +144,7 @@ class RosterLogin
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 			$this->user = '';
-			$this->level = 10;
+			$this->level = 11;
 			$this->account = 0;
 		}
 	}
@@ -160,7 +160,7 @@ class RosterLogin
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 			$this->user = '';
-			$this->level = 10;
+			$this->level = 11;
 			$this->account = 0;
 		}
 	}

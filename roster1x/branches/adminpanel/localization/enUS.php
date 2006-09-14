@@ -564,14 +564,13 @@ $wordings['enUS']['profilego'] = 'Go';
 $wordings['enUS']['pagebar_function'] = 'Function';
 $wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
 $wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
-$wordings['enUS']['pagebar_adminpass'] = 'Change Roster Admin Password';
+$wordings['enUS']['pagebar_changepass'] = 'Change Password';
 $wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
 $wordings['enUS']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diag';
 
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 
-$wordings['enUS']['pagebar_userpass'] = 'Change User Password';
 $wordings['enUS']['pagebar_usercreate'] = 'Create User Account';
 
 $wordings['enUS']['config_submit_button'] = 'Save Settings';

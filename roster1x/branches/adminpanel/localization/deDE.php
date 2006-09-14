@@ -564,14 +564,13 @@ $wordings['deDE']['profilego'] = 'Go';
 $wordings['deDE']['pagebar_function'] = 'Aufgaben';
 $wordings['deDE']['pagebar_rosterconf'] = 'Konfiguriere Roster';
 $wordings['deDE']['pagebar_charpref'] = 'Character Preferenzen';
-$wordings['deDE']['pagebar_adminpass'] = 'Admin Passwort Änderung';
+$wordings['deDE']['pagebar_changepass'] = 'Passwort Änderung';
 $wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
 $wordings['deDE']['pagebar_update'] = 'Update';
 $wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
 
 $wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
 
-$wordings['deDE']['pagebar_userpass'] = 'User Passwort Änderung';
 $wordings['deDE']['pagebar_usercreate'] = 'Create User Account';
 
 $wordings['deDE']['config_submit_button'] = 'Speichere Einstellungen';
