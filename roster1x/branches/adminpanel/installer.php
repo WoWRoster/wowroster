@@ -39,7 +39,8 @@ if (!file_exists($addonDir.'install.def.php'))
 
 require($addonDir.'install.def.php');
 $addon = new $_GET['addon']($_GET['dbname']);
-$addata = (array)$addon;
+$addata = escape_array((array)$addon);
+$_GET = escape_array($_GET);
 $addata['dbname'] = $_GET['dbname'];
 $addata['basename'] = $_GET['addon'];
 
@@ -98,7 +99,7 @@ switch ($_GET['type'])
 			break;
 		}
 		$wowdb->query('DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id']);
-		$addata['addon_id'] = $previous['addon_id']
+		$addata['addon_id'] = $previous['addon_id'];
 		$success = $addon->uninstall();
 		break;
 
@@ -239,4 +240,5 @@ function purge($dbname)
 
 	return true;
 }
+
 ?>

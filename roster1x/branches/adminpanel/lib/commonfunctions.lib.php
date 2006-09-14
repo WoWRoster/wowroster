@@ -744,4 +744,29 @@ function getaddon($dbname)
 	
 	return $addon;
 }
+
+/**
+ * Recursively escape $array
+ *
+ * @param array $array
+ *	The array to escape
+ * @return array
+ *	The same array, escaped
+ */
+function escape_array($array)
+{
+	global $wowdb;
+	foreach ($array as $key=>$value)
+	{
+		if (is_array($value))
+		{
+			$array[$key] = $wowdb->escape($value);
+		}
+		else
+		{
+			$array[$key] = escape_array($value);
+		}
+	}
+}
+
 ?>

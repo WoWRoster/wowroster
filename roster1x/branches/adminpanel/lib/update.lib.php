@@ -48,7 +48,7 @@ class update
 			return '';
 		}
 
-		$query = 'SELECT `trigger`.`addon_name`,`trigger`.`file` FROM `'.$wowdb->table('addon_trigger').'` AS `trigger` LEFT JOIN `'.$wowdb->table('addon').'` AS `addon` ON `trigger`.`addon_name` = `addon`.`dbname` WHERE `trigger`.`active` = 1 AND `addon`.`active` = 1';
+		$query = 'SELECT `addon`.`dbname`,`addon`.`fullname`,`trigger`.`file` FROM `'.$wowdb->table('addon_trigger').'` AS `trigger` LEFT JOIN `'.$wowdb->table('addon').'` AS `addon` ON `trigger`.`addon_id` = `addon`.`addon_id` WHERE `trigger`.`active` = 1 AND `addon`.`active` = 1';
 		$result = $wowdb->query($query);
 
 		if (!$result)
@@ -59,8 +59,8 @@ class update
 		{
 			while ($row = $wowdb->fetch_assoc($result))
 			{
-				$output .= 'Registering '.$row['file'].' for '.$row['addon_name']."<br />\n";
-				$this->addons[$row['addon_name']][] = $row['file'];
+				$output .= 'Registering '.$row['file'].' for '.$row['fullname']."<br />\n";
+				$this->addons[$row['dbname']][] = $row['file'];
 				if (!in_array($row['file'],$this->files))
 				{
 					$this->files[] = $row['file'];

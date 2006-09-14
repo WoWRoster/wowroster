@@ -486,7 +486,7 @@ CREATE TABLE `renprefix_addon` (
 
 DROP TABLE IF EXISTS `renprefix_addon_menu`;
 CREATE TABLE `renprefix_addon_menu` (
-	`menu_item_id` int(11),
+	`menu_item_id` int(11) AUTO_INCREMENT,
 	`addon_id` int(11),
 	`title` varchar(32),
 	`url` varchar(64),
@@ -500,10 +500,10 @@ CREATE TABLE `renprefix_addon_menu` (
 
 DROP TABLE IF EXISTS `renprefix_addon_trigger`;
 CREATE TABLE `renprefix_addon_trigger` (
-	`trigger_id` int(11),
+	`trigger_id` int(11) AUTO_INCREMENT,
 	`addon_id` int(11),
 	`file` varchar(32),
-	`active` int(1) NOT NULL default '0',
+	`active` int(1) NOT NULL default 0,
 	PRIMARY KEY (`trigger_id`),
 	KEY idfile (`addon_id`,`file`)
 ) TYPE=MyISAM;

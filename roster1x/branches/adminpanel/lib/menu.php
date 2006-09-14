@@ -251,7 +251,7 @@ function makeAddonList()
 {
 	global $act_words, $roster_conf, $wordings, $wowdb;
 
-	$query = "SELECT `menu`.`addon_name`,`menu`.`title`,`menu`.`url`,`addon`.`basename` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_name` = `addon`.`dbname` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
+	$query = "SELECT `addon`.`dbname`,`menu`.`title`,`menu`.`url`,`addon`.`basename` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_id` = `addon`.`addon_id` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
 
 	$result = $wowdb->query($query);
 
@@ -264,9 +264,9 @@ function makeAddonList()
 	$output = '';
 	while ($row = $wowdb->fetch_assoc($result))
 	{
-		if (!in_array($row['addon_name'],$addons))
+		if (!in_array($row['dbname'],$addons))
 		{
-			$addons[] = $row['addon_name'];
+			$addons[] = $row['dbname'];
 			$addonDir = ROSTER_ADDONS.$row['basename'].DIR_SEP;
 			$localizationFile = $addonDir.'localization.php';
 			if (file_exists($localizationFile))
