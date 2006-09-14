@@ -34,6 +34,13 @@ var $version
 	php's version_compare(). Needs to be incremented on every update that
 	includes a database update.
 
+var $fullname
+	String, the full name of the addon for display.
+var $description
+	String, used as a tooltip in serveral places.
+var $credits
+	Array(Array("name"=>name, "info"=>info), ...) Credits information.
+
 It also has 3 functions:
 
 install()
