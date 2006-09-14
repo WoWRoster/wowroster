@@ -275,7 +275,7 @@ function makeAddonList()
 			}
 		}
 
-		$fullQuery = "?dbname=".$row['addon_name'].$row['url'];
+		$fullQuery = "?dbname=".$row['dbname'].$row['url'];
 		$query = str_replace(' ','%20',$fullQuery);
 		$output .= '<li><a href="'.ROSTER_URL.'/addon.php'.$query.'">'.$act_words[$row['title']]."</a></li>\n";
 	}
