@@ -197,9 +197,14 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 		$header_title = $title;
 	}
 
-	if( !defined('HEADER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
 		include_once(ROSTER_BASE.'roster_header.tpl');
+	}
+
+	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_LIB.'menu.php');
 	}
 
 	if( empty($title) )
@@ -669,21 +674,21 @@ function getaddon($dbname)
 	global $addon_conf, $wordings, $wowdb;
 	// Get addon registration entry
 	$query = "SELECT * FROM `".$wowdb->table('addon')."` WHERE `dbname` = '$dbname' LIMIT 1";
-	
+
 	$result = $wowdb->query( $query );
-	
+
 	if ( !$result )
 	{
 		die_quietly($wowdb->error(),'Roster Addon Framework',__FILE__,__LINE__, $query );
 	}
-	
+
 	if ( $wowdb->num_rows($result) != 1 )
 	{
 		die_quietly('Attempted to initialize addon framework for noninstalled addon '.$dbname,'Roster Addon Framework',__FILE__,__LINE__);
 	}
-	
+
 	$addon = $wowdb->fetch_assoc($result);
-	
+
 	$wowdb->free_result($result);
 
 	// Get the addon's location
@@ -694,7 +699,7 @@ function getaddon($dbname)
 
 	// Get the addon's css style
 	$addon['cssFile'] = $addon['dir'].'default.css';
-	
+
 	if( file_exists($addon['cssFile']) )
 	{
 		$addon['cssUrl'] = '/addons/'.$addon['basename'].'/default.css';
@@ -741,7 +746,7 @@ function getaddon($dbname)
 	{
 		include_once( $addon['conf'] );
 	}
-	
+
 	return $addon;
 }
 
@@ -767,7 +772,7 @@ function escape_array($array)
 			$array[$key] = $wowdb->escape($value);
 		}
 	}
-	
+
 	return $array;
 }
 

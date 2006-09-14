@@ -22,9 +22,9 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 
-if( isset($_REQUEST['op']) )
+if( isset($_GET['op']) )
 {
-	$op = $_REQUEST['op'];
+	$op = $_GET['op'];
 }
 elseif( isset($_POST['op']) )
 {
@@ -35,9 +35,9 @@ else
 	$op = '';
 }
 
-if( isset($_REQUEST['id']) )
+if( isset($_GET['id']) )
 {
-	$id = $_REQUEST['id'];
+	$id = $_GET['id'];
 }
 elseif( isset($_POST['id']) )
 {
@@ -114,7 +114,6 @@ function activeInactive( $mode,$id )
 	else
 	{
 		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.$script_filename.'?page=install">
-		<input type="hidden" name="page" value="install" />
 		<input type="hidden" name="op" value="activate" />
 		<input type="hidden" name="id" value="'.$id.'" />
 		<input '.makeOverlib('Click to Activate','Deactivated').' type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
@@ -134,15 +133,15 @@ function installUpgrade( $mode,$name )
 	}
 	elseif( $mode == 0 )
 	{
-		$type = '<a href="installer.php?addon='.$name.'&amp;dbname='.''.'&amp;type=uninstall" target="_blank"><img '.makeOverlib('Click to Uninstall','Installed').' src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" /></a>';
+		$type = '<a href="installer.php?addon='.$name.'&amp;dbname='.$name.'&amp;type=uninstall"><img '.makeOverlib('Click to Uninstall','Installed').' src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" /></a>';
 	}
 	elseif( $mode == 1 )
 	{
-		$type = '<a href="installer.php?addon='.$name.'&amp;dbname='.''.'&amp;type=upgrade" target="_blank"><img '.makeOverlib('Click to Upgrade','Upgrade Available').' src="'.$roster_conf['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" /></a>';
+		$type = '<a href="installer.php?addon='.$name.'&amp;dbname='.$name.'&amp;type=upgrade"><img '.makeOverlib('Click to Upgrade','Upgrade Available').' src="'.$roster_conf['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" /></a>';
 	}
 	elseif( $mode == 3 )
 	{
-		$type = '<a href="installer.php?addon='.$name.'&amp;dbname='.''.'&amp;type=install" target="_blank"><img '.makeOverlib('Click to Install','Not Installed').' src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" /></a>';
+		$type = '<a href="installer.php?addon='.$name.'&amp;dbname='.$name.'&amp;type=install"><img '.makeOverlib('Click to Install','Not Installed').' src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" /></a>';
 	}
 
 	return $type;
@@ -218,6 +217,8 @@ function getAddonList()
 				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
 				$output[$addon]['version'] = $addonstuff->version;
 				$output[$addon]['description'] = $addonstuff->description;
+
+				unset($addonstuff);
 			}
 		}
 	}

@@ -133,12 +133,13 @@ else
 
 $errorstringout = $installer->geterrors();
 $messagestringout = $installer->getmessages();
-$sqlstringout = $installer->getsql;
+$sqlstringout = $installer->getsql();
 
 
 // Time to build the page
 
 include (ROSTER_BASE.'roster_header.tpl');
+include (ROSTER_LIB.'menu.php');
 
 // print the error messages
 if( !empty($errorstringout) )
@@ -156,7 +157,7 @@ if( !empty($errorstringout) )
 
 	// Print the downloadable errors separately so we can generate a download
 	print "<br />\n";
-	print '<form method="post" action="update.php" name="post">'."\n";
+	print '<form method="post" action="'.$roster_conf['roster_dir'].'/admincp.php" name="post">'."\n";
 	print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
 	print '<input type="hidden" name="send_file" value="error" />'."\n";
 	print '<input type="submit" name="download" value="Save Error Log" />'."\n";
@@ -174,7 +175,7 @@ print
 
 // Print the downloadable messages separately so we can generate a download
 print "<br />\n";
-print '<form method="post" action="'.$roster_conf['roster_dir'].'/admin/update.php" name="post">'."\n";
+print '<form method="post" action="'.$roster_conf['roster_dir'].'/admincp.php" name="post">'."\n";
 print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($messagestringout)).'" />'."\n";
 print '<input type="hidden" name="send_file" value="update" />'."\n";
 print '<input type="submit" name="download" value="Save Update Log" />'."\n";
@@ -191,7 +192,7 @@ if( $roster_conf['sqldebug'] )
 	<div id="sqlDebug" style="display:none">
 	'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
 	<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:560px;overflow:auto;">'.
-		nl2br(sql_highlight($sqlstringout)).
+		nl2br($sqlstringout).
 	'</div>
 	'.border('sgreen','end').
 	'</div>';
@@ -199,7 +200,7 @@ if( $roster_conf['sqldebug'] )
 
 	// Print the downloadable sql separately so we can generate a download
 	print "<br />\n";
-	print '<form method="post" action="'.$roster_conf['roster_dir'].'/admin/update.php" name="post">'."\n";
+	print '<form method="post" action="'.$roster_conf['roster_dir'].'/admincp.php" name="post">'."\n";
 	print '<input type="hidden" name="data" value="'.htmlspecialchars($sqlstringout).'" />'."\n";
 	print '<input type="hidden" name="send_file" value="sql" />'."\n";
 	print '<input type="submit" name="download" value="Save SQL Log" />'."\n";
