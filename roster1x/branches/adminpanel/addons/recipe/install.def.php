@@ -24,12 +24,21 @@ if ( !defined('ROSTER_INSTALLED') )
 class recipe
 {
 	var $active = true;
-	var $hastriggers = false;
 	var $hasconfig = 'default';
 	
 	var $upgrades = array(); // There are no previous versions to upgrade from
 	
 	var $version = '1.0.0';
+
+	var $fullname = 'Recipe';
+	var $description = 'Lists who can make waht in roster';
+	var $credits = array(
+	array(	"name"=>	"Cybrey",
+			"info"=>	"Original author"),
+	array(	"name"=>	"Thorus",
+			"info"=>	"Thanks for the mod of this script"),
+);
+
 	
 	function install()
 	{

@@ -24,12 +24,18 @@ if ( !defined('ROSTER_INSTALLED') )
 class reputation
 {
 	var $active = true;
-	var $hastriggers = false;
 	var $hasconfig = '';
 	
 	var $upgrades = array(); // There are no previous versions to upgrade from
 	
 	var $version = '1.0.0';
+	
+	var $fullname = 'Reputation';
+	var $description = 'Lists reptutation of members per faction';
+	var $credits = array(
+	array(	"name"=>	"Cybrey",
+			"info"=>	"Author"),
+);
 	
 	function install()
 	{

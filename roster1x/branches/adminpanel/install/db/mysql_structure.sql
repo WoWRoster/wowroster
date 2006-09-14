@@ -475,6 +475,9 @@ CREATE TABLE `renprefix_addon` (
 	`version` varchar(16) NOT NULL DEFAULT '0',
 	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
 	`active` int(1) NOT NULL DEFAULT 1,
+	`fullname` tinytext NOT NULL,
+	`description` mediumtext NOT NULL,
+	`credits` mediumtext NOT NULL,
 	PRIMARY KEY (`addon_id`)
 ) TYPE=MyISAM;
 

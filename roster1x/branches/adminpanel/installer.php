@@ -64,7 +64,7 @@ switch ($_GET['type'])
 			break;
 		}
 		$success = $addon->install();
-		$installer->sql[] = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",'.(int)$addata['active'].')';
+		$installer->sql[] = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",'.(int)$addata['active'].',"'.$addata['fullname'].'","'.$addata['description'].'","'.serialize($addata['credits']).'")';
 		break;
 
 	case 'upgrade':
@@ -82,7 +82,7 @@ switch ($_GET['type'])
 			$installer->errors[] = $addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.';
 			break;
 		}
-		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `active`='.(int)$addata['active'].' WHERE `addon_id`='.$previous['addon_id'];
+		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `active`='.(int)$addata['active'].', `fullname`="'.$addata['fullname'].'", `description`="'.$addata['description'].'", `credits`="'.serialize($addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
 		break;
 
 	case 'uninstall':
