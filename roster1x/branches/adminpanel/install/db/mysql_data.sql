@@ -106,6 +106,7 @@ INSERT INTO `renprefix_config` VALUES (4120, 'menu_search_page', '1', 'radio{on^
 
 INSERT INTO `renprefix_config` VALUES (5000, 'stylesheet', 'css/styles.css', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5005, 'roster_js', 'css/js/mainjs.js', 'text{128|30', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5008, 'tabcontent', 'css/js/tabcontent.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5010, 'overlib', 'css/js/overlib.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5015, 'overlib_hide', 'css/js/overlib_hideform.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
