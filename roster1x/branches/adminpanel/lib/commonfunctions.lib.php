@@ -760,11 +760,11 @@ function escape_array($array)
 	{
 		if (is_array($value))
 		{
-			$array[$key] = $wowdb->escape($value);
+			$array[$key] = escape_array($value);
 		}
 		else
 		{
-			$array[$key] = escape_array($value);
+			$array[$key] = $wowdb->escape($value);
 		}
 	}
 }

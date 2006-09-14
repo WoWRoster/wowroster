@@ -371,13 +371,6 @@ class config
 			return '';
 		}
 
-		// Slash global data if magic_quotes_gpc is off.
-		if ( !get_magic_quotes_gpc() )
-		{
-			$_GET = $this->slash_global_data($_GET);
-			$_POST = $this->slash_global_data($_POST);
-		}
-
 		$wowdb->reset_values();
 
 		// Update only the changed fields
@@ -531,23 +524,6 @@ class config
 		return $tip;
 	}
 
-	/**
-	* Applies addslashes() to the provided data
-	*
-	* @param    mixed   $data   Array of data or a single string
-	* @return   mixed           Array or string of data
-	*/
-	function slash_global_data(&$data)
-	{
-	    if ( is_array($data) )
-	    {
-	        foreach ( $data as $k => $v )
-	        {
-	            $data[$k] = ( is_array($v) ) ? slash_global_data($v) : addslashes($v);
-	        }
-	    }
-	    return $data;
-	}
 }
 
 $config = new config($tablename);

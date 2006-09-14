@@ -109,7 +109,8 @@ switch ($_GET['type'])
 
 	default:
 		$installer->errors[] = 'Invalid install type '.$_GET['type'];
-		exit;
+		$success = false;
+		break;
 }
 
 if (!success)
