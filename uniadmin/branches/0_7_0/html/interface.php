@@ -24,6 +24,11 @@ switch( $op )
 		OutPutSettings();
 		AddStat();
 		break;
+		
+	case 'GETUAVER':
+		echo $config['UAVer'];
+		AddStat();
+		break;
 
 	case 'GETFILEMD5':
 		outputLogoMd5($_REQUEST['FILENAME']);
@@ -57,7 +62,7 @@ function OutPutSettings()
 	$result = mysql_query($sql,$dblink);
 	while ($row = mysql_fetch_assoc($result))
 	{
-		echo 'LOGO'.$row['logo_num'].'='.$row['download_url'].'|';
+		echo 'LOGO'.$row['logo_num'].'[=]'.$row['download_url'].'[|]';
 	}
 
 	//settings
@@ -65,13 +70,13 @@ function OutPutSettings()
 	$result = mysql_query($sql,$dblink);
 	while ($row = mysql_fetch_assoc($result))
 	{
-		echo $row['set_name'].'='.$row['set_value'].'|';
+		echo $row['set_name'].'[=]'.$row['set_value'].'[|]';
 	}
 
 	//sv list
 	$sql = "SELECT * FROM `".$config['db_tables_svlist']."`";
 	$result = mysql_query($sql,$dblink);
-	echo 'SVLIST=';
+	echo 'SVLIST[=]';
 	while ($row = mysql_fetch_assoc($result))
 	{
 		echo $row['sv_name'].':';
