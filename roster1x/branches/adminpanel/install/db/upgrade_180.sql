@@ -25,11 +25,13 @@ CREATE TABLE `renprefix_addon` (
 
 DROP TABLE IF EXISTS `renprefix_addon_menu`;
 CREATE TABLE `renprefix_addon_menu` (
-	`addon_name` varchar(16),
+	`menu_item_id` int(11),
+	`addon_id` int(11),
 	`title` varchar(32),
 	`url` varchar(64),
 	`active` int(1) NOT NULL DEFAULT 0,
-	PRIMARY KEY (`addon_name`,`title`)
+	PRIMARY KEY (`menu_item_id`),
+	KEY idtitle (`addon_id`,`title`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -37,10 +39,12 @@ CREATE TABLE `renprefix_addon_menu` (
 
 DROP TABLE IF EXISTS `renprefix_addon_trigger`;
 CREATE TABLE `renprefix_addon_trigger` (
-	`addon_name` varchar(16),
+	`trigger_id` int(11),
+	`addon_id` int(11),
 	`file` varchar(32),
 	`active` int(1) NOT NULL default '0',
-	PRIMARY KEY  (`addon_name`,`file`)
+	PRIMARY KEY (`trigger_id`),
+	KEY idfile (`addon_id`,`file`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

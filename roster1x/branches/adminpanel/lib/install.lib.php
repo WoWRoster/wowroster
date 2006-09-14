@@ -23,11 +23,13 @@ if ( !defined('ROSTER_INSTALLED') )
 
 class Install
 {
-	var $sql=array();		// install sql
+	var $sql=array();	// install sql
 	var $errors=array();	// errors
 	var $messages=array();	// messages
 	var $tables=array();	// $table=>boolean, true to restore, false to drop on rollback.
 	var $profile='default';	// Profile to add tables/data to
+	
+	var $addon_id;
 
 	/**
 	 * Add a query to be installed.
@@ -117,7 +119,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES ("'.$addata['dbname'].'","'.$title.'","'.$url.'","'.(int)$active.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES (0,"'.$addata['addon_id'].'","'.$title.'","'.$url.'","'.$active.'")';
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.(int)$active.'" WHERE `addon_name`="'.$addata['dbname'].'", `title`="'.$title.'"';
+		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_id`="'.$addata['addon_id'].'" AND `title`="'.$title.'"';
 	}
 
 	/**
@@ -149,7 +151,7 @@ class Install
 	{
 		global $addata;
 
-		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name`="'.$addata['dbname'].'" AND `title`="'.$title.'"';
+		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_id`="'.$addata['addon_id'].'" AND `title`="'.$title.'"';
 	}
 	
 	/**
@@ -166,7 +168,7 @@ class Install
 	{
 		global $addata, $wowdb;
 		
-		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES ("'.$addata['dbname'].'","'.$file.'","'.(int)$active.'")';
+		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES (0,"'.$addata['addon_id'].'","'.$file.'","'.$active.'")';
 	}
 	
 	/**
@@ -179,7 +181,7 @@ class Install
 	 {
 	 	global $addata, $wowdb;
 	 	
-	 	$this->sql[] = 'DELETE FROM `'.$wowdb->table('addon_trigger').'` WHERE `addon_name`="'.$addata['dbname'].'" AND `file`="'.$file.'"';
+	 	$this->sql[] = 'DELETE FROM `'.$wowdb->table('addon_trigger').'` WHERE `addon_id`="'.$addata['addon_id'].'" AND `file`="'.$file.'"';
 	 }
 
 	/**

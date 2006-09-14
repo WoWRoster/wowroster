@@ -63,8 +63,10 @@ switch ($_GET['type'])
 			$installer->errors[] = 'Dbname '.$addata['dbname'].' already contains '.$previous['name'].'. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different dbname.';
 			break;
 		}
+		$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",0,"'.$addata['fullname'].'","'.$addata['description'].'","'.serialize($addata['credits']).'")');
+		$addata['addon_id'] = $wowdb->insert_id();
 		$success = $addon->install();
-		$installer->sql[] = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",'.(int)$addata['active'].',"'.$addata['fullname'].'","'.$addata['description'].'","'.serialize($addata['credits']).'")';
+		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.$addata['active'];
 		break;
 
 	case 'upgrade':
@@ -73,16 +75,15 @@ switch ($_GET['type'])
 			$installer->errors[] = 'Dbname '.$addata['dbname'].' doesn\`t contain an addon to upgrade from';
 			break;
 		}
-		if (in_array($previous['basename'],$addon->upgrades))
-		{
-			$success = $addon->upgrade($previous['basename'],$previous['version']);
-		}
-		else
+		if (!in_array($previous['basename'],$addon->upgrades))
 		{
 			$installer->errors[] = $addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.';
 			break;
 		}
-		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `active`='.(int)$addata['active'].', `fullname`="'.$addata['fullname'].'", `description`="'.$addata['description'].'", `credits`="'.serialize($addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
+
+		$wowdb->query('UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$addata['basename'].'", `dbname`="'.$addata['dbname'].'", `version`="'.$addata['version'].'", `hasconfig`='.$addata['hasconfig'].', `active`='.$addata['active'].', `fullname`="'.$addata['fullname'].'", `description`="'.$addata['description'].'", `credits`="'.serialize($addata['credits']).'" WHERE `addon_id`='.$previous['addon_id']);
+		$addata['addon_id'] = $previous['addon_id'];
+		$success = $addon->upgrade($previous['basename'],$previous['version']);
 		break;
 
 	case 'uninstall':
@@ -91,16 +92,14 @@ switch ($_GET['type'])
 			$installer->errors[] = 'Dbname '.$addata['dbname'].' doesn\'t contain an addon to uninstall';
 			break;
 		}
-		if ($previous['basename'] == $addata['basename'])
-		{
-			$success = $addon->uninstall();
-		}
-		else
+		if ($previous['basename'] != $addata['basename'])
 		{
 			$installer->errors[] = $addata['dbname'].' contains an addon with basename '.$previous['basename'].' which must be uninstalled with that addon\'s uninstaller.';
 			break;
 		}
-		$installer->sql[] = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id'];
+		$wowdb->query('DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id']);
+		$addata['addon_id'] = $previous['addon_id']
+		$success = $addon->uninstall();
 		break;
 
 	case 'purge':
@@ -109,7 +108,7 @@ switch ($_GET['type'])
 
 	default:
 		$installer->errors[] = 'Invalid install type '.$_GET['type'];
-		break;
+		exit;
 }
 
 if (!success)
@@ -120,7 +119,7 @@ else
 {
 	$success = $installer->install();
 	$message = '<p>'.$wordings[$roster_conf['roster_lang']]['installer_'.$_GET['type']];
-	$message .= $wordings[$roster_conf['roster_lang']]['Installer_success'.(string)$success];
+	$message .= $wordings[$roster_conf['roster_lang']]['Installer_success'.$success];
 	$message .= '</p>';
 	$installer->messages[] = $message;
 }
