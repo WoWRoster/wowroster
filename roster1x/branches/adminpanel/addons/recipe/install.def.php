@@ -80,6 +80,7 @@ class recipe
 
 	function uninstall()
 	{
+		global $installer;
 		$installer->profile = 'default';
 		$installer->add_query('BACKUP','config');
 		$installer->add_query('DROP','config');

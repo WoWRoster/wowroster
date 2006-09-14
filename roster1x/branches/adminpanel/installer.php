@@ -40,9 +40,14 @@ if (!file_exists($addonDir.'install.def.php'))
 require($addonDir.'install.def.php');
 $addon = new $_GET['addon']($_GET['dbname']);
 $addata = escape_array((array)$addon);
-$_GET = escape_array($_GET);
 $addata['dbname'] = $_GET['dbname'];
 $addata['basename'] = $_GET['addon'];
+
+if ($addata['dbname'] == '')
+{
+	die_quietly('Cannot install in empty dbname','Roster Addon Installer');
+}
+
 
 // Get existing addon record if available
 $query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `dbname` = "'.$addata['dbname'].'"';
@@ -61,13 +66,13 @@ switch ($_GET['type'])
 	case 'install':
 		if ($previous)
 		{
-			$installer->errors[] = 'Dbname '.$addata['dbname'].' already contains '.$previous['name'].'. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different dbname.';
+			$installer->errors[] = 'Dbname '.$addata['dbname'].' already contains '.$previous['fullname'].'. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different dbname.';
 			break;
 		}
-		$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",0,"'.$addata['fullname'].'","'.$addata['description'].'","'.serialize($addata['credits']).'")');
+		$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$addata['basename'].'","'.$addata['dbname'].'","'.$addata['version'].'","'.$addata['hasconfig'].'",0,"'.$addata['fullname'].'","'.$addata['description'].'","'.$wowdb->escape(serialize($addata['credits'])).'")');
 		$addata['addon_id'] = $wowdb->insert_id();
 		$success = $addon->install();
-		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.$addata['active'];
+		$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$addata['active'];
 		break;
 
 	case 'upgrade':

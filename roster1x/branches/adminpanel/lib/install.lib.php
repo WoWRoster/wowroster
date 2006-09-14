@@ -201,7 +201,7 @@ class Install
 		{
 			if (!$wowdb->query($query))
 			{
-				$this->errors[] = 'Install error in query '.$id.'. MySQL said: '.$wowdb->error().'<br />The query was: '.$query;
+				$this->errors[] = 'Install error in query '.$id.'. MySQL said: <br/>'.$wowdb->error().'<br />The query was: <br />'.$query;
 				$retval = 1;
 				break;
 			}

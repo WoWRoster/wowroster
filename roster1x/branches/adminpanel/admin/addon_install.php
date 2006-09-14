@@ -105,8 +105,7 @@ function activeInactive( $mode,$id )
 
 	if( $mode )
 	{
-		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.$script_filename.'">
-		<input type="hidden" name="page" value="install" />
+		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.$script_filename.'?page=install">
 		<input type="hidden" name="op" value="deactivate" />
 		<input type="hidden" name="id" value="'.$id.'" />
 		<input '.makeOverlib('Click to Deactivate','Activated').'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
@@ -114,7 +113,7 @@ function activeInactive( $mode,$id )
 	}
 	else
 	{
-		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="installer.">
+		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.$script_filename.'?page=install">
 		<input type="hidden" name="page" value="install" />
 		<input type="hidden" name="op" value="activate" />
 		<input type="hidden" name="id" value="'.$id.'" />

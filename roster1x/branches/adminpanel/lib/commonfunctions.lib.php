@@ -767,6 +767,8 @@ function escape_array($array)
 			$array[$key] = $wowdb->escape($value);
 		}
 	}
+	
+	return $array;
 }
 
 ?>
