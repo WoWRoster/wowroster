@@ -102,7 +102,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 	$note = preg_replace($prg_find, $prg_rep, $muleRow['member_note']);
 
-	$date_char_data_updated = DateCharDataUpdated($muleRow['member_name']);
+	$char = char_get_one_by_id( $muleRow['member_id'] );
+	$date_char_data_updated = $char->getDateUpdateDUTC();
+
 	echo border('sgray','start',$muleRow['member_name'].' ('.$note.') - Updated: '.$date_char_data_updated).
 	'<table class="bodyline" cellspacing="0" cellpadding="2">'.
 		 ( $roster_conf['bank_money'] ?

@@ -33,11 +33,20 @@ define('ROSTER_HEADER_INC',true);
     * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
     ***********************************************/
   </script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib']; ?>"></script>
+  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib']; ?>"><!-- overLIB (c) Erik Bosrup --></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib_hide']; ?>"></script>
 <?php echo (isset($html_head) ? $html_head : ''); ?>
 </head>
 <body style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);" <?php echo (isset($body_action) ? $body_action : ''); ?>>
+
+<div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
+
+<script type="text/javascript">
+<!--
+	setOpacity( 'overDiv',8.5 );
+//-->
+</script>
+
 <div align="center">
 
 <?php

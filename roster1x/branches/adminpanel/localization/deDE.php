@@ -215,7 +215,7 @@ $wordings['deDE']['recipe_4'] = 'optimal';
 $wordings['deDE']['recipe_3'] = 'mittel';
 $wordings['deDE']['recipe_2'] = 'leicht';
 $wordings['deDE']['recipe_1'] = 'trivial';
-$wordings['deDE']['roster_config'] = 'Roster Konfiguration';
+$wordings['deDE']['roster_config'] = 'Admin Panel';
 $wordings['deDE']['roster_config_menu'] = 'Konfigurationsmenü';
 
 // Memberslist sort/filter box

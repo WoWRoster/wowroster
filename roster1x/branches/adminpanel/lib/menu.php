@@ -182,7 +182,7 @@ if( $roster_conf['menu_quests_page'] )
 if( $roster_conf['menu_search_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexsearch.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
 ?>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/admincp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
+        <li><a href="<?php print $roster_conf['roster_dir']; ?>/rostercp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
       </ul></td>
 <?php

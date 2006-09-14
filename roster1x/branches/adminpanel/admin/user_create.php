@@ -21,12 +21,11 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$showlogin = false;
 
 if ( array_key_exists('user',$_POST))
 {
 	$success = $roster_login->createAccount($_POST['user'], $_POST['pass1'], $_POST['pass2']);
-	
+
 	$body = messagebox($roster_login->getMessage(),'Roster User Panel','sgreen')."<br />\n";
 
 	if ($success)

@@ -1363,6 +1363,7 @@ $returnstring .= '  <tr>
 	function getDateUpdateDUTC()
 	{
 		global $roster_conf, $phptimeformat;
+
 		list($month,$day,$year,$hour,$minute,$second) = sscanf($this->data['dateupdatedutc'],"%d/%d/%d %d:%d:%d");
 		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 		return date($phptimeformat[$roster_conf['roster_lang']], $localtime);

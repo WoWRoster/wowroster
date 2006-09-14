@@ -31,7 +31,7 @@
  ******************************/
 
 require_once('settings.php');
-include_once('admin/pages.php');
+include_once(ROSTER_ADMIN.'pages.php');
 
 $script_filename = 'rostercp.php';
 
@@ -39,7 +39,7 @@ $script_filename = 'rostercp.php';
 $roster_login = new RosterLogin($script_filename);
 $loginmsg = $roster_login->getMessage();
 
-$showlogin = ($roster_login->getUserName() == '');
+$showlogin = ( $roster_login->getUserName() == '' );
 
 // ----[ End Check log-in ]---------------------------------
 
@@ -48,7 +48,7 @@ $body = '';
 $pagebar = '';
 
 
-print $page = (!array_key_exists('page',$_GET) and $_GET['page'] != '')?$_GET['page']:($showlogin)?'create':'update';
+$page = (array_key_exists('page',$_GET) && $_GET['page'] != '') ? $_GET['page'] : ( ($showlogin) ? 'create' : 'update' );
 
 if (isset($pages[$page]['file']) and (!isset($pages[$page]['access']) or $roster_login->getAuthorized($pages[$page]['access'])))
 { // There is something defined to include and we're allowed to access it
@@ -122,7 +122,7 @@ include_once( ROSTER_LIB.'menu.php' );
 echo '<table width="100%"><tr><td valign="top" align="left">'."\n".
 	$menu."\n".
 	'</td><td valign="top" align="center">'."\n".
-	$loginmsg.(($showlogin)?$roster_login->getLoginForm():'')."<br /><br />\n".
+	$loginmsg.( ($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
 	$body."\n".
 	'</td><td valign="top" align="right">'."\n".
 	$pagebar."\n".

@@ -179,3 +179,13 @@ function hideElem(oName)
 {
 	oName.style.display='none';
 }
+
+function setOpacity( sEl,val )
+{
+	oEl = document.getElementById(sEl);
+	if(oEl)
+	{
+		oEl.style.opacity = val/10;
+		oEl.style.filter = 'alpha(opacity=' + val*10 + ')';
+	}
+}

@@ -215,7 +215,7 @@ $wordings['frFR']['recipe_4'] = 'optimal';
 $wordings['frFR']['recipe_3'] = 'moyen';
 $wordings['frFR']['recipe_2'] = 'facile';
 $wordings['frFR']['recipe_1'] = 'insignifiant';
-$wordings['frFR']['roster_config'] = 'Configuration Roster';
+$wordings['frFR']['roster_config'] = 'Admin Panel';
 $wordings['frFR']['roster_config_menu'] = 'Config Menu';
 
 // Memberslist sort/filter box
