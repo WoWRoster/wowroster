@@ -834,9 +834,9 @@ $creditspage['devs'] = array(
 		),
 	);
 	
-$creditspage['bottom']='All php code for WoW Roster and mainjs.js are licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
+$creditspage['bottom']='WoW Roster is licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
 <br /><br />
-Other javascript files are libraries that are under their own licenses.
+Serveral javascript files are libraries that are under their own licenses.
 <br /><br />
 See <a href="license.txt">license.txt</a> for details';
 ?>
