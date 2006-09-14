@@ -24,6 +24,7 @@ DELETE FROM `renprefix_config` WHERE `id` = '10030' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` =  '4030' LIMIT 1;
 
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (5008, 'tabcontent', 'css/js/tabcontent.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
 

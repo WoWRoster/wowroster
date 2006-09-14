@@ -49,7 +49,45 @@ foreach( $creditspage['devs']['active'] as $dev )
 	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
-echo "</table>\n".border('sgreen','end');
+echo "</table>\n".border('sgreen','end')."<br />\n";
+
+// Print third party contributions
+echo border('spurple','start','3rd party contributions')."<table cellspacing=\"0\">\n";
+echo "<tr>
+<th class=\"membersHeader\">Name</th>
+<th class=\"membersHeaderRight\">Info</th>
+";
+
+$strip_count = 1;
+foreach( $creditspage['devs']['3rdparty'] as $dev )
+{
+	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
+	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
+	print "\t<tr>\n";
+	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	print "\t</tr>\n";
+}
+echo "</table>\n".border('spurple','end')."<br />\n";
+
+// Print used libraries
+echo border('sorange','start','Javascript libraries')."<table cellspacing=\"0\">\n";
+echo "<tr>
+<th class=\"membersHeader\">Name</th>
+<th class=\"membersHeaderRight\">Info</th>
+";
+
+$strip_count = 1;
+foreach( $creditspage['devs']['library'] as $dev )
+{
+	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
+	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
+	print "\t<tr>\n";
+	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	print "\t</tr>\n";
+}
+echo "</table>\n".border('sorange','end');
 
 
 // format table locations
@@ -108,10 +146,10 @@ if($AddonCredits != '') {
 <th class=\"membersHeaderRight\">Info</th>
 ";
 	echo $AddonCredits;
-	echo "</table>\n".border('sblue','end');
+	echo "</table>\n".border('sblue','end')."<br />\n";
 }
 
-
+echo "<div style=\"font-size:12px;\">\n".$creditspage['bottom']."\n</div>\n";
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
 

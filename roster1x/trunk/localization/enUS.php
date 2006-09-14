@@ -707,12 +707,6 @@ Special Thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_bla
 <br /><br />
 Special Thanks to the DEVs of Roster for helping to build and maintain the package
 <br /><br />
-Advanced Stats &amp; Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
-<br />
-Thanks to Nick Schaffner from <a href="http://53x11.com" target="_blank">53x11</a> for WoW Server Status used in Roster
-<br />
-Thanks to Averen for Member Log
-<br /><br />
 Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
 <br /><br />';
 
@@ -739,6 +733,24 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"zanix",
 					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
+		),
+		
+		'library'=>array(
+			array(	"name"=>	"DynamicDrive",
+					"info"=>	"<a href='http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm'>Tab content script</a><br /><a href='http://www.dynamicdrive.com/notice.htm'>DynamicDrive license</a>"),
+			array(	"name"=>	"Erik Bosrup",
+					"info"=>	"<a href='http://www.bosrup.com/web/overlib/'>OverLib tooltip library</a><br /><a href='http://www.bosrup.com/web/overlib/?License'>License</a>"),
+		),
+		
+		'3rdparty'=>array(
+			array(	"name"=>	"<a href='http://53x11.com'>Nick Schaffner</a>",
+					"info"=>	"Original WoW server status"),
+			array(	"name"=>	"Averen",
+					"info"=>	"Original MemberLog author"),
+			array(	"name"=>	"Cybrey",
+					"info"=>	"Advanced stats &amp; bonuses block on the character page"),
+			array(	"name"=>	"dehoskins",
+					"info"=>	"Improvements to the stats &amp; bonuses block"),
 		),
 
 		'inactive'=>array(
@@ -783,4 +795,10 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Beta Tester"),
 		),
 	);
+	
+$creditspage['bottom']='All php code for WoW Roster and mainjs.js are licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
+<br /><br />
+Other javascript files are libraries that are under their own licenses.
+<br /><br />
+See <a href="license.txt">license.txt</a> for details';
 ?>
