@@ -25,13 +25,13 @@ class recipe
 {
 	var $active = true;
 	var $hasconfig = 'default';
-	
+
 	var $upgrades = array(); // There are no previous versions to upgrade from
-	
+
 	var $version = '1.0.0';
 
-	var $fullname = 'Recipe';
-	var $description = 'Lists who can make waht in roster';
+	var $fullname = 'Made By';
+	var $description = 'Lists who can make what in roster';
 	var $credits = array(
 	array(	"name"=>	"Cybrey",
 			"info"=>	"Original author"),
@@ -39,12 +39,12 @@ class recipe
 			"info"=>	"Thanks for the mod of this script"),
 );
 
-	
+
 	function install()
 	{
 		global $installer;
 		$installer->profile = 'default';
-		
+
 		// Config table
 		$installer->add_query('CREATE','config','
 		  `id` int(11) NOT NULL,
@@ -54,11 +54,11 @@ class recipe
 		  `config_type` varchar(255) default NULL,
 		  PRIMARY KEY  (`id`)
 		');
-		
+
 		// Master and menu entries
 		$installer->add_query('INSERT','config',"1,'startpage','recipe_conf','display','master'");
 		$installer->add_query('INSERT','config',"110,'recipe_conf',NULL,'blockframe','menu'");
-		
+
 		// Settings
 		$installer->add_query('INSERT','config',"1000,'display_icon','1','radio{on^1|off^0','recipe_conf'");
 		$installer->add_query('INSERT','config',"1010,'display_name','1','radio{on^1|off^0','recipe_conf'");
@@ -71,13 +71,13 @@ class recipe
 		$installer->add_menu_button('MadeBy','',1);
 		return true;
 	}
-	
+
 	function upgrade($oldbasename, $oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
-	
+
 	function uninstall()
 	{
 		$installer->profile = 'default';
