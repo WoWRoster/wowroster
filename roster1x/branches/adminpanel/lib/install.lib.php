@@ -51,7 +51,15 @@ class Install
 		case 'BACKUP':		// $data is ignored
 			$this->sql[] = 'CREATE TEMPORARY TABLE `'.$this->table($table, $this->profile, true).'` LIKE `'.$this->table($table, $this->profile).'`';
 			$this->sql[] = 'INSERT INTO `'.$this->table($table, $this->profile, true).'` SELECT * FROM `'.$this->table($table, $this->profile).'`';
-			$this->tables[$this->profile.'_'.$table] = true;
+			$this->tables[$this->profile.'_'.$table] = true; // Restore backup on rollback
+			break;
+
+		// Rename a table from the old table scheme to update addons from pre-1.8
+		case 'LEGACY':		// $data holds a full table name
+			$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table, $this->profile).'`';
+			$this->sql[] = 'CREATE TABLE `'.$this->table($table, $this->profile).'` LIKE `'.$data.'`';
+			$this->sql[] = 'INSERT INTO `'.$this->table($table, $this->profile).'` SELECT * FROM `'.$this->table($table, $this->profile).'`';
+			$this->tables[$this->profile.'_'.$table] = false; // Remove copy on rollback
 			break;
 
 		// Table queries
@@ -59,7 +67,7 @@ class Install
 			$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table, $this->profile).'`';
 			$this->sql[] = 'CREATE TABLE `'.$this->table($table, $this->profile).'` ('.$data.') TYPE=MyISAM';
 			if (!array_key_exists($this->profile.'_'.$table,$this->tables))
-				$this->tables[$this->profile.'_'.$table] = false;
+				$this->tables[$this->profile.'_'.$table] = false; // Drop on rollback if there's no backup set
 			break;
 
 		case 'DROP':		// $data is ignored
@@ -69,8 +77,7 @@ class Install
 		case 'REN':		// $data hods a table identifier
 			$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table, $this->profile).'`';
 			$this->sql[] = 'RENAME TABLE `'.$this->table($table, $this->profile).'` TO `'.$this->table($data, $this->profile).'`';
-			if (!array_key_exists($this->profile.'_'.$table,$this->tables))
-				$this->tables[$this->profile.'_'.$table] = false;
+			$this->tables[$this->profile.'_'.$data] = false; // Drop the renamed table on rollback
 			break;
 
 		// Column queries
