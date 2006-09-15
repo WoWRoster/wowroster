@@ -724,7 +724,14 @@ $wordings['deDE']['admin']['banker_rankname'] = "Banker Suchtext|Text um den Ban
 $wordings['deDE']['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
-$wordings['deDE']['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
+$wordings['deDE']['admin']['auth_update'] = "Update access|Only users who meet these credentials can update.";
+$wordings['deDE']['admin']['auth_updateGP'] = "GuildGP update|Only users who meet these credentials can update guild list data.";
+$wordings['deDE']['admin']['auth_install_addon'] = "Addon installation|Only users who meet these credentials can install, uninstall, upgrade, activate, and deactivate addons.";
+$wordings['deDE']['admin']['auth_roster_config'] = "Roster Configuration|Only users who meet these credentials can configure the main roster.";
+$wordings['deDE']['admin']['auth_character_config'] = "Configure all characters|Only users who meet these credentials can configure access settings for all characters.<br />Everyone can configure access settings for his or her own characters..";
+$wordings['deDE']['admin']['auth_change_pass'] = "Change own password|Only users who meet these credentials can change their own password.";
+$wordings['deDE']['admin']['auth_diag_button'] = "Show RosterDiag button|Only users who meet these credentials can see the rosterdiag button in rostercp. Rosterdiag is external; all users who know the address can access it.";
+$wordings['deDE']['admin']['auth_addon_config'] = "Addon configuration|Only users who meet these credentials can access the addon configuration pages.";
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';

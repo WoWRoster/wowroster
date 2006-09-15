@@ -164,4 +164,12 @@ INSERT INTO `renprefix_config` VALUES (9030, 'banker_fieldname', 'note', 'select
 # --------------------------------------------------------
 ### Update Access
 
-INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10000, 'auth_update', '10', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10010, 'auth_updateGP', '1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10020, 'auth_install_addon', '-1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'auth_roster_config', '-1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10040, 'auth_character_config', '1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10050, 'auth_change_pass', '10', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10060, 'auth_diag_button', '0', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10070, 'auth_addon_config', '-1', 'access', 'update_access');
+

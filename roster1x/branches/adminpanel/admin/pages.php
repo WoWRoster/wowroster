@@ -39,31 +39,31 @@ if ( !defined('ROSTER_INSTALLED') )
 $pages['roster'] = array(
 	"href"=>	"?page=roster",
 	"title"=>	"pagebar_rosterconf",
-	"access"=>	0,
+	"access"=>	$roster_conf['auth_roster_config'],
 	"file"=>	"roster_conf.php",
 	);
 $pages['character'] = array(
 	"href"=>	"?page=character",
 	"title"=>	"pagebar_charpref",
-	"access"=>	0,
+	"access"=>	$roster_conf['auth_character_config'],
 	"file"=>	"character_conf.php",
 	);
 $pages['install'] = array(
 	"href"=>	"?page=install",
 	"title"=>	"pagebar_addoninst",
-	"access"=>	0,
+	"access"=>	$roster_conf['auth_install_addon'],
 	"file"=>	"addon_install.php",
 	);
 $pages['password'] = array(
 	"href"=>	"?page=password",
 	"title"=>	"pagebar_changepass",
-	"access"=>	0,
+	"access"=>	$roster_conf['auth_change_pass'],
 	"file"=>	"change_pass.php",
 	);
 $pages['update'] = array(
 	"href"=>	"?page=update",
 	"title"=>	"pagebar_update",
-	"access"=>	10,
+	"access"=>	$roster_conf['auth_update'],
 	"file"=>	"update.php",
 	);
 $pages['create'] = array(
@@ -73,10 +73,10 @@ $pages['create'] = array(
 	);
 $pages['hr'] = array(
 	"special"=>	"divider",
-	"access"=>	10,
+	"access"=>	$roster_conf['auth_diag_button'],
 	);
 $pages['rosterdiag'] = array(
 	"href"=>	"rosterdiag.php",
 	"title"=>	"pagebar_rosterdiag",
-	"access"=>	0,	// But actually for everyone since it's not an admincp page
+	"access"=>	$roster_conf['auth_diag_button'],
 	);

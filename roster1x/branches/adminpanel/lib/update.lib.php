@@ -128,7 +128,7 @@ class update
 	 */
 	function processFiles()
 	{
-		global $roster_login;
+		global $roster_login, $roster_conf;
 
 		if (!is_array($this->uploadData))
 		{
@@ -138,7 +138,7 @@ class update
 		$gotfiles = array_keys($this->uploadData);
 		if (in_array('CharacterProfiler',$gotfiles))
 		{
-			if ($roster_login->getAuthorized('-1')) // Only roster admin till the settings are inserted
+			if ($roster_login->getAuthorized($roster_conf['auth_updateGP']))
 			{
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";

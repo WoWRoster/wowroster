@@ -724,7 +724,14 @@ $wordings['frFR']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['frFR']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['frFR']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$wordings['frFR']['admin']['auth_update'] = "Update access|Only users who meet these credentials can update.";
+$wordings['frFR']['admin']['auth_updateGP'] = "GuildGP update|Only users who meet these credentials can update guild list data.";
+$wordings['frFR']['admin']['auth_install_addon'] = "Addon installation|Only users who meet these credentials can install, uninstall, upgrade, activate, and deactivate addons.";
+$wordings['frFR']['admin']['auth_roster_config'] = "Roster Configuration|Only users who meet these credentials can configure the main roster.";
+$wordings['frFR']['admin']['auth_character_config'] = "Configure all characters|Only users who meet these credentials can configure access settings for all characters.<br />Everyone can configure access settings for his or her own characters..";
+$wordings['frFR']['admin']['auth_change_pass'] = "Change own password|Only users who meet these credentials can change their own password.";
+$wordings['frFR']['admin']['auth_diag_button'] = "Show RosterDiag button|Only users who meet these credentials can see the rosterdiag button in rostercp. Rosterdiag is external; all users who know the address can access it.";
+$wordings['frFR']['admin']['auth_addon_config'] = "Addon configuration|Only users who meet these credentials can access the addon configuration pages.";
 
 // Character Display Settings
 $wordings['frFR']['admin']['per_character_display'] = 'Affichage par personnage';

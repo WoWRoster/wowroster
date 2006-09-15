@@ -601,7 +601,7 @@ $wordings['enUS']['admin']['char_conf'] = 'Character Page|Control what is displa
 $wordings['enUS']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
 $wordings['enUS']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
 $wordings['enUS']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
-$wordings['enUS']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update.php';
+$wordings['enUS']['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
 $wordings['enUS']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
@@ -724,7 +724,14 @@ $wordings['enUS']['admin']['banker_rankname'] = "Banker Search Text|Text used to
 $wordings['enUS']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
-$wordings['enUS']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$wordings['enUS']['admin']['auth_update'] = "Update access|Only users who meet these credentials can update.";
+$wordings['enUS']['admin']['auth_updateGP'] = "GuildGP update|Only users who meet these credentials can update guild list data.";
+$wordings['enUS']['admin']['auth_install_addon'] = "Addon installation|Only users who meet these credentials can install, uninstall, upgrade, activate, and deactivate addons.";
+$wordings['enUS']['admin']['auth_roster_config'] = "Roster Configuration|Only users who meet these credentials can configure the main roster.";
+$wordings['enUS']['admin']['auth_character_config'] = "Configure all characters|Only users who meet these credentials can configure access settings for all characters.<br />Everyone can configure access settings for his or her own characters..";
+$wordings['enUS']['admin']['auth_change_pass'] = "Change own password|Only users who meet these credentials can change their own password.";
+$wordings['enUS']['admin']['auth_diag_button'] = "Show RosterDiag button|Only users who meet these credentials can see the rosterdiag button in rostercp. Rosterdiag is external; all users who know the address can access it.";
+$wordings['enUS']['admin']['auth_addon_config'] = "Addon configuration|Only users who meet these credentials can access the addon configuration pages.";
 
 // Character Display Settings
 $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';

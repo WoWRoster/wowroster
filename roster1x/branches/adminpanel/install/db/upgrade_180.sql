@@ -106,6 +106,17 @@ UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE 
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7110;
 UPDATE `renprefix_config` SET `form_type` = 'access', `config_value` = 10 WHERE `id` = 7120;
 
+DELETE FROM `renprefix_config` WHERE `id` = 10000;
+
+INSERT INTO `renprefix_config` VALUES (10000, 'auth_update', '10', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10010, 'auth_updateGP', '1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10020, 'auth_install_addon', '-1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'auth_roster_config', '-1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10040, 'auth_character_config', '1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10050, 'auth_change_pass', '10', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10060, 'auth_diag_button', '0', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10070, 'auth_addon_config', '-1', 'access', 'update_access');
+
 # --------------------------------------------------------
 ### Update character page visibility values per character
 ALTER TABLE `renprefix_members`
