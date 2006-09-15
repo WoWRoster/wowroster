@@ -21,11 +21,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$wordings['addoncredits']['GuildBank'] = array(
-	array(	"name"=>	"Mathos",
-			"info"=>	"A guild bank that lists items by catagories"),
-);
-
 // Basic wordings used by the Categorised GuildBank
 $wordings['enUS']['filter'] = 'Filter';
 $wordings['enUS']['gbank_charsNotFound'] = 'Could not find any '.$wordings[$roster_conf['roster_lang']]['guildbank'].' '.$wordings[$roster_conf['roster_lang']]['character'].'s.';
@@ -37,7 +32,7 @@ $wordings['deDE']['gbank_charsNotFound'] = $wordings[$roster_conf['roster_lang']
 $wordings['deDE']['reqlevel'] = 'Benötigt Level';
 $wordings['deDE']['lvlrange'] = 'Level Bereich';
 
-/*************************** Header (usUS) ********************************/
+/*************************** Header (enUS) ********************************/
 // The header name for each category that will appear
 $wordings['enUS']['bankitem_1'] =  "Armor";
 $wordings['enUS']['bankitem_2'] =  "Weapons";
@@ -73,7 +68,7 @@ $wordings['enUS']['bankitem_31'] = "Engineering Items";
 $wordings['enUS']["bankitem_32"] = "Darkmoon Faire Items";
 
 
-/************************ Array(usUS)**************************************/
+/************************ Array(enUS)**************************************/
 $wordings['omit']['enUS'] =
 array("Soulbound", "Plain Letter");
 
@@ -225,6 +220,18 @@ array("Small Furry Paw", "Torn Bear Pelt", "Soft Bushy Tail", "Vibrant Plume",
 "Evil Bat Eye", "Glowing Scorpid Blood", "Beasts Deck", "Elementals Deck",
 "Portals Deck", "Warlords Deck", "Ace of", "Two of", "Three of",
 "Four of", "Five of", "Six of", "Seven of", "Eight of");
+
+
+/********************** config (enUS) ******************************/
+$wordings['enUS']['admin']['cgb_conf'] = 'Display Configuration|On this page you can configure how data is shown';
+$wordings['enUS']['admin']['row_columns'] = 'Columns|Number of columns per category row';
+$wordings['enUS']['admin']['color_border'] = 'Color border|Displays a border around the item icon designating its rarity';
+$wordings['enUS']['admin']['show_empty'] = 'Show Empty|Hides categories with no items';
+$wordings['enUS']['admin']['searchtype'] = 'Item Link|Site to serch for item when clicked';
+
+
+
+
 
 /********************** Header (deDE) ******************************/
 // The header name for each category that will appear
@@ -473,5 +480,13 @@ array("Small Furry Paw", "Torn Bear Pelt", "Soft Bushy Tail", "Vibrant Plume",
 "Evil Bat Eye", "Glowing Scorpid Blood", "Beasts Deck", "Elementals Deck",
 "Portals Deck", "Warlords Deck", "Ace of", "Two of", "Three of",
 "Four of", "Five of", "Six of", "Seven of", "Eight of");
+
+
+/********************** config (deDE) ******************************/
+$wordings['deDE']['admin']['cgb_conf'] = 'Display Configuration|On this page you can configure how data is shown';
+$wordings['deDE']['admin']['row_columns'] = 'Columns|Number of columns per category row';
+$wordings['deDE']['admin']['color_border'] = 'Color border|Displays a border around the item icon designating its rarity';
+$wordings['deDE']['admin']['show_empty'] = 'Show Empty|Hides categories with no items';
+$wordings['deDE']['admin']['searchtype'] = 'Item Link|Site to serch for item when clicked';
 
 ?>

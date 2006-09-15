@@ -61,7 +61,7 @@ if( get_magic_quotes_gpc() )
 $char = char_get_one( $name, $server );
 if( !$char )
 {
-	die_quietly('Sorry no data in database for &quot;'.$_GET['name'].'&quot; of &quot;'.$_GET['server'].'&quot;<br /><br /><a href="./index.php">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a>','Character Not Found');
+	die_quietly('Sorry no data in database for &quot;'.$_GET['name'].'&quot; of &quot;'.$_GET['server'].'&quot;','Character Not Found');
 }
 
 // Get per character display control
@@ -89,7 +89,7 @@ foreach( $disp_array as $global_setting => $user_setting )
 {
 	$globallevel = $roster_conf[$global_setting];
 	$userlevel = $char->get($user_setting);
-	
+
 	$roster_conf[$global_setting] =
 		(int)($roster_login->getAuthorized($globallevel) ||
 		$roster_login->getAuthorized($userlevel));

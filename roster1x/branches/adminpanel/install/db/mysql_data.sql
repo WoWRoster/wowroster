@@ -97,7 +97,6 @@ INSERT INTO `renprefix_config` VALUES (4060, 'menu_honor_page', '1', 'radio{on^1
 INSERT INTO `renprefix_config` VALUES (4070, 'menu_guildbank', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4080, 'menu_keys_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4090, 'menu_tradeskills_page', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4100, 'menu_update_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4110, 'menu_quests_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4120, 'menu_search_page', '1', 'radio{on^1|off^0', 'menu_conf');
 

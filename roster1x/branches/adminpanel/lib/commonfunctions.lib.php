@@ -31,8 +31,6 @@ if ( !defined('ROSTER_INSTALLED') )
  */
 function border($style,$mode,$header_text=null)
 {
-	global $roster_conf;
-
 	$backg_css = $style.'border';
 	if( substr($style,0,1) == 's' )
 	{
@@ -204,6 +202,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
 	{
+		$fix_menu=1;
 		include_once(ROSTER_LIB.'menu.php');
 	}
 
@@ -578,11 +577,11 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
  * @param string $style | The border style
  * @return string $html | The HTML for the messagebox
  */
-function messagebox($message, $title = 'Message', $style = 'sgray')
+function messagebox($message, $title = 'Message', $style = 'sgray', $width = '')
 {
 	return
 		border($style, 'start', $title).
-		'<div align="center">'.
+		'<div align="center" '.( !empty($width) ? 'style="width:'.$width.';"' : '' ).'>'.
 		$message.
 		'</div>'.
 		border($style, 'end');
@@ -623,16 +622,16 @@ $toggleboxes = 1;
  */
 function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px')
 {
-	global $toggleboxes;
+	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
 	return
 		'<div id="toggleCol'.$toggleboxes.'" style="display:'.(($open)?'none':'inline').';">'.
-		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$title."</div>").
+		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$title."</div>").
 		border($style,'end').
 		'</div>'.
 		'<div id="toggle'.$toggleboxes.'" style="display:'.(($open)?'inline':'none').';">'.
-		messagebox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$title."</div>",$style).
+		messagebox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$title."</div>",$style).
 		'</div>';
 }
 
@@ -648,16 +647,16 @@ function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open 
  */
 function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px', $height = '300px')
 {
-	global $toggleboxes;
+	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
 	return
 		'<div id="toggleCol'.$toggleboxes.'" style="display:'.(($open)?'none':'inline').';">'.
-		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$title."</div>").
+		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$title."</div>").
 		border($style,'end').
 		'</div>'.
 		'<div id="toggle'.$toggleboxes.'" style="display:'.(($open)?'inline':'none').';">'.
-		scrollbox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$title."</div>",$style, $width, $height).
+		scrollbox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$title."</div>",$style, $width, $height).
 		'</div>';
 }
 
@@ -711,7 +710,7 @@ function getaddon($dbname)
 
 
 	// Get the addon's locale file
-	$addon['local'] = $addon['dir'].'localization.php';
+	$addon['locale'] = $addon['dir'].'localization.php';
 
 	// Get the addon's config file
 	$addon['conf'] = $addon['dir'].'conf.php';
@@ -736,9 +735,9 @@ function getaddon($dbname)
 		$wowdb->free_result($result);
 	}
 	// Include localization variables
-	if( file_exists($addon['local']) )
+	if( file_exists($addon['locale']) )
 	{
-		include_once( $addon['local']);
+		include_once( $addon['locale']);
 	}
 
 	// Include addon's conf.php settings

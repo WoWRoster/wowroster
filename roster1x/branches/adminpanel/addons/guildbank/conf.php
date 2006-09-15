@@ -22,16 +22,6 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 /////////////////////////// CONFIGURATION OPTIONS /////////////////////////////
-// Number of columns per category row
-$row_columns = 18;
-// Show color border
-$color_border = 1; // 0 = No, 1 = Yes
-// Do you want categories with no items to appear?
-$show_empty = 1; // 0 = No, 1 = Yes
-////// ItemLink Site
-// 1=Thottbot,
-// 2=Allakhazam for 'enUS' and blasc.de for 'deDE'.
-$searchtype = 1;
 // The order the tables will display in the guildbank page
 // You can exclude items you don't want to appear
 $display_order = array(20,21,22,18,3,4,5,6,7,8,31,19,1,2,11,12,15,17,16,14,13,32,
@@ -70,9 +60,8 @@ $bankitem[29]['msg'] = $wordings[$roster_conf['roster_lang']]['bankitem_29'];
 $bankitem[30]['msg'] = $wordings[$roster_conf['roster_lang']]['bankitem_30'];
 $bankitem[31]['msg'] = $wordings[$roster_conf['roster_lang']]['bankitem_31'];
 
-include($addonDir.'searcharrays.php');
 
-switch ($searchtype) {
+switch ($addon_conf['guildbank']['searchtype']) {
 	case 2:
 		// Allakhazam / blasc.de
 		$itemlink['enUS']='http://wow.allakhazam.com/search.html?q=';

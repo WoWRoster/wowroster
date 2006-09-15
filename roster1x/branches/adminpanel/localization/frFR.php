@@ -215,7 +215,7 @@ $wordings['frFR']['recipe_4'] = 'optimal';
 $wordings['frFR']['recipe_3'] = 'moyen';
 $wordings['frFR']['recipe_2'] = 'facile';
 $wordings['frFR']['recipe_1'] = 'insignifiant';
-$wordings['frFR']['roster_config'] = 'Admin Panel';
+$wordings['frFR']['roster_config'] = 'User Control';
 $wordings['frFR']['roster_config_menu'] = 'Config Menu';
 
 // Memberslist sort/filter box
@@ -565,8 +565,8 @@ $wordings['frFR']['pagebar_function'] = 'Function';
 $wordings['frFR']['pagebar_rosterconf'] = 'Configure Main Roster';
 $wordings['frFR']['pagebar_charpref'] = 'Character Preferences';
 $wordings['frFR']['pagebar_changepass'] = 'Change Password';
-$wordings['frFR']['pagebar_addoninst'] = 'Manage addons';
-$wordings['frFR']['pagebar_update'] = 'Update';
+$wordings['frFR']['pagebar_addoninst'] = 'Manage Addons';
+$wordings['frFR']['pagebar_update'] = 'Upload Profile';
 $wordings['frFR']['pagebar_rosterdiag'] = 'Roster Diag';
 
 $wordings['frFR']['pagebar_addonconf'] = 'Addon Config';
@@ -670,13 +670,13 @@ $wordings['frFR']['admin']['menu_honor_page'] = "Honor Page Link|Controls displa
 $wordings['frFR']['admin']['menu_guildbank'] = "Guildbank Link|Controls display of the Guildbank Link";
 $wordings['frFR']['admin']['menu_keys_page'] = "Instance Keys Link|Controls display of the Instance Keys Link";
 $wordings['frFR']['admin']['menu_tradeskills_page'] = "Professions Link|Controls display of the Professions Link";
-$wordings['frFR']['admin']['menu_update_page'] = "Profile Update Link|Controls display of the Profile Update Link";
 $wordings['frFR']['admin']['menu_quests_page'] = "Find Team/Quests Link|Controls display of the Find Team/Quests Link";
 $wordings['frFR']['admin']['menu_search_page'] = "Search Page Link|Controls display of the Search Page Link";
 
 // display_conf
 $wordings['frFR']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for roster";
 $wordings['frFR']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
+$wordings['frFR']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
 $wordings['frFR']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['frFR']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
 $wordings['frFR']['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" dans le nom, celà cherchera dans le répertoire img/ du roster";

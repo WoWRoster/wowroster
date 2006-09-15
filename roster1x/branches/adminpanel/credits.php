@@ -136,6 +136,7 @@ echo "</table>\n".border('syellow','end');
 // format table locations
 echo "\n</td></tr></table>\n";
 
+
 $AddonCredits = makeAddonCredits();
 if($AddonCredits != '') {
 	// Print the Addon developer credits

@@ -79,6 +79,7 @@ INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{o
 
 DELETE FROM `renprefix_config` WHERE `id` = 3080;
 DELETE FROM `renprefix_config` WHERE `id` = 3090;
+DELETE FROM `renprefix_config` WHERE `id` = 4100;
 
 # --------------------------------------------------------
 ### Update entries for index column visibility

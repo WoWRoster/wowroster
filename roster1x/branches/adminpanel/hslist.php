@@ -30,11 +30,11 @@ $guildId = $guild_info['guild_id'];
 $striping_counter = 0;
 $tableHeader = "\n".'<!-- Begin HSLIST -->
 <div id="HSLIST_col"'.$pvp_hs_colapse.'>
-'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('HSLIST_col','HSLIST_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"\" />".$wordings[$roster_conf['roster_lang']]['hslist'].'</div>').'
+'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('HSLIST_col','HSLIST_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$wordings[$roster_conf['roster_lang']]['hslist'].'</div>').'
 '.border('sgray','end').'
 </div>
 <div id="HSLIST_full"'.$pvp_hs_full.'>
-'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('HSLIST_col','HSLIST_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$wordings[$roster_conf['roster_lang']]['hslist'].'</div>').'
+'.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('HSLIST_col','HSLIST_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$wordings[$roster_conf['roster_lang']]['hslist'].'</div>').'
 <table width="100%" cellpadding="0" cellspacing="0" class="bodyline">'."\n";
 
 $tableFooter = "</table>\n".border('sgray','end')."\n</div>\n<!-- End HSLIST -->\n";

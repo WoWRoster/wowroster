@@ -25,8 +25,6 @@ if ( !defined('ROSTER_INSTALLED') )
 $search_order = array(3,4,5,6,7,8,18,9,27,1,2,31,28,25,10,12,11,13,14,
 		      26,20,21,22,15,16,17,19,24,23,30,32);
 
-include($addonDir.'localization.php');
-
 $bankitem[1]['arg'] = 'armor';
 $bankitem[2]['arg'] = 'weapon';
 $bankitem[3]['arg'] = 'leatherwork';
@@ -69,12 +67,11 @@ foreach ($search_order as $catnumber)
 	itemarray_merge($bankitem[$catnumber]['arg']);
 }
 
-
-
 // Merge the search words for multilanguage purposes based on the category name
 function itemarray_merge($category)
 {
 	global $itemarray, $roster_conf, $wordings;
+
 	// Fill the itemarray with all language wordings
 	$itemarray[$category] = array();
 	foreach ($roster_conf['multilanguages'] as $language)
@@ -85,4 +82,5 @@ function itemarray_merge($category)
 		}
 	}
 }
+
 ?>

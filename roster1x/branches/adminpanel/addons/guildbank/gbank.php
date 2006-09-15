@@ -148,7 +148,9 @@ while ($muleRow = $wowdb->getrow($muleNames))
 if ($roster_conf['bank_money'])
 {
 	$banker_columns=5;
-} else {
+}
+else
+{
 	$banker_columns=2;
 }
 
@@ -316,15 +318,15 @@ $content .= '</td></tr><tr><td></td></tr></table>';
 $content .= border($borderstyle,'start');
 
 // Create the Header of the table
-$content .= "<table bgcolor='#1f1e1d' colspan='".$row_columns."' border='0' cellspacing='2' cellpadding='2'>";
+$content .= "<table bgcolor='#1f1e1d' colspan='".$addon_conf['guildbank']['row_columns']."' border='0' cellspacing='2' cellpadding='2'>";
 // Process each category sorted on $display_order from conf.php
 foreach ($display_order as $CategoryID)
 {
 	// Check if we want to see Emtpy Categories OR if the category has items
-	if ($show_empty || isset($itemsarray[$CategoryID]))
+	if ($addon_conf['guildbank']['show_empty'] || isset($itemsarray[$CategoryID]))
 	{
 		// Show the Column Header for this Category
-		$content .= "<tr><th colspan='".$row_columns."' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['bankitem_'.$CategoryID]."</th></tr>";
+		$content .= "<tr><th colspan='".$addon_conf['guildbank']['row_columns']."' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['bankitem_'.$CategoryID]."</th></tr>";
 		$count = 0;
 		// Again check if we actually have items in the Category before displaying them
 		if (isset($itemsarray[$CategoryID]))
@@ -335,13 +337,13 @@ foreach ($display_order as $CategoryID)
 				// Display the icon for the item
 				$content .= processItem($itemid, $CategoryID);
 		    $count++;
-		    if ($count == $row_columns)
+		    if ($count == $addon_conf['guildbank']['row_columns'])
 		    {
 		    	$content .= "</tr><tr>";
 		    	$count = 0;
 		    }
 		  }
-		  for ($i=$count;$i < $row_columns;$i++)
+		  for ($i=$count;$i < $addon_conf['guildbank']['row_columns'];$i++)
 		  {
 		  	$content .= "<td></td>";
 		  }
@@ -353,7 +355,7 @@ foreach ($display_order as $CategoryID)
 // If no items are returned in the $itemsarray
 if (!$itemsarray)
 {
-	$content .= '<tr><th colspan="'.$row_columns.'" class="membersHeader"><span style="color:#ff0000;font-size:12pt;">'.$wordings[$roster_conf['roster_lang']]['no'].' '.$wordings[$roster_conf['roster_lang']]['items'].' in '.$wordings[$roster_conf['roster_lang']]['guildbank'];
+	$content .= '<tr><th colspan="'.$addon_conf['guildbank']['row_columns'].'" class="membersHeader"><span style="color:#ff0000;font-size:12pt;">'.$wordings[$roster_conf['roster_lang']]['no'].' '.$wordings[$roster_conf['roster_lang']]['items'].' in '.$wordings[$roster_conf['roster_lang']]['guildbank'];
 	// If we filtered, also display the filter
 
 	if ($filter)
@@ -470,7 +472,7 @@ function CheckCategory2($tooltip, $itemid)
 // This function will process the item and build up the code.
 function processItem($real_itemid, $category)
 {
-	global $mule, $itemsarray, $color_border, $itemlink, $roster_conf, $wordings;
+	global $mule, $itemsarray, $itemlink, $roster_conf, $wordings, $addon_conf;
 
 	$itemrow = $itemsarray[$category][$real_itemid];
 
@@ -594,7 +596,7 @@ function processItem($real_itemid, $category)
 	$item_texture=str_replace('\\','/',$itemrow['item_texture']);
 
 	// Construct the image with a URL and put the colored border around it
-	if ($color_border)
+	if ($addon_conf['guildbank']['color_border'])
 	{
 		$returnstr .=  '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($itemrow['item_name'])).'" target="_blank">'."\n".'<img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'" class="'.$item_quality.'"></a>';
 	}

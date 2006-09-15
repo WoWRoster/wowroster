@@ -21,6 +21,8 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+define('ROSTER_MENU_INC',true);
+
 if( !empty($guild_info) )
 {
 	$guildId = $guild_info['guild_id'];
@@ -90,7 +92,14 @@ if( !empty($guild_info) )
 }
 
 // Get list of addons and their links
-$addons = makeAddonList();
+if( !isset($fix_menu) )
+{
+	$addonslist = makeAddonList();
+}
+else
+{
+	$addonslist = '';
+}
 
 
 ?>
@@ -170,19 +179,17 @@ if( $roster_conf['menu_keys_page'] )
 ?>
      </ul></td>
 <!-- Links Column 3 -->
-    <td valign="top" class="row<?php print (($roster_conf['menu_right_pane'] && $guild_data_rows > 0) ? '' : 'right'); ?> links">
+    <td valign="top" class="row<?php print ( ($roster_conf['menu_right_pane'] ) ? '' : 'right'); ?> links">
       <ul>
+        <li><a href="<?php print $roster_conf['roster_dir']; ?>/rostercp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
 <?php
-if( $roster_conf['menu_update_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/usercp.php">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
-
 if( $roster_conf['menu_quests_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexquests.php">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
 
 if( $roster_conf['menu_search_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexsearch.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
 ?>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/rostercp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
+
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
       </ul></td>
 <?php
@@ -205,14 +212,14 @@ if( $roster_conf['menu_right_pane'] && !empty($guild_info) )
 }
 ?>
   </tr>
-<!-- Addon Links -->
 <?php
-if( $addons != '' )
+if( $addonslist != '' )
 {
+	print "<!-- Addon Links -->\n";
 	print "  <tr>\n    <td colspan=\"3\" align=\"center\" valign=\"top\" class=\"row".(($roster_conf['menu_right_pane'] && !empty($guild_info)) ? '' : 'right')." addon\" style=\"width:320px;\">\n";
 	print '<span style="color:#0099FF;font-weight:bold;">'.$wordings[$roster_conf['roster_lang']]['Addon'].'</span>';
 	print "    <ul>\n";
-	print $addons;
+	print $addonslist;
 	print "    </ul></td>\n  </tr>\n";
 }
 ?>
@@ -251,7 +258,7 @@ function makeAddonList()
 {
 	global $act_words, $roster_conf, $wordings, $wowdb;
 
-	$query = "SELECT `addon`.`dbname`,`menu`.`title`,`menu`.`url`,`addon`.`basename` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_id` = `addon`.`addon_id` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
+	$query = "SELECT `addon`.`dbname`,`menu`.`title`,`menu`.`url`,`addon`.`basename`,`addon`.`description`,`addon`.`fullname` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_id` = `addon`.`addon_id` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
 
 	$result = $wowdb->query($query);
 
@@ -277,7 +284,7 @@ function makeAddonList()
 
 		$fullQuery = "?dbname=".$row['dbname'].$row['url'];
 		$query = str_replace(' ','%20',$fullQuery);
-		$output .= '<li><a href="'.ROSTER_URL.'/addon.php'.$query.'">'.$act_words[$row['title']]."</a></li>\n";
+		$output .= '<li><a href="'.ROSTER_URL.'/addon.php'.$query.'" '.makeOverlib($row['description'],$row['fullname']).'>'.$act_words[$row['title']]."</a></li>\n";
 	}
 
 	return $output;

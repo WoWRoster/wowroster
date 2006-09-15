@@ -28,7 +28,8 @@ class Install
 	var $messages=array();	// messages
 	var $tables=array();	// $table=>boolean, true to restore, false to drop on rollback.
 	var $profile='default';	// Profile to add tables/data to
-	
+	var $addata;
+
 	var $addon_id;
 
 	/**
@@ -43,7 +44,7 @@ class Install
 	 */
 	function add_query($query_type, $table, $data='')
 	{
-		global $wowdb, $addon;
+		global $wowdb;
 
 		switch ($query_type)
 		{
@@ -106,7 +107,7 @@ class Install
 			break;
 
 		default:
-			$this->errors[] = 'Invalid query type '.$query_type.'. Table is '.$table.', active profile is '.$this->profile.', and data is '.$data;
+			$this->seterrors('Invalid query type '.$query_type.'. Table is '.$table.', active profile is '.$this->profile.', and data is '.$data);
 		}
 	}
 
@@ -124,9 +125,7 @@ class Install
 	 */
 	function add_menu_button($title, $url, $active)
 	{
-		global $addata;
-
-		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES (0,"'.$addata['addon_id'].'","'.$title.'","'.$url.'","'.$active.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES (0,"'.$this->addata['addon_id'].'","'.$title.'","'.$url.'","'.$active.'")';
 	}
 
 	/**
@@ -143,9 +142,7 @@ class Install
 	 */
 	function update_menu_button($title, $url, $active)
 	{
-		global $addata;
-
-		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_id`="'.$addata['addon_id'].'" AND `title`="'.$title.'"';
+		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'"';
 	}
 
 	/**
@@ -156,11 +153,9 @@ class Install
 	 */
 	function remove_menu_button($title)
 	{
-		global $addata;
-
-		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_id`="'.$addata['addon_id'].'" AND `title`="'.$title.'"';
+		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'"';
 	}
-	
+
 	/**
 	 * Register a file for updates
 	 *
@@ -173,11 +168,11 @@ class Install
 	 */
 	function add_trigger($file, $active)
 	{
-		global $addata, $wowdb;
-		
-		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES (0,"'.$addata['addon_id'].'","'.$file.'","'.$active.'")';
+		global $wowdb;
+
+		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES (0,"'.$this->addata['addon_id'].'","'.$file.'","'.$active.'")';
 	}
-	
+
 	/**
 	 * Unregister a file for updates
 	 *
@@ -186,9 +181,9 @@ class Install
 	 */
 	 function remove_trigger($file)
 	 {
-	 	global $addata, $wowdb;
-	 	
-	 	$this->sql[] = 'DELETE FROM `'.$wowdb->table('addon_trigger').'` WHERE `addon_id`="'.$addata['addon_id'].'" AND `file`="'.$file.'"';
+	 	global $wowdb;
+
+	 	$this->sql[] = 'DELETE FROM `'.$wowdb->table('addon_trigger').'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `file`="'.$file.'"';
 	 }
 
 	/**
@@ -208,7 +203,7 @@ class Install
 		{
 			if (!$wowdb->query($query))
 			{
-				$this->errors[] = 'Install error in query '.$id.'. MySQL said: <br/>'.$wowdb->error().'<br />The query was: <br />'.$query;
+				$this->seterrors('Install error in query '.$id.'. MySQL said: <br/>'.$wowdb->error().'<br />The query was: <br />'.$query);
 				$retval = 1;
 				break;
 			}
@@ -225,7 +220,7 @@ class Install
 				}
 				else
 				{
-					$this->errors[] = 'Rollback error while dropping '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error();
+					$this->seterrors('Rollback error while dropping '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error());
 					$retval = 2;
 				}
 				if ($backup)
@@ -237,7 +232,7 @@ class Install
 					}
 					else
 					{
-						$this->errors[] = 'Rollback error while recreating '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error();
+						$this->seterrors('Rollback error while recreating '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error());
 						$retval = 2;
 					}
 					$query = 'INSERT INTO `'.$this->table($table[1],$table[0]).'` SELECT * FROM `'.$this->table($table[1],$table[0],true).'`';
@@ -248,7 +243,7 @@ class Install
 					}
 					else
 					{
-						$this->errors[] = 'Rollback error while reinserting data in '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error();
+						$this->seterrors('Rollback error while reinserting data in '.$table[1].' for profile '.$table[0].'. MySQL said: '.$wowdb->error());
 						$retval = 2;
 					}
 				}
@@ -265,9 +260,19 @@ class Install
 	 */
 	function table($table, $profile, $backup=false)
 	{
-		global $addata, $wowdb;
+		global $wowdb;
 
-		return (($backup)?'backup_':'').$wowdb->table($table, $addata['dbname'], $profile);
+		return (($backup)?'backup_':'').$wowdb->table($table, $this->addata['dbname'], $profile);
+	}
+
+	/**
+	 * Set Error Message
+	 *
+	 * @param string $error
+	 */
+	function seterrors($error)
+	{
+		$this->errors[] = $error;
 	}
 
 	/**
@@ -278,6 +283,16 @@ class Install
 	function geterrors()
 	{
 		return implode("<br />\n",$this->errors);
+	}
+
+	/**
+	 * Set Message
+	 *
+	 * @param string $message
+	 */
+	function setmessages($message)
+	{
+		$this->messages[] = $message;
 	}
 
 	/**

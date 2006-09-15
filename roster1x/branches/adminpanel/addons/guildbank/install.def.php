@@ -21,23 +21,23 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class recipe
+class guildbank
 {
 	var $active = true;
 	var $hasconfig = 'default';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
-	var $version = '1.0.0';
+	var $version = '1.2.6';
 
-	var $fullname = 'Made By';
-	var $description = 'Lists who can make what in roster';
+	var $fullname = 'Categorized Guildbank';
+	var $description = 'A guild bank that lists items by catagories';
 	var $credits = array(
-	array(	"name"=>	"Cybrey",
-			"info"=>	"Original author"),
-	array(	"name"=>	"Thorus",
-			"info"=>	"Thanks for the mod of this script"),
-);
+		array(	"name"=>	"Mathos",
+				"info"=>	"Author"),
+		array(	"name"=>	"Nostrademous",
+				"info"=>	"Original creator"),
+	);
 
 
 	function install()
@@ -56,19 +56,16 @@ class recipe
 		');
 
 		// Master and menu entries
-		$installer->add_query('INSERT','config',"1,'startpage','recipe_conf','display','master'");
-		$installer->add_query('INSERT','config',"110,'recipe_conf',NULL,'blockframe','menu'");
+		$installer->add_query('INSERT','config',"1,'startpage','cgb_conf','display','master'");
+		$installer->add_query('INSERT','config',"110,'cgb_conf',NULL,'blockframe','menu'");
 
 		// Settings
-		$installer->add_query('INSERT','config',"1000,'display_icon','1','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1010,'display_name','1','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1020,'display_level','1','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1030,'display_tooltip','0','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1040,'display_type','0','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1050,'display_reagents','1','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1060,'display_makers','1','radio{on^1|off^0','recipe_conf'");
-		$installer->add_query('INSERT','config',"1070,'display_makers_count','3','text{2|10','recipe_conf'");
-		$installer->add_menu_button('MadeBy','',1);
+		$installer->add_query('INSERT','config',"1000,'row_columns','18','text{5|5','cgb_conf'");
+		$installer->add_query('INSERT','config',"1010,'color_border','1','radio{on^1|off^0','cgb_conf'");
+		$installer->add_query('INSERT','config',"1020,'show_empty','1','radio{on^1|off^0','cgb_conf'");
+		$installer->add_query('INSERT','config',"1030,'searchtype','0','select{Thottbot^1|Allakhazam(enUS)^2|blasc.de(deDE)^2','cgb_conf'");
+
+		$installer->add_menu_button('guildbank','',1);
 		return true;
 	}
 
@@ -81,13 +78,11 @@ class recipe
 	function uninstall()
 	{
 		global $installer;
-
 		$installer->profile = 'default';
-
 		$installer->add_query('BACKUP','config');
 		$installer->add_query('DROP','config');
 
-		$installer->remove_menu_button('MadeBy');
+		$installer->remove_menu_button('guildbank');
 		return true;
 	}
 }

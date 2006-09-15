@@ -215,7 +215,7 @@ $wordings['enUS']['recipe_4'] = 'optimal';
 $wordings['enUS']['recipe_3'] = 'medium';
 $wordings['enUS']['recipe_2'] = 'easy';
 $wordings['enUS']['recipe_1'] = 'trivial';
-$wordings['enUS']['roster_config'] = 'Admin Panel';
+$wordings['enUS']['roster_config'] = 'User Control';
 $wordings['enUS']['roster_config_menu'] = 'Config Menu';
 
 // Memberslist sort/filter box
@@ -565,8 +565,8 @@ $wordings['enUS']['pagebar_function'] = 'Function';
 $wordings['enUS']['pagebar_rosterconf'] = 'Configure Main Roster';
 $wordings['enUS']['pagebar_charpref'] = 'Character Preferences';
 $wordings['enUS']['pagebar_changepass'] = 'Change Password';
-$wordings['enUS']['pagebar_addoninst'] = 'Manage addons';
-$wordings['enUS']['pagebar_update'] = 'Update';
+$wordings['enUS']['pagebar_addoninst'] = 'Manage Addons';
+$wordings['enUS']['pagebar_update'] = 'Upload Profile';
 $wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diag';
 
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
@@ -670,13 +670,13 @@ $wordings['enUS']['admin']['menu_honor_page'] = "Honor Page Link|Controls displa
 $wordings['enUS']['admin']['menu_guildbank'] = "Guildbank Link|Controls display of the Guildbank Link";
 $wordings['enUS']['admin']['menu_keys_page'] = "Instance Keys Link|Controls display of the Instance Keys Link";
 $wordings['enUS']['admin']['menu_tradeskills_page'] = "Professions Link|Controls display of the Professions Link";
-$wordings['enUS']['admin']['menu_update_page'] = "Profile Update Link|Controls display of the Profile Update Link";
 $wordings['enUS']['admin']['menu_quests_page'] = "Find Team/Quests Link|Controls display of the Find Team/Quests Link";
 $wordings['enUS']['admin']['menu_search_page'] = "Search Page Link|Controls display of the Search Page Link";
 
 // display_conf
 $wordings['enUS']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for roster";
 $wordings['enUS']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
+$wordings['enUS']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
 $wordings['enUS']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['enUS']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
 $wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
@@ -774,7 +774,7 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"zanix",
 					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
 		),
-		
+
 		'library'=>array(
 			array(	"name"=>	"DynamicDrive",
 					"info"=>	"<a href='http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm'>Tab content script</a><br /><a href='http://www.dynamicdrive.com/notice.htm'>DynamicDrive license</a>"),
@@ -785,7 +785,7 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"Walter Zorn",
 					"info"=>	"<a href='http://www.walterzorn.com/dragdrop/dragdrop_e.htm'>DHTML Drag/Drop library</a><br /><a href='http://gnu.org/copyleft/lesser.html'>Lesser General Public License</a>"),
 		),
-		
+
 		'3rdparty'=>array(
 			array(	"name"=>	"<a href='http://53x11.com'>Nick Schaffner</a>",
 					"info"=>	"Original WoW server status"),
@@ -839,7 +839,7 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Beta Tester"),
 		),
 	);
-	
+
 $creditspage['bottom']='WoW Roster is licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
 <br /><br />
 Serveral javascript files are libraries that are under their own licenses.

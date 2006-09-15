@@ -25,7 +25,9 @@ error_reporting(E_ALL);
 
 $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
 
-require ($addonDir.'gbank.php');
+require ($addon['dir'].'conf.php');
+include($addon['dir'].'searcharrays.php');
+require ($addon['dir'].'gbank.php');
 
 echo $content;
 ?>

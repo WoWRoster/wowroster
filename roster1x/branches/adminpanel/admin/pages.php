@@ -32,6 +32,7 @@ if ( !defined('ROSTER_INSTALLED') )
 //	"special"	Ignored unless it's one of the following:
 //			'disabled'	Makes the page unusable
 //			'divider'	Prints a horizontal line and no button.
+//			'hidden'	Hides the link, but allows access to the page
 
 
 
@@ -79,4 +80,9 @@ $pages['rosterdiag'] = array(
 	"href"=>	"rosterdiag.php",
 	"title"=>	"pagebar_rosterdiag",
 	"access"=>	$roster_conf['auth_diag_button'],
+	);
+
+$pages['addon'] = array(
+	"special"=>	"hidden",
+	"file"=>	"addon_conf.php",
 	);

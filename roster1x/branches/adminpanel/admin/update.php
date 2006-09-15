@@ -39,7 +39,7 @@ if ($_POST['process'] == 'process')
 
 	if (!empty($errors))
 	{
-		$body .= scrollbox($errors,'Errors','sred');
+		$body .= scrollboxtoggle($errors,'Errors','sred');
 		$body .= "<br />\n";
 	}
 
@@ -48,18 +48,14 @@ if ($_POST['process'] == 'process')
 	if ($roster_conf['sqldebug'])
 	{
 		$body .= "<br />\n";
-		$body .= scrollbox(nl2br($queries),'SQL Queries','sgreen');
+		$body .= scrollboxtoggle(nl2br($queries),'SQL Queries','sgreen');
 	}
 }
 else
 {
 	$body .= '<form action="'.$script_filename.'?page=update" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this);">'."\n";
 
-	$body .= border('sblue','start','Select files to upload')."\n";
-	$body .= '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
-	$body .= $update->makeFileFields();
-	$body .= '</table>'."\n";
-	$body .= border('sblue','end')."\n";
+	$body .= messagebox('<table class="bodyline" cellspacing="0" cellpadding="0">'.$update->makeFileFields().'</table>','Select files to upload','sblue');
 
 	$body .= "<br />\n";
 

@@ -118,7 +118,7 @@ switch ($_GET['type'])
 		break;
 }
 
-if (!success)
+if (!$success)
 {
 	$installer->errors[] = 'Queries were not successfully added to the installer';
 }
@@ -144,16 +144,7 @@ include (ROSTER_LIB.'menu.php');
 // print the error messages
 if( !empty($errorstringout) )
 {
-	print
-	'<div id="errorCol" style="display:inline;">
-		'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Install Errors</span></div>").'
-		'.border('sred','end').'
-	</div>
-	<div id="error" style="display:none">
-	'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Install Errors</span></div>").
-	$errorstringout.
-	border('sred','end').
-	'</div>';
+	print scrollboxtoggle($errorstringout,'Install Errors','sred');
 
 	// Print the downloadable errors separately so we can generate a download
 	print "<br />\n";
@@ -166,12 +157,7 @@ if( !empty($errorstringout) )
 }
 
 // Print the update messages
-print
-	border('syellow','start','Addon Install Log').
-	'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
-	$messagestringout.
-	'</div>'.
-	border('syellow','end');
+print scrollbox($messagestringout,'Addon Install Log','syellow');
 
 // Print the downloadable messages separately so we can generate a download
 print "<br />\n";
@@ -184,19 +170,7 @@ print "<br />\n";
 
 if( $roster_conf['sqldebug'] )
 {
-	print
-	'<div id="sqlDebugCol" style="display:inline;">
-		'.border('sgray','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />SQL Queries</div>").'
-		'.border('sgray','end').'
-	</div>
-	<div id="sqlDebug" style="display:none">
-	'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
-	<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:560px;overflow:auto;">'.
-		nl2br($sqlstringout).
-	'</div>
-	'.border('sgreen','end').
-	'</div>';
-
+	print scrollboxtoggle(nl2br($sqlstringout),'SQL Queries','sgreen');
 
 	// Print the downloadable sql separately so we can generate a download
 	print "<br />\n";

@@ -215,7 +215,7 @@ $wordings['deDE']['recipe_4'] = 'optimal';
 $wordings['deDE']['recipe_3'] = 'mittel';
 $wordings['deDE']['recipe_2'] = 'leicht';
 $wordings['deDE']['recipe_1'] = 'trivial';
-$wordings['deDE']['roster_config'] = 'Admin Panel';
+$wordings['deDE']['roster_config'] = 'User Control';
 $wordings['deDE']['roster_config_menu'] = 'Konfigurationsmenü';
 
 // Memberslist sort/filter box
@@ -566,7 +566,7 @@ $wordings['deDE']['pagebar_rosterconf'] = 'Konfiguriere Roster';
 $wordings['deDE']['pagebar_charpref'] = 'Character Preferenzen';
 $wordings['deDE']['pagebar_changepass'] = 'Passwort Änderung';
 $wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
-$wordings['deDE']['pagebar_update'] = 'Update';
+$wordings['deDE']['pagebar_update'] = 'Upload Profile';
 $wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
 
 $wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
@@ -670,13 +670,13 @@ $wordings['deDE']['admin']['menu_honor_page'] = "Ehre Link|Link zur Ehrenseite";
 $wordings['deDE']['admin']['menu_guildbank'] = "Gildenbank Link|Link zur Gildenbank";
 $wordings['deDE']['admin']['menu_keys_page'] = "Schlüssel Link|Link zu den Instanzschlüsseln";
 $wordings['deDE']['admin']['menu_tradeskills_page'] = "Berufe Link|Link zu den Berufen";
-$wordings['deDE']['admin']['menu_update_page'] = "Profil Updaten Link|Link zur Update-Seite";
 $wordings['deDE']['admin']['menu_quests_page'] = "Questgruppe Suchen Link|Link zur Questgruppen-Seite";
 $wordings['deDE']['admin']['menu_search_page'] = "Suche Link|Link zur Suchseite";
 
 // display_conf
 $wordings['deDE']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet für das Roster";
 $wordings['deDE']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript Dateiort";
+$wordings['deDE']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
 $wordings['deDE']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript Dateiort";
 $wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript Dateiort für den Fix für Overlib im Internet Explorer";
 $wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";

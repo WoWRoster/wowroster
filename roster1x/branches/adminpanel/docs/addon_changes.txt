@@ -8,10 +8,10 @@ These are the changes for the roster addon framework:
 - conf.php and localization.php are called from a function. All variables other
   $addon_conf and $wordings that need to be accessed should be accessed via
   $_GLOBALS.
-  
+
 - Configuration from database is automatically added. Addons are initialized in
   this order:
-  
+
   * Addon registration record
   * Other constants (locations of addon files and the addon base dir)
   * Database configuration for the selected default profile.
@@ -33,7 +33,7 @@ These are the changes for the roster addon framework:
 	    [index] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\index.php
 	    [cssFile] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\default.css
 	    [cssUrl] => /addons/recipe/default.css
-	    [local] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\localization.php
+	    [locale] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\localization.php
 	    [conf] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\conf.php
 	)
 
@@ -44,7 +44,7 @@ These are the changes for the roster addon framework:
 
 - You do not know the dbname at design time. Use the $addon['dbname'] variable
   for this at all times.
-  
+
 - On updates, the addon's trigger.php is only called once, after guild,
   character, and pvp updates have already ran. The addon is passed a $updateData
   array with all data uploaded in this update. This trigger file is called if
