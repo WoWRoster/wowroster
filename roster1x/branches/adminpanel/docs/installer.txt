@@ -80,6 +80,10 @@ BACKUP:
 Makes a temporary copy of a table and its contents that is put back in case of a rollback
 $table contains the table name to copy
 $data doesn't matter
+LEGACY:
+Makes a permanent copy of a table and its contents. Meant to upgrade pre-1.8 roster addons.
+$table contains the table name to copy to
+$data contains the full table name of the source.
 
 CREATE:
 Creates a table
