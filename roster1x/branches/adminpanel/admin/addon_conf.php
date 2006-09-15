@@ -68,7 +68,7 @@ $body.= $config->form_start.
 
 function profilebox()
 {
-	global $wowdb;
+	global $wowdb, $act_words;
 
 	$menu = '<form method="get" action="">'."\n";
 	$menu .= '<select name="profile">'."\n";
@@ -95,7 +95,7 @@ function profilebox()
 	$menu .= '</select>'."\n";
 	$menu .= '<input type="hidden" name="page" value="addon">';
 	$menu .= '<input type="hidden" name="addon" value="'.$_GET['addon'].'">';
-	$menu .= '<input type="submit" value="'.$act_words['go'].'">';
+	$menu .= '<input type="submit" value="'.$act_words['profilego'].'">';
 	$menu .= '</form>'."\n";
 
 	return $menu;

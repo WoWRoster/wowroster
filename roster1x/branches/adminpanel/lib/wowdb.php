@@ -428,7 +428,7 @@ class wowdb
 			$this->assignstr .= ',';
 
 		// 01/01/2000 23:00:00.000
-		$row_data = "'".$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
+		$row_data = "'".$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':'.$date['seconds']."'";
 		$this->assignstr .= " `$row_name` = $row_data";
 	}
 
@@ -1533,15 +1533,13 @@ class wowdb
 
 
 	/**
-	 * Removes guild members with update_time < guild['update_time']
+	 * Removes guild members with `active` = 0
 	 *
 	 * @param int $guild_id
-	 * @param array $date
 	 */
-	function remove_guild_members($guild_id, $date)
+	function remove_guild_members($guild_id)
 	{
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `update_time` <> '".
-			$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
+		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1654,6 +1652,57 @@ class wowdb
 	}
 
 	/**
+	 * Gets guild info from database
+	 * Returns info as an array
+	 *
+	 * @param string $realmName
+	 * @param string $guildName
+	 * @return array
+	 */
+	function get_guild_info($realmName,$guildName)
+	{
+		$guild_name_escape = $this->escape( $guildName );
+		$server_escape = $this->escape( $realmName );
+
+		$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
+		$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+
+		$retval = $this->fetch_array( $result );
+		$this->closeQuery($result);
+
+		return $retval;
+	}
+
+	/**
+	 * Gets guild info from database
+	 * Returns info as an array
+	 *
+	 * @param string $realmName
+	 * @param string $guildName
+	 * @return array
+	 */
+	function get_guild_ranks($guild_id)
+	{
+		$querystr = "SELECT * FROM `".ROSTER_GUILDRANKSTABLE."` WHERE `guild_id` = '$guild_id' ORDER BY `index` ASC;";
+		$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+
+		$retval='';
+		if( $this->num_rows($result) > 0 )
+		{
+			$retval[-1]['title'] = 'Roster Admin';
+			while( $row = $this->fetch_array($result) )
+			{
+				$retval[$row['index']]['title'] = $row['title'];
+				$retval[$row['index']]['control'] = $row['control'];
+			}
+			$retval[10]['title'] = 'Anonymous';
+		}
+		$this->closeQuery($result);
+
+		return $retval;
+	}
+
+	/**
 	 * Function to prepare the memberlog data
 	 *
 	 * @param array $data | Member info array
@@ -1695,7 +1744,7 @@ class wowdb
 	 */
 	function update_guild( $realmName, $guildName, $currentTime, $guild )
 	{
-		global $guild_info;
+		$guild_info = $this->get_guild_info($realmName,$guildName);
 
 		$this->reset_values();
 
@@ -1712,11 +1761,20 @@ class wowdb
 		if( !empty($currentTime) )
 			$this->add_time( 'update_time', $currentTime );
 
-		$this->add_value( 'guild_dateupdatedutc', $guild['DateUTC'] );
+		if( !empty($guild['DateUTC']) )
+		{
+			list($month,$day,$year,$hour,$minute,$second) = sscanf($guild['DateUTC'],"%d/%d/%d %d:%d:%d");
+
+			// take the current time and get the offset. Upload must occur same day that roster was obtained
+			$DateUTC = mktime($hour, $minute, $second, $month, $day, $year, -1);
+			$DateUTC = getDate($DateUTC);
+			$this->add_time( 'guild_dateupdatedutc', $DateUTC );
+		}
+
 		$this->add_value( 'GPversion', $guild['DBversion'] );
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
 
-		if ($guild_info)
+		if ( is_array($guild_info) )
 		{
 			$guildId = $guild_info['guild_id'];
 			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '$guildId'";
@@ -1729,15 +1787,32 @@ class wowdb
 
 		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
-		if( !$guild_info )
+		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `active` = '0' WHERE `guild_id` = '$guildId'";
+		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+
+		if( !is_array($guild_info) )
 		{
-			$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '".$this->escape($guildName)."' AND `server` = '".$this->escape($realmName)."'";
-			$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
-
-			$guild_info = $this->fetch_array( $result );
-			$this->closeQuery($result);
-
+			$guild_info = $this->get_guild_info($realmName,$guildName);
 			$output = $guild_info['guild_id'];
+		}
+
+		// Update guildranks list
+		if( is_array($guild['Ranks']['Index']) )
+		{
+			$querystr = "DELETE FROM `".ROSTER_GUILDRANKSTABLE."` WHERE `guild_id` = '".$guild_info['guild_id']."'";
+			$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+
+			foreach($guild['Ranks']['Index'] as $rank )
+			{
+				$this->reset_values();
+				$this->add_value( 'index', $rank['Index']-1 );
+				$this->add_value( 'title', $rank['Title'] );
+				$this->add_value( 'control', $rank['Control'] );
+				$this->add_value( 'guild_id', $guild_info['guild_id'] );
+
+				$querystr = "INSERT INTO `".ROSTER_GUILDRANKSTABLE."` SET ".$this->assignstr.";";
+				$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+			}
 		}
 
 		return $output;
@@ -1755,6 +1830,7 @@ class wowdb
 	function update_guild_member( $guildId, $name, $char, $currentTimestamp )
 	{
 		global $roster_login;
+
 		$name_escape = $this->escape( $name );
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
@@ -1788,6 +1864,7 @@ class wowdb
 		$this->add_value( 'officer_note', $char['OfficerNote']);
 		$this->add_value( 'zone', $char['Zone']);
 		$this->add_value( 'status', $char['Status']);
+		$this->add_value( 'active', '1');
 		$this->add_time( 'update_time', getDate($currentTimestamp));
 
 		if ($char['Online'])

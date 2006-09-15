@@ -167,11 +167,11 @@ class config
 						$page .= '</div>'."\n";
 						$addpage = true;
 						break;
-						
+
 					case 'function':
 						$this->nonformpages .= $type[1]();
 						$addpage = false;
-						
+
 					default:
 						$addpage = false;
 						break;

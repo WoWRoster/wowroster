@@ -25,6 +25,7 @@ define('ROSTER_VERSION','1.8.0');
 
 // Table Names
 define('ROSTER_GUILDTABLE',$db_prefix.'guild');
+define('ROSTER_GUILDRANKSTABLE',$db_prefix.'guildranks');
 define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
 define('ROSTER_ADDONTABLE',$db_prefix.'addon');
 define('ROSTER_ADDONMENUTABLE',$db_prefix.'addon_menu');

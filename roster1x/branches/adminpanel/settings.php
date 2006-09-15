@@ -178,16 +178,8 @@ $wowdb->free_result($results);
 /**
  * Get guild info
  */
-$sql = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '".$wowdb->escape($roster_conf['guild_name'])."' AND `server` = '".$wowdb->escape($roster_conf['server_name'])."'";
-$result = $wowdb->query($sql);
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 
-if ( !$results )
-{
-	die('Cannot get guild info from database');
-}
-
-$guild_info = $wowdb->fetch_assoc($result);
-$wowdb->free_result($result);
 
 /**
  * Set SQL debug value

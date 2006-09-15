@@ -203,7 +203,7 @@ class RosterLogin
 		{
 			$perms[$key] = ($this->level <= $level);
 		}
-		
+
 		return $perms;
 	}
 
@@ -277,26 +277,26 @@ class RosterLogin
 	function createAccount($user, $pass1, $pass2)
 	{
 		global $wowdb;
-		
+
 		if ( $user == 'Roster_Admin')
 		{
 			$this->message = 'Roster_Admin is a protected username';
 			return false;
 		}
-		
+
 		$query = 'SELECT COUNT(`name`) FROM `'.$wowdb->table('account').'` WHERE `name` = "'.$user.'"';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$this->message = 'There was a database error while trying to create the account. MySQL said: <br />'.$wowdb->error();
 			return false;
 		}
-		
+
 		$row = $wowdb->fetch_row($result);
 		$wowdb->free_result($result);
-		
+
 		if ( $row[0] > 0 )
 		{
 			$this->message = 'An account with that username already exists';
@@ -333,13 +333,13 @@ class RosterLogin
 		}
 
 		$this->message = $user.', your password is <span style="font-size:11px;color:red;">'.$pass1.'</span>.<br /> Do not forget this password, it is stored encrypted only.';
-		
+
 		if ($this->user == '')
 		{
 			$supplied = array('user' => $user, 'hash' => md5($pass1));
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
-			
-			$this->account = $wowdb->insert_id();			
+
+			$this->account = $wowdb->insert_id();
 			$this->user = $user;
 			$this->level = 10;
 		}
@@ -429,13 +429,13 @@ class RosterLogin
 		}
 
 		$this->message = 'Password changed. The new password for '.$user.' is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.';
-		
+
 		if ($this->user == $user)
 		{
 			$supplied = array('user' => $user, 'hash' => md5($newpass1));
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
 		}
-		
+
 		return true;
 	}
 
@@ -450,7 +450,32 @@ class RosterLogin
 	 */
 	function accessConfig($values)
 	{
-		return '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
+		//return '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
+		global $wowdb, $guild_info;
+
+		$ranksarray = $wowdb->get_guild_ranks($guild_info['guild_id']);
+
+		//print_r($ranksarray);die();
+		if( is_array($ranksarray) )
+		{
+			$input_field = '<select name="config_'.$values['name'].'">'."\n";
+			$select_one = 1;
+			foreach( $ranksarray as $key => $valarray )
+			{
+				if( $key == $values['value'] && $select_one )
+				{
+					$input_field .= '  <option value="'.$key.'" selected="selected">&gt;['.$key.'] '.$valarray['title'].'&lt;</option>'."\n";
+					$select_one = 0;
+				}
+				else
+				{
+					$input_field .= '  <option value="'.$key.'">['.$key.'] '.$valarray['title'].'</option>'."\n";
+				}
+			}
+			$input_field .= '</select>';
+		}
+
+		return $input_field;
 	}
 
 	/**
@@ -475,7 +500,7 @@ class RosterLogin
 		}
 
 		$row = $wowdb->fetch_assoc($result);
-		
+
 		if (!$result)
 		{
 			$this->message = 'There is no account for username '.$name;
@@ -509,7 +534,7 @@ class RosterLogin
 		}
 
 		$row = $wowdb->fetch_assoc($result);
-		
+
 		if (!$result)
 		{
 			$this->message = 'There is no account with ID '.$account_id;
@@ -520,7 +545,7 @@ class RosterLogin
 
 		return $row['name'];
 	}
-	
+
 	/**
 	 * Called on character update for identity verification.
 	 *
@@ -541,29 +566,29 @@ class RosterLogin
 		{
 			return true;
 		}
-				
+
 		$query = 'SELECT `account_id` FROM `'.$wowdb->table('members').'` WHERE `name` = "'.$char_name.'"';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$this->message = 'There was a database error while checking the owner of '.$char_name.'. MySQL said: <br />'.$wowdb->error();
 			return false;
 		}
-		
+
 		$row = $wowdb->fetch_assoc($result);
-		
+
 		$wowdb->free_result($result);
-		
+
 		if ($row['account_id'] == 0)
 		{
 			$query = 'UPDATE `'.$wowdb->table('members').'` SET `account_id` = '.$this->account.' WHERE `name` = "'.$char_name.'"';
-			
+
 			$result = $wowdb->query($query);
-			
+
 			return true;
-		}		
+		}
 		elseif ($row['account_id'] == $this->account)
 		{
 			return true;
@@ -574,7 +599,7 @@ class RosterLogin
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Called on guild list update after the updater has done its work. Any
 	 * automated access modifications based on guild data can be done here.
@@ -585,7 +610,7 @@ class RosterLogin
 	{
 		global $wowdb;
 		$this->message = '';
-		
+
 		// Set account level to 10 for all accounts who don't have any chars registered.
 		$query = 'UPDATE `'.$wowdb->table('account').'` '.
 			'SET `level` = 10 '.
@@ -593,9 +618,9 @@ class RosterLogin
 				'SELECT DISTINCT `account_id` '.
 				'FROM `'.$wowdb->table('members').
 			'`)';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$this->message = '<li>Failed setting access level for accounts without characters'."\n";
@@ -604,7 +629,7 @@ class RosterLogin
 		{
 			$this->message = '<li>Turned '.$wowdb->affected_rows().' accounts without characters into guest accounts'."\n";
 		}
-		
+
 		// Update all other accounts by pulling the correct level from the members table.
 		$query = 'UPDATE `'.$wowdb->table('account').'` AS account '.
 			'INNER JOIN ('.
@@ -613,9 +638,9 @@ class RosterLogin
 				') AS `members` '.
 				'ON `account`.`account_id` = `members`.`account_id` '.
 			'SET `account`.`level` = `members`.`newlevel`';
-		
+
 		$result = $wowdb->query($query);
-		
+
 		if (!$result)
 		{
 			$this->message .= '<li>Failed at updating access levels for all accounts with members'."\n";
@@ -625,14 +650,14 @@ class RosterLogin
 			$this->message .= '<li>Updated access levels for '.$wowdb->affected_rows().' accounts with characters.'."\n";
 		}
 	}
-	
+
 	/**
 	 * Add default credentials to the wowdb query (on member add)
 	 */
 	function addInitialCredentials()
 	{
 		global $wowdb;
-		
+
 		$wowdb->add_value('talents',$roster_conf['show_talents']);
 		$wowdb->add_value('spellbook',$roster_conf['show_spellbook']);
 		$wowdb->add_value('mail',$roster_conf['show_mail']);

@@ -25,7 +25,7 @@ function rosterLangValue( $values )
 {
 	global $roster_conf;
 
-	$input_field = '<select name="config_roster_lang">'."\n";
+	$input_field = '<select name="config_'.$values['name'].'">'."\n";
 	$select_one = 1;
 	foreach( $roster_conf['multilanguages'] as $value )
 	{
@@ -43,4 +43,5 @@ function rosterLangValue( $values )
 
 	return $input_field;
 }
+
 ?>

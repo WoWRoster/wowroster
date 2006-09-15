@@ -42,7 +42,7 @@ class update
 		{
 			$this->files[] = 'PvPLog';
 		}
-		
+
 		if ( !$roster_conf['user_upgrade_triggers'] )
 		{
 			return '';
@@ -228,7 +228,7 @@ class update
 		global $wowdb, $roster_conf, $wordings, $roster_login, $guild_info;
 
 		$wowdb->resetMessages();
-		
+
 		$output = 'Updating character profiles'.'<ul>';
 
 		foreach( array_keys( $this->uploadData['CharacterProfiler']['myProfile'] ) as $realm_name )
@@ -250,7 +250,7 @@ class update
 								if ( $roster_login->charUpdate($char_name) )
 								{
 									$output .= "<li><strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
-	
+
 									$wowdb->update_char( $guild_info['guild_id'], $char_name, $char );
 									$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
 									$wowdb->resetMessages();
@@ -314,11 +314,10 @@ class update
 							if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 							{
 								// make hour between 0 and 23 and minute between 0 and 60
-								$guildHour= intval($guild['Hour']);
-								$guildMinute= intval($guild['Minute']);
+								list($month,$day,$year,$hour,$minute,$second) = sscanf($guild['DateExtracted'],"%d/%d/%d %d:%d:%d");
 
 								// take the current time and get the offset. Upload must occur same day that roster was obtained
-								$currentTimestamp = mktime($guildHour,$guildMinute,0);
+								$currentTimestamp = mktime($hour, $minute, $second, $month, $day, $year, -1);
 								$currentTime = getDate($currentTimestamp);
 
 								// Update the guild
@@ -334,10 +333,9 @@ class update
 									$guild_output .= $wowdb->getMessages();
 									$wowdb->resetMessages();
 								}
-								// Remove the members who were not in this list
-								$wowdb->remove_guild_members($guildId, $currentTime);
-								$wowdb->remove_guild_members_id($guildId);
-								
+								// Remove the members who were not in this update
+								$wowdb->remove_guild_members($guildId);
+
 								// Update account info
 								$roster_login->updateAccounts();
 

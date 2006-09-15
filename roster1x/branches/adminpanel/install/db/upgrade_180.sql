@@ -132,7 +132,8 @@ ALTER TABLE `renprefix_members`
 	CHANGE `bg` `bg` tinytext,
 	CHANGE `pvp` `pvp` tinytext,
 	CHANGE `duels` `duels` tinytext,
-	CHANGE `item_bonuses` `item_bonuses` tinytext;
+	CHANGE `item_bonuses` `item_bonuses` tinytext,
+	ADD `active` tinyint(1) NOT NULL DEFAULT '0' AFTER `update_time` ;
 
 UPDATE `renprefix_members` SET
 	`talents`	= (`talents`-1)*5,
@@ -148,6 +149,12 @@ UPDATE `renprefix_members` SET
 	`duels`		= (`duels`-1)*5,
 	`item_bonuses`	= (`item_bonuses`-1)*5;
 
+
+# --------------------------------------------------------
+### Update guild table
+
+ALTER TABLE `renprefix_guild`
+  CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` datetime NULL;
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
