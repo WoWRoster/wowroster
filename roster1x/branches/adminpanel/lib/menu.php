@@ -26,8 +26,7 @@ define('ROSTER_MENU_INC',true);
 if( !empty($guild_info) )
 {
 	$guildId = $guild_info['guild_id'];
-	$updateTimeUTC = $guild_info['guild_dateupdatedutc'];
-	$updateTime = DateDataUpdated($updateTimeUTC);
+	$updateTime = $guild_info['date_format'];
 
 	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
 		`level` DIV 10 AS levelgroup,

@@ -176,12 +176,6 @@ while( $row = $wowdb->fetch_assoc($results) )
 $wowdb->free_result($results);
 
 /**
- * Get guild info
- */
-$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-
-
-/**
  * Set SQL debug value
  */
 $wowdb->setSQLDebug($roster_conf['sqldebug']);
@@ -231,6 +225,11 @@ foreach($localeFiles as $file)
  */
 
 $act_words = &$wordings[$roster_conf['roster_lang']];
+
+/**
+ * Get guild info
+ */
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 
 /**
  * If the version doesnt match the one in constants, redirect to upgrader

@@ -1661,10 +1661,11 @@ class wowdb
 	 */
 	function get_guild_info($realmName,$guildName)
 	{
+		global $roster_conf, $timeformat;
 		$guild_name_escape = $this->escape( $guildName );
 		$server_escape = $this->escape( $realmName );
 
-		$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
+		$querystr = "SELECT *, DATE_FORMAT( DATE_ADD(`guild_dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'date_format', UNIX_TIMESTAMP(DATE_ADD(`guild_dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR )) AS `date_stamp` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		$retval = $this->fetch_array( $result );
