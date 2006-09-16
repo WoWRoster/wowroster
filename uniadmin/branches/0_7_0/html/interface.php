@@ -24,7 +24,7 @@ switch( $op )
 		OutPutSettings();
 		AddStat();
 		break;
-		
+
 	case 'GETUAVER':
 		echo $config['UAVer'];
 		AddStat();
@@ -116,25 +116,26 @@ function OutPutXmL()
 	{
 		if ($row['enabled']=='1')
 		{
+			$id = $row['id'];
 			$name = $row['name'];
 			$version = $row['version'];
 			$required = $row['required'];
 			$toc = $row['toc'];
 
-			$xml .= "\n	<addon name=\"$name\" version=\"$version\" required=\"$required\" toc=\"$toc\">";
+			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" toc=\"$toc\">";
 
-			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($name)."'";
+			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_id` = '$id'";
 			$result2 = mysql_query($sql);
 			while ($row2 = mysql_fetch_assoc($result2))
 			{
 				$filename = $row2['filename'];
 				$md5 = $row2['md5sum'];
-				if ($filename != 'index.htm' && $filename != 'index.html')
+				if ($filename != 'index.htm' && $filename != 'index.html' && $filename != '.svn')
 				{
-					$xml .= "\n		<file name=\"$filename\" md5sum=\"$md5\" />";
+					$xml .= "\n\t\t<file name=\"$filename\" md5sum=\"$md5\" />";
 				}
 			}
-			$xml .= "\n	</addon>";
+			$xml .= "\n\t</addon>";
 		}
 	}
 	$xml .= "\n</addons>";

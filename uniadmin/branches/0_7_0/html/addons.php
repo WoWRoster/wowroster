@@ -40,7 +40,12 @@ function Main()
 </form>
     	";
 
-	$AddonPanel = "
+	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
+	$result = mysql_query($sql,$dblink);
+
+	if( mysql_num_rows($result) )
+	{
+		$AddonPanel = "
 		<table class='uuTABLE' align='center'>
 			<tr>
 				<th class='tableHeader' colspan='10'>Addon Management</th>
@@ -57,57 +62,70 @@ function Main()
 				<td class='dataHeader'>Delete</td>
 			</tr>";
 
-	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
-	$result = mysql_query($sql,$dblink);
-
-	$i=0;
-	while ($row = mysql_fetch_assoc($result))
-	{
-		$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($row['name'])."'";
-		$result2 = mysql_query($sql,$dblink);
-		$numFiles = mysql_num_rows($result2);
-		$AddonName = $row['name'];
-		$homepage = $row['homepage'];
-		$version = $row['version'];
-		$time = date($config['date_format'],$row['time_uploaded']);
-		$url = $row['dl_url'];
-		$addonID = $row['id'];
-
-		if ($row['enabled'] == '1')
+		$i=0;
+		while ($row = mysql_fetch_assoc($result))
 		{
-			$enabled = "<form name='ua_disableaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='DISABLEADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:green;' type='submit' value='Yes'></form>";
-		}
-		else
-		{
-			$enabled = "<form name='ua_enableaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='ENABLEADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:red;' type='submit' value='No'></form>";
-		}
+			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($row['name'])."'";
+			$result2 = mysql_query($sql,$dblink);
+			$numFiles = mysql_num_rows($result2);
+			$AddonName = $row['name'];
+			$homepage = $row['homepage'];
+			$version = $row['version'];
+			$time = date($config['date_format'],$row['time_uploaded']);
+			$url = $row['dl_url'];
+			$addonID = $row['id'];
 
-		if ($row['homepage'] == '')
-		{
-			$homepage = './';
-		}
+			if ($row['enabled'] == '1')
+			{
+				$enabled = "<form name='ua_disableaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+	<input type='hidden' name='OPERATION' value='DISABLEADDON' />
+	<input type='hidden' name='ADDONID' value='$addonID' />
+	<input class='submit' style='color:green;' type='submit' value='Yes'>
+</form>";
+			}
+			else
+			{
+				$enabled = "<form name='ua_enableaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+	<input type='hidden' name='OPERATION' value='ENABLEADDON' />
+	<input type='hidden' name='ADDONID' value='$addonID' />
+	<input class='submit' style='color:red;' type='submit' value='No'>
+</form>";
+			}
 
-		if ($row['required'] == 1)
-		{
-			$required = "<form name='ua_optionaladdon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='OPTADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:red;' type='submit' value='Yes'></form>";
-		}
-		else
-		{
-			$required = "<form name='ua_requireaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='REQADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:green;' type='submit' value='No'></form>";
-		}
+			if ($row['homepage'] == '')
+			{
+				$homepage = './';
+			}
 
-		$toc = $row['toc'];
+			if ($row['required'] == 1)
+			{
+				$required = "<form name='ua_optionaladdon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+	<input type='hidden' name='OPERATION' value='OPTADDON' />
+	<input type='hidden' name='ADDONID' value='$addonID' />
+	<input class='submit' style='color:red;' type='submit' value='Yes'>
+</form>";
+			}
+			else
+			{
+				$required = "<form name='ua_requireaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+	<input type='hidden' name='OPERATION' value='REQADDON' />
+	<input type='hidden' name='ADDONID' value='$addonID' />
+	<input class='submit' style='color:green;' type='submit' value='No'>
+</form>";
+			}
 
-		if($i % 2)
-		{
-			$tdClass = 'data2';
-		}
-		else
-		{
-			$tdClass = 'data1';
-		}
+			$toc = $row['toc'];
 
-		$AddonPanel .="
+			if($i % 2)
+			{
+				$tdClass = 'data2';
+			}
+			else
+			{
+				$tdClass = 'data1';
+			}
+
+			$AddonPanel .="
 		<tr>
 			<td class='$tdClass'><a href='$homepage' target='_blank'>$AddonName</a></td>
 			<td class='$tdClass'>$toc</td>
@@ -117,10 +135,26 @@ function Main()
 			<td class='$tdClass'>$enabled</td>
 			<td class='$tdClass'>$numFiles</td>
 			<td class='$tdClass'><a href='$url'>Check</a></td>
-			<td class='$tdClass'><form name='ua_deleteaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='OPERATION' value='DELADDON' /><input type='hidden' name='ADDONID' value='$addonID' /><input class='submit' style='color:red;' type='submit' value='Delete!'></form></td>
+			<td class='$tdClass'><form name='ua_deleteaddon_$addonID' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
+				<input type='hidden' name='OPERATION' value='DELADDON' />
+				<input type='hidden' name='ADDONID' value='$addonID' />
+				<input class='submit' style='color:red;' type='submit' value='Delete!'>
+				</form></td>
 		</tr>
 		";
-		$i++;
+			$i++;
+		}
+	}
+	else
+	{
+		$AddonPanel = "
+		<table class='uuTABLE' align='center'>
+			<tr>
+				<th class='tableHeader'>Addon Management</th>
+			</tr>
+			<tr>
+				<th class='dataHeader'>No Addons Uploaded</th>
+			</tr>";
 	}
 	$AddonPanel .= '</table>';
 
@@ -128,9 +162,9 @@ function Main()
 
 
 	EchoPage("
-			$AddonPanel
-			<br />
-			$addonInputForm",'Addons');
+		$AddonPanel
+		<br />
+		$addonInputForm",'Addons');
 }
 
 function DisableAddon()
@@ -252,7 +286,7 @@ function ls($dir, $array)
 	$handle = opendir($dir);
 	for(;(false !== ($readdir = readdir($handle)));)
 	{
-		if($readdir != '.' && $readdir != '..' && $readdir != 'index.htm' && $readdir != 'index.html')
+		if($readdir != '.' && $readdir != '..' && $readdir != 'index.htm' && $readdir != 'index.html' && $readdir != '.svn')
 		{
 			$path = $dir.$sep.$readdir;
 			if(is_dir($path))
@@ -269,115 +303,152 @@ function ls($dir, $array)
 
 function processUploadedAddon()
 {
-	$sep = DIRECTORY_SEPARATOR;
 	global $dblink, $config;
 
+	$sep = DIRECTORY_SEPARATOR;
+
 	$tempFilename = $_FILES['file']['tmp_name'];
-	$url = $config['URL'];
-	$fileName = str_replace(' ','_',$_FILES['file']['name']);
-	$addonFolder = UA_BASEDIR.$config['addon_folder'];
-	$tempFolder = UA_BASEDIR.$config['temp_analyze_folder'];
-	$version = $_POST['version'];
-	$addonName = substr($fileName,0,count($fileName) -5);
-	$homepage = $_POST['homepage'];
-	if ($_POST['required'] == 'on')
-		$required = 1;
-	else
-		$required = 0;
 
-	if ($homepage == '')
+	if( !empty($tempFilename) )
 	{
+		$url = $config['URL'];
+		$fileName = str_replace(' ','_',$_FILES['file']['name']);
+		$addonFolder = UA_BASEDIR.$config['addon_folder'];
+		$tempFolder = UA_BASEDIR.$config['temp_analyze_folder'];
+		$version = $_POST['version'];
+		$addonName = substr($fileName,0,count($fileName) -5);
+		$homepage = $_POST['homepage'];
+		if (isset($_POST['required']) && $_POST['required'] == 'on')
+			$required = 1;
+		else
+			$required = 0;
+
+		// See if AddOn exists in the database and do stuff to it
 		$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
 		$result = mysql_query($sql,$dblink);
 		MySqlCheck($dblink,$sql);
-		$row = mysql_fetch_assoc($result);
-		$homepage = $row['homepage'];
-	}
-	if ($version == '')
-	{
-		$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
-		$result = mysql_query($sql,$dblink);
-		MySqlCheck($dblink,$sql);
-		$row = mysql_fetch_assoc($result);
-		$version = $row['version'];
-	}
 
-
-	$downloadLocation = $url.$config['addon_folder'].'/'.$fileName;
-
-	$sql = "DELETE FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($addonName)."';";
-	mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$sql = "DELETE FROM `".$config['db_tables_files']."` WHERE `addon_name` LIKE '".addslashes($addonName)."';";
-	mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-
-
-
-	@unlink($addonFolder.$sep.$fileName);//delete if exists
-	move_uploaded_file($tempFilename,$addonFolder.$sep.$fileName);
-	chmod($addonFolder.$sep.$fileName,0777);
-	if ($config['ziplibsupport'])
-	{
-		unzip($addonFolder.$sep.$fileName,$tempFolder.$sep);
-	}
-	else
-	{
-		unzipUsingPCLZIP($addonFolder.$sep.$fileName,$tempFolder.$sep);
-	}
-	$files = ls($tempFolder,array());
-
-
-	$toc = '00000';
-	foreach ($files as $file)
-	{
-		if (getFileExtention($file) == 'toc')
+		if( mysql_num_rows($result) > 0)
 		{
-			$toc = getToc($file);
+			$row = mysql_fetch_assoc($result);
 
-			$k = explode($sep,$file);
-			$tocFileName = $k[count($k) - 1];
-			$trueAddonName = substr($tocFileName,0,count($tocFileName) -5);
-		}
-	}
+			if ($homepage == '')
+			{
+				$homepage = $row['homepage'];
+			}
+			if ($version == '')
+			{
+				$version = $row['version'];
+			}
 
-	foreach ($files as $file)
-	{
-		$md5 = md5_file($file);
-		$k = explode($sep,$file);
-		$pos_t = strpos($file,'addon_temp');
-		$fileName = substr($file,$pos_t + 10);
-
-
-		if ($fileName != 'index.htm' && $fileName != 'index.html')
-		{
-			$sql = "INSERT INTO `".$config['db_tables_files']."` ( `addon_name` , `filename` , `md5sum` )
-				VALUES ( '".addslashes($addonName)."', '".addslashes($fileName)."', '".addslashes($md5)."' );";
+			// Remove from database
+			$sql = "DELETE FROM `".$config['db_tables_addons']."` WHERE `name` LIKE '".addslashes($row['name'])."';";
 			mysql_query($sql,$dblink);
 			MySqlCheck($dblink,$sql);
-			unlink($file);//we have obtained the md5 and inserted the row into the database, now delete the temp file
+
+			$sql = "DELETE FROM `".$config['db_tables_files']."` WHERE `addon_id` = '".addslashes($row['id'])."';";
+			mysql_query($sql,$dblink);
+			MySqlCheck($dblink,$sql);
 		}
-	}
-	//now delete the temp folders
-	foreach ($files as $file)
-	{
-		$dir = explode($sep,$file);
-		for($i=0;$i < count($dir);$i++)
+
+		// Set Download URL
+		$downloadLocation = $url.$config['addon_folder'].'/'.$fileName;
+
+
+		// Delete Addon if it exists
+		@unlink($addonFolder.$sep.$fileName);
+
+		// Try to move to the addon_temp directory
+		$try_move = move_uploaded_file($tempFilename,$addonFolder.$sep.$fileName);
+		if( !$try_move )
 		{
-			array_pop($dir);
-			if ($dir[count($dir) - 1] == $config['temp_analyze_folder'])
-				break;
-			if (is_dir(implode($sep,$dir)))
-				@rmdir(implode($sep,$dir));
+			debug('['.$tempFilename.'] could not be moved to ['.$addonFolder.$sep.$fileName.']<br />Check File Permissions');
+			return;
+		}
+
+		// Try to set write access on the uploaded file
+		$try_chmod = @chmod($addonFolder.$sep.$fileName,0777);
+		if( !$try_chmod )
+		{
+			debug('['.$addonFolder.$sep.$fileName.'] could not be set to write(777)<br />Check File Permissions');
+			return;
+		}
+
+		// Unzip the file
+		if ($config['ziplibsupport'])
+		{
+			unzip($addonFolder.$sep.$fileName,$tempFolder.$sep);
+		}
+		else
+		{
+			unzipUsingPCLZIP($addonFolder.$sep.$fileName,$tempFolder.$sep);
+		}
+		$files = ls($tempFolder,array());
+
+
+		// Get the TOC of the addon
+		$toc = '00000';
+		foreach ($files as $file)
+		{
+			if (getFileExtention($file) == 'toc')
+			{
+				$toc = getToc($file);
+
+				$k = explode($sep,$file);
+				$tocFileName = $k[count($k) - 1];
+				$trueAddonName = substr($tocFileName,0,count($tocFileName) -5);
+			}
+		}
+
+
+		// Insert Main Addon data
+		$sql = "INSERT INTO `".$config['db_tables_addons']."` ( `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )
+			VALUES ( '".time()."', '".addslashes($version)."', '1', '".addslashes($addonName)."', '".addslashes($downloadLocation)."', '".addslashes($homepage)."', $toc, $required);";
+		mysql_query($sql,$dblink);
+		MySqlCheck($dblink,$sql);
+
+		// Get the insert id of the addon just inserted
+		$addon_id = mysql_insert_id($dblink);
+		MySqlCheck($dblink,$sql);
+
+		// Insert Addon Files' Data
+		foreach ($files as $file)
+		{
+			$md5 = md5_file($file);
+			$k = explode($sep,$file);
+			$pos_t = strpos($file,'addon_temp');
+			$fileName = substr($file,$pos_t + 10);
+
+
+			if ($fileName != 'index.htm' && $fileName != 'index.html' && $fileName != '.svn')
+			{
+				$sql = "INSERT INTO `".$config['db_tables_files']."` ( `addon_id` , `addon_name` , `filename` , `md5sum` )
+					VALUES ( '".$addon_id."', '".addslashes($addonName)."', '".addslashes($fileName)."', '".addslashes($md5)."' );";
+				mysql_query($sql,$dblink);
+				MySqlCheck($dblink,$sql);
+				// We have obtained the md5 and inserted the row into the database, now delete the temp file
+				unlink($file);
+			}
+		}
+
+		// Now delete the temp folders
+		foreach ($files as $file)
+		{
+			$dir = explode($sep,$file);
+			for($i=0;$i < count($dir);$i++)
+			{
+				array_pop($dir);
+				if ($dir[count($dir) - 1] == $config['temp_analyze_folder'])
+					break;
+				if (is_dir(implode($sep,$dir)))
+					@rmdir(implode($sep,$dir));
+			}
 		}
 	}
-
-
-	$sql = "INSERT INTO `".$config['db_tables_addons']."` ( `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )
-		VALUES ( '".time()."', '".addslashes($version)."', '1', '".addslashes($addonName)."', '".addslashes($downloadLocation)."', '".addslashes($homepage)."', $toc, $required);";
-	mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-
+	else // Nothing was uploaded
+	{
+		message('No AddOn Uploaded');
+	}
 }
 
 function getToc($file)
@@ -393,7 +464,8 @@ function getToc($file)
 	}
 }
 
-function getFileExtention($filename){
+function getFileExtention($filename)
+{
 	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }
 

@@ -36,18 +36,23 @@ else
 
 function Main()
 {
-	global $dblink, $config, $_POST;
+	global $dblink, $config;
 
 	//$sql = "SELECT * FROM `".$config['db_tables_settings']."` ORDER BY `enabled` DESC";
-	$sql = "SELECT * FROM `".$config['db_tables_settings']."` ORDER BY `id` DESC";
+	$sql = "SELECT * FROM `".$config['db_tables_settings']."` ORDER BY `id` ASC;";
 	$result = mysql_query($sql,$dblink);
 	MySqlCheck($dblink,$sql);
 
 	$form = "
 <form name='ua_mainsettings' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-<table class='uuTABLE' width='90%' align='center'>
+<table class='uuTABLE' align='center'>
 	<tr>
 		<th colspan='4' class='tableHeader'>Main Settings</th>
+	</tr>";
+
+	$sectionheader = "
+	<tr>
+		<th colspan='4' class='dataHeader'>[%s]</th>
 	</tr>
 	<tr>
 		<td class='dataHeader'>Setting Name</td>
@@ -56,11 +61,19 @@ function Main()
 		<td class='dataHeader'>Enabled</td>
 	</tr>";
 
+	$section='';
+
 	$i=0;
 	while ($row = mysql_fetch_assoc($result))
 	{
-		$description = stringChop($row['description'],25,"...");
-		$setname = stringChop($row['set_name'],20,"...");
+		if( $row['section'] != $section )
+		{
+			$section = $row['section'];
+			$form .= sprintf($sectionheader,($section == '' ? 'unknown' : $section ));
+		}
+
+		$description = $row['description'];
+		$setname = $row['set_name'];
 
 		if($i % 2)
 		{

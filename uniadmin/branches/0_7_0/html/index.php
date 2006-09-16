@@ -1,9 +1,9 @@
 <?php
 
 // This picks up the view page so people with no login can look at the addons
-if( isset($_GET['p']) && $_GET['p'] == 'view' )
+if( isset($_GET['p']) && ($_GET['p'] == 'view' || $_GET['p'] == 'interface') )
 {
-	include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'view.php');
+	include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.$_GET['p'].'.php');
 	die();
 }
 

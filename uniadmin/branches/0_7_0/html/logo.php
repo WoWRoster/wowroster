@@ -218,7 +218,7 @@ function ProcessUploadedLogo()
 	$sep = DIRECTORY_SEPARATOR;
 
 	$logoFolder = UA_BASEDIR.$config['logo_folder'];
-	if (isset($_FILES['logo1']))
+	if( isset($_FILES['logo1']) && $_FILES['logo1']['name'] != '' )
 	{
 		$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `logo_num` = '1'";
 		$result = mysql_query($sql,$dblink);
@@ -228,7 +228,7 @@ function ProcessUploadedLogo()
 		$logoNum = "1";
 		$filefield = "logo1";
 	}
-	else
+	elseif( isset($_FILES['logo2']) && $_FILES['logo2']['name'] != '' )
 	{
 		$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `logo_num` = '2'";
 		$result = mysql_query($sql,$dblink);
@@ -237,6 +237,11 @@ function ProcessUploadedLogo()
 		$RowNum = $row['id'];
 		$logoNum = '2';
 		$filefield = 'logo2';
+	}
+	else
+	{
+		message('No Logo Uploaded');
+		return;
 	}
 
 	if (substr_count(strtoupper($_FILES[$filefield]['name']),'GIF') > 0)
@@ -255,7 +260,8 @@ function ProcessUploadedLogo()
 	}
 	else
 	{
-		echo 'The Uploaded file MUST be a GIF IMAGE!';
+		message('The Uploaded file MUST be a GIF IMAGE!');
+		return;
 	}
 }
 switch ($op)

@@ -38,7 +38,7 @@ $url = explode('/','http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
 array_pop($url);
 $url = implode('/',$url).'/';
 $config['URL'] =					$url;
-$config['IntLocation'] = 			$config['URL'].'interface.php';
+$config['IntLocation'] = 			$config['URL'].'index.php?p=interface';
 
 
 define( 'UA_INDEXPAGE','index.php');

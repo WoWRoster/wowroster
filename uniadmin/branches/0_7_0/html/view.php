@@ -9,7 +9,12 @@ function Main()
 {
 	global $dblink, $config, $url;
 
-	$AddonPanel = "
+	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
+	$result = mysql_query($sql,$dblink);
+
+	if( mysql_num_rows($result) )
+	{
+		$AddonPanel = "
 		<table class='uuTABLE' align='center'>
 			<tr>
 				<th class='tableHeader' colspan='10'>View Addons</th>
@@ -25,50 +30,48 @@ function Main()
 				<td class='dataHeader'>URL</td>
 			</tr>";
 
-	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
-	$result = mysql_query($sql,$dblink);
+		$i=0;
+		while ($row = mysql_fetch_assoc($result))
+		{
+			$addonID = $row['id'];
+			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_id` = '$addonID'";
+			$result2 = mysql_query($sql,$dblink);
+			$numFiles = mysql_num_rows($result2);
+			$AddonName = $row['name'];
+			$homepage = $row['homepage'];
+			$version = $row['version'];
+			$time = date($config['date_format'],$row['time_uploaded']);
+			$url = $row['dl_url'];
 
-	$i=0;
-	while ($row = mysql_fetch_assoc($result))
-	{
-		$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_name` = '".addslashes($row['name'])."'";
-		$result2 = mysql_query($sql,$dblink);
-		$numFiles = mysql_num_rows($result2);
-		$AddonName = $row['name'];
-		$homepage = $row['homepage'];
-		$version = $row['version'];
-		$time = date($config['date_format'],$row['time_uploaded']);
-		$url = $row['dl_url'];
-		$addonID = $row['id'];
-		if ($row['enabled'] == '1')
-		{
-			$enabled = "<span style='color:green;font-weight:bold;'>yes</span>";
-		}
-		else
-		{
-			$enabled="<span style='color:red;font-weight:bold;'>no</span>";
-		}
-		if ($row['homepage'] == '')
-		{
-			$homepage = './';
-		}
+			if ($row['enabled'] == '1')
+			{
+				$enabled = "<span style='color:green;font-weight:bold;'>yes</span>";
+			}
+			else
+			{
+				$enabled="<span style='color:red;font-weight:bold;'>no</span>";
+			}
+			if ($row['homepage'] == '')
+			{
+				$homepage = './';
+			}
 
-		if ($row['required'] == 1)
-			$required = '<span style="color:red;font-weight:bold;">yes</span>';
-		else
-			$required = '<span style="color:green;font-weight:bold;">no</span>';
-		$toc = $row['toc'];
+			if ($row['required'] == 1)
+				$required = '<span style="color:red;font-weight:bold;">yes</span>';
+			else
+				$required = '<span style="color:green;font-weight:bold;">no</span>';
+			$toc = $row['toc'];
 
-		if($i % 2)
-		{
-			$tdClass = 'data2';
-		}
-		else
-		{
-			$tdClass = 'data1';
-		}
+			if($i % 2)
+			{
+				$tdClass = 'data2';
+			}
+			else
+			{
+				$tdClass = 'data1';
+			}
 
-		$AddonPanel .="
+			$AddonPanel .="
 		<tr>
 			<td class='$tdClass'><a target='_blank' href=\"$homepage\">$AddonName</a></td>
 			<td class='$tdClass'>$toc</td>
@@ -81,6 +84,18 @@ function Main()
 		</tr>
 		";
 		$i++;
+		}
+	}
+	else
+	{
+		$AddonPanel = "
+		<table class='uuTABLE' align='center'>
+			<tr>
+				<th class='tableHeader'>View Addons</th>
+			</tr>
+			<tr>
+				<th class='dataHeader'>No Addons Uploaded</th>
+			</tr>";
 	}
 	$AddonPanel .= '</table>';
 
