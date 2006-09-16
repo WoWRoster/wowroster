@@ -49,6 +49,18 @@ CREATE TABLE `renprefix_guild` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Guild Ranks
+
+DROP TABLE IF EXISTS `renprefix_guildranks`;
+CREATE TABLE `renprefix_guildranks` (
+  `index` int(11) NOT NULL,
+  `title` varchar(96) NOT NULL,
+  `control` varchar(64) NOT NULL,
+  `guild_id` int(10) unsigned NOT NULL,
+  KEY `index` (`index`,`guild_id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Items
 
 DROP TABLE IF EXISTS `renprefix_items`;

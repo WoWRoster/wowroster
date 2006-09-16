@@ -21,6 +21,18 @@ CREATE TABLE `renprefix_addon` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Guild Ranks table
+
+DROP TABLE IF EXISTS `renprefix_guildranks`;
+CREATE TABLE `renprefix_guildranks` (
+  `index` int(11) NOT NULL,
+  `title` varchar(96) NOT NULL,
+  `control` varchar(64) NOT NULL,
+  `guild_id` int(10) unsigned NOT NULL,
+  KEY `index` (`index`,`guild_id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Addon Menu table
 
 DROP TABLE IF EXISTS `renprefix_addon_menu`;
