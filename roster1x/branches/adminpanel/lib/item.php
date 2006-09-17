@@ -32,7 +32,7 @@ class item
 
 	function out()
 	{
-		global $roster_conf, $wordings, $itemlink, $char;
+		global $roster_conf, $wordings, $itemlink, $char, $tooltips;
 
 		if( !is_object($char) )
 			$lang = $roster_conf['roster_lang'];
@@ -45,18 +45,26 @@ class item
 
 		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
 
-		$output = '<div class="item" '.$tooltip.'>';
+		// Item links
+		$num_of_tips = (count($tooltips)+1);
+		$linktip = '';
+		foreach( $itemlink[$lang] as $key => $ilink )
+		{
+			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
+		}
+		setTooltip($num_of_tips,$linktip);
+		setTooltip('itemlink',$wordings[$lang]['itemlink']);
+
+		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
+		$output = '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
+
 
 		if ($this->data['item_slot'] == 'Ammo')
-		{
-			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
-			'<img src="'.$path.'" class="iconsmall"'." alt=\"\" /></a>\n";
-		}
+			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
 		else
-		{
-			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
-			'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
-		}
+			$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+
 		if( ($this->data['item_quantity'] > 1) )
 		{
 			$output .= '<span class="quant_shadow">'.$this->data['item_quantity'].'</span>';

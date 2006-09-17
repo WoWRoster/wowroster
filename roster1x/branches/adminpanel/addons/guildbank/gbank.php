@@ -452,92 +452,37 @@ function CheckCategory2($tooltip, $itemid)
 // This function will process the item and build up the code.
 function processItem($real_itemid, $category)
 {
-	global $mule, $itemsarray, $itemlink, $roster_conf, $wordings, $addon_conf;
+	global $mule, $itemsarray, $itemlink, $roster_conf, $wordings, $addon_conf, $tooltips;
 
 	$itemrow = $itemsarray[$category][$real_itemid];
 
 	// Add the lead to the item-cell
-	$returnstr = '<td><span onmouseover="return overlib(\'';
+	$returnstr = '<td><span style="cursor:pointer;" onmouseover="return overlib(\'';
 
 	// Generate the TOOLTIP code
-	$first_line = 1;
-	$tooltip = '';
-	$itemrow['item_tooltip'] = stripslashes($itemrow['item_tooltip']);
-	foreach (explode("\n", $itemrow['item_tooltip']) as $line )
+	if( $itemrow['item_color'] == '' )
+		$itemrow['item_color'] = '9d9d9d';
+
+	if( strlen($itemrow['item_color']) > 6 )
+		$item_color = substr( $itemrow['item_color'], 2, 6 );
+	else
+		$item_color = $itemrow['item_color'];
+
+	$tooltip = colorTooltip($itemrow['item_tooltip'],$itemrow['item_color']);
+
+
+	// Item links
+	$num_of_tips = (count($tooltips)+1);
+	$linktip = '';
+	foreach( $itemlink[$roster_conf['roster_lang']] as $ikey => $ilink )
 	{
-		$color = '';
-
-		if( !empty($line) )
-		{
-			$line = preg_replace('|\\>|','&#8250;', $line );
-			$line = preg_replace('|\\<|','&#8249;', $line );
-			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
-
-			// Do this on the first line
-			// This is performed when $caption_color is set
-			if( $first_line )
-			{
-				if( $itemrow['item_color'] == '' )
-					$itemrow['item_color'] = '9d9d9d';
-
-				if( strlen($itemrow['item_color']) > 6 )
-					$color = substr( $itemrow['item_color'], 2, 6 );
-				else
-					$color = $itemrow['item_color'];
-
-				$item_color = $color;
-				$color .= ';font-size:12px;font-weight:bold';
-
-				$first_line = false;
-			}
-			else
-			{
-				if ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_use'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_requires'],$line) )
-					$color = 'ff0000';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_reinforced'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_equip'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_chance'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_enchant'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_soulbound'],$line) )
-					$color = '00bbff';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_set'],$line) )
-					$color = '00ff00';
-				elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$roster_conf['roster_lang']]['tooltip_set'].'|',$line) )
-					$color = '666666';
-				elseif ( ereg('^\\"',$line) )
-					$color = 'ffd517';
-			}
-
-			// Convert tabs to a formated table
-			if( strpos($line,"\t") )
-			{
-				$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
-				$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
-				$tooltip .= $line;
-			}
-			elseif( !empty($color) )
-			{
-				$tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
-			}
-			else
-			{
-				$tooltip .= "$line<br />";
-			}
-		}
-		else
-		{
-			$tooltip .= '<br />';
-		}
+		$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($itemrow['item_name'])).'" target="_blank">'.$ikey.'</a><br />';
 	}
+	setTooltip($num_of_tips,$linktip);
+	setTooltip('itemlink',$wordings[$roster_conf['roster_lang']]['itemlink']);
 
-	if (!isset($tooltip))
-		$tooltip = $tooltip_out;
+	$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
 
 	// Process a line for each Banker that holds 'quantity' of the item inside the Tooltip
 	foreach ($itemrow['banker'] as $itemBankerID => $NumItemsPerBanker)
@@ -548,7 +493,7 @@ function processItem($real_itemid, $category)
 	$tooltip = str_replace("'", "\'", $tooltip);
 	$tooltip = str_replace('"','&quot;', $tooltip);
 
-	$returnstr .= $tooltip.'\');" onmouseout="return nd();">'."\n";
+	$returnstr .= $tooltip.'\');"'.$linktip.' onmouseout="return nd();">'."\n";
 	// Free Up memory by clearing the tooltip string
 	$tooltip = '';
 
@@ -578,11 +523,11 @@ function processItem($real_itemid, $category)
 	// Construct the image with a URL and put the colored border around it
 	if ($addon_conf['guildbank']['color_border'])
 	{
-		$returnstr .=  '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($itemrow['item_name'])).'" target="_blank">'."\n".'<img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'" class="'.$item_quality.'"></a>';
+		$returnstr .=  '<img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'" class="'.$item_quality.'">';
 	}
 	else
 	{
-		$returnstr .=  '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($itemrow['item_name'])).'" target="_blank">'."\n".'<img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'"></a>';
+		$returnstr .=  '<img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'">';
 	}
 	// If we have more than 1 in total, display the total quantity number on the image
 	if (($itemrow['quantity'] > 1) && ($itemrow['item_parent'] != 'bags'))

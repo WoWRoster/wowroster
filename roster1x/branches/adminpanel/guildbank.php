@@ -45,6 +45,8 @@ if( empty($guild_info) )
 $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
+include_once(ROSTER_LIB.'item.php');
+
 
 $query1= "SELECT m.member_id, m.name as member_name, m.note as member_note, m.officer_note as member_officer_note, i.*, sum(i.item_quantity) as total_quantity
  FROM `".ROSTER_ITEMSTABLE."` as i, `".ROSTER_MEMBERSTABLE."` as m
@@ -147,93 +149,18 @@ while($row = $wowdb->fetch_array($result))
 	echo "</td>\n";
 
 	// Item texture and quantity column
-	echo '    <td class="membersRowCell"><div class="item">'."\n";
+	echo '    <td class="membersRowCell">';
 
-	echo '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($row['item_name'])).'" target="_blank">'."\n".
-		'      <img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'" class="icon"'.' alt="'.utf8_decode($row['item_name']).'" /></a>';
-	if( ($row['total_quantity'] > 1) && ($itemRow['item_parent'] != 'bags') )
-			echo '<span class="quant">'.$row['total_quantity'].'</span>';
+	$item = new item($row);
+	echo $item->out();
 
-
-	echo '</div></td>'."\n";
+	echo '</td>'."\n";
 
 	// Item description column
-	echo '    <td width="220" class="membersRowCell" style="white-space:normal;">';
-	$first_line = true;
-	$tooltip_out = '';
-	$row['item_tooltip'] = stripslashes($row['item_tooltip']);
-	foreach (explode("\n", $row['item_tooltip']) as $line )
-	{
-		$color = '';
+	echo '    <td width="220" class="membersRowRightCell" style="white-space:normal;">';
 
-		if( !empty($line) )
-		{
-			$line = preg_replace('|\\>|','&#8250;', $line );
-			$line = preg_replace('|\\<|','&#8249;', $line );
-			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+	echo colorTooltip($row['item_tooltip'],$row['item_color']);
 
-			// Do this on the first line
-			// This is performed when $caption_color is set
-			if( $first_line )
-			{
-				if( $row['item_color'] == '' )
-					$row['item_color'] = '9d9d9d';
-
-				if( strlen($row['item_color']) > 6 )
-					$color = substr( $row['item_color'], 2, 6 );
-				else
-					$color = $row['item_color'];
-
-				$color .= ';font-size:12px;font-weight:bold';
-				$first_line = false;
-			}
-			else
-			{
-				if ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_use'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_requires'],$line) )
-					$color = 'ff0000';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_reinforced'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_equip'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_chance'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_enchant'],$line) )
-					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_soulbound'],$line) )
-					$color = '00bbff';
-				elseif ( ereg('^'.$wordings[$roster_conf['roster_lang']]['tooltip_set'],$line) )
-					$color = '00ff00';
-				elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$roster_conf['roster_lang']]['tooltip_set'].'|',$line) )
-					$color = '666666';
-				elseif ( ereg('^\\"',$line) )
-					$color = 'ffd517';
-			}
-
-			// Convert tabs to a formated table
-			if( strpos($line,"\t") )
-			{
-				$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
-				$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
-				$tooltip_out .= $line;
-			}
-			elseif( !empty($color) )
-			{
-				$tooltip_out .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
-			}
-			else
-			{
-				$tooltip_out .= "$line<br />";
-			}
-		}
-		else
-		{
-			$tooltip_out .= '<br />';
-		}
-	}
-
-	echo $tooltip_out;
 	echo '</td>
   </tr>'."\n";
 }

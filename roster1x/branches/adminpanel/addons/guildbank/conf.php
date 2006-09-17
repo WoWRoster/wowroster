@@ -61,16 +61,4 @@ $bankitem[30]['msg'] = $wordings[$roster_conf['roster_lang']]['bankitem_30'];
 $bankitem[31]['msg'] = $wordings[$roster_conf['roster_lang']]['bankitem_31'];
 
 
-switch ($addon_conf['guildbank']['searchtype']) {
-	case 2:
-		// Allakhazam / blasc.de
-		$itemlink['enUS']='http://wow.allakhazam.com/search.html?q=';
-		$itemlink['deDE']='http://blasc.planet-multiplayer.de/?i=';
-		break;
-	default:
-		// Thottbot
-		$itemlink['enUS']='http://www.thottbot.com/index.cgi?i=';
-		$itemlink['deDE']='http://www.thottbot.com/de/index.cgi?i=';
-}
-
 ?>

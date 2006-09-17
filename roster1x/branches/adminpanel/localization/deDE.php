@@ -497,8 +497,12 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 		$questlinks[2]['deDE']['url3']='&amp;maxl=';
 
 // Items external link
-	//$itemlink['deDE'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-	$itemlink['deDE'] = 'http://www.buffed.de/?f=';
+// Add as manu item links as you need
+// Just make sure their names are unique
+	$wordings['deDE']['itemlink'] = 'Item Links';
+	$itemlink['deDE']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
+	$itemlink['deDE']['buffed.de'] = 'http://www.buffed.de/?f=';
+	$itemlink['deDE']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 
 // definitions for the questsearchpage
 	$wordings['deDE']['search1']="W&auml;hle eine Zone oder eine Quest um zu schauen, wer sie alles hat.<br />\n<small>Beachte: Stimmen die Questlevel bei verschiedenen Gildenleuten nicht &uuml;berein, handelt es sich um verschiedene Teile einer Questreihe.</small>";

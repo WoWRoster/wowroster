@@ -63,7 +63,6 @@ class guildbank
 		$installer->add_query('INSERT','config',"1000,'row_columns','18','text{5|5','cgb_conf'");
 		$installer->add_query('INSERT','config',"1010,'color_border','1','radio{on^1|off^0','cgb_conf'");
 		$installer->add_query('INSERT','config',"1020,'show_empty','1','radio{on^1|off^0','cgb_conf'");
-		$installer->add_query('INSERT','config',"1030,'searchtype','0','select{Thottbot^1|Allakhazam(enUS)^2|blasc.de(deDE)^2','cgb_conf'");
 
 		$installer->add_menu_button('guildbank','',1);
 		return true;

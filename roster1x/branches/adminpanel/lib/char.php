@@ -306,7 +306,7 @@ $returnstring .= '  <tr>
 
 	function show_mailbox()
 	{
-		global $wowdb, $wordings, $roster_conf, $phptimeformat, $itemlink;
+		global $wowdb, $wordings, $roster_conf, $phptimeformat, $itemlink, $tooltips;
 
 		$sqlquery = "SELECT * FROM `".ROSTER_MAILBOXTABLE."` ".
 			"WHERE `member_id` = '".$this->data['member_id']."' ".
@@ -431,10 +431,21 @@ $returnstring .= '  <tr>
 
 				$tooltip = makeOverlib($tooltip,$tooltip_h,'',2,$this->data['clientLocale']);
 
-				$content .= '<div class="item" '.$tooltip.'>';
+				// Item links
+				$num_of_tips = (count($tooltips)+1);
+				$linktip = '';
+				foreach( $itemlink[$this->data['clientLocale']] as $ikey => $ilink )
+				{
+					$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($row['item_name'])).'" target="_blank">'.$ikey.'</a><br />';
+				}
+				setTooltip($num_of_tips,$linktip);
+				setTooltip('itemlink',$wordings[$this->data['clientLocale']]['itemlink']);
 
-				$content .= '<a href="'.$itemlink[$this->data['clientLocale']].urlencode(utf8_decode($row['item_name'])).'" target="_blank">'."\n".
-					'<img src="'.$item_icon.'"'." alt=\"\" /></a>\n";
+				$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
+				$content .= '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
+
+				$content .= '<img src="'.$item_icon.'"'." alt=\"\" />\n";
 
 				if( ($row['item_quantity'] > 1) )
 					$content .= '<span class="quant">'.$row['item_quantity'].'</span>';

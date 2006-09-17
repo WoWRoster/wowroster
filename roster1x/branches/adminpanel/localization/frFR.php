@@ -482,7 +482,7 @@ $wordings['frFR']['lockpicking']='Crochetage';
 		// questlink_n_url=?		This is the URL used for the quest lookup
 
 		$questlinks[0]['frFR']['name']='Judgehype FR';
-		$questlinks[0]['frFR']['url1']='http://worldofwarcraft.judgehype.com/index.php?page=squete&Ckey=';
+		$questlinks[0]['frFR']['url1']='http://worldofwarcraft.judgehype.com/index.php?page=squete&amp;Ckey=';
 		$questlinks[0]['frFR']['url2']='&amp;obj=&amp;desc=&amp;minl=';
 		$questlinks[0]['frFR']['url3']='&amp;maxl=';
 
@@ -497,8 +497,12 @@ $wordings['frFR']['lockpicking']='Crochetage';
 		$questlinks[2]['frFR']['url3']='&amp;maxl=';
 
 // Items external link
-	$itemlink['frFR']='http://wowdbu.com/2-1.html?way=asc&order=name&showstats=&type_limit=0&lvlmin=&lvlmax=&name=';
-	//$itemlink['frFR']='http://wow.allakhazam.com/search.html?q=';
+// Add as manu item links as you need
+// Just make sure their names are unique
+	$wordings['frFR']['itemlink'] = 'Item Links';
+	$itemlink['frFR']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
+	$itemlink['frFR']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=sobj&amp;Ckey=';
+	$itemlink['frFR']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 
 // definitions for the questsearchpage
 	$wordings['frFR']['search1']='Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />\n<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu\'il s\'agisse d\'une autre partie d\'une quête multiple.</small>';
