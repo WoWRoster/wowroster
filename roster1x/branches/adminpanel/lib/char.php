@@ -710,11 +710,11 @@ $returnstring .= '  <tr>
 			}
 
 			// Start Warlock Pet Icon Mod
-			$imp = 'Interface\\Icons\\Spell_Shadow_SummonImp';
-			$void = 'Interface\\Icons\\Spell_Shadow_SummonVoidWalker';
-			$suc = 'Interface\\Icons\\Spell_Shadow_SummonSuccubus';
-			$fel = 'Interface\\Icons\\Spell_Shadow_SummonFelHunter';
-			$inferno = 'Interface\\Icons\\Spell_Shadow_SummonInfernal';
+			$imp = 'Interface/Icons/Spell_Shadow_SummonImp';
+			$void = 'Interface/Icons/Spell_Shadow_SummonVoidWalker';
+			$suc = 'Interface/Icons/Spell_Shadow_SummonSuccubus';
+			$fel = 'Interface/Icons/Spell_Shadow_SummonFelHunter';
+			$inferno = 'Interface/Icons/Spell_Shadow_SummonInfernal';
 
 			$iconStyle='cursor: pointer; position: absolute; left: '.$left.'px; top: '.$top.'px;';
 
@@ -1360,15 +1360,6 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
-	function getDateUpdateDUTC()
-	{
-		global $roster_conf, $phptimeformat;
-
-		list($month,$day,$year,$hour,$minute,$second) = sscanf($this->data['dateupdatedutc'],"%d/%d/%d %d:%d:%d");
-		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-		return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
-	}
-
 
 	function out()
 	{
@@ -1638,10 +1629,11 @@ echo '  </div><!-- end char-tabs -->
 
 function char_get_one_by_id( $member_id )
 {
-	global $wowdb;
+	global $wowdb, $timeformat, $roster_conf;
 
-	$query = "SELECT a.*, b.*, c.guild_name FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
-	"WHERE a.member_id = b.member_id AND a.member_id = '$member_id' AND a.guild_id = c.guild_id";
+	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
+		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
+		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`member_id` = '$member_id' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $wowdb->query( $query );
 	if( $wowdb->num_rows($result) > 0 )
 	{
@@ -1657,12 +1649,13 @@ function char_get_one_by_id( $member_id )
 
 function char_get_one( $name, $server )
 {
-	global $wowdb;
+	global $wowdb, $timeformat, $roster_conf;
 
 	$name = $wowdb->escape( $name );
 	$server = $wowdb->escape( $server );
-	$query = "SELECT a.*, b.*, c.guild_name FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
-	"WHERE a.member_id = b.member_id AND a.name = '$name' AND a.server = '$server' AND a.guild_id = c.guild_id";
+	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
+		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
+		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`name` = '$name' AND `a`.`server` = '$server' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $wowdb->query( $query );
 	if( $wowdb->num_rows($result) > 0 )
 	{

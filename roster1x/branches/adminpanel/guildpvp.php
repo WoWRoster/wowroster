@@ -16,18 +16,17 @@
  *
  ******************************/
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+require_once( 'settings.php' );
+
+$header_title = $wordings[$roster_conf['roster_lang']]['pvplist'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
 {
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
-// Get guild_id from guild info check above
-$guildId = $guild_info['guild_id'];
+
 
 include_once (ROSTER_LIB.'menu.php');
 
@@ -52,7 +51,7 @@ $choiceArray = array(
 	'guildinfo' => 'Guild Info',
 );
 
-$choiceForm = '<form action="indexpvp.php" method="post">
+$choiceForm = '<form action="guildpvp.php" method="post">
 '.$wordings[$roster_conf['roster_lang']]['pvplist'].':
 <select name="type" onchange="top.location.href=this.options[this.selectedIndex].value">
 ';
@@ -61,9 +60,9 @@ foreach( $choiceArray as $item_value => $item_print )
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
+			$choiceForm .= '<option value="guildpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
 		else
-			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'">'.$item_print;
+			$choiceForm .= '<option value="guildpvp.php?type='.$item_value.'">'.$item_print;
 	}
 }
 $choiceForm .= '</select>
@@ -93,17 +92,13 @@ function tableHeaderRow($th)
 
 $tableFooter = "</table>\n".border('sgray','end');
 
-function rankLeft($sc)
+function rankCell()
 {
-	print '    <td class="membersRow'.$sc.'">';
+	print '    <td class="membersRowCell">';
 }
-function rankMid($sc)
+function rankRight()
 {
-	print '    <td class="membersRow'.$sc.'">';
-}
-function rankRight($sc)
-{
-	print '    <td class="membersRowRight'.$sc.'">';
+	print '    <td class="membersRowRightCell">';
 }
 
 if ($type == 'guildwins')
@@ -115,13 +110,13 @@ if ($type == 'guildwins')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "  <tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
 		print('<a href="?type=guildinfo&amp;guild=');
 		print urlencode($row['guild']);
 		print('">');
@@ -132,7 +127,7 @@ if ($type == 'guildwins')
 
 		print($guildname);
 		print("</a></td>\n");
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
@@ -149,13 +144,13 @@ else if($type == 'guildlosses')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
 		print('<a href="?type=guildinfo&amp;guild=');
 		print urlencode($row['guild']);
 		print('">');
@@ -166,7 +161,7 @@ else if($type == 'guildlosses')
 
 		print($guildname);
 		print("</a></td>\n");
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
@@ -191,22 +186,22 @@ else if ($type == 'enemywins')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print('<tr class="membersRow'. (($striping_counter % 2) +1) ."\">\n");
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
 		print('<a href="?type=playerinfo&amp;player=');
 		print urlencode($row['name']);
 		print('">');
 		print($row['name']);
 		print("</a></td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['countg']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
@@ -214,13 +209,13 @@ else if ($type == 'enemywins')
 
 		print($guildname);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['race']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['class']);
 		print("</td>\n");
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['leveldiff']);
 		print("</td>\n</tr>\n");
 	}
@@ -245,22 +240,22 @@ else if ($type == 'enemylosses')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
 		print('<a href="?type=playerinfo&amp;player=');
 		print urlencode($row['name']);
 		print('">');
 		print($row['name']);
 		print("</a></td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['countg']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
@@ -268,13 +263,13 @@ else if ($type == 'enemylosses')
 
 		print($guildname);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['race']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['class']);
 		print("</td>\n");
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['leveldiff']);
 		print("</td>\n</tr>\n");
 	}
@@ -291,15 +286,15 @@ else if ($type == 'purgewins')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
-		rankRight((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		rankRight();
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
@@ -316,15 +311,15 @@ else if ($type == 'purgelosses')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
-		rankRight((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		rankRight();
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
@@ -341,21 +336,21 @@ else if ($type == 'purgeavewins')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
-		rankMid((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		rankCell();
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
 			$ave = '+'.$ave;
 
 		print($ave);
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
@@ -372,21 +367,21 @@ else if ($type == 'purgeavelosses')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
-		rankMid((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		rankCell();
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
 			$ave = '+'.$ave;
 
 		print($ave);
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
@@ -404,20 +399,20 @@ else if ($type == 'pvpratio')
 	));
 
 	//$query = "SELECT member_id, name as gn, pvp_ratio FROM `players` WHERE 1 ORDER BY pvp_ratio DESC";
-	$query = "SELECT members.name, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY members.name ORDER BY wtotal DESC";
+	$query = "SELECT members.name, members.member_id, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY members.name ORDER BY wtotal DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['name']."</a></td>\n");
-		rankRight((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['name']."</a></td>\n");
+		rankRight();
 		$wins = $row['wtotal'];
 		$battles = $row ['btotal'];
 		if ($wins == $battles)
@@ -496,19 +491,19 @@ else if ($type == 'playerinfo')
 			$first = false;
 		}
 
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
 		print($row['date']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		if ($row['win'] == '1')
 			$res = $wordings[$roster_conf['roster_lang']]['win'];
 		else
@@ -516,10 +511,10 @@ else if ($type == 'playerinfo')
 
 		print($res);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['zone']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		if ($row['subzone'] == '')
 			$szone = '&nbsp;';
 		else
@@ -527,7 +522,7 @@ else if ($type == 'playerinfo')
 
 		print($szone);
 		print("</td>\n");
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['leveldiff']);
 		print("</td>\n");
 	}
@@ -590,22 +585,22 @@ else if ($type == 'guildinfo')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		rankLeft((($striping_counter % 2) +1));
+		// Striping rows
+		print "  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n";
+
+		rankCell();
 		print($row['date']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print('<a href="?type=playerinfo&amp;player='.urlencode($row['name']).'">'.$row['name'].'</a>');
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
+		rankCell();
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		if ($row['win'] == '1')
 			$res = $wordings[$roster_conf['roster_lang']]['win'];
 		else
@@ -613,10 +608,10 @@ else if ($type == 'guildinfo')
 
 		print($res);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		print($row['zone']);
 		print("</td>\n");
-		rankMid((($striping_counter % 2) +1));
+		rankCell();
 		if ($row['subzone'] == '')
 			$szone = '&nbsp;';
 		else
@@ -624,7 +619,7 @@ else if ($type == 'guildinfo')
 
 		print($szone);
 		print("</td>\n");
-		rankRight((($striping_counter % 2) +1));
+		rankRight();
 		print($row['leveldiff']);
 		print("</td>\n</tr>\n");
 	}
@@ -632,4 +627,6 @@ else if ($type == 'guildinfo')
 
 	print($tableFooter);
 }
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

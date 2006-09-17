@@ -163,10 +163,18 @@ UPDATE `renprefix_members` SET
 
 
 # --------------------------------------------------------
+### Update players table
+
+ALTER TABLE `renprefix_players`
+  CHANGE `dateupdatedutc` `dateupdatedutc` datetime default NULL;
+
+
+# --------------------------------------------------------
 ### Update guild table
 
 ALTER TABLE `renprefix_guild`
-  CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` datetime NULL;
+  CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` datetime default NULL,
+  DROP `update_time`;
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last

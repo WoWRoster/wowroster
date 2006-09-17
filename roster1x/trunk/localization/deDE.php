@@ -74,7 +74,7 @@ $wordings['deDE']['update_instructpvp']='
 <li>Lade "PvPLog.lua" &uuml;ber die Update-Seite hoch</li>
 </ol>';
 
-$wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> f&uuml;r den originalen Code der Seite. <br />
+$wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, und <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> f&uuml;r den originalen Code der Seite. <br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';

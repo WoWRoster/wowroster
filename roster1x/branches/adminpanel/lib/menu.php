@@ -145,13 +145,13 @@ if( $roster_conf['menu_left_pane'] && !empty($guild_info) )
 ?>
     <td valign="top" class="row links">
       <ul>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/index.php"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
+        <li><a href="<?php print $roster_conf['roster_dir']; ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
 <?php
 if( $roster_conf['menu_guild_info'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildinfo.php">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
 
 if( $roster_conf['menu_stats_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexstat.php">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/stats.php">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
 
 if( $roster_conf['menu_tradeskills_page'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/tradeskills.php">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
@@ -165,16 +165,16 @@ if( $roster_conf['menu_guildbank'] )
       <ul>
 <?php
 if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexpvp.php">'.$wordings[$roster_conf['roster_lang']]['pvplist'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildpvp.php">'.$wordings[$roster_conf['roster_lang']]['pvplist'].'</a></li>'."\n";
 
 if( $roster_conf['menu_honor_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexhonor.php">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/honor.php">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
 
 if( $roster_conf['menu_memberlog'] )
 	print '        <li><a href="'.$roster_conf['roster_dir'].'/memberlog.php">'.$wordings[$roster_conf['roster_lang']]['memberlog'].'</a></li>'."\n";
 
 if( $roster_conf['menu_keys_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexinst.php">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/keys.php">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
 ?>
      </ul></td>
 <!-- Links Column 3 -->
@@ -183,10 +183,10 @@ if( $roster_conf['menu_keys_page'] )
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/rostercp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
 <?php
 if( $roster_conf['menu_quests_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexquests.php">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/questlist.php">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
 
 if( $roster_conf['menu_search_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/indexsearch.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
+	print '        <li><a href="'.$roster_conf['roster_dir'].'/search.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
 ?>
 
         <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
@@ -229,23 +229,6 @@ if( $addonslist != '' )
 <!-- End WoWRoster Menu -->
 
 <?php
-
-
-/**
- * Calculates the last updated value
- *
- * @param string $updateTimeUTC dateupdatedutc
- * @return string formatted date string
- */
-function DateDataUpdated($updateTimeUTC)
-{
-	global $roster_conf, $phptimeformat;
-
-	list($month,$day,$year,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d/%d/%d %d:%d:%d");
-	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-
-	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
-}
 
 
 /**

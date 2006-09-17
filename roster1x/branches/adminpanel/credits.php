@@ -42,11 +42,10 @@ echo "<tr>
 $strip_count = 1;
 foreach( $creditspage['devs']['active'] as $dev )
 {
-	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
-	print "\t<tr>\n";
-	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	$stripe_class = 'membersRowColor'.( ( ++$strip_count % 2 ) + 1 );
+	print "\t<tr class=\"$stripe_class\">\n";
+	print "\t\t<td class=\"membersRowCell\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"membersRowRightCell\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('sgreen','end')."<br />\n";
@@ -61,11 +60,10 @@ echo "<tr>
 $strip_count = 1;
 foreach( $creditspage['devs']['3rdparty'] as $dev )
 {
-	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
-	print "\t<tr>\n";
-	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	$stripe_class = 'membersRowColor'.( ( ++$strip_count % 2 ) + 1 );
+	print "\t<tr class=\"$stripe_class\">\n";
+	print "\t\t<td class=\"membersRowCell\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"membersRowRightCell\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('spurple','end')."<br />\n";
@@ -80,11 +78,10 @@ echo "<tr>
 $strip_count = 1;
 foreach( $creditspage['devs']['library'] as $dev )
 {
-	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
-	print "\t<tr>\n";
-	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	$stripe_class = 'membersRowColor'.( ( ++$strip_count % 2 ) + 1 );
+	print "\t<tr class=\"$stripe_class\">\n";
+	print "\t\t<td class=\"membersRowCell\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"membersRowRightCell\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('sorange','end');
@@ -104,11 +101,10 @@ echo "<tr>
 $strip_count = 1;
 foreach( $creditspage['devs']['inactive'] as $dev )
 {
-	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
-	print "\t<tr>\n";
-	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	$stripe_class = 'membersRowColor'.( ( ++$strip_count % 2 ) + 1 );
+	print "\t<tr class=\"$stripe_class\">\n";
+	print "\t\t<td class=\"membersRowCell\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"membersRowRightCell\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('sred','end')."<br />\n";
@@ -124,11 +120,10 @@ echo "<tr>
 $strip_count = 1;
 foreach( $creditspage['devs']['beta'] as $dev )
 {
-	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
-	print "\t<tr>\n";
-	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
+	$stripe_class = 'membersRowColor'.( ( ++$strip_count % 2 ) + 1 );
+	print "\t<tr class=\"$stripe_class\">\n";
+	print "\t\t<td class=\"membersRowCell\">".$dev['name']."</td>\n";
+	print "\t\t<td class=\"membersRowRightCell\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
 echo "</table>\n".border('syellow','end');
@@ -143,7 +138,6 @@ if($AddonCredits != '') {
 	echo "<br />\n" . border('sblue','start','WoWRoster Addons') . "<table width=\"100%\" cellspacing=\"0\">\n";
 	echo "<tr>
 <th class=\"membersHeader\">Addon</th>
-<th class=\"membersHeader\">Author</th>
 <th class=\"membersHeaderRight\">Info</th>
 ";
 	echo $AddonCredits;
@@ -161,29 +155,39 @@ include_once (ROSTER_BASE.'roster_footer.tpl');
  */
 function makeAddonCredits()
 {
-	global $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings;
+
+	$query = "SELECT `fullname`, `version`, `description`, `credits` FROM `".$wowdb->table('addon')."` WHERE `active` = '1';";
+
+	$result = $wowdb->query($query);
+
+	if (!$result)
+	{
+		return;
+	}
 
 	$output = '';
-
-	$strip_count = 1;
-	if( isset($wordings['addoncredits']) && is_array($wordings['addoncredits']) )
+	while ($row = $wowdb->fetch_assoc($result))
 	{
-		foreach( array_keys($wordings['addoncredits']) as $addonName )
+		$row['credits'] = unserialize($row['credits']);
+
+		$output .= "\t<tr class=\"membersRowColor2\">\n";
+		$output .= "\t\t<td class=\"membersRowCell\">" . $row['fullname'] . " <span class=\"blue\">v" . $row['version'] . "</span></td>\n";
+		$output .= "\t\t<td class=\"membersRowRightCell\"><span class=\"yellow\">" . $row['description'] . "</span></td>\n";
+		$output .= "\t</tr>\n";
+
+		if( is_array($row['credits']) )
 		{
-			$AddOnArray = $wordings['addoncredits'][$addonName];
-			foreach( $AddOnArray as $addonDev )
+			foreach( $row['credits'] as $dev )
 			{
-				$stripe_class = 'membersRow' . ( ( ++$strip_count % 2 ) + 1 );
-				$stripe_class_right = 'membersRowRight' . ( ( $strip_count % 2 ) + 1 );
-				$output .= "\t<tr>\n";
-				$output .= "\t\t<td class=\"$stripe_class\">" . $addonName . "</td>\n";
-				$output .= "\t\t<td class=\"$stripe_class\">" . $addonDev['name']."</td>\n";
-				$output .= "\t\t<td class=\"$stripe_class_right\">" . $addonDev['info'] . "</td>\n";
+				$output .= "\t<tr class=\"membersRowColor1\">\n";
+				$output .= "\t\t<td class=\"membersRowCell\"><div align=\"right\">" . $dev['name']."</div></td>\n";
+				$output .= "\t\t<td class=\"membersRowRightCell\">" . $dev['info'] . "</td>\n";
 				$output .= "\t</tr>\n";
-				$addonName = '&nbsp;';
-				$lCount += 1;
 			}
 		}
+
+		$lCount += 1;
 	}
 
 	if ($lCount < 1)

@@ -24,10 +24,6 @@ if( empty($guild_info) )
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
 
-// Get guild info from guild info check above
-$GuildInfo = $guild_info['guild_info_text'];
-$guildMOTD = $guild_info['guild_motd'];
-
 $header_title = $wordings[$roster_conf['roster_lang']]['Guild_Info'];
 
 include_once(ROSTER_BASE.'roster_header.tpl');
@@ -38,20 +34,20 @@ if ( $roster_conf['index_motd'] == 1 )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="motd.php?motd='.urlencode($guildMOTD).'" alt="Guild msg of the day" /><br /><br />';
+		print '<img src="motd.php" alt="Guild msg of the day" /><br /><br />';
 	}
 	else
 	{
-		echo '<span class="GMOTD">Guild MOTD: '.$guildMOTD.'</span><br /><br />';
+		echo '<span class="GMOTD">Guild MOTD: '.htmlspecialchars($guild_info['guild_motd']).'</span><br /><br />';
 	}
 }
 
 include_once (ROSTER_BASE.'lib/menu.php');
 
 
-if( !empty($GuildInfo) )
+if( !empty($guild_info['guild_info_text']) )
 {
-	print border('syellow','start',$wordings[$roster_conf['roster_lang']]['Guild_Info']).'<div class="GuildInfoText">'.nl2br($GuildInfo).'</div>'.border('syellow','end');
+	print border('syellow','start',$wordings[$roster_conf['roster_lang']]['Guild_Info']).'<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>'.border('syellow','end');
 }
 
 

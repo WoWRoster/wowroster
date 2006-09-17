@@ -218,18 +218,16 @@ foreach($localeFiles as $file)
 	}
 }
 
+
+
 /**
  * Assign by reference of the active locale's wordings to a variable with a
  * shorter name. This way the short var will also update if the full wordings
  * array gets updated.
  */
-
 $act_words = &$wordings[$roster_conf['roster_lang']];
 
-/**
- * Get guild info
- */
-$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+
 
 /**
  * If the version doesnt match the one in constants, redirect to upgrader
@@ -256,6 +254,13 @@ if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install'
 	}
 }
 
+
+
+/**
+ * Get guild info
+ */
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+$guild_ranks = $wowdb->get_guild_ranks($guild_info['guild_id']);
 
 
 /**

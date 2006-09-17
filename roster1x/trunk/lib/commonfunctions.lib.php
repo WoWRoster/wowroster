@@ -105,6 +105,7 @@ function setTooltip( $var , $content )
 {
 	global $tooltips;
 
+	$content = str_replace("\n",'',$content);
 	$content = addslashes($content);
 	$content = str_replace('</','<\\/',$content);
 	$content = str_replace('/>','\\/>',$content);

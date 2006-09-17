@@ -23,8 +23,6 @@ if( empty($guild_info) )
 {
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
 
 
 $striping_counter = 0;
@@ -39,17 +37,13 @@ $tableHeader = "\n".'<!-- Begin PvPLIST -->
 
 $tableFooter = "</table>\n".border('sgray','end')."\n</div>\n<!-- End PvPLIST -->\n";
 
-function pvprankRight($sc)
+function pvprankCell()
 {
-	print '    <td class="membersRow'.$sc.'">';
+	print '    <td class="membersRowCell">';
 }
-function pvprankMid($sc)
+function pvprankRight()
 {
-	print '    <td class="membersRow'.$sc.'">';
-}
-function pvprankLeft($sc)
-{
-	print '    <td class="membersRowRight'.$sc.'">';
+	print '    <td class="membersRowRightCell">';
 }
 
 print($tableHeader);
@@ -60,21 +54,22 @@ $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=guildwins">'.$wordings[$roster_conf['roster_lang']]['pvplist1'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=guildwins">'.$wordings[$roster_conf['roster_lang']]['pvplist1'].'</a></td>'."\n");
+	pvprankCell();
 	if ($row['guild'] == '')
 		$guildname = '(unguilded)';
 	else
 		$guildname = $row['guild'];
 	print($guildname);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 	print($row['countg']);
 	print("</td>\n  </tr>\n");
 }
@@ -85,14 +80,15 @@ $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=guildlosses">'.$wordings[$roster_conf['roster_lang']]['pvplist2'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=guildlosses">'.$wordings[$roster_conf['roster_lang']]['pvplist2'].'</a></td>'."\n");
+	pvprankCell();
 	if ($row['guild'] == '') {
 		$guildname = '(unguilded)';
 	} else {
@@ -100,7 +96,7 @@ if ($row)
 	}
 	print($guildname);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 	print($row['countg']);
 	print("</td>\n  </tr>\n");
 }
@@ -111,17 +107,18 @@ $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=enemywins">'.$wordings[$roster_conf['roster_lang']]['pvplist3'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=enemywins">'.$wordings[$roster_conf['roster_lang']]['pvplist3'].'</a></td>'."\n");
+	pvprankCell();
 	print($row['name']);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 	print($row['countg']);
 	print("</td>\n  </tr>\n");
 }
@@ -132,17 +129,18 @@ $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=enemylosses">'.$wordings[$roster_conf['roster_lang']]['pvplist4'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=enemylosses">'.$wordings[$roster_conf['roster_lang']]['pvplist4'].'</a></td>'."\n");
+	pvprankCell();
 	print($row['name']);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 	print($row['countg']);
 	print("</td>\n  </tr>\n");
 }
@@ -153,18 +151,18 @@ $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=purgewins">'.$wordings[$roster_conf['roster_lang']]['pvplist5'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=purgewins">'.$wordings[$roster_conf['roster_lang']]['pvplist5'].'</a></td>'."\n");
+	pvprankCell();
 	print($row['gn']);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 	print($row['countg']);
 	print("</td>\n  </tr>\n");
 }
@@ -176,18 +174,18 @@ $row = $wowdb->fetch_assoc( $result );
 
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=purgelosses">'.$wordings[$roster_conf['roster_lang']]['pvplist6'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=purgelosses">'.$wordings[$roster_conf['roster_lang']]['pvplist6'].'</a></td>'."\n");
+	pvprankCell();
 	print($row['gn']);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 	print($row['countg']);
 	print("</td>\n  </tr>\n");
 }
@@ -199,18 +197,18 @@ $row = $wowdb->fetch_assoc( $result );
 
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=purgeavewins">'.$wordings[$roster_conf['roster_lang']]['pvplist7'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=purgeavewins">'.$wordings[$roster_conf['roster_lang']]['pvplist7'].'</a></td>'."\n");
+	pvprankCell();
 	print($row['gn']);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 
 	$ave = round($row['ave'], 2);
 
@@ -228,17 +226,18 @@ $row = $wowdb->fetch_assoc( $result );
 
 if ($row)
 {
-	// Striping rows
-	print("  <tr>\n");
-
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="indexpvp.php?type=purgeavelosses">'.$wordings[$roster_conf['roster_lang']]['pvplist8'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
+
+	// Striping rows
+	print("  <tr class=\"membersRowColor".(($striping_counter % 2) +1)."\">\n");
+
+	pvprankCell();
+	print('<a href="guildpvp.php?type=purgeavelosses">'.$wordings[$roster_conf['roster_lang']]['pvplist8'].'</a></td>'."\n");
+	pvprankCell();
 	print($row['gn']);
 	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
+	pvprankRight();
 
 	$ave = round($row['ave'], 2);
 

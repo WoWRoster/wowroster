@@ -94,23 +94,21 @@ for ( $tsNr=0; $tsNr<=11; $tsNr++ )
 			if ( !$levelpct )
 				$levelpct = 1;
 
-			$result2 = $wowdb->query("SELECT * FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '" . $row['member_id'] . "'");
+			$result2 = $wowdb->query("SELECT `member_id`,`name` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '" . $row['member_id'] . "'");
 			$getdata = $wowdb->fetch_array($result2);
 			$nameid = $getdata['name'];
-			$namequery = $wowdb->query("SELECT name,server FROM `".ROSTER_PLAYERSTABLE."` WHERE name = '$nameid'");
-			if ($row = $wowdb->fetch_array($namequery))
-				$nameid = '<a href="char.php?name='.$row[0].'&amp;server='.$row[1].'&amp;action=recipes">'.$row[0].'</a>';
+			$nameid = '<a href="char.php?member='.$getdata['member_id'].'&amp;action=recipes">'.$getdata['name'].'</a>';
 
 ?>
-        <tr>
-          <td class="membersRow<?php print $steps; ?>"><div class="levelbarParent" style="width:200px;"><div class="levelbarChild"><?php print $level_array[0];?></div></div>
+        <tr class="membersRowColor<?php print $steps; ?>">
+          <td class="membersRowCell"><div class="levelbarParent" style="width:200px;"><div class="levelbarChild"><?php print $level_array[0];?></div></div>
             <table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
               <tr>
                 <td style="background-image: url('<?php print $roster_conf['img_url'];?>expbar-var2.gif');" width="<?php print $levelpct;?>%"><img src="<?php print $roster_conf['img_url'];?>pixel.gif" height="14" width="1" alt=""></td>
-                <td width="<?php print (100-$levelpct); ?>%"></td>
+                <td width="<?php print max(100-$levelpct,0); ?>%"></td>
               </tr>
             </table></td>
-          <td class="membersRowRight<?php print $steps; ?>"><?php print $nameid;?></td>
+          <td class="membersRowRightCell"><?php print $nameid;?></td>
         </tr>
 <?php
 		}

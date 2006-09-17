@@ -73,7 +73,7 @@ $wordings['deDE']['update_instructpvp']='
 <li>Lade "PvPLog.lua" &uuml;ber die Update-Seite hoch</li>
 </ol>';
 
-$wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> f&uuml;r den originalen Code der Seite. <br />
+$wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, und <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> f&uuml;r den originalen Code der Seite. <br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
@@ -82,8 +82,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['deDE']['charset']="charset=utf-8";
 
-$timeformat['deDE'] = '%d.%m. %k:%i'; // MySQL Time format (example - 23.07. 14:00) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['deDE'] = 'd.m. G:i';  // PHP date() Time format (example - 23.Jul. 14:00) - http://www.php.net/manual/en/function.date.php
+$timeformat['deDE'] = '%d.%m. %k:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['deDE'] = 'd.m. G:i';  // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*

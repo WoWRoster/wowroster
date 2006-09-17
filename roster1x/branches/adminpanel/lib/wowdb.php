@@ -1575,49 +1575,38 @@ class wowdb
 	}
 
 	/**
-	 * Removes members that do not match current guild_id
+	 * Removes members that match guild_id
 	 *
 	 * @param int $guild_id
 	 */
 	function remove_guild_members_id($guild_id)
 	{
 		// Get a list of guild id's in the guild table to remove
-		$querystr = "SELECT `guild_id`,`guild_name` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `guild_id`,`guild_name` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` = '$guild_id'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
-			$this->setError('Guild ID\'s could not be selected for deletion',$this->error());
+			$this->setError('Guild-id could not be selected for deletion',$this->error());
 			return;
 		}
 
 		$num = $this->num_rows($result);
 
-		$inClause = '';
 		if ($num > 0)
 		{
-			while ( $row = $this->fetch_array($result) )
-			{
-				if ($inClause != '')
-					$inClause .= ',';
-
-				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Removing guild - [</span> '.$row[1].' <span class="red">]</span></li>');
-			}
-
-			// now that we have our inclause, time to do some deletes
-			$querystr = "DELETE FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` IN ($inClause)";
+			// now time to do some deletes
+			$querystr = "DELETE FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` = '$guild_id'";
 			if( !$this->query($querystr) )
 			{
-				$this->setError('Guild'.($num > 1 ? 's' : '').' with ID'.($num > 1 ? 's' : '').' '.$inClause.' could not be deleted',$this->error());
+				$this->setError('Guild with ID '.$guild_id.' could not be deleted',$this->error());
 			}
-
-			$this->setMessage('<li><span class="red">Removing '.$num.' guild'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\s' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Removed guild where guild-id = '.$guild_id.'</span></li>');
 		}
 		$this->closeQuery($result);
 
 
 		// Get a list of members that don't match current guild id
-		$querystr = "SELECT `member_id`,`name` FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `member_id`,`name` FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1636,11 +1625,11 @@ class wowdb
 					$inClause .= ',';
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">] since their guild-id does not match</span></li>');
+				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">]</span></li>');
 				$this->setMemberLog($row,0);
 			}
 
-			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\'s' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' where guild-id = '.$guild_id.'</span></li>');
 			$this->setMessage('<ul>');
 
 			// now that we have our inclause, time to do some deletes
@@ -1696,7 +1685,8 @@ class wowdb
 				$retval[$row['index']]['title'] = $row['title'];
 				$retval[$row['index']]['control'] = $row['control'];
 			}
-			$retval[10]['title'] = 'Anonymous';
+			$retval[10]['title'] = 'Guest';
+			$retval[11]['title'] = 'Anonymous';
 		}
 		$this->closeQuery($result);
 
@@ -1759,15 +1749,15 @@ class wowdb
 			$this->add_value( 'guild_num_members', $guild['NumMembers'] );
 		if( !empty($guild['NumAccounts']) )
 			$this->add_value( 'guild_num_accounts', $guild['NumAccounts'] );
-		if( !empty($currentTime) )
-			$this->add_time( 'update_time', $currentTime );
+		//if( !empty($currentTime) )
+		//	$this->add_time( 'update_time', $currentTime );
 
 		if( !empty($guild['DateUTC']) )
 		{
 			list($month,$day,$year,$hour,$minute,$second) = sscanf($guild['DateUTC'],"%d/%d/%d %d:%d:%d");
 
 			// take the current time and get the offset. Upload must occur same day that roster was obtained
-			$DateUTC = mktime($hour, $minute, $second, $month, $day, $year, -1);
+			$DateUTC = mktime($hour, $minute, $second, $month, $day, $year);
 			$DateUTC = getDate($DateUTC);
 			$this->add_time( 'guild_dateupdatedutc', $DateUTC );
 		}
@@ -1881,20 +1871,15 @@ class wowdb
 			$lastOnlineMonths = intval($lastOnline['Month']);
 			$lastOnlineDays = intval($lastOnline['Day']);
 			$lastOnlineHours = intval($lastOnline['Hour']);
-			# use strtotime instead
-			#      $lastOnlineTime = $currentTimestamp - 365 * 24* 60 * 60 * $lastOnlineYears
-			#                        - 30 * 24 * 60 * 60 * $lastOnlineMonths
-			#                        - 24 * 60 * 60 * $lastOnlineDays
-			#                        - 60 * 60 * $lastOnlineHours;
+
 			$timeString = '-';
 			if ($lastOnlineYears > 0)
-				$timeString .= $lastOnlineYears.' Years ';
+				$timeString .= $lastOnlineYears.' years ';
 			if ($lastOnlineMonths > 0)
-				$timeString .= $lastOnlineMonths.' Months ';
+				$timeString .= $lastOnlineMonths.' months ';
 			if ($lastOnlineDays > 0)
-				$timeString .= $lastOnlineDays.' Days ';
-			if ($lastOnlineHours > 0)
-				$timeString .= max($lastOnlineHours,1).' Hours ';
+				$timeString .= $lastOnlineDays.' days ';
+			$timeString .= max($lastOnlineHours,1).' hours';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
 			$this->add_time( 'last_online', getDate($lastOnlineTime));
@@ -2420,7 +2405,17 @@ class wowdb
 		$this->add_value( 'mana', $data['Mana'] );
 		$this->add_value( 'sex', $data['Sex'] );
 		$this->add_value( 'hearth', $data['Hearth'] );
-		$this->add_value( 'dateupdatedutc', $data['DateUTC'] );
+
+		if( !empty($data['DateUTC']) )
+		{
+			list($month,$day,$year,$hour,$minute,$second) = sscanf($data['DateUTC'],"%d/%d/%d %d:%d:%d");
+
+			// take the current time and get the offset. Upload must occur same day that roster was obtained
+			$DateUTC = mktime($hour, $minute, $second, $month, $day, $year);
+			$DateUTC = getDate($DateUTC);
+			$this->add_time( 'dateupdatedutc', $DateUTC );
+		}
+
 		$this->add_value( 'CPversion', $data['DBversion'] );
 
 		if ($data['TimePlayed'] < 0 )

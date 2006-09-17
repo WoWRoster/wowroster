@@ -73,7 +73,7 @@ $wordings['enUS']['update_instructpvp']='
 <li>Upload PvPLog.lua</li>
 </ol>';
 
-$wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site.<br />
+$wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
@@ -82,8 +82,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['enUS']['charset']="charset=utf-8";
 
-$timeformat['enUS'] = '%b %d %l:%i %p';  // MySQL Time format (example - Jul 23 2:19 PM) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['enUS'] = 'M jS D, g:ia'; // PHP date() Time format (example - Mon 23rd Jul, 2:19pm) - http://www.php.net/manual/en/function.date.php
+$timeformat['enUS'] = '%a %b %D, %l:%i %p'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['enUS'] = 'M D jS, g:ia';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*
@@ -741,7 +741,7 @@ $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
 // Credits page
 // Only defined here because we don't need to translate this for EVERY locale
 
-$creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
+$creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site
 <br />
 Special Thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
 <br /><br />

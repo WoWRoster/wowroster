@@ -18,22 +18,26 @@
 
 //==========[ SETTINGS ]========================================================
 
+$roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+
 if( isset($_GET['motd']) )
 {
-	$guildMOTD = urldecode($_GET['motd']);
+	$guildMOTD = stripslashes(urldecode($_GET['motd']));
+	// Chomp $guildMOTD at 145 characters
+	$guildMOTD = substr($guildMOTD,0,145);
 }
 else
 {
-	$guildMOTD = 'No Message';
+	include( $roster_root_path . 'settings.php' );
+	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+	$guildMOTD = $guildMOTD['guild_motd'];
 }
 
-// Chomp $guildMOTD at 145 characters
-$guildMOTD = substr($guildMOTD,0,145);
 
 
 // Path to font folder
-$image_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR;
-$font_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR;
+$image_path = $roster_root_path . 'img' . DIRECTORY_SEPARATOR;
+$font_path = $roster_root_path . 'fonts' . DIRECTORY_SEPARATOR;
 
 
 motd_img($guildMOTD,$image_path,$font_path);

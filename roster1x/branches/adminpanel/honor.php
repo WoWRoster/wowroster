@@ -25,10 +25,6 @@ if( empty($guild_info) )
 {
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
-$guildMOTD = $guild_info['guild_motd'];
-$guildFaction = $guild_info['faction'];
 
 $mainQuery =
 	'SELECT '.
@@ -41,8 +37,13 @@ $mainQuery =
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
 	'`members`.`zone`, '.
+	'`members`.`status`, '.
+
 	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
-	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+	"`players`.`dateupdatedutc` AS 'last_update', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`players`.`RankName`, '.
 	'`players`.`RankInfo`, '.
@@ -67,7 +68,7 @@ $mainQuery =
 
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
 	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-	'WHERE`members`.`guild_id` = 1 '.
+	'WHERE`members`.`guild_id` = '.$guild_info['guild_id'].' '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array(

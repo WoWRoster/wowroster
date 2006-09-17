@@ -22,15 +22,15 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 class memberslist {
-	
+
 	var $listname = 'membersData';	// table ID for javascript
 	var $fields;			// field definitions
 	var $query;			// main query
-	
+
 	var $tableHeaderRow;		// Column headers
 	var $sortFields;		// Column names and sort input fields
 	var $sortoptions;		// List of 'option' fields for the sort select boxes
-	
+
 	/**
 	 * Prepare the data to build a memberlist.
 	 *
@@ -48,7 +48,7 @@ class memberslist {
 		$this->listname = $listname;
 		$this->fields = $fields;
 		$this->query = $query;
-		
+
 		$cols = count( $fields );
 
 		// header row
@@ -95,14 +95,14 @@ class memberslist {
 		$this->tableHeaderRow .= "  </tr>\n";
 		// end header row
 	}
-	
+
 	/**
 	 * Returns the sort/filter box
 	 */
 	function makeFilterBox()
 	{
 		global $wowdb, $wordings, $act_words, $roster_conf;
-		
+
 		$cols = count( $this->fields );
 
 
@@ -129,10 +129,10 @@ class memberslist {
 			'</table>'."\n".
 			border('sblue','end').
 			'</div>'."\n";
-			
+
 		return $output;
 	}
-	
+
 	/**
 	 * Returns the actual list. (but not the border)
 	 */
@@ -160,8 +160,8 @@ class memberslist {
 			$stripe_counter = ( ( $striping_counter++ % 2 ) + 1 );
 			$output .= "<tbody><tr class='membersRowColor".$stripe_counter."'>\n";
 			$current_col = 1;
-		
-		
+
+
 			// Echoing cells w/ data
 			foreach ( $this->fields as $field => $DATA )
 			{
@@ -181,7 +181,7 @@ class memberslist {
 				{
 					$cell_value = '<div>'.$row[$field].'</div>';
 				}
-		
+
 				// IMPORTANT do not add any spaces between the td and the $cell_value or the javascript will break
 				if ( $current_col == $cols ) // last col
 				{
@@ -197,8 +197,28 @@ class memberslist {
 		}
 
 		$output .= "</table>\n";
-		
+
 		return $output;
+	}
+
+
+	/**
+	 * Returns the MOTD
+	 *
+	 * @return string | either image or text version of motd
+	 */
+	function makeMotd()
+	{
+		global $roster_conf, $guild_info;
+
+		if( $roster_conf['motd_display_mode'] )
+		{
+			return '<img src="motd.php" alt="Guild Message of the Day" /><br /><br />';
+		}
+		else
+		{
+			return '<span class="GMOTD">Guild MOTD: '.htmlspecialchars($guild_info['guild_motd']).'</span><br /><br />';
+		}
 	}
 }
 
@@ -215,7 +235,7 @@ class memberslist {
  */
 function name_value ( $row )
 {
-	global $wordings, $roster_conf, $guildFaction;
+	global $wordings, $roster_conf;
 
 	if( $roster_conf['index_member_tooltip'] )
 	{
@@ -225,13 +245,15 @@ function name_value ( $row )
 		}
 
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
-
-		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
-
 		if( isset($rankname) )
-			$tooltip .= $rankname.' of the '.$guildFaction."\n";
+			$tooltip_h = $rankname.' '.$tooltip_h;
+
+		$tooltip .= $wordings[$roster_conf['roster_lang']]['level'].' '.$row['level'].' '.$row['class']."\n";
+
 
 		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
+		$tooltip .= ($row['status'] == '' ? '' : "\n".'Current Status: '.$row['status']);
+		$tooltip .= ($row['luisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$row['last_update_format']);
 		$tooltip .= ($row['nisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']);
 
 		$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
@@ -239,7 +261,7 @@ function name_value ( $row )
 
 		if ( $row['server'] )
 		{
-			return "<div style='display:none;'>".$row['name']."</div>".$tooltip.'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a></div>';
+			return "<div style='display:none;'>".$row['name']."</div>".$tooltip.'<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a></div>';
 		}
 		else
 		{
@@ -250,7 +272,7 @@ function name_value ( $row )
 	{
 		if ( $row['server'] )
 		{
-			return "<div style='display:none;'>".$row['name']."</div>".'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a>';
+			return "<div style='display:none;'>".$row['name']."</div>".'<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a>';
 		}
 		else
 		{

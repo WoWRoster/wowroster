@@ -16,10 +16,10 @@
  *
  ******************************/
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+require_once( 'settings.php' );
+
+$header_title = $wordings[$roster_conf['roster_lang']]['keys'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');
 
@@ -440,4 +440,6 @@ $wowdb->free_result($result);
 
 print($tableFooter);
 borderBottom();
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

@@ -73,7 +73,7 @@ $wordings['frFR']['update_instructpvp']='
 <li>Envoyer les informations PvPLog.lua (voir étape 7 de l\'actualisation du profil).</li>
 </ol>';
 
-$wordings['frFR']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site.<br />
+$wordings['frFR']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
@@ -82,8 +82,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['frFR']['charset']="charset=utf-8";
 
-$timeformat['frFR'] = '%d/%m/%Y %H:%i:%s';  // MySQL Time format (example - %b %d %l:%i %p => Jul 23 2:19 PM) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['frFR'] = 'd/m/Y H:i:s'; // PHP date() Time format (example - D jS M, g:ia => Mon 23rd Jul, 2:19pm) - http://www.php.net/manual/en/function.date.php
+$timeformat['frFR'] = '%d/%m/%Y %H:%i:%s'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['frFR'] = 'd/m/Y H:i:s';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*

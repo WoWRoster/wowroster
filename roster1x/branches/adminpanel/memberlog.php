@@ -202,14 +202,14 @@ if( $wowdb->num_rows($result) > 0 )
 			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'">';
 
 
-		$body .= '<tr>'."\n";
-		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['name'].'</td>'."\n";
-		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['class'].'</td>'."\n";
-		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['level'].'</td>'."\n";
-		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['guild_title'].'</td>'."\n";
-		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['type'].'</td>'."\n";
-		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['date'].'</td>'."\n";
-		$body .= '	<td class="membersRowRight'. (($striping_counter % 2) +1) .'">'.$row['note'].'</td>'."\n";
+		$body .= '<tr class="membersRowColor'. (($striping_counter % 2) +1) .'">'."\n";
+		$body .= '	<td class="membersRowCell">'.$row['name'].'</td>'."\n";
+		$body .= '	<td class="membersRowCell">'.$row['class'].'</td>'."\n";
+		$body .= '	<td class="membersRowCell">'.$row['level'].'</td>'."\n";
+		$body .= '	<td class="membersRowCell">'.$row['guild_title'].'</td>'."\n";
+		$body .= '	<td class="membersRowCell">'.$row['type'].'</td>'."\n";
+		$body .= '	<td class="membersRowCell">'.$row['date'].'</td>'."\n";
+		$body .= '	<td class="membersRowRightCell">'.$row['note'].'</td>'."\n";
 		$body .= '</tr>'."\n";
 
 		$striping_counter++;

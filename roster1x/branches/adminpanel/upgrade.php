@@ -181,6 +181,89 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
+	// Placeholder for upgrade to 1.8.0
+	// This will never run untill I fix it, lol
+	function upgrade_000($index)
+	{
+		global $wowdb, $roster_root_path, $db_prefix;
+
+		$db_structure_file = $roster_root_path . 'install' . DIR_SEP . 'db' . DIR_SEP . 'upgrade_180.sql';
+
+		//
+		// Fix the datetime fields
+		//
+		$query_string = "SELECT `guild_dateupdatedutc`,`guild_id` FROM `".ROSTER_GUILDTABLE."`";
+		$result = $wowdb->query($query_string);
+
+		//
+		// Now loop through this so we can get each guild stats to upgrade
+		//
+		$guildData = array();
+		while( $guild_row = $wowdb->fetch_assoc($result) )
+		{
+			$guildData[] = $guild_row;
+		}
+
+		$query_string = "SELECT `dateupdatedutc`,`member_id` FROM `".ROSTER_PLAYERSTABLE."`";
+		$result = $wowdb->query($query_string);
+
+		//
+		// Now loop through this so we can get each players stats to upgrade
+		//
+		$playerData = array();
+		while( $player_row = $wowdb->fetch_assoc($result) )
+		{
+			$playerData[] = $player_row;
+		}
+
+
+		// Parse structure file and create database tables
+		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
+		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+
+		$sql = remove_remarks($sql);
+		$sql = parse_sql($sql, ';');
+
+		$sql_count = count($sql);
+		for ( $i = 0; $i < $sql_count; $i++ )
+		{
+			$wowdb->query($sql[$i]);
+		}
+		unset($sql);
+
+
+		//
+		// Now loop through this again and insert it into the db
+		//
+		foreach( $guildData as $value )
+		{
+			$newdate = array();
+			list($newdate['month'],$newdate['day'],$newdate['year'],$newdate['hour'],$newdate['minute'],$newdate['second']) = sscanf($value['guild_dateupdatedutc'],"%2s/%2s/%2s %2s:%2s:%2s");
+
+			$newdate = $newdate['year'].'-'.$newdate['month'].'-'.$newdate['day'].' '.$newdate['hour'].':'.$newdate['minute'].':'.$newdate['second'];
+
+			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET `guild_dateupdatedutc` = '".$newdate."' WHERE `member_id` = '".$value['guild_id']."';";
+			$result = $wowdb->query($querystr);
+		}
+		unset($guildData);
+
+		foreach( $playerData as $value )
+		{
+			$newdate = array();
+			list($newdate['month'],$newdate['day'],$newdate['year'],$newdate['hour'],$newdate['minute'],$newdate['second']) = sscanf($value['dateupdatedutc'],"%2s/%2s/%2s %2s:%2s:%2s");
+
+			$newdate = $newdate['year'].'-'.$newdate['month'].'-'.$newdate['day'].' '.$newdate['hour'].':'.$newdate['minute'].':'.$newdate['second'];
+
+			$querystr = "UPDATE `".ROSTER_PLAYERSTABLE."` SET `dateupdatedutc` = '".$newdate."' WHERE `member_id` = '".$value['member_id']."';";
+			$result = $wowdb->query($querystr);
+		}
+		unset($playerData);
+
+
+		$this->finalize($index);
+	}
+
+
 	function upgrade_170($index)
 	{
 		global $wowdb, $roster_root_path, $db_prefix;

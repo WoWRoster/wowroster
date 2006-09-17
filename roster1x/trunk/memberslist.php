@@ -44,7 +44,7 @@ if ( $roster_conf['index_motd'] == 1 )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="motd.php?motd='.urlencode($guildMOTD).'" alt="Guild Message of the Day" /><br /><br />';
+		print '<img src="motd.php" alt="Guild Message of the Day" /><br /><br />';
 	}
 	else
 	{

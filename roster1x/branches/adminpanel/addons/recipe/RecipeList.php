@@ -22,7 +22,7 @@ require_once(ROSTER_LIB.'recipes.php');
 $server_name_escape = $wowdb->escape($roster_conf['server_name']);
 
 
-$qry_prof  = "select distinct( skill_name) proff from ".ROSTER_RECIPESTABLE." where skill_name != '".$wordings[$roster_conf['roster_lang']]['First Aid']."' and skill_name != '".$wordings[$roster_conf['roster_lang']]['poisons']."' and skill_name != '".$wordings[$roster_conf['roster_lang']]['Mining']."' order by skill_name";
+$qry_prof  = "SELECT DISTINCT( `skill_name` ) proff FROM ".ROSTER_RECIPESTABLE." WHERE `skill_name` != '".$wordings[$roster_conf['roster_lang']]['First Aid']."' AND `skill_name` != '".$wordings[$roster_conf['roster_lang']]['poisons']."' AND `skill_name` != '".$wordings[$roster_conf['roster_lang']]['Mining']."' ORDER BY `skill_name`;";
 
 $result_prof = $wowdb->query($qry_prof) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_prof);
 if ($roster_conf['sqldebug'])
@@ -32,58 +32,57 @@ if ($roster_conf['sqldebug'])
 
 
 
-$choiceForm = '<form action="addon.php" method="GET" name="myform">
+$choiceForm = '<form action="'.$script_filename.'" method="GET" name="myform">
 	<input type="hidden" name="dbname" value="'.$addon['dbname'].'">
-	<table>
-		<tr>
-		<th class="copy">'.$wordings[$roster_conf['roster_lang']]['professionfilter'].'</th>
-		<td class="copy"><select NAME="proffilter">';
-
-
+'.border('sgray','start','').'
+	<table cellspacing="0" cellpadding="0" class="bodyline">
+		<tr class="membersRowColor1">
+		<td class="membersRowCell">'.$wordings[$roster_conf['roster_lang']]['professionfilter'].'
+			<select name="proffilter">';
 
 while($row_prof = $wowdb->fetch_array($result_prof))
 {
-	if ($_REQUEST["proffilter"]==$row_prof["proff"])
-		$choiceForm .= '<option VALUE="'.$row_prof["proff"].'" selected>'.$row_prof["proff"];
+	if ($_REQUEST['proffilter']==$row_prof['proff'])
+		$choiceForm .= '<option value="'.$row_prof['proff'].'" selected="selected">'.$row_prof['proff'];
 	else
-		$choiceForm .= '<option VALUE="'.$row_prof["proff"].'">'.$row_prof["proff"];
+		$choiceForm .= '<option vaue="'.$row_prof['proff'].'">'.$row_prof['proff'];
 }
-
 
 
 $wowdb->free_result($result_prof);
 
 
 $choiceForm .= '</select></td>
-<th>'.$wordings[$roster_conf['roster_lang']]['search'].'</th><td><input type="text" name="filterbox"';
+		<td class="membersRowCell">'.$wordings[$roster_conf['roster_lang']]['search'].'
+			<input type="text" name="filterbox"';
 if (isset($_REQUEST['filterbox']))
 {
 	$choiceForm .= ' value="'.$_REQUEST['filterbox'].'"';
 }
 
 $choiceForm .= '></td>
-		<td><input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['applybutton'].'" /></td>
+		<td class="membersRowRightCell"><input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['applybutton'].'" /></td>
 	</tr>
 </table>
-</form><br />';
+</form>'.border('sgray','end').'<br />';
 
 $content .=  $choiceForm;
 
 
 
 
-if (isset($_REQUEST["proffilter"]))
+if (isset($_REQUEST['proffilter']))
 {
-	$recipes = recipe_get_all( $_REQUEST["proffilter"],($_REQUEST["filterbox"]?$_REQUEST["filterbox"]:''), ($_REQUEST["sort"]?$_REQUEST["sort"]:'type') );
+	$recipes = recipe_get_all( $_REQUEST['proffilter'],($_REQUEST['filterbox']?$_REQUEST['filterbox']:''), ($_REQUEST['sort']?$_REQUEST['sort']:'type') );
 
 	if( isset( $recipes[0] ) )
 	{
-		$rc = 0;
+		$rc = 1;
 
 		$recipe_type = '';
 		$first_table = true;
 		$content .=  "<table><tr><td valign='middle'><a id='top_menu'></a> - \n";
-		$qry_recipe_type = 'select distinct r.recipe_type from '.ROSTER_RECIPESTABLE.' r where r.skill_name = "'. $_REQUEST["proffilter"].'" order by r.recipe_type asc';
+		$qry_recipe_type = 'SELECT DISTINCT( `r`.`recipe_type` ) FROM '.ROSTER_RECIPESTABLE.' r WHERE `r`.`skill_name` = "'. $_REQUEST['proffilter'].'" ORDER BY `r`.`recipe_type` ASC';
 		$content .= ("<!--$qry_recipe_type -->\n");
 		$result_recipe_type = $wowdb->query($qry_recipe_type) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_recipe_type);
 		if ($roster_conf['sqldebug'])
@@ -110,9 +109,6 @@ if (isset($_REQUEST["proffilter"]))
 				$content .= border('syellow','start','<a href="#top_menu" id="'.$recipe_type.'">'.$recipe_type.'</a>').
 					'<table class="bodyline" cellspacing="0">'."\n";
 
-				//$content .= '<tr>'."\n";
-				//$content .= '<td colspan="14" class="membersHeaderRight"><div align="center"></div></td>'."\n";
-				//$content .= '</tr>';
 				$content .= '<tr>'."\n";
 
 				if ($addon_conf['recipe']['display_icon'])
@@ -147,10 +143,10 @@ if (isset($_REQUEST["proffilter"]))
 				$content .=  '</tr>';
 			}
 			// while($row_main = $wowdb->fetch_array($result_main)){
-			$qry_users = "select m.name, r.difficulty, s.skill_level ".
-				"from ".ROSTER_MEMBERSTABLE." m, ".ROSTER_RECIPESTABLE." r, ".ROSTER_SKILLSTABLE." s ".
-				"where r.member_id = m.member_id and r.member_id = s.member_id and r.skill_name = s.skill_name ".
-				"and recipe_name = '".addslashes($recipe->data['recipe_name'])."' order by m.name";
+			$qry_users = "SELECT `m`.`name`, `m`.`member_id`,`r`.`difficulty`, `s`.`skill_level` ".
+				"FROM `".ROSTER_MEMBERSTABLE."` m, `".ROSTER_RECIPESTABLE."` r, `".ROSTER_SKILLSTABLE."` s ".
+				"WHERE `r`.`member_id` = `m`.`member_id` AND `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
+				"AND `recipe_name` = '".addslashes($recipe->data['recipe_name'])."' ORDER BY `m`.`name`;";
 
 			$result_users = $wowdb->query($qry_users) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_users);
 			$users = '';
@@ -169,11 +165,11 @@ if (isset($_REQUEST["proffilter"]))
 
 				if (substr($row_users['skill_level'],0,strpos($row_users['skill_level'],':')) < 300)
 				{
-					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'" href="./char.php?name='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
+					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'" href="./char.php?member='.$row_users['member_id'].'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
 				}
 				else
 				{
-					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1" href="./char.php?name='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
+					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1" href="./char.php?member='.$row_users['member_id'].'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
 				}
 				$break_counter++;
 			}
@@ -185,7 +181,7 @@ if (isset($_REQUEST["proffilter"]))
 			// Increment counter so rows are colored alternately
 			++$rc;
 
-			$table_cell_start = '<td class="membersRow'.(($rc%2)+1).'" align="center" valign="middle">';
+			$table_cell_start = '<td class="membersRowCell" align="center" valign="middle">';
 
 
 			$thottURL='<a href="http://www.thottbot.com/index.cgi?i='.
@@ -270,7 +266,7 @@ if (isset($_REQUEST["proffilter"]))
 				$users = rtrim($users,'<br>');
 			}
 
-			$content .=  '<tr>'."\n";
+			$content .=  '<tr class="membersRowColor'.(($rc%2)+1).'">'."\n";
 			if ($addon_conf['recipe']['display_icon'])
 			{
 				$content .=  $table_cell_start.'<div class="equip">';

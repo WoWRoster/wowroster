@@ -22,21 +22,21 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 }
 
 
-$query = "SELECT m.name member, r.faction, r.name fct_name, r.value, ".
-	"( substring( r.value, 1, locate('/', r.value)-1) + 0 ) AS curr_rep, ".
-	"( substring( r.value, locate('/', r.value)+1, length(r.value)-locate('/', r.value)) + 0 ) AS max_rep, ".
-	"r.standing ".
+$query = "SELECT `m`.`name` member, `m`.`member_id`,`r`.`faction`, `r`.`name` fct_name, `r`.`value`, ".
+	"( substring( `r`.`value`, 1, locate('/', `r`.`value`)-1) + 0 ) AS curr_rep, ".
+	"( substring( `r`.`value`, locate('/', `r`.`value`)+1, length(`r`.`value`)-locate('/', `r`.`value`)) + 0 ) AS max_rep, ".
+	"`r`.`standing` ".
 	"FROM `".ROSTER_REPUTATIONTABLE."` r, ".ROSTER_MEMBERSTABLE." m ".
-	"WHERE r.member_id = m.member_id";
+	"WHERE `r`.`member_id` = `m`.`member_id`";
 
 if( (isset($_REQUEST['factionfilter'])) && (($_REQUEST['factionfilter']) != 'All') )
-	$query .= " AND r.name='".addslashes($_REQUEST['factionfilter'])."'";
+	$query .= " AND `r`.`name` = '".addslashes($_REQUEST['factionfilter'])."'";
 
 
-$query .=  " ORDER BY max_rep desc, r.standing DESC, curr_rep DESC";
+$query .=  " ORDER BY max_rep DESC, `r`.`standing` DESC, curr_rep DESC;";
 
 
-$qry_fct = "SELECT distinct(name) fct_name FROM ".ROSTER_REPUTATIONTABLE." ORDER BY name";
+$qry_fct = "SELECT DISTINCT(`name`) fct_name FROM ".ROSTER_REPUTATIONTABLE." ORDER BY `name`;";
 
 
 if (isset($_REQUEST['factionfilter']))
@@ -78,7 +78,7 @@ if( isset($_REQUEST['factionfilter']) )
 	$ab = array();
 	while($row = $wowdb->fetch_array($result))
 	{
-		$ab[] = array($row['member'], $row['faction'], $row['fct_name'], $row['standing'], $row['curr_rep'], $row['max_rep'], $row['standing']);
+		$ab[] = array($row['member'], $row['faction'], $row['fct_name'], $row['standing'], $row['curr_rep'], $row['max_rep'], $row['standing'], $row['member_id']);
 	}
 
 	$borderTop = border('syellow', 'start', $ab['0']['1'].' - '.$ab['0']['2']);
@@ -94,7 +94,7 @@ if( isset($_REQUEST['factionfilter']) )
 	$content .=($borderTop);
 	$content .=($tableHeader);
 	$content .=($tableHeaderRow);
-	$striping_counter = 1;
+	$striping_counter = 0;
 
 	for($i = 0; $i <= count($ab); $i++)
 	{
@@ -133,14 +133,14 @@ function replevel($replevel)
 
 	if($ab[$i]['6'] == $replevel)
 	{
-		$rep .=('<tr class="membersRow'. (($striping_counter % 2) +1) ."\">\n");
+		$rep .=('<tr class="membersRowColor'. (($striping_counter % 2) +1) ."\">\n");
 
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 
-		$rep .=('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$ab[$i]['0'].'</td>');
-		$rep .=('<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$ab[$i]['3'].'</td>');
-		$rep .=('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">'.$ab[$i]['4'].' / '.$ab[$i]['5'].'</td>');
+		$rep .=('<td class="membersRowCell"><a href="char.php?member='.$ab[$i]['7'].'">'.$ab[$i]['0'].'</a></td>');
+		$rep .=('<td class="membersRowCell">'.$ab[$i]['3'].'</td>');
+		$rep .=('<td class="membersRowRightCell">'.$ab[$i]['4'].' / '.$ab[$i]['5'].'</td>');
 		$rep .=('</tr>');
 	}
 	return($rep);

@@ -262,7 +262,7 @@ class update
 							}
 							else // CP Version not new enough
 							{
-								$output .= "<li><span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
+								$output .= "<li><span class=\"red\">NOT Updating character [</span><span class=\"orange\">$char_name</span><span class=\"red\">]</span><br />\n";
 								$output .= "Data is from CharacterProfiler v".$char['DBversion']."<br />\n";
 								$output .= $wordings[$roster_conf['roster_lang']]['CPver_err']."\n";
 							}
@@ -313,11 +313,11 @@ class update
 							// GP Version Detection, don't allow lower than minVer
 							if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 							{
-								// make hour between 0 and 23 and minute between 0 and 60
-								list($month,$day,$year,$hour,$minute,$second) = sscanf($guild['DateExtracted'],"%d/%d/%d %d:%d:%d");
+								// get DateExtracted and format for mysql
+								list($month,$day,$year,$hour,$minute,$second) = sscanf($guild['DateUTC'],"%d/%d/%d %d:%d:%d");
 
 								// take the current time and get the offset. Upload must occur same day that roster was obtained
-								$currentTimestamp = mktime($hour, $minute, $second, $month, $day, $year, -1);
+								$currentTimestamp = mktime($hour, $minute, $second, $month, $day, $year);
 								$currentTime = getDate($currentTimestamp);
 
 								// Update the guild
@@ -333,6 +333,7 @@ class update
 									$guild_output .= $wowdb->getMessages();
 									$wowdb->resetMessages();
 								}
+
 								// Remove the members who were not in this update
 								$wowdb->remove_guild_members($guildId);
 
@@ -354,7 +355,7 @@ class update
 							else
 							// GP Version not new enough
 							{
-								$output .= "<span class=\"red\">NOT Updating Guild list for $guildName</span><br />\n";
+								$output .= "<span class=\"red\">NOT Updating Guild list for [</span><span class=\"orange\">$guildName</span>]<br />\n";
 								$output .= "Data is from GuildProfiler v".$guild['DBversion']."<br />\n";
 								$output .= $wordings[$roster_conf['roster_lang']]['GPver_err']."<br />\n";
 							}

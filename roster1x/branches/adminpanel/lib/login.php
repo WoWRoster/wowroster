@@ -451,16 +451,13 @@ class RosterLogin
 	function accessConfig($values)
 	{
 		//return '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
-		global $wowdb, $guild_info;
+		global $wowdb, $guild_info, $guild_ranks;
 
-		$ranksarray = $wowdb->get_guild_ranks($guild_info['guild_id']);
-
-		//print_r($ranksarray);die();
-		if( is_array($ranksarray) )
+		if( is_array($guild_ranks) )
 		{
 			$input_field = '<select name="config_'.$values['name'].'">'."\n";
 			$select_one = 1;
-			foreach( $ranksarray as $key => $valarray )
+			foreach( $guild_ranks as $key => $valarray )
 			{
 				if( $key == $values['value'] && $select_one )
 				{

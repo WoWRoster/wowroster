@@ -90,7 +90,7 @@ else
 // Define the Queries
 //$itemQuery = "SELECT member.name as member_name, member.member_id as member_id, item.*, LEFT(item.item_id, (LOCATE(':',item.item_id)-1)) as real_itemid FROM `".ROSTER_ITEMSTABLE."` as item LEFT JOIN `".ROSTER_MEMBERSTABLE."` as member ON item.member_id=member.member_id WHERE member.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND item.item_parent!='bags' AND item.item_parent!='equip'".$filterItemQuery.$lvlItemQuery." AND item.item_tooltip NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%' ORDER BY item.item_name";
 $itemQuery = "SELECT member.name as member_name, member.member_id as member_id, item.*, LEFT(item.item_id, (LOCATE(':',item.item_id)-1)) as real_itemid FROM `".ROSTER_ITEMSTABLE."` as item LEFT JOIN `".ROSTER_MEMBERSTABLE."` as member ON item.member_id=member.member_id WHERE member.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND item.item_parent!='bags' AND item.item_parent!='equip'".$filterItemQuery.$lvlItemQuery." AND item.item_tooltip NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%' ORDER BY item.item_name";
-$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.server AS muleservername, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id ORDER BY m.name";
+$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.server AS muleservername, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper, DATE_FORMAT(  DATE_ADD(`p`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id ORDER BY m.name";
 
 // If SQL Debugging is enabled, please insert the queries as commented HTML
 if ($roster_conf['sqldebug'])
@@ -134,12 +134,13 @@ while ($muleRow = $wowdb->getrow($muleNames))
 		$money['copper'] += $muleRow['copper'];
 	}
 
+	$mule[$muleRow['member_id']]['member_id'] = $muleRow['member_id'];
 	$mule[$muleRow['member_id']]['member_name'] = $muleRow['member_name'];
 	$mule[$muleRow['member_id']]['muleservername'] = $muleRow['muleservername'];
 	$mule[$muleRow['member_id']]['member_gold'] = $muleRow['gold'];
 	$mule[$muleRow['member_id']]['member_silver'] = $muleRow['silver'];
 	$mule[$muleRow['member_id']]['member_copper'] = $muleRow['copper'];
-	$mule[$muleRow['member_id']]['updatetime'] = DateCharDataUpdated($muleRow['member_id']);
+	$mule[$muleRow['member_id']]['updatetime'] = $muleRow['update_format'];
 
 	$mulecount++;
 }
@@ -190,7 +191,7 @@ if ($mulecount > 0)
 {
 	foreach ($mule as $muleID => $muleArray)
 	{
-		$muleurl = "<a href='".$roster_conf['roster_dir']."/char.php?name=".$muleArray['member_name']."&server=".urlencode($muleArray['muleservername'])."'>";
+		$muleurl = "<a href='".$roster_conf['roster_dir']."/char.php?member=".$muleArray['member_id']."'>";
 		$content .= "<tr><td class='membersRow".$muleRowHeader."'>".$muleurl."<span style='font-size:9pt;color:#0070dd;text-decoration:underline;'>".$muleArray['member_name']."</span></a></td>";
 		// Display Banker Money   style=\"color:#$color\">
 		if ($roster_conf['bank_money'])
@@ -387,27 +388,6 @@ function CalcTotalMoney()
 		$money['silver'] = $money['silver'] - 100;
 	}
 	return $money;
-}
-
-// Function to grab the last Update Time of the member and return it in readable format
-function DateCharDataUpdated($member_id)
-{
-    global $wowdb, $roster_conf;
-    extract($GLOBALS);
-    $datequery = "SELECT `dateupdatedutc` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$member_id'";
-    $dateresult = $wowdb->query($datequery);
-    $date = $wowdb->getrow($dateresult);
-    $dateupdatedutc = $date["dateupdatedutc"];
-    $day = substr($dateupdatedutc,3,2);
-    $month = substr($dateupdatedutc,0,2);
-    $year = substr($dateupdatedutc,6,2);
-    $hour = substr($dateupdatedutc,9,2);
-    $minute = substr($dateupdatedutc,12,2);
-    $second = substr($dateupdatedutc,15,2);
-
-    $localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-
-    return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
 }
 
 // This function will check in which category the item falls under.

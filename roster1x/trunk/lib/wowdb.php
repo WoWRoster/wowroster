@@ -1822,8 +1822,7 @@ class wowdb
 				$timeString .= $lastOnlineMonths.' Months ';
 			if ($lastOnlineDays > 0)
 				$timeString .= $lastOnlineDays.' Days ';
-			if ($lastOnlineHours > 0)
-				$timeString .= max($lastOnlineHours,1).' Hours ';
+			$timeString .= max($lastOnlineHours,1).' Hours ';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
 			$this->add_time( 'last_online', getDate($lastOnlineTime));

@@ -26,10 +26,6 @@ if( empty($guild_info) )
 {
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
-$guildMOTD = $guild_info['guild_motd'];
-$guildFaction = $guild_info['faction'];
 
 $mainQuery =
 	'SELECT '.
@@ -42,8 +38,13 @@ $mainQuery =
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
 	'`members`.`zone`, '.
+	'`members`.`status`, '.
+
 	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
-	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+	"`players`.`dateupdatedutc` AS 'last_update', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`players`.`RankName`, '.
 	'`players`.`RankInfo`, '.
@@ -55,8 +56,6 @@ $mainQuery =
 	'`players`.`Rankexp`, '.
 	'`players`.`hearth`, '.
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
-	"`players`.`dateupdatedutc` AS 'last_update', ".
-	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`proftable`.`professions` '.
 
@@ -65,7 +64,7 @@ $mainQuery =
 	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
 		'FROM `roster_skills` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
-	'WHERE `members`.`guild_id` = '.$guildId.' '.
+	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' '.
 	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 $perms = array(
@@ -155,7 +154,7 @@ if ( $perms['index_lastonline'] )
 
 if ( $perms['index_lastupdate'] )
 {
-	$FIELD['last_update'] = array (
+	$FIELD['last_update_format'] = array (
 		'lang_field' => 'lastupdate',
 		'jsort' => 'last_online_stamp',
 	);
@@ -181,14 +180,7 @@ if( $roster_conf['index_update_inst'] )
 
 if ( $roster_conf['index_motd'] == 1 )
 {
-	if( $roster_conf['motd_display_mode'] )
-	{
-		print '<img src="motd.php?motd='.urlencode($guildMOTD).'" alt="Guild Message of the Day" /><br /><br />';
-	}
-	else
-	{
-		echo '<span class="GMOTD">Guild MOTD: '.$guildMOTD.'</span><br /><br />';
-	}
+	print $memberlist->makeMotd();
 }
 
 include_once (ROSTER_LIB.'menu.php');
@@ -283,7 +275,7 @@ function tradeskill_icons ( $row )
 	global $wowdb, $roster_conf, $wordings;
 
 	$cell_value ='';
-	
+
 	// Don't proceed for characters without data
 	if ($row['clientLocale'] == '')
 	{

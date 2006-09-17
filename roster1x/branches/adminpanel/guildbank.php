@@ -126,13 +126,13 @@ $striping_counter = 1;
 
 while($row = $wowdb->fetch_array($result))
 {
-	$stripe_class = 'membersRow'.( ( ++$striping_counter % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $striping_counter % 2 ) + 1 );
+	$stripe_class = ( ( ++$striping_counter % 2 ) + 1 );
+
 	$item_texture=str_replace('\\','/',$row['item_texture']);
-	echo '  <tr valign="top">'."\n";
+	echo '  <tr valign="top" class="membersRowColor'.$stripe_class.'">'."\n";
 
 	// Item holder column
-	echo '    <td align="center" class="'.$stripe_class.'" style="white-space:normal;">';
+	echo '    <td align="center" class="membersRowCell" style="white-space:normal;">';
 	list($base_id, $extras) = split(':',$row['item_id'],2);
 	//echo "<!-- base_id = $base_id -->\n";
 	foreach (array_unique($owners[$base_id]) as $owner)
@@ -147,7 +147,7 @@ while($row = $wowdb->fetch_array($result))
 	echo "</td>\n";
 
 	// Item texture and quantity column
-	echo '    <td class="'.$stripe_class.'"><div class="item">'."\n";
+	echo '    <td class="membersRowCell"><div class="item">'."\n";
 
 	echo '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($row['item_name'])).'" target="_blank">'."\n".
 		'      <img src="'.$roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'].'" class="icon"'.' alt="'.utf8_decode($row['item_name']).'" /></a>';
@@ -158,7 +158,7 @@ while($row = $wowdb->fetch_array($result))
 	echo '</div></td>'."\n";
 
 	// Item description column
-	echo '    <td width="220" class="'.$stripe_class_right.'" style="white-space:normal;">';
+	echo '    <td width="220" class="membersRowCell" style="white-space:normal;">';
 	$first_line = true;
 	$tooltip_out = '';
 	$row['item_tooltip'] = stripslashes($row['item_tooltip']);
