@@ -341,7 +341,7 @@ class Interface_Helper extends Authentication
 						{
 							if($request['action'] == 'group_rights')
 							{
-								if(@$request['area_id'] != 'Select')
+								if(@$request['area_id'] != 'Select' && @$request['save'] == 'Set')
 								{
 									$ticked = array();
 									$unticked = array();

@@ -41,7 +41,6 @@ $IH->treat_get_post($_REQUEST);
 			<?php if(!$LU->isLoggedIn()){ show_login();	} else { ?>
 				<div id="t1" style="display:none">
 					<table width="400px" style="border:1px solid #212121; font-weight:bold;">
-						<form method="post">
 						<tr>
 							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">Guild Management</td>
 						</tr>
@@ -55,12 +54,10 @@ $IH->treat_get_post($_REQUEST);
 								<?php $IH->gui('Guild_Management_Master', 'new_edit_guild_field', @$_GET); ?>
 							</td>
 						</tr>
-						</form>
 					</table>
 				</div>
 				<div id="t2" style="display:none">
 					<table width="400px" style="border:1px solid #212121; font-weight:bold;">
-						<form method="post">
 						<tr>
 							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">Area Management</td>
 						</tr>
@@ -74,12 +71,10 @@ $IH->treat_get_post($_REQUEST);
 								<?php $IH->gui('Area_Management_Master', 'new_edit_area_field', @$_GET); ?>
 							</td>
 						</tr>
-						</form>
 					</table>
 				</div>
 				<div id="t3" style="display:none">
 					<table width="400px" style="border:1px solid #212121; font-weight:bold;">
-						<form method="post">
 						<tr>
 							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">Group Management</td>
 						</tr>
@@ -94,7 +89,6 @@ $IH->treat_get_post($_REQUEST);
 								<?php $IH->gui('Group_Management_Master', 'new_edit_group_field', @$_GET); ?>
 							</td>
 						</tr>
-						</form>
 					</table>
 				</div>
 				<div id="t4" style="display:none">
@@ -102,7 +96,6 @@ $IH->treat_get_post($_REQUEST);
 						<tr valign="top">
 							<td>
 								<table width="500px" style="border:1px solid #212121; font-weight:bold;">
-									<form method="post">
 									<tr>
 										<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">User Management</td>
 									</tr>
@@ -111,12 +104,10 @@ $IH->treat_get_post($_REQUEST);
 											<?php $IH->gui('User_Management_Master', 'users', array('action'=>@$_GET['action'], 'id'=>@$_GET['id'])); ?>
 										</td>
 									</tr>
-									</form>
 								</table>
 							</td>
 							<td style="padding-left:3px; ">
 								<table width="150px" style="border:1px solid #212121; font-weight:bold;">
-									<form method="post">
 									<tr>
 										<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">Search Users by</td>
 									</tr>
@@ -125,11 +116,9 @@ $IH->treat_get_post($_REQUEST);
 											<?php $IH->gui('User_Management_Master', 'users', 'search_box'); ?>
 										</td>
 									</tr>
-									</form>
 								</table>
 								<br />
 								<table width="150px" style="border:1px solid #212121; font-weight:bold;">
-									<form action="<?php print $_SERVER['PHP_SELF']; ?>" method="post">
 									<tr>
 										<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">Create User</td>
 									</tr>
@@ -138,7 +127,6 @@ $IH->treat_get_post($_REQUEST);
 											<?php $IH->gui('User_Management_Master', 'users', 'new_user_box'); ?>
 										</td>
 									</tr>
-									</form>
 								</table>
 							</td>
 						</tr>
@@ -153,7 +141,6 @@ $IH->treat_get_post($_REQUEST);
 				</div>
 				<div id="t5" style="display:none">
 					<table width="540px" style="border:1px solid #212121; font-weight:bold;">
-						<form method="post">
 						<tr style="cursor:pointer;">
 							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;"><div onclick="return toggleShow('group_rights_management', this)" style="width:100%;">Group Rights Management</div></td>
 						</tr>
@@ -178,7 +165,6 @@ $IH->treat_get_post($_REQUEST);
 								<?php $IH->gui('Rights_Management_Master', 'personal_rights'); ?>
 							</td>
 						</tr>
-						</form>
 					</table>
 				</div>
 			<?php }// end if($LU->isLoggedIn()) ?>

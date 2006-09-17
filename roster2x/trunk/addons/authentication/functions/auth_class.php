@@ -508,6 +508,23 @@ class Authentication
 		return $this->status($removed, 'delete_translation()', __LINE__, $error_params);
 		
 	}
+	
+	/*
+		$filter = array('section_id' => $section_id,
+						'section_type' => $section_type,
+						'language_id' => $language_id,
+						'name' => $name,
+						'description' => $description);
+		get_translation($filter);
+	*/
+	function get_translation($filter)
+	{
+		global $LUA;
+		$translation = $LUA->perm->getTranslations($filter);
+		$error_params = func_get_args();
+		return $this->status($translation, 'get_translation()', __LINE__, $error_params);
+		
+	}
 
 #-----------| Character Management |-----------#
 
