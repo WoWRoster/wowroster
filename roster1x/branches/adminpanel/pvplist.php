@@ -49,7 +49,7 @@ function pvprankRight()
 print($tableHeader);
 
 
-$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '1' AND `enemy` = '1' GROUP BY `guild` ORDER BY countg DESC";
+$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '1' AND `enemy` = '1' AND `member`.`guild_id` = ".$guild_info['guild_id']." GROUP BY `guild` ORDER BY `countg` DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
@@ -75,7 +75,7 @@ if ($row)
 }
 
 
-$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '0' AND `enemy` = '1' GROUP BY `guild` ORDER BY countg DESC";
+$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '0' AND `enemy` = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY `guild` ORDER BY countg DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
@@ -102,7 +102,7 @@ if ($row)
 }
 
 
-$query = "SELECT `name`, COUNT(`name`) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '1' AND `enemy` = '1' GROUP BY `name` ORDER BY countg DESC";
+$query = "SELECT `member`.`name`, COUNT(`member`.`name`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '1' AND `enemy` = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY `name` ORDER BY countg DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
@@ -124,7 +124,7 @@ if ($row)
 }
 
 
-$query = "SELECT `name`, COUNT(`name`) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '0' AND `enemy` = '1' GROUP BY `name` ORDER BY countg DESC";
+$query = "SELECT `member`.`name`, COUNT(`member`.`name`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '0' AND `enemy` = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY `name` ORDER BY countg DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
@@ -146,7 +146,7 @@ if ($row)
 }
 
 
-$query = "SELECT pvp2.member_id, members.name AS gn, COUNT(pvp2.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp2 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp2.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY countg DESC";
+$query = "SELECT `pvp`.`member_id`, `member`.`name` AS gn, COUNT(`pvp`.`member_id`) AS `countg` FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE win = '1' AND enemy = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY pvp.member_id ORDER BY countg DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
@@ -168,7 +168,7 @@ if ($row)
 }
 
 
-$query = "SELECT pvp2.member_id, members.name AS gn, COUNT(pvp2.member_id) as countg FROM `".ROSTER_PVP2TABLE."` pvp2 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp2.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY countg DESC";
+$query = "SELECT `pvp`.`member_id`, `member`.`name` AS `gn`, COUNT(`pvp`.`member_id`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE win = '0' AND enemy = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY pvp.member_id ORDER BY countg DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -191,7 +191,7 @@ if ($row)
 }
 
 
-$query = "SELECT pvp2.member_id, members.name as gn, AVG(pvp2.`leveldiff`) as ave, COUNT(pvp2.member_id) as countg FROM `".ROSTER_PVP2TABLE."` pvp2 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp2.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY ave DESC";
+$query = "SELECT `pvp`.`member_id`, `member`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE win = '1' AND enemy = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY pvp.member_id ORDER BY ave DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -220,7 +220,7 @@ if ($row)
 }
 
 
-$query = "SELECT pvp2.member_id, members.name as gn, AVG(pvp2.`leveldiff`) as ave, COUNT(pvp2.member_id) as countg FROM `".ROSTER_PVP2TABLE."` pvp2 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp2.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY ave DESC";
+$query = "SELECT `pvp`.`member_id`, `member`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg FROM `".ROSTER_PVP2TABLE."` AS `pvp` INNER JOIN `".ROSTER_MEMBERSTABLE."` AS `member` ON `pvp`.`member_id` = `member`.`member_id` WHERE win = '0' AND enemy = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY pvp.member_id ORDER BY ave DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
