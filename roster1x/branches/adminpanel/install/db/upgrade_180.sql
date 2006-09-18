@@ -131,7 +131,7 @@ INSERT INTO `renprefix_config` VALUES (10060, 'auth_diag_button', '0', 'access',
 INSERT INTO `renprefix_config` VALUES (10070, 'auth_addon_config', '-1', 'access', 'update_access');
 
 # --------------------------------------------------------
-### Update character page visibility values per character
+### Reconfigure members table
 ALTER TABLE `renprefix_members`
 	CHANGE `talents` `talents` tinytext,
 	CHANGE `spellbook` `spellbook` tinytext,
@@ -145,8 +145,11 @@ ALTER TABLE `renprefix_members`
 	CHANGE `pvp` `pvp` tinytext,
 	CHANGE `duels` `duels` tinytext,
 	CHANGE `item_bonuses` `item_bonuses` tinytext,
-	ADD `active` tinyint(1) NOT NULL DEFAULT '0' AFTER `update_time` ;
+	ADD `active` tinyint(1) NOT NULL DEFAULT '0' AFTER `update_time`,
+	ADD `server` varchar(32) NOT NULL AFTER `name`
+	ADD UNIQUE KEY `character` (`server`,`name`);
 
+# Calculate new permission values form the old ones
 UPDATE `renprefix_members` SET
 	`talents`	= (`talents`-1)*5,
 	`spellbook`	= (`spellbook`-1)*5,
@@ -160,6 +163,11 @@ UPDATE `renprefix_members` SET
 	`pvp`		= (`pvp`-1)*5,
 	`duels`		= (`duels`-1)*5,
 	`item_bonuses`	= (`item_bonuses`-1)*5;
+
+# Copy realmname from the guild table
+UPDATE `roster_members`
+	LEFT JOIN `roster_guild` ON `roster_members`.`guild_id` = `roster_guild`.`guild_id`
+	SET `roster_members`.`server` = `roster_guild`.`server`;
 
 
 # --------------------------------------------------------

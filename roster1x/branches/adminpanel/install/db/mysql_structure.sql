@@ -107,6 +107,7 @@ DROP TABLE IF EXISTS `renprefix_members`;
 CREATE TABLE `renprefix_members` (
   `member_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
+  `server` varchar(32) NOT NULL,
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
@@ -134,7 +135,7 @@ CREATE TABLE `renprefix_members` (
   `money` tinytext,
   `item_bonuses` tinytext,
   PRIMARY KEY  (`member_id`),
-  KEY `member` (`guild_id`,`name`),
+  UNIQUE KEY `character` (`server`,`name`)
   KEY `name` (`name`),
   KEY `class` (`class`),
   KEY `level` (`level`),

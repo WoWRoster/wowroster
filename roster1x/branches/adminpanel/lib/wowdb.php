@@ -1817,14 +1817,16 @@ class wowdb
 	 * @param string $name
 	 * @param array $char
 	 * @param array $currentTimestamp
+	 * @param string $realmName
 	 */
-	function update_guild_member( $guildId, $name, $char, $currentTimestamp )
+	function update_guild_member( $guildId, $name, $char, $currentTimestamp, $realmName )
 	{
 		global $roster_login;
 
 		$name_escape = $this->escape( $name );
+		$server_escape = $this->escape( $realmName );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1840,8 +1842,10 @@ class wowdb
 
 		$this->reset_values();
 
+		$this->add_value( 'guild_id', $guildId);
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'class', $char['Class']);
+		$this->add_value( 'server', $server_escape);
 
 		if( !empty($char['Level']) )
 			$this->add_value( 'level', $char['Level']);
@@ -1890,7 +1894,7 @@ class wowdb
 
 		if( $memberId )
 		{
-			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
+			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
 			$this->setMessage('<li>Updating member - [ '.$name.' ]</li>');
 			$this->membersupdated++;
 
@@ -1903,10 +1907,6 @@ class wowdb
 		}
 		else
 		{
-			// Add the guild Id first
-			if( !empty($guildId) )
-				$this->add_value( 'guild_id', $guildId);
-
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">Adding member - [</span> '.$name.' <span class="green">]</span></li>');
 
