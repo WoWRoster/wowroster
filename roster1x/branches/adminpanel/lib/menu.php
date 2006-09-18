@@ -33,6 +33,7 @@ if( !empty($guild_info) )
 		COUNT(`level`) AS amount,
 		SUM(`level`) AS sum
 		FROM `".ROSTER_MEMBERSTABLE."`
+		WHERE `guild_id` = $guildId
 		GROUP BY isalt, levelgroup
 		ORDER BY isalt ASC, levelgroup DESC";
 	$result_menu = $wowdb->query($guildstat_query);
