@@ -310,11 +310,11 @@ function sortColumn(colnr,count,listname)
 		{
 			if (i == 0)
 			{
-				dir = (cs[i].value.indexOf('desc')==-1)?'asc':'desc';
+				dir = (cs[i].value.indexOf('desc')==-1)?'desc':'asc';
 			}
 			else
 			{
-				dir = (cs[i].value.indexOf('desc')==-1)?'desc':'asc';
+				dir = (cs[i].value.indexOf('desc')==-1)?'asc':'desc';
 			}
 
 			for (j=i; j>0; j--)
