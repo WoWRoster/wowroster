@@ -1539,7 +1539,7 @@ class wowdb
 	 */
 	function remove_guild_members($guild_id)
 	{
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = 0";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1563,13 +1563,17 @@ class wowdb
 
 			}
 
-			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').'</span></li>');
-			$this->setMessage('<ul>');
+			$this->setMessage('<li><span class="red">Setting '.$num.' member'.($num > 1 ? 's' : '').' to guildless.</span></li>');
 
 			// now that we have our inclause, time to do some deletes
-			$this->deleteMembers($inClause);
+			$query2 = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `guild_id` = 0 WHERE `guid_id` = '$guild_id' AND `active` = 0";
 
-			$this->setMessage('</ul>');
+			$result2 = $this->query($query2);
+
+			if( !$result )
+			{
+				$this->setError('Failed to set members to guildless',$this->error());
+			}
 		}
 		$this->closeQuery($result);
 	}
@@ -1826,7 +1830,7 @@ class wowdb
 		$name_escape = $this->escape( $name );
 		$server_escape = $this->escape( $realmName );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
+		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1903,6 +1907,11 @@ class wowdb
 			{
 				$this->setError(''.$name.' could not be inserted',$this->error());
 				return;
+			}
+			elseif( $memberInfo['guild_id'] != $guildId )
+			{
+				$this->setMemberLog($memberInfo,0);
+				$this->setMemberLog($row,1);
 			}
 		}
 		else

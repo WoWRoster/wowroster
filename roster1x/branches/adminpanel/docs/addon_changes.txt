@@ -40,6 +40,8 @@ These are the changes for the roster addon framework:
 - basename is the name of the addon's install directory. dbname is the name it
   is installed under in the DB.
 
+- The database config information is stored in $addon_conf[$addon['dbname']].
+
 - The addon is called by addon.php using the 'dbname' GET parameter.
 
 - You do not know the dbname at design time. Use the $addon['dbname'] variable
@@ -49,3 +51,8 @@ These are the changes for the roster addon framework:
   character, and pvp updates have already ran. The addon is passed a $updateData
   array with all data uploaded in this update. This trigger file is called if
   at least 1 file the addon has registered for is in the upload.
+
+- menu.php calls the localization file if you've got a registered, active menu
+  button, but it doesn't call any of the other addon files or import the db config.
+  The addon config panel calls the db config and the localization file, but
+  currently not the addon's database record or config file.
