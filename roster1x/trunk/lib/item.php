@@ -73,7 +73,7 @@ function item_get_one( $member_id, $slot )
 	global $wowdb;
 
 	$slot = $wowdb->escape( $slot );
-	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` where member_id = $member_id and item_slot = '$slot'";
+	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_slot` = '$slot'";
 	if ($wowdb->sqldebug)
 		print "<!-- $query --> \n";
 
@@ -91,7 +91,7 @@ function item_get_many( $member_id, $parent )
 	global $wowdb;
 
 	$parent = $wowdb->escape( $parent );
-	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` where member_id = $member_id and item_parent = '$parent'";
+	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_parent` = '$parent'";
 
 	if ($wowdb->sqldebug)
 		print "<!-- $query --> \n";

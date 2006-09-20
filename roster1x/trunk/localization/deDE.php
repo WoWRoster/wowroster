@@ -644,6 +644,7 @@ $wordings['deDE']['admin']['menu_search_page'] = "Suche Link|Link zur Suchseite"
 // display_conf
 $wordings['deDE']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet für das Roster";
 $wordings['deDE']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript Dateiort";
+$wordings['deDE']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
 $wordings['deDE']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript Dateiort";
 $wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript Dateiort für den Fix für Overlib im Internet Explorer";
 $wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";

@@ -644,6 +644,7 @@ $wordings['frFR']['admin']['menu_search_page'] = "Search Page Link|Controls disp
 // display_conf
 $wordings['frFR']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for roster";
 $wordings['frFR']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
+$wordings['frFR']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
 $wordings['frFR']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['frFR']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
 $wordings['frFR']['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" dans le nom, celà cherchera dans le répertoire img/ du roster";

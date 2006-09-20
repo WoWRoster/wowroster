@@ -644,6 +644,7 @@ $wordings['enUS']['admin']['menu_search_page'] = "Search Page Link|Controls disp
 // display_conf
 $wordings['enUS']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for roster";
 $wordings['enUS']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
+$wordings['enUS']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
 $wordings['enUS']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
 $wordings['enUS']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
 $wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
@@ -734,14 +735,14 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"zanix",
 					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
 		),
-		
+
 		'library'=>array(
 			array(	"name"=>	"DynamicDrive",
 					"info"=>	"<a href='http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm'>Tab content script</a><br /><a href='http://www.dynamicdrive.com/notice.htm'>DynamicDrive license</a>"),
 			array(	"name"=>	"Erik Bosrup",
 					"info"=>	"<a href='http://www.bosrup.com/web/overlib/'>OverLib tooltip library</a><br /><a href='http://www.bosrup.com/web/overlib/?License'>License</a>"),
 		),
-		
+
 		'3rdparty'=>array(
 			array(	"name"=>	"<a href='http://53x11.com'>Nick Schaffner</a>",
 					"info"=>	"Original WoW server status"),
@@ -795,7 +796,7 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Beta Tester"),
 		),
 	);
-	
+
 $creditspage['bottom']='WoW Roster is licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
 <br /><br />
 Serveral javascript files are libraries that are under their own licenses.
