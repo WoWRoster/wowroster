@@ -520,3 +520,31 @@ CREATE TABLE `renprefix_addon_trigger` (
 	PRIMARY KEY (`trigger_id`),
 	KEY idfile (`addon_id`,`file`)
 ) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Menu config table
+
+DROP TABLE IF EXISTS `renprefix_menu`;
+CREATE TABLE `renprefix_menu` (
+	`config_id` int(11) AUTO_INCREMENT,
+	`account_id` smallint(6) COMMENT '0 for default value',
+	`section` varchar(16),
+	`config` mediumtext,
+	PRIMARY KEY (`config_id`),
+	UNIQUE KEY `idsect` (`account_id`,`section`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Menu button table
+
+DROP TABLE IF EXISTS `renprefix_menu_button`;
+CREATE TABLE `renprefix_menu_button` (
+	`button_id` int(11) AUTO_INCREMENT,
+	`addon_id` int(11) COMMENT '0 for main roster',
+	`title` varchar(32),
+	`url` varchar(64),
+	PRIMARY KEY (`button_id`),
+	KEY `idtitle` (`addon_id`,`title`)
+) TYPE=MyISAM;
+
+	

@@ -137,7 +137,7 @@ class RosterLogin
 			$this->user = $proper['name'];
 			$this->level = $proper['level'];
 			$this->account = $proper['account_id'];
-	}
+		}
 		else
 		{
 			if( isset($_COOKIE['roster_pass']) )
@@ -216,6 +216,17 @@ class RosterLogin
 	function getUserName()
 	{
 		return $this->user;
+	}
+
+	/**
+	 * Return account id
+	 *
+	 * @return int $account_id
+	 *	The account id. -1 for guest. 0 for admin.
+	 */
+	function getAccount()
+	{
+		return $this->account;
 	}
 
 	/**
