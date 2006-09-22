@@ -30,7 +30,6 @@ if ( !defined('ROSTER_INSTALLED') )
 //	"file"		The file to include if this page is called. Missing means
 //			invalid page.
 //	"special"	Ignored unless it's one of the following:
-//			'disabled'	Makes the page unusable
 //			'divider'	Prints a horizontal line and no button.
 //			'hidden'	Hides the link, but allows access to the page
 
@@ -85,4 +84,8 @@ $pages['rosterdiag'] = array(
 $pages['addon'] = array(
 	"special"=>	"hidden",
 	"file"=>	"addon_conf.php",
+	);
+$pages['menu'] = array(
+	"special"=>	"hidden",
+	"file"=>	"menu_conf.php",
 	);

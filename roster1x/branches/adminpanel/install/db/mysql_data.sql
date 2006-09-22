@@ -172,3 +172,22 @@ INSERT INTO `renprefix_config` VALUES (10050, 'auth_change_pass', '10', 'access'
 INSERT INTO `renprefix_config` VALUES (10060, 'auth_diag_button', '0', 'access', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10070, 'auth_addon_config', '-1', 'access', 'update_access');
 
+# --------------------------------------------------------
+### Menu table entries
+INSERT INTO `renprefix_menu` VALUES (1, 0, 'main', 'b1:b2:b3:b4:b5|b6:b7:b8:b9|b10:b11:b12:b13');
+
+# --------------------------------------------------------
+### Menu Button entries
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'roster', 'index.php');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo.php');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Stats', 'stats.php');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Professions', 'tradeskills.php');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'GuildBank', 'guildbank.php');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'PvP Stats', 'guildpvp.php');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Honor', 'honor.php');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Member Log', 'memberlog.php');
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Keys', 'keys.php');
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'User Control', 'rostercp.php');
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'questlist.php');
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search.php');
+INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Credits', 'credits.php');

@@ -65,7 +65,7 @@ CREATE TABLE `renprefix_addon_trigger` (
 DROP TABLE IF EXISTS `renprefix_menu`;
 CREATE TABLE `renprefix_menu` (
 	`config_id` int(11) AUTO_INCREMENT,
-	`account_id` smallint(6) COMMENT '0 for default value',
+	`account_id` smallint(6) NOT NULL COMMENT '0 for default value',
 	`section` varchar(16),
 	`config` mediumtext,
 	PRIMARY KEY (`config_id`),
@@ -78,7 +78,7 @@ CREATE TABLE `renprefix_menu` (
 DROP TABLE IF EXISTS `renprefix_menu_button`;
 CREATE TABLE `renprefix_menu_button` (
 	`button_id` int(11) AUTO_INCREMENT,
-	`addon_id` int(11) COMMENT '0 for main roster',
+	`addon_id` int(11) NOT NULL COMMENT '0 for main roster',
 	`title` varchar(32),
 	`url` varchar(64),
 	PRIMARY KEY (`button_id`),
@@ -157,6 +157,26 @@ INSERT INTO `renprefix_config` VALUES (10060, 'auth_diag_button', '0', 'access',
 INSERT INTO `renprefix_config` VALUES (10070, 'auth_addon_config', '-1', 'access', 'update_access');
 
 # --------------------------------------------------------
+### Menu table entries
+INSERT INTO `renprefix_menu` VALUES (1, 0, 'main', 'b1:b2:b3:b4:b5|b6:b7:b8:b9|b10:b11:b12:b13');
+
+# --------------------------------------------------------
+### Menu Button entries
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'roster', 'index.php');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo.php');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Stats', 'stats.php');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Professions', 'tradeskills.php');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'GuildBank', 'guildbank.php');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'PvP Stats', 'guildpvp.php');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Honor', 'honor.php');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Member Log', 'memberlog.php');
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Keys', 'keys.php');
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'User Control', 'rostercp.php');
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'questlist.php');
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search.php');
+INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Credits', 'credits.php');
+
+# --------------------------------------------------------
 ### Reconfigure members table
 ALTER TABLE `renprefix_members`
 	CHANGE `talents` `talents` tinytext,
@@ -191,9 +211,9 @@ UPDATE `renprefix_members` SET
 	`item_bonuses`	= (`item_bonuses`-1)*5;
 
 # Copy realmname from the guild table
-UPDATE `roster_members`
-	LEFT JOIN `roster_guild` ON `roster_members`.`guild_id` = `roster_guild`.`guild_id`
-	SET `roster_members`.`server` = `roster_guild`.`server`;
+UPDATE `renprefix_members`
+	LEFT JOIN `renprefix_guild` ON `renprefix_members`.`guild_id` = `renprefix_guild`.`guild_id`
+	SET `renprefix_members`.`server` = `renprefix_guild`.`server`;
 
 
 # --------------------------------------------------------
