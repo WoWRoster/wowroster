@@ -178,7 +178,7 @@ INSERT INTO `renprefix_menu` VALUES (1, 0, 'main', 'b1:b2:b3:b4:b5|b6:b7:b8:b9|b
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'roster', 'index.php');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'Roster', 'index.php');
 INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo.php');
 INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Stats', 'stats.php');
 INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Professions', 'tradeskills.php');

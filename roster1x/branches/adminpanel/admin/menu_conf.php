@@ -118,7 +118,7 @@ $html_head .= '    <script type="text/javascript" src="'.$roster_conf['roster_di
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
-	$menu .= '<div id="'.$id.'" style="position:absolute;width:100px;height:25px;">'.$button['title'].'</div>'."\n";
+	$menu .= '<div id="'.$id.'" class="menu_config_div">'.$button['title'].'</div>'."\n";
 }
 $body .= border('sgreen','start',$section);
 $body .= '<div id="array" style="width:'.(105*$arrayWidth+5).'px;height:'.(30*$arrayHeight+5).'px;"></div>'."\n";
@@ -128,7 +128,7 @@ foreach($arrayButtons as $posX=>$column)
 {
 	foreach($column as $posY=>$button)
 	{
-		$body .= '<div id="b'.$button['button_id'].'" style="position:absolute;width:100px;height:25px;">'.$button['title'].'</div>'."\n";
+		$body .= '<div id="b'.$button['button_id'].'" class="menu_config_div">'.$button['title'].'</div>'."\n";
 	}
 }
 
@@ -136,7 +136,7 @@ $body .=
 '<script type="text/javascript">
 <!--
 
-SET_DHTML(CURSOR_MOVE, "palet"+NO_DRAG, "array"+NO_DRAG'.$dhtml_reg.');
+SET_DHTML(CURSOR_MOVE'.$dhtml_reg.', "palet"+NO_DRAG, "array"+NO_DRAG);
 
 var dy		= 30;
 var margTop	= 5;
