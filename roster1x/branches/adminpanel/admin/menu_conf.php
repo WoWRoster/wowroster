@@ -37,7 +37,7 @@ if( isset($_POST['doglobal']) && $_POST['doglobal'] )
 	}
 	else
 	{
-		$body .= messagebox('You are not authorized to edit the global menu configuration<br /><a href="'.$script_filename.'?page=menu&amp;section='.$section.'">Personal config</a>');
+		$body .= messagebox('You are not authorized to edit the global menu configuration<br /><a href="'.$script_filename.'?page=menu&amp;section='.$section.'">Personal config</a>','WoW Roster','sred');
 		return;
 	}
 }
@@ -51,11 +51,26 @@ else
 	}
 }
 
-
 // --[ Write submitted menu configuration to DB if applicable ]--
 if (isset($_POST['process']) && $_POST['process'] == 'process')
 {
+	$query = "UPDATE `".$wowdb->table('menu')."` SET `config` = '".$_POST['arrayput']."' WHERE `account_id` = '".$account."' AND `section` = '".$section."'";
 
+	$result = $wowdb->query($query);
+
+	if (!$result)
+	{
+		$body .= messagebox('Failed to update '.(($account == 0)?'the global':'your').' '.$section.' menu configuration due to a database error. MySQL said: <br />'.$wowdb->error(),'WoW Roster','sred');
+	}
+
+	if ($wowdb->affected_rows()>0) // the config row was actually changed
+	{
+		$save_status = '<span style="color:#0099FF;font-size:11px;">Changes to '.$section.' saved</span>';
+	}
+	else
+	{
+		$save_status = '<span style="color:#0099FF;font-size:11px;">No changes saved</span>';
+	}
 }
 
 // --[ Fetch button list from DB ]--
@@ -111,8 +126,8 @@ if (!isset($html_head))
 {
 	$html_head = '';
 }
-$html_head .= '    <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/wz_dragdrop.js"></script>'."\n";
-$html_head .= '    <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/menuconf.js"></script>'."\n";
+$html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/wz_dragdrop.js"></script>'."\n";
+$html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/menuconf.js"></script>'."\n";
 
 /* Insert select box for which menu to configure in $menu. Remember a checkbox for global/personal if current user can edit global */
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
@@ -120,6 +135,13 @@ foreach($palet as $id=>$button)
 {
 	$menu .= '<div id="'.$id.'" class="menu_config_div">'.$button['title'].'</div>'."\n";
 }
+
+$body .= $save_status;
+$body .= '<form action="" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
+$body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'"><input type="hidden" name="process" value="process">';
+$body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['config_submit_button'].'" />'."\n";
+$body .= '</form><br />'."\n";
+
 $body .= border('sgreen','start',$section);
 $body .= '<div id="array" style="width:'.(105*$arrayWidth+5).'px;height:'.(30*$arrayHeight+5).'px;"></div>'."\n";
 $body .= border('sgreen','end',$section);
@@ -132,7 +154,7 @@ foreach($arrayButtons as $posX=>$column)
 	}
 }
 
-$body .=
+$footer .=
 '<script type="text/javascript">
 <!--
 
@@ -155,19 +177,19 @@ $i = 0;
 
 foreach ($palet as $id => $button)
 {
-	$body .= 'palet['.$i++.'] = dd.elements.'.$id.';';
+	$footer .= 'palet['.$i++.'] = dd.elements.'.$id.';';
 }
 
 foreach ($arrayButtons as $posX => $column)
 {
-	$body .= 'aElts['.$posX.'] = Array();'."\n";
+	$footer .= 'aElts['.$posX.'] = Array();'."\n";
 	foreach ($column as $posY => $button)
 	{
-		$body .= 'aElts['.$posX.']['.$posY.'] = dd.elements.b'.$button['button_id'].';'."\n";
+		$footer .= 'aElts['.$posX.']['.$posY.'] = dd.elements.b'.$button['button_id'].';'."\n";
 	}
 }
 
-$body .= '
+$footer .= '
 updatePositions();
 //-->
 </script>';

@@ -119,14 +119,16 @@ if ($roster_login->getAuthorized())
 include_once( ROSTER_BASE.'roster_header.tpl' );
 include_once( ROSTER_LIB.'menu.php' );
 
-echo '<table width="100%"><tr><td valign="top" align="left">'."\n".
+echo	$header."\n".
+	'<table width="100%"><tr><td valign="top" align="left">'."\n".
 	$menu."\n".
 	'</td><td valign="top" align="center">'."\n".
 	$loginmsg.( ($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
 	$body."\n".
 	'</td><td valign="top" align="right">'."\n".
 	$pagebar."\n".
-	'</td></tr></table>';
+	'</td></tr></table>'."\n".
+	$footer;
 
 include_once( ROSTER_BASE.'roster_footer.tpl' );
 ?>

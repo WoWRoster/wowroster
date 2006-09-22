@@ -40,6 +40,7 @@ $menu = $config->buildConfigMenu();
 $config->buildConfigPage();
 
 $body = $config->form_start.
+	$save_message.
 	$config->submit_button.
 	$config->formpages.
 	$config->form_end.

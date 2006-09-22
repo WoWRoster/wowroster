@@ -442,11 +442,11 @@ class config
 					return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>'.$wowdb->error().'</pre><br />';
 				}
 			}
-			return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span>';
+			return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span><br />';
 		}
 		else
 		{
-			return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
+			return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span><br />';
 		}
 	}
 

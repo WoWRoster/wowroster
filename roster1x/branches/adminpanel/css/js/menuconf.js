@@ -202,6 +202,7 @@ function updatePositions()
 	{
 		palet[i].moveTo(dd.elements.palet.x+margLef,dd.elements.palet.y+margTop+dy*i);
 	}
+
 }
 
 function writeValue()
@@ -218,6 +219,8 @@ function writeValue()
 		}
 	}
 	document.getElementById('arrayput').value = value;
+
+	return true;
 }
 
 function sqr(x)
