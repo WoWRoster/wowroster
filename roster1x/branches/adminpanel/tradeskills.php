@@ -52,11 +52,11 @@ for ( $tsNr=0; $tsNr<=11; $tsNr++ )
 
 		print
 		'<div id="ts'.$tsNr.'_col" style="display:none;">
-		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"\" />".$header."</div>").'
+		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header."</div>").'
 		'.border('sgray','end').'
 		</div>
 		<div id="ts'.$tsNr.'_full">
-		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$header."</div>")."\n";
+		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header."</div>")."\n";
 ?>
 
       <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bodyline">

@@ -131,11 +131,11 @@ class config
 
 					case 'pagehide':
 						$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 						$page .= border('sblue','end');
 						$page .= '</div>'."\n";
 						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 						$page .= $this->buildPage($values['name'],$type[1]);
 						$page .= "</table>\n";
@@ -155,11 +155,11 @@ class config
 
 					case 'blockhide':
 						$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 						$page .= border('sblue','end');
 						$page .= '</div>'."\n";
 						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 						$page .= $this->buildBlock($values['name'],$type[1]);
 						$page .= "</table>\n";
@@ -221,11 +221,11 @@ class config
 
 				case 'pagehide':
 					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 					$html .= border('sblue','end');
 					$html .= '</div>'."\n";
 					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
@@ -243,11 +243,11 @@ class config
 
 				case 'blockhide':
 					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 					$html .= border('sblue','end');
 					$html .= '</div>'."\n";
 					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">'."\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= '</table>'."\n";

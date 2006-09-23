@@ -108,11 +108,11 @@ class memberslist {
 
 		$output .=
 			'<div id="sortfilterCol" style="display:'.(($roster_conf['members_openfilter'])?'none':'inline').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"\"/>".$act_words['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\"/>".$act_words['memberssortfilter']."</div>")."\n".
 			border('sblue','end')."\n".
 			'</div>'."\n".
 			'<div id="sortfilter" style="display:'.(($roster_conf['members_openfilter'])?'inline':'none').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\"/>".$act_words['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\"/>".$act_words['memberssortfilter']."</div>")."\n".
 			'<table><tr>'."\n".
 			'<td class="membersHeader">'.$act_words['memberssort'].'</td>'."\n".
 			'<td class="membersHeader">'.$act_words['memberscolshow'].'</td>'."\n".

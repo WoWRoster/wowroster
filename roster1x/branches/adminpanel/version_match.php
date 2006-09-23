@@ -195,11 +195,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" alt="+" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" alt="-" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
