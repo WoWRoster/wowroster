@@ -8,7 +8,7 @@
 
 DELETE FROM `renprefix_config` WHERE `id` = '5020' LIMIT 1;
 
-UPDATE `renprefix_config` SET `config_value` = '1.6.2' WHERE `id` = '1010' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.6.3' WHERE `id` = '1010' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '1.6.0' WHERE `id` = '1020' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '0.5.2' WHERE `id` = '1030' LIMIT 1;
 UPDATE `renprefix_config` SET `config_name` = 'menu_memberlog' WHERE `id` = '4020' LIMIT 1;
