@@ -19,8 +19,6 @@
 $script_filename = 'index.php';
 require_once( 'settings.php' );
 
-$roster_login = new RosterLogin($script_filename);
-
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
 {
@@ -184,8 +182,6 @@ if ( $roster_conf['index_motd'] == 1 )
 }
 
 include_once (ROSTER_LIB.'menu.php');
-
-echo "\n".$roster_login->getMessage()."<br />\n";
 
 if( $roster_conf['hspvp_list_disp'] == 'hide' )
 {

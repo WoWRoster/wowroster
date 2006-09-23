@@ -543,6 +543,7 @@ CREATE TABLE `renprefix_menu_button` (
 	`addon_id` int(11) COMMENT '0 for main roster',
 	`title` varchar(32),
 	`url` varchar(64),
+	`need_creds` tinytext,
 	PRIMARY KEY (`button_id`),
 	KEY `idtitle` (`addon_id`,`title`)
 ) TYPE=MyISAM;

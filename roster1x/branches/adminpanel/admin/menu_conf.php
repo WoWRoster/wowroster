@@ -101,9 +101,34 @@ if (!$result)
 	die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
 }
 
-$row = $wowdb->fetch_assoc($result);
+if ($wowdb->num_rows($result))
+{
+	$row = $wowdb->fetch_assoc($result);
 
-$wowdb->free_result($result);
+	$wowdb->free_result($result);
+}
+else
+{
+	$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `account_id` = '0' AND `section` = '".$section."'";
+
+	$result = $wowdb->query($query);
+
+	if (!$result)
+	{
+		die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+	}
+
+	if ($wowdb->num_rows($result))
+	{
+		$row = $wowdb->fetch_assoc($result);
+
+		$wowdb->free_result($result);
+	}
+	else
+	{
+		$row = array('config'=>'');
+	}
+}
 
 $arrayHeight = 0;
 foreach(explode('|',$row['config']) AS $posX=>$column)
@@ -129,7 +154,22 @@ if (!isset($html_head))
 $html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/wz_dragdrop.js"></script>'."\n";
 $html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/menuconf.js"></script>'."\n";
 
-/* Insert select box for which menu to configure in $menu. Remember a checkbox for global/personal if current user can edit global */
+$menu .= border('spink','start')."\n";
+$menu .= '<form action="" method="post">'."\n";
+$menu .= '<input type="hidden" name="section" value="'.$section.'">'."\n";
+if ($roster_login->getAuthorized($roster_conf['auth_editglobalmenu']))
+{
+	$menu .= '<input type="checkbox" name="doglobal" '.(($account==0)?:'checked="checked"':'').'">'."\n";
+}
+else
+{
+	$menu .= '<input type="hidden" name="doglobal" value="0">';
+}
+/* Insert select box for which menu to configure in $menu. */
+$menu .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['profilego'].'" />'."\n";
+$menu .= '</form>'."\n";
+$menu .= border('spink','end')."\n";
+
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
@@ -138,7 +178,7 @@ foreach($palet as $id=>$button)
 
 $body .= $save_status;
 $body .= '<form action="" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
-$body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'"><input type="hidden" name="process" value="process">';
+$body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'"><input type="hidden" name="doglobal" value="'.($account == 0).'"><input type="hidden" name="process" value="process">';
 $body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['config_submit_button'].'" />'."\n";
 $body .= '</form><br />'."\n";
 

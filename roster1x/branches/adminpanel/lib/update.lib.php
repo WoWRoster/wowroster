@@ -386,6 +386,7 @@ class update
 	 */
 	function makeFileFields()
 	{
+		global $roster_conf;
 		$filefields = "";
 		if (!is_array($this->files) || (count($this->files) == 0)) // Just in case
 		{
@@ -395,7 +396,7 @@ class update
 		{
 			$filefields .=
 			'<tr>'."\n".
-				"\t".'<td class="membersRow1">'.$file.'.lua</td>'."\n".
+				"\t".'<td class="membersRow1" '.makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\'.$file.'.lua',$file.'.lua Location','',2).'><img src="'.$roster_conf['img_url'].'blue-question-mark.gif" alt="">'.$file.'.lua</td>'."\n".
 				"\t".'<td class="membersRowRight1"><input type="file" accept="'.$file.'.lua" name="'.$file.'"></td>'."\n".
 			'</tr>'."\n";
 		}

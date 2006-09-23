@@ -268,7 +268,7 @@ $guild_ranks = $wowdb->get_guild_ranks($guild_info['guild_id']);
  */
 require_once(ROSTER_LIB.'login.php');
 
-
+$roster_login = new RosterLogin($_SERVER['REQUEST_URI']);
 
 /**
  * Detect and set headers

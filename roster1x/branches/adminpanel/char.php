@@ -71,10 +71,6 @@ $script_filename = 'char.php?member='.$name.'@'.$server;
 $url = '<a href="char.php?member='.$char->get('member_id');
 
 
-// Get per character display control
-$roster_login = new RosterLogin($script_filename);
-
-
 // Array of db fields to get ( 'globalsetting'=>'usersetting'
 $disp_array = array(
 	'show_talents'=>'talents',
@@ -304,7 +300,6 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 include_once (ROSTER_LIB.'menu.php');
 
 echo $char_menu;
-echo $roster_login->getMessage();
 echo $char_page;
 
 include_once (ROSTER_BASE.'roster_footer.tpl');

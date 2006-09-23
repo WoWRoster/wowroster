@@ -28,7 +28,6 @@ include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
 // Loging in as Admin to allow up- / downgrades && Downloads
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin($script_filename);
 
 
 include_once (ROSTER_BASE.'roster_header.tpl');
@@ -233,15 +232,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 // Include the menu-box
 include_once(ROSTER_LIB.'menu.php');
 
-// Diplay Password Box
-if ( $roster_login->getAuthorized() )
-{
-	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage());
-}
-else
-{
-	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage().$roster_login->getLoginForm());
-}
+print('<span class="title_text">Roster Diag</span><br />');
 
 echo "<br />\n";
 

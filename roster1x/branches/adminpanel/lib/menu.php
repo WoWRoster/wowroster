@@ -23,19 +23,80 @@ if ( !defined('ROSTER_INSTALLED') )
 
 define('ROSTER_MENU_INC',true);
 
-if( !empty($guild_info) )
-{
-	$guildId = $guild_info['guild_id'];
-	$updateTime = $guild_info['date_format'];
+$cols = 1;
 
-	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
-		`level` DIV 10 AS levelgroup,
-		COUNT(`level`) AS amount,
-		SUM(`level`) AS sum
-		FROM `".ROSTER_MEMBERSTABLE."`
-		WHERE `guild_id` = $guildId
-		GROUP BY isalt, levelgroup
-		ORDER BY isalt ASC, levelgroup DESC";
+if( $roster_conf['menu_left_pane'] && !empty($guild_info) )
+{
+	$levellist = makeLevelList('`guild_id` = '.$guild_info['guild_id']);
+	$cols++;
+}
+else
+{
+	$levellist = '';
+}
+
+if( $roster_conf['menu_right_pane'] && !empty($guild_info) )
+{
+	$realmstatus = makeRealmStatus();
+	$cols++;
+}
+else
+{
+	$realmstatus = '';
+}
+
+$buttonlist = makeButtonList('main');
+
+$menuLogin = '  <tr>'."\n".
+	'    <td align="center" class="row">'."\n".
+	$roster_login->getMenuLogin().
+	'    </td>'."\n".
+	'  </tr>'."\n";
+
+print "\n".'<!-- Begin WoWRoster Menu -->'.
+	border('syellow','start')."\n".
+	'<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">'."\n".
+	'  <tr>'."\n".
+	'    <td colspan="'.$cols.'" align="center" valign="top" class="header">'."\n".
+	'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
+	'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
+	$wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.$guild_info['date_format'].
+	((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
+	'      </span>'."\n".
+	'    </td>'."\n".
+	'  </tr>'."\n".
+	'  <tr>'."\n".
+	'    <td colspan="'.$cols.'" class="simpleborderbot syellowborderbot"></td>'."\n".
+	'  </tr>'."\n".
+	'  <tr>'."\n".
+	$levellist.
+	$buttonlist.
+	$realmstatus.
+	'  </tr>'."\n".
+	$menuLogin.
+	'</table>'."\n".
+	border('syellow','end')."\n".
+	'<br />'."\n".
+	'<!-- End WoWRoster Menu -->'."\n";
+
+/**
+ * Builds the level distribution list
+ *
+ * @param $condition where condition
+ * @return formatted level distribution list
+ */
+function makeLevelList($condition)
+{
+	global $wordings, $wowdb, $roster_conf;
+
+	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
+		"`level` DIV 10 AS levelgroup, ".
+		"COUNT(`level`) AS amount, ".
+		"SUM(`level`) AS sum ".
+		"FROM `".ROSTER_MEMBERSTABLE."` ".
+		"WHERE ".$condition." ".
+		"GROUP BY isalt, levelgroup ".
+		"ORDER BY isalt ASC, levelgroup DESC";
 	$result_menu = $wowdb->query($guildstat_query);
 
 	if (!$result_menu) {
@@ -89,50 +150,9 @@ if( !empty($guild_info) )
 	}
 
 	$result_avg = $level_sum/($num_alts + $num_non_alts);
-}
 
-// Get list of addons and their links
-if( !isset($fix_menu) )
-{
-	$addonslist = makeAddonList();
-}
-else
-{
-	$addonslist = '';
-}
-
-
-?>
-<!-- Begin WoWRoster Menu -->
-
-<?php print border('syellow','start'); ?>
-
-<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">
-  <tr>
-<?php
-print '
-    <td colspan="5" align="center" valign="top" class="header">
-      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>
-      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />';
-print $wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.$updateTime;
-
-if( !empty($roster_conf['timezone']) )
-	print ' ('.$roster_conf['timezone'].')';
-
-?>
-</span></td>
-  </tr>
-  <tr>
-    <td colspan="5" class="simpleborderbot syellowborderbot"></td>
-  </tr>
-  <tr>
-<!-- Links Column 1 -->
-<?php
-if( $roster_conf['menu_left_pane'] && !empty($guild_info) )
-{
-	print '   <td rowspan="2" valign="top" class="row">';
-
-	print $wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
+	return '   <td rowspan="2" valign="top" class="row">
+      '.$wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
       <br />
       <ul>
         <li style="color:#999999;">Average Level: '.round($result_avg).'</li>
@@ -141,136 +161,178 @@ if( $roster_conf['menu_left_pane'] && !empty($guild_info) )
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 30-39: '.$num_lvl_30_39.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 1-29: '.$num_lvl_1_29.'</li>
-      </ul></td>';
+      </ul>
+    </td>'."\n";
 }
-?>
-    <td valign="top" class="row links">
-      <ul>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
-<?php
-if( $roster_conf['menu_guild_info'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildinfo.php">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
 
-if( $roster_conf['menu_stats_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/stats.php">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
-
-if( $roster_conf['menu_tradeskills_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/tradeskills.php">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
-
-if( $roster_conf['menu_guildbank'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildbank'.$roster_conf['guildbank_ver'].'.php">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
-?>
-      </ul></td>
-<!-- Links Column 2 -->
-    <td valign="top" class="row links">
-      <ul>
-<?php
-if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildpvp.php">'.$wordings[$roster_conf['roster_lang']]['pvplist'].'</a></li>'."\n";
-
-if( $roster_conf['menu_honor_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/honor.php">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
-
-if( $roster_conf['menu_memberlog'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/memberlog.php">'.$wordings[$roster_conf['roster_lang']]['memberlog'].'</a></li>'."\n";
-
-if( $roster_conf['menu_keys_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/keys.php">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
-?>
-     </ul></td>
-<!-- Links Column 3 -->
-    <td valign="top" class="row<?php print ( ($roster_conf['menu_right_pane'] ) ? '' : 'right'); ?> links">
-      <ul>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/rostercp.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
-<?php
-if( $roster_conf['menu_quests_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/questlist.php">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
-
-if( $roster_conf['menu_search_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/search.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
-?>
-
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
-      </ul></td>
-<?php
-if( $roster_conf['menu_right_pane'] && !empty($guild_info) )
+/**
+ * Makes the Realmstatus pane
+ *
+ * @return the formatted realmstatus pane
+ */
+function makeRealmStatus()
 {
-	print '    <td rowspan="2" valign="top" class="rowright">';
+	global $roster_conf;
 
+	$realmStatus = '    <td rowspan="2" valign="top" class="row">'."\n";
 	if( $roster_conf['rs_mode'] )
 	{
-		print '<img alt="WoW Server Status" src="'.$roster_conf['roster_dir'].'/realmstatus.php" /></td>';
+		$realmStatus .= '      <img alt="WoW Server Status" src="'.$roster_conf['roster_dir'].'/realmstatus.php" />'."\n";
 	}
 	elseif( file_exists(ROSTER_BASE.'realmstatus.php') )
 	{
-		include_once (ROSTER_BASE.'realmstatus.php');
+		ob_start();
+			include_once (ROSTER_BASE.'realmstatus.php');
+			$realmStatus .= ob_get_contents()."\n";
+		ob_end_flush();
+	}
+
+	$realmStatus .= '    </td>'."\n";
+
+	return $realmStatus;
+}
+
+/**
+ * Builds the list of menu buttons for the specified sections
+ *
+ * @param array $sections the sections to render
+ * @return the formatted button grid.
+ */
+function makeButtonList($sections)
+{
+	global $wordings, $wowdb, $roster_conf, $roster_login;
+
+	if (is_array($sections))
+	{
+		$section = implode(',',$sections);
 	}
 	else
 	{
-		print '&nbsp;</td>';
+		$section = $sections;
+		$sections = array($section);
 	}
-}
-?>
-  </tr>
-<?php
-if( $addonslist != '' )
-{
-	print "<!-- Addon Links -->\n";
-	print "  <tr>\n    <td colspan=\"3\" align=\"center\" valign=\"top\" class=\"row".(($roster_conf['menu_right_pane'] && !empty($guild_info)) ? '' : 'right')." addon\" style=\"width:320px;\">\n";
-	print '<span style="color:#0099FF;font-weight:bold;">'.$wordings[$roster_conf['roster_lang']]['Addon'].'</span>';
-	print "    <ul>\n";
-	print $addonslist;
-	print "    </ul></td>\n  </tr>\n";
-}
-?>
-</table>
 
-<?php print border('syellow','end'); ?>
-<br />
-<!-- End WoWRoster Menu -->
-
-<?php
+	$account = $roster_login->getAccount();
+	if ($account<0)
+	{
+		$account = 0;
+	}
 
 
-/**
- * Gets the list of currently installed roster addons
- *
- * @return string formatted list of addons
- */
-function makeAddonList()
-{
-	global $act_words, $roster_conf, $wordings, $wowdb;
-
-	$query = "SELECT `addon`.`dbname`,`menu`.`title`,`menu`.`url`,`addon`.`basename`,`addon`.`description`,`addon`.`fullname` FROM `".$wowdb->table('addon_menu')."` AS menu LEFT JOIN `".$wowdb->table('addon')."` AS addon ON `menu`.`addon_id` = `addon`.`addon_id` WHERE `menu`.`active` = 1 AND `addon`.`active` = 1";
+	// --[ Fetch button list from DB ]--
+	$query = "SELECT * FROM ".$wowdb->table('menu_button');
 
 	$result = $wowdb->query($query);
 
 	if (!$result)
 	{
-		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$wowdb->error(),'Roster');
 	}
 
-	$addons = array();
-	$output = '';
 	while ($row = $wowdb->fetch_assoc($result))
 	{
-		if (!in_array($row['dbname'],$addons))
-		{
-			$addons[] = $row['dbname'];
-			$addonDir = ROSTER_ADDONS.$row['basename'].DIR_SEP;
-			$localizationFile = $addonDir.'localization.php';
-			if (file_exists($localizationFile))
-			{
-				include_once($localizationFile);
-			}
-		}
-
-		$fullQuery = "?dbname=".$row['dbname'].$row['url'];
-		$query = str_replace(' ','%20',$fullQuery);
-		$output .= '<li><a href="'.ROSTER_URL.'/addon.php'.$query.'" '.makeOverlib($row['description'],$row['fullname']).'>'.$act_words[$row['title']]."</a></li>\n";
+		$palet['b'.$row['button_id']] = $row;
 	}
 
-	return $output;
-}
+	$wowdb->free_result($result);
 
+	// --[ Fetch menu configuration from DB ]--
+	$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `account_id` = '".$account."' AND `section` IN ('".$section."')";
+
+	$result = $wowdb->query($query);
+
+	if (!$result)
+	{
+		die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+	}
+
+	while($row = $wowdb->fetch_assoc($result))
+	{
+		$data[$row['section']] = $row;
+	}
+
+	$wowdb->free_result($result);
+
+	foreach ($sections as $id=>$value)
+	{
+		if( isset($data[$section]) )
+		{
+			$page[$id] = $data[$value];
+			$refetch[$id] = $value;
+		}
+	}
+
+	if( is_array($refetch) )
+	{
+		$refetch = implode(',',$refetch);
+
+		$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `account_id` = '0' AND `section` IN ('".$refetch."')";
+
+		$result = $wowdb->query($query);
+
+		if (!$result)
+		{
+			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+		}
+
+		while($row = $wowdb->fetch_assoc($result))
+		{
+			$data[$row[$section]] = $row;
+		}
+
+		$wowdb->free_result($result);
+
+		foreach ($sections as $id=>$value)
+		{
+			if( isset($data[$section]) )
+			{
+				$page[$id] = $data[$value];
+			}
+		}
+	}
+
+	// --[ Parse DB data ]--
+	if( is_array($page) )
+	{
+		foreach ($page as $id => $value)
+		{
+			foreach (explode('|',$value['config']) AS $posX=>$column)
+			{
+				$config[$id][$posX] = explode(':',$column);
+				foreach($config[$id][$posX] as $posY=>$button)
+				{
+					if ($roster_login->getAuthorized($palet[$button]['need_creds']))
+					{
+						$arrayButtons[$id][$posX][$posY] = $palet[$button];
+					}
+				}
+			}
+		}
+	}
+
+
+	$html  = '    <td valign="top" class="row links">'."\n";
+	$html .= '      <table cellspacing="0" cellpadding="0" border="0" width="100%">'."\n";
+	foreach( $arrayButtons as $id => $page )
+	{
+		$html .= '        <tr><td align="center" colspan="'.count($page).'"><span style="color:#0099FF;font-weight:bold;">'.$sections[$id].'</span></td></tr>'."\n";
+		$html .= '        <tr>'."\n";
+		foreach( $page as $column )
+		{
+			$html .= '          <td>'."\n";
+			$html .= '            <ul>'."\n";
+			foreach( $column as $button )
+			{
+				$html .= '              <li><a href='.$button['url'].'>'.$button['title'].'</a></li>'."\n";
+			}
+			$html .= '            </ul>'."\n";
+			$html .= '          </td>'."\n";
+		}
+		$html .= '        </tr>'."\n";
+	}
+	$html .= '      </table>'."\n";
+	$html .= '    </td>'."\n";
+
+	return $html;
+}
 ?>

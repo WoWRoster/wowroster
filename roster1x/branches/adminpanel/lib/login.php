@@ -36,7 +36,8 @@ class RosterLogin
 	var $account;	// Account ID. -1 for roster admin. 0 for Guest.
 	var $user;	// User name. Roster_Admin for roster admin.
 	var $level;	// -1 roster admin, 0 GM, 0-9 guild ranks, 10 anonymous/not in guild
-	var $message;	// Login result message
+	var $loginmsg;	// Login result message
+	var $message;	// Any other status message (create account, change password)
 	var $loginform;	// Login form
 	var $script_filename;
 
@@ -83,7 +84,7 @@ class RosterLogin
 		{
 			if( isset($_COOKIE['roster_pass']) )
 				setcookie( 'roster_pass','',time()-86400,'/' );
-			$this->message = '<span style="font-size:11px;color:red;">Not logged in</span><br />';
+			$this->loginmsg = '<span style="font-size:11px;color:red;">Not logged in</span><br />';
 			$this->user = '';
 			$this->level = 11;
 			$this->account = 0;
@@ -107,7 +108,7 @@ class RosterLogin
 			{
 				if( isset($_COOKIE['roster_pass']) )
 					setcookie( 'roster_pass','',time()-86400,'/' );
-				$this->message = '<span style="font-size:11px;color:red;">Database problem: Unable to verify supplied credentials. MySQL said: '.$wowdb->error().'</span><br />';
+				$this->loginmsg = '<span style="font-size:11px;color:red;">Database problem: Unable to verify supplied credentials. MySQL said: '.$wowdb->error().'</span><br />';
 				$this->user = '';
 				$this->level = 11;
 				$this->account = 0;
@@ -120,7 +121,7 @@ class RosterLogin
 			{
 				if( isset($_COOKIE['roster_pass']) )
 					setcookie( 'roster_pass','',time()-86400,'/' );
-				$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
+				$this->loginmsg = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 				$this->user = '';
 				$this->level = 11;
 				$this->account = 0;
@@ -133,7 +134,7 @@ class RosterLogin
 		if( $supplied['hash'] == $proper['hash'] )
 		{
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
-			$this->message = '<span style="font-size:10px;color:red;">Logged in as '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
+			$this->loginmsg = '<span style="font-size:10px;color:red;">Logged in as '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 			$this->user = $proper['name'];
 			$this->level = $proper['level'];
 			$this->account = $proper['account_id'];
@@ -142,7 +143,7 @@ class RosterLogin
 		{
 			if( isset($_COOKIE['roster_pass']) )
 				setcookie( 'roster_pass','',time()-86400,'/' );
-			$this->message = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
+			$this->loginmsg = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 			$this->user = '';
 			$this->level = 11;
 			$this->account = 0;
@@ -158,7 +159,7 @@ class RosterLogin
 		{
 			if( isset($_COOKIE['roster_pass']) )
 				setcookie( 'roster_pass','',time()-86400,'/' );
-			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
+			$this->loginmsg = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 			$this->user = '';
 			$this->level = 11;
 			$this->account = 0;
@@ -269,6 +270,33 @@ class RosterLogin
 			'.border('sred','end').'
 			</form>
 			<!-- End Password Input Box -->';
+	}
+
+	/**
+	 * Return the login box. Assumes $this->message still holds the login string.
+	 *
+	 * @return string $html
+	 *	The login box.
+	 */
+	function getMenuLogin()
+	{
+		if ($this->account == 0)
+		{
+			return '<!-- Begin login line -->'."\n".
+				'      '.$this->loginmsg."\n".
+				'      <form name="roster_login" action="'.$this->script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)" style="display:inline;">'."\n".
+				'        User: <input name="user_name" type="text" size="15" maxlength="30" />'."\n".
+				'        Pass: <input name="pass_word" type="password" size="15" maxlength="30" />'."\n".
+				'        <a href="javascript:document.roster_login.submit();">Log in</a>'."\n".
+				'      </form>'."\n".
+				'<!-- End login line -->'."\n";
+		}
+		else
+		{
+			return '<!-- Begin login line -->'."\n".
+				'      '.$this->loginmsg."\n".
+				'<!-- End login line -->'."\n";
+		}
 	}
 
 	/**

@@ -36,8 +36,6 @@ include_once(ROSTER_ADMIN.'pages.php');
 $script_filename = 'rostercp.php';
 
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin($script_filename);
-$loginmsg = $roster_login->getMessage();
 
 $showlogin = ( $roster_login->getUserName() == '' );
 
@@ -123,7 +121,7 @@ echo	$header."\n".
 	'<table width="100%"><tr><td valign="top" align="left">'."\n".
 	$menu."\n".
 	'</td><td valign="top" align="center">'."\n".
-	$loginmsg.( ($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
+	( ($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
 	$body."\n".
 	'</td><td valign="top" align="right">'."\n".
 	$pagebar."\n".

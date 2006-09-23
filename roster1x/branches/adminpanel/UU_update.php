@@ -22,8 +22,6 @@ $script_filename = 'UU_update.php';
 require_once('Settings.php');
 
 // Check auth
-$roster_login = new RosterLogin($script_filename);
-$auth_message = $roster_login->getMessage();
 
 
 require_once(ROSTER_LIB.'update.lib.php');
@@ -37,6 +35,6 @@ $messages .= $update->parseFiles();
 $messages .= $update->processFiles();
 
 
-echo stripAllHtml($auth_message.$messages);
+echo stripAllHtml($messages);
 
 ?>
