@@ -31,7 +31,6 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 	exit;
 }
 
-
 require_once( 'settings.php' );
 require_once( ROSTER_LIB.'luaparser.php' );
 
@@ -61,6 +60,10 @@ else
 // Files that we accept for upload
 $filefields[] = 'CharacterProfiler.lua';
 $filefields[] = 'PvPLog.lua';
+$filefields[] = 'CT_RaidTracker.lua';
+$filefields[] = 'Bookworm.lua';
+$filefields[] = 'GuildEventManager2.lua';
+$filefields[] = 'GroupCalendar.lua';
 
 // Initialize some vars
 $uploadFound = false;
@@ -79,7 +82,7 @@ foreach ($_FILES as $filefield => $file)
 
 	foreach( $filefields as $acceptedfile )	// Itterate through all the possible filefields
 	{
-		if( $acceptedfile == $file['name'] || $acceptedfile.'.gz' == $file['name'] )
+		if( strtolower($acceptedfile) == strtolower($file['name']) || strtolower($acceptedfile.'.gz') == strtolower($file['name']) )
 		{
 			// Filefield is 1 of the kind we accept.
 			if( $roster_conf['authenticated_user'] )
@@ -99,6 +102,30 @@ foreach ($_FILES as $filefield => $file)
 				if( isset($data['myProfile']) )
 				{
 					$uploadData['myProfile'] = $data['myProfile'];
+				}
+
+				// If CT_RaidTracker data is there, assign it to $uploadData['RaidTrackerData']
+				if( isset($data['CT_RaidTracker_Options']) )
+				{
+					$uploadData['RaidTrackerData'] = $data['CT_RaidTracker_RaidLog'];
+				}
+
+				// If Bookworm data is there, assign it to $uploadData['Bookworm']
+				if( isset($data['BookwormBooks']) )
+				{
+					$uploadData['BookwormBooks'] = $data['BookwormBooks'];
+				}
+
+				// If GuildEventManager2 data is there, assign it to $uploadData['GuildEventManagerData']
+				if( isset($data['GEM_Events']) )
+				{
+					$uploadData['GuildEventManagerData'] = $data['GEM_Events'];
+				}
+
+				// If GroupCalendar data is there, assign it to $uploadData['GroupCalenderData']
+				if( isset($data['gGroupCalendar_Database']) )
+				{
+					$uploadData['GroupCalendarData'] = $data['gGroupCalendar_Database'];
 				}
 				// Clear the $data variable
 				unset($data);
@@ -344,6 +371,48 @@ if( $htmlout )
 		$pvplogInputField = '';
 	}
 
+	// Create the RaidTracker input field if addon exists
+	if(file_exists(ROSTER_ADDONS.'RaidTracker'))
+	{
+		$raidtrackerInputField = "
+                    <tr>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CT_RaidTracker.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CT_RaidTracker.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CT_RaidTracker.lua</td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CT_RaidTracker.lua\" name=\"RaidTracker\"></td>
+                    </tr>";
+	}
+	else
+	{
+		$raidtrackerInputField = '';
+	}
+
+	// Create the EventCalendar input field if addon exists
+	if(file_exists(ROSTER_ADDONS.'EventCalendar'))
+	{
+		$eventcalendarInputField = "
+                    <tr>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>GuildEventManager2.lua or GroupCalendar.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> EventCalendar</td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"GuildEventManager2.lua,GroupCalendar.lua\" name=\"EventCalendar\"></td>
+                    </tr>";
+	}
+	else
+	{
+		$eventcalendarInputField = '';
+	}
+
+	// Create the Bookworm input field if addon exists
+	if(file_exists(ROSTER_ADDONS.'bookworm'))
+	{
+		$bookwormInputField = "
+                    <tr>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>bookworm.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\bookworm.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> bookworm.lua</td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"bookworm.lua\" name=\"bookworm\"></td>
+                    </tr>";
+	}
+	else
+	{
+		$bookwormInputField = '';
+	}
+
 
 	// Construct the entire upload form
 	$inputForm = "
@@ -358,6 +427,9 @@ if( $htmlout )
                       <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
                     </tr>
 $pvplogInputField
+$eventcalendarInputField
+$raidtrackerInputField
+$bookwormInputField
                   </table>
 ".border('syellow','end');
 
