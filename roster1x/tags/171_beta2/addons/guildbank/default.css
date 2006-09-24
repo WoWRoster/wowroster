@@ -1,0 +1,61 @@
+/******************************
+ * WoWRoster.net  Roster
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ********************************/
+
+.iconwhite {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #ffffff;
+}
+
+.icongrey {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #9d9d9d;
+}
+
+.icongreen {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #1eff00;
+}
+
+.iconblue {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #0070dd;
+}
+
+.iconpurple {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #aa00dd;
+}
