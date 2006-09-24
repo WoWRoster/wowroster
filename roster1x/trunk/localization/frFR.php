@@ -100,7 +100,7 @@ $inst_keys['frFR']['A'] = array(
 		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Clé ombreforge|2966','Ironfel|9673'),
+		'BRDs' => array('Parts', 'BRDs' => 'Clé de Ombreforge|2966','Ironfel|9673'),
 		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
@@ -116,7 +116,7 @@ $inst_keys['frFR']['H'] = array(
 		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
 		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
 		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Clé ombreforge|2966','Ironfel|9673'),
+		'BRDs' => array('Parts', 'BRDs' => 'Clé de Ombreforge|2966','Ironfel|9673'),
 		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
 		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
 		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
@@ -291,10 +291,10 @@ $wordings['frFR']['ts_iconArray'] = array (
 		'Equitation'=>'Ability_Mount_RidingHorse',
 		'Monte de bélier'=>'Ability_Mount_MountainRam',
 		'Pilotage de mécanotrotteur'=>'Ability_Mount_MechaStrider',
-		'Undead Horsemanship'=>'Ability_Mount_Undeadhorse',
-		'Raptor Riding'=>'Ability_Mount_Raptor',
-		'Kodo Riding'=>'Ability_Mount_Kodo_03',
-		'Wolf Riding'=>'Ability_Mount_BlackDireWolf',
+		'Monte de cheval squelette'=>'Ability_Mount_Undeadhorse',
+		'Monte de raptor'=>'Ability_Mount_Raptor',
+		'Monte de kodo'=>'Ability_Mount_Kodo_03',
+		'Monte de loup'=>'Ability_Mount_BlackDireWolf',
 );
 
 // Class Icons-Array

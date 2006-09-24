@@ -2493,7 +2493,7 @@ class wowdb
 			unset($attack);
 		}
 
-		if( is_array($data['Melee Attack']) )
+		if( is_array($data['Ranged Attack']) )
 		{
 			$attack = $data['Ranged Attack'];
 

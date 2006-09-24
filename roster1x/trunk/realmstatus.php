@@ -346,7 +346,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 
 	$serverfont = $font_path . 'VERANDA.TTF';
 	$typefont = $font_path . 'silkscreenb.ttf';
-	$serverpopfont = $font_path . 'rstatus.ttf';
+	$serverpopfont = $font_path . 'rstatus.TTF';
 
 	// Get and combine base images, set colors
 	$top = @imagecreatefrompng( $image_path . strtolower($realmData['serverstatus']) . '.png' );
