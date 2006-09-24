@@ -5,64 +5,57 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+main();
 
-
-if( isset($_REQUEST['op']) )
-{
-	$op = $_REQUEST['op'];
-}
-elseif( isset($_POST['op']) )
-{
-	$op = $_POST['op'];
-}
-else
-{
-	$op = '';
-}
-
-if( isset($_REQUEST['id']) )
-{
-	$id = $_REQUEST['id'];
-}
-elseif( isset($_POST['id']) )
-{
-	$id = $_POST['id'];
-}
-else
-{
-	$id = '';
-}
+$db->close_db();
 
 
 
-function Main()
+
+
+
+/**
+ * Stats Page Functions
+ */
+
+
+/**
+ * Main Display
+ */
+function main()
 {
+	global $user, $uniadmin;
+
 	EchoPage(
-	BuildMainTable().
-	"<img src='pieChart.php?".BuildPieHosts('host_name')."' alt='host_name'>\n".
-	"<img src='pieChart.php?".BuildPieHosts('ip_addr')."' alt='ip_addr'>\n".
-	"<img src='pieChart.php?".BuildPieHosts('user_agent')."' alt='user_agent'>\n".
-	"<img src='pieChart.php?".BuildPieHosts('action')."' alt='action'>\n".
-	"<img src='pieChart.php?".BuildPieHosts('time')."' alt='time'>\n","Statistics");
+	buildMainTable().
+	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('host_name').'" alt="host_name" />'."\n".
+	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('ip_addr').'" alt="ip_addr" />'."\n".
+	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('user_agent').'" alt="user_agent" />'."\n".
+	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('action').'" alt="action" />'."\n".
+	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('time').'" alt="time" />'."\n",$user->lang['title_stats']);
 }
 
-function BuildPieHosts($fieldName)
+/**
+ * Build a string for pieChart.php image
+ *
+ * @param string $fieldName
+ * @return string
+ */
+function buildPieHosts($fieldName)
 {
-	global $dblink, $config;
+	global $db, $uniadmin, $user;
 
-	//title=Kingdom&slice[0]=$miscStats[8]&itemName[0]=Neutral&slice[1]=$miscStats[9]&itemName[1]=Dominion&slice[2]=$miscStats[10]&itemName[2]=Shadow&slice[3]=$miscStats[11]&itemName[3]=Order&action=drawChart
-
-	$sql = "SELECT `$fieldName` FROM `".$config['db_tables_stats']."`";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
+	$sql = "SELECT `$fieldName` FROM `".UA_TABLE_STATS."`;";
+	$result = $db->query($sql);
 
 	$i=0;
-	while ($row = mysql_fetch_assoc($result))
+	$array = '';
+	while ($row = $db->fetch_record($result))
 	{
 		$array[$i] = $row[$fieldName];
 		$i++;
 	}
-	mysql_free_result($result);
+	$db->free_result($result);
 
 	if( is_array($array) )
 	{
@@ -70,24 +63,23 @@ function BuildPieHosts($fieldName)
 
 		foreach ($array as $HostName)
 		{
-			$sql = "SELECT `id` FROM `".$config['db_tables_stats']."` WHERE `$fieldName` = '".addslashes($HostName)."'";
-			$result = mysql_query($sql,$dblink);
-			MySqlCheck($dblink,$sql);
+			$sql = "SELECT `id` FROM `".UA_TABLE_STATS."` WHERE `$fieldName` = '".addslashes($HostName)."'";
+			$result = $db->query($sql);
+
 			if ($fieldName != "time")
 			{
-				$finalArray[$HostName] = mysql_num_rows($result);
+				$finalArray[$HostName] = $db->num_rows($result);
 			}
 			else
 			{
-				$finalArray[date($config['date_format'],$HostName)] = mysql_num_rows($result);
+				$finalArray[date($user->lang['time_format'],$HostName)] = $db->num_rows($result);
 			}
 		}
 
-		//print_r($finalArray);
-		mysql_free_result($result);
+		$db->free_result($result);
+
 		asort($finalArray,SORT_NUMERIC);
 		reset($finalArray);
-		//$finalArray = array_pad($finalArray,5,"blah");
 
 		foreach ($finalArray as $HostName => $count)
 		{
@@ -115,10 +107,14 @@ function BuildPieHosts($fieldName)
 	}
 }
 
-
-function BuildMainTable()
+/**
+ * Builds main display stats table
+ *
+ * @return string
+ */
+function buildMainTable()
 {
-	global $dblink, $config;
+	global $db, $uniadmin, $user;
 
 	if (isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) ||isset($_REQUEST['limit']) || isset($_REQUEST['start']))
 	{
@@ -129,86 +125,76 @@ function BuildMainTable()
 	}
 	else
 	{
-		$orderby = "time";
-		$direction = "DESC";
-		$limit = "10";
-		$start = "0";
+		$orderby = 'time';
+		$direction = 'DESC';
+		$limit = '10';
+		$start = '0';
 	}
 
-	$sql = "SELECT * FROM `".$config['db_tables_stats']."`";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-	$totalRows = mysql_num_rows($result);
+	$sql = "SELECT * FROM `".UA_TABLE_STATS."`;";
+	$result = $db->query($sql);
+
+	$totalRows = $db->num_rows($result);
 
 
-	$sql = "SELECT * FROM `".$config['db_tables_stats']."` ORDER BY `$orderby` $direction LIMIT $start , $limit";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
+	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `$orderby` $direction LIMIT $start , $limit;";
+	$result = $db->query($sql);
 
 
-	if ($direction == "ASC")
+	if ($direction == 'ASC')
 	{
-		$direction = "DESC";
+		$direction = 'DESC';
 	}
 	else
 	{
-		$direction = "ASC";
+		$direction = 'ASC';
 	}
 
-	$table = "<table class='uuTABLE stats' id='table_results' cellspacing='1' width='90%' align='center'>
+	$table = '<table class="uuTABLE stats" id="table_results" cellspacing="1" width="90%" align="center">
 	<tr>
-		<th class='tableHeader' colspan='6'>Statistics</th>
+		<th class="tableHeader" colspan="6">'.$user->lang['title_stats'].'</th>
 	</tr>
 	<tr>
-		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=id&amp;limit=$limit&amp;direction=$direction'>Row</a></td>
-		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=action&amp;limit=$limit&amp;direction=$direction'>Action</a></td>
-		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=ip_addr&amp;limit=$limit&amp;direction=$direction'>IP Address</a></td>
-		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=time&amp;limit=$limit&amp;direction=$direction'>Date/Time</a></td>
-		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=user_agent&amp;limit=$limit&amp;direction=$direction'>User Agent</a></td>
-		<td class='dataHeader'><a href='".UA_FORMACTION."&amp;start=$start&amp;orderby=host_name&amp;limit=$limit&amp;direction=$direction'>Host Name</a></td>
-	</tr>";
+		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=id&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['row'].'</a></td>
+		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=action&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['action'].'</a></td>
+		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=ip_addr&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['ip_address'].'</a></td>
+		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=time&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['date_time'].'</a></td>
+		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=user_agent&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['user_agent'].'</a></td>
+		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=host_name&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['host_name'].'</a></td>
+	</tr>';
 
-	$i=0;
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = $db->fetch_record($result))
 	{
-		$time = date($config['date_format'],$row['time']);
-		if($i % 2)
-		{
-			$tdClass = 'data2';
-		}
-		else
-		{
-			$tdClass = 'data1';
-		}
+		$time = date($user->lang['time_format'],$row['time']);
 
-		$userAgent = stringChop($row['user_agent'],45,"...");
-		$hostName = stringChop($row['host_name'],25,"...");
+		$tdClass = $uniadmin->switch_row_class();
 
-		$table .= "	<tr>
-		<td class='$tdClass' align='right'>".$row['id']."</td>
-		<td class='$tdClass'>".$row['action']."</td>
-		<td class='$tdClass'>".$row['ip_addr']."</td>
-		<td class='$tdClass'>$time</td>
-		<td class='$tdClass' title='".$row['user_agent']."'>$userAgent</td>
-		<td class='$tdClass' title='".$row['host_name']."'>$hostName</td>
-	</tr>";
-		$i++;
+		$userAgent = stringChop($row['user_agent'],45,'...');
+		$hostName = stringChop($row['host_name'],25,'...');
 
+		$table .= '	<tr>
+		<td class="'.$tdClass.'" align="right">'.$row['id'].'</td>
+		<td class="'.$tdClass.'">'.$row['action'].'</td>
+		<td class="'.$tdClass.'">'.$row['ip_addr'].'</td>
+		<td class="'.$tdClass.'">'.$time.'</td>
+		<td class="'.$tdClass.'" title="'.$row['user_agent'].'">'.$userAgent.'</td>
+		<td class="'.$tdClass.'" title="'.$row['host_name'].'">'.$hostName.'</td>
+	</tr>';
 	}
 
-	if ($direction == "ASC")
+	if ($direction == 'ASC')
 	{
-		$direction = "DESC";
+		$direction = 'DESC';
 	}
 	else
 	{
-		$direction = "ASC";
+		$direction = 'ASC';
 	}
 
 	$PrevStart = $start - $limit;
 	if ($PrevStart > -1)
 	{
-		$PrevLink = "<a href='".UA_FORMACTION."&amp;start=$PrevStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'><< Previous Page</a>";
+		$PrevLink = '<a href="'.UA_FORMACTION.'&amp;start='.$PrevStart.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
 	}
 	else
 	{
@@ -217,7 +203,7 @@ function BuildMainTable()
 	$NextStart = $start + $limit;
 	if ($NextStart < $totalRows)
 	{
-		$NextLink = "<a href='".UA_FORMACTION."&amp;start=$NextStart&amp;orderby=$orderby&amp;limit=$limit&amp;direction=$direction'>Next Page >></a>";
+		$NextLink = '<a href="'.UA_FORMACTION.'&amp;start='.$NextStart.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
 	}
 	else
 	{
@@ -233,40 +219,22 @@ function BuildMainTable()
 	$totalPages = floor($totalRows / $limit) + 1;
 	$pageNum =  floor($start / $limit) + 1;
 
-	$table .= "	<tr>
-		<td class='statsFooter' colspan='4'>$PrevLink$sep$NextLink &nbsp;&nbsp;&nbsp; Page $pageNum of $totalPages</td>
-		<td class='statsFooter' colspan='2'>
+	$table .= '	<tr>
+		<td class="statsFooter" colspan="4">'.$PrevLink.$sep.$NextLink.' &nbsp;&nbsp;&nbsp; ['.$pageNum.' / '.$totalPages.']</td>
+		<td class="statsFooter" colspan="2">
 
-		<form name='ua_changeparams' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-			<input class='submit' type='submit' value='Show'>
-			<input class='input' type='textbox' name='limit' value='$limit' size='5' maxlength='5'> row(s) starting from record # <input class='input' type='textbox' name='start' value='$start' size='5' maxlength='5'>
-			<input type='hidden' value='$orderby' name='orderby'>
-			<input type='hidden' value='$direction' name='direction'>
+		<form name="ua_changeparams" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			<input class="submit" type="submit" value="'.$user->lang['show'].'" />
+			<input class="input" type="textbox" name="limit" value="'.$limit.'" size="5" maxlength="5" /> '.$user->lang['stats_limit'].' <input class="input" type="textbox" name="start" value="'.$start.'" size="5" maxlength="5" />
+			<input type="hidden" value="'.$orderby.'" name="orderby" />
+			<input type="hidden" value="'.$direction.'" name="direction" />
 		</form>
 
 	</td>
 	</tr>
-</table>";
+</table>';
 
 	return $table;
-}
-
-function stringChop($string, $desiredLength, $suffix)
-{
-	if (strlen($string) > $desiredLength)
-	{
-		$string = substr($string,0,$desiredLength).$suffix;
-		return $string;
-	}
-	return $string;
-}
-
-switch ($op)
-{
-
-	default:
-	Main();
-	break;
 }
 
 

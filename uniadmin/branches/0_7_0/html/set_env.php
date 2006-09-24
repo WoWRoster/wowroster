@@ -1,78 +1,44 @@
 <?php
 
-ini_set('display_errors','1');
 error_reporting(E_ALL);
 
-// Initialize config array
-$config = array();
+// Disable magic quotes and add slashes to global arrays
+set_magic_quotes_runtime(0);
+if ( get_magic_quotes_gpc() == 0 )
+{
+    $_GET = slash_global_data($_GET);
+    $_POST = slash_global_data($_POST);
+    $_COOKIE = slash_global_data($_COOKIE);
+}
 
-define('UA_BASEDIR',dirname(__FILE__).DIRECTORY_SEPARATOR);
+if( !defined('DIR_SEP') )
+	define('DIR_SEP',DIRECTORY_SEPARATOR);
 
+define('UA_BASEDIR',dirname(__FILE__).DIR_SEP);
 
 
 include(UA_BASEDIR.'config.php');
 
 
-//////////////////////// FOLDER SETTINGS //////////////////////////
-$config['addon_folder'] =			'addon_zips';
-$config['temp_analyze_folder'] =	'addon_temp';
-$config['logo_folder'] =			'logos';
-$config['date_format'] =			'M jS, Y g:ia';
-
-
-//////////////////// DATABASE TABLE NAMES //////////////////////////
-$config['db_tables_addons'] = 		$config['db_prefix'].'addons';
-$config['db_tables_files'] = 		$config['db_prefix'].'files';
-$config['db_tables_logos'] = 		$config['db_prefix'].'logos';
-$config['db_tables_settings'] = 	$config['db_prefix'].'settings';
-$config['db_tables_stats'] = 		$config['db_prefix'].'stats';
-$config['db_tables_users'] = 		$config['db_prefix'].'users';
-$config['db_tables_svlist'] = 		$config['db_prefix'].'svlist';
-
-////////////////////////// OTHER STUFF ////////////////////////////
-$config['ziplibsupport'] =			false;
-$config['UAVer'] = 					'0.7.0-beta';
-$config['debugSetting'] =			true;
-
 $url = explode('/','http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
 array_pop($url);
 $url = implode('/',$url).'/';
-$config['URL'] =					$url;
-$config['IntLocation'] = 			$config['URL'].'index.php?p=interface';
 
 
-define( 'UA_INDEXPAGE','index.php');
-define( 'UA_FORMACTION',UA_INDEXPAGE.( isset($_GET['p']) ? '?p='.$_GET['p'] : '') );
 define( 'IN_UNIADMIN',true );
 
 
-include(UA_BASEDIR.'debug.php');
-include(UA_BASEDIR.'MySqlCheck.php');
+include(UA_BASEDIR.'include'.DIR_SEP.'constants.php');
+include(UA_INCLUDEDIR.'dbal.php');
+include(UA_INCLUDEDIR.'uniadmin.php');
+include(UA_INCLUDEDIR.'user.php');
 include(UA_BASEDIR.'EchoPage.php');
 
-$dblink = @mysql_connect($config['host'],$config['username'],$config['password']);
-if( $dblink )
-{
-	$uadb = @mysql_select_db($config['database'],$dblink);
-	if( !$uadb )
-	{
-		debug('Cannot select the database ['.$config['database'].']');
-		debug('MySQL Said: '.mysql_error() );
-		die_ua();
-	}
-}
-else
-{
-	debug('Cannot connect to the database');
-	debug('MySQL Said: '.mysql_error() );
-	die_ua();
-}
+$uniadmin = new UniAdmin($url);
+$user = new User();
 
+$user->start();
 
-$uamessages = array();
-$uadebug = array();
-
-include(UA_BASEDIR.'cookieFunctions.php');
 
 if( !isset($interface) )
 {
@@ -83,8 +49,26 @@ if( !isset($interface) )
 
 function die_ua()
 {
-	EchoPage('','Uniadmin Error');
+	EchoPage('',$user->lang['error']);
 	die();
+}
+
+/**
+* Applies addslashes() to the provided data
+*
+* @param $data Array of data or a single string
+* @return mixed Array or string of data
+*/
+function slash_global_data($data)
+{
+	if( is_array($data) )
+	{
+		foreach( $data as $k => $v )
+		{
+			$data[$k] = ( is_array($v) ) ? slash_global_data($v) : addslashes($v);
+		}
+	}
+	return $data;
 }
 
 ?>

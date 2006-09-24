@@ -5,43 +5,54 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+// Get Operation
+$op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 
-if( isset($_REQUEST['op']) )
+$id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
+
+// Decide What To Do
+switch ($op)
 {
-	$op = $_REQUEST['op'];
+	case UA_URI_PROCESS:
+		processUploadedLogo();
+		break;
+
+	case UA_URI_DISABLE:
+		toggleLogo($op,$id);
+		break;
+
+	case UA_URI_ENABLE:
+		toggleLogo($op,$id);
+		break;
+
+	default:
+		break;
 }
-elseif( isset($_POST['op']) )
-{
-	$op = $_POST['op'];
-}
-else
-{
-	$op = '';
-}
+main();
 
-if( isset($_REQUEST['id']) )
-{
-	$id = $_REQUEST['id'];
-}
-elseif( isset($_POST['id']) )
-{
-	$id = $_POST['id'];
-}
-else
-{
-	$id = '';
-}
+$db->close_db();
 
 
 
-function Main()
+
+
+
+/**
+ * Logo Page Functions
+ */
+
+
+/**
+ * Main Display
+ */
+function main()
 {
-	global $dblink, $config, $_POST;
+	global $db, $uniadmin, $user;
 
-	$sql = "SELECT * FROM `".$config['db_tables_logos']."`";
-	$result = mysql_query($sql,$dblink);
+	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."`;";
+	$result = $db->query($sql);
 
-	$logoDir = $config['logo_folder'];
+	$logoDir = $uniadmin->config['logo_folder'];
 
 	$logo1['logo'] = $logoDir.'/logo1_03.gif';
 	$logo1['updated'] = '-';
@@ -50,30 +61,44 @@ function Main()
 	$logo2['updated'] = '-';
 	$logo2['active_link'] = '-';
 
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = $db->fetch_record($result))
 	{
 		switch ($row['logo_num'])
 		{
 			case '1':
 				$logo1['logo'] = ( empty($row['filename']) ? $logo1['logo'] : $logoDir.'/'.$row['filename'] );
-				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($config['date_format'],$row['updated']) );
+				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
 				if ( $row['active']=='1')
-					$logo1['active_link'] = "<form name='ua_disablelogo1' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='DISABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:green;' type='submit' value='Yes'></form>";
+					$logo1['active_link'] = '<form name="ua_disablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
+	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'">
+</form>';
 				else
-					$logo1['active_link'] = "<form name='ua_enablelogo1' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='ENABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:red;' type='submit' value='No'></form>";
-
+					$logo1['active_link'] = '<form name="ua_enablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
+	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'">
+</form>';
 				break;
 
 			case '2':
 				$logo2['logo'] = ( empty($row['filename']) ? $logo2['logo'] : $logoDir.'/'.$row['filename'] );
-				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($config['date_format'],$row['updated']) );
+				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
 				if ( $row['active']=='1')
-					$logo2['active_link'] = "<form name='ua_disablelogo2' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='DISABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:green;' type='submit' value='Yes'></form>";
+					$logo2['active_link'] = '<form name="ua_disablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
+	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'">
+</form>';
 				else
-					$logo2['active_link'] = "<form name='ua_enablelogo2' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'><input type='hidden' name='op' value='ENABLE' /><input type='hidden' name='id' value='".$row['id']."' /><input class='submit' style='color:red;' type='submit' value='No'></form>";
-
+					$logo2['active_link'] = '<form name="ua_enablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
+	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'">
+</form>';
 				break;
 
 			default:
@@ -83,208 +108,217 @@ function Main()
 	}
 
 
-	$table1 = "<table class='logo_table' border='0' cellpadding='0' cellspacing='0'>
+	$table1 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan='3'>
-			<img src='images/logo1_01.gif' style='width:500px;height:56px;' alt=''></td>
+		<td colspan="3">
+			<img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:56px;" alt=""></td>
 	</tr>
 	<tr>
-		<td rowspan='2'>
-			<img src='images/logo1_02.gif' style='width:281px;height:256px;' alt=''></td>
-		<td bgcolor='#e0dfe3'>
-			<img src='".$logo1['logo']."' style='width:201px;height:156px;' alt=''></td>
-		<td rowspan='2'>
-			<img src='images/logo1_04.gif' style='width:18px;height:256px;' alt=''></td>
+		<td rowspan="2">
+			<img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:281px;height:256px;" alt=""></td>
+		<td bgcolor="#e0dfe3">
+			<img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:201px;height:156px;" alt=""></td>
+		<td rowspan="2">
+			<img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:18px;height:256px;" alt=""></td>
 	</tr>
 	<tr>
 		<td>
-			<img src='images/logo1_05.gif' style='width:201px;height:100px;' alt=''></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:201px;height:100px;" alt=""></td>
 	</tr>
-</table>";
+</table>';
 
 
-	$table2 = "<table class='logo_table' border='0' cellpadding='0' cellspacing='0'>
+	$table2 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan=3>
-			<img src='images/logo2_01.gif' style='width:500px;height:73px;' alt=''></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:73px;" alt=""></td>
 	</tr>
 	<tr>
 		<td rowspan=2>
-			<img src='images/logo2_02.gif' style='width:153px;height:239px;' alt=''></td>
-		<td bgcolor=#e0dfe3>
-			<img src='".$logo2['logo']."' style='width:316px;height:144px;' alt=''></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:153px;height:239px;" alt=""></td>
+		<td bgcolor="#e0dfe3">
+			<img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:316px;height:144px;" alt=""></td>
 		<td rowspan=2>
-			<img src='images/logo2_04.gif' style='width:31px;height:239px;' alt=''></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:31px;height:239px;" alt=""></td>
 	</tr>
 	<tr>
 		<td>
-			<img src='images/logo2_05.gif' style='width:316px;height:95px;' alt=''></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:316px;height:95px;" alt=""></td>
 	</tr>
-</table>";
+</table>';
 
 
-	$Logo1InputForm ="
-
-		<table class='uuTABLE'>
+	$Logo1InputForm ='
+		<table class="uuTABLE">
 			<tr>
-				<th class='dataHeader'>Update File</th>
-				<th class='dataHeader'>Updated</th>
-				<th class='dataHeader'>Enabled?</th>
+				<th class="dataHeader">'.$user->lang['update_file'].'</th>
+				<th class="dataHeader">'.$user->lang['uploaded'].'</th>
+				<th class="dataHeader">'.$user->lang['enabled'].'</th>
 			</tr>
 			<tr>
-				<td class='data1' align='center'><form name='ua_uploadlogo1' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-					Select file:
-					<input class='file' type='file' name='logo1'>
-					<input class='submit' type='submit' value='Update Logo 1'>
-					<input type='hidden' value='PROCESSUPLOAD' name='op'>
+				<td class="data1" align="center"><form name="ua_uploadlogo1" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+					'.$user->lang['select_file'].':
+					<input class="file" type="file" name="logo1">
+					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],1).'">
+					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'">
 					</form></td>
-				<td class='data1'>".$logo1['updated']."</td>
-				<td class='data1'>".$logo1['active_link']."</td>
+				<td class="data1">'.$logo1['updated'].'</td>
+				<td class="data1">'.$logo1['active_link'].'</td>
 			</tr>
 		</table>
-    	";
+';
 
-	$Logo2InputForm ="
-		<table class='uuTABLE'>
+	$Logo2InputForm = '
+		<table class="uuTABLE">
 			<tr>
-				<th class='dataHeader'>Update File</th>
-				<th class='dataHeader'>Updated</th>
-				<th class='dataHeader'>Enabled?</th>
+				<th class="dataHeader">'.$user->lang['update_file'].'</th>
+				<th class="dataHeader">'.$user->lang['uploaded'].'</th>
+				<th class="dataHeader">'.$user->lang['enabled'].'</th>
 			</tr>
 			<tr>
-				<td class='data1' align='center'><form name='ua_uploadlogo2' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-					Select file:
-					<input class='file' type='file' name='logo2'>
-					<input class='submit' type='submit' value='Update Logo 2'>
-					<input type='hidden' value='PROCESSUPLOAD' name='op'>
+				<td class="data1" align="center"><form name="ua_uploadlogo2" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+					'.$user->lang['select_file'].':
+					<input class="file" type="file" name="logo2">
+					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],2).'">
+					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'">
 					</form></td>
-				<td class='data1'>".$logo2['updated']."</td>
-				<td class='data1'>".$logo2['active_link']."</td>
+				<td class="data1">'.$logo2['updated'].'</td>
+				<td class="data1">'.$logo2['active_link'].'</td>
 			</tr>
 		</table>
-";
+';
 
 
-	EchoPage("
-<table class='uuTABLE' width='60%' align='center'>
+	EchoPage('
+<table class="uuTABLE" width="60%" align="center">
 	<tr>
-		<th class='tableHeader'>Logo 1</th>
+		<th class="tableHeader">'.sprintf($user->lang['logo_table'],1).'</th>
 	</tr>
 	<tr>
-		<td align='center'>$table1</td>
+		<td align="center">'.$table1.'</td>
 	</tr>
 	<tr>
-		<td align='center'>$Logo1InputForm</td>
+		<td align="center">'.$Logo1InputForm.'</td>
 	</tr>
 </table>
 <br />
-<table class='uuTABLE' width='60%' align='center'>
+<table class="uuTABLE" width="60%" align="center">
 	<tr>
-		<th class='tableHeader'>Logo 2</th>
+		<th class="tableHeader">'.sprintf($user->lang['logo_table'],1).'</th>
 	</tr>
 	<tr>
-		<td align='center'>$table2</td>
+		<td align="center">'.$table2.'</td>
 	</tr>
 	<tr>
-		<td align='center'>$Logo2InputForm</td>
+		<td align="center">'.$Logo2InputForm.'</td>
 	</tr>
-</table>",'Logos');
+</table>',$user->lang['title_logo']);
 }
 
-function ToggleLogo()
+/**
+ * Toggle Logo enable/disable
+ *
+ * @param string $op
+ * @param string $id
+ */
+function toggleLogo($op,$id)
 {
-	global $dblink, $config, $op, $id;
+	global $db;
 
-	switch ($op)
+	if( !empty($op) && !empty($id) )
 	{
-		case 'DISABLE':
-			$sql = "UPDATE `".$config['db_tables_logos']."` SET `active` = '0' WHERE `id` = '$id';";
-			break;
+		switch ($_POST[UA_URI_OP])
+		{
+			case UA_URI_DISABLE:
+				$sql = "UPDATE `".UA_TABLE_LOGOS."` SET `active` = '0' WHERE `id` = '$id';";
+				break;
 
-		case 'ENABLE':
-			$sql = "UPDATE `".$config['db_tables_logos']."` SET `active` = '1' WHERE `id` = '$id';";
+			case UA_URI_ENABLE:
+				$sql = "UPDATE `".UA_TABLE_LOGOS."` SET `active` = '1' WHERE `id` = '$id';";
+				break;
+
+			default:
 			break;
-		default:
-		break;
+		}
+		$result = $db->query($sql);
+		if( !$db->affected_rows() )
+		{
+			debug(sprintf($user->lang['sql_error_logo_toggle'],$op));
+		}
 	}
-	mysql_query($sql, $dblink);
-	MySqlCheck($dblink,$sql);
 }
 
-function ProcessUploadedLogo()
+/**
+ * Process Uploaded Logo
+ */
+function processUploadedLogo()
 {
-	global $dblink, $config, $op;
+	global $db, $uniadmin, $user;
 
-	$sep = DIRECTORY_SEPARATOR;
-
-	$logoFolder = UA_BASEDIR.$config['logo_folder'];
+	$logoFolder = UA_BASEDIR.$uniadmin->config['logo_folder'];
 	if( isset($_FILES['logo1']) && $_FILES['logo1']['name'] != '' )
 	{
-		$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `logo_num` = '1'";
-		$result = mysql_query($sql,$dblink);
-		MySqlCheck($dblink,$sql);
-		$row = mysql_fetch_assoc($result);
+		$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `logo_num` = '1';";
+		$result = $db->query($sql);
+
+		$row = $db->fetch_record($result);
+
 		$RowNum = $row['id'];
-		$logoNum = "1";
-		$filefield = "logo1";
+		$logoNum = '1';
+		$filefield = 'logo1';
 	}
 	elseif( isset($_FILES['logo2']) && $_FILES['logo2']['name'] != '' )
 	{
-		$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `logo_num` = '2'";
-		$result = mysql_query($sql,$dblink);
-		MySqlCheck($dblink,$sql);
-		$row = mysql_fetch_assoc($result);
+		$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `logo_num` = '2';";
+		$result = $db->query($sql);
+
+		$row = $db->fetch_record($result);
+
 		$RowNum = $row['id'];
 		$logoNum = '2';
 		$filefield = 'logo2';
 	}
 	else
 	{
-		message('No Logo Uploaded');
+		message($user->lang['error_no_uploaded_logo']);
 		return;
 	}
 
 	if (substr_count(strtoupper($_FILES[$filefield]['name']),'GIF') > 0)
 	{
-		$LocalLocation = $logoFolder.$sep.stripslashes('logo'.$logoNum.'.gif');
-		@unlink($logoFolder.$sep.'logo'.$logoNum.'.gif');
-		move_uploaded_file($_FILES[$filefield]['tmp_name'],$LocalLocation);
+		$LocalLocation = $logoFolder.DIR_SEP.stripslashes('logo'.$logoNum.'.gif');
+		@unlink($logoFolder.DIR_SEP.'logo'.$logoNum.'.gif');
+		$try_move = @move_uploaded_file($_FILES[$filefield]['tmp_name'],$LocalLocation);
+		if( !$try_move )
+		{
+			debug(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$filefield]['tmp_name'],$LocalLocation));
+			return;
+		}
+
 		$md5 = md5_file($LocalLocation);
-		chmod($LocalLocation,0777);
-		$sql = "DELETE FROM `".$config['db_tables_logos']."` WHERE `id` = '$RowNum'";
-		$result = mysql_query($sql,$dblink);
-		MySqlCheck($dblink,$sql);
-		$sql = "INSERT INTO `".$config['db_tables_logos']."` ( `filename` , `updated` , `logo_num` , `active` , `download_url` , `md5` ) VALUES ( 'logo$logoNum.gif', '".time()."', '$logoNum', '1', '".$config['URL'].$config['logo_folder']."/logo$logoNum.gif', '$md5' );";
-		$result = mysql_query($sql,$dblink);
-		MySqlCheck($dblink,$sql);
+		$try_chmod = @chmod($LocalLocation,0777);
+		if( !$try_chmod )
+		{
+			debug(sprintf($user->lang['error_chmod'],$LocalLocation));
+			return;
+		}
+
+		$sql = "DELETE FROM `".UA_TABLE_LOGOS."` WHERE `id` = '$RowNum'";
+		$result = $db->query($sql);
+
+
+		$sql = "INSERT INTO `".UA_TABLE_LOGOS."` ( `filename` , `updated` , `logo_num` , `active` , `download_url` , `md5` ) VALUES ( 'logo$logoNum.gif', '".time()."', '$logoNum', '1', '".$uniadmin->url_path.$uniadmin->config['logo_folder']."/logo$logoNum.gif', '$md5' );";
+		$result = $db->query($sql);
+		if( !$db->affected_rows() )
+		{
+			debug(sprintf($user->lang['sql_error_logo_insert'],$logoNum));
+		}
 	}
 	else
 	{
-		message('The Uploaded file MUST be a GIF IMAGE!');
+		message($user->lang['error_logo_format']);
 		return;
 	}
-}
-switch ($op)
-{
-
-	case 'PROCESSUPLOAD':
-		ProcessUploadedLogo();
-		Main();
-		break;
-
-	case 'DISABLE':
-		ToggleLogo();
-		Main();
-		break;
-
-	case 'ENABLE':
-		ToggleLogo();
-		Main();
-		break;
-
-	default:
-		Main();
-		break;
 }
 
 

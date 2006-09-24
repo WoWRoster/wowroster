@@ -5,269 +5,277 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+// Get Operation
+$op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 
-if( isset($_REQUEST['op']) )
+// Decide What To Do
+switch ($op)
 {
-	$op = $_REQUEST['op'];
+	case UA_URI_PROCESS:
+		processUpdate();
+		break;
+
+	case UA_URI_ADD:
+		addSv();
+		break;
+
+	case UA_URI_DELETE:
+		removeSv();
+		break;
+
+	default:
+		break;
 }
-elseif( isset($_POST['op']) )
-{
-	$op = $_POST['op'];
-}
-else
-{
-	$op = '';
-}
+main();
 
-if( isset($_REQUEST['id']) )
-{
-	$id = $_REQUEST['id'];
-}
-elseif( isset($_POST['id']) )
-{
-	$id = $_POST['id'];
-}
-else
-{
-	$id = '';
-}
+$db->close_db();
 
 
 
-function Main()
+
+
+
+/**
+ * Settings Page Functions
+ */
+
+
+/**
+ * Main Display
+ */
+function main()
 {
-	global $dblink, $config;
+	global $db, $uniadmin, $user;
 
-	//$sql = "SELECT * FROM `".$config['db_tables_settings']."` ORDER BY `enabled` DESC";
-	$sql = "SELECT * FROM `".$config['db_tables_settings']."` ORDER BY `id` ASC;";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
+	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` ORDER BY `id` ASC;";
+	$result = $db->query($sql);
 
-	$form = "
-<form name='ua_mainsettings' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-<table class='uuTABLE' align='center'>
+	$form = '
+<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+<table class="uuTABLE" align="center">
 	<tr>
-		<th colspan='4' class='tableHeader'>Main Settings</th>
-	</tr>";
+		<th colspan="4" class="tableHeader">'.$user->lang['uniuploader_sync_settings'].'</th>
+	</tr>';
 
-	$sectionheader = "
+	$sectionheader = '
 	<tr>
-		<th colspan='4' class='dataHeader'>[%s]</th>
+		<th colspan="4" class="dataHeader">[%s]</th>
 	</tr>
 	<tr>
-		<td class='dataHeader'>Setting Name</td>
-		<td class='dataHeader'>Description</td>
-		<td class='dataHeader'>Value</td>
-		<td class='dataHeader'>Enabled</td>
-	</tr>";
+		<td class="dataHeader">'.$user->lang['setting_name'].'</td>
+		<td class="dataHeader">'.$user->lang['value'].'</td>
+		<td class="dataHeader">'.$user->lang['enabled'].'</td>
+	</tr>';
 
 	$section='';
 
-	$i=0;
-	while ($row = mysql_fetch_assoc($result))
+	while( $row = $db->fetch_record($result) )
 	{
 		if( $row['section'] != $section )
 		{
 			$section = $row['section'];
-			$form .= sprintf($sectionheader,($section == '' ? 'unknown' : $section ));
+			$form .= sprintf($sectionheader,( $section == '' ? 'unknown' : $section ));
 		}
 
-		$description = $row['description'];
 		$setname = $row['set_name'];
 
-		if($i % 2)
+		$tdClass = 'data'.$uniadmin->switch_row_class();
+
+		$form .= '
+	<tr>
+		<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang[$setname].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$setname.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
+			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
+		<td class="'.$tdClass.'">';
+
+
+		// Figure out input type
+		$input_field = '';
+		$input_type = explode('{',$row['form_type']);
+
+		switch ($input_type[0])
 		{
-			$tdClass = 'data2';
+			case 'text':
+				$length = explode('|',$input_type[1]);
+				$input_field = '<input class="input" name="'.$row['set_name'].'" type="text" value="'.$row['set_value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+				break;
+
+			case 'radio':
+				$options = explode('|',$input_type[1]);
+				foreach( $options as $value )
+				{
+					$vals = explode('^',$value);
+					$input_field .= '<label><input type="radio" name="'.$row['set_name'].'" value="'.$vals[1].'" '.( $row['set_value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+				}
+				break;
+
+			case 'select':
+				$options = explode('|',$input_type[1]);
+				$input_field .= '<select class="input" name="'.$row['set_name'].'">'."\n";
+				$select_one = 1;
+				foreach( $options as $value )
+				{
+					$vals = explode('^',$value);
+					if( $row['set_value'] == $vals[1] && $select_one )
+					{
+						$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
+						$select_one = 0;
+					}
+					else
+					{
+						$input_field .= '  <option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
+					}
+				}
+				$input_field .= '</select>';
+				break;
+
+			case 'function':
+				$input_field = $input_type[1]();
+				break;
+
+			case 'display':
+				$input_field = $row['set_value'];
+				break;
+
+			default:
+				$input_field = $row['set_value'];
+				break;
+		}
+
+		$form .= $input_field.'</td>'."\n";
+
+		if ($row['enabled'] == '1')
+		{
+			$form .= '		<td class="'.$tdClass.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" checked="checked" /></td>'."\n";
 		}
 		else
 		{
-			$tdClass = 'data1';
+			$form .= '		<td class="'.$tdClass.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" /></td>'."\n";
 		}
-
-		$form .= "
-		<tr>
-			<td class='$tdClass' title='".$row['set_name']."'>$setname</td>
-			<td class='$tdClass' onmouseover=\"return overlib('<img src=images/".$row['set_name'].".jpg>',CAPTION,'".$row['description']."',VAUTO);\" onmouseout=\"return nd();\">$description</td>
-			<td class='$tdClass'><input class='input' type='textbox' size='50' name='".$row['set_name']."' value='".$row['set_value']."'></td>";
-
-		if ($row['enabled'] == "1")
-		{
-			$form .= "<td class='$tdClass' align='center'><input type='checkbox' name='".$row['set_name']."enabled' checked='checked'></td>";
-		}
-		else
-		{
-			$form .= "<td class='$tdClass' align='center'><input type='checkbox' name='".$row['set_name']."enabled'></td>";
-		}
-		$form .= "</tr>";
-		$i++;
+		$form .= '	</tr>'."\n";
 	}
 
-	$form .= "<tr>
-		<td class='dataHeader' colspan='4' align='center'><input type='hidden' name='op' value='PROCESSUPDATE'>
-			<input class='submit' type='submit' value='Update Settings'></td>
+	$form .= '	<tr>
+		<td class="dataHeader" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
+			<input class="submit" type="submit" value="'.$user->lang['update_settings'].'" /></td>
 	</tr>
-	</table>
-	</form>";
+</table>
+</form>';
 
-	$sql = "SELECT * FROM `".$config['db_tables_svlist']."` ORDER BY `id` DESC";
-	$result = mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
+	$sql = "SELECT * FROM `".UA_TABLE_SVLIST."` ORDER BY `id` DESC;";
+	$result = $db->query($sql);
 
-	$svTable = "
-	<table class='uuTABLE' width='40%' align='center'>
-		<tr>
-			<th colspan='2' class='tableHeader'>Manage SavedVariable Files</th>
-		</tr>
-		<tr>
-			<td class='dataHeader'>Files</td>
-			<td class='dataHeader' width='10%'>Remove</td>
-		</tr>
-	";
+	$svTable = '
+<table class="uuTABLE" width="40%" align="center">
+	<tr>
+		<th colspan="2" class="tableHeader">'.$user->lang['manage_svfiles'].'</th>
+	</tr>
+	<tr>
+		<td class="dataHeader">'.$user->lang['files'].'</td>
+		<td class="dataHeader" width="10%">'.$user->lang['remove'].'</td>
+	</tr>
+';
 
-	while ($row = mysql_fetch_assoc($result))
+	while( $row = $db->fetch_record($result) )
 	{
+		$tdClass = 'data'.$uniadmin->switch_row_class(true);
 
-		if($i % 2)
-		{
-			$tdClass = 'data2';
-		}
-		else
-		{
-			$tdClass = 'data1';
-		}
-
-		$svTable .= "
-		<tr>
-			<td class='$tdClass'>".$row['sv_name']." <b>.lua</b></td>
-			<td class='$tdClass'>
-				<form name='ua_removesv_".$row['id']."' style='display:inline;' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-					<input class='submit' type='submit' value='Remove'>
-					<input type='hidden' value='".$row['id']."' name='svid'>
-					<input type='hidden' value='removesv' name='op'>
-				</form>
-			</td>
-		</tr>
-
-		";
-
-		$i++;
+		$svTable .= '
+	<tr>
+		<td class="'.$tdClass.'">'.$row['sv_name'].' <b>.lua</b></td>
+		<td class="'.$tdClass.'">
+			<form name="ua_removesv_'.$row['id'].'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				<input class="submit" type="submit" value="'.$user->lang['remove'].'" />
+				<input type="hidden" value="'.$row['id'].'" name="'.UA_URI_ID.'" />
+				<input type="hidden" value="'.UA_URI_DELETE.'" name="'.UA_URI_OP.'" />
+			</form>
+		</td>
+	</tr>
+';
 	}
 
-	if($i % 2)
-	{
-		$tdClass = 'data2';
-	}
-	else
-	{
-		$tdClass = 'data1';
-	}
+	$tdClass = 'data'.$uniadmin->switch_row_class(true);
 
-	$svTable .= "
+	$svTable .= '
 	</table>
 
 	<br />
 
-	<form name='ua_addsv' method='post' enctype='multipart/form-data' action='".UA_FORMACTION."'>
-	<input type='hidden' value='addsv' name='op'>
-	<table class='uuTABLE' width='40%' align='center'>
+	<form name="ua_addsv" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<table class="uuTABLE" width="40%" align="center">
 		<tr>
-			<th colspan='2' class='tableHeader'>Add SavedVariable Files</th>
+			<th colspan="2" class="tableHeader">'.$user->lang['add_svfiles'].'</th>
 		</tr>
 		<tr>
-			<td class='dataHeader'>Filename</td>
-			<td class='dataHeader' width='10%'>Add</td>
+			<td class="dataHeader">'.$user->lang['filename'].'</td>
+			<td class="dataHeader" width="10%">'.$user->lang['add'].'</td>
 		</tr>
 		<tr>
-			<td class='$tdClass'><input class='input' type='text' name='svname'> <b>.lua</b></td>
-			<td class='$tdClass'><input class='submit' type='submit' value='Add'></td>
+			<td class="'.$tdClass.'"><input class="input" type="text" name="'.UA_URI_SVNAME.'" /> <b>.lua</b></td>
+			<td class="'.$tdClass.'"><input class="submit" type="submit" value="'.$user->lang['add'].'" /></td>
 		</tr>
 	</table>
+	<input type="hidden" value="'.UA_URI_ADD.'" name="'.UA_URI_OP.'" />
 	</form>
+';
 
-
-
-	";
-
-	EchoPage($svTable."<br />".$form,'UU Settings');
+	EchoPage($svTable.'<br />'.$form,$user->lang['title_settings']);
 }
 
-function stringChop($string, $desiredLength, $suffix)
+/**
+ * Porcess Settings Update
+ */
+function processUpdate()
 {
-	if (strlen($string) > $desiredLength)
-	{
-		$string = substr($string,0,$desiredLength).$suffix;
-		return $string;
-	}
-	return $string;
-}
+	global $db, $user;
 
-function ProcessUpdate()
-{
-	global $dblink, $config;
 	foreach ($_POST as $settingName => $settingValue)
 	{
-		if(substr_count(strtoupper($settingName),"enabled") > 1)
-			break;
-		if ( isset($_POST["$settingName"."enabled"]) && $_POST["$settingName"."enabled"] == "on")
+		if( !( substr_count($settingName,'_en') >= 1 ) || $settingName != UA_URI_OP )
 		{
-			$enabled = "1";
+			if ( isset($_POST[$settingName.'_en']) && $_POST[$settingName.'_en'] == '1')
+			{
+				$enabled = 1;
+			}
+			else
+			{
+				$enabled = 0;
+			}
+
+			$sql = "UPDATE `".UA_TABLE_SETTINGS."` SET `enabled` = '$enabled', `set_value` = '".$db->escape($settingValue)."' WHERE `set_name` = '".$db->escape($settingName)."' LIMIT 1 ;";
+			$db->query($sql);
 		}
-		else
-		{
-			$enabled = "0";
-		}
-		$sql = "UPDATE `".$config['db_tables_settings']."` SET `enabled` = '$enabled', `set_value` = '$settingValue' WHERE `set_name` = '$settingName' LIMIT 1 ;";
-		mysql_query($sql,$dblink);
-		MySqlCheck($dblink,$sql);
 	}
 }
 
+/**
+ * Adds a SV filename
+ */
 function addSv()
 {
-	global $dblink, $config;
+	global $db, $user;
 
-	$sql = "INSERT INTO `".$config['db_tables_svlist']."` ( `sv_name` ) VALUES ( '".$_POST['svname']."' );";
-	mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-
+	$sql = "INSERT INTO `".UA_TABLE_SVLIST."` ( `sv_name` ) VALUES ( '".$db->escape($_POST[UA_URI_SVNAME])."' );";
+	$db->query($sql);
+	if( !$db->affected_rows() )
+	{
+		debug(sprintf($user->lang['sql_error_settings_sv_insert'],$_POST[UA_URI_SVNAME]));
+	}
 }
 
+/**
+ * Removes a SV filename
+ */
 function removeSv()
 {
-	global $dblink, $config;
+	global $db, $user;
 
-	$sql = "DELETE FROM `".$config['db_tables_svlist']."` WHERE `id` = ".$_POST['svid']." LIMIT 1;";
-	mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
-
+	$sql = "DELETE FROM `".UA_TABLE_SVLIST."` WHERE `id` = ".$db->escape($_POST[UA_URI_ID])." LIMIT 1;";
+	$db->query($sql);
+	if( !$db->affected_rows() )
+	{
+		debug(sprintf($user->lang['sql_error_settings_sv_remove'],$_POST[UA_URI_ID]));
+	}
 }
-
-switch ($op)
-{
-
-	case "PROCESSUPDATE":
-	ProcessUpdate();
-	Main();
-	break;
-
-	case "addsv":
-	addSv();
-	Main();
-	break;
-
-	case "removesv":
-	removeSv();
-	Main();
-	break;
-
-	default:
-	Main();
-	break;
-}
-
-
-
-
 
 
 ?>

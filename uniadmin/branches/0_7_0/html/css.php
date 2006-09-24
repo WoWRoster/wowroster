@@ -35,10 +35,13 @@ a:hover {
 .file {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
+	background-color:#ffffff;
+	color:#000000;
 }
 .select {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
+	border:1px solid #781351;
 	background-color:#ffffff;
 	color:#000000;
 }

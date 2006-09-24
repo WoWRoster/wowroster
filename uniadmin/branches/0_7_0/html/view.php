@@ -9,7 +9,7 @@ function Main()
 {
 	global $dblink, $config, $url;
 
-	$sql = "SELECT * FROM `".$config['db_tables_addons']."` ORDER BY `name`";
+	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` ORDER BY `name`";
 	$result = mysql_query($sql,$dblink);
 
 	if( mysql_num_rows($result) )
@@ -34,7 +34,7 @@ function Main()
 		while ($row = mysql_fetch_assoc($result))
 		{
 			$addonID = $row['id'];
-			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_id` = '$addonID'";
+			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$addonID'";
 			$result2 = mysql_query($sql,$dblink);
 			$numFiles = mysql_num_rows($result2);
 			$AddonName = $row['name'];

@@ -7,105 +7,140 @@ if( !defined('IN_UNIADMIN') )
 
 function EchoPage($body, $subTitle = 'Index')
 {
-	global $config, $loginForm, $uamessages, $uadebug;
+	global $loginForm, $ua_menu, $uniadmin, $db, $user;
 
-	echo "
-<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
+	$mc_split = split(' ', microtime());
+	$uniadmin->timer_end = $mc_split[0] + $mc_split[1];
+	unset($mc_split);
+
+	if ( UA_DEBUG && (isset($user->data['level']) && $user->data['level'] == UA_ID_ADMIN ) )
+	{
+		$mc_split = split(' ', microtime());
+		$uniadmin->timer_end = $mc_split[0] + $mc_split[1];
+		unset($mc_split);
+
+		$s_show_queries = ( UA_DEBUG == 2 ) ? true : false;
+
+		$s_show_debug = true;
+		$s_rendertime = substr($uniadmin->timer_end - $uniadmin->timer_start, 0, 5);
+		$s_querycount = $db->query_count;
+
+	}
+	else
+	{
+		$s_show_debug = false;
+		$s_show_queries = false;
+	}
+
+	echo '
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>UniAdmin Panel v".$config['UAVer']." - $subTitle</title>
-	<link rel='stylesheet' type='text/css' media='screen' href='./css.php'>
-	<script type='text/javascript' src='./overlib/overlib.js'><!-- overLIB (c) Erik Bosrup --></script>
-	<script type='text/javascript' src='./overlib/overlib_hideform.js'></script>
+	<title>UniAdmin v'.$uniadmin->config['UAVer'].' ['.$subTitle.']</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="'.$uniadmin->url_path.'/css.php" />
+	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
+	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib_hideform.js"></script>
 </head>
 <body>
 
-<table width='100%' border='0' cellspacing='1' cellpadding='2'>
+<table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
-    <td width='201' valign='top'><a href='".UA_INDEXPAGE."'><img src='images/logo.png' alt='UniAdmin' /></a></td>
-    <td width='100%' valign='top'>
-      <span class='maintitle'>UniAdmin v".$config['UAVer']."</span><br />
-      ".(isset($subTitle) ? "<span class='subtitle'>".$subTitle.'</span>' : '')."<br />
-      ".$loginForm."<br />";
+    <td width="201" valign="top"><a href="'.UA_INDEXPAGE.'"><img src="'.$uniadmin->url_path.'/images/logo.png" alt="UniAdmin" /></a></td>
+    <td width="100%" valign="top">
+      <span class="maintitle">UniAdmin v'.$uniadmin->config['UAVer'].'</span><br />
+      '.(isset($subTitle) ? '<span class="subtitle">'.$subTitle.'</span>' : '').'<br />
+      '.$loginForm.'<br />';
 
-	if( isset($config['menu']) )
+	if( isset($ua_menu) )
 	{
-		echo "
-	<span class='ua_menu'>
-".$config['menu']."
+		echo '
+	<span class="ua_menu">
+'.$ua_menu.'
 	</span>
 	<br /><br />
-	<span class='sync_url'>
-		Synchronization URL (click to verify):
-		<a href='".$config['IntLocation']."' target='_blank'>".$config['IntLocation']."</a>
-	</span>";
+	<span class="sync_url">
+		'.$user->lang['syncro_url'].' ('.$user->lang['verify_syncro_url'].'):
+		<a href="'.$uniadmin->config['interface_url'].'" target="_blank">'.$uniadmin->config['interface_url'].'</a>
+	</span>';
 	}
 
-	echo "
+	echo '
     </td>
   </tr>
 </table>
 <br />
-<br />";
+<br />';
 
-	if( !empty($uamessages) && is_array($uamessages) )
+	if( !empty($uniadmin->messages) && is_array($uniadmin->messages) )
 	{
-		echo "<table class='uuTABLE' width='30%' align='center'>
+		echo '<table class="uuTABLE" width="30%" align="center">
 	<tr>
-		<th class='tableHeader'>Messages</th>
+		<th class="tableHeader">'.$user->lang['messages'].'</th>
 	</tr>
-";
+';
 		$i=0;
-		foreach( $uamessages as $message )
+		foreach( $uniadmin->messages as $message )
 		{
-			if($i % 2)
-				$tdClass = 'data2';
-			else
-				$tdClass = 'data1';
-
-			echo "<tr>\n<td class='$tdClass'>$message</td>\n</tr>\n";
+			echo "<tr>\n<td class=\"data".$uniadmin->switch_row_class()."\">$message</td>\n</tr>\n";
 
 			$i++;
 		}
 		echo "</table>\n<br />\n";
 	}
 
-	if( !empty($uadebug) && is_array($uadebug) )
+	if( !empty($uniadmin->debug) && is_array($uniadmin->debug) )
 	{
-		echo "<table class='uuTABLE' width='30%' align='center'>
+		echo '<table class="uuTABLE" width="30%" align="center">
 	<tr>
-		<th class='debugHeader'>Debug</th>
+		<th class="debugHeader">'.$user->lang['debug'].'</th>
 	</tr>
-";
+';
 		$i=0;
-		foreach( $uadebug as $message )
+		foreach( $uniadmin->debug as $message )
 		{
-			if($i % 2)
-				$tdClass = 'data2';
-			else
-				$tdClass = 'data1';
-
-			echo "<tr>\n<td class='$tdClass'>$message</td>\n</tr>\n";
+			echo "<tr>\n<td class=\"data".$uniadmin->switch_row_class()."\">$message</td>\n</tr>\n";
 
 			$i++;
 		}
 		echo "</table>\n<br />\n";
 	}
 
-	echo $body.
-"
+	echo $body;
+
+	if( $s_show_queries )
+	{
+		echo '<br />
+<table class="uuTABLE" width="80%" align="center">
+  <tr>
+    <th class="tableHeader">'.$user->lang['queries'].'</th>
+  </tr>';
+		foreach ( $db->queries as $query )
+		{
+			echo '  <tr class="data'.$uniadmin->switch_row_class().'">
+    <td width="100%">'.$query.'</td>
+  </tr>';
+		}
+		echo '</table>';
+	}
+		echo '
 <br />
 <!--
     If you use this software and find it to be useful, we ask that you retain the copyright notice below.
 //-->
-<div class='ua_hr'><hr /></div>
+<div class="ua_hr"><hr /></div>
 <br />
-<div align='center'>
-	<span class='copyright'><a href='http://www.wowroster.net/' target='_blank'>UniAdmin</a> v".$config['UAVer']."<br />
-	&copy; 2006 The WoWRoster Dev Team</span><br />
-</div>
+<div align="center">
+	<span class="copyright"><a href="http://www.wowroster.net/" target="_blank">UniAdmin</a> v'.$uniadmin->config['UAVer'].'<br />
+	&copy; 2006 The WoWRoster Dev Team</span><br />';
+
+	if( $s_show_debug )
+	{
+		echo '<br /><span class="copyright">'.$s_rendertime.' | '.$s_querycount.' | <a href="http://validator.w3.org/check/referer" target="_top" class="copy">XHTML Validate</a></span>';
+	}
+
+	echo '</div>
 </body>
-</html>";
+</html>';
 }
 
 ?>

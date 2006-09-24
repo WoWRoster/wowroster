@@ -4,30 +4,34 @@ $interface = true;
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
 if( isset($_REQUEST['OPERATION']) )
+{
 	$op = $_REQUEST['OPERATION'];
+}
 else
+{
 	$op = '';
+}
 
 switch( $op )
 {
 	case 'GETADDON':
-		OutPutUrl();
 		AddStat();
+		OutPutUrl();
 		break;
 
 	case 'GETADDONLIST':
-		OutPutXmL();
 		AddStat();
+		OutPutXmL();
 		break;
 
 	case 'GETSETTINGS':
-		OutPutSettings();
 		AddStat();
+		OutPutSettings();
 		break;
 
 	case 'GETUAVER':
-		echo $config['UAVer'];
 		AddStat();
+		echo $uniadmin->config['UAVer'];
 		break;
 
 	case 'GETFILEMD5':
@@ -35,8 +39,8 @@ switch( $op )
 		break;
 
 	default:
-		echo 'UniUploader Update Interface Ready...';
 		AddStat();
+		echo 'UniUploader Update Interface Ready...';
 		break;
 }
 
@@ -44,99 +48,94 @@ switch( $op )
 
 function outputLogoMd5($filename)
 {
-	global $dblink, $config;
+	global $db;
 
-	$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `filename` = '$filename'";
-	$result = mysql_query($sql,$dblink);
-	$row = mysql_fetch_assoc($result);
+	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `filename` = '".$db->escape($filename)."';";
+	$result = $db->query($sql);
+	$row = $db->fetch_record($result);
 	echo $row['md5'];
-	//echo $filename;
 }
 
 function OutPutSettings()
 {
-	global $dblink, $config;
+	global $db;
 
 	//logos
-	$sql = "SELECT * FROM `".$config['db_tables_logos']."` WHERE `active` = '1'";
-	$result = mysql_query($sql,$dblink);
-	while ($row = mysql_fetch_assoc($result))
+	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `active` = '1';";
+	$result = $db->query($sql);
+	while ($row = $db->fetch_record($result))
 	{
 		echo 'LOGO'.$row['logo_num'].'[=]'.$row['download_url'].'[|]';
 	}
 
 	//settings
-	$sql = "SELECT * FROM `".$config['db_tables_settings']."` WHERE `enabled` = '1'";
-	$result = mysql_query($sql,$dblink);
-	while ($row = mysql_fetch_assoc($result))
+	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` WHERE `enabled` = '1';";
+	$result = $db->query($sql);
+	while ($row = $db->fetch_record($result))
 	{
 		echo $row['set_name'].'[=]'.$row['set_value'].'[|]';
 	}
 
 	//sv list
-	$sql = "SELECT * FROM `".$config['db_tables_svlist']."`";
-	$result = mysql_query($sql,$dblink);
+	$sql = "SELECT * FROM `".UA_TABLE_SVLIST."`;";
+	$result = $db->query($sql);
 	echo 'SVLIST[=]';
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = $db->fetch_record($result))
 	{
 		echo $row['sv_name'].':';
 	}
-
 }
 
 function AddStat()
 {
-	global $dblink, $config, $op;
+	global $db, $op;
 
 	if (isset($_REQUEST['ADDON']))
 	{
-		$action = addslashes($op.' - '.$_REQUEST['ADDON']);
+		$action = $db->escape($op.' - '.$_REQUEST['ADDON']);
 	}
 	else
 	{
-		$action = addslashes($op);
+		$action = $db->escape($op);
 	}
-	$sql = "INSERT INTO `".$config['db_tables_stats']."` ( `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
-		( '".$_SERVER['REMOTE_ADDR']."', '".addslashes(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".addslashes($_SERVER['HTTP_USER_AGENT'])."' );";
-	mysql_query($sql,$dblink);
-	MySqlCheck($dblink,$sql);
+	$sql = "INSERT INTO `".UA_TABLE_STATS."` ( `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
+		( '".$_SERVER['REMOTE_ADDR']."', '".$db->escape(gethostbyaddr($_SERVER['REMOTE_ADDR']))."', '$action', '".time()."', '".$db->escape($_SERVER['HTTP_USER_AGENT'])."' );";
+	$db->query($sql);
 }
 
 
 function OutPutXmL()
 {
-	global $dblink, $config;
+	global $db;
 
 	$xml = '<addons>';
 
-	$sql = "SELECT * FROM `".$config['db_tables_addons']."`";
-	$result = mysql_query($sql,$dblink);
+	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `enabled` = '1';";
+	$result = $db->query($sql);
 
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = $db->fetch_record($result))
 	{
-		if ($row['enabled']=='1')
+		$id = $row['id'];
+		$name = addslashes($row['name']);
+		$version = addslashes($row['version']);
+		$required = addslashes($row['required']);
+		$toc = addslashes($row['toc']);
+
+		$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" toc=\"$toc\">";
+
+		$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$id';";
+		$result2 = $db->query($sql);
+
+		while ($row2 = $db->fetch_record($result2))
 		{
-			$id = $row['id'];
-			$name = $row['name'];
-			$version = $row['version'];
-			$required = $row['required'];
-			$toc = $row['toc'];
-
-			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" toc=\"$toc\">";
-
-			$sql = "SELECT * FROM `".$config['db_tables_files']."` WHERE `addon_id` = '$id'";
-			$result2 = mysql_query($sql);
-			while ($row2 = mysql_fetch_assoc($result2))
+			$filename = addslashes($row2['filename']);
+			$md5 = addslashes($row2['md5sum']);
+			if ($filename != 'index.htm' && $filename != 'index.html' && $filename != '.svn')
 			{
-				$filename = $row2['filename'];
-				$md5 = $row2['md5sum'];
-				if ($filename != 'index.htm' && $filename != 'index.html' && $filename != '.svn')
-				{
-					$xml .= "\n\t\t<file name=\"$filename\" md5sum=\"$md5\" />";
-				}
+				$xml .= "\n\t\t<file name=\"$filename\" md5sum=\"$md5\" />";
 			}
-			$xml .= "\n\t</addon>";
 		}
+		$xml .= "\n\t</addon>";
 	}
 	$xml .= "\n</addons>";
 
@@ -145,12 +144,12 @@ function OutPutXmL()
 
 function OutPutUrl()
 {
-	global $dblink, $config;
+	global $db;
 
 	$addonName = $_REQUEST['ADDON'];
-	$sql = "SELECT * FROM `".$config['db_tables_addons']."` WHERE `name` = '".addslashes($addonName)."'";
-	$result = mysql_query($sql,$dblink);
-	$row = mysql_fetch_assoc($result);
+	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addonName)."';";
+	$result = $db->query($sql);
+	$row = $db->fetch_record($result);
 	echo $row['dl_url'];
 }
 
