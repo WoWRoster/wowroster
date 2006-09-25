@@ -178,6 +178,7 @@ $lang['current_users'] = 'Current Users';
 $lang['select_file'] = 'Select file';
 $lang['userlevel'] = 'User Level';
 $lang['addon_management'] = 'Addon Management';
+$lang['view_addons'] = 'View Addons';
 $lang['required_addon'] = 'Required Addon';
 $lang['homepage'] = 'Homepage';
 $lang['logged_in_as'] = 'Logged in as [%1$s]';

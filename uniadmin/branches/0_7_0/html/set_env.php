@@ -32,7 +32,7 @@ include(UA_BASEDIR.'include'.DIR_SEP.'constants.php');
 include(UA_INCLUDEDIR.'dbal.php');
 include(UA_INCLUDEDIR.'uniadmin.php');
 include(UA_INCLUDEDIR.'user.php');
-include(UA_BASEDIR.'EchoPage.php');
+include(UA_INCLUDEDIR.'echopage.php');
 
 $uniadmin = new UniAdmin($url);
 $user = new User();
@@ -42,8 +42,8 @@ $user->start();
 
 if( !isset($interface) )
 {
-	include(UA_BASEDIR.'login.php');
-	include(UA_BASEDIR.'menu.php');
+	include(UA_INCLUDEDIR.'login.php');
+	include(UA_INCLUDEDIR.'menu.php');
 }
 
 

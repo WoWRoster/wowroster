@@ -112,7 +112,7 @@ Beta 0.7.0
   - interface.php can still be accessed alone, because UU < v2.5 needs it this way
 - Added full localization
 - Added a database layer
-- Improved debug to include all SQL queries ran on each page
+- Improved debug to include all SQL queries ran on each page and page rendertimes
 - Added common functions file
 - Added user object. Holds locale strings, user info, etc...
 - Added uniadmin object. Holds UA config info adn common functions

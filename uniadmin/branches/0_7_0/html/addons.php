@@ -187,9 +187,8 @@ function main()
 				<input class="submit" style="color:red;" type="submit" value="'.$user->lang['delete'].'" />
 				</form></td>
 		</tr>
-		';
+';
 		}
-		$db->free_result($result);
 	}
 	else
 	{
@@ -204,6 +203,7 @@ function main()
 	}
 	$AddonPanel .= '</table>';
 
+	$db->free_result($result);
 
 
 	EchoPage(

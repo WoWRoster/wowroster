@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 
 $help = '
-<table class="uaTable" cellpadding="2">
+<table class="uuTABLE" cellpadding="2" align="center" width="95%">
 	<tr>
 		<th class="tableHeader">'.$user->lang['title_help'].'</th>
 	</tr>';
