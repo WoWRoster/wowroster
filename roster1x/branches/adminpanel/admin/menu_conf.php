@@ -29,7 +29,7 @@ else
 {
 	$section = 'main';
 }
-if( isset($_POST['doglobal']) && $_POST['doglobal'] )
+if( isset($_GET['doglobal']) && $_GET['doglobal'] )
 {
 	if( $roster_login->getAuthorized($roster_conf['auth_editglobalmenu']))
 	{
@@ -154,21 +154,50 @@ if (!isset($html_head))
 $html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/wz_dragdrop.js"></script>'."\n";
 $html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/menuconf.js"></script>'."\n";
 
-$menu .= border('spink','start')."\n";
-$menu .= '<form action="" method="post">'."\n";
-$menu .= '<input type="hidden" name="section" value="'.$section.'">'."\n";
+$menu .= border('sorange','start',$act_words['sectionselect'])."\n";
+$menu .= '<form action="" method="get">'."\n";
+$menu .= '<input type="hidden" name="page" value="menu">'."\n";
 if ($roster_login->getAuthorized($roster_conf['auth_editglobalmenu']))
 {
-	$menu .= '<input type="checkbox" name="doglobal" '.(($account==0)?:'checked="checked"':'').'">'."\n";
+	$menu .= '<input type="checkbox" name="doglobal" '.(($account==0)?'checked="checked"':'').'> Edit global configuration <br />'."\n";
 }
 else
 {
 	$menu .= '<input type="hidden" name="doglobal" value="0">';
 }
-/* Insert select box for which menu to configure in $menu. */
+/* Insert select box for which menu to configure into $menu. */
+$menu .= '<select name="section">'."\n";
+
+$query = "SELECT `section` FROM ".$wowdb->table('menu')." WHERE `account_id` = 0";
+$result = $wowdb->query($query);
+
+if (!$result)
+{
+	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said: <br />'.$wowdb->error(),'WoW Roster',basename(__FILE__),__LINE__,$query);
+}
+
+while ($row = $wowdb->fetch_assoc($result))
+{
+	if ($row['section'] == $section)
+	{
+		$menu .= '<option value="'.$row['section'].'">&gt;'.$row['section'].'&lt;</option>'."\n";
+	}
+	else
+	{
+		$menu .= '<option value="'.$row['section'].'">'.$row['section'].'</option>'."\n";
+	}
+}
+
+$wowdb->free_result($result);
+
+$menu .= '</select>&nbsp;'."\n";
+
+
 $menu .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['profilego'].'" />'."\n";
 $menu .= '</form>'."\n";
-$menu .= border('spink','end')."\n";
+$menu .= border('sorange','end')."\n";
+
+$menu .= '<br />'."\n";
 
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)

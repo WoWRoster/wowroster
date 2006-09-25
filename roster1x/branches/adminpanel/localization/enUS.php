@@ -562,6 +562,7 @@ $wordings['enUS']['installer_success2'] = 'Failed and rollback also failed';
  ******************************/
 
 // AdminPanel interface wordings
+$wordings['enUS']['sectionselect'] = 'Select Section';
 $wordings['enUS']['profileselect'] = 'Select Profile';
 $wordings['enUS']['profilego'] = 'Go';
 

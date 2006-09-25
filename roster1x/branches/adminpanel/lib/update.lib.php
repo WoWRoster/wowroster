@@ -36,11 +36,11 @@ class update
 
 		// Add roster-used tables
 		$this->addons = array();
-		$this->files[] = 'CharacterProfiler';
+		$this->files[] = 'characterprofiler';
 
 		if ( $roster_conf['pvp_log_allow'] )
 		{
-			$this->files[] = 'PvPLog';
+			$this->files[] = 'pvplog';
 		}
 
 		if ( !$roster_conf['user_upgrade_triggers'] )
@@ -60,10 +60,10 @@ class update
 			while ($row = $wowdb->fetch_assoc($result))
 			{
 				$output .= 'Registering '.$row['file'].' for '.$row['fullname']."<br />\n";
-				$this->addons[$row['dbname']][] = $row['file'];
-				if (!in_array($row['file'],$this->files))
+				$this->addons[$row['dbname']][] = strtolower($row['file']);
+				if (!in_array(strtolower($row['file']),$this->files))
 				{
-					$this->files[] = $row['file'];
+					$this->files[] = strtolower($row['file']);
 				}
 			}
 		}
@@ -92,7 +92,7 @@ class update
 			if( !empty($file['name']) )
 			{
 				$filename = explode('.',$file['name']);
-				$filebase = $filename[0];
+				$filebase = strtolower($filename[0]);
 				if (in_array($filebase,$this->files))
 				{
 					// Check if this file is gzipped
@@ -136,7 +136,7 @@ class update
 		}
 		$output = 'Processing files'."<br />\n";
 		$gotfiles = array_keys($this->uploadData);
-		if (in_array('CharacterProfiler',$gotfiles))
+		if (in_array('characterprofiler',$gotfiles))
 		{
 			if ($roster_login->getAuthorized($roster_conf['auth_updateGP']))
 			{
@@ -147,7 +147,7 @@ class update
 			$output .= $this->processMyProfile();
 			$output .= "<br />\n";
 		}
-		if (in_array('PvPLog',$gotfiles))
+		if (in_array('pvplog',$gotfiles))
 		{
 			$output .= $this->processPvP();
 			$output .= "<br />\n";
@@ -188,7 +188,7 @@ class update
 
 		$wowdb->resetMessages();
 
-		foreach ($this->uploadData['PvPLog']['PurgeLogData'] as $realm_name => $realm)
+		foreach ($this->uploadData['pvplog']['PurgeLogData'] as $realm_name => $realm)
 		{
 			foreach ($realm as $char_name => $char)
 			{
@@ -231,9 +231,8 @@ class update
 
 		$output = 'Updating character profiles'.'<ul>';
 
-		foreach( array_keys( $this->uploadData['CharacterProfiler']['myProfile'] ) as $realm_name )
+		foreach( $this->uploadData['characterprofiler']['myProfile'] as $realm_name => $realm)
 		{
-			$realm = $this->uploadData['CharacterProfiler']['myProfile'][$realm_name];
 			foreach( array_keys( $realm ) as $char_name )
 			{
 				if ($char_name != 'Guild')
@@ -295,14 +294,14 @@ class update
 
 		$wowdb->resetMessages();
 
-		if( is_array($this->uploadData['CharacterProfiler']['myProfile']) )
+		if( is_array($this->uploadData['characterprofiler']['myProfile']) )
 		{
-			foreach( array_keys($this->uploadData['CharacterProfiler']['myProfile']) as $realm_name )
+			foreach( array_keys($this->uploadData['characterprofiler']['myProfile']) as $realm_name )
 			{
 				// Only allow realms specified in config
 				if( $realm_name == $roster_conf['server_name'])
 				{
-					$realm = $this->uploadData['CharacterProfiler']['myProfile'][$realm_name];
+					$realm = $this->uploadData['characterprofiler']['myProfile'][$realm_name];
 					$guild = $realm['Guild'];
 					if( is_array($guild) )
 					{
