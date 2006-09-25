@@ -799,6 +799,8 @@ $creditspage['devs'] = array(
 					"info"=>	"Advanced stats &amp; bonuses block on the character page"),
 			array(	"name"=>	"dehoskins",
 					"info"=>	"Improvements to the stats &amp; bonuses block"),
+			array( "name"=>	"EQdkp team",
+					"info"=>	"The original versions of the installer/upgrader and its templating enginge"),
 		),
 
 		'inactive'=>array(
@@ -847,6 +849,8 @@ $creditspage['devs'] = array(
 $creditspage['bottom']='WoW Roster is licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
 <br /><br />
 Serveral javascript files are libraries that are under their own licenses.
+<br /><br />
+The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
 See <a href="license.txt">license.txt</a> for details';
 ?>

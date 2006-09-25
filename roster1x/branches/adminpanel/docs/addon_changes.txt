@@ -1,58 +1,43 @@
+$Id$
+
 These are the changes for the roster addon framework:
 
-- All addons need to be installed. For an example of an 'empty' installer that
-  only generates addon and menu table entries see the reputation addon.
+    *  All addons need to be installed. For an example of an 'empty' installer that only generates addon and menu table entries see the reputation addon.
+    * During install database tables, graphical configuration, menu buttons, and triggers can be registered with the main framework.
+    * The menu.php file is no longer required. The conf.php is still loaded because there is often more to initialize than just settings.
+    * Serveral variables in addon.php, most notably $addonDir, have changed names.
+    * conf.php and localization.php are called from a function. All variables other $addon_conf and $wordings that need to be accessed should be accessed via $_GLOBALS.
+    * Configuration from database is automatically added. Addons are initialized in this order:
 
-- Serveral variables in addon.php, most notably $addonDir, have changed names.
+          o Addon registration record
+          o Other constants (locations of addon files and the addon base dir)
+          o Database configuration for the selected default profile.
+          o Localization file
+          o Config file
+    * The following data is in the addon registration record, stored in $addon.
 
-- conf.php and localization.php are called from a function. All variables other
-  $addon_conf and $wordings that need to be accessed should be accessed via
-  $_GLOBALS.
+      Array
+      (
+          [ addon_id ] => 3
+          [ basename ] => recipe
+          [ dbname ] => recipe
+          [ version ] => 1.0.0
+          [ hasconfig ] => default
+          [ active ] => 1
+          [ dir ] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\
+          [ index ] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\index.php
+          [ cssFile ] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\default.css
+          [ cssUrl ] => /addons/recipe/default.css
+          [ locale ] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\localization.php
+          [ conf ] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\conf.php
+      )
+    * basename is the name of the addon's install directory. dbname is the name it is installed under in the DB.
+    * The database config information is stored in $addon_conf[$addon['dbname']].
+    * The addon is called by addon.php using the 'dbname' GET parameter.
+    * You do not know the dbname at design time. Use the $addon['dbname'] variable for this at all times.
+    * On updates, the addon's trigger.php is only called once, after guild, character, and pvp updates have already ran. The addon is passed a $updateData array with all data uploaded in this update. This trigger file is called if at least 1 file the addon has registered for is in the upload.
+    * menu.php calls the localization file if you've got a registered, active menu button, but it doesn't call any of the other addon files or import the db config. The addon config panel calls the db config and the localization file, but currently not the addon's database record or config file.
+    * New libraries available:
 
-- Configuration from database is automatically added. Addons are initialized in
-  this order:
-
-  * Addon registration record
-  * Other constants (locations of addon files and the addon base dir)
-  * Database configuration for the selected default profile.
-  * Localization file
-  * Config file
-
-
-- The following data is in the addon registration record, stored in $addon.
-
-	Array
-	(
-	    [addon_id] => 3
-	    [basename] => recipe
-	    [dbname] => recipe
-	    [version] => 1.0.0
-	    [hasconfig] => default
-	    [active] => 1
-	    [dir] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\
-	    [index] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\index.php
-	    [cssFile] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\default.css
-	    [cssUrl] => /addons/recipe/default.css
-	    [locale] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\localization.php
-	    [conf] => C:\Program Files\xampp\htdocs\RosterSVN\roster1x\branches\adminpanel\addons\recipe\conf.php
-	)
-
-- basename is the name of the addon's install directory. dbname is the name it
-  is installed under in the DB.
-
-- The database config information is stored in $addon_conf[$addon['dbname']].
-
-- The addon is called by addon.php using the 'dbname' GET parameter.
-
-- You do not know the dbname at design time. Use the $addon['dbname'] variable
-  for this at all times.
-
-- On updates, the addon's trigger.php is only called once, after guild,
-  character, and pvp updates have already ran. The addon is passed a $updateData
-  array with all data uploaded in this update. This trigger file is called if
-  at least 1 file the addon has registered for is in the upload.
-
-- menu.php calls the localization file if you've got a registered, active menu
-  button, but it doesn't call any of the other addon files or import the db config.
-  The addon config panel calls the db config and the localization file, but
-  currently not the addon's database record or config file.
+          o lib/memberslist.php: A table with full client-side filtering and sorting ability
+          o lib/login.php: Not completely new, but now automatically included and initialized and offers full authorization capabilities.

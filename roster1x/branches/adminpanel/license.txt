@@ -40,3 +40,12 @@ included under the main roster license. These are:
   
 - The DHTML Drag & Drop library by Walter Zorn. This is licensed under
   the LGPL, available at http://gnu.org/copyleft/lesser.html
+
+
+The installer was based on the EQdkp installer. This concerns the files:
+- install.php
+- update.php
+- install/template.php
+
+These 3 files are licensed under the GNU General Public License, which is
+available at http://gnu.org/copyleft/gpl.html

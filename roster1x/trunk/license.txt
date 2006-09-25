@@ -33,3 +33,12 @@ included under the main roster license. These are:
 
 - The Overlib tooltip library by Erik Bosrup. An unnamed license
   applies, available at http://www.bosrup.com/web/overlib/?License
+
+
+The installer was based on the EQdkp installer. This concerns the files:
+- install.php
+- update.php
+- install/template.php
+
+These 3 files are licensed under the GNU General Public License, which is
+available at http://gnu.org/copyleft/gpl.html
