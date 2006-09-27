@@ -108,7 +108,7 @@ INSERT INTO `renprefix_config` VALUES (6000, 'questlink_1', '1', 'radio{on^1|off
 INSERT INTO `renprefix_config` VALUES (6010, 'questlink_2', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6020, 'questlink_3', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/Downloads/details/id=7.html', 'text{128|30', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/Downloads/details/id=51.html', 'text{128|30', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/Downloads/c=2.html', 'text{128|30', 'data_links');
 
 # --------------------------------------------------------
