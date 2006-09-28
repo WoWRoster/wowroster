@@ -921,11 +921,14 @@ class wowdb
 				// quantity for a bag means number of slots it has
 				$item['item_quantity'] = $bag['Slots'];
 				$this->insert_item( $item,$data['Locale'] );
-				foreach( array_keys( $bag['Contents'] ) as $slot_name )
+				if (isset($bag['Contents']) && is_array($bag['Contents']))
 				{
-					$slot = $bag['Contents'][$slot_name];
-					$item = $this->make_item( $slot, $memberId, $bag_name, $slot_name );
-					$this->insert_item( $item,$data['Locale'] );
+					foreach( array_keys( $bag['Contents'] ) as $slot_name )
+					{
+						$slot = $bag['Contents'][$slot_name];
+						$item = $this->make_item( $slot, $memberId, $bag_name, $slot_name );
+						$this->insert_item( $item,$data['Locale'] );
+					}
 				}
 			}
 			$this->setMessage('</ul>');
@@ -994,11 +997,14 @@ class wowdb
 			$bag = $inv;
 
 			$this->setMessage('<li>Bank Contents</li>');
-			foreach( array_keys( $bag['Contents'] ) as $slot_name )
+			if (isset($bag['Contents']) && is_array($bag['Contents']))
 			{
-				$slot = $bag['Contents'][$slot_name];
-				$item = $this->make_item( $slot, $memberId, 'Bank Contents', $slot_name );
-				$this->insert_item( $item,$data['Locale'] );
+				foreach( array_keys( $bag['Contents'] ) as $slot_name )
+				{
+					$slot = $bag['Contents'][$slot_name];
+					$item = $this->make_item( $slot, $memberId, 'Bank Contents', $slot_name );
+					$this->insert_item( $item,$data['Locale'] );
+				}
 			}
 			foreach( array_keys( $inv ) as $bag_name )
 			{
@@ -1013,11 +1019,14 @@ class wowdb
 					$item['item_quantity'] = $bag['Slots'];
 					$this->insert_item( $item,$data['Locale'] );
 
-					foreach( array_keys( $bag['Contents'] ) as $slot_name )
+					if (isset($bag['Contents']) && is_array($bag['Contents']))
 					{
-						$slot = $bag['Contents'][$slot_name];
-						$item = $this->make_item( $slot, $memberId, $dbname, $slot_name );
-						$this->insert_item( $item,$data['Locale'] );
+						foreach( array_keys( $bag['Contents'] ) as $slot_name )
+						{
+							$slot = $bag['Contents'][$slot_name];
+							$item = $this->make_item( $slot, $memberId, $dbname, $slot_name );
+							$this->insert_item( $item,$data['Locale'] );
+						}
 					}
 				}
 			}

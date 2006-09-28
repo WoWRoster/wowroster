@@ -293,14 +293,7 @@ $wordings['enUS']['ts_iconArray'] = array (
 		'Cooking'=>'INV_Misc_Food_15',
 		'Fishing'=>'Trade_Fishing',
 		'First Aid'=>'Spell_Holy_SealOfSacrifice',
-		'Tiger Riding'=>'Ability_Mount_WhiteTiger',
-		'Horse Riding'=>'Ability_Mount_RidingHorse',
-		'Ram Riding'=>'Ability_Mount_MountainRam',
-		'Mechanostrider Piloting'=>'Ability_Mount_MechaStrider',
-		'Undead Horsemanship'=>'Ability_Mount_Undeadhorse',
-		'Raptor Riding'=>'Ability_Mount_Raptor',
-		'Kodo Riding'=>'Ability_Mount_Kodo_03',
-		'Wolf Riding'=>'Ability_Mount_BlackDireWolf',
+		'Riding'=>'Ability_Mount_RidingHorse',
 );
 
 // Class Icons-Array
