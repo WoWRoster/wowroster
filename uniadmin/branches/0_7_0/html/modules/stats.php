@@ -28,11 +28,11 @@ function main()
 
 	EchoPage(
 	buildMainTable().
-	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('host_name').'" alt="host_name" />'."\n".
-	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('ip_addr').'" alt="ip_addr" />'."\n".
-	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('user_agent').'" alt="user_agent" />'."\n".
-	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('action').'" alt="action" />'."\n".
-	'<img src="'.$uniadmin->url_path.'pieChart.php?'.buildPieHosts('time').'" alt="time" />'."\n",$user->lang['title_stats']);
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('host_name').'" alt="host_name" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('ip_addr').'" alt="ip_addr" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('user_agent').'" alt="user_agent" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('action').'" alt="action" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('time').'" alt="time" />'."\n",$user->lang['title_stats']);
 }
 
 /**

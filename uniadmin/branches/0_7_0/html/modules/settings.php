@@ -278,4 +278,140 @@ function removeSv()
 }
 
 
+
+
+
+/*
+	Functions to replace PHP's parse_ini_file() with much fewer restritions, and
+	a matching function to write to a .INI file, both of which are binary safe.
+
+	Version 1.0
+
+	Copyright (C) 2005 Justin Frim <phpcoder@cyberpimp.pimpdomain.com>
+*/
+
+
+/**
+ * Read a settings.ini uploaded from UniUploader
+ *
+ * @param string $filename
+ * @param string $commentchar
+ * @return mixed
+ */
+function readINIfile( $filename , $commentchar='#' )
+{
+	$array = file( $filename );
+	$section = '';
+	if( $array )
+	{
+		foreach( $array as $filedata )
+		{
+			$dataline = trim( $filedata );
+			$firstchar = substr( $dataline, 0, 1 );
+			if( $firstchar != $commentchar && $dataline!='' )
+			{
+				//It's an entry (not a comment and not a blank line)
+				if( $firstchar == '[' && substr( $dataline, -1, 1 ) == ']' )
+				{
+					//It's a section
+					$section = substr( $dataline, 1, -1 );
+				}
+				else
+				{
+					//It's a key...
+					$delimiter = strpos( $dataline, '=' );
+					if( $delimiter > 0 )
+					{
+						//...with a value
+						$key = trim( substr( $dataline, 0, $delimiter ) );
+						$value = trim( substr( $dataline, $delimiter + 1 ) );
+						if( substr( $value, 0, 1 ) == '"' && substr( $value, -1, 1 ) == '"' )
+						{
+							$value = substr( $value, 1, -1 );
+						}
+						$array_out[$section][$key] = $value;
+					}
+					else
+					{
+						//...without a value
+						$array_out[$section][trim( $dataline )]='';
+					}
+				}
+			}
+			else
+			{
+				//It's a comment or blank line.  Ignore.
+			}
+		}
+		return $array_out;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
+ * Write a settings.ini file for UniUploader
+ *
+ * @param string $filename
+ * @param array $array
+ * @param string $commentchar
+ * @param string $commenttext
+ * @return bool
+ */
+function writeINIfile( $filename , $array , $commentchar , $commenttext )
+{
+	$handle = fopen( $filename, 'wb' );
+	if( $handle )
+	{
+		if( $commenttext!='' )
+		{
+			$comtext = $commentchar.
+			str_replace( $commentchar, "\r\n".$commentchar,
+			str_replace( "\r", $commentchar,
+			str_replace( "\n", $commentchar,
+			str_replace( "\n\r", $commentchar,
+			str_replace( "\r\n", $commentchar, $commenttext )
+			)
+			)
+			)
+			)
+			;
+			if( substr( $comtext, -1, 1 ) == $commentchar && substr( $commenttext, -1, 1 ) != $commentchar )
+			{
+				$comtext = substr($comtext, 0, -1);
+			}
+			fwrite( $handle, $comtext."\r\n\r\n" );
+		}
+		foreach( $array as $sections => $items )
+		{
+			//Write the section
+			if( isset( $section ) )
+			{
+				fwrite( $handle, "\r\n" );
+			}
+			$section = preg_replace( '/[\0-\37]|\177/', '-', $sections );
+			fwrite( $handle, '['.$section."]\r\n" );
+			foreach( $items as $keys => $values )
+			{
+				//Write the key/value pairs
+				$key = preg_replace( '/[\0-\37]|=|\177/', '-', $keys );
+				if ( substr( $key, 0, 1 ) == $commentchar )
+				{
+					$key = '-'.substr( $key, 1 );
+				}
+				$value = addcslashes( $values,'' );
+				fwrite( $handle, $key.'='.$value."\r\n" );
+			}
+		}
+		fclose( $handle );
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 ?>

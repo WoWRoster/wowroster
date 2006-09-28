@@ -12,9 +12,9 @@ include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
 // This is a list of allowed actions that a person can make.
 // For each action, there is a corresponding php file, i.e.
-// members == members.php
+// help == help.php
 // Any action that is attempted that isn't listed in this array will
-// refer them to the main page as defined by first_page in the config.
+// refer them to the help page (or the login screen if they are not logged in.
 $allowed_pages = array(
 	'addons',
 	'settings',
@@ -38,11 +38,11 @@ else
 
 if( in_array($page, $allowed_pages) )
 {
-	include_once($page.'.php');
+	include_once(UA_MODULEDIR.$page.'.php');
 }
 else
 {
-	include_once('help.php');
+	include_once(UA_MODULEDIR.'help.php');
 }
 
 ?>

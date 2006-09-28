@@ -1,14 +1,12 @@
 <?php
 
-if( !defined('IN_UNIADMIN') )
-{
-    exit('Detected invalid access to this file!');
-}
-
 $interface = true;
 
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
+main();
+
+$db->close_db();
 
 function main()
 {
@@ -22,7 +20,7 @@ function main()
 		$AddonPanel = '
 		<table class="uuTABLE" align="center">
 			<tr>
-				<th class="tableHeader" colspan="10">'.$user->lang['addon_management'].'</th>
+				<th class="tableHeader" colspan="10">'.$user->lang['view_addons'].'</th>
 			</tr>
 			<tr>
 				<td class="dataHeader">'.$user->lang['name'].'</td>
@@ -101,14 +99,138 @@ function main()
 			</tr>';
 	}
 
-	$AddonPanel .= '</table>';
+	$AddonPanel .= "</table>\n<br />\n";
 
 	$db->free_result($result);
 
-	EchoPage($AddonPanel,'Addons');
+
+
+
+	/**
+	 * Grab UniUploader settings as well
+	 **/
+
+
+
+	// logos
+	$logo = '';
+	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `active` = '1';";
+	$result = $db->query($sql);
+	if( $db->num_rows($result) > 0 )
+	{
+		$logo = '
+<table class="uuTABLE" align="center">
+	<tr>
+		<th colspan="4" class="tableHeader">'.$user->lang['title_logo'].'</th>
+	</tr>
+	<tr>';
+
+		while ($row = $db->fetch_record($result))
+		{
+			$logo .= '
+		<td class="dataHeader">'.sprintf($user->lang['logo_table'],$row['logo_num']).'</td>
+		<td class="data2"><img src="'.$row['download_url'].'" alt="'.sprintf($user->lang['logo_table'],$row['logo_num']).'" /></td>
+';
+		}
+		$logo .= "\t</tr>\n</table>\n<br />\n";
+	}
+	$db->free_result($result);
+
+
+
+	// sv list
+	$svlist = '';
+	$sql = "SELECT * FROM `".UA_TABLE_SVLIST."`;";
+	$result = $db->query($sql);
+	if( $db->num_rows($result) > 0 )
+	{
+		$svlist = '
+<table class="uuTABLE" align="center">
+	<tr>
+		<th colspan="2" class="tableHeader">'.$user->lang['svfiles'].'</th>
+	</tr>
+	<tr>
+		<td class="dataHeader">'.$user->lang['files'].'</td>
+		<td class="data2">';
+		while ($row = $db->fetch_record($result))
+		{
+			$svlist .= $row['sv_name'].'<br />';
+		}
+		$svlist .= "</td>\n\t</tr>\n</table>\n<br />\n";
+	}
+	$db->free_result($result);
+
+
+
+	// settings
+	$settings = '';
+	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` WHERE `enabled` = '1';";
+	$result = $db->query($sql);
+	if( $db->num_rows($result) > 0 )
+	{
+		$settings = '
+<table class="uuTABLE" align="center">
+	<tr>
+		<th colspan="2" class="tableHeader">'.$user->lang['uniuploader_sync_settings'].'</th>
+	</tr>';
+
+		$settings .= '
+	<tr>
+		<td class="dataHeader">'.$user->lang['setting_name'].'</td>
+		<td class="dataHeader">'.$user->lang['value'].'</td>
+	</tr>';
+
+		while ($row = $db->fetch_record($result))
+		{
+			$tdClass = 'data'.$uniadmin->switch_row_class(true);
+
+			$settings .= '
+	<tr>
+		<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang[$row['set_name']].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$row['set_name'].'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$row['set_name'].'\',VAUTO);" onmouseout="return nd();">
+			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$row['set_name'].'</td>
+		<td class="'.$tdClass.'">';
+
+
+		// Figure out input type
+		$input_field = '';
+		$input_type = explode('{',$row['form_type']);
+
+		switch ($input_type[0])
+		{
+			case 'radio':
+				$options = explode('|',$input_type[1]);
+				foreach( $options as $value )
+				{
+					$vals = explode('^',$value);
+					$input_field .= ( $row['set_value'] == $vals[1] ? $vals[0] : '' )."\n";
+				}
+				break;
+
+			case 'select':
+				$options = explode('|',$input_type[1]);
+				$select_one = 1;
+				foreach( $options as $value )
+				{
+					$input_field .= ( $row['set_value'] == $vals[1] ? $vals[0] : '' )."\n";
+					break;
+				}
+				break;
+
+			default:
+				$input_field = $row['set_value'];
+				break;
+		}
+
+		$settings .= $input_field.'</td>
+	</tr>
+';
+		}
+		$settings .= "</table>\n<br />\n";
+	}
+	$db->free_result($result);
+
+
+	EchoPage($AddonPanel.$logo.$svlist.$settings,$user->lang['view_addons']);
 }
-
-Main();
-
 
 ?>

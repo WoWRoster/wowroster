@@ -1,84 +1,86 @@
 ### Configuration values
-INSERT INTO `uniadmin_config` VALUES ('addon_folder', 'addon_zips');
-INSERT INTO `uniadmin_config` VALUES ('default_lang', 'english');
-INSERT INTO `uniadmin_config` VALUES ('interface_url', '%url%?p=interface');
-INSERT INTO `uniadmin_config` VALUES ('logo_folder', 'logos');
-INSERT INTO `uniadmin_config` VALUES ('temp_analyze_folder', 'addon_temp');
-INSERT INTO `uniadmin_config` VALUES ('UAVer', '0.7.0-beta');
-INSERT INTO `uniadmin_config` VALUES ('uniadmin_start', '1158644074');
-INSERT INTO `uniadmin_config` VALUES ('ziplibsupport', 'false');
+INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUES
+	('addon_folder', 'addon_zips', 'text{250|50'),
+	('default_lang', 'english', 'function{langSelect'),
+	('interface_url', '%url%?p=interface', 'text{250|50'),
+	('logo_folder', 'logos', 'text{250|50'),
+	('temp_analyze_folder', 'addon_temp', 'text{250|50'),
+	('UAVer', '0.7.0', 'text{250|50');
 
 ### Settings
-INSERT INTO `uniadmin_settings` VALUES (1, 'LANGUAGE', 'English', '0', 'settings', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (2, 'PRIMARYURL', 'http://yourdomain.com/yourinterface.php', '0', 'settings', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (3, 'PROGRAMMODE', 'Basic', '0', 'settings', 'select{Basic^Basic|Advanced^Advanced');
-INSERT INTO `uniadmin_settings` VALUES (4, 'AUTODETECTWOW', '1', '1', 'settings', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (5, 'OPENGL', '0', '0', 'settings', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (6, 'WINDOWMODE', '0', '0', 'settings', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (7, 'UUUPDATERCHECK', '1', '1', 'updater', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (8, 'SYNCHROURL', 'http://yourdomain.com/UniAdmin/interface.php', '0', 'updater', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (9, 'ADDONAUTOUPDATE', '1', '0', 'updater', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (10, 'UUSETTINGSUPDATER', '1', '0', 'updater', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (11, 'AUTOUPLOADONFILECHANGES', '1', '1', 'options', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (12, 'ALWAYSONTOP', '1', '0', 'options', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (13, 'SYSTRAY', '0', '0', 'options', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (14, 'USERAGENT', 'UniUploader 2.0 (UU 2.5.0; English)', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (15, 'ADDVAR1CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (16, 'ADDVARNAME1', 'username', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (17, 'ADDVARVAL1', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (18, 'ADDVAR2CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (19, 'ADDVARNAME2', 'password', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (20, 'ADDVARVAL2', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (21, 'ADDVAR3CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (22, 'ADDVARNAME3', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (23, 'ADDVARVAL3', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (24, 'ADDVAR4CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (25, 'ADDVARNAME4', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (26, 'ADDVARVAL4', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (27, 'ADDURL1CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (28, 'ADDURL1', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (29, 'ADDURL2CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (30, 'ADDURL2', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (31, 'ADDURL3CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (32, 'ADDURL3', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (33, 'ADDURL4CH', '0', '0', 'options', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (34, 'ADDURL4', '', '0', 'options', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (35, 'AUTOLAUNCHWOW', '0', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (36, 'WOWARGS', '0', '0', 'advanced', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (37, 'STARTWITHWINDOWS', '0', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (38, 'USELAUNCHER', '0', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (39, 'STARTMINI', '1', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (40, 'SENDPWSECURE', '1', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (41, 'GZIP', '1', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (42, 'DELAYUPLOAD', '0', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (43, 'DELAYSECONDS', '5', '0', 'advanced', 'text{50|10');
-INSERT INTO `uniadmin_settings` VALUES (44, 'RETRDATAFROMSITE', '1', '0', 'advanced', 'radio{yes^1|no^0');
-INSERT INTO `uniadmin_settings` VALUES (45, 'RETRDATAURL', 'http://somewhere.com/something.php', '0', 'advanced', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (46, 'WEBWOWSVFILE', 'SavedVariables.lua', '0', 'advanced', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (47, 'DOWNLOADBEFOREWOWL', '0', '0', 'advanced', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (48, 'DOWNLOADBEFOREUPLOAD', '0', '0', 'advanced', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (49, 'DOWNLOADAFTERUPLOAD', '1', '0', 'advanced', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (50, 'SYNCHROAUTOURL', '1', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (51, 'AUTOPATH', '1', '1', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (52, 'PREPARSE', '1', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (53, 'PARSEVAR2CH', '0', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (54, 'PARSEVAR3CH', '0', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (55, 'PARSEVAR4CH', '0', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (56, 'PARSEVAR5CH', '0', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (57, 'PARSEVAR1', 'myProfile', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (58, 'PARSEVAR2', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (59, 'PARSEVAR3', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (60, 'PARSEVAR4', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (61, 'PARSEVAR5', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (62, 'RETRDATA', '0', '0', '', 'radio{on^1|off^0');
-INSERT INTO `uniadmin_settings` VALUES (63, 'ADDURLFFNAME1', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (64, 'ADDURLFFNAME2', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (65, 'ADDURLFFNAME3', '', '0', '', 'text{50|50');
-INSERT INTO `uniadmin_settings` VALUES (66, 'ADDURLFFNAME4', '', '0', '', 'text{50|50');
+INSERT INTO `uniadmin_settings` (`set_name`, `set_value`, `enabled`, `section`, `form_type`) VALUES
+	('LANGUAGE', 'english', '0', 'settings', 'text{250|50'),
+	('PRIMARYURL', 'http://yourdomain.com/yourinterface.php', '0', 'settings', 'text{250|50'),
+	('PROGRAMMODE', 'Basic', '0', 'settings', 'select{Basic^Basic|Advanced^Advanced'),
+	('AUTODETECTWOW', '1', '1', 'settings', 'radio{yes^1|no^0'),
+	('OPENGL', '0', '0', 'settings', 'radio{yes^1|no^0'),
+	('WINDOWMODE', '0', '0', 'settings', 'radio{yes^1|no^0'),
+	('UUUPDATERCHECK', '1', '1', 'updater', 'radio{yes^1|no^0'),
+	('SYNCHROURL', 'http://yourdomain.com/UniAdmin/interface.php', '0', 'updater', 'text{250|50'),
+	('ADDONAUTOUPDATE', '1', '0', 'updater', 'radio{yes^1|no^0'),
+	('UUSETTINGSUPDATER', '1', '0', 'updater', 'radio{yes^1|no^0'),
+	('AUTOUPLOADONFILECHANGES', '1', '1', 'options', 'radio{yes^1|no^0'),
+	('ALWAYSONTOP', '1', '0', 'options', 'radio{yes^1|no^0'),
+	('SYSTRAY', '0', '0', 'options', 'radio{yes^1|no^0'),
+	('USERAGENT', 'UniUploader 2.0 (UU 2.5.0; English)', '0', 'options', 'text{250|50'),
+	('ADDVAR1CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME1', 'username', '0', 'options', 'text{250|50'),
+	('ADDVARVAL1', '', '0', 'options', 'text{250|50'),
+	('ADDVAR2CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME2', 'password', '0', 'options', 'text{250|50'),
+	('ADDVARVAL2', '', '0', 'options', 'text{250|50'),
+	('ADDVAR3CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME3', '', '0', 'options', 'text{250|50'),
+	('ADDVARVAL3', '', '0', 'options', 'text{250|50'),
+	('ADDVAR4CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME4', '', '0', 'options', 'text{250|50'),
+	('ADDVARVAL4', '', '0', 'options', 'text{250|50'),
+	('ADDURL1CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL1', '', '0', 'options', 'text{250|50'),
+	('ADDURL2CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL2', '', '0', 'options', 'text{250|50'),
+	('ADDURL3CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL3', '', '0', 'options', 'text{250|50'),
+	('ADDURL4CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL4', '', '0', 'options', 'text{250|50'),
+	('AUTOLAUNCHWOW', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('WOWARGS', '0', '0', 'advanced', 'text{250|50'),
+	('STARTWITHWINDOWS', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('USELAUNCHER', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('STARTMINI', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('SENDPWSECURE', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('GZIP', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('DELAYUPLOAD', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('DELAYSECONDS', '5', '0', 'advanced', 'text{250|10'),
+	('RETRDATAFROMSITE', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('RETRDATAURL', 'http://yourdomain.com/web_to_wow.php', '0', 'advanced', 'text{250|50'),
+	('WEBWOWSVFILE', 'SavedVariables.lua', '0', 'advanced', 'text{250|50'),
+	('DOWNLOADBEFOREWOWL', '0', '0', 'advanced', 'radio{on^1|off^0'),
+	('DOWNLOADBEFOREUPLOAD', '0', '0', 'advanced', 'radio{on^1|off^0'),
+	('DOWNLOADAFTERUPLOAD', '1', '0', 'advanced', 'radio{on^1|off^0'),
+	('SYNCHROAUTOURL', '1', '0', '', 'radio{on^1|off^0'),
+	('AUTOPATH', '1', '1', '', 'radio{on^1|off^0'),
+	('PREPARSE', '1', '0', '', 'radio{on^1|off^0'),
+	('PARSEVAR1', 'myProfile', '0', '', 'text{250|50'),
+	('PARSEVAR2CH', '0', '0', '', 'radio{on^1|off^0'),
+	('PARSEVAR2', '', '0', '', 'text{250|50'),
+	('PARSEVAR3CH', '0', '0', '', 'radio{on^1|off^0'),
+	('PARSEVAR3', '', '0', '', 'text{250|50'),
+	('PARSEVAR4CH', '0', '0', '', 'radio{on^1|off^0'),
+	('PARSEVAR4', '', '0', '', 'text{250|50'),
+	('PARSEVAR5CH', '0', '0', '', 'radio{on^1|off^0'),
+	('PARSEVAR5', '', '0', '', 'text{250|50'),
+	('RETRDATA', '0', '0', '', 'radio{on^1|off^0'),
+	('ADDURLFFNAME1', '', '0', '', 'text{250|50'),
+	('ADDURLFFNAME2', '', '0', '', 'text{250|50'),
+	('ADDURLFFNAME3', '', '0', '', 'text{250|50'),
+	('ADDURLFFNAME4', '', '0', '', 'text{250|50');
 
 ### SV List
-INSERT INTO `uniadmin_svlist` VALUES (1, 'CharacterProfiler');
-INSERT INTO `uniadmin_svlist` VALUES (2, 'PvPLog');
+INSERT INTO `uniadmin_svlist` (`sv_name`) VALUES
+	('CharacterProfiler'),
+	('PvPLog');
 
 ### User List
-INSERT INTO `uniadmin_users` VALUES (1, 'Default', '4cb9c8a8048fd02294477fcb1a41191a', '3', 'English');
+INSERT INTO `uniadmin_users` (`name`, `password`, `level`, `language`) VALUES
+	('Default', '4cb9c8a8048fd02294477fcb1a41191a', '3', 'english');

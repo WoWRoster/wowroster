@@ -71,39 +71,51 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 
 	array(	'header' => 'Users',
 			'text'   => '
-<p>There are 3 &quot;user levels&quot;.</p>
-<p>Access items key:</p>
-<ul>
-	<li> 1: addon management</li>
-	<li> 2: logo management</li>
-	<li> 3: settings management</li>
-	<li> 4: statistics management</li>
-	<li> 5: user management
-		<ul>
-			<li> 5.1: change own password</li>
-			<li> 5.2: change own username</li>
-			<li> 5.3: change level 1 usernames &amp; passwords</li>
-			<li> 5.4: add level 1 users</li>
-			<li> 5.5: add any level users</li>
-			<li> 5.6: delete level 1 users</li>
-			<li> 5.7: delete own username</li>
-			<li> 5.8: delete any username</li>
-			<li> 5.9: change any user\'s level</li>
-		</ul></li>
-</ul>
-
+<p>There are 3 &quot;user levels&quot;</p>
+<p>(Shows highest action available)
 <dl>
 	<dt>level 1 (basic user) has access to</dt>
-	<dd>1, 2, 3, 4, 5.1, 5.7</dd>
+	<dd>1, 2, 3, 4, 5.3</dd>
 
 	<dt>level 2 (power user) has access to</dt>
-	<dd>1, 2, 3, 4, 5.1, 5.2, 5.3, 5.4, 5.6, 5.7</dd>
+	<dd>1.2, 2, 3.1, 4, 5.7</dd>
 
-	<dt>level 3 (administrator) has access to</dt>
-	<dd>1, 2, 3, 4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9 (everything)</dd>
+	<dt>level 3 (administrator) has access to everything</dt>
+	<dd>1.3, 2, 3.2, 4, 5.10, 6</dd>
 	<dd>&nbsp;</dd>
-	<dd>There shouldn\'t have to be more than 1 or 2 &quot;level 3&quot; users in UniAdmin</dd>
-</dl>'),
+</dl>
+<p>There shouldn\'t have to be more than 1 or 2 &quot;level 3&quot; users in UniAdmin</p>
+<hr />
+<p>Access items key:</p>
+<ul>
+	<li> 1: AddOn Management
+		<ul>
+			<li> 1.1: Enable/Disable AddOns</li>
+			<li> 1.2: Set AddOns to required/optional</li>
+			<li> 1.3: Upload/Delete AddOns</li>
+		</ul></li>
+	<li> 2: Logo Management</li>
+	<li> 3: Settings Management
+		<ul>
+			<li> 3.1: Add/Remove SavedVariable Files</li>
+			<li> 3.2: settings.ini upload/download</li>
+		</ul></li>
+	<li> 4: Statistics Management</li>
+	<li> 5: User Management
+		<ul>
+			<li> 5.1: Change own language</li>
+			<li> 5.2: Change own password</li>
+			<li> 5.3: Delete own user</li>
+			<li> 5.4: Change own username</li>
+			<li> 5.5: Add level 1 users</li>
+			<li> 5.6: Change level 1 user info (username, password, language)</li>
+			<li> 5.7: Delete level 1 users</li>
+			<li> 5.8: Add any level users</li>
+			<li> 5.9: Delete any user</li>
+			<li> 5.10: Change any user info (username, password, level, language)</li>
+		</ul></li>
+	<li> 6: UniAdmin Configuration</li>
+</ul>'),
 );
 
 
@@ -186,6 +198,7 @@ $lang['logo_table'] = 'Logo %1$d';
 $lang['uniuploader_sync_settings'] = 'UniUploader Sync Settings';
 $lang['manage_svfiles'] = 'Manage SavedVariable Files';
 $lang['add_svfiles'] = 'Add SavedVariable Files';
+$lang['svfiles'] = 'SavedVariable Files';
 $lang['image_missing'] = 'IMAGE MISSING';
 $lang['stats_limit'] = 'row(s) starting from record #';
 $lang['user_modified'] = 'User %1$s modified';
@@ -204,6 +217,7 @@ $lang['time_format'] = 'M jS, Y g:ia';
 $lang['syncro_url'] = 'Synchronization URL';
 $lang['verify_syncro_url'] = 'click to verify';
 $lang['guest_access'] = 'Guest Access';
+$lang['interface_ready'] = 'UniUploader Update Interface Ready...';
 
 
 

@@ -73,13 +73,13 @@ function main()
 					$logo1['active_link'] = '<form name="ua_disablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'">
+	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
 				else
 					$logo1['active_link'] = '<form name="ua_enablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'">
+	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
 				break;
 
@@ -91,13 +91,13 @@ function main()
 					$logo2['active_link'] = '<form name="ua_disablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'">
+	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
 				else
 					$logo2['active_link'] = '<form name="ua_enablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'">
+	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
 				break;
 
@@ -111,19 +111,19 @@ function main()
 	$table1 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3">
-			<img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:56px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:56px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td rowspan="2">
-			<img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:281px;height:256px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:281px;height:256px;" alt="" /></td>
 		<td bgcolor="#e0dfe3">
-			<img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:201px;height:156px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:201px;height:156px;" alt="" /></td>
 		<td rowspan="2">
-			<img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:18px;height:256px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:18px;height:256px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td>
-			<img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:201px;height:100px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:201px;height:100px;" alt="" /></td>
 	</tr>
 </table>';
 
@@ -131,19 +131,19 @@ function main()
 	$table2 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan=3>
-			<img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:73px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:73px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td rowspan=2>
-			<img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:153px;height:239px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:153px;height:239px;" alt="" /></td>
 		<td bgcolor="#e0dfe3">
-			<img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:316px;height:144px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:316px;height:144px;" alt="" /></td>
 		<td rowspan=2>
-			<img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:31px;height:239px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:31px;height:239px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td>
-			<img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:316px;height:95px;" alt=""></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:316px;height:95px;" alt="" /></td>
 	</tr>
 </table>';
 
@@ -158,9 +158,9 @@ function main()
 			<tr>
 				<td class="data1" align="center"><form name="ua_uploadlogo1" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 					'.$user->lang['select_file'].':
-					<input class="file" type="file" name="logo1">
-					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],1).'">
-					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'">
+					<input class="file" type="file" name="logo1" />
+					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],1).'" />
+					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
 					</form></td>
 				<td class="data1">'.$logo1['updated'].'</td>
 				<td class="data1">'.$logo1['active_link'].'</td>
@@ -178,9 +178,9 @@ function main()
 			<tr>
 				<td class="data1" align="center"><form name="ua_uploadlogo2" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 					'.$user->lang['select_file'].':
-					<input class="file" type="file" name="logo2">
-					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],2).'">
-					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'">
+					<input class="file" type="file" name="logo2" />
+					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],2).'" />
+					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
 					</form></td>
 				<td class="data1">'.$logo2['updated'].'</td>
 				<td class="data1">'.$logo2['active_link'].'</td>
