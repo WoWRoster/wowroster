@@ -83,8 +83,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['deDE']['charset']="charset=utf-8";
 
-$timeformat['deDE'] = '%d.%m. %k:%i'; // MySQL Time format (example - 23.07. 14:00) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['deDE'] = 'd.m. G:i';  // PHP date() Time format (example - 23.Jul. 14:00) - http://www.php.net/manual/en/function.date.php
+$timeformat['deDE'] = '%d.%m. %k:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['deDE'] = 'd.m. G:i';  // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*
@@ -93,37 +93,153 @@ Instance Keys
 A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
 you have this one part it will mark all other parts lower than this one as complete.
 */
-$inst_keys['deDE']['A'] = array(
-		'SG' => array('Quests','SG' => 'Schlüssel zur Sengenden Schlucht|4826','Das Horn der Bestie|','Besitznachweis|','Endlich!|'),
-		'Gnome' => array('Key-Only','Gnome' => 'Werkstattschlüssel|2288'),
-		'SM' => array('Key-Only','SM' => 'Der scharlachrote Schlüssel|4445'),
-		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
-		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
-		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
-		'Onyxia' => array('Quests','Onyxia' => 'Drachenfeueramulett|4829','Drachkin-Bedrohung|','Die wahren Meister|','Marshal Windsor|','Verlorene Hoffnung|','Eine zusammengeknüllte Notiz|','Ein Funken Hoffnung|','Gefängnisausbruch!|','Treffen in Stormwind|','Die große Maskerade|','Das Großdrachenauge|','Drachenfeuer-Amulett|'),
-		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
-	);
 
+// ALLIANCE KEYS
+$inst_keys['deDE']['A'] = array(
+	'SG' => array( 'Quests', 'SG' =>
+			'Schlüssel zur Sengenden Schlucht|4826',
+			'Das Horn der Bestie|',
+			'Besitznachweis|',
+			'Endlich!|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Werkstattschlüssel|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'Der scharlachrote Schlüssel|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Schlaghammer von Zul\\\'Farrak|5695',
+			'Hochheiliger Schlaghammer|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Szepter von Celebras|19710',
+			'Celebrian-Griff|19549',
+			'Celebrian-Diamant|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Gefängniszellenschlüssel|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Schlüssel zur Schattenschmiede|2966',
+			'Ironfel|9673'
+		),
+	'DM' => array( 'Key-Only', 'DM' =>
+			'Mondsichelschlüssel|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Skelettschlüssel|16854',
+			'Scholomance|',
+			'Skelettfragmente|',
+			'Sold reimt sich auf...|',
+			'Feuerfeder geschmiedet|',
+			' Arajs Skarabäus',
+			'Der Schlüssel zur Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Schlüssel zur Stadt|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Siegel des Aufstiegs|17057',
+			'Unverziertes Siegel des Aufstiegs|5370',
+			'Edelstein der Felsspitzoger|5379',
+			'Edelstein der Gluthauer|16095',
+			'Edelstein der Blutäxte|21777',
+			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
+			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Drachenfeueramulett|4829',
+			'Drachkin-Bedrohung|',
+			'Die wahren Meister|',
+			'Marshal Windsor|',
+			'Verlorene Hoffnung|',
+			'Eine zusammengeknüllte Notiz|',
+			'Ein Funken Hoffnung|',
+			'Gefängnisausbruch!|',
+			'Treffen in Stormwind|',
+			'Die große Maskerade|',
+			'Das Großdrachenauge|',
+			'Drachenfeuer-Amulett|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Ewige Quintessenz|22754'
+		),
+);
+
+
+// HORDE KEYS
 $inst_keys['deDE']['H'] = array(
-	    'SG' => array('Key-Only','SG' => 'Schlüssel zur Sengenden Schlucht|4826'),
-		'Gnome' => array('Key-Only','Gnome' => 'Werkstattschlüssel|2288'),
-		'SM' => array('Key-Only','SM' => 'Der scharlachrote Schlüssel|4445'),
-		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
-		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
-		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein von der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
-		'Onyxia' => array('Quests', 'Onyxia' => 'Drachenfeueramulett|4829','Befehl des Kriegsherrn|','Eitriggs Weisheit|','Für die Horde!|','Was der Wind erzählt|','Der Champion der Horde|','Nachricht von Rexxar|','Oculus-Illusionen|','Emberstrife|','Die Prüfung der Schädel, Scryer|','Die Prüfung der Schädel, Somnus|','Die Prüfung der Schädel, Chronalis|','Die Prüfung der Schädel, Axtroz|','Aufstieg...|','Blut des schwarzen Großdrachen-Helden|'),
-		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
-	);
+	'SG' => array( 'Quests', 'SG' =>
+			'Schlüssel zur Sengenden Schlucht|4826',
+			'Das Horn der Bestie|',
+			'Besitznachweis|',
+			'Endlich!|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Werkstattschlüssel|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'Der scharlachrote Schlüssel|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Schlaghammer von Zul\\\'Farrak|5695',
+			'Hochheiliger Schlaghammer|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Szepter von Celebras|19710',
+			'Celebrian-Griff|19549',
+			'Celebrian-Diamant|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Gefängniszellenschlüssel|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Schlüssel zur Schattenschmiede|2966',
+			'Ironfel|9673'
+		),
+	'DM' => array( 'Key-Only', 'DM' =>
+			'Mondsichelschlüssel|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Skelettschlüssel|16854',
+			'Scholomance|',
+			'Skelettfragmente|',
+			'Sold reimt sich auf...|',
+			'Feuerfeder geschmiedet|',
+			' Arajs Skarabäus',
+			'Der Schlüssel zur Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Schlüssel zur Stadt|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Siegel des Aufstiegs|17057',
+			'Unverziertes Siegel des Aufstiegs|5370',
+			'Edelstein der Felsspitzoger|5379',
+			'Edelstein der Gluthauer|16095',
+			'Edelstein der Blutäxte|21777',
+			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
+			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Drachenfeueramulett|4829',
+			'Drachkin-Bedrohung|',
+			'Die wahren Meister|',
+			'Marshal Windsor|',
+			'Verlorene Hoffnung|',
+			'Eine zusammengeknüllte Notiz|',
+			'Ein Funken Hoffnung|',
+			'Gefängnisausbruch!|',
+			'Treffen in Stormwind|',
+			'Die große Maskerade|',
+			'Das Großdrachenauge|',
+			'Drachenfeuer-Amulett|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Ewige Quintessenz|22754'
+		),
+);
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $wordings['deDE']['upload']='Upload';
@@ -204,10 +320,10 @@ $wordings['deDE']['parry'] = 'Parrieren';
 $wordings['deDE']['block'] = 'Blocken';
 
 // Memberlog
-$wordings['deDE']['memberlog'] = 'Member Log';
+$wordings['deDE']['memberlog'] = 'Mitglieder Log';
 $wordings['deDE']['removed'] = 'Entfernt';
-$wordings['deDE']['added'] = 'Zugef�gt';
-$wordings['deDE']['no_memberlog'] = 'No Member Log Recorded';
+$wordings['deDE']['added'] = 'Zugefügt';
+$wordings['deDE']['no_memberlog'] = 'Kein Mitglieder Log gespeichert';
 
 $wordings['deDE']['rosterdiag'] = 'Roster Diagnose Seite';
 $wordings['deDE']['Guild_Info'] = 'Gilden Info';
@@ -259,65 +375,66 @@ $wordings['deDE']['requires_level'] = '/Benötigtes Level ([\d]+)/';
 
 //Tradeskill-Array
 $tsArray['deDE'] = array (
-		$wordings['deDE']['Alchemy'],
-		$wordings['deDE']['Herbalism'],
-		$wordings['deDE']['Blacksmithing'],
-		$wordings['deDE']['Mining'],
-		$wordings['deDE']['Leatherworking'],
-		$wordings['deDE']['Skinning'],
-		$wordings['deDE']['Tailoring'],
-		$wordings['deDE']['Enchanting'],
-		$wordings['deDE']['Engineering'],
-		$wordings['deDE']['Cooking'],
-		$wordings['deDE']['Fishing'],
-		$wordings['deDE']['First Aid'],
+	$wordings['deDE']['Alchemy'],
+	$wordings['deDE']['Herbalism'],
+	$wordings['deDE']['Blacksmithing'],
+	$wordings['deDE']['Mining'],
+	$wordings['deDE']['Leatherworking'],
+	$wordings['deDE']['Skinning'],
+	$wordings['deDE']['Tailoring'],
+	$wordings['deDE']['Enchanting'],
+	$wordings['deDE']['Engineering'],
+	$wordings['deDE']['Cooking'],
+	$wordings['deDE']['Fishing'],
+	$wordings['deDE']['First Aid'],
 );
 
 //Tradeskill Icons-Array
 $wordings['deDE']['ts_iconArray'] = array (
-		'Alchimie'=>'Trade_Alchemy',
-		'Kräuterkunde'=>'Trade_Herbalism',
-		'Schmiedekunst'=>'Trade_BlackSmithing',
-		'Bergbau'=>'Trade_Mining',
-		'Lederverarbeitung'=>'Trade_LeatherWorking',
-		'Kürschnerei'=>'INV_Misc_Pelt_Wolf_01',
-		'Schneiderei'=>'Trade_Tailoring',
-		'Verzauberkunst'=>'Trade_Engraving',
-		'Ingenieurskunst'=>'Trade_Engineering',
-		'Kochkunst'=>'INV_Misc_Food_15',
-		'Angeln'=>'Trade_Fishing',
-		'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
-		'Tigerreiten'=>'Ability_Mount_WhiteTiger',
-		'Pferdreiten'=>'Ability_Mount_RidingHorse',
-		'Widderreiten'=>'Ability_Mount_MountainRam',
-		'Roboschreiter-Lenken'=>'Ability_Mount_MechaStrider',
-		'Untoten-Reitkunst'=>'Ability_Mount_Undeadhorse',
-		'Raptorreiten'=>'Ability_Mount_Raptor',
-		'Kodoreiten'=>'Ability_Mount_Kodo_03',
-		'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
+	'Alchimie'=>'Trade_Alchemy',
+	'Kräuterkunde'=>'Trade_Herbalism',
+	'Schmiedekunst'=>'Trade_BlackSmithing',
+	'Bergbau'=>'Trade_Mining',
+	'Lederverarbeitung'=>'Trade_LeatherWorking',
+	'Kürschnerei'=>'INV_Misc_Pelt_Wolf_01',
+	'Schneiderei'=>'Trade_Tailoring',
+	'Verzauberkunst'=>'Trade_Engraving',
+	'Ingenieurskunst'=>'Trade_Engineering',
+	'Kochkunst'=>'INV_Misc_Food_15',
+	'Angeln'=>'Trade_Fishing',
+	'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
+	'Tigerreiten'=>'Ability_Mount_WhiteTiger',
+	'Pferdreiten'=>'Ability_Mount_RidingHorse',
+	'Widderreiten'=>'Ability_Mount_MountainRam',
+	'Roboschreiter-Lenken'=>'Ability_Mount_MechaStrider',
+	'Untoten-Reitkunst'=>'Ability_Mount_Undeadhorse',
+	'Raptorreiten'=>'Ability_Mount_Raptor',
+	'Kodoreiten'=>'Ability_Mount_Kodo_03',
+	'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
+	'Reiten'=>'Ability_Mount_RidingHorse',
 );
 
 // Class Icons-Array
 $wordings['deDE']['class_iconArray'] = array (
-		'Druide'=>'Ability_Druid_Maul',
-		'Jäger'=>'INV_Weapon_Bow_08',
-		'Magier'=>'INV_Staff_13',
-		'Paladin'=>'Spell_Fire_FlameTounge',
-		'Priester'=>'Spell_Holy_LayOnHands',
-		'Schurke'=>'INV_ThrowingKnife_04',
-		'Schamane'=>'Spell_Nature_BloodLust',
-		'Hexenmeister'=>'Spell_Shadow_Cripple',
-		'Krieger'=>'INV_Sword_25',
+	'Druide'=>'Ability_Druid_Maul',
+	'Jäger'=>'INV_Weapon_Bow_08',
+	'Magier'=>'INV_Staff_13',
+	'Paladin'=>'Spell_Fire_FlameTounge',
+	'Priester'=>'Spell_Holy_LayOnHands',
+	'Schurke'=>'INV_ThrowingKnife_04',
+	'Schamane'=>'Spell_Nature_BloodLust',
+	'Hexenmeister'=>'Spell_Shadow_Cripple',
+	'Krieger'=>'INV_Sword_25',
 );
 
 //skills
 $skilltypes['deDE'] = array(
-		1 => 'Klassenfertigkeiten',
-		2 => 'Berufe',
-		3 => 'Sekundäre Fertigkeiten',
-		4 => 'Waffenfertigkeiten',
-		5 => 'Rüstungssachverstand',
-		6 => 'Sprachen',
+	1 => 'Klassenfertigkeiten',
+	2 => 'Berufe',
+	3 => 'Sekundäre Fertigkeiten',
+	4 => 'Waffenfertigkeiten',
+	5 => 'Rüstungssachverstand',
+	6 => 'Sprachen',
 );
 
 //tabs
@@ -563,7 +680,7 @@ $wordings['deDE']['admin']['update_access'] = 'Update Zugriff';
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   Assign description text and tooltip for $roster_conf['sqldebug']
 //   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
@@ -575,7 +692,7 @@ $wordings['deDE']['admin']['update_access'] = 'Update Zugriff';
 
 // main_conf
 $wordings['deDE']['admin']['roster_upd_pw'] = "Roster Update Passwort|Dieses Passwort erlaubt die Aktualisierung der Gildenmitglieder<br />Eine Addons benötigen dieses PW auch";
-$wordings['deDE']['admin']['roster_dbver'] = "Roster Databank Version|Die Version der Datenbank";
+$wordings['deDE']['admin']['roster_dbver'] = "Roster Datenbank Version|Die Version der Datenbank";
 $wordings['deDE']['admin']['version'] = "Roster Version|Aktuelle Version des Rosters";
 $wordings['deDE']['admin']['sqldebug'] = "SQL Debug Output|Gib MySQL Debug Ausgaben in HTML Kommentaren";
 $wordings['deDE']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler Version zum Upload";
@@ -586,12 +703,12 @@ $wordings['deDE']['admin']['website_address'] = "Webseitenadresse|Wird benötigt
 $wordings['deDE']['admin']['roster_dir'] = "Roster URL|Der URL Pfad zum Rosterverzeichnis<br />Es ist wichtig, dass diese korrekt ist, da sonst Fehler auftreten können<br />(Beispiel: http://www.site.com/roster )<br /><br />Eine vollständige URL wird nicht benötigt wenn vor dem Verzeichnis ein Slashzeichen ist<br />(Beispiel: /roster )";
 $wordings['deDE']['admin']['server_name_comp']  = "char.php Compatibility Mode|Falls deine Charakterseite nicht funktionieren sollte, dann ändere diesen Wert";
 $wordings['deDE']['admin']['interface_url'] = "Interface Directory URL|Verzeichnis zu den Interface Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
-$wordings['deDE']['admin']['img_suffix'] = "Interface Image Extension|Der Dateityp deiner Interface Images";
-$wordings['deDE']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|Der Dateityp deiner Interface Images";
-$wordings['deDE']['admin']['img_url'] = "Roster Images Directory URL|Verzeichnis zu den Roster's Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
-$wordings['deDE']['admin']['timezone'] = "Timezone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
-$wordings['deDE']['admin']['localtimeoffset'] = "Time Offest|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
-$wordings['deDE']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
+$wordings['deDE']['admin']['img_suffix'] = "Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
+$wordings['deDE']['admin']['alt_img_suffix'] = "Alternative Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
+$wordings['deDE']['admin']['img_url'] = "Roster Bilder Verzeichnis URL|Verzeichnis zu den Roster's Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
+$wordings['deDE']['admin']['timezone'] = "Zeitzone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
+$wordings['deDE']['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
+$wordings['deDE']['admin']['pvp_log_allow'] = "Erlaube Upload von PvPLog-Daten|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
 $wordings['deDE']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 
 // guild_conf

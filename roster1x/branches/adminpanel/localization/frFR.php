@@ -19,6 +19,7 @@
 // frFR translation by wowodo, lesablier, Exerladan, and Ansgar
 
 
+
 //Instructions how to upload, as seen on the mainpage
 $wordings['frFR']['update_link']='Cliquer ici pour les instructions de mise à jour.';
 $wordings['frFR']['update_instructions']='Instructions de mise à jour.';
@@ -92,37 +93,153 @@ Instance Keys
 A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
 you have this one part it will mark all other parts lower than this one as complete.
 */
-$inst_keys['frFR']['A'] = array(
-		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B?te|','Proof of Deed|','Enfin !|'),
-		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
-		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
-		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
-		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Clé ombreforge|2966','Ironfel|9673'),
-		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777','Sceau d\\\'ascension brut |24554||MS','Sceau d\\\'ascension forgé|19463||MS'),
-		'Onyxia' => array('Quests','Onyxia' => 'Amulette Drakefeu|4829','La menace dragonkin|','Les véritables maîtres|','Maréchal Windsor|','Espoir abandonné|','Une Note chiffonnée|','Un espoir en lambeaux|','Evasion !|','Le rendez-vous à Stormwind|','La grande mascarade|','L\\\'Oeil de Dragon|','Amulette drakefeu|'),
-		'MC' => array('Key-Only','MC' => 'Quintessence éternelle|22754'),
-	);
 
+// ALLIANCE KEYS
+$inst_keys['frFR']['A'] = array(
+	'SG' => array( 'Quests', 'SG' =>
+			'Clé de la gorge des Vents brûlants|4826',
+			'La Corne de la B�te|',
+			'Proof of Deed|',
+			'Enfin !|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Clé d\\\'atelier|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'La Clé écarlate|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Marteau de Zul\\\'Farrak|5695',
+			'Maillet sacré|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Sceptre de Celebras|19710',
+			'Bâtonnet de Celebras|19549',
+			'Diamant de Celebras|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Clé de la prison|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Clé de Ombreforge|2966',
+			'Ironfel|9673'
+		),
+	'HT' => array( 'Key-Only', 'HT' =>
+			'Clé en croissant|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Clé squelette|16854',
+			'Scholomance|',
+			'Fragments de squelette|',
+			'Moisissure rime avec...|',
+			'Plume de feu forgée|',
+			'Le Scarabée d\\\'Araj|',
+			'La clé de la Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Clé de la ville|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Sceau d\\\'ascension|17057',
+			'Sceau d\\\'ascension non décoré|5370',
+			'Gemme de Spirestone|5379',
+			'Gemme de Smolderthorn|16095',
+			'Gemme de Bloodaxe|21777',
+			'Sceau d\\\'ascension brut |24554||MS',
+			'Sceau d\\\'ascension forgé|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Amulette Drakefeu|4829',
+			'La menace dragonkin|',
+			'Les véritables maîtres|',
+			'Maréchal Windsor|',
+			'Espoir abandonné|',
+			'Une Note chiffonnée|',
+			'Un espoir en lambeaux|',
+			'Evasion !|',
+			'Le rendez-vous à Stormwind|',
+			'La grande mascarade|',
+			'L\\\'Oeil de Dragon|',
+			'Amulette drakefeu|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Quintessence éternelle|22754'
+		),
+);
+
+
+// HORDE KEYS
 $inst_keys['frFR']['H'] = array(
-		'SG' => array('Quests','SG' => 'Clé de la gorge des Vents brûlants|4826','La Corne de la B�te|','Proof of Deed|','Enfin !|'),
-		'Gnome' => array('Key-Only','Gnome' => 'Clé d\\\'atelier|2288'),
-		'SM' => array('Key-Only','SM' => 'La Clé écarlate|4445'),
-		'ZF' => array('Parts','ZF' => 'Marteau de Zul\\\'Farrak|5695','Maillet sacré|8250'),
-		'Mauro' => array('Parts', 'Mauro' => 'Sceptre de Celebras|19710','Bâtonnet de Celebras|19549','Diamant de Celebras|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Clé de la prison|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Clé ombreforge|2966','Ironfel|9673'),
-		'HT' => array('Key-Only','HT' => 'Clé en croissant|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Clé squelette|16854','Scholomance|','Fragments de squelette|','Moisissure rime avec...|','Plume de feu forgée|','Le Scarabée d\\\'Araj|','La clé de la Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Clé de la ville|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Sceau d\\\'ascension|17057','Sceau d\\\'ascension non décoré|5370','Gemme de Spirestone|5379','Gemme de Smolderthorn|16095','Gemme de Bloodaxe|21777','Sceau d\\\'ascension brut |24554||MS','Sceau d\\\'ascension forgé|19463||MS'),
-		'Onyxia' => array('Quests','Onyxia' => 'Amulette Drakefeu|4829','La menace dragonkin|','Les véritables maîtres|','Maréchal Windsor|','Espoir abandonné|','Une Note chiffonnée|','Un espoir en lambeaux|','Evasion !|','Le rendez-vous à Stormwind|','La grande mascarade|','L\\\'Oeil de Dragon|','Amulette drakefeu|'),
-		'MC' => array('Key-Only','MC' => 'Quintessence éternelle|22754'),
-	);
+	'SG' => array( 'Quests', 'SG' =>
+			'Clé de la gorge des Vents brûlants|4826',
+			'La Corne de la B�te|',
+			'Proof of Deed|',
+			'Enfin !|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Clé d\\\'atelier|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'La Clé écarlate|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Marteau de Zul\\\'Farrak|5695',
+			'Maillet sacré|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Sceptre de Celebras|19710',
+			'Bâtonnet de Celebras|19549',
+			'Diamant de Celebras|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Clé de la prison|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Clé de Ombreforge|2966',
+			'Ironfel|9673'
+		),
+	'HT' => array( 'Key-Only', 'HT' =>
+			'Clé en croissant|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Clé squelette|16854',
+			'Scholomance|',
+			'Fragments de squelette|',
+			'Moisissure rime avec...|',
+			'Plume de feu forgée|',
+			'Le Scarabée d\\\'Araj|',
+			'La clé de la Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Clé de la ville|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Sceau d\\\'ascension|17057',
+			'Sceau d\\\'ascension non décoré|5370',
+			'Gemme de Spirestone|5379',
+			'Gemme de Smolderthorn|16095',
+			'Gemme de Bloodaxe|21777',
+			'Sceau d\\\'ascension brut |24554||MS',
+			'Sceau d\\\'ascension forgé|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Amulette Drakefeu|4829',
+			'La menace dragonkin|',
+			'Les véritables maîtres|',
+			'Maréchal Windsor|',
+			'Espoir abandonné|',
+			'Une Note chiffonnée|',
+			'Un espoir en lambeaux|',
+			'Evasion !|',
+			'Le rendez-vous à Stormwind|',
+			'La grande mascarade|',
+			'L\\\'Oeil de Dragon|',
+			'Amulette drakefeu|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Quintessence éternelle|22754'
+		),
+);
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $wordings['frFR']['upload']='Télécharger';
@@ -265,48 +382,56 @@ $wordings['frFR']['requires_level'] = '/Niveau ([\d]+) requis/';
 
 //Tradeskill-Array
 $tsArray['frFR'] = array (
-		$wordings['frFR']['Alchemy'],
-		$wordings['frFR']['Herbalism'],
-		$wordings['frFR']['Blacksmithing'],
-		$wordings['frFR']['Mining'],
-		$wordings['frFR']['Leatherworking'],
-		$wordings['frFR']['Skinning'],
-		$wordings['frFR']['Tailoring'],
-		$wordings['frFR']['Enchanting'],
-		$wordings['frFR']['Engineering'],
-		$wordings['frFR']['Cooking'],
-		$wordings['frFR']['Fishing'],
-		$wordings['frFR']['First Aid']
+	$wordings['frFR']['Alchemy'],
+	$wordings['frFR']['Herbalism'],
+	$wordings['frFR']['Blacksmithing'],
+	$wordings['frFR']['Mining'],
+	$wordings['frFR']['Leatherworking'],
+	$wordings['frFR']['Skinning'],
+	$wordings['frFR']['Tailoring'],
+	$wordings['frFR']['Enchanting'],
+	$wordings['frFR']['Engineering'],
+	$wordings['frFR']['Cooking'],
+	$wordings['frFR']['Fishing'],
+	$wordings['frFR']['First Aid']
 );
 
 //Tradeskill Icons-Array
 $wordings['frFR']['ts_iconArray'] = array (
-		'Alchimie'=>'Trade_Alchemy',
-		'Herboristerie'=>'Trade_Herbalism',
-		'Forge'=>'Trade_BlackSmithing',
-		'Minage'=>'Trade_Mining',
-		'Travail du cuir'=>'Trade_Leatherworking',
-		'Dépeçage'=>'INV_Misc_Pelt_Wolf_01',
-		'Couture'=>'Trade_Tailoring',
-		'Enchantement'=>'Trade_Engraving',
-		'Ingénierie'=>'Trade_Engineering',
-		'Cuisine'=>'INV_Misc_Food_15',
-		'Pêche'=>'Trade_Fishing',
-		'Secourisme'=>'Spell_Holy_SealOfSacrifice',
-		'Monte'=>'Ability_Mount_RidingHorse',
+	'Alchimie'=>'Trade_Alchemy',
+	'Herboristerie'=>'Trade_Herbalism',
+	'Forge'=>'Trade_BlackSmithing',
+	'Minage'=>'Trade_Mining',
+	'Travail du cuir'=>'Trade_Leatherworking',
+	'Dépeçage'=>'INV_Misc_Pelt_Wolf_01',
+	'Couture'=>'Trade_Tailoring',
+	'Enchantement'=>'Trade_Engraving',
+	'Ingénierie'=>'Trade_Engineering',
+	'Cuisine'=>'INV_Misc_Food_15',
+	'Pêche'=>'Trade_Fishing',
+	'Secourisme'=>'Spell_Holy_SealOfSacrifice',
+	'Monte de tigre'=>'Ability_Mount_WhiteTiger',
+	'Equitation'=>'Ability_Mount_RidingHorse',
+	'Monte de bélier'=>'Ability_Mount_MountainRam',
+	'Pilotage de mécanotrotteur'=>'Ability_Mount_MechaStrider',
+	'Monte de cheval squelette'=>'Ability_Mount_Undeadhorse',
+	'Monte de raptor'=>'Ability_Mount_Raptor',
+	'Monte de kodo'=>'Ability_Mount_Kodo_03',
+	'Monte de loup'=>'Ability_Mount_BlackDireWolf',
+	'Monte'=>'Ability_Mount_RidingHorse',
 );
 
 // Class Icons-Array
 $wordings['frFR']['class_iconArray'] = array (
-		'Druide'=>'Ability_Druid_Maul',
-		'Chasseur'=>'INV_Weapon_Bow_08',
-		'Mage'=>'INV_Staff_13',
-		'Paladin'=>'Spell_Fire_FlameTounge',
-		'Prêtre'=>'Spell_Holy_LayOnHands',
-		'Voleur'=>'INV_ThrowingKnife_04',
-		'Chaman'=>'Spell_Nature_BloodLust',
-		'Démoniste'=>'Spell_Shadow_Cripple',
-		'Guerrier'=>'INV_Sword_25',
+	'Druide'=>'Ability_Druid_Maul',
+	'Chasseur'=>'INV_Weapon_Bow_08',
+	'Mage'=>'INV_Staff_13',
+	'Paladin'=>'Spell_Fire_FlameTounge',
+	'Prêtre'=>'Spell_Holy_LayOnHands',
+	'Voleur'=>'INV_ThrowingKnife_04',
+	'Chaman'=>'Spell_Nature_BloodLust',
+	'Démoniste'=>'Spell_Shadow_Cripple',
+	'Guerrier'=>'INV_Sword_25',
 );
 
 //skills
@@ -480,7 +605,7 @@ $wordings['frFR']['lockpicking']='Crochetage';
 		$questlinks[0]['frFR']['url3']='&amp;maxl=';
 
 		$questlinks[1]['frFR']['name']='WoWDBU FR';
-		$questlinks[1]['frFR']['url1']='http://wowdbu.com/7.html?m=2&mode=qsearch&title=';
+		$questlinks[1]['frFR']['url1']='http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title=';
 		$questlinks[1]['frFR']['url2']='&amp;obj=&amp;desc=&amp;minl=';
 		$questlinks[1]['frFR']['url3']='&amp;maxl=';
 

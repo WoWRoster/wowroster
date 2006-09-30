@@ -19,6 +19,7 @@
 // deDE translation by sphinx
 
 
+
 //Instructions how to upload, as seen on the mainpage
 $wordings['deDE']['update_link']='Hier klicken um zur Aktualisierungsanleitung zu gelangen';
 $wordings['deDE']['update_instructions']='Anleitung zur Aktualisierung';
@@ -92,37 +93,153 @@ Instance Keys
 A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
 you have this one part it will mark all other parts lower than this one as complete.
 */
-$inst_keys['deDE']['A'] = array(
-		'SG' => array('Quests','SG' => 'Schlüssel zur Sengenden Schlucht|4826','Das Horn der Bestie|','Besitznachweis|','Endlich!|'),
-		'Gnome' => array('Key-Only','Gnome' => 'Werkstattschlüssel|2288'),
-		'SM' => array('Key-Only','SM' => 'Der scharlachrote Schlüssel|4445'),
-		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
-		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
-		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
-		'Onyxia' => array('Quests','Onyxia' => 'Drachenfeueramulett|4829','Drachkin-Bedrohung|','Die wahren Meister|','Marshal Windsor|','Verlorene Hoffnung|','Eine zusammengeknüllte Notiz|','Ein Funken Hoffnung|','Gefängnisausbruch!|','Treffen in Stormwind|','Die groxe Maskerade|','Das Groxdrachenauge|','Drachenfeuer-Amulett|'),
-		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
-	);
 
+// ALLIANCE KEYS
+$inst_keys['deDE']['A'] = array(
+	'SG' => array( 'Quests', 'SG' =>
+			'Schlüssel zur Sengenden Schlucht|4826',
+			'Das Horn der Bestie|',
+			'Besitznachweis|',
+			'Endlich!|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Werkstattschlüssel|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'Der scharlachrote Schlüssel|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Schlaghammer von Zul\\\'Farrak|5695',
+			'Hochheiliger Schlaghammer|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Szepter von Celebras|19710',
+			'Celebrian-Griff|19549',
+			'Celebrian-Diamant|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Gefängniszellenschlüssel|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Schlüssel zur Schattenschmiede|2966',
+			'Ironfel|9673'
+		),
+	'DM' => array( 'Key-Only', 'DM' =>
+			'Mondsichelschlüssel|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Skelettschlüssel|16854',
+			'Scholomance|',
+			'Skelettfragmente|',
+			'Sold reimt sich auf...|',
+			'Feuerfeder geschmiedet|',
+			' Arajs Skarabäus',
+			'Der Schlüssel zur Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Schlüssel zur Stadt|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Siegel des Aufstiegs|17057',
+			'Unverziertes Siegel des Aufstiegs|5370',
+			'Edelstein der Felsspitzoger|5379',
+			'Edelstein der Gluthauer|16095',
+			'Edelstein der Blutäxte|21777',
+			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
+			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Drachenfeueramulett|4829',
+			'Drachkin-Bedrohung|',
+			'Die wahren Meister|',
+			'Marshal Windsor|',
+			'Verlorene Hoffnung|',
+			'Eine zusammengeknüllte Notiz|',
+			'Ein Funken Hoffnung|',
+			'Gefängnisausbruch!|',
+			'Treffen in Stormwind|',
+			'Die große Maskerade|',
+			'Das Großdrachenauge|',
+			'Drachenfeuer-Amulett|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Ewige Quintessenz|22754'
+		),
+);
+
+
+// HORDE KEYS
 $inst_keys['deDE']['H'] = array(
-	    'SG' => array('Key-Only','SG' => 'Schlüssel zur Sengenden Schlucht|4826'),
-		'Gnome' => array('Key-Only','Gnome' => 'Werkstattschlüssel|2288'),
-		'SM' => array('Key-Only','SM' => 'Der scharlachrote Schlüssel|4445'),
-		'ZF' => array('Parts','ZF' => 'Schlaghammer von Zul\\\'Farrak|5695','Hochheiliger Schlaghammer|8250'),
-		'Mauro' => array('Parts','Mauro' => 'Szepter von Celebras|19710','Celebrian-Griff|19549','Celebrian-Diamant|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Gefängniszellenschlüssel|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Schlüssel zur Schattenschmiede|2966','Ironfel|9673'),
-		'DM' => array('Key-Only','DM' => 'Mondsichelschlüssel|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Skelettschlüssel|16854','Scholomance|','Skelettfragmente|','Sold reimt sich auf...|','Feuerfeder geschmiedet|',' Arajs Skarabäus','Der Schlüssel zur Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Schlüssel zur Stadt|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Siegel des Aufstiegs|17057','Unverziertes Siegel des Aufstiegs|5370','Edelstein der Felsspitzoger|5379','Edelstein von der Gluthauer|16095','Edelstein der Blutäxte|21777','Ungeschmiedetes Siegel des Aufstiegs|24554||MS','Geschmiedetes Siegel des Aufstiegs|19463||MS'),
-		'Onyxia' => array('Quests', 'Onyxia' => 'Drachenfeueramulett|4829','Befehl des Kriegsherrn|','Eitriggs Weisheit|','Für die Horde!|','Was der Wind erzählt|','Der Champion der Horde|','Nachricht von Rexxar|','Oculus-Illusionen|','Emberstrife|','Die Prüfung der Schädel, Scryer|','Die Prüfung der Schädel, Somnus|','Die Prüfung der Schädel, Chronalis|','Die Prüfung der Schädel, Axtroz|','Aufstieg...|','Blut des schwarzen Groxdrachen-Helden|'),
-		'MC' => array('Key-Only','MC' => 'Ewige Quintessenz|22754'),
-	);
+	'SG' => array( 'Quests', 'SG' =>
+			'Schlüssel zur Sengenden Schlucht|4826',
+			'Das Horn der Bestie|',
+			'Besitznachweis|',
+			'Endlich!|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Werkstattschlüssel|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'Der scharlachrote Schlüssel|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Schlaghammer von Zul\\\'Farrak|5695',
+			'Hochheiliger Schlaghammer|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Szepter von Celebras|19710',
+			'Celebrian-Griff|19549',
+			'Celebrian-Diamant|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Gefängniszellenschlüssel|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Schlüssel zur Schattenschmiede|2966',
+			'Ironfel|9673'
+		),
+	'DM' => array( 'Key-Only', 'DM' =>
+			'Mondsichelschlüssel|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Skelettschlüssel|16854',
+			'Scholomance|',
+			'Skelettfragmente|',
+			'Sold reimt sich auf...|',
+			'Feuerfeder geschmiedet|',
+			' Arajs Skarabäus',
+			'Der Schlüssel zur Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Schlüssel zur Stadt|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Siegel des Aufstiegs|17057',
+			'Unverziertes Siegel des Aufstiegs|5370',
+			'Edelstein der Felsspitzoger|5379',
+			'Edelstein der Gluthauer|16095',
+			'Edelstein der Blutäxte|21777',
+			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
+			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Drachenfeueramulett|4829',
+			'Drachkin-Bedrohung|',
+			'Die wahren Meister|',
+			'Marshal Windsor|',
+			'Verlorene Hoffnung|',
+			'Eine zusammengeknüllte Notiz|',
+			'Ein Funken Hoffnung|',
+			'Gefängnisausbruch!|',
+			'Treffen in Stormwind|',
+			'Die große Maskerade|',
+			'Das Großdrachenauge|',
+			'Drachenfeuer-Amulett|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Ewige Quintessenz|22754'
+		),
+);
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $wordings['deDE']['upload']='Upload';
@@ -265,65 +382,66 @@ $wordings['deDE']['requires_level'] = '/Benötigtes Level ([\d]+)/';
 
 //Tradeskill-Array
 $tsArray['deDE'] = array (
-		$wordings['deDE']['Alchemy'],
-		$wordings['deDE']['Herbalism'],
-		$wordings['deDE']['Blacksmithing'],
-		$wordings['deDE']['Mining'],
-		$wordings['deDE']['Leatherworking'],
-		$wordings['deDE']['Skinning'],
-		$wordings['deDE']['Tailoring'],
-		$wordings['deDE']['Enchanting'],
-		$wordings['deDE']['Engineering'],
-		$wordings['deDE']['Cooking'],
-		$wordings['deDE']['Fishing'],
-		$wordings['deDE']['First Aid'],
+	$wordings['deDE']['Alchemy'],
+	$wordings['deDE']['Herbalism'],
+	$wordings['deDE']['Blacksmithing'],
+	$wordings['deDE']['Mining'],
+	$wordings['deDE']['Leatherworking'],
+	$wordings['deDE']['Skinning'],
+	$wordings['deDE']['Tailoring'],
+	$wordings['deDE']['Enchanting'],
+	$wordings['deDE']['Engineering'],
+	$wordings['deDE']['Cooking'],
+	$wordings['deDE']['Fishing'],
+	$wordings['deDE']['First Aid'],
 );
 
 //Tradeskill Icons-Array
 $wordings['deDE']['ts_iconArray'] = array (
-		'Alchimie'=>'Trade_Alchemy',
-		'Kräuterkunde'=>'Trade_Herbalism',
-		'Schmiedekunst'=>'Trade_BlackSmithing',
-		'Bergbau'=>'Trade_Mining',
-		'Lederverarbeitung'=>'Trade_LeatherWorking',
-		'Kürschnerei'=>'INV_Misc_Pelt_Wolf_01',
-		'Schneiderei'=>'Trade_Tailoring',
-		'Verzauberkunst'=>'Trade_Engraving',
-		'Ingenieurskunst'=>'Trade_Engineering',
-		'Kochkunst'=>'INV_Misc_Food_15',
-		'Angeln'=>'Trade_Fishing',
-		'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
-		'Tigerreiten'=>'Ability_Mount_WhiteTiger',
-		'Pferdreiten'=>'Ability_Mount_RidingHorse',
-		'Widderreiten'=>'Ability_Mount_MountainRam',
-		'Roboschreiter-Lenken'=>'Ability_Mount_MechaStrider',
-		'Untoten-Reitkunst'=>'Ability_Mount_Undeadhorse',
-		'Raptorreiten'=>'Ability_Mount_Raptor',
-		'Kodoreiten'=>'Ability_Mount_Kodo_03',
-		'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
+	'Alchimie'=>'Trade_Alchemy',
+	'Kräuterkunde'=>'Trade_Herbalism',
+	'Schmiedekunst'=>'Trade_BlackSmithing',
+	'Bergbau'=>'Trade_Mining',
+	'Lederverarbeitung'=>'Trade_LeatherWorking',
+	'Kürschnerei'=>'INV_Misc_Pelt_Wolf_01',
+	'Schneiderei'=>'Trade_Tailoring',
+	'Verzauberkunst'=>'Trade_Engraving',
+	'Ingenieurskunst'=>'Trade_Engineering',
+	'Kochkunst'=>'INV_Misc_Food_15',
+	'Angeln'=>'Trade_Fishing',
+	'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
+	'Tigerreiten'=>'Ability_Mount_WhiteTiger',
+	'Pferdreiten'=>'Ability_Mount_RidingHorse',
+	'Widderreiten'=>'Ability_Mount_MountainRam',
+	'Roboschreiter-Lenken'=>'Ability_Mount_MechaStrider',
+	'Untoten-Reitkunst'=>'Ability_Mount_Undeadhorse',
+	'Raptorreiten'=>'Ability_Mount_Raptor',
+	'Kodoreiten'=>'Ability_Mount_Kodo_03',
+	'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
+	'Reiten'=>'Ability_Mount_RidingHorse',
 );
 
 // Class Icons-Array
 $wordings['deDE']['class_iconArray'] = array (
-		'Druide'=>'Ability_Druid_Maul',
-		'Jäger'=>'INV_Weapon_Bow_08',
-		'Magier'=>'INV_Staff_13',
-		'Paladin'=>'Spell_Fire_FlameTounge',
-		'Priester'=>'Spell_Holy_LayOnHands',
-		'Schurke'=>'INV_ThrowingKnife_04',
-		'Schamane'=>'Spell_Nature_BloodLust',
-		'Hexenmeister'=>'Spell_Shadow_Cripple',
-		'Krieger'=>'INV_Sword_25',
+	'Druide'=>'Ability_Druid_Maul',
+	'Jäger'=>'INV_Weapon_Bow_08',
+	'Magier'=>'INV_Staff_13',
+	'Paladin'=>'Spell_Fire_FlameTounge',
+	'Priester'=>'Spell_Holy_LayOnHands',
+	'Schurke'=>'INV_ThrowingKnife_04',
+	'Schamane'=>'Spell_Nature_BloodLust',
+	'Hexenmeister'=>'Spell_Shadow_Cripple',
+	'Krieger'=>'INV_Sword_25',
 );
 
 //skills
 $skilltypes['deDE'] = array(
-		1 => 'Klassenfertigkeiten',
-		2 => 'Berufe',
-		3 => 'Sekundäre Fertigkeiten',
-		4 => 'Waffenfertigkeiten',
-		5 => 'Rüstungssachverstand',
-		6 => 'Sprachen',
+	1 => 'Klassenfertigkeiten',
+	2 => 'Berufe',
+	3 => 'Sekundäre Fertigkeiten',
+	4 => 'Waffenfertigkeiten',
+	5 => 'Rüstungssachverstand',
+	6 => 'Sprachen',
 );
 
 //tabs
@@ -654,13 +772,13 @@ $wordings['deDE']['admin']['index_class_color'] = "Klassenfarben|Färbt die Klas
 $wordings['deDE']['admin']['index_classicon'] = "Klassen Icons|Zeigt ein Icon für jeden Charakter jeder Klasse an";
 $wordings['deDE']['admin']['index_honoricon'] = "PvP Ehrenrang Icons|Zeigt ein Icon des Ehrenrangs neben dem Namen an";
 $wordings['deDE']['admin']['index_prof'] = "Berufs Spalte|Access level needed to view the Professions column";
-$wordings['deDE']['admin']['index_currenthonor'] = "Honor Column|Access level needed to view the honor column";
-$wordings['deDE']['admin']['index_note'] = "Note Column|Access level needed to view the public note column";
-$wordings['deDE']['admin']['index_title'] = "Guild Title Column|Access level needed to view the guild title column";
-$wordings['deDE']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Access level needed to view the hearthstone location column";
-$wordings['deDE']['admin']['index_zone'] = "Last Zone Loc. Column|Access level needed to view the last zone column";
-$wordings['deDE']['admin']['index_lastonline'] = "Last Seen Online Column|Access level needed to view the last seen online column";
-$wordings['deDE']['admin']['index_lastupdate'] = "Last Updated Column|Access level needed to view when the character last updated their info";
+$wordings['deDE']['admin']['index_currenthonor'] = "Ehren Spalte|Access level needed to view the honor column";
+$wordings['deDE']['admin']['index_note'] = "Notiz Spalte|Access level needed to view the public note column";
+$wordings['deDE']['admin']['index_title'] = "Gildentitel Spalte|Access level needed to view the guild title column";
+$wordings['deDE']['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Access level needed to view the hearthstone location column";
+$wordings['deDE']['admin']['index_zone'] = "Letztes Gebiet Spalte|Access level needed to view the last zone column";
+$wordings['deDE']['admin']['index_lastonline'] = "Zuletzt Online Spalte|Access level needed to view the last seen online column";
+$wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Access level needed to view when the character last updated their info";
 $wordings['deDE']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
 
 // menu_conf

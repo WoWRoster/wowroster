@@ -208,6 +208,17 @@ class wowdb
 
 
 	/**
+	 * Returns number of rows affected by an INSERT, UPDATE, or DELETE operation
+	 *
+	 * @param int $query_id handle
+	 */
+	function affected_rows()
+	{
+		return @mysql_affected_rows($this->db);
+	}
+
+
+	/**
 	 * Move result pointer
 	 *
 	 * @param int $result handle
@@ -2222,7 +2233,6 @@ class wowdb
 				$this->add_value( 'icon', str_replace('\\\\','/', $data['Icon']));
 
 			$attack = $data['Melee Attack'];
-
 			if( !empty($attack['AttackPower']) )
 				$this->add_value( 'melee_power', $attack['AttackPower'] );
 			if( !empty($attack['AttackRating']) )
@@ -2317,7 +2327,7 @@ class wowdb
 		$this->add_value( 'name', $name );
 		$this->add_value( 'guild_id', $guildId );
 
-		// NEW VALES FOR MY WOWPROFILERS ROSTER
+		// CRIT, DODGE, MIT, PARRY VALUES FOR WOWROSTER
 		$this->add_value( 'dodge',      ( isset($data['DodgePercent']) ?      $data['DodgePercent'] : 0 ) );
 		$this->add_value( 'parry',      ( isset($data['ParryPercent']) ?      $data['ParryPercent'] : 0 ) );
 		$this->add_value( 'block',      ( isset($data['BlockPercent']) ?      $data['BlockPercent'] : 0 ) );

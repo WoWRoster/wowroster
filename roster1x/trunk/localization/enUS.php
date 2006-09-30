@@ -83,8 +83,8 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 //Charset
 $wordings['enUS']['charset']="charset=utf-8";
 
-$timeformat['enUS'] = '%b %d %l:%i %p';  // MySQL Time format (example - Jul 23 2:19 PM) - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['enUS'] = 'M jS D, g:ia'; // PHP date() Time format (example - Mon 23rd Jul, 2:19pm) - http://www.php.net/manual/en/function.date.php
+$timeformat['enUS'] = '%a %b %D, %l:%i %p'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['enUS'] = 'M D jS, g:ia';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*
@@ -93,37 +93,153 @@ Instance Keys
 A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
 you have this one part it will mark all other parts lower than this one as complete.
 */
-$inst_keys['enUS']['A'] = array(
-		'SG' => array('Quests','SG' => 'Key to Searing Gorge|4826','The Horn of the Beast|','Proof of Deed|','At Last!|'),
-		'Gnome' => array('Key-Only','Gnome' => 'Workshop Key|2288'),
-		'SM' => array('Key-Only','SM' => 'The Scarlet Key|4445'),
-		'ZF' => array('Parts','ZF' => 'Mallet of Zul\\\'Farrak|5695','Sacred Mallet|8250'),
-		'Mauro' => array('Parts','Mauro' => 'Scepter of Celebras|19710','Celebrian Rod|19549','Celebrian Diamond|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Prison Cell Key|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Shadowforge Key|2966','Ironfel|9673'),
-		'DM' => array('Key-Only','DM' => 'Crescent Key|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Skeleton Key|16854','Scholomance|','Skeletal Fragments|','Mold Rhymes With...|','Fire Plume Forged|','Araj\\\'s Scarab|','The Key to Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Key to the City|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Seal of Ascension|17057','Unadorned Seal of Ascension|5370','Gemstone of Spirestone|5379','Gemstone of Smolderthorn|16095','Gemstone of Bloodaxe|21777','Unforged Seal of Ascension|24554||MS','Forged Seal of Ascension|19463||MS'),
-		'Onyxia' => array('Quests','Onyxia' => 'Drakefire Amulet|4829','Dragonkin Menace|','The True Masters|','Marshal Windsor|','Abandoned Hope|','A Crumpled Up Note|','A Shred of Hope|','Jail Break!|','Stormwind Rendezvous|','The Great Masquerade|','The Dragon\\\'s Eye|','Drakefire Amulet|'),
-		'MC' => array('Key-Only','MC' => 'Eternal Quintessence|22754'),
-	);
 
+// ALLIANCE KEYS
+$inst_keys['enUS']['A'] = array(
+	'SG' => array( 'Quests', 'SG' =>
+			'Key to Searing Gorge|4826',
+			'The Horn of the Beast|',
+			'Proof of Deed|',
+			'At Last!|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Workshop Key|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'The Scarlet Key|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Mallet of Zul\\\'Farrak|5695',
+			'Sacred Mallet|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Scepter of Celebras|19710',
+			'Celebrian Rod|19549',
+			'Celebrian Diamond|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Prison Cell Key|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Shadowforge Key|2966',
+			'Ironfel|9673'
+		),
+	'DM' => array( 'Key-Only', 'DM' =>
+			'Crescent Key|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Skeleton Key|16854',
+			'Scholomance|',
+			'Skeletal Fragments|',
+			'Mold Rhymes With...|',
+			'Fire Plume Forged|',
+			'Araj\\\'s Scarab|',
+			'The Key to Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Key to the City|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Seal of Ascension|17057',
+			'Unadorned Seal of Ascension|5370',
+			'Gemstone of Spirestone|5379',
+			'Gemstone of Smolderthorn|16095',
+			'Gemstone of Bloodaxe|21777',
+			'Unforged Seal of Ascension|24554||MS',
+			'Forged Seal of Ascension|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Drakefire Amulet|4829',
+			'Dragonkin Menace|',
+			'The True Masters|',
+			'Marshal Windsor|',
+			'Abandoned Hope|',
+			'A Crumpled Up Note|',
+			'A Shred of Hope|',
+			'Jail Break!|',
+			'Stormwind Rendezvous|',
+			'The Great Masquerade|',
+			'The Dragon\\\'s Eye|',
+			'Drakefire Amulet|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Eternal Quintessence|22754'
+		),
+);
+
+
+// HORDE KEYS
 $inst_keys['enUS']['H'] = array(
-	    'SG' => array('Key-Only','SG' => 'Key to Searing Gorge|4826'),
-		'Gnome' => array('Key-Only','Gnome' => 'Workshop Key|2288'),
-		'SM' => array('Key-Only','SM' => 'The Scarlet Key|4445'),
-		'ZF' => array('Parts','ZF' => 'Mallet of Zul\\\'Farrak|5695','Sacred Mallet|8250'),
-		'Mauro' => array('Parts','Mauro' => 'Scepter of Celebras|19710','Celebrian Rod|19549','Celebrian Diamond|19545'),
-		'BRDp' => array('Key-Only','BRDp' => 'Prison Cell Key|15545'),
-		'BRDs' => array('Parts','BRDs' => 'Shadowforge Key|2966','Ironfel|9673'),
-		'DM' => array('Key-Only','DM' => 'Crescent Key|35607'),
-		'Scholo' => array('Quests','Scholo' => 'Skeleton Key|16854','Scholomance|','Skeletal Fragments|','Mold Rhymes With...|','Fire Plume Forged|','Araj\\\'s Scarab|','The Key to Scholomance|'),
-		'Strath' => array('Key-Only','Strath' => 'Key to the City|13146'),
-		'UBRS' => array('Parts','UBRS' => 'Seal of Ascension|17057','Unadorned Seal of Ascension|5370','Gemstone of Spirestone|5379','Gemstone of Smolderthorn|16095','Gemstone of Bloodaxe|21777', 'Unforged Seal of Ascension|24554||MS', 'Forged Seal of Ascension|19463||MS'),
-		'Onyxia' => array('Quests','Onyxia' => 'Drakefire Amulet|4829','Warlord\\\'s Command|','Eitrigg\\\'s Wisdom|','For The Horde!|','What the Wind Carries|','The Champion of the Horde|','The Testament of Rexxar|','Oculus Illusions|','Emberstrife|','The Test of Skulls, Scryer|','The Test of Skulls, Somnus|','The Test of Skulls, Chronalis|','The Test of Skulls, Axtroz|','Ascension...|','Blood of the Black Dragon Champion|'),
-		'MC' => array('Key-Only','MC' => 'Eternal Quintessence|22754'),
-	);
+	'SG' => array( 'Quests', 'SG' =>
+			'Key to Searing Gorge|4826',
+			'The Horn of the Beast|',
+			'Proof of Deed|',
+			'At Last!|'
+		),
+	'Gnome' => array( 'Key-Only', 'Gnome' =>
+			'Workshop Key|2288'
+		),
+	'SM' => array( 'Key-Only', 'SM' =>
+			'The Scarlet Key|4445'
+		),
+	'ZF' => array( 'Parts', 'ZF' =>
+			'Mallet of Zul\\\'Farrak|5695',
+			'Sacred Mallet|8250'
+		),
+	'Mauro' => array( 'Parts', 'Mauro' =>
+			'Scepter of Celebras|19710',
+			'Celebrian Rod|19549',
+			'Celebrian Diamond|19545'
+		),
+	'BRDp' => array( 'Key-Only', 'BRDp' =>
+			'Prison Cell Key|15545'
+		),
+	'BRDs' => array( 'Parts', 'BRDs' =>
+			'Shadowforge Key|2966',
+			'Ironfel|9673'
+		),
+	'DM' => array( 'Key-Only', 'DM' =>
+			'Crescent Key|35607'
+		),
+	'Scholo' => array( 'Quests', 'Scholo' =>
+			'Skeleton Key|16854',
+			'Scholomance|',
+			'Skeletal Fragments|',
+			'Mold Rhymes With...|',
+			'Fire Plume Forged|',
+			'Araj\\\'s Scarab|',
+			'The Key to Scholomance|'
+		),
+	'Strath' => array( 'Key-Only', 'Strath' =>
+			'Key to the City|13146'
+		),
+	'UBRS' => array( 'Parts', 'UBRS' =>
+			'Seal of Ascension|17057',
+			'Unadorned Seal of Ascension|5370',
+			'Gemstone of Spirestone|5379',
+			'Gemstone of Smolderthorn|16095',
+			'Gemstone of Bloodaxe|21777',
+			'Unforged Seal of Ascension|24554||MS',
+			'Forged Seal of Ascension|19463||MS'
+		),
+	'Onyxia' => array( 'Quests', 'Onyxia' =>
+			'Drakefire Amulet|4829',
+			'Dragonkin Menace|',
+			'The True Masters|',
+			'Marshal Windsor|',
+			'Abandoned Hope|',
+			'A Crumpled Up Note|',
+			'A Shred of Hope|',
+			'Jail Break!|',
+			'Stormwind Rendezvous|',
+			'The Great Masquerade|',
+			'The Dragon\\\'s Eye|',
+			'Drakefire Amulet|'
+		),
+	'MC' => array( 'Key-Only', 'MC' =>
+			'Eternal Quintessence|22754'
+		),
+);
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $wordings['enUS']['upload']='Upload';
@@ -259,48 +375,56 @@ $wordings['enUS']['requires_level'] = '/Requires Level ([\d]+)/';
 
 //Tradeskill-Array
 $tsArray['enUS'] = array (
-		$wordings['enUS']['Alchemy'],
-		$wordings['enUS']['Herbalism'],
-		$wordings['enUS']['Blacksmithing'],
-		$wordings['enUS']['Mining'],
-		$wordings['enUS']['Leatherworking'],
-		$wordings['enUS']['Skinning'],
-		$wordings['enUS']['Tailoring'],
-		$wordings['enUS']['Enchanting'],
-		$wordings['enUS']['Engineering'],
-		$wordings['enUS']['Cooking'],
-		$wordings['enUS']['Fishing'],
-		$wordings['enUS']['First Aid'],
+	$wordings['enUS']['Alchemy'],
+	$wordings['enUS']['Herbalism'],
+	$wordings['enUS']['Blacksmithing'],
+	$wordings['enUS']['Mining'],
+	$wordings['enUS']['Leatherworking'],
+	$wordings['enUS']['Skinning'],
+	$wordings['enUS']['Tailoring'],
+	$wordings['enUS']['Enchanting'],
+	$wordings['enUS']['Engineering'],
+	$wordings['enUS']['Cooking'],
+	$wordings['enUS']['Fishing'],
+	$wordings['enUS']['First Aid'],
 );
 
 //Tradeskill Icons-Array
 $wordings['enUS']['ts_iconArray'] = array (
-		'Alchemy'=>'Trade_Alchemy',
-		'Herbalism'=>'Trade_Herbalism',
-		'Blacksmithing'=>'Trade_BlackSmithing',
-		'Mining'=>'Trade_Mining',
-		'Leatherworking'=>'Trade_LeatherWorking',
-		'Skinning'=>'INV_Misc_Pelt_Wolf_01',
-		'Tailoring'=>'Trade_Tailoring',
-		'Enchanting'=>'Trade_Engraving',
-		'Engineering'=>'Trade_Engineering',
-		'Cooking'=>'INV_Misc_Food_15',
-		'Fishing'=>'Trade_Fishing',
-		'First Aid'=>'Spell_Holy_SealOfSacrifice',
-		'Riding'=>'Ability_Mount_RidingHorse',
+	'Alchemy'=>'Trade_Alchemy',
+	'Herbalism'=>'Trade_Herbalism',
+	'Blacksmithing'=>'Trade_BlackSmithing',
+	'Mining'=>'Trade_Mining',
+	'Leatherworking'=>'Trade_LeatherWorking',
+	'Skinning'=>'INV_Misc_Pelt_Wolf_01',
+	'Tailoring'=>'Trade_Tailoring',
+	'Enchanting'=>'Trade_Engraving',
+	'Engineering'=>'Trade_Engineering',
+	'Cooking'=>'INV_Misc_Food_15',
+	'Fishing'=>'Trade_Fishing',
+	'First Aid'=>'Spell_Holy_SealOfSacrifice',
+	'Tiger Riding'=>'Ability_Mount_WhiteTiger',
+	'Horse Riding'=>'Ability_Mount_RidingHorse',
+	'Ram Riding'=>'Ability_Mount_MountainRam',
+	'Mechanostrider Piloting'=>'Ability_Mount_MechaStrider',
+	'Undead Horsemanship'=>'Ability_Mount_Undeadhorse',
+	'Raptor Riding'=>'Ability_Mount_Raptor',
+	'Kodo Riding'=>'Ability_Mount_Kodo_03',
+	'Wolf Riding'=>'Ability_Mount_BlackDireWolf',
+	'Riding'=>'Ability_Mount_RidingHorse',
 );
 
 // Class Icons-Array
 $wordings['enUS']['class_iconArray'] = array (
-		'Druid'=>'Ability_Druid_Maul',
-		'Hunter'=>'INV_Weapon_Bow_08',
-		'Mage'=>'INV_Staff_13',
-		'Paladin'=>'Spell_Fire_FlameTounge',
-		'Priest'=>'Spell_Holy_LayOnHands',
-		'Rogue'=>'INV_ThrowingKnife_04',
-		'Shaman'=>'Spell_Nature_BloodLust',
-		'Warlock'=>'Spell_Shadow_Cripple',
-		'Warrior'=>'INV_Sword_25',
+	'Druid'=>'Ability_Druid_Maul',
+	'Hunter'=>'INV_Weapon_Bow_08',
+	'Mage'=>'INV_Staff_13',
+	'Paladin'=>'Spell_Fire_FlameTounge',
+	'Priest'=>'Spell_Holy_LayOnHands',
+	'Rogue'=>'INV_ThrowingKnife_04',
+	'Shaman'=>'Spell_Nature_BloodLust',
+	'Warlock'=>'Spell_Shadow_Cripple',
+	'Warrior'=>'INV_Sword_25',
 );
 
 //skills
@@ -556,7 +680,7 @@ $wordings['enUS']['admin']['update_access'] = 'Update Access';
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   Assign description text and tooltip for $roster_conf['sqldebug']
 //   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
@@ -695,7 +819,7 @@ $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
 // Credits page
 // Only defined here because we don't need to translate this for EVERY locale
 
-$creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, and <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> for the original code used for this site
+$creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site
 <br />
 Special Thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
 <br /><br />
