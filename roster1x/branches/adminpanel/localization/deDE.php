@@ -421,6 +421,18 @@ $wordings['deDE']['ts_iconArray'] = array (
 	'Reiten'=>'Ability_Mount_RidingHorse',
 );
 
+// Riding Skill Icons-Array
+$wordings['deDE']['ts_ridingIcon'] = array(
+	'Night Elf'=>'Ability_Mount_WhiteTiger',
+	'Human'=>'Ability_Mount_RidingHorse',
+	'Dwarf'=>'Ability_Mount_MountainRam',
+	'Gnome'=>'Ability_Mount_MechaStrider',
+	'Undead'=>'Ability_Mount_Undeadhorse',
+	'Troll'=>'Ability_Mount_Raptor',
+	'Tauren'=>'Ability_Mount_Kodo_03',
+	'Orc'=>'Ability_Mount_BlackDireWolf',
+);
+
 // Class Icons-Array
 $wordings['deDE']['class_iconArray'] = array (
 	'Druide'=>'Ability_Druid_Maul',

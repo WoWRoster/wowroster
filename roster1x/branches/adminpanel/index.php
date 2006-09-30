@@ -44,6 +44,7 @@ $mainQuery =
 	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
 	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
+	'`players`.`race`, '.
 	'`players`.`RankName`, '.
 	'`players`.`RankInfo`, '.
 	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
@@ -284,11 +285,11 @@ function tradeskill_icons ( $row )
 		$toolTip = str_replace(':','/',$r_prof[1]);
 		$toolTiph = $r_prof[0];
 
-		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]];
+		$icon = ($r_prof[0] == 'Riding')?$wordings[$row['clientLocale']]['ts_ridingIcon'][$row['race']]:$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]];
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
-		if ($wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]] != '') {
-			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+		if ($icon != '') {
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].'Interface/Icons/'.$icon.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
 		}
 	}
 	return $cell_value;

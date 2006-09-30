@@ -181,6 +181,7 @@ $query =
 	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
 
 // Fields to get from the players table
+	'`players`.`race`, '.
 	'`players`.`RankName`, '.
 	'`players`.`RankInfo`, '.
 	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
@@ -642,6 +643,11 @@ function tradeskill_icons ( $row )
 			$toolTiph = $r_prof['skill_name'];
 
 			$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
+
+			if($r_prof['skill_name'] == "Riding")
+			{
+				$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_ridingIcon'][$row['race']];
+			}
 
 			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
 		}
