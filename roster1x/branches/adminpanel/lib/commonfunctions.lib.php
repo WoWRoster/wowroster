@@ -186,6 +186,21 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 {
 	global $wowdb, $roster_conf, $wordings;
 
+	// die_quitely died quietly
+	if (ROSTER_DIED == 1)
+	{
+		print '<pre>The quiet die function suffered a fatal error. Die information below'."\n";
+		print 'First die data:'."\n";
+		print_r($GLOBALS['die_data']);
+		print "\n".'Second die data'."\n";
+		print_r(func_get_args());
+		exit();
+	}
+
+	define(ROSTER_DIED,1);
+
+	$GLOBALS['die_data'] = func_get_args();
+
 	if( is_object($wowdb) )
 	{
 		$wowdb->closeDb();
