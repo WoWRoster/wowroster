@@ -28,7 +28,7 @@ if( empty($guild_info) )
 }
 
 
-include_once (ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 
 
 if (isset($_GET['type']))

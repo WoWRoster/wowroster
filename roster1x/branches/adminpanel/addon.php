@@ -63,7 +63,7 @@ if( $addon['cssUrl'] != '' )
 if ($roster_show_header)
 	include_once (ROSTER_BASE.'roster_header.tpl');
 if ($roster_show_menu)
-	include_once (ROSTER_LIB.'menu.php');
+	echo $roster_menu->makeMenu('main');
 
 echo $content;
 

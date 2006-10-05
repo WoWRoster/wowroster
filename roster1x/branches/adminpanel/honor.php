@@ -154,7 +154,7 @@ $more_css = '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/
 // Start output
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-include_once (ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 
 if( $roster_conf['hspvp_list_disp'] == 'hide' )
 {

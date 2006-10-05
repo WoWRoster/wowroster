@@ -35,7 +35,7 @@ $guildId = $guild_info['guild_id'];
 $faction = $guild_info['faction'];
 
 
-include_once( ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 print "<br />\n";
 
 // Tooltip colors

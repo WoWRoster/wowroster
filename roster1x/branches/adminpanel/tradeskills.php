@@ -28,7 +28,7 @@ $header_title = $wordings[$roster_conf['roster_lang']]['professions'];
 include_once(ROSTER_BASE.'roster_header.tpl');
 
 
-include_once(ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 
 for ( $tsNr=0; $tsNr<=11; $tsNr++ )
 {

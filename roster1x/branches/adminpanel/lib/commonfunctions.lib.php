@@ -219,7 +219,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
 	{
 		$fix_menu=1;
-		include_once(ROSTER_LIB.'menu.php');
+		echo $roster_menu->makeMenu('main');
 	}
 
 	if( empty($title) )

@@ -59,7 +59,7 @@ if ($wowdb->sqldebug)
 
 $muleNames = $wowdb->query($muleNameQuery);
 
-include_once (ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 echo "\n<br />\n";
 
 if ( $roster_conf['bank_money'] )

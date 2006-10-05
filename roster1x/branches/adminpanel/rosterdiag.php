@@ -230,7 +230,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 }
 
 // Include the menu-box
-include_once(ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 
 print('<span class="title_text">Roster Diag</span><br />');
 

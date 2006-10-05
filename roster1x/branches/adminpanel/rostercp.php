@@ -115,9 +115,8 @@ if ($roster_login->getAuthorized())
 
 // ----[ Render the page ]----------------------------------
 include_once( ROSTER_BASE.'roster_header.tpl' );
-include_once( ROSTER_LIB.'menu.php' );
-
-echo	$header."\n".
+echo 	$roster_menu->makeMenu('main').
+	$header."\n".
 	'<table width="100%"><tr><td valign="top" align="left">'."\n".
 	$menu."\n".
 	'</td><td valign="top" align="center">'."\n".

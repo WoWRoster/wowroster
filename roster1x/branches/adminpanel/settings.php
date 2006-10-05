@@ -271,6 +271,13 @@ require_once(ROSTER_LIB.'login.php');
 $roster_login = new RosterLogin($_SERVER['REQUEST_URI']);
 
 /**
+ * Include roster Menu class
+ */
+require_once(ROSTER_LIB.'menu.php');
+
+$roster_menu = new RosterMenu();
+
+/**
  * Detect and set headers
  */
 if( !headers_sent() )

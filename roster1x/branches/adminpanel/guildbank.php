@@ -81,7 +81,7 @@ while ($row2 = $wowdb->fetch_array($result2))
 	$mains[$row2['member_name']]=$row2['member_note'];
 }
 
-include_once (ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 echo "<br />\n";
 
 if ( $roster_conf['bank_money'] )

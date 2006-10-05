@@ -22,7 +22,7 @@ require_once( 'settings.php' );
 $header_title = $wordings[$roster_conf['roster_lang']]['credit'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-include_once (ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 
 
 echo "<div style=\"font-size:12px;\">\n".$creditspage['top']."\n</div>\n";

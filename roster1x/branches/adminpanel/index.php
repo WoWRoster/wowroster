@@ -182,7 +182,7 @@ if ( $roster_conf['index_motd'] == 1 )
 	print $memberlist->makeMotd();
 }
 
-include_once (ROSTER_LIB.'menu.php');
+echo $roster_menu->makeMenu('main');
 
 if( $roster_conf['hspvp_list_disp'] == 'hide' )
 {
