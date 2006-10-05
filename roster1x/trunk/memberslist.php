@@ -615,7 +615,7 @@ function class_divider ( $text )
 	}
 	$icon_name = 'Interface/Icons/'.$icon_name;
 
-	$icon_value = '<img class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+	$icon_value = '<a id="'.$text.'" /><img class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
 
 	return '<div class="membersGroup">'.$icon_value.$text.'</div>';
 
