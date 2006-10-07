@@ -25,6 +25,14 @@ switch( $op )
 		removeSv($id);
 		break;
 
+	case UA_URI_UPINI:
+		//processIni();
+		break;
+
+	case UA_URI_GETINI:
+		//getIni();
+		break;
+
 	default:
 		break;
 }
@@ -69,7 +77,7 @@ function main( )
 		<td class="dataHeader">'.$user->lang['enabled'].'</td>
 	</tr>';
 
-	$section='';
+	$section = '';
 
 	while( $row = $db->fetch_record($result) )
 	{
@@ -164,6 +172,7 @@ function main( )
 </table>
 </form>';
 
+	// Build the SV list table
 	$sql = "SELECT * FROM `".UA_TABLE_SVLIST."` ORDER BY `id` DESC;";
 	$result = $db->query($sql);
 
@@ -198,11 +207,15 @@ function main( )
 
 	$tdClass = 'data'.$uniadmin->switch_row_class(true);
 
+
 	$svTable .= '
 	</table>
 
-	<br />
+	<br />';
 
+	if( $user->data['level'] >= UA_ID_POWER )
+	{
+		$svTable .= '
 	<form name="ua_addsv" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<table class="uuTABLE" width="40%" align="center">
 		<tr>
@@ -220,6 +233,36 @@ function main( )
 	<input type="hidden" value="'.UA_URI_ADD.'" name="'.UA_URI_OP.'" />
 	</form>
 ';
+	}
+
+	if( $user->data['level'] == UA_ID_ADMIN )
+	{
+		$svTable .= '
+	<br />
+
+	<table class="uuTABLE" align="center">
+		<tr>
+			<th colspan="2" class="tableHeader">'.$user->lang['settings_file'].'</th>
+		</tr>
+		<tr>
+			<td class="data1">'.$user->lang['import_file'].':</td>
+			<td class="data1"><form name="ua_uploadini" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				<input class="file" type="file" name="file" />
+				<input type="hidden" value="'.UA_URI_UPINI.'" name="'.UA_URI_OP.'" />
+				<input class="submit" type="submit" value="'.$user->lang['import'].'" />
+				</form></td>
+		</tr>
+		<tr>
+			<td class="data2">'.$user->lang['export_file'].':</td>
+			<td class="data2"><form name="ua_getini" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				<input type="hidden" value="'.UA_URI_GETINI.'" name="'.UA_URI_OP.'" />
+				<input class="submit" type="submit" value="'.$user->lang['export'].'" />
+				</td>
+		</tr>
+	</table>
+	</form>
+';
+	}
 
 	echoPage($svTable.'<br />'.$form,$user->lang['title_settings']);
 }

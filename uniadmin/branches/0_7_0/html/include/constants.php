@@ -64,6 +64,8 @@ define('UA_URI_NAME',     'name');
 define('UA_URI_LEVEL',    'level');
 define('UA_URI_PASS',     'password');
 define('UA_URI_NEW',      'new');
+define('UA_URI_UPINI',    'upini');
+define('UA_URI_GETINI',   'getini');
 
 define('UA_INDEX',        'index.php');
 define('UA_URI_PAGE',     'p');

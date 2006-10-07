@@ -61,7 +61,10 @@ function main( )
 {
 	global $db, $uniadmin, $user;
 
-	$addonInputForm = '
+	$addonInputForm = '';
+	if( $user->data['level'] == UA_ID_ADMIN )
+	{
+		$addonInputForm = '
 <form name="ua_updateaddon" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<table class="uuTABLE" align="center">
 		<tr>
@@ -90,6 +93,7 @@ function main( )
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
 </form>
 ';
+	}
 
 	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` ORDER BY `name`;";
 	$result = $db->query($sql);
@@ -109,9 +113,13 @@ function main( )
 				<td class="dataHeader">'.$user->lang['uploaded'].'</td>
 				<td class="dataHeader">'.$user->lang['enabled'].'</td>
 				<td class="dataHeader">'.$user->lang['files'].'</td>
-				<td class="dataHeader">'.$user->lang['url'].'</td>
-				<td class="dataHeader">'.$user->lang['delete'].'</td>
-			</tr>';
+				<td class="dataHeader">'.$user->lang['url'].'</td>';
+		if( $user->data['level'] == UA_ID_ADMIN )
+		{
+			$AddonPanel .= '
+				<td class="dataHeader">'.$user->lang['delete'].'</td>';
+		}
+		$AddonPanel .= "\n\t\t\t</tr>";
 
 		while( $row = $db->fetch_record($result) )
 		{
@@ -134,6 +142,10 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
+				if( $user->data['level'] == UA_ID_USER )
+				{
+					$enabled = '<span style="color:green;">'.$user->lang['yes'].'</span>';
+				}
 			}
 			else
 			{
@@ -142,6 +154,10 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
+				if( $user->data['level'] == UA_ID_USER )
+				{
+					$enabled = '<span style="color:red;">'.$user->lang['no'].'</span>';
+				}
 			}
 
 			if( $row['homepage'] == '' )
@@ -156,6 +172,10 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
+				if( $user->data['level'] == UA_ID_USER )
+				{
+					$required = '<span style="color:red;">'.$user->lang['yes'].'</span>';
+				}
 			}
 			else
 			{
@@ -164,6 +184,10 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
+				if( $user->data['level'] == UA_ID_USER )
+				{
+					$required = '<span style="color:green;">'.$user->lang['no'].'</span>';
+				}
 			}
 
 			$toc = $row['toc'];
@@ -179,14 +203,17 @@ function main( )
 			<td class="'.$tdClass.'">'.$time.'</td>
 			<td class="'.$tdClass.'">'.$enabled.'</td>
 			<td class="'.$tdClass.'">'.$numFiles.'</td>
-			<td class="'.$tdClass.'"><a href="'.$url.'">Check</a></td>
+			<td class="'.$tdClass.'"><a href="'.$url.'">Check</a></td>';
+			if( $user->data['level'] == UA_ID_ADMIN )
+			{
+				$AddonPanel .= '
 			<td class="'.$tdClass.'"><form name="ua_deleteaddon_'.$addonID.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DELETE.'" />
 				<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
 				<input class="submit" style="color:red;" type="submit" value="'.$user->lang['delete'].'" />
-				</form></td>
-		</tr>
-';
+				</form></td>';
+			}
+			$AddonPanel .= "\n\t\t</tr>";
 		}
 	}
 	else

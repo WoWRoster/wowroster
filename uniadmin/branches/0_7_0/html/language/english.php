@@ -78,10 +78,10 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 	<dd>1, 2, 3, 4, 5.3</dd>
 
 	<dt>level 2 (power user) has access to</dt>
-	<dd>1.2, 2, 3.1, 4, 5.7</dd>
+	<dd>1.1, 2, 3.1, 4, 5.7</dd>
 
 	<dt>level 3 (administrator) has access to everything</dt>
-	<dd>1.3, 2, 3.2, 4, 5.10, 6</dd>
+	<dd>1.2, 2, 3.2, 4, 5.10, 6</dd>
 	<dd>&nbsp;</dd>
 </dl>
 <p>There shouldn\'t have to be more than 1 or 2 &quot;level 3&quot; users in UniAdmin</p>
@@ -90,9 +90,8 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 <ul>
 	<li> 1: AddOn Management
 		<ul>
-			<li> 1.1: Enable/Disable AddOns</li>
-			<li> 1.2: Set AddOns to required/optional</li>
-			<li> 1.3: Upload/Delete AddOns</li>
+			<li> 1.1: Manage AddOns</li>
+			<li> 1.2: Added/Delete AddOns</li>
 		</ul></li>
 	<li> 2: Logo Management</li>
 	<li> 3: Settings Management
@@ -164,6 +163,8 @@ $lang['update_logo'] = 'Update Logo %1$d';
 $lang['update_settings'] = 'Update Settings';
 $lang['show'] = 'Show';
 $lang['add_update_addon'] = 'Add / Update Addon';
+$lang['import'] = 'Import';
+$lang['export'] = 'Export';
 
 
 // Form Element Descriptions
@@ -206,6 +207,9 @@ $lang['user_modified'] = 'User %1$s modified';
 $lang['user_added'] = 'User %1$s added';
 $lang['user_deleted'] = 'User %1$s deleted';
 $lang['access_denied'] = 'Access Denied';
+$lang['settings_file'] = 'settings.ini File';
+$lang['import_file'] = 'Import File';
+$lang['export_file'] = 'Export File';
 
 
 // Pagination
