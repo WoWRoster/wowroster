@@ -12,7 +12,9 @@ if ( get_magic_quotes_gpc() == 0 )
 }
 
 if( !defined('DIR_SEP') )
+{
 	define('DIR_SEP',DIRECTORY_SEPARATOR);
+}
 
 define('UA_BASEDIR',dirname(__FILE__).DIR_SEP);
 
@@ -47,9 +49,9 @@ if( !isset($interface) )
 }
 
 
-function die_ua()
+function die_ua( )
 {
-	EchoPage('',$user->lang['error']);
+	echoPage('',$user->lang['error']);
 	die();
 }
 
@@ -59,7 +61,7 @@ function die_ua()
 * @param $data Array of data or a single string
 * @return mixed Array or string of data
 */
-function slash_global_data($data)
+function slash_global_data( $data )
 {
 	if( is_array($data) )
 	{

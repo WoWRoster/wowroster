@@ -26,5 +26,5 @@ foreach( $user->lang['help'] as $help_text )
 $help .= '
 </table>';
 
-EchoPage($help,$user->lang['title_help']);
+echoPage($help,$user->lang['title_help']);
 ?>

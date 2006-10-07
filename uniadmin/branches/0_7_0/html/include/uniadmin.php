@@ -27,7 +27,7 @@ class UniAdmin
 	var $timer_start = 0;                       // Page timer start         @var timer_start
 	var $timer_end   = 0;                       // Page timer end           @var timer_end
 
-	function uniadmin($url)
+	function uniadmin( $url )
 	{
 		// Start a script timer if we're debugging
 		if( UA_DEBUG )
@@ -43,13 +43,13 @@ class UniAdmin
 		$this->config();
 	}
 
-	function config()
+	function config( )
 	{
 		global $db;
 
-		if ( !is_object($db) )
+		if( !is_object($db) )
 		{
-			ua_die('Database object not instantiated', E_USER_ERROR);
+			die('Database object not initialized');
 		}
 
 		$sql = 'SELECT `config_name`, `config_value`
@@ -57,7 +57,7 @@ class UniAdmin
 
 		if( !($result = $db->query($sql)) )
 		{
-			ua_die('Could not obtain configuration information', E_USER_ERROR);
+			die('Could not obtain configuration information');
 		}
 		while( $row = $db->fetch_record($result) )
 		{
@@ -67,9 +67,10 @@ class UniAdmin
 			}
 		}
 
+		// Fix interface url
 		$this->config['interface_url'] = str_replace('%url%',$this->url_path,$this->config['interface_url']);
 
-		if ($handle = opendir(UA_LANGDIR))
+		if( $handle = opendir(UA_LANGDIR) )
 		{
 			while( false !== ($file = readdir($handle)) )
 			{
@@ -88,7 +89,7 @@ class UniAdmin
 		return true;
 	}
 
-	function config_set($config_name, $config_value='')
+	function config_set( $config_name , $config_value='' )
 	{
 		global $db;
 
@@ -114,11 +115,11 @@ class UniAdmin
 		return false;
 	}
 
-	function switch_row_class($set_new = true)
+	function switch_row_class( $set_new = true )
 	{
 		$row_class = ( $this->row_class == '1' ) ? '2' : '1';
 
-		if ( $set_new )
+		if( $set_new )
 		{
 			$this->row_class = $row_class;
 		}
@@ -150,15 +151,14 @@ function message($messageString)
  * @param string $suffix
  * @return string
  */
-function stringChop($string, $desiredLength, $suffix)
+function stringChop( $string , $desiredLength , $suffix )
 {
-	if (strlen($string) > $desiredLength)
+	if( strlen($string) > $desiredLength )
 	{
 		$string = substr($string,0,$desiredLength).$suffix;
 		return $string;
 	}
 	return $string;
 }
-
 
 ?>

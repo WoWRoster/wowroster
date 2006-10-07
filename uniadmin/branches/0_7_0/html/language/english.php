@@ -196,6 +196,7 @@ $lang['homepage'] = 'Homepage';
 $lang['logged_in_as'] = 'Logged in as [%1$s]';
 $lang['logo_table'] = 'Logo %1$d';
 $lang['uniuploader_sync_settings'] = 'UniUploader Sync Settings';
+$lang['uniadmin_config_settings'] = 'UniAdmin Config Settings';
 $lang['manage_svfiles'] = 'Manage SavedVariable Files';
 $lang['add_svfiles'] = 'Add SavedVariable Files';
 $lang['svfiles'] = 'SavedVariable Files';
@@ -204,6 +205,7 @@ $lang['stats_limit'] = 'row(s) starting from record #';
 $lang['user_modified'] = 'User %1$s modified';
 $lang['user_added'] = 'User %1$s added';
 $lang['user_deleted'] = 'User %1$s deleted';
+$lang['access_denied'] = 'Access Denied';
 
 
 // Pagination
@@ -307,6 +309,17 @@ $lang['ADDURLFFNAME4'] = '(UU 1.x) Additional URL 4 file-field name';
 
 // END UU Sync Strings
 
+
+// BEGIN UA CONFIG SETTINGS
+
+$lang['admin']['addon_folder'] = 'Specify the folder addon zip archives will be saved';
+$lang['admin']['default_lang'] = 'Default language of the UniAdmin interface<br /><br />Values here are automatically scanned from the languages directory';
+$lang['admin']['interface_url'] = 'Specify the location of interface.php here<br /><br />Use %url% to insert the base url<br />Default is &quot;%url%?p=interface&quot; or &quot;%url%interface.php&quot;';
+$lang['admin']['logo_folder'] = 'Specify the folder UniUploader logos will be saved';
+$lang['admin']['temp_analyze_folder'] = 'Specify the folder addon zip archives will be extracted to and anaylized';
+$lang['admin']['UAVer'] = 'Current UniAdmin version<br />You cannot change this setting';
+
+// END UA CONFIG SETTINGS
 
 
 // Debug

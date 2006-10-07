@@ -1,9 +1,3 @@
-<?php
-
-header("Content-type: text/css");
-
-?>
-
 body {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;

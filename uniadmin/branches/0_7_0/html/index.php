@@ -22,6 +22,7 @@ $allowed_pages = array(
 	'help',
 	'stats',
 	'users',
+	'pref',
 	);
 
 

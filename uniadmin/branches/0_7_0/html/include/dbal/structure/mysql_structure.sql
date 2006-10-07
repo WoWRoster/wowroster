@@ -39,7 +39,6 @@ DROP TABLE IF EXISTS `uniadmin_files`;
 CREATE TABLE `uniadmin_files` (
   `id` int(11) NOT NULL auto_increment,
   `addon_id` int(11) NOT NULL,
-  `addon_name` varchar(250) NOT NULL default '',
   `filename` varchar(250) NOT NULL default '',
   `md5sum` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`),

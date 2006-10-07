@@ -57,7 +57,7 @@ $db->close_db();
  *
  * @param string $filename
  */
-function outputLogoMd5($filename)
+function outputLogoMd5( $filename )
 {
 	global $db;
 
@@ -74,7 +74,7 @@ function outputLogoMd5($filename)
 /**
  * Echo's all of UniAdmin's settings for UniUploader
  */
-function outputSettings()
+function outputSettings( )
 {
 	global $db;
 
@@ -83,7 +83,7 @@ function outputSettings()
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
-		while ($row = $db->fetch_record($result))
+		while( $row = $db->fetch_record($result) )
 		{
 			echo 'LOGO'.$row['logo_num'].'[=]'.$row['download_url'].'[|]';
 		}
@@ -95,7 +95,7 @@ function outputSettings()
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
-		while ($row = $db->fetch_record($result))
+		while( $row = $db->fetch_record($result) )
 		{
 			echo $row['set_name'].'[=]'.$row['set_value'].'[|]';
 		}
@@ -108,7 +108,7 @@ function outputSettings()
 	if( $db->num_rows($result) > 0 )
 	{
 		echo 'SVLIST[=]';
-		while ($row = $db->fetch_record($result))
+		while( $row = $db->fetch_record($result) )
 		{
 			echo $row['sv_name'].':';
 		}
@@ -119,7 +119,7 @@ function outputSettings()
 /**
  * Adds viewer's stats for the UniAdmin stats page
  */
-function addStat()
+function addStat( )
 {
 	global $db, $op;
 
@@ -136,7 +136,7 @@ function addStat()
 /**
  * Echos XML for the addons UniAdmin provides
  */
-function outputXml()
+function outputXml( )
 {
 	global $db;
 
@@ -147,7 +147,7 @@ function outputXml()
 
 	if( $db->num_rows($result) > 0 )
 	{
-		while ($row = $db->fetch_record($result))
+		while( $row = $db->fetch_record($result) )
 		{
 			$id = $row['id'];
 			$name = addslashes($row['name']);
@@ -162,7 +162,7 @@ function outputXml()
 
 			if( $db->num_rows($result2) > 0 )
 			{
-				while ($row2 = $db->fetch_record($result2))
+				while( $row2 = $db->fetch_record($result2) )
 				{
 					$filename = addslashes($row2['filename']);
 					$md5 = addslashes($row2['md5sum']);
@@ -187,7 +187,7 @@ function outputXml()
 /**
  * Echos an addon's download URL
  */
-function outputUrl()
+function outputUrl( )
 {
 	global $db;
 

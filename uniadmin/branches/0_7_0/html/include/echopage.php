@@ -5,7 +5,7 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-function EchoPage($body, $subTitle = 'Index')
+function echoPage( $body , $subTitle = 'Index' )
 {
 	global $loginForm, $ua_menu, $uniadmin, $db, $user;
 
@@ -13,7 +13,7 @@ function EchoPage($body, $subTitle = 'Index')
 	$uniadmin->timer_end = $mc_split[0] + $mc_split[1];
 	unset($mc_split);
 
-	if ( UA_DEBUG && (isset($user->data['level']) && $user->data['level'] == UA_ID_ADMIN ) )
+	if( UA_DEBUG && (isset($user->data['level']) && $user->data['level'] == UA_ID_ADMIN ) )
 	{
 		$mc_split = split(' ', microtime());
 		$uniadmin->timer_end = $mc_split[0] + $mc_split[1];
@@ -24,7 +24,6 @@ function EchoPage($body, $subTitle = 'Index')
 		$s_show_debug = true;
 		$s_rendertime = substr($uniadmin->timer_end - $uniadmin->timer_start, 0, 5);
 		$s_querycount = $db->query_count;
-
 	}
 	else
 	{
@@ -37,7 +36,7 @@ function EchoPage($body, $subTitle = 'Index')
 <html>
 <head>
 	<title>UniAdmin v'.$uniadmin->config['UAVer'].' ['.$subTitle.']</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="'.$uniadmin->url_path.'/css.php" />
+	<link rel="stylesheet" type="text/css" media="screen" href="'.$uniadmin->url_path.'/style.css" />
 	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
 	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib_hideform.js"></script>
 </head>
@@ -45,7 +44,7 @@ function EchoPage($body, $subTitle = 'Index')
 
 <table width="100%" border="0" cellspacing="1" cellpadding="2">
   <tr>
-    <td width="201" valign="top"><a href="'.UA_INDEXPAGE.'"><img src="'.$uniadmin->url_path.'/images/logo.png" alt="UniAdmin" /></a></td>
+    <td width="201" valign="top"><a href="'.UA_INDEX.'"><img src="'.$uniadmin->url_path.'/images/logo.png" alt="UniAdmin" /></a></td>
     <td width="100%" valign="top">
       <span class="maintitle">UniAdmin v'.$uniadmin->config['UAVer'].'</span><br />
       '.(isset($subTitle) ? '<span class="subtitle">'.$subTitle.'</span>' : '').'<br />
@@ -114,7 +113,7 @@ function EchoPage($body, $subTitle = 'Index')
   <tr>
     <th class="tableHeader">'.$user->lang['queries'].'</th>
   </tr>';
-		foreach ( $db->queries as $query )
+		foreach( $db->queries as $query )
 		{
 			echo '  <tr class="data'.$uniadmin->switch_row_class().'">
     <td width="100%">'.$query.'</td>

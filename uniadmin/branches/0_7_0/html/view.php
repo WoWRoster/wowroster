@@ -230,7 +230,7 @@ function main()
 	$db->free_result($result);
 
 
-	EchoPage($AddonPanel.$logo.$svlist.$settings,$user->lang['view_addons']);
+	echoPage($AddonPanel.$logo.$svlist.$settings,$user->lang['view_addons']);
 }
 
 ?>

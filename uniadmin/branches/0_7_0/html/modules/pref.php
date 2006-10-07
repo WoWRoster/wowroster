@@ -1,0 +1,183 @@
+<?php
+
+if( !defined('IN_UNIADMIN') )
+{
+    exit('Detected invalid access to this file!');
+}
+
+if( $user->data['level'] < UA_ID_ADMIN )
+{
+	echoPage($user->lang['access_denied'],$user->lang['access_denied']);
+	exit();
+}
+
+// Get Operation
+$op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
+
+// Decide What To Do
+switch( $op )
+{
+	case UA_URI_PROCESS:
+		processUpdate();
+		break;
+
+	default:
+		break;
+}
+main();
+
+$db->close_db();
+
+
+
+
+
+
+/**
+ * UA Preferences Page Functions
+ */
+
+
+/**
+ * Main Display
+ */
+function main( )
+{
+	global $db, $uniadmin, $user;
+
+	$sql = "SELECT * FROM `".UA_TABLE_CONFIG."` ORDER BY `config_name` ASC;";
+	$result = $db->query($sql);
+
+	$form = '
+<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+<table class="uuTABLE" align="center">
+	<tr>
+		<th colspan="4" class="tableHeader">'.$user->lang['uniadmin_config_settings'].'</th>
+	</tr>
+	<tr>
+		<td class="dataHeader">'.$user->lang['setting_name'].'</td>
+		<td class="dataHeader">'.$user->lang['value'].'</td>
+	</tr>';
+
+
+	while( $row = $db->fetch_record($result) )
+	{
+		$setname = $row['config_name'];
+		$setvalue = $row['config_value'];
+
+		$tdClass = 'data'.$uniadmin->switch_row_class();
+
+		$form .= '
+	<tr>
+		<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang['admin'][$setname].'\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
+			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
+		<td class="'.$tdClass.'">';
+
+
+		// Figure out input type
+		$input_field = '';
+		$input_type = explode('{',$row['form_type']);
+
+		switch( $input_type[0] )
+		{
+			case 'text':
+				$length = explode('|',$input_type[1]);
+				$input_field = '<input class="input" name="'.$setname.'" type="text" value="'.$setvalue.'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+				break;
+
+			case 'radio':
+				$options = explode('|',$input_type[1]);
+				foreach( $options as $value )
+				{
+					$vals = explode('^',$value);
+					$input_field .= '<label><input type="radio" name="'.$setname.'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+				}
+				break;
+
+			case 'select':
+				$options = explode('|',$input_type[1]);
+				$input_field .= '<select class="input" name="'.$setname.'">'."\n";
+				$select_one = 1;
+				foreach( $options as $value )
+				{
+					$vals = explode('^',$value);
+					if( $setvalue == $vals[1] && $select_one )
+					{
+						$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
+						$select_one = 0;
+					}
+					else
+					{
+						$input_field .= '  <option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
+					}
+				}
+				$input_field .= '</select>';
+				break;
+
+			case 'function':
+				$input_field = $input_type[1]();
+				break;
+
+			case 'display':
+				$input_field = $setvalue;
+				break;
+
+			default:
+				$input_field = $setvalue;
+				break;
+		}
+
+		$form .= $input_field.'</td>'."\n";
+
+		$form .= '	</tr>'."\n";
+	}
+
+	$form .= '	<tr>
+		<td class="dataHeader" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
+			<input class="submit" type="submit" value="'.$user->lang['update_settings'].'" /></td>
+	</tr>
+</table>
+</form>';
+
+	echoPage($form,$user->lang['title_config']);
+}
+
+/**
+ * Process Config Update
+ */
+function processUpdate( )
+{
+	global $uniadmin;
+
+	foreach( $_POST as $settingName => $settingValue )
+	{
+		if( $settingName != UA_URI_OP )
+		{
+			$set = $uniadmin->config_set($settingName,$settingValue);
+		}
+	}
+}
+
+
+/**
+ * Function to generate the languages select box
+ *
+ * @return string
+ */
+function langSelect( )
+{
+	global $uniadmin;
+
+	$retval = '<select class="select" name="language">';
+
+	foreach( $uniadmin->languages as $lang )
+	{
+		$selected = ( $lang == $uniadmin->config['default_lang'] ? ' selected="selected"' : '' );
+		$retval .= "\n\t".'<option value="'.$lang.'"'.$selected.'>'.$lang.'</option>';
+	}
+	$retval .= '
+			</select>';
+	return $retval;
+}
+
+?>

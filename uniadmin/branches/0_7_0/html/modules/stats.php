@@ -22,11 +22,11 @@ $db->close_db();
 /**
  * Main Display
  */
-function main()
+function main( )
 {
 	global $user, $uniadmin;
 
-	EchoPage(
+	echoPage(
 	buildMainTable().
 	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('host_name').'" alt="host_name" />'."\n".
 	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('ip_addr').'" alt="ip_addr" />'."\n".
@@ -41,7 +41,7 @@ function main()
  * @param string $fieldName
  * @return string
  */
-function buildPieHosts($fieldName)
+function buildPieHosts( $fieldName )
 {
 	global $db, $uniadmin, $user;
 
@@ -50,7 +50,7 @@ function buildPieHosts($fieldName)
 
 	$i=0;
 	$array = '';
-	while ($row = $db->fetch_record($result))
+	while( $row = $db->fetch_record($result) )
 	{
 		$array[$i] = $row[$fieldName];
 		$i++;
@@ -61,12 +61,12 @@ function buildPieHosts($fieldName)
 	{
 		$array = array_unique($array);
 
-		foreach ($array as $HostName)
+		foreach( $array as $HostName )
 		{
-			$sql = "SELECT `id` FROM `".UA_TABLE_STATS."` WHERE `$fieldName` = '".addslashes($HostName)."'";
+			$sql = "SELECT `id` FROM `".UA_TABLE_STATS."` WHERE `$fieldName` = '".$db->escape($HostName)."'";
 			$result = $db->query($sql);
 
-			if ($fieldName != "time")
+			if( $fieldName != 'time' )
 			{
 				$finalArray[$HostName] = $db->num_rows($result);
 			}
@@ -81,7 +81,7 @@ function buildPieHosts($fieldName)
 		asort($finalArray,SORT_NUMERIC);
 		reset($finalArray);
 
-		foreach ($finalArray as $HostName => $count)
+		foreach( $finalArray as $HostName => $count )
 		{
 			if (count($finalArray) > 5 )
 				unset($finalArray[$HostName]);
@@ -94,7 +94,7 @@ function buildPieHosts($fieldName)
 
 		$pie = "title=$fieldName&amp;";
 		$i = 0;
-		foreach ($finalArray as $HostName => $numHits)
+		foreach( $finalArray as $HostName => $numHits )
 		{
 			$HostName = urlencode($HostName);
 			$numHits = urlencode($numHits);
@@ -112,11 +112,11 @@ function buildPieHosts($fieldName)
  *
  * @return string
  */
-function buildMainTable()
+function buildMainTable( )
 {
 	global $db, $uniadmin, $user;
 
-	if (isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) ||isset($_REQUEST['limit']) || isset($_REQUEST['start']))
+	if( isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) || isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
 	{
 		$orderby = $_REQUEST['orderby'];
 		$direction = $_REQUEST['direction'];
@@ -141,7 +141,7 @@ function buildMainTable()
 	$result = $db->query($sql);
 
 
-	if ($direction == 'ASC')
+	if( $direction == 'ASC' )
 	{
 		$direction = 'DESC';
 	}
@@ -163,7 +163,7 @@ function buildMainTable()
 		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=host_name&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['host_name'].'</a></td>
 	</tr>';
 
-	while ($row = $db->fetch_record($result))
+	while( $row = $db->fetch_record($result) )
 	{
 		$time = date($user->lang['time_format'],$row['time']);
 
@@ -182,17 +182,8 @@ function buildMainTable()
 	</tr>';
 	}
 
-	if ($direction == 'ASC')
-	{
-		$direction = 'DESC';
-	}
-	else
-	{
-		$direction = 'ASC';
-	}
-
 	$PrevStart = $start - $limit;
-	if ($PrevStart > -1)
+	if( $PrevStart > -1 )
 	{
 		$PrevLink = '<a href="'.UA_FORMACTION.'&amp;start='.$PrevStart.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
 	}
@@ -201,7 +192,7 @@ function buildMainTable()
 		$PrevLink = '';
 	}
 	$NextStart = $start + $limit;
-	if ($NextStart < $totalRows)
+	if( $NextStart < $totalRows )
 	{
 		$NextLink = '<a href="'.UA_FORMACTION.'&amp;start='.$NextStart.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
 	}
@@ -210,10 +201,14 @@ function buildMainTable()
 		$NextLink = '';
 	}
 
-	if (!empty($PrevLink) && !empty($NextLink))
+	if( !empty($PrevLink) && !empty($NextLink) )
+	{
 		$sep = ' | ';
+	}
 	else
+	{
 		$sep = '';
+	}
 
 
 	$totalPages = floor($totalRows / $limit) + 1;
@@ -236,6 +231,5 @@ function buildMainTable()
 
 	return $table;
 }
-
 
 ?>

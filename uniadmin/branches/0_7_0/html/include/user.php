@@ -22,12 +22,12 @@ class User
 	var $user_agent   = '';                 // User Agent               @var user_agent
 	var $ip_address   = 0;                  // User IP                  @var ip_address
 
-	function start()
+	function start( )
 	{
 		global $db, $uniadmin;
 
-		$this->ip_address   = ( !empty($_SERVER['REMOTE_ADDR']) )     ? $_SERVER['REMOTE_ADDR']     : $REMOTE_ADDR;
-		$this->user_agent      = ( !empty($_SERVER['HTTP_USER_AGENT']) ) ? $_SERVER['HTTP_USER_AGENT'] : $_ENV['HTTP_USER_AGENT'];
+		$this->ip_address = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : $REMOTE_ADDR;
+		$this->user_agent = ( !empty($_SERVER['HTTP_USER_AGENT']) ) ? $_SERVER['HTTP_USER_AGENT'] : $_ENV['HTTP_USER_AGENT'];
 
 		$this->lang_path = UA_LANGDIR;
 
@@ -41,7 +41,6 @@ class User
 			$this->lang_name = $uniadmin->config['default_lang'];
 		}
 
-
 		include($this->lang_path . $this->lang_name . '.php');
 
 		$this->lang = &$lang;
@@ -49,7 +48,7 @@ class User
 		return;
 	}
 
-	function create(&$data)
+	function create( &$data )
 	{
 		if( is_array($data) )
 		{
@@ -68,7 +67,7 @@ class User
 
 
 
-function GetUsername()
+function GetUsername( )
 {
 	if( isset($_COOKIE['UA']) )
 	{
@@ -81,7 +80,7 @@ function GetUsername()
 	}
 }
 
-function GetUserinfo($name='')
+function GetUserinfo( $name='' )
 {
 	global $dblink, $db;
 

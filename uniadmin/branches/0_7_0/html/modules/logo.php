@@ -11,7 +11,7 @@ $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 
 // Decide What To Do
-switch ($op)
+switch( $op )
 {
 	case UA_URI_PROCESS:
 		processUploadedLogo();
@@ -45,7 +45,7 @@ $db->close_db();
 /**
  * Main Display
  */
-function main()
+function main( )
 {
 	global $db, $uniadmin, $user;
 
@@ -61,44 +61,52 @@ function main()
 	$logo2['updated'] = '-';
 	$logo2['active_link'] = '-';
 
-	while ($row = $db->fetch_record($result))
+	while( $row = $db->fetch_record($result) )
 	{
-		switch ($row['logo_num'])
+		switch( $row['logo_num'] )
 		{
 			case '1':
 				$logo1['logo'] = ( empty($row['filename']) ? $logo1['logo'] : $logoDir.'/'.$row['filename'] );
 				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
-				if ( $row['active']=='1')
+				if( $row['active']=='1' )
+				{
 					$logo1['active_link'] = '<form name="ua_disablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
+				}
 				else
+				{
 					$logo1['active_link'] = '<form name="ua_enablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
+				}
 				break;
 
 			case '2':
 				$logo2['logo'] = ( empty($row['filename']) ? $logo2['logo'] : $logoDir.'/'.$row['filename'] );
 				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
-				if ( $row['active']=='1')
+				if( $row['active']=='1' )
+				{
 					$logo2['active_link'] = '<form name="ua_disablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
+				}
 				else
+				{
 					$logo2['active_link'] = '<form name="ua_enablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
+				}
 				break;
 
 			default:
@@ -189,7 +197,7 @@ function main()
 ';
 
 
-	EchoPage('
+	echoPage('
 <table class="uuTABLE" width="60%" align="center">
 	<tr>
 		<th class="tableHeader">'.sprintf($user->lang['logo_table'],1).'</th>
@@ -221,13 +229,13 @@ function main()
  * @param string $op
  * @param string $id
  */
-function toggleLogo($op,$id)
+function toggleLogo( $op , $id )
 {
 	global $db;
 
 	if( !empty($op) && !empty($id) )
 	{
-		switch ($_POST[UA_URI_OP])
+		switch( $op )
 		{
 			case UA_URI_DISABLE:
 				$sql = "UPDATE `".UA_TABLE_LOGOS."` SET `active` = '0' WHERE `id` = '$id';";
@@ -251,7 +259,7 @@ function toggleLogo($op,$id)
 /**
  * Process Uploaded Logo
  */
-function processUploadedLogo()
+function processUploadedLogo( )
 {
 	global $db, $uniadmin, $user;
 
@@ -284,7 +292,7 @@ function processUploadedLogo()
 		return;
 	}
 
-	if (substr_count(strtoupper($_FILES[$filefield]['name']),'GIF') > 0)
+	if( substr_count(strtoupper($_FILES[$filefield]['name']),'GIF') > 0 )
 	{
 		$LocalLocation = $logoFolder.DIR_SEP.stripslashes('logo'.$logoNum.'.gif');
 		@unlink($logoFolder.DIR_SEP.'logo'.$logoNum.'.gif');
@@ -320,6 +328,5 @@ function processUploadedLogo()
 		return;
 	}
 }
-
 
 ?>

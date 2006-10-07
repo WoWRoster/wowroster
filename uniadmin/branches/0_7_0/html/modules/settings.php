@@ -8,8 +8,10 @@ if( !defined('IN_UNIADMIN') )
 // Get Operation
 $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 
+$id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
+
 // Decide What To Do
-switch ($op)
+switch( $op )
 {
 	case UA_URI_PROCESS:
 		processUpdate();
@@ -20,7 +22,7 @@ switch ($op)
 		break;
 
 	case UA_URI_DELETE:
-		removeSv();
+		removeSv($id);
 		break;
 
 	default:
@@ -43,7 +45,7 @@ $db->close_db();
 /**
  * Main Display
  */
-function main()
+function main( )
 {
 	global $db, $uniadmin, $user;
 
@@ -78,6 +80,7 @@ function main()
 		}
 
 		$setname = $row['set_name'];
+		$setvalue = $row['set_value'];
 
 		$tdClass = 'data'.$uniadmin->switch_row_class();
 
@@ -92,11 +95,11 @@ function main()
 		$input_field = '';
 		$input_type = explode('{',$row['form_type']);
 
-		switch ($input_type[0])
+		switch( $input_type[0] )
 		{
 			case 'text':
 				$length = explode('|',$input_type[1]);
-				$input_field = '<input class="input" name="'.$row['set_name'].'" type="text" value="'.$row['set_value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+				$input_field = '<input class="input" name="'.$row['set_name'].'" type="text" value="'.$setvalue.'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 				break;
 
 			case 'radio':
@@ -104,7 +107,7 @@ function main()
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					$input_field .= '<label><input type="radio" name="'.$row['set_name'].'" value="'.$vals[1].'" '.( $row['set_value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+					$input_field .= '<label><input type="radio" name="'.$row['set_name'].'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
 				}
 				break;
 
@@ -115,7 +118,7 @@ function main()
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					if( $row['set_value'] == $vals[1] && $select_one )
+					if( $setvalue == $vals[1] && $select_one )
 					{
 						$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
 						$select_one = 0;
@@ -133,11 +136,11 @@ function main()
 				break;
 
 			case 'display':
-				$input_field = $row['set_value'];
+				$input_field = $setvalue;
 				break;
 
 			default:
-				$input_field = $row['set_value'];
+				$input_field = $setvalue;
 				break;
 		}
 
@@ -218,21 +221,21 @@ function main()
 	</form>
 ';
 
-	EchoPage($svTable.'<br />'.$form,$user->lang['title_settings']);
+	echoPage($svTable.'<br />'.$form,$user->lang['title_settings']);
 }
 
 /**
- * Porcess Settings Update
+ * Process Settings Update
  */
-function processUpdate()
+function processUpdate( )
 {
 	global $db, $user;
 
-	foreach ($_POST as $settingName => $settingValue)
+	foreach( $_POST as $settingName => $settingValue )
 	{
 		if( !( substr_count($settingName,'_en') >= 1 ) || $settingName != UA_URI_OP )
 		{
-			if ( isset($_POST[$settingName.'_en']) && $_POST[$settingName.'_en'] == '1')
+			if( isset($_POST[$settingName.'_en']) && $_POST[$settingName.'_en'] == '1')
 			{
 				$enabled = 1;
 			}
@@ -250,7 +253,7 @@ function processUpdate()
 /**
  * Adds a SV filename
  */
-function addSv()
+function addSv( )
 {
 	global $db, $user;
 
@@ -264,32 +267,20 @@ function addSv()
 
 /**
  * Removes a SV filename
+ *
+ * @param int $id
  */
-function removeSv()
+function removeSv( $id )
 {
 	global $db, $user;
 
-	$sql = "DELETE FROM `".UA_TABLE_SVLIST."` WHERE `id` = ".$db->escape($_POST[UA_URI_ID])." LIMIT 1;";
+	$sql = "DELETE FROM `".UA_TABLE_SVLIST."` WHERE `id` = ".$db->escape($id)." LIMIT 1;";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-		debug(sprintf($user->lang['sql_error_settings_sv_remove'],$_POST[UA_URI_ID]));
+		debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
 	}
 }
-
-
-
-
-
-/*
-	Functions to replace PHP's parse_ini_file() with much fewer restritions, and
-	a matching function to write to a .INI file, both of which are binary safe.
-
-	Version 1.0
-
-	Copyright (C) 2005 Justin Frim <phpcoder@cyberpimp.pimpdomain.com>
-*/
-
 
 /**
  * Read a settings.ini uploaded from UniUploader

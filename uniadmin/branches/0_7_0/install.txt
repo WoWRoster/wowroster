@@ -32,7 +32,7 @@ Table of Contents
 
 3 - Installation
 ================
-1. Create a new database (eg. UniAdmin)
+1. Create a new database (eg. uniadmin)
 2. Create the tables and populate with default settings by running \sql\uniadmin.sql against the database created in Step 1.
 3. Configure \html\config.php
 4. Upload the contents of the \html\ folder
@@ -106,20 +106,20 @@ Beta 0.7.0
 - Updated pclzip.lib from 2.3 to 2.5. zip handling should be faster/safer
 - Revamped Look and Feel of the interface
   - Made look across pages more consistent
-  - Changed printing of css.php to a link in html header
+  - Changed printing of style.css to a link in html header
+- UniUploader related images updated to version 2.5.0
 - Turned on php notices and fixed them
-- All pages are accessed by ?p= variable now through index.php
+- All pages are now accessed by ?p= GET variable through index.php
   - interface.php can still be accessed alone, because UU < v2.5 needs it this way
 - Added full localization
 - Added a database layer
 - Improved debug to include all SQL queries ran on each page and page rendertimes
 - Added common functions file
 - Added user object. Holds locale strings, user info, etc...
-- Added uniadmin object. Holds UA config info adn common functions
+- Added uniadmin object. Holds UA config info and some common functions
 - All UA configuration has moved to a config page
 - Settings page has been revamped with the same code from Roster's Config page
   - Each setting can have a specific form type
-
 
 
 Beta 0.6.1
@@ -159,6 +159,4 @@ Beta .31
 ===============
 To-do list for future versions of UA
 
-- Update all images
-- add settings.ini importer/exporter
 - modify cookies to include the IP address in the hash to help prevent cookie copy haxors

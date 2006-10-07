@@ -9,7 +9,7 @@ if( !defined('IN_UNIADMIN') )
 $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 
 // Decide What To Do
-switch ($op)
+switch( $op )
 {
 	case 'edit':
 		modifyUser();
@@ -49,7 +49,7 @@ $db->close_db();
 /**
  * Main Display
  */
-function main()
+function main( )
 {
 	global $db, $uniadmin, $user;
 
@@ -144,11 +144,11 @@ function main()
 
 	if ($user->data['level'] > UA_ID_USER)
 	{
-		EchoPage("$table<br />".addUserTable(),$user->lang['title_users']);
+		echoPage("$table<br />".addUserTable(),$user->lang['title_users']);
 	}
 	else
 	{
-		EchoPage($table,$user->lang['title_users']);
+		echoPage($table,$user->lang['title_users']);
 	}
 }
 
@@ -303,7 +303,7 @@ function modifyUser()
 	</table>
 </form>';
 
-	EchoPage($form,$user->lang['modify_user']);
+	echoPage($form,$user->lang['modify_user']);
 }
 
 /**
