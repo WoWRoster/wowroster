@@ -144,6 +144,45 @@ function message($messageString)
 }
 
 /**
+ * Unzips a zip file
+ *
+ * @param string $file
+ * @param string $path
+ * @param bool $mode
+ */
+function unzip( $file , $path )
+{
+	global $user;
+
+	require_once(UA_INCLUDEDIR.'pclzip.lib.php');
+
+	$archive = new PclZip($file);
+	$list = $archive->extract(PCLZIP_OPT_PATH, $path); //removed PCLZIP_OPT_REMOVE_ALL_PATH to preserve file structure
+	if ($list == 0)
+	{
+		$try_unlink = @unlink($file);
+		if( !$try_unlink )
+		{
+			debug(sprintf($user->lang['error_unlink'],$file));
+		}
+		debug( sprintf( $user->lang['error_pclzip'],$archive->errorInfo(true) ) );
+		die_ua();
+	}
+	unset($archive);
+}
+
+/**
+ * Figures out what the file's extention is
+ *
+ * @param string $filename
+ * @return string
+ */
+function getFileExtention( $filename )
+{
+	return strtolower(ltrim(strrchr($filename,'.'),'.'));
+}
+
+/**
  * Chops a string to the specified length
  *
  * @param string $string
@@ -159,6 +198,74 @@ function stringChop( $string , $desiredLength , $suffix )
 		return $string;
 	}
 	return $string;
+}
+
+/**
+ * Lists the contents of a directory
+ *
+ * @param string $dir
+ * @param array $array
+ * @return array
+ */
+function ls( $dir , $array )
+{
+	$handle = opendir($dir);
+	for(;(false !== ($readdir = readdir($handle)));)
+	{
+		if( $readdir != '.' && $readdir != '..' && $readdir != 'index.htm' && $readdir != 'index.html' && $readdir != '.svn' )
+		{
+			$path = $dir.DIR_SEP.$readdir;
+			if( is_dir($path) )
+			{
+				$array = ls($path, $array);
+			}
+			if( is_file($path) )
+			{
+				$array[count($array)] = $path;
+			}
+		}
+	}
+	closedir($handle);
+	return $array;
+}
+
+/**
+ * Removes a file or directory
+ *
+ * @param string $dir
+ * @return bool
+ */
+function rmdirr( $dir )
+{
+	if( is_dir($dir) && !is_link($dir) )
+	{
+		return ( cleardir($dir) ? rmdir($dir) : false );
+	}
+	return unlink($dir);
+}
+
+/**
+ * Clears a directory of files
+ *
+ * @param string $dir
+ * @return bool
+ */
+function cleardir( $dir )
+{
+	if( !($dir = dir($dir)) )
+	{
+		return false;
+	}
+	while( false !== $item = $dir->read() )
+	{
+		if( $item != '.' && $item != '..' && $item != '.svn' && $item != 'index.html' && $item != 'index.htm' && !rmdirr($dir->path . DIR_SEP . $item) )
+		{
+			$dir->close();
+			return false;
+		}
+	}
+	$dir->close();
+	return true;
 }
 
 ?>

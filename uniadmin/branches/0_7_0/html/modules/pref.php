@@ -90,7 +90,7 @@ function main( )
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					$input_field .= '<label><input type="radio" name="'.$setname.'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+					$input_field .= '<label><input type="radio" name="'.$setname.'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$user->lang[$vals[0]]."</label>\n";
 				}
 				break;
 

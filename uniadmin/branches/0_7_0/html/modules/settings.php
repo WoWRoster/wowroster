@@ -26,7 +26,7 @@ switch( $op )
 		break;
 
 	case UA_URI_UPINI:
-		//processIni();
+		processIni();
 		break;
 
 	case UA_URI_GETINI:
@@ -115,7 +115,7 @@ function main( )
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					$input_field .= '<label><input type="radio" name="'.$row['set_name'].'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+					$input_field .= '<label><input type="radio" name="'.$row['set_name'].'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$user->lang[$vals[0]]."</label>\n";
 				}
 				break;
 
@@ -323,6 +323,68 @@ function removeSv( $id )
 	{
 		debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
 	}
+}
+
+function processIni( )
+{
+	global $db, $uniadmin, $user;
+
+	$tempFilename = $_FILES['file']['tmp_name'];
+
+	if( !empty($tempFilename) )
+	{
+		if( $_FILES['file']['name'] != 'settings.ini' )
+		{
+			message($user->lang['error_ini_file']);
+			return;
+		}
+
+		$url = $uniadmin->url_path;
+		$fileName = str_replace(' ','_',$_FILES['file']['name']);
+
+		$iniFolder = UA_BASEDIR.$uniadmin->config['addon_folder'];
+
+		// Set Download URL
+		$downloadLocation = $url.$uniadmin->config['addon_folder'].'/'.$fileName;
+
+		// Name and location of the ini file
+		$inifile = $iniFolder.DIR_SEP.$fileName;
+
+		// Delete ini if it exists
+		@unlink($inifile);
+
+
+		// Try to move to the addon_temp directory
+		$try_move = move_uploaded_file($tempFilename,$inifile);
+		if( !$try_move )
+		{
+			debug(sprintf($user->lang['error_move_uploaded_file'],$tempFilename,$inifile));
+			return;
+		}
+
+		$iniData = readINIfile($inifile);
+
+		ob_start();
+		print_r($iniData);
+		$printthis = ob_get_clean();
+
+		message('<pre>'.$printthis.'</pre>');
+
+		// Delete ini if it exists
+		@unlink($inifile);
+	}
+	else // Nothing was uploaded
+	{
+		message($user->lang['error_no_ini_uploaded']);
+	}
+	return;
+}
+
+function getIni( )
+{
+	global $db, $uniadmin, $user;
+
+	return;
 }
 
 /**

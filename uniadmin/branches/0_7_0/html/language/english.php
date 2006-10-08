@@ -11,7 +11,7 @@ if( !defined('IN_UNIADMIN') )
 
 // <title> Titles
 $lang['title_help'] = 'Help';
-$lang['title_addons'] = 'Addons';
+$lang['title_addons'] = 'AddOns';
 $lang['title_logo'] = 'Logos';
 $lang['title_settings'] = 'Settings';
 $lang['title_stats'] = 'Statistics';
@@ -30,13 +30,13 @@ When you upload an addon to this system, and hit [Update] in UU, UU will look up
 and proceed to download any update(s) that are in any way different than the copy stored on the user\'s hard drive.<br />
 UU will then replace the addon with the new copy of the addon from this system.</p>'),
 
-	array(	'header' => 'Addons',
+	array(	'header' => 'AddOns',
 			'text'   => '
 <p>The uploaded addon must be in zip form only.<br />
 The zip file must have the following directory structure: [folder],{file}, and not literally &quot;addonName&quot; or &quot;addonfile&quot;<br />
-The Addon Name is the same as the name of the folder that the Addon\'s files are in</p>
+The AddOn Name is the same as the name of the folder that the AddOn\'s files are in</p>
 <pre>[Interface]
-     [Addons]
+     [AddOns]
           [addonName]
                {addonfile}
                {addonfile}
@@ -147,6 +147,8 @@ $lang['host_name'] = 'Host Name';
 // Submit Buttons
 $lang['login'] = 'Login';
 $lang['logout'] = 'Logout';
+$lang['on'] = 'On';
+$lang['off'] = 'Off';
 $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 $lang['add'] = 'Add';
@@ -162,7 +164,7 @@ $lang['upgrade'] = 'Upgrade';
 $lang['update_logo'] = 'Update Logo %1$d';
 $lang['update_settings'] = 'Update Settings';
 $lang['show'] = 'Show';
-$lang['add_update_addon'] = 'Add / Update Addon';
+$lang['add_update_addon'] = 'Add / Update AddOn';
 $lang['import'] = 'Import';
 $lang['export'] = 'Export';
 
@@ -190,9 +192,10 @@ $lang['modify_user'] = 'Modify User';
 $lang['current_users'] = 'Current Users';
 $lang['select_file'] = 'Select file';
 $lang['userlevel'] = 'User Level';
-$lang['addon_management'] = 'Addon Management';
-$lang['view_addons'] = 'View Addons';
-$lang['required_addon'] = 'Required Addon';
+$lang['addon_management'] = 'AddOn Management';
+$lang['addon_uploaded'] = '%1$s was uploaded successfully';
+$lang['view_addons'] = 'View AddOns';
+$lang['required_addon'] = 'Required AddOn';
 $lang['homepage'] = 'Homepage';
 $lang['logged_in_as'] = 'Logged in as [%1$s]';
 $lang['logo_table'] = 'Logo %1$d';
@@ -246,7 +249,7 @@ $lang['WINDOWMODE'] = 'Run WoW in window mode';
 // updater
 $lang['UUUPDATERCHECK'] = 'Check for UniUploader updates/upgrades';
 $lang['SYNCHROURL'] = 'URL for synchronization with UniAdmin';
-$lang['ADDONAUTOUPDATE'] = 'Addon auto-update';
+$lang['ADDONAUTOUPDATE'] = 'AddOn auto-update';
 $lang['UUSETTINGSUPDATER'] = 'Sync UniUploader settings with UniAdmin';
 
 // options
@@ -339,36 +342,40 @@ $lang['default_locale'] = 'Default Locale';
 // Error messages
 $lang['error'] = 'UniAdmin Error';
 $lang['error_invalid_login'] = 'You have provided an incorrect or invalid username or password';
-$lang['error_delete_addon'] = 'Delete Addon Error';
-$lang['error_enable_addon'] = 'Enable Addon Error';
-$lang['error_disable_addon'] = 'Disable Addon Error';
-$lang['error_require_addon'] = 'Require Addon Error';
-$lang['error_optional_addon'] = 'Optional Addon Error';
-$lang['error_no_addon_in_db'] = 'No Addons in Database';
-$lang['error_no_addon_uploaded'] = 'No Addon Uploaded';
+$lang['error_delete_addon'] = 'Delete AddOn Error';
+$lang['error_enable_addon'] = 'Enable AddOn Error';
+$lang['error_disable_addon'] = 'Disable AddOn Error';
+$lang['error_require_addon'] = 'Require AddOn Error';
+$lang['error_optional_addon'] = 'Optional AddOn Error';
+$lang['error_no_addon_in_db'] = 'No AddOns in Database';
+$lang['error_no_addon_uploaded'] = 'No AddOn Uploaded';
 $lang['error_no_files_addon'] = 'No files were detected in the uploaded AddOn';
 $lang['error_no_toc_file'] = 'No \'.toc\' file was detected in the uploaded AddOn';
-
 $lang['error_unzip'] = 'Zip Handling Error';
 $lang['error_pclzip'] = 'PCLZip Unrecoverable Error: [%1$s]';
-$lang['error_addon_process'] = 'Addon Processing Error';
+$lang['error_addon_process'] = 'AddOn Processing Error';
+$lang['error_zip_file'] = 'The uploaded addon <u>must</u> be a zip file';
+
+$lang['error_no_ini_uploaded'] = 'settings.ini file was not uploaded';
+$lang['error_ini_file'] = 'The uploaded file <u>must</u> be settings.ini from UniUploader';
+
 $lang['error_chmod'] = 'Could not chmod [%1$s]<br />chmod Manually and/or check file persmissions';
 $lang['error_mkdir'] = 'Could not mkdir [%1$s]<br />mkdir Manually and/or check file persmissions';
 $lang['error_unlink'] = 'Could not unlink(delete) [%1$s]<br />Delete Manually and/or check file persmissions';
 $lang['error_move_uploaded_file'] = 'Could not move [%1$s] to [%2$s]<br />Check php upload settings and file persmissions';
 
 $lang['error_no_uploaded_logo'] = 'No Logo Uploaded';
-$lang['error_logo_format'] = 'The Uploaded file MUST be a GIF IMAGE!';
+$lang['error_logo_format'] = 'The uploaded file <u>must</u> be a GIF image';
 
 
 // SQL Error Messages
 $lang['sql_error'] = 'SQL Error';
-$lang['sql_error_addons_list'] = 'Could not get Addons List';
-$lang['sql_error_addons_disable'] = 'Addon with ID:%1$d could not be disabled';
-$lang['sql_error_addons_enable'] = 'Addon with ID:%1$d could not be enabled';
-$lang['sql_error_addons_require'] = 'Addon with ID:%1$d could not be set to required';
-$lang['sql_error_addons_optional'] = 'Addon with ID:%1$d could not be set to optional';
-$lang['sql_error_addons_delete'] = 'Addon with ID:%1$d could not be deleted from the database<br />Remove Manually';
+$lang['sql_error_addons_list'] = 'Could not get AddOns List';
+$lang['sql_error_addons_disable'] = 'AddOn with ID:%1$d could not be disabled';
+$lang['sql_error_addons_enable'] = 'AddOn with ID:%1$d could not be enabled';
+$lang['sql_error_addons_require'] = 'AddOn with ID:%1$d could not be set to required';
+$lang['sql_error_addons_optional'] = 'AddOn with ID:%1$d could not be set to optional';
+$lang['sql_error_addons_delete'] = 'AddOn with ID:%1$d could not be deleted from the database<br />Remove Manually';
 $lang['sql_error_addons_insert'] = 'Could not insert main addon data';
 $lang['sql_error_addons_files_insert'] = 'Could not insert addon files\' data';
 

@@ -54,10 +54,10 @@ function main( )
 
 	$logoDir = $uniadmin->config['logo_folder'];
 
-	$logo1['logo'] = $logoDir.'/logo1_03.gif';
+	$logo1['logo'] = 'images/logo1_03.gif';
 	$logo1['updated'] = '-';
 	$logo1['active_link'] = '-';
-	$logo2['logo'] = $logoDir.'/logo2_03.gif';
+	$logo2['logo'] = 'images/logo2_03.gif';
 	$logo2['updated'] = '-';
 	$logo2['active_link'] = '-';
 
@@ -119,19 +119,19 @@ function main( )
 	$table1 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3">
-			<img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:56px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:62px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td rowspan="2">
-			<img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:281px;height:256px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:271px;height:239px;" alt="" /></td>
 		<td bgcolor="#e0dfe3">
-			<img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:201px;height:156px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:215px;height:144px;" alt="" /></td>
 		<td rowspan="2">
-			<img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:18px;height:256px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:14px;height:239px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td>
-			<img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:201px;height:100px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:215px;height:95px;" alt="" /></td>
 	</tr>
 </table>';
 
@@ -139,19 +139,19 @@ function main( )
 	$table2 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan=3>
-			<img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:73px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:70px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td rowspan=2>
-			<img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:153px;height:239px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:151px;height:231px;" alt="" /></td>
 		<td bgcolor="#e0dfe3">
-			<img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:316px;height:144px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:319px;height:175px;" alt="" /></td>
 		<td rowspan=2>
-			<img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:31px;height:239px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:31px;height:231px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td>
-			<img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:316px;height:95px;" alt="" /></td>
+			<img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:319px;height:56px;" alt="" /></td>
 	</tr>
 </table>';
 
@@ -212,7 +212,7 @@ function main( )
 <br />
 <table class="uuTABLE" width="60%" align="center">
 	<tr>
-		<th class="tableHeader">'.sprintf($user->lang['logo_table'],1).'</th>
+		<th class="tableHeader">'.sprintf($user->lang['logo_table'],2).'</th>
 	</tr>
 	<tr>
 		<td align="center">'.$table2.'</td>
@@ -292,7 +292,7 @@ function processUploadedLogo( )
 		return;
 	}
 
-	if( substr_count(strtoupper($_FILES[$filefield]['name']),'GIF') > 0 )
+	if( getFileExtention($_FILES[$filefield]['name']) == 'gif' )
 	{
 		$LocalLocation = $logoFolder.DIR_SEP.stripslashes('logo'.$logoNum.'.gif');
 		@unlink($logoFolder.DIR_SEP.'logo'.$logoNum.'.gif');
