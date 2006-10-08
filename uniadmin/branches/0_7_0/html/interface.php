@@ -7,26 +7,37 @@ include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 // Get Operation
 $op = ( isset($_REQUEST['OPERATION']) ? $_REQUEST['OPERATION'] : '' );
 
+// Determine what version of UU is accessing this
+$ua_compat_mode = false;
+$patterns = array();
+preg_match('|UniUploader 2.0 \\(UU ([0-9].[0-9].[0-9]);|',$user->user_agent,$patterns);
+
+if( isset($patterns[1]) && version_compare($patterns[1],'2.5.0','<') )
+{
+	$ua_compat_mode = true;
+}
+
+
 // Decide What To Do
 switch( $op )
 {
 	case 'GETADDON':
-		addStat();
-		outputUrl();
+		addStat($op);
+		outputUrl($_REQUEST['ADDON']);
 		break;
 
 	case 'GETADDONLIST':
-		addStat();
+		addStat($op);
 		outputXml();
 		break;
 
 	case 'GETSETTINGS':
-		addStat();
+		addStat($op);
 		outputSettings();
 		break;
 
 	case 'GETUAVER':
-		addStat();
+		addStat($op);
 		echo $uniadmin->config['UAVer'];
 		break;
 
@@ -35,8 +46,8 @@ switch( $op )
 		break;
 
 	default:
-		$op = 'TEST';
-		addStat();
+		$op = 'VIEW';
+		addStat($op);
 		echo $user->lang['interface_ready'];
 		break;
 }
@@ -76,7 +87,18 @@ function outputLogoMd5( $filename )
  */
 function outputSettings( )
 {
-	global $db;
+	global $db, $ua_compat_mode;
+
+	if( $ua_compat_mode )
+	{
+		$eq_sep = '=';
+		$pipe_sep = '|';
+	}
+	else
+	{
+		$eq_sep = '[=]';
+		$pipe_sep = '[|]';
+	}
 
 	// logos
 	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `active` = '1';";
@@ -85,7 +107,7 @@ function outputSettings( )
 	{
 		while( $row = $db->fetch_record($result) )
 		{
-			echo 'LOGO'.$row['logo_num'].'[=]'.$row['download_url'].'[|]';
+			echo 'LOGO'.$row['logo_num'].$eq_sep.$row['download_url'].$pipe_sep;
 		}
 	}
 	$db->free_result($result);
@@ -97,7 +119,7 @@ function outputSettings( )
 	{
 		while( $row = $db->fetch_record($result) )
 		{
-			echo $row['set_name'].'[=]'.$row['set_value'].'[|]';
+			echo $row['set_name'].$eq_sep.$row['set_value'].$pipe_sep;
 		}
 	}
 	$db->free_result($result);
@@ -107,7 +129,7 @@ function outputSettings( )
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
-		echo 'SVLIST[=]';
+		echo 'SVLIST'.$eq_sep;
 		while( $row = $db->fetch_record($result) )
 		{
 			echo $row['sv_name'].':';
@@ -119,17 +141,15 @@ function outputSettings( )
 /**
  * Adds viewer's stats for the UniAdmin stats page
  */
-function addStat( )
+function addStat( $op )
 {
-	global $db, $op;
+	global $db, $user;
 
 	$action = ( isset($_REQUEST['ADDON']) ? $op.' - '.$_REQUEST['ADDON'] : $op );
-	$remote_address = ( isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '' );
-	$remote_host = gethostbyaddr($remote_address);
-	$user_agent = ( isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '' );
+	$remote_host = gethostbyaddr($user->ip_address);
 
 	$sql = "INSERT INTO `".UA_TABLE_STATS."` ( `ip_addr` , `host_name` , `action` , `time` , `user_agent` ) VALUES
-		( '".$db->escape($remote_address)."', '".$db->escape($remote_host)."', '".$db->escape($action)."', '".time()."', '".$db->escape($user_agent)."' );";
+		( '".$db->escape($user->ip_address)."', '".$db->escape($remote_host)."', '".$db->escape($action)."', '".time()."', '".$db->escape($user->user_agent)."' );";
 	$db->query($sql);
 }
 
@@ -138,11 +158,19 @@ function addStat( )
  */
 function outputXml( )
 {
-	global $db;
+	global $db, $ua_compat_mode;
 
 	$xml = '<addons>';
 
-	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `enabled` = '1';";
+	// Don't get optional addons is UU is lower than 2.5.0
+	if( $ua_compat_mode )
+	{
+		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `enabled` = '1' AND `required` = '1';";
+	}
+	else
+	{
+		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `enabled` = '1';";
+	}
 	$result = $db->query($sql);
 
 	if( $db->num_rows($result) > 0 )
@@ -187,11 +215,9 @@ function outputXml( )
 /**
  * Echos an addon's download URL
  */
-function outputUrl( )
+function outputUrl( $addonName )
 {
 	global $db;
-
-	$addonName = $_REQUEST['ADDON'];
 
 	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addonName)."';";
 	$result = $db->query($sql);

@@ -11,6 +11,20 @@ if ( get_magic_quotes_gpc() == 0 )
     $_COOKIE = slash_global_data($_COOKIE);
 }
 
+//---[ Update File Downloader ]-----------------------------
+if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['data']) )
+{
+	$file = $_POST['data'];
+
+	header('Content-Type: text/x-delimtext; name="'.$_POST['send_file'].'"');
+	header('Content-disposition: attachment; filename="'.$_POST['send_file'].'"');
+
+	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
+	echo stripslashes($file);
+
+	exit;
+}
+
 if( !defined('DIR_SEP') )
 {
 	define('DIR_SEP',DIRECTORY_SEPARATOR);

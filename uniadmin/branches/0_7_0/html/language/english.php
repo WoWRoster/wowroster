@@ -258,10 +258,10 @@ $lang['ALWAYSONTOP'] = 'Set UniUploader always on top';
 $lang['SYSTRAY'] = 'Display UniUploader in the system tray';
 $lang['USERAGENT'] = 'The User-Agent UU will use';
 $lang['ADDVAR1CH'] = 'Additional variable 1';
-$lang['ADDVARNAME1'] = 'Additional variable 1 (default-&gt;username) name';
+$lang['ADDVARNAME1'] = 'Additional variable 1 name (default-&gt;username)';
 $lang['ADDVARVAL1'] = 'Additional variable 1 value';
 $lang['ADDVAR2CH'] = 'Additional variable 2';
-$lang['ADDVARNAME2'] = 'Additional variable 2 (default-&gt;password) name';
+$lang['ADDVARNAME2'] = 'Additional variable 2 name (default-&gt;password)';
 $lang['ADDVARVAL2'] = 'Additional variable 2 value';
 $lang['ADDVAR3CH'] = 'Additional variable 3';
 $lang['ADDVARNAME3'] = 'Additional variable 3 name';
@@ -288,12 +288,12 @@ $lang['SENDPWSECURE'] = 'MD5 encrypt variable 2 value (password field) before se
 $lang['GZIP'] = 'gZip compression';
 $lang['DELAYUPLOAD'] = 'Upload delay';
 $lang['DELAYSECONDS'] = 'Upload delay seconds';
-$lang['RETRDATAFROMSITE'] = 'Web=&gt;WoW - Retrieve data';
-$lang['RETRDATAURL'] = 'Web=&gt;WoW - Data retrieval URL';
-$lang['WEBWOWSVFILE'] = 'Web=&gt;WoW - Write to SavedVariable filename';
-$lang['DOWNLOADBEFOREWOWL'] = 'Web=&gt;WoW - Initiate Before UU Launches WoW';
-$lang['DOWNLOADBEFOREUPLOAD'] = 'Web=&gt;WoW - Initiate Before UU Uploads';
-$lang['DOWNLOADAFTERUPLOAD'] = 'Web=&gt;WoW - Initiate After UU Uploads';
+$lang['RETRDATAFROMSITE'] = 'Web==&gt;WoW - Retrieve data';
+$lang['RETRDATAURL'] = 'Web==&gt;WoW - Data retrieval URL';
+$lang['WEBWOWSVFILE'] = 'Web==&gt;WoW - Write to SavedVariable filename';
+$lang['DOWNLOADBEFOREWOWL'] = 'Web==&gt;WoW - Initiate Before UU Launches WoW';
+$lang['DOWNLOADBEFOREUPLOAD'] = 'Web==&gt;WoW - Initiate Before UU Uploads';
+$lang['DOWNLOADAFTERUPLOAD'] = 'Web==&gt;WoW - Initiate After UU Uploads';
 
 // unknown
 $lang['SYNCHROAUTOURL'] = '(UU 1.x) Synchronization Auto-URL';

@@ -118,40 +118,30 @@ function main( )
 
 	$table1 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan="3">
-			<img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:62px;" alt="" /></td>
+		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:62px;" alt="" /></td>
 	</tr>
 	<tr>
-		<td rowspan="2">
-			<img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:271px;height:239px;" alt="" /></td>
-		<td bgcolor="#e0dfe3">
-			<img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:215px;height:144px;" alt="" /></td>
-		<td rowspan="2">
-			<img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:14px;height:239px;" alt="" /></td>
+		<td><img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:271px;height:144px;" alt="" /></td>
+		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:215px;height:144px;" alt="" /></td>
+		<td><img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:14px;height:144px;" alt="" /></td>
 	</tr>
 	<tr>
-		<td>
-			<img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:215px;height:95px;" alt="" /></td>
+		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:500px;height:95px;" alt="" /></td>
 	</tr>
 </table>';
 
 
 	$table2 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan=3>
-			<img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:70px;" alt="" /></td>
+		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:70px;" alt="" /></td>
 	</tr>
 	<tr>
-		<td rowspan=2>
-			<img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:151px;height:231px;" alt="" /></td>
-		<td bgcolor="#e0dfe3">
-			<img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:319px;height:175px;" alt="" /></td>
-		<td rowspan=2>
-			<img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:31px;height:231px;" alt="" /></td>
+		<td><img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:151px;height:175px;" alt="" /></td>
+		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:319px;height:175px;" alt="" /></td>
+		<td><img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:30px;height:175px;" alt="" /></td>
 	</tr>
 	<tr>
-		<td>
-			<img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:319px;height:56px;" alt="" /></td>
+		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:500px;height:56px;" alt="" /></td>
 	</tr>
 </table>';
 
@@ -164,12 +154,13 @@ function main( )
 				<th class="dataHeader">'.$user->lang['enabled'].'</th>
 			</tr>
 			<tr>
-				<td class="data1" align="center"><form name="ua_uploadlogo1" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-					'.$user->lang['select_file'].':
-					<input class="file" type="file" name="logo1" />
-					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],1).'" />
-					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
-					</form></td>
+				<td class="data1" align="center">'.$user->lang['select_file'].':
+					<form name="ua_uploadlogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+						<input class="file" type="file" name="logo1" />
+						<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],1).'" />
+						<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
+					</form>
+				</td>
 				<td class="data1">'.$logo1['updated'].'</td>
 				<td class="data1">'.$logo1['active_link'].'</td>
 			</tr>
@@ -184,12 +175,13 @@ function main( )
 				<th class="dataHeader">'.$user->lang['enabled'].'</th>
 			</tr>
 			<tr>
-				<td class="data1" align="center"><form name="ua_uploadlogo2" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-					'.$user->lang['select_file'].':
-					<input class="file" type="file" name="logo2" />
-					<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],2).'" />
-					<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
-					</form></td>
+				<td class="data1" align="center">'.$user->lang['select_file'].':
+					<form name="ua_uploadlogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+						<input class="file" type="file" name="logo2" />
+						<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],2).'" />
+						<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
+					</form>
+				</td>
 				<td class="data1">'.$logo2['updated'].'</td>
 				<td class="data1">'.$logo2['active_link'].'</td>
 			</tr>

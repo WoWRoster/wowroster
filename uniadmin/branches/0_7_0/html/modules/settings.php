@@ -18,7 +18,7 @@ switch( $op )
 		break;
 
 	case UA_URI_ADD:
-		addSv();
+		addSv($_POST[UA_URI_SVNAME]);
 		break;
 
 	case UA_URI_DELETE:
@@ -62,20 +62,20 @@ function main( )
 
 	$form = '
 <form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-<table class="uuTABLE" align="center">
-	<tr>
-		<th colspan="4" class="tableHeader">'.$user->lang['uniuploader_sync_settings'].'</th>
-	</tr>';
+	<table class="uuTABLE" align="center">
+		<tr>
+			<th colspan="4" class="tableHeader">'.$user->lang['uniuploader_sync_settings'].'</th>
+		</tr>';
 
 	$sectionheader = '
-	<tr>
-		<th colspan="4" class="dataHeader">[%s]</th>
-	</tr>
-	<tr>
-		<td class="dataHeader">'.$user->lang['setting_name'].'</td>
-		<td class="dataHeader">'.$user->lang['value'].'</td>
-		<td class="dataHeader">'.$user->lang['enabled'].'</td>
-	</tr>';
+		<tr>
+			<th colspan="4" class="dataHeader">[%s]</th>
+		</tr>
+		<tr>
+			<td class="dataHeader">'.$user->lang['setting_name'].'</td>
+			<td class="dataHeader">'.$user->lang['value'].'</td>
+			<td class="dataHeader">'.$user->lang['enabled'].'</td>
+		</tr>';
 
 	$section = '';
 
@@ -93,10 +93,10 @@ function main( )
 		$tdClass = 'data'.$uniadmin->switch_row_class();
 
 		$form .= '
-	<tr>
-		<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang[$setname].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$setname.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
-			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
-		<td class="'.$tdClass.'">';
+		<tr>
+			<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang[$setname].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$setname.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
+				<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
+			<td class="'.$tdClass.'">';
 
 
 		// Figure out input type
@@ -128,12 +128,12 @@ function main( )
 					$vals = explode('^',$value);
 					if( $setvalue == $vals[1] && $select_one )
 					{
-						$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
+						$input_field .= '	<option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
 						$select_one = 0;
 					}
 					else
 					{
-						$input_field .= '  <option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
+						$input_field .= '	<option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
 					}
 				}
 				$input_field .= '</select>';
@@ -156,20 +156,20 @@ function main( )
 
 		if ($row['enabled'] == '1')
 		{
-			$form .= '		<td class="'.$tdClass.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" checked="checked" /></td>'."\n";
+			$form .= '			<td class="'.$tdClass.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" checked="checked" /></td>'."\n";
 		}
 		else
 		{
-			$form .= '		<td class="'.$tdClass.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" /></td>'."\n";
+			$form .= '			<td class="'.$tdClass.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" /></td>'."\n";
 		}
-		$form .= '	</tr>'."\n";
+		$form .= '		</tr>'."\n";
 	}
 
-	$form .= '	<tr>
-		<td class="dataHeader" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
-			<input class="submit" type="submit" value="'.$user->lang['update_settings'].'" /></td>
-	</tr>
-</table>
+	$form .= '		<tr>
+			<td class="dataHeader" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
+				<input class="submit" type="submit" value="'.$user->lang['update_settings'].'" /></td>
+		</tr>
+	</table>
 </form>';
 
 	// Build the SV list table
@@ -209,14 +209,14 @@ function main( )
 
 
 	$svTable .= '
-	</table>
+</table>
 
-	<br />';
+<br />';
 
 	if( $user->data['level'] >= UA_ID_POWER )
 	{
 		$svTable .= '
-	<form name="ua_addsv" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+<form name="ua_addsv" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<table class="uuTABLE" width="40%" align="center">
 		<tr>
 			<th colspan="2" class="tableHeader">'.$user->lang['add_svfiles'].'</th>
@@ -231,36 +231,39 @@ function main( )
 		</tr>
 	</table>
 	<input type="hidden" value="'.UA_URI_ADD.'" name="'.UA_URI_OP.'" />
-	</form>
+</form>
 ';
 	}
 
 	if( $user->data['level'] == UA_ID_ADMIN )
 	{
 		$svTable .= '
-	<br />
+<br />
 
-	<table class="uuTABLE" align="center">
-		<tr>
-			<th colspan="2" class="tableHeader">'.$user->lang['settings_file'].'</th>
-		</tr>
-		<tr>
-			<td class="data1">'.$user->lang['import_file'].':</td>
-			<td class="data1"><form name="ua_uploadini" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+<table class="uuTABLE" align="center">
+	<tr>
+		<th colspan="2" class="tableHeader">'.$user->lang['settings_file'].'</th>
+	</tr>
+	<tr>
+		<td class="data1">'.$user->lang['import_file'].':</td>
+		<td class="data1">
+			<form name="ua_uploadini" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input class="file" type="file" name="file" />
 				<input type="hidden" value="'.UA_URI_UPINI.'" name="'.UA_URI_OP.'" />
 				<input class="submit" type="submit" value="'.$user->lang['import'].'" />
-				</form></td>
-		</tr>
-		<tr>
-			<td class="data2">'.$user->lang['export_file'].':</td>
-			<td class="data2"><form name="ua_getini" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td class="data2">'.$user->lang['export_file'].':</td>
+		<td class="data2">
+			<form name="ua_getini" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" value="'.UA_URI_GETINI.'" name="'.UA_URI_OP.'" />
 				<input class="submit" type="submit" value="'.$user->lang['export'].'" />
-				</td>
-		</tr>
-	</table>
-	</form>
+			</form>
+		</td>
+	</tr>
+</table>
 ';
 	}
 
@@ -296,15 +299,18 @@ function processUpdate( )
 /**
  * Adds a SV filename
  */
-function addSv( )
+function addSv( $svname )
 {
 	global $db, $user;
 
-	$sql = "INSERT INTO `".UA_TABLE_SVLIST."` ( `sv_name` ) VALUES ( '".$db->escape($_POST[UA_URI_SVNAME])."' );";
-	$db->query($sql);
-	if( !$db->affected_rows() )
+	if( !empty($svname) )
 	{
-		debug(sprintf($user->lang['sql_error_settings_sv_insert'],$_POST[UA_URI_SVNAME]));
+		$sql = "INSERT INTO `".UA_TABLE_SVLIST."` ( `sv_name` ) VALUES ( '".$db->escape($svname)."' );";
+		$db->query($sql);
+		if( !$db->affected_rows() )
+		{
+			debug(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
+		}
 	}
 }
 
