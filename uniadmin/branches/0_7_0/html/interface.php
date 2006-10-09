@@ -22,32 +22,32 @@ if( isset($patterns[1]) && version_compare($patterns[1],'2.5.0','<') )
 switch( $op )
 {
 	case 'GETADDON':
-		addStat($op);
-		outputUrl($_REQUEST['ADDON']);
+		add_stat($op);
+		output_url($_REQUEST['ADDON']);
 		break;
 
 	case 'GETADDONLIST':
-		addStat($op);
-		outputXml();
+		add_stat($op);
+		output_xml();
 		break;
 
 	case 'GETSETTINGS':
-		addStat($op);
-		outputSettings();
+		add_stat($op);
+		output_settings();
 		break;
 
 	case 'GETUAVER':
-		addStat($op);
+		add_stat($op);
 		echo $uniadmin->config['UAVer'];
 		break;
 
 	case 'GETFILEMD5':
-		outputLogoMd5($_REQUEST['FILENAME']);
+		output_logo_md5($_REQUEST['FILENAME']);
 		break;
 
 	default:
 		$op = 'VIEW';
-		addStat($op);
+		add_stat($op);
 		echo $user->lang['interface_ready'];
 		break;
 }
@@ -68,7 +68,7 @@ $db->close_db();
  *
  * @param string $filename
  */
-function outputLogoMd5( $filename )
+function output_logo_md5( $filename )
 {
 	global $db;
 
@@ -85,7 +85,7 @@ function outputLogoMd5( $filename )
 /**
  * Echo's all of UniAdmin's settings for UniUploader
  */
-function outputSettings( )
+function output_settings( )
 {
 	global $db, $ua_compat_mode;
 
@@ -141,7 +141,7 @@ function outputSettings( )
 /**
  * Adds viewer's stats for the UniAdmin stats page
  */
-function addStat( $op )
+function add_stat( $op )
 {
 	global $db, $user;
 
@@ -156,7 +156,7 @@ function addStat( $op )
 /**
  * Echos XML for the addons UniAdmin provides
  */
-function outputXml( )
+function output_xml( )
 {
 	global $db, $ua_compat_mode;
 
@@ -215,7 +215,7 @@ function outputXml( )
 /**
  * Echos an addon's download URL
  */
-function outputUrl( $addonName )
+function output_url( $addonName )
 {
 	global $db;
 

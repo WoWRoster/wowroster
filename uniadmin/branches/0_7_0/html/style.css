@@ -73,11 +73,11 @@ img {
 	padding:2px 4px;
 }
 
-.uuTABLE {
+.ua_table {
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
 }
-.debugHeader {
+.debug_header {
 	color:#000;
 	border:1px solid #B32400;
 	background-color:#FFCCBF;
@@ -87,7 +87,7 @@ img {
 	width:500px;
 	padding:0px;
 }
-.dataHeader {
+.data_header {
 	background-color:#BFE4FF;
 	font-size:11px;
 	font-weight:bold;
@@ -100,13 +100,13 @@ img {
 	background-color:#EDEDFF;
 	font-size:11px;
 }
-.tableHeader {
+.table_header {
 	background-color:#0066B3;
 	color:#FFF;
 	font-size:16px;
 	font-weight:bold;
 }
-.statsFooter {
+.stats_footer {
 	background-color:#BFE4FF;
 	font-size:12px;
 }

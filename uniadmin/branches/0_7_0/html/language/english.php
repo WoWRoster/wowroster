@@ -199,6 +199,7 @@ $lang['required_addon'] = 'Required AddOn';
 $lang['homepage'] = 'Homepage';
 $lang['logged_in_as'] = 'Logged in as [%1$s]';
 $lang['logo_table'] = 'Logo %1$d';
+$lang['logo_uploaded'] = 'Logo %1$d was uploaded successfully';
 $lang['uniuploader_sync_settings'] = 'UniUploader Sync Settings';
 $lang['uniadmin_config_settings'] = 'UniAdmin Config Settings';
 $lang['manage_svfiles'] = 'Manage SavedVariable Files';

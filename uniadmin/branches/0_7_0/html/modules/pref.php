@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 if( $user->data['level'] < UA_ID_ADMIN )
 {
-	echoPage($user->lang['access_denied'],$user->lang['access_denied']);
+	display_page($user->lang['access_denied'],$user->lang['access_denied']);
 	exit();
 }
 
@@ -18,7 +18,7 @@ $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 switch( $op )
 {
 	case UA_URI_PROCESS:
-		processUpdate();
+		process_update();
 		break;
 
 	default:
@@ -50,13 +50,13 @@ function main( )
 
 	$form = '
 <form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-<table class="uuTABLE" align="center">
+<table class="ua_table" align="center">
 	<tr>
-		<th colspan="4" class="tableHeader">'.$user->lang['uniadmin_config_settings'].'</th>
+		<th colspan="4" class="table_header">'.$user->lang['uniadmin_config_settings'].'</th>
 	</tr>
 	<tr>
-		<td class="dataHeader">'.$user->lang['setting_name'].'</td>
-		<td class="dataHeader">'.$user->lang['value'].'</td>
+		<td class="data_header">'.$user->lang['setting_name'].'</td>
+		<td class="data_header">'.$user->lang['value'].'</td>
 	</tr>';
 
 
@@ -65,13 +65,13 @@ function main( )
 		$setname = $row['config_name'];
 		$setvalue = $row['config_value'];
 
-		$tdClass = 'data'.$uniadmin->switch_row_class();
+		$td_class = 'data'.$uniadmin->switch_row_class();
 
 		$form .= '
 	<tr>
-		<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang['admin'][$setname].'\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
+		<td class="'.$td_class.'" onmouseover="return overlib(\''.$user->lang['admin'][$setname].'\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
 			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
-		<td class="'.$tdClass.'">';
+		<td class="'.$td_class.'">';
 
 
 		// Figure out input type
@@ -133,19 +133,19 @@ function main( )
 	}
 
 	$form .= '	<tr>
-		<td class="dataHeader" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
+		<td class="data_header" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
 			<input class="submit" type="submit" value="'.$user->lang['update_settings'].'" /></td>
 	</tr>
 </table>
 </form>';
 
-	echoPage($form,$user->lang['title_config']);
+	display_page($form,$user->lang['title_config']);
 }
 
 /**
  * Process Config Update
  */
-function processUpdate( )
+function process_update( )
 {
 	global $uniadmin;
 

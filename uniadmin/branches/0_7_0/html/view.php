@@ -17,20 +17,20 @@ function main()
 
 	if( $db->num_rows($result) > 0 )
 	{
-		$AddonPanel = '
-		<table class="uuTABLE" align="center">
+		$addon_panel = '
+		<table class="ua_table" align="center">
 			<tr>
-				<th class="tableHeader" colspan="10">'.$user->lang['view_addons'].'</th>
+				<th class="table_header" colspan="10">'.$user->lang['view_addons'].'</th>
 			</tr>
 			<tr>
-				<td class="dataHeader">'.$user->lang['name'].'</td>
-				<td class="dataHeader">'.$user->lang['toc'].'</td>
-				<td class="dataHeader">'.$user->lang['required'].'</td>
-				<td class="dataHeader">'.$user->lang['version'].'</td>
-				<td class="dataHeader">'.$user->lang['uploaded'].'</td>
-				<td class="dataHeader">'.$user->lang['enabled'].'</td>
-				<td class="dataHeader">'.$user->lang['files'].'</td>
-				<td class="dataHeader">'.$user->lang['url'].'</td>
+				<td class="data_header">'.$user->lang['name'].'</td>
+				<td class="data_header">'.$user->lang['toc'].'</td>
+				<td class="data_header">'.$user->lang['required'].'</td>
+				<td class="data_header">'.$user->lang['version'].'</td>
+				<td class="data_header">'.$user->lang['uploaded'].'</td>
+				<td class="data_header">'.$user->lang['enabled'].'</td>
+				<td class="data_header">'.$user->lang['files'].'</td>
+				<td class="data_header">'.$user->lang['url'].'</td>
 			</tr>';
 
 		while ($row = mysql_fetch_assoc($result))
@@ -40,20 +40,20 @@ function main()
 			$numFiles = $db->num_rows($result2);
 			$db->free_result($result2);
 
-			$AddonName = $row['name'];
+			$addon_name = $row['name'];
 			$homepage = $row['homepage'];
 			$version = $row['version'];
 			$time = date($user->lang['time_format'],$row['time_uploaded']);
 			$url = $row['dl_url'];
-			$addonID = $row['id'];
+			$addon_id = $row['id'];
 
 			if ($row['enabled'] == '1')
 			{
-				$enabled = "<span style='color:green;font-weight:bold;'>yes</span>";
+				$enabled = '<span style="color:green;font-weight:bold;">'.$user->lang['yes'].'</span>';
 			}
 			else
 			{
-				$enabled="<span style='color:red;font-weight:bold;'>no</span>";
+				$enabled = '<span style="color:red;font-weight:bold;">'.$user->lang['no'].'</span>';
 			}
 			if ($row['homepage'] == '')
 			{
@@ -62,44 +62,44 @@ function main()
 
 			if ($row['required'] == 1)
 			{
-				$required = '<span style="color:red;font-weight:bold;">yes</span>';
+				$required = '<span style="color:red;font-weight:bold;">'.$user->lang['yes'].'</span>';
 			}
 			else
 			{
-				$required = '<span style="color:green;font-weight:bold;">no</span>';
+				$required = '<span style="color:green;font-weight:bold;">'.$user->lang['no'].'</span>';
 			}
 
 			$toc = $row['toc'];
 
-			$tdClass = 'data'.$uniadmin->switch_row_class();
+			$td_class = 'data'.$uniadmin->switch_row_class();
 
-			$AddonPanel .= '
+			$addon_panel .= '
 		<tr>
-			<td class="'.$tdClass.'"><a href="'.$homepage.'" target="_blank">'.$AddonName.'</a></td>
-			<td class="'.$tdClass.'">'.$toc.'</td>
-			<td class="'.$tdClass.'">'.$required.'</td>
-			<td class="'.$tdClass.'">'.$version.'</td>
-			<td class="'.$tdClass.'">'.$time.'</td>
-			<td class="'.$tdClass.'">'.$enabled.'</td>
-			<td class="'.$tdClass.'">'.$numFiles.'</td>
-			<td class="'.$tdClass.'"><a href="'.$url.'">Check</a></td>
+			<td class="'.$td_class.'"><a href="'.$homepage.'" target="_blank">'.$addon_name.'</a></td>
+			<td class="'.$td_class.'">'.$toc.'</td>
+			<td class="'.$td_class.'">'.$required.'</td>
+			<td class="'.$td_class.'">'.$version.'</td>
+			<td class="'.$td_class.'">'.$time.'</td>
+			<td class="'.$td_class.'">'.$enabled.'</td>
+			<td class="'.$td_class.'">'.$numFiles.'</td>
+			<td class="'.$td_class.'"><a href="'.$url.'">'.$user->lang['check'].'</a></td>
 		</tr>
 ';
 		}
 	}
 	else
 	{
-		$AddonPanel = '
-		<table class="uuTABLE" align="center">
+		$addon_panel = '
+		<table class="ua_table" align="center">
 			<tr>
-				<th class="tableHeader">'.$user->lang['view_addons'].'</th>
+				<th class="table_header">'.$user->lang['view_addons'].'</th>
 			</tr>
 			<tr>
-				<th class="dataHeader">'.$user->lang['error_no_addon_in_db'].'</th>
+				<th class="data_header">'.$user->lang['error_no_addon_in_db'].'</th>
 			</tr>';
 	}
 
-	$AddonPanel .= "</table>\n<br />\n";
+	$addon_panel .= "</table>\n<br />\n";
 
 	$db->free_result($result);
 
@@ -119,16 +119,16 @@ function main()
 	if( $db->num_rows($result) > 0 )
 	{
 		$logo = '
-<table class="uuTABLE" align="center">
+<table class="ua_table" align="center">
 	<tr>
-		<th colspan="4" class="tableHeader">'.$user->lang['title_logo'].'</th>
+		<th colspan="4" class="table_header">'.$user->lang['title_logo'].'</th>
 	</tr>
 	<tr>';
 
 		while ($row = $db->fetch_record($result))
 		{
 			$logo .= '
-		<td class="dataHeader">'.sprintf($user->lang['logo_table'],$row['logo_num']).'</td>
+		<td class="data_header">'.sprintf($user->lang['logo_table'],$row['logo_num']).'</td>
 		<td class="data2"><img src="'.$row['download_url'].'" alt="'.sprintf($user->lang['logo_table'],$row['logo_num']).'" /></td>
 ';
 		}
@@ -145,12 +145,12 @@ function main()
 	if( $db->num_rows($result) > 0 )
 	{
 		$svlist = '
-<table class="uuTABLE" align="center">
+<table class="ua_table" align="center">
 	<tr>
-		<th colspan="2" class="tableHeader">'.$user->lang['svfiles'].'</th>
+		<th colspan="2" class="table_header">'.$user->lang['svfiles'].'</th>
 	</tr>
 	<tr>
-		<td class="dataHeader">'.$user->lang['files'].'</td>
+		<td class="data_header">'.$user->lang['files'].'</td>
 		<td class="data2">';
 		while ($row = $db->fetch_record($result))
 		{
@@ -169,26 +169,26 @@ function main()
 	if( $db->num_rows($result) > 0 )
 	{
 		$settings = '
-<table class="uuTABLE" align="center">
+<table class="ua_table" align="center">
 	<tr>
-		<th colspan="2" class="tableHeader">'.$user->lang['uniuploader_sync_settings'].'</th>
+		<th colspan="2" class="table_header">'.$user->lang['uniuploader_sync_settings'].'</th>
 	</tr>';
 
 		$settings .= '
 	<tr>
-		<td class="dataHeader">'.$user->lang['setting_name'].'</td>
-		<td class="dataHeader">'.$user->lang['value'].'</td>
+		<td class="data_header">'.$user->lang['setting_name'].'</td>
+		<td class="data_header">'.$user->lang['value'].'</td>
 	</tr>';
 
 		while ($row = $db->fetch_record($result))
 		{
-			$tdClass = 'data'.$uniadmin->switch_row_class(true);
+			$td_class = 'data'.$uniadmin->switch_row_class(true);
 
 			$settings .= '
 	<tr>
-		<td class="'.$tdClass.'" onmouseover="return overlib(\''.$user->lang[$row['set_name']].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$row['set_name'].'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$row['set_name'].'\',VAUTO);" onmouseout="return nd();">
+		<td class="'.$td_class.'" onmouseover="return overlib(\''.$user->lang[$row['set_name']].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$row['set_name'].'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$row['set_name'].'\',VAUTO);" onmouseout="return nd();">
 			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$row['set_name'].'</td>
-		<td class="'.$tdClass.'">';
+		<td class="'.$td_class.'">';
 
 
 		// Figure out input type
@@ -230,7 +230,7 @@ function main()
 	$db->free_result($result);
 
 
-	echoPage($AddonPanel.$logo.$svlist.$settings,$user->lang['view_addons']);
+	display_page($addon_panel.$logo.$svlist.$settings,$user->lang['view_addons']);
 }
 
 ?>

@@ -5,7 +5,7 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-$loginForm = '
+$login_form = '
 <br />
 <form class="ua_loginbox" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<fieldset>
@@ -23,7 +23,7 @@ $loginForm = '
 if( isset($_POST['ua_logout']) )
 {
 	setcookie('UA','',time()-86400);
-	echoPage('',$user->lang['title_login']);
+	display_page('',$user->lang['title_login']);
 	die('');
 }
 else
@@ -32,24 +32,24 @@ else
 	{
 		if( isset($_POST['name']) )
 		{
-			$row = GetUserinfo($_POST['name']);
+			$row = get_user_info($_POST['name']);
 
 			if( md5($_POST['password']) == $row['password'] )
 			{
 				setcookie('UA',$_POST['name'].'|'.md5($_POST['password']));
-				$loginForm = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
+				$login_form = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
 				$user->create($row);
 			}
 			else
 			{
-				$loginForm = '<span style="font-size:10px;color:red;">'.$user->lang['error_invalid_login'].'</span><br />'.$loginForm;
-				echoPage('',$user->lang['title_login']);
+				$login_form = '<span style="font-size:10px;color:red;">'.$user->lang['error_invalid_login'].'</span><br />'.$login_form;
+				display_page('',$user->lang['title_login']);
 				die('');
 			}
 		}
 		else
 		{
-			echoPage('',$user->lang['title_login']);
+			display_page('',$user->lang['title_login']);
 			die('');
 		}
 	}
@@ -57,17 +57,17 @@ else
 	{
 		$BigCookie = explode('|',$_COOKIE['UA']);
 
-		$row = GetUserinfo();
+		$row = get_user_info();
 
 		if( $BigCookie[1] == $row['password'] )
 		{
-			$loginForm = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
+			$login_form = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
 			$user->create($row);
 		}
 		else
 		{
 			setcookie('UA','',time()-86400);
-			echoPage('',$user->lang['title_login']);
+			display_page('',$user->lang['title_login']);
 			die('');
 		}
 	}

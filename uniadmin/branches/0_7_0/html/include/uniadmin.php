@@ -177,7 +177,7 @@ function unzip( $file , $path )
  * @param string $filename
  * @return string
  */
-function getFileExtention( $filename )
+function get_file_ext( $filename )
 {
 	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }
@@ -190,11 +190,11 @@ function getFileExtention( $filename )
  * @param string $suffix
  * @return string
  */
-function stringChop( $string , $desiredLength , $suffix )
+function string_chop( $string , $desired_length , $suffix )
 {
-	if( strlen($string) > $desiredLength )
+	if( strlen($string) > $desired_length )
 	{
-		$string = substr($string,0,$desiredLength).$suffix;
+		$string = substr($string,0,$desired_length).$suffix;
 		return $string;
 	}
 	return $string;

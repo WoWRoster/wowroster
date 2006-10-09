@@ -5,9 +5,9 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-function echoPage( $body , $subTitle = 'Index' )
+function display_page( $body , $subtitle = 'Index' )
 {
-	global $loginForm, $ua_menu, $uniadmin, $db, $user;
+	global $login_form, $ua_menu, $uniadmin, $db, $user;
 
 	$mc_split = split(' ', microtime());
 	$uniadmin->timer_end = $mc_split[0] + $mc_split[1];
@@ -35,7 +35,7 @@ function echoPage( $body , $subTitle = 'Index' )
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>UniAdmin v'.$uniadmin->config['UAVer'].' ['.$subTitle.']</title>
+	<title>UniAdmin v'.$uniadmin->config['UAVer'].' ['.$subtitle.']</title>
 	<link rel="stylesheet" type="text/css" media="screen" href="'.$uniadmin->url_path.'/style.css" />
 	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
 	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib_hideform.js"></script>
@@ -47,8 +47,8 @@ function echoPage( $body , $subTitle = 'Index' )
     <td width="201" valign="top"><a href="'.UA_INDEX.'"><img src="'.$uniadmin->url_path.'/images/logo.png" alt="UniAdmin" /></a></td>
     <td width="100%" valign="top">
       <span class="maintitle">UniAdmin v'.$uniadmin->config['UAVer'].'</span><br />
-      '.(isset($subTitle) ? '<span class="subtitle">'.$subTitle.'</span>' : '').'<br />
-      '.$loginForm.'<br />';
+      '.(isset($subtitle) ? '<span class="subtitle">'.$subtitle.'</span>' : '').'<br />
+      '.$login_form.'<br />';
 
 	if( isset($ua_menu) )
 	{
@@ -72,9 +72,9 @@ function echoPage( $body , $subTitle = 'Index' )
 
 	if( !empty($uniadmin->messages) && is_array($uniadmin->messages) )
 	{
-		echo '<table class="uuTABLE" width="30%" align="center">
+		echo '<table class="ua_table" width="30%" align="center">
 	<tr>
-		<th class="tableHeader">'.$user->lang['messages'].'</th>
+		<th class="table_header">'.$user->lang['messages'].'</th>
 	</tr>
 ';
 		$i=0;
@@ -89,9 +89,9 @@ function echoPage( $body , $subTitle = 'Index' )
 
 	if( !empty($uniadmin->debug) && is_array($uniadmin->debug) )
 	{
-		echo '<table class="uuTABLE" width="30%" align="center">
+		echo '<table class="ua_table" width="30%" align="center">
 	<tr>
-		<th class="debugHeader">'.$user->lang['debug'].'</th>
+		<th class="debug_header">'.$user->lang['debug'].'</th>
 	</tr>
 ';
 		$i=0;
@@ -109,9 +109,9 @@ function echoPage( $body , $subTitle = 'Index' )
 	if( $s_show_queries )
 	{
 		echo '<br />
-<table class="uuTABLE" width="80%" align="center">
+<table class="ua_table" width="80%" align="center">
   <tr>
-    <th class="tableHeader">'.$user->lang['queries'].'</th>
+    <th class="table_header">'.$user->lang['queries'].'</th>
   </tr>';
 		foreach( $db->queries as $query )
 		{

@@ -14,15 +14,12 @@ $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 switch( $op )
 {
 	case UA_URI_PROCESS:
-		processUploadedLogo();
+		process_logo();
 		break;
 
 	case UA_URI_DISABLE:
-		toggleLogo($op,$id);
-		break;
-
 	case UA_URI_ENABLE:
-		toggleLogo($op,$id);
+		toggle_logo($op,$id);
 		break;
 
 	default:
@@ -52,7 +49,7 @@ function main( )
 	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."`;";
 	$result = $db->query($sql);
 
-	$logoDir = $uniadmin->config['logo_folder'];
+	$logo_dir = $uniadmin->config['logo_folder'];
 
 	$logo1['logo'] = 'images/logo1_03.gif';
 	$logo1['updated'] = '-';
@@ -66,7 +63,7 @@ function main( )
 		switch( $row['logo_num'] )
 		{
 			case '1':
-				$logo1['logo'] = ( empty($row['filename']) ? $logo1['logo'] : $logoDir.'/'.$row['filename'] );
+				$logo1['logo'] = ( empty($row['filename']) ? $logo1['logo'] : $logo_dir.'/'.$row['filename'] );
 				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
 				if( $row['active']=='1' )
@@ -88,7 +85,7 @@ function main( )
 				break;
 
 			case '2':
-				$logo2['logo'] = ( empty($row['filename']) ? $logo2['logo'] : $logoDir.'/'.$row['filename'] );
+				$logo2['logo'] = ( empty($row['filename']) ? $logo2['logo'] : $logo_dir.'/'.$row['filename'] );
 				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
 				if( $row['active']=='1' )
@@ -112,7 +109,6 @@ function main( )
 			default:
 				break;
 		}
-
 	}
 
 
@@ -146,12 +142,12 @@ function main( )
 </table>';
 
 
-	$Logo1InputForm ='
-		<table class="uuTABLE">
+	$logo_input_form_1 ='
+		<table class="ua_table">
 			<tr>
-				<th class="dataHeader">'.$user->lang['update_file'].'</th>
-				<th class="dataHeader">'.$user->lang['uploaded'].'</th>
-				<th class="dataHeader">'.$user->lang['enabled'].'</th>
+				<th class="data_header">'.$user->lang['update_file'].'</th>
+				<th class="data_header">'.$user->lang['uploaded'].'</th>
+				<th class="data_header">'.$user->lang['enabled'].'</th>
 			</tr>
 			<tr>
 				<td class="data1" align="center">'.$user->lang['select_file'].':
@@ -167,12 +163,12 @@ function main( )
 		</table>
 ';
 
-	$Logo2InputForm = '
-		<table class="uuTABLE">
+	$logo_input_form_2 = '
+		<table class="ua_table">
 			<tr>
-				<th class="dataHeader">'.$user->lang['update_file'].'</th>
-				<th class="dataHeader">'.$user->lang['uploaded'].'</th>
-				<th class="dataHeader">'.$user->lang['enabled'].'</th>
+				<th class="data_header">'.$user->lang['update_file'].'</th>
+				<th class="data_header">'.$user->lang['uploaded'].'</th>
+				<th class="data_header">'.$user->lang['enabled'].'</th>
 			</tr>
 			<tr>
 				<td class="data1" align="center">'.$user->lang['select_file'].':
@@ -189,28 +185,28 @@ function main( )
 ';
 
 
-	echoPage('
-<table class="uuTABLE" width="60%" align="center">
+	display_page('
+<table class="ua_table" width="60%" align="center">
 	<tr>
-		<th class="tableHeader">'.sprintf($user->lang['logo_table'],1).'</th>
+		<th class="table_header">'.sprintf($user->lang['logo_table'],1).'</th>
 	</tr>
 	<tr>
 		<td align="center">'.$table1.'</td>
 	</tr>
 	<tr>
-		<td align="center">'.$Logo1InputForm.'</td>
+		<td align="center">'.$logo_input_form_1.'</td>
 	</tr>
 </table>
 <br />
-<table class="uuTABLE" width="60%" align="center">
+<table class="ua_table" width="60%" align="center">
 	<tr>
-		<th class="tableHeader">'.sprintf($user->lang['logo_table'],2).'</th>
+		<th class="table_header">'.sprintf($user->lang['logo_table'],2).'</th>
 	</tr>
 	<tr>
 		<td align="center">'.$table2.'</td>
 	</tr>
 	<tr>
-		<td align="center">'.$Logo2InputForm.'</td>
+		<td align="center">'.$logo_input_form_2.'</td>
 	</tr>
 </table>',$user->lang['title_logo']);
 }
@@ -221,7 +217,7 @@ function main( )
  * @param string $op
  * @param string $id
  */
-function toggleLogo( $op , $id )
+function toggle_logo( $op , $id )
 {
 	global $db;
 
@@ -251,11 +247,11 @@ function toggleLogo( $op , $id )
 /**
  * Process Uploaded Logo
  */
-function processUploadedLogo( )
+function process_logo( )
 {
 	global $db, $uniadmin, $user;
 
-	$logoFolder = UA_BASEDIR.$uniadmin->config['logo_folder'];
+	$logo_folder = UA_BASEDIR.$uniadmin->config['logo_folder'];
 	if( isset($_FILES['logo1']) && $_FILES['logo1']['name'] != '' )
 	{
 		$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `logo_num` = '1';";
@@ -263,9 +259,9 @@ function processUploadedLogo( )
 
 		$row = $db->fetch_record($result);
 
-		$RowNum = $row['id'];
-		$logoNum = '1';
-		$filefield = 'logo1';
+		$logo_id = $row['id'];
+		$logo_num = '1';
+		$file_field = 'logo1';
 	}
 	elseif( isset($_FILES['logo2']) && $_FILES['logo2']['name'] != '' )
 	{
@@ -274,9 +270,9 @@ function processUploadedLogo( )
 
 		$row = $db->fetch_record($result);
 
-		$RowNum = $row['id'];
-		$logoNum = '2';
-		$filefield = 'logo2';
+		$logo_id = $row['id'];
+		$logo_num = '2';
+		$file_field = 'logo2';
 	}
 	else
 	{
@@ -284,35 +280,38 @@ function processUploadedLogo( )
 		return;
 	}
 
-	if( getFileExtention($_FILES[$filefield]['name']) == 'gif' )
+	if( get_file_ext($_FILES[$file_field]['name']) == 'gif' )
 	{
-		$LocalLocation = $logoFolder.DIR_SEP.stripslashes('logo'.$logoNum.'.gif');
-		@unlink($logoFolder.DIR_SEP.'logo'.$logoNum.'.gif');
-		$try_move = @move_uploaded_file($_FILES[$filefield]['tmp_name'],$LocalLocation);
+		$logo_location = $logo_folder.DIR_SEP.stripslashes('logo'.$logo_num.'.gif');
+		@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.gif');
+
+		$try_move = @move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);
 		if( !$try_move )
 		{
-			debug(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$filefield]['tmp_name'],$LocalLocation));
+			debug(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$file_field]['tmp_name'],$logo_location));
 			return;
 		}
 
-		$md5 = md5_file($LocalLocation);
-		$try_chmod = @chmod($LocalLocation,0777);
+		$md5 = md5_file($logo_location);
+		$try_chmod = @chmod($logo_location,0777);
 		if( !$try_chmod )
 		{
-			debug(sprintf($user->lang['error_chmod'],$LocalLocation));
+			debug(sprintf($user->lang['error_chmod'],$logo_location));
 			return;
 		}
 
-		$sql = "DELETE FROM `".UA_TABLE_LOGOS."` WHERE `id` = '$RowNum'";
+		$sql = "DELETE FROM `".UA_TABLE_LOGOS."` WHERE `id` = '$logo_id'";
 		$result = $db->query($sql);
 
 
-		$sql = "INSERT INTO `".UA_TABLE_LOGOS."` ( `filename` , `updated` , `logo_num` , `active` , `download_url` , `md5` ) VALUES ( 'logo$logoNum.gif', '".time()."', '$logoNum', '1', '".$uniadmin->url_path.$uniadmin->config['logo_folder']."/logo$logoNum.gif', '$md5' );";
+		$sql = "INSERT INTO `".UA_TABLE_LOGOS."` ( `filename` , `updated` , `logo_num` , `active` , `download_url` , `md5` ) VALUES ( 'logo$logo_num.gif', '".time()."', '$logo_num', '1', '".$uniadmin->url_path.$uniadmin->config['logo_folder']."/logo$logo_num.gif', '$md5' );";
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_logo_insert'],$logoNum));
+			debug(sprintf($user->lang['sql_error_logo_insert'],$logo_num));
 		}
+
+		message(sprintf($user->lang['logo_uploaded'],$logo_num));
 	}
 	else
 	{

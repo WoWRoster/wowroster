@@ -14,27 +14,27 @@ $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 switch($op)
 {
 	case UA_URI_PROCESS:
-		processAddon();
+		process_addon();
 		break;
 
 	case UA_URI_DELETE:
-		deleteAddon($id);
+		delete_addon($id);
 		break;
 
 	case UA_URI_REQ:
-		requireAddon($id);
+		require_addon($id);
 		break;
 
 	case UA_URI_OPT:
-		optionalAddon($id);
+		optional_addon($id);
 		break;
 
 	case UA_URI_DISABLE:
-		disableAddon($id);
+		disable_addon($id);
 		break;
 
 	case UA_URI_ENABLE:
-		enableAddon($id);
+		enable_addon($id);
 		break;
 
 	default:
@@ -61,14 +61,14 @@ function main( )
 {
 	global $db, $uniadmin, $user;
 
-	$addonInputForm = '';
+	$addon_input_form = '';
 	if( $user->data['level'] == UA_ID_ADMIN )
 	{
-		$addonInputForm = '
+		$addon_input_form = '
 <form name="ua_updateaddon" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<table class="uuTABLE" align="center">
+	<table class="ua_table" align="center">
 		<tr>
-			<th class="tableHeader" colspan="2">'.$user->lang['add_update_addon'].'</th>
+			<th class="table_header" colspan="2">'.$user->lang['add_update_addon'].'</th>
 		</tr>
 		<tr>
 			<td class="data1">'.$user->lang['required_addon'].':</td>
@@ -87,7 +87,7 @@ function main( )
 			<td class="data2"><input class="input" type="textbox" name="homepage" /></td>
 		</tr>
 		<tr>
-			<td class="dataHeader" colspan="2" align="center"><input class="submit" type="submit" value="'.$user->lang['add_update_addon'].'" /></td>
+			<td class="data_header" colspan="2" align="center"><input class="submit" type="submit" value="'.$user->lang['add_update_addon'].'" /></td>
 		</tr>
 	</table>
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
@@ -100,26 +100,26 @@ function main( )
 
 	if( $db->num_rows($result) > 0 )
 	{
-		$AddonPanel = '
-		<table class="uuTABLE" align="center">
+		$addon_panel = '
+		<table class="ua_table" align="center">
 			<tr>
-				<th class="tableHeader" colspan="10">'.$user->lang['addon_management'].'</th>
+				<th class="table_header" colspan="10">'.$user->lang['addon_management'].'</th>
 			</tr>
 			<tr>
-				<td class="dataHeader">'.$user->lang['name'].'</td>
-				<td class="dataHeader">'.$user->lang['toc'].'</td>
-				<td class="dataHeader">'.$user->lang['required'].'</td>
-				<td class="dataHeader">'.$user->lang['version'].'</td>
-				<td class="dataHeader">'.$user->lang['uploaded'].'</td>
-				<td class="dataHeader">'.$user->lang['enabled'].'</td>
-				<td class="dataHeader">'.$user->lang['files'].'</td>
-				<td class="dataHeader">'.$user->lang['url'].'</td>';
+				<td class="data_header">'.$user->lang['name'].'</td>
+				<td class="data_header">'.$user->lang['toc'].'</td>
+				<td class="data_header">'.$user->lang['required'].'</td>
+				<td class="data_header">'.$user->lang['version'].'</td>
+				<td class="data_header">'.$user->lang['uploaded'].'</td>
+				<td class="data_header">'.$user->lang['enabled'].'</td>
+				<td class="data_header">'.$user->lang['files'].'</td>
+				<td class="data_header">'.$user->lang['url'].'</td>';
 		if( $user->data['level'] == UA_ID_ADMIN )
 		{
-			$AddonPanel .= '
-				<td class="dataHeader">'.$user->lang['delete'].'</td>';
+			$addon_panel .= '
+				<td class="data_header">'.$user->lang['delete'].'</td>';
 		}
-		$AddonPanel .= "\n\t\t\t</tr>";
+		$addon_panel .= "\n\t\t\t</tr>";
 
 		while( $row = $db->fetch_record($result) )
 		{
@@ -128,18 +128,18 @@ function main( )
 			$numFiles = $db->num_rows($result2);
 			$db->free_result($result2);
 
-			$AddonName = $row['name'];
+			$addon_name = $row['name'];
 			$homepage = $row['homepage'];
 			$version = $row['version'];
 			$time = date($user->lang['time_format'],$row['time_uploaded']);
 			$url = $row['dl_url'];
-			$addonID = $row['id'];
+			$addon_id = $row['id'];
 
 			if( $row['enabled'] == '1' )
 			{
-				$enabled = '<form name="ua_disableaddon_'.$addonID.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				$enabled = '<form name="ua_disableaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
 				if( $user->data['level'] == UA_ID_USER )
@@ -149,9 +149,9 @@ function main( )
 			}
 			else
 			{
-				$enabled = '<form name="ua_enableaddon_'.$addonID.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				$enabled = '<form name="ua_enableaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
 				if( $user->data['level'] == UA_ID_USER )
@@ -167,9 +167,9 @@ function main( )
 
 			if( $row['required'] == 1 )
 			{
-				$required = '<form name="ua_optionaladdon_'.$addonID.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				$required = '<form name="ua_optionaladdon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_OPT.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
 				if( $user->data['level'] == UA_ID_USER )
@@ -179,9 +179,9 @@ function main( )
 			}
 			else
 			{
-				$required = '<form name="ua_requireaddon_'.$addonID.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				$required = '<form name="ua_requireaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_REQ.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
 				if( $user->data['level'] == UA_ID_USER )
@@ -192,50 +192,47 @@ function main( )
 
 			$toc = $row['toc'];
 
-			$tdClass = 'data'.$uniadmin->switch_row_class();
+			$td_class = 'data'.$uniadmin->switch_row_class();
 
-			$AddonPanel .= '
+			$addon_panel .= '
 		<tr>
-			<td class="'.$tdClass.'"><a href="'.$homepage.'" target="_blank">'.$AddonName.'</a></td>
-			<td class="'.$tdClass.'">'.$toc.'</td>
-			<td class="'.$tdClass.'">'.$required.'</td>
-			<td class="'.$tdClass.'">'.$version.'</td>
-			<td class="'.$tdClass.'">'.$time.'</td>
-			<td class="'.$tdClass.'">'.$enabled.'</td>
-			<td class="'.$tdClass.'">'.$numFiles.'</td>
-			<td class="'.$tdClass.'"><a href="'.$url.'">Check</a></td>';
+			<td class="'.$td_class.'"><a href="'.$homepage.'" target="_blank">'.$addon_name.'</a></td>
+			<td class="'.$td_class.'">'.$toc.'</td>
+			<td class="'.$td_class.'">'.$required.'</td>
+			<td class="'.$td_class.'">'.$version.'</td>
+			<td class="'.$td_class.'">'.$time.'</td>
+			<td class="'.$td_class.'">'.$enabled.'</td>
+			<td class="'.$td_class.'">'.$numFiles.'</td>
+			<td class="'.$td_class.'"><a href="'.$url.'">'.$user->lang['check'].'</a></td>';
 			if( $user->data['level'] == UA_ID_ADMIN )
 			{
-				$AddonPanel .= '
-			<td class="'.$tdClass.'"><form name="ua_deleteaddon_'.$addonID.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+				$addon_panel .= '
+			<td class="'.$td_class.'"><form name="ua_deleteaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DELETE.'" />
-				<input type="hidden" name="'.UA_URI_ID.'" value="'.$addonID.'" />
+				<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 				<input class="submit" style="color:red;" type="submit" value="'.$user->lang['delete'].'" />
 				</form></td>';
 			}
-			$AddonPanel .= "\n\t\t</tr>";
+			$addon_panel .= "\n\t\t</tr>";
 		}
 	}
 	else
 	{
-		$AddonPanel = '
-		<table class="uuTABLE" align="center">
+		$addon_panel = '
+		<table class="ua_table" align="center">
 			<tr>
-				<th class="tableHeader">'.$user->lang['addon_management'].'</th>
+				<th class="table_header">'.$user->lang['addon_management'].'</th>
 			</tr>
 			<tr>
-				<th class="dataHeader">'.$user->lang['error_no_addon_in_db'].'</th>
+				<th class="data_header">'.$user->lang['error_no_addon_in_db'].'</th>
 			</tr>';
 	}
-	$AddonPanel .= '</table>';
+	$addon_panel .= '</table>';
 
 	$db->free_result($result);
 
 
-	echoPage(
-		$AddonPanel
-		.'<br />'.
-		$addonInputForm,$user->lang['title_addons']);
+	display_page($addon_panel.'<br />'.$addon_input_form,$user->lang['title_addons']);
 }
 
 /**
@@ -243,7 +240,7 @@ function main( )
  *
  * @param int $id
  */
-function disableAddon( $id )
+function disable_addon( $id )
 {
 	global $db, $user;
 
@@ -261,7 +258,7 @@ function disableAddon( $id )
  *
  * @param int $id
  */
-function enableAddon( $id )
+function enable_addon( $id )
 {
 	global $db, $user;
 
@@ -279,7 +276,7 @@ function enableAddon( $id )
  *
  * @param int $id
  */
-function requireAddon( $id )
+function require_addon( $id )
 {
 	global $db, $user;
 
@@ -297,7 +294,7 @@ function requireAddon( $id )
  *
  * @param int $id
  */
-function optionalAddon( $id )
+function optional_addon( $id )
 {
 	global $db, $user;
 
@@ -315,7 +312,7 @@ function optionalAddon( $id )
  *
  * @param int $id
  */
-function deleteAddon( $id )
+function delete_addon( $id )
 {
 	global $db, $user, $uniadmin;
 
@@ -324,16 +321,16 @@ function deleteAddon( $id )
 	$row = $db->fetch_record($result);
 
 	$id = $row['id'];
-	$AddonUrl = $row['dl_url'];
-	$k = explode('/',$AddonUrl);
-	$fileName = $k[count($k) - 1];
+	$addon_url = $row['dl_url'];
+	$k = explode('/',$addon_url);
+	$addon_file_name = $k[count($k) - 1];
 
-	$LocalPath = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP.$fileName;
-	$try_unlink = @unlink($LocalPath);
+	$local_path = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP.$addon_file_name;
+	$try_unlink = @unlink($local_path);
 	if( !$try_unlink )
 	{
 		debug($user->lang['error_delete_addon']);
-		debug(sprintf($user->lang['error_unlink'],$LocalPath));
+		debug(sprintf($user->lang['error_unlink'],$local_path));
 	}
 
 	$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$id'";
@@ -354,28 +351,28 @@ function deleteAddon( $id )
 /**
  * Processess an uploaded addon for insertion into the database
  */
-function processAddon()
+function process_addon()
 {
 	global $db, $user, $uniadmin;
 
-	$tempFilename = $_FILES['file']['tmp_name'];
+	$temp_file_name = $_FILES['file']['tmp_name'];
 
-	if( !empty($tempFilename) )
+	if( !empty($temp_file_name) )
 	{
-		if( getFileExtention($_FILES['file']['name']) != 'zip' )
+		if( get_file_ext($_FILES['file']['name']) != 'zip' )
 		{
 			message($user->lang['error_zip_file']);
 			return;
 		}
 
 		$url = $uniadmin->url_path;
-		$fileName = str_replace(' ','_',$_FILES['file']['name']);
+		$addon_file_name = str_replace(' ','_',$_FILES['file']['name']);
 
-		$addonFolder = UA_BASEDIR.$uniadmin->config['addon_folder'];
-		$tempFolder = UA_BASEDIR.$uniadmin->config['temp_analyze_folder'];
+		$addon_zip_folder = UA_BASEDIR.$uniadmin->config['addon_folder'];
+		$temp_folder = UA_BASEDIR.$uniadmin->config['temp_analyze_folder'];
 
 		$version = $_POST['version'];
-		$addonName = substr($fileName,0,count($fileName) -5);
+		$addon_name = substr($addon_file_name,0,count($addon_file_name) -5);
 		$homepage = $_POST['homepage'];
 
 		if( isset($_POST['required']) && $_POST['required'] == '1' )
@@ -388,77 +385,77 @@ function processAddon()
 		}
 
 		// Set Download URL
-		$downloadLocation = $url.$uniadmin->config['addon_folder'].'/'.$fileName;
+		$download_url = $url.$uniadmin->config['addon_folder'].'/'.$addon_file_name;
 
 		// Name and location of the zip file
-		$zipfile = $addonFolder.DIR_SEP.$fileName;
+		$zip_file = $addon_zip_folder.DIR_SEP.$addon_file_name;
 
 		// Delete Addon if it exists
-		@unlink($zipfile);
+		@unlink($zip_file);
 
 		// Try to move to the addon_temp directory
-		$try_move = move_uploaded_file($tempFilename,$zipfile);
+		$try_move = move_uploaded_file($temp_file_name,$zip_file);
 		if( !$try_move )
 		{
-			debug(sprintf($user->lang['error_move_uploaded_file'],$tempFilename,$zipfile));
+			debug(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$zip_file));
 			return;
 		}
 
 		// Try to set write access on the uploaded file
-		$try_chmod = @chmod($zipfile,0777);
+		$try_chmod = @chmod($zip_file,0777);
 		if( !$try_chmod )
 		{
-			debug(sprintf($user->lang['error_chmod'],$zipfile));
+			debug(sprintf($user->lang['error_chmod'],$zip_file));
 			return;
 		}
 
 		// Unzip the file
-		unzip($zipfile,$tempFolder.DIR_SEP);
+		unzip($zip_file,$temp_folder.DIR_SEP);
 
-		$files = ls($tempFolder,array());
+		$files = ls($temp_folder,array());
 
 
 		// Get the TOC of the addon
-		$tocFileName = '';
+		$toc_file_name = '';
 		if( is_array($files) )
 		{
 			foreach( $files as $file )
 			{
-				if( getFileExtention($file) == 'toc' )
+				if( get_file_ext($file) == 'toc' )
 				{
-					$toc = getToc($file);
+					$toc = get_toc($file);
 
 					$k = explode(DIR_SEP,$file);
-					$tocFileName = $k[count($k) - 1];
-					$trueAddonName = substr($tocFileName,0,count($tocFileName) -5);
+					$toc_file_name = $k[count($k) - 1];
+					$real_addon_name = substr($toc_file_name,0,count($toc_file_name) -5);
 					break;
 				}
 			}
-			if( empty($tocFileName) )
+			if( empty($toc_file_name) )
 			{
-				$try_unlink = @unlink($zipfile);
+				$try_unlink = @unlink($zip_file);
 				if( !$try_unlink )
 				{
-					debug(sprintf($user->lang['error_unlink'],$zipfile));
+					debug(sprintf($user->lang['error_unlink'],$zip_file));
 				}
-				cleardir($tempFolder);
+				cleardir($temp_folder);
 				debug($user->lang['error_no_toc_file']);
 			}
 		}
 		else
 		{
-			$try_unlink = @unlink($zipfile);
+			$try_unlink = @unlink($zip_file);
 			if( !$try_unlink )
 			{
-				debug(sprintf($user->lang['error_unlink'],$zipfile));
+				debug(sprintf($user->lang['error_unlink'],$zip_file));
 			}
-			cleardir($tempFolder);
+			cleardir($temp_folder);
 			debug($user->lang['error_no_files_addon']);
 			return;
 		}
 
 		// See if AddOn exists in the database and do stuff to it
-		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($trueAddonName)."';";
+		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($real_addon_name)."';";
 		$result = $db->query($sql);
 
 		if( $db->num_rows($result) > 0 )
@@ -484,7 +481,7 @@ function processAddon()
 			$db->query($sql);
 
 			// Update Main Addon data
-			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($trueAddonName)."', `dl_url` = '".$db->escape($downloadLocation)."', `homepage` = '".$db->escape($homepage)."', `toc` = '$toc', `required` = '$required'
+			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($real_addon_name)."', `dl_url` = '".$db->escape($download_url)."', `homepage` = '".$db->escape($homepage)."', `toc` = '$toc', `required` = '$required'
 				WHERE `id` = '".$addon_id."';";
 			$db->query($sql);
 		}
@@ -492,7 +489,7 @@ function processAddon()
 		{
 			// Insert Main Addon data
 			$sql = "INSERT INTO `".UA_TABLE_ADDONS."` ( `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )
-				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($trueAddonName)."', '".$db->escape($downloadLocation)."', '".$db->escape($homepage)."', $toc, $required);";
+				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($real_addon_name)."', '".$db->escape($download_url)."', '".$db->escape($homepage)."', $toc, $required);";
 			$db->query($sql);
 
 			// Get the insert id of the addon just inserted
@@ -502,7 +499,7 @@ function processAddon()
 		if( !$db->affected_rows() )
 		{
 		    debug($user->lang['sql_error_addons_insert']);
-		    cleardir($tempFolder);
+		    cleardir($temp_folder);
 		    return;
 		}
 
@@ -512,17 +509,17 @@ function processAddon()
 			$md5 = md5_file($file);
 			$k = explode(DIR_SEP,$file);
 			$pos_t = strpos($file,'addon_temp');
-			$fileName = substr($file,$pos_t + 10);
+			$addon_file_name = substr($file,$pos_t + 10);
 
-			if( $fileName != 'index.htm' && $fileName != 'index.html' && $fileName != '.svn' )
+			if( $addon_file_name != 'index.htm' && $addon_file_name != 'index.html' && $addon_file_name != '.svn' )
 			{
 				$sql = "INSERT INTO `".UA_TABLE_FILES."` ( `addon_id` , `filename` , `md5sum` )
-					VALUES ( '".$addon_id."', '".$db->escape($fileName)."', '".$db->escape($md5)."' );";
+					VALUES ( '".$addon_id."', '".$db->escape($addon_file_name)."', '".$db->escape($md5)."' );";
 				$db->query($sql);
 				if( !$db->affected_rows() )
 				{
 				    debug($user->lang['sql_error_addons_files_insert']);
-				    cleardir($tempFolder);
+				    cleardir($temp_folder);
 				    return;
 				}
 
@@ -536,9 +533,9 @@ function processAddon()
 		}
 
 		// Now clear the temp folder
-		cleardir($tempFolder);
+		cleardir($temp_folder);
 
-		message(sprintf($user->lang['addon_uploaded'],$trueAddonName));
+		message(sprintf($user->lang['addon_uploaded'],$real_addon_name));
 	}
 	else // Nothing was uploaded
 	{
@@ -552,17 +549,17 @@ function processAddon()
  * @param string $file
  * @return unknown
  */
-function getToc( $file )
+function get_toc( $file )
 {
 	$lines = file($file);
 
 	$toc = '00000';
 	foreach( $lines as $line )
 	{
-		$IntPos = strpos(strtoupper($line),strtoupper('Interface:'));
-		if( $IntPos !== false )
+		$int_pos = strpos(strtoupper($line),strtoupper('Interface:'));
+		if( $int_pos !== false )
 		{
-			$toc = substr($line, $IntPos + 10);
+			$toc = substr($line, $int_pos + 10);
 		}
 	}
 	return $toc;

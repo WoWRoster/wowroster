@@ -65,9 +65,7 @@ class User
 	}
 }
 
-
-
-function GetUsername( )
+function get_username( )
 {
 	if( isset($_COOKIE['UA']) )
 	{
@@ -80,11 +78,11 @@ function GetUsername( )
 	}
 }
 
-function GetUserinfo( $name='' )
+function get_user_info( $name='' )
 {
 	global $dblink, $db;
 
-	$username = ( $name == '' ? GetUsername() : $name );
+	$username = ( $name == '' ? get_username() : $name );
 
 	$sql = "SELECT * FROM `".UA_TABLE_USERS."` WHERE `name` = '$username';";
 	$result = $db->query($sql);

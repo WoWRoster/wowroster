@@ -66,16 +66,16 @@ function main( )
 	$result = $db->query($sql);
 
 
-	$table = '<table class="uuTABLE" width="50%" align="center">
+	$table = '<table class="ua_table" width="50%" align="center">
 	<tr>
-		<th colspan="5" class="tableHeader">'.$user->lang['current_users'].'</th>
+		<th colspan="5" class="table_header">'.$user->lang['current_users'].'</th>
 	</tr>
 	<tr>
-		<td class="dataHeader">'.$user->lang['username'].'</td>
-		<td class="dataHeader">'.$user->lang['userlevel'].'</td>
-		<td class="dataHeader">'.$user->lang['language'].'</td>
-		<td class="dataHeader">'.$user->lang['modify'].'</td>
-		<td class="dataHeader">'.$user->lang['delete'].'</td>
+		<td class="data_header">'.$user->lang['username'].'</td>
+		<td class="data_header">'.$user->lang['userlevel'].'</td>
+		<td class="data_header">'.$user->lang['language'].'</td>
+		<td class="data_header">'.$user->lang['modify'].'</td>
+		<td class="data_header">'.$user->lang['delete'].'</td>
 	</tr>
 ';
 
@@ -144,11 +144,11 @@ function main( )
 
 	if ($user->data['level'] > UA_ID_USER)
 	{
-		echoPage("$table<br />".addUserTable(),$user->lang['title_users']);
+		display_page("$table<br />".addUserTable(),$user->lang['title_users']);
 	}
 	else
 	{
-		echoPage($table,$user->lang['title_users']);
+		display_page($table,$user->lang['title_users']);
 	}
 }
 
@@ -163,9 +163,9 @@ function addUserTable()
 
 	$addform = '
 <form name="ua_adduser" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<table class="uuTABLE" align="center">
+	<table class="ua_table" align="center">
 		<tr>
-			<th colspan="2" class="tableHeader">'.$user->lang['add_user'].'</th>
+			<th colspan="2" class="table_header">'.$user->lang['add_user'].'</th>
 		</tr>
 		<tr>
 			<td class="data1">'.$user->lang['username'].':</td>
@@ -238,9 +238,9 @@ function modifyUser()
 <form name="ua_modifyuser" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" value="finalize" name="'.UA_URI_OP.'" />
 	<input type="hidden" value="'.$uid.'" name="'.UA_URI_ID.'" />
-	<table class="uuTABLE" align="center">
+	<table class="ua_table" align="center">
 		<tr>
-			<th colspan="2" class="tableHeader">'.$user->lang['modify_user'].'</th>
+			<th colspan="2" class="table_header">'.$user->lang['modify_user'].'</th>
 		</tr>
 ';
 	if( $user->data['level'] > UA_ID_USER )
@@ -303,7 +303,7 @@ function modifyUser()
 	</table>
 </form>';
 
-	echoPage($form,$user->lang['modify_user']);
+	display_page($form,$user->lang['modify_user']);
 }
 
 /**

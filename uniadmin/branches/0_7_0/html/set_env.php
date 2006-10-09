@@ -65,7 +65,7 @@ if( !isset($interface) )
 
 function die_ua( )
 {
-	echoPage('',$user->lang['error']);
+	display_page('',$user->lang['error']);
 	die();
 }
 

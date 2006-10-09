@@ -26,13 +26,13 @@ function main( )
 {
 	global $user, $uniadmin;
 
-	echoPage(
-	buildMainTable().
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('host_name').'" alt="host_name" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('ip_addr').'" alt="ip_addr" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('user_agent').'" alt="user_agent" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('action').'" alt="action" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.buildPieHosts('time').'" alt="time" />'."\n",$user->lang['title_stats']);
+	display_page(
+	build_main_table().
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('host_name').'" alt="host_name" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('ip_addr').'" alt="ip_addr" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('user_agent').'" alt="user_agent" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('action').'" alt="action" />'."\n".
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('time').'" alt="time" />'."\n",$user->lang['title_stats']);
 }
 
 /**
@@ -41,7 +41,7 @@ function main( )
  * @param string $fieldName
  * @return string
  */
-function buildPieHosts( $fieldName )
+function build_pie_hosts( $fieldName )
 {
 	global $db, $uniadmin, $user;
 
@@ -112,7 +112,7 @@ function buildPieHosts( $fieldName )
  *
  * @return string
  */
-function buildMainTable( )
+function build_main_table( )
 {
 	global $db, $uniadmin, $user;
 
@@ -150,17 +150,17 @@ function buildMainTable( )
 		$direction = 'ASC';
 	}
 
-	$table = '<table class="uuTABLE stats" id="table_results" cellspacing="1" width="90%" align="center">
+	$table = '<table class="ua_table stats" id="table_results" cellspacing="1" width="90%" align="center">
 	<tr>
-		<th class="tableHeader" colspan="6">'.$user->lang['title_stats'].'</th>
+		<th class="table_header" colspan="6">'.$user->lang['title_stats'].'</th>
 	</tr>
 	<tr>
-		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=id&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['row'].'</a></td>
-		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=action&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['action'].'</a></td>
-		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=ip_addr&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['ip_address'].'</a></td>
-		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=time&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['date_time'].'</a></td>
-		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=user_agent&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['user_agent'].'</a></td>
-		<td class="dataHeader"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=host_name&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['host_name'].'</a></td>
+		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=id&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['row'].'</a></td>
+		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=action&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['action'].'</a></td>
+		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=ip_addr&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['ip_address'].'</a></td>
+		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=time&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['date_time'].'</a></td>
+		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=user_agent&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['user_agent'].'</a></td>
+		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=host_name&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['host_name'].'</a></td>
 	</tr>';
 
 	while( $row = $db->fetch_record($result) )
@@ -169,8 +169,8 @@ function buildMainTable( )
 
 		$tdClass = $uniadmin->switch_row_class();
 
-		$userAgent = stringChop($row['user_agent'],45,'...');
-		$hostName = stringChop($row['host_name'],25,'...');
+		$userAgent = string_chop($row['user_agent'],45,'...');
+		$hostName = string_chop($row['host_name'],25,'...');
 
 		$table .= '	<tr>
 		<td class="'.$tdClass.'" align="right">'.$row['id'].'</td>
@@ -215,8 +215,8 @@ function buildMainTable( )
 	$pageNum =  floor($start / $limit) + 1;
 
 	$table .= '	<tr>
-		<td class="statsFooter" colspan="4">'.$PrevLink.$sep.$NextLink.' &nbsp;&nbsp;&nbsp; ['.$pageNum.' / '.$totalPages.']</td>
-		<td class="statsFooter" colspan="2">
+		<td class="stats_footer" colspan="4">'.$PrevLink.$sep.$NextLink.' &nbsp;&nbsp;&nbsp; ['.$pageNum.' / '.$totalPages.']</td>
+		<td class="stats_footer" colspan="2">
 
 		<form name="ua_changeparams" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 			<input class="submit" type="submit" value="'.$user->lang['show'].'" />

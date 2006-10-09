@@ -7,16 +7,16 @@ if( !defined('IN_UNIADMIN') )
 
 
 $help = '
-<table class="uuTABLE" cellpadding="2" align="center" width="95%">
+<table class="ua_table" cellpadding="2" align="center" width="95%">
 	<tr>
-		<th class="tableHeader">'.$user->lang['title_help'].'</th>
+		<th class="table_header">'.$user->lang['title_help'].'</th>
 	</tr>';
 
 foreach( $user->lang['help'] as $help_text )
 {
 	$help .= '
 	<tr>
-		<td class="dataHeader">'.$help_text['header'].'</td>
+		<td class="data_header">'.$help_text['header'].'</td>
 	</tr>
 	<tr>
 		<td class="data1">'.$help_text['text'].'</td>
@@ -26,5 +26,5 @@ foreach( $user->lang['help'] as $help_text )
 $help .= '
 </table>';
 
-echoPage($help,$user->lang['title_help']);
+display_page($help,$user->lang['title_help']);
 ?>
