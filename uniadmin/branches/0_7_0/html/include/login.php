@@ -5,6 +5,7 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+// Make the login form
 $login_form = '
 <br />
 <form class="ua_loginbox" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
@@ -20,14 +21,16 @@ $login_form = '
 
 ';
 
+// Check if logging out
 if( isset($_POST['ua_logout']) )
 {
 	setcookie('UA','',time()-86400);
 	display_page('',$user->lang['title_login']);
 	die('');
 }
-else
+else // Logging in
 {
+	// Check if logging in
 	if( !isset($_COOKIE['UA']) )
 	{
 		if( isset($_POST['name']) )
@@ -53,7 +56,7 @@ else
 			die('');
 		}
 	}
-	else
+	else // Cookie is set
 	{
 		$BigCookie = explode('|',$_COOKIE['UA']);
 

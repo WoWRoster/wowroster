@@ -12,21 +12,21 @@ $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 switch( $op )
 {
 	case 'edit':
-		modifyUser();
+		modify_user();
 		break;
 
 	case 'finalize':
-		finalizeUser();
+		finalize_user();
 		main();
 		break;
 
 	case UA_URI_NEW:
-		newUser();
+		new_user();
 		main();
 		break;
 
 	case 'delete':
-		deleteUser();
+		delete_user();
 		main();
 		break;
 
@@ -34,7 +34,7 @@ switch( $op )
 		main();
 		break;
 }
-$db->close_db();
+
 
 
 
@@ -53,13 +53,13 @@ function main( )
 {
 	global $db, $uniadmin, $user;
 
-	if ($user->data['level'] > UA_ID_USER)
+	if( $user->data['level'] > UA_ID_USER )
 	{
-		$canAddEdit = true;
+		$can_add_edit = true;
 	}
 	else
 	{
-		$canAddEdit = false;
+		$can_add_edit = false;
 	}
 
 	$sql = "SELECT * FROM `".UA_TABLE_USERS."` ORDER BY `level` DESC, `name` ASC;";
@@ -82,31 +82,30 @@ function main( )
 
 	while ($row = $db->fetch_record($result))
 	{
-		$tdClass = 'data'.$uniadmin->switch_row_class();
+		$td_class = 'data'.$uniadmin->switch_row_class();
 
 		$userN = $row['name'];
 		$userL = $row['level'];
 		$userI = $row['id'];
 		$userW = $row['language'];
-		$table .= '<tr>';
 
-		if (strtoupper($userN) == strtoupper($user->data['name']) || $canAddEdit)
+		$table .= '<tr>';
+		if( strtoupper($userN) == strtoupper($user->data['name']) || $can_add_edit )
 		{
 			$table .= '
-			<td class="'.$tdClass.'" valign="top">'.$userN.'</td>
-			<td class="'.$tdClass.'" valign="top">'.$userL.'</td>
-			<td class="'.$tdClass.'"  valign="top">'.$userW.'</td>
+			<td class="'.$td_class.'" valign="top">'.$userN.'</td>
+			<td class="'.$td_class.'" valign="top">'.$userL.'</td>
+			<td class="'.$td_class.'"  valign="top">'.$userW.'</td>
 ';
-
 			if( strtoupper($userN) == strtoupper($user->data['name']) || $user->data['level'] > UA_ID_POWER )
 			{
 				$table .= '
-			<td class="'.$tdClass.'" valign="top"><form name="ua_edituser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			<td class="'.$td_class.'" valign="top"><form name="ua_edituser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" name="'.UA_URI_OP.'" value="edit" />
 				<input type="hidden" name="'.UA_URI_ID.'" value="'.$userI.'" />
 				<input class="submit" style="color:green;" type="submit" value="'.$user->lang['modify'].'" />
 				</form></td>
-			<td class="'.$tdClass.'" valign="top"><form name="ua_deleteuser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			<td class="'.$td_class.'" valign="top"><form name="ua_deleteuser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" name="'.UA_URI_OP.'" value="delete" />
 				<input type="hidden" name="'.UA_URI_ID.'" value="'.$userI.'" />
 				<input class="submit" style="color:red;" type="submit" value="'.$user->lang['delete'].'" />
@@ -115,12 +114,12 @@ function main( )
 			elseif( $user->data['level'] == UA_ID_POWER && $userL == UA_ID_USER )
 			{
 				$table .= '
-			<td class="'.$tdClass.'" valign="top"><form name="ua_edituser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			<td class="'.$td_class.'" valign="top"><form name="ua_edituser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" name="'.UA_URI_OP.'" value="edit" />
 				<input type="hidden" name="'.UA_URI_ID.'" value="'.$userI.'" />
 				<input class="submit" style="color:green;" type="submit" value="'.$user->lang['modify'].'" />
 				</form></td>
-			<td class="'.$tdClass.'" valign="top"><form name="ua_deleteuser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			<td class="'.$td_class.'" valign="top"><form name="ua_deleteuser_'.$userI.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 				<input type="hidden" name="'.UA_URI_OP.'" value="delete" />
 				<input type="hidden" name="'.UA_URI_ID.'" value="'.$userI.'" />
 				<input class="submit" style="color:red;" type="submit" value="'.$user->lang['delete'].'" />
@@ -131,20 +130,20 @@ function main( )
 		else
 		{
 			$table .= '
-			<td class="'.$tdClass.'"  valign="top">'.$userN.'</td>
-			<td class="'.$tdClass.'"  valign="top">'.$userL.'</td>
-			<td class="'.$tdClass.'"  valign="top">'.$userW.'</td>
-			<td class="'.$tdClass.'"  valign="top"></td>
-			<td class="'.$tdClass.'"  valign="top"></td>';
+			<td class="'.$td_class.'"  valign="top">'.$userN.'</td>
+			<td class="'.$td_class.'"  valign="top">'.$userL.'</td>
+			<td class="'.$td_class.'"  valign="top">'.$userW.'</td>
+			<td class="'.$td_class.'"  valign="top"></td>
+			<td class="'.$td_class.'"  valign="top"></td>';
 		}
 		$table .= '</tr>';
 	}
 	$table .= '</table>';
 
 
-	if ($user->data['level'] > UA_ID_USER)
+	if( $user->data['level'] > UA_ID_USER )
 	{
-		display_page("$table<br />".addUserTable(),$user->lang['title_users']);
+		display_page("$table<br />".add_user_table(),$user->lang['title_users']);
 	}
 	else
 	{
@@ -157,11 +156,11 @@ function main( )
  *
  * @return string
  */
-function addUserTable()
+function add_user_table( )
 {
-	global $user, $uniadmin;
+	global $user;
 
-	$addform = '
+	$add_form = '
 <form name="ua_adduser" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<table class="ua_table" align="center">
 		<tr>
@@ -177,34 +176,22 @@ function addUserTable()
 		<tr>
 			<td class="data1">';
 
-	if ($user->data['level'] > UA_ID_POWER)
+	if( $user->data['level'] > UA_ID_POWER )
 	{
-		$addform .= $user->lang['userlevel'].':</td>
-		<td class="data1"><select class="select" name="level">
-				<option value="'.UA_ID_USER.'" selected="selected">'.$user->lang['basic_user_level_1'].'</option>
-				<option value="'.UA_ID_POWER.'">'.$user->lang['power_user_level_2'].'</option>
-				<option value="'.UA_ID_ADMIN.'">'.$user->lang['admin_level_3'].'</option>
-			</select>';
+		$add_form .= $user->lang['userlevel'].':</td>
+		<td class="data1">'.level_select();
 	}
 	else
 	{
-		$addform .= $user->lang['userlevel'].':</td>
+		$add_form .= $user->lang['userlevel'].':</td>
 		<td class="data1">['.UA_ID_USER.']<input type="hidden" name="level" value="'.UA_ID_USER.'" />';
 	}
 
-	$addform .= '</td>
+	$add_form .= '</td>
 		</tr>
 		<tr>
 			<td class="data1">'.$user->lang['language'].':</td>
-			<td class="data2"><select class="select" name="language">';
-
-	foreach( $uniadmin->languages as $lang )
-	{
-		$selected = ( $lang == $uniadmin->config['default_lang'] ? ' selected="selected"' : '' );
-		$addform .= "\n\t\t\t\t".'<option value="'.$lang.'"'.$selected.'>'.$lang.'</option>';
-	}
-	$addform .= '
-			</select></td>
+			<td class="data2">'.lang_select().'</td>
 		</tr>
 		<tr>
 			<td class="data2"></td>
@@ -214,13 +201,13 @@ function addUserTable()
 	<input type="hidden" value="new" name="'.UA_URI_OP.'" />
 </form>';
 
-	return $addform;
+	return $add_form;
 }
 
 /**
  * Builds the edit user table
  */
-function modifyUser()
+function modify_user()
 {
 	global $db, $uniadmin, $user;
 
@@ -253,11 +240,7 @@ function modifyUser()
 		{
 			$form .= '		<tr>
 			<td class="data2">'.$user->lang['change_userlevel'].':</td>
-			<td class="data2"><select class="select" name="level">
-					<option value="'.UA_ID_USER.'"'. ($userL == UA_ID_USER ?  ' selected="selected"' : '').'>'.$user->lang['basic_user_level_1'].'</option>
-					<option value="'.UA_ID_POWER.'"'.($userL == UA_ID_POWER ? ' selected="selected"' : '').'>'.$user->lang['power_user_level_2'].'</option>
-					<option value="'.UA_ID_ADMIN.'"'.($userL == UA_ID_ADMIN ? ' selected="selected"' : '').'>'.$user->lang['admin_level_3'].'</option>
-				</select></td>
+			<td class="data2">'.level_select($userL).'</td>
 		</tr>';
 		}
 		else
@@ -286,15 +269,7 @@ function modifyUser()
 		</tr>
 		<tr>
 			<td class="data2">'.$user->lang['change_language'].':</td>
-			<td class="data2"><select class="select" name="language">';
-
-	foreach( $uniadmin->languages as $lang )
-	{
-		$selected = ( $lang == $userW ? ' selected="selected"' : '' );
-		$form .= "\n\t\t\t\t".'<option value="'.$lang.'"'.$selected.'>'.$lang.'</option>';
-	}
-	$form .= '
-			</select></td>
+			<td class="data2">'.lang_select($userW).'</td>
 		</tr>
 		<tr>
 			<td class="data1">&nbsp;</td>
@@ -309,7 +284,7 @@ function modifyUser()
 /**
  * Finalizes editing of a user
  */
-function finalizeUser()
+function finalize_user()
 {
 	global $db, $uniadmin, $user;
 
@@ -319,15 +294,15 @@ function finalizeUser()
 	$userL = $_POST['level'];
 	$userW = $_POST['language'];
 
-	$sql = "SELECT * FROM `".UA_TABLE_USERS."` WHERE `name` LIKE '$userN';";
+	$sql = "SELECT * FROM `".UA_TABLE_USERS."` WHERE `name` = '$userN';";
 	$result = $db->query($sql);
 
 	$row = $db->fetch_record($result);
-	$oldPasswordHash = $row['password'];
+	$old_pass_hash = $row['password'];
 
 	if ($userP == '')
 	{
-		$userP = $oldPasswordHash;
+		$userP = $old_pass_hash;
 	}
 	else
 	{
@@ -356,7 +331,7 @@ function finalizeUser()
 		// user is level 1 and changing own password
 		if ($user->data['id'] != $userI)
 		{
-			debug('die hacker!');
+			$uniadmin->debug('die hacker!');
 			die_ua();
 		}
 
@@ -364,18 +339,18 @@ function finalizeUser()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_user_modify'],$userN));
+			$uniadmin->debug(sprintf($user->lang['sql_error_user_modify'],$userN));
 		}
 
 		$userN = $user->data['name'];
 	}
-	message(sprintf($user->lang['user_modified'],$userN));
+	$uniadmin->message(sprintf($user->lang['user_modified'],$userN));
 }
 
 /**
  * Finalizes creation of a new user
  */
-function newUser()
+function new_user()
 {
 	global $db, $uniadmin, $user;
 
@@ -389,31 +364,31 @@ function newUser()
 		if ($user->data['level'] > UA_ID_POWER)
 		{
 			$sql = "INSERT INTO `".UA_TABLE_USERS."` ( `name` , `password` , `level` , `language` ) VALUES ( '".$db->escape($userN)."' , '".md5($userP)."' , '$userL' , '".$db->escape($userW)."' );";
-			$result = $db->query($sql);
+			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
-				debug(sprintf($user->lang['sql_error_user_add'],$userN));
+				$uniadmin->debug(sprintf($user->lang['sql_error_user_add'],$userN));
 				return;
 			}
 
-			message(sprintf($user->lang['user_added'],$userN));
+			$uniadmin->message(sprintf($user->lang['user_added'],$userN));
 		}
 		else
 		{
 			$sql = "INSERT INTO `".UA_TABLE_USERS."` ( `name` , `password` , `level` , `language` ) VALUES ( '".$db->escape($userN)."' , '".md5($userP)."' , '1' , '".$db->escape($userW)."' );";
-			$result = $db->query($sql);
+			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
-				debug(sprintf($user->lang['sql_error_user_add'],$userN));
+				$uniadmin->debug(sprintf($user->lang['sql_error_user_add'],$userN));
 				return;
 			}
 
-			message(sprintf($user->lang['user_added'],$userN));
+			$uniadmin->message(sprintf($user->lang['user_added'],$userN));
 		}
 	}
 	else
 	{
-		debug('die hacker!');
+		$uniadmin->debug('die hacker!');
 		die_ua();
 	}
 }
@@ -421,7 +396,7 @@ function newUser()
 /**
  * Deletes a user
  */
-function deleteUser()
+function delete_user()
 {
 	global $db, $uniadmin, $user;
 
@@ -439,11 +414,11 @@ function deleteUser()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_user_delete'],$userN));
+			$uniadmin->debug(sprintf($user->lang['sql_error_user_delete'],$userN));
 			return;
 		}
 
-		message(sprintf($user->lang['user_deleted'],$userN));
+		$uniadmin->message(sprintf($user->lang['user_deleted'],$userN));
 	}
 	elseif ($user->data['level'] == UA_ID_POWER && $row['level'] == UA_ID_USER )
 	{
@@ -451,15 +426,15 @@ function deleteUser()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_user_delete'],$userN));
+			$uniadmin->debug(sprintf($user->lang['sql_error_user_delete'],$userN));
 			return;
 		}
 
-		message(sprintf($user->lang['user_deleted'],$userN));
+		$uniadmin->message(sprintf($user->lang['user_deleted'],$userN));
 	}
 	else
 	{
-		debug('die hacker!');
+		$uniadmin->debug('die hacker!');
 		die_ua();
 	}
 }

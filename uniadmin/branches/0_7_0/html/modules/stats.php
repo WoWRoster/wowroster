@@ -7,7 +7,7 @@ if( !defined('IN_UNIADMIN') )
 
 main();
 
-$db->close_db();
+
 
 
 
@@ -32,7 +32,9 @@ function main( )
 	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('ip_addr').'" alt="ip_addr" />'."\n".
 	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('user_agent').'" alt="user_agent" />'."\n".
 	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('action').'" alt="action" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('time').'" alt="time" />'."\n",$user->lang['title_stats']);
+	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('time').'" alt="time" />'."\n".
+	'<br />'."\n"
+	,$user->lang['title_stats']);
 }
 
 /**
@@ -41,18 +43,18 @@ function main( )
  * @param string $fieldName
  * @return string
  */
-function build_pie_hosts( $fieldName )
+function build_pie_hosts( $field_name )
 {
 	global $db, $uniadmin, $user;
 
-	$sql = "SELECT `$fieldName` FROM `".UA_TABLE_STATS."`;";
+	$sql = "SELECT `$field_name` FROM `".UA_TABLE_STATS."`;";
 	$result = $db->query($sql);
 
 	$i=0;
 	$array = '';
 	while( $row = $db->fetch_record($result) )
 	{
-		$array[$i] = $row[$fieldName];
+		$array[$i] = $row[$field_name];
 		$i++;
 	}
 	$db->free_result($result);
@@ -61,45 +63,47 @@ function build_pie_hosts( $fieldName )
 	{
 		$array = array_unique($array);
 
-		foreach( $array as $HostName )
+		foreach( $array as $host_name )
 		{
-			$sql = "SELECT `id` FROM `".UA_TABLE_STATS."` WHERE `$fieldName` = '".$db->escape($HostName)."'";
+			$sql = "SELECT `id` FROM `".UA_TABLE_STATS."` WHERE `$field_name` = '".$db->escape($host_name)."'";
 			$result = $db->query($sql);
 
-			if( $fieldName != 'time' )
+			if( $field_name != 'time' )
 			{
-				$finalArray[$HostName] = $db->num_rows($result);
+				$final_array[$host_name] = $db->num_rows($result);
 			}
 			else
 			{
-				$finalArray[date($user->lang['time_format'],$HostName)] = $db->num_rows($result);
+				$final_array[date($user->lang['time_format'],$host_name)] = $db->num_rows($result);
 			}
 		}
 
 		$db->free_result($result);
 
-		asort($finalArray,SORT_NUMERIC);
-		reset($finalArray);
+		asort($final_array,SORT_NUMERIC);
+		reset($final_array);
 
-		foreach( $finalArray as $HostName => $count )
+		foreach( $final_array as $host_name => $count )
 		{
-			if (count($finalArray) > 5 )
-				unset($finalArray[$HostName]);
+			if (count($final_array) > 5 )
+			{
+				unset($final_array[$host_name]);
+			}
 			$i++;
 		}
 
-		$finalArray = array_reverse($finalArray);
+		$final_array = array_reverse($final_array);
 
-		$fieldName = urlencode($fieldName);
+		$field_name = urlencode($field_name);
 
-		$pie = "title=$fieldName&amp;";
+		$pie = "title=$field_name&amp;";
 		$i = 0;
-		foreach( $finalArray as $HostName => $numHits )
+		foreach( $final_array as $host_name => $numHits )
 		{
-			$HostName = urlencode($HostName);
+			$host_name = urlencode($host_name);
 			$numHits = urlencode($numHits);
 
-			$pie .= "slice[$i]=$numHits&amp;itemName[$i]=$HostName&amp;";
+			$pie .= "slice[$i]=$numHits&amp;itemName[$i]=$host_name&amp;";
 			$i++;
 		}
 		$pie .= "action=drawChart";
@@ -134,7 +138,7 @@ function build_main_table( )
 	$sql = "SELECT * FROM `".UA_TABLE_STATS."`;";
 	$result = $db->query($sql);
 
-	$totalRows = $db->num_rows($result);
+	$total_rows = $db->num_rows($result);
 
 
 	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `$orderby` $direction LIMIT $start , $limit;";
@@ -167,41 +171,41 @@ function build_main_table( )
 	{
 		$time = date($user->lang['time_format'],$row['time']);
 
-		$tdClass = $uniadmin->switch_row_class();
+		$td_class = $uniadmin->switch_row_class();
 
-		$userAgent = string_chop($row['user_agent'],45,'...');
-		$hostName = string_chop($row['host_name'],25,'...');
+		$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
+		$host_name = $uniadmin->string_chop($row['host_name'],25,'...');
 
 		$table .= '	<tr>
-		<td class="'.$tdClass.'" align="right">'.$row['id'].'</td>
-		<td class="'.$tdClass.'">'.$row['action'].'</td>
-		<td class="'.$tdClass.'">'.$row['ip_addr'].'</td>
-		<td class="'.$tdClass.'">'.$time.'</td>
-		<td class="'.$tdClass.'" title="'.$row['user_agent'].'">'.$userAgent.'</td>
-		<td class="'.$tdClass.'" title="'.$row['host_name'].'">'.$hostName.'</td>
+		<td class="'.$td_class.'" align="right">'.$row['id'].'</td>
+		<td class="'.$td_class.'">'.$row['action'].'</td>
+		<td class="'.$td_class.'">'.$row['ip_addr'].'</td>
+		<td class="'.$td_class.'">'.$time.'</td>
+		<td class="'.$td_class.'" title="'.$row['user_agent'].'">'.$user_agent.'</td>
+		<td class="'.$td_class.'" title="'.$row['host_name'].'">'.$host_name.'</td>
 	</tr>';
 	}
 
-	$PrevStart = $start - $limit;
-	if( $PrevStart > -1 )
+	$prev_start = $start - $limit;
+	if( $prev_start > -1 )
 	{
-		$PrevLink = '<a href="'.UA_FORMACTION.'&amp;start='.$PrevStart.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
+		$prev_link = '<a href="'.UA_FORMACTION.'&amp;start='.$prev_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
 	}
 	else
 	{
-		$PrevLink = '';
+		$prev_link = '';
 	}
-	$NextStart = $start + $limit;
-	if( $NextStart < $totalRows )
+	$next_start = $start + $limit;
+	if( $next_start < $total_rows )
 	{
-		$NextLink = '<a href="'.UA_FORMACTION.'&amp;start='.$NextStart.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
+		$next_link = '<a href="'.UA_FORMACTION.'&amp;start='.$next_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
 	}
 	else
 	{
-		$NextLink = '';
+		$next_link = '';
 	}
 
-	if( !empty($PrevLink) && !empty($NextLink) )
+	if( !empty($prev_link) && !empty($next_link) )
 	{
 		$sep = ' | ';
 	}
@@ -211,11 +215,11 @@ function build_main_table( )
 	}
 
 
-	$totalPages = floor($totalRows / $limit) + 1;
+	$totalPages = floor($total_rows / $limit) + 1;
 	$pageNum =  floor($start / $limit) + 1;
 
 	$table .= '	<tr>
-		<td class="stats_footer" colspan="4">'.$PrevLink.$sep.$NextLink.' &nbsp;&nbsp;&nbsp; ['.$pageNum.' / '.$totalPages.']</td>
+		<td class="stats_footer" colspan="4">'.$prev_link.$sep.$next_link.' &nbsp;&nbsp;&nbsp; ['.$pageNum.' / '.$totalPages.']</td>
 		<td class="stats_footer" colspan="2">
 
 		<form name="ua_changeparams" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">

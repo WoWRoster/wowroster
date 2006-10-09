@@ -42,7 +42,7 @@ switch($op)
 }
 main();
 
-$db->close_db();
+
 
 
 
@@ -242,14 +242,14 @@ function main( )
  */
 function disable_addon( $id )
 {
-	global $db, $user;
+	global $db, $user, $uniadmin;
 
 	$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `enabled` = '0' WHERE `id` = '$id' LIMIT 1 ;";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    debug($user->lang['error_disable_addon']);
-		debug(sprintf($user->lang['sql_error_addons_disable'],$id));
+	    $uniadmin->debug($user->lang['error_disable_addon']);
+		$uniadmin->debug(sprintf($user->lang['sql_error_addons_disable'],$id));
 	}
 }
 
@@ -260,14 +260,14 @@ function disable_addon( $id )
  */
 function enable_addon( $id )
 {
-	global $db, $user;
+	global $db, $user, $uniadmin;
 
 	$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `enabled` = '1' WHERE `id` = '$id' LIMIT 1 ;";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    debug($user->lang['error_enable_addon']);
-		debug(sprintf($user->lang['sql_error_addons_enable'],$id));
+	    $uniadmin->debug($user->lang['error_enable_addon']);
+		$uniadmin->debug(sprintf($user->lang['sql_error_addons_enable'],$id));
 	}
 }
 
@@ -278,14 +278,14 @@ function enable_addon( $id )
  */
 function require_addon( $id )
 {
-	global $db, $user;
+	global $db, $user, $uniadmin;
 
 	$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `required` = '1' WHERE `id` = '$id' LIMIT 1 ;";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    debug($user->lang['error_requre_addon']);
-		debug(sprintf($user->lang['sql_error_addons_requre'],$id));
+	    $uniadmin->debug($user->lang['error_requre_addon']);
+		$uniadmin->debug(sprintf($user->lang['sql_error_addons_requre'],$id));
 	}
 }
 
@@ -296,14 +296,14 @@ function require_addon( $id )
  */
 function optional_addon( $id )
 {
-	global $db, $user;
+	global $db, $user, $uniadmin;
 
 	$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `required` = '0' WHERE `id` = '$id' LIMIT 1 ;";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    debug($user->lang['error_optional_addon']);
-		debug(sprintf($user->lang['sql_error_addons_optional'],$id));
+	    $uniadmin->debug($user->lang['error_optional_addon']);
+		$uniadmin->debug(sprintf($user->lang['sql_error_addons_optional'],$id));
 	}
 }
 
@@ -329,22 +329,22 @@ function delete_addon( $id )
 	$try_unlink = @unlink($local_path);
 	if( !$try_unlink )
 	{
-		debug($user->lang['error_delete_addon']);
-		debug(sprintf($user->lang['error_unlink'],$local_path));
+		$uniadmin->debug($user->lang['error_delete_addon']);
+		$uniadmin->debug(sprintf($user->lang['error_unlink'],$local_path));
 	}
 
 	$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$id'";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    debug(sprintf($user->lang['sql_error_addons_delete'],$id));
+	    $uniadmin->debug(sprintf($user->lang['sql_error_addons_delete'],$id));
 	}
 
 	$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$id';";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    debug(sprintf($user->lang['sql_error_addons_delete'],$id));
+	    $uniadmin->debug(sprintf($user->lang['sql_error_addons_delete'],$id));
 	}
 }
 
@@ -359,9 +359,9 @@ function process_addon()
 
 	if( !empty($temp_file_name) )
 	{
-		if( get_file_ext($_FILES['file']['name']) != 'zip' )
+		if( $uniadmin->get_file_ext($_FILES['file']['name']) != 'zip' )
 		{
-			message($user->lang['error_zip_file']);
+			$uniadmin->message($user->lang['error_zip_file']);
 			return;
 		}
 
@@ -397,7 +397,7 @@ function process_addon()
 		$try_move = move_uploaded_file($temp_file_name,$zip_file);
 		if( !$try_move )
 		{
-			debug(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$zip_file));
+			$uniadmin->debug(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$zip_file));
 			return;
 		}
 
@@ -405,14 +405,14 @@ function process_addon()
 		$try_chmod = @chmod($zip_file,0777);
 		if( !$try_chmod )
 		{
-			debug(sprintf($user->lang['error_chmod'],$zip_file));
+			$uniadmin->debug(sprintf($user->lang['error_chmod'],$zip_file));
 			return;
 		}
 
 		// Unzip the file
-		unzip($zip_file,$temp_folder.DIR_SEP);
+		$uniadmin->unzip($zip_file,$temp_folder.DIR_SEP);
 
-		$files = ls($temp_folder,array());
+		$files = $uniadmin->ls($temp_folder,array());
 
 
 		// Get the TOC of the addon
@@ -421,7 +421,7 @@ function process_addon()
 		{
 			foreach( $files as $file )
 			{
-				if( get_file_ext($file) == 'toc' )
+				if( $uniadmin->get_file_ext($file) == 'toc' )
 				{
 					$toc = get_toc($file);
 
@@ -436,10 +436,10 @@ function process_addon()
 				$try_unlink = @unlink($zip_file);
 				if( !$try_unlink )
 				{
-					debug(sprintf($user->lang['error_unlink'],$zip_file));
+					$uniadmin->debug(sprintf($user->lang['error_unlink'],$zip_file));
 				}
-				cleardir($temp_folder);
-				debug($user->lang['error_no_toc_file']);
+				$uniadmin->cleardir($temp_folder);
+				$uniadmin->debug($user->lang['error_no_toc_file']);
 			}
 		}
 		else
@@ -447,10 +447,10 @@ function process_addon()
 			$try_unlink = @unlink($zip_file);
 			if( !$try_unlink )
 			{
-				debug(sprintf($user->lang['error_unlink'],$zip_file));
+				$uniadmin->debug(sprintf($user->lang['error_unlink'],$zip_file));
 			}
-			cleardir($temp_folder);
-			debug($user->lang['error_no_files_addon']);
+			$uniadmin->cleardir($temp_folder);
+			$uniadmin->debug($user->lang['error_no_files_addon']);
 			return;
 		}
 
@@ -498,8 +498,8 @@ function process_addon()
 
 		if( !$db->affected_rows() )
 		{
-		    debug($user->lang['sql_error_addons_insert']);
-		    cleardir($temp_folder);
+		    $uniadmin->debug($user->lang['sql_error_addons_insert']);
+		    $uniadmin->cleardir($temp_folder);
 		    return;
 		}
 
@@ -518,8 +518,8 @@ function process_addon()
 				$db->query($sql);
 				if( !$db->affected_rows() )
 				{
-				    debug($user->lang['sql_error_addons_files_insert']);
-				    cleardir($temp_folder);
+				    $uniadmin->debug($user->lang['sql_error_addons_files_insert']);
+				    $uniadmin->cleardir($temp_folder);
 				    return;
 				}
 
@@ -527,19 +527,19 @@ function process_addon()
 				$try_unlink = @unlink($file);
 				if( !$try_unlink )
 				{
-					debug(sprintf($user->lang['error_unlink'],$file));
+					$uniadmin->debug(sprintf($user->lang['error_unlink'],$file));
 				}
 			}
 		}
 
 		// Now clear the temp folder
-		cleardir($temp_folder);
+		$uniadmin->cleardir($temp_folder);
 
-		message(sprintf($user->lang['addon_uploaded'],$real_addon_name));
+		$uniadmin->message(sprintf($user->lang['addon_uploaded'],$real_addon_name));
 	}
 	else // Nothing was uploaded
 	{
-		message($user->lang['error_no_addon_uploaded']);
+		$uniadmin->message($user->lang['error_no_addon_uploaded']);
 	}
 }
 
@@ -547,7 +547,7 @@ function process_addon()
  * Gets the toc version number from the .toc file
  *
  * @param string $file
- * @return unknown
+ * @return string
  */
 function get_toc( $file )
 {

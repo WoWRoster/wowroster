@@ -7,14 +7,15 @@ if( isset($_GET['p']) && ($_GET['p'] == 'view' || $_GET['p'] == 'interface') )
 	die();
 }
 
+// Include the initialization file
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
 
 // This is a list of allowed actions that a person can make.
 // For each action, there is a corresponding php file, i.e.
-// help == help.php
+// help == modules/help.php
 // Any action that is attempted that isn't listed in this array will
-// refer them to the help page (or the login screen if they are not logged in.
+// refer them to the help page (or the login screen if they are not logged in)
 $allowed_pages = array(
 	'addons',
 	'settings',
@@ -45,5 +46,7 @@ else
 {
 	include_once(UA_MODULEDIR.'help.php');
 }
+
+$db->close_db();
 
 ?>

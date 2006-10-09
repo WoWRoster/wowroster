@@ -22,9 +22,12 @@ class User
 	var $user_agent   = '';                 // User Agent               @var user_agent
 	var $ip_address   = 0;                  // User IP                  @var ip_address
 
+	/**
+	 * Initialize user object
+	 */
 	function start( )
 	{
-		global $db, $uniadmin;
+		global $uniadmin;
 
 		$this->ip_address = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : $REMOTE_ADDR;
 		$this->user_agent = ( !empty($_SERVER['HTTP_USER_AGENT']) ) ? $_SERVER['HTTP_USER_AGENT'] : $_ENV['HTTP_USER_AGENT'];
@@ -48,7 +51,13 @@ class User
 		return;
 	}
 
-	function create( &$data )
+	/**
+	 * Re-initializes user object with new user data
+	 *
+	 * @param array $data
+	 * @return bool
+	 */
+	function create( $data )
 	{
 		if( is_array($data) )
 		{
@@ -65,6 +74,11 @@ class User
 	}
 }
 
+/**
+ * Gets the user name from a cookie
+ *
+ * @return string
+ */
 function get_username( )
 {
 	if( isset($_COOKIE['UA']) )
@@ -78,9 +92,15 @@ function get_username( )
 	}
 }
 
+/**
+ * Gets the current user's info
+ *
+ * @param string $name
+ * @return array
+ */
 function get_user_info( $name='' )
 {
-	global $dblink, $db;
+	global $db;
 
 	$username = ( $name == '' ? get_username() : $name );
 

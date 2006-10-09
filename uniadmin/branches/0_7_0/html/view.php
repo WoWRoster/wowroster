@@ -1,6 +1,7 @@
 <?php
 
 $interface = true;
+$uniadmin = '';
 
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
@@ -45,7 +46,6 @@ function main()
 			$version = $row['version'];
 			$time = date($user->lang['time_format'],$row['time_uploaded']);
 			$url = $row['dl_url'];
-			$addon_id = $row['id'];
 
 			if ($row['enabled'] == '1')
 			{
@@ -208,7 +208,6 @@ function main()
 
 			case 'select':
 				$options = explode('|',$input_type[1]);
-				$select_one = 1;
 				foreach( $options as $value )
 				{
 					$input_field .= ( $row['set_value'] == $vals[1] ? $vals[0] : '' )."\n";

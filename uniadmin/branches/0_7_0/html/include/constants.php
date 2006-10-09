@@ -67,12 +67,16 @@ define('UA_URI_NEW',      'new');
 define('UA_URI_UPINI',    'upini');
 define('UA_URI_GETINI',   'getini');
 
+// URL parameters
 define('UA_INDEX',        'index.php');
 define('UA_URI_PAGE',     'p');
 define('UA_INDEXPAGE',    UA_INDEX.'?'.UA_URI_PAGE);
 define('UA_URI_THEME',    'theme');
 define('UA_FORMACTION',   UA_INDEXPAGE.( isset($_GET[UA_URI_PAGE]) ? '='.$_GET[UA_URI_PAGE] : '') );
 
+
+// This is to reject certain settings in UU since we don't need them, or want them displayed
+define('UA_REJECT_INI'    ,'CHECKEDADDONS,CHECKEDSVLIST,EXELOC,FILELOCATION,SELECTEDACCT,EXE1,EXE1LOCATION,EXE2,EXE2LOCATION,EXE3,EXE3LOCATION,EXEUULAUNCH,EXEWOWLAUNCH,USERAGENT');
 
 // Database Table names
 define('UA_TABLE_ADDONS',   $config['table_prefix'] . 'addons');
@@ -84,7 +88,5 @@ define('UA_TABLE_STATS',    $config['table_prefix'] . 'stats');
 define('UA_TABLE_USERS',    $config['table_prefix'] . 'users');
 define('UA_TABLE_SVLIST',   $config['table_prefix'] . 'svlist');
 
-
-define('UA_LOGIN_FORM','<form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="Logout"></form>')
 
 ?>

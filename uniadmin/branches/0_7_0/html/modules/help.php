@@ -27,4 +27,5 @@ $help .= '
 </table>';
 
 display_page($help,$user->lang['title_help']);
+
 ?>

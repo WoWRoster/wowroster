@@ -34,7 +34,7 @@ CREATE TABLE `uniadmin_config` (
 ### Configuration values
 INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUES
 	('addon_folder', 'addon_zips', 'text{250|50'),
-	('default_lang', 'english', 'function{langSelect'),
+	('default_lang', 'english', 'function{lang_select'),
 	('interface_url', '%url%?p=interface', 'text{250|50'),
 	('logo_folder', 'logos', 'text{250|50'),
 	('temp_analyze_folder', 'addon_temp', 'text{250|50'),
@@ -89,7 +89,7 @@ CREATE TABLE `uniadmin_settings` (
 
 ### Settings
 INSERT INTO `uniadmin_settings` (`set_name`, `set_value`, `enabled`, `section`, `form_type`) VALUES
-	('LANGUAGE', 'english', '0', 'settings', 'text{250|50'),
+	('LANGUAGE', 'English', '0', 'settings', 'select{English^English|Deutsch^Deutsch|French^French|Nederlands^Nederlands|Russian^Russian|Svenska^Svenska'),
 	('PRIMARYURL', 'http://yourdomain.com/yourinterface.php', '0', 'settings', 'text{250|50'),
 	('PROGRAMMODE', 'Basic', '0', 'settings', 'select{Basic^Basic|Advanced^Advanced'),
 	('AUTODETECTWOW', '1', '0', 'settings', 'radio{yes^1|no^0'),
@@ -102,7 +102,6 @@ INSERT INTO `uniadmin_settings` (`set_name`, `set_value`, `enabled`, `section`, 
 	('AUTOUPLOADONFILECHANGES', '1', '0', 'options', 'radio{yes^1|no^0'),
 	('ALWAYSONTOP', '1', '0', 'options', 'radio{yes^1|no^0'),
 	('SYSTRAY', '0', '0', 'options', 'radio{yes^1|no^0'),
-	('USERAGENT', 'UniUploader 2.0 (UU 2.5.0; English)', '0', 'options', 'text{250|50'),
 	('ADDVAR1CH', '0', '0', 'options', 'radio{on^1|off^0'),
 	('ADDVARNAME1', 'username', '0', 'options', 'text{250|50'),
 	('ADDVARVAL1', '', '0', 'options', 'text{250|50'),
@@ -137,24 +136,7 @@ INSERT INTO `uniadmin_settings` (`set_name`, `set_value`, `enabled`, `section`, 
 	('WEBWOWSVFILE', 'SavedVariables.lua', '0', 'advanced', 'text{250|50'),
 	('DOWNLOADBEFOREWOWL', '0', '0', 'advanced', 'radio{on^1|off^0'),
 	('DOWNLOADBEFOREUPLOAD', '0', '0', 'advanced', 'radio{on^1|off^0'),
-	('DOWNLOADAFTERUPLOAD', '1', '0', 'advanced', 'radio{on^1|off^0'),
-	('SYNCHROAUTOURL', '1', '0', '', 'radio{on^1|off^0'),
-	('AUTOPATH', '1', '0', '', 'radio{on^1|off^0'),
-	('PREPARSE', '1', '0', '', 'radio{on^1|off^0'),
-	('PARSEVAR1', 'myProfile', '0', '', 'text{250|50'),
-	('PARSEVAR2CH', '0', '0', '', 'radio{on^1|off^0'),
-	('PARSEVAR2', '', '0', '', 'text{250|50'),
-	('PARSEVAR3CH', '0', '0', '', 'radio{on^1|off^0'),
-	('PARSEVAR3', '', '0', '', 'text{250|50'),
-	('PARSEVAR4CH', '0', '0', '', 'radio{on^1|off^0'),
-	('PARSEVAR4', '', '0', '', 'text{250|50'),
-	('PARSEVAR5CH', '0', '0', '', 'radio{on^1|off^0'),
-	('PARSEVAR5', '', '0', '', 'text{250|50'),
-	('RETRDATA', '0', '0', '', 'radio{on^1|off^0'),
-	('ADDURLFFNAME1', '', '0', '', 'text{250|50'),
-	('ADDURLFFNAME2', '', '0', '', 'text{250|50'),
-	('ADDURLFFNAME3', '', '0', '', 'text{250|50'),
-	('ADDURLFFNAME4', '', '0', '', 'text{250|50');
+	('DOWNLOADAFTERUPLOAD', '1', '0', 'advanced', 'radio{on^1|off^0');
 
 
 # --------------------------------------------------------

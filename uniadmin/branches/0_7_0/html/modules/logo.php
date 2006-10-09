@@ -10,6 +10,7 @@ $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 
 $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 
+
 // Decide What To Do
 switch( $op )
 {
@@ -27,7 +28,7 @@ switch( $op )
 }
 main();
 
-$db->close_db();
+
 
 
 
@@ -219,7 +220,7 @@ function main( )
  */
 function toggle_logo( $op , $id )
 {
-	global $db;
+	global $db, $user, $uniadmin;
 
 	if( !empty($op) && !empty($id) )
 	{
@@ -236,10 +237,10 @@ function toggle_logo( $op , $id )
 			default:
 			break;
 		}
-		$result = $db->query($sql);
+		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_logo_toggle'],$op));
+			$uniadmin->debug(sprintf($user->lang['sql_error_logo_toggle'],$op));
 		}
 	}
 }
@@ -276,11 +277,11 @@ function process_logo( )
 	}
 	else
 	{
-		message($user->lang['error_no_uploaded_logo']);
+		$uniadmin->message($user->lang['error_no_uploaded_logo']);
 		return;
 	}
 
-	if( get_file_ext($_FILES[$file_field]['name']) == 'gif' )
+	if( $uniadmin->get_file_ext($_FILES[$file_field]['name']) == 'gif' )
 	{
 		$logo_location = $logo_folder.DIR_SEP.stripslashes('logo'.$logo_num.'.gif');
 		@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.gif');
@@ -288,7 +289,7 @@ function process_logo( )
 		$try_move = @move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);
 		if( !$try_move )
 		{
-			debug(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$file_field]['tmp_name'],$logo_location));
+			$uniadmin->debug(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$file_field]['tmp_name'],$logo_location));
 			return;
 		}
 
@@ -296,7 +297,7 @@ function process_logo( )
 		$try_chmod = @chmod($logo_location,0777);
 		if( !$try_chmod )
 		{
-			debug(sprintf($user->lang['error_chmod'],$logo_location));
+			$uniadmin->debug(sprintf($user->lang['error_chmod'],$logo_location));
 			return;
 		}
 
@@ -308,14 +309,14 @@ function process_logo( )
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_logo_insert'],$logo_num));
+			$uniadmin->debug(sprintf($user->lang['sql_error_logo_insert'],$logo_num));
 		}
 
-		message(sprintf($user->lang['logo_uploaded'],$logo_num));
+		$uniadmin->message(sprintf($user->lang['logo_uploaded'],$logo_num));
 	}
 	else
 	{
-		message($user->lang['error_logo_format']);
+		$uniadmin->message($user->lang['error_logo_format']);
 		return;
 	}
 }

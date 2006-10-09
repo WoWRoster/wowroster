@@ -214,6 +214,7 @@ $lang['access_denied'] = 'Access Denied';
 $lang['settings_file'] = 'settings.ini File';
 $lang['import_file'] = 'Import File';
 $lang['export_file'] = 'Export File';
+$lang['settings_updated'] = 'Settings Updated';
 
 
 // Pagination
@@ -257,7 +258,6 @@ $lang['UUSETTINGSUPDATER'] = 'Sync UniUploader settings with UniAdmin';
 $lang['AUTOUPLOADONFILECHANGES'] = 'Auto upload on SavedVariable file changes';
 $lang['ALWAYSONTOP'] = 'Set UniUploader always on top';
 $lang['SYSTRAY'] = 'Display UniUploader in the system tray';
-$lang['USERAGENT'] = 'The User-Agent UU will use';
 $lang['ADDVAR1CH'] = 'Additional variable 1';
 $lang['ADDVARNAME1'] = 'Additional variable 1 name (default-&gt;username)';
 $lang['ADDVARVAL1'] = 'Additional variable 1 value';
@@ -295,25 +295,6 @@ $lang['WEBWOWSVFILE'] = 'Web==&gt;WoW - Write to SavedVariable filename';
 $lang['DOWNLOADBEFOREWOWL'] = 'Web==&gt;WoW - Initiate Before UU Launches WoW';
 $lang['DOWNLOADBEFOREUPLOAD'] = 'Web==&gt;WoW - Initiate Before UU Uploads';
 $lang['DOWNLOADAFTERUPLOAD'] = 'Web==&gt;WoW - Initiate After UU Uploads';
-
-// unknown
-$lang['SYNCHROAUTOURL'] = '(UU 1.x) Synchronization Auto-URL';
-$lang['AUTOPATH'] = '(UU 1.x) Auto-Path';
-$lang['PREPARSE'] = '(UU 1.x) Pre-Parse';
-$lang['PARSEVAR2CH'] = '(UU 1.x) Pre-Parse variable 2';
-$lang['PARSEVAR3CH'] = '(UU 1.x) Pre-Parse variable 3';
-$lang['PARSEVAR4CH'] = '(UU 1.x) Pre-Parse variable 4';
-$lang['PARSEVAR5CH'] = '(UU 1.x) Pre-Parse variable 5';
-$lang['PARSEVAR1'] = '(UU 1.x) Pre-Parse variable 1 name';
-$lang['PARSEVAR2'] = '(UU 1.x) Pre-Parse variable 2 name';
-$lang['PARSEVAR3'] = '(UU 1.x) Pre-Parse variable 3 name';
-$lang['PARSEVAR4'] = '(UU 1.x) Pre-Parse variable 4 name';
-$lang['PARSEVAR5'] = '(UU 1.x) Pre-Parse variable 5 name';
-$lang['RETRDATA'] = '(UU 1.x) Retrieve data';
-$lang['ADDURLFFNAME1'] = '(UU 1.x) Additional URL 1 file-field name';
-$lang['ADDURLFFNAME2'] = '(UU 1.x) Additional URL 2 file-field name';
-$lang['ADDURLFFNAME3'] = '(UU 1.x) Additional URL 3 file-field name';
-$lang['ADDURLFFNAME4'] = '(UU 1.x) Additional URL 4 file-field name';
 
 // END UU Sync Strings
 

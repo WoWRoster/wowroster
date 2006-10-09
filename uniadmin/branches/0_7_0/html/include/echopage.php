@@ -5,6 +5,12 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Output the display
+ *
+ * @param string $body
+ * @param string $subtitle
+ */
 function display_page( $body , $subtitle = 'Index' )
 {
 	global $login_form, $ua_menu, $uniadmin, $db, $user;

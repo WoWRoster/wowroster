@@ -15,14 +15,17 @@ switch( $op )
 {
 	case UA_URI_PROCESS:
 		process_update();
+		main();
 		break;
 
 	case UA_URI_ADD:
 		add_sv($_POST[UA_URI_SVNAME]);
+		main();
 		break;
 
 	case UA_URI_DELETE:
 		remove_sv($id);
+		main();
 		break;
 
 	case UA_URI_UPINI:
@@ -30,15 +33,16 @@ switch( $op )
 		break;
 
 	case UA_URI_GETINI:
-		//get_ini();
+		get_ini();
+		main();
 		break;
 
 	default:
+		main();
 		break;
 }
-main();
 
-$db->close_db();
+
 
 
 
@@ -56,9 +60,6 @@ $db->close_db();
 function main( )
 {
 	global $db, $uniadmin, $user;
-
-	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` ORDER BY `id` ASC;";
-	$result = $db->query($sql);
 
 	$form = '
 <form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
@@ -78,6 +79,9 @@ function main( )
 		</tr>';
 
 	$section = '';
+
+	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` ORDER BY `id` ASC;";
+	$result = $db->query($sql);
 
 	while( $row = $db->fetch_record($result) )
 	{
@@ -107,7 +111,7 @@ function main( )
 		{
 			case 'text':
 				$length = explode('|',$input_type[1]);
-				$input_field = '<input class="input" name="'.$row['set_name'].'" type="text" value="'.$setvalue.'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+				$input_field = '<input class="input" name="'.$setname.'" type="text" value="'.$setvalue.'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 				break;
 
 			case 'radio':
@@ -115,13 +119,13 @@ function main( )
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					$input_field .= '<label><input type="radio" name="'.$row['set_name'].'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$user->lang[$vals[0]]."</label>\n";
+					$input_field .= '<label><input type="radio" name="'.$setname.'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$user->lang[$vals[0]]."</label>\n";
 				}
 				break;
 
 			case 'select':
 				$options = explode('|',$input_type[1]);
-				$input_field .= '<select class="input" name="'.$row['set_name'].'">'."\n";
+				$input_field .= '<select class="input" name="'.$setname.'">'."\n";
 				$select_one = 1;
 				foreach( $options as $value )
 				{
@@ -156,18 +160,18 @@ function main( )
 
 		if ($row['enabled'] == '1')
 		{
-			$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" checked="checked" /></td>'."\n";
+			$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$setname.'_en" value="1" checked="checked" /></td>'."\n";
 		}
 		else
 		{
-			$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$row['set_name'].'_en" value="1" /></td>'."\n";
+			$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$setname.'_en" value="1" /></td>'."\n";
 		}
 		$form .= '		</tr>'."\n";
 	}
 
 	$form .= '		<tr>
 			<td class="data_header" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
-				<input class="submit" type="submit" value="'.$user->lang['update_settings'].'" /></td>
+				<input class="submit" type="submit" name="settings" value="'.$user->lang['update_settings'].'" /></td>
 		</tr>
 	</table>
 </form>';
@@ -275,33 +279,47 @@ function main( )
  */
 function process_update( )
 {
-	global $db, $user;
+	global $db, $uniadmin, $user;
 
-	foreach( $_POST as $settingName => $settingValue )
+	foreach( $_POST as $setting_name => $setting_value )
 	{
-		if( !( substr_count($settingName,'_en') >= 1 ) || $settingName != UA_URI_OP )
+		if( !( substr_count($setting_name,'_en') >= 1 ) ||  !( substr_count($setting_name,'_ck') >= 1 ) || $setting_name != UA_URI_OP || $setting_name != 'settings' || $setting_name != 'inifile' )
 		{
-			if( isset($_POST[$settingName.'_en']) && $_POST[$settingName.'_en'] == '1')
+			if( isset($_POST['settings']) )
 			{
-				$enabled = 1;
-			}
-			else
-			{
-				$enabled = 0;
-			}
+				if( isset($_POST[$setting_name.'_en']) && $_POST[$setting_name.'_en'] == '1')
+				{
+					$enabled = 1;
+				}
+				else
+				{
+					$enabled = 0;
+				}
 
-			$sql = "UPDATE `".UA_TABLE_SETTINGS."` SET `enabled` = '$enabled', `set_value` = '".$db->escape($settingValue)."' WHERE `set_name` = '".$db->escape($settingName)."' LIMIT 1 ;";
-			$db->query($sql);
+				$sql = "UPDATE `".UA_TABLE_SETTINGS."` SET `enabled` = '$enabled', `set_value` = '".$db->escape($setting_value)."' WHERE `set_name` = '".$db->escape($setting_name)."' LIMIT 1;";
+				$db->query($sql);
+			}
+			elseif( isset($_POST['inifile']) )
+			{
+				if( isset($_POST[$setting_name.'_ck']) && $_POST[$setting_name.'_ck'] == '1')
+				{
+					$sql = "UPDATE `".UA_TABLE_SETTINGS."` SET `set_value` = '".$db->escape($setting_value)."' WHERE `set_name` = '".$db->escape($setting_name)."' LIMIT 1;";
+					$db->query($sql);
+				}
+			}
 		}
 	}
+	$uniadmin->message($user->lang['settings_updated']);
 }
 
 /**
  * Adds a SV filename
+ *
+ * @param string $svname
  */
 function add_sv( $svname )
 {
-	global $db, $user;
+	global $db, $user, $uniadmin;
 
 	if( !empty($svname) )
 	{
@@ -309,7 +327,7 @@ function add_sv( $svname )
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			debug(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
+			$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
 		}
 	}
 }
@@ -321,16 +339,19 @@ function add_sv( $svname )
  */
 function remove_sv( $id )
 {
-	global $db, $user;
+	global $db, $user, $uniadmin;
 
 	$sql = "DELETE FROM `".UA_TABLE_SVLIST."` WHERE `id` = ".$db->escape($id)." LIMIT 1;";
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-		debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
+		$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
 	}
 }
 
+/**
+ * Process an uploaded ini file
+ */
 function process_ini( )
 {
 	global $db, $uniadmin, $user;
@@ -341,7 +362,7 @@ function process_ini( )
 	{
 		if( $_FILES['file']['name'] != 'settings.ini' )
 		{
-			message($user->lang['error_ini_file']);
+			$uniadmin->message($user->lang['error_ini_file']);
 			return;
 		}
 
@@ -364,33 +385,107 @@ function process_ini( )
 		$try_move = move_uploaded_file($temp_file_name,$ini_file);
 		if( !$try_move )
 		{
-			debug(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$ini_file));
+			$uniadmin->debug(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$ini_file));
 			return;
 		}
 
 		$ini_data = read_ini_file($ini_file);
 
-		ob_start();
-		print_r($ini_data);
-		$print_this = ob_get_clean();
+		if( is_array($ini_data) )
+		{
+			$form = '
+<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<table class="ua_table" align="center">
+		<tr>
+			<th colspan="4" class="table_header">'.$user->lang['settings_file'].'</th>
+		</tr>';
 
-		message('<pre>'.$print_this.'</pre>');
+			$sectionheader = '
+		<tr>
+			<th colspan="4" class="data_header">[%s]</th>
+		</tr>
+		<tr>
+			<td class="data_header">'.$user->lang['setting_name'].'</td>
+			<td class="data_header">'.$user->lang['value'].'</td>
+			<td class="data_header">'.$user->lang['import'].'</td>
+		</tr>';
+
+			$section = '';
+
+			foreach( $ini_data as $section => $setting )
+			{
+				$form .= sprintf($sectionheader,( $section == '' ? 'unknown' : $section ));
+
+				foreach( $setting as $setting_name => $setting_value )
+				{
+					if( $setting_value == 'True' )
+					{
+						$setting_value = '1';
+					}
+					elseif( $setting_value == 'False' )
+					{
+						$setting_value = '0';
+					}
+					if( !in_array($setting_name,$uniadmin->reject_ini) )
+					{
+						$td_class = 'data'.$uniadmin->switch_row_class();
+
+						$form .= '
+		<tr>
+			<td class="'.$td_class.'" onmouseover="return overlib(\''.$user->lang[$setting_name].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$setting_name.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$setting_name.'\',VAUTO);" onmouseout="return nd();">
+				<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setting_name.'</td>
+			<td class="'.$td_class.'"><input type="hidden" name="'.$setting_name.'" value="'.$setting_value.'" />'.$setting_value.'</td>'."\n";
+
+						$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$setting_name.'_ck" value="1" /></td>
+		</tr>
+';
+					}
+				}
+			}
+
+			$form .= '		<tr>
+			<td class="data_header" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
+				<input class="submit" type="submit" name="inifile" value="'.$user->lang['update_settings'].'" /></td>
+		</tr>
+	</table>
+</form>';
+		}
 
 		// Delete ini if it exists
 		@unlink($ini_file);
+
+		display_page($form,$user->lang['title_settings']);
 	}
 	else // Nothing was uploaded
 	{
-		message($user->lang['error_no_ini_uploaded']);
+		$uniadmin->message($user->lang['error_no_ini_uploaded']);
 	}
-	return;
 }
 
 function get_ini( )
 {
-	global $db, $uniadmin, $user;
+	global $db;
 
-	return;
+	$comment = "UniUploader initialization file\nAUTO generated by UniAdmin";
+
+	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` ORDER BY `id` ASC;";
+	$result = $db->query($sql);
+
+	$gen_ini = array();
+	while( $row = $db->fetch_record($result) )
+	{
+		$gen_ini[$row['section']][$row['set_name']] = $row['set_value'];
+	}
+
+	$ini_file = generate_ini_file($gen_ini,$comment);
+
+	header('Content-Type: text/x-delimtext; name="settings.ini"');
+	header('Content-disposition: attachment; filename="settings.ini"');
+
+	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
+	echo stripslashes($ini_file);
+
+	exit;
 }
 
 /**
@@ -454,66 +549,57 @@ function read_ini_file( $filename , $commentchar='#' )
 }
 
 /**
- * Write a settings.ini file for UniUploader
+ * Generate a settings.ini file for UniUploader
  *
- * @param string $filename
  * @param array $array
  * @param string $commentchar
  * @param string $commenttext
- * @return bool
+ * @return array
  */
-function write_ini_file( $filename , $array , $commentchar , $commenttext )
+function generate_ini_file( $array , $commenttext='' , $commentchar='#' )
 {
-	$handle = fopen( $filename, 'wb' );
-	if( $handle )
+	$ini_file = '';
+	if( $commenttext!='' )
 	{
-		if( $commenttext!='' )
+		$comtext = $commentchar.
+		str_replace( $commentchar, "\r\n".$commentchar,
+		str_replace( "\r", $commentchar,
+		str_replace( "\n", $commentchar,
+		str_replace( "\n\r", $commentchar,
+		str_replace( "\r\n", $commentchar, $commenttext )
+		)
+		)
+		)
+		)
+		;
+		if( substr( $comtext, -1, 1 ) == $commentchar && substr( $commenttext, -1, 1 ) != $commentchar )
 		{
-			$comtext = $commentchar.
-			str_replace( $commentchar, "\r\n".$commentchar,
-			str_replace( "\r", $commentchar,
-			str_replace( "\n", $commentchar,
-			str_replace( "\n\r", $commentchar,
-			str_replace( "\r\n", $commentchar, $commenttext )
-			)
-			)
-			)
-			)
-			;
-			if( substr( $comtext, -1, 1 ) == $commentchar && substr( $commenttext, -1, 1 ) != $commentchar )
-			{
-				$comtext = substr($comtext, 0, -1);
-			}
-			fwrite( $handle, $comtext."\r\n\r\n" );
+			$comtext = substr($comtext, 0, -1);
 		}
-		foreach( $array as $sections => $items )
-		{
-			//Write the section
-			if( isset( $section ) )
-			{
-				fwrite( $handle, "\r\n" );
-			}
-			$section = preg_replace( '/[\0-\37]|\177/', '-', $sections );
-			fwrite( $handle, '['.$section."]\r\n" );
-			foreach( $items as $keys => $values )
-			{
-				//Write the key/value pairs
-				$key = preg_replace( '/[\0-\37]|=|\177/', '-', $keys );
-				if ( substr( $key, 0, 1 ) == $commentchar )
-				{
-					$key = '-'.substr( $key, 1 );
-				}
-				$value = addcslashes( $values,'' );
-				fwrite( $handle, $key.'='.$value."\r\n" );
-			}
-		}
-		fclose( $handle );
-		return true;
+		$ini_file .= $comtext."\r\n\r\n";
 	}
-	else
+	foreach( $array as $sections => $items )
 	{
-		return false;
+		//Write the section
+		if( isset( $section ) )
+		{
+			$ini_file .= "\r\n";
+		}
+		$section = preg_replace( '/[\0-\37]|\177/', '-', $sections );
+		$ini_file .= '['.$section."]\r\n";
+		foreach( $items as $keys => $values )
+		{
+			//Write the key/value pairs
+			$key = preg_replace( '/[\0-\37]|=|\177/', '-', $keys );
+			if ( substr( $key, 0, 1 ) == $commentchar )
+			{
+				$key = '-'.substr( $key, 1 );
+			}
+			$value = addcslashes( $values,'' );
+			$ini_file .= $key.'='.$value."\r\n";
+		}
 	}
+	return $ini_file;
 }
 
 ?>

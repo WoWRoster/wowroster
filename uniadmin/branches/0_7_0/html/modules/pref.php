@@ -26,7 +26,7 @@ switch( $op )
 }
 main();
 
-$db->close_db();
+
 
 
 
@@ -156,28 +156,6 @@ function process_update( )
 			$set = $uniadmin->config_set($settingName,$settingValue);
 		}
 	}
-}
-
-
-/**
- * Function to generate the languages select box
- *
- * @return string
- */
-function langSelect( )
-{
-	global $uniadmin;
-
-	$retval = '<select class="select" name="language">';
-
-	foreach( $uniadmin->languages as $lang )
-	{
-		$selected = ( $lang == $uniadmin->config['default_lang'] ? ' selected="selected"' : '' );
-		$retval .= "\n\t".'<option value="'.$lang.'"'.$selected.'>'.$lang.'</option>';
-	}
-	$retval .= '
-			</select>';
-	return $retval;
 }
 
 ?>

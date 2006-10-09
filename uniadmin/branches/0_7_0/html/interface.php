@@ -1,6 +1,7 @@
 <?php
 
 $interface = true;
+$uniadmin = '';
 
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 

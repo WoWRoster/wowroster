@@ -5,6 +5,7 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+// Create the main menu
 $ua_menu = '
 	<a href="'.UA_INDEXPAGE.'=help">'.$user->lang['title_help'].'</a> |
 	<a href="'.UA_INDEXPAGE.'=addons">'.$user->lang['title_addons'].'</a> |
@@ -14,6 +15,7 @@ $ua_menu = '
 	<a href="'.UA_INDEXPAGE.'=users">'.$user->lang['title_users'].'</a>
 ';
 
+// Check if user is an admin and give UA config option
 if( isset($user->data['level']) && $user->data['level'] == UA_ID_ADMIN )
 {
 	$ua_menu .= '	| <a href="'.UA_INDEXPAGE.'=pref">'.$user->lang['title_config'].'</a>';
