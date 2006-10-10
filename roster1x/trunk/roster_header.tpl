@@ -28,7 +28,7 @@ define('HEADER_INC',true);
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['tabcontent']; ?>">
     /***********************************************
-    * Tab Content script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+    * Tab Content script- Dynamic Drive DHTML code library (www.dynamicdrive.com)
     * This notice MUST stay intact for legal use
     * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
     ***********************************************/

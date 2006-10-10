@@ -1,4 +1,4 @@
-//** Tab Content script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
+//** Tab Content script- Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
 //** Last updated: June 29th, 06
 
 var tabcontentIDs=new Object()
