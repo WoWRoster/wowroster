@@ -72,7 +72,7 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 	array(	'header' => 'Users',
 			'text'   => '
 <p>There are 3 &quot;user levels&quot;</p>
-<p>(Shows highest action available)
+<p>(Shows highest action available)</p>
 <dl>
 	<dt>level 1 (basic user) has access to</dt>
 	<dd>1, 2, 3, 4, 5.3</dd>

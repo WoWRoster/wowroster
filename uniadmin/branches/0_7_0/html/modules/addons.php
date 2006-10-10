@@ -80,11 +80,11 @@ function main( )
 		</tr>
 		<tr>
 			<td class="data1">'.$user->lang['version'].':</td>
-			<td class="data1"><input class="input" type="textbox" name="version" /></td>
+			<td class="data1"><input class="input" type="text" name="version" /></td>
 		</tr>
 		<tr>
 			<td class="data2">'.$user->lang['homepage'].':</td>
-			<td class="data2"><input class="input" type="textbox" name="homepage" /></td>
+			<td class="data2"><input class="input" type="text" name="homepage" /></td>
 		</tr>
 		<tr>
 			<td class="data_header" colspan="2" align="center"><input class="submit" type="submit" value="'.$user->lang['add_update_addon'].'" /></td>

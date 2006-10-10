@@ -224,7 +224,7 @@ function build_main_table( )
 
 		<form name="ua_changeparams" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 			<input class="submit" type="submit" value="'.$user->lang['show'].'" />
-			<input class="input" type="textbox" name="limit" value="'.$limit.'" size="5" maxlength="5" /> '.$user->lang['stats_limit'].' <input class="input" type="textbox" name="start" value="'.$start.'" size="5" maxlength="5" />
+			<input class="input" type="text" name="limit" value="'.$limit.'" size="5" maxlength="5" /> '.$user->lang['stats_limit'].' <input class="input" type="text" name="start" value="'.$start.'" size="5" maxlength="5" />
 			<input type="hidden" value="'.$orderby.'" name="orderby" />
 			<input type="hidden" value="'.$direction.'" name="direction" />
 		</form>

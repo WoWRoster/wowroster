@@ -11,7 +11,7 @@ $login_form = '
 <form class="ua_loginbox" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<fieldset>
 	<legend>'.$user->lang['title_login'].'</legend>
-		<p><label for="username">'.$user->lang['username'].':</label> <input class="input" type="text" id="name" name="name" maxlength="30" /></p>
+		<p><label for="name">'.$user->lang['username'].':</label> <input class="input" type="text" id="name" name="name" maxlength="30" /></p>
 		<p><label for="password">'.$user->lang['password'].':</label> <input class="input" type="password" id="password" name="password" maxlength="30" /></p>
 		<p><input class="submit" type="submit" value="'.$user->lang['login'].'" /></p>
 	</fieldset>

@@ -69,7 +69,7 @@ function main( )
 
 		$form .= '
 	<tr>
-		<td class="'.$td_class.'" onmouseover="return overlib(\''.$user->lang['admin'][$setname].'\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
+		<td class="'.$td_class.'" onmouseover="return overlib(\''.addslashes($user->lang['admin'][$setname]).'\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
 			<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
 		<td class="'.$td_class.'">';
 

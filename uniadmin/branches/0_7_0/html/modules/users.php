@@ -168,11 +168,12 @@ function add_user_table( )
 		</tr>
 		<tr>
 			<td class="data1">'.$user->lang['username'].':</td>
-			<td class="data1"><input class="input" type="textbox" name="name" value="" size="20" maxlength="30" /></td>
+			<td class="data1"><input class="input" type="text" name="name" value="" size="20" maxlength="30" /></td>
 		</tr>
 		<tr>
 			<td class="data2">'.$user->lang['password'].':</td>
 			<td class="data2"><input class="input" type="password" name="password" value="" size="20" maxlength="50" /></td>
+		</tr>
 		<tr>
 			<td class="data1">';
 
@@ -234,7 +235,7 @@ function modify_user()
 	{
 		$form .= '		<tr>
 			<td class="data1">'.$user->lang['change_username'].':</td>
-			<td class="data1"><input class="input" type="textbox" name="name" value="'.$userN.'" size="20" maxlength="30" /></td>
+			<td class="data1"><input class="input" type="text" name="name" value="'.$userN.'" size="20" maxlength="30" /></td>
 		</tr>';
 		if ($user->data['level'] > UA_ID_POWER)
 		{

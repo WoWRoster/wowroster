@@ -98,7 +98,7 @@ function main( )
 
 		$form .= '
 		<tr>
-			<td class="'.$td_class.'" onmouseover="return overlib(\''.$user->lang[$setname].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$setname.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
+			<td class="'.$td_class.'" onmouseover="return overlib(\''.addslashes($user->lang[$setname]).'&lt;hr /&gt;&lt;img src=&quot;'.$uniadmin->url_path.'images/'.$setname.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; /&gt;\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
 				<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
 			<td class="'.$td_class.'">';
 
@@ -432,7 +432,7 @@ function process_ini( )
 
 						$form .= '
 		<tr>
-			<td class="'.$td_class.'" onmouseover="return overlib(\''.$user->lang[$setting_name].'<hr /><img src=&quot;'.$uniadmin->url_path.'images/'.$setting_name.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; />\',CAPTION,\''.$setting_name.'\',VAUTO);" onmouseout="return nd();">
+			<td class="'.$td_class.'" onmouseover="return overlib(\''.addslashes($user->lang[$setting_name]).'&lt;hr /&gt;&lt;img src=&quot;'.$uniadmin->url_path.'images/'.$setting_name.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; /&gt;\',CAPTION,\''.$setting_name.'\',VAUTO);" onmouseout="return nd();">
 				<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setting_name.'</td>
 			<td class="'.$td_class.'"><input type="hidden" name="'.$setting_name.'" value="'.$setting_value.'" />'.$setting_value.'</td>'."\n";
 

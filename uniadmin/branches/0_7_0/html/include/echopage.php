@@ -15,6 +15,13 @@ function display_page( $body , $subtitle = 'Index' )
 {
 	global $login_form, $ua_menu, $uniadmin, $db, $user;
 
+	@header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	@header('Last-Modified: ' . $now);
+	@header('Cache-Control: no-store, no-cache, must-revalidate');
+	@header('Cache-Control: post-check=0, pre-check=0', false);
+	@header('Pragma: no-cache');
+	@header('Content-Type: text/html; charset=iso-8859-1');
+
 	$mc_split = split(' ', microtime());
 	$uniadmin->timer_end = $mc_split[0] + $mc_split[1];
 	unset($mc_split);
@@ -37,11 +44,13 @@ function display_page( $body , $subtitle = 'Index' )
 		$s_show_queries = false;
 	}
 
-	echo '
+	echo '<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 	<title>UniAdmin v'.$uniadmin->config['UAVer'].' ['.$subtitle.']</title>
+	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="'.$uniadmin->url_path.'/style.css" />
 	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
 	<script type="text/javascript" src="'.$uniadmin->url_path.'/overlib/overlib_hideform.js"></script>
@@ -140,7 +149,7 @@ function display_page( $body , $subtitle = 'Index' )
 
 	if( $s_show_debug )
 	{
-		echo '<br /><span class="copyright">'.$s_rendertime.' | '.$s_querycount.' | <a href="http://validator.w3.org/check/referer" target="_top" class="copy">XHTML Validate</a></span>';
+		echo '<br /><span class="copyright">'.$s_rendertime.' | '.$s_querycount.'</span>';
 	}
 
 	echo '</div>
