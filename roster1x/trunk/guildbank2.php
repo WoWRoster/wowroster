@@ -152,6 +152,8 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 			// Item texture and quantity column
 			echo "\n".'    <td align="center">';
 
+			$itemRow['item_quantity'] = $itemRow['total_quantity'];
+
 			$item = new item($itemRow);
 			echo $item->out();
 

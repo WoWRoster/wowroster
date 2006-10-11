@@ -186,13 +186,13 @@ echo $roster_menu->makeMenu('main');
 
 if( $roster_conf['hspvp_list_disp'] == 'hide' )
 {
-	$pvp_hs_colapse='';
-	$pvp_hs_full   =' style="display:none;"';
+	$pvp_hs_colapse=' style="display:none;"';
+	$pvp_hs_image='plus';
 }
 else
 {
-	$pvp_hs_colapse=' style="display:none;"';
-	$pvp_hs_full   ='';
+	$pvp_hs_colapse='';
+	$pvp_hs_image='minus';
 }
 
 echo "<table>\n  <tr>\n";

@@ -928,10 +928,12 @@ $creditspage['devs'] = array(
 					"info"=>	"Original MemberLog author"),
 			array(	"name"=>	"Cybrey",
 					"info"=>	"Advanced stats &amp; bonuses block on the character page"),
+			array(	"name"=>	"vgjunkie",
+					"info"=>	"Recoded professions page for v1.7.1<br />New show/hide javascript code for collapsable tables"),
 			array(	"name"=>	"dehoskins",
 					"info"=>	"Improvements to the stats &amp; bonuses block"),
-			array( "name"=>	"EQdkp team",
-					"info"=>	"The original versions of the installer/upgrader and its templating enginge"),
+			array(	"name"=>	"EQdkp team",
+					"info"=>	"Original version of the installer/upgrader code<br />and their templating engine"),
 		),
 
 		'inactive'=>array(

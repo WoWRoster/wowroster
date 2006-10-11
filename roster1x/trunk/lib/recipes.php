@@ -76,6 +76,10 @@ function recipe_get_many( $member_id, $search, $sort )
 			$query .= " ORDER BY `skill_name` ASC , `recipe_name` ASC , `recipe_type` ASC , `difficulty` DESC";
 			break;
 
+		case 'level':
+			$query .= " ORDER BY `skill_name` ASC , `level` ASC , `difficulty` DESC , `recipe_name` ASC";
+			break;
+
 		case 'type':
 			$query .= " ORDER BY `skill_name` ASC , `recipe_type` ASC , `difficulty` DESC , `recipe_name` ASC";
 			break;

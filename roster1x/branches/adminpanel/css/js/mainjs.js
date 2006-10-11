@@ -180,6 +180,34 @@ function hideElem(oName)
 	oName.style.display='none';
 }
 
+/* vgjunkie
+Swaps the visability of an element
+	ElementID = Element ID to show/hide
+	ImgID = Element ID of image src
+	ImgShow = Image we set when we "Show" the element
+	ImgHide= Image we set when we "Hide" the element
+
+	Usage: showHide('id_name','<imgid_name>','<path/to/image1>','<path/to/image2>');
+*/
+function showHide(ElementID,ImgID,ImgShow,ImgHide)
+{
+	if(document.getElementById)
+	{
+		if(document.getElementById(ElementID).style.display == 'none')
+		{
+			show(ElementID);
+			if(ImgShow)
+				document.getElementById(ImgID).src = ImgShow;
+		}
+		else
+		{
+			hide(ElementID);
+			if(ImgHide)
+				document.getElementById(ImgID).src = ImgHide;
+		}
+	}
+}
+
 function setOpacity( sEl,val )
 {
 	oEl = document.getElementById(sEl);

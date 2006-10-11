@@ -13,6 +13,7 @@
  * -----------------------------
  *
  * $Id$
+ * Completely rewritten by vgjunkie 2006-09-14
  *
  ******************************/
 
@@ -28,98 +29,128 @@ $header_title = $wordings[$roster_conf['roster_lang']]['professions'];
 include_once(ROSTER_BASE.'roster_header.tpl');
 
 
+// Get guild_id from guild info check above
+$guildId = $guild_info['guild_id'];
+
 echo $roster_menu->makeMenu('main');
 
-for ( $tsNr=0; $tsNr<=11; $tsNr++ )
+// Build a list of "Skills" to look for
+$inClause = '';
+for ($tsNr=0; $tsNr<=11; $tsNr++ )
 {
 	$countit = 0;
 	for ($i=0;$i<count($roster_conf['multilanguages']);$i++)
 	{
-		$query = "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `skill_name` = '".$tsArray[$roster_conf['multilanguages'][$i]][$tsNr]."'";
-		$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-		$countit += $wowdb->num_rows($result);
-		if( $countit != 0 )
-			break;
-	}
-	if( $countit != 0 )
-	{
-		$skill_name = $tsArray[$roster_conf['roster_lang']][$tsNr];
-		// Set an link to the top behind the profession image
-		$skill_image = 'Interface/Icons/'.$wordings[$roster_conf['roster_lang']]['ts_iconArray'][$skill_name];
-		$skill_image = "<div style=\"display:inline;float:left;\"><img width=\"17\" height=\"17\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" /></div>\n";
-
-		$header = $skill_image.$skill_name;
-
-		print
-		'<div id="ts'.$tsNr.'_col" style="display:none;">
-		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header."</div>").'
-		'.border('sgray','end').'
-		</div>
-		<div id="ts'.$tsNr.'_full">
-		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header."</div>")."\n";
-?>
-
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bodyline">
-        <tr>
-          <th class="membersHeader"><?php print $wordings[$roster_conf['roster_lang']]['level'];?></th>
-          <th class="membersHeaderRight" width="150"><?php print $wordings[$roster_conf['roster_lang']]['name'];?></th>
-        </tr>
-<?php
-		//$query = "SELECT * FROM `skills` WHERE `skill_name` = '$tsArray[$tsNr]' order by `skill_level` DESC";
-		$query = "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `skill_name` ='".$tsArray[$roster_conf['multilanguages'][0]][$tsNr]."'";
-		if (count($roster_conf['multilanguages']) > 1)
+		if ($inClause != '')
 		{
-			for ($i=1;$i<count($roster_conf['multilanguages']);$i++)
-			{
-				$query .= " OR `skill_name` = '".$tsArray[$roster_conf['multilanguages'][$i]][$tsNr]."'";
-			}
+			$inClause .= ',';
 		}
-		$query .= " ORDER BY (mid(skill_level FROM 1 FOR (locate(':', skill_level)-1)) + 0) DESC";
-		$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-		$steps = 0;
-		while ( $row = $wowdb->fetch_array( $result ) )
-		{
-			if ( $steps == 1 )
-			{
-				$steps = 2;
-			}
-			else
-			{
-				$steps = 1;
-			}
 
-			$level_array = explode (':',$row['skill_level']);
-			$levelpct = $level_array[0] / 300 * 100 ;
-			settype( $levelpct, 'integer' );
-			if ( !$levelpct )
-				$levelpct = 1;
-
-			$result2 = $wowdb->query("SELECT `member_id`,`name` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '" . $row['member_id'] . "'");
-			$getdata = $wowdb->fetch_array($result2);
-			$nameid = $getdata['name'];
-			$nameid = '<a href="char.php?member='.$getdata['member_id'].'&amp;action=recipes">'.$getdata['name'].'</a>';
-
-?>
-        <tr class="membersRowColor<?php print $steps; ?>">
-          <td class="membersRowCell"><div class="levelbarParent" style="width:200px;"><div class="levelbarChild"><?php print $level_array[0];?></div></div>
-            <table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
-              <tr>
-                <td style="background-image: url('<?php print $roster_conf['img_url'];?>expbar-var2.gif');" width="<?php print $levelpct;?>%"><img src="<?php print $roster_conf['img_url'];?>pixel.gif" height="14" width="1" alt=""></td>
-                <td width="<?php print max(100-$levelpct,0); ?>%"></td>
-              </tr>
-            </table></td>
-          <td class="membersRowRightCell"><?php print $nameid;?></td>
-        </tr>
-<?php
-		}
-?>
-      </table>
-<?php print border('sgray','end').'</div>'; ?>
-
-<br />
-
-<?php
+		$inClause .= "'".$tsArray[$roster_conf['multilanguages'][$i]][$tsNr]."'";
 	}
 }
+
+// If we don't want to show skills with a "1" value, uncomment this line (make option in config?)
+$showNewSkill = " AND SUBSTRING_INDEX( s.skill_level, ':', 1 ) > 1 ";
+
+// Gather a list of players that have the skills we are looking for
+$query = "SELECT `s`.*, `p`.`name` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
+	WHERE p.member_id = s.member_id
+	AND p.guild_id = '".$guildId."'
+	$showNewSkill
+	AND skill_name IN ($inClause)
+	ORDER BY s.skill_type,s.skill_name,(mid(skill_level FROM 1 FOR (locate(':', skill_level)-1)) + 0) DESC, p.name;";
+
+//print $query;
+
+$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+
+
+############################### START OUTPUT ##############################
+
+// Counter for row striping
+$striping_counter = 0;
+$last_value = 'some obscurely random string to keep me lazy.';
+
+
+if( $wowdb->num_rows($result) )
+{
+	$id = 0;
+	while( $row = $wowdb->fetch_assoc($result) )
+	{
+		$skill_name = $row['skill_name'];
+		$skill_image = 'Interface/Icons/'.$wordings[$roster_conf['roster_lang']]['ts_iconArray'][$skill_name];
+		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="'.$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix'].'" alt="" /></div>';
+		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_'.$id.'\',\'img_'.$id.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
+	'.$skill_image.'
+	<div style="display:inline;float:right;"><img id="img_'.$id.'" src="'.$roster_conf['img_url'].'minus.gif" alt="" /></div>
+'.$skill_name.'</div>';
+
+		if( $last_value != $skill_name )
+		{
+			if( $striping_counter )
+			{
+				print '</table>';
+				print border('sgray','end');
+				print '<br />';
+			}
+
+			print border('sgray','start',$skill_output);
+			print ('
+<table border="0" cellpadding="0" cellspacing="0" class="bodyline" id="table_'.$id.'">
+	<tr>
+		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['level'].'</th>
+		<th class="membersHeaderRight" width="150">'.$wordings[$roster_conf['roster_lang']]['name'].'</th>
+	</tr>
+');
+
+			$striping_counter = 0;
+			$last_value = $skill_name;
+		}
+
+		// Increment counter so rows are colored alternately
+		$stripe_counter = ( ( $striping_counter++ % 2 ) + 1 );
+		$stripe_class = 'membersRow'.$stripe_counter;
+		$stripe_class_right =  'membersRowRight'.$stripe_counter;
+
+		// Setup some user row data
+		$level_array = explode (':',$row['skill_level']);
+		$levelpct = $level_array[0] / 300 * 100 ;
+		settype( $levelpct, 'integer' );
+
+		if ( !$levelpct )
+		{
+			$levelpct = 1;
+		}
+
+		print  ('
+	<tr>
+	<td class="'.$stripe_class.'">
+		<div class="levelbarParent" style="width:200px;">
+			<div class="levelbarChild">'.$level_array[0].'</div>
+		</div>
+		<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$levelpct.'%">
+					<img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="">
+				</td>
+				<td width="'.(100-$levelpct).'%"></td>
+			</tr>
+		</table>
+	</td>
+	<td class="'.$stripe_class_right.'">
+		<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'&amp;action=recipes">'.$row['name'].'</a>
+	</td>
+	</tr>
+');
+		$id++;
+	}
+
+	print '</table>';
+	print border('sgray','end');
+	print '<br />';
+}
+
 include_once(ROSTER_BASE.'roster_footer.tpl');
+
 ?>
