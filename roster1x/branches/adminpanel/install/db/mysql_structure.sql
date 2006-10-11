@@ -135,7 +135,7 @@ CREATE TABLE `renprefix_members` (
   `money` tinytext,
   `item_bonuses` tinytext,
   PRIMARY KEY  (`member_id`),
-  UNIQUE KEY `character` (`server`,`name`)
+  UNIQUE KEY `character` (`server`,`name`),
   KEY `name` (`name`),
   KEY `class` (`class`),
   KEY `level` (`level`),

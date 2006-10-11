@@ -109,6 +109,11 @@ class RosterMenu
 			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
 		}
 
+		if ($wowdb->num_rows($result_menu) == 0)
+		{
+			return '';
+		}
+
 		$num_non_alts = 0;
 		$num_alts = 0;
 
