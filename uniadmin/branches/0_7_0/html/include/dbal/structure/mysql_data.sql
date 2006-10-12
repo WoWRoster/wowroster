@@ -1,3 +1,9 @@
+#
+# MySQL UniAdmin DB Data
+#
+# $Id$
+#
+# --------------------------------------------------------
 ### Configuration values
 INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUES
 	('addon_folder', 'addon_zips', 'text{250|50'),

@@ -1,4 +1,4 @@
-UniAdmin 0.7.0 (updated 9th October 2006)
+UniAdmin 0.7.0 (updated 11th October 2006)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -11,12 +11,13 @@ Table of Contents
    2 - Recommended Tools
    3 - Installation
    4 - Upgrading
-   5 - FAQ
-   6 - Support
-   7 - Licence
-   8 - Known Bugs
-   9 - Change Log
-  10 - The Future
+   5 - Thanks
+   6 - FAQ
+   7 - Support
+   8 - License
+   9 - Known Bugs
+  10 - Change Log
+  11 - The Future
 
 
 1 - Requirements
@@ -60,7 +61,13 @@ Read the help page once logged in for additional info.
 3. Go to INSTALLATION
 
 
-5 - FAQ
+5 - Thanks
+==========
+sturmy - French localization
+fubu2k - German localization
+
+
+6 - FAQ
 ======
 Q. I'm not sure what I set SYNCHROURL and PRIMARYURL to in the Settings Management page.
 A. SYNCHROURL is the URL path to the UniAdmin interface.php, eg. http://www.myserver.com/uniadmin/interface.php
@@ -81,15 +88,36 @@ A. 1. Go to http://gdataonline.com/makehash.php
    4. Put the hash in the password field of users table in UniAdmin database - for the correct user(s)
 
 
-6 - Support
+7 - Support
 ===========
 For any support issues, questions, comments, feedback, or suggestions
 please go to the support forums here - http://www.wowroster.net
 
 
-7 - License
+8 - License
 ===========
-UniAdmin is licensed under a BLAH BLAH BLAH
+UniAdmin is licensed under a Creative Commons
+"Attribution-NonCommercial-ShareAlike 2.5" license.
+See http://creativecommons.org/licenses/by-nc-sa/2.5/ for the short
+summary, and
+http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode for the
+full license information.
+
+Regarding Attribution:
+
+- Keep the credits in the footer of the UniAdmin pages.
+- Include this license with all modified versions of UniAdmin.
+
+Regarding ShareAlike:
+
+- Any changes made to the code (including, but not limited to,
+  HTML, PHP, CSS, SQL, images, and Javascript) must be archived
+  and accessible for public download. You may, of course, remove
+  username, password, and database host information from the archive.
+
+For any reuse or distribution, you must make clear to others the
+license terms of this work. Any of these conditions can be waived if
+you get permission from the dev team at wowroster.net.
 
 
 
@@ -97,19 +125,33 @@ UniAdmin uses the following libraries as well
 
 - PclZip Library which is released under a GNU/LGPL license.
   More info about PclZip can be found here - http://www.phpconcept.net
+  The file is located in include/pcl.lib.php and you may upgrade this file at anytime
+  with the release version at http://www.phpconcept.net
+
 
 - The Overlib tooltip library by Erik Bosrup.
   An unnamed license applies, available at http://www.bosrup.com/web/overlib/?License
 
 
-8 - Known Bugs
+The installer is based on the EQdkp installer. This concerns the files:
+- install.php
+- upgrade.php
+
+The templating system is based on EQdkp. this concerns this file
+- include/template.php
+
+These 3 files are licensed under the GNU General Public License, which is
+available at http://gnu.org/copyleft/gpl.html
+
+
+9 - Known Bugs
 ==============
 Bug: Addon zip files that have more than one addon in them will not parse properly
-Solution: Make sure when you upload an addon, that it has only one addon inside
+Solution: When you upload an addon zip, make sure that it has only one addon inside
 
 
-9 - Change Log
-==============
+10 - Change Log
+===============
 ~ Fixed
 + Added
 ! Changed
@@ -195,7 +237,7 @@ Beta .31
 ! Updated this install.txt file
 
 
-10 - The Future
+11 - The Future
 ===============
 To-do list for future versions of UA
 

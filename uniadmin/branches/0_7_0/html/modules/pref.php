@@ -1,4 +1,20 @@
 <?php
+/******************************
+ * WoWRoster.net  UniAdmin
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ******************************/
 
 if( !defined('IN_UNIADMIN') )
 {
@@ -151,6 +167,10 @@ function process_update( )
 
 	foreach( $_POST as $settingName => $settingValue )
 	{
+		if( $settingName == 'language' )
+		{
+			$settingName = 'default_lang';
+		}
 		if( $settingName != UA_URI_OP )
 		{
 			$set = $uniadmin->config_set($settingName,$settingValue);

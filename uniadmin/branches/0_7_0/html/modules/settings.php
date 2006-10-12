@@ -1,4 +1,20 @@
 <?php
+/******************************
+ * WoWRoster.net  UniAdmin
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ******************************/
 
 if( !defined('IN_UNIADMIN') )
 {
@@ -596,6 +612,19 @@ function generate_ini_file( $array , $commenttext='' , $commentchar='#' )
 				$key = '-'.substr( $key, 1 );
 			}
 			$value = addcslashes( $values,'' );
+			switch( $value )
+			{
+				case '0':
+					$value = 'False';
+					break;
+
+				case '1':
+					$value = 'True';
+					break;
+
+				default:
+					break;
+			}
 			$ini_file .= $key.'='.$value."\r\n";
 		}
 	}

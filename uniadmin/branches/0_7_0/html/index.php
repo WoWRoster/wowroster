@@ -1,4 +1,20 @@
 <?php
+/******************************
+ * WoWRoster.net  UniAdmin
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ******************************/
 
 // This picks up the view page so people with no login can look at the addons
 if( isset($_GET['p']) && ($_GET['p'] == 'view' || $_GET['p'] == 'interface') )
