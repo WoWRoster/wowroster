@@ -70,6 +70,10 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
  */
 define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
 
+/**
+ * Base, absolute roster ajax directory
+ */
+define('ROSTER_AJAX',ROSTER_BASE.'ajax'.DIR_SEP);
 
 /**
  * Base, absolute roster addons directory
@@ -287,6 +291,7 @@ if( !headers_sent() )
 	if( !eregi('sig.php',$_SERVER['PHP_SELF']) )
 	if( !eregi('av.php',$_SERVER['PHP_SELF']) )
 	if( !eregi('realmstatus.php',$_SERVER['PHP_SELF']) )
+	if( !eregi('ajax.php',$_SERVER['PHP_SELF']) )
 	@header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
 }
 

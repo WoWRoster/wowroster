@@ -130,6 +130,7 @@ else
 	}
 }
 
+// --[ Distribute buttons between the button list and the unused buttons panel ]--
 $arrayHeight = 0;
 foreach(explode('|',$row['config']) AS $posX=>$column)
 {
@@ -165,7 +166,6 @@ else
 {
 	$menu .= '<input type="hidden" name="doglobal" value="0">';
 }
-/* Insert select box for which menu to configure into $menu. */
 $menu .= '<select name="section">'."\n";
 
 $query = "SELECT `section` FROM ".$wowdb->table('menu')." WHERE `account_id` = 0";
@@ -204,6 +204,15 @@ foreach($palet as $id=>$button)
 {
 	$menu .= '<div id="'.$id.'" class="menu_config_div">'.$button['title'].'</div>'."\n";
 }
+$menu .= "<br />\n";
+
+$menu .= border('syellow','start','Add button')."\n";
+$menu .= '<table cellspacing="0" cellpadding="0" border="0">';
+$menu .= '<tr><td>title:<td><input id="title" type="text" size="16" maxlength="32">'."\n";
+$menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="64">'."\n";
+$menu .= '<tr><td colspan="2" align="right"><button onClick="doAddElement()">'."\n";
+$menu .= '</table>';
+$menu .= border('syellow','end')."\n";
 
 $body .= $save_status;
 $body .= '<form action="" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
@@ -223,11 +232,18 @@ foreach($arrayButtons as $posX=>$column)
 	}
 }
 
+$body .= "<br/>\n";
+$body .= border('sred','start','Drag here to delete');
+$body .= '<div id="rec_bin" style="width:215px;height:65px;background-color:black;"></div>'."\n";
+$body .= border('sred','end');
+
 $footer .=
 '<script type="text/javascript">
 <!--
 
-SET_DHTML(CURSOR_MOVE'.$dhtml_reg.', "palet"+NO_DRAG, "array"+NO_DRAG);
+SET_DHTML(CURSOR_MOVE'.$dhtml_reg.', "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
+
+var roster_url	= \''.ROSTER_URL.'\';
 
 var dy		= 30;
 var margTop	= 5;
