@@ -692,6 +692,7 @@ $wordings['deDE']['installer_success2'] = 'Fehlgeschlagen und Wiederherstellung 
  ******************************/
 
 // AdminPanel interface wordings
+$wordings['deDE']['sectionselect'] = 'Wähle Sektion';
 $wordings['deDE']['profileselect'] = 'Wähle Profil';
 $wordings['deDE']['profilego'] = 'Go';
 
@@ -701,7 +702,8 @@ $wordings['deDE']['pagebar_charpref'] = 'Character Preferenzen';
 $wordings['deDE']['pagebar_changepass'] = 'Passwort Änderung';
 $wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
 $wordings['deDE']['pagebar_update'] = 'Upload Profile';
-$wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
+$wordings['deDE']['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
+$wordings['deDE']['pagebar_menuconf'] = 'Menu Konfiguration';
 
 $wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
 

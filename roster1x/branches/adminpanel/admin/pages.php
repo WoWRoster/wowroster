@@ -48,6 +48,12 @@ $pages['character'] = array(
 	"access"=>	$roster_conf['auth_character_config'],
 	"file"=>	"character_conf.php",
 	);
+$pages['menu'] = array(
+	"href"=>	"?page=menu",
+	"title"=>	"pagebar_menuconf",
+	"file"=>	"menu_conf.php",
+	"access"=>	10
+	);
 $pages['install'] = array(
 	"href"=>	"?page=install",
 	"title"=>	"pagebar_addoninst",
@@ -84,8 +90,4 @@ $pages['rosterdiag'] = array(
 $pages['addon'] = array(
 	"special"=>	"hidden",
 	"file"=>	"addon_conf.php",
-	);
-$pages['menu'] = array(
-	"special"=>	"hidden",
-	"file"=>	"menu_conf.php",
 	);

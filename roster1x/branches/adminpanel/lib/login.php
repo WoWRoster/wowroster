@@ -482,19 +482,20 @@ class RosterLogin
 	 * Create a options control for setting an access level in Roster config.
 	 *
 	 * @param array $values
-	 *	The form field name for this option
+	 *	The form field values array for this field
+	 *	'name': config name. Put config_ in front of it
+	 *	'value': Current setting
 	 *
 	 * @return string $html
 	 *	The HTML for the option field
 	 */
 	function accessConfig($values)
 	{
-		//return '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="4" maxlength="2" />';
 		global $wowdb, $guild_info, $guild_ranks;
 
 		if( is_array($guild_ranks) )
 		{
-			$input_field = '<select name="config_'.$values['name'].'">'."\n";
+			$input_field = '<select id="config_'.$values['name'].'" name="config_'.$values['name'].'">'."\n";
 			$select_one = 1;
 			foreach( $guild_ranks as $key => $valarray )
 			{
@@ -706,6 +707,14 @@ class RosterLogin
 		$wowdb->add_value('pvp',$roster_conf['show_php']);
 		$wowdb->add_value('duels',$roster_conf['show_duels']);
 		$wowdb->add_value('item_bonuses',$roster_conf['show_item_bonuses']);
+	}
+
+	/**
+	 * Return setting value for everyone can access
+	 */
+	function everyone()
+	{
+		return 11;
 	}
 }
 

@@ -692,6 +692,7 @@ $wordings['frFR']['installer_success2'] = 'Failed and rollback also failed';
  ******************************/
 
 // AdminPanel interface wordings
+$wordings['frFR']['sectionselect'] = 'Select Section';
 $wordings['frFR']['profileselect'] = 'Select Profile';
 $wordings['frFR']['profilego'] = 'Go';
 
@@ -702,6 +703,7 @@ $wordings['frFR']['pagebar_changepass'] = 'Change Password';
 $wordings['frFR']['pagebar_addoninst'] = 'Manage Addons';
 $wordings['frFR']['pagebar_update'] = 'Upload Profile';
 $wordings['frFR']['pagebar_rosterdiag'] = 'Roster Diag';
+$wordings['frFR']['pagebar_menuconf'] = 'Menu configuration';
 
 $wordings['frFR']['pagebar_addonconf'] = 'Addon Config';
 

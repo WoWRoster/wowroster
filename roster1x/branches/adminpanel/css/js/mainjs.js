@@ -217,3 +217,68 @@ function setOpacity( sEl,val )
 		oEl.style.filter = 'alpha(opacity=' + val*10 + ')';
 	}
 }
+
+/**
+ * AJAX functions. Use loadXMLDoc, pass the URL you need to talk to.
+ * Include the following GET paramters in the url:
+ *
+ * method:	The php-side function reference
+ * cont:	The javascript function to call once the reply is in.
+ */
+var req;
+
+function loadXMLDoc(url,post)
+{
+	// branch for native XMLHttpRequest object
+	if (window.XMLHttpRequest)
+	{
+		req = new XMLHttpRequest();
+		req.onreadystatechange = processReqChange;
+		req.open("POST", url, true);
+		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		req.send(post);
+	// branch for IE/Windows ActiveX version
+	}
+	else if (window.ActiveXObject)
+	{
+		req = new ActiveXObject("Microsoft.XMLHTTP");
+		if (req)
+		{
+			req.onreadystatechange = processReqChange;
+			req.open("POST", url, true);
+			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			req.send(post);
+		}
+	}
+}
+
+function processReqChange()
+{
+	// only if req shows "complete"
+	if (req.readyState == 4)
+	{
+		// only if "OK"
+		if (req.status == 200)
+		{
+//			Unescape this to show the result XLM in a pupup for debugging.
+//			alert(req.responseText);
+			response = req.responseXML.documentElement;
+			cont = response.getElementsByTagName('cont')[0].firstChild.data;
+			result = response.getElementsByTagName('result')[0];
+			status = response.getElementsByTagName('status')[0].firstChild.data;
+			errmsg = response.getElementsByTagName('errmsg')[0];
+			if (status == 0)
+			{
+				eval(cont + '(result)');
+			}
+			else
+			{
+				alert('Error '+status+': '+errmsg.firstChild.data);
+			}
+		}
+		else
+		{
+			alert("There was a problem retrieving the XML data:\n" + req.statusText);
+        }
+    }
+}

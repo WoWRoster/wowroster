@@ -242,7 +242,10 @@ class RosterMenu
 
 		while ($row = $wowdb->fetch_assoc($result))
 		{
-			$palet['b'.$row['button_id']] = $row;
+			if( $roster_login->getAuthorized($row['need_creds']) )
+			{
+				$palet['b'.$row['button_id']] = $row;
+			}
 		}
 
 		$wowdb->free_result($result);
@@ -312,7 +315,7 @@ class RosterMenu
 					$config[$id][$posX] = explode(':',$column);
 					foreach($config[$id][$posX] as $posY=>$button)
 					{
-						if ($roster_login->getAuthorized($palet[$button]['need_creds']))
+						if( isset($palet[$button]['need_creds']) )
 						{
 							$arrayButtons[$id][$posX][$posY] = $palet[$button];
 						}

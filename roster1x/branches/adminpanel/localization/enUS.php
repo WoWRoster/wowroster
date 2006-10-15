@@ -703,6 +703,7 @@ $wordings['enUS']['pagebar_changepass'] = 'Change Password';
 $wordings['enUS']['pagebar_addoninst'] = 'Manage Addons';
 $wordings['enUS']['pagebar_update'] = 'Upload Profile';
 $wordings['enUS']['pagebar_rosterdiag'] = 'Roster Diag';
+$wordings['enUS']['pagebar_menuconf'] = 'Menu configuration';
 
 $wordings['enUS']['pagebar_addonconf'] = 'Addon Config';
 

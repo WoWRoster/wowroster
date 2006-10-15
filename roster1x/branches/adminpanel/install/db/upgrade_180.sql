@@ -163,19 +163,19 @@ INSERT INTO `renprefix_menu` VALUES (1, 0, 'main', 'b1:b2:b3:b4:b5|b6:b7:b8:b9|b
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'Roster', 'index.php');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo.php');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Stats', 'stats.php');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Professions', 'tradeskills.php');
-INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'GuildBank', 'guildbank.php');
-INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'PvP Stats', 'guildpvp.php');
-INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Honor', 'honor.php');
-INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Member Log', 'memberlog.php');
-INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Keys', 'keys.php');
-INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'User Control', 'rostercp.php');
-INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'questlist.php');
-INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search.php');
-INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Credits', 'credits.php');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'Roster', 'index.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Stats', 'stats.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Professions', 'tradeskills.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'GuildBank', 'guildbank.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'PvP Stats', 'guildpvp.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Honor', 'honor.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Member Log', 'memberlog.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Keys', 'keys.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'User Control', 'rostercp.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'questlist.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search.php',11);
+INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Credits', 'credits.php',11);
 
 # --------------------------------------------------------
 ### Reconfigure members table

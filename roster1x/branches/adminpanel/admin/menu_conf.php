@@ -85,8 +85,11 @@ if (!$result)
 
 while ($row = $wowdb->fetch_assoc($result))
 {
-	$palet['b'.$row['button_id']] = $row;
-	$dhtml_reg .= ', "b'.$row['button_id'].'"';
+	if( $roster_login->getAuthorized($row['need_creds']) )
+	{
+		$palet['b'.$row['button_id']] = $row;
+		$dhtml_reg .= ', "b'.$row['button_id'].'"';
+	}
 }
 
 $wowdb->free_result($result);
@@ -137,8 +140,11 @@ foreach(explode('|',$row['config']) AS $posX=>$column)
 	$config[$posX] = explode(':',$column);
 	foreach($config[$posX] as $posY=>$button)
 	{
-		$arrayButtons[$posX][$posY] = $palet[$button];
-		unset($palet[$button]);
+		if( isset($palet[$button]) )
+		{
+			$arrayButtons[$posX][$posY] = $palet[$button];
+			unset($palet[$button]);
+		}
 	}
 	$arrayHeight = max($arrayHeight, count($arrayButtons[$posX]));
 }
@@ -155,6 +161,7 @@ if (!isset($html_head))
 $html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/wz_dragdrop.js"></script>'."\n";
 $html_head .= '  <script type="text/javascript" src="'.$roster_conf['roster_dir'].'/css/js/menuconf.js"></script>'."\n";
 
+// --[ Section select. ]--
 $menu .= border('sorange','start',$act_words['sectionselect'])."\n";
 $menu .= '<form action="" method="get">'."\n";
 $menu .= '<input type="hidden" name="page" value="menu">'."\n";
@@ -193,12 +200,13 @@ $wowdb->free_result($result);
 $menu .= '</select>&nbsp;'."\n";
 
 
-$menu .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['profilego'].'" />'."\n";
+$menu .= '<input type="submit" value="'.$act_words['profilego'].'" />'."\n";
 $menu .= '</form>'."\n";
 $menu .= border('sorange','end')."\n";
 
 $menu .= '<br />'."\n";
 
+// --[ Button palet ]--
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
@@ -206,14 +214,17 @@ foreach($palet as $id=>$button)
 }
 $menu .= "<br />\n";
 
+// --[ Add button ]--
 $menu .= border('syellow','start','Add button')."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
 $menu .= '<tr><td>title:<td><input id="title" type="text" size="16" maxlength="32">'."\n";
 $menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="64">'."\n";
-$menu .= '<tr><td colspan="2" align="right"><button onClick="doAddElement()">'."\n";
+$menu .= '<tr><td>show: <td>'.$roster_login->accessConfig(array('name'=>'access','value'=>$roster_login->everyone()))."\n";
+$menu .= '<tr><td colspan="2" align="right"><button onClick="sendAddElement()">'.$act_words['profilego'].'</button>'."\n";
 $menu .= '</table>';
 $menu .= border('syellow','end')."\n";
 
+// --[ Main grid design ]--
 $body .= $save_status;
 $body .= '<form action="" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
 $body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'"><input type="hidden" name="doglobal" value="'.($account == 0).'"><input type="hidden" name="process" value="process">';
@@ -232,11 +243,13 @@ foreach($arrayButtons as $posX=>$column)
 	}
 }
 
+// --[ Delete box ]--
 $body .= "<br/>\n";
 $body .= border('sred','start','Drag here to delete');
 $body .= '<div id="rec_bin" style="width:215px;height:65px;background-color:black;"></div>'."\n";
 $body .= border('sred','end');
 
+// --[ Javascript defines and variable passing ]--
 $footer .=
 '<script type="text/javascript">
 <!--

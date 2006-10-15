@@ -24,8 +24,28 @@ if ( !defined('ROSTER_INSTALLED') )
 switch ($method)
 {
 	case menu_button_add:
-		$status = 1;
-		$errmsg = 'This function is not yet implemented';
+		if (!$roster_login->getAuthorized())
+		{
+			$status = 103;
+			$errmsg = 'Not authorized';
+			return;
+		}
+
+		$query = "INSERT INTO `".$wowdb->table('menu_button')."` VALUES (0,0,'".$wowdb->escape($_POST['title'])."','".$wowdb->escape($_POST['url'])."','".$wowdb->escape($_POST['show'])."')";
+
+		$DBres = $wowdb->query($query);
+
+		if (!$DBres)
+		{
+			$status = 101;
+			$errmsg = 'Failed to insert button. MySQL said: '.$wowdb->error();
+			return;
+		}
+
+		$status=0;
+		$result  = '<id>b'.$wowdb->insert_id().'</id>'."\n";
+		$result .= '<title>'.$_POST['title'].'</title>';
+
 		break;
 
 	case menu_button_del:
@@ -36,7 +56,7 @@ switch ($method)
 			return;
 		}
 
-		$button = $_GET['button'];
+		$button = $_POST['button'];
 		$button_id = (int)substr($button,1);
 
 		$query = "SELECT * FROM `".$wowdb->table('menu_button')."` WHERE `button_id` = ".$button_id;
@@ -65,15 +85,13 @@ switch ($method)
 
 		if (!$DBres)
 		{
-			$status = 103;
+			$status = 101;
 			$errmsg = 'Failed to delete button. MySQL said: '."\n".$wowdb->error()."\n".$query;
-		}
-		else
-		{
-			$status = 0;
-			$result = $button;
+			return;
 		}
 
+		$status = 0;
+		$result = $button;
 		break;
 }
 

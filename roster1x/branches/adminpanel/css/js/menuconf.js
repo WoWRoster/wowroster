@@ -221,7 +221,7 @@ function updatePositions()
 
 function sendDeleteElement(obj)
 {
-	loadXMLDoc(roster_url+'/ajax.php?method=menu_button_del&button='+obj.name+'&cont=doDeleteElement');
+	loadXMLDoc(roster_url+'/ajax.php?method=menu_button_del&cont=doDeleteElement','button='+obj.name);
 }
 
 function doDeleteElement(result)
@@ -234,12 +234,28 @@ function doDeleteElement(result)
 
 function sendAddElement()
 {
-	var title = document.getElementById('title').value;
-	var url   = document.getElementById('url'  ).value;
+	var title = document.getElementById('title'        ).value;
+	var url   = document.getElementById('url'          ).value;
+	var show  = document.getElementById('config_access').value;
+	loadXMLDoc(roster_url+'/ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url)+'&show='+show);
 }
 
 function doAddElement(result)
 {
+	var button = document.createElement('div');
+	button.id = result.getElementsByTagName('id')[0].firstChild.data;
+	button.className = 'menu_config_div';
+	var title = result.getElementsByTagName('title')[0].firstChild.data
+	button.appendChild(document.createTextNode(title))
+	dd.elements.palet.div.appendChild(button);
+	ADD_DHTML(button.id);
+
+
+	palet.length++;
+	palet[palet.length-1] = dd.elements[button.id];
+	dd.elements.palet.resizeBy(0,dy);
+
+	updatePositions();
 }
 
 function writeValue()
@@ -263,60 +279,4 @@ function writeValue()
 function sqr(x)
 {
 	return x*x;
-}
-
-var req;
-
-function loadXMLDoc(url)
-{
-	alert(url);
-	// branch for native XMLHttpRequest object
-	if (window.XMLHttpRequest)
-	{
-		req = new XMLHttpRequest();
-		req.onreadystatechange = processReqChange;
-		req.open("GET", url, true);
-		req.send(null);
-	// branch for IE/Windows ActiveX version
-	}
-	else if (window.ActiveXObject)
-	{
-		req = new ActiveXObject("Microsoft.XMLHTTP");
-		if (req)
-		{
-			req.onreadystatechange = processReqChange;
-			req.open("GET", url, true);
-			req.send();
-		}
-	}
-}
-
-function processReqChange()
-{
-	// only if req shows "complete"
-	if (req.readyState == 4)
-	{
-		// only if "OK"
-		if (req.status == 200)
-		{
-			alert(req.responseText);
-			response = req.responseXML.documentElement;
-			cont = response.getElementsByTagName('cont')[0].firstChild.data;
-			result = response.getElementsByTagName('result')[0];
-			status = response.getElementsByTagName('status')[0].firstChild.data;
-			errmsg = response.getElementsByTagName('errmsg')[0];
-			if (status == 0)
-			{
-				eval(cont + '(result)');
-			}
-			else
-			{
-				alert('Error '+status+': '+errmsg.firstChild.data);
-			}
-		}
-		else
-		{
-			alert("There was a problem retrieving the XML data:\n" + req.statusText);
-        }
-    }
 }
