@@ -34,36 +34,15 @@ define('NO_CACHE', true);
 // Directories
 define('UA_INCLUDEDIR', UA_BASEDIR.'include'.DIR_SEP);
 define('UA_LANGDIR',    UA_BASEDIR.'language'.DIR_SEP);
-define('UA_THEMEDIR',   UA_BASEDIR.'themes'.DIR_SEP);
+define('UA_THEMEDIR',   UA_BASEDIR.'styles'.DIR_SEP);
 define('UA_MODULEDIR',  UA_BASEDIR.'modules'.DIR_SEP);
+define('UA_CACHEDIR',   UA_BASEDIR.'cache'.DIR_SEP);
 
 // User Levels
 define('UA_ID_ANON',  0);
 define('UA_ID_USER',  1);
 define('UA_ID_POWER', 2);
 define('UA_ID_ADMIN', 3);
-
-// User Access
-define('UA_A_ADDONS',       1  );
-define('UA_A_ADDONS_AD',    11);
-define('UA_A_ADDONS_EN',    12);
-define('UA_A_ADDONS_OP',    13);
-define('UA_A_LOGO',         2  );
-define('UA_A_SETTINGS',     3  );
-define('UA_A_SETTINGS_INI', 31);
-define('UA_A_SETTINGS_SV',  32);
-define('UA_A_STAT',         4  );
-define('UA_A_USER',         5  );
-define('UA_A_USER_PASS',    51);
-define('UA_A_USER_NAME',    52);
-define('UA_A_USER_PASS_A',  53);
-define('UA_A_USER_ADD',     54);
-define('UA_A_USER_ADD_A',   55);
-define('UA_A_USER_DEL',     56);
-define('UA_A_USER_DEL_S',   57);
-define('UA_A_USER_DEL_A',   58);
-define('UA_A_USER_LEV',     59);
-define('UA_A_UA_CONF',      6 );
 
 // URI Parameters
 define('UA_URI_OP',       'op');

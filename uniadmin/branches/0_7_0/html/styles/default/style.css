@@ -63,17 +63,23 @@ img {
 }
 
 .ua_menu {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
 	padding:2px 4px;
 }
 .sync_url {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
 	border:1px solid #B32400;
 	background-color:#FFCCBF;
 	padding:2px 4px;
 }
 
 .ua_table {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
 }
@@ -114,27 +120,20 @@ img {
 	font-size:10px;
 }
 
-.ua_loginbox label {
-	width:6em;
-	float:left;
-	text-align:right;
-	margin-right:0.5em;
-	display:block;
-}
-.ua_loginbox .submit {
-	margin-left:6.5em;
+.ua_loginbox, .ua_loginbox table {
+	font-size:9px;
 }
 .ua_loginbox fieldset {
 	width:18em;
-	padding-bottom:10px;
+	padding:1px;
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
 }
 .ua_loginbox legend {
-	padding:2px 6px;
+	padding:1px 6px;
 	color:#000;
 	border:1px solid #B32400;
 	background-color:#FFCCBF;
-	font-size:14px;
+	font-size:12px;
 	font-weight:bold;
 }

@@ -41,28 +41,38 @@ class User
 	/**
 	 * Initialize user object
 	 */
-	function start( )
+	function User( )
 	{
-		global $uniadmin;
+		global $uniadmin, $tpl;
 
 		$this->ip_address = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : $REMOTE_ADDR;
 		$this->user_agent = ( !empty($_SERVER['HTTP_USER_AGENT']) ) ? $_SERVER['HTTP_USER_AGENT'] : $_ENV['HTTP_USER_AGENT'];
 
 		$this->lang_path = UA_LANGDIR;
 
+		if( !isset($this->data['id']) )
+		{
+			$this->data['id'] = 0;
+			$this->data['name'] = 'Guest';
+			$this->data['password'] = '';
+			$this->data['level'] = 0;
+			$this->data['language'] = $uniadmin->config['default_lang'];
+			$this->data['user_style'] = $uniadmin->config['default_style'];
+		}
+
 		// Set up language array
-		if ( (isset($this->data['id'])) && ($this->data['id'] != UA_ID_ANON) && (!empty($this->data['language'])) )
-		{
-			$this->lang_name = ( file_exists(UA_LANGDIR . $this->data['language'] . '.php') ) ? $this->data['language'] : $uniadmin->config['default_lang'];
-		}
-		else
-		{
-			$this->lang_name = $uniadmin->config['default_lang'];
-		}
+		$this->lang_name = ( file_exists($this->lang_path . $this->data['language'] . '.php') ) ? $this->data['language'] : $uniadmin->config['default_lang'];
 
 		include($this->lang_path . $this->lang_name . '.php');
 
 		$this->lang = &$lang;
+
+		// Set up user style
+		$this->style = ( file_exists(UA_THEMEDIR . $this->data['user_style'] . DIR_SEP . 'index.html') ) ? $this->data['user_style'] : $uniadmin->config['default_style'];
+
+		$this->style = isset($this->data['user_style']) ? $this->data['user_style'] : $uniadmin->config['default_style'];
+
+		$tpl->set_template($this->style);
 
 		return;
 	}
@@ -79,7 +89,7 @@ class User
 		{
 			$this->data = $data;
 
-			$this->start();
+			$this->User();
 		}
 		else
 		{
@@ -126,4 +136,5 @@ function get_user_info( $name='' )
 
 	return $row;
 }
+
 ?>

@@ -29,16 +29,21 @@ class UniAdmin
 {
 	// General vars
 	var $config     = array();                  // Config values            @var config
-	var $row_class  = 'data1';                  // Alternating row class    @var row_class
+	var $row_class  = 1;                        // Alternating row class    @var row_class
 	var $menu       = '';                       // Main UA Menu             @var menu
 	var $messages   = array();                  // Messages array           @var messages
 	var $debug      = array();                  // Debug messages array     @var debug
 	var $languages  = array();                  // Available Languages      @var languages
+	var $styles  = array();                     // Available Styles         @var styles
 	var $reject_ini = array();                  // ini variable to not scan @var reject_ini
 
 	// Output vars
 	var $root_path         = './';              // Path to UniAdmin's root  @var root_path
 	var $url_path          = '';                // URL Path                 @var url_path
+    var $gen_simple_header = false;             // Use a simple header?     @var gen_simple_header
+    var $page_title        = '';                // Page title               @var page_title
+    var $template_file     = '';                // Template file to parse   @var template_file
+    var $template_path     = '';                // Path to template_file    @var template_path
 
 	// Timer vars
 	var $timer_start = 0;                       // Page timer start         @var timer_start
@@ -97,6 +102,7 @@ class UniAdmin
 		// Fix interface url
 		$this->config['interface_url'] = str_replace('%url%',$this->url_path,$this->config['interface_url']);
 
+		// Get languages
 		if( $handle = opendir(UA_LANGDIR) )
 		{
 			while( false !== ($file = readdir($handle)) )
@@ -110,6 +116,23 @@ class UniAdmin
 		else
 		{
 			print('Cannot read the directory ['.UA_LANGDIR.']');
+			die();
+		}
+
+		// Get styles
+		if( $handle = opendir(UA_THEMEDIR) )
+		{
+			while( false !== ($file = readdir($handle)) )
+			{
+				if( $file != '.' && $file != '..' && is_dir(UA_THEMEDIR.$file) )
+				{
+					$this->styles[] = $file;
+				}
+			}
+		}
+		else
+		{
+			print('Cannot read the directory ['.UA_THEMEDIR.']');
 			die();
 		}
 
@@ -159,7 +182,7 @@ class UniAdmin
 	 */
 	function switch_row_class( $set_new = true )
 	{
-		$row_class = ( $this->row_class == '1' ) ? '2' : '1';
+		$row_class = ( $this->row_class == 1 ) ? 2 : 1;
 
 		if( $set_new )
 		{
@@ -318,6 +341,293 @@ class UniAdmin
 		$dir->close();
 		return true;
 	}
+
+	/**
+	 * Set object variables
+	 * NOTE: If the last var is 'display' and the val is TRUE, EQdkp::display() is called
+	 *   automatically
+	 *
+	 * @var $var Var to set
+	 * @var $val Value for Var
+	 * @return bool
+	 */
+	function set_vars($var, $val = '', $append = false)
+	{
+		if ( is_array($var) )
+		{
+			foreach ( $var as $d_var => $d_val )
+			{
+				$this->set_vars($d_var, $d_val);
+			}
+		}
+		else
+		{
+			if ( empty($val) )
+			{
+				return false;
+			}
+			if ( ($var == 'display') && ($val === true) )
+			{
+				$this->display();
+			}
+			else
+			{
+				if ( $append )
+				{
+					if ( is_array($this->$var) )
+					{
+						$this->{$var}[] = $val;
+					}
+					elseif ( is_string($this->$var) )
+					{
+						$this->$var .= $val;
+					}
+					else
+					{
+						$this->$var = $val;
+					}
+				}
+				else
+				{
+					$this->$var = $val;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	function display()
+	{
+		$this->page_header();
+		$this->page_tail();
+	}
+
+	function page_header()
+	{
+		global $uniadmin, $db, $user, $tpl;
+
+		// Define a variable so we know the header's been included
+		define('HEADER_INC', true);
+
+		// Use gzip if available
+		if ( $this->config['enable_gzip'] == '1' )
+		{
+			if ( (extension_loaded('zlib')) && (!headers_sent()) )
+			{
+				@ob_start('ob_gzhandler');
+			}
+		}
+
+		// Send the HTTP headers
+		$now = gmdate('D, d M Y H:i:s', time()) . ' GMT';
+
+		@header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		@header('Last-Modified: ' . $now);
+		@header('Cache-Control: no-store, no-cache, must-revalidate');
+		@header('Cache-Control: post-check=0, pre-check=0', false);
+		@header('Pragma: no-cache');
+		@header('Content-Type: text/html; charset=iso-8859-1');
+
+		// Assign global template variables
+		$tpl->assign_vars(array(
+			'SUB_TITLE'       => $this->page_title,
+			'URL_PATH'        => $this->url_path,
+			'TEMPLATE_PATH'   => $this->url_path . 'styles/' . $user->style,
+			'UA_VER'          => UA_VER,
+			'UA_FORMACTION'   => UA_FORMACTION,
+			'UA_INDEXPAGE'    => UA_INDEXPAGE,
+			'UA_INDEX'        => UA_INDEX,
+			'U_INTERFACE_URL' => $uniadmin->config['interface_url'],
+
+			'A_URI_PAGE'       => UA_URI_PAGE,
+			'A_OPERATION'      => UA_URI_OP,
+			'A_DELETE'         => UA_URI_DELETE,
+			'A_ID'             => UA_URI_ID,
+			'A_PROCESS'        => UA_URI_PROCESS,
+			'A_ADD'            => UA_URI_ADD,
+			'A_SVNAME'         => UA_URI_SVNAME,
+			'A_UPINI'          => UA_URI_UPINI,
+			'A_GETINI'         => UA_URI_GETINI,
+			)
+		);
+
+		$tpl->assign_vars(array(
+			'L_SYNCRO_URL' => $user->lang['syncro_url'],
+			'L_VER_SYNCRO_URL' => $user->lang['verify_syncro_url'],
+			'L_MESSAGES' => $user->lang['messages'],
+			'L_DEBUG' => $user->lang['debug'],
+			)
+		);
+
+		$tpl->assign_vars(array(
+			'S_NORMAL_HEADER' => false,
+			'S_MESSAGE'       => false,
+			'S_DEBUG'         => false,
+			)
+		);
+
+
+		//
+		// Messages
+		//
+		if( !empty($this->messages) && is_array($this->messages) )
+		{
+			$tpl->assign_var('S_MESSAGE',true);
+			foreach( $this->messages as $message )
+			{
+				$tpl->assign_block_vars('messages_row',
+					array('TEXT'    => $message,
+						'ROW_CLASS' => $uniadmin->switch_row_class(),
+					)
+				);
+			}
+		}
+
+		//
+		// Debug
+		//
+		if( !empty($this->debug) && is_array($this->debug) && UA_DEBUG )
+		{
+			$tpl->assign_var('S_DEBUG',true);
+			foreach( $this->debug as $message )
+			{
+				$tpl->assign_block_vars('debug_row',
+					array('TEXT'    => $message,
+						'ROW_CLASS' => $uniadmin->switch_row_class(),
+					)
+				);
+			}
+		}
+
+		//
+		// Menus
+		//
+		$menus = $this->gen_menus();
+		$main_menu = '';
+
+		foreach ( $menus as $menu )
+		{
+			// Don't display the link if they don't have permission to view it
+			if ( (empty($menu['check'])) || (isset($user->data['level']) && $user->data['level'] >= $menu['check']) )
+			{
+				$main_menu .= '<a href="' . UA_INDEXPAGE . '=' . $menu['link'] . '">' . $menu['text'] . '</a> | ';
+			}
+		}
+
+		// Remove the trailing ' | ' from menus
+		$main_menu = preg_replace('# \| $#', '', $main_menu);
+
+		if ( !$this->gen_simple_header )
+		{
+			$tpl->assign_vars(array(
+				'LOGO' => $user->style['logo_path'],
+
+				'S_NORMAL_HEADER' => true,
+				'S_LOGGED_IN' => ( isset($user->data['level']) ? ( ( $user->data['level'] != UA_ID_ANON ) ? true : false) : false),
+
+				// Menu
+				'MAIN_MENU' => $main_menu)
+			);
+		}
+	}
+
+	function gen_menus()
+	{
+		global $user;
+
+		$main_menu = array(
+			array('link' => 'help',     'text' => $user->lang['title_help'],     'check' => ''),
+			array('link' => 'addons',   'text' => $user->lang['title_addons'],   'check' => ''),
+			array('link' => 'logo',     'text' => $user->lang['title_logo'],     'check' => ''),
+			array('link' => 'settings', 'text' => $user->lang['title_settings'], 'check' => ''),
+			array('link' => 'stats',    'text' => $user->lang['title_stats'],    'check' => '1'),
+			array('link' => 'users',    'text' => $user->lang['title_users'],    'check' => '1'),
+			array('link' => 'pref',     'text' => $user->lang['title_config'],   'check' => '3'),
+		);
+
+		return $main_menu;
+	}
+
+	function page_tail()
+	{
+		global $db, $user, $tpl;
+
+		if ( !empty($this->template_path) )
+		{
+			$tpl->set_template($user->style['template_path'], $this->template_path);
+		}
+
+		if ( empty($this->template_file) )
+		{
+			trigger_error('Template file is empty.', E_USER_ERROR);
+			return false;
+		}
+
+		$tpl->set_filenames(array(
+			'body' => $this->template_file
+			)
+		);
+
+		// Hiding the copyright/debug info if gen_simple_header is set
+		if ( !$this->gen_simple_header )
+		{
+			$tpl->assign_vars(array(
+				'S_NORMAL_FOOTER' => true
+				)
+			);
+
+			if ( UA_DEBUG )
+			{
+				$mc_split = split(' ', microtime());
+				$this->timer_end = $mc_split[0] + $mc_split[1];
+				unset($mc_split);
+
+				$s_show_queries = ( UA_DEBUG == 2 ) ? true : false;
+
+				$tpl->assign_vars(array(
+					'L_QUERIES'      => $user->lang['queries'],
+					'S_SHOW_DEBUG'   => true,
+					'S_SHOW_QUERIES' => $s_show_queries,
+					'U_RENDERTIME'   => substr($this->timer_end - $this->timer_start, 0, 5),
+					'U_QUERYCOUNT'   => $db->query_count)
+				);
+
+				if ( $s_show_queries )
+				{
+					foreach ( $db->queries as $query )
+					{
+						$tpl->assign_block_vars('query_row', array(
+						'ROW_CLASS' => $this->switch_row_class(),
+						'QUERY' => $query)
+						);
+					}
+				}
+			}
+			else
+			{
+				$tpl->assign_vars(array(
+					'S_SHOW_DEBUG' => false,
+					'S_SHOW_QUERIES' => false)
+				);
+			}
+		}
+		else
+		{
+			$tpl->assign_vars(array(
+				'S_NORMAL_FOOTER' => false)
+			);
+		}
+
+		// Close our DB connection.
+		$db->close_db();
+
+		// Get rid of our template data
+		$tpl->display('body');
+		$tpl->destroy();
+
+		exit;
+	}
 }
 
 /**
@@ -341,6 +651,33 @@ function lang_select( $select_option='' )
 	{
 		$selected = ( $lang == $select_option ? ' selected="selected"' : '' );
 		$retval .= "\n\t".'<option value="'.$lang.'"'.$selected.'>'.$lang.'</option>';
+	}
+	$retval .= '
+			</select>';
+	return $retval;
+}
+
+/**
+ * Function to generate the styles select box
+ *
+ * @param string $select_option
+ * @return string
+ */
+function style_select( $select_option='' )
+{
+	global $uniadmin;
+
+	if( empty($select_option) )
+	{
+		$select_option = $uniadmin->config['default_style'];
+	}
+
+	$retval = '<select class="select" name="style">';
+
+	foreach( $uniadmin->styles as $style )
+	{
+		$selected = ( $style == $select_option ? ' selected="selected"' : '' );
+		$retval .= "\n\t".'<option value="'.$style.'"'.$selected.'>'.$style.'</option>';
 	}
 	$retval .= '
 			</select>';

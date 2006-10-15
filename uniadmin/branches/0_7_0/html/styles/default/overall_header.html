@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>UniAdmin v{UA_VER} [{SUB_TITLE}]</title>
+	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style.css" />
+	<script type="text/javascript" src="{URL_PATH}overlib/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
+	<script type="text/javascript" src="{URL_PATH}overlib/overlib_hideform.js"></script>
+</head>
+<body{ONLOAD}>
+
+<table width="100%" border="0" cellspacing="1" cellpadding="2">
+	<tr>
+		<td width="201" valign="top"><a href="{UA_INDEX}"><img src="{TEMPLATE_PATH}/images/logo.png" alt="UniAdmin" /></a></td>
+		<td width="100%" valign="top">
+			<span class="maintitle">UniAdmin v{UA_VER}</span><br />
+			<!-- IF SUB_TITLE --><span class="subtitle">{SUB_TITLE}</span><br /><!-- ENDIF -->
+			<br />
+			<!-- IF S_NORMAL_HEADER -->
+			<span class="ua_menu">
+				{MAIN_MENU}
+			</span>
+			<br /><br />
+			<span class="sync_url">{L_SYNCRO_URL} ({L_VER_SYNCRO_URL}): <a href="{U_INTERFACE_URL}" target="_blank">{U_INTERFACE_URL}</a></span>
+			<br /><br />
+			<!-- ENDIF -->
+			<!-- IF S_LOGIN_MSG -->
+			{U_LOGIN_MSG}
+			<!-- ENDIF -->
+			<!-- IF S_LOGIN -->
+			<!-- INCLUDE login.html -->
+			<!-- ENDIF -->
+		</td>
+	</tr>
+</table>
+<!-- IF S_MESSAGE -->
+<!-- INCLUDE message.html -->
+<!-- ENDIF -->
+<!-- IF S_DEBUG -->
+<!-- INCLUDE debug.html -->
+<!-- ENDIF -->

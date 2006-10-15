@@ -31,12 +31,14 @@ $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 switch( $op )
 {
 	case UA_URI_PROCESS:
-		process_logo();
+		if( $user->data['level'] >= UA_ID_USER )
+			process_logo();
 		break;
 
 	case UA_URI_DISABLE:
 	case UA_URI_ENABLE:
-		toggle_logo($op,$id);
+		if( $user->data['level'] >= UA_ID_USER )
+			toggle_logo($op,$id);
 		break;
 
 	default:
@@ -61,171 +63,123 @@ main();
  */
 function main( )
 {
-	global $db, $uniadmin, $user;
+	global $db, $uniadmin, $user, $tpl;
+
+	$tpl->assign_vars(array(
+		'L_UPDATE_FILE'    => $user->lang['update_file'],
+		'L_UPLOADED'       => $user->lang['uploaded'],
+		'L_ENABLED'        => $user->lang['enabled'],
+		'L_SELECT_FILE'    => $user->lang['select_file'],
+		'L_UPDATED'        => $user->lang['updated'],
+		'S_LOGO'           => false,
+		)
+	);
+
+	if( $user->data['level'] >= UA_ID_USER )
+	{
+		$tpl->assign_var('S_LOGO',true);
+	}
 
 	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."`;";
 	$result = $db->query($sql);
 
 	$logo_dir = $uniadmin->config['logo_folder'];
 
-	$logo1['logo'] = 'images/logo1_03.gif';
-	$logo1['updated'] = '-';
-	$logo1['active_link'] = '-';
-	$logo2['logo'] = 'images/logo2_03.gif';
-	$logo2['updated'] = '-';
-	$logo2['active_link'] = '-';
-
-	while( $row = $db->fetch_record($result) )
+	for( $l=1; $l<3; $l++ )
 	{
-		switch( $row['logo_num'] )
+		$row = $db->fetch_record($result);
+
+		$logo_num = $l;
+
+		$logo_updated = '-';
+		$logo_active_link = '-';
+
+		$logo_logo = ( empty($row['filename']) ? 'images/logo'.$logo_num.'_03.gif' : $logo_dir.'/'.$row['filename'] );
+		$logo_updated = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
+
+		if( $row['active'] == '1' )
+		{
+			$logo_active_link = '<form name="ua_disablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
+	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
+</form>';
+			if( $user->data['level'] >= UA_ID_USER )
+			{
+				$logo_active_link = '<span style="color:green;">'.$user->lang['yes'].'</span>';
+			}
+		}
+		elseif( $row['active'] == '0' )
+		{
+			$logo_active_link = '<form name="ua_enablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
+	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
+</form>';
+			if( $user->data['level'] >= UA_ID_USER )
+			{
+				$logo_active_link = '<span style="color:red;">'.$user->lang['no'].'</span>';
+			}
+		}
+
+
+		// I hate kludges but this is how it has to be
+		switch( $logo_num )
 		{
 			case '1':
-				$logo1['logo'] = ( empty($row['filename']) ? $logo1['logo'] : $logo_dir.'/'.$row['filename'] );
-				$logo1['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
-
-				if( $row['active']=='1' )
-				{
-					$logo1['active_link'] = '<form name="ua_disablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
-</form>';
-				}
-				else
-				{
-					$logo1['active_link'] = '<form name="ua_enablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
-</form>';
-				}
-				break;
-
-			case '2':
-				$logo2['logo'] = ( empty($row['filename']) ? $logo2['logo'] : $logo_dir.'/'.$row['filename'] );
-				$logo2['updated'] = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
-
-				if( $row['active']=='1' )
-				{
-					$logo2['active_link'] = '<form name="ua_disablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
-</form>';
-				}
-				else
-				{
-					$logo2['active_link'] = '<form name="ua_enablelogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
-</form>';
-				}
-				break;
-
-			default:
-				break;
-		}
-	}
-
-
-	$table1 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
+				$logo_image = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:62px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td><img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:271px;height:144px;" alt="" /></td>
-		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo1['logo'].'" style="width:215px;height:144px;" alt="" /></td>
+		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo_logo.'" style="width:215px;height:144px;" alt="" /></td>
 		<td><img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:14px;height:144px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo1_05.gif" style="width:500px;height:95px;" alt="" /></td>
 	</tr>
 </table>';
+				break;
 
-
-	$table2 = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
+			case '2':
+				$logo_image = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:70px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td><img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:151px;height:175px;" alt="" /></td>
-		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo2['logo'].'" style="width:319px;height:175px;" alt="" /></td>
+		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo_logo.'" style="width:319px;height:175px;" alt="" /></td>
 		<td><img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:30px;height:175px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo2_05.gif" style="width:500px;height:56px;" alt="" /></td>
 	</tr>
 </table>';
+				break;
 
+			default:
+				break;
+		}
 
-	$logo_input_form_1 ='
-		<table class="ua_table">
-			<tr>
-				<th class="data_header">'.$user->lang['update_file'].'</th>
-				<th class="data_header">'.$user->lang['uploaded'].'</th>
-				<th class="data_header">'.$user->lang['enabled'].'</th>
-			</tr>
-			<tr>
-				<td class="data1" align="center">'.$user->lang['select_file'].':
-					<form name="ua_uploadlogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-						<input class="file" type="file" name="logo1" />
-						<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],1).'" />
-						<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
-					</form>
-				</td>
-				<td class="data1">'.$logo1['updated'].'</td>
-				<td class="data1">'.$logo1['active_link'].'</td>
-			</tr>
-		</table>
-';
+		$tpl->assign_block_vars('logo_row', array(
+			'ROW_CLASS'     => $uniadmin->switch_row_class(),
+			'NUM'           => $logo_num,
+			'L_LOGO_NUM'    => sprintf($user->lang['logo_table'],$logo_num),
+			'ID'            => $row['id'],
+			'UPDATED'       => $logo_updated,
+			'ACTIVELINK'    => $logo_active_link,
+			'L_UPDATE_LOGO' => sprintf($user->lang['update_logo'],$logo_num),
+			'IMAGE'         => $logo_image,
+			)
+		);
+	}
 
-	$logo_input_form_2 = '
-		<table class="ua_table">
-			<tr>
-				<th class="data_header">'.$user->lang['update_file'].'</th>
-				<th class="data_header">'.$user->lang['uploaded'].'</th>
-				<th class="data_header">'.$user->lang['enabled'].'</th>
-			</tr>
-			<tr>
-				<td class="data1" align="center">'.$user->lang['select_file'].':
-					<form name="ua_uploadlogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-						<input class="file" type="file" name="logo2" />
-						<input class="submit" type="submit" value="'.sprintf($user->lang['update_logo'],2).'" />
-						<input type="hidden" value="'.UA_URI_PROCESS.'" name="'.UA_URI_OP.'" />
-					</form>
-				</td>
-				<td class="data1">'.$logo2['updated'].'</td>
-				<td class="data1">'.$logo2['active_link'].'</td>
-			</tr>
-		</table>
-';
-
-
-	display_page('
-<table class="ua_table" width="60%" align="center">
-	<tr>
-		<th class="table_header">'.sprintf($user->lang['logo_table'],1).'</th>
-	</tr>
-	<tr>
-		<td align="center">'.$table1.'</td>
-	</tr>
-	<tr>
-		<td align="center">'.$logo_input_form_1.'</td>
-	</tr>
-</table>
-<br />
-<table class="ua_table" width="60%" align="center">
-	<tr>
-		<th class="table_header">'.sprintf($user->lang['logo_table'],2).'</th>
-	</tr>
-	<tr>
-		<td align="center">'.$table2.'</td>
-	</tr>
-	<tr>
-		<td align="center">'.$logo_input_form_2.'</td>
-	</tr>
-</table>',$user->lang['title_logo']);
+	$uniadmin->set_vars(array(
+		'page_title'    => $user->lang['title_logo'],
+		'template_file' => 'logo.html',
+		'display'       => true)
+	);
 }
 
 /**

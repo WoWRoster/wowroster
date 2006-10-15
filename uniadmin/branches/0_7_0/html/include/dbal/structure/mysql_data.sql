@@ -8,10 +8,12 @@
 INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUES
 	('addon_folder', 'addon_zips', 'text{250|50'),
 	('default_lang', 'english', 'function{lang_select'),
-	('interface_url', '%url%?p=interface', 'text{250|50'),
+	('default_style', 'default', 'function{style_select'),
+	('enable_gzip', '0', 'radio{yes^1|no^0'),
+	('interface_url', '%url%interface.php', 'text{250|50'),
 	('logo_folder', 'logos', 'text{250|50'),
 	('temp_analyze_folder', 'addon_temp', 'text{250|50'),
-	('UAVer', '0.7.0', 'text{250|50');
+	('UAVer', '0.7.0', 'display');
 
 ### Settings
 INSERT INTO `uniadmin_settings` (`set_name`, `set_value`, `enabled`, `section`, `form_type`) VALUES
@@ -70,5 +72,5 @@ INSERT INTO `uniadmin_svlist` (`sv_name`) VALUES
 	('PvPLog');
 
 ### User List
-INSERT INTO `uniadmin_users` (`name`, `password`, `level`, `language`) VALUES
-	('Default', '4cb9c8a8048fd02294477fcb1a41191a', '3', 'english');
+INSERT INTO `uniadmin_users` (`name`, `password`, `level`, `language`, `user_style`) VALUES
+	('Default', '4cb9c8a8048fd02294477fcb1a41191a', '3', 'english', 'default');

@@ -21,6 +21,16 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+if( $user->data['level'] == UA_ID_ANON )
+{
+	$uniadmin->message($user->lang['access_denied']);
+	$uniadmin->set_vars(array(
+	    'template_file' => 'index.html',
+	    'display'       => true)
+	);
+	die();
+}
+
 main();
 
 
@@ -40,17 +50,138 @@ main();
  */
 function main( )
 {
-	global $user, $uniadmin;
+	global $db, $user, $uniadmin, $tpl;
 
-	display_page(
-	build_main_table().
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('host_name').'" alt="host_name" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('ip_addr').'" alt="ip_addr" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('user_agent').'" alt="user_agent" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('action').'" alt="action" />'."\n".
-	'<img src="'.$uniadmin->url_path.'images/piechart.php?'.build_pie_hosts('time').'" alt="time" />'."\n".
-	'<br />'."\n"
-	,$user->lang['title_stats']);
+	$pie_chart_array = array('host_name','ip_addr','user_agent','action','time');
+
+	foreach( $pie_chart_array as $name )
+	{
+		$tpl->assign_block_vars('pie_charts', array(
+			'LINK' => build_pie_hosts($name),
+			'ALT'  => $name,
+			)
+		);
+	}
+
+	if( isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) || isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
+	{
+		$orderby = $_REQUEST['orderby'];
+		$direction = $_REQUEST['direction'];
+		$limit = $_REQUEST['limit'];
+		$start = $_REQUEST['start'];
+	}
+	else
+	{
+		$orderby = 'time';
+		$direction = 'DESC';
+		$limit = '10';
+		$start = '0';
+	}
+
+	$sql = "SELECT * FROM `".UA_TABLE_STATS."`;";
+	$result = $db->query($sql);
+
+	$total_rows = $db->num_rows($result);
+
+
+	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `$orderby` $direction LIMIT $start , $limit;";
+	$result = $db->query($sql);
+
+
+	if( $direction == 'ASC' )
+	{
+		$direction = 'DESC';
+	}
+	else
+	{
+		$direction = 'ASC';
+	}
+
+	while( $row = $db->fetch_record($result) )
+	{
+		$time = date($user->lang['time_format'],$row['time']);
+
+		$td_class = $uniadmin->switch_row_class();
+
+		$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
+		$host_name = $uniadmin->string_chop($row['host_name'],25,'...');
+
+		$tpl->assign_block_vars('stats_row', array(
+			'ROW_CLASS'      => $uniadmin->switch_row_class(),
+			'ID'             => $row['id'],
+			'ACTION'         => $row['action'],
+			'IP_ADDR'        => $row['ip_addr'],
+			'TIME'           => $time,
+			'USER_AGENT'     => $user_agent,
+			'USER_AGENT_T'   => $row['user_agent'],
+			'HOST_NAME'      => $host_name,
+			'HOST_NAME_T'    => $row['host_name'],
+			)
+		);
+	}
+
+	$prev_start = $start - $limit;
+	if( $prev_start > -1 )
+	{
+		$prev_link = '<a href="'.UA_FORMACTION.'&amp;start='.$prev_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
+	}
+	else
+	{
+		$prev_link = '';
+	}
+	$next_start = $start + $limit;
+	if( $next_start < $total_rows )
+	{
+		$next_link = '<a href="'.UA_FORMACTION.'&amp;start='.$next_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
+	}
+	else
+	{
+		$next_link = '';
+	}
+
+	if( !empty($prev_link) && !empty($next_link) )
+	{
+		$sep = ' | ';
+	}
+	else
+	{
+		$sep = '';
+	}
+
+
+	$total_pages = floor($total_rows / $limit) + 1;
+	$page_num =  floor($start / $limit) + 1;
+
+	$tpl->assign_vars(array(
+		'L_STATS'      => $user->lang['title_stats'],
+		'L_ROW'        => $user->lang['row'],
+		'L_ACTION'     => $user->lang['action'],
+		'L_IP_ADDRESS' => $user->lang['ip_address'],
+		'L_TIME'       => $user->lang['date_time'],
+		'L_USER_AGENT' => $user->lang['user_agent'],
+		'L_HOST_NAME'  => $user->lang['host_name'],
+		'L_SHOW'       => $user->lang['show'],
+		'L_STAT_LIMIT' => $user->lang['stats_limit'],
+
+		'U_START'     => $start,
+		'U_LIMIT'     => $limit,
+		'U_DIRECTION' => $direction,
+		'U_ORDERBY'   => $orderby,
+
+		'U_PREV_LINK'    => $prev_link,
+		'U_SEP'    => $sep,
+		'U_NEXT_LINK'    => $next_link,
+		'U_PAGE_NUM'    => $page_num,
+		'U_TOTAL_PAGES'    => $total_pages,
+		)
+	);
+
+	$uniadmin->set_vars(array(
+		'page_title'    => $user->lang['title_stats'],
+		'template_file' => 'stats.html',
+		'display'       => true
+		)
+	);
 }
 
 /**
@@ -125,131 +256,6 @@ function build_pie_hosts( $field_name )
 		$pie .= "action=drawChart";
 		return $pie;
 	}
-}
-
-/**
- * Builds main display stats table
- *
- * @return string
- */
-function build_main_table( )
-{
-	global $db, $uniadmin, $user;
-
-	if( isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) || isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
-	{
-		$orderby = $_REQUEST['orderby'];
-		$direction = $_REQUEST['direction'];
-		$limit = $_REQUEST['limit'];
-		$start = $_REQUEST['start'];
-	}
-	else
-	{
-		$orderby = 'time';
-		$direction = 'DESC';
-		$limit = '10';
-		$start = '0';
-	}
-
-	$sql = "SELECT * FROM `".UA_TABLE_STATS."`;";
-	$result = $db->query($sql);
-
-	$total_rows = $db->num_rows($result);
-
-
-	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `$orderby` $direction LIMIT $start , $limit;";
-	$result = $db->query($sql);
-
-
-	if( $direction == 'ASC' )
-	{
-		$direction = 'DESC';
-	}
-	else
-	{
-		$direction = 'ASC';
-	}
-
-	$table = '<table class="ua_table stats" id="table_results" cellspacing="1" width="90%" align="center">
-	<tr>
-		<th class="table_header" colspan="6">'.$user->lang['title_stats'].'</th>
-	</tr>
-	<tr>
-		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=id&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['row'].'</a></td>
-		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=action&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['action'].'</a></td>
-		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=ip_addr&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['ip_address'].'</a></td>
-		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=time&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['date_time'].'</a></td>
-		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=user_agent&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['user_agent'].'</a></td>
-		<td class="data_header"><a href="'.UA_FORMACTION.'&amp;start='.$start.'&amp;orderby=host_name&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['host_name'].'</a></td>
-	</tr>';
-
-	while( $row = $db->fetch_record($result) )
-	{
-		$time = date($user->lang['time_format'],$row['time']);
-
-		$td_class = $uniadmin->switch_row_class();
-
-		$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
-		$host_name = $uniadmin->string_chop($row['host_name'],25,'...');
-
-		$table .= '	<tr>
-		<td class="'.$td_class.'" align="right">'.$row['id'].'</td>
-		<td class="'.$td_class.'">'.$row['action'].'</td>
-		<td class="'.$td_class.'">'.$row['ip_addr'].'</td>
-		<td class="'.$td_class.'">'.$time.'</td>
-		<td class="'.$td_class.'" title="'.$row['user_agent'].'">'.$user_agent.'</td>
-		<td class="'.$td_class.'" title="'.$row['host_name'].'">'.$host_name.'</td>
-	</tr>';
-	}
-
-	$prev_start = $start - $limit;
-	if( $prev_start > -1 )
-	{
-		$prev_link = '<a href="'.UA_FORMACTION.'&amp;start='.$prev_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
-	}
-	else
-	{
-		$prev_link = '';
-	}
-	$next_start = $start + $limit;
-	if( $next_start < $total_rows )
-	{
-		$next_link = '<a href="'.UA_FORMACTION.'&amp;start='.$next_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
-	}
-	else
-	{
-		$next_link = '';
-	}
-
-	if( !empty($prev_link) && !empty($next_link) )
-	{
-		$sep = ' | ';
-	}
-	else
-	{
-		$sep = '';
-	}
-
-
-	$totalPages = floor($total_rows / $limit) + 1;
-	$pageNum =  floor($start / $limit) + 1;
-
-	$table .= '	<tr>
-		<td class="stats_footer" colspan="4">'.$prev_link.$sep.$next_link.' &nbsp;&nbsp;&nbsp; ['.$pageNum.' / '.$totalPages.']</td>
-		<td class="stats_footer" colspan="2">
-
-		<form name="ua_changeparams" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-			<input class="submit" type="submit" value="'.$user->lang['show'].'" />
-			<input class="input" type="text" name="limit" value="'.$limit.'" size="5" maxlength="5" /> '.$user->lang['stats_limit'].' <input class="input" type="text" name="start" value="'.$start.'" size="5" maxlength="5" />
-			<input type="hidden" value="'.$orderby.'" name="orderby" />
-			<input type="hidden" value="'.$direction.'" name="direction" />
-		</form>
-
-	</td>
-	</tr>
-</table>';
-
-	return $table;
 }
 
 ?>

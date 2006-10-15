@@ -319,6 +319,8 @@ $lang['DOWNLOADAFTERUPLOAD'] = 'Web==&gt;WoW - Nachdem UU hochgeladen hat, initi
 
 $lang['admin']['addon_folder'] = 'Gib den Ordner an wo die Addons abgelegt werden';
 $lang['admin']['default_lang'] = 'Wähle die Standardsprache des UniAdmin Interfaces aus<br /><br />Werte werden hier automatisch im WoW-Verzeichnis erkannt';
+$lang['admin']['default_style'] = 'The default display style';
+$lang['admin']['enable_gzip'] = 'Enable gzip compression when displaying UniAdmin Pages';
 $lang['admin']['interface_url'] = 'Wähle den Ort der interface.php aus<br /><br />Benutze %url% um die BasisURL einzufügen<br />Standard ist &quot;%url%?p=interface&quot; oder &quot;%url%interface.php&quot;';
 $lang['admin']['logo_folder'] = 'Wähle den Ort für das UniAdmin Logos aus';
 $lang['admin']['temp_analyze_folder'] = 'Wähle den Ort an dem die ZIP-Archive extrahiert und analysiert werden aus';

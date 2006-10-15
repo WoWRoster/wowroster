@@ -107,7 +107,7 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 	<li> 1: AddOn Management
 		<ul>
 			<li> 1.1: Manage AddOns</li>
-			<li> 1.2: Added/Delete AddOns</li>
+			<li> 1.2: Add/Delete AddOns</li>
 		</ul></li>
 	<li> 2: Logo Management</li>
 	<li> 3: Settings Management
@@ -319,6 +319,8 @@ $lang['DOWNLOADAFTERUPLOAD'] = 'Web==&gt;WoW - Initiate After UU Uploads';
 
 $lang['admin']['addon_folder'] = 'Specify the folder addon zip archives will be saved';
 $lang['admin']['default_lang'] = 'Default language of the UniAdmin interface<br /><br />Values here are automatically scanned from the languages directory';
+$lang['admin']['default_style'] = 'The default display style';
+$lang['admin']['enable_gzip'] = 'Enable gzip compression when displaying UniAdmin Pages';
 $lang['admin']['interface_url'] = 'Specify the location of interface.php here<br /><br />Use %url% to insert the base url<br />Default is &quot;%url%?p=interface&quot; or &quot;%url%interface.php&quot;';
 $lang['admin']['logo_folder'] = 'Specify the folder UniUploader logos will be saved';
 $lang['admin']['temp_analyze_folder'] = 'Specify the folder addon zip archives will be extracted to and anaylized';

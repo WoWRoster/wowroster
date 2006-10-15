@@ -1,4 +1,4 @@
-UniAdmin 0.7.0 (updated 11th October 2006)
+UniAdmin 0.7.0 (updated 15th October 2006)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -167,6 +167,7 @@ Beta 0.7.0
 ~ Addons uploaded with an already existing addon in UA will be updated and will not be inserted as a new addon
 ~ Addon parsing now checks to see if you are uploading a .zip file
 ~ The temp_anaylize folder will now be  on addon processing errors
++ Display templating
 + TOC scanning and display for addons
 + Required/Optional addons selection
     UniUploader 2.5 will give the option to download optional addons
@@ -179,6 +180,7 @@ Beta 0.7.0
 + $user object. Holds locale strings, user info, etc...
 + $uniadmin object. Holds UA config info and some common functions
 + UniUploader settings.ini file importing and exporting
+! Help, addons, logo, and settings pages can now be viewed by guests
 ! Updated pclzip.lib from v2.3 to v2.5. zip handling should be faster/better
 ! Changed initial sql to not set any UU sync settings to enabled
 ! Permissions for certain actions have been changed

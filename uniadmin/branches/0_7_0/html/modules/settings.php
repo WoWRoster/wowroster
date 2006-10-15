@@ -30,26 +30,31 @@ $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 switch( $op )
 {
 	case UA_URI_PROCESS:
-		process_update();
+		if( $user->data['level'] >= UA_ID_USER )
+			process_update();
 		main();
 		break;
 
 	case UA_URI_ADD:
-		add_sv($_POST[UA_URI_SVNAME]);
+		if( $user->data['level'] >= UA_ID_POWER )
+			add_sv($_POST[UA_URI_SVNAME]);
 		main();
 		break;
 
 	case UA_URI_DELETE:
-		remove_sv($id);
+		if( $user->data['level'] >= UA_ID_POWER )
+			remove_sv($id);
 		main();
 		break;
 
 	case UA_URI_UPINI:
-		process_ini();
+		if( $user->data['level'] >= UA_ID_ADMIN )
+			process_ini();
 		break;
 
 	case UA_URI_GETINI:
-		get_ini();
+		if( $user->data['level'] >= UA_ID_ADMIN )
+			get_ini();
 		main();
 		break;
 
@@ -75,28 +80,52 @@ switch( $op )
  */
 function main( )
 {
-	global $db, $uniadmin, $user;
+	global $db, $uniadmin, $user, $tpl;
 
-	$form = '
-<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<table class="ua_table" align="center">
-		<tr>
-			<th colspan="4" class="table_header">'.$user->lang['uniuploader_sync_settings'].'</th>
-		</tr>';
+	$tpl->assign_vars(array(
+		'L_SYNC_SETTINGS'  => $user->lang['uniuploader_sync_settings'],
+		'L_SETTING_NAME'   => $user->lang['setting_name'],
+		'L_VALUE'          => $user->lang['value'],
+		'L_ENABLED'        => $user->lang['enabled'],
+		'L_IMG_MISSING'    => $user->lang['image_missing'],
+		'L_UPDATE_SET'     => $user->lang['update_settings'],
+		'L_REMOVE'         => $user->lang['remove'],
+		'L_FILES'          => $user->lang['files'],
+		'L_MANAGE_SV'      => $user->lang['manage_svfiles'],
+		'L_ADD_SV'         => $user->lang['add_svfiles'],
+		'L_FILENAME'       => $user->lang['filename'],
+		'L_ADD'            => $user->lang['add'],
+		'L_SETTINGS_FILE'  => $user->lang['settings_file'],
+		'L_IMPORT_FILE'    => $user->lang['import_file'],
+		'L_IMPORT'         => $user->lang['import'],
+		'L_EXPORT_FILE'    => $user->lang['export_file'],
+		'L_EXPORT'         => $user->lang['export'],
 
-	$sectionheader = '
-		<tr>
-			<th colspan="4" class="data_header">[%s]</th>
-		</tr>
-		<tr>
-			<td class="data_header">'.$user->lang['setting_name'].'</td>
-			<td class="data_header">'.$user->lang['value'].'</td>
-			<td class="data_header">'.$user->lang['enabled'].'</td>
-		</tr>';
+		'S_MANAGE'         => false,
+		'S_INI'            => false,
+		)
+	);
+
+	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."`";
+
+	if( $user->data['level'] == UA_ID_ADMIN )
+	{
+		$tpl->assign_var('S_MANAGE',true);
+		$tpl->assign_var('S_INI',true);
+		$sql .= " ORDER BY `id` ASC;";
+	}
+	elseif( $user->data['level'] >= UA_ID_POWER )
+	{
+		$tpl->assign_var('S_MANAGE',true);
+		$sql .= " ORDER BY `id` ASC;";
+	}
+	elseif( $user->data['level'] == UA_ID_ANON )
+	{
+		$tpl->assign_var('L_MANAGE_SV',$user->lang['svfiles']);
+		$sql .= " WHERE `enabled` = '1' ORDER BY `id` ASC;";
+	}
 
 	$section = '';
-
-	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` ORDER BY `id` ASC;";
 	$result = $db->query($sql);
 
 	while( $row = $db->fetch_record($result) )
@@ -104,20 +133,15 @@ function main( )
 		if( $row['section'] != $section )
 		{
 			$section = $row['section'];
-			$form .= sprintf($sectionheader,( $section == '' ? 'unknown' : $section ));
+
+			$tpl->assign_block_vars('section', array(
+				'NAME'  => $section,
+				)
+			);
 		}
 
 		$setname = $row['set_name'];
 		$setvalue = $row['set_value'];
-
-		$td_class = 'data'.$uniadmin->switch_row_class();
-
-		$form .= '
-		<tr>
-			<td class="'.$td_class.'" onmouseover="return overlib(\''.addslashes($user->lang[$setname]).'&lt;hr /&gt;&lt;img src=&quot;'.$uniadmin->url_path.'images/'.$setname.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; /&gt;\',CAPTION,\''.$setname.'\',VAUTO);" onmouseout="return nd();">
-				<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setname.'</td>
-			<td class="'.$td_class.'">';
-
 
 		// Figure out input type
 		$input_field = '';
@@ -172,122 +196,51 @@ function main( )
 				break;
 		}
 
-		$form .= $input_field.'</td>'."\n";
-
 		if ($row['enabled'] == '1')
 		{
-			$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$setname.'_en" value="1" checked="checked" /></td>'."\n";
+			$checked = ' checked="checked"';
+			$enabled = true;
 		}
 		else
 		{
-			$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$setname.'_en" value="1" /></td>'."\n";
+			$checked = '';
+			$enabled = false;
 		}
-		$form .= '		</tr>'."\n";
-	}
 
-	$form .= '		<tr>
-			<td class="data_header" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
-				<input class="submit" type="submit" name="settings" value="'.$user->lang['update_settings'].'" /></td>
-		</tr>
-	</table>
-</form>';
+		$tpl->assign_block_vars('section.settings_row', array(
+			'ROW_CLASS'   => $uniadmin->switch_row_class(),
+			'SETNAME'     => $setname,
+			'SETVALUE'    => $setvalue,
+			'TOOLTIP'     => addslashes($user->lang[$setname]),
+			'INPUT_FIELD' => $input_field,
+			'CHECKED'     => $checked,
+			'ENABLED'     => $enabled,
+			)
+		);
+	}
 
 	// Build the SV list table
 	$sql = "SELECT * FROM `".UA_TABLE_SVLIST."` ORDER BY `id` DESC;";
 	$result = $db->query($sql);
 
-	$sv_table = '
-<table class="ua_table" width="40%" align="center">
-	<tr>
-		<th colspan="2" class="table_header">'.$user->lang['manage_svfiles'].'</th>
-	</tr>
-	<tr>
-		<td class="data_header">'.$user->lang['files'].'</td>
-		<td class="data_header" width="10%">'.$user->lang['remove'].'</td>
-	</tr>
-';
-
 	while( $row = $db->fetch_record($result) )
 	{
 		$td_class = 'data'.$uniadmin->switch_row_class(true);
 
-		$sv_table .= '
-	<tr>
-		<td class="'.$td_class.'">'.$row['sv_name'].' <b>.lua</b></td>
-		<td class="'.$td_class.'">
-			<form name="ua_removesv_'.$row['id'].'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-				<input class="submit" type="submit" value="'.$user->lang['remove'].'" />
-				<input type="hidden" value="'.$row['id'].'" name="'.UA_URI_ID.'" />
-				<input type="hidden" value="'.UA_URI_DELETE.'" name="'.UA_URI_OP.'" />
-			</form>
-		</td>
-	</tr>
-';
+		$tpl->assign_block_vars('sv_list', array(
+			'ROW_CLASS' => $uniadmin->switch_row_class(),
+			'NAME'      => $row['sv_name'],
+			'ID'        => $row['id'],
+			)
+		);
 	}
 
-	$td_class = 'data'.$uniadmin->switch_row_class(true);
-
-
-	$sv_table .= '
-</table>
-
-<br />';
-
-	if( $user->data['level'] >= UA_ID_POWER )
-	{
-		$sv_table .= '
-<form name="ua_addsv" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<table class="ua_table" width="40%" align="center">
-		<tr>
-			<th colspan="2" class="table_header">'.$user->lang['add_svfiles'].'</th>
-		</tr>
-		<tr>
-			<td class="data_header">'.$user->lang['filename'].'</td>
-			<td class="data_header" width="10%">'.$user->lang['add'].'</td>
-		</tr>
-		<tr>
-			<td class="'.$td_class.'"><input class="input" type="text" name="'.UA_URI_SVNAME.'" /> <b>.lua</b></td>
-			<td class="'.$td_class.'"><input class="submit" type="submit" value="'.$user->lang['add'].'" /></td>
-		</tr>
-	</table>
-	<input type="hidden" value="'.UA_URI_ADD.'" name="'.UA_URI_OP.'" />
-</form>
-';
-	}
-
-	if( $user->data['level'] == UA_ID_ADMIN )
-	{
-		$sv_table .= '
-<br />
-
-<table class="ua_table" align="center">
-	<tr>
-		<th colspan="2" class="table_header">'.$user->lang['settings_file'].'</th>
-	</tr>
-	<tr>
-		<td class="data1">'.$user->lang['import_file'].':</td>
-		<td class="data1">
-			<form name="ua_uploadini" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-				<input class="file" type="file" name="file" />
-				<input type="hidden" value="'.UA_URI_UPINI.'" name="'.UA_URI_OP.'" />
-				<input class="submit" type="submit" value="'.$user->lang['import'].'" />
-			</form>
-		</td>
-	</tr>
-	<tr>
-		<td class="data2">'.$user->lang['export_file'].':</td>
-		<td class="data2">
-			<form name="ua_getini" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-				<input type="hidden" value="'.UA_URI_GETINI.'" name="'.UA_URI_OP.'" />
-				<input class="submit" type="submit" value="'.$user->lang['export'].'" />
-			</form>
-		</td>
-	</tr>
-</table>
-';
-	}
-
-	display_page($sv_table.'<br />'.$form,$user->lang['title_settings']);
+	$uniadmin->set_vars(array(
+		'page_title'    => $user->lang['title_settings'],
+		'template_file' => 'settings.html',
+		'display'       => true
+		)
+	);
 }
 
 /**
@@ -343,7 +296,7 @@ function add_sv( $svname )
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
+			$uniadmin->message(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
 		}
 	}
 }
@@ -361,7 +314,7 @@ function remove_sv( $id )
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-		$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
+		$uniadmin->message(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
 	}
 }
 
@@ -370,7 +323,26 @@ function remove_sv( $id )
  */
 function process_ini( )
 {
-	global $db, $uniadmin, $user;
+	global $db, $uniadmin, $user, $tpl;
+
+	if( $user->data['level'] != UA_ID_ADMIN )
+	{
+		$uniadmin->set_vars(array(
+		    'template_file' => 'index.html',
+		    'display'       => true)
+		);
+		die();
+	}
+
+	$tpl->assign_vars(array(
+		'L_SETTINGS_FILE'  => $user->lang['settings_file'],
+		'L_SETTING_NAME'   => $user->lang['setting_name'],
+		'L_VALUE'          => $user->lang['value'],
+		'L_IMPORT'         => $user->lang['import'],
+		'L_UPDATE_SET'     => $user->lang['update_settings'],
+		'L_IMG_MISSING'    => $user->lang['image_missing'],
+		)
+	);
 
 	$temp_file_name = $_FILES['file']['tmp_name'];
 
@@ -385,13 +357,10 @@ function process_ini( )
 		$url = $uniadmin->url_path;
 		$file_name = str_replace(' ','_',$_FILES['file']['name']);
 
-		$ini_folder = UA_BASEDIR.$uniadmin->config['addon_folder'];
-
-		// Set Download URL
-		$download_url = $url.$uniadmin->config['addon_folder'].'/'.$file_name;
+		$ini_folder = UA_CACHEDIR;
 
 		// Name and location of the ini file
-		$ini_file = $ini_folder.DIR_SEP.$file_name;
+		$ini_file = $ini_folder.$file_name;
 
 		// Delete ini if it exists
 		@unlink($ini_file);
@@ -409,28 +378,14 @@ function process_ini( )
 
 		if( is_array($ini_data) )
 		{
-			$form = '
-<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<table class="ua_table" align="center">
-		<tr>
-			<th colspan="4" class="table_header">'.$user->lang['settings_file'].'</th>
-		</tr>';
-
-			$sectionheader = '
-		<tr>
-			<th colspan="4" class="data_header">[%s]</th>
-		</tr>
-		<tr>
-			<td class="data_header">'.$user->lang['setting_name'].'</td>
-			<td class="data_header">'.$user->lang['value'].'</td>
-			<td class="data_header">'.$user->lang['import'].'</td>
-		</tr>';
-
 			$section = '';
 
 			foreach( $ini_data as $section => $setting )
 			{
-				$form .= sprintf($sectionheader,( $section == '' ? 'unknown' : $section ));
+				$tpl->assign_block_vars('section', array(
+					'NAME'  => $section,
+					)
+				);
 
 				foreach( $setting as $setting_name => $setting_value )
 				{
@@ -444,37 +399,33 @@ function process_ini( )
 					}
 					if( !in_array($setting_name,$uniadmin->reject_ini) )
 					{
-						$td_class = 'data'.$uniadmin->switch_row_class();
-
-						$form .= '
-		<tr>
-			<td class="'.$td_class.'" onmouseover="return overlib(\''.addslashes($user->lang[$setting_name]).'&lt;hr /&gt;&lt;img src=&quot;'.$uniadmin->url_path.'images/'.$setting_name.'.jpg&quot; alt=&quot;['.$user->lang['image_missing'].']&quot; /&gt;\',CAPTION,\''.$setting_name.'\',VAUTO);" onmouseout="return nd();">
-				<img src="'.$uniadmin->url_path.'images/blue-question-mark.gif" alt="[?]" /> '.$setting_name.'</td>
-			<td class="'.$td_class.'"><input type="hidden" name="'.$setting_name.'" value="'.$setting_value.'" />'.$setting_value.'</td>'."\n";
-
-						$form .= '			<td class="'.$td_class.'" align="center"><input type="checkbox" name="'.$setting_name.'_ck" value="1" /></td>
-		</tr>
-';
+						$tpl->assign_block_vars('section.settings_row', array(
+							'ROW_CLASS'   => $uniadmin->switch_row_class(),
+							'SETNAME'     => $setting_name,
+							'SETVALUE'    => $setting_value,
+							'TOOLTIP'     => addslashes($user->lang[$setting_name]),
+							)
+						);
 					}
 				}
 			}
-
-			$form .= '		<tr>
-			<td class="data_header" colspan="4" align="center"><input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
-				<input class="submit" type="submit" name="inifile" value="'.$user->lang['update_settings'].'" /></td>
-		</tr>
-	</table>
-</form>';
 		}
 
 		// Delete ini if it exists
 		@unlink($ini_file);
 
-		display_page($form,$user->lang['title_settings']);
+
+		$uniadmin->set_vars(array(
+			'page_title'    => $user->lang['title_settings'],
+			'template_file' => 'ini_import.html',
+			'display'       => true
+			)
+		);
 	}
 	else // Nothing was uploaded
 	{
 		$uniadmin->message($user->lang['error_no_ini_uploaded']);
+		main();
 	}
 }
 

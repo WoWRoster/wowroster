@@ -30,27 +30,33 @@ $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 switch($op)
 {
 	case UA_URI_PROCESS:
-		process_addon();
+		if( $user->data['level'] >= UA_ID_ADMIN )
+			process_addon();
 		break;
 
 	case UA_URI_DELETE:
-		delete_addon($id);
+		if( $user->data['level'] >= UA_ID_ADMIN )
+			delete_addon($id);
 		break;
 
 	case UA_URI_REQ:
-		require_addon($id);
+		if( $user->data['level'] >= UA_ID_POWER )
+			require_addon($id);
 		break;
 
 	case UA_URI_OPT:
-		optional_addon($id);
+		if( $user->data['level'] >= UA_ID_POWER )
+			optional_addon($id);
 		break;
 
 	case UA_URI_DISABLE:
-		disable_addon($id);
+		if( $user->data['level'] >= UA_ID_POWER )
+			disable_addon($id);
 		break;
 
 	case UA_URI_ENABLE:
-		enable_addon($id);
+		if( $user->data['level'] >= UA_ID_POWER )
+			enable_addon($id);
 		break;
 
 	default:
@@ -75,40 +81,44 @@ main();
  */
 function main( )
 {
-	global $db, $uniadmin, $user;
+	global $db, $uniadmin, $user, $tpl;
 
-	$addon_input_form = '';
+	$tpl->assign_vars(array(
+		'L_ADDON_MANAGE'   => $user->lang['addon_management'],
+		'L_NAME'           => $user->lang['name'],
+		'L_TOC'            => $user->lang['toc'],
+		'L_REQUIRED'       => $user->lang['required'],
+		'L_VERSION'        => $user->lang['version'],
+		'L_UPLOADED'       => $user->lang['uploaded'],
+		'L_ENABLED'        => $user->lang['enabled'],
+		'L_FILES'          => $user->lang['files'],
+		'L_URL'            => $user->lang['url'],
+		'L_DELETE'         => $user->lang['delete'],
+		'L_DISABLE_ENABLE' => $user->lang['disable_enable'],
+		'L_SELECT_FILE'    => $user->lang['select_file'],
+
+		'L_CHECK'          => $user->lang['check'],
+
+		'L_ADD_UPDATE'     => $user->lang['add_update_addon'],
+		'L_REQUIRED_ADDON' => $user->lang['required_addon'],
+		'L_SELECT_FILE'    => $user->lang['select_file'],
+		'L_HOMEPAGE'       => $user->lang['homepage'],
+
+		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
+
+		'S_ADDONS'         => true,
+		'S_ADDON_ADD_DEL'  => false,
+		)
+	);
+
 	if( $user->data['level'] == UA_ID_ADMIN )
 	{
-		$addon_input_form = '
-<form name="ua_updateaddon" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<table class="ua_table" align="center">
-		<tr>
-			<th class="table_header" colspan="2">'.$user->lang['add_update_addon'].'</th>
-		</tr>
-		<tr>
-			<td class="data1">'.$user->lang['required_addon'].':</td>
-			<td class="data1"><input type="checkbox" name="required" value="1" checked="checked" /></td>
-		</tr>
-		<tr>
-			<td class="data2">'.$user->lang['select_file'].':</td>
-			<td class="data2"><input class="file" type="file" name="file" /></td>
-		</tr>
-		<tr>
-			<td class="data1">'.$user->lang['version'].':</td>
-			<td class="data1"><input class="input" type="text" name="version" /></td>
-		</tr>
-		<tr>
-			<td class="data2">'.$user->lang['homepage'].':</td>
-			<td class="data2"><input class="input" type="text" name="homepage" /></td>
-		</tr>
-		<tr>
-			<td class="data_header" colspan="2" align="center"><input class="submit" type="submit" value="'.$user->lang['add_update_addon'].'" /></td>
-		</tr>
-	</table>
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_PROCESS.'" />
-</form>
-';
+		$tpl->assign_var('S_ADDON_ADD_DEL',true);
+	}
+
+	if( $user->data['level'] == UA_ID_ANON )
+	{
+		$tpl->assign_var('L_ADDON_MANAGE',$user->lang['view_addons']);
 	}
 
 	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` ORDER BY `name`;";
@@ -116,32 +126,11 @@ function main( )
 
 	if( $db->num_rows($result) > 0 )
 	{
-		$addon_panel = '
-		<table class="ua_table" align="center">
-			<tr>
-				<th class="table_header" colspan="10">'.$user->lang['addon_management'].'</th>
-			</tr>
-			<tr>
-				<td class="data_header">'.$user->lang['name'].'</td>
-				<td class="data_header">'.$user->lang['toc'].'</td>
-				<td class="data_header">'.$user->lang['required'].'</td>
-				<td class="data_header">'.$user->lang['version'].'</td>
-				<td class="data_header">'.$user->lang['uploaded'].'</td>
-				<td class="data_header">'.$user->lang['enabled'].'</td>
-				<td class="data_header">'.$user->lang['files'].'</td>
-				<td class="data_header">'.$user->lang['url'].'</td>';
-		if( $user->data['level'] == UA_ID_ADMIN )
-		{
-			$addon_panel .= '
-				<td class="data_header">'.$user->lang['delete'].'</td>';
-		}
-		$addon_panel .= "\n\t\t\t</tr>";
-
 		while( $row = $db->fetch_record($result) )
 		{
 			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '".$row['id']."';";
 			$result2 = $db->query($sql);
-			$numFiles = $db->num_rows($result2);
+			$num_files = $db->num_rows($result2);
 			$db->free_result($result2);
 
 			$addon_name = $row['name'];
@@ -158,7 +147,7 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
-				if( $user->data['level'] == UA_ID_USER )
+				if( $user->data['level'] <= UA_ID_USER )
 				{
 					$enabled = '<span style="color:green;">'.$user->lang['yes'].'</span>';
 				}
@@ -170,7 +159,7 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
-				if( $user->data['level'] == UA_ID_USER )
+				if( $user->data['level'] <= UA_ID_USER )
 				{
 					$enabled = '<span style="color:red;">'.$user->lang['no'].'</span>';
 				}
@@ -188,7 +177,7 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
-				if( $user->data['level'] == UA_ID_USER )
+				if( $user->data['level'] <= UA_ID_USER )
 				{
 					$required = '<span style="color:red;">'.$user->lang['yes'].'</span>';
 				}
@@ -200,7 +189,7 @@ function main( )
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
-				if( $user->data['level'] == UA_ID_USER )
+				if( $user->data['level'] <= UA_ID_USER )
 				{
 					$required = '<span style="color:green;">'.$user->lang['no'].'</span>';
 				}
@@ -208,47 +197,35 @@ function main( )
 
 			$toc = $row['toc'];
 
-			$td_class = 'data'.$uniadmin->switch_row_class();
-
-			$addon_panel .= '
-		<tr>
-			<td class="'.$td_class.'"><a href="'.$homepage.'" target="_blank">'.$addon_name.'</a></td>
-			<td class="'.$td_class.'">'.$toc.'</td>
-			<td class="'.$td_class.'">'.$required.'</td>
-			<td class="'.$td_class.'">'.$version.'</td>
-			<td class="'.$td_class.'">'.$time.'</td>
-			<td class="'.$td_class.'">'.$enabled.'</td>
-			<td class="'.$td_class.'">'.$numFiles.'</td>
-			<td class="'.$td_class.'"><a href="'.$url.'">'.$user->lang['check'].'</a></td>';
-			if( $user->data['level'] == UA_ID_ADMIN )
-			{
-				$addon_panel .= '
-			<td class="'.$td_class.'"><form name="ua_deleteaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-				<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DELETE.'" />
-				<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-				<input class="submit" style="color:red;" type="submit" value="'.$user->lang['delete'].'" />
-				</form></td>';
-			}
-			$addon_panel .= "\n\t\t</tr>";
+			$tpl->assign_block_vars('addons_row', array(
+				'ROW_CLASS'  => $uniadmin->switch_row_class(),
+				'ID'         => $addon_id,
+				'HOMEPAGE'   => $homepage,
+				'ADDONNAME'  => $addon_name,
+				'TOC'        => $toc,
+				'REQUIRED'   => $required,
+				'VERSION'    => $version,
+				'TIME'       => $time,
+				'ENABLED'    => $enabled,
+				'NUMFILES'   => $num_files,
+				'DOWNLOAD'   => $url,
+				)
+			);
 		}
 	}
 	else
 	{
-		$addon_panel = '
-		<table class="ua_table" align="center">
-			<tr>
-				<th class="table_header">'.$user->lang['addon_management'].'</th>
-			</tr>
-			<tr>
-				<th class="data_header">'.$user->lang['error_no_addon_in_db'].'</th>
-			</tr>';
+		$tpl->assign_var('S_ADDONS',false);
 	}
-	$addon_panel .= '</table>';
 
 	$db->free_result($result);
 
-
-	display_page($addon_panel.'<br />'.$addon_input_form,$user->lang['title_addons']);
+	$uniadmin->set_vars(array(
+		'page_title'    => $user->lang['title_addons'],
+		'template_file' => 'addons.html',
+		'display'       => true
+		)
+	);
 }
 
 /**

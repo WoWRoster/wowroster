@@ -21,27 +21,18 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-
-$help = '
-<table class="ua_table" cellpadding="2" align="center" width="95%">
-	<tr>
-		<th class="table_header">'.$user->lang['title_help'].'</th>
-	</tr>';
-
 foreach( $user->lang['help'] as $help_text )
 {
-	$help .= '
-	<tr>
-		<td class="data_header">'.$help_text['header'].'</td>
-	</tr>
-	<tr>
-		<td class="data1">'.$help_text['text'].'</td>
-	</tr>';
+	$tpl->assign_block_vars('help_row', array(
+	    'HELP_HEADER' => $help_text['header'],
+	    'HELP_TEXT'   => $help_text['text'])
+	);
 }
 
-$help .= '
-</table>';
-
-display_page($help,$user->lang['title_help']);
+$uniadmin->set_vars(array(
+    'page_title'    => $user->lang['title_help'],
+    'template_file' => 'help.html',
+    'display'       => true)
+);
 
 ?>

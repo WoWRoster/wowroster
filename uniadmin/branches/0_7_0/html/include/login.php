@@ -21,28 +21,23 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-// Make the login form
-$login_form = '
-<br />
-<form class="ua_loginbox" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<fieldset>
-	<legend>'.$user->lang['title_login'].'</legend>
-		<p><label for="name">'.$user->lang['username'].':</label> <input class="input" type="text" id="name" name="name" maxlength="30" /></p>
-		<p><label for="password">'.$user->lang['password'].':</label> <input class="input" type="password" id="password" name="password" maxlength="30" /></p>
-		<p><input class="submit" type="submit" value="'.$user->lang['login'].'" /></p>
-	</fieldset>
-</form>
-<br />
-[<a href="'.UA_INDEXPAGE.'=view">'.$user->lang['guest_access'].'</a>]
+$tpl->assign_vars(array(
+	'L_USERNAME'     => $user->lang['username'],
+	'L_PASSWORD'     => $user->lang['password'],
+	'L_LOGIN'        => $user->lang['login'],
+	'L_GUEST_ACCESS' => $user->lang['guest_access'],
+	'S_LOGIN_MSG'    => false,
+	'S_LOGIN'        => false,
+	)
+);
 
-';
+$wrong_pass = '<span style="font-size:10px;color:red;">'.$user->lang['error_invalid_login'].'</span><br />';
 
 // Check if logging out
 if( isset($_POST['ua_logout']) )
 {
 	setcookie('UA','',time()-86400);
-	display_page('',$user->lang['title_login']);
-	die('');
+	$tpl->assign_var('S_LOGIN',true);
 }
 else // Logging in
 {
@@ -55,21 +50,29 @@ else // Logging in
 
 			if( md5($_POST['password']) == $row['password'] )
 			{
+				$logged_in = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
 				setcookie('UA',$_POST['name'].'|'.md5($_POST['password']));
-				$login_form = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
+				$tpl->assign_vars(array(
+					'S_LOGIN_MSG' => true,
+					'U_LOGIN_MSG' => $logged_in,
+					)
+				);
 				$user->create($row);
+				unset($row);
 			}
 			else
 			{
-				$login_form = '<span style="font-size:10px;color:red;">'.$user->lang['error_invalid_login'].'</span><br />'.$login_form;
-				display_page('',$user->lang['title_login']);
-				die('');
+				$tpl->assign_vars(array(
+					'S_LOGIN_MSG' => true,
+					'S_LOGIN'     => true,
+					'U_LOGIN_MSG' => $wrong_pass,
+					)
+				);
 			}
 		}
 		else
 		{
-			display_page('',$user->lang['title_login']);
-			die('');
+			$tpl->assign_var('S_LOGIN',true);
 		}
 	}
 	else // Cookie is set
@@ -80,14 +83,19 @@ else // Logging in
 
 		if( $BigCookie[1] == $row['password'] )
 		{
-			$login_form = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
+			$logged_in = '<span style="font-size:10px;">'.sprintf($user->lang['logged_in_as'],$row['name']).'</span>: <form name="ua_logoutform" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'"><input class="submit" name="ua_logout" style="color:red;" type="submit" value="'.$user->lang['logout'].'" /></form><br />';
+			$tpl->assign_vars(array(
+				'S_LOGIN_MSG' => true,
+				'U_LOGIN_MSG' => $logged_in,
+				)
+			);
 			$user->create($row);
+			unset($row);
 		}
 		else
 		{
 			setcookie('UA','',time()-86400);
-			display_page('',$user->lang['title_login']);
-			die('');
+			$tpl->assign_var('S_LOGIN',true);
 		}
 	}
 }

@@ -165,8 +165,13 @@ function display_page( $body , $subtitle = 'Index' )
 
 	if( $s_show_debug )
 	{
-		echo '<br /><span class="copyright">'.$s_rendertime.' | '.$s_querycount.'</span>';
+		echo '<br /><span class="copyright">'.$s_rendertime.' | '.$s_querycount.'</span><br />';
 	}
+
+	echo '<br />
+	<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank"><img src="http://creativecommons.org/images/public/somerights20.png" alt="Creative Commons License" height="31" width="88" /></a><br />
+	<span class="copyright">UniAdmin is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 2.5</a></span>';
+
 
 	echo '</div>
 </body>

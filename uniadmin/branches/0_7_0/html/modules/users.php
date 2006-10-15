@@ -21,6 +21,15 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
+if( $user->data['level'] == UA_ID_ANON )
+{
+	$uniadmin->set_vars(array(
+	    'template_file' => 'index.html',
+	    'display'       => true)
+	);
+	die();
+}
+
 // Get Operation
 $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 

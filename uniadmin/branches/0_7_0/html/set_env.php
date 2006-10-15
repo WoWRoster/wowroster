@@ -55,13 +55,12 @@ include(UA_BASEDIR.'include'.DIR_SEP.'constants.php');
 include(UA_INCLUDEDIR.'dbal.php');
 include(UA_INCLUDEDIR.'uniadmin.php');
 include(UA_INCLUDEDIR.'user.php');
-include(UA_INCLUDEDIR.'echopage.php');
+include(UA_INCLUDEDIR.'template.php');
 
+
+$tpl = new Template;
 $uniadmin = new UniAdmin($url);
 $user = new User();
-
-$user->start();
-
 
 if( !isset($interface) )
 {
