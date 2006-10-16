@@ -107,7 +107,7 @@ class UniAdmin
 		{
 			while( false !== ($file = readdir($handle)) )
 			{
-				if( $file != '.' && $file != '..' && !is_dir(UA_LANGDIR.$file) )
+				if( $file != '.' && $file != '..' && $file != '.svn' && !is_dir(UA_LANGDIR.$file) )
 				{
 					$this->languages[] = substr($file,0,-4);
 				}
@@ -124,7 +124,7 @@ class UniAdmin
 		{
 			while( false !== ($file = readdir($handle)) )
 			{
-				if( $file != '.' && $file != '..' && is_dir(UA_THEMEDIR.$file) )
+				if( $file != '.' && $file != '..' && $file != '.svn' && is_dir(UA_THEMEDIR.$file) )
 				{
 					$this->styles[] = $file;
 				}

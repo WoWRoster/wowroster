@@ -183,6 +183,7 @@ $lang['show'] = 'Show';
 $lang['add_update_addon'] = 'Add / Update AddOn';
 $lang['import'] = 'Import';
 $lang['export'] = 'Export';
+$lang['go'] = 'Go';
 
 
 // Form Element Descriptions
@@ -231,6 +232,9 @@ $lang['settings_file'] = 'settings.ini File';
 $lang['import_file'] = 'Import File';
 $lang['export_file'] = 'Export File';
 $lang['settings_updated'] = 'Settings Updated';
+$lang['download'] = 'Download';
+$lang['user_style'] = 'User Style';
+$lang['change_style'] = 'Change Style';
 
 
 // Pagination

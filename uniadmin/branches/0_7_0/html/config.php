@@ -7,5 +7,5 @@ $config['database'] = 				'db_name';
 $config['table_prefix'] = 			'uniadmin_';
 $config['dbtype'] =					'mysql';
 
-$debug = 2;
+$debug = 0;
 ?>

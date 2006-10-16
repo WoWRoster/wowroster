@@ -15,14 +15,14 @@ Table of Contents
    6 - FAQ
    7 - Support
    8 - License
-   9 - Known Bugs
+   9 - Known Bugs / Gotchyas
   10 - Change Log
   11 - The Future
 
 
 1 - Requirements
 ================
-- A web server (duh!)
+- A web server (Apache, IIS, or any software able to run php)
 - PHP 4.3 or higher (http://www.php.net)
 - MySQL Database (http://www.mysql.com)
 
@@ -44,6 +44,7 @@ Table of Contents
 [folders]
   addon_temp
   addon_zips
+  cache
   logos
 
 The 1 and only user in the users login table is:
@@ -51,14 +52,14 @@ The 1 and only user in the users login table is:
 Username - Default
 Password - changeme
 
-Read the help page once logged in for additional info.
+Read the help page for additional info.
 
 
 4 - Upgrading
 =============
 1. Drop the tables for your old UA install.
 2. Delete UA from your server completely.
-3. Go to INSTALLATION
+3. Go to "3 - Installation"
 
 
 5 - Thanks
@@ -137,15 +138,15 @@ The installer is based on the EQdkp installer. This concerns the files:
 - install.php
 - upgrade.php
 
-The templating system is based on EQdkp. this concerns this file
-- include/template.php
+The templating system is based on EQdkp's template system
+This concerns include/template.php
 
 These 3 files are licensed under the GNU General Public License, which is
 available at http://gnu.org/copyleft/gpl.html
 
 
-9 - Known Bugs
-==============
+9 - Known Bugs / Gotchyas
+=========================
 Bug: Addon zip files that have more than one addon in them will not parse properly
 Solution: When you upload an addon zip, make sure that it has only one addon inside
 

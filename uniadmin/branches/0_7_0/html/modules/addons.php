@@ -92,17 +92,15 @@ function main( )
 		'L_UPLOADED'       => $user->lang['uploaded'],
 		'L_ENABLED'        => $user->lang['enabled'],
 		'L_FILES'          => $user->lang['files'],
-		'L_URL'            => $user->lang['url'],
 		'L_DELETE'         => $user->lang['delete'],
 		'L_DISABLE_ENABLE' => $user->lang['disable_enable'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
-
-		'L_CHECK'          => $user->lang['check'],
-
+		'L_DOWNLOAD'       => $user->lang['download'],
 		'L_ADD_UPDATE'     => $user->lang['add_update_addon'],
 		'L_REQUIRED_ADDON' => $user->lang['required_addon'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
+		'L_GO'             => $user->lang['go'],
 
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 
