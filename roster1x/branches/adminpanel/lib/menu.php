@@ -99,7 +99,8 @@ class RosterMenu
 			"`level` DIV 10 AS levelgroup, ".
 			"COUNT(`level`) AS amount, ".
 			"SUM(`level`) AS sum ".
-			"FROM `".ROSTER_MEMBERSTABLE."` ".
+			"FROM `".ROSTER_MEMBERSTABLE."` AS `members`".
+			"INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `members`.`member_id` = `characters`.`member_id` ".
 			"WHERE ".$condition." ".
 			"GROUP BY isalt, levelgroup ".
 			"ORDER BY isalt ASC, levelgroup DESC";

@@ -46,6 +46,7 @@ define('ROSTER_SPELLTABLE',$db_prefix.'spellbook');
 define('ROSTER_SPELLTREETABLE',$db_prefix.'spellbooktree');
 define('ROSTER_TALENTSTABLE',$db_prefix.'talents');
 define('ROSTER_TALENTTREETABLE',$db_prefix.'talenttree');
+define('ROSTER_CHARACTERSTABLE',$db_prefix.'characters');
 
 
 ?>

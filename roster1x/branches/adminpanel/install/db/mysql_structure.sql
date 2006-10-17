@@ -16,6 +16,24 @@ CREATE TABLE `renprefix_account` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Character
+CREATE TABLE `renprefix_characters` (
+  `member_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `server` varchar(32) NOT NULL,
+  `class` varchar(32) NOT NULL,
+  `level` int(11) NOT NULL,
+  `zone` varchar(64) NOT NULL,
+  `last_online` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`member_id`),
+  UNIQUE KEY `character` (`server`,`name`),
+  KEY `class` (`class`),
+  KEY `level` (`level`),
+  KEY `last_online` (`last_online`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Config
 
 DROP TABLE IF EXISTS `renprefix_config`;
@@ -106,39 +124,18 @@ CREATE TABLE `renprefix_mailbox` (
 DROP TABLE IF EXISTS `renprefix_members`;
 CREATE TABLE `renprefix_members` (
   `member_id` int(11) unsigned NOT NULL auto_increment,
-  `name` varchar(64) NOT NULL default '',
-  `server` varchar(32) NOT NULL,
   `guild_id` int(11) unsigned NOT NULL default '0',
-  `class` varchar(32) NOT NULL default '',
-  `level` int(11) NOT NULL default '0',
   `note` varchar(255) NOT NULL default '',
   `guild_rank` int(11) default '0',
   `guild_title` varchar(64) default NULL,
   `officer_note` varchar(255) NOT NULL default '',
-  `zone` varchar(64) NOT NULL default '',
   `status` varchar(16) NOT NULL default '',
   `online` int(1) default '0',
   `last_online` datetime default NULL,
   `update_time` datetime default NULL,
   `active` tinyint( 1 ) NOT NULL default '0',
   `account_id` smallint(6) NOT NULL default '0',
-  `inv` tinytext,
-  `talents` tinytext,
-  `quests` tinytext,
-  `bank` tinytext,
-  `spellbook` tinytext,
-  `mail` tinytext,
-  `recipes` tinytext,
-  `bg` tinytext,
-  `pvp` tinytext,
-  `duels` tinytext,
-  `money` tinytext,
-  `item_bonuses` tinytext,
   PRIMARY KEY  (`member_id`),
-  UNIQUE KEY `character` (`server`,`name`),
-  KEY `name` (`name`),
-  KEY `class` (`class`),
-  KEY `level` (`level`),
   KEY `guild_rank` (`guild_rank`),
   KEY `last_online` (`last_online`)
 ) TYPE=MyISAM;
@@ -206,21 +203,16 @@ CREATE TABLE `renprefix_pets` (
 DROP TABLE IF EXISTS `renprefix_players`;
 CREATE TABLE `renprefix_players` (
   `member_id` int(11) unsigned NOT NULL default '0',
-  `name` varchar(64) NOT NULL default '',
-  `guild_id` int(11) unsigned NOT NULL default '0',
   `dateupdatedutc` datetime default NULL,
   `CPversion` varchar(6) default NULL,
   `race` varchar(32) NOT NULL default '',
   `sex` varchar(10) NOT NULL default '',
   `hearth` varchar(32) NOT NULL default '',
-  `level` int(11) NOT NULL default '0',
-  `server` varchar(32) NOT NULL default '',
   `talent_points` int(11) NOT NULL default '0',
   `money_c` int(11) NOT NULL default '0',
   `money_s` int(11) NOT NULL default '0',
   `money_g` int(11) NOT NULL default '0',
   `exp` varchar(32) NOT NULL default '',
-  `class` varchar(32) NOT NULL default '',
   `health` int(11) NOT NULL default '0',
   `maildateutc` varchar(18) default NULL,
   `melee_power` int(11) default NULL,
@@ -310,8 +302,19 @@ CREATE TABLE `renprefix_players` (
   `clientLocale` varchar(4) NOT NULL default '',
   `timeplayed` int(11) NOT NULL default '0',
   `timelevelplayed` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`member_id`),
-  KEY `name` (`name`,`server`)
+  `talents` tinytext,
+  `spellbook` tinytext,
+  `mail` tinytext,
+  `inv` tinytext,
+  `money` tinytext,
+  `bank` tinytext,
+  `recipes` tinytext,
+  `quests` tinytext,
+  `bg` tinytext,
+  `pvp` tinytext,
+  `duels` tinytext,
+  `item_bonuses` tinytext,
+  PRIMARY KEY  (`member_id`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

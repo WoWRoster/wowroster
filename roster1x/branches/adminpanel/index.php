@@ -27,44 +27,45 @@ if( empty($guild_info) )
 
 $mainQuery =
 	'SELECT '.
-	'`members`.`member_id`, '.
-	'`members`.`name`, '.
-	'`members`.`class`, '.
+	'`characters`.`member_id`, '.
+	'`characters`.`name`, '.
+	'`characters`.`class`, '.
+	'`characters`.`level`, '.
+	'`characters`.`server`, '.
+	'`characters`.`zone`, '.
+	"UNIX_TIMESTAMP( `characters`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`characters`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
-	'`members`.`level`, '.
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
-	'`members`.`zone`, '.
 	'`members`.`status`, '.
-
-	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
-	"`players`.`dateupdatedutc` AS 'last_update', ".
-	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
-	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`players`.`race`, '.
 	'`players`.`RankName`, '.
 	'`players`.`RankInfo`, '.
 	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
 	'`players`.`exp`, '.
-	'`players`.`server`, '.
 	'`players`.`clientLocale`, '.
 	'`players`.`RankIcon`, '.
 	'`players`.`Rankexp`, '.
 	'`players`.`hearth`, '.
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
+	"`players`.`dateupdatedutc` AS 'last_update', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`proftable`.`professions` '.
 
-	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
+	'FROM `'.ROSTER_CHARACTERSTABLE.'` AS characters '.
+	'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` AS members ON `characters`.`member_id` = `members`.`member_id` '.
 	'LEFT JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
 		'FROM `roster_skills` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' '.
-	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+	'ORDER BY `characters`.`level` DESC, `characters`.`name` ASC';
 
 $perms = array(
 	'index_title' => $roster_conf['index_title'],

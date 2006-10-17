@@ -28,28 +28,26 @@ if( empty($guild_info) )
 
 $mainQuery =
 	'SELECT '.
-	'`members`.`member_id`, '.
-	'`members`.`name`, '.
-	'`members`.`class`, '.
+	'`characters`.`member_id`, '.
+	'`characters`.`name`, '.
+	'`characters`.`server`, '.
+	'`characters`.`class`, '.
+	'`characters`.`zone`, '.
+	"UNIX_TIMESTAMP( `characters`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`characters`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+	"`players`.`dateupdatedutc` AS 'last_update', ".
+
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
-	'`members`.`level`, '.
+	'`characters`.`level`, '.
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
-	'`members`.`zone`, '.
 	'`members`.`status`, '.
-
-	"UNIX_TIMESTAMP( `members`.`last_online`) AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
-	"`players`.`dateupdatedutc` AS 'last_update', ".
-	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
-	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`players`.`RankName`, '.
 	'`players`.`RankInfo`, '.
 	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
 	'`players`.`exp`, '.
-	'`players`.`server`, '.
 	'`players`.`clientLocale`, '.
 	'`players`.`stat_int_c`, '.
 	'`players`.`stat_agl_c`, '.
@@ -73,11 +71,15 @@ $mainQuery =
 	'`players`.`block`, '.
 	"IF( `players`.`block` IS NULL OR `players`.`block` = '', 1, 0 ) AS 'bisnull', ".
 	'`players`.`crit`, '.
-	"IF( `players`.`crit` IS NULL OR `players`.`crit` = '', 1, 0 ) AS 'cisnull' ".
-	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
+	"IF( `players`.`crit` IS NULL OR `players`.`crit` = '', 1, 0 ) AS 'cisnull', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_update_format', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ".
+
+	'FROM `'.ROSTER_CHARACTERSTABLE.'` AS characters '.
+	'INNER JOIN `'.ROSTER_MEMBERSTABLE.'` AS members ON `members`.`member_id` = `characters`.`member_id` '.
 	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' '.
-	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+	'ORDER BY `characters`.`level` DESC, `characters`.`name` ASC';
 
 
 $FIELD['name'] = array(

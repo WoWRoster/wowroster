@@ -259,7 +259,7 @@ function name_value ( $row )
 		$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
 
-		if ( $row['server'] )
+		if ( $row['exp'] )
 		{
 			return "<div style='display:none;'>".$row['name']."</div>".$tooltip.'<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a></div>';
 		}
@@ -270,7 +270,7 @@ function name_value ( $row )
 	}
 	else
 	{
-		if ( $row['server'] )
+		if ( $row['exp'] )
 		{
 			return "<div style='display:none;'>".$row['name']."</div>".'<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a>';
 		}

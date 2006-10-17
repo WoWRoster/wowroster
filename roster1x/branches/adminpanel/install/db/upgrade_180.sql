@@ -178,51 +178,95 @@ INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search.php',11);
 INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Credits', 'credits.php',11);
 
 # --------------------------------------------------------
-### Reconfigure members table
-ALTER TABLE `renprefix_members`
-	CHANGE `talents` `talents` tinytext,
-	CHANGE `spellbook` `spellbook` tinytext,
-	CHANGE `mail` `mail` tinytext,
-	CHANGE `inv` `inv` tinytext,
-	CHANGE `money` `money` tinytext,
-	CHANGE `bank` `bank` tinytext,
-	CHANGE `recipes` `recipes` tinytext,
-	CHANGE `quests` `quests` tinytext,
-	CHANGE `bg` `bg` tinytext,
-	CHANGE `pvp` `pvp` tinytext,
-	CHANGE `duels` `duels` tinytext,
-	CHANGE `item_bonuses` `item_bonuses` tinytext,
-	ADD `active` tinyint(1) NOT NULL DEFAULT '0' AFTER `update_time`,
-	ADD `server` varchar(32) NOT NULL AFTER `name`
-	ADD UNIQUE KEY `character` (`server`,`name`);
-
-# Calculate new permission values form the old ones
-UPDATE `renprefix_members` SET
-	`talents`	= (`talents`-1)*5,
-	`spellbook`	= (`spellbook`-1)*5,
-	`mail`		= (`mail`-1)*5,
-	`inv`		= (`inv`-1)*5,
-	`money`		= (`money`-1)*5,
-	`bank`		= (`bank`-1)*5,
-	`recipes`	= (`recipes`-1)*5,
-	`quests`	= (`quests`-1)*5,
-	`bg`		= (`bg`-1)*5,
-	`pvp`		= (`pvp`-1)*5,
-	`duels`		= (`duels`-1)*5,
-	`item_bonuses`	= (`item_bonuses`-1)*5;
-
-# Copy realmname from the guild table
-UPDATE `renprefix_members`
-	LEFT JOIN `renprefix_guild` ON `renprefix_members`.`guild_id` = `renprefix_guild`.`guild_id`
-	SET `renprefix_members`.`server` = `renprefix_guild`.`server`;
-
+### Add character table and populate
+CREATE TABLE `renprefix_characters` (
+  `member_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `server` varchar(32) NOT NULL,
+  `class` varchar(32) NOT NULL,
+  `level` int(11) NOT NULL,
+  `zone` varchar(64) NOT NULL,
+  `last_online` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`member_id`),
+  UNIQUE KEY `character` (`server`,`name`),
+  KEY `class` (`class`),
+  KEY `level` (`level`),
+  KEY `last_online` (`last_online`)
+) TYPE=MyISAM
+SELECT `member`.`member_id`,
+  `member`.`name`,
+  `guild`.`server`,
+  `member`.`class`,
+  `member`.`level`,
+  `member`.`zone`,
+  `member`.`last_online`,
+  `member`.`update_time`
+FROM `renprefix_members` `members`
+LEFT JOIN `renprefix_guild` `guild` ON `members`.`guild_id` = `guild`.`guild_id`;
 
 # --------------------------------------------------------
-### Update players table
-
+### Reconfigure players table
 ALTER TABLE `renprefix_players`
-  CHANGE `dateupdatedutc` `dateupdatedutc` datetime default NULL;
+	ADD `talents` tinytext,
+	ADD `spellbook` tinytext,
+	ADD `mail` tinytext,
+	ADD `inv` tinytext,
+	ADD `money` tinytext,
+	ADD `bank` tinytext,
+	ADD `recipes` tinytext,
+	ADD `quests` tinytext,
+	ADD `bg` tinytext,
+	ADD `pvp` tinytext,
+	ADD `duels` tinytext,
+	ADD `item_bonuses` tinytext,
+	CHANGE `dateupdatedutc` `dateupdatedutc` datetime default NULL,
+	DROP `name`,
+	DROP `guild_id`,
+	DROP `server`,
+	DROP `class`,
+	DROP `level`;
 
+# --------------------------------------------------------
+### Calculate new permission values form the old ones
+UPDATE `renprefix_players` `players`
+INNER JOIN `renprefix_members` `members`
+	ON `players`.`member_id` = `members`.`member_id`
+SET
+	`players`.`talents`	= (`members`.`talents`-1)*5,
+	`players`.`spellbook`	= (`members`.`spellbook`-1)*5,
+	`players`.`mail`	= (`members`.`mail`-1)*5,
+	`players`.`inv`		= (`members`.`inv`-1)*5,
+	`players`.`money`	= (`members`.`money`-1)*5,
+	`players`.`bank`	= (`members`.`bank`-1)*5,
+	`players`.`recipes`	= (`members`.`recipes`-1)*5,
+	`players`.`quests`	= (`members`.`quests`-1)*5,
+	`players`.`bg`		= (`members`.`bg`-1)*5,
+	`players`.`pvp`		= (`members`.`pvp`-1)*5,
+	`players`.`duels`	= (`members`.`duels`-1)*5,
+	`players`.`item_bonuses`= (`members`.`item_bonuses`-1)*5;
+
+# --------------------------------------------------------
+### Reconfigure members table
+ALTER TABLE `renprefix_members`
+	DROP KEY `member`,
+	DROP `talents`,
+	DROP `spellbook`,
+	DROP `mail`,
+	DROP `inv`,
+	DROP `money`,
+	DROP `bank`,
+	DROP `recipes`,
+	DROP `quests`,
+	DROP `bg`,
+	DROP `pvp`,
+	DROP `duels`,
+	DROP `item_bonuses`,
+	ADD `active` tinyint(1) NOT NULL DEFAULT '0' AFTER `update_time`,
+	DROP `name`,
+	DROP `class`,
+	DROP `level`,
+	DROP `zone`;
 
 # --------------------------------------------------------
 ### Update guild table

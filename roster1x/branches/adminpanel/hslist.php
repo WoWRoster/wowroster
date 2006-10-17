@@ -50,7 +50,7 @@ print($tableHeader);
 
 
 //Highest Ranking Player:
-$query = "SELECT `name`, `RankName` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `RankInfo` DESC LIMIT 0,1";
+$query = "SELECT `name`, `RankName` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `RankInfo` DESC LIMIT 0,1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -81,7 +81,7 @@ if ($row)
 }
 
 //Highest Weekly Standing:
-$query = "SELECT `name`, `lastweekRank` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." AND `lastweekRank` > 0 ORDER BY `lastweekRank` LIMIT 0 , 1";
+$query = "SELECT `name`, `lastweekRank` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." AND `lastweekRank` > 0 ORDER BY `lastweekRank` LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -104,7 +104,7 @@ if ($row)
 }
 
 //Highest Weekly HKs
-$query = "SELECT `name`, `lastweekHK` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lastweekHK` DESC, `lastweekRank` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `lastweekHK` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lastweekHK` DESC, `lastweekRank` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -127,7 +127,7 @@ if ($row)
 }
 
 //Highest Weekly DKs
-$query = "SELECT `name`, `lastweekDK` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." AND `lastweekDK` > 0 ORDER BY `lastweekDK` DESC, `lastweekHK` ASC LIMIT 0 , 1";
+$query = "SELECT `name`, `lastweekDK` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." AND `lastweekDK` > 0 ORDER BY `lastweekDK` DESC, `lastweekHK` ASC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -150,7 +150,7 @@ if ($row)
 }
 
 //Highest Weekly CPs
-$query = "SELECT `name`, `lastweekContribution` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lastweekContribution` DESC, `lastweekRank` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `lastweekContribution` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lastweekContribution` DESC, `lastweekRank` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -173,7 +173,7 @@ if ($row)
 }
 
 //Highest Lifetime Rank
-$query = "SELECT `name`, `lifetimeRankName` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `lifetimeRankName` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -203,7 +203,7 @@ if ($row)
 }
 
 //Highest LifeTime HKs
-$query = "SELECT `name`, `lifetimeHK` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lifetimeHK` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `lifetimeHK` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lifetimeHK` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -226,7 +226,7 @@ if ($row)
 }
 
 //Highest LifeTime DKs
-$query = "SELECT `name`, `lifetimeDK` FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lifetimeDK` DESC, `lifetimeHK` ASC LIMIT 0 , 1";
+$query = "SELECT `name`, `lifetimeDK` FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `lifetimeDK` DESC, `lifetimeHK` ASC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -249,7 +249,7 @@ if ($row)
 }
 
 //Best Weekly HK-CP Average
-$query = "SELECT `name`, (`lastweekContribution`/`lastweekHK`) AS average FROM `".ROSTER_PLAYERSTABLE."` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `average` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, (`lastweekContribution`/`lastweekHK`) AS average FROM `".ROSTER_PLAYERSTABLE."` AS `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `players`.`member_id` = `characters`.`member_id` LEFT JOIN `".ROSTER_MEMBERSTABLE."` AS `members` ON `players`.`member_id` = `members`.`member_id` WHERE `guild_id` = ".$guild_info['guild_id']." ORDER BY `average` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
