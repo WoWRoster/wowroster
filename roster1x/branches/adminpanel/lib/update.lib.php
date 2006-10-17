@@ -184,7 +184,7 @@ class update
 	 */
 	function processPvP()
 	{
-		global $wowdb, $roster_conf, $wordings;
+		global $wowdb, $roster_conf, $roster_login, $wordings;
 
 		$wowdb->resetMessages();
 
@@ -208,10 +208,10 @@ class update
 							$wowdb->update_pvp2($guild_id, $char_name, $battles);
 							$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
 							$wowdb->resetMessages();
-							else
-							{
-								$output .= "<li><strong>Not updating PvP data for [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
-							}
+						}
+						else
+						{
+							$output .= "<li><strong>Not updating PvP data for [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
 						}
 					}
 					else // PvPLog version not high enough
