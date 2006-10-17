@@ -201,11 +201,18 @@ class update
 					$battles = $char['battles'];
 					if( $char['version'] >= $roster_conf['minPvPLogver'] )
 					{
-						$output .= "<strong>Updating PvP Data for [<span class=\"orange\">$char_name</span>]</strong>\n";
+						if ( $roster_login->charUpdate($char_name) )
+						{
+							$output .= "<strong>Updating PvP Data for [<span class=\"orange\">$char_name</span>]</strong>\n";
 
-						$wowdb->update_pvp2($guild_id, $char_name, $battles);
-						$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
-						$wowdb->resetMessages();
+							$wowdb->update_pvp2($guild_id, $char_name, $battles);
+							$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
+							$wowdb->resetMessages();
+							else
+							{
+								$output .= "<li><strong>Not updating PvP data for [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
+							}
+						}
 					}
 					else // PvPLog version not high enough
 					{

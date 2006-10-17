@@ -20,10 +20,6 @@ $script_filename = 'UU_update.php';
 
 // Include libraries
 require_once('Settings.php');
-
-// Check auth
-
-
 require_once(ROSTER_LIB.'update.lib.php');
 $update = new update;
 
@@ -34,7 +30,7 @@ $messages = $update->fetchAddonData();
 $messages .= $update->parseFiles();
 $messages .= $update->processFiles();
 
-
+// And output
 echo stripAllHtml($messages);
 
 ?>
