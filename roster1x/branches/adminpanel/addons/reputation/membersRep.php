@@ -22,12 +22,12 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 }
 
 
-$query = "SELECT `m`.`name` member, `m`.`member_id`,`r`.`faction`, `r`.`name` fct_name, `r`.`value`, ".
+$query = "SELECT `c`.`name` member, `c`.`member_id`,`r`.`faction`, `r`.`name` fct_name, `r`.`value`, ".
 	"( substring( `r`.`value`, 1, locate('/', `r`.`value`)-1) + 0 ) AS curr_rep, ".
 	"( substring( `r`.`value`, locate('/', `r`.`value`)+1, length(`r`.`value`)-locate('/', `r`.`value`)) + 0 ) AS max_rep, ".
 	"`r`.`standing` ".
-	"FROM `".ROSTER_REPUTATIONTABLE."` r, ".ROSTER_MEMBERSTABLE." m ".
-	"WHERE `r`.`member_id` = `m`.`member_id`";
+	"FROM `".ROSTER_REPUTATIONTABLE."` r ".
+	"INNER JOIN ".ROSTER_CHARACTERSTABLE." c ON `r`.`member_id` = `c`.`member_id`";
 
 if( (isset($_REQUEST['factionfilter'])) && (($_REQUEST['factionfilter']) != 'All') )
 	$query .= " AND `r`.`name` = '".addslashes($_REQUEST['factionfilter'])."'";

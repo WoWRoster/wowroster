@@ -143,10 +143,11 @@ if (isset($_REQUEST['proffilter']))
 				$content .=  '</tr>';
 			}
 			// while($row_main = $wowdb->fetch_array($result_main)){
-			$qry_users = "SELECT `m`.`name`, `m`.`member_id`,`r`.`difficulty`, `s`.`skill_level` ".
-				"FROM `".ROSTER_MEMBERSTABLE."` m, `".ROSTER_RECIPESTABLE."` r, `".ROSTER_SKILLSTABLE."` s ".
-				"WHERE `r`.`member_id` = `m`.`member_id` AND `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
-				"AND `recipe_name` = '".addslashes($recipe->data['recipe_name'])."' ORDER BY `m`.`name`;";
+			$qry_users = "SELECT `c`.`name`, `c`.`member_id`,`r`.`difficulty`, `s`.`skill_level` ".
+				"FROM `".ROSTER_CHARACTERSTABLE."` c ".
+				"INNER JOIN `".ROSTER_RECIPESTABLE."` r ON `r`.`member_id` = `c`.`member_id` ".
+				"INNER JOIN `".ROSTER_SKILLSTABLE."` s ON `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
+				"WHERE `recipe_name` = '".addslashes($recipe->data['recipe_name'])."' ORDER BY `c`.`name`;";
 
 			$result_users = $wowdb->query($qry_users) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_users);
 			$users = '';
