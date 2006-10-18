@@ -66,7 +66,7 @@ if (isset($_GET['s']))
 
 	$search = $_GET['s'];
 	print '<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>';
-	$query="SELECT `players`.`name`, `players`.`server`, `items`.* FROM `".ROSTER_ITEMSTABLE."` AS items INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `items`.`member_id` = `players`.`member_id` WHERE `items`.`item_name` LIKE '%$search%' ORDER BY `players`.`name` ASC";
+	$query="SELECT `characters`.`name`, `characters`.`server`, `items`.* FROM `".ROSTER_ITEMSTABLE."` AS items INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS characters ON `items`.`member_id` = `characters`.`member_id` WHERE `items`.`item_name` LIKE '%$search%' ORDER BY `characters`.`name` ASC";
 	$result = $wowdb->query( $query );
 
 	if (!$result)
@@ -196,7 +196,7 @@ if (isset($_GET['s']))
 	print '<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>';
 
 	//$query="SELECT players.name,players.server,recipes.* FROM recipes,players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' OR recipes.recipe_tooltip LIKE '%$search%' OR recipes.reagents LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";
-	$query="SELECT `players`.`name`, `players`.`server`, `recipes`.* FROM `".ROSTER_RECIPESTABLE."` AS recipes INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `recipes`.`member_id` = `players`.`member_id` WHERE `recipes`.`recipe_name` LIKE '%$search%' ORDER BY `players`.`name` ASC, `recipes`.`recipe_name` ASC";
+	$query="SELECT `characters`.`name`, `characters`.`server`, `recipes`.* FROM `".ROSTER_RECIPESTABLE."` AS recipes INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS characters ON `recipes`.`member_id` = `characters`.`member_id` WHERE `recipes`.`recipe_name` LIKE '%$search%' ORDER BY `characters`.`name` ASC, `recipes`.`recipe_name` ASC";
 	$result = $wowdb->query( $query );
 
 	if (!$result)
