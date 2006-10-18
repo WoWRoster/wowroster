@@ -54,12 +54,14 @@ for ($tsNr=0; $tsNr<=11; $tsNr++ )
 $showNewSkill = " AND SUBSTRING_INDEX( s.skill_level, ':', 1 ) > 1 ";
 
 // Gather a list of players that have the skills we are looking for
-$query = "SELECT `s`.*, `p`.`name` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
-	WHERE p.member_id = s.member_id
-	AND p.guild_id = '".$guildId."'
-	$showNewSkill
-	AND skill_name IN ($inClause)
-	ORDER BY s.skill_type,s.skill_name,(mid(skill_level FROM 1 FOR (locate(':', skill_level)-1)) + 0) DESC, p.name;";
+$query = "SELECT `s`.*, `c`.`name` ".
+	"FROM `".ROSTER_SKILLSTABLE."` s ".
+	"INNER JOIN `".ROSTER_MEMBERSTABLE."` m ON `s`.`member_id` = `m`.`member_id` ".
+	"INNER JOIN `".ROSTER_CHARACTERSTABLE."` c ON `s`.`member_id` = `c`.`member_id` ".
+	"WHERE m.guild_id = '".$guildId."' ".
+	$showNewSkill.
+	"AND skill_name IN ($inClause) ".
+	"ORDER BY s.skill_type,s.skill_name,(mid(skill_level FROM 1 FOR (locate(':', skill_level)-1)) + 0) DESC, c.name;";
 
 //print $query;
 

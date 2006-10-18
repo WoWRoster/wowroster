@@ -208,6 +208,7 @@ LEFT JOIN `renprefix_guild` `guild` ON `members`.`guild_id` = `guild`.`guild_id`
 # --------------------------------------------------------
 ### Reconfigure players table
 ALTER TABLE `renprefix_players`
+ 	ADD `account_id` int(11) NOT NULL default '0' AFTER `member_id`,
 	ADD `talents` tinytext,
 	ADD `spellbook` tinytext,
 	ADD `mail` tinytext,
@@ -266,7 +267,9 @@ ALTER TABLE `renprefix_members`
 	DROP `name`,
 	DROP `class`,
 	DROP `level`,
-	DROP `zone`;
+	DROP `zone`,
+	DROP `account_id`;
+	
 
 # --------------------------------------------------------
 ### Update guild table

@@ -134,7 +134,6 @@ CREATE TABLE `renprefix_members` (
   `last_online` datetime default NULL,
   `update_time` datetime default NULL,
   `active` tinyint( 1 ) NOT NULL default '0',
-  `account_id` smallint(6) NOT NULL default '0',
   PRIMARY KEY  (`member_id`),
   KEY `guild_rank` (`guild_rank`),
   KEY `last_online` (`last_online`)
@@ -203,6 +202,7 @@ CREATE TABLE `renprefix_pets` (
 DROP TABLE IF EXISTS `renprefix_players`;
 CREATE TABLE `renprefix_players` (
   `member_id` int(11) unsigned NOT NULL default '0',
+  `account_id` int(11) NOT NULL default '0',
   `dateupdatedutc` datetime default NULL,
   `CPversion` varchar(6) default NULL,
   `race` varchar(32) NOT NULL default '',
