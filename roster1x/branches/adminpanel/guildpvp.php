@@ -281,7 +281,7 @@ else if ($type == 'purgewins')
 {
 	print($tableHeader);
 
-	$query = "SELECT pvp3.member_id, members.name AS gn, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY countg DESC";
+	$query = "SELECT pvp3.member_id, characters.name AS gn, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY countg DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 	while($row = $wowdb->fetch_array($result))
@@ -306,7 +306,7 @@ else if ($type == 'purgelosses')
 {
 	print($tableHeader);
 
-	$query = "SELECT pvp3.member_id, members.name AS gn, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY countg DESC";
+	$query = "SELECT pvp3.member_id, characters.name AS gn, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY countg DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 	while($row = $wowdb->fetch_array($result))
@@ -331,7 +331,7 @@ else if ($type == 'purgeavewins')
 {
 	print($tableHeader);
 
-	$query = "SELECT pvp3.member_id, members.name as gn, AVG(pvp3.`leveldiff`) as ave, COUNT(pvp3.member_id) as countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY ave DESC";
+	$query = "SELECT pvp3.member_id, characters.name as gn, AVG(pvp3.`leveldiff`) as ave, COUNT(pvp3.member_id) as countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY ave DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 	while($row = $wowdb->fetch_array($result))
@@ -362,7 +362,7 @@ else if ($type == 'purgeavelosses')
 {
 	print($tableHeader);
 
-	$query = "SELECT pvp3.member_id, members.name AS gn, AVG(pvp3.`leveldiff`) AS ave, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY ave DESC";
+	$query = "SELECT pvp3.member_id, characters.name AS gn, AVG(pvp3.`leveldiff`) AS ave, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY ave DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 	while($row = $wowdb->fetch_array($result))
@@ -399,7 +399,7 @@ else if ($type == 'pvpratio')
 	));
 
 	//$query = "SELECT member_id, name as gn, pvp_ratio FROM `players` WHERE 1 ORDER BY pvp_ratio DESC";
-	$query = "SELECT members.name, members.member_id, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY members.name ORDER BY wtotal DESC";
+	$query = "SELECT characters.name, characters.member_id, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY characters.name ORDER BY wtotal DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 	while($row = $wowdb->fetch_array($result))
@@ -443,7 +443,7 @@ else if ($type == 'playerinfo')
 		$sort = '';
 
 	$first = true;
-	$query = "SELECT pvp3.*, members.name AS gn FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.name = '";
+	$query = "SELECT pvp3.*, characters.name AS gn FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE pvp3.name = '";
 	$query = $query.$player;
 	$query=$query.'\'';
 
@@ -558,7 +558,7 @@ else if ($type == 'guildinfo')
 	));
 
 
-	$query = "SELECT pvp3.*, members.name AS gn FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.guild = '";
+	$query = "SELECT pvp3.*, characters.name AS gn FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = pvp3.member_id WHERE pvp3.guild = '";
 	$query = $query.$guild;
 	$query=$query.'\'';
 
