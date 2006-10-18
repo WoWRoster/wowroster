@@ -1648,10 +1648,19 @@ function char_get_one_by_id( $member_id )
 {
 	global $wowdb, $timeformat, $roster_conf;
 
-	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
-		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
-		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`member_id` = '$member_id' AND `a`.`guild_id` = `c`.`guild_id`;";
+	$query = "SELECT `a`.*, `b`.*, `c`.*, `d`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
+		"FROM `".ROSTER_PLAYERSTABLE."` a ".
+		"INNER JOIN `".ROSTER_MEMBERSTABLE."` b ON `a`.`member_id` = `b`.`member_id`".
+		"INNER JOIN `".ROSTER_CHARACTERSTABLE."` c ON `a`.`member_id` = `c`.`member_id`".
+		"INNER JOIN `".ROSTER_GUILDTABLE."` d ON `b`.`guild_id` = `d`.`guild_id`".
+		"WHERE `a`.`member_id` = '$member_id';";
 	$result = $wowdb->query( $query );
+
+	if( !$result )
+	{
+		die_quietly($wowdb->error(),'Database error',basename(__FILE__),__LINE__,$query);
+	}
+
 	if( $wowdb->num_rows($result) > 0 )
 	{
 		$data = $wowdb->fetch_assoc( $result );
@@ -1670,10 +1679,19 @@ function char_get_one( $name, $server )
 
 	$name = $wowdb->escape( $name );
 	$server = $wowdb->escape( $server );
-	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
-		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
-		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`name` = '$name' AND `a`.`server` = '$server' AND `a`.`guild_id` = `c`.`guild_id`;";
+	$query = "SELECT `a`.*, `b`.*, `c`.*, `d`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
+		"FROM `".ROSTER_PLAYERSTABLE."` a ".
+		"INNER JOIN `".ROSTER_MEMBERSTABLE."` b ON `a`.`member_id` = `b`.`member_id`".
+		"INNER JOIN `".ROSTER_CHARACTERSTABLE."` c ON `a`.`member_id` = `c`.`member_id`".
+		"INNER JOIN `".ROSTER_GUILDTABLE."` d ON `b`.`guild_id` = `d`.`guild_id`".
+		"WHERE `c`.`name` = '$name' AND `c`.`server` = '$server';";
 	$result = $wowdb->query( $query );
+
+	if( !$result )
+	{
+		die_quietly($wowdb->error(),'Database error',basename(__FILE__),__LINE__,$query);
+	}
+
 	if( $wowdb->num_rows($result) > 0 )
 	{
 		$data = $wowdb->fetch_assoc( $result );

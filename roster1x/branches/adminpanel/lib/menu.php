@@ -30,7 +30,7 @@ class RosterMenu
 		global $roster_conf, $guild_info, $roster_login;
 		$cols = 1;
 
-		if( $roster_conf['menu_left_pane'] && !empty($guild_info) )
+		if( $roster_conf['menu_left_pane'] && !empty($guild_info))
 		{
 			$levellist = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
 			$cols++;
@@ -40,7 +40,7 @@ class RosterMenu
 			$levellist = '';
 		}
 
-		if( $roster_conf['menu_right_pane'] && !empty($guild_info) )
+		if( $roster_conf['menu_right_pane'] && !empty($guild_info))
 		{
 			$realmstatus = $this->makeRealmStatus();
 			$cols++;

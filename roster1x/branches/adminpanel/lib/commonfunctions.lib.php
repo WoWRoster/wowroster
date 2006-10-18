@@ -184,7 +184,7 @@ function sql_highlight( $sql )
  */
 function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings, $roster_menu;
 
 	// die_quitely died quietly
 	if (ROSTER_DIED == 1)

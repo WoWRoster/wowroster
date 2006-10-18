@@ -140,10 +140,11 @@ if (isset($zoneidsafe))
 
 	while($qrow = $wowdb->fetch_array($qresult))
 	{
-		$query = "SELECT q.zone, q.quest_name, q.quest_level, p.name, p.server, p.member_id";
-		$query .= " FROM `".ROSTER_QUESTSTABLE."` q, `".ROSTER_PLAYERSTABLE."` p";
-		$query .= " WHERE q.zone = '" .$zoneidsafe . "' AND q.member_id = p.member_id AND q.quest_name = '" . addslashes($qrow['quest_name']) . "'";
-		$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, p.name";
+		$query = "SELECT q.zone, q.quest_name, q.quest_level, c.name, c.server, c.member_id";
+		$query .= " FROM `".ROSTER_QUESTSTABLE."` q";
+		$query .= " INNER JOIN `".ROSTER_CHARACTERSTABLE."` c ON `q`.`member_id` = `c`.`member_id`";
+		$query .= " WHERE q.zone = '" .$zoneidsafe . "' AND q.quest_name = '" . addslashes($qrow['quest_name']) . "'";
+		$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, c.name";
 
 		$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 		if ($roster_conf['sqldebug'])
@@ -200,10 +201,11 @@ if (isset($questidsafe))
 {
 	print('<div class="headline_1">'.stripslashes($questidsafe)."</div>\n");
 
-	$query = "SELECT q.zone, q.quest_name, q.quest_level, p.name, p.server, p.member_id";
-	$query .= " FROM `".ROSTER_QUESTSTABLE."` q, `".ROSTER_PLAYERSTABLE."` p";
-	$query .= " WHERE q.member_id = p.member_id AND q.quest_name = '" . $questidsafe  . "'";
-	$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, p.name";
+	$query = "SELECT q.zone, q.quest_name, q.quest_level, c.name, c.server, c.member_id";
+	$query .= " FROM `".ROSTER_QUESTSTABLE."` q";
+	$query .= " INNER JOIN `".ROSTER_CHARACTERSTABLE."` c ON `q`.`member_id` = `c`.`member_id`";
+	$query .= " WHERE q.quest_name = '" . $questidsafe  . "'";
+	$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, c.name";
 
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	if ($roster_conf['sqldebug'])

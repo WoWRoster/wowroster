@@ -108,22 +108,22 @@ function getCharData( )
 	global $wowdb, $wordings, $roster_conf;
 
 	$sql = "SELECT ".
-		"`members`.`member_id`, ".
-		"`members`.`name`, ".
-		"`members`.`inv`, ".
-		"`members`.`talents`, ".
-		"`members`.`quests`, ".
-		"`members`.`bank`, ".
-		"`members`.`spellbook`, ".
-		"`members`.`mail`, ".
-		"`members`.`money`, ".
-		"`members`.`recipes`, ".
-		"`members`.`bg`, ".
-		"`members`.`pvp`, ".
-		"`members`.`duels`, ".
-		"`members`.`item_bonuses` ".
-		"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
-		"INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` ".
+		"`players`.`member_id`, ".
+		"`characters`.`name`, ".
+		"`players`.`inv`, ".
+		"`players`.`talents`, ".
+		"`players`.`quests`, ".
+		"`players`.`bank`, ".
+		"`players`.`spellbook`, ".
+		"`players`.`mail`, ".
+		"`players`.`money`, ".
+		"`players`.`recipes`, ".
+		"`players`.`bg`, ".
+		"`players`.`pvp`, ".
+		"`players`.`duels`, ".
+		"`players`.`item_bonuses` ".
+		"FROM `".ROSTER_CHARACTERSTABLE."` AS characters ".
+		"INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `characters`.`member_id` = `players`.`member_id` ".
 		"ORDER BY `name` ASC;";
 
 	// Get the current config values
@@ -169,7 +169,7 @@ function processData( )
 
 			list($member_id,$settingName) = explode(':',$settingName);
 
-			$get_val = "SELECT `$settingName` FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` = '$member_id';";
+			$get_val = "SELECT `$settingName` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$member_id';";
 			$result = $wowdb->query($get_val)
 				or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
 
@@ -177,7 +177,7 @@ function processData( )
 
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
-				$update_sql[] = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `$settingName` = '".$wowdb->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
+				$update_sql[] = "UPDATE `".ROSTER_PLAYERSTABLE."` SET `$settingName` = '".$wowdb->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
 			}
 		}
 	}
