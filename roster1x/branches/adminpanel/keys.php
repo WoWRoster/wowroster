@@ -177,7 +177,7 @@ borderTop();
 print($tableHeader);
 tableHeaderRow($keys);
 
-$query = "SELECT name, level, member_id, class, clientLocale FROM `".ROSTER_PLAYERSTABLE."` GROUP BY name ORDER BY name ASC";
+$query = "SELECT name, level, `players`.`member_id`, class, clientLocale FROM `".ROSTER_PLAYERSTABLE."` `players` INNER JOIN `".ROSTER_CHARACTERSTABLE."` `characters` ON `players`.`member_id` = `characters`.`member_id` GROUP BY name ORDER BY name ASC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 if ($roster_conf['sqldebug'])
 {
@@ -215,7 +215,7 @@ while ($row = $wowdb->fetch_array($result))
 		}
 	}
 	// instance key search
-	$kquery = "SELECT members.name".$selectk." FROM `".ROSTER_ITEMSTABLE."` items LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = items.member_id WHERE items.member_id = '".$row['member_id']."' AND (".$wherek.") GROUP BY members.name";
+	$kquery = "SELECT characters.name".$selectk." FROM `".ROSTER_ITEMSTABLE."` items LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = items.member_id WHERE items.member_id = '".$row['member_id']."' AND (".$wherek.") GROUP BY characters.name";
 	$kresult = $wowdb->query($kquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$kquery);
 	$krow = $wowdb->fetch_array($kresult);
 	$kcount = 0; // counts how many keys this player has. if 0 at the end don't display
@@ -273,7 +273,7 @@ while ($row = $wowdb->fetch_array($result))
 	if ($selectp != '')
 	{
 		// parts search (only the remaining ones!)
-		$queryp = "SELECT members.name".$selectp." FROM `".ROSTER_ITEMSTABLE."` items LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = items.member_id WHERE items.member_id = ".$row['member_id']." AND (".$wherep.") GROUP BY members.name ORDER BY members.name ASC";
+		$queryp = "SELECT characters.name".$selectp." FROM `".ROSTER_ITEMSTABLE."` items LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = items.member_id WHERE items.member_id = ".$row['member_id']." AND (".$wherep.") GROUP BY characters.name ORDER BY characters.name ASC";
 		$presult = $wowdb->query($queryp) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$queryp);
 		$prow = $wowdb->fetch_array($presult);
 		if (is_array($prow))
@@ -306,7 +306,7 @@ while ($row = $wowdb->fetch_array($result))
 	if ($selectq != '')
 	{
 		// quests search (only the remaining ones!)
-		$queryq = "SELECT members.name".$selectq." FROM `".ROSTER_QUESTSTABLE."` quests LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = quests.member_id WHERE quests.member_id = ".$row['member_id']." AND (".$whereq.") GROUP BY members.name ORDER BY members.name ASC";
+		$queryq = "SELECT characters.name".$selectq." FROM `".ROSTER_QUESTSTABLE."` quests LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON characters.member_id = quests.member_id WHERE quests.member_id = ".$row['member_id']." AND (".$whereq.") GROUP BY characters.name ORDER BY characters.name ASC";
 		$qresult = $wowdb->query($queryq) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$queryq);
 		$qrow = $wowdb->fetch_array($qresult);
 		if (is_array($qrow))
