@@ -192,33 +192,26 @@ class update
 		{
 			foreach ($realm as $char_name => $char)
 			{
-				$query = "SELECT `guild_id` FROM `".ROSTER_PLAYERSTABLE."` WHERE `name` = '".addslashes($char_name)."' AND `server` = '".addslashes($realm_name)."'";
-				$result = $wowdb->query( $query );
-				if ($wowdb->num_rows($result) > 0)
+				$battles = $char['battles'];
+				if( $char['version'] >= $roster_conf['minPvPLogver'] )
 				{
-					$row = $wowdb->fetch_assoc( $result );
-					$guild_id = $row['guild_id'];
-					$battles = $char['battles'];
-					if( $char['version'] >= $roster_conf['minPvPLogver'] )
+					if ( $roster_login->charUpdate($char_name) )
 					{
-						if ( $roster_login->charUpdate($char_name) )
-						{
-							$output .= "<strong>Updating PvP Data for [<span class=\"orange\">$char_name</span>]</strong>\n";
+						$output .= "<strong>Updating PvP Data for [<span class=\"orange\">$char_name</span>]</strong>\n";
 
-							$wowdb->update_pvp2($guild_id, $char_name, $battles);
-							$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
-							$wowdb->resetMessages();
-						}
-						else
-						{
-							$output .= "<li><strong>Not updating PvP data for [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
-						}
+						$wowdb->update_pvp2($char_name, $realm_name, $battles);
+						$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
+						$wowdb->resetMessages();
 					}
-					else // PvPLog version not high enough
+					else
 					{
-						$output .= "<span class=\"red\">NOT Updating PvP for [$char_name] - ".$char['version']."</span><br />\n";
-						$output .= $wordings[$roster_conf['roster_lang']]['PvPLogver_err']."\n";
+						$output .= "<li><strong>Not updating PvP data for [<span class=\"orange\">$char_name</span>]. The auth module said: </strong><br />".$roster_login->getMessage()."\n";
 					}
+				}
+				else // PvPLog version not high enough
+				{
+					$output .= "<span class=\"red\">NOT Updating PvP for [$char_name] - ".$char['version']."</span><br />\n";
+					$output .= $wordings[$roster_conf['roster_lang']]['PvPLogver_err']."\n";
 				}
 			}
 		}
@@ -257,7 +250,7 @@ class update
 								{
 									$output .= "<li><strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
 
-									$wowdb->update_char( $guild_info['guild_id'], $char_name, $char );
+									$wowdb->update_char( $guild_info['guild_id'], $char_name, $realm_name, $char );
 									$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
 									$wowdb->resetMessages();
 								}

@@ -668,19 +668,21 @@ class RosterLogin
 		}
 
 		// Update all other accounts by pulling the correct level from the members table.
-		$query = 'UPDATE `'.$wowdb->table('account').'` AS account '.
-			'INNER JOIN ('.
-					'SELECT `account_id`, MIN(`guild_rank`) AS `newlevel` '.
-					'FROM `roster_members` GROUP BY `account_id`'.
-				') AS `members` '.
-				'ON `account`.`account_id` = `members`.`account_id` '.
-			'SET `account`.`level` = `members`.`newlevel`';
+		$query = "UPDATE `".$wowdb->table('account')."` AS account ".
+			"INNER JOIN (".
+					"SELECT `account_id`, MIN(`guild_rank`) AS `newlevel` ".
+					"FROM `".ROSTER_PLAYERS."` players ".
+					"INNER JOIN `".ROSTER_MEMBERS."` members ON `players`.`member_id` = `members`.`member_id` ".
+					"GROUP BY `account_id`".
+				") AS `members` ".
+				"ON `account`.`account_id` = `members`.`account_id` ".
+			"SET `account`.`level` = `members`.`newlevel`";
 
 		$result = $wowdb->query($query);
 
 		if (!$result)
 		{
-			$this->message .= '<li>Failed at updating access levels for all accounts with members'."\n";
+			$this->message .= '<li>Failed at updating access levels for all accounts with members. MySQL said: <br />'.$wowdb->error()."\n";
 		}
 		else
 		{

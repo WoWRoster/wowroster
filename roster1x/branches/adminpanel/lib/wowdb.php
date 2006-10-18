@@ -1549,7 +1549,7 @@ class wowdb
 	 */
 	function remove_guild_members($guild_id)
 	{
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = 0";
+		$querystr = "SELECT `members`.`member_id`, `characters`.`name` FROM `".ROSTER_MEMBERSTABLE."` members LEFT JOIN `".ROSTER_CHARACTERSTABLE."` characters ON `members`.`member_id` = `characters`.`member_id` WHERE `guild_id` = '$guild_id' AND `active` = 0";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1576,7 +1576,7 @@ class wowdb
 			$this->setMessage('<li><span class="red">Setting '.$num.' member'.($num > 1 ? 's' : '').' to guildless.</span></li>');
 
 			// now that we have our inclause, time to do some deletes
-			$query2 = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `guild_id` = 0 WHERE `guid_id` = '$guild_id' AND `active` = 0";
+			$query2 = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `guild_id` = 0 WHERE `guild_id` = '$guild_id' AND `active` = 0";
 
 			$result2 = $this->query($query2);
 
@@ -1840,7 +1840,8 @@ class wowdb
 		$name_escape = $this->escape( $name );
 		$server_escape = $this->escape( $realmName );
 
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
+		// Check for existing character entry
+		$querystr = "SELECT `member_id` FROM `".ROSTER_CHARACTERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1849,21 +1850,89 @@ class wowdb
 		}
 
 		$memberInfo = $this->fetch_assoc( $result );
-		if ($memberInfo)
+		if( $memberInfo )
+		{
 			$memberId = $memberInfo['member_id'];
+		}
 
 		$this->closeQuery($result);
 
+		// Update or add Character entry
 		$this->reset_values();
-
-		$this->add_value( 'guild_id', $guildId);
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'server', $server_escape);
-
 		if( !empty($char['Level']) )
 			$this->add_value( 'level', $char['Level']);
+		$this->add_value( 'zone', $char['Zone']);
+		$this->add_time( 'update_time', getDate($currentTimestamp));
 
+		if ($char['Online'])
+		{
+			$this->add_value( 'online', 1);
+			$this->add_time('last_online', getDate($currentTimestamp));
+		}
+		else
+		{
+			$this->add_value( 'online', 0);
+			$lastOnline = $char['LastOnline'];
+			$lastOnlineYears = intval($lastOnline['Year']);
+			$lastOnlineMonths = intval($lastOnline['Month']);
+			$lastOnlineDays = intval($lastOnline['Day']);
+			$lastOnlineHours = intval($lastOnline['Hour']);
+
+			$timeString = '-';
+			if ($lastOnlineYears > 0)
+				$timeString .= $lastOnlineYears.' years ';
+			if ($lastOnlineMonths > 0)
+				$timeString .= $lastOnlineMonths.' months ';
+			if ($lastOnlineDays > 0)
+				$timeString .= $lastOnlineDays.' days ';
+			$timeString .= max($lastOnlineHours,1).' hours';
+
+			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
+			$this->add_time( 'last_online', getDate($lastOnlineTime));
+		}
+
+		if( $memberId )
+		{
+			$querystr = "UPDATE `".ROSTER_CHARACTERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = ".$memberId;
+			$result = $this->query($querystr);
+
+			if( !$result )
+			{
+				$this->error($name.' could not be updated in the character table',$this->error());
+			}
+		}
+		else
+		{
+			$querystr = "INSERT INTO `".ROSTER_CHARACTERSTABLE."` SET ".$this->assignstr;
+			$result = $this->query($querystr);
+
+			if( !$result)
+			{
+				$this->error($name.' could not be inserted into the character table',$this->error());
+				return;
+			}
+
+			$memberId = $this->insert_id();
+		}
+
+		// Check for existing member entry
+		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` = '".$memberId."'";
+		$result = $this->query($querystr);
+		if( !$result )
+		{
+			$this->setError('Member could not be selected for update',$this->error());
+			return;
+		}
+
+		$update = $this->num_rows($result) == 1;
+
+		$this->closeQuery($result);
+
+		// Update or add Member entry
+		$this->reset_values();
 		$this->add_value( 'note', $char['Note']);
 
 		if( !empty($char['RankIndex']) )
@@ -1871,7 +1940,6 @@ class wowdb
 
 		$this->add_value( 'guild_title', $char['Rank']);
 		$this->add_value( 'officer_note', $char['OfficerNote']);
-		$this->add_value( 'zone', $char['Zone']);
 		$this->add_value( 'status', $char['Status']);
 		$this->add_value( 'active', '1');
 		$this->add_time( 'update_time', getDate($currentTimestamp));
@@ -1903,10 +1971,7 @@ class wowdb
 			$this->add_time( 'last_online', getDate($lastOnlineTime));
 		}
 
-		// update account initial credentials
-		$roster_login->addInitialCredentials();
-
-		if( $memberId )
+		if( $update )
 		{
 			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
 			$this->setMessage('<li>Updating member - [ '.$name.' ]</li>');
@@ -1918,14 +1983,10 @@ class wowdb
 				$this->setError(''.$name.' could not be inserted',$this->error());
 				return;
 			}
-			elseif( $memberInfo['guild_id'] != $guildId )
-			{
-				$this->setMemberLog($memberInfo,0);
-				$this->setMemberLog($row,1);
-			}
 		}
 		else
 		{
+			$this->add_value($memberId);
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">Adding member - [</span> '.$name.' <span class="green">]</span></li>');
 
@@ -1958,11 +2019,12 @@ class wowdb
 	 * @param string $name
 	 * @param array $data
 	 */
-	function update_pvp2($guildId, $name, $data )
+	function update_pvp2($name, $server, $data )
 	{
 		$name_escape = $this->escape( $name );
+		$server_escape = $this->escape( $server );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".ROSTER_CHARACTERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1978,7 +2040,7 @@ class wowdb
 		}
 		else
 		{
-			$this->setMessage('<li>'.$name.' is not in the list of guild members so PVP2 info will not be inserted.</li>');
+			$this->setMessage('<li>'.$name.' does not have CharacterProfiler data uploaded. Please upload CharacterProfiler data.</li>');
 			return;
 		}
 		// process pvp
@@ -2248,14 +2310,16 @@ class wowdb
 	 * @param string $name
 	 * @param array $data
 	 */
-	function update_char( $guildId, $name, $data )
+	function update_char( $guildId, $name, $server, $data )
 	{
+		global $roster_login;
 		//print '<pre>';
 		//print_r( $data );
 		//print '</pre>';
 		$name_escape = $this->escape( $name );
+		$server_escape = $this->escape( $server );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".ROSTER_CHARACTERSTABLE."` WHERE `name` = '$name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2268,23 +2332,67 @@ class wowdb
 		if ($memberInfo)
 		{
 			$memberId = $memberInfo['member_id'];
+
+			// update level in members table
+			$this->reset_values();
+			$this->add_value( 'level', ( isset($data['Level']) ? $data['Level'] : 0 ) );
+			$this->add_value( 'zone',  ( isset($data['Zone']) ?  $data['Zone'] : '' ) );
+
+			if( !empty($data['DateUTC']) )
+			{
+				list($month,$day,$year,$hour,$minute,$second) = sscanf($data['DateUTC'],"%d/%d/%d %d:%d:%d");
+
+				// take the current time and get the offset. Upload must occur same day that roster was obtained
+				$DateUTC = mktime($hour, $minute, $second, $month, $day, $year);
+				$DateUTC = getDate($DateUTC);
+				$this->add_time( 'last_online', $DateUTC );
+				$this->add_time( 'update_time', $DateUTC );
+			}
+
+			$querystr = "UPDATE `".ROSTER_CHARACTERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = $memberId LIMIT 1 ";
+			$result = $this->query($querystr);
+			if( !$result )
+			{
+				$this->setError('Cannot update Character Table',$this->error());
+			}
 		}
 		else
 		{
-			$this->setMessage('<li>'.$name.' is not in the list of guild members so their data will not be inserted.</li>');
-			return;
+			// New character
+			$this->reset_values();
+
+			$this->add_value( 'name', $name_escape );
+			$this->add_value( 'server', $server_escape );
+			$this->add_value( 'class', ( isset($data['Class']) ? $data['Class'] : '' ) );
+			$this->add_value( 'level', ( isset($data['Level']) ? $data['Level'] : 0 ) );
+			$this->add_value( 'zone',  ( isset($data['Zone']) ?  $data['Zone'] : '' ) );
+
+			if( !empty($data['DateUTC']) )
+			{
+				list($month,$day,$year,$hour,$minute,$second) = sscanf($data['DateUTC'],"%d/%d/%d %d:%d:%d");
+
+				// take the current time and get the offset. Upload must occur same day that roster was obtained
+				$DateUTC = mktime($hour, $minute, $second, $month, $day, $year);
+				$DateUTC = getDate($DateUTC);
+				$this->add_time( 'last_online', $DateUTC );
+				$this->add_time( 'update_time', $DateUTC );
+			}
+
+			$querystr = "INSERT INTO `".ROSTER_PLAYERSTABLE."` SET ".$this->assignstr;
+
+			$this->query($querystr);
+
+			if( !$result )
+			{
+				$this->setError('Cannot update Character Table',$this->error());
+				return;
+			}
+
+			$memberId = $this->insert_id();
 		}
 
 		// Expose this for later functions
 		$data['CharName'] = $name;
-
-		// update level in members table
-		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
-		$result = $this->query($querystr);
-		if( !$result )
-		{
-			$this->setError('Cannot update Level in Members Table',$this->error());
-		}
 
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$memberId'";
@@ -2299,9 +2407,6 @@ class wowdb
 		$this->closeQuery($result);
 
 		$this->reset_values();
-
-		$this->add_value( 'name', $name );
-		$this->add_value( 'guild_id', $guildId );
 
 		// CRIT, DODGE, MIT, PARRY VALUES FOR WOWROSTER
 		$this->add_value( 'dodge',      ( isset($data['DodgePercent']) ?      $data['DodgePercent'] : 0 ) );
@@ -2432,8 +2537,6 @@ class wowdb
 		}
 		// END RESISTS
 
-		$this->add_value( 'level', $data['Level'] );
-		$this->add_value( 'server', $data['Server'] );
 		$this->add_value( 'talent_points', $data['TalentPoints'] );
 
 		$this->add_value( 'money_c', $data['Money']['Copper'] );
@@ -2442,7 +2545,6 @@ class wowdb
 
 		$this->add_value( 'exp', $data['XP'] );
 		$this->add_value( 'race', $data['Race'] );
-		$this->add_value( 'class', $data['Class'] );
 		$this->add_value( 'health', $data['Health'] );
 		$this->add_value( 'mana', $data['Mana'] );
 		$this->add_value( 'sex', $data['Sex'] );
@@ -2529,6 +2631,9 @@ class wowdb
 		else
 		{
 			$this->add_value( 'member_id', $memberId );
+			// update account initial credentials
+			$roster_login->addInitialCredentials();
+
 			$querystr = "INSERT INTO `".ROSTER_PLAYERSTABLE."` SET ".$this->assignstr;
 		}
 
