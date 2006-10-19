@@ -201,11 +201,6 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 
 	$GLOBALS['die_data'] = func_get_args();
 
-	if( is_object($wowdb) )
-	{
-		$wowdb->closeDb();
-	}
-
 	if( !empty($title) )
 	{
 		$header_title = $title;
@@ -251,6 +246,11 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	if( is_array($roster_conf) )
 	{
 		include_once(ROSTER_BASE.'roster_footer.tpl');
+	}
+
+	if( is_object($wowdb) )
+	{
+		$wowdb->closeDb();
 	}
 
 	exit();

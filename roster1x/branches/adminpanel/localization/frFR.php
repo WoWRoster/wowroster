@@ -798,6 +798,8 @@ $wordings['frFR']['admin']['members_openfilter'] = "JavaScript sort box|Show or 
 // menu_conf
 $wordings['frFR']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
 $wordings['frFR']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
+$wordings['frFR']['admin']['menu_top_pane'] = "Top Pane (Guild name/Last update)|Controls display of the top pane of the main roster menu<br />This area holds the guild name and the last update time";
+$wordings['frFR']['admin']['menu_button_pane'] = "Button Pane (Navigation buttons)|Controls display of the button pane of the main roster menu<br />This area holds the navigation buttons.";
 $wordings['frFR']['admin']['menu_memberlog'] = "By Class Link|Controls display of the By Class Link";
 $wordings['frFR']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
 $wordings['frFR']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";

@@ -116,6 +116,9 @@ INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://wowroster.n
 
 INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{open^1|closed^0', 'index_conf');
 
+INSERT INTO `renprefix_config` VALUES (4013, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4016, 'menu_button_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+
 DELETE FROM `renprefix_config` WHERE `id` = 3080;
 DELETE FROM `renprefix_config` WHERE `id` = 3090;
 DELETE FROM `renprefix_config` WHERE `id` = 4100;

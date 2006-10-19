@@ -798,6 +798,8 @@ $wordings['deDE']['admin']['members_openfilter'] = "JavaScript sort box|Show or 
 // menu_conf
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
 $wordings['deDE']['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br />Hier wir der Realmstatus angezeigt";
+$wordings['deDE']['admin']['menu_top_pane'] = "Top Pane (Guild name/Last update)|Controls display of the top pane of the main roster menu<br />This area holds the guild name and the last update time";
+$wordings['deDE']['admin']['menu_button_pane'] = "Button Pane (Navigation buttons)|Controls display of the button pane of the main roster menu<br />This area holds the navigation buttons.";
 $wordings['deDE']['admin']['menu_memberlog'] = "Memberlog|Link zum Memberlog";
 $wordings['deDE']['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
 $wordings['deDE']['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";

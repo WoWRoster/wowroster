@@ -48,45 +48,56 @@ $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 
-$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
-FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
-WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id
-ORDER BY m.name";
+$muleNameQuery = "SELECT m.member_id, c.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
+FROM `".ROSTER_PLAYERSTABLE."` AS p
+INNER JOIN `".ROSTER_MEMBERSTABLE."` AS m ON `p`.`member_id` = `m`.`member_id`
+INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS c ON `p`.`member_id` = `c`.`member_id`
+WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
+ORDER BY c.name";
 
 if ($wowdb->sqldebug)
 	echo "<!-- $muleNameQuery --> \n";
 
-
 $muleNames = $wowdb->query($muleNameQuery);
+
+if( !$muleNames )
+{
+	die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$muleNameQuery);
+}
 
 echo $roster_menu->makeMenu('main');
 echo "\n<br />\n";
 
 if ( $roster_conf['bank_money'] )
 {
-	$mulemoney = $wowdb->fetch_array($wowdb->query(
-"SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
+	$moneyqry = "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
  FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m
  WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
- AND p.member_id = m.member_id
- ORDER  BY m.name"
-));
-if ($mulemoney['copper']>=100)
-{
-	$mulemoney['copper'] = $mulemoney['copper']/100;
-	$addsilver= (int)$mulemoney['copper'];
-	$mulemoney['copper'] = explode (".", $mulemoney['copper']);
-	$mulemoney['copper'] = $mulemoney['copper'][1];
-}
-$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
-if ($mulemoney['silver']>=100)
-{
-	$mulemoney['silver'] = $mulemoney['silver']/100;
-	$addgold = (int)$mulemoney['silver'];
-	$mulemoney['silver'] = explode (".", $mulemoney['silver']);
-	$mulemoney['silver'] = $mulemoney['silver'][1];
-}
-$mulemoney['gold'] = $mulemoney['gold']+$addgold;
+ AND p.member_id = m.member_id";
+ 	$moneyrslt = $wowdb->query($moneyqry);
+
+ 	if( !$moneyrslt )
+ 	{
+ 		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$moneyqry);
+ 	}
+
+	$mulemoney = $wowdb->fetch_array($moneyrslt);
+	if ($mulemoney['copper']>=100)
+	{
+		$mulemoney['copper'] = $mulemoney['copper']/100;
+		$addsilver= (int)$mulemoney['copper'];
+		$mulemoney['copper'] = explode (".", $mulemoney['copper']);
+		$mulemoney['copper'] = $mulemoney['copper'][1];
+	}
+	$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
+	if ($mulemoney['silver']>=100)
+	{
+		$mulemoney['silver'] = $mulemoney['silver']/100;
+		$addgold = (int)$mulemoney['silver'];
+		$mulemoney['silver'] = explode (".", $mulemoney['silver']);
+		$mulemoney['silver'] = $mulemoney['silver'][1];
+	}
+	$mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
 	echo '<br /> '.$wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
 	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.

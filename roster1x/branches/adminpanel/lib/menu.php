@@ -25,9 +25,9 @@ class RosterMenu
 {
 	function makeMenu($sections)
 	{
+		global $roster_conf, $guild_info, $roster_login, $wordings;
 		define('ROSTER_MENU_INC',true);
 
-		global $roster_conf, $guild_info, $roster_login;
 		$cols = 1;
 
 		if( $roster_conf['menu_left_pane'] && !empty($guild_info))
@@ -50,35 +50,53 @@ class RosterMenu
 			$realmstatus = '';
 		}
 
-		$buttonlist = $this->makeButtonList($sections);
+		if( $roster_conf['menu_top_pane'] && !empty($guild_info))
+		{
+			$topbar = '  <tr>'."\n".
+				'    <td colspan="'.$cols.'" align="center" valign="top" class="header">'."\n".
+				'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
+				'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
+				$wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.$guild_info['date_format'].
+				((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
+				'      </span>'."\n".
+				'    </td>'."\n".
+				'  </tr>'."\n".
+				'  <tr>'."\n".
+				'    <td colspan="'.$cols.'" class="simpleborderbot syellowborderbot"></td>'."\n".
+				'  </tr>'."\n";
+		}
+		else
+		{
+			$topbar = '';
+		}
 
-		$menuLogin = '  <tr>'."\n".
-			'    <td align="center" class="row">'."\n".
+		$menuLogin = '    <td align="center" class="row">'."\n".
 			$roster_login->getMenuLogin().
-			'    </td>'."\n".
-			'  </tr>'."\n";
+			'    </td>'."\n";
+
+		if( $roster_conf['menu_button_pane'] )
+		{
+			$buttonlist = $this->makeButtonList($sections);
+		}
+		else
+		{
+			$buttonlist = $menuLogin;
+			$menuLogin = '';
+		}
+
 
 		return "\n".'<!-- Begin WoWRoster Menu -->'.
 			border('syellow','start')."\n".
 			'<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">'."\n".
-			'  <tr>'."\n".
-			'    <td colspan="'.$cols.'" align="center" valign="top" class="header">'."\n".
-			'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
-			'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
-			$wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.$guild_info['date_format'].
-			((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
-			'      </span>'."\n".
-			'    </td>'."\n".
-			'  </tr>'."\n".
-			'  <tr>'."\n".
-			'    <td colspan="'.$cols.'" class="simpleborderbot syellowborderbot"></td>'."\n".
-			'  </tr>'."\n".
+			$topbar.
 			'  <tr>'."\n".
 			$levellist.
 			$buttonlist.
 			$realmstatus.
 			'  </tr>'."\n".
+			'  <tr>'."\n".
 			$menuLogin.
+			'  </tr>'."\n".
 			'</table>'."\n".
 			border('syellow','end')."\n".
 			'<br />'."\n".
@@ -106,7 +124,8 @@ class RosterMenu
 			"ORDER BY isalt ASC, levelgroup DESC";
 		$result_menu = $wowdb->query($guildstat_query);
 
-		if (!$result_menu) {
+		if (!$result_menu)
+		{
 			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
 		}
 
@@ -238,7 +257,7 @@ class RosterMenu
 
 		if (!$result)
 		{
-			die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+			die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$wowdb->error(),'Roster',basename(__FILE__),__LINE__,$query);
 		}
 
 		while ($row = $wowdb->fetch_assoc($result))
@@ -258,7 +277,7 @@ class RosterMenu
 
 		if (!$result)
 		{
-			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster',basename(__FILE__),__LINE__,$query);
 		}
 
 		while($row = $wowdb->fetch_assoc($result))
@@ -287,7 +306,7 @@ class RosterMenu
 
 			if (!$result)
 			{
-				die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+				die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster',basename(__FILE__),__LINE__,$query);
 			}
 
 			while($row = $wowdb->fetch_assoc($result))

@@ -89,6 +89,8 @@ INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{o
 
 INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4013, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4016, 'menu_button_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4020, 'menu_memberlog', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4040, 'menu_guild_info', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4050, 'menu_stats_page', '1', 'radio{on^1|off^0', 'menu_conf');
