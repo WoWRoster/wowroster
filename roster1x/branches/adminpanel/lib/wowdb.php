@@ -1833,7 +1833,7 @@ class wowdb
 	 * @param array $currentTimestamp
 	 * @param string $realmName
 	 */
-	function update_guild_member( $guildId, $name, $char, $currentTimestamp, $realmName )
+	function update_guild_member( $guildId, $name, $char, $guild, $currentTimestamp, $realmName )
 	{
 		global $roster_login;
 
@@ -1862,6 +1862,7 @@ class wowdb
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'server', $server_escape);
+		$this->add_value( 'faction', $guild['Faction'];
 		if( !empty($char['Level']) )
 			$this->add_value( 'level', $char['Level']);
 		$this->add_value( 'zone', $char['Zone']);
@@ -2363,9 +2364,10 @@ class wowdb
 
 			$this->add_value( 'name', $name_escape );
 			$this->add_value( 'server', $server_escape );
-			$this->add_value( 'class', ( isset($data['Class']) ? $data['Class'] : '' ) );
-			$this->add_value( 'level', ( isset($data['Level']) ? $data['Level'] : 0 ) );
-			$this->add_value( 'zone',  ( isset($data['Zone']) ?  $data['Zone'] : '' ) );
+			$this->add_value( 'faction', ( isset($data['Faction']) ? $data['Faction']:'') );
+			$this->add_value( 'class',   ( isset($data['Class']) ?   $data['Class'] : '' ) );
+			$this->add_value( 'level',   ( isset($data['Level']) ?   $data['Level'] : 0 ) );
+			$this->add_value( 'zone',    ( isset($data['Zone']) ?    $data['Zone'] : '' ) );
 
 			if( !empty($data['DateUTC']) )
 			{

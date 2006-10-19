@@ -21,6 +21,7 @@ CREATE TABLE `renprefix_characters` (
   `member_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `server` varchar(32) NOT NULL,
+  `faction` varchar(8) NOT NULL,
   `class` varchar(32) NOT NULL,
   `level` int(11) NOT NULL,
   `zone` varchar(64) NOT NULL,

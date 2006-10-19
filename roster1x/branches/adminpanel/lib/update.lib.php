@@ -328,7 +328,7 @@ class update
 								foreach(array_keys($guildMembers) as $char_name)
 								{
 									$char = $guildMembers[$char_name];
-									$wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $realm_name);
+									$wowdb->update_guild_member($guildId, $char_name, $char, $guild, $currentTimestamp, $realm_name);
 									$guild_output .= $wowdb->getMessages();
 									$wowdb->resetMessages();
 								}
