@@ -1862,7 +1862,7 @@ class wowdb
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'server', $server_escape);
-		$this->add_value( 'faction', $guild['Faction'];
+		$this->add_value( 'faction', $guild['Faction']);
 		if( !empty($char['Level']) )
 			$this->add_value( 'level', $char['Level']);
 		$this->add_value( 'zone', $char['Zone']);
