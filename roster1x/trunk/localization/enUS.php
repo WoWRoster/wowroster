@@ -170,12 +170,6 @@ $inst_keys['enUS']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['enUS']['H'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Key to Searing Gorge|4826',
-			'The Horn of the Beast|',
-			'Proof of Deed|',
-			'At Last!|'
-		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Workshop Key|2288'
 		),
@@ -615,9 +609,9 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 		$questlinks[1]['enUS']['url3']='&amp;maxl=';
 
 		$questlinks[2]['enUS']['name']='WWN Data';
-		$questlinks[2]['enUS']['url1']='http://wwndata.worldofwar.net/questsearch.php?questname=';
-		//$questlinks[2]['enUS']['url2']='';
-		//$questlinks[2]['enUS']['url3']='';
+		$questlinks[2]['enUS']['url1']='http://wwndata.worldofwar.net/search.php?q=on&amp;search=';
+		//$questlinks[2]['enUS']['url2']='&amp;levelmin=';
+		//$questlinks[2]['enUS']['url3']='&amp;levelmax=';
 
 // Items external link
 	$itemlink['enUS']='http://www.thottbot.com/index.cgi?i=';

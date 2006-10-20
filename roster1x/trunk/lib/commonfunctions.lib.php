@@ -672,4 +672,30 @@ function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open =
 		'</div>';
 }
 
+/**
+ * Recursively escape $array
+ *
+ * @param array $array
+ *	The array to escape
+ * @return array
+ *	The same array, escaped
+ */
+function escape_array($array)
+{
+	global $wowdb;
+	foreach ($array as $key=>$value)
+	{
+		if (is_array($value))
+		{
+			$array[$key] = escape_array($value);
+		}
+		else
+		{
+			$array[$key] = $wowdb->escape($value);
+		}
+	}
+
+	return $array;
+}
+
 ?>

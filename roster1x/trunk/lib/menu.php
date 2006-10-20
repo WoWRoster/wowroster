@@ -267,6 +267,9 @@ function makeAddonList()
 
 	$addonsPath = ROSTER_BASE.'addons';
 
+	// Save current $wordings array so addons don't overwrite Roster's
+	$roster_wordings = $wordings;
+
 	// Initialize output
 	$output = '';
 
@@ -322,6 +325,9 @@ function makeAddonList()
 	{
 		return '';
 	}
+
+	// Restore Roster's $wordings array
+	$wordings = $roster_wordings;
 
 	return $output;
 }

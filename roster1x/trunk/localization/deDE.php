@@ -170,12 +170,6 @@ $inst_keys['deDE']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['deDE']['H'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Schlüssel zur Sengenden Schlucht|4826',
-			'Das Horn der Bestie|',
-			'Besitznachweis|',
-			'Endlich!|'
-		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Werkstattschlüssel|2288'
 		),

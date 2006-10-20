@@ -60,6 +60,7 @@ $wordings['frFR']['update_instruct']='
 <li>Décompresser le fichier zip dans son propre répertoire dans le répertoire *WoW Directory*\Interface\Addons\.</li>
 <li>Démarrer WoW</li>
 <li>Ouvrir votre compte en banque, la fenêtre des quêtes, et la fenêtre des professions qui contient les recettes</li>
+<li>Facultatif : ouvrir la fenêtre de votre personnage et cliquer sur Save, cela permet de voir quelles données ont été capturées par CharacterProfiler.</li>
 <li>Se déconnecter ou quitter WoW.<br />(Voir ci-dessus si vous disposez d\'UniUploader pour automatiser l\'envois des informations.)</li>
 <li>Aller sur la page <a href="'.$roster_conf['roster_dir'].'/update.php">d\'actualisation</a></li>
 <li>'.$wordings['frFR']['lualocation'].'</li>
@@ -99,7 +100,7 @@ $inst_keys['frFR']['A'] = array(
 	'SG' => array( 'Quests', 'SG' =>
 			'Clé de la gorge des Vents brûlants|4826',
 			'La Corne de la B�te|',
-			'Proof of Deed|',
+			'Titre de propriété|',
 			'Enfin !|'
 		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
@@ -121,8 +122,8 @@ $inst_keys['frFR']['A'] = array(
 			'Clé de la prison|15545'
 		),
 	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Clé de Ombreforge|2966',
-			'Ironfel|9673'
+			'Clé ombreforge|2966',
+			'Souillefer|9673'
 		),
 	'HT' => array( 'Key-Only', 'HT' =>
 			'Clé en croissant|35607'
@@ -142,7 +143,7 @@ $inst_keys['frFR']['A'] = array(
 	'UBRS' => array( 'Parts', 'UBRS' =>
 			'Sceau d\\\'ascension|17057',
 			'Sceau d\\\'ascension non décoré|5370',
-			'Gemme de Spirestone|5379',
+			'Gemme de Pierre-du-pic|5379',
 			'Gemme de Smolderthorn|16095',
 			'Gemme de Bloodaxe|21777',
 			'Sceau d\\\'ascension brut |24554||MS',
@@ -170,12 +171,6 @@ $inst_keys['frFR']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['frFR']['H'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Clé de la gorge des Vents brûlants|4826',
-			'La Corne de la B�te|',
-			'Proof of Deed|',
-			'Enfin !|'
-		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Clé d\\\'atelier|2288'
 		),
@@ -195,8 +190,8 @@ $inst_keys['frFR']['H'] = array(
 			'Clé de la prison|15545'
 		),
 	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Clé de Ombreforge|2966',
-			'Ironfel|9673'
+			'Clé ombreforge|2966',
+			'Souillefer|9673'
 		),
 	'HT' => array( 'Key-Only', 'HT' =>
 			'Clé en croissant|35607'
@@ -216,7 +211,7 @@ $inst_keys['frFR']['H'] = array(
 	'UBRS' => array( 'Parts', 'UBRS' =>
 			'Sceau d\\\'ascension|17057',
 			'Sceau d\\\'ascension non décoré|5370',
-			'Gemme de Spirestone|5379',
+			'Gemme de Pierre-du-pic|5379',
 			'Gemme de Smolderthorn|16095',
 			'Gemme de Bloodaxe|21777',
 			'Sceau d\\\'ascension brut |24554||MS',
@@ -277,7 +272,7 @@ $wordings['frFR']['bank']='Banque';
 $wordings['frFR']['guildbank']='Banque de la Guilde';
 $wordings['frFR']['guildbank_totalmoney']='Total des avoirs de la Guilde';
 $wordings['frFR']['raid']='CT_Raid';
-$wordings['frFR']['guildbankcontact']='Porter par (Contact)';
+$wordings['frFR']['guildbankcontact']='Porté par (Contact)';
 $wordings['frFR']['guildbankitem']='Nom de l\'objet et sa description';
 $wordings['frFR']['quests']='Quêtes';
 $wordings['frFR']['roster']='Roster';
@@ -320,12 +315,12 @@ $wordings['frFR']['parry'] = 'Parade';
 $wordings['frFR']['block'] = 'Bloquer';
 
 // Memberlog
-$wordings['frFR']['memberlog'] = 'Member Log';
-$wordings['frFR']['removed'] = 'Removed';
-$wordings['frFR']['added'] = 'Added';
-$wordings['frFR']['no_memberlog'] = 'No Member Log Recorded';
+$wordings['frFR']['memberlog'] = 'Journal';
+$wordings['frFR']['removed'] = 'Enlevé';
+$wordings['frFR']['added'] = 'Ajouté';
+$wordings['frFR']['no_memberlog'] = 'Aucun journal enregistré';
 
-$wordings['frFR']['rosterdiag'] = 'Diagnostic Roster';
+$wordings['frFR']['rosterdiag'] = 'Diagnostic du Roster';
 $wordings['frFR']['Guild_Info'] = 'Info Guilde';
 $wordings['frFR']['difficulty'] = 'Difficultée';
 $wordings['frFR']['recipe_4'] = 'optimal';
@@ -423,11 +418,11 @@ $wordings['frFR']['ts_iconArray'] = array (
 
 // Riding Skill Icons-Array
 $wordings['frFR']['ts_ridingIcon'] = array(
-	'Night Elf'=>'Ability_Mount_WhiteTiger',
-	'Human'=>'Ability_Mount_RidingHorse',
-	'Dwarf'=>'Ability_Mount_MountainRam',
+	'Elfe de la nuit'=>'Ability_Mount_WhiteTiger',
+	'Humain'=>'Ability_Mount_RidingHorse',
+	'Nain'=>'Ability_Mount_MountainRam',
 	'Gnome'=>'Ability_Mount_MechaStrider',
-	'Undead'=>'Ability_Mount_Undeadhorse',
+	'Mort-vivant'=>'Ability_Mount_Undeadhorse',
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
@@ -581,7 +576,7 @@ $wordings['frFR']['guild']='Guilde';
 $wordings['frFR']['leveldiff']='Différence de Niveau';
 $wordings['frFR']['result']='Résultat';
 $wordings['frFR']['zone2']='Zone';
-$wordings['frFR']['subzone']='Subzone';
+$wordings['frFR']['subzone']='Sous-zone';
 $wordings['frFR']['bg']='Champ de Bataille';
 $wordings['frFR']['yes']='Oui';
 $wordings['frFR']['no']='Non';
@@ -626,6 +621,11 @@ $wordings['frFR']['lockpicking']='Crochetage';
 		$questlinks[2]['frFR']['url2']='&amp;obj=&amp;desc=&amp;minl=';
 		$questlinks[2]['frFR']['url3']='&amp;maxl=';
 
+		//$questlinks[3]['frFR']['name']='WoWHead';
+		//$questlinks[3]['frFR']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		//$questlinks[3]['frFR']['url2']=';minle=';
+		//$questlinks[3]['frFR']['url3']=';maxle=';
+
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
@@ -633,9 +633,10 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$itemlink['frFR']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
 	$itemlink['frFR']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=sobj&amp;Ckey=';
 	$itemlink['frFR']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+	//$itemlink['frFR']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // definitions for the questsearchpage
-	$wordings['frFR']['search1']='Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />\n<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu\'il s\'agisse d\'une autre partie d\'une quête multiple.</small>';
+	$wordings['frFR']['search1']='Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />'."\n".'<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu\'il s\'agisse d\'une autre partie d\'une quête multiple.</small>';
 	$wordings['frFR']['search2']='Recherche par Zone';
 	$wordings['frFR']['search3']='Recherche par nom de quête';
 
@@ -653,7 +654,7 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['tooltip_rank']='Rang';
 	$wordings['frFR']['tooltip_next_rank']='Prochain rang';
 	$wordings['frFR']['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
-	$wordings['frFR']['tooltip_school_damage']='Dégâts des sorts \\+';
+	$wordings['frFR']['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
 	$wordings['frFR']['tooltip_healing_power']='les soins prodigués par les sorts et effets';
 	$wordings['frFR']['tooltip_chance_hit']='Chances quand touché :';
 	$wordings['frFR']['tooltip_reinforced_armor']='Armure renforcée';
@@ -745,7 +746,7 @@ $wordings['frFR']['admin']['documentation'] = 'Documentation|WoWRoster Documenta
 $wordings['frFR']['admin']['roster_upd_pw'] = "Mot de passe du Roster|Il s'agit du mot de passe permettant la mise à jour de la liste des membres de la Guilde.<br />Certains addons peuvent aussi utilisé ce mot de passe.";
 $wordings['frFR']['admin']['roster_dbver'] = "Version de la base de données Roster|La version de la base de données";
 $wordings['frFR']['admin']['version'] = "Version du Roster|Version actuelle du Roster";
-$wordings['frFR']['admin']['sqldebug'] = "SQL Debug Output|Afficher les informations de contrôles de MySQL en format HTML";
+$wordings['frFR']['admin']['sqldebug'] = "Affichage SQL de debug|Afficher les informations de contrôles de MySQL en format HTML";
 $wordings['frFR']['admin']['minCPver'] = "Version CP Minimum|Version minimale de CharacterProfiler autorisée";
 $wordings['frFR']['admin']['minGPver'] = "Version GP Minimum|Version minimale de GuildProfiler autorisée";
 $wordings['frFR']['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvPLog autorisée";
@@ -753,14 +754,14 @@ $wordings['frFR']['admin']['roster_lang'] = "Langue du Roster|Le code langue pri
 $wordings['frFR']['admin']['website_address'] = "Adresse du site Web|Utilisé pour le lien sur le logo et le lien sur le menu principal<br />Certains addon pour le roster peuvent également l'utiliser";
 $wordings['frFR']['admin']['roster_dir'] = "URL du Roster|L'URL du répertoire du roster<br />Ce paramètre est critique et doit être correct sous peine d'erreurs<br />(EX: http://www.site.com/roster )<br /><br />Une URL absolue n'est pas obligatoire mais un chemin relatif depuis la racine du serveur l'est (l'URL doit au moins commencer par un slash)<br />(EX: /roster )";
 $wordings['frFR']['admin']['server_name_comp'] = "Mode de compatibilité char.php|Si la page des personnages ne fonctionne pas, essayez de changer ce paramètre";
-$wordings['frFR']['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
-$wordings['frFR']['admin']['img_suffix'] = "Interface Image Extension|The image type of the Interface images";
+$wordings['frFR']['admin']['interface_url'] = "URL du répertoire Interface|Répertoire où les images Interface images sont situés<br />La valeur par défaut est &quot;img/&quot;<br /><br />Vous pouvez utiliser un chemin relatif ou une URL absolue";
+$wordings['frFR']['admin']['img_suffix'] = "Extension des images Interface|Le type des images Interface";
 $wordings['frFR']['admin']['alt_img_suffix'] = "Extension alternative des images d'interface|Le type alternatif d'images pour les images de l'interface";
-$wordings['frFR']['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
-$wordings['frFR']['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
-$wordings['frFR']['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
-$wordings['frFR']['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update&quot;";
-$wordings['frFR']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
+$wordings['frFR']['admin']['img_url'] = "URL du répertoire des images du roster|Répertoire où les images du roster sont situés<br />La valeur par défaut est &quot;img/&quot;<br /><br />Vous pouvez utiliser un chemin relatif ou une URL absolue";
+$wordings['frFR']['admin']['timezone'] = "Fuseau horaire|Affiché après les dates et heures afin de savoir à quel fuseau horaire l'heure fait référence";
+$wordings['frFR']['admin']['localtimeoffset'] = "Décalage horaire|Le décalage horaire par rapport à l'heure UTC/GMT<br />Les heures sur le roster seront affichées avec ce décalage";
+$wordings['frFR']['admin']['pvp_log_allow'] = "Permettre le téléchargement des données PvPLog|Mettre la valeur à &quot;no&quot; désactivera le champ de téléchargement du PvPLog dans &quot;mise à jour&quot;";
+$wordings['frFR']['admin']['use_update_triggers'] = "Permettre le déclenchement de mise à jour d'AddOn|Le déclenchement de mise à jour d'AddOn est nécessaire pour les AddOns qui ont besoin de fonctionner lors d'une mise à jour d'un profil<br />Quelques AddOns ont besoin de ce paramètre à on pour fonctionner correctement";
 
 // guild_conf
 $wordings['frFR']['admin']['guild_name'] = "Nom de la Guilde|Ce nom doit être orthographié exactement comme dans le jeu<br />ou vous <u>NE POURREZ PAS</u> charger les profils";
@@ -771,65 +772,63 @@ $wordings['frFR']['admin']['alt_type'] = "Identification des rerolls|Textes iden
 $wordings['frFR']['admin']['alt_location'] = "Identification des rerolls (champ)|Où faut-il rechercher l'identification des rerolls";
 
 // index_conf
-$wordings['frFR']['admin']['index_pvplist'] = "Statistiques PvP|PvP-Logger stats on the index page<br />If you have disabled PvPlog uploading, there is no need to have this on";
-$wordings['frFR']['admin']['index_hslist'] = "Statistiques Honneur|Honor System stats on the index page";
-$wordings['frFR']['admin']['hspvp_list_disp'] = "PvP/Honor List Display|Controls how the PvP and Honor Lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
-$wordings['frFR']['admin']['index_member_tooltip'] = "Member Info Tooltip|Displays some info about a character in a tooltip";
-$wordings['frFR']['admin']['index_update_inst'] = "Update Instructions|Controls the display of the Update Instructions on the page";
-$wordings['frFR']['admin']['index_sort'] = "Member List Sort|Controls the default sorting";
-$wordings['frFR']['admin']['index_motd'] = "Guild MOTD|Show Guild Message of the Day on the top of the page<br /><br />This also controls the display on the &quot;Guild Info&quot; page as well";
-$wordings['frFR']['admin']['index_level_bar'] = "Level Bar|Toggles the display of a visual level percentage bar on the main page";
-$wordings['frFR']['admin']['index_iconsize'] = "Icon Size|Select the size of the icons on the main pages (PvP, tradeskills, class, etc..)";
-$wordings['frFR']['admin']['index_tradeskill_icon'] = "Tradeskill Icons|Enables tradeskill icons on the main pages";
-$wordings['frFR']['admin']['index_tradeskill_loc'] = "Tradeskill Column Display|Select what column to place tradeskill icons";
-$wordings['frFR']['admin']['index_class_color'] = "Class Colorizing|Colorize the class names";
-$wordings['frFR']['admin']['index_classicon'] = "Class Icons|Displays an icon for each class, for each character";
-$wordings['frFR']['admin']['index_honoricon'] = "PvP Honor Icons|Displays a PvP rank icon next to the rank name";
-$wordings['frFR']['admin']['index_prof'] = "Professions Column|Access level needed to view the Professions column";
-$wordings['frFR']['admin']['index_currenthonor'] = "Honor Column|Access level needed to view the honor column";
-$wordings['frFR']['admin']['index_note'] = "Note Column|Access level needed to view the public note column";
-$wordings['frFR']['admin']['index_title'] = "Guild Title Column|Access level needed to view the guild title column";
-$wordings['frFR']['admin']['index_hearthed'] = "Hearthstone Loc. Column|Access level needed to view the hearthstone location column";
-$wordings['frFR']['admin']['index_zone'] = "Last Zone Loc. Column|Access level needed to view the last zone column";
-$wordings['frFR']['admin']['index_lastonline'] = "Last Seen Online Column|Access level needed to view the last seen online column";
-$wordings['frFR']['admin']['index_lastupdate'] = "Last Updated Column|Access level needed to view when the character last updated their info";
-$wordings['frFR']['admin']['members_openfilter'] = "JavaScript sort box|Show or collapse the javascript sort box by default";
+$wordings['frFR']['admin']['index_pvplist'] = "Statistiques PvP|Statistiques du journal JcJ sur la page d'accueil<br />Si vous avez désactivé le téléchargement des données PvPLog, il n'y a pas besoin d'activer ceci";
+$wordings['frFR']['admin']['index_hslist'] = "Statistiques Honneur|Statistiques du système d'honneur sur la page d'accueil";
+$wordings['frFR']['admin']['hspvp_list_disp'] = "Affichage des listes JcJ et Honneur|Contrôle comment les listes JcJ et d'honneur d'affichent au chargement de la page<br />Les listes peuvent être masquées et ouvertes en cliquant sur leur titre<br /><br />&quot;show&quot; montrera les listes complètes quand la page se chargera<br />&quot;hide&quot; masquera les listes";
+$wordings['frFR']['admin']['index_member_tooltip'] = "Infobulle sur les membres|Affiche quelques informations sur un personnage dans une infobulle";
+$wordings['frFR']['admin']['index_update_inst'] = "Instructions de mise à jour|Contrôle l'affichage des instructions de mise à jour sur la page";
+$wordings['frFR']['admin']['index_sort'] = "Tri de la liste des membres|Contrôle le tri par défaut";
+$wordings['frFR']['admin']['index_motd'] = "Message du jour de la guilde|Montre le message du jour de la guilde en haut de la page<br /><br />Celà contrôle également l'affichage de la page &quot;Info Guilde&quot;";
+$wordings['frFR']['admin']['index_level_bar'] = "Barre de niveau|Change l'affichage d'une barre de niveau en pourcentage sur la page principale";
+$wordings['frFR']['admin']['index_iconsize'] = "Taille des icônes|Sélectionne la taille des icônes sur les pages principales (JcJ, compétences, classes, etc..)";
+$wordings['frFR']['admin']['index_tradeskill_icon'] = "Icônes de compétences|Active les icônes de compétence sur les pages principales";
+$wordings['frFR']['admin']['index_tradeskill_loc'] = "Affichage de la colonne des compétences|Sélectionne quelle dans colonne placer les icônes de compétence";
+$wordings['frFR']['admin']['index_class_color'] = "Couleurs des classes|Mets en couleur les noms suivant les classes";
+$wordings['frFR']['admin']['index_classicon'] = "Icônes des classes|Affiche une icône pour chaque classe et chaque personnage";
+$wordings['frFR']['admin']['index_honoricon'] = "Icônes JcJ|Affiche une icône du rang JcJ à côté du nom du rang";
+$wordings['frFR']['admin']['index_prof'] = "Colonne des professions|C'est une colonne sp�ciale pour les ic�nes de comp�tence<br />Si vous les placez dans une autre colonne, vous pouvez vouloir désactiver ceci";
+$wordings['frFR']['admin']['index_currenthonor'] = "Colonne honneur|Change l'affichage de la colonne d'honneur";
+$wordings['frFR']['admin']['index_note'] = "Colonne des notes|Change l'affichage de la colonne de la note publique";
+$wordings['frFR']['admin']['index_title'] = "Colonne du titre au sein de la guilde|Change l'affichage de la colonne du titre au sein de la guilde";
+$wordings['frFR']['admin']['index_hearthed'] = "Colonne de la pierre de foyer|Change l'affichage de la colonne de la pierre de foyer";
+$wordings['frFR']['admin']['index_zone'] = "Colonne de la dernière zone|Change l'affichage de la colonne de la dernière zone";
+$wordings['frFR']['admin']['index_lastonline'] = "Colonne de la dernière connexion|Change l'affichage de la colonne de la dernière connexion";
+$wordings['frFR']['admin']['index_lastupdate'] = "Colonne de la dernière mise à jour|Affiche quand un personnage a été mis à jour pour la dernière fois";
 
 // menu_conf
-$wordings['frFR']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
-$wordings['frFR']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
-$wordings['frFR']['admin']['menu_top_pane'] = "Top Pane (Guild name/Last update)|Controls display of the top pane of the main roster menu<br />This area holds the guild name and the last update time";
-$wordings['frFR']['admin']['menu_button_pane'] = "Button Pane (Navigation buttons)|Controls display of the button pane of the main roster menu<br />This area holds the navigation buttons.";
-$wordings['frFR']['admin']['menu_memberlog'] = "By Class Link|Controls display of the By Class Link";
-$wordings['frFR']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
-$wordings['frFR']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
-$wordings['frFR']['admin']['menu_pvp_page'] = "PvPLog Stats Link|Controls display of the PvPLog Stats Link";
-$wordings['frFR']['admin']['menu_honor_page'] = "Honor Page Link|Controls display of the Honor Page Link";
-$wordings['frFR']['admin']['menu_guildbank'] = "Guildbank Link|Controls display of the Guildbank Link";
-$wordings['frFR']['admin']['menu_keys_page'] = "Instance Keys Link|Controls display of the Instance Keys Link";
-$wordings['frFR']['admin']['menu_tradeskills_page'] = "Professions Link|Controls display of the Professions Link";
-$wordings['frFR']['admin']['menu_quests_page'] = "Find Team/Quests Link|Controls display of the Find Team/Quests Link";
-$wordings['frFR']['admin']['menu_search_page'] = "Search Page Link|Controls display of the Search Page Link";
+$wordings['frFR']['admin']['menu_left_pane'] = "Panneau de gauche (liste rapide des membres)|Contrôle l'affichage du panneau de gauche du menu principal du roster<br />Cette zone sert à la liste rapide des membres";
+$wordings['frFR']['admin']['menu_right_pane'] = "Panneau de droite (statut du royaume)|Contrôle l'affichage du panneau de droite du menu principal du roster<br />Cette zone sert au statut du royaume";
+$wordings['frFR']['admin']['menu_memberlog'] = "Lien Par classe|Contrôle l'affichage du lien Par classe";
+$wordings['frFR']['admin']['menu_guild_info'] = "Lien Info Guilde|Contrôle l'affichage du lien Info Guilde";
+$wordings['frFR']['admin']['menu_stats_page'] = "Lien Statistiques|Contrôle l'affichage du lien Statistiques";
+$wordings['frFR']['admin']['menu_pvp_page'] = "Lien Statistiques PvP / JcJ|Contrôle l'affichage du lien Statistiques PvP / JcJ";
+$wordings['frFR']['admin']['menu_honor_page'] = "Lien Honneur|Contrôle l'affichage du lien Honneur";
+$wordings['frFR']['admin']['menu_guildbank'] = "Lien Banque de guilde|Contrôle l'affichage du lien Banque de guilde";
+$wordings['frFR']['admin']['menu_keys_page'] = "Lien Clefs des instances|Contrôle l'affichage du lien Clefs des instances";
+$wordings['frFR']['admin']['menu_tradeskills_page'] = "Lien Métiers|Contrôle l'affichage du lien Métiers";
+$wordings['frFR']['admin']['menu_update_page'] = "Lien Mise à jour du profil|Contrôle l'affichage du lien Mise à jour du profil";
+$wordings['frFR']['admin']['menu_quests_page'] = "Lien Trouver un groupe|Contrôle l'affichage du lien Trouver un groupe";
+$wordings['frFR']['admin']['menu_search_page'] = "Lien Rechercher|Contrôle l'affichage du lien Rechercher";
 
 // display_conf
-$wordings['frFR']['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet for roster";
-$wordings['frFR']['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript file location";
-$wordings['frFR']['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
-$wordings['frFR']['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript file location";
-$wordings['frFR']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file location of fix for Overlib in Internet Explorer";
-$wordings['frFR']['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" dans le nom, celà cherchera dans le répertoire img/ du roster";
-$wordings['frFR']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br>Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$wordings['frFR']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
-$wordings['frFR']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
-$wordings['frFR']['admin']['processtime'] = "Page Gen. Time/DB Queries|Display &quot;This page was created in XXX seconds with XX queries executed&quot; in the footer of roster";
+$wordings['frFR']['admin']['stylesheet'] = "Feuille de style CSS|Feuille de style CSS pour le roster";
+$wordings['frFR']['admin']['roster_js'] = "Fichier JavaScript du roster|Principal fichier JavaScript pour le roster";
+$wordings['frFR']['admin']['tabcontent'] = "Fichier JavaScript des menus à onglets|Fichier JavaScript pour les  menus à onglets";
+$wordings['frFR']['admin']['overlib'] = "Fichier JavaScript des infobulles|Fichier JavaScript pour les infobulles";
+$wordings['frFR']['admin']['overlib_hide'] = "Fichier JavaScript Overlib|Fichier JavaScript de correction pour la librairie Overlib dans Internet Explorer";
+$wordings['frFR']['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" devant le nom, celà cherchera dans le répertoire img/ du roster";
+$wordings['frFR']['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolue de l'image pour le fond principal<br>Ou en laissant &quot;img/&quot; devant le nom, celà cherchera dans le répertoire img/ du roster";
+$wordings['frFR']['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";
+$wordings['frFR']['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
+$wordings['frFR']['admin']['processtime'] = "Temps de génération de la page / requêtes SQL|Affiche &quot;This page was created in XXX seconds with XX queries executed&quot; en bas de page du roster";
 
 // data_links
-$wordings['frFR']['admin']['questlink_1'] = "Quest Link #1|Item external links<br />Look in your localization-file(s) for link configuration";
-$wordings['frFR']['admin']['questlink_2'] = "Quest Link #2|Item external links<br />Look in your localization-file(s) for link configuration";
-$wordings['frFR']['admin']['questlink_3'] = "Quest Link #3|Item external links<br />Look in your localization-file(s) for link configuration";
-$wordings['frFR']['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";
-$wordings['frFR']['admin']['pvplogger'] = "PvPLog download link|URL to download PvPLog";
-$wordings['frFR']['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
+$wordings['frFR']['admin']['questlink_1'] = "Lien de quête n°1|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";
+$wordings['frFR']['admin']['questlink_2'] = "Lien de quête n°2|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";
+$wordings['frFR']['admin']['questlink_3'] = "Lien de quête n°3|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";
+$wordings['frFR']['admin']['profiler'] = "Lien de téléchargement du CharacterProfiler|URL de téléchargement de CharacterProfiler";
+$wordings['frFR']['admin']['pvplogger'] = "Lien de téléchargement du PvPLog|URL de téléchargement de PvPLog";
+$wordings['frFR']['admin']['uploadapp'] = "Lien de téléchargement d'UniUploader|URL de téléchargement d'UniUploader";
 
 // char_conf
 $wordings['frFR']['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des donnes sur la page des personnages";
@@ -842,9 +841,9 @@ $wordings['frFR']['admin']['show_money'] = "Argent|Visualisation de l'argent<br 
 $wordings['frFR']['admin']['show_bank'] = "Banque|Visualisation du contenu de la banque<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_recipes'] = "Recettes|Visualisation des recettes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_quests'] = "Quêtes|Visualisation des quêtes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$wordings['frFR']['admin']['show_bg'] = "Champs de bataille|Visualisation des données de champs de bataille<br />Requires upload of PvPLog addon data<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$wordings['frFR']['admin']['show_pvp'] = "Joueur contre joueur|Visualisation des données joueur contre joueur<br />Requires upload of PvPLog addon data<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$wordings['frFR']['admin']['show_duels'] = "Duel|Visualisation des données de duel<br />Requires upload of PvPLog addon data<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_bg'] = "Champs de bataille|Visualisation des données de champs de bataille<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_pvp'] = "Joueur contre joueur|Visualisation des données joueur contre joueur<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$wordings['frFR']['admin']['show_duels'] = "Duel|Visualisation des données de duel<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_item_bonuses'] = "Bonus d'équipement|Visualisation des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_signature'] = "Signature|Visualisation de l'image de la signature<br /><span class=\"red\">Nécessite l'addon du roster SigGen</span><br /><br />Le paramêtre est global";
 $wordings['frFR']['admin']['show_avatar'] = "Avatar|Visualisation de l'image de l'avatar<br /><span class=\"red\">Nécessite l'addon du roster SigGen</span><br /><br />Le paramêtre est global";
@@ -856,10 +855,10 @@ $wordings['frFR']['admin']['rs_mode'] = "Mode d'affichage|Comment le statut du r
 $wordings['frFR']['admin']['realmstatus'] = "Nom de serveur alternatif|Quelques noms de serveur peuvent faire que le statut du royaume ne fonctionne pas même si le téléchargement de fichier marche<br />Le nom actuel du serveur provenant du jeu peut ne pas correspondre avec celui qui est utilisé sur la page de statut des royaumes<br />Vous pouvez donc régler le statut du royaume sur un autre nom de serveur<br /><br />Laissez vide pour prendre le nom utilisé dans la configuration de la guilde";
 
 // guildbank_conf
-$wordings['frFR']['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display type<br /><br />&quot;Table&quot; is a basic view showing all items available from every bank character in one list<br />&quot;Inventory&quot; shows a table of items for each bank character";
-$wordings['frFR']['admin']['bank_money'] = "Money Display|Controls Money display in guildbanks";
-$wordings['frFR']['admin']['banker_rankname'] = "Banker Search Text|Text used to designate banker characters";
-$wordings['frFR']['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
+$wordings['frFR']['admin']['guildbank_ver'] = "Type d'affichage de la banque de guilde|Type d'affichage de la banque de guilde<br /><br />&quot;Table&quot; est une vue simple montrant tous les objets de chaque personnage-banque dans une seule liste<br />&quot;Inventory&quot; montre une table d'objets par personnage-banque";
+$wordings['frFR']['admin']['bank_money'] = "Affichage des avoirs de la guilde|Contrôle l'affichage des avoirs de la guilde";
+$wordings['frFR']['admin']['banker_rankname'] = "Texte de recherche des personnages-banques|Texte utilisé pour désigner les personnages-banques";
+$wordings['frFR']['admin']['banker_fieldname'] = "Champ de recherche des personnages-banques|Champ utilisé pour désigner les personnages-banques";
 
 // update_access
 $wordings['frFR']['admin']['auth_update'] = "Update access|Only users who meet these credentials can update.";

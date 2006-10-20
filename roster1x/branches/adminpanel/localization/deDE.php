@@ -170,12 +170,6 @@ $inst_keys['deDE']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['deDE']['H'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Schlüssel zur Sengenden Schlucht|4826',
-			'Das Horn der Bestie|',
-			'Besitznachweis|',
-			'Endlich!|'
-		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Werkstattschlüssel|2288'
 		),
@@ -626,6 +620,11 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 		$questlinks[2]['deDE']['url2']='&amp;obj=&amp;desc=&amp;minl=';
 		$questlinks[2]['deDE']['url3']='&amp;maxl=';
 
+		//$questlinks[3]['deDE']['name']='WoWHead';
+		//$questlinks[3]['deDE']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		//$questlinks[3]['deDE']['url2']=';minle=';
+		//$questlinks[3]['deDE']['url3']=';maxle=';
+
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
@@ -633,6 +632,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$itemlink['deDE']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
 	$itemlink['deDE']['buffed.de'] = 'http://www.buffed.de/?f=';
 	$itemlink['deDE']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+	//$itemlink['deDE']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // definitions for the questsearchpage
 	$wordings['deDE']['search1']="W&auml;hle eine Zone oder eine Quest um zu schauen, wer sie alles hat.<br />\n<small>Beachte: Stimmen die Questlevel bei verschiedenen Gildenleuten nicht &uuml;berein, handelt es sich um verschiedene Teile einer Questreihe.</small>";

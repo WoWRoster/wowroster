@@ -142,6 +142,17 @@ require_once (ROSTER_LIB.'constants.php');
 require_once (ROSTER_LIB.'commonfunctions.lib.php');
 
 
+/**
+ * Slash global data if magic_quotes_gpc is off.
+ */
+if ( !get_magic_quotes_gpc() )
+{
+	$_GET = escape_array($_GET);
+	$_POST = escape_array($_POST);
+	$_COOKIE = escape_array($_COOKIE);
+	$_REQUEST = escapse_array($_REQUEST);
+}
+
 
 /**
  * Get the current config values

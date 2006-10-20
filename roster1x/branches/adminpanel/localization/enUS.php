@@ -170,12 +170,6 @@ $inst_keys['enUS']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['enUS']['H'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Key to Searing Gorge|4826',
-			'The Horn of the Beast|',
-			'Proof of Deed|',
-			'At Last!|'
-		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Workshop Key|2288'
 		),
@@ -622,9 +616,14 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 		$questlinks[1]['enUS']['url3']='&amp;maxl=';
 
 		$questlinks[2]['enUS']['name']='WWN Data';
-		$questlinks[2]['enUS']['url1']='http://wwndata.worldofwar.net/questsearch.php?questname=';
-		//$questlinks[2]['enUS']['url2']='';
-		//$questlinks[2]['enUS']['url3']='';
+		$questlinks[2]['enUS']['url1']='http://wwndata.worldofwar.net/search.php?q=on&amp;search=';
+		//$questlinks[2]['enUS']['url2']='&amp;levelmin=';
+		//$questlinks[2]['enUS']['url3']='&amp;levelmax=';
+
+		$questlinks[3]['enUS']['name']='WoWHead';
+		$questlinks[3]['enUS']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		$questlinks[3]['enUS']['url2']=';minle=';
+		$questlinks[3]['enUS']['url3']=';maxle=';
 
 // Items external link
 // Add as manu item links as you need
@@ -633,6 +632,7 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$itemlink['enUS']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 	$itemlink['enUS']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 	$itemlink['enUS']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
+	$itemlink['enUS']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // definitions for the questsearchpage
 	$wordings['enUS']['search1']="From the list below choose a zone or a quest name to see who is working it.<br />\n<small>Note that if the quest level is not the same for all listed guildmembers, they may be on another part of a multi-chain quest.</small>";
