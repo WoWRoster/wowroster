@@ -314,6 +314,7 @@ function makeAddonList()
 							$lCount++;
 						}
 					}
+					unset($config);
 				}
 			}
 		}
