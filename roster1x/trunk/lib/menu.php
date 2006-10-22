@@ -41,7 +41,7 @@ if( $guild_data && $guild_data_rows > 0 )
 		die_quietly($wowdb->error(),'Could not connect to database',basename(__FILE__),__LINE__,$query);
 	}
 
-	$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
+	$guildstat_query = "SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
 		`level` DIV 10 AS levelgroup,
 		COUNT(`level`) AS amount,
 		SUM(`level`) AS sum
@@ -50,7 +50,8 @@ if( $guild_data && $guild_data_rows > 0 )
 		ORDER BY isalt ASC, levelgroup DESC";
 	$result_menu = $wowdb->query($guildstat_query);
 
-	if (!$result_menu) {
+	if (!$result_menu)
+	{
 		die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
 	}
 
@@ -267,9 +268,6 @@ function makeAddonList()
 
 	$addonsPath = ROSTER_BASE.'addons';
 
-	// Save current $wordings array so addons don't overwrite Roster's
-	$roster_wordings = $wordings;
-
 	// Initialize output
 	$output = '';
 
@@ -325,9 +323,6 @@ function makeAddonList()
 	{
 		return '';
 	}
-
-	// Restore Roster's $wordings array
-	$wordings = $roster_wordings;
 
 	return $output;
 }

@@ -773,6 +773,7 @@ $wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript Dateiort
 $wordings['deDE']['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $wordings['deDE']['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $wordings['deDE']['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Message of the day) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";
+$wordings['deDE']['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
 $wordings['deDE']['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
 $wordings['deDE']['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
 

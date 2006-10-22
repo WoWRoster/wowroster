@@ -290,7 +290,7 @@ function tradeskill_icons ( $row )
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
 		if ($icon != '') {
-			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].'Interface/Icons/'.$icon.'.'.$roster_conf['img_suffix']."\" alt=\"\" onmouseover=\"return overlib('$toolTip',CAPTION,'$toolTiph',RIGHT,WRAP);\" onmouseout=\"return nd();\" />\n";
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].'Interface/Icons/'.$icon.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
 		}
 	}
 	return $cell_value;
@@ -304,15 +304,29 @@ function tradeskill_icons ( $row )
  */
 function note_value ( $row )
 {
+	global $roster_conf, $wordings;
+
+	$tooltip='';
 	if( !empty($row['note']) )
 	{
 		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
 		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
 
 		$note = preg_replace($prg_find, $prg_rep, $row['note']);
+
+		if( $roster_conf['compress_note'] )
+		{
+			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$wordings[$roster_conf['roster_lang']]['note'],'',1,'',',WRAP').' alt="[]" />';
+		}
 	}
 	else
+	{
 		$note = '&nbsp;';
+		if( $roster_conf['compress_note'] )
+		{
+			$note = '<img src="'.$roster_conf['img_url'].'no_note.gif" alt="[]" />';
+		}
+	}
 
 	return $note;
 }

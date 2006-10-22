@@ -91,7 +91,7 @@ if ( $roster_conf['index_currenthonor'] == 1 )
 	);
 }
 
-if ( $roster_conf['index_note'] == 1 )
+if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 0 )
 {
 	$FIELD[] = array (
 		'note' => array(
@@ -155,6 +155,18 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 			'order' => array( 'luisnull','last_update DESC' ),
 			'order_d' => array( 'luisnull','last_update ASC' ),
 			'value' => 'last_up_value',
+		),
+	);
+}
+
+if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 1 )
+{
+	$FIELD[] = array (
+		'note' => array(
+			'lang_field' => 'note',
+			'order' => array( 'nisnull','`members`.`note` ASC' ),
+			'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+			'value' => 'note_value',
 		),
 	);
 }

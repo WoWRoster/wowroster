@@ -136,8 +136,10 @@ echo "</table>\n".border('syellow','end');
 // format table locations
 echo "\n</td></tr></table>\n";
 
+
 $AddonCredits = makeAddonCredits();
-if($AddonCredits != '') {
+if($AddonCredits != '')
+{
 	// Print the Addon developer credits
 	echo "<br />\n" . border('sblue','start','WoWRoster Addons') . "<table width=\"100%\" cellspacing=\"0\">\n";
 	echo "<tr>

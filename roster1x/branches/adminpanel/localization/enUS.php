@@ -820,6 +820,7 @@ $wordings['enUS']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file loc
 $wordings['enUS']['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['enUS']['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
+$wordings['enUS']['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 $wordings['enUS']['admin']['processtime'] = "Page Gen. Time/DB Queries|Display &quot;This page was created in XXX seconds with XX queries executed&quot; in the footer of roster";
 

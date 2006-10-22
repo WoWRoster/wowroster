@@ -799,7 +799,6 @@ function money_value ( $row )
 {
 	global $wowdb, $roster_conf, $wordings;
 
-
 	// Configurlate money if player has it
 	$cell_value = '<div class="money">';
 	$return = '';
@@ -828,15 +827,29 @@ function money_value ( $row )
  */
 function note_value ( $row )
 {
+	global $roster_conf, $wordings;
+
+	$tooltip='';
 	if( !empty($row['note']) )
 	{
 		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
 		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
 
 		$note = preg_replace($prg_find, $prg_rep, $row['note']);
+
+		if( $roster_conf['compress_note'] )
+		{
+			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$wordings[$roster_conf['roster_lang']]['note'],'',1,'',',WRAP').' alt="[]" />';
+		}
 	}
 	else
+	{
 		$note = '&nbsp;';
+		if( $roster_conf['compress_note'] )
+		{
+			$note = '<img src="'.$roster_conf['img_url'].'no_note.gif" alt="[]" />';
+		}
+	}
 
 	return $note;
 }

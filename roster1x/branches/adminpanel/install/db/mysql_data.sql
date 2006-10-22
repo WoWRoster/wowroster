@@ -113,6 +113,7 @@ INSERT INTO `renprefix_config` VALUES (5015, 'overlib_hide', 'css/js/overlib_hid
 INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '1', 'radio{Image^1|Text^0', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5035, 'compress_note', '1', 'radio{Icon^1|Text^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5040, 'signaturebackground', 'img/default.png', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
 
