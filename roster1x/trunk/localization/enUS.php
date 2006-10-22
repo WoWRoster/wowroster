@@ -844,6 +844,8 @@ $creditspage['devs'] = array(
 					"info"=>	"Gimpy DEV<br />Author of UniAdmin and UniUploader"),
 			array(	"name"=>	"Calvin",
 					"info"=>	"Gimpy DEV<br />Author of CharacterProfiler and GuildProfiler"),
+			array(	"name"=>	"Anaxent",
+					"info"=>	"WoWRoster Dev<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"mathos",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"mrmuskrat",
@@ -858,6 +860,8 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"zanix",
 					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
+			array(	"name"=>	"Zeryl",
+					"info"=>	"WoWRoster Dev<br />Missing Recipes Roster-Addon Author"),
 		),
 
 		'library'=>array(
@@ -910,8 +914,6 @@ $creditspage['devs'] = array(
 		),
 
 		'beta'=>array(
-			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Beta Tester<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"Exerladan",
 					"info"=>	"WoWRoster Beta Tester<br />French Translator"),
 			array(	"name"=>	"Kieeps",
@@ -919,8 +921,6 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"PoloDude",
 					"info"=>	"WoWRoster Beta Tester"),
 			array(	"name"=>	"Thorus",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Zeryl",
 					"info"=>	"WoWRoster Beta Tester"),
 		),
 	);
