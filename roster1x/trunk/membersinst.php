@@ -65,7 +65,7 @@ function tableHeaderRow($th)
 		if($items[$header])
 		{
 			list($iname, $thottnum) = explode('|', $items[$header][$header]);
-			$header = '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_thottbot">'.$header.'</a>';
+			$header = '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_blank">'.$header.'</a>';
 		}
 		if ($acount == 1)
 		{
@@ -156,7 +156,7 @@ $min_skill_for_lock = array(
 
 $items = $inst_keys[$roster_conf['roster_lang']][ substr($faction,0,1) ];
 $keys = array('Name');
-foreach ($min_skill_for_lock as $key => $data)
+foreach ($items as $key => $data)
 {
 	array_push($keys,$key);
 }
@@ -421,7 +421,7 @@ while ($row = $wowdb->fetch_array($result))
 			$pcent = round(($bcount/$qcount) * 100);
 
 			echo '<div style="cursor:default;" '.makeOverlib($tooltip,$tooltip_h,'',2).'>'."\n";
-			print '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_thottbot">'."\n";
+			print '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_blank">'."\n";
 			print '<span class="name">'.$items[$key][0].'</span></a>'."\n";
 
 			print '<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">'.$bcount.'/'.$qcount.'</div></div>'."\n";

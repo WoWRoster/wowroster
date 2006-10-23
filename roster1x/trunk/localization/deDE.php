@@ -410,11 +410,11 @@ $wordings['deDE']['ts_iconArray'] = array (
 
 // Riding Skill Icons-Array
 $wordings['deDE']['ts_ridingIcon'] = array(
-	'Night Elf'=>'Ability_Mount_WhiteTiger',
-	'Human'=>'Ability_Mount_RidingHorse',
-	'Dwarf'=>'Ability_Mount_MountainRam',
-	'Gnome'=>'Ability_Mount_MechaStrider',
-	'Undead'=>'Ability_Mount_Undeadhorse',
+	'Nachtelf'=>'Ability_Mount_WhiteTiger',
+	'Mensch'=>'Ability_Mount_RidingHorse',
+	'Zwerg'=>'Ability_Mount_MountainRam',
+	'Gnom'=>'Ability_Mount_MechaStrider',
+	'Untoter'=>'Ability_Mount_Undeadhorse',
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
