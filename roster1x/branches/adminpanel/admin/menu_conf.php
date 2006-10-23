@@ -218,7 +218,7 @@ $menu .= "<br />\n";
 $menu .= border('syellow','start','Add button')."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
 $menu .= '<tr><td>title:<td><input id="title" type="text" size="16" maxlength="32">'."\n";
-$menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="64">'."\n";
+$menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="128">'."\n";
 $menu .= '<tr><td>show: <td>'.$roster_login->accessConfig(array('name'=>'access','value'=>$roster_login->everyone()))."\n";
 $menu .= '<tr><td colspan="2" align="right"><button onClick="sendAddElement()">'.$act_words['profilego'].'</button>'."\n";
 $menu .= '</table>';

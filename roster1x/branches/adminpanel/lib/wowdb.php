@@ -18,7 +18,8 @@
 
 class wowdb
 {
-	var $db;			// Database resource id
+	var $db;		// Database resource id
+	var $db_prefix;
 	var $assignstr;		// Data to be inserted/updated to the db
 	var $sqldebug;		//
 	var $sqlstrings;	// Array of SQL strings passed to query()
@@ -41,6 +42,7 @@ class wowdb
 	function connect( $host, $user, $password, $name=null )
 	{
 		$this->db = @mysql_connect($host, $user, $password);
+		$this->db_prefix = $GLOBALS['db_prefix'];
 
 		if( $this->db )
 		{
@@ -375,12 +377,10 @@ class wowdb
 	 */
 	function table($table, $addon='', $profile='')
 	{
-		global $db_prefix;
-
 		if ($addon)
-			return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
+			return $this->db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
 		else
-			return $db_prefix.$table;
+			return $this->db_prefix.$table;
 	}
 
 

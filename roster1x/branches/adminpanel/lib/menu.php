@@ -357,7 +357,7 @@ class RosterMenu
 				$html .= '            <ul>'."\n";
 				foreach( $column as $button )
 				{
-					$html .= '              <li><a href='.$button['url'].'>'.$button['title'].'</a></li>'."\n";
+					$html .= '              <li><a href="'.$button['url'].'">'.$button['title'].'</a></li>'."\n";
 				}
 				$html .= '            </ul>'."\n";
 				$html .= '          </td>'."\n";

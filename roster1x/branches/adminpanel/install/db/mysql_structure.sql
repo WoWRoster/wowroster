@@ -499,20 +499,6 @@ CREATE TABLE `renprefix_addon` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
-### Addon Menu table
-
-DROP TABLE IF EXISTS `renprefix_addon_menu`;
-CREATE TABLE `renprefix_addon_menu` (
-	`menu_item_id` int(11) AUTO_INCREMENT,
-	`addon_id` int(11),
-	`title` varchar(32),
-	`url` varchar(64),
-	`active` int(1) NOT NULL DEFAULT 0,
-	PRIMARY KEY (`menu_item_id`),
-	KEY idtitle (`addon_id`,`title`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
 ### Addon Trigger table
 
 DROP TABLE IF EXISTS `renprefix_addon_trigger`;
@@ -546,7 +532,7 @@ CREATE TABLE `renprefix_menu_button` (
 	`button_id` int(11) AUTO_INCREMENT,
 	`addon_id` int(11) COMMENT '0 for main roster',
 	`title` varchar(32),
-	`url` varchar(64),
+	`url` varchar(128),
 	`need_creds` tinytext,
 	PRIMARY KEY (`button_id`),
 	KEY `idtitle` (`addon_id`,`title`)

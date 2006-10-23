@@ -123,9 +123,9 @@ class Install
 	 *      addon not to be active on install, this parameter means if this
 	 *      button is active after the addon is enabled.
 	 */
-	function add_menu_button($title, $url, $active)
+	function add_menu_button($title, $url, $creds)
 	{
-		$this->sql[] = 'INSERT INTO `'.ROSTER_ADDONMENUTABLE.'` VALUES (0,"'.$this->addata['addon_id'].'","'.$title.'","'.$url.'","'.$active.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (0,"'.$this->addata['addon_id'].'","'.$title.'","'.ROSTER_URL.'addon.php?dbname='.$this->addata['dbname'].$url.'","'.$creds.'")';
 	}
 
 	/**
@@ -140,9 +140,9 @@ class Install
 	 *      addon not to be active on install, this parameter means if this
 	 *	button is active after the addon is enabled.
 	 */
-	function update_menu_button($title, $url, $active)
+	function update_menu_button($title, $url, $creds)
 	{
-		$this->sql[] = 'UPDATE `'.ROSTER_ADDONMENUTABLE.'` SET `url`="'.$url.'", `active`="'.$active.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'"';
+		$this->sql[] = 'UPDATE `'.ROSTER_MENUBUTTONTABLE.'` SET `url`="'.ROSTER_URL.'addon.php?dbname='.$this->addata['dbname'].$url.'", `creds`="'.$creds.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'"';
 	}
 
 	/**
@@ -153,7 +153,7 @@ class Install
 	 */
 	function remove_menu_button($title)
 	{
-		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'"';
+		$this->sql[] = 'DELETE FROM `'.ROSTER_MENUBUTTONTABLE.'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'"';
 	}
 
 	/**
