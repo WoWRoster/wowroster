@@ -296,7 +296,7 @@ function add_sv( $svname )
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->message(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
+			$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
 		}
 	}
 }
@@ -314,7 +314,7 @@ function remove_sv( $id )
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-		$uniadmin->message(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
+		$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
 	}
 }
 
@@ -350,7 +350,7 @@ function process_ini( )
 	{
 		if( $_FILES['file']['name'] != 'settings.ini' )
 		{
-			$uniadmin->message($user->lang['error_ini_file']);
+			$uniadmin->debug($user->lang['error_ini_file']);
 			return;
 		}
 

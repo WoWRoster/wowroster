@@ -19,7 +19,7 @@
 				</tr>
 				<tr>
 					<td class="data1" align="center">{L_SELECT_FILE}:
-						<form name="ua_uploadlogo2" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+						<form name="ua_uploadlogo{logo_row.NUM}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 							<input class="file" type="file" name="logo{logo_row.NUM}" />
 							<input class="submit" type="submit" value="{logo_row.L_UPDATE_LOGO}" />
 							<input type="hidden" value="{A_PROCESS}" name="{A_OPERATION}" />

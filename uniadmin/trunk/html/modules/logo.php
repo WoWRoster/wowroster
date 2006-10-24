@@ -65,6 +65,8 @@ function main( )
 {
 	global $db, $uniadmin, $user, $tpl;
 
+	$num_logos = 2;
+
 	$tpl->assign_vars(array(
 		'L_UPDATE_FILE'    => $user->lang['update_file'],
 		'L_UPLOADED'       => $user->lang['uploaded'],
@@ -80,60 +82,60 @@ function main( )
 		$tpl->assign_var('S_LOGO',true);
 	}
 
-	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."`;";
-	$result = $db->query($sql);
-
 	$logo_dir = $uniadmin->config['logo_folder'];
 
-	for( $l=1; $l<3; $l++ )
+	for( $l=1; $l<=$num_logos; $l++ )
 	{
+		$logo_num = $l;
+
+		$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `logo_num` = '$logo_num';";
+		$result = $db->query($sql);
 		$row = $db->fetch_record($result);
 
-		$logo_num = $l;
 
 		$logo_updated = '-';
 		$logo_active_link = '-';
 
-		$logo_logo = ( empty($row['filename']) ? 'images/logo'.$logo_num.'_03.gif' : $logo_dir.'/'.$row['filename'] );
+		$logo_image = ( empty($row['filename']) ? 'images/logo'.$logo_num.'_03.gif' : $logo_dir.'/'.$row['filename'] );
 		$logo_updated = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
 
 		if( $row['active'] == '1' )
 		{
-			$logo_active_link = '<form name="ua_disablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			$logo_active_link = '<form name="ua_disablelogo'.$l.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
 	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
 </form>';
-			if( $user->data['level'] >= UA_ID_USER )
+			if( $user->data['level'] < UA_ID_USER )
 			{
 				$logo_active_link = '<span style="color:green;">'.$user->lang['yes'].'</span>';
 			}
 		}
 		elseif( $row['active'] == '0' )
 		{
-			$logo_active_link = '<form name="ua_enablelogo1" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+			$logo_active_link = '<form name="ua_enablelogo'.$l.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
 	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
 </form>';
-			if( $user->data['level'] >= UA_ID_USER )
+			if( $user->data['level'] < UA_ID_USER )
 			{
 				$logo_active_link = '<span style="color:red;">'.$user->lang['no'].'</span>';
 			}
 		}
 
 
-		// I hate kludges but this is how it has to be
+		// I hate kludges but this is how it has to be...for now
 		switch( $logo_num )
 		{
 			case '1':
-				$logo_image = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
+				$logo_table = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:62px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td><img src="'.$uniadmin->url_path.'images/logo1_02.gif" style="width:271px;height:144px;" alt="" /></td>
-		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo_logo.'" style="width:215px;height:144px;" alt="" /></td>
+		<td bgcolor="#f4f4f4"><img src="'.$uniadmin->url_path.$logo_image.'" style="width:215px;height:144px;" alt="" /></td>
 		<td><img src="'.$uniadmin->url_path.'images/logo1_04.gif" style="width:14px;height:144px;" alt="" /></td>
 	</tr>
 	<tr>
@@ -143,13 +145,13 @@ function main( )
 				break;
 
 			case '2':
-				$logo_image = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
+				$logo_table = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:70px;" alt="" /></td>
 	</tr>
 	<tr>
 		<td><img src="'.$uniadmin->url_path.'images/logo2_02.gif" style="width:151px;height:175px;" alt="" /></td>
-		<td bgcolor="#e0dfe3"><img src="'.$uniadmin->url_path.$logo_logo.'" style="width:319px;height:175px;" alt="" /></td>
+		<td bgcolor="#f4f4f4"><img src="'.$uniadmin->url_path.$logo_image.'" style="width:319px;height:175px;" alt="" /></td>
 		<td><img src="'.$uniadmin->url_path.'images/logo2_04.gif" style="width:30px;height:175px;" alt="" /></td>
 	</tr>
 	<tr>
@@ -170,7 +172,7 @@ function main( )
 			'UPDATED'       => $logo_updated,
 			'ACTIVELINK'    => $logo_active_link,
 			'L_UPDATE_LOGO' => sprintf($user->lang['update_logo'],$logo_num),
-			'IMAGE'         => $logo_image,
+			'IMAGE'         => $logo_table,
 			)
 		);
 	}
@@ -264,11 +266,15 @@ function process_logo( )
 		}
 
 		$md5 = md5_file($logo_location);
-		$try_chmod = @chmod($logo_location,0777);
-		if( !$try_chmod )
+
+		if( !is_writeable($logo_location) )
 		{
-			$uniadmin->debug(sprintf($user->lang['error_chmod'],$logo_location));
-			return;
+			$try_chmod = @chmod($logo_location,0777);
+			if( !$try_chmod )
+			{
+				$uniadmin->debug(sprintf($user->lang['error_chmod'],$logo_location));
+				return;
+			}
 		}
 
 		$sql = "DELETE FROM `".UA_TABLE_LOGOS."` WHERE `id` = '$logo_id'";

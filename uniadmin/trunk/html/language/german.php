@@ -235,6 +235,7 @@ $lang['settings_updated'] = 'Einstellungen geupdated';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
+$lang['interface_fix'] = 'Interface Folder Fix';
 
 
 // Pagination

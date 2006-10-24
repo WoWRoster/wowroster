@@ -1,24 +1,24 @@
 <?php
 /******************************
- * WoWRoster.net  UniAdmin
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
- *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
- *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+* WoWRoster.net  UniAdmin
+* Copyright 2002-2006
+* Licensed under the Creative Commons
+* "Attribution-NonCommercial-ShareAlike 2.5" license
+*
+* Short summary
+*  http://creativecommons.org/licenses/by-nc-sa/2.5/
+*
+* Full license information
+*  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+* -----------------------------
+*
+* $Id$
+*
+******************************/
 
 if( !defined('IN_UNIADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // %1\$<type> prevents a possible error in strings caused
@@ -38,16 +38,16 @@ $lang['title_login'] = 'Login';
 
 // Help page text
 $lang['help'] = array(
-	array(	'header' => 'Intro',
-			'text'   => '
+array(	'header' => 'Intro',
+'text'   => '
 <p>I bet you\'re wondering either what this is and/or how to use it, so:</p>
 <p>This is a system used to keep the users (who use UniUploader) addons, logos, and settings updated.<br />
 When you upload an addon to this system, and hit [Update] in UU, UU will look up the &quot;Synchronization URL&quot; (the one in the frame on the left)<br />
 and proceed to download any update(s) that are in any way different than the copy stored on the user\'s hard drive.<br />
 UU will then replace the addon with the new copy of the addon from this system.</p>'),
 
-	array(	'header' => 'AddOns',
-			'text'   => '
+array(	'header' => 'AddOns',
+'text'   => '
 <p>The uploaded addon must be in zip form only.<br />
 The zip file must have the following directory structure: [folder],{file}, and not literally &quot;addonName&quot; or &quot;addonfile&quot;<br />
 The AddOn Name is the same as the name of the folder that the AddOn\'s files are in</p>
@@ -60,20 +60,20 @@ The AddOn Name is the same as the name of the folder that the AddOn\'s files are
                {addonfile}
 etc.</pre>'),
 
-	array(	'header' => 'Logos',
-			'text'   => '
+array(	'header' => 'Logos',
+'text'   => '
 <p>This changes the logos displayed in UniUploader/jUniUploader<br />
 Logo 1 is displayed on the [Settings] tab<br />
 Logo 2 is displayed on the [About] tab</p>'),
 
-	array(	'header' => 'Settings',
-			'text'   => '
+array(	'header' => 'Settings',
+'text'   => '
 <p>You can make sure your user\'s critical UU settings are up to date with this, be VERY careful with some of them, as some of them might get your users angry at you, and if you set something wrong you could loose contact with all of your users LOL<br />
 If the setting is a 1 or zero that means it is a check mark in UU that should be: checked (1) or not checked (0).</p>
 <p>The saved variables list is the actual list of files that you want UU to upload to the URL(s).</p>'),
 
-	array(	'header' => 'Statistics',
-			'text'   => '
+array(	'header' => 'Statistics',
+'text'   => '
 <p>Basicly this shows who is accessing UniAdmin</p>
 <p>The table shows each access</p>
 <ul>
@@ -85,8 +85,8 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 </ul>
 <p>Below the table is nifty pie charts for how UniAdmin was accessed</p>'),
 
-	array(	'header' => 'Users',
-			'text'   => '
+array(	'header' => 'Users',
+'text'   => '
 <p>There are 3 &quot;user levels&quot;</p>
 <p>(Shows highest action available)</p>
 <dl>
@@ -235,6 +235,7 @@ $lang['settings_updated'] = 'Settings Updated';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
+$lang['interface_fix'] = 'Interface Folder Fix';
 
 
 // Pagination
