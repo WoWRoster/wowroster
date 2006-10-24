@@ -1,166 +1,153 @@
--- phpMyAdmin SQL Dump
--- version 2.8.0.2
--- http://www.phpmyadmin.net
--- 
--- Host: localhost
--- Generation Time: Jun 23, 2006 at 02:09 PM
--- Server version: 4.1.19
--- PHP Version: 4.4.2
--- 
--- Database: `demontes_test`
--- 
+#
+# MySQL UniAdmin DB Structure
+#
+# $Id$
+#
+# --------------------------------------------------------
+### Table structure for addons
 
--- --------------------------------------------------------
-
--- 
--- Table structure for table `uniadmin_addons`
--- 
-
+DROP TABLE IF EXISTS `uniadmin_addons`;
 CREATE TABLE `uniadmin_addons` (
   `id` int(11) NOT NULL auto_increment,
   `time_uploaded` int(11) NOT NULL default '0',
-  `version` varchar(250) NOT NULL default '',
-  `enabled` varchar(5) NOT NULL default '',
+  `version` varchar(16) NOT NULL default '0',
+  `enabled` tinyint(1) NOT NULL default '0',
   `name` varchar(250) NOT NULL default '',
   `dl_url` varchar(250) NOT NULL default '',
   `homepage` varchar(250) NOT NULL default '',
   `toc` mediumint(9) NOT NULL default '0',
   `required` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=1 ;
-
--- 
--- Dumping data for table `uniadmin_addons`
--- 
+  PRIMARY KEY  (`id`),
+  KEY `addon_name` (`name`)
+);
 
 
--- --------------------------------------------------------
+# --------------------------------------------------------
+### Table structure for config
 
--- 
--- Table structure for table `uniadmin_files`
--- 
+DROP TABLE IF EXISTS `uniadmin_config`;
+CREATE TABLE `uniadmin_config` (
+  `config_name` varchar(255) NOT NULL,
+  `config_value` varchar(255) default NULL,
+  `form_type` mediumtext,
+  PRIMARY KEY  (`config_name`)
+);
 
+### Configuration values
+INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUES
+	('addon_folder', 'addon_zips', 'text{250|50'),
+	('default_lang', 'english', 'function{lang_select'),
+	('default_style', 'default', 'function{style_select'),
+	('enable_gzip', '0', 'radio{yes^1|no^0'),
+	('interface_url', '%url%interface.php', 'text{250|50'),
+	('logo_folder', 'logos', 'text{250|50'),
+	('temp_analyze_folder', 'addon_temp', 'text{250|50'),
+	('UAVer', '0.7.0', 'display');
+
+
+# --------------------------------------------------------
+### Table structure for files
+
+DROP TABLE IF EXISTS `uniadmin_files`;
 CREATE TABLE `uniadmin_files` (
   `id` int(11) NOT NULL auto_increment,
-  `addon_name` varchar(250) NOT NULL default '',
+  `addon_id` int(11) NOT NULL,
   `filename` varchar(250) NOT NULL default '',
   `md5sum` varchar(250) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=1 ;
-
--- 
--- Dumping data for table `uniadmin_files`
--- 
+  PRIMARY KEY  (`id`),
+  KEY `addon_id` (`addon_id`)
+);
 
 
--- --------------------------------------------------------
+# --------------------------------------------------------
+### Table structure for logos
 
--- 
--- Table structure for table `uniadmin_logos`
--- 
 
+DROP TABLE IF EXISTS `uniadmin_logos`;
 CREATE TABLE `uniadmin_logos` (
   `id` int(11) NOT NULL auto_increment,
   `filename` varchar(250) NOT NULL default '',
   `updated` int(11) NOT NULL default '0',
-  `logo_num` varchar(11) NOT NULL default '',
-  `active` int(1) NOT NULL default '0',
+  `logo_num` int(11) NOT NULL default '0',
+  `active` tinyint(1) NOT NULL default '0',
   `download_url` varchar(250) NOT NULL default '',
-  `md5` varchar(250) NOT NULL default '',
+  `md5` varchar(32) NOT NULL,
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=126 ;
-
--- 
--- Dumping data for table `uniadmin_logos`
--- 
+);
 
 
--- --------------------------------------------------------
+# --------------------------------------------------------
+### Table structure for settings
 
--- 
--- Table structure for table `uniadmin_settings`
--- 
 
+DROP TABLE IF EXISTS `uniadmin_settings`;
 CREATE TABLE `uniadmin_settings` (
   `id` int(11) NOT NULL auto_increment,
   `set_name` varchar(250) NOT NULL default '',
   `set_value` varchar(250) NOT NULL default '',
   `enabled` varchar(11) NOT NULL default '',
-  `description` varchar(255) NOT NULL default '',
+  `section` varchar(64) NOT NULL,
+  `form_type` mediumtext,
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=68 ;
+);
 
--- 
--- Dumping data for table `uniadmin_settings`
--- 
+### Settings
+INSERT INTO `uniadmin_settings` (`set_name`, `set_value`, `enabled`, `section`, `form_type`) VALUES
+	('LANGUAGE', 'English', '0', 'settings', 'select{English^English|Deutsch^Deutsch|French^French|Nederlands^Nederlands|Russian^Russian|Svenska^Svenska'),
+	('PRIMARYURL', 'http://yourdomain.com/yourinterface.php', '0', 'settings', 'text{250|50'),
+	('PROGRAMMODE', 'Basic', '0', 'settings', 'select{Basic^Basic|Advanced^Advanced'),
+	('AUTODETECTWOW', '1', '0', 'settings', 'radio{yes^1|no^0'),
+	('OPENGL', '0', '0', 'settings', 'radio{yes^1|no^0'),
+	('WINDOWMODE', '0', '0', 'settings', 'radio{yes^1|no^0'),
+	('UUUPDATERCHECK', '1', '0', 'updater', 'radio{yes^1|no^0'),
+	('SYNCHROURL', 'http://yourdomain.com/UniAdmin/interface.php', '0', 'updater', 'text{250|50'),
+	('ADDONAUTOUPDATE', '1', '0', 'updater', 'radio{yes^1|no^0'),
+	('UUSETTINGSUPDATER', '1', '0', 'updater', 'radio{yes^1|no^0'),
+	('AUTOUPLOADONFILECHANGES', '1', '0', 'options', 'radio{yes^1|no^0'),
+	('ALWAYSONTOP', '1', '0', 'options', 'radio{yes^1|no^0'),
+	('SYSTRAY', '0', '0', 'options', 'radio{yes^1|no^0'),
+	('ADDVAR1CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME1', 'username', '0', 'options', 'text{250|50'),
+	('ADDVARVAL1', '', '0', 'options', 'text{250|50'),
+	('ADDVAR2CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME2', 'password', '0', 'options', 'text{250|50'),
+	('ADDVARVAL2', '', '0', 'options', 'text{250|50'),
+	('ADDVAR3CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME3', '', '0', 'options', 'text{250|50'),
+	('ADDVARVAL3', '', '0', 'options', 'text{250|50'),
+	('ADDVAR4CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDVARNAME4', '', '0', 'options', 'text{250|50'),
+	('ADDVARVAL4', '', '0', 'options', 'text{250|50'),
+	('ADDURL1CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL1', '', '0', 'options', 'text{250|50'),
+	('ADDURL2CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL2', '', '0', 'options', 'text{250|50'),
+	('ADDURL3CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL3', '', '0', 'options', 'text{250|50'),
+	('ADDURL4CH', '0', '0', 'options', 'radio{on^1|off^0'),
+	('ADDURL4', '', '0', 'options', 'text{250|50'),
+	('AUTOLAUNCHWOW', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('WOWARGS', '0', '0', 'advanced', 'text{250|50'),
+	('STARTWITHWINDOWS', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('USELAUNCHER', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('STARTMINI', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('SENDPWSECURE', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('GZIP', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('DELAYUPLOAD', '0', '0', 'advanced', 'radio{yes^1|no^0'),
+	('DELAYSECONDS', '5', '0', 'advanced', 'text{250|10'),
+	('RETRDATAFROMSITE', '1', '0', 'advanced', 'radio{yes^1|no^0'),
+	('RETRDATAURL', 'http://yourdomain.com/web_to_wow.php', '0', 'advanced', 'text{250|50'),
+	('WEBWOWSVFILE', 'SavedVariables.lua', '0', 'advanced', 'text{250|50'),
+	('DOWNLOADBEFOREWOWL', '0', '0', 'advanced', 'radio{on^1|off^0'),
+	('DOWNLOADBEFOREUPLOAD', '0', '0', 'advanced', 'radio{on^1|off^0'),
+	('DOWNLOADAFTERUPLOAD', '1', '0', 'advanced', 'radio{on^1|off^0');
 
-INSERT INTO `uniadmin_settings` VALUES (4, 'PRIMARYURL', 'http://yourdomain.com/yourinterface.php', '0', 'Primary URL');
-INSERT INTO `uniadmin_settings` VALUES (2, 'LANGUAGE', 'English', '0', 'Language');
-INSERT INTO `uniadmin_settings` VALUES (3, 'PROGRAMMODE', 'Basic', '0', 'Program Mode');
-INSERT INTO `uniadmin_settings` VALUES (5, 'AUTOPATH', '1', '1', 'Auto-Path');
-INSERT INTO `uniadmin_settings` VALUES (6, 'ADDONAUTOUPDATE', '1', '0', 'Addon Auto-Update');
-INSERT INTO `uniadmin_settings` VALUES (7, 'UUSETTINGSUPDATER', '1', '0', 'UniUploader Settings Updater');
-INSERT INTO `uniadmin_settings` VALUES (10, 'SYNCHROAUTOURL', '0', '0', 'Synchronization Auto-URL');
-INSERT INTO `uniadmin_settings` VALUES (8, 'UUUPDATERCHECK', '1', '1', 'UniUploader Updater');
-INSERT INTO `uniadmin_settings` VALUES (9, 'SYNCHROURL', 'http://www.demontest.us/UniAdmin/interface.php', '0', 'Synchronization URL');
-INSERT INTO `uniadmin_settings` VALUES (15, 'SYSTRAY', '0', '0', 'System Tray');
-INSERT INTO `uniadmin_settings` VALUES (17, 'AUTOUPLOADONFILECHANGES', '1', '1', 'Auto Upload on file changes');
-INSERT INTO `uniadmin_settings` VALUES (18, 'ADDVAR1CH', '0', '0', 'Additional variable 1');
-INSERT INTO `uniadmin_settings` VALUES (19, 'ADDVAR2CH', '0', '0', 'Additional variable 2');
-INSERT INTO `uniadmin_settings` VALUES (20, 'ADDVAR3CH', '0', '0', 'Additional variable 3');
-INSERT INTO `uniadmin_settings` VALUES (21, 'ADDVAR4CH', '0', '0', 'Additional variable 4');
-INSERT INTO `uniadmin_settings` VALUES (22, 'ADDURL1CH', '0', '0', 'Additional URL1');
-INSERT INTO `uniadmin_settings` VALUES (23, 'ADDURL2CH', '0', '0', 'Additional URL2');
-INSERT INTO `uniadmin_settings` VALUES (24, 'ADDURL3CH', '0', '0', 'Additional URL3');
-INSERT INTO `uniadmin_settings` VALUES (25, 'ADDURL4CH', '0', '0', 'Additional URL4');
-INSERT INTO `uniadmin_settings` VALUES (26, 'ADDVARNAME1', '', '0', 'Additional Variable 1 Name');
-INSERT INTO `uniadmin_settings` VALUES (27, 'ADDVARNAME2', '', '0', 'Additional Variable 2 Name');
-INSERT INTO `uniadmin_settings` VALUES (28, 'ADDVARNAME3', '', '0', 'Additional Variable 3 Name');
-INSERT INTO `uniadmin_settings` VALUES (29, 'ADDVARNAME4', '', '0', 'Additional Variable 4 Name');
-INSERT INTO `uniadmin_settings` VALUES (30, 'ADDVARVAL1', '', '0', 'Additional Variable 1 Value');
-INSERT INTO `uniadmin_settings` VALUES (31, 'ADDVARVAL2', '', '0', 'Additional Variable 2 Value');
-INSERT INTO `uniadmin_settings` VALUES (32, 'ADDVARVAL3', '', '0', 'Additional Variable 3 Value');
-INSERT INTO `uniadmin_settings` VALUES (33, 'ADDVARVAL4', '', '0', 'Additional Variable 4 Value');
-INSERT INTO `uniadmin_settings` VALUES (34, 'ADDURL1', '', '0', 'Additional URL 1 location');
-INSERT INTO `uniadmin_settings` VALUES (35, 'ADDURL2', '', '0', 'Additional URL 2 location');
-INSERT INTO `uniadmin_settings` VALUES (36, 'ADDURL3', '', '0', 'Additional URL 3 Location');
-INSERT INTO `uniadmin_settings` VALUES (37, 'ADDURL4', '', '0', 'Additional URL 4 Location');
-INSERT INTO `uniadmin_settings` VALUES (38, 'ADDURLFFNAME1', '', '0', 'Additional URL 1 FileField Name');
-INSERT INTO `uniadmin_settings` VALUES (39, 'ADDURLFFNAME2', '', '0', 'Additional URL 2 FileField Name');
-INSERT INTO `uniadmin_settings` VALUES (40, 'ADDURLFFNAME3', '', '0', 'Additional URL 3 FileField Name');
-INSERT INTO `uniadmin_settings` VALUES (41, 'ADDURLFFNAME4', '', '0', 'Additional URL 4 FileField Name');
-INSERT INTO `uniadmin_settings` VALUES (42, 'GZIP', '1', '0', 'Gzip Compression');
-INSERT INTO `uniadmin_settings` VALUES (43, 'PREPARSE', '1', '0', 'Pre-Parse');
-INSERT INTO `uniadmin_settings` VALUES (44, 'PARSEVAR2CH', '0', '0', 'Pre-Parse Variable 2');
-INSERT INTO `uniadmin_settings` VALUES (45, 'PARSEVAR4CH', '0', '0', 'Pre-Parse Variable 4');
-INSERT INTO `uniadmin_settings` VALUES (46, 'PARSEVAR3CH', '0', '0', 'Pre-Parse Variable 3');
-INSERT INTO `uniadmin_settings` VALUES (47, 'PARSEVAR5CH', '0', '0', 'Pre-Parse Variable 5');
-INSERT INTO `uniadmin_settings` VALUES (48, 'PARSEVAR1', 'myProfile', '0', 'Pre-Parse Variable 1 name');
-INSERT INTO `uniadmin_settings` VALUES (49, 'PARSEVAR2', '', '0', 'Pre-Parse Variable 2 name');
-INSERT INTO `uniadmin_settings` VALUES (50, 'PARSEVAR3', '', '0', 'Pre-Parse Variable 3 name');
-INSERT INTO `uniadmin_settings` VALUES (51, 'PARSEVAR4', '', '0', 'Pre-Parse Variable 4 name');
-INSERT INTO `uniadmin_settings` VALUES (52, 'PARSEVAR5', '', '0', 'Pre-Parse Variable 5 name');
-INSERT INTO `uniadmin_settings` VALUES (53, 'RETRDATA', '0', '0', 'Retrieve Data');
-INSERT INTO `uniadmin_settings` VALUES (55, 'WINDOWMODE', '0', '0', 'WoW Window Mode');
-INSERT INTO `uniadmin_settings` VALUES (56, 'STARTWITHWINDOWS', '0', '0', 'Start With Windows');
-INSERT INTO `uniadmin_settings` VALUES (57, 'AUTOLAUNCHWOW', '0', '0', 'Auto-Launch WoW');
-INSERT INTO `uniadmin_settings` VALUES (58, 'STARTMINI', '1', '0', 'Start Minimized');
-INSERT INTO `uniadmin_settings` VALUES (59, 'DELAYUPLOAD', '0', '0', 'Upload Delay');
-INSERT INTO `uniadmin_settings` VALUES (60, 'DELAYSECONDS', '5', '0', 'Upload Delay Seconds');
-INSERT INTO `uniadmin_settings` VALUES (61, 'RETRDATAURL', 'http://somewhere.com/something.php', '0', 'Data Retrieval URL');
-INSERT INTO `uniadmin_settings` VALUES (62, 'SENDPWSECURE', '1', '0', 'encrypt password with md5 before sending');
-INSERT INTO `uniadmin_settings` VALUES (63, 'WEBWOWSVFILE', 'SavedVariables.lua', '0', 'The Saved Variables file to write to for Web=>WoW');
-INSERT INTO `uniadmin_settings` VALUES (64, 'USERAGENT', 'UniUploader', '0', 'The User Agent UU uses');
-INSERT INTO `uniadmin_settings` VALUES (65, 'DOWNLOADBEFOREWOWL', '0', '0', 'Initiate Web=>WoW Before UU Launches WoW');
-INSERT INTO `uniadmin_settings` VALUES (66, 'DOWNLOADBEFOREUPLOAD', '0', '0', 'Initiate Web=>WoW Before UU Uploads');
-INSERT INTO `uniadmin_settings` VALUES (67, 'DOWNLOADAFTERUPLOAD', '1', '0', 'Initiate Web=>WoW After UU Uploads');
 
--- --------------------------------------------------------
+# --------------------------------------------------------
+### Table structure for stats
 
--- 
--- Table structure for table `uniadmin_stats`
--- 
 
+DROP TABLE IF EXISTS `uniadmin_stats`;
 CREATE TABLE `uniadmin_stats` (
   `id` int(11) NOT NULL auto_increment,
   `ip_addr` varchar(30) NOT NULL default '',
@@ -169,47 +156,42 @@ CREATE TABLE `uniadmin_stats` (
   `time` varchar(15) NOT NULL default '',
   `user_agent` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=118 ;
+);
 
--- 
--- Dumping data for table `uniadmin_stats`
--- 
 
--- --------------------------------------------------------
+# --------------------------------------------------------
+### Table structure for svlist
 
--- 
--- Table structure for table `uniadmin_svlist`
--- 
 
+DROP TABLE IF EXISTS `uniadmin_svlist`;
 CREATE TABLE `uniadmin_svlist` (
   `id` int(11) NOT NULL auto_increment,
   `sv_name` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=7 ;
+  PRIMARY KEY  (`id`),
+  KEY `sv_name` (`sv_name`)
+);
 
--- 
--- Dumping data for table `uniadmin_svlist`
--- 
+### SV List
+INSERT INTO `uniadmin_svlist` (`sv_name`) VALUES
+	('CharacterProfiler'),
+	('PvPLog');
 
-INSERT INTO `uniadmin_svlist` VALUES (1, 'CharacterProfiler');
-INSERT INTO `uniadmin_svlist` VALUES (6, 'PvPLog');
 
--- --------------------------------------------------------
+# --------------------------------------------------------
+### Table structure for users
 
--- 
--- Table structure for table `uniadmin_users`
--- 
 
+DROP TABLE IF EXISTS `uniadmin_users`;
 CREATE TABLE `uniadmin_users` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL default '',
-  `password` varchar(50) NOT NULL default '',
-  `level` char(3) NOT NULL default '',
+  `password` varchar(32) NOT NULL,
+  `level` int(11) NOT NULL default '0',
+  `language` varchar(32) NOT NULL,
+  `user_style` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
-)AUTO_INCREMENT=14 ;
+);
 
--- 
--- Dumping data for table `uniadmin_users`
--- 
-
-INSERT INTO `uniadmin_users` VALUES (1, 'Default', '4cb9c8a8048fd02294477fcb1a41191a', '3');
+### User List
+INSERT INTO `uniadmin_users` (`name`, `password`, `level`, `language`, `user_style`) VALUES
+	('Default', '4cb9c8a8048fd02294477fcb1a41191a', '3', 'english', 'default');
