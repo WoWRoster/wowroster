@@ -321,7 +321,7 @@ if( !$roster_conf['authenticated_user'] )
 	}
 
 	$authFields = border('syellow','start','Upload Authorization')."
-                  <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
+                  <table class=\"wowroster\" cellspacing=\"0\" cellpadding=\"0\">
 $auth_message
                     <tr>
                       <td class=\"membersRow2\">Username</td>
@@ -350,7 +350,7 @@ $inputForm = "
                 <form action=\"update.php\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
 $authFields
 ".border('syellow','start','Upload Files')."
-                  <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
+                  <table class=\"wowroster\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRowRight1\" colspan=\"2\" align=\"center\"><div align=\"center\"><small>".$wordings[$roster_conf['roster_lang']]['lualocation']."</small></div></td>
                     </tr>
@@ -366,7 +366,7 @@ $pvplogInputField
 ".border('syellow','end')."
 <br />
 ".border('sgray','start','Officer Use Only')."
-                  <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
+                  <table class=\"wowroster\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRow1\" onmouseover=\"overlib('".$wordings[$roster_conf['roster_lang']]['roster_upd_pw_help']."',CAPTION,'".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\">".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."</td>
                       <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>

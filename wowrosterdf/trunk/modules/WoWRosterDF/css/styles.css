@@ -16,10 +16,20 @@
 ******************************/
 
 .wowroster {
+	/*background:url(../../../themes/fiblack3d/images/cb_fbr_tex.gif);*/
+	
 	font-family:arial,helvetica,sans-serif;
 	font-size:12px;
-	border:1px solid;
-	border-color: #000000 #707070 #707070 #000000;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-bottom-color: #707070;
+	vertical-align: middle;	
 }
 .wowroster a:link {
 	color:#CBA300;
@@ -192,11 +202,11 @@
 	border-color:#5A5D5A;
 	background-color:#000000;
 }
-.levelbarParent {
+.wowroster .levelbarParent {
 	position:relative;
 	height:1px;
 }
-.levelbarChild {
+.wowroster .levelbarChild {
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -228,7 +238,7 @@
 
 /*************** For List menus ***************/
 /** ONLY ONE ON A SCREEN AT A TIME!! **/
-#tab_menu {
+.wowroster #tab_menu {
 	/* Container for the main roster menu */
 	/* List define for main menu */
 	font:11px Arial, Helvetica, sans-serif;
@@ -236,12 +246,12 @@
 	padding:0;
 	list-style-type:none;
 }
-#tab_menu li {
+.wowroster #tab_menu li {
 	/* List define for main menu */
 	margin:2px 2px 2px;
 	text-align:center;
 }
-#tab_menu li a {
+.wowroster #tab_menu li a {
 	/* Links in menu */
 	display:block;
 	width:140px;
@@ -252,20 +262,20 @@
 	text-decoration:none;
 	cursor:pointer;
 }
-#tab_menu li a:link, #tab_menu li a:visited {
+.wowroster #tab_menu li a:link, #tab_menu li a:visited {
 	/* Links in menu */
 	color:#CBA300;
 }
-#tab_menu li a:hover {
+.wowroster #tab_menu li a:hover {
 	/* Links in menu on-mouseover */
 	background-color:#7A7772;
 	color:#EABB00;
 }
-#tab_menu li .active {
+.wowroster #tab_menu li .active {
 	/* Links in menu on-click */
 	background-color:#5b5955;
 }
-#tab_menu li .inactive {
+.wowroster #tab_menu li .inactive {
 	/* Links in menu on-click */
 	background-color:#2E2D2B;
 	color:#CBA300;
@@ -273,52 +283,52 @@
 
 
 /*************** Roster Main Menu ***************/
-.main_roster_menu {
+.wowroster .main_roster_menu {
 /* Container for the main roster menu */
 	font:11px Arial, Helvetica, sans-serif;
 }
-.main_roster_menu ul {
+.wowroster .main_roster_menu ul {
 /* List define for main menu */
 	font:10px Arial, Helvetica, sans-serif;
 	margin:0;
 	padding:0;
 	list-style-type:none;
 }
-.main_roster_menu li {
+.wowroster .main_roster_menu li {
 /* List item define for main menu */
 	margin:2px 5px 2px;
 	text-align:left;
 }
-.main_roster_menu .links {
+.wowroster .main_roster_menu .links {
 }
-.main_roster_menu .links ul {
+.wowroster .main_roster_menu .links ul {
 /* List define for main menu */
 	font:11px Verdana, Arial, Helvetica, sans-serif;
 	margin:0;
 	padding:0;
 	list-style-type:none;
 }
-.main_roster_menu .links li {
+.wowroster .main_roster_menu .links li {
 /* List item define for main menu */
 	margin:2px 1px 2px;
 	text-align:left;
 }
-.main_roster_menu .addon {
+.wowroster .main_roster_menu .addon {
 }
-.main_roster_menu .addon ul {
+.wowroster .main_roster_menu .addon ul {
 /* List define for main menu */
 	font:10px Verdana, Arial, Helvetica, sans-serif;
 	margin:0;
 	padding:0;
 	list-style-type:none;
 }
-.main_roster_menu .addon li {
+.wowroster .main_roster_menu .addon li {
 /* List item define for main menu */
 	float:left;
 	margin:1px 3px 1px;
 	text-align:left;
 }
-.main_roster_menu .links a, .main_roster_menu .addon a {
+.wowroster .main_roster_menu .links a, .main_roster_menu .addon a {
 /* Links in menu */
 	display:block;
 	text-align:center;
@@ -328,15 +338,15 @@
 	background-color:#2E2D2B;
 	text-decoration:none;
 }
-.main_roster_menu .links a:active, .main_roster_menu .addon a:active {
+.wowroster .main_roster_menu .links a:active, .main_roster_menu .addon a:active {
 /* Links in menu on-click */
 	background-color:#778899;
 }
-.main_roster_menu .links a:hover, .main_roster_menu .addon a:hover {
+.wowroster .main_roster_menu .links a:hover, .main_roster_menu .addon a:hover {
 /* Links in menu on-mouseover */
 	background-color:#7A7772;
 }
-.main_roster_menu .header {
+.wowroster .main_roster_menu .header {
 	background-image:url(../img/bgrep.gif);
 	color:#ffffff;
 	background-color:#1F1E1D;
@@ -344,46 +354,46 @@
 	border-width:0px 1px 0px 1px;
 	border-color:#5D5D5D;
 }
-.main_roster_menu .row {
+.wowroster .main_roster_menu .row {
 	color:#ffffff;
 	background-color:#1F1E1D;
 	border-style:solid;
 	border-width:1px 0px 0px 1px;
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 }
-.main_roster_menu .rowright {
+.wowroster .main_roster_menu .rowright {
 	color:#ffffff;
 	background-color:#1F1E1D;
 	border-style:solid;
 	border-width:1px 1px 0px 1px;
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 }
-.main_roster_menu span {
+.wowroster .main_roster_menu span {
 /* Container for the main roster menu */
 	font:11px Arial, Helvetica, sans-serif;
 	color:#ffffff;
 }
 /*************** Roster Main Menu ***************/
 
-.bodyline {
+/*.wowroster {
 	border:1px #212121 solid;
-}
-.membersList {
+}*/
+.wowroster .membersList {
 	padding:0px 0px 0px 0px;
 	margin:0px 0px 0px 0px;
 }
-.members {
+.wowroster .members {
 	padding:3px 3px 3px 3px;
 	margin:0px 0px 0px 0px;
 	font-family:Sans-Serif;
 	width:100%;
 }
-.GMOTD {
-	font-size:14px;
+.wowroster .GMOTD {
+	font-size:16px;
 	font-weight:bold;
 	color:#FF0000;
 }
-.GuildInfoText {
+.wowroster .GuildInfoText {
 	background-image:url(../img/paperback.jpg);
 	background-repeat: no-repeat;
 	text-align:left;
@@ -396,10 +406,10 @@
 	height:337px;
 	overflow:auto;
 }
-.membersHeader {
+.wowroster .membersHeader {
 	text-align:left;
 	white-space:nowrap;
-	/*color:#CBA300;*/
+	color:#CBA300;
 	font-size:11px;
 	font-family:arial,helvetica,sans-serif;
 	background-color:#2E2D2B;
@@ -408,7 +418,7 @@
 	border-width:1px 0px 0px 1px;
 	padding:0px 6px 0px 6px;
 }
-.membersHeaderRight {
+.wowroster .membersHeaderRight {
 	text-align:left;
 	white-space:nowrap;
 	/*color:#CBA300;*/
@@ -420,7 +430,7 @@
 	border-width:1px 1px 0px 1px;
 	padding:0px 6px 0px 6px;
 }
-.membersKeyRow1 {
+.wowroster .membersKeyRow1 {
 	text-align:left;
 	vertical-align:middle;
 	color:#ffffff;
@@ -435,7 +445,7 @@
 	height:42px;
 	width:42px;
 }
-.membersKeyRowLeft1 {
+.wowroster .membersKeyRowLeft1 {
 	text-align:left;
 	vertical-align:middle;
 	color:#ffffff;
@@ -449,7 +459,7 @@
 	padding:3px 6px 3px 6px;
 	height:47px;
 }
-.membersKeyRowRight1 {
+.wowroster .membersKeyRowRight1 {
 	text-align:left;
 	vertical-align:middle;
 	color:#ffffff;
@@ -465,7 +475,7 @@
 	width:42px;
 }
 
-.membersKeyRow2 {
+.wowroster .membersKeyRow2 {
 	text-align:left;
 	vertical-align:middle;
 	color:#ffffff;
@@ -480,7 +490,7 @@
 	height:42px;
 	width:42px;
 }
-.membersKeyRowLeft2 {
+.wowroster .membersKeyRowLeft2 {
 	text-align:left;
 	vertical-align:middle;
 	color:#ffffff;
@@ -494,7 +504,7 @@
 	padding:3px 6px 3px 6px;
 	height:47px;
 }
-.membersKeyRowRight2 {
+.wowroster .membersKeyRowRight2 {
 	text-align:left;
 	vertical-align:middle;
 	color:#ffffff;
@@ -509,15 +519,15 @@
 	height:47px;
 	width:42px;
 }
-A.membersRow2 {
+.wowroster A.membersRow2 {
 	color:#CBA300;
 	text-decoration:none;
 }
-A.membersRow2:active {
+.wowroster A.membersRow2:active {
 	color:#CBA300;
 	text-decoration:none;
 }
-.membersRow1 {
+.wowroster .membersRow1 {
 	position:relative;
 	text-align:left;
 	color:#ffffff;
@@ -531,7 +541,7 @@ A.membersRow2:active {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
-.membersRow2 {
+.wowroster .membersRow2 {
 	position:relative;
 	text-align:left;
 	color:#ffffff;
@@ -545,10 +555,10 @@ A.membersRow2:active {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
-.membersRowimg {
+.wowroster .membersRowimg {
 	vertical-align:middle;
 }
-.membersRowRight1 {
+.wowroster .membersRowRight1 {
 	text-align:left;
 	color:#ffffff;
 	background-color:#1F1E1D;
@@ -561,7 +571,7 @@ A.membersRow2:active {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
-.membersRowRight2 {
+.wowroster .membersRowRight2 {
 	text-align:left;
 	color:#ffffff;
 	background-color:#2E2D2B;
@@ -574,26 +584,26 @@ A.membersRow2:active {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
-A.membersRow2 {
+.wowroster A.membersRow2 {
 	color:#CBA300;
 	text-decoration:none;
 }
-A.membersRow2:active {
+.wowroster A.membersRow2:active {
 	color:#CBA300;
 	text-decoration:none;
 }
-.membersGroup {
+.wowroster .membersGroup {
 	text-align:left;
 	color:#EABB00;
 	font-family:arial,helvetica,sans-serif;
 	font-weight:bold;
 }
-.membersGroup A {
+.wowroster .membersGroup A {
 	color:#FFFFFF;
 }
 
 
-.rankbordertopleft {
+.wowroster .rankbordertopleft {
 	float:left;
 	background-image:url(../img/borders/rankingborder-top-left.gif);
 	background-repeat:no-repeat;
@@ -603,7 +613,7 @@ A.membersRow2:active {
 	width:16px;
 	overflow:hidden;
 }
-.rankbordertop {
+.wowroster .rankbordertop {
 	padding:0;
 	margin:0;
 	border:0;
@@ -613,7 +623,7 @@ A.membersRow2:active {
 	white-space:nowrap;
 	overflow:hidden;
 }
-.rankborderheader {
+.wowroster .rankborderheader {
 	font-weight:bold;
 	font-size:14px;
 	padding:0;
@@ -627,7 +637,7 @@ A.membersRow2:active {
 	white-space:nowrap;
 	overflow:hidden;
 }
-.rankbordertopright {
+.wowroster .rankbordertopright {
 	float:right;
 	background-image:url(../img/borders/rankingborder-top-right.gif);
 	background-repeat:no-repeat;
@@ -637,7 +647,7 @@ A.membersRow2:active {
 	width:16px;
 	overflow:hidden;
 }
-.rankbordercenterleft {
+.wowroster .rankbordercenterleft {
 	background-image:url(../img/borders/rankingborder-left.gif);
 	background-repeat:repeat-y;
 	background-position:left top;
@@ -646,13 +656,13 @@ A.membersRow2:active {
 	height:14px;
 	overflow:hidden;
 }
-.rankbordercenter {
+.wowroster .rankbordercenter {
 	background-color:#1F1E1D;
 	padding:0;
 	margin:0;
 	border:0;
 }
-.rankbordercenterright {
+.wowroster .rankbordercenterright {
 	background-image:url(../img/borders/rankingborder-right.gif);
 	background-repeat:repeat-y;
 	background-position:right top;
@@ -661,7 +671,7 @@ A.membersRow2:active {
 	height:14px;
 	overflow:hidden;
 }
-.rankborderbotleft {
+.wowroster .rankborderbotleft {
 	float:left;
 	background-image:url(../img/borders/rankingborder-bot-left.gif);
 	background-repeat:no-repeat;
@@ -671,7 +681,7 @@ A.membersRow2:active {
 	width:19px;
 	overflow:hidden;
 }
-.rankborderbot {
+.wowroster .rankborderbot {
 	padding:0;
 	margin:0;
 	border:0;
@@ -680,7 +690,7 @@ A.membersRow2:active {
 	height:12px;
 	overflow:hidden;
 }
-.rankborderbotright {
+.wowroster .rankborderbotright {
 	float:right;
 	background-image:url(../img/borders/rankingborder-bot-right.gif);
 	background-repeat:no-repeat;
@@ -691,7 +701,7 @@ A.membersRow2:active {
 	overflow:hidden;
 }
 
-.simplebordertopleft {
+.wowroster .simplebordertopleft {
 	float:left;
 	background-repeat:no-repeat;
 	background-position:left top;
@@ -700,7 +710,7 @@ A.membersRow2:active {
 	width:5px;
 	overflow:hidden;
 }
-.simplebordertop {
+.wowroster .simplebordertop {
 	padding:0;
 	margin:0;
 	border:0;
@@ -709,7 +719,7 @@ A.membersRow2:active {
 	white-space:nowrap;
 	overflow:hidden;
 }
-.simpleborderheader {
+.wowroster .simpleborderheader {
 	color:#FFFFFF;
 	font-weight:bold;
 	font-size:14px;
@@ -724,7 +734,7 @@ A.membersRow2:active {
 	white-space:nowrap;
 	overflow:hidden;
 }
-.simplebordertopright {
+.wowroster .simplebordertopright {
 	float:right;
 	background-repeat:no-repeat;
 	background-position:left top;
@@ -733,28 +743,28 @@ A.membersRow2:active {
 	width:5px;
 	overflow:hidden;
 }
-.simplebordercenterleft {
+.wowroster .simplebordercenterleft {
 	background-repeat:repeat-y;
 	background-position:left top;
 	padding-left:5px;
 	border:0;
 	overflow:hidden;
 }
-.simplebordercenter {
+.wowroster .simplebordercenter {
 	background-color:#1F1E1D;
 	color:#FFFFFF;
 	padding:0;
 	margin:0;
 	border:0;
 }
-.simplebordercenterright {
+.wowroster .simplebordercenterright {
 	background-repeat:repeat-y;
 	background-position:right top;
 	padding-right:5px;
 	border:0;
 	overflow:hidden;
 }
-.simpleborderbotleft {
+.wowroster .simpleborderbotleft {
 	float:left;
 	background-repeat:no-repeat;
 	background-position:left top;
@@ -763,7 +773,7 @@ A.membersRow2:active {
 	width:5px;
 	overflow:hidden;
 }
-.simpleborderbot {
+.wowroster .simpleborderbot {
 	padding:0;
 	margin:0;
 	border:0;
@@ -771,7 +781,7 @@ A.membersRow2:active {
 	height:5px;
 	overflow:hidden;
 }
-.simpleborderbotright {
+.wowroster .simpleborderbotright {
 	float:right;
 	background-repeat:no-repeat;
 	background-position:left top;
@@ -782,203 +792,203 @@ A.membersRow2:active {
 }
 
 
-.syellowbordertopleft {
+.wowroster .syellowbordertopleft {
 	background-image:url(../img/borders/syellowborder-top-left.gif);
 }
-.syellowbordertop {
+.wowroster .syellowbordertop {
 	background-image:url(../img/borders/syellowborder-top.gif);
 }
-.syellowborderheader {
+.wowroster .syellowborderheader {
 	background-image:url(../img/borders/syellowborder-header.gif);
 }
-.syellowbordertopright {
+.wowroster .syellowbordertopright {
 	background-image:url(../img/borders/syellowborder-top-right.gif);
 }
-.syellowbordercenterleft {
+.wowroster .syellowbordercenterleft {
 	background-image:url(../img/borders/syellowborder-left.gif);
 }
-.syellowbordercenterright {
+.wowroster .syellowbordercenterright {
 	background-image:url(../img/borders/syellowborder-right.gif);
 }
-.syellowborderbotleft {
+.wowroster .syellowborderbotleft {
 	background-image:url(../img/borders/syellowborder-bot-left.gif);
 }
-.syellowborderbot {
+.wowroster .syellowborderbot {
 	background-image:url(../img/borders/syellowborder-bot.gif);
 }
-.syellowborderbotright {
+.wowroster .syellowborderbotright {
 	background-image:url(../img/borders/syellowborder-bot-right.gif);
 }
 
-.spurplebordertopleft {
+.wowroster .spurplebordertopleft {
 	background-image:url(../img/borders/spurpleborder-top-left.gif);
 }
-.spurplebordertop {
+.wowroster .spurplebordertop {
 	background-image:url(../img/borders/spurpleborder-top.gif);
 }
-.spurpleborderheader {
+.wowroster .spurpleborderheader {
 	background-image:url(../img/borders/spurpleborder-header.gif);
 }
-.spurplebordertopright {
+.wowroster .spurplebordertopright {
 	background-image:url(../img/borders/spurpleborder-top-right.gif);
 }
-.spurplebordercenterleft {
+.wowroster .spurplebordercenterleft {
 	background-image:url(../img/borders/spurpleborder-left.gif);
 }
-.spurplebordercenterright {
+.wowroster .spurplebordercenterright {
 	background-image:url(../img/borders/spurpleborder-right.gif);
 }
-.spurpleborderbotleft {
+.wowroster .spurpleborderbotleft {
 	background-image:url(../img/borders/spurpleborder-bot-left.gif);
 }
-.spurpleborderbot {
+.wowroster .spurpleborderbot {
 	background-image:url(../img/borders/spurpleborder-bot.gif);
 }
-.spurpleborderbotright {
+.wowroster .spurpleborderbotright {
 	background-image:url(../img/borders/spurpleborder-bot-right.gif);
 }
 
-.sgreenbordertopleft {
+.wowroster .sgreenbordertopleft {
 	background-image:url(../img/borders/sgreenborder-top-left.gif);
 }
-.sgreenbordertop {
+.wowroster .sgreenbordertop {
 	background-image:url(../img/borders/sgreenborder-top.gif);
 }
-.sgreenborderheader {
+.wowroster .sgreenborderheader {
 	background-image:url(../img/borders/sgreenborder-header.gif);
 }
-.sgreenbordertopright {
+.wowroster .sgreenbordertopright {
 	background-image:url(../img/borders/sgreenborder-top-right.gif);
 }
-.sgreenbordercenterleft {
+.wowroster .sgreenbordercenterleft {
 	background-image:url(../img/borders/sgreenborder-left.gif);
 }
-.sgreenbordercenterright {
+.wowroster .sgreenbordercenterright {
 	background-image:url(../img/borders/sgreenborder-right.gif);
 }
-.sgreenborderbotleft {
+.wowroster .sgreenborderbotleft {
 	background-image:url(../img/borders/sgreenborder-bot-left.gif);
 }
-.sgreenborderbot {
+.wowroster .sgreenborderbot {
 	background-image:url(../img/borders/sgreenborder-bot.gif);
 }
-.sgreenborderbotright {
+.wowroster .sgreenborderbotright {
 	background-image:url(../img/borders/sgreenborder-bot-right.gif);
 }
 
-.sredbordertopleft {
+.wowroster .sredbordertopleft {
 	background-image:url(../img/borders/sredborder-top-left.gif);
 }
-.sredbordertop {
+.wowroster .sredbordertop {
 	background-image:url(../img/borders/sredborder-top.gif);
 }
-.sredborderheader {
+.wowroster .sredborderheader {
 	background-image:url(../img/borders/sredborder-header.gif);
 }
-.sredbordertopright {
+.wowroster .sredbordertopright {
 	background-image:url(../img/borders/sredborder-top-right.gif);
 }
-.sredbordercenterleft {
+.wowroster .sredbordercenterleft {
 	background-image:url(../img/borders/sredborder-left.gif);
 }
-.sredbordercenterright {
+.wowroster .sredbordercenterright {
 	background-image:url(../img/borders/sredborder-right.gif);
 }
-.sredborderbotleft {
+.wowroster .sredborderbotleft {
 	background-image:url(../img/borders/sredborder-bot-left.gif);
 }
-.sredborderbot {
+.wowroster .sredborderbot {
 	background-image:url(../img/borders/sredborder-bot.gif);
 }
-.sredborderbotright {
+.wowroster .sredborderbotright {
 	background-image:url(../img/borders/sredborder-bot-right.gif);
 }
 
-.sbluebordertopleft {
+.wowroster .sbluebordertopleft {
 	background-image:url(../img/borders/sblueborder-top-left.gif);
 }
-.sbluebordertop {
+.wowroster .sbluebordertop {
 	background-image:url(../img/borders/sblueborder-top.gif);
 }
-.sblueborderheader {
+.wowroster .sblueborderheader {
 	background-image:url(../img/borders/sblueborder-header.gif);
 }
-.sbluebordertopright {
+.wowroster .sbluebordertopright {
 	background-image:url(../img/borders/sblueborder-top-right.gif);
 }
-.sbluebordercenterleft {
+.wowroster .sbluebordercenterleft {
 	background-image:url(../img/borders/sblueborder-left.gif);
 }
-.sbluebordercenterright {
+.wowroster .sbluebordercenterright {
 	background-image:url(../img/borders/sblueborder-right.gif);
 }
-.sblueborderbotleft {
+.wowroster .sblueborderbotleft {
 	background-image:url(../img/borders/sblueborder-bot-left.gif);
 }
-.sblueborderbot {
+.wowroster .sblueborderbot {
 	background-image:url(../img/borders/sblueborder-bot.gif);
 }
-.sblueborderbotright {
+.wowroster .sblueborderbotright {
 	background-image:url(../img/borders/sblueborder-bot-right.gif);
 }
 
-.sorangebordertopleft {
+.wowroster .sorangebordertopleft {
 	background-image:url(../img/borders/sorangeborder-top-left.gif);
 }
-.sorangebordertop {
+.wowroster .sorangebordertop {
 	background-image:url(../img/borders/sorangeborder-top.gif);
 }
-.sorangeborderheader {
+.wowroster .sorangeborderheader {
 	background-image:url(../img/borders/sorangeborder-header.gif);
 }
-.sorangebordertopright {
+.wowroster .sorangebordertopright {
 	background-image:url(../img/borders/sorangeborder-top-right.gif);
 }
-.sorangebordercenterleft {
+.wowroster .sorangebordercenterleft {
 	background-image:url(../img/borders/sorangeborder-left.gif);
 }
-.sorangebordercenterright {
+.wowroster .sorangebordercenterright {
 	background-image:url(../img/borders/sorangeborder-right.gif);
 }
-.sorangeborderbotleft {
+.wowroster .sorangeborderbotleft {
 	background-image:url(../img/borders/sorangeborder-bot-left.gif);
 }
-.sorangeborderbot {
+.wowroster .sorangeborderbot {
 	background-image:url(../img/borders/sorangeborder-bot.gif);
 }
-.sorangeborderbotright {
+.wowroster .sorangeborderbotright {
 	background-image:url(../img/borders/sorangeborder-bot-right.gif);
 }
 
-.sgraybordertopleft {
+.wowroster .sgraybordertopleft {
 	background-image:url(../img/borders/sgrayborder-top-left.gif);
 }
-.sgraybordertop {
+.wowroster .sgraybordertop {
 	background-image:url(../img/borders/sgrayborder-top.gif);
 }
-.sgrayborderheader {
+.wowroster .sgrayborderheader {
 	background-image:url(../img/borders/sgrayborder-header.gif);
 }
-.sgraybordertopright {
+.wowroster .sgraybordertopright {
 	background-image:url(../img/borders/sgrayborder-top-right.gif);
 }
-.sgraybordercenterleft {
+.wowroster .sgraybordercenterleft {
 	background-image:url(../img/borders/sgrayborder-left.gif);
 }
-.sgraybordercenterright {
+.wowroster .sgraybordercenterright {
 	background-image:url(../img/borders/sgrayborder-right.gif);
 }
-.sgrayborderbotleft {
+.wowroster .sgrayborderbotleft {
 	background-image:url(../img/borders/sgrayborder-bot-left.gif);
 }
-.sgrayborderbot {
+.wowroster .sgrayborderbot {
 	background-image:url(../img/borders/sgrayborder-bot.gif);
 }
-.sgrayborderbotright {
+.wowroster .sgrayborderbotright {
 	background-image:url(../img/borders/sgrayborder-bot-right.gif);
 }
 
-.reagentsRow1 {
+.wowroster .reagentsRow1 {
 	color:#ffffff;
 	border-style:solid;
 	border-width:1px 0px 0px 1px;
@@ -986,7 +996,7 @@ A.membersRow2:active {
 	padding:0px 0px 0px 3px;
 }
 
-.lastupdated {
+.wowroster .lastupdated {
 	color:#0099FF;
 	font-size:x-small;
 	font-style:italic;
@@ -996,7 +1006,7 @@ A.membersRow2:active {
 /**
  * Bag Styles
 **/
-.bag {
+.wowroster .bag {
 	float:left;
 	width:212px;
 	margin:10px 0 10px;
@@ -1004,19 +1014,19 @@ A.membersRow2:active {
 	background:url(../img/bagbg2.gif) repeat-y;
 	background-position:0 3px;
 }
-.bag .bagTop {
+.wowroster .bag .bagTop {
 	float:left;
 	width:100%;
 	background:url(../img/bagtopbig.gif) no-repeat;
 	height:52px;
 }
-.bag .bagTop .bagIcon {
+.wowroster .bag .bagTop .bagIcon {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:5px;
 }
-.bag .bagTop .bagIcon .quant {
+.wowroster .bag .bagTop .bagIcon .quant {
 	position:absolute;
 	bottom:0px;
 	right:3px;
@@ -1024,7 +1034,7 @@ A.membersRow2:active {
 	font-weight:bold;
 	color:#ffffff;
 }
-.bag .bagTop .bagIcon .quant_shadow {
+.wowroster .bag .bagTop .bagIcon .quant_shadow {
 	position:absolute;
 	bottom:-1px;
 	right:2px;
@@ -1032,7 +1042,7 @@ A.membersRow2:active {
 	font-weight:bold;
 	color:#333333;
 }
-.bag .bagTop .bagName {
+.wowroster .bag .bagTop .bagName {
 	float:left;
 	text-align:left;
 	width:150px;
@@ -1042,30 +1052,30 @@ A.membersRow2:active {
 	font-size:13px;
 	font-weight:bold;
 }
-.bag .bagLine {
+.wowroster .bag .bagLine {
 	float:left;
 	width:100%;
 	padding:0 0 0 4px;
 }
-.bag .bagLine .bagNoSlot {
+.wowroster .bag .bagLine .bagNoSlot {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:4px 5px 5px 6px;
 }
-.bag .bagLine .bagSlot {
+.wowroster .bag .bagLine .bagSlot {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:4px 5px 5px 6px;
 	background-image:url(../img/bagslot.gif);
 }
-.bag .bagBottomLine {
+.wowroster .bag .bagBottomLine {
 	float:left;
 	width:100%;
 	padding:0 0 0 4px;
 }
-.bag .bagBottomLine .bagSlot {
+.wowroster .bag .bagBottomLine .bagSlot {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1073,16 +1083,16 @@ A.membersRow2:active {
 	background-image:url(../img/bagbottombox.gif);
 	background-position:left top;
 }
-.bag .bagMoneyBottom {
+.wowroster .bag .bagMoneyBottom {
 	float:left;
 	width:100%;
 	background-image:url(../img/bagmoneybottom.gif);
 }
-.bag .bagMoneyBottom .money {
+.wowroster .bag .bagMoneyBottom .money {
 	float:right;
 	padding:4px 15px 7px 0;
 }
-.bag .bagBottom {
+.wowroster .bag .bagBottom {
 	float:left;
 	height:6px;
 	width:100%;
@@ -1092,12 +1102,12 @@ A.membersRow2:active {
  * END Bag Styles
 **/
 
-.item {
+.wowroster .item {
 	position:relative;
 	width:40px;
 	height:40px;
 }
-.item .quant {
+.wowroster .item .quant {
 	position:absolute;
 	bottom:0px;
 	right:3px;
@@ -1105,7 +1115,7 @@ A.membersRow2:active {
 	font-weight:bold;
 	color:#ffffff;
 }
-.item .quant_shadow {
+.wowroster .item .quant_shadow {
 	position:absolute;
 	bottom:-1px;
 	right:2px;
@@ -1113,53 +1123,53 @@ A.membersRow2:active {
 	font-weight:bold;
 	color:#333333;
 }
-.icon {
+.wowroster .icon {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:1px 0 0 0;
 	z-index:1;
 }
-.iconsmall {
+.wowroster .iconsmall {
 	float:left;
 	width:31px;
 	height:30px;
 	padding:1px 0 0 0;
 	z-index:1;
 }
-.wowroster img, p {
+.wowroster .wowroster img, p {
 	padding:0;
 	margin:0;
 	border:0;
 }
 
-.xp {
+.wowroster .xp {
 	float:left;
 	height:15px;
 	width:253px;
 }
-.xp .xpbox {
+.wowroster .xp .xpbox {
 	position:relative;
 	left:0;
 	top:0;
 	width:253px;
 	height:15px;
 }
-.xp .xpbox .bg {
+.wowroster .xp .xpbox .bg {
 	position:absolute;
 	left:0px;
 	top:0;
 	width:253px;
 	height:15px;
 }
-.xp .xpbox .bit {
+.wowroster .xp .xpbox .bit {
 	position:absolute;
 	left:0px;
 	top:1px;
 	left:3px;
 	height:12px;
 }
-.xp .xpbox .name {
+.wowroster .xp .xpbox .name {
 	position:absolute;
 	left:0px;
 	top:0;
@@ -1169,7 +1179,7 @@ A.membersRow2:active {
 	font-weight:bold;
 	color:#ffffff;
 }
-.xp .xpbox .level {
+.wowroster .xp .xpbox .level {
 	position:absolute;
 	left:0px;
 	top:0;
@@ -1182,25 +1192,25 @@ A.membersRow2:active {
 	font-weight:bold;
 }
 
-.classDruidtxt { color:#A69D91; }
-.classHuntertxt { color:#FFC835; }
-.classMagetxt { color:#E11C14; }
-.classPaladintxt { color:#B5BDB0; }
-.classPriesttxt { color:#48CBBD; }
-.classRoguetxt { color:#C3EB88; }
-.classShamantxt { color:#7B480C; }
-.classWarlocktxt { color:#A07AAD; }
-.classWarriortxt { color:#3C77B3; }
+.wowroster .classDruidtxt { color:#A69D91; }
+.wowroster .classHuntertxt { color:#FFC835; }
+.wowroster .classMagetxt { color:#E11C14; }
+.wowroster .classPaladintxt { color:#B5BDB0; }
+.wowroster .classPriesttxt { color:#48CBBD; }
+.wowroster .classRoguetxt { color:#C3EB88; }
+.wowroster .classShamantxt { color:#7B480C; }
+.wowroster .classWarlocktxt { color:#A07AAD; }
+.wowroster .classWarriortxt { color:#3C77B3; }
 
-.classDruidetxt { color:#A69D91; }
-.classJägertxt { color:#FFC835; }
-.classMagiertxt { color:#E11C14; }
-.classPaladintxt { color:#B5BDB0; }
-.classPriestertxt { color:#48CBBD; }
-.classSchurketxt { color:#C3EB88; }
-.classSchamanetxt { color:#7B480C; }
-.classHexenmeistertxt { color:#A07AAD; }
-.classKriegertxt { color:#3C77B3; }
+.wowroster .classDruidetxt { color:#A69D91; }
+.wowroster .classJägertxt { color:#FFC835; }
+.wowroster .classMagiertxt { color:#E11C14; }
+.wowroster .classPaladintxt { color:#B5BDB0; }
+.wowroster .classPriestertxt { color:#48CBBD; }
+.wowroster .classSchurketxt { color:#C3EB88; }
+.wowroster .classSchamanetxt { color:#7B480C; }
+.wowroster .classHexenmeistertxt { color:#A07AAD; }
+.wowroster .classKriegertxt { color:#3C77B3; }
 
 
 
@@ -1208,65 +1218,65 @@ A.membersRow2:active {
  * Random color defines
 **********/
 
-span.white{
+.wowroster span.white{
 	font-weight:bold;
 	color:#ffffff
 }
-span.yellow{
+.wowroster span.yellow{
 	font-weight:bold;
 	color:#cc9900;
 }
-span.green{
+.wowroster span.green{
 	font-weight:bold;
 	color:#22ff22;
 }
-span.grey{
+.wowroster span.grey{
 	font-weight:bold;
 	color:#808080;
 }
-span.red{
+.wowroster span.red{
 	font-weight:bold;
 	color:#ff2222;
 }
-span.orange{
+.wowroster span.orange{
 	font-weight:bold;
 	color:#FF9900;
 }
-span.purple {
+.wowroster span.purple {
 	font-weight:bold;
 	color:#8000ff;
 }
-span.blue {
+.wowroster span.blue {
 	font-weight:bold;
 	color:#0068ff;
 }
 
-.grey {
+.wowroster .grey {
 	color:#808080;
 }
-.yellow {
+.wowroster .yellow {
 	color:#cc9900;
 }
-.green {
+.wowroster .green {
 	color:#00bb00;
 }
-.blue {
+.wowroster .blue {
 	color:#0068ff;
 }
-.purple {
+.wowroster .purple {
 	color:#8000ff;
 }
-.white {
+.wowroster .white {
 	color:#ffffff;
 }
-.red {
+.wowroster .red {
 	color:#FF0000;
 }
-.gold {
+.wowroster .gold {
 	color:#FFCC00;
 }
 
-.iconwhite {
+.wowroster .iconwhite {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1274,7 +1284,7 @@ span.blue {
 	z-index:1;
 	border:2px solid #ffffff;
 }
-.icongrey {
+.wowroster .icongrey {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1282,7 +1292,7 @@ span.blue {
 	z-index:1;
 	border:2px solid #9d9d9d;
 }
-.icongreen {
+.wowroster .icongreen {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1290,7 +1300,7 @@ span.blue {
 	z-index:1;
 	border:2px solid #1eff00;
 }
-.iconblue {
+.wowroster .iconblue {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1298,7 +1308,7 @@ span.blue {
 	z-index:1;
 	border:2px solid #0070dd;
 }
-.iconpurple {
+.wowroster .iconpurple {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1317,17 +1327,17 @@ span.blue {
  * Character Page styles
 **********/
 
-a.charlink {
+.wowroster a.charlink {
 	font-weight:bold;
 	color:#22ff22;
 }
-a.title {
+.wowroster a.title {
 	color:#000000;
 }
-.menubar {
+.wowroster .menubar {
 	background-color:#000000;
 }
-.menubarHeader {
+.wowroster .menubarHeader {
 	text-align:center;
 	color:#CBA300;
 	font:12px arial,helvetica,sans-serif;
@@ -1339,40 +1349,40 @@ a.title {
 	white-space:nowrap;
 }
 
-.faction {
+.wowroster .faction {
 	font-family:verdana, arial, sans-serif;
 	font-size:10px;
 	color:#ffffff;
 }
-.atwar {
+.wowroster .atwar {
 	color:#FF0000;
 }
-.notatwar {
+.wowroster .notatwar {
 	font-family:verdana, arial, sans-serif;
 	font-size:8px;
 	color:#00FF00;
 }
 
-.rep {
+.wowroster .rep {
 	float:left;
 	height:20px;
 	width:360px;
 }
-.rep .repbox {
+.wowroster .rep .repbox {
 	position:relative;
 	left:0;
 	top:0;
 	width:360px;
 	height:20px;
 }
-.rep .repbox .repbg {
+.wowroster .rep .repbox .repbg {
 	position:absolute;
 	left:5px;
 	top:0;
 	width:360px;
 	height:20px
 }
-.rep .repbox .repbit {
+.wowroster .rep .repbox .repbit {
 	position:absolute;
 	left:1px;
 	top:1px;
@@ -1380,34 +1390,34 @@ a.title {
 	height:18px;
 }
 
-.skill {
+.wowroster .skill {
 	float:left;
 	height:20px;
 	width:360px;
 	background-color:#000000;
 }
-.skill .skillbox {
+.wowroster .skill .skillbox {
 	position:relative;
 	left:0;
 	top:0;
 	width:360px;
 	height:20px;
 }
-.skill .skillbox .bg {
+.wowroster .skill .skillbox .bg {
 	position:absolute;
 	left:5px;
 	top:0;
 	width:360px;
 	height:20px
 }
-.skill .skillbox .bit {
+.wowroster .skill .skillbox .bit {
 	position:absolute;
 	left:5px;
 	top:1px;
 	left:8px;
 	height:18px;
 }
-.skill .skillbox .name {
+.wowroster .skill .skillbox .name {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1417,7 +1427,7 @@ a.title {
 	font-weight:bold;
 	color:#aa9900;
 }
-.skill .skillbox .level {
+.wowroster .skill .skillbox .level {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1429,7 +1439,7 @@ a.title {
 	color:#ffffff;
 	font-weight:bold;
 }
-.skilltype {
+.wowroster .skilltype {
 	float:left;
 	height:12px;
 	padding:10px 2px 2px 10px;
@@ -1439,33 +1449,33 @@ a.title {
 	color:#ffffff;
 }
 
-.treename {
+.wowroster .treename {
 	float:left;
 	height:20px;
 	width:340px;
 }
-.treename .treenamebox {
+.wowroster .treename .treenamebox {
 	position:relative;
 	left:0;
 	top:0;
 	width:340px;
 	height:20px;
 }
-.treename .treenamebox .bg {
+.wowroster .treename .treenamebox .bg {
 	position:absolute;
 	left:5px;
 	top:0;
 	width:340px;
 	height:20px
 }
-.treename .treenamebox .bit {
+.wowroster .treename .treenamebox .bit {
 	position:absolute;
 	left:5px;
 	top:1px;
 	left:8px;
 	height:18px;
 }
-.treename .treenamebox .name {
+.wowroster .treename .treenamebox .name {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1475,7 +1485,7 @@ a.title {
 	font-weight:bold;
 	color:#aa9900;
 }
-.treename .treenamebox .level {
+.wowroster .treename .treenamebox .level {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1488,7 +1498,7 @@ a.title {
 	font-weight:bold;
 }
 
-.questtype {
+.wowroster .questtype {
 	float:left;
 	height:12px;
 	padding:10px 2px 2px 10px;
@@ -1497,33 +1507,33 @@ a.title {
 	font-weight:bold;
 	color:#ffffff;
 }
-.quest {
+.wowroster .quest {
 	float:left;
 	height:20px;
 	width:360px;
 }
-.quest .questbox {
+.wowroster .quest .questbox {
 	position:relative;
 	left:0;
 	top:0;
 	width:360px;
 	height:20px;
 }
-.quest .questbox .bg {
+.wowroster .quest .questbox .bg {
 	position:absolute;
 	left:5px;
 	top:0;
 	width:360px;
 	height:20px
 }
-.quest .questbox .bit {
+.wowroster .quest .questbox .bit {
 	position:absolute;
 	left:5px;
 	top:1px;
 	left:8px;
 	height:18px;
 }
-.quest .questbox .name {
+.wowroster .quest .questbox .name {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1533,7 +1543,7 @@ a.title {
 	font-weight:bold;
 	color:#aa9900;
 }
-.quest .questbox .level {
+.wowroster .quest .questbox .level {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1545,9 +1555,9 @@ a.title {
 	color:#ffffff;
 	font-weight:bold;
 }
-.quest_link {
+.wowroster .quest_link {
 }
-.quest_link a {
+.wowroster .quest_link a {
 	text-align:center;
 	padding-left:3px;
 	padding-right:3px;
@@ -1558,64 +1568,64 @@ a.title {
 	background-color:#2E2D2B;
 	text-decoration:none;
 }
-.quest_link a:active, .quest_link a:active {
+.wowroster .quest_link a:active, .quest_link a:active {
 /* Links in menu on-click */
 	background-color:#778899;
 }
-.quest_link a:hover, .quest_link a:hover {
+.wowroster .quest_link a:hover, .quest_link a:hover {
 /* Links in menu on-mouseover */
 	background-color:#7A7772;
 }
 
-.resistance {
+.wowroster .resistance {
 	color:#ffffff;
 	float:right;
 	margin-top:5px;
 	width:35px;
 	height:210px;
 }
-.resistance ul {
+.wowroster .resistance ul {
 	margin:0;
 	padding:0;
 }
-.resistance ul li {
+.wowroster .resistance ul li {
 	list-style-type:none;
 	font:11px verdana, tahoma, sans-serif;
 	font-weight:bold;
 	text-align:right;
 	position:relative;
 }
-.resistance .fire {
+.wowroster .resistance .fire {
 	background:url(../img/resfire.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.resistance .nature {
+.wowroster .resistance .nature {
 	background:url(../img/resnature.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.resistance .arcane {
+.wowroster .resistance .arcane {
 	background:url(../img/resarcane.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.resistance .frost {
+.wowroster .resistance .frost {
 	background:url(../img/resfrost.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.resistance .shadow {
+.wowroster .resistance .shadow {
 	background:url(../img/resshadow.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.resistance span {
+.wowroster .resistance span {
 	font:11px verdana, tahoma, sans-serif;
 	font-weight:bold;
 	text-align:right;
@@ -1623,11 +1633,11 @@ a.title {
 	float:left;
 }
 
-.health_mana {
+.wowroster .health_mana {
 	margin-top:10px;
 	margin-left:5px;
 }
-.health_mana .mana {
+.wowroster .health_mana .mana {
 	background:url(../img/mana_background.gif) no-repeat;
 	height:27px;
 	width:125px;
@@ -1635,7 +1645,7 @@ a.title {
 	padding-top:7px;
 	padding-left:30px;
 }
-.health_mana .health {
+.wowroster .health_mana .health {
 	background:url(../img/health_background.gif) no-repeat;
 	height:27px;
 	width:125px;
@@ -1643,49 +1653,49 @@ a.title {
 	padding-top:7px;
 	padding-left:30px;
 }
-.health span {
+.wowroster .health span {
 	font-size:10px;
 }
-.mana span {
+.wowroster .mana span {
 	font-size:10px;
 }
 
-.talentPoints {
+.wowroster .talentPoints {
 	font-weight:bold;
 	font-size:10px;
 	margin-left:5px;
 	height:130px;
 	overflow:hidden;
 }
-.talentPoints span {
+.wowroster .talentPoints span {
 	font-size:10px;
 }
 
 /**********
 * Character tabs
 **********/
-.char {
+.wowroster .char {
 	width:405px;
 	height:560px;
 }
-.char .main {
+.wowroster .char .main {
 	width:405px;
 	height:500px;
 	background:url(../img/borderbottomsides.gif) no-repeat;
 	background-position:center bottom;
 }
-.char .main .top {
+.wowroster .char .main .top {
 	width:405px;
 	height:70px;
 	text-align:center;
 	background:url(../img/bgtop.gif) no-repeat;
 	overflow:hidden;
 }
-.char .main .page1 {
+.wowroster .char .main .page1 {
 	float:left;
 	width:405px;
 }
-.char .main .page1 .left {
+.wowroster .char .main .page1 .left {
 	float:left;
 	width:62px;
 	height:430px;
@@ -1694,7 +1704,7 @@ a.title {
 	overflow:hidden;
 	clear:none;
 }
-.char .main .page1 .right {
+.wowroster .char .main .page1 .right {
 	float:left;
 	width:62px;
 	height:430px;
@@ -1702,7 +1712,7 @@ a.title {
 	background-position:right top;
 	overflow:hidden;
 }
-.char .main .page1 .left .equip {
+.wowroster .char .main .page1 .left .equip {
 	float:left;
 	width:52px;
 	height:43px;
@@ -1710,19 +1720,19 @@ a.title {
 	background:url(../img/bgitem.gif) no-repeat;
 	background-position:3px 0;
 }
-.char .main .page1 .right .equip {
+.wowroster .char .main .page1 .right .equip {
 	float:left;
 	width:52px;
 	height:43px;
 	padding:3px 0 3px 7px;
 	background:url(../img/bgitem.gif) no-repeat;
 }
-.char .main .page1 .middle {
+.wowroster .char .main .page1 .middle {
 	float:left;
 	width:280px;
 	height:430px;
 }
-.char .main .page1 .middle .portrait {
+.wowroster .char .main .page1 .middle .portrait {
 	float:left;
 	width:280px;
 	height:240px;
@@ -1730,39 +1740,39 @@ a.title {
 	background:url(../img/bgchar.gif) no-repeat;
 	color:#DFB801;
 }
-.char .main .page1 .middle .portrait li {
+.wowroster .char .main .page1 .middle .portrait li {
 	list-style-type:none;
 	padding:1px 0 0 6px;
 	text-align:left;
 	font:12px georgia,tahoma,sans-serif;
 	font-weight:bold;
 }
-.char .main .page1 .middle .portrait li ul {
+.wowroster .char .main .page1 .middle .portrait li ul {
 	list-style-type:none;
 	padding:0;
 	margin:0;
 }
-.char .main .page1 .middle .portrait ul li span {
+.wowroster .char .main .page1 .middle .portrait ul li span {
 	float:right;
 	font-family:georgia,tahoma,sans-serif;
 	padding:0 6px 0 0;
 	margin-top:-15px;
 }
-.char .main .page1 .middle .portrait ul li ul li span {
+.wowroster .char .main .page1 .middle .portrait ul li ul li span {
 	color:#ffffff;
 }
-.char .main .page1 .middle .bottom {
+.wowroster .char .main .page1 .middle .bottom {
 	float:left;
 	width:280px;
 	height:170px;
 }
-.char .main .page1 .middle .bottom .padding {
+.wowroster .char .main .page1 .middle .bottom .padding {
 	height:100px;
 	padding:0 2px 0 2px;
 	background:url(../img/bgstats.gif) no-repeat;
 	background-position:0 0px;
 }
-.char .main .page1 .middle .bottom .padding .stats {
+.wowroster .char .main .page1 .middle .bottom .padding .stats {
 	float:left;
 	width:138px;
 	height:100px;
@@ -1771,69 +1781,69 @@ a.title {
 	list-style-type:none;
 	color:#DFB801;
 }
-.char .main .page1 .middle .bottom .padding .stats li {
+.wowroster .char .main .page1 .middle .bottom .padding .stats li {
 	list-style-type:none;
 	padding:1.9px 0 0 6px;
 	text-align:left;
 	font:11px georgia,tahoma,sans-serif;
 	font-weight:bold;
 }
-.char .main .page1 .middle .bottom .padding .stats li ul {
+.wowroster .char .main .page1 .middle .bottom .padding .stats li ul {
 	list-style-type:none;
 	padding:0;
 	margin:0;
 }
-.char .main .page1 .middle .bottom .padding .stats li span, .stats ul li span {
+.wowroster .char .main .page1 .middle .bottom .padding .stats li span, .stats ul li span {
 	float:right;
 	font-family:georgia,tahoma,sans-serif;
 	padding:0 6px 0 0;
 	margin-top:-15px;
 }
-.char .main .page1 .middle .bottom .padding .stats ul li ul li span {
+.wowroster .char .main .page1 .middle .bottom .padding .stats ul li ul li span {
 	color:#ffffff;
 }
-.char .main .page1 .middle .bottom .hands {
+.wowroster .char .main .page1 .middle .bottom .hands {
 	height:70px;
 	width:280px;
 	background:url(../img/bghands.gif) no-repeat;
 }
-.char .main .page1 .middle .bottom .hands .weapon0 {
+.wowroster .char .main .page1 .middle .bottom .hands .weapon0 {
 	padding:16px 0 0 69px;
 	float:left;
 }
-.char .main .page1 .middle .bottom .hands .weapon1 {
+.wowroster .char .main .page1 .middle .bottom .hands .weapon1 {
 	padding:16px 0 0 11px;
 	float:left;
 }
-.char .main .page1 .middle .bottom .hands .weapon2 {
+.wowroster .char .main .page1 .middle .bottom .hands .weapon2 {
 	padding:16px 0 0 10px;
 	float:left;
 }
-.char .main .page1 .middle .bottom .hands .ammo {
+.wowroster .char .main .page1 .middle .bottom .hands .ammo {
 	padding:21px 0 0 21px;
 	float:left;
 }
 
-.char .main .page2 {
+.wowroster .char .main .page2 {
 	float:left;
 	width:405px;
 	display:none;
 }
-.char .main .page2 .left {
+.wowroster .char .main .page2 .left {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderleft.gif) repeat-y;
 	background-position:left top;
 }
-.char .main .page2 .right {
+.wowroster .char .main .page2 .right {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderright.gif) repeat-y;
 	background-position:right top;
 }
-.char .main .page2 .pet {
+.wowroster .char .main .page2 .pet {
 	float:left;
 	text-align:right;
 	position:relative;
@@ -1845,26 +1855,26 @@ a.title {
 	color:#DFB801;
 }
 
-.char .main .page3 {
+.wowroster .char .main .page3 {
 	float:left;
 	width:405px;
 	display:none;
 }
-.char .main .page3 .left {
+.wowroster .char .main .page3 .left {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderleft.gif) repeat-y;
 	background-position:left top;
 }
-.char .main .page3 .right {
+.wowroster .char .main .page3 .right {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderright.gif) repeat-y;
 	background-position:right top;
 }
-.char .main .page3 .reputation {
+.wowroster .char .main .page3 .reputation {
 	float:left;
 	position:relative;
 	height:430px;
@@ -1875,7 +1885,7 @@ a.title {
 	background-repeat:repeat;
 	background-position:top left;
 }
-.char .main .page3 .faction {
+.wowroster .char .main .page3 .faction {
 	position:absolute;
 	left:5px;
 	top:0;
@@ -1885,7 +1895,7 @@ a.title {
 	font-weight:bold;
 	color:#aa9900;
 }
-.char .main .page3 .war {
+.wowroster .char .main .page3 .war {
 	position:absolute;
 	right:0px;
 	top:0;
@@ -1895,7 +1905,7 @@ a.title {
 	font-weight:bold;
 	color:#FF0000;
 }
-.char .main .page3 .nowar {
+.wowroster .char .main .page3 .nowar {
 	position:absolute;
 	right:0px;
 	top:0;
@@ -1905,7 +1915,7 @@ a.title {
 	font-weight:bold;
 	color:#00FF00;
 }
-.char .main .page3 .value {
+.wowroster .char .main .page3 .value {
 	position:absolute;
 	left:150px;
 	top:0;
@@ -1918,26 +1928,26 @@ a.title {
 	font-weight:bold;
 }
 
-.char .main .page4 {
+.wowroster .char .main .page4 {
 	float:left;
 	display:none;
 	width:405px;
 }
-.char .main .page4 .left {
+.wowroster .char .main .page4 .left {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderleft.gif) repeat-y;
 	background-position:left top;
 }
-.char .main .page4 .right {
+.wowroster .char .main .page4 .right {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderright.gif) repeat-y;
 	background-position:right top;
 }
-.char .main .page4 .skills {
+.wowroster .char .main .page4 .skills {
 	float:left;
 	position:relative;
 	height:430px;
@@ -1949,25 +1959,25 @@ a.title {
 	background-position:top left;
 }
 
-.char .main .page5 {
+.wowroster .char .main .page5 {
 	display:none;
 	width:405px;
 }
-.char .main .page5 .left {
+.wowroster .char .main .page5 .left {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderleft.gif) repeat-y;
 	background-position:left top;
 }
-.char .main .page5 .right {
+.wowroster .char .main .page5 .right {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderright.gif) repeat-y;
 	background-position:right top;
 }
-.char .main .page5 .talents {
+.wowroster .char .main .page5 .talents {
 	float:left;
 	position:relative;
 	height:430px;
@@ -1976,34 +1986,34 @@ a.title {
 	background-color:#000000;
 }
 
-.char .main .page6 {
+.wowroster .char .main .page6 {
 	float:left;
 	display:none;
 	width:405px;
 }
 /* Hide from IE5-mac. Only IE-win sees this. \*/
-* html .char .main .page6 {
+* html .wowroster .char .main .page6 {
 	position:absolute;
 	float:left;
 	display:none;
 }
 /* End hide from IE5/mac */
 
-.char .main .page6 .left {
+.wowroster .char .main .page6 .left {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderleft.gif) repeat-y;
 	background-position:left top;
 }
-.char .main .page6 .right {
+.wowroster .char .main .page6 .right {
 	float:left;
 	width:4px;
 	height:430px;
 	background:url(../img/borderright.gif) repeat-y;
 	background-position:right top;
 }
-.char .main .page6 .honor {
+.wowroster .char .main .page6 .honor {
 	position:relative;
 	float:left;
 	height:430px;
@@ -2012,10 +2022,10 @@ a.title {
 	background:url(../img/bghonor.jpg) no-repeat;
 	background-position:center center;
 }
-.char .main .page6 .honor .honortitleoff {
+.wowroster .char .main .page6 .honor .honortitleoff {
 	padding-top:18px;
 }
-.char .main .page6 .honor .honortitle {
+.wowroster .char .main .page6 .honor .honortitle {
 	float:left;
 	font-size:14px;
 	color:#FFCC00;
@@ -2023,14 +2033,14 @@ a.title {
 	width:397px;
 	text-align:center;
 }
-.char .main .page6 .honor .honortitle .honor_bit {
+.wowroster .char .main .page6 .honor .honortitle .honor_bit {
 	position:absolute;
 	vertical-align:middle;
 	left:3px;
 	height:30px;
 	z-index:-2;
 }
-.char .main .page6 .honor .today {
+.wowroster .char .main .page6 .honor .today {
 	float:left;
 	padding:25px 0 0 15px;
 	width:350px;
@@ -2038,14 +2048,14 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext0_ {
+.wowroster .char .main .page6 .honor .honortext0_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext0 {
+.wowroster .char .main .page6 .honor .honortext0 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2053,14 +2063,14 @@ a.title {
 	color:#00FF00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext1_ {
+.wowroster .char .main .page6 .honor .honortext1_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext1 {
+.wowroster .char .main .page6 .honor .honortext1 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2068,7 +2078,7 @@ a.title {
 	color:#FF0000;
 	font-weight:bold;
 }
-.char .main .page6 .honor .yesterday {
+.wowroster .char .main .page6 .honor .yesterday {
 	float:left;
 	padding:18px 0 0 15px;
 	width:350px;
@@ -2076,14 +2086,14 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext2_ {
+.wowroster .char .main .page6 .honor .honortext2_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext2 {
+.wowroster .char .main .page6 .honor .honortext2 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2091,14 +2101,14 @@ a.title {
 	color:#00FF00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext3_ {
+.wowroster .char .main .page6 .honor .honortext3_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext3 {
+.wowroster .char .main .page6 .honor .honortext3 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2106,7 +2116,7 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .thisweek {
+.wowroster .char .main .page6 .honor .thisweek {
 	float:left;
 	padding:26px 0 0 15px;
 	width:350px;
@@ -2114,14 +2124,14 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext4_ {
+.wowroster .char .main .page6 .honor .honortext4_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext4 {
+.wowroster .char .main .page6 .honor .honortext4 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2129,14 +2139,14 @@ a.title {
 	color:#00FF00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext5_ {
+.wowroster .char .main .page6 .honor .honortext5_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext5 {
+.wowroster .char .main .page6 .honor .honortext5 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2144,7 +2154,7 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .lastweek {
+.wowroster .char .main .page6 .honor .lastweek {
 	float:left;
 	padding:23px 0 0 15px;
 	width:350px;
@@ -2152,14 +2162,14 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext6_ {
+.wowroster .char .main .page6 .honor .honortext6_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext6 {
+.wowroster .char .main .page6 .honor .honortext6 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2167,14 +2177,14 @@ a.title {
 	color:#00FF00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext7_ {
+.wowroster .char .main .page6 .honor .honortext7_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext7 {
+.wowroster .char .main .page6 .honor .honortext7 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2182,14 +2192,14 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext8_ {
+.wowroster .char .main .page6 .honor .honortext8_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext8 {
+.wowroster .char .main .page6 .honor .honortext8 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2197,7 +2207,7 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .alltime {
+.wowroster .char .main .page6 .honor .alltime {
 	float:left;
 	padding:38px 0 0 15px;
 	width:350px;
@@ -2205,14 +2215,14 @@ a.title {
 	color:#FFCC00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext9_ {
+.wowroster .char .main .page6 .honor .honortext9_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext9 {
+.wowroster .char .main .page6 .honor .honortext9 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2220,14 +2230,14 @@ a.title {
 	color:#00FF00;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext10_ {
+.wowroster .char .main .page6 .honor .honortext10_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext10 {
+.wowroster .char .main .page6 .honor .honortext10 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2235,14 +2245,14 @@ a.title {
 	color:#FF0000;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext11_ {
+.wowroster .char .main .page6 .honor .honortext11_ {
 	float:left;
 	padding-left:25px;
 	width:200px;
 	color:#FFFFFF;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext11 {
+.wowroster .char .main .page6 .honor .honortext11 {
 	float:right;
 	padding-right:20px;
 	width:100px;
@@ -2251,7 +2261,7 @@ a.title {
 	font-weight:bold;
 }
 
-.char .bottomBorder {
+.wowroster .char .bottomBorder {
 	float:left;
 	width:405px;
 	height:10px;
@@ -2260,13 +2270,13 @@ a.title {
 	font-size:0px;
 }
 
-.char .tabs {
+.wowroster .char .tabs {
 	width:405px;
 	height:20px;
 	float:left;
 	padding:0 0 0 5px ;
 }
-.char .tabs .tab {
+.wowroster .char .tabs .tab {
 	float:left;
 	width:56px;
 	height:15px;
@@ -2285,14 +2295,14 @@ a.title {
 /**********
  * CHAR.PHP - PET TAB - function printPet()
 **********/
-.petName{
+.wowroster .petName{
 	position:absolute;
 	font-family:sans-serif;
 	font-weight:bold;
 	font-size:12px;
 	color:#FFC000;
 }
-.petTrainingPts{
+.wowroster .petTrainingPts{
 	font-family:sans-serif;
 	font-weight:bold;
 	font-size:12px;
@@ -2300,17 +2310,17 @@ a.title {
 	white-space:nowrap;
 	display:none;
 }
-.petStatsTableStatname{
+.wowroster .petStatsTableStatname{
 	text-align:left;
 	color:#FFC000;
 	white-space:nowrap;
 }
-.petStatsTableStatValue{
+.wowroster .petStatsTableStatValue{
 	text-align:right;
 	color:#FFFFFF;
 	white-space:nowrap;
 }
-.petStatsBg{
+.wowroster .petStatsBg{
 	position:absolute;
 	top:150px;
 	left:35px;
@@ -2320,34 +2330,34 @@ a.title {
 	background-position:center;
 	display:none;
 }
-.pet_xp {
+.wowroster .pet_xp {
 	float:left;
 	height:15px;
 	width:381px;
 	display:none;
 }
-.pet_xp .pet_xpbox {
+.wowroster .pet_xp .pet_xpbox {
 	position:absolute;
 	left:6px;
 	top:392px;
 	width:381px;
 	height:15px;
 }
-.pet_xp .pet_xpbox .pet_bg {
+.wowroster .pet_xp .pet_xpbox .pet_bg {
 	position:absolute;
 	left:0px;
 	top:0;
 	width:381px;
 	height:15px
 }
-.pet_xp .pet_xpbox .pet_bit {
+.wowroster .pet_xp .pet_xpbox .pet_bit {
 	position:absolute;
 	left:0px;
 	top:1px;
 	left:3px;
 	height:12px;
 }
-.pet_xp .pet_xpbox .pet_xp_name {
+.wowroster .pet_xp .pet_xpbox .pet_xp_name {
 	position:absolute;
 	left:0px;
 	top:0;
@@ -2357,7 +2367,7 @@ a.title {
 	font-weight:bold;
 	color:#ffffff;
 }
-.pet_xp .pet_xpbox .pet_xp_level {
+.wowroster .pet_xp .pet_xpbox .pet_xp_level {
 	position:absolute;
 	left:0px;
 	top:0;
@@ -2369,7 +2379,7 @@ a.title {
 	color:#ffffff;
 	font-weight:bold;
 }
-.pet_resistance {
+.wowroster .pet_resistance {
 	float:right;
 	margin-top:20px;
 	position:absolute;
@@ -2378,36 +2388,36 @@ a.title {
 	height:190px;
 	display:none;
 }
-.pet_resistance ul li {
+.wowroster .pet_resistance ul li {
 	list-style-type:none;
 	font-weight:bold;
 	text-align:center;
 }
-.pet_resistance .pet_fire {
+.wowroster .pet_resistance .pet_fire {
 	background:url(../img/resfire.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.pet_resistance .pet_nature {
+.wowroster .pet_resistance .pet_nature {
 	background:url(../img/resnature.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.pet_resistance .pet_arcane {
+.wowroster .pet_resistance .pet_arcane {
 	background:url(../img/resarcane.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.pet_resistance .pet_frost {
+.wowroster .pet_resistance .pet_frost {
 	background:url(../img/resfrost.gif) no-repeat;
 	height:27px;
 	width:27px;
 	padding:2px;
 }
-.pet_resistance .pet_shadow {
+.wowroster .pet_resistance .pet_shadow {
 	background:url(../img/resshadow.gif) no-repeat;
 	height:27px;
 	width:27px;
@@ -2420,12 +2430,12 @@ a.title {
 /**********
  * Talent section
 **********/
-.talenticon {
+.wowroster .talenticon {
 	width:40px;
 	height:40px;
 	padding:1px 0 0 0;
 }
-.talenticonGreyed {
+.wowroster .talenticonGreyed {
 	width:40px;
 	height:40px;
 	padding:1px 0 0 0;
@@ -2433,7 +2443,7 @@ a.title {
 	/* Filter:Gray only works in IE, no Mozilla, so we do this to half-assed grey it out in Mozilla */
 	-moz-opacity:0.5;
 }
-#talentpage1 {
+.wowroster #talentpage1 {
 	background-attachment:fixed;
 	left:0px;
 	overflow:auto;
@@ -2443,7 +2453,7 @@ a.title {
 	top:5px;
 	height:370px;
 }
-#talentpage2 {
+.wowroster #talentpage2 {
 	background-attachment:fixed;
 	left:0px;
 	overflow:auto;
@@ -2453,7 +2463,7 @@ a.title {
 	top:5px;
 	height:370px;
 }
-#talentpage3 {
+.wowroster #talentpage3 {
 	background-attachment:fixed;
 	left:0px;
 	overflow:auto;
@@ -2463,7 +2473,7 @@ a.title {
 	top:5px;
 	height:370px;
 }
-#talentwrapper1 {
+.wowroster #talentwrapper1 {
 	display:block;
 	left:10px;
 	right:10px;
@@ -2472,7 +2482,7 @@ a.title {
 	top:10px;
 	height:355px;
 }
-#talentwrapper2 {
+.wowroster #talentwrapper2 {
 	display:none;
 	left:10px;
 	right:10px;
@@ -2481,7 +2491,7 @@ a.title {
 	top:10px;
 	height:355px;
 }
-#talentwrapper3 {
+.wowroster #talentwrapper3 {
 	display:none;
 	left:10px;
 	right:10px;
@@ -2490,52 +2500,52 @@ a.title {
 	top:10px;
 	height:355px;
 }
-#tlab1 {
+.wowroster #tlab1 {
 	left:1px;
 	width:115px;
 	position:absolute;
 	top:400px;
 	text-align:center;
 }
-#tlab2 {
+.wowroster #tlab2 {
 	left:135px;
 	width:115px;
 	position:absolute;
 	top:400px;
 	text-align:center;
 }
-#tlab3 {
+.wowroster #tlab3 {
 	left:265px;
 	width:115px;
 	position:absolute;
 	top:400px;
 	text-align:center;
 }
-#tlabbg1 {
+.wowroster #tlabbg1 {
 	left:1px;
 	position:absolute;
 	top:390px;
 }
-#tlabbg2 {
+.wowroster #tlabbg2 {
 	left:138px;
 	position:absolute;
 	top:390px;
 }
-#tlabbg3 {
+.wowroster #tlabbg3 {
 	left:268px;
 	position:absolute;
 	top:390px;
 }
-.tablabel {
+.wowroster .tablabel {
 	cursor:pointer;
 	font-weight:bold;
 }
-.talspent {
+.wowroster .talspent {
 	left:-4px;
 	position:relative;
 	top:2px;
 }
-.talvalue {
+.wowroster .talvalue {
 	font-weight:bold;
 	text-align:center;
 	background-image:url(../img/talent_rank.gif);
@@ -2546,23 +2556,23 @@ a.title {
 	position:absolute;
 	top:30px;
 }
-.talicon {
+.wowroster .talicon {
 	left:0px;
 	width:40px;
 	position:absolute;
 	height:40px;
 	Border:0;
 }
-.taldiv {
+.wowroster .taldiv {
 	width:40px;
 	position:absolute;
 	top:5px;
 	height:40px;
 }
-.tlink {
+.wowroster .tlink {
 	TEXT-DECORATION:none;
 }
-.tbar {
+.wowroster .tbar {
 	left:1px;
 	position:absolute;
 	top:390px;
@@ -2575,14 +2585,14 @@ a.title {
 /******
  * CHAR.PHP - SPELLBOOK - function show_spellbook()
 ******/
-.spell_panel {
+.wowroster .spell_panel {
 /* Background image for character tab */
 	background-image:url(../img/spellbook/background.gif);
 	background-repeat:no-repeat;
 	width:344px;
 	height:434px;
 }
-.spell_panel_name {
+.wowroster .spell_panel_name {
 /* Style and placement of Spellbook */
 	color:#FFFFFF;
 	font-size:13px;
@@ -2592,7 +2602,7 @@ a.title {
 	margin:13px 0 0 68px;
 	width:270px;
 }
-.spell_page_back {
+.wowroster .spell_page_back {
 /* Style and placement of Back Page Button */
 	text-align:left;
 	font-weight:bold;
@@ -2602,12 +2612,12 @@ a.title {
 	margin-left:30px;
 	cursor:pointer;
 }
-.spell_page_back .navicon {
+.wowroster .spell_page_back .navicon {
 /* Style and placement of Back Page Button */
 	width:26px;
 	height:26px;
 }
-.spell_page_forward {
+.wowroster .spell_page_forward {
 /* Style and placement of Forward Page Button */
 	text-align:right;
 	font-weight:bold;
@@ -2617,12 +2627,12 @@ a.title {
 	margin-left:220px;
 	cursor:pointer;
 }
-.spell_page_forward .navicon {
+.wowroster .spell_page_forward .navicon {
 /* Style and placement of Back Page Button */
 	width:26px;
 	height:26px;
 }
-.spell_pagenumber {
+.wowroster .spell_pagenumber {
 /* Style and placement of Back Page Button */
 	color:#ffd200;
 	text-align:center;
@@ -2632,21 +2642,21 @@ a.title {
 	margin-top:395px;
 	margin-left:120px;
 }
-.spell_skill_tab_bar {
+.wowroster .spell_skill_tab_bar {
 /* Position of the tab bar to place all the tabs */
 	position:absolute;
 	font-family:Arial, Helvetica, sans-serif;
 	margin-top:58px;
 	margin-left:344px;
 }
-.spell_skill_tab {
+.wowroster .spell_skill_tab {
 /* Tab background */
 	background-image:url(../img/spellbook/skilltab.gif);
 	background-repeat:no-repeat;
 	height:49px;
 	width:38px;
 }
-.spell_skill_tab_icon {
+.wowroster .spell_skill_tab_icon {
 /* Tab background for inactive tabs */
 	width:34px;
 	height:34px;
@@ -2654,29 +2664,29 @@ a.title {
 	margin-left:1px;
 	cursor:pointer;
 }
-.spell_container_1 {
+.wowroster .spell_container_1 {
 /* Position of the spells on the left side */
 	position:absolute;
 	margin-top:78px;
 	margin-left:25px;
 }
-.spell_container_2 {
+.wowroster .spell_container_2 {
 /* Position of the spells on the right side */
 	position:absolute;
 	margin-top:78px;
 	margin-left:182px;
 }
-.spell_info_container {
+.wowroster .spell_info_container {
 /* Spell Info container */
 	width:155px;
 	height:44px;
 }
-.spell_info_container .icon {
+.wowroster .spell_info_container .icon {
 /* Spell Icon */
 	width:41px;
 	height:41px;
 }
-.spell_info_container .text {
+.wowroster .spell_info_container .text {
 /* Spell Icon text */
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:10px;
@@ -2685,14 +2695,59 @@ a.title {
 	margin-top:4px;
 	margin-left:4px;
 }
-.spellYellow {
+.wowroster .spellYellow {
 	color:#ffd517;
 	font-weight:bold;
 }
-.spellBrown {
+.wowroster .spellBrown {
 	color:#593300;
 	font-weight:bold;
 }
+.wowroster .iconwhite {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #ffffff;
+}
+
+.wowroster .icongrey {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #9d9d9d;
+}
+
+.wowroster .icongreen {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #1eff00;
+}
+
+.wowroster .iconblue {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #0070dd;
+}
+
+.wowroster .iconpurple {
+  float: left;
+  width: 39px;
+  height: 39px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+  border: 1px solid #aa00dd;
+}
+
 /******
  * CHAR.PHP - END SPELLBOOK - function show_spellbook()
 ******/
@@ -2703,24 +2758,26 @@ a.title {
 
 
 /*********** Overlib Tooltip styles ***********/
-.overlib_fg {
+ .overlib_fg {
 /* Sets main text background */
 /* ol_fgclass */
 	background-color:#000000;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=75);
+	-moz-opacity: 0.75;
 }
-.overlib_border {
+ .overlib_border {
 /* Sets the border style */
 /* ol_bgclass */
 	border:1px outset white;
 }
-.overlib_maintext {
+ .overlib_maintext {
 /* Sets main text style */
 /* ol_textfontclass */
 	color:#FFFFFF;
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:10px;
 }
-.overlib_captiontext {
+ .overlib_captiontext {
 /* ol_captionfontclass */
 	color:#FFFFFF;
 	background-color:#2E2D2B;
@@ -2728,7 +2785,7 @@ a.title {
 	font-size:10px;
 	font-weight:bold;
 }
-.overlib_closetext {
+ .overlib_closetext {
 /* ol_closefontclass */
 	color:#FFFFFF;
 	background-color:#2E2D2B;

@@ -72,13 +72,13 @@ I'm sorry, but you need some kind of a password set in Roster Config to get in",
 
 // ----[ Check log-in ]-------------------------------------
 require_once(ROSTER_LIB.'login.php');
-$roster_login = new RosterLogin($script_filename);
+$roster_login = new RosterAdminLogin($script_filename);
 
 if( !$roster_login->getAuthorized() )
 {
 	print
-	'<br />'.
-	'<span class="title_text">SigGen Config</span><br />'.
+	//'<br />'.
+	//'<span class="title_text">SigGen Config</span><br />'.
 	$roster_login->getMessage().
 	$roster_login->getLoginForm();
 
@@ -441,7 +441,7 @@ print $java.
 '<span class="title_text">SigGen Config</span><br />'.
 $roster_login->getMessage().'<br />'.
 $messages.'
-<table width="100%" class="bodyline">
+<table width="100%" class="wowroster">
   <tr>
     <td width="140" rowspan="2" valign="top" align="left">
       '.$conf_sel.'<br />

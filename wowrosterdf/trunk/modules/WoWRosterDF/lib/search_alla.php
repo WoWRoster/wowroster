@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 ?>
 <!-- BEGIN THOT SEARCH BOX -->
 <?php print border('sorange','start'); ?>
-<table cellspacing="0" cellpadding="4" border="0" class="bodyline">
+<table cellspacing="0" cellpadding="4" border="0" class="wowroster">
   <tr>
     <td valign="middle" class="membersRowRight1">
       <p align="center">

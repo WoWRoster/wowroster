@@ -214,7 +214,7 @@ function output_pvp_summary($pvps,$type)
 
 	$returnstring = '
 '.border('sgray','start','<h3>'.$type.' Log</h3>').'
-<table class="bodyline" width="280" cellspacing="0">
+<table class="wowroster" width="280" cellspacing="0">
 	<tr>
 		<td class="membersRow2" width="200">'.$wordings[$roster_conf['roster_lang']]['totalwins'].'</td>
 		<td class="membersRowRight2" width="80">'.$tot_wins.'</td>
@@ -406,7 +406,7 @@ border('sorange','end').
 '</div>
 <div id="'.$bgname.'" style="display:none">
 '.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'minus.gif" style="float:right;" />'.$wordings[$roster_conf['roster_lang']][$bgname].'</div>').
-"			<table width='100%' cellpadding='0' cellspacing='0' class='bodyline'>
+"			<table width='100%' cellpadding='0' cellspacing='0' class='wowroster'>
 				<tr>
 					<td class='membersRow2'>".$wordings[$roster_conf['roster_lang']]['wins']."</td>
 					<td class='membersRowRight2' style='white-space:normal;'>".$wins."</td>
@@ -766,7 +766,7 @@ function output_pvp2($pvps,$url,$type)
 	global $wordings, $roster_conf;
 
 	$returnstring = '
-<table class="bodyline" cellspacing="0">
+<table class="wowroster" cellspacing="0">
 	<tr>
 		<th class="membersHeader">'.$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a></th>
 		<th class="membersHeader">'.$url.'&amp;s=class">'.$wordings[$roster_conf['roster_lang']]['class'].'</a> /

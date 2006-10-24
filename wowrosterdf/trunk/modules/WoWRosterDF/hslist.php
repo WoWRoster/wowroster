@@ -15,7 +15,10 @@
  * $Id$
  *
  ******************************/
-
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
 
 //---[ Check for Guild Info ]------------
@@ -36,7 +39,7 @@ $tableHeader = "\n".'<!-- Begin HSLIST -->
 </div>
 <div id="HSLIST_full"'.$pvp_hs_full.'>
 '.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('HSLIST_col','HSLIST_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$roster_conf['guild_name'].$wordings[$roster_conf['roster_lang']]['hslist'].'</div>').'
-<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">'."\n";
+<table width="100%" cellpadding="0" cellspacing="0" class="wowroster">'."\n";
 
 $tableFooter = "</table>\n".border('sgray','end')."\n</div>\n<!-- End HSLIST -->\n";
 

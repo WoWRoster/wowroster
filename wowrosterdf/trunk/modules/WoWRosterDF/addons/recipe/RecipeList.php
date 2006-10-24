@@ -108,7 +108,7 @@ if (isset($_REQUEST["proffilter"]))
 				$first_table = false;
 
 				$content .= border('syellow','start','<a href="index.php?name='.$module_name.'&file=addon&roster_addon_name=recipe#top_menu" id="'.$recipe_type.'">'.$recipe_type.'</a>').
-					'<table class="bodyline" cellspacing="0">'."\n";
+					'<table class="wowroster" cellspacing="0">'."\n";
 
 				//$content .= '<tr>'."\n";
 				//$content .= '<td colspan="14" class="membersHeaderRight"><div align="center"></div></td>'."\n";

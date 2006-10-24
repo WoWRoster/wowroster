@@ -57,6 +57,7 @@ if( file_exists($addonFile) )
 	if( file_exists($cssFile) )
 	{
 		$css = '/addons/'.$_REQUEST['roster_addon_name'].'/default.css';
+		$css = '/addons/'.$_REQUEST['roster_addon_name'].'/styles.css';
 	}
 
 	// Include localization variables

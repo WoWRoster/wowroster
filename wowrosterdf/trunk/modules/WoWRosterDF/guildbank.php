@@ -35,7 +35,8 @@
 // Multiple edits done for http://wowroster.net Roster
 
 require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
-
+$url = '<a href="'.getlink('&amp;file=');
+if( $roster_conf['show_bank'] && is_user()){
 //---[ Check for Guild Info ]------------
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 if( empty($guild_info) )
@@ -80,9 +81,30 @@ while ($row2 = $wowdb->fetch_array($result2))
 	$mains[$row2['member_name']]=$row2['member_note'];
 }
 
+
 include_once (ROSTER_LIB.'menu.php');
 echo "<br />\n";
 
+
+$menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
+
+print '<div align="center">'."\n";
+
+
+print border('sorange','start','Guild Bank');
+
+print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
+
+echo $menu_cell.$url.'addon&roster_addon_name=guildbank">Catagreized Bank</a></td>'."\n";	
+echo $menu_cell.$url.'guildbank2">Bankers</a></td>'."\n";
+echo $menu_cell.$url.'guildbank">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></td>'."\n";
+
+
+print "  </tr>\n</table>\n";
+
+print border('sorange','end');
+
+echo '<br>';
 if ( $roster_conf['bank_money'] )
 {
 	$mulemoney = $wowdb->fetch_array($wowdb->query(
@@ -116,7 +138,7 @@ $mulemoney['gold'] = $mulemoney['gold']+$addgold;
 <br />';
 }
 
-echo border('sgray','start').'<table class="bodyline" cellspacing="0" cellpadding="0">
+echo border('sgray','start').'<table class="wowroster" cellspacing="0" cellpadding="0">
   <tr>
     <th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['guildbankcontact'].'</th>
     <th colspan="2" class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['guildbankitem'].'</th>
@@ -210,4 +232,41 @@ while($row = $wowdb->fetch_array($result))
 echo "</table>\n".border('sgray','end');
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
+}
+else {
+    include_once(ROSTER_BASE.'roster_header.tpl');
+	include_once(ROSTER_LIB.'menu.php');
+	$menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
+
+print '<div align="center">'."\n";
+
+
+print border('sorange','start', $wordings[$roster_conf['roster_lang']]['guildbank']);
+
+print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
+
+echo $menu_cell.$url.'addon&roster_addon_name=guildbank">Categorized Bank</a></td>'."\n";	
+echo $menu_cell.$url.'guildbank2">Bankers</a></td>'."\n";
+echo $menu_cell.$url.'guildbank">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></td>'."\n";
+
+
+print "  </tr>\n</table>\n";
+
+print border('sorange','end');
+require_once(ROSTER_LIB.'login.php');
+$roster_login = new RosterUserLogin($script_filename);
+
+if( !$roster_login->getAuthorized() )
+{
+	print
+	//'<br />'.
+	//'<span class="title_text">SigGen Config</span><br />'.
+	$roster_login->getMessage().
+	$roster_login->getLoginForm();
+
+	return;
+}
+
+    include_once(ROSTER_BASE.'roster_footer.tpl');}
+
 ?>

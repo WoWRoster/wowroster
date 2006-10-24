@@ -3,10 +3,7 @@
  * $Id$
  *******************************/
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
-{
-	die("You can't access this file directly!");
-}
+if (!defined('CPG_NUKE')) { exit; }
 
 
 //------[ Show the SQL Queries Window? ]------------
@@ -17,7 +14,7 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 
 // ----[ Name Not Found Text ]------------------------------
 // Text to output when name is not found in the member list
-$sig_no_data = 'SigGen Works';
+$sig_no_data = 'Please Upload';
 
 
 

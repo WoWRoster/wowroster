@@ -199,7 +199,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 		$title = 'Message';
 	}
 
-	print border('sred','start',$title).'<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	print border('sred','start',$title).'<table class="wowroster" cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{

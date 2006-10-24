@@ -123,13 +123,21 @@ echo $menu_cell.$url.'&amp;action=character">'.$wordings[$roster_conf['roster_la
 if( $roster_conf['show_spellbook'] )
 	echo $menu_cell.$url.'&amp;action=spellbook">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
 
-if( $roster_conf['show_inventory'] )
+if( is_admin() ){
 	echo $menu_cell.$url.'&amp;action=bags">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
-
-if( $roster_conf['show_bank'] )
+}
+elseif( $roster_conf['show_inventory'] && $userinfo['username'] == $name )
+	echo $menu_cell.$url.'&amp;action=bags">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
+	
+if( is_admin() ){
+echo $menu_cell.$url.'&amp;action=bank">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
+}
+elseif( $roster_conf['show_bank'] && $userinfo['username'] == $name)
 	echo $menu_cell.$url.'&amp;action=bank">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
-
-if( $roster_conf['show_mail'] )
+if( is_admin() ){
+echo $menu_cell.$url.'&amp;action=mail">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
+}
+elseif( $roster_conf['show_mail'] && $userinfo['username'] == $name )
 	echo $menu_cell.$url.'&amp;action=mail">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
 
 if( $roster_conf['show_quests'] )

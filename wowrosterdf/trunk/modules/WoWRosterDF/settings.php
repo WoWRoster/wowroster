@@ -16,10 +16,7 @@
  *
  ******************************/
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
-{
-	die("You can't access this file directly!");
-}
+
 
 /**
  * Set PHP error reporting
@@ -47,6 +44,8 @@ define('ROSTER_URL',implode('/',$url));
 /**
  * Base, absolute roster directory
  */
+//define('ROSTER_BASE','modules/'.$module_name.DIR_SEP);
+//define('ROSTER_LIB','modules/'.$module_name.DIR_SEP.'lib'.DIR_SEP);
 define('ROSTER_BASE',dirname(__FILE__).DIR_SEP);
 define('ROSTER_LIB',dirname(__FILE__).DIR_SEP.'lib'.DIR_SEP);
 

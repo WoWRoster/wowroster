@@ -65,7 +65,7 @@ if (isset($_GET['s']))
 
 	$search = $_GET['s'];
 	print border('sgray','start','<a name="items"></a><a href="'.getlink('&amp;file=indexsearch'.($inputbox_value ? '&amp;s='.$inputbox_value.'#top' : '#top' )).'">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>').
-		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
+		'<table cellpadding="0" cellspacing="0" width="600" class="wowroster">
   <tr>
     <td>';
 	$query="SELECT players.name,players.server,items.* FROM `".ROSTER_ITEMSTABLE."` items,`".ROSTER_PLAYERSTABLE."` players WHERE items.member_id = players.member_id AND items.item_name LIKE '%$search%' ORDER BY players.name ASC";
@@ -159,7 +159,7 @@ if (isset($_GET['s']))
 	print "<br />\n";
 
 	print border('sgray','start','<a name="recipes"></a><a href="'.getlink('&amp;file=indexsearch'.($inputbox_value ? '&amp;s='.$inputbox_value.'#top' : '#top' )).'">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>').
-		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
+		'<table cellpadding="0" cellspacing="0" width="600" class="wowroster">
 <tr>
   <td>';
 	//$query="SELECT players.name,players.server,recipes.* FROM recipes,players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' OR recipes.recipe_tooltip LIKE '%$search%' OR recipes.reagents LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";

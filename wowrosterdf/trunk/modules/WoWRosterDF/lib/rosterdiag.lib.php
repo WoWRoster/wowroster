@@ -491,7 +491,7 @@ function describeGDdyn()
 	if( function_exists('gd_info') )
 	{
 		$returnVal = border('sgreen','start','GD Support').
-			'<table class="bodyline" cellspacing="0">'."\n";
+			'<table class="wowroster" cellspacing="0">'."\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow".(((++$rowstripe)%2)+1)."\">GD Status</td>\n\t\t<td class=\"membersRowRight".((($rowstripe)%2)+1)."\"><span class=\"green\">On</span></td>\n\t</tr>\n";
 
 		$info = gd_info();
@@ -512,7 +512,7 @@ function describeGDdyn()
 	else
 	{
 		$returnVal = border('sred','start','GD Support').
-			'<table class="bodyline" cellspacing="0">'."\n";
+			'<table class="wowroster" cellspacing="0">'."\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow1\">GD Status</td>\n\t\t<td class=\"membersRowRight1\"><span class=\"red\">Off</span></td>\n\t</tr>\n";
 		$returnVal .= "</table>\n".border('sred','end');
 	}

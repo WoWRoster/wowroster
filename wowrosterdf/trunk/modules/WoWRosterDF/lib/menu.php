@@ -117,7 +117,7 @@ if( $roster_conf['menu_byclass'] )
 if( $roster_conf['menu_alt_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexalt').'">'.$wordings[$roster_conf['roster_lang']]['alternate'].'</a></li>'."\n";
 
-if( $roster_conf['menu_guild_info'] )
+if( $roster_conf['menu_guild_info'] && is_user())
 	print '        <li><a href="'.getlink('&amp;file=guildinfo').'">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
 
 if( $roster_conf['menu_stats_page'] )
@@ -134,8 +134,8 @@ if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
 if( $roster_conf['menu_honor_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexhonor').'">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
 
-if( $roster_conf['menu_guildbank'] )
-	print '        <li><a href="'.getlink('&amp;file=guildbank'.$roster_conf['guildbank_ver']).'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
+if( $roster_conf['menu_guildbank'] && is_user())
+	print '        <li><a href="index.php?name='.$module_name.'&file=addon&roster_addon_name=guildbank">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
 
 if( $roster_conf['menu_keys_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexinst').'">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
@@ -149,7 +149,7 @@ if( $roster_conf['menu_tradeskills_page'] )
       <ul>
 <?php
 if( $roster_conf['menu_update_page'] )
-	print '        <li><a href="'.getlink('&amp;file=update').'">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
+	print '        <li><a href="'.getlink('&amp;file=updateProfile').'">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
 
 if( $roster_conf['menu_quests_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexquests').'">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";

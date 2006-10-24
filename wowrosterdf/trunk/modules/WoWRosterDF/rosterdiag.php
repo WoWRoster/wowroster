@@ -124,13 +124,13 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 				$cvsurl = parse_url($cvsremote);
 				$cvspath = pathinfo($cvsurl['path'], PATHINFO_DIRNAME);
 				$cvsurl = $cvsurl['scheme'].'://'.$cvsurl['host'].$cvspath.'/';
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">CVS Image</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="wowroster"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">CVS Image</th></tr>';
 				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'"></td><td class="membersRowRight1"><img src="'.$cvsurl.$filename.'"></td></tr>';
 				$diffcheck .= '</table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">CVS File</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="wowroster"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">CVS File</th></tr>';
 				$difffiles = difffile($filelocalsource, $filecvssource);
 				$row_color=2;
 				foreach ($difffiles as $difference)
@@ -192,7 +192,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 
 		print('<table width="100%" border="0"><tr valign="top"><td align="center">'."\n");
 		print(border('syellow','start','MD5 Information for file: '.$filename)."\n");
-		print('<table width="100%" cellspacing="0" border="0" class="bodyline"><tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td>\n");
+		print('<table width="100%" cellspacing="0" border="0" class="wowroster"><tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td>\n");
 		print("</tr><tr>\n");
 		print('<td class="membersRow2">Local:</td><td class="membersRowRight2">'.$md5local."</td>\n");
 		print("</tr></table>\n");
@@ -201,7 +201,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 		print('<td>&nbsp;</td><td align="center">');
 
 		print(border('sblue','start','Back Link'));
-		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
+		print('<table width="100%" cellspacing="0" border="0" class="wowroster">');
 		print('<tr><td class="membersRowRight2"><form method="POST" action="rosterdiag.php">');
 		print ('<input type="hidden" name="filename" value="'.$filename.'">');
 		print ('<input type="hidden" name="downloadcvs" value="savefile">');
@@ -259,7 +259,7 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 // Display basic server info
 $rowstripe = 0;
 echo border('syellow','start','Basic Server Info').'
-<table width="300" class="bodyline" cellspacing="0">
+<table width="300" class="wowroster" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">OS</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.php_uname('s').'</td>
@@ -277,7 +277,7 @@ border('syellow','end').'
 <br />
 '.
 border('syellow','start','PHP Settings&nbsp;&nbsp;&nbsp;<small><a href="phpinfo.php" target="_new"><i>phpinfo() page</i></a></small>').'
-<table width="300" class="bodyline" cellspacing="0">
+<table width="300" class="wowroster" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">PHP Version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.PHP_VERSION.'</td>
@@ -327,7 +327,7 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 // Display conf.php info
 
 echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<small><a href="?printconf=1" target="_new"><i>Show Entire $roster_conf array</i></small></a>').
-'<table width="100%" class="bodyline" cellspacing="0">
+'<table width="100%" class="wowroster" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['version'].'</td>
@@ -409,7 +409,7 @@ echo "</td><td valign=\"top\">\n";
 
 // Display MySQL Tables
 echo border('sgray','start','List of tables in ['.$db_name.']').
-'<table width="100%" class="bodyline" cellspacing="0">'."\n";
+'<table width="100%" class="wowroster" cellspacing="0">'."\n";
 
 $result = $wowdb->query("SHOW TABLES FROM $db_name");
 if( !$result )
@@ -509,7 +509,7 @@ if (ini_get('allow_url_fopen'))
 			echo border($severity[$files[$directory]['rollup']]['style'],'start',$headertext_min);
 
 
-			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
+			echo '<table width="100%" cellpadding="0" cellspacing="0" class="wowroster">';
 			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">CVS</th>';
 			echo '</tr>';
 			$row=0;

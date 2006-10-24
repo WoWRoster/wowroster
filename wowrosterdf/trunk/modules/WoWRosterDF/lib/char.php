@@ -143,7 +143,7 @@ class char
 		{
 			$zone = '';
 			$returnstring .= border('sgray','start','<h3>'.$wordings[$lang]['questlog'].'&nbsp; ('.count($quests).'/20)</h3>').
-				'<table class="bodyline" cellspacing="0" cellpadding="0">';
+				'<table class="wowroster" cellspacing="0" cellpadding="0">';
 
 			foreach ($quests as $quest)
 			{
@@ -247,7 +247,7 @@ class char
 
 					$header = $skill_image.'<a name="'.strtolower(str_replace(' ','',$skill_name)).'"></a><a href="#top">'.$skill_name."</a>\n";
 
-					$returnstring .= border('sgray','start',$header)."\n<table width=\"600\" class=\"bodyline\" cellspacing=\"0\">\n";
+					$returnstring .= border('sgray','start',$header)."\n<table width=\"600\" class=\"wowroster\" cellspacing=\"0\">\n";
 
 $returnstring .= '  <tr>
     <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></th>
@@ -314,7 +314,7 @@ $returnstring .= '  <tr>
 		{
 			//begin generation of mailbox's output
 			$content .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['mailbox']).
-				'<table cellpadding="0" cellspacing="0" class="bodyline">'."\n";
+				'<table cellpadding="0" cellspacing="0" class="wowroster">'."\n";
 			$content .= "<tr>\n";
 			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_item'].'</th>'."\n";
 			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_sender'].'</th>'."\n";
@@ -2038,7 +2038,7 @@ function dumpBonuses($char, $server)
 	$row = $wowdb->fetch_array($result);
 
 	$bt .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['itembonuses']).
-		'<table style="width:400px;" class="bodyline" cellspacing="0" cellpadding="0" border="0">'."\n";
+		'<table style="width:400px;" class="wowroster" cellspacing="0" cellpadding="0" border="0">'."\n";
 
 	$row = 0;
 	foreach ($myBonus as $key => $value)

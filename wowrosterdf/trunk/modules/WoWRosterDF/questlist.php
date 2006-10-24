@@ -98,7 +98,7 @@ print("<br />\n");
 
 print border('sgray','start');
 ?>
-<table bgcolor="#292929" cellspacing="0" cellpadding="4" border="0" class="bodyline">
+<table bgcolor="#292929" cellspacing="0" cellpadding="4" border="0" class="wowroster">
   <tr>
     <td class="membersRowRight1">
 <?php

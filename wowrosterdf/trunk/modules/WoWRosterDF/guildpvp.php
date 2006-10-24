@@ -78,7 +78,7 @@ print $choiceForm;
 
 $striping_counter = 1;
 
-$tableHeader = border('sgray','start',$choiceArray[$type]).'<table width="100%" cellspacing="0" class="bodyline">';
+$tableHeader = border('sgray','start',$choiceArray[$type]).'<table width="100%" cellspacing="0" class="wowroster">';
 
 function tableHeaderRow($th)
 {

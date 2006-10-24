@@ -18,7 +18,7 @@
 
 /////////////////////////// CONFIGURATION OPTIONS /////////////////////////////
 // Number of columns per category row
-$row_columns = 18;
+$row_columns = 14;
 // Show color border
 $color_border = 1; // 0 = No, 1 = Yes
 // Do you want categories with no items to appear?

@@ -36,7 +36,7 @@ $tableHeader = "\n".'<!-- Begin PvPLIST -->
 </div>
 <div id="PVPLIST_full"'.$pvp_hs_full.'>
 '.border('sgray','start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('PVPLIST_col','PVPLIST_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$roster_conf['guild_name'].$wordings[$roster_conf['roster_lang']]['pvplist'].'</div>').'
-<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">'."\n";
+<table width="100%" cellpadding="0" cellspacing="0" class="wowroster">'."\n";
 
 $tableFooter = "</table>\n".border('sgray','end')."\n</div>\n<!-- End PvPLIST -->\n";
 

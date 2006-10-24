@@ -3,10 +3,7 @@
  * $Id$
  *******************************/
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
-{
-    die("You can't access this file directly!");
-}
+if (!defined('CPG_NUKE')) { exit; }
 
 /*
 	Start the following scripts when "update.php" is called
@@ -66,7 +63,7 @@ if( $mode == 'char' )
 
 	if( $SigGenConfig['avatar']['trigger'] )
 	{
-		print ' Saving Avatar-[ <img src="index.php?name='.$module_name.'&amp;file=addon&amp;roster_addon_name=siggen&amp;mode=signature&amp;member='.urlencode(utf8_decode($member_name)).'&amp;etag=0" width="19" height="16" alt="" /> ]';
+		print ' Saving Avatar-[ <img src="index.php?name='.$module_name.'&amp;file=addon&amp;roster_addon_name=siggen&amp;mode=avatar&amp;member='.urlencode(utf8_decode($member_name)).'&amp;etag=0" width="19" height="16" alt="" /> ]';
 	}
 }
 
@@ -81,7 +78,7 @@ if( $mode == 'guild' )
 
 	if( $SigGenConfig['avatar']['guild_trigger'] )
 	{
-		print ' Saving Avatar-[ <img src="index.php?name='.$module_name.'&amp;file=addon&amp;roster_addon_name=siggen&amp;mode=signature&amp;member='.urlencode(utf8_decode($member_name)).'&amp;etag=0" width="19" height="16" alt="" /> ]';
+		print ' Saving Avatar-[ <img src="index.php?name='.$module_name.'&amp;file=addon&amp;roster_addon_name=siggen&amp;mode=avatar&amp;member='.urlencode(utf8_decode($member_name)).'&amp;etag=0" width="19" height="16" alt="" /> ]';
 	}
 }
 unset($SigGenConfig);

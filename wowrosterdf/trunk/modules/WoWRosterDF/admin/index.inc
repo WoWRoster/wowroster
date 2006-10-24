@@ -87,6 +87,7 @@ $menu .='
 	<li><a href="#" onclick="return expandcontent(\'char_disp\',this)">'.$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'].'</a></li>
 	<li><a href="'.getlink('&amp;file=rosterdiag').'" target="_new">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
     <li><a href="http://www.wowroster.net/wiki" target="_new">Documentation</a></li>
+	<li><a href="'.adminlink($module.'&amp;file=dkpsync').'" target="_new">DKP Sync</a></li>
   </ul>
 </div>
 '.border('sgray','end').'
@@ -106,7 +107,7 @@ $html = '';
 foreach($conf_arrays as $type)
 {
 	$i = 0;
-	$html .= "<div id=\"$type\" style=\"display:none;\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$html .= "<div id=\"$type\" style=\"display:none;\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"wowroster\">\n";
 
 	foreach($db_values[$type] as $values)
 	{
@@ -182,7 +183,7 @@ foreach($conf_arrays as $type)
 // Build the character display control
 if( is_array($char_data) )
 {
-	$html .= "<div id=\"char_disp\" style=\"display:none;\">\n".border('syellow','start',$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$html .= "<div id=\"char_disp\" style=\"display:none;\">\n".border('syellow','start',$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"wowroster\">\n";
 
 	$disp_array = array(
 		'talents',
@@ -271,7 +272,7 @@ $roster_diag_message.
 		<!-- Begin Password Change Box -->
 		<form action="'.$script_filename.'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
 		'.border('sred','start','Change Roster Password').'
-		  <table class="bodyline" cellspacing="0" cellpadding="0">
+		  <table class="wowroster" cellspacing="0" cellpadding="0">
 		    <tr>
 		      <td class="membersRow1">Old Password:</td>
 		      <td class="membersRowRight1"><input type="password" name="old_password" value="" /></td>

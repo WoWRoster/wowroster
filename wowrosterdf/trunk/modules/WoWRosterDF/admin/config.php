@@ -17,7 +17,7 @@
  ******************************/
 
 $subdir = '../';
-require_once( $subdir.'settings.php' );
+require_once( './modules/'.$module_name.'/settings.php' );
 
 $script_filename = 'config.php';
 
@@ -28,7 +28,7 @@ $passbox = '
 <!-- Begin Password Input Box -->
 <form action="'.$script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)">
 '.border('sred','start','Authorization Required').'
-  <table class="bodyline" cellspacing="0" cellpadding="0">
+  <table class="wowroster" cellspacing="0" cellpadding="0">
     <tr>
       <td class="membersRowRight1">Password:<br />
         <input name="pass_word" type="password" size="30" maxlength="30" /></td>
@@ -188,7 +188,7 @@ $html = '';
 foreach($conf_arrays as $type)
 {
 	$i = 0;
-	$html .= "<div id=\"$type\" style=\"display:none;\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$html .= "<div id=\"$type\" style=\"display:none;\">\n".border('sblue','start',$wordings[$roster_conf['roster_lang']]['admin'][$type])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"wowroster\">\n";
 
 	foreach($db_values[$type] as $values)
 	{
@@ -262,7 +262,7 @@ foreach($conf_arrays as $type)
 
 
 // Build the character display control
-$html .= "<div id=\"char_disp\" style=\"display:none;\">\n".border('syellow','start',$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+$html .= "<div id=\"char_disp\" style=\"display:none;\">\n".border('syellow','start',$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"wowroster\">\n";
 
 $disp_array = array(
 	'talents',
@@ -350,7 +350,7 @@ $password_message.
 		<!-- Begin Password Change Box -->
 		<form action="'.$script_filename.'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
 		'.border('sred','start','Change Roster Password').'
-		  <table class="bodyline" cellspacing="0" cellpadding="0">
+		  <table class="wowroster" cellspacing="0" cellpadding="0">
 		    <tr>
 		      <td class="membersRow1">Old Password:</td>
 		      <td class="membersRowRight1"><input type="password" name="old_password" value="" /></td>

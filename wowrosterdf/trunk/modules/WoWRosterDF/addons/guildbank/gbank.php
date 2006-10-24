@@ -183,7 +183,7 @@ if ($mulecount > 0)
 {
 	foreach ($mule as $muleID => $muleArray)
 	{
-		$muleurl = "<a href='".$roster_conf['roster_dir']."/char.php?name=".$muleArray['member_name']."&server=".urlencode($muleArray['muleservername'])."'>";
+		$muleurl = "<a href='index.php?name=".$module_name."&amp;file&amp;char.php?cname=".$muleArray['member_name']."&server=".urlencode($muleArray['muleservername'])."'>";
 		$content .= "<tr><td class='membersRow".$muleRowHeader."'>".$muleurl."<span style='font-size:9pt;color:#0070dd;text-decoration:underline;'>".$muleArray['member_name']."</span></a></td>";
 		// Display Banker Money   style=\"color:#$color\">
 		if ($roster_conf['bank_money'])
@@ -289,7 +289,7 @@ else
 // Begin Filter Box table with a nice Stylish border
 $content .= border($filterstyle,'start',$wordings[$roster_conf['roster_lang']]['filter'].' '.$wordings[$roster_conf['roster_lang']]['guildbank']);
 // Display the table inside the bordered cell
-$content .= "<table class='bodyline' cellspacing='1' cellpadding='2'>";
+$content .= "<table class='wowroster' cellspacing='1' cellpadding='2'>";
 // Setup a form to post
 $content .= "<form method='POST'>";
 // Filter Items

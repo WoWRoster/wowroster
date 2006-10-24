@@ -317,7 +317,7 @@ class wowdb
 		$errors = $this->errors;
 		if( is_array($errors) )
 		{
-			$output = '<table width="100%" class="bodyline" cellspacing="0">';
+			$output = '<table width="100%" class="wowroster" cellspacing="0">';
 			$steps = 0;
 			foreach($errors as $errorArray)
 			{

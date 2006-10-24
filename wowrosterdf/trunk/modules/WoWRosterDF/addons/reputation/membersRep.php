@@ -16,11 +16,7 @@
  *
  ******************************/
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
-{
-	die("You can't access this file directly!");
-}
-
+if (!defined('CPG_NUKE')) { exit; }
 
 $query = "SELECT m.name member, r.faction, r.name fct_name, r.value, ".
 	"( substring( r.value, 1, locate('/', r.value)-1) + 0 ) AS curr_rep, ".
@@ -86,7 +82,7 @@ if( isset($_REQUEST['factionfilter']) )
 	}
 
 	$borderTop = border('syellow', 'start', $ab['0']['1'].' - '.$ab['0']['2']);
-	$tableHeader = '<table width="100%" cellspacing="0" class="bodyline">';
+	$tableHeader = '<table width="100%" cellspacing="0" class="wowroster">';
 	$tableHeaderRow = '	<tr>
 		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['rep_name'].'</th>
 		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['rep_status'].'</th>

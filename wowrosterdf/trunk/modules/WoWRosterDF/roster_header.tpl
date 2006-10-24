@@ -20,25 +20,23 @@ define('HEADER_INC',true);
 
 $pagetitle .= $module_title.' '._BC_DELIM.' '.$header_title;
 
+
+
+$modheader = '<link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].'/'.$roster_conf['stylesheet'].'" />
+<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/'.$roster_conf['roster_js'].'"></script>'."\n";
+
+if( !isset($roster_conf['item_stats']) || $roster_conf['item_stats'] )
+{
+	$modheader .= '<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/'.$roster_conf['overlib'].'"></script>
+<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/'.$roster_conf['overlib_hide'].'"></script>'."\n";
+}
+
+$modheader .= (isset($more_css) ? $more_css : '');
+
 include (BASEDIR.'header.php');
 opentable();
 ?>
-  <link rel="stylesheet" type="text/css" href="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['stylesheet'] ?>">
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib']; ?>"></script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib_hide']; ?>"></script>
-  <?php echo (isset($more_css) ? $more_css : ''); ?>
 <div class="wowroster">
-
-<?php
-if( !isset($roster_conf['char_header_logo']) || $roster_conf['char_header_logo'] )
-{
-	echo '
-<div style="text-align:center;margin:10px;" class="bodyline"><a href="'.$roster_conf['website_address'].'">
-  <img src="'.$roster_conf['logo'].'" alt="" style="border:0;margin:10px;" /></a>
-</div>';
-}
-?>
 
 <div align="center" style="margin:10px;">
 <!-- End Roster Header -->

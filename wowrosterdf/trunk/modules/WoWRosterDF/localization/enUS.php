@@ -721,7 +721,7 @@ $wordings['enUS']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript file loc
 $wordings['enUS']['admin']['profile'] = "char.php JS File|JavaScript for CharacterPage (char.php)";
 $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br><br>&quot;Text&quot; - Shows MOTD in red text<br>&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
-
+$wordings['enUS']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
 // data_links
 $wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br>Look in your localization-file(s) for link configuration";
 $wordings['enUS']['admin']['questlink_2'] = "Quest Link #2|Item external links<br>Look in your localization-file(s) for link configuration";

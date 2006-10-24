@@ -21,7 +21,6 @@ require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
 $header_title = $wordings[$roster_conf['roster_lang']]['menuhonor'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-
 // Additional querries needed for this page
 // Make sure the last item in this array DOES NOT have a (,) at the end
 $additional_sql = array(

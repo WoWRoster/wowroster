@@ -60,7 +60,7 @@ for ( $tsNr=0; $tsNr<=11; $tsNr++ )
 		'.border('sgray','start',"<div style=\"cursor:pointer;width:370px;\" onclick=\"swapShow('ts".$tsNr."_col','ts".$tsNr."_full')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"\" />".$header."</div>")."\n";
 ?>
 
-      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bodyline">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="wowroster">
         <tr>
           <th class="membersHeader"><?php print $wordings[$roster_conf['roster_lang']]['level'];?></th>
           <th class="membersHeaderRight" width="150"><?php print $wordings[$roster_conf['roster_lang']]['name'];?></th>
@@ -100,7 +100,7 @@ for ( $tsNr=0; $tsNr<=11; $tsNr++ )
 			$nameid = $getdata['name'];
 			$namequery = $wowdb->query("SELECT name,server FROM `".ROSTER_PLAYERSTABLE."` WHERE name = '$nameid'");
 			if ($row = $wowdb->fetch_array($namequery))
-				$nameid = '<a href="char.php?name='.$row[0].'&amp;server='.$row[1].'&amp;action=recipes">'.$row[0].'</a>';
+				$nameid = '<a href="index.php?name='.$module_name.'&amp;file=char&cname='.$row[0].'&amp;server='.$row[1].'&amp;action=recipes">'.$row[0].'</a>';
 
 ?>
         <tr>
