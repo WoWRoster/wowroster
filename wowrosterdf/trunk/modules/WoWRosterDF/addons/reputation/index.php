@@ -19,7 +19,7 @@
 
 
 
-$header_title = $wordings[$roster_conf['roster_lang']]['menustats'];
+$header_title = $wordings[$roster_conf['roster_lang']]['reputation_addon'];
 
 require_once ($addonDir.'membersRep.php');
 

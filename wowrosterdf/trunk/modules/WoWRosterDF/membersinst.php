@@ -69,15 +69,15 @@ function tableHeaderRow($th)
 		}
 		if ($acount == 1)
 		{
-			print '    <th class="membersHeader">'.$header.'</th>'."\n";
+			print '    <td class="membersHeader">'.$header.'</td>'."\n";
 		}
 		elseif ($acount == count($th))
 		{
-			print '    <th class="membersHeaderRight">'.$header.'</th>'."\n";
+			print '    <td class="membersHeaderRight">'.$header.'</td>'."\n";
 		}
 		else
 		{
-			print '    <th class="membersHeader" align="center">'.$header."</th>\n";
+			print '    <td class="membersHeader" align="center">'.$header."</td>\n";
 		}
 	}
 	print "  </tr>\n";

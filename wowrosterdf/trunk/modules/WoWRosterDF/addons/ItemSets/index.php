@@ -1,9 +1,7 @@
 <?php
-$versions['versionDate']['itemsets'] = '$Date: 2006/08/29 $'; 
-$versions['versionRev']['itemsets'] = '$Revision: 1.7.3 $'; 
-$versions['versionAuthor']['itemsets'] = '$Author: Gorgar, PoloDude, Zeryl $';
-
-if (!defined('CPG_NUKE')) { exit; }
+$versions['versionDate']['itemsetslang'] = '$Date: 2006/06/18 17:00:00 $';
+$versions['versionRev']['itemsetslang'] = '$Revision: 1.7.0 $';
+$versions['versionAuthor']['itemsetslang'] = '$Author: Gorgar, PoloDude, Zeryl $';
 
 require_once ROSTER_BASE.'lib/item.php';
 require_once ROSTER_BASE.'lib/wowdb.php';
@@ -12,7 +10,7 @@ require_once ROSTER_BASE.'lib/wowdb.php';
 $server_name=$roster_conf['server_name'];
 
 //Faction Selection
-$query = "SELECT `faction` FROM `".ROSTER_GUILDTABLE."` where `guild_name` = '".$roster_conf['guild_name']."' and `server` ='".addslashes($roster_conf['server_name'])."'"; 
+$query = "SELECT `faction` FROM `".ROSTER_GUILDTABLE."` where `guild_name` = '".$roster_conf['guild_name']."' and `server` ='".addslashes($roster_conf['server_name'])."'";
 
 if ($roster_conf['sqldebug'])
 {
@@ -20,13 +18,13 @@ if ($roster_conf['sqldebug'])
 }
 
 $result = $wowdb->query($query) or die($wowdb->error());
-if ($row = $wowdb->fetch_array($result)) 
-{ 
-$guildFaction = substr($row['faction'],0,1); 
-} 
-else 
-{ 
-die( $nodata[$roster_conf['roster_lang']] ); 
+if ($row = $wowdb->fetch_array($result))
+{
+$guildFaction = substr($row['faction'],0,1);
+}
+else
+{
+die( $nodata[$roster_conf['roster_lang']] );
 }
 
 // Tier Selection
@@ -35,28 +33,24 @@ if (isset($_REQUEST["tierselect"]))
 if (isset($_REQUEST["classfilter"]))
            $class = $_REQUEST["classfilter"];
 
-//Added for ony stats Default Selection
-if ($tier == '') $tier = 'Tier_1';
 
-$all_sets = array('Tier_0','Tier_0.5','Tier_1','Tier_2','Tier_3','ZG','AQ20',
-'AQ40','PVP_Rare','PVP_Epic','Onyxia');
-
+$all_sets = array('Tier_0','Tier_0.5','Tier_1','Tier_2','Tier_3','ZG','AQ20','AQ40','PVP_Rare','PVP_Epic');
 $form = '';
-$form .= '<table cellpadding="0" cellspacing="0" class="wowroster">';
-$form .= '<form action="" method=GET name=myform>';
-$form .= '<input type="hidden" name="name" value="'.$module_name.'">';
-$form .= '<input type="hidden" name="file" value="addon">';
-$form .= '<input type="hidden" name="roster_addon_name" value="ItemSets">';
-$form .= '<tr><th class="membersRow1">Tier:</th>';
+$form .= '<form action="" method="get" name="myform">';
+$form .= '<input type="hidden" name="name" value="'.$module_name.'" />';
+$form .= '<input type="hidden" name="file" value="addon" />';
+$form .= '<input type="hidden" name="roster_addon_name" value="ItemSets" />';
+$form .= '<table cellpadding="0" cellspacing="0" class="bodyline">';
+$form .= '<tr><td class="membersRow1">Tier:</td>';
 $form .= '<td class="membersRow1">';
 $form .= '<select name="tierselect" size="1">';
-for ($i = 0; $i < sizeof($all_sets); $i++) { 
+for ($i = 0; $i < sizeof($all_sets); $i++) {
 	if ($tier == $all_sets[$i]) {
        $is_selected = 'selected';
 	} else {
 		$is_selected = '';
 	}
-	$form .= '<option value="'.$all_sets[$i].'"'.$is_selected.'>'.$wordings[$roster_conf['roster_lang']][$all_sets[$i]].'</option>'; 
+	$form .= '<option value="'.$all_sets[$i].'"'.$is_selected.'>'.$all_sets[$i].'</option>';
 }
 $form .= '</select></td>';
 
@@ -99,21 +93,21 @@ $form .= '<option value="'.$tmpClassname.'"'.$is_selected.'>'.$tmpClassname.'</o
 		print "<!-- $query -->\n";
 	}
 
-	$result = $wowdb->query($query) or die($wowdb->error());
+	$result = mysql_query($query) or die(mysql_error());
 
-	while ($row = $wowdb->fetch_array($result)) { 
+	while ($row = mysql_fetch_array($result)) {
 		if ($class == $row['class']) {
 			$is_selected = ' selected';
 		} else {
 			$is_selected = '';
 		}
-		$form .= '<option value="'.$row['class'].'"'.$is_selected.'>'.$row['class'].'</option>'; 
+		$form .= '<option value="'.$row['class'].'"'.$is_selected.'>'.$row['class'].'</option>';
 	}
 }
 
 $form .= '</select></td>';
 $form .= '<td class="membersRow1"><input type="submit" value="submit" /></td>';
-$form .= '</tr></form></table>';
+$form .= '</tr></table></form>';
 
 // Display the Tier select Form in a stylish border
 echo border('syellow','start');
@@ -123,78 +117,24 @@ echo border('syellow','end');
 echo "<br/>";
 
 // Display the Top / left side of the Stylish Border
-//if($tier==''){
-//	$tier = 'Tier_0';
-//}
-echo border('syellow', 'start', $wordings[$roster_conf['roster_lang']][$tier]);
+echo border('syellow', 'start');
 
 // Make a table to hold the content
 echo '<table cellpadding="0" cellspacing="0" class="membersList">';
 
 // Display the header of the table
 if ($tier == 'ZG'){
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Waist'],
-	$wordings[$roster_conf['roster_lang']]['Wrists'],
-	$wordings[$roster_conf['roster_lang']]['Chest'],
-	$wordings[$roster_conf['roster_lang']]['Should.'],
-	$wordings[$roster_conf['roster_lang']]['Neck'],
-	$wordings[$roster_conf['roster_lang']]['Trinket']);
+    $headeritems = array('Name','Waist','Feet','Wrists','Chest','Hands','Head','Legs','Should.','Neck','Trinket');
 } elseif ($tier == 'AQ20'){
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Back'],
-	$wordings[$roster_conf['roster_lang']]['Finger'],
-	$wordings[$roster_conf['roster_lang']]['Mainhand']);
+    $headeritems = array('Name','Back','Finger','Mainhand');
 } elseif ($tier == 'AQ40'){
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Feet'],
-	$wordings[$roster_conf['roster_lang']]['Chest'],
-	$wordings[$roster_conf['roster_lang']]['Head'],
-	$wordings[$roster_conf['roster_lang']]['Legs'],
-	$wordings[$roster_conf['roster_lang']]['Should.']);
+    $headeritems = array('Name','Feet','Chest','Head','Legs','Should.');
 } elseif ($tier == 'Tier_3'){
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Waist'],
-	$wordings[$roster_conf['roster_lang']]['Feet'],
-	$wordings[$roster_conf['roster_lang']]['Wrists'],
-	$wordings[$roster_conf['roster_lang']]['Chest'],
-	$wordings[$roster_conf['roster_lang']]['Hands'],
-	$wordings[$roster_conf['roster_lang']]['Head'],
-	$wordings[$roster_conf['roster_lang']]['Legs'],
-	$wordings[$roster_conf['roster_lang']]['Should.'],
-	$wordings[$roster_conf['roster_lang']]['Finger']);
+    $headeritems = array('Name','Waist','Feet','Wrists','Chest','Hands','Head','Legs','Should.','Ring');
 } elseif ($tier == 'PVP_Rare' || $tier == 'PVP_Epic'){
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Feet'],
-	$wordings[$roster_conf['roster_lang']]['Chest'],
-	$wordings[$roster_conf['roster_lang']]['Hands'],
-	$wordings[$roster_conf['roster_lang']]['Head'],
-	$wordings[$roster_conf['roster_lang']]['Legs'],
-	$wordings[$roster_conf['roster_lang']]['Should.']);
-} elseif ($tier == 'Onyxia'){
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Back'],
-	$wordings[$roster_conf['roster_lang']]['Trinket'],
-	$wordings[$roster_conf['roster_lang']]['Finger'],
-	$wordings[$roster_conf['roster_lang']]['Neck'],
-	$wordings[$roster_conf['roster_lang']]['Bag']);
+    $headeritems = array('Name','Feet','Chest','Hands','Head','Legs','Should.');
 } else {
-    $headeritems = array(
-	$wordings[$roster_conf['roster_lang']]['Name'],
-	$wordings[$roster_conf['roster_lang']]['Waist'],
-	$wordings[$roster_conf['roster_lang']]['Feet'],
-	$wordings[$roster_conf['roster_lang']]['Wrists'],
-	$wordings[$roster_conf['roster_lang']]['Chest'],
-	$wordings[$roster_conf['roster_lang']]['Hands'],
-	$wordings[$roster_conf['roster_lang']]['Head'],
-	$wordings[$roster_conf['roster_lang']]['Legs'],
-	$wordings[$roster_conf['roster_lang']]['Should.']);
+    $headeritems = array('Name','Waist','Feet','Wrists','Chest','Hands','Head','Legs','Should.');
 }
 echo '<tr>';
 foreach ($headeritems as $headeritem) {
@@ -205,9 +145,9 @@ foreach ($headeritems as $headeritem) {
 		$header = $headeritem;
 	}
 	if ($headeritem == 'Name') {
-		echo '<th class="membersHeader">'.$header.'</th>';
+		echo '<td class="membersHeader">'.$header.'</td>';
 	} else {
-		echo '<th class="membersHeader"><center>'.$header.'</center></th>';
+		echo '<td class="membersHeader"><center>'.$header.'</center></td>';
 	}
 }
 echo '</tr>';
@@ -237,57 +177,54 @@ $rownum=1;
 while ($row = $wowdb->fetch_array($result)) {
 	if ($row['clientLocale'] == '')
 		$row['clientLocale'] = $roster_lang;
+	if($tier==''){
+		$tier = 'Tier_0';
+	}
 	if($tier=='PVP_Rare' || $tier=='PVP_Epic'){
 		$items = $SetT[$tier][$row['clientLocale']][$guildFaction][$row['class']];
 	}
 	else{
 		$items = $SetT[$tier][$row['clientLocale']][$row['class']];
 	}
-	
+
 	if ($items) {
 		// Open a new Row
 		echo '<tr>';
 
 		// Display the member and set details in the first column
-		echo '<td><div class="membersKeyRowLeft'.$rownum.'">';
+		echo '<td class="membersKeyRowLeft'.$rownum.'">';
 		if($tier=='PVP_Rare' || $tier=='PVP_Epic'){
-		echo '<a href="index.php?name='.$module_name.'&amp;file=char&amp;name='.$row['name'].'&server='.$server_name.'">'.$row['name'].'</a><br>'.$row['class'].' ('.$row['level'].')<br><span class="tooltipline" style="color:#0070dd; font-size: 10px;">'.$SetT[$tier][$row['clientLocale']][$guildFaction]['Name'][$row['class']].'</span></div>';
+		echo '<a href="'.getlink('&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$server_name).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')<br /><span class="tooltipline" style="color:#0070dd; font-size: 10px;">'.$SetT[$tier][$row['clientLocale']][$guildFaction]['Name'][$row['class']].'</span>';
 		}
 		else{
-		echo '<a href="index.php?name='.$module_name.'&amp;file=char&amp;name='.$row['name'].'&server='.$server_name.'">'.$row['name'].'</a><br>'.$row['class'].' ('.$row['level'].')<br><span class="tooltipline" style="color:#0070dd; font-size: 10px;">'.$SetT[$tier][$row['clientLocale']]['Name'][$row['class']].'</span></div>';
+		echo '<a href="'.getlink('&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$server_name).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')<br /><span class="tooltipline" style="color:#0070dd; font-size: 10px;">'.$SetT[$tier][$row['clientLocale']]['Name'][$row['class']].'</span>';
 		}
 		echo '</td>';
-		
+
 		// Process all set's for the member_id
 		foreach ($items as $setpiece) {
 			$setpiecename = explode("|", $setpiece);
-			// Modification for french localization, thx to Ansgar
-			if (isset($SetAlternateName[$row['clientLocale']][$setpiecename[0]])) {
-				$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE (item_name = '".$setpiecename[0]."' OR item_name = '".$SetAlternateName[$row[		'clientLocale']][$setpiecename[0]]."')  AND member_id = '".$row['member_id']."'";
-			} else {
-				$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE item_name = '".$setpiecename[0]."' AND member_id = '".$row['member_id']."'";
-			}
+			$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE item_name = '".$setpiecename[0]."' AND member_id = '".$row['member_id']."'";
 			$iresult = $wowdb->query($iquery);
 			$idata = $wowdb->getrow($iresult);
 			$item = new item($idata);
-	
+
 			// Open a new Cell
 			echo '<td class="membersKeyRow'.$rownum.'">';
 			echo '<div class="bagSlot">';
-	
+
 			if($item->data['item_name']){
 				print $item->out($setpiecename);
 			} else {
-				echo '<span style="z-index: 1000;" onMouseover="return overlib(\'<span class=&quot;tooltipheader&quot; style=&quot;color:#0070dd; font-weight: bold&quot;>'.$setpiecename[0].'</span><br><span class=&quot;tooltipline&quot; style=&quot;color:#ffffff; font-size: 10px;&quot;>'.$wordings[$row['clientLocale']]['DropsFrom'].' <b>'.$setpiecename[1].'</b></span><br><span class=&quot;tooltipline&quot; style=&quot;color:#ffffff; font-size: 10px;&quot;>'.$wordings[$row['clientLocale']]['DropsIn'].' <b>'.$setpiecename[2].'</b></span>\');" onMouseout="return nd();"><center>X</center></span>';
+				echo '<center><span style="z-index: 1000;" onmouseover="return overlib(\'<span class=&quot;tooltipheader&quot; style=&quot;color:#0070dd; font-weight: bold&quot;>'.$setpiecename[0].'</span><br /><span class=&quot;tooltipline&quot; style=&quot;color:#ffffff; font-size: 10px;&quot;>'.$wordings[$row['clientLocale']]['DropsFrom'].' <b>'.$setpiecename[1].'</b></span><br /><span class=&quot;tooltipline&quot; style=&quot;color:#ffffff; font-size: 10px;&quot;>'.$wordings[$row['clientLocale']]['DropsIn'].' <b>'.$setpiecename[2].'</b></span>\');" onmouseout="return nd();">X</span></center>';
 			}
+			echo '</div>';
 			echo '</td>';
-			echo '</div>';
-			echo '</div>';
 		}
 		// Close the Row
 		echo '</tr>';
 	}
-	
+
 	switch ($rownum) {
 		case 1:
 			$rownum=2;

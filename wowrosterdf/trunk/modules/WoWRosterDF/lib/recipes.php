@@ -94,7 +94,7 @@ class recipe
 
 		$returnstring = '<div class="item" onmouseover="return overlib(\''.$tooltip.'\');" onmouseout="return nd();">';
 
-		$returnstring .= '<a href="index.php?name='.$module_name.'&amp;file=char&amp;cname='.$name.'&amp;server='.$server.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_itemlink">'.
+		$returnstring .= '<a href="index.php?name='.$module_name.'&amp;file=char&amp;cname='.$name.'&amp;server='.$server.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.
 		'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
 		$returnstring .= '</div>';
 		return $returnstring;

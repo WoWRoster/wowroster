@@ -604,9 +604,9 @@ function output_pvplog($member_id)
 ".border('sgreen','start',$wordings[$roster_conf['roster_lang']]['world_pvp'])."
 <table width='400' cellpadding='0' cellspacing='0' class='membersList'>
 	<tr>
-		<th width='10%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['win']." %</div></th>
-		<th width='45%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['best_zone']."</div></th>
-		<th width='45%' class='membersHeaderRight'><div align='center'>".$wordings[$roster_conf['roster_lang']]['worst_zone']."</div></th>
+		<td width='10%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['win']." %</div></td>
+		<td width='45%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['best_zone']."</div></td>
+		<td width='45%' class='membersHeaderRight'><div align='center'>".$wordings[$roster_conf['roster_lang']]['worst_zone']."</div></td>
 	</tr>
 	<tr>
 		<td class='membersRow1'><div align='center'>".$worldPvPPerc." %</div></td>
@@ -651,8 +651,8 @@ function output_pvplog($member_id)
 ".border('syellow','start',$wordings[$roster_conf['roster_lang']]['versus_guilds'])."
 <table width='400' cellpadding='0' cellspacing='0' class='membersList'>
 	<tr>
-		<th width='50%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['most_killed']."</div></th>
-		<th width='50%' class='membersHeaderRight'><div align='center'>".$wordings[$roster_conf['roster_lang']]['most_killed_by']."</div></th>
+		<td width='50%' class='membersHeader'><div align='center'>".$wordings[$roster_conf['roster_lang']]['most_killed']."</div></td>
+		<td width='50%' class='membersHeaderRight'><div align='center'>".$wordings[$roster_conf['roster_lang']]['most_killed_by']."</div></td>
 	</tr>
 	<tr>
 		<td class='membersRow1'><div align='center'>";
@@ -727,9 +727,9 @@ function output_pvplog($member_id)
 	$returnstring .= "
 <table width='400' cellpadding='0' cellspacing='0' class='membersList'>
 	<tr>
-		<th width='20%' class='membersHeader'>&nbsp;</th>
-		<th width='40%' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['most_killed']."</th>
-		<th width='40%' class='membersHeaderRight'>".$wordings[$roster_conf['roster_lang']]['most_killed_by']."</th>
+		<td width='20%' class='membersHeader'>&nbsp;</td>
+		<td width='40%' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['most_killed']."</td>
+		<td width='40%' class='membersHeaderRight'>".$wordings[$roster_conf['roster_lang']]['most_killed_by']."</td>
 	</tr>
 	<tr>
 		<td class='membersRow1'>".$wordings[$roster_conf['roster_lang']]['name']."</td>
@@ -768,21 +768,21 @@ function output_pvp2($pvps,$url,$type)
 	$returnstring = '
 <table class="wowroster" cellspacing="0">
 	<tr>
-		<th class="membersHeader">'.$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a></th>
-		<th class="membersHeader">'.$url.'&amp;s=class">'.$wordings[$roster_conf['roster_lang']]['class'].'</a> /
-			'.$url.'&amp;s=name">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
-		<th class="membersHeader">'.$url.'&amp;s=race">'.$wordings[$roster_conf['roster_lang']]['race'].'</a></th>
-		<th class="membersHeader">'.$url.'&amp;s=rank">'.$wordings[$roster_conf['roster_lang']]['rank'].'</a></th>
-		<th class="membersHeader">'.$url.'&amp;s=guild">'.$wordings[$roster_conf['roster_lang']]['guild'].'</a></th>
-		<th class="membersHeader">'.$url.'&amp;s=leveldiff">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a></th>
-		<th class="membersHeader">'.$url.'&amp;s=win">'.$wordings[$roster_conf['roster_lang']]['win'].'</a></th>';
+		<td class="membersHeader">'.$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a></td>
+		<td class="membersHeader">'.$url.'&amp;s=class">'.$wordings[$roster_conf['roster_lang']]['class'].'</a> /
+			'.$url.'&amp;s=name">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></td>
+		<td class="membersHeader">'.$url.'&amp;s=race">'.$wordings[$roster_conf['roster_lang']]['race'].'</a></td>
+		<td class="membersHeader">'.$url.'&amp;s=rank">'.$wordings[$roster_conf['roster_lang']]['rank'].'</a></td>
+		<td class="membersHeader">'.$url.'&amp;s=guild">'.$wordings[$roster_conf['roster_lang']]['guild'].'</a></td>
+		<td class="membersHeader">'.$url.'&amp;s=leveldiff">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a></td>
+		<td class="membersHeader">'.$url.'&amp;s=win">'.$wordings[$roster_conf['roster_lang']]['win'].'</a></td>';
 	if( $type != 'Duel' )
 	{
 		$returnstring .= '
-		<th class="membersHeader">'.$url.'&amp;s=honor">'.$wordings[$roster_conf['roster_lang']]['honor'].'</a></th>';
+		<td class="membersHeader">'.$url.'&amp;s=honor">'.$wordings[$roster_conf['roster_lang']]['honor'].'</a></td>';
 	}
 	$returnstring .= '
-		<th class="membersHeaderRight">'.$url.'&amp;s=zone">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a></th>
+		<td class="membersHeaderRight">'.$url.'&amp;s=zone">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a></td>
 	</tr>';
 
 	$rc = 0;

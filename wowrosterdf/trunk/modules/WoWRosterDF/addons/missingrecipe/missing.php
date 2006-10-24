@@ -18,9 +18,9 @@
  //include_once('./modules/Forums/itemstats/eqdkp_itemstats.php');
 if(isset($_GET['skill']))
 {
-	
+
 	$skill = $_GET['skill'];
-	
+
 	$skill = mysql_real_escape_string($skill);
 	switch($skill)
 	{
@@ -98,7 +98,7 @@ foreach ($matches[0] as $nr => $recipe)
 	{
  	$recipes[$nr]['pat_link'] = $name[6];
  	$recipes[$nr]['pat_name'] = $name[7];
-	} 
+	}
 }
 
 $id = nametoid($_GET[cnameadd]);
@@ -128,7 +128,7 @@ if(!is_array($recipes))
 
 foreach($recipes as $nr => $keys)
 {
-	$allrecipes[] = $keys['name'];	
+	$allrecipes[] = $keys['name'];
 }
 
 $diff = array_diff($allrecipes, $known);
@@ -147,7 +147,7 @@ $content = '<br /><br />';
 $content .= border('syellow', 'start', $wordings[$roster_conf['roster_lang']]['unknownrecipes']);
 $content .= '
 	<table width="100%" cellspacing="0" class="wowroster">
-		<tr><th></th><th class="membersHeader">Name</th><th class="membersHeader">Skill Level</th></tr>';
+		<tr><td class="membersHeader">&nbsp;</td><td class="membersHeader">Name</td><td class="membersHeader">Skill Level</td></tr>';
 
 foreach($diff as $key => $value)
 {
@@ -157,7 +157,7 @@ foreach($diff as $key => $value)
 		continue;
 	}
 	++$striping_counter;
-	
+
 	$link = "http://wow.allakhazam.com".$recipes[$key]['i_link'];
 	if($recipes[$key]['pat_link'])
 	{
@@ -165,7 +165,7 @@ foreach($diff as $key => $value)
 		$pname = $recipes[$key]['pat_name'];
 		$ptotal = "<br /><a href=\"$plink\">$pname</a>";
 	}
-	
+
 	if($recipes[$key]['skill'])
 	{
 		if($recipes[$key]['skill'] > $skilllvl)
@@ -181,7 +181,7 @@ foreach($diff as $key => $value)
 			else {
 				$skillcolor = "mskillcolor";
 			}
-			
+
 		}
 	}
 	$content .=('
@@ -190,7 +190,7 @@ foreach($diff as $key => $value)
 			<td class="membersRow'. (($striping_counter % 2) +1) .'"><a href="'.$link.'"> '.$value.'</a>'.(isset($ptotal) ? $ptotal : "").'</td>
 			<td class="membersRow'. (($striping_counter % 2) +1) .'">'.(isset($skillcolor) ? "<span class=\"$skillcolor\">" : "").$recipes[$key]['skill'].(isset($skillcolor) ? "</span>" : "").'</td>
 		</tr>');
-	
+
 	unset($ptotal);
 	unset($skillcolor);
 }
@@ -204,16 +204,16 @@ echo($content);
 function nametoid($name)
 {
 	global $wowdb;
-	
+
 	if(ctype_digit($name))
 	{
 		return $name;
 	}
-	
+
 	$sql = "SELECT member_id from `".ROSTER_MEMBERSTABLE."` where name = '".mysql_real_escape_string($name)."' LIMIT 1";
-	
+
 	$results = $wowdb->query($sql) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	
+
 	if($results)
 	{
 		$member_id_raw = $wowdb->fetch_assoc($results);

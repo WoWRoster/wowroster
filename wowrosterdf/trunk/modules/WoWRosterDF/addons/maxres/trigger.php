@@ -3,7 +3,8 @@
  * $Id$
  ******************************/
 
-if (!defined('CPG_NUKE')) { exit; }
+
+
 /*
 	Start the following scripts when "update.php" is called
 
@@ -23,12 +24,11 @@ if (!defined('CPG_NUKE')) { exit; }
 */
 //----------[ INSERT UPDATE TRIGGER BELOW ]-----------------------
 
-require_once ROSTER_BASE.'addons/maxres/maxres.php';
-require_once ROSTER_BASE.'lib/item.php';
-
+require_once('maxres.php');
+require_once(ROSTER_BASE.'/lib/item.php');
 
 global $wordings;
-include(ROSTER_BASE.'addons/maxres/localization.php');
+include('localization.php');
 
 if( $mode == 'char' )
 {

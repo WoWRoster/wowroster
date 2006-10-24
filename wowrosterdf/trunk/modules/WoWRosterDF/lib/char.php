@@ -150,7 +150,7 @@ class char
 				if ($zone != $quest->data['zone'])
 				{
 					$zone = $quest->data['zone'];
-					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight"><h2>'.$zone.'</h2></th></tr>';
+					$returnstring .= '<tr><td colspan="10" class="membersHeaderRight">'.$zone.'</td></tr>';
 				}
 				$quest_level = $quest->data['quest_level'];
 				$char_level = $this->data['level'];
@@ -224,7 +224,7 @@ class char
 			while( $data = $wowdb->fetch_assoc( $result ) )
 			{
 				$skill_name_header = $data['skill_name'];
-				$returnstring .= $skill_name_divider .'<a href="'.$url.'#' . strtolower(str_replace(' ','',$skill_name_header)) . '">' . $skill_name_header . '</a>';
+				$returnstring .= $skill_name_divider.$url.'#' . strtolower(str_replace(' ','',$skill_name_header)) . '">' . $skill_name_header . '</a>';
 				$skill_name_divider = '&nbsp;-&nbsp;';
 			}
 			$returnstring .= "</h2>\n<br />\n";
@@ -250,11 +250,11 @@ class char
 					$returnstring .= border('sgray','start',$header)."\n<table width=\"600\" class=\"wowroster\" cellspacing=\"0\">\n";
 
 $returnstring .= '  <tr>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=name">'.$wordings[$lang]['name'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=difficulty">'.$wordings[$lang]['difficulty'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=type">'.$wordings[$lang]['type'].'</a></th>
-    <th class="membersHeaderRight">'.$url.'&amp;action=recipes&amp;s=reagents">'.$wordings[$lang]['reagents'].'</a></th>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=name">'.$wordings[$lang]['name'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=difficulty">'.$wordings[$lang]['difficulty'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=type">'.$wordings[$lang]['type'].'</a></td>
+    <td class="membersHeaderRight">'.$url.'&amp;action=recipes&amp;s=reagents">'.$wordings[$lang]['reagents'].'</a></td>
   </tr>
 ';
 				}
@@ -316,10 +316,10 @@ $returnstring .= '  <tr>
 			$content .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['mailbox']).
 				'<table cellpadding="0" cellspacing="0" class="wowroster">'."\n";
 			$content .= "<tr>\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_item'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_sender'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_subject'].'</th>'."\n";
-			$content .= '<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['mail_expires'].'</th>'."\n";
+			$content .= '<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_item'].'</td>'."\n";
+			$content .= '<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_sender'].'</td>'."\n";
+			$content .= '<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_subject'].'</td>'."\n";
+			$content .= '<td class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['mail_expires'].'</td>'."\n";
 			$content .= "</tr>\n";
 			$content .= "<tr>\n";
 
@@ -807,11 +807,11 @@ $returnstring .= '  <tr>
 			}
 
 			// Start Warlock Pet Icon Mod
-			$imp = 'Interface\\Icons\\Spell_Shadow_SummonImp';
-			$void = 'Interface\\Icons\\Spell_Shadow_SummonVoidWalker';
-			$suc = 'Interface\\Icons\\Spell_Shadow_SummonSuccubus';
-			$fel = 'Interface\\Icons\\Spell_Shadow_SummonFelHunter';
-			$inferno = 'Interface\\Icons\\Spell_Shadow_SummonInfernal';
+			$imp = 'Interface/Icons/Spell_Shadow_SummonImp';
+			$void = 'Interface/Icons/Spell_Shadow_SummonVoidWalker';
+			$suc = 'Interface/Icons/Spell_Shadow_SummonSuccubus';
+			$fel = 'Interface/Icons/Spell_Shadow_SummonFelHunter';
+			$inferno = 'Interface/Icons/Spell_Shadow_SummonInfernal';
 
 			$iconStyle='cursor: pointer; position: absolute; left: '.$left.'px; top: '.$top.'px;';
 

@@ -1,13 +1,14 @@
 <?php
-$versions['versionDate']['itemsets'] = '$Date: 2006/08/29 $'; 
-$versions['versionRev']['itemsets'] = '$Revision: 1.7.3 $';   
-$versions['versionAuthor']['itemsets'] = '$Author: Gorgar, PoloDude, Zeryl $';
+$versions['versionDate']['itemsetslang'] = '$Date: 2006/06/18 17:00:00 $'; 
+$versions['versionRev']['itemsetslang'] = '$Revision: 1.7.0 $'; 
+$versions['versionAuthor']['itemsetslang'] = '$Author: Gorgar, PoloDude, Zeryl $';
 
-if (!defined('CPG_NUKE')) { exit; }
+if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
+{
+    die("You can't access this file directly!");
+}
 
-// Multilanguage support
+//Multilanguage support
 $addon_conf['itemsets']['multilanguage'] = 0;
-
-// Add Onyxia Scale Cloak
 
 ?>

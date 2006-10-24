@@ -688,7 +688,7 @@ function RosterDF_install($this_prefix, $this_base)
 	$installer->add_query('INSERT', $this_prefix.'config', "5015, 'overlib_hide', 'css/js/overlib_hideform.js', 'text{128|30', 'display_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "5030, 'motd_display_mode', '1', 'radio{Image^1|Text^0', 'display_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "5040, 'signaturebackground', 'img/default.png', 'text{128|30', 'display_conf'");
-$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
+    $installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
 	//Links Settings
 	$installer->add_query('INSERT', $this_prefix.'config', "6000, 'questlink_1', '1', 'radio{on^1|off^0', 'data_links'");
 	$installer->add_query('INSERT', $this_prefix.'config', "6010, 'questlink_2', '1', 'radio{on^1|off^0', 'data_links'");
@@ -789,7 +789,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 
 	if ( version_compare( $prev_version, '1.7.0', '<' ) )
 	{
-		$installer->add_query('ADD', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
+		$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
 	}
 
 	return true;

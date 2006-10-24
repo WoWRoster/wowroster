@@ -3,7 +3,7 @@
  * $Id$
  *******************************/
 
-if (!defined('CPG_NUKE')) { exit; }
+if(!defined('CPG_NUKE'))
 
 
 //------[ Show the SQL Queries Window? ]------------
@@ -14,7 +14,7 @@ if (!defined('CPG_NUKE')) { exit; }
 
 // ----[ Name Not Found Text ]------------------------------
 // Text to output when name is not found in the member list
-$sig_no_data = 'Please Upload';
+$sig_no_data = 'SigGen Works';
 
 
 

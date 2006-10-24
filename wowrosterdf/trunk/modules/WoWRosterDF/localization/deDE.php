@@ -31,7 +31,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br />*WoWDirectory*\\\\WTF\\\\Account\\\\*Accountname*\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;achst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".getlink('&amp;file=update')."\">Gildendaten hochladen</a> oder die <a href=\"".adminlink($module_name.'&amp;file=index')."\">Konfiguration beenden</a><br /><br /><a href=\"http://www.wowroster.net/wiki\" target=\"_new\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".getlink('&amp;file=update')."\">Gildendaten hochladen</a> oder die <a href=\"".adminlink($module_name.'&amp;file=index')."\">Konfiguration beenden</a><br /><br /><a href=\"http://www.wowroster.net/wiki\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren (update.php)';
 $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -52,12 +52,12 @@ $index_text_uniloader = '(Du kannst dieses Programm von der WoW-Roster-Webseite 
 $wordings['deDE']['update_instruct']='
 <strong>Empfehlung zur automatischen Aktualisierung:</strong>
 <ul>
-<li>Benutze den <a href="'.$roster_conf['uploadapp'].'" target="_new">UniUploader</a></li>
+<li>Benutze den <a href="'.$roster_conf['uploadapp'].'" target="_blank">UniUploader</a></li>
 &nbsp; '.$index_text_uniloader.'
 </ul>
 <strong>Anleitung:</strong>
 <ol>
-<li>Lade den <a href="'.$roster_conf['profiler'].'" target="_new">Character Profiler</a> herunter</li>
+<li>Lade den <a href="'.$roster_conf['profiler'].'" target="_blank">Character Profiler</a> herunter</li>
 <li>Extrahiere die Zip-Datei in ein eigenes Verzeichnis unter C:\Program Files\World of Warcraft\Interface\Addons\ (CharacterProfiler\)</li>
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
@@ -69,14 +69,14 @@ $wordings['deDE']['update_instruct']='
 $wordings['deDE']['update_instructpvp']='
 <strong>Optionale PvP Stats:</strong>
 <ol>
-<li>Lade <a href="'.$roster_conf['pvplogger'].'" target="_new">PvPLog</a> herunter</li>
+<li>Lade <a href="'.$roster_conf['pvplogger'].'" target="_blank">PvPLog</a> herunter</li>
 <li>Auch in ein eigenes Addon-Verzeichnis entpacken</li>
 <li>Mache ein paar Duelle oder PvP-Kills</li>
 <li>Lade "PvPLog.lua" &uuml;ber die Update-Seite hoch</li>
 </ol>';
 
-$wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_new">Celandro</a>, <a href="http://www.movieobsession.com" target="_new">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_new">Rubricsinger</a> f&uuml;r den originalen Code der Seite. <br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_new">www.wowroster.net</a><br />
+$wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> f&uuml;r den originalen Code der Seite. <br />
+WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
 <a href="'.getlink('&amp;file=credits').'">Additional Credits</a>';
 
@@ -531,9 +531,9 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
 
 // Credit page
-$creditspage['deDE']['top']='Dank an <a href="http://www.poseidonguild.com" target="_new">Celandro</a>, <a href="http://www.movieobsession.com" target="_new">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_new">Rubricsinger</a> f&uuml;r den originalen Code der Seite
+$creditspage['deDE']['top']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, und <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a> f&uuml;r den originalen Code der Seite
 <br />
-Besonderen Dank an <a href="mailto:calvin@rpgoutfitter.com">calvin</a> von <a href="http://www.rpgoutfitter.com" target="_new">rpgoutfitter</a> f&uuml;r das Bereitstellen der <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_new">icons</a>
+Besonderen Dank an <a href="mailto:calvin@rpgoutfitter.com">calvin</a> von <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> f&uuml;r das Bereitstellen der <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
 <br /><br />
 Special Thanks to the DEVs of Roster for helping to build and maintain the package
 <br /><br />';
@@ -607,7 +607,7 @@ Advanced Stats & Bonuses, Thanks to Cybrey (original author) and dehoskins (for 
 <br />
 Thanks to all the coders who have contributed there codes in bug fixes and testing of the roster.
 <br /><br />
-WoW Roster home - <a href="http://www.wowroster.net" target="_new">www.wowroster.net</a>
+WoW Roster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>
 <br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.';
 

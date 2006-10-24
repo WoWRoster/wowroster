@@ -111,9 +111,6 @@ if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
       <ul>
         <li><a href="<?php print getlink('&amp;file=index'); ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
 <?php
-if( $roster_conf['menu_byclass'] )
-	print '        <li><a href="'.getlink('&amp;file=index&amp;s=class').'">'.$wordings[$roster_conf['roster_lang']]['byclass'].'</a></li>'."\n";
-
 if( $roster_conf['menu_alt_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexalt').'">'.$wordings[$roster_conf['roster_lang']]['alternate'].'</a></li>'."\n";
 
@@ -122,6 +119,9 @@ if( $roster_conf['menu_guild_info'] && is_user())
 
 if( $roster_conf['menu_stats_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexstat').'">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
+
+if( $roster_conf['menu_guildbank'] && is_user())
+	print '        <li><a href="'.getlink('&amp;file=addon&amp;roster_addon_name=guildbank').'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
 ?>
       </ul></td>
 <!-- Links Column 2 -->
@@ -133,9 +133,6 @@ if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
 
 if( $roster_conf['menu_honor_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexhonor').'">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
-
-if( $roster_conf['menu_guildbank'] && is_user())
-	print '        <li><a href="index.php?name='.$module_name.'&file=addon&roster_addon_name=guildbank">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
 
 if( $roster_conf['menu_keys_page'] )
 	print '        <li><a href="'.getlink('&amp;file=indexinst').'">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
@@ -277,10 +274,11 @@ function makeAddonList()
 						{
 							$fullQuery = "&amp;roster_addon_name=$addon" . $addonLink[0];
 							$query = str_replace(' ','%20',$fullQuery);
-							$output .= '<li><a href="'.getlink('&amp;file=addon').$query.'">' . $addonLink[1]."</a></li>\n";
+							$output .= '<li><a href="'.getlink('&amp;file=addon'.$query).'">' . $addonLink[1]."</a></li>\n";
 							$lCount++;
 						}
 					}
+					unset($config);
 				}
 			}
 		}

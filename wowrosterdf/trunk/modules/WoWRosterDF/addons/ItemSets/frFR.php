@@ -1,32 +1,14 @@
 <?php
-$versions['versionDate']['itemsets'] = '$Date: 2006/08/29 $'; 
-$versions['versionRev']['itemsets'] = '$Revision: 1.7.3 $'; 
+$versions['versionDate']['itemsetslang'] = '$Date: 2006/06/18 17:00:00 $'; 
+$versions['versionRev']['itemsetslang'] = '$Revision: 1.7.0 $'; 
 $versions['versionAuthor']['itemsetslang'] = '$Author: Gorgar, PoloDude, Zeryl $';
-
 /*
 Tier 3 Sets translated by : Bobblybook
-Everything else translated by/Traduit par : Harut
+Everything else translated by/Traduit par : Harut 
 last updated : 18/06/2006
 */
 $wordings['frFR']['DropsFrom'] = 'Drop par';
 $wordings['frFR']['DropsIn'] = 'dans';
-
-//Menu localization
-$wordings['frFR']['ItemSets'] = 'Ensembles d\'armures';
-
-//Tier localization
-$wordings['frFR']['Tier_0'] = 'Donjon 1';
-$wordings['frFR']['Tier_0.5'] = 'Donjon 2';
-$wordings['frFR']['Tier_1'] = 'Raid Palier 1';
-$wordings['frFR']['Tier_2'] = 'Raid Palier 2';
-$wordings['frFR']['Tier_3'] = 'Raid Palier 3';
-$wordings['frFR']['ZG'] = 'Zul\'Gurub';
-$wordings['frFR']['AQ20'] = 'Ruines D\'Ahn\'Qiraj';
-$wordings['frFR']['AQ40'] = 'Temple D\'Ahn\'Qiraj';
-$wordings['frFR']['PVP_Rare'] = 'JcJ - Superieur';
-$wordings['frFR']['PVP_Epic'] = 'JcJ - Epique';
-
-// header localisations
 $wordings['frFR']['Name'] = 'Nom';
 $wordings['frFR']['Waist'] = 'Taille';
 $wordings['frFR']['Feet'] = 'Pieds';
@@ -38,9 +20,6 @@ $wordings['frFR']['Legs'] = 'Jambes';
 $wordings['frFR']['Should.'] = 'Epaules';
 $wordings['frFR']['Neck'] = 'Cou';
 $wordings['frFR']['Trinket'] = 'Bijoux';
-$wordings['frFR']['Mainhand'] = 'Main Droite';
-$wordings['frFR']['Finger'] = 'Doigt';
-$wordings['frFR']['Back'] = 'Dos';
 
 //N   N  AA  M   M EEEE
 //NN  N A  A MM MM E
@@ -52,7 +31,7 @@ $SetT['Tier_0']['frFR']['Name'] = array(
 		'Guerrier' => 'Tenue de combat de vaillance',
 		'Prêtre' => 'Habits du dévot',
 		'Druide' => 'Grande tenue du Cœur-sauvage',
-		'Voleur' => 'Armure Sombreruse',
+		'Voleur' => 'Armure Tisse-ombre',
 		'Mage' => 'Tenue de parade de magistère',
 		'Paladin' => 'Armure de Sancteforge',
 		'Démoniste' => 'Grande tenue de Brume-funeste',
@@ -63,7 +42,7 @@ $SetT['Tier_0.5']['frFR']['Name'] = array(
 		'Guerrier' => 'Tenue de combat d\'héroïsme',
 		'Prêtre' => 'Habits du Vertueux',
 		'Druide' => 'Grande tenue Coeur-Farouche',
-		'Voleur' => 'Armure Sombremante',
+		'Voleur' => 'Sombremante',
 		'Mage' => '	Tenue de parade du sorcier',
 		'Paladin' => 'Armure d\'Âmeforge',
 		'Démoniste' => 'Grande tenue Mortebrume',
@@ -72,27 +51,27 @@ $SetT['Tier_0.5']['frFR']['Name'] = array(
 	);
 $SetT['Tier_1']['frFR']['Name'] = array(
 		'Guerrier' => 'Tenue de combat de puissance',
-		'Prêtre' => 'Habits de prophétie',
-		'Druide' => 'Grande tenue cénarienne',
-		'Voleur' => 'Armure du tueur de la nuit',
-		'Mage' => 'Tenue de parade d\'arcaniste',
-		'Paladin' => 'Armure judiciaire',
-		'Démoniste' => 'Grande tenue de Gangrecoeur',
-		'Chasseur' => 'Armure de traqueur de géant',
-		'Chaman' => 'Rageterre'
+		'Prêtre' => 'Habit Prophétique',
+		'Druide' => 'Armure de Cenarius',
+		'Voleur' => 'Armure Assassin',
+		'Mage' => 'Armure D\'arcaniste',
+		'Paladin' => 'Armure du justicier',
+		'Démoniste' => 'Armure de Gangrecoeur',
+		'Chasseur' => 'Armure de Chasseur de Géants',
+		'Chaman' => 'Armure de Rageterre'
 	);
 $SetT['Tier_2']['frFR']['Name'] = array(
 		'Guerrier' => 'Tenue de combat de courroux',
-		'Prêtre' => 'Habits de transcendance',
-		'Druide' => 'Grande tenue de Stormrage',
+		'Prêtre' => 'Vêtements de transcendance',
+		'Druide' => 'Vêtements de Stormrage',
 		'Voleur' => 'Armure Rougecroc',
-		'Mage' => 'Tenue de parade de Vent du néant',
+		'Mage' => 'Tenue de parade du vent du néant',
 		'Paladin' => 'Armure du jugement',
-		'Démoniste' => 'Grande tenue de Némésis',
-		'Chasseur' => 'Armure de traqueur de dragon',
-		'Chaman' => 'Les Dix tempêtes'
+		'Démoniste' => 'Tenue de parade de Némésis',
+		'Chasseur' => 'Armure de chasseur de dragons',
+		'Chaman' => 'Les dix tempêtes'
 	);
-$SetT['Tier_3']['frFR']['Name'] = array(
+	$SetT['Tier_3']['frFR']['Name'] = array(
 		'Guerrier' => 'Tenue de combat de cuirassier',
 		'Prêtre' => 'Habits de foi',
 		'Druide' => 'Grande tenue de marcherêve',
@@ -106,18 +85,18 @@ $SetT['Tier_3']['frFR']['Name'] = array(
 $SetT['AQ20']['frFR']['Name'] = array(
 		'Guerrier' => 'Battlegear of Unyielding Strength',
 		'Prêtre' => 'Finery of Infinite Wisdom',
-		'Druide' => 'Symboles de vie interminable',
+		'Druide' => 'Symbols of Unending Life',
 		'Voleur' => 'Emblems of Veiled Shadows',
-		'Mage' => 'Ornements des secrets scellés',
-		'Paladin' => 'Tenue de combat de justice éternelle',
+		'Mage' => 'Trappings of Vaulted Secrets',
+		'Paladin' => 'Battlegear of Eternal Justice',
 		'Démoniste' => 'Implements of Unspoken Names',
 		'Chasseur' => 'Trappings of the Unseen Path',
 		'Chaman' => 'Don de la tempête imminente'
 	);
 $SetT['AQ40']['frFR']['Name'] = array(
 		'Guerrier' => 'Tenue de combat du conquérant',
-		'Prêtre' => 'Vêtements de l\'oracle',
-		'Druide' => 'Grande Tenue de la génèse',
+		'Prêtre' => 'Vêtements de l\'Oracle',
+		'Druide' => 'Grande Tenue de la Génèse',
 		'Voleur' => 'Etreinte du dispensateur de mort',
 		'Mage' => 'Habits de l\'énigme',
 		'Paladin' => 'Tenue de combat du Vengeur',
@@ -126,91 +105,76 @@ $SetT['AQ40']['frFR']['Name'] = array(
 		'Chaman' => 'Atours d\'implorateur de tempête'
 	);
 $SetT['ZG']['frFR']['Name'] = array(
-        'Guerrier' => 'Tenue de combat de redresseur de tort',
-        'Prêtre' => 'Grande tenue de confesseur',
+        'Guerrier' => 'Vindicator\'s Battlegear',
+        'Prêtre' => 'Confessor\'s Raiment',
         'Druide' => 'Atours d\'haruspice',
-        'Voleur' => 'Tenue d\'insensé',
-        'Mage' => 'Costume d\'illusionniste',
-        'Paladin' => 'Armure de libre-penseur',
-        'Démoniste' => 'Effets de démoniaque',
-        'Chasseur' => 'Accomplissement de lieutenant-commandant',
-        'Chaman' => 'Tenue de parade d\'augure'
+        'Voleur' => 'Madcap\'s Outfit',
+        'Mage' => 'Illusionist\'s Attire',
+        'Paladin' => 'Freethinker\'s Armor',
+        'Démoniste' => 'Demoniac\'s Threads',
+        'Chasseur' => 'Predator\'s Armor',
+        'Chaman' => 'Augur\'s Regalia'
     );
-
+    
 $SetT['PVP_Rare']['frFR']['A']['Name'] = array(
-        'Guerrier' => 'Armure de bataille de lieutenant-commandant',
-        'Prêtre' => 'Investiture de lieutenant-commandant',
-        'Druide' => 'Sanctuaire de lieutenant-commandant',
-        'Voleur' => 'Garde de lieutenant-commandant',
-        'Mage' => 'Arcanum de lieutenant-commandant',
-        'Paladin' => 'Redoute de lieutenant-commandant',
-        'Démoniste' => 'Tenue horrifique de lieutenant-commandant',
-        'Chasseur' => 'Parure de lieutenant-commandant',
+        'Guerrier' => 'Lieutenant Commander\'s Battlegear',
+        'Prêtre' => 'Lieutenant Commander\'s Raiment',
+        'Druide' => 'Lieutenant Commander\'s Sanctuary',
+        'Voleur' => 'Lieutenant Commander\'s Vestments',
+        'Mage' => 'Lieutenant Commander\'s Regalia',
+        'Paladin' => 'Lieutenant Commander\'s Aegis',
+        'Démoniste' => 'Lieutenant Commander\'s Threads',
+        'Chasseur' => 'Lieutenant Commander\'s Pursuit',
         'Chaman' => ''
     );
-
+	
 $SetT['PVP_Rare']['frFR']['H']['Name'] = array(
         'Guerrier' => 'Tenue de combat de champion',
-        'Prêtre' => 'Grande tenue de champion',
-        'Druide' => 'Sanctuaire de champion',
-        'Voleur' => 'Habits de champion',
-        'Mage' => 'Tenue de parade de champion',
+        'Prêtre' => 'Champion\'s Raiment',
+        'Druide' => 'Champion\'s Sanctuary',
+        'Voleur' => 'Champion\'s Vestments',
+        'Mage' => 'Champion\'s Regalia',
         'Paladin' => '',
-        'Démoniste' => 'Effets de champion',
-        'Chasseur' => 'Parure de champion',
-        'Chaman' => 'Trembleterre de champion'
+        'Démoniste' => 'Champion\'s Threads',
+        'Chasseur' => 'Champion\'s Pursuit',
+        'Chaman' => 'Champion\'s Earthshaker'
     );
-
+	    
 $SetT['PVP_Epic']['frFR']['A']['Name'] = array(
-        'Guerrier' => 'Tenue de combat de grand maréchal',
-        'Prêtre' => 'Grande tenue de grand maréchal',
-        'Druide' => 'Sanctuaire de grand maréchal',
-        'Voleur' => 'Habits de grand maréchal',
-        'Mage' => 'Tenue de parade de grand maréchal',
-        'Paladin' => 'Egide de grand maréchal',
-        'Démoniste' => 'Effets de grand maréchal',
-        'Chasseur' => 'Parure de maréchal de seigneur de guerre',
+        'Guerrier' => 'Field Marshal\'s Battlegear',
+        'Prêtre' => 'Field Marshal\'s Raiment',
+        'Druide' => 'Field Marshal\'s Sanctuary',
+        'Voleur' => 'Field Marshal\'s Vestments',
+        'Mage' => 'Field Marshal\'s Regalia',
+        'Paladin' => 'Field Marshal\'s Aegis',
+        'Démoniste' => 'Field Marshal\'s Threads',
+        'Chasseur' => 'Field Marshal\'s Pursuit',
         'Chaman' => ''
     );
 
 $SetT['PVP_Epic']['frFR']['H']['Name'] = array(
-        'Guerrier' => 'Tenue de combat de seigneur de guerre',
-        'Prêtre' => 'Grande tenue de seigneur de guerre',
-        'Druide' => 'Sanctuaire de seigneur de guerre',
-        'Voleur' => 'Habits de seigneur de guerre',
-        'Mage' => 'Tenue de parade de seigneur de guerre',
+        'Guerrier' => 'Warlord\'s Battlegear',
+        'Prêtre' => 'Warlord\'s Raiment',
+        'Druide' => 'Warlord\'s Sanctuary',
+        'Voleur' => 'Warlord\'s Vestments',
+        'Mage' => 'Warlord\'s Regalia',
         'Paladin' => '',
-        'Démoniste' => 'Effets de seigneur de guerre',
-        'Chasseur' => 'Parure de maréchal de seigneur de guerre',
-        'Chaman' => 'Trembleterre de seigneur de guerre'
+        'Démoniste' => 'Warlord\'s Threads',
+        'Chasseur' => 'Warlord\'s Pursuit',
+        'Chaman' => 'Warlord\'s Earthshaker'
     );
-//Alternate names by Ansgar
-/*
-$SetAlternateName['frFR']= array(
-		'Brassards de Gangrecoeur' => 'Bracelets de Gangrecoeur',
-		'Ceinture d\\\'assassin' => 'Ceinture du tueur de la nuit',
-		'Plastron d\\\'assassin' =>	'Plastron du tueur de la nuit',
-		'Gants d\\\'assassin' => 'Gants du tueur de la nuit',
-		'Bottes d\\\'assassin' => 'Bottes du tueur de la nuit',
-		'Bracelets d\\\'assassin' => 'Bracelets du tueur de la nuit',
-		'Couvre-chef d\\\'assassin' => 'Couvre-chef du tueur de la nuit',
-		'Pantalon d\\\'assassin' => 'Pantalon du tueur de la nuit',
-		'ProtÃ¨ge-Ã©paules d\\\'assassin' => 'ProtÃ¨ge-Ã©paules du tueur de la nuit',
-		'Manteau de magistÃ¨re' => 'Mantelet de magistÃ¨re'
 
-);
-*/
 
 // TTTTT I EEEEE RRRR   000
 //   T   I E     R   R 0   0
 //   T   I EE    RRRR  0   0
 //   T   I E     R R   0   0
 //   T   I EEEEE R  R   000
-
+	
 $SetT['Tier_0']['frFR']['Guerrier'] = array(
 		'Waist' => 'Ceinture de vaillance|Généralissime Omokk|Hall de Blackhand',
 		'Feet' => 'Bottes de vaillance| Kirtonos le Héraut|Scholomance',
-		'Wrist' => 'Brassards de vaillance|Drop Aléatoire|Blackrock Spire',
+		'Wrist' => 'Bracelets de vaillance|Drop Aléatoire|Blackrock Spire',
 		'Chest' => 'Cuirasse de vaillance|Général Drakkisath|Hall de Blackhand',
 		'Hands' => 'Gantelets de vaillance|Ramstein Grandgosier|Stratholme',
 		'Head' => 'Casque de vaillance|Sombre Maître Gandling|Scholomance',
@@ -220,7 +184,7 @@ $SetT['Tier_0']['frFR']['Guerrier'] = array(
 $SetT['Tier_0']['frFR']['Prêtre'] = array(
 		'Waist' => 'Ceinture de dévôt|Drop Al?oire|Blackrock Spire',
 		'Feet' => 'Sandales de dévôt|Maleki the Pallid|Stratholme East',
-		'Wrist' => 'Brassards de dévôt|Drop Aléatoire|Stratholme',
+		'Wrist' => 'Bracelets de dévôt|Drop Aléatoire|Stratholme',
 		'Chest' => 'Robe de dévôt|Général Drakkisath|Upper Blackrock Spire',
 		'Hands' => 'Gants de dévôt|Archivist Galford|Stratholme West',
 		'Head' => 'Collerette de dévôt|Darkmaster Gandling|Scholomance',
@@ -230,7 +194,7 @@ $SetT['Tier_0']['frFR']['Prêtre'] = array(
 $SetT['Tier_0']['frFR']['Druide'] = array(
 		'Waist' => 'Ceinture du Coeur-Sauvage|Drop Aléatoire|Scholomance',
 		'Feet' => 'Bottes du Coeur-Sauvage|Mother Smolderweb|Lower Blackrock Spire',
-		'Wrist' => 'Brassards du Coeur-Sauvage|Drop Aléaoire|Stratholme',
+		'Wrist' => 'Bracelets du Coeur-Sauvage|Drop Al?oire|Stratholme',
 		'Chest' => 'Gilet du Coeur-Sauvage|Général Drakkisath|Upper Blackrock Spire',
 		'Hands' => 'Gants du Coeur-Sauvage|Drop Aléatoire|Blackrock Spire',
 		'Head' => 'Coiffe du Coeur-Sauvage|Darkmaster Gandling|Scholomance',
@@ -238,29 +202,29 @@ $SetT['Tier_0']['frFR']['Druide'] = array(
 		'Shoulder' => 'Spallières du Coeur-Sauvage|Gizrul the Slavener|Lower Blackrock Spire'
 	);
 $SetT['Tier_0']['frFR']['Voleur'] = array(
-		'Waist' => 'Ceinture Sombreruse|Drop Aléatoire|Blackrock Spire',
-		'Feet' => 'Bottes Sombreruse|Rattlegore|Scholomance',
-		'Wrist' => 'Brassards Sombreruse|Drop Aléatoire|Scholomance',
-		'Chest' => 'Tunique Sombreruse|Général Drakkisath|Upper Blackrock Spire',
-		'Hands' => 'Gants Sombreruse|Shadow Chasseur Vosh\\\'gajin|Lower Blackrock Spire',
-		'Head' => 'Cagoule Sombreruse|Darkmaster Gandling|Scholomance',
-		'Legs' => 'Pantalon Sombreruse|Baron Rivendare|Stratholme East',
-		'Shoulder' => 'Spallières Sombreruse|Cannon Master Willey|Stratholme West'
+		'Waist' => 'Ceinture Tisse-ombre|Drop Aléatoire|Blackrock Spire',
+		'Feet' => 'Bottes Tisse-ombre|Rattlegore|Scholomance',
+		'Wrist' => 'Bracelets Tisse-ombre|Drop Aléatoire|Scholomance',
+		'Chest' => 'Tunique Tisse-ombre|Général Drakkisath|Upper Blackrock Spire',
+		'Hands' => 'Gants Tisse-ombre|Shadow Chasseur Vosh\\\'gajin|Lower Blackrock Spire',
+		'Head' => 'Cagoule Tisse-ombre|Darkmaster Gandling|Scholomance',
+		'Legs' => 'Pantalon Tisse-ombre|Baron Rivendare|Stratholme East',
+		'Shoulder' => 'Spallières Tisse-ombre|Cannon Master Willey|Stratholme West'
 	);
 $SetT['Tier_0']['frFR']['Mage'] = array(
 		'Waist' => 'Ceinture de magistère|Drop Aléatoire|Stratholme',
 		'Feet' => 'Bottes de magistère|Postmaster Malown|Stratholme West',
-		'Wrist' => 'Manchettes de magistère|Drop Aléatoire|Blackrock Spire',
+		'Wrist' => 'Bracelets de magistère|Drop Aléatoire|Blackrock Spire',
 		'Chest' => 'Robe de magistère|Général Drakkisath|Upper Blackrock Spire',
 		'Hands' => 'Gants de magistère|Drop Aléatoire|Scholomance',
 		'Head' => 'Collerette de magistère|Darkmaster Gandling|Scholomance',
 		'Legs' => 'Jambières de magistère|Baron Rivendare|Stratholme East',
-		'Shoulder' => 'Mantelet de magistère|Ras Frostwhisper|Scholomance'
+		'Shoulder' => 'Manteau de magistère|Ras Frostwhisper|Scholomance'
 	);
 $SetT['Tier_0']['frFR']['Paladin'] = array(
 		'Waist' => 'Ceinture de sancteforge|Drop Aléatoire|Stratholme',
 		'Feet' => 'Bottes de sancteforge|Balnazzar|Stratholme West',
-		'Wrist' => 'Brassards de Sancteforge|Drop Aléatoire|Scholomance',
+		'Wrist' => 'Bracelets de sancteforge|Drop Aléatoire|Scholomance',
 		'Chest' => 'Cuirasse de sancteforge|Général Drakkisath|Upper Blackrock Spire',
 		'Hands' => 'Gantelets de sancteforge|Emperor Dagran Thaurissan|Blackrock Depths',
 		'Head' => 'Casque de sancteforge|Darkmaster Gandling|Scholomance',
@@ -270,9 +234,9 @@ $SetT['Tier_0']['frFR']['Paladin'] = array(
 $SetT['Tier_0']['frFR']['Démoniste'] = array(
 		'Waist' => 'Ceinture de Brume-funeste|Drop Aléatoire|Stratholme',
 		'Feet' => 'Sandales de Brume-funeste|Baroness Anastari|Stratholme East',
-		'Wrist' => 'Brassards de Brume-funeste|Drop Aléatoire|Blackrock Spire',
+		'Wrist' => 'Bracelets de Brume-funeste|Drop Aléatoire|Blackrock Spire',
 		'Chest' => 'Robe de Brume-funeste|Général Drakkisath|Upper Blackrock Spire',
-		'Hands' => 'Protège-mains de Brume-funeste|Drop Aléatoire|Scholomance',
+		'Hands' => 'Gants de Brume-funeste|Drop Aléatoire|Scholomance',
 		'Head' => 'Masque de Brume-funeste|Darkmaster Gandling|Scholomance',
 		'Legs' => 'Jambières de Brume-funeste|Baron Rivendare|Stratholme East',
 		'Shoulder' => 'Mantelet de Brume-funeste|Jandice Barov|Scholomance'
@@ -290,7 +254,7 @@ $SetT['Tier_0']['frFR']['Chasseur'] = array(
 $SetT['Tier_0']['frFR']['Chaman'] = array(
 		'Waist' => 'Corde des éléments|Drop Aléatoire|Blackrock Spire',
 		'Feet' => 'Bottes des éléments|Urok Doomhowl|Lower Blackrock Spire',
-		'Wrist' => 'Manchettes des éléments|Drop Aléatoire|Stratholme',
+		'Wrist' => 'Bracelets des éléments|Drop Aléatoire|Stratholme',
 		'Chest' => 'Haubergeon des éléments|Général Drakkisath|Upper Blackrock Spire',
 		'Hands' => 'Gantelets des éléments|Pyroguard Emberseer|Upper Blackrock Spire',
 		'Head' => 'Coiffe des éléments|Darkmaster Gandling|Scholomance',
@@ -299,7 +263,7 @@ $SetT['Tier_0']['frFR']['Chaman'] = array(
 	);
 
 // TTTTT I EEEEE RRRR    000      55555
-//   T   I E     R   R  0   0     5
+//   T   I E     R   R  0   0     5 
 //   T   I EE    RRRR   0   0      5555
 //   T   I E     R R    0   0          5
 //   T   I EEEEE R  R    000   0   5555
@@ -307,7 +271,7 @@ $SetT['Tier_0']['frFR']['Chaman'] = array(
 $SetT['Tier_0.5']['frFR']['Druide'] = array(
 		'Waist' => 'Ceinture Coeur-Farouche|Quest|Somewhere',
 		'Feet'  => 'Bottes Coeur-Farouche|Quest|Somewhere',
-		'Wrist' => 'Brassards Coeur-Farouche|Quest|Somewhere',
+		'Wrist' => 'Bracelets Coeur-Farouche|Quest|Somewhere',
 		'Chest' => 'Gilet Coeur-Farouche|Quest|Somewhere',
 		'Hands' => 'Gants Coeur-Farouche|Quest|Somewhere',
 		'Head'  => 'Capuche Coeur-Farouche|Quest|Somewhere',
@@ -345,14 +309,14 @@ $SetT['Tier_0.5']['frFR']['Paladin'] = array(
 		'Shoulder' => 'Spallières d\\\'Âmeforge|Quest|Somewhere'
 );
 $SetT['Tier_0.5']['frFR']['Prêtre'] = array(
-		'Waist' => 'Ceinture vertueuse|Quest|Somewhere',
-		'Feet'  => 'Sandales vertueuses|Quest|Somewhere',
+		'Waist' => 'Ceinture virtueuse|Quest|Somewhere',
+		'Feet'  => 'Sandales virtueuses|Quest|Somewhere',
 		'Wrist' => 'Brassards vertueux|Quest|Somewhere',
-		'Chest' => 'Robe vertueuse|Quest|Somewhere',
-		'Hands' => 'Gants vertueux|Quest|Somewhere',
-		'Head'  => 'Couronne vertueuse|Quest|Somewhere',
-		'Legs'  => 'Jupe vertueuse|Quest|Somewhere',
-		'Shoulder' => 'Mantelet vertueux|Quest|Somewhere'
+		'Chest' => 'Robe virtueuse|Quest|Somewhere',
+		'Hands' => 'Gants virtueux|Quest|Somewhere',
+		'Head'  => 'Couronne virtueuse|Quest|Somewhere',
+		'Legs'  => 'Jupe virtueuse|Quest|Somewhere',
+		'Shoulder' => 'Mantelet virtueux|Quest|Somewhere'
 );
 $SetT['Tier_0.5']['frFR']['Voleur'] = array(
 		'Waist' => 'Ceinture Sombremante|Quest|Somewhere',
@@ -387,7 +351,7 @@ $SetT['Tier_0.5']['frFR']['Démoniste'] = array(
 $SetT['Tier_0.5']['frFR']['Guerrier'] = array(
 		'Waist' => 'Ceinture d\\\'héroïsme|Quest|Somewhere',
 		'Feet'  => 'Bottes d\\\'héroïsme|Quest|Somewhere',
-		'Wrist' => 'Brassards d\\\'héroïsme|Quest|Somewhere',
+		'Wrist' => 'Gantelets d\\\'héroïsme|Quest|Somewhere',
 		'Chest' => 'Cuirasse d\\\'héroïsme|Quest|Somewhere',
 		'Hands' => 'Gantelets d\\\'héroïsme|Quest|Somewhere',
 		'Head'  => 'Casque d\\\'héroïsme|Quest|Somewhere',
@@ -401,52 +365,52 @@ $SetT['Tier_0.5']['frFR']['Guerrier'] = array(
 //   T   I EE    RRRR  1  1
 //   T   I E     R R      1
 //   T   I EEEEE R  R     1
-
+	
 $SetT['Tier_1']['frFR']['Guerrier'] = array(
 		'Waist' => 'Ceinture de puissance|Drop Aléatoire|Molten Core',
 		'Feet' => 'Sandales de puissance|Gehennas|Molten Core',
-		'Wrist' => 'Brassards de puissance|Drop Aléatoire|Molten Core',
+		'Wrist' => 'Bracelets de puissance|Drop Aléatoire|Molten Core',
 		'Chest' => 'Cuirasse de puissance|Golemagg l\\\'Incinérateur|Molten Core',
-		'Hands' => 'Gantelets de pouvoir|Lucifron|Molten Core',
+		'Hands' => 'Gantelets de puissance|Lucifron|Molten Core',
 		'Head' => 'Casque de puissance|Garr|Molten Core',
 		'Legs' => 'Jambières de puissance|Magmadar|Molten Core',
 		'Shoulder' => 'Espauliers de puissance|Messager de Sulfuron|Molten Core'
 	);
 $SetT['Tier_1']['frFR']['Prêtre'] = array(
-		'Waist' => 'Ceinturon de prophétie|Drop Aléatoire|Molten Core',
-		'Feet' => 'Bottes de prophétie|Shazzrah|Molten Core',
-		'Wrist' => 'Protège-bras de prophétie|Drop Aléatoire|Molten Core',
-		'Chest' => 'Robe de prophétie|Golemagg l\\\'Incinérateur|Molten Core',
-		'Hands' => 'Gants de prophétie|Gehennas|Molten Core',
-		'Head' => 'Collerette de prophétie|Garr|Molten Core',
-		'Legs' => 'Pantalon de prophétie|Magmadar|Molten Core',
-		'Shoulder' => 'Mantelet de prophétie|Messager de Sulfuron|Molten Core'
+		'Waist' => 'Ceinturon prophétique|Drop Aléatoire|Molten Core',
+		'Feet' => 'Bottes prophétiques|Shazzrah|Molten Core',
+		'Wrist' => 'Brassards prophétiques|Drop Aléatoire|Molten Core',
+		'Chest' => 'Robe prophétique|Golemagg l\\\'Incinérateur|Molten Core',
+		'Hands' => 'Gants prophétiques|Gehennas|Molten Core',
+		'Head' => 'Collerette prophétique|Garr|Molten Core',
+		'Legs' => 'Pantalon  prophétique|Magmadar|Molten Core',
+		'Shoulder' => 'Mantelet prophétique|Messager de Sulfuron|Molten Core'
 	);
 $SetT['Tier_1']['frFR']['Druide'] = array(
 		'Waist' => 'Ceinture cénarienne|Drop Aléatoire|Molten Core',
 		'Feet' => 'Bottes cénariennes|Lucifron|Molten Core',
-		'Wrist' => 'Brassards cénariens|Drop Aléatoire|Molten Core',
-		'Chest' => 'Habit cénarien|Golemagg l\\\'Incinérateur|Molten Core',
+		'Wrist' => 'Bracelets cénariens|Drop Aléatoire|Molten Core',
+		'Chest' => 'Habits cénariens|Golemagg l\\\'Incinérateur|Molten Core',
 		'Hands' => 'Gants cénariens|Shazzrah|Molten Core',
 		'Head' => 'Casque cénarien|Garr|Molten Core',
 		'Legs' => 'Jambières cénariennes|Magmadar|Molten Core',
 		'Shoulder' => 'Spallières cénariennes|Baron Geddon|Molten Core'
 	);
-
+	
 $SetT['Tier_1']['frFR']['Voleur'] = array(
-		'Waist' => 'Ceinture du tueur de la nuit|Drop Aléatoire|Molten Core',
-		'Feet' => 'Bottes du tueur de la nuit|Shazzrah|Molten Core',
-		'Wrist' => 'Bracelets du tueur de la nuit|Drop Aléatoire|Molten Core',
-		'Chest' => 'Plastron du tueur de la nuit|Golemagg l\\\'Incinérateur|Molten Core',
-		'Hands' => 'Gants du tueur de la nuit|Gehennas|Molten Core',
-		'Head' => 'Couvre-chef du tueur de la nuit|Garr|Molten Core',
-		'Legs' => 'Pantalon du tueur de la nuit|Magmadar|Molten Core',
-		'Shoulder' => 'Protège-épaules du tueur de la nuit|Messager de Sulfuron|Molten Core'
+		'Waist' => 'Ceinture d\\\'assassin|Drop Aléatoire|Molten Core',
+		'Feet' => 'Bottes d\\\'assassin|Shazzrah|Molten Core',
+		'Wrist' => 'Bracelets d\\\'assassin|Drop Aléatoire|Molten Core',
+		'Chest' => 'Plastron d\\\'assassin|Golemagg l\\\'Incinérateur|Molten Core',
+		'Hands' => 'Gants d\\\'assassin|Gehennas|Molten Core',
+		'Head' => 'Couvre-chef d\\\'assassin|Garr|Molten Core',
+		'Legs' => 'Pantalon d\\\'assassin|Magmadar|Molten Core',
+		'Shoulder' => 'Protège-épaules d\\\'assassin|Messager de Sulfuron|Molten Core'
 	);
 $SetT['Tier_1']['frFR']['Mage'] = array(
 		'Waist' => 'Ceinture d\\\'arcaniste|Drop Aléatoire|Molten Core',
 		'Feet' => 'Bottes d\\\'arcaniste|Gehennas|Molten Core',
-		'Wrist' => 'Manchettes d\\\'arcaniste|Drop Aléatoire|Molten Core',
+		'Wrist' => 'Bracelets d\\\'arcaniste|Drop Aléatoire|Molten Core',
 		'Chest' => 'Robe d\\\'arcaniste|Golemagg l\\\'Incinérateur|Molten Core',
 		'Hands' => 'Gants d\\\'arcaniste|Shazzrah|Molten Core',
 		'Head' => 'Couronne d\\\'arcaniste|Garr|Molten Core',
@@ -456,18 +420,18 @@ $SetT['Tier_1']['frFR']['Mage'] = array(
 
 $SetT['Tier_1']['frFR']['Paladin'] = array(
 		'Waist' => 'Ceinture judiciaire|Drop Aléatoire|Molten Core',
-		'Feet' => 'Bottes judiciaires|Lucifron|Molten Core',
-		'Wrist' => 'Brassards judiciaires|Drop Aléatoire|Molten Core',
+		'Feet' => 'Bottes judiciaire|Lucifron|Molten Core',
+		'Wrist' => 'Bracelets judiciaire|Drop Aléatoire|Molten Core',
 		'Chest' => 'Corselet judiciaire|Golemagg l\\\'Incinérateur|Molten Core',
-		'Hands' => 'Gantelets judiciaires|Gehennas|Molten Core',
-		'Head' => 'Heaume judiciaire|Garr|Molten Core',
-		'Legs' => 'Jambières judiciaires|Magmadar|Molten Core',
-		'Shoulder' => 'Spallières judiciaires|Baron Geddon|Molten Core'
+		'Hands' => 'Gantelets judiciaire|Gehennas|Molten Core',
+		'Head' => 'Haume judiciaire|Garr|Molten Core',
+		'Legs' => 'Jambières judiciaire|Magmadar|Molten Core',
+		'Shoulder' => 'Spallières judiciaire|Baron Geddon|Molten Core'
 	);
 $SetT['Tier_1']['frFR']['Démoniste'] = array(
 		'Waist' => 'Ceinture de Gangrecoeur|Drop Aléatoire|Molten Core',
 		'Feet' => 'Mules de Gangrecoeur|Gehennas|Molten Core',
-		'Wrist' => 'Brassards de Gangrecoeur|Drop Aléatoire|Molten Core',
+		'Wrist' => 'Bracelets de Gangrecoeur|Drop Aléatoire|Molten Core',
 		'Chest' => 'Robe de Gangrecoeur|Golemagg der Verbrenner|Molten Core',
 		'Hands' => 'Gants de Gangrecoeur|Lucifron|Molten Core',
 		'Head' => 'Cornes de Gangrecoeur|Garr|Molten Core',
@@ -475,26 +439,26 @@ $SetT['Tier_1']['frFR']['Démoniste'] = array(
 		'Shoulder' => 'Protège-épaules de Gangrecoeur|Baron Geddon|Molten Core'
 	);
 $SetT['Tier_1']['frFR']['Chasseur'] = array(
-		'Waist' => 'Ceinture de traqueur de géant|Drop Aléatoire|Molten Core',
-		'Feet' => 'Bottes de traqueur de géant|Gehennas|Molten Core',
-		'Wrist' => 'Brassards de traqueur de géant|Drop Aléatoire|Molten Core',
-		'Chest' => 'Cuirasse de traqueur de géant|Golemagg l\\\'Incinérateur|Molten Core',
-		'Hands' => 'Gants de traqueur de géant|Shazzrah|Molten Core',
-		'Head' => 'Casque de traqueur de géant|Garr|Molten Core',
-		'Legs' => 'Jambières de traqueur de géant|Magmadar|Molten Core',
-		'Shoulder' => 'Epaulettes de traqueur de géant|Messager de Sulfuron|Molten Core'
+		'Waist' => 'Ceinture de chasseur de géant|Drop Aléatoire|Molten Core',
+		'Feet' => 'Bottes de chasseur de géant|Gehennas|Molten Core',
+		'Wrist' => 'Bracelets de chasseur de géant|Drop Aléatoire|Molten Core',
+		'Chest' => 'Cuirasse de chasseur de géant|Golemagg l\\\'Incinérateur|Molten Core',
+		'Hands' => 'Gants de chasseur de géant|Shazzrah|Molten Core',
+		'Head' => 'Casque de chasseur de géant|Garr|Molten Core',
+		'Legs' => 'Jambières de chasseur de géant|Magmadar|Molten Core',
+		'Shoulder' => 'Epaulettes de chasseur de géant|Messager de Sulfuron|Molten Core'
 	);
 $SetT['Tier_1']['frFR']['Chaman'] = array(
 		'Waist' => 'Ceinture Rageterre|Drop Aléatoire|Molten Core',
 		'Feet' => 'Bottes Rageterre|Lucifron|Molten Core',
-		'Wrist' => 'Brassards Rageterre|Drop Aléatoire|Molten Core',
+		'Wrist' => 'Bracelets Rageterre|Drop Aléatoire|Molten Core',
 		'Chest' => 'Habit Rageterre|Golemagg l\\\'Incinérateur|Molten Core',
 		'Hands' => 'Gantelets Rageterre|Gehennas|Molten Core',
 		'Head' => 'Casque Rageterre|Garr|Molten Core',
 		'Legs' => 'Jambières Rageterre|Magmadar|Molten Core',
 		'Shoulder' => 'Epaulettes Rageterre|Baron Geddon|Molten Core'
 	);
-
+	
 // TTTTT I EEEEE RRRR   222
 //   T   I E     R   R     2
 //   T   I EE    RRRR   222
@@ -514,9 +478,9 @@ $SetT['Tier_2']['frFR']['Guerrier'] = array(
 $SetT['Tier_2']['frFR']['Prêtre'] = array(
 		'Waist' => 'Ceinture de transcendance|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Bottes de transcendance|Seigneur des couvées Lashslayer|Blackwing Lair',
-		'Wrist' => 'Manchettes de transcendance|Razorgore l\\\'Indompté|Blackwing Lair',
+		'Wrist' => 'Bracelets de transcendance|Razorgore l\\\'Indompté|Blackwing Lair',
 		'Chest' => 'Robe de transcendance|Nefarian|Blackwing Lair',
-		'Hands' => 'Garde-mains de transcendance|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
+		'Hands' => 'Gants de transcendance|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Auréole de transcendance|Onyxia|Onyxia\\\'s Lair',
 		'Legs' => 'Jambières de transcendance|Ragnaros|Molten Core',
 		'Shoulder' => 'Espauliers de transcendance|Chromaggus|Blackwing Lair'
@@ -524,9 +488,9 @@ $SetT['Tier_2']['frFR']['Prêtre'] = array(
 $SetT['Tier_2']['frFR']['Druide'] = array(
 		'Waist' => 'Ceinture de Stormrage|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Bottes de Stormrage|Seigneur des couvées Lashslayer|Blackwing Lair',
-		'Wrist' => 'Brassards de Stormrage|Razorgore l\\\'Indompté|lackwing Lair',
+		'Wrist' => 'Bracelets de Stormrage|Razorgore l\\\'Indompté|lackwing Lair',
 		'Chest' => 'Robe de Stormrage|Nefarian|Blackwing Lair',
-		'Hands' => 'Garde-mains de Stormrage|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
+		'Hands' => 'Gants de Stormrage|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Couvre-chef de Stormrage|Onyxia|Onyxia\\\'s Lair',
 		'Legs' => 'Jambières de Stormrage|Ragnaros|Molten Core',
 		'Shoulder' => 'Espauliers de Stormrage|Chromaggus|Blackwing Lair'
@@ -534,7 +498,7 @@ $SetT['Tier_2']['frFR']['Druide'] = array(
 $SetT['Tier_2']['frFR']['Voleur'] = array(
 		'Waist' => 'Ceinture Rougecroc|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Bottes Rougecroc|Seigneur des couvées Lashslayer|Blackwing Lair',
-		'Wrist' => 'Brassards Rougecroc|Razorgore l\\\'Indompt?lackwing Lair',
+		'Wrist' => 'Bracelets Rougecroc|Razorgore l\\\'Indompt?lackwing Lair',
 		'Chest' => 'Plastron Rougecroc|Nefarian|Blackwing Lair',
 		'Hands' => 'Gants Rougecroc|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Cagoule Rougecroc|Onyxia|Onyxia\\\'s Lair',
@@ -544,8 +508,8 @@ $SetT['Tier_2']['frFR']['Voleur'] = array(
 $SetT['Tier_2']['frFR']['Mage'] = array(
 		'Waist' => 'Ceinture de Vent du néant|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Bottes de Vent du néantSeigneur des couvées Lashslayerr|Blackwing Lair',
-		'Wrist' => 'Manchettes de Vent du néant|Razorgore l\\\'Indompt?lackwing Lair',
-		'Chest' => 'Robe de Vent du néant|Nefarian|Blackwing Lair',
+		'Wrist' => 'Bracelets de Vent du néant|Razorgore l\\\'Indompt?lackwing Lair',
+		'Chest' => 'Rove de Vent du néant|Nefarian|Blackwing Lair',
 		'Hands' => 'Gants de Vent du néant|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Couronne de Vent du néant|Onyxia|Onyxia\\\'s Lair',
 		'Legs' => 'Pantalon de Vent du néant|Ragnaros|Molten Core',
@@ -554,7 +518,7 @@ $SetT['Tier_2']['frFR']['Mage'] = array(
 $SetT['Tier_2']['frFR']['Paladin'] = array(
 		'Waist' => 'Ceinture du jugement|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Sandales du jugement|Seigneur des couvées Lashslayer|Blackwing Lair',
-		'Wrist' => 'Manchettes du jugement|Razorgore l\\\'Indompté|Blackwing Lair',
+		'Wrist' => 'Bracelets du jugement|Razorgore l\\\'Indompté|Blackwing Lair',
 		'Chest' => 'Cuirasse du jugement|Nefarian|Blackwing Lair',
 		'Hands' => 'Gantelets du jugement|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Couronne du jugement|Onyxia|Onyxia\\\'s Lair',
@@ -564,35 +528,35 @@ $SetT['Tier_2']['frFR']['Paladin'] = array(
 $SetT['Tier_2']['frFR']['Démoniste'] = array(
 		'Waist' => 'Ceinture de Némésis|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Bottes de Némésis|Seigneur des couvées Lashslayer|Blackwing Lair',
-		'Wrist' => 'Brassards de Némésis|Razorgore l\\\'Indompté|Blackwing Lair',
+		'Wrist' => 'Bracelets de Némésis|Razorgore l\\\'Indompté|Blackwing Lair',
 		'Chest' => 'Robe de Némésis|Nefarian|Blackwing Lair',
 		'Hands' => 'Gants de Némésis|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Crâne de Némésis|Onyxia|Onyxia\\\'s Lair',
 		'Legs' => 'Jambières de Némésis|Ragnaros|Molten Core',
 		'Shoulder' => 'Spallières de Némésis|Chromaggus|Blackwing Lair'
 	);
-
+	
 $SetT['Tier_2']['frFR']['Chasseur'] = array(
-		'Waist' => 'Ceinture de traqueur de dragon|Vaelastrasz le Corrompu|Blackwing Lair',
-		'Feet' => 'Bottes de traqueur de dragon|Seigneur des couvées Lashslayerr|Blackwing Lair',
-		'Wrist' => 'Brassards de traqueur de dragon|Razorgore l\\\'Indompté|Blackwing Lair',
-		'Chest' => 'Cuirasse de traqueur de dragon|Nefarian|Blackwing Lair',
-		'Hands' => 'Gantelets de traqueur de dragon|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
-		'Head' => 'Casque de traqueur de dragon|Onyxia|Onyxia\\\'s Lair',
-		'Legs' => 'Jambières de traqueur de dragon|Ragnaros|Molten Core',
-		'Shoulder' => 'Spallières de traqueur de dragon|Chromaggus|Blackwing Lair'
+		'Waist' => 'Ceinture de chasseur de dragon|Vaelastrasz le Corrompu|Blackwing Lair',
+		'Feet' => 'Bottes de chasseur de dragon|Seigneur des couvées Lashslayerr|Blackwing Lair',
+		'Wrist' => 'Bracelets de chasseur de dragon|Razorgore l\\\'Indompté|Blackwing Lair',
+		'Chest' => 'Cuirasse de chasseur de dragon|Nefarian|Blackwing Lair',
+		'Hands' => 'Gantelets de chasseur de dragon|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
+		'Head' => 'Protège-front de chasseur de dragon|Onyxia|Onyxia\\\'s Lair',
+		'Legs' => 'Jambières de chasseur de dragon|Ragnaros|Molten Core',
+		'Shoulder' => 'Spallières de chasseur de dragon|Chromaggus|Blackwing Lair'
 	);
 $SetT['Tier_2']['frFR']['Chaman'] = array(
 		'Waist' => 'Ceinture des dix tempêtes|Vaelastrasz le Corrompu|Blackwing Lair',
 		'Feet' => 'Bottes des dix tempêtes|Seigneur des couvées Lashslayerr|Blackwing Lair',
-		'Wrist' => 'Brassards des dix tempêtes|Razorgore l\\\'Indompté|Blackwing Lair',
+		'Wrist' => 'Bracelets des dix tempêtes|Razorgore l\\\'Indompté|Blackwing Lair',
 		'Chest' => 'Cuirasse des dix tempêtes|Nefarian|Blackwing Lair',
 		'Hands' => 'Gantelets des dix tempêtes|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Casque des dix tempêtes|Onyxia|Onyxia\\\'s Lair',
 		'Legs' => 'Jambières des dix tempêtes|Ragnaros|Molten Core',
 		'Shoulder' => 'Epaulettes des dix tempêtes|Chromaggus|Blackwing Lair'
 	);
-
+	
 // TTTTT I EEEEE RRRR   3333
 //   T   I E     R   R      3
 //   T   I EE    RRRR    333
@@ -676,7 +640,7 @@ $SetT['Tier_3']['frFR']['Démoniste'] = array(
 		'Shoulder' => 'Protège-épaules de pestecoeur|MOB|LOCATION',
 		'Finger' => 'Anneau de pestecoeur|MOB|LOCATION'
 	);
-
+	
 $SetT['Tier_3']['frFR']['Chasseur'] = array(
 		'Waist' => 'Ceinturon de traqueur des cryptes|MOB|LOCATION',
 		'Feet' => 'Bottes de traqueur des cryptes|MOB|LOCATION',
@@ -707,49 +671,49 @@ $SetT['Tier_3']['frFR']['Chaman'] = array(
 //  A    A    QQQ Q  22222   000
 
 $SetT['AQ20']['frFR']['Druide'] = array(
-		'Back' => 'Cape de vie interminable|Quete|Cape de vie interminable',
+		'Back' => 'Cloak of Unending Life|Quest|Cloak of Unending Life',
 		'Finger' => 'Anneau de vie interminable|Quest|Anneau de vie interminable',
 		'Mainhand' => 'Masse de vie interminable|Quest|Masse de vie interminable'
 );
 $SetT['AQ20']['frFR']['Chasseur'] = array(
-		'Back' => 'Cape du Sentier Invisible|Quest|Cape du Sentier Invisible',
-		'Finger' => 'Chevaliere du Sentier Invisible|Quest|Chevaliere du Sentier Invisible',
-		'Mainhand' => 'Faux du Sentier Invisible|Quest|Faux du Sentier Invisible'
+		'Back' => 'Cloak of the Unseen Path|Quest|Cloak of the Unseen Path',
+		'Finger' => 'Signet of the Unseen Path|Quest|Signet of the Unseen Path',
+		'Mainhand' => 'Scythe of the Unseen Path|Quest|Scythe of the Unseen Path'
 );
 $SetT['AQ20']['frFR']['Mage'] = array(
-		'Back' => 'Drapé des secrets scellés|Quest|Drapé des secrets scellés',
-		'Finger' => 'Anneau des secrets scellés|Quest|Anneau des secrets scellés',
-		'Mainhand' => ' Lame des secrets scellés|Quest| Lame des secrets scellés'
+		'Back' => 'Drape of Vaulted Secrets|Quest|Drape of Vaulted Secrets',
+		'Finger' => 'Band of Vaulted Secrets|Quest|Band of Vaulted Secrets',
+		'Mainhand' => 'Blade of Vaulted Secrets|Quest|Blade of Vaulted Secrets'
 );
 $SetT['AQ20']['frFR']['Paladin'] = array(
-		'Back' => 'Cape de justice éternelle|Quest| Cape de justice éternelle',
-		'Finger' => 'Anneau de Justice Eternelle|Quest|Anneau de Justice Eternelle',
-		'Mainhand' => 'Lame de Justice Eternelle|Quest|Lame de Justice Eternelle'
+		'Back' => 'Cape of Eternal Justice|Quest|Cape of Eternal Justice',
+		'Finger' => 'Ring of Eternal Justice|Quest|Ring of Eternal Justice',
+		'Mainhand' => 'Blade of Eternal Justice|Quest|Blade of Eternal Justice'
 );
 $SetT['AQ20']['frFR']['Prêtre'] = array(
-		'Back' => 'Voile de sagesse infinie|Quest|Voile de sagesse infinie',
-		'Finger' => 'Anneau de sagesse infinie|Quest|Anneau de sagesse infinie',
-		'Mainhand' => 'Marteau de sagesse infinie|Quest|Marteau de sagesse infinie'
+		'Back' => 'Shroud of Infinite Wisdom|Quest|Shroud of Infinite Wisdom',
+		'Finger' => 'Ring of Infinite Wisdom|Quest|Ring of Infinite Wisdom',
+		'Mainhand' => 'Gavel of Infinite Wisdom|Quest|Gavel of Infinite Wisdom'
 );
 $SetT['AQ20']['frFR']['Voleur'] = array(
-		'Back' => 'Cape des Ombres Voilées|Quest|Cape des Ombres Voilées',
-		'Finger' => 'Anneau des Ombres Voilées|Quest|Anneau des Ombres Voilées',
-		'Mainhand' => 'Dague des Ombres Voilées|Quest|Daguee des Ombres Voilées'
+		'Back' => 'Cloak of Veiled Shadows|Quest|Cloak of Veiled Shadows',
+		'Finger' => 'Band of Veiled Shadows|Quest|Band of Veiled Shadows',
+		'Mainhand' => 'Dagger of Veiled Shadows|Quest|Dagger of Veiled Shadows'
 );
 $SetT['AQ20']['frFR']['Chaman'] = array(
-		'Back' => 'Cape de la tempête imminente|Quest|Cape de la tempête imminente',
+		'Back' => 'Cloak of the Gathering Storm|Quest|Cloak of the Gathering Storm',
 		'Finger' => 'Anneau de la tempête imminente|Quest|Anneau de la tempête imminente',
 		'Mainhand' => 'Marteau de la tempête imminente|Quest|Marteau de la tempête imminente'
 );
 $SetT['AQ20']['frFR']['Démoniste'] = array(
-		'Back' => 'Voile des noms inexprimés|Quest|Voile des noms inexprimés',
-		'Finger' => 'Anneau des noms inexprimés|Quest|Anneau des noms inexprimés',
-		'Mainhand' => 'Kriss des noms inexprimés|Quest|Kriss des noms inexprimés'
+		'Back' => 'Shroud of Unspoken Names|Quest|Shroud of Unspoken Names',
+		'Finger' => 'Ring of Unspoken Names|Quest|Ring of Unspoken Names',
+		'Mainhand' => 'Kris of Unspoken Names|Quest|Kris of Unspoken Names'
 );
-$SetT['AQ20']['frFR']['Guerrier'] = array(
-		'Back' => 'Drappé de force inflexible|Quest|Drappé de force inflexible',
-		'Finger' => 'Chevaliere de force inflexible|Quest|Chevaliere de force inflexible',
-		'Mainhand' => 'Faucille de force inflexible|Quest|Faucille de force inflexible'
+$SetT['AQ20']['deDE']['Krieger'] = array(
+		'Back' => 'Drape of Unyielding Strength|Quest|Drape of Unyielding Strength',
+		'Finger' => 'Signet of Unyielding Strength|Quest|Signet of Unyielding Strength',
+		'Mainhand' => 'Sickle of Unyielding Strength|Quest|Sickle of Unyielding Strength'
 );
 
 //   AAAA     QQQ       4 4    000
@@ -759,67 +723,67 @@ $SetT['AQ20']['frFR']['Guerrier'] = array(
 //  A    A    QQQ Q       4    000
 
 $SetT['AQ40']['frFR']['Druide'] = array(
-		'Feet' => 'Bottes de la genèse|Quest|AQ40',
-		'Chest' => 'Gilet de la genèse|Quest|AQ40',
-		'Head' => 'Casque de la genèse|Quest|AQ40',
-		'Legs' => 'Pantalon de la genèse|Quest|AQ40',
-		'Shoulder' => 'Protège-épaules de la genèse|Quest|AQ40'
+		'Feet'  => 'Genesis Boots|Quest|AQ40',
+		'Chest' => 'Genesis Vest|Quest|AQ40',
+		'Head'  => 'Genesis Helm|Quest|AQ40',
+		'Legs'  => 'Genesis Trousers|Quest|AQ40',
+		'Shoulder' => 'Genesis Shoulderpads|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Chasseur'] = array(
-		'Feet' => 'Bottes du Frappeur|Quest|AQ40',
-		'Chest' => 'Haubert du Frappeur|Quest|AQ40',
-		'Head' => 'Diadème du Frappeur|Quest|AQ40',
-		'Legs' => 'Jambières du Frappeur|Quest|AQ40',
-		'Shoulder' => 'Espauliers du Frappeur|Quest|AQ40'
+		'Feet'  => 'Striker\\\'s Footguards|Quest|AQ40',
+		'Chest' => 'Striker\\\'s Hauberk|Quest|AQ40',
+		'Head'  => 'Striker\\\'s Diadem|Quest|AQ40',
+		'Legs'  => 'Striker\\\'s Leggings|Quest|AQ40',
+		'Shoulder' => 'Striker\\\'s Pauldrons|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Mage'] = array(
-		'Feet' => 'Bottes de l\\\'énigme|Quest|AQ40',
-		'Chest' => 'Robe de l\\\'énigme|Quest|AQ40',
-		'Head' => 'Diadème de l\\\'énigme|Quest|AQ40',
-		'Legs' => 'Jambières de l\\\'énigme|Quest|AQ40',
-		'Shoulder' => 'Protège-épaules de l\\\'énigme|Quest|AQ40'
+		'Feet'  => 'Enigma Boots|Quest|AQ40',
+		'Chest' => 'Enigma Robes|Quest|AQ40',
+		'Head'  => 'Enigma Circlet|Quest|AQ40',
+		'Legs'  => 'Enigma Leggings|Quest|AQ40',
+		'Shoulder' => 'Enigma Shoulderpads|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Paladin'] = array(
-		'Feet' => 'Grèves du Vengeur|Quest|AQ40',
-		'Chest' => 'Cuirasse du Vengeur|Quest|AQ40',
-		'Head' => 'Couronne du Vengeur|Quest|AQ40',
-		'Legs' => 'Cuissards du Vengeur|Quest|AQ40',
-		'Shoulder' => 'Espauliers du Vengeur|Quest|AQ40'
+		'Feet'  => 'Avenger\\\'s Greaves|Quest|AQ40',
+		'Chest' => 'Avenger\\\'s Breastplate|Quest|AQ40',
+		'Head'  => 'Avenger\\\'s Crown|Quest|AQ40',
+		'Legs'  => 'Avenger\\\' Legguards|Quest|AQ40',
+		'Shoulder' => 'Avenger\\\'s Pauldrons|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Prêtre'] = array(
-		'Feet' => 'Espauliers du Vengeur|Quest|AQ40',
-		'Chest' => 'Habit de l\\\'oracle|Quest|AQ40',
-		'Head' => 'Tiare de l\\\'oracle|Quest|AQ40',
-		'Legs' => 'Pantalon de l\\\'oracle|Quest|AQ40',
-		'Shoulder' => 'Mantelet de l\\\'oracle|Quest|AQ40'
+		'Feet'  => 'Footwraps of the Oracle|Quest|AQ40',
+		'Chest' => 'Vestments of the Oracle|Quest|AQ40',
+		'Head'  => 'Tiara of the Oracle|Quest|AQ40',
+		'Legs'  => 'Trousers of the Oracle|Quest|AQ40',
+		'Shoulder' => 'Mantle of the Oracle|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Voleur'] = array(
-		'Feet' => 'Bottes du dispensateur de mort|Quest|AQ40',
-		'Chest' => 'Veste du dispensateur de mort|Quest|AQ40',
-		'Head' => 'Casque du dispensateur de mort|Quest|AQ40',
-		'Legs' => 'Jambières du dispensateur de mort|Quest|AQ40',
-		'Shoulder' => 'Spallières du dispensateur de mort|Quest|AQ40'
+		'Feet'  => 'Deathdealer\\\'s Boots|Quest|AQ40',
+		'Chest' => 'Deathdealer\\\'s Vest|Quest|AQ40',
+		'Head'  => 'Deathdealer\\\'s Helm|Quest|AQ40',
+		'Legs'  => 'Deathdealer\\\'s Leggings|Quest|AQ40',
+		'Shoulder' => 'Deathdealer\\\'s Spaulders|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Chaman'] = array(
-		'Feet' => 'Bottes d\\\'implorateur de tempête|Quest|AQ40',
-		'Chest' => 'Haubert d\\\'implorateur de tempête|Quest|AQ40',
-		'Head' => 'Diadème d\\\'implorateur de tempête|Quest|AQ40',
-		'Legs' => 'Jambières d\\\'implorateur de tempête|Quest|AQ40',
-		'Shoulder' => 'Espauliers d\\\'implorateur de tempête|Quest|AQ40'
+		'Feet'  => 'Stormcaller\\\'s Footguards|Quest|AQ40',
+		'Chest' => 'Stormcaller\\\'s Hauberk|Quest|AQ40',
+		'Head'  => 'Stormcaller\\\'s Diadem|Quest|AQ40',
+		'Legs'  => 'Stormcaller\\\'s Leggings|Quest|AQ40',
+		'Shoulder' => 'Stormcaller\\\'s Pauldrons|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Démoniste'] = array(
-		'Feet' => 'Bottines d\\\'implorateur funeste|Quest|AQ40',
-		'Chest' => 'Robe d\\\'implorateur funeste|Quest|AQ40',
-		'Head' => 'Diadème d\\\'implorateur funeste|Quest|AQ40',
-		'Legs' => 'Pantalon d\\\'implorateur funeste|Quest|AQ40',
-		'Shoulder' => 'Mantelet d\\\'implorateur funeste|Quest|AQ40'
+		'Feet'  => 'Doomcaller\\\'s Footwraps|Quest|AQ40',
+		'Chest' => 'Doomcaller\\\'s Robes|Quest|AQ40',
+		'Head'  => 'Doomcaller\\\'s Circlet|Quest|AQ40',
+		'Legs'  => 'Doomcaller\\\'s Trousers|Quest|AQ40',
+		'Shoulder' => 'Doomcaller\\\'s Mantle|Quest|AQ40'
 );
 $SetT['AQ40']['frFR']['Guerrier'] = array(
-		'Feet' => 'Grèves du Conquérant|Quest|AQ40',
-		'Chest' => 'Cuirasse du Conquérant|Quest|AQ40',
-		'Head' => 'Couronne du Conquérant|Quest|AQ40',
-		'Legs' => 'Cuissards du Conquérant|Quest|AQ40',
-		'Shoulder' => 'Spallières du Conquérant|Quest|AQ40'
+		'Feet'  => 'Conqueror\\\'s Greaves|Quest|AQ40',
+		'Chest' => 'Conqueror\\\'s Breastplate|Quest|AQ40',
+		'Head'  => 'Conqueror\\\'s Crown|Quest|AQ40',
+		'Legs'  => 'Conqueror\\\'s Legguards|Quest|AQ40',
+		'Shoulder' => 'Conqueror\\\'s Spaulders|Quest|AQ40'
 );
 
 // ZZZZZ  GGGG
@@ -829,144 +793,144 @@ $SetT['AQ40']['frFR']['Guerrier'] = array(
 // ZZZZ   GGG
 
 $SetT['ZG']['frFR']['Druide'] = array(
-        'Waist' => 'Ceinture d\\\'haruspice zandalar|Honoré|ZG',
-        'Wrist' => 'Brassards d\\\'haruspice zandalar|Amical|ZG',
-        'Chest' => 'Tunique d\\\'haruspice zandalar|Révéré|ZG',
+        'Waist' => 'Zandalar Haruspex\\\'s Belt|Honored|ZG',
+        'Wrist' => 'Zandalar Haruspex\\\'s Bracers|Friendly|ZG',
+        'Chest' => 'Zandalar Haruspex\\\'s Tunic|Revered|ZG',
         'Shoulder' => '',
-        'Neck' => 'Varech enchanté des Mers du sud parfait|Exalté|ZG',
-        'Trinket' => 'Charme de nature de Wushoolay|Punctured Voodoo Doll|ZG'
+        'Neck' => 'Pristine Enchanted South Seas Kelp|Exalted|ZG',
+        'Trinket' => 'Wushoolay\\\'s Charm of Nature|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['frFR']['Chasseur'] = array(
-        'Waist' => 'Ceinture de prédateur zandalar|Honoré|ZG',
-        'Wrist' => 'Brassards de prédateur zandalar|Amical|ZG',
+        'Waist' => 'Zandalar Predator\\\'s Belt|Honored|ZG',
+        'Wrist' => 'Zandalar Predator\\\'s Bracers|Friendly|ZG',
         'Chest' => '',
-        'Shoulder' => 'Mantelet de prédateur zandalar|Révéré|ZG',
-        'Neck' => 'Courroux du maelström|Exalté|ZG',
-        'Trinket' => 'Charme des bêtes de Renataki|Punctured Voodoo Doll|ZG'
+        'Shoulder' => 'Zandalar Predator\\\'s Mantle|Revered|ZG',
+        'Neck' => 'Maelstrom\\\'s Wrath|Exalted|ZG',
+        'Trinket' => 'Renataki\\\'s Charm of Beasts|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['frFR']['Mage'] = array(
         'Waist' => '',
-        'Wrist' => 'Couvre-bras d\\\'illusionniste zandalar|Amical|ZG',
-        'Chest' => ' Robe d\\\'illusionniste zandalar|Révéré|ZG',
-        'Shoulder' => 'Mantelet d\\\'illusionniste zandalar|Honoré|ZG',
-        'Neck' => 'Joyau de Kajaro|Exalté|ZG',
-        'Trinket' => ' Charme de magie d\\\'Hazza\\\'rah|Punctured Voodoo Doll|ZG'
+        'Wrist' => 'Zandalar Illusionist\\\'s Wraps|Friendly|ZG',
+        'Chest' => 'Zandalar Illusionist\\\'s Robe|Revered|ZG',
+        'Shoulder' => 'Zandalar Illusionist\\\'s Mantle|Honored|ZG',
+        'Neck' => 'Jewel of Kajaro|Exalted|ZG',
+        'Trinket' => 'Hazza\\\'rah\\\'s Charm of Magic|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['frFR']['Paladin'] = array(
-        'Waist' => 'Ceinture de libre-penseur zandalar|Honoré|ZG',
-        'Wrist' => 'Brassards de libre-penseur zandalar|Amical|ZG',
-        'Chest' => 'Plastron de libre-penseur zandalar|Révéré|ZG',
+        'Waist' => 'Zandalar Freethinker\\\'s Belt|Honored|ZG',
+        'Wrist' => 'Zandalar Freethinker\\\'s Armguards|Friendly|ZG',
+        'Chest' => 'Zandalar Freethinker\\\'s Breastplate|Revered|ZG',
         'Shoulder' => '',
-        'Neck' => 'Charme de courage de Gri\\\'lek|Exalté|ZG',
-        'Trinket' => ' Charme de courage de Gri\\\'lek|Punctured Voodoo Doll|ZG'
+        'Neck' => 'Hero\\\'s Brand|Exalted|ZG',
+        'Trinket' => 'Gri\\\'lek\\\'s Charm of Valor|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['frFR']['Prêtre'] = array(
-        'Waist' => 'Cordon de confesseur zandalar|Honoré|ZG',
-        'Wrist' => 'Couvre-bras de confesseur zandalar|Amical|ZG',
+        'Waist' => 'Zandalar Confessor\\\'s Bindings|Honored|ZG',
+        'Wrist' => 'Zandalar Confessor\\\'s Wraps|Friendly|ZG',
         'Chest' => '',
-        'Shoulder' => 'Mantelet de confesseur zandalar|Révéré|ZG',
-        'Neck' =>  'L\\\'Oeil omnivoyant de Zuldazar|Exalté|ZG',
-        'Trinket' => 'Charme de soin d\\\'Hazza\\\'rah|Punctured Voodoo Doll|ZG'
+        'Shoulder' => 'Zandalar Confessor\\\'s Mantle|Revered|ZG',
+        'Neck' =>  'The All-Seeing Eye of Zuldazar|Exalted|ZG',
+        'Trinket' => 'Hazza\\\'rah\\\'s Charm of Healing|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['frFR']['Voleur'] = array(
         'Waist' => '',
-        'Wrist' => 'Brassards d\\\'insensé zandalar|Amical|ZG',
-        'Chest' => 'Tunique d\\\'insensé zandalar|Révéré|ZG',
-        'Shoulder' => 'Mantelet d\\\'insensé zandalar|Honoré|ZG',
-        'Neck' => ' Talisman de maîtrise de l\\\'ombre zandalarien|Exalté|ZG',
-        'Trinket' => 'Charme de supercherie de Renataki|Punctured Voodoo Doll|ZG'
+        'Wrist' => 'Zandalar Madcap\\\'s Bracers|Friendly|ZG',
+        'Chest' => 'Zandalar Madcap\\\'s Tunic|Revered|ZG',
+        'Shoulder' => 'Zandalar Madcap\\\'s Mantle|Honored|ZG',
+        'Neck' => 'Zandalarian Shadow Mastery Talisman|Exalted|ZG',
+        'Trinket' => 'Renataki\\\'s Charm of Trickery|Punctured Voodoo Doll|ZG'
 );
 $SetT['ZG']['frFR']['Chaman'] = array(
-        'Waist' => 'Ceinture d\\\'augure zandalar|Honoré|ZG',
-        'Wrist' => 'Brassards d\\\'augure zandalar|Amical|ZG',
-        'Chest' => 'Haubert d\\\'augure zandalar|Révéré|ZG',
+        'Waist' => 'Zandalar Augur\\\'s Belt|Honored|ZG',
+        'Wrist' => 'Zandalar Augur\\\'s Bracers|Friendly|ZG',
+        'Chest' => 'Zandalar Augur\\\'s Hauberk|Revered|ZG',
         'Shoulder' => '',
-        'Neck' => 'Vision limpide de Voodress|Exalté|ZG',
-        'Trinket' => 'Charme-esprits de Wushoolay|Punctured Voodoo Doll|ZG'
+        'Neck' => 'Unmarred Vision of Voodress|Exalted|ZG',
+        'Trinket' => 'Wushoolay\\\'s Charm of Spirits|Punctured Voodoo Doll|ZG'
 );
 $SetT['ZG']['frFR']['Démoniste'] = array(
-        'Waist'  => '',
-        'Wrist' => 'Couvre-bras de démoniaque zandalar|Amical|ZG',
-        'Chest' => 'Robe de démoniaque zandalar|Révéré|ZG',
-        'Shoulder' => 'Mantelet de démoniaque zandalar|Honoré|ZG',
-        'Neck' => 'Souillure irrésistible de Kezan|Exalté|ZG',
-        'Trinket' => 'Charme de destruction d\\\'Hazza\\\'rah|Punctured Voodoo Doll|ZG'
+        'Waist'  => 'Zandalar Demoniac\\\'s Wraps|Friendly|ZG',
+        'Wrist' => '',
+        'Chest' => 'Zandalar Demoniac\\\'s Robe|Revered|ZG',
+        'Shoulder' => 'Zandalar Demoniac\\\'s Mantle|Honored|ZG',
+        'Neck' => 'Kezan\\\'s Unstoppable Taint|Exalted|ZG',
+        'Trinket' => 'Hazza\\\'rah\\\'s Charm of Destruction|Punctured Voodoo Doll|ZG'
 );
 $SetT['ZG']['frFR']['Guerrier'] = array(
-        'Waist' => 'Ceinture de redresseur de torts zandalar|Honoré|ZG',
-        'Wrist' => 'Garde-bras de redresseur de torts zandalar|Amical|ZG',
-        'Chest' => 'Cuirasse de redresseur de torts zandalar|Révéré|ZG',
+        'Waist' => 'Zandalar Vindicator\\\'s Belt|Honored|ZG',
+        'Wrist' => 'Zandalar Vindicator\\\'s Armguards|Friendly|ZG',
+        'Chest' => 'Zandalar Vindicator\\\'s Breastplate|Revered|ZG',
         'Shoulder' => '',
-        'Neck' => 'Rage de Mugamba|Exalté|ZG',
-        'Trinket' => 'Charme de puissance de Gri\\\'lek|Punctured Voodoo Doll|ZG'
+        'Neck' => 'Rage of Mugamba|Exalted|ZG',
+        'Trinket' => 'Gri\\\'lek\\\'s Charm of Might|Punctured Voodoo Doll|ZG'
 );
 
 
 //   PVP_Rare Alliance
 
 $SetT['PVP_Rare']['frFR']['A']['Druide'] = array(
-		'Feet'  => 'Bottines de chevalier-lieutenant en peau de dragon|Chevalier-lieutenant|Honor',
-		'Chest' => 'Plastron de chevalier-capitaine en peau de dragon|Chevalier-capitaine|Honor',
-		'Hands' => 'Poignes de chevalier-lieutenant en peau de dragon|Chevalier-lieutenant|Honor',
-		'Head'  => 'Protège-front de lieutenant-commandant en peau de dragon|Lieutenant-commandant|Honor',
-		'Legs'  => 'Jambières de chevalier-capitaine en peau de dragon|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Epaulières de lieutenant-commandant en peau de dragon|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Dragonhide Footwraps|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Dragonhide Tunic|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Dragonhide Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Dragonhide Shroud|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Dragonhide Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Dragonhide Epaulets|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Chasseur'] = array(
-		'Feet'  => 'Grèves de chevalier-lieutenant en anneaux|Chevalier-lieutenant|Honor',
-		'Chest' => 'Haubert de chevalier-capitaine en anneaux|Chevalier-capitaine|Honor',
-		'Hands' => 'Cestes de chevalier-lieutenant en anneaux|Chevalier-lieutenant|Honor',
-		'Head'  => 'Casque de lieutenant-commandant en anneaux|Lieutenant-commandant|Honor',
-		'Legs'  => 'Cuissards de chevalier-capitaine en anneaux|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Epaulières de lieutenant-commandant en anneaux|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Chain Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Chain Hauberk|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Chain Gauntlets|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Chain Helmet|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Chain Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Chain Pauldrons|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Mage'] = array(
-		'Feet'  => 'Brodequins de chevalier-lieutenant en soie|Chevalier-lieutenant|Honor',
-		'Chest' => 'Tunique de chevalier-capitaine en soie|Chevalier-capitaine|Honor',
-		'Hands' => 'Protège-mains de chevalier-lieutenant en soie|Chevalier-lieutenant|Honor',
-		'Head'  => 'Capuche de lieutenant-commandant en soie|Lieutenant-commandant|Honor',
-		'Legs'  => 'Cuissards de chevalier-capitaine en soie|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Mantelet de lieutenant-commandant en soie|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Silk Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Silk Raiment|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Silk Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Silk Crown|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Silk Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Silk Spaulders|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Paladin'] = array(
-		'Feet'  => 'Solerets lamellaires de chevalier-capitaine|chevalier-capitaine|Honor',
-		'Chest' => 'Cuirasse lamellaire de chevalier-capitaine|Chevalier-capitaine|Honor',
-		'Hands' => 'Gantelets lamellaires de chevalier-capitaine|chevalier-capitaine|Honor',
-		'Head'  => 'Protège-front lamellaire de lieutenant-commandant|Lieutenant-commandant|Honor',
-		'Legs'  => 'Jambières lamellaires de chevalier-capitaine|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Epaulières lamellaires de lieutenant-commandant|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Lamellar Sabatons|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Lamellar Breastplate|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Lamellar Gauntlets|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Lamellar Headguard|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Lamellar Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Lamellar Shoulders|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Prêtre'] = array(
-		'Feet'  => 'Brodequins de chevalier-lieutenant en satin|Chevalier-lieutenant|Honor',
-		'Chest' => 'Tunique de chevalier-capitaine en satin|Chevalier-capitaine|Honor',
-		'Hands' => 'Protège-mains de chevalier-lieutenant en satin|Chevalier-lieutenant|Honor',
-		'Head'  => 'Chaperon de lieutenant-commandant en satin|Lieutenant-commandant|Honor',
-		'Legs'  => 'Cuissards de chevalier-capitaine en satin|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Mantelet de lieutenant-commandant en satin|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Satin Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Satin Robes|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Satin Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Satin Diadem|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Satin Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Satin Amice|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Voleur'] = array(
-		'Feet'  => 'Brodequins de chevalier-lieutenant en cuir|Chevalier-lieutenant|Honor',
-		'Chest' => 'Plastron de chevalier-capitaine en cuir|Chevalier-capitaine|Honor',
-		'Hands' => 'Poignes de chevalier-lieutenant en cuir|Chevalier-lieutenant|Honor',
-		'Head'  => 'Casque de lieutenant-commandant en cuir|Lieutenant-commandant|Honor',
-		'Legs'  => 'Cuissards de chevalier-capitaine en cuir|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Epaulières de lieutenant-commandant en cuir|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Leather Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Leather Armor|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Leather Gauntlets|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Leather Veil|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Leather Legguards|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Leather Spaulders|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Démoniste'] = array(
-		'Feet'  => 'Brodequins de chevalier-lieutenant en tisse-effroi|Chevalier-lieutenant|Honor',
-		'Chest' => 'Tunique de chevalier-capitaine en tisse-effroi|Chevalier-capitaine|Honor',
-		'Hands' => 'Prot�ge-mains de chevalier-lieutenant en tisse-effroi|Chevalier-lieutenant|Honor',
-		'Head'  => 'Capuche de lieutenant-commandant en tisse-effroi|Lieutenant-commandant|Honor',
-		'Legs'  => 'Cuissards de chevalier-capitaine en tisse-effroi|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Spalli�res de lieutenant-commandant en tisse-effroi|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Dreadweave Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Dreadweave Robe|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Dreadweave Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Dreadweave Headguard|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Dreadweave Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Dreadweave Mantle|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['frFR']['A']['Guerrier'] = array(
-		'Feet'  => 'Grèves de chevalier-lieutenant en plaques|Chevalier-lieutenant|Honor',
-		'Chest' => 'Haubert de chevalier-capitaine en plaques|Chevalier-capitaine|Honor',
-		'Hands' => 'Gantelets de chevalier-lieutenant en plaques|Chevalier-lieutenant|Honor',
-		'Head'  => 'Heaume de lieutenant-commandant en plaques|Lieutenant-commandant|Honor',
-		'Legs'  => 'Jambières de chevalier-capitaine en plaques|Chevalier-capitaine|Honor',
-		'Shoulder' => 'Epaulières de lieutenant-commandant en plaques|Lieutenant-commandant|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Plate Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Plate Chestguard|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Plate Gauntlets|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Plate Helm|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Plate Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Plate Pauldrons|Lieutenant Commander|Honor'
 );
 
 //   PVP_Rare Horde
@@ -1039,68 +1003,68 @@ $SetT['PVP_Rare']['frFR']['H']['Guerrier'] = array(
 //   PVP_Epic Alliance
 
 $SetT['PVP_Epic']['frFR']['A']['Druide'] = array(
-		'Feet'  => 'Bottes de maréchal en tisse-effroi|Maréchal|Honor',
-		'Chest' => 'Robe de grand maréchal en tisse-effroi|Grand maréchal|Honor',
-		'Hands' => 'Gants de maréchal en tisse-effroi|Maréchal|Honor',
-		'Head'  => 'Couronne de grand maréchal|Grand maréchal|Honor',
-		'Legs'  => 'Jambières de maréchal en tisse-effroi|Maréchal|Honor',
-		'Shoulder' => 'Epaulières de grand maréchal en tisse-effroi|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Dragonhide Boots|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Dragonhide Breastplate|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Dragonhide Gauntlets|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Dragonhide Helmet|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Dragonhide Legguards|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Dragonhide Spaulders|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Chasseur'] = array(
-		'Feet'  => 'Maréchal\\\'s Chain Boots|Maréchal|Honor',
-		'Chest' => 'Grand maréchal\\\'s Chain Breastplate|Grand maréchal|Honor',
-		'Hands' => 'Maréchal\\\'s Chain Grips|Maréchal|Honor',
-		'Head'  => 'Grand maréchal\\\'s Chain Helm|Grand maréchal|Honor',
-		'Legs'  => 'Maréchal\\\'s Chain Legguards|Maréchal|Honor',
-		'Shoulder' => 'Grand maréchal\\\'s Chain Spaulders|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Chain Boots|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Chain Breastplate|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Chain Grips|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Chain Helm|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Chain Legguards|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Chain Spaulders|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Mage'] = array(
-		'Feet'  => 'Bottes de maréchal en soie|Maréchal|Honor',
-		'Chest' => 'Habit de grand maréchal en soie|Grand maréchal|Honor',
-		'Hands' => 'Gants de maréchal en soie|Maréchal|Honor',
-		'Head'  => 'Cerclet de grand maréchal|Grand maréchal|Honor',
-		'Legs'  => 'Jambières de maréchal en soie|Maréchal|Honor',
-		'Shoulder' => 'Spallières de grand maréchal en soie|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Silk Footwraps|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Silk Vestments|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Silk Gloves|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Coronet|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Silk Leggings|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Silk Spaulders|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Paladin'] = array(
-		'Feet'  => 'Bottes lamellaires de maréchal|Maréchal|Honor',
-		'Chest' => 'Pansière lamellaire de grand maréchal|Grand maréchal|Honor',
-		'Hands' => 'Gants lamellaires de maréchal|Maréchal|Honor',
-		'Head'  => 'Casque lamellaire de grand maréchal|Grand maréchal|Honor',
-		'Legs'  => ' Jambières lamellaires de maréchal|Maréchal|Honor',
-		'Shoulder' => 'Espauliers lamellaires de grand maréchal|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Lamellar Boots|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Lamellar Chestplate|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Lamellar Gloves|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Lamellar Faceguard|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Lamellar Legplates|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Lamellar Pauldrons|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Prêtre'] = array(
-		'Feet'  => 'Sandales de maréchal en satin|Maréchal|Honor',
-		'Chest' => 'Habit de grand maréchal en satin|Grand maréchal|Honor',
-		'Hands' => 'Gants de maréchal en satin|Maréchal|Honor',
-		'Head'  => 'Coiffure de grand maréchal|Grand maréchal|Honor',
-		'Legs'  => 'Pantalon de maréchal en satin|Maréchal|Honor',
-		'Shoulder' => 'Mantelet de grand maréchal en satin|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Satin Sandals|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Satin Vestments|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Satin Gloves|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Headdress|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Satin Pants|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Satin Mantle|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Voleur'] = array(
-		'Feet'  => 'Bottes de maréchal en cuir|Maréchal|Honor',
-		'Chest' => 'Plastron de grand maréchal en cuir|Grand maréchal|Honor',
-		'Hands' => 'Gants de maréchal en cuir|Maréchal|Honor',
-		'Head'  => 'Masque de grand maréchal en cuir|Grand maréchal|Honor',
-		'Legs'  => 'Jambières de maréchal en cuir|Maréchal|Honor',
-		'Shoulder' => 'Epaulettes de grand maréchal en cuir|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Leather Footguards|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Leather Chestpiece|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Leather Handgrips|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Leather Mask|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Leather Leggings|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Leather Epaulets|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Démoniste'] = array(
-		'Feet'  => 'Bottes de maréchal en tisse-effroi|Maréchal|Honor',
-		'Chest' => 'Robe de grand maréchal en tisse-effroi|Grand maréchal|Honor',
-		'Hands' => 'Gants de maréchal en tisse-effroi|Maréchal|Honor',
-		'Head'  => 'Couronne de grand maréchal|Grand maréchal|Honor',
-		'Legs'  => 'Jambières de maréchal en tisse-effroi|Maréchal|Honor',
-		'Shoulder' => 'Epaulières de grand maréchal en tisse-effroi|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Dreadweave Boots|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Dreadweave Robe|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Dreadweave Gloves|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Coronal|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Dreadweave Leggings|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Dreadweave Shoulders|Field Marshal|Honor'
 );
 $SetT['PVP_Epic']['frFR']['A']['Guerrier'] = array(
-		'Feet'  => 'Bottes de maréchal en plaques|Maréchal|Honor',
-		'Chest' => 'Armure de grand maréchal en plaques|Grand maréchal|Honor',
-		'Hands' => 'Gantelets de maréchal en plaques|Maréchal|Honor',
-		'Head'  => 'Casque de grand maréchal en plaques|Grand maréchal|Honor',
-		'Legs'  => 'Jambières de maréchal en plaques|Maréchal|Honor',
-		'Shoulder' => 'Garde-épaules de grand maréchal en plaques|Grand maréchal|Honor'
+		'Feet'  => 'Marshal\\\'s Plate Boots|Marshal|Honor',
+		'Chest' => 'Field Marshal\\\'s Plate Armor|Field Marshal|Honor',
+		'Hands' => 'Marshal\\\'s Plate Gauntlets|Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Plate Helm|Field Marshal|Honor',
+		'Legs'  => 'Marshal\\\'s Plate Legguards|Marshal|Honor',
+		'Shoulder' => 'Field Marshal\\\'s Plate Shoulderguards|Field Marshal|Honor'
 );
 
 //   PVP_Epic Horde

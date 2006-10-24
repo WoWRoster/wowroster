@@ -162,10 +162,10 @@ if (isset($zoneidsafe) or isset($questidsafe))
 				'<table cellpadding="0" cellspacing="0" class="membersList">';
 
 			$tableHeaderRow = '  <tr>
-    <th class="membersHeader">Zone</th>
-    <th class="membersHeader">Quest Name</th>
-    <th class="membersHeader">Quest Level</th>
-    <th class="membersHeaderRight">Member</th>
+    <td class="membersHeader">Zone</td>
+    <td class="membersHeader">Quest Name</td>
+    <td class="membersHeader">Quest Level</td>
+    <td class="membersHeaderRight">Member</td>
   </tr>';
 
 			$tableFooter = '</table>'.border('syellow','end').'<br />';
@@ -229,9 +229,9 @@ if (isset($questidsafe))
 		$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0" class="membersList">';
 
 		$tableHeaderRow = '  <tr>
-    <th class="membersHeader">Member</th>
-    <th class="membersHeader">Quest Level</th>
-    <th class="membersHeaderRight">Zone</th>
+    <td class="membersHeader">Member</td>
+    <td class="membersHeader">Quest Level</td>
+    <td class="membersHeaderRight">Zone</td>
   </tr>';
 
 		$tableFooter = '</table>'.border('syellow','end');

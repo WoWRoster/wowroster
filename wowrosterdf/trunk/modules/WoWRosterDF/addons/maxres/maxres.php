@@ -16,18 +16,19 @@ class maxres
 
     function printEquip( $item_name, $slot )
     {
-        global $img_url; // Added this global variable to use in the image link
+    	global $roster_conf;
+
         $item = item_get( $this->data['member_id'], $item_name );
-        if( isset($item) and $item != "" )
+        if( isset($item) and $item != "" && $item_name != '' )
             $output = $item->out();
         else
         {
             $output = '<div class="item">';
             $output .= '<span style="z-index: 1001;" onMouseover="return overlib(\''.$slot.':<br />No item equipped\');" onMouseout="return nd();">';
             if ($slot == 'Ammo')
-                $output .= '<img src="'.$img_url.'images/wowrosterdf/Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall" /></a>';
+                $output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall" /></a>';
             else
-                $output .= '<img src="'.$img_url.'images/wowrosterdf/Interface/EmptyEquip/'.$slot.'.gif" class="icon" /></a>';
+                $output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="icon" /></a>';
 
             $output .= '</span></div>';
         }
@@ -41,7 +42,7 @@ class maxres
 
         echo border('syellow','start','Gear used');
         $output = '<table width="405" cellspacing="0" cellpadding="0" border="0"><tr><td colspan="5"></td></tr>';
-          $output .= '<tr class="membersHeader"><th colspan="1" >'.$wordings[$roster_conf['roster_lang']]['MaxDot'].$wordings[$roster_conf['roster_lang']][$resist].'</th><td>Main</td><td>Enchant</td><td>Total</td></tr>';
+          $output .= '<tr class="membersHeader"><td colspan="1" >'.$wordings[$roster_conf['roster_lang']]['MaxDot'].$wordings[$roster_conf['roster_lang']][$resist].'</td><td>Main</td><td>Enchant</td><td>Total</td></tr>';
 
         $maintotal = 0;
         $enchtotal = 0;
@@ -49,7 +50,7 @@ class maxres
 
         $row = 0;
         $MyEquiparray = array();
-        $MyEquiparray = getslotres($this->data['member_id'],$this->data['clientLocale'],$wordings[$this->data['clientLocale']][$resist]);
+        $MyEquiparray = getslotres($this->data['member_id'],$this->data['clientLocale'],$wordings[$roster_conf['roster_lang']][$resist]);
 
             foreach ( $MyEquiparray as $item_name )
             {
@@ -145,8 +146,6 @@ class maxres
         $output .= '<span class="white">'.Resistlink($player_name, $server, $name, $row['resist']).'</span>';
         $output .= "</span></span>\n";
 
-	$wowdb->free_result($result);
-
 
         return $output;
     }
@@ -180,7 +179,7 @@ class maxres
         echo '      <h2>'.$this->data['guild_title'].' of '.$this->data['guild_name']."</h2>\n";
 
     $MyEquiparray = array();
-    $MyEquiparray = getslotres($this->data['member_id'],$this->data['clientLocale'],$wordings[$this->data['clientLocale']][$resist]);
+    $MyEquiparray = getslotres($this->data['member_id'],$this->data['clientLocale'],$wordings[$roster_conf['roster_lang']][$resist]);
 
     ?>
         </div> <!-- End char-main-top -->
@@ -376,7 +375,7 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
      "from ".ROSTER_ITEMSTABLE." ".
      "where member_id = $id and ( ( item_tooltip like '%".$tooltip_soulbound."%' or item_tooltip like '%".$Unique."%' ) and item_tooltip like '%".$Fire_Resistance."%') AND ".
      "(item_tooltip not like '%".$Plans."%' AND item_tooltip not like '%".$Schematic."%' AND item_tooltip not like '%".$Formula."%' AND item_tooltip not like '%".$Pattern."%'  AND item_tooltip not like '%Juju%'  ) ".
-     "order by FR3 DESC, slot"; 
+     "order by FR3 DESC, slot";
 
      $totalFR = 0;
      $Myarray = array();
@@ -386,9 +385,9 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
         echo "<!-- $querystr -->\n";
      }
 
-     $result = $wowdb->query($querystr) or die($wowdb->error());
+     $result = mysql_query($querystr) or die(mysql_error());
 
-     while ( $row = $wowdb->fetch_array($result) ) {
+     while ( $row = mysql_fetch_array($result) ) {
         $slot = $row['slot'];
 
         If( $row['slot'] == 'Finger' or $row['slot'] == 'Trinket' ) {
@@ -437,7 +436,6 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
            }
         } // end if slot trinket or finger
      } // end while
-     $wowdb->free_result($result);
      return $MyEquiparray;
   } // end function
 
@@ -508,7 +506,7 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
      "from ".ROSTER_ITEMSTABLE." ".
      "where member_id = $id and ( ( item_tooltip like '%".$tooltip_soulbound."%' or item_tooltip like '%".$Unique."%' ) and item_tooltip like '%".$Fire_Resistance."%') AND ".
      "(item_tooltip not like '%".$Plans."%' AND item_tooltip not like '%".$Schematic."%' AND item_tooltip not like '%".$Formula."%' AND item_tooltip not like '%".$Pattern."%'  AND item_tooltip not like '%Juju%'  ) ".
-     "order by FR3 DESC, slot"; 
+     "order by FR3 DESC, slot";
 
      $totalFR = 0;
      $Myarray = array();
@@ -517,9 +515,9 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
         echo "<!-- $querystr -->\n";
      }
 
-     $result = $wowdb->query($querystr) or die($wowdb->error());
+     $result = mysql_query($querystr) or die(mysql_error());
 
-     while ( $row = $wowdb->fetch_array($result) ) {
+     while ( $row = mysql_fetch_array($result) ) {
         $slot = $row['slot'];
 
         If( $row['slot'] == 'Finger' or $row['slot'] == 'Trinket' ) {
@@ -556,7 +554,6 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
            }
         } // end if slot trinket or finger
      } // end while
-     $wowdb->free_result($result);
      return $totalFR;
   } // end function
 
@@ -565,7 +562,7 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
         $script_url = basename($_SERVER['PHP_SELF']);
         if(isset($_SERVER['QUERY_STRING']))
                 {$script_url .= '?'.$_SERVER['QUERY_STRING'];}
-        $findstr = "&maxresname";
+        $findstr = "&amp;maxresname";
         $trimstr = strpos($script_url, $findstr);
         if ($trimstr !== false) {
             $script_url = substr($script_url, 0, $trimstr);
@@ -578,24 +575,4 @@ function getslotres($id, $client_lang, $Fire_Resistance) {
     return $output;
      }
 
-    function DateCharDataUpdated($name)
-    {
-        global $wowdb;
-        extract($GLOBALS);
-        $query1 = "SELECT `dateupdatedutc` FROM `".ROSTER_PLAYERSTABLE."` WHERE `name` = '$name'";
-        $result1 = $wowdb->query($query1);
-        $data1 = $wowdb->getrow($result1);
-        $dateupdatedutc = $data1["dateupdatedutc"];
-        $day = substr($dateupdatedutc,3,2);
-        $month = substr($dateupdatedutc,0,2);
-        $year = substr($dateupdatedutc,6,2);
-        $hour = substr($dateupdatedutc,9,2);
-        $minute = substr($dateupdatedutc,12,2);
-        $second = substr($dateupdatedutc,15,2);
-
-        $localtime = mktime($hour+$localtimeoffset ,$minute, $second, $month, $day, $year, -1);
-        return date($phptimeformat[$roster_lang], $localtime);
-    }
-
 ?>
-

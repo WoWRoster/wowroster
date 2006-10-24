@@ -196,13 +196,13 @@ else
         No</label></td>
     </tr>
     <tr>
-      <th class="sc_header_right" colspan="2" align="center"><?php print $functions->createTip( 'Either the directory doesn&acute;t exist or &quot;Save Images&quot; is turned off','Save Image Functions Disabled' ); ?>
+      <td class="sc_header_right" colspan="2" align="center"><?php print $functions->createTip( 'Either the directory doesn&acute;t exist or &quot;Save Images&quot; is turned off','Save Image Functions Disabled' ); ?>
         <input name="save_only_mode" type="hidden" value="0" />
         <input name="save_images_dir" type="hidden" value="<?php print $configData['save_images_dir']; ?>" />
         <input name="save_prefix" type="hidden" value="<?php print $configData['save_prefix']; ?>" />
         <input name="save_suffix" type="hidden" value="<?php print $configData['save_suffix']; ?>" />
         <input name="trigger" type="hidden" value="0" />
-        <input name="guild_trigger" type="hidden" value="0" /></th>
+        <input name="guild_trigger" type="hidden" value="0" /></td>
     </tr>
   </table>
 <?php print border('sred','end');
@@ -268,7 +268,7 @@ if( !$configData['backg_force_default'] )
 ?>
   <table class="sc_table" cellspacing="0" cellpadding="2">
     <tr>
-      <th class="sc_header_right" colspan="2" align="center"><?php print $functions->createTip( 'The top box is what to search for<br />The bottom box is what image to set when that search is found<br /><br />The top box must be exactly like in the database<br />The bottom box is automatically filled from the backgrounds directory','Background Selection Help' ); ?></th>
+      <td class="sc_header_right" colspan="2" align="center"><?php print $functions->createTip( 'The top box is what to search for<br />The bottom box is what image to set when that search is found<br /><br />The top box must be exactly like in the database<br />The bottom box is automatically filled from the backgrounds directory','Background Selection Help' ); ?></td>
     </tr>
     <tr>
       <td class="sc_row<?php echo ((($row=0)%2)+1); ?>" align="left"><?php print $functions->createTip( 'Select what table/field to use when selecting backgrounds','Search Config' ); ?></td>
@@ -319,7 +319,7 @@ else
     <td valign="top"><?php print border('sgray','start','Fonts'); ?>
       <table width="170" class="sc_table" cellspacing="0" cellpadding="2">
         <tr>
-          <th class="sc_header_right" align="center" colspan="2"><?php print $functions->createTip( 'Changes here will not be shown elsewhere<br />until the [Save Settings] button is pressed','Change SigGen Fonts' ); ?></th>
+          <td class="sc_header_right" align="center" colspan="2"><?php print $functions->createTip( 'Changes here will not be shown elsewhere<br />until the [Save Settings] button is pressed','Change SigGen Fonts' ); ?></td>
         </tr>
 <?php
 $row=1;
@@ -339,7 +339,7 @@ for($c=1;$c<=8;$c++)
     <td valign="top"><?php print border('sgray','start','Colors'); ?>
       <table class="sc_table" cellspacing="0" cellpadding="2">
         <tr>
-          <th class="sc_header_right" align="center" colspan="2"><?php print $functions->createTip( 'Colors are in hex format<br />( ex. black = 000000 : white = FFFFFF )<br /><br />You can also click <img src=&quot;	'.$roster_conf['roster_dir'].'/addons/siggen/inc/color/images/select_arrow.gif&quot;> to pick a color<br /><br />Changes here will not be shown elsewhere<br />until the [Save Settings] button is pressed','Change SigGen Colors' ); ?></th>
+          <td class="sc_header_right" align="center" colspan="2"><?php print $functions->createTip( 'Colors are in hex format<br />( ex. black = 000000 : white = FFFFFF )<br /><br />You can also click <img src=&quot;	'.$roster_conf['roster_dir'].'/addons/siggen/inc/color/images/select_arrow.gif&quot;> to pick a color<br /><br />Changes here will not be shown elsewhere<br />until the [Save Settings] button is pressed','Change SigGen Colors' ); ?></td>
         </tr>
 <?php
 $row=1;
@@ -744,7 +744,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -797,7 +797,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -853,7 +853,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -906,7 +906,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -962,7 +962,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -1015,7 +1015,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -1080,7 +1080,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />
@@ -1137,7 +1137,7 @@ for($c=1;$c<=10;$c++)
             <td class="sc_row_right<?php echo ((($row)%2)+1); ?>" align="center" colspan="2">
               <table width="100%" class="sc_table" cellspacing="0" cellpadding="2">
                 <tr>
-                  <th colspan="2" class="membersHeaderRight">Font settings</th>
+                  <td colspan="2" class="membersHeaderRight">Font settings</td>
                 </tr>
                 <tr>
                   <td class="sc_row1" align="left">Font name:<br />

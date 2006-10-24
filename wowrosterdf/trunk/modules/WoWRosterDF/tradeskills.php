@@ -62,8 +62,8 @@ for ( $tsNr=0; $tsNr<=11; $tsNr++ )
 
       <table width="100%" border="0" cellpadding="0" cellspacing="0" class="wowroster">
         <tr>
-          <th class="membersHeader"><?php print $wordings[$roster_conf['roster_lang']]['level'];?></th>
-          <th class="membersHeaderRight" width="150"><?php print $wordings[$roster_conf['roster_lang']]['name'];?></th>
+          <td class="membersHeader"><?php print $wordings[$roster_conf['roster_lang']]['level'];?></td>
+          <td class="membersHeaderRight" width="150"><?php print $wordings[$roster_conf['roster_lang']]['name'];?></td>
         </tr>
 <?php
 		//$query = "SELECT * FROM `skills` WHERE `skill_name` = '$tsArray[$tsNr]' order by `skill_level` DESC";

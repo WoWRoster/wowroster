@@ -1,43 +1,10 @@
 <?php
-$versions['versionDate']['itemsets'] = '$Date: 2006/08/29 $'; 
-$versions['versionRev']['itemsets'] = '$Revision: 1.7.3 $';  
-$versions['versionAuthor']['itemsets'] = '$Author: Gorgar, PoloDude, Zeryl $';
-
+$versions['versionDate']['itemsetslang'] = '$Date: 2006/06/18 17:00:00 $'; 
+$versions['versionRev']['itemsetslang'] = '$Revision: 1.7.0 $'; 
+$versions['versionAuthor']['itemsetslang'] = '$Author: Gorgar, PoloDude, Zeryl $'; 
 
 $wordings['enUS']['DropsFrom'] = 'Drops from';
 $wordings['enUS']['DropsIn'] = 'in';
-
-//Menu localization
-$wordings['enUS']['ItemSets'] = 'Item Sets';
-
-//Tier localization
-$wordings['enUS']['Tier_0'] = 'Dungeon Set 1';
-$wordings['enUS']['Tier_0.5'] = 'Dungeon Set 2';
-$wordings['enUS']['Tier_1'] = 'Tier 1';
-$wordings['enUS']['Tier_2'] = 'Tier 2';
-$wordings['enUS']['Tier_3'] = 'Tier 3';
-$wordings['enUS']['ZG'] = 'Zul\'Gurub';
-$wordings['enUS']['AQ20'] = 'Ruins of Ahn\'Qiraj';
-$wordings['enUS']['AQ40'] = 'Temple of Ahn\'Qiraj';
-$wordings['enUS']['PVP_Rare'] = 'PvP Superior';
-$wordings['enUS']['PVP_Epic'] = 'PvP Epic';
-$wordings['enUS']['Onyxia'] = 'Onyxia\'s Lair';
-
-// header localisations
-$wordings['enUS']['Name'] = 'Name';
-$wordings['enUS']['Waist'] = 'Waist';
-$wordings['enUS']['Feet'] = 'Feet';
-$wordings['enUS']['Wrists'] = 'Wrists';
-$wordings['enUS']['Chest'] = 'Chest';
-$wordings['enUS']['Hands'] = 'Hands';
-$wordings['enUS']['Head'] = 'Head';
-$wordings['enUS']['Legs'] = 'Legs';
-$wordings['enUS']['Should.'] = 'Should.';
-$wordings['enUS']['Finger'] = 'Finger';
-$wordings['enUS']['Neck'] = 'Neck';
-$wordings['enUS']['Trinket'] = 'Trinket';
-$wordings['enUS']['Mainhand'] = 'Mainhand';
-$wordings['enUS']['Back'] = 'Back';
 
 //N   N  AA  M   M EEEE
 //NN  N A  A MM MM E
@@ -135,27 +102,27 @@ $SetT['ZG']['enUS']['Name'] = array(
     );
     
 $SetT['PVP_Rare']['enUS']['A']['Name'] = array(
-        'Warrior' => 'Lieutenant Commander\'s Battlearmor',
-        'Priest' => 'Lieutenant Commander\'s Investiture',
-        'Druid' => 'Lieutenant Commander\'s Refuge',
-        'Rogue' => 'Lieutenant Commander\'s Guard',
-        'Mage' => 'Lieutenant Commander\'s Arcanum',
-        'Paladin' => 'Lieutenant Commander\'s Redoubt',
-        'Warlock' => 'Lieutenant Commander\'s Dreadgear',
-        'Hunter' => 'Lieutenant Commander\'s Pursuance',
+        'Warrior' => 'Lieutenant Commander\'s Battlegear',
+        'Priest' => 'Lieutenant Commander\'s Raiment',
+        'Druid' => 'Lieutenant Commander\'s Sanctuary',
+        'Rogue' => 'Lieutenant Commander\'s Vestments',
+        'Mage' => 'Lieutenant Commander\'s Regalia',
+        'Paladin' => 'Lieutenant Commander\'s Aegis',
+        'Warlock' => 'Lieutenant Commander\'s Threads',
+        'Hunter' => 'Lieutenant Commander\'s Pursuit',
         'Shaman' => ''
     );
 	
 $SetT['PVP_Rare']['enUS']['H']['Name'] = array(
-        'Warrior' => 'Champion\'s Battlearmor',
-        'Priest' => 'Champion\'s Investiture',
+        'Warrior' => 'Champion\'s Battlegear',
+        'Priest' => 'Champion\'s Raiment',
         'Druid' => 'Champion\'s Sanctuary',
-        'Rogue' => 'Champion\'s Guard',
-        'Mage' => 'Champion\'s Arcanum',
+        'Rogue' => 'Champion\'s Vestments',
+        'Mage' => 'Champion\'s Regalia',
         'Paladin' => '',
-        'Warlock' => 'Champion\'s Dreadgear',
-        'Hunter' => 'Champion\'s Pursuance',
-        'Shaman' => 'Champion\'s Stormcaller'
+        'Warlock' => 'Champion\'s Threads',
+        'Hunter' => 'Champion\'s Pursuit',
+        'Shaman' => 'Champion\'s Earthshaker'
     );
 	    
 $SetT['PVP_Epic']['enUS']['A']['Name'] = array(
@@ -181,17 +148,7 @@ $SetT['PVP_Epic']['enUS']['H']['Name'] = array(
         'Hunter' => 'Warlord\'s Pursuit',
         'Shaman' => 'Warlord\'s Earthshaker'
     );
-$SetT['Onyxia']['enUS']['Name'] = array(
-        'Warrior' => 'Onyxia Gear',
-        'Priest' => 'Onyxia Gear',
-        'Druid' => 'Onyxia Gear',
-        'Rogue' => 'Onyxia Gear',
-        'Mage' => 'Onyxia Gear',
-        'Paladin' => 'Onyxia Gear',
-        'Warlock' => 'Onyxia Gear',
-        'Hunter' => 'Onyxia Gear',
-        'Shaman' => 'Onyxia Gear'
-    );	
+	
 // TTTTT I EEEEE RRRR   000
 //   T   I E     R   R 0   0
 //   T   I EE    RRRR  0   0
@@ -572,12 +529,12 @@ $SetT['Tier_2']['enUS']['Hunter'] = array(
 	);
 $SetT['Tier_2']['enUS']['Shaman'] = array(
 		'Waist' => 'Belt of Ten Storms|Vaelastrasz the Corrupt|Blackwing Lair',
-		'Feet' => 'Greaves of Ten Storms|Broodlord Lashlayerr|Blackwing Lair',
+		'Feet' => 'Legplates of Ten Storms|Broodlord Lashlayerr|Blackwing Lair',
 		'Wrist' => 'Bracers of Ten Storms|Razorgore the Untamed|Blackwing Lair',
 		'Chest' => 'Breastplate of Ten Storms|Nefarian|Blackwing Lair',
 		'Hands' => 'Gauntlets of Ten Storms|Firemaw+Ebonroc+Flamegor|Blackwing Lair',
 		'Head' => 'Helmet of Ten Storms|Onyxia|Onyxia\\\'s Lair',
-		'Legs' => 'Legplates of Ten Storms|Ragnaros|Molten Core',
+		'Legs' => 'Greaves of Ten Storms|Ragnaros|Molten Core',
 		'Shoulder' => 'Epaulets of Ten Storms|Chromaggus|Blackwing Lair'
 	);
 	
@@ -718,7 +675,7 @@ $SetT['AQ20']['enUS']['Priest'] = array(
 		'Finger' => 'Ring of Infinite Wisdom|Quest|Ring of Infinite Wisdom',
 		'Mainhand' => 'Gavel of Infinite Wisdom|Quest|Gavel of Infinite Wisdom'
 );
-$SetT['AQ20']['enUS']['Rogue'] = array(
+$SetT['AQ20']['enUS']['Roque'] = array(
 		'Back' => 'Cloak of Veiled Shadows|Quest|Cloak of Veiled Shadows',
 		'Finger' => 'Band of Veiled Shadows|Quest|Band of Veiled Shadows',
 		'Mainhand' => 'Dagger of Veiled Shadows|Quest|Dagger of Veiled Shadows'
@@ -817,56 +774,84 @@ $SetT['AQ40']['enUS']['Warrior'] = array(
 
 $SetT['ZG']['enUS']['Druid'] = array(
         'Waist' => 'Zandalar Haruspex\\\'s Belt|Honored|ZG',
+        'Feet' => '',
         'Wrist' => 'Zandalar Haruspex\\\'s Bracers|Friendly|ZG',
         'Chest' => 'Zandalar Haruspex\\\'s Tunic|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => '',
         'Neck' => 'Pristine Enchanted South Seas Kelp|Exalted|ZG',
         'Trinket' => 'Wushoolay\\\'s Charm of Nature|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['enUS']['Hunter'] = array(
         'Waist' => 'Zandalar Predator\\\'s Belt|Honored|ZG',
+        'Feet' => '',
         'Wrist' => 'Zandalar Predator\\\'s Bracers|Friendly|ZG',
         'Chest' => '',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => 'Zandalar Predator\\\'s Mantle|Revered|ZG',
         'Neck' => 'Maelstrom\\\'s Wrath|Exalted|ZG',
         'Trinket' => 'Renataki\\\'s Charm of Beasts|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['enUS']['Mage'] = array(
         'Waist' => '',
+        'Feet' => '',
         'Wrist' => 'Zandalar Illusionist\\\'s Wraps|Friendly|ZG',
         'Chest' => 'Zandalar Illusionist\\\'s Robe|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => 'Zandalar Illusionist\\\'s Mantle|Honored|ZG',
         'Neck' => 'Jewel of Kajaro|Exalted|ZG',
         'Trinket' => 'Hazza\\\'rah\\\'s Charm of Magic|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['enUS']['Paladin'] = array(
         'Waist' => 'Zandalar Freethinker\\\'s Belt|Honored|ZG',
+        'Feet' => '',
         'Wrist' => 'Zandalar Freethinker\\\'s Armguards|Friendly|ZG',
         'Chest' => 'Zandalar Freethinker\\\'s Breastplate|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => '',
         'Neck' => 'Hero\\\'s Brand|Exalted|ZG',
         'Trinket' => 'Gri\\\'lek\\\'s Charm of Valor|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['enUS']['Priest'] = array(
         'Waist' => 'Zandalar Confessor\\\'s Bindings|Honored|ZG',
+        'Feet'  => '',
         'Wrist' => 'Zandalar Confessor\\\'s Wraps|Friendly|ZG',
         'Chest' => '',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => 'Zandalar Confessor\\\'s Mantle|Revered|ZG',
         'Neck' =>  'The All-Seeing Eye of Zuldazar|Exalted|ZG',
         'Trinket' => 'Hazza\\\'rah\\\'s Charm of Healing|Punctured Voodoo Doll|ZG'
     );
 $SetT['ZG']['enUS']['Rogue'] = array(
         'Waist' => '',
+        'Feet' => '',
         'Wrist' => 'Zandalar Madcap\\\'s Bracers|Friendly|ZG',
         'Chest' => 'Zandalar Madcap\\\'s Tunic|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => 'Zandalar Madcap\\\'s Mantle|Honored|ZG',
         'Neck' => 'Zandalarian Shadow Mastery Talisman|Exalted|ZG',
         'Trinket' => 'Renataki\\\'s Charm of Trickery|Punctured Voodoo Doll|ZG'
 );
 $SetT['ZG']['enUS']['Shaman'] = array(
         'Waist' => 'Zandalar Augur\\\'s Belt|Honored|ZG',
+        'Feet' => '',
         'Wrist' => 'Zandalar Augur\\\'s Bracers|Friendly|ZG',
         'Chest' => 'Zandalar Augur\\\'s Hauberk|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => '',
         'Neck' => 'Unmarred Vision of Voodress|Exalted|ZG',
         'Trinket' => 'Wushoolay\\\'s Charm of Spirits|Punctured Voodoo Doll|ZG'
@@ -874,15 +859,23 @@ $SetT['ZG']['enUS']['Shaman'] = array(
 $SetT['ZG']['enUS']['Warlock'] = array(
         'Waist'  => 'Zandalar Demoniac\\\'s Wraps|Friendly|ZG',
         'Feet' => '',
+        'Wrist' => '',
         'Chest' => 'Zandalar Demoniac\\\'s Robe|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => 'Zandalar Demoniac\\\'s Mantle|Honored|ZG',
         'Neck' => 'Kezan\\\'s Unstoppable Taint|Exalted|ZG',
         'Trinket' => 'Hazza\\\'rah\\\'s Charm of Destruction|Punctured Voodoo Doll|ZG'
 );
 $SetT['ZG']['enUS']['Warrior'] = array(
         'Waist' => 'Zandalar Vindicator\\\'s Belt|Honored|ZG',
+        'Feet' => '',
         'Wrist' => 'Zandalar Vindicator\\\'s Armguards|Friendly|ZG',
         'Chest' => 'Zandalar Vindicator\\\'s Breastplate|Revered|ZG',
+        'Hands' => '',
+        'Head' => '',
+        'Legs' => '',
         'Shoulder' => '',
         'Neck' => 'Rage of Mugamba|Exalted|ZG',
         'Trinket' => 'Gri\\\'lek\\\'s Charm of Might|Punctured Voodoo Doll|ZG'
@@ -892,28 +885,28 @@ $SetT['ZG']['enUS']['Warrior'] = array(
 //   PVP_Rare Alliance
 
 $SetT['PVP_Rare']['enUS']['A']['Druid'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Dragonhide Treads|Knight-Lieutenant|Honor',
-		'Chest' => 'Knight-Captain\\\'s Dragonhide Chestpiece|Knight-Captain|Honor',
-		'Hands' => 'Knight-Lieutenant\\\'s Dragonhide Grips|Knight-Lieutenant|Honor',
-		'Head'  => 'Lieutenant Commander\\\'s Dragonhide Headguard|Lieutenant Commander|Honor',
+		'Feet'  => 'Knight-Lieutenant\\\'s Dragonhide Footwraps|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Dragonhide Tunic|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Dragonhide Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Dragonhide Shroud|Lieutenant Commander|Honor',
 		'Legs'  => 'Knight-Captain\\\'s Dragonhide Leggings|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Dragonhide Shoulders|Lieutenant Commander|Honor'
+		'Shoulder' => 'Lieutenant Commander\\\'s Dragonhide Epaulets|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Hunter'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Chain Greaves|Knight-Lieutenant|Honor',
+		'Feet'  => 'Knight-Lieutenant\\\'s Chain Boots|Knight-Lieutenant|Honor',
 		'Chest' => 'Knight-Captain\\\'s Chain Hauberk|Knight-Captain|Honor',
-		'Hands' => 'Knight-Lieutenant\\\'s Chain Vices|Knight-Lieutenant|Honor',
-		'Head'  => 'Lieutenant Commander\\\'s Chain Helm|Lieutenant Commander|Honor',
-		'Legs'  => 'Knight-Captain\\\'s Chain Legguards|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Chain Shoulders|Lieutenant Commander|Honor'
+		'Hands' => 'Knight-Lieutenant\\\'s Chain Gauntlets|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Chain Helmet|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Chain Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Chain Pauldrons|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Mage'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Silk Walkers|Knight-Lieutenant|Honor',
-		'Chest' => 'Knight-Captain\\\'s Silk Tunic|Knight-Captain|Honor',
-		'Hands' => 'Knight-Lieutenant\\\'s Silk Handwraps|Knight-Lieutenant|Honor',
-		'Head'  => 'Lieutenant Commander\\\'s Silk Cowl|Lieutenant Commander|Honor',
-		'Legs'  => 'Knight-Captain\\\'s Silk Legguards|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Silk Mantle|Lieutenant Commander|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Silk Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Silk Raiment|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Silk Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Silk Crown|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Silk Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Silk Spaulders|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Paladin'] = array(
 		'Feet'  => 'Knight-Lieutenant\\\'s Lamellar Sabatons|Knight-Lieutenant|Honor',
@@ -924,103 +917,103 @@ $SetT['PVP_Rare']['enUS']['A']['Paladin'] = array(
 		'Shoulder' => 'Lieutenant Commander\\\'s Lamellar Shoulders|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Priest'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Satin Walkers|Knight-Lieutenant|Honor',
-		'Chest' => 'Knight-Captain\\\'s Satin Tunic|Knight-Captain|Honor',
-		'Hands' => 'Knight-Lieutenant\\\'s Satin Handwraps|Knight-Lieutenant|Honor',
-		'Head'  => 'Lieutenant Commander\\\'s Satin Hood|Lieutenant Commander|Honor',
-		'Legs'  => 'Knight-Captain\\\'s Satin Legguards|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Satin Mantle|Lieutenant Commander|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Satin Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Satin Robes|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Satin Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Satin Diadem|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Satin Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Satin Amice|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Rogue'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Leather Walkers|Knight-Lieutenant|Honor',
-		'Chest' => 'Knight-Captain\\\'s Leather Chestpiece|Knight-Captain|Honor',
-		'Hands' => 'Knight-Lieutenant\\\'s Leather Grips|Knight-Lieutenant|Honor',
-		'Head'  => 'Lieutenant Commander\\\'s Leather Helm|Lieutenant Commander|Honor',
+		'Feet'  => 'Knight-Lieutenant\\\'s Leather Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Leather Armor|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Leather Gauntlets|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Leather Veil|Lieutenant Commander|Honor',
 		'Legs'  => 'Knight-Captain\\\'s Leather Legguards|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Leather Shoulders|Lieutenant Commander|Honor'
+		'Shoulder' => 'Lieutenant Commander\\\'s Leather Spaulders|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Warlock'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Dreadweave Walkers|Knight-Lieutenant|Honor',
-		'Chest' => 'Knight-Captain\\\'s Dreadweave Tunic|Knight-Captain|Honor',
-		'Hands' => 'Knight-Lieutenant\\\'s Dreadweave Handwraps|Knight-Lieutenant|Honor',
-		'Head'  => 'Lieutenant Commander\\\'s Dreadweave Cowl|Lieutenant Commander|Honor',
-		'Legs'  => 'Knight-Captain\\\'s Dreadweave Legguards|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Dreadweave Spaulders|Lieutenant Commander|Honor'
+		'Feet'  => 'Knight-Lieutenant\\\'s Dreadweave Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Dreadweave Robe|Knight-Captain|Honor',
+		'Hands' => 'Knight-Lieutenant\\\'s Dreadweave Gloves|Knight-Lieutenant|Honor',
+		'Head'  => 'Lieutenant Commander\\\'s Dreadweave Headguard|Lieutenant Commander|Honor',
+		'Legs'  => 'Knight-Captain\\\'s Dreadweave Leggings|Knight-Captain|Honor',
+		'Shoulder' => 'Lieutenant Commander\\\'s Dreadweave Mantle|Lieutenant Commander|Honor'
 );
 $SetT['PVP_Rare']['enUS']['A']['Warrior'] = array(
-		'Feet'  => 'Knight-Lieutenant\\\'s Plate Greaves|Knight-Lieutenant|Honor',
-		'Chest' => 'Knight-Captain\\\'s Plate Hauberk|Knight-Captain|Honor',
+		'Feet'  => 'Knight-Lieutenant\\\'s Plate Boots|Knight-Lieutenant|Honor',
+		'Chest' => 'Knight-Captain\\\'s Plate Chestguard|Knight-Captain|Honor',
 		'Hands' => 'Knight-Lieutenant\\\'s Plate Gauntlets|Knight-Lieutenant|Honor',
 		'Head'  => 'Lieutenant Commander\\\'s Plate Helm|Lieutenant Commander|Honor',
 		'Legs'  => 'Knight-Captain\\\'s Plate Leggings|Knight-Captain|Honor',
-		'Shoulder' => 'Lieutenant Commander\\\'s Plate Shoulders|Lieutenant Commander|Honor'
+		'Shoulder' => 'Lieutenant Commander\\\'s Plate Pauldrons|Lieutenant Commander|Honor'
 );
 
 //   PVP_Rare Horde
 
 $SetT['PVP_Rare']['enUS']['H']['Druid'] = array(
-		'Feet'  => 'Blood Guard\\\'s Dragonhide Boots|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Dragonhide Breastplate|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Dragonhide Gauntlets|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Dragonhide Helm|Champion|Honor',
-		'Legs'  => 'Legionnaire\\\'s Dragonhide Trousers|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Dragonhide Spaulders|Champion|Honor'
+		'Feet'  => 'Blood Guard\\\'s Dragonhide Footwraps|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Dragonhide Tunic|Legionnaire|Honor',
+		'Hands' => 'Blood Guard\\\'s Dragonhide Gloves|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Dragonhide Shroud|Champion|Honor',
+		'Legs'  => 'Legionnaire\\\'s Dragonhide Leggings|Legionnaire|Honor',
+		'Shoulder' => 'Champion\\\'s Dragonhide Epaulets|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Hunter'] = array(
-		'Feet'  => 'Blood Guard\\\'s Chain Greaves|Blood Guard|Honor',
+		'Feet'  => 'Blood Guard\\\'s Chain Boots|Blood Guard|Honor',
 		'Chest' => 'Legionnaire\\\'s Chain Hauberk|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Chain Vices|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Chain Helm|Champion|Honor',
-		'Legs'  => 'Legionnaire\\\'s Chain Legguards|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Chain Shoulders|Champion|Honor'
+		'Hands' => 'Blood Guard\\\'s Chain Gauntlets|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Chain Helmet|Champion|Honor',
+		'Legs'  => 'Legionnaire\\\'s Chain Leggings|Legionnaire|Honor',
+		'Shoulder' => 'Champion\\\'s Chain Pauldrons|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Mage'] = array(
-		'Feet'  => 'Blood Guard\\\'s Silk Walkers|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Silk Tunic|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Silk Handwraps|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Silk Cowl|Champion|Honor',
-		'Legs'  => 'Legionnaire\\\'s Silk Legguards|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Silk Mantle|Champion|Honor'
+		'Feet'  => 'Blood Guard\\\'s Silk Boots|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Silk Raiment|Legionnaire|Honor',
+		'Hands' => 'Blood Guard\\\'s Silk Gloves|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Silk Crown|Champion|Honor',
+		'Legs'  => 'Legionnaire\\\'s Silk Leggings|Legionnaire|Honor',
+		'Shoulder' => 'Champion\\\'s Silk Spaulders|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Priest'] = array(
-		'Feet'  => 'Blood Guard\\\'s Satin Walkers|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Satin Tunic|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Satin Handwraps|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Satin Hood|Champion|Honor',
-		'Legs'  => 'Legionnaire\\\'s Satin Legguards|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Satin Mantle|Champion|Honor'
+		'Feet'  => 'Blood Guard\\\'s Satin Boots|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Satin Robes|Legionnaire|Honor',
+		'Hands' => 'Blood Guard\\\'s Satin Gloves|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Satin Diadem|Champion|Honor',
+		'Legs'  => 'Legionnaire\\\'s Satin Leggings|Legionnaire|Honor',
+		'Shoulder' => 'Champion\\\'s Satin Amice|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Rogue'] = array(
-		'Feet'  => 'Blood Guard\\\'s Leather Walkers|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Leather Chestpiece|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Leather Grips|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Leather Helm|Champion|Honor',
+		'Feet'  => 'Blood Guard\\\'s Leather Boots|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Leather Armor|Legionnaire|Honor',
+		'Hands' => 'Blood Guard\\\'s Leather Gauntlets|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Leather Veil|Champion|Honor',
 		'Legs'  => 'Legionnaire\\\'s Leather Legguards|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Leather Shoulders|Champion|Honor'
+		'Shoulder' => 'Champion\\\'s Leather Spaulders|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Shaman'] = array(
-		'Feet'  => 'Blood Guard\\\'s Mail Greaves|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Mail Hauberk|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Mail Vices|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Mail Headguard|Champion|Honor',
+		'Feet'  => 'Blood Guard\\\'s Mail Walkers|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Mail Chestpiece|Legionnaire|Honor',
+		'Hands' => 'Blood Guard\\\'s Mail Grips|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Mail Helm|Champion|Honor',
 		'Legs'  => 'Legionnaire\\\'s Mail Legguards|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Mail Pauldrons|Champion|Honor'
+		'Shoulder' => 'Champion\\\'s Mail Shoulders|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Warlock'] = array(
-		'Feet'  => 'Blood Guard\\\'s Dreadweave Walkers|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Dreadweave Tunic|Legionnaire|Honor',
-		'Hands' => 'Blood Guard\\\'s Dreadweave Handwraps|Blood Guard|Honor',
-		'Head'  => 'Champion\\\'s Dreadweave Cowl|Champion|Honor',
-		'Legs'  => 'Legionnaire\\\'s Dreadweave Legguards|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Dreadweave Spaulders|Champion|Honor'
+		'Feet'  => 'Blood Guard\\\'s Dreadweave Boots|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Dreadweave Robe|Legionnaire|Honor',
+		'Hands' => 'Blood Guard\\\'s Dreadweave Gloves|Blood Guard|Honor',
+		'Head'  => 'Champion\\\'s Dreadweave Headguard|Champion|Honor',
+		'Legs'  => 'Legionnaire\\\'s Dreadweave Leggings|Legionnaire|Honor',
+		'Shoulder' => 'Champion\\\'s Dreadweave Mantle|Champion|Honor'
 );
 $SetT['PVP_Rare']['enUS']['H']['Warrior'] = array(
-		'Feet'  => 'Blood Guard\\\'s Plate Greaves|Blood Guard|Honor',
-		'Chest' => 'Legionnaire\\\'s Plate Hauberk|Legionnaire|Honor',
+		'Feet'  => 'Blood Guard\\\'s Plate Boots|Blood Guard|Honor',
+		'Chest' => 'Legionnaire\\\'s Plate Chestguard|Legionnaire|Honor',
 		'Hands' => 'Blood Guard\\\'s Plate Gauntlets|Blood Guard|Honor',
 		'Head'  => 'Champion\\\'s Plate Helm|Champion|Honor',
 		'Legs'  => 'Legionnaire\\\'s Plate Leggings|Legionnaire|Honor',
-		'Shoulder' => 'Champion\\\'s Plate Shoulders|Champion|Honor'
+		'Shoulder' => 'Champion\\\'s Plate Pauldrons|Champion|Honor'
 );
 
 //   PVP_Epic Alliance
@@ -1045,7 +1038,7 @@ $SetT['PVP_Epic']['enUS']['A']['Mage'] = array(
 		'Feet'  => 'Marshal\\\'s Silk Footwraps|Marshal|Honor',
 		'Chest' => 'Field Marshal\\\'s Silk Vestments|Field Marshal|Honor',
 		'Hands' => 'Marshal\\\'s Silk Gloves|Marshal|Honor',
-		'Head'  => 'Field Marshal\\\'s Silk Coronet|Field Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Coronet|Field Marshal|Honor',
 		'Legs'  => 'Marshal\\\'s Silk Leggings|Marshal|Honor',
 		'Shoulder' => 'Field Marshal\\\'s Silk Spaulders|Field Marshal|Honor'
 );
@@ -1061,7 +1054,7 @@ $SetT['PVP_Epic']['enUS']['A']['Priest'] = array(
 		'Feet'  => 'Marshal\\\'s Satin Sandals|Marshal|Honor',
 		'Chest' => 'Field Marshal\\\'s Satin Vestments|Field Marshal|Honor',
 		'Hands' => 'Marshal\\\'s Satin Gloves|Marshal|Honor',
-		'Head'  => 'Field Marshal\\\'s Satin Headdress|Field Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Headdress|Field Marshal|Honor',
 		'Legs'  => 'Marshal\\\'s Satin Pants|Marshal|Honor',
 		'Shoulder' => 'Field Marshal\\\'s Satin Mantle|Field Marshal|Honor'
 );
@@ -1077,7 +1070,7 @@ $SetT['PVP_Epic']['enUS']['A']['Warlock'] = array(
 		'Feet'  => 'Marshal\\\'s Dreadweave Boots|Marshal|Honor',
 		'Chest' => 'Field Marshal\\\'s Dreadweave Robe|Field Marshal|Honor',
 		'Hands' => 'Marshal\\\'s Dreadweave Gloves|Marshal|Honor',
-		'Head'  => 'Field Marshal\\\'s Dreadweave Coronal|Field Marshal|Honor',
+		'Head'  => 'Field Marshal\\\'s Coronal|Field Marshal|Honor',
 		'Legs'  => 'Marshal\\\'s Dreadweave Leggings|Marshal|Honor',
 		'Shoulder' => 'Field Marshal\\\'s Dreadweave Shoulders|Field Marshal|Honor'
 );
@@ -1094,49 +1087,49 @@ $SetT['PVP_Epic']['enUS']['A']['Warrior'] = array(
 
 $SetT['PVP_Epic']['enUS']['H']['Druid'] = array(
 		'Feet'  => 'General\\\'s Dragonhide Boots|General|Honor',
-		'Chest' => 'Warlord\\\'s Dragonhide Hauberk|Warlord|Honor',
-		'Hands' => 'General\\\'s Dragonhide Gloves|General|Honor',
+		'Chest' => 'Warlord\\\'s Dragonhide Breastplate|Warlord|Honor',
+		'Hands' => 'General\\\'s Dragonhide Gauntlets|General|Honor',
 		'Head'  => 'Warlord\\\'s Dragonhide Helmet|Warlord|Honor',
-		'Legs'  => 'General\\\'s Dragonhide Leggings|General|Honor',
-		'Shoulder' => 'Warlord\\\'s Dragonhide Epaulets|Warlord|Honor'
+		'Legs'  => 'General\\\'s Dragonhide Legguards|General|Honor',
+		'Shoulder' => 'Warlord\\\'s Dragonhide Spaulders|Warlord|Honor'
 );
 $SetT['PVP_Epic']['enUS']['H']['Hunter'] = array(
 		'Feet'  => 'General\\\'s Chain Boots|General|Honor',
-		'Chest' => 'Warlord\\\'s Chain Chestpiece|Warlord|Honor',
-		'Hands' => 'General\\\'s Chain Gloves|General|Honor',
-		'Head'  => 'Warlord\\\'s Chain Helmet|Warlord|Honor',
+		'Chest' => 'Warlord\\\'s Chain Breastplate|Warlord|Honor',
+		'Hands' => 'General\\\'s Chain Grips|General|Honor',
+		'Head'  => 'Warlord\\\'s Chain Helm|Warlord|Honor',
 		'Legs'  => 'General\\\'s Chain Legguards|General|Honor',
-		'Shoulder' => 'Warlord\\\'s Chain Shoulders|Warlord|Honor'
+		'Shoulder' => 'Warlord\\\'s Chain Spaulders|Warlord|Honor'
 );
 $SetT['PVP_Epic']['enUS']['H']['Mage'] = array(
-		'Feet'  => 'General\\\'s Silk Boots|General|Honor',
-		'Chest' => 'Warlord\\\'s Silk Raiment|Warlord|Honor',
-		'Hands' => 'General\\\'s Silk Handguards|General|Honor',
-		'Head'  => 'Warlord\\\'s Silk Cowl|Warlord|Honor',
-		'Legs'  => 'General\\\'s Silk Trousers|General|Honor',
-		'Shoulder' => 'Warlord\\\'s Silk Amice|Warlord|Honor'
+		'Feet'  => 'General\\\'s Silk Footwraps|General|Honor',
+		'Chest' => 'Warlord\\\'s Silk Vestments|Warlord|Honor',
+		'Hands' => 'General\\\'s Silk Gloves|General|Honor',
+		'Head'  => 'Warlord\\\'s Coronet|Warlord|Honor',
+		'Legs'  => 'General\\\'s Silk Leggings|General|Honor',
+		'Shoulder' => 'Warlord\\\'s Silk Spaulders|Warlord|Honor'
 );
 $SetT['PVP_Epic']['enUS']['H']['Priest'] = array(
-		'Feet'  => 'General\\\'s Satin Boots|General|Honor',
-		'Chest' => 'Warlord\\\'s Satin Robes|Warlord|Honor',
+		'Feet'  => 'General\\\'s Satin Sandals|General|Honor',
+		'Chest' => 'Warlord\\\'s Satin Vestments|Warlord|Honor',
 		'Hands' => 'General\\\'s Satin Gloves|General|Honor',
-		'Head'  => 'Warlord\\\'s Satin Cowl|Warlord|Honor',
-		'Legs'  => 'General\\\'s Satin Leggings|General|Honor',
+		'Head'  => 'Warlord\\\'s Headdress|Warlord|Honor',
+		'Legs'  => 'General\\\'s Satin Pants|General|Honor',
 		'Shoulder' => 'Warlord\\\'s Satin Mantle|Warlord|Honor'
 );
 $SetT['PVP_Epic']['enUS']['H']['Rogue'] = array(
-		'Feet'  => 'General\\\'s Leather Treads|General|Honor',
-		'Chest' => 'Warlord\\\'s Leather Breastplate|Warlord|Honor',
-		'Hands' => 'General\\\'s Leather Mitts|General|Honor',
-		'Head'  => 'Warlord\\\'s Leather Helm|Warlord|Honor',
-		'Legs'  => 'General\\\'s Leather Legguards|General|Honor',
-		'Shoulder' => 'Warlord\\\'s Leather Spaulders|Warlord|Honor'
+		'Feet'  => 'General\\\'s Leather Footguards|General|Honor',
+		'Chest' => 'Warlord\\\'s Leather Chestpiece|Warlord|Honor',
+		'Hands' => 'General\\\'s Leather Handgrips|General|Honor',
+		'Head'  => 'Warlord\\\'s Leather Mask|Warlord|Honor',
+		'Legs'  => 'General\\\'s Leather Leggings|General|Honor',
+		'Shoulder' => 'Warlord\\\'s Leather Epaulets|Warlord|Honor'
 );
 $SetT['PVP_Epic']['enUS']['H']['Shaman'] = array(
 		'Feet'  => 'General\\\'s Mail Boots|General|Honor',
 		'Chest' => 'Warlord\\\'s Mail Armor|Warlord|Honor',
 		'Hands' => 'General\\\'s Mail Gauntlets|General|Honor',
-		'Head'  => 'Warlord\\\'s Mail Helm|Warlord|Honor',
+		'Head'  => 'Warlord\\\'s Mail Helmet|Warlord|Honor',
 		'Legs'  => 'General\\\'s Mail Leggings|General|Honor',
 		'Shoulder' => 'Warlord\\\'s Mail Spaulders|Warlord|Honor'
 );
@@ -1144,88 +1137,17 @@ $SetT['PVP_Epic']['enUS']['H']['Warlock'] = array(
 		'Feet'  => 'General\\\'s Dreadweave Boots|General|Honor',
 		'Chest' => 'Warlord\\\'s Dreadweave Robe|Warlord|Honor',
 		'Hands' => 'General\\\'s Dreadweave Gloves|General|Honor',
-		'Head'  => 'Warlord\\\'s Dreadweave Hood|Warlord|Honor',
-		'Legs'  => 'General\\\'s Dreadweave Pants|General|Honor',
-		'Shoulder' => 'Warlord\\\'s Dreadweave Mantle|Warlord|Honor'
+		'Head'  => 'Warlord\\\'s Coronal|Warlord|Honor',
+		'Legs'  => 'General\\\'s Dreadweave Leggings|General|Honor',
+		'Shoulder' => 'Warlord\\\'s Dreadweave Shoulders|Warlord|Honor'
 );
 $SetT['PVP_Epic']['enUS']['H']['Warrior'] = array(
 		'Feet'  => 'General\\\'s Plate Boots|General|Honor',
 		'Chest' => 'Warlord\\\'s Plate Armor|Warlord|Honor',
 		'Hands' => 'General\\\'s Plate Gauntlets|General|Honor',
-		'Head'  => 'Warlord\\\'s Plate Headpiece|Warlord|Honor',
-		'Legs'  => 'General\\\'s Plate Leggings|General|Honor',
-		'Shoulder' => 'Warlord\\\'s Plate Shoulders|Warlord|Honor'
+		'Head'  => 'Warlord\\\'s Plate Helm|Warlord|Honor',
+		'Legs'  => 'General\\\'s Plate Legguards|General|Honor',
+		'Shoulder' => 'Warlord\\\'s Plate Shoulderguards|Warlord|Honor'
 );
-
-//  000  N   N Y   Y X   X I     A
-// O   0 NN  N  Y Y   X X  I    A A
-// O   0 N N N   Y     X   I   A   A
-// 0   0 N  NN   Y    X X  I  AAAAAAA
-//  000  N   N   Y   X   X I A       A
-
-$SetT['Onyxia']['enUS']['Warrior'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Priest'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Druid'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Rogue'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Mage'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Paladin'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Warlock'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Hunter'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-$SetT['Onyxia']['enUS']['Shaman'] = array(
-		'Back' => 'Onyxia Scale Cloak|Crafted|Guild',
-		'Trinket' => 'Onyxia Blood Talisman|Quest|Onyxia\\\'s Head',
-		'Finger' => 'Dragonslayer\\\'s Signet|Quest|Onyxia\\\'s Head',
-		'Neck' => 'Onyxia Tooth Pendant|Quest|Onyxia\\\'s Head',
-		'Bag' => 'Onyxia Hide Backpack|Onyxia|Onyxia\\\'s Lair'
-	);
-
 
 ?>

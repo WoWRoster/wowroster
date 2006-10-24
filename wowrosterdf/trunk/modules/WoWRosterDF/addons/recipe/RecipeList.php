@@ -32,11 +32,11 @@ if ($roster_conf['sqldebug'])
 
 
 
-$choiceForm = '<form action="index.php?name='.$module_name.'&file=addon&roster_addon_name=recipe" method="POST" name="myform">
-	
+$choiceForm = '<form action="'.getlink('&amp;file=addon&amp;roster_addon_name=recipe').'" method="post" name="myform">
+
 	<table>
 		<tr>
-		<th class="copy">'.$wordings[$roster_conf['roster_lang']]['professionfilter'].'</th>
+		<td class="copy">'.$wordings[$roster_conf['roster_lang']]['professionfilter'].'</td>
 		<td class="copy"><select NAME="proffilter">';
 
 
@@ -55,13 +55,13 @@ $wowdb->free_result($result_prof);
 
 
 $choiceForm .= '</select></td>
-<th>'.$wordings[$roster_conf['roster_lang']]['search'].'</th><td><input type="text" name="filterbox"';
+<td>'.$wordings[$roster_conf['roster_lang']]['search'].'</td><td><input type="text" name="filterbox"';
 if (isset($_REQUEST['filterbox']))
 {
 	$choiceForm .= ' value="'.$_REQUEST['filterbox'].'"';
 }
 
-$choiceForm .= '></td>
+$choiceForm .= ' /></td>
 		<td><input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['applybutton'].'" /></td>
 	</tr>
 </table>
@@ -92,7 +92,7 @@ if (isset($_REQUEST["proffilter"]))
 		}
 		while($row_recipe_type = $wowdb->fetch_array($result_recipe_type))
 		{
-			$content .=  '<a href="index.php?name='.$module_name.'&file=addon&roster_addon_name=recipe#'.$row_recipe_type['recipe_type'].'">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
+			$content .=  '<a href="'.getlink('&amp;file=addon&amp;roster_addon_name=recipe#'.str_replace(' ','',$row_recipe_type['recipe_type'])).'">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
 		}
 		$content .=  "</td></tr></table>\n<br /><br />\n";
 
@@ -107,7 +107,7 @@ if (isset($_REQUEST["proffilter"]))
 				}
 				$first_table = false;
 
-				$content .= border('syellow','start','<a href="index.php?name='.$module_name.'&file=addon&roster_addon_name=recipe#top_menu" id="'.$recipe_type.'">'.$recipe_type.'</a>').
+				$content .= border('syellow','start','<a href="'.getlink('&amp;file=addon&amp;roster_addon_name=recipe#top_menu').'" id="'.str_replace(' ','',$recipe_type).'">'.$recipe_type.'</a>').
 					'<table class="wowroster" cellspacing="0">'."\n";
 
 				//$content .= '<tr>'."\n";
@@ -117,31 +117,31 @@ if (isset($_REQUEST["proffilter"]))
 
 				if ($display_recipe_icon)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['item'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['item'].'&nbsp;</td>'."\n";
 				}
 				if ($display_recipe_name)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['name'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['name'].'&nbsp;</td>'."\n";
 				}
 				if ($display_recipe_level)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['level'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['level'].'&nbsp;</td>'."\n";
 				}
 				if ($display_recipe_tooltip)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['itemdescription'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['itemdescription'].'&nbsp;</td>'."\n";
 				}
 				if ($display_recipe_type)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['type'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['type'].'&nbsp;</td>'."\n";
 				}
 				if ($display_recipe_reagents)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['reagents'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['reagents'].'&nbsp;</td>'."\n";
 				}
 				if ($display_recipe_makers)
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['whocanmakeit'].'&nbsp;</th>'."\n";
+					$content .=  '<td class="membersHeader">&nbsp;'.$wordings[$roster_conf['roster_lang']]['whocanmakeit'].'&nbsp;</td>'."\n";
 				}
 
 				$content .=  '</tr>';
@@ -169,11 +169,11 @@ if (isset($_REQUEST["proffilter"]))
 
 				if (substr($row_users['skill_level'],0,strpos($row_users['skill_level'],':')) < 300)
 				{
-					$users .= '<a onmouseover="return overlib(\''.$row_users['skill_level'].'\',WRAP);" onmouseout="return nd();" class="difficulty_'.$row_users['difficulty'].'" href="./index.php?name='.$module_name.'&file=char&cname='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
+					$users .= '<a onmouseover="return overlib(\''.$row_users['skill_level'].'\',WRAP);" onmouseout="return nd();" class="difficulty_'.$row_users['difficulty'].'" href="'.getlink('&amp;file=char&amp;cname='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes').'">'.$row_users['name'].'</a>'."\n";
 				}
 				else
 				{
-					$users .= '<a onmouseover="return overlib(\''.$row_users['skill_level'].'\',WRAP);" onmouseout="return nd();" class="difficulty_1" href="./index.php?name='.$module_name.'&file=char&cname='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes">'.$row_users['name'].'</a>'."\n";
+					$users .= '<a onmouseover="return overlib(\''.$row_users['skill_level'].'\',WRAP);" onmouseout="return nd();" class="difficulty_1" href="'.getlink('&amp;file=char&amp;cname='.$row_users['name'].'&amp;server='.$server_name_escape.'&amp;action=recipes').'">'.$row_users['name'].'</a>'."\n";
 				}
 				$break_counter++;
 			}

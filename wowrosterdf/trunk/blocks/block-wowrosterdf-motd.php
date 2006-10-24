@@ -12,7 +12,7 @@ if (!defined('CPG_NUKE')) { exit; }
 
 if (is_active($module_name))
 {
-$content .= $guildMOTD;
+$content .= '<center>'.$guildMOTD.'</center><br /> ';
     //$content .= '<center><img src="index.php?name='.$module_name.'&amp;file=motd&amp;motd='.urlencode($guildMOTD).'" alt="Guild Message of the Day" /><br /><br /></center>';
 	
 }

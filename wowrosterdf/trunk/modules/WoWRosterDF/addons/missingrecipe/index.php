@@ -29,10 +29,10 @@ $professions = array(
 "Leatherworking" => $wordings[$roster_conf['roster_lang']]['Leatherworking'],
 "Tailoring" => $wordings[$roster_conf['roster_lang']]['Tailoring']);
 
-$form = "<br /><form method='get'>
-<input type='hidden' name='name' value=".$module_name.">
-<input type='hidden' name='file' value='addon'>
-<input type='hidden' name='roster_addon_name' value='missingrecipe'>";
+$form = "<br /><form method='get' action=''>
+<input type='hidden' name='name' value=".$module_name." />
+<input type='hidden' name='file' value='addon' />
+<input type='hidden' name='roster_addon_name' value='missingrecipe' />";
 //Profession Drop-Down
 $form .= $wordings[$roster_conf['roster_lang']]['profession'].": <select name='skill'>";
 foreach($professions as $skill => $wording)
@@ -64,7 +64,7 @@ while($row = $wowdb->fetch_array($result))
 	}
 }
 
-$form .="</select><br /><br /><center><input type='submit'></center></form><br />";
+$form .="</select><br /><br /><center><input type='submit' /></center></form><br />";
 echo border('sorange','start',$wordings[$roster_conf['roster_lang']]['missingrecipes_addon']);
 echo($form);
 echo border('sorange','end');

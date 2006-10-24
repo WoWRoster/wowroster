@@ -22,7 +22,7 @@ if (!isset($content))
 $server_name = $roster_conf['server_name'];
 
 //Faction Selection
-$query = "SELECT `guild_id` FROM `" . ROSTER_GUILDTABLE . "` where `guild_name` = '" . $roster_conf['guild_name'] . "' and `server` ='" . addslashes($roster_conf['server_name']) . "'"; 
+$query = "SELECT `guild_id` FROM `" . ROSTER_GUILDTABLE . "` where `guild_name` = '" . $roster_conf['guild_name'] . "' and `server` ='" . addslashes($roster_conf['server_name']) . "'";
 
 if ($roster_conf['sqldebug'])
 {
@@ -31,19 +31,19 @@ if ($roster_conf['sqldebug'])
 
 
 $result = $wowdb->query($query) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $query);
-if ($row = $wowdb->fetch_array($result)) 
-{ 
+if ($row = $wowdb->fetch_array($result))
+{
 	$guildId = $row['guild_id'];
-} 
-else 
-{ 
+}
+else
+{
 	die_quietly($nodata[$roster_conf['roster_lang']], 'Database Error', basename(__FILE__), __LINE__);
-} 
+}
 
 // Lets make the basis for most of the SQL statements right here.
 $MemberSelect = "SELECT * FROM `" . ROSTER_MEMBERSTABLE . "`";
 $whereclause = " WHERE `" . ROSTER_MEMBERSTABLE . "`.`guild_id` = " . $guildId;
-if (!$include_bank) 
+if (!$include_bank)
 	$whereclause .= " AND `" . ROSTER_MEMBERSTABLE . "`.`" . $roster_conf['banker_fieldname'] . "` NOT LIKE '%" . $roster_conf['banker_rankname'] . "%'";
 $where1 = $whereclause . " AND `" . ROSTER_MEMBERSTABLE . "`.`" . $roster_conf['alt_location'] . "` NOT LIKE '%" . $roster_conf['alt_type'] . "%'";
 $where2 = $whereclause . " AND `" . ROSTER_MEMBERSTABLE . "`.`" . $roster_conf['alt_location'] . "` LIKE '%" . $roster_conf['alt_type'] . "%'";
@@ -54,10 +54,10 @@ $select3 = $MemberSelect . " INNER JOIN `" . ROSTER_PLAYERSTABLE . "` ON `" . RO
 
 $classquery = "SELECT `class`, count(`member_id`) FROM `" . ROSTER_MEMBERSTABLE . "` " . $whereclause . " GROUP BY `class` ORDER BY `class`";
 
-$tableFooter = "	</table>\n</table>\n" . border('syellow','end') ;
+$tableFooter = "	</table>\n</table>\n" . border('syellow','end').'</div>' ;
 
 $content .= "<br />\n" . tableheader("BEST", localize("guildbestworst"), 'syellow') . "\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n";
-$content .= '   <td valign="top" class="row">';
+$content .= '<tr>   <td valign="top" class="row">';
 
 $content .= "<table width=\"100%\" cellpadding=\"2\" cellspacing=\"2\">
 	" ;
@@ -215,7 +215,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31);
 	$num_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` = 60";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_60 = $wowdb->num_rows($result_menu);
@@ -223,7 +223,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_60_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_60_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` > 49 and `" . ROSTER_MEMBERSTABLE . "`.`level` < 60";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_50_59 = $wowdb->num_rows($result_menu);
@@ -231,7 +231,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_50_59_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_50_59_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` > 39 and `" . ROSTER_MEMBERSTABLE . "`.`level` < 50";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_40_49 = $wowdb->num_rows($result_menu);
@@ -239,7 +239,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_40_49_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_40_49_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` > 29 and `" . ROSTER_MEMBERSTABLE . "`.`level` < 40";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_30_39 = $wowdb->num_rows($result_menu);
@@ -247,7 +247,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_30_39_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_30_39_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` > 19 and `" . ROSTER_MEMBERSTABLE . "`.`level` < 30";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_20_29 = $wowdb->num_rows($result_menu);
@@ -255,7 +255,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_20_29_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_20_29_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` > 9 and `" . ROSTER_MEMBERSTABLE . "`.`level` < 20";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_10_19 = $wowdb->num_rows($result_menu);
@@ -263,7 +263,7 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_10_19_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_10_19_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$levels = " AND `" . ROSTER_MEMBERSTABLE . "`.`level` > 0 and `" . ROSTER_MEMBERSTABLE . "`.`level` < 10";
 	$result_menu = $wowdb->query($select11 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select11 . $levels);
 	$num_lvl_1_9 = $wowdb->num_rows($result_menu);
@@ -271,14 +271,14 @@ while ($classRow = $wowdb->getrow($classresult))
 	$num_lvl_1_9_alts = $wowdb->num_rows($result_menu);
 	$result_menu = $wowdb->query($select31 . $levels) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, $select31 . $levels);
 	$num_lvl_1_9_loaded = $wowdb->num_rows($result_menu);
-	
+
 	$result_avg = $wowdb->fetch_array($wowdb->query("SELECT AVG(`" . ROSTER_MEMBERSTABLE . "`.`level`) FROM `" . ROSTER_MEMBERSTABLE . "` " . $where1 . $whereClass)) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, "SELECT AVG(level) FROM `" . ROSTER_MEMBERSTABLE . "` " . $where1 . $whereClass);
 	$result_avg_alts = $wowdb->fetch_array($wowdb->query("SELECT AVG(`" . ROSTER_MEMBERSTABLE . "`.`level`) FROM `" . ROSTER_MEMBERSTABLE . "` " . $where2 . $whereClass)) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, "SELECT AVG(level) FROM `" . ROSTER_MEMBERSTABLE . "` " . $where2 . $whereClass);
 	$result_avg_loaded = $wowdb->fetch_array($wowdb->query("SELECT AVG(`" . ROSTER_MEMBERSTABLE . "`.`level`) FROM `" . ROSTER_PLAYERSTABLE . "` INNER JOIN `" . ROSTER_MEMBERSTABLE . "` ON `" . ROSTER_PLAYERSTABLE . "`.`member_id` = `" . ROSTER_MEMBERSTABLE . "`.`member_id` " . $whereclause . $whereClass)) or die_quietly($wowdb->error(), 'Database Error', basename(__FILE__), __LINE__, "SELECT AVG(level) FROM `" . ROSTER_PLAYERSTABLE . "` INNER JOIN `" . ROSTER_MEMBERSTABLE . "` ON `" . ROSTER_PLAYERSTABLE . "`.`member_id` = `" . ROSTER_MEMBERSTABLE . "`.`member_id` " . $whereclause . $whereClass);
-	
+
 	$content .= "<br />\n" . tableheader($classRow['class'], class_divider($classRow['class']), 'syellow') . "\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n";
-	$content .= '   <td valign="top" class="row">';
-	
+	$content .= '<tr>   <td valign="top" class="row">';
+
 	$content .= "<table width=\"100%\" cellpadding=\"2\" cellspacing=\"2\">
 		" . addTableLine("", localize('classmain'), localize('classalt'), localize('classuploaded'), false, 0, false) . "
 		" . addTableLine(localize('members') , $num_non_alts, $num_alts , $num_loaded, false, $num_guild, true) . "
@@ -302,54 +302,40 @@ global $num_guild, $num_non_alts, $num_alts, $leveldecimal, $roster_conf;
 		$altPercent = round(($Alt / 60) * 100);
 		$uploadedPercent = round(($Uploaded / 60) * 100);
 		return "		<tr>
-			<td>
-				" . $Level . "
-			</td>
-			<td>
-				<div style=\"cursor:default;\">
+			<td>" . $Level . "</td>
+			<td><div style=\"cursor:default;\">
 					<div class=\"levelbarParent\" style=\"width:70px;\">
-						<div class=\"levelbarChild\">
-							" . $Main . "
-						</div>
+						<div class=\"levelbarChild\">" . $Main . "</div>
 					</div>
 					<table class=\"expOutline\" border=0 cellpadding=0 cellspacing=0 width=70>
 						<tr>
-							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $mainPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\"></td>
+							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $mainPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\" /></td>
 							<td width=\"" . (100 - $mainPercent) . "%\"></td>
 						</tr>
 					</table>
-				</div>
-			</td>
-			<td>
-				<div style=\"cursor:default;\">
+				</div></td>
+			<td><div style=\"cursor:default;\">
 					<div class=\"levelbarParent\" style=\"width:70px;\">
-						<div class=\"levelbarChild\">
-							" . $Alt . "
-						</div>
+						<div class=\"levelbarChild\">" . $Alt . "</div>
 					</div>
 					<table class=\"expOutline\" border=0 cellpadding=0 cellspacing=0 width=70>
 						<tr>
-							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $altPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\"></td>
+							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $altPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\" /></td>
 							<td width=\"" . (100 - $altPercent) . "%\"></td>
 						</tr>
 					</table>
-				</div>
-			</td>
-			<td>
-				<div style=\"cursor:default;\">
+				</div></td>
+			<td><div style=\"cursor:default;\">
 					<div class=\"levelbarParent\" style=\"width:70px;\">
-						<div class=\"levelbarChild\">
-							" . $Uploaded . "
-						</div>
+						<div class=\"levelbarChild\">" . $Uploaded . "</div>
 					</div>
 					<table class=\"expOutline\" border=0 cellpadding=0 cellspacing=0 width=70>
 						<tr>
-							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $uploadedPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\"></td>
+							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $uploadedPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\" /></td>
 							<td width=\"" . (100 - $uploadedPercent) . "%\"></td>
 						</tr>
 					</table>
-				</div>
-			</td>
+				</div></td>
 		</tr>
 ";
 	} else {
@@ -371,7 +357,7 @@ global $num_guild, $num_non_alts, $num_alts, $leveldecimal, $roster_conf;
 			} else {
 				$UploadedTip .= "0" . $tipString . "<br \>";
 			}
-			
+
 			if ($num_guild == $GuildTotal)
 			{
 				$MainTip .= round((($Main / $GuildTotal) * 100), $leveldecimal) . localize('statstotalguild');
@@ -389,34 +375,18 @@ global $num_guild, $num_non_alts, $num_alts, $leveldecimal, $roster_conf;
 				$UploadedTip .= round((($Uploaded / $num_guild) * 100), $leveldecimal) . localize('statstotalguild');
 			}
 			return "		<tr>
-			<td>
-				" . $Level . "
-			</td>
-			<td align=right>
-				<div style=\"cursor:help;\" onmouseover=\"overlib('" . $MainTip . "',CENTER);\" onmouseout=\"return nd();\">" . $Main . "</div>
-			</td>
-			<td align=right>
-				<div style=\"cursor:help;\" onmouseover=\"overlib('" . $AltTip . "',CENTER);\" onmouseout=\"return nd();\">" . $Alt . "</div>
-			</td>
-			<td align=right>
-				<div style=\"cursor:help;\" onmouseover=\"overlib('" . $UploadedTip . "',CENTER);\" onmouseout=\"return nd();\">" . $Uploaded . "</div>
-			</td>
+			<td>" . $Level . "</td>
+			<td align=right><div style=\"cursor:help;\" onmouseover=\"overlib('" . $MainTip . "',CENTER);\" onmouseout=\"return nd();\">" . $Main . "</div></td>
+			<td align=right><div style=\"cursor:help;\" onmouseover=\"overlib('" . $AltTip . "',CENTER);\" onmouseout=\"return nd();\">" . $Alt . "</div></td>
+			<td align=right><div style=\"cursor:help;\" onmouseover=\"overlib('" . $UploadedTip . "',CENTER);\" onmouseout=\"return nd();\">" . $Uploaded . "</div></td>
 		</tr>
 ";
 		} else {
 			return "		<tr>
-			<td>
-				" . $Level . "
-			</td>
-			<td align=right>
-				" . $Main . "
-			</td>
-			<td align=right>
-				" . $Alt . "
-			</td>
-			<td align=right>
-				" . $Uploaded . "
-			</td>
+			<td>" . $Level . "</td>
+			<td align=right>" . $Main . "</td>
+			<td align=right>" . $Alt . "</td>
+			<td align=right>" . $Uploaded . "</td>
 		</tr>
 ";
 		}
@@ -435,40 +405,26 @@ function addTopTableLine($text, $class, $num, $bround, $bBar)
 	{
 		$mainPercent = round(($count / 60) * 100);
 		return "		<tr>
-			<td>
-				" . $text . "
-			</td>
-			<td>
-				" . $class . "
-			</td>
-			<td>
-				<div style=\"cursor:default;\">
+			<td>" . $text . "</td>
+			<td>" . $class . "</td>
+			<td><div style=\"cursor:default;\">
 					<div class=\"levelbarParent\" style=\"width:70px;\">
-						<div class=\"levelbarChild\">
-							" . $count . "
-						</div>
+						<div class=\"levelbarChild\">" . $count . "</div>
 					</div>
 					<table class=\"expOutline\" border=0 cellpadding=0 cellspacing=0 width=70>
 						<tr>
-							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $mainPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\"></td>
+							<td style=\"background-image: url('".$roster_conf['img_url']."expbar-var2.gif');\" width=\"" . $mainPercent . "%\"><img src=\"".$roster_conf['img_url']."pixel.gif\" height=\"14\" width=\"1\" alt=\"\" /></td>
 							<td width=\"" . (100 - $mainPercent) . "%\"></td>
 						</tr>
 					</table>
-				</div>
-			</td>
+				</div></td>
 		</tr>
 ";
 	} else {
 		return "		<tr>
-			<td>
-				" . $text . "
-			</td>
-			<td>
-				" . $class . "
-			</td>
-			<td align=right>
-				" . $count . "
-			</td>
+			<td>" . $text . "</td>
+			<td>" . $class . "</td>
+			<td align=right>" . $count . "</td>
 		</tr>
 ";
 	}
@@ -499,28 +455,30 @@ function class_divider ( $text )
 
 }
 
-function tableheader ( $class, $title, $color )
+function tableheader( $class, $title, $color )
 {
-global $roster_conf;
-return "\n".'<!-- Begin HSLIST -->
+	global $roster_conf;
+	return '
+
 <div id="' . $class . '_col" style="display:none;">
-'.border($color,'start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('" . $class . "_col','" . $class . "_full')\"><img src=\"" . $roster_conf['img_url'] . "plus.gif\" style=\"float:right;\" />" . $title . "</div>").'
+'.border($color,'start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('" . $class . "_col','" . $class . "_full')\"><img src=\"" . $roster_conf['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $title . "</div>").'
 '.border($color,'end').'
 </div>
 <div id="' . $class . '_full">
-'.border($color,'start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('" . $class . "_col','" . $class . "_full')\"><img src=\"" . $roster_conf['img_url'] . "minus.gif\" style=\"float:right;\" />" . $title . "</div>").'
-<table width="100%" cellpadding="0" cellspacing="0" class="wowroster">'."\n";
+'.border($color,'start',"<div style=\"cursor:pointer;width:350px;\" onclick=\"swapShow('" . $class . "_col','" . $class . "_full')\"><img src=\"" . $roster_conf['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $title . "</div>")."\n";
 
 }
 
 function localize ( $item )
 {
-GLOBAL $wordings, $roster_conf;
+	GLOBAL $wordings, $roster_conf;
 
 	if (isset($wordings[$roster_conf['roster_lang']][$item]))
 	{
 		return $wordings[$roster_conf['roster_lang']][$item];
-	} else {
+	}
+	else
+	{
 		return $wordings['enUS'][$item];
 	}
 }

@@ -4,7 +4,7 @@
 * $Revision: 1.11 $ 
 */ 
 
-$config['menu_name'] = 'Tallent Tree';
+$config['menu_name'] = 'Talent Tree';
 $config['menu_min_user_level'] = 0;
 $config['menu_index_file'] = array();
 

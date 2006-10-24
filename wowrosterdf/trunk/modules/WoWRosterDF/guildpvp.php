@@ -87,11 +87,11 @@ function tableHeaderRow($th)
 	{
 		++$acount;
 		if ($acount == 1)
-			print "  <tr>\n    <th class=\"membersHeader\">$header</th>\n";
+			print "  <tr>\n    <td class=\"membersHeader\">$header</td>\n";
 		elseif ($acount == count($th))
-			print '    <th class="membersHeaderRight">'.$header.'</th>'."\n";
+			print '    <td class="membersHeaderRight">'.$header.'</td>'."\n";
 		else
-			print '    <th class="membersHeader">'.$header."</th>\n";
+			print '    <td class="membersHeader">'.$header."</td>\n";
 	}
 }
 

@@ -106,7 +106,7 @@ foreach ($_FILES as $filefield => $file)
 				{
 					$uploadData['RaidTrackerData'] = $data['CT_RaidTracker_RaidLog'];
 				}
-				
+
 				// If Bookworm data is there, assign it to $uploadData['Bookworm']
 				if( isset($data['BookwormBooks']) )
 				{
@@ -433,7 +433,7 @@ if( $htmlout )
 
 			// Print the downloadable errors separately so we can generate a download
 			print "<br />\n";
-			print '<form method="post" action="updateProfile.php" name="post">'."\n";
+			print '<form method="post" action="'.getlink('&amp;file=updateProfile').'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="error" />'."\n";
 			print '<input type="submit" name="download" value="Save Error Log" />'."\n";
@@ -453,7 +453,7 @@ if( $htmlout )
 
 		// Print the downloadable messages separately so we can generate a download
 		print "<br />\n";
-		print '<form method="post" action="updateProfile.php" name="post">'."\n";
+		print '<form method="post" action="'.getlink('&amp;file=updateProfile').'" name="post">'."\n";
 		print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($updateMessages.$updatePvPMessages.$rosterUpdateMessages)).'" />'."\n";
 		print '<input type="hidden" name="send_file" value="update" />'."\n";
 		print '<input type="submit" name="download" value="Save Update Log" />'."\n";
@@ -480,7 +480,7 @@ if( $htmlout )
 
 			// Print the downloadable sql separately so we can generate a download
 			print "<br />\n";
-			print '<form method="post" action="updateProfile.php" name="post">'."\n";
+			print '<form method="post" action="'.getlink('&amp;file=updateProfile').'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars($sqlstringout).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="sql" />'."\n";
 			print '<input type="submit" name="download" value="Save SQL Log" />'."\n";

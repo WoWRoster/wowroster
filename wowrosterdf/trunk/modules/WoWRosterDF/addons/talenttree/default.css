@@ -2,12 +2,14 @@
 
 /* EXAMPLE FILE ONLY FOR THE DUMMY PAGE */
 
-body{
-background: transparent
-	background:url(../../../images/cb_fbr_tex.gif);
+body {
+	background:transparent;
 }
-.mt {color: #333ccc;
-	text-decoration:none;}
-.mt2 { color: #707070;
+.mt {
+	color:#333ccc;
+	text-decoration:none;
+}
+.mt2 {
+	color:#707070;
 	text-decoration:underline;
 }
