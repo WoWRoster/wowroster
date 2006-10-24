@@ -634,7 +634,7 @@ $toggleboxes = 1;
  */
 function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px')
 {
-	global $toggleboxes;
+	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
 	return
@@ -659,7 +659,7 @@ function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open 
  */
 function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px', $height = '300px')
 {
-	global $toggleboxes;
+	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
 	return
