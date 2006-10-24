@@ -1,0 +1,127 @@
+<!-- INCLUDE overall_header.html -->
+
+<table class="ua_table" width="40%" align="center">
+	<tr>
+		<th colspan="2" class="table_header">{L_MANAGE_SV}</th>
+	</tr>
+	<tr>
+		<td class="data_header">{L_FILES}</td>
+		<!-- IF S_MANAGE -->
+		<td class="data_header" width="10%">{L_REMOVE}</td>
+		<!-- ENDIF -->
+	</tr>
+	<!-- BEGIN sv_list -->
+	<tr>
+		<td class="data{sv_list.ROW_CLASS}">{sv_list.NAME}<b>.lua</b></td>
+		<!-- IF S_MANAGE -->
+		<td class="data{sv_list.ROW_CLASS}">
+			<form name="ua_removesv_{sv_list.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input class="submit" type="submit" value="{L_REMOVE}" />
+				<input type="hidden" value="{sv_list.ID}" name="{A_ID}" />
+				<input type="hidden" value="{A_DELETE}" name="{A_OPERATION}" />
+			</form>
+		</td>
+		<!-- ENDIF -->
+	</tr>
+	<!-- END sv_list -->
+</table>
+
+<br />
+
+<!-- IF S_MANAGE -->
+<form name="ua_addsv" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+	<table class="ua_table" width="40%" align="center">
+		<tr>
+			<th colspan="2" class="table_header">{L_ADD_SV}</th>
+		</tr>
+		<tr>
+			<td class="data_header">{L_FILENAME}</td>
+			<td class="data_header" width="10%">{L_ADD}</td>
+		</tr>
+		<tr>
+			<td class="data1"><input class="input" type="text" name="{A_SVNAME}" /> <b>.lua</b></td>
+			<td class="data2"><input class="submit" type="submit" value="{L_ADD}" /></td>
+		</tr>
+	</table>
+	<input type="hidden" value="{A_ADD}" name="{A_OPERATION}" />
+</form>
+
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_INI -->
+<table class="ua_table" align="center">
+	<tr>
+		<th colspan="2" class="table_header">{L_SETTINGS_FILE}</th>
+	</tr>
+	<tr>
+		<td class="data1">{L_IMPORT_FILE}:</td>
+		<td class="data1">
+			<form name="ua_uploadini" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input class="file" type="file" name="file" />
+				<input type="hidden" value="{A_UPINI}" name="{A_OPERATION}" />
+				<input class="submit" type="submit" value="{L_IMPORT}" />
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td class="data2">{L_EXPORT_FILE}:</td>
+		<td class="data2">
+			<form name="ua_getini" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" value="{A_GETINI}" name="{A_OPERATION}" />
+				<input class="submit" type="submit" value="{L_EXPORT}" />
+			</form>
+		</td>
+	</tr>
+</table>
+
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_INI -->
+<!-- ENDIF -->
+
+<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+	<table class="ua_table" align="center">
+		<tr>
+			<th colspan="4" class="table_header">{L_SYNC_SETTINGS}</th>
+		</tr>
+		<!-- BEGIN section -->
+		<tr>
+			<th colspan="4" class="data_header">[{section.NAME}]</th>
+		</tr>
+		<tr>
+			<td class="data_header">{L_SETTING_NAME}</td>
+			<td class="data_header">{L_VALUE}</td>
+			<!-- IF S_MANAGE -->
+			<td class="data_header">{L_ENABLED}</td>
+			<!-- ENDIF -->
+		</tr>
+		<!-- BEGIN settings_row -->
+		<tr>
+			<!-- IF S_MANAGE -->
+			<td class="data{section.settings_row.ROW_CLASS}" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();">
+				<img src="{TEMPLATE_PATH}/images/blue-question-mark.gif" alt="[?]" /> {section.settings_row.SETNAME}</td>
+			<td class="data{section.settings_row.ROW_CLASS}">{section.settings_row.INPUT_FIELD}</td>
+			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" name="{section.settings_row.SETNAME}_en" value="1" {section.settings_row.CHECKED}/></td>
+			<!-- ELSE -->
+			<td class="data{section.settings_row.ROW_CLASS}" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();">
+				<img src="{TEMPLATE_PATH}/images/blue-question-mark.gif" alt="[?]" /> {section.settings_row.SETNAME}</td>
+			<td class="data{section.settings_row.ROW_CLASS}">
+				<!-- IF section.settings_row.SETVALUE == '1' -->True
+				<!-- ELSEIF section.settings_row.SETVALUE == '0' -->False
+				<!-- ELSE -->{section.settings_row.SETVALUE}<!-- ENDIF --></td>
+			<!-- ENDIF -->
+		</tr>
+		<!-- END settings_row -->
+		<!-- END section -->
+		<!-- IF S_MANAGE -->
+		<tr>
+			<td class="data_header" colspan="4" align="center"><input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
+				<input class="submit" type="submit" name="settings" value="{L_UPDATE_SET}" /></td>
+		</tr>
+		<!-- ENDIF -->
+	</table>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

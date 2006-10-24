@@ -1,0 +1,44 @@
+<!-- INCLUDE overall_header.html -->
+
+<form name="ua_modifyuser" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+	<input type="hidden" value="finalize" name="{A_OPERATION}" />
+	<input type="hidden" value="{U_USER_ID}" name="{A_ID}" />
+	<table class="ua_table" align="center">
+		<tr>
+			<th colspan="2" class="table_header">{L_MODIFY_USER}</th>
+		</tr>
+		<tr>
+			<td class="data1">{L_USERNAME}:</td>
+			<td class="data1"><!-- IF S_POWER --><input class="input" type="text" name="name" value="{U_USERNAME}" size="20" maxlength="30" /><!-- ELSE -->[{U_USERNAME}]<!-- ENDIF --></td>
+		</tr>
+		<!-- IF S_ADMIN -->
+		<tr>
+			<td class="data2">{L_CHANGE_USERLEVEL}:</td>
+			<td class="data2">{U_LEVEL_SELECTBOX}</td>
+		</tr>
+		<!-- ELSE -->
+		<tr>
+			<td class="data1">{L_USERLEVEL}:</td>
+			<td class="data1"><input type="hidden" value="{U_USERLEVEL}" name="level" />[{U_USERLEVEL}]</td>
+		</tr>
+		<!-- ENDIF -->
+		<tr>
+			<td class="data1">{L_CHANGE_PASSWORD}:</td>
+			<td class="data1"><input class="input" type="password" name="password" value="" size="20" maxlength="50" /></td>
+		</tr>
+		<tr>
+			<td class="data2">{L_CHANGE_LANGUAGE}:</td>
+			<td class="data2">{U_LANG_SELECTBOX}</td>
+		</tr>
+		<tr>
+			<td class="data2">{L_CHANGE_STYLE}:</td>
+			<td class="data2">{U_STYLE_SELECTBOX}</td>
+		</tr>
+		<tr>
+			<td class="data1">&nbsp;</td>
+			<td class="data1"><input class="submit" type="submit" value="{L_MODIFY_USER}" /></td>
+		</tr>
+	</table>
+</form>
+
+<!-- INCLUDE overall_footer.html -->
