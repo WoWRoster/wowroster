@@ -40,7 +40,7 @@ $totaltime = round($endtime - ROSTER_STARTTIME, 2);
 if( $roster_conf['processtime'] )
 {
 	print '  <small>This page was created in '.$totaltime.' seconds with '.count($wowdb->sqlstrings)." queries executed</small>\n<br /><br />\n";
-	echo messagebox('<div style="text-align:left;font-size:10px;">'.nl2br($wowdb->getSQLStrings()).'</div>','SQL Queries','sgreen');
+	echo messagebox('<div style="text-align:left;font-size:10px;">'.nl2br(htmlentities($wowdb->getSQLStrings())).'</div>','SQL Queries','sgreen');
 }
 
 print getAllTooltips();
