@@ -405,10 +405,10 @@ $wordings['enUS']['ts_iconArray'] = array (
 	'Raptor Riding'=>'Ability_Mount_Raptor',
 	'Kodo Riding'=>'Ability_Mount_Kodo_03',
 	'Wolf Riding'=>'Ability_Mount_BlackDireWolf',
-	'Riding'=>'Ability_Mount_RidingHorse',
 );
 
 // Riding Skill Icons-Array
+$wordings['enUS']['riding'] = 'Riding';
 $wordings['enUS']['ts_ridingIcon'] = array(
 	'Night Elf'=>'Ability_Mount_WhiteTiger',
 	'Human'=>'Ability_Mount_RidingHorse',
@@ -418,6 +418,8 @@ $wordings['enUS']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Paladin'=>'Ability_Mount_Dreadsteed',
+	'Warlock'=>'Ability_Mount_NightmareHorse'
 );
 
 // Class Icons-Array

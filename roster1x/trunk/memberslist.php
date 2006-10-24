@@ -634,7 +634,9 @@ function tradeskill_icons ( $row )
 
 	if( $row['clientLocale'] != '' )
 	{
-		$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$row['clientLocale']]['professions']."' OR `skill_type` = '".$wordings[$row['clientLocale']]['secondary']."') ORDER BY `skill_order` ASC" );
+		$lang = $row['clientLocale'];
+
+		$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$lang]['professions']."' OR `skill_type` = '".$wordings[$lang]['secondary']."') ORDER BY `skill_order` ASC" );
 
 		$cell_value = '';
 		while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
@@ -642,11 +644,20 @@ function tradeskill_icons ( $row )
 			$toolTip = str_replace(':','/',$r_prof['skill_level']);
 			$toolTiph = $r_prof['skill_name'];
 
-			$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof['skill_name']];
-
-			if($r_prof['skill_name'] == "Riding")
+			if($r_prof['skill_name'] == $wordings[$lang]['riding'])
 			{
-				$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_ridingIcon'][$row['race']];
+				if($row['class']==$wordings[$lang]['Paladin'] || $row['class']==$wordings[$lang]['Warlock'])
+				{
+					$skill_image = 'Interface/Icons/'.$wordings[$lang]['ts_ridingIcon'][$row['class']];
+				}
+				else
+				{
+					$skill_image = 'Interface/Icons/'.$wordings[$lang]['ts_ridingIcon'][$row['race']];
+				}
+			}
+			else
+			{
+				$skill_image = 'Interface/Icons/'.$wordings[$lang]['ts_iconArray'][$r_prof['skill_name']];
 			}
 
 			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";

@@ -406,19 +406,21 @@ $wordings['frFR']['ts_iconArray'] = array (
 	'Monte de raptor'=>'Ability_Mount_Raptor',
 	'Monte de kodo'=>'Ability_Mount_Kodo_03',
 	'Monte de loup'=>'Ability_Mount_BlackDireWolf',
-	'Monte'=>'Ability_Mount_RidingHorse',
 );
 
 // Riding Skill Icons-Array
+$wordings['frFR']['riding'] = 'Monte';
 $wordings['frFR']['ts_ridingIcon'] = array(
 	'Elfe de la nuit'=>'Ability_Mount_WhiteTiger',
 	'Humain'=>'Ability_Mount_RidingHorse',
 	'Nain'=>'Ability_Mount_MountainRam',
 	'Gnome'=>'Ability_Mount_MechaStrider',
-	'Mort-vivant'=>'Ability_Mount_Undeadhorse',
+	'Mort-Vivant'=>'Ability_Mount_Undeadhorse',
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Paladin'=>'Ability_Mount_Dreadsteed',
+	'Démoniste'=>'Ability_Mount_NightmareHorse'
 );
 
 // Class Icons-Array
