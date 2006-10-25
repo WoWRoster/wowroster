@@ -1490,7 +1490,7 @@ else
 {
 	$expbar_width = $this->printXP();
 	list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
-	if ($xplevel != '0' || $xplevel != '')
+	if ($xplevel != '0' && $xplevel != '')
 	{
 		$exp_percent = ( $xplevel > 0 ? round(($xp/$xplevel)*100) : 0);
 		if( $xprest > 0 )
