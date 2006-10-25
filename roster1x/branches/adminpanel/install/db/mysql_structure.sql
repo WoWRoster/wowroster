@@ -124,7 +124,7 @@ CREATE TABLE `renprefix_mailbox` (
 
 DROP TABLE IF EXISTS `renprefix_members`;
 CREATE TABLE `renprefix_members` (
-  `member_id` int(11) unsigned NOT NULL auto_increment,
+  `member_id` int(11) unsigned NOT NULL,
   `guild_id` int(11) unsigned NOT NULL default '0',
   `note` varchar(255) NOT NULL default '',
   `guild_rank` int(11) default '0',

@@ -259,7 +259,8 @@ ALTER TABLE `renprefix_members`
 	DROP `class`,
 	DROP `level`,
 	DROP `zone`,
-	DROP `account_id`;
+	DROP `account_id`,
+	CHANGE `member_id` `member_id` int(11) NOT NULL;
 	
 
 # --------------------------------------------------------
