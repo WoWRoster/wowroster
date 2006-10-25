@@ -693,7 +693,7 @@ function level_value ( $row )
 		$togo = $max - $current;
 		$togo .= ' XP until level '.($row['level']+1);
 
-		$percent_exp =  round(($current/$max)*100);
+		$percent_exp = ($max > 0 ? round(($current/$max)*100) : 0);
 
 		$tooltip = '<div style="white-space:nowrap;" class="levelbarParent" style="width:200px;"><div class="levelbarChild">XP '.$current.'/'.$max.$rested.'</div></div>';
 		$tooltip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="200">';

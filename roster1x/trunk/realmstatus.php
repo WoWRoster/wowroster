@@ -143,7 +143,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 		}
 
 	// Figure out Servertype
-		$realmData['servertype'] = html_entity_decode($row[2][1]);
+		$realmData['servertype'] = html_entity_decode(str_replace('&nbsp;',' ',$row[2][1]));
 		$realmData['servertypecolor'] = $row[1][1];
 	// Figure out Server Pop.
 		$realmData['serverpop'] = html_entity_decode(str_replace('&nbsp;',' ',$row[2][2]));
@@ -186,7 +186,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 								switch ( $xml_server['T'] )
 								{
 									case 0:
-										$realmData['servertype'] = '(RP-PvP)';
+										$realmData['servertype'] = 'RP-PvP';
 										$realmData['servertypecolor'] = '535600';
 										break;
 									case 1:
@@ -194,11 +194,11 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 										$realmData['servertypecolor'] = '234303';
 										break;
 									case 2:
-										$realmData['servertype'] = '(PvP)';
+										$realmData['servertype'] = 'PvP';
 										$realmData['servertypecolor'] = '660D02';
 										break;
 									case 3:
-										$realmData['servertype'] = '(RP)';
+										$realmData['servertype'] = 'RP';
 										$realmData['servertypecolor'] = '535600';
 										break;
 									default:
@@ -345,8 +345,15 @@ function img_output ($realmData,$err,$image_path,$font_path)
 	global $roster_conf, $server;
 
 	$serverfont = $font_path . 'VERANDA.TTF';
+	$serverfontsize = 7;
+
 	$typefont = $font_path . 'silkscreenb.ttf';
-	$serverpopfont = $font_path . 'rstatus.TTF';
+	$typefontsize = 6;
+
+	$serverpopfont = $font_path . 'GREY.TTF';
+	$serverpopfontsize = 11;
+
+
 
 	// Get and combine base images, set colors
 	$top = @imagecreatefrompng( $image_path . strtolower($realmData['serverstatus']) . '.png' );
@@ -389,7 +396,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		$maxw = 62;
 
 		$output = '';
-		$box = imagettfbbox(7,0,$serverfont,$server);
+		$box = imagettfbbox($serverfontsize,0,$serverfont,$server);
 		$w = abs($box[0]) + abs($box[2]);
 
 		if ($w > $maxw)
@@ -399,7 +406,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 			while ($i > $maxw)
 			{
 				$t--;
-				$box = imagettfbbox(7, 0,$serverfont,substr($server,0,$t));
+				$box = imagettfbbox($serverfontsize, 0,$serverfont,substr($server,0,$t));
 			  	$i = abs($box[0]) + abs($box[2]);
 			}
 			$t = strrpos(substr($server, 0, $t), ' ');
@@ -413,9 +420,9 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		$i = 0;
 		foreach($output as $value)
 		{
-			$box = imagettfbbox(7,0,$serverfont,$value);
+			$box = imagettfbbox($serverfontsize,0,$serverfont,$value);
 			$w = abs($box[0]) + abs($box[2]);
-			writeText($top,7, round(($topwidth-$w)/2), 55+($i*8)+$vadj,$textcolor,$serverfont,$value,$shadow);
+			writeText($top,$serverfontsize, round(($topwidth-$w)/2), 54+($i*8)+$vadj,$textcolor,$serverfont,$value,$shadow);
 			$i++;
 		}
 
@@ -425,7 +432,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		// Ouput centered $realmData['serverpop']
 		if ($realmData['serverpop'])
 		{
-			$box = imagettfbbox(9,0,$serverpopfont,$realmData['serverpop']);
+			$box = imagettfbbox($serverpopfontsize,0,$serverpopfont,$realmData['serverpop']);
 			$w = abs($box[0]) + abs($box[2]);
 
 			if ($w > $maxw)
@@ -435,7 +442,7 @@ function img_output ($realmData,$err,$image_path,$font_path)
 				while ($i > $maxw)
 				{
 					$t--;
-					$box = imagettfbbox(9, 0,$serverpopfont,substr($realmData['serverpop'],0,$t));
+					$box = imagettfbbox($serverpopfontsize, 0,$serverpopfont,substr($realmData['serverpop'],0,$t));
 				  	$i = abs($box[0]) + abs($box[2]);
 				}
 				$t = strrpos(substr($realmData['serverpop'], 0, $t), ' ');
@@ -444,14 +451,16 @@ function img_output ($realmData,$err,$image_path,$font_path)
 				$vadj = -4;
 			}
 			else
+			{
 				$output[0] = $realmData['serverpop'];
+			}
 
 			$i = 0;
 			foreach($output as $value)
 			{
-				$box = imagettfbbox(9,0,$serverpopfont,$value);
+				$box = imagettfbbox($serverpopfontsize,0,$serverpopfont,$value);
 				$w = abs($box[0]) + abs($box[2]);
-				writeText($top,9, round(($topwidth-$w)/2), 72+($i*8)+$vadj,$popcolor,$serverpopfont,$value,$shadow);
+				writeText($top,$serverpopfontsize, round(($topwidth-$w)/2), 73+($i*10)+$vadj,$popcolor,$serverpopfont,$value,$shadow);
 				$i++;
 			}
 		}
@@ -459,9 +468,9 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		// Ouput centered $realmData['servertype']
 		if ($realmData['servertype'] && !$err)
 		{
-			$box = imagettfbbox(6,0,$typefont,$realmData['servertype']);
+			$box = imagettfbbox($typefontsize,0,$typefont,$realmData['servertype']);
 			$w = abs($box[0]) + abs($box[2]);
-			writeText($top,6, round(($topwidth-$w)/2), 86,$typecolor,$typefont,$realmData['servertype'],$shadow);
+			writeText($top,$typefontsize, round(($topwidth-$w)/2), 88,$typecolor,$typefont,$realmData['servertype'],$shadow);
 		}
 	}
 

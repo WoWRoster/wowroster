@@ -114,8 +114,8 @@ $inst_keys['deDE']['A'] = array(
 		),
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Szepter von Celebras|19710',
-			'Celebrian-Griff|19549',
-			'Celebrian-Diamant|19545'
+			'Celebriangriff|19549',
+			'Celebriandiamant||19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Gefängniszellenschlüssel|15545'
@@ -182,8 +182,8 @@ $inst_keys['deDE']['H'] = array(
 		),
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Szepter von Celebras|19710',
-			'Celebrian-Griff|19549',
-			'Celebrian-Diamant|19545'
+			'Celebriangriff|19549',
+			'Celebriandiamant||19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Gefängniszellenschlüssel|15545'
