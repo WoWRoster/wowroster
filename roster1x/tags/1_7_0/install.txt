@@ -1,0 +1,160 @@
+WoWRoster v1.7.0
+Copyright (C) 2005-2006 The WoWRoster Dev Team
+Package updated ?? ??, 2006
+$Id$
+
+You can view the open source project at - http://www.wowroster.net
+
+For corrections and/or suggestions - http://www.wowroster.net
+
+
+
+Installation:
+-------------
+Pre-install:
+    Create, or have ready a MySQL database that WoWRoster can use.
+    It should already have a username and password assigned to it.
+
+Step 1:
+    Making sure to keep the directory structure intact, move the
+    unzipped files to a web-accessible directory.
+
+Step 2:
+    All files and directories should be owned by your webserver's user/group
+    (Example: chown apache.apache -R *).  All .php files should be
+    readable/executable
+
+    $ chmod a+rx -R *.php
+
+Step 3:
+    If you want the installation script to automatically set up your conf.php file for
+    you, it should be readable/writeable
+
+    Note: The installer will attempt to do this for you, but should an error occurr,
+    you may need to do this manually:
+
+    $ chmod 666 conf.php
+
+Step 4:
+    Browse to http://www.yourserver.com/roster/install.php
+
+    You should be presented with a page describing your server's settings and information.
+    Once you are sure that your server meets WoWRoster's requirements, you can click the
+    'Start Install' button.
+
+    Step 4-1:
+        Database Host:
+            Your MySQL server name.
+            If it resides on the same server as the web server, you should enter 'localhost'
+
+        Database Name:
+            The name of the database you created for WoWRoster, usually 'roster'.
+
+        Database Username:
+            The username with permission to access the database.
+            If you didn't create the database yourself, your host should have given you this
+            information.
+
+        Database Password:
+            The password used with the username from above.
+
+        Databse Prefix for Roster tables:
+            Simply prefixes the name of each table that WoWRoster creates and uses.
+            The default of 'roster_' should be sufficient for most installations.
+
+        Roster URL Path:
+            Should be detected automatically by the installation script, but if not
+            just enter the path following the domain name where the script is located.
+            Examples:
+            Full path to the install script      Enter this in "Roster URL Path"
+             'http://mydomain.com/user/roster'    '/user/roster'
+             'http://mydomain.com/roster'         '/roster'
+             'http://mydomain.com'                ''
+
+        Main Site URL:
+            Should be detected automatically by the installation script, but if not
+            just put the domain name of your server here (ex: mydomain.com, www.myhost.com)
+
+    Step 4-2:
+        Administrator Password:
+            A password of your choosing.
+        Administrator Password [ confirm ]:
+            Simply re-type the password to verify it.
+
+
+    After you're satisfied with the values for the above fields, click the button to proceed.
+    The installer will automatically fill your conf.php file.
+
+    If the creation of conf.php failed, the installer will give you the option to download
+    this file, then you can upload it to your web server.
+
+    You will be notified if your passwords didn't match, and it will be reset to a default of "admin"
+    You can change this later by going to Roster Config.
+
+    Navigate to Roster Config, this is where you can configure all aspects of WoWRoster.
+    After that, you're ready to begin using WoWRoster.
+
+You should now have a functional installation of WoWRoster.
+Remove the files install.php, upgrade.php and the install/ folder for extra security.
+
+
+
+Upgrading:
+----------
+As always, we recommend a fresh install, in a clean folder, and a clean database
+But for those that absolutely need to upgrade, we have worked really hard for you
+on the upgrade script.
+
+If you encounter problems, post in our forums - http://www.wowroster.net
+With as much information as you can give us
+
+
+Step 1:
+    BACK UP YOUR DATABASE.  This cannot be stressed enough.  You should consider using
+    phpMyAdmin (http://www.phpmyadmin.net) which can use Completed Inserts that will be
+    necessary if you need to restore the database.
+
+Step 2:
+    Seriously, go back up your database since you skipped step 1.
+
+Step 3:
+    Back up your conf.php file.
+    WoWRoster 1.7.0 DOES have a new conf.php file, so you should back it up!
+
+Step 4:
+    Unzip the new WoWRoster version.
+    Overwrite ALL files!
+    It's best to delete everything in the roster folder EXCEPT! your conf.php file.
+
+Step 5:
+    Access http://www.yourserver.com/roster/upgrade.php
+    If you go to any other page, it WILL display "Detected Invalid Access..."
+    YOU MUST go to http://www.yourserver.com/roster/upgrade.php
+    Select the version you're upgrading from.
+    The script will perform all the necessary changes to upgrade from the version you selected
+    to the newest version.
+
+Step 6:
+    WoWRoster 1.7.0 uses a new conf.php file, it will automatically be upgraded for you.
+    If this fails, the upgrader will give you the option to download this file,
+    then you can upload it to your web server.
+
+Remove the files install.php, upgrade.php and the install/ folder for extra security.
+
+    Navigate to Roster Config, this is where you can configure all aspects of WoWRoster.
+    You will need to visit this page as the upgrader only upgrade certain important fields
+    from version 1.6.0
+
+
+Configuration:
+--------------
+Once you've logged into Roster Config, your next step should be changing the configuration settings.
+
+Most of the fields have descriptions where appropriate.
+
+Have Fun!
+
+
+--------------------------------------
+This file was copied from EQdkp, then edited by The WoWRoster Dev Team
+http://www.eqdkp.com

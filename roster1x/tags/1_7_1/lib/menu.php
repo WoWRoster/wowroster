@@ -42,7 +42,7 @@ if( $guild_data && $guild_data_rows > 0 )
 	}
 
 	$guildstat_query = "SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
-		`level` DIV 10 AS levelgroup,
+		FLOOR(`level`/10) AS levelgroup,
 		COUNT(`level`) AS amount,
 		SUM(`level`) AS sum
 		FROM `".ROSTER_MEMBERSTABLE."`
@@ -314,6 +314,7 @@ function makeAddonList()
 							$lCount++;
 						}
 					}
+					unset($config);
 				}
 			}
 		}

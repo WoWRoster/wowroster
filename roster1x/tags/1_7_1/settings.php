@@ -150,7 +150,7 @@ if ( !get_magic_quotes_gpc() )
 	$_GET = escape_array($_GET);
 	$_POST = escape_array($_POST);
 	$_COOKIE = escape_array($_COOKIE);
-	$_REQUEST = escapse_array($_REQUEST);
+	$_REQUEST = escape_array($_REQUEST);
 }
 
 

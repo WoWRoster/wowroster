@@ -399,20 +399,20 @@ function process_step3()
 
     $remove_remarks_function = $DBALS['mysql']['comments'];
 
-    // I require MySQL version 4.0.4 minimum.
+    // I require MySQL version 4.1.0 minimum.
     $server_version = mysql_get_server_info();
     $client_version = mysql_get_client_info();
 
     if ( (isset($server_version) && isset($client_version)) )
     {
-        $tpl->message_append('MySQL client <b>and</b> server versions 4.0.4 or higher and MyISAM table support are required for Roster.<br /><br />
+        $tpl->message_append('MySQL client <b>and</b> server versions 4.1.0 or higher and MyISAM table support are required for Roster.<br /><br />
           <b>You are running</b>
           <ul>
             <li>server version - <b>' . $server_version . '</b></li>
             <li>client version - <b>' . $client_version . '</b></li>
           </ul>
-          MySQL versions less than 4.0.4 may not work and are not supported.<br />
-          Versions less than 4.0.4 may have unexpected issues, and we <u>will not</u> provide support for these installations.<br /><br />');
+          MySQL versions less than 4.1.0 may not work and are not supported.<br />
+          Versions less than 4.1.0 may have unexpected issues, and we <u>will not</u> provide support for these installations.<br /><br />');
     }
     else
     {
