@@ -305,7 +305,7 @@ function new_user()
 			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
-				$uniadmin->debug(sprintf($user->lang['sql_error_user_add'],$userN));
+				$uniadmin->message(sprintf($user->lang['sql_error_user_add'],$userN));
 				return;
 			}
 
@@ -317,7 +317,7 @@ function new_user()
 			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
-				$uniadmin->debug(sprintf($user->lang['sql_error_user_add'],$userN));
+				$uniadmin->message(sprintf($user->lang['sql_error_user_add'],$userN));
 				return;
 			}
 
@@ -356,7 +356,7 @@ function delete_user()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_user_delete'],$userN));
+			$uniadmin->message(sprintf($user->lang['sql_error_user_delete'],$userN));
 			return;
 		}
 
@@ -368,7 +368,7 @@ function delete_user()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_user_delete'],$userN));
+			$uniadmin->message(sprintf($user->lang['sql_error_user_delete'],$userN));
 			return;
 		}
 

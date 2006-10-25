@@ -23,7 +23,7 @@ if( !defined('IN_UNIADMIN') )
 
 if( $user->data['level'] < UA_ID_ADMIN )
 {
-	$uniadmin->debug($user->lang['access_denied']);
+	$uniadmin->message($user->lang['access_denied']);
 	$uniadmin->set_vars(array(
 	    'template_file' => 'index.html',
 	    'display'       => true)

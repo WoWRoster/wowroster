@@ -101,7 +101,6 @@ function main( )
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
 		'L_GO'             => $user->lang['go'],
-		'L_INTERFACE_FIX'  => $user->lang['interface_fix'],
 
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 
@@ -394,14 +393,11 @@ function process_addon()
 		}
 
 		// Try to set write access on the uploaded file
-		if( !is_writeable($zip_file) )
+		$try_chmod = @chmod($zip_file,0777);
+		if( !$try_chmod )
 		{
-			$try_chmod = @chmod($zip_file,0777);
-			if( !$try_chmod )
-			{
-				$uniadmin->debug(sprintf($user->lang['error_chmod'],$zip_file));
-				return;
-			}
+			$uniadmin->debug(sprintf($user->lang['error_chmod'],$zip_file));
+			return;
 		}
 
 		// Unzip the file
@@ -422,14 +418,10 @@ function process_addon()
 
 					$k = explode(DIR_SEP,$file);
 					$toc_file_name = $k[count($k) - 1];
-					/* NOT USED ANYMORE
 					$real_addon_name = substr($toc_file_name,0,count($toc_file_name) -5);
-					*/
 					break;
 				}
 			}
-			/* REMOVED TOC CHECK
-			 * This was causing multi-addon zip files to fail and not read the addon name correctly
 			if( empty($toc_file_name) )
 			{
 				$try_unlink = @unlink($zip_file);
@@ -440,7 +432,6 @@ function process_addon()
 				$uniadmin->cleardir($temp_folder);
 				$uniadmin->debug($user->lang['error_no_toc_file']);
 			}
-			*/
 		}
 		else
 		{
@@ -450,12 +441,12 @@ function process_addon()
 				$uniadmin->debug(sprintf($user->lang['error_unlink'],$zip_file));
 			}
 			$uniadmin->cleardir($temp_folder);
-			$uniadmin->message($user->lang['error_no_files_addon']);
+			$uniadmin->debug($user->lang['error_no_files_addon']);
 			return;
 		}
 
 		// See if AddOn exists in the database and do stuff to it
-		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addon_name)."';";
+		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($real_addon_name)."';";
 		$result = $db->query($sql);
 
 		if( $db->num_rows($result) > 0 )
@@ -481,7 +472,7 @@ function process_addon()
 			$db->query($sql);
 
 			// Update Main Addon data
-			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($addon_name)."', `dl_url` = '".$db->escape($download_url)."', `homepage` = '".$db->escape($homepage)."', `toc` = '$toc', `required` = '$required'
+			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($real_addon_name)."', `dl_url` = '".$db->escape($download_url)."', `homepage` = '".$db->escape($homepage)."', `toc` = '$toc', `required` = '$required'
 				WHERE `id` = '".$addon_id."';";
 			$db->query($sql);
 		}
@@ -489,7 +480,7 @@ function process_addon()
 		{
 			// Insert Main Addon data
 			$sql = "INSERT INTO `".UA_TABLE_ADDONS."` ( `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )
-				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($addon_name)."', '".$db->escape($download_url)."', '".$db->escape($homepage)."', $toc, $required);";
+				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($real_addon_name)."', '".$db->escape($download_url)."', '".$db->escape($homepage)."', $toc, $required);";
 			$db->query($sql);
 
 			// Get the insert id of the addon just inserted
@@ -513,11 +504,6 @@ function process_addon()
 
 			if( $addon_file_name != 'index.htm' && $addon_file_name != 'index.html' && $addon_file_name != '.svn' )
 			{
-				if( isset($_POST['interface_fix']) && $_POST['interface_fix'] == '1' )
-				{
-					$addon_file_name = '/Interface/AddOns'.$addon_file_name;
-				}
-
 				$sql = "INSERT INTO `".UA_TABLE_FILES."` ( `addon_id` , `filename` , `md5sum` )
 					VALUES ( '".$addon_id."', '".$db->escape($addon_file_name)."', '".$db->escape($md5)."' );";
 				$db->query($sql);
@@ -540,7 +526,7 @@ function process_addon()
 		// Now clear the temp folder
 		$uniadmin->cleardir($temp_folder);
 
-		$uniadmin->message(sprintf($user->lang['addon_uploaded'],$addon_name));
+		$uniadmin->message(sprintf($user->lang['addon_uploaded'],$real_addon_name));
 	}
 	else // Nothing was uploaded
 	{
