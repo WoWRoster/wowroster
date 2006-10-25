@@ -325,9 +325,8 @@ class update
 
 								// update the list of guild members
 								$guild_output = '';
-								foreach(array_keys($guildMembers) as $char_name)
+								foreach ($guildMembers as $char_name => $char)
 								{
-									$char = $guildMembers[$char_name];
 									$wowdb->update_guild_member($guildId, $char_name, $char, $guild, $currentTimestamp, $realm_name);
 									$guild_output .= $wowdb->getMessages();
 									$wowdb->resetMessages();

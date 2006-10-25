@@ -1870,12 +1870,10 @@ class wowdb
 
 		if ($char['Online'])
 		{
-			$this->add_value( 'online', 1);
 			$this->add_time('last_online', getDate($currentTimestamp));
 		}
 		else
 		{
-			$this->add_value( 'online', 0);
 			$lastOnline = $char['LastOnline'];
 			$lastOnlineYears = intval($lastOnline['Year']);
 			$lastOnlineMonths = intval($lastOnline['Month']);
@@ -1902,7 +1900,7 @@ class wowdb
 
 			if( !$result )
 			{
-				$this->error($name.' could not be updated in the character table',$this->error());
+				$this->setError($name.' could not be updated in the character table',$this->error());
 			}
 		}
 		else
@@ -1912,7 +1910,7 @@ class wowdb
 
 			if( !$result)
 			{
-				$this->error($name.' could not be inserted into the character table',$this->error());
+				$this->setError($name.' could not be inserted into the character table',$this->error());
 				return;
 			}
 
@@ -1987,7 +1985,7 @@ class wowdb
 		}
 		else
 		{
-			$this->add_value($memberId);
+			$this->add_value('member_id', $memberId);
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">Adding member - [</span> '.$name.' <span class="green">]</span></li>');
 
