@@ -53,12 +53,9 @@ elseif ( $roster_conf['server_name_comp'] == 1 )
 	$server_name_escape = $wowdb->escape($roster_conf['server_name']);
 
 
-// Slash char name and server name
-if( get_magic_quotes_gpc() )
-{
-	$name = stripslashes( $name );
-	$server = stripslashes( $server_name_escape );
-}
+// Unslash char name and server name (slashed in settings if not automatically)
+$name = stripslashes( $name );
+$server = stripslashes( $server_name_escape );
 
 
 // Get Character Info
