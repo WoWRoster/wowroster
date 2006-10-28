@@ -361,6 +361,9 @@ function processData( )
 	// Update only the changed fields
 	foreach( $_POST as $settingName => $settingValue )
 	{
+		// Strip those nasty slashes
+		$settingValue = stripslashes($settingValue);
+
 		if( substr($settingName,0,7) == 'config_' )
 		{
 			$settingName = str_replace('config_','',$settingName);

@@ -178,7 +178,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 										$realmData['serverstatus'] = 'Up';
 										break;
 									case 2:
-										$realmData['serverstatus'] = 'Maitenence';
+										$realmData['serverstatus'] = 'Maintenance';
 										break;
 									default:
 										$realmData['serverstatus'] = 'Unknown';
