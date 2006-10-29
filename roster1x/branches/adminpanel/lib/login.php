@@ -280,7 +280,7 @@ class RosterLogin
 				'      <form name="roster_login" action="'.$this->script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)" style="display:inline;">'."\n".
 				'        User: <input name="user_name" type="text" size="15" maxlength="30" />'."\n".
 				'        Pass: <input name="pass_word" type="password" size="15" maxlength="30" />'."\n".
-				'        <a href="javascript:document.roster_login.submit();">Log in</a>'."\n".
+				'        <input type="submit" value="Log in" />'."\n".
 				'      </form>'."\n".
 				'<!-- End login line -->'."\n";
 		}

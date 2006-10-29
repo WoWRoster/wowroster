@@ -43,9 +43,16 @@
 error_reporting(E_ALL);
 
 // Be paranoid with passed vars
-if (@ini_get('register_globals') == '1' || strtolower(@ini_get('register_globals')) == 'on')
+// Destroy GET/POST/Cookie variables from the global scope
+// Also destroy $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS, $_REQUEST
+if (intval(ini_get('register_globals')) != 0)
 {
-	deregister_globals();
+	foreach ($_REQUEST AS $key => $val)
+	{
+		if (isset($$key))
+			unset($$key);
+	}
+	unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS,$_REQUEST);
 }
 
 set_magic_quotes_runtime(0);
@@ -396,7 +403,7 @@ function process_step3()
     define('CONFIG_TABLE', $db_prefix . 'config');
 
     include_once($dbal_file);
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
+    $wowdb = new wowdb($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     // Check to make sure a connection was made
     if ( !is_resource($wowdb->db) )
@@ -532,7 +539,7 @@ function process_step4()
     }
 
 
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
+    $wowdb = new wowdb($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_upd_pw';");
 
@@ -714,56 +721,4 @@ function parse_sql($sql, $delim)
     return $retval;
 }
 
-
-/*
-* Remove variables created by register_globals from the global scope
-* Thanks to Matt Kavanagh
-*/
-function deregister_globals()
-{
-	$not_unset = array(
-		'GLOBALS' => true,
-		'_GET' => true,
-		'_POST' => true,
-		'_COOKIE' => true,
-		'_REQUEST' => true,
-		'_SERVER' => true,
-		'_SESSION' => true,
-		'_ENV' => true,
-		'_FILES' => true,
-	);
-
-	// Not only will array_merge and array_keys give a warning if
-	// a parameter is not an array, array_merge will actually fail.
-	// So we check if _SESSION has been initialised.
-	if (!isset($_SESSION) || !is_array($_SESSION))
-	{
-		$_SESSION = array();
-	}
-
-	// Merge all into one extremely huge array; unset
-	// this later
-	$input = array_merge(
-		array_keys($_GET),
-		array_keys($_POST),
-		array_keys($_COOKIE),
-		array_keys($_SERVER),
-		array_keys($_SESSION),
-		array_keys($_ENV),
-		array_keys($_FILES)
-	);
-
-	foreach ($input as $varname)
-	{
-		if (isset($not_unset[$varname]))
-		{
-			// Hacking attempt. No point in continuing.
-			exit;
-		}
-
-		unset($GLOBALS[$varname]);
-	}
-
-	unset($input);
-}
 ?>

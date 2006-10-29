@@ -30,6 +30,12 @@ class wowdb
 	var $membersremoved=0;
 
 
+	function wowdb( $host, $user, $password, $name=null, $db_prefix='' )
+	{
+		return $this->connect($host, $user, $password, $name, $db_prefix);
+	}
+
+
 	/**
 	 * Connect to the database, and select it if $name is provided
 	 *
@@ -39,10 +45,10 @@ class wowdb
 	 * @param string $name MySQL server database name to select
 	 * @return bool
 	 */
-	function connect( $host, $user, $password, $name=null )
+	function connect( $host, $user, $password, $name=null, $db_prefix='' )
 	{
 		$this->db = @mysql_connect($host, $user, $password);
-		$this->db_prefix = $GLOBALS['db_prefix'];
+		$this->db_prefix = $db_prefix;
 
 		if( $this->db )
 		{
@@ -1568,15 +1574,17 @@ class wowdb
 					$inClause .= ',';
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">]</span></li>');
-				$this->setMemberLog($row,0);
+				$this->setMessage('<li><span class="red">Setting member - [</span> '.$row[1].' <span class="red">] to guildless</span></li>');
+				//$this->setMemberLog($row,0);
+				// TEMP UNTIL GUILDUPDATE WORKS
+				$this->membersremoved++;
 
 			}
 
-			$this->setMessage('<li><span class="red">Setting '.$num.' member'.($num > 1 ? 's' : '').' to guildless.</span></li>');
+			$this->setMessage('<li><span class="red">Setting '.$num.' member'.($num > 1 ? 's' : '').' to guildless</span></li>');
 
 			// now that we have our inclause, time to do some deletes
-			$query2 = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `guild_id` = 0 WHERE `guild_id` = '$guild_id' AND `active` = 0";
+			$query2 = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `guild_id` = '0' WHERE `guild_id` = '$guild_id' AND `active` = 0";
 
 			$result2 = $this->query($query2);
 
@@ -1640,7 +1648,9 @@ class wowdb
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">]</span></li>');
-				$this->setMemberLog($row,0);
+				//$this->setMemberLog($row,0);
+				// TEMP UNTIL GUILDUPDATE WORKS
+				$this->membersremoved++;
 			}
 
 			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' where guild-id = '.$guild_id.'</span></li>');
@@ -1932,21 +1942,22 @@ class wowdb
 
 		// Update or add Member entry
 		$this->reset_values();
-		$this->add_value( 'note', $char['Note']);
+		$this->add_value( 'guild_id', $guildId );
+		$this->add_value( 'note', $char['Note'] );
 
 		if( !empty($char['RankIndex']) )
-			$this->add_value( 'guild_rank', $char['RankIndex']);
+			$this->add_value( 'guild_rank', $char['RankIndex'] );
 
-		$this->add_value( 'guild_title', $char['Rank']);
-		$this->add_value( 'officer_note', $char['OfficerNote']);
-		$this->add_value( 'status', $char['Status']);
-		$this->add_value( 'active', '1');
-		$this->add_time( 'update_time', getDate($currentTimestamp));
+		$this->add_value( 'guild_title', $char['Rank'] );
+		$this->add_value( 'officer_note', $char['OfficerNote'] );
+		$this->add_value( 'status', $char['Status'] );
+		$this->add_value( 'active', '1' );
+		$this->add_time( 'update_time', getDate($currentTimestamp) );
 
 		if ($char['Online'])
 		{
-			$this->add_value( 'online', 1);
-			$this->add_time('last_online', getDate($currentTimestamp));
+			$this->add_value( 'online', 1 );
+			$this->add_time( 'last_online', getDate($currentTimestamp) );
 		}
 		else
 		{
@@ -1995,7 +2006,7 @@ class wowdb
 				$this->setError(''.$name_escape.' could not be inserted',$this->error());
 				return;
 			}
-
+/* TEMP UNTIL GUILDUPDATE WORKS
 			$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
 			$result = $this->query($querystr);
 			if( !$result )
@@ -2007,6 +2018,8 @@ class wowdb
 				$row = $this->fetch_array($result);
 				$this->setMemberLog($row,1);
 			}
+*/
+			$this->membersadded++;
 		}
 	}
 
@@ -2684,7 +2697,5 @@ class wowdb
 	} //-END function update_char()
 
 } //-END CLASS
-
-$wowdb = new wowdb;
 
 ?>

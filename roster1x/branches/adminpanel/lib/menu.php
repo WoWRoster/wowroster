@@ -353,7 +353,7 @@ class RosterMenu
 			$html .= '        <tr>'."\n";
 			foreach( $page as $column )
 			{
-				$html .= '          <td>'."\n";
+				$html .= '          <td valign="top">'."\n";
 				$html .= '            <ul>'."\n";
 				foreach( $column as $button )
 				{
