@@ -67,14 +67,7 @@ class RosterLogin
 
 		if( isset($_COOKIE['roster_pass']) )
 		{
-			if (get_magic_quotes_gpc())
-			{
-				$supplied = unserialize(stripslashes($_COOKIE['roster_pass']));
-			}
-			else
-			{
-				$supplied = unserialize($_COOKIE['roster_pass']);
-			}
+			$supplied = unserialize(stripslashes($_COOKIE['roster_pass']));
 		}
 		elseif( isset($_POST['user_name']) && isset($_POST['pass_word']) )
 		{
