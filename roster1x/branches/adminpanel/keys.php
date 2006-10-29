@@ -168,7 +168,7 @@ $min_skill_for_lock = array(
 
 $items = $inst_keys[$roster_conf['roster_lang']][ substr($faction,0,1) ];
 $keys = array('Name');
-foreach ($min_skill_for_lock as $key => $data)
+foreach ($items as $key => $data)
 {
 	array_push($keys,$key);
 }

@@ -45,13 +45,12 @@ class char
 
 	function printXP()
 	{
-		list($current, $max) =
-		explode( ':', $this->data['exp'] );
+		list($current, $max) = explode( ':', $this->data['exp'] );
 
-		$perc='';
-		if ($current > 0)
+		$perc = 0;
+		if( $max > 0 )
 		{
-			$perc = round(($current / $max)* 248, 1);
+			$perc = round(($current / $max)* 248, 0);
 		}
 		return $perc;
 	}
@@ -1498,15 +1497,16 @@ else
 {
 	$expbar_width = $this->printXP();
 	list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
-	if ($xplevel != '0' || $xplevel != '')
+	if ($xplevel != '0' && $xplevel != '')
 	{
+		$exp_percent = ( $xplevel > 0 ? round(($xp/$xplevel)*100) : 0);
 		if( $xprest > 0 )
 		{
-			$expbar_text = $xp.'/'.$xplevel.' : '.$xprest.' ('.round($xp/$xplevel*100).'%)';
+			$expbar_text = $xp.'/'.$xplevel.' : '.$xprest.' ('.$exp_percent.'%)';
 		}
 		else
 		{
-			$expbar_text = $xp.'/'.$xplevel.' ('.round($xp/$xplevel*100).'%)';
+			$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
 		}
 	}
 }

@@ -29,7 +29,7 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admincp.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/usercp.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
 
 $wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -388,6 +388,7 @@ $tsArray['enUS'] = array (
 	$wordings['enUS']['Cooking'],
 	$wordings['enUS']['Fishing'],
 	$wordings['enUS']['First Aid'],
+	$wordings['enUS']['Poisons'],
 );
 
 //Tradeskill Icons-Array
@@ -404,6 +405,7 @@ $wordings['enUS']['ts_iconArray'] = array (
 	'Cooking'=>'INV_Misc_Food_15',
 	'Fishing'=>'Trade_Fishing',
 	'First Aid'=>'Spell_Holy_SealOfSacrifice',
+	'Poisons'=>'Ability_Poisons',
 	'Tiger Riding'=>'Ability_Mount_WhiteTiger',
 	'Horse Riding'=>'Ability_Mount_RidingHorse',
 	'Ram Riding'=>'Ability_Mount_MountainRam',
@@ -412,10 +414,10 @@ $wordings['enUS']['ts_iconArray'] = array (
 	'Raptor Riding'=>'Ability_Mount_Raptor',
 	'Kodo Riding'=>'Ability_Mount_Kodo_03',
 	'Wolf Riding'=>'Ability_Mount_BlackDireWolf',
-	'Riding'=>'Ability_Mount_RidingHorse',
 );
 
 // Riding Skill Icons-Array
+$wordings['enUS']['riding'] = 'Riding';
 $wordings['enUS']['ts_ridingIcon'] = array(
 	'Night Elf'=>'Ability_Mount_WhiteTiger',
 	'Human'=>'Ability_Mount_RidingHorse',
@@ -425,6 +427,8 @@ $wordings['enUS']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Paladin'=>'Ability_Mount_Dreadsteed',
+	'Warlock'=>'Ability_Mount_NightmareHorse'
 );
 
 // Class Icons-Array
@@ -898,6 +902,8 @@ $creditspage['devs'] = array(
 					"info"=>	"Gimpy DEV<br />Author of UniAdmin and UniUploader"),
 			array(	"name"=>	"Calvin",
 					"info"=>	"Gimpy DEV<br />Author of CharacterProfiler and GuildProfiler"),
+			array(	"name"=>	"Anaxent",
+					"info"=>	"WoWRoster Dev<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"mathos",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"mrmuskrat",
@@ -912,6 +918,8 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"zanix",
 					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
+			array(	"name"=>	"Zeryl",
+					"info"=>	"WoWRoster Dev<br />Missing Recipes Roster-Addon Author"),
 		),
 
 		'library'=>array(
@@ -968,8 +976,6 @@ $creditspage['devs'] = array(
 		),
 
 		'beta'=>array(
-			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Beta Tester<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"Exerladan",
 					"info"=>	"WoWRoster Beta Tester<br />French Translator"),
 			array(	"name"=>	"Kieeps",
@@ -977,8 +983,6 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"PoloDude",
 					"info"=>	"WoWRoster Beta Tester"),
 			array(	"name"=>	"Thorus",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Zeryl",
 					"info"=>	"WoWRoster Beta Tester"),
 		),
 	);

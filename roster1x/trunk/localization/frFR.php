@@ -381,7 +381,8 @@ $tsArray['frFR'] = array (
 	$wordings['frFR']['Engineering'],
 	$wordings['frFR']['Cooking'],
 	$wordings['frFR']['Fishing'],
-	$wordings['frFR']['First Aid']
+	$wordings['frFR']['First Aid'],
+	$wordings['frFR']['Poisons'],
 );
 
 //Tradeskill Icons-Array
@@ -398,6 +399,7 @@ $wordings['frFR']['ts_iconArray'] = array (
 	'Cuisine'=>'INV_Misc_Food_15',
 	'Pêche'=>'Trade_Fishing',
 	'Secourisme'=>'Spell_Holy_SealOfSacrifice',
+	'Poisons'=>'Ability_Poisons',
 	'Monte de tigre'=>'Ability_Mount_WhiteTiger',
 	'Equitation'=>'Ability_Mount_RidingHorse',
 	'Monte de bélier'=>'Ability_Mount_MountainRam',

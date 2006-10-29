@@ -67,7 +67,7 @@ else
 
 // Set <html><title> and <form action=""> and $url
 $header_title = 'Character Stats for: '.$name.' @ '.$server;
-$script_filename = 'char.php?member='.$name.'@'.$server;
+$script_filename = 'char.php?member='.$char->get('member_id');
 $url = '<a href="char.php?member='.$char->get('member_id');
 
 

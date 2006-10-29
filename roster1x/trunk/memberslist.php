@@ -644,9 +644,9 @@ function tradeskill_icons ( $row )
 			$toolTip = str_replace(':','/',$r_prof['skill_level']);
 			$toolTiph = $r_prof['skill_name'];
 
-			if($r_prof['skill_name'] == $wordings[$lang]['riding'])
+			if( $r_prof['skill_name'] == $wordings[$lang]['riding'] )
 			{
-				if($row['class']==$wordings[$lang]['Paladin'] || $row['class']==$wordings[$lang]['Warlock'])
+				if( $row['class']==$wordings[$lang]['Paladin'] || $row['class']==$wordings[$lang]['Warlock'] )
 				{
 					$skill_image = 'Interface/Icons/'.$wordings[$lang]['ts_ridingIcon'][$row['class']];
 				}

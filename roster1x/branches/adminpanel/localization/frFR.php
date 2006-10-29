@@ -388,7 +388,8 @@ $tsArray['frFR'] = array (
 	$wordings['frFR']['Engineering'],
 	$wordings['frFR']['Cooking'],
 	$wordings['frFR']['Fishing'],
-	$wordings['frFR']['First Aid']
+	$wordings['frFR']['First Aid'],
+	$wordings['frFR']['Poisons'],
 );
 
 //Tradeskill Icons-Array
@@ -405,6 +406,7 @@ $wordings['frFR']['ts_iconArray'] = array (
 	'Cuisine'=>'INV_Misc_Food_15',
 	'Pêche'=>'Trade_Fishing',
 	'Secourisme'=>'Spell_Holy_SealOfSacrifice',
+	'Poisons'=>'Ability_Poisons',
 	'Monte de tigre'=>'Ability_Mount_WhiteTiger',
 	'Equitation'=>'Ability_Mount_RidingHorse',
 	'Monte de bélier'=>'Ability_Mount_MountainRam',
@@ -413,19 +415,21 @@ $wordings['frFR']['ts_iconArray'] = array (
 	'Monte de raptor'=>'Ability_Mount_Raptor',
 	'Monte de kodo'=>'Ability_Mount_Kodo_03',
 	'Monte de loup'=>'Ability_Mount_BlackDireWolf',
-	'Monte'=>'Ability_Mount_RidingHorse',
 );
 
 // Riding Skill Icons-Array
+$wordings['frFR']['riding'] = 'Monte';
 $wordings['frFR']['ts_ridingIcon'] = array(
 	'Elfe de la nuit'=>'Ability_Mount_WhiteTiger',
 	'Humain'=>'Ability_Mount_RidingHorse',
 	'Nain'=>'Ability_Mount_MountainRam',
 	'Gnome'=>'Ability_Mount_MechaStrider',
-	'Mort-vivant'=>'Ability_Mount_Undeadhorse',
+	'Mort-Vivant'=>'Ability_Mount_Undeadhorse',
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Paladin'=>'Ability_Mount_Dreadsteed',
+	'Démoniste'=>'Ability_Mount_NightmareHorse'
 );
 
 // Class Icons-Array
@@ -718,7 +722,7 @@ $wordings['frFR']['confirm_config_reset'] = 'This will reset the form to how it 
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   Assign description text and tooltip for $roster_conf['sqldebug']
 //   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )

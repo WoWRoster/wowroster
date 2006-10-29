@@ -30,7 +30,7 @@ $query = "SELECT m.name member, r.faction, r.name fct_name, r.value, ".
 	"WHERE r.member_id = m.member_id";
 
 if( (isset($_REQUEST['factionfilter'])) && (($_REQUEST['factionfilter']) != 'All') )
-	$query .= " AND r.name='".addslashes($_REQUEST['factionfilter'])."'";
+	$query .= " AND r.name='".$wowdb->escape($_REQUEST['factionfilter'])."'";
 
 
 $query .=  " ORDER BY max_rep desc, r.standing DESC, curr_rep DESC";

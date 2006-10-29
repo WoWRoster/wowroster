@@ -29,7 +29,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admincp.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/usercp.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -114,8 +114,8 @@ $inst_keys['deDE']['A'] = array(
 		),
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Szepter von Celebras|19710',
-			'Celebrian-Griff|19549',
-			'Celebrian-Diamant|19545'
+			'Celebriangriff|19549',
+			'Celebriandiamant|19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Gefängniszellenschlüssel|15545'
@@ -182,8 +182,8 @@ $inst_keys['deDE']['H'] = array(
 		),
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Szepter von Celebras|19710',
-			'Celebrian-Griff|19549',
-			'Celebrian-Diamant|19545'
+			'Celebriangriff|19549',
+			'Celebriandiamant|19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Gefängniszellenschlüssel|15545'
@@ -388,6 +388,7 @@ $tsArray['deDE'] = array (
 	$wordings['deDE']['Cooking'],
 	$wordings['deDE']['Fishing'],
 	$wordings['deDE']['First Aid'],
+	$wordings['deDE']['Poisons'],
 );
 
 //Tradeskill Icons-Array
@@ -404,6 +405,7 @@ $wordings['deDE']['ts_iconArray'] = array (
 	'Kochkunst'=>'INV_Misc_Food_15',
 	'Angeln'=>'Trade_Fishing',
 	'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
+	'Poisons'=>'Ability_Poisons',
 	'Tigerreiten'=>'Ability_Mount_WhiteTiger',
 	'Pferdreiten'=>'Ability_Mount_RidingHorse',
 	'Widderreiten'=>'Ability_Mount_MountainRam',
@@ -412,19 +414,21 @@ $wordings['deDE']['ts_iconArray'] = array (
 	'Raptorreiten'=>'Ability_Mount_Raptor',
 	'Kodoreiten'=>'Ability_Mount_Kodo_03',
 	'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
-	'Reiten'=>'Ability_Mount_RidingHorse',
 );
 
 // Riding Skill Icons-Array
+$wordings['deDE']['riding'] = 'Reiten';
 $wordings['deDE']['ts_ridingIcon'] = array(
-	'Night Elf'=>'Ability_Mount_WhiteTiger',
+	'Nachtelf'=>'Ability_Mount_WhiteTiger',
 	'Human'=>'Ability_Mount_RidingHorse',
-	'Dwarf'=>'Ability_Mount_MountainRam',
-	'Gnome'=>'Ability_Mount_MechaStrider',
-	'Undead'=>'Ability_Mount_Undeadhorse',
+	'Zwerg'=>'Ability_Mount_MountainRam',
+	'Gnom'=>'Ability_Mount_MechaStrider',
+	'Untoter'=>'Ability_Mount_Undeadhorse',
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Paladin'=>'Ability_Mount_Dreadsteed',
+	'Hexenmeister'=>'Ability_Mount_NightmareHorse'
 );
 
 // Class Icons-Array
@@ -670,9 +674,9 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['max_exp']='Max XP';
 
 // Error messages
-	$wordings['deDE']['CPver_err']="Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, dax Sie mindestens v".$roster_conf['minCPver']." verwenden, und dax Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.";
-	$wordings['deDE']['PvPLogver_err']="Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, dax Sie mindestens v".$roster_conf['minPvPLogver']." verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher dax Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.";
-	$wordings['deDE']['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, dax Sie mindestens v".$roster_conf['minGPver']." verwenden.";
+	$wordings['deDE']['CPver_err']="Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minCPver']." verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.";
+	$wordings['deDE']['PvPLogver_err']="Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minPvPLogver']." verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.";
+	$wordings['deDE']['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
 
 
 
@@ -717,7 +721,7 @@ $wordings['deDE']['confirm_config_reset'] = 'Dies setzt die Einstellungen auf de
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:
-//   Assign description text an tooltip for $roster_conf['sqldebug']
+//   Assign description text and tooltip for $roster_conf['sqldebug']
 //   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
@@ -763,8 +767,8 @@ $wordings['deDE']['admin']['pvp_log_allow'] = "Erlaube Upload von PvPLog-Daten|W
 $wordings['deDE']['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 
 // guild_conf
-$wordings['deDE']['admin']['guild_name'] = "Gildenname|Dieser mux exakt so wie im Spiel geschrieben sein,<br />oder du <u>WIRST</u> <u>NICHT</u> in der Lage sein, Daten hochzuladen";
-$wordings['deDE']['admin']['server_name'] = "Servername|Dieser mux exakt so wie im Spiel geschrieben sein,<br />oder du <u>WIRST</u> <u>NICHT</u> in der Lage sein, Daten hochzuladen";
+$wordings['deDE']['admin']['guild_name'] = "Gildenname|Dieser muß exakt so wie im Spiel geschrieben sein,<br />oder du <u>WIRST</u> <u>NICHT</u> in der Lage sein, Daten hochzuladen";
+$wordings['deDE']['admin']['server_name'] = "Servername|Dieser muß exakt so wie im Spiel geschrieben sein,<br />oder du <u>WIRST</u> <u>NICHT</u> in der Lage sein, Daten hochzuladen";
 $wordings['deDE']['admin']['guild_desc'] = "Gildenbeschreibung|Gib eine kurze Beschreibung der Gilde ein";
 $wordings['deDE']['admin']['server_type'] = "Servertyp|Gib an, um welche Art von Server es sich handelt";
 $wordings['deDE']['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur Anzeige der Anzahl der 2.-Charaktere auf der Hautpseite benutzt wird";
@@ -779,7 +783,7 @@ $wordings['deDE']['admin']['index_update_inst'] = "Aktualisierungsanleitung|Zeig
 $wordings['deDE']['admin']['index_sort'] = "Mitgliedsliste Sortierung|Stellt die Standardsortierung ein";
 $wordings['deDE']['admin']['index_motd'] = "Gilden MOTD|Zeige Gilden MOTD auf der Indexseite<br /><br />Regelt auch die Anzeige auf der &quot;Gilden Info&quot; Seite";
 $wordings['deDE']['admin']['index_level_bar'] = "Level Balken|Zeigt einen prozentualen Levelbalken auf der Indexseite";
-$wordings['deDE']['admin']['index_iconsize'] = "Icon Gröxe|Wähle die Gröxe der Icons auf der Indexseite (PvP, Berufe, Klassen, etc..)";
+$wordings['deDE']['admin']['index_iconsize'] = "Icon Größe|Wähle die Größe der Icons auf der Indexseite (PvP, Berufe, Klassen, etc..)";
 $wordings['deDE']['admin']['index_tradeskill_icon'] = "Beruf Icons|Ermöglich die Anzeige von Berufsicons auf der Indexseite";
 $wordings['deDE']['admin']['index_tradeskill_loc'] = "Beruf Spalte Anzeige|In welcher Spalte sollen die Berufsicons angezeigt werden";
 $wordings['deDE']['admin']['index_class_color'] = "Klassenfarben|Färbt die Klassennamen ein";
@@ -853,7 +857,7 @@ $wordings['deDE']['admin']['show_avatar'] = "Avatar anzeigen|Anzeige des Avatars
 // realmstatus_conf
 $wordings['deDE']['admin']['realmstatus_url'] = "Realmstatus URL|URL zu Blizzard's Realmstatus Seite";
 $wordings['deDE']['admin']['rs_display'] = "Info Mode|&quot;full&quot; zeigt Status, Name, Population, und Servertyp<br />&quot;half&quot; zeigt nur den Status an";
-$wordings['deDE']['admin']['rs_mode'] = "Display Mode|Wie der Status angezeigt werden soll:<br /><br />&quot;DIV Container&quot; - Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern<br />&quot;Image&quot; - Zeigt Realmstatus als ein Bild (BENTIGT GD!)";
+$wordings['deDE']['admin']['rs_mode'] = "Display Mode|Wie der Status angezeigt werden soll:<br /><br />&quot;DIV Container&quot; - Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern<br />&quot;Image&quot; - Zeigt Realmstatus als ein Bild (BENÖTIGT GD!)";
 $wordings['deDE']['admin']['realmstatus'] = "Alternativer Servername|Manche Servernamen funktionieren hier nicht richtig, auch wenn der Upload von Profilen geht<br />Der tatsächliche Servername stimmt dann mit dem Namen auf der Statusseite von Blizzard nicht überein.<br />Dann kannst du hier einen anderen Servernamen setzen<br /><br />Leer lassen, um den Namen in der Gildenkonfiguration einzustellen";
 
 // guildbank_conf

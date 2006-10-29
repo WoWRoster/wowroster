@@ -42,6 +42,12 @@
 // ---------------------------------------------------------
 error_reporting(E_ALL);
 
+// Be paranoid with passed vars
+if (@ini_get('register_globals') == '1' || strtolower(@ini_get('register_globals')) == 'on')
+{
+	deregister_globals();
+}
+
 set_magic_quotes_runtime(0);
 if ( !get_magic_quotes_gpc() )
 {
@@ -315,10 +321,14 @@ function process_step2()
     //
     foreach ( $LOCALES as $locale_type => $locale_desc )
     {
-        $tpl->assign_block_vars('locale_row', array(
-            'VALUE'  => $locale_desc['type'],
-            'OPTION' => $locale_type)
-        );
+    	if( file_exists($roster_root_path.'localization'.DIR_SEP.$locale_desc['type'].'.php') )
+    	{
+	        $tpl->assign_block_vars('locale_row', array(
+	            'VALUE'  => $locale_desc['type'],
+	            'OPTION' => $locale_type,
+	            )
+	        );
+    	}
     }
 
     //
@@ -399,20 +409,20 @@ function process_step3()
 
     $remove_remarks_function = $DBALS['mysql']['comments'];
 
-    // I require MySQL version 4.0.4 minimum.
+    // I require MySQL version 4.1.0 minimum.
     $server_version = mysql_get_server_info();
     $client_version = mysql_get_client_info();
 
     if ( (isset($server_version) && isset($client_version)) )
     {
-        $tpl->message_append('MySQL client <b>and</b> server versions 4.0.4 or higher and MyISAM table support are required for Roster.<br /><br />
+        $tpl->message_append('MySQL client <b>and</b> server versions 4.1.0 or higher and MyISAM table support are required for Roster.<br /><br />
           <b>You are running</b>
           <ul>
             <li>server version - <b>' . $server_version . '</b></li>
             <li>client version - <b>' . $client_version . '</b></li>
           </ul>
-          MySQL versions less than 4.0.4 may not work and are not supported.<br />
-          Versions less than 4.0.4 may have unexpected issues, and we <u>will not</u> provide support for these installations.<br /><br />');
+          MySQL versions less than 4.1.0 may not work and are not supported.<br />
+          Versions less than 4.1.0 may have unexpected issues, and we <u>will not</u> provide support for these installations.<br /><br />');
     }
     else
     {
@@ -702,5 +712,58 @@ function parse_sql($sql, $delim)
     unset($statements);
 
     return $retval;
+}
+
+
+/*
+* Remove variables created by register_globals from the global scope
+* Thanks to Matt Kavanagh
+*/
+function deregister_globals()
+{
+	$not_unset = array(
+		'GLOBALS' => true,
+		'_GET' => true,
+		'_POST' => true,
+		'_COOKIE' => true,
+		'_REQUEST' => true,
+		'_SERVER' => true,
+		'_SESSION' => true,
+		'_ENV' => true,
+		'_FILES' => true,
+	);
+
+	// Not only will array_merge and array_keys give a warning if
+	// a parameter is not an array, array_merge will actually fail.
+	// So we check if _SESSION has been initialised.
+	if (!isset($_SESSION) || !is_array($_SESSION))
+	{
+		$_SESSION = array();
+	}
+
+	// Merge all into one extremely huge array; unset
+	// this later
+	$input = array_merge(
+		array_keys($_GET),
+		array_keys($_POST),
+		array_keys($_COOKIE),
+		array_keys($_SERVER),
+		array_keys($_SESSION),
+		array_keys($_ENV),
+		array_keys($_FILES)
+	);
+
+	foreach ($input as $varname)
+	{
+		if (isset($not_unset[$varname]))
+		{
+			// Hacking attempt. No point in continuing.
+			exit;
+		}
+
+		unset($GLOBALS[$varname]);
+	}
+
+	unset($input);
 }
 ?>

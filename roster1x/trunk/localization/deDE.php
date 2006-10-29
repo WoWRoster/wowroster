@@ -115,7 +115,7 @@ $inst_keys['deDE']['A'] = array(
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Szepter von Celebras|19710',
 			'Celebriangriff|19549',
-			'Celebriandiamant||19545'
+			'Celebriandiamant|19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Gefängniszellenschlüssel|15545'
@@ -183,7 +183,7 @@ $inst_keys['deDE']['H'] = array(
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Szepter von Celebras|19710',
 			'Celebriangriff|19549',
-			'Celebriandiamant||19545'
+			'Celebriandiamant|19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Gefängniszellenschlüssel|15545'
@@ -381,6 +381,7 @@ $tsArray['deDE'] = array (
 	$wordings['deDE']['Cooking'],
 	$wordings['deDE']['Fishing'],
 	$wordings['deDE']['First Aid'],
+	$wordings['deDE']['Poisons'],
 );
 
 //Tradeskill Icons-Array
@@ -397,6 +398,7 @@ $wordings['deDE']['ts_iconArray'] = array (
 	'Kochkunst'=>'INV_Misc_Food_15',
 	'Angeln'=>'Trade_Fishing',
 	'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
+	'Poisons'=>'Ability_Poisons',
 	'Tigerreiten'=>'Ability_Mount_WhiteTiger',
 	'Pferdreiten'=>'Ability_Mount_RidingHorse',
 	'Widderreiten'=>'Ability_Mount_MountainRam',

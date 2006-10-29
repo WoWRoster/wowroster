@@ -30,7 +30,7 @@ $query = "SELECT `c`.`name` member, `c`.`member_id`,`r`.`faction`, `r`.`name` fc
 	"INNER JOIN ".ROSTER_CHARACTERSTABLE." c ON `r`.`member_id` = `c`.`member_id`";
 
 if( (isset($_REQUEST['factionfilter'])) && (($_REQUEST['factionfilter']) != 'All') )
-	$query .= " AND `r`.`name` = '".addslashes($_REQUEST['factionfilter'])."'";
+	$query .= " AND `r`.`name` = '".$wowdb->escape($_REQUEST['factionfilter'])."'";
 
 
 $query .=  " ORDER BY max_rep DESC, `r`.`standing` DESC, curr_rep DESC;";

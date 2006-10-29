@@ -36,6 +36,20 @@
  * $Id$
  *
  ******************************/
+error_reporting(E_ALL);
+
+// Be paranoid with passed vars
+if (@ini_get('register_globals') == '1' || strtolower(@ini_get('register_globals')) == 'on')
+{
+	deregister_globals();
+}
+
+set_magic_quotes_runtime(0);
+if ( !get_magic_quotes_gpc() )
+{
+	$_GET = slash_global_data($_GET);
+	$_POST = slash_global_data($_POST);
+}
 
 define('DIR_SEP',DIRECTORY_SEPARATOR);
 $roster_root_path = dirname(__FILE__).DIR_SEP;
@@ -556,6 +570,25 @@ $upgrade = new Upgrade();
 
 
 /**
+* Applies addslashes() to the provided data
+*
+* @param    mixed   $data   Array of data or a single string
+* @return   mixed           Array or string of data
+*/
+function slash_global_data(&$data)
+{
+    if ( is_array($data) )
+    {
+        foreach ( $data as $k => $v )
+        {
+            $data[$k] = ( is_array($v) ) ? slash_global_data($v) : addslashes($v);
+        }
+    }
+    return $data;
+}
+
+
+/**
  * Removes comments from a SQL data file
  *
  * @param    string  $sql    SQL file contents
@@ -621,5 +654,58 @@ function parse_sql($sql, $delim)
 	unset($statements);
 
 	return $retval;
+}
+
+
+/*
+* Remove variables created by register_globals from the global scope
+* Thanks to Matt Kavanagh
+*/
+function deregister_globals()
+{
+	$not_unset = array(
+		'GLOBALS' => true,
+		'_GET' => true,
+		'_POST' => true,
+		'_COOKIE' => true,
+		'_REQUEST' => true,
+		'_SERVER' => true,
+		'_SESSION' => true,
+		'_ENV' => true,
+		'_FILES' => true,
+	);
+
+	// Not only will array_merge and array_keys give a warning if
+	// a parameter is not an array, array_merge will actually fail.
+	// So we check if _SESSION has been initialised.
+	if (!isset($_SESSION) || !is_array($_SESSION))
+	{
+		$_SESSION = array();
+	}
+
+	// Merge all into one extremely huge array; unset
+	// this later
+	$input = array_merge(
+		array_keys($_GET),
+		array_keys($_POST),
+		array_keys($_COOKIE),
+		array_keys($_SERVER),
+		array_keys($_SESSION),
+		array_keys($_ENV),
+		array_keys($_FILES)
+	);
+
+	foreach ($input as $varname)
+	{
+		if (isset($not_unset[$varname]))
+		{
+			// Hacking attempt. No point in continuing.
+			exit;
+		}
+
+		unset($GLOBALS[$varname]);
+	}
+
+	unset($input);
 }
 ?>

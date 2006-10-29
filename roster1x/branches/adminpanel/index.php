@@ -279,6 +279,9 @@ function tradeskill_icons ( $row )
 	{
 		return '&nbsp;';
 	}
+
+	$lang = $row['clientLocale'];
+
 	$profs = explode(',',$row['professions']);
 	foreach ( $profs as $prof)
 	{
@@ -286,7 +289,21 @@ function tradeskill_icons ( $row )
 		$toolTip = str_replace(':','/',$r_prof[1]);
 		$toolTiph = $r_prof[0];
 
-		$icon = ($r_prof[0] == 'Riding')?$wordings[$row['clientLocale']]['ts_ridingIcon'][$row['race']]:$wordings[$row['clientLocale']]['ts_iconArray'][$r_prof[0]];
+		if( $r_prof[0] == $wordings[$lang]['riding'] )
+		{
+			if( $row['class']==$wordings[$lang]['Paladin'] || $row['class']==$wordings[$lang]['Warlock'] )
+			{
+				$icon = $wordings[$lang]['ts_ridingIcon'][$row['class']];
+			}
+			else
+			{
+				$icon = $wordings[$lang]['ts_ridingIcon'][$row['race']];
+			}
+		}
+		else
+		{
+			$icon = $wordings[$lang]['ts_iconArray'][$r_prof[0]];
+		}
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
 		if ($icon != '') {
