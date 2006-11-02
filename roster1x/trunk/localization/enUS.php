@@ -170,6 +170,9 @@ $inst_keys['enUS']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['enUS']['H'] = array(
+	'SG' => array( 'Key-Only', 'SG' =>
+			'Key to Searing Gorge|4826'
+		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Workshop Key|2288'
 		),
@@ -218,17 +221,20 @@ $inst_keys['enUS']['H'] = array(
 		),
 	'Onyxia' => array( 'Quests', 'Onyxia' =>
 			'Drakefire Amulet|4829',
-			'Dragonkin Menace|',
-			'The True Masters|',
-			'Marshal Windsor|',
-			'Abandoned Hope|',
-			'A Crumpled Up Note|',
-			'A Shred of Hope|',
-			'Jail Break!|',
-			'Stormwind Rendezvous|',
-			'The Great Masquerade|',
-			'The Dragon\\\'s Eye|',
-			'Drakefire Amulet|'
+			'Warlord\\\'s Command|',
+			'Eitrigg\\\'s Wisdom|',
+			'For The Horde!|',
+			'What the Wind Carries|',
+			'The Champion of the Horde|',
+			'The Testament of Rexxar|',
+			'Oculus Illusions|',
+			'Emberstrife|',
+			'The Test of Skulls, Scryer|',
+			'The Test of Skulls, Somnus|',
+			'The Test of Skulls, Chronalis|',
+			'The Test of Skulls, Axtroz|',
+			'Ascension...|',
+			'Blood of the Black Dragon Champion|'
 		),
 	'MC' => array( 'Key-Only', 'MC' =>
 			'Eternal Quintessence|22754'

@@ -170,6 +170,9 @@ $inst_keys['deDE']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['deDE']['H'] = array(
+	'SG' => array( 'Key-Only', 'SG' =>
+			'Schlüssel zur Sengenden Schlucht|4826'
+		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Werkstattschlüssel|2288'
 		),
@@ -218,17 +221,20 @@ $inst_keys['deDE']['H'] = array(
 		),
 	'Onyxia' => array( 'Quests', 'Onyxia' =>
 			'Drachenfeueramulett|4829',
-			'Drachkin-Bedrohung|',
-			'Die wahren Meister|',
-			'Marshal Windsor|',
-			'Verlorene Hoffnung|',
-			'Eine zusammengeknüllte Notiz|',
-			'Ein Funken Hoffnung|',
-			'Gefängnisausbruch!|',
-			'Treffen in Stormwind|',
-			'Die große Maskerade|',
-			'Das Großdrachenauge|',
-			'Drachenfeuer-Amulett|'
+			'Befehl des Kriegsherrn|',
+			'Eitriggs Weisheit|',
+			'Für die Horde!|',
+			'Was der Wind erzählt|',
+			'Der Champion der Horde|',
+			'Nachricht von Rexxar|',
+			'Oculus-Illusionen|',
+			'Emberstrife|',
+			'Die Prüfung der Schädel, Scryer|',
+			'Die Prüfung der Schädel, Somnus|',
+			'Die Prüfung der Schädel, Chronalis|',
+			'Die Prüfung der Schädel, Axtroz|',
+			'Aufstieg...|',
+			'Blut des schwarzen Großdrachen-Helden|'
 		),
 	'MC' => array( 'Key-Only', 'MC' =>
 			'Ewige Quintessenz|22754'

@@ -171,6 +171,9 @@ $inst_keys['frFR']['A'] = array(
 
 // HORDE KEYS
 $inst_keys['frFR']['H'] = array(
+	'SG' => array( 'Key-Only', 'SG' =>
+			'Clé de la gorge des Vents brûlants|4826'
+		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Clé d\\\'atelier|2288'
 		),
@@ -219,17 +222,20 @@ $inst_keys['frFR']['H'] = array(
 		),
 	'Onyxia' => array( 'Quests', 'Onyxia' =>
 			'Amulette Drakefeu|4829',
-			'La menace dragonkin|',
-			'Les véritables maîtres|',
-			'Maréchal Windsor|',
-			'Espoir abandonné|',
-			'Une Note chiffonnée|',
-			'Un espoir en lambeaux|',
-			'Evasion !|',
-			'Le rendez-vous à Stormwind|',
-			'La grande mascarade|',
-			'L\\\'Oeil de Dragon|',
-			'Amulette drakefeu|'
+			'Ordres du seigneur de guerre Goretooth|',
+			'Ordre du chef de guerre|',
+			'Pour la Horde !|',
+			'Ce que le vent apporte|',
+			'Le Champion de la Horde|',
+			'Le testament de Rexxar|',
+			'Illusions d\\\'Occulus|',
+			'Querelleur ardent|',
+			'Le Test des cr�nes, Cristallomancier|',
+			'Le Test des cr�nes, Somnus|',
+			'Le Test des cr�nes, Chronalis|',
+			'Le Test des cr�nes, Axtroz|',
+			'Ascension...|',
+			'Sang du Champion des Dragons noirs|'
 		),
 	'MC' => array( 'Key-Only', 'MC' =>
 			'Quintessence éternelle|22754'
