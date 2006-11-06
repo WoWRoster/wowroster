@@ -103,6 +103,15 @@ class wowdb
 	 */
 	function getrow( $result )
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		return mysql_fetch_assoc( $result );
 	}
 
@@ -115,6 +124,15 @@ class wowdb
 	 */
 	function fetch_assoc( $result )
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		return mysql_fetch_assoc( $result );
 	}
 
@@ -127,6 +145,15 @@ class wowdb
 	 */
 	function fetch_array( $result )
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		return mysql_fetch_array( $result );
 	}
 
@@ -139,6 +166,15 @@ class wowdb
 	 */
 	function fetch_row( $result )
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		return mysql_fetch_row( $result );
 	}
 
@@ -151,6 +187,15 @@ class wowdb
 	 */
 	function num_rows( $result )
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		return mysql_num_rows( $result );
 	}
 
@@ -190,6 +235,15 @@ class wowdb
 	 */
 	function closeQuery($query_id)
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		// Free resultset
 		return @mysql_free_result($query_id);
 	}
@@ -202,6 +256,15 @@ class wowdb
 	 */
 	function free_result($query_id)
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		// Free resultset
 		return @mysql_free_result($query_id);
 	}
@@ -227,6 +290,15 @@ class wowdb
 	 */
 	function data_seek($result,$num)
 	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['processtime'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
 		return @mysql_data_seek($result, $num);
 	}
 
