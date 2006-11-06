@@ -241,6 +241,13 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
+	if( $roster_conf['processtime'] )
+	{
+		print "<tr>\n<td class=\"membersRowRight1\"><pre>";
+		debug_print_backtrace();
+		print "</pre></td>\n</tr>\n";
+	}
+
 	print "</table>\n".border('sred','end');
 
 	if( is_array($roster_conf) )
