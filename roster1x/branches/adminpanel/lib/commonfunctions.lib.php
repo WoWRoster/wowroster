@@ -214,7 +214,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
 	{
 		$fix_menu=1;
-		echo $roster_menu->makeMenu('main');
+//		echo $roster_menu->makeMenu('main');
 	}
 
 	if( empty($title) )
