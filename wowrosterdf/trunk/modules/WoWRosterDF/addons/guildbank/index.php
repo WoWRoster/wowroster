@@ -20,7 +20,6 @@ error_reporting(E_ALL);
 
 
 $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
-$url = '<a href="'.getlink('&amp;file=');
 
 $menu_cell = '      <td class="menubarHeader" align="center" valign="middle"><a href="';
 
@@ -39,7 +38,7 @@ print "  </tr>\n</table>\n";
 
 print border('sorange','end');
 
-echo '<br /></div>';
+echo '</div><br />';
 
 if( $roster_conf['show_bank'] && is_user())
 {
