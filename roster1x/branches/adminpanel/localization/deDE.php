@@ -378,7 +378,7 @@ $wordings['deDE']['backpack']='Rucksack';
 $wordings['deDE']['PvPRankNone']='none';
 
 // Uses preg_match() to find required level in recipe tooltip
-$wordings['deDE']['requires_level'] = '/Benötigtes Level ([\d]+)/';
+$wordings['deDE']['requires_level'] = '/Benötigte Stufe ([\d]+)/';
 
 //Tradeskill-Array
 $tsArray['deDE'] = array (

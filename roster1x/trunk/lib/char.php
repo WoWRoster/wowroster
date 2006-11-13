@@ -180,15 +180,27 @@ class char
 					$name = trim(strstr($name, ' '));
 
 				$returnstring .= '        <tr>
-          <td class="membersRow1"><span class="'.$font.'">['.$quest_level.'] '.$name.'</span>';
+          <td class="membersRow1">';
+
+				$returnstring .= '<span class="'.$font.'">['.$quest_level.'] '.$name.'</span>';
+
+				$quest_tags = '';
 
 				if ($quest->data['quest_tag'])
-					$returnstring .= ' ('.$quest->data['quest_tag'].')';
+					$quest_tags[] = $quest->data['quest_tag'];
 
 				if( $quest->data['is_complete'] == 1 )
-					$returnstring .= ' (Complete)';
+					$quest_tags[] = 'Complete';
 				elseif( $quest->data['is_complete'] == -1 )
-					$returnstring .= ' (Failed)';
+					$quest_tags[] = 'Failed';
+
+				if( is_array($quest_tags) )
+				{
+					foreach( $quest_tags as $quest_tag )
+					{
+						$returnstring .= ' ('.$quest_tag.')';
+					}
+				}
 
 				$returnstring .= "</td>\n";
 
