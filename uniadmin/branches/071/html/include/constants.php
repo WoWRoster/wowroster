@@ -28,7 +28,7 @@ $debug = ( ( isset($debug) ) ? intval($debug) : 0 );
 define('UA_DEBUG', $debug);
 
 // UniAdmin Version
-define('UA_VER', '0.7.0');
+define('UA_VER', '0.7.1');
 define('NO_CACHE', true);
 
 // Directories
