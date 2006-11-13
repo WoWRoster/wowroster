@@ -24,41 +24,39 @@ else if (document.getElementById)
 	<img src="{$roster_conf.imagepath}/char_page/talentbar_bottom.gif" style="position:absolute;margin-top:402px;margin-left:12px;" alt="" />
 	<div class="talent_points_unused"><span style="color:#FFDD00">Talent Points:</span> {$data.unused_talent_points}</div>
 
-{section loop=3 name=talenttree}
-	<div id="treetab{$smarty.section.talenttree.index}" class="char_tab"{if not $smarty.section.talenttree.first} style="display:none;"{/if}>
+{foreach from=$treelayer item=tree name=tree}
+	<div id="treetab{$smarty.foreach.tree.index}" class="char_tab"{if not $smarty.foreach.tree.first} style="display:none;"{/if}>
 
-		<div class="talent_points"><span style="color:#FFDD00">Points spent in {$treelayer[talenttree].name} Talents:</span> {$treelayer[talenttree].points}</div>
-		<img class="talent_background" src="{$roster_conf.iconpath}/{$treelayer[talenttree].image}" alt="" />
+		<div class="talent_points"><span style="color:#FFDD00">Points spent in {$tree.name} Talents:</span> {$tree.points}</div>
+		<img class="talent_background" src="{$roster_conf.iconpath}/{$tree.image}" alt="" />
 
 		<div class="talent_container">
 
-<!-- Begin TreeCells[{$smarty.section.talenttree.index}] -->
-{section loop=8 name=talentrow start=1}
+{foreach from=$tree.talents item=row}
 			<div class="talent_row">
-{section loop=5 name=talentcell start=1}
-{if $talents[talenttree][talentrow][talentcell].name neq ''}
-{if $talents[talenttree][talentrow][talentcell].rank neq '0'}
-				<div class="talent_cell" onmouseover="overlib({$talents[talenttree][talentrow][talentcell].tooltipid})"; onmouseout="return nd();">
+{foreach from=$row item=cell}
+{if $cell.name neq ''}
+{if $cell.rank neq '0'}
+				<div class="talent_cell" onmouseover="overlib({$cell.tooltipid})"; onmouseout="return nd();">
 					<img class="talent_rank_icon" src="{$roster_conf.imagepath}/char_page/talent_rank.gif">
-					<div class="talent_rank_text" style="color:#{$talents[talenttree][talentrow][talentcell].numcolor};">{$talents[talenttree][talentrow][talentcell].rank}</div>
-					<img src="{$roster_conf.iconpath}/{$talents[talenttree][talentrow][talentcell].image}" alt="" /></div>
+					<div class="talent_rank_text" style="font-weight:bold;color:#{$cell.numcolor};">{$cell.rank}</div>
+					<img src="{$roster_conf.iconpath}/{$cell.image}" alt="" /></div>
 {else}
-				<div class="talent_cell" onmouseover="overlib({$talents[talenttree][talentrow][talentcell].tooltipid})"; onmouseout="return nd();">
-					<img class="talent_icon_grey" src="{$roster_conf.iconpath}/{$talents[talenttree][talentrow][talentcell].image}" alt="" /></div>
+				<div class="talent_cell" onmouseover="overlib({$cell.tooltipid})"; onmouseout="return nd();">
+					<img class="talent_icon_grey" src="{$roster_conf.iconpath}/{$cell.image}" alt="" /></div>
 {/if}
 {else}
 				<div class="talent_cell">&nbsp;</div>
 {/if}
 
-{/section}
+{/foreach}
 			</div>
-{/section}
-<!-- END TreeCells[{$smarty.section.talenttree.index}] -->
+{/foreach}
 
 		</div>
 
 	</div>
-{/section}
+{/foreach}
 
 	<div id="char_navagation">
 		<ul>

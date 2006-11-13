@@ -1066,6 +1066,15 @@ function writeTalentLayer( $member_id , $treename )
 	    die_quietly($result->getMessage(),'',(__FILE__),(__LINE__),$sqlquery);
 	}
 
+	// initialize the rows and cells
+	for($r=1; $r < 8; $r++)
+	{
+		for($c=1; $c < 5; $c++)
+		{
+			$returndata[$r][$c]['name'] = '';
+		}
+	}
+
 	while( $result->fetchInto($talentdata) )
 	{
 		$r = $talentdata['talent_row'];
@@ -1079,11 +1088,11 @@ function writeTalentLayer( $member_id , $treename )
 
 		if( $talentdata['talent_rank'] == $talentdata['talent_maximum_rank'] )
 		{
-			$returndata[$r][$c]['numcolor'] = '00dd00';
+			$returndata[$r][$c]['numcolor'] = 'ffdd00';
 		}
 		else
 		{
-			$returndata[$r][$c]['numcolor'] = 'ffdd00';
+			$returndata[$r][$c]['numcolor'] = '00dd00';
 		}
 
 		$returndata[$r][$c]['image'] = str_replace('\\\\','/',$talentdata['talent_texture']).'.'.GetConfigValue('icon_ext');
@@ -1115,12 +1124,10 @@ function writeTalents( $member_id )
 			$treelayer[$j]['name'] = $treedata['tree'];
 			$treelayer[$j]['image'] = str_replace('\\','/',$treedata['background']).'.'.GetConfigValue('icon_ext');
 			$treelayer[$j]['points'] = $treedata['pointsspent'];
-			$talents[$j] = writeTalentLayer($member_id,$treedata['tree']);
+			$treelayer[$j]['talents'] = writeTalentLayer($member_id,$treedata['tree']);
 		}
-		$tpl->assign( 'treelayer',$treelayer );
-		$tpl->assign( 'talents',$talents );
+		$tpl->assign( 'treelayer', $treelayer );
 	}
-
 }
 
 
