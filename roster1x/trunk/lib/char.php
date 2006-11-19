@@ -398,7 +398,7 @@ $returnstring .= '  <tr>
 
 
 				// Start the tooltips
-				$tooltip_h = addslashes($row['mailbox_subject']);
+				$tooltip_h = $row['mailbox_subject'];
 
 				// first line is sender
 				$tooltip = $wordings[$this->data['clientLocale']]['mail_sender'].

@@ -32,8 +32,14 @@ require_once (ROSTER_LIB.'char.php');
 
 
 // Check for server name
-$server = (isset($_GET['server']) ? $_GET['server'] : $roster_conf['server_name']);
-
+if ( $roster_conf['server_name_comp'] == 0 && isset($_GET['server']) )
+{
+	$server = stripslashes($_GET['server']);
+}
+else
+{
+	$server = $roster_conf['server_name'];
+}
 
 // Check for start for pvp log data
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
@@ -45,18 +51,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : 'character' );
 
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
-
-
-if ( $roster_conf['server_name_comp'] == 0 )
-	$server_name_escape = $_GET['server'];
-elseif ( $roster_conf['server_name_comp'] == 1 )
-	$server_name_escape = $wowdb->escape($roster_conf['server_name']);
-
-
-// Unslash char name and server name (slashed in settings if not automatically)
-$name = stripslashes( $name );
-$server = stripslashes( $server_name_escape );
-
 
 // Get Character Info
 $char = char_get_one( $name, $server );
