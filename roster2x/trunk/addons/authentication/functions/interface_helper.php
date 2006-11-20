@@ -175,8 +175,7 @@ class Interface_Helper extends Authentication
 								elseif($request['search_object'] == 'application_define_name')
 								{ 
 									// List all users from the entered guild name
-									// Do that by:
-									// drilling down:
+									// Do that by drilling down:
 									// $entered_value->guild_id
 									//		guild id->all areas
 									// 			all areas->all rights associated to that area

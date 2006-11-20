@@ -167,6 +167,18 @@ $IH->treat_get_post($_REQUEST);
 						</tr>
 					</table>
 				</div>
+				<div id="t6" style="display:none">
+					<table width="500px" style="border:1px solid #212121; font-weight:bold;">
+						<tr>
+							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">CMS Userbase Synchronisation</td>
+						</tr>
+						<tr>
+							<td>
+								<?php $IH->gui('CMS_Sync', 'list_adapters'); ?>
+							</td>
+						</tr>
+					</table>
+				</div>
 			<?php }// end if($LU->isLoggedIn()) ?>
 		</td>
 	</tr>

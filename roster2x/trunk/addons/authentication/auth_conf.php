@@ -144,7 +144,7 @@ $addon_conf['authentication'] =
 
 PEAR::setErrorHandling(PEAR_ERROR_RETURN);
 
-$LU = &LiveUser::singleton(&$addon_conf['authentication']);
+$LU = &LiveUser::singleton($addon_conf['authentication']);
 global $LU;
 
 if (!$LU->init()) {
@@ -172,7 +172,7 @@ elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle))
 	}
 }
 
-$LUA =& LiveUser_Admin::factory(&$addon_conf['authentication']);
+$LUA = &LiveUser_Admin::factory($addon_conf['authentication']);
 $LUA->init();
 
 
