@@ -48,7 +48,7 @@ function pvprankRight()
 print($tableHeader);
 
 
-$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '1' AND `enemy` = '1' AND `member`.`guild_id` = ".$guild_info['guild_id']." GROUP BY `guild` ORDER BY `countg` DESC";
+$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '1' AND `enemy` = '1' AND `member`.`guild_id` = ".$guild_info['guild_id']." AND `guild` != 'Unguilded' GROUP BY `guild` ORDER BY `countg` DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
@@ -74,7 +74,7 @@ if ($row)
 }
 
 
-$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '0' AND `enemy` = '1' AND `guild_id` = ".$guild_info['guild_id']." GROUP BY `guild` ORDER BY countg DESC";
+$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".ROSTER_PVP2TABLE."` AS pvp INNER JOIN `".ROSTER_MEMBERSTABLE."` AS member ON `pvp`.`member_id` = `member`.`member_id` WHERE `win` = '0' AND `enemy` = '1' AND `guild_id` = ".$guild_info['guild_id']." AND `guild` != 'Unguilded' GROUP BY `guild` ORDER BY countg DESC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 if ($row)
