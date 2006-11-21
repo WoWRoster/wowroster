@@ -125,7 +125,7 @@ class Install
 	 */
 	function add_menu_button($title, $url, $creds)
 	{
-		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (0,"'.$this->addata['addon_id'].'","'.$title.'","'.ROSTER_URL.'addon.php?dbname='.$this->addata['dbname'].$url.'","'.$creds.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (0,"'.$this->addata['addon_id'].'","'.$title.'","'.ROSTER_URL.'/addon.php?dbname='.$this->addata['dbname'].$url.'","'.$creds.'")';
 	}
 
 	/**
