@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class guildbank
+class forum
 {
 	var $active = true;
 	var $hasconfig = 'default';
@@ -64,6 +64,7 @@ class guildbank
 
 		$installer->add_menu_button('guildbank','',1);
 */
+		$installer->add_menu_button('Forum','',1);
 		return true;
 	}
 

@@ -24,9 +24,10 @@ if ( !defined('ROSTER_INSTALLED') )
 error_reporting(E_ALL);
 
 $header_title = $wordings[$roster_conf['roster_lang']]['forum'];
-
-require ($addon['dir'].'conf.php');
-require ($addon['dir'].'forum.php');
-
-echo $content;
+//ob_start();
+	require ($addon['dir'].'conf.php');
+	require ($addon['dir'].'forum.php');
+//	$content = ob_get_contents();
+//ob_end_clean();
+//echo $content;
 ?>
