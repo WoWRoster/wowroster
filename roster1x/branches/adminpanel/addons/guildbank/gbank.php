@@ -96,7 +96,7 @@ INNER JOIN `".ROSTER_CHARACTERSTABLE."` as characters ON item.member_id = member
 WHERE member.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
 AND item.item_parent!='bags'
 AND item.item_parent!='equip'".$filterItemQuery.$lvlItemQuery."
-AND item.item_tooltip NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
+AND (item.item_tooltip NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%' OR item.item_tooltip LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
 ORDER BY item.item_name";
 
 $muleNameQuery = "SELECT m.member_id, c.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, c.server AS muleservername, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper, DATE_FORMAT(  DATE_ADD(`p`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format'

@@ -654,6 +654,7 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['tooltip_requires']='Requires';
 	$wordings['enUS']['tooltip_reinforced']='Reinforced';
 	$wordings['enUS']['tooltip_soulbound']='Soulbound';
+	$wordings['enUS']['tooltip_boe']='Binds when equipped';
 	$wordings['enUS']['tooltip_equip']='Equip:';
 	$wordings['enUS']['tooltip_equip_restores']='Equip: Restores';
 	$wordings['enUS']['tooltip_equip_when']='Equip: When';

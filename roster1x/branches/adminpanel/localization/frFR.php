@@ -655,6 +655,7 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['tooltip_requires']='Niveau';
 	$wordings['frFR']['tooltip_reinforced']='renforcée';
 	$wordings['frFR']['tooltip_soulbound']='Lié';
+	$wordings['frFR']['tooltip_boe']='Lié quand équipé';
 	$wordings['frFR']['tooltip_equip']='Equipé';
 	$wordings['frFR']['tooltip_equip_restores']='Equipé : Rend';
 	$wordings['frFR']['tooltip_equip_when']='Equipé : Lorsque';

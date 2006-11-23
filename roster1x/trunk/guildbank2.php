@@ -120,8 +120,10 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
  WHERE ".$muleRow['member_id']."=i.member_id
  AND i.item_parent!='bags'
  AND i.item_parent!='equip'
- AND i.item_tooltip
+ AND (i.item_tooltip
  NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
+ OR i.item_tooltip
+ LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
  GROUP BY real_itemid
  ORDER BY i.item_name";
 

@@ -637,6 +637,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['tooltip_requires']='Benötigt';
 	$wordings['deDE']['tooltip_reinforced']='Verstärkte';
 	$wordings['deDE']['tooltip_soulbound']='Seelengebunden';
+	$wordings['enUS']['tooltip_boe']='Wird beim Anlegen gebunden';
 	$wordings['deDE']['tooltip_equip']='Verwenden';
 	$wordings['deDE']['tooltip_equip_restores']='Anlegen: Stellt';
 	$wordings['deDE']['tooltip_equip_when']='Anlegen: Erhöht';

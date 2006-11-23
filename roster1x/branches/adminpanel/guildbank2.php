@@ -129,11 +129,13 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
  FROM `".ROSTER_ITEMSTABLE."` as i
- WHERE ".$muleRow['member_id']."=i.member_id
+ WHERE ".$muleRow['member_id']." = i.member_id
  AND i.item_parent!='bags'
  AND i.item_parent!='equip'
- AND i.item_tooltip
+ AND (i.item_tooltip
  NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
+ OR i.item_tooltip
+ LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
  GROUP BY real_itemid
  ORDER BY i.item_name";
 
