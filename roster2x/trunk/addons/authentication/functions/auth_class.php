@@ -63,7 +63,7 @@ class Authentication
 											'passwd' 	=> $password,
 											'email'		=> $email,
 											'is_active'	=> $is_active,
-											'perm_type'	=> $user_type	);
+											'perm_type'	=> $user_type	));
 		get_user($filter);					
 	*/
 	function get_user($filter=array())

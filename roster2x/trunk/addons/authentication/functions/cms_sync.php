@@ -2,6 +2,12 @@
 #-----------| CMS Synchronisation |-----------#	
 class CMS_Sync extends Interface_Helper
 {
+	// Construct
+	function CMS_Sync()
+	{
+		return;
+	}
+	
 	function list_adapters()
 	{
 		$files = $this->safe_glob('../cms_sync_adapters/*/adapter_*.php');
@@ -26,15 +32,34 @@ class CMS_Sync extends Interface_Helper
 			$buffer .='	<tr class="'.$line_color.'" style="font-size:14px; font-weight:bold; vertical-align:middle;">
 							<td style="height:30px; width:80px;">';
 							if(!empty($files['icon'])){
-			$buffer .='			<a href="'.$files['adapter'].'"><img src="'.$files['icon'].'" border="0" /></a>'; }
-			$buffer .='		</td>
+			$buffer .='			<a href="?adapter='.base64_encode($files['adapter']).'&name='.urlencode($files['name']).'&print=true&display=dsn"><img src="'.$files['icon'].'" border="0" /></a>'; 
+			}$buffer .='	</td>
 							<td style="width:100%; padding-left:10px;">
-								<a href="'.$files['adapter'].'">'.$files['name'].'</a>
+								<a href="?adapter='.base64_encode($files['adapter']).'&name='.urlencode($files['name']).'&print=true&display=dsn">'.$files['name'].'</a>
 							</td>
 						</tr>';
 		}
 		$buffer .= '</table>';
 		print $buffer;
+	}
+	
+	
+	function load_adapter($arguments=array())
+	{
+		if(!empty($arguments['adapter'])&&!empty($arguments['name']))
+		{
+			$adapter = base64_decode($arguments['adapter']);
+			require_once $adapter;
+			$this->Adapter = new $arguments['name'];
+		}
+	}
+	
+	
+	function show_adapter($arguments=array())
+	{
+		$this->load_adapter(array('adapter'=>$arguments['adapter'], 'name'=>$arguments['name']));
+		$this->Adapter->treat_get_post($_REQUEST);
+		print $this->Adapter->display;
 	}
 	
 	

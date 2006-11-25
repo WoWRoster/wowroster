@@ -1,5 +1,5 @@
 <?php 
-// All the parts where logic cant be separated from presentation are here, to keep the frontend as clear from code as possible
+// This class prepares data before the rest of the page gets loaded or acts on certain form actions
 class Interface_Helper extends Authentication
 {
 
@@ -7,8 +7,8 @@ class Interface_Helper extends Authentication
 	function gui($class=NULL, $function=NULL, $args=NULL)
 	{
 		require_once strtolower($class).'.php';
-		$GUI_Class = new $class;
-		$GUI_Class->$function($args);
+		$this->GUI_Class = new $class;
+		$this->GUI_Class->$function($args); 
 	}
 
 		
@@ -285,30 +285,7 @@ class Interface_Helper extends Authentication
 							}
 							elseif($request['action'] == 'create')
 							{
-								// Create a new user and evaluate the success of the operation and give an appropriate answer
-								$data = array(	'handle'    => base64_encode(ucwords($request['new_username'])),
-												'passwd'    => $request['password'],
-												'email'     => $request['email'],
-												'is_active' => '1',
-												'perm_type' => $request['right_level']	);
-								if(!$this->add_user($data))
-								{
-									$filter = array('container' => 'auth',
-													'filters' => array('handle' => base64_encode(ucwords($request['handle']))));
-									$users = $this->get_user($filter);
-									if(!empty($users[0]['perm_user_id']))
-									{
-										$_SESSION['result'] = 'Error: Username already exists.';
-									}
-									else
-									{
-										$_SESSION['result'] = 'Could not create user.';
-									}
-								}
-								else
-								{
-									$_SESSION['result'] = 'User '.$request['new_username'].' created.';
-								}
+								$this->ih_create_user($request);
 							}
 							elseif($request['action'] == 'add_char_link')
 							{
@@ -393,6 +370,42 @@ class Interface_Helper extends Authentication
 			}		
 		}// End of - IsLoggedIn
 	} // End of - function treat_get_post()
+	
+
+	// Create a new user and evaluate the success of the operation and give an appropriate answer
+	function ih_create_user($request=array(), $data=array())
+	{
+		if(empty($request))
+		{
+			return $this->add_user($data);
+		}
+		else
+		{
+			$data = array(	'handle'    => base64_encode(ucwords($request['new_username'])),
+							'passwd'    => $request['password'],
+							'email'     => $request['email'],
+							'is_active' => '1',
+							'perm_type' => $request['right_level']	);
+			if(!$this->add_user($data))
+			{
+				$filter = array('container' => 'auth',
+								'filters' => array('handle' => base64_encode(ucwords($request['handle']))));
+				$users = $this->get_user($filter);
+				if(!empty($users[0]['perm_user_id']))
+				{
+					$_SESSION['result'] = 'Error: Username already exists.';
+				}
+				else
+				{
+					$_SESSION['result'] = 'Could not create user.';
+				}
+			}
+			else
+			{
+				$_SESSION['result'] = 'User '.$request['new_username'].' created.';
+			}
+		}
+	}
 	
 	// Recursive array search, returns true/false
 	function deep_in_array($value, $array, $case_insensitive = false){

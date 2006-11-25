@@ -169,14 +169,28 @@ $IH->treat_get_post($_REQUEST);
 				</div>
 				<div id="t6" style="display:none">
 					<table width="500px" style="border:1px solid #212121; font-weight:bold;">
-						<tr>
-							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;">CMS Userbase Synchronisation</td>
+						<tr style="cursor:pointer;">
+							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;"><div onclick="return toggleShow('cms_userbase_synchronisation', this)" style="width:100%;">CMS Userbase Synchronisation List</div></td>
 						</tr>
-						<tr>
+						<?php if(@!$_GET['adapter']) { ?>
+						<tr id="cms_userbase_synchronisation">
+						<?php }else{ ?>
+						<tr id="cms_userbase_synchronisation" style="display:none;">
+						<?php } ?>
 							<td>
 								<?php $IH->gui('CMS_Sync', 'list_adapters'); ?>
 							</td>
 						</tr>
+						<?php if(@$_GET['adapter']) { ?>
+						<tr style="cursor:pointer;">
+							<td class="sc_menuTH" align="center" style="font-size:14px; font-weight:bold;"><div onclick="return toggleShow('cms_show_adapter', this)" style="width:100%;"><?php print urldecode(@$_GET['name']); ?> Userbase Synchronisation</div></td>
+						</tr>
+						<tr id="cms_show_adapter">
+							<td>
+								<?php $IH->gui('CMS_Sync', 'show_adapter', array('adapter'=>@$_GET['adapter'], 'name'=>@$_GET['name'])); ?>
+							</td>
+						</tr>
+						<?php } ?>
 					</table>
 				</div>
 			<?php }// end if($LU->isLoggedIn()) ?>
