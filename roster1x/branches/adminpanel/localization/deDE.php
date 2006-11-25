@@ -29,7 +29,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/rostercp.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/rostercp.php?page=update\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/rostercp.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -37,7 +37,7 @@ $wordings['deDE']['guild_nameNotFound']='&quot;%s&quot; nicht gefunden. Stimmt e
 $wordings['deDE']['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
 
 $wordings['deDE']['ignored']='Ignoriert';
-$wordings['deDE']['update_disabled']='Update.php Zugriff deaktiviert.';
+$wordings['deDE']['update_disabled']='update Zugriff deaktiviert.';
 
 // NOT USED $wordings['deDE']['updGuildMembers']='Mitgliederliste aktualisieren';
 $wordings['deDE']['nofileUploaded']='UniUploader hat keine oder die falschen Dateien hochgeladen.';
@@ -61,7 +61,7 @@ $wordings['deDE']['update_instruct']='
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
-<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/update.php"> Update-Seite</a></li>
+<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/rostercp.php?page=update"> Update-Seite</a></li>
 <li>'.$wordings['deDE']['lualocation'].'</li>
 </ol>';
 
@@ -748,7 +748,7 @@ $wordings['deDE']['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den
 $wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br><br>Um es auszustellen, bitte bei Menüeinstellungen gucken';
 $wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gildenbank';
 $wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
-$wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update.php';
+$wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update';
 
 $wordings['deDE']['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
 

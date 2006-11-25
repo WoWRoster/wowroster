@@ -29,7 +29,7 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/rostercp.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/rostercp.php?page=update\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/rostercp.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
 
 $wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -37,7 +37,7 @@ $wordings['enUS']['guild_nameNotFound']='Could not update &quot;%s&quot;. Maybe 
 $wordings['enUS']['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
 
 $wordings['enUS']['ignored']='Ignored';
-$wordings['enUS']['update_disabled']='Update.php access has been disabled';
+$wordings['enUS']['update_disabled']='update access has been disabled';
 
 // NOT USED $wordings['enUS']['updGuildMembers']='Update Guild Members';
 $wordings['enUS']['nofileUploaded']='UniUploader did not upload any file(s), or uploaded the wrong file(s).';
@@ -61,7 +61,7 @@ $wordings['enUS']['update_instruct']='
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
-<li>Go to <a href="'.$roster_conf['roster_dir'].'/update.php">the update page</a></li>
+<li>Go to <a href="'.$roster_conf['roster_dir'].'/rostercp.php?page=update">the update page</a></li>
 <li>'.$wordings['enUS']['lualocation'].'</li>
 </ol>';
 

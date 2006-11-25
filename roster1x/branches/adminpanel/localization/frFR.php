@@ -29,7 +29,7 @@ $wordings['frFR']['lualocation']='Cliquer parcourir (browse) et télécharger le
 $wordings['frFR']['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['frFR']['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
-$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".$roster_conf['roster_dir']."/update.php\">charger votre guilde</a> et <a href=\"".$roster_conf['roster_dir']."/admin.php\">finaliser la configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
+$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".$roster_conf['roster_dir']."/rostercp.php?page=update\">charger votre guilde</a> et <a href=\"".$roster_conf['roster_dir']."/admin.php\">finaliser la configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
 
 $wordings['frFR']['update_page']='Mise à jour du profil';
 // NOT USED $wordings['frFR']['updCharInfo']='Mettre à jour les informations du personnage';
@@ -37,7 +37,7 @@ $wordings['frFR']['guild_nameNotFound']='Impossible de mettre à jour la guilde 
 $wordings['frFR']['guild_addonNotFound']='Impossible de trouver la Guilde. L\'Addon GuildProfiler est-il installé correctement?';
 
 $wordings['frFR']['ignored']='Ignoré';
-$wordings['frFR']['update_disabled']='L\'accès à Update.php a été désactivé';
+$wordings['frFR']['update_disabled']='L\'accès à update a été désactivé';
 
 // NOT USED $wordings['frFR']['updGuildMembers']='Mettre à jour les membres de la guilde';
 $wordings['frFR']['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
@@ -62,7 +62,7 @@ $wordings['frFR']['update_instruct']='
 <li>Ouvrir votre compte en banque, la fenêtre des quêtes, et la fenêtre des professions qui contient les recettes</li>
 <li>Facultatif : ouvrir la fenêtre de votre personnage et cliquer sur Save, cela permet de voir quelles données ont été capturées par CharacterProfiler.</li>
 <li>Se déconnecter ou quitter WoW.<br />(Voir ci-dessus si vous disposez d\'UniUploader pour automatiser l\'envois des informations.)</li>
-<li>Aller sur la page <a href="'.$roster_conf['roster_dir'].'/update.php">d\'actualisation</a></li>
+<li>Aller sur la page <a href="'.$roster_conf['roster_dir'].'/rostercp.php?page=update">d\'actualisation</a></li>
 <li>'.$wordings['frFR']['lualocation'].'</li>
 </ol>';
 
@@ -749,7 +749,7 @@ $wordings['frFR']['admin']['char_conf'] = 'Character Page|Control what is displa
 $wordings['frFR']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
 $wordings['frFR']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
 $wordings['frFR']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
-$wordings['frFR']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update.php';
+$wordings['frFR']['admin']['update_access'] = 'Update Access|Optional phpBB authorization for update';
 
 $wordings['frFR']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
