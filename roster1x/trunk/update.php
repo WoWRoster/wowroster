@@ -57,40 +57,62 @@ else
 }
 
 
-// Files that we accept for upload
-$filefields[] = 'CharacterProfiler.lua';
-$filefields[] = 'PvPLog.lua';
-$filefields[] = 'CT_RaidTracker.lua';
-$filefields[] = 'Bookworm.lua';
-$filefields[] = 'GuildEventManager2.lua';
-$filefields[] = 'GroupCalendar.lua';
+// Files that we accept for upload. Up to the first dot, lowercase.
+$filefields[] = 'characterprofiler';
+$filefields[] = 'pvplog';
+$filefields[] = 'ct_raidtracker';
+$filefields[] = 'bookworm';
+$filefields[] = 'guildeventmanager2';
+$filefields[] = 'groupcalendar';
 
 // Initialize some vars
 $uploadFound = false;
 $uploadData = null;
 
-// Loop through each posted file
-foreach ($_FILES as $filefield => $file)
+
+if (is_array($_FILES))
 {
-	$filename = $file['tmp_name'];
-	$filemode = '';
+	$uploadFound = true;
 
-	if( substr_count($file['name'],'.gz') > 0 )	// If the file is gzipped
-	{
-		$filemode = 'gz';
-	}
+	$parseMessages = 'Parsing files'."<br />\n".'<ul>';
 
-	foreach( $filefields as $acceptedfile )	// Itterate through all the possible filefields
+	// Loop through each posted file
+	foreach ($_FILES as $filefield => $file)
 	{
-		if( strtolower($acceptedfile) == strtolower($file['name']) || strtolower($acceptedfile.'.gz') == strtolower($file['name']) )
+		$filename = $file['tmp_name'];
+		$filemode = '';
+
+		if( substr_count($file['name'],'.gz') > 0 )	// If the file is gzipped
+		{
+			$filemode = 'gz';
+		}
+
+		$filebase = explode('.',$file['name'])[0];
+		if (in_array(strtolower($filebase),$filefields))
 		{
 			// Filefield is 1 of the kind we accept.
 			if( $roster_conf['authenticated_user'] )
 			{
-				$uploadFound = true;
+				// Get start of parse time
+				$parse_starttime = explode(' ', microtime() );
+				$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
 				// Parse the lua file into a php array that we can use
 				$data = ParseLuaFile( $filename , $filemode );
+
+				// Calculate parse time
+				$parse_endtime = explode(' ', microtime() );
+				$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
+				$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
+
+				if( $data )
+				{
+					$parseMessages .= '<li>Parsed '.$file['name'].' in '.$parse_totaltime.' seconds</li>'."\n";
+				}
+				else
+				{
+					$parseMessages .= '<li>Error while parsing '.$file['name'].' after '.$parse_totaltime.' seconds</li>'."\n";
+				}
 
 				// If pvp data is there, assign it to $uploadData['PvpLogData']
 				if( isset($data['PurgeLogData']) )
@@ -131,8 +153,14 @@ foreach ($_FILES as $filefield => $file)
 				unset($data);
 			}
 		}
+		else
+		{
+			$parseMessages .= '<li>Did not accept '.$file['name'].'</li>'."\n";
+		}
+		@unlink($filename);	// Done with the file, we don't need it anymore
 	}
-	@unlink($filename);	// Done with the file, we don't need it anymore
+
+	$parseMessages .= '</ul>'."<br />\n";
 }
 
 // If the roster update password is sent and matches, and $uploadData['myProfile'] is there, update the roster
@@ -485,6 +513,7 @@ $bookwormInputField
 		print
 			border('syellow','start','Update Log').
 			'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
+				$parseMessages.
 				$updateMessages.
 				$updatePvPMessages.
 				$rosterUpdateMessages.
@@ -546,6 +575,7 @@ else	// Dont need the header and footer when responding to UU
 		{
 			// Strip all html tags out, then print
 			print stripAllHtml(
+					$parseMessages.
 					$updateMessages.
 					$updatePvPMessages.
 					$rosterUpdateMessages

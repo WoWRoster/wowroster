@@ -109,11 +109,18 @@ class update
 					$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
 					$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
 
-					$output .= '<li>Parsed '.$file['name'].' in '.$parse_totaltime.' seconds</li>'."\n";
+					if( $data )
+					{
+						$output .= '<li>Parsed '.$file['name'].' in '.$parse_totaltime.' seconds</li>'."\n";
+					}
+					else
+					{
+						$output .= '<li>Error while parsing '.$file['name'].' after '.$parse_totaltime.' seconds</li>'."\n";
+					}
 				}
 				else
 				{
-					$output .= '<li>Did not parse '.$file['name'].'</li>'."\n";
+					$output .= '<li>Did not accept '.$file['name'].'</li>'."\n";
 				}
 			}
 		}
