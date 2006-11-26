@@ -32,7 +32,7 @@ class RosterMenu
 
 		if( $roster_conf['menu_left_pane'] && !empty($guild_info))
 		{
-			$levellist = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
+			$left_pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
 			$cols++;
 		}
 		else
@@ -42,7 +42,7 @@ class RosterMenu
 
 		if( $roster_conf['menu_right_pane'] && !empty($guild_info))
 		{
-			$realmstatus = $this->makeRealmStatus();
+			$right_pane = $this->makeRealmStatus();
 			$cols++;
 		}
 		else
@@ -90,9 +90,9 @@ class RosterMenu
 			'<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">'."\n".
 			$topbar.
 			'  <tr>'."\n".
-			$levellist.
+			$left_pane.
 			$buttonlist.
-			$realmstatus.
+			$right_pane.
 			'  </tr>'."\n".
 			'  <tr>'."\n".
 			$menuLogin.
@@ -137,7 +137,8 @@ class RosterMenu
 		$num_non_alts = 0;
 		$num_alts = 0;
 
-		$num_lvl_60 = 0;
+		$num_lvl_70 = 0;
+		$num_lvl_60_69 = 0;
 		$num_lvl_50_59 = 0;
 		$num_lvl_40_49 = 0;
 		$num_lvl_30_39 = 0;
@@ -158,8 +159,10 @@ class RosterMenu
 
 			switch ($row['levelgroup'])
 			{
+				case 7:
+					$num_lvl_70 += $row['amount'];
 				case 6:
-					$num_lvl_60 += $row['amount'];
+					$num_lvl_60_69 += $row['amount'];
 					break;
 				case 5:
 					$num_lvl_50_59 += $row['amount'];
@@ -187,13 +190,152 @@ class RosterMenu
 	      <br />
 	      <ul>
 		<li style="color:#999999;">Average Level: '.round($result_avg).'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60: '.$num_lvl_60.'</li>
+		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 70: '.$num_lvl_70.'</li>
+		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60-69: '.$num_lvl_60_69.'</li>
 		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 50-59: '.$num_lvl_50_59.'</li>
 		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
 		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 30-39: '.$num_lvl_30_39.'</li>
 		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 1-29: '.$num_lvl_1_29.'</li>
 	      </ul>
 	    </td>'."\n";
+	}
+
+	/**
+	 * Builds the class distribution list
+	 *
+	 * @param $condition where condition
+	 * @return formatted level distribution list
+	 */
+	function makeClassList($condition = 'true')
+	{
+		global $wordings, $wowdb, $roster_conf;
+
+		$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
+			"class".
+			"COUNT(`class`) AS amount, ".
+			"FROM `".ROSTER_MEMBERSTABLE."` AS `members`".
+			"INNER JOIN `".ROSTER_CHARACTERSTABLE."` AS `characters` ON `members`.`member_id` = `characters`.`member_id` ".
+			"WHERE ".$condition." ".
+			"GROUP BY isalt, levelgroup ".
+			"ORDER BY isalt ASC, levelgroup DESC";
+		$result_menu = $wowdb->query($guildstat_query);
+
+		if (!$result_menu)
+		{
+			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
+		}
+
+		$num_non_alts = 0;
+		$num_alts = 0;
+
+		$num_druids = 0;
+		$num_druids_alts = 0;
+		$num_hunters = 0;
+		$num_hunters_alts = 0;
+		$num_mages = 0;
+		$num_mages_alts = 0;
+		$num_paladins = 0;
+		$num_paladins_alts = 0;
+		$num_priests = 0;
+		$num_priests_alts = 0;
+		$num_rogues = 0;
+		$num_rogues_alts = 0;
+		$num_shamans = 0;
+		$num_shamans_alts = 0;
+		$num_warlocks = 0;
+		$num_warlocks_alts = 0;
+		$num_warriors = 0;
+		$num_warriors_alts = 0;
+
+		while ($row = $wowdb->fetch_assoc($result_menu))
+		{
+			if ($row['isalt'])
+			{
+				switch ($row['class'])
+				{
+					case 'Druid':
+						$num_druids_alts += $row['amount'];
+						break;
+					case 'Hunter':
+						$num_hunters_alts += $row['amount'];
+						break;
+					case 'Mage':
+						$num_mages_alts += $row['amount'];
+						break;
+					case 'Paladin':
+						$num_paladins_alts += $row['amount'];
+						break;
+					case 'Priest':
+						$num_priests_alts += $row['amount'];
+						break;
+					case 'Rogue':
+						$num_rogues_alts += $row['amount'];
+						break;
+					case 'Shaman':
+						$num_shamans_alts += $row['amount'];
+						break;
+					case 'Warlock':
+						$num_warlocks_alts += $row['amount'];
+						break;
+					case 'Warrior':
+						$num_warriors_alts += $row['amount'];
+						break;
+					default:
+				}
+				$num_alts += $row['amount'];
+			}
+			else
+			{
+				switch ($row['class'])
+				{
+					case 'Druid':
+						$num_druids += $row['amount'];
+						break;
+					case 'Hunter':
+						$num_hunters += $row['amount'];
+						break;
+					case 'Mage':
+						$num_mages += $row['amount'];
+						break;
+					case 'Paladin':
+						$num_paladins += $row['amount'];
+						break;
+					case 'Priest':
+						$num_priests += $row['amount'];
+						break;
+					case 'Rogue':
+						$num_rogues += $row['amount'];
+						break;
+					case 'Shaman':
+						$num_shamans += $row['amount'];
+						break;
+					case 'Warlock':
+						$num_warlocks += $row['amount'];
+						break;
+					case 'Warrior':
+						$num_warriors += $row['amount'];
+						break;
+					default:
+				}
+				$num_non_alts += $row['amount'];
+			}
+		}
+
+		return '   <td rowspan="2" valign="top" class="row">
+			'.$wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
+			<br />
+			<ul>
+				<li>Druids: '.$num_druids.' (+'.$num_druids_alts.')</li>
+				<li>Hunters: '.$num_hunters.' (+'.$num_hunters_alts.')</li>
+				<li>Mages: '.$num_mages.' (+'.$num_mages_alts.')</li>
+				<li>Paladins: '.$num_paladins.' (+'.$num_paladins_alts.')</li>
+				<li>Priests: '.$num_priests.' (+'.$num_priests_alts.')</li>
+				<li>Rogues: '.$num_rogues.' (+'.$num_rogues_alts.')</li>
+				<li>Shamans: '.$num_shamans.' (+'.$num_shamans_alts.')</li>
+				<li>Warlocks: '.$num_warlocks.' (+'.$num_warlocks_alts.')</li>
+				<li>Warriors: '.$num_warriors.' (+'.$num_warriors_alts.')</li>
+			</ul>
+		</td>';
 	}
 
 	/**
