@@ -488,8 +488,7 @@ class wowdb
 		if( $this->assignstr != '' )
 			$this->assignstr .= ',';
 
-		if( !is_numeric($row_data) )
-			$row_data = "'" . $this->escape( $row_data ) . "'";
+		$row_data = "'" . $this->escape( $row_data ) . "'";
 
 		$this->assignstr .= " `$row_name` = $row_data";
 	}

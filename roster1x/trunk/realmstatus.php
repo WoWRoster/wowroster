@@ -36,7 +36,7 @@ if( empty($roster_conf['realmstatus']) )
 else
 	$realmstatus = utf8_decode($roster_conf['realmstatus']);
 
-$server = trim($realmstatus);
+$realmstatus = trim($realmstatus);
 
 if( $roster_conf['rs_mode'] )
 	$generate_image = true;
@@ -63,7 +63,7 @@ else
 #--[ MYSQL CONNECT AND STORE ]=========================================================
 
 // Read info from Database
-$querystr = "SELECT * FROM `".ROSTER_REALMSTATUSTABLE."` WHERE `server_name` = '".$wowdb->escape($server)."'";
+$querystr = "SELECT * FROM `".ROSTER_REALMSTATUSTABLE."` WHERE `server_name` = '".$wowdb->escape($realmstatus)."'";
 $sql = $wowdb->query($querystr);
 if($sql)
 {
@@ -71,7 +71,7 @@ if($sql)
 }
 else
 {
-	die("<!-- $querystr -->\nCould not query: ".$wowdb->error());
+	return;
 }
 
 
@@ -118,7 +118,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 
 	if (isset($html) && $html)
 	{
-		if (!preg_match('/\<tr(.(?!\<tr))*('.str_replace("'",'&#039;',$server).')(.(?!\<\/tr))*/si',$html,$matches))
+		if (!preg_match('/\<tr(.(?!\<tr))*('.str_replace("'",'&#039;',$realmstatus).')(.(?!\<\/tr))*/si',$html,$matches))
 		{
 			$err = 1;
 		}
@@ -166,7 +166,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 					{
 						foreach ( $xml_array as $xml_server )
 						{
-							if ( $xml_server['N'] == $server )
+							if ( $xml_server['N'] == $realmstatus )
 							{
 								$err = 0;
 								switch ( $xml_server['S'] )
@@ -245,35 +245,32 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 	if( !$err ) // Don't write to DB if there has been an error
 	{
 		$wowdb->reset_values();
-		if($server != $realmData['server_name'] )
-		{
-			$wowdb->add_value('server_name', $server);
-		}
 		$wowdb->add_value('servertype', $realmData['servertype']);
 		$wowdb->add_value('servertypecolor', $realmData['servertypecolor']);
 		$wowdb->add_value('serverstatus', $realmData['serverstatus']);
 		$wowdb->add_value('serverpop', $realmData['serverpop']);
 		$wowdb->add_value('serverpopcolor', $realmData['serverpopcolor']);
 		$wowdb->add_value('timestamp', $current_time);
-
-		if ($server == $realmData['server_name'])
+		if( $realmstatus == $realmData['server_name'] )
 		{
-			$querystr = "UPDATE `".ROSTER_REALMSTATUSTABLE."` SET ".$wowdb->assignstr." WHERE `server_name` = '".$wowdb->escape($server)."'";
+			$querystr = "UPDATE `".ROSTER_REALMSTATUSTABLE."` SET ".$wowdb->assignstr." WHERE `server_name` = '".$wowdb->escape($realmstatus)."';";
 		}
 		else
 		{
-			$querystr = "TRUNCATE `".ROSTER_REALMSTATUSTABLE."`";
-			$wowdb->query($querystr) or die($wowdb->error());
-			$querystr = "INSERT INTO `".ROSTER_REALMSTATUSTABLE."` SET ".$wowdb->assignstr;
+			$querystr = "TRUNCATE `".ROSTER_REALMSTATUSTABLE."`;";
+			$wowdb->query($querystr);
+
+			$wowdb->add_value('server_name', $server);
+			$querystr = "INSERT INTO `".ROSTER_REALMSTATUSTABLE."` SET ".$wowdb->assignstr.";";
 		}
-		// Give only debug infos with text-status enabled
+		// Give only debug info with text-status enabled
 		// Otherwise the debug-statement will destroy the png-generation
 		if ($roster_conf['sqldebug'] && !$generate_image)
 		{
 			print "<!-- $querystr -->\n";
 		}
 
-		$wowdb->query($querystr) or die($wowdb->error());
+		$wowdb->query($querystr);
 	}
 }
 
@@ -290,9 +287,13 @@ if( $realmData['serverstatus'] == 'Down' || $realmData['serverstatus'] == 'Maite
 
 // Check to see if data from the DB is non-existant
 if( empty($realmData['serverstatus']) || empty($realmData['serverpop']) )
+{
 	$err = 1;
+}
 else
+{
 	$err = 0;
+}
 
 
 // Set to Unknown values upon error
@@ -305,16 +306,20 @@ if( $err )
 
 // Generate image or text?
 if( $generate_image )
+{
 	img_output($realmData,$err,$image_path,$font_path);
+}
 else
+{
 	echo text_output($realmData);
+}
 
 return;
 
 //==========[ TEXT OUTPUT MODE ]=======================================================
 function text_output($realmData)
 {
-	global $roster_conf, $server;
+	global $roster_conf;
 
 	$outtext = '
 <!-- Begin Realmstatus -->
@@ -325,7 +330,7 @@ function text_output($realmData)
 	{
 		$outtext .= '
 	<div style="vertical-align:middle;text-align:center;width:88px;height:54px;background-image:url('.$roster_conf['img_url'].'realmstatus/'.strtolower($realmData['serverstatus']).'2.png);">
-		<div style="padding-top:7px;color:black;font-size:10px;">'.$server.'</div>
+		<div style="padding-top:7px;color:black;font-size:10px;">'.$realmData['server_name'].'</div>
 		<div style="color:#'.$realmData['serverpopcolor'].';font-size:12px;">'.$realmData['serverpop'].'</div>
 		<div style="color:#'.$realmData['servertypecolor'].';font-size:9px;">'.$realmData['servertype'].'</div>
 	</div>';
@@ -342,7 +347,7 @@ function text_output($realmData)
 
 function img_output ($realmData,$err,$image_path,$font_path)
 {
-	global $roster_conf, $server;
+	global $roster_conf;
 
 	$serverfont = $font_path . 'VERANDA.TTF';
 	$serverfontsize = 7;
@@ -358,7 +363,9 @@ function img_output ($realmData,$err,$image_path,$font_path)
 	// Get and combine base images, set colors
 	$top = @imagecreatefrompng( $image_path . strtolower($realmData['serverstatus']) . '.png' );
 	if( !$top )
-		exit('Realmstatus Image Creation Failed');
+	{
+		return;
+	}
 
 	if ($roster_conf['rs_display'] == 'full')
 	{
@@ -396,26 +403,26 @@ function img_output ($realmData,$err,$image_path,$font_path)
 		$maxw = 62;
 
 		$output = '';
-		$box = imagettfbbox($serverfontsize,0,$serverfont,$server);
+		$box = imagettfbbox($serverfontsize,0,$serverfont,$realmData['server_name']);
 		$w = abs($box[0]) + abs($box[2]);
 
 		if ($w > $maxw)
 		{
 			$i = $w;
-			$t = strlen($server);
+			$t = strlen($realmData['server_name']);
 			while ($i > $maxw)
 			{
 				$t--;
-				$box = imagettfbbox($serverfontsize, 0,$serverfont,substr($server,0,$t));
+				$box = imagettfbbox($serverfontsize, 0,$serverfont,substr($realmData['server_name'],0,$t));
 			  	$i = abs($box[0]) + abs($box[2]);
 			}
-			$t = strrpos(substr($server, 0, $t), ' ');
-			$output[0] = substr($server, 0, $t);
-			$output[1] = ltrim(substr($server, $t));
+			$t = strrpos(substr($realmData['server_name'], 0, $t), ' ');
+			$output[0] = substr($realmData['server_name'], 0, $t);
+			$output[1] = ltrim(substr($realmData['server_name'], $t));
 			$vadj = -6;
 		}
 		else
-			$output[0] = $server;
+			$output[0] = $realmData['server_name'];
 
 		$i = 0;
 		foreach($output as $value)
