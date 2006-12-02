@@ -58,7 +58,8 @@ if( $guild_data && $guild_data_rows > 0 )
 	$num_non_alts = 0;
 	$num_alts = 0;
 
-	$num_lvl_60 = 0;
+	$num_lvl_70 = 0;
+	$num_lvl_60_69 = 0;
 	$num_lvl_50_59 = 0;
 	$num_lvl_40_49 = 0;
 	$num_lvl_30_39 = 0;
@@ -79,8 +80,11 @@ if( $guild_data && $guild_data_rows > 0 )
 
 		switch ($row['levelgroup'])
 		{
+			case 7:
+				$num_lvl_70 += $row['amount'];
+				break;
 			case 6:
-				$num_lvl_60 += $row['amount'];
+				$num_lvl_60_69 += $row['amount'];
 				break;
 			case 5:
 				$num_lvl_50_59 += $row['amount'];
@@ -142,7 +146,8 @@ if( $roster_conf['menu_left_pane'] && $guild_data_rows > 0 )
       <br />
       <ul>
         <li style="color:#999999;">Average Level: '.round($result_avg).'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60: '.$num_lvl_60.'</li>
+        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 70: '.$num_lvl_70.'</li>
+        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60-69: '.$num_lvl_60_69.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 50-59: '.$num_lvl_50_59.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
         <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 30-39: '.$num_lvl_30_39.'</li>
