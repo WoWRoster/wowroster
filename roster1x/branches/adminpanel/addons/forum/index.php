@@ -21,13 +21,19 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-error_reporting(E_ALL);
+// Set track errors on
+ini_set('track_errors',1);
+
+// Report all errors except E_NOTICE
+// This is the default value set in php.ini
+error_reporting(E_ALL ^ E_NOTICE);
+
 
 $header_title = $wordings[$roster_conf['roster_lang']]['forum'];
-//ob_start();
+ob_start();
 	require ($addon['dir'].'conf.php');
 	require ($addon['dir'].'forum.php');
-//	$content = ob_get_contents();
-//ob_end_clean();
-//echo $content;
+	$content = ob_get_contents();
+ob_end_clean();
+echo $content;
 ?>

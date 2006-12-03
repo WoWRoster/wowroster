@@ -28,7 +28,7 @@ class forum
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
-	var $version = '0.0.1';
+	var $version = '0.0.2';
 
 	var $fullname = 'Forum';
 	var $description = 'An online discussion group, where participants with common interests can exchange open messages.';
@@ -42,7 +42,7 @@ class forum
 	{
 		global $installer;
 		$installer->profile = 'default';
-/*
+
 		// Config table
 		$installer->add_query('CREATE','config','
 		  `id` int(11) NOT NULL,
@@ -52,7 +52,27 @@ class forum
 		  `config_type` varchar(255) default NULL,
 		  PRIMARY KEY  (`id`)
 		');
-
+		
+		
+		
+		$installer->add_query('CREATE','forums','
+			`id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+			`pid` INT( 11 ) default 0 NOT NULL ,
+			`name` VARCHAR( 256 ) default NULL ,
+			`description` VARCHAR( 256 ) default NULL
+		');
+		
+		$installer->add_query('CREATE','threads','
+			`id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+			`fid` INT( 11 ) NOT NULL ,
+			`name` VARCHAR( 256 ) NOT NULL,
+			`flags` VARCHAR( 256 ) default NULL
+		');
+		
+			
+		$installer->add_query('INSERT','forums',"NULL , '0', 'Test Forum', 'Roster forum has been successfully installed!'");
+		
+/*
 		// Master and menu entries
 		$installer->add_query('INSERT','config',"1,'startpage','cgb_conf','display','master'");
 		$installer->add_query('INSERT','config',"110,'cgb_conf',NULL,'blockframe','menu'");
