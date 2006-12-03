@@ -1,7 +1,7 @@
 #
 # MySQL Roster Upgrade File
 #
-# * $Id:$
+# * $Id$
 #
 # --------------------------------------------------------
 ### Config
@@ -9,7 +9,7 @@
 UPDATE `renprefix_config` SET `config_value` = '2.0.0' WHERE `id` = '1010' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '2.0.0' WHERE `id` = '1020' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '0.6.1' WHERE `id` = '1030' LIMIT 1;
-
+UPDATE `renprefix_config` SET `config_value` = '0'     WHERE `id` = '3140' LIMIT 1;
 
 
 # --------------------------------------------------------

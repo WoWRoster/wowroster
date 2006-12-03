@@ -491,17 +491,9 @@ function honor_value ( $row )
 		$rankicon = '';
 	}
 
-	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';
-	$toolTip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">';
-	$toolTip .= '<tr>';
-	$toolTip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$row['Rankexp'].'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
-	$toolTip .= '<td width="'.(100 - $row['Rankexp']).'%"></td>';
-	$toolTip .= '</tr>';
-	$toolTip .= '</table>';
-
 	if ( $row['RankInfo'] > 0 )
 	{
-		$cell_value = "<div ".makeOverlib($toolTip,$row['RankName'].' ('.$wordings[$roster_conf['roster_lang']]['rank'].' '.$row['RankInfo'].')','',2,'',',RIGHT,WRAP').">".$rankicon.' '.$row['RankName']."</div>";
+		$cell_value = $rankicon.' '.$row['RankName'];
 
 		return $cell_value;
 	}
