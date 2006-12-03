@@ -580,8 +580,7 @@ class wowdb
 		if( preg_match($wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
-		if( isset( $item['item_quantity'] ) )
-			$this->add_value('item_quantity', $item['item_quantity'] );
+		$this->add_value('item_quantity', $item['item_quantity'] );
 
 		$querystr = "INSERT INTO `".ROSTER_ITEMSTABLE."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
@@ -756,17 +755,19 @@ class wowdb
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
 		$mail['mail_coin'] = $mail_data['Coin'];
-		$mail['mail_coin_icon'] = str_replace('\\\\','/', $mail_data['CoinIcon']);
+		$mail['mail_coin_icon'] = 'Interface/Icons/'.$mail_data['CoinIcon'];
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
 
-		$mail['item_icon'] = str_replace('\\\\','/', $item['Icon']);
+		$mail['item_icon'] = 'Interface/Icons/'.$item['Icon'];
 		$mail['item_name'] = $item['Name'];
 		$mail['item_color'] = $item['Color'];
 
 		if( isset( $item['Quantity'] ) )
 			$mail['item_quantity'] = $item['Quantity'];
+		else
+			$item['item_quantity'] = 1;
 
 		if( !empty($item['Tooltip']) )
 			$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
@@ -795,10 +796,12 @@ class wowdb
 		$item['item_slot'] = $slot_name;
 		$item['item_color'] = $item_data['Color'];
 		$item['item_id'] = $item_data['Item'];
-		$item['item_texture'] = str_replace('\\\\','/', $item_data['Texture']);
+		$item['item_texture'] = 'Interface/Icons/'.$item_data['Icon'];
 
 		if( isset( $item_data['Quantity'] ) )
 			$item['item_quantity'] = $item_data['Quantity'];
+		else
+			$item['item_quantity'] = 1;
 
 		if( !empty($item_data['Tooltip']) )
 			$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
@@ -828,8 +831,15 @@ class wowdb
 		$recipe['skill_name'] = $parent;
 		$recipe['difficulty'] = $recipe_data['Difficulty'];
 		$recipe['item_color'] = $recipe_data['Color'];
-		$recipe['reagents'] = $recipe_data['Reagents'];
-		$recipe['recipe_texture'] = str_replace('\\\\','/', $recipe_data['Texture']);
+
+		$recipe['reagents'] = '';
+		foreach( $recipe_data['Reagents'] as $reagent )
+		{
+			$recipe['reagents'] .= $reagent['Name'].' [x'.$reagent['Count'].']<br>';
+		}
+		$recipe['reagents'] = substr($recipe['reagents'],0,-4);
+
+		$recipe['recipe_texture'] = 'Interface/Icons/'.$recipe_data['Icon'];
 
 		if( !empty($recipe_data['Tooltip']) )
 			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
@@ -1070,11 +1080,11 @@ class wowdb
 			$item['item_name'] = 'Bank Contents';
 			$item['item_parent'] = 'bags';
 			$item['item_slot'] = 'Bank Contents';
-			$item['item_color'] = 'ffffffff';
+			$item['item_color'] = 'ffffff';
 			$item['item_id'] = '';
 			$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_07';
-			$item['item_quantity'] = 24;
-			$item['item_tooltip'] = "Bank Contents\n24 Slot Container";
+			$item['item_quantity'] = 28;
+			$item['item_tooltip'] = "Bank Contents\n28 Slot Container";
 			$this->insert_item( $item,$data['Locale'] );
 			$bag = $inv;
 
@@ -1339,8 +1349,8 @@ class wowdb
 								$this->add_value('spell_type', $spell_type );
 							if( !empty($spell_name) )
 								$this->add_value('spell_name', $spell_name );
-							if( !empty($data_spell_name['Texture']) )
-								$this->add_value('spell_texture', str_replace('\\\\','/', $data_spell_name['Texture']) );
+							if( !empty($data_spell_name['Icon']) )
+								$this->add_value('spell_texture', 'Interface/Icons/'.$data_spell_name['Icon'] );
 							if( !empty($data_spell_name['Rank']) )
 								$this->add_value('spell_rank', $data_spell_name['Rank'] );
 
@@ -1365,7 +1375,7 @@ class wowdb
 				$this->reset_values();
 				$this->add_value('member_id', $memberId );
 				$this->add_value('spell_type', $spell_type );
-				$this->add_value('spell_texture', str_replace('\\\\','/', $data_spell_type['Texture']) );
+				$this->add_value('spell_texture', 'Interface/Icons/'.$data_spell_type['Icon'] );
 
 				$querystr = "INSERT INTO `".ROSTER_SPELLTREETABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -1433,7 +1443,7 @@ class wowdb
 					}
 					elseif ( $talent_skill == 'Background')
 					{
-						$tree_background = str_replace('\\\\','/', $data_talent_skill);
+						$tree_background = 'Interface/TalentFrame/'.$data_talent_skill;
 					}
 					else
 					{
@@ -1450,8 +1460,8 @@ class wowdb
 						else
 							$this->add_value('tooltip', $talent_skill );
 
-						if( !empty($data_talent_skill['Texture']) )
-							$this->add_value('texture', str_replace('\\\\','/', $data_talent_skill['Texture']) );
+						if( !empty($data_talent_skill['Icon']) )
+							$this->add_value('texture', 'Interface/Icons/'.$data_talent_skill['Icon'] );
 
 						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
 						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
@@ -1641,12 +1651,12 @@ class wowdb
 					$inClause .= ',';
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">]</span></li>');
+				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
 				$this->setMemberLog($row,0);
 
 			}
 
-			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Deleted '.$num.' member'.($num > 1 ? 's' : '').'</span></li>');
 			$this->setMessage('<ul>');
 
 			// now that we have our inclause, time to do some deletes
@@ -1684,7 +1694,7 @@ class wowdb
 					$inClause .= ',';
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Removing guild - [</span> '.$row[1].' <span class="red">]</span></li>');
+				$this->setMessage('<li><span class="red">Guild [</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
 			}
 
 			// now that we have our inclause, time to do some deletes
@@ -1694,7 +1704,7 @@ class wowdb
 				$this->setError('Guild'.($num > 1 ? 's' : '').' with ID'.($num > 1 ? 's' : '').' '.$inClause.' could not be deleted',$this->error());
 			}
 
-			$this->setMessage('<li><span class="red">Removing '.$num.' guild'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\s' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Deleted '.$num.' guild'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\s' : '').'</span></li>');
 		}
 		$this->closeQuery($result);
 
@@ -1719,7 +1729,7 @@ class wowdb
 					$inClause .= ',';
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Removing member - [</span> '.$row[1].' <span class="red">] since their guild-id does not match</span></li>');
+				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] Deleted since their guild-id does not match</span></li>');
 				$this->setMemberLog($row,0);
 			}
 
@@ -1816,7 +1826,14 @@ class wowdb
 		if( !empty($currentTime) )
 			$this->add_time( 'update_time', $currentTime );
 
-		$this->add_value( 'guild_dateupdatedutc', $guild['DateUTC'] );
+		//$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
+
+		if( !empty($guild['timestamp']['init']['DateUTC']) )
+		{
+			list($year,$month,$day,$hour,$minute,$second) = sscanf($guild['timestamp']['init']['DateUTC'],"%d-%d-%d %d:%d:%d");
+			$this->add_value( 'guild_dateupdatedutc', "$month/$day/".substr($year,2,2)." $hour:$minute:$second" );
+		}
+
 		$this->add_value( 'GPversion', $guild['DBversion'] );
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
 
@@ -1851,7 +1868,7 @@ class wowdb
 	 * @param array $char
 	 * @param array $currentTimestamp
 	 */
-	function update_guild_member( $guildId, $name, $char, $currentTimestamp )
+	function update_guild_member( $guildId, $name, $char, $currentTimestamp, $guildRanks )
 	{
 		$name_escape = $this->escape( $name );
 
@@ -1873,16 +1890,10 @@ class wowdb
 
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'class', $char['Class']);
-
-		if( !empty($char['Level']) )
-			$this->add_value( 'level', $char['Level']);
-
+		$this->add_value( 'level', $char['Level']);
 		$this->add_value( 'note', $char['Note']);
-
-		if( !empty($char['RankIndex']) )
-			$this->add_value( 'guild_rank', $char['RankIndex']);
-
-		$this->add_value( 'guild_title', $char['Rank']);
+		$this->add_value( 'guild_rank', $char['Rank']);
+		$this->add_value( 'guild_title', $guildRanks[$char['Rank']]['Title']);
 		$this->add_value( 'officer_note', $char['OfficerNote']);
 		$this->add_value( 'zone', $char['Zone']);
 		$this->add_value( 'status', $char['Status']);
@@ -1922,7 +1933,7 @@ class wowdb
 		if( $memberId )
 		{
 			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
-			$this->setMessage('<li>Updating member - [ '.$name.' ]</li>');
+			$this->setMessage('<li>[ '.$name.' ]</li>');
 			$this->membersupdated++;
 
 			$result = $this->query($querystr);
@@ -1939,7 +1950,7 @@ class wowdb
 				$this->add_value( 'guild_id', $guildId);
 
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
-			$this->setMessage('<li><span class="green">Adding member - [</span> '.$name.' <span class="green">]</span></li>');
+			$this->setMessage('<li><span class="green">[</span> '.$name.' <span class="green">] - Added</span></li>');
 
 			$result = $this->query($querystr);
 			if( !$result )
@@ -2019,51 +2030,24 @@ class wowdb
 			else
 			{
 				$this->setMessage('<li>Adding pvp2 data for ['.$playerInfo['name'].']</li>');
-				$name = $playerInfo['name'];
-				$race = $playerInfo['race'];
-				$guild = $playerInfo['guild'];
-				$class = $playerInfo['class'];
-				$enemy = $playerInfo['enemy'];
-				$win = $playerInfo['win'];
-				$zone = $playerInfo['zone'];
-				$subzone = $playerInfo['subzone'];
-				$datebattle = $playerInfo['date'];
-				$leveldiff = $playerInfo['lvlDiff'];
-				$bgflag = $playerInfo['bg'];
-				$rank = $playerInfo['rank'];
-				$honor = $playerInfo['honor'];
 
 				$this->reset_values();
-				if( !empty($memberId) )
-					$this->add_value('member_id', $memberId);
-				if( !empty($index) )
-					$this->add_value('index', $index);
-				if( !empty($datebattle) )
-					$this->add_pvp2time('date', $datebattle);
-				if( !empty($name) )
-					$this->add_value('name', $name);
-				if( !empty($guild) )
-					$this->add_value('guild', $guild);
-				if( !empty($race) )
-					$this->add_value('race', $race);
-				if( !empty($class) )
-					$this->add_value('class', $class);
-				if( !empty($zone) )
-					$this->add_value('zone', $zone);
-				if( !empty($subzone) )
-					$this->add_value('subzone', $subzone);
-				if( !empty($leveldiff) )
-					$this->add_value('leveldiff', $leveldiff);
-				if( !empty($enemy) )
-					$this->add_value('enemy', $enemy);
-				if( !empty($win) )
-					$this->add_value('win', $win);
-				if( !empty($bgflag) )
-					$this->add_value('bg', $bgflag);
-				if( !empty($rank) )
-					$this->add_value('rank', $rank);
-				if( !empty($honor) )
-					$this->add_value('honor', $honor);
+				$this->add_value('member_id', $memberId);
+				$this->add_value('index', $index);
+				$this->add_pvp2time('date', $playerInfo['date']);
+				$this->add_value('name', $playerInfo['name']);
+				$this->add_value('guild', $playerInfo['guild']);
+				$this->add_value('realm', $playerInfo['realm']);
+				$this->add_value('race', $playerInfo['race']);
+				$this->add_value('class', $playerInfo['class']);
+				$this->add_value('zone', $playerInfo['zone']);
+				$this->add_value('subzone', $playerInfo['subzone']);
+				$this->add_value('leveldiff', $playerInfo['lvlDiff']);
+				$this->add_value('enemy', $playerInfo['enemy']);
+				$this->add_value('win', $playerInfo['win']);
+				$this->add_value('bg', $playerInfo['bg']);
+				$this->add_value('rank', $playerInfo['rank']);
+				$this->add_value('honor', $playerInfo['honor']);
 
 				$querystr = "INSERT INTO `".ROSTER_PVP2TABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -2243,53 +2227,56 @@ class wowdb
 			if( !empty($data['Slot']) )
 				$this->add_value( 'slot', $data['Slot'] );
 
-			if( !empty($data['Stats']['Intellect']) )
-				$this->add_value( 'stat_int', $data['Stats']['Intellect'] );
-			if( !empty($data['Stats']['Agility']) )
-				$this->add_value( 'stat_agl', $data['Stats']['Agility'] );
-			if( !empty($data['Stats']['Stamina']) )
-				$this->add_value( 'stat_sta', $data['Stats']['Stamina'] );
-			if( !empty($data['Stats']['Strength']) )
-				$this->add_value( 'stat_str', $data['Stats']['Strength'] );
-			if( !empty($data['Stats']['Spirit']) )
-				$this->add_value( 'stat_spr', $data['Stats']['Spirit'] );
+			if( !empty($data['Attributes']['Stats']['Intellect']) )
+				$this->add_value( 'stat_int', $data['Attributes']['Stats']['Intellect'] );
+			if( !empty($data['Attributes']['Stats']['Agility']) )
+				$this->add_value( 'stat_agl', $data['Attributes']['Stats']['Agility'] );
+			if( !empty($data['Attributes']['Stats']['Stamina']) )
+				$this->add_value( 'stat_sta', $data['Attributes']['Stats']['Stamina'] );
+			if( !empty($data['Attributes']['Stats']['Strength']) )
+				$this->add_value( 'stat_str', $data['Attributes']['Stats']['Strength'] );
+			if( !empty($data['Attributes']['Stats']['Spirit']) )
+				$this->add_value( 'stat_spr', $data['Attributes']['Stats']['Spirit'] );
 
-			if( !empty($data['Resists']['Frost']) )
+			if( !empty($data['Attributes']['Resists']['Frost']) )
 			{
-				$resist = explode(':', $data['Resists']['Frost']);
-				$this->add_value( 'res_frost', $resist[1] );
+				$resist = explode(':', $data['Attributes']['Resists']['Frost']);
+				$this->add_value( 'res_frost', $resist[0]+$resist[1]+$resist[2] );
 			}
-			if( !empty($data['Resists']['Arcane']) )
+			if( !empty($data['Attributes']['Resists']['Arcane']) )
 			{
-				$resist = explode(':', $data['Resists']['Arcane']);
-				$this->add_value( 'res_arcane', $resist[1] );
+				$resist = explode(':', $data['Attributes']['Resists']['Arcane']);
+				$this->add_value( 'res_arcane', $resist[0]+$resist[1]+$resist[2] );
 			}
-			if( !empty($data['Resists']['Fire']) )
+			if( !empty($data['Attributes']['Resists']['Fire']) )
 			{
-				$resist = explode(':', $data['Resists']['Fire']);
-				$this->add_value( 'res_fire', $resist[1] );
+				$resist = explode(':', $data['Attributes']['Resists']['Fire']);
+				$this->add_value( 'res_fire', $resist[0]+$resist[1]+$resist[2] );
 			}
-			if( !empty($data['Resists']['Shadow']) )
+			if( !empty($data['Attributes']['Resists']['Shadow']) )
 			{
-				$resist = explode(':', $data['Resists']['Shadow']);
-				$this->add_value( 'res_shadow', $resist[1] );
+				$resist = explode(':', $data['Attributes']['Resists']['Shadow']);
+				$this->add_value( 'res_shadow', $resist[0]+$resist[1]+$resist[2] );
 			}
-			if( !empty($data['Resists']['Nature']) )
+			if( !empty($data['Attributes']['Resists']['Nature']) )
 			{
-				$resist = explode(':', $data['Resists']['Nature']);
-				$this->add_value( 'res_nature', $resist[1] );
+				$resist = explode(':', $data['Attributes']['Resists']['Nature']);
+				$this->add_value( 'res_nature', $resist[0]+$resist[1]+$resist[2] );
 			}
 
 			if( !empty($data['Level']) )
 				$this->add_value( 'level', $data['Level'] );
-			if( !empty($data['Health']) )
-				$this->add_value( 'health', $data['Health'] );
-			if( !empty($data['Mana']) )
-				$this->add_value( 'mana', $data['Mana'] );
-			if( !empty($data['Armor']) )
-				$this->add_value( 'armor', $data['Armor'] );
-			if( !empty($data['Defense']) )
-				$this->add_value( 'defense', $data['Defense'] );
+			if( !empty($data['Attributes']['Health']) )
+				$this->add_value( 'health', $data['Attributes']['Health'] );
+			if( !empty($data['Attributes']['Mana']) )
+				$this->add_value( 'mana', $data['Attributes']['Mana'] );
+			if( !empty($data['Attributes']['Defense']['Armor']) )
+				$this->add_value( 'armor', $data['Attributes']['Defense']['Armor'] );
+			if( !empty($data['Attributes']['Defense']['Defense']) )
+			{
+				$defense = explode(':',$data['Attributes']['Defense']['Defense']);
+				$this->add_value( 'defense', $defense[0]+$defense[1]+$defense[2] );
+			}
 			if( !empty($data['Experience']) )
 				$this->add_value( 'xp', $data['Experience'] );
 			if( !empty($data['TalentPointsUsed']) )
@@ -2301,13 +2288,19 @@ class wowdb
 			if( !empty($data['Loyalty']) )
 				$this->add_value( 'loyalty', $data['Loyalty']);
 			if( !empty($data['Icon']) )
-				$this->add_value( 'icon', str_replace('\\\\','/', $data['Icon']));
+				$this->add_value( 'icon', 'Interface/Icons/'.$data['Icon']);
 
-			$attack = $data['Melee Attack'];
-			if( !empty($attack['AttackPower']) )
-				$this->add_value( 'melee_power', $attack['AttackPower'] );
-			if( !empty($attack['AttackRating']) )
-				$this->add_value( 'melee_rating', $attack['AttackRating'] );
+			$attack = $data['Attributes']['Melee'];
+
+			if( isset($attack['AttackPower']) )
+			{
+				$power = explode(':',$attack['AttackPower']);
+				$this->add_value( 'melee_power', $power[0]+$power[1]+$power[2] );
+				unset($power);
+			}
+
+			if( !empty($attack['AttackSkill']) )
+				$this->add_value( 'melee_rating', $attack['AttackSkill'] );
 			if( !empty($attack['DamageRange']) )
 				$this->add_value( 'melee_range', $attack['DamageRange'] );
 			if( !empty($attack['DamageRangeTooltip']) )
@@ -2348,6 +2341,7 @@ class wowdb
 		//print '<pre>';
 		//print_r( $data );
 		//print '</pre>';
+
 		$name_escape = $this->escape( $name );
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
@@ -2369,9 +2363,6 @@ class wowdb
 			$this->setMessage('<li>'.$name.' is not in the list of guild members so their data will not be inserted.</li>');
 			return;
 		}
-
-		// Expose this for later functions
-		$data['CharName'] = $name;
 
 		// update level in members table
 		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
@@ -2399,129 +2390,128 @@ class wowdb
 		$this->add_value( 'guild_id', $guildId );
 
 		// CRIT, DODGE, MIT, PARRY VALUES FOR WOWROSTER
-		$this->add_value( 'dodge',      ( isset($data['DodgePercent']) ?      $data['DodgePercent'] : 0 ) );
-		$this->add_value( 'parry',      ( isset($data['ParryPercent']) ?      $data['ParryPercent'] : 0 ) );
-		$this->add_value( 'block',      ( isset($data['BlockPercent']) ?      $data['BlockPercent'] : 0 ) );
-		$this->add_value( 'mitigation', ( isset($data['MitigationPercent']) ? $data['MitigationPercent'] : 0 ) );
-		$this->add_value( 'crit',       ( isset($data['CritPercent']) ?       $data['CritPercent'] : 0 ) );
+		$this->add_value( 'dodge',      ( isset($data['Attributes']['Defense']['DodgeChance']) ?    $data['Attributes']['Defense']['DodgeChance'] : 0 ) );
+		$this->add_value( 'parry',      ( isset($data['Attributes']['Defense']['ParryChance']) ?    $data['Attributes']['Defense']['ParryChance'] : 0 ) );
+		$this->add_value( 'block',      ( isset($data['Attributes']['Defense']['BlockChance']) ?    $data['Attributes']['Defense']['BlockChance'] : 0 ) );
+		$this->add_value( 'mitigation', ( isset($data['Attributes']['Defense']['ArmorReduction']) ? $data['Attributes']['Defense']['ArmorReduction'] : 0 ) );
+		$this->add_value( 'crit',       ( isset($data['Attributes']['Melee']['CritChance']) ?       $data['Attributes']['Melee']['CritChance'] : 0 ) );
 
 		// BEGIN HONOR VALUES
 		if( is_array($data['Honor']) )
 		{
 			$honor = $data['Honor'];
 			$this->add_value( 'sessionHK',             $honor['Session']['HK'] );
-			$this->add_value( 'sessionDK',             $honor['Session']['DK'] );
+			$this->add_value( 'sessionCP',             $honor['Session']['CP'] );
+
 			$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
-			$this->add_value( 'yesterdayDK',           $honor['Yesterday']['DK'] );
-			$this->add_value( 'yesterdayContribution', $honor['Yesterday']['Contribution'] );
+			$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
+
 			$this->add_value( 'lastweekHK',            $honor['LastWeek']['HK'] );
-			$this->add_value( 'lastweekDK',            $honor['LastWeek']['DK'] );
-			$this->add_value( 'lastweekContribution',  $honor['LastWeek']['Contribution'] );
+			$this->add_value( 'lastweekContribution',  $honor['LastWeek']['CP'] );
 			$this->add_value( 'lastweekRank',          $honor['LastWeek']['Rank'] );
+
 			$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
-			$this->add_value( 'lifetimeDK',            $honor['Lifetime']['DK'] );
-			$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
+			$this->add_value( 'lifetimeCP',            $honor['Lifetime']['CP'] );
 			$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
+			$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
 
-			$ncc = sscanf($honor['Current']['Description'], '(%s %d)', $st, $RankInt);
-				$this->add_value( 'RankInfo', (int)$RankInt );
-			unset($ncc,$st,$RankInt);
+			$this->add_value( 'RankInfo',              $honor['Current']['Rank'] );
+			$this->add_value( 'RankName',              $honor['Current']['Name'] );
+			$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
+			$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
 
-			$this->add_value( 'RankName', $honor['Current']['Rank'] );
-			$this->add_value( 'RankIcon', str_replace('\\\\','/', $honor['Current']['Icon']) );
-			$this->add_value( 'Rankexp', $honor['Current']['Progress'] );
-			$this->add_value( 'TWContribution', $honor['ThisWeek']['Contribution'] );
-			$this->add_value( 'TWHK', $honor['ThisWeek']['HK'] );
+			$this->add_value( 'TWHK',                  $honor['ThisWeek']['HK'] );
+			$this->add_value( 'TWContribution',        $honor['ThisWeek']['CP'] );
 
 			unset($honor);
 		}
 		// END HONOR VALUES
 
 		// BEGIN STATS
-		if( is_array($data['Stats']) )
+		if( is_array($data['Attributes']['Stats']) )
 		{
-			$main_stats = $data['Stats'];
+			$main_stats = $data['Attributes']['Stats'];
 
 			$stats = explode(':',$main_stats['Intellect']);
 			$this->add_value( 'stat_int', $stats[0] );
-			$this->add_value( 'stat_int_c', $stats[1] );
-			$this->add_value( 'stat_int_b', $stats[2] );
-			$this->add_value( 'stat_int_d', $stats[3] );
+			$this->add_value( 'stat_int_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_int_b', $stats[1] );
+			$this->add_value( 'stat_int_d', $stats[2] );
 
 			$stats = explode(':',$main_stats['Agility']);
 			$this->add_value( 'stat_agl', $stats[0] );
-			$this->add_value( 'stat_agl_c', $stats[1] );
-			$this->add_value( 'stat_agl_b', $stats[2] );
-			$this->add_value( 'stat_agl_d', $stats[3] );
+			$this->add_value( 'stat_agl_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_agl_b', $stats[1] );
+			$this->add_value( 'stat_agl_d', $stats[2] );
 
 			$stats = explode(':',$main_stats['Stamina']);
 			$this->add_value( 'stat_sta', $stats[0] );
-			$this->add_value( 'stat_sta_c', $stats[1] );
-			$this->add_value( 'stat_sta_b', $stats[2] );
-			$this->add_value( 'stat_sta_d', $stats[3] );
+			$this->add_value( 'stat_sta_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_sta_b', $stats[1] );
+			$this->add_value( 'stat_sta_d', $stats[2] );
 
 			$stats = explode(':',$main_stats['Strength']);
 			$this->add_value( 'stat_str', $stats[0] );
-			$this->add_value( 'stat_str_c', $stats[1] );
-			$this->add_value( 'stat_str_b', $stats[2] );
-			$this->add_value( 'stat_str_d', $stats[3] );
+			$this->add_value( 'stat_str_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_str_b', $stats[1] );
+			$this->add_value( 'stat_str_d', $stats[2] );
 
 			$stats = explode(':',$main_stats['Spirit']);
 			$this->add_value( 'stat_spr', $stats[0] );
-			$this->add_value( 'stat_spr_c', $stats[1] );
-			$this->add_value( 'stat_spr_b', $stats[2] );
-			$this->add_value( 'stat_spr_d', $stats[3] );
+			$this->add_value( 'stat_spr_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_spr_b', $stats[1] );
+			$this->add_value( 'stat_spr_d', $stats[2] );
 
-			$stats = explode(':',$main_stats['Armor']);
+			$stats = explode(':',$data['Attributes']['Defense']['Armor']);
 			$this->add_value( 'stat_armor', $stats[0] );
-			$this->add_value( 'stat_armor_c', $stats[1] );
-			$this->add_value( 'stat_armor_b', $stats[2] );
-			$this->add_value( 'stat_armor_d', $stats[3] );
+			$this->add_value( 'stat_armor_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_armor_b', $stats[1] );
+			$this->add_value( 'stat_armor_d', $stats[2] );
 
-			$stats = explode(':',$main_stats['Defense']);
+			$stats = explode(':',$data['Attributes']['Defense']['Defense']);
 			$this->add_value( 'stat_def', $stats[0] );
-			$this->add_value( 'stat_def_c', $stats[1] );
-			$this->add_value( 'stat_def_b', $stats[2] );
-			$this->add_value( 'stat_def_d', $stats[3] );
+			$this->add_value( 'stat_def_c', $stats[0]+$stats[1]+$stats[2] );
+			$this->add_value( 'stat_def_b', $stats[1] );
+			$this->add_value( 'stat_def_d', $stats[2] );
 
 			unset($main_stats,$stats);
 		}
 		// END STATS
 
 		// BEGIN RESISTS
-		if( is_array($data['Resists']) )
+		if( is_array($data['Attributes']['Resists']) )
 		{
-			$main_res = $data['Resists'];
+			$main_res = $data['Attributes']['Resists'];
 
 			$resist = explode(':',$main_res['Frost']);
 			$this->add_value( 'res_frost', $resist[0] );
-			$this->add_value( 'res_frost_c', $resist[1] );
-			$this->add_value( 'res_frost_b', $resist[2] );
-			$this->add_value( 'res_frost_d', $resist[3] );
+			$this->add_value( 'res_frost_c', $resist[0]+$resist[1]+$resist[2] );
+			$this->add_value( 'res_frost_b', $resist[1] );
+			$this->add_value( 'res_frost_d', $resist[2] );
 
 			$resist = explode(':',$main_res['Arcane']);
 			$this->add_value( 'res_arcane', $resist[0] );
-			$this->add_value( 'res_arcane_c', $resist[1] );
-			$this->add_value( 'res_arcane_b', $resist[2] );
-			$this->add_value( 'res_arcane_d', $resist[3] );
+			$this->add_value( 'res_arcane_c', $resist[0]+$resist[1]+$resist[2] );
+			$this->add_value( 'res_arcane_b', $resist[1] );
+			$this->add_value( 'res_arcane_d', $resist[2] );
 
 			$resist = explode(':',$main_res['Fire']);
 			$this->add_value( 'res_fire', $resist[0] );
-			$this->add_value( 'res_fire_c', $resist[1] );
-			$this->add_value( 'res_fire_b', $resist[2] );
-			$this->add_value( 'res_fire_d', $resist[3] );
+			$this->add_value( 'res_fire_c', $resist[0]+$resist[1]+$resist[2] );
+			$this->add_value( 'res_fire_b', $resist[1] );
+			$this->add_value( 'res_fire_d', $resist[2] );
 
 			$resist = explode(':',$main_res['Shadow']);
 			$this->add_value( 'res_shadow', $resist[0] );
-			$this->add_value( 'res_shadow_c', $resist[1] );
-			$this->add_value( 'res_shadow_b', $resist[2] );
-			$this->add_value( 'res_shadow_d', $resist[3] );
+			$this->add_value( 'res_shadow_c', $resist[0]+$resist[1]+$resist[2] );
+			$this->add_value( 'res_shadow_b', $resist[1] );
+			$this->add_value( 'res_shadow_d', $resist[2] );
 
 			$resist = explode(':',$main_res['Nature']);
 			$this->add_value( 'res_nature', $resist[0] );
-			$this->add_value( 'res_nature_c', $resist[1] );
-			$this->add_value( 'res_nature_b', $resist[2] );
-			$this->add_value( 'res_nature_d', $resist[3] );
+			$this->add_value( 'res_nature_c', $resist[0]+$resist[1]+$resist[2] );
+			$this->add_value( 'res_nature_b', $resist[1] );
+			$this->add_value( 'res_nature_d', $resist[2] );
 
 			unset($main_res,$resist);
 		}
@@ -2535,14 +2525,20 @@ class wowdb
 		$this->add_value( 'money_s', $data['Money']['Silver'] );
 		$this->add_value( 'money_g', $data['Money']['Gold'] );
 
-		$this->add_value( 'exp', $data['XP'] );
+		$this->add_value( 'exp', $data['Experience'] );
 		$this->add_value( 'race', $data['Race'] );
 		$this->add_value( 'class', $data['Class'] );
-		$this->add_value( 'health', $data['Health'] );
-		$this->add_value( 'mana', $data['Mana'] );
+		$this->add_value( 'health', $data['Attributes']['Health'] );
+		$this->add_value( 'mana', $data['Attributes']['Mana'] );
 		$this->add_value( 'sex', $data['Sex'] );
 		$this->add_value( 'hearth', $data['Hearth'] );
-		$this->add_value( 'dateupdatedutc', $data['DateUTC'] );
+
+		if( !empty($data['timestamp']['init']['DateUTC']) )
+		{
+			list($year,$month,$day,$hour,$minute,$second) = sscanf($data['timestamp']['init']['DateUTC'],"%s-%s-%s %s:%s:%s");
+			$this->add_value( 'dateupdatedutc', "$month/$day/".substr($year,2,2)." $hour:$minute:$second" );
+		}
+
 		$this->add_value( 'CPversion', $data['DBversion'] );
 
 		if ($data['TimePlayed'] < 0 )
@@ -2564,16 +2560,21 @@ class wowdb
 		}
 
 		// Capture mailbox update time/date
-		$this->add_value( 'maildateutc', $data['MailDateUTC'] );
+		if( isset($data['timestamp']['MailBox']) )
+			$this->add_value( 'maildateutc', date('m/d/y H:i:s',$data['timestamp']['MailBox']) );
 
-		if( is_array($data['Melee Attack']) )
+		if( is_array($data['Attributes']['Melee']) )
 		{
-			$attack = $data['Melee Attack'];
+			$attack = $data['Attributes']['Melee'];
 
 			if( isset($attack['AttackPower']) )
-				$this->add_value( 'melee_power', $attack['AttackPower'] );
+			{
+				$power = explode(':',$attack['AttackPower']);
+				$this->add_value( 'melee_power', $power[0]+$power[1]+$power[2] );
+				unset($power);
+			}
 			if( isset($attack['AttackRating']) )
-				$this->add_value( 'melee_rating', $attack['AttackRating'] );
+				$this->add_value( 'melee_rating', $attack['AttackSkill'] );
 			if( isset($attack['DamageRange']) )
 				$this->add_value( 'melee_range', $attack['DamageRange'] );
 			if( isset($attack['DamageRangeTooltip']) )
@@ -2583,14 +2584,18 @@ class wowdb
 			unset($attack);
 		}
 
-		if( is_array($data['Ranged Attack']) )
+		if( is_array($data['Attributes']['Ranged']) )
 		{
-			$attack = $data['Ranged Attack'];
+			$attack = $data['Attributes']['Ranged'];
 
 			if( isset($attack['AttackPower']) )
-				$this->add_value( 'ranged_power', $attack['AttackPower'] );
+			{
+				$power = explode(':',$attack['AttackPower']);
+				$this->add_value( 'ranged_power', $power[0]+$power[1]+$power[2] );
+				unset($power);
+			}
 			if( isset($attack['AttackRating']) )
-				$this->add_value( 'ranged_rating', $attack['AttackRating'] );
+				$this->add_value( 'ranged_rating', $attack['AttackSkill'] );
 			if( isset($attack['DamageRange']) )
 				$this->add_value( 'ranged_range', $attack['DamageRange'] );
 			if( isset($attack['DamageRangeTooltip']) )
@@ -2599,8 +2604,6 @@ class wowdb
 				$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
 			unset($attack);
 		}
-
-		unset($attack);
 
 		// Capture client language
 		$this->add_value( 'clientLocale', $data['Locale'] );

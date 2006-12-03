@@ -144,7 +144,7 @@ class char
 		if( isset( $quests[0] ) )
 		{
 			$zone = '';
-			$returnstring .= border('sgray','start',$wordings[$lang]['questlog'].' ('.count($quests).'/20)').
+			$returnstring .= border('sgray','start',$wordings[$lang]['questlog'].' ('.count($quests).'/25)').
 				'<table class="bodyline" cellspacing="0" cellpadding="0">';
 
 			foreach ($quests as $quest)
@@ -737,13 +737,13 @@ $returnstring .= '  <tr>
 			}
 
 			// Start Warlock Pet Icon Mod
-			$imp = 'Interface\\Icons\\Spell_Shadow_SummonImp';
-			$void = 'Interface\\Icons\\Spell_Shadow_SummonVoidWalker';
-			$suc = 'Interface\\Icons\\Spell_Shadow_SummonSuccubus';
-			$fel = 'Interface\\Icons\\Spell_Shadow_SummonFelHunter';
-			$inferno = 'Interface\\Icons\\Spell_Shadow_SummonInfernal';
+			$imp = 'Interface/Icons/Spell_Shadow_SummonImp';
+			$void = 'Interface/Icons/Spell_Shadow_SummonVoidWalker';
+			$suc = 'Interface/Icons/Spell_Shadow_SummonSuccubus';
+			$fel = 'Interface/Icons/Spell_Shadow_SummonFelHunter';
+			$inferno = 'Interface/Icons/Spell_Shadow_SummonInfernal';
 
-			$iconStyle='cursor: pointer; position: absolute; left: '.$left.'px; top: '.$top.'px;';
+			$iconStyle='cursor:pointer;position:absolute;left:'.$left.'px;top:'.$top.'px;';
 
 			if ($row['type'] == $wordings[$lang]['Imp'])
 				$row['icon'] = $imp;
@@ -761,16 +761,20 @@ $returnstring .= '  <tr>
 				$row['icon'] = $inferno;
 			// End Warlock Pet Icon Mod
 
-			if ($row['icon'] == "" || !isset($row['icon']))
-				$row['icon'] = "unknownIcon.gif";
+			if ($row['icon'] == '' || !isset($row['icon']))
+			{
+				$row['icon'] = 'Interface/Icons/INV_Misc_QuestionMark';
+			}
 			else
+			{
 				$row['icon'] .= '.'.$roster_conf['img_suffix'];
+			}
 
-			$icons			.= '<img src="'.$roster_conf['interface_url'].$row['icon'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
+			$icons			.= '<img src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
 			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';
 			$petTitle		.= '<span class="petName" style="top: 30px; left: 95px; display: none;" id="pet_title'.$petNum.'">'.$wordings[$lang]['level'].' '.$row['level'].' ' . stripslashes($row['type']).'</span>';
 			$loyalty		.= '<span class="petName" style="top: 50px; left: 95px; display: none;" id="pet_loyalty'.$petNum.'">'.$row['loyalty'].'</span>';
-			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 35px; top: 10px; width: 55px; height: 60px; display: none;" src="'.$roster_conf['interface_url'].$row['icon'].'" alt="" />';
+			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 35px; top: 10px; width: 55px; height: 60px; display: none;" src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" />';
 			$resistances	.= '<div  class="pet_resistance" id="pet_resistances'.$petNum.'">
 				<ul>
 					<li class="pet_fire"><span class="white">'.$row['res_fire'].'</span></li>
@@ -1165,7 +1169,7 @@ $returnstring .= '  <tr>
 	    <td>
 	      <table>';
 
-					while( $r < 7 )
+					while( $r < 9 )
 					{
 						$r++;
 
@@ -1306,7 +1310,7 @@ $returnstring .= '  <tr>
 		global $roster_conf, $wowdb, $wordings;
 
 		$lang = $this->data['clientLocale'];
-
+/*
 		$honorxp_percent = $this->data['Rankexp'];;
 
 		$honorbarpixelwidth = floor(381 * ( $honorxp_percent / 100) );
@@ -1333,21 +1337,21 @@ $returnstring .= '  <tr>
 		$RankIcondata = $this->data['RankIcon'];
 
 		if ($RankIcondata == NULL)
-		{
+		{*/
 			$output = '<div class="honortitleoff"></div>';
-		}
+		/*}
 		else
 		{
 			$RankName = $this->data['RankName'];
 			$output = '<div class="honortitle"><img src="'.$roster_conf['img_url'].'expbar-var2.gif" alt="" class="honor_bit" width="'.$honorbarpixelwidth.'" />'.$honorxp_percent_word.' '.$Badge.' '.$RankName.' ('.$wordings[$lang]['rank'].' '.$RankInfo.')</div>'."\n";
 		}
-
+*/
 		// Today
 		$output .= '<div class="today">'.$wordings[$lang]['today'].'</div>'."\n";
 		$output .= '<div class="honortext0_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
 		$output .= '<div class="honortext0">'.$this->data['sessionHK'].'</div>'."\n";
-		$output .= '<div class="honortext1_">'.$wordings[$lang]['dishonorkills'].'</div>'."\n";
-		$output .= '<div class="honortext1">'.$this->data['sessionDK'].'</div>'."\n";
+		$output .= '<div class="honortext1_">'.$wordings[$lang]['honor'].'</div>'."\n";
+		$output .= '<div class="honortext1">'.$this->data['sessionCP'].'</div>'."\n";
 
 		// Yesterday
 		$output .= '<div class="yesterday">'.$wordings[$lang]['yesterday'].'</div>'."\n";
@@ -1369,15 +1373,15 @@ $returnstring .= '  <tr>
 		$output .= '<div class="honortext6">'.$this->data['lastweekHK'].'</div>'."\n";
 		$output .= '<div class="honortext7_">'.$wordings[$lang]['honor'].'</div>'."\n";
 		$output .= '<div class="honortext7">'.$this->data['lastweekContribution'].'</div>'."\n";
-		$output .= '<div class="honortext8_">'.$wordings[$lang]['standing'].'</div>'."\n";
-		$output .= '<div class="honortext8">'.$this->data['lastweekRank'].'</div>'."\n";
+		$output .= '<div class="honortext8_">'./*$wordings[$lang]['standing'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext8">'./*$this->data['lastweekRank'].*/'&nbsp;</div>'."\n";
 
 		// Lifetime
 		$output .= '<div class="alltime">'.$wordings[$lang]['alltime'].'</div>'."\n";
 		$output .= '<div class="honortext9_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
 		$output .= '<div class="honortext9">'.$this->data['lifetimeHK'].'</div>'."\n";
-		$output .= '<div class="honortext10_">'.$wordings[$lang]['dishonorkills'].'</div>'."\n";
-		$output .= '<div class="honortext10">'.$this->data['lifetimeDK'].'</div>'."\n";
+		$output .= '<div class="honortext10_">'.$wordings[$lang]['honor'].'</div>'."\n";
+		$output .= '<div class="honortext10">'.$this->data['lifetimeCP'].'</div>'."\n";
 		$output .= '<div class="honortext11_">'.$wordings[$lang]['highestrank'].'</div>'."\n";
 		$output .= '<div class="honortext11">'.$this->data['lifetimeRankName'].'</div>'."\n";
 
@@ -1416,15 +1420,7 @@ if( $roster_conf['show_talents'] )
 <div class="char" id="char"><!-- Begin char -->
   <div class="main"><!-- Begin char-main -->
     <div class="top" id="top"><!-- Begin char-main-top -->
-<?php
-
-if( $this->data['RankName'] == $wordings[$lang]['PvPRankNone'] )
-	$RankName = '';
-else
-	$RankName = $this->data['RankName'].' ';
-
-?>
-      <div class="headline_1"><?php print ($RankName.$this->data['name']); ?></div>
+      <div class="headline_1"><?php print $this->data['name']; ?></div>
       <div class="headline_2">Level <?php print ($this->data['level'].' - '.$this->data['sex'].' '.$this->data['race'].' '.$this->data['class']); ?></div>
 <?php
 
@@ -1945,7 +1941,7 @@ function dumpBonuses($char, $server)
 	$result = $wowdb->query($qry) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry);
 	while($row = $wowdb->fetch_array($result))
 	{
-		sortOutTooltip($row['item_tooltip'], $row['item_name'], substr($row['item_color'], 2, 6),$row['clientLocale'] );
+		sortOutTooltip($row['item_tooltip'], $row['item_name'], ( (strlen($row['item_color']) > 6) ? substr($row['item_color'], 2, 6) : $row['item_color'] ),$row['clientLocale'] );
 	}
 
 	$wowdb->data_seek($result, 0);

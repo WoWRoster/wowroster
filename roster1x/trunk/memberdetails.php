@@ -96,7 +96,7 @@ foreach( $disp_array as $global_setting => $user_setting )
 }
 
 
-$url = '<a href="?name='.$name.'&amp;server='.$server;
+$url = '<a href="?name='.urlencode($name).'&amp;server='.urlencode($server);
 
 $menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
 
@@ -230,6 +230,10 @@ switch ($action)
 			$bag6 = bag_get( $char, 'Bank Bag6' );
 			if( !is_null( $bag6 ) )
 				echo $bag6->out();
+
+			$bag7 = bag_get( $char, 'Bank Bag7' );
+			if( !is_null( $bag7 ) )
+				echo $bag7->out();
 		}
 		break;
 

@@ -319,6 +319,7 @@ $wordings['frFR']['crit'] = 'Crit';
 $wordings['frFR']['dodge'] = 'Esquive';
 $wordings['frFR']['parry'] = 'Parade';
 $wordings['frFR']['block'] = 'Bloquer';
+$wordings['frFR']['realm'] = 'Realm';
 
 // Memberlog
 $wordings['frFR']['memberlog'] = 'Journal';
@@ -460,7 +461,7 @@ $wordings['frFR']['tab2']='Pet';
 $wordings['frFR']['tab3']='Rep';
 $wordings['frFR']['tab4']='Comp';
 $wordings['frFR']['tab5']='Talents';
-$wordings['frFR']['tab6']='Honneur';
+$wordings['frFR']['tab6']='JcJ';
 
 $wordings['frFR']['strength']='Force';
 $wordings['frFR']['strength_tooltip']='Augmente la puissance d\'attaque avec arme de mêlée.<br />Augmente le nombre de points de dégâts bloqués par le bouclier.';
@@ -516,12 +517,11 @@ $wordings['frFR']['hslist']=' Stats du Système d\'Honneur';
 $wordings['frFR']['hslist1']='Membre le mieux classé cette semaine';
 $wordings['frFR']['hslist2']='Membre ayant la meilleur constance';
 $wordings['frFR']['hslist3']='Membre ayant le plus de VH la semaine dernière';
-$wordings['frFR']['hslist4']='Membre ayant le plus de VD la semaine dernière';
-$wordings['frFR']['hslist5']='Membre ayant obtenu le plus d\'expérience la semaine dernière';
-$wordings['frFR']['hslist6']='Membre le mieux classé';
-$wordings['frFR']['hslist7']='Membre ayant le plus de VH';
-$wordings['frFR']['hslist8']='Membre ayant le plus de VD';
-$wordings['frFR']['hslist9']='Membre ayant le meilleur rapport VH/Exp la semaine dernière';
+$wordings['frFR']['hslist4']='Membre ayant obtenu le plus d\'expérience la semaine dernière';
+$wordings['frFR']['hslist5']='Membre le mieux classé';
+$wordings['frFR']['hslist6']='Membre ayant le plus de VH';
+$wordings['frFR']['hslist7']='Membre ayant le plus de CP';
+$wordings['frFR']['hslist8']='Membre ayant le meilleur rapport VH/Exp la semaine dernière';
 
 $wordings['frFR']['Druid']='Druide';
 $wordings['frFR']['Hunter']='Chasseur';

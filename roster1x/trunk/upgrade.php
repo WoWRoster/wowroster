@@ -64,7 +64,7 @@ include_once($roster_root_path.'conf.php');
 include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
 
 $DEFAULTS = array(
-	'version'        => '1.7.1',
+	'version'        => '1.7.2',
 );
 
 // ---------------------------------------------------------
@@ -149,7 +149,7 @@ if( $version >= $DEFAULTS['version'] )
 
 class Upgrade
 {
-	var $versions = array('1.6.0','1.7.0');
+	var $versions = array('1.6.0','1.7.0','1.7.1');
 	var $messages;
 
 
@@ -199,6 +199,30 @@ class Upgrade
 	//--------------------------------------------------------------
 	// Upgrade methods
 	//--------------------------------------------------------------
+
+	function upgrade_171($index)
+	{
+		global $wowdb, $roster_root_path, $db_prefix;
+
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_171.sql';
+
+		// Parse structure file and create database tables
+		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
+		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+
+		$sql = remove_remarks($sql);
+		$sql = parse_sql($sql, ';');
+
+		$sql_count = count($sql);
+		for ( $i = 0; $i < $sql_count; $i++ )
+		{
+			$wowdb->query($sql[$i]);
+		}
+		unset($sql);
+
+		$this->finalize($index);
+	}
+
 
 	function upgrade_170($index)
 	{

@@ -70,92 +70,91 @@ $uploadFound = false;
 $uploadData = null;
 
 
-if (is_array($_FILES))
+if( is_array($_FILES) && !empty($_FILES) )
 {
 	$uploadFound = true;
 
 	$parseMessages = 'Parsing files'."<br />\n".'<ul>';
 
 	// Loop through each posted file
-	foreach ($_FILES as $filefield => $file)
+	foreach( $_FILES as $filefield => $file )
 	{
-		$filename = $file['tmp_name'];
-		$filemode = '';
-
-		if( substr_count($file['name'],'.gz') > 0 )	// If the file is gzipped
+		if( !empty($file['name']) )
 		{
-			$filemode = 'gz';
-		}
+			$file_name=$file_ext=$file_gzip=$temp_file_name=$temp_file_ext='';
 
-		$filebase = explode('.',$file['name'])[0];
-		if (in_array(strtolower($filebase),$filefields))
-		{
-			// Filefield is 1 of the kind we accept.
-			if( $roster_conf['authenticated_user'] )
+			list( $file_name, $file_ext, $file_gzip ) = explode('.',$file['name']);
+			list( $temp_file_name, $temp_file_ext )   = explode('.',$file['tmp_name']);
+
+			if( in_array(strtolower($file_name),$filefields) )
 			{
-				// Get start of parse time
-				$parse_starttime = explode(' ', microtime() );
-				$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
-
-				// Parse the lua file into a php array that we can use
-				$data = ParseLuaFile( $filename , $filemode );
-
-				// Calculate parse time
-				$parse_endtime = explode(' ', microtime() );
-				$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
-				$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
-
-				if( $data )
+				// Filefield is 1 of the kind we accept.
+				if( $roster_conf['authenticated_user'] )
 				{
-					$parseMessages .= '<li>Parsed '.$file['name'].' in '.$parse_totaltime.' seconds</li>'."\n";
-				}
-				else
-				{
-					$parseMessages .= '<li>Error while parsing '.$file['name'].' after '.$parse_totaltime.' seconds</li>'."\n";
-				}
+					// Get start of parse time
+					$parse_starttime = explode(' ', microtime() );
+					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
-				// If pvp data is there, assign it to $uploadData['PvpLogData']
-				if( isset($data['PurgeLogData']) )
-				{
-					$uploadData['PvpLogData'] = $data;
-				}
+					// Parse the lua file into a php array that we can use
+					$data = ParseLuaFile( $file['tmp_name'] , $file_gzip );
 
-				// If CP data is there, assign it to $uploadData['myProfile']
-				if( isset($data['myProfile']) )
-				{
-					$uploadData['myProfile'] = $data['myProfile'];
-				}
+					// Calculate parse time
+					$parse_endtime = explode(' ', microtime() );
+					$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
+					$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
 
-				// If CT_RaidTracker data is there, assign it to $uploadData['RaidTrackerData']
-				if( isset($data['CT_RaidTracker_Options']) )
-				{
-					$uploadData['RaidTrackerData'] = $data['CT_RaidTracker_RaidLog'];
-				}
+					if( $data )
+					{
+						$parseMessages .= '<li>Parsed '.$file_name.' in '.$parse_totaltime.' seconds</li>'."\n";
+					}
+					else
+					{
+						$parseMessages .= '<li>Error while parsing '.$file_name.' after '.$parse_totaltime.' seconds</li>'."\n";
+					}
 
-				// If Bookworm data is there, assign it to $uploadData['Bookworm']
-				if( isset($data['BookwormBooks']) )
-				{
-					$uploadData['BookwormBooks'] = $data['BookwormBooks'];
-				}
+					// If pvp data is there, assign it to $uploadData['PvpLogData']
+					if( isset($data['PurgeLogData']) )
+					{
+						$uploadData['PvpLogData'] = $data;
+					}
 
-				// If GuildEventManager2 data is there, assign it to $uploadData['GuildEventManagerData']
-				if( isset($data['GEM_Events']) )
-				{
-					$uploadData['GuildEventManagerData'] = $data['GEM_Events'];
-				}
+					// If CP data is there, assign it to $uploadData['myProfile']
+					if( isset($data['myProfile']) )
+					{
+						$uploadData['myProfile'] = $data['myProfile'];
+					}
 
-				// If GroupCalendar data is there, assign it to $uploadData['GroupCalenderData']
-				if( isset($data['gGroupCalendar_Database']) )
-				{
-					$uploadData['GroupCalendarData'] = $data['gGroupCalendar_Database'];
+					// If CT_RaidTracker data is there, assign it to $uploadData['RaidTrackerData']
+					if( isset($data['CT_RaidTracker_Options']) )
+					{
+						$uploadData['RaidTrackerData'] = $data['CT_RaidTracker_RaidLog'];
+					}
+
+					// If Bookworm data is there, assign it to $uploadData['Bookworm']
+					if( isset($data['BookwormBooks']) )
+					{
+						$uploadData['BookwormBooks'] = $data['BookwormBooks'];
+					}
+
+					// If GuildEventManager2 data is there, assign it to $uploadData['GuildEventManagerData']
+					if( isset($data['GEM_Events']) )
+					{
+						$uploadData['GuildEventManagerData'] = $data['GEM_Events'];
+					}
+
+					// If GroupCalendar data is there, assign it to $uploadData['GroupCalenderData']
+					if( isset($data['gGroupCalendar_Database']) )
+					{
+						$uploadData['GroupCalendarData'] = $data['gGroupCalendar_Database'];
+					}
+					// Clear the $data variable
+					unset($data);
 				}
-				// Clear the $data variable
-				unset($data);
 			}
-		}
-		else
-		{
-			$parseMessages .= '<li>Did not accept '.$file['name'].'</li>'."\n";
+			else
+			{
+				$parseMessages .= '<li>Did not accept '.$file['name'].'</li>'."\n";
+			}
 		}
 		@unlink($filename);	// Done with the file, we don't need it anymore
 	}
@@ -229,52 +228,49 @@ function processMyProfile($myProfile)
 
 	foreach( array_keys( $myProfile ) as $realm_name )
 	{
-		$realm = $myProfile[$realm_name];
-		foreach( array_keys( $realm ) as $char_name )
+		if( $roster_conf['server_name'] == $realm_name )
 		{
-			if ($char_name != 'Guild')
+			$guildInfo = $wowdb->get_guild_info($realm_name,$roster_conf['guild_name']);
+
+			if( $guildInfo )
 			{
-				if ($roster_conf['server_name'] == $realm_name)
+				$characters = $myProfile[$realm_name]['Characters'];
+				foreach( array_keys( $characters ) as $char_name )
 				{
-					$guildInfo = $wowdb->get_guild_info($realm_name,$roster_conf['guild_name']);
+					$char = $characters[$char_name];
 
-					if ($guildInfo)
+					// CP Version Detection, don't allow lower than minVer
+					if( $char['DBversion'] >= $roster_conf['minCPver'] )
 					{
-						$char = $realm[$char_name];
+						$output .= "<strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
 
-						// CP Version Detection, don't allow lower than minVer
-						if( $char['DBversion'] >= $roster_conf['minCPver'] )
+						$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
+						$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
+						$wowdb->resetMessages();
+
+						// Start update triggers
+						if( $roster_conf['use_update_triggers'] )
 						{
-							$output .= "<strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
-
-							$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
-							$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
-							$wowdb->resetMessages();
-
-							// Start update triggers
-							if( $roster_conf['use_update_triggers'] )
-							{
-								$output .= start_update_trigger($char_name,'char');
-							}
-						}
-						else // CP Version not new enough
-						{
-							$output .= "<span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
-							$output .= "Data is from CharacterProfiler v".$char['DBversion']."<br />\n";
-							$output .= $wordings[$roster_conf['roster_lang']]['CPver_err']."\n";
+							$output .= start_update_trigger($char_name,'char');
 						}
 					}
-					else
+					else // CP Version not new enough
 					{
-						$output .= $wordings[$roster_conf['roster_lang']]['noGuild'];
+						$output .= "<span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
+						$output .= "Data is from CharacterProfiler v".$char['DBversion']."<br />\n";
+						$output .= $wordings[$roster_conf['roster_lang']]['CPver_err']."\n";
 					}
-				}
-				else
-				{
-					$output .= $char_name.' @ '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
+					$output .= "<br />\n";
 				}
 			}
-			$output .= "<br />\n";
+			else
+			{
+				$output .= $wordings[$roster_conf['roster_lang']]['noGuild'];
+			}
+		}
+		else
+		{
+			$output .= 'Realm: '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
 		}
 	}
 	return $output;
@@ -294,70 +290,79 @@ function processGuildRoster($myProfile)
 			if( $realm_name == $roster_conf['server_name'])
 			{
 				$realm = $myProfile[$realm_name];
-				$guild = $realm['Guild'];
-				if( is_array($guild) )
+
+				if( isset($realm['Guild']) && is_array($realm['Guild']) )
 				{
-					$guildName = $guild['Guild'];
-					// Only allow the guild specified in config
-					if( $roster_conf['guild_name'] == $guildName )
+					foreach( array_keys($realm['Guild']) as $guild_name )
 					{
-						// GP Version Detection, don't allow lower than minVer
-						if( $guild['DBversion'] >= $roster_conf['minGPver'] )
+						// Only allow the guild specified in config
+						if( $roster_conf['guild_name'] == $guild_name )
 						{
-							// make hour between 0 and 23 and minute between 0 and 60
-							$guildHour= intval($guild['Hour']);
-							$guildMinute= intval($guild['Minute']);
+							$guild = $realm['Guild'][$guild_name];
 
-							// take the current time and get the offset. Upload must occur same day that roster was obtained
-							$currentTimestamp = mktime($guildHour,$guildMinute,0);
-							$currentTime = getDate($currentTimestamp);
-
-							// Update the guild
-							$guildId = $wowdb->update_guild($realm_name, $guildName, $currentTime, $guild);
-							$guildMembers = $guild['Members'];
-
-							// update the list of guild members
-							$guild_output = '';
-							foreach(array_keys($guildMembers) as $char_name)
+							// GP Version Detection, don't allow lower than minVer
+							if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 							{
-								$char = $guildMembers[$char_name];
-								$wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp);
-								$guild_output .= $wowdb->getMessages();
+								// make hour between 0 and 23 and minute between 0 and 60
+								list($guildHour,$guildMinute) = explode(':',$guild['timestamp']['init']['ServerTime']);
+
+								// take the current time and get the offset. Upload must occur same day that roster was obtained
+								$currentTimestamp = mktime($guildHour,$guildMinute,0);
+								$currentTime = getDate($currentTimestamp);
+
+								// Update the guild
+								$guildId = $wowdb->update_guild($realm_name, $guild_name, $currentTime, $guild);
+								$guildMembers = $guild['Members'];
+
+								// update the list of guild members
+								$guild_output = "<li><strong>Updating Members</strong>\n<ul>\n";
+								foreach(array_keys($guildMembers) as $char_name)
+								{
+									$char = $guildMembers[$char_name];
+									$wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $guild['Ranks']);
+									$guild_output .= $wowdb->getMessages();
+									$wowdb->resetMessages();
+
+									// Start update triggers
+									if( $roster_conf['use_update_triggers'] )
+									{
+										$guild_output .= start_update_trigger($char_name,'guild');
+									}
+								}
+								// Remove the members who were not in this list
+								$wowdb->remove_guild_members($guildId, $currentTime);
+								$wowdb->remove_guild_members_id($guildId);
+
+								$guild_output .= $wowdb->getMessages()."</ul></li>\n";
 								$wowdb->resetMessages();
 
-								// Start update triggers
-								if( $roster_conf['use_update_triggers'] )
-								{
-									$guild_output .= start_update_trigger($char_name,'guild');
-								}
+								$guild_output .= "</ul>\n";
+								$output .= "<strong>Updating Guild [<span class=\"orange\">$guild_name</span>]</strong>\n<ul>\n";
+								$output .= "<li><strong>Member Log</strong>\n<ul>\n".
+									"<li>Updated: ".$wowdb->membersupdated."</li>\n".
+									"<li>Added: ".$wowdb->membersadded."</li>\n".
+									"<li>Removed: ".$wowdb->membersremoved."</li>\n".
+									"</ul>\n<br />\n";
+								$output .= $guild_output;
 							}
-							// Remove the members who were not in this list
-							$wowdb->remove_guild_members($guildId, $currentTime);
-							$wowdb->remove_guild_members_id($guildId);
-
-							$guild_output .= $wowdb->getMessages();
-							$wowdb->resetMessages();
-							$guild_output .= "</ul>\n";
-							$output .= "<strong>Updating Guild [<span class=\"orange\">$guildName</span>]</strong>\n<ul>\n";
-							$output .= "<li><strong>Member Log</strong></li>\n<ul>\n".
-								"<li>Updated: ".$wowdb->membersupdated."</li>\n".
-								"<li>Added: ".$wowdb->membersadded."</li>\n".
-								"<li>Removed: ".$wowdb->membersremoved."</li>\n".
-								"</ul>\n<br />\n";
-							$output .= $guild_output;
+							else
+							// GP Version not new enough
+							{
+								$output .= "<span class=\"red\">NOT Updating Guild list for $guild_name</span><br />\n";
+								$output .= "Data is from GuildProfiler v".$guild['DBversion']."<br />\n";
+								$output .= $wordings[$roster_conf['roster_lang']]['GPver_err']."<br />\n";
+							}
 						}
 						else
-						// GP Version not new enough
 						{
-							$output .= "<span class=\"red\">NOT Updating Guild list for $guildName</span><br />\n";
-							$output .= "Data is from GuildProfiler v".$guild['DBversion']."<br />\n";
-							$output .= $wordings[$roster_conf['roster_lang']]['GPver_err']."<br />\n";
+							$output .= 'Guild: '.$guild_name.' @ Server: '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
 						}
 					}
-					else
+					if( !isset($guild) )
 					{
-						$output .= sprintf($wordings[$roster_conf['roster_lang']]['guild_nameNotFound'],$guildName)."<br />\n";
+						$output .= sprintf($wordings[$roster_conf['roster_lang']]['guild_nameNotFound'],$guild_name)."<br />\n";
 					}
+
 				}
 				else
 				{
@@ -366,7 +371,7 @@ function processGuildRoster($myProfile)
 			}
 			else
 			{
-				$output .= $myProfile[$realm_name]['Guild']['Guild'].' @ '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
+				$output .= 'Server: '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
 			}
 		}
 	}
@@ -528,33 +533,6 @@ $bookwormInputField
 		print '<input type="submit" name="download" value="Save Update Log" />'."\n";
 		print '</form>';
 		print "<br />\n";
-
-
-		// Print the SQL Messages
-		if( $roster_conf['sqldebug'] )
-		{
-			print
-			'<div id="sqlDebugCol" style="display:inline;">
-				'.border('sgray','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />SQL Queries</div>").'
-				'.border('sgray','end').'
-			</div>
-			<div id="sqlDebug" style="display:none">
-			'.border('sgreen','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('sqlDebugCol','sqlDebug')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />SQL Queries</div>").'
-			<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:560px;overflow:auto;">'.
-				nl2br($sqlstringout).
-			'</div>
-			'.border('sgreen','end').
-			'</div>';
-
-
-			// Print the downloadable sql separately so we can generate a download
-			print "<br />\n";
-			print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
-			print '<input type="hidden" name="data" value="'.htmlspecialchars($sqlstringout).'" />'."\n";
-			print '<input type="hidden" name="send_file" value="sql" />'."\n";
-			print '<input type="submit" name="download" value="Save SQL Log" />'."\n";
-			print '</form>';
-		}
 	}
 	else
 	{

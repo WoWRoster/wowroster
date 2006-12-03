@@ -130,7 +130,7 @@ if ( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 
 // System defaults / available database abstraction layers
 $DEFAULTS = array(
-	'version'        => '1.7.1',
+	'version'        => '1.7.2',
 	'default_locale' => 'enUS',
 	'db_prefix'      => 'roster_',
 	'dbal'           => 'mysql',
@@ -194,7 +194,7 @@ function process_step1()
 
 	$tpl = new Template_Wrap('install_step1.html','install_header.html','install_tail.html');
 
-/* DISABLED
+
     //
     // Check to make sure conf.php exists and is readable / writeable
     //
@@ -203,7 +203,7 @@ function process_step1()
     {
         if ( !@touch($config_file) )
         {
-            $tpl->error_append('The <b>conf.php</b> file does not exist and could not be created in Roster\'s root folder.<br />You must create this file and enable write access on your server before proceeding.');
+            $tpl->message_append('The <b>conf.php</b> file does not exist and could not be created in Roster\'s root folder.<br />Although not critical, you should create this file and enable write access before proceeding.<br />If conf.php is not writable, you will be promtped to download this file, then upload it to your server.');
         }
         else
         {
@@ -216,7 +216,7 @@ function process_step1()
         {
             if ( !@chmod($config_file, 0666) )
             {
-                $tpl->error_append('The file <b>conf.php</b> is not set to be readable/writeable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <b>chmod 0666 conf.php</b> on your server.');
+                $tpl->message_append('The file <b>conf.php</b> is not set to be readable/writeable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <b>chmod 0666 conf.php</b> on your server.');
             }
             else
             {
@@ -226,7 +226,7 @@ function process_step1()
         // config file exists and is writeable, we're good to go
     }
     clearstatcache();
-*/
+
 
     //
     // Server settings
@@ -241,7 +241,7 @@ function process_step1()
     $sh = @fsockopen('wowroster.net', 80, $errno, $error, 5);
     if ( !$sh )
     {
-        $their_roster_version = 'Connection failed.';
+        $their_roster_version = 'Connection failed';
     }
     else
     {

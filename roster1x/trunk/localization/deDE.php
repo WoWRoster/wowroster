@@ -318,6 +318,7 @@ $wordings['deDE']['crit'] = 'Krit.';
 $wordings['deDE']['dodge'] = 'Ausweichen';
 $wordings['deDE']['parry'] = 'Parrieren';
 $wordings['deDE']['block'] = 'Blocken';
+$wordings['deDE']['realm'] = 'Realm';
 
 // Memberlog
 $wordings['deDE']['memberlog'] = 'Mitglieder Log';
@@ -459,7 +460,7 @@ $wordings['deDE']['tab2']='Tier';
 $wordings['deDE']['tab3']='Ruf';
 $wordings['deDE']['tab4']='Fertigk.';
 $wordings['deDE']['tab5']='Talente';
-$wordings['deDE']['tab6']='Ehre';
+$wordings['deDE']['tab6']='PvP';
 
 $wordings['deDE']['strength']='Stärke';
 $wordings['deDE']['strength_tooltip']='Erhöht deine Angriffskraft mit Nahkampfwaffen.<br />Erhöht die Menge an Schaden, die mit einem Schild geblockt werden kann.';
@@ -515,12 +516,11 @@ $wordings['deDE']['hslist']=' Ehren Statistiken';
 $wordings['deDE']['hslist1']='H&ouml;chstrangigstes Mitglied diese Woche';
 $wordings['deDE']['hslist2']='Beste Platzierung in der letzten Woche';
 $wordings['deDE']['hslist3']='Meisten ES letzte Woche';
-$wordings['deDE']['hslist4']='Meisten US letzte Woche';
-$wordings['deDE']['hslist5']='Meisten EP letzte Woche';
-$wordings['deDE']['hslist6']='H&ouml;chsten Lebenszeit Rang';
-$wordings['deDE']['hslist7']='H&ouml;chsten Lebenszeit ES';
-$wordings['deDE']['hslist8']='H&ouml;chsten Lebenszeit US';
-$wordings['deDE']['hslist9']='Besten ES zu EP Durchschnitt';
+$wordings['deDE']['hslist4']='Meisten EP letzte Woche';
+$wordings['deDE']['hslist5']='H&ouml;chsten Lebenszeit Rang';
+$wordings['deDE']['hslist6']='H&ouml;chsten Lebenszeit ES';
+$wordings['deDE']['hslist7']='H&ouml;chsten Lebenszeit EP';
+$wordings['deDE']['hslist8']='Besten ES zu EP Durchschnitt';
 
 $wordings['deDE']['Druid']='Druide';
 $wordings['deDE']['Hunter']='Jäger';

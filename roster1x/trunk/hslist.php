@@ -128,27 +128,6 @@ if ($row) {
 	print("</td>\n  </tr>\n");
 }
 
-//Highest Weekly DKs
-$query = "SELECT `name`, `lastweekDK` FROM `".ROSTER_PLAYERSTABLE."` WHERE `lastweekDK` > 0 ORDER BY `lastweekDK` DESC, `lastweekHK` ASC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
-
-if ($row) {
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lastweekDK">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
-	rankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	rankRight((($striping_counter % 2) +1));
-	print($row['lastweekDK']);
-	print("</td>\n  </tr>\n");
-}
-
 //Highest Weekly CPs
 $query = "SELECT `name`, `lastweekContribution` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lastweekContribution` DESC, `lastweekRank` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
@@ -161,7 +140,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lastweekContribution">'.$wordings[$roster_conf['roster_lang']]['hslist5'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lastweekContribution">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -182,7 +161,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeRankName">'.$wordings[$roster_conf['roster_lang']]['hslist6'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lifetimeRankName">'.$wordings[$roster_conf['roster_lang']]['hslist5'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -210,7 +189,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeHK">'.$wordings[$roster_conf['roster_lang']]['hslist7'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lifetimeHK">'.$wordings[$roster_conf['roster_lang']]['hslist6'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -219,8 +198,8 @@ if ($row) {
 	print("</td>\n  </tr>\n");
 }
 
-//Highest LifeTime DKs
-$query = "SELECT `name`, `lifetimeDK` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lifetimeDK` DESC, `lifetimeHK` ASC LIMIT 0 , 1";
+//Highest LifeTime CPs
+$query = "SELECT `name`, `lifetimeCP` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lifetimeCP` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -231,12 +210,12 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeDK">'.$wordings[$roster_conf['roster_lang']]['hslist8'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lifetimeCP">'.$wordings[$roster_conf['roster_lang']]['hslist7'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
 	rankRight((($striping_counter % 2) +1));
-	print($row['lifetimeDK']);
+	print($row['lifetimeCP']);
 	print("</td>\n  </tr>\n");
 }
 
@@ -261,7 +240,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php">'.$wordings[$roster_conf['roster_lang']]['hslist9'].'</a></td>'."\n");
+	print('<a href="indexhonor.php">'.$wordings[$roster_conf['roster_lang']]['hslist8'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");

@@ -51,7 +51,11 @@ class reputation
 	{
 		global $wordings, $roster_conf, $char;
 
-		list( $level, $max ) = explode( '/', $this->data['Value'] );
+		if( $char->data['CPversion'] < '2.0.0' )
+			list( $level, $max ) = explode( '/', $this->data['Value'] );
+		else
+			list( $level, $max ) = explode( ':', $this->data['Value'] );
+
 		if( $max == 1 )
 		{
 			$bgImage = $roster_conf['img_url'].'bargrey.gif';

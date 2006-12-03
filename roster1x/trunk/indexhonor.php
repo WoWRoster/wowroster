@@ -28,16 +28,14 @@ $additional_sql = array(
 	'`players`.`RankIcon`, ',
 	'`players`.`Rankexp`, ',
 	'`players`.`sessionHK`, ',
-	'`players`.`sessionDK`, ',
+	'`players`.`sessionCP`, ',
 	'`players`.`yesterdayHK`, ',
-	'`players`.`yesterdayDK`, ',
 	'`players`.`yesterdayContribution`, ',
 	'`players`.`lastweekHK`, ',
-	'`players`.`lastweekDK`, ',
 	'`players`.`lastweekContribution`, ',
 	'`players`.`lastweekRank`, ',
 	'`players`.`lifetimeHK`, ',
-	'`players`.`lifetimeDK`, ',
+	'`players`.`lifetimeCP`, ',
 	'`players`.`lifetimeRankName` ',
 );
 
@@ -95,9 +93,9 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'sessionDK' => array(
-		'lang_field' => 'Sess DK',
-		'order' => array( '`players`.`sessionDK` DESC' ),
-		'order_d' => array( '`players`.`sessionDK` ASC' ),
+		'lang_field' => 'Sess CP',
+		'order' => array( '`players`.`sessionCP` DESC' ),
+		'order_d' => array( '`players`.`sessionCP` ASC' ),
 	),
 );
 
@@ -106,14 +104,6 @@ $FIELD[] = array (
 		'lang_field' => 'Yest HK',
 		'order' => array( '`players`.`yesterdayHK` DESC' ),
 		'order_d' => array( '`players`.`yesterdayHK` ASC' ),
-	),
-);
-
-$FIELD[] = array (
-	'yesterdayDK' => array(
-		'lang_field' => 'Yest DK',
-		'order' => array( '`players`.`yesterdayDK` DESC' ),
-		'order_d' => array( '`players`.`yesterdayDK` ASC' ),
 	),
 );
 
@@ -130,14 +120,6 @@ $FIELD[] = array (
 		'lang_field' => 'LW HK',
 		'order' => array( '`players`.`lastweekHK` DESC' ),
 		'order_d' => array( '`players`.`lastweekHK` ASC' ),
-	),
-);
-
-$FIELD[] = array (
-	'lastweekDK' => array(
-		'lang_field' => 'LW DK',
-		'order' => array( '`players`.`lastweekDK` DESC' ),
-		'order_d' => array( '`players`.`lastweekDK` ASC' ),
 	),
 );
 
@@ -166,10 +148,10 @@ $FIELD[] = array (
 );
 
 $FIELD[] = array (
-	'lifetimeDK' => array(
-		'lang_field' => 'Life DK',
-		'order' => array( '`players`.`lifetimeDK` DESC' ),
-		'order_d' => array( '`players`.`lifetimeDK` ASC' ),
+	'lifetimeCP' => array(
+		'lang_field' => 'Life CP',
+		'order' => array( '`players`.`lifetimeCP` DESC' ),
+		'order_d' => array( '`players`.`lifetimeCP` ASC' ),
 	),
 );
 

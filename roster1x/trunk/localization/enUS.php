@@ -318,6 +318,7 @@ $wordings['enUS']['crit'] = 'Crit';
 $wordings['enUS']['dodge'] = 'Dodge';
 $wordings['enUS']['parry'] = 'Parry';
 $wordings['enUS']['block'] = 'Block';
+$wordings['enUS']['realm'] = 'Realm';
 
 // Memberlog
 $wordings['enUS']['memberlog'] = 'Member Log';
@@ -459,7 +460,7 @@ $wordings['enUS']['tab2']='Pet';
 $wordings['enUS']['tab3']='Rep';
 $wordings['enUS']['tab4']='Skills';
 $wordings['enUS']['tab5']='Talents';
-$wordings['enUS']['tab6']='Honor';
+$wordings['enUS']['tab6']='PvP';
 
 $wordings['enUS']['strength']='Strength';
 $wordings['enUS']['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
@@ -515,12 +516,11 @@ $wordings['enUS']['hslist']=' Honor System Stats';
 $wordings['enUS']['hslist1']='Highest Ranking member This Week';
 $wordings['enUS']['hslist2']='Best Weekly Standing';
 $wordings['enUS']['hslist3']='Scored Most HKs Last Week';
-$wordings['enUS']['hslist4']='Scored Most DKs Last Week';
-$wordings['enUS']['hslist5']='Scored Most CPs Last Week';
-$wordings['enUS']['hslist6']='Highest Lifetime Rank';
-$wordings['enUS']['hslist7']='Highest Lifetime HKs';
-$wordings['enUS']['hslist8']='Highest Lifetime DKs';
-$wordings['enUS']['hslist9']='Best Weekly HK to CP Average';
+$wordings['enUS']['hslist4']='Scored Most CP Last Week';
+$wordings['enUS']['hslist5']='Highest Lifetime Rank';
+$wordings['enUS']['hslist6']='Highest Lifetime HKs';
+$wordings['enUS']['hslist7']='Highest Lifetime CP';
+$wordings['enUS']['hslist8']='Best Weekly HK to CP Average';
 
 $wordings['enUS']['Druid']='Druid';
 $wordings['enUS']['Hunter']='Hunter';

@@ -131,6 +131,8 @@ function pvp_get_many3($member_id, $type, $sort, $start)
 		$query .= " ORDER BY 'rank', 'guild', 'name' ";
 	else if ($sort == 'guild')
 		$query .= " ORDER BY 'guild', 'name', 'level' DESC ";
+	else if ($sort == 'realm')
+		$query .= " ORDER BY 'realm', 'name', 'level' DESC ";
 	else
 		$query .= " ORDER BY 'date' DESC, 'guild', 'name' ";
 
@@ -815,6 +817,7 @@ function output_pvp2($pvps,$url,$type)
 		<th class="membersHeader">'.$url.'&amp;s=race">'.$wordings[$roster_conf['roster_lang']]['race'].'</a></th>
 		<th class="membersHeader">'.$url.'&amp;s=rank">'.$wordings[$roster_conf['roster_lang']]['rank'].'</a></th>
 		<th class="membersHeader">'.$url.'&amp;s=guild">'.$wordings[$roster_conf['roster_lang']]['guild'].'</a></th>
+		<th class="membersHeader">'.$url.'&amp;s=realm">'.$wordings[$roster_conf['roster_lang']]['realm'].'</a></th>
 		<th class="membersHeader">'.$url.'&amp;s=leveldiff">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a></th>
 		<th class="membersHeader">'.$url.'&amp;s=win">'.$wordings[$roster_conf['roster_lang']]['win'].'</a></th>';
 	if( $type != 'Duel' )
@@ -885,6 +888,7 @@ function output_pvp2($pvps,$url,$type)
 		<td class="membersRow'.$row_st.'">'.$row->data['race'].'</td>
 		<td class="membersRow'.$row_st.'">'.$row->data['rank'].'</td>
 		<td class="membersRow'.$row_st.'">'.$row->data['guild'].'</td>
+		<td class="membersRow'.$row_st.'">'.$row->data['realm'].'</td>
 		<td class="membersRow'.$row_st.'"><span class="'.$diffcolor.'">';
 		if ($diff > 0)
 		{

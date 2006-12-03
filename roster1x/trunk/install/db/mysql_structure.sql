@@ -310,6 +310,7 @@ CREATE TABLE `renprefix_pvp2` (
   `date` datetime default NULL,
   `name` varchar(32) NOT NULL default '',
   `guild` varchar(32) NOT NULL default '',
+  `realm` varchar(96) NOT NULL default '',
   `race` varchar(32) NOT NULL default '',
   `class` varchar(32) NOT NULL default '',
   `zone` varchar(32) NOT NULL default '',

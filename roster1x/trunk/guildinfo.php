@@ -35,7 +35,7 @@ include_once(ROSTER_BASE.'roster_header.tpl');
 
 
 
-if ( $roster_conf['index_motd'] == 1 )
+if ( $roster_conf['index_motd'] == 1 && !empty($guildMOTD) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
