@@ -84,7 +84,7 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 $wordings['enUS']['charset']="charset=utf-8";
 
 $timeformat['enUS'] = '%a %b %D, %l:%i %p'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['enUS'] = 'M D jS, g:ia';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
+$phptimeformat['enUS'] = 'D M jS, g:ia';    // PHP date() Time format (example - 'D M jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*
@@ -513,14 +513,10 @@ $wordings['enUS']['pvplist7']='Member with best kill average';
 $wordings['enUS']['pvplist8']='Member with best loss average';
 
 $wordings['enUS']['hslist']=' Honor System Stats';
-$wordings['enUS']['hslist1']='Highest Ranking member This Week';
-$wordings['enUS']['hslist2']='Best Weekly Standing';
-$wordings['enUS']['hslist3']='Scored Most HKs Last Week';
-$wordings['enUS']['hslist4']='Scored Most CP Last Week';
-$wordings['enUS']['hslist5']='Highest Lifetime Rank';
-$wordings['enUS']['hslist6']='Highest Lifetime HKs';
-$wordings['enUS']['hslist7']='Highest Lifetime CP';
-$wordings['enUS']['hslist8']='Best Weekly HK to CP Average';
+$wordings['enUS']['hslist1']='Highest Ranking member';
+$wordings['enUS']['hslist2']='Highest Lifetime Rank';
+$wordings['enUS']['hslist3']='Highest Lifetime HKs';
+$wordings['enUS']['hslist4']='Highest Lifetime CP';
 
 $wordings['enUS']['Druid']='Druid';
 $wordings['enUS']['Hunter']='Hunter';
@@ -859,7 +855,7 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Dev<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"mathos",
 					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"mrmuskrat",
+			array(	"name"=>	"bsmorgan",
 					"info"=>	"Gimpy DEV<br />Author of PvPLog"),
 			array(	"name"=>	"PleegWat",
 					"info"=>	"WoWRoster Dev"),
@@ -906,6 +902,8 @@ $creditspage['devs'] = array(
 					"info"=>	"Retired DEV"),
 			array(	"name"=>	"Mordon",
 					"info"=>	"Retired Dev"),
+			array(	"name"=>	"mrmuskrat",
+					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
 			array(	"name"=>	"Nemm",
 					"info"=>	"Inactive Dev"),
 			array(	"name"=>	"nerk01",

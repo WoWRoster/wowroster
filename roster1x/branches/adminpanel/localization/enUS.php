@@ -84,7 +84,7 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 $wordings['enUS']['charset']="charset=utf-8";
 
 $timeformat['enUS'] = '%a %b %D, %l:%i %p'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['enUS'] = 'M D jS, g:ia';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
+$phptimeformat['enUS'] = 'D M jS, g:ia';    // PHP date() Time format (example - 'D M jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /*
@@ -318,6 +318,7 @@ $wordings['enUS']['crit'] = 'Crit';
 $wordings['enUS']['dodge'] = 'Dodge';
 $wordings['enUS']['parry'] = 'Parry';
 $wordings['enUS']['block'] = 'Block';
+$wordings['enUS']['realm'] = 'Realm';
 
 // Memberlog
 $wordings['enUS']['memberlog'] = 'Member Log';
@@ -913,7 +914,7 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Dev<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
 			array(	"name"=>	"mathos",
 					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"mrmuskrat",
+			array(	"name"=>	"bsmorgan",
 					"info"=>	"Gimpy DEV<br />Author of PvPLog"),
 			array(	"name"=>	"PleegWat",
 					"info"=>	"WoWRoster Dev"),
@@ -964,6 +965,8 @@ $creditspage['devs'] = array(
 					"info"=>	"Retired DEV"),
 			array(	"name"=>	"Mordon",
 					"info"=>	"Retired Dev"),
+			array(	"name"=>	"mrmuskrat",
+					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
 			array(	"name"=>	"Nemm",
 					"info"=>	"Inactive Dev"),
 			array(	"name"=>	"nerk01",

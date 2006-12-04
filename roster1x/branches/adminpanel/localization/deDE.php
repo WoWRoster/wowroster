@@ -318,6 +318,7 @@ $wordings['deDE']['crit'] = 'Krit.';
 $wordings['deDE']['dodge'] = 'Ausweichen';
 $wordings['deDE']['parry'] = 'Parrieren';
 $wordings['deDE']['block'] = 'Blocken';
+$wordings['deDE']['realm'] = 'Realm';
 
 // Memberlog
 $wordings['deDE']['memberlog'] = 'Mitglieder Log';

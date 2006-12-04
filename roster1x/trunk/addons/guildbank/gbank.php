@@ -390,22 +390,16 @@ function CalcTotalMoney()
 // Function to grab the last Update Time of the member and return it in readable format
 function DateCharDataUpdated($member_id)
 {
-    global $wowdb, $roster_conf;
-    extract($GLOBALS);
-    $datequery = "SELECT `dateupdatedutc` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$member_id'";
-    $dateresult = $wowdb->query($datequery);
-    $date = $wowdb->getrow($dateresult);
-    $dateupdatedutc = $date["dateupdatedutc"];
-    $day = substr($dateupdatedutc,3,2);
-    $month = substr($dateupdatedutc,0,2);
-    $year = substr($dateupdatedutc,6,2);
-    $hour = substr($dateupdatedutc,9,2);
-    $minute = substr($dateupdatedutc,12,2);
-    $second = substr($dateupdatedutc,15,2);
+	global $wowdb, $roster_conf, $phptimeformat;
 
-    $localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	$query1 = "SELECT `dateupdatedutc` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$member_id'";
+	$result1 = $wowdb->query($query1);
+	$data1 = $wowdb->fetch_assoc($result1);
+	$dateupdatedutc = $data1['dateupdatedutc'];
 
-    return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+	list($month,$day,$year,$hour,$minute,$second) = sscanf($dateupdatedutc,"%2d/%2d/%2d %2d:%2d:%2d");
+	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
 }
 
 // This function will check in which category the item falls under.

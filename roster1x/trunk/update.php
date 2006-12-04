@@ -44,16 +44,12 @@ if( $roster_conf['use_update_triggers'] )
 
 
 // Set $htmlout to 1 to assume request is from a browser
-	$htmlout = 1;
+$htmlout = 1;
+
 // See if UU is requesting this page
 if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 {
 	$htmlout = 0;
-}
-else
-{
-	// Set the sql debugger (outputs html comments of sql strings in addition to normal output)
-	$wowdb->setSQLDebug($roster_conf['sqldebug']);
 }
 
 
@@ -81,10 +77,9 @@ if( is_array($_FILES) && !empty($_FILES) )
 	{
 		if( !empty($file['name']) )
 		{
-			$file_name=$file_ext=$file_gzip=$temp_file_name=$temp_file_ext='';
+			$file_name=$file_ext=$file_type='';
 
-			list( $file_name, $file_ext, $file_gzip ) = explode('.',$file['name']);
-			list( $temp_file_name, $temp_file_ext )   = explode('.',$file['tmp_name']);
+			list( $file_name, $file_ext, $file_type ) = explode( '.',$file['name'] );
 
 			if( in_array(strtolower($file_name),$filefields) )
 			{
@@ -96,7 +91,7 @@ if( is_array($_FILES) && !empty($_FILES) )
 					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
 					// Parse the lua file into a php array that we can use
-					$data = ParseLuaFile( $file['tmp_name'] , $file_gzip );
+					$data = ParseLuaFile( $file['tmp_name'],$file_type );
 
 					// Calculate parse time
 					$parse_endtime = explode(' ', microtime() );
@@ -234,7 +229,7 @@ function processMyProfile($myProfile)
 
 			if( $guildInfo )
 			{
-				$characters = $myProfile[$realm_name]['Characters'];
+				$characters = $myProfile[$realm_name]['Character'];
 				foreach( array_keys( $characters ) as $char_name )
 				{
 					$char = $characters[$char_name];

@@ -439,9 +439,6 @@ function name_value ( $row )
 
 		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
 
-		if( isset($rankname) )
-			$tooltip .= $rankname.' of the '.$guildFaction."\n";
-
 		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
 		$tooltip .= ($row['nisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']);
 

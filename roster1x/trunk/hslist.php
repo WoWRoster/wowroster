@@ -85,70 +85,6 @@ if ($row) {
 	print("</td>\n  </tr>\n");
 }
 
-//Highest Weekly Standing:
-$query = "SELECT `name`, `lastweekRank` FROM `".ROSTER_PLAYERSTABLE."` WHERE `lastweekRank` > 0 ORDER BY `lastweekRank` LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
-
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lastweekRank">'.$wordings[$roster_conf['roster_lang']]['hslist2'].'</a></td>'."\n");
-	rankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	rankRight((($striping_counter % 2) +1));
-	print($row['lastweekRank']);
-	print("</td>\n  </tr>\n");
-}
-
-//Highest Weekly HKs
-$query = "SELECT `name`, `lastweekHK` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lastweekHK` DESC, `lastweekRank` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
-
-if ($row) {
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lastweekHK">'.$wordings[$roster_conf['roster_lang']]['hslist3'].'</a></td>'."\n");
-	rankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	rankRight((($striping_counter % 2) +1));
-	print($row['lastweekHK']);
-	print("</td>\n  </tr>\n");
-}
-
-//Highest Weekly CPs
-$query = "SELECT `name`, `lastweekContribution` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lastweekContribution` DESC, `lastweekRank` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
-
-if ($row) {
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lastweekContribution">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
-	rankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	rankRight((($striping_counter % 2) +1));
-	print($row['lastweekContribution']);
-	print("</td>\n  </tr>\n");
-}
-
 //Highest Lifetime Rank
 $query = "SELECT `name`, `lifetimeRankName` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
@@ -161,7 +97,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeRankName">'.$wordings[$roster_conf['roster_lang']]['hslist5'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lifetimeRankName">'.$wordings[$roster_conf['roster_lang']]['hslist2'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -189,7 +125,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeHK">'.$wordings[$roster_conf['roster_lang']]['hslist6'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lifetimeHK">'.$wordings[$roster_conf['roster_lang']]['hslist3'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -210,42 +146,12 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeCP">'.$wordings[$roster_conf['roster_lang']]['hslist7'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=lifetimeCP">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
 	rankRight((($striping_counter % 2) +1));
 	print($row['lifetimeCP']);
-	print("</td>\n  </tr>\n");
-}
-
-//Best Weekly HK-CP Average
-$query = "SELECT `name`, (`lastweekContribution`/`lastweekHK`) AS average FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `average` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
-
-if($row['average']=='')
-{
-	$ave='&nbsp;';
-}
-else
-{
-	$ave= $row['average'];
-}
-
-if ($row) {
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php">'.$wordings[$roster_conf['roster_lang']]['hslist8'].'</a></td>'."\n");
-	rankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	rankRight((($striping_counter % 2) +1));
-	print($ave);
 	print("</td>\n  </tr>\n");
 }
 

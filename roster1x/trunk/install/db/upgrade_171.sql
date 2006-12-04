@@ -19,7 +19,12 @@ ALTER TABLE `renprefix_players`
   DROP `sessionDK`,
   DROP `yesterdayDK`,
   DROP `lastweekDK`,
-  DROP `lifetimeDK`;
+  DROP `lifetimeDK`,
+  DROP `lastweekHK`,
+  DROP `lastweekContribution`,
+  DROP `lastweekRank`,
+  DROP `TWContribution`,
+  DROP `TWHK`;
 
 ALTER TABLE `roster_players`
   ADD `sessionCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `sessionHK`,

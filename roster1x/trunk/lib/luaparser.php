@@ -25,17 +25,17 @@ if ( !defined('ROSTER_INSTALLED') )
 * Wrapper function so that you can parse a file instead of an array.
 * @author six
 */
-function ParseLuaFile($filename , $mode=null )
+function ParseLuaFile( $file_name , $file_type=null )
 {
-	if(file_exists($filename))
+	if( file_exists($file_name) && is_readable($file_name) )
 	{
-		if( $mode == 'gz' )
+		if( $file_type == 'gz' )
 		{
-			$file_as_array = gzfile($filename);
+			$file_as_array = gzfile($file_name);
 		}
 		else
 		{
-			$file_as_array = file($filename);
+			$file_as_array = file($file_name);
 		}
 
 		return(ParseLuaArray($file_as_array));
@@ -49,7 +49,7 @@ function ParseLuaFile($filename , $mode=null )
 */
 function ParseLuaArray( &$file_as_array )
 {
-	if (!is_array($file_as_array))
+	if( !is_array($file_as_array) )
 	{
 		// return false if not presented with an array
 		return(false);
@@ -57,7 +57,7 @@ function ParseLuaArray( &$file_as_array )
 	else
 	{
 		// Parse the contents of the array
-		$stack = array( array( '',  array()) );
+		$stack = array( array( '',  array() ) );
 		$stack_pos = 0;
 		$last_line = '';
 		foreach( $file_as_array as $line )

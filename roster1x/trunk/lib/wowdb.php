@@ -749,8 +749,6 @@ class wowdb
 	 */
 	function make_mail( $mail_data, $memberId, $slot_num )
 	{
-		$item = $mail_data['Item'];
-
 		$mail = array();
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
@@ -760,20 +758,24 @@ class wowdb
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
 
-		$mail['item_icon'] = 'Interface/Icons/'.$item['Icon'];
-		$mail['item_name'] = $item['Name'];
-		$mail['item_color'] = $item['Color'];
+		if( isset($mail_data['Item']) )
+		{
+			$item = $mail_data['Item'];
 
-		if( isset( $item['Quantity'] ) )
-			$mail['item_quantity'] = $item['Quantity'];
-		else
-			$item['item_quantity'] = 1;
+			$mail['item_icon'] = 'Interface/Icons/'.$item['Icon'];
+			$mail['item_name'] = $item['Name'];
+			$mail['item_color'] = $item['Color'];
 
-		if( !empty($item['Tooltip']) )
-			$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
-		else
-			$mail['item_tooltip'] = $item['Name'];
+			if( isset( $item['Quantity'] ) )
+				$mail['item_quantity'] = $item['Quantity'];
+			else
+				$item['item_quantity'] = 1;
 
+			if( !empty($item['Tooltip']) )
+				$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
+			else
+				$mail['item_tooltip'] = $item['Name'];
+		}
 		return $mail;
 	}
 
@@ -1830,7 +1832,7 @@ class wowdb
 
 		if( !empty($guild['timestamp']['init']['DateUTC']) )
 		{
-			list($year,$month,$day,$hour,$minute,$second) = sscanf($guild['timestamp']['init']['DateUTC'],"%d-%d-%d %d:%d:%d");
+			list($year,$month,$day,$hour,$minute,$second) = sscanf($guild['timestamp']['init']['DateUTC'],"%4s-%2s-%2s %2s:%2s:%2s");
 			$this->add_value( 'guild_dateupdatedutc', "$month/$day/".substr($year,2,2)." $hour:$minute:$second" );
 		}
 
@@ -1907,11 +1909,8 @@ class wowdb
 		else
 		{
 			$this->add_value( 'online', 0);
-			$lastOnline = $char['LastOnline'];
-			$lastOnlineYears = intval($lastOnline['Year']);
-			$lastOnlineMonths = intval($lastOnline['Month']);
-			$lastOnlineDays = intval($lastOnline['Day']);
-			$lastOnlineHours = intval($lastOnline['Hour']);
+			list($lastOnlineYears,$lastOnlineMonths,$lastOnlineDays,$lastOnlineHours) = explode(':',$char['LastOnline']);
+
 			# use strtotime instead
 			#      $lastOnlineTime = $currentTimestamp - 365 * 24* 60 * 60 * $lastOnlineYears
 			#                        - 30 * 24 * 60 * 60 * $lastOnlineMonths
@@ -1924,7 +1923,7 @@ class wowdb
 				$timeString .= $lastOnlineMonths.' Months ';
 			if ($lastOnlineDays > 0)
 				$timeString .= $lastOnlineDays.' Days ';
-			$timeString .= max($lastOnlineHours,1).' Hours ';
+			$timeString .= max($lastOnlineHours,1).' Hours';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
 			$this->add_time( 'last_online', getDate($lastOnlineTime));
@@ -2299,10 +2298,10 @@ class wowdb
 				unset($power);
 			}
 
-			if( !empty($attack['AttackSkill']) )
-				$this->add_value( 'melee_rating', $attack['AttackSkill'] );
-			if( !empty($attack['DamageRange']) )
-				$this->add_value( 'melee_range', $attack['DamageRange'] );
+			if( !empty($attack['MainHand']['AttackSkill']) )
+				$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
+			if( !empty($attack['MainHand']['DamageRange']) )
+				$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
 			if( !empty($attack['DamageRangeTooltip']) )
 				$this->add_value( 'melee_rangetooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( !empty($attack['AttackPowerTooltip']) )
@@ -2406,10 +2405,6 @@ class wowdb
 			$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
 			$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
 
-			$this->add_value( 'lastweekHK',            $honor['LastWeek']['HK'] );
-			$this->add_value( 'lastweekContribution',  $honor['LastWeek']['CP'] );
-			$this->add_value( 'lastweekRank',          $honor['LastWeek']['Rank'] );
-
 			$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
 			$this->add_value( 'lifetimeCP',            $honor['Lifetime']['CP'] );
 			$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
@@ -2419,9 +2414,6 @@ class wowdb
 			$this->add_value( 'RankName',              $honor['Current']['Name'] );
 			$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
 			$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
-
-			$this->add_value( 'TWHK',                  $honor['ThisWeek']['HK'] );
-			$this->add_value( 'TWContribution',        $honor['ThisWeek']['CP'] );
 
 			unset($honor);
 		}
@@ -2535,7 +2527,7 @@ class wowdb
 
 		if( !empty($data['timestamp']['init']['DateUTC']) )
 		{
-			list($year,$month,$day,$hour,$minute,$second) = sscanf($data['timestamp']['init']['DateUTC'],"%s-%s-%s %s:%s:%s");
+			list($year,$month,$day,$hour,$minute,$second) = sscanf($data['timestamp']['init']['DateUTC'],"%4s-%2s-%2s %2s:%2s:%2s");
 			$this->add_value( 'dateupdatedutc', "$month/$day/".substr($year,2,2)." $hour:$minute:$second" );
 		}
 
@@ -2573,10 +2565,10 @@ class wowdb
 				$this->add_value( 'melee_power', $power[0]+$power[1]+$power[2] );
 				unset($power);
 			}
-			if( isset($attack['AttackRating']) )
-				$this->add_value( 'melee_rating', $attack['AttackSkill'] );
-			if( isset($attack['DamageRange']) )
-				$this->add_value( 'melee_range', $attack['DamageRange'] );
+			if( isset($attack['MainHand']['AttackSkill']) )
+				$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
+			if( isset($attack['MainHand']['DamageRange']) )
+				$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
 			if( isset($attack['DamageRangeTooltip']) )
 				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( isset($attack['AttackPowerTooltip']) )
@@ -2594,7 +2586,7 @@ class wowdb
 				$this->add_value( 'ranged_power', $power[0]+$power[1]+$power[2] );
 				unset($power);
 			}
-			if( isset($attack['AttackRating']) )
+			if( isset($attack['AttackSkill']) )
 				$this->add_value( 'ranged_rating', $attack['AttackSkill'] );
 			if( isset($attack['DamageRange']) )
 				$this->add_value( 'ranged_range', $attack['DamageRange'] );

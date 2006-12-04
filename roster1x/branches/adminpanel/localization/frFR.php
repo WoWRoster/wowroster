@@ -319,6 +319,7 @@ $wordings['frFR']['crit'] = 'Crit';
 $wordings['frFR']['dodge'] = 'Esquive';
 $wordings['frFR']['parry'] = 'Parade';
 $wordings['frFR']['block'] = 'Bloquer';
+$wordings['frFR']['realm'] = 'Realm';
 
 // Memberlog
 $wordings['frFR']['memberlog'] = 'Journal';

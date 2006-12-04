@@ -1361,18 +1361,18 @@ $returnstring .= '  <tr>
 		$output .= '<div class="honortext3">'.$this->data['yesterdayContribution'].'</div>'."\n";
 
 		// This week
-		$output .= '<div class="thisweek">'.$wordings[$lang]['thisweek'].'</div>'."\n";
-		$output .= '<div class="honortext4_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
-		$output .= '<div class="honortext4">'.$this->data['TWHK'].'</div>'."\n";
-		$output .= '<div class="honortext5_">'.$wordings[$lang]['honor'].'</div>'."\n";
-		$output .= '<div class="honortext5">'.$this->data['TWContribution'].'</div>'."\n";
+		$output .= '<div class="thisweek">'./*$wordings[$lang]['thisweek'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext4_">'./*$wordings[$lang]['honorkills'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext4">'./*$this->data['TWHK'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext5_">'./*$wordings[$lang]['honor'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext5">'./*$this->data['TWContribution'].*/'&nbsp;</div>'."\n";
 
 		// Last Week
-		$output .= '<div class="lastweek">'.$wordings[$lang]['lastweek'].'</div>'."\n";
-		$output .= '<div class="honortext6_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
-		$output .= '<div class="honortext6">'.$this->data['lastweekHK'].'</div>'."\n";
-		$output .= '<div class="honortext7_">'.$wordings[$lang]['honor'].'</div>'."\n";
-		$output .= '<div class="honortext7">'.$this->data['lastweekContribution'].'</div>'."\n";
+		$output .= '<div class="lastweek">'./*$wordings[$lang]['lastweek'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext6_">'./*$wordings[$lang]['honorkills'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext6">'./*$this->data['lastweekHK'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext7_">'./*$wordings[$lang]['honor'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext7">'./*$this->data['lastweekContribution'].*/'&nbsp;</div>'."\n";
 		$output .= '<div class="honortext8_">'./*$wordings[$lang]['standing'].*/'&nbsp;</div>'."\n";
 		$output .= '<div class="honortext8">'./*$this->data['lastweekRank'].*/'&nbsp;</div>'."\n";
 
@@ -1702,7 +1702,7 @@ function DateCharDataUpdated($name)
 	$data1 = $wowdb->fetch_assoc($result1);
 	$dateupdatedutc = $data1['dateupdatedutc'];
 
-	list($month,$day,$year,$hour,$minute,$second) = sscanf($dateupdatedutc,"%d/%d/%d %d:%d:%d");
+	list($month,$day,$year,$hour,$minute,$second) = sscanf($dateupdatedutc,"%2d/%2d/%2d %2d:%2d:%2d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
 }

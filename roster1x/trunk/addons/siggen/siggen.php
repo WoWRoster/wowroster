@@ -13,7 +13,10 @@ require( $sigconfig_dir.'localization.php' );		// Translation file
 
 
 // Set track errors on
-ini_set('track_errors',1);
+if( !ereg('ini_set', ini_get('disable_functions')) )
+{
+	ini_set('track_errors',1);
+}
 
 
 // Get name from browser request
@@ -708,17 +711,35 @@ if( isset($_GET['etag']) )
 	}
 
 
-	// Create a new, truecolor image
-	$im = @imagecreatetruecolor( $configData['main_image_size_w'], $configData['main_image_size_h'] )
-		or debugMode( (__LINE__),'Cannot Initialize new GD image stream.','',0,'Make sure you have the latest version of GD2 installed' );
-
-
 	// Color fill the background?
 	if( $configData['backg_fill'] )
 	{
-		@imagefill($im,0,0,setColor( getColor($configData['backg_fill_color']),$im ) )
+		// Create a new, truecolor image
+		$im = @imagecreatetruecolor( $configData['main_image_size_w'], $configData['main_image_size_h'] )
+			or debugMode( (__LINE__),'Cannot Initialize new GD image stream.','',0,'Make sure you have the latest version of GD2 installed' );
+
+		@imagefilledrectangle($im,0,0,$configData['main_image_size_w'],$configData['main_image_size_h'],setColor(getColor($configData['backg_fill_color']),$im))
 			or debugMode( (__LINE__),$php_errormsg );
+
+		if( $configData['backg_disp'] && file_exists($im_back_file) )
+		{
+			@imagecopyresampled( $im,$im_temp,0,0,0,0,$configData['main_image_size_w'],$configData['main_image_size_h'],$im_temp_width,$im_temp_height )
+				or debugMode( (__LINE__),$php_errormsg );
+		}
 	}
+	elseif( $configData['backg_disp'] && file_exists($im_back_file) )
+	{
+		// Create a new image from file
+		$im = @imagecreatefrompng( $im_back_file )
+			or debugMode( (__LINE__),$php_errormsg );
+
+		//imagealphablending($im, false);
+		imagesavealpha($im, true);
+
+		$im_temp_width = imageSX( $im );
+		$im_temp_height = imageSY( $im );
+	}
+
 
 
 	// Pre-Allocate the colors, hopefully helps with
@@ -729,20 +750,13 @@ if( isset($_GET['etag']) )
 	}
 
 
+
 	// Get the image layer order
 	$layer_order = explode(':',$configData['image_order']);
-
 
 	// Place images based on layer order
 	foreach( $layer_order as $o )
 	{
-		// Place the background
-		if( $o == 'back' && $configData['backg_disp'] && file_exists($im_back_file) )
-		{
-			combineImage( $im_back_file,(__LINE__),0,0 );
-		}
-
-
 		// Place the character image
 		if( $o == 'char' && $configData['charlogo_disp'] && file_exists($im_user_file) )
 		{
@@ -1015,7 +1029,7 @@ if( isset($_GET['etag']) )
 			foreach( $skillsData as $skill )
 			{
 				// Print only secondary skills where the max level does not equal 1
-				if( $skill['type'] == $wordings[$sig_char_locale]['secondary'] && $skill['max'] != '1' )
+				if( $skill['type'] == $wordings[$sig_char_locale]['secondary'] && $skill['max'] != '1' && $skill['name'] != $wordings[$sig_char_locale]['riding'] )
 				{
 					// Print Skill description
 					if( $configData['skills_disp_desc'] )
@@ -1060,8 +1074,8 @@ if( isset($_GET['etag']) )
 		{
 			foreach( $skillsData as $skill )
 			{
-				// Print only secondary skills where the max level equalls 1
-				if( $skill['type'] == $wordings[$sig_char_locale]['secondary'] && $skill['max'] == '1' )
+				// Print only secondary skills where the name equals riding
+				if( $skill['type'] == $wordings[$sig_char_locale]['secondary'] && $skill['name'] == $wordings[$sig_char_locale]['riding'] )
 				{
 					$desc = $skill['name'];
 					// Shorten long strings based on max length in config
@@ -1070,6 +1084,13 @@ if( isset($_GET['etag']) )
 						$desc = trim( substr($desc,0,$configData['skills_desc_length_mount']) ).'.';
 					}
 					writeText( $im,$configData['skills_font_size'],$configData['skills_desc_loc_x'],$pos['desc'],$configData['skills_font_color'],$configData['skills_font_name'],$desc,$configData['skills_align_desc'],$configData['skills_shadow'] );
+
+					// Print Skill level
+					if( $configData['skills_disp_level'] )
+					{
+						// Just Print level
+						writeText( $im,$configData['skills_font_size'],$configData['skills_level_loc_x'],$pos['level'],$configData['skills_font_color'],$configData['skills_font_name'],$skill['level'],$configData['skills_align_level'],$configData['skills_shadow'] );
+					}
 
 					// Move the line position
 					$pos['desc']  += $configData['skills_desc_linespace'];

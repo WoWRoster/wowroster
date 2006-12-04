@@ -31,9 +31,6 @@ $additional_sql = array(
 	'`players`.`sessionCP`, ',
 	'`players`.`yesterdayHK`, ',
 	'`players`.`yesterdayContribution`, ',
-	'`players`.`lastweekHK`, ',
-	'`players`.`lastweekContribution`, ',
-	'`players`.`lastweekRank`, ',
 	'`players`.`lifetimeHK`, ',
 	'`players`.`lifetimeCP`, ',
 	'`players`.`lifetimeRankName` ',
@@ -92,7 +89,7 @@ $FIELD[] = array (
 );
 
 $FIELD[] = array (
-	'sessionDK' => array(
+	'sessionCP' => array(
 		'lang_field' => 'Sess CP',
 		'order' => array( '`players`.`sessionCP` DESC' ),
 		'order_d' => array( '`players`.`sessionCP` ASC' ),
@@ -112,30 +109,6 @@ $FIELD[] = array (
 		'lang_field' => 'Yest CP',
 		'order' => array( '`players`.`yesterdayContribution` DESC' ),
 		'order_d' => array( '`players`.`yesterdayContribution` ASC' ),
-	),
-);
-
-$FIELD[] = array (
-	'lastweekHK' => array(
-		'lang_field' => 'LW HK',
-		'order' => array( '`players`.`lastweekHK` DESC' ),
-		'order_d' => array( '`players`.`lastweekHK` ASC' ),
-	),
-);
-
-$FIELD[] = array (
-	'lastweekContribution' => array(
-		'lang_field' => 'LW CP',
-		'order' => array( '`players`.`lastweekContribution` DESC' ),
-		'order_d' => array( '`players`.`lastweekContribution` ASC' ),
-	),
-);
-
-$FIELD[] = array (
-	'lastweekRank' => array(
-		'lang_field' => 'LW Rank',
-		'order' => array( '`players`.`lastweekRank` DESC' ),
-		'order_d' => array( '`players`.`lastweekRank` ASC' ),
 	),
 );
 
