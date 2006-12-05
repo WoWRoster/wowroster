@@ -1865,13 +1865,13 @@ class wowdb
 		if( isset($char['Note']) )
 			$this->add_value( 'note', $char['Note']);
 		else
-			$this->add_value( 'status', '');
+			$this->add_value( 'note', '');
 		$this->add_value( 'guild_rank', $char['Rank']);
 		$this->add_value( 'guild_title', $guildRanks[$char['Rank']]['Title']);
 		if( isset($char['OfficerNote']) )
 			$this->add_value( 'officer_note', $char['OfficerNote']);
 		else
-			$this->add_value( 'status', '');
+			$this->add_value( 'officer_note', '');
 		$this->add_value( 'zone', $char['Zone']);
 		if( isset($char['Status']) )
 			$this->add_value( 'status', $char['Status']);
