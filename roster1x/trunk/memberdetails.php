@@ -203,7 +203,7 @@ switch ($action)
 	case 'bank':
 		if( $roster_conf['show_bank'] == 1 )
 		{
-			$bag0 = bag_get( $char, 'Bank Contents' );
+			$bag0 = bag_get( $char, 'Bank Bag0' );
 			if( !is_null( $bag0 ) )
 				echo $bag0->out();
 

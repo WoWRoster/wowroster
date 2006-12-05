@@ -864,7 +864,7 @@ class wowdb
 
 		if( !empty($quests) && is_array($quests) )
 		{
-			$this->setMessage('<li>Updating Quests</li>');
+			$this->setMessage('<li>Updating Quests');
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$memberId'";
@@ -886,7 +886,7 @@ class wowdb
 					$questnum++;
 				}
 			}
-			$this->setMessage('<ul><li>'.$questnum.' Quest'.($questnum > 1 ? 's' : '').'</li></ul>');
+			$this->setMessage('<ul><li>'.$questnum.' Quest'.($questnum > 1 ? 's' : '').'</li></ul></li>');
 	   	}
 		else
 		{
@@ -907,7 +907,7 @@ class wowdb
 
 		if( !empty($prof) && is_array($prof) )
 		{
-			$this->setMessage('<li>Updating Professions</li>');
+			$this->setMessage('<li>Updating Professions');
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '$memberId'";
@@ -934,7 +934,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		else
 		{
@@ -989,7 +989,7 @@ class wowdb
 		$inv = $data['Inventory'];
 		if( !empty($inv) && is_array($inv) )
 		{
-			$this->setMessage('<li>Updating Inventory</li>');
+			$this->setMessage('<li>Updating Inventory');
 			$this->setMessage('<ul>');
 
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
@@ -1012,6 +1012,7 @@ class wowdb
 
 				$bag = $inv[$bag_name];
 				$item = $this->make_item( $bag, $memberId, 'bags', $bag_name );
+
 				// quantity for a bag means number of slots it has
 				$item['item_quantity'] = $bag['Slots'];
 				$this->insert_item( $item,$data['Locale'] );
@@ -1025,7 +1026,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		else
 		{
@@ -1046,85 +1047,53 @@ class wowdb
 		$inv = $data['Bank'];
 		if( !empty($inv) && is_array($inv) )
 		{
-			$this->setMessage('<li>Updating Bank</li>');
+			$this->setMessage('<li>Updating Bank');
 			$this->setMessage('<ul>');
 
 			// Clearing out old items
-			if( !empty($inv['Contents']) )
+			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
+			if( !$this->query($querystr) )
 			{
-				$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
-				if( !$this->query($querystr) )
-				{
-					$this->setError('Bank could not be deleted',$this->error());
-					return;
-				}
-
-				$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
-				if( !$this->query($querystr) )
-				{
-					$this->setError('Bank could not be deleted',$this->error());
-					return;
-				}
-			}
-			else
-			{
-				$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND `item_slot` = 'Bank Contents'";
-				if( !$this->query($querystr) )
-				{
-					$this->setError('Bank could not be deleted',$this->error());
-					return;
-				}
+				$this->setError('Bank could not be deleted',$this->error());
+				return;
 			}
 
-			// Make a special "Bank" container.
-			$item = array();
-			$item['member_id'] = $memberId;
-			$item['item_name'] = 'Bank Contents';
-			$item['item_parent'] = 'bags';
-			$item['item_slot'] = 'Bank Contents';
-			$item['item_color'] = 'ffffff';
-			$item['item_id'] = '';
-			$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_07';
-			$item['item_quantity'] = 28;
-			$item['item_tooltip'] = "Bank Contents\n28 Slot Container";
-			$this->insert_item( $item,$data['Locale'] );
-			$bag = $inv;
-
-			$this->setMessage('<li>Bank Contents</li>');
-			if (isset($bag['Contents']) && is_array($bag['Contents']))
+			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
+			if( !$this->query($querystr) )
 			{
-				foreach( array_keys( $bag['Contents'] ) as $slot_name )
-				{
-					$slot = $bag['Contents'][$slot_name];
-					$item = $this->make_item( $slot, $memberId, 'Bank Contents', $slot_name );
-					$this->insert_item( $item,$data['Locale'] );
-				}
+				$this->setError('Bank could not be deleted',$this->error());
+				return;
 			}
+
 			foreach( array_keys( $inv ) as $bag_name )
 			{
-				if ($bag_name != 'Contents')
+				$this->setMessage("<li>$bag_name</li>");
+				$bag = $inv[$bag_name];
+
+				$dbname = 'Bank '.$bag_name;
+				$item = $this->make_item( $bag, $memberId, 'bags', $dbname );
+
+				// Fix bank bag icon
+				if( $bag_name == 'Bag0' )
 				{
-					$this->setMessage("<li>$bag_name</li>");
-					$bag = $inv[$bag_name];
-					$dbname = 'Bank '.$bag_name;
-					$item = $this->make_item( $bag, $memberId, 'bags', $dbname );
+					$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_07';
+				}
 
-					// quantity for a bag means number of slots it has
-					$item['item_quantity'] = $bag['Slots'];
-					$this->insert_item( $item,$data['Locale'] );
+				// quantity for a bag means number of slots it has
+				$item['item_quantity'] = $bag['Slots'];
+				$this->insert_item( $item,$data['Locale'] );
 
-					if (isset($bag['Contents']) && is_array($bag['Contents']))
+				if (isset($bag['Contents']) && is_array($bag['Contents']))
+				{
+					foreach( array_keys( $bag['Contents'] ) as $slot_name )
 					{
-						foreach( array_keys( $bag['Contents'] ) as $slot_name )
-						{
-							$slot = $bag['Contents'][$slot_name];
-							$item = $this->make_item( $slot, $memberId, $dbname, $slot_name );
-							$this->insert_item( $item,$data['Locale'] );
-						}
+						$slot = $bag['Contents'][$slot_name];
+						$item = $this->make_item( $slot, $memberId, $dbname, $slot_name );
+						$this->insert_item( $item,$data['Locale'] );
 					}
 				}
 			}
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		else
 		{
@@ -1141,7 +1110,7 @@ class wowdb
 	 */
 	function do_mailbox( $data, $memberId )
 	{
-		$this->setMessage('<li>Updating Mailbox</li>');
+		$this->setMessage('<li>Updating Mailbox');
 
 		$mailbox = $data['MailBox'];
 		// If maildate is newer than the db value, wipe all mail from the db
@@ -1163,11 +1132,11 @@ class wowdb
 				$mail = $this->make_mail( $slot, $memberId, $slot_num );
 				$this->insert_mail( $mail );
 			}
-			$this->setMessage('<ul><li>'.count($mailbox).' Message'.(count($mailbox) > 1 ? 's' : '').'</li></ul>');
+			$this->setMessage('<ul><li>'.count($mailbox).' Message'.(count($mailbox) > 1 ? 's' : '').'</li></ul></li>');
 		}
 		else
 		{
-			$this->setMessage('<ul><li>No New Mail</li></ul>');
+			$this->setMessage('<ul><li>No New Mail</li></ul></li>');
 		}
 	}
 
@@ -1309,7 +1278,7 @@ class wowdb
 
 		if( !empty($spellbook) && is_array($spellbook) )
 		{
-			$this->setMessage('<li>Updating Spellbook</li>');
+			$this->setMessage('<li>Updating Spellbook');
 			$this->setMessage('<ul>');
 
 			// first delete the stale data
@@ -1386,7 +1355,7 @@ class wowdb
 					$this->setError('Spell Tree ['.$spell_type.'] could not be inserted',$this->error());
 				}
 			}
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		else
 		{
@@ -1407,7 +1376,7 @@ class wowdb
 
 		if( !empty($talentData) && is_array($talentData) )
 		{
-			$this->setMessage('<li>Updating Talents</li>');
+			$this->setMessage('<li>Updating Talents');
 			$this->setMessage('<ul>');
 
 			// first delete the stale data
@@ -1497,7 +1466,7 @@ class wowdb
 					$this->setError('Talent Tree ['.$talent_tree.'] could not be inserted',$this->error());
 				}
 			}
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		else
 		{
@@ -1893,12 +1862,21 @@ class wowdb
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'level', $char['Level']);
-		$this->add_value( 'note', $char['Note']);
+		if( isset($char['Note']) )
+			$this->add_value( 'note', $char['Note']);
+		else
+			$this->add_value( 'status', '');
 		$this->add_value( 'guild_rank', $char['Rank']);
 		$this->add_value( 'guild_title', $guildRanks[$char['Rank']]['Title']);
-		$this->add_value( 'officer_note', $char['OfficerNote']);
+		if( isset($char['OfficerNote']) )
+			$this->add_value( 'officer_note', $char['OfficerNote']);
+		else
+			$this->add_value( 'status', '');
 		$this->add_value( 'zone', $char['Zone']);
-		$this->add_value( 'status', $char['Status']);
+		if( isset($char['Status']) )
+			$this->add_value( 'status', $char['Status']);
+		else
+			$this->add_value( 'status', '');
 		$this->add_time( 'update_time', getDate($currentTimestamp));
 
 		if ($char['Online'])
@@ -2265,10 +2243,10 @@ class wowdb
 
 			if( !empty($data['Level']) )
 				$this->add_value( 'level', $data['Level'] );
-			if( !empty($data['Attributes']['Health']) )
-				$this->add_value( 'health', $data['Attributes']['Health'] );
-			if( !empty($data['Attributes']['Mana']) )
-				$this->add_value( 'mana', $data['Attributes']['Mana'] );
+			if( !empty($data['Health']) )
+				$this->add_value( 'health', $data['Health'] );
+			if( !empty($data['Mana']) )
+				$this->add_value( 'mana', $data['Mana'] );
 			if( !empty($data['Attributes']['Defense']['Armor']) )
 				$this->add_value( 'armor', $data['Attributes']['Defense']['Armor'] );
 			if( !empty($data['Attributes']['Defense']['Defense']) )
@@ -2520,8 +2498,8 @@ class wowdb
 		$this->add_value( 'exp', $data['Experience'] );
 		$this->add_value( 'race', $data['Race'] );
 		$this->add_value( 'class', $data['Class'] );
-		$this->add_value( 'health', $data['Attributes']['Health'] );
-		$this->add_value( 'mana', $data['Attributes']['Mana'] );
+		$this->add_value( 'health', $data['Health'] );
+		$this->add_value( 'mana', $data['Mana'] );
 		$this->add_value( 'sex', $data['Sex'] );
 		$this->add_value( 'hearth', $data['Hearth'] );
 
