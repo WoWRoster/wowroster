@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$wordings['addoncredits']['GuildBank'] = array(
+$wordings['addoncredits']['GuildBank v1.26'] = array(
 	array(	"name"=>	"Mathos",
 			"info"=>	"A guild bank that lists items by catagories"),
 );

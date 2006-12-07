@@ -765,10 +765,6 @@ $returnstring .= '  <tr>
 			{
 				$row['icon'] = 'Interface/Icons/INV_Misc_QuestionMark';
 			}
-			else
-			{
-				$row['icon'] .= '.'.$roster_conf['img_suffix'];
-			}
 
 			$icons			.= '<img src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
 			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';

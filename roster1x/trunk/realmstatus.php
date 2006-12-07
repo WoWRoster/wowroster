@@ -245,6 +245,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 	if( !$err ) // Don't write to DB if there has been an error
 	{
 		$wowdb->reset_values();
+		$wowdb->add_value('server_name', $realmstatus);
 		$wowdb->add_value('servertype', $realmData['servertype']);
 		$wowdb->add_value('servertypecolor', $realmData['servertypecolor']);
 		$wowdb->add_value('serverstatus', $realmData['serverstatus']);
@@ -260,7 +261,6 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 			$querystr = "TRUNCATE `".ROSTER_REALMSTATUSTABLE."`;";
 			$wowdb->query($querystr);
 
-			$wowdb->add_value('server_name', $server);
 			$querystr = "INSERT INTO `".ROSTER_REALMSTATUSTABLE."` SET ".$wowdb->assignstr.";";
 		}
 		// Give only debug info with text-status enabled
