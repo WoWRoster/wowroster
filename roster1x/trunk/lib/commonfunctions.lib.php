@@ -244,9 +244,9 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 
 	if( $roster_conf['processtime'] )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\"><pre>";
-		debug_print_backtrace();
-		print "</pre></td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\">";
+		backtrace();
+		print "</td>\n</tr>\n";
 	}
 
 	print "</table>\n".border('sred','end');
@@ -259,6 +259,61 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	exit();
 }
 
+/**
+ * Print a debug backtrace. This works in PHP4.3.x+, there is an integrated
+ * function for this starting PHP5 but I prefer always having the same layout.
+ */
+function backtrace()
+{
+	if( version_compare( phpversion(), '4.3', '<' ) )
+	{
+		return "Unable to print backtrace: PHP version too low";
+	}
+	$bt = debug_backtrace();
+
+	echo "Backtrace (most recent call last):<ul>\n";
+	for($i = 0; $i <= count($bt) - 1; $i++)
+	{
+		if(!isset($bt[$i]["file"]))
+		{
+			echo "<li>[PHP core called function]<ul>\n";
+		}
+		else
+		{
+			echo "<li>File: ".$bt[$i]["file"]."<ul>\n";
+		}
+
+		if(isset($bt[$i]["line"]))
+		{
+			echo "<li>line ".$bt[$i]["line"]."</li>\n";
+		}
+		echo "<li>function called: ".$bt[$i]["function"]."</li>\n";
+
+		if($bt[$i]["args"])
+		{
+			echo "<li>args: ";
+			for($j = 0; $j <= count($bt[$i]["args"]) - 1; $j++)
+			{
+				if( is_array($bt[$i]["args"][$j]) )
+				{
+					print_r($bt[$i]["args"][$j]);
+				}
+				else
+				{
+					echo $bt[$i]["args"][$j] ;
+				}
+
+				if($j != count($bt[$i]["args"]) - 1)
+				{
+					echo ", ";
+				}
+			}
+			echo "</li>\n";
+		}
+		echo "</ul></li>\n";
+	}
+	echo "</ul>\n";
+}
 
 /**
  * This will remove HTML tags, javascript sections and white space
