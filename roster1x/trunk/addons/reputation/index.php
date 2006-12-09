@@ -16,9 +16,9 @@
  *
  ******************************/
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	die("You can't access this file directly!");
+    exit('Detected invalid access to this file!');
 }
 
 
