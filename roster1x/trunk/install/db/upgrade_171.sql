@@ -12,6 +12,7 @@ UPDATE `renprefix_config` SET `config_value` = '0.6.1' WHERE `id` = '1030' LIMIT
 UPDATE `renprefix_config` SET `config_value` = '0'     WHERE `id` = '3140' LIMIT 1;
 
 
+
 # --------------------------------------------------------
 ### Plyaers Table
 
@@ -26,9 +27,10 @@ ALTER TABLE `renprefix_players`
   DROP `TWContribution`,
   DROP `TWHK`;
 
-ALTER TABLE `roster_players`
-  ADD `sessionCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `sessionHK`,
-  ADD `lifetimeCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `lifetimeHK` ;
+ALTER TABLE `renprefix_players`
+  ADD `sessionCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `sessionHK`;
+
+
 
 # --------------------------------------------------------
 ### PvP2 Table

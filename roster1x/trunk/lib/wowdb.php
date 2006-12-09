@@ -2384,7 +2384,6 @@ class wowdb
 			$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
 
 			$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
-			$this->add_value( 'lifetimeCP',            $honor['Lifetime']['CP'] );
 			$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
 			$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
 
