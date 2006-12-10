@@ -32,7 +32,6 @@ $additional_sql = array(
 	'`players`.`yesterdayHK`, ',
 	'`players`.`yesterdayContribution`, ',
 	'`players`.`lifetimeHK`, ',
-	'`players`.`lifetimeCP`, ',
 	'`players`.`lifetimeRankName` ',
 );
 
@@ -117,14 +116,6 @@ $FIELD[] = array (
 		'lang_field' => 'Life HK',
 		'order' => array( '`players`.`lifetimeHK` DESC' ),
 		'order_d' => array( '`players`.`lifetimeHK` ASC' ),
-	),
-);
-
-$FIELD[] = array (
-	'lifetimeCP' => array(
-		'lang_field' => 'Life CP',
-		'order' => array( '`players`.`lifetimeCP` DESC' ),
-		'order_d' => array( '`players`.`lifetimeCP` ASC' ),
 	),
 );
 

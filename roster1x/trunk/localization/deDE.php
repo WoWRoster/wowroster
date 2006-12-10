@@ -367,7 +367,7 @@ $wordings['deDE']['Engineering']='Ingenieurskunst';
 $wordings['deDE']['Cooking']='Kochkunst';
 $wordings['deDE']['Fishing']='Angeln';
 $wordings['deDE']['First Aid']='Erste Hilfe';
-$wordings['deDE']['Poisons']='Poisons';
+$wordings['deDE']['Poisons']='Gifte';
 $wordings['deDE']['backpack']='Rucksack';
 $wordings['deDE']['PvPRankNone']='none';
 
@@ -550,23 +550,23 @@ $wordings['deDE']['alterac_valley']='Alteractal';
 $wordings['deDE']['arathi_basin']='Arathibecken';
 $wordings['deDE']['warsong_gulch']='Warsongschlucht';
 
-$wordings['deDE']['world_pvp']='World PvP';
-$wordings['deDE']['versus_guilds']='Versus Guilds';
-$wordings['deDE']['versus_players']='Versus Players';
-$wordings['deDE']['bestsub']='Best Subzone';
-$wordings['deDE']['worstsub']='Worst Subzone';
-$wordings['deDE']['killedmost']='Killed Most';
-$wordings['deDE']['killedmostby']='Killed Most By';
-$wordings['deDE']['gkilledmost']='Guild Killed Most';
-$wordings['deDE']['gkilledmostby']='Guild Killed Most By';
+$wordings['deDE']['world_pvp']='Welt-PvP';
+$wordings['deDE']['versus_guilds']='Gegengilden';
+$wordings['deDE']['versus_players']='Gegenspieler';
+$wordings['deDE']['bestsub']='Beste Subzone';
+$wordings['deDE']['worstsub']='Schlechteste Subzone';
+$wordings['deDE']['killedmost']='Am meisten getötet';
+$wordings['deDE']['killedmostby']='Am meisten getötet durch';
+$wordings['deDE']['gkilledmost']='Am meisten getötete Spieler der Gilde';
+$wordings['deDE']['gkilledmostby']='Am meister getötet durch Spieler der Gilde';
 
 $wordings['deDE']['wins']='Gewinne';
 $wordings['deDE']['losses']='Verluste';
 $wordings['deDE']['overall']='Gesamt';
-$wordings['deDE']['best_zone']='Best Zone';
-$wordings['deDE']['worst_zone']='Worst Zone';
-$wordings['deDE']['most_killed']='Most Killed';
-$wordings['deDE']['most_killed_by']='Most Killed By';
+$wordings['deDE']['best_zone']='Beste Zone';
+$wordings['deDE']['worst_zone']='Schlechteste Zone';
+$wordings['deDE']['most_killed']='Meisten getötet';
+$wordings['deDE']['most_killed_by']='Meisten getötet durch';
 
 $wordings['deDE']['when']='Wann';
 $wordings['deDE']['guild']='Gilde';
@@ -654,7 +654,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['Succubus']='Sukkubus';
 	$wordings['deDE']['Felhunter']='TeufelsjÃ¤ger';
 	$wordings['deDE']['Infernal']='Infernal';
-	$wordings['deDE']['Felguard']='Felguard';
+	$wordings['deDE']['Felguard']='Teufelswache';
 
 // Max experiance for exp bar on char page
 	$wordings['deDE']['max_exp']='Max XP';
@@ -780,7 +780,7 @@ $wordings['deDE']['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript Dateiort
 $wordings['deDE']['admin']['logo'] = "URL fÃ¼r das Kopf-Logo|Die volle URL fÃ¼r das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $wordings['deDE']['admin']['roster_bg'] = "URL fÃ¼r das Hintergrundbild|Die volle URL fÃ¼r den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $wordings['deDE']['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Message of the day) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (BenÃ¶tigt GD!)";
-$wordings['deDE']['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
+$wordings['deDE']['admin']['compress_note'] = "Notiz Anzeige Modus|Wie die Notiz angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt die Notiz als Text<br />&quot;Icon&quot; - Zeigt ein Notizicon mit dem Text in einem Tooltip";
 $wordings['deDE']['admin']['signaturebackground'] = "img.php Hintergrund|Support fÃ¼r die (alten) Standard Signaturen";
 $wordings['deDE']['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
 

@@ -1379,8 +1379,8 @@ $returnstring .= '  <tr>
 		$output .= '<div class="alltime">'.$wordings[$lang]['alltime'].'</div>'."\n";
 		$output .= '<div class="honortext9_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
 		$output .= '<div class="honortext9">'.$this->data['lifetimeHK'].'</div>'."\n";
-		$output .= '<div class="honortext10_">'.$wordings[$lang]['honor'].'</div>'."\n";
-		$output .= '<div class="honortext10">'.$this->data['lifetimeCP'].'</div>'."\n";
+		$output .= '<div class="honortext10_">'./*$wordings[$lang]['honor'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="honortext10">'./*$this->data['lifetimeCP'].*/'&nbsp;</div>'."\n";
 		$output .= '<div class="honortext11_">'.$wordings[$lang]['highestrank'].'</div>'."\n";
 		$output .= '<div class="honortext11">'.$this->data['lifetimeRankName'].'</div>'."\n";
 

@@ -1627,13 +1627,13 @@ class wowdb
 
 			}
 
-			$this->setMessage('<li><span class="red">Deleted '.$num.' member'.($num > 1 ? 's' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Deleted '.$num.' member'.($num > 1 ? 's' : '').'</span>');
 			$this->setMessage('<ul>');
 
 			// now that we have our inclause, time to do some deletes
 			$this->deleteMembers($inClause);
 
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		$this->closeQuery($result);
 	}
@@ -1704,13 +1704,13 @@ class wowdb
 				$this->setMemberLog($row,0);
 			}
 
-			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\'s' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\'s' : '').'</span>');
 			$this->setMessage('<ul>');
 
 			// now that we have our inclause, time to do some deletes
 			$this->deleteMembers($inClause);
 
-			$this->setMessage('</ul>');
+			$this->setMessage('</ul></li>');
 		}
 		$this->closeQuery($result);
 	}
