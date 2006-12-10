@@ -23,13 +23,17 @@ $WoWDir               = "C:/Program\ Files/World\ of\ Warcraft";	// You WoW Dire
 $AccountName          = "ACCOUNT";			// You WoW account name, usually uppercase!!
 // The URL to your UniAdmin interface.php
 $UniAdminURL          = "http://your.domain.com/uniadmin/interface.php";
+
 $CheckLUAFilesDelay   = 5;                              // How often do we check the LUA files (in seconds)
 $CheckSettingsDelay   = 21600;				// How often do we check the AddOns (in seconds)
+
 $RosterUpdateUser     = "";				// Your Roster User.
 $RosterUpdatePassword = "";				// Your Roster Password.
+
 $SendUpdatePassword   = FALSE;				// Do you want to send the password? (TRUE or FALSE)
-$LogFile              = "~/phpUniUploader.log";		// LogFile.
-$UploadResultLog      = "~/phpUniUploader.LastUpload.log";
+$LogFile              = $WoWDir."/phpUniUploader.log";		// LogFile.
+$UploadResultLog      = $WoWDir."/phpUniUploader.LastUpload.log";
+$UserAgentVersion     = "UniUploader 2.0";
 $TempDir              = $WoWDir;			// Temporary Directory to gzip files.
 
 ?>

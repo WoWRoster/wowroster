@@ -108,10 +108,10 @@ function CheckFiles()
 
 function UploadFiles()
 {
-	global $post_data, $phpUniSettings, $luafiles, $WoWDir, $UploadResultLog, $AccountName, $RosterUpdatePassword;
+	global $post_data, $phpUniSettings, $luafiles, $WoWDir, $UploadResultLog, $AccountName, $RosterUpdatePassword, $UserAgentVersion;
 	
 	$post_data = array();
-	if (isset($phpUniSettings['ADDVARNAME2']) && $phpUniSettings['ADDVARNAME2'])
+	if (isset($phpUniSettings['ADDVARNAME2']) && $phpUniSettings['ADDVARNAME2'] && isset($phpUniSettings['ADDVARVAL2']) && $phpUniSettings['ADDVARVAL2'])
 	{
 		if (isset($phpUniSettings['ADDVARVAL2']) && $phpUniSettings['ADDVARVAL2'])
 		{
@@ -150,7 +150,7 @@ function UploadFiles()
 			$luafiles[$svfile]['upload'] = 0;
 		}
 	}
-	$post_result = PostData($phpUniSettings['PRIMARYURL'], 'UploadFiles');
+	$post_result = PostData($phpUniSettings['PRIMARYURL'], 'UploadFiles', $UserAgentVersion);
 
 	if ($post_result['error']) {
 		WriteToLog($post_result['error']);
@@ -193,7 +193,7 @@ function UploadFiles()
 
 function GetSettings()
 {
-	global $post_data, $phpUniSettings, $SendUpdatePassword;
+	global $post_data, $phpUniSettings, $SendUpdatePassword, $UserAgentVersion;
 	
 	$returnvalue = 0;
 	
@@ -201,17 +201,17 @@ function GetSettings()
 	{
 		$post_data = array();
 		$post_data['OPERATION'] = 'GETSETTINGS';
-		$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetSettings');
+		$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetSettings', $UserAgentVersion);
 
 		if ($post_result['error']) {
 			$returnvalue = "GetSettings Error: ".$post_result['error'];
 		}
 		
 		
-		$tempsettings = explode("|", $post_result['output']);
+		$tempsettings = explode("[|]", $post_result['output']);
 		foreach ($tempsettings as $setting)
 		{
-			$setting = explode("=", $setting);
+			$setting = explode("[=]", $setting);
 			$settingscount = count($setting);
 			if ($settingscount > 2)
 			{
@@ -247,7 +247,7 @@ function GetSettings()
 
 function CheckAddons()
 {
-	global $post_data, $phpUniSettings, $SendUpdatePassword, $TempDir, $WoWDir;
+	global $post_data, $phpUniSettings, $SendUpdatePassword, $TempDir, $WoWDir, $UserAgentVersion;
 	
 	$returnvalue = 0;
 	
@@ -259,7 +259,7 @@ function CheckAddons()
 	{
 		$post_data = array();
 		$post_data['OPERATION'] = 'GETADDONLIST';
-		$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetAddOnList');
+		$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetAddOnList', $UserAgentVersion);
 
 		if ($post_result['error']) 
 		{
@@ -272,11 +272,13 @@ function CheckAddons()
 		$rawxml = $rawxml[0];
 		foreach ($rawxml as $index => $data)
 		{
-			preg_match("'<addon\sname=\"(.*?)\"\sversion=\"(.*?)\"\s>'", $data, $addon_info);
+			preg_match("'<addon\sname=\"(.*?)\"\sversion=\"(.*?)\"\srequired=\"(.*?)\"\stoc=\"(.*?)\">'", $data, $addon_info);
 			preg_match_all("'<file\sname=\"(.*?)\"\smd5sum=\"(.*?)\"\s\/>'", $data, $addon_files);
 
 			$addon_data[$index]['name'] = $addon_info[1];
 			$addon_data[$index]['version'] = $addon_info[2];
+			$addon_data[$index]['required'] = $addon_info[3];
+			$addon_data[$index]['toc'] = $addon_info[4];
 			
 			foreach ($addon_files[0] as $fileidx => $filedata)
 			{
@@ -311,13 +313,13 @@ function CheckAddons()
 			}
 			
 			// Download the file if there are differences and update the addon
-			if ($addon_data[$addonindex]['different'])
+			if ($addon_data[$addonindex]['different'] && ($addon_data[$addonindex]['required'] || $GetNonRequired))
 			{
 				// Get the AddOn URL
 				$post_data = array();
 				$post_data['OPERATION'] = 'GETADDON';
 				$post_data['ADDON'] = $addon_data[$addonindex]['name'];
-				$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetAddOnUrl');
+				$post_result = PostData($phpUniSettings['SYNCHROURL'], 'GetAddOnUrl', $UserAgentVersion);
 				
 				// Get the AddOn and store it in the tmp folder
 				if ($post_result['error']) 
@@ -465,7 +467,7 @@ function LoopHole()
 	}
 }	
 	
-function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader')
+function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader 2.0')
 {
 	global $post_data;
 	
@@ -671,4 +673,3 @@ function download_binary($URL, $save_path = '')
 }
 
 ?>
-
