@@ -17,6 +17,9 @@
  ******************************/
 error_reporting(E_ALL);
 
+// Needed so files think we are in Roster =P
+define('ROSTER_INSTALLED',true);
+
 // This file is for on the CVS only, so this should NOT be shipped to the clients!!!
 require_once 'lib/commonfunctions.lib.php';
 require_once 'lib/rosterdiag.lib.php';
