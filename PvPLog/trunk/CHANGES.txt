@@ -1,17 +1,51 @@
 PvPLog 
-Author:			Andrzej Gorski
-Based on Work by:	Josh Estelle, Daniel S. Reichenbach
-Version:		0.5.1
+Author:           Andrzej Gorski
+Maintainer:       Matthew Musgrove
+Based on Work by: Josh Estelle, Daniel S. Reichenbach
+Version:          0.6.1
+Last Modified:    2006-10-23
 
 CHANGES
-2006-07-25  * Released 0.5.1 (No functionality changes)
-	    * Updated TOC to 11100
-	    * Minor updates to README.TXT
+2006-10-23  * Released 0.6.1
+	* Added a button to the Earth Features Menu (or the Khaos menu if the Earth Features Menu is disabled) in Cosmos (if installed).
+	* Added PvPLog to the myaddons menu (if installed).
+	* Added an option to disable the minimap button courtesy of Atolicus.
+	* Added realm to the PvP UI window (and PurgeLogData table) courtesy of Atolicus.
+	* Fixed a bug with the Minimap table after resetting the data.
+	* Added UI_OPEN, UI_CLOSE, DESCRIPTION, UI_MINIMAP_BUTTON to localization.lua (translations needed).
+	* Additional German translations by yamyam.
+		
+2006-10-05  * Released 0.6.0
+    * The minimap position will now be saved.
+    * Changed version from 0.5.3 to 0.6.0.
+
+2006-10-03
+    * Added TODO.txt.
+
+2006-10-01
+    * Corrected bug with the minimap button not always appearing due to a data issue.
+    * Changed the event in which the minimap button is created.
+
+2006-09-28  * Released 0.5.3 beta
+    * Updated localization.lua with Spanish translations curtesy of NeKRoMaNT.
+    * Added UI courtesy of Atolicus.
+    * Added a mini-map button.
+    * Corrected some nil errors.
+    * Added back support for notifykills and notifydeath.
+    * Updated README.TXT, PvPLog.xml to add email address for Matthew Musgrove and update URL to obtain updates.
+		
+2006-08-22  * Released 0.5.2
+    * Correct TOC to 11200
+
+2006-08-18  * Released 0.5.1
+    * Correct TOC to 11100
+    * Added display, ding, mouseover and nospam options.
+    * Minor refactoring.
 
 2006-03-30  * Released 0.5.0
-	    * Correct TOC to 11000
-	    * Removed the "Sadly the kill was not logged" message for Mobs"
-	    * Fixed a nasty bug that re-targetting was causing
+		* Correct TOC to 11000
+		* Removed the "Sadly the kill was not logged" message for Mobs
+		* Fixed a nasty bug that re-targetting was causing
 
 2006-01-20  * Released 0.4.8
 	    * Corrected .toc patch version (10900)
