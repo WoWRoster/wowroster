@@ -128,5 +128,3 @@ class RosterLogin
 		return $this->loginform;
 	}
 }
-
-?>

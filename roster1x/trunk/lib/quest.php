@@ -96,4 +96,3 @@ function quest_get_many( $member_id, $search )
 	}
 	return $quests;
 }
-?>

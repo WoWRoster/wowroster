@@ -332,5 +332,3 @@ function makeAddonList()
 
 	return $output;
 }
-
-?>

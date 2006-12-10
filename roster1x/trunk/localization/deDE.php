@@ -367,7 +367,7 @@ $wordings['deDE']['Engineering']='Ingenieurskunst';
 $wordings['deDE']['Cooking']='Kochkunst';
 $wordings['deDE']['Fishing']='Angeln';
 $wordings['deDE']['First Aid']='Erste Hilfe';
-$wordings['deDE']['poisons']='Poisons';
+$wordings['deDE']['Poisons']='Poisons';
 $wordings['deDE']['backpack']='Rucksack';
 $wordings['deDE']['PvPRankNone']='none';
 
@@ -393,19 +393,19 @@ $tsArray['deDE'] = array (
 
 //Tradeskill Icons-Array
 $wordings['deDE']['ts_iconArray'] = array (
-	'Alchimie'=>'Trade_Alchemy',
-	'Kräuterkunde'=>'Trade_Herbalism',
-	'Schmiedekunst'=>'Trade_BlackSmithing',
-	'Bergbau'=>'Trade_Mining',
-	'Lederverarbeitung'=>'Trade_LeatherWorking',
-	'Kürschnerei'=>'INV_Misc_Pelt_Wolf_01',
-	'Schneiderei'=>'Trade_Tailoring',
-	'Verzauberkunst'=>'Trade_Engraving',
-	'Ingenieurskunst'=>'Trade_Engineering',
-	'Kochkunst'=>'INV_Misc_Food_15',
-	'Angeln'=>'Trade_Fishing',
-	'Erste Hilfe'=>'Spell_Holy_SealOfSacrifice',
-	'Poisons'=>'Ability_Poisons',
+	$wordings['deDE']['Alchemy']=>'Trade_Alchemy',
+	$wordings['deDE']['Herbalism']=>'Trade_Herbalism',
+	$wordings['deDE']['Herbalism']=>'Trade_BlackSmithing',
+	$wordings['deDE']['Mining']=>'Trade_Mining',
+	$wordings['deDE']['Leatherworking']=>'Trade_LeatherWorking',
+	$wordings['deDE']['Skinning']=>'INV_Misc_Pelt_Wolf_01',
+	$wordings['deDE']['Tailoring']=>'Trade_Tailoring',
+	$wordings['deDE']['Enchanting']=>'Trade_Engraving',
+	$wordings['deDE']['Engineering']=>'Trade_Engineering',
+	$wordings['deDE']['Cooking']=>'INV_Misc_Food_15',
+	$wordings['deDE']['Fishing']=>'Trade_Fishing',
+	$wordings['deDE']['First Aid']=>'Spell_Holy_SealOfSacrifice',
+	$wordings['deDE']['Poisons']=>'Ability_Poisons',
 	'Tigerreiten'=>'Ability_Mount_WhiteTiger',
 	'Pferdreiten'=>'Ability_Mount_RidingHorse',
 	'Widderreiten'=>'Ability_Mount_MountainRam',
@@ -569,7 +569,6 @@ $wordings['deDE']['most_killed']='Most Killed';
 $wordings['deDE']['most_killed_by']='Most Killed By';
 
 $wordings['deDE']['when']='Wann';
-$wordings['deDE']['rank']='Rank';
 $wordings['deDE']['guild']='Gilde';
 $wordings['deDE']['leveldiff']='LevelDiff';
 $wordings['deDE']['result']='Ergebnis';
@@ -655,6 +654,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['Succubus']='Sukkubus';
 	$wordings['deDE']['Felhunter']='Teufelsjäger';
 	$wordings['deDE']['Infernal']='Infernal';
+	$wordings['deDE']['Felguard']='Felguard';
 
 // Max experiance for exp bar on char page
 	$wordings['deDE']['max_exp']='Max XP';
@@ -827,5 +827,3 @@ $wordings['deDE']['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontr
 
 // Character Display Settings
 $wordings['deDE']['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
-
-?>

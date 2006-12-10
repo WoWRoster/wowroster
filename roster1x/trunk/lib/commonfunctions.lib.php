@@ -759,5 +759,3 @@ function escape_array($array)
 
 	return $array;
 }
-
-?>

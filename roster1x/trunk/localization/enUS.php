@@ -367,7 +367,7 @@ $wordings['enUS']['Engineering']='Engineering';
 $wordings['enUS']['Cooking']='Cooking';
 $wordings['enUS']['Fishing']='Fishing';
 $wordings['enUS']['First Aid']='First Aid';
-$wordings['enUS']['poisons']='Poisons';
+$wordings['enUS']['Poisons']='Poisons';
 $wordings['enUS']['backpack']='Backpack';
 $wordings['enUS']['PvPRankNone']='none';
 
@@ -393,19 +393,19 @@ $tsArray['enUS'] = array (
 
 //Tradeskill Icons-Array
 $wordings['enUS']['ts_iconArray'] = array (
-	'Alchemy'=>'Trade_Alchemy',
-	'Herbalism'=>'Trade_Herbalism',
-	'Blacksmithing'=>'Trade_BlackSmithing',
-	'Mining'=>'Trade_Mining',
-	'Leatherworking'=>'Trade_LeatherWorking',
-	'Skinning'=>'INV_Misc_Pelt_Wolf_01',
-	'Tailoring'=>'Trade_Tailoring',
-	'Enchanting'=>'Trade_Engraving',
-	'Engineering'=>'Trade_Engineering',
-	'Cooking'=>'INV_Misc_Food_15',
-	'Fishing'=>'Trade_Fishing',
-	'First Aid'=>'Spell_Holy_SealOfSacrifice',
-	'Poisons'=>'Ability_Poisons',
+	$wordings['enUS']['Alchemy']=>'Trade_Alchemy',
+	$wordings['enUS']['Herbalism']=>'Trade_Herbalism',
+	$wordings['enUS']['Herbalism']=>'Trade_BlackSmithing',
+	$wordings['enUS']['Mining']=>'Trade_Mining',
+	$wordings['enUS']['Leatherworking']=>'Trade_LeatherWorking',
+	$wordings['enUS']['Skinning']=>'INV_Misc_Pelt_Wolf_01',
+	$wordings['enUS']['Tailoring']=>'Trade_Tailoring',
+	$wordings['enUS']['Enchanting']=>'Trade_Engraving',
+	$wordings['enUS']['Engineering']=>'Trade_Engineering',
+	$wordings['enUS']['Cooking']=>'INV_Misc_Food_15',
+	$wordings['enUS']['Fishing']=>'Trade_Fishing',
+	$wordings['enUS']['First Aid']=>'Spell_Holy_SealOfSacrifice',
+	$wordings['enUS']['Poisons']=>'Ability_Poisons',
 	'Tiger Riding'=>'Ability_Mount_WhiteTiger',
 	'Horse Riding'=>'Ability_Mount_RidingHorse',
 	'Ram Riding'=>'Ability_Mount_MountainRam',
@@ -569,7 +569,6 @@ $wordings['enUS']['most_killed']='Most Killed';
 $wordings['enUS']['most_killed_by']='Most Killed By';
 
 $wordings['enUS']['when']='When';
-$wordings['enUS']['rank']='Rank';
 $wordings['enUS']['guild']='Guild';
 $wordings['enUS']['leveldiff']='LevelDiff';
 $wordings['enUS']['result']='Result';
@@ -655,6 +654,7 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 	$wordings['enUS']['Succubus']='Succubus';
 	$wordings['enUS']['Felhunter']='Felhunter';
 	$wordings['enUS']['Infernal']='Infernal';
+	$wordings['enUS']['Felguard']='Felguard';
 
 // Max experiance for exp bar on char page
 	$wordings['enUS']['max_exp']='Max XP';
@@ -941,4 +941,3 @@ Serveral javascript files are libraries that are under their own licenses.
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
 See <a href="license.txt">license.txt</a> for details';
-?>

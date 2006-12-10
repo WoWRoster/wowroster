@@ -126,4 +126,3 @@ function skill_get_many( $member_id, $search )
   }
   return $skills;
 }
-?>

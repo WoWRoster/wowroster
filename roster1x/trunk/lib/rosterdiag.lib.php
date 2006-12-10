@@ -876,5 +876,3 @@ function check_date_time($date, $time)
 
 	return $returnunixdate;
 }
-
-?>

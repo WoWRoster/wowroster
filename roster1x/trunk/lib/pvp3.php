@@ -925,4 +925,3 @@ function output_pvp2($pvps,$url,$type)
 	$returnstring .= "\n</table>\n";
 	return $returnstring;
 }
-?>

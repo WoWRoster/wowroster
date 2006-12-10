@@ -134,4 +134,3 @@ function read_name( $member_id )
 	}
 	return $name;
 }
-?>

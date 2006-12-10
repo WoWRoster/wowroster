@@ -162,4 +162,3 @@ function get_reputation( $member_id)
 	}
 	return $reputations;
 }
-?>

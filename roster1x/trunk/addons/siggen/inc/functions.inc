@@ -772,4 +772,3 @@ $output .= "\n</table>\n<!-- End Message Box -->\n".border('syellow','end');
 
 
 }
-?>

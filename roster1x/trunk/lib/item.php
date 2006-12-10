@@ -106,4 +106,3 @@ function item_get_many( $member_id, $parent )
 	}
 	return $items;
 }
-?>

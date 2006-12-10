@@ -368,7 +368,7 @@ $wordings['frFR']['Engineering']='Ingénierie';
 $wordings['frFR']['Cooking']='Cuisine';
 $wordings['frFR']['Fishing']='Pêche';
 $wordings['frFR']['First Aid']='Secourisme';
-$wordings['frFR']['poisons']='Poisons';
+$wordings['frFR']['Poisons']='Poisons';
 $wordings['frFR']['backpack']='Backpack';
 $wordings['frFR']['PvPRankNone']='none';
 
@@ -394,19 +394,19 @@ $tsArray['frFR'] = array (
 
 //Tradeskill Icons-Array
 $wordings['frFR']['ts_iconArray'] = array (
-	'Alchimie'=>'Trade_Alchemy',
-	'Herboristerie'=>'Trade_Herbalism',
-	'Forge'=>'Trade_BlackSmithing',
-	'Minage'=>'Trade_Mining',
-	'Travail du cuir'=>'Trade_LeatherWorking',
-	'Dépeçage'=>'INV_Misc_Pelt_Wolf_01',
-	'Couture'=>'Trade_Tailoring',
-	'Enchantement'=>'Trade_Engraving',
-	'Ingénierie'=>'Trade_Engineering',
-	'Cuisine'=>'INV_Misc_Food_15',
-	'Pêche'=>'Trade_Fishing',
-	'Secourisme'=>'Spell_Holy_SealOfSacrifice',
-	'Poisons'=>'Ability_Poisons',
+	$wordings['frFR']['Alchemy']=>'Trade_Alchemy',
+	$wordings['frFR']['Herbalism']=>'Trade_Herbalism',
+	$wordings['frFR']['Herbalism']=>'Trade_BlackSmithing',
+	$wordings['frFR']['Mining']=>'Trade_Mining',
+	$wordings['frFR']['Leatherworking']=>'Trade_LeatherWorking',
+	$wordings['frFR']['Skinning']=>'INV_Misc_Pelt_Wolf_01',
+	$wordings['frFR']['Tailoring']=>'Trade_Tailoring',
+	$wordings['frFR']['Enchanting']=>'Trade_Engraving',
+	$wordings['frFR']['Engineering']=>'Trade_Engineering',
+	$wordings['frFR']['Cooking']=>'INV_Misc_Food_15',
+	$wordings['frFR']['Fishing']=>'Trade_Fishing',
+	$wordings['frFR']['First Aid']=>'Spell_Holy_SealOfSacrifice',
+	$wordings['frFR']['Poisons']=>'Ability_Poisons',
 	'Monte de tigre'=>'Ability_Mount_WhiteTiger',
 	'Equitation'=>'Ability_Mount_RidingHorse',
 	'Monte de bélier'=>'Ability_Mount_MountainRam',
@@ -570,7 +570,6 @@ $wordings['frFR']['most_killed']='Le plus tué';
 $wordings['frFR']['most_killed_by']='Le plus tué par';
 
 $wordings['frFR']['when']='Quand';
-$wordings['frFR']['rank']='Rang';
 $wordings['frFR']['guild']='Guilde';
 $wordings['frFR']['leveldiff']='Différence de Niveau';
 $wordings['frFR']['result']='Résultat';
@@ -656,6 +655,7 @@ $wordings['frFR']['lockpicking']='Crochetage';
 	$wordings['frFR']['Succubus']='Succube';
 	$wordings['frFR']['Felhunter']='Chasseur corrompu';
 	$wordings['frFR']['Infernal']='Infernal';
+	$wordings['frFR']['Felguard']='Felguard';
 
 // Max experiance for exp bar on char page
 	$wordings['frFR']['max_exp']='Max XP';
@@ -828,5 +828,3 @@ $wordings['frFR']['admin']['authenticated_user'] = "Accès à Update.php|Contrô
 
 // Character Display Settings
 $wordings['frFR']['admin']['per_character_display'] = 'Affichage par personnage';
-
-?>

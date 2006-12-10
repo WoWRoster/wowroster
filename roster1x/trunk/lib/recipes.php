@@ -156,4 +156,3 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 	return $recipes;
 }
-?>

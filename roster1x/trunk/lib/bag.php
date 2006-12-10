@@ -120,4 +120,3 @@ function bag_get( $char, $slot )
 	else
 		return null;
 }
-?>

@@ -1076,7 +1076,7 @@ class wowdb
 				// Fix bank bag icon
 				if( $bag_name == 'Bag0' )
 				{
-					$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_07';
+					$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_15';
 				}
 
 				// quantity for a bag means number of slots it has
@@ -2638,5 +2638,3 @@ class wowdb
 } //-END CLASS
 
 $wowdb = new wowdb;
-
-?>

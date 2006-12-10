@@ -685,7 +685,6 @@ $returnstring .= '  <tr>
 		$petNum = 1;
 		while ($row = $wowdb->fetch_assoc($result))
 		{
-
 			$showxpBar = true;
 			if ( strlen($row['xp']) < 1 )
 				$showxpBar = false;
@@ -742,8 +741,9 @@ $returnstring .= '  <tr>
 			$suc = 'Interface/Icons/Spell_Shadow_SummonSuccubus';
 			$fel = 'Interface/Icons/Spell_Shadow_SummonFelHunter';
 			$inferno = 'Interface/Icons/Spell_Shadow_SummonInfernal';
+			$felguard = 'Interface/Icons/Spell_Shadow_SummonFelguard';
 
-			$iconStyle='cursor:pointer;position:absolute;left:'.$left.'px;top:'.$top.'px;';
+			$iconStyle='cursor:pointer;position:absolute;left:'.$left.'px;top:'.$top.'px;height:40px;width:40px;';
 
 			if ($row['type'] == $wordings[$lang]['Imp'])
 				$row['icon'] = $imp;
@@ -756,6 +756,9 @@ $returnstring .= '  <tr>
 
 			if ($row['type'] == $wordings[$lang]['Felhunter'])
 				$row['icon'] = $fel;
+
+			if ($row['type'] == $wordings[$lang]['Felguard'])
+				$row['icon'] = $felguard;
 
 			if ($row['type'] == $wordings[$lang]['Infernal'])
 				$row['icon'] = $inferno;
@@ -770,7 +773,7 @@ $returnstring .= '  <tr>
 			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';
 			$petTitle		.= '<span class="petName" style="top: 30px; left: 95px; display: none;" id="pet_title'.$petNum.'">'.$wordings[$lang]['level'].' '.$row['level'].' ' . stripslashes($row['type']).'</span>';
 			$loyalty		.= '<span class="petName" style="top: 50px; left: 95px; display: none;" id="pet_loyalty'.$petNum.'">'.$row['loyalty'].'</span>';
-			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 35px; top: 10px; width: 55px; height: 60px; display: none;" src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" />';
+			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 30px; top: 8px; width: 64px; height: 64px; display: none;" src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" />';
 			$resistances	.= '<div  class="pet_resistance" id="pet_resistances'.$petNum.'">
 				<ul>
 					<li class="pet_fire"><span class="white">'.$row['res_fire'].'</span></li>
@@ -1151,7 +1154,7 @@ $returnstring .= '  <tr>
 					$outtalent .='<div class="tablabel" id="tlab'.$g.'" onclick="setActiveTalentWrapper(\''.$g.'\',\''.$roster_conf['img_url'].'\');">'.$tree["tree"].'</div>';
 
 				$output .= '<div id="talentwrapper'.$tree['order'].'">';
-				$output .= '<div id="talentpage'.$tree['order'].'" style="background: url('.$roster_conf['interface_url'].$tree['background'].'.'.$roster_conf['img_suffix'].') no-repeat">';
+				$output .= '<div id="talentpage'.$tree['order'].'" style="background:url(\''.$roster_conf['interface_url'].$tree['background'].'.'.$roster_conf['img_suffix'].'\') no-repeat;">';
 				$output .= '<span class="talspent">'.$wordings[$lang]['pointsspent'].' ' . $tree['pointsspent'].'</span>
 	<table align="center" width="100%">
 	  <tr>';
@@ -1327,7 +1330,7 @@ $returnstring .= '  <tr>
 		{
 			$RankInfo = '&nbsp;';
 			$RankIcon = 'pixel.gif';
-			$Badge = '<img src="'.$roster_conf['img_url'].$RankIcon.'" width="16" hieght="16" alt="" />';
+			$Badge = '<img src="'.$roster_conf['img_url'].$RankIcon.'" width="16" height="16" alt="" />';
 		}
 
 		$RankIcondata = $this->data['RankIcon'];
@@ -1961,5 +1964,3 @@ function dumpBonuses($char, $server)
 	if( !empty($myBonus) )
 		return $bt;
 }
-
-?>

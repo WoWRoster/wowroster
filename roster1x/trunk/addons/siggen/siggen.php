@@ -637,7 +637,15 @@ if( isset($_GET['etag']) )
 			// Set race-gender based image
 			if( !empty($sig_gender) )
 			{
-				$im_user_file = $configData['image_dir'].$configData['char_dir'].$sig_race.'-'.$sig_gender.'.png';
+				// Set race-gender-class based image
+				if( !empty($sig_class) )
+				{
+					$im_user_file = $configData['image_dir'].$configData['char_dir'].$sig_race.'-'.$sig_gender.'-'.strtolower(getEnglishValue($sig_class,$sig_char_locale)).'.png';
+				}
+				else
+				{
+					$im_user_file = $configData['image_dir'].$configData['char_dir'].$sig_race.'-'.$sig_gender.'.png';
+				}
 			}
 			// Set race only image
 			else
