@@ -1,4 +1,4 @@
---[[ MyMinimapButton v0.7
+--[[ MyMinimapButton v0.8
 
 	This is an embedded library intended to be used by other mods.
 	It's not a standalone mod.
@@ -6,7 +6,7 @@
 	See MyMinimapButton_API_readme.txt for more info.
 ]]
 
-local version = 1.0
+local version = 2.0
 
 if not MyMinimapButton or MyMinimapButton.Version<version then
 
@@ -63,7 +63,7 @@ if not MyMinimapButton or MyMinimapButton.Version<version then
 		frame.tooltipText = initSettings.tooltip
 
 		local firstUse = 1
-		for i in modSettings do
+		for i,v in pairs(modSettings) do
 			firstUse = nil -- modSettings has been populated before
 		end
 		if firstUse then

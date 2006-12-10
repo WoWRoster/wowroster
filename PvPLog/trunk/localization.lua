@@ -1,15 +1,15 @@
-﻿--[[
+--[[
   PvPLog 
   Author:           Andrzej Gorski 
-  Maintainer:       Matthew Musgrove
+  Maintainer:       Matthew Musgrove, Brad Morgan
   Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          0.6.1
-  Last Modified:    2006-10-23
+  Version:          0.7.0
+  Last Modified:    2006-12-06
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "0.6.1";
+VER_NUM = "0.7.0";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.

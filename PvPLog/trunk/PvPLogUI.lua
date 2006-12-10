@@ -1,9 +1,9 @@
 --[[
     PvPLogUI
     Author:           Atolicus
-	Maintainer:       Matthew Musgrove
-    Version:          0.6.1
-    Last Modified:    2006-10-23
+    Maintainer:       Matthew Musgrove, Brad Morgan
+    Version:          0.7.0
+    Last Modified:    2006-12-06
 ]]
 
 local realm = "";

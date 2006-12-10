@@ -1,10 +1,10 @@
 --[[
-	PvPLog 
-	Author:           Andrzej Gorski, 
-	Maintainer:       Matthew Musgrove
+    PvPLog 
+    Author:           Andrzej Gorski, 
+    Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-	Version:          0.6.1
-	Last Modified:    2006-10-23
+    Version:          0.7.0
+    Last Modified:    2006-12-06
 ]]
 
 -- Function hooks

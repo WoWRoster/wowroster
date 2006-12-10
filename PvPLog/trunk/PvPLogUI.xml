@@ -1,9 +1,9 @@
 <!--
     PvPLogUI
     Author:           Atolicus
-	Maintainer:       Matthew Musgrove
-    Version:          0.6.1
-    Last Modified:    2006-10-23
+    Maintainer:       Matthew Musgrove, Brad Morgan
+    Version:          0.7.0
+    Last Modified:    2006-12-06
 -->
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">

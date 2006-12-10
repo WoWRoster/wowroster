@@ -1,9 +1,9 @@
 PvPLog 
 Author:            Andrzej Gorski
-Maintainer:        Matthew Musgrove
+Maintainer:        Matthew Musgrove, Brad Morgan
 Based on Work by:  Josh Estelle, Daniel S. Reichenbach
-Version:           0.6.1
-Last Modified:     2006-10-23
+Version:           0.7.0
+Last Modified:     2006-12-06
 
 README
 
@@ -93,10 +93,8 @@ Use:
         /pvplog reset confirm
     Be careful as this will erase all your records!
 
-	
-    If you have any comments, questions, or suggestions, feel free to 
-    email me at:
-           Matthew Musgrove <mr.muskrat@gmail.com>
-
     Updates for PvPLog are available from these AddOn sites:
     * http://www.wowroster.net
+
+    Comments, questions, and suggestions can be made in the PvPLog forum
+    at http://www.wowroster.net

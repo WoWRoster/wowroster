@@ -1,10 +1,9 @@
-## Interface: 11200
+## Interface: 20000
 ## Title: PvPLog
 ## Author: Andrzej Gorski
-## Maintainer: Matthew Musgrove
-## eMail: mr.muskrat@gmail.com
+## Maintainer: Matthew Musgrove, Brad Morgan
 ## URL: http://www.wowroster.net
-## Version: 0.6.1
+## Version: 0.7.0
 ## Notes: Keeps track of your PvP kills and the people who kill you.
 ## Notes-deDE: Zeichnet PvP Siege und Verluste auf, sowie Duelle.
 ## Notes-frFR: Keeps track of your PvP kills and the people who kill you.
