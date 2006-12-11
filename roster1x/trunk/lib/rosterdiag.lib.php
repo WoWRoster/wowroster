@@ -245,9 +245,15 @@ function GetFileVersionInfo($directory, $file)
 
 				$tmpdatetime = explode(" ", $local_version[2]);
 				$tmpdate = explode("/", $tmpdatetime[0]);
-				$tmptime = explode(":", $tmpdatetime[1]);
+				if (isset($tmpdatetime[1]))
+				{
+					$tmptime = explode(":", $tmpdatetime[1]);^M
+					if (is_int($tmptime[0]))
+					{
+						$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);^M
+					}
+				}
 
-				$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);
 			} else {
 				$files[$directory][$file]['local']['versionDesc'] = 0;
 				$files[$directory][$file]['local']['versionDate'] = 0;
