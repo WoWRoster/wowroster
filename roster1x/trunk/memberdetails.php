@@ -59,6 +59,8 @@ if( !$char )
 	die_quietly('Sorry no data in database for &quot;'.$_GET['name'].'&quot; of &quot;'.$_GET['server'].'&quot;<br /><br /><a href="./index.php">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a>','Character Not Found');
 }
 
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+
 // Get per character display control
 // Array of db fields to get ( 'globalsetting'=>'usersetting'
 $disp_array = array(

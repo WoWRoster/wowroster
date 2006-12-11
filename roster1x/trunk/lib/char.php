@@ -1306,83 +1306,40 @@ $returnstring .= '  <tr>
 
 	function printHonor()
 	{
-		global $roster_conf, $wowdb, $wordings;
+		global $roster_conf, $wowdb, $wordings, $guild_info;
 
 		$lang = $this->data['clientLocale'];
-/*
-		$honorxp_percent = $this->data['Rankexp'];;
 
-		$honorbarpixelwidth = floor(381 * ( $honorxp_percent / 100) );
-		$honorxp_percent_word = $honorxp_percent.'%';
-
-		if($this->data['RankInfo'])
+		$icon = '';
+		switch( substr($guild_info['faction'],0,1) )
 		{
-			$RankInfo = $this->data['RankInfo'];
-			$RankIcon = $this->data['RankIcon'];
-			if (empty($RankIcon))
-			{
-				$RankIcon = 'pixel';
-				$roster_conf['img_suffix'] = 'gif';
-			}
-			$Badge = '<img src="'.$roster_conf['interface_url'].$RankIcon.'.'.$roster_conf['alt_img_suffix'].'" alt="" />';
-		}
-		else
-		{
-			$RankInfo = '&nbsp;';
-			$RankIcon = 'pixel.gif';
-			$Badge = '<img src="'.$roster_conf['img_url'].$RankIcon.'" width="16" height="16" alt="" />';
+			case 'A':
+				$icon = '<img src="'.$roster_conf['img_url'].'battleground-alliance.png" alt="" />';
+				break;
+			case 'H':
+				$icon = '<img src="'.$roster_conf['img_url'].'battleground-horde.png" alt="" />';
+				break;
 		}
 
-		$RankIcondata = $this->data['RankIcon'];
+		$output = '<div class="honortext">'.$wordings[$lang]['honor'].':<span>0</span>'.$icon.'</div>'."\n";
 
-		if ($RankIcondata == NULL)
-		{*/
-			$output = '<div class="honortitleoff"></div>';
-		/*}
-		else
-		{
-			$RankName = $this->data['RankName'];
-			$output = '<div class="honortitle"><img src="'.$roster_conf['img_url'].'expbar-var2.gif" alt="" class="honor_bit" width="'.$honorbarpixelwidth.'" />'.$honorxp_percent_word.' '.$Badge.' '.$RankName.' ('.$wordings[$lang]['rank'].' '.$RankInfo.')</div>'."\n";
-		}
-*/
-		// Today
 		$output .= '<div class="today">'.$wordings[$lang]['today'].'</div>'."\n";
-		$output .= '<div class="honortext0_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
-		$output .= '<div class="honortext0">'.$this->data['sessionHK'].'</div>'."\n";
-		$output .= '<div class="honortext1_">'.$wordings[$lang]['honor'].'</div>'."\n";
-		$output .= '<div class="honortext1">'.$this->data['sessionCP'].'</div>'."\n";
-
-		// Yesterday
 		$output .= '<div class="yesterday">'.$wordings[$lang]['yesterday'].'</div>'."\n";
-		$output .= '<div class="honortext2_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
-		$output .= '<div class="honortext2">'.$this->data['yesterdayHK'].'</div>'."\n";
-		$output .= '<div class="honortext3_">'.$wordings[$lang]['honor'].'</div>'."\n";
-		$output .= '<div class="honortext3">'.$this->data['yesterdayContribution'].'</div>'."\n";
+		$output .= '<div class="lifetime">'.$wordings[$lang]['lifetime'].'</div>'."\n";
 
-		// This week
-		$output .= '<div class="thisweek">'./*$wordings[$lang]['thisweek'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext4_">'./*$wordings[$lang]['honorkills'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext4">'./*$this->data['TWHK'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext5_">'./*$wordings[$lang]['honor'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext5">'./*$this->data['TWContribution'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="divider"></div>'."\n";
 
-		// Last Week
-		$output .= '<div class="lastweek">'./*$wordings[$lang]['lastweek'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext6_">'./*$wordings[$lang]['honorkills'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext6">'./*$this->data['lastweekHK'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext7_">'./*$wordings[$lang]['honor'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext7">'./*$this->data['lastweekContribution'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext8_">'./*$wordings[$lang]['standing'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext8">'./*$this->data['lastweekRank'].*/'&nbsp;</div>'."\n";
+		$output .= '<div class="killsline">'.$wordings[$lang]['kills'].'</div>'."\n";
+		$output .= '<div class="killsline1">'.$this->data['sessionHK'].'</div>'."\n";
+		$output .= '<div class="killsline2">'.$this->data['yesterdayHK'].'</div>'."\n";
+		$output .= '<div class="killsline3">'.$this->data['lifetimeHK'].'</div>'."\n";
 
-		// Lifetime
-		$output .= '<div class="alltime">'.$wordings[$lang]['alltime'].'</div>'."\n";
-		$output .= '<div class="honortext9_">'.$wordings[$lang]['honorkills'].'</div>'."\n";
-		$output .= '<div class="honortext9">'.$this->data['lifetimeHK'].'</div>'."\n";
-		$output .= '<div class="honortext10_">'./*$wordings[$lang]['honor'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext10">'./*$this->data['lifetimeCP'].*/'&nbsp;</div>'."\n";
-		$output .= '<div class="honortext11_">'.$wordings[$lang]['highestrank'].'</div>'."\n";
-		$output .= '<div class="honortext11">'.$this->data['lifetimeRankName'].'</div>'."\n";
+		$output .= '<div class="honorline">'.$wordings[$lang]['honor'].'</div>'."\n";
+		$output .= '<div class="honorline1">~'.$this->data['sessionCP'].'</div>'."\n";
+		$output .= '<div class="honorline2">'.$this->data['yesterdayContribution'].'</div>'."\n";
+		$output .= '<div class="honorline3">-</div>'."\n";
+
+		$output .= '<div class="arenatext">Arena'.$wordings[$lang]['arena'].':<span>0</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
 
 		return $output;
 	}
