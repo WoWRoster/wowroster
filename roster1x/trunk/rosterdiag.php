@@ -48,9 +48,9 @@ if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 }
 
 // If a FileDiff is requested, display the header of the file and display Warning / Confirmation
-if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
+if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 {
-	if ($_POST['downloadcvs'] == 'confirmation')
+	if ($_POST['downloadsvn'] == 'confirmation')
 	{
 		//Do confirmation stuff
 		$filename = $_POST['filename'];
@@ -63,7 +63,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 			$md5local = "Local File does not exist yet";
 		}
 
-		$rhmd5 = fopen($cvsremote.'?getfile='.$filename.'&mode=md5', 'rb');
+		$rhmd5 = fopen($svnremote.'?getfile='.$filename.'&mode=md5', 'rb');
 		if ($rhmd5===false)
 		{
 			print("[ERROR] Cannot Read MD5 Remote File\n");
@@ -79,21 +79,21 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 		}
 		fclose($rhmd5);
 
-		$rhheadercvs = fopen($cvsremote.'?getfile='.$filename.'&mode=diff', 'rb');
-		if ($rhheadercvs===false)
+		$rhheadersvn = fopen($svnremote.'?getfile='.$filename.'&mode=diff', 'rb');
+		if ($rhheadersvn===false)
 		{
 			print("[ERROR] Cannot Read Remote File\n");
 			exit();
 		}
 		else
 		{
-			$filecvssource = '';
-			while (!feof($rhheadercvs))
+			$filesvnsource = '';
+			while (!feof($rhheadersvn))
 			{
-				$filecvssource .= fread($rhheadercvs, 2048+10);
+				$filesvnsource .= fread($rhheadersvn, 2048+10);
 			}
 		}
-		fclose($rhheadercvs);
+		fclose($rhheadersvn);
 
 		if (file_exists($filename) && is_file($filename) && filesize($filename))
 		{
@@ -118,17 +118,17 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 			// Perform a DIFF check on the local and remote file
 			if (check_if_image($filename))
 			{
-				$cvsurl = parse_url($cvsremote);
-				$cvspath = pathinfo($cvsurl['path'], PATHINFO_DIRNAME);
-				$cvsurl = $cvsurl['scheme'].'://'.$cvsurl['host'].$cvspath.'/';
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">CVS Image</th></tr>';
-				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'"></td><td class="membersRowRight1"><img src="'.$cvsurl.$filename.'"></td></tr>';
+				$svnurl = parse_url($svnremote);
+				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
+				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
+				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'"></td><td class="membersRowRight1"><img src="'.$svnurl.$filename.'"></td></tr>';
 				$diffcheck .= '</table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">CVS File</th></tr>';
-				$difffiles = difffile($filelocalsource, $filecvssource);
+				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">SVN File</th></tr>';
+				$difffiles = difffile($filelocalsource, $filesvnsource);
 				$row_color=2;
 				foreach ($difffiles as $difference)
 				{
@@ -174,15 +174,15 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 		{
 			if (check_if_image($filename))
 			{
-				$cvsurl = parse_url($cvsremote);
-				$cvspath = pathinfo($cvsurl['path'], PATHINFO_DIRNAME);
-				$cvsurl = $cvsurl['scheme'].'://'.$cvsurl['host'].$cvspath.'/';
-				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">CVS Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$cvsurl.$filename.'"></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
+				$svnurl = parse_url($svnremote);
+				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
+				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
+				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">SVN Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'"></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">CVS File</th></tr>';
-				$diffcheck .= '<tr><td>'.highlight_php($filecvssource).'</td></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">SVN File</th></tr>';
+				$diffcheck .= '<tr><td>'.highlight_php($filesvnsource).'</td></tr>';
 				$diffcheck .= '</table>';
 			}
 		}
@@ -201,7 +201,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadcvs']))
 		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
 		print('<tr><td class="membersRowRight2"><form method="POST" action="rosterdiag.php">');
 		print ('<input type="hidden" name="filename" value="'.$filename.'">');
-		print ('<input type="hidden" name="downloadcvs" value="savefile">');
+		print ('<input type="hidden" name="downloadsvn" value="savefile">');
 		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;">');
 		print('</form></td></tr></table>');
 		print(border('sblue','end'));
@@ -462,8 +462,8 @@ if (ini_get('allow_url_fopen'))
 
 		if ($zippackage_files != '')
 		{
-			echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
-			echo '<div align="center"><form method="POST" action="'.$cvsremote.'">';
+			echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
+			echo '<div align="center"><form method="POST" action="'.$svnremote.'">';
 			echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
 			echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
 			echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'">';
@@ -478,7 +478,7 @@ if (ini_get('allow_url_fopen'))
 	include_once ('rosterdiag_sql.php');
 
 	// Open the main FileVersion table in total color
-	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
+	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
 
 	// Get all the gathered information and display it in a table
 	foreach ($directories as $directory => $filecount)
@@ -507,7 +507,7 @@ if (ini_get('allow_url_fopen'))
 
 
 			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
-			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">CVS</th>';
+			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
 			echo '</tr>';
 			$row=0;
 			foreach ($files[$directory] as $file => $filedata)
@@ -575,7 +575,7 @@ if (ini_get('allow_url_fopen'))
 					{
 						echo '<form method="POST" action="rosterdiag.php">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
-						echo "<input type=\"hidden\" name=\"downloadcvs\" value=\"confirmation\">\n";
+						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
 						if (isset($filedata['diff']) && $filedata['diff'])
 						{
 							echo "<input type=\"hidden\" name=\"downmode\" value=\"update\">\n";
@@ -611,7 +611,7 @@ if (ini_get('allow_url_fopen'))
 else
 {
 	// FOPEN URL is Not Supported, offer the oppertunity to do this remotely
-	echo '<form method="POST" action="'.$cvsremote.'">';
+	echo '<form method="POST" action="'.$svnremote.'">';
 	echo '<input type="hidden" name="remotediag" value="true">';
 	echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
 	echo '<input type="hidden" name="website" value="'.	$roster_conf['roster_dir'].'">';

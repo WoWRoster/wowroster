@@ -20,7 +20,7 @@ error_reporting(E_ALL);
 // Needed so files think we are in Roster =P
 define('ROSTER_INSTALLED',true);
 
-// This file is for on the CVS only, so this should NOT be shipped to the clients!!!
+// This file is for on the SVN only, so this should NOT be shipped to the clients!!!
 require_once 'lib/commonfunctions.lib.php';
 require_once 'lib/rosterdiag.lib.php';
 
@@ -92,7 +92,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster_conf['overlib'] = 'css/js/overlib.js';
 	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
 	$roster_conf['website_address'] = $_SERVER["HTTP_REFERER"];
-	//$cvsremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the CVS temporarily changes.....Normally the value will come from the local (CVS) lib/rosterdiag.lib.php
+	//$svnremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
 
 
@@ -166,8 +166,8 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 	if ($zippackage_files != '')
 	{
-		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
-		echo '<div align="center"><form method="POST" action="'.$cvsremote.'">';
+		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
+		echo '<div align="center"><form method="POST" action="'.$svnremote.'">';
 		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
 		echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
 		echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'">';
@@ -179,9 +179,9 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	}
 
 	// Open the main FileVersion table in total color
-//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>CVS @ '.str_replace("version_match.php", "", $cvsremote).'</i></span>');
+//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>SVN @ '.str_replace("version_match.php", "", $svnremote).'</i></span>');
 	// Open the main FileVersion table in total color
-	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
+	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
 
 	// Get all the gathered information and display it in a table
 	foreach ($directories as $directory => $filecount)
@@ -210,7 +210,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 
 			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
-			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">CVS</th>';
+			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
 			echo '</tr>';
 			$row=0;
 			foreach ($files[$directory] as $file => $filedata)
@@ -278,7 +278,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 					{
 						echo '<form method="POST" action="rosterdiag.php">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
-						echo "<input type=\"hidden\" name=\"downloadcvs\" value=\"confirmation\">\n";
+						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
 						if (isset($filedata['diff']) && $filedata['diff'])
 						{
 							echo "<input type=\"hidden\" name=\"downmode\" value=\"update\">\n";

@@ -26,13 +26,12 @@ error_reporting(E_ALL);
 //!!!!!!!!!!!!!// Developer Config //!!!!!!!!!!!!!//
 // As a NON-Developer, please do not modify any content of this file, or the version check might fail!!!
 
-// CVS Remote -> Please make a page on the web where you place the most rescent version of the files, including this file.
+// SVN Remote -> Please make a page on the web where you place the most rescent version of the files, including this file.
 //               The webpage must be entered below without a trailing slash
-//               (ie.:  $cvsremote = 'http://www.mydomain.com/roster_cvs/addons/guildbank'; )
-$cvsremote = 'http://www.wowroster.net/roster_updater/version_match.php';
+$svnremote = 'http://www.wowroster.net/roster_updater/version_match.php';
 // Ignored Directories
-//$ignored_dirs = array('.', '..', 'img', 'CVS', 'addons');
-$ignored_dirs = array('.', '..', 'CVS', '.svn', 'Interface');
+//$ignored_dirs = array('.', '..', 'img', 'SVN', 'addons');
+$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface');
 // Files to check with extension:
 //$extensions = array('php', 'css', 'js', 'tpl', 'htm', 'html');
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
@@ -50,7 +49,7 @@ $problemsev['dateyounger'] = 6;
 $problemsev['author'] = 5;
 $problemsev['MD5'] = 0;
 $problemsev['MD5binary'] = 4;
-$problemsev['nocvs'] = 1;
+$problemsev['nosvn'] = 1;
 $problemsev['nolocal'] = 6;
 $problemsev['unknown'] = 2;
 
@@ -209,7 +208,7 @@ function GetFileVersionInfo($directory, $file)
 	if (!$files[$directory][$file]['local']['versionMD5'] = md5_file($filefullpath)) {
 		$files[$directory][$file]['local']['versionMD5'] = 0;
 	}
-	// Example of the CVS $Id string:
+	// Example of the SVN $Id string:
 	//   * $Id$
 	//        ~|Descr         |Ver|Date               |Author|~
 	if (check_if_image($file))
@@ -223,7 +222,7 @@ function GetFileVersionInfo($directory, $file)
 	}
 	else
 	{
-		// String to match in CVS: $Id$
+		// String to match in SVN: $Id$
 		// String to match in SVN: $Id$
 		if ((preg_match('~\s\$Id\:\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s\$~', $fileheader, $local_version) > 0) || (preg_match('~\s\$Id\:\s(.+?)\,v\s(.+?)\s(.+?)\s(.+?)\s(.+?)\sExp\s\$~', $fileheader, $local_version) > 0) )
 		{
@@ -247,10 +246,10 @@ function GetFileVersionInfo($directory, $file)
 				$tmpdate = explode("/", $tmpdatetime[0]);
 				if (isset($tmpdatetime[1]))
 				{
-					$tmptime = explode(":", $tmpdatetime[1]);^M
+					$tmptime = explode(":", $tmpdatetime[1]);
 					if (is_int($tmptime[0]))
 					{
-						$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);^M
+						$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);
 					}
 				}
 
@@ -278,10 +277,10 @@ function GetFileVersionInfo($directory, $file)
 
 function GrabRemoteVersions()
 {
-	global $directories, $files, $cvsremote, $break, $explode;
+	global $directories, $files, $svnremote, $break, $explode;
 
-	// Execute the addon_versioncheck.php script in the CVS remote site
-	$handle = fopen($cvsremote, 'rb');
+	// Execute the addon_versioncheck.php script in the SVN remote site
+	$handle = fopen($svnremote, 'rb');
 	$contents = '';
 
 	// Read the first 80kb from the file. This should be enough for most add-ons.
@@ -322,7 +321,7 @@ function VerifyVersions()
 {
 	global $files, $directories, $problemsev, $severity, $rollups, $totalrollup, $totalseverity;
 
-	// Process verification for all directories, Local and CVS
+	// Process verification for all directories, Local and SVN
 	foreach ($files as $directory => $filedata)
 	{
 		// Initialize the Directory severity
@@ -341,20 +340,20 @@ function VerifyVersions()
 			$files[$directory][$filename]['missing'] = 0;
 			$files[$directory][$filename]['diff'] = 0;
 
-			// Check if Both Local and CVS files are present
+			// Check if Both Local and SVN files are present
 			if (isset($file['local']) && isset($file['remote']))
 			{
-				// Check if the local description matches the CVS description
+				// Check if the local description matches the SVN description
 				if (strcmp($file['local']['versionDesc'], $file['remote']['versionDesc']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['description']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['description']]['color'].';">Local Description does NOT match with CVS</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['description']]['color'].';">Local Description does NOT match with SVN</span><br />';
 				}
-				// Check if the local version matches the CVS version
+				// Check if the local version matches the SVN version
 				if (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) < 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisionsmaller']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisionsmaller']]['color'].';">Local Version: '.$file['local']['versionRev'].' is LOWER than CVS Version: '.$file['remote']['versionRev'].'</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisionsmaller']]['color'].';">Local Version: '.$file['local']['versionRev'].' is LOWER than SVN Version: '.$file['remote']['versionRev'].'</span><br />';
 					$files[$directory][$filename]['rev'] = ''.$file['local']['versionRev'].' < '.$file['remote']['versionRev'];
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
@@ -362,7 +361,7 @@ function VerifyVersions()
 				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) > 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisiongreater']]['color'].';">Local Version: '.$file['local']['versionRev'].' is HIGHER than CVS Version: '.$file['remote']['versionRev'].'</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisiongreater']]['color'].';">Local Version: '.$file['local']['versionRev'].' is HIGHER than SVN Version: '.$file['remote']['versionRev'].'</span><br />';
 					$files[$directory][$filename]['rev'] = ''.$file['local']['versionRev'].' > '.$file['remote']['versionRev'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -371,11 +370,11 @@ function VerifyVersions()
 					$files[$directory][$filename]['rev'] = ''.$file['local']['versionRev'];
 				}
 
-				// Check if the local date matches the CVS date
+				// Check if the local date matches the SVN date
 				if (($file['local']['versionDate'] < $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateolder']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateolder']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is OLDER than CVS Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateolder']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is OLDER than SVN Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
 					$files[$directory][$filename]['date'] = ''.gmdate('Y/m/d H:i', $file['local']['versionDate']).' < '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
@@ -383,7 +382,7 @@ function VerifyVersions()
 				elseif (($file['local']['versionDate'] > $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateyounger']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateyounger']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is NEWER than CVS Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateyounger']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is NEWER than SVN Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
 					$files[$directory][$filename]['date'] = ''.gmdate('Y/m/d H:i', $file['local']['versionDate']).' > '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -391,11 +390,11 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['date'] = ''.gmdate('Y/m/d H:i', $file['local']['versionDate']);
 				}
-				// Check if the local author matches the CVS author
+				// Check if the local author matches the SVN author
 				if (strcmp($file['local']['versionAuthor'], $file['remote']['versionAuthor']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['author']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['author']]['color'].';">Local Author does NOT match with CVS</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['author']]['color'].';">Local Author does NOT match with SVN</span><br />';
 					$files[$directory][$filename]['author'] = ''.$file['local']['versionAuthor'].' != '.$file['remote']['versionAuthor'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -403,19 +402,19 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['author'] = ''.$file['local']['versionAuthor'];
 				}
-				// Check if the local MD5 matches the CVS MD5
+				// Check if the local MD5 matches the SVN MD5
 				if (strcmp($file['local']['versionMD5'], $file['remote']['versionMD5']))
 				{
 					if (check_if_image($filename))
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5binary']]['weight'];
-						$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['MD5binary']]['color'].';">Local MD5 does not match with CVS</span><br />';
+						$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['MD5binary']]['color'].';">Local MD5 does not match with SVN</span><br />';
 						$files[$directory][$filename]['update'] = 1;
 					}
 					else
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5']]['weight'];
-						$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['MD5']]['color'].';">Local MD5 does not match with CVS</span><br />';
+						$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['MD5']]['color'].';">Local MD5 does not match with SVN</span><br />';
 					}
 					$files[$directory][$filename]['md5'] = 'MD5 String does NOT match';
 					$files[$directory][$filename]['diff'] = 1;
@@ -427,14 +426,14 @@ function VerifyVersions()
 			}
 			elseif (isset($file['local']) && !isset($file['remote']))
 			{
-				$files[$directory][$filename]['severity'] += $severity[$problemsev['nocvs']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nocvs']]['color'].';">Local file does not exist in CVS</span><br />';
+				$files[$directory][$filename]['severity'] += $severity[$problemsev['nosvn']]['weight'];
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nosvn']]['color'].';">Local file does not exist in SVN</span><br />';
 				$files[$directory][$filename]['rogue'] = 1;
 			}
 			elseif (!isset($file['local']) && isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nolocal']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nolocal']]['color'].';">Local file is missing compared to CVS</span><br />';
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nolocal']]['color'].';">Local file is missing compared to SVN</span><br />';
 				$files[$directory][$filename]['update'] = 1;
 				$files[$directory][$filename]['missing'] = 1;
 			}
@@ -458,7 +457,7 @@ function VerifyVersions()
 			}
 			if (!$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'])
 			{
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[0]['color'].';">Local file same as CVS</span><br />';
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[0]['color'].';">Local file same as SVN</span><br />';
 			}
 			if ($files[$directory][$filename]['rogue'])
 			{
@@ -613,11 +612,11 @@ function yesNo($bool)
 }
 
 
-function downloadcvs($filename)
+function downloadsvn($filename)
 {
-	global $cvsremote;
+	global $svnremote;
 
-	$file_source = $cvsremote.'?getfile='.$filename.'&mode=full';
+	$file_source = $svnremote.'?getfile='.$filename.'&mode=full';
 
 	$rh = fopen($file_source, 'rb');
 	$wh = fopen($filename, 'wb');
