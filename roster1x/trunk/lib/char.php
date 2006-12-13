@@ -1339,7 +1339,7 @@ $returnstring .= '  <tr>
 		$output .= '<div class="honorline2">'.$this->data['yesterdayContribution'].'</div>'."\n";
 		$output .= '<div class="honorline3">-</div>'."\n";
 
-		$output .= '<div class="arenatext">Arena'.$wordings[$lang]['arena'].':<span>0</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
+		$output .= '<div class="arenatext">'.$wordings[$lang]['arena'].':<span>0</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
 
 		return $output;
 	}

@@ -227,7 +227,7 @@ function processMyProfile($myProfile)
 		{
 			$guildInfo = $wowdb->get_guild_info($realm_name,$roster_conf['guild_name']);
 
-			if( $guildInfo )
+			if( $guildInfo && is_array($myProfile[$realm_name]['Character']) )
 			{
 				$characters = $myProfile[$realm_name]['Character'];
 				foreach( array_keys( $characters ) as $char_name )

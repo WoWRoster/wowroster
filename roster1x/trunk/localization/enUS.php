@@ -538,6 +538,7 @@ $wordings['enUS']['dishonorkills']='Dishonorable Kills';
 $wordings['enUS']['honor']='Honor';
 $wordings['enUS']['standing']='Standing';
 $wordings['enUS']['highestrank']='Highest Rank';
+$wordings['enUS']['arena']='Arena';
 
 $wordings['enUS']['totalwins']='Total Wins';
 $wordings['enUS']['totallosses']='Total Losses';

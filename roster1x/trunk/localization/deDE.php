@@ -538,6 +538,7 @@ $wordings['deDE']['dishonorkills']='Ruchlose Morde';
 $wordings['deDE']['honor']='Ehre';
 $wordings['deDE']['standing']='Platzierung';
 $wordings['deDE']['highestrank']='HÃ¶chster Rank';
+$wordings['deDE']['arena']='Arena';
 
 $wordings['deDE']['totalwins']='Gewinne total';
 $wordings['deDE']['totallosses']='Verluste total';
@@ -555,18 +556,18 @@ $wordings['deDE']['versus_guilds']='Gegengilden';
 $wordings['deDE']['versus_players']='Gegenspieler';
 $wordings['deDE']['bestsub']='Beste Subzone';
 $wordings['deDE']['worstsub']='Schlechteste Subzone';
-$wordings['deDE']['killedmost']='Am meisten getötet';
-$wordings['deDE']['killedmostby']='Am meisten getötet durch';
-$wordings['deDE']['gkilledmost']='Am meisten getötete Spieler der Gilde';
-$wordings['deDE']['gkilledmostby']='Am meister getötet durch Spieler der Gilde';
+$wordings['deDE']['killedmost']='Am meisten get&ouml;tet';
+$wordings['deDE']['killedmostby']='Am meisten get&ouml;tet durch';
+$wordings['deDE']['gkilledmost']='Am meisten get&ouml;tete Spieler der Gilde';
+$wordings['deDE']['gkilledmostby']='Am meister get&ouml;tet durch Spieler der Gilde';
 
 $wordings['deDE']['wins']='Gewinne';
 $wordings['deDE']['losses']='Verluste';
 $wordings['deDE']['overall']='Gesamt';
 $wordings['deDE']['best_zone']='Beste Zone';
 $wordings['deDE']['worst_zone']='Schlechteste Zone';
-$wordings['deDE']['most_killed']='Meisten getötet';
-$wordings['deDE']['most_killed_by']='Meisten getötet durch';
+$wordings['deDE']['most_killed']='Meisten get&ouml;tet';
+$wordings['deDE']['most_killed_by']='Meisten get&ouml;tet durch';
 
 $wordings['deDE']['when']='Wann';
 $wordings['deDE']['guild']='Gilde';

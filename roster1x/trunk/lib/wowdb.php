@@ -2377,20 +2377,57 @@ class wowdb
 		if( is_array($data['Honor']) )
 		{
 			$honor = $data['Honor'];
-			$this->add_value( 'sessionHK',             $honor['Session']['HK'] );
-			$this->add_value( 'sessionCP',             $honor['Session']['CP'] );
+			if( isset($honor['Session']['HK']) )
+				$this->add_value( 'sessionHK',             $honor['Session']['HK'] );
+			else
+				$this->add_value( 'sessionHK',0 );
+			if( isset($honor['Session']['CP']) )
+				$this->add_value( 'sessionCP',             $honor['Session']['CP'] );
+			else
+				$this->add_value( 'sessionCP',0 );
 
-			$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
-			$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
+			if( isset($honor['Yesterday']['HK']) )
+				$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
+			else
+				$this->add_value( 'yesterdayHK',0 );
+			if( isset($honor['Yesterday']['CP']) )
+				$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
+			else
+				$this->add_value( 'yesterdayContribution',0 );
 
-			$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
-			$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
-			$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
+			if( isset($honor['Lifetime']['HK']) )
+				$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
+			else
+				$this->add_value( 'lifetimeHK',0 );
+			if( isset($honor['Lifetime']['Rank']) )
+				$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
+			else
+				$this->add_value( 'lifetimeHighestRank',0 );
+			if( isset($honor['Lifetime']['Name']) )
+				$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
+			else
+				$this->add_value( 'lifetimeRankName','' );
+			if( isset($honor['Lifetime']['CP']) )
+				$this->add_value( 'lifetimeCP',            $honor['Lifetime']['CP'] );
+			else
+				$this->add_value( 'lifetimeCP',0 );
 
-			$this->add_value( 'RankInfo',              $honor['Current']['Rank'] );
-			$this->add_value( 'RankName',              $honor['Current']['Name'] );
-			$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
-			$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
+			if( isset($honor['Current']['Rank']) )
+				$this->add_value( 'RankInfo',              $honor['Current']['Rank'] );
+			else
+				$this->add_value( 'RankInfo',0 );
+			if( isset($honor['Current']['Name']) )
+				$this->add_value( 'RankName',              $honor['Current']['Name'] );
+			else
+				$this->add_value( 'RankName','' );
+			if( isset($honor['Current']['Icon']) )
+				$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
+			else
+				$this->add_value( 'RankIcon','' );
+			if( isset($honor['Current']['Progress']) )
+				$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
+			else
+				$this->add_value( 'Rankexp',0 );
 
 			unset($honor);
 		}

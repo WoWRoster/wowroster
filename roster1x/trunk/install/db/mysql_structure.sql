@@ -62,6 +62,7 @@ CREATE TABLE `renprefix_items` (
   `item_quantity` int(11) default NULL,
   `item_tooltip` mediumtext NOT NULL,
   `level` INT( 11 ) default NULL,
+  `item_level` INT( 11 ) default NULL,
   PRIMARY KEY  (`member_id`,`item_parent`,`item_slot`),
   KEY `parent` (`item_parent`),
   KEY `slot` (`item_slot`),
@@ -369,6 +370,7 @@ CREATE TABLE `renprefix_recipes` (
   `recipe_tooltip` mediumtext NOT NULL,
   `categories` varchar(64) NOT NULL default '',
   `level` int(11) default NULL,
+  `item_level` INT( 11 ) default NULL,
   PRIMARY KEY  (`member_id`,`skill_name`,`recipe_name`,`categories`),
   KEY `skill_nameI` (`skill_name`),
   KEY `recipe_nameI` (`recipe_name`),
@@ -384,9 +386,9 @@ CREATE TABLE `renprefix_reputation` (
   `member_id` int(10) unsigned NOT NULL default '0',
   `faction` varchar(32) NOT NULL default '',
   `name` varchar(32) NOT NULL default '',
-  `Value` varchar(32) default '0/0',
+  `Value` varchar(32) default '0:0',
   `AtWar` int(11) NOT NULL default '0',
-  `Standing` varchar(32) default '0/0',
+  `Standing` varchar(32) default '',
   PRIMARY KEY  (`member_id`,`name`)
 ) TYPE=MyISAM;
 

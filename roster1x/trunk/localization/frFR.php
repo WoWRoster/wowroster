@@ -539,6 +539,7 @@ $wordings['frFR']['dishonorkills']='Vict. Déshonorantes';
 $wordings['frFR']['honor']='Honneur';
 $wordings['frFR']['standing']='Position';
 $wordings['frFR']['highestrank']='Plus haut niveau';
+$wordings['frFR']['arena']='Arena';
 
 $wordings['frFR']['totalwins']='Nombre de victoires :';
 $wordings['frFR']['totallosses']='Nombre de défaites :';

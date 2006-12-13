@@ -1831,8 +1831,9 @@ span.blue {
 }
 .char .main .page6 .honor .killsline {
 	float:left;
-	padding:8px 0 0 60px;
-	width:45px;
+	padding:8px 0 0 8px;
+	width:80px;
+	text-align:right;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
@@ -1841,7 +1842,7 @@ span.blue {
 .char .main .page6 .honor .killsline1 {
 	float:left;
 	padding-top:8px;
-	width:30px;
+	width:60px;
 	text-align:right;
 	font-size:13px;
 	color:#FFF;
@@ -1860,8 +1861,8 @@ span.blue {
 }
 .char .main .page6 .honor .killsline3 {
 	float:left;
-	padding-top:8px;
-	width:90px;
+	padding:8px 20px 0 0;
+	width:80px;
 	text-align:right;
 	font-size:13px;
 	color:#FFF;
@@ -1870,8 +1871,9 @@ span.blue {
 }
 .char .main .page6 .honor .honorline {
 	float:left;
-	padding:8px 0 0 60px;
-	width:45px;
+	padding:8px 0 0 8px;
+	width:80px;
+	text-align:right;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
@@ -1880,7 +1882,7 @@ span.blue {
 .char .main .page6 .honor .honorline1 {
 	float:left;
 	padding-top:8px;
-	width:30px;
+	width:60px;
 	text-align:right;
 	font-size:13px;
 	color:#FFF;
@@ -1899,8 +1901,8 @@ span.blue {
 }
 .char .main .page6 .honor .honorline3 {
 	float:left;
-	padding-top:8px;
-	width:90px;
+	padding:8px 20px 0 0;
+	width:70px;
 	text-align:right;
 	font-size:13px;
 	color:#999;
