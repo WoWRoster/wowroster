@@ -50,7 +50,7 @@ ALTER TABLE `renprefix_recipes` ADD `item_level` INT( 11 ) NULL ;
 # --------------------------------------------------------
 ### Reputation Table
 
-ALTER TABLE `roster_reputation`
+ALTER TABLE `renprefix_reputation`
   CHANGE `Standing` `Standing` VARCHAR( 32 ) NOT NULL DEFAULT '';
 
 UPDATE `renprefix_reputation` SET `Value` = REPLACE(`Value`,'/',':');
