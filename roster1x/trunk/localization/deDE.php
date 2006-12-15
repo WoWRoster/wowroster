@@ -499,6 +499,7 @@ $wordings['deDE']['res_frost_tooltip']='Erh&ouml;ht deinen Widerstand gegen Fros
 $wordings['deDE']['res_shadow']='Schatten Widerstand';
 $wordings['deDE']['res_shadow_tooltip']='Erh&ouml;ht deinen Widerstand gegen Schattenschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
 
+$wordings['deDE']['empty_equip']='Kein Gegenstand angelegt';
 $wordings['deDE']['pointsspent']='Punkte verteilt:';
 $wordings['deDE']['none']='Keine';
 

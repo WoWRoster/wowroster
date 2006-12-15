@@ -500,6 +500,7 @@ $wordings['frFR']['res_frost_tooltip']='Augmente votre résistance aux dégâts 
 $wordings['frFR']['res_shadow']='Résistance à l\'ombre';
 $wordings['frFR']['res_shadow_tooltip']='Augmente votre résistance aux dégâts d\'ombre.<br />Plus haut est le nombre, meilleure est la résistance.';
 
+$wordings['frFR']['empty_equip']='No item equipped';
 $wordings['frFR']['pointsspent']='Points Utilisés:';
 $wordings['frFR']['none']='Rien';
 

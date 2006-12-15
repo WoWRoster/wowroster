@@ -1009,7 +1009,7 @@ $returnstring .= '  <tr>
 
 	function printEquip( $slot )
 	{
-		global $roster_conf;
+		global $roster_conf, $wordings;
 
 		$item = item_get_one( $this->data['member_id'], $slot );
 
@@ -1019,7 +1019,7 @@ $returnstring .= '  <tr>
 		}
 		else
 		{
-			$output = '<div class="item" '.makeOverlib('No item equipped',$slot,'',2,'',',WRAP').'>'."\n";
+			$output = '<div class="item" '.makeOverlib($wordings[$roster_conf['roster_lang']]['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
 			if ($slot == 'Ammo')
 				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall" alt="" />'."\n";
 			else

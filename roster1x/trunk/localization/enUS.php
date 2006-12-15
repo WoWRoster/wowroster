@@ -499,6 +499,7 @@ $wordings['enUS']['res_frost_tooltip']='Increases your resistance to Frost damag
 $wordings['enUS']['res_shadow']='Shadow Resistance';
 $wordings['enUS']['res_shadow_tooltip']='Increases your resistance to Shadow damage.<br />Higher the number the better the resistance.';
 
+$wordings['enUS']['empty_equip']='No item equipped';
 $wordings['enUS']['pointsspent']='Points Spent:';
 $wordings['enUS']['none']='None';
 
