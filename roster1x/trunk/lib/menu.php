@@ -313,7 +313,7 @@ function makeAddonList()
 						//$config['menu_index_file'] is the new array type
 						foreach ($config['menu_index_file'] as $addonLink)
 						{
-							$fullQuery = "?roster_addon_name=$addon" . $addonLink[0];
+							$fullQuery = "?roster_addon_name=$addon" . ( isset($addonLink[0]) ? $addonLink[0] : '' );
 							$query = str_replace(' ','%20',$fullQuery);
 							$output .= '<li><a href="'.$roster_conf['roster_dir'].'/addon.php'.$query.'">' . $addonLink[1]."</a></li>\n";
 							$lCount++;

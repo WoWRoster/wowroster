@@ -1765,147 +1765,149 @@ span.blue {
 	background-position:center center;
 }
 .char .main .page6 .honor .honortext {
-	padding:5px 0 0 120px;
+	position:absolute;
+	margin-top:2px;
+	text-align:center;
+	width:396px;
 	color:#FFFFFF;
 	font-size:16px;
 	font-weight:bold;
 }
 .char .main .page6 .honor .honortext span {
-	padding:0 0 0 20px;
+	margin:0 0 0 20px;
 	color:#FFCC00;
 }
 .char .main .page6 .honor .honortext img {
-	padding:0 0 0 10px;
+	margin:0 0 0 10px;
 	vertical-align:middle;
 }
 .char .main .page6 .honor .arenatext {
-	float:left;
-	padding:5px 0 0 120px;
+	position:absolute;
+	text-align:center;
+	width:396px;
+	margin-top:104px;
 	color:#FFFFFF;
 	font-size:16px;
 	font-weight:bold;
 }
 .char .main .page6 .honor .arenatext span {
-	padding:0 0 0 20px;
+	margin:0 0 0 20px;
 	color:#FFCC00;
 }
 .char .main .page6 .honor .arenatext img {
-	padding:0 0 0 10px;
+	margin:0 0 0 10px;
 	height:20px;
 	width:23px;
 	vertical-align:middle;
 }
 .char .main .page6 .honor .today {
-	float:left;
-	padding:5px 0 0 110px;
-	width:65px;
+	position:absolute;
+	margin:30px 0 0 100px;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .yesterday {
-	float:left;
-	padding-top:5px;
-	width:95px;
+	position:absolute;
+	margin:30px 0 0 160px;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .lifetime {
-	float:left;
-	padding-top:5px;
-	width:110px;
+	position:absolute;
+	margin:30px 0 0 270px;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .divider {
-	float:left;
-	margin-left:80px;
+	position:absolute;
+	margin:48px 0 0 80px;
 	border:1px outset #333333;
 	width:280px;
 	height:0;
 }
 .char .main .page6 .honor .killsline {
-	float:left;
-	padding:8px 0 0 8px;
-	width:80px;
+	position:absolute;
+	margin-top:55px;
 	text-align:right;
+	width:76px;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .killsline1 {
-	float:left;
-	padding-top:8px;
-	width:60px;
+	position:absolute;
+	margin:55px 0 0 35px;
 	text-align:right;
+	width:100px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .killsline2 {
-	float:left;
-	padding-top:8px;
-	width:80px;
+	position:absolute;
+	margin:55px 0 0 115px;
 	text-align:right;
+	width:100px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .killsline3 {
-	float:left;
-	padding:8px 20px 0 0;
-	width:80px;
+	position:absolute;
+	margin:55px 0 0 215px;
 	text-align:right;
+	width:100px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .honorline {
-	float:left;
-	padding:8px 0 0 8px;
-	width:80px;
+	position:absolute;
+	margin-top:80px;
 	text-align:right;
+	width:76px;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .honorline1 {
-	float:left;
-	padding-top:8px;
-	width:60px;
+	position:absolute;
+	margin:80px 0 0 35px;
 	text-align:right;
+	width:100px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .honorline2 {
-	float:left;
-	padding-top:8px;
-	width:80px;
+	position:absolute;
+	margin:80px 0 0 115px;
 	text-align:right;
+	width:100px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
 	overflow:hidden;
 }
 .char .main .page6 .honor .honorline3 {
-	float:left;
-	padding:8px 20px 0 0;
-	width:70px;
+	position:absolute;
+	margin:80px 0 0 205px;
 	text-align:right;
+	width:100px;
 	font-size:13px;
-	color:#999;
+	color:#FFF;
 	font-weight:bold;
 	overflow:hidden;
 }

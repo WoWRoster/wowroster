@@ -16,7 +16,9 @@ UPDATE `renprefix_config` SET `config_value` = '0'     WHERE `id` = '3140' LIMIT
 # --------------------------------------------------------
 ### Items Table
 
-ALTER TABLE `renprefix_items` ADD `item_level` INT( 11 ) NULL ;
+ALTER TABLE `renprefix_items`
+  ADD `item_level` INT( 11 ) NULL,
+  CHANGE `item_id` `item_id` VARCHAR( 64 ) NULL;
 
 
 
@@ -36,7 +38,8 @@ ALTER TABLE `renprefix_players`
 
 ALTER TABLE `renprefix_players`
   ADD `sessionCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `sessionHK`,
-  ADD `lifetimeCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `lifetimeHK`;
+  ADD `lifetimeCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `lifetimeHK`,
+  CHANGE `Rankexp` `Rankexp` FLOAT NOT NULL DEFAULT '0';
 
 
 
