@@ -118,7 +118,7 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 
 	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".ROSTER_RECIPESTABLE."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
-	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')");
+	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
 
 	switch ($sort)
 	{
