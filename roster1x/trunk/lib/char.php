@@ -1603,7 +1603,7 @@ echo '  </div><!-- end char-tabs -->
 		}
 		else
 		{
-			die_quietly('Sorry no data in database for '.$_GET['name'].' of '.$_GET['server'],'Character Not Found');
+			message_die('Sorry no data in database for '.$_GET['name'].' of '.$_GET['server'],'Character Not Found');
 		}
 	}
 }

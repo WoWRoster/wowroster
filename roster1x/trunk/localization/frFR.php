@@ -711,6 +711,8 @@ $wordings['frFR']['admin']['roster_upd_pw'] = "Mot de passe du Roster|Il s'agit 
 $wordings['frFR']['admin']['roster_dbver'] = "Version de la base de données Roster|La version de la base de données";
 $wordings['frFR']['admin']['version'] = "Version du Roster|Version actuelle du Roster";
 $wordings['frFR']['admin']['sqldebug'] = "Affichage SQL de debug|Afficher les informations de contrôles de MySQL en format HTML";
+$wordings['frFR']['admin']['debug_mode'] = "Debug Mode|Full debug trace in error messages";
+$wordings['frFR']['admin']['sql_window'] = "SQL Window|Displays SQL Queries in a window in the footer";
 $wordings['frFR']['admin']['minCPver'] = "Version CP Minimum|Version minimale de CharacterProfiler autorisée";
 $wordings['frFR']['admin']['minGPver'] = "Version GP Minimum|Version minimale de GuildProfiler autorisée";
 $wordings['frFR']['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvPLog autorisée";
@@ -785,7 +787,7 @@ $wordings['frFR']['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolu
 $wordings['frFR']['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";
 $wordings['frFR']['admin']['compress_note'] = "Mode d'affichage des notes du joueur|Comment les notes du joueur seront affichées<br /><br />&quot;Text&quot; - Montre les notes du joueur sous format texte<br />&quot;Icon&quot; - Montre image avec une infobulle";
 $wordings['frFR']['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
-$wordings['frFR']['admin']['processtime'] = "Temps de génération de la page / requêtes SQL|Affiche &quot;This page was created in XXX seconds with XX queries executed&quot; en bas de page du roster";
+$wordings['frFR']['admin']['processtime'] = "Temps de génération de la page|Affiche &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; en bas de page du roster";
 
 // data_links
 $wordings['frFR']['admin']['questlink_1'] = "Lien de quête n°1|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";

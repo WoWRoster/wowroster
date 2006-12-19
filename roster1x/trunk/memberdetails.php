@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 // Check for name
 if( $name == '' )
 {
-	die_quietly('Character name was not specified','No character name');
+	message_die('Character name was not specified','No character name');
 }
 
 // Include character class file
@@ -56,7 +56,7 @@ $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 $char = char_get_one( $name, $server );
 if( !$char )
 {
-	die_quietly('Sorry no data in database for &quot;'.$_GET['name'].'&quot; of &quot;'.$_GET['server'].'&quot;<br /><br /><a href="./index.php">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a>','Character Not Found');
+	message_die('Sorry no data in database for &quot;'.$_GET['name'].'&quot; of &quot;'.$_GET['server'].'&quot;<br /><br /><a href="./index.php">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a>','Character Not Found');
 }
 
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);

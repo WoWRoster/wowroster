@@ -710,6 +710,8 @@ $wordings['enUS']['admin']['roster_upd_pw'] = "Roster Update Password|This is a 
 $wordings['enUS']['admin']['roster_dbver'] = "Roster Database Version|The version of the database";
 $wordings['enUS']['admin']['version'] = "Roster Version|Current version of Roster";
 $wordings['enUS']['admin']['sqldebug'] = "SQL Debug Output|Print MySQL Debug Statements in html comments";
+$wordings['enUS']['admin']['debug_mode'] = "Debug Mode|Full debug trace in error messages";
+$wordings['enUS']['admin']['sql_window'] = "SQL Window|Displays SQL Queries in a window in the footer";
 $wordings['enUS']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler version allowed to upload";
 $wordings['enUS']['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $wordings['enUS']['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog version allowed to upload";
@@ -784,7 +786,7 @@ $wordings['enUS']['admin']['roster_bg'] = "URL for background image|The full URL
 $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $wordings['enUS']['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
-$wordings['enUS']['admin']['processtime'] = "Debug mode|Displays debug data:<ul><li> &quot;This page was created in XXX seconds with XX queries executed&quot; in the footer of roster<li>Query list in the footer of the roster<li>Full debug trace in error messages</ul>";
+$wordings['enUS']['admin']['processtime'] = "Process time|Displays &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; in the footer of roster";
 
 // data_links
 $wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br />Look in your localization-file(s) for link configuration";

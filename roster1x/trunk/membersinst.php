@@ -28,7 +28,7 @@ require_once (ROSTER_LIB.'item.php');
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 if( empty($guild_info) )
 {
-	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
 
 // Get guild info from guild info check above

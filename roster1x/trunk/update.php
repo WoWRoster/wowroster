@@ -481,70 +481,77 @@ $bookwormInputField
 
 	include_once(ROSTER_BASE.'roster_header.tpl');
 	include_once(ROSTER_LIB.'menu.php');
-	print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br /><br />\n";
 
-	if( $uploadFound )
+	if( !$roster_conf['authenticated_user'] )
 	{
-		// print the error messages
-		if( !empty($errorstringout) )
-		{
-			print
-			'<div id="errorCol" style="display:inline;">
-				'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
-				'.border('sred','end').'
-			</div>
-			<div id="error" style="display:none">
-			'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
-			$errorstringout.
-			border('sred','end').
-			'</div>';
-
-			// Print the downloadable errors separately so we can generate a download
-			print "<br />\n";
-			print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
-			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
-			print '<input type="hidden" name="send_file" value="error" />'."\n";
-			print '<input type="submit" name="download" value="Save Error Log" />'."\n";
-			print '</form>';
-			print "<br />\n";
-		}
-
-		// Print the update messages
-		print
-			border('syellow','start','Update Log').
-			'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
-				$parseMessages.
-				$updateMessages.
-				$updatePvPMessages.
-				$rosterUpdateMessages.
-			'</div>'.
-			border('syellow','end');
-
-		// Print the downloadable messages separately so we can generate a download
-		print "<br />\n";
-		print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
-		print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($updateMessages.$updatePvPMessages.$rosterUpdateMessages)).'" />'."\n";
-		print '<input type="hidden" name="send_file" value="update" />'."\n";
-		print '<input type="submit" name="download" value="Save Update Log" />'."\n";
-		print '</form>';
-		print "<br />\n";
+		print messagebox($wordings[$roster_conf['roster_lang']]['update_disabled'],$wordings[$roster_conf['roster_lang']]['update_page'],'sred');
 	}
 	else
 	{
-		print $inputForm;
+		print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br /><br />\n";
+		if( $uploadFound )
+		{
+			// print the error messages
+			if( !empty($errorstringout) )
+			{
+				print
+				'<div id="errorCol" style="display:inline;">
+					'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
+					'.border('sred','end').'
+				</div>
+				<div id="error" style="display:none">
+				'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
+				$errorstringout.
+				border('sred','end').
+				'</div>';
+
+				// Print the downloadable errors separately so we can generate a download
+				print "<br />\n";
+				print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
+				print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
+				print '<input type="hidden" name="send_file" value="error" />'."\n";
+				print '<input type="submit" name="download" value="Save Error Log" />'."\n";
+				print '</form>';
+				print "<br />\n";
+			}
+
+			// Print the update messages
+			print
+				border('syellow','start','Update Log').
+				'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
+					$parseMessages.
+					$updateMessages.
+					$updatePvPMessages.
+					$rosterUpdateMessages.
+				'</div>'.
+				border('syellow','end');
+
+			// Print the downloadable messages separately so we can generate a download
+			print "<br />\n";
+			print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
+			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($updateMessages.$updatePvPMessages.$rosterUpdateMessages)).'" />'."\n";
+			print '<input type="hidden" name="send_file" value="update" />'."\n";
+			print '<input type="submit" name="download" value="Save Update Log" />'."\n";
+			print '</form>';
+			print "<br />\n";
+		}
+		else
+		{
+			print $inputForm;
+		}
 	}
 
 	include_once(ROSTER_BASE.'roster_footer.tpl');
 }
 else	// Dont need the header and footer when responding to UU
 {
-	if( $uploadFound )
+	if( !$roster_conf['authenticated_user'] )
 	{
-		if( !$roster_conf['authenticated_user'] )
-		{
-			print $wordings[$roster_conf['roster_lang']]['update_disabled'];
-		}
-		else
+		print $wordings[$roster_conf['roster_lang']]['update_disabled'];
+	}
+	else
+	{
+		if( $uploadFound )
 		{
 			// Strip all html tags out, then print
 			print stripAllHtml(
@@ -554,12 +561,11 @@ else	// Dont need the header and footer when responding to UU
 					$rosterUpdateMessages
 				);
 		}
-
-	}
-	else
-	{
-		// Weren't any files in the upload that correspond to anything in the array of filefields that we take.
-		print $wordings[$roster_conf['roster_lang']]['nofileUploaded'];
+		else
+		{
+			// Weren't any files in the upload that correspond to anything in the array of filefields that we take.
+			print $wordings[$roster_conf['roster_lang']]['nofileUploaded'];
+		}
 	}
 }
 

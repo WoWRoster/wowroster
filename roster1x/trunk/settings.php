@@ -237,12 +237,12 @@ foreach($localeFiles as $file)
  */
 if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 {
-	die_quietly('Looks like you\'ve loaded a new version of Roster<br />
+	message_die('Looks like you\'ve loaded a new version of Roster<br />
 <br />
 Your Version: <span class="red">'.$roster_conf['version'].'</span><br />
 New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
 <br />
-<a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster');
+<a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster','sred');
 }
 
 
@@ -253,7 +253,7 @@ if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install'
 {
 	if( !file_exists(ROSTER_BASE.'version_match.php') )
 	{
-		die_quietly('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files');
+		message_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
 	}
 }
 

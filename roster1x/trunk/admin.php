@@ -584,7 +584,7 @@ function changePassword( )
 					$title = 'Roster Password changed';
 					$message = '<div style="width=100%" align="center">Your new password is<br /><br /><span style="font-size:11px;color:red;">'.$_POST['new_password1'].'</span><br /><br />Remember this, do NOT lose it!<br /><br />';
 					$message .= 'Click <form style="display:inline;" name="roster_logout" action="'.$script_filename.'" method="post"><input type="hidden" name="logout" value="1" />[<a href="javascript: document.roster_logout.submit();">HERE</a>]</form> to continue</div>';
-					die_quietly($message,$title);
+					message_die($message,$title);
 				}
 				else
 				{

@@ -23,7 +23,7 @@ require_once( 'settings.php' );
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 if( empty($guild_info) )
 {
-	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
 
 $header_title = $wordings[$roster_conf['roster_lang']]['professions'];

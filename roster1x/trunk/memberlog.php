@@ -22,7 +22,7 @@ require_once( 'settings.php' );
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 if( empty($guild_info) )
 {
-	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
 // Get guild info from guild info check above
 $guildId = $guild_info['guild_id'];
@@ -144,8 +144,8 @@ $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',
 
 $max = $wowdb->num_rows($result);
 
-$sort_part = ($sort ? "&amp;s=$get_s" : '');
-$sort_part .= ($sort ? "&amp;d=$get_d" : '');
+$sort_part = ($get_s != '' ? "&amp;s=$get_s" : '');
+$sort_part .= ($get_d != 0 ? "&amp;d=$get_d" : '');
 
 if ($start > 0)
 	$prev = '<a href="?start=0'.$sort_part.'">&lt;&lt;</a> <a href="?start='.($start-30).$sort_part.'">&lt;</a> ';

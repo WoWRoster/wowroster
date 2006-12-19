@@ -242,7 +242,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
-	if( $roster_conf['processtime'] )
+	if( $roster_conf['debug_mode'] )
 	{
 		print "<tr>\n<td class=\"membersRowRight1\">";
 		backtrace();
@@ -250,6 +250,41 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	}
 
 	print "</table>\n".border('sred','end');
+
+	if( is_array($roster_conf) )
+	{
+		include_once(ROSTER_BASE.'roster_footer.tpl');
+	}
+
+	exit();
+}
+
+/**
+ * Draw a message box with the specified border color, then die cleanly
+ *
+ * @param string $message | The message to display inside the box
+ * @param string $title | The box title (default = 'Message')
+ * @param string $style | The border style (default = sred)
+ */
+function message_die($message, $title = 'Message', $style = 'sred')
+{
+	global $wowdb, $roster_conf, $wordings;
+
+	if( is_object($wowdb) )
+	{
+		$wowdb->closeDb();
+	}
+
+	if( !defined('HEADER_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_BASE.'roster_header.tpl');
+	}
+
+	print border($style, 'start', $title).
+		'<div align="center">'.
+		$message.
+		'</div>'.
+		border($style, 'end');
 
 	if( is_array($roster_conf) )
 	{

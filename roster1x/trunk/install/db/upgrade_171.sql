@@ -10,7 +10,12 @@ UPDATE `renprefix_config` SET `config_value` = '2.0.0' WHERE `id` = '1010' LIMIT
 UPDATE `renprefix_config` SET `config_value` = '2.0.0' WHERE `id` = '1020' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '0.6.1' WHERE `id` = '1030' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '0'     WHERE `id` = '3140' LIMIT 1;
-
+INSERT INTO `roster_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (
+    '1001', 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf'
+  ), (
+    '1002', 'sql_window', '1', 'radio{on^1|off^0', 'main_conf'
+  );
 
 
 # --------------------------------------------------------

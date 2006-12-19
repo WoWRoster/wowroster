@@ -107,7 +107,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['processtime'])
+		if (!$result && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -128,7 +128,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['processtime'])
+		if (!$result && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -149,7 +149,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['processtime'])
+		if (!$result && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -170,7 +170,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['processtime'])
+		if (!$result && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -191,7 +191,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['processtime'])
+		if (!$result && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -239,7 +239,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$query_id && $roster_conf['processtime'])
+		if (!$query_id && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -260,7 +260,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$query_id && $roster_conf['processtime'])
+		if (!$query_id && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}
@@ -294,7 +294,7 @@ class wowdb
 
 		// die quietly if debugging is on and we've got an invalid result. The page may
 		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['processtime'])
+		if (!$result && $roster_conf['debug_mode'])
 		{
 			die_quietly('Invalid query result passed','Roster DB Layer');
 		}

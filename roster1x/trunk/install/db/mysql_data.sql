@@ -11,12 +11,15 @@
 
 INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
-INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '3', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.1', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '4', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.2', 'display', 'master');
 
 # --------------------------------------------------------
 ### Main Roster Config
 
+INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1001, 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1002, 'sql_window', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.0.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.0.0', 'text{10|10', 'main_conf');
