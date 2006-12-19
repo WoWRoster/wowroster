@@ -386,7 +386,6 @@ CREATE TABLE `renprefix_reputation` (
   `member_id` int(10) unsigned NOT NULL default '0',
   `faction` varchar(32) NOT NULL default '',
   `name` varchar(32) NOT NULL default '',
-  `Value` varchar(32) default '0:0',
   `curr_rep` int(8) NULL,
   `max_rep` int(8) NULL,
   `AtWar` int(11) NOT NULL default '0',
