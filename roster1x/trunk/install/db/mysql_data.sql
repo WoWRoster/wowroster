@@ -20,7 +20,6 @@ INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.2', 'display', 'master
 INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1001, 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1002, 'sql_window', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.0.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.0.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.6.1', 'text{10|10', 'main_conf');
