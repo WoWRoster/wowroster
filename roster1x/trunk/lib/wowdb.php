@@ -853,6 +853,70 @@ class wowdb
 
 
 	/**
+	 * Handles formating and insertion of buff data
+	 *
+	 * @param array $data
+	 * @param int $memberId
+	 */
+	function do_buffs( $data, $memberId )
+	{
+		$buffs = $data['Attributes']['Buffs'];
+		if( !empty($buffs) && is_array($buffs) )
+		{
+			$this->setMessage('<li>Updating Buffs: ');
+
+			// Delete the stale data
+			$querystr = "DELETE FROM `".ROSTER_BUFFSTABLE."` WHERE `member_id` = '$memberId'";
+			if( !$this->query($querystr) )
+			{
+				$this->setError('Buffs could not be deleted',$this->error());
+				return;
+			}
+			// Then process quests
+			$buffsnum = 0;
+			foreach( $buffs as $buff )
+			{
+				$this->reset_values();
+
+				$this->add_value('member_id', $memberId );
+				$this->add_value('name', $buff['Name'] );
+
+				if( isset( $buff['Icon'] ) )
+					$this->add_value('icon', 'Interface/Icons/'.$buff['Icon'] );
+
+				if( isset( $buff['Rank'] ) )
+					$this->add_value('rank', $buff['Rank'] );
+
+				if( isset( $buff['Rank'] ) )
+					$buff_rank = $buff['Rank'];
+
+				if( isset( $buff['Count'] ) )
+					$this->add_value('count', $buff['Count'] );
+
+				if( !empty($buff['Tooltip']) )
+					$this->add_value('tooltip', $this->tooltip( $buff['Tooltip'] ) );
+				else
+					$this->add_value('tooltip', $buff['Name'] );
+
+				$querystr = "INSERT INTO `".ROSTER_BUFFSTABLE."` SET ".$this->assignstr;
+				$result = $this->query($querystr);
+				if( !$result )
+				{
+					$this->setError('Buff ['.$buff['Name'].'] could not be inserted',$this->error());
+				}
+
+				$buffsnum++;
+			}
+			$this->setMessage($buffsnum.'</li>');
+	   	}
+		else
+		{
+			$this->setMessage('<li>No Buffs</li>');
+		}
+	}
+
+
+	/**
 	 * Handles formating and insertion of quest data
 	 *
 	 * @param array $data
@@ -864,7 +928,7 @@ class wowdb
 
 		if( !empty($quests) && is_array($quests) )
 		{
-			$this->setMessage('<li>Updating Quests');
+			$this->setMessage('<li>Updating Quests: ');
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$memberId'";
@@ -886,7 +950,7 @@ class wowdb
 					$questnum++;
 				}
 			}
-			$this->setMessage('<ul><li>'.$questnum.' Quest'.($questnum > 1 ? 's' : '').'</li></ul></li>');
+			$this->setMessage($questnum.'</li>');
 	   	}
 		else
 		{
@@ -917,10 +981,9 @@ class wowdb
 				return;
 			}
 			// Then process Professions
-			$this->setMessage('<ul>');
 			foreach( array_keys($prof) as $skill_name )
 			{
-				$this->setMessage("<li>$skill_name</li>");
+				$this->setMessage(" : $skill_name");
 
 				$skill = $prof[$skill_name];
 				foreach( array_keys( $skill) as $recipe_type )
@@ -934,7 +997,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</ul></li>');
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -955,7 +1018,7 @@ class wowdb
 		$equip = $data['Equipment'];
 		if( !empty($equip) && is_array($equip) )
 		{
-			$this->setMessage('<li>Updating Equipment</li>');
+			$this->setMessage('<li>Updating Equipment ');
 
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
 			if( !$this->query($querystr) )
@@ -965,10 +1028,12 @@ class wowdb
 			}
 			foreach( array_keys($equip) as $slot_name )
 			{
+				$this->setMessage('.');
 				$slot = $equip[$slot_name];
 				$item = $this->make_item( $slot, $memberId, 'equip', $slot_name );
 				$this->insert_item( $item,$data['Locale'] );
 			}
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -990,7 +1055,6 @@ class wowdb
 		if( !empty($inv) && is_array($inv) )
 		{
 			$this->setMessage('<li>Updating Inventory');
-			$this->setMessage('<ul>');
 
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
 			if( !$this->query($querystr) )
@@ -1008,7 +1072,7 @@ class wowdb
 
 			foreach( array_keys( $inv ) as $bag_name )
 			{
-				$this->setMessage("<li>$bag_name</li>");
+				$this->setMessage(" : $bag_name");
 
 				$bag = $inv[$bag_name];
 				$item = $this->make_item( $bag, $memberId, 'bags', $bag_name );
@@ -1026,7 +1090,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</ul></li>');
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -1048,7 +1112,6 @@ class wowdb
 		if( !empty($inv) && is_array($inv) )
 		{
 			$this->setMessage('<li>Updating Bank');
-			$this->setMessage('<ul>');
 
 			// Clearing out old items
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
@@ -1067,7 +1130,7 @@ class wowdb
 
 			foreach( array_keys( $inv ) as $bag_name )
 			{
-				$this->setMessage("<li>$bag_name</li>");
+				$this->setMessage(" : $bag_name");
 				$bag = $inv[$bag_name];
 
 				$dbname = 'Bank '.$bag_name;
@@ -1093,7 +1156,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</ul></li>');
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -1110,7 +1173,7 @@ class wowdb
 	 */
 	function do_mailbox( $data, $memberId )
 	{
-		$this->setMessage('<li>Updating Mailbox');
+		$this->setMessage('<li>Updating Mailbox: ');
 
 		$mailbox = $data['MailBox'];
 		// If maildate is newer than the db value, wipe all mail from the db
@@ -1132,11 +1195,11 @@ class wowdb
 				$mail = $this->make_mail( $slot, $memberId, $slot_num );
 				$this->insert_mail( $mail );
 			}
-			$this->setMessage('<ul><li>'.count($mailbox).' Message'.(count($mailbox) > 1 ? 's' : '').'</li></ul></li>');
+			$this->setMessage(count($mailbox).' Message'.(count($mailbox) > 1 ? 's' : '').'</li>');
 		}
 		else
 		{
-			$this->setMessage('<ul><li>No New Mail</li></ul></li>');
+			$this->setMessage('No New Mail</li>');
 		}
 	}
 
@@ -1153,7 +1216,7 @@ class wowdb
 
 		if( !empty($repData) && is_array($repData) )
 		{
-			$this->setMessage('<li>Updating Reputation</li>');
+			$this->setMessage('<li>Updating Reputation ');
 
 			//first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$memberId'";
@@ -1191,6 +1254,7 @@ class wowdb
 						if( !empty($repData[$factions][$faction]['Standing']) )
 							$this->add_value('Standing', $repData[$factions][$faction]['Standing']);
 
+						$this->setMessage('.');
 						$querystr = "INSERT INTO `".ROSTER_REPUTATIONTABLE."` SET ".$this->assignstr;
 
 						$result = $this->query($querystr);
@@ -1201,6 +1265,7 @@ class wowdb
 					}
 				}
 			}
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -1221,7 +1286,7 @@ class wowdb
 
 		if( !empty($skillData) && is_array($skillData) )
 		{
-			$this->setMessage('<li>Updating Skills</li>');
+			$this->setMessage('<li>Updating Skills ');
 
 			//first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$memberId'";
@@ -1252,6 +1317,7 @@ class wowdb
 						if( !empty($sub_skill[$skill_name]) )
 							$this->add_value('skill_level', $sub_skill[$skill_name] );
 
+						$this->setMessage('.');
 						$querystr = "INSERT INTO `".ROSTER_SKILLSTABLE."` SET ".$this->assignstr;
 
 						$result = $this->query($querystr);
@@ -1262,6 +1328,7 @@ class wowdb
 					}
 				}
 			}
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -1283,7 +1350,6 @@ class wowdb
 		if( !empty($spellbook) && is_array($spellbook) )
 		{
 			$this->setMessage('<li>Updating Spellbook');
-			$this->setMessage('<ul>');
 
 			// first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '$memberId'";
@@ -1304,7 +1370,7 @@ class wowdb
 			// then process spellbook
 			foreach( array_keys( $spellbook ) as $spell_type )
 			{
-				$this->setMessage("<li>$spell_type</li>");
+				$this->setMessage(" : $spell_type");
 
 				$data_spell_type = $spellbook[$spell_type];
 				foreach( array_keys( $data_spell_type ) as $spell )
@@ -1359,7 +1425,7 @@ class wowdb
 					$this->setError('Spell Tree ['.$spell_type.'] could not be inserted',$this->error());
 				}
 			}
-			$this->setMessage('</ul></li>');
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -1381,7 +1447,6 @@ class wowdb
 		if( !empty($talentData) && is_array($talentData) )
 		{
 			$this->setMessage('<li>Updating Talents');
-			$this->setMessage('<ul>');
 
 			// first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '$memberId'";
@@ -1402,7 +1467,7 @@ class wowdb
 			// Update Talents
 			foreach( array_keys( $talentData ) as $talent_tree )
 			{
-				$this->setMessage("<li>$talent_tree</li>");
+				$this->setMessage(" : $talent_tree");
 
 				$data_talent_tree = $talentData[$talent_tree];
 				foreach( array_keys( $data_talent_tree ) as $talent_skill )
@@ -1470,7 +1535,7 @@ class wowdb
 					$this->setError('Talent Tree ['.$talent_tree.'] could not be inserted',$this->error());
 				}
 			}
-			$this->setMessage('</ul></li>');
+			$this->setMessage('</li>');
 		}
 		else
 		{
@@ -2647,6 +2712,7 @@ class wowdb
 		$this->do_talents( $data, $memberId );
 		$this->do_reputation( $data, $memberId );
 		$this->do_quests( $data, $memberId );
+		$this->do_buffs( $data, $memberId );
 
 		// Adding pet info
 		if( !empty( $data['Pets'] ) )

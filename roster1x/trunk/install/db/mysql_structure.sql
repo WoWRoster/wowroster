@@ -15,6 +15,19 @@ CREATE TABLE `renprefix_account` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Buffs
+
+DROP TABLE IF EXISTS `renprefix_buffs`;
+CREATE TABLE `renprefix_buffs` (
+`member_id` int(11) unsigned NOT NULL default '0',
+`name` varchar(96) NOT NULL default '',
+`rank` varchar(32) NOT NULL default '',
+`count` int(11) unsigned NOT NULL default '0',
+`icon` varchar(64) NOT NULL default '',
+`tooltip` mediumtext NOT NULL
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Config
 
 DROP TABLE IF EXISTS `renprefix_config`;
