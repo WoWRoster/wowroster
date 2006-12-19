@@ -50,8 +50,8 @@ $content .= ($choiceForm);
 if( isset($_REQUEST['factionfilter']) )
 {
 	$query = "SELECT m.name member, r.faction, r.name fct_name, r.value, ".
-		"( substring( r.value, 1, locate('/', r.value)-1) + 0 ) AS curr_rep, ".
-		"( substring( r.value, locate('/', r.value)+1, length(r.value)-locate('/', r.value)) + 0 ) AS max_rep, ".
+		"( substring( r.value, 1, locate(':', r.value)-1) + 0 ) AS curr_rep, ".
+		"( substring( r.value, locate(':', r.value)+1, length(r.value)-locate(':', r.value)) + 0 ) AS max_rep, ".
 		"r.standing ".
 		"FROM `".ROSTER_REPUTATIONTABLE."` r, ".ROSTER_MEMBERSTABLE." m ".
 		"WHERE r.member_id = m.member_id";
