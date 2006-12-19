@@ -133,7 +133,7 @@ $inst_keys['deDE']['A'] = array(
 			'Skelettfragmente|',
 			'Sold reimt sich auf...|',
 			'Feuerfeder geschmiedet|',
-			' Arajs Skarabäus',
+			'Arajs Skarabäus',
 			'Der Schlüssel zur Scholomance|'
 		),
 	'Strath' => array( 'Key-Only', 'Strath' =>
@@ -204,7 +204,7 @@ $inst_keys['deDE']['H'] = array(
 			'Skelettfragmente|',
 			'Sold reimt sich auf...|',
 			'Feuerfeder geschmiedet|',
-			' Arajs Skarabäus',
+			'Arajs Skarabäus',
 			'Der Schlüssel zur Scholomance|'
 		),
 	'Strath' => array( 'Key-Only', 'Strath' =>
