@@ -49,10 +49,7 @@ $content .= ($choiceForm);
 // --[ If a faction is selected, build the box with rep levels ]--
 if( isset($_REQUEST['factionfilter']) )
 {
-	$query = "SELECT m.name member, r.faction, r.name fct_name, r.value, ".
-		"( substring( r.value, 1, locate(':', r.value)-1) + 0 ) AS curr_rep, ".
-		"( substring( r.value, locate(':', r.value)+1, length(r.value)-locate(':', r.value)) + 0 ) AS max_rep, ".
-		"r.standing ".
+	$query = "SELECT m.name member, r.faction, r.name fct_name, r.curr_rep, r.max_rep, r.standing ".
 		"FROM `".ROSTER_REPUTATIONTABLE."` r, ".ROSTER_MEMBERSTABLE." m ".
 		"WHERE r.member_id = m.member_id";
 

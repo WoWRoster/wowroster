@@ -51,10 +51,8 @@ class reputation
 	{
 		global $wordings, $roster_conf, $char;
 
-		if( $char->data['CPversion'] < '2.0.0' )
-			list( $level, $max ) = explode( '/', $this->data['Value'] );
-		else
-			list( $level, $max ) = explode( ':', $this->data['Value'] );
+		$level = $this->data['curr_rep'];
+		$max = $this->data['max_rep'];
 
 		if( $max == 1 )
 		{

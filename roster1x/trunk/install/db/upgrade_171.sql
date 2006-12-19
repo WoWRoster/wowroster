@@ -54,10 +54,16 @@ ALTER TABLE `renprefix_recipes` ADD `item_level` INT( 11 ) NULL ;
 ### Reputation Table
 
 ALTER TABLE `renprefix_reputation`
-  CHANGE `Standing` `Standing` VARCHAR( 32 ) NOT NULL DEFAULT '';
+  CHANGE `Standing` `Standing` VARCHAR( 32 ) NOT NULL DEFAULT '',
+  ADD `curr_rep` int(8) NULL AFTER `Value`,
+  ADD `max_rep` int(8) NULL AFTER `curr_rep`;
 
-UPDATE `renprefix_reputation` SET `Value` = REPLACE(`Value`,'/',':');
+UPDATE `renprefix_reputation` SET 
+  `curr_rep` = substring( value, 1, locate('/', value)-1) + 0,
+  `max_rep` =  substring( value, locate('/', value)+1, length(value)-locate('/', value)) + 0;
 
+ALTER TABLE `renprefix_reputation`
+  DROP `Value`;
 
 
 # --------------------------------------------------------

@@ -1181,7 +1181,11 @@ class wowdb
 						if( !empty($faction) )
 							$this->add_value('name', $faction );
 						if( !empty($repData[$factions][$faction]['Value']) )
-							$this->add_value('Value', $repData[$factions][$faction]['Value'] );
+						{
+							list($level, $max) = explode(':',$repData[$factions][$faction]['Value']);
+							$this->add_value('curr_rep', $level );
+							$this->add_value('max_rep', $max );
+						}
 						if( !empty($repData[$factions][$faction]['AtWar']) )
 							$this->add_value('AtWar', $repData[$factions][$faction]['AtWar'] );
 						if( !empty($repData[$factions][$faction]['Standing']) )
