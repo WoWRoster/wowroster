@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.0.0
-    Last Modified:    2006-12-21
+    Version:          2.0.2
+    Last Modified:    2006-12-22
 ]]
 
 -- Local variables
@@ -28,9 +28,11 @@ local est_honor = 0;
 local debug_indx;
 local debug_simple = false;
 
-local NUMTARGETS = 40;
+local NUMTARGETS = 45;
+--[[
 local recentTargets = { };
 local targetRecords = { };
+]]--
 local lastDamagerToMe = "";
 
 local lastDing = -1000;
@@ -272,9 +274,11 @@ function PvPLogOnEvent()
         end
 
         -- we are dead, clear the variables
+--[[
         PvPLogDebugMsg('Targets cleared (dead).');
         recentTargets = { };
         targetRecords = { };
+]]--
         lastDamagerToMe = "";
 
     -- add record to mouseover
@@ -853,10 +857,6 @@ function PvPLogInitialize()
     foundDamaged = false;
     foundDamager = false;
 
-    PvPLogDebugMsg('Targets cleared (initialize).');
-    recentTargets = { };
-    targetRecords = { };
-    
     -- *** Mars Message Parser Registers ***
     -- COMBATLOG_HONORGAIN = "%s dies, honorable kill Rank: %s (Estimated Honor Points: %d)";
     MarsMessageParser_RegisterFunction("PvPLog_HonorGain", COMBATLOG_HONORGAIN,
@@ -994,7 +994,20 @@ function PvPLogInitialize()
     SLASH_PvPLogCOMMAND1 = "/pvplog";
     SLASH_PvPLogCOMMAND2 = "/pl";
 
-    -- initialize character data structure
+    -- initialize character data structures
+    
+--[[
+    PvPLogDebugMsg('Targets cleared (initialize).');
+    recentTargets = { };
+    targetRecords = { };
+]]--        
+    if (recentTargets == nil) then
+        recentTargets = { };
+    end
+    if (targetRecords == nil) then
+        targetRecords = { };
+    end
+
     if (PvPLogData == nil) then
         PvPLogData = { };
     end
@@ -1450,10 +1463,12 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
         notifyMsg = PvPLogData[realm][player].notifyDeathText;
         notifySystem = PvPLogData[realm][player].notifyDeath;
 
+--[[
         -- clear the damager list as I lost/died
         PvPLogDebugMsg('Targets cleared (recorded).');
         recentTargets = { };
         targetRecords = { };
+]]--        
         lastDamagerToMe = "";
     end
 
