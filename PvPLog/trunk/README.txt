@@ -2,8 +2,8 @@ PvPLog
 Author:            Andrzej Gorski
 Maintainer:        Matthew Musgrove, Brad Morgan
 Based on Work by:  Josh Estelle, Daniel S. Reichenbach
-Version:           0.7.0
-Last Modified:     2006-12-06
+Version:           2.0.0
+Last Modified:     2006-12-21
 
 README
 
@@ -17,11 +17,11 @@ Installation:
         PvPLog/PvPLog.toc       
         PvPLog/PvPLog.xml    
         PvPLog/PvPLog.lua       
-		PvPLog/PvPLogUI.xml
-		PvPLog/PvPLogUI.lua
-		PvPLog/localization.lua
-		PvPLog/MarsMessageParser.lua
-		PvPLog/MyMinimapButton.lua
+        PvPLog/PvPLogUI.xml
+        PvPLog/PvPLogUI.lua
+        PvPLog/localization.lua
+        PvPLog/MarsMessageParser.lua
+        PvPLog/MyMinimapButton.lua
 
     Place the entire PvPLog directory in your 
     WoW/Interface/AddOns directory.
@@ -64,24 +64,24 @@ Use:
     display).
         /pvplog nospam
 
-	You may open the configuration window that allows you to set
-	most of the options.  
-		/pvplog config
-	This window can also be opened by right-clicking the PvPLog minimap
-	button.  If you have Cosmos installed then a button will be added
-	to the Earth Features Menu (or the Khaos menu if the Earth Features
-	Menu is disabled) that will open and close the configuration window.
-	If you have the myaddons addon installed then it will be added there
-	as well.
-	
+    You may open the configuration window that allows you to set
+    most of the options.  
+        /pvplog config
+    This window can also be opened by right-clicking the PvPLog minimap
+    button.  If you have Cosmos installed then a button will be added
+    to the Earth Features Menu (or the Khaos menu if the Earth Features
+    Menu is disabled) that will open and close the configuration window.
+    If you have the myaddons addon installed then it will be added there
+    as well.
+    
     You may get some basic statistics using:
         /pvplog stats
-		
-	You may view your PvP stats in a window using:
-		/pvplog pvp
-		
-	You may view your duel stats in a window using:
-		/pvplog duel
+        
+    You may view your PvP stats in a window using:
+        /pvplog pvp
+        
+    You may view your duel stats in a window using:
+        /pvplog duel
 
     You may get the version of PvPLog with:
         /pvplog version

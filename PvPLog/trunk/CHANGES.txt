@@ -2,14 +2,17 @@ PvPLog
 Author:           Andrzej Gorski
 Maintainer:       Matthew Musgrove, Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          0.7.0
-Last Modified:    2006-12-06
+Version:          2.0.0
+Last Modified:    2006-12-21
 
 CHANGES
 
-2006-12-06  * Released 0.7.0 beta
+2006-12-21  * 2.0.0
+    * Massive changes necessary for WoW version 2.
+
+2006-12-06  * 0.7.0
     * Changed TOC to 20000
-    * Changes necessary for WoW 2.0.1
+    * Changes necessary for Lua 5.1
 
 2006-10-23  * Released 0.6.1
     * Added a button to the Earth Features Menu (or the Khaos menu if the Earth Features Menu is disabled) in Cosmos (if installed).

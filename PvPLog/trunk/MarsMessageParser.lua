@@ -70,9 +70,9 @@ local parseBuffer;
 local parseOrder;
 local parseCount;
 
-if((not MarsMessageParser_Version) or (MarsMessageParser_Version < 10)) then
+if((not MarsMessageParser_Version) or (MarsMessageParser_Version < 20)) then
 
-	MarsMessageParser_Version = 10;
+	MarsMessageParser_Version = 20;
 
 	parseRegistrations = {};
 
@@ -93,7 +93,7 @@ if((not MarsMessageParser_Version) or (MarsMessageParser_Version < 10)) then
 			parseBuffer = parseBuffer..character;
 			if(string.find(character, "[%%cdEefgGiouXxqs]")) then
 				local order;
-				_, _, order = string.find(parseBuffer, "(%d+)%$");
+				order = string.match(parseBuffer, "(%d+)%$");
 				parseCount = parseCount + 1;
 				if(order) then
 					parseOrder[parseCount] = tonumber(order);
@@ -120,28 +120,27 @@ if((not MarsMessageParser_Version) or (MarsMessageParser_Version < 10)) then
 		parseOrder = {};
 		parseCount = 0;
 		local parseString = string.gsub(formatString, ".", ParseFunction);
-		local registerId = table.getn(parseRegistrations[clientId]) + 1;
+		local registerId = #(parseRegistrations[clientId]) + 1;
 		parseRegistrations[clientId][registerId] = { parseString, parseOrder, func, endsWithLink };
 	end
 
 	function MarsMessageParser_ParseMessage(clientId, message)
 		local registerId = 1;
-		local findResult;
+		local matchResult;
 		if(not parseRegistrations[clientId]) then
 			return;
 		end
 		repeat
-			findResult = {string.find(message, parseRegistrations[clientId][registerId][1])};
-			if(findResult[1]) then
+			matchResult = {string.match(message, parseRegistrations[clientId][registerId][1])};
+			if(matchResult[1]) then
 				local i, n;
 				local callResult = {};
-				n = table.getn(findResult);
-				for i=3,n do
-					callResult[parseRegistrations[clientId][registerId][2][i-2]] = findResult[i];
+				n = #matchResult;
+				for i=1,n do
+					callResult[parseRegistrations[clientId][registerId][2][i]] = matchResult[i];
 				end
-				n = n - 2;
 				if(parseRegistrations[clientId][registerId][4]) then
-					callResult[n-6] = string.format("%s|Hitem:%s:%s:%s:%s|h[%s]|h%s", callResult[n-6], callResult[n-5], callResult[n-4], callResult[n-3], callResult[n-2], callResult[n-1], callResult[n]);
+					callResult[n-6] = string.format("%s|Hitem:%s:%s:0:0:0:0:%s:%s|h[%s]|h%s", callResult[n-6], callResult[n-5], callResult[n-4], callResult[n-3], callResult[n-2], callResult[n-1], callResult[n]);
 					for i=n,n-5,-1 do
 						callResult[i] = nil;
 					end
