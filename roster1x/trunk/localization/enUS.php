@@ -517,7 +517,8 @@ $wordings['enUS']['hslist']=' Honor System Stats';
 $wordings['enUS']['hslist1']='Highest Ranking member';
 $wordings['enUS']['hslist2']='Highest Lifetime Rank';
 $wordings['enUS']['hslist3']='Highest Lifetime HKs';
-$wordings['enUS']['hslist4']='Highest Lifetime CP';
+$wordings['enUS']['hslist4']='Most Honor Points';
+$wordings['enUS']['hslist5']='Most Arena Points';
 
 $wordings['enUS']['Druid']='Druid';
 $wordings['enUS']['Hunter']='Hunter';

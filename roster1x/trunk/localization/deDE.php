@@ -517,7 +517,8 @@ $wordings['deDE']['hslist']=' Ehren Statistiken';
 $wordings['deDE']['hslist1']='H&ouml;chstrangigstes Mitglied diese Woche';
 $wordings['deDE']['hslist2']='H&ouml;chsten Lebenszeit Rang';
 $wordings['deDE']['hslist3']='H&ouml;chsten Lebenszeit ES';
-$wordings['deDE']['hslist4']='H&ouml;chsten Lebenszeit EP';
+$wordings['enUS']['hslist4']='Most Honor Points';
+$wordings['enUS']['hslist5']='Most Arena Points';
 
 $wordings['deDE']['Druid']='Druide';
 $wordings['deDE']['Hunter']='Jäger';

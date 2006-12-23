@@ -1321,7 +1321,7 @@ $returnstring .= '  <tr>
 				break;
 		}
 
-		$output = '<div class="honortext">'.$wordings[$lang]['honor'].':<span>0</span>'.$icon.'</div>'."\n";
+		$output = '<div class="honortext">'.$wordings[$lang]['honor'].':<span>'.$this->data['honorpoints'].'</span>'.$icon.'</div>'."\n";
 
 		$output .= '<div class="today">'.$wordings[$lang]['today'].'</div>'."\n";
 		$output .= '<div class="yesterday">'.$wordings[$lang]['yesterday'].'</div>'."\n";
@@ -1339,7 +1339,7 @@ $returnstring .= '  <tr>
 		$output .= '<div class="honorline2">'.$this->data['yesterdayContribution'].'</div>'."\n";
 		$output .= '<div class="honorline3">-</div>'."\n";
 
-		$output .= '<div class="arenatext">'.$wordings[$lang]['arena'].':<span>0</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
+		$output .= '<div class="arenatext">'.$wordings[$lang]['arena'].':<span>'.$this->data['arenapoints'].'</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
 
 		return $output;
 	}

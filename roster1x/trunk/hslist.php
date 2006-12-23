@@ -134,8 +134,8 @@ if ($row) {
 	print("</td>\n  </tr>\n");
 }
 
-//Highest LifeTime CPs
-$query = "SELECT `name`, `lifetimeCP` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lifetimeCP` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
+//Highest honorpoints
+$query = "SELECT `name`, `honorpoints` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `honorpoints` DESC LIMIT 0 , 1";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $wowdb->fetch_assoc( $result );
 
@@ -146,12 +146,33 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="indexhonor.php?s=lifetimeCP">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
+	print('<a href="indexhonor.php?s=honorpoints">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
 	rankRight((($striping_counter % 2) +1));
-	print($row['lifetimeCP']);
+	print($row['honorpoints']);
+	print("</td>\n  </tr>\n");
+}
+
+//Highest arenapoints
+$query = "SELECT `name`, `arenapoints` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `arenapoints` DESC LIMIT 0 , 1";
+$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$row = $wowdb->fetch_assoc( $result );
+
+if ($row) {
+	// Striping rows
+	print("  <tr>\n");
+
+	// Increment counter so rows are colored alternately
+	++$striping_counter;
+	rankLeft((($striping_counter % 2) +1));
+	print('<a href="indexhonor.php?s=arenapoints">'.$wordings[$roster_conf['roster_lang']]['hslist5'].'</a></td>'."\n");
+	rankMid((($striping_counter % 2) +1));
+	print($row['name']);
+	print("</td>\n");
+	rankRight((($striping_counter % 2) +1));
+	print($row['arenapoints']);
 	print("</td>\n  </tr>\n");
 }
 

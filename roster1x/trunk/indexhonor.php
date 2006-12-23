@@ -32,7 +32,9 @@ $additional_sql = array(
 	'`players`.`yesterdayHK`, ',
 	'`players`.`yesterdayContribution`, ',
 	'`players`.`lifetimeHK`, ',
-	'`players`.`lifetimeRankName` ',
+	'`players`.`lifetimeRankName`, ',
+	'`players`.`honorpoints`, ',
+	'`players`.`arenapoints` ',
 );
 
 $FIELD[] = array (
@@ -70,18 +72,8 @@ $FIELD[] = array (
 );
 
 $FIELD[] = array (
-	'RankName' => array(
-		'lang_field' => 'currenthonor',
-		'divider' => true,
-		'order' => array( '`players`.`RankInfo` DESC' ),
-		'order_d' => array( '`players`.`RankInfo` ASC' ),
-		'value' => 'honor_value',
-	),
-);
-
-$FIELD[] = array (
 	'sessionHK' => array(
-		'lang_field' => 'Sess HK',
+		'lang_field' => 'Today HK',
 		'order' => array( '`players`.`sessionHK` DESC' ),
 		'order_d' => array( '`players`.`sessionHK` ASC' ),
 	),
@@ -89,7 +81,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'sessionCP' => array(
-		'lang_field' => 'Sess CP',
+		'lang_field' => 'Today CP',
 		'order' => array( '`players`.`sessionCP` DESC' ),
 		'order_d' => array( '`players`.`sessionCP` ASC' ),
 	),
@@ -124,6 +116,22 @@ $FIELD[] = array (
 		'lang_field' => 'Highest Rank',
 		'order' => array( '`players`.`lifetimeRankName` DESC' ),
 		'order_d' => array( '`players`.`lifetimeRankName` ASC' ),
+	),
+);
+
+$FIELD[] = array (
+	'honorpoints' => array(
+		'lang_field' => 'Honor Points',
+		'order' => array( '`players`.`honorpoints` DESC' ),
+		'order_d' => array( '`players`.`honorpoints` ASC' ),
+	),
+);
+
+$FIELD[] = array (
+	'arenapoints' => array(
+		'lang_field' => 'Arena Points',
+		'order' => array( '`players`.`arenapoints` DESC' ),
+		'order_d' => array( '`players`.`arenapoints` ASC' ),
 	),
 );
 

@@ -56,7 +56,8 @@ ALTER TABLE `renprefix_players`
 
 ALTER TABLE `renprefix_players`
   ADD `sessionCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `sessionHK`,
-  ADD `lifetimeCP` INT( 11 ) NOT NULL DEFAULT '0' AFTER `lifetimeHK`,
+  ADD `honorpoints` INT( 11 ) NOT NULL DEFAULT '0' AFTER `lifetimeRankName`,
+  ADD `arenapoints` INT( 11 ) NOT NULL DEFAULT '0' AFTER `honorpoints`,
   CHANGE `Rankexp` `Rankexp` FLOAT NOT NULL DEFAULT '0';
 
 

@@ -368,7 +368,7 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 		}
 		else
 		{
-			$cell_value = empty( $row[$field] ) ? '&nbsp;' : $row[$field];
+			$cell_value = ( ($row[$field] == '') ? '&nbsp;' : $row[$field]);
 		}
 
 		//---[ Adding trade skills images ]---------------
