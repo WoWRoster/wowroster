@@ -298,11 +298,8 @@ function processGuildRoster($myProfile)
 							// GP Version Detection, don't allow lower than minVer
 							if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 							{
-								// make hour between 0 and 23 and minute between 0 and 60
-								list($guildHour,$guildMinute) = explode(':',$guild['timestamp']['init']['ServerTime']);
-
 								// take the current time and get the offset. Upload must occur same day that roster was obtained
-								$currentTimestamp = mktime($guildHour,$guildMinute,0);
+								$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
 								$currentTime = getDate($currentTimestamp);
 
 								// Update the guild

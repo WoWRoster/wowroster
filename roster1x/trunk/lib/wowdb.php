@@ -1866,8 +1866,6 @@ class wowdb
 		if( !empty($currentTime) )
 			$this->add_time( 'update_time', $currentTime );
 
-		//$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
-
 		if( !empty($guild['timestamp']['init']['DateUTC']) )
 		{
 			list($year,$month,$day,$hour,$minute,$second) = sscanf($guild['timestamp']['init']['DateUTC'],"%4s-%2s-%2s %2s:%2s:%2s");
@@ -1948,14 +1946,14 @@ class wowdb
 			$this->add_value( 'status', '');
 		$this->add_time( 'update_time', getDate($currentTimestamp));
 
-		if ($char['Online'])
+		if( $char['Online'] == '1' )
 		{
-			$this->add_value( 'online', 1);
+			$this->add_value( 'online', 1 );
 			$this->add_time('last_online', getDate($currentTimestamp));
 		}
 		else
 		{
-			$this->add_value( 'online', 0);
+			$this->add_value( 'online', 0 );
 			list($lastOnlineYears,$lastOnlineMonths,$lastOnlineDays,$lastOnlineHours) = explode(':',$char['LastOnline']);
 
 			# use strtotime instead
@@ -1973,7 +1971,7 @@ class wowdb
 			$timeString .= max($lastOnlineHours,1).' Hours';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
-			$this->add_time( 'last_online', getDate($lastOnlineTime));
+			$this->add_time( 'last_online', getDate($lastOnlineTime) );
 		}
 
 		if( $memberId )
