@@ -1,0 +1,102 @@
+.sc_select {
+	font-size: 10px;
+}
+.sc_table {
+	white-space: nowrap;
+}
+.sc_errorText {
+	font-size: 10px;
+	font-weight: bold;
+	color: #FF0000;
+}
+.sc_sqlText {
+	font-size: 10px;
+	font-weight: bold;
+	color: #00FF00;
+}
+.sc_titletext {
+	font-size: 14px;
+	font-weight: bold;
+	color: #DAA520;
+}
+.sc_table {
+	border: 1px solid #212121;
+	white-space: nowrap;
+	font-size: 10px; 
+}
+.sc_menuTH {
+	font-size: 11px;
+	font-weight: bold;
+	color: #CBA300;
+	background-color: #2E2D2B;
+	border: solid #5D5D5D;
+	border-width: 1px 0px 0px 1px;
+}
+.sc_menuClick {
+	font-size: 11px;
+	font-weight: bold;
+	color: #CBA300;
+	background-color: #2E2D2B;
+	border: solid #5D5D5D;
+	border-width: 1px 0px 0px 1px;
+	padding:1px;
+	cursor: pointer;
+}
+.sc_row1 {
+	vertical-align: bottom;
+	color: #FFFFFF;
+	background-color: #1F1E1D;
+	font-size: 10px;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+}
+.sc_row2 {
+	vertical-align: bottom;
+	color: #FFFFFF;
+	background-color: #2E2D2B;
+	font-size: 10px;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+
+#tab_menu {
+	/* Container for the main roster menu */
+	font:11px Arial, Helvetica, sans-serif;
+}
+#tab_menu ul {
+	/* List define for main menu */
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+#tab_menu li {
+	/* List define for main menu */
+	margin:2px 2px 2px;
+	text-align:center;
+}
+#tab_menu a {
+	/* Links in menu */
+	display:block;
+	width:125px;
+	border: solid #5D5D5D;
+	border-width: 1px 0px 0px 1px;
+	background-color:#2E2D2B;
+	text-decoration:none;
+	cursor:pointer;
+}
+#tab_menu a:link, #tab_menu a:visited {
+	/* Links in menu */
+	color:#CBA300;
+}
+#tab_menu a:active {
+	/* Links in menu on-click */
+	background-color:#778899;
+	color:#CBA300;
+}
+#tab_menu a:hover {
+	/* Links in menu on-mouseover */
+	background-color:#7A7772;
+}

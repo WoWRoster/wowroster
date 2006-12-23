@@ -1,0 +1,6 @@
+edit conf.php
+
+chmod / change permissions to world writable/readable on the following folders:
+
+cache
+compile
