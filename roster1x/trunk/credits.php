@@ -70,25 +70,6 @@ foreach( $creditspage['devs']['3rdparty'] as $dev )
 }
 echo "</table>\n".border('spurple','end')."<br />\n";
 
-// Print used libraries
-echo border('sorange','start','Javascript libraries')."<table cellspacing=\"0\">\n";
-echo "<tr>
-<th class=\"membersHeader\">Name</th>
-<th class=\"membersHeaderRight\">Info</th>
-";
-
-$strip_count = 1;
-foreach( $creditspage['devs']['library'] as $dev )
-{
-	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
-	print "\t<tr>\n";
-	print "\t\t<td class=\"$stripe_class\">".$dev['name']."</td>\n";
-	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
-	print "\t</tr>\n";
-}
-echo "</table>\n".border('sorange','end');
-
 
 // format table locations
 echo "\n</td><td valign=\"top\">\n";
@@ -114,15 +95,15 @@ foreach( $creditspage['devs']['inactive'] as $dev )
 echo "</table>\n".border('sred','end')."<br />\n";
 
 
-// Print the beta team
-echo border('syellow','start','WoWRoster Beta Team')."<table width=\"100%\" cellspacing=\"0\">\n";
+// Print used libraries
+echo border('sorange','start','Javascript libraries')."<table cellspacing=\"0\">\n";
 echo "<tr>
 <th class=\"membersHeader\">Name</th>
 <th class=\"membersHeaderRight\">Info</th>
 ";
 
 $strip_count = 1;
-foreach( $creditspage['devs']['beta'] as $dev )
+foreach( $creditspage['devs']['library'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -131,7 +112,8 @@ foreach( $creditspage['devs']['beta'] as $dev )
 	print "\t\t<td class=\"$stripe_class_right\">".$dev['info']."</td>\n";
 	print "\t</tr>\n";
 }
-echo "</table>\n".border('syellow','end');
+echo "</table>\n".border('sorange','end');
+
 
 // format table locations
 echo "\n</td></tr></table>\n";

@@ -839,40 +839,38 @@ $wordings['enUS']['admin']['per_character_display'] = 'Per-Character Display';
 
 $creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site
 <br />
-Special Thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter</a> for sharing his <a href="http://www.rpgoutfitter.com/downloads/wowinterface.cfm" target="_blank">icons</a>
+Special thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter.com</a> for his wonderfull addons CharacterProfiler and GuildProfiler
 <br /><br />
-Special Thanks to the DEVs of Roster for helping to build and maintain the package
+To the DEVs of Roster, for helping to build and maintain the package. You Rock!
 <br /><br />
-Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
+Thanks to all the coders who have contributed code, bug fixes, time, and testing of WoWRoster
 <br /><br />';
 
 // This is an array of the dev team
 $creditspage['devs'] = array(
 		'active'=>array(
-			array(	"name"=>	"AnthonyB",
-					"info"=>	"Site Admin<br />WoWRoster Coordinator"),
-			array(	"name"=>	"Matt Miller",
-					"info"=>	"Gimpy DEV<br />Author of UniAdmin and UniUploader"),
-			array(	"name"=>	"Calvin",
-					"info"=>	"Gimpy DEV<br />Author of CharacterProfiler and GuildProfiler"),
+			array(	"name"=>	"zanix",
+					"info"=>	"Site Admin, WoWRoster Coordinator<br />Author of SigGen"),
 			array(	"name"=>	"Anaxent",
-					"info"=>	"WoWRoster Dev<br />Author of WoWRosterDF<br />(DragonflyCMS Port of Roster)"),
+					"info"=>	"WoWRoster Dev<br />WoWRosterDF Author (DragonflyCMS Port)"),
 			array(	"name"=>	"mathos",
 					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"bsmorgan",
-					"info"=>	"Gimpy DEV<br />Author of PvPLog"),
 			array(	"name"=>	"PleegWat",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"seleleth",
 					"info"=>	"WoWRoster Dev"),
-			array(	"name"=>	"silencer-ch-au",
-					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"Sphinx",
 					"info"=>	"WoWRoster Dev<br />German Translator"),
-			array(	"name"=>	"zanix",
-					"info"=>	"WoWRoster Dev<br />SigGen Roster-Addon Author"),
+			array(	"name"=>	"silencer-ch-au",
+					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"Zeryl",
 					"info"=>	"WoWRoster Dev<br />Missing Recipes Roster-Addon Author"),
+			array(	"name"=>	"Matt Miller",
+					"info"=>	"Gimpy DEV<br />Author of UniAdmin and UniUploader"),
+			array(	"name"=>	"calvin",
+					"info"=>	"Gimpy DEV<br />Author of CharacterProfiler and GuildProfiler"),
+			array(	"name"=>	"bsmorgan",
+					"info"=>	"Gimpy DEV<br />Author of PvPLog"),
 		),
 
 		'library'=>array(
@@ -883,7 +881,7 @@ $creditspage['devs'] = array(
 		),
 
 		'3rdparty'=>array(
-			array(	"name"=>	"<a href='http://53x11.com'>Nick Schaffner</a>",
+			array(	"name"=>	"<a href='http://53x11.com' target='_blank'>Nick Schaffner</a>",
 					"info"=>	"Original WoW server status"),
 			array(	"name"=>	"Averen",
 					"info"=>	"Original MemberLog author"),
@@ -893,19 +891,21 @@ $creditspage['devs'] = array(
 					"info"=>	"Recoded professions page for v1.7.1<br />New show/hide javascript code for collapsable tables"),
 			array(	"name"=>	"dehoskins",
 					"info"=>	"Improvements to the stats &amp; bonuses block"),
-			array(	"name"=>	"EQdkp team",
+			array(	"name"=>	"<a href='http://www.eqdkp.com' target='_blank'>EQdkp team</a>",
 					"info"=>	"Original version of the installer/upgrader code<br />and their templating engine"),
 		),
 
 		'inactive'=>array(
+			array(	"name"=>	"AnthonyB",
+					"info"=>	"Retired DEV<br />Site Admin and Coordinator<br />v1.04 to v1.7.0"),
 			array(	"name"=>	"Airor/Chris",
-					"info"=>	"Inactive Dev"),
+					"info"=>	"Inactive Dev<br />Coded new lua parser for v1.7.0"),
 			array(	"name"=>	"dsrbo",
 					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
 			array(	"name"=>	"Guppy",
 					"info"=>	"Retired DEV"),
 			array(	"name"=>	"Mordon",
-					"info"=>	"Retired Dev"),
+					"info"=>	"Retired Dev<br />Head Dev v1.03 and lower"),
 			array(	"name"=>	"mrmuskrat",
 					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
 			array(	"name"=>	"Nemm",
@@ -925,23 +925,12 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"Vich",
 					"info"=>	"Inactive Dev"),
 		),
-
-		'beta'=>array(
-			array(	"name"=>	"Exerladan",
-					"info"=>	"WoWRoster Beta Tester<br />French Translator"),
-			array(	"name"=>	"Kieeps",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"PoloDude",
-					"info"=>	"WoWRoster Beta Tester"),
-			array(	"name"=>	"Thorus",
-					"info"=>	"WoWRoster Beta Tester"),
-		),
 	);
 
 $creditspage['bottom']='WoW Roster is licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
-<br /><br />
+<br />
 Serveral javascript files are libraries that are under their own licenses.
-<br /><br />
+<br />
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
 See <a href="license.txt">license.txt</a> for details';
