@@ -34,8 +34,10 @@ if ( !defined('ROSTER_INSTALLED') )
 class RosterLogin
 {
 	var $account;	// Account ID. -1 for roster admin. 0 for Guest.
-	var $user;	// User name. Roster_Admin for roster admin.
-	var $level;	// -1 roster admin, 0 GM, 0-9 guild ranks, 10 anonymous/not in guild
+	var $user;		// User name. Roster_Admin for roster admin.
+	var $perms;		// Array of permissions the logged in user has: ID=>Name
+	var $groups;	// Array of groups the logged in user is in: ID=>Status
+	var $level;		// -1 roster admin, 0 GM, 0-9 guild ranks, 10 anonymous/not in guild
 	var $loginmsg;	// Login result message
 	var $message;	// Any other status message (create account, change password)
 	var $loginform;	// Login form
@@ -52,6 +54,8 @@ class RosterLogin
 	function RosterLogin($script_filename)
 	{
 		$this->script_filename = $script_filename;
+		unset($this->perms);
+		unset($this->groups);
 		$this->level = 11;
 
 		$this->checkLogin();
@@ -65,6 +69,7 @@ class RosterLogin
 	{
 		global $roster_conf, $wowdb;
 
+		// Get the supplied credentials from cookie or post data
 		if( isset($_COOKIE['roster_pass']) )
 		{
 			$supplied = unserialize(stripslashes($_COOKIE['roster_pass']));
@@ -79,11 +84,14 @@ class RosterLogin
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->loginmsg = '<span style="font-size:11px;color:red;">Not logged in</span><br />';
 			$this->user = '';
+			unset($this->perms);
+			unset($this->groups);
 			$this->level = 11;
 			$this->account = 0;
 			return;
 		}
 
+		// Fetch the proper credentials for this username. Roster_Admin is a special case and handled seperately.
 		if ($supplied['user'] == 'Roster_Admin')
 		{
 			$proper['account_id'] = -1;
@@ -103,6 +111,8 @@ class RosterLogin
 					setcookie( 'roster_pass','',time()-86400,'/' );
 				$this->loginmsg = '<span style="font-size:11px;color:red;">Database problem: Unable to verify supplied credentials. MySQL said: '.$wowdb->error().'</span><br />';
 				$this->user = '';
+				unset($this->perms);
+				unset($this->groups);
 				$this->level = 11;
 				$this->account = 0;
 				return;
@@ -116,6 +126,8 @@ class RosterLogin
 					setcookie( 'roster_pass','',time()-86400,'/' );
 				$this->loginmsg = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 				$this->user = '';
+				unset($this->perms);
+				unset($this->groups);
 				$this->level = 11;
 				$this->account = 0;
 				return;
@@ -124,13 +136,36 @@ class RosterLogin
 			$wowdb->free_result($result);
 		}
 
+		// Verify hash
 		if( $supplied['hash'] == $proper['hash'] )
 		{
 			setcookie( 'roster_pass',serialize($supplied),0,'/' );
 			$this->loginmsg = '<span style="font-size:10px;color:red;">Logged in as '.$proper['name'].' </span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 			$this->user = $proper['name'];
+			$this->groups = array();
+			$this->perms = array();
 			$this->level = $proper['level'];
 			$this->account = $proper['account_id'];
+
+			$query = "SELECT `permission_id`, `permission_name`, `group_id`, `status`".
+				" FROM `".ROSTER_GROUPMEMBERTABLE."` gm".
+				" INNER JOIN `".ROSTER_PERMISSIONTABLE."` perm ON `gm`.`group_id` = `perm`.`group_id`".
+				" WHERE `account_id` = '".$this->account."'";
+
+			$result = $wowdb->query($query);
+
+			if( !$result )
+			{
+				return;
+			}
+
+			while( $row = $wowdb->fetch_assoc($result) )
+			{
+				$this->groups[$row['group_id']] = $row['status'];
+				$this->perms[$row['permission_id']] = $row['permission_name'];
+			}
+
+			$wowdb->free_result($result);
 		}
 		else
 		{
@@ -138,8 +173,12 @@ class RosterLogin
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->loginmsg = '<span style="font-size:11px;color:red;">Incorrect user name or password</span><br />';
 			$this->user = '';
+			unset($this->perms);
+			unset($this->groups);
 			$this->level = 11;
 			$this->account = 0;
+
+			return;
 		}
 	}
 
@@ -154,6 +193,8 @@ class RosterLogin
 				setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->loginmsg = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 			$this->user = '';
+			unset($this->perms);
+			unset($this->groups);
 			$this->level = 11;
 			$this->account = 0;
 		}

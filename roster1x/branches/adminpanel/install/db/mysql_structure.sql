@@ -48,6 +48,41 @@ CREATE TABLE `renprefix_config` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Groups
+
+DROP TABLE IF EXISTS `renprefix_groups`;
+CREATE TABLE `renprefix_groups` (
+	`group_id` int(11) AUTO_INCREMENT,
+	`group_type` smallint(6),
+	`group_name` varchar(32) NOT NULL,
+	`group_description` mediumtext,
+	`group_master` int(11) NOT NULL COMMENT 'account_id',
+	PRIMARY KEY (`group_id`),
+	UNIQUE KEY `name` (`group_name`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Group members
+
+DROP TABLE IF EXISTS `renprefix_group_members`;
+CREATE TABLE `renprefix_group_members` (
+	`group_id` int(11) NOT NULL,
+	`account_id` int(11) NOT NULL,
+	`status` smallint(6),
+	PRIMARY KEY (`group_id`, `member_id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Group-Permissions
+
+DROP TABLE IF EXISTS `renprefix_group_permissions`;
+CREATE TABLE `renprefix_group_permissions` (
+	`permission_id` int(11) NOT NULL,
+	`account_id` int(11) NOT NULL,
+	PRIMARY KEY (`permission_id`, `member_id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Guild
 
 DROP TABLE IF EXISTS `renprefix_guild`;
@@ -158,6 +193,19 @@ CREATE TABLE `renprefix_memberlog` (
   `update_time` datetime default NULL,
   `type` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`log_id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Permissions
+
+DROP TABLE IF EXISTS `renprefix_permissions`;
+CREATE TABLE `renprefix_permissions` (
+	`permission_id` int(11) AUTO_INCREMENT,
+	`addon_id` int(11),
+	`permission_name` varchar(32) NOT NULL,
+	`permission_description` mediumtext,
+	PRIMARY KEY (`permission_id`),
+	UNIQUE KEY `name` (`addon_id`, `permission_name`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

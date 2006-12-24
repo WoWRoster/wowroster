@@ -77,12 +77,61 @@ CREATE TABLE `renprefix_menu_button` (
 
 DROP TABLE IF EXISTS `renprefix_account`;
 CREATE TABLE `renprefix_account` (
-	`account_id` smallint(6) NOT NULL auto_increment,
+	`account_id` smallint(6) AUTO_INCREMENT,
 	`name` varchar(30) NOT NULL default '',
 	`hash` varchar(32) NOT NULL default '',
 	`level` int(8) NOT NULL default '10',
 	PRIMARY KEY  (`account_id`)
 ) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Groups
+
+DROP TABLE IF EXISTS `renprefix_groups`;
+CREATE TABLE `renprefix_groups` (
+	`group_id` int(11) AUTO_INCREMENT,
+	`group_type` smallint(6),
+	`group_name` varchar(32) NOT NULL,
+	`group_description` mediumtext,
+	`group_master` int(11) NOT NULL COMMENT 'account_id',
+	PRIMARY KEY (`group_id`),
+	UNIQUE KEY `name` (`group_name`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Group members
+
+DROP TABLE IF EXISTS `renprefix_group_members`;
+CREATE TABLE `renprefix_group_members` (
+	`group_id` int(11) NOT NULL,
+	`account_id` int(11) NOT NULL,
+	`status` smallint(6),
+	PRIMARY KEY (`group_id`, `account_id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Permissions
+
+DROP TABLE IF EXISTS `renprefix_permissions`;
+CREATE TABLE `renprefix_permissions` (
+	`permission_id` int(11) AUTO_INCREMENT,
+	`addon_id` int(11),
+	`permission_name` varchar(32) NOT NULL,
+	`permission_description` mediumtext,
+	PRIMARY KEY (`permission_id`),
+	UNIQUE KEY `name` (`addon_id`, `permission_name`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Group-Permissions
+
+DROP TABLE IF EXISTS `renprefix_group_permissions`;
+CREATE TABLE `renprefix_group_permissions` (
+	`group_id` int(11) NOT NULL,
+	`permission_id` int(11) NOT NULL,
+	PRIMARY KEY (`group_id`,`permission_id`)
+) TYPE=MyISAM;
+
 
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
 
