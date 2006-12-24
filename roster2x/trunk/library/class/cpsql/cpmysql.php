@@ -5,7 +5,7 @@
  * File: library/class/cpsql/cpmysql.php
  *
  * This is a extend of our cpsql class, when multi database support is required
- * a implimentation will need to be put in place, for now this is a abstract 
+ * a implimentation will need to be put in place, for now this is a abstract
  * class with a private construct to prevent instantiation within modules.
  *
  * @author Chris Stockton
@@ -13,6 +13,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -26,7 +29,7 @@ if(!defined('SECURITY'))
 
 /**
  * This is a extend of our cpsql class, when multi database support is required
- * a implimentation will need to be put in place, for now this is a abstract 
+ * a implimentation will need to be put in place, for now this is a abstract
  * class with a private construct to prevent instantiation within modules.
  * @package cpFramework
  */

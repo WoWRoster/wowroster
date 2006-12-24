@@ -3,6 +3,9 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -42,7 +45,7 @@ function smarty_block_textformat($params, $content, &$smarty)
     $wrap_char = "\n";
     $wrap_cut = false;
     $assign = null;
-    
+
     foreach ($params as $_key => $_val) {
         switch ($_key) {
             case 'style':

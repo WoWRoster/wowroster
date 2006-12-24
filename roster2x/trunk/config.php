@@ -33,6 +33,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -60,7 +63,7 @@ define("SYSTEM_DEFAULT_ACCESS_DENIED", "Your user does not have the available pr
 
 /**
  * Friendly URLS require the use of a .htaccess file, so it's
- * unix only, unless you setup rulls for a windows enviroment. 
+ * unix only, unless you setup rulls for a windows enviroment.
  */
 define("SYSTEM_FRIENDLY_URLS", TRUE);
 
@@ -69,23 +72,23 @@ define("SYSTEM_FRIENDLY_URLS", TRUE);
  * www.domain.com when www is actualy a sub domain as most
  * developers are aware, this causes issues with cookies and tracking
  * so by setting this we control the request and redirect them.
- * 
+ *
  * Options:
  * 'www' Redirect to www.PATH_REMOTE (replaces http:// with http://www. (if needed)
  * 'http' Redirect to PATH_REMOTE
- * 'off' Don't ever redirect domain 
- */ 
+ * 'off' Don't ever redirect domain
+ */
 define("SYSTEM_REDIRECT_REQUEST", "off");
 
 /**
  * Directory seperator to make for easy cross system compatibility.
- */ 
+ */
 define("DIRECTORY_SEPERATOR", "/");
 
 /**
  * Turn on ALL errors during development, we keep our code crisp.. and clean
  * however turn them off after development for security reasons. Make sure to
- * actively controll this configuration setting. 
+ * actively controll this configuration setting.
  */
 error_reporting(E_ALL);
 

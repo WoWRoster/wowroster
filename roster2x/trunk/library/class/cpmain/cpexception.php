@@ -7,7 +7,7 @@
  * This is our exception handling class, it's a direct extend of the Exception
  * default class, we are putting this simple wrapper here as a placeholder for
  * future error logging and such, in case I need to log errors, or handle
- * exceptions in a better way.   
+ * exceptions in a better way.
  *
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -35,6 +35,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -56,7 +59,7 @@ class cpException extends Exception
 
     /**
      * Our construct wraps the main exception construct
-     * 
+     *
      * @param string $message message to parent
      * @param string $code exception code
      *

@@ -36,6 +36,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -167,7 +170,7 @@ class cpusers
                 (
                     "SELECT *
 					FROM
-					  ".DB_PREFIX."users 
+					  ".DB_PREFIX."users
 					WHERE
 					  user_name = '?' AND user_password = '?'",
                     $login_info['username'],

@@ -3,6 +3,9 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**

@@ -9,7 +9,7 @@
  * executed before the module/plugin HOWEVER to follow our general
  * methodology these files MUST be a common task. Having a common
  * task throughout all methods and calling it within each method is
- * a poor practice; which is why the autoload system is in place.  
+ * a poor practice; which is why the autoload system is in place.
  *
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -37,6 +37,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**

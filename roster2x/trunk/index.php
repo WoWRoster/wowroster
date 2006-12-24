@@ -33,6 +33,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -88,8 +91,8 @@ if(SYSTEM_FRIENDLY_URLS)
     /**
      * Get our get vars from the seo friendly URL, simple regex is very powerfull. Assuming
      * you are using htaccess and have mod_rewrite running on your server. This feature can
-     * be disabled all together.          
-     * 
+     * be disabled all together.
+     *
      * Matches:
      * foo1-bar1/2foo-bar2/something-else.html
      * foo1-bar1-2foo-bar2-something-else.html
@@ -98,12 +101,12 @@ if(SYSTEM_FRIENDLY_URLS)
      * foo1-bar1.2foo-bar2.something-else.html
      * foo1-bar1/2foo-bar2/something-else/a.html
      * foo1-bar1/2foo-bar2/something-else/
-     *  -- And more, you get the picture... --     
-     * 
-     * All result in:          
+     *  -- And more, you get the picture... --
+     *
+     * All result in:
      *   ($_GET = Array ( [foo1] => bar1 [2foo] => bar2 [something] => else))
      *
-     *               
+     *
      */
     preg_match_all("/(\w+)\-(\w+)/i", $_SERVER['REQUEST_URI'], $matches);
 

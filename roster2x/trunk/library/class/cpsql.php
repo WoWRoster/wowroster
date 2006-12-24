@@ -35,6 +35,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -84,13 +87,13 @@ class cpsql
      * Our construct allows the ability to auto config the
      * mysql connection to allow better module flow and
      * easier utilization of mysql.
-     * 
-     * @param $_auto_conf bool Configure mysql automaticaly?      
      *
-     * @return void              
-     * 
-     * @access public                              
-     */         
+     * @param $_auto_conf bool Configure mysql automaticaly?
+     *
+     * @return void
+     *
+     * @access public
+     */
     public function __construct($_auto_conf = TRUE)
     {
         if($_auto_conf === TRUE)
@@ -159,7 +162,7 @@ class cpsql
                     "Errorno " . mysql_errno() . ": " . mysql_error(),
                     __FILE__,
                     __LINE__
-                );         
+                );
             }
         }
     }
@@ -326,11 +329,11 @@ class cpsql
      */
     public function close($link_name = "default", $method = "0")
     {
-        return ($this->connect[$link_name]) ? (($method !== "0") ? mysql_free_result($this->result) : mysql_close($this->connect[$link_name])) : false; 
+        return ($this->connect[$link_name]) ? (($method !== "0") ? mysql_free_result($this->result) : mysql_close($this->connect[$link_name])) : false;
     }
 
     /**
-     * This function is used for loops and such, checks to see if a 
+     * This function is used for loops and such, checks to see if a
      * identifier exist, if it does not then it will cycle through
      * fetching the results as called.
      *
@@ -345,7 +348,7 @@ class cpsql
     {
         /**
          * something i've been meaning to do, returning a bool on my next is just silly, what if
-         * you want to assign a row to the fetched array? now you can.         
+         * you want to assign a row to the fetched array? now you can.
          */
         $this->record[$name] = (isset($this->result[$name]) ? mysql_fetch_array($this->result[$name], $result_type) : cpMain::cpError("MySQL Error, Could not <b>mysql_fetch_array()</b> from result name <b>" . $name . "</b> because it is not a member of the result array.", __LINE__, __FILE__));
         return $this->record[$name];

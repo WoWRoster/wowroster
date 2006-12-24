@@ -3,6 +3,9 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 
@@ -117,7 +120,7 @@ function smarty_function_html_table($params, &$smarty)
         $output .= "</tr>\n";
     }
     $output .= "</table>\n";
-    
+
     return $output;
 }
 
@@ -127,7 +130,7 @@ function smarty_function_html_table_cycle($name, $var, $no) {
     } else {
         $ret = $var[$no % count($var)];
     }
-    
+
     return ($ret) ? ' '.$ret : '';
 }
 

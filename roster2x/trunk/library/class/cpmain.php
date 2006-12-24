@@ -36,6 +36,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -43,7 +46,7 @@
  * One Ring to rule them all, One Ring to find them
  *
  * @package cpFramework
- */  
+ */
 final class cpMain
 {
 
@@ -62,8 +65,8 @@ final class cpMain
     /**
      * Keep track of what files we include, since php, doesn't.. publicly.
      * granite, we do have php's "include_once" function, but I would prefer
-     * to keep tabs on it myself as well...          
-     */         
+     * to keep tabs on it myself as well...
+     */
     static private $_includes = Array();
 
     /**
@@ -81,7 +84,7 @@ final class cpMain
      * if a valid class is found and assign it to our instance container. We
      * have the option to specify up to 10 parameters to pass to our classes
      * construct. A example of such use is:
-     * 
+     *
      * loadClass('somefolder_classfile', 'className', 'Arg1', 'Arg2', 'Arg3');
      *
      * ALTERNATE
@@ -119,7 +122,7 @@ final class cpMain
         /**
 		 * Only variables should be passed by reference, but i think its fine ;p
 		 * hence our @ sign.. deal with it! silly redundant temporary variables
-		 * are a bigger waste then this comment and a error surpressor... !		 
+		 * are a bigger waste then this comment and a error surpressor... !
 		 */
         $c_name = @end(explode("_", $arguments[0]));
 
@@ -130,7 +133,7 @@ final class cpMain
 		 */
         if(is_file($path = PATH_LOCAL . "library".DIRECTORY_SEPERATOR."class".DIRECTORY_SEPERATOR . str_replace('_', DIRECTORY_SEPARATOR, $arguments[0]) . ".php"))
         {
-            if(!array_key_exists($arguments[1], self::$instance)) 
+            if(!array_key_exists($arguments[1], self::$instance))
             {
                 if(!isset(self::$_includes[$arguments[0]]))
                 {
@@ -241,7 +244,7 @@ final class cpMain
 
                 /**
                  * we return our instantiated object in case we want to perhaps assign or reference
-                 */                 
+                 */
                 return self::$instance[$arguments[1]];
 
             }
@@ -263,8 +266,8 @@ final class cpMain
      * manualy instead of using include_once or require_once, I believe this is
      * a better practice but it's still under question in my mind. Until I find
      * a good reason to rewrite this structure.
-     * 
-     * USAGE:     
+     *
+     * USAGE:
      * loadFile('somefolder_classfile');
      *
      * @param string $file name of the file
@@ -304,7 +307,7 @@ final class cpMain
 
     /**
      * Destroys a class instance
-     * 
+     *
      * @param string $class name of the class reference
      *
      * @return bool true
@@ -318,8 +321,8 @@ final class cpMain
     /**
      * Returns if a class has been instantiated yet. Note that
      * this checks to see if the reference exists, not to see
-     * if the object was created.          
-     * 
+     * if the object was created.
+     *
      * @param string $class name of the class reference
      *
      * @return bool true
@@ -330,8 +333,8 @@ final class cpMain
     }
 
     /**
-     * Returns if a file has been included yet quite simply.  
-     * 
+     * Returns if a file has been included yet quite simply.
+     *
      * @param string $file name of the file to check
      *
      * @return bool true
@@ -343,7 +346,7 @@ final class cpMain
 
     /**
      * Displays a error, but does not halt the script!
-     * 
+     *
      * @param string $_error a description of the error
      * @param string $_line line number of the error
      * @param string $_file the name of the file the error occured
@@ -358,7 +361,7 @@ final class cpMain
 
     /**
      * Displays a error, and halts scripts execution.
-     * 
+     *
      * @param string $_error a description of the error
      * @param string $_line line number of the error
      * @param string $_file the name of the file the error occured

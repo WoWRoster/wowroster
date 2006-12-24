@@ -36,6 +36,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**
@@ -49,7 +52,7 @@ if(!defined('SECURITY'))
 
 /**
  * Our language loading class, very simply populats oure lang array
- * @package cpFramework 
+ * @package cpFramework
  */
 class cplang
 {
@@ -111,7 +114,7 @@ class cplang
                   )
                 )
                 ? $var
-                : 
+                :
                   (is_file
                     ($var =  PATH_LOCAL . "library".DIRECTORY_SEPERATOR."language".DIRECTORY_SEPERATOR . SYSTEM_DEFAULT_LANG . ((cpMain::$system['method_type'] == "plugins")
                       ? DIRECTORY_SEPERATOR."plugins"
@@ -172,8 +175,8 @@ class cplang
              *
              * NOT:
              * LANG_ANYTHING_ <== trailing underscore; illegal
-             * ANYTHING_HERE_LANG                                                   
-             */                                 
+             * ANYTHING_HERE_LANG
+             */
             if(preg_match('/^(LANG_\w+?(?:[A-Z]))\s+(.+)$/', $value, $match))
             {
                 $_return[$match[1]] = $match[2];

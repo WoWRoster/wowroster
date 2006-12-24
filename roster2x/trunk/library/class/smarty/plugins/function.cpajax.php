@@ -22,6 +22,9 @@
  * @author Dmytro Shteflyuk <kpumuk@kpumuk.info>
  * @package smarty_ajax
  * @version 0.1
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 function smarty_function_cpajax($params, &$smarty)

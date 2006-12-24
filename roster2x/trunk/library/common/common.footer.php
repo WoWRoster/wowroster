@@ -4,7 +4,7 @@
  * Project: cpFramework - scalable object based modular framework
  * File: library/common/common.footer.php
  *
- * This file handles end routines and procedures quite simply. 
+ * This file handles end routines and procedures quite simply.
  *
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -32,6 +32,9 @@
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
  * @filesource
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /**

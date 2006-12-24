@@ -28,6 +28,9 @@
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
  * @version 2.6.14
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /* $Id$ */
@@ -1062,7 +1065,7 @@ class smarty
         } else {
             // var non-existant, return valid reference
             $_tmp = null;
-            return $_tmp;   
+            return $_tmp;
         }
     }
 
@@ -1121,7 +1124,7 @@ class smarty
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
-        
+
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
                ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 

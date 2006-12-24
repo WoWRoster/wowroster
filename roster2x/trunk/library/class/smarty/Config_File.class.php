@@ -23,6 +23,9 @@
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
+ *
+ * Roster versioning tag
+ * $Id$
  */
 
 /* $Id$ */
@@ -297,7 +300,7 @@ class Config_File {
                         $vars = array();
                         continue;
                     }
-                } else {                    
+                } else {
                     $section_name = $match[1];
                 }
                 if (!isset($config_data['sections'][$section_name]))
