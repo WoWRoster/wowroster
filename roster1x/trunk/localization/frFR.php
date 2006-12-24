@@ -60,7 +60,6 @@ $wordings['frFR']['update_instruct']='
 <li>Décompresser le fichier zip dans son propre répertoire dans le répertoire *WoW Directory*\Interface\Addons\.</li>
 <li>Démarrer WoW</li>
 <li>Ouvrir votre compte en banque, la fenêtre des quêtes, et la fenêtre des professions qui contient les recettes</li>
-<li>Facultatif : ouvrir la fenêtre de votre personnage et cliquer sur Save, cela permet de voir quelles données ont été capturées par CharacterProfiler.</li>
 <li>Se déconnecter ou quitter WoW.<br />(Voir ci-dessus si vous disposez d\'UniUploader pour automatiser l\'envois des informations.)</li>
 <li>Aller sur la page <a href="'.$roster_conf['roster_dir'].'/update.php">d\'actualisation</a></li>
 <li>'.$wordings['frFR']['lualocation'].'</li>
@@ -518,8 +517,8 @@ $wordings['frFR']['hslist']=' Stats du Système d\'Honneur';
 $wordings['frFR']['hslist1']='Membre le mieux classé cette semaine';
 $wordings['frFR']['hslist2']='Membre le mieux classé';
 $wordings['frFR']['hslist3']='Membre ayant le plus de VH';
-$wordings['enUS']['hslist4']='Le plus de Points d\'Honneur';
-$wordings['enUS']['hslist5']='Le plus de Points d\'Arène';
+$wordings['frFR']['hslist4']='Le plus de Points d\'Honneur';
+$wordings['frFR']['hslist5']='Le plus de Points d\'Arène';
 
 $wordings['frFR']['Druid']='Druide';
 $wordings['frFR']['Hunter']='Chasseur';
