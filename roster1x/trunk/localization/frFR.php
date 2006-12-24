@@ -518,8 +518,8 @@ $wordings['frFR']['hslist']=' Stats du Système d\'Honneur';
 $wordings['frFR']['hslist1']='Membre le mieux classé cette semaine';
 $wordings['frFR']['hslist2']='Membre le mieux classé';
 $wordings['frFR']['hslist3']='Membre ayant le plus de VH';
-$wordings['enUS']['hslist4']='Most Honor Points';
-$wordings['enUS']['hslist5']='Most Arena Points';
+$wordings['enUS']['hslist4']='Le plus de Points d\'Honneur';
+$wordings['enUS']['hslist5']='Le plus de Points d\'Arène';
 
 $wordings['frFR']['Druid']='Druide';
 $wordings['frFR']['Hunter']='Chasseur';
