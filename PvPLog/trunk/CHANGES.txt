@@ -2,10 +2,24 @@ PvPLog
 Author:           Andrzej Gorski
 Maintainer:       Matthew Musgrove, Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          2.0.0
-Last Modified:    2006-12-21
+Version:          2.1.0
+Last Modified:    2006-12-25
 
 CHANGES
+
+2006-12-25  * 2.1.0
+    * Added SELF to the list of destinations for notify messages.
+    * Custom notify destination can now be a comma separated list and can include
+      channel numbers (i.e. 3 = LocalDefense).
+    * Cleaned up stats output.
+    * Returned recentTargets and damagedTargets which are cleared at player death.
+      (targetRecords was remembering too much about the state of recent combat).
+
+2006-12-22  * 2.0.2
+    * The targetRecords are retained across death and sessions (savedvariables).
+
+2006-12-21  * 2.0.1
+    * TargetByName replaced with targetRecords populated when PLAYER_TARGET_CHANGED.
 
 2006-12-21  * 2.0.0
     * Massive changes necessary for WoW version 2.

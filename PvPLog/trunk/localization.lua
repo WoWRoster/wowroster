@@ -3,13 +3,13 @@
   Author:           Andrzej Gorski 
   Maintainer:       Matthew Musgrove, Brad Morgan
   Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          2.0.0
-  Last Modified:    2006-12-21
+  Version:          2.1.0
+  Last Modified:    2006-12-23
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "2.0.0";
+VER_NUM = "2.1.0";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
@@ -46,6 +46,7 @@ VER_NUM = "2.0.0";
     STATS = "Statistics";
     COMP = "completely";
     
+    SELF = "Self";
     PARTY = "Party";
     GUILD = "Guild";
     RAID = "Raid";
@@ -156,6 +157,7 @@ if (GetLocale() == "deDE") then
     STATS = "Statistik";
     COMP = "komplett";
     
+    SELF = "Self";
     PARTY = "Gruppe";
     GUILD = "Gilde";
     RAID = "Schlachtzug";
@@ -257,6 +259,7 @@ elseif (GetLocale() == "frFR") then
     STATS = "Statistics";
     COMP = "completely";
     
+    SELF = "Self";
     PARTY = "Party";
     GUILD = "Guild";
     RAID = "Raid";
@@ -360,6 +363,7 @@ elseif (GetLocale() == "esES") then
     STATS = "Estadísticas";
     COMP = "Completamente";
     
+    SELF = "Self";
     PARTY = "Grupo";
     GUILD = "Hermandad";
     RAID = "Banda";

@@ -2,8 +2,8 @@
     PvPLogUI
     Author:           Atolicus
     Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.0.0
-    Last Modified:    2006-12-06
+    Version:          2.1.0
+    Last Modified:    2006-12-23
 ]]
 
 local realm = "";
@@ -70,6 +70,13 @@ function PvPLogConfig_SetValues()
         cbxPvPLogConfig_NotifyKillsNone:SetChecked(false);
     end
     
+    if (PvPLogData[realm][player].notifyKill == SELF) then
+        cbxPvPLogConfig_NotifyKillsSelf:SetChecked(true);
+        ebxPvPLogConfig_NotifyKillsChannel:SetText(SELF);
+    else
+        cbxPvPLogConfig_NotifyKillsSelf:SetChecked(false);
+    end
+    
     if (PvPLogData[realm][player].notifyKill == PARTY) then
         cbxPvPLogConfig_NotifyKillsParty:SetChecked(true);
         ebxPvPLogConfig_NotifyKillsChannel:SetText(PARTY);
@@ -102,6 +109,13 @@ function PvPLogConfig_SetValues()
         ebxPvPLogConfig_NotifyDeathsChannel:SetText(NONE);
     else
         cbxPvPLogConfig_NotifyDeathsNone:SetChecked(false);
+    end
+    
+    if (PvPLogData[realm][player].notifyDeath == SELF) then
+        cbxPvPLogConfig_NotifyDeathsSelf:SetChecked(true);
+        ebxPvPLogConfig_NotifyDeathsChannel:SetText(SELF);
+    else
+        cbxPvPLogConfig_NotifyDeathsSelf:SetChecked(false);
     end
     
     if (PvPLogData[realm][player].notifyDeath == PARTY) then
@@ -293,11 +307,11 @@ function PvPLogStats_SetValues(statsValue)
             
             table.foreach(PurgeLogData[realm][player].battles, function( counter, v2 )
                 if (name == v2.name) then
-                    if (GuildNotFound) then
+                    if (GuildNotFound and v2.guild) then
                         pvpGuildList = pvpGuildList..v2.guild.."\n";
                         GuildNotFound = false;
                     end
-                    if (RealmNotFound) then
+                    if (RealmNotFound and v2.realm) then
                         pvpGuildList = pvpGuildList..v2.realm.."\n";
                         RealmNotFound = false;
                     end

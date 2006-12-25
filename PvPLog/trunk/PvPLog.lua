@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.0.2
-    Last Modified:    2006-12-22
+    Version:          2.1.0
+    Last Modified:    2006-12-23
 ]]
 
 -- Local variables
@@ -28,12 +28,13 @@ local est_honor = 0;
 local debug_indx;
 local debug_simple = false;
 
-local NUMTARGETS = 45;
---[[
-local recentTargets = { };
-local targetRecords = { };
-]]--
 local lastDamagerToMe = "";
+
+local NUMTARGETS = 50;
+local recentTargets = { };
+local damagedTargets = { };
+local ignoreList = { };
+local ignoreRecords = { };
 
 local lastDing = -1000;
 
@@ -263,8 +264,18 @@ function PvPLogOnEvent()
           not PvPLogData[realm][player].enabled or not softPL) then
             return;
         end
-      
-        if (targetRecords[lastDamagerToMe]) then
+     
+		-- search in player list
+		local found = false;
+		table.foreach(recentTargets,
+		    function(i,tname)
+		    	if (tname == lastDamagerToMe) then
+					found = true;
+					return true;
+		    	end
+		    end
+		);
+        if (found and targetRecords[lastDamagerToMe]) then
             v = targetRecords[lastDamagerToMe];
             PvPLogChatMsgCyan("PvP "..DLKB..RED..lastDamagerToMe);
             PvPLogRecord(lastDamagerToMe, v.level, v.race, v.class, v.guild, 1, 0, v.rank, v.realm);
@@ -274,11 +285,9 @@ function PvPLogOnEvent()
         end
 
         -- we are dead, clear the variables
---[[
         PvPLogDebugMsg('Targets cleared (dead).');
+		damagedTargets = { };
         recentTargets = { };
-        targetRecords = { };
-]]--
         lastDamagerToMe = "";
 
     -- add record to mouseover
@@ -500,6 +509,7 @@ end
 
 function PvPLogPrintStats()
     local stats = PvPLogGetStats();
+--[[
     local gankLevel = GL0;
     if (stats.pvpWinAvgLevelDiff <= -25) then
         gankLevel = GL_25;
@@ -528,51 +538,26 @@ function PvPLogPrintStats()
     elseif (stats.pvpWinAvgLevelDiff >= 1) then
         gankLevel = GL1;
     end
+]]--
     PvPLogChatMsgCyan("PvPLog " .. STATS .. ":");
-    PvPLogChatMsg(MAGENTA.."   "..TOTAL.." "..WINS..":    "..stats.totalWins ..
-        " ("..ALD..": ");
-    if (stats.totalWinAvgLevelDiff > 0) then
-        PvPLogChatMsg(math.floor(stats.totalWinAvgLevelDiff*100)/100);
-    else
-        PvPLogChatMsg(0);
-    end;
-    PvPLogChatMsg(")" .. MAGENTA.."   "..TOTAL.." "..LOSSES..":  "..stats.totalLoss ..
-        " ("..ALD..": ");
-    if (stats.totalLossAvgLevelDiff > 0) then
-        PvPLogChatMsg(math.floor(stats.totalLossAvgLevelDiff*100)/100);
-    else
-        PvPLogChatMsg(0);
-    end
-    PvPLogChatMsg(")" .. ORANGE .. "    PvP "..WINS..":    " .. stats.pvpWins .. 
-        " ("..ALD..": ");
-    if (stats.pvpWinAvgLevelDiff > 0) then
-        PvPLogChatMsg(math.floor(stats.pvpWinAvgLevelDiff*100)/100);
-    else
-        PvPLogChatMsg(0);
-    end;
-    PvPLogChatMsg(", " .. gankLevel .. ")");
-    PvPLogChatMsg(ORANGE .. "    PvP "..LOSSES..":  " .. stats.pvpLoss .. 
-        " ("..ALD..": ");
-    if (stats.pvpLossAvgLevelDiff > 0) then
-        PvPLogChatMsg(math.floor(stats.pvpLossAvgLevelDiff*100)/100);
-    else
-        PvPLogChatMsg(0);
-    end
-    PvPLogChatMsg(")" .. GREEN .. "    "..DUEL.." "..WINS..":   " .. stats.duelWins .. 
-        " ("..ALD..": ");
-    if (stats.duelWinAvgLevelDiff > 0) then
-        PvPLogChatMsg(math.floor(stats.duelWinAvgLevelDiff*100)/100);
-    else
-        PvPLogChatMsg(0);
-    end
-    PvPLogChatMsg(")" .. GREEN .. "    "..DUEL.." "..LOSSES..": " .. stats.duelLoss .. 
-        " ("..ALD..": ");
-    if (stats.duelLossAvgLevelDiff > 0) then
-        PvPLogChatMsg(math.floor(stats.duelLossAvgLevelDiff*100)/100);
-    else
-        PvPLogChatMsg(0);
-    end
-    PvPLogChatMsg(")");
+    PvPLogChatMsg(MAGENTA.."   "..TOTAL.." "..WINS..":     ".. stats.totalWins ..
+        " ("..ALD..": "..(math.floor(stats.totalWinAvgLevelDiff*100)/100)..")");
+
+    PvPLogChatMsg(MAGENTA.."   "..TOTAL.." "..LOSSES..":  ".. stats.totalLoss ..
+        " ("..ALD..": "..(math.floor(stats.totalLossAvgLevelDiff*100)/100)..")");
+
+    PvPLogChatMsg(ORANGE .. "    PvP "..WINS..":     ".. stats.pvpWins ..
+        " ("..ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..")");
+--      " ("..ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..", " .. gankLevel .. ")");
+
+    PvPLogChatMsg(ORANGE .. "    PvP "..LOSSES..":  ".. stats.pvpLoss ..
+        " ("..ALD..": "..(math.floor(stats.pvpLossAvgLevelDiff*100)/100)..")");
+
+    PvPLogChatMsg(GREEN .. "    "..DUEL.." "..WINS..":    ".. stats.duelWins ..
+        " ("..ALD..": "..(math.floor(stats.duelWinAvgLevelDiff*100)/100)..")");
+
+    PvPLogChatMsg(GREEN .. "    "..DUEL.." "..LOSSES..": ".. stats.duelLoss ..
+        " ("..ALD..": "..(math.floor(stats.duelLossAvgLevelDiff*100)/100)..")");
 end
 
 function PvPLogDebugMsg(msg)
@@ -675,12 +660,19 @@ end
 function PvPLogPlayerDeath(parseName)
     -- if we have a name
     if (parseName) then
-        if (targetRecords[parseName]) then
-            if (targetRecords[parseName].level) then
-                v = targetRecords[parseName];
-                PvPLogChatMsgCyan(KL  .. GREEN .. parseName);
-                PvPLogRecord(parseName, v.level, v.race, v.class, v.guild, 1, 1, v.rank, v.realm);
-            end
+		local found = false;
+		table.foreach(damagedTargets,
+			function(i,tname)
+		    	if (tname == parseName) then
+			  		found = true;
+					return true;
+		       	end
+		    end
+		);
+        if (found and targetRecords[parseName] and targetRecords[parseName].level) then
+            v = targetRecords[parseName];
+            PvPLogChatMsgCyan(KL  .. GREEN .. parseName);
+            PvPLogRecord(parseName, v.level, v.race, v.class, v.guild, 1, 1, v.rank, v.realm);
         end
     end
 end
@@ -689,96 +681,132 @@ function PvPLogSetHonor(parseKilled, parseRank, parseHonor)
     fullrank = "";
     est_honor = 0;
     if (parseKilled) then
-        if (targetRecords[parseKilled]) then
-            fullrank = parseRank;
-            est_honor = parseHonor;
-        end
+		table.foreach(damagedTargets,
+	 		function(i, tname)
+	 			if (tname == parseKilled) then
+		   			fullrank = parseRank;
+		   			est_honor = parseHonor;
+		   			return true;
+				end
+	 		end
+		);
     end
 end
 
 function PvPLogMyDamage(res1, res2, res3, res4, res5)
     if (res1 and res1 ~= nil) then
-        if (not targetRecords[res1]) then
+        if (not ignoreRecords[res1] and not targetRecords[res1]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res1);
+			table.insert(damagedTargets, res1);
+			if (table.getn(damagedTargets)>NUMTARGETS) then
+				table.remove(damagedTargets,1);
+			end
             targetRecords[res1] = { };
-            table.insert(recentTargets, res1);
-            if (table.getn(recentTargets) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                table.remove(targetRecords[recentTargets[1]]);
-                table.remove(recentTargets,1);
+            table.insert(targetList, res1);
+            if (table.getn(targetList) > NUMTARGETS) then
+                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                targetRecords[targetList[1]] = nil;
+                table.remove(targetList,1);
             end
         end
-        foundDamaged = true;
-        checkIfDuel(res1);
+        if (not ignoreRecords[res1]) then
+            foundDamaged = true;
+            checkIfDuel(res1);
+        end
     end
 end
 
 function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
     if (res2 and res2 ~= nil) then
-        if (not targetRecords[res2]) then
+        if (not ignoreRecords[res2] and not targetRecords[res2]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res2);
+			table.insert(damagedTargets, res2);
+			if (table.getn(damagedTargets)>NUMTARGETS) then
+				table.remove(damagedTargets,1);
+			end
             targetRecords[res2] = { };
-            table.insert(recentTargets, res2);
-            if (table.getn(recentTargets) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                table.remove(targetRecords[recentTargets[1]]);
-                table.remove(recentTargets,1);
+            table.insert(targetList, res2);
+            if (table.getn(targetList) > NUMTARGETS) then
+                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                targetRecords[targetList[1]] = nil;
+                table.remove(targetList,1);
             end
         end
-        foundDamaged = true;
-        checkIfDuel(res2);
+        if (not ignoreRecords[res2]) then
+            foundDamaged = true;
+            checkIfDuel(res2);
+        end
     end
 end
 
 function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
     if (res3 and res3 ~= nil) then
-        if (not targetRecords[res3]) then
+        if (not ignoreRecords[res3] and not targetRecords[res3]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res3);
+			table.insert(damagedTargets, res3);
+			if (table.getn(damagedTargets)>NUMTARGETS) then
+				table.remove(damagedTargets,1);
+			end
             targetRecords[res3] = { };
-            table.insert(recentTargets, res3);
-            if (table.getn(recentTargets) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                table.remove(targetRecords[recentTargets[1]]);
-                table.remove(recentTargets,1);
+            table.insert(targetList, res3);
+            if (table.getn(targetList) > NUMTARGETS) then
+                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                targetRecords[targetList[1]] = nil;
+                table.remove(targetList,1);
             end
         end
-        foundDamaged = true;
-        checkIfDuel(res3);
+        if (not ignoreRecords[res3]) then
+            foundDamaged = true;
+            checkIfDuel(res3);
+        end
     end
 end
 
 function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
     if (res4 and res4 ~= nil) then
-        if (not targetRecords[res4]) then
+        if (not ignoreRecords[res4] and not targetRecords[res4]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res4);
+			table.insert(damagedTargets, res4);
+			if (table.getn(damagedTargets)>NUMTARGETS) then
+				table.remove(damagedTargets,1);
+			end
             targetRecords[res4] = { };
-            table.insert(recentTargets, res4);
-            if (table.getn(recentTargets) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                table.remove(targetRecords[recentTargets[1]]);
-                table.remove(recentTargets,1);
+            table.insert(targetList, res4);
+            if (table.getn(targetList) > NUMTARGETS) then
+                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                targetRecords[targetList[1]] = nil;
+                table.remove(targetList,1);
             end
         end
-        foundDamaged = true;
-        checkIfDuel(res4);
+        if (not ignoreRecords[res4]) then
+            foundDamaged = true;
+            checkIfDuel(res4);
+        end
     end
 end
 
 function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
     if (res1 and res1 ~= nil) then
-        if (not targetRecords[res1]) then
+		
+        if (not ignoreRecords[res1] and not targetRecords[res1]) then
             PvPLogDebugMsg(RED.."Recent Targets Addition: "..res1);
+			table.insert(recentTargets, res1);
+			if (table.getn(recentTargets)>NUMTARGETS) then
+				table.remove(recentTargets,1);
+			end
             targetRecords[res1] = { };
-            table.insert(recentTargets, res1);
-            if (table.getn(recentTargets) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                table.remove(targetRecords[recentTargets[1]]);
-                table.remove(recentTargets,1);
+            table.insert(targetList, res1);
+            if (table.getn(targetList) > NUMTARGETS) then
+                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                targetRecords[targetList[1]] = nil;
+                table.remove(targetList,1);
             end
         end
-        lastDamagerToMe = res1;
-        checkIfDuel(res1);
-        foundDamager = true;
+        if (not ignoreRecords[res1]) then
+            lastDamagerToMe = res1;
+            checkIfDuel(res1);
+            foundDamager = true;
+        end
     end
 end
 
@@ -786,19 +814,25 @@ end
 -- You suffer 3 frost damage from Rabbit's Ice Nova.
 function PvPLogDamageMeAura(res1, res2, res3, res4)
     if (res3 and res3 ~= nil) then
-        if (not targetRecords[res3]) then
+        if (not ignoreRecords[res3] and not targetRecords[res3]) then
             PvPLogDebugMsg(RED.."Recent Targets Addition: "..res3);
+			table.insert(recentTargets, res3);
+			if (table.getn(recentTargets)>NUMTARGETS) then
+				table.remove(recentTargets,1);
+			end
             targetRecords[res3] = { };
-            table.insert(recentTargets, res3);
-            if (table.getn(recentTargets) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                table.remove(targetRecords[recentTargets[1]]);
-                table.remove(recentTargets,1);
+            table.insert(targetList, res3);
+            if (table.getn(targetList) > NUMTARGETS) then
+                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                targetRecords[targetList[1]] = nil;
+                table.remove(targetList,1);
             end
         end
-        lastDamagerToMe = res3;
-        checkIfDuel(res3);
-        foundDamager = true;
+        if (not ignoreRecords[res3]) then
+            lastDamagerToMe = res3;
+            checkIfDuel(res3);
+            foundDamager = true;
+        end
     end
 end
 
@@ -996,13 +1030,11 @@ function PvPLogInitialize()
 
     -- initialize character data structures
     
---[[
     PvPLogDebugMsg('Targets cleared (initialize).');
+	damagedTargets = { };
     recentTargets = { };
-    targetRecords = { };
-]]--        
-    if (recentTargets == nil) then
-        recentTargets = { };
+    if (targetList == nil) then
+        targetList = { };
     end
     if (targetRecords == nil) then
         targetRecords = { };
@@ -1242,6 +1274,7 @@ function PvPLogGetGuildTotals(guild)
                     total.wins = tname.wins;
                     total.loss = tname.loss;
                     gfound = true;
+                    return true;
                 end
             end
         );
@@ -1334,12 +1367,24 @@ function PvPLogGetStats()
         end
     );
 
-    stats.totalWinAvgLevelDiff = stats.totalWinAvgLevelDiff / stats.totalWins;
-    stats.totalLossAvgLevelDiff = stats.totalLossAvgLevelDiff / stats.totalLoss;
-    stats.pvpWinAvgLevelDiff = stats.pvpWinAvgLevelDiff / stats.pvpWins;
-    stats.pvpLossAvgLevelDiff = stats.pvpLossAvgLevelDiff / stats.pvpLoss;
-    stats.duelWinAvgLevelDiff = stats.duelWinAvgLevelDiff / stats.duelWins;
-    stats.duelLossAvgLevelDiff = stats.duelLossAvgLevelDiff / stats.duelLoss;
+    if (stats.totalWins > 0) then
+        stats.totalWinAvgLevelDiff = stats.totalWinAvgLevelDiff / stats.totalWins;
+    end
+    if (stats.totalLoss > 0) then
+        stats.totalLossAvgLevelDiff = stats.totalLossAvgLevelDiff / stats.totalLoss;
+    end
+    if (stats.pvpWins > 0) then
+        stats.pvpWinAvgLevelDiff = stats.pvpWinAvgLevelDiff / stats.pvpWins;
+    end
+    if (stats.pvpLoss > 0) then
+        stats.pvpLossAvgLevelDiff = stats.pvpLossAvgLevelDiff / stats.pvpLoss;
+    end
+    if (stats.duelWins > 0) then
+        stats.duelWinAvgLevelDiff = stats.duelWinAvgLevelDiff / stats.duelWins;
+    end
+    if (stats.duelLoss > 0) then
+        stats.duelLossAvgLevelDiff = stats.duelLossAvgLevelDiff / stats.duelLoss;
+    end
 
     return stats;
 end
@@ -1347,12 +1392,12 @@ end
 function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, vrealm)
     -- deal with vlevel being negative 1 when they're 10 levels
     -- or more greater
-    local level = 0; 
     local ZoneName = GetZoneText();
     local SubZone = GetSubZoneText();
-    if (vlevel == -1) then 
+    local level = 0;
+    if (vlevel == -1) then
         level = plevel + 11; 
-    else
+    elseif (vlevel) then
         level = vlevel; 
     end
 
@@ -1403,8 +1448,7 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     end 
     PurgeLogData[realm][player].battles[PurgeCounter].guild = vguild;
     PurgeLogData[realm][player].battles[PurgeCounter].win = win;
-    PurgeLogData[realm][player].battles[PurgeCounter].lvlDiff = level - 
-        UnitLevel("player");
+    PurgeLogData[realm][player].battles[PurgeCounter].lvlDiff = level - UnitLevel("player");
     PurgeLogData[realm][player].battles[PurgeCounter].zone = ZoneName;
     PurgeLogData[realm][player].battles[PurgeCounter].subzone = SubZone;
     PurgeLogData[realm][player].battles[PurgeCounter].rank = vrank;
@@ -1441,7 +1485,7 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     local notifyMsg = "";
     local notifySystem = nil;
 
-    local vleveltext = vlevel;
+    local vleveltext = vlevel or "";
     if( vlevel < 0 ) then
         vleveltext = (-vlevel) .. "+";
     end
@@ -1463,12 +1507,10 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
         notifyMsg = PvPLogData[realm][player].notifyDeathText;
         notifySystem = PvPLogData[realm][player].notifyDeath;
 
---[[
         -- clear the damager list as I lost/died
         PvPLogDebugMsg('Targets cleared (recorded).');
+        damagedTargets = { };
         recentTargets = { };
-        targetRecords = { };
-]]--        
         lastDamagerToMe = "";
     end
 
@@ -1478,6 +1520,13 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     notifyMsg = string.gsub( notifyMsg, "%%c", vclass );
     if( vguild ) then
         notifyMsg = string.gsub( notifyMsg, "%%g", vguild );
+    else
+        notifyMsg = string.gsub( notifyMsg, "%%g", "" );
+    end
+    if( vrank ) then
+        notifyMsg = string.gsub( notifyMsg, "%%t", vrank );
+    else
+        notifyMsg = string.gsub( notifyMsg, "%%t", "" );
     end
     notifyMsg = string.gsub( notifyMsg, "%%x", x );
     notifyMsg = string.gsub( notifyMsg, "%%y", y );
@@ -1485,18 +1534,22 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     notifyMsg = string.gsub( notifyMsg, "%%w", SubZone );
     notifyMsg = string.gsub( notifyMsg, " %(%)", '' );
 
-    if( venemy and
-      ((notifySystem == PARTY and GetNumPartyMembers() > 0) or 
-      (notifySystem == GUILD and GetGuildInfo("player") )  or 
-      (notifySystem == RAID  and GetNumRaidMembers() > 0)) ) then
-        if (notifySystem == RAID and bg_found) then
-            notifySystem = BG;
+    for notifyChan in string.gmatch(notifySystem, "%w+") do
+        if( venemy and notifyChan == SELF) then
+            PvPLogChatMsg(notifyMsg);
+        elseif( venemy and
+          ((notifyChan == PARTY and GetNumPartyMembers() > 0) or 
+          (notifyChan == GUILD and GetGuildInfo("player") )  or 
+          (notifyChan == RAID  and GetNumRaidMembers() > 0)) ) then
+            if (notifyChan == RAID and bg_found) then
+                notifyChan = BG;
+            end
+            PvPLogSendChatMessage(notifyMsg, notifyChan);
+        elseif( venemy and notifyChan ~= NONE and notifyChan ~= SELF and
+          notifyChan ~= PARTY and notifyChan ~= GUILD
+          and notifyChan ~= RAID and notifyChan ~= BG) then
+            PvPLogSendMessageOnChannel(notifyMsg, notifyChan);
         end
-        PvPLogSendChatMessage(notifyMsg, notifySystem);
-    elseif( venemy and notifySystem ~= NONE and 
-      notifySystem ~= PARTY and notifySystem ~= GUILD
-      and notifySystem ~= RAID and notifySystem ~= BG) then
-        PvPLogSendMessageOnChannel(notifyMsg, notifySystem);
     end
 end
 
@@ -1506,16 +1559,17 @@ end
 function PvPLogUpdateTarget()
     targetName, targetRealm = UnitName("target") 
     if (targetName) then
-        -- if we have a valid target, its a player, and its an enemy
+        -- We have a valid target
         if (UnitIsPlayer("target") and UnitIsEnemy("player", "target")) then
+            -- Its a player and its an enemy
             if (not targetRecords[targetName]) then
                 PvPLogDebugMsg('Target added: "' .. targetName .. '"');
                 targetRecords[targetName] = { };
-                table.insert(recentTargets, targetName);
-                if (table.getn(recentTargets) > NUMTARGETS) then
-                    PvPLogDebugMsg('Target removed: "' .. recentTargets[1] .. '"');
-                    table.remove(targetRecords[recentTargets[1]]);
-                    table.remove(recentTargets,1);
+                table.insert(targetList, targetName);
+                if (table.getn(targetList) > NUMTARGETS) then
+                    PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                    targetRecords[targetList[1]] = nil;
+                    table.remove(targetList,1);
                 end
             end
             if (not targetRecords[targetName].level) then
@@ -1529,6 +1583,30 @@ function PvPLogUpdateTarget()
                 MarsMessageParser_ParseMessage("PvPLog_GetRank", 
                     UnitPVPName("target"));
                 targetRecords[targetName].rank = fullrank;
+            end
+        else
+            -- Its not a player or its not an enemy
+            if (not ignoreRecords[targetName]) then
+                PvPLogDebugMsg('Ignore added: "' .. targetName .. '"');
+                ignoreRecords[targetName] = true;
+                table.insert(ignoreList, targetName);
+                if (table.getn(ignoreList) > NUMTARGETS) then
+                    PvPLogDebugMsg('Ignore removed: "' .. ignoreList[1] .. '"');
+                    ignoreRecords[ignoreList[1]] = nil;
+                    table.remove(ignoreList,1);
+                end
+            end
+            if (targetRecords[targetName]) then
+                -- It got into targetRecords, remove it.
+                index = table.foreach(targetList,
+                    function(i,t)
+                        if(t == targetName) then
+                            return i;
+                        end
+                    end
+                );
+                targetRecords[targetName] = nil;
+                table.remove(targetList,index);
             end
         end
 
@@ -1639,6 +1717,25 @@ function PvPLogSlashHandler(msg)
         else
             PvPLogDebugMsg(RED.."softPL: _"..PEACH.."FALSE"..RED.."_");
         end
+
+        PvPLogDebugMsg("targetList = {"..table.concat(targetList,",").."}");
+        s = "";
+        for i in pairs(targetRecords) do
+            s = s..","..i;
+        end
+        s = string.sub(s,2);
+        PvPLogDebugMsg("targetRecords = {"..s.."}");
+
+        PvPLogDebugMsg("ignoreList = {"..table.concat(ignoreList,",").."}");
+        s = "";
+        for i in pairs(ignoreRecords) do
+            s = s..","..i;
+        end
+        s = string.sub(s,2);
+        PvPLogDebugMsg("ignoreRecords = {"..s.."}");
+
+        PvPLogDebugMsg("recentTargets = {"..table.concat(recentTargets,",").."}");
+        PvPLogDebugMsg("damagedTargets = {"..table.concat(damagedTargets,",").."}");
         return;
     elseif (command == RESET) then
         if (value == CONFIRM) then
@@ -1778,6 +1875,12 @@ function PvPLogDisplayUsage()
         text = text .. NONE;
     end
     text = text .." | ";
+    if (PvPLogData[realm][player].notifyKill == SELF) then
+        text = text .. WHITE .. SELF .. CYAN;
+    else
+        text = text .. SELF;
+    end
+    text = text .." | ";
     if (PvPLogData[realm][player].notifyKill == PARTY) then
         text = text .. WHITE .. PARTY .. CYAN;
     else
@@ -1796,6 +1899,7 @@ function PvPLogDisplayUsage()
         text = text .. RAID;
     end
     if (PvPLogData[realm][player].notifyKill ~= NONE and
+        PvPLogData[realm][player].notifyKill ~= SELF and
         PvPLogData[realm][player].notifyKill ~= PARTY and
         PvPLogData[realm][player].notifyKill ~= GUILD and
         PvPLogData[realm][player].notifyKill ~= RAID) then
@@ -1810,6 +1914,12 @@ function PvPLogDisplayUsage()
         text = text .. WHITE .. NONE .. CYAN;
     else
         text = text .. NONE;
+    end
+    text = text .." | ";
+    if (PvPLogData[realm][player].notifyDeath == SELF) then
+        text = text .. WHITE .. SELF .. CYAN;
+    else
+        text = text .. SELF;
     end
     text = text .." | ";
     if (PvPLogData[realm][player].notifyDeath == PARTY) then
@@ -1830,6 +1940,7 @@ function PvPLogDisplayUsage()
         text = text .. RAID;
     end
     if (PvPLogData[realm][player].notifyDeath ~= NONE and
+        PvPLogData[realm][player].notifyDeath ~= SELF and
         PvPLogData[realm][player].notifyDeath ~= PARTY and
         PvPLogData[realm][player].notifyDeath ~= GUILD and
         PvPLogData[realm][player].notifyDeath ~= RAID) then
@@ -1890,7 +2001,11 @@ end
 
 function PvPLogGetChannelNumber(channel)
 --  PvPLogDebugMsg('PvPLogGetChannelNumber(' .. channel .. ')');
-    local num ;
+    local num = 0;
+    if (string.len(channel) == 1 and channel >= "1" and channel <= "9") then
+        num = channel;
+        return num;
+    end
     for i = 1, 200, 1 do
         local channelNum, channelName = GetChannelName(i);
 

@@ -8,7 +8,7 @@
 ## Notes-deDE: Zeichnet PvP Siege und Verluste auf, sowie Duelle.
 ## Notes-frFR: Keeps track of your PvP kills and the people who kill you.
 ## Notes-esES: Hace un seguimiento de tus asesinatos JcJ y de la gente que te ha asesinado.
-## SavedVariables: PvPLogData, PurgeLogData, recentTargets, targetRecords
+## SavedVariables: PvPLogData, PurgeLogData, targetList, targetRecords
 ## SavedVariablesPerCharacter: 
 MyMinimapButton.lua
 PvPLog.xml
