@@ -46,9 +46,12 @@ define("SECURITY", true);
 /**
  * Site pathing and settings with trailing slash
  */
-define("PATH_LOCAL", "C:/htdocs/myprojects/cpframework/current_core/");
-define("PATH_REMOTE", "http://localhost/myprojects/cpframework/current_core/");
-define("PATH_REMOTE_S", "http://localhost/myprojects/cpframework/current_core/");
+/* Moved to conf.php so this can go in SVN properly
+define("PATH_LOCAL", "C:/Program Files/xampp/htdocs/RosterSVN/roster2x/trunk/");
+define("PATH_REMOTE", "http://leegwater-68.demon.nl/RosterSVN/roster2x/trunk/");
+define("PATH_REMOTE_S", "http://leegwater-68.demon.nl/RosterSVN/roster2x/trunk/");
+*/
+include('conf.php');
 
 /**
  * System definitions..
