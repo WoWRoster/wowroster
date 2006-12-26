@@ -4,7 +4,7 @@
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
     Version:          2.1.0
-    Last Modified:    2006-12-23
+    Last Modified:    2006-12-25
 ]]
 
 -- Local variables
@@ -29,10 +29,12 @@ local debug_indx;
 local debug_simple = false;
 
 local lastDamagerToMe = "";
+local foundDamaged = false;
+local foundDamager = false;
 
-local NUMTARGETS = 50;
-local recentTargets = { };
-local damagedTargets = { };
+local NUMTARGETS = 15;
+local recentDamager = { };
+local recentDamaged = { };
 local ignoreList = { };
 local ignoreRecords = { };
 
@@ -51,9 +53,6 @@ local FIRE    = "|cffde2413";
 
 local dmgType = { };
 local initDamage = false;
-
-local foundDamaged = false;
-local foundDamager = false;
 
 -- Called OnLoad of the add on
 function PvPLogOnLoad()
@@ -260,34 +259,41 @@ function PvPLogOnEvent()
       
         -- make sure we have a last damager
         -- and are enabled
-        if (lastDamagerToMe == nil or lastDamagerToMe == "" or 
+        if (lastDamagerToMe == "" or
           not PvPLogData[realm][player].enabled or not softPL) then
             return;
         end
      
-		-- search in player list
-		local found = false;
-		table.foreach(recentTargets,
-		    function(i,tname)
-		    	if (tname == lastDamagerToMe) then
-					found = true;
-					return true;
-		    	end
-		    end
-		);
-        if (found and targetRecords[lastDamagerToMe]) then
-            v = targetRecords[lastDamagerToMe];
-            PvPLogChatMsgCyan("PvP "..DLKB..RED..lastDamagerToMe);
-            PvPLogRecord(lastDamagerToMe, v.level, v.race, v.class, v.guild, 1, 0, v.rank, v.realm);
+        -- search in player list
+        local found = false;
+        table.foreach(recentDamager,
+            function(i,tname)
+                if (tname == lastDamagerToMe) then
+                    found = true;
+                    return true;
+                end
+            end
+        );
+        if (found) then
+            if (targetRecords[lastDamagerToMe]) then
+                if (targetRecords[lastDamagerToMe].level) then
+                    v = targetRecords[lastDamagerToMe];
+                    PvPLogChatMsgCyan("PvP "..DLKB..RED..lastDamagerToMe);
+                    PvPLogRecord(lastDamagerToMe, v.level, v.race, v.class, v.guild, 1, 0, v.rank, v.realm);
+                else
+                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..lastDamagerToMe);
+                end
+            else
+                PvPLogDebugMsg(RED.."No targetRecords for: "..lastDamagerToMe);
+            end
         else
-            -- if killer not found in targetRecords, report the error.
-            PvPLogDebugMsg(RED.."Should not happen: means targetRecords failed");
+            PvPLogDebugMsg(RED.."No recentDamager for: "..lastDamagerToMe);
         end
 
         -- we are dead, clear the variables
-        PvPLogDebugMsg('Targets cleared (dead).');
-		damagedTargets = { };
-        recentTargets = { };
+        PvPLogDebugMsg('Recents cleared (dead).');
+        recentDamaged = { };
+        recentDamager = { };
         lastDamagerToMe = "";
 
     -- add record to mouseover
@@ -629,6 +635,10 @@ function PvPLogFloatMsg(msg, color)
     UIErrorsFrame:AddMessage(msg, r, g, b, 1.0, UIERRORS_HOLD_TIME);
 end
 
+function PvPLogDuelStart(seconds)
+    isDuel = true;
+end
+
 function PvPLogDuel(parseWinner, parseLoser)
     if (parseWinner and parseLoser) then
         -- CHAT_MSG_SYSTEM
@@ -638,20 +648,24 @@ function PvPLogDuel(parseWinner, parseLoser)
                     v = targetRecords[parseLoser];
                     PvPLogChatMsgCyan(DWLA..GREEN..parseLoser);
                     PvPLogRecord(parseLoser, v.level, v.race, v.class, v.guild, 0, 1, v.rank);
+                else
+                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseLoser);
                 end
+            else
+                PvPLogDebugMsg(RED.."No targetRecords for: "..parseLoser);
             end
-            isDuel = false;
-            return;
         elseif (UnitName("player") == parseLoser) then
             if (targetRecords[parseWinner]) then
                 if (targetRecords[parseWinner].level) then
                     v = targetRecords[parseWinner];
-                    PvPLogChatMsgCyan(DLLA..RED..parseWinner);
-                    PvPLogRecord(parseWinner, v.level, v.race, v.class, v.guild, 0, 0, v.rank);
+                    PvPLogChatMsgCyan(DWLA..GREEN..parseWinner);
+                    PvPLogRecord(parseWinner, v.level, v.race, v.class, v.guild, 0, 1, v.rank);
+                else
+                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseWinner);
                 end
+            else
+                PvPLogDebugMsg(RED.."No targetRecords for: "..parseWinner);
             end
-            isDuel = false;
-            return;
         end
         isDuel = false;
     end
@@ -660,19 +674,30 @@ end
 function PvPLogPlayerDeath(parseName)
     -- if we have a name
     if (parseName) then
-		local found = false;
-		table.foreach(damagedTargets,
-			function(i,tname)
-		    	if (tname == parseName) then
-			  		found = true;
-					return true;
-		       	end
-		    end
-		);
-        if (found and targetRecords[parseName] and targetRecords[parseName].level) then
-            v = targetRecords[parseName];
-            PvPLogChatMsgCyan(KL  .. GREEN .. parseName);
-            PvPLogRecord(parseName, v.level, v.race, v.class, v.guild, 1, 1, v.rank, v.realm);
+        PvPLogDebugMsg(YELLOW.."Processing death of: "..parseName);
+        local found = false;
+        table.foreach(recentDamaged,
+            function(i,tname)
+                if (tname == parseName) then
+                    found = true;
+                    return true;
+                end
+            end
+        );
+        if (found) then
+            if (targetRecords[parseName]) then
+                if (targetRecords[parseName].level) then
+                    v = targetRecords[parseName];
+                    PvPLogChatMsgCyan(KL  .. GREEN .. parseName);
+                    PvPLogRecord(parseName, v.level, v.race, v.class, v.guild, 1, 1, v.rank, v.realm);
+                else
+                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseName);
+                end
+            else
+                PvPLogDebugMsg(RED.."No targetRecords for: "..parseName);
+            end
+        else
+            PvPLogDebugMsg(RED.."No recentDamaged for: "..parseName);
         end
     end
 end
@@ -681,15 +706,33 @@ function PvPLogSetHonor(parseKilled, parseRank, parseHonor)
     fullrank = "";
     est_honor = 0;
     if (parseKilled) then
-		table.foreach(damagedTargets,
-	 		function(i, tname)
-	 			if (tname == parseKilled) then
-		   			fullrank = parseRank;
-		   			est_honor = parseHonor;
-		   			return true;
-				end
-	 		end
-		);
+        table.foreach(recentDamaged,
+            function(i, tname)
+                if (tname == parseKilled) then
+                    fullrank = parseRank;
+                    est_honor = parseHonor;
+                    return true;
+                end
+            end
+        );
+    end
+end
+
+function PvPLogPutInTable(tab, nam)
+    local exists = false;
+    table.foreach(tab,
+        function(i,tar)
+            if (tar == nam) then
+                exists = true;
+                return exists;
+            end
+        end
+    );
+    if (not exists) then
+        table.insert(tab, nam);
+        if (table.getn(tab)>NUMTARGETS) then
+           table.remove(tab,1);
+        end
     end
 end
 
@@ -697,10 +740,6 @@ function PvPLogMyDamage(res1, res2, res3, res4, res5)
     if (res1 and res1 ~= nil) then
         if (not ignoreRecords[res1] and not targetRecords[res1]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res1);
-			table.insert(damagedTargets, res1);
-			if (table.getn(damagedTargets)>NUMTARGETS) then
-				table.remove(damagedTargets,1);
-			end
             targetRecords[res1] = { };
             table.insert(targetList, res1);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -710,8 +749,9 @@ function PvPLogMyDamage(res1, res2, res3, res4, res5)
             end
         end
         if (not ignoreRecords[res1]) then
+            PvPLogPutInTable(recentDamaged, res1);
             foundDamaged = true;
-            checkIfDuel(res1);
+--            checkIfDuel(res1);
         end
     end
 end
@@ -720,10 +760,6 @@ function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
     if (res2 and res2 ~= nil) then
         if (not ignoreRecords[res2] and not targetRecords[res2]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res2);
-			table.insert(damagedTargets, res2);
-			if (table.getn(damagedTargets)>NUMTARGETS) then
-				table.remove(damagedTargets,1);
-			end
             targetRecords[res2] = { };
             table.insert(targetList, res2);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -733,8 +769,9 @@ function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
             end
         end
         if (not ignoreRecords[res2]) then
+            PvPLogPutInTable(recentDamaged, res2);
             foundDamaged = true;
-            checkIfDuel(res2);
+--            checkIfDuel(res2);
         end
     end
 end
@@ -743,10 +780,6 @@ function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
     if (res3 and res3 ~= nil) then
         if (not ignoreRecords[res3] and not targetRecords[res3]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res3);
-			table.insert(damagedTargets, res3);
-			if (table.getn(damagedTargets)>NUMTARGETS) then
-				table.remove(damagedTargets,1);
-			end
             targetRecords[res3] = { };
             table.insert(targetList, res3);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -756,8 +789,9 @@ function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
             end
         end
         if (not ignoreRecords[res3]) then
+            PvPLogPutInTable(recentDamaged, res3);
             foundDamaged = true;
-            checkIfDuel(res3);
+--            checkIfDuel(res3);
         end
     end
 end
@@ -766,10 +800,6 @@ function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
     if (res4 and res4 ~= nil) then
         if (not ignoreRecords[res4] and not targetRecords[res4]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res4);
-			table.insert(damagedTargets, res4);
-			if (table.getn(damagedTargets)>NUMTARGETS) then
-				table.remove(damagedTargets,1);
-			end
             targetRecords[res4] = { };
             table.insert(targetList, res4);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -779,21 +809,18 @@ function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
             end
         end
         if (not ignoreRecords[res4]) then
+            PvPLogPutInTable(recentDamaged, res3);
             foundDamaged = true;
-            checkIfDuel(res4);
+--            checkIfDuel(res4);
         end
     end
 end
 
 function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
     if (res1 and res1 ~= nil) then
-		
+        
         if (not ignoreRecords[res1] and not targetRecords[res1]) then
             PvPLogDebugMsg(RED.."Recent Targets Addition: "..res1);
-			table.insert(recentTargets, res1);
-			if (table.getn(recentTargets)>NUMTARGETS) then
-				table.remove(recentTargets,1);
-			end
             targetRecords[res1] = { };
             table.insert(targetList, res1);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -803,8 +830,9 @@ function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
             end
         end
         if (not ignoreRecords[res1]) then
+            PvPLogPutInTable(recentDamager, res1);
             lastDamagerToMe = res1;
-            checkIfDuel(res1);
+--            checkIfDuel(res1);
             foundDamager = true;
         end
     end
@@ -816,10 +844,6 @@ function PvPLogDamageMeAura(res1, res2, res3, res4)
     if (res3 and res3 ~= nil) then
         if (not ignoreRecords[res3] and not targetRecords[res3]) then
             PvPLogDebugMsg(RED.."Recent Targets Addition: "..res3);
-			table.insert(recentTargets, res3);
-			if (table.getn(recentTargets)>NUMTARGETS) then
-				table.remove(recentTargets,1);
-			end
             targetRecords[res3] = { };
             table.insert(targetList, res3);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -829,22 +853,26 @@ function PvPLogDamageMeAura(res1, res2, res3, res4)
             end
         end
         if (not ignoreRecords[res3]) then
+            PvPLogPutInTable(recentDamager, res3);
             lastDamagerToMe = res3;
-            checkIfDuel(res3);
+--            checkIfDuel(res3);
             foundDamager = true;
         end
     end
 end
 
+--[[
 function checkIfDuel(tname)
     if (not isDuel) then
         if (UnitName("target") == tostring(tname)) then
             if (UnitIsPlayer("target") and not isDuel) then
                 isDuel = true;
+                PvPLogDebugMsg('In a duel with: "' .. tname .. '"');
             end
         end
     end
 end
+]]--
 
 function PvPLog_myDamage(msg)
     foundDamaged = false;
@@ -888,16 +916,16 @@ function PvPLogInitialize()
     -- Hook the ChatFrame_OnEvent function
     hooksecurefunc("ChatFrame_OnEvent",PvPLog_ChatFrame_OnEvent)
 
-    foundDamaged = false;
-    foundDamager = false;
-
     -- *** Mars Message Parser Registers ***
     -- COMBATLOG_HONORGAIN = "%s dies, honorable kill Rank: %s (Estimated Honor Points: %d)";
     MarsMessageParser_RegisterFunction("PvPLog_HonorGain", COMBATLOG_HONORGAIN,
                       PvPLogSetHonor);
 
-    -- DUEL_WINNER_KNOCKOUT = "%1$s has defeated %2$s in a duel"; 
-    -- %1$s is the winner, %2$s is the loser
+    -- DUEL_COUNTDOWN = "Duel starting: %d"; -- %d is the number of seconds until the beginning of the duel.
+    -- DUEL_WINNER_KNOCKOUT = "%1$s has defeated %2$s in a duel"; -- %1$s is the winner, %2$s is the loser
+    -- DUEL_WINNER_RETREAT = "%2$s has fled from %1$s in a duel"; -- %1$s is the winner, %2$s is the loser
+    MarsMessageParser_RegisterFunction("PvPLog_Duel", DUEL_COUNTDOWN,
+                      PvPLogDuelStart);
     MarsMessageParser_RegisterFunction("PvPLog_Duel", DUEL_WINNER_KNOCKOUT,
                       PvPLogDuel);
     MarsMessageParser_RegisterFunction("PvPLog_Duel", DUEL_WINNER_RETREAT,
@@ -1030,9 +1058,13 @@ function PvPLogInitialize()
 
     -- initialize character data structures
     
-    PvPLogDebugMsg('Targets cleared (initialize).');
-	damagedTargets = { };
-    recentTargets = { };
+    PvPLogDebugMsg('Recents cleared (initialize).');
+    recentDamaged = { };
+    recentDamager = { };
+    lastDamagerToMe = "";
+    foundDamaged = false;
+    foundDamager = false;
+
     if (targetList == nil) then
         targetList = { };
     end
@@ -1205,12 +1237,11 @@ function PvPLog_ChatFrame_OnEvent(event)
     end
 
     if (isDuel) then
-        if (arg1 and arg1 ~= nil) then
+        if (arg1) then
             local starti, endi = string.find(arg1, tostring(UnitName("player")));
             if (starti) then
-                -- PvPLogDebugMsg(ORANGE.."Duel Msg: "..arg1);
+                PvPLogDebugMsg(ORANGE.."Duel Msg: "..arg1);
                 MarsMessageParser_ParseMessage("PvPLog_Duel", arg1);
-                isDuel = false;
             end
         end
     end
@@ -1486,7 +1517,7 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     local notifySystem = nil;
 
     local vleveltext = vlevel or "";
-    if( vlevel < 0 ) then
+    if( vlevel and vlevel < 0 ) then
         vleveltext = (-vlevel) .. "+";
     end
 
@@ -1508,10 +1539,10 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
         notifySystem = PvPLogData[realm][player].notifyDeath;
 
         -- clear the damager list as I lost/died
-        PvPLogDebugMsg('Targets cleared (recorded).');
-        damagedTargets = { };
-        recentTargets = { };
-        lastDamagerToMe = "";
+--        PvPLogDebugMsg('Recents cleared (recorded).');
+--        recentDamaged = { };
+--        recentDamager = { };
+--        lastDamagerToMe = "";
     end
 
     notifyMsg = string.gsub( notifyMsg, "%%n", vname );
@@ -1605,6 +1636,7 @@ function PvPLogUpdateTarget()
                         end
                     end
                 );
+                PvPLogDebugMsg('Target removed: "' .. targetList[index] .. '"');
                 targetRecords[targetName] = nil;
                 table.remove(targetList,index);
             end
@@ -1734,8 +1766,8 @@ function PvPLogSlashHandler(msg)
         s = string.sub(s,2);
         PvPLogDebugMsg("ignoreRecords = {"..s.."}");
 
-        PvPLogDebugMsg("recentTargets = {"..table.concat(recentTargets,",").."}");
-        PvPLogDebugMsg("damagedTargets = {"..table.concat(damagedTargets,",").."}");
+        PvPLogDebugMsg("recentDamager = {"..table.concat(recentDamager,",").."}");
+        PvPLogDebugMsg("recentDamaged = {"..table.concat(recentDamaged,",").."}");
         return;
     elseif (command == RESET) then
         if (value == CONFIRM) then
