@@ -128,7 +128,7 @@ class cpmysqli implements cpsql
 	}
 
 	/**
-	 * Select the active DB link
+	 * Set the active DB link
 	 */
 	public function set_active($link_name)
 	{
@@ -148,7 +148,7 @@ class cpmysqli implements cpsql
 	}
 
 	/**
-	 * Select the active DB for a connection. If a link name is specified that link will be activated first
+	 * Set the active DB for a connection. If a link name is specified that link will be activated first
 	 *
 	 * @param string $db_name		The DB name to switch to
 	 *
@@ -202,6 +202,7 @@ class cpmysqli implements cpsql
 	}
 
 	/**
+	 * Create a query object with the specified query
 	 * We're getting incompabitlbe with the old cpsql layer here
 	 *
 	 * @param string $query			The query to prepare
@@ -235,11 +236,6 @@ class cpmysqli_stmt implements cpsql_stmt
 	 * Query object.
 	 */
 	private $qry;
-
-	/**
-	 * Result array
-	 */
-	public $result = array();
 
 	/**
 	 * Constructor. Only usually called by the class above.
@@ -319,7 +315,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	}
 
 	/**
-	 * Fetch
+	 * Fetch into bound variables
 	 */
 	public function fetch()
 	{
@@ -327,7 +323,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	}
 
 	/**
-	 * Fetch_assoc
+	 * Fetch into associative array
 	 */
 	public function fetch_assoc()
 	{
@@ -346,7 +342,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	}
 
 	/**
-	 * Fetch_row
+	 * Fetch into enumerated array
 	 */
 	public function fetch_row()
 	{
@@ -363,7 +359,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	}
 
 	/**
-	 * Fetch_both
+	 * Fetch into both key types
 	 */
 	public function fetch_both()
 	{
@@ -389,7 +385,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	}
 
 	/**
-	 * Reset
+	 * Reset query
 	 */
 	public function reset()
 	{
@@ -397,7 +393,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	}
 
 	/**
-	 * Close
+	 * Close query
 	 */
 	public function close()
 	{
@@ -408,31 +404,49 @@ class cpmysqli_stmt implements cpsql_stmt
 	 * Statement properties
 	 *************************************************************************/
 
+	/**
+	 * Return number of affected rows by an INSERT, DELETE, or UPDATE statement
+	 */
 	public function affected_rows()
 	{
 		return $this->qry->affected_rows;
 	}
 
+	/**
+	 * Return last error number for THIS QUERY
+	 */
 	public function errno()
 	{
 		return $this->qry->errno;
 	}
 
+	/**
+	 * Return textual error for THIS QUERY
+	 */
 	public function error()
 	{
 		return $this->qry->error;
 	}
 
+	/**
+	 * Return number of fields
+	 */
 	public function field_count()
 	{
 		return $this->qry->field_count;
 	}
 
+	/**
+	 * Return autoincrement ID for THIS QUERY
+	 */
 	public function insert_id()
 	{
 		return $this->qry->insert_id;
 	}
 
+	/**
+	 * Return number of rows
+	 */
 	public function num_rows()
 	{
 		return $this->qry->num_rows;
