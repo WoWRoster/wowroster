@@ -32,7 +32,7 @@ local lastDamagerToMe = "";
 local foundDamaged = false;
 local foundDamager = false;
 
-local NUMTARGETS = 15;
+local NUMTARGETS = 45;
 local recentDamager = { };
 local recentDamaged = { };
 local ignoreList = { };
