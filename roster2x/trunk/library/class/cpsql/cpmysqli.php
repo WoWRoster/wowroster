@@ -54,10 +54,10 @@ class cpmysqli implements cpsql
 	 */
 	public function __construct()
 	{
-		if( ( func_num_args == 0 ) || ( func_get_arg(0) == TRUE ) )
+		if( ( func_num_args() == 0 ) || ( func_get_arg(0) == TRUE ) )
 		{
 			$this->configuration(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-			$this->connect('default', TRUE);
+			$this->connect('', TRUE);
 		}
 		elseif( func_get_arg(0) == FALSE )
 		{
@@ -67,7 +67,7 @@ class cpmysqli implements cpsql
 		{
 			list($host, $user, $pass, $db) = func_get_args();
 			$this->configuration($host, $user, $pass, $db);
-			$this->connect('default', TRUE);
+			$this->connect('', TRUE);
 		}
 	}
 
@@ -98,7 +98,7 @@ class cpmysqli implements cpsql
 	 */
 	public function connect($link_name = '', $activate = FALSE)
 	{
-		if( $link_name != '' )
+		if( $link_name != '' && isset($this->connect[$link_name]) )
 		{
 			if( $this->active === $this->connect[$link_name] )
 			{

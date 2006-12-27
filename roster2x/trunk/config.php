@@ -50,6 +50,12 @@ define("SECURITY", true);
 define("PATH_LOCAL", "C:/Program Files/xampp/htdocs/RosterSVN/roster2x/trunk/");
 define("PATH_REMOTE", "http://leegwater-68.demon.nl/RosterSVN/roster2x/trunk/");
 define("PATH_REMOTE_S", "http://leegwater-68.demon.nl/RosterSVN/roster2x/trunk/");
+
+define("DB_TYPE", "MySQLi");
+define("DB_HOST", "localhost");
+define("DB_USER", "db_user");
+define("DB_PASS", "password");
+define("DB_NAME", "R2");
 */
 include('conf.php');
 

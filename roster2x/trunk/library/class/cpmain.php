@@ -260,6 +260,107 @@ final class cpMain
     }
 
     /**
+     * Load a factory it will include the file as well as run the factory function
+     * if a valid class is found and assign it to our instance container. We
+     * have the option to specify parameters to pass to the factory. Example:
+     *
+     * loadFactory('somefolder_classfile', 'className', 'Arg1', 'Arg2', 'Arg3');
+     *
+     * ALTERNATE
+     *
+     * $obj = loadFactory('somefolder_classfile', 'className', 'Arg1', 'Arg2');
+     *
+     * @param string name of the file
+     * @param string name of class to instantiate
+     * @param mixed arguments to be passed to cosntruct
+     *
+     * @return object
+     */
+    static public function loadFactory()
+    {
+
+        $arguments = func_get_args();
+        $arguments_count = func_num_args();
+
+        /**
+		 * we need at least two arguments to work with
+		 */
+        if($arguments_count < 2)
+        {
+            throw new cpException("Not enough arguments.");
+        }
+
+        /**
+		 * we only allow accpetable characters in our filenames
+		 */
+        if(preg_match('/[^a-zA-Z0-9_.\-]/', $arguments[0]))
+        {
+            throw new cpException("Invalid characters in filename, match [^a-zA-Z0-9_.\-] when naming files.");
+        }
+
+        /**
+		 * Only variables should be passed by reference, but i think its fine ;p
+		 * hence our @ sign.. deal with it! silly redundant temporary variables
+		 * are a bigger waste then this comment and a error surpressor... !
+		 */
+        $c_name = @end(explode("_", $arguments[0]));
+
+		/**
+         * Valid paths are.. class.etc.php => class.etc.php
+         * bob_lib_class.etc.php => bob/lib/class.etc.php
+         * class.description.php is the required standard
+		 */
+        if(is_file($path = PATH_LOCAL . "library".DIRECTORY_SEPERATOR."class".DIRECTORY_SEPERATOR . str_replace('_', DIRECTORY_SEPARATOR, $arguments[0]) . ".php"))
+        {
+            if(!array_key_exists($arguments[1], self::$instance))
+            {
+                if(!isset(self::$_includes[$arguments[0]]))
+                {
+                    include_once($path);
+                    self::$_includes[$arguments[0]] = true;
+                }
+                if(!class_exists($c_name, false))
+                {
+                    throw new cpException("File " . $path . " was loaded but class " . $c_name . " was not found within.");
+                }
+                if($arguments_count > 2)
+                {
+
+                    $arguments_list = Array();
+
+                    foreach($arguments as $key => $value)
+                    {
+                        if($key > 1)
+                        {
+                            $arguments_list[] = $value;
+                        }
+                    }
+
+					self::$instance[$arguments[1]] = call_user_func_array(array($c_name, 'factory'), $arguments_list);
+                }
+                 else
+                {
+                    self::$instance[$arguments[1]] = call_user_func(array($c_name, 'factory'));
+                }
+
+                /**
+                 * we return our instantiated object in case we want to perhaps assign or reference
+                 */
+                return self::$instance[$arguments[1]];
+
+            }
+             else
+            {
+                throw new cpException("Gave up when attempting to access the class ". $arguments[1] . " within " . $arguments[0] . " because it has been included already.");
+            }
+        }
+         else
+        {
+            throw new cpException("File " . $arguments[0] . " was not found, or permission was denied when attempting to read it.");
+        }
+    }
+
+    /**
      * Load a file, a semi-wrapper for include, as it parses a special directory
      * structure based on underscores. It also populates our private $_includes
      * with a key of the file, this allows us to keep track of the included files
