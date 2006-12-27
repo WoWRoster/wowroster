@@ -66,10 +66,18 @@ interface cpsql
 	 * Create a query object with the specified query
 	 *
 	 * @param string $query			The query to prepare
+	 * @param string $query_name	The name to store the query under
 	 * @param string $link_name		The link to execute it on, omit for active
 	 * @return object				A cpMySQLi query object
 	 */
-	public function query_prepare($query, $link_name = '');
+	public function query_prepare($query, $query_name = '', $link_name = '');
+
+	/**
+	 * Get a query
+	 *
+	 * @param string $query_name	The name the query is stored under
+	 */
+	public function get_query($query_name);
 }
 
 interface cpsql_stmt

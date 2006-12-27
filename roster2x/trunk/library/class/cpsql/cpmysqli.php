@@ -30,6 +30,11 @@ class cpmysqli implements cpsql
 	private $active = FALSE;
 
 	/**
+	 * Store queries
+	 */
+	private $queries = array();
+
+	/**
 	 * Save configuration data privately
 	 */
 	private $config;
@@ -206,10 +211,11 @@ class cpmysqli implements cpsql
 	 * We're getting incompabitlbe with the old cpsql layer here
 	 *
 	 * @param string $query			The query to prepare
+	 * @param string $query_name	The name to store the query under
 	 * @param string $link_name		The link to execute it on, omit for active
 	 * @return object				A cpMySQLi query object
 	 */
-	public function query_prepare($query, $link_name = '')
+	public function query_prepare($query, $query_name = '', $link_name = '')
 	{
 		$link = ( $link_name == '' ) ? $this->active : ( ( isset($this->connect[$link_name]) ) ? $this->connect[$link_name] : FALSE );
 
@@ -217,13 +223,38 @@ class cpmysqli implements cpsql
 		{
 			cpMain::cpErrorFatal
 			(
-				'cpMySQLi: Unable to prepare query because the link is invalid. The query was: '.$query,
+				'cpMySQLi: Unable to prepare query because the database link is invalid. The query was: '.$query,
 				__FILE__,
 				__LINE__
 			);
 		}
 
-		return new cpmysqli_stmt($this->active->prepare($query));
+		$stmt = new cpmysqli_stmt($this->active->prepare($query));
+
+		if( $query_name != '')
+		{
+			$this->queries[$query_name] = $stmt;
+		}
+
+		return $stmt;
+	}
+
+	/**
+	 * Get a query
+	 *
+	 * @param string $query_name	The name the query is stored under
+	 */
+	public function get_query($query_name)
+	{
+		if( !isset($this->queries[$query_name]) )
+		{
+			cpMain::cpErrorFatal
+			(
+				'cpMySQLi: No query object to return under query name '.$query_name,
+				__FILE__,
+				__LINE__
+			);
+		}
 	}
 }
 
