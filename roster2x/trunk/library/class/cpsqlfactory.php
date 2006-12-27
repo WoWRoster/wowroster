@@ -31,7 +31,7 @@ class cpsqlfactory
 
 		$DB = new $type($host, $user, $pass, $name);
 
-		if( $DB instanceof cpsqlinterface )
+		if( $DB instanceof cpsql )
 		{
 			return $DB;
 		}

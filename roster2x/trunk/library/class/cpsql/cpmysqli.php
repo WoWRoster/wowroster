@@ -129,7 +129,7 @@ class cpmysqli implements cpsql
 			$this->connect[$link_name] = $link;
 		}
 
-		return $this->connect[$link_name];
+		return $link;
 	}
 
 	/**

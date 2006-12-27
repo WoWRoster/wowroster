@@ -51,4 +51,6 @@ if(!defined('SECURITY'))
     die("You may not access this file directly.");
 }
 
+cpMain::loadFactory('cpsqlfactory', 'cpsql');
+
 ?>
