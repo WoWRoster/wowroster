@@ -301,10 +301,10 @@ function makeAddonList()
 				$localizationFile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'localization.php';
 				if (file_exists($localizationFile))
 				{
-					include_once($localizationFile);
+					include($localizationFile);
 				}
 
-				include_once($menufile);
+				include($menufile);
 
 				if (0 >= $config['menu_min_user_level']) //modify this line for user level / authentication stuff (show the link for user level whatever for this addon)  you understand :P
 				{
@@ -313,9 +313,8 @@ function makeAddonList()
 						//$config['menu_index_file'] is the new array type
 						foreach ($config['menu_index_file'] as $addonLink)
 						{
-							$fullQuery = "?roster_addon_name=$addon" . ( isset($addonLink[0]) ? $addonLink[0] : '' );
-							$query = str_replace(' ','%20',$fullQuery);
-							$output .= '<li><a href="'.$roster_conf['roster_dir'].'/addon.php'.$query.'">' . $addonLink[1]."</a></li>\n";
+							$fullQuery = '?roster_addon_name='.urlencode($addon) . ( isset($addonLink[0]) ? $addonLink[0] : '' );
+							$output .= '<li><a href="' . $roster_conf['roster_dir'] . '/addon.php'.$fullQuery.'">' . $addonLink[1] . "</a></li>\n";
 							$lCount++;
 						}
 					}

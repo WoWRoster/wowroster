@@ -649,7 +649,7 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 	$wordings['deDE']['tooltip_healing_power']='Heilung';
 	$wordings['deDE']['tooltip_chance_hit']='Trefferchance';
 	$wordings['deDE']['tooltip_reinforced_armor']='Verstärkte Rüstung';
-	$wordings['deDE']['tooltip_damage_reduction']='Damage Reduction';
+	$wordings['deDE']['tooltip_damage_reduction']='Schadensreduzierung';
 
 // Warlock pet names for icon displaying
 	$wordings['deDE']['Imp']='Wichtel';

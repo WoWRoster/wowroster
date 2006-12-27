@@ -741,7 +741,7 @@ $returnstring .= '  <tr>
 			$suc = 'Interface/Icons/Spell_Shadow_SummonSuccubus';
 			$fel = 'Interface/Icons/Spell_Shadow_SummonFelHunter';
 			$inferno = 'Interface/Icons/Spell_Shadow_SummonInfernal';
-			$felguard = 'Interface/Icons/Spell_Shadow_SummonFelguard';
+			$felguard = 'Interface/Icons/Spell_Shadow_SummonFelGuard';
 
 			$iconStyle='cursor:pointer;position:absolute;left:'.$left.'px;top:'.$top.'px;height:40px;width:40px;';
 
