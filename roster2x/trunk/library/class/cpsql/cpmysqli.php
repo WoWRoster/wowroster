@@ -229,7 +229,20 @@ class cpmysqli implements cpsql
 			);
 		}
 
-		$stmt = new cpmysqli_stmt($this->active->prepare($query));
+		if( $stmt = $this->active->prepare($query) )
+		{
+			$stmt = new cpmysqli_stmt($stmt);
+		}
+		else
+		{
+			cpMain::cpErrorFatal
+			(
+				'cpMySQLi: MySQLi: Unable to prepare query. MySQLi said: '."<br/>\n".
+				'Errno. '.$this->active->errno.': '.$this->active->error,
+				__FILE__,
+				__LINE__
+			);
+		}
 
 		if( $query_name != '')
 		{
@@ -255,6 +268,8 @@ class cpmysqli implements cpsql
 				__LINE__
 			);
 		}
+
+		return $this->queries[$query_name];
 	}
 }
 
@@ -273,15 +288,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function __construct(mysqli_stmt $statement)
 	{
-		$this->qry = $statement;
-	}
-
-	/**
-	 * Destructor
-	 */
-	public function __destruct()
-	{
-		$this->qry->close();
+		return $this->qry = $statement;
 	}
 
 	/**
@@ -289,7 +296,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function prepare($query)
 	{
-		$this->qry->prepare($query);
+		return $this->qry->prepare($query);
 	}
 
 
@@ -301,9 +308,14 @@ class cpmysqli_stmt implements cpsql_stmt
 	 * @param array &$params	Parameter values, these need to be passed as an array
 	 *							rather than seperately because of php restrictions
 	 */
-	public function bind_params($types, &$params)
+	public function bind_param($types, $params)
 	{
-		call_user_func_array(array($this->qry, 'bind_params'), $params);
+		$args[0] = $types;
+		foreach( $params as &$param )
+		{
+			$args[] =& $param;
+		}
+		call_user_func_array(array($this->qry, 'bind_param'), $args);
 	}
 
 	/**
@@ -315,7 +327,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function send_long_data($param_nr, $data)
 	{
-		$this->qry->send_long_data($param_nr, $data);
+		return $this->qry->send_long_data($param_nr, $data);
 	}
 
 	/**
@@ -323,7 +335,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function execute()
 	{
-		$this->qry->execute();
+		return $this->qry->execute();
 	}
 
 	/**
@@ -331,7 +343,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function store_result()
 	{
-		$this->qry->store_result();
+		return $this->qry->store_result();
 	}
 
 	/**
@@ -340,9 +352,9 @@ class cpmysqli_stmt implements cpsql_stmt
 	 * @param array &$result	Return variables. Note to self: Examine behaviour and
 	 *							document appropriately
 	 */
-	public function bind_result(&$result)
+	public function bind_result($result)
 	{
-		call_user_func_array(array($this->qry, 'bind_result'), $result);
+		return call_user_func_array(array($this->qry, 'bind_result'), $result);
 	}
 
 	/**
@@ -350,7 +362,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function fetch()
 	{
-		$this->qry->fetch();
+		return $this->qry->fetch();
 	}
 
 	/**
@@ -367,9 +379,14 @@ class cpmysqli_stmt implements cpsql_stmt
 
 		call_user_func_array(array($this->qry, 'bind_result'), $bindVars);
 
-		$this->qry->fetch();
-
-		return $result;
+		if( $this->qry->fetch() )
+		{
+			return $result;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -384,9 +401,14 @@ class cpmysqli_stmt implements cpsql_stmt
 
 		call_user_func_array(array($this->qry, 'bind_result'), $bindVars);
 
-		$this->qry->fetch();
-
-		return result;
+		if( $this->qry->fetch() )
+		{
+			return $result;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -403,16 +425,21 @@ class cpmysqli_stmt implements cpsql_stmt
 
 		call_user_func_array(array($this->qry, 'bind_result'), $bindVars);
 
-		$this->qry->fetch();
-
-		$i = 0;
-
-		foreach( $result as $value )
+		if( $this->qry->fetch() )
 		{
-			$result[$i++] = $value;
-		}
+			$i = 0;
 
-		return $result;
+			foreach( $result as $value )
+			{
+				$result[$i++] = $value;
+			}
+
+			return $result;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -420,7 +447,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function reset()
 	{
-		$this->qry->reset();
+		return $this->qry->reset();
 	}
 
 	/**
@@ -428,7 +455,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function close()
 	{
-		$this->qry->close();
+		return $this->qry->close();
 	}
 
 	/*************************************************************************

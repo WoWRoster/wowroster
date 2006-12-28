@@ -95,7 +95,7 @@ interface cpsql_stmt
 	 * @param array &$params	Parameter values, these need to be passed as an array
 	 *							rather than seperately because of php restrictions
 	 */
-	public function bind_params($types, &$params);
+	public function bind_param($types, $params);
 
 	/**
 	 * Execute
@@ -113,7 +113,7 @@ interface cpsql_stmt
 	 * @param array &$result	Return variables. Note to self: Examine behaviour and
 	 *							document appropriately
 	 */
-	public function bind_result(&$result);
+	public function bind_result($result);
 
 	/**
 	 * Fetch into bound variables
