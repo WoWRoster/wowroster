@@ -101,17 +101,19 @@ $qry = cpMain::$instance['cpsql']->query_prepare(
 
 $qry->bind_param('s',array(&$name));
 
-$name = 'Pleeg';
+$name = 'Zanix';
 
 if( !$qry->execute() )
 {
 	echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
 }
 
+$qry->bind_result(array(&$id, &$name, &$phone));
+
 echo '<table>'."\n";
-while($row = $qry->fetch_assoc())
+while($qry->fetch())
 {
-	echo '<tr><td>'.$row['id'].'<td>'.$row['name'].'<td>'.$row['phone']."\n";
+	echo '<tr><td>'.$id.'<td>'.$name.'<td>'.$phone."\n";
 }
 echo '</table>'."\n";
 

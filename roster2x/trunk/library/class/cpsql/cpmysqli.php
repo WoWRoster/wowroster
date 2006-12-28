@@ -284,6 +284,11 @@ class cpmysqli_stmt implements cpsql_stmt
 	private $qry;
 
 	/**
+	 * Caching for fetch functions
+	 */
+	private $cache;
+
+	/**
 	 * Constructor. Only usually called by the class above.
 	 */
 	public function __construct(mysqli_stmt $statement)
@@ -335,6 +340,7 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function execute()
 	{
+		$this->cache = array();
 		return $this->qry->execute();
 	}
 
@@ -370,18 +376,21 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function fetch_assoc()
 	{
-		$meta = $this->qry->result_metadata();
-
-		while( $column = $meta->fetch_field() )
+		if( !isset( $this->cache['bindAssoc'] ) | !isset( $this->cache['resAssoc'] ) )
 		{
-			$bindVars[] = &$result[$column->name];
+			$meta = $this->qry->result_metadata();
+
+			while( $column = $meta->fetch_field() )
+			{
+				$this->cache['bindAssoc'][] = &$this->cache['resAssoc'][$column->name];
+			}
 		}
 
-		call_user_func_array(array($this->qry, 'bind_result'), $bindVars);
+		call_user_func_array(array($this->qry, 'bind_result'), $this->cache['bindAssoc']);
 
 		if( $this->qry->fetch() )
 		{
-			return $result;
+			return $this->cache['resAssoc'];
 		}
 		else
 		{
@@ -394,16 +403,19 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function fetch_row()
 	{
-		for( $i=0; $i<$this->qry->field_count; $i++)
+		if( !isset( $this->cache['bindRow'] ) | !isset( $this->cache['resRow'] ) )
 		{
-			$bindVars[] = &$result[$i];
+			for( $i=0; $i<$this->qry->field_count; $i++)
+			{
+				$this->cache['bindRow'][] = &$this->cache['resRow'][$i];
+			}
 		}
 
-		call_user_func_array(array($this->qry, 'bind_result'), $bindVars);
+		call_user_func_array(array($this->qry, 'bind_result'), $this->cache['bindRow']);
 
 		if( $this->qry->fetch() )
 		{
-			return $result;
+			return $this->cache['resRow'];
 		}
 		else
 		{
@@ -416,25 +428,24 @@ class cpmysqli_stmt implements cpsql_stmt
 	 */
 	public function fetch_both()
 	{
-		$meta = $this->qry->result_metadata();
-
-		while( $column = $meta->fetch_field() )
+		if( !isset( $this->cache['bindBoth'] ) | !isset( $this->cache['resBoth'] ) )
 		{
-			$bindVars[] = &$result[$column->name];
+			$meta = $this->qry->result_metadata();
+
+			$i = 0;
+
+			while( $column = $meta->fetch_field() )
+			{
+				$this->cache['bindBoth'][] =& $this->cache['resBoth'][$column->name];
+				$this->cache['resBoth'][$i++] =& $this->cache['resBoth'][$column->name];
+			}
 		}
 
-		call_user_func_array(array($this->qry, 'bind_result'), $bindVars);
+		call_user_func_array(array($this->qry, 'bind_result'), $this->cache['bindBoth']);
 
 		if( $this->qry->fetch() )
 		{
-			$i = 0;
-
-			foreach( $result as $value )
-			{
-				$result[$i++] = $value;
-			}
-
-			return $result;
+			return $this->cache['resBoth'];
 		}
 		else
 		{
