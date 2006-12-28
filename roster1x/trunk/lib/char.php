@@ -623,7 +623,7 @@ $returnstring .= '  <tr>
 					<span class="text"><span class="spellYellow">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
-						$return_string .= '<br /><span class="spellBrown">'.$spellicons['rank'].'</span>';
+						$return_string .= '<br /><span class="spellBrown">&nbsp;&nbsp;'.$spellicons['rank'].'</span>';
 					}
 					$return_string .= "</span>\n				</div>\n";
 					$icon_num++;

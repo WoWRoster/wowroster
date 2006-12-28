@@ -41,7 +41,8 @@ a:active {
 	text-decoration:none;
 	font-weight:bold;
 }
-img, p {
+img,
+p {
 	padding:0;
 	margin:0;
 	border:0;
@@ -196,7 +197,8 @@ table.expOutline {
 	margin:1px 3px 1px;
 	text-align:left;
 }
-.main_roster_menu .links a, .main_roster_menu .addon a {
+.main_roster_menu .links a,
+.main_roster_menu .addon a {
 /* Links in menu */
 	display:block;
 	text-align:center;
@@ -206,11 +208,13 @@ table.expOutline {
 	background-color:#2E2D2B;
 	text-decoration:none;
 }
-.main_roster_menu .links a:active, .main_roster_menu .addon a:active {
+.main_roster_menu .links a:active,
+.main_roster_menu .addon a:active {
 /* Links in menu on-click */
 	background-color:#778899;
 }
-.main_roster_menu .links a:hover, .main_roster_menu .addon a:hover {
+.main_roster_menu .links a:hover,
+.main_roster_menu .addon a:hover {
 /* Links in menu on-mouseover */
 	background-color:#7A7772;
 }
@@ -1318,11 +1322,11 @@ span.blue {
 	background-color:#2E2D2B;
 	text-decoration:none;
 }
-.quest_link a:active, .quest_link a:active {
+.quest_link a:active {
 /* Links in menu on-click */
 	background-color:#778899;
 }
-.quest_link a:hover, .quest_link a:hover {
+.quest_link a:hover {
 /* Links in menu on-mouseover */
 	background-color:#7A7772;
 }
@@ -1477,7 +1481,6 @@ span.blue {
 	list-style-type:none;
 	padding:1px 0 0 6px;
 	text-align:left;
-	/*font:12px georgia,tahoma,sans-serif;*/
 	font:12px verdana, tahoma, sans-serif;
 	font-weight:bold;
 }
@@ -1488,7 +1491,6 @@ span.blue {
 }
 .char .main .page1 .middle .portrait ul li span {
 	float:right;
-	/*font-family:georgia,tahoma,sans-serif;*/
 	font-family:verdana, tahoma, sans-serif;
 	padding:0 6px 0 0;
 	margin-top:-15px;
@@ -1535,11 +1537,13 @@ span.blue {
 	padding:0;
 	margin:0;
 }
-.char .main .page1 .middle .bottom .padding .stats li span, .stats ul li span {
+.char .main .page1 .middle .bottom .padding .stats li span,
+.stats ul li span {
 	float:right;
 	font-family:verdana, tahoma, sans-serif;
 	padding:0 6px 0 0;
 	margin-top:-15px;
+	overflow:hidden;
 }
 .char .main .page1 .middle .bottom .padding .stats ul li ul li span {
 	color:#ffffff;
@@ -2340,25 +2344,24 @@ span.blue {
 }
 .spell_info_container .icon {
 /* Spell Icon */
-	width:41px;
-	height:41px;
+	width:40px;
+	height:40px;
 }
 .spell_info_container .text {
 /* Spell Icon text */
+	width:115px;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:10px;
-	text-align:left;
-	position:absolute;
-	margin-top:4px;
+	font-weight:bold;
 	margin-left:4px;
+	text-align:left;
+	margin-top:4px;
 }
 .spellYellow {
 	color:#ffd517;
-	font-weight:bold;
 }
 .spellBrown {
 	color:#593300;
-	font-weight:bold;
 }
 /******
  * CHAR.PHP - END SPELLBOOK - function show_spellbook()

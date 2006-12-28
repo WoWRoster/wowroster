@@ -25,6 +25,9 @@
 // XML parsing by Swipe
 // Most other changes by Zanix
 
+// Disable generation of headers from settings.php
+$no_roster_headers = true;
+
 require_once( 'settings.php' );
 require_once( ROSTER_LIB.'xmlparse.php' );
 
