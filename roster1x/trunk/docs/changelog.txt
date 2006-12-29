@@ -1,5 +1,5 @@
 WoW Roster Changelog
-Package updated October 21, 2006
+Package updated December 29, 2006
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -8,6 +8,16 @@ For corrections and/or suggestions - http://www.wowroster.net
 
 An html version of the Change Log can be found on our WiKi
 http://www.wowroster.net/wiki/index.php/Roster:ChangeLog
+
+
+------------------------------------
+What's New v1.7.2 (December 29, 2006)
+------------------------------------
+
+--[ FIXES ]-------------------
+
+
+
 
 
 ------------------------------------

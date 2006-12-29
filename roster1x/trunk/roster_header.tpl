@@ -41,9 +41,6 @@ define('HEADER_INC',true);
 <div align="center">
 
 <?php
-if( file_exists(ROSTER_BASE.'agree.inc') )
-	include ROSTER_BASE.'agree.inc';
-
 if( !isset($roster_conf['char_header_logo']) || $roster_conf['char_header_logo'] )
 {
 	echo '<div style="text-align:center;margin:10px;"><a href="'.$roster_conf['website_address'].'">
