@@ -15,6 +15,82 @@ What's New v1.7.2 (December 29, 2006)
 ------------------------------------
 
 --[ FIXES ]-------------------
+  * IMPORTANT
+     o There are no longer any Roster AddOns included with Roster
+     o To get addons like SigGen, MadeBy, and Reputation...you must download them separately!
+  * register_globals destroyer added to remove any problems with this setting (zanix)
+  * Installer now checks if a locale file exists before displaying it as an option (zanix)
+  * Riding Icons should now function in all locales [Thanks Romish] (zanix)
+  * Offset in keys page for horde guilds (zanix)
+  * Plus/minus boxes not showing for collapsible messageboxes [Thanks Snykx] (zanix)
+  * realmstatus.php not showing text with accented characters (zanix)
+  * Division by zero errors in index.php and char.php (zanix)
+  * Character page on systems with magic quotes off (slashes are added by settings if it's off, but not stripped here) (pleegwat)
+  * Server names entered with an apostrophe in the name not being entered into the database correctly (zanix)
+  * Fixed Horde Onyxia Quest Chain in keys page (zanix)
+  * Added actual MOTD in alt tage for image mode (pleegwat)
+  * Debug Improved (pleegwat)
+     o Renamed 'show process time/db queries' to 'debug mode', also updated tooltip for this option
+     o Added query reporting for trunk if debug mode is on
+     o Now printing full debug trace when dieing if debug mode is on
+  * Slight change to quest tag rendering (zanix)
+  * Fixed mail tooltips (pleegwat)
+  * Fixed char.php so it can be called without server parameter again (pleegwat)
+  * Guildbank for frFR locale with Bind on Equip (zanix)
+  * Removed is_numeric check in wowdb as it is safe to insert quoted numbers (zanix)
+  * Guild motd is now hidden when there is no motd (zanix)
+  * php time format for enUS (zanix)
+  * Moved mrmuskrat to retired devs (zanix)
+  * Added bsmorgan to pvplog dev (zanix)
+  * Mail inserts items when there is actually an item sent (zanix)
+  * Hopefully update.php will spit out a better error then an empty update log (zanix,pleegwat)
+  * 'no item equipped' is now localized (pleegwat)
+  * item_id length fix, apparently blizz has longer item id's now (zanix)
+  * Hopefully fixed a notice with some addons in menu.php (zanix)
+  * Changed Rankexp to a float in DB (zanix)
+  * Dirty mysql-only hack to fix the double entries in recipe. If it works for 1.7.2 it's fine with me (pleegwat)
+  * Split up the reputation value column into a curr_value and a max_value column (pleegwat)
+  * Removed extra space after ?> in some files (zanix)
+  * Sorting error in member log (zanix)
+  * update.php will now tell you that uploading is disabled, instead of just showing the fields and acting like it might let you (zanix)
+     o UniUploader users will also get the same error upon uploding files
+  * Reformatted character update process a little, made it more streamlined (takes less vertical space) (zanix)
+  * Maybe fixed the member update time error (zanix)
+  * The Roster menu should now be able to get locale strings form addons correctly (zanix)
+  * Added more header() calls in settings.php dealing with cache control (zanix)
+     o Set $no_roster_headers = true before including settings.php if you don't want header() to be set at all
+
+
+--[ ENAHNCEMENTS ]------------
+  * CP 2.0 and GP 2.0 compatibility added, no new features (zanix,pleegwat)
+     o Roster 1.8 will get most of the CP 2.0 changes
+     o Character page changed to reflect some of the changes
+     o Honor tab changed to PvP, for new look
+     o Changed honor column to hide by default, both on new and on current installations
+     o Removed honor progress bar in index page
+     o DK's removed from PvP tab, CP inserted to replace them
+     o Removed rank percentage bar
+     o Removed rankname from character name in char page
+     o ThisWeek and LastWeek Honor Removed
+     o "HonorRank" of the "Faction" removed from player notes
+     o hslist.php is now basically useless
+     o SQL updated again to removed outdated fields
+     o indexhonor.php updated for less honor stuff as well
+  * Added PvPLog realm support
+  * Poisons added to tradeskills (zanix)
+  * Added a file 'c.php' that can create extremely short links to characters, and in the future other parts of roster (pleegwat)
+     o Example of use http://www.yoursite.com/roster/c.php?Treyce
+     o Can be moved to a location outside the main roster by setting the relative url variable in the top of the file
+  * Added parsing messages to the log. There should now always be meaningful log messages on upload (pleegwat)
+  * Added level overview for levels 61-70 (pleegwat)
+  * Added felgard pet icon (zanix)
+  * Added 'item_level' to items and recipe tables (zanix)
+  * Added function message_die() (zanix)
+     o This is similar to messagebox() except that Roster dies after printing the message
+     o Changed a few places in Roster to use this
+  * Added a character buffs table, why? ...I was board and wanted this for some strange reason (zanix)
+  * New global array $guild_info (zanix)
+     o This array contains all the data from the guild table
 
 
 
