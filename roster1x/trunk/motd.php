@@ -31,6 +31,8 @@ else
 	include( $roster_root_path . 'settings.php' );
 	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 	$guildMOTD = stripslashes($guildMOTD['guild_motd']);
+	// Chomp $guildMOTD at 145 characters
+	$guildMOTD = substr($guildMOTD,0,145);
 }
 
 
