@@ -141,8 +141,9 @@ class cpconfig
 
 		// We've got the whole file in $file now. So we'll split it into the individual
 		// settings, and throw away the header.
-		$settings = explode("\n#",$file);
+		$settings = explode("\n#'",$file);
 		array_shift($settings);
+
 
 		foreach( $settings as $setting )
 		{
@@ -152,6 +153,13 @@ class cpconfig
 			$option = substr($setting, 0, strpos($setting,' '));
 			// Get the metadata
 			$config[$option]['meta'] = substr($setting, 0, ($em = strpos($setting,"\n")));
+			// Get comment lines
+			$config[$option]['comment'] = '';
+			while( substr($setting, $em+1, 2) == '//' )
+			{
+				$config[$option]['comment'] .= substr($setting, $em+3, -($em+3) + ($em = strpos($setting,"\n",$em+3)))."\n";
+			}
+			$config[$option]['comment'] = substr($config[$option]['comment'],0,-1);
 			// Calculate the start position for the value
 			$vs = $em + strlen($name) + 15;
 			// Store the value
@@ -172,8 +180,7 @@ class cpconfig
 	 *
 	 * @param $name 	name of the config file
 	 * @param $config 	configuration data, name=>value
-	 *					Value has to be PHP code, so if it's a string it should
-	 *					include quotes
+	 *					Can be any data type, even object!
 	 * @param $user 	user name if we want to write a user-specific config file
 	 */
 	public function writeConfig($name, $config, $user='')
@@ -199,8 +206,15 @@ ENDHEADER;
 
 		foreach( $meta as $option => $info )
 		{
-			$file .= '#'.$info['meta']."\n".
-			'$config[\''.$option.'\'] = '.$config[$option].';'."\n";
+			if( !isset($config[$option] ) )
+			{
+				$config[$option] = $meta[$option]['value'];
+			}
+			$metaline = "#'".$info['meta']."\n";
+			$comments =	empty($meta[$option]['comment'])?'':'//'.str_replace("\n","\n//",$meta[$option]['comment'])."\n";
+			$code = '$config[\''.$option.'\'] = '.var_export($config[$option],true).';'."\n";
+
+			$file .= $metaline.$comments.$code;
 		}
 
 		$userdir = ((empty($user))?'':$user.DIRECTORY_SEPARATOR);

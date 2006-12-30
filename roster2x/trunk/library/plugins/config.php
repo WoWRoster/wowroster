@@ -19,8 +19,13 @@ if(!defined('SECURITY'))
 cpMain::loadClass('cpconfig','cpconfig');
 
 cpMain::$instance['cpconfig']->loadConfig('test');
+echo "Config data: <br><pre>";
+print_r(cpMain::$instance['cpconfig']->test);
 
-cpMain::$instance['cpconfig']->loadConfigMeta('test');
+$meta = cpMain::$instance['cpconfig']->loadConfigMeta('test');
+echo "</pre><br>Metadata: <br><pre>";
+print_r($meta);
+echo "</pre><br>";
 
 $config = array('test'=>'hi','fred'=>'hello');
 

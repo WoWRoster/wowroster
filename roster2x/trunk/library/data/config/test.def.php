@@ -13,7 +13,8 @@ if(!defined('SECURITY'))
     die("You may not access this file directly.");
 }
 
-#test text 30 30
+#' test text 30 30
+// This is the test setting
 $config['test'] = 'hello world';
-#fred text 30 53
+#' fred text 30 53
 $config['fred'] = 'bye';
