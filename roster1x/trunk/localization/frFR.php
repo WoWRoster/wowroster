@@ -551,7 +551,7 @@ $wordings['frFR']['loss_average']='Différence moyenne de niveaux (défaites) :'
 // These need to be EXACTLY what PvPLog stores them as
 $wordings['frFR']['alterac_valley']='Vallée d\'Alterac';
 $wordings['frFR']['arathi_basin']='Bassin d\'Arathi';
-$wordings['frFR']['warsong_gulch']='Goulet des Warsong';
+$wordings['frFR']['warsong_gulch']='Goulet des Chanteguerres';
 
 $wordings['frFR']['world_pvp']='JcJ Mondial';
 $wordings['frFR']['versus_guilds']='Contre Guilde';
