@@ -108,7 +108,7 @@ if(cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off')
  */
 foreach(file(PATH_LOCAL . "autoload.php") as $key => $value)
 {
-	(preg_match('/^[a-zA-Z0-9\.\-]+$/', $value = trim($value))) ? ((is_file($file = PATH_LOCAL . "library".DIRECTORY_SEPERATOR."autoload".DIRECTORY_SEPERATOR . $value . ".php")) ? include($file) : cpMain::cpErrorFatal("Autoload Error, Please consult the manual to see the proper directory hiearchy and system functionality. Remember, you can delete files out of the autoload list easily by opening autoload.php in your base directory. The path the system was looking for (or at least 1 of the paths we checked) is: " . $file, __LINE__, __FILE__)) : NULL;
+	(preg_match('/^[a-zA-Z0-9\.\-]+$/', $value = trim($value))) ? ((is_file($file = PATH_LOCAL . "library".DIR_SEP."autoload".DIR_SEP . $value . ".php")) ? include($file) : cpMain::cpErrorFatal("Autoload Error, Please consult the manual to see the proper directory hiearchy and system functionality. Remember, you can delete files out of the autoload list easily by opening autoload.php in your base directory. The path the system was looking for (or at least 1 of the paths we checked) is: " . $file, __LINE__, __FILE__)) : NULL;
 }
 
 /**
@@ -191,7 +191,7 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 /**
  * Include the module/plugin core based on the method type and set path.
  */
-((is_file($var = PATH_LOCAL . "library".DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".php")) ? require($var) : cpMain::cpErrorFatal("Error Loading Requested Method, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__));
+((is_file($var = PATH_LOCAL . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".php")) ? require($var) : cpMain::cpErrorFatal("Error Loading Requested Method, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__));
 
 /**
  * We only initialize our template system only if the method chosen requires its
@@ -213,9 +213,7 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 	/**
 	 * Configure smarty
 	 */
-	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'library'.DIR_SEP.'templates'.DIR_SEP.'default/';
-	//cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'library'.DIR_SEP.'class'.DIR_SEP.'smarty'.DIR_SEP.'templates_c'.DIR_SEP;
-	// Changing the cahche directory to a root level directory for ease of use
+	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP.'default/';
 	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
 	cpMain::$instance['smarty']->plugins_dir = array(SMARTY_DIR . 'plugins', 'resources'.DIR_SEP.'plugins');
 
@@ -250,7 +248,7 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 	/**
 	 * Build the template for the specified block
 	 */
-	((is_file((cpMain::$system['template_path'] !== "") ? $var = cpMain::$system['template_path'] : $var = PATH_LOCAL . "library".DIR_SEP."templates".DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl")) ? cpMain::$instance['smarty']->display($var) : ((is_file($var = PATH_LOCAL . "library".DIRY_SEP."templates".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"))
+	((is_file((cpMain::$system['template_path'] !== "") ? $var = cpMain::$system['template_path'] : $var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl")) ? cpMain::$instance['smarty']->display($var) : ((is_file($var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"))
 	? cpMain::$instance['smarty']->display($var) : cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__)));
 
 }

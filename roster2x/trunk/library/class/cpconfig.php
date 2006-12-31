@@ -15,7 +15,7 @@ if(!defined('SECURITY'))
 }
 
 /**
- * Our configuration management class. The config data is in library/data/config
+ * Our configuration management class. The config data is in data/config
  */
 class cpconfig
 {
@@ -34,7 +34,7 @@ class cpconfig
 	 */
 	public function __construct()
 	{
-		$this->cfgdir = PATH_LOCAL.DIR_SEP.'library'.DIR_SEP.'data'.DIR_SEP.'config'.DIR_SEP;
+		$this->cfgdir = PATH_LOCAL.'data'.DIR_SEP.'config'.DIR_SEP;
 	}
 
 	/**

@@ -4,6 +4,6 @@
 <title></title>
 </head>
 <body>
-Coming soon....
+{$text}
 </body>
 </html>

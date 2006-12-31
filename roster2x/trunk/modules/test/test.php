@@ -2,7 +2,7 @@
 
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/modules/test/test.php
+ * File: modules/test/test.php
  *
  * This file is part of the test module, it's a single mode within
  * the module.
@@ -56,3 +56,7 @@ if(!defined('SECURITY'))
 {
 	die("You may not access this file directly.");
 }
+
+cpMain::loadClass('smarty', 'smarty');
+
+cpMain::$instance['smarty']->assign('text','This is a test file');
