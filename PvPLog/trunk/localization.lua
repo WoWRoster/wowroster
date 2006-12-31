@@ -3,13 +3,13 @@
   Author:           Andrzej Gorski 
   Maintainer:       Matthew Musgrove, Brad Morgan
   Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          2.1.0
-  Last Modified:    2006-12-23
+  Version:          2.1.1
+  Last Modified:    2006-12-30
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "2.1.0";
+VER_NUM = "2.1.1";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
@@ -147,7 +147,7 @@ if (GetLocale() == "deDE") then
     VER = "version";      -- version? versionsnummer?
     VEN = "vendor";       -- verkufer?
     USAGE = "Usage";      -- verwenden?
-    DISPLAY = "Anzeige";  
+    DISPLAY = "anzeige";  
     DING = "ding";
     MOUSEOVER = "mouseover";
     NOSPAM = "nospam";
@@ -211,7 +211,7 @@ if (GetLocale() == "deDE") then
     
     UI_OPEN = "Öffnen";
     UI_CLOSE = "Schließen";
-    UI_CONFIG = "Konfiguration";
+    UI_CONFIG = "konfiguration";
     UI_NOTIFY_KILLS = "Kills anzeigen in:";
     UI_NOTIFY_DEATHS = "Tode anzeigen in:";
     UI_CUSTOM = "Custom";
@@ -353,10 +353,10 @@ elseif (GetLocale() == "esES") then
     VER = "Versión";
     VEN = "Vendedor";
     USAGE = "Uso";
-    DISPLAY = "Mostrar";
+    DISPLAY = "mostrar";
     DING = "ding";
     MOUSEOVER = "mouseover";
-    NOSPAM = "Sin Spam";
+    NOSPAM = "sinspam";
     
     DMG = "daño";
     ST = "estadísticas";

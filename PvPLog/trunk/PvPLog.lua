@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.1.0
-    Last Modified:    2006-12-25
+    Version:          2.1.1
+    Last Modified:    2006-12-30
 ]]
 
 -- Local variables
@@ -84,9 +84,6 @@ function PvPLogOnLoad()
 
     -- keep track of players level
     this:RegisterEvent("PLAYER_LEVEL_UP");
-
-    -- flags Duels
-    this:RegisterEvent("DUEL_FINISHED");
 
     -- flags damage
     this:RegisterEvent("CHAT_MSG_COMBAT_HOSTILEPLAYER_HITS");
@@ -241,16 +238,6 @@ function PvPLogOnEvent()
     elseif (event == "PLAYER_LEVEL_UP") then
         plevel = UnitLevel("player");
 
-    -- duel stuff
-    elseif (event == "DUEL_FINISHED") then
-        -- make sure we have a last damager
-        -- and are enabled
-        if (not PvPLogData[realm][player].enabled) then
-            return;
-        end
-        isDuel = true;
-        return;
-
     elseif (event == "PLAYER_DEAD") then
         -- initialize if we're not for some reason
         if (not initialized) then
@@ -307,7 +294,7 @@ function PvPLogOnEvent()
             return;
         end
 
-      -- adds record to mouseover if it exists (and mouseover enabled)
+        -- adds record to mouseover if it exists (and mouseover enabled)
         if (PvPLogData[realm][player].mouseover) then
 
             if (UnitExists("mouseover")) then
@@ -390,7 +377,7 @@ function PvPLogOnEvent()
 
         -- if we're enabled
         if (PvPLogData[realm][player].enabled and softPL) then
-            PvPLogUpdateTarget();
+            PvPLogUpdateTarget(isDuel);
         end
 
     -- record a hostile death, if we killed them
@@ -636,13 +623,15 @@ function PvPLogFloatMsg(msg, color)
 end
 
 function PvPLogDuelStart(seconds)
+    PvPLogDebugMsg(ORANGE.."Starting duel");
     isDuel = true;
 end
 
 function PvPLogDuel(parseWinner, parseLoser)
+    PvPLogDebugMsg(ORANGE.."Processing duel: "..parseWinner..", "..parseLoser);
     if (parseWinner and parseLoser) then
-        -- CHAT_MSG_SYSTEM
         if (UnitName("player") == parseWinner) then
+            PvPLogUpdateTarget(isDuel);
             if (targetRecords[parseLoser]) then
                 if (targetRecords[parseLoser].level) then
                     v = targetRecords[parseLoser];
@@ -656,10 +645,11 @@ function PvPLogDuel(parseWinner, parseLoser)
             end
         elseif (UnitName("player") == parseLoser) then
             if (targetRecords[parseWinner]) then
+                PvPLogUpdateTarget(isDuel);
                 if (targetRecords[parseWinner].level) then
                     v = targetRecords[parseWinner];
-                    PvPLogChatMsgCyan(DWLA..GREEN..parseWinner);
-                    PvPLogRecord(parseWinner, v.level, v.race, v.class, v.guild, 0, 1, v.rank);
+                    PvPLogChatMsgCyan(DLLA..GREEN..parseWinner);
+                    PvPLogRecord(parseWinner, v.level, v.race, v.class, v.guild, 0, 0, v.rank);
                 else
                     PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseWinner);
                 end
@@ -738,7 +728,7 @@ end
 
 function PvPLogMyDamage(res1, res2, res3, res4, res5)
     if (res1 and res1 ~= nil) then
-        if (not ignoreRecords[res1] and not targetRecords[res1]) then
+        if ((isDuel or not ignoreRecords[res1]) and not targetRecords[res1]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res1);
             targetRecords[res1] = { };
             table.insert(targetList, res1);
@@ -748,17 +738,16 @@ function PvPLogMyDamage(res1, res2, res3, res4, res5)
                 table.remove(targetList,1);
             end
         end
-        if (not ignoreRecords[res1]) then
+        if (isDuel or not ignoreRecords[res1]) then
             PvPLogPutInTable(recentDamaged, res1);
             foundDamaged = true;
---            checkIfDuel(res1);
         end
     end
 end
 
 function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
     if (res2 and res2 ~= nil) then
-        if (not ignoreRecords[res2] and not targetRecords[res2]) then
+        if ((isDuel or not ignoreRecords[res2]) and not targetRecords[res2]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res2);
             targetRecords[res2] = { };
             table.insert(targetList, res2);
@@ -768,17 +757,16 @@ function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
                 table.remove(targetList,1);
             end
         end
-        if (not ignoreRecords[res2]) then
+        if (isDuel or not ignoreRecords[res2]) then
             PvPLogPutInTable(recentDamaged, res2);
             foundDamaged = true;
---            checkIfDuel(res2);
         end
     end
 end
 
 function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
     if (res3 and res3 ~= nil) then
-        if (not ignoreRecords[res3] and not targetRecords[res3]) then
+        if ((isDuel or not ignoreRecords[res3]) and not targetRecords[res3]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res3);
             targetRecords[res3] = { };
             table.insert(targetList, res3);
@@ -788,17 +776,16 @@ function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
                 table.remove(targetList,1);
             end
         end
-        if (not ignoreRecords[res3]) then
+        if (isDuel or not ignoreRecords[res3]) then
             PvPLogPutInTable(recentDamaged, res3);
             foundDamaged = true;
---            checkIfDuel(res3);
         end
     end
 end
 
 function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
     if (res4 and res4 ~= nil) then
-        if (not ignoreRecords[res4] and not targetRecords[res4]) then
+        if ((isDuel or not ignoreRecords[res4]) and not targetRecords[res4]) then
             PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res4);
             targetRecords[res4] = { };
             table.insert(targetList, res4);
@@ -808,10 +795,9 @@ function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
                 table.remove(targetList,1);
             end
         end
-        if (not ignoreRecords[res4]) then
+        if (isDuel or not ignoreRecords[res4]) then
             PvPLogPutInTable(recentDamaged, res3);
             foundDamaged = true;
---            checkIfDuel(res4);
         end
     end
 end
@@ -819,7 +805,7 @@ end
 function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
     if (res1 and res1 ~= nil) then
         
-        if (not ignoreRecords[res1] and not targetRecords[res1]) then
+        if ((isDuel or not ignoreRecords[res1]) and not targetRecords[res1]) then
             PvPLogDebugMsg(RED.."Recent Targets Addition: "..res1);
             targetRecords[res1] = { };
             table.insert(targetList, res1);
@@ -829,10 +815,9 @@ function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
                 table.remove(targetList,1);
             end
         end
-        if (not ignoreRecords[res1]) then
+        if (isDuel or not ignoreRecords[res1]) then
             PvPLogPutInTable(recentDamager, res1);
             lastDamagerToMe = res1;
---            checkIfDuel(res1);
             foundDamager = true;
         end
     end
@@ -842,7 +827,7 @@ end
 -- You suffer 3 frost damage from Rabbit's Ice Nova.
 function PvPLogDamageMeAura(res1, res2, res3, res4)
     if (res3 and res3 ~= nil) then
-        if (not ignoreRecords[res3] and not targetRecords[res3]) then
+        if ((isDuel or not ignoreRecords[res3]) and not targetRecords[res3]) then
             PvPLogDebugMsg(RED.."Recent Targets Addition: "..res3);
             targetRecords[res3] = { };
             table.insert(targetList, res3);
@@ -852,27 +837,13 @@ function PvPLogDamageMeAura(res1, res2, res3, res4)
                 table.remove(targetList,1);
             end
         end
-        if (not ignoreRecords[res3]) then
+        if (isDuel or not ignoreRecords[res3]) then
             PvPLogPutInTable(recentDamager, res3);
             lastDamagerToMe = res3;
---            checkIfDuel(res3);
             foundDamager = true;
         end
     end
 end
-
---[[
-function checkIfDuel(tname)
-    if (not isDuel) then
-        if (UnitName("target") == tostring(tname)) then
-            if (UnitIsPlayer("target") and not isDuel) then
-                isDuel = true;
-                PvPLogDebugMsg('In a duel with: "' .. tname .. '"');
-            end
-        end
-    end
-end
-]]--
 
 function PvPLog_myDamage(msg)
     foundDamaged = false;
@@ -1236,6 +1207,7 @@ function PvPLog_ChatFrame_OnEvent(event)
         return;
     end
 
+--[[
     if (isDuel) then
         if (arg1) then
             local starti, endi = string.find(arg1, tostring(UnitName("player")));
@@ -1245,6 +1217,11 @@ function PvPLog_ChatFrame_OnEvent(event)
             end
         end
     end
+]]--
+    if (arg1) then
+        MarsMessageParser_ParseMessage("PvPLog_Duel", arg1);
+    end
+
 end
 
 function PvPLogGetPvPTotals(name)
@@ -1587,11 +1564,11 @@ end
 -- This function is called whenever the player's target has changed.
 -- In WoW V2, this is the only place where we can be sure of capturing
 -- information about our target.
-function PvPLogUpdateTarget()
+function PvPLogUpdateTarget(dueling)
     targetName, targetRealm = UnitName("target") 
     if (targetName) then
         -- We have a valid target
-        if (UnitIsPlayer("target") and UnitIsEnemy("player", "target")) then
+        if (dueling or (UnitIsPlayer("target") and UnitIsEnemy("player", "target"))) then
             -- Its a player and its an enemy
             if (not targetRecords[targetName]) then
                 PvPLogDebugMsg('Target added: "' .. targetName .. '"');
@@ -1768,6 +1745,13 @@ function PvPLogSlashHandler(msg)
 
         PvPLogDebugMsg("recentDamager = {"..table.concat(recentDamager,",").."}");
         PvPLogDebugMsg("recentDamaged = {"..table.concat(recentDamaged,",").."}");
+
+        if (isDuel) then
+            PvPLogDebugMsg("isDuel = TRUE");
+        else
+            PvPLogDebugMsg("isDuel = FALSE");
+        end
+
         return;
     elseif (command == RESET) then
         if (value == CONFIRM) then
