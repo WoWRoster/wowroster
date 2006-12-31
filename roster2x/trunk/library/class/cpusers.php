@@ -60,7 +60,6 @@ class cpusers
 	 * Array container for user private-+ public info
 	 *
 	 * @var array
-	 *
 	 * @access private
 	 */
 	public $data = Array();
@@ -70,7 +69,6 @@ class cpusers
 	 * and assigns our user to the proper level.
 	 *
 	 * @return void
-	 *
 	 * @access public
 	 */
 	public function __construct($user = NULL, $pass = NULL, $fetch = NULL, $cookie = NULL)
@@ -89,7 +87,6 @@ class cpusers
 	 * For inactive users
 	 *
 	 * @return void
-	 *
 	 * @access private
 	 */
 	private function _inactive()
@@ -101,7 +98,6 @@ class cpusers
 	 * Set our few neccassary values for the guests that visit.
 	 *
 	 * @return void
-	 *
 	 * @access private
 	 */
 	private function _guest()
@@ -117,7 +113,6 @@ class cpusers
 	 * Set our few neccassary values for invalid crudentials.
 	 *
 	 * @return void
-	 *
 	 * @access private
 	 */
 	private function _error()
@@ -134,7 +129,6 @@ class cpusers
 	 * this will allow easy scalability with ease in relational type setups.
 	 *
 	 * @return void
-	 *
 	 * @access private
 	 */
 	private function _member()
@@ -151,7 +145,6 @@ class cpusers
 	 * off of a cookie.
 	 *
 	 * @return string     result type
-	 *
 	 * @access public
 	 */
 	private function _checkLoginCookie()
@@ -204,7 +197,6 @@ class cpusers
 	 * function is available publicly.
 	 *
 	 * @return bool
-	 *
 	 * @access public
 	 */
 	public function checkLogin($username, $password, $fetch = false, $cookie = false)

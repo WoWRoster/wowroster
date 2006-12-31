@@ -213,7 +213,7 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 	/**
 	 * Configure smarty
 	 */
-	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP.'default/';
+	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP.'default'.DIR_SEP;
 	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
 	cpMain::$instance['smarty']->plugins_dir = array(SMARTY_DIR . 'plugins', 'resources'.DIR_SEP.'plugins');
 

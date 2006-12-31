@@ -23,11 +23,8 @@ interface cpsql
 	 * Manually configure a DB connection.
 	 *
      * @param string $host       Name of the mysql host
-     *
      * @param string $user       Database user
-     *
      * @param string $password   Database password
-     *
      * @param string $database   Name of the database
 	 */
 	public function configuration($host, $user, $pass, $db);
@@ -36,9 +33,7 @@ interface cpsql
 	 * Connect using the previously set DB info.
 	 *
 	 * @param string $link_name		The name this link is identified by
-	 *
 	 * @param bool $activate		True to activate the link, false or omit not to
-	 *
 	 * @return object				MySQLi object
 	 */
 	public function connect($link_name = '', $activate = FALSE);
@@ -52,7 +47,6 @@ interface cpsql
 	 * Set the active DB for a connection. If a link name is specified that link will be activated first
 	 *
 	 * @param string $db_name		The DB name to switch to
-	 *
 	 * @param string $link_name		The link to set the DB name for
 	 */
 	public function select_db($db_name, $link_name = '');
@@ -91,7 +85,6 @@ interface cpsql_stmt
 	 * Bind parameters to the query. See also php.net/bind_params
 	 *
 	 * @param string $types		Parameter types
-	 *
 	 * @param array &$params	Parameter values, these need to be passed as an array
 	 *							rather than seperately because of php restrictions
 	 */
@@ -179,4 +172,3 @@ interface cpsql_stmt
 	 */
 	public function num_rows();
 }
-?>
