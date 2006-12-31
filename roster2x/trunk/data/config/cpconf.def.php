@@ -46,7 +46,7 @@ $config['def_method'] = 'plugins';
 $config['def_module'] = '';
 #' def_mode type=text
 // What file in the module?
-$config['def_mode'] = '';
+$config['def_mode'] = 'index';
 #' def_plugin type=selectfile dir=library/plugins
 // If the default page is a plugin, what plugin?
 $config['def_plugin'] = 'index';

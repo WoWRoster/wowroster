@@ -159,7 +159,7 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 	 */
 	case 'module':
 		cpMain::$system['method_name'] = (isset($_GET['module'])) ? $_GET['module'] : NULL;
-		cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : $_GET['module'];
+		cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : ( !empty(cpMain::$instance['cpconfig']->cpconf['def_mode']) ? cpMain::$instance['cpconfig']->cpconf['def_mode'] : $_GET['module'] );
 		cpMain::$system['method_path'] = cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'];
 		cpMain::$system['method_type'] = "modules";
 		break;
@@ -176,12 +176,12 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 		break;
 
 	/**
-	 * The users request is invalid or perhaps simply undefined. Theirfore we
+	 * The users request is invalid or perhaps simply undefined. Therefore we
 	 * direct them to the default method. Setting variables accordingly.
 	 */
 	case 'undefined':
-		cpMain::$system['method_name'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpframework['def_module'] : cpMain::$instance['cpconfig']->cpframework['def_plugin'];
-		cpMain::$system['method_mode'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpframework['def_mode'] : cpMain::$instance['cpconfig']->cpframework['def_plugin'];
+		cpMain::$system['method_name'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpconf['def_module'] : cpMain::$instance['cpconfig']->cpconf['def_plugin'];
+		cpMain::$system['method_mode'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpconf['def_mode'] : cpMain::$instance['cpconfig']->cpconf['def_plugin'];
 		cpMain::$system['method_path'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'] : cpMain::$system['method_name'];
 		cpMain::$system['method_type'] = cpMain::$instance['cpconfig']->cpconf['def_method'];
 		break;
