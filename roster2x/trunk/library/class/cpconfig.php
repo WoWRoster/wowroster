@@ -232,7 +232,18 @@ ENDHEADER;
 			$file .= $metaline.$comments.$code;
 		}
 
-		$userdir = ((empty($user))?'':$user.DIRECTORY_SEPARATOR);
+		if( !empty($user) )
+		{
+			$userdir = $user.DIR_SEP;
+			if( !is_dir($this->cfgdir.$user) && !mkdir($this->cfgdir.$user) )
+			{
+				throw new cpException("Config directory for ".$user." does not exist and I could not create one");
+			}
+		}
+		else
+		{
+			$userdir = '';
+		}
 		$filedest = $this->cfgdir.$userdir.$name.'.php';
 		$filebak = $this->cfgdir.$userdir.$name.'.bak.php';
 
