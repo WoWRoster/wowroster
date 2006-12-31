@@ -40,21 +40,17 @@ class cpmysqli implements cpsql
 	private $config;
 
 	/**
-	 * Our construct allows the ability to auto config the
-	 * mysql connection to allow better module flow and
-	 * easier utilization of mysql.
+	 * The constructor optionally accepts 4 arguments that represent a DB
+	 * configuration
 	 *
-	 * @param $_auto_conf bool Configure mysql automaticaly?
-	 *   OR
 	 * @params string $host, $user, $pass, $db_name connect information
 	 * @return void
 	 * @access public
 	 */
-	public function __construct()
+	public function __construct($host = '', $user = '', $pass = '', $db = '')
 	{
-		if( func_num_args() == 4 )
+		if( $db != '' )
 		{
-			list($host, $user, $pass, $db) = func_get_args();
 			$this->configuration($host, $user, $pass, $db);
 			$this->connect('', TRUE);
 		}

@@ -20,6 +20,16 @@ if(!defined('SECURITY'))
 interface cpsql
 {
 	/**
+	 * The constructor optionally accepts 4 arguments that represent a DB
+	 * configuration
+	 *
+	 * @params string $host, $user, $pass, $db_name connect information
+	 * @return void
+	 * @access public
+	 */
+	public function __construct($host = '', $user = '', $pass = '', $db = '');
+
+	/**
 	 * Manually configure a DB connection.
 	 *
      * @param string $host       Name of the mysql host

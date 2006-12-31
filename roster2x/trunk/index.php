@@ -132,7 +132,7 @@ if(cpMain::$instance['cpconfig']->cpconf['hide_param'])
 	 *
 	 *
 	 */
-	preg_match_all("/([^\/\-\.]+)\-([^\/\-\.]+)/i", $_SERVER['REQUEST_URI'], $matches);
+	preg_match_all("/([^\/\-\.?]+)\-([^\/\-\.?]+)/i", $_SERVER['REQUEST_URI'], $matches);
 
 	/**
 	 * Inject our variables directly into the _GET super global, we do this to prevent bad practice

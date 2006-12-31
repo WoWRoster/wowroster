@@ -152,7 +152,7 @@ class cpconfig
 			// Get the name
 			$option = substr($setting, 0, strpos($setting,' '));
 			// Get the metadata
-			$config[$option]['metaraw'] = substr($setting, 0, ($em = strpos($setting,"\n")));
+			$config[$option]['metaraw'] = trim(substr($setting, 0, ($em = strpos($setting,"\n"))));
 			// Explode the metadata
 			$meta = explode(' ',$config[$option]['metaraw']);
 			array_shift($meta);
@@ -161,11 +161,11 @@ class cpconfig
 				list($prop, $var) = explode('=',$metavar);
 				if( substr($prop,-2,2) == '[]' )
 				{
-					$config[$option]['meta'][$prop][] = $var;
+					$config[$option]['meta'][$prop][] = trim($var);
 				}
 				else
 				{
-					$config[$option]['meta'][$prop] = $var;
+					$config[$option]['meta'][$prop] = trim($var);
 				}
 			}
 			// Get comment lines
@@ -174,9 +174,9 @@ class cpconfig
 			{
 				$config[$option]['comment'] .= substr($setting, $em+3, -($em+3) + ($em = strpos($setting,"\n",$em+3)))."\n";
 			}
-			$config[$option]['comment'] = substr($config[$option]['comment'],0,-1);
+			$config[$option]['comment'] = trim($config[$option]['comment']);
 			// Calculate the start position for the value
-			$vs = $em + strlen($name) + 15;
+			$vs = $em + strlen($option) + 15;
 			// Store the value
 			$valuestr = substr($setting, $vs, -1);
 			$config[$option]['default'] = eval('return '.$valuestr.';');
@@ -223,7 +223,7 @@ ENDHEADER;
 		{
 			if( !isset($config[$option] ) )
 			{
-				$config[$option] = $meta[$option]['value'];
+				$config[$option] = isset($info['value'])?$info['value']:$info['default'];
 			}
 			$metaline = "#' ".$info['metaraw']."\n";
 			$comments =	empty($meta[$option]['comment'])?'':'//'.str_replace("\n","\n//",$meta[$option]['comment'])."\n";
