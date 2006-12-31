@@ -34,7 +34,7 @@ class cpconfig
 	 */
 	public function __construct()
 	{
-		$this->cfgdir = PATH_LOCAL.DIRECTORY_SEPARATOR.'library'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
+		$this->cfgdir = PATH_LOCAL.DIR_SEP.'library'.DIR_SEP.'data'.DIR_SEP.'config'.DIR_SEP;
 	}
 
 	/**
@@ -152,7 +152,22 @@ class cpconfig
 			// Get the name
 			$option = substr($setting, 0, strpos($setting,' '));
 			// Get the metadata
-			$config[$option]['meta'] = substr($setting, 0, ($em = strpos($setting,"\n")));
+			$config[$option]['metaraw'] = substr($setting, 0, ($em = strpos($setting,"\n")));
+			// Explode the metadata
+			$meta = explode(' ',$config[$option]['metaraw']);
+			array_shift($meta);
+			foreach( $meta as $metavar )
+			{
+				list($prop, $var) = explode('=',$metavar);
+				if( substr($prop,-2,2) == '[]' )
+				{
+					$config[$option]['meta'][$prop][] = $var;
+				}
+				else
+				{
+					$config[$option]['meta'][$prop] = $var;
+				}
+			}
 			// Get comment lines
 			$config[$option]['comment'] = '';
 			while( substr($setting, $em+1, 2) == '//' )
@@ -210,7 +225,7 @@ ENDHEADER;
 			{
 				$config[$option] = $meta[$option]['value'];
 			}
-			$metaline = "#'".$info['meta']."\n";
+			$metaline = "#' ".$info['metaraw']."\n";
 			$comments =	empty($meta[$option]['comment'])?'':'//'.str_replace("\n","\n//",$meta[$option]['comment'])."\n";
 			$code = '$config[\''.$option.'\'] = '.var_export($config[$option],true).';'."\n";
 

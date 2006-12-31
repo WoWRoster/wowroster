@@ -24,8 +24,20 @@ class cpsqlfactory
 	/**
 	 * Factory function
 	 */
-	public static function factory($type = DB_TYPE, $host = DB_HOST, $user = DB_USER, $pass = DB_PASS, $name = DB_NAME)
+	public static function factory()
 	{
+		if( func_num_args() >= 5)
+		{
+			list($type, $host, $user, $pass, $name) = func_get_args();
+		}
+		else
+		{
+			$type =  cpMain::$instance['cpconfig']->cpconf['db_type'];
+			$host =  cpMain::$instance['cpconfig']->cpconf['db_host'];
+			$user =  cpMain::$instance['cpconfig']->cpconf['db_user'];
+			$pass =  cpMain::$instance['cpconfig']->cpconf['db_pass'];
+			$name =  cpMain::$instance['cpconfig']->cpconf['db_name'];
+		}
 		cpMain::loadFile('cpsqlinterface');
 		cpMain::loadFile('cpsql_'.$type);
 

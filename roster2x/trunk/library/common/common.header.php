@@ -51,9 +51,19 @@ if(!defined('SECURITY'))
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(PATH_LOCAL . "library/class/cpmain/cpexception.php");
+require(PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP."cpmain".DIR_SEP."cpexception.php");
 
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(PATH_LOCAL . "library/class/cpmain.php");
+require(PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP."cpmain.php");
+
+/**
+ * The config class
+ */
+cpMain::loadClass('cpconfig','cpconfig');
+
+/**
+ * Load default config
+ */
+cpMain::$instance['cpconfig']->loadConfig('cpconf');

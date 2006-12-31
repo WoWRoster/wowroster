@@ -96,7 +96,7 @@ class cplang
 			(
 				(
 					(is_file
-						($var = PATH_LOCAL . "library".DIRECTORY_SEPERATOR."language".DIRECTORY_SEPERATOR .
+						($var = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP .
 							(is_object
 								(
 									(isset(cpMain::$instance['cpusers'])
@@ -109,16 +109,16 @@ class cplang
 							) .
 							(
 								(cpMain::$system['method_type'] == "plugins")
-								? DIRECTORY_SEPERATOR."plugins" : DIRECTORY_SEPERATOR."modules".DIRECTORY_SEPERATOR . cpMain::$system['method_name']
-							) . DIRECTORY_SEPERATOR."lang_".cpMain::$system['method_mode'].".php"
+								? DIR_SEP."plugins" : DIR_SEP."modules".DIR_SEP . cpMain::$system['method_name']
+							) . DIR_SEP."lang_".cpMain::$system['method_mode'].".php"
 						)
 					)
 					? $var
 					:
 					(is_file
-						($var =  PATH_LOCAL . "library".DIRECTORY_SEPERATOR."language".DIRECTORY_SEPERATOR . SYSTEM_DEFAULT_LANG . ((cpMain::$system['method_type'] == "plugins")
-							? DIRECTORY_SEPERATOR."plugins"
-							: DIRECTORY_SEPERATOR."modules".DIRECTORY_SEPERATOR . cpMain::$system['method_name']) . DIRECTORY_SEPERATOR."lang_".cpMain::$system['method_mode'].".php"
+						($var =  PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_lang'] . ((cpMain::$system['method_type'] == "plugins")
+							? DIR_SEP."plugins"
+							: DIR_SEP."modules".DIR_SEP . cpMain::$system['method_name']) . DIR_SEP."lang_".cpMain::$system['method_mode'].".php"
 						)
 					)
 					? $var

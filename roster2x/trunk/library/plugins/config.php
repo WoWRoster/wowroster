@@ -16,8 +16,6 @@ if(!defined('SECURITY'))
     die("You may not access this file directly.");
 }
 
-cpMain::loadClass('cpconfig','cpconfig');
-
 cpMain::$instance['cpconfig']->loadConfig('test');
 echo "Config data: <br><pre>";
 print_r(cpMain::$instance['cpconfig']->test);

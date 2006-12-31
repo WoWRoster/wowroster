@@ -54,16 +54,7 @@ class cpmysqli implements cpsql
 	 */
 	public function __construct()
 	{
-		if( ( func_num_args() == 0 ) || ( func_get_arg(0) == TRUE ) )
-		{
-			$this->configuration(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-			$this->connect('', TRUE);
-		}
-		elseif( func_get_arg(0) == FALSE )
-		{
-			// do nothing
-		}
-		else
+		if( func_num_args() == 4 )
 		{
 			list($host, $user, $pass, $db) = func_get_args();
 			$this->configuration($host, $user, $pass, $db);
