@@ -46,7 +46,7 @@
  */
 if(!defined('SECURITY'))
 {
-   die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 /**
@@ -56,30 +56,27 @@ if(!defined('SECURITY'))
  */
 class cpException extends Exception
 {
+	/**
+	 * Our construct wraps the main exception construct
+	 *
+	 * @param string $message message to parent
+	 * @param string $code exception code
+	 *
+	 * @return void
+	 */
+	public function __construct($message, $code = 0)
+	{
+		parent::__construct($message, $code);
+	}
 
-    /**
-     * Our construct wraps the main exception construct
-     *
-     * @param string $message message to parent
-     * @param string $code exception code
-     *
-     * @return void
-     */
-    public function __construct($message, $code = 0)
-    {
-        parent::__construct($message, $code);
-    }
-
-    /**
-     * Basic exception handling, toString is called by our parent on
+	/**
+	 * Basic exception handling, toString is called by our parent on
 	 * Exception instantiation.
-     *
-     * @return string Exception string for php to display
-     */
-    public function __toString()
-    {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
-    }
+	 *
+	 * @return string Exception string for php to display
+	 */
+	public function __toString()
+	{
+		return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+	}
 }
-
-?>

@@ -11,7 +11,7 @@
  */
 if(!defined('SECURITY'))
 {
-    die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 /*****************************************************************************
@@ -521,5 +521,3 @@ class cpmysqli_stmt implements cpsql_stmt
 		return $this->qry->num_rows;
 	}
 }
-
-?>

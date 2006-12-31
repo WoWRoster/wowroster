@@ -10,7 +10,7 @@
  */
 if(!defined('SECURITY'))
 {
-    die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 #' test text 30 30

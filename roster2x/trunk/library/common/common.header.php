@@ -45,7 +45,7 @@
  */
 if(!defined('SECURITY'))
 {
-   die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 /**
@@ -57,5 +57,3 @@ require(PATH_LOCAL . "library/class/cpmain/cpexception.php");
  * Our main class, cpEngine, our instance handler
  */
 require(PATH_LOCAL . "library/class/cpmain.php");
-
-?>

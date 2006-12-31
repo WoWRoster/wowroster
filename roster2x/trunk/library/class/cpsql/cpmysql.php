@@ -24,7 +24,7 @@
  */
 if(!defined('SECURITY'))
 {
-   die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 /**
@@ -35,17 +35,13 @@ if(!defined('SECURITY'))
  */
 abstract class cpmysql extends cpsql
 {
-
-    /**
+	/**
 	 * Private construct disables instantiation
 	 */
-    private __construct()
+	private __construct()
 	{
-	    /**
+		/**
 		 * NO WAY JOSE. IM PRIVATE.
 		 */
 	}
-
 }
-
-?>

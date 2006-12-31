@@ -32,5 +32,3 @@ $config = array('test'=>'hi','fred'=>'hello');
 cpMain::$instance['cpconfig']->writeConfig('test',$config);
 
 
-
-?>

@@ -43,14 +43,7 @@
  */
 define("SECURITY", true);
 
-/**
- * Site pathing and settings with trailing slash
- */
 /* Moved to conf.php so this can go in SVN properly
-define("PATH_LOCAL", "C:/Program Files/xampp/htdocs/RosterSVN/roster2x/trunk/");
-define("PATH_REMOTE", "http://leegwater-68.demon.nl/RosterSVN/roster2x/trunk/");
-define("PATH_REMOTE_S", "http://leegwater-68.demon.nl/RosterSVN/roster2x/trunk/");
-
 define("DB_TYPE", "MySQLi");
 define("DB_HOST", "localhost");
 define("DB_USER", "db_user");
@@ -95,10 +88,25 @@ define("SYSTEM_REDIRECT_REQUEST", "off");
 define("DIRECTORY_SEPERATOR", "/");
 
 /**
+ * Site pathing and settings with trailing slash
+ */
+define("PATH_LOCAL", dirname(__FILE__).DIRECTORY_SEPARATOR );
+
+if (!empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']))
+{
+	define("PATH_REMOTE", "http://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
+	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
+}
+else if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
+{
+	define("PATH_REMOTE", "http://".((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']) );
+	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
+}
+
+
+/**
  * Turn on ALL errors during development, we keep our code crisp.. and clean
  * however turn them off after development for security reasons. Make sure to
  * actively controll this configuration setting.
  */
 error_reporting(E_ALL);
-
-?>

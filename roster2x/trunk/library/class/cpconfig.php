@@ -11,7 +11,7 @@
  */
 if(!defined('SECURITY'))
 {
-    die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 /**
@@ -199,7 +199,7 @@ class cpconfig
  */
 if(!defined('SECURITY'))
 {
-    die("You may not access this file directly.");
+	die("You may not access this file directly.");
 }
 
 ENDHEADER;
@@ -231,5 +231,3 @@ ENDHEADER;
 		fclose($fp);
 	}
 }
-
-?>

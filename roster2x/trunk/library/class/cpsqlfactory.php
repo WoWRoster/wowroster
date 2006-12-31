@@ -37,7 +37,8 @@ class cpsqlfactory
 		}
 		else
 		{
-			cpMain::cpErrorFatal(
+			cpMain::cpErrorFatal
+			(
 				'cpSQLfactory: Tried to create a DB object of type "'.$type.'" but that class does not implement cpsqlinterface',
 				__FILE__,
 				__LINE__
@@ -45,5 +46,3 @@ class cpsqlfactory
 		}
 	}
 }
-
-?>
