@@ -2,8 +2,8 @@
     PvPLogUI
     Author:           Atolicus
     Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.1.0
-    Last Modified:    2006-12-23
+    Version:          2.2.0
+    Last Modified:    2007-01-01
 ]]
 
 local realm = "";
@@ -50,12 +50,13 @@ function PvPLogConfig_SetValues()
     cbxPvPLogConfig_MiniMapButtonToggle:SetChecked(PvPLogData[realm][player].MiniMap.enabled);
     
     cbxPvPLogConfig_EnableToggle:SetChecked(PvPLogData[realm][player].enabled);
-    
     cbxPvPLogConfig_MouseoverToggle:SetChecked(PvPLogData[realm][player].mouseover);
-        
     cbxPvPLogConfig_DingToggle:SetChecked(PvPLogData[realm][player].ding);
-        
     cbxPvPLogConfig_DispToggle:SetChecked(PvPLogData[realm][player].display);
+    cbxPvPLogConfig_RecordBGToggle:SetChecked(PvPLogData[realm][player].recordBG);
+    cbxPvPLogConfig_RecordDuelToggle:SetChecked(PvPLogData[realm][player].recordDuel);
+    cbxPvPLogConfig_NotifyBGToggle:SetChecked(PvPLogData[realm][player].notifyBG);
+    cbxPvPLogConfig_NotifyDuelToggle:SetChecked(PvPLogData[realm][player].notifyDuel);
         
     if (PvPLogData[realm][player].notifyKill == NIL) then
         PvPLogData[realm][player].notifyKill = NONE;
@@ -205,8 +206,44 @@ function PvPLogDisp_Toggle_OnClick()
     PvPLogConfig_SetValues();
 end
 
+function PvPLogRecordBG_Toggle_OnClick()
+    if (PvPLogData[realm][player].recordBG) then
+        PvPLogSetRecordBG("off");
+    else
+        PvPLogSetRecordBG("on");
+    end
+    PvPLogConfig_SetValues();
+end
+
+function PvPLogRecordDuel_Toggle_OnClick()
+    if (PvPLogData[realm][player].recordDuel) then
+        PvPLogSetRecordDuel("off");
+    else
+        PvPLogSetRecordDuel("on");
+    end
+    PvPLogConfig_SetValues();
+end
+
+function PvPLogNotifyBG_Toggle_OnClick()
+    if (PvPLogData[realm][player].notifyBG) then
+        PvPLogSetNotifyBG("off");
+    else
+        PvPLogSetNotifyBG("on");
+    end
+    PvPLogConfig_SetValues();
+end
+
+function PvPLogNotifyDuel_Toggle_OnClick()
+    if (PvPLogData[realm][player].notifyDuel) then
+        PvPLogSetNotifyDuel("off");
+    else
+        PvPLogSetNotifyDuel("on");
+    end
+    PvPLogConfig_SetValues();
+end
+
 function PvPLogNotifyKills_Toggle_OnClick(value)
-    PvPLogSlashHandler(NOTIFYKILLS.." "..value);
+    PvPLogSlashHandler(NOTIFYKILL.." "..value);
     PvPLogConfig_SetValues();
 end
 
@@ -243,7 +280,7 @@ end
 
 function PvPLogConfig_NotifyKillsCustomChannel_Message()
     local value = ebxPvPLogConfig_NotifyKillsChannel:GetText();
-    PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYKILLS .. CYAN .. TO .. FIRE .. value);  
+    PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYKILL .. CYAN .. TO .. FIRE .. value);  
 end
 
 function PvPLogConfig_NotifyDeathsCustomChannel_UpdateString()
@@ -373,6 +410,18 @@ function MiniMapButton_Toggle_OnClick()
         PvPLogData[realm][player].MiniMap = PvPLogMinimapButtonInit();
         PvPLogCreateMinimapButton();
         MyMinimapButton:SetEnable("PvPLog", 1)
+    end
+end
+
+function PvPLog_OnMouseDown(arg1)
+    if (arg1 == "LeftButton") then
+        PvPLogTargetFrame:StartMoving();
+    end
+end
+
+function PvPLog_OnMouseUp(arg1)
+    if (arg1 == "LeftButton") then
+        PvPLogTargetFrame:StopMovingOrSizing();
     end
 end
 

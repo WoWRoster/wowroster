@@ -2,10 +2,21 @@ PvPLog
 Author:           Andrzej Gorski
 Maintainer:       Matthew Musgrove, Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          2.1.1
-Last Modified:    2006-12-30
+Version:          2.2.0
+Last Modified:    2006-12-31
 
 CHANGES
+
+2007-01-01  * 2.2.1
+    * Added more debug.
+
+2006-12-31  * 2.2.0
+    * Added Record and Notify options.
+    * Allow notifyKillText and notifyDeathText to be modified.
+    * Rearranged localization.lua to group commands together (and fixed more errors).
+    * Removed unused fields from PurgeLogData (new players only).
+    * Removed slash commands for items set via the config frame.
+    * Moved some functions from PvPLog.lua to PvPLogUI.lua
 
 2006-12-30  * 2.1.1
     * Fixed dueling.

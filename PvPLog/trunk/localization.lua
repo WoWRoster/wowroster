@@ -3,13 +3,13 @@
   Author:           Andrzej Gorski 
   Maintainer:       Matthew Musgrove, Brad Morgan
   Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          2.1.1
-  Last Modified:    2006-12-30
+  Version:          2.2.0
+  Last Modified:    2007-01-01
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "2.1.1";
+VER_NUM = "2.2.0";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
@@ -18,31 +18,37 @@ VER_NUM = "2.1.1";
 --ENGLISH (DEFAULT)
 --***********
 
-    --startup messages
+    -- Startup messages
     PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." by "..VER_VENDOR.." AddOn loaded. Type /pl for options.";
 
     DESCRIPTION = "Keeps track of your PvP kills and the people who kill you.";
     
-    --needed phrases
-    TO = " to ";
-    ON = "on";
-    OFF = "off";
-    NONE = "none";
+    -- Commands (must be one word and string.lower)
     RESET = "reset";
-    CONFIRM = "confirm";
     ENABLE = "enable";
     DISABLE = "disable";
-    UNKNOWN = "Unknown";
     VER = "version";
     VEN = "vendor";
-    USAGE = "Usage";
     DISPLAY = "display";
     DING = "ding";
     MOUSEOVER = "mouseover";
     NOSPAM = "nospam";
-    
     DMG = "damage";
     ST = "stats";
+    NOTIFYKILL = "notifykill";
+    NOTIFYKILLTEXT = "killtext";
+    NOTIFYDEATH = "notifydeath";
+    NOTIFYDEATHTEXT = "deathtext";
+    UI_CONFIG = "config";
+        
+    -- Other needed phrases
+    TO = " to ";
+    ON = "on";
+    OFF = "off";
+    NONE = "none";
+    CONFIRM = "confirm";
+    USAGE = "Usage";
+    
     STATS = "Statistics";
     COMP = "completely";
     
@@ -71,15 +77,12 @@ VER_NUM = "2.1.1";
     STATS = "Statistics";
     ALD = "Avg Level Diff";
     
-    NOTIFYKILLS = "notifykills";
-    NOTIFYDEATH = "notifydeath";
-    
     DLKB = "Death logged, killed by: ";
     KL = "Kill logged: ";
     DWLA = "Duel win logged against: ";
     DLLA = "Duel loss logged against: ";
     
-    --gank levels
+    -- Gank levels
     GL0 = "Fair Fighter";
     GL_25 = "I Have No Mercy";
     GL_20 = "Newb Masher";
@@ -95,13 +98,12 @@ VER_NUM = "2.1.1";
     GL2 = "Just try to gank me";
     GL1 = "Difficult to Gank";
     
-    --default display text for notify
+    -- Default display text for notify
     DEFAULT_KILL_TEXT = "I killed %n (Level %l %r %c) at [%x,%y] in %z (%w).";
     DEFAULT_DEATH_TEXT = "%n (Level %l %r %c) killed me at [%x,%y] in %z (%w).";
     
     UI_OPEN = "Open";
     UI_CLOSE = "Close";
-    UI_CONFIG = "config";
     UI_NOTIFY_KILLS = "Notify kills to:";
     UI_NOTIFY_DEATHS = "Notify deaths to:";
     UI_CUSTOM = "Custom";
@@ -119,41 +121,48 @@ VER_NUM = "2.1.1";
     UI_RIGHT_CLICK = "Right click: ";
     UI_LEFT_CLICK = "Left click: ";
     UI_MINIMAP_BUTTON = "Minimap Button";
+    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_DUEL = "Record Duels";
+    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_DUEL = "Notify Duels";
 
 --***********
 -- GERMAN
 --***********
 if (GetLocale() == "deDE") then
-    -- translated by yamyam
+    -- Translated by (): yamyam
 
-    --startup messages
-    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." by "..VER_VENDOR.." AddOn loaded. Type /pl for options.";
+    -- Startup messages
+    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." von "..VER_VENDOR.." AddOn geladen. Tippe /pl für Optionen.";
     
     DESCRIPTION = "Zeichnet PvP Siege und Verluste auf, sowie Duelle.";
 
-    --startup messages
-    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." von "..VER_VENDOR.." AddOn geladen. Tippe /pl für Optionen.";
-    
-    --needed phrases
-    TO = " to ";
-    ON = "an";
-    OFF = "aus";
-    NONE = "keine";        
+    -- Commands (must be one word and string.lower)
     RESET = "zurücksetzen";
-    CONFIRM = "bestätigen";  
     ENABLE = "einschalten";    
     DISABLE = "ausschalten";  
-    UNKNOWN = "unbekannt";  
     VER = "version";      -- version? versionsnummer?
     VEN = "vendor";       -- verkufer?
-    USAGE = "Usage";      -- verwenden?
     DISPLAY = "anzeige";  
     DING = "ding";
     MOUSEOVER = "mouseover";
     NOSPAM = "nospam";
-    
-    DMG = "Schaden";
+    DMG = "schaden";
     ST = "stats";
+    NOTIFYKILL = "killanzeige";
+    NOTIFYKILLTEXT = "killtext";
+    NOTIFYDEATH = "todesanzeige";
+    NOTIFYDEATHTEXT = "deathtext";
+    UI_CONFIG = "konfiguration";
+    
+    -- Other needed phrases
+    TO = " to ";
+    ON = "an";
+    OFF = "aus";
+    NONE = "keine";        
+    CONFIRM = "bestätigen";  
+    USAGE = "Usage";      -- verwenden?
+    
     STATS = "Statistik";
     COMP = "komplett";
     
@@ -180,16 +189,13 @@ if (GetLocale() == "deDE") then
     TOTAL = "Summe";
     STATS = "Statistik";
     ALD = "Durchschnittlicher Levelunterschied";
-    
-    NOTIFYKILLS = "Killanzeige";
-    NOTIFYDEATH = "Todesanzeige";
-    
+        
     DLKB = "Tod geloggt, getötet von: ";
     KL = "Tod geloggt: ";
     DWLA = "Duell gewonnen gegen: ";
     DLLA = "Duell verloren gegen: ";
 
-    --gank levels
+    -- Gank levels
     GL0 = "Fair Fighter";
     GL_25 = "I Have No Mercy";
     GL_20 = "Newb Masher";
@@ -205,13 +211,12 @@ if (GetLocale() == "deDE") then
     GL2 = "Just try to gank me";
     GL1 = "Difficult to Gank";
 
-    --default display text for notify
+    -- Default display text for notify
     DEFAULT_KILL_TEXT = "Ich habe %n (Level %l %r %c) bei [%x,%y] in %z (%w) getötet.";
     DEFAULT_DEATH_TEXT = "%n (Level %l %r %c) hat mich bei [%x,%y] in %z (%w) getötet.";
     
     UI_OPEN = "Öffnen";
     UI_CLOSE = "Schließen";
-    UI_CONFIG = "konfiguration";
     UI_NOTIFY_KILLS = "Kills anzeigen in:";
     UI_NOTIFY_DEATHS = "Tode anzeigen in:";
     UI_CUSTOM = "Custom";
@@ -229,33 +234,45 @@ if (GetLocale() == "deDE") then
     UI_RIGHT_CLICK = "Rechtsklick: ";
     UI_LEFT_CLICK = "Linksklick: ";
     UI_MINIMAP_BUTTON = "Minimap Button";
+    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_DUEL = "Record Duels";
+    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_DUEL = "Notify Duels";
 
 elseif (GetLocale() == "frFR") then
-    --startup messages
+    -- Translated by (): ?
+
+    -- Startup messages
     PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." by "..VER_VENDOR.." AddOn loaded. Type /pl for options.";
     
     DESCRIPTION = "Keeps track of your PvP kills and the people who kill you.";
 
-    --needed phrases
-    TO = " to ";          -- ?
-    ON = "on";            -- sur?
-    OFF = "off";          -- 
-    NONE = "none";        -- aucun?
+    -- Commands (must be one word and string.lower)
     RESET = "reset";      -- 
-    CONFIRM = "confirm";  -- confirmer?
     ENABLE = "enable";    -- permettre?
     DISABLE = "disable";  -- 
-    UNKNOWN = "Unknown";  -- inconnu?
     VER = "version";      -- version?
     VEN = "vendor";       -- fournisseur?
-    USAGE = "Usage";      -- utilisation?
     DISPLAY = "display";  -- montrer?
     DING = "ding";
     MOUSEOVER = "mouseover";
     NOSPAM = "nospam";
-    
     DMG = "damage";
     ST = "stats";
+    NOTIFYKILL = "notifykill";
+    NOTIFYKILLTEXT = "killtext";
+    NOTIFYDEATH = "notifydeath";
+    NOTIFYDEATHTEXT = "deathtext";
+    UI_CONFIG = "config";
+
+    -- Other needed phrases
+    TO = " to ";          -- ?
+    ON = "on";            -- sur?
+    OFF = "off";          -- 
+    NONE = "none";        -- aucun?
+    CONFIRM = "confirm";  -- confirmer?
+    USAGE = "Usage";      -- utilisation?
+    
     STATS = "Statistics";
     COMP = "completely";
     
@@ -282,15 +299,12 @@ elseif (GetLocale() == "frFR") then
     STATS = "Statistics";
     ALD = "avg.level.diff";
     
-    NOTIFYKILLS = "notifykills";
-    NOTIFYDEATH = "notifydeath";
-    
     DLKB = "Death logged, killed by: ";
     KL = "Kill logged: ";
     DWLA = "Duel win logged against: ";
     DLLA = "Duel loss logged against: ";
     
-    --gank levels
+    -- Gank levels
     GL0 = "Fair Fighter";
     GL_25 = "I Have No Mercy";
     GL_20 = "Newb Masher";
@@ -306,13 +320,12 @@ elseif (GetLocale() == "frFR") then
     GL2 = "Just try to gank me";
     GL1 = "Difficult to Gank";
     
-    --default display text for notify
+    -- Default display text for notify
     DEFAULT_KILL_TEXT = "I killed %n (Level %l %r %c) at [%x,%y] in %z (%w).";
     DEFAULT_DEATH_TEXT = "%n (Level %l %r %c) killed me at [%x,%y] in %z (%w).";
 
     UI_OPEN = "Ouvrir";
     UI_CLOSE = "Fermer";
-    UI_CONFIG = "config";
     UI_NOTIFY_KILLS = "Notify kills to:";
     UI_NOTIFY_DEATHS = "Notify deaths to:";
     UI_CUSTOM = "Custom";
@@ -330,36 +343,45 @@ elseif (GetLocale() == "frFR") then
     UI_RIGHT_CLICK = "Right click: ";
     UI_LEFT_CLICK = "Left click: ";
     UI_MINIMAP_BUTTON = "Minimap Button";
+    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_DUEL = "Record Duels";
+    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_DUEL = "Notify Duels";
     
 elseif (GetLocale() == "esES") then
--- translated by NeKRoMaNT
--- traducido por NeKRoMaNT
+-- Translated by (traducido por): NeKRoMaNT
 
-    -- startup messages
+    -- Startup messages
     PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." por "..VER_VENDOR.." AddOn cargado. Mecanografiar /pl para las opciones.";
     
     DESCRIPTION = "Hace un seguimiento de tus asesinatos JcJ y de la gente que te ha asesinado.";
 
-    -- needed phrases
-    TO = " a ";
-    ON = "Encendido";
-    OFF = "Apagado";
-    NONE = "Ninguno";
-    RESET = "Resetear";
-    CONFIRM = "Confirmar";
-    ENABLE = "Activar";
-    DISABLE = "Desactivar";
-    UNKNOWN = "Desconocido";
-    VER = "Versión";
-    VEN = "Vendedor";
-    USAGE = "Uso";
+    -- Commands (must be one word and string.lower)
+    RESET = "resetear";
+    ENABLE = "activar";
+    DISABLE = "desactivar";
     DISPLAY = "mostrar";
     DING = "ding";
     MOUSEOVER = "mouseover";
     NOSPAM = "sinspam";
-    
     DMG = "daño";
     ST = "estadísticas";
+    NOTIFYKILL = "notifykill"; -- "Aviso de Asesinatos"
+    NOTIFYKILLTEXT = "killtext";
+    NOTIFYDEATH = "notifydeath"; -- "Aviso de Muertes"
+    NOTIFYDEATHTEXT = "deathtext";
+    UI_CONFIG = "configuración";
+
+    -- Other needed phrases
+    TO = " a ";
+    ON = "Encendido";
+    OFF = "Apagado";
+    NONE = "Ninguno";
+    CONFIRM = "Confirmar";
+    VER = "Versión";
+    VEN = "Vendedor";
+    USAGE = "Uso";
+    
     STATS = "Estadísticas";
     COMP = "Completamente";
     
@@ -386,15 +408,12 @@ elseif (GetLocale() == "esES") then
     STATS = "Estadísticas";
     ALD = "Diferencia de Nivel";
     
-    NOTIFYKILLS = "Aviso de Asesinatos";
-    NOTIFYDEATH = "Aviso de Muertes";
-    
     DLKB = "Muerte grabada, asesinado por: ";
     KL = "Asesinato grabado: ";
     DWLA = "Victoria en duelo grabada contra: ";
     DLLA = "Derrota en duelo grabada contra: ";
     
-    -- gank levels
+    -- Gank levels
     GL0 = "Fair Fighter";
     GL_25 = "I Have No Mercy";
     GL_20 = "Newb Masher";
@@ -410,13 +429,12 @@ elseif (GetLocale() == "esES") then
     GL2 = "Just try to gank me";
     GL1 = "Difficult to Gank";
     
-    -- default display text for notify
+    -- Default display text for notify
     DEFAULT_KILL_TEXT = "He asesinado a %n (Nivel %l %r %c) en [%x,%y] en %z (%w).";
     DEFAULT_DEATH_TEXT = "%n (Nivel %l %r %c) me ha asesinado en [%x,%y] en %z (%w).";
        
     UI_OPEN = "Abrir";
     UI_CLOSE = "Cerrar";
-    UI_CONFIG = "configuración";
     UI_NOTIFY_KILLS = "Notificar asesinatos a:";
     UI_NOTIFY_DEATHS = "Notificar muertes a:";
     UI_CUSTOM = "Personalizar";
@@ -434,5 +452,9 @@ elseif (GetLocale() == "esES") then
     UI_LEFT_CLICK = "Clic izquierdo: ";
     UI_TOGGLE = "Muestra/oculta " .. UI_CONFIG;
     UI_MINIMAP_BUTTON = "Botón De Minimap";
+    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_DUEL = "Record Duels";
+    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_DUEL = "Notify Duels";
 
 end

@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.2.0
-    Last Modified:    2006-12-31
+    Version:          2.2.1
+    Last Modified:    2007-01-01
 ]]
 
 -- Local variables
@@ -868,6 +868,8 @@ end
 function PvPLogGetRank(parseRank, parseName)
     if (parseRank) then
         fullrank = parseRank;
+    else
+        fullrank = "";
     end
 end
 
@@ -1424,8 +1426,10 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     PvPLogInBG();
 
     -- Check for conditions under which we do not record data
+--    PvPLogDebugMsg('bg_found = '..tostring(bg_found)..', recordBG = '..tostring(PvPLogData[realm][player].recordBG));
+--    PvPLogDebugMsg('venemy = '..tostring(venemy)..', recordDuel = '..tostring(PvPLogData[realm][player].recordDuel));
     if ((bg_found and not PvPLogData[realm][player].recordBG) or
-      (not venemy and not PvPLogData[realm][player].recordDuel)) then
+      (venemy == 0 and not PvPLogData[realm][player].recordDuel)) then
         PvPLogDebugMsg('Do not record conditions met');
         return;
     end
@@ -1543,8 +1547,10 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     end
 
     -- Check for conditions under which we do not notify
+--    PvPLogDebugMsg('bg_found = '..tostring(bg_found)..', notifyBG = '..tostring(PvPLogData[realm][player].notifyBG));
+--    PvPLogDebugMsg('venemy = '..tostring(venemy)..', notifyDuel = '..tostring(PvPLogData[realm][player].notifyDuel));
     if ((bg_found and not PvPLogData[realm][player].notifyBG) or
-      (not venemy and not PvPLogData[realm][player].notifyDuel)) then
+      (venemy == 0 and not PvPLogData[realm][player].notifyDuel)) then
         PvPLogDebugMsg('Do not notify conditions met');
         return;
     end
@@ -1614,10 +1620,11 @@ function PvPLogUpdateTarget(dueling)
                 targetRecords[targetName].race = UnitRace("target");
                 targetRecords[targetName].class = UnitClass("target");
                 targetRecords[targetName].guild = GetGuildInfo("target");
-                targetRecords[targetName].rank = UNKNOWN;
+                targetRecords[targetName].rank = "";
                 MarsMessageParser_ParseMessage("PvPLog_GetRank", 
                     UnitPVPName("target"));
                 targetRecords[targetName].rank = fullrank;
+                fullrank = "";
             end
         else
             -- Its not a player or its not an enemy
@@ -1633,16 +1640,22 @@ function PvPLogUpdateTarget(dueling)
             end
             if (targetRecords[targetName]) then
                 -- It got into targetRecords, remove it.
-                index = table.foreach(targetList,
+                index = -1;
+                table.foreach(targetList,
                     function(i,t)
                         if(t == targetName) then
-                            return i;
+                            index = i;
+                            return;
                         end
                     end
                 );
-                PvPLogDebugMsg('Target removed: "' .. targetList[index] .. '"');
-                targetRecords[targetName] = nil;
-                table.remove(targetList,index);
+                if (index ~= -1) then
+                    PvPLogDebugMsg('Target removed: "' .. targetList[index] .. '"');
+                    targetRecords[targetName] = nil;
+                    table.remove(targetList,index);
+                else
+                    PvPLogDebugMsg('TargetRecord not found in TargetList for: '..targetName);
+                end
             end
         end
 
@@ -1792,9 +1805,9 @@ function PvPLogSlashHandler(msg)
         return;
     elseif (command == "vars") then
         if (softPL) then
-            PvPLogDebugMsg(RED.."softPL: _"..PEACH.."TRUE"..RED.."_");
+            PvPLogDebugMsg("softPL = TRUE");
         else
-            PvPLogDebugMsg(RED.."softPL: _"..PEACH.."FALSE"..RED.."_");
+            PvPLogDebugMsg("softPL = FALSE");
         end
 
         PvPLogDebugMsg("targetList = {"..table.concat(targetList,",").."}");
@@ -1821,7 +1834,6 @@ function PvPLogSlashHandler(msg)
         else
             PvPLogDebugMsg("isDuel = FALSE");
         end
-
         return;
     elseif (command == RESET) then
         if (value == CONFIRM) then
@@ -1873,38 +1885,6 @@ function PvPLogSlashHandler(msg)
         PvPLogPrintDamage();
     elseif (command == ST) then
         PvPLogPrintStats();
---[[
-    elseif (command == DISPLAY) then
-        if (value == nil) then
-            PvPLogShowDisplayStatus();
-        elseif (string.lower(value) == ENABLE) then
-            PvPLogSetDisplay("on");
-        elseif (string.lower(value) == DISABLE) then
-            PvPLogSetDisplay("off");
-        else
-            PvPLogDisplayUsage();
-        end
-    elseif (command == DING) then
-        if (value == nil) then
-            PvPLogShowDingStatus();
-        elseif (string.lower(value) == ENABLE) then
-            PvPLogSetDing("on");
-        elseif (string.lower(value) == DISABLE) then
-            PvPLogSetDing("off");
-        else
-            PvPLogDisplayUsage();
-        end
-    elseif (command == MOUSEOVER) then
-        if (value == nil) then
-            PvPLogShowMouseoverStatus();
-        elseif (string.lower(value) == ENABLE) then
-            PvPLogSetMouseover("on");
-         elseif (string.lower(value) == DISABLE) then
-            PvPLogSetMouseover("off");
-        else
-            PvPLogDisplayUsage();
-        end
-]]--
     elseif (command == NOSPAM) then
         PvPLogSetDisplay("off");
         PvPLogSetDing("off");
@@ -1923,86 +1903,6 @@ function PvPLogSlashHandler(msg)
         PvPLogDisplayUsage();
     end
 end
-
---[[
-function PvPLogShowDisplayStatus()
-    local text;
-
-    text = DISPLAY.." <";
-    if (PvPLogData[realm][player].display) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-
-function PvPLogShowDingStatus()
-    local text;
-    text = DING.." <";
-    if (PvPLogData[realm][player].ding) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-       text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-
-function PvPLogShowMouseoverStatus()
-    local text;
-    text = MOUSEOVER.." <";
-    if (PvPLogData[realm][player].mouseover) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-
-function PvPLogShowRecordBGStatus()
-    local text;
-    text = RECORDBG.." <";
-    if (PvPLogData[realm][player].recordBG) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-
-function PvPLogShowRecordDuelStatus()
-    local text;
-    text = RECORDDUEL.." <";
-    if (PvPLogData[realm][player].recordDuel) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-
-function PvPLogShowNotifyBGStatus()
-    local text;
-    text = NOTIFYBG.." <";
-    if (PvPLogData[realm][player].NotifyBG) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-
-function PvPLogShowNotifyDuelStatus()
-    local text;
-    text = NOTIFYDUEL.." <";
-    if (PvPLogData[realm][player].NotifyDuel) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
-    else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
-    end
-    PvPLogChatMsgPl(text);
-end
-]]--
 
 function PvPLogDisplayUsage()
     local text;
@@ -2061,7 +1961,7 @@ function PvPLogDisplayUsage()
     PvPLogChatMsgPl(text);
 
     text = NOTIFYKILLTEXT.." <";
-    text = text .." | " .. WHITE .. PvPLogData[realm][player].notifyKillText .. CYAN .. ">\n";
+    text = text .. WHITE .. PvPLogData[realm][player].notifyKillText .. CYAN .. ">\n";
     PvPLogChatMsgPl(text);
 
     text = NOTIFYDEATH.." <";
@@ -2106,18 +2006,9 @@ function PvPLogDisplayUsage()
     PvPLogChatMsgPl(text);
 
     text = NOTIFYDEATHTEXT.." <";
-    text = text .." | " .. WHITE .. PvPLogData[realm][player].notifyDeathText .. CYAN .. ">\n";
+    text = text .. WHITE .. PvPLogData[realm][player].notifyDeathText .. CYAN .. ">\n";
     PvPLogChatMsgPl(text);
 
---[[
-    PvPLogShowDisplayStatus();
-    PvPLogShowDingStatus();
-    PvPLogShowMouseoverStatus();
-    PvPLogShowRecordBGStatus();
-    PvPLogShowRecordDuelStatus();
-    PvPLogShowNotifyBGStatus();
-    PvPLogShowNotifyDuelStatus();
-]]--
     PvPLogChatMsgPl(NOSPAM.."\n");
     PvPLogChatMsgPl(VER.."\n");
     PvPLogChatMsgPl(VEN.."\n");

@@ -2,15 +2,15 @@
     PvPLogUI
     Author:           Atolicus
     Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.1.0
-    Last Modified:    2006-12-23
+    Version:          2.2.0
+    Last Modified:    2006-12-31
 -->
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
     <Script file="PvPLogUI.lua"/>
     <Frame name="PvPLogConfigFrame" parent="UIParent" enableMouse="true" movable="true" frameStrata="DIALOG" hidden="true" toplevel="true">
         <Size>
-            <AbsDimension x="320" y="340"/>
+            <AbsDimension x="320" y="388"/>
         </Size>
         <Anchors>
             <Anchor point="CENTER"/>
@@ -55,7 +55,7 @@
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>
-                                <AbsDimension x="10" y="-130"/>
+                                <AbsDimension x="10" y="-178"/>
                             </Offset>
                         </Anchor>
                     </Anchors>
@@ -196,6 +196,87 @@
                     </OnClick>
                 </Scripts>
             </CheckButton>
+            <CheckButton name="cbxPvPLogConfig_RecordBGToggle" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="cbxPvPLogConfig_MiniMapButtonToggle">
+                        <Offset>
+                            <AbsDimension x="0" y="-30"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(this:GetName().."Text"):SetText(UI_RECORD_BG);
+                    </OnLoad>
+                    <OnClick>
+                        PvPLogRecordBG_Toggle_OnClick();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+            <CheckButton name="cbxPvPLogConfig_RecordDuelToggle" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="cbxPvPLogConfig_RecordBGToggle">
+                        <Offset>
+                            <AbsDimension x="140" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(this:GetName().."Text"):SetText(UI_RECORD_DUEL);
+                    </OnLoad>
+                    <OnClick>
+                        PvPLogRecordDuel_Toggle_OnClick();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+            <CheckButton name="cbxPvPLogConfig_NotifyBGToggle" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="cbxPvPLogConfig_RecordBGToggle">
+                        <Offset>
+                            <AbsDimension x="0" y="-30"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(this:GetName().."Text"):SetText(UI_NOTIFY_BG);
+                    </OnLoad>
+                    <OnClick>
+                        PvPLogNotifyBG_Toggle_OnClick();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+            <CheckButton name="cbxPvPLogConfig_NotifyDuelToggle" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="cbxPvPLogConfig_NotifyBGToggle">
+                        <Offset>
+                            <AbsDimension x="140" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(this:GetName().."Text"):SetText(UI_NOTIFY_DUEL);
+                    </OnLoad>
+                    <OnClick>
+                        PvPLogNotifyDuel_Toggle_OnClick();
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+
             <CheckButton name="cbxPvPLogConfig_NotifyKillsNone" inherits="OptionsCheckButtonTemplate">
                 <Size>
                     <AbsDimension x="24" y="24"/>
