@@ -2,7 +2,7 @@
 
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: modules/test/test.php
+ * File: modules/test/index.php
  *
  * This file is part of the test module, it's a single mode within
  * the module.
@@ -38,10 +38,10 @@
  *
  * @link http://cpframework.org
  * @license http://creativecommons.org/licenses/by-nc-sa/2.5/
- * @author Chris Stockton
+ * @author WoWRoster.net
  * @version 1.5.0
- * @copyright 2000-2006 Chris Stockton
- * @package cpFramework
+ * @copyright 2000-2006 WoWRoster.net
+ * @package Module-Test
  * @filesource
  *
  * Roster versioning tag

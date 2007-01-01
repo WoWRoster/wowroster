@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Project: cpFramework - scalable object based modular framework
  * File: library/class/cpmain/cpexception.php

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Project: cpFramework - scalable object based modular framework
  * File: /index.php
@@ -102,7 +101,7 @@ if( CAN_INI_SET )
  * Destroy GET/POST/Cookie variables from the global scope since IIS can't
  * turn off register_globals as Apache can thru .ht
  */
-if (intval(ini_get('register_globals')) != 0)
+if( intval(ini_get('register_globals')) != 0 )
 {
 	foreach ($_REQUEST AS $key => $val)
 	{
@@ -119,15 +118,6 @@ if( is_array($_GET) )
 }
 
 
-if( !file_exists(PATH_LOCAL . "data".DIR_SEP."config".DIR_SEP."cpconf.php") )
-{
-	if (!defined("INSTALL"))
-	{
-		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Go to ?modules=config to set up config");
-	}
-}
-
-
 /**
  * Turn on ALL errors during development, we keep our code crisp.. and clean
  * however turn them off after development for security reasons. Make sure to
@@ -139,7 +129,16 @@ error_reporting(E_ALL);
  * Require our common header, to initialize our class objects and
  * common shared activity.
  */
-require( R2_LIB_PATH . "common".DIR_SEP."common.header.php");
+require( R2_LIB_PATH . "common".DIR_SEP."common.header.php" );
+
+
+if( !file_exists(PATH_LOCAL . "data".DIR_SEP."config".DIR_SEP."cpconf.php") )
+{
+	if( !defined("INSTALL") )
+	{
+		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Go to ?modules=config to set up config",'','',true);
+	}
+}
 
 /**
  * We set our publicly available variables before doing anything these are
@@ -344,7 +343,7 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
  */
 require(R2_LIB_PATH . "common".DIR_SEP."common.footer.php");
 
-header('Content-Type: text/html; charset=ISO-8859-1');
+header('Content-Type: text/html; charset=iso-8859-1');
 header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
 header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
 header('Expires: 0');

@@ -1,28 +1,35 @@
 <?php
-/*
+/**
  * Smarty plugin
- * -------------------------------------------------------------
- * Type:	outputfilter
- * Name:	gzip
- * Version:	0.1
- * Date:	2003-02-13
- * Author:	Joscha Feth, joscha@feth.com
- * Purpose:	gzip the output, before it is sent to the client
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+/**
+ * Smarty gzip encoding outputfilter plugin
+ *
+ * File:    outputfilter.gzip.php<br>
+ * Type:    outputfilter<br>
+ * Name:    gzip<br>
+ * Date:    Feb 13, 2003<br>
+ * Purpose: gzip the output, before it is sent to the client
  *          ATTENTION: this filter does only work if caching is disabled,
  *			because the cached page would be gzipped and it seems as Smarty
- *			can not (yet) handle that, even if you send the Content-Encoding yourself.
+ *			can not (yet) handle that, even if you send the Content-Encoding yourself.<br>
  *			(However, you need not worry about this, if caching is enabled, this filter just returns the source
- *			without compression.)
- *			Why does it not work with caching (yet)?
- *			----------------------------------------
+ *			without compression.)<br>
+ *			Why does it not work with caching (yet)?<br>
+ *			----------------------------------------<br>
  *			This is because of Smarty adds some information to the beginning of a cached page in ASCII
- *			format.
+ *			format.<br>
  *			Also the file should then be opened in "rb" mode on windows, right now it is (still) opened
- *			in "normal" "r" mode.
+ *			in "normal" "r" mode.<br>
  * Install:  Drop into the plugin directory, call
  *           $smarty->load_filter('output','gzip');
  *           from application.
- * -------------------------------------------------------------
+ * @author  Joscha Feth, joscha@feth.com
+ * @version 0.1
+ * @param Smarty
  */
 function smarty_outputfilter_gzip($tpl_source, &$smarty)
 {

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Project: cpFramework - scalable object based modular framework
  * File: library/class/cpmain.php
@@ -42,7 +41,6 @@
  */
 
 /**
- *
  * One Ring to rule them all, One Ring to find them
  *
  * @package cpFramework
@@ -457,7 +455,7 @@ final class cpMain
 	 */
 	static public function cpError($_error, $_line, $_file, $_friendly = FALSE)
 	{
-		echo "<b>cpError [recoverable error]: </b> " . $_error  . (($_friendly == FALSE) ? " on line <b>". $_line ."</b> in file <b>" . $_file . "</b>." : "."). "<br>\n";
+		echo "<b>cpError [recoverable error]: </b> " . $_error  . (($_friendly == FALSE) ? " on line <b>". $_line ."</b> in file <b>" . $_file . "</b>." : "."). "<br />\n";
 	}
 
 	/**
@@ -472,6 +470,6 @@ final class cpMain
 	 */
 	static public function cpErrorFatal($_error, $_line, $_file, $_friendly = FALSE)
 	{
-		die("<b>cpErrorFatal [script halt]: </b> " . $_error  . (($_friendly == FALSE) ? " on line <b>". $_line ."</b> in file <b>" . $_file . "</b>." : "."). "<br>\n");
+		die("<b>cpErrorFatal [script halt]: </b> " . $_error  . (($_friendly == FALSE) ? " on line <b>". $_line ."</b> in file <b>" . $_file . "</b>." : "."). "<br />\n");
 	}
 }

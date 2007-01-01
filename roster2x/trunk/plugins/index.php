@@ -1,8 +1,7 @@
 <?php
-
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/plugins/index.php
+ * File: plugins/index.php
  *
  * This file handles the default home page for our system, it's really
  * a example method, hence it's nakedness.
@@ -32,10 +31,10 @@
  *
  * @link http://cpframework.org
  * @license http://creativecommons.org/licenses/by-nc-sa/2.5/
- * @author Chris Stockton
+ * @author WoWRoster.net
  * @version 1.5.0
- * @copyright 2000-2006 Chris Stockton
- * @package cpFramework
+ * @copyright 2000-2006 WoWRoster.net
+ * @package Plugin-Index
  * @filesource
  *
  * Roster versioning tag
@@ -50,3 +49,8 @@ if(!defined('SECURITY'))
 {
 	die("You may not access this file directly.");
 }
+
+// Load classes
+cpMain::loadClass('smarty','smarty');
+
+cpMain::$instance['smarty']->assign('text','Comming soon!');

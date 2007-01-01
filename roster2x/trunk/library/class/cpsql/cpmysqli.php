@@ -1,6 +1,41 @@
 <?php
-
 /**
+ * Project: cpFramework - scalable object based modular framework
+ * File: library/class/cpsql/cpmysqli.php
+ *
+ * This is a extend of our cpsql class, when multi database support is required
+ * a implimentation will need to be put in place, for now this is a abstract
+ * class with a private construct to prevent instantiation within modules.
+ *
+ * -http://en.wikipedia.org/wiki/Modular
+ *
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary:
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Legal Information:
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ *
+ * Full License:
+ *  license.txt (Included within this library)
+ *
+ * You should have recieved a FULL copy of this license in license.txt
+ * along with this library, if you did not and you are unable to find
+ * and agree to the license you may not use this library.
+ *
+ * For questions, comments, information and documentation please visit
+ * the official website at cpframework.org
+ *
+ * @link http://cpframework.org
+ * @license http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * @author WoWRoster.net
+ * @version 1.5.0
+ * @copyright 2000-2006 WoWRoster.net
+ * @package cpFramework
+ * @filesource
+ *
  * Roster versioning tag
  * $Id$
  */
@@ -14,9 +49,10 @@ if(!defined('SECURITY'))
 	die("You may not access this file directly.");
 }
 
-/*****************************************************************************
+/**
  * cpMySQLi: MySQLi wrapper.
- *****************************************************************************/
+ * @package cpFramework
+ */
 class cpmysqli implements cpsql
 {
 	/**
@@ -43,7 +79,10 @@ class cpmysqli implements cpsql
 	 * The constructor optionally accepts 4 arguments that represent a DB
 	 * configuration
 	 *
-	 * @params string $host, $user, $pass, $db_name connect information
+     * @param string $host   Name of the mysql host
+     * @param string $user   Database user
+     * @param string $pass   Database password
+     * @param string $db     Name of the database
 	 * @return void
 	 * @access public
 	 */
@@ -59,10 +98,10 @@ class cpmysqli implements cpsql
 	/**
 	 * Manually configure a DB connection.
 	 *
-     * @param string $host       Name of the mysql host
-     * @param string $user       Database user
-     * @param string $password   Database password
-     * @param string $database   Name of the database
+     * @param string $host   Name of the mysql host
+     * @param string $user   Database user
+     * @param string $pass   Database password
+     * @param string $db     Name of the database
 	 */
 	public function configuration($host, $user, $pass, $db)
 	{
@@ -252,9 +291,10 @@ class cpmysqli implements cpsql
 	}
 }
 
-/*****************************************************************************
+/**
  * SQL statement wrapper.
- *****************************************************************************/
+ * @package cpFramework
+ */
 class cpmysqli_stmt implements cpsql_stmt
 {
 	/**
@@ -447,9 +487,9 @@ class cpmysqli_stmt implements cpsql_stmt
 		return $this->qry->close();
 	}
 
-	/*************************************************************************
+	/**
 	 * Statement properties
-	 *************************************************************************/
+	 */
 
 	/**
 	 * Return number of affected rows by an INSERT, DELETE, or UPDATE statement

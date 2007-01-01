@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Project: cpFramework - scalable object based modular framework
  * File: library/class/cplang.php
@@ -134,7 +133,7 @@ class cplang
 			 */
 			if($_found == false)
 			{
-				cpMain::cpErrorFatal("Please consult the manual to see the proper directory hiearchy and system functionality. The path the system was looking for (or at least 1 of the paths we checked) is: " . $var . "<br>", __LINE__, __FILE__);
+				cpMain::cpErrorFatal("Please consult the manual to see the proper directory hiearchy and system functionality. The path the system was looking for (or at least 1 of the paths we checked) is: " . $var . "<br />", __LINE__, __FILE__);
 			}
 
 			/**
