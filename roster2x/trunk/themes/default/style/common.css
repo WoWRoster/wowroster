@@ -1,0 +1,10 @@
+/**
+ * common used css file here
+ *
+ * Roster versioning tag
+ * $Id$
+ */
+
+img {
+	behavior: url(iepngfix.htc);
+}

@@ -3,9 +3,6 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
- *
- * Roster versioning tag
- * $Id$
  */
 
 
@@ -38,7 +35,7 @@ function smarty_function_fetch($params, &$smarty)
             $smarty->_trigger_fatal_error('[plugin] (secure mode) fetch \'' . $params['file'] . '\' is not allowed');
             return;
         }
-
+        
         // fetch the file
         if($fp = @fopen($params['file'],'r')) {
             while(!feof($fp)) {

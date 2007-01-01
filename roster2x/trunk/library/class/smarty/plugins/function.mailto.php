@@ -3,9 +3,6 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
- *
- * Roster versioning tag
- * $Id$
  */
 
 
@@ -65,6 +62,8 @@ function smarty_function_mailto($params, &$smarty)
 
     // netscape and mozilla do not decode %40 (@) in BCC field (bug?)
     // so, don't encode it.
+    $search = array('%40', '%2C');
+    $replace  = array('@', ',');
     $mail_parms = array();
     foreach ($params as $var=>$value) {
         switch ($var) {
@@ -72,9 +71,9 @@ function smarty_function_mailto($params, &$smarty)
             case 'bcc':
             case 'followupto':
                 if (!empty($value))
-                    $mail_parms[] = $var.'='.str_replace('%40','@',rawurlencode($value));
+                    $mail_parms[] = $var.'='.str_replace($search,$replace,rawurlencode($value));
                 break;
-
+                
             case 'subject':
             case 'newsgroups':
                 $mail_parms[] = $var.'='.rawurlencode($value);
@@ -115,7 +114,7 @@ function smarty_function_mailto($params, &$smarty)
         $string = '<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>';
 
         for($x = 0, $y = strlen($string); $x < $y; $x++ ) {
-            $ord[] = ord($string[$x]);
+            $ord[] = ord($string[$x]);   
         }
 
         $_ret = "<script type=\"text/javascript\" language=\"javascript\">\n";
@@ -126,10 +125,10 @@ function smarty_function_mailto($params, &$smarty)
         $_ret .= "}\n";
         $_ret .= "//-->\n";
         $_ret .= "</script>\n";
-
+        
         return $_ret;
-
-
+        
+        
     } elseif ($encode == 'hex') {
 
         preg_match('!^(.*)(\?.*)$!',$address,$match);

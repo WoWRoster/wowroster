@@ -3,9 +3,6 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
- *
- * Roster versioning tag
- * $Id$
  */
 
 /**
@@ -65,7 +62,7 @@ function smarty_core_write_compiled_include($params, &$smarty)
                         $tokens[$i] = '$' . $this_varname;
                     } else {
                         $tokens[$i] = $tokens[$i][1];
-                    }
+                    }                   
                 }
             }
             $source = implode('', $tokens);

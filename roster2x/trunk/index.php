@@ -64,6 +64,69 @@ else if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
 	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
 }
 
+/**
+ * Create some constants
+ */
+define('START_TIME',    get_microtime());
+define('R2_VER',        '1.9.0.0');
+define('GZIPSUPPORT',   extension_loaded('zlib'));
+define('WINDOWS',       (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'));
+// Are we allowed to modify php.ini on the fly ?
+define('CAN_INI_SET',   !ereg('ini_set', ini_get('disable_functions')));
+define('MAGICQUOTES',   get_magic_quotes_gpc() || ini_get('magic_quotes_sybase'));
+define('R2_LIB_PATH',   PATH_LOCAL . "library".DIR_SEP);
+define('R2_CLASS_PATH', R2_LIB_PATH . "class".DIR_SEP);
+define('SMARTY_DIR',    R2_CLASS_PATH . "smarty".DIR_SEP);
+
+$phpver = explode('.', phpversion());
+$phpver = "$phpver[0]$phpver[1]";
+define('PHPVERS', $phpver);
+
+unset($phpver);
+
+# http://bugs.php.net/bug.php?id=15693
+if ($_SERVER['REQUEST_METHOD'] == 'HEAD') { exit; }
+
+// Disable magic_quotes_runtime
+set_magic_quotes_runtime(0);
+umask(0);
+
+if( CAN_INI_SET )
+{
+	ini_set('magic_quotes_sybase', 0);
+}
+
+/**
+ * Prepare input variables
+ *
+ * Destroy GET/POST/Cookie variables from the global scope since IIS can't
+ * turn off register_globals as Apache can thru .ht
+ */
+if (intval(ini_get('register_globals')) != 0)
+{
+	foreach ($_REQUEST AS $key => $val)
+	{
+		if( isset($$key) ) unset($$key);
+	}
+}
+if( is_array($_POST) )
+{
+	array_walk($_POST, 'prepareInput');
+}
+if( is_array($_GET) )
+{
+	array_walk($_GET, 'prepareInput');
+}
+
+
+if( !file_exists(PATH_LOCAL . "data".DIR_SEP."config".DIR_SEP."cpconf.php") )
+{
+	if (!defined("INSTALL"))
+	{
+		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Go to ?modules=config to set up config");
+	}
+}
+
 
 /**
  * Turn on ALL errors during development, we keep our code crisp.. and clean
@@ -76,7 +139,7 @@ error_reporting(E_ALL);
  * Require our common header, to initialize our class objects and
  * common shared activity.
  */
-require(PATH_LOCAL . "library".DIR_SEP."common".DIR_SEP."common.header.php");
+require( R2_LIB_PATH . "common".DIR_SEP."common.header.php");
 
 /**
  * We set our publicly available variables before doing anything these are
@@ -108,7 +171,7 @@ if(cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off')
  */
 foreach(file(PATH_LOCAL . "autoload.php") as $key => $value)
 {
-	(preg_match('/^[a-zA-Z0-9\.\-]+$/', $value = trim($value))) ? ((is_file($file = PATH_LOCAL . "library".DIR_SEP."autoload".DIR_SEP . $value . ".php")) ? include($file) : cpMain::cpErrorFatal("Autoload Error, Please consult the manual to see the proper directory hiearchy and system functionality. Remember, you can delete files out of the autoload list easily by opening autoload.php in your base directory. The path the system was looking for (or at least 1 of the paths we checked) is: " . $file, __LINE__, __FILE__)) : NULL;
+	(preg_match('/^[a-zA-Z0-9\.\-]+$/', $value = trim($value))) ? ((is_file($file = R2_LIB_PATH . "autoload".DIR_SEP . $value . ".php")) ? include($file) : cpMain::cpErrorFatal("Autoload Error, Please consult the manual to see the proper directory hiearchy and system functionality. Remember, you can delete files out of the autoload list easily by opening autoload.php in your base directory. The path the system was looking for (or at least 1 of the paths we checked) is: " . $file, __LINE__, __FILE__)) : NULL;
 }
 
 /**
@@ -217,6 +280,11 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
 	cpMain::$instance['smarty']->plugins_dir = array(SMARTY_DIR . 'plugins', 'resources'.DIR_SEP.'plugins');
 
+	if( cpMain::$instance['cpconfig']->cpconf['output_gzip'] == 1 && !defined('INSTALL') && !GZIPSUPPORT )
+	{
+		cpMain::$instance['smarty']->load_filter('output','gzip');
+	}
+
 	/**
 	 * Set our CONSTANTS provided by our system
 	 */
@@ -248,8 +316,25 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 	/**
 	 * Build the template for the specified block
 	 */
-	((is_file((cpMain::$system['template_path'] !== "") ? $var = cpMain::$system['template_path'] : $var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl")) ? cpMain::$instance['smarty']->display($var) : ((is_file($var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"))
-	? cpMain::$instance['smarty']->display($var) : cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__)));
+	(
+		(
+			is_file(
+				(cpMain::$system['template_path'] !== "")
+				? $var = cpMain::$system['template_path']
+				: $var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"
+			)
+		)
+			? cpMain::$instance['smarty']->display($var)
+			: (
+				(
+					is_file(
+						$var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"
+					)
+				)
+					? cpMain::$instance['smarty']->display($var)
+					: cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__)
+			)
+	);
 
 }
 
@@ -257,4 +342,59 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
  * Require our common footer, to denitialize the system and carry
  * out end routines and procedure.
  */
-require(PATH_LOCAL . "library".DIR_SEP."common".DIR_SEP."common.footer.php");
+require(R2_LIB_PATH . "common".DIR_SEP."common.footer.php");
+
+header('Content-Type: text/html; charset=ISO-8859-1');
+header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
+header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
+header('Expires: 0');
+
+
+
+
+function get_microtime()
+{
+	list($usec, $sec) = explode(' ', microtime());
+	return ($usec + $sec);
+}
+
+/**
+ * Strip slashes from GET/POST/Cookie variables because we add them back later
+ */
+function prepareInput(&$value, $key, $set=true)
+{
+	if (is_array($value))
+	{
+		array_walk($value, 'prepareInput', false);
+	}
+	else
+	{
+		if (MAGICQUOTES)
+		{
+			$value = stripslashes($value);
+		}
+		# replace NO-BREAK and other types of utf8 spacings
+		$value = preg_replace(array(
+			// UTF8                         UNICODE
+			'#[\xC2][\xA0]#',            // 00A0
+			'#[\xE2][\x80][\x80-\x8D]#', // 2000-200D
+			'#[\xE2][\x80][\xAF]#',      // 202F
+			'#[\xE2][\x81][\x9F]#',      // 205F
+			'#[\xE3][\x80][\x80]#'       // 3000
+		), ' ', $value);
+	}
+	if ($set) $_REQUEST[$key] =& $value;
+}
+
+/**
+ * Time Formatting
+ */
+function gmtime()
+{
+	static $time;
+	if (!$time)
+	{
+		$time = (time() - date('Z'));
+	}
+	return $time;
+}

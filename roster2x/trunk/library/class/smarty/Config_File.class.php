@@ -18,14 +18,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @link http://smarty.php.net/
- * @version 2.6.14
+ * @version 2.6.16
  * @copyright Copyright: 2001-2005 New Digital Group, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
- *
- * Roster versioning tag
- * $Id$
  */
 
 /* $Id$ */
@@ -300,7 +297,7 @@ class Config_File {
                         $vars = array();
                         continue;
                     }
-                } else {
+                } else {                    
                     $section_name = $match[1];
                 }
                 if (!isset($config_data['sections'][$section_name]))

@@ -51,12 +51,12 @@ if(!defined('SECURITY'))
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP."cpmain".DIR_SEP."cpexception.php");
+require(R2_CLASS_PATH . "cpmain".DIR_SEP."cpexception.php");
 
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP."cpmain.php");
+require(R2_CLASS_PATH . "cpmain.php");
 
 /**
  * The config class

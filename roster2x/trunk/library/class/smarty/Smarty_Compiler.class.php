@@ -21,12 +21,9 @@
  * @link http://smarty.php.net/
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
- * @version 2.6.14
+ * @version 2.6.16
  * @copyright 2001-2005 New Digital Group, Inc.
  * @package Smarty
- *
- * Roster versioning tag
- * $Id$
  */
 
 /* $Id$ */
@@ -35,7 +32,7 @@
  * Template compiling class
  * @package Smarty
  */
-class Smarty_Compiler extends smarty {
+class Smarty_Compiler extends Smarty {
 
     // internal vars
     /**#@+
@@ -165,7 +162,7 @@ class Smarty_Compiler extends smarty {
                 . '(?:\s*,\s*' . $this->_obj_single_param_regexp . ')*)?\)';
         $this->_obj_start_regexp = '(?:' . $this->_dvar_regexp . '(?:' . $this->_obj_ext_regexp . ')+)';
         $this->_obj_call_regexp = '(?:' . $this->_obj_start_regexp . '(?:' . $this->_obj_params_regexp . ')?(?:' . $this->_dvar_math_regexp . '(?:' . $this->_num_const_regexp . '|' . $this->_dvar_math_var_regexp . ')*)?)';
-
+        
         // matches valid modifier syntax:
         // |foo
         // |@foo
@@ -339,7 +336,7 @@ class Smarty_Compiler extends smarty {
                 for ($j = $i + 1; $j < $for_max; $j++) {
                     /* remove leading and trailing whitespaces of each line */
                     $text_blocks[$j] = preg_replace('![\t ]*[\r\n]+[\t ]*!', '', $text_blocks[$j]);
-                    if ($compiled_tags[$j] == '{/strip}') {
+                    if ($compiled_tags[$j] == '{/strip}') {                       
                         /* remove trailing whitespaces from the last text_block */
                         $text_blocks[$j] = rtrim($text_blocks[$j]);
                     }
@@ -433,7 +430,7 @@ class Smarty_Compiler extends smarty {
         /* Matched comment. */
         if (substr($template_tag, 0, 1) == '*' && substr($template_tag, -1) == '*')
             return '';
-
+        
         /* Split tag into two three parts: command, command modifiers and the arguments. */
         if(! preg_match('~^(?:(' . $this->_num_const_regexp . '|' . $this->_obj_call_regexp . '|' . $this->_var_regexp
                 . '|\/?' . $this->_reg_obj_regexp . '|\/?' . $this->_func_regexp . ')(' . $this->_mod_regexp . '*))
@@ -441,7 +438,7 @@ class Smarty_Compiler extends smarty {
                     ~xs', $template_tag, $match)) {
             $this->_syntax_error("unrecognized tag: $template_tag", E_USER_ERROR, __FILE__, __LINE__);
         }
-
+        
         $tag_command = $match[1];
         $tag_modifier = isset($match[2]) ? $match[2] : null;
         $tag_args = isset($match[3]) ? $match[3] : null;
@@ -581,7 +578,7 @@ class Smarty_Compiler extends smarty {
                 } else if ($this->_compile_block_tag($tag_command, $tag_args, $tag_modifier, $output)) {
                     return $output;
                 } else if ($this->_compile_custom_tag($tag_command, $tag_args, $tag_modifier, $output)) {
-                    return $output;
+                    return $output;                    
                 } else {
                     $this->_syntax_error("unrecognized tag '$tag_command'", E_USER_ERROR, __FILE__, __LINE__);
                 }
@@ -930,7 +927,11 @@ class Smarty_Compiler extends smarty {
         $name = $this->_dequote($attrs['name']);
 
         if (empty($name)) {
-            $this->_syntax_error("missing insert name", E_USER_ERROR, __FILE__, __LINE__);
+            return $this->_syntax_error("missing insert name", E_USER_ERROR, __FILE__, __LINE__);
+        }
+        
+        if (!preg_match('~^\w+$~', $name)) {
+            return $this->_syntax_error("'insert: 'name' must be an insert function name", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (!empty($attrs['script'])) {
@@ -1163,7 +1164,7 @@ class Smarty_Compiler extends smarty {
         }
         $item = $this->_dequote($attrs['item']);
         if (!preg_match('~^\w+$~', $item)) {
-            return $this->_syntax_error("'foreach: item' must be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
+            return $this->_syntax_error("'foreach: 'item' must be a variable name (literal string)", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (isset($attrs['key'])) {
@@ -1260,11 +1261,11 @@ class Smarty_Compiler extends smarty {
 
         if(empty($tokens)) {
             $_error_msg = $elseif ? "'elseif'" : "'if'";
-            $_error_msg .= ' statement requires arguments';
+            $_error_msg .= ' statement requires arguments'; 
             $this->_syntax_error($_error_msg, E_USER_ERROR, __FILE__, __LINE__);
         }
-
-
+            
+                
         // make sure we have balanced parenthesis
         $token_count = array_count_values($tokens);
         if(isset($token_count['(']) && $token_count['('] != $token_count[')']) {
@@ -1389,7 +1390,7 @@ class Smarty_Compiler extends smarty {
                             }
                     } elseif(preg_match('~^' . $this->_var_regexp . '$~', $token) && (strpos('+-*/^%&|', substr($token, -1)) === false) && isset($tokens[$i+1]) && $tokens[$i+1] == '(') {
                         // variable function call
-                        $this->_syntax_error("variable function call '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);
+                        $this->_syntax_error("variable function call '$token' not allowed in if statement", E_USER_ERROR, __FILE__, __LINE__);                      
                     } elseif(preg_match('~^' . $this->_obj_call_regexp . '|' . $this->_var_regexp . '(?:' . $this->_mod_regexp . '*)$~', $token)) {
                         // object or variable
                         $token = $this->_parse_var_props($token);
@@ -1674,11 +1675,11 @@ class Smarty_Compiler extends smarty {
         // if contains unescaped $, expand it
         if(preg_match_all('~(?:\`(?<!\\\\)\$' . $this->_dvar_guts_regexp . '(?:' . $this->_obj_ext_regexp . ')*\`)|(?:(?<!\\\\)\$\w+(\[[a-zA-Z0-9]+\])*)~', $var_expr, $_match)) {
             $_match = $_match[0];
-            rsort($_match);
-            reset($_match);
+            $_replace = array();
             foreach($_match as $_var) {
-                $var_expr = str_replace ($_var, '".(' . $this->_parse_var(str_replace('`','',$_var)) . ')."', $var_expr);
+                $_replace[$_var] = '".(' . $this->_parse_var(str_replace('`','',$_var)) . ')."';
             }
+            $var_expr = strtr($var_expr, $_replace);
             $_return = preg_replace('~\.""|(?<!\\\\)""\.~', '', $var_expr);
         } else {
             $_return = $var_expr;
@@ -1742,12 +1743,12 @@ class Smarty_Compiler extends smarty {
             $_var_ref = $var_expr;
         else
             $_var_ref = substr($var_expr, 1);
-
+        
         if(!$_has_math) {
-
+            
             // get [foo] and .foo and ->foo and (...) pieces
             preg_match_all('~(?:^\w+)|' . $this->_obj_params_regexp . '|(?:' . $this->_var_bracket_regexp . ')|->\$?\w+|\.\$?\w+|\S+~', $_var_ref, $match);
-
+                        
             $_indexes = $match[0];
             $_var_name = array_shift($_indexes);
 
@@ -2007,7 +2008,7 @@ class Smarty_Compiler extends smarty {
                         array_shift($indexes);
                         $compiled_ref = "(\$this->_foreach[$_var]['iteration']-1)";
                         break;
-
+                        
                     case 'first':
                         array_shift($indexes);
                         $compiled_ref = "(\$this->_foreach[$_var]['iteration'] <= 1)";
@@ -2017,12 +2018,12 @@ class Smarty_Compiler extends smarty {
                         array_shift($indexes);
                         $compiled_ref = "(\$this->_foreach[$_var]['iteration'] == \$this->_foreach[$_var]['total'])";
                         break;
-
+                        
                     case 'show':
                         array_shift($indexes);
                         $compiled_ref = "(\$this->_foreach[$_var]['total'] > 0)";
                         break;
-
+                        
                     default:
                         unset($_max_index);
                         $compiled_ref = "\$this->_foreach[$_var]";
@@ -2113,7 +2114,7 @@ class Smarty_Compiler extends smarty {
             case 'rdelim':
                 $compiled_ref = "'$this->right_delimiter'";
                 break;
-
+                
             default:
                 $this->_syntax_error('$smarty.' . $_ref . ' is an unknown reference', E_USER_ERROR, __FILE__, __LINE__);
                 break;

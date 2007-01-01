@@ -52,7 +52,7 @@ $config['def_mode'] = 'index';
 $config['def_plugin'] = 'index';
 #' hide_param type=check
 // Use param-value/param2-value2 linking method
-$config['hide_param'] = TRUE;
+$config['hide_param'] = true;
 #' redirect_www type=select option[]=www option[]=http option[]=off
 // A common issue with developers is that the users like to type
 // www.domain.com when www is actualy a sub domain as most
@@ -64,3 +64,6 @@ $config['hide_param'] = TRUE;
 // 'http' Redirect to PATH_REMOTE
 // 'off' Don't ever redirect domain
 $config['redirect_www'] = 'off';
+#' output_gzip type=check
+// Use gzip encoding for templates
+$config['output_gzip'] = false;

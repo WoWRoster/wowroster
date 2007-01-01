@@ -3,9 +3,6 @@
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
- *
- * Roster versioning tag
- * $Id$
  */
 
 /**
@@ -27,9 +24,11 @@
  *                day values (Marcus Bointon)
  *           - 1.3.2 support negative timestamps, force year
  *             dropdown to include given date unless explicitly set (Monte)
+ *           - 1.3.4 fix behaviour of 0000-00-00 00:00:00 dates to match that
+ *             of 0000-00-00 dates (cybot, boots)
  * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
  *      (Smarty online manual)
- * @version 1.3.2
+ * @version 1.3.4
  * @author Andrei Zmievski
  * @author Monte Ohrt <monte at ohrt dot com>
  * @param array
@@ -134,12 +133,14 @@ function smarty_function_html_select_date($params, &$smarty)
         }
     }
 
-    if(preg_match('!^-\d+$!',$time)) {
+    if (preg_match('!^-\d+$!', $time)) {
         // negative timestamp, use date()
-        $time = date('Y-m-d',$time);
+        $time = date('Y-m-d', $time);
     }
     // If $time is not in format yyyy-mm-dd
-    if (!preg_match('/^\d{0,4}-\d{0,2}-\d{0,2}$/', $time)) {
+    if (preg_match('/^(\d{0,4}-\d{0,2}-\d{0,2})/', $time, $found)) {
+        $time = $found[1];
+    } else {
         // use smarty_make_timestamp to get an unix timestamp and
         // strftime to make yyyy-mm-dd
         $time = strftime('%Y-%m-%d', smarty_make_timestamp($time));

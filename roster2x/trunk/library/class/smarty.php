@@ -27,10 +27,7 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.6.14
- *
- * Roster versioning tag
- * $Id$
+ * @version 2.6.16
  */
 
 /* $Id$ */
@@ -49,9 +46,7 @@ if(!defined('DIR_SEP')) {
  */
 
 if (!defined('SMARTY_DIR')) {
-    //define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
-		// custom change for this system
-		define('SMARTY_DIR', PATH_LOCAL . "library/class/smarty/");
+    define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 }
 
 if (!defined('SMARTY_CORE_DIR')) {
@@ -66,7 +61,7 @@ define('SMARTY_PHP_ALLOW',      3);
 /**
  * @package Smarty
  */
-class smarty
+class Smarty
 {
     /**#@+
      * Smarty Configuration Section
@@ -193,7 +188,7 @@ class smarty
     var $cache_modified_check = false;
 
     /**
-     * This determines how Smarty handles "<?php ... ?><?php" tags in templates.
+     * This determines how Smarty handles "<?php ... ?>" tags in templates.
      * possible values:
      * <ul>
      *  <li>SMARTY_PHP_PASSTHRU -> print tags as plain text</li>
@@ -469,7 +464,7 @@ class smarty
      *
      * @var string
      */
-    var $_version              = '2.6.14';
+    var $_version              = '2.6.16';
 
     /**
      * current template inclusion depth
@@ -1065,7 +1060,7 @@ class smarty
         } else {
             // var non-existant, return valid reference
             $_tmp = null;
-            return $_tmp;
+            return $_tmp;   
         }
     }
 
@@ -1124,7 +1119,7 @@ class smarty
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
-
+        
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
                ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 
@@ -1195,7 +1190,6 @@ class smarty
 
 
                 if ($display) {
-
                     if ($this->debugging)
                     {
                         // capture time for debugging info
@@ -1204,7 +1198,6 @@ class smarty
                         $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $_debug_start_time;
                         require_once(SMARTY_CORE_DIR . 'core.display_debug_console.php');
                         $_smarty_results .= smarty_core_display_debug_console($_params, $this);
-
                     }
                     if ($this->cache_modified_check) {
                         $_server_vars = ($this->request_use_auto_globals) ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
@@ -1316,7 +1309,6 @@ class smarty
             error_reporting($_smarty_old_error_level);
             if (isset($_smarty_results)) { return $_smarty_results; }
         }
-
     }
 
     /**
