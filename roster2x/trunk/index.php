@@ -158,12 +158,19 @@ if(cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off')
 	if(preg_match('/(^www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'http')
 	{
 		header("Location: " . PATH_REMOTE);
+		exit;
 	}
 	elseif(!preg_match('/(www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'www')
 	{
 		header("Location: " . preg_replace('/(http:\/\/|www\.)+/', 'http://www.', PATH_REMOTE));
+		exit;
 	}
 }
+
+header('Content-Type: text/html; charset=iso-8859-1');
+header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
+header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
+header('Expires: 0');
 
 /**
  * Perform our autoloading
@@ -221,7 +228,7 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 	 */
 	case 'module':
 		cpMain::$system['method_name'] = (isset($_GET['module'])) ? $_GET['module'] : NULL;
-		cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : ( !empty(cpMain::$instance['cpconfig']->cpconf['def_mode']) ? cpMain::$instance['cpconfig']->cpconf['def_mode'] : $_GET['module'] );
+		cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : 'index';
 		cpMain::$system['method_path'] = cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'];
 		cpMain::$system['method_type'] = "modules";
 		break;
@@ -263,7 +270,6 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
  */
 if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] : NULL)))
 {
-
 	/**
 	 * Make sure the specified module/plugin has a available theme (tempalte file)
 	 */
@@ -342,14 +348,6 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
  * out end routines and procedure.
  */
 require(R2_LIB_PATH . "common".DIR_SEP."common.footer.php");
-
-header('Content-Type: text/html; charset=iso-8859-1');
-header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
-header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
-header('Expires: 0');
-
-
-
 
 function get_microtime()
 {
