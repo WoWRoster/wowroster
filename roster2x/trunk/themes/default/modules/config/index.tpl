@@ -5,6 +5,7 @@
 </head>
 <body>
 	<h1>Settings overview for {$file}</h1>
+	{$status}
 	<form method="post" action="">
 		<input type="text" name="file" id="file">
 		<input type="submit" value="Submit">
@@ -17,9 +18,9 @@
 		<tr><th>Setting name<th>Meta info string<th>Default setting<th>Current setting
 	{foreach from=$config key=name item=row}
 		{if $row.meta.type eq 'password'}
-			<tr><td>{$name}<td>{$row.metaraw}<td>{$row.default}<td><i>Password hidden</i>
+			<tr><td>{$name}<td>{$row.metaraw}<td>{phpdata data=$row.default}<td><i>Password hidden</i>
 		{else}
-			<tr><td>{$name}<td>{$row.metaraw}<td>{$row.default}<td>{$row.value}
+			<tr><td>{$name}<td>{$row.metaraw}<td>{phpdata data=$row.default}<td>{phpdata data=$row.value}
 		{/if}
 	{foreachelse}
 		<tr><td colspan="4">No config data in this file

@@ -66,3 +66,18 @@ if( $save )
 // Assign output vars
 cpMain::$instance['smarty']->assign('file',$file);
 cpMain::$instance['smarty']->assign('config',$config);
+
+// Assign output function
+cpMain::$instance['smarty']->register_function('phpdata','phpdata');
+
+function phpdata($params, &$smarty)
+{
+	if( ($params['data']) === null)
+	{
+		return '';
+	}
+	else
+	{
+		return var_export($params['data'],true);
+	}
+}
