@@ -2,7 +2,7 @@
     PvPLogUI
     Author:           Atolicus
     Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.2.0
+    Version:          2.2.2
     Last Modified:    2007-01-01
 ]]
 
@@ -341,7 +341,6 @@ function PvPLogStats_SetValues(statsValue)
     
             local GuildNotFound = true;
             local RealmNotFound = true;
-            
             table.foreach(PurgeLogData[realm][player].battles, function( counter, v2 )
                 if (name == v2.name) then
                     if (GuildNotFound and v2.guild) then
@@ -349,22 +348,28 @@ function PvPLogStats_SetValues(statsValue)
                         GuildNotFound = false;
                     end
                     if (RealmNotFound and v2.realm) then
-                        pvpGuildList = pvpGuildList..v2.realm.."\n";
+                        pvpRealmList = pvpRealmList..v2.realm.."\n";
                         RealmNotFound = false;
                     end
                 end
             end);
+            if (GuildNotFound) then
+                pvpGuildList = pvpGuildList.." ".."\n";
+            end
+            if (RealmNotFound) then
+                pvpRealmList = pvpRealmList.." ".."\n";
+            end
             pvpWinsList = pvpWinsList..v1.wins.."\n";
             pvpLossList = pvpLossList..v1.loss.."\n";
-            txtPvPLogStats_PlayerList:SetText(CYAN .. pvpPlayerList);
-            txtPvPLogStats_RealmsList:SetText(ORANGE .. pvpRealmList);
-            txtPvPLogStats_GuildList:SetText(MAGENTA .. pvpGuildList);
-            txtPvPLogStats_WinsList:SetText(GREEN .. pvpWinsList);
-            txtPvPLogStats_LossesList:SetText(RED .. pvpLossList);
         end
         statCount = statCount + 1;
         statsTotal = statsTotal + 1;
     end);
+    txtPvPLogStats_PlayerList:SetText(CYAN .. pvpPlayerList);
+    txtPvPLogStats_RealmsList:SetText(ORANGE .. pvpRealmList);
+    txtPvPLogStats_GuildList:SetText(MAGENTA .. pvpGuildList);
+    txtPvPLogStats_WinsList:SetText(GREEN .. pvpWinsList);
+    txtPvPLogStats_LossesList:SetText(RED .. pvpLossList);
 end
 
 function PvPLog_PvPLogStats_OnHide()

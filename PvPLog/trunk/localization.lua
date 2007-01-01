@@ -9,7 +9,7 @@
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "2.2.0";
+VER_NUM = "2.2.2";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
