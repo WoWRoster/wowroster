@@ -20,13 +20,16 @@
  */
 
 /**
- * Our security measure, present in any file which does not contain
- * a direct access to our config itself. This is a security measure.
+ * This file is never parsed by PHP.
  */
-if(!defined('SECURITY'))
-{
-	die("You may not access this file directly.");
-}
+die("You may not access this file directly.");
+
+/**
+ * Format: Start each line with LANG_ followed by the language key.
+ * The language key may only contain letters and underscores and may
+ * not end in an underscore. After the identifier comes a space, then
+ * the language string
+ */
 
 ?>
 LANG_DO_THIS_SHIT_MANG Do this stuff please mang
