@@ -57,7 +57,7 @@ if (!empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']))
 	define("PATH_REMOTE", "http://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
 	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
 }
-else if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
+elseif (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
 {
 	define("PATH_REMOTE", "http://".((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']) );
 	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );

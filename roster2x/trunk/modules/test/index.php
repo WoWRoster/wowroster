@@ -41,7 +41,8 @@
  * @author WoWRoster.net
  * @version 1.5.0
  * @copyright 2000-2006 WoWRoster.net
- * @package Module-Test
+ * @package cpModule
+ * @subpackage Test
  * @filesource
  *
  * Roster versioning tag

@@ -34,6 +34,7 @@
  * @version 1.5.0
  * @copyright 2000-2006 WoWRoster.net
  * @package cpFramework
+ * @subpackage cpSQL
  * @filesource
  *
  * Roster versioning tag

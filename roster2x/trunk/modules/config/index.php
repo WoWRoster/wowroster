@@ -31,7 +31,8 @@
  * @author WoWRoster.net
  * @version 1.5.0
  * @copyright 2000-2006 WoWRoster.net
- * @package Module-Config
+ * @package cpModule
+ * @subpackage Config
  * @filesource
  *
  * Roster versioning tag

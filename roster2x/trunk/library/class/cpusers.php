@@ -34,6 +34,7 @@
  * @version 1.5.0
  * @copyright 2000-2006 Chris Stockton
  * @package cpFramework
+ * @subpackage cpUser
  * @filesource
  *
  * Roster versioning tag
