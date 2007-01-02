@@ -87,44 +87,18 @@ class cplang
 			/**
 			 * Set our language files path.
 			 *
-			 * Note, I understand this is kind of a big silly ternary
-			 * condition, ill probably make a not silly if else statement
-			 * in the future but i've added carriage returns to make it
-			 * more obvious what it's doing.
+			 * No longer a silly complicated ternary condition
 			 */
-			$_path =
-			(
-				(
-					(is_file
-						($var = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP .
-							(is_object
-								(
-									(isset(cpMain::$instance['cpusers'])
-										? cpMain::$instance['cpusers']
-										: NULL
-									)
-								)
-							  ? cpMain::$instance['cpusers']->data['user_lang']
-							  : NULL
-							) .
-							(
-								(cpMain::$system['method_type'] == "plugins")
-								? DIR_SEP."plugins" : DIR_SEP."modules".DIR_SEP . cpMain::$system['method_name']
-							) . DIR_SEP."lang_".cpMain::$system['method_mode'].".php"
-						)
-					)
-					? $var
-					:
-					(is_file
-						($var =  PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_lang'] . ((cpMain::$system['method_type'] == "plugins")
-							? DIR_SEP."plugins"
-							: DIR_SEP."modules".DIR_SEP . cpMain::$system['method_name']) . DIR_SEP."lang_".cpMain::$system['method_mode'].".php"
-						)
-					)
-					? $var
-					: $_found = FALSE
-				)
-            );
+			$_lang = (cpMain::isClass('cpusers'))
+				? cpMain::$instance['cpusers']->data['user_lang']
+				: cpMain::$instance['cpconfig']->cpconf['def_lang'];
+				
+			$_path = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . $_lang . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
+			
+			if( !is_file($_path) )
+			{
+				$_path = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_lang'] . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
+			}
 
 			/**
 			 * Didn't find a language file; that's not good.. We will not
@@ -132,7 +106,7 @@ class cplang
 			 * impaired or worst bad constructing of the method may result in security
 			 * issues.
 			 */
-			if($_found == false)
+			if( !is_file($_path) )
 			{
 				cpMain::cpErrorFatal("Please consult the manual to see the proper directory hiearchy and system functionality. The path the system was looking for (or at least 1 of the paths we checked) is: " . $var . "<br />", __LINE__, __FILE__);
 			}

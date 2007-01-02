@@ -428,7 +428,7 @@ final class cpMain
 	 */
 	static public function isClass($class)
 	{
-		return isset(self::$instance[$class]);
+		return isset(self::$instance[$class]) && is_object(self::$instance[$class]);
 	}
 
 	/**

@@ -66,7 +66,7 @@ elseif (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
 /**
  * Create some constants
  */
-define('START_TIME',    get_microtime());
+define('START_TIME',    microtime(true));
 define('R2_VER',        '1.9.0.0');
 define('GZIPSUPPORT',   extension_loaded('zlib'));
 define('WINDOWS',       (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'));
@@ -126,12 +126,28 @@ if( is_array($_GET) )
 error_reporting(E_ALL);
 
 /**
- * Require our common header, to initialize our class objects and
- * common shared activity.
+ * Our exception class
  */
-require( R2_LIB_PATH . "common".DIR_SEP."common.header.php" );
+require(R2_CLASS_PATH . "cpmain".DIR_SEP."cpexception.php");
 
+/**
+ * Our main class, cpEngine, our instance handler
+ */
+require(R2_CLASS_PATH . "cpmain.php");
 
+/**
+ * The config class
+ */
+cpMain::loadClass('cpconfig','cpconfig');
+
+/**
+ * Load default config
+ */
+cpMain::$instance['cpconfig']->loadConfig('cpconf');
+
+/**
+ * If the config file hasn't been created yet we'll only run the config module
+ */
 if( !file_exists(PATH_LOCAL . "data".DIR_SEP."config".DIR_SEP."cpconf.php") )
 {
 	if( !defined("INSTALL") )
@@ -171,14 +187,6 @@ header('Content-Type: text/html; charset=iso-8859-1');
 header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
 header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
 header('Expires: 0');
-
-/**
- * Perform our autoloading
- */
-foreach(file(PATH_LOCAL . "autoload.php") as $key => $value)
-{
-	(preg_match('/^[a-zA-Z0-9\.\-]+$/', $value = trim($value))) ? ((is_file($file = R2_LIB_PATH . "autoload".DIR_SEP . $value . ".php")) ? include($file) : cpMain::cpErrorFatal("Autoload Error, Please consult the manual to see the proper directory hiearchy and system functionality. Remember, you can delete files out of the autoload list easily by opening autoload.php in your base directory. The path the system was looking for (or at least 1 of the paths we checked) is: " . $file, __LINE__, __FILE__)) : NULL;
-}
 
 /**
  * Shall we use a search friendly urls?
@@ -230,6 +238,7 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 		cpMain::$system['method_name'] = (isset($_GET['module'])) ? $_GET['module'] : NULL;
 		cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : 'index';
 		cpMain::$system['method_path'] = cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'];
+		cpMain::$system['method_dir']  = 'modules'.DIR_SEP.cpMain::$system['method_name'];
 		cpMain::$system['method_type'] = "modules";
 		break;
 
@@ -241,6 +250,7 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 		cpMain::$system['method_name'] = (isset($_GET['plugin'])) ? $_GET['plugin'] : NULL;
 		cpMain::$system['method_mode'] = (isset($_GET['plugin'])) ? $_GET['plugin'] : NULL;
 		cpMain::$system['method_path'] = (isset($_GET['plugin'])) ? $_GET['plugin'] : NULL;
+		cpMain::$system['method_dir']  = 'plugins';
 		cpMain::$system['method_type'] = "plugins";
 		break;
 
@@ -252,6 +262,7 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 		cpMain::$system['method_name'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpconf['def_module'] : cpMain::$instance['cpconfig']->cpconf['def_plugin'];
 		cpMain::$system['method_mode'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpconf['def_mode'] : cpMain::$instance['cpconfig']->cpconf['def_plugin'];
 		cpMain::$system['method_path'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'] : cpMain::$system['method_name'];
+		cpMain::$system['method_dir']  = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? 'modules'.DIR_SEP.cpMain::$system['method_name'] : 'plugins';
 		cpMain::$system['method_type'] = cpMain::$instance['cpconfig']->cpconf['def_method'];
 		break;
 
@@ -260,7 +271,14 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
 /**
  * Include the module/plugin core based on the method type and set path.
  */
-((is_file($var = PATH_LOCAL . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".php")) ? require($var) : cpMain::cpErrorFatal("Error Loading Requested Method, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__));
+if( is_file( $var = PATH_LOCAL . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".php" ) )
+{
+	require($var);
+}
+else
+{
+	cpMain::cpErrorFatal("Error Loading Requested Method, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__);
+}
 
 /**
  * We only initialize our template system only if the method chosen requires its
@@ -268,12 +286,12 @@ switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['mod
  * of this system to remain possible. As its general purpose is to be a
  * invaluable tool across ALL development enviroments.
  */
-if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] : NULL)))
+if(cpMain::isClass('smarty'))
 {
 	/**
 	 * Make sure the specified module/plugin has a available theme (tempalte file)
 	 */
-	if(is_object((isset(cpMain::$instance['cpusers']) ? cpMain::$instance['cpusers'] : NULL)))
+	if(cpMain::isClass('cpusers'))
 	{
 		cpMain::$instance['cpusers']->data['user_theme'] = ((is_file("themes".DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . cpMain::$system['method_path'] . ".tpl")) ? cpMain::$instance['cpusers']->data['user_theme'] : cpMain::$instance['cpconfig']->cpconf['def_theme']);
 	}
@@ -306,7 +324,7 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 	 * module in case your module relies on the multi lingual template variables
 	 * to be present.
 	 */
-	if(is_object((isset(cpMain::$instance['cplang']) ? cpMain::$instance['cplang'] : NULL)))
+	if(cpMain::isClass('cplang'))
 	{
 
 		/**
@@ -341,18 +359,6 @@ if(is_object((isset(cpMain::$instance['smarty']) ? cpMain::$instance['smarty'] :
 			)
 	);
 
-}
-
-/**
- * Require our common footer, to denitialize the system and carry
- * out end routines and procedure.
- */
-require(R2_LIB_PATH . "common".DIR_SEP."common.footer.php");
-
-function get_microtime()
-{
-	list($usec, $sec) = explode(' ', microtime());
-	return ($usec + $sec);
 }
 
 /**
