@@ -2,12 +2,15 @@
     PvPLogUI
     Author:           Atolicus
     Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.2.0
-    Last Modified:    2006-12-31
+    Version:          2.3.0
+    Last Modified:    2007-01-03
 -->
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
     <Script file="PvPLogUI.lua"/>
+<!--
+    Configuration Frame
+-->
     <Frame name="PvPLogConfigFrame" parent="UIParent" enableMouse="true" movable="true" frameStrata="DIALOG" hidden="true" toplevel="true">
         <Size>
             <AbsDimension x="320" y="388"/>
@@ -654,6 +657,21 @@
             </OnMouseUp>
         </Scripts>
     </Frame>
+
+<!--
+    Statistics Frame
+-->
+   <Button name="PvPLogTabTemplate" inherits="CharacterFrameTabButtonTemplate" virtual="true">
+      <Scripts>
+            <OnLoad>
+                this:SetFrameLevel(this:GetFrameLevel() - 1);
+            </OnLoad>
+         <OnClick>
+            PvPLogStats_ShowTab(this:GetText());
+         </OnClick>
+      </Scripts>
+   </Button>
+
     <Frame name="PvPLogStatsFrame" parent="UIParent" enableMouse="true" movable="true" frameStrata="DIALOG" hidden="true" toplevel="true">
         <Size>
             <AbsDimension x="650" y="560"/>
@@ -661,16 +679,16 @@
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
-        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <BackgroundInsets>
+                <AbsInset left="11" right="12" top="12" bottom="11"/>
+            </BackgroundInsets>
             <EdgeSize>
-                <AbsValue val="16"/>
+                <AbsValue val="32"/>
             </EdgeSize>
             <TileSize>
-                <AbsValue val="16"/>
+                <AbsValue val="32"/>
             </TileSize>
-            <BackgroundInsets>
-                <AbsInset left="5" right="5" top="5" bottom="5"/>
-            </BackgroundInsets>
         </Backdrop>
         <Layers>
             <Layer level="ARTWORK">
@@ -704,7 +722,7 @@
                         </Anchor>
                     </Anchors>
                 </FontString>
-                <FontString name="txtPvPLogStats_RealmsHeader" inherits="SystemFont">
+                <FontString name="txtPvPLogStats_GuildsHeader" inherits="SystemFont">
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>
@@ -713,7 +731,7 @@
                         </Anchor>
                     </Anchors>
                 </FontString>
-                <FontString name="txtPvPLogStats_GuildsHeader" inherits="SystemFont">
+                <FontString name="txtPvPLogStats_RealmsHeader" inherits="SystemFont">
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>
@@ -751,20 +769,20 @@
                         </Anchor>
                     </Anchors>
                 </FontString>
-                <FontString name="txtPvPLogStats_RealmsList" inherits="NumberFontNormal">
-                    <Anchors>
-                        <Anchor point="TOPLEFT" relativeTo = "txtPvPLogStats_RealmsHeader">
-                            <Offset>
-                                <AbsDimension x="-10" y="-30"/>
-                            </Offset>
-                        </Anchor>
-                    </Anchors>
-                </FontString>
                 <FontString name="txtPvPLogStats_GuildList" inherits="NumberFontNormal">
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeTo = "txtPvPLogStats_GuildsHeader">
                             <Offset>
                                 <AbsDimension x="-40" y="-30"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+                <FontString name="txtPvPLogStats_RealmsList" inherits="NumberFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo = "txtPvPLogStats_RealmsHeader">
+                            <Offset>
+                                <AbsDimension x="-10" y="-30"/>
                             </Offset>
                         </Anchor>
                     </Anchors>
@@ -790,6 +808,36 @@
             </Layer>
         </Layers>
         <Frames>
+             <Button name="$parentPvPTab" inherits="PvPLogTabTemplate" text="PvP">
+                <Anchors>
+                   <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                         <AbsDimension x="2" y="-26"/>
+                      </Offset>
+                   </Anchor>
+                </Anchors>
+             </Button>
+
+             <Button name="$parentDuelTab" inherits="PvPLogTabTemplate" text="Duel">
+                <Anchors>
+                   <Anchor point="BOTTOMRIGHT" relativeTo="$parentPvPTab">
+                      <Offset>
+                         <AbsDimension x="46" y="0"/>
+                      </Offset>
+                   </Anchor>
+                </Anchors>
+             </Button>
+
+             <Button name="$parentRecentTab" inherits="PvPLogTabTemplate" text="Recent">
+                <Anchors>
+                   <Anchor point="BOTTOMRIGHT" relativeTo="$parentDuelTab">
+                      <Offset>
+                         <AbsDimension x="58" y="0"/>
+                      </Offset>
+                   </Anchor>
+                </Anchors>
+             </Button>
+
             <Button name="btnPvPLogStats_Close" inherits="OptionsButtonTemplate" text="Close">
                 <Anchors>
                     <Anchor point="BOTTOM">
@@ -836,8 +884,6 @@
         <Scripts>   
             <OnLoad>
                 PvPLog_PvPLogStats_OnLoad();
-                tinsert(UISpecialFrames,PvPLogConfigFrame);
-                tinsert(UISpecialFrames,PvPLogStatsFrame);
             </OnLoad>
             <OnShow>
                 PvPLog_PvPLogStats_OnShow();

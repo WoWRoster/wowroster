@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.2.1
-    Last Modified:    2007-01-01
+    Version:          2.3.0
+    Last Modified:    2007-01-03
 ]]
 
 -- Local variables
@@ -109,9 +109,13 @@ function PvPLogOnLoad()
     --this:RegisterEvent("PLAYER_PVP_KILLS_CHANGED");
 end
 
--- function PvPLog_MiniMap_LeftClick()
-
--- end
+function PvPLog_MiniMap_LeftClick()
+    if (PvPLogData[realm][player].MiniMap.stats == 1) then
+        PvPLogStatsHide();
+    else
+        PvPLogStatsShow();
+    end
+end
  
 function PvPLog_MiniMap_RightClick()
     if (PvPLogData[realm][player].MiniMap.config == 1) then
@@ -190,9 +194,10 @@ function PvPLogMinimapButtonInit()
     local info = { };
     info.position = -45; -- default only. after first use, SavedVariables used
     info.drag = "CIRCLE"; -- default only. after first use, SavedVariables used
-    info.tooltip = UI_RIGHT_CLICK .. UI_TOGGLE;
+    info.tooltip = UI_RIGHT_CLICK .. UI_TOGGLE .."\n".. UI_LEFT_CLICK .. UI_TOGGLE2;
     info.enabled = 1; -- default only. after first use, SavedVariables used
     info.config = 0;
+    info.stats = 0;
     info.icon = PvPLogGetFactionIcon();
     return info;
 end
@@ -201,6 +206,7 @@ function PvPLogCreateMinimapButton()
     local info = PvPLogMinimapButtonInit();
     MyMinimapButton:Create("PvPLog", PvPLogData[realm][player].MiniMap, info);
     MyMinimapButton:SetRightClick("PvPLog", PvPLog_MiniMap_RightClick);
+    MyMinimapButton:SetLeftClick("PvPLog", PvPLog_MiniMap_LeftClick);
 end
 
 function PvPLogOnEvent()   
@@ -1485,10 +1491,8 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     end
 
     local PurgeCounter = PurgeLogData[realm][player].PurgeCounter;
-
     if (PurgeLogData[realm][player].battles[PurgeCounter] == nil) then
         PurgeLogData[realm][player].battles[PurgeCounter] = { };
-        PurgeLogData[realm][player].battles[PurgeCounter].name = { };
         PurgeLogData[realm][player].battles[PurgeCounter].name = vname;
         PurgeLogData[realm][player].battles[PurgeCounter].race = vrace;
         PurgeLogData[realm][player].battles[PurgeCounter].class = vclass;
@@ -1501,20 +1505,18 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     PurgeLogData[realm][player].battles[PurgeCounter].zone = ZoneName;
     PurgeLogData[realm][player].battles[PurgeCounter].subzone = SubZone;
     PurgeLogData[realm][player].battles[PurgeCounter].rank = vrank;
-
     if (enemy == 0 or win == 0) then
         PurgeLogData[realm][player].battles[PurgeCounter].honor = 0;
     else
-        PurgeLogData[realm][player].battles[PurgeCounter].honor = est_honor;
+        PurgeLogData[realm][player].battles[PurgeCounter].honor = tonumber(est_honor);
     end
-
     if (bg_found) then
         PurgeLogData[realm][player].battles[PurgeCounter].bg = bg_indx;
     else
         PurgeLogData[realm][player].battles[PurgeCounter].bg = 0;
     end
     PurgeLogData[realm][player].battles[PurgeCounter].date = date();
-
+    PurgeLogData[realm][player].battles[PurgeCounter].time = time();
     PurgeCounter = PurgeCounter + 1;
     PurgeLogData[realm][player].PurgeCounter = PurgeCounter;
 
@@ -1733,10 +1735,10 @@ function PvPLogSetRecordBG(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].recordBG = false;
-        PvPLogChatMsgCyan("PvPLog Record in Battlefields " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Record in Battlegrounds " .. ORANGE .. OFF);
     else
         PvPLogData[realm][player].recordBG = true;
-        PvPLogChatMsgCyan("PvPLog Record in Battlefields " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Record in Battlegrounds " .. ORANGE .. ON);
     end        
 end
 
@@ -1744,10 +1746,10 @@ function PvPLogSetNotifyBG(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].notifyBG = false;
-        PvPLogChatMsgCyan("PvPLog Notify in Battlefields " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Notify in Battlegrounds " .. ORANGE .. OFF);
     else
         PvPLogData[realm][player].notifyBG = true;
-        PvPLogChatMsgCyan("PvPLog Notify in Battlefields " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Notify in Battlegrounds " .. ORANGE .. ON);
     end        
 end
 
@@ -1896,6 +1898,10 @@ function PvPLogSlashHandler(msg)
     elseif (command == string.lower(DUEL)) then
         PvPLogStatsFrame:Hide();
         PVPLOG_STATS_TYPE = DUEL;
+        PvPLogStatsFrame:Show();
+    elseif (command == string.lower(RECENT)) then
+        PvPLogStatsFrame:Hide();
+        PVPLOG_STATS_TYPE = RECENT;
         PvPLogStatsFrame:Show();
     elseif (command == UI_CONFIG) then
         PvPLogConfigShow();

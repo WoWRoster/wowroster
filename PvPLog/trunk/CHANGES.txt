@@ -2,10 +2,17 @@ PvPLog
 Author:           Andrzej Gorski
 Maintainer:       Matthew Musgrove, Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          2.2.2
-Last Modified:    2007-01-01
+Version:          2.3.0
+Last Modified:    2007-01-03
 
 CHANGES
+
+2007-01-03  * 2.3.0
+    * Added Statistics display (/pl pvp, /pl duel, /pl recent) to minimap button left-click.
+    * Statistics display now has tabs (PvP, Duel, Recent).
+    * Recent Statistics display shows all non-BG PvP activity in the last 24 hours for
+      all characters on the current realm.
+    * Fixed minimap button error for first time users.
 
 2007-01-01  * 2.2.2
     * Fixed /pl pvp and /pl duel output.

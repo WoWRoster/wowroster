@@ -3,13 +3,13 @@
   Author:           Andrzej Gorski 
   Maintainer:       Matthew Musgrove, Brad Morgan
   Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          2.2.0
-  Last Modified:    2007-01-01
+  Version:          2.3.0
+  Last Modified:    2007-01-03
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "2.2.2";
+VER_NUM = "2.3.0";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
@@ -72,6 +72,8 @@ VER_NUM = "2.2.2";
     WINS = "wins";
     LOSSES = "losses";
     
+    PLAYER = "Player";
+    RECENT = "Recent";
     DUEL = "Duel";
     TOTAL = "Total";
     STATS = "Statistics";
@@ -118,12 +120,13 @@ VER_NUM = "2.2.2";
     UI_WINS = "Wins";
     UI_LOSSES = "Losses";
     UI_TOGGLE = "Toggles " .. UI_CONFIG;
+    UI_TOGGLE2 = "Toggles " .. STATS;
     UI_RIGHT_CLICK = "Right click: ";
     UI_LEFT_CLICK = "Left click: ";
     UI_MINIMAP_BUTTON = "Minimap Button";
-    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_BG = "Record in Battlegrounds";
     UI_RECORD_DUEL = "Record Duels";
-    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_BG = "Notify in Battlegrounds";
     UI_NOTIFY_DUEL = "Notify Duels";
 
 --***********
@@ -185,6 +188,8 @@ if (GetLocale() == "deDE") then
     WINS = "siege";
     LOSSES = "verloren";
     
+    PLAYER = "Player";
+    RECENT = "Recent";
     DUEL = "Duell";
     TOTAL = "Summe";
     STATS = "Statistik";
@@ -234,9 +239,9 @@ if (GetLocale() == "deDE") then
     UI_RIGHT_CLICK = "Rechtsklick: ";
     UI_LEFT_CLICK = "Linksklick: ";
     UI_MINIMAP_BUTTON = "Minimap Button";
-    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_BG = "Record in Battlegrounds";
     UI_RECORD_DUEL = "Record Duels";
-    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_BG = "Notify in Battlegrounds";
     UI_NOTIFY_DUEL = "Notify Duels";
 
 elseif (GetLocale() == "frFR") then
@@ -294,6 +299,8 @@ elseif (GetLocale() == "frFR") then
     WINS = "wins";
     LOSSES = "losses";
     
+    PLAYER = "Player";
+    RECENT = "Recent";
     DUEL = "Duel";
     TOTAL = "Total";
     STATS = "Statistics";
@@ -343,9 +350,9 @@ elseif (GetLocale() == "frFR") then
     UI_RIGHT_CLICK = "Right click: ";
     UI_LEFT_CLICK = "Left click: ";
     UI_MINIMAP_BUTTON = "Minimap Button";
-    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_BG = "Record in Battlegrounds";
     UI_RECORD_DUEL = "Record Duels";
-    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_BG = "Notify in Battlegrounds";
     UI_NOTIFY_DUEL = "Notify Duels";
     
 elseif (GetLocale() == "esES") then
@@ -403,6 +410,8 @@ elseif (GetLocale() == "esES") then
     WINS = "Victorias";
     LOSSES = "Derrotas";
     
+    PLAYER = "Player";
+    RECENT = "Recent";
     DUEL = "Duelo";
     TOTAL = "Total";
     STATS = "Estadísticas";
@@ -452,9 +461,9 @@ elseif (GetLocale() == "esES") then
     UI_LEFT_CLICK = "Clic izquierdo: ";
     UI_TOGGLE = "Muestra/oculta " .. UI_CONFIG;
     UI_MINIMAP_BUTTON = "Botón De Minimap";
-    UI_RECORD_BG = "Record in Battlefields";
+    UI_RECORD_BG = "Record in Battlegrounds";
     UI_RECORD_DUEL = "Record Duels";
-    UI_NOTIFY_BG = "Notify in Battlefields";
+    UI_NOTIFY_BG = "Notify in Battlegrounds";
     UI_NOTIFY_DUEL = "Notify Duels";
 
 end

@@ -2,8 +2,8 @@
     PvPLogUI
     Author:           Atolicus
     Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.2.2
-    Last Modified:    2007-01-01
+    Version:          2.3.0
+    Last Modified:    2007-01-03
 ]]
 
 local realm = "";
@@ -32,7 +32,6 @@ PVPLOG_STATS_TYPE = "";
 -------------------
 
 function PvPLogConfig_OnLoad()
-    UIPanelWindows["PvPLogConfigFrame"] = {area = "center", pushable = 0};
     realm = GetCVar("realmName");
     player = UnitName("player");
 end
@@ -57,7 +56,22 @@ function PvPLogConfig_SetValues()
     cbxPvPLogConfig_RecordDuelToggle:SetChecked(PvPLogData[realm][player].recordDuel);
     cbxPvPLogConfig_NotifyBGToggle:SetChecked(PvPLogData[realm][player].notifyBG);
     cbxPvPLogConfig_NotifyDuelToggle:SetChecked(PvPLogData[realm][player].notifyDuel);
-        
+
+    if (PvPLogData[realm][player].recordBG) then
+        cbxPvPLogConfig_NotifyBGToggle:Enable();
+        cbxPvPLogConfig_NotifyBGToggleText:SetTextColor(NORMAL_FONT_COLOR.r,NORMAL_FONT_COLOR.g,NORMAL_FONT_COLOR.b);
+    else
+        cbxPvPLogConfig_NotifyBGToggle:Disable();
+        cbxPvPLogConfig_NotifyBGToggleText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+    end
+    if (PvPLogData[realm][player].recordDuel) then
+        cbxPvPLogConfig_NotifyDuelToggle:Enable();
+        cbxPvPLogConfig_NotifyDuelToggleText:SetTextColor(NORMAL_FONT_COLOR.r,NORMAL_FONT_COLOR.g,NORMAL_FONT_COLOR.b);
+    else
+        cbxPvPLogConfig_NotifyDuelToggle:Disable();
+        cbxPvPLogConfig_NotifyDuelToggleText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+    end
+    
     if (PvPLogData[realm][player].notifyKill == NIL) then
         PvPLogData[realm][player].notifyKill = NONE;
     end
@@ -270,7 +284,6 @@ end
 
 function PvPLogConfig_btnClose_OnClick()
     PvPLogConfigHide();
---  HideUIPanel(PvPLogConfigFrame);
 end
 
 function PvPLogConfig_NotifyKillsCustomChannel_UpdateString()
@@ -297,8 +310,35 @@ end
 -- PvP and Duel Stats --
 ------------------------
 
+function PvPLogStatsShow()
+    if (not initialized) then
+        PvPLogInitialize();
+    end
+    PvPLogData[realm][player].MiniMap.stats = 1;
+    PvPLogStatsFrame:Show();
+end
+
+function PvPLogStatsHide()
+    if (not initialized) then
+        PvPLogInitialize();
+    end
+    PvPLogData[realm][player].MiniMap.stats = 0;
+    PvPLogStatsFrame:Hide();
+end
+
+function PvPLogStats_ShowTab(name)
+    if (name == "PvP") then
+        PVPLOG_STATS_TYPE = UI_PVP;
+    elseif (name == "Recent") then
+        PVPLOG_STATS_TYPE = RECENT;
+    elseif (name == "Duel") then
+        PVPLOG_STATS_TYPE = DUEL;
+    end
+    statsValue = 1;
+    PvPLogStats_SetValues(statsValue);
+end
+
 function PvPLog_PvPLogStats_OnLoad()
-    UIPanelWindows["PvPLogStatsFrame"] = {area = "center", pushable = 0};
     realm = GetCVar("realmName");
     player = UnitName("player");
 end
@@ -309,65 +349,102 @@ function PvPLog_PvPLogStats_OnShow(statsType)
 end
 
 function PvPLogStats_SetValues(statsValue)
-    local isEnemy = 1;
+    local isEnemy;
     if (PVPLOG_STATS_TYPE == UI_PVP) then
         txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. VER_NUM .. "  -  " .. UI_PVP .. " " ..STATS);
-    else
+        isEnemy = 1;
+    elseif (PVPLOG_STATS_TYPE == DUEL) then
         txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. VER_NUM .. "  -  " .. DUEL .. " " ..STATS);
         isEnemy = 0;
+    elseif (PVPLOG_STATS_TYPE == RECENT) then
+        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. VER_NUM .. "  -  " .. RECENT .. " " ..STATS);
+        isEnemy = 1;
+    else
+        return;
     end
     txtPvPLogStats_PlayersHeader:SetText(CYAN .. UI_NAME);
-    txtPvPLogStats_RealmsHeader:SetText(ORANGE .. REALM);
     txtPvPLogStats_GuildsHeader:SetText(MAGENTA .. GUILD);
+    if (PVPLOG_STATS_TYPE == RECENT) then
+        txtPvPLogStats_RealmsHeader:SetText(ORANGE .. PLAYER);
+    else
+        txtPvPLogStats_RealmsHeader:SetText(ORANGE .. REALM);
+    end
     txtPvPLogStats_WinsHeader:SetText(GREEN .. UI_WINS);
     txtPvPLogStats_LossesHeader:SetText(RED .. UI_LOSSES);
     txtPvPLogStats_PlayerList:SetText("");
-    txtPvPLogStats_RealmsList:SetText("");
     txtPvPLogStats_GuildList:SetText("");
+    txtPvPLogStats_RealmsList:SetText("");
     txtPvPLogStats_WinsList:SetText("");
     txtPvPLogStats_LossesList:SetText("");
     pvpPlayerList = "";
-    pvpRealmList = "";
     pvpGuildList = "";
+    pvpRealmList = "";
     pvpWinsList = "";
     pvpLossList = "";
     startCount = ((statsValue*30+1)-30);
     endCount = (statsValue*30);
     statCount  = 1;
     statsTotal = 0;
-    table.foreach( PvPLogData[realm][player].battles, function( name, v1 )
-        if ((statCount >= startCount) and (statCount <= endCount) and (v1.enemy == isEnemy)) then
-            pvpPlayerList = pvpPlayerList..name.."\n";
-    
-            local GuildNotFound = true;
-            local RealmNotFound = true;
-            table.foreach(PurgeLogData[realm][player].battles, function( counter, v2 )
-                if (name == v2.name) then
-                    if (GuildNotFound and v2.guild) then
-                        pvpGuildList = pvpGuildList..v2.guild.."\n";
-                        GuildNotFound = false;
+
+    if (PVPLOG_STATS_TYPE == RECENT) then
+        local now = time();
+        local dayago = now - 24 * 60 * 60;
+        PvPLogDebugMsg('now = '..tostring(now)..', dayago = '..tostring(dayago));
+        table.foreach(PurgeLogData[realm], function( character, v1 )
+            PvPLogDebugMsg('character = '..tostring(character));
+            table.foreach(PurgeLogData[realm][character].battles, function( counter, v2 )
+                if (v2.bg and v2.bg == 0 and v2.time and v2.time > dayago and v2.enemy == isEnemy) then
+                    if (statCount >= startCount and statCount <= endCount) then
+                        pvpPlayerList = pvpPlayerList..v2.name.."\n";
+                        if (v2.guild) then
+                            pvpGuildList = pvpGuildList..v2.guild.."\n";
+                        else
+                            pvpGuildList = pvpGuildList.." ".."\n";
+                        end
+                        pvpRealmList = pvpRealmList..character.."\n";
+                        pvpWinsList = pvpWinsList..v2.win.."\n";
+                        pvpLossList = pvpLossList..1-v2.win.."\n";
                     end
-                    if (RealmNotFound and v2.realm) then
-                        pvpRealmList = pvpRealmList..v2.realm.."\n";
-                        RealmNotFound = false;
-                    end
+                    statCount = statCount + 1;
+                    statsTotal = statsTotal + 1;
                 end
             end);
-            if (GuildNotFound) then
-                pvpGuildList = pvpGuildList.." ".."\n";
+        end);
+    else
+        table.foreach( PvPLogData[realm][player].battles, function( name, v1 )
+            if ((statCount >= startCount) and (statCount <= endCount) and (v1.enemy == isEnemy)) then
+                pvpPlayerList = pvpPlayerList..name.."\n";
+
+                local GuildNotFound = true;
+                local RealmNotFound = true;
+                table.foreach(PurgeLogData[realm][player].battles, function( counter, v2 )
+                    if (name == v2.name) then
+                        if (GuildNotFound and v2.guild) then
+                            pvpGuildList = pvpGuildList..v2.guild.."\n";
+                            GuildNotFound = false;
+                        end
+                        if (RealmNotFound and v2.realm) then
+                            pvpRealmList = pvpRealmList..v2.realm.."\n";
+                            RealmNotFound = false;
+                        end
+                    end
+                end);
+                if (GuildNotFound) then
+                    pvpGuildList = pvpGuildList.." ".."\n";
+                end
+                if (RealmNotFound) then
+                    pvpRealmList = pvpRealmList.." ".."\n";
+                end
+                pvpWinsList = pvpWinsList..v1.wins.."\n";
+                pvpLossList = pvpLossList..v1.loss.."\n";
             end
-            if (RealmNotFound) then
-                pvpRealmList = pvpRealmList.." ".."\n";
-            end
-            pvpWinsList = pvpWinsList..v1.wins.."\n";
-            pvpLossList = pvpLossList..v1.loss.."\n";
-        end
-        statCount = statCount + 1;
-        statsTotal = statsTotal + 1;
-    end);
+            statCount = statCount + 1;
+            statsTotal = statsTotal + 1;
+        end);
+    end
     txtPvPLogStats_PlayerList:SetText(CYAN .. pvpPlayerList);
-    txtPvPLogStats_RealmsList:SetText(ORANGE .. pvpRealmList);
     txtPvPLogStats_GuildList:SetText(MAGENTA .. pvpGuildList);
+    txtPvPLogStats_RealmsList:SetText(ORANGE .. pvpRealmList);
     txtPvPLogStats_WinsList:SetText(GREEN .. pvpWinsList);
     txtPvPLogStats_LossesList:SetText(RED .. pvpLossList);
 end
@@ -391,7 +468,7 @@ function PvPLog_PvPLogStats_OnMouseUp(arg1)
 end
 
 function PvPLog_btnPvPLogStats_Close_OnClick()
-    HideUIPanel(PvPLogStatsFrame);
+    PvPLogStatsHide();
 end
 
 function PvPLog_btnPvPLogStats_Previous_OnClick()
