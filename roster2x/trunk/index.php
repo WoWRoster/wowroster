@@ -40,27 +40,22 @@
 /**
  * DIR_SEP, since I'm lazy
  */
-define("DIR_SEP", DIRECTORY_SEPARATOR);
+define('DIR_SEP', DIRECTORY_SEPARATOR);
 
 /**
  * Security define. Used elsewhere to check if we're in the framework
  */
-define("SECURITY", true);
+define('SECURITY', true);
 
 /**
  * Site pathing and settings with trailing slash
  */
-define("PATH_LOCAL", dirname(__FILE__).DIR_SEP );
+define('PATH_LOCAL', dirname(__FILE__).DIR_SEP );
 
-if (!empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']))
+if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
 {
-	define("PATH_REMOTE", "http://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
-	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
-}
-elseif (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
-{
-	define("PATH_REMOTE", "http://".((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']) );
-	define("PATH_REMOTE_S", "https://".((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']) );
+	define('PATH_REMOTE', 'http://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']).'/' );
+	define('PATH_REMOTE_S', 'https://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']).'/' );
 }
 
 /**
@@ -68,14 +63,14 @@ elseif (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
  */
 define('START_TIME',    microtime(true));
 define('R2_VER',        '1.9.0.0');
-define('GZIPSUPPORT',   extension_loaded('zlib'));
+define('ZLIBSUPPORT',   extension_loaded('zlib'));
 define('WINDOWS',       (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'));
 // Are we allowed to modify php.ini on the fly ?
 define('CAN_INI_SET',   !ereg('ini_set', ini_get('disable_functions')));
 define('MAGICQUOTES',   get_magic_quotes_gpc() || ini_get('magic_quotes_sybase'));
-define('R2_LIB_PATH',   PATH_LOCAL . "library".DIR_SEP);
-define('R2_CLASS_PATH', R2_LIB_PATH . "class".DIR_SEP);
-define('SMARTY_DIR',    R2_CLASS_PATH . "smarty".DIR_SEP);
+define('R2_LIB_PATH',   PATH_LOCAL . 'library'.DIR_SEP);
+define('R2_CLASS_PATH', R2_LIB_PATH . 'class'.DIR_SEP);
+define('SMARTY_DIR',    R2_CLASS_PATH . 'smarty'.DIR_SEP);
 
 $phpver = explode('.', phpversion());
 $phpver = "$phpver[0]$phpver[1]";
@@ -128,12 +123,12 @@ error_reporting(E_ALL);
 /**
  * Our exception class
  */
-require(R2_CLASS_PATH . "cpmain".DIR_SEP."cpexception.php");
+require(R2_CLASS_PATH . 'cpmain'.DIR_SEP.'cpexception.php');
 
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(R2_CLASS_PATH . "cpmain.php");
+require(R2_CLASS_PATH . 'cpmain.php');
 
 /**
  * The config class
@@ -148,9 +143,9 @@ cpMain::$instance['cpconfig']->loadConfig('cpconf');
 /**
  * If the config file hasn't been created yet we'll only run the config module
  */
-if( !file_exists(PATH_LOCAL . "data".DIR_SEP."config".DIR_SEP."cpconf.php") )
+if( !file_exists(PATH_LOCAL . 'data'.DIR_SEP.'config'.DIR_SEP.'cpconf.php') )
 {
-	if( !defined("INSTALL") )
+	if( !defined('INSTALL') )
 	{
 		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Go to ?modules=config to set up config",'','',true);
 	}
@@ -162,7 +157,6 @@ if( !file_exists(PATH_LOCAL . "data".DIR_SEP."config".DIR_SEP."cpconf.php") )
  */
 cpMain::$system['method_name'] = NULL;
 cpMain::$system['method_mode'] = NULL;
-cpMain::$system['method_type'] = NULL;
 cpMain::$system['method_path'] = NULL;
 cpMain::$system['template_path'] = NULL;
 
@@ -173,12 +167,12 @@ if(cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off')
 {
 	if(preg_match('/(^www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'http')
 	{
-		header("Location: " . PATH_REMOTE);
+		header('Location: ' . PATH_REMOTE);
 		exit;
 	}
 	elseif(!preg_match('/(www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'www')
 	{
-		header("Location: " . preg_replace('/(http:\/\/|www\.)+/', 'http://www.', PATH_REMOTE));
+		header('Location: ' . preg_replace('/(http:\/\/|www\.)+/', 'http://www.', PATH_REMOTE));
 		exit;
 	}
 }
@@ -191,7 +185,7 @@ header('Expires: 0');
 /**
  * Shall we use a search friendly urls?
  */
-if(cpMain::$instance['cpconfig']->cpconf['hide_param'])
+if( cpMain::$instance['cpconfig']->cpconf['hide_param'] )
 {
 	/**
 	 * Get our get vars from the seo friendly URL, simple regex is very powerfull. Assuming
@@ -224,53 +218,36 @@ if(cpMain::$instance['cpconfig']->cpconf['hide_param'])
 }
 
 /**
- * Determine the users module/plugin request within switch function.
+ * Determine the users module request within switch function.
  */
-switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['module'])) ? "module" : "plugin" : "undefined")
+if( isset($_GET['module']) )
 {
 	/**
 	 * The users request is for module usage, we must set variables defining
 	 * the library path and the mode in which the module shall be ran. We
 	 * then define the method type - being module.
 	 */
-	case 'module':
-		cpMain::$system['method_name'] = (isset($_GET['module'])) ? $_GET['module'] : NULL;
-		cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : 'index';
-		cpMain::$system['method_path'] = cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'];
-		cpMain::$system['method_dir']  = 'modules'.DIR_SEP.cpMain::$system['method_name'];
-		cpMain::$system['method_type'] = "modules";
-		break;
-
-	/**
-	 * The users request is for plugin usage, we must set the variables defining
-	 * the library path, mode and name. As well as the type - being plugin.
-	 */
-	case 'plugin':
-		cpMain::$system['method_name'] = (isset($_GET['plugin'])) ? $_GET['plugin'] : NULL;
-		cpMain::$system['method_mode'] = (isset($_GET['plugin'])) ? $_GET['plugin'] : NULL;
-		cpMain::$system['method_path'] = (isset($_GET['plugin'])) ? $_GET['plugin'] : NULL;
-		cpMain::$system['method_dir']  = 'plugins';
-		cpMain::$system['method_type'] = "plugins";
-		break;
-
+	cpMain::$system['method_name'] = (isset($_GET['module'])) ? $_GET['module'] : NULL;
+	cpMain::$system['method_mode'] = (isset($_GET['mode'])) ? $_GET['mode'] : 'index';
+	cpMain::$system['method_path'] = cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'];
+	cpMain::$system['method_dir']  = 'modules'.DIR_SEP.cpMain::$system['method_name'];
+}
+else
+{
 	/**
 	 * The users request is invalid or perhaps simply undefined. Therefore we
 	 * direct them to the default method. Setting variables accordingly.
 	 */
-	case 'undefined':
-		cpMain::$system['method_name'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpconf['def_module'] : cpMain::$instance['cpconfig']->cpconf['def_plugin'];
-		cpMain::$system['method_mode'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$instance['cpconfig']->cpconf['def_mode'] : cpMain::$instance['cpconfig']->cpconf['def_plugin'];
-		cpMain::$system['method_path'] = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'] : cpMain::$system['method_name'];
-		cpMain::$system['method_dir']  = (cpMain::$instance['cpconfig']->cpconf['def_method'] == "modules") ? 'modules'.DIR_SEP.cpMain::$system['method_name'] : 'plugins';
-		cpMain::$system['method_type'] = cpMain::$instance['cpconfig']->cpconf['def_method'];
-		break;
-
+	cpMain::$system['method_name'] = cpMain::$instance['cpconfig']->cpconf['def_module'];
+	cpMain::$system['method_mode'] = 'index';
+	cpMain::$system['method_path'] = cpMain::$system['method_name'] . DIR_SEP . cpMain::$system['method_mode'];
+	cpMain::$system['method_dir']  = 'modules'.DIR_SEP.cpMain::$system['method_name'];
 }
 
 /**
- * Include the module/plugin core based on the method type and set path.
+ * Include the module core based on the method type and set path.
  */
-if( is_file( $var = PATH_LOCAL . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".php" ) )
+if( is_file( $var = PATH_LOCAL . 'modules' . DIR_SEP . cpMain::$system['method_path'] . '.php' ) )
 {
 	require($var);
 }
@@ -288,24 +265,30 @@ else
 if(cpMain::isClass('smarty'))
 {
 	/**
-	 * Make sure the specified module/plugin has a available theme (template file)
+	 * Make sure the specified module has a available theme (template file)
 	 */
-	if( cpMain::isClass('cpusers') )
+	if( cpMain::isClass('cpusers') && (is_file(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . 'theme.php')) )
 	{
-		if( is_file('themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . cpMain::$system['method_path'] . ".tpl"))
-		{
-			cpMain::$instance['cpusers']->data['user_theme'] = cpMain::$instance['cpusers']->data['user_theme'];
-		}
-		else
-		{
-			cpMain::$instance['cpusers']->data['user_theme'] = cpMain::$instance['cpconfig']->cpconf['def_theme'];
-		}
+		cpMain::$system['current_theme'] = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme'].DIR_SEP;
 	}
+	elseif( is_file(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme']. DIR_SEP . 'theme.php') )
+	{
+		cpMain::$system['current_theme'] = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'].DIR_SEP;
+	}
+	else
+	{
+		cpMain::cpErrorFatal("Error Loading Requested Template, theme.php does not exist", __LINE__, __FILE__);
+	}
+
+	/**
+	 * Include the theme's php file
+	 */
+	require(cpMain::$system['current_theme'] . 'theme.php');
 
 	/**
 	 * Configure smarty
 	 */
-	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP.'default'.DIR_SEP;
+	cpMain::$instance['smarty']->template_dir = cpMain::$system['current_theme'];
 	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
 
 
@@ -332,11 +315,11 @@ if(cpMain::isClass('smarty'))
 	*  PHP functions are not allowed as modifiers, except those specified in the $security_settings
 	*/
 	cpMain::$instance['smarty']->security = true;
-	cpMain::$instance['smarty']->secure_dir = array(PATH_LOCAL . 'themes'.DIR_SEP);
+	cpMain::$instance['smarty']->secure_dir = array(PATH_LOCAL . 'themes' . DIR_SEP);
 
 
 	// Use GZIP output on smarty templates?
-	if( cpMain::$instance['cpconfig']->cpconf['output_gzip'] == 1 && !defined('INSTALL') && !GZIPSUPPORT )
+	if( cpMain::$instance['cpconfig']->cpconf['output_gzip'] == 1 && !defined('INSTALL') && !ZLIBSUPPORT )
 	{
 		cpMain::$instance['smarty']->load_filter('output','gzip');
 	}
@@ -344,7 +327,7 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Set our CONSTANTS provided by our system
 	 */
-	cpMain::$instance['smarty']->assign('TEMPLATE_PATH', PATH_REMOTE);
+	cpMain::$instance['smarty']->assign('THEME_PATH', PATH_REMOTE);
 
 	/**
 	 * We only inject our language into the template if the users specifies.
@@ -371,13 +354,13 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Build the template for the specified block
 	 */
-	if( cpMain::$system['template_path'] !== '' )
+	if( cpMain::$system['template_path'] != '' )
 	{
 		$var = cpMain::$system['template_path'];
 	}
 	else
 	{
-		$var = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
+		$var = cpMain::$system['current_theme'] . 'modules' . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
 	}
 
 	if( is_file($var) )
@@ -387,16 +370,7 @@ if(cpMain::isClass('smarty'))
 	}
 	else
 	{
-		$var = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
-		if( is_file($var) )
-		{
-			cpMain::$instance['smarty']->compile_id = cpMain::$system['method_path'];
-			cpMain::$instance['smarty']->display($var);
-		}
-		else
-		{
-			cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__);
-		}
+		cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__);
 	}
 }
 
@@ -441,4 +415,53 @@ function gmtime()
 		$time = (time() - date('Z'));
 	}
 	return $time;
+}
+
+
+/**
+ * Converts any link to a frienly link if the config uses it
+ * Ninja looted form DragonFly and converted for our use =P
+ *
+ * @param string  $url      What to link to
+ * @param bool    $use_seo  Convert link to friendly URL
+ * @param bool    $full     Append the full URL to the link
+ * @return string
+ */
+function getlink( $url='', $use_seo=true, $full=false )
+{
+	if( empty($url) || $url[0] == '&' )
+	{
+		$url = 'module='.cpMain::$system['method_name'].$url;
+	}
+	else
+	{
+		$url = 'module='.$url;
+	}
+
+	if( cpMain::$instance['cpconfig']->cpconf['hide_param'] && $use_seo )
+	{
+		$url = ereg_replace('&amp;', '/', $url);
+		$url = ereg_replace('&', '/', $url);
+		$url = str_replace('?', '/', $url);
+		$url = str_replace('=', '-', $url);
+
+		if (ereg('#', $url))
+		{
+			$url = ereg_replace('#', '.html#', $url);
+		}
+		else
+		{
+			$url .= '.html';
+		}
+	}
+	else
+	{
+		$url = "index.php?module=".$url;
+	}
+
+	if( $full )
+	{
+		$url = PATH_REMOTE.$url;
+	}
+	return $url;
 }

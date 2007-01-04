@@ -38,18 +38,9 @@ $config['def_theme'] = 'default';
 #' def_lang type=selectdir dir=library/language
 // Default language
 $config['def_lang'] = 'english';
-#' def_method type=select option[]=plugins option[]=modules
-// Default page: Plugin or module?
-$config['def_method'] = 'plugins';
 #' def_module type=selectdir dir=library/modules
 // If the default page is a module, what module?
-$config['def_module'] = '';
-#' def_mode type=text
-// What file in the module?
-$config['def_mode'] = 'index';
-#' def_plugin type=selectfile dir=library/plugins
-// If the default page is a plugin, what plugin?
-$config['def_plugin'] = 'index';
+$config['def_module'] = 'config';
 #' hide_param type=check
 // Use param-value/param2-value2 linking method
 $config['hide_param'] = true;

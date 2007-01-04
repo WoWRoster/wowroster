@@ -1,9 +1,5 @@
-<!--$Id$-->
-<html>
-<head>
-<title></title>
-</head>
-<body>
+{include file='header.tpl'}
+
 {$text}
-</body>
-</html>
+
+{include file='footer.tpl'}

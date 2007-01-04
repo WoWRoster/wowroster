@@ -33,6 +33,20 @@
  # @filesource
  ##
 
+# deny most common except .php
+<FilesMatch "\.(inc|tpl|h|ihtml|sql|ini|conf|bin|spd|theme|module)$">
+  deny from all
+</FilesMatch>
+
+# disable access to config.php and .ht* from a browser
+<FilesMatch "^(config\.php|\.ht)">
+ Deny from all
+</FilesMatch>
+<FilesMatch "error\.(php|gif)">
+ allow from all
+</FilesMatch>
+
+
 # ONLY IF MOD_REWRITE IS INSTALLED
 <IfModule mod_rewrite.c>
 	# ENABLE ENGINE
@@ -45,4 +59,16 @@
 	# REWRITE RULES
 	RewriteRule ^(.+) - [PT,L]
 	RewriteRule ^(.*) index.php
+</IfModule>
+
+# custom error page
+# ErrorDocument 400 /error.php
+# ErrorDocument 401 /error.php
+# ErrorDocument 403 /error.php
+# ErrorDocument 404 /error.php
+# ErrorDocument 500 /error.php
+
+# disallow index viewing (like ftp) of directory
+<IfModule mod_autoindex.c>
+	IndexIgnore *
 </IfModule>

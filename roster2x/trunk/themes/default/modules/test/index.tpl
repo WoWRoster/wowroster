@@ -1,10 +1,6 @@
-<!--$Id$-->
-<html>
-<head>
-<title></title>
-</head>
-<body>
+{include file='header.tpl'}
+
 {$text}
 <img src="http://cvsroster.homeip.net/roster1x/trunk/img/arenapointsicon.png" />
-</body>
-</html>
+
+{include file='footer.tpl'}
