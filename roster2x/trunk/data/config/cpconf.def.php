@@ -67,3 +67,6 @@ $config['redirect_www'] = 'off';
 #' output_gzip type=check
 // Use gzip encoding for templates
 $config['output_gzip'] = false;
+#' smary_debug type=check
+// Enable the debug console for templates and forces recompilation of templates
+$config['smary_debug'] = false;

@@ -97,7 +97,6 @@ final class cpMain
 	 */
 	static public function loadClass()
 	{
-
 		$arguments = func_get_args();
 		$arguments_count = func_num_args();
 
@@ -144,7 +143,6 @@ final class cpMain
 				}
 				if($arguments_count > 2)
 				{
-
 					$arguments_list = Array();
 
 					foreach($arguments as $key => $value)
@@ -192,52 +190,52 @@ final class cpMain
 													}
 													else
 													{
-													self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4] ,$arguments_list[5] ,$arguments_list[6], $arguments_list[7], $arguments_list[8]);
+														self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4] ,$arguments_list[5] ,$arguments_list[6], $arguments_list[7], $arguments_list[8]);
 													}
 												}
 												else
 												{
-												self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4] ,$arguments_list[5] ,$arguments_list[6], $arguments_list[7]);
+													self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4] ,$arguments_list[5] ,$arguments_list[6], $arguments_list[7]);
 												}
 											}
 											else
 											{
-											self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4] ,$arguments_list[5] ,$arguments_list[6]);
+												self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4] ,$arguments_list[5] ,$arguments_list[6]);
 											}
 										}
 										else
 										{
-										self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4], $arguments_list[5]);
+											self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4], $arguments_list[5]);
 										}
 									}
 									else
 									{
-									self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4]);
+										self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3], $arguments_list[4]);
 									}
 								}
 								else
 								{
-								self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3]);
+									self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2], $arguments_list[3]);
 								}
 							}
 							else
 							{
-							self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2]);
+								self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1], $arguments_list[2]);
 							}
 						}
 						else
 						{
-						self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1]);
+							self::$instance[$arguments[1]] = new $c_name($arguments_list[0], $arguments_list[1]);
 						}
 					}
 					else
 					{
-					self::$instance[$arguments[1]] = new $c_name($arguments_list[0]);
+						self::$instance[$arguments[1]] = new $c_name($arguments_list[0]);
 					}
 				}
 				else
 				{
-				self::$instance[$arguments[1]] = new $c_name;
+					self::$instance[$arguments[1]] = new $c_name;
 				}
 
 				/**
@@ -248,12 +246,12 @@ final class cpMain
 			}
 			else
 			{
-			throw new cpException("Gave up when attempting to access the class ". $arguments[1] . " within " . $arguments[0] . " because it has been included already.");
+				throw new cpException("Gave up when attempting to access the class ". $arguments[1] . " within " . $arguments[0] . " because it has been included already.");
 			}
 		}
 		else
 		{
-		throw new cpException("File " . $arguments[0] . " was not found, or permission was denied when attempting to read it.");
+			throw new cpException("File " . $arguments[0] . " was not found, or permission was denied when attempting to read it.");
 		}
 	}
 
@@ -375,7 +373,6 @@ final class cpMain
 	 */
 	static public function loadFile($file)
 	{
-
 		/**
 		 * we only allow accpetable characters in our filenames
 		 */

@@ -62,6 +62,10 @@ if( $save )
 	cpMain::$instance['cpconfig']->writeConfig($file, array());
 	cpMain::$instance['smarty']->assign('status', 'Personal config updated');
 }
+else
+{
+	cpMain::$instance['smarty']->assign('status', '');
+}
 
 // Assign output vars
 cpMain::$instance['smarty']->assign('file',$file);

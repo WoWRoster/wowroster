@@ -7,12 +7,12 @@
 	<h1>Settings overview for {$file}</h1>
 	{$status}
 	<form method="post" action="">
-		<input type="text" name="file" id="file">
-		<input type="submit" value="Submit">
+		<input type="text" name="file" id="file" />
+		<input type="submit" value="Submit" />
 	</form>
 	<form method="post" action="">
-		<input type="hidden" name="save" id="save" value="1">
-		<input type="submit" value="Update personal config">
+		<input type="hidden" name="save" id="save" value="1" />
+		<input type="submit" value="Update personal config" />
 	</form>
 	<table>
 		<tr><th>Setting name<th>Meta info string<th>Default setting<th>Current setting

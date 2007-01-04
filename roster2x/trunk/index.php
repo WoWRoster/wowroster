@@ -228,7 +228,6 @@ if(cpMain::$instance['cpconfig']->cpconf['hide_param'])
  */
 switch(((isset($_GET['plugin']) Xor isset($_GET['module']))) ? (isset($_GET['module'])) ? "module" : "plugin" : "undefined")
 {
-
 	/**
 	 * The users request is for module usage, we must set variables defining
 	 * the library path and the mode in which the module shall be ran. We
@@ -289,11 +288,18 @@ else
 if(cpMain::isClass('smarty'))
 {
 	/**
-	 * Make sure the specified module/plugin has a available theme (tempalte file)
+	 * Make sure the specified module/plugin has a available theme (template file)
 	 */
-	if(cpMain::isClass('cpusers'))
+	if( cpMain::isClass('cpusers') )
 	{
-		cpMain::$instance['cpusers']->data['user_theme'] = ((is_file("themes".DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . cpMain::$system['method_path'] . ".tpl")) ? cpMain::$instance['cpusers']->data['user_theme'] : cpMain::$instance['cpconfig']->cpconf['def_theme']);
+		if( is_file('themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . cpMain::$system['method_path'] . ".tpl"))
+		{
+			cpMain::$instance['cpusers']->data['user_theme'] = cpMain::$instance['cpusers']->data['user_theme'];
+		}
+		else
+		{
+			cpMain::$instance['cpusers']->data['user_theme'] = cpMain::$instance['cpconfig']->cpconf['def_theme'];
+		}
 	}
 
 	/**
@@ -301,8 +307,35 @@ if(cpMain::isClass('smarty'))
 	 */
 	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP.'default'.DIR_SEP;
 	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
-	cpMain::$instance['smarty']->plugins_dir = array(SMARTY_DIR . 'plugins', 'resources'.DIR_SEP.'plugins');
 
+
+	/**
+	 * Debug console for smarty templates, also forces recompile for templates
+	 */
+	if( cpMain::$instance['cpconfig']->cpconf['smary_debug'] == 1 && !defined('INSTALL') )
+	{
+		cpMain::$instance['smarty']->debugging = true;
+		cpMain::$instance['smarty']->force_compile = true;
+		cpMain::$instance['smarty']->debug_tpl = 'smarty_debug.tpl';
+	}
+
+
+	/**
+	* Smarty security
+	* Turning on security enforces the following rules to the template language
+	*
+	*  If $php_handling is set to SMARTY_PHP_ALLOW, this is implicitly changed to SMARTY_PHP_PASSTHRU
+	*  PHP functions are not allowed in {if} statements, except those specified in the $security_settings
+	*  Templates can only be included from directories listed in the $secure_dir array
+	*  Local files can only be fetched from directories listed in the $secure_dir array using {fetch}
+	*  {php}{/php} tags are not allowed
+	*  PHP functions are not allowed as modifiers, except those specified in the $security_settings
+	*/
+	cpMain::$instance['smarty']->security = true;
+	cpMain::$instance['smarty']->secure_dir = array(PATH_LOCAL . 'themes'.DIR_SEP);
+
+
+	// Use GZIP output on smarty templates?
 	if( cpMain::$instance['cpconfig']->cpconf['output_gzip'] == 1 && !defined('INSTALL') && !GZIPSUPPORT )
 	{
 		cpMain::$instance['smarty']->load_filter('output','gzip');
@@ -311,7 +344,7 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Set our CONSTANTS provided by our system
 	 */
-	cpMain::$instance['smarty']->assign("TEMPLATE_PATH", PATH_REMOTE);
+	cpMain::$instance['smarty']->assign('TEMPLATE_PATH', PATH_REMOTE);
 
 	/**
 	 * We only inject our language into the template if the users specifies.
@@ -326,7 +359,6 @@ if(cpMain::isClass('smarty'))
 	 */
 	if(cpMain::isClass('cplang'))
 	{
-
 		/**
 		 * Load the language to our template class
 		 */
@@ -339,27 +371,36 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Build the template for the specified block
 	 */
-	(
-		(
-			is_file(
-				(cpMain::$system['template_path'] !== "")
-				? $var = cpMain::$system['template_path']
-				: $var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"
-			)
-		)
-			? cpMain::$instance['smarty']->display($var)
-			: (
-				(
-					is_file(
-						$var = PATH_LOCAL . "themes".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . ".tpl"
-					)
-				)
-					? cpMain::$instance['smarty']->display($var)
-					: cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__)
-			)
-	);
+	if( cpMain::$system['template_path'] !== '' )
+	{
+		$var = cpMain::$system['template_path'];
+	}
+	else
+	{
+		$var = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['system_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
+	}
 
+	if( is_file($var) )
+	{
+		cpMain::$instance['smarty']->compile_id = cpMain::$system['method_path'];
+		cpMain::$instance['smarty']->display($var);
+	}
+	else
+	{
+		$var = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . cpMain::$system['method_type'] . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
+		if( is_file($var) )
+		{
+			cpMain::$instance['smarty']->compile_id = cpMain::$system['method_path'];
+			cpMain::$instance['smarty']->display($var);
+		}
+		else
+		{
+			cpMain::cpErrorFatal("Error Loading Requested Template, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__);
+		}
+	}
 }
+
+
 
 /**
  * Strip slashes from GET/POST/Cookie variables because we add them back later
@@ -395,7 +436,7 @@ function prepareInput(&$value, $key, $set=true)
 function gmtime()
 {
 	static $time;
-	if (!$time)
+	if( !$time )
 	{
 		$time = (time() - date('Z'));
 	}
