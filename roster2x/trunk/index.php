@@ -54,9 +54,9 @@ define('PATH_LOCAL', dirname(__FILE__).DIR_SEP );
 
 if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
 {
-	define('PATH_REMOTE', 'http://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']).'/' );
-	define('PATH_REMOTE_S', 'https://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']).'/' );
+	define('PATH_REMOTE', 'http://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']).str_replace('/index.php', '', $_SERVER['PHP_SELF']).'/' );
 }
+
 
 /**
  * Create some constants
@@ -269,11 +269,11 @@ if(cpMain::isClass('smarty'))
 	 */
 	if( cpMain::isClass('cpusers') && (is_file(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . 'theme.php')) )
 	{
-		cpMain::$system['current_theme'] = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme'].DIR_SEP;
+		cpMain::$system['current_theme'] = cpMain::$instance['cpusers']->data['user_theme'];
 	}
 	elseif( is_file(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme']. DIR_SEP . 'theme.php') )
 	{
-		cpMain::$system['current_theme'] = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme'].DIR_SEP;
+		cpMain::$system['current_theme'] = cpMain::$instance['cpconfig']->cpconf['def_theme'];
 	}
 	else
 	{
@@ -283,12 +283,12 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Include the theme's php file
 	 */
-	require(cpMain::$system['current_theme'] . 'theme.php');
+	require(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$system['current_theme'] . DIR_SEP . 'theme.php');
 
 	/**
 	 * Configure smarty
 	 */
-	cpMain::$instance['smarty']->template_dir = cpMain::$system['current_theme'];
+	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$system['current_theme'] . DIR_SEP;
 	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
 
 
@@ -327,7 +327,8 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Set our CONSTANTS provided by our system
 	 */
-	cpMain::$instance['smarty']->assign('THEME_PATH', PATH_REMOTE);
+	cpMain::$instance['smarty']->assign('THEME_PATH', PATH_REMOTE.cpMain::$system['current_theme']);
+	cpMain::$instance['smarty']->assign('PATH_REMOTE', PATH_REMOTE);
 
 	/**
 	 * We only inject our language into the template if the users specifies.
@@ -360,7 +361,7 @@ if(cpMain::isClass('smarty'))
 	}
 	else
 	{
-		$var = cpMain::$system['current_theme'] . 'modules' . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
+		$var = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$system['current_theme'] . DIR_SEP . 'modules' . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
 	}
 
 	if( is_file($var) )
