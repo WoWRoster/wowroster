@@ -160,7 +160,7 @@ $inst_keys['deDE']['A'] = array(
 			'Treffen in Stormwind|',
 			'Die große Maskerade|',
 			'Das Großdrachenauge|',
-			'Drachenfeuer-Amulett|'
+			'Drachenfeueramulett|'
 		),
 	'MC' => array( 'Key-Only', 'MC' =>
 			'Ewige Quintessenz|22754'
