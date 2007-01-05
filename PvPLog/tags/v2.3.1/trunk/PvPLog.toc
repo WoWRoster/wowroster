@@ -1,0 +1,15 @@
+## Interface: 20000
+## Title: PvPLog
+## Author: Andrzej Gorski
+## Maintainer: Matthew Musgrove, Brad Morgan
+## URL: http://www.wowroster.net
+## Version: 2.3.1
+## Notes: Keeps track of your PvP kills and the people who kill you.
+## Notes-deDE: Zeichnet PvP Siege und Verluste auf, sowie Duelle.
+## Notes-frFR: Enregistre les victoires et les défaites JcJ.
+## Notes-esES: Hace un seguimiento de tus asesinatos JcJ y de la gente que te ha asesinado.
+## SavedVariables: PvPLogData, PurgeLogData, targetList, targetRecords
+## SavedVariablesPerCharacter: 
+MyMinimapButton.lua
+PvPLog.xml
+PvPLogUI.xml
