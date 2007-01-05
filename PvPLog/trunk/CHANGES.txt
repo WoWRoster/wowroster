@@ -2,10 +2,14 @@ PvPLog
 Author:           Andrzej Gorski
 Maintainer:       Matthew Musgrove, Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          2.3.0
-Last Modified:    2007-01-03
+Version:          2.3.1
+Last Modified:    2007-01-05
 
 CHANGES
+
+2007-01-05  * 2.3.1
+    * Update level every time we see a target.
+    * Update FR localization (by Exerladan).
 
 2007-01-03  * 2.3.0
     * Added Statistics display (/pl pvp, /pl duel, /pl recent) to minimap button left-click.

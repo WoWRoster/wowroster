@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.3.0
-    Last Modified:    2007-01-03
+    Version:          2.3.1
+    Last Modified:    2007-01-04
 ]]
 
 -- Local variables
@@ -1627,6 +1627,12 @@ function PvPLogUpdateTarget(dueling)
                     UnitPVPName("target"));
                 targetRecords[targetName].rank = fullrank;
                 fullrank = "";
+            else
+                local level = UnitLevel("target");
+                if (level > targetRecords[targetName].level) then
+                    PvPLogDebugMsg('Target updated: "' .. targetName .. '"');
+                    targetRecords[targetName].level = level;
+                end
             end
         else
             -- Its not a player or its not an enemy
