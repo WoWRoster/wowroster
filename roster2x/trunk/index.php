@@ -147,7 +147,7 @@ if( !file_exists(PATH_LOCAL . 'data'.DIR_SEP.'config'.DIR_SEP.'cpconf.php') )
 {
 	if( !defined('INSTALL') )
 	{
-		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Go to ?modules=config to set up config",'','',true);
+		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Copy &quot;data/config/cpconf.def.php&quot; to &quot;data/config/cpconf.php&quot;",'','',true);
 	}
 }
 
@@ -220,7 +220,7 @@ if( cpMain::$instance['cpconfig']->cpconf['hide_param'] )
 /**
  * Determine the users module request within switch function.
  */
-if( isset($_GET['module']) )
+if( isset($_GET['module']) && $_GET['module'] != '' )
 {
 	/**
 	 * The users request is for module usage, we must set variables defining
@@ -379,16 +379,20 @@ if(cpMain::isClass('smarty'))
 
 /**
  * Strip slashes from GET/POST/Cookie variables because we add them back later
+ *
+ * @param mixed $value
+ * @param unknown_type $key
+ * @param unknown_type $set
  */
 function prepareInput(&$value, $key, $set=true)
 {
-	if (is_array($value))
+	if( is_array($value) )
 	{
 		array_walk($value, 'prepareInput', false);
 	}
 	else
 	{
-		if (MAGICQUOTES)
+		if( MAGICQUOTES )
 		{
 			$value = stripslashes($value);
 		}
@@ -402,11 +406,18 @@ function prepareInput(&$value, $key, $set=true)
 			'#[\xE3][\x80][\x80]#'       // 3000
 		), ' ', $value);
 	}
-	if ($set) $_REQUEST[$key] =& $value;
+	if( $set )
+	{
+		$_REQUEST[$key] =& $value;
+	}
 }
+
 
 /**
  * Time Formatting
+ * Subtracts the current timezone offest from the current time
+ *
+ * @return string
  */
 function gmtime()
 {
