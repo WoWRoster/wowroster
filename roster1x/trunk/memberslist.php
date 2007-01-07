@@ -692,7 +692,7 @@ function level_value ( $row )
 		$tooltip .= '</table>';
 
 
-		if( $row['level'] == '60' )
+		if( $row['level'] == '70' )
 		{
 			$tooltip = makeOverlib($wordings[$roster_conf['roster_lang']]['max_exp'],'','',2,'',',WRAP');
 		}
@@ -704,7 +704,7 @@ function level_value ( $row )
 
 	if( $roster_conf['index_level_bar'] )
 	{
-		$percentage = round(($row['level']/60)*100);
+		$percentage = round(($row['level']/70)*100);
 
 		$cell_value .= '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
