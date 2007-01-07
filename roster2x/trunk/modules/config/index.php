@@ -59,12 +59,62 @@ $config = cpMain::$instance['cpconfig']->loadConfigMeta($file);
 
 if( $save )
 {
-	cpMain::$instance['cpconfig']->writeConfig($file, array());
-	cpMain::$instance['smarty']->assign('status', 'Personal config updated');
+	$submit = array();
+	$status = array();
+	foreach( $_POST as $name => $value )
+	{
+		if( substr($name,0,7) == 'config_' )
+		{
+			$name = substr($name,7);
+		}
+		else
+		{
+			continue;
+		}		
+		$old = $config[$name]['value'];
+		$meta = $config[$name]['meta'];
+		switch( $meta['type'] )
+		{
+			case 'password':
+				if( !isset($value[1]) )
+				{
+					// Bad data passed
+					$status[] = 'Bad data for password field '.$name;
+					break;
+				}
+				elseif( $value[0] != $value[1] )
+				{
+					// Passwords not equal
+					$status[] = 'Passwords not equal for '.$name;
+				}
+				elseif( empty($value[0]) )
+				{
+					// Fail silently: Password unchanged
+					break;
+				}
+				else
+				{
+					$value = $value[1];
+					// and fallthrough to text field
+				}
+			case 'text':
+				if( $old != $value && ( !isset($meta['maxlength']) || strlen($value) < $meta['maxlength'] ) )
+				{
+					$submit[$name] = $value;
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
+	cpMain::$instance['cpconfig']->writeConfig($file, $submit);
+	$status[] = 'Config file "'.$file.'" updated';
+	cpMain::$instance['smarty']->assign('status', $status);
 }
 else
 {
-	cpMain::$instance['smarty']->assign('status', '');
+	cpMain::$instance['smarty']->assign('status', array());
 }
 
 // Assign output vars

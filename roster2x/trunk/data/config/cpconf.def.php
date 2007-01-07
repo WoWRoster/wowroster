@@ -13,7 +13,7 @@ if(!defined('SECURITY'))
 	die("You may not access this file directly.");
 }
 
-#' db_type type=select option=cpmysqli
+#' db_type type=select option[]=cpmysqli
 // Database engine to use. Only mysqli is available at the moment
 $config['db_type'] = 'cpmysqli';
 #' db_host type=text

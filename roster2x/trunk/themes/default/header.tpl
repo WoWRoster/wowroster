@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<base href="{$PATH_REMOTE}" />
-	<title>R2 CMS</title>
+	<title>R2 CMS{if !empty($title)} - {$title}{/if}</title>
 	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 	<link rel="stylesheet" type="text/css" href="{$THEME_PATH}/style/{$CSS_FILE}.css" />
 </head>
