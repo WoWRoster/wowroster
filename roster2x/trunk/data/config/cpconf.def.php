@@ -32,13 +32,13 @@ $config['db_name'] = 'R2CMS';
 // Database prefix. Default is R2_
 $config['db_prefix'] = 'R2_';
 
-#' def_theme type=selectdir dir=library/templates
+#' def_theme type=select subtype=dir dir=library/templates
 // Default theme
 $config['def_theme'] = 'default';
-#' def_lang type=selectdir dir=library/language
+#' def_lang type=select subtype=dir dir=library/language
 // Default language
 $config['def_lang'] = 'english';
-#' def_module type=selectdir dir=library/modules
+#' def_module type=select subtype=dir dir=library/modules
 // If the default page is a module, what module?
 $config['def_module'] = 'config';
 #' hide_param type=check
