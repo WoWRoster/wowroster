@@ -51,7 +51,7 @@ if(!defined('SECURITY'))
  * Our configuration management class. The config data is in data/config
  * @package cpFramework
  */
-class cpconfig
+class cpConfig
 {
 	/**
 	 * Stores configuration data after loading it
@@ -195,7 +195,7 @@ class cpconfig
 				list($prop, $var) = explode('=',$metavar);
 				if( substr($prop,-2,2) == '[]' )
 				{
-					$config[$option]['meta'][$prop][] = trim($var);
+					$config[$option]['meta'][substr($prop,0,-2)][] = trim($var);
 				}
 				else
 				{

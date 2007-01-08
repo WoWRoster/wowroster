@@ -32,16 +32,16 @@ $config['db_name'] = 'R2CMS';
 // Database prefix. Default is R2_
 $config['db_prefix'] = 'R2_';
 
-#' def_theme type=select subtype=dir dir=library/templates
+#' def_theme type=select subtype=dir dir=themes
 // Default theme
 $config['def_theme'] = 'default';
 #' def_lang type=select subtype=dir dir=library/language
 // Default language
 $config['def_lang'] = 'english';
-#' def_module type=select subtype=dir dir=library/modules
+#' def_module type=select subtype=dir dir=modules
 // If the default page is a module, what module?
 $config['def_module'] = 'config';
-#' hide_param type=check
+#' hide_param type=bool
 // Use param-value/param2-value2 linking method
 $config['hide_param'] = true;
 #' redirect_www type=select option[]=www option[]=http option[]=off
@@ -55,9 +55,9 @@ $config['hide_param'] = true;
 // 'http' Redirect to PATH_REMOTE
 // 'off' Don't ever redirect domain
 $config['redirect_www'] = 'off';
-#' output_gzip type=check
+#' output_gzip type=bool
 // Use gzip encoding for templates
 $config['output_gzip'] = false;
-#' smary_debug type=check
+#' smary_debug type=bool
 // Enable the debug console for templates and forces recompilation of templates
 $config['smary_debug'] = false;
