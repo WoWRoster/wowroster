@@ -16,12 +16,20 @@
 ******************************/
 
 .wowroster {
-	background:url(../../../themes/DF_AcidTechBlue/images/BodyBG.jpg);
-
+	/*background:url(../../../themes/fiblack3d/images/cb_fbr_tex.gif);*/
+	
 	font-family:arial,helvetica,sans-serif;
 	font-size:12px;
-	border: 1px solid #000000;
-	vertical-align: middle;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-bottom-color: #707070;
+	vertical-align: middle;	
 }
 .wowroster a:link {
 	color:#CBA300;
@@ -188,17 +196,17 @@
 	border-style:solid;
 	border-color:#29282D;
 }
-.expOutline, .wowroster table.expOutline {
+.wowroster table.expOutline {
 	border-style:solid;
 	border-width:1px;
 	border-color:#5A5D5A;
 	background-color:#000000;
 }
-.levelbarParent, .wowroster .levelbarParent {
+.wowroster .levelbarParent {
 	position:relative;
 	height:1px;
 }
-.levelbarChild, .wowroster .levelbarChild {
+.wowroster .levelbarChild {
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -413,7 +421,7 @@
 .wowroster .membersHeaderRight {
 	text-align:left;
 	white-space:nowrap;
-	color:#CBA300;
+	/*color:#CBA300;*/
 	font-size:11px;
 	font-family:arial,helvetica,sans-serif;
 	background-color:#2E2D2B;
@@ -1096,7 +1104,6 @@
 
 .wowroster .item {
 	position:relative;
-	border:0;
 	width:40px;
 	height:40px;
 }
@@ -1117,7 +1124,6 @@
 	color:#333333;
 }
 .wowroster .icon {
-	border:0;
 	float:left;
 	width:40px;
 	height:40px;
@@ -1125,7 +1131,6 @@
 	z-index:1;
 }
 .wowroster .iconsmall {
-	border:0;
 	float:left;
 	width:31px;
 	height:30px;
@@ -2757,6 +2762,8 @@
 /* Sets main text background */
 /* ol_fgclass */
 	background-color:#000000;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=75);
+	-moz-opacity: 0.75;
 }
  .overlib_border {
 /* Sets the border style */

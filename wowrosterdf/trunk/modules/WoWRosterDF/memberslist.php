@@ -45,7 +45,7 @@ if ( $roster_conf['index_motd'] == 1 )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="'.getlink('&amp;file=motd').'" alt="Guild Message of the Day" /><br /><br />';
+		print '<img src="'.getlink('&amp;file=motd&amp;motd='.urlencode($guildMOTD)).'" alt="Guild Message of the Day" /><br /><br />';
 	}
 	else
 	{
@@ -284,11 +284,11 @@ foreach ( $FIELDS as $field => $DATA )
 
 	if ( $current_col == $cols )
 	{
-		$tableHeaderRow .= '    <td class="membersHeaderRight"><a href="'.getlink('&amp;file='.$dffile_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
+		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.getlink('&amp;file='.$dffile_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
 	else
 	{
-		$tableHeaderRow .= '    <td class="membersHeader"><a href="'.getlink('&amp;file='.$dffile_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
+		$tableHeaderRow .= '    <th class="membersHeader"><a href="'.getlink('&amp;file='.$dffile_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
 
 	$current_col++;
@@ -496,7 +496,7 @@ function honor_value ( $row )
 	$toolTip = '<div class="levelbarParent" style="width:100%;"><div class="levelbarChild">'.$row['Rankexp'].'%</div></div>';
 	$toolTip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">';
 	$toolTip .= '<tr>';
-	$toolTip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$row['Rankexp'].'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+	$toolTip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$row['Rankexp'].'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
 	$toolTip .= '<td width="'.(100 - $row['Rankexp']).'%"></td>';
 	$toolTip .= '</tr>';
 	$toolTip .= '</table>';
@@ -677,7 +677,7 @@ function level_value ( $row )
 		$tooltip = '<div style="white-space:nowrap;" class="levelbarParent" style="width:200px;"><div class="levelbarChild">XP '.$current.'/'.$max.$rested.'</div></div>';
 		$tooltip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="200">';
 		$tooltip .= '<tr>';
-		$tooltip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+		$tooltip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
 		$tooltip .= '<td width="'.(100 - $percent_exp).'%"></td>';
 		$tooltip .= '</tr>';
 		$tooltip .= '</table>';
@@ -702,7 +702,7 @@ function level_value ( $row )
 		$cell_value .= '<div'.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 		$cell_value .= '<tr>';
-		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
 		$cell_value .= '<td width="'.(100 - $percentage).'%"></td>';
 		$cell_value .= "</tr>\n</table>\n</div>\n";
 	}
@@ -803,11 +803,11 @@ function money_value ( $row )
 	$return = '';
 
 	if( !empty($row['money_g']) )
-		$return .= $row['money_g'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g" /> ';
+		$return .= $row['money_g'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> ';
 	if( !empty($row['money_s']) )
-		$return .= $row['money_s'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s" /> ';
+		$return .= $row['money_s'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> ';
 	if( !empty($row['money_c']) )
-		$return .= $row['money_c'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c" /> ';
+		$return .= $row['money_c'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/> ';
 
 	if( !empty($return) )
 		$cell_value .= $return.'</div>';

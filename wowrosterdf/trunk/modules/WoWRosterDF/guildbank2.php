@@ -35,199 +35,192 @@
 // Multiple edits done for http://wowroster.net Roster
 
 require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
-
-
-if( $roster_conf['show_bank'] && is_user())
+$url = '<a href="'.getlink('&amp;file=');
+if( $roster_conf['show_bank'] && is_user()){
+//---[ Check for Guild Info ]------------
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+if( empty($guild_info) )
 {
-	//---[ Check for Guild Info ]------------
-	$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-	if( empty($guild_info) )
-	{
-		die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
-	}
+	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
+}
 
-	require_once( ROSTER_LIB.'char.php' );
+require_once( ROSTER_LIB.'char.php' );
 
-	$header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
-	include_once (ROSTER_BASE.'roster_header.tpl');
+$header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 
-	$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
-		FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
-		WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id
-		ORDER BY m.name";
+$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
+FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
+WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id
+ORDER BY m.name";
 
-	if ($wowdb->sqldebug)
-		echo "<!-- $muleNameQuery --> \n";
-
-
-	$muleNames = $wowdb->query($muleNameQuery);
-
-	include_once (ROSTER_LIB.'menu.php');
-	echo "\n<br />\n";
-
-	$menu_cell = '      <td class="menubarHeader" align="center" valign="middle"><a href="';
-
-	print '<div align="center">'."\n";
-
-	print border('sorange','start', 'Categorized Bank');
-
-	print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
-
-	echo $menu_cell.getlink('&amp;file=addon&amp;roster_addon_name=guildbank').'">Categorized Bank</a></td>'."\n";
-	echo $menu_cell.getlink('&amp;file=guildbank2').'">Bankers</a></td>'."\n";
-	echo $menu_cell.getlink('&amp;file=guildbank').'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></td>'."\n";
+if ($wowdb->sqldebug)
+	echo "<!-- $muleNameQuery --> \n";
 
 
-	print "  </tr>\n</table>\n";
+$muleNames = $wowdb->query($muleNameQuery);
 
-	print border('sorange','end');
+include_once (ROSTER_LIB.'menu.php');
+echo "\n<br />\n";
 
-	echo '</div><br />';
 
-	if ( $roster_conf['bank_money'] )
-	{
-		$mulemoney = $wowdb->fetch_array($wowdb->query(
-			"SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
-			FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m
-			WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
-			AND p.member_id = m.member_id
-			ORDER  BY m.name"
-			));
+$menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
 
-		if ($mulemoney['copper']>=100)
-		{
-			$mulemoney['copper'] = $mulemoney['copper']/100;
-			$addsilver= (int)$mulemoney['copper'];
-			$mulemoney['copper'] = explode (".", $mulemoney['copper']);
-			$mulemoney['copper'] = $mulemoney['copper'][1];
-		}
-		$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
-		if ($mulemoney['silver']>=100)
-		{
-			$mulemoney['silver'] = $mulemoney['silver']/100;
-			$addgold = (int)$mulemoney['silver'];
-			$mulemoney['silver'] = explode (".", $mulemoney['silver']);
-			$mulemoney['silver'] = $mulemoney['silver'][1];
-		}
-		$mulemoney['gold'] = $mulemoney['gold']+$addgold;
+print '<div align="center">'."\n";
 
-		echo '<br /> '.$wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g" /> '.
-		$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s" /> '.
-		$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c" /></div><br />';
-	}
 
-	while ($muleRow = $wowdb->fetch_array($muleNames))
-	{
-		$date_char_data_updated = DateCharDataUpdated($muleRow['member_name']);
+print border('sorange','start','Bankers');
 
-		echo border('sgray','start',$muleRow['member_name'].' ('.$muleRow['member_note'].') - Updated: '.$date_char_data_updated).
-			'<table class="wowroster" cellspacing="0" cellpadding="2">'.
-			( $roster_conf['bank_money'] ?
-			'<tr>
-			<td colspan="15" class="membersRowRight2">'.
+print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
+
+echo $menu_cell.$url.'addon&roster_addon_name=guildbank">Catagreized Bank</a></td>'."\n";	
+echo $menu_cell.$url.'guildbank2">Bankers</a></td>'."\n";
+echo $menu_cell.$url.'guildbank">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></td>'."\n";
+
+
+print "  </tr>\n</table>\n";
+
+print border('sorange','end');
+
+echo '<br>';
+if ( $roster_conf['bank_money'] )
+{
+	$mulemoney = $wowdb->fetch_array($wowdb->query(
+"SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
+ FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m
+ WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
+ AND p.member_id = m.member_id
+ ORDER  BY m.name"
+));
+if ($mulemoney['copper']>=100)
+{
+	$mulemoney['copper'] = $mulemoney['copper']/100;
+	$addsilver= (int)$mulemoney['copper'];
+	$mulemoney['copper'] = explode (".", $mulemoney['copper']);
+	$mulemoney['copper'] = $mulemoney['copper'][1];
+}
+$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
+if ($mulemoney['silver']>=100)
+{
+	$mulemoney['silver'] = $mulemoney['silver']/100;
+	$addgold = (int)$mulemoney['silver'];
+	$mulemoney['silver'] = explode (".", $mulemoney['silver']);
+	$mulemoney['silver'] = $mulemoney['silver'][1];
+}
+$mulemoney['gold'] = $mulemoney['gold']+$addgold;
+
+	echo '<br /> '.$wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
+	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
+	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>
+<br />';
+}
+
+while ($muleRow = $wowdb->fetch_array($muleNames))
+{
+	$date_char_data_updated = DateCharDataUpdated($muleRow['member_name']);
+	echo border('sgray','start',$muleRow['member_name'].' ('.$muleRow['member_note'].') - Updated: '.$date_char_data_updated).
+	'<table class="wowroster" cellspacing="0" cellpadding="2">'.
+		 ( $roster_conf['bank_money'] ?
+		 	  '<tr>
+    <td colspan="15" class="membersRowRight2">'.
 			'<div class="money" align="center">'.
 			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
 			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
 			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>'.
-			"</td>\n</tr>\n" : '' );
+		"</td>\n</tr>\n" : '' );
 
-		$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
-			FROM `".ROSTER_ITEMSTABLE."` as i
-			WHERE ".$muleRow['member_id']."=i.member_id
-			AND i.item_parent!='bags'
-			AND i.item_parent!='equip'
-			AND i.item_tooltip
-			NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
-			GROUP BY real_itemid
-			ORDER BY i.item_name";
+	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
+ FROM `".ROSTER_ITEMSTABLE."` as i
+ WHERE ".$muleRow['member_id']."=i.member_id
+ AND i.item_parent!='bags'
+ AND i.item_parent!='equip'
+ AND i.item_tooltip
+ NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
+ GROUP BY real_itemid
+ ORDER BY i.item_name";
 
-		$itemsOnMule = $wowdb->query($itemsOnMuleQuery);
-		if ($wowdb->sqldebug)
-			echo "<!-- $itemsOnMuleQuery --> \n";
+	$itemsOnMule = $wowdb->query($itemsOnMuleQuery);
+	if ($wowdb->sqldebug)
+		echo "<!-- $itemsOnMuleQuery --> \n";
 
-		$itemRow=$wowdb->fetch_array($itemsOnMule);
-		if ($itemRow==FALSE)
-		{
-			echo '  <tr>
+	$itemRow=$wowdb->fetch_array($itemsOnMule);
+	if ($itemRow==FALSE)
+	{
+		echo '  <tr>
     <td class="membersRowRight1">'.$muleRow['member_name']." has not uploaded an inventory yet.</td>
   </tr>"."\n";
 
-		}
-		else
-		{
-			echo '  <tr>
-    <td class="membersRowRight1">';
-
-			$column_counter=1;
-			echo '<table width="100%" cellspacing="0" cellpadding="2">';
-			while ($itemRow)
-			{
-				$item_texture=str_replace('\\','/',$itemRow['item_texture']);
-				if ($column_counter==1)
-					echo '  <tr valign="top">';
-
-				// Item texture and quantity column
-				echo "\n".'    <td align="center">';
-
-				$item = new item($itemRow);
-				echo $item->out();
-
-				echo '</td>';
-
-				if ($column_counter==15)
-				{
-					echo "\n  </tr>\n";
-					$column_counter=0;
-				}
-				$column_counter++;
-				$itemRow = $wowdb->fetch_array($itemsOnMule);
-			}
-			echo "</table></td>\n</tr>\n";
-		}
-		echo '</table>'.border('sgray','end').'<br />';
 	}
-
-	include_once (ROSTER_BASE.'roster_footer.tpl');
-}
-else
-{
-	include_once(ROSTER_BASE.'roster_header.tpl');
-	include_once(ROSTER_LIB.'menu.php');
-
-	$menu_cell = '      <td class="menubarHeader" align="center" valign="middle"><a href="';
-
-	print '<div align="center">'."\n";
-
-	print border('sorange','start', 'Categorized Bank');
-
-	print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
-
-	echo $menu_cell.getlink('&amp;file=addon&amp;roster_addon_name=guildbank').'">Categorized Bank</a></td>'."\n";
-	echo $menu_cell.getlink('&amp;file=guildbank2').'">Bankers</a></td>'."\n";
-	echo $menu_cell.getlink('&amp;file=guildbank').'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></td>'."\n";
-
-
-	print "  </tr>\n</table>\n";
-
-	print border('sorange','end');
-
-	echo '</div><br />';
-
-	require_once(ROSTER_LIB.'login.php');
-	$roster_login = new RosterUserLogin($script_filename);
-
-	if( !$roster_login->getAuthorized() )
+	else
 	{
-		print
-		//'<br />'.
-		//'<span class="title_text">SigGen Config</span><br />'.
-		$roster_login->getMessage().
-		$roster_login->getLoginForm();
+		echo '  <tr>
+    <td class="membersRowRight1">';
+		$column_counter=1;
+		echo '<table width="100%" cellspacing="0" cellpadding="2">';
+		while ($itemRow)
+		{
+			$item_texture=str_replace('\\','/',$itemRow['item_texture']);
+			if ($column_counter==1)
+				echo '  <tr valign="top">';
 
-		return;
+			// Item texture and quantity column
+			echo "\n".'    <td align="center">';
+
+			$item = new item($itemRow);
+			echo $item->out();
+
+			echo '</td>';
+
+			if ($column_counter==15)
+			{
+				echo "\n  </tr>\n";
+				$column_counter=0;
+			}
+			$column_counter++;
+			$itemRow = $wowdb->fetch_array($itemsOnMule);
+		}
+		echo "</table></td>\n</tr>\n";
 	}
-
-	include_once(ROSTER_BASE.'roster_footer.tpl');
+	echo '</table>'.border('sgray','end').'<br />';
 }
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
+}
+else {
+    include_once(ROSTER_BASE.'roster_header.tpl');
+	include_once(ROSTER_LIB.'menu.php');
+	$menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
+
+print '<div align="center">'."\n";
+
+
+print border('sorange','start', 'Bankers');
+
+print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
+
+echo $menu_cell.$url.'addon&roster_addon_name=guildbank">Categorized Bank</a></td>'."\n";	
+echo $menu_cell.$url.'guildbank2">Bankers</a></td>'."\n";
+echo $menu_cell.$url.'guildbank">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></td>'."\n";
+
+
+print "  </tr>\n</table>\n";
+
+print border('sorange','end');
+require_once(ROSTER_LIB.'login.php');
+$roster_login = new RosterUserLogin($script_filename);
+
+if( !$roster_login->getAuthorized() )
+{
+	print
+	//'<br />'.
+	//'<span class="title_text">SigGen Config</span><br />'.
+	$roster_login->getMessage().
+	$roster_login->getLoginForm();
+
+	return;
+}
+
+    include_once(ROSTER_BASE.'roster_footer.tpl');
+	}
 ?>

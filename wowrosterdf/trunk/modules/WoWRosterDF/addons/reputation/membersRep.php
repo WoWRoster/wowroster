@@ -16,20 +16,20 @@
  *
  ******************************/
 
-if(!defined('CPG_NUKE')) { exit(); }
+if(!defined('CPG_NUKE'))
 
-$query = "SELECT `m`.`name` AS member, `m`.`member_id`,`r`.`faction`, `r`.`name` AS fct_name, `r`.`value`, ".
-	"( substring( `r`.`value`, 1, locate('/', `r`.`value`)-1) + 0 ) AS curr_rep, ".
-	"( substring( `r`.`value`, locate('/', `r`.`value`)+1, length(`r`.`value`)-locate('/', `r`.`value`)) + 0 ) AS max_rep, ".
-	"`r`.`standing` ".
-	"FROM `".ROSTER_REPUTATIONTABLE."` AS r, ".ROSTER_MEMBERSTABLE." AS m ".
-	"WHERE `r`.`member_id` = `m`.`member_id`";
+$query = "SELECT m.name member, r.faction, r.name fct_name, r.value, ".
+	"( substring( r.value, 1, locate('/', r.value)-1) + 0 ) AS curr_rep, ".
+	"( substring( r.value, locate('/', r.value)+1, length(r.value)-locate('/', r.value)) + 0 ) AS max_rep, ".
+	"r.standing ".
+	"FROM `".ROSTER_REPUTATIONTABLE."` r, ".ROSTER_MEMBERSTABLE." m ".
+	"WHERE r.member_id = m.member_id";
 
 if( (isset($_REQUEST['factionfilter'])) && (($_REQUEST['factionfilter']) != 'All') )
-	$query .= " AND `r`.`name` = '".$wowdb->escape($_REQUEST['factionfilter'])."'";
+	$query .= " AND r.name='".$_REQUEST['factionfilter']."'";
 
 
-$query .=  " ORDER BY max_rep DESC, r.standing DESC, curr_rep DESC";
+$query .=  " ORDER BY max_rep desc, r.standing DESC, curr_rep DESC";
 
 
 $qry_fct = "SELECT distinct(name) fct_name FROM ".ROSTER_REPUTATIONTABLE." ORDER BY name";
@@ -50,10 +50,10 @@ $result_fct = $wowdb->query($qry_fct) or die_quietly($wowdb->error(),'Database E
 
 
 $choiceForm = '
-    <form action="" method="get" name="myform">
-    <input type="hidden" name="name" value="'.$module_name.'" />
-    <input type="hidden" name="file" value="addon" />
-	<input type="hidden" name="roster_addon_name" value="reputation" />
+    <form action="" method=GET name=myform>
+    <input type="hidden" name="name" value="'.$module_name.'">
+    <input type="hidden" name="file" value="addon">
+	<input type="hidden" name="roster_addon_name" value="reputation">
 	'.$wordings[$roster_conf['roster_lang']]['faction_filter'].'
 	<select name="factionfilter">'."\n";
 
@@ -84,9 +84,9 @@ if( isset($_REQUEST['factionfilter']) )
 	$borderTop = border('syellow', 'start', $ab['0']['1'].' - '.$ab['0']['2']);
 	$tableHeader = '<table width="100%" cellspacing="0" class="wowroster">';
 	$tableHeaderRow = '	<tr>
-		<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['rep_name'].'</td>
-		<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['rep_status'].'</td>
-		<td class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['rep_value'].' / '.$wordings[$roster_conf['roster_lang']]['rep_max'].'</td>
+		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['rep_name'].'</th>
+		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['rep_status'].'</th>
+		<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['rep_value'].' / '.$wordings[$roster_conf['roster_lang']]['rep_max'].'</th>
 		</tr>';
 	$borderBottom = border('syellow', 'end');
 	$tableFooter = '</table>';
@@ -122,6 +122,9 @@ if( isset($_REQUEST['factionfilter']) )
 }
 
 
+
+$wowdb->closeQuery($result);
+
 function replevel($replevel)
 {
 	global $ab;
@@ -142,4 +145,6 @@ function replevel($replevel)
 	}
 	return($rep);
 }
+
+$wowdb->free_result($result);
 ?>

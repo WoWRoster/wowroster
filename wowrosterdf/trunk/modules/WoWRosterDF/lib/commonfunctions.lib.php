@@ -53,9 +53,9 @@ function border($style,$mode,$header_text=null)
 <!-- START [open-'.$style.'] container -->
 <table cellspacing="0" cellpadding="0" border="0">
   <tr>
-   <td class="'.$style.'topleft '.$backg_css.'topleft"></td>
+   <td><span class="'.$style.'topleft '.$backg_css.'topleft"></span></td>
    <td class="'.$style.'top '.$backg_css.'top"></td>
-   <td class="'.$style.'topright '.$backg_css.'topright"></td>
+   <td><span class="'.$style.'topright '.$backg_css.'topright"></span></td>
   </tr>
 '.$header_text.'
   <tr>

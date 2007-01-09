@@ -57,6 +57,7 @@ if( file_exists($addonFile) )
 	if( file_exists($cssFile) )
 	{
 		$css = '/addons/'.$_REQUEST['roster_addon_name'].'/default.css';
+		$css = '/addons/'.$_REQUEST['roster_addon_name'].'/styles.css';
 	}
 
 	// Include localization variables
@@ -86,7 +87,7 @@ else
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
 if( $css != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'" />'."\n";
+	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'">'."\n";
 
 if ($roster_show_header)
 	include_once (ROSTER_BASE.'roster_header.tpl');

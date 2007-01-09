@@ -64,6 +64,10 @@ else
 // Files that we accept for upload
 $filefields[] = 'CharacterProfiler.lua';
 $filefields[] = 'PvPLog.lua';
+$filefields[] = 'CT_RaidTracker.lua';
+$filefields[] = 'Bookworm.lua';
+$filefields[] = 'GuildEventManager2.lua';
+$filefields[] = 'GroupCalendar.lua';
 
 // Loop through each posted file
 foreach ($_FILES as $filefield => $file)
@@ -96,6 +100,27 @@ foreach ($_FILES as $filefield => $file)
 				if( isset($data['myProfile']) )
 				{
 					$uploadData['myProfile'] = $data['myProfile'];
+				}
+				// If CT_RaidTracker data is there, assign it to $uploadData['RaidTrackerData']
+				if( isset($data['CT_RaidTracker_Options']) )
+				{
+					$uploadData['RaidTrackerData'] = $data['CT_RaidTracker_RaidLog'];
+				}
+				
+				// If Bookworm data is there, assign it to $uploadData['Bookworm']
+				if( isset($data['BookwormBooks']) )
+				{
+					$uploadData['BookwormBooks'] = $data['BookwormBooks'];
+				}
+				// If GuildEventManager2 data is there, assign it to $uploadData['GuildEventManagerData']
+				if( isset($data['GEM_Events']) )
+				{
+					$uploadData['GuildEventManagerData'] = $data['GEM_Events'];
+				}
+				// If GroupCalendar data is there, assign it to $uploadData['GroupCalenderData']
+				if( isset($data['gGroupCalendar_Database']) )
+				{
+					$uploadData['GroupCalendarData'] = $data['gGroupCalendar_Database'];
 				}
 				// Clear the $data variable
 				unset($data);
@@ -319,7 +344,7 @@ if( !$roster_conf['authenticated_user'] )
 	}
 
 	$authFields = border('syellow','start','Upload Authorization')."
-                  <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
+                  <table class=\"wowroster\" cellspacing=\"0\" cellpadding=\"0\">
 $auth_message
                     <tr>
                       <td class=\"membersRow2\">Username</td>
@@ -348,7 +373,7 @@ $inputForm = "
                 <form action=\"".getlink('&amp;file=update')."\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
 $authFields
 ".border('syellow','start','Upload Files')."
-                  <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
+                  <table class=\"wowroster\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRowRight1\" colspan=\"2\" align=\"center\"><div align=\"center\"><small>".$wordings[$roster_conf['roster_lang']]['lualocation']."</small></div></td>
                     </tr>

@@ -99,12 +99,12 @@ class item
 
 		if ($this->data['item_slot'] == 'Ammo')
 		{
-			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_itemlink">'."\n".
 			'<img src="'.$path.'" class="iconsmall"'." alt=\"\" /></a>\n";
 		}
 		else
 		{
-			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_itemlink">'."\n".
 			'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
 		}
 		if( ($this->data['item_quantity'] > 1) )

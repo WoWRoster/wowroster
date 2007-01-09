@@ -18,26 +18,22 @@
 
 //==========[ SETTINGS ]========================================================
 
-$roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
-
 if( isset($_GET['motd']) )
 {
-	$guildMOTD = stripslashes(urldecode($_GET['motd']));
-	// Chomp $guildMOTD at 145 characters
-	$guildMOTD = substr($guildMOTD,0,145);
+	$guildMOTD = urldecode($_GET['motd']);
 }
 else
 {
-	include( $roster_root_path . 'settings.php' );
-	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-	$guildMOTD = $guildMOTD['guild_motd'];
+	$guildMOTD = 'No Message';
 }
 
+// Chomp $guildMOTD at 145 characters
+$guildMOTD = substr($guildMOTD,0,145);
 
 
 // Path to font folder
-$image_path = $roster_root_path . 'img' . DIRECTORY_SEPARATOR;
-$font_path = $roster_root_path . 'fonts' . DIRECTORY_SEPARATOR;
+$image_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR;
+$font_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR;
 
 
 motd_img($guildMOTD,$image_path,$font_path);
@@ -48,15 +44,15 @@ motd_img($guildMOTD,$image_path,$font_path);
 function motd_img( $guildMOTD,$image_path,$font_path )
 {
 	// Set ttf font
-	$visitor = $font_path . 'VERANDA.TTF';
+	$visitor = $font_path . 'visitor.ttf';
 
 	// Get sizes of text
-	$dimensions = imagettfbbox( 11, 0, $visitor, $guildMOTD );
+	$dimensions = imagettfbbox( 12, 0, $visitor, $guildMOTD );
 	$text_length = $dimensions[2] - $dimensions[6];
 
 	// Get how many times to print center
 	$image_size = ceil($text_length/198);
-	$final_size = 54 + ($image_size*198);
+	$final_size = 55 + ($image_size*198);
 	$text_loc = ($final_size/2) - ($dimensions[2]/2);
 
 	// Create new image
@@ -79,7 +75,7 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 
 	$textcolor = imagecolorallocate($img, 255, 255, 255);
 
-	imagettftext($img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD);
+	imagettftext($img, 12, 0, $text_loc, 22, $textcolor, $visitor, $guildMOTD);
 
 	header('Content-type: image/png');
 	imagepng($img);

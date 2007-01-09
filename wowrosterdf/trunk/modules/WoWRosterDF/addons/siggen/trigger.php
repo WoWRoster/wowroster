@@ -3,10 +3,7 @@
  * $Id$
  *******************************/
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+if(!defined('CPG_NUKE'))
 
 /*
 	Start the following scripts when "update.php" is called
@@ -54,7 +51,7 @@ if( !empty($r) )
 	unset($siggen_row);
 }
 
-global $module_name;
+
 
 // Run this on a character update
 if( $mode == 'char' )

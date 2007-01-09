@@ -39,7 +39,7 @@ if ( $errors )
 {
 	// Something went wrong, otherwise we would have had no output
 	echo "<br />".border('sred','start','SQL UPDATE ERROR Build['.$SQLBuild.']').'
-	<table width="300" class="wowroster" cellspacing="0">'.
+	<table width="300" class="bodyline" cellspacing="0">'.
 	$errors.
 	'</table>'.
 	border('sred','end')."<br />";

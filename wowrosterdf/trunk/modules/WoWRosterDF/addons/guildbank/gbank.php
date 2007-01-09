@@ -171,21 +171,19 @@ else
 $content .= border($muleborderstyle,'start',$wordings[$roster_conf['roster_lang']]['guildbank'].' '.$wordings[$roster_conf['roster_lang']]['character'].'s');
 
 // Display the table inside the bordered cell
-$content .= "<table border='1' cellspacing='2' cellpadding='2'>";
-$content .= "<tr><td class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['character']." ".$wordings[$roster_conf['roster_lang']]['name']."</td>";
+$content .= "<table colspan='".$banker_columns."' border='1' cellspacing='2' cellpadding='2'>";
+$content .= "<tr><th class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['character']." ".$wordings[$roster_conf['roster_lang']]['name']."</th>";
 if ($roster_conf['bank_money'])
 {
-	$content .= "<td class='membersHeader'><img src=\"".$roster_conf['img_url']."bagcoingold.gif\" alt=\"g\"/></td>
-<td class='membersHeader'><img src=\"".$roster_conf['img_url']."bagcoinsilver.gif\" alt=\"s\"/></td>
-<td class='membersHeader'><img src=\"".$roster_conf['img_url']."bagcoinbronze.gif\" alt=\"c\"/> </td>";
+	$content .= "<th class='membersHeader'><img src=\"".$roster_conf['img_url']."/bagcoingold.gif\" alt=\"G\"/> </th><th class='membersHeader'><img src=\"".$roster_conf['img_url']."/bagcoinsilver.gif\" alt=\"S\"/> </th><th class='membersHeader'><img src=\"".$roster_conf['img_url']."/bagcoinbronze.gif\" alt=\"C\"/> </th>";
 }
-$content .= "<td class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['lastupdate']."</td></tr>";
+$content .= "<th class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['lastupdate']."</th></tr>";
 $muleRowHeader=1;
 if ($mulecount > 0)
 {
 	foreach ($mule as $muleID => $muleArray)
 	{
-		$muleurl = "<a href='".getlink('&amp;file=char&amp;cname='.$muleArray['member_name'].'&amp;server='.urlencode($muleArray['muleservername']))."'>";
+		$muleurl = "<a href='index.php?name=".$module_name."&amp;file&amp;char.php?cname=".$muleArray['member_name']."&server=".urlencode($muleArray['muleservername'])."'>";
 		$content .= "<tr><td class='membersRow".$muleRowHeader."'>".$muleurl."<span style='font-size:9pt;color:#0070dd;text-decoration:underline;'>".$muleArray['member_name']."</span></a></td>";
 		// Display Banker Money   style=\"color:#$color\">
 		if ($roster_conf['bank_money'])
@@ -217,7 +215,7 @@ if ($mulecount > 0)
 }
 else
 {
-	$content .= '<tr><td colspan="5" class="membersHeader"><span style="color:#ff0000;font-size:12pt;">'.$wordings[$roster_conf['roster_lang']]['gbank_charsNotFound'].'</span></td></tr>';
+	$content .= '<tr><th colspan="2" class="membersHeader"><span style="color:#ff0000;font-size:12pt;">'.$wordings[$roster_conf['roster_lang']]['gbank_charsNotFound'].'</span></th></tr>';
 }
 
 $content .= "</table>";
@@ -290,18 +288,18 @@ else
 
 // Begin Filter Box table with a nice Stylish border
 $content .= border($filterstyle,'start',$wordings[$roster_conf['roster_lang']]['filter'].' '.$wordings[$roster_conf['roster_lang']]['guildbank']);
-// Setup a form to post
-$content .= "<form method='post' action=''>";
 // Display the table inside the bordered cell
 $content .= "<table class='wowroster' cellspacing='1' cellpadding='2'>";
+// Setup a form to post
+$content .= "<form method='POST'>";
 // Filter Items
-$content .= "<tr><td class='membersHeader'><small>".$wordings[$roster_conf['roster_lang']]['lvlrange']."</small>&nbsp;&nbsp;<input type='text' size='4' value='".$minform."' name='min' />&nbsp;&nbsp;<small>-</small>&nbsp;&nbsp;<input type='text' size='4' value='".$maxform."' name='max' /></td></tr>";
-$content .= "<tr><td class='membersHeader'><small>".$wordings[$roster_conf['roster_lang']]['filter']."</small>&nbsp;&nbsp;<input type='text' value='".$filter."' name='filter' /></td></tr>";
-$content .= "<tr><td class='membersHeader'><center>&nbsp;<input type='submit' value='".$wordings[$roster_conf['roster_lang']]['tooltip_set']." ".$wordings[$roster_conf['roster_lang']]['filter']."' />";
+$content .= "<tr><td class='membersHeader'><small>".$wordings[$roster_conf['roster_lang']]['lvlrange']."</small>&nbsp;&nbsp;<input type='text' size='4' value='".$minform."' name='min'>&nbsp;&nbsp;<small>-</small>&nbsp;&nbsp;<input type='text' size='4' value='".$maxform."' name='max'></td></tr>";
+$content .= "<tr><td class='membersHeader'><small>".$wordings[$roster_conf['roster_lang']]['filter']."</small>&nbsp;&nbsp;<input type='text' value='".$filter."' name='filter'></td></tr>";
+$content .= "<tr><td class='membersHeader'><center>&nbsp;<input type='submit' value='".$wordings[$roster_conf['roster_lang']]['tooltip_set']." ".$wordings[$roster_conf['roster_lang']]['filter']."'>";
 // End Form
-$content .= "</center>";
+$content .= "</form></center>";
 $content .= "</td></tr>";
-$content .= "</table></form>";
+$content .= "</table>";
 
 // Close the Filter Box table with a stylish border
 $content .= border($filterstyle,'end');
@@ -313,7 +311,7 @@ $content .= '</td></tr><tr><td></td></tr></table>';
 $content .= border($borderstyle,'start');
 
 // Create the Header of the table
-$content .= "<table bgcolor='#1f1e1d' border='0' cellspacing='2' cellpadding='2'>";
+$content .= "<table bgcolor='#1f1e1d' colspan='".$row_columns."' border='0' cellspacing='2' cellpadding='2'>";
 // Process each category sorted on $display_order from conf.php
 foreach ($display_order as $CategoryID)
 {
@@ -321,7 +319,7 @@ foreach ($display_order as $CategoryID)
 	if ($show_empty || isset($itemsarray[$CategoryID]))
 	{
 		// Show the Column Header for this Category
-		$content .= "<tr><td colspan='".$row_columns."' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['bankitem_'.$CategoryID]."</td></tr>";
+		$content .= "<tr><th colspan='".$row_columns."' class='membersHeader'>".$wordings[$roster_conf['roster_lang']]['bankitem_'.$CategoryID]."</th></tr>";
 		$count = 0;
 		// Again check if we actually have items in the Category before displaying them
 		if (isset($itemsarray[$CategoryID]))
@@ -350,14 +348,14 @@ foreach ($display_order as $CategoryID)
 // If no items are returned in the $itemsarray
 if (!$itemsarray)
 {
-	$content .= '<tr><td colspan="'.$row_columns.'" class="membersHeader"><span style="color:#ff0000;font-size:12pt;">'.$wordings[$roster_conf['roster_lang']]['no'].' '.$wordings[$roster_conf['roster_lang']]['items'].' in '.$wordings[$roster_conf['roster_lang']]['guildbank'];
+	$content .= '<tr><th colspan="'.$row_columns.'" class="membersHeader"><span style="color:#ff0000;font-size:12pt;">'.$wordings[$roster_conf['roster_lang']]['no'].' '.$wordings[$roster_conf['roster_lang']]['items'].' in '.$wordings[$roster_conf['roster_lang']]['guildbank'];
 	// If we filtered, also display the filter
 
 	if ($filter)
 	{
 		$content .= ' - '.$wordings[$roster_conf['roster_lang']]['filter'].': '.$filter;
 	}
-	$content .= '</span></td></tr>';
+	$content .= '</span></th></tr>';
 }
 
 // Close the item table
