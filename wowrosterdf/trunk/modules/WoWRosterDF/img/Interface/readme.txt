@@ -1,0 +1,1 @@
+you must download the [image_pack] and extract that into this directory.
