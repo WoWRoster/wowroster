@@ -1,0 +1,32 @@
+#$versions['versionDate']['itemsets'] = '$Date: 2006/07/13 $'; 
+#$versions['versionRev']['itemsets'] = '$Revision: 1.7.2 $';  
+#$versions['versionAuthor']['itemsets'] = '$Author: Gorgar, PoloDude, Zeryl $';
+
+.membersSpellRowRight1 {
+	text-align: left;
+	vertical-align: middle;
+	color: #ffffff;
+        background-color: #1F1E1D;
+        font-size: 9pt;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding: 3px 6px 3px 6px;
+  	height: 47px;
+}
+.membersSpellRowRight2 {
+	text-align: left;
+	vertical-align: middle;
+	color: #ffffff;
+        background-color: #2E2D2B;
+        font-size: 9pt;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding: 3px 6px 3px 6px;
+  	height: 47px;
+}

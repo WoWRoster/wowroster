@@ -1,0 +1,49 @@
+3.08
+
+- Fixed display when sorting on class or level
+
+3.07
+
+- More localisation fixes
+- Hopefully fixed display of the right column of the maxresist table
+
+3.06
+
+- Fixed class icon url bug
+- Added class colors
+- Made the guildoverview use the global preferences for displaying the class icon and class colors 
+
+3.05
+
+- Removed some code that was needed before the trigger was used. This causes a MAJOR speed increase in the guild overview. (Grimicus)
+- Fixed class icons
+- Removed unnecessary references to style sheets
+- Added a Changelog.txt to the zipfile.
+
+3.04
+
+- Went through the entire code to make proper use of the $wowdb object (with help from Grimicus)
+- Made a small attempt at optimizing memory usage
+
+3.03
+
+- Properly updated the trigger to roster 1.7 standards hopefully fixing problems for people with phpbb and roster in different databases
+
+3.02
+
+- Fire resistance enchants should now be picked up on German locale (Moondrake)
+- Localized one more string
+
+3.01
+
+Fixed: View of the Character Pane in Internet Exploder. (Soulcore)
+Fixed: Image URL for non-existing-items fixed (hopefully for everyone.) (Soulcore)
+Updated: Resist Pane with "official" Border. (Soulcore)
+
+3.0
+
+- Ported to Roster 1.7
+
+Pre 3.0
+
+Original addon by Endoh
