@@ -259,6 +259,8 @@ ENDHEADER;
 			{
 				$config[$option] = isset($info['value'])?$info['value']:$info['default'];
 			}
+			// Write the new settings into the arrays for this session
+			$this->config[$name][$option] = $meta[$option]['value'] = $config[$option];
 			$metaline = "#' ".$info['metaraw']."\n";
 			$comments =	empty($meta[$option]['comment'])?'':'//'.str_replace("\n","\n//",$meta[$option]['comment'])."\n";
 			$code = '$config[\''.$option.'\'] = '.var_export($config[$option],true).';'."\n";
@@ -289,5 +291,8 @@ ENDHEADER;
 		$fp = fopen($filedest,'w');
 		fwrite($fp, $file);
 		fclose($fp);
+		
+		// Return an updated config metadata array.
+		return $meta;
 	}
 }

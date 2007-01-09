@@ -228,7 +228,7 @@ if( $save )
 		}
 	}
 
-	cpMain::$instance['cpconfig']->writeConfig($cfgfile, $submit);
+	$config = cpMain::$instance['cpconfig']->writeConfig($cfgfile, $submit);
 	$status[] = 'Config file "'.$cfgfile.'": '.count($submit).' settings changed. File written.';
 	cpMain::$instance['smarty']->assign('status', $status);
 }

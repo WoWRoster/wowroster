@@ -167,7 +167,7 @@ if(cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off')
 {
 	if(preg_match('/(^www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'http')
 	{
-		header('Location: ' . PATH_REMOTE);
+		header('Location: ' . preg_replace('/(http:\/\/|www\.)+/', 'http://', PATH_REMOTE));
 		exit;
 	}
 	elseif(!preg_match('/(www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'www')
@@ -452,10 +452,11 @@ function getlink( $url='', $use_seo=true, $full=false )
 
 	if( cpMain::$instance['cpconfig']->cpconf['hide_param'] && $use_seo )
 	{
-		$url = ereg_replace('&amp;', '/', $url);
-		$url = ereg_replace('&', '/', $url);
-		$url = str_replace('?', '/', $url);
-		$url = str_replace('=', '-', $url);
+		$replace = array('&amp;' => '/',
+				'&' => '/',
+				'?' => '/',
+				'=' => '-');
+		$url = str_replace(array_keys($replace),array_values($replace),$url);
 
 		if (ereg('#', $url))
 		{
@@ -468,7 +469,7 @@ function getlink( $url='', $use_seo=true, $full=false )
 	}
 	else
 	{
-		$url = "index.php?module=".$url;
+		$url = "index.php?".$url;
 	}
 
 	if( $full )
