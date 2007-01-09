@@ -42,6 +42,7 @@ ALTER TABLE `renprefix_players`
 ### Items Table
 
 ALTER TABLE `renprefix_items`
+  ADD `level` INT( 11 ) default NULL,
   CHANGE `item_name` `item_name` varchar(96) NOT NULL default '';
 
 
@@ -49,6 +50,7 @@ ALTER TABLE `renprefix_items`
 ### Mailbox Table
 
 ALTER TABLE `renprefix_mailbox`
+  ADD `item_color` varchar(16) NOT NULL default '';
   CHANGE `item_name` `item_name` varchar(96) NOT NULL default '';
 
 
@@ -100,13 +102,6 @@ CREATE TABLE `renprefix_realmstatus` (
   UNIQUE KEY `server_name` (`server_name`)
 ) TYPE=MyISAM;
 
-
-ALTER TABLE `renprefix_mailbox`
-  ADD `item_color` varchar(16) NOT NULL default '';
-
-
-ALTER TABLE `renprefix_items`
-  ADD `level` INT( 11 ) default NULL;
 
 
 # --------------------------------------------------------
