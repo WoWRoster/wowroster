@@ -16,10 +16,14 @@
  *
  ******************************/
 
+//DF security
+if (!defined('CPG_NUKE')) { exit; }
+//Roster security
+/*
 if ( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
-}
+}*/
 
 error_reporting(E_ALL);
 

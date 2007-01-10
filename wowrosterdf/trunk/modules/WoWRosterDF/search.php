@@ -15,11 +15,14 @@
  * $Id$
  *
  ******************************/
-
+//DF security
+if (!defined('CPG_NUKE')) { exit; }
+//Roster security
+/*
 if ( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
-}
+}*/
 
 require_once ROSTER_LIB.'item.php';
 require_once ROSTER_LIB.'recipes.php';

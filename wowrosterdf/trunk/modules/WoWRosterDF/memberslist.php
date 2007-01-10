@@ -16,10 +16,14 @@
  *
  ******************************/
 
+//DF security
+if (!defined('CPG_NUKE')) { exit; }
+//Roster security
+/*
 if ( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
-}
+}*/
 
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )

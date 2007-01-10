@@ -50,3 +50,7 @@ print getAllTooltips();
 </div>
 </body>
 </html>
+<?php
+closetable();
+include(BASEDIR.'footer.php');
+?>
