@@ -78,15 +78,49 @@ function ParseLuaArray( &$file_as_array )
 				$line = trim($line);
 			}
 			$line = rtrim($line, ',');
-			// Look for a key value pair
-			if( strpos( $line, '=' ) )
+			
+			// Look for end of an array
+			if( $line[0] == '}' )
 			{
-				list($name, $value) = explode( '=', $line, 2 );
-				$name = trim($name);
-				$value = trim($value);
-				if($name[0]=='[')
+				$hash = $stack[$stack_pos];
+				unset($stack[$stack_pos]);
+				$stack_pos--;
+				$stack[$stack_pos][1][$hash[0]] = $hash[1];
+				unset($hash);
+			}
+			// Handle other cases
+			else
+			{
+				// Check if the key is given
+				if( strpos($line,'=') )
 				{
-					$name = trim($name, '[]"');
+					list($name, $value) = explode( '=', $line, 2 );
+					$name = trim($name);
+					$value = trim($value);
+					if($name[0]=='[')
+					{
+						$name = trim($name, '[]"');
+					}
+				}
+				// Otherwise we'll have to make one up for ourselves
+				else
+				{
+					$value = $line;
+					$value = trim($value);
+					if( empty($stack[$stack_pos][1]) )
+					{
+						$name = 0;
+					}
+					else
+					{
+						$name = max(array_keys($stack[$stack_pos][1]));
+					}
+					if( strpos($line,'-- [') )
+					{
+						$value = explode('-- [',$value);
+						array_pop($value);
+						$value = implode('-- [',$value);
+					}
 				}
 				if( $value == '{' )
 				{
@@ -113,12 +147,6 @@ function ParseLuaArray( &$file_as_array )
 					}
 					$stack[$stack_pos][1][$name] = $value;
 				}
-			}
-			else if( $line == '}' )
-			{
-				$hash = $stack[$stack_pos];
-				$stack_pos--;
-				$stack[$stack_pos][1][$hash[0]] = $hash[1];
 			}
 		}
 		return($stack[0][1]);
