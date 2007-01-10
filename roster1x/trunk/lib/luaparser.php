@@ -109,11 +109,11 @@ function ParseLuaArray( &$file_as_array )
 					$value = trim($value);
 					if( empty($stack[$stack_pos][1]) )
 					{
-						$name = 0;
+						$name = 1;
 					}
 					else
 					{
-						$name = max(array_keys($stack[$stack_pos][1]));
+						$name = max(array_keys($stack[$stack_pos][1]))+1;
 					}
 					if( strpos($line,'-- [') )
 					{
