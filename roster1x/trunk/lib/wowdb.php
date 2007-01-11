@@ -945,6 +945,10 @@ class wowdb
 				foreach( array_keys($zoneInfo) as $slot)
 				{
 					$slotInfo = $zoneInfo[$slot];
+					if( is_null($slotInfo) )
+					{
+						continue;
+					}
 					$item = $this->make_quest( $slotInfo, $memberId, $zone, $slot );
 					$this->insert_quest( $item );
 					$questnum++;

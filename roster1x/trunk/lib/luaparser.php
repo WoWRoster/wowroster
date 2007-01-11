@@ -77,7 +77,6 @@ function ParseLuaArray( &$file_as_array )
 			{
 				$line = trim($line);
 			}
-			$line = rtrim($line, ',');
 			
 			// Look for end of an array
 			if( $line[0] == '}' )
@@ -96,7 +95,7 @@ function ParseLuaArray( &$file_as_array )
 				{
 					list($name, $value) = explode( '=', $line, 2 );
 					$name = trim($name);
-					$value = trim($value);
+					$value = trim($value,', ');
 					if($name[0]=='[')
 					{
 						$name = trim($name, '[]"');
@@ -106,7 +105,6 @@ function ParseLuaArray( &$file_as_array )
 				else
 				{
 					$value = $line;
-					$value = trim($value);
 					if( empty($stack[$stack_pos][1]) )
 					{
 						$name = 1;
@@ -121,6 +119,7 @@ function ParseLuaArray( &$file_as_array )
 						array_pop($value);
 						$value = implode('-- [',$value);
 					}
+					$value = trim($value,', ');
 				}
 				if( $value == '{' )
 				{
