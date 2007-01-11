@@ -327,7 +327,7 @@ while ($row = $wowdb->fetch_array($result))
 	print '<tr>'."\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print '<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
+	print '<a href="'.getlink($module.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$roster_conf['server_name']).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;
