@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once( './modules/'.$module_name.'/admin/settings.php' );
+require_once( './modules/'.$module_name.'/settings.php' );
 
 $script_filename = 'admin.php';
 
