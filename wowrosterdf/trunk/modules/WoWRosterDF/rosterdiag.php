@@ -121,13 +121,13 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnurl = parse_url($svnremote);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><td class="membersHeader">Local Image</td><td class="membersHeaderRight">SVN Image</td></tr>';
 				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'"></td><td class="membersRowRight1"><img src="'.$svnurl.$filename.'"></td></tr>';
 				$diffcheck .= '</table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">SVN File</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><td class="membersHeader">Type</td><td class="membersHeader">Local File</td><td class="membersHeaderRight">SVN File</td></tr>';
 				$difffiles = difffile($filelocalsource, $filesvnsource);
 				$row_color=2;
 				foreach ($difffiles as $difference)
@@ -177,11 +177,11 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnurl = parse_url($svnremote);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
-				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">SVN Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'"></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
+				$diffcheck = '<table><tr><td colspan="3" class="membersHeaderRight">SVN Image</td></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'"></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">SVN File</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><td class="membersHeader">SVN File</td></tr>';
 				$diffcheck .= '<tr><td>'.highlight_php($filesvnsource).'</td></tr>';
 				$diffcheck .= '</table>';
 			}
@@ -507,7 +507,7 @@ if (ini_get('allow_url_fopen'))
 
 
 			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
-			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
+			echo '<tr><td class="membersHeader">Filename</td><td class="membersHeader">Revision</td><td class="membersHeader">Date</td><td class="membersHeader">Author</td><td class="membersHeader">MD5 Match</td><td class="membersHeaderRight">SVN</td>';
 			echo '</tr>';
 			$row=0;
 			foreach ($files[$directory] as $file => $filedata)

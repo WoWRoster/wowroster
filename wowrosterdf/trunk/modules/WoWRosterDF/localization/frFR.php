@@ -29,7 +29,7 @@ $wordings['frFR']['lualocation']='Cliquer parcourir (browse) et télécharger le
 $wordings['frFR']['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['frFR']['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
-$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".$roster_conf['roster_dir']."/update.php\">charger votre guilde</a> et <a href=\"".$roster_conf['roster_dir']."/admin.php\">finaliser la configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
+$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".getlink($module_name.'&amp;file=update')."\">charger votre guilde</a> et <a href=\"".adminlink($module_name)."\">finaliser la configuration</a>";
 
 $wordings['frFR']['update_page']='Mise à jour du profil';
 // NOT USED $wordings['frFR']['updCharInfo']='Mettre à jour les informations du personnage';
@@ -61,7 +61,7 @@ $wordings['frFR']['update_instruct']='
 <li>Démarrer WoW</li>
 <li>Ouvrir votre compte en banque, la fenêtre des quêtes, et la fenêtre des professions qui contient les recettes</li>
 <li>Se déconnecter ou quitter WoW.<br />(Voir ci-dessus si vous disposez d\'UniUploader pour automatiser l\'envois des informations.)</li>
-<li>Aller sur la page <a href="'.$roster_conf['roster_dir'].'/update.php">d\'actualisation</a></li>
+<li>Aller sur la page <a href="'.getlink($module_name.'&amp;file=update').'">d\'actualisation</a></li>
 <li>'.$wordings['frFR']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['frFR']['update_instructpvp']='
 $wordings['frFR']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
+<a href="'.getlink($module_name.'&amp;file=credits').'">Additional Credits</a>';
 
 
 //Charset
@@ -788,6 +788,7 @@ $wordings['frFR']['admin']['motd_display_mode'] = "Mode d'affichage du message d
 $wordings['frFR']['admin']['compress_note'] = "Mode d'affichage des notes du joueur|Comment les notes du joueur seront affichées<br /><br />&quot;Text&quot; - Montre les notes du joueur sous format texte<br />&quot;Icon&quot; - Montre image avec une infobulle";
 $wordings['frFR']['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
 $wordings['frFR']['admin']['processtime'] = "Temps de génération de la page|Affiche &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; en bas de page du roster";
+$wordings['frFR']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
 
 // data_links
 $wordings['frFR']['admin']['questlink_1'] = "Lien de quête n°1|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";

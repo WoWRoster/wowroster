@@ -18,8 +18,8 @@
 
 require_once( 'settings.php' );
 
-$cname = (isset($_GET['name']) ? $_GET['name'] : '');
-$header_title = 'Character Stats for: '.$cname;
+$name = (isset($_GET['cname']) ? $_GET['cname'] : '');
+$header_title = $name;
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 include_once (ROSTER_BASE.'memberdetails.php');

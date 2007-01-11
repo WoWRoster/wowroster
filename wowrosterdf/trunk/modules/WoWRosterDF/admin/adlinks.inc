@@ -16,11 +16,10 @@
 ***********************************************************************/
 if (!defined('CPG_NUKE')) { exit; }
 
-    $menuitems['_AMENU5'][$module]['URL'] = adminlink($module.'&amp;file=index');
-    $menuitems['_AMENU5'][$module]['IMG'] = 'wowrosterdf';
-    $menuitems['_AMENU5'][$module]['MOD'] = $module;
-        $menuitems['_AMENU5'][$module]['SUB']['Roster Config'] = adminlink($module.'&amp;file=index');
-        $menuitems['_AMENU5'][$module]['SUB']['Upload Profile'] = getlink($module.'&amp;file=updateProfile');
-        $menuitems['_AMENU5'][$module]['SUB']['Siggen Config'] = getlink($module.'&file=addon&roster_addon_name=siggen');
-        $menuitems['_AMENU5'][$module]['SUB']['EQDKP Sync'] = adminlink($module.'&amp;file=dkpsync');
-
+$menuitems['_AMENU5'][$module]['URL'] = adminlink($module);
+$menuitems['_AMENU5'][$module]['IMG'] = 'wowrosterdf';
+$menuitems['_AMENU5'][$module]['MOD'] = $module;
+$menuitems['_AMENU5'][$module]['SUB']['Roster Config'] = adminlink($module);
+$menuitems['_AMENU5'][$module]['SUB']['Upload Profile'] = getlink($module.'&amp;file=update');
+$menuitems['_AMENU5'][$module]['SUB']['Siggen Config'] = getlink($module.'&amp;file=addon&amp;roster_addon_name=siggen');
+$menuitems['_AMENU5'][$module]['SUB']['EQDKP Sync'] = adminlink($module.'&amp;file=dkpsync');

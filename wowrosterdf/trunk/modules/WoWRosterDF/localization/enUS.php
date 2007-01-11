@@ -29,7 +29,7 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".getlink($module_name.'&amp;file=update')."\">load your guild</a> first and make sure you <a href=\"".adminlink($module_name)."\">finished configuration</a>";
 
 $wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -61,7 +61,7 @@ $wordings['enUS']['update_instruct']='
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
-<li>Go to <a href="'.$roster_conf['roster_dir'].'/update.php">the update page</a></li>
+<li>Go to <a href="'.getlink($module_name.'&amp;file=update').'">the update page</a></li>
 <li>'.$wordings['enUS']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['enUS']['update_instructpvp']='
 $wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
+<a href="'.getlink($module_name.'&amp;file=credits').'">Additional Credits</a>';
 
 
 //Charset
@@ -788,6 +788,7 @@ $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOT
 $wordings['enUS']['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 $wordings['enUS']['admin']['processtime'] = "Process time|Displays &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; in the footer of roster";
+$wordings['enUS']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
 
 // data_links
 $wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br />Look in your localization-file(s) for link configuration";
@@ -934,4 +935,4 @@ Serveral javascript files are libraries that are under their own licenses.
 <br />
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
-See <a href="license.txt">license.txt</a> for details';
+See the <a href="'.getlink($module_name.'&amp;file=license').'">license</a> for details';

@@ -47,7 +47,7 @@ if( !$result )
 //wowroserdf character page
 if( $row = $wowdb->fetch_assoc($result) )
 {
-	header("Location: ".getlink($module.'&amp;file=char&amp;cname='.$char));
+	header("Location: ".getlink($module_name.'&amp;file=char&amp;cname='.$char));
 	exit();
 }
 

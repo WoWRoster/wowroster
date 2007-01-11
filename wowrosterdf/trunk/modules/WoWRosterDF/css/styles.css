@@ -15,46 +15,53 @@
  *
 ******************************/
 
-body {
+/* Added for rosterDF */
+.wowroster {
 	font-family:arial,helvetica,sans-serif;
 	background:#000000;
 	color:#ffffff;
 	font-size:12px;
 }
-a:link {
+/* Added for rosterDF */
+.wowroster a:link {
 	color:#CBA300;
 	text-decoration:none;
 	font-weight:bold;
 }
-a:visited {
+/* Added for rosterDF */
+.wowroster a:visited {
 	color:#CBA300;
 	text-decoration:none;
 	font-weight:bold;
 }
-a:hover {
+/* Added for rosterDF */
+.wowroster a:hover {
 	color:#EABB00;
 	text-decoration:none;
 	font-weight:bold;
 }
-a:active {
+/* Added for rosterDF */
+.wowroster a:active {
 	color:#EABB00;
 	text-decoration:none;
 	font-weight:bold;
 }
-img,
-p {
+/* Added for rosterDF */
+.wowroster img,
+.wowroster p {
 	padding:0;
 	margin:0;
 	border:0;
 }
-input {
+.wowroster input {
 	border:1px solid #CBA300;
 	font-size:10px;
 	color:#FFFFFF;
 	font-family:Verdana, Arial;
 	background-color:#202020;
 }
-select {
+/* Added for rosterDF */
+.wowroster select {
 	border:1px solid #CBA300;
 	font-size:10px;
 	color:#FFFFFF;
@@ -77,7 +84,8 @@ select {
 	font-size:16px;
 	font-weight:bold;
 }
-table.expOutline {
+/* Added for rosterDF */
+.wowroster table.expOutline {
 	border-style:solid;
 	border-width:1px;
 	border-color:#5A5D5A;
@@ -247,7 +255,7 @@ table.expOutline {
 }
 /*************** Roster Main Menu ***************/
 
-.bodyline {
+.wowroster .bodyline {
 	border:1px #212121 solid;
 }
 /*.members {
@@ -480,6 +488,7 @@ table.expOutline {
 .rankborderheader {
 	font-weight:bold;
 	font-size:14px;
+	color:#FFFFFF;
 	padding:0;
 	padding-left:5px;
 	padding-right:5px;
@@ -579,6 +588,8 @@ table.expOutline {
 	border:0;
 	font-weight:bold;
 	font-size:14px;
+	/* Added for rosterDF */
+	color:#FFFFFF;
 	border-bottom:1px solid black;
 	background-repeat:repeat-x;
 	height:22px;
@@ -1045,35 +1056,35 @@ table.expOutline {
  * Random color defines
 **********/
 
-span.white{
+.wowroster span.white{
 	font-weight:bold;
 	color:#ffffff
 }
-span.yellow{
+.wowroster span.yellow{
 	font-weight:bold;
 	color:#cc9900;
 }
-span.green{
+.wowroster span.green{
 	font-weight:bold;
 	color:#22ff22;
 }
-span.grey{
+.wowroster span.grey{
 	font-weight:bold;
 	color:#808080;
 }
-span.red{
+.wowroster span.red{
 	font-weight:bold;
 	color:#ff2222;
 }
-span.orange{
+.wowroster span.orange{
 	font-weight:bold;
 	color:#FF9900;
 }
-span.purple {
+.wowroster span.purple {
 	font-weight:bold;
 	color:#8000ff;
 }
-span.blue {
+.wowroster span.blue {
 	font-weight:bold;
 	color:#0068ff;
 }

@@ -65,11 +65,11 @@ foreach( $choiceArray as $item_value => $item_print )
 			/*$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
 		else
 			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'">'.$item_print;*/
-		//wowrosterdf version	
+		//wowrosterdf version
 			$choiceForm .= '<option value="'.getlink('&amp;file=indexpvp&amp;type='.$item_value).'" selected="selected">'.$item_print;
 		else
 			$choiceForm .= '<option value="'.getlink('&amp;file=indexpvp&amp;type='.$item_value).'">'.$item_print;
-		
+
 	}
 }
 $choiceForm .= '</select>
@@ -89,11 +89,11 @@ function tableHeaderRow($th)
 	{
 		++$acount;
 		if ($acount == 1)
-			print "  <tr>\n    <th class=\"membersHeader\">$header</th>\n";
+			print "  <tr>\n    <td class=\"membersHeader\">$header</td>\n";
 		elseif ($acount == count($th))
-			print '    <th class="membersHeaderRight">'.$header.'</th>'."\n";
+			print '    <td class="membersHeaderRight">'.$header.'</td>'."\n";
 		else
-			print '    <th class="membersHeader">'.$header."</th>\n";
+			print '    <td class="membersHeader">'.$header."</td>\n";
 	}
 }
 
@@ -229,7 +229,7 @@ else if ($type == 'enemywins')
 		    //$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
             //wowrosterdf version
 		    $guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
-            
+
 		print($guildname);
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));

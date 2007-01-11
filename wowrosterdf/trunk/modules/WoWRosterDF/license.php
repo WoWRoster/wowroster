@@ -1,5 +1,13 @@
-$Id$
+<?php
+// $Id$
 
+require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
+
+include_once (ROSTER_BASE.'roster_header.tpl');
+include_once (ROSTER_LIB.'menu.php');
+echo "<br />\n";
+
+echo nl2br('
 WoW Roster is licensed under a Creative Commons
 "Attribution-NonCommercial-ShareAlike 2.5" license. See
 http://creativecommons.org/licenses/by-nc-sa/2.5/ for the short
@@ -42,3 +50,6 @@ The installer was based on the EQdkp installer. This concerns the files:
 
 These 3 files are licensed under the GNU General Public License, which is
 available at http://gnu.org/copyleft/gpl.html
+');
+
+include_once (ROSTER_BASE.'roster_footer.tpl');

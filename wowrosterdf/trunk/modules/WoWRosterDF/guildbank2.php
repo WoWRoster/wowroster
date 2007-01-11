@@ -62,6 +62,8 @@ $muleNames = $wowdb->query($muleNameQuery);
 include_once (ROSTER_LIB.'menu.php');
 echo "\n<br />\n";
 
+include_once (ROSTER_BASE.'bank.php');
+
 if ( $roster_conf['bank_money'] )
 {
 	$mulemoney = $wowdb->fetch_array($wowdb->query(

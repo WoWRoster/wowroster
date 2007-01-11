@@ -88,7 +88,7 @@ if (isset($_GET['s']))
 				}
 				print '<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <th colspan="2" class="membersRowRight2"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></th>
+    <td colspan="2" class="membersRowRight2"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></td>
   </tr>';
 			}
 
@@ -221,11 +221,11 @@ if (isset($_GET['s']))
 				}
 				print '<table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <th colspan="3" class="membersRowRight1"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></th>
+    <td colspan="3" class="membersRowRight1"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></td>
   </tr>
   <tr>
-    <th colspan="2" class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['item'].'</th>
-    <th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['reagents'].'</th>';
+    <td colspan="2" class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['item'].'</td>
+    <td class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['reagents'].'</td>';
 			}
 
 			print '<tr><td width="45" valign="top" align="center" class="membersRow'.$row_st.'">';

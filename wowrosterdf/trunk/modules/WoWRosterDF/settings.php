@@ -102,7 +102,7 @@ define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
  */
 if ( !file_exists(ROSTER_CONF_FILE) )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"".getlink($module.'&amp;file=install')."\">INSTALL</a></center>");
+    exit("<center>Roster is not installed<br />\n<a href=\"".getlink($module_name.'&amp;file=install')."\">INSTALL</a></center>");
 }
 else
 {
@@ -115,7 +115,7 @@ else
  */
 if ( !defined('ROSTER_INSTALLED') )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"".getlink($module.'&amp;file=install')."\">INSTALL</a></center>");
+    exit("<center>Roster is not installed<br />\n<a href=\"".getlink($module_name.'&amp;file=install')."\">INSTALL</a></center>");
 }
 
 
@@ -176,7 +176,7 @@ $results = $wowdb->query($sql);
 
 if( !$results || $wowdb->num_rows($results) == 0 )
 {
-	die("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"".getlink($module.'&amp;file=install')."\">INSTALL</a>");
+	cpg_error("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error());
 }
 
 /**
@@ -251,13 +251,14 @@ New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
 /**
  * If the install directory or files exist, die()
  */
+/* COMMENTED OUT FOR ROSTERDF
 if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install') || file_exists(ROSTER_BASE.'upgrade.php') )
 {
 	if( !file_exists(ROSTER_BASE.'version_match.php') )
 	{
 		message_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
 	}
-}
+}*/
 
 
 

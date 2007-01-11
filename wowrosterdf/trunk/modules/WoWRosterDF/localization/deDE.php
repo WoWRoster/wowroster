@@ -29,7 +29,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".getlink($module_name.'&amp;file=update')."\">Gildendaten hochladen</a> oder die <a href=\"".adminlink($module_name)."\">Konfiguration beenden</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -61,7 +61,7 @@ $wordings['deDE']['update_instruct']='
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
-<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/update.php"> Update-Seite</a></li>
+<li>Gehe zur <a href="'.getlink($module_name.'&amp;file=update').'"> Update-Seite</a></li>
 <li>'.$wordings['deDE']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['deDE']['update_instructpvp']='
 $wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, und <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> f&uuml;r den originalen Code der Seite. <br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
+<a href="'.getlink($module_name.'&amp;file=credits').'">Additional Credits</a>';
 
 
 //Charset
@@ -788,6 +788,7 @@ $wordings['deDE']['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MO
 $wordings['deDE']['admin']['compress_note'] = "Notiz Anzeige Modus|Wie die Notiz angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt die Notiz als Text<br />&quot;Icon&quot; - Zeigt ein Notizicon mit dem Text in einem Tooltip";
 $wordings['deDE']['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
 $wordings['deDE']['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
+$wordings['deDE']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
 
 // data_links
 $wordings['deDE']['admin']['questlink_1'] = "Quest Link #1|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";

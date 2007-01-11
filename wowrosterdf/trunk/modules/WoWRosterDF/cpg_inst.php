@@ -9,8 +9,9 @@ if (!defined('ADMIN_MOD_INSTALL')) {  exit; } //Important Safeguard.
 $roster_base = basename(dirname(__FILE__));
 if( !defined('ROSTER_DF_INSTALLER') )
 {
-require_once(BASEDIR.'modules/'.$roster_base.'/install.php');
+	require_once(BASEDIR.'modules/'.$roster_base.'/install.php');
 }
+
 eval("class {$roster_base}
 {
 	var \$description;

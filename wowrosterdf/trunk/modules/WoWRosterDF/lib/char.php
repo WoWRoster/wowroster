@@ -156,7 +156,7 @@ class char
 				if ($zone != $quest->data['zone'])
 				{
 					$zone = $quest->data['zone'];
-					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight">'.$zone.'</th></tr>';
+					$returnstring .= '<tr><td colspan="10" class="membersHeaderRight">'.$zone.'</td></tr>';
 				}
 				$quest_level = $quest->data['quest_level'];
 				$char_level = $this->data['level'];
@@ -279,12 +279,12 @@ class char
 					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" style=\"display:none;\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=name">'.$wordings[$lang]['name'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=difficulty">'.$wordings[$lang]['difficulty'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=type">'.$wordings[$lang]['type'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=level">'.$wordings[$lang]['level'].'</a></th>
-    <th class="membersHeaderRight">'.$url.'&amp;action=recipes&amp;s=reagents">'.$wordings[$lang]['reagents'].'</a></th>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=name">'.$wordings[$lang]['name'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=difficulty">'.$wordings[$lang]['difficulty'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=type">'.$wordings[$lang]['type'].'</a></td>
+    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=level">'.$wordings[$lang]['level'].'</a></td>
+    <td class="membersHeaderRight">'.$url.'&amp;action=recipes&amp;s=reagents">'.$wordings[$lang]['reagents'].'</a></td>
   </tr>
 ';
 				}
@@ -347,10 +347,10 @@ $returnstring .= '  <tr>
 			$content .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['mailbox']).
 				'<table cellpadding="0" cellspacing="0" class="bodyline">'."\n";
 			$content .= "<tr>\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_item'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_sender'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_subject'].'</th>'."\n";
-			$content .= '<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['mail_expires'].'</th>'."\n";
+			$content .= '<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_item'].'</td>'."\n";
+			$content .= '<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_sender'].'</td>'."\n";
+			$content .= '<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_subject'].'</td>'."\n";
+			$content .= '<td class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['mail_expires'].'</td>'."\n";
 			$content .= "</tr>\n";
 			$content .= "<tr>\n";
 

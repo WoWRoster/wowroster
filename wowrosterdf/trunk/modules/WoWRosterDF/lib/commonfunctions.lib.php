@@ -48,7 +48,7 @@ function border($style,$mode,$header_text=null)
 	{
 		$header_text = '  <tr>
     <td class="'.$style.'centerleft '.$backg_css.'centerleft"></td>
-    <th class="'.$style.'header '.$backg_css.'header" align="center" valign="top">'.$header_text.'</th>
+    <td class="'.$style.'header '.$backg_css.'header" align="center" valign="top">'.$header_text.'</td>
     <td class="'.$style.'centerright '.$backg_css.'centerright"></td>
   </tr>';
 	}
@@ -272,7 +272,8 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
  */
 function message_die($message, $title = 'Message', $style = 'sred')
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings,
+	$pagetitle, $module_title, $header_title, $modheader;
 
 	if( is_object($wowdb) )
 	{

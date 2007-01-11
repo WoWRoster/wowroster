@@ -39,7 +39,7 @@ $guildFaction = $guild_info['faction'];
 
 if( $roster_conf['index_update_inst'] )
 {
-	print '            <a href="'.getlink($module.'#update').'"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
+	print '            <a href="'.getlink($module_name.'#update').'"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
 }
 
 
@@ -47,7 +47,7 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guildMOTD) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="'.getlink($module.'motd').'" alt="'.$guildMOTD.'" /><br /><br />';
+		print '<img src="'.getlink($module_name.'&amp;file=motd').'" alt="'.$guildMOTD.'" /><br /><br />';
 	}
 	else
 	{
@@ -287,11 +287,11 @@ foreach ( $FIELDS as $field => $DATA )
 
 	if ( $current_col == $cols )
 	{
-		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.getlink($module.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <td class="membersHeaderRight"><a href="'.getlink($module_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
 	}
 	else
 	{
-		$tableHeaderRow .= '    <th class="membersHeader"><a href="'.getlink($module.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <td class="membersHeader"><a href="'.getlink($module_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
 	}
 
 	$current_col++;
@@ -450,7 +450,7 @@ function name_value ( $row )
 
 		if ( $row['server'] )
 		{
-			return $tooltip.'<a href="'getlink($module.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'">'.$row['name'].'</a></div>';
+			return $tooltip.'<a href="'.getlink($module_name.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'">'.$row['name'].'</a></div>';
 		}
 		else
 		{
@@ -461,7 +461,7 @@ function name_value ( $row )
 	{
 		if ( $row['server'] )
 		{
-			return '<a href="'.getlink($module.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'">'.$row['name'].'</a>';
+			return '<a href="'.getlink($module_name.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'">'.$row['name'].'</a>';
 		}
 		else
 		{

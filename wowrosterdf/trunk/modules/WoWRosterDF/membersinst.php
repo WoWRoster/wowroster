@@ -72,15 +72,15 @@ function tableHeaderRow($th)
 		}
 		if ($acount == 1)
 		{
-			print '    <th class="membersHeader">'.$header.'</th>'."\n";
+			print '    <td class="membersHeader">'.$header.'</td>'."\n";
 		}
 		elseif ($acount == count($th))
 		{
-			print '    <th class="membersHeaderRight">'.$header.'</th>'."\n";
+			print '    <td class="membersHeaderRight">'.$header.'</td>'."\n";
 		}
 		else
 		{
-			print '    <th class="membersHeader" align="center">'.$header."</th>\n";
+			print '    <td class="membersHeader" align="center">'.$header."</td>\n";
 		}
 	}
 	print "  </tr>\n";
@@ -327,7 +327,7 @@ while ($row = $wowdb->fetch_array($result))
 	print '<tr>'."\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print '<a href="'.getlink($module.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$roster_conf['server_name']).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
+	print '<a href="'.getlink($module_name.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$roster_conf['server_name']).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;

@@ -16,9 +16,9 @@
  *
  ******************************/
 
-require_once( './modules/'.$module_name.'/settings.php' );
+require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
 
-$script_filename = 'admin.php';
+$script_filename = adminlink();
 
 // ----[ Check log-in ]-------------------------------------
 $roster_login = new RosterLogin($script_filename);
@@ -222,19 +222,19 @@ if( is_array($char_data) )
 
 	$html .= '
 <tr>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['name'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['tab5'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bags'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['money'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bank'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['quests'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['itembonuses2'].'</th>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['name'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['tab5'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bags'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['money'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bank'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['quests'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</td>
+	<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['itembonuses2'].'</td>
 ';
 
 	$i=0;

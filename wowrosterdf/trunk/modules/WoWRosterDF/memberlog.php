@@ -175,13 +175,13 @@ $striping_counter = 0;
 if( $wowdb->num_rows($result) > 0 )
 {
 	$tableHeaderRow = '	<tr>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=name&amp;d='.$chkd['n'].'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=class&amp;d='.$chkd['c'].'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=level&amp;d='.$chkd['l'].'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=title&amp;d='.$chkd['r'].'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=type&amp;d='.$chkd['t'].'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=date&amp;d='.$chkd['d'].'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></th>
-	<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['note'].'</th>
+	<td class="membersHeader"><a href="?start='.$start.'&amp;s=name&amp;d='.$chkd['n'].'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></td>
+	<td class="membersHeader"><a href="?start='.$start.'&amp;s=class&amp;d='.$chkd['c'].'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></td>
+	<td class="membersHeader"><a href="?start='.$start.'&amp;s=level&amp;d='.$chkd['l'].'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></td>
+	<td class="membersHeader"><a href="?start='.$start.'&amp;s=title&amp;d='.$chkd['r'].'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></td>
+	<td class="membersHeader"><a href="?start='.$start.'&amp;s=type&amp;d='.$chkd['t'].'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></td>
+	<td class="membersHeader"><a href="?start='.$start.'&amp;s=date&amp;d='.$chkd['d'].'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></td>
+	<td class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['note'].'</td>
 	</tr>'."\n";
 
 	while( $row = $wowdb->fetch_assoc($result) )

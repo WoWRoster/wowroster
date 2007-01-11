@@ -34,7 +34,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 require_once( 'settings.php' );
 require_once( ROSTER_LIB.'luaparser.php' );
 
-$script_filename = 'update.php';
+$script_filename = getlink($module_name.'&amp;file=update');
 
 // Update Triggers
 if( $roster_conf['use_update_triggers'] )
@@ -158,15 +158,9 @@ if( is_array($_FILES) && !empty($_FILES) )
 }
 
 // If the roster update password is sent and matches, and $uploadData['myProfile'] is there, update the roster
-if( is_array($uploadData['myProfile']) && isset($_POST['password']) )
+if( is_admin() && is_array($uploadData['myProfile']) )
 {
-	if( ( md5($_POST['password']) == $roster_conf['roster_upd_pw'] ) ||
-		( $_POST['password'] == $roster_conf['roster_upd_pw'] ) ||
-		( $roster_conf['phpbb_authenticated_admin'] )
-	  )
-	{
-		$rosterUpdateMessages = processGuildRoster($uploadData['myProfile']);
-	}
+	$rosterUpdateMessages = processGuildRoster($uploadData['myProfile']);
 }
 
 if( is_array($uploadData['myProfile']) )
@@ -445,7 +439,7 @@ if( $htmlout )
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
-                      <th class=\"membersHeaderRight\" colspan=\"2\"><div align=\"center\">".$wordings[$roster_conf['roster_lang']]['lualocation']."</div></th>
+                      <td class=\"membersHeaderRight\" colspan=\"2\"><div align=\"center\">".$wordings[$roster_conf['roster_lang']]['lualocation']."</div></td>
                     </tr>
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
@@ -458,8 +452,8 @@ $bookwormInputField
                   </table>
 ".border('syellow','end');
 
-
-	$inputForm .= "
+/* NOT NEEDED FOR ROSTERDF
+		$inputForm .= "
 <br />
 <br />
 ".border('sgray','start','GuildProfiler User Only')."
@@ -469,8 +463,9 @@ $bookwormInputField
                       <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
                     </tr>
                   </table>
-".border('sgray','end')."<br />
-                  <input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">";
+".border('sgray','end')."<br />\n";
+*/
+	$inputForm .= "<br />\n<input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">";
 
 
 	$inputForm .= "\n                </form>";

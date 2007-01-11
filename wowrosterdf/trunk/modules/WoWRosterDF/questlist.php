@@ -108,7 +108,7 @@ print border('sgray','start');
 print $wordings[$roster_conf['roster_lang']]['search1'];
 
 print('<br /><br />
-      <form method="post" action="'.getlink($module.'&amp;file=indexquests').'">
+      <form method="post" action="'.getlink($module_name.'&amp;file=indexquests').'">
         '.$wordings[$roster_conf['roster_lang']]['search2'].':
         <br />
         <select name="zoneid" onchange="top.location.href=this.options[this.selectedIndex].value">
@@ -165,10 +165,10 @@ if (isset($zoneidsafe) or isset($questidsafe))
 				'<table cellpadding="0" cellspacing="0">';
 
 			$tableHeaderRow = '  <tr>
-    <th class="membersHeader">Zone</th>
-    <th class="membersHeader">Quest Name</th>
-    <th class="membersHeader">Quest Level</th>
-    <th class="membersHeaderRight">Member</th>
+    <td class="membersHeader">Zone</td>
+    <td class="membersHeader">Quest Name</td>
+    <td class="membersHeader">Quest Level</td>
+    <td class="membersHeaderRight">Member</td>
   </tr>';
 
 			$tableFooter = '</table>'.border('syellow','end').'<br />';
@@ -193,7 +193,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 				print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
 				if ($row['server'])
 				{
-					print('<a href="'.getlink($module.'&amp;=file&amp;char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'" target="_blank">'.$row['name'].'</a>');
+					print('<a href="'.getlink($module_name.'&amp;=file&amp;char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'" target="_blank">'.$row['name'].'</a>');
 				}
 				else
 					print($row['name']);
@@ -232,9 +232,9 @@ if (isset($questidsafe))
 		$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0">';
 
 		$tableHeaderRow = '  <tr>
-    <th class="membersHeader">Member</th>
-    <th class="membersHeader">Quest Level</th>
-    <th class="membersHeaderRight">Zone</th>
+    <td class="membersHeader">Member</td>
+    <td class="membersHeader">Quest Level</td>
+    <td class="membersHeaderRight">Zone</td>
   </tr>';
 
 		$tableFooter = '</table>'.border('syellow','end');
@@ -253,7 +253,7 @@ if (isset($questidsafe))
 			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
 			if ($row['server'])
 			{
-				print('<a href="'.getlink($module.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'" target="_blank">'.$row['name'].'</a>');
+				print('<a href="'.getlink($module_name.'&amp;file=char&amp;cname='.$row['name'].'&amp;server='.$row['server']).'" target="_blank">'.$row['name'].'</a>');
 			}
 			else
 				print($row['name']);

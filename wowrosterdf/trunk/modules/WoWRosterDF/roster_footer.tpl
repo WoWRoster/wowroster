@@ -32,25 +32,24 @@ $totaltime = round($endtime - ROSTER_STARTTIME, 2);
 <br /><br />
 <small><?php echo $wordings[$roster_conf['roster_lang']]['roster_credits']; ?></small>
 <br /><br />
-<a href="http://validator.w3.org/check?uri=referer" target="_blank">
-    <img src="<?php print $roster_conf['roster_dir']; ?>/img/valid-html40.gif" alt="Valid HTML 4.0 Transitional" height="15" width="119"></a>
-  <br /><br />
 
 <?php
+
+/* NOT USING SINCE DF PROVIDES THESE
 if( $roster_conf['processtime'] )
 	print '  <small>This page was created in '.$totaltime.' seconds with '.count($wowdb->sqlstrings)." queries executed</small>\n\n";
 
 if( $roster_conf['sql_window'] )
 	echo "<br /><br />\n".messagebox('<div style="text-align:left;font-size:10px;">'.nl2br(htmlentities($wowdb->getSQLStrings())).'</div>','SQL Queries','sgreen');
-
-
+*/
 print getAllTooltips();
-?>
 
+?>
 </div>
-</body>
-</html>
+</div>
 <?php
-closetable();
+
 include(BASEDIR.'footer.php');
+closetable();
+
 ?>

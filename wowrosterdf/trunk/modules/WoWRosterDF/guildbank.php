@@ -86,6 +86,8 @@ while ($row2 = $wowdb->fetch_array($result2))
 include_once (ROSTER_LIB.'menu.php');
 echo "<br />\n";
 
+include_once (ROSTER_BASE.'bank.php');
+
 if ( $roster_conf['bank_money'] )
 {
 	$mulemoney = $wowdb->fetch_array($wowdb->query(
@@ -121,8 +123,8 @@ $mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
 echo border('sgray','start').'<table class="bodyline" cellspacing="0" cellpadding="0">
   <tr>
-    <th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['guildbankcontact'].'</th>
-    <th colspan="2" class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['guildbankitem'].'</th>
+    <td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['guildbankcontact'].'</td>
+    <td colspan="2" class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['guildbankitem'].'</td>
   </tr>
 ';
 

@@ -99,8 +99,8 @@ if( $wowdb->num_rows($result) )
 			print ('
 <table border="0" cellpadding="0" cellspacing="0" class="bodyline" id="table_'.$id.'">
 	<tr>
-		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['level'].'</th>
-		<th class="membersHeaderRight" width="150">'.$wordings[$roster_conf['roster_lang']]['name'].'</th>
+		<td class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['level'].'</td>
+		<td class="membersHeaderRight" width="150">'.$wordings[$roster_conf['roster_lang']]['name'].'</td>
 	</tr>
 ');
 
