@@ -876,6 +876,10 @@ class wowdb
 			$buffsnum = 0;
 			foreach( $buffs as $buff )
 			{
+				if( is_null($buff) || !is_array($buff) || empty($buff) )
+				{
+					continue;
+				}
 				$this->reset_values();
 
 				$this->add_value('member_id', $memberId );
@@ -945,7 +949,7 @@ class wowdb
 				foreach( array_keys($zoneInfo) as $slot)
 				{
 					$slotInfo = $zoneInfo[$slot];
-					if( is_null($slotInfo) )
+					if( is_null($slotInfo) || !is_array($slotInfo) || empty($slotInfo) )
 					{
 						continue;
 					}
@@ -996,6 +1000,10 @@ class wowdb
 					foreach(array_keys($item) as $recipe_name)
 					{
 						$recipeDetails = $item[$recipe_name];
+						if( is_null($recipeDetails) || !is_array($recipeDetails) || empty($recipeDetails) )
+						{
+							continue;
+						}
 						$recipe = $this->make_recipe( $recipeDetails, $memberId, $skill_name, $recipe_type, $recipe_name );
 						$this->insert_recipe( $recipe,$data['Locale'] );
 					}
@@ -1034,6 +1042,10 @@ class wowdb
 			{
 				$this->setMessage('.');
 				$slot = $equip[$slot_name];
+				if( is_null($slot) || !is_array($slot) || empty($slot) )
+				{
+					continue;
+				}
 				$item = $this->make_item( $slot, $memberId, 'equip', $slot_name );
 				$this->insert_item( $item,$data['Locale'] );
 			}
@@ -1079,6 +1091,10 @@ class wowdb
 				$this->setMessage(" : $bag_name");
 
 				$bag = $inv[$bag_name];
+				if( is_null($bag) || !is_array($bag) || empty($bag) )
+				{
+					continue;
+				}
 				$item = $this->make_item( $bag, $memberId, 'bags', $bag_name );
 
 				// quantity for a bag means number of slots it has
@@ -1089,6 +1105,10 @@ class wowdb
 					foreach( array_keys( $bag['Contents'] ) as $slot_name )
 					{
 						$slot = $bag['Contents'][$slot_name];
+						if( is_null($slot) || !is_array($slot) || empty($slot) )
+						{
+							continue;
+						}
 						$item = $this->make_item( $slot, $memberId, $bag_name, $slot_name );
 						$this->insert_item( $item,$data['Locale'] );
 					}
@@ -1136,6 +1156,10 @@ class wowdb
 			{
 				$this->setMessage(" : $bag_name");
 				$bag = $inv[$bag_name];
+				if( is_null($bag) || !is_array($bag) || empty($bag) )
+				{
+					continue;
+				}
 
 				$dbname = 'Bank '.$bag_name;
 				$item = $this->make_item( $bag, $memberId, 'bags', $dbname );
@@ -1155,6 +1179,10 @@ class wowdb
 					foreach( array_keys( $bag['Contents'] ) as $slot_name )
 					{
 						$slot = $bag['Contents'][$slot_name];
+						if( is_null($slot) || !is_array($slot) || empty($slot) )
+						{
+							continue;
+						}
 						$item = $this->make_item( $slot, $memberId, $dbname, $slot_name );
 						$this->insert_item( $item,$data['Locale'] );
 					}
@@ -1196,6 +1224,10 @@ class wowdb
 			foreach( array_keys($mailbox) as $slot_num )
 			{
 				$slot = $mailbox[$slot_num];
+				if( is_null($slot) || !is_array($slot) || empty($slot) )
+				{
+					continue;
+				}
 				$mail = $this->make_mail( $slot, $memberId, $slot_num );
 				$this->insert_mail( $mail );
 			}
