@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+require_once( BASEDIR.'modules/'.$module_name.'/settings.php' );
 
 include_once (ROSTER_BASE.'roster_header.tpl');
 
