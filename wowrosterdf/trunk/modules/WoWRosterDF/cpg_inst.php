@@ -26,7 +26,7 @@ eval("class {$roster_base}
 	function {$roster_base}()
 	{
 		\$this->radmin = true;
-		\$this->version = '1.7.2.0.0';
+		\$this->version = '1.7.2.0';
 		\$this->modname = 'WoWRosterDF';
 		\$this->base = '{$roster_base}';
 		\$this->description = 'World of Warcraft Guild Roster Ported to Dragonfly™';
@@ -52,9 +52,6 @@ eval("class {$roster_base}
 			\$this->prefix.'spellbooktree',
 			\$this->prefix.'talents',
 			\$this->prefix.'talenttree',
-			\$this->prefix.'addon_siggen',
-			\$this->prefix.'addon_altmonitor',
-			\$this->prefix.'addon_altmonitor_config',
 		);
 	}
 
