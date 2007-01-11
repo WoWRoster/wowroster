@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once( './modules/wowrosterdf/settings.php' );
+require_once( './modules/'.$module_name.'/admin/settings.php' );
 
 $script_filename = 'admin.php';
 
