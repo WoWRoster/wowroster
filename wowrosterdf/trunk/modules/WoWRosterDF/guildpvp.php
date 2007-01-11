@@ -61,9 +61,15 @@ foreach( $choiceArray as $item_value => $item_print )
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
+		//roster $choiceform
+			/*$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
 		else
-			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'">'.$item_print;
+			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'">'.$item_print;*/
+		//wowrosterdf version	
+			$choiceForm .= '<option value="'.getlink('&amp;file=indexpvp&amp;type='.$item_value).'" selected="selected">'.$item_print;
+		else
+			$choiceForm .= '<option value="'.getlink('&amp;file=indexpvp&amp;type='.$item_value).'">'.$item_print;
+		
 	}
 }
 $choiceForm .= '</select>
@@ -122,7 +128,10 @@ if ($type == 'guildwins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=guildinfo&amp;guild=');
+		//roster version
+		//print('<a href="?type=guildinfo&amp;guild=');
+		//wowrosterdf version
+		print('<a href="&amp;type=guildinfo&amp;guild=');
 		print urlencode($row['guild']);
 		print('">');
 		if ($row['guild'] == '')
@@ -156,7 +165,10 @@ else if($type == 'guildlosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=guildinfo&amp;guild=');
+		//roster version
+		//print('<a href="?type=guildinfo&amp;guild=');
+		//wowrosterdf version
+		print('<a href="&amp;type=guildinfo&amp;guild=');
 		print urlencode($row['guild']);
 		print('">');
 		if ($row['guild'] == '')
@@ -198,7 +210,10 @@ else if ($type == 'enemywins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=playerinfo&amp;player=');
+		//roster version
+		//print('<a href="?type=playerinfo&amp;player=');
+		//wowrosterdf version
+		print('<a href="&amp;type=playerinfo&amp;player=');
 		print urlencode($row['name']);
 		print('">');
 		print($row['name']);
@@ -210,8 +225,11 @@ else if ($type == 'enemywins')
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
-			$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
-
+			//roster version
+		    //$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
+            //wowrosterdf version
+		    $guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
+            
 		print($guildname);
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
@@ -252,7 +270,10 @@ else if ($type == 'enemylosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=playerinfo&amp;player=');
+		//roster version
+		//print('<a href="?type=playerinfo&amp;player=');
+		//wowrosterdf version
+		print('<a href="&amp;type=playerinfo&amp;player=');
 		print urlencode($row['name']);
 		print('">');
 		print($row['name']);
@@ -264,7 +285,10 @@ else if ($type == 'enemylosses')
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
-			$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
+		    //roster version
+			//$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
+            //wowrosterdf verison
+            $guildname = '<a href="&amp;type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
 
 		print($guildname);
 		print("</td>\n");

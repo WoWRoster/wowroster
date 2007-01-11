@@ -101,8 +101,9 @@ foreach( $disp_array as $global_setting => $user_setting )
 }
 
 
-$url = '<a href="?name='.urlencode($name).'&amp;server='.urlencode($server);
-
+$url = '<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server));
+//wowrosterdf test url to make sure it is right
+//$url = '<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=character').'">
 $menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
 
 print '<div align="center">'."\n";
@@ -112,35 +113,35 @@ print border('sorange','start');
 
 print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-echo $menu_cell.'<a href="./index.php">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a></td>'."\n";
-echo $menu_cell.$url.'&amp;action=character">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
+echo $menu_cell.'<a href="'.getlink($module).'">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a></td>'."\n";
+echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=character').'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
 
 if( $roster_conf['show_spellbook'] )
-	echo $menu_cell.$url.'&amp;action=spellbook">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=spellbook').'">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
 
 if( $roster_conf['show_inventory'] )
-	echo $menu_cell.$url.'&amp;action=bags">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=bags').'">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
 
 if( $roster_conf['show_bank'] )
-	echo $menu_cell.$url.'&amp;action=bank">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=bank').'">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
 
 if( $roster_conf['show_mail'] )
-	echo $menu_cell.$url.'&amp;action=mail">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=mail').'">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
 
 if( $roster_conf['show_quests'] )
-	echo $menu_cell.$url.'&amp;action=quests">'.$wordings[$roster_conf['roster_lang']]['quests'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=quests').'">'.$wordings[$roster_conf['roster_lang']]['quests'].'</a></td>'."\n";
 
 if( $roster_conf['show_recipes'] )
-	echo $menu_cell.$url.'&amp;action=recipes">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=recipes').'">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a></td>'."\n";
 
 if( $roster_conf['show_bg'] )
-	echo $menu_cell.$url.'&amp;action=bg">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=bg').'">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</a></td>'."\n";
 
 if( $roster_conf['show_pvp'] )
-	echo $menu_cell.$url.'&amp;action=pvp">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=pvp').'">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</a></td>'."\n";
 
 if( $roster_conf['show_duels'] )
-	echo $menu_cell.$url.'&amp;action=duels">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</a></td>'."\n";
+	echo $menu_cell.'<a href="'.getlink($module.'&amp;cname='.urlencode($name).'&amp;server='.urlencode($server).'&amp;action=duels').'">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</a></td>'."\n";
 
 print "  </tr>\n</table>\n";
 
@@ -154,7 +155,7 @@ $date_char_data_updated = DateCharDataUpdated($name);
 
 print '<br />
 <span class="lastupdated">'.$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$date_char_data_updated."</span><br />\n";
-
+/*roster version
 if($roster_conf['show_signature'])
 	print "<img onmouseover=\"return overlib('To access this signature use: ".$roster_conf['roster_dir']."/addons/siggen/sig.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Signature Access',RIGHT);\" onmouseout=\"return nd();\" ".
 		"src=\"".$roster_conf['roster_dir']."/addons/siggen/sig.php?name=".urlencode(utf8_decode($name))."&amp;saveonly=0\" alt=\"Signature Image for $name\" />&nbsp;\n";
@@ -162,6 +163,15 @@ if($roster_conf['show_signature'])
 if($roster_conf['show_avatar'])
 	print "<img onmouseover=\"return overlib('To access this avatar use: ".$roster_conf['roster_dir']."/addons/siggen/av.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Avatar Access');\" onmouseout=\"return nd();\" ".
 		"src=\"".$roster_conf['roster_dir']."/addons/siggen/av.php?name=".urlencode(utf8_decode($name))."&amp;saveonly=0\" alt=\"Avatar Image for $name\" />\n";
+*/
+//wowrosterdf version
+if($roster_conf['show_signature'])
+	print "<img onmouseover=\"return overlib('To access this signature use: ".$roster_conf['roster_dir']."/addons/siggen/sig.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Signature Access',RIGHT);\" onmouseout=\"return nd();\" ".
+		"src=\"".getlink('&amp;file=addon&amp;roster_addon_name=siggen&amp;mode=signature&amp;member='.urlencode(utf8_decode($name)).'&amp;saveonly=0')."\" alt=\"Signature Image for $name\" />&nbsp;\n";
+
+if($roster_conf['show_avatar'])
+	print "<img onmouseover=\"return overlib('To access this avatar use: ".$roster_conf['roster_dir']."/addons/siggen/av.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Avatar Access');\" onmouseout=\"return nd();\" ".
+		"src=\"".getlink('&amp;file=addon&amp;roster_addon_name=siggen&amp;mode=avatar&amp;member='.urlencode(utf8_decode($name)).'&amp;saveonly=0')."\" alt=\"Avatar Image for $name\" />\n";
 
 ?>
 <br /><br />

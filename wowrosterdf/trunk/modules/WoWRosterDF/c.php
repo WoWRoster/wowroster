@@ -37,10 +37,17 @@ if( !$result )
 {
 	die_quietly($wowdb->error(),'Roster Autopointer',basename(__FILE__),__LINE__,$query);
 }
-
-if( $row = $wowdb->fetch_assoc($result) )
+//roser characer page
+/*if( $row = $wowdb->fetch_assoc($result) )
 {
 	header("Location: ".ROSTER_URL.$roster_rel."/char.php?name=".$char);
+	exit();
+}*/
+
+//wowroserdf character page
+if( $row = $wowdb->fetch_assoc($result) )
+{
+	header("Location: ".getlink($module.'&amp;file=char&amp;cname='.$char));
 	exit();
 }
 
