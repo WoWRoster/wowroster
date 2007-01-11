@@ -1,20 +1,20 @@
 <?php
 /******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
- *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
- *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+* WoWRoster.net  Roster
+* Copyright 2002-2006
+* Licensed under the Creative Commons
+* "Attribution-NonCommercial-ShareAlike 2.5" license
+*
+* Short summary
+*  http://creativecommons.org/licenses/by-nc-sa/2.5/
+*
+* Full license information
+*  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+* -----------------------------
+*
+* $Id$
+*
+******************************/
 
 class wowdb
 {
@@ -38,35 +38,39 @@ class wowdb
 	 * @param string $name MySQL server database name to select
 	 * @return bool
 	 */
-	function connect( $host, $user, $password, $name=null )
+	//roster version
+	/*function connect( $host, $user, $password, $name=null )
 	{
-		$this->db = @mysql_connect($host, $user, $password);
+	$this->db = @mysql_connect($host, $user, $password);
 
-		if( $this->db )
-		{
-			if ( !is_null($name) )
-			{
-				$db_selected = @mysql_select_db( $name,$this->db );
-				if( $db_selected )
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return true;
-			}
-		}
-		else
-		{
-			return false;
-		}
+	if( $this->db )
+	{
+	if ( !is_null($name) )
+	{
+	$db_selected = @mysql_select_db( $name,$this->db );
+	if( $db_selected )
+	{
+	return true;
 	}
-
+	else
+	{
+	return false;
+	}
+	}
+	else
+	{
+	return true;
+	}
+	}
+	else
+	{
+	return false;
+	}
+	}*/
+	function connect()
+	{
+		return true;
+	}
 
 	/**
 	 * Front-end for SQL_query
@@ -74,24 +78,41 @@ class wowdb
 	 * @param string $querystr
 	 * @return mixed $result handle
 	 */
-	function query( $querystr )
+	//roster version
+	/*function query( $querystr )
 	{
 		$this->sqlstrings[] = $querystr;
 
 		$result = @mysql_query($querystr,$this->db);
 		return $result;
-	}
+	}*/
+	//wowrosterdf version
+    function query( $querystr )
+	{
+		global $db;
+		$this->sqlstrings[] = $querystr;
 
+		//return @mysql_query($querystr);
+		return $db->sql_query($querystr);
+	}
 
 	/**
 	 * Get last SQL error
 	 *
 	 * @return string last SQL error
 	 */
-	function error()
+	//roster version
+	/*function error()
 	{
 		$result = @mysql_errno().': '.mysql_error();
 		return $result;
+	}*/
+	//wowrtserdf version
+	function error()
+	{
+		global $db;
+		//return @mysql_errno().': '.mysql_error();
+		return $db->sql_error();
 	}
 
 
@@ -101,18 +122,26 @@ class wowdb
 	 * @param int $result handle
 	 * @return array current db row
 	 */
+	//roster version
+	/*function getrow( $result )
+	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$result && $roster_conf['debug_mode'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
+		return mysql_fetch_assoc( $result );
+	}*/
+	//wowrsterdf version
 	function getrow( $result )
 	{
-		global $roster_conf;
-
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster_conf['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return mysql_fetch_assoc( $result );
+		global $db;
+		return $db->sql_fetchrow($result);
+		//return mysql_fetch_assoc( $result );
 	}
 
 
@@ -122,7 +151,8 @@ class wowdb
 	 * @param int $result handle
 	 * @return array current db row
 	 */
-	function fetch_assoc( $result )
+	//roster version
+	/*function fetch_assoc( $result )
 	{
 		global $roster_conf;
 
@@ -134,6 +164,13 @@ class wowdb
 		}
 
 		return mysql_fetch_assoc( $result );
+	}*/
+	//wowrosterdf version
+	function fetch_assoc( $result )
+	{
+		global $db;
+		return $db->sql_fetchrow($result);
+		//return mysql_fetch_assoc( $result );
 	}
 
 
@@ -143,7 +180,8 @@ class wowdb
 	 * @param int $result handle
 	 * @return array current db row
 	 */
-	function fetch_array( $result )
+	//roster version
+	/*function fetch_array( $result )
 	{
 		global $roster_conf;
 
@@ -155,6 +193,13 @@ class wowdb
 		}
 
 		return mysql_fetch_array( $result );
+	}*/
+	//wowrosterdf version
+	function fetch_array( $result )
+	{
+		global $db;
+		return $db->sql_fetchrow($result);
+		//return mysql_fetch_array( $result );
 	}
 
 
@@ -164,7 +209,8 @@ class wowdb
 	 * @param int $result handle
 	 * @return array current db row
 	 */
-	function fetch_row( $result )
+	//roster version
+	/*function fetch_row( $result )
 	{
 		global $roster_conf;
 
@@ -176,6 +222,13 @@ class wowdb
 		}
 
 		return mysql_fetch_row( $result );
+	}*/
+	//wowrosterdf version
+	function fetch_row( $result )
+	{
+		global $db;
+		return $db->sql_fetchrow($result);
+		//return mysql_fetch_row( $result );
 	}
 
 
@@ -185,7 +238,8 @@ class wowdb
 	 * @param int $result handle
 	 * @return array current db row
 	 */
-	function num_rows( $result )
+	//roster version
+	/*function num_rows( $result )
 	{
 		global $roster_conf;
 
@@ -197,6 +251,13 @@ class wowdb
 		}
 
 		return mysql_num_rows( $result );
+	}*/
+	//wowrosterdf version
+	function num_rows( $result )
+	{
+		global $db;
+		return $db->sql_numrows($result);
+		//return mysql_num_rows( $result );
 	}
 
 
@@ -206,12 +267,22 @@ class wowdb
 	 * @param string $string
 	 * @return string escaped
 	 */
-	function escape( $string )
+	//roster version
+	/*function escape( $string )
 	{
 		if( version_compare( phpversion(), '4.3.0', '>' ) )
+		return mysql_real_escape_string( $string );
+		else
+		return mysql_escape_string( $string );
+	}*/
+	//wowrosterdf version
+	function escape( $string )
+	{
+		/*if( version_compare( phpversion(), '4.3.0', '>' ) )
 			return mysql_real_escape_string( $string );
 		else
-			return mysql_escape_string( $string );
+			return mysql_escape_string( $string );*/
+		return Fix_Quotes($string);
 	}
 
 
@@ -220,11 +291,19 @@ class wowdb
 	 *
 	 * @return unknown
 	 */
-	function closeDb()
+	//roster version
+	/*function closeDb()
 	{
 		// Closing connection
 		if( is_resource($this->db) )
-			return @mysql_close($this->db);
+		return @mysql_close($this->db);
+	}*/
+	//wowrosterdf version
+	function closeDb()
+	{
+		// Closing connection
+		//if( is_resource($this->db) )
+		//	return @mysql_close($this->db);
 	}
 
 
@@ -233,19 +312,28 @@ class wowdb
 	 *
 	 * @param int $query_id handle
 	 */
+	//roster version
+	/*function closeQuery($query_id)
+	{
+		global $roster_conf;
+
+		// die quietly if debugging is on and we've got an invalid result. The page may
+		// render correctly with just an error printed, so if debugging is off we don't die.
+		if (!$query_id && $roster_conf['debug_mode'])
+		{
+			die_quietly('Invalid query result passed','Roster DB Layer');
+		}
+
+		// Free resultset
+		return @mysql_free_result($query_id);
+	}*/
+	//wowrosterdf version
 	function closeQuery($query_id)
 	{
-		global $roster_conf;
-
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$query_id && $roster_conf['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
+		global $db;
 		// Free resultset
-		return @mysql_free_result($query_id);
+		return $db->sql_freeresult($query_id);
+		//return @mysql_free_result($query_id);
 	}
 
 
@@ -254,7 +342,8 @@ class wowdb
 	 *
 	 * @param int $query_id handle
 	 */
-	function free_result($query_id)
+	//roster version
+	/*function free_result($query_id)
 	{
 		global $roster_conf;
 
@@ -267,6 +356,14 @@ class wowdb
 
 		// Free resultset
 		return @mysql_free_result($query_id);
+	}*/
+	//wowrosterdf version
+	function free_result($query_id)
+	{
+		global $db;
+		// Free resultset
+		return $db->sql_freeresult($query_id);
+		//return @mysql_free_result($query_id);
 	}
 
 
@@ -275,9 +372,15 @@ class wowdb
 	 *
 	 * @param int $query_id handle
 	 */
-	function affected_rows()
+	//roster version
+	/*function affected_rows()
 	{
 		return @mysql_affected_rows($this->db);
+	}*/
+	//wowrosterdf version
+	function affected_rows()
+	{
+		return $db->sql_affected_rows($this->db);
 	}
 
 
@@ -288,7 +391,8 @@ class wowdb
 	 * @param int $num row number
 	 * @return bool
 	 */
-	function data_seek($result,$num)
+	//roster version
+	/*function data_seek($result,$num)
 	{
 		global $roster_conf;
 
@@ -300,6 +404,13 @@ class wowdb
 		}
 
 		return @mysql_data_seek($result, $num);
+	}*/
+	//wowrosterdf version
+	function data_seek($result,$num)
+	{
+		global $db;
+		return $db->sql_rowseek($num, $result);
+		//return @mysql_data_seek($result, $num);
 	}
 
 
@@ -308,10 +419,17 @@ class wowdb
 	 *
 	 * @return int
 	 */
-	function insert_id()
+	//roster version 
+	/*function insert_id()
 	{
 		return @mysql_insert_id($this->db);
+	}*/
+	//wowrosterdf version
+	function insert_id()
+	{
+		return $db->sql_insert_id($this->db);
 	}
+	
 
 
 	/**
@@ -423,12 +541,12 @@ class wowdb
 				foreach ($errorArray as $message => $error)
 				{
 					if ( $steps == 1 )
-						$steps = 2;
+					$steps = 2;
 					else
-						$steps = 1;
+					$steps = 1;
 
 					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n".
-						"$error</td></tr>\n";
+					"$error</td></tr>\n";
 				}
 			}
 			$output .= '</table>';
@@ -450,15 +568,15 @@ class wowdb
 		global $db_prefix;
 
 		if ($addon)
-			return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
+		return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
 		else
-			return $db_prefix.$table;
+		return $db_prefix.$table;
 	}
 
 
-/************************
- * Updating Code
-************************/
+	/************************
+	* Updating Code
+	************************/
 
 
 	/**
@@ -480,7 +598,7 @@ class wowdb
 	function add_value( $row_name, $row_data )
 	{
 		if( $this->assignstr != '' )
-			$this->assignstr .= ',';
+		$this->assignstr .= ',';
 
 		$row_data = "'" . $this->escape( $row_data ) . "'";
 
@@ -497,7 +615,7 @@ class wowdb
 	function add_time( $row_name, $date )
 	{
 		if( $this->assignstr != '' )
-			$this->assignstr .= ',';
+		$this->assignstr .= ',';
 
 		// 01/01/2000 23:00:00.000
 		$row_data = "'".$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
@@ -514,7 +632,7 @@ class wowdb
 	function add_pvp2time( $row_name, $date )
 	{
 		if( $this->assignstr != '' )
-			$this->assignstr .= ',';
+		$this->assignstr .= ',';
 
 		$date_str = strtotime($date);
 		$p2newdate = date('Y-m-d G:i:s',$date_str);
@@ -578,7 +696,7 @@ class wowdb
 		$this->add_value('item_tooltip', $item['item_tooltip'] );
 
 		if( preg_match($wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
-			$this->add_value('level',$level[1]);
+		$this->add_value('level',$level[1]);
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
 
@@ -612,7 +730,7 @@ class wowdb
 		$this->add_value('item_color', $mail['item_color'] );
 
 		if( isset( $mail['item_quantity'] ) )
-			$this->add_value('item_quantity', $mail['item_quantity'] );
+		$this->add_value('item_quantity', $mail['item_quantity'] );
 
 		$querystr = "INSERT INTO `".ROSTER_MAILBOXTABLE."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
@@ -671,7 +789,7 @@ class wowdb
 		$this->add_value('recipe_tooltip', $recipe['recipe_tooltip'] );
 
 		if( preg_match($wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
-			$this->add_value('level',$level[1]);
+		$this->add_value('level',$level[1]);
 
 		$querystr = "INSERT INTO `".ROSTER_RECIPESTABLE."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
@@ -731,9 +849,9 @@ class wowdb
 		$quest['zone'] = $zone;
 
 		if( isset($quest_data['Complete']) )
-			$quest['is_complete'] = $quest_data['Complete'];
+		$quest['is_complete'] = $quest_data['Complete'];
 		else
-			$quest['is_complete'] = 0;
+		$quest['is_complete'] = 0;
 
 		return $quest;
 	}
@@ -767,14 +885,14 @@ class wowdb
 			$mail['item_color'] = $item['Color'];
 
 			if( isset( $item['Quantity'] ) )
-				$mail['item_quantity'] = $item['Quantity'];
+			$mail['item_quantity'] = $item['Quantity'];
 			else
-				$item['item_quantity'] = 1;
+			$item['item_quantity'] = 1;
 
 			if( !empty($item['Tooltip']) )
-				$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
+			$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
 			else
-				$mail['item_tooltip'] = $item['Name'];
+			$mail['item_tooltip'] = $item['Name'];
 		}
 		return $mail;
 	}
@@ -801,14 +919,14 @@ class wowdb
 		$item['item_texture'] = 'Interface/Icons/'.$item_data['Icon'];
 
 		if( isset( $item_data['Quantity'] ) )
-			$item['item_quantity'] = $item_data['Quantity'];
+		$item['item_quantity'] = $item_data['Quantity'];
 		else
-			$item['item_quantity'] = 1;
+		$item['item_quantity'] = 1;
 
 		if( !empty($item_data['Tooltip']) )
-			$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
+		$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
 		else
-			$item['item_tooltip'] = $item_data['Name'];
+		$item['item_tooltip'] = $item_data['Name'];
 
 		return $item;
 	}
@@ -844,9 +962,9 @@ class wowdb
 		$recipe['recipe_texture'] = 'Interface/Icons/'.$recipe_data['Icon'];
 
 		if( !empty($recipe_data['Tooltip']) )
-			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
+		$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
 		else
-			$recipe['recipe_tooltip'] = $recipe_name;
+		$recipe['recipe_tooltip'] = $recipe_name;
 
 		return $recipe;
 	}
@@ -882,21 +1000,21 @@ class wowdb
 				$this->add_value('name', $buff['Name'] );
 
 				if( isset( $buff['Icon'] ) )
-					$this->add_value('icon', 'Interface/Icons/'.$buff['Icon'] );
+				$this->add_value('icon', 'Interface/Icons/'.$buff['Icon'] );
 
 				if( isset( $buff['Rank'] ) )
-					$this->add_value('rank', $buff['Rank'] );
+				$this->add_value('rank', $buff['Rank'] );
 
 				if( isset( $buff['Rank'] ) )
-					$buff_rank = $buff['Rank'];
+				$buff_rank = $buff['Rank'];
 
 				if( isset( $buff['Count'] ) )
-					$this->add_value('count', $buff['Count'] );
+				$this->add_value('count', $buff['Count'] );
 
 				if( !empty($buff['Tooltip']) )
-					$this->add_value('tooltip', $this->tooltip( $buff['Tooltip'] ) );
+				$this->add_value('tooltip', $this->tooltip( $buff['Tooltip'] ) );
 				else
-					$this->add_value('tooltip', $buff['Name'] );
+				$this->add_value('tooltip', $buff['Name'] );
 
 				$querystr = "INSERT INTO `".ROSTER_BUFFSTABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -908,7 +1026,7 @@ class wowdb
 				$buffsnum++;
 			}
 			$this->setMessage($buffsnum.'</li>');
-	   	}
+		}
 		else
 		{
 			$this->setMessage('<li>No Buffs</li>');
@@ -951,7 +1069,7 @@ class wowdb
 				}
 			}
 			$this->setMessage($questnum.'</li>');
-	   	}
+		}
 		else
 		{
 			$this->setMessage('<li>No Quest Data</li>');
@@ -1179,12 +1297,12 @@ class wowdb
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
-			$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` = '$memberId'";
-			if( !$this->query($querystr) )
-			{
-				$this->setError('Mail could not be deleted',$this->error());
-				return;
-			}
+		$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` = '$memberId'";
+		if( !$this->query($querystr) )
+		{
+			$this->setError('Mail could not be deleted',$this->error());
+			return;
+		}
 		//}
 
 		if( !empty($mailbox) && is_array($mailbox) )
@@ -1238,11 +1356,11 @@ class wowdb
 					{
 						$this->reset_values();
 						if( !empty($memberId) )
-							$this->add_value('member_id', $memberId );
+						$this->add_value('member_id', $memberId );
 						if( !empty($factions) )
-							$this->add_value('faction', $factions );
+						$this->add_value('faction', $factions );
 						if( !empty($faction) )
-							$this->add_value('name', $faction );
+						$this->add_value('name', $faction );
 						if( !empty($repData[$factions][$faction]['Value']) )
 						{
 							list($level, $max) = explode(':',$repData[$factions][$faction]['Value']);
@@ -1250,9 +1368,9 @@ class wowdb
 							$this->add_value('max_rep', $max );
 						}
 						if( !empty($repData[$factions][$faction]['AtWar']) )
-							$this->add_value('AtWar', $repData[$factions][$faction]['AtWar'] );
+						$this->add_value('AtWar', $repData[$factions][$faction]['AtWar'] );
 						if( !empty($repData[$factions][$faction]['Standing']) )
-							$this->add_value('Standing', $repData[$factions][$faction]['Standing']);
+						$this->add_value('Standing', $repData[$factions][$faction]['Standing']);
 
 						$this->setMessage('.');
 						$querystr = "INSERT INTO `".ROSTER_REPUTATIONTABLE."` SET ".$this->assignstr;
@@ -1307,15 +1425,15 @@ class wowdb
 					{
 						$this->reset_values();
 						if( !empty($memberId) )
-							$this->add_value('member_id', $memberId );
+						$this->add_value('member_id', $memberId );
 						if( !empty($skill_type) )
-							$this->add_value('skill_type', $skill_type );
+						$this->add_value('skill_type', $skill_type );
 						if( !empty($skill_name) )
-							$this->add_value('skill_name', $skill_name );
+						$this->add_value('skill_name', $skill_name );
 						if( !empty($order) )
-							$this->add_value('skill_order', $order );
+						$this->add_value('skill_order', $order );
 						if( !empty($sub_skill[$skill_name]) )
-							$this->add_value('skill_level', $sub_skill[$skill_name] );
+						$this->add_value('skill_level', $sub_skill[$skill_name] );
 
 						$this->setMessage('.');
 						$querystr = "INSERT INTO `".ROSTER_SKILLSTABLE."` SET ".$this->assignstr;
@@ -1385,15 +1503,15 @@ class wowdb
 
 							$this->reset_values();
 							if( !empty($memberId) )
-								$this->add_value('member_id', $memberId );
+							$this->add_value('member_id', $memberId );
 							if( !empty($spell_type) )
-								$this->add_value('spell_type', $spell_type );
+							$this->add_value('spell_type', $spell_type );
 							if( !empty($spell_name) )
-								$this->add_value('spell_name', $spell_name );
+							$this->add_value('spell_name', $spell_name );
 							if( !empty($data_spell_name['Icon']) )
-								$this->add_value('spell_texture', 'Interface/Icons/'.$data_spell_name['Icon'] );
+							$this->add_value('spell_texture', 'Interface/Icons/'.$data_spell_name['Icon'] );
 							if( !empty($data_spell_name['Rank']) )
-								$this->add_value('spell_rank', $data_spell_name['Rank'] );
+							$this->add_value('spell_rank', $data_spell_name['Rank'] );
 
 							if( !empty($data_spell_name['Tooltip']) )
 							{
@@ -1489,19 +1607,19 @@ class wowdb
 					{
 						$this->reset_values();
 						if( !empty($memberId) )
-							$this->add_value('member_id', $memberId );
+						$this->add_value('member_id', $memberId );
 						if( !empty($talent_skill) )
-							$this->add_value('name', $talent_skill );
+						$this->add_value('name', $talent_skill );
 						if( !empty($talent_tree) )
-							$this->add_value('tree', $talent_tree );
+						$this->add_value('tree', $talent_tree );
 
 						if( !empty($data_talent_skill['Tooltip']) )
-							$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']) );
+						$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']) );
 						else
-							$this->add_value('tooltip', $talent_skill );
+						$this->add_value('tooltip', $talent_skill );
 
 						if( !empty($data_talent_skill['Icon']) )
-							$this->add_value('texture', 'Interface/Icons/'.$data_talent_skill['Icon'] );
+						$this->add_value('texture', 'Interface/Icons/'.$data_talent_skill['Icon'] );
 
 						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
 						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
@@ -1518,15 +1636,15 @@ class wowdb
 				}
 				$this->reset_values();
 				if( !empty($memberId) )
-					$this->add_value('member_id', $memberId );
+				$this->add_value('member_id', $memberId );
 				if( !empty($talent_tree) )
-					$this->add_value('tree', $talent_tree );
+				$this->add_value('tree', $talent_tree );
 				if( !empty($tree_background) )
-					$this->add_value('background', $tree_background );
+				$this->add_value('background', $tree_background );
 				if( !empty($tree_pointsspent) )
-					$this->add_value('pointsspent', $tree_pointsspent );
+				$this->add_value('pointsspent', $tree_pointsspent );
 				if( !empty($tree_order) )
-					$this->add_value('order', $tree_order );
+				$this->add_value('order', $tree_order );
 
 				$querystr = "INSERT INTO `".ROSTER_TALENTTREETABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -1672,7 +1790,7 @@ class wowdb
 	function remove_guild_members($guild_id, $date)
 	{
 		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `update_time` <> '".
-			$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
+		$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1688,7 +1806,7 @@ class wowdb
 			while ( $row = $this->fetch_array($result) )
 			{
 				if ($inClause != '')
-					$inClause .= ',';
+				$inClause .= ',';
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
@@ -1731,7 +1849,7 @@ class wowdb
 			while ( $row = $this->fetch_array($result) )
 			{
 				if ($inClause != '')
-					$inClause .= ',';
+				$inClause .= ',';
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">Guild [</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
@@ -1766,7 +1884,7 @@ class wowdb
 			while ( $row = $this->fetch_array($result) )
 			{
 				if ($inClause != '')
-					$inClause .= ',';
+				$inClause .= ',';
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] Deleted since their guild-id does not match</span></li>');
@@ -1860,11 +1978,11 @@ class wowdb
 		$this->add_value( 'guild_motd', $guild['Motd'] );
 
 		if( !empty($guild['NumMembers']) )
-			$this->add_value( 'guild_num_members', $guild['NumMembers'] );
+		$this->add_value( 'guild_num_members', $guild['NumMembers'] );
 		if( !empty($guild['NumAccounts']) )
-			$this->add_value( 'guild_num_accounts', $guild['NumAccounts'] );
+		$this->add_value( 'guild_num_accounts', $guild['NumAccounts'] );
 		if( !empty($currentTime) )
-			$this->add_time( 'update_time', $currentTime );
+		$this->add_time( 'update_time', $currentTime );
 
 		if( !empty($guild['timestamp']['init']['DateUTC']) )
 		{
@@ -1920,7 +2038,7 @@ class wowdb
 
 		$memberInfo = $this->fetch_assoc( $result );
 		if ($memberInfo)
-			$memberId = $memberInfo['member_id'];
+		$memberId = $memberInfo['member_id'];
 
 		$this->closeQuery($result);
 
@@ -1930,20 +2048,20 @@ class wowdb
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'level', $char['Level']);
 		if( isset($char['Note']) )
-			$this->add_value( 'note', $char['Note']);
+		$this->add_value( 'note', $char['Note']);
 		else
-			$this->add_value( 'note', '');
+		$this->add_value( 'note', '');
 		$this->add_value( 'guild_rank', $char['Rank']);
 		$this->add_value( 'guild_title', $guildRanks[$char['Rank']]['Title']);
 		if( isset($char['OfficerNote']) )
-			$this->add_value( 'officer_note', $char['OfficerNote']);
+		$this->add_value( 'officer_note', $char['OfficerNote']);
 		else
-			$this->add_value( 'officer_note', '');
+		$this->add_value( 'officer_note', '');
 		$this->add_value( 'zone', $char['Zone']);
 		if( isset($char['Status']) )
-			$this->add_value( 'status', $char['Status']);
+		$this->add_value( 'status', $char['Status']);
 		else
-			$this->add_value( 'status', '');
+		$this->add_value( 'status', '');
 		$this->add_time( 'update_time', getDate($currentTimestamp));
 
 		if( $char['Online'] == '1' )
@@ -1963,11 +2081,11 @@ class wowdb
 			#                        - 60 * 60 * $lastOnlineHours;
 			$timeString = '-';
 			if ($lastOnlineYears > 0)
-				$timeString .= $lastOnlineYears.' Years ';
+			$timeString .= $lastOnlineYears.' Years ';
 			if ($lastOnlineMonths > 0)
-				$timeString .= $lastOnlineMonths.' Months ';
+			$timeString .= $lastOnlineMonths.' Months ';
 			if ($lastOnlineDays > 0)
-				$timeString .= $lastOnlineDays.' Days ';
+			$timeString .= $lastOnlineDays.' Days ';
 			$timeString .= max($lastOnlineHours,1).' Hours';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
@@ -1991,7 +2109,7 @@ class wowdb
 		{
 			// Add the guild Id first
 			if( !empty($guildId) )
-				$this->add_value( 'guild_id', $guildId);
+			$this->add_value( 'guild_id', $guildId);
 
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">[</span> '.$name.' <span class="green">] - Added</span></li>');
@@ -2114,7 +2232,7 @@ class wowdb
 		$memberInfo = $this->fetch_assoc( $result );
 		$this->closeQuery($result);
 		if ($memberInfo)
-			$wins = $memberInfo['wins'];
+		$wins = $memberInfo['wins'];
 		$this->setMessage('<li>Wins: '.$wins.'</li>');
 
 
@@ -2129,20 +2247,20 @@ class wowdb
 		$memberInfo = $this->fetch_assoc( $result );
 		$this->closeQuery($result);
 		if ($memberInfo)
-			$losses = $memberInfo['losses'];
+		$losses = $memberInfo['losses'];
 		$this->setMessage('<li>Losses: '.$losses.'</li>');
 
 
 		if ($losses == 0 || $wins == 0)
 		{
 			if ($losses == 0 && $wins == 0)
-				$ratio = 0;
+			$ratio = 0;
 			else
-				$ratio = 99999;
+			$ratio = 99999;
 
 		}
 		else
-			$ratio = $wins / $losses;
+		$ratio = $wins / $losses;
 
 		$querystr = "UPDATE `".ROSTER_PLAYERSTABLE."` SET `pvp_ratio` = ".$ratio." WHERE `member_id` = '$memberId'";
 		$result = $this->query($querystr);
@@ -2184,9 +2302,9 @@ class wowdb
 			$this->add_value( 'hash', $data['Hash'] );
 
 			if( $update )
-				$querystr = "UPDATE `".ROSTER_ACCOUNTTABLE."` SET ".$this->assignstr." WHERE `name` = '$name_escape'";
+			$querystr = "UPDATE `".ROSTER_ACCOUNTTABLE."` SET ".$this->assignstr." WHERE `name` = '$name_escape'";
 			else
-				$querystr = "INSERT INTO `".ROSTER_ACCOUNTTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".ROSTER_ACCOUNTTABLE."` SET ".$this->assignstr;
 
 			$result = $this->query($querystr);
 			if( !$result )
@@ -2267,20 +2385,20 @@ class wowdb
 
 			$this->add_value( 'member_id', $memberId );
 			if( !empty($petname) )
-				$this->add_value( 'name', $petname );
+			$this->add_value( 'name', $petname );
 			if( !empty($data['Slot']) )
-				$this->add_value( 'slot', $data['Slot'] );
+			$this->add_value( 'slot', $data['Slot'] );
 
 			if( !empty($data['Attributes']['Stats']['Intellect']) )
-				$this->add_value( 'stat_int', $data['Attributes']['Stats']['Intellect'] );
+			$this->add_value( 'stat_int', $data['Attributes']['Stats']['Intellect'] );
 			if( !empty($data['Attributes']['Stats']['Agility']) )
-				$this->add_value( 'stat_agl', $data['Attributes']['Stats']['Agility'] );
+			$this->add_value( 'stat_agl', $data['Attributes']['Stats']['Agility'] );
 			if( !empty($data['Attributes']['Stats']['Stamina']) )
-				$this->add_value( 'stat_sta', $data['Attributes']['Stats']['Stamina'] );
+			$this->add_value( 'stat_sta', $data['Attributes']['Stats']['Stamina'] );
 			if( !empty($data['Attributes']['Stats']['Strength']) )
-				$this->add_value( 'stat_str', $data['Attributes']['Stats']['Strength'] );
+			$this->add_value( 'stat_str', $data['Attributes']['Stats']['Strength'] );
 			if( !empty($data['Attributes']['Stats']['Spirit']) )
-				$this->add_value( 'stat_spr', $data['Attributes']['Stats']['Spirit'] );
+			$this->add_value( 'stat_spr', $data['Attributes']['Stats']['Spirit'] );
 
 			if( !empty($data['Attributes']['Resists']['Frost']) )
 			{
@@ -2309,30 +2427,30 @@ class wowdb
 			}
 
 			if( !empty($data['Level']) )
-				$this->add_value( 'level', $data['Level'] );
+			$this->add_value( 'level', $data['Level'] );
 			if( !empty($data['Health']) )
-				$this->add_value( 'health', $data['Health'] );
+			$this->add_value( 'health', $data['Health'] );
 			if( !empty($data['Mana']) )
-				$this->add_value( 'mana', $data['Mana'] );
+			$this->add_value( 'mana', $data['Mana'] );
 			if( !empty($data['Attributes']['Defense']['Armor']) )
-				$this->add_value( 'armor', $data['Attributes']['Defense']['Armor'] );
+			$this->add_value( 'armor', $data['Attributes']['Defense']['Armor'] );
 			if( !empty($data['Attributes']['Defense']['Defense']) )
 			{
 				$defense = explode(':',$data['Attributes']['Defense']['Defense']);
 				$this->add_value( 'defense', $defense[0]+$defense[1]+$defense[2] );
 			}
 			if( !empty($data['Experience']) )
-				$this->add_value( 'xp', $data['Experience'] );
+			$this->add_value( 'xp', $data['Experience'] );
 			if( !empty($data['TalentPointsUsed']) )
-				$this->add_value( 'usedtp', $data['TalentPointsUsed'] );
+			$this->add_value( 'usedtp', $data['TalentPointsUsed'] );
 			if( !empty($data['TalentPoints']) )
-				$this->add_value( 'totaltp', $data['TalentPoints'] );
+			$this->add_value( 'totaltp', $data['TalentPoints'] );
 			if( !empty($data['Type']) )
-				$this->add_value( 'type', $data['Type'] );
+			$this->add_value( 'type', $data['Type'] );
 			if( !empty($data['Loyalty']) )
-				$this->add_value( 'loyalty', $data['Loyalty']);
+			$this->add_value( 'loyalty', $data['Loyalty']);
 			if( !empty($data['Icon']) )
-				$this->add_value( 'icon', 'Interface/Icons/'.$data['Icon']);
+			$this->add_value( 'icon', 'Interface/Icons/'.$data['Icon']);
 
 			$attack = $data['Attributes']['Melee'];
 
@@ -2344,13 +2462,13 @@ class wowdb
 			}
 
 			if( !empty($attack['MainHand']['AttackSkill']) )
-				$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
+			$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
 			if( !empty($attack['MainHand']['DamageRange']) )
-				$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
+			$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
 			if( !empty($attack['DamageRangeTooltip']) )
-				$this->add_value( 'melee_rangetooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			$this->add_value( 'melee_rangetooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( !empty($attack['AttackPowerTooltip']) )
-				$this->add_value( 'melee_powertooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			$this->add_value( 'melee_powertooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
 
 			$this->setMessage('<li>Updating pet ['.$petname_escape.']</li>');
 
@@ -2445,69 +2563,69 @@ class wowdb
 		{
 			$honor = $data['Honor'];
 			if( isset($honor['Session']['HK']) )
-				$this->add_value( 'sessionHK',             $honor['Session']['HK'] );
+			$this->add_value( 'sessionHK',             $honor['Session']['HK'] );
 			else
-				$this->add_value( 'sessionHK',0 );
+			$this->add_value( 'sessionHK',0 );
 
 			if( isset($honor['Session']['CP']) )
-				$this->add_value( 'sessionCP',             $honor['Session']['CP'] );
+			$this->add_value( 'sessionCP',             $honor['Session']['CP'] );
 			else
-				$this->add_value( 'sessionCP',0 );
+			$this->add_value( 'sessionCP',0 );
 
 			if( isset($honor['Yesterday']['HK']) )
-				$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
+			$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
 			else
-				$this->add_value( 'yesterdayHK',0 );
+			$this->add_value( 'yesterdayHK',0 );
 
 			if( isset($honor['Yesterday']['CP']) )
-				$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
+			$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
 			else
-				$this->add_value( 'yesterdayContribution',0 );
+			$this->add_value( 'yesterdayContribution',0 );
 
 			if( isset($honor['Lifetime']['HK']) )
-				$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
+			$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
 			else
-				$this->add_value( 'lifetimeHK',0 );
+			$this->add_value( 'lifetimeHK',0 );
 
 			if( isset($honor['Lifetime']['Rank']) )
-				$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
+			$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
 			else
-				$this->add_value( 'lifetimeHighestRank',0 );
+			$this->add_value( 'lifetimeHighestRank',0 );
 
 			if( isset($honor['Lifetime']['Name']) )
-				$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
+			$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
 			else
-				$this->add_value( 'lifetimeRankName','' );
+			$this->add_value( 'lifetimeRankName','' );
 
 			if( isset($honor['Current']['HonorPoints']) )
-				$this->add_value( 'honorpoints',            $honor['Current']['HonorPoints'] );
+			$this->add_value( 'honorpoints',            $honor['Current']['HonorPoints'] );
 			else
-				$this->add_value( 'honorpoints',0 );
+			$this->add_value( 'honorpoints',0 );
 
 			if( isset($honor['Current']['ArenaPoints']) )
-				$this->add_value( 'arenapoints',            $honor['Current']['ArenaPoints'] );
+			$this->add_value( 'arenapoints',            $honor['Current']['ArenaPoints'] );
 			else
-				$this->add_value( 'arenapoints',0 );
+			$this->add_value( 'arenapoints',0 );
 
 			if( isset($honor['Current']['Rank']) )
-				$this->add_value( 'RankInfo',              $honor['Current']['Rank'] );
+			$this->add_value( 'RankInfo',              $honor['Current']['Rank'] );
 			else
-				$this->add_value( 'RankInfo',0 );
+			$this->add_value( 'RankInfo',0 );
 
 			if( isset($honor['Current']['Name']) )
-				$this->add_value( 'RankName',              $honor['Current']['Name'] );
+			$this->add_value( 'RankName',              $honor['Current']['Name'] );
 			else
-				$this->add_value( 'RankName','' );
+			$this->add_value( 'RankName','' );
 
 			if( isset($honor['Current']['Icon']) )
-				$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
+			$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
 			else
-				$this->add_value( 'RankIcon','' );
+			$this->add_value( 'RankIcon','' );
 
 			if( isset($honor['Current']['Progress']) )
-				$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
+			$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
 			else
-				$this->add_value( 'Rankexp',0 );
+			$this->add_value( 'Rankexp',0 );
 
 			unset($honor);
 		}
@@ -2647,7 +2765,7 @@ class wowdb
 
 		// Capture mailbox update time/date
 		if( isset($data['timestamp']['MailBox']) )
-			$this->add_value( 'maildateutc', date('m/d/y H:i:s',$data['timestamp']['MailBox']) );
+		$this->add_value( 'maildateutc', date('m/d/y H:i:s',$data['timestamp']['MailBox']) );
 
 		if( is_array($data['Attributes']['Melee']) )
 		{
@@ -2660,13 +2778,13 @@ class wowdb
 				unset($power);
 			}
 			if( isset($attack['MainHand']['AttackSkill']) )
-				$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
+			$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
 			if( isset($attack['MainHand']['DamageRange']) )
-				$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
+			$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
 			if( isset($attack['DamageRangeTooltip']) )
-				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( isset($attack['AttackPowerTooltip']) )
-				$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
 			unset($attack);
 		}
 
@@ -2681,13 +2799,13 @@ class wowdb
 				unset($power);
 			}
 			if( isset($attack['AttackSkill']) )
-				$this->add_value( 'ranged_rating', $attack['AttackSkill'] );
+			$this->add_value( 'ranged_rating', $attack['AttackSkill'] );
 			if( isset($attack['DamageRange']) )
-				$this->add_value( 'ranged_range', $attack['DamageRange'] );
+			$this->add_value( 'ranged_range', $attack['DamageRange'] );
 			if( isset($attack['DamageRangeTooltip']) )
-				$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( isset($attack['AttackPowerTooltip']) )
-				$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
 			unset($attack);
 		}
 
