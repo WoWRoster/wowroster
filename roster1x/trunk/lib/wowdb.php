@@ -2092,9 +2092,10 @@ class wowdb
 			$playerInfo = $data[$index];
 			$playerName = $playerInfo['name'];
 			$playerDate = date('Y-m-d G:i:s', strtotime($playerInfo['date']));
+			$playerRealm = $playerInfo['realm'];
 
 			// skip if entry already there
-			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '$playerName' AND `date` = '$playerDate'";
+			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$this->escape( $playerName )."' AND `date` = '".$this->escape( $playerDate )." AND `realm` = '".$this->escape( $playerRealm )."'";
 
 			$result = $this->query($querystr);
 			if( !$result )

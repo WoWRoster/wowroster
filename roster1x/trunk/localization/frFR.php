@@ -764,7 +764,7 @@ $wordings['frFR']['admin']['index_lastupdate'] = "Colonne de la dernière mise �
 // menu_conf
 $wordings['frFR']['admin']['menu_left_pane'] = "Panneau de gauche (liste rapide des membres)|Contrôle l'affichage du panneau de gauche du menu principal du roster<br />Cette zone sert à la liste rapide des membres";
 $wordings['frFR']['admin']['menu_right_pane'] = "Panneau de droite (statut du royaume)|Contrôle l'affichage du panneau de droite du menu principal du roster<br />Cette zone sert au statut du royaume";
-$wordings['frFR']['admin']['menu_memberlog'] = "Lien Par classe|Contrôle l'affichage du lien Par classe";
+$wordings['frFR']['admin']['menu_memberlog'] = "Lien Journal|Contrôle l'affichage du lien Journal";
 $wordings['frFR']['admin']['menu_guild_info'] = "Lien Info Guilde|Contrôle l'affichage du lien Info Guilde";
 $wordings['frFR']['admin']['menu_stats_page'] = "Lien Statistiques|Contrôle l'affichage du lien Statistiques";
 $wordings['frFR']['admin']['menu_pvp_page'] = "Lien Statistiques PvP / JcJ|Contrôle l'affichage du lien Statistiques PvP / JcJ";
