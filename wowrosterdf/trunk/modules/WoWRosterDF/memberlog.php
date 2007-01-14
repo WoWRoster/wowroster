@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+require_once( BASEDIR.'settings.php' );
 
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
@@ -147,12 +147,12 @@ $sort_part = ($get_s != '' ? "&amp;s=$get_s" : '');
 $sort_part .= ($get_d != 0 ? "&amp;d=$get_d" : '');
 
 if ($start > 0)
-	$prev = '<a href="?start=0'.$sort_part.'">&lt;&lt;</a> <a href="?start='.($start-30).$sort_part.'">&lt;</a> ';
+	$prev = '<a href="'.getlink($module_name.'&amp;file=memberlog&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="?start='.($start-30).$sort_part.'">&lt;</a> ';
 
 if (($start+30) < $max)
 {
 	$listing = ' <small>['.$start.' - '.($start+30).'] of '.$max.'</small>';
-	$next = ' <a href="?start='.($start+30).$sort_part.'">&gt;</a> <a href="?start='.($max-30).$sort_part.'">&gt;&gt;</a>';
+	$next = ' <a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.($start+30).$sort_part).'">&gt;</a> <a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.($max-30).$sort_part).'">&gt;&gt;</a>';
 }
 else
 	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
@@ -175,12 +175,12 @@ $striping_counter = 0;
 if( $wowdb->num_rows($result) > 0 )
 {
 	$tableHeaderRow = '	<tr>
-	<td class="membersHeader"><a href="?start='.$start.'&amp;s=name&amp;d='.$chkd['n'].'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></td>
-	<td class="membersHeader"><a href="?start='.$start.'&amp;s=class&amp;d='.$chkd['c'].'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></td>
-	<td class="membersHeader"><a href="?start='.$start.'&amp;s=level&amp;d='.$chkd['l'].'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></td>
-	<td class="membersHeader"><a href="?start='.$start.'&amp;s=title&amp;d='.$chkd['r'].'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></td>
-	<td class="membersHeader"><a href="?start='.$start.'&amp;s=type&amp;d='.$chkd['t'].'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></td>
-	<td class="membersHeader"><a href="?start='.$start.'&amp;s=date&amp;d='.$chkd['d'].'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></td>
+	<td class="membersHeader"><a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.$start.'&amp;s=name&amp;d='.$chkd['n']).'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></td>
+	<td class="membersHeader"><a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.$start.'&amp;s=class&amp;d='.$chkd['c']).'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></td>
+	<td class="membersHeader"><a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.$start.'&amp;s=level&amp;d='.$chkd['l']).'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></td>
+	<td class="membersHeader"><a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.$start.'&amp;s=title&amp;d='.$chkd['r']).'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></td>
+	<td class="membersHeader"><a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.$start.'&amp;s=type&amp;d='.$chkd['t']).'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></td>
+	<td class="membersHeader"><a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.$start.'&amp;s=date&amp;d='.$chkd['d']).'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></td>
 	<td class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['note'].'</td>
 	</tr>'."\n";
 
