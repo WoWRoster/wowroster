@@ -673,6 +673,21 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 	if( version_compare( $prev_version, '1.7.2.0', '<' ) )
 	{
 		# --------------------------------------------------------
+		### Fix interface icons in database
+
+		$installer->add_query('UPDATE', $this_prefix.'items', "`item_texture` = REPLACE(`item_texture`,'\\\\','/')", $this_prefix.'items');
+		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/')", $this_prefix.'mailbox');
+		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`item_icon` = REPLACE(`item_icon`,'\\\\','/')", $this_prefix.'mailbox');
+		$installer->add_query('UPDATE', $this_prefix.'pets', "`icon` = REPLACE(`icon`,'\\\\','/')", $this_prefix.'pets');
+		$installer->add_query('UPDATE', $this_prefix.'players', "`RankIcon` = REPLACE(`RankIcon`,'\\\\','/')", $this_prefix.'players');
+		$installer->add_query('UPDATE', $this_prefix.'recipes', "`recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/')", $this_prefix.'recipes');
+		$installer->add_query('UPDATE', $this_prefix.'spellbook', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')", $this_prefix.'spellbook');
+		$installer->add_query('UPDATE', $this_prefix.'spellbooktree', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')", $this_prefix.'spellbooktree');
+		$installer->add_query('UPDATE', $this_prefix.'talents', "`texture` = REPLACE(`texture`,'\\\\','/')", $this_prefix.'talents');
+		$installer->add_query('UPDATE', $this_prefix.'talenttree', "`background` = REPLACE(`background`,'\\\\','/')", $this_prefix.'talenttree');
+
+
+		# --------------------------------------------------------
 		### Config
 
 		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.0.0' WHERE id = '1010' LIMIT 1", $this_prefix.'config');
