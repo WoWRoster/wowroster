@@ -71,7 +71,7 @@ $results = $wowdb->query($sql);
 
 if( !$results || $wowdb->num_rows($results) == 0 )
 {
-	die("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
+	cpg_error("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br /><br />\nYou might not have roster installed<br />\n<a href=\"".adminlink('modules')."\">INSTALL</a>");
 }
 
 /**

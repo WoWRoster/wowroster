@@ -788,7 +788,7 @@ $wordings['frFR']['admin']['motd_display_mode'] = "Mode d'affichage du message d
 $wordings['frFR']['admin']['compress_note'] = "Mode d'affichage des notes du joueur|Comment les notes du joueur seront affichées<br /><br />&quot;Text&quot; - Montre les notes du joueur sous format texte<br />&quot;Icon&quot; - Montre image avec une infobulle";
 $wordings['frFR']['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
 $wordings['frFR']['admin']['processtime'] = "Temps de génération de la page|Affiche &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; en bas de page du roster";
-$wordings['frFR']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
+$wordings['frFR']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed, turn this on";
 
 // data_links
 $wordings['frFR']['admin']['questlink_1'] = "Lien de quête n°1|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";

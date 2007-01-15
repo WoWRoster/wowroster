@@ -815,23 +815,23 @@ function output_pvp2($pvps,$url,$type)
 	$returnstring = '
 <table class="bodyline" cellspacing="0">
 	<tr>
-		<td class="membersHeader">'.$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=class">'.$wordings[$roster_conf['roster_lang']]['class'].'</a> /
-			'.$url.'&amp;s=name">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=race">'.$wordings[$roster_conf['roster_lang']]['race'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=rank">'.$wordings[$roster_conf['roster_lang']]['rank'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=guild">'.$wordings[$roster_conf['roster_lang']]['guild'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=realm">'.$wordings[$roster_conf['roster_lang']]['realm'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=leveldiff">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a></td>
-		<td class="membersHeader">'.$url.'&amp;s=win">'.$wordings[$roster_conf['roster_lang']]['win'].'</a></td>';
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=date').'">'.$wordings[$roster_conf['roster_lang']]['when'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=class').'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a> /
+			<a href="'.getlink($url.'&amp;s=name').'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=race').'">'.$wordings[$roster_conf['roster_lang']]['race'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=rank').'">'.$wordings[$roster_conf['roster_lang']]['rank'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=guild').'">'.$wordings[$roster_conf['roster_lang']]['guild'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=realm').'">'.$wordings[$roster_conf['roster_lang']]['realm'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=leveldiff').'">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=win').'">'.$wordings[$roster_conf['roster_lang']]['win'].'</a></td>';
 	if( $type != 'Duel' )
 	{
 		$returnstring .= '
-		<td class="membersHeader">'.$url.'&amp;s=honor">'.$wordings[$roster_conf['roster_lang']]['honor'].'</a></td>';
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=honor').'">'.$wordings[$roster_conf['roster_lang']]['honor'].'</a></td>';
 	}
 	$returnstring .= '
-		<td class="membersHeader">'.$url.'&amp;s=zone">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a></td>
-		<td class="membersHeaderRight">'.$url.'&amp;s=subzone">'.$wordings[$roster_conf['roster_lang']]['subzone'].'</a></td>
+		<td class="membersHeader"><a href="'.getlink($url.'&amp;s=zone').'">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a></td>
+		<td class="membersHeaderRight"><a href="'.getlink($url.'&amp;s=subzone').'">'.$wordings[$roster_conf['roster_lang']]['subzone'].'</a></td>
 	</tr>';
 
 	$rc = 0;
@@ -857,11 +857,11 @@ function output_pvp2($pvps,$url,$type)
 
 		if ($row->data['win'] == '1')
 		{
-			$result = '<img class="membersRowimg" src="img/pvp-win.gif" alt="'.$wordings[$roster_conf['roster_lang']]['win'].'" />';
+			$result = '<img class="membersRowimg" src="'.$roster_conf['img_url'].'pvp-win.gif" alt="'.$wordings[$roster_conf['roster_lang']]['win'].'" />';
 		}
 		elseif($row->data['win'] == '0')
 		{
-			$result = '<img class="membersRowimg" src="img/pvp-loss.gif" alt="'.$wordings[$roster_conf['roster_lang']]['loss'].'" />';
+			$result = '<img class="membersRowimg" src="'.$roster_conf['img_url'].'pvp-loss.gif" alt="'.$wordings[$roster_conf['roster_lang']]['loss'].'" />';
 		}
 
 		if ($row->data['bg'] > 0)

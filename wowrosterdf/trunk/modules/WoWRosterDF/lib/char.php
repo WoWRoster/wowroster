@@ -95,12 +95,12 @@ class char
 			$sort_part = $sort ? "&amp;s=$sort" : '';
 
 			if ($start > 0)
-				$prev = $url.'&amp;start=0'.$sort_part.'">&lt;&lt;</a> '.$url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
+				$prev = '<a href="'.getlink($url.'&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="'.getlink($url.'&amp;start='.($start-50).$sort_part).'">&lt;</a> ';
 
 			if (($start+50) < $max)
 			{
 				$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
-				$next = ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>'.$url.'&amp;start='.($max-50).$sort_part.'">&gt;&gt;</a>';
+				$next = ' <a href="'.getlink($url.'&amp;start='.($start+50).$sort_part).'">&gt;</a><a href="'.getlink($url.'&amp;start='.($max-50).$sort_part).'">&gt;&gt;</a>';
 			}
 			else
 				$listing = '<small>['.$start.' - '.($max).'] of '.$max.'</small>';
@@ -249,7 +249,7 @@ class char
 			while( $data = $wowdb->fetch_assoc( $result ) )
 			{
 				$skill_name_header = $data['skill_name'];
-				$returnstring .= $skill_name_divider .'<a href="#' . strtolower(str_replace(' ','',$skill_name_header)) . '">' . $skill_name_header . '</a>';
+				$returnstring .= $skill_name_divider .'<a href="'.getlink($url.( isset($_GET['s']) ? '&amp;s='.$_GET['s'] : '' ).'#' . strtolower(str_replace(' ','',$skill_name_header)) ). '">' . $skill_name_header . '</a>';
 				$skill_name_divider = '&nbsp;-&nbsp;';
 			}
 			$returnstring .= "</div>\n<br />\n";
@@ -279,12 +279,12 @@ class char
 					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" style=\"display:none;\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
-    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></td>
-    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=name">'.$wordings[$lang]['name'].'</a></td>
-    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=difficulty">'.$wordings[$lang]['difficulty'].'</a></td>
-    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=type">'.$wordings[$lang]['type'].'</a></td>
-    <td class="membersHeader">'.$url.'&amp;action=recipes&amp;s=level">'.$wordings[$lang]['level'].'</a></td>
-    <td class="membersHeaderRight">'.$url.'&amp;action=recipes&amp;s=reagents">'.$wordings[$lang]['reagents'].'</a></td>
+    <td class="membersHeader"><a href="'.getlink($url.'&amp;s=item').'">'.$wordings[$lang]['item'].'</a></td>
+    <td class="membersHeader"><a href="'.getlink($url.'&amp;s=name').'">'.$wordings[$lang]['name'].'</a></td>
+    <td class="membersHeader"><a href="'.getlink($url.'&amp;s=difficulty').'">'.$wordings[$lang]['difficulty'].'</a></td>
+    <td class="membersHeader"><a href="'.getlink($url.'&amp;s=type').'">'.$wordings[$lang]['type'].'</a></td>
+    <td class="membersHeader"><a href="'.getlink($url.'&amp;s=level').'">'.$wordings[$lang]['level'].'</a></td>
+    <td class="membersHeaderRight"><a href="'.getlink($url.'&amp;s=reagents').'">'.$wordings[$lang]['reagents'].'</a></td>
   </tr>
 ';
 				}
@@ -719,25 +719,8 @@ $returnstring .= '  <tr>
 			$tmp = split(':',$row['armor']);
 			$basearmor = $tmp[0];
 
-			switch ($petNum)
-			{
-				case 1:
-					$left = 35;
-					$top = 285;
-					break;
-				case 2:
-					$left = 85;
-					$top = 285;
-					break;
-				case 3:
-					$left = 135;
-					$top = 285;
-					break;
-				default:
-					$left = 185;
-					$top = 285;
-					break;
-			}
+			$left = 35+(($petNum-1)*50);
+			$top = 285;
 
 			// Start Warlock Pet Icon Mod
 			$imp = 'Interface/Icons/Spell_Shadow_SummonImp';
@@ -1440,8 +1423,8 @@ $TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
 $TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
 
 print "<br />\n";
-print '            '.$wordings[$lang]['timeplayed'].': <span class="white">'.$TimePlayedConverted[days].$TimePlayedConverted[hours].$TimePlayedConverted[minutes].$TimePlayedConverted[seconds].'</span><br />'."\n";
-print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">'.$TimeLevelPlayedConverted[days].$TimeLevelPlayedConverted[hours].$TimeLevelPlayedConverted[minutes].$TimeLevelPlayedConverted[seconds].'</span>'."\n";
+print '            '.$wordings[$lang]['timeplayed'].': <span class="white">'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds'].'</span><br />'."\n";
+print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds'].'</span>'."\n";
 ?>
           </div><!-- end char-main-page1-middle-portrait-info -->
           <div class="xp" style="padding-left:12px;"><!-- begin char-main-page1-middle-portrait-xp -->

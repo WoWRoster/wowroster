@@ -38,7 +38,7 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guildMOTD) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="motd.php" alt="Guild msg of the day" /><br /><br />';
+		print '<img src="'.getlink($module_name.'&amp;file=motd').'" alt="'.$guildMOTD.'" /><br /><br />';
 	}
 	else
 	{

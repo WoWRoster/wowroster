@@ -587,7 +587,7 @@ function RosterDF_install($this_prefix, $this_base)
 	$installer->add_query('INSERT', $this_prefix.'config', "5035, 'compress_note', '1', 'radio{Icon^1|Text^0', 'display_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "5040, 'signaturebackground', 'modules/$this_base/img/default.png', 'text{128|30', 'display_conf'");
 	//NOT USED!! $installer->add_query('INSERT', $this_prefix.'config', "5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf'");
-	$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
+	$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{off^1|on^0', 'display_conf'");
 
 	# --------------------------------------------------------
 	### Links Settings
@@ -708,8 +708,9 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('INSERT', $this_prefix.'config', "5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf'");
 		$installer->add_query('INSERT', $this_prefix.'config', "5035, 'compress_note', '1', 'radio{Icon^1|Text^0', 'display_conf'");
 
-		$installer->add_query('DELETE', $this_prefix.'config', "id =  '10030' LIMIT 1");
-		$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
+		$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{off^1|on^0', 'display_conf'");
+
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = 'modules/$this_base/img/default.png' WHERE id = '5040' LIMIT 1");
 
 		# --------------------------------------------------------
 		### Memberlog

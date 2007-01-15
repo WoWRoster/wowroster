@@ -275,7 +275,7 @@ function DateDataUpdated($updateTimeUTC)
  */
 function makeAddonList()
 {
-	global $roster_conf, $wordings;
+	global $roster_conf, $wordings, $module_name;
 
 	$addonsPath = ROSTER_BASE.'addons';
 

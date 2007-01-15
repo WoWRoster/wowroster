@@ -41,30 +41,30 @@ $guildId = $guild_info['guild_id'];
 include_once(ROSTER_LIB.'menu.php');
 print "<br />\n";
 
-if (isset($_GET['s']))
+if (isset($_POST['s']))
 {
-	$inputbox_value = $_GET['s'];
+	$inputbox_value = $_POST['s'];
 }
 ?>
 
-<form action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form action="<?php echo getlink($module_name.'&amp;file=indexsearch') ?>" method="post">
   <?php print $wordings[$roster_conf['roster_lang']]['find'] ?>:<br />
   <input type="text" name="s" value="<?php print $inputbox_value; ?>" size="30" maxlength="30">
   <input type="submit" value="search">
 </form>
 
 <?php
-if (isset($_GET['s']))
+if (isset($inputbox_value))
 {
 	// Set a ank for link to top of page
 	echo '<a name="top">&nbsp;</a>
 <div style="color:white;text-align;center">
-  <a href="#items">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>
-  - <a href="#recipes">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>
+  <a href="'.getlink($module_name.'&amp;file=indexsearch#items').'">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>
+  - <a href="'.getlink($module_name.'&amp;file=indexsearch#recipes').'">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>
 </div><br /><br />';
 
-	$search = $_GET['s'];
-	print border('sgray','start','<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>').
+	$search = $inputbox_value;
+	print border('sgray','start','<a name="items"></a><a href="'.getlink($module_name.'&amp;file=indexsearch#top').'">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>').
 		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
   <tr>
     <td>';
@@ -78,7 +78,7 @@ if (isset($_GET['s']))
 		while ($data = $wowdb->fetch_assoc( $result ))
 		{
 			$row_st = (($rc%2)+1);
-			$char_url = 'char.php?name='.$data['name'].'&amp;server='.$data['server'];
+			$char_url = getlink($module_name.'&amp;file=char&amp;cname='.urlencode($data['name']).'&amp;server='.urlencode($data['server']));
 
 			if ( $cid != $data['member_id'] )
 			{
@@ -195,7 +195,7 @@ if (isset($_GET['s']))
 
 	print "<br />\n";
 
-	print border('sgray','start','<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>').
+	print border('sgray','start','<a name="recipes"></a><a href="'.getlink($module_name.'&amp;file=indexsearch#top').'">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>').
 		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
 <tr>
   <td>';
@@ -212,7 +212,8 @@ if (isset($_GET['s']))
 		{
 			$row_st = (($rc%2)+1);
 
-			$char_url = 'char.php?name='.$data['name'].'&amp;server='.$data['server'].'&amp;action=recipes';
+			$char_url = getlink($module_name.'&amp;file=char&amp;cname='.urlencode($data['name']).'&amp;server='.urlencode($data['server']).'&amp;action=recipes');
+
 			if ( $cid != $data['member_id'] )
 			{
 				if ( $cid != '' )

@@ -68,7 +68,7 @@ class RosterAdminLogin
 	var $allow_login;
 	var $message;
 	var $script_filename;
-    
+
 	/**
 	 * Constructor for Roster Login class
 	 * Accepts an action for the form
@@ -123,7 +123,7 @@ class RosterAdminLogin
 	echo '<label for="persistent" class="ulog">'._LOGIN_REMEMBERME.'</label><input type="checkbox" name="persistent" id="persistent" value="1" /><br />
 	<div align="center"><input type="submit" class="sub" value="'._LOGIN.'" /></div>'.
 	close_form();
-	
+
 	echo '<script type="text/javascript">document.login.alogin.focus();</script>';
 	print border('sred','end');
 	}
@@ -171,41 +171,49 @@ class RosterUserLogin
 
 	function getLoginForm()
 	{
-	
-	global $prefix, $user_prefix, $db, $sec_code, $userinfo, $MAIN_CFG, $CPG_SESS;
-	if (is_user()){
-	return '';
-	}
-	elseif (isset($_GET['redirect']) && !isset($CPG_SESS['user']['redirect'])) { $CPG_SESS['user']['redirect'] = $CPG_SESS['user']['uri']; }
-	$redirect = (isset($CPG_SESS['user']['redirect']) ? $CPG_SESS['user']['redirect'] : getlink());
-	echo '<br>';
-	print border('sred', 'start','Error');
-	echo '<div><br>Must be logged in to use this service<br><form action="'.$redirect.'" method="post"  enctype="multipart/form-data" accept-charset="utf-8"><table border="0" cellpadding="3" cellspacing="1" width="100%" >';
-	if ($error) {
-		echo '<tr><td align="center" class="catleft" colspan="2"><b><span class="gem" >'._ERROR.'</span></b></td></tr>
-	<tr><td class="membersRow1" colspan="2" align="center">'.$error.'</td></tr>';
-	}
-	echo '<tr>
+		global $prefix, $user_prefix, $db, $sec_code, $userinfo, $MAIN_CFG, $CPG_SESS;
+
+		if (is_user())
+		{
+			return '';
+		}
+		elseif (isset($_GET['redirect']) && !isset($CPG_SESS['user']['redirect']))
+		{
+			$CPG_SESS['user']['redirect'] = $CPG_SESS['user']['uri'];
+		}
+		$redirect = (isset($CPG_SESS['user']['redirect']) ? $CPG_SESS['user']['redirect'] : getlink());
+		echo '<br />';
+
+		print border('sred', 'start','Error');
+
+		echo '<div><br />Must be logged in to use this service<br /><form action="'.$redirect.'" method="post"  enctype="multipart/form-data" accept-charset="utf-8"><table border="0" cellpadding="3" cellspacing="1" width="100%" >';
+		if ($error)
+		{
+			echo '<tr><td align="center" class="catleft" colspan="2"><b><span class="gem" >'._ERROR.'</span></b></td></tr>
+		<tr><td class="membersRow1" colspan="2" align="center">'.$error.'</td></tr>';
+		}
+		echo '<tr>
 		<td class="membersRow1"><span class="gen"><label for="ulogin2">'._NICKNAME.'</label></span><br />'
 		.(($MAIN_CFG['member']['allowuserreg']) ? '<a  href="'.getlink('&amp;file=register').'">Apply</a>' : '')
 		.'</td><td class="membersRow2"><input type="text" name="ulogin" id="ulogin2" class="set" tabindex="1" size="20" maxlength="25" /></td></tr>
-	<tr>
+		<tr>
 		<td class="membersRow1"><span class="gen"><label for="user_password2">'._PASSWORD.'</label></span><br /><a href="'.getlink('&amp;op=pass_lost').'">Lost your Password?</a></td>
 		<td class="membersRow2"><input type="password" name="user_password" id="user_password2" class="set" tabindex="2" size="20" maxlength="20" /></td>
-	</tr>';
-	if ($MAIN_CFG['global']['sec_code'] & 2) {
-		echo '<tr>
+		</tr>';
+		if ($MAIN_CFG['global']['sec_code'] & 2)
+		{
+			echo '<tr>
 		<td class="membersRow1"><span class="gen"><label for="gfx_check">'._SECURITYCODE.'</label></span></td>
 		<td class="membersRow2">'.generate_secimg().'</td>
-	</tr><tr>
+		</tr><tr>
 		<td class="membersRow1"><span class="gen"><label for="gfx_check">'._TYPESECCODE.'</label></span></td>
 		<td class="membersRow2"><input type="text" name="gfx_check" id="gfx_check" class="set" tabindex="3" size="7" maxlength="6" /></td>
-	</tr>';
-	}
-	echo '<tr><td class="membersRowRight1" colspan="2" align="center" height="28">
-	<input type="submit" class="mainoption" value="'._LOGIN.'" />
-	</td></tr></table></form></div>';
-print border('sred', 'end');
+		</tr>';
+		}
+		echo '<tr><td class="membersRowRight1" colspan="2" align="center" height="28">
+		<input type="submit" class="mainoption" value="'._LOGIN.'" />
+		</td></tr></table></form></div>';
+		print border('sred', 'end');
 	}
 }
 ?>

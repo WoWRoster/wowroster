@@ -20,7 +20,7 @@
 $no_roster_headers = true;
 
 require_once( 'settings.php' );     ##  Uses the same settings.php as WoWProfiler
-$name = $_GET['name'];  ##  Here because some hosts need it
+$name = $_GET['member'];  ##  Here because some hosts need it
 
 $sitename=$roster_conf['website_address'];  ## Change this to your web address or a guild motto or whatever
 
@@ -54,29 +54,29 @@ $im = imagecreatefrompng($roster_conf['signaturebackground']);
 $color=ImageColorAllocate($im, 0,0,0);
 
 ##   Making it so the servername aligns from the right instead of the left of the image field
-$stxtsize = imagettfbbox(6,0,"fonts/VERANDA.TTF",$getdata['server']);	##  gets the points of the image coordinates
+$stxtsize = imagettfbbox(6,0,ROSTER_BASE."fonts/VERANDA.TTF",$getdata['server']);	##  gets the points of the image coordinates
 $stxt = $stxtsize[2];	##  pulls the variable for the x point right bottom
 $stxtloc = 390-$stxt;	##  Sets the x coordinate where to print the server name
 
 ##   Making it so the Guild Name is centered in the title box
-$gtxtsize = imagettfbbox(14,0,"fonts/OLDENGL.TTF", $getdata2['guild_name']);	##  gets the points of the image coordinates
+$gtxtsize = imagettfbbox(14,0,ROSTER_BASE."fonts/OLDENGL.TTF", $getdata2['guild_name']);	##  gets the points of the image coordinates
 $gtxt = $gtxtsize[2]/2;	##  pulls the variable for the x point right bottom, getting the length in pixels of the guild name
 $gtxtloc = 237-$gtxt;	##  Sets the x coordinate where to print the guild name
 
 ##   Making it so the Site Name/motto line is centered in its box
-$mtxtsize = imagettfbbox(6,0,"fonts/VERANDA.TTF", $sitename);	##  gets the points of the image coordinates
+$mtxtsize = imagettfbbox(6,0,ROSTER_BASE."fonts/VERANDA.TTF", $sitename);	##  gets the points of the image coordinates
 $mtxt = $mtxtsize[2]/2;	##  pulls the variable for the x point right bottom, getting the length in pixels of the text
 $mtxtloc = 182-$mtxt;	##  Sets the x coordinate where to print the bottombar's text name
 
 
 ##   For those who don't know, this is how ImageTTFText() is set up
 ##   ImageTTFText($im, fontsize, fontangle, horizontal point, vertical point, font color, font name/path, Text);
-ImageTTFText($im, 6, 0, 85, 20, $color, "fonts/VERANDA.TTF", $getdata3["guild_title"]);
-ImageTTFText($im, 14, 0, $gtxtloc, 20, $color, "fonts/OLDENGL.TTF", $getdata2["guild_name"]);
-ImageTTFText($im, 6, 0, $stxtloc, 20, $color, "fonts/VERANDA.TTF", $getdata["server"]);
-ImageTTFText($im, 24, 0, 85, 51, $color, "fonts/OLDENGL.TTF", $getdata["name"]);
-ImageTTFText($im, 7, 0, 85, 65, $color, "fonts/VERANDA.TTF", 'Level '.$getdata["level"].' '.$getdata["race"].' '.$getdata["class"]);
-ImageTTFText($im, 6, 0, $mtxtloc, 77, $color, "fonts/VERANDA.TTF", $sitename);
+ImageTTFText($im, 6, 0, 85, 20, $color, ROSTER_BASE."fonts/VERANDA.TTF", $getdata3["guild_title"]);
+ImageTTFText($im, 14, 0, $gtxtloc, 20, $color, ROSTER_BASE."fonts/OLDENGL.TTF", $getdata2["guild_name"]);
+ImageTTFText($im, 6, 0, $stxtloc, 20, $color, ROSTER_BASE."fonts/VERANDA.TTF", $getdata["server"]);
+ImageTTFText($im, 24, 0, 85, 51, $color, ROSTER_BASE."fonts/OLDENGL.TTF", $getdata["name"]);
+ImageTTFText($im, 7, 0, 85, 65, $color, ROSTER_BASE."fonts/VERANDA.TTF", 'Level '.$getdata["level"].' '.$getdata["race"].' '.$getdata["class"]);
+ImageTTFText($im, 6, 0, $mtxtloc, 77, $color, ROSTER_BASE."fonts/VERANDA.TTF", $sitename);
 
 
 ##  Time for the professions and secondary skills to be shown
@@ -91,8 +91,8 @@ while ($r = $wowdb->fetch_array($result4))
 
 	if ($skill_type==$wordings[$roster_conf['roster_lang']]['professions'])
 	{
-		ImageTTFText($im, 6, 0, 290, $pos, $color, "fonts/VERANDA.TTF", $skill_name);
-		ImageTTFText($im, 6, 0, 355, $pos, $color, "fonts/VERANDA.TTF", $skill_level);
+		ImageTTFText($im, 6, 0, 290, $pos, $color, ROSTER_BASE."fonts/VERANDA.TTF", $skill_name);
+		ImageTTFText($im, 6, 0, 355, $pos, $color, ROSTER_BASE."fonts/VERANDA.TTF", $skill_level);
 		$pos=$pos+8;
 	}
 }
@@ -108,8 +108,8 @@ while ($r = $wowdb->fetch_array($result5))
 
 	if ($skill_type==$wordings[$roster_conf['roster_lang']]['secondary'])
 	{
-		ImageTTFText($im, 6, 0, 290, $pos, $color, "fonts/VERANDA.TTF", $skill_name);
-		ImageTTFText($im, 6, 0, 355, $pos, $color, "fonts/VERANDA.TTF", $skill_level);
+		ImageTTFText($im, 6, 0, 290, $pos, $color, ROSTER_BASE."fonts/VERANDA.TTF", $skill_name);
+		ImageTTFText($im, 6, 0, 355, $pos, $color, ROSTER_BASE."fonts/VERANDA.TTF", $skill_level);
 		$pos=$pos+8;
 	}
 }

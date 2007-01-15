@@ -34,7 +34,18 @@ $modheader = '
 '.( ( !isset($roster_conf['item_stats']) || $roster_conf['item_stats'] ) ?
 	'<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/'.$roster_conf['overlib'].'"></script>'."\n".
 	'<script type="text/javascript" src="'.$roster_conf['roster_dir'].'/'.$roster_conf['overlib_hide'].'"></script>'."\n"
-	: '' ).
+	: '
+  <script type="text/javascript">
+	  <!--
+	  var ol_fgclass="overlib_fg"
+	  var ol_bgclass="overlib_border"
+	  var ol_textfontclass="overlib_maintext"
+	  var ol_captionfontclass="overlib_captiontext"
+	  var ol_closefontclass="overlib_closetext"
+	  var ol_hauto = 1;
+	  var ol_vauto = 1;
+	  //-->
+  </script>' ).
 (isset($html_head) ? $html_head : '');
 
 include (BASEDIR.'header.php');

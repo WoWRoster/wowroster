@@ -287,11 +287,11 @@ foreach ( $FIELDS as $field => $DATA )
 
 	if ( $current_col == $cols )
 	{
-		$tableHeaderRow .= '    <td class="membersHeaderRight"><a href="'.getlink($module_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
+		$tableHeaderRow .= '    <td class="membersHeaderRight"><a href="'.getlink($module_name.( isset($_GET['file']) ? '&amp;file='.$_GET['file'] : '' ).'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
 	}
 	else
 	{
-		$tableHeaderRow .= '    <td class="membersHeader"><a href="'.getlink($module_name.'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
+		$tableHeaderRow .= '    <td class="membersHeader"><a href="'.getlink($module_name.( isset($_GET['file']) ? '&amp;file='.$_GET['file'] : '' ).'&amp;s='.$field.$desc).'">'.$th_text."</a></td>\n";
 	}
 
 	$current_col++;

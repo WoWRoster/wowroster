@@ -788,7 +788,7 @@ $wordings['enUS']['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOT
 $wordings['enUS']['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
 $wordings['enUS']['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 $wordings['enUS']['admin']['processtime'] = "Process time|Displays &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; in the footer of roster";
-$wordings['enUS']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
+$wordings['enUS']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed, turn this on";
 
 // data_links
 $wordings['enUS']['admin']['questlink_1'] = "Quest Link #1|Item external links<br />Look in your localization-file(s) for link configuration";

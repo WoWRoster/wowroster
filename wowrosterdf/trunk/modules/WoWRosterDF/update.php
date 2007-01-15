@@ -480,7 +480,13 @@ $bookwormInputField
 	}
 	else
 	{
-		print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br /><br />\n";
+		print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br />\n";
+
+		if( is_admin() )
+		{
+			print "Logged in Admin<br /><br />\n";
+		}
+
 		if( $uploadFound )
 		{
 			// print the error messages

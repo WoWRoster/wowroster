@@ -788,7 +788,7 @@ $wordings['deDE']['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MO
 $wordings['deDE']['admin']['compress_note'] = "Notiz Anzeige Modus|Wie die Notiz angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt die Notiz als Text<br />&quot;Icon&quot; - Zeigt ein Notizicon mit dem Text in einem Tooltip";
 $wordings['deDE']['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
 $wordings['deDE']['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
-$wordings['deDE']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed Please turn this off";
+$wordings['deDE']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed, turn this on";
 
 // data_links
 $wordings['deDE']['admin']['questlink_1'] = "Quest Link #1|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
