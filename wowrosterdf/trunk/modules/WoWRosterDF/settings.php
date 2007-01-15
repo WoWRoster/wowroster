@@ -102,7 +102,7 @@ define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
  */
 if ( !file_exists(ROSTER_CONF_FILE) )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"".getlink($module_name.'&amp;file=install')."\">INSTALL</a></center>");
+    cpg_error("<center>Roster is not installed<br />\n<a href=\"".adminlink('modules')."\">INSTALL</a></center>");
 }
 else
 {
@@ -115,7 +115,7 @@ else
  */
 if ( !defined('ROSTER_INSTALLED') )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"".getlink($module_name.'&amp;file=install')."\">INSTALL</a></center>");
+    cpg_error("<center>Roster is not installed<br />\n<a href=\"".adminlink('modules')."\">INSTALL</a></center>");
 }
 
 
@@ -176,7 +176,7 @@ $results = $wowdb->query($sql);
 
 if( !$results || $wowdb->num_rows($results) == 0 )
 {
-	cpg_error("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error());
+	cpg_error("Cannot get roster configuration from database<br />\nMySQL Said: ".$wowdb->error()."<br />\nRoster may not be installed<br />\n<a href=\"".adminlink('modules')."\">INSTALL</a>");
 }
 
 /**
@@ -244,7 +244,7 @@ if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 Your Version: <span class="red">'.$roster_conf['version'].'</span><br />
 New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
 <br />
-<a href="'.getlink($module.'&amp;file=upgrade').'" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster','sred');
+<a href="'.adminlink('modules').'" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster','sred');
 }
 
 

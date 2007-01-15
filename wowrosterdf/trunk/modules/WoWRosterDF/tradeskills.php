@@ -115,7 +115,7 @@ if( $wowdb->num_rows($result) )
 
 		// Setup some user row data
 		$level_array = explode (':',$row['skill_level']);
-		$levelpct = $level_array[0] / 300 * 100 ;
+		$levelpct = $level_array[0] / $level_array[1] * 100 ;
 		settype( $levelpct, 'integer' );
 
 		if ( !$levelpct )
@@ -127,7 +127,7 @@ if( $wowdb->num_rows($result) )
 	<tr>
 	<td class="'.$stripe_class.'">
 		<div class="levelbarParent" style="width:200px;">
-			<div class="levelbarChild">'.$level_array[0].'</div>
+			<div class="levelbarChild">'.$level_array[0].'/'.$level_array[1].'</div>
 		</div>
 		<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>

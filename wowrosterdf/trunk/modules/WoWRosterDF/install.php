@@ -25,7 +25,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`account_id` smallint(6) NOT NULL auto_increment,
 	`name` varchar(30) NOT NULL default '',
 	`hash` varchar(32) NOT NULL default '',
-	PRIMARY KEY  (`account_id`)", $this_prefix.'');
+	PRIMARY KEY  (`account_id`)", $this_prefix.'account');
 
 
 	# --------------------------------------------------------
@@ -38,7 +38,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`rank` varchar(32) NOT NULL default '',
 	`count` int(11) unsigned NOT NULL default '0',
 	`icon` varchar(64) NOT NULL default '',
-	`tooltip` mediumtext NOT NULL", $this_prefix.'');
+	`tooltip` mediumtext NOT NULL", $this_prefix.'buffs');
 
 
 	# --------------------------------------------------------
@@ -51,7 +51,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`config_value` tinytext,
 	`form_type` mediumtext,
 	`config_type` varchar(255) default NULL,
-	PRIMARY KEY  (`id`)", $this_prefix.'');
+	PRIMARY KEY  (`id`)", $this_prefix.'config');
 
 
 	# --------------------------------------------------------
@@ -71,7 +71,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`GPversion` varchar(6) default NULL,
 	`guild_info_text` mediumtext,
 	PRIMARY KEY  (`guild_id`),
-	KEY `guild` (`guild_name`,`server`)", $this_prefix.'');
+	KEY `guild` (`guild_name`,`server`)", $this_prefix.'guild');
 
 
 	# --------------------------------------------------------
@@ -88,12 +88,12 @@ function RosterDF_install($this_prefix, $this_base)
 	`item_texture` varchar(64) NOT NULL default '',
 	`item_quantity` int(11) default NULL,
 	`item_tooltip` mediumtext NOT NULL,
-	`level` INT( 11 ) default NULL,
-	`item_level` INT( 11 ) default NULL,
+	`level` INT (11) default NULL,
+	`item_level` INT (11) default NULL,
 	PRIMARY KEY  (`member_id`,`item_parent`,`item_slot`),
 	KEY `parent` (`item_parent`),
 	KEY `slot` (`item_slot`),
-	KEY `name` (`item_name`)", $this_prefix.'');
+	KEY `name` (`item_name`)", $this_prefix.'items');
 
 
 	# --------------------------------------------------------
@@ -113,7 +113,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`item_quantity` int(11) default NULL,
 	`item_tooltip` mediumtext NOT NULL,
 	`item_color` varchar(16) NOT NULL default '',
-	PRIMARY KEY  (`member_id`,`mailbox_slot`)", $this_prefix.'');
+	PRIMARY KEY  (`member_id`,`mailbox_slot`)", $this_prefix.'mailbox');
 
 
 	# --------------------------------------------------------
@@ -154,7 +154,7 @@ function RosterDF_install($this_prefix, $this_base)
 	KEY `class` (`class`),
 	KEY `level` (`level`),
 	KEY `guild_rank` (`guild_rank`),
-	KEY `last_online` (`last_online`)", $this_prefix.'');
+	KEY `last_online` (`last_online`)", $this_prefix.'members');
 
 
 	# --------------------------------------------------------
@@ -174,7 +174,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`officer_note` varchar(255) NOT NULL default '',
 	`update_time` datetime default NULL,
 	`type` tinyint(1) NOT NULL default '0',
-	PRIMARY KEY  (`log_id`)", $this_prefix.'');
+	PRIMARY KEY  (`log_id`)", $this_prefix.'memberlog');
 
 
 	# --------------------------------------------------------
@@ -211,7 +211,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`melee_range` varchar(16) default NULL,
 	`melee_rangetooltip` tinytext,
 	`melee_powertooltip` tinytext,
-	PRIMARY KEY  (`member_id`,`name`)", $this_prefix.'');
+	PRIMARY KEY  (`member_id`,`name`)", $this_prefix.'pets');
 
 
 	# --------------------------------------------------------
@@ -319,7 +319,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`timeplayed` int(11) NOT NULL default '0',
 	`timelevelplayed` int(11) NOT NULL default '0',
 	PRIMARY KEY  (`member_id`),
-	KEY `name` (`name`,`server`)", $this_prefix.'');
+	KEY `name` (`name`,`server`)", $this_prefix.'players');
 
 
 	# --------------------------------------------------------
@@ -346,7 +346,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`column_id` mediumint(9) NOT NULL auto_increment,
 	PRIMARY KEY  (`column_id`),
 	KEY `date` (`date`,`guild`,`class`),
-	KEY `member_id` (`member_id`,`index`)", $this_prefix.'');
+	KEY `member_id` (`member_id`,`index`)", $this_prefix.'pvp2');
 
 
 	# --------------------------------------------------------
@@ -364,7 +364,7 @@ function RosterDF_install($this_prefix, $this_base)
 	PRIMARY KEY  (`member_id`,`quest_name`),
 	KEY `quest_index` (`quest_index`,`quest_level`,`quest_tag`),
 	FULLTEXT KEY `quest_name` (`quest_name`),
-	FULLTEXT KEY `zone` (`zone`)", $this_prefix.'');
+	FULLTEXT KEY `zone` (`zone`)", $this_prefix.'quests');
 
 
 	# --------------------------------------------------------
@@ -379,7 +379,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`serverpop` varchar(20) NOT NULL default '',
 	`serverpopcolor` varchar(8) NOT NULL default '',
 	`timestamp` tinyint(2) NOT NULL default '0',
-	UNIQUE KEY `server_name` (`server_name`)", $this_prefix.'');
+	UNIQUE KEY `server_name` (`server_name`)", $this_prefix.'realmstatus');
 
 
 	# --------------------------------------------------------
@@ -398,12 +398,12 @@ function RosterDF_install($this_prefix, $this_base)
 	`recipe_tooltip` mediumtext NOT NULL,
 	`categories` varchar(64) NOT NULL default '',
 	`level` int(11) default NULL,
-	`item_level` INT( 11 ) default NULL,
+	`item_level` INT (11) default NULL,
 	PRIMARY KEY  (`member_id`,`skill_name`,`recipe_name`,`categories`),
 	KEY `skill_nameI` (`skill_name`),
 	KEY `recipe_nameI` (`recipe_name`),
 	KEY `categoriesI` (`categories`),
-	KEY `levelI` (`level`)", $this_prefix.'');
+	KEY `levelI` (`level`)", $this_prefix.'recipes');
 
 
 	# --------------------------------------------------------
@@ -418,7 +418,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`max_rep` int(8) NULL,
 	`AtWar` int(11) NOT NULL default '0',
 	`Standing` varchar(32) default '',
-	PRIMARY KEY  (`member_id`,`name`)", $this_prefix.'');
+	PRIMARY KEY  (`member_id`,`name`)", $this_prefix.'reputation');
 
 
 	# --------------------------------------------------------
@@ -434,7 +434,7 @@ function RosterDF_install($this_prefix, $this_base)
 	PRIMARY KEY  (`member_id`,`skill_name`),
 	KEY `skill_type` (`skill_type`),
 	KEY `skill_name` (`skill_name`),
-	KEY `skill_order` (`skill_order`)", $this_prefix.'');
+	KEY `skill_order` (`skill_order`)", $this_prefix.'skills');
 
 
 	# --------------------------------------------------------
@@ -447,7 +447,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`spell_type` varchar(100) NOT NULL default '',
 	`spell_texture` varchar(64) NOT NULL default '',
 	`spell_rank` varchar(64) NOT NULL default '',
-	`spell_tooltip` mediumtext NOT NULL", $this_prefix.'');
+	`spell_tooltip` mediumtext NOT NULL", $this_prefix.'spellbook');
 
 
 	# --------------------------------------------------------
@@ -457,7 +457,7 @@ function RosterDF_install($this_prefix, $this_base)
 	$installer->add_query('CREATE', $this_prefix.'spellbooktree', "
 	`member_id` int(11) unsigned NOT NULL default '0',
 	`spell_type` varchar(64) NOT NULL default '',
-	`spell_texture` varchar(64) NOT NULL default ''", $this_prefix.'');
+	`spell_texture` varchar(64) NOT NULL default ''", $this_prefix.'spellbooktree');
 
 
 	# --------------------------------------------------------
@@ -473,7 +473,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`rank` tinyint(4) NOT NULL default '0',
 	`maxrank` tinyint(4) NOT NULL default '0',
 	`tooltip` mediumtext NOT NULL,
-	`texture` varchar(64) NOT NULL default ''", $this_prefix.'');
+	`texture` varchar(64) NOT NULL default ''", $this_prefix.'talents');
 
 
 	# --------------------------------------------------------
@@ -485,7 +485,7 @@ function RosterDF_install($this_prefix, $this_base)
 	`tree` varchar(64) NOT NULL default '',
 	`background` varchar(64) NOT NULL default '',
 	`order` tinyint(4) NOT NULL default '0',
-	`pointsspent` tinyint(4) NOT NULL default '0'", $this_prefix.'');
+	`pointsspent` tinyint(4) NOT NULL default '0'", $this_prefix.'talenttree');
 
 
 
@@ -587,7 +587,7 @@ function RosterDF_install($this_prefix, $this_base)
 	$installer->add_query('INSERT', $this_prefix.'config', "5035, 'compress_note', '1', 'radio{Icon^1|Text^0', 'display_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "5040, 'signaturebackground', 'modules/$this_base/img/default.png', 'text{128|30', 'display_conf'");
 	//NOT USED!! $installer->add_query('INSERT', $this_prefix.'config', "5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf'");
-	$installer->add_query('INSERT', $this_prefix.'config', "5060, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
+	$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
 
 	# --------------------------------------------------------
 	### Links Settings
@@ -665,154 +665,166 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		cpg_error('WoWRosterDF requires DragonFly version 9.1.1.0');
 	}
 
-	if( version_compare( $prev_version, '1.7.0', '<' ) )
-	{
-		$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
-	}
-
 	if( version_compare( $prev_version, '1.7.2.0', '<' ) )
 	{
 		# --------------------------------------------------------
 		### Fix interface icons in database
 
-		$installer->add_query('UPDATE', $this_prefix.'items', "`item_texture` = REPLACE(`item_texture`,'\\\\','/')", $this_prefix.'items');
-		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/')", $this_prefix.'mailbox');
-		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`item_icon` = REPLACE(`item_icon`,'\\\\','/')", $this_prefix.'mailbox');
-		$installer->add_query('UPDATE', $this_prefix.'pets', "`icon` = REPLACE(`icon`,'\\\\','/')", $this_prefix.'pets');
-		$installer->add_query('UPDATE', $this_prefix.'players', "`RankIcon` = REPLACE(`RankIcon`,'\\\\','/')", $this_prefix.'players');
-		$installer->add_query('UPDATE', $this_prefix.'recipes', "`recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/')", $this_prefix.'recipes');
-		$installer->add_query('UPDATE', $this_prefix.'spellbook', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')", $this_prefix.'spellbook');
-		$installer->add_query('UPDATE', $this_prefix.'spellbooktree', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')", $this_prefix.'spellbooktree');
-		$installer->add_query('UPDATE', $this_prefix.'talents', "`texture` = REPLACE(`texture`,'\\\\','/')", $this_prefix.'talents');
-		$installer->add_query('UPDATE', $this_prefix.'talenttree', "`background` = REPLACE(`background`,'\\\\','/')", $this_prefix.'talenttree');
-
+		$installer->add_query('UPDATE', $this_prefix.'items', "`item_texture` = REPLACE(`item_texture`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`item_icon` = REPLACE(`item_icon`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'pets', "`icon` = REPLACE(`icon`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'players', "`RankIcon` = REPLACE(`RankIcon`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'recipes', "`recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'spellbook', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'spellbooktree', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'talents', "`texture` = REPLACE(`texture`,'\\\\','/')");
+		$installer->add_query('UPDATE', $this_prefix.'talenttree', "`background` = REPLACE(`background`,'\\\\','/')");
 
 		# --------------------------------------------------------
 		### Config
 
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.0.0' WHERE id = '1010' LIMIT 1", $this_prefix.'config');
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.0.0' WHERE id = '1020' LIMIT 1", $this_prefix.'config');
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.3.1' WHERE id = '1030' LIMIT 1", $this_prefix.'config');
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '0' WHERE id = '3140' LIMIT 1", $this_prefix.'config');
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.0.0' WHERE id = '1010' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.0.0' WHERE id = '1020' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.3.1' WHERE id = '1030' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '0' WHERE id = '3140' LIMIT 1");
 
-		$installer->add_query('INSERT', $this_prefix.'config', "id = '1001', config_name = 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf'", $this_prefix.'config');
+		$installer->add_query('INSERT', $this_prefix.'config', "'1001', 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf'");
+
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_name = 'menu_memberlog' WHERE id = '4020' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = 'http://www.wowroster.net/Downloads/details/id=51.html' WHERE id = '6110' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = 'http://www.wowroster.net/Downloads/c=2.html' WHERE id = '6120' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "id = '5020', config_type = 'display_conf' WHERE id = '1050' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '1', form_type = 'radio{enable^1|disable^0' WHERE id = '10000' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "form_type = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html' WHERE id = '8000' LIMIT 1");
+
+		$installer->add_query('DELETE', $this_prefix.'config', "id = '10010' LIMIT 1");
+		$installer->add_query('DELETE', $this_prefix.'config', "id = '10020' LIMIT 1");
+		$installer->add_query('DELETE', $this_prefix.'config', "id = '10030' LIMIT 1");
+		$installer->add_query('DELETE', $this_prefix.'config', "id =  '4030' LIMIT 1");
+
+		$installer->add_query('INSERT', $this_prefix.'config', "1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf'");
+		$installer->add_query('INSERT', $this_prefix.'config', "5008, 'tabcontent', 'css/js/tabcontent.js', 'text{128|30', 'display_conf'");
+		$installer->add_query('INSERT', $this_prefix.'config', "5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf'");
+		$installer->add_query('INSERT', $this_prefix.'config', "5035, 'compress_note', '1', 'radio{Icon^1|Text^0', 'display_conf'");
+
+		$installer->add_query('DELETE', $this_prefix.'config', "id =  '10030' LIMIT 1");
+		$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{on^1|off^0', 'display_conf'");
 
 		# --------------------------------------------------------
 		### Memberlog
 
-		$installer->add_query('DROP', $this_prefix.'memberlog');
 		$installer->add_query('CREATE', $this_prefix.'memberlog', "
-		  log_id int(11) unsigned NOT NULL auto_increment,
-		  member_id int(11) unsigned NOT NULL,
-		  name varchar(64) NOT NULL default '',
-		  guild_id int(11) unsigned NOT NULL default '0',
-		  class varchar(32) NOT NULL default '',
-		  level int(11) NOT NULL default '0',
-		  note varchar(255) NOT NULL default '',
-		  guild_rank int(11) default '0',
-		  guild_title varchar(64) default NULL,
-		  officer_note varchar(255) NOT NULL default '',
-		  update_time datetime default NULL,
-		  type tinyint(1) NOT NULL default '0',
-		  PRIMARY KEY  (log_id)", $this_prefix.'memberlog');
+			log_id int(11) unsigned NOT NULL auto_increment,
+			member_id int(11) unsigned NOT NULL,
+			name varchar(64) NOT NULL default '',
+			guild_id int(11) unsigned NOT NULL default '0',
+			class varchar(32) NOT NULL default '',
+			level int(11) NOT NULL default '0',
+			note varchar(255) NOT NULL default '',
+			guild_rank int(11) default '0',
+			guild_title varchar(64) default NULL,
+			officer_note varchar(255) NOT NULL default '',
+			update_time datetime default NULL,
+			type tinyint(1) NOT NULL default '0',
+			PRIMARY KEY  (log_id)", $this_prefix.'memberlog');
 
 		# --------------------------------------------------------
 		### Realmstatus
 
 		$installer->add_query('DROP', $this_prefix.'realmstatus');
 		$installer->add_query('CREATE', $this_prefix.'realmstatus', "
-		  server_name varchar(20) NOT NULL default '',
-		  servertype varchar(20) NOT NULL default '',
-		  servertypecolor varchar(8) NOT NULL default '',
-		  serverstatus varchar(20) NOT NULL default '',
-		  serverpop varchar(20) NOT NULL default '',
-		  serverpopcolor varchar(8) NOT NULL default '',
-		  timestamp tinyint(2) NOT NULL default '0',
-		  UNIQUE KEY server_name (server_name)", $this_prefix.'realmstatus');
+			server_name varchar(20) NOT NULL default '',
+			servertype varchar(20) NOT NULL default '',
+			servertypecolor varchar(8) NOT NULL default '',
+			serverstatus varchar(20) NOT NULL default '',
+			serverpop varchar(20) NOT NULL default '',
+			serverpopcolor varchar(8) NOT NULL default '',
+			timestamp tinyint(2) NOT NULL default '0',
+			UNIQUE KEY server_name (server_name)", $this_prefix.'realmstatus');
 
 		# --------------------------------------------------------
 		### Buffs
 
-		$installer->add_query('DROP', $this_prefix.'buffs');
 		$installer->add_query('CREATE', $this_prefix.'buffs', "
-		  member_id int(11) unsigned NOT NULL default '0',
-		  name varchar(96) NOT NULL,
-		  rank varchar(32) NOT NULL,
-		  count int(11) unsigned NOT NULL default '0',
-		  icon varchar(64) NOT NULL,
-		  tooltip mediumtext NOT NULL", $this_prefix.'realmstatus');
+			member_id int(11) unsigned NOT NULL default '0',
+			name varchar(96) NOT NULL,
+			rank varchar(32) NOT NULL,
+			count int(11) unsigned NOT NULL default '0',
+			icon varchar(64) NOT NULL,
+			tooltip mediumtext NOT NULL", $this_prefix.'buffs');
 
 		# --------------------------------------------------------
 		### Items Table
 
-		$installer->add_query('ADD', $this_prefix.'items', array(
-				"level INT( 11 ) NULL",
-				"item_level INT( 11 ) NULL"
-			), $this_prefix.'items');
+		$installer->add_query('ADD', $this_prefix.'items', "level INT(11) NOT NULL default 0");
+		$installer->add_query('ADD', $this_prefix.'items', "item_level INT(11) NOT NULL default 0");
 
-		$installer->add_query('CHANGE', $this_prefix.'items', "item_id item_id VARCHAR( 64 ) NULL", $this_prefix.'items');
-
+		$installer->add_query('CHANGE', $this_prefix.'items', "item_id item_id VARCHAR(64) NOT NULL default ''");
 
 		# --------------------------------------------------------
 		### Mailbox
 
-		$installer->add_query('ADD', $this_prefix.'mailbox', "item_color VARCHAR( 16 ) NOT NULL default ''");
+		$installer->add_query('ADD', $this_prefix.'mailbox', "item_color VARCHAR(16) NOT NULL default ''");
 
 		# --------------------------------------------------------
 		### Players Table
 
-		$installer->add_query('DEL', $this_prefix.'players', "sessionDK", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "yesterdayDK", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "lastweekDK", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "lifetimeDK", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "lastweekHK", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "lastweekContribution", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "lastweekRank", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "TWContribution", $this_prefix.'players');
-		$installer->add_query('DEL', $this_prefix.'players', "TWHK", $this_prefix.'players');
+		$installer->add_query('DEL', $this_prefix.'players', "sessionDK");
+		$installer->add_query('DEL', $this_prefix.'players', "yesterdayDK");
+		$installer->add_query('DEL', $this_prefix.'players', "lastweekDK");
+		$installer->add_query('DEL', $this_prefix.'players', "lifetimeDK");
+		$installer->add_query('DEL', $this_prefix.'players', "lastweekHK");
+		$installer->add_query('DEL', $this_prefix.'players', "lastweekContribution");
+		$installer->add_query('DEL', $this_prefix.'players', "lastweekRank");
+		$installer->add_query('DEL', $this_prefix.'players', "TWContribution");
+		$installer->add_query('DEL', $this_prefix.'players', "TWHK");
 
-		$installer->add_query('ADD', $this_prefix.'players', array(
-				"sessionCP INT( 11 ) NOT NULL DEFAULT '0' AFTER sessionHK",
-				"honorpoints INT( 11 ) NOT NULL DEFAULT '0' AFTER lifetimeRankName",
-				"arenapoints INT( 11 ) NOT NULL DEFAULT '0' AFTER honorpoints"
-			),
-			$this_prefix.'players');
+		$installer->add_query('ADD', $this_prefix.'players', "sessionCP INT(11) NOT NULL DEFAULT '0' AFTER sessionHK");
+		$installer->add_query('ADD', $this_prefix.'players', "honorpoints INT(11) NOT NULL DEFAULT '0' AFTER lifetimeRankName");
+		$installer->add_query('ADD', $this_prefix.'players', "arenapoints INT(11) NOT NULL DEFAULT '0' AFTER honorpoints");
 
-		$installer->add_query('ADD', $this_prefix.'players', array(
-				"Rankexp Rankexp FLOAT NOT NULL DEFAULT '0'",
-				"melee_range melee_range VARCHAR( 32 ) NULL DEFAULT NULL",
-				"ranged_range ranged_range VARCHAR( 32 ) NULL DEFAULT NULL"
-			),
-			$this_prefix.'players');
+		$installer->add_query('CHANGE', $this_prefix.'players', "melee_range melee_range VARCHAR(32) NOT NULL DEFAULT ''");
+		$installer->add_query('CHANGE', $this_prefix.'players', "ranged_range ranged_range VARCHAR(32) NOT NULL DEFAULT ''");
+		//$installer->add_query('CHANGE', $this_prefix.'players', "Rankexp Rankexp FLOAT NULL DEFAULT NULL");
+		$installer->add_query('CHANGE', $this_prefix.'players', "melee_range melee_range VARCHAR(32) NOT NULL DEFAULT ''");
+		$installer->add_query('CHANGE', $this_prefix.'players', "ranged_range ranged_range VARCHAR(32) NOT NULL DEFAULT ''");
+
+		// THIS HAS TO BE DONE THIS WAY TO BYPASS DF'S SCREWY SQL EDITING CRAP
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."players CHANGE Rankexp Rankexp FLOAT NULL DEFAULT NULL");
 
 		# --------------------------------------------------------
 		### Recipe Table
 
-		$installer->add_query('ADD', $this_prefix.'recipes', "item_level INT( 11 ) NULL", $this_prefix.'recipes');
+		$installer->add_query('ADD', $this_prefix.'recipes', "item_level INT(11) NOT NULL DEFAULT '0'");
 
 		# --------------------------------------------------------
 		### Reputation Table
 
-		$installer->add_query('CHANGE', $this_prefix.'reputation', "Standing Standing VARCHAR( 32 ) NOT NULL DEFAULT ''", $this_prefix.'reputation');
-		$installer->add_query('ADD', $this_prefix.'reputation', array(
-				"curr_rep int(8) NULL AFTER Value",
-				"max_rep int(8) NULL AFTER curr_rep",
-			), $this_prefix.'reputation');
+		$installer->add_query('CHANGE', $this_prefix.'reputation', "Standing Standing VARCHAR(32) NOT NULL DEFAULT ''");
 
-		$installer->add_query('UPDATE', $this_prefix.'reputation', "curr_rep = substring( value, 1, locate('/', value)-1) + 0, max_rep =  substring( value, locate('/', value)+1, length(value)-locate('/', value)) + 0", $this_prefix.'reputation');
+		//$installer->add_query('ADD', $this_prefix.'reputation', "curr_rep int(8) NOT NULL DEFAULT '0' AFTER Value");
+		//$installer->add_query('ADD', $this_prefix.'reputation', "max_rep int(8) NOT NULL DEFAULT '0' AFTER curr_rep");
 
-		$installer->add_query('DEL', $this_prefix.'reputation', "Value", $this_prefix.'reputation');
+		// THESE HAVE TO BE DONE THIS WAY TO BYPASS DF'S SCREWY SQL EDITING CRAP
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."reputation ADD curr_rep int(8) NOT NULL DEFAULT '0' AFTER Value");
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."reputation ADD max_rep int(8) NOT NULL DEFAULT '0' AFTER curr_rep");
+		$db->sql_query('UPDATE '.$prefix.'_'.$this_prefix."reputation SET curr_rep = substring(Value, 1, locate('/', Value)-1) + 0, max_rep = substring(Value, locate('/', Value)+1, length(Value)-locate('/', Value)) + 0");
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."reputation DROP Value");
+
+		//$installer->add_query('UPDATE', $this_prefix.'reputation', "curr_rep = substring(Value, 1, locate('/', Value)-1) + 0, max_rep =  substring(Value, locate('/', Value)+1, length(Value)-locate('/', Value)) + 0");
+		//$installer->add_query('DEL', $this_prefix.'reputation', "Value");
 
 		# --------------------------------------------------------
 		### PvP2 Table
 
-		$installer->add_query('ADD', $this_prefix.'pvp2', "realm VARCHAR( 96 ) NOT NULL DEFAULT '' AFTER guild", $this_prefix.'pvp2');
+		$installer->add_query('ADD', $this_prefix.'pvp2', "realm VARCHAR(96) NOT NULL DEFAULT '' AFTER guild");
 
 		# --------------------------------------------------------
 		### The roster version and db version MUST be last
 
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '1.7.2' WHERE id = '4' LIMIT 1", $this_prefix.'config');
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '4' WHERE id = '3' LIMIT 1", $this_prefix.'config');
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '1.7.2' WHERE id = '4' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '4' WHERE id = '3' LIMIT 1");
 	}
 
 	return true;

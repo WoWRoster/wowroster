@@ -55,7 +55,7 @@ if( file_exists($addonFile) )
 	//roster version
       //$script_filename = 'addon.php?roster_addon_name='.$_REQUEST['roster_addon_name'];
       //wowrosterdf version
-      $script_filename = getlink($module.'&smp;file=addon&amp;roster_addon_name='.$_REQUEST['roster_addon_name']);
+      $script_filename = $module_name.'&smp;file=addon&amp;roster_addon_name='.$_REQUEST['roster_addon_name'];
 
 	// Set the css for the template set in conf.php
 	if( file_exists($cssFile) )

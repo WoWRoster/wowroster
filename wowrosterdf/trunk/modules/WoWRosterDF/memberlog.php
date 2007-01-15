@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once( BASEDIR.'settings.php' );
+require_once( 'settings.php' );
 
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )

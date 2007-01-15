@@ -1449,7 +1449,7 @@ print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">
 <?php
 
 // Code to write a "Max Exp bar" just like in SigGen
-if( $this->data['level'] == '60' )
+if( $this->data['level'] == '70' )
 {
 	$expbar_width = '248';
 	$expbar_text = $wordings[$lang]['max_exp'];

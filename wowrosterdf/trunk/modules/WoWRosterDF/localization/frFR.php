@@ -229,10 +229,10 @@ $inst_keys['frFR']['H'] = array(
 			'Le testament de Rexxar|',
 			'Illusions d\\\'Occulus|',
 			'Querelleur ardent|',
-			'Le Test des cr�nes, Cristallomancier|',
-			'Le Test des cr�nes, Somnus|',
-			'Le Test des cr�nes, Chronalis|',
-			'Le Test des cr�nes, Axtroz|',
+			'L\\\'épreuve des crânes, Cristallomancier|',
+			'L\\\'épreuve des crânes, Somnus|',
+			'L\\\'épreuve des crânes, Chronalis|',
+			'L\\\'épreuve des crânes, Axtroz|',
 			'Ascension...|',
 			'Sang du Champion des Dragons noirs|'
 		),
@@ -551,7 +551,7 @@ $wordings['frFR']['loss_average']='Différence moyenne de niveaux (défaites) :'
 // These need to be EXACTLY what PvPLog stores them as
 $wordings['frFR']['alterac_valley']='Vallée d\'Alterac';
 $wordings['frFR']['arathi_basin']='Bassin d\'Arathi';
-$wordings['frFR']['warsong_gulch']='Goulet des Warsong';
+$wordings['frFR']['warsong_gulch']='Goulet des Chanteguerres';
 
 $wordings['frFR']['world_pvp']='JcJ Mondial';
 $wordings['frFR']['versus_guilds']='Contre Guilde';
@@ -764,7 +764,7 @@ $wordings['frFR']['admin']['index_lastupdate'] = "Colonne de la dernière mise �
 // menu_conf
 $wordings['frFR']['admin']['menu_left_pane'] = "Panneau de gauche (liste rapide des membres)|Contrôle l'affichage du panneau de gauche du menu principal du roster<br />Cette zone sert à la liste rapide des membres";
 $wordings['frFR']['admin']['menu_right_pane'] = "Panneau de droite (statut du royaume)|Contrôle l'affichage du panneau de droite du menu principal du roster<br />Cette zone sert au statut du royaume";
-$wordings['frFR']['admin']['menu_memberlog'] = "Lien Par classe|Contrôle l'affichage du lien Par classe";
+$wordings['frFR']['admin']['menu_memberlog'] = "Lien Journal|Contrôle l'affichage du lien Journal";
 $wordings['frFR']['admin']['menu_guild_info'] = "Lien Info Guilde|Contrôle l'affichage du lien Info Guilde";
 $wordings['frFR']['admin']['menu_stats_page'] = "Lien Statistiques|Contrôle l'affichage du lien Statistiques";
 $wordings['frFR']['admin']['menu_pvp_page'] = "Lien Statistiques PvP / JcJ|Contrôle l'affichage du lien Statistiques PvP / JcJ";

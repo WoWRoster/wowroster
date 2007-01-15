@@ -22,18 +22,14 @@ $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 if( isset($_GET['motd']) )
 {
-	$guildMOTD = urldecode($_GET['motd']);
+	$guildMOTD = substr(stripslashes(urldecode($_GET['motd'])),0,145);
 }
 else
 {
 	include( $roster_root_path . 'settings.php' );
 	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-	$guildMOTD = $guildMOTD['guild_motd'];
+	$guildMOTD = substr(htmlspecialchars($guildMOTD['guild_motd']),0,145);
 }
-
-// FIT IT!!!!!!
-$guildMOTD = htmlspecialchars(stripslashes(substr($guildMOTD,0,145)));
-
 
 
 // Path to font folder
@@ -49,6 +45,8 @@ die();
 
 function motd_img( $guildMOTD,$image_path,$font_path )
 {
+	$guildMOTD = html_entity_decode($guildMOTD);
+
 	// Set ttf font
 	$visitor = $font_path . 'VERANDA.TTF';
 
