@@ -48,8 +48,8 @@ print getAllTooltips();
 </div>
 </div>
 <?php
-
-include(BASEDIR.'footer.php');
 closetable();
+include(BASEDIR.'footer.php');
+
 
 ?>
