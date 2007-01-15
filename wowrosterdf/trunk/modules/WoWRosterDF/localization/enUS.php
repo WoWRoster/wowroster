@@ -800,7 +800,6 @@ $wordings['enUS']['admin']['uploadapp'] = "UniUploader download link|URL to down
 
 // char_conf
 $wordings['enUS']['admin']['char_bodyalign'] = "Character Page Alignment|Alignment of the data on the character page";
-$wordings['enUS']['admin']['char_header_logo'] = "Header Logo|Show the roster header logo on character page";
 $wordings['enUS']['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
 $wordings['enUS']['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
 $wordings['enUS']['admin']['show_mail'] = "Mail|Controls the display of Mail<br /><br />Setting is global and overrides per-user setting";

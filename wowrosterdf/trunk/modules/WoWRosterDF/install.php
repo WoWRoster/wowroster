@@ -603,7 +603,6 @@ function RosterDF_install($this_prefix, $this_base)
 	### Character Page Settings
 
 	$installer->add_query('INSERT', $this_prefix.'config', "7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf'");
-	$installer->add_query('INSERT', $this_prefix.'config', "7010, 'char_header_logo', '1', 'radio{on^1|off^0', 'char_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
@@ -702,6 +701,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('DELETE', $this_prefix.'config', "id = '10020' LIMIT 1");
 		$installer->add_query('DELETE', $this_prefix.'config', "id = '10030' LIMIT 1");
 		$installer->add_query('DELETE', $this_prefix.'config', "id =  '4030' LIMIT 1");
+		$installer->add_query('DELETE', $this_prefix.'config', "id =  '7010' LIMIT 1");
 
 		$installer->add_query('INSERT', $this_prefix.'config', "1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf'");
 		$installer->add_query('INSERT', $this_prefix.'config', "5008, 'tabcontent', 'css/js/tabcontent.js', 'text{128|30', 'display_conf'");

@@ -52,15 +52,19 @@ include (BASEDIR.'header.php');
 opentable();
 ?>
 
-<div class="wowroster" style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);" <?php echo (isset($body_action) ? $body_action : ''); ?>>
+<div class="wowroster"<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url('.$roster_conf['roster_bg'].');"' : '' ); echo (isset($body_action) ? ' '.$body_action : ''); ?>>
 <?php
 
-if( !isset($roster_conf['char_header_logo']) || $roster_conf['char_header_logo'] )
+if( !empty($roster_conf['logo']) )
 {
 	echo '<div style="text-align:center;margin:10px;"><a href="'.$roster_conf['website_address'].'">
   <img src="'.$roster_conf['logo'].'" alt="" style="border:0;margin:10px;" /></a>
 </div>
 ';
+}
+else
+{
+	print '<br />';
 }
 
 ?>
