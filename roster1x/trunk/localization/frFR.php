@@ -799,7 +799,6 @@ $wordings['frFR']['admin']['uploadapp'] = "Lien de téléchargement d'UniUploade
 
 // char_conf
 $wordings['frFR']['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des donnes sur la page des personnages";
-$wordings['frFR']['admin']['char_header_logo'] = "Logo entête|Montre le logo en entête sur la page des personnages";
 $wordings['frFR']['admin']['show_talents'] = "Talents|Visualisation des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_spellbook'] = "Livre des sorts|Visualisation du livres des sorts<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $wordings['frFR']['admin']['show_mail'] = "Courrier|Visualisation du courrier<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";

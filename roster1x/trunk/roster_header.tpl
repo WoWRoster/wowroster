@@ -41,7 +41,7 @@ define('HEADER_INC',true);
 <div align="center">
 
 <?php
-if( !isset($roster_conf['char_header_logo']) || $roster_conf['char_header_logo'] )
+if( !empty($roster_conf['logo']) )
 {
 	echo '<div style="text-align:center;margin:10px;"><a href="'.$roster_conf['website_address'].'">
   <img src="'.$roster_conf['logo'].'" alt="" style="border:0;margin:10px;" /></a>

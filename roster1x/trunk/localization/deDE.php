@@ -799,7 +799,6 @@ $wordings['deDE']['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den U
 
 // char_conf
 $wordings['deDE']['admin']['char_bodyalign'] = "Charakterseiten Ausrichtung|Ausrichtung der Daten auf der Charakterseite";
-$wordings['deDE']['admin']['char_header_logo'] = "Kopf-Logo|Zeigt das Roster-Kopf-Logo auf der Charakterseite";
 $wordings['deDE']['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $wordings['deDE']['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $wordings['deDE']['admin']['show_mail'] = "Postfach|Anzeige des Postfaches<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";

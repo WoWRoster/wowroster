@@ -715,25 +715,8 @@ $returnstring .= '  <tr>
 			$tmp = split(':',$row['armor']);
 			$basearmor = $tmp[0];
 
-			switch ($petNum)
-			{
-				case 1:
-					$left = 35;
-					$top = 285;
-					break;
-				case 2:
-					$left = 85;
-					$top = 285;
-					break;
-				case 3:
-					$left = 135;
-					$top = 285;
-					break;
-				default:
-					$left = 185;
-					$top = 285;
-					break;
-			}
+			$left = 35+(($petNum-1)*50);
+			$top = 285;
 
 			// Start Warlock Pet Icon Mod
 			$imp = 'Interface/Icons/Spell_Shadow_SummonImp';
