@@ -220,7 +220,7 @@ switch ($action)
 		{
 			$bag0 = bag_get( $char, 'Bank Bag0' );
 			if( !is_null( $bag0 ) )
-				echo $bag0->out();
+				echo $bag0->out(true);
 
 			$bag1 = bag_get( $char, 'Bank Bag1' );
 			if( !is_null( $bag1 ) )

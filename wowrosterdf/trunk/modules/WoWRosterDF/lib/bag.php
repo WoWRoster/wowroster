@@ -39,12 +39,24 @@ class bag extends item
 		$this->contents = item_get_many( $this->data['member_id'], $this->data['item_slot'] );
 	}
 
-	function out()
+	function out( $bank = false )
 	{
 		global $wordings, $roster_conf;
 
-		$returnstring = '
-<div class="bag">
+		if( $bank )
+		{
+			$width = 7;
+			$returnstring = '
+<div class="bankbag">';
+		}
+		else
+		{
+			$width = 4;
+			$returnstring = '
+<div class="bag">';
+		}
+
+		$returnstring .= '
 	<div class="bagTop">
 		<div class="bagIcon">';
 
@@ -53,12 +65,12 @@ class bag extends item
 		<div class="bagName">'. $this->data['item_name'] .'</div>
 	</div>'."\n";
 
-		$offset = -1 * ($this->data['item_quantity'] % 4);
+		$offset = -1 * ($this->data['item_quantity'] % $width);
 		for( $slot = $offset, $idx = $this->data['item_quantity'] - $offset; $slot < $this->data['item_quantity'] ; $slot++, $idx-- )
 		{
-			if( $idx % 4 == 0 )
+			if( $idx % $width == 0 )
 			{
-				if( $idx == 4 )
+				if( $idx == $width )
 				{
 					$returnstring .=  '<div class="bagBottomLine">'."\n";
 				}
@@ -81,7 +93,7 @@ class bag extends item
 				}
 				$returnstring .=  "</div>\n";
 			}
-			if( $idx % 4 == 1 )
+			if( $idx % $width == 1 )
 			{
 				$returnstring .= "</div>\n";
 			}
