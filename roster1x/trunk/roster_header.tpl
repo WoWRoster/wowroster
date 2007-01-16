@@ -37,7 +37,7 @@ define('HEADER_INC',true);
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib_hide']; ?>"></script>
 <?php echo (isset($html_head) ? $html_head : ''); ?>
 </head>
-<body style="background-image:url(<?php echo $roster_conf['roster_bg']; ?>);" <?php echo (isset($body_action) ? $body_action : ''); ?>>
+<body<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url('.$roster_conf['roster_bg'].');"' : '' ); echo (isset($body_action) ? ' '.$body_action : ''); ?>>
 <div align="center">
 
 <?php

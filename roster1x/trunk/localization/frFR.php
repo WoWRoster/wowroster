@@ -143,7 +143,7 @@ $inst_keys['frFR']['A'] = array(
 			'Sceau d\\\'ascension|17057',
 			'Sceau d\\\'ascension non décoré|5370',
 			'Gemme de Pierre-du-pic|5379',
-			'Gemme de Brûlronce|16095',
+			'Gemme de Brûleronce|16095',
 			'Gemme de Hache-sanglante|21777',
 			'Sceau d\\\'ascension brut |24554||MS',
 			'Sceau d\\\'ascension forgé|19463||MS'
@@ -214,7 +214,7 @@ $inst_keys['frFR']['H'] = array(
 			'Sceau d\\\'ascension|17057',
 			'Sceau d\\\'ascension non décoré|5370',
 			'Gemme de Pierre-du-pic|5379',
-			'Gemme de Brûlronce|16095',
+			'Gemme de Brûleronce|16095',
 			'Gemme de Hache-sanglante|21777',
 			'Sceau d\\\'ascension brut |24554||MS',
 			'Sceau d\\\'ascension forgé|19463||MS'
