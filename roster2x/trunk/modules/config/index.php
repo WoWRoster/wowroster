@@ -54,6 +54,7 @@ $save = isset($_POST['save'])?$_POST['save']:FALSE;
 
 // Load classes
 cpMain::loadClass('smarty','smarty');
+cpMain::loadClass('cplang','cplang');
 
 $config = cpMain::$instance['cpconfig']->loadConfigMeta($cfgfile);
 

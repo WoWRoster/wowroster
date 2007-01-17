@@ -331,28 +331,6 @@ if(cpMain::isClass('smarty'))
 	cpMain::$instance['smarty']->assign('PATH_REMOTE', PATH_REMOTE);
 
 	/**
-	 * We only inject our language into the template if the users specifies.
-	 * Notice the location of this as it will only work if the users requires
-	 * the template class to be called upon, module authors make sure you realize
-	 * that this option only injects the language into the template, it's not
-	 * required for multi lingual functionality, as the language is injected
-	 * automaticaly if the lang_(method).php file exists for the users. So, one
-	 * important practice is to include the default language (english) with every
-	 * module in case your module relies on the multi lingual template variables
-	 * to be present.
-	 */
-	if(cpMain::isClass('cplang'))
-	{
-		/**
-		 * Load the language to our template class
-		 */
-		foreach(cpMain::$instance['cplang']->lang as $key => $value)
-		{
-			cpMain::$instance['smarty']->assign($key, $value);
-		}
-	}
-
-	/**
 	 * Build the template for the specified block
 	 */
 	if( cpMain::$system['template_path'] != '' )

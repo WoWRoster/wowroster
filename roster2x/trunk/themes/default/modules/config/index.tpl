@@ -20,7 +20,7 @@
 				<th>Meta info string</th>
 				<th>Default setting</th>
 				<th>Current setting</th>
-				<th>Comment</th>
+				<th>Language string</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -50,7 +50,7 @@
 					{phpdata data=$row.value}
 	{/if}
 				</td>
-				<td>{$row.comment}</td>
+				<td>{lang key=$name default=$row.comment}</td>
 			</tr>
 {foreachelse}
 			<tr>
