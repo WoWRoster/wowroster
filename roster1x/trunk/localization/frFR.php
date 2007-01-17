@@ -427,6 +427,8 @@ $wordings['frFR']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Elfe de sang' => 'Ability_Mount_CockatriceMount',
+	'Draeneï' => 'Ability_Mount_RidingElekk',
 	'Paladin'=>'Ability_Mount_Dreadsteed',
 	'Démoniste'=>'Ability_Mount_NightmareHorse'
 );

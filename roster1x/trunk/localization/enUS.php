@@ -427,8 +427,10 @@ $wordings['enUS']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Blood Elf' => 'Ability_Mount_CockatriceMount',
+	'Draenei' => 'Ability_Mount_RidingElekk',
 	'Paladin'=>'Ability_Mount_Dreadsteed',
-	'Warlock'=>'Ability_Mount_NightmareHorse'
+	'Warlock'=>'Ability_Mount_NightmareHorse',
 );
 
 // Class Icons-Array

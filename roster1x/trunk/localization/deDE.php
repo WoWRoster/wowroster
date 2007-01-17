@@ -427,6 +427,8 @@ $wordings['deDE']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Blutelf' => 'Ability_Mount_CockatriceMount',
+	'Draenei' => 'Ability_Mount_RidingElekk',
 	'Paladin'=>'Ability_Mount_Dreadsteed',
 	'Hexenmeister'=>'Ability_Mount_NightmareHorse'
 );
