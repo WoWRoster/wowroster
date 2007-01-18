@@ -2643,7 +2643,7 @@ class wowdb
 		$this->add_value( 'level', $data['Level'] );
 		$this->add_value( 'server', $data['Server'] );
 
-		if( !empty($data['TalentPoints']) )
+		if( isset($data['TalentPoints']) )
 			$this->add_value( 'talent_points', $data['TalentPoints'] );
 
 		$this->add_value( 'money_c', $data['Money']['Copper'] );
