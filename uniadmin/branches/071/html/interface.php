@@ -149,7 +149,7 @@ function output_settings( )
 		echo 'SVLIST'.$eq_sep;
 		while( $row = $db->fetch_record($result) )
 		{
-			echo $row['sv_name'].':';
+			echo $row['sv_name'].$pipe_sep;
 		}
 	}
 	$db->free_result($result);
@@ -195,12 +195,16 @@ function output_xml( )
 		while( $row = $db->fetch_record($result) )
 		{
 			$id = $row['id'];
-			$name = addslashes($row['name']);
+			//Workaround due to bad name separation in UU 2.5.0
+			//$name = addslashes($row['name']);
+			$name = strtr(addslashes($row['name']), " ", "_");
 			$version = addslashes($row['version']);
 			$required = addslashes($row['required']);
+			$homepage = addslashes($row['homepage']);
+			$addon_filename = addslashes($row['file_name']);
 			$toc = addslashes($row['toc']);
 
-			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" toc=\"$toc\">";
+			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" homepage=\"$homepage\" filename=\"$addon_filename\" toc=\"$toc\">";
 
 			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$id';";
 			$result2 = $db->query($sql);
@@ -234,14 +238,14 @@ function output_xml( )
  */
 function output_url( $addonName )
 {
-	global $db;
+	global $db, $uniadmin;
 
-	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addonName)."';";
+	$sql = "SELECT `name`, `file_name` FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addonName)."';";
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
 		$row = $db->fetch_record($result);
-		echo $row['dl_url'];
+		echo $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
 	}
 	$db->free_result($result);
 }

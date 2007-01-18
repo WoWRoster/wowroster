@@ -34,5 +34,3 @@ $uniadmin->set_vars(array(
     'template_file' => 'help.html',
     'display'       => true)
 );
-
-?>

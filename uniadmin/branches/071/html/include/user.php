@@ -136,5 +136,3 @@ function get_user_info( $name='' )
 
 	return $row;
 }
-
-?>

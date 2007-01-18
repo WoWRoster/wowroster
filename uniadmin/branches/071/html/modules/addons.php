@@ -59,10 +59,22 @@ switch($op)
 			enable_addon($id);
 		break;
 
+	case UA_URI_DETAIL:
+		addon_detail($id);
+		break;
+
 	default:
 		break;
 }
-main();
+
+if( isset($_GET[UA_URI_DETAIL]) && !empty($id) )
+{
+	addon_detail($id);
+}
+else
+{
+	main();
+}
 
 
 
@@ -83,6 +95,21 @@ function main( )
 {
 	global $db, $uniadmin, $user, $tpl;
 
+	if( isset($_REQUEST['s']) || isset($_REQUEST['d']) )
+	{
+		$orderby = $_REQUEST['s'];
+		$direction = $_REQUEST['d'];
+	}
+	else
+	{
+		$orderby = 'name';
+		$direction = 'ASC';
+	}
+
+	$sql = 'SELECT `a`.*, COUNT(`f`.`addon_id`) AS num_files FROM `'.UA_TABLE_ADDONS.'` AS a LEFT JOIN `'.UA_TABLE_FILES.'` AS f ON `a`.`id` = `f`.`addon_id` GROUP BY `a`.`id` ORDER BY '.$orderby.' '.$direction.';';
+
+	$direction = ( $direction == 'ASC' ) ? 'DESC' : 'ASC';
+
 	$tpl->assign_vars(array(
 		'L_ADDON_MANAGE'   => $user->lang['addon_management'],
 		'L_NAME'           => $user->lang['name'],
@@ -101,12 +128,22 @@ function main( )
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
 		'L_GO'             => $user->lang['go'],
-		'L_INTERFACE_FIX'  => $user->lang['interface_fix'],
+		'L_FULLPATH'       => $user->lang['fullpath_addon'],
+		'L_ADDON_DETAILS'  => $user->lang['addon_details'],
+		'L_MANAGE'         => $user->lang['manage'],
+		'L_YES'            => $user->lang['yes'],
+		'L_NO'             => $user->lang['no'],
 
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 
+		'L_REQUIRED_TIP'   => $user->lang['addon_required_tip'],
+		'L_FULLPATH_TIP'   => $user->lang['addon_fullpath_tip'],
+		'L_SELECTFILE_TIP' => $user->lang['addon_selectfile_tip'],
+
 		'S_ADDONS'         => true,
 		'S_ADDON_ADD_DEL'  => false,
+		'U_DIRECTION'      => $direction,
+		'U_DETAIL'         => UA_URI_DETAIL,
 		)
 	);
 
@@ -120,35 +157,31 @@ function main( )
 		$tpl->assign_var('L_ADDON_MANAGE',$user->lang['view_addons']);
 	}
 
-	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` ORDER BY `name`;";
 	$result = $db->query($sql);
 
 	if( $db->num_rows($result) > 0 )
 	{
 		while( $row = $db->fetch_record($result) )
 		{
-			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '".$row['id']."';";
-			$result2 = $db->query($sql);
-			$num_files = $db->num_rows($result2);
-			$db->free_result($result2);
-
 			$addon_name = $row['name'];
 			$homepage = $row['homepage'];
 			$version = $row['version'];
+			$num_files = $row['num_files'];
 			$time = date($user->lang['time_format'],$row['time_uploaded']);
-			$url = $row['dl_url'];
+			$url = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
 			$addon_id = $row['id'];
+			$filesize = $uniadmin->filesize_readable($row['filesize']);
 
 			if( $row['enabled'] == '1' )
 			{
 				$enabled = '<form name="ua_disableaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['yes'].'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" type="image" value="'.$user->lang['enabled'].'" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$enabled = '<span style="color:green;">'.$user->lang['yes'].'</span>';
+					$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" class="icon" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
 				}
 			}
 			else
@@ -156,11 +189,11 @@ function main( )
 				$enabled = '<form name="ua_enableaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['no'].'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" type="image" value="'.$user->lang['disabled'].'" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$enabled = '<span style="color:red;">'.$user->lang['no'].'</span>';
+					$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" class="icon" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
 				}
 			}
 
@@ -174,11 +207,11 @@ function main( )
 				$required = '<form name="ua_optionaladdon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_OPT.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="submit" style="color:red;" type="submit" value="'.$user->lang['yes'].'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required_mini.png" type="image" value="'.$user->lang['required'].'" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$required = '<span style="color:red;">'.$user->lang['yes'].'</span>';
+					$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required_mini.png" class="icon" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />';
 				}
 			}
 			else
@@ -186,28 +219,29 @@ function main( )
 				$required = '<form name="ua_requireaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_REQ.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="submit" style="color:green;" type="submit" value="'.$user->lang['no'].'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional_mini.png" type="image" value="'.$user->lang['optional'].'" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$required = '<span style="color:green;">'.$user->lang['no'].'</span>';
+					$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional_mini.png" class="icon" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />';
 				}
 			}
 
 			$toc = $row['toc'];
 
 			$tpl->assign_block_vars('addons_row', array(
-				'ROW_CLASS'  => $uniadmin->switch_row_class(),
-				'ID'         => $addon_id,
-				'HOMEPAGE'   => $homepage,
-				'ADDONNAME'  => $addon_name,
-				'TOC'        => $toc,
-				'REQUIRED'   => $required,
-				'VERSION'    => $version,
-				'TIME'       => $time,
-				'ENABLED'    => $enabled,
-				'NUMFILES'   => $num_files,
-				'DOWNLOAD'   => $url,
+				'ROW_CLASS'   => $uniadmin->switch_row_class(),
+				'ID'          => $addon_id,
+				'HOMEPAGE'    => $homepage,
+				'ADDONNAME'   => $addon_name,
+				'TOC'         => $toc,
+				'REQUIRED'    => $required,
+				'VERSION'     => $version,
+				'TIME'        => $time,
+				'ENABLED'     => $enabled,
+				'NUMFILES'    => $num_files,
+				'DOWNLOAD'    => $url,
+				'FILESIZE'    => $filesize,
 				)
 			);
 		}
@@ -276,8 +310,8 @@ function require_addon( $id )
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-	    $uniadmin->debug($user->lang['error_requre_addon']);
-		$uniadmin->debug(sprintf($user->lang['sql_error_addons_requre'],$id));
+	    $uniadmin->debug($user->lang['error_require_addon']);
+		$uniadmin->debug(sprintf($user->lang['sql_error_addons_require'],$id));
 	}
 }
 
@@ -313,9 +347,7 @@ function delete_addon( $id )
 	$row = $db->fetch_record($result);
 
 	$id = $row['id'];
-	$addon_url = $row['dl_url'];
-	$k = explode('/',$addon_url);
-	$addon_file_name = $k[count($k) - 1];
+	$addon_file_name = $row['file_name'];
 
 	$local_path = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP.$addon_file_name;
 	$try_unlink = @unlink($local_path);
@@ -357,15 +389,10 @@ function process_addon()
 			return;
 		}
 
-		$url = $uniadmin->url_path;
 		$addon_file_name = str_replace(' ','_',$_FILES['file']['name']);
 
 		$addon_zip_folder = UA_BASEDIR.$uniadmin->config['addon_folder'];
 		$temp_folder = UA_BASEDIR.$uniadmin->config['temp_analyze_folder'];
-
-		$version = $_POST['version'];
-		$addon_name = substr($addon_file_name,0,count($addon_file_name) -5);
-		$homepage = $_POST['homepage'];
 
 		if( isset($_POST['required']) && $_POST['required'] == '1' )
 		{
@@ -375,9 +402,6 @@ function process_addon()
 		{
 			$required = 0;
 		}
-
-		// Set Download URL
-		$download_url = $url.$uniadmin->config['addon_folder'].'/'.$addon_file_name;
 
 		// Name and location of the zip file
 		$zip_file = $addon_zip_folder.DIR_SEP.$addon_file_name;
@@ -404,33 +428,91 @@ function process_addon()
 			}
 		}
 
+		// Get the file size
+		$file_size = @filesize($zip_file);
+
 		// Unzip the file
 		$uniadmin->unzip($zip_file,$temp_folder.DIR_SEP);
 
 		$files = $uniadmin->ls($temp_folder,array());
 
-
 		// Get the TOC of the addon
 		$toc_file_name = '';
+		$toc_files = array();
+		$revision_files = array();
+
 		if( is_array($files) )
 		{
 			foreach( $files as $file )
 			{
 				if( $uniadmin->get_file_ext($file) == 'toc' )
 				{
-					$toc = get_toc($file);
+					$toc_files[] = $file;
+					continue;
+				}
+				elseif( strpos($file, 'changelog-r') && $uniadmin->get_file_ext($file) == 'txt' )
+				{
+					$revision_files[] = $file;
+					continue;
+				}
+			}
+
+			if( count($toc_files) > 0 )
+			{
+				foreach( $toc_files as $file )
+				{
+					$toc_number = get_toc_val($file, 'Interface', ( !empty($_POST['toc']) ? $_POST['toc'] : '00000' ));
 
 					$k = explode(DIR_SEP,$file);
 					$toc_file_name = $k[count($k) - 1];
-					/* NOT USED ANYMORE
-					$real_addon_name = substr($toc_file_name,0,count($toc_file_name) -5);
-					*/
-					break;
+					$toc_file_name = substr($toc_file_name,0,count($toc_file_name) -5);
+
+					$real_addon_name = get_toc_val($file, 'Title', $toc_file_name);
+
+					if( strpos($real_addon_name, 'Ace') && strpos($real_addon_name, '|r'))
+					{
+						$real_addon_name = trim(substr($real_addon_name, 0, strpos(substr($real_addon_name, 0, strpos($real_addon_name, '|r')), '|')));
+					}
+
+					// Get version
+					$revision = '';
+					$version = get_toc_val($file, 'Version', '');
+					if( count($revision_files) > 0 )
+					{
+						asort($revision_files);
+
+						foreach( $revision_files as $revision_file_name )
+						{
+							preg_match('|changelog\-r(.+?).txt|',$revision_file_name,$rev_matches);
+
+							$revision = $rev_matches[1];
+						}
+
+						if( !empty($version) && !empty($revision) && ($version != $revision) )
+						{
+							$version .= " | r$revision";
+						}
+						elseif( empty($version) && !empty($revision) )
+						{
+							$version = "r$revision";
+						}
+					}
+
+					// Set notes and homepage
+					$homepage = get_toc_val($file, 'X-Website', get_toc_val($file, 'URL', ''));
+					$notes = get_toc_val($file, 'Notes', '');
+
+					if( !( strpos(strtolower($zip_file), strtolower($toc_file_name)) === false && strpos(strtolower($_POST['addon_name']), strtolower($toc_file_name)) === false ) )
+					{
+						break;
+					}
+					else
+					{
+						unset($k, $toc_file_name);
+					}
 				}
 			}
-			/* REMOVED TOC CHECK
-			 * This was causing multi-addon zip files to fail and not read the addon name correctly
-			if( empty($toc_file_name) )
+			else
 			{
 				$try_unlink = @unlink($zip_file);
 				if( !$try_unlink )
@@ -439,8 +521,8 @@ function process_addon()
 				}
 				$uniadmin->cleardir($temp_folder);
 				$uniadmin->debug($user->lang['error_no_toc_file']);
+				return;
 			}
-			*/
 		}
 		else
 		{
@@ -455,7 +537,7 @@ function process_addon()
 		}
 
 		// See if AddOn exists in the database and do stuff to it
-		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addon_name)."';";
+		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($real_addon_name)."';";
 		$result = $db->query($sql);
 
 		if( $db->num_rows($result) > 0 )
@@ -469,6 +551,10 @@ function process_addon()
 			{
 				$homepage = $row['homepage'];
 			}
+			if( $notes == '' )
+			{
+				$notes = $row['notes'];
+			}
 			if( $version == '' )
 			{
 				$version = $row['version'];
@@ -481,15 +567,15 @@ function process_addon()
 			$db->query($sql);
 
 			// Update Main Addon data
-			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($addon_name)."', `dl_url` = '".$db->escape($download_url)."', `homepage` = '".$db->escape($homepage)."', `toc` = '$toc', `required` = '$required'
+			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($real_addon_name)."', `file_name` = '".$db->escape($addon_file_name)."', `homepage` = '".$db->escape($homepage)."', `notes` = '".$db->escape($notes)."', `toc` = '$toc_number', `required` = '$required', `filesize` = '$file_size'
 				WHERE `id` = '".$addon_id."';";
 			$db->query($sql);
 		}
 		else
 		{
 			// Insert Main Addon data
-			$sql = "INSERT INTO `".UA_TABLE_ADDONS."` ( `time_uploaded` , `version` , `enabled` , `name`, `dl_url`, `homepage`, `toc`, `required` )
-				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($addon_name)."', '".$db->escape($download_url)."', '".$db->escape($homepage)."', $toc, $required);";
+			$sql = "INSERT INTO `".UA_TABLE_ADDONS."` ( `time_uploaded` , `version` , `enabled` , `name`, `file_name`, `homepage`, `notes`, `toc`, `required`, `filesize` )
+				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($real_addon_name)."', '".$db->escape($addon_file_name)."', '".$db->escape($homepage)."', '".$db->escape($notes)."', '$toc_number', '$required', '$file_size' );";
 			$db->query($sql);
 
 			// Get the insert id of the addon just inserted
@@ -509,17 +595,17 @@ function process_addon()
 			$md5 = md5_file($file);
 			$k = explode(DIR_SEP,$file);
 			$pos_t = strpos($file,'addon_temp');
-			$addon_file_name = substr($file,$pos_t + 10);
+			$file_name = str_replace('/','\\',substr($file,$pos_t + 10));
 
-			if( $addon_file_name != 'index.htm' && $addon_file_name != 'index.html' && $addon_file_name != '.svn' )
+			if( $file_name != 'index.htm' && $file_name != 'index.html' && $file_name != '.svn' )
 			{
-				if( isset($_POST['interface_fix']) && $_POST['interface_fix'] == '1' )
+				if( isset($_POST['fullpath_addon']) && $_POST['fullpath_addon'] == '0' )
 				{
-					$addon_file_name = '/Interface/AddOns'.$addon_file_name;
+					$file_name = '\Interface\AddOns'.$file_name;
 				}
 
 				$sql = "INSERT INTO `".UA_TABLE_FILES."` ( `addon_id` , `filename` , `md5sum` )
-					VALUES ( '".$addon_id."', '".$db->escape($addon_file_name)."', '".$db->escape($md5)."' );";
+					VALUES ( '".$addon_id."', '".$db->escape($file_name)."', '".$db->escape($md5)."' );";
 				$db->query($sql);
 				if( !$db->affected_rows() )
 				{
@@ -540,7 +626,7 @@ function process_addon()
 		// Now clear the temp folder
 		$uniadmin->cleardir($temp_folder);
 
-		$uniadmin->message(sprintf($user->lang['addon_uploaded'],$addon_name));
+		$uniadmin->message(sprintf($user->lang['addon_uploaded'],$real_addon_name));
 	}
 	else // Nothing was uploaded
 	{
@@ -549,26 +635,39 @@ function process_addon()
 }
 
 /**
- * Gets the toc version number from the .toc file
+ * Gets the value from the .toc file
  *
- * @param string $file
+ * @param string $file		File to parse
+ * @param string $var		Variable to search for
+ * @param string $def_val	Default Value
  * @return string
  */
-function get_toc( $file )
+function get_toc_val( $file, $var, $def_val )
 {
 	$lines = file($file);
 
-	$toc = '00000';
+	$val = $def_val;
 	foreach( $lines as $line )
 	{
-		$int_pos = strpos(strtoupper($line),strtoupper('Interface:'));
-		if( $int_pos !== false )
+		$found = preg_match('/^## \b'.$var.'\b: (.+)/',$line,$matches);
+
+		if( $found )
 		{
-			$toc = substr($line, $int_pos + 10);
+			$val = $matches[1];
+
+			switch ( $var )
+			{
+				case 'Version':
+					$str_found = preg_match('/\$Revision:(.+?)\$/',$val,$str_matches);
+					if( $str_found )
+					{
+						$val = $str_matches[1];
+					}
+					break;
+			}
+
+			$val = preg_replace('/(.+?)\|c[a-f0-9]{8}(.+?)\|r/','$1$2',$val);
 		}
 	}
-	return $toc;
+	return trim($val);
 }
-
-
-?>

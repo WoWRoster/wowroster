@@ -150,10 +150,7 @@ class SQL_DB
 		}
 		if ( !empty($this->query_id) )
 		{
-			if ( UA_DEBUG == 2 )
-			{
-				$this->queries[$this->query_count] = $query;
-			}
+			$this->queries[$this->query_count] = $query;
 
 			unset($this->record[$this->query_id]);
 			unset($this->record_set[$this->query_id]);
@@ -413,4 +410,3 @@ class SQL_DB
 		$this->error_die = $setting;
 	}
 }
-?>

@@ -36,5 +36,3 @@ if( isset($user->data['level']) && $user->data['level'] == UA_ID_ADMIN )
 {
 	$ua_menu .= '	| <a href="'.UA_INDEXPAGE.'=pref">'.$user->lang['title_config'].'</a>';
 }
-
-?>

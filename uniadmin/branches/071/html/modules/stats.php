@@ -257,5 +257,3 @@ function build_pie_hosts( $field_name )
 		return $pie;
 	}
 }
-
-?>

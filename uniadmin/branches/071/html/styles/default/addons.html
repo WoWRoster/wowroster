@@ -6,35 +6,32 @@
 	</tr>
 <!-- IF S_ADDONS -->
 	<tr>
-		<td class="data_header">{L_NAME}</td>
-		<td class="data_header">{L_TOC}</td>
-		<td class="data_header">{L_REQUIRED}</td>
-		<td class="data_header">{L_VERSION}</td>
-		<td class="data_header">{L_UPLOADED}</td>
-		<td class="data_header">{L_ENABLED}</td>
-		<td class="data_header">{L_FILES}</td>
-		<td class="data_header">{L_HOMEPAGE}</td>
-		<!-- IF S_ADDON_ADD_DEL -->
-		<td class="data_header">{L_DELETE}</td>
-		<!-- ENDIF -->
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=name&amp;d={U_DIRECTION}">{L_NAME}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=toc&amp;d={U_DIRECTION}">{L_TOC}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=version&amp;d={U_DIRECTION}">{L_VERSION}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=time_uploaded&amp;d={U_DIRECTION}">{L_UPLOADED}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=num_files&amp;d={U_DIRECTION}">{L_FILES}</a></td>
+		<td class="data_header">{L_MANAGE}</td>
 	</tr>
 	<!-- BEGIN addons_row -->
 	<tr>
-		<td class="data{addons_row.ROW_CLASS}"><a href="{addons_row.DOWNLOAD}">{addons_row.ADDONNAME}</a></td>
+		<td class="data{addons_row.ROW_CLASS}"><span class="addon_name">{addons_row.ADDONNAME}</span></td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.TOC}</td>
-		<td class="data{addons_row.ROW_CLASS}">{addons_row.REQUIRED}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.VERSION}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.TIME}</td>
-		<td class="data{addons_row.ROW_CLASS}">{addons_row.ENABLED}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.NUMFILES}</td>
-		<td class="data{addons_row.ROW_CLASS}"><a href="{addons_row.HOMEPAGE}" target="_blank">{L_GO}</a></td>
-		<!-- IF S_ADDON_ADD_DEL -->
-		<td class="data{addons_row.ROW_CLASS}"><form name="ua_deleteaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
-			<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
-			<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />
-			<input class="submit" style="color:red;" type="submit" value="{L_DELETE}" />
-			</form></td>
-		<!-- ENDIF -->
+		<td class="data{addons_row.ROW_CLASS}">
+			<a href="{addons_row.DOWNLOAD}"><img src="{TEMPLATE_PATH}/images/download_mini.png" class="icon" alt="{L_DOWNLOAD}-[{addons_row.FILESIZE}]" onmouseover="return overlib('{L_DOWNLOAD}-[{addons_row.FILESIZE}]');" onmouseout="return nd();" /></a>
+			<a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}"><img src="{TEMPLATE_PATH}/images/details_mini.png" class="icon" alt="{L_ADDON_DETAILS}" onmouseover="return overlib('{L_ADDON_DETAILS}');" onmouseout="return nd();" /></a>
+			<a href="{addons_row.HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home_mini.png" class="icon" alt="{L_HOMEPAGE}" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a>
+			{addons_row.ENABLED}
+			{addons_row.REQUIRED}
+			<!-- IF S_ADDON_ADD_DEL --><form name="ua_deleteaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
+				<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/delete_mini.png" type="image" value="{L_DELETE}" alt="{L_DELETE}" onmouseover="return overlib('{L_DELETE}');" onmouseout="return nd();" />
+			</form>
+			<!-- ENDIF --></td>
 	</tr>
 	<!-- END addons_row -->
 <!-- ELSE -->
@@ -52,20 +49,20 @@
 			<th class="table_header" colspan="2">{L_ADDON_MANAGE}</th>
 		</tr>
 		<tr>
-			<td class="data1">{L_REQUIRED}: <input type="checkbox" name="required" value="1" checked="checked" /></td>
-			<td class="data1">{L_INTERFACE_FIX}: <input type="checkbox" name="interface_fix" value="1" /></td>
+			<td class="data1"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="[?]" onmouseover="return overlib('{L_REQUIRED_TIP}',CAPTION,'{L_REQUIRED}');" onmouseout="return nd();" />
+				{L_REQUIRED}:</td>
+			<td class="data1"><input type="checkbox" name="required" value="1" checked="checked" /></td>
 		</tr>
 		<tr>
-			<td class="data2">{L_SELECT_FILE}:</td>
-			<td class="data2"><input class="file" type="file" name="file" /></td>
+			<td class="data2"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="[?]" onmouseover="return overlib('{L_FULLPATH_TIP}',CAPTION,'{L_FULLPATH}');" onmouseout="return nd();" />
+				{L_FULLPATH}:</td>
+			<td class="data2"><label><input type="radio" name="fullpath_addon" value="0" checked="checked" />{L_NO}</label>
+				<label><input type="radio" name="fullpath_addon" value="1" />{L_YES}</label></td>
 		</tr>
 		<tr>
-			<td class="data1">{L_VERSION}:</td>
-			<td class="data1"><input class="input" type="text" name="version" /></td>
-		</tr>
-		<tr>
-			<td class="data2">{L_HOMEPAGE}:</td>
-			<td class="data2"><input class="input" type="text" name="homepage" /></td>
+			<td class="data1"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="[?]" onmouseover="return overlib('{L_SELECTFILE_TIP}',CAPTION,'{L_SELECT_FILE}');" onmouseout="return nd();" />
+				{L_SELECT_FILE}:</td>
+			<td class="data1"><input class="file" type="file" name="file" /></td>
 		</tr>
 		<tr>
 			<td class="data_header" colspan="2" align="center"><input class="submit" type="submit" value="{L_ADD_UPDATE}" /></td>

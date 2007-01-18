@@ -384,6 +384,3 @@ function delete_user()
 		die();
 	}
 }
-
-
-?>

@@ -39,4 +39,3 @@ if ( !$db->link_id )
 	print('MySQL Said: ' . mysql_error() );
 	die();
 }
-?>

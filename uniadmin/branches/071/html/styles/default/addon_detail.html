@@ -1,0 +1,71 @@
+<!-- INCLUDE overall_header.html -->
+
+<table class="ua_table" align="center">
+	<tr>
+		<th class="table_header" colspan="10">{L_ADDON_DETAILS}</th>
+	</tr>
+<!-- IF S_ADDONS -->
+	<tr>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=filesize&amp;d={U_DIRECTION}">{L_DOWNLOAD}</a></td>
+		<td class="data_header" colspan="2"><a href="{UA_FORMACTION}&amp;s=name&amp;d={U_DIRECTION}">{L_NAME}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=toc&amp;d={U_DIRECTION}">{L_TOC}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=version&amp;d={U_DIRECTION}">{L_VERSION}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=time_uploaded&amp;d={U_DIRECTION}">{L_UPLOADED}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=required&amp;d={U_DIRECTION}">{L_REQUIRED}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=enabled&amp;d={U_DIRECTION}">{L_ENABLED}</a></td>
+		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=num_files&amp;d={U_DIRECTION}">{L_FILES}</a></td>
+		<!-- IF S_ADDON_ADD_DEL -->
+		<td class="data_header">{L_DELETE}</td>
+		<!-- ENDIF -->
+	</tr>
+</table>
+<br />
+<table class="ua_table" align="center">
+	<tr>
+		<th class="table_header" colspan="10">{L_ADDON_MANAGE}</th>
+	</tr>
+	<!-- BEGIN files_row -->
+	<tr>
+		<td class="data{files_row.ROW_CLASS}">{files_row.FILENAME}</td>
+		<td class="data{files_row.ROW_CLASS}">{files_row.MD5}</td>
+	</tr>
+	<!-- END files_row -->
+<!-- ELSE -->
+	<tr>
+		<th class="data_header">{L_NO_ADDONS}</th>
+	</tr>
+<!-- ENDIF -->
+</table>
+
+<!-- IF S_ADDON_ADD_DEL -->
+<br />
+<form name="ua_updateaddon" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+	<table class="ua_table" align="center">
+		<tr>
+			<th class="table_header" colspan="2">{L_ADDON_MANAGE}</th>
+		</tr>
+		<tr>
+			<td class="data1">{L_REQUIRED}: <input type="checkbox" name="required" value="1" checked="checked" /></td>
+			<td class="data1">{L_INTERFACE_FIX}: <input type="checkbox" name="interface_fix" value="1" /></td>
+		</tr>
+		<tr>
+			<td class="data2">{L_SELECT_FILE}:</td>
+			<td class="data2"><input class="file" type="file" name="file" /></td>
+		</tr>
+		<tr>
+			<td class="data1">{L_VERSION}:</td>
+			<td class="data1"><input class="input" type="text" name="version" /></td>
+		</tr>
+		<tr>
+			<td class="data2">{L_HOMEPAGE}:</td>
+			<td class="data2"><input class="input" type="text" name="homepage" /></td>
+		</tr>
+		<tr>
+			<td class="data_header" colspan="2" align="center"><input class="submit" type="submit" value="{L_ADD_UPDATE}" /></td>
+		</tr>
+	</table>
+	<input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
+</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

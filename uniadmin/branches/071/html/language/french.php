@@ -141,6 +141,7 @@ $lang['required'] = 'Requis';
 $lang['version'] = 'Version';
 $lang['uploaded'] = 'Chargé';
 $lang['enabled'] = 'Activé';
+$lang['disabled'] = 'Désactive';
 $lang['files'] = 'Fichiers';
 $lang['url'] = 'URL';
 $lang['delete'] = 'Supprimer';
@@ -235,7 +236,13 @@ $lang['settings_updated'] = 'Paramètres Mis à Jour';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
-$lang['interface_fix'] = 'Interface Folder Fix';
+$lang['fullpath_addon'] = 'Full Path Addon';
+$lang['addon_details'] = 'AddOn Details';
+$lang['manage'] = 'Manage';
+$lang['optional'] = 'Optional';
+$lang['notes'] = 'Notes';
+$lang['half'] = 'Half';
+$lang['full'] = 'Full';
 
 
 // Pagination
@@ -251,6 +258,11 @@ $lang['verify_syncro_url'] = 'cliquer pour vérifier';
 $lang['guest_access'] = 'Accès Invité';
 $lang['interface_ready'] = 'Interface de Mise à Jour UniUploader...';
 
+
+// Addon Management
+$lang['addon_required_tip'] = 'When checked, UniUploader will require this addon for download';
+$lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/';
+$lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
 
 
@@ -330,6 +342,7 @@ $lang['admin']['interface_url'] = 'Specifier l\'emplacement de interface.php ici
 $lang['admin']['logo_folder'] = 'Specifier le dossier ou les logos UniUploader seront sauvegardés';
 $lang['admin']['temp_analyze_folder'] = 'Specifier le dossier ou les zips d\'addons seront extraits et anaylsés';
 $lang['admin']['UAVer'] = 'Version actuelle d\'UniAdmin<br />Vous ne pouvez pas changer ce paramètre';
+$lang['admin']['ua_debug'] = 'Debugging for UniAdmin<br /><br />- [no] No debugging<br />- [half] Show query count and rendertime in the footer<br />- [full] Show query count, rendertime, and SQL query window in the footer';
 
 // END UA CONFIG SETTINGS
 
@@ -338,10 +351,6 @@ $lang['admin']['UAVer'] = 'Version actuelle d\'UniAdmin<br />Vous ne pouvez pas 
 $lang['queries'] = 'Requêtes';
 $lang['debug'] = 'Debug';
 $lang['messages'] = 'Messages';
-
-
-// Settings
-$lang['default_locale'] = 'Code langue par défaut';
 
 
 // Error messages
@@ -396,5 +405,3 @@ $lang['sql_error_user_modify'] = 'Impossible de mettre à jour les informations u
 $lang['sql_error_user_add'] = 'Impossible d\'ajouter l\'utilisateur &quot;%1$s&quot;';
 $lang['sql_error_user_delete'] = 'Impossible de supprimer l\'utilisateur &quot;%1$s&quot;';
 
-
-?>

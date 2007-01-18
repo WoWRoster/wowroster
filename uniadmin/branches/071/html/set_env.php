@@ -92,5 +92,3 @@ function slash_global_data( $data )
 	}
 	return $data;
 }
-
-?>

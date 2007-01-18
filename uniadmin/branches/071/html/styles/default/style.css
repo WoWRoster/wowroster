@@ -62,6 +62,15 @@ img {
 	font-weight:bold;
 }
 
+.icon {
+	border:0;
+}
+.addon_name {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+}
+
 .ua_menu {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
@@ -137,3 +146,40 @@ img {
 	font-size:12px;
 	font-weight:bold;
 }
+
+
+/*********** Overlib Tooltip styles ***********/
+.overlib_fg {
+/* Sets main text background */
+/* ol_fgclass */
+	background-color:#EDEDFF;
+}
+.overlib_border {
+/* Sets the border style */
+/* ol_bgclass */
+	border:1px solid #00487D;
+}
+.overlib_maintext {
+/* Sets main text style */
+/* ol_textfontclass */
+	color:#000;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+}
+.overlib_captiontext {
+/* ol_captionfontclass */
+	color:#FFFFFF;
+	background-color:#0066B3;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	font-weight:bold;
+}
+.overlib_closetext {
+/* ol_closefontclass */
+	color:#FFFFFF;
+	background-color:#0066B3;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	font-weight:bold;
+}
+/*********** End Overlib Tooltip styles ***********/

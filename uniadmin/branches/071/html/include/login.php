@@ -99,5 +99,3 @@ else // Logging in
 		}
 	}
 }
-
-?>

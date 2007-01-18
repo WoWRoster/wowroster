@@ -141,6 +141,7 @@ $lang['required'] = 'Required';
 $lang['version'] = 'Version';
 $lang['uploaded'] = 'Uploaded';
 $lang['enabled'] = 'Enabled';
+$lang['disabled'] = 'Disabled';
 $lang['files'] = 'Files';
 $lang['url'] = 'URL';
 $lang['delete'] = 'Delete';
@@ -235,7 +236,13 @@ $lang['settings_updated'] = 'Settings Updated';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
-$lang['interface_fix'] = 'Interface Folder Fix';
+$lang['fullpath_addon'] = 'Full Path Addon';
+$lang['addon_details'] = 'AddOn Details';
+$lang['manage'] = 'Manage';
+$lang['optional'] = 'Optional';
+$lang['notes'] = 'Notes';
+$lang['half'] = 'Half';
+$lang['full'] = 'Full';
 
 
 // Pagination
@@ -251,6 +258,11 @@ $lang['verify_syncro_url'] = 'click to verify';
 $lang['guest_access'] = 'Guest Access';
 $lang['interface_ready'] = 'UniUploader Update Interface Ready...';
 
+
+// Addon Management
+$lang['addon_required_tip'] = 'When checked, UniUploader will require this addon for download';
+$lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/';
+$lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
 
 
@@ -330,6 +342,7 @@ $lang['admin']['interface_url'] = 'Specify the location of interface.php here<br
 $lang['admin']['logo_folder'] = 'Specify the folder UniUploader logos will be saved';
 $lang['admin']['temp_analyze_folder'] = 'Specify the folder addon zip archives will be extracted to and anaylized';
 $lang['admin']['UAVer'] = 'Current UniAdmin version<br />You cannot change this setting';
+$lang['admin']['ua_debug'] = 'Debugging for UniAdmin<br /><br />- [no] No debugging<br />- [half] Show query count and rendertime in the footer<br />- [full] Show query count, rendertime, and SQL query window in the footer';
 
 // END UA CONFIG SETTINGS
 
@@ -338,10 +351,6 @@ $lang['admin']['UAVer'] = 'Current UniAdmin version<br />You cannot change this 
 $lang['queries'] = 'Queries';
 $lang['debug'] = 'Debug';
 $lang['messages'] = 'Messages';
-
-
-// Settings
-$lang['default_locale'] = 'Default Locale';
 
 
 // Error messages
@@ -396,5 +405,3 @@ $lang['sql_error_user_modify'] = 'Could not update user info for &quot;%1$s&quot
 $lang['sql_error_user_add'] = 'Could not add user &quot;%1$s&quot;';
 $lang['sql_error_user_delete'] = 'Could not delete user &quot;%1$s&quot;';
 
-
-?>

@@ -10,13 +10,15 @@ DROP TABLE IF EXISTS `uniadmin_addons`;
 CREATE TABLE `uniadmin_addons` (
   `id` int(11) NOT NULL auto_increment,
   `time_uploaded` int(11) NOT NULL default '0',
-  `version` varchar(16) NOT NULL default '0',
+  `version` varchar(64) NOT NULL default '0',
   `enabled` tinyint(1) NOT NULL default '0',
   `name` varchar(250) NOT NULL default '',
-  `dl_url` varchar(250) NOT NULL default '',
+  `file_name` varchar(250) NOT NULL default '',
   `homepage` varchar(250) NOT NULL default '',
+  `notes` mediumtext NULL,
   `toc` mediumint(9) NOT NULL default '0',
   `required` tinyint(1) NOT NULL default '0',
+  `filesize` int(10) unsigned NOT NULL default '0'
   PRIMARY KEY  (`id`),
   KEY `addon_name` (`name`)
 );

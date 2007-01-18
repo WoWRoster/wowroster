@@ -56,18 +56,17 @@ class UniAdmin
 	 */
 	function uniadmin( $url )
 	{
-		// Start a script timer if we're debugging
-		if( UA_DEBUG )
-		{
-			$mc_split = split(' ', microtime());
-			$this->timer_start = $mc_split[0] + $mc_split[1];
-			unset($mc_split);
-		}
+		// Start a script timer
+		$mc_split = split(' ', microtime());
+		$this->timer_start = $mc_split[0] + $mc_split[1];
+		unset($mc_split);
 
 		$this->root_path = UA_BASEDIR;
 		$this->url_path = $url;
 
 		$this->config();
+
+		define('UA_DEBUG', $this->config['ua_debug']);
 	}
 
 	/**
@@ -332,7 +331,7 @@ class UniAdmin
 		}
 		while( false !== $item = $dir->read() )
 		{
-			if( $item != '.' && $item != '..' && $item != '.svn' && $item != 'index.html' && $item != 'index.htm' && !$this->rmdirr($dir->path . DIR_SEP . $item) )
+			if( $item != '.' && $item != '..' && $item != 'index.html' && $item != 'index.htm' && !$this->rmdirr($dir->path . DIR_SEP . $item) )
 			{
 				$dir->close();
 				return false;
@@ -577,12 +576,12 @@ class UniAdmin
 				)
 			);
 
+			$mc_split = split(' ', microtime());
+			$this->timer_end = $mc_split[0] + $mc_split[1];
+			unset($mc_split);
+
 			if ( UA_DEBUG )
 			{
-				$mc_split = split(' ', microtime());
-				$this->timer_end = $mc_split[0] + $mc_split[1];
-				unset($mc_split);
-
 				$s_show_queries = ( UA_DEBUG == 2 ) ? true : false;
 
 				$tpl->assign_vars(array(
@@ -627,6 +626,28 @@ class UniAdmin
 		$tpl->destroy();
 
 		exit;
+	}
+
+	function filesize_readable($size, $unit = null)
+	{
+		// Units
+		$sizes = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+		$mod   = 1024;
+
+		$ii = count($sizes) - 1;
+
+		// Return string
+		$retstring = '%01.0f %s';
+
+		// Loop
+		$i = 0;
+		while ($size >= 1024 && $i < $ii)
+		{
+			$size /= $mod;
+			$i++;
+		}
+
+		return sprintf($retstring, $size, $sizes[$i]);
 	}
 }
 
@@ -705,5 +726,3 @@ function level_select( $select_option='' )
 
 	return $retval;
 }
-
-?>

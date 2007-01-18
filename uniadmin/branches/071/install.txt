@@ -1,4 +1,24 @@
-UniAdmin 0.7.0 (updated 15th October 2006)
+ALTER TABLE `uniadmin_addons`
+	ADD `filesize` INT UNSIGNED DEFAULT '0' NOT NULL,
+	ADD `file_name` VARCHAR( 250 ) NOT NULL DEFAULT '' AFTER `name`,
+	ADD `notes` MEDIUMTEXT NULL AFTER `homepage`,
+	CHANGE `version` `version` VARCHAR( 64 ) NOT NULL DEFAULT '0'
+	DROP `dl_url`;
+
+UPDATE `uniadmin_config` SET `config_value` = '0.7.1' WHERE `config_name` = 'UAVer' LIMIT 1;
+
+
+
+
+
+
+
+
+
+
+
+
+UniAdmin 0.7.1 (updated 17th January 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -156,6 +176,9 @@ Solution: When you upload an addon zip, make sure that it has only one addon ins
 ~ Fixed
 + Added
 ! Changed
+
+Beta 0.7.1
+
 
 Beta 0.7.0
 ~ UA is now mySQL 5 compatible

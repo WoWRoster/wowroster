@@ -141,6 +141,7 @@ $lang['required'] = 'Erforderlich';
 $lang['version'] = 'Version';
 $lang['uploaded'] = 'Hochgeladen';
 $lang['enabled'] = 'Aktiviert';
+$lang['disabled'] = 'Deaktiviert';
 $lang['files'] = 'Dateien';
 $lang['url'] = 'URL';
 $lang['delete'] = 'Löschen';
@@ -235,7 +236,13 @@ $lang['settings_updated'] = 'Einstellungen geupdated';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
-$lang['interface_fix'] = 'Interface Folder Fix';
+$lang['fullpath_addon'] = 'Full Path Addon';
+$lang['addon_details'] = 'AddOn Details';
+$lang['manage'] = 'Manage';
+$lang['optional'] = 'Optional';
+$lang['notes'] = 'Notes';
+$lang['half'] = 'Half';
+$lang['full'] = 'Full';
 
 
 // Pagination
@@ -251,6 +258,11 @@ $lang['verify_syncro_url'] = 'klicken, um zu überprüfen';
 $lang['guest_access'] = 'Gastzugang';
 $lang['interface_ready'] = 'UniUploader Update Schnittstelle fertig...';
 
+
+// Addon Management
+$lang['addon_required_tip'] = 'When checked, UniUploader will require this addon for download';
+$lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/';
+$lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
 
 
@@ -330,6 +342,7 @@ $lang['admin']['interface_url'] = 'Wähle den Ort der interface.php aus<br /><br 
 $lang['admin']['logo_folder'] = 'Wähle den Ort für das UniAdmin Logos aus';
 $lang['admin']['temp_analyze_folder'] = 'Wähle den Ort an dem die ZIP-Archive extrahiert und analysiert werden aus';
 $lang['admin']['UAVer'] = 'Aktuelle UniAdmin Version<br />Du kannst diese Einstellung nicht ändern';
+$lang['admin']['ua_debug'] = 'Debugging for UniAdmin<br /><br />- [no] No debugging<br />- [half] Show query count and rendertime in the footer<br />- [full] Show query count, rendertime, and SQL query window in the footer';
 
 // END UA CONFIG SETTINGS
 
@@ -338,10 +351,6 @@ $lang['admin']['UAVer'] = 'Aktuelle UniAdmin Version<br />Du kannst diese Einste
 $lang['queries'] = 'Fragen';
 $lang['debug'] = 'Prüfung';
 $lang['messages'] = 'Nachrichten';
-
-
-// Settings
-$lang['default_locale'] = 'Standardansicht';
 
 
 // Error messages
@@ -396,5 +405,3 @@ $lang['sql_error_user_modify'] = 'Konnte nicht Benutzerinfo für Benutzer &quot;%
 $lang['sql_error_user_add'] = 'Konnte nicht Benutzer &quot;%1$s&quot; hinzufügen';
 $lang['sql_error_user_delete'] = 'Konnte nicht Benutzer &quot;%1$s&quot; löschen';
 
-
-?>
