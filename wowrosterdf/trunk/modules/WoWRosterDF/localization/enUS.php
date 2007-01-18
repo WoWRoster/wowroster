@@ -360,6 +360,7 @@ $wordings['enUS']['Mining']='Mining';
 $wordings['enUS']['Herbalism']='Herbalism';
 $wordings['enUS']['Alchemy']='Alchemy';
 $wordings['enUS']['Leatherworking']='Leatherworking';
+$wordings['enUS']['Jewelcrafting']='Jewelcrafting';
 $wordings['enUS']['Skinning']='Skinning';
 $wordings['enUS']['Tailoring']='Tailoring';
 $wordings['enUS']['Enchanting']='Enchanting';
@@ -381,6 +382,7 @@ $tsArray['enUS'] = array (
 	$wordings['enUS']['Blacksmithing'],
 	$wordings['enUS']['Mining'],
 	$wordings['enUS']['Leatherworking'],
+	$wordings['enUS']['Jewelcrafting'],
 	$wordings['enUS']['Skinning'],
 	$wordings['enUS']['Tailoring'],
 	$wordings['enUS']['Enchanting'],
@@ -398,6 +400,7 @@ $wordings['enUS']['ts_iconArray'] = array (
 	$wordings['enUS']['Blacksmithing']=>'Trade_BlackSmithing',
 	$wordings['enUS']['Mining']=>'Trade_Mining',
 	$wordings['enUS']['Leatherworking']=>'Trade_LeatherWorking',
+	$wordings['enUS']['Jewelcrafting']=>'INV_Misc_Gem_02',
 	$wordings['enUS']['Skinning']=>'INV_Misc_Pelt_Wolf_01',
 	$wordings['enUS']['Tailoring']=>'Trade_Tailoring',
 	$wordings['enUS']['Enchanting']=>'Trade_Engraving',
@@ -427,6 +430,8 @@ $wordings['enUS']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Blood Elf' => 'Ability_Mount_CockatriceMount',
+	'Draenei' => 'Ability_Mount_RidingElekk',
 	'Paladin'=>'Ability_Mount_Dreadsteed',
 	'Warlock'=>'Ability_Mount_NightmareHorse'
 );

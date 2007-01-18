@@ -360,6 +360,7 @@ $wordings['deDE']['Mining']='Bergbau';
 $wordings['deDE']['Herbalism']='Kräuterkunde';
 $wordings['deDE']['Alchemy']='Alchimie';
 $wordings['deDE']['Leatherworking']='Lederverarbeitung';
+$wordings['deDE']['Jewelcrafting']='Juwelenschleifen';
 $wordings['deDE']['Skinning']='Kürschnerei';
 $wordings['deDE']['Tailoring']='Schneiderei';
 $wordings['deDE']['Enchanting']='Verzauberkunst';
@@ -381,6 +382,7 @@ $tsArray['deDE'] = array (
 	$wordings['deDE']['Blacksmithing'],
 	$wordings['deDE']['Mining'],
 	$wordings['deDE']['Leatherworking'],
+	$wordings['deDE']['Jewelcrafting'],
 	$wordings['deDE']['Skinning'],
 	$wordings['deDE']['Tailoring'],
 	$wordings['deDE']['Enchanting'],
@@ -398,6 +400,7 @@ $wordings['deDE']['ts_iconArray'] = array (
 	$wordings['deDE']['Blacksmithing']=>'Trade_BlackSmithing',
 	$wordings['deDE']['Mining']=>'Trade_Mining',
 	$wordings['deDE']['Leatherworking']=>'Trade_LeatherWorking',
+	$wordings['deDE']['Jewelcrafting']=>'INV_Misc_Gem_02',
 	$wordings['deDE']['Skinning']=>'INV_Misc_Pelt_Wolf_01',
 	$wordings['deDE']['Tailoring']=>'Trade_Tailoring',
 	$wordings['deDE']['Enchanting']=>'Trade_Engraving',
@@ -427,6 +430,8 @@ $wordings['deDE']['ts_ridingIcon'] = array(
 	'Troll'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orc'=>'Ability_Mount_BlackDireWolf',
+	'Blutelf' => 'Ability_Mount_CockatriceMount',
+	'Draenei' => 'Ability_Mount_RidingElekk',
 	'Paladin'=>'Ability_Mount_Dreadsteed',
 	'Hexenmeister'=>'Ability_Mount_NightmareHorse'
 );
