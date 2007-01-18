@@ -92,12 +92,20 @@ class cplang
 			$_lang = (cpMain::isClass('cpusers'))
 				? cpMain::$instance['cpusers']->data['user_lang']
 				: cpMain::$instance['cpconfig']->cpconf['def_lang'];
-				
+			
+			// User language
 			$_path = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . $_lang . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
 			
+			// Fallback: Default language
 			if( !is_file($_path) )
 			{
 				$_path = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_lang'] . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
+			}
+			
+			// Fallback: English
+			if( !is_file($_path) )
+			{
+				$_path = PATH_LOCAL . "library".DIR_SEP."language".DIR_SEP . "english" . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
 			}
 
 			/**

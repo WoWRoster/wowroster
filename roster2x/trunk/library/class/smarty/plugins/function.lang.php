@@ -20,10 +20,16 @@ function smarty_function_lang($params, &$smarty)
 		$smarty->trigger_error('Lang: Language class not loaded');
 	}
 	
-	$text = cpMain::$instance['cplang']->lang[$key];
-	if( empty($text) && isset($params['default']) )
+	if( isset(cpMain::$instance['cplang']->lang[$key]) )
 	{
-		$text = $params['default'];
+		return cpMain::$instance['cplang']->lang[$key];
 	}
-	return $text;
+	elseif( isset($params['default']) )
+	{
+		return $params['default'];
+	}
+	else
+	{
+		return;
+	}
 }
