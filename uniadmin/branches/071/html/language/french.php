@@ -203,6 +203,8 @@ $lang['basic_user_level_1'] = 'Utilisateur Standard (niveau 1)';
 $lang['power_user_level_2'] = 'Utilisateur Expérimenté (niveau 2)';
 $lang['admin_level_3'] = 'administrateur (niveau 3)';
 $lang['password'] = 'Mot de Passe';
+$lang['retype_password'] = 'Retype Password';
+$lang['old_password'] = 'Old Password';
 $lang['username'] = 'Nom d\'Utilisateur';
 $lang['users'] = 'Utilisateurs';
 $lang['add_user'] = 'Ajouter Utilisateur';
@@ -381,6 +383,9 @@ $lang['error_move_uploaded_file'] = 'Impossible de de déplacer [%1$s] vers [%2$s
 $lang['error_no_uploaded_logo'] = 'Aucun Logo Chargé';
 $lang['error_logo_format'] = 'Le fichier chargé <u>doit</u> être une image GIF';
 
+$lang['error_pass_mismatch'] = 'Passwords did not match';
+$lang['error_pass_mismatch_edit'] = 'Passwords did not match<br />Old password unchanged';
+
 
 // SQL Error Messages
 $lang['sql_error'] = 'Erreur SQL';
@@ -401,7 +406,6 @@ $lang['sql_error_settings_update'] = 'Impossible de mettre à jour le paramètre =
 $lang['sql_error_settings_sv_insert'] = 'Impossible d\'insérer le nom de fichier savedvariable &quot;%1$s&quot;';
 $lang['sql_error_settings_sv_remove'] = 'Impossible de supprimer le nom de fichier savedvariable &quot;%1$s&quot;';
 
-$lang['sql_error_user_modify'] = 'Impossible de mettre à jour les informations utilisateurs de &quot;%1$s&quot;';
 $lang['sql_error_user_add'] = 'Impossible d\'ajouter l\'utilisateur &quot;%1$s&quot;';
 $lang['sql_error_user_delete'] = 'Impossible de supprimer l\'utilisateur &quot;%1$s&quot;';
 

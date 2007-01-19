@@ -195,14 +195,12 @@ function output_xml( )
 		while( $row = $db->fetch_record($result) )
 		{
 			$id = $row['id'];
-			//Workaround due to bad name separation in UU 2.5.0
-			//$name = addslashes($row['name']);
-			$name = strtr(addslashes($row['name']), " ", "_");
-			$version = addslashes($row['version']);
+			$name     = addslashes($row['name']);
+			$version  = addslashes($row['version']);
 			$required = addslashes($row['required']);
 			$homepage = addslashes($row['homepage']);
 			$addon_filename = addslashes($row['file_name']);
-			$toc = addslashes($row['toc']);
+			$toc      = addslashes($row['toc']);
 
 			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" homepage=\"$homepage\" filename=\"$addon_filename\" toc=\"$toc\">";
 
@@ -240,7 +238,7 @@ function output_url( $addonName )
 {
 	global $db, $uniadmin;
 
-	$sql = "SELECT `name`, `file_name` FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($addonName)."';";
+	$sql = "SELECT `name`, `file_name` FROM `".UA_TABLE_ADDONS."` WHERE `name` LIKE '".$db->escape($addonName)."';";
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{

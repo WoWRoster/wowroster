@@ -477,6 +477,8 @@ function process_addon()
 					// Get version
 					$revision = '';
 					$version = get_toc_val($file, 'Version', '');
+					$rev_matches = null;
+
 					if( count($revision_files) > 0 )
 					{
 						asort($revision_files);
@@ -502,7 +504,7 @@ function process_addon()
 					$homepage = get_toc_val($file, 'X-Website', get_toc_val($file, 'URL', ''));
 					$notes = get_toc_val($file, 'Notes', '');
 
-					if( !( strpos(strtolower($zip_file), strtolower($toc_file_name)) === false && strpos(strtolower($_POST['addon_name']), strtolower($toc_file_name)) === false ) )
+					if( strpos(strtolower($zip_file), strtolower($toc_file_name)) === true )
 					{
 						break;
 					}
@@ -645,6 +647,8 @@ function process_addon()
 function get_toc_val( $file, $var, $def_val )
 {
 	$lines = file($file);
+
+	$matches = $str_matches = null;
 
 	$val = $def_val;
 	foreach( $lines as $line )

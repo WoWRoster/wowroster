@@ -80,23 +80,26 @@ function main( )
 	global $db, $uniadmin, $user, $tpl;
 
 	$tpl->assign_vars(array(
-		'L_CURRENT_USERS' => $user->lang['current_users'],
-		'L_USERNAME'      => $user->lang['username'],
-		'L_PASSWORD'      => $user->lang['password'],
-		'L_USERLEVEL'     => $user->lang['userlevel'],
-		'L_LANGUAGE'      => $user->lang['language'],
-		'L_MODIFY'        => $user->lang['modify'],
-		'L_DELETE'        => $user->lang['delete'],
-		'L_ADD_USER'      => $user->lang['add_user'],
-		'L_USER_STYLE'    => $user->lang['user_style'],
+		'L_CURRENT_USERS'   => $user->lang['current_users'],
+		'L_USERNAME'        => $user->lang['username'],
+		'L_PASSWORD'        => $user->lang['password'],
+		'L_RETYPE_PASSWORD' => $user->lang['retype_password'],
+		'L_USERLEVEL'       => $user->lang['userlevel'],
+		'L_LANGUAGE'        => $user->lang['language'],
+		'L_MODIFY'          => $user->lang['modify'],
+		'L_DELETE'          => $user->lang['delete'],
+		'L_ADD_USER'        => $user->lang['add_user'],
+		'L_USER_STYLE'      => $user->lang['user_style'],
 
-		'S_ADD_USERS'     => ( $user->data['level'] >= UA_ID_POWER ) ? true : false,
-		'S_ADMIN'         => ( $user->data['level'] == UA_ID_ADMIN ) ? true : false,
+		'S_POWER'           => ( $user->data['level'] >= UA_ID_POWER ) ? true : false,
+		'S_ADMIN'           => ( $user->data['level'] == UA_ID_ADMIN ) ? true : false,
 
-		'U_LEVEL_SELECTBOX' => level_select(),
-		'U_LANG_SELECTBOX'  => lang_select(),
-		'U_STYLE_SELECTBOX' => style_select(),
-		'U_USER_ID'       => UA_ID_USER,
+		'U_LEVEL_SELECTBOX' => level_select( ( isset($_POST['level']) ? $_POST['level'] : '') ),
+		'U_LANG_SELECTBOX'  => lang_select( ( isset($_POST['language']) ? $_POST['language'] : '') ),
+		'U_STYLE_SELECTBOX' => style_select( ( isset($_POST['style']) ? $_POST['style'] : '') ),
+		'U_USER_ID'         => UA_ID_USER,
+
+		'P_USERNAME'        => ( isset($_POST['name']) ) ? $_POST['name'] : '',
 		)
 	);
 
@@ -189,17 +192,20 @@ function modify_user()
 
 	$tpl->assign_vars(array(
 		'L_MODIFY_USER' => $user->lang['modify_user'],
-		'L_CHANGE_USERNAME'      => $user->lang['change_username'],
-		'L_CHANGE_PASSWORD'      => $user->lang['change_password'],
-		'L_CHANGE_USERLEVEL'     => $user->lang['change_userlevel'],
-		'L_CHANGE_LANGUAGE'      => $user->lang['change_language'],
-		'L_CHANGE_STYLE'         => $user->lang['change_style'],
+		'L_CHANGE_USERNAME'   => $user->lang['change_username'],
+		'L_OLD_PASSWORD'      => $user->lang['old_password'],
+		'L_NEW_PASSWORD'      => $user->lang['new_password'],
+		'L_RETYPE_PASSWORD'   => $user->lang['retype_password'],
+		'L_CHANGE_USERLEVEL'  => $user->lang['change_userlevel'],
+		'L_CHANGE_LANGUAGE'   => $user->lang['change_language'],
+		'L_CHANGE_STYLE'      => $user->lang['change_style'],
 
 		'L_USERNAME'      => $user->lang['username'],
 		'L_USERLEVEL'     => $user->lang['userlevel'],
 
 		'S_POWER'         => ( $user->data['level'] >= UA_ID_POWER ) ? true : false,
 		'S_ADMIN'         => ( $user->data['level'] == UA_ID_ADMIN ) ? true : false,
+		'S_SELF'          => ( $user->data['level'] == $userL ) ? true : false,
 
 		'U_USER_ID'         => $uid,
 		'U_USERNAME'        => $userN,
@@ -227,42 +233,33 @@ function finalize_user()
 {
 	global $db, $uniadmin, $user;
 
-	$userN = $_POST['name'];
 	$userI = $_POST[UA_URI_ID];
 	$userP = $_POST['password'];
+	$userP2 = $_POST['password2'];
 	$userL = $_POST['level'];
 	$userS = $_POST['style'];
 	$userW = $_POST['language'];
 
-	$sql = "SELECT * FROM `".UA_TABLE_USERS."` WHERE `name` = '$userN';";
+	$sql = "SELECT * FROM `".UA_TABLE_USERS."` WHERE `id` = '".$db->escape($userI)."';";
 	$result = $db->query($sql);
 
 	$row = $db->fetch_record($result);
 	$old_pass_hash = $row['password'];
 
-	$userP = (empty($userP) ? $old_pass_hash : md5($userP) );
-
-	if ($user->data['level'] > UA_ID_USER)
+	if( $user->data['id'] == $userI )
 	{
-		if ($user->data['id'] != $userI)
+		// user is level 1 and trying to change someone elses info
+		if( $user->data['level'] == UA_ID_USER && $user->data['id'] != $userI )
 		{
-			if ($user->data['level'] < UA_ID_ADMIN)
-			{
-				$userL = UA_ID_USER;
-			}
-			$sql = "UPDATE `".UA_TABLE_USERS."` SET `name` = '".$db->escape($userN)."', `level` = '$userL', `password` = '$userP', `language` = '".$db->escape($userW)."', `user_style` = '".$db->escape($userS)."' WHERE `id` = '$userI' LIMIT 1 ;";
+			$uniadmin->debug($user->lang['access_denied']);
+			$uniadmin->set_vars(array(
+			    'template_file' => 'index.html',
+			    'display'       => true)
+			);
+			die();
 		}
-		else
-		{
-			$sql = "UPDATE `".UA_TABLE_USERS."` SET `name` = '".$db->escape($userN)."', `password` = '$userP', `language` = '".$db->escape($userW)."', `user_style` = '".$db->escape($userS)."' WHERE `id` = '$userI' LIMIT 1 ;";
-
-		}
-		$result = $db->query($sql);
-	}
-	else
-	{
-		// user is level 1 and changing own password
-		if ($user->data['id'] != $userI)
+		// user is level 1 and trying to change their name
+		if( $user->data['level'] == UA_ID_USER && isset($_POST['name']) )
 		{
 			$uniadmin->debug($user->lang['access_denied']);
 			$uniadmin->set_vars(array(
@@ -272,14 +269,74 @@ function finalize_user()
 			die();
 		}
 
-		$sql = "UPDATE `".UA_TABLE_USERS."` SET `password` = '$userP' WHERE `id` = '$userI' LIMIT 1 ;";
-		$result = $db->query($sql);
-		if( !$db->affected_rows() )
+		// Check passwords
+		$userPD = $_POST['old_password'];
+		if( !empty($userP) )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_user_modify'],$userN));
+			if( (md5($userP) == md5($userP2)) && md5($userPD) == $old_pass_hash )
+			{
+				$userP = md5($userP);
+			}
+			else
+			{
+				$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+				$userP = $old_pass_hash;
+			}
+		}
+		elseif( empty($userP) && !empty($userP2) )
+		{
+			$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+			$userP = $old_pass_hash;
+		}
+		else
+		{
+			$userP = $old_pass_hash;
 		}
 
-		$userN = $user->data['name'];
+		$sql = "UPDATE `".UA_TABLE_USERS."` SET `password` = '".$db->escape($userP)."', `language` = '".$db->escape($userW)."', `user_style` = '".$db->escape($userS)."' WHERE `id` = '$userI' LIMIT 1 ;";
+		$result = $db->query($sql);
+	}
+	elseif( $user->data['level'] > UA_ID_USER )
+	{
+		$userN = $_POST['name'];
+
+		// Check passwords
+		if( !empty($userP) )
+		{
+			if( md5($userP) == md5($userP2) )
+			{
+				$userP = md5($userP);
+			}
+			else
+			{
+				$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+				$userP = $old_pass_hash;
+			}
+		}
+		elseif( empty($userP) && !empty($userP2) )
+		{
+			$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+			$userP = $old_pass_hash;
+		}
+		else
+		{
+			$userP = $old_pass_hash;
+		}
+
+		if ($user->data['id'] != $userI)
+		{
+			if ($user->data['level'] < UA_ID_ADMIN)
+			{
+				$userL = UA_ID_USER;
+			}
+			$sql = "UPDATE `".UA_TABLE_USERS."` SET `name` = '".$db->escape($userN)."', `level` = '".$db->escape($userL)."', `password` = '".$db->escape($userP)."', `language` = '".$db->escape($userW)."', `user_style` = '".$db->escape($userS)."' WHERE `id` = '$userI' LIMIT 1 ;";
+		}
+		else
+		{
+			$sql = "UPDATE `".UA_TABLE_USERS."` SET `name` = '".$db->escape($userN)."', `password` = '".$db->escape($userP)."', `language` = '".$db->escape($userW)."', `user_style` = '".$db->escape($userS)."' WHERE `id` = '$userI' LIMIT 1 ;";
+
+		}
+		$result = $db->query($sql);
 	}
 	$uniadmin->message(sprintf($user->lang['user_modified'],$userN));
 }
@@ -293,9 +350,49 @@ function new_user()
 
 	$userN = $_POST['name'];
 	$userP = $_POST['password'];
+	$userP2 = $_POST['password2'];
 	$userL = $_POST['level'];
 	$userW = $_POST['language'];
 	$userS = $_POST['style'];
+
+	// Form validation check
+	$add_error = false;
+
+	// Check name
+	if( empty($userN) )
+	{
+		$uniadmin->debug($user->lang['error_name_required']);
+		$add_error = true;
+	}
+
+	// Check passwords
+	if( !empty($userP) )
+	{
+		if( (md5($userP) == md5($userP2)) )
+		{
+			$userP = md5($userP);
+		}
+		else
+		{
+			$uniadmin->debug($user->lang['error_pass_mismatch']);
+			$add_error = true;
+		}
+	}
+	elseif( empty($userP) && !empty($userP2) )
+	{
+		$uniadmin->debug($user->lang['error_pass_mismatch']);
+		$add_error = true;
+	}
+	else
+	{
+		$uniadmin->debug($user->lang['error_pass_required']);
+		$add_error = true;
+	}
+
+	if( $add_error )
+	{
+		return;
+	}
 
 	if ($user->data['level'] > UA_ID_USER)
 	{

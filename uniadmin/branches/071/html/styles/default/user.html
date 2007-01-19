@@ -34,7 +34,7 @@
 
 <br />
 
-<!-- IF S_ADD_USERS -->
+<!-- IF S_POWER -->
 <form name="ua_adduser" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 	<table class="ua_table" align="center">
 		<tr>
@@ -42,12 +42,18 @@
 		</tr>
 		<tr>
 			<td class="data1">{L_USERNAME}:</td>
-			<td class="data1"><input class="input" type="text" name="name" value="" size="20" maxlength="30" /></td>
+			<td class="data1"><input class="input" type="text" name="name" value="{P_USERNAME}" size="20" maxlength="30" /></td>
 		</tr>
 		<tr>
 			<td class="data2">{L_PASSWORD}:</td>
 			<td class="data2"><input class="input" type="password" name="password" value="" size="20" maxlength="50" /></td>
 		</tr>
+		<!-- IF S_POWER -->
+		<tr>
+			<td class="data2">{L_RETYPE_PASSWORD}:</td>
+			<td class="data2"><input class="input" type="password" name="password2" value="" size="20" maxlength="50" /></td>
+		</tr>
+		<!-- ENDIF -->
 		<tr>
 			<td class="data1">{L_USERLEVEL}:</td>
 			<td class="data1"><!-- IF S_ADMIN -->{U_LEVEL_SELECTBOX}<!-- ELSE -->[{U_USER_ID}]<input type="hidden" name="level" value="{U_USER_ID}" /><!-- ENDIF --></td>

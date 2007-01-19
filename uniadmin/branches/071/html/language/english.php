@@ -203,6 +203,8 @@ $lang['basic_user_level_1'] = 'basic user (level 1)';
 $lang['power_user_level_2'] = 'power user (level 2)';
 $lang['admin_level_3'] = 'administrator (level 3)';
 $lang['password'] = 'Password';
+$lang['retype_password'] = 'Retype Password';
+$lang['old_password'] = 'Old Password';
 $lang['username'] = 'Username';
 $lang['users'] = 'Users';
 $lang['add_user'] = 'Add User';
@@ -381,6 +383,11 @@ $lang['error_move_uploaded_file'] = 'Could not move [%1$s] to [%2$s]<br />Check 
 $lang['error_no_uploaded_logo'] = 'No Logo Uploaded';
 $lang['error_logo_format'] = 'The uploaded file <u>must</u> be a GIF image';
 
+$lang['error_name_required'] = 'Name is required';
+$lang['error_pass_required'] = 'Password is required';
+$lang['error_pass_mismatch'] = 'Passwords did not match';
+$lang['error_pass_mismatch_edit'] = 'Passwords did not match<br />Old password unchanged';
+
 
 // SQL Error Messages
 $lang['sql_error'] = 'SQL Error';
@@ -401,7 +408,6 @@ $lang['sql_error_settings_update'] = 'Could not update setting =&gt; %1$s, value
 $lang['sql_error_settings_sv_insert'] = 'Could not insert savedvariable filename &quot;%1$s&quot;';
 $lang['sql_error_settings_sv_remove'] = 'Could not remove savedvariable filename &quot;%1$s&quot;';
 
-$lang['sql_error_user_modify'] = 'Could not update user info for &quot;%1$s&quot;';
 $lang['sql_error_user_add'] = 'Could not add user &quot;%1$s&quot;';
 $lang['sql_error_user_delete'] = 'Could not delete user &quot;%1$s&quot;';
 

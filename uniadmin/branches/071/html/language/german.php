@@ -203,6 +203,8 @@ $lang['basic_user_level_1'] = 'Benutzer (Stufe 1)';
 $lang['power_user_level_2'] = 'Hauptbenutzer (Stufe 2)';
 $lang['admin_level_3'] = 'Administrator (Stufe 3)';
 $lang['password'] = 'Passwort';
+$lang['retype_password'] = 'Retype Password';
+$lang['old_password'] = 'Old Password';
 $lang['username'] = 'Benutzername';
 $lang['users'] = 'Benutzer';
 $lang['add_user'] = 'Benutzer hinzufügen';
@@ -381,6 +383,9 @@ $lang['error_move_uploaded_file'] = 'Konnte nicht Datei [%1$s] nach [%2$s] beweg
 $lang['error_no_uploaded_logo'] = 'Kein Logo hochgeladen';
 $lang['error_logo_format'] = 'Die hochgeladene Datei <u>muss</u> ein GIF-Bild sein';
 
+$lang['error_pass_mismatch'] = 'Passwords did not match';
+$lang['error_pass_mismatch_edit'] = 'Passwords did not match<br />Old password unchanged';
+
 
 // SQL Error Messages
 $lang['sql_error'] = 'SQL Error';
@@ -401,7 +406,6 @@ $lang['sql_error_settings_update'] = 'Konnte Einstellungen nicht updaten =&gt; %
 $lang['sql_error_settings_sv_insert'] = 'Konnte nicht savedvariable Dateiname &quot;%1$s&quot; hinzufügen';
 $lang['sql_error_settings_sv_remove'] = 'Konnte nicht savedvariable Dateiname &quot;%1$s&quot; entfernen';
 
-$lang['sql_error_user_modify'] = 'Konnte nicht Benutzerinfo für Benutzer &quot;%1$s&quot; updaten';
 $lang['sql_error_user_add'] = 'Konnte nicht Benutzer &quot;%1$s&quot; hinzufügen';
 $lang['sql_error_user_delete'] = 'Konnte nicht Benutzer &quot;%1$s&quot; löschen';
 
