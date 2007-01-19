@@ -519,11 +519,10 @@ $wordings['deDE']['pvplist7']='Besten Kills-Level-Durchschnitt';
 $wordings['deDE']['pvplist8']='Besten Tod-Level-Durchschnitt';
 
 $wordings['deDE']['hslist']=' Ehren Statistiken';
-$wordings['deDE']['hslist1']='H&ouml;chstrangigstes Mitglied diese Woche';
-$wordings['deDE']['hslist2']='H&ouml;chsten Lebenszeit Rang';
-$wordings['deDE']['hslist3']='H&ouml;chsten Lebenszeit ES';
-$wordings['deDE']['hslist4']='Die meisten Ehrenpunkte';
-$wordings['deDE']['hslist5']='Die meisten Arenapunkte';
+$wordings['deDE']['hslist1']='H&ouml;chsten Lebenszeit Rang';
+$wordings['deDE']['hslist2']='H&ouml;chsten Lebenszeit ES';
+$wordings['deDE']['hslist3']='Die meisten Ehrenpunkte';
+$wordings['deDE']['hslist4']='Die meisten Arenapunkte';
 
 $wordings['deDE']['Druid']='Druide';
 $wordings['deDE']['Hunter']='Jäger';

@@ -185,9 +185,9 @@ $query =
 
 // Fields to get from the players table
 	'`players`.`race`, '.
-	'`players`.`RankName`, '.
-	'`players`.`RankInfo`, '.
-	"IF( `players`.`RankInfo` IS NULL OR `players`.`RankInfo` = '0', 1, 0 ) AS 'risnull', ".
+	'`players`.`lifetimeRankName`, '.
+	'`players`.`lifetimeHighestRank`, '.
+	"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
 	'`players`.`exp`, '.
 	'`players`.`server`, '.
 	'`players`.`clientLocale` ';
@@ -433,11 +433,6 @@ function name_value ( $row )
 
 	if( $roster_conf['index_member_tooltip'] )
 	{
-		if ( $row['RankInfo'] > 0 )
-		{
-			$rankname = $row['RankName'].' ';
-		}
-
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
 
 		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
@@ -481,19 +476,27 @@ function honor_value ( $row )
 {
 	global $roster_conf, $wordings;
 
-	if ( $roster_conf['index_honoricon'] )
+	if ( $row['lifetimeHighestRank'] > 0 )
 	{
-		$rankicon = $roster_conf['interface_url'].$row['RankIcon'].'.'.$roster_conf['alt_img_suffix'];
-		$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
-	}
-	else
-	{
-		$rankicon = '';
-	}
+		if ( $roster_conf['index_honoricon'] )
+		{
+			if( $playersData['lifetimeHighestRank'] < 10 )
+			{
+				$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
+			}
+			else
+			{
+				$rankicon = 'Interface/PvPRankBadges/PvPRank'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
+			}
+			$rankicon = $roster_conf['interface_url'].$rankicon;
+			$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
+		}
+		else
+		{
+			$rankicon = '';
+		}
 
-	if ( $row['RankInfo'] > 0 )
-	{
-		$cell_value = $rankicon.' '.$row['RankName'];
+		$cell_value = $rankicon.' '.$row['lifetimeRankName'];
 
 		return $cell_value;
 	}

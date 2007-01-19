@@ -25,14 +25,11 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 // Additional querries needed for this page
 // Make sure the last item in this array DOES NOT have a (,) at the end
 $additional_sql = array(
-	'`players`.`RankIcon`, ',
-	'`players`.`Rankexp`, ',
 	'`players`.`sessionHK`, ',
 	'`players`.`sessionCP`, ',
 	'`players`.`yesterdayHK`, ',
 	'`players`.`yesterdayContribution`, ',
 	'`players`.`lifetimeHK`, ',
-	'`players`.`lifetimeRankName`, ',
 	'`players`.`honorpoints`, ',
 	'`players`.`arenapoints` ',
 );
@@ -114,8 +111,9 @@ $FIELD[] = array (
 $FIELD[] = array (
 	'lifetimeRankName' => array(
 		'lang_field' => 'Highest Rank',
-		'order' => array( '`players`.`lifetimeRankName` DESC' ),
-		'order_d' => array( '`players`.`lifetimeRankName` ASC' ),
+		'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
+		'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
+		'value' => 'honor_value',
 	),
 );
 

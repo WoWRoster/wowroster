@@ -519,11 +519,10 @@ $wordings['frFR']['pvplist7']='Membre ayant la meilleure moyenne de mort';
 $wordings['frFR']['pvplist8']='Membre ayant la meilleure moyenne de défaîte';
 
 $wordings['frFR']['hslist']=' Stats du Système d\'Honneur';
-$wordings['frFR']['hslist1']='Membre le mieux classé cette semaine';
-$wordings['frFR']['hslist2']='Membre le mieux classé';
-$wordings['frFR']['hslist3']='Membre ayant le plus de VH';
-$wordings['frFR']['hslist4']='Le plus de Points d\'Honneur';
-$wordings['frFR']['hslist5']='Le plus de Points d\'Arène';
+$wordings['frFR']['hslist1']='Membre le mieux classé';
+$wordings['frFR']['hslist2']='Membre ayant le plus de VH';
+$wordings['frFR']['hslist3']='Le plus de Points d\'Honneur';
+$wordings['frFR']['hslist4']='Le plus de Points d\'Arène';
 
 $wordings['frFR']['Druid']='Druide';
 $wordings['frFR']['Hunter']='Chasseur';

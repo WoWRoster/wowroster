@@ -305,16 +305,12 @@ function RosterDF_install($this_prefix, $this_base)
 	`lifetimeRankName` varchar(64) NOT NULL default '0',
 	`honorpoints` int(11) NOT NULL default '0',
 	`arenapoints` int(11) NOT NULL default '0',
-	`Rankexp` float NOT NULL default '0',
 	`dodge` float NOT NULL default '0',
 	`parry` float NOT NULL default '0',
 	`block` float NOT NULL default '0',
 	`mitigation` float NOT NULL default '0',
 	`crit` float NOT NULL default '0',
 	`lifetimeHighestRank` int(11) NOT NULL default '0',
-	`RankInfo` int(11) NOT NULL default '0',
-	`RankName` varchar(64) NOT NULL default '',
-	`RankIcon` varchar(64) NOT NULL default '',
 	`clientLocale` varchar(4) NOT NULL default '',
 	`timeplayed` int(11) NOT NULL default '0',
 	`timelevelplayed` int(11) NOT NULL default '0',
@@ -673,7 +669,6 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/')");
 		$installer->add_query('UPDATE', $this_prefix.'mailbox', "`item_icon` = REPLACE(`item_icon`,'\\\\','/')");
 		$installer->add_query('UPDATE', $this_prefix.'pets', "`icon` = REPLACE(`icon`,'\\\\','/')");
-		$installer->add_query('UPDATE', $this_prefix.'players', "`RankIcon` = REPLACE(`RankIcon`,'\\\\','/')");
 		$installer->add_query('UPDATE', $this_prefix.'recipes', "`recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/')");
 		$installer->add_query('UPDATE', $this_prefix.'spellbook', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')");
 		$installer->add_query('UPDATE', $this_prefix.'spellbooktree', "`spell_texture` = REPLACE(`spell_texture`,'\\\\','/')");
@@ -780,6 +775,10 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('DEL', $this_prefix.'players', "lastweekRank");
 		$installer->add_query('DEL', $this_prefix.'players', "TWContribution");
 		$installer->add_query('DEL', $this_prefix.'players', "TWHK");
+		$installer->add_query('DEL', $this_prefix.'players', "Rankexp");
+		$installer->add_query('DEL', $this_prefix.'players', "RankInfo");
+		$installer->add_query('DEL', $this_prefix.'players', "RankInfo");
+		$installer->add_query('DEL', $this_prefix.'players', "RankIcon");
 
 		$installer->add_query('ADD', $this_prefix.'players', "sessionCP INT(11) NOT NULL DEFAULT '0' AFTER sessionHK");
 		$installer->add_query('ADD', $this_prefix.'players', "honorpoints INT(11) NOT NULL DEFAULT '0' AFTER lifetimeRankName");
@@ -787,12 +786,8 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 
 		$installer->add_query('CHANGE', $this_prefix.'players', "melee_range melee_range VARCHAR(32) NOT NULL DEFAULT ''");
 		$installer->add_query('CHANGE', $this_prefix.'players', "ranged_range ranged_range VARCHAR(32) NOT NULL DEFAULT ''");
-		//$installer->add_query('CHANGE', $this_prefix.'players', "Rankexp Rankexp FLOAT NULL DEFAULT NULL");
 		$installer->add_query('CHANGE', $this_prefix.'players', "melee_range melee_range VARCHAR(32) NOT NULL DEFAULT ''");
 		$installer->add_query('CHANGE', $this_prefix.'players', "ranged_range ranged_range VARCHAR(32) NOT NULL DEFAULT ''");
-
-		// THIS HAS TO BE DONE THIS WAY TO BYPASS DF'S SCREWY SQL EDITING CRAP
-		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."players CHANGE Rankexp Rankexp FLOAT NULL DEFAULT NULL");
 
 		# --------------------------------------------------------
 		### Recipe Table
