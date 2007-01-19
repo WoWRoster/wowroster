@@ -2213,7 +2213,7 @@ class wowdb
 			$playerRealm = $playerInfo['realm'];
 
 			// skip if entry already there
-			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$this->escape( $playerName )."' AND `date` = '".$this->escape( $playerDate ).( !empty($playerRealm) ? " AND `realm` = '".$this->escape( $playerRealm )."'" : '' );
+			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$this->escape( $playerName )."' AND `date` = '".$this->escape( $playerDate )."'".( !empty($playerRealm) ? " AND `realm` = '".$this->escape( $playerRealm )."';" : ';' );
 
 			$result = $this->query($querystr);
 			if( !$result )
