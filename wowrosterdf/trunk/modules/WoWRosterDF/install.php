@@ -617,7 +617,7 @@ function RosterDF_install($this_prefix, $this_base)
 	# --------------------------------------------------------
 	### Realmstatus Settings
 
-	$installer->add_query('INSERT', $this_prefix.'config', "8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html', 'realmstatus_conf'");
+	$installer->add_query('INSERT', $this_prefix.'config', "8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html|European Spanish^http://www.wow-europe.com/es/serverstatus/index.html', 'realmstatus_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "8010, 'rs_display', 'full', 'select{full^full|half^half', 'realmstatus_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "8020, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'realmstatus_conf'");
 	$installer->add_query('INSERT', $this_prefix.'config', "8030, 'realmstatus', '', 'text{50|30', 'realmstatus_conf'");
@@ -682,6 +682,8 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.0.0' WHERE id = '1020' LIMIT 1");
 		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '2.3.1' WHERE id = '1030' LIMIT 1");
 		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '0' WHERE id = '3140' LIMIT 1");
+
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html|European Spanish^http://www.wow-europe.com/es/serverstatus/index.html' WHERE id = '8000' LIMIT 1");
 
 		$installer->add_query('INSERT', $this_prefix.'config', "'1001', 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf'");
 
