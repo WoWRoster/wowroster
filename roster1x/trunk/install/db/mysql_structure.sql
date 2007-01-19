@@ -19,12 +19,12 @@ CREATE TABLE `renprefix_account` (
 
 DROP TABLE IF EXISTS `renprefix_buffs`;
 CREATE TABLE `renprefix_buffs` (
-`member_id` int(11) unsigned NOT NULL default '0',
-`name` varchar(96) NOT NULL default '',
-`rank` varchar(32) NOT NULL default '',
-`count` int(11) unsigned NOT NULL default '0',
-`icon` varchar(64) NOT NULL default '',
-`tooltip` mediumtext NOT NULL
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `name` varchar(96) NOT NULL default '',
+  `rank` varchar(32) NOT NULL default '',
+  `count` int(11) unsigned NOT NULL default '0',
+  `icon` varchar(64) NOT NULL default '',
+  `tooltip` mediumtext NOT NULL
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -291,16 +291,12 @@ CREATE TABLE `renprefix_players` (
   `lifetimeRankName` varchar(64) NOT NULL default '0',
   `honorpoints` int(11) NOT NULL default '0',
   `arenapoints` int(11) NOT NULL default '0',
-  `Rankexp` float NOT NULL default '0',
   `dodge` float NOT NULL default '0',
   `parry` float NOT NULL default '0',
   `block` float NOT NULL default '0',
   `mitigation` float NOT NULL default '0',
   `crit` float NOT NULL default '0',
   `lifetimeHighestRank` int(11) NOT NULL default '0',
-  `RankInfo` int(11) NOT NULL default '0',
-  `RankName` varchar(64) NOT NULL default '',
-  `RankIcon` varchar(64) NOT NULL default '',
   `clientLocale` varchar(4) NOT NULL default '',
   `timeplayed` int(11) NOT NULL default '0',
   `timelevelplayed` int(11) NOT NULL default '0',

@@ -2526,26 +2526,6 @@ class wowdb
 			else
 				$this->add_value( 'arenapoints',0 );
 
-			if( isset($honor['Current']['Rank']) )
-				$this->add_value( 'RankInfo',              $honor['Current']['Rank'] );
-			else
-				$this->add_value( 'RankInfo',0 );
-
-			if( isset($honor['Current']['Name']) )
-				$this->add_value( 'RankName',              $honor['Current']['Name'] );
-			else
-				$this->add_value( 'RankName','' );
-
-			if( isset($honor['Current']['Icon']) )
-				$this->add_value( 'RankIcon',              'Interface/PvPRankBadges/'.$honor['Current']['Icon'] );
-			else
-				$this->add_value( 'RankIcon','' );
-
-			if( isset($honor['Current']['Progress']) )
-				$this->add_value( 'Rankexp',               $honor['Current']['Progress'] );
-			else
-				$this->add_value( 'Rankexp',0 );
-
 			unset($honor);
 		}
 		// END HONOR VALUES

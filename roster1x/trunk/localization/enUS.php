@@ -519,11 +519,10 @@ $wordings['enUS']['pvplist7']='Member with best kill average';
 $wordings['enUS']['pvplist8']='Member with best loss average';
 
 $wordings['enUS']['hslist']=' Honor System Stats';
-$wordings['enUS']['hslist1']='Highest Ranking member';
-$wordings['enUS']['hslist2']='Highest Lifetime Rank';
-$wordings['enUS']['hslist3']='Highest Lifetime HKs';
-$wordings['enUS']['hslist4']='Most Honor Points';
-$wordings['enUS']['hslist5']='Most Arena Points';
+$wordings['enUS']['hslist1']='Highest Lifetime Rank';
+$wordings['enUS']['hslist2']='Highest Lifetime HKs';
+$wordings['enUS']['hslist3']='Most Honor Points';
+$wordings['enUS']['hslist4']='Most Arena Points';
 
 $wordings['enUS']['Druid']='Druid';
 $wordings['enUS']['Hunter']='Hunter';

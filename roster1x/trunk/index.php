@@ -24,8 +24,6 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 // Additional querries needed for this page
 // Make sure the last item in this array DOES NOT have a (,) at the end
 $additional_sql = array(
-	'`players`.`RankIcon`, ',
-	'`players`.`Rankexp`, ',
 	'`players`.`hearth`, ',
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ",
 	"`players`.`dateupdatedutc` AS 'last_update', ",
@@ -81,11 +79,10 @@ if ( $roster_conf['index_title'] == 1 )
 if ( $roster_conf['index_currenthonor'] == 1 )
 {
 	$FIELD[] = array (
-		'RankName' => array(
-			'lang_field' => 'currenthonor',
-			'divider' => true,
-			'order' => array( 'risnull','`players`.`RankInfo` DESC' ),
-			'order_d' => array( 'risnull','`players`.`RankInfo` ASC' ),
+		'lifetimeRankName' => array(
+			'lang_field' => 'Highest Rank',
+			'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
+			'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
 			'value' => 'honor_value',
 		),
 	);
