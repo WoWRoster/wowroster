@@ -137,7 +137,7 @@ INSERT INTO `renprefix_config` VALUES (7140, 'show_avatar', '0', 'radio{yes^1|no
 # --------------------------------------------------------
 ### Realmstatus Settings
 
-INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html|European Spanish^http://www.wow-europe.com/es/serverstatus/index.html', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8010, 'rs_display', 'full', 'select{full^full|half^half', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8020, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8030, 'realmstatus', '', 'text{50|30', 'realmstatus_conf');
