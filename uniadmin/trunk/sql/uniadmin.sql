@@ -4,7 +4,7 @@
 # $Id$
 #
 # --------------------------------------------------------
-### Table structure for addons
+### Table structure for addons 
 
 DROP TABLE IF EXISTS `uniadmin_addons`;
 CREATE TABLE `uniadmin_addons` (
