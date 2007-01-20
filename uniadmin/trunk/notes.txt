@@ -1,0 +1,35 @@
+#!/bin/bash
+CVSROOT=/usr/local/cvsroot
+export CVSROOT
+cvs init
+OF1=$(date +%Y-%m-%d)
+cvs export -DNOW roster
+OF2=/home/wowprofi/public_html/files/snapshots/roster_cvs_snapshot_checkin[$1]_$OF1
+OF3=/home/wowprofi/roster
+cd $OF3
+rm $OF2.zip
+zip -r $OF2 *
+cd /home/wowprofi
+rm -rf roster
+
+
+svn export -r "HEAD" "file:///svn/repos" "asdf"
+
+svn export -q -r "HEAD" "file:///svn/repos" "asdf"
+
+
+python ciabot_svn.py "/svn/repos" "432" "roster" > /home/roster/public_html/commitlog.xml
+
+
+python ciabot_svn.py "/svn/repos" "432" "roster" > /home/roster/public_html/commitlog.xml
+
+
+$REPOS/hooks/ciabot_svn.py "$REPOS" "$REV" "roster" > /home/roster/public_html/commitlog.xml &
+
+
+/*$file = '/home/roster/public_html/roster_svn/commitlog.xml';$handle = fopen($file, 'r');
+$commitlog = fread($handle,filesize($file));fclose($handle);//echo $commitlog;*/
+//$p =& new xmlParser();
+//$p->parse('/home/roster/public_html/roster_svn/commitlog.xml');
+//$xml_parser = new Simple_Parser;
+//$xml_parser->parse($commitlog);
