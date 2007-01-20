@@ -26,10 +26,12 @@ function smarty_function_lang($params, &$smarty)
 	}
 	elseif( isset($params['default']) )
 	{
+		$smarty->trigger_error('Lang: No translation available for '.$params['key'],E_USER_NOTICE);
 		return $params['default'];
 	}
 	else
 	{
+		$smarty->trigger_error('Lang: No translation available for '.$params['key'],E_USER_NOTICE);
 		return;
 	}
 }
