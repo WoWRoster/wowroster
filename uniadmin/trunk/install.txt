@@ -19,7 +19,7 @@ Table of Contents
   10 - Change Log
   11 - The Future 
    
-
+ 
 1 - Requirements
 ================
 - A web server (Apache, IIS, or any software able to run php)
