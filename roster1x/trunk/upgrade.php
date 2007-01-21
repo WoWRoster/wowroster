@@ -64,7 +64,7 @@ include_once($roster_root_path.'conf.php');
 include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
 
 $DEFAULTS = array(
-	'version'        => '1.7.2',
+	'version'        => '1.7.3',
 );
 
 // ---------------------------------------------------------
@@ -149,7 +149,7 @@ if( $version >= $DEFAULTS['version'] )
 
 class Upgrade
 {
-	var $versions = array('1.6.0','1.7.0','1.7.1');
+	var $versions = array('1.6.0','1.7.0','1.7.1','1.7.2');
 	var $messages;
 
 
