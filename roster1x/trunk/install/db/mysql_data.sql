@@ -11,8 +11,8 @@
 
 INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
-INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '4', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.2', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '5', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.3', 'display', 'master');
 
 # --------------------------------------------------------
 ### Main Roster Config
