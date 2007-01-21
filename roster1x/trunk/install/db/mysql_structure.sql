@@ -24,7 +24,8 @@ CREATE TABLE `renprefix_buffs` (
   `rank` varchar(32) NOT NULL default '',
   `count` int(11) unsigned NOT NULL default '0',
   `icon` varchar(64) NOT NULL default '',
-  `tooltip` mediumtext NOT NULL
+  `tooltip` mediumtext NOT NULL,
+  PRIMARY KEY (`member_id`,`name`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -429,7 +430,8 @@ CREATE TABLE `renprefix_spellbook` (
   `spell_type` varchar(100) NOT NULL default '',
   `spell_texture` varchar(64) NOT NULL default '',
   `spell_rank` varchar(64) NOT NULL default '',
-  `spell_tooltip` mediumtext NOT NULL
+  `spell_tooltip` mediumtext NOT NULL,
+  PRIMARY KEY (`member_id`,`spell_name`,`spell_rank`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -439,7 +441,8 @@ DROP TABLE IF EXISTS `renprefix_spellbooktree`;
 CREATE TABLE `renprefix_spellbooktree` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `spell_type` varchar(64) NOT NULL default '',
-  `spell_texture` varchar(64) NOT NULL default ''
+  `spell_texture` varchar(64) NOT NULL default '',
+  PRIMARY KEY (`member_id`,`spell_type`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -455,7 +458,8 @@ CREATE TABLE `renprefix_talents` (
   `rank` tinyint(4) NOT NULL default '0',
   `maxrank` tinyint(4) NOT NULL default '0',
   `tooltip` mediumtext NOT NULL,
-  `texture` varchar(64) NOT NULL default ''
+  `texture` varchar(64) NOT NULL default '',
+  PRIMARY KEY (`member_id`,`tree`,`row`,`column`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -467,5 +471,6 @@ CREATE TABLE `renprefix_talenttree` (
   `tree` varchar(64) NOT NULL default '',
   `background` varchar(64) NOT NULL default '',
   `order` tinyint(4) NOT NULL default '0',
-  `pointsspent` tinyint(4) NOT NULL default '0'
+  `pointsspent` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY (`member_id`,`tree`)
 ) TYPE=MyISAM;

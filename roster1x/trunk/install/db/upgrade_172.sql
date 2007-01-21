@@ -23,6 +23,41 @@ ALTER TABLE `renprefix_players`
 
 
 # --------------------------------------------------------
+### Buffs
+
+ALTER TABLE `renprefix_buffs`
+  ADD PRIMARY KEY (`member_id`,`name`);
+
+
+# --------------------------------------------------------
+### Spell trees
+
+ALTER TABLE `renprefix_spellbooktree`
+  ADD PRIMARY KEY (`member_id`,`spell_type`);
+
+
+# --------------------------------------------------------
+### Spellbook
+
+ALTER TABLE `renprefix_spellbook`
+  ADD PRIMARY KEY (`member_id`,`spell_name`,`spell_rank`);
+
+
+# --------------------------------------------------------
+### Talent trees
+
+ALTER TABLE `renprefix_talenttree`
+  ADD PRIMARY KEY (`member_id`,`tree`);
+
+
+# --------------------------------------------------------
+### Talents
+
+ALTER TABLE `renprefix_talents`
+  ADD PRIMARY KEY (`member_id`,`tree`,`row`,`column`);
+
+
+# --------------------------------------------------------
 ### The roster version and db version MUST be last
 
 UPDATE `renprefix_config` SET `config_value` = '1.7.3' WHERE `id` = '4' LIMIT 1;
