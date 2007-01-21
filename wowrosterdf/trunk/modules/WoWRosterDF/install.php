@@ -38,7 +38,8 @@ function RosterDF_install($this_prefix, $this_base)
 	`rank` varchar(32) NOT NULL default '',
 	`count` int(11) unsigned NOT NULL default '0',
 	`icon` varchar(64) NOT NULL default '',
-	`tooltip` mediumtext NOT NULL", $this_prefix.'buffs');
+	`tooltip` mediumtext NOT NULL,
+	PRIMARY KEY (`member_id`,`name`)", $this_prefix.'buffs');
 
 
 	# --------------------------------------------------------
@@ -443,7 +444,8 @@ function RosterDF_install($this_prefix, $this_base)
 	`spell_type` varchar(100) NOT NULL default '',
 	`spell_texture` varchar(64) NOT NULL default '',
 	`spell_rank` varchar(64) NOT NULL default '',
-	`spell_tooltip` mediumtext NOT NULL", $this_prefix.'spellbook');
+	`spell_tooltip` mediumtext NOT NULL,
+	PRIMARY KEY (`member_id`,`spell_name`,`spell_rank`)", $this_prefix.'spellbook');
 
 
 	# --------------------------------------------------------
@@ -453,7 +455,8 @@ function RosterDF_install($this_prefix, $this_base)
 	$installer->add_query('CREATE', $this_prefix.'spellbooktree', "
 	`member_id` int(11) unsigned NOT NULL default '0',
 	`spell_type` varchar(64) NOT NULL default '',
-	`spell_texture` varchar(64) NOT NULL default ''", $this_prefix.'spellbooktree');
+	`spell_texture` varchar(64) NOT NULL default '',
+	PRIMARY KEY (`member_id`,`spell_type`)", $this_prefix.'spellbooktree');
 
 
 	# --------------------------------------------------------
@@ -469,7 +472,8 @@ function RosterDF_install($this_prefix, $this_base)
 	`rank` tinyint(4) NOT NULL default '0',
 	`maxrank` tinyint(4) NOT NULL default '0',
 	`tooltip` mediumtext NOT NULL,
-	`texture` varchar(64) NOT NULL default ''", $this_prefix.'talents');
+	`texture` varchar(64) NOT NULL default '',
+	PRIMARY KEY (`member_id`,`tree`,`row`,`column`)", $this_prefix.'talents');
 
 
 	# --------------------------------------------------------
@@ -481,7 +485,8 @@ function RosterDF_install($this_prefix, $this_base)
 	`tree` varchar(64) NOT NULL default '',
 	`background` varchar(64) NOT NULL default '',
 	`order` tinyint(4) NOT NULL default '0',
-	`pointsspent` tinyint(4) NOT NULL default '0'", $this_prefix.'talenttree');
+	`pointsspent` tinyint(4) NOT NULL default '0',
+	PRIMARY KEY (`member_id`,`tree`)", $this_prefix.'talenttree');
 
 
 
@@ -675,6 +680,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('UPDATE', $this_prefix.'talents', "`texture` = REPLACE(`texture`,'\\\\','/')");
 		$installer->add_query('UPDATE', $this_prefix.'talenttree', "`background` = REPLACE(`background`,'\\\\','/')");
 
+
 		# --------------------------------------------------------
 		### Config
 
@@ -709,6 +715,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 
 		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = 'modules/$this_base/img/default.png' WHERE id = '5040' LIMIT 1");
 
+
 		# --------------------------------------------------------
 		### Memberlog
 
@@ -727,6 +734,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 			type tinyint(1) NOT NULL default '0',
 			PRIMARY KEY  (log_id)", $this_prefix.'memberlog');
 
+
 		# --------------------------------------------------------
 		### Realmstatus
 
@@ -741,16 +749,43 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 			timestamp tinyint(2) NOT NULL default '0',
 			UNIQUE KEY server_name (server_name)", $this_prefix.'realmstatus');
 
+
 		# --------------------------------------------------------
 		### Buffs
 
 		$installer->add_query('CREATE', $this_prefix.'buffs', "
 			member_id int(11) unsigned NOT NULL default '0',
-			name varchar(96) NOT NULL,
-			rank varchar(32) NOT NULL,
+			name varchar(96) NOT NULL default '',
+			rank varchar(32) NOT NULL default '',
 			count int(11) unsigned NOT NULL default '0',
-			icon varchar(64) NOT NULL,
-			tooltip mediumtext NOT NULL", $this_prefix.'buffs');
+			icon varchar(64) NOT NULL default '',
+			tooltip mediumtext NOT NULL,
+			PRIMARY KEY (member_id,name)", $this_prefix.'buffs');
+
+
+		# --------------------------------------------------------
+		### Spell trees
+
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."spellbooktree ADD PRIMARY KEY (member_id,spell_type)");
+
+
+		# --------------------------------------------------------
+		### Spellbook
+
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."spellbook ADD PRIMARY KEY (member_id,spell_name,spell_rank)");
+
+
+		# --------------------------------------------------------
+		### Talent trees
+
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."talenttree ADD PRIMARY KEY (member_id,tree)");
+
+
+		# --------------------------------------------------------
+		### Talents
+
+		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."talents ADD PRIMARY KEY (member_id,tree,row,column)");
+
 
 		# --------------------------------------------------------
 		### Items Table
