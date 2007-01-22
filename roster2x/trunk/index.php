@@ -69,8 +69,7 @@ define('WINDOWS',       (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'));
 define('CAN_INI_SET',   !ereg('ini_set', ini_get('disable_functions')));
 define('MAGICQUOTES',   get_magic_quotes_gpc() || ini_get('magic_quotes_sybase'));
 define('R2_LIB_PATH',   PATH_LOCAL . 'library'.DIR_SEP);
-define('R2_CLASS_PATH', R2_LIB_PATH . 'class'.DIR_SEP);
-define('SMARTY_DIR',    R2_CLASS_PATH . 'smarty'.DIR_SEP);
+define('SMARTY_DIR',    R2_LIB_PATH . 'smarty'.DIR_SEP);
 
 $phpver = explode('.', phpversion());
 $phpver = "$phpver[0]$phpver[1]";
@@ -123,12 +122,12 @@ error_reporting(E_ALL);
 /**
  * Our exception class
  */
-require(R2_CLASS_PATH . 'cpmain'.DIR_SEP.'cpexception.php');
+require(R2_LIB_PATH . 'cpmain'.DIR_SEP.'cpexception.php');
 
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(R2_CLASS_PATH . 'cpmain.php');
+require(R2_LIB_PATH . 'cpmain.php');
 
 /**
  * The config class
@@ -295,7 +294,7 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Debug console for smarty templates, also forces recompile for templates
 	 */
-	if( cpMain::$instance['cpconfig']->cpconf['smary_debug'] == 1 && !defined('INSTALL') )
+	if( cpMain::$instance['cpconfig']->cpconf['smarty_debug'] == 1 && !defined('INSTALL') )
 	{
 		cpMain::$instance['smarty']->debugging = true;
 		cpMain::$instance['smarty']->force_compile = true;

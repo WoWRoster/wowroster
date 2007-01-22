@@ -128,7 +128,7 @@ final class cpMain
 		 * bob_lib_class.etc.php => bob/lib/class.etc.php
 		 * class.description.php is the required standard
 		 */
-		if(is_file($path = PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
+		if(is_file($path = R2_LIB_PATH . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
 		{
 			if(!array_key_exists($arguments[1], self::$instance))
 			{
@@ -306,7 +306,7 @@ final class cpMain
 		 * bob_lib_class.etc.php => bob/lib/class.etc.php
 		 * class.description.php is the required standard
 		 */
-		if(is_file($path = PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
+		if(is_file($path = R2_LIB_PATH . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
 		{
 			if(!array_key_exists($arguments[1], self::$instance))
 			{
@@ -386,7 +386,7 @@ final class cpMain
 		 * bob_lib_class.etc.php => bob/lib/class.etc.php
 		 * class.description.php is the required standard
 		 */
-		if(is_file($path = PATH_LOCAL . "library".DIR_SEP."class".DIR_SEP . str_replace('_', DIR_SEP, $file) . ".php"))
+		if(is_file($path = R2_LIB_PATH . str_replace('_', DIR_SEP, $file) . ".php"))
 		{
 			if(!isset(self::$_includes[$file]))
 			{
