@@ -35,20 +35,12 @@ $guildId = $guild_info['guild_id'];
 include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
 
 // Build a list of "Skills" to look for
-$inClause = '';
-for ($tsNr=0; $tsNr<=11; $tsNr++ )
+$inClause = "'";
+foreach( $roster_conf['multilanguages'] as $lang )
 {
-	$countit = 0;
-	for ($i=0;$i<count($roster_conf['multilanguages']);$i++)
-	{
-		if ($inClause != '')
-		{
-			$inClause .= ',';
-		}
-
-		$inClause .= "'".$tsArray[$roster_conf['multilanguages'][$i]][$tsNr]."'";
-	}
+	$inClause .= implode("', '",$tsArray[$lang]);
 }
+$inClause .= "'";
 
 // If we don't want to show skills with a "1" value, uncomment this line (make option in config?)
 $showNewSkill = " AND SUBSTRING_INDEX( s.skill_level, ':', 1 ) > 1 ";
