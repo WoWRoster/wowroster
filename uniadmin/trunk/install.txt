@@ -3,8 +3,8 @@ UniAdmin 0.7.0 (updated 15th October 2006)
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
 If you don't know what UniUploader is, then... well... you're a bit ahead of yourself then aren't you? ;-)
-   
-      
+
+
 Table of Contents
 =================
    1 - Requirements
@@ -18,7 +18,7 @@ Table of Contents
    9 - Known Bugs / Gotchyas
   10 - Change Log
   11 - The Future   
-    
+
  
 1 - Requirements
 ================
@@ -52,7 +52,7 @@ The 1 and only user in the users login table is:
 Username - Default
 Password - changeme
 
-Read the help page for additional info.
+Read the help page and the wiki for additional info.
 
 
 4 - Upgrading
