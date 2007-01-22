@@ -56,17 +56,6 @@ if ( !get_magic_quotes_gpc() )
 	$_POST = slash_global_data($_POST);
 }
 
-define('DIR_SEP',DIRECTORY_SEPARATOR);
-$roster_root_path = dirname(__FILE__).DIR_SEP;
-
-
-include_once($roster_root_path.'conf.php');
-include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
-
-$DEFAULTS = array(
-	'version'        => '1.7.3',
-);
-
 // ---------------------------------------------------------
 // Config file Downloader
 // ---------------------------------------------------------
@@ -82,6 +71,17 @@ if( isset($_POST['send_file']) && $_POST['send_file'] == 1 && !empty($_POST['con
 
 	exit;
 }
+
+define('DIR_SEP',DIRECTORY_SEPARATOR);
+$roster_root_path = dirname(__FILE__).DIR_SEP;
+
+
+include_once($roster_root_path.'conf.php');
+include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
+
+$DEFAULTS = array(
+	'version'        => '1.7.3',
+);
 
 
 // ---------------------------------------------------------
@@ -136,7 +136,7 @@ define('ROSTER_OLDVERSION',$version);
 
 
 
-if( $version >= $DEFAULTS['version'] )
+if( ROSTER_OLDVERSION >= $DEFAULTS['version'] )
 {
 	$tpl = new Template_Wrap('upgrade_message.html','upgrade_header.html','upgrade_tail.html');
 	$tpl->message_die('You have already upgraded Roster<br />Or you have a newer version than this upgrader', 'Upgrade Error');
@@ -202,95 +202,29 @@ class Upgrade
 
 	function upgrade_172($index)
 	{
-		global $wowdb, $roster_root_path, $db_prefix;
-
-		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_172.sql';
-
-		// Parse structure file and create database tables
-		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
-		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
-
-		$sql = remove_remarks($sql);
-		$sql = parse_sql($sql, ';');
-
-		$sql_count = count($sql);
-		for ( $i = 0; $i < $sql_count; $i++ )
-		{
-			$wowdb->query($sql[$i]);
-		}
-		unset($sql);
-
+		$this->standard_upgrader('172');
 		$this->finalize($index);
 	}
 
 	function upgrade_171($index)
 	{
-		global $wowdb, $roster_root_path, $db_prefix;
-
-		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_171.sql';
-
-		// Parse structure file and create database tables
-		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
-		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
-
-		$sql = remove_remarks($sql);
-		$sql = parse_sql($sql, ';');
-
-		$sql_count = count($sql);
-		for ( $i = 0; $i < $sql_count; $i++ )
-		{
-			$wowdb->query($sql[$i]);
-		}
-		unset($sql);
-
+		$this->standard_upgrader('171');
 		$this->finalize($index);
 	}
-
 
 	function upgrade_170($index)
 	{
-		global $wowdb, $roster_root_path, $db_prefix;
-
-		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_170.sql';
-
-		//
-		// Fix those pesky double slashes...
-		//
-		$query_build = array();
-		$query_build[] = "UPDATE `".$db_prefix."items` SET `item_texture` = REPLACE(`item_texture`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."mailbox` SET `item_icon` = REPLACE(`item_icon`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."pets` SET `icon` = REPLACE(`icon`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."players` SET `RankIcon` = REPLACE(`RankIcon`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."talents` SET `texture` = REPLACE(`texture`,'\\\\','/');";
-		$query_build[] = "UPDATE `".$db_prefix."talenttree` SET `background` = REPLACE(`background`,'\\\\','/');";
-
-		foreach( $query_build as $query_string )
-		{
-			$result = $wowdb->query($query_string);
-		}
-
-		// Parse structure file and create database tables
-		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
-		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
-
-		$sql = remove_remarks($sql);
-		$sql = parse_sql($sql, ';');
-
-		$sql_count = count($sql);
-		for ( $i = 0; $i < $sql_count; $i++ )
-		{
-			$wowdb->query($sql[$i]);
-		}
-		unset($sql);
-
+		$this->standard_upgrader('170');
 		$this->finalize($index);
 	}
 
 
+	/**
+	 * The upgrader for Roster 1.6.0
+	 * This has to do alot, whew
+	 *
+	 * @param unknown_type $index
+	 */
 	function upgrade_160($index)
 	{
 		global $wowdb, $roster_root_path,
@@ -502,6 +436,36 @@ class Upgrade
 			$this->messages .= 'Your configuration file has been written, but upgrade will not be complete until you configure Roster';
 		}
 		$this->finalize($index);
+	}
+
+	/**
+	 * The standard upgrader
+	 * This parses the requested sql file for database upgrade
+	 * Most upgrades will use this function
+	 *
+	 * @param string $ver
+	 */
+	function standard_upgrader($ver)
+	{
+		global $wowdb, $roster_root_path, $db_prefix;
+
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_'.$ver.'.sql';
+
+		// Parse structure file and create database tables
+		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
+		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+
+		$sql = remove_remarks($sql);
+		$sql = parse_sql($sql, ';');
+
+		$sql_count = count($sql);
+		for ( $i = 0; $i < $sql_count; $i++ )
+		{
+			$wowdb->query($sql[$i]);
+		}
+		unset($sql);
+
+		return;
 	}
 
 	function display_form()

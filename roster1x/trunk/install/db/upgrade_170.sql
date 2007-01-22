@@ -103,6 +103,20 @@ CREATE TABLE `renprefix_realmstatus` (
 ) TYPE=MyISAM;
 
 
+# --------------------------------------------------------
+### Fix those pesky double slashes...
+
+UPDATE `renprefix_items` SET `item_texture` = REPLACE(`item_texture`,'\\\\','/');
+UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/');
+UPDATE `renprefix_mailbox` SET `item_icon` = REPLACE(`item_icon`,'\\\\','/');
+UPDATE `renprefix_pets` SET `icon` = REPLACE(`icon`,'\\\\','/');
+UPDATE `renprefix_players` SET `RankIcon` = REPLACE(`RankIcon`,'\\\\','/');
+UPDATE `renprefix_recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/');
+UPDATE `renprefix_spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');
+UPDATE `renprefix_spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');
+UPDATE `renprefix_talents` SET `texture` = REPLACE(`texture`,'\\\\','/');
+UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,'\\\\','/');
+
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
