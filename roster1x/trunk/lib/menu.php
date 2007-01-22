@@ -124,6 +124,11 @@ print '
     <td colspan="5" align="center" valign="top" class="header">
       <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>
       <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />';
+
+if(!isset($updateTime))
+{
+	$updateTime = $wordings[$roster_conf['roster_lang']]['none'];
+}
 print $wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.$updateTime;
 
 if( !empty($roster_conf['timezone']) )
