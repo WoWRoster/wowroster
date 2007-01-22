@@ -2,27 +2,46 @@
 
 <table class="ua_table" align="center">
 	<tr>
-		<th class="table_header" colspan="10">{L_ADDON_DETAILS}</th>
+		<th class="table_header" colspan="10">{ADDONNAME}</th>
 	</tr>
 <!-- IF S_ADDONS -->
 	<tr>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=filesize&amp;d={U_DIRECTION}">{L_DOWNLOAD}</a></td>
-		<td class="data_header" colspan="2"><a href="{UA_FORMACTION}&amp;s=name&amp;d={U_DIRECTION}">{L_NAME}</a></td>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=toc&amp;d={U_DIRECTION}">{L_TOC}</a></td>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=version&amp;d={U_DIRECTION}">{L_VERSION}</a></td>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=time_uploaded&amp;d={U_DIRECTION}">{L_UPLOADED}</a></td>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=required&amp;d={U_DIRECTION}">{L_REQUIRED}</a></td>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=enabled&amp;d={U_DIRECTION}">{L_ENABLED}</a></td>
-		<td class="data_header"><a href="{UA_FORMACTION}&amp;s=num_files&amp;d={U_DIRECTION}">{L_FILES}</a></td>
-		<!-- IF S_ADDON_ADD_DEL -->
-		<td class="data_header">{L_DELETE}</td>
-		<!-- ENDIF -->
+		<td class="data_header">{L_DOWNLOAD}</td>
+		<td class="data_header">{L_FILES}</td>
+		<td class="data_header">{L_TOC}</td>
+		<td class="data_header">{L_VERSION}</td>
+		<td class="data_header">{L_UPLOADED}</td>
+		<td class="data_header">{L_MANAGE}</td>
+	</tr>
+	<tr>
+		<td class="data2" align="center"><a href="{DOWNLOAD}"><img src="{TEMPLATE_PATH}/images/download.png" class="icon" alt="{L_DOWNLOAD}-[{FILESIZE}]" /><br />{FILESIZE}</a></td>
+		<td class="data2" align="center">{NUMFILES}</td>
+		<td class="data2" align="center">{TOC}</td>
+		<td class="data2" align="center">{VERSION}</td>
+		<td class="data2" align="center">{TIME}</td>
+
+		<td class="data2">
+			<a href="{HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home.png" class="icon" alt="{L_HOMEPAGE}" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a>
+			{ENABLED}
+			{REQUIRED}
+			<!-- IF S_ADDON_ADD_DEL --><form name="ua_deleteaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/delete.png" type="image" value="{L_DELETE}" alt="{L_DELETE}" onmouseover="return overlib('{L_DELETE}');" onmouseout="return nd();" />
+			</form><!-- ENDIF --></td>
+
 	</tr>
 </table>
 <br />
+
+<!-- IF S_FILES -->
 <table class="ua_table" align="center">
 	<tr>
-		<th class="table_header" colspan="10">{L_ADDON_MANAGE}</th>
+		<th class="table_header" colspan="2">{L_FILES}</th>
+	</tr>
+	<tr>
+		<td class="data_header">{L_NAME}</td>
+		<td class="data_header">MD5</td>
 	</tr>
 	<!-- BEGIN files_row -->
 	<tr>
@@ -30,42 +49,8 @@
 		<td class="data{files_row.ROW_CLASS}">{files_row.MD5}</td>
 	</tr>
 	<!-- END files_row -->
-<!-- ELSE -->
-	<tr>
-		<th class="data_header">{L_NO_ADDONS}</th>
-	</tr>
-<!-- ENDIF -->
 </table>
-
-<!-- IF S_ADDON_ADD_DEL -->
-<br />
-<form name="ua_updateaddon" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
-	<table class="ua_table" align="center">
-		<tr>
-			<th class="table_header" colspan="2">{L_ADDON_MANAGE}</th>
-		</tr>
-		<tr>
-			<td class="data1">{L_REQUIRED}: <input type="checkbox" name="required" value="1" checked="checked" /></td>
-			<td class="data1">{L_INTERFACE_FIX}: <input type="checkbox" name="interface_fix" value="1" /></td>
-		</tr>
-		<tr>
-			<td class="data2">{L_SELECT_FILE}:</td>
-			<td class="data2"><input class="file" type="file" name="file" /></td>
-		</tr>
-		<tr>
-			<td class="data1">{L_VERSION}:</td>
-			<td class="data1"><input class="input" type="text" name="version" /></td>
-		</tr>
-		<tr>
-			<td class="data2">{L_HOMEPAGE}:</td>
-			<td class="data2"><input class="input" type="text" name="homepage" /></td>
-		</tr>
-		<tr>
-			<td class="data_header" colspan="2" align="center"><input class="submit" type="submit" value="{L_ADD_UPDATE}" /></td>
-		</tr>
-	</table>
-	<input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
-</form>
+<!-- ENDIF -->
 <!-- ENDIF -->
 
 <!-- INCLUDE overall_footer.html -->

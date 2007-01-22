@@ -26,6 +26,8 @@ $op = ( isset($_POST[UA_URI_OP]) ? $_POST[UA_URI_OP] : '' );
 
 $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 
+$detail = ( isset($_POST[UA_URI_DETAIL]) ? $_POST[UA_URI_DETAIL] : ( isset($_GET[UA_URI_DETAIL]) ? $_GET[UA_URI_DETAIL] : '' ) );
+
 // Decide What To Do
 switch($op)
 {
@@ -59,17 +61,13 @@ switch($op)
 			enable_addon($id);
 		break;
 
-	case UA_URI_DETAIL:
-		addon_detail($id);
-		break;
-
 	default:
 		break;
 }
 
-if( isset($_GET[UA_URI_DETAIL]) && !empty($id) )
+if( $detail != '' )
 {
-	addon_detail($id);
+	addon_detail($detail);
 }
 else
 {
@@ -256,6 +254,170 @@ function main( )
 	$uniadmin->set_vars(array(
 		'page_title'    => $user->lang['title_addons'],
 		'template_file' => 'addons.html',
+		'display'       => true
+		)
+	);
+}
+
+function addon_detail( $id )
+{
+	global $db, $uniadmin, $user, $tpl;
+
+	$tpl->assign_vars(array(
+		'L_ADDON_DETAILS'  => $user->lang['addon_details'],
+		'L_NAME'           => $user->lang['name'],
+		'L_TOC'            => $user->lang['toc'],
+		'L_REQUIRED'       => $user->lang['required'],
+		'L_VERSION'        => $user->lang['version'],
+		'L_UPLOADED'       => $user->lang['uploaded'],
+		'L_ENABLED'        => $user->lang['enabled'],
+		'L_FILES'          => $user->lang['files'],
+		'L_DELETE'         => $user->lang['delete'],
+		'L_DISABLE_ENABLE' => $user->lang['disable_enable'],
+		'L_SELECT_FILE'    => $user->lang['select_file'],
+		'L_DOWNLOAD'       => $user->lang['download'],
+		'L_ADD_UPDATE'     => $user->lang['add_update_addon'],
+		'L_REQUIRED_ADDON' => $user->lang['required_addon'],
+		'L_SELECT_FILE'    => $user->lang['select_file'],
+		'L_HOMEPAGE'       => $user->lang['homepage'],
+		'L_GO'             => $user->lang['go'],
+		'L_MANAGE'         => $user->lang['manage'],
+		'L_YES'            => $user->lang['yes'],
+		'L_NO'             => $user->lang['no'],
+
+		'S_ADDONS'         => true,
+		'S_ADDON_ADD_DEL'  => false,
+		'S_FILES'          => false,
+		)
+	);
+
+	if( $user->data['level'] == UA_ID_ADMIN )
+	{
+		$tpl->assign_var('S_ADDON_ADD_DEL',true);
+	}
+
+	if( $user->data['level'] == UA_ID_ANON )
+	{
+		$tpl->assign_var('L_ADDON_MANAGE',$user->lang['view_addons']);
+	}
+
+	$sql = 'SELECT * FROM `'.UA_TABLE_ADDONS."` WHERE `id` = '$id';";
+
+	$result = $db->query($sql);
+
+	$row = $db->fetch_record($result);
+
+	if( $db->num_rows($result) > 0 )
+	{
+		$addon_name = $row['name'];
+		$homepage = $row['homepage'];
+		$version = $row['version'];
+		$time = date($user->lang['time_format'],$row['time_uploaded']);
+		$url = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
+		$addon_id = $row['id'];
+		$filesize = $uniadmin->filesize_readable($row['filesize']);
+
+		$sql = 'SELECT * FROM `'.UA_TABLE_FILES."` `addon_id` WHERE `addon_id` = '$id';";
+		$result2 = $db->query($sql);
+
+		$num_files = $db->num_rows($result2);
+
+		if( $db->num_rows($result2) > 0 )
+		{
+			$tpl->assign_var('S_FILES', true);
+
+			while( $row2 = $db->fetch_record($result2) )
+			{
+				$tpl->assign_block_vars('files_row',array(
+					'ROW_CLASS' => $uniadmin->switch_row_class(),
+					'FILENAME'  => $row2['filename'],
+					'MD5'       => $row2['md5sum']
+					)
+				);
+			}
+		}
+
+		if( $row['enabled'] == '1' )
+		{
+			$enabled = '<form name="ua_disableaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled.png" type="image" value="'.$user->lang['enabled'].'" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
+</form>';
+			if( $user->data['level'] <= UA_ID_USER )
+			{
+				$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled.png" class="icon" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
+			}
+		}
+		else
+		{
+			$enabled = '<form name="ua_enableaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled.png" type="image" value="'.$user->lang['disabled'].'" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
+</form>';
+			if( $user->data['level'] <= UA_ID_USER )
+			{
+				$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled.png" class="icon" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
+			}
+		}
+
+		if( $row['homepage'] == '' )
+		{
+			$homepage = './';
+		}
+
+		if( $row['required'] == 1 )
+		{
+			$required = '<form name="ua_optionaladdon" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_OPT.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required.png" type="image" value="'.$user->lang['required'].'" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />
+</form>';
+			if( $user->data['level'] <= UA_ID_USER )
+			{
+				$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required.png" class="icon" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />';
+			}
+		}
+		else
+		{
+			$required = '<form name="ua_requireaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
+	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
+	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_REQ.'" />
+	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional.png" type="image" value="'.$user->lang['optional'].'" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />
+</form>';
+			if( $user->data['level'] <= UA_ID_USER )
+			{
+				$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional.png" class="icon" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />';
+			}
+		}
+
+		$toc = $row['toc'];
+
+		$tpl->assign_vars(array(
+			'ID'          => $addon_id,
+			'HOMEPAGE'    => $homepage,
+			'ADDONNAME'   => $addon_name,
+			'TOC'         => $toc,
+			'REQUIRED'    => $required,
+			'VERSION'     => $version,
+			'TIME'        => $time,
+			'ENABLED'     => $enabled,
+			'NUMFILES'    => $num_files,
+			'DOWNLOAD'    => $url,
+			'FILESIZE'    => $filesize,
+			)
+		);
+	}
+	$db->free_result($result);
+
+	$uniadmin->set_vars(array(
+		'page_title'    => $user->lang['title_addons'],
+		'template_file' => 'addon_detail.html',
 		'display'       => true
 		)
 	);
