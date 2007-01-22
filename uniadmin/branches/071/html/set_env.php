@@ -42,11 +42,10 @@ define('UA_BASEDIR',dirname(__FILE__).DIR_SEP);
 
 include(UA_BASEDIR.'config.php');
 
-
-$url = explode('/','http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
-array_pop($url);
-$url = implode('/',$url).'/';
-
+if ( !defined('UA_INSTALLED') )
+{
+    header('Location: install.php');
+}
 
 define( 'IN_UNIADMIN',true );
 
@@ -59,20 +58,13 @@ include(UA_INCLUDEDIR.'template.php');
 
 
 $tpl = new Template;
-$uniadmin = new UniAdmin($url);
+$uniadmin = new UniAdmin();
 $user = new User();
 
 if( !isset($interface) )
 {
 	include(UA_INCLUDEDIR.'login.php');
 	include(UA_INCLUDEDIR.'menu.php');
-}
-
-
-function die_ua( )
-{
-	display_page('',$user->lang['error']);
-	die();
 }
 
 /**

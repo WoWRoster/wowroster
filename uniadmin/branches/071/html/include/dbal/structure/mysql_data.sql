@@ -13,7 +13,7 @@ INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUE
 	('interface_url', '%url%interface.php', 'text{250|50'),
 	('logo_folder', 'logos', 'text{250|50'),
 	('temp_analyze_folder', 'addon_temp', 'text{250|50'),
-	('UAVer', '0.7.1', 'display'),
+	('UAVer', '0.7.5', 'display'),
 	('ua_debug', '1', 'radio{no^0|half^1|full^2');
 
 ### Settings

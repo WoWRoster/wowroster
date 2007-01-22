@@ -51,15 +51,17 @@ class UniAdmin
 
 	/**
 	 * UniAdmin constructor
-	 *
-	 * @param string $url
 	 */
-	function uniadmin( $url )
+	function uniadmin()
 	{
 		// Start a script timer
 		$mc_split = split(' ', microtime());
 		$this->timer_start = $mc_split[0] + $mc_split[1];
 		unset($mc_split);
+
+		$url = explode('/','http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+		array_pop($url);
+		$url = implode('/',$url).'/';
 
 		$this->root_path = UA_BASEDIR;
 		$this->url_path = $url;
@@ -223,7 +225,7 @@ class UniAdmin
 	 */
 	function unzip( $file , $path )
 	{
-		global $user;
+		global $user, $uniadmin;
 
 		require_once(UA_INCLUDEDIR.'pclzip.lib.php');
 
@@ -237,7 +239,11 @@ class UniAdmin
 				$this->debug(sprintf($user->lang['error_unlink'],$file));
 			}
 			$this->debug(sprintf($user->lang['error_pclzip'],$archive->errorInfo(true)));
-			die_ua();
+			$this->set_vars(array(
+			    'template_file' => 'index.html',
+			    'display'       => true)
+			);
+			die();
 		}
 		unset($archive);
 	}
@@ -455,7 +461,7 @@ class UniAdmin
 			'L_SYNCRO_URL' => $user->lang['syncro_url'],
 			'L_VER_SYNCRO_URL' => $user->lang['verify_syncro_url'],
 			'L_MESSAGES' => $user->lang['messages'],
-			'L_DEBUG' => $user->lang['debug'],
+			'L_ERROR' => $user->lang['error'],
 			)
 		);
 
@@ -628,7 +634,7 @@ class UniAdmin
 		exit;
 	}
 
-	function filesize_readable($size, $unit = null)
+	function filesize_readable( $size )
 	{
 		// Units
 		$sizes = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
@@ -725,4 +731,89 @@ function level_select( $select_option='' )
 </select>';
 
 	return $retval;
+}
+
+
+
+/**
+* Outputs a message with debugging info if needed
+* and ends output.  Clean replacement for die()
+*
+* @param $text Message text
+* @param $title Message title
+* @param $file File name
+* @param $line File line
+* @param $sql SQL code
+*/
+function message_die($text = '', $title = '', $file = '', $line = '', $sql = '')
+{
+	global $db, $tpl, $uniadmin, $user, $gen_simple_header;
+
+	$error_text = '';
+	if( (UA_DEBUG == 1) && ($db->error_die) )
+	{
+		$sql_error = $db->error();
+
+		$error_text = '';
+
+		if( $sql_error['message'] != '' )
+		{
+			$error_text .= '<strong>SQL error:</strong> ' . $sql_error['message'] . '<br />';
+		}
+
+		if( $sql_error['code'] != '' )
+		{
+			$error_text .= '<strong>SQL error code:</strong> ' . $sql_error['code'] . '<br />';
+		}
+
+		if( $sql != '' )
+		{
+			$error_text .= '<strong>SQL:</strong> ' . $sql . '<br />';
+		}
+
+		if( ($line != '') && ($file != '') )
+		{
+			$error_text .= '<strong>File:</strong> ' . $file . '<br />';
+			$error_text .= '<strong>Line:</strong> ' . $line . '<br />';
+		}
+	}
+
+	// Add the debug info if we need it
+	if( (UA_DEBUG == 1) && ($db->error_die) )
+	{
+		if( $error_text != '' )
+		{
+			$text .= '<br /><br /><strong>Debug Mode</strong><br />' . $error_text;
+		}
+	}
+
+	if ( !is_object($tpl) )
+	{
+		die($text);
+	}
+
+	$uniadmin->debug(( $text  != '' ) ? $text  : '&nbsp;');
+
+	if( !defined('HEADER_INC') )
+	{
+		if( (is_object($user)) && (is_object($uniadmin)) && (@is_array($uniadmin->config)) )
+		{
+			$page_title = (( !empty($title) ) ? $title : ' Message');
+		}
+		else
+		{
+			$page_title = '';
+		}
+
+		$uniadmin->set_vars(array(
+			'gen_simple_header' => $gen_simple_header,
+			'page_title'        => $page_title,
+			'template_file'     => 'index.html'
+			)
+		);
+
+		$uniadmin->page_header();
+	}
+	$uniadmin->page_tail();
+	exit;
 }

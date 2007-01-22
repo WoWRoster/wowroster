@@ -331,11 +331,7 @@ function process_ini( )
 
 	if( $user->data['level'] != UA_ID_ADMIN )
 	{
-		$uniadmin->set_vars(array(
-		    'template_file' => 'index.html',
-		    'display'       => true)
-		);
-		die();
+		message_die($user->lang['access_denied']);
 	}
 
 	$tpl->assign_vars(array(

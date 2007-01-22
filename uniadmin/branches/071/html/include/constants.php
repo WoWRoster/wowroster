@@ -23,7 +23,7 @@ if( !defined('IN_UNIADMIN') )
 
 
 // UniAdmin Version
-define('UA_VER', '0.7.1');
+define('UA_VER', '0.7.5');
 define('NO_CACHE', true);
 
 // Directories

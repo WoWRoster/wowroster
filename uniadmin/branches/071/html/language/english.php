@@ -51,14 +51,21 @@ array(	'header' => 'AddOns',
 <p>The uploaded addon must be in zip form only.<br />
 The zip file must have the following directory structure: [folder],{file}, and not literally &quot;addonName&quot; or &quot;addonfile&quot;<br />
 The AddOn Name is the same as the name of the folder that the AddOn\'s files are in</p>
-<pre>[Interface]
+<pre>[addonName]
+     {addonfile}
+     {addonfile}
+     {addonfile}
+     {addonfile}
+or
+[Interface]
      [AddOns]
           [addonName]
                {addonfile}
                {addonfile}
                {addonfile}
                {addonfile}
-etc.</pre>'),
+[Fonts]
+     font.ttf</pre>'),
 
 array(	'header' => 'Logos',
 'text'   => '
@@ -266,6 +273,13 @@ $lang['addon_required_tip'] = 'When checked, UniUploader will require this addon
 $lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/';
 $lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
+
+// Upgrader
+$lang['ua_upgrade'] = 'UniAdmin Upgrade';
+$lang['no_upgrade'] = 'You have already upgraded UniAdmin<br />Or you have a newer version than this upgrader';
+$lang['select_version'] = 'Select Version';
+$lang['success'] = 'Success';
+$lang['upgrade_complete'] = 'Your UniAdmin installation has been successfully upgraded';
 
 
 // UU Sync Settings

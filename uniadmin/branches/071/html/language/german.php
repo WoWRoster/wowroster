@@ -51,14 +51,21 @@ UU wird im Anschluss daran jedes AddOn mit dem neuen Update auf deiner Maschine 
 <p>Das hochgeladene AddOn darf nur im ZIP-Format vorliegen.<br />
 Die ZIP-Datei darf nur folgende Verzeichnisstruktur beinhalten: [Verzeichnis],{Datei}, und nicht buchstäblich &quot;addonName&quot; oder &quot;addon-datei&quot;<br />
 Der AddOn-Name ist der gleiche wie der des AddOn-Verzeichnisses in dem Die AddOn-Dateien liegen</p>
-<pre>[Interface]
+<pre>[addonName]
+     {addon-datei}
+     {addon-datei}
+     {addon-datei}
+     {addon-datei}
+or
+[Interface]
      [AddOns]
           [addonName]
                {addon-datei}
                {addon-datei}
                {addon-datei}
                {addon-datei}
-etc.</pre>'),
+[Fonts]
+     font.ttf</pre>'),
 
 	array(	'header' => 'Logos',
 			'text'   => '
@@ -266,6 +273,13 @@ $lang['addon_required_tip'] = 'When checked, UniUploader will require this addon
 $lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/';
 $lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
+
+// Upgrader
+$lang['ua_upgrade'] = 'UniAdmin Upgrade';
+$lang['no_upgrade'] = 'You have already upgraded UniAdmin<br />Or you have a newer version than this upgrader';
+$lang['select_version'] = 'Select Version';
+$lang['success'] = 'Success';
+$lang['upgrade_complete'] = 'Your UniAdmin installation has been successfully upgraded';
 
 
 // UU Sync Settings

@@ -23,12 +23,7 @@ if( !defined('IN_UNIADMIN') )
 
 if( $user->data['level'] < UA_ID_USER )
 {
-	$uniadmin->debug($user->lang['access_denied']);
-	$uniadmin->set_vars(array(
-	    'template_file' => 'index.html',
-	    'display'       => true)
-	);
-	die();
+	message_die($user->lang['access_denied']);
 }
 
 // Get Operation
@@ -251,22 +246,12 @@ function finalize_user()
 		// user is level 1 and trying to change someone elses info
 		if( $user->data['level'] == UA_ID_USER && $user->data['id'] != $userI )
 		{
-			$uniadmin->debug($user->lang['access_denied']);
-			$uniadmin->set_vars(array(
-			    'template_file' => 'index.html',
-			    'display'       => true)
-			);
-			die();
+			message_die($user->lang['access_denied']);
 		}
 		// user is level 1 and trying to change their name
 		if( $user->data['level'] == UA_ID_USER && isset($_POST['name']) )
 		{
-			$uniadmin->debug($user->lang['access_denied']);
-			$uniadmin->set_vars(array(
-			    'template_file' => 'index.html',
-			    'display'       => true)
-			);
-			die();
+			message_die($user->lang['access_denied']);
 		}
 
 		// Check passwords
@@ -423,12 +408,7 @@ function new_user()
 	}
 	else
 	{
-		$uniadmin->debug($user->lang['access_denied']);
-		$uniadmin->set_vars(array(
-		    'template_file' => 'index.html',
-		    'display'       => true)
-		);
-		die();
+		message_die($user->lang['access_denied']);
 	}
 }
 
@@ -473,11 +453,6 @@ function delete_user()
 	}
 	else
 	{
-		$uniadmin->debug($user->lang['access_denied']);
-		$uniadmin->set_vars(array(
-		    'template_file' => 'index.html',
-		    'display'       => true)
-		);
-		die();
+		message_die($user->lang['access_denied']);
 	}
 }
