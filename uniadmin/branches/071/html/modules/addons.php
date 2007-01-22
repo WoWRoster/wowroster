@@ -131,6 +131,7 @@ function main( )
 		'L_MANAGE'         => $user->lang['manage'],
 		'L_YES'            => $user->lang['yes'],
 		'L_NO'             => $user->lang['no'],
+		'L_NOTES'          => $user->lang['notes'],
 
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 
@@ -169,6 +170,7 @@ function main( )
 			$url = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
 			$addon_id = $row['id'];
 			$filesize = $uniadmin->filesize_readable($row['filesize']);
+			$notes = $row['notes'];
 
 			if( $row['enabled'] == '1' )
 			{
@@ -240,6 +242,7 @@ function main( )
 				'NUMFILES'    => $num_files,
 				'DOWNLOAD'    => $url,
 				'FILESIZE'    => $filesize,
+				'NOTES'       => addslashes(htmlentities($notes))
 				)
 			);
 		}
@@ -284,6 +287,7 @@ function addon_detail( $id )
 		'L_MANAGE'         => $user->lang['manage'],
 		'L_YES'            => $user->lang['yes'],
 		'L_NO'             => $user->lang['no'],
+		'L_NOTES'          => $user->lang['notes'],
 
 		'S_ADDONS'         => true,
 		'S_ADDON_ADD_DEL'  => false,
@@ -316,6 +320,7 @@ function addon_detail( $id )
 		$url = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
 		$addon_id = $row['id'];
 		$filesize = $uniadmin->filesize_readable($row['filesize']);
+		$notes = $row['notes'];
 
 		$sql = 'SELECT * FROM `'.UA_TABLE_FILES."` `addon_id` WHERE `addon_id` = '$id';";
 		$result2 = $db->query($sql);
@@ -410,6 +415,7 @@ function addon_detail( $id )
 			'NUMFILES'    => $num_files,
 			'DOWNLOAD'    => $url,
 			'FILESIZE'    => $filesize,
+			'NOTES'       => $notes
 			)
 		);
 	}
