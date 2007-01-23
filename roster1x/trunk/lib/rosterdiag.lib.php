@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 //!!!!!!!!!!!!!// Developer Config //!!!!!!!!!!!!!//
 // As a NON-Developer, please do not modify any content of this file, or the version check might fail!!!
