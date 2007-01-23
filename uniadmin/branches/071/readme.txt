@@ -23,7 +23,7 @@ Table of Contents
 ================
 - A web server (Apache, IIS, or any software able to run php)
 - PHP 4.3 or higher (http://www.php.net)
-- MySQL Database (http://www.mysql.com)
+- MySQL Database 4.0 or higher (http://www.mysql.com)
 
 
 2 - Installation
@@ -47,9 +47,10 @@ Read the help page for additional info.
 
 3 - Upgrading
 =============
-1. Run upgrade.php and follow the instructions
+1. Run ?p=upgrade and follow the instructions
 
-NOTE: Upgrading from v0.7.0 to a higher version will force you to install fresh. There is no upgrade
+NOTE: Upgrading from v0.7.0 to a higher version will force you to install fresh.
+There is no upgrade from v0.7.0
 
 
 4 - Thanks
