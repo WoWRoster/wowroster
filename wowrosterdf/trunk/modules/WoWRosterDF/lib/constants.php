@@ -25,6 +25,8 @@ if ( !defined('ROSTER_INSTALLED') )
 }*/
 
 define('ROSTER_VERSION','1.7.3.0');
+define('ROSTER_MAXCHARLEVEL','70');
+define('ROSTER_MAXSKILLLEVEL','375');
 
 // Table Names
 define('ROSTER_GUILDTABLE',$db_prefix.'guild');

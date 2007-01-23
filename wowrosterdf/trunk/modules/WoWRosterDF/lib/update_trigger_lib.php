@@ -71,35 +71,42 @@ function start_update_trigger($name,$mode)
 				}
 			}
 
-			// Start ouput buffering
-			ob_start();
-
-			foreach ($triggers as $trigger)
+			if( count($triggers) > 0 )
 			{
-				$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
-				$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
-				$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
+				// Start ouput buffering
+				ob_start();
 
-				if ( file_exists($triggerfile) )
+				foreach ($triggers as $trigger)
 				{
-					if ( file_exists($triggerconf) )
-						include( $triggerconf );
+					$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
+					$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
+					$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
 
-					include( $triggerfile );
+					if ( file_exists($triggerfile) )
+					{
+						if ( file_exists($triggerconf) )
+							include( $triggerconf );
+
+						include( $triggerfile );
+					}
 				}
-			}
 
-			// Get buffer contents
-			$ob_output .= ob_get_contents();
-			ob_end_clean();
+				// Get buffer contents
+				$ob_output .= ob_get_contents();
+				ob_end_clean();
 
-			if ( empty($ob_output) )
-			{
-				return '';
+				if ( empty($ob_output) )
+				{
+					return '';
+				}
+				else
+				{
+					$output .= $ob_output;
+				}
 			}
 			else
 			{
-				$output .= $ob_output;
+				$output = '';
 			}
 		}
 	}

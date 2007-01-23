@@ -703,7 +703,7 @@ $returnstring .= '  <tr>
 			$xp_percent_word = floor($xp_percent * 100).'%';
 			$unusedtp = $row['totaltp'] - $row['usedtp'];
 
-			if ($row['level'] == 60)
+			if ($row['level'] == ROSTER_MAXCHARLEVEL)
 				$showxpBar = false;
 
 			$tmp = split(':',$row['stat_str']);
@@ -1432,7 +1432,7 @@ print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">
 <?php
 
 // Code to write a "Max Exp bar" just like in SigGen
-if( $this->data['level'] == '70' )
+if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 {
 	$expbar_width = '248';
 	$expbar_text = $wordings[$lang]['max_exp'];

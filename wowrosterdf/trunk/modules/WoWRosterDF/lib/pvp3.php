@@ -58,7 +58,7 @@ class pvp3
 	{
 		global $roster_conf;
 
-		$max = 60;
+		$max = ROSTER_MAXCHARLEVEL;
 		$level = $this->data['pvp_level'];
 		if( $max == 1 )
 		{
