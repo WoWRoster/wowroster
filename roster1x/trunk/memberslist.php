@@ -633,7 +633,7 @@ function tradeskill_icons ( $row )
 		{
 			return 'Error while fetching professions for '.$row['name'].'. MySQL said: '.$wowdb->error();
 		}
-		
+
 		$cell_value = '';
 		while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
 		{
@@ -700,7 +700,7 @@ function level_value ( $row )
 		$tooltip .= '</table>';
 
 
-		if( $row['level'] == '70' )
+		if( $row['level'] == ROSTER_MAXCHARLEVEL )
 		{
 			$tooltip = makeOverlib($wordings[$roster_conf['roster_lang']]['max_exp'],'','',2,'',',WRAP');
 		}
@@ -712,7 +712,7 @@ function level_value ( $row )
 
 	if( $roster_conf['index_level_bar'] )
 	{
-		$percentage = round(($row['level']/70)*100);
+		$percentage = round(($row['level']/ROSTER_MAXCHARLEVEL)*100);
 
 		$cell_value .= '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
