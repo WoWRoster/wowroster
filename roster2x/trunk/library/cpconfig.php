@@ -125,7 +125,7 @@ class cpConfig
 		{
 			throw new cpException("Tried to load config file with name ".$name." for user ".$user." but the file could not be found.");
 		}
-
+		
 		$this->config[$name] = $config;
 	}
 
@@ -140,10 +140,14 @@ class cpConfig
 	}
 
 	/**
-	 * Read config metadata by parsing the config file
+	 * Select file for loading config metadata and call loadConfigMetaFile
+	 * to parse the metadata from the defaults file.
 	 *
 	 * @param $name 	name of the config file
-	 * @param $user 	user name if we want to fetch for a specific user
+	 * @param $user 	user name if we want to fetch current data for
+	 *			a specific user
+	 *
+	 * @return $config	Array of config metadata
 	 */
 	public function loadConfigMeta($name, $user='')
 	{
@@ -171,6 +175,20 @@ class cpConfig
 		{
 			throw new cpException("Config defaults file for ".$name." doesn't exist.");
 		}
+		
+		return $this->loadConfigMetaFile($name, $this->cfgdir.$name.'.def.php');
+	}
+	
+	/**
+	 * Parses the file in the supplied path for metadata
+	 *
+	 * @param $name		Name of the config array to load current values from
+	 * @param $path		File to parse the metadata from
+	 *
+	 * @return $config	Array of config metadata
+	 */
+	public function loadConfigMetaFile($name, $path)
+	{
 		$file = file_get_contents($this->cfgdir.$name.'.def.php');
 
 		// We've got the whole file in $file now. So we'll split it into the individual
