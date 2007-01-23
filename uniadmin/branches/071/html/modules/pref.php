@@ -34,6 +34,7 @@ switch( $op )
 {
 	case UA_URI_PROCESS:
 		process_update();
+		$uniadmin->config();
 		break;
 
 	default:

@@ -703,8 +703,11 @@ function style_select( $select_option='' )
 
 	foreach( $uniadmin->styles as $style )
 	{
-		$selected = ( $style == $select_option ? ' selected="selected"' : '' );
-		$retval .= "\n\t".'<option value="'.$style.'"'.$selected.'>'.$style.'</option>';
+		if( $style != 'install' )
+		{
+			$selected = ( $style == $select_option ? ' selected="selected"' : '' );
+			$retval .= "\n\t".'<option value="'.$style.'"'.$selected.'>'.$style.'</option>';
+		}
 	}
 	$retval .= '
 			</select>';

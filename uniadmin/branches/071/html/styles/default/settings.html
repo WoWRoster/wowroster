@@ -59,11 +59,11 @@
 			<form name="ua_uploadini" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 				<input class="file" type="file" name="file" />
 				<input type="hidden" value="{A_UPINI}" name="{A_OPERATION}" />
-				<input class="icon" src="{TEMPLATE_PATH}/images/import.png" type="image" value="{L_IMPORT}" alt="{L_IMPORT_FILE}" onmouseover="return overlib('{L_IMPORT_FILE}');" onmouseout="return nd();" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/import.png" type="image" value="{L_IMPORT}" alt="" onmouseover="return overlib('{L_IMPORT_FILE}');" onmouseout="return nd();" />
 			</form>
 			<form name="ua_getini" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 				<input type="hidden" value="{A_GETINI}" name="{A_OPERATION}" />
-				<input class="icon" src="{TEMPLATE_PATH}/images/export.png" type="image" value="{L_EXPORT}" alt="{L_EXPORT_FILE}" onmouseover="return overlib('{L_EXPORT_FILE}');" onmouseout="return nd();" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/export.png" type="image" value="{L_EXPORT}" alt="" onmouseover="return overlib('{L_EXPORT_FILE}');" onmouseout="return nd();" />
 			</form>
 		</td>
 	</tr>
@@ -95,12 +95,12 @@
 		<tr>
 			<!-- IF S_MANAGE -->
 			<td class="data{section.settings_row.ROW_CLASS}">
-				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="[?]" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
+				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
 			<td class="data{section.settings_row.ROW_CLASS}">{section.settings_row.INPUT_FIELD}</td>
 			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" name="{section.settings_row.SETNAME}_en" value="1" {section.settings_row.CHECKED}/></td>
 			<!-- ELSE -->
 			<td class="data{section.settings_row.ROW_CLASS}">
-				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="[?]" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
+				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
 			<td class="data{section.settings_row.ROW_CLASS}">
 				<!-- IF section.settings_row.SETVALUE == '1' -->True
 				<!-- ELSEIF section.settings_row.SETVALUE == '0' -->False

@@ -177,11 +177,11 @@ function main( )
 				$enabled = '<form name="ua_disableaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" type="image" value="'.$user->lang['enabled'].'" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" type="image" value="'.$user->lang['enabled'].'" alt="" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" class="icon" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
+					$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
 				}
 			}
 			else
@@ -189,11 +189,11 @@ function main( )
 				$enabled = '<form name="ua_enableaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" type="image" value="'.$user->lang['disabled'].'" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" type="image" value="'.$user->lang['disabled'].'" alt="" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" class="icon" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
+					$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
 				}
 			}
 
@@ -207,11 +207,11 @@ function main( )
 				$required = '<form name="ua_optionaladdon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_OPT.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required_mini.png" type="image" value="'.$user->lang['required'].'" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required_mini.png" type="image" value="'.$user->lang['required'].'" alt="" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required_mini.png" class="icon" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />';
+					$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required_mini.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />';
 				}
 			}
 			else
@@ -219,11 +219,11 @@ function main( )
 				$required = '<form name="ua_requireaddon_'.$addon_id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_REQ.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional_mini.png" type="image" value="'.$user->lang['optional'].'" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional_mini.png" type="image" value="'.$user->lang['optional'].'" alt="" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />
 </form>';
 				if( $user->data['level'] <= UA_ID_USER )
 				{
-					$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional_mini.png" class="icon" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />';
+					$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional_mini.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />';
 				}
 			}
 
@@ -348,11 +348,11 @@ function addon_detail( $id )
 	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled.png" type="image" value="'.$user->lang['enabled'].'" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled.png" type="image" value="'.$user->lang['enabled'].'" alt="" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
 </form>';
 			if( $user->data['level'] <= UA_ID_USER )
 			{
-				$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled.png" class="icon" alt="'.$user->lang['enabled'].'" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
+				$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
 			}
 		}
 		else
@@ -361,11 +361,11 @@ function addon_detail( $id )
 	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled.png" type="image" value="'.$user->lang['disabled'].'" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled.png" type="image" value="'.$user->lang['disabled'].'" alt="" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
 </form>';
 			if( $user->data['level'] <= UA_ID_USER )
 			{
-				$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled.png" class="icon" alt="'.$user->lang['disabled'].'" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
+				$enabled = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
 			}
 		}
 
@@ -380,11 +380,11 @@ function addon_detail( $id )
 	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_OPT.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required.png" type="image" value="'.$user->lang['required'].'" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required.png" type="image" value="'.$user->lang['required'].'" alt="" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />
 </form>';
 			if( $user->data['level'] <= UA_ID_USER )
 			{
-				$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required.png" class="icon" alt="'.$user->lang['required'].'" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />';
+				$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/required.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['required'].'\');" onmouseout="return nd();" />';
 			}
 		}
 		else
@@ -393,11 +393,11 @@ function addon_detail( $id )
 	<input type="hidden" name="'.UA_URI_DETAIL.'" value="'.$addon_id.'" />
 	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_REQ.'" />
 	<input type="hidden" name="'.UA_URI_ID.'" value="'.$addon_id.'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional.png" type="image" value="'.$user->lang['optional'].'" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />
+	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional.png" type="image" value="'.$user->lang['optional'].'" alt="" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />
 </form>';
 			if( $user->data['level'] <= UA_ID_USER )
 			{
-				$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional.png" class="icon" alt="'.$user->lang['optional'].'" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />';
+				$required = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/optional.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['optional'].'\');" onmouseout="return nd();" />';
 			}
 		}
 

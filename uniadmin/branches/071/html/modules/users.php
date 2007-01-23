@@ -243,6 +243,8 @@ function finalize_user()
 
 	if( $user->data['id'] == $userI )
 	{
+		$userN = $row['name'];
+
 		// user is level 1 and trying to change someone elses info
 		if( $user->data['level'] == UA_ID_USER && $user->data['id'] != $userI )
 		{
