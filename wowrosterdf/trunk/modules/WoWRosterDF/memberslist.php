@@ -633,6 +633,11 @@ function tradeskill_icons ( $row )
 
 		$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$lang]['professions']."' OR `skill_type` = '".$wordings[$lang]['secondary']."') ORDER BY `skill_order` ASC" );
 
+		if( !$sql_prof )
+		{
+			return 'Error while fetching professions for '.$row['name'].'. MySQL said: '.$wowdb->error();
+		}
+
 		$cell_value = '';
 		while ( $r_prof = $wowdb->fetch_assoc( $SQL_prof ) )
 		{
