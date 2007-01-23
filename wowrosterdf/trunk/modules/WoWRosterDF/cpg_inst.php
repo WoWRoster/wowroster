@@ -27,7 +27,7 @@ eval("class {$roster_base}
 	function {$roster_base}()
 	{
 		\$this->radmin = true;
-		\$this->version = '1.7.2.0';
+		\$this->version = '1.7.3.0';
 		\$this->modname = 'WoWRosterDF';
 		\$this->base = '{$roster_base}';
 		\$this->description = 'World of Warcraft Guild Roster Ported to Dragonfly™';

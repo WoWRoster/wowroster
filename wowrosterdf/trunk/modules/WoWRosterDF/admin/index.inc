@@ -106,7 +106,7 @@ foreach($conf_arrays as $type)
 
 $menu .='
 	<li><a href="#" rel="char_disp">'.$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'].'</a></li>
-	<li><a href="'.$roster_conf['roster_dir'].'/rosterdiag.php" target="_blank">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
+	<li><a href="'.adminlink('info').'">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
     <li><a href="http://www.wowroster.net/wiki" target="_blank">Documentation</a></li>
   </ul>
 </div>

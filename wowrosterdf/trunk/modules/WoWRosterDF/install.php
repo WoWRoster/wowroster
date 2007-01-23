@@ -496,8 +496,8 @@ function RosterDF_install($this_prefix, $this_base)
 
 	$installer->add_query('INSERT', $this_prefix.'config', "1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master'");
 	$installer->add_query('INSERT', $this_prefix.'config', "2, 'roster_upd_pw', '', 'password:30|30', 'master'");
-	$installer->add_query('INSERT', $this_prefix.'config', "3, 'roster_dbver', '4', 'display', 'master'");
-	$installer->add_query('INSERT', $this_prefix.'config', "4, 'version', '1.7.2', 'display', 'master'");
+	$installer->add_query('INSERT', $this_prefix.'config', "3, 'roster_dbver', '5', 'display', 'master'");
+	$installer->add_query('INSERT', $this_prefix.'config', "4, 'version', '1.7.3.0', 'display', 'master'");
 
 	# --------------------------------------------------------
 	### Main Roster Config
@@ -708,7 +708,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 
 		$installer->add_query('INSERT', $this_prefix.'config', "1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf'");
 		$installer->add_query('INSERT', $this_prefix.'config', "5008, 'tabcontent', 'css/js/tabcontent.js', 'text{128|30', 'display_conf'");
-		$installer->add_query('INSERT', $this_prefix.'config', "5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf'");
+		$installer->add_query('INSERT', $this_prefix.'config', "5025, 'roster_bg', 'modules/$this_base/img/wowroster_bg.jpg', 'text{128|30', 'display_conf'");
 		$installer->add_query('INSERT', $this_prefix.'config', "5035, 'compress_note', '1', 'radio{Icon^1|Text^0', 'display_conf'");
 
 		$installer->add_query('INSERT', $this_prefix.'config', "10030, 'item_stats', '1', 'radio{off^1|on^0', 'display_conf'");
@@ -766,25 +766,25 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		# --------------------------------------------------------
 		### Spell trees
 
-		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."spellbooktree ADD PRIMARY KEY (member_id,spell_type)");
+		$db->sql_query('ALTER TABLE `'.$prefix.'_'.$this_prefix."spellbooktree` ADD PRIMARY KEY (`member_id`,`spell_type`)");
 
 
 		# --------------------------------------------------------
 		### Spellbook
 
-		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."spellbook ADD PRIMARY KEY (member_id,spell_name,spell_rank)");
+		$db->sql_query('ALTER TABLE `'.$prefix.'_'.$this_prefix."spellbook` ADD PRIMARY KEY (`member_id`,`spell_name`,`spell_rank`)");
 
 
 		# --------------------------------------------------------
 		### Talent trees
 
-		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."talenttree ADD PRIMARY KEY (member_id,tree)");
+		$db->sql_query('ALTER TABLE `'.$prefix.'_'.$this_prefix."talenttree` ADD PRIMARY KEY (`member_id`,`tree`)");
 
 
 		# --------------------------------------------------------
 		### Talents
 
-		$db->sql_query('ALTER TABLE '.$prefix.'_'.$this_prefix."talents ADD PRIMARY KEY (member_id,tree,row,column)");
+		$db->sql_query('ALTER TABLE `'.$prefix.'_'.$this_prefix."talents` ADD PRIMARY KEY (`member_id`,`tree`,`row`,`column`)");
 
 
 		# --------------------------------------------------------
@@ -814,7 +814,7 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		$installer->add_query('DEL', $this_prefix.'players', "TWHK");
 		$installer->add_query('DEL', $this_prefix.'players', "Rankexp");
 		$installer->add_query('DEL', $this_prefix.'players', "RankInfo");
-		$installer->add_query('DEL', $this_prefix.'players', "RankInfo");
+		$installer->add_query('DEL', $this_prefix.'players', "RankName");
 		$installer->add_query('DEL', $this_prefix.'players', "RankIcon");
 
 		$installer->add_query('ADD', $this_prefix.'players', "sessionCP INT(11) NOT NULL DEFAULT '0' AFTER sessionHK");
@@ -856,8 +856,8 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 		# --------------------------------------------------------
 		### The roster version and db version MUST be last
 
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '1.7.2' WHERE id = '4' LIMIT 1");
-		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '4' WHERE id = '3' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '1.7.3.0' WHERE id = '4' LIMIT 1");
+		$installer->add_query('UPDATE', $this_prefix.'config', "config_value = '5' WHERE id = '3' LIMIT 1");
 	}
 
 	return true;
