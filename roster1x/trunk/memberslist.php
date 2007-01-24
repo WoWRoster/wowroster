@@ -216,11 +216,11 @@ if( !isset($_GET['s']) && !empty($roster_conf['index_sort']) )
    $_GET['s'] = $roster_conf['index_sort'];
 }
 
-if ( $ORDER_FIELD = $FIELDS[$_GET['s']] )
+if( isset($_GET['s']) && $ORDER_FIELD = $FIELDS[$_GET['s']] )
 {
 	$order_field = $_GET['s'];
 
-	if( $_GET['d'] && isset( $ORDER_FIELD['order_d'] ) )
+	if( isset($_GET['d']) && isset( $ORDER_FIELD['order_d'] ) )
 	{
 		foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 		{
@@ -367,7 +367,7 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 		}
 		else
 		{
-			$cell_value = ( ($row[$field] == '') ? '&nbsp;' : $row[$field]);
+			$cell_value = ( isset($row[$field]) && $row[$field] != '') ? $row[$field] : '&nbsp;';
 		}
 
 		//---[ Adding trade skills images ]---------------
@@ -431,7 +431,7 @@ function name_value ( $row )
 	{
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
 
-		$tooltip .= 'Level '.$row['level'].' '.$row['class']."\n";
+		$tooltip = 'Level '.$row['level'].' '.$row['class']."\n";
 
 		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
 		$tooltip .= ($row['nisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']);
@@ -546,7 +546,7 @@ function class_value ( $row )
 		{
 			foreach ($roster_conf['multilanguages'] as $language)
 			{
-				$icon_name = $wordings[$language]['class_iconArray'][$row['class']];
+				$icon_name = isset($wordings[$language]['class_iconArray'][$row['class']]) ? $wordings[$language]['class_iconArray'][$row['class']] : '';
 				if( strlen($icon_name) > 0 ) break;
 			}
 			$icon_name = 'Interface/Icons/'.$icon_name;
@@ -601,12 +601,12 @@ function class_divider ( $text )
 	// Class Icon
 	foreach ($roster_conf['multilanguages'] as $language)
 	{
-		$icon_name = $wordings[$language]['class_iconArray'][$text];
+		$icon_name = isset($wordings[$language]['class_iconArray'][$text]) ? $wordings[$language]['class_iconArray'][$text] : '';
 		if( strlen($icon_name) > 0 ) break;
 	}
 	$icon_name = 'Interface/Icons/'.$icon_name;
 
-	$icon_value = '<a id="'.$text.'" /><img class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+	$icon_value = '<a id="'.$text.'"></a><img class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
 
 	return '<div class="membersGroup">'.$icon_value.$text.'</div>';
 
@@ -629,7 +629,7 @@ function tradeskill_icons ( $row )
 
 		$SQL_prof = $wowdb->query( "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$row['member_id']."' AND (`skill_type` = '".$wordings[$lang]['professions']."' OR `skill_type` = '".$wordings[$lang]['secondary']."') ORDER BY `skill_order` ASC" );
 
-		if( !$sql_prof )
+		if( !$SQL_prof )
 		{
 			return 'Error while fetching professions for '.$row['name'].'. MySQL said: '.$wowdb->error();
 		}
@@ -677,6 +677,7 @@ function level_value ( $row )
 {
 	global $wowdb, $roster_conf, $wordings;
 
+	$tooltip = '';
 	// Configurlate exp is player has it
 	if( !empty($row['exp']) )
 	{
@@ -714,7 +715,7 @@ function level_value ( $row )
 	{
 		$percentage = round(($row['level']/ROSTER_MAXCHARLEVEL)*100);
 
-		$cell_value .= '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
+		$cell_value = '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 		$cell_value .= '<tr>';
 		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt=""></td>';
