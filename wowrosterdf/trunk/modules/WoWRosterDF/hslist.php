@@ -67,7 +67,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.getlink($module.'&amp;file=indexhonor&amp;s=lifetimeRankName').'">'.$wordings[$roster_conf['roster_lang']]['hslist1'].'</a></td>'."\n");
+	print('<a href="'.getlink($module_name.'&amp;file=indexhonor&amp;s=lifetimeRankName').'">'.$wordings[$roster_conf['roster_lang']]['hslist1'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -95,7 +95,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.getlink($module.'&amp;file=indexhonor&amp;s=lifetimeHK').'">'.$wordings[$roster_conf['roster_lang']]['hslist2'].'</a></td>'."\n");
+	print('<a href="'.getlink($module_name.'&amp;file=indexhonor&amp;s=lifetimeHK').'">'.$wordings[$roster_conf['roster_lang']]['hslist2'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -116,7 +116,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.getlink($module.'&amp;file=indexhonor&amp;s=honorpoints').'">'.$wordings[$roster_conf['roster_lang']]['hslist3'].'</a></td>'."\n");
+	print('<a href="'.getlink($module_name.'&amp;file=indexhonor&amp;s=honorpoints').'">'.$wordings[$roster_conf['roster_lang']]['hslist3'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -137,7 +137,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.getlink($module.'&amp;file=indexhonor&amp;s=arenapoints').'">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
+	print('<a href="'.getlink($module_name.'&amp;file=indexhonor&amp;s=arenapoints').'">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
