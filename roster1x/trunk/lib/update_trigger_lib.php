@@ -35,7 +35,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 function start_update_trigger($name,$mode)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $addon_conf, $wordings;
 
 	$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name'";
 	$result = $wowdb->query($query)	or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
@@ -81,7 +81,7 @@ function start_update_trigger($name,$mode)
 					if ( file_exists($triggerfile) )
 					{
 						if ( file_exists($triggerconf) )
-							include( $triggerconf );
+							include_once( $triggerconf );
 
 						include( $triggerfile );
 					}
