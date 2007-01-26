@@ -223,6 +223,12 @@ function processMyProfile($myProfile)
 
 			if( $guildInfo && is_array($myProfile[$realm_name]['Character']) )
 			{
+				// Start update triggers
+				if( $roster_conf['use_update_triggers'] )
+				{
+					$output .= start_update_hook('char_pre');
+				}
+
 				$characters = $myProfile[$realm_name]['Character'];
 				foreach( array_keys( $characters ) as $char_name )
 				{
@@ -250,6 +256,12 @@ function processMyProfile($myProfile)
 						$output .= $wordings[$roster_conf['roster_lang']]['CPver_err']."\n";
 					}
 					$output .= "<br />\n";
+				}
+
+				// Start update triggers
+				if( $roster_conf['use_update_triggers'] )
+				{
+					$output .= start_update_hook('char_post');
 				}
 			}
 			else
@@ -302,6 +314,13 @@ function processGuildRoster($myProfile)
 
 								// update the list of guild members
 								$guild_output = "<li><strong>Updating Members</strong>\n<ul>\n";
+
+								// Start update triggers
+								if( $roster_conf['use_update_triggers'] )
+								{
+									$guild_output .= start_update_hook('guild_pre');
+								}
+
 								foreach(array_keys($guildMembers) as $char_name)
 								{
 									$char = $guildMembers[$char_name];
@@ -321,6 +340,12 @@ function processGuildRoster($myProfile)
 
 								$guild_output .= $wowdb->getMessages()."</ul></li>\n";
 								$wowdb->resetMessages();
+
+								// Start update triggers
+								if( $roster_conf['use_update_triggers'] )
+								{
+									$guild_output .= start_update_hook('guild_post');
+								}
 
 								$guild_output .= "</ul>\n";
 								$output .= "<strong>Updating Guild [<span class=\"orange\">$guild_name</span>]</strong>\n<ul>\n";

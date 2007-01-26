@@ -39,7 +39,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 function start_update_trigger($name,$mode)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $addon_conf, $wordings;
 
 	$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name'";
 	$result = $wowdb->query($query)	or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
@@ -85,7 +85,7 @@ function start_update_trigger($name,$mode)
 					if ( file_exists($triggerfile) )
 					{
 						if ( file_exists($triggerconf) )
-							include( $triggerconf );
+							include_once( $triggerconf );
 
 						include( $triggerfile );
 					}
@@ -113,6 +113,63 @@ function start_update_trigger($name,$mode)
 	return $output;
 }
 
+// Separate function to do the pre/post guild/char hooks
+function start_update_hook($mode)
+{
+	global $wowdb, $roster_conf, $wordings;
+
+	$triggerPath = ROSTER_BASE.'addons';
+
+	if ( $handle = opendir( $triggerPath ) )
+	{
+		while (false !== ($file = readdir($handle)))
+		{
+			if($file != '.' && $file != '..' )
+			{
+				$triggers[$i] = $file;
+				$i++;
+			}
+		}
+	}
+
+	if( count($triggers) > 0 )
+	{
+		// Start ouput buffering
+		ob_start();
+
+		foreach ($triggers as $trigger)
+		{
+			$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
+			$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
+			$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
+
+			if ( file_exists($triggerfile) )
+			{
+				if ( file_exists($triggerconf) )
+					include( $triggerconf );
+
+				include( $triggerfile );
+			}
+		}
+
+		// Get buffer contents
+		$ob_output .= ob_get_contents();
+		ob_end_clean();
+
+		if ( empty($ob_output) )
+		{
+			return '';
+		}
+		else
+		{
+			$output .= $ob_output;
+		}
+	}
+	else
+	{
+		$output = '';
+	}
+}
 
 // Search for character's name by member_id
 // If there is one, get the name of the char with this member id
