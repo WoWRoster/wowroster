@@ -136,21 +136,21 @@ function buildSQL($item,$key,$type)
 	}
 }
 
-//Minimum lockpicking skill to get it, 301 indicates that the lock can't be picked
+//Minimum lockpicking skill to get it, 1000 indicates that the lock can't be picked
 $min_skill_for_lock = array(
 	'SG' => 225,
 	'Gnome' => 150,
 	'SM' => 175,
-	'ZF' => 301,
-	'Mauro' => 301,
+	'ZF' => 1000,
+	'Mauro' => 1000,
 	'BRDp' => 250,
-	'BRDs' => 301,
+	'BRDs' => 1000,
 	'DM' => 295,
 	'Scholo' => 280,
 	'Strath' => 295,
-	'UBRS' => 301,
-	'Onyxia' => 301,
-	'MC' => 301,
+	'UBRS' => 1000,
+	'Onyxia' => 1000,
+	'MC' => 1000,
 );
 
 $items = $inst_keys[$roster_conf['roster_lang']][ substr($faction,0,1) ];
