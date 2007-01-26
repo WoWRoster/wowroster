@@ -9,7 +9,7 @@
 DELETE FROM `renprefix_config` WHERE `id` = '7010' LIMIT 1;
 
 UPDATE `renprefix_config` SET `config_value` = '2.3.1' WHERE `id` = '1030' LIMIT 1;
-UPDATE `renprefix_config` SET `config_value` = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html|European Spanish^http://www.wow-europe.com/es/serverstatus/index.html' WHERE `id` = '8000' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'http://www.worldofwarcraft.com/realmstatus/status.xml', `form_type` = 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml' WHERE `id` = '8000' LIMIT 1;
 
 
 # --------------------------------------------------------
