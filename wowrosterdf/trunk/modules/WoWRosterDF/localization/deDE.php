@@ -87,6 +87,25 @@ $timeformat['deDE'] = '%d.%m. %k:%i'; // MySQL Time format      (example - '%a %
 $phptimeformat['deDE'] = 'd.m. G:i';  // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
+/**
+ * Realmstatus Localizations
+ */
+$wordings['deDE']['rs'] = array(
+	'ERROR' => 'Error',
+	'NOSTATUS' => 'No Status',
+	'UNKNOWN' => 'Unknown',
+	'RPPVP' => 'RP-PvP',
+	'PVE' => 'Normal',
+	'PVP' => 'PvP',
+	'RP' => 'RP',
+	'OFFLINE' => 'Offline',
+	'LOW' => 'Low',
+	'MEDIUM' => 'Medium',
+	'HIGH' => 'High',
+	'MAX' => 'Max',
+);
+
+
 /*
 Instance Keys
 =============

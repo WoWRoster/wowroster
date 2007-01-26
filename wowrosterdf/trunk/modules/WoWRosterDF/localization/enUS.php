@@ -87,6 +87,25 @@ $timeformat['enUS'] = '%a %b %D, %l:%i %p'; // MySQL Time format      (example -
 $phptimeformat['enUS'] = 'D M jS, g:ia';    // PHP date() Time format (example - 'D M jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
+/**
+ * Realmstatus Localizations
+ */
+$wordings['enUS']['rs'] = array(
+	'ERROR' => 'Error',
+	'NOSTATUS' => 'No Status',
+	'UNKNOWN' => 'Unknown',
+	'RPPVP' => 'RP-PvP',
+	'PVE' => 'Normal',
+	'PVP' => 'PvP',
+	'RP' => 'RP',
+	'OFFLINE' => 'Offline',
+	'LOW' => 'Low',
+	'MEDIUM' => 'Medium',
+	'HIGH' => 'High',
+	'MAX' => 'Max',
+);
+
+
 /*
 Instance Keys
 =============
