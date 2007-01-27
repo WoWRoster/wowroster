@@ -13,7 +13,7 @@ function RosterDF_install($this_prefix, $this_base)
 
 	if( version_compare(CPG_NUKE, '9.1.1', '<') )
 	{
-		cpg_error('WoWRosterDF requires DragonFly version 9.1.1.0');
+		cpg_error('WoWRosterDF requires DragonFly version 9.1.1');
 	}
 
 
@@ -662,10 +662,10 @@ function RosterDF_upgrade($prev_version, $this_prefix, $this_base)
 
 	if( version_compare(CPG_NUKE, '9.1.1', '<') )
 	{
-		cpg_error('WoWRosterDF requires DragonFly version 9.1.1.0');
+		cpg_error('WoWRosterDF requires DragonFly version 9.1.1');
 	}
 
-	if( version_compare( $prev_version, '1.7.2.0', '<' ) )
+	if( version_compare( $prev_version, '1.7.3.0', '<' ) )
 	{
 		# --------------------------------------------------------
 		### Fix interface icons in database
