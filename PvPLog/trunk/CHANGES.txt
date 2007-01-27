@@ -2,10 +2,19 @@ PvPLog
 Author:           Andrzej Gorski
 Maintainer:       Matthew Musgrove, Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          2.3.2
-Last Modified:    2007-01-13
+Version:          2.3.5
+Last Modified:    2007-01-27
 
 CHANGES
+
+2007-01-27  * 2.3.5
+    * Fixed notifyKill and notifyDeath being nil.
+
+2007-01-26  * 2.3.4
+    * Fixed error caused by notifySystem being nil. How it got that way is a different problem.
+
+2007-01-17  * 2.3.3
+    * Changed maximum level to 70.
 
 2007-01-13  * 2.3.2
     * Changed TOC to 20003.

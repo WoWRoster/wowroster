@@ -3,8 +3,8 @@
     Author:           Andrzej Gorski, 
     Maintainer:       Matthew Musgrove, Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.3.2
-    Last Modified:    2007-01-13
+    Version:          2.3.5
+    Last Modified:    2007-01-27
 ]]
 
 -- Local variables
@@ -14,7 +14,7 @@ local initialized = false;
 local realm = "";
 local player = "";
 local plevel = -1;
-local mlevel = 60; -- Maximum player level
+local mlevel = 70; -- Maximum player level
 local dlevel = 11; -- Difference causing level of -1 to be returned
 
 local softPL; -- soft PvPLog enable/disable
@@ -1069,8 +1069,16 @@ function PvPLogInitialize()
         PvPLogData[realm][player].notifyKillText = DEFAULT_KILL_TEXT;
     end
 
+    if (PvPLogData[realm][player].notifyKill == nil) then
+        PvPLogData[realm][player].notifyKill = NONE;
+    end
+
     if (PvPLogData[realm][player].notifyDeathText == nil) then
         PvPLogData[realm][player].notifyDeathText = DEFAULT_DEATH_TEXT;
+    end
+
+    if (PvPLogData[realm][player].notifyDeath == nil) then
+        PvPLogData[realm][player].notifyDeath = NONE;
     end
 
     if (PvPLogData[realm][player].MiniMap == nil) then
@@ -1594,21 +1602,23 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     notifyMsg = string.gsub( notifyMsg, "%%w", SubZone );
     notifyMsg = string.gsub( notifyMsg, " %(%)", '' );
 
-    for notifyChan in string.gmatch(notifySystem, "%w+") do
-        if( venemy and notifyChan == SELF) then
-            PvPLogChatMsg(notifyMsg);
-        elseif( venemy and
-          ((notifyChan == PARTY and GetNumPartyMembers() > 0) or 
-          (notifyChan == GUILD and GetGuildInfo("player") )  or 
-          (notifyChan == RAID  and GetNumRaidMembers() > 0)) ) then
-            if (notifyChan == RAID and bg_found) then
-                notifyChan = BG;
+    if (notifySystem) then
+        for notifyChan in string.gmatch(notifySystem, "%w+") do
+            if( venemy and notifyChan == SELF) then
+                PvPLogChatMsg(notifyMsg);
+            elseif( venemy and
+              ((notifyChan == PARTY and GetNumPartyMembers() > 0) or 
+              (notifyChan == GUILD and GetGuildInfo("player") )  or 
+              (notifyChan == RAID  and GetNumRaidMembers() > 0)) ) then
+                if (notifyChan == RAID and bg_found) then
+                    notifyChan = BG;
+                end
+                PvPLogSendChatMessage(notifyMsg, notifyChan);
+            elseif( venemy and notifyChan ~= NONE and notifyChan ~= SELF and
+              notifyChan ~= PARTY and notifyChan ~= GUILD
+              and notifyChan ~= RAID and notifyChan ~= BG) then
+                PvPLogSendMessageOnChannel(notifyMsg, notifyChan);
             end
-            PvPLogSendChatMessage(notifyMsg, notifyChan);
-        elseif( venemy and notifyChan ~= NONE and notifyChan ~= SELF and
-          notifyChan ~= PARTY and notifyChan ~= GUILD
-          and notifyChan ~= RAID and notifyChan ~= BG) then
-            PvPLogSendMessageOnChannel(notifyMsg, notifyChan);
         end
     end
 end

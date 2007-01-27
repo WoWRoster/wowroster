@@ -3,13 +3,13 @@
   Author:           Andrzej Gorski 
   Maintainer:       Matthew Musgrove, Brad Morgan
   Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          2.3.2
-  Last Modified:    2007-01-13
+  Version:          2.3.5
+  Last Modified:    2007-01-27
 ]]
 
 -- version information
 VER_VENDOR = "wowroster.net";
-VER_NUM = "2.3.2";
+VER_NUM = "2.3.5";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
