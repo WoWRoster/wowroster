@@ -161,6 +161,10 @@ $LOCALES = array(
 		'label' => 'French',
 		'type'	=> 'frFR'
 		),
+	'Spanish'  => array(
+		'label' => 'Spanish',
+		'type'	=> 'esES'
+		),
 	);
 
 // ---------------------------------------------------------
