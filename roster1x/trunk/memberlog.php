@@ -151,8 +151,9 @@ if ($start > 0)
 
 if (($start+30) < $max)
 {
+	$lastpage = ceil($max/30)*30;
 	$listing = ' <small>['.$start.' - '.($start+30).'] of '.$max.'</small>';
-	$next = ' <a href="?start='.($start+30).$sort_part.'">&gt;</a> <a href="?start='.($max-30).$sort_part.'">&gt;&gt;</a>';
+	$next = ' <a href="?start='.($start+30).$sort_part.'">&gt;</a> <a href="?start='.($lastpage-30).$sort_part.'">&gt;&gt;</a>';
 }
 else
 	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
