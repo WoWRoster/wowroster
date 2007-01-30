@@ -147,7 +147,9 @@ $sort_part = ($get_s != '' ? "&amp;s=$get_s" : '');
 $sort_part .= ($get_d != 0 ? "&amp;d=$get_d" : '');
 
 if ($start > 0)
-	$prev = '<a href="?start=0'.$sort_part.'">&lt;&lt;</a> <a href="?start='.($start-30).$sort_part.'">&lt;</a> ';
+{
+	$prev = '<a href="?start=0'.$sort_part.'">&lt;&lt;</a> <a href="?start='.max($start-30,0).$sort_part.'">&lt;</a> ';
+}
 
 if (($start+30) < $max)
 {
@@ -156,8 +158,9 @@ if (($start+30) < $max)
 	$next = ' <a href="?start='.($start+30).$sort_part.'">&gt;</a> <a href="?start='.($lastpage-30).$sort_part.'">&gt;&gt;</a>';
 }
 else
+{
 	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
-
+}
 
 $borderTop = border('sgreen', 'start', $prev.$wordings[$roster_conf['roster_lang']]['memberlog'].$listing.$next);
 $tableHeader = '<table width="100%" cellspacing="0" class="bodyline">'."\n";
