@@ -29,14 +29,16 @@ if ( !defined('ROSTER_INSTALLED') )
 // SVN Remote -> Please make a page on the web where you place the most rescent version of the files, including this file.
 //               The webpage must be entered below without a trailing slash
 $svnremote = 'http://www.wowroster.net/roster_updater/version_match.php';
+
 // Ignored Directories
-//$ignored_dirs = array('.', '..', 'img', 'SVN', 'addons');
-$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface');
+$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'addons', 'admin');
+
 // Files to check with extension:
-//$extensions = array('php', 'css', 'js', 'tpl', 'htm', 'html');
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
+
 // Files to ignore
 $ignored_files = array('conf.php','.htaccess');
+
 // Do we want to check the SubDirs ?? I think we do :)
 $subdirectories = 1;
 
@@ -53,16 +55,16 @@ $problemsev['nosvn'] = 1;
 $problemsev['nolocal'] = 6;
 $problemsev['unknown'] = 2;
 
-$severity[0] = array('style' => 'sgreen', 'color' => '#12C312', 'weight' => 0, 'severityname' => 'No Issues');
-$severity[1] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Unknown');
-$severity[2] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 1, 'severityname' => 'Initial');
-$severity[3] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1, 'severityname' => 'Strange');
-$severity[4] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3, 'severityname' => 'Minor');
-$severity[5] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7, 'severityname' => 'Major');
-$severity[6] = array('style' => 'sred', 'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
+$severity[0] = array('style' => 'sgreen',  'color' => '#12C312', 'weight' => 0,  'severityname' => 'No Issues');
+$severity[1] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Unknown');
+$severity[2] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 1,  'severityname' => 'Initial');
+$severity[3] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1,  'severityname' => 'Strange');
+$severity[4] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3,  'severityname' => 'Minor');
+$severity[5] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7,  'severityname' => 'Major');
+$severity[6] = array('style' => 'sred',    'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
 
-$rollups[] = array('rollup' => 2, 'severity' => 4);
-$rollups[] = array('rollup' => 5, 'severity' => 5);
+$rollups[] = array('rollup' => 2,  'severity' => 4);
+$rollups[] = array('rollup' => 5,  'severity' => 5);
 $rollups[] = array('rollup' => 14, 'severity' => 6);
 
 $totalseverity = 0;
@@ -74,8 +76,10 @@ $script_filename = 'rosterdiag.php';
 // Set some characters we will use for exploding the data streams
 $explode = '*|*';
 $break = "\n";
+
 // Make an array to hold the direcory information
 $directories = array('.' => array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0));
+
 // Make an array to hold the local and, if applicable, remote file versioning information
 $files = array();
 
@@ -546,7 +550,7 @@ function ConfigErrors()
 	}
 
 	// Start building error string
-	$errors = "<span class=\"red\">";
+	$errors = '';
 
 	// Check GD and Freetype status in PHP config if GD Realm Status option is set
 	if ($roster_conf['rs_mode'] == 1)
@@ -571,7 +575,12 @@ function ConfigErrors()
 			$errors .= "MOTD GD image mode enabled (motd_display_mode = on) in Config but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (motd_display_mode = off) in Roster Config<br />\n";
 		}
 	}
-	$errors .="</span><br /><br />\n";
+
+	if( !empty($errors) )
+	{
+		$errors = '<span class="red">'.$errors."</span><br /><br />\n";
+	}
+
 	return $errors;
 }
 
@@ -831,27 +840,41 @@ function highlight_php($string, $startline=1)
 {
   $lines = explode("\n",$string);
 
-	$returnstring = '<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-style:solid;border-width:1px;border-color:white black black white">';
+	$returnstring = '<div style="white-space:nowrap;overflow:auto;"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-style:solid;border-width:1px;border-color:white black black white">';
 
-	foreach ($lines as $key => $line)
+	$startline=1;
+	foreach( $lines as $key => $line )
 	{
-		$line = "<?php x\n".$line;
+		if( !empty($line) )
+		{
+			$line = "<?php x\n".$line;
 
+			$linecoded = highlight_string($line,true);
 
-		ob_start();
-		highlight_string($line);
-		$linecoded = ob_get_contents();
-		ob_end_clean();
-		$linecoded = str_replace("&lt;?php&nbsp;x<br />", "", $linecoded);
+			$linecoded = str_replace(array('<font ', '</font>','<code>','</code>'), array('<span ', '</span>','',''), $linecoded);
+			$linecoded = preg_replace('#color="(.*?)"#', 'style="color: \\1"', $linecoded);
 
-		$returnstring .= '<tr>';
-		$returnstring .= '<td width="3%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>'.$startline.'</code></td>';
-		$returnstring .= '<td width="97%" valign="top" style="background-color:white;"><div style="white-space:nowrap;overflow:auto;"><code>'.$linecoded.'</div></code></td>';
-		$returnstring .= '</tr>';
+			$linecoded = str_replace('&lt;?php&nbsp;x<br />', '', $linecoded);
+
+			if( !empty($linecoded) )
+			{
+				$returnstring .= '<tr>';
+				$returnstring .= '  <td width="1%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>'.$startline.'</code></td>';
+				$returnstring .= '  <td width="99%" valign="top" style="background-color:white;"><code>'.$linecoded.'</code></td>';
+				$returnstring .= '</tr>';
+			}
+		}
+		else
+		{
+			$returnstring .= '<tr>';
+			$returnstring .= '  <td width="1%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>'.$startline.'</code></td>';
+			$returnstring .= '  <td width="99%" valign="top" style="background-color:white;">&nbsp;</td>';
+			$returnstring .= '</tr>';
+		}
 
 		$startline++;
 	}
-	$returnstring .= '</table>';
+	$returnstring .= '</table></div>';
 
 	return $returnstring;
 }

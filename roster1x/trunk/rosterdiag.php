@@ -122,7 +122,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
 				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
-				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'"></td><td class="membersRowRight1"><img src="'.$svnurl.$filename.'"></td></tr>';
+				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'" alt="Local Image" /></td><td class="membersRowRight1"><img src="'.$svnurl.$filename.'" alt="SVN Image" /></td></tr>';
 				$diffcheck .= '</table>';
 			}
 			else
@@ -177,7 +177,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnurl = parse_url($svnremote);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
-				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">SVN Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'"></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
+				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">SVN Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'" alt="" /></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
 			}
 			else
 			{
@@ -323,7 +323,7 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display conf.php info
 
-echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<small><a href="?printconf=1" target="_blank"><i>Show Entire $roster_conf array</i></small></a>').
+echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="?printconf=1" target="_blank">Show Entire $roster_conf array</a></small></i>').
 '<table width="100%" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">version</td>
@@ -495,11 +495,11 @@ if (ini_get('allow_url_fopen'))
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
