@@ -147,15 +147,20 @@ $sort_part = ($get_s != '' ? "&amp;s=$get_s" : '');
 $sort_part .= ($get_d != 0 ? "&amp;d=$get_d" : '');
 
 if ($start > 0)
-	$prev = '<a href="'.getlink($module_name.'&amp;file=memberlog&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="?start='.($start-30).$sort_part.'">&lt;</a> ';
+{
+	$prev = '<a href="'.getlink($module_name.'&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="'.getlink($module_name.'&amp;start='.max($start-30,0).$sort_part).'">&lt;</a> ';
+}
 
 if (($start+30) < $max)
 {
+	$lastpage = ceil($max/30)*30;
 	$listing = ' <small>['.$start.' - '.($start+30).'] of '.$max.'</small>';
-	$next = ' <a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.($start+30).$sort_part).'">&gt;</a> <a href="'.getlink($module_name.'&amp;file=memberlog&amp;start='.($max-30).$sort_part).'">&gt;&gt;</a>';
+	$next = ' <a href="'.getlink($module_name.'&amp;start='.($start+30).$sort_part).'">&gt;</a> <a href="'.getlink($module_name.'&amp;start='.($lastpage-30).$sort_part).'">&gt;&gt;</a>';
 }
 else
+{
 	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
+}
 
 
 $borderTop = border('sgreen', 'start', $prev.$wordings[$roster_conf['roster_lang']]['memberlog'].$listing.$next);

@@ -333,7 +333,7 @@ $wordings['esES']['Addon'] = 'Addons';
 $wordings['esES']['advancedstats'] = 'Estadísticas Avanzadas';
 $wordings['esES']['itembonuses'] = 'Bonificaciones a los objetos equipados';
 $wordings['esES']['itembonuses2'] = 'Bonificaciones de objetos';
-$wordings['esES']['crit'] = 'Crit';
+$wordings['esES']['crit'] = 'Critico';
 $wordings['esES']['dodge'] = 'Esquivar';
 $wordings['esES']['parry'] = 'Parar';
 $wordings['esES']['block'] = 'Bloquear';
@@ -345,14 +345,14 @@ $wordings['esES']['removed'] = 'Borrado';
 $wordings['esES']['added'] = 'Añadido';
 $wordings['esES']['no_memberlog'] = 'No se ha grabado registro de miembros';
 
-$wordings['esES']['rosterdiag'] = 'Test Roster';
+$wordings['esES']['rosterdiag'] = 'Probar Roster';
 $wordings['esES']['Guild_Info'] = 'Información de la Hermandad';
 $wordings['esES']['difficulty'] = 'Dificultad';
 $wordings['esES']['recipe_4'] = 'óptima';
 $wordings['esES']['recipe_3'] = 'media';
 $wordings['esES']['recipe_2'] = 'fácil';
 $wordings['esES']['recipe_1'] = 'trivial';
-$wordings['esES']['roster_config'] = 'Config Roster';
+$wordings['esES']['roster_config'] = 'Configuración Roster';
 
 // Spellbook
 $wordings['esES']['spellbook'] = 'Libro de Hechizos';
@@ -378,7 +378,7 @@ $wordings['esES']['Blacksmithing']='Herrería';
 $wordings['esES']['Mining']='Minería';
 $wordings['esES']['Herbalism']='Botánica';
 $wordings['esES']['Alchemy']='Alquimia';
-$wordings['esES']['Leatherworking']='Marroquinería';
+$wordings['esES']['Leatherworking']='Marroquiner�a';
 $wordings['esES']['Jewelcrafting']='Joyería';
 $wordings['esES']['Skinning']='Desollar';
 $wordings['esES']['Tailoring']='Costura';
@@ -479,9 +479,9 @@ $skilltypes['esES'] = array(
 );
 
 //tabs
-$wordings['esES']['tab1']='Personaj';
+$wordings['esES']['tab1']='Personaje';
 $wordings['esES']['tab2']='Mascota';
-$wordings['esES']['tab3']='Reputac';
+$wordings['esES']['tab3']='Reputacion';
 $wordings['esES']['tab4']='Habilidad';
 $wordings['esES']['tab5']='Talentos';
 $wordings['esES']['tab6']='JcJ';
@@ -523,7 +523,7 @@ $wordings['esES']['res_frost_tooltip']='Aumenta tu facultad para resistir ataque
 $wordings['esES']['res_shadow']='Resistencia a las sombras';
 $wordings['esES']['res_shadow_tooltip']='Aumenta tu facultad para resistir ataques de sombras, hechizos y facultades.<br />Cuanto mayor sea el número, mayor será la resistencia.';
 
-$wordings['esES']['empty_equip']='No item equipped';
+$wordings['esES']['empty_equip']='No hay objeto equipado';
 $wordings['esES']['pointsspent']='Puntos Gastados:';
 $wordings['esES']['none']='Ninguno';
 
@@ -538,10 +538,10 @@ $wordings['esES']['pvplist7']='Miembro con la mejor media de muertes';
 $wordings['esES']['pvplist8']='Miembro con la mejor media de derrotas';
 
 $wordings['esES']['hslist']=' Estadísticas del Sistema de Honor';
-$wordings['esES']['hslist1']='Highest Lifetime Rank';
-$wordings['esES']['hslist2']='Highest Lifetime HKs';
-$wordings['esES']['hslist3']='Most Honor Points';
-$wordings['esES']['hslist4']='Most Arena Points';
+$wordings['esES']['hslist1']='Rango mas alto conseguido';
+$wordings['esES']['hslist2']='Numero maximo de Muertes Honorables conseguidas';
+$wordings['esES']['hslist3']='Puntos de Honor mas alto';
+$wordings['esES']['hslist4']='Puntos de Arena mas alto';
 
 $wordings['esES']['Druid']='Druida';
 $wordings['esES']['Hunter']='Cazador';
@@ -675,12 +675,12 @@ $wordings['esES']['lockpicking']='Ganz&uacutea';
 	$wordings['esES']['tooltip_damage_reduction']='Reducción de daño';
 
 // Warlock pet names for icon displaying
-	$wordings['esES']['Imp']='Imp';
-	$wordings['esES']['Voidwalker']='Voidwalker';
-	$wordings['esES']['Succubus']='Succubus';
-	$wordings['esES']['Felhunter']='Felhunter';
-	$wordings['esES']['Infernal']='Infernal';
-	$wordings['esES']['Felguard']='Felguard';
+	$wordings['esES']['Imp']='Diablillo';
+	$wordings['esES']['Voidwalker']='Abisario';
+	$wordings['esES']['Succubus']='Súcubo';
+	$wordings['esES']['Felhunter']='Manáfago';
+	$wordings['esES']['Infernal']='Inferno';
+	$wordings['esES']['Felguard']='Guardia Maldito';
 
 // Max experiance for exp bar on char page
 	$wordings['esES']['max_exp']='Max XP';
@@ -811,11 +811,12 @@ $wordings['esES']['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige com
 $wordings['esES']['admin']['compress_note'] = "Modo de mostrar las notas|Indica como ser&aacuten mostradas las notas de los jugadores<br /><br />&quot;Text&quot; - Muestra el texto de la nota<br />&quot;Icon&quot; - Muestra un icono y el mensaje en una ventanita";
 $wordings['esES']['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fondo de pantalla";
 $wordings['esES']['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacutegina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
+$wordings['esES']['admin']['item_stats'] = "Item Stats Mod|If you have item_stats installed, turn this on";
 
 // data_links
-$wordings['esES']['admin']['questlink_1'] = "Quest Link #1|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['esES']['admin']['questlink_2'] = "Quest Link #2|Item external links<br>Look in your localization-file(s) for link configuration";
-$wordings['esES']['admin']['questlink_3'] = "Quest Link #3|Item external links<br>Look in your localization-file(s) for link configuration";
+$wordings['esES']['admin']['questlink_1'] = "Quest Link #1|Link externo para objetos/Quest<br>Mira en tu archivo localizationpara la configuracion de los link.";
+$wordings['esES']['admin']['questlink_2'] = "Quest Link #2|Link externo para objetos/Quest<br>Mira en tu archivo localizationpara la configuracion de los link.";
+$wordings['esES']['admin']['questlink_3'] = "Quest Link #3|Link externo para objetos/Quest<br>Mira en tu archivo localizationpara la configuracion de los link.";
 $wordings['esES']['admin']['profiler'] = "Descargar CharacterProfiler link|URL para descargar CharacterProfiler";
 $wordings['esES']['admin']['pvplogger'] = "Descargar PvPLog link|URL para descargar PvPLog";
 $wordings['esES']['admin']['uploadapp'] = "Descargar UniUploader link|URL para descargar UniUploader";
@@ -850,7 +851,7 @@ $wordings['esES']['admin']['banker_rankname'] = "Texto para buscar un banco|Indi
 $wordings['esES']['admin']['banker_fieldname'] = "Campo de b&uacutesqueda de banquero|Indica el campo en el que se localiza el texto que has puesto en el apartado anterior";
 
 // update_access
-$wordings['esES']['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$wordings['esES']['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opcion en off desactivas el acceso para todo el mundo.";
 
 // Character Display Settings
-$wordings['esES']['admin']['per_character_display'] = 'Per-Character Display';
+$wordings['esES']['admin']['per_character_display'] = 'Pantalla Per-Character';
