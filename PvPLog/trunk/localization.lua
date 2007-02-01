@@ -370,14 +370,14 @@ elseif (GetLocale() == "esES") then
     DISPLAY = "mostrar";
     DING = "ding";
     MOUSEOVER = "mouseover";
-    NOSPAM = "sinspam";
-    DMG = "daño";
-    ST = "estadísticas";
-    NOTIFYKILL = "notifykill"; -- "Aviso de Asesinatos"
-    NOTIFYKILLTEXT = "killtext";
-    NOTIFYDEATH = "notifydeath"; -- "Aviso de Muertes"
-    NOTIFYDEATHTEXT = "deathtext";
-    UI_CONFIG = "configuración";
+    NOSPAM = "nospam";
+    DMG = "da\195\177o";
+    ST = "estad\195\173sticas";
+    NOTIFYKILL = "notificar asesinato"; -- "Aviso de Asesinatos"
+    NOTIFYKILLTEXT = "texto asesinato";
+    NOTIFYDEATH = "notificar muerte"; -- "Aviso de Muertes"
+    NOTIFYDEATHTEXT = "texto muerte";
+    UI_CONFIG = "configuraci\195\179n";
 
     -- Other needed phrases
     TO = " a ";
@@ -385,20 +385,20 @@ elseif (GetLocale() == "esES") then
     OFF = "Apagado";
     NONE = "Ninguno";
     CONFIRM = "Confirmar";
-    VER = "Versión";
+    VER = "Versi\195\179n";
     VEN = "Vendedor";
     USAGE = "Uso";
     
-    STATS = "Estadísticas";
+    STATS = "Estad\195\173sticas";
     COMP = "Completamente";
     
-    SELF = "Self";
+    SELF = "M\195\173";
     PARTY = "Grupo";
     GUILD = "Hermandad";
     RAID = "Banda";
-    RACE = "raza";
-    CLASS = "clase";
-    ENEMY = "enemigo";
+    RACE = "Raza";
+    CLASS = "Clase";
+    ENEMY = "Enemigo";
     BG = "Campo de Batalla";
     
 --  AB = "Cuenca de Arathi";
@@ -410,11 +410,11 @@ elseif (GetLocale() == "esES") then
     WINS = "Victorias";
     LOSSES = "Derrotas";
     
-    PLAYER = "Player";
-    RECENT = "Recent";
+    PLAYER = "Jugador";
+    RECENT = "Reciente";
     DUEL = "Duelo";
     TOTAL = "Total";
-    STATS = "Estadísticas";
+    STATS = "Estad\195\173sticas";
     ALD = "Diferencia de Nivel";
     
     DLKB = "Muerte grabada, asesinado por: ";
@@ -452,18 +452,18 @@ elseif (GetLocale() == "esES") then
     UI_DING = "Utilizar Audio";
     UI_DISPLAY = "Mensajes Emergentes";
     UI_NOTIFY_NONE = "Nadie";
-    UI_DING_TIP = "Cuando pases el ratón sobre un jugador contra \nquien hayas luchado sonará una señal.";
+    UI_DING_TIP = "Cuando pases el rat\195\179n sobre un jugador contra \nquien hayas luchado sonar\195\161 una se\195\177al.";
     UI_PVP = "JcJ";
     UI_NAME = "Nombre";
     UI_WINS = "Victorias";
     UI_LOSSES = "Derrotas";
-    UI_RIGHT_CLICK = "Clic derecha: ";
+    UI_RIGHT_CLICK = "Clic derecho: ";
     UI_LEFT_CLICK = "Clic izquierdo: ";
     UI_TOGGLE = "Muestra/oculta " .. UI_CONFIG;
-    UI_MINIMAP_BUTTON = "Botón De Minimap";
-    UI_RECORD_BG = "Record in Battlegrounds";
-    UI_RECORD_DUEL = "Record Duels";
-    UI_NOTIFY_BG = "Notify in Battlegrounds";
-    UI_NOTIFY_DUEL = "Notify Duels";
+    UI_MINIMAP_BUTTON = "Bot\195\179n de Minimapa";
+    UI_RECORD_BG = "Historial en Campos de Batalla";
+    UI_RECORD_DUEL = "Historial de Duelos";
+    UI_NOTIFY_BG = "Notificar en Campos de Batalla";
+    UI_NOTIFY_DUEL = "Notificar Duelos";
 
 end
