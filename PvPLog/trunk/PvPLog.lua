@@ -1,10 +1,9 @@
 --[[
     PvPLog 
-    Author:           Andrzej Gorski, 
-    Maintainer:       Matthew Musgrove, Brad Morgan
-    Based on Work by: Josh Estelle, Daniel S. Reichenbach
-    Version:          2.3.5
-    Last Modified:    2007-01-27
+    Author:           Brad Morgan
+    Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
+    Version:          2.3.6
+    Last Modified:    2007-02-01
 ]]
 
 -- Local variables
@@ -58,9 +57,19 @@ local FIRE    = "|cffde2413";
 
 local dmgType = { };
 local initDamage = false;
+local VER_NUM = GetAddOnMetadata("PvPLog", "Version");
+local VENDOR = "wowroster.net";
+local URL = "http://www."..VENDOR;
 
 -- Called OnLoad of the add on
 function PvPLogOnLoad()
+    
+    if (VER_NUM) then
+        PVPLOG_STARTUP = string.gsub( PVPLOG_STARTUP, "%%v", VER_NUM );
+    end
+    if (VENDOR) then
+        PVPLOG_STARTUP = string.gsub( PVPLOG_STARTUP, "%%w", VENDOR );
+    end
     PvPLogChatMsgCyan(PVPLOG_STARTUP);
 
     -- respond to saved variable load
@@ -102,8 +111,9 @@ function PvPLogOnLoad()
     this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE");
 
     -- enters/leaves combat (for DPS)
-    --this:RegisterEvent("PLAYER_REGEN_ENABLED");
+--  this:RegisterEvent("PLAYER_REGEN_ENABLED");
     this:RegisterEvent("PLAYER_REGEN_DISABLED");
+    this:RegisterEvent("UNIT_HEALTH");
 
     -- testing
     --this:RegisterEvent("PLAYER_PVP_KILLS_CHANGED");
@@ -134,7 +144,7 @@ function PvPLog_RegisterWithAddonManagers()
             name = "PvPLog",
             version = VER_NUM,
             author = "Andrzej Gorski",
-            website = "http://"..VER_VENDOR,
+            website = URL,
             category = MYADDONS_CATEGORY_OTHERS,
             optionsframe = "PvPLogConfigFrame"
         };
@@ -478,6 +488,13 @@ function PvPLogOnEvent()
     elseif (event == "PLAYER_REGEN_DISABLED") then
         PvPLogStatsFrame:Hide();
         PvPLogConfigHide();
+--  elseif (event == "PLAYER_REGEN_ENABLED") then
+    elseif (event == "UNIT_HEALTH") then
+        if ( not UnitAffectingCombat("player") and UnitHealth("player") == UnitHealthMax("player")) then
+            PvPLogDebugMsg('Recents cleared (healthy).');
+            recentDamager = { };
+            lastDamagerToMe = "";
+        end
     end
 end
 
@@ -688,6 +705,9 @@ function PvPLogPlayerDeath(parseName)
                     v = targetRecords[parseName];
                     PvPLogChatMsgCyan(KL  .. GREEN .. parseName);
                     PvPLogRecord(parseName, v.level, v.race, v.class, v.guild, 1, 1, v.rank, v.realm);
+                    if (parseName == lastDamagerToMe) then
+                        lastDamagerToMe = "";
+                    end
                 else
                     PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseName);
                 end
@@ -1063,7 +1083,7 @@ function PvPLogInitialize()
         PvPLogInitPvP();
     end
     PvPLogData[realm][player].version = VER_NUM;
-    PvPLogData[realm][player].vendor = VER_VENDOR;
+    PvPLogData[realm][player].vendor = VENDOR;
 
     if (PvPLogData[realm][player].notifyKillText == nil) then
         PvPLogData[realm][player].notifyKillText = DEFAULT_KILL_TEXT;
@@ -1124,7 +1144,7 @@ function PvPLogInitialize()
         PvPLogInitPurge();
     end
     PurgeLogData[realm][player].version = VER_NUM;
-    PurgeLogData[realm][player].vendor = VER_VENDOR;
+    PurgeLogData[realm][player].vendor = VENDOR;
 
     local stats = PvPLogGetStats();
     local allRecords = stats.totalWins + stats.totalLoss;
@@ -1146,7 +1166,7 @@ function PvPLogInitPvP()
     PvPLogData[realm][player] = { };
     PvPLogData[realm][player].battles = { };
     PvPLogData[realm][player].version = VER_NUM;
-    PvPLogData[realm][player].vendor = VER_VENDOR;
+    PvPLogData[realm][player].vendor = VENDOR;
     PvPLogData[realm][player].enabled = true;
     PvPLogData[realm][player].display = true;
     PvPLogData[realm][player].ding = false;
@@ -1171,7 +1191,7 @@ function PvPLogInitPurge()
     PurgeLogData[realm][player] = { };
     PurgeLogData[realm][player].battles = { };
     PurgeLogData[realm][player].version = VER_NUM;
-    PurgeLogData[realm][player].vendor = VER_VENDOR;
+    PurgeLogData[realm][player].vendor = VENDOR;
     PurgeLogData[realm][player].PurgeCounter = 5000;
 end
 
@@ -1910,7 +1930,7 @@ function PvPLogSlashHandler(msg)
     elseif (command == VER) then
         PvPLogChatMsgCyan("PvPLog "..VER..": " .. WHITE .. VER_NUM);
     elseif (command == VEN) then
-        PvPLogChatMsgCyan("PvPLog "..VEN..": " .. WHITE .. VER_VENDOR);
+        PvPLogChatMsgCyan("PvPLog "..VEN..": " .. WHITE .. VENDOR);
     elseif (command == DMG) then
         PvPLogPrintDamage();
     elseif (command == ST) then

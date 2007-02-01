@@ -1,11 +1,16 @@
 PvPLog 
-Author:           Andrzej Gorski
-Maintainer:       Matthew Musgrove, Brad Morgan
-Based on Work by: Josh Estelle, Daniel S. Reichenbach
-Version:          2.3.5
-Last Modified:    2007-01-27
+Author:           Brad Morgan
+Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
+Version:          2.3.6
+Last Modified:    2007-02-01
 
 CHANGES
+
+2007-02-01  * 2.3.6
+    * Clear lastDamagerToMe if you just killed them.
+    * Clear recentDamagers if you are not in combat and reach full health.
+    * Move version number out of localization.lua (use the one in the TOC).
+    * Changed TOC so that the current Author can be fetched with GetAddOnMetadata.
 
 2007-01-27  * 2.3.5
     * Fixed notifyKill and notifyDeath being nil.

@@ -1,15 +1,10 @@
 --[[
-  PvPLog 
-  Author:           Andrzej Gorski 
-  Maintainer:       Matthew Musgrove, Brad Morgan
-  Based on Work by: Josh Estelle, Daniel S. Reichenbach
-  Version:          2.3.5
-  Last Modified:    2007-01-27
+    PvPLog 
+    Author:           Brad Morgan
+    Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
+    Version:          2.3.6
+    Last Modified:    2007-02-01
 ]]
-
--- version information
-VER_VENDOR = "wowroster.net";
-VER_NUM = "2.3.5";
 
 --Everything From here on would need to be translated and put
 --into if statements for each specific language.
@@ -19,7 +14,7 @@ VER_NUM = "2.3.5";
 --***********
 
     -- Startup messages
-    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." by "..VER_VENDOR.." AddOn loaded. Type /pl for options.";
+    PVPLOG_STARTUP = "PvP Logger %v by %w AddOn loaded. Type /pl for options.";
 
     DESCRIPTION = "Keeps track of your PvP kills and the people who kill you.";
     
@@ -136,7 +131,7 @@ if (GetLocale() == "deDE") then
     -- Translated by (): yamyam
 
     -- Startup messages
-    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." von "..VER_VENDOR.." AddOn geladen. Tippe /pl für Optionen.";
+    PVPLOG_STARTUP = "PvP Logger %v von %w AddOn geladen. Tippe /pl für Optionen.";
     
     DESCRIPTION = "Zeichnet PvP Siege und Verluste auf, sowie Duelle.";
 
@@ -248,7 +243,7 @@ elseif (GetLocale() == "frFR") then
     -- Translated by (): Exerladan
 
     -- Startup messages
-    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." par "..VER_VENDOR.." chargé. Tapez /pl pour les options.";
+    PVPLOG_STARTUP = "PvP Logger %v par %w chargé. Tapez /pl pour les options.";
     
     DESCRIPTION = "Enregistre les victoires et les défaites JcJ.";
 
@@ -364,7 +359,7 @@ elseif (GetLocale() == "esES") then
 -- Translated by (traducido por): NeKRoMaNT
 
     -- Startup messages
-    PVPLOG_STARTUP = "PvP Logger "..VER_NUM.." por "..VER_VENDOR.." AddOn cargado. Mecanografiar /pl para las opciones.";
+    PVPLOG_STARTUP = "PvP Logger %v por %w AddOn cargado. Mecanografiar /pl para las opciones.";
     
     DESCRIPTION = "Hace un seguimiento de tus asesinatos JcJ y de la gente que te ha asesinado.";
 
