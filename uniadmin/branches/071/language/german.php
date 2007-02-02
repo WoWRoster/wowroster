@@ -189,6 +189,7 @@ $lang['update_logo'] = 'Logo updaten %1$d';
 $lang['update_settings'] = 'Einstellungen updaten';
 $lang['show'] = 'Zeigen';
 $lang['add_update_addon'] = 'Hinzufügen / AddOn updaten';
+$lang['update_addon'] = 'AddOn updaten';
 $lang['import'] = 'Importieren';
 $lang['export'] = 'Exportieren';
 $lang['go'] = 'Go';
@@ -221,6 +222,7 @@ $lang['select_file'] = 'Datei auswählen';
 $lang['userlevel'] = 'Benutzerstufe';
 $lang['addon_management'] = 'AddOn-Verwaltung';
 $lang['addon_uploaded'] = '%1$s wurde erfolgreich hochgeladen';
+$lang['addon_edited'] = '%1$s was edited';
 $lang['view_addons'] = 'AddOns anzeigen';
 $lang['required_addon'] = 'Benötigtes AddOn';
 $lang['homepage'] = 'Homepage';
@@ -252,6 +254,7 @@ $lang['optional'] = 'Optional';
 $lang['notes'] = 'Notes';
 $lang['half'] = 'Half';
 $lang['full'] = 'Full';
+$lang['edit'] = 'Edit';
 
 
 // Pagination

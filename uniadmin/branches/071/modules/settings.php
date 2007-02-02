@@ -113,11 +113,13 @@ function main( )
 		$tpl->assign_var('S_MANAGE',true);
 		$tpl->assign_var('S_INI',true);
 		$sql .= " ORDER BY `id` ASC;";
+		$tpl->assign_var('ONLOAD'," onload=\"initARC('ua_mainsettings','radioOn', 'radioOff','checkboxOn', 'checkboxOff');\"");
 	}
 	elseif( $user->data['level'] >= UA_ID_POWER )
 	{
 		$tpl->assign_var('S_MANAGE',true);
 		$sql .= " ORDER BY `id` ASC;";
+		$tpl->assign_var('ONLOAD'," onload=\"initARC('ua_mainsettings','radioOn', 'radioOff','checkboxOn', 'checkboxOff');\"");
 	}
 	elseif( $user->data['level'] == UA_ID_ANON )
 	{
@@ -156,16 +158,18 @@ function main( )
 
 			case 'radio':
 				$options = explode('|',$input_type[1]);
+				$rad=0;
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					$input_field .= '<label><input type="radio" name="'.$setname.'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' />'.$user->lang[$vals[0]]."</label>\n";
+					$input_field .= '<input type="radio" id="'.$setname.'_'.$rad.'" name="'.$setname.'" value="'.$vals[1].'" '.( $setvalue == $vals[1] ? 'checked="checked"' : '' ).' /><label for="'.$setname.'_'.$rad.'">'.$user->lang[$vals[0]]."</label>\n";
+					$rad++;
 				}
 				break;
 
 			case 'select':
 				$options = explode('|',$input_type[1]);
-				$input_field .= '<select class="input" name="'.$setname.'">'."\n";
+				$input_field .= '<select class="select" name="'.$setname.'">'."\n";
 				$select_one = 1;
 				foreach( $options as $value )
 				{
@@ -341,6 +345,7 @@ function process_ini( )
 		'L_IMPORT'         => $user->lang['import'],
 		'L_UPDATE_SET'     => $user->lang['update_settings'],
 		'L_IMG_MISSING'    => $user->lang['image_missing'],
+		'ONLOAD'           => " onload=\"initARC('ua_mainsettings','radioOn', 'radioOff','checkboxOn', 'checkboxOff');\""
 		)
 	);
 

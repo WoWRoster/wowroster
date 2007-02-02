@@ -14,28 +14,75 @@ a:hover {
 	background-color:#E3E3FF;
 }
 
-.input {
+.textbox {
+	background:url('images/input_boxes.png') no-repeat 0 0px;
+	border:none;
+	width:234px;
+	height:55px;
+	padding-left:3px;
+	padding-right:3px;
+	padding-top:3px;
+	padding-bottom:3px;
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	border:1px solid #781351;
-	background-color:#ffffff;
+	background-color:transparent;
+}
+.input {
+	background:url('images/input_boxes.png') no-repeat 0 -70px;
+	border:none;
+	width:194px;
+	height:18px;
+	padding-left:3px;
+	padding-right:3px;
+	padding-top:3px;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	background-color:transparent;
+	verical-align:middle;
+}
+.input_m {
+	background:url('images/input_boxes.png') no-repeat 0 -100px;
+	border:none;
+	width:138px;
+	height:18px;
+	padding-left:3px;
+	padding-right:3px;
+	padding-top:3px;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	background-color:transparent;
+	verical-align:middle;
+}
+.input_s {
+	background:url('images/input_boxes.png') no-repeat 0 -130px;
+	border:none;
+	width:80px;
+	height:18px;
+	padding-left:3px;
+	padding-right:3px;
+	padding-top:3px;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	background-color:transparent;
+	verical-align:middle;
 }
 .submit {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	border:1px solid #781351;
+	border:1px solid #a7a6aa;
 	background-color:#f2f2ff;
 }
 .file {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
+	border:1px solid #a7a6aa;
 	background-color:#ffffff;
 	color:#000000;
 }
 .select {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
-	border:1px solid #781351;
+	border:1px solid #a7a6aa;
 	background-color:#ffffff;
 	color:#000000;
 }
@@ -133,7 +180,7 @@ img {
 	font-size:9px;
 }
 .ua_loginbox fieldset {
-	width:22em;
+	width:26em;
 	padding:1px;
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
@@ -147,6 +194,57 @@ img {
 	font-weight:bold;
 }
 
+/* Off state for a ARC checkbox */
+.checkboxOff {
+	display:inline;
+	margin:0;
+	padding:2px; /* NS 6 problem */
+	padding-left:20px;
+	color:#666;
+	line-height:16px;
+	background-image:url('images/checkbox_off.png');
+	background-repeat:no-repeat;
+	background-position:0% 50%;
+	border:0;
+}
+/* On state for a ARC checkbox */
+.checkboxOn {
+	display:inline;
+	margin:0;
+	padding:2px; /* NS 6 problem */
+	padding-left:20px;
+	color:#000;
+	line-height:16px;
+	background-image:url('images/checkbox_on.png');
+	background-repeat:no-repeat;
+	background-position:0% 50%;
+	border:0;
+}
+.radioOff {
+	display:inline;
+	margin:0;
+	padding:2px;
+	padding-left:20px;
+	color:#666;
+	background:transparent url('images/radio_off.png') no-repeat 0% 50%;
+}
+/* On state for a ARC radio button */
+.radioOn {
+	display:inline;
+	margin:0;
+	padding:2px; /* NS 6 problem */
+	padding-left:20px;
+	color:#000;
+	background:transparent url('images/radio_on.png') no-repeat 0% 50%;
+}
+/* use CSS to full effect with hover states. Ohhh, perty! */
+.radioOn:hover {
+	background-image:url('images/radio_on_hover.png');
+}
+.radioOff:hover {
+	color: #333 !important;
+	background-image:url('images/radio_off_hover.png');
+}
 
 /*********** Overlib Tooltip styles ***********/
 .overlib_fg {

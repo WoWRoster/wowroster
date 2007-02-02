@@ -39,7 +39,7 @@
 			<td class="data_header" width="10%">{L_ADD}</td>
 		</tr>
 		<tr>
-			<td class="data1"><input class="input" type="text" name="{A_SVNAME}" /> <b>.lua</b></td>
+			<td class="data1"><input class="input_m" type="text" name="{A_SVNAME}" /> <b>.lua</b></td>
 			<td class="data2"><input class="submit" type="submit" value="{L_ADD}" /></td>
 		</tr>
 	</table>
@@ -75,7 +75,7 @@
 <!-- IF S_INI -->
 <!-- ENDIF -->
 
-<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+<form id="ua_mainsettings" name="ua_mainsettings" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 	<table class="ua_table" align="center">
 		<tr>
 			<th colspan="4" class="table_header">{L_SYNC_SETTINGS}</th>
@@ -97,7 +97,7 @@
 			<td class="data{section.settings_row.ROW_CLASS}">
 				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
 			<td class="data{section.settings_row.ROW_CLASS}">{section.settings_row.INPUT_FIELD}</td>
-			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" name="{section.settings_row.SETNAME}_en" value="1" {section.settings_row.CHECKED}/></td>
+			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" id="{section.settings_row.SETNAME}_en" name="{section.settings_row.SETNAME}_en" value="1" {section.settings_row.CHECKED}/><label for="{section.settings_row.SETNAME}_en">&nbsp;</label></td>
 			<!-- ELSE -->
 			<td class="data{section.settings_row.ROW_CLASS}">
 				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>

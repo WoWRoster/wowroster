@@ -454,6 +454,7 @@ class UniAdmin
 			'A_SVNAME'         => UA_URI_SVNAME,
 			'A_UPINI'          => UA_URI_UPINI,
 			'A_GETINI'         => UA_URI_GETINI,
+			'A_EDIT'           => UA_URI_EDIT
 			)
 		);
 

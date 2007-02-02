@@ -43,7 +43,7 @@
 
 <!-- IF S_ADDON_ADD_DEL -->
 <br />
-<form name="ua_updateaddon" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+<form id="ua_updateaddon" name="ua_updateaddon" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 	<table class="ua_table" align="center">
 		<tr>
 			<th class="table_header" colspan="2">{L_ADDON_MANAGE}</th>
@@ -51,13 +51,13 @@
 		<tr>
 			<td class="data1"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{L_REQUIRED_TIP}',CAPTION,'{L_REQUIRED}');" onmouseout="return nd();" />
 				{L_REQUIRED}:</td>
-			<td class="data1"><input type="checkbox" name="required" value="1" checked="checked" /></td>
+			<td class="data1"><input type="checkbox" id="required" name="required" value="1" checked="checked" /><label for="required">&nbsp;</label></td>
 		</tr>
 		<tr>
 			<td class="data2"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{L_FULLPATH_TIP}',CAPTION,'{L_FULLPATH}');" onmouseout="return nd();" />
 				{L_FULLPATH}:</td>
-			<td class="data2"><label><input type="radio" name="fullpath_addon" value="0" checked="checked" />{L_NO}</label>
-				<label><input type="radio" name="fullpath_addon" value="1" />{L_YES}</label></td>
+			<td class="data2"><input type="radio" id="fullpath_addon_no" name="fullpath_addon" value="0" checked="checked" /><label for="fullpath_addon_no">{L_NO}</label>
+				<input type="radio" id="fullpath_addon_yes" name="fullpath_addon" value="1" /><label for="fullpath_addon_yes">{L_YES}</label></td>
 		</tr>
 		<tr>
 			<td class="data1"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{L_SELECTFILE_TIP}',CAPTION,'{L_SELECT_FILE}');" onmouseout="return nd();" />

@@ -57,6 +57,7 @@ define('UA_URI_NEW',      'new');
 define('UA_URI_UPINI',    'upini');
 define('UA_URI_GETINI',   'getini');
 define('UA_URI_DETAIL',   'detail');
+define('UA_URI_EDIT',     'edit');
 
 // URL parameters
 define('UA_INDEX',        'index.php');

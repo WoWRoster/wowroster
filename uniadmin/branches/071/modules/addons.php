@@ -61,6 +61,11 @@ switch($op)
 			enable_addon($id);
 		break;
 
+	case UA_URI_EDIT:
+		if( $user->data['level'] >= UA_ID_POWER )
+			edit_addon($id);
+		break;
+
 	default:
 		break;
 }
@@ -149,6 +154,7 @@ function main( )
 	if( $user->data['level'] == UA_ID_ADMIN )
 	{
 		$tpl->assign_var('S_ADDON_ADD_DEL',true);
+		$tpl->assign_var('ONLOAD'," onload=\"initARC('ua_updateaddon','radioOn', 'radioOff','checkboxOn', 'checkboxOff');\"");
 	}
 
 	if( $user->data['level'] == UA_ID_ANON )
@@ -280,6 +286,7 @@ function addon_detail( $id )
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_DOWNLOAD'       => $user->lang['download'],
 		'L_ADD_UPDATE'     => $user->lang['add_update_addon'],
+		'L_UPDATE'         => $user->lang['update_addon'],
 		'L_REQUIRED_ADDON' => $user->lang['required_addon'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
@@ -288,6 +295,7 @@ function addon_detail( $id )
 		'L_YES'            => $user->lang['yes'],
 		'L_NO'             => $user->lang['no'],
 		'L_NOTES'          => $user->lang['notes'],
+		'L_EDIT'           => $user->lang['edit'],
 
 		'S_ADDONS'         => true,
 		'S_ADDON_ADD_DEL'  => false,
@@ -802,6 +810,30 @@ function process_addon()
 	{
 		$uniadmin->message($user->lang['error_no_addon_uploaded']);
 	}
+}
+
+function edit_addon( $id )
+{
+	global $db, $user, $uniadmin;
+
+	$addon_name = stripslashes($_POST['name']);
+	$addon_toc = stripslashes($_POST['toc']);
+	$addon_url = stripslashes($_POST['homepage']);
+	$addon_version = stripslashes($_POST['version']);
+	$addon_notes = stripslashes($_POST['notes']);
+
+	// Insert Main Addon data
+	$sql = "UPDATE `".UA_TABLE_ADDONS."` SET
+		`version` = '".$db->escape($addon_version)."',
+		`name` = '".$db->escape($addon_name)."',
+		`homepage` = '".$db->escape($addon_url)."',
+		`notes` = '".$db->escape($addon_notes)."',
+		`toc` = '".$db->escape($addon_toc)."'
+		WHERE `id` = '$id';";
+
+	$db->query($sql);
+
+	$uniadmin->message(sprintf($user->lang['addon_edited'],$addon_name));
 }
 
 /**

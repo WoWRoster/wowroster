@@ -1,6 +1,6 @@
 <!-- INCLUDE overall_header.html -->
 
-<form name="ua_mainsettings" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+<form id="ua_mainsettings" name="ua_mainsettings" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 	<table class="ua_table" align="center">
 		<tr>
 			<th colspan="4" class="table_header">{L_SETTINGS_FILE}</th>
@@ -20,7 +20,7 @@
 			<td class="data{section.settings_row.ROW_CLASS}"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
 			<td class="data{section.settings_row.ROW_CLASS}"><input type="hidden" name="{section.settings_row.SETNAME}" value="{section.settings_row.SETVALUE}" />
 				{section.settings_row.SETVALUE}</td>
-			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" name="{section.settings_row.SETNAME}_ck" value="1" /></td>
+			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" id="{section.settings_row.SETNAME}_ck" name="{section.settings_row.SETNAME}_ck" value="1" /><label for="{section.settings_row.SETNAME}_ck"></label></td>
 		</tr>
 		<!-- END settings_row -->
 		<!-- END section -->
