@@ -36,7 +36,7 @@ if ( !defined('ROSTER_INSTALLED') )
         <br />
       <form method="get" action="http://wow.allakhazam.com/search.html">
           <?php print $wordings[$roster_conf['roster_lang']]['search'] ?>:
-          <input type="text" name="q" />&nbsp;&nbsp;
+          <input type="text" name="q" class="wowinput" />&nbsp;&nbsp;
           <input type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'">
       </form>
       </div></td>

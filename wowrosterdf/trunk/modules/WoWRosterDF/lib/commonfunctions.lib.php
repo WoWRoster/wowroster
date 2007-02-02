@@ -722,7 +722,7 @@ function scrollbox($message, $title = 'Message', $style = 'sgray', $width = '550
 }
 
 // Index to generate unique toggle IDs
-$toggleboxes = 1;
+$toggleboxes = 0;
 
 /**
  * Draw a message box with the specified border color.
@@ -739,14 +739,17 @@ function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open 
 	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
+
+	$title = "<div style=\"cursor:pointer;width:".$width.";\" onclick=\"showHide('msgbox_".$toggleboxes."','msgboximg_".$toggleboxes."','".$roster_conf['img_url']."minus.gif','".$roster_conf['img_url']."plus.gif');\"><img src=\"".$roster_conf['img_url'].(($open)?'minus':'plus').".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_".$toggleboxes."\" />".$title."</div>";
+
 	return
-		'<div id="toggleCol'.$toggleboxes.'" style="display:'.(($open)?'none':'inline').';">'.
-		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$title."</div>").
-		border($style,'end').
+		border($style, 'start', $title).
+		'<div style="display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
+		$message.
 		'</div>'.
-		'<div id="toggle'.$toggleboxes.'" style="display:'.(($open)?'inline':'none').';">'.
-		messagebox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$title."</div>",$style).
-		'</div>';
+		border($style, 'end');
+
+
 }
 
 /**
@@ -764,14 +767,17 @@ function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open =
 	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
+
+	$title = "<div style=\"cursor:pointer;width:".$width.";\" onclick=\"showHide('msgbox_".$toggleboxes."','msgboximg_".$toggleboxes."','".$roster_conf['img_url']."minus.gif','".$roster_conf['img_url']."plus.gif');\"><img src=\"".$roster_conf['img_url'].(($open)?'minus':'plus').".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_".$toggleboxes."\" />".$title."</div>";
+
 	return
-		'<div id="toggleCol'.$toggleboxes.'" style="display:'.(($open)?'none':'inline').';">'.
-		border($style,'start',"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" />".$title."</div>").
-		border($style,'end').
+		border($style,'start',$title).
+		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:'.$height.';width:'.$width.';overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
+			$message.
 		'</div>'.
-		'<div id="toggle'.$toggleboxes.'" style="display:'.(($open)?'inline':'none').';">'.
-		scrollbox($message,"<div style=\"cursor:pointer;width:".$width.";\" onclick=\"swapShow('toggleCol".$toggleboxes."','toggle".$toggleboxes."')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" />".$title."</div>",$style, $width, $height).
-		'</div>';
+		border($style,'end');
+
+
 }
 
 /**

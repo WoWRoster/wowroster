@@ -124,6 +124,7 @@ $form_end = "</form>\n";
 
 // Build the page
 $html = '';
+$k = 0;
 foreach($conf_arrays as $type)
 {
 	$i = 0;
@@ -143,15 +144,27 @@ foreach($conf_arrays as $type)
 		{
 			case 'text':
 				$length = explode('|',$input_type[1]);
-				$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+
+				if( $length[1] < 20 )
+					$text_class = '64';
+				elseif( $length[1] < 30 )
+					$text_class = '128';
+				elseif( $length[1] < 40 )
+					$text_class = '192';
+				else
+					$text_class = '';
+
+				$input_field = '<input class="wowinput'.$text_class.'" name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 				break;
 
 			case 'radio':
 				$options = explode('|',$input_type[1]);
+				$rad=0;
 				foreach( $options as $value )
 				{
 					$vals = explode('^',$value);
-					$input_field .= '<label class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+					$input_field .= '<input type="radio" id="rad'.$k.'_'.$i.'_'.$rad.'" name="config_'.$values['name'].'" value="'.$vals[1].'"'.( $values['value'] == $vals[1] ? ' checked="checked"' : '' ).' /><label for="rad'.$k.'_'.$i.'_'.$rad.'">'.$vals[0]."</label>\n";
+					$rad++;
 				}
 				break;
 
@@ -164,7 +177,7 @@ foreach($conf_arrays as $type)
 					$vals = explode('^',$value);
 					if( $values['value'] == $vals[1] && $select_one )
 					{
-						$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
+						$input_field .= '  <option value="'.$vals[1].'" selected="selected">-'.$vals[0].'-</option>'."\n";
 						$select_one = 0;
 					}
 					else
@@ -197,6 +210,7 @@ foreach($conf_arrays as $type)
 		$i++;
 	}
 	$html .= "</table>\n".border('sblue','end')."\n</div>\n";
+	$k++;
 }
 
 
@@ -244,13 +258,16 @@ if( is_array($char_data) )
 <tr>
 	<td class="membersRow'.(($i%2)+1).'">'.$values['name'].'</td>';
 
+		$k=0;
 		foreach( $disp_array as $val_name )
 		{
 			$html .= '
 	<td class="membersRow'.(($i%2)+1).'">';
-			$html .= '<label class="'.( $values[$val_name] == '1' ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="disp_'.$values['member_id'].':'.$val_name.'" value="1" '.( $values[$val_name] == '1' ? 'checked="checked"' : '' ).' />off</label><br />'."\n";
-			$html .= '<label class="'.( $values[$val_name] == '3' ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="disp_'.$values['member_id'].':'.$val_name.'" value="3" '.( $values[$val_name] == '3' ? 'checked="checked"' : '' ).' />on</label>'."\n";
+			$html .= '<input type="radio" id="chard_f'.$k.'_'.$values['member_id'].'" name="disp_'.$values['member_id'].':'.$val_name.'" value="1" '.( $values[$val_name] == '1' ? 'checked="checked"' : '' ).' /><label for="chard_f'.$k.'_'.$values['member_id'].'">off</label><br />'."\n";
+			$html .= '<input type="radio" id="chard_n'.$k.'_'.$values['member_id'].'" name="disp_'.$values['member_id'].':'.$val_name.'" value="3" '.( $values[$val_name] == '3' ? 'checked="checked"' : '' ).' /><label for="chard_n'.$k.'_'.$values['member_id'].'">on</label>'."\n";
 			$html .= '</td>';
+
+			$k++;
 		}
 		$html .= '</tr>';
 		$i++;
@@ -264,6 +281,7 @@ else
 
 
 // ----[ Render the page ]----------------------------------
+$body_action = 'onLoad="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 include_once( ROSTER_BASE.'roster_header.tpl' );
 
 
@@ -292,15 +310,15 @@ $roster_diag_message.
 		  <table class="bodyline" cellspacing="0" cellpadding="0">
 		    <tr>
 		      <td class="membersRow1">Old Password:</td>
-		      <td class="membersRowRight1"><input type="password" name="old_password" value="" /></td>
+		      <td class="membersRowRight1"><input class="wowinput128" type="password" name="old_password" value="" /></td>
 		    </tr>
 		    <tr>
 		      <td class="membersRow2">New Password:</td>
-		      <td class="membersRowRight2"><input type="password" name="new_password1" value="" /></td>
+		      <td class="membersRowRight2"><input class="wowinput128" type="password" name="new_password1" value="" /></td>
 		    </tr>
 		    <tr>
 		      <td class="membersRow1">New Password<br />[ confirm ]:</td>
-		      <td class="membersRowRight1"><input type="password" name="new_password2" value="" /></td>
+		      <td class="membersRowRight1"><input class="wowinput128" type="password" name="new_password2" value="" /></td>
 		    </tr>
 		    <tr>
 		      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
@@ -632,7 +650,7 @@ function rosterLangValue( )
 	{
 		if( $value == $roster_conf['roster_lang'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$value.'" selected="selected">&gt;'.$value.'&lt;</option>'."\n";
+			$input_field .= '  <option value="'.$value.'" selected="selected">-'.$value.'-</option>'."\n";
 			$select_one = 0;
 		}
 		else
@@ -644,5 +662,3 @@ function rosterLangValue( )
 
 	return $input_field;
 }
-
-?>

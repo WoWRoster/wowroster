@@ -68,7 +68,7 @@ function tableHeaderRow($th)
 		if($items[$header])
 		{
 			list($iname, $thottnum) = explode('|', $items[$header][$header]);
-			$header = '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_blank">'.$header.'</a>';
+			$header = '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$header.'</a>';
 		}
 		if ($acount == 1)
 		{
