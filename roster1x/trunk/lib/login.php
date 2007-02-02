@@ -49,7 +49,7 @@ class RosterLogin
 			  <table class="bodyline" cellspacing="0" cellpadding="0">
 			    <tr>
 			      <td class="membersRowRight1">Password:<br />
-			        <input name="pass_word" type="password" size="30" maxlength="30" /></td>
+			        <input name="pass_word" class="wowinput192" type="password" size="30" maxlength="30" /></td>
 			    </tr>
 			    <tr>
 			      <td class="membersRowRight2" valign="bottom">
