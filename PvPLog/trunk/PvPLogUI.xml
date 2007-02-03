@@ -1,9 +1,9 @@
 <!--
     PvPLogUI
-    Author:           Atolicus
-    Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.3.0
-    Last Modified:    2007-01-03
+    Author:           Brad Morgan
+    Based on Work by: Josh Estelle, Daniel S. Reichenbach, Atolicus, Matthew Musgrove
+    Version:          2.3.7
+    Last Modified:    2007-02-01
 -->
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
@@ -106,7 +106,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_ENABLE);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_ENABLE);
                     </OnLoad>
                     <OnClick>
                          PvPLogEnabled_Toggle_OnClick();
@@ -126,7 +126,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_DING);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_DING);
                     </OnLoad>
                     <OnClick>
                         PvPLogDing_Toggle_OnClick();
@@ -152,7 +152,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_MOUSEOVER);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_MOUSEOVER);
                     </OnLoad>
                     <OnClick>
                          PvPLogMouseover_Toggle_OnClick();
@@ -172,7 +172,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_MINIMAP_BUTTON);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_MINIMAP_BUTTON);
                     </OnLoad>
                     <OnClick>
                         MiniMapButton_Toggle_OnClick();
@@ -192,7 +192,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_DISPLAY);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_DISPLAY);
                     </OnLoad>
                     <OnClick>
                         PvPLogDisp_Toggle_OnClick();
@@ -212,7 +212,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_RECORD_BG);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_RECORD_BG);
                     </OnLoad>
                     <OnClick>
                         PvPLogRecordBG_Toggle_OnClick();
@@ -232,7 +232,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_RECORD_DUEL);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_RECORD_DUEL);
                     </OnLoad>
                     <OnClick>
                         PvPLogRecordDuel_Toggle_OnClick();
@@ -252,7 +252,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_NOTIFY_BG);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_NOTIFY_BG);
                     </OnLoad>
                     <OnClick>
                         PvPLogNotifyBG_Toggle_OnClick();
@@ -272,7 +272,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_NOTIFY_DUEL);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_NOTIFY_DUEL);
                     </OnLoad>
                     <OnClick>
                         PvPLogNotifyDuel_Toggle_OnClick();
@@ -293,10 +293,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_NOTIFY_NONE);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_NOTIFY_NONE);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyKills_Toggle_OnClick(NONE);
+                        PvPLogNotifyKills_Toggle_OnClick(PVPLOG.NONE);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -313,10 +313,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(SELF);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.SELF);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyKills_Toggle_OnClick(SELF);
+                        PvPLogNotifyKills_Toggle_OnClick(PVPLOG.SELF);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -333,10 +333,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(PARTY);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.PARTY);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyKills_Toggle_OnClick(PARTY);
+                        PvPLogNotifyKills_Toggle_OnClick(PVPLOG.PARTY);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -353,10 +353,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(GUILD);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.GUILD);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyKills_Toggle_OnClick(GUILD);
+                        PvPLogNotifyKills_Toggle_OnClick(PVPLOG.GUILD);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -373,10 +373,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(RAID);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.RAID);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyKills_Toggle_OnClick(RAID);
+                        PvPLogNotifyKills_Toggle_OnClick(PVPLOG.RAID);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -393,10 +393,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(UI_NOTIFY_NONE);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.UI_NOTIFY_NONE);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyDeaths_Toggle_OnClick(NONE);
+                        PvPLogNotifyDeaths_Toggle_OnClick(PVPLOG.NONE);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -413,10 +413,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(SELF);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.SELF);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyDeaths_Toggle_OnClick(SELF);
+                        PvPLogNotifyDeaths_Toggle_OnClick(PVPLOG.SELF);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -433,10 +433,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(PARTY);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.PARTY);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyDeaths_Toggle_OnClick(PARTY);
+                        PvPLogNotifyDeaths_Toggle_OnClick(PVPLOG.PARTY);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -453,10 +453,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(GUILD);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.GUILD);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyDeaths_Toggle_OnClick(GUILD);
+                        PvPLogNotifyDeaths_Toggle_OnClick(PVPLOG.GUILD);
                     </OnClick>
                 </Scripts>
             </CheckButton>
@@ -473,10 +473,10 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        getglobal(this:GetName().."Text"):SetText(RAID);
+                        getglobal(this:GetName().."Text"):SetText(PVPLOG.RAID);
                     </OnLoad>
                     <OnClick>
-                        PvPLogNotifyDeaths_Toggle_OnClick(RAID);
+                        PvPLogNotifyDeaths_Toggle_OnClick(PVPLOG.RAID);
                     </OnClick>
                 </Scripts>
             </CheckButton>

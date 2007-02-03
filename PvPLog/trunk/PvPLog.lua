@@ -2,7 +2,7 @@
     PvPLog 
     Author:           Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-    Version:          2.3.6
+    Version:          2.3.7
     Last Modified:    2007-02-01
 ]]
 
@@ -57,20 +57,20 @@ local FIRE    = "|cffde2413";
 
 local dmgType = { };
 local initDamage = false;
-local VER_NUM = GetAddOnMetadata("PvPLog", "Version");
-local VENDOR = "wowroster.net";
-local URL = "http://www."..VENDOR;
+PVPLOG.VER_NUM = GetAddOnMetadata("PvPLog", "Version");
+PVPLOG.VENDOR = "wowroster.net";
+PVPLOG.URL = "http://www."..PVPLOG.VENDOR;
 
 -- Called OnLoad of the add on
 function PvPLogOnLoad()
     
-    if (VER_NUM) then
-        PVPLOG_STARTUP = string.gsub( PVPLOG_STARTUP, "%%v", VER_NUM );
+    if (PVPLOG.VER_NUM) then
+        PVPLOG.STARTUP = string.gsub( PVPLOG.STARTUP, "%%v", PVPLOG.VER_NUM );
     end
-    if (VENDOR) then
-        PVPLOG_STARTUP = string.gsub( PVPLOG_STARTUP, "%%w", VENDOR );
+    if (PVPLOG.VENDOR) then
+        PVPLOG.STARTUP = string.gsub( PVPLOG.STARTUP, "%%w", PVPLOG.VENDOR );
     end
-    PvPLogChatMsgCyan(PVPLOG_STARTUP);
+    PvPLogChatMsgCyan(PVPLOG.STARTUP);
 
     -- respond to saved variable load
     this:RegisterEvent("VARIABLES_LOADED");
@@ -142,9 +142,9 @@ function PvPLog_RegisterWithAddonManagers()
     if ( myAddOnsFrame_Register ) then
         local PvPLogDetails = {
             name = "PvPLog",
-            version = VER_NUM,
+            version = PVPLOG.VER_NUM,
             author = "Andrzej Gorski",
-            website = URL,
+            website = PVPLOG.URL,
             category = MYADDONS_CATEGORY_OTHERS,
             optionsframe = "PvPLogConfigFrame"
         };
@@ -157,8 +157,8 @@ function PvPLog_RegisterWithAddonManagers()
             {
                 id = "PvPLog",
                 name = "PvPLog",
-                subtext = "v"..VER_NUM,
-                tooltip = DESCRIPTION,
+                subtext = "v"..PVPLOG.VER_NUM,
+                tooltip = PVPLOG.DESCRIPTION,
                 icon = PvPLogGetFactionIcon(),
                 callback = function(state) PvPLog_MiniMap_RightClick() end,
                 test = nil
@@ -172,7 +172,7 @@ function PvPLog_RegisterWithAddonManagers()
             {
                 id = "PvPLogOptionSet",
                 text = "PvPLog",
-                helptext = DESCRIPTION,
+                helptext = PVPLOG.DESCRIPTION,
                 difficulty = 1,
                 callback = function(state) end,
                 default = true,
@@ -181,18 +181,18 @@ function PvPLog_RegisterWithAddonManagers()
                         id = "PvPLogOptionsHeader",
                         type = K_HEADER,
                         difficulty = 1,
-                        text = "PvPLog v"..VER_NUM,
-                        helptext = DESCRIPTION
+                        text = "PvPLog v"..PVPLOG.VER_NUM,
+                        helptext = PVPLOG.DESCRIPTION
                     },
                     {
                         id = "MobInfo2OptionsButton",
                         type = K_BUTTON,
                         difficulty = 1,
-                        text = "PvPLog "..UI_CONFIG,
+                        text = "PvPLog "..PVPLOG.UI_CONFIG,
                         helptext = "",
                         callback = function(state) PvPLog_MiniMap_RightClick() end,
                         feedback = function(state) end,
-                        setup = { buttonText = UI_OPEN }
+                        setup = { buttonText = PVPLOG.UI_OPEN }
                     }
                 }
             }
@@ -204,7 +204,7 @@ function PvPLogMinimapButtonInit()
     local info = { };
     info.position = -45; -- default only. after first use, SavedVariables used
     info.drag = "CIRCLE"; -- default only. after first use, SavedVariables used
-    info.tooltip = UI_RIGHT_CLICK .. UI_TOGGLE .."\n".. UI_LEFT_CLICK .. UI_TOGGLE2;
+    info.tooltip = PVPLOG.UI_RIGHT_CLICK .. PVPLOG.UI_TOGGLE .."\n".. PVPLOG.UI_LEFT_CLICK .. PVPLOG.UI_TOGGLE2;
     info.enabled = 1; -- default only. after first use, SavedVariables used
     info.config = 0;
     info.stats = 0;
@@ -283,7 +283,7 @@ function PvPLogOnEvent()
             if (targetRecords[lastDamagerToMe]) then
                 if (targetRecords[lastDamagerToMe].level) then
                     v = targetRecords[lastDamagerToMe];
-                    PvPLogChatMsgCyan("PvP "..DLKB..RED..lastDamagerToMe);
+                    PvPLogChatMsgCyan("PvP "..PVPLOG.DLKB..RED..lastDamagerToMe);
                     PvPLogRecord(lastDamagerToMe, v.level, v.race, v.class, v.guild, 1, 0, v.rank, v.realm);
                 else
                     PvPLogDebugMsg(RED.."Empty targetRecords for: "..lastDamagerToMe);
@@ -321,11 +321,11 @@ function PvPLogOnEvent()
 
                 if (total and (total.wins > 0 or total.loss > 0)) then
                     if (not UnitIsFriend("mouseover", "player")) then 
-                        GameTooltip:AddLine(CYAN .. "PvP: " .. GREEN .. total.wins .. 
+                        GameTooltip:AddLine(CYAN .. PVPLOG.UI_PVP .. ": " .. GREEN .. total.wins .. 
                              CYAN .. " / " .. RED .. total.loss, 
                              1.0, 1.0, 1.0, 0);
                     else
-                        GameTooltip:AddLine(CYAN..DUEL..": " .. GREEN .. total.wins .. 
+                        GameTooltip:AddLine(CYAN .. PVPLOG.DUEL .. ": " .. GREEN .. total.wins .. 
                              CYAN.." / " .. RED .. total.loss, 
                              1.0, 1.0, 1.0, 0);
                     end
@@ -338,12 +338,12 @@ function PvPLogOnEvent()
                   (not total or total.wins ~= guildTotal.wins or 
                   total.loss ~= guildTotal.loss)) then
                     if (not UnitIsFriend("mouseover", "player")) then 
-                        GameTooltip:AddLine(CYAN .. GUILD .. " PvP: " .. GREEN .. 
+                        GameTooltip:AddLine(CYAN .. PVPLOG.GUILD .. " "..PVPLOG.UI_PVP..": " .. GREEN .. 
                                guildTotal.wins .. 
                                CYAN .. " / " .. RED .. guildTotal.loss, 
                                1.0, 1.0, 1.0, 0);
                     else
-                        GameTooltip:AddLine(CYAN .. GUILD.." "..DUEL..": " .. GREEN .. 
+                        GameTooltip:AddLine(CYAN .. PVPLOG.GUILD.." "..PVPLOG.DUEL..": " .. GREEN .. 
                                guildTotal.wins .. 
                                CYAN .. " / " ..  RED .. guildTotal.loss, 
                                1.0, 1.0, 1.0, 0);
@@ -528,54 +528,54 @@ end
 function PvPLogPrintStats()
     local stats = PvPLogGetStats();
 --[[
-    local gankLevel = GL0;
+    local gankLevel = PVPLOG.GL0;
     if (stats.pvpWinAvgLevelDiff <= -25) then
-        gankLevel = GL_25;
+        gankLevel = PVPLOG.GL_25;
     elseif (stats.pvpWinAvgLevelDiff <= -20) then
-        gankLevel = GL_20;
+        gankLevel = PVPLOG.GL_20;
     elseif (stats.pvpWinAvgLevelDiff <= -15) then
-        gankLevel = GL_15;
+        gankLevel = PVPLOG.GL_15;
     elseif (stats.pvpWinAvgLevelDiff <= -12) then
-        gankLevel = GL_12;
+        gankLevel = PVPLOG.GL_12;
     elseif (stats.pvpWinAvgLevelDiff <= -9) then
-        gankLevel = GL_9;
+        gankLevel = PVPLOG.GL_9;
     elseif (stats.pvpWinAvgLevelDiff <= -6) then
-        gankLevel = GL_6;
+        gankLevel = PVPLOG.GL_6;
     elseif (stats.pvpWinAvgLevelDiff <= -3) then
-        gankLevel = GL_3;
+        gankLevel = PVPLOG.GL_3;
     elseif (stats.pvpWinAvgLevelDiff >= 8) then
-        gankLevel = GL8;
+        gankLevel = PVPLOG.GL8;
     elseif (stats.pvpWinAvgLevelDiff >= 5) then
-        gankLevel = GL5;
+        gankLevel = PVPLOG.GL5;
     elseif (stats.pvpWinAvgLevelDiff >= 4) then
-        gankLevel = GL4;
+        gankLevel = PVPLOG.GL4;
     elseif (stats.pvpWinAvgLevelDiff >= 3) then
-        gankLevel = GL3;
+        gankLevel = PVPLOG.GL3;
     elseif (stats.pvpWinAvgLevelDiff >= 2) then
-        gankLevel = GL2;
+        gankLevel = PVPLOG.GL2;
     elseif (stats.pvpWinAvgLevelDiff >= 1) then
-        gankLevel = GL1;
+        gankLevel = PVPLOG.GL1;
     end
 ]]--
-    PvPLogChatMsgCyan("PvPLog " .. STATS .. ":");
-    PvPLogChatMsg(MAGENTA.."   "..TOTAL.." "..WINS..":     ".. stats.totalWins ..
-        " ("..ALD..": "..(math.floor(stats.totalWinAvgLevelDiff*100)/100)..")");
+    PvPLogChatMsgCyan("PvPLog " .. PVPLOG.STATS .. ":");
+    PvPLogChatMsg(MAGENTA.."   "..PVPLOG.TOTAL.." "..PVPLOG.WINS..":     ".. stats.totalWins ..
+        " ("..PVPLOG.ALD..": "..(math.floor(stats.totalWinAvgLevelDiff*100)/100)..")");
 
-    PvPLogChatMsg(MAGENTA.."   "..TOTAL.." "..LOSSES..":  ".. stats.totalLoss ..
-        " ("..ALD..": "..(math.floor(stats.totalLossAvgLevelDiff*100)/100)..")");
+    PvPLogChatMsg(MAGENTA.."   "..PVPLOG.TOTAL.." "..PVPLOG.LOSSES..":  ".. stats.totalLoss ..
+        " ("..PVPLOG.ALD..": "..(math.floor(stats.totalLossAvgLevelDiff*100)/100)..")");
 
-    PvPLogChatMsg(ORANGE .. "    PvP "..WINS..":     ".. stats.pvpWins ..
-        " ("..ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..")");
---      " ("..ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..", " .. gankLevel .. ")");
+    PvPLogChatMsg(ORANGE .. "    "..PVPLOG.UI_PVP.." "..PVPLOG.WINS..":     ".. stats.pvpWins ..
+        " ("..PVPLOG.ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..")");
+--      " ("..PVPLOG.ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..", " .. gankLevel .. ")");
 
-    PvPLogChatMsg(ORANGE .. "    PvP "..LOSSES..":  ".. stats.pvpLoss ..
-        " ("..ALD..": "..(math.floor(stats.pvpLossAvgLevelDiff*100)/100)..")");
+    PvPLogChatMsg(ORANGE .. "    "..PVPLOG.UI_PVP.." "..PVPLOG.LOSSES..":  ".. stats.pvpLoss ..
+        " ("..PVPLOG.ALD..": "..(math.floor(stats.pvpLossAvgLevelDiff*100)/100)..")");
 
-    PvPLogChatMsg(GREEN .. "    "..DUEL.." "..WINS..":    ".. stats.duelWins ..
-        " ("..ALD..": "..(math.floor(stats.duelWinAvgLevelDiff*100)/100)..")");
+    PvPLogChatMsg(GREEN .. "    "..PVPLOG.DUEL.." "..PVPLOG.WINS..":    ".. stats.duelWins ..
+        " ("..PVPLOG.ALD..": "..(math.floor(stats.duelWinAvgLevelDiff*100)/100)..")");
 
-    PvPLogChatMsg(GREEN .. "    "..DUEL.." "..LOSSES..": ".. stats.duelLoss ..
-        " ("..ALD..": "..(math.floor(stats.duelLossAvgLevelDiff*100)/100)..")");
+    PvPLogChatMsg(GREEN .. "    "..PVPLOG.DUEL.." "..PVPLOG.LOSSES..": ".. stats.duelLoss ..
+        " ("..PVPLOG.ALD..": "..(math.floor(stats.duelLossAvgLevelDiff*100)/100)..")");
 end
 
 function PvPLogDebugMsg(msg)
@@ -660,7 +660,7 @@ function PvPLogDuel(parseWinner, parseLoser)
             if (targetRecords[parseLoser]) then
                 if (targetRecords[parseLoser].level) then
                     v = targetRecords[parseLoser];
-                    PvPLogChatMsgCyan(DWLA..GREEN..parseLoser);
+                    PvPLogChatMsgCyan(PVPLOG.DWLA..GREEN..parseLoser);
                     PvPLogRecord(parseLoser, v.level, v.race, v.class, v.guild, 0, 1, v.rank);
                 else
                     PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseLoser);
@@ -673,7 +673,7 @@ function PvPLogDuel(parseWinner, parseLoser)
                 PvPLogUpdateTarget(isDuel);
                 if (targetRecords[parseWinner].level) then
                     v = targetRecords[parseWinner];
-                    PvPLogChatMsgCyan(DLLA..GREEN..parseWinner);
+                    PvPLogChatMsgCyan(PVPLOG.DLLA..GREEN..parseWinner);
                     PvPLogRecord(parseWinner, v.level, v.race, v.class, v.guild, 0, 0, v.rank);
                 else
                     PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseWinner);
@@ -703,7 +703,7 @@ function PvPLogPlayerDeath(parseName)
             if (targetRecords[parseName]) then
                 if (targetRecords[parseName].level) then
                     v = targetRecords[parseName];
-                    PvPLogChatMsgCyan(KL  .. GREEN .. parseName);
+                    PvPLogChatMsgCyan(PVPLOG.KL  .. GREEN .. parseName);
                     PvPLogRecord(parseName, v.level, v.race, v.class, v.guild, 1, 1, v.rank, v.realm);
                     if (parseName == lastDamagerToMe) then
                         lastDamagerToMe = "";
@@ -748,7 +748,7 @@ function PvPLogPutInTable(tab, nam)
     );
     if (not exists) then
         table.insert(tab, nam);
-        if (table.getn(tab)>NUMTARGETS) then
+        if (table.getn(tab) > NUMTARGETS) then
            table.remove(tab,1);
         end
     end
@@ -907,7 +907,7 @@ function PvPLogInitialize()
 
     -- check for valid realm and player
     if (initialized or (not variablesLoaded) or (not realm) or 
-        (not plevel) or (not player) or (player == PVPLOG_UNKNOWN_ENTITY)) then
+        (not plevel) or (not player)) then
         return;
     end
 
@@ -1082,23 +1082,23 @@ function PvPLogInitialize()
     if (PvPLogData[realm][player] == nil) then
         PvPLogInitPvP();
     end
-    PvPLogData[realm][player].version = VER_NUM;
-    PvPLogData[realm][player].vendor = VENDOR;
+    PvPLogData[realm][player].version = PVPLOG.VER_NUM;
+    PvPLogData[realm][player].vendor = PVPLOG.VENDOR;
 
     if (PvPLogData[realm][player].notifyKillText == nil) then
-        PvPLogData[realm][player].notifyKillText = DEFAULT_KILL_TEXT;
+        PvPLogData[realm][player].notifyKillText = PVPLOG.DEFAULT_KILL_TEXT;
     end
 
     if (PvPLogData[realm][player].notifyKill == nil) then
-        PvPLogData[realm][player].notifyKill = NONE;
+        PvPLogData[realm][player].notifyKill = PVPLOG.NONE;
     end
 
     if (PvPLogData[realm][player].notifyDeathText == nil) then
-        PvPLogData[realm][player].notifyDeathText = DEFAULT_DEATH_TEXT;
+        PvPLogData[realm][player].notifyDeathText = PVPLOG.DEFAULT_DEATH_TEXT;
     end
 
     if (PvPLogData[realm][player].notifyDeath == nil) then
-        PvPLogData[realm][player].notifyDeath = NONE;
+        PvPLogData[realm][player].notifyDeath = PVPLOG.NONE;
     end
 
     if (PvPLogData[realm][player].MiniMap == nil) then
@@ -1143,8 +1143,8 @@ function PvPLogInitialize()
     if (PurgeLogData[realm][player] == nil) then
         PvPLogInitPurge();
     end
-    PurgeLogData[realm][player].version = VER_NUM;
-    PurgeLogData[realm][player].vendor = VENDOR;
+    PurgeLogData[realm][player].version = PVPLOG.VER_NUM;
+    PurgeLogData[realm][player].vendor = PVPLOG.VENDOR;
 
     local stats = PvPLogGetStats();
     local allRecords = stats.totalWins + stats.totalLoss;
@@ -1165,8 +1165,8 @@ end
 function PvPLogInitPvP()
     PvPLogData[realm][player] = { };
     PvPLogData[realm][player].battles = { };
-    PvPLogData[realm][player].version = VER_NUM;
-    PvPLogData[realm][player].vendor = VENDOR;
+    PvPLogData[realm][player].version = PVPLOG.VER_NUM;
+    PvPLogData[realm][player].vendor = PVPLOG.VENDOR;
     PvPLogData[realm][player].enabled = true;
     PvPLogData[realm][player].display = true;
     PvPLogData[realm][player].ding = false;
@@ -1180,18 +1180,18 @@ function PvPLogInitPvP()
     PvPLogData[realm][player].dispLocation = "overhead";
     PvPLogData[realm][player].dingSound = "AuctionWindowOpen";
     PvPLogData[realm][player].dingTimeout = 30.0;
-    PvPLogData[realm][player].notifyKill = NONE;
-    PvPLogData[realm][player].notifyDeath = NONE;
+    PvPLogData[realm][player].notifyKill = PVPLOG.NONE;
+    PvPLogData[realm][player].notifyDeath = PVPLOG.NONE;
     PvPLogData[realm][player].guilds = { };
-    PvPLogData[realm][player].notifyKillText = DEFAULT_KILL_TEXT;
-    PvPLogData[realm][player].notifyDeathText = DEFAULT_DEATH_TEXT;
+    PvPLogData[realm][player].notifyKillText = PVPLOG.DEFAULT_KILL_TEXT;
+    PvPLogData[realm][player].notifyDeathText = PVPLOG.DEFAULT_DEATH_TEXT;
 end
 
 function PvPLogInitPurge()
     PurgeLogData[realm][player] = { };
     PurgeLogData[realm][player].battles = { };
-    PurgeLogData[realm][player].version = VER_NUM;
-    PurgeLogData[realm][player].vendor = VENDOR;
+    PurgeLogData[realm][player].version = PVPLOG.VER_NUM;
+    PurgeLogData[realm][player].vendor = PVPLOG.VENDOR;
     PurgeLogData[realm][player].PurgeCounter = 5000;
 end
 
@@ -1283,17 +1283,17 @@ function PvPLogGetPvPTotals(name)
     total.slashy  = true;
 
     if (total.wins == 1) then
-        total.winsStr = "1 "..WIN;
+        total.winsStr = "1 " .. PVPLOG.WIN;
     elseif (total.wins > 1) then
-        total.winsStr = total.wins .. " " .. WINS;
+        total.winsStr = total.wins .. " " .. PVPLOG.WINS;
     else
         total.slashy = false;
     end
 
     if (total.loss == 1) then
-        total.lossStr = "1 "..LOSS;
+        total.lossStr = "1 " .. PVPLOG.LOSS;
     elseif (total.loss > 1) then
-        total.lossStr = total.loss .. " " .. LOSSES;
+        total.lossStr = total.loss .. " " .. PVPLOG.LOSSES;
     end
 
     if (total.slashy and total.loss > 0) then
@@ -1335,17 +1335,17 @@ function PvPLogGetGuildTotals(guild)
     total.slashy  = true;
 
     if (total.wins == 1) then
-        total.winsStr = "1 "..WIN;
+        total.winsStr = "1 " .. PVPLOG.WIN;
     elseif (total.wins > 1) then
-        total.winsStr = total.wins .." "..WINS;
+        total.winsStr = total.wins .. " " .. PVPLOG.WINS;
     else
         total.slashy = false;
     end
 
     if (total.loss == 1) then
-        total.lossStr = "1 "..LOSS;
+        total.lossStr = "1 ".. PVPLOG.LOSS;
     elseif (total.loss > 1) then
-        total.lossStr = total.loss .. " " .. LOSSES;
+        total.lossStr = total.loss .. " " .. PVPLOG.LOSSES;
     end
 
     if (total.slashy and total.loss > 0) then
@@ -1624,19 +1624,19 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
 
     if (notifySystem) then
         for notifyChan in string.gmatch(notifySystem, "%w+") do
-            if( venemy and notifyChan == SELF) then
+            if( venemy and notifyChan == PVPLOG.SELF) then
                 PvPLogChatMsg(notifyMsg);
             elseif( venemy and
-              ((notifyChan == PARTY and GetNumPartyMembers() > 0) or 
-              (notifyChan == GUILD and GetGuildInfo("player") )  or 
-              (notifyChan == RAID  and GetNumRaidMembers() > 0)) ) then
-                if (notifyChan == RAID and bg_found) then
-                    notifyChan = BG;
+              ((notifyChan == PVPLOG.PARTY and GetNumPartyMembers() > 0) or 
+              (notifyChan == PVPLOG.GUILD and GetGuildInfo("player") )  or 
+              (notifyChan == PVPLOG.RAID  and GetNumRaidMembers() > 0)) ) then
+                if (notifyChan == PVPLOG.RAID and bg_found) then
+                    notifyChan = PVPLOG.BG;
                 end
                 PvPLogSendChatMessage(notifyMsg, notifyChan);
-            elseif( venemy and notifyChan ~= NONE and notifyChan ~= SELF and
-              notifyChan ~= PARTY and notifyChan ~= GUILD
-              and notifyChan ~= RAID and notifyChan ~= BG) then
+            elseif( venemy and notifyChan ~= PVPLOG.NONE and notifyChan ~= PVPLOG.SELF and
+              notifyChan ~= PVPLOG.PARTY and notifyChan ~= PVPLOG.GUILD
+              and notifyChan ~= PVPLOG.RAID and notifyChan ~= PVPLOG.BG) then
                 PvPLogSendMessageOnChannel(notifyMsg, notifyChan);
             end
         end
@@ -1719,7 +1719,7 @@ function PvPLogUpdateTarget(dueling)
         local msg = "";
         local show = false;
         if (total and (total.wins > 0 or total.loss > 0)) then
-            msg = msg .. CYAN .. "PvP: " .. GREEN .. total.wins.. CYAN .. 
+            msg = msg .. CYAN .. PVPLOG.UI_PVP .. ": " .. GREEN .. total.wins.. CYAN .. 
             " / " .. RED .. total.loss;
             show = true;
         end
@@ -1727,7 +1727,7 @@ function PvPLogUpdateTarget(dueling)
             if (show) then
                 msg = msg .. CYAN .. " - ";
             end
-            msg = msg .. CYAN .. GUILD .. ": ";
+            msg = msg .. CYAN .. PVPLOG.GUILD .. ": ";
             msg = msg .. GREEN .. guildTotal.wins.. CYAN .. " / ".. RED .. 
             guildTotal.loss;
             show = true;
@@ -1744,10 +1744,10 @@ function PvPLogSetEnabled(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].enabled = false;
-        PvPLogChatMsgCyan("PvPLog " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].enabled = true;
-        PvPLogChatMsgCyan("PvPLog " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1755,10 +1755,10 @@ function PvPLogSetDisplay(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].display = false;
-        PvPLogChatMsgCyan("PvPLog Floating Display " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Floating Display " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].display = true;
-        PvPLogChatMsgCyan("PvPLog Floating Display " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Floating Display " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1766,10 +1766,10 @@ function PvPLogSetDing(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].ding = false;
-        PvPLogChatMsgCyan("PvPLog Ding Sound " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Ding Sound " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].ding = true;
-        PvPLogChatMsgCyan("PvPLog Ding Sound " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Ding Sound " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1777,10 +1777,10 @@ function PvPLogSetMouseover(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].mouseover = false;
-        PvPLogChatMsgCyan("PvPLog Mouseover Effects " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Mouseover Effects " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].mouseover = true;
-        PvPLogChatMsgCyan("PvPLog Mouseover Effects " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Mouseover Effects " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1788,10 +1788,10 @@ function PvPLogSetRecordBG(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].recordBG = false;
-        PvPLogChatMsgCyan("PvPLog Record in Battlegrounds " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Record in Battlegrounds " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].recordBG = true;
-        PvPLogChatMsgCyan("PvPLog Record in Battlegrounds " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Record in Battlegrounds " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1799,10 +1799,10 @@ function PvPLogSetNotifyBG(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].notifyBG = false;
-        PvPLogChatMsgCyan("PvPLog Notify in Battlegrounds " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Notify in Battlegrounds " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].notifyBG = true;
-        PvPLogChatMsgCyan("PvPLog Notify in Battlegrounds " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Notify in Battlegrounds " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1810,10 +1810,10 @@ function PvPLogSetRecordDuel(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].recordDuel = false;
-        PvPLogChatMsgCyan("PvPLog Record Duels " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Record Duels " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].recordDuel = true;
-        PvPLogChatMsgCyan("PvPLog Record Duels " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Record Duels " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1821,10 +1821,10 @@ function PvPLogSetNotifyDuel(toggle)
     toggle = string.lower(toggle);
     if (toggle == "off") then
         PvPLogData[realm][player].notifyDuel = false;
-        PvPLogChatMsgCyan("PvPLog Notify Duels " .. ORANGE .. OFF);
+        PvPLogChatMsgCyan("PvPLog Notify Duels " .. ORANGE .. PVPLOG.OFF);
     else
         PvPLogData[realm][player].notifyDuel = true;
-        PvPLogChatMsgCyan("PvPLog Notify Duels " .. ORANGE .. ON);
+        PvPLogChatMsgCyan("PvPLog Notify Duels " .. ORANGE .. PVPLOG.ON);
     end        
 end
 
@@ -1885,73 +1885,73 @@ function PvPLogSlashHandler(msg)
         end
     elseif (command == "fixguild") then
             PvPLogFixGuild();
-    elseif (command == RESET) then
-        if (value == CONFIRM) then
+    elseif (command == PVPLOG.RESET) then
+        if (value == PVPLOG.CONFIRM) then
             PvPLogInitPvP();
             PvPLogInitPurge();
-            PvPLogChatMsgCyan("PvPLog " .. MAGENTA .. RESET .. " " .. CYAN .. COMP);
+            PvPLogChatMsgCyan("PvPLog " .. MAGENTA .. PVPLOG.RESET .. " " .. CYAN .. PVPLOG.COMP);
         end
-    elseif (command == NOTIFYKILL) then
+    elseif (command == PVPLOG.NOTIFYKILL) then
         if (value ~= nil) then
             PvPLogData[realm][player].notifyKill = value;
-            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYKILL .. 
-                CYAN .. TO .. FIRE .. value);
+            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. PVPLOG.NOTIFYKILL .. 
+                CYAN .. PVPLOG.TO .. FIRE .. value);
         else
             PvPLogDisplayUsage();
         end
-    elseif (command == NOTIFYKILLTEXT) then
+    elseif (command == PVPLOG.NOTIFYKILLTEXT) then
         if (value ~= nil) then
             PvPLogData[realm][player].notifyKillText = value;
-            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYKILLTEXT .. 
-                CYAN .. TO .. FIRE .. value);
+            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. PVPLOG.NOTIFYKILLTEXT .. 
+                CYAN .. PVPLOG.TO .. FIRE .. value);
         else
             PvPLogDisplayUsage();
         end
-    elseif (command == NOTIFYDEATH) then
+    elseif (command == PVPLOG.NOTIFYDEATH) then
         if (value ~= nil) then
             PvPLogData[realm][player].notifyDeath = value;
-            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYDEATH .. 
-                CYAN .. TO .. FIRE .. value);
+            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. PVPLOG.NOTIFYDEATH .. 
+                CYAN .. PVPLOG.TO .. FIRE .. value);
         else
             PvPLogDisplayUsage();
         end
-    elseif (command == NOTIFYDEATHTEXT) then
+    elseif (command == PVPLOG.NOTIFYDEATHTEXT) then
         if (value ~= nil) then
             PvPLogData[realm][player].notifyDeathText = value;
-            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYDEATHTEXT .. 
-                CYAN .. TO .. FIRE .. value);
+            PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. PVPLOG.NOTIFYDEATHTEXT .. 
+                CYAN .. PVPLOG.TO .. FIRE .. value);
         else
             PvPLogDisplayUsage();
         end
-    elseif (command == ENABLE) then
+    elseif (command == PVPLOG.ENABLE) then
         PvPLogSetEnabled("on");
-    elseif (command == DISABLE) then
+    elseif (command == PVPLOG.DISABLE) then
         PvPLogSetEnabled("off");
-    elseif (command == VER) then
-        PvPLogChatMsgCyan("PvPLog "..VER..": " .. WHITE .. VER_NUM);
-    elseif (command == VEN) then
-        PvPLogChatMsgCyan("PvPLog "..VEN..": " .. WHITE .. VENDOR);
-    elseif (command == DMG) then
+    elseif (command == PVPLOG.VER) then
+        PvPLogChatMsgCyan("PvPLog "..VER..": " .. WHITE .. PVPLOG.VER_NUM);
+    elseif (command == PVPLOG.VEN) then
+        PvPLogChatMsgCyan("PvPLog "..VEN..": " .. WHITE .. PVPLOG.VENDOR);
+    elseif (command == PVPLOG.DMG) then
         PvPLogPrintDamage();
-    elseif (command == ST) then
+    elseif (command == PVPLOG.ST) then
         PvPLogPrintStats();
-    elseif (command == NOSPAM) then
+    elseif (command == PVPLOG.NOSPAM) then
         PvPLogSetDisplay("off");
         PvPLogSetDing("off");
         PvPLogSetMouseover("off");
-    elseif (command == string.lower(UI_PVP)) then
+    elseif (command == string.lower(PVPLOG.UI_PVP)) then
         PvPLogStatsFrame:Hide();
-        PVPLOG_STATS_TYPE = UI_PVP;
+        PVPLOG.STATS_TYPE = PVPLOG.UI_PVP;
         PvPLogStatsFrame:Show();
-    elseif (command == string.lower(DUEL)) then
+    elseif (command == string.lower(PVPLOG.DUEL)) then
         PvPLogStatsFrame:Hide();
-        PVPLOG_STATS_TYPE = DUEL;
+        PVPLOG.STATS_TYPE = PVPLOG.DUEL;
         PvPLogStatsFrame:Show();
-    elseif (command == string.lower(RECENT)) then
+    elseif (command == string.lower(PVPLOG.RECENT)) then
         PvPLogStatsFrame:Hide();
-        PVPLOG_STATS_TYPE = RECENT;
+        PVPLOG.STATS_TYPE = PVPLOG.RECENT;
         PvPLogStatsFrame:Show();
-    elseif (command == UI_CONFIG) then
+    elseif (command == PVPLOG.UI_CONFIG) then
         PvPLogConfigShow();
     else
         PvPLogDisplayUsage();
@@ -1961,115 +1961,115 @@ end
 function PvPLogDisplayUsage()
     local text;
 
-    text = CYAN .. USAGE .. ":\n  /pl <";
+    text = CYAN .. PVPLOG.USAGE .. ":\n  /pl <";
     if (PvPLogData[realm][player].enabled) then
-        text = text .. WHITE .. ENABLE .. CYAN .. " | "..DISABLE..">\n";
+        text = text .. WHITE .. PVPLOG.ENABLE .. CYAN .. " | " .. PVPLOG.DISABLE .. ">\n";
     else
-        text = text .. ENABLE.." | " .. WHITE .. DISABLE .. CYAN .. ">\n";
+        text = text .. PVPLOG.ENABLE.." | " .. WHITE .. PVPLOG.DISABLE .. CYAN .. ">\n";
     end
     PvPLogChatMsg(text);
 
-    PvPLogChatMsgPl(RESET.." "..CONFIRM.."\n");
-    PvPLogChatMsgPl(ST.."\n");
-    PvPLogChatMsgPl(DMG.."\n");
+    PvPLogChatMsgPl(PVPLOG.RESET .. " " .. PVPLOG.CONFIRM .. "\n");
+    PvPLogChatMsgPl(PVPLOG.ST .. "\n");
+    PvPLogChatMsgPl(PVPLOG.DMG .. "\n");
 
-    text = NOTIFYKILL.." <";
-    if (PvPLogData[realm][player].notifyKill == NONE) then
-        text = text .. WHITE .. NONE .. CYAN;
+    text = PVPLOG.NOTIFYKILL.." <";
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.NONE) then
+        text = text .. WHITE .. PVPLOG.NONE .. CYAN;
     else
-        text = text .. NONE;
+        text = text .. PVPLOG.NONE;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyKill == SELF) then
-        text = text .. WHITE .. SELF .. CYAN;
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.SELF) then
+        text = text .. WHITE .. PVPLOG.SELF .. CYAN;
     else
-        text = text .. SELF;
+        text = text .. PVPLOG.SELF;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyKill == PARTY) then
-        text = text .. WHITE .. PARTY .. CYAN;
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.PARTY) then
+        text = text .. WHITE .. PVPLOG.PARTY .. CYAN;
     else
-        text = text .. PARTY;
+        text = text .. PVPLOG.PARTY;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyKill == GUILD) then
-        text = text .. WHITE .. GUILD .. CYAN;
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.GUILD) then
+        text = text .. WHITE .. PVPLOG.GUILD .. CYAN;
     else
-        text = text .. GUILD;
+        text = text .. PVPLOG.GUILD;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyKill == RAID) then
-        text = text .. WHITE .. RAID .. CYAN;
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.RAID) then
+        text = text .. WHITE .. PVPLOG.RAID .. CYAN;
     else
-        text = text .. RAID;
+        text = text .. PVPLOG.RAID;
     end
-    if (PvPLogData[realm][player].notifyKill ~= NONE and
-        PvPLogData[realm][player].notifyKill ~= SELF and
-        PvPLogData[realm][player].notifyKill ~= PARTY and
-        PvPLogData[realm][player].notifyKill ~= GUILD and
-        PvPLogData[realm][player].notifyKill ~= RAID) then
+    if (PvPLogData[realm][player].notifyKill ~= PVPLOG.NONE and
+        PvPLogData[realm][player].notifyKill ~= PVPLOG.SELF and
+        PvPLogData[realm][player].notifyKill ~= PVPLOG.PARTY and
+        PvPLogData[realm][player].notifyKill ~= PVPLOG.GUILD and
+        PvPLogData[realm][player].notifyKill ~= PVPLOG.RAID) then
         text = text .." | " .. WHITE .. PvPLogData[realm][player].notifyKill .. CYAN .. ">\n";
     else
         text = text .. ">\n";
     end
     PvPLogChatMsgPl(text);
 
-    text = NOTIFYKILLTEXT.." <";
+    text = PVPLOG.NOTIFYKILLTEXT.." <";
     text = text .. WHITE .. PvPLogData[realm][player].notifyKillText .. CYAN .. ">\n";
     PvPLogChatMsgPl(text);
 
-    text = NOTIFYDEATH.." <";
-    if (PvPLogData[realm][player].notifyDeath == NONE) then
-        text = text .. WHITE .. NONE .. CYAN;
+    text = PVPLOG.NOTIFYDEATH.." <";
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.NONE) then
+        text = text .. WHITE .. PVPLOG.NONE .. CYAN;
     else
-        text = text .. NONE;
+        text = text .. PVPLOG.NONE;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyDeath == SELF) then
-        text = text .. WHITE .. SELF .. CYAN;
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.SELF) then
+        text = text .. WHITE .. PVPLOG.SELF .. CYAN;
     else
-        text = text .. SELF;
+        text = text .. PVPLOG.SELF;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyDeath == PARTY) then
-        text = text .. WHITE .. PARTY .. CYAN;
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.PARTY) then
+        text = text .. WHITE .. PVPLOG.PARTY .. CYAN;
     else
-        text = text .. PARTY;
+        text = text .. PVPLOG.PARTY;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyDeath == GUILD) then
-        text = text .. WHITE .. GUILD .. CYAN;
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.GUILD) then
+        text = text .. WHITE .. PVPLOG.GUILD .. CYAN;
     else
-        text = text .. GUILD;
+        text = text .. PVPLOG.GUILD;
     end
     text = text .." | ";
-    if (PvPLogData[realm][player].notifyDeath == RAID) then
-        text = text .. WHITE .. RAID .. CYAN;
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.RAID) then
+        text = text .. WHITE .. PVPLOG.RAID .. CYAN;
     else
-        text = text .. RAID;
+        text = text .. PVPLOG.RAID;
     end
-    if (PvPLogData[realm][player].notifyDeath ~= NONE and
-        PvPLogData[realm][player].notifyDeath ~= SELF and
-        PvPLogData[realm][player].notifyDeath ~= PARTY and
-        PvPLogData[realm][player].notifyDeath ~= GUILD and
-        PvPLogData[realm][player].notifyDeath ~= RAID) then
+    if (PvPLogData[realm][player].notifyDeath ~= PVPLOG.NONE and
+        PvPLogData[realm][player].notifyDeath ~= PVPLOG.SELF and
+        PvPLogData[realm][player].notifyDeath ~= PVPLOG.PARTY and
+        PvPLogData[realm][player].notifyDeath ~= PVPLOG.GUILD and
+        PvPLogData[realm][player].notifyDeath ~= PVPLOG.RAID) then
         text = text .. " | " .. WHITE .. PvPLogData[realm][player].notifyDeath .. CYAN .. ">\n";
     else
         text = text .. ">\n";
     end
     PvPLogChatMsgPl(text);
 
-    text = NOTIFYDEATHTEXT.." <";
+    text = PVPLOG.NOTIFYDEATHTEXT.." <";
     text = text .. WHITE .. PvPLogData[realm][player].notifyDeathText .. CYAN .. ">\n";
     PvPLogChatMsgPl(text);
 
-    PvPLogChatMsgPl(NOSPAM.."\n");
-    PvPLogChatMsgPl(VER.."\n");
-    PvPLogChatMsgPl(VEN.."\n");
+    PvPLogChatMsgPl(PVPLOG.NOSPAM.."\n");
+    PvPLogChatMsgPl(PVPLOG.VER.."\n");
+    PvPLogChatMsgPl(PVPLOG.VEN.."\n");
 
-    PvPLogChatMsgPl(string.lower(UI_PVP).."\n");
-    PvPLogChatMsgPl(string.lower(DUEL).."\n");
-    PvPLogChatMsgPl(UI_CONFIG.."\n");
+    PvPLogChatMsgPl(string.lower(PVPLOG.UI_PVP).."\n");
+    PvPLogChatMsgPl(string.lower(PVPLOG.DUEL).."\n");
+    PvPLogChatMsgPl(PVPLOG.UI_CONFIG.."\n");
 end
 
 function PvPLogChatMsgPl(msg)

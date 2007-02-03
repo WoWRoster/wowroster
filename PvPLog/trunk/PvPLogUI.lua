@@ -1,9 +1,9 @@
 --[[
     PvPLogUI
-    Author:           Atolicus
-    Maintainer:       Matthew Musgrove, Brad Morgan
-    Version:          2.3.0
-    Last Modified:    2007-01-03
+    Author:           Brad Morgan
+    Based on Work by: Josh Estelle, Daniel S. Reichenbach, Atolicus, Matthew Musgrove
+    Version:          2.3.7
+    Last Modified:    2007-02-01
 ]]
 
 local realm = "";
@@ -25,7 +25,7 @@ local pvpGuildList = "";
 local pvpWinsList = "";
 local pvpLossList = "";
 local pvpRealmList = "";
-PVPLOG_STATS_TYPE = "";
+PVPLOG.STATS_TYPE = "";
 
 -------------------
 -- Configuration --
@@ -41,11 +41,11 @@ function PvPLogConfig_OnShow()
 end
 
 function PvPLogConfig_SetValues()
-    txtPvPLogConfigFrame_HeaderText:SetText("PvPLog " .. VER_NUM);
-    txtPvPLogConfig_NotifyKillsToggle_Header:SetText(UI_NOTIFY_KILLS);
-    txtPvPLogConfig_NotifyDeathsToggle_Header:SetText(UI_NOTIFY_DEATHS);
-    txtPvPLogConfig_NotifyKillsCustomChannel_Header:SetText(UI_CUSTOM);
-    txtPvPLogConfig_NotifyDeathsCustomChannel_Header:SetText(UI_CUSTOM);
+    txtPvPLogConfigFrame_HeaderText:SetText("PvPLog " .. PVPLOG.VER_NUM);
+    txtPvPLogConfig_NotifyKillsToggle_Header:SetText(PVPLOG.UI_NOTIFY_KILLS);
+    txtPvPLogConfig_NotifyDeathsToggle_Header:SetText(PVPLOG.UI_NOTIFY_DEATHS);
+    txtPvPLogConfig_NotifyKillsCustomChannel_Header:SetText(PVPLOG.UI_CUSTOM);
+    txtPvPLogConfig_NotifyDeathsCustomChannel_Header:SetText(PVPLOG.UI_CUSTOM);
     cbxPvPLogConfig_MiniMapButtonToggle:SetChecked(PvPLogData[realm][player].MiniMap.enabled);
     
     cbxPvPLogConfig_EnableToggle:SetChecked(PvPLogData[realm][player].enabled);
@@ -72,84 +72,84 @@ function PvPLogConfig_SetValues()
         cbxPvPLogConfig_NotifyDuelToggleText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
     end
     
-    if (PvPLogData[realm][player].notifyKill == NIL) then
-        PvPLogData[realm][player].notifyKill = NONE;
+    if (not PvPLogData[realm][player].notifyKill) then
+        PvPLogData[realm][player].notifyKill = PVPLOG.NONE;
     end
     
     ebxPvPLogConfig_NotifyKillsChannel:SetText(PvPLogData[realm][player].notifyKill);
     
-    if (PvPLogData[realm][player].notifyKill == NONE) then
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.NONE) then
         cbxPvPLogConfig_NotifyKillsNone:SetChecked(true);
-        ebxPvPLogConfig_NotifyKillsChannel:SetText(NONE);
+        ebxPvPLogConfig_NotifyKillsChannel:SetText(PVPLOG.NONE);
     else
         cbxPvPLogConfig_NotifyKillsNone:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyKill == SELF) then
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.SELF) then
         cbxPvPLogConfig_NotifyKillsSelf:SetChecked(true);
-        ebxPvPLogConfig_NotifyKillsChannel:SetText(SELF);
+        ebxPvPLogConfig_NotifyKillsChannel:SetText(PVPLOG.SELF);
     else
         cbxPvPLogConfig_NotifyKillsSelf:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyKill == PARTY) then
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.PARTY) then
         cbxPvPLogConfig_NotifyKillsParty:SetChecked(true);
-        ebxPvPLogConfig_NotifyKillsChannel:SetText(PARTY);
+        ebxPvPLogConfig_NotifyKillsChannel:SetText(PVPLOG.PARTY);
     else
         cbxPvPLogConfig_NotifyKillsParty:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyKill == GUILD) then
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.GUILD) then
         cbxPvPLogConfig_NotifyKillsGuild:SetChecked(true);
-        ebxPvPLogConfig_NotifyKillsChannel:SetText(GUILD);
+        ebxPvPLogConfig_NotifyKillsChannel:SetText(PVPLOG.GUILD);
     else
         cbxPvPLogConfig_NotifyKillsGuild:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyKill == RAID) then
+    if (PvPLogData[realm][player].notifyKill == PVPLOG.RAID) then
         cbxPvPLogConfig_NotifyKillsRaid:SetChecked(true);
-        ebxPvPLogConfig_NotifyKillsChannel:SetText(RAID);
+        ebxPvPLogConfig_NotifyKillsChannel:SetText(PVPLOG.RAID);
     else
         cbxPvPLogConfig_NotifyKillsRaid:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyDeath == NIL) then
-        PvPLogData[realm][player].notifyDeath = NONE;
+    if (not PvPLogData[realm][player].notifyDeath) then
+        PvPLogData[realm][player].notifyDeath = PVPLOG.NONE;
     end
     
     ebxPvPLogConfig_NotifyDeathsChannel:SetText(PvPLogData[realm][player].notifyDeath);
     
-    if (PvPLogData[realm][player].notifyDeath == NONE) then
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.NONE) then
         cbxPvPLogConfig_NotifyDeathsNone:SetChecked(true);
-        ebxPvPLogConfig_NotifyDeathsChannel:SetText(NONE);
+        ebxPvPLogConfig_NotifyDeathsChannel:SetText(PVPLOG.NONE);
     else
         cbxPvPLogConfig_NotifyDeathsNone:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyDeath == SELF) then
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.SELF) then
         cbxPvPLogConfig_NotifyDeathsSelf:SetChecked(true);
-        ebxPvPLogConfig_NotifyDeathsChannel:SetText(SELF);
+        ebxPvPLogConfig_NotifyDeathsChannel:SetText(PVPLOG.SELF);
     else
         cbxPvPLogConfig_NotifyDeathsSelf:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyDeath == PARTY) then
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.PARTY) then
         cbxPvPLogConfig_NotifyDeathsParty:SetChecked(true);
-        ebxPvPLogConfig_NotifyDeathsChannel:SetText(PARTY);
+        ebxPvPLogConfig_NotifyDeathsChannel:SetText(PVPLOG.PARTY);
     else
         cbxPvPLogConfig_NotifyDeathsParty:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyDeath == GUILD) then
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.GUILD) then
         cbxPvPLogConfig_NotifyDeathsGuild:SetChecked(true);
-        ebxPvPLogConfig_NotifyDeathsChannel:SetText(GUILD);
+        ebxPvPLogConfig_NotifyDeathsChannel:SetText(PVPLOG.GUILD);
     else
         cbxPvPLogConfig_NotifyDeathsGuild:SetChecked(false);
     end
     
-    if (PvPLogData[realm][player].notifyDeath == RAID) then
+    if (PvPLogData[realm][player].notifyDeath == PVPLOG.RAID) then
         cbxPvPLogConfig_NotifyDeathsRaid:SetChecked(true);
-        ebxPvPLogConfig_NotifyDeathsChannel:SetText(RAID);
+        ebxPvPLogConfig_NotifyDeathsChannel:SetText(PVPLOG.RAID);
     else
         cbxPvPLogConfig_NotifyDeathsRaid:SetChecked(false);
     end
@@ -203,7 +203,7 @@ end
 function PvPLogDing_Toggle_OnEnter(button)
     GameTooltip:SetOwner(button, "ANCHOR_NONE");
     GameTooltip:SetPoint("TOPLEFT", button:GetName(), "BOTTOMLEFT", -10, -4);
-    GameTooltip:SetText(UI_DING_TIP);
+    GameTooltip:SetText(PVPLOG.UI_DING_TIP);
     GameTooltip:Show();
 end;
 
@@ -257,12 +257,12 @@ function PvPLogNotifyDuel_Toggle_OnClick()
 end
 
 function PvPLogNotifyKills_Toggle_OnClick(value)
-    PvPLogSlashHandler(NOTIFYKILL.." "..value);
+    PvPLogSlashHandler(PVPLOG.NOTIFYKILL.." "..value);
     PvPLogConfig_SetValues();
 end
 
 function PvPLogNotifyDeaths_Toggle_OnClick(value)
-    PvPLogSlashHandler(NOTIFYDEATH.." "..value);
+    PvPLogSlashHandler(PVPLOG.NOTIFYDEATH.." "..value);
     PvPLogConfig_SetValues();
 end
 
@@ -293,7 +293,7 @@ end
 
 function PvPLogConfig_NotifyKillsCustomChannel_Message()
     local value = ebxPvPLogConfig_NotifyKillsChannel:GetText();
-    PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYKILL .. CYAN .. TO .. FIRE .. value);  
+    PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. PVPLOG.NOTIFYKILL .. CYAN .. PVPLOG.TO .. FIRE .. value);  
 end
 
 function PvPLogConfig_NotifyDeathsCustomChannel_UpdateString()
@@ -303,7 +303,7 @@ end
 
 function PvPLogConfig_NotifyDeathsCustomChannel_Message()
     local value = ebxPvPLogConfig_NotifyDeathsChannel:GetText();
-    PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. NOTIFYDEATH .. CYAN .. TO .. FIRE .. value);
+    PvPLogFloatMsg(CYAN .. "PvPLog: " .. WHITE .. PVPLOG.NOTIFYDEATH .. CYAN .. PVPLOG.TO .. FIRE .. value);
 end
 
 ------------------------
@@ -328,11 +328,11 @@ end
 
 function PvPLogStats_ShowTab(name)
     if (name == "PvP") then
-        PVPLOG_STATS_TYPE = UI_PVP;
+        PVPLOG.STATS_TYPE = PVPLOG.UI_PVP;
     elseif (name == "Recent") then
-        PVPLOG_STATS_TYPE = RECENT;
+        PVPLOG.STATS_TYPE = PVPLOG.RECENT;
     elseif (name == "Duel") then
-        PVPLOG_STATS_TYPE = DUEL;
+        PVPLOG.STATS_TYPE = PVPLOG.DUEL;
     end
     statsValue = 1;
     PvPLogStats_SetValues(statsValue);
@@ -350,27 +350,27 @@ end
 
 function PvPLogStats_SetValues(statsValue)
     local isEnemy;
-    if (PVPLOG_STATS_TYPE == UI_PVP) then
-        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. VER_NUM .. "  -  " .. UI_PVP .. " " ..STATS);
+    if (PVPLOG.STATS_TYPE == PVPLOG.UI_PVP) then
+        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. PVPLOG.VER_NUM .. "  -  " .. PVPLOG.UI_PVP .. " " ..PVPLOG.STATS);
         isEnemy = 1;
-    elseif (PVPLOG_STATS_TYPE == DUEL) then
-        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. VER_NUM .. "  -  " .. DUEL .. " " ..STATS);
+    elseif (PVPLOG.STATS_TYPE == PVPLOG.DUEL) then
+        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. PVPLOG.VER_NUM .. "  -  " .. PVPLOG.DUEL .. " " ..PVPLOG.STATS);
         isEnemy = 0;
-    elseif (PVPLOG_STATS_TYPE == RECENT) then
-        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. VER_NUM .. "  -  " .. RECENT .. " " ..STATS);
+    elseif (PVPLOG.STATS_TYPE == PVPLOG.RECENT) then
+        txtPvPLogStatsFrame_HeaderText:SetText("PvPLog " .. PVPLOG.VER_NUM .. "  -  " .. PVPLOG.RECENT .. " " ..PVPLOG.STATS);
         isEnemy = 1;
     else
         return;
     end
-    txtPvPLogStats_PlayersHeader:SetText(CYAN .. UI_NAME);
-    txtPvPLogStats_GuildsHeader:SetText(MAGENTA .. GUILD);
-    if (PVPLOG_STATS_TYPE == RECENT) then
-        txtPvPLogStats_RealmsHeader:SetText(ORANGE .. PLAYER);
+    txtPvPLogStats_PlayersHeader:SetText(CYAN .. PVPLOG.UI_NAME);
+    txtPvPLogStats_GuildsHeader:SetText(MAGENTA .. PVPLOG.GUILD);
+    if (PVPLOG.STATS_TYPE == PVPLOG.RECENT) then
+        txtPvPLogStats_RealmsHeader:SetText(ORANGE .. PVPLOG.PLAYER);
     else
-        txtPvPLogStats_RealmsHeader:SetText(ORANGE .. REALM);
+        txtPvPLogStats_RealmsHeader:SetText(ORANGE .. PVPLOG.REALM);
     end
-    txtPvPLogStats_WinsHeader:SetText(GREEN .. UI_WINS);
-    txtPvPLogStats_LossesHeader:SetText(RED .. UI_LOSSES);
+    txtPvPLogStats_WinsHeader:SetText(GREEN .. PVPLOG.UI_WINS);
+    txtPvPLogStats_LossesHeader:SetText(RED .. PVPLOG.UI_LOSSES);
     txtPvPLogStats_PlayerList:SetText("");
     txtPvPLogStats_GuildList:SetText("");
     txtPvPLogStats_RealmsList:SetText("");
@@ -386,7 +386,7 @@ function PvPLogStats_SetValues(statsValue)
     statCount  = 1;
     statsTotal = 0;
 
-    if (PVPLOG_STATS_TYPE == RECENT) then
+    if (PVPLOG.STATS_TYPE == PVPLOG.RECENT) then
         local now = time();
         local dayago = now - 24 * 60 * 60;
         PvPLogDebugMsg('now = '..tostring(now)..', dayago = '..tostring(dayago));

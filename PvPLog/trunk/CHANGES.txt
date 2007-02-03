@@ -1,10 +1,14 @@
 PvPLog 
 Author:           Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-Version:          2.3.6
-Last Modified:    2007-02-01
+Version:          2.3.7
+Last Modified:    2007-02-02
 
 CHANGES
+
+2007-02-02  * 2.3.7
+    * All constants in pvplog.lua and localization.lua moved into a PVPLOG table to 
+      fix a problem in the previous version and to reduce global namespace polution.
 
 2007-02-01  * 2.3.6
     * Clear lastDamagerToMe if you just killed them.
