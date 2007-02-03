@@ -385,7 +385,7 @@ function new_user()
 	{
 		if ($user->data['level'] > UA_ID_POWER)
 		{
-			$sql = "INSERT INTO `".UA_TABLE_USERS."` ( `name` , `password` , `level` , `language` , `user_style` ) VALUES ( '".$db->escape($userN)."' , '".md5($userP)."' , '$userL' , '".$db->escape($userW)."' , '".$db->escape($userS)."' );";
+			$sql = "INSERT INTO `".UA_TABLE_USERS."` ( `name` , `password` , `level` , `language` , `user_style` ) VALUES ( '".$db->escape($userN)."' , '".$userP."' , '$userL' , '".$db->escape($userW)."' , '".$db->escape($userS)."' );";
 			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
@@ -397,7 +397,7 @@ function new_user()
 		}
 		else
 		{
-			$sql = "INSERT INTO `".UA_TABLE_USERS."` ( `name` , `password` , `level` , `language` , `user_style` ) VALUES ( '".$db->escape($userN)."' , '".md5($userP)."' , '1' , '".$db->escape($userW)."' , '".$db->escape($userS)."' );";
+			$sql = "INSERT INTO `".UA_TABLE_USERS."` ( `name` , `password` , `level` , `language` , `user_style` ) VALUES ( '".$db->escape($userN)."' , '".$userP."' , '1' , '".$db->escape($userW)."' , '".$db->escape($userS)."' );";
 			$db->query($sql);
 			if( !$db->affected_rows() )
 			{

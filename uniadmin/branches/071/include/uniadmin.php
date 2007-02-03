@@ -318,7 +318,7 @@ class UniAdmin
 		{
 			return ( $this->cleardir($dir) ? rmdir($dir) : false );
 		}
-		return unlink($dir);
+		return @unlink($dir);
 	}
 
 	/**

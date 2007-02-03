@@ -296,6 +296,7 @@ function addon_detail( $id )
 		'L_NO'             => $user->lang['no'],
 		'L_NOTES'          => $user->lang['notes'],
 		'L_EDIT'           => $user->lang['edit'],
+		'L_CANCEL'         => $user->lang['cancel'],
 
 		'S_ADDONS'         => true,
 		'S_ADDON_ADD_DEL'  => false,
@@ -637,7 +638,7 @@ function process_addon()
 			{
 				foreach( $toc_files as $file )
 				{
-					$toc_number = get_toc_val($file, 'Interface', ( !empty($_POST['toc']) ? $_POST['toc'] : '00000' ));
+					$toc_number = get_toc_val($file, 'Interface', '00000');
 
 					$k = explode(DIR_SEP,$file);
 					$toc_file_name = $k[count($k) - 1];
@@ -680,7 +681,7 @@ function process_addon()
 					$homepage = get_toc_val($file, 'X-Website', get_toc_val($file, 'URL', ''));
 					$notes = get_toc_val($file, 'Notes', '');
 
-					if( strpos(strtolower($zip_file), strtolower($toc_file_name)) === true )
+					if( strpos(strtolower($addon_file_name), strtolower(str_replace(' ','_',$toc_file_name))) !== false )
 					{
 						break;
 					}
@@ -853,7 +854,7 @@ function get_toc_val( $file, $var, $def_val )
 	$val = $def_val;
 	foreach( $lines as $line )
 	{
-		$found = preg_match('/^## \b'.$var.'\b: (.+)/',$line,$matches);
+		$found = preg_match('/## \\b'.$var.'\\b: (.+)/',$line,$matches);
 
 		if( $found )
 		{
@@ -870,7 +871,9 @@ function get_toc_val( $file, $var, $def_val )
 					break;
 			}
 
-			$val = preg_replace('/(.+?)\|c[a-f0-9]{8}(.+?)\|r/','$1$2',$val);
+			$val = preg_replace('/(.+?)\\|c[a-f0-9]{8}(.+?)\\|r/i','\\1\\2',$val);
+			$val = preg_replace('/\\|c[a-f0-9]{8}/i','',$val);
+			$val = str_replace('|r','',$val);
 		}
 	}
 	return trim($val);

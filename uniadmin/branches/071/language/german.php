@@ -255,6 +255,7 @@ $lang['notes'] = 'Notes';
 $lang['half'] = 'Half';
 $lang['full'] = 'Full';
 $lang['edit'] = 'Edit';
+$lang['cancel'] = 'Cancel';
 
 
 // Pagination

@@ -15,7 +15,7 @@
 	</tr>
 	<!-- BEGIN addons_row -->
 	<tr>
-		<td class="data{addons_row.ROW_CLASS}"><a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}" class="addon_name" onmouseover="return overlib('{addons_row.NOTES}',CAPTION,'{L_NOTES}');" onmouseout="return nd();">{addons_row.ADDONNAME}</a></td>
+		<td class="data{addons_row.ROW_CLASS}"><a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}" class="addon_name"<!-- IF addons_row.NOTES != '' --> onmouseover="return overlib('{addons_row.NOTES}',CAPTION,'{L_NOTES}',WRAP);" onmouseout="return nd();"<!-- ENDIF -->>{addons_row.ADDONNAME}</a></td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.TOC}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.VERSION}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.TIME}</td>
@@ -23,7 +23,7 @@
 		<td class="data{addons_row.ROW_CLASS}">
 			<a href="{addons_row.DOWNLOAD}"><img src="{TEMPLATE_PATH}/images/download_mini.png" class="icon" alt="" onmouseover="return overlib('{L_DOWNLOAD}-[{addons_row.FILESIZE}]');" onmouseout="return nd();" /></a>
 			<a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}"><img src="{TEMPLATE_PATH}/images/details_mini.png" class="icon" alt="" onmouseover="return overlib('{L_ADDON_DETAILS}');" onmouseout="return nd();" /></a>
-			<a href="{addons_row.HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home_mini.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a>
+			<!-- IF addons_row.HOMEPAGE != './' --><a href="{addons_row.HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home_mini.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off_mini.png" class="icon" alt="" /><!-- ENDIF -->
 			{addons_row.ENABLED}
 			{addons_row.REQUIRED}
 			<!-- IF S_ADDON_ADD_DEL --><form name="ua_deleteaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">

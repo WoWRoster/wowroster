@@ -1,9 +1,11 @@
 <!-- INCLUDE overall_header.html -->
 
 <table class="ua_table" align="center">
-	<tr>
-		<th class="table_header" colspan="10"><div style="cursor:pointer;width:500px;" onclick="swapShow('addon_display','addon_edit');"><img src="{TEMPLATE_PATH}/images/edit.png" style="float:right;" class="icon" alt="" onmouseover="return overlib('{L_EDIT}');" onmouseout="return nd();" />{ADDONNAME}</div></th>
-	</tr>
+	<thead>
+		<tr>
+			<th class="table_header" colspan="10" width="500">{ADDONNAME}</th>
+		</tr>
+	</thead>
 <!-- IF S_ADDONS -->
 	<tbody id="addon_display">
 		<tr>
@@ -21,23 +23,28 @@
 			<td class="data1" align="center">{VERSION}</td>
 			<td class="data1" align="center">{TIME}</td>
 
-			<td class="data2">
-				<a href="{HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a>
+			<td class="data1">
+				<!-- IF S_ADDON_ADD_DEL --><img src="{TEMPLATE_PATH}/images/edit.png" style="cursor:pointer;" class="icon" alt="" onclick="swapShow('addon_display','addon_edit');" onmouseover="return overlib('{L_EDIT}');" onmouseout="return nd();" /><!-- ENDIF -->
+				<!-- IF HOMEPAGE != './' --><a href="{HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off.png" class="icon" alt="" /><!-- ENDIF -->
 				{ENABLED}
 				{REQUIRED}
-				<!-- IF S_ADDON_ADD_DEL --><form name="ua_deleteaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<!-- IF S_ADDON_ADD_DEL -->
+				<form name="ua_deleteaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 					<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
 					<input type="hidden" name="{A_ID}" value="{ID}" />
 					<input class="icon" src="{TEMPLATE_PATH}/images/delete.png" type="image" value="{L_DELETE}" alt="" onmouseover="return overlib('{L_DELETE}');" onmouseout="return nd();" />
 				</form><!-- ENDIF --></td>
 		</tr>
+		<!-- IF NOTES != '' -->
 		<tr>
 			<td colspan="6" align="center" class="data_header">{L_NOTES}</td>
 		</tr>
 		<tr>
 			<td colspan="6" class="data1" align="left">{NOTES}</td>
 		</tr>
+		<!-- ENDIF -->
 	</tbody>
+	<!-- IF S_ADDON_ADD_DEL -->
 	<tbody id="addon_edit" style="display:none;">
 		<tr>
 			<td><form name="ua_editaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
@@ -65,7 +72,8 @@
 						<td colspan="2" align="center" class="data_header">{L_NOTES}</td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><textarea class="textbox" name="notes">{NOTES}</textarea></td>
+						<td colspan="2" align="center"><img src="{TEMPLATE_PATH}/images/cancel.png" style="display:inline;float:right;cursor:pointer;" class="icon" alt="" onclick="swapShow('addon_display','addon_edit');" onmouseover="return overlib('{L_CANCEL}');" onmouseout="return nd();" />
+						<textarea class="textbox" name="notes">{NOTES}</textarea></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center" class="data_header">
@@ -77,6 +85,7 @@
 				</form></td>
 		</tr>
 	</tbody>
+	<!-- ENDIF -->
 </table>
 <br />
 
