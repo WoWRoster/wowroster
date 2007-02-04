@@ -140,7 +140,7 @@ class wowdb
 	function getrow( $result )
 	{
 		global $db;
-		return $db->sql_fetchrow($result);
+		return $db->sql_fetchrow($result,SQL_ASSOC);
 		//return mysql_fetch_assoc( $result );
 	}
 
@@ -169,7 +169,7 @@ class wowdb
 	function fetch_assoc( $result )
 	{
 		global $db;
-		return $db->sql_fetchrow($result);
+		return $db->sql_fetchrow($result,SQL_ASSOC);
 		//return mysql_fetch_assoc( $result );
 	}
 
@@ -198,7 +198,7 @@ class wowdb
 	function fetch_array( $result )
 	{
 		global $db;
-		return $db->sql_fetchrow($result);
+		return $db->sql_fetchrow($result,SQL_NUM);
 		//return mysql_fetch_array( $result );
 	}
 
