@@ -83,8 +83,8 @@ World of Warcraft y Blizzard Entertainment son marcas registradas de Blizzard En
 //Charset
 $wordings['esES']['charset']="charset=utf-8";
 
-$timeformat['esES'] = '%a %e %b, %H:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$phptimeformat['esES'] = 'D j M, H:i';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
+$timeformat['esES'] = '%a %d %b, %H:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
+$phptimeformat['esES'] = 'D d M, H:i';    // PHP date() Time format (example - 'D M jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /**
@@ -116,7 +116,7 @@ you have this one part it will mark all other parts lower than this one as compl
 // ALLIANCE KEYS
 $inst_keys['esES']['A'] = array(
 	'SG' => array( 'Quests', 'SG' =>
-			'Key to Searing Gorge|4826',
+			'Llave de la Garganta de Fuego|4826',
 			'The Horn of the Beast|',
 			'Proof of Deed|',
 			'At Last!|'
@@ -129,19 +129,19 @@ $inst_keys['esES']['A'] = array(
 		),
 	'ZF' => array( 'Parts', 'ZF' =>
 			'Marra de Zul\\\'Farrak|5695',
-			'Sacred Mallet|8250'
+			'Marra sacra|8250'
 		),
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Cetro de Celebras|19710',
-			'Celebrian Rod|19549',
-			'Celebrian Diamond|19545'
+			'Vara de Celebras|19549',
+			'Diamante de Celebras|19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Llave de celda de prisión|15545'
 		),
 	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Shadowforge Key|2966',
-			'Ironfel|9673'
+			'Llave Sombratiniebla|2966',
+			'Ferrovil|9673'
 		),
 	'DM' => array( 'Key-Only', 'DM' =>
 			'Llave creciente|35607'
@@ -160,15 +160,15 @@ $inst_keys['esES']['A'] = array(
 		),
 	'UBRS' => array( 'Parts', 'UBRS' =>
 			'Lacre de ascensión|17057',
-			'Unadorned Seal of Ascension|5370',
-			'Gemstone of Spirestone|5379',
-			'Gemstone of Smolderthorn|16095',
-			'Gemstone of Bloodaxe|21777',
-			'Unforged Seal of Ascension|24554||MS',
-			'Forged Seal of Ascension|19463||MS'
+			'Sello de ascensión sin adornar|5370',
+			'Gema de Cumbrerroca|5379',
+			'Gema de Espina Ahumada|16095',
+			'Gema de Hacha de Sangre|21777',
+			'Sello de Ascensión sin forjar|24554||MS',
+			'Sello de Ascensión forjado|19463||MS'
 		),
 	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Drakefire Amulet|4829',
+			'Amuleto de Pirodraco|4829',
 			'Dragonkin Menace|',
 			'The True Masters|',
 			'Marshal Windsor|',
@@ -179,10 +179,10 @@ $inst_keys['esES']['A'] = array(
 			'Stormwind Rendezvous|',
 			'The Great Masquerade|',
 			'The Dragon\\\'s Eye|',
-			'Drakefire Amulet|'
+			'Amuleto de Pirodraco|'
 		),
 	'MC' => array( 'Key-Only', 'MC' =>
-			'Eternal Quintessence|22754'
+			'Quintaesencia eterna|22754'
 		),
 );
 
@@ -190,7 +190,7 @@ $inst_keys['esES']['A'] = array(
 // HORDE KEYS
 $inst_keys['esES']['H'] = array(
 	'SG' => array( 'Key-Only', 'SG' =>
-			'Key to Searing Gorge|4826'
+			'Llave de la Garganta de Fuego|4826'
 		),
 	'Gnome' => array( 'Key-Only', 'Gnome' =>
 			'Llave de taller|2288'
@@ -200,19 +200,19 @@ $inst_keys['esES']['H'] = array(
 		),
 	'ZF' => array( 'Parts', 'ZF' =>
 			'Marra de Zul\\\'Farrak|5695',
-			'Sacred Mallet|8250'
+			'Marra sacra|8250'
 		),
 	'Mauro' => array( 'Parts', 'Mauro' =>
 			'Cetro de Celebras|19710',
-			'Celebrian Rod|19549',
-			'Celebrian Diamond|19545'
+			'Vara de Celebras|19549',
+			'Diamante de Celebras|19545'
 		),
 	'BRDp' => array( 'Key-Only', 'BRDp' =>
 			'Llave de celda de prisión|15545'
 		),
 	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Shadowforge Key|2966',
-			'Ironfel|9673'
+			'Llave Sombratiniebla|2966',
+			'Ferrovil|9673'
 		),
 	'DM' => array( 'Key-Only', 'DM' =>
 			'Llave creciente|35607'
@@ -231,15 +231,15 @@ $inst_keys['esES']['H'] = array(
 		),
 	'UBRS' => array( 'Parts', 'UBRS' =>
 			'Lacre de ascensión|17057',
-			'Unadorned Seal of Ascension|5370',
-			'Gemstone of Spirestone|5379',
-			'Gemstone of Smolderthorn|16095',
-			'Gemstone of Bloodaxe|21777',
-			'Unforged Seal of Ascension|24554||MS',
-			'Forged Seal of Ascension|19463||MS'
+			'Sello de ascensión sin adornar|5370',
+			'Gema de Cumbrerroca|5379',
+			'Gema de Espina Ahumada|16095',
+			'Gema de Hacha de Sangre|21777',
+			'Sello de Ascensión sin forjar|24554||MS',
+			'Sello de Ascensión forjado|19463||MS'
 		),
 	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Drakefire Amulet|4829',
+			'Amuleto de Pirodraco|4829',
 			'Warlord\\\'s Command|',
 			'Eitrigg\\\'s Wisdom|',
 			'For The Horde!|',
@@ -256,7 +256,7 @@ $inst_keys['esES']['H'] = array(
 			'Blood of the Black Dragon Champion|'
 		),
 	'MC' => array( 'Key-Only', 'MC' =>
-			'Eternal Quintessence|22754'
+			'Quintaesencia eterna|22754'
 		),
 );
 
@@ -283,79 +283,79 @@ $wordings['esES']['currenthonor']='Rango de Honor Actual';
 $wordings['esES']['rank']='Rango';
 $wordings['esES']['sortby']='Ordenar por %';
 $wordings['esES']['total']='Total';
-$wordings['esES']['hearthed']='Hogar';
+$wordings['esES']['hearthed']='Posada';
 $wordings['esES']['recipes']='Recetas';
 $wordings['esES']['bags']='Bolsas';
 $wordings['esES']['character']='Personaje';
-$wordings['esES']['bglog']='Campos de Batalla';
+$wordings['esES']['bglog']='Registro Batallas';
 $wordings['esES']['pvplog']='Registro JcJ';
 $wordings['esES']['duellog']='Registro Duelos';
-$wordings['esES']['duelsummary']='Resumen de Duelos';
+$wordings['esES']['duelsummary']='Resumen Duelos';
 $wordings['esES']['money']='Dinero';
 $wordings['esES']['bank']='Banco';
-$wordings['esES']['guildbank']='Banco';
+$wordings['esES']['guildbank']='Banco Clan';
 $wordings['esES']['guildbank_totalmoney']='Fondos Totales Banco';
 $wordings['esES']['raid']='CT_Raid';
 $wordings['esES']['guildbankcontact']='Mantenido por (Contacto)';
 $wordings['esES']['guildbankitem']='Nombre de Objeto y Descripción';
 $wordings['esES']['quests']='Misiones';
-$wordings['esES']['roster']='Lista';
+$wordings['esES']['roster']='Roster';
 $wordings['esES']['alternate']='Suplente';
 $wordings['esES']['byclass']='Por Clase';
 $wordings['esES']['menustats']='Estadísticas';
 $wordings['esES']['menuhonor']='Honor';
 $wordings['esES']['keys']='Llaves';
-$wordings['esES']['team']='Encontrar Equipo';
-$wordings['esES']['search']='Buscar';
+$wordings['esES']['team']='Buscar Equipo';
+$wordings['esES']['search']='Búsqueda';
 $wordings['esES']['update']='Última Actualización';
 $wordings['esES']['credit']='Créditos';
 $wordings['esES']['members']='Miembros';
 $wordings['esES']['items']='Objetos';
 $wordings['esES']['find']='Encontrar objeto que contenga';
-$wordings['esES']['upprofile']='Actualizar Perfil';
+$wordings['esES']['upprofile']='Envío Datos';
 $wordings['esES']['backlink']='Volver al Inicio';
 $wordings['esES']['gender']='Género';
-$wordings['esES']['unusedtrainingpoints']='Puntos de Entrenamiento sin usar';
-$wordings['esES']['unusedtalentpoints']='Puntos de Talento sin usar';
+$wordings['esES']['unusedtrainingpoints']='Puntos Entrenamiento No Usados';
+$wordings['esES']['unusedtalentpoints']='Puntos Talento No Usados';
 $wordings['esES']['questlog']='Registro Misiones';
 $wordings['esES']['recipelist']='Lista Recetas';
 $wordings['esES']['reagents']='Ingredientes';
 $wordings['esES']['item']='Objeto';
 $wordings['esES']['type']='Tipo';
 $wordings['esES']['date']='Fecha';
-$wordings['esES']['completedsteps'] = 'Pasos Completados';
-$wordings['esES']['currentstep'] = 'Paso Actual';
-$wordings['esES']['uncompletedsteps'] = 'Pasos sin Completar';
+$wordings['esES']['completedsteps'] = 'Partes Completas';
+$wordings['esES']['currentstep'] = 'Parte Actual';
+$wordings['esES']['uncompletedsteps'] = 'Partes Incompletas';
 $wordings['esES']['key'] = 'Llave';
 $wordings['esES']['timeplayed'] = 'Tiempo Jugado';
-$wordings['esES']['timelevelplayed'] = 'Tiempo Jugado en este nivel';
+$wordings['esES']['timelevelplayed'] = 'Tiempo Jugado Nivel Actual';
 $wordings['esES']['Addon'] = 'Addons';
 $wordings['esES']['advancedstats'] = 'Estadísticas Avanzadas';
-$wordings['esES']['itembonuses'] = 'Bonificaciones a los objetos equipados';
+$wordings['esES']['itembonuses'] = 'Bonificaciones para objetos equipados';
 $wordings['esES']['itembonuses2'] = 'Bonificaciones de objetos';
-$wordings['esES']['crit'] = 'Critico';
+$wordings['esES']['crit'] = 'Crit';
 $wordings['esES']['dodge'] = 'Esquivar';
 $wordings['esES']['parry'] = 'Parar';
 $wordings['esES']['block'] = 'Bloquear';
 $wordings['esES']['realm'] = 'Reino';
 
 // Memberlog
-$wordings['esES']['memberlog'] = 'Registro de Miembros';
+$wordings['esES']['memberlog'] = 'Registro';
 $wordings['esES']['removed'] = 'Borrado';
 $wordings['esES']['added'] = 'Añadido';
-$wordings['esES']['no_memberlog'] = 'No se ha grabado registro de miembros';
+$wordings['esES']['no_memberlog'] = 'No existe registro de miembros';
 
-$wordings['esES']['rosterdiag'] = 'Probar Roster';
-$wordings['esES']['Guild_Info'] = 'Información de la Hermandad';
+$wordings['esES']['rosterdiag'] = 'Roster Diag.';
+$wordings['esES']['Guild_Info'] = 'Info Clan';
 $wordings['esES']['difficulty'] = 'Dificultad';
-$wordings['esES']['recipe_4'] = 'óptima';
-$wordings['esES']['recipe_3'] = 'media';
-$wordings['esES']['recipe_2'] = 'fácil';
-$wordings['esES']['recipe_1'] = 'trivial';
-$wordings['esES']['roster_config'] = 'Configuración Roster';
+$wordings['esES']['recipe_4'] = 'Óptima';
+$wordings['esES']['recipe_3'] = 'Media';
+$wordings['esES']['recipe_2'] = 'Fácil';
+$wordings['esES']['recipe_1'] = 'Trivial';
+$wordings['esES']['roster_config'] = 'Config. Roster';
 
 // Spellbook
-$wordings['esES']['spellbook'] = 'Libro de Hechizos';
+$wordings['esES']['spellbook'] = 'Libro Hechizos';
 $wordings['esES']['page'] = 'Página';
 $wordings['esES']['general'] = 'General';
 $wordings['esES']['prev'] = 'Anterior';
@@ -373,26 +373,26 @@ $wordings['esES']['mail_money'] = 'Dinero Incluído';
 
 //this needs to be exact as it is the wording in the db
 $wordings['esES']['professions']='Profesiones';
-$wordings['esES']['secondary']='Habilidades Secundarias';
+$wordings['esES']['secondary']='Habilidades secundarias';
 $wordings['esES']['Blacksmithing']='Herrería';
 $wordings['esES']['Mining']='Minería';
 $wordings['esES']['Herbalism']='Botánica';
 $wordings['esES']['Alchemy']='Alquimia';
-$wordings['esES']['Leatherworking']='Marroquiner�a';
+$wordings['esES']['Leatherworking']='Peletería';
 $wordings['esES']['Jewelcrafting']='Joyería';
 $wordings['esES']['Skinning']='Desollar';
-$wordings['esES']['Tailoring']='Costura';
+$wordings['esES']['Tailoring']='Sastrería';
 $wordings['esES']['Enchanting']='Encantamiento';
 $wordings['esES']['Engineering']='Ingeniería';
 $wordings['esES']['Cooking']='Cocina';
 $wordings['esES']['Fishing']='Pesca';
 $wordings['esES']['First Aid']='Primeros Auxilios';
-$wordings['esES']['poisons']='Venenos';
+$wordings['esES']['Poisons']='Venenos';
 $wordings['esES']['backpack']='Mochila';
-$wordings['esES']['PvPRankNone']='Ninguno';
+$wordings['esES']['PvPRankNone']='ninguno';
 
 // Uses preg_match() to find required level in recipe tooltip
-$wordings['esES']['requires_level'] = '/Requiere Nivel ([\d]+)/';
+$wordings['esES']['requires_level'] = '/Necesitas ser de nivel ([\d]+)/';
 
 //Tradeskill-Array
 $tsArray['esES'] = array (
@@ -449,7 +449,7 @@ $wordings['esES']['ts_ridingIcon'] = array(
 	'Trol'=>'Ability_Mount_Raptor',
 	'Tauren'=>'Ability_Mount_Kodo_03',
 	'Orco'=>'Ability_Mount_BlackDireWolf',
-	'Elfo de Sangre' => 'Ability_Mount_CockatriceMount',
+	'Elfo de sangre' => 'Ability_Mount_CockatriceMount',
 	'Draenei' => 'Ability_Mount_RidingElekk',
 	'Paladín'=>'Ability_Mount_Dreadsteed',
 	'Brujo'=>'Ability_Mount_NightmareHorse'
@@ -470,27 +470,27 @@ $wordings['esES']['class_iconArray'] = array (
 
 //skills
 $skilltypes['esES'] = array(
-	1 => 'Habilidad de clase',
+	1 => 'Habilidades de clase',
 	2 => 'Profesiones',
 	3 => 'Habilidades secundarias',
-	4 => 'Habilidad con las armas',
-	5 => 'Habilidad con armadura',
+	4 => 'Armas disponibles',
+	5 => 'Armaduras disponibles',
 	6 => 'Lenguas'
 );
 
 //tabs
-$wordings['esES']['tab1']='Personaje';
+$wordings['esES']['tab1']='Persj';
 $wordings['esES']['tab2']='Mascota';
-$wordings['esES']['tab3']='Reputacion';
-$wordings['esES']['tab4']='Habilidad';
+$wordings['esES']['tab3']='Rep';
+$wordings['esES']['tab4']='Habilid';
 $wordings['esES']['tab5']='Talentos';
 $wordings['esES']['tab6']='JcJ';
 
-$wordings['esES']['strength']='Fuerza';
-$wordings['esES']['strength_tooltip']='Aumenta tu poder de ataque con armas cuerpo a cuerpo.';
+$wordings['esES']['strength']='Fortaleza';
+$wordings['esES']['strength_tooltip']='Aumenta tu poder de ataque con armas cuerpo a cuerpo.<br />Aumenta la cantidad de daño que puedes bloquear con un escudo.';
 $wordings['esES']['agility']='Agilidad';
 $wordings['esES']['agility_tooltip']= 'Aumenta tu poder de ataque con armas a distancia.<br />Aumenta las probabilidades de asestar un impacto crítico con todas las armas.<br />Aumenta tu armadura y las probabilidades de esquivar los golpes.';
-$wordings['esES']['stamina']='Fortaleza';
+$wordings['esES']['stamina']='Aguante';
 $wordings['esES']['stamina_tooltip']= 'Aumenta tus puntos de salud.';
 $wordings['esES']['intellect']='Inteligencia';
 $wordings['esES']['intellect_tooltip']= 'Aumenta tus puntos de maná y la probabilidad de asestar un impacto crítico con hechizos.<br />Aumenta la velocidad a la que mejora tu habilidad con las armas.';
@@ -512,22 +512,22 @@ $wordings['esES']['melee_rating_tooltip']='Tu velocidad de ataque afecta a las p
 $wordings['esES']['range_rating']='Tasa de ataque a distancia';
 $wordings['esES']['range_rating_tooltip']='Tu velocidad de ataque afecta a las probabilidades de acertar a un enemigo<br /> y se mide por la habilidad con el arma que equipes en cada momento.';
 
-$wordings['esES']['res_fire']='Resistencia a Fuego';
-$wordings['esES']['res_fire_tooltip']='Aumenta tu facultad para resistir ataques de fuego, hechizos y facultades.<br />Cuanto mayor sea el número, mayor será la resistencia.';
-$wordings['esES']['res_nature']='Resistencia a Naturaleza';
-$wordings['esES']['res_nature_tooltip']='Aumenta tu facultad para resistir ataques de naturaleza, hechizos y facultades.<br />Cuanto mayor sea el número, mayor será la resistencia.';
-$wordings['esES']['res_arcane']='Resistencia a Arcano';
-$wordings['esES']['res_arcane_tooltip']='Aumenta tu facultad para resistir ataques de arcano, hechizos y facultades.<br />Cuanto mayor sea el número, mayor será la resistencia.';
+$wordings['esES']['res_fire']='Resistencia al Fuego';
+$wordings['esES']['res_fire_tooltip']='Aumenta tu resistencia al daño de Fuego.<br />Cuanto más alto sea el número, mayor será la resistencia.';
+$wordings['esES']['res_nature']='Resistencia a la Naturaleza';
+$wordings['esES']['res_nature_tooltip']='Aumenta tu resistencia al daño de Naturaleza.<br />Cuanto más alto sea el número, mayor será la resistencia.';
+$wordings['esES']['res_arcane']='Resistencia a lo Arcano';
+$wordings['esES']['res_arcane_tooltip']='Aumenta tu resistencia al daño Arcano.<br />Cuanto más alto sea el número, mayor será la resistencia.';
 $wordings['esES']['res_frost']='Resistencia a la Escarcha';
-$wordings['esES']['res_frost_tooltip']='Aumenta tu facultad para resistir ataques de escarcha, hechizos y facultades.<br />Cuanto mayor sea el número, mayor será la resistencia.';
-$wordings['esES']['res_shadow']='Resistencia a las sombras';
-$wordings['esES']['res_shadow_tooltip']='Aumenta tu facultad para resistir ataques de sombras, hechizos y facultades.<br />Cuanto mayor sea el número, mayor será la resistencia.';
+$wordings['esES']['res_frost_tooltip']='Aumenta tu resistencia al daño de Escarcha.<br />Cuanto más alto sea el número, mayor será la resistencia.';
+$wordings['esES']['res_shadow']='Resistencia a las Sombras';
+$wordings['esES']['res_shadow_tooltip']='Aumenta tu resistencia al daño de Sombras.<br />Cuanto más alto sea el número, mayor será la resistencia.';
 
 $wordings['esES']['empty_equip']='No hay objeto equipado';
 $wordings['esES']['pointsspent']='Puntos Gastados:';
 $wordings['esES']['none']='Ninguno';
 
-$wordings['esES']['pvplist']=' Estadísticas JcJ/PvP';
+$wordings['esES']['pvplist'] ='Estadísticas JcJ/PvP';
 $wordings['esES']['pvplist1']='Hermandad a la que más hemos hecho sufrir';
 $wordings['esES']['pvplist2']='Hermandad que más nos ha hecho sufrir';
 $wordings['esES']['pvplist3']='Jugador al que más hemos matado';
@@ -537,11 +537,11 @@ $wordings['esES']['pvplist6']='Miembro que más ha muerto';
 $wordings['esES']['pvplist7']='Miembro con la mejor media de muertes';
 $wordings['esES']['pvplist8']='Miembro con la mejor media de derrotas';
 
-$wordings['esES']['hslist']=' Estadísticas del Sistema de Honor';
-$wordings['esES']['hslist1']='Rango mas alto conseguido';
-$wordings['esES']['hslist2']='Numero maximo de Muertes Honorables conseguidas';
-$wordings['esES']['hslist3']='Puntos de Honor mas alto';
-$wordings['esES']['hslist4']='Puntos de Arena mas alto';
+$wordings['esES']['hslist']=' Estadísticas Sistema Honor';
+$wordings['esES']['hslist1']='Miembro con Mayor Rango';
+$wordings['esES']['hslist2']='Máximo Rango';
+$wordings['esES']['hslist3']='Mayores Muertes con Honor';
+$wordings['esES']['hslist4']='Mejor Clasificado';
 
 $wordings['esES']['Druid']='Druida';
 $wordings['esES']['Hunter']='Cazador';
@@ -558,11 +558,11 @@ $wordings['esES']['yesterday']='Ayer';
 $wordings['esES']['thisweek']='Esta Semana';
 $wordings['esES']['lastweek']='Semana Pasada';
 $wordings['esES']['alltime']='Vida';
-$wordings['esES']['honorkills']='Muertes con honor';
-$wordings['esES']['dishonorkills']='Muertes sin honor';
+$wordings['esES']['honorkills']='Muertes con Honor';
+$wordings['esES']['dishonorkills']='Muertes sin Honor';
 $wordings['esES']['honor']='Honor';
 $wordings['esES']['standing']='Prestigio';
-$wordings['esES']['highestrank']='Rango Máximo';
+$wordings['esES']['highestrank']='Máximo Rango';
 $wordings['esES']['arena']='Arena';
 
 $wordings['esES']['totalwins']='Victorias Totales';
@@ -610,19 +610,19 @@ $wordings['esES']['unknown']='Desconocido';
 
 //strings for Rep-tab
 $wordings['esES']['exalted']='Exaltado';
-$wordings['esES']['revered']='Venerado';
+$wordings['esES']['revered']='Reverenciado';
 $wordings['esES']['honored']='Honrado';
 $wordings['esES']['friendly']='Amistoso';
 $wordings['esES']['neutral']='Neutral';
 $wordings['esES']['unfriendly']='Antipático';
 $wordings['esES']['hostile']='Hostil';
 $wordings['esES']['hated']='Odiado';
-$wordings['esES']['atwar']='En guerra';
-$wordings['esES']['notatwar']='En paz';
+$wordings['esES']['atwar']='En Guerra';
+$wordings['esES']['notatwar']='En Paz';
 
 // language definitions for the rogue instance keys 'fix'
-$wordings['esES']['thievestools']='Ladr&oacuten\\\' Herramientas';
-$wordings['esES']['lockpicking']='Ganz&uacutea';
+$wordings['esES']['thievestools']='Thieves\\\' Tools';
+$wordings['esES']['lockpicking']='Lockpicking';
 // END
 
 	// Quests page external links (on character quests page)
@@ -670,7 +670,7 @@ $wordings['esES']['lockpicking']='Ganz&uacutea';
 	$wordings['esES']['tooltip_spell_damage']='Daño por Hechizos';
 	$wordings['esES']['tooltip_school_damage']='\\+.*Daño por Hechizos';
 	$wordings['esES']['tooltip_healing_power']='Poder de Curación';
-	$wordings['esES']['tooltip_chance_hit']='Probabilidades de golpear:';
+	$wordings['esES']['tooltip_chance_hit']='Probabilidad al acertar:';
 	$wordings['esES']['tooltip_reinforced_armor']='Armadura Reforzada';
 	$wordings['esES']['tooltip_damage_reduction']='Reducción de daño';
 

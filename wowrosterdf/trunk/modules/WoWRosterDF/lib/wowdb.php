@@ -198,7 +198,7 @@ class wowdb
 	function fetch_array( $result )
 	{
 		global $db;
-		return $db->sql_fetchrow($result,SQL_NUM);
+		return $db->sql_fetchrow($result);
 		//return mysql_fetch_array( $result );
 	}
 

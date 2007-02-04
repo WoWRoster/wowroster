@@ -28,7 +28,7 @@ $totaltime = round($endtime - ROSTER_STARTTIME, 2);
 <!-- Begin Roster Footer -->
 <br />
 <hr />
-<small>WoWRoster v<?php print $roster_conf['version'] ?></small>
+<small>WoWRosterDF v<?php print $roster_conf['version'] ?></small>
 <br /><br />
 <small><?php echo $wordings[$roster_conf['roster_lang']]['roster_credits']; ?></small>
 <br /><br />
