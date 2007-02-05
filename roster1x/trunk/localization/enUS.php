@@ -184,45 +184,6 @@ $inst_keys['enUS']['A'] = array(
 	'MC' => array( 'Key-Only', 'MC' =>
 			'Eternal Quintessence|53490'
 		),
-/*
-	'ShatteredHalls' => array( 'Quests', 'ShatteredHalls' =>
-			'Shattered Halls Key|56320',
-			'Entry into the Citadel|',
-			'Grand Master Dumphry|',
-			'Dumphry\\\'s Request|',
-			'Hotter then Hell|'
-		),
-	'ShadowLabyrinth' => array( 'Key-Only', 'ShadowLabyrinth' =>
-			'Shadow Labyrinth Key|56320',
-		),
-	'Arcatraz' => array( 'Quests', 'Arcatraz' =>
-			'Key to the Arcatraz|58724',
-			'Triangulation Point One|',
-			'Triangulation Point Two|',
-			'Full Triangle|',
-			'Special Delivery to Shattrath City|',
-			'How to Break Into the Arcatraz|'
-		),
-	'TheEye' => array( 'Quests', 'TheEye' =>
-			'The Tempest Key|58724',
-			'Trial of the Naaru: Mercy|',
-			'Trial of the Naaru: Strength|',
-			'Trial of the Naaru: Tenacity|',
-			'Special Delivery to Shattrath City|',
-			'The Tempest Key|'
-		),
-	'Karazhan' => array( 'Quests', 'Karazhan' =>
-			'The Master\\\'s Key|58887',
-			'Arcane Disturbances|',
-			'Restless Activity|',
-			'Contact from Dalaran||MS',
-			'Khadgar|',
-			'Entry Into Karazhan|',
-			'The Second and Third Fragments|',
-			'The Master\\\'s Touch|',
-			'Return to Khadgar|',
-		),
-*/
 );
 
 

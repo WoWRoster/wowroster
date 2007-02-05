@@ -151,13 +151,6 @@ $min_skill_for_lock = array(
 	'UBRS' => 1000,
 	'Onyxia' => 1000,
 	'MC' => 1000,
-/*
-	'ShatteredHalls' => 1000,
-	'ShadowLabyrinth' => 1000,
-	'Arcatraz' => 350,
-	'TheEye' => 1000,
-	'Karazhan' => 1000,
-*/
 );
 
 $items = $inst_keys[$roster_conf['roster_lang']][ substr($faction,0,1) ];
