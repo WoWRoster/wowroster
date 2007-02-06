@@ -166,6 +166,10 @@ function process_update( )
 		{
 			$settingName = 'default_lang';
 		}
+		if( $settingName == 'style' )
+		{
+			$settingName = 'default_style';
+		}
 		if( $settingName != UA_URI_OP )
 		{
 			$set = $uniadmin->config_set($settingName,$settingValue);

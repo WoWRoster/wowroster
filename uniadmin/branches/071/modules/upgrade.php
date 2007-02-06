@@ -84,7 +84,7 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
-	function upgrade_075($index,$version)
+	function upgrade_xxx($index,$version)
 	{
 		$this->standard_upgrader($version);
 
@@ -100,7 +100,7 @@ class Upgrade
 	 */
 	function standard_upgrader($ver)
 	{
-		global $db, $uniadmin;
+		global $db, $config;
 
 		$db_structure_file = UA_INCLUDEDIR . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'upgrade_'.$ver.'.sql';
 

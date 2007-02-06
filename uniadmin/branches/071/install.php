@@ -62,15 +62,15 @@ define( 'UA_LOGO_DIR' , UA_BASEDIR . 'logos' . DIR_SEP );
 define( 'UA_DEBUG', 2 );
 
 // Get the config file
-if( file_exists($ua_root_path . 'config.php') )
+if( file_exists(UA_BASEDIR . 'config.php') )
 {
-	include_once($ua_root_path . 'config.php');
+	include_once(UA_BASEDIR . 'config.php');
 }
 
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if( !include_once($ua_root_path . 'include' . DIR_SEP . 'template.php') )
+if( !include_once(UA_BASEDIR . 'include' . DIR_SEP . 'template.php') )
 {
 	die('Could not include include/template.php - check to make sure that the file exists!');
 }
@@ -240,7 +240,7 @@ class Template_Wrap extends Template
 
 $STEP = ( isset($_POST['install_step']) ) ? $_POST['install_step'] : '1';
 
-// If EQdkp is already installed, don't let them install it again
+// If UniAdmin is already installed, don't let them install it again
 if( defined('UA_INSTALLED') )
 {
 	$tpl = new Template_Wrap('install_error.html');
@@ -301,14 +301,14 @@ switch ( $STEP )
 // ---------------------------------------------------------
 function process_step1()
 {
-	global $ua_root_path, $DEFAULTS;
+	global $DEFAULTS;
 
 	$tpl = new Template_Wrap('install_step1.html');
 
 	/**
 	 * Check to make sure config.php exists and is readable / writeable
 	 */
-	$config_file = $ua_root_path . 'config.php';
+	$config_file = UA_BASEDIR . 'config.php';
 	if( !file_exists($config_file) )
 	{
 		if( !@touch($config_file) )
@@ -557,7 +557,7 @@ function process_step1()
 
 function process_step2()
 {
-	global $ua_root_path, $DEFAULTS, $DBALS;
+	global $DEFAULTS, $DBALS;
 
 	$tpl = new Template_Wrap('install_step2.html');
 
@@ -612,7 +612,7 @@ function process_step2()
 
 function process_step3()
 {
-	global $ua_root_path, $DEFAULTS, $DBALS;
+	global $DEFAULTS, $DBALS;
 
 	$tpl = new Template_Wrap('install_step3.html');
 
@@ -629,7 +629,7 @@ function process_step3()
 
 	define('CONFIG_TABLE', $config['table_prefix'] . 'config');
 	define('USERS_TABLE',  $config['table_prefix'] . 'users');
-	define('UA_DB_DIR',  $ua_root_path . 'include' . DIR_SEP . 'dbal' . DIR_SEP);
+	define('UA_DB_DIR',  UA_BASEDIR . 'include' . DIR_SEP . 'dbal' . DIR_SEP);
 
 	$dbal_file = UA_DB_DIR . $config['dbtype'] . '.php';
 	if ( !file_exists($dbal_file) )
@@ -764,7 +764,7 @@ function process_step3()
 
 function process_step4()
 {
-	global $ua_root_path, $DEFAULTS;
+	global $DEFAULTS;
 
 	$tpl = new Template_Wrap('install_step4.html');
 
@@ -778,10 +778,11 @@ function process_step4()
 	/**
 	 * Update admin account
 	 */
-	include($ua_root_path . 'config.php');
+	include(UA_BASEDIR . 'config.php');
 	define('CONFIG_TABLE', $config['table_prefix'] . 'config');
 	define('USERS_TABLE',  $config['table_prefix'] . 'users');
-	define('UA_DB_DIR',  $ua_root_path . 'include' . DIR_SEP . 'dbal' . DIR_SEP);
+	define('SETTINGS_TABLE',  $config['table_prefix'] . 'settings');
+	define('UA_DB_DIR',  UA_BASEDIR . 'include' . DIR_SEP . 'dbal' . DIR_SEP);
 
 	define('DEBUG', 2);
 	switch ( $config['dbtype'] )
@@ -796,12 +797,14 @@ function process_step4()
 
 	$db = new SQL_DB($config['host'], $config['database'], $config['username'], $config['password'], false);
 
+	// Get the default theme and locale for first user
 	$sql = 'SELECT `config_value` FROM ' . CONFIG_TABLE . " WHERE `config_name` = 'default_lang';";
 	$default_lang = $db->query_first($sql);
 
 	$sql = 'SELECT `config_value` FROM ' . CONFIG_TABLE . " WHERE `config_name` = 'default_style';";
 	$default_style = $db->query_first($sql);
 
+	// Build query for first user
 	$query = $db->build_query('UPDATE', array(
 		'name'       => $username,
 		'password'   => ( $user_password1 == $user_password2 ) ? md5($user_password1) : md5('changeme'),
@@ -810,13 +813,26 @@ function process_step4()
 		)
 	);
 
-	$db->query('UPDATE `' . USERS_TABLE . '` SET ' . $query . " WHERE `id` = '1'");
+	$db->query('UPDATE `' . USERS_TABLE . '` SET ' . $query . " WHERE `id` = '1';");
 
+
+	// Set PRIMARYURL, SYNCHROURL, RETRDATAURL with default values
+
+	// Grab the url first, lol!
+	$url = explode('/','http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+	array_pop($url);
+	$url = implode('/',$url);
+
+	$db->query('UPDATE `' . SETTINGS_TABLE . "` SET `set_value` = '$url/yourinterface.php' WHERE `set_name` = 'PRIMARYURL';");
+	$db->query('UPDATE `' . SETTINGS_TABLE . "` SET `set_value` = '$url/interface.php' WHERE `set_name` = 'SYNCHROURL';");
+	$db->query('UPDATE `' . SETTINGS_TABLE . "` SET `set_value` = '$url/web_to_wow.php' WHERE `set_name` = 'RETRDATAURL';");
+
+	unset($url);
 
 	/**
 	 * Rewrite the config file to its final form
 	 */
-	$config_file = file($ua_root_path . 'config.php');
+	$config_file = file(UA_BASEDIR . 'config.php');
 	$config_file[] = 'define(\'UA_INSTALLED\', true);';
 	$config_file = implode('', $config_file);
 

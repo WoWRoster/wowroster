@@ -231,8 +231,6 @@ function main( )
 
 	while( $row = $db->fetch_record($result) )
 	{
-		$td_class = 'data'.$uniadmin->switch_row_class(true);
-
 		$tpl->assign_block_vars('sv_list', array(
 			'ROW_CLASS' => $uniadmin->switch_row_class(),
 			'NAME'      => $row['sv_name'],
@@ -359,7 +357,6 @@ function process_ini( )
 			return;
 		}
 
-		$url = $uniadmin->url_path;
 		$file_name = str_replace(' ','_',$_FILES['file']['name']);
 
 		$ini_folder = UA_CACHEDIR;

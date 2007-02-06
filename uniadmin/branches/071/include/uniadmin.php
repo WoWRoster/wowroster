@@ -165,7 +165,7 @@ class UniAdmin
 			else
 			{
 				$sql = 'UPDATE `' . UA_TABLE_CONFIG . "`
-						SET `config_value` = '".strip_tags(htmlspecialchars($config_value))."'
+						SET `config_value` = '".strip_tags($config_value)."'
 						WHERE `config_name` = '".$config_name."';";
 				$db->query($sql);
 

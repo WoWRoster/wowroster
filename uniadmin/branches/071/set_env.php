@@ -40,7 +40,10 @@ if( !defined('DIR_SEP') )
 define('UA_BASEDIR',dirname(__FILE__).DIR_SEP);
 
 
-include(UA_BASEDIR.'config.php');
+if( file_exists(UA_BASEDIR.'config.php') )
+{
+	include( UA_BASEDIR.'config.php' );
+}
 
 if ( !defined('UA_INSTALLED') )
 {

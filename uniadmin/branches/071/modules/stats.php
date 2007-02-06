@@ -96,8 +96,6 @@ function main( )
 	{
 		$time = date($user->lang['time_format'],$row['time']);
 
-		$td_class = $uniadmin->switch_row_class();
-
 		$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
 		$host_name = $uniadmin->string_chop($row['host_name'],25,'...');
 

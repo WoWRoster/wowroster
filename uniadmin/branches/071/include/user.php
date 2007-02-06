@@ -45,7 +45,7 @@ class User
 	{
 		global $uniadmin, $tpl;
 
-		$this->ip_address = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : $REMOTE_ADDR;
+		$this->ip_address = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
 		$this->user_agent = ( !empty($_SERVER['HTTP_USER_AGENT']) ) ? $_SERVER['HTTP_USER_AGENT'] : $_ENV['HTTP_USER_AGENT'];
 
 		$this->lang_path = UA_LANGDIR;

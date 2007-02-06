@@ -697,11 +697,11 @@ function edit_addon( $id )
 {
 	global $db, $user, $uniadmin;
 
-	$addon_name = stripslashes($_POST['name']);
-	$addon_toc = stripslashes($_POST['toc']);
-	$addon_url = stripslashes($_POST['homepage']);
-	$addon_version = stripslashes($_POST['version']);
-	$addon_notes = str_replace(array("\r","\n"),array('',' '),stripslashes($_POST['notes']));
+	$addon_name = strip_tags(stripslashes($_POST['name']));
+	$addon_toc = strip_tags(stripslashes($_POST['toc']));
+	$addon_url = strip_tags(stripslashes($_POST['homepage']));
+	$addon_version = strip_tags(stripslashes($_POST['version']));
+	$addon_notes = str_replace(array("\r","\n"),array('',' '),strip_tags(stripslashes($_POST['notes'])));
 
 	// Insert Main Addon data
 	$sql = "UPDATE `".UA_TABLE_ADDONS."` SET
@@ -795,7 +795,7 @@ function arrayToLi( $array, &$string, $baseName='', $call=false )
 		{
 			//The value is another array, so simply call
 			//another instance of this function to handle it
-			arrayToLi($value, &$string, $key, true);
+			arrayToLi($value, $string, $key, true);
 			if( $call )
 			{
 				$string .= "</ul></li>\n";
