@@ -29,7 +29,7 @@ $ItemNames = matchset($itemName);
 // initialize some variables
 $sum = 0;
 $degrees = Array();
-$diameter = 200;
+$diameter = 150;
 $radius = $diameter/2;
 
 // calculate sum of slices
@@ -50,10 +50,7 @@ for ($y=0; $y<$countqw; $y++)
 }
 
 
-// set up image and colours
-Header("Content-Type: image/png");
-
-$width = 730;
+$width = 500;
 $im = ImageCreate($width, 250);
 
 $black = ImageColorAllocate($im, 0, 0, 0);
@@ -63,12 +60,12 @@ $hexCode = array("255,153,0","0,204,153","204,255,102","255,102,102","102,204,25
 ImageFill($im, 0, 0, $white);
 
 // draw baseline
-ImageLine($im, 150,150, 225, 150, $black);
+ImageLine($im, 100, 100, 175, 100, $black);
 
 for ($z=0; $z<$countqw; $z++)
 {
 	// calculate and draw arc corresponding to each slice
-	ImageArc($im, 150, 150, $diameter, $diameter, $last_angle,
+	ImageArc($im, 100, 100, $diameter, $diameter, $last_angle,
 	($last_angle+$degrees[$z]), $black);
 	$last_angle = $last_angle+$degrees[$z];
 
@@ -76,11 +73,11 @@ for ($z=0; $z<$countqw; $z++)
 	// length of segment and adding radius
 	// remember that cos() and sin() return value in radians
 	// and have to be converted back to degrees!
-	$end_x = round(150 + ($radius * cos($last_angle*pi()/180)));
-	$end_y = round(150 + ($radius * sin($last_angle*pi()/180)));
+	$end_x = round(100 + ($radius * cos($last_angle*pi()/180)));
+	$end_y = round(100 + ($radius * sin($last_angle*pi()/180)));
 
 	// demarcate slice with another line
-	ImageLine($im, 150, 150, $end_x, $end_y, $black);
+	ImageLine($im, 100, 100, $end_x, $end_y, $black);
 }
 
 // this section is meant to calculate the mid-point of each slice
@@ -100,13 +97,13 @@ for ($z=0; $z<$countqw; $z++)
 	$prev_angle = $pointer;
 
 	// get end-point of angle bisector
-	$end_x = round(150 + ($radius * cos($this_angle*pi()/180)));
-	$end_y = round(150 + ($radius * sin($this_angle*pi()/180)));
+	$end_x = round(100 + ($radius * cos($this_angle*pi()/180)));
+	$end_y = round(100 + ($radius * sin($this_angle*pi()/180)));
 
-	// given start point (150,150) and end-point above, mid-point can be
+	// given start point (100,100) and end-point above, mid-point can be
 	// calculated with standard mid-point formula
-	$mid_x = round((150+($end_x))/2);
-	$mid_y = round((150+($end_y))/2);
+	$mid_x = round((100+($end_x))/2);
+	$mid_y = round((100+($end_y))/2);
 
 	// depending on which slice, fill with appropriate colour
 	$hexCodeSplit = explode(',',$hexCode[$z]);
@@ -124,8 +121,8 @@ $blue = ImageColorAllocate($im, 0, 0, 255);
 // Create Color key and slice description
 $adjPosition = 20;
 
-$xPosOffset = -30;// to move the key around
-$yPosOffset = -0;// to move the key around
+$xPosOffset = -100;// to move the key around
+$yPosOffset = -10;// to move the key around
 
 for ($z=0; $z<$degCount; $z++)
 {
@@ -134,16 +131,16 @@ for ($z=0; $z<$degCount; $z++)
 	$adjPosition = $adjPosition + 15;
 	$hexCodeSplit = explode(',',$hexCode[$z]);
 	$percentLen = strlen($percent);
-	if($percentLen == '4'){$percent = " "."$percent";}
-	if($percentLen == '3'){$percent = "  "."$percent";}
-	if($percentLen == '2'){$percent = "   "."$percent";}
-	if($percentLen == '1'){$percent = "    "."$percent";}
+	if($percentLen == '4'){$percent = " $percent";}
+	if($percentLen == '3'){$percent = "  $percent";}
+	if($percentLen == '2'){$percent = "   $percent";}
+	if($percentLen == '1'){$percent = "    $percent";}
 	ImageString($im,1, 270 + $xPosOffset, ($adjPosition+1 + $yPosOffset), "$percent%", $black); // orig 270 %
 
 	$WedgeColor = ImageColorAllocate($im, $hexCodeSplit[0],$hexCodeSplit[1],$hexCodeSplit[2]);
 
-	ImageFilledRectangle($im, 310 + $xPosOffset, $adjPosition + $yPosOffset, 320 + $xPosOffset, ($adjPosition+10 + $yPosOffset), $black); //310/320 orig
-	ImageFilledRectangle($im, 311 + $xPosOffset, ($adjPosition+1 + $yPosOffset), 319 + $xPosOffset, ($adjPosition+9 + $yPosOffset), $WedgeColor);//311/319
+	ImageFilledRectangle($im, 305 + $xPosOffset, $adjPosition + $yPosOffset, 315 + $xPosOffset, ($adjPosition+10 + $yPosOffset), $black); //310/320 orig
+	ImageFilledRectangle($im, 306 + $xPosOffset, ($adjPosition+1 + $yPosOffset), 314 + $xPosOffset, ($adjPosition+9 + $yPosOffset), $WedgeColor);//311/319
 	if($sliced[$z] >= "1000" && $sliced[$z] < "1000000")
 	{
 		$sliced[$z] = $sliced[$z]/1000;
@@ -155,10 +152,13 @@ for ($z=0; $z<$degCount; $z++)
 	if($sliceLen == '2'){$sliced[$z] = "   "."$sliced[$z]";}
 	if($sliceLen == '1'){$sliced[$z] = "    "."$sliced[$z]";}
 
-	ImageString($im,1, 325 + $xPosOffset, ($adjPosition+1 + $yPosOffset), "$sliced[$z]", $black);//# of hits //325 orig
-	ImageString($im,1, 360 + $xPosOffset, ($adjPosition+1 + $yPosOffset), "$ItemNames[$z]", $black);//name of  //360 orig
+	ImageString($im,1, 310 + $xPosOffset, ($adjPosition+1 + $yPosOffset), "$sliced[$z]", $blue);//# of hits //325 orig
+	ImageString($im,1, 340 + $xPosOffset, ($adjPosition+1 + $yPosOffset), "$ItemNames[$z]", $black);//name of  //360 orig
 }
 
+// set up image and colours
+header("Content-Type: image/png");
+
 // output to browser
-ImagePNG($im);
+imagePNG($im);
 ?>

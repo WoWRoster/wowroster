@@ -194,7 +194,7 @@ class UniAdmin
 	}
 
 	/**
-	 * Adds a debug message for diaply
+	 * Adds a debug message for dispaly
 	 *
 	 * @param string $debug_string
 	 */
@@ -331,13 +331,15 @@ class UniAdmin
 	{
 		global $uniadmin;
 
+		$no_delete = array('.','..','index.html','index.htm','.svn','_cvs');
+
 		if( !($dir = dir($dir)) )
 		{
 			return false;
 		}
 		while( false !== $item = $dir->read() )
 		{
-			if( $item != '.' && $item != '..' && $item != 'index.html' && $item != 'index.htm' && !$this->rmdirr($dir->path . DIR_SEP . $item) )
+			if( !in_array($item,$no_delete) && !$this->rmdirr($dir->path . DIR_SEP . $item) )
 			{
 				$dir->close();
 				return false;
@@ -454,7 +456,12 @@ class UniAdmin
 			'A_SVNAME'         => UA_URI_SVNAME,
 			'A_UPINI'          => UA_URI_UPINI,
 			'A_GETINI'         => UA_URI_GETINI,
-			'A_EDIT'           => UA_URI_EDIT
+			'A_EDIT'           => UA_URI_EDIT,
+			'A_DISABLE'        => UA_URI_DISABLE,
+			'A_ENABLE'         => UA_URI_ENABLE,
+			'A_OPT'            => UA_URI_OPT,
+			'A_REQ'            => UA_URI_REQ,
+			'A_DETAIL'         => UA_URI_DETAIL
 			)
 		);
 
@@ -749,7 +756,7 @@ function level_select( $select_option='' )
 * @param $line File line
 * @param $sql SQL code
 */
-function message_die($text = '', $title = '', $file = '', $line = '', $sql = '')
+function ua_die($text = '', $title = '', $file = '', $line = '', $sql = '')
 {
 	global $db, $tpl, $uniadmin, $user, $gen_simple_header;
 

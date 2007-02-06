@@ -23,7 +23,7 @@ if( !defined('IN_UNIADMIN') )
 
 if( $user->data['level'] == UA_ID_ANON )
 {
-	message_die($user->lang['access_denied']);
+	ua_die($user->lang['access_denied']);
 }
 
 main();
@@ -52,7 +52,7 @@ function main( )
 	foreach( $pie_chart_array as $name )
 	{
 		$tpl->assign_block_vars('pie_charts', array(
-			'LINK' => build_pie_hosts($name),
+			'LINK' => build_pie($name),
 			'ALT'  => $name,
 			)
 		);
@@ -185,7 +185,7 @@ function main( )
  * @param string $fieldName
  * @return string
  */
-function build_pie_hosts( $field_name )
+function build_pie( $field_name )
 {
 	global $db, $uniadmin, $user;
 

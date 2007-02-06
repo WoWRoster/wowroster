@@ -15,7 +15,7 @@
 	</tr>
 	<!-- BEGIN addons_row -->
 	<tr>
-		<td class="data{addons_row.ROW_CLASS}"><a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}" class="addon_name"<!-- IF addons_row.NOTES != '' --> onmouseover="return overlib('{addons_row.NOTES}',CAPTION,'{L_NOTES}',WRAP);" onmouseout="return nd();"<!-- ENDIF -->>{addons_row.ADDONNAME}</a></td>
+		<td class="data{addons_row.ROW_CLASS}"><a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}" class="addon_name"<!-- IF addons_row.NOTE != '' --> onmouseover="return overlib('{addons_row.NOTE}',CAPTION,'{L_NOTES}',WRAP);" onmouseout="return nd();"<!-- ENDIF -->>{addons_row.ADDONNAME}</a></td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.TOC}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.VERSION}</td>
 		<td class="data{addons_row.ROW_CLASS}">{addons_row.TIME}</td>
@@ -23,9 +23,56 @@
 		<td class="data{addons_row.ROW_CLASS}">
 			<a href="{addons_row.DOWNLOAD}"><img src="{TEMPLATE_PATH}/images/download_mini.png" class="icon" alt="" onmouseover="return overlib('{L_DOWNLOAD}-[{addons_row.FILESIZE}]');" onmouseout="return nd();" /></a>
 			<a href="{UA_FORMACTION}&amp;{U_DETAIL}={addons_row.ID}"><img src="{TEMPLATE_PATH}/images/details_mini.png" class="icon" alt="" onmouseover="return overlib('{L_ADDON_DETAILS}');" onmouseout="return nd();" /></a>
-			<!-- IF addons_row.HOMEPAGE != './' --><a href="{addons_row.HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home_mini.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off_mini.png" class="icon" alt="" /><!-- ENDIF -->
-			{addons_row.ENABLED}
-			{addons_row.REQUIRED}
+			<!-- IF addons_row.HOMEPAGE != '' --><a href="{addons_row.HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home_mini.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off_mini.png" class="icon" alt="" /><!-- ENDIF -->
+
+<!-- IF addons_row.ENABLED -->
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_disableaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_OPERATION}" value="{A_DISABLE}" />
+				<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/enabled_mini.png" type="image" value="{L_ENABLED}" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/enabled_mini.png" class="icon" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+
+<!-- ELSE -->
+
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_enableaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_OPERATION}" value="{A_ENABLE}" />
+				<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/disabled_mini.png" type="image" value="{L_DISABLED}" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/disabled_mini.png" class="icon" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+<!-- ENDIF -->
+
+<!-- IF addons_row.REQUIRED -->
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_optionaladdon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_OPERATION}" value="{A_OPT}" />
+				<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/required_mini.png" type="image" value="{L_REQUIRED}" alt="" onmouseover="return overlib('{L_REQUIRED}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/required_mini.png" class="icon" alt="" onmouseover="return overlib('{L_REQUIRED}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+
+<!-- ELSE -->
+
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_requireaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_OPERATION}" value="{A_REQ}" />
+				<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/optional_mini.png" type="image" value="{L_OPTIONAL}" alt="" onmouseover="return overlib('{L_OPTIONAL}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/optional_mini.png" class="icon" alt="" onmouseover="return overlib('{L_OPTIONAL}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+<!-- ENDIF -->
+
 			<!-- IF S_ADDON_ADD_DEL --><form name="ua_deleteaddon_{addons_row.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 				<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
 				<input type="hidden" name="{A_ID}" value="{addons_row.ID}" />

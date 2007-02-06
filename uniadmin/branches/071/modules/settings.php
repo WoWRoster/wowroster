@@ -335,7 +335,7 @@ function process_ini( )
 
 	if( $user->data['level'] != UA_ID_ADMIN )
 	{
-		message_die($user->lang['access_denied']);
+		ua_die($user->lang['access_denied']);
 	}
 
 	$tpl->assign_vars(array(

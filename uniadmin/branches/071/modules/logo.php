@@ -31,13 +31,13 @@ $id = ( isset($_POST[UA_URI_ID]) ? $_POST[UA_URI_ID] : '' );
 switch( $op )
 {
 	case UA_URI_PROCESS:
-		if( $user->data['level'] >= UA_ID_USER )
+		if( $user->data['level'] > UA_ID_USER )
 			process_logo();
 		break;
 
 	case UA_URI_DISABLE:
 	case UA_URI_ENABLE:
-		if( $user->data['level'] >= UA_ID_USER )
+		if( $user->data['level'] > UA_ID_USER )
 			toggle_logo($op,$id);
 		break;
 
@@ -71,59 +71,31 @@ function main( )
 		'L_UPDATE_FILE'    => $user->lang['update_file'],
 		'L_UPLOADED'       => $user->lang['uploaded'],
 		'L_ENABLED'        => $user->lang['enabled'],
+		'L_DISABLED'       => $user->lang['disabled'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_UPDATED'        => $user->lang['updated'],
-		'S_LOGO'           => false,
+		'L_STATUS'         => $user->lang['status'],
+		'S_LOGO'           => false
 		)
 	);
 
-	if( $user->data['level'] >= UA_ID_USER )
+	if( $user->data['level'] > UA_ID_USER )
 	{
 		$tpl->assign_var('S_LOGO',true);
 	}
 
 	$logo_dir = $uniadmin->config['logo_folder'];
 
-	for( $l=1; $l<=$num_logos; $l++ )
+	for( $logo_num=1; $logo_num<=$num_logos; $logo_num++ )
 	{
-		$logo_num = $l;
-
 		$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `logo_num` = '$logo_num';";
 		$result = $db->query($sql);
 		$row = $db->fetch_record($result);
 
-
 		$logo_updated = '-';
-		$logo_active_link = '-';
 
 		$logo_image = ( empty($row['filename']) ? 'images/logo'.$logo_num.'_03.gif' : $logo_dir.'/'.$row['filename'] );
 		$logo_updated = ( empty($row['updated']) ? '-' : date($user->lang['time_format'],$row['updated']) );
-
-		if( $row['active'] == '1' )
-		{
-				$logo_active_link = '<form name="ua_disablelogo'.$l.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_DISABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" type="image" value="'.$user->lang['enabled'].'" alt="" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />
-</form>';
-			if( $user->data['level'] < UA_ID_USER )
-			{
-				$logo_active_link = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/enabled_mini.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['enabled'].'\');" onmouseout="return nd();" />';
-			}
-		}
-		elseif( $row['active'] == '0' )
-		{
-			$logo_active_link = '<form name="ua_enablelogo'.$l.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.UA_FORMACTION.'">
-	<input type="hidden" name="'.UA_URI_OP.'" value="'.UA_URI_ENABLE.'" />
-	<input type="hidden" name="'.UA_URI_ID.'" value="'.$row['id'].'" />
-	<input class="icon" src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" type="image" value="'.$user->lang['disabled'].'" alt="" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />
-</form>';
-			if( $user->data['level'] < UA_ID_USER )
-			{
-				$logo_active_link = '<img src="'.$uniadmin->url_path . 'styles/' . $user->style.'/images/disabled_mini.png" class="icon" alt="" onmouseover="return overlib(\''.$user->lang['disabled'].'\');" onmouseout="return nd();" />';
-			}
-		}
-
 
 		// I hate kludges but this is how it has to be...for now
 		switch( $logo_num )
@@ -165,14 +137,14 @@ function main( )
 		}
 
 		$tpl->assign_block_vars('logo_row', array(
-			'ROW_CLASS'     => $uniadmin->switch_row_class(),
 			'NUM'           => $logo_num,
 			'L_LOGO_NUM'    => sprintf($user->lang['logo_table'],$logo_num),
 			'ID'            => $row['id'],
 			'UPDATED'       => $logo_updated,
-			'ACTIVELINK'    => $logo_active_link,
+			'ACTIVE'        => $row['active'],
 			'L_UPDATE_LOGO' => sprintf($user->lang['update_logo'],$logo_num),
 			'IMAGE'         => $logo_table,
+			'IMAGESET'      => ($db->num_rows($result) > 0) ? true : false
 			)
 		);
 	}

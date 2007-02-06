@@ -256,6 +256,7 @@ $lang['half'] = 'Half';
 $lang['full'] = 'Full';
 $lang['edit'] = 'Edit';
 $lang['cancel'] = 'Cancel';
+$lang['status'] = 'Status';
 
 
 // Pagination

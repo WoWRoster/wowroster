@@ -23,7 +23,7 @@ if( !defined('IN_UNIADMIN') )
 
 if( $uniadmin->config['UAVer'] >= UA_VER )
 {
-	message_die($user->lang['no_upgrade']);
+	ua_die($user->lang['no_upgrade']);
 }
 
 // I require MySQL version 4.0.4 minimum.
@@ -32,7 +32,7 @@ $version = mysql_get_server_info();
 if( !($version >= '4.0') )
 {
 	$message = 'MySQL server version is not sufficient for UniAdmin<br />UniAdmin requires MySQL version > 4.0 - you are running version '.$version;
-	message_die($message);
+	ua_die($message);
 }
 
 class Upgrade
@@ -76,7 +76,7 @@ class Upgrade
 		}
 		else
 		{
-			message_die($user->lang['upgrade_complete'], $user->lang['success']);
+			ua_die($user->lang['upgrade_complete'], $user->lang['success']);
 		}
 	}
 

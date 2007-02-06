@@ -23,7 +23,7 @@ if( !defined('IN_UNIADMIN') )
 
 if( $user->data['level'] < UA_ID_USER )
 {
-	message_die($user->lang['access_denied']);
+	ua_die($user->lang['access_denied']);
 }
 
 // Get Operation
@@ -248,12 +248,12 @@ function finalize_user()
 		// user is level 1 and trying to change someone elses info
 		if( $user->data['level'] == UA_ID_USER && $user->data['id'] != $userI )
 		{
-			message_die($user->lang['access_denied']);
+			ua_die($user->lang['access_denied']);
 		}
 		// user is level 1 and trying to change their name
 		if( $user->data['level'] == UA_ID_USER && isset($_POST['name']) )
 		{
-			message_die($user->lang['access_denied']);
+			ua_die($user->lang['access_denied']);
 		}
 
 		// Check passwords
@@ -410,7 +410,7 @@ function new_user()
 	}
 	else
 	{
-		message_die($user->lang['access_denied']);
+		ua_die($user->lang['access_denied']);
 	}
 }
 
@@ -455,6 +455,6 @@ function delete_user()
 	}
 	else
 	{
-		message_die($user->lang['access_denied']);
+		ua_die($user->lang['access_denied']);
 	}
 }

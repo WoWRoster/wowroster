@@ -1,9 +1,30 @@
 <!-- INCLUDE overall_header.html -->
 
+<!-- IF S_FILES -->
+<table style="float:right;width:300px;" class="ua_table">
+	<tr>
+		<th class="table_header"><div style="float:left;">
+			<img src="{TEMPLATE_PATH}/images/plus.png" style="cursor:pointer;" alt="+" onclick="ddtreemenu.flatten('treemenu','expand');" />
+			<img src="{TEMPLATE_PATH}/images/minus.png" style="cursor:pointer;" alt="-" onclick="ddtreemenu.flatten('treemenu','contract');" />
+			</div>{L_FILES}</th>
+	</tr>
+	<tr>
+		<td class="data1"><ul id="treemenu" class="treeview">
+{FILE_HTML_LIST}
+		</ul></td>
+	</tr>
+</table>
+<script type="text/javascript">
+<!--
+	ddtreemenu.createTree("treemenu",false);
+//-->
+</script>
+<!-- ENDIF -->
+
 <table class="ua_table" align="center">
 	<thead>
 		<tr>
-			<th class="table_header" colspan="10" width="500">{ADDONNAME}</th>
+			<th class="table_header" colspan="6" width="500">{ADDONNAME}</th>
 		</tr>
 	</thead>
 <!-- IF S_ADDONS -->
@@ -25,9 +46,61 @@
 
 			<td class="data1">
 				<!-- IF S_ADDON_ADD_DEL --><img src="{TEMPLATE_PATH}/images/edit.png" style="cursor:pointer;" class="icon" alt="" onclick="swapShow('addon_display','addon_edit');" onmouseover="return overlib('{L_EDIT}');" onmouseout="return nd();" /><!-- ENDIF -->
-				<!-- IF HOMEPAGE != './' --><a href="{HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off.png" class="icon" alt="" /><!-- ENDIF -->
-				{ENABLED}
-				{REQUIRED}
+				<!-- IF HOMEPAGE != '' --><a href="{HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off.png" class="icon" alt="" /><!-- ENDIF -->
+
+<!-- IF ENABLED -->
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_disableaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_DISABLE}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/enabled.png" type="image" value="{L_ENABLED}" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/enabled.png" class="icon" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+
+<!-- ELSE -->
+
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_enableaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_ENABLE}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/disabled.png" type="image" value="{L_DISABLED}" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/disabled.png" class="icon" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+<!-- ENDIF -->
+
+
+<!-- IF REQUIRED -->
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_optionaladdon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_OPT}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/required.png" type="image" value="{L_REQUIRED}" alt="" onmouseover="return overlib('{L_REQUIRED}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/required.png" class="icon" alt="" onmouseover="return overlib('{L_REQUIRED}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+
+<!-- ELSE -->
+
+	<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_requireaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_REQ}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/optional.png" type="image" value="{L_OPTIONAL}" alt="" onmouseover="return overlib('{L_OPTIONAL}');" onmouseout="return nd();" />
+			</form>
+	<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/optional.png" class="icon" alt="" onmouseover="return overlib('{L_OPTIONAL}');" onmouseout="return nd();" />
+	<!-- ENDIF -->
+<!-- ENDIF -->
+
 				<!-- IF S_ADDON_ADD_DEL -->
 				<form name="ua_deleteaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 					<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
@@ -77,6 +150,7 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center" class="data_header">
+							<input type="hidden" name="{A_DETAIL}" value="{ID}" />
 							<input type="hidden" name="{A_OPERATION}" value="{A_EDIT}" />
 							<input type="hidden" name="{A_ID}" value="{ID}" />
 							<input class="submit" type="submit" value="{L_UPDATE}" /></td>
@@ -87,25 +161,8 @@
 	</tbody>
 	<!-- ENDIF -->
 </table>
-<br />
+<br clear="all" />
 
-<!-- IF S_FILES -->
-<table class="ua_table" align="center">
-	<tr>
-		<th class="table_header" colspan="2">{L_FILES}</th>
-	</tr>
-	<tr>
-		<td class="data_header">{L_NAME}</td>
-		<td class="data_header">MD5</td>
-	</tr>
-	<!-- BEGIN files_row -->
-	<tr>
-		<td class="data{files_row.ROW_CLASS}">{files_row.FILENAME}</td>
-		<td class="data{files_row.ROW_CLASS}">{files_row.MD5}</td>
-	</tr>
-	<!-- END files_row -->
-</table>
-<!-- ENDIF -->
 <!-- ENDIF -->
 
 <!-- INCLUDE overall_footer.html -->
