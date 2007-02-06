@@ -333,7 +333,7 @@ function processGuildRoster($myProfile)
 									// Start update triggers
 									if( $roster_conf['use_update_triggers'] )
 									{
-										$guild_output .= start_update_trigger($char_name, 'guild', $guild);
+										$guild_output .= start_update_trigger($char_name, 'guild', $char);
 									}
 								}
 								// Remove the members who were not in this list

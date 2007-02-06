@@ -114,7 +114,7 @@ print border('sorange','start');
 print '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
 echo $menu_cell.'<a href="'.getlink($module_name).'">'.$wordings[$roster_conf['roster_lang']]['backlink'].'</a></td>'."\n";
-echo $menu_cell.'<a href="'.getlink($url.'&amp;action=character').'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
+echo $menu_cell.'<a href="'.getlink($url).'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
 
 if( $roster_conf['show_spellbook'] )
 	echo $menu_cell.'<a href="'.getlink($url.'&amp;action=spellbook').'">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
