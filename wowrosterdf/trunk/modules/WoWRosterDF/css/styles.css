@@ -64,7 +64,7 @@
 .wowroster input[type="button"] {
 	cursor:pointer;
 }
-.wowinput {
+.wowroster .wowinput {
 	border:none;
 	vertical-align:middle;
 	width:246px;
@@ -75,7 +75,7 @@
 	background-color:transparent;
 	background:url('../img/searchbox.png') no-repeat;
 }
-.wowinput192 {
+.wowroster .wowinput192 {
 	border:none;
 	vertical-align:middle;
 	width:182px;
@@ -86,7 +86,7 @@
 	background-color:transparent;
 	background:url('../img/searchbox192.png') no-repeat;
 }
-.wowinput128 {
+.wowroster .wowinput128 {
 	border:none;
 	vertical-align:middle;
 	width:118px;
@@ -97,7 +97,7 @@
 	background-color:transparent;
 	background:url('../img/searchbox128.png') no-repeat;
 }
-.wowinput64 {
+.wowroster .wowinput64 {
 	border:none;
 	vertical-align:middle;
 	width:54px;
