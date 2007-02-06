@@ -78,52 +78,41 @@ class cplang
 
 		if($_autorun === TRUE)
 		{
-
 			/**
-			 * We set our language to "found"
+			 * Build a list of languages to try
 			 */
-			$_found = TRUE;
+			$langs = array();
 
-			/**
-			 * Set our language files path.
-			 *
-			 * No longer a silly complicated ternary condition
-			 */
-			$_lang = (cpMain::isClass('cpusers'))
-				? cpMain::$instance['cpusers']->data['user_lang']
-				: cpMain::$instance['cpconfig']->cpconf['def_lang'];
-			
-			// User language
-			$_path = PATH_LOCAL . "language".DIR_SEP . $_lang . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
-			
-			// Fallback: Default language
-			if( !is_file($_path) )
+			if( cpMain::isClass('cpusers') )
 			{
-				$_path = PATH_LOCAL . "language".DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_lang'] . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
+				$langs[] = cpMain::$instance['cpusers']->data['user_lang'];
+			}
+			$langs[] = cpMain::$instance['cpconfig']->cpconf['def_lang'];
+			$langs[] = 'english';
+			
+			/**
+			 * Try each of them. First one that exists for this module, load and return.
+			 */
+			foreach( $langs as $lang )
+			{
+				if( is_file(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'modules' . DIR_SEP . 'lang_' . cpMain::$system['method_name'] . '.php') )
+				{
+					$this->lang = array_merge(
+						$this->langLoad(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'lang_global.php'),
+						$this->langLoad(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'modules' . DIR_SEP . 'lang_' . cpMain::$system['method_name'] . '.php'),
+						$this->langLoad(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'modules' . DIR_SEP . cpMain::$system['method_name'] . DIR_SEP . 'lang_' . cpMain::$system['method_mode'] . '.php')
+					);
+					return;
+				}
 			}
 			
-			// Fallback: English
-			if( !is_file($_path) )
-			{
-				$_path = PATH_LOCAL . "language".DIR_SEP . "english" . DIR_SEP . cpMain::$system['method_dir'] . DIR_SEP . "lang_" . cpMain::$system['method_mode'] . ".php";
-			}
-
 			/**
 			 * Didn't find a language file; that's not good.. We will not
 			 * continue without one if it was requested, as the site may be visualy
 			 * impaired or worst bad constructing of the method may result in security
 			 * issues.
 			 */
-			if( !is_file($_path) )
-			{
-				cpMain::cpErrorFatal("Please consult the manual to see the proper directory hiearchy and system functionality. The path the system was looking for (or at least 1 of the paths we checked) is: " . $_path . "<br />", __LINE__, __FILE__);
-			}
-
-			/**
-			 * Load the language into our lang container
-			 */
-			$this->lang = self::langLoad($_path);
-
+			cpMain::cpErrorFatal('cpLang: Failed to load a language. The following languages were tried: '.implode(', ',$langs).'<br />', __LINE__, __FILE__);
 		}
 	}
 
@@ -141,8 +130,15 @@ class cplang
 	 */
 	public function langLoad($_path)
 	{
+		/**
+		 * Fail silently if the file doesn't exist
+		 */
+		if( !is_file($_path) )
+		{
+			return array();
+		}
 
-		$_return = Array();
+		$_return = array();
 
 		/**
 		* Load the language to our template class
