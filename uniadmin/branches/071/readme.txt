@@ -1,4 +1,4 @@
-UniAdmin 0.7.5 (updated 22th January 2007)
+UniAdmin 0.7.5 (updated 7th February 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -58,6 +58,7 @@ There is no upgrade from v0.7.0
 sturmy - French localization
 fubu2k - German localization
 Zajsoft - Great modifications to AddOn uploading, providing a better .toc file scanner
+Zeryl - Thanks for help with parsing strings into multi-dimensional arrays
 
 
 5 - FAQ
@@ -69,10 +70,11 @@ A. SYNCHROURL is the URL path to the UniAdmin interface.php, eg. http://www.myse
    owner or their on-line help for the appropriate URL.
 
 Q. I'm still confused about the settings in the Settings Management page and how to configure them.
-A. 1. First, hover your mouse over each setting, you'll get a tooltip with the corresponding part of the UniUploader interface
-   2. If still confused, manually configure a copy of UniUploader with the settings needed for your config. Then open the
-      settings.ini and you'll see all the settings just like in the Settings Management page. Copy the settings from the settings.ini
-      into the appropriate fields in the Settings Management page.
+A. 1. First, hover your mouse over each setting, you'll get a tooltip with the corresponding part of the UniUploader interface.
+   2. If you are still confused
+     a. Manually configure UniUploader with the settings needed for your config.
+       - Open the settings.ini and you'll see all the settings just like in the Settings Management page.
+     b. Or just upload your copy of settings.ini to the settings page in UniAdmin.
 
 Q. How do I reset a password
 A. 1. Go to http://gdataonline.com/makehash.php
@@ -84,7 +86,7 @@ A. 1. Go to http://gdataonline.com/makehash.php
 6 - Support
 ===========
 For any support issues, questions, comments, feedback, or suggestions
-please go to the support forums here - http://www.wowroster.net
+please go to the support forums here - http://www.wowroster.net/Forums/viewforum/f=24.html
 
 
 7 - License
