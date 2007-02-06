@@ -37,7 +37,7 @@ if ( !defined('ROSTER_INSTALLED') )
 // the name out of the database with member_id.
 //
 
-function start_update_trigger($name,$mode)
+function start_update_trigger($name, $mode, $data)
 {
 	global $wowdb, $roster_conf, $addon_conf, $wordings;
 
@@ -114,9 +114,9 @@ function start_update_trigger($name,$mode)
 }
 
 // Separate function to do the pre/post guild/char hooks
-function start_update_hook($mode)
+function start_update_hook($mode, $data)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $addon_conf, $wordings;
 
 	$triggerPath = ROSTER_BASE.'addons';
 
@@ -169,6 +169,8 @@ function start_update_hook($mode)
 	{
 		$output = '';
 	}
+
+	return $output;
 }
 
 // Search for character's name by member_id
