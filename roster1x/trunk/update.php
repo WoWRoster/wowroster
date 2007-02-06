@@ -229,13 +229,14 @@ function processMyProfile($myProfile)
 
 			if( $guildInfo && is_array($myProfile[$realm_name]['Character']) )
 			{
+				$characters = $myProfile[$realm_name]['Character'];
+
 				// Start update triggers
 				if( $roster_conf['use_update_triggers'] )
 				{
-					$output .= start_update_hook('char_pre');
+					$output .= start_update_hook('char_pre', $characters);
 				}
 
-				$characters = $myProfile[$realm_name]['Character'];
 				foreach( array_keys( $characters ) as $char_name )
 				{
 					$char = $characters[$char_name];
@@ -252,7 +253,7 @@ function processMyProfile($myProfile)
 						// Start update triggers
 						if( $roster_conf['use_update_triggers'] )
 						{
-							$output .= start_update_trigger($char_name,'char');
+							$output .= start_update_trigger($char_name,'char', $char );
 						}
 					}
 					else // CP Version not new enough
@@ -267,7 +268,7 @@ function processMyProfile($myProfile)
 				// Start update triggers
 				if( $roster_conf['use_update_triggers'] )
 				{
-					$output .= start_update_hook('char_post');
+					$output .= start_update_hook('char_post', $characters);
 				}
 			}
 			else
@@ -324,7 +325,7 @@ function processGuildRoster($myProfile)
 								// Start update triggers
 								if( $roster_conf['use_update_triggers'] )
 								{
-									$guild_output .= start_update_hook('guild_pre');
+									$guild_output .= start_update_hook('guild_pre', $guild);
 								}
 
 								foreach(array_keys($guildMembers) as $char_name)
@@ -337,7 +338,7 @@ function processGuildRoster($myProfile)
 									// Start update triggers
 									if( $roster_conf['use_update_triggers'] )
 									{
-										$guild_output .= start_update_trigger($char_name,'guild');
+										$guild_output .= start_update_trigger($char_name, 'guild', $guild);
 									}
 								}
 								// Remove the members who were not in this list
@@ -350,7 +351,7 @@ function processGuildRoster($myProfile)
 								// Start update triggers
 								if( $roster_conf['use_update_triggers'] )
 								{
-									$guild_output .= start_update_hook('guild_post');
+									$guild_output .= start_update_hook('guild_post', $guild);
 								}
 
 								$guild_output .= "</ul>\n";
