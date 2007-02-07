@@ -306,57 +306,65 @@ function processGuildRoster($myProfile)
 							// GP Version Detection, don't allow lower than minVer
 							if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 							{
-								// take the current time and get the offset. Upload must occur same day that roster was obtained
-								$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
-								$currentTime = getDate($currentTimestamp);
-
-								// Update the guild
-								$guildId = $wowdb->update_guild($realm_name, $guild_name, $currentTime, $guild);
-								$guildMembers = $guild['Members'];
-
-								// update the list of guild members
-								$guild_output = "<li><strong>Updating Members</strong>\n<ul>\n";
-
-								// Start update triggers
-								if( $roster_conf['use_update_triggers'] )
+								if( count($guild['Members']) > 0 )
 								{
-									$guild_output .= start_update_hook('guild_pre', $guild);
-								}
+									// take the current time and get the offset. Upload must occur same day that roster was obtained
+									$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
+									$currentTime = getDate($currentTimestamp);
 
-								foreach(array_keys($guildMembers) as $char_name)
-								{
-									$char = $guildMembers[$char_name];
-									$wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $guild['Ranks']);
-									$guild_output .= $wowdb->getMessages();
+									// Update the guild
+									$guildId = $wowdb->update_guild($realm_name, $guild_name, $currentTime, $guild);
+									$guildMembers = $guild['Members'];
+
+									// update the list of guild members
+									$guild_output = "<li><strong>Updating Members</strong>\n<ul>\n";
+
+									// Start update triggers
+									if( $roster_conf['use_update_triggers'] )
+									{
+										$guild_output .= start_update_hook('guild_pre', $guild);
+									}
+
+									foreach(array_keys($guildMembers) as $char_name)
+									{
+										$char = $guildMembers[$char_name];
+										$wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $guild['Ranks']);
+										$guild_output .= $wowdb->getMessages();
+										$wowdb->resetMessages();
+
+										// Start update triggers
+										if( $roster_conf['use_update_triggers'] )
+										{
+											$guild_output .= start_update_trigger($char_name, 'guild', $char);
+										}
+									}
+									// Remove the members who were not in this list
+									$wowdb->remove_guild_members($guildId, $currentTime);
+									$wowdb->remove_guild_members_id($guildId);
+
+									$guild_output .= $wowdb->getMessages()."</ul></li>\n";
 									$wowdb->resetMessages();
 
 									// Start update triggers
 									if( $roster_conf['use_update_triggers'] )
 									{
-										$guild_output .= start_update_trigger($char_name, 'guild', $char);
+										$guild_output .= start_update_hook('guild_post', $guild);
 									}
+
+									$guild_output .= "</ul>\n";
+									$output .= "<strong>Updating Guild [<span class=\"orange\">$guild_name</span>]</strong>\n<ul>\n";
+									$output .= "<li><strong>Member Log</strong>\n<ul>\n".
+										"<li>Updated: ".$wowdb->membersupdated."</li>\n".
+										"<li>Added: ".$wowdb->membersadded."</li>\n".
+										"<li>Removed: ".$wowdb->membersremoved."</li>\n".
+										"</ul>\n<br />\n";
+									$output .= $guild_output;
 								}
-								// Remove the members who were not in this list
-								$wowdb->remove_guild_members($guildId, $currentTime);
-								$wowdb->remove_guild_members_id($guildId);
-
-								$guild_output .= $wowdb->getMessages()."</ul></li>\n";
-								$wowdb->resetMessages();
-
-								// Start update triggers
-								if( $roster_conf['use_update_triggers'] )
+								else
 								{
-									$guild_output .= start_update_hook('guild_post', $guild);
+									$output .= "<span class=\"red\">NOT Updateing Guild list for $guild_name</span><br />\n";
+									$output .= "Data does not contain any guild members.<br />\n";
 								}
-
-								$guild_output .= "</ul>\n";
-								$output .= "<strong>Updating Guild [<span class=\"orange\">$guild_name</span>]</strong>\n<ul>\n";
-								$output .= "<li><strong>Member Log</strong>\n<ul>\n".
-									"<li>Updated: ".$wowdb->membersupdated."</li>\n".
-									"<li>Added: ".$wowdb->membersadded."</li>\n".
-									"<li>Removed: ".$wowdb->membersremoved."</li>\n".
-									"</ul>\n<br />\n";
-								$output .= $guild_output;
 							}
 							else
 							// GP Version not new enough
