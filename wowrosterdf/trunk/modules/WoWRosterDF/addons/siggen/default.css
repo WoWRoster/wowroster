@@ -1,0 +1,309 @@
+/**
+ * Project: SigGen - Signature and Avatar Generator for WoWRoster
+ * File: /default.css
+ *
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary:
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Legal Information:
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ *
+ * Full License:
+ *  license.txt (Included within this library)
+ *
+ * You should have recieved a FULL copy of this license in license.txt
+ * along with this library, if you did not and you are unable to find
+ * and agree to the license you may not use this library.
+ *
+ * For questions, comments, information and documentation please visit
+ * the official website at cpframework.org
+ *
+ * @link http://www.wowroster.net
+ * @license http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * @author Joshua Clark
+ * @version $Id:$
+ * @copyright 2005-2007 Joshua Clark
+ * @package SigGen
+ * @filesource
+ *
+ */
+
+.sc_select {
+	font-size:10px;
+}
+.sc_table {
+	white-space:nowrap;
+}
+.sc_titletext {
+	font-size:14px;
+	font-weight:bold;
+	color:#DAA520;
+}
+.sc_table {
+	border:1px solid #212121;
+	white-space:nowrap;
+	font-size:10px;
+}
+.sc_menuTH {
+	font-size:11px;
+	font-weight:bold;
+	color:#CBA300;
+	background-color:#2E2D2B;
+	border:solid #5D5D5D;
+	border-width:1px 1px 0px 1px;
+}
+.sc_menuClick {
+	font-size:14px;
+	font-weight:bold;
+	color:#CBA300;
+	background-color:#2E2D2B;
+	cursor:pointer;
+}
+.sc_menuClickOver {
+	font-size:14px;
+	font-weight:bold;
+	background-color:#7A7772;
+	cursor:pointer;
+}
+.sc_menuClickDown {
+	font-size:14px;
+	font-weight:bold;
+	background-color:#778899;
+	cursor:pointer;
+}
+.sc_row1 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#1F1E1D;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_row2 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_row_right1 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#1F1E1D;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_row_right2 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_header {
+	vertical-align:bottom;
+	color:#CBA300;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#5D5D5D;
+}
+.sc_header_right {
+	vertical-align:bottom;
+	color:#CBA300;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#5D5D5D;
+}
+
+
+#dhtmlgoodies_colorPicker{
+	position:absolute;
+	width:250px;
+	padding-bottom:1px;
+	background-color:#1F1E1D;
+	border:1px solid #5D5D5D;
+	width: 252px;	/* IE 5.x */
+	width/* */:/**/250px;	/* Other browsers */
+	width: /**/250px;
+}
+
+#dhtmlgoodies_colorPicker .colorPicker_topRow{
+	padding-bottom:1px;
+	border-bottom:3px double #5D5D5D;
+	background-color:#2E2D2B;
+	padding-left:2px;
+	width: 250px;	/* IE 5.x */
+	width/* */:/**/248px;	/* Other browsers */
+	width: /**/248px;
+	height: 20px;	/* IE 5.x */
+	height/* */:/**/16px;	/* Other browsers */
+	height: /**/16px;
+}
+
+#dhtmlgoodies_colorPicker .colorPicker_statusBar{
+	height:13px;
+	padding-bottom:2px;
+	width:248px;
+	border-top:3px double #5D5D5D;
+	background-color:#2E2D2B;
+	padding-left:2px;
+	clear:both;
+	width: 250px;	/* IE 5.x */
+	width/* */:/**/248px;	/* Other browsers */
+	width: /**/248px;
+	height: 18px;	/* IE 5.x */
+	height/* */:/**/13px;	/* Other browsers */
+	height: /**/13px;
+}
+
+#dhtmlgoodies_colorPicker .colorSquare{
+	margin-left:1px;
+	margin-bottom:1px;
+	float:left;
+	border:1px solid #000;
+	cursor:pointer;
+	width: 12px;	/* IE 5.x */
+	width/* */:/**/10px;	/* Other browsers */
+	width: /**/10px;
+	height: 12px;	/* IE 5.x */
+	height/* */:/**/10px;	/* Other browsers */
+	height: /**/10px;
+}
+
+.colorPickerTab_inactive,.colorPickerTab_active{
+	height:17px;
+	padding-left:4px;
+	cursor:pointer;
+}
+.colorPickerTab_inactive span{
+	background-image:url('inc/color/images/tab_left_inactive.gif');
+}
+
+.colorPickerTab_active span{
+	background-image:url('inc/color/images/tab_left_active.gif');
+}
+
+.colorPickerTab_inactive span, .colorPickerTab_active span{
+	line-height:16px;
+	font-weight:bold;
+	font-family:arial,helvetica,sans-serif;
+	font-size:11px;
+	color: #CBA300;
+	padding-top:1px;
+	vertical-align:middle;
+	background-position:top left;
+	background-repeat: no-repeat;
+	float:left;
+	padding-left:6px;
+}
+.colorPickerTab_inactive img,.colorPickerTab_active img{
+	float:left;
+}
+
+.colorPickerCloseButton{
+	width:11px;
+	height:11px;
+	text-align:center;
+	line-height:10px;
+	border:1px solid #5D5D5D;
+	position:absolute;
+	right:1px;
+	font-size:12px;
+	font-weight:bold;
+	color: #CBA300;
+	top:1px;
+	padding:1px;
+	cursor:pointer;
+	width: 15px;	/* IE 5.x */
+	width/* */:/**/11px;	/* Other browsers */
+	width: /**/11px;
+	height: 15px;	/* IE 5.x */
+	height/* */:/**/11px;	/* Other browsers */
+	height: /**/11px;
+}
+
+#colorPicker_statusBarTxt{
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	color: #CBA300;
+	vertical-align:top;
+	line-height:13px;
+}
+
+form{
+	padding-left:5px;
+}
+
+.form_widget_amount_slider{
+	border-top:1px solid #9d9c99;
+	border-left:1px solid #9d9c99;
+	border-bottom:1px solid #eee;
+	border-right:1px solid #eee;
+	background-color:#2E2D2B;
+	position:absolute;
+	bottom:0px;
+	width: 5px;	/* IE 5.x */
+	width/* */:/**/3px;	/* Other browsers */
+	width: /**/3px;
+	height: 5px;	/* IE 5.x */
+	height/* */:/**/3px;	/* Other browsers */
+	height: /**/3px;
+}
+.colorSliderLabel{
+	width:15px;
+	height:20px;
+	float:left;
+	font-size:11px;
+	font-weight:bold;
+	color: #CBA300;
+}
+.colorSlider{
+	width:175px;
+	height:20px;
+	float:left;
+}
+.colorInput{
+	width:45px;
+	height:20px;
+	float:left;
+}
+.colorPreviewDiv{
+	width:180px;
+	margin-right:2px;
+	margin-top:1px;
+	border:1px solid #CCC;
+	height:20px;
+	float:left;
+	cursor:pointer;
+	width: 182px;	/* IE 5.x */
+	width/* */:/**/180px;	/* Other browsers */
+	width: /**/180px;
+	height: 22px;	/* IE 5.x */
+	height/* */:/**/20px;	/* Other browsers */
+	height: /**/20px;
+}
+.colorCodeDiv{
+	width:50px;
+	height:20px;
+	float:left;
+}
