@@ -733,14 +733,14 @@ $wordings['esES']['admin']['update_access'] = 'update.php Acceso';
 $wordings['esES']['admin']['roster_upd_pw'] = "Roster Actualizaci&oacuten Clave|Esta es la clave para permitir las actualizaciones de la hermandad en la p&aacutegina de actualizaciones<br>Algunos addons usar&aacuten esta clave";
 $wordings['esES']['admin']['roster_dbver'] = "Roster Base de datos Versi&oacuten|Lave versi&oacuten de la base de datos";
 $wordings['esES']['admin']['version'] = "Roster Versi&oacuten|Versi&oacuten actual del Roster";
-$wordings['esES']['admin']['sqldebug'] = "SQL Debug Salida|Imprime las estad&iacutesticas en comentarios html de MySQL Debug";
-$wordings['esES']['admin']['debug_mode'] = "Debug Mode|Full debug trace in error messages";
+$wordings['esES']['admin']['sqldebug'] = "Mensajes de SQL|Muestra errores de MySQL en comentarios en HTML";
+$wordings['esES']['admin']['debug_mode'] = "Depurar Modo|Depurar errores mostrados en los comentarios ";
 $wordings['esES']['admin']['sql_window'] = "SQL Window|Displays SQL Queries in a window in the footer";
 $wordings['esES']['admin']['minCPver'] = "Min CP versi&oacuten|M&iacutenima versi&oacuten permitida para usar el CharacterProfiler";
 $wordings['esES']['admin']['minGPver'] = "Min GP versi&oacuten|M&iacutenima versi&oacuten permitida para usar el GuildProfiler";
 $wordings['esES']['admin']['minPvPLogver'] = "Min PvPLog versi&oacuten|M&iacutenima versi&oacuten permitida para usar el PvPLog";
 $wordings['esES']['admin']['roster_lang'] = "Roster Lenguaje principal|Elige el lenguaje del interfaz";
-$wordings['esES']['admin']['website_address'] = "Website direci&oacuten|Usada para el URL del logo, y para el link del nombre de la hermandad en el men&uacute principal<br>Algunos addons del roster usar&aacuten esto";
+$wordings['esES']['admin']['website_address'] = "Website dirección|Usada para el URL del logo, y para el link del nombre de la hermandad en el menú principal<br>Algunos addons del roster usarán esto";
 $wordings['esES']['admin']['roster_dir'] = "Roster URL|El path del URL al directorio del Roster<br>Esto es muy importante que este bien, si no ocurrir&aacuten muchos errores<br>(EJ: http://www.site.com/roster )<br><br>El nombre entero del URL no es necesario, en su lugar puedes poner el relativo<br>(EJ: /roster )";
 $wordings['esES']['admin']['server_name_comp'] = "char.php Compatibilidad|Si la p&aacutegina de tu personaje no funciona, prueba a activar esta opci&oacuten";
 $wordings['esES']['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacutegenes del interfaz<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
@@ -813,12 +813,12 @@ $wordings['esES']['admin']['signaturebackground'] = "img.php Fondo|Soporte para 
 $wordings['esES']['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacutegina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
 
 // data_links
-$wordings['esES']['admin']['questlink_1'] = "Quest Link #1|Link externo para objetos/Quest<br>Mira en tu archivo localizationpara la configuracion de los link.";
-$wordings['esES']['admin']['questlink_2'] = "Quest Link #2|Link externo para objetos/Quest<br>Mira en tu archivo localizationpara la configuracion de los link.";
-$wordings['esES']['admin']['questlink_3'] = "Quest Link #3|Link externo para objetos/Quest<br>Mira en tu archivo localizationpara la configuracion de los link.";
-$wordings['esES']['admin']['profiler'] = "Descargar CharacterProfiler link|URL para descargar CharacterProfiler";
-$wordings['esES']['admin']['pvplogger'] = "Descargar PvPLog link|URL para descargar PvPLog";
-$wordings['esES']['admin']['uploadapp'] = "Descargar UniUploader link|URL para descargar UniUploader";
+$wordings['esES']['admin']['questlink_1'] = "Enlace para misiones #1|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
+$wordings['esES']['admin']['questlink_2'] = "Enlace para misiones #2|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
+$wordings['esES']['admin']['questlink_3'] = "Enlace para misiones #3|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
+$wordings['esES']['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para descargar CharacterProfiler";
+$wordings['esES']['admin']['pvplogger'] = "Enlace para descargar PvPLog|URL para descargar PvPLog";
+$wordings['esES']['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
 // char_conf
 $wordings['esES']['admin']['char_bodyalign'] = "P&aacutegina del personaje Alineaci&oacuten|Alineaci&oacuten de la informaci&oacuten en la p&aacutegina del personaje";

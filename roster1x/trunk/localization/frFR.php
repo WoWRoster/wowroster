@@ -131,7 +131,7 @@ $inst_keys['frFR']['A'] = array(
 			'Marteau de Zul\\\'Farrak|5695',
 			'Maillet sacré|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
+	'Marau' => array( 'Parts', 'Marau' =>
 			'Sceptre de Celebras|19710',
 			'Bâtonnet de Celebras|19549',
 			'Diamant de Celebras|19545'
@@ -202,7 +202,7 @@ $inst_keys['frFR']['H'] = array(
 			'Marteau de Zul\\\'Farrak|5695',
 			'Maillet sacré|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
+	'Marau' => array( 'Parts', 'Marau' =>
 			'Sceptre de Celebras|19710',
 			'Bâtonnet de Celebras|19549',
 			'Diamant de Celebras|19545'

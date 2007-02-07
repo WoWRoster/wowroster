@@ -307,7 +307,7 @@ function processGuildRoster($myProfile)
 						if( $roster_conf['guild_name'] == $guild_name )
 						{
 							$guild = $realm['Guild'][$guild_name];
-							
+
 							// GP Version Detection, don't allow lower than minVer
 							if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 							{
@@ -368,7 +368,7 @@ function processGuildRoster($myProfile)
 								else
 								{
 									$output .= "<span class=\"red\">NOT Updateing Guild list for $guild_name</span><br />\n";
-									$output .= "Data does not contain any guild members.<br />\n"
+									$output .= "Data does not contain any guild members.<br />\n";
 								}
 							}
 							else
