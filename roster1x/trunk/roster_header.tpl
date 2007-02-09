@@ -24,6 +24,7 @@ define('HEADER_INC',true);
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
   <link rel="stylesheet" type="text/css" href="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['stylesheet'] ?>">
+  <?php echo(isset($showstyles2) ? $showstyles2: '');?>
 <?php echo (isset($more_css) ? $more_css : ''); ?>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['tabcontent']; ?>">

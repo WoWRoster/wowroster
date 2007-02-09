@@ -116,7 +116,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
 }
 
-
 /**
  * Include roster db file
  */
@@ -271,6 +270,16 @@ require_once(ROSTER_LIB.'login.php');
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
 
 
+/**
+ * Include "pretty" text boxes and buttons
+ */
+$br = strtolower($_SERVER['HTTP_USER_AGENT']); // what browser they use.
+if(ereg("mise 6", $br))
+{
+	unset($showstyles2);
+} else {
+	$showstyles2 = '<link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].'/styles2.css">';
+}
 
 /**
  * Detect and set headers
