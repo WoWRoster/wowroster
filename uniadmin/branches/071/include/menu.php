@@ -28,11 +28,10 @@ $ua_menu = '
 	<a href="'.UA_INDEXPAGE.'=logo">'.$user->lang['title_logo'].'</a> |
 	<a href="'.UA_INDEXPAGE.'=settings">'.$user->lang['title_settings'].'</a> |
 	<a href="'.UA_INDEXPAGE.'=stats">'.$user->lang['title_stats'].'</a> |
-	<a href="'.UA_INDEXPAGE.'=users">'.$user->lang['title_users'].'</a>
-';
+	<a href="'.UA_INDEXPAGE.'=users">'.$user->lang['title_users'].'</a>';
 
 // Check if user is an admin and give UA config option
 if( isset($user->data['level']) && $user->data['level'] == UA_ID_ADMIN )
 {
-	$ua_menu .= '	| <a href="'.UA_INDEXPAGE.'=pref">'.$user->lang['title_config'].'</a>';
+	$ua_menu .= " |\n\t".'<a href="'.UA_INDEXPAGE.'=pref">'.$user->lang['title_config'].'</a>';
 }

@@ -15,8 +15,9 @@ a:hover {
 }
 
 .textbox {
-	background:url('images/input_boxes.png') no-repeat 0 0px;
+	background:transparent url('images/input_text.png') no-repeat;
 	border:none;
+	vertical-align:middle;
 	width:234px;
 	height:55px;
 	padding-left:3px;
@@ -25,46 +26,59 @@ a:hover {
 	padding-bottom:3px;
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	background-color:transparent;
+}
+* html .textbox {
+	background-attachment:fixed;
+	width:240px;
+	height:58px;
 }
 .input {
-	background:url('images/input_boxes.png') no-repeat 0 -70px;
+	background:transparent url('images/input.png') no-repeat;
 	border:none;
+	vertical-align:middle;
 	width:194px;
-	height:18px;
+	height:15px;
 	padding-left:3px;
 	padding-right:3px;
 	padding-top:3px;
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	background-color:transparent;
-	vertical-align:middle;
+}
+* html .input {
+	background-attachment:fixed;
+	width:200px;
 }
 .input_m {
-	background:url('images/input_boxes.png') no-repeat 0 -100px;
+	background:transparent url('images/input_m.png') no-repeat;
 	border:none;
+	vertical-align:middle;
 	width:138px;
-	height:18px;
+	height:15px;
 	padding-left:3px;
 	padding-right:3px;
 	padding-top:3px;
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	background-color:transparent;
-	vertical-align:middle;
+}
+* html .input_m {
+	background-attachment:fixed;
+	width:144px;
 }
 .input_s {
-	background:url('images/input_boxes.png') no-repeat 0 -130px;
+	background:transparent url('images/input_s.png') no-repeat;
 	border:none;
+	vertical-align:middle;
 	width:80px;
-	height:18px;
+	height:15px;
 	padding-left:3px;
 	padding-right:3px;
 	padding-top:3px;
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	background-color:transparent;
-	vertical-align:middle;
+}
+* html .input_s {
+	background-attachment:fixed;
+	width:86px;
 }
 .submit {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
@@ -122,7 +136,7 @@ img {
 	font-size:12px;
 	border:1px solid #00487D;
 	background-color:#F2F2FF;
-	padding:2px 4px;
+	padding:2px 3px;
 }
 .sync_url {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
