@@ -272,20 +272,3 @@ require_once(ROSTER_LIB.'login.php');
  * Get guild data from dataabse
  */
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-
-
-
-/**
- * Detect and set headers
- */
-if( !isset($no_roster_headers) && !headers_sent() )
-{
-	$now = gmdate('D, d M Y H:i:s', time()) . ' GMT';
-
-	@header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-	@header('Last-Modified: ' . $now);
-	@header('Cache-Control: no-store, no-cache, must-revalidate');
-	@header('Cache-Control: post-check=0, pre-check=0', false);
-	@header('Pragma: no-cache');
-	@header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
-}

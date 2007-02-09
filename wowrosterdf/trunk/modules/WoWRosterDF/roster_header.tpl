@@ -18,6 +18,22 @@
 
 define('HEADER_INC',true);
 
+/**
+ * Detect and set headers
+ */
+/* COMMENTED OUT SINCE DF SEND IT'S OWN HEADERS
+if( !isset($no_roster_headers) && !headers_sent() )
+{
+	$now = gmdate('D, d M Y H:i:s', time()) . ' GMT';
+
+	@header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	@header('Last-Modified: ' . $now);
+	@header('Cache-Control: no-store, no-cache, must-revalidate');
+	@header('Cache-Control: post-check=0, pre-check=0', false);
+	@header('Pragma: no-cache');
+	@header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
+}*/
+
 $pagetitle = $module_title.( !empty($header_title) ? ' '._BC_DELIM.' '.$header_title : '' );
 
 $modheader = '

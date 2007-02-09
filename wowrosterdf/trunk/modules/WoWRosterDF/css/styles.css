@@ -75,6 +75,9 @@
 	background-color:transparent;
 	background:url('../img/searchbox.png') no-repeat;
 }
+* html .wowinput {
+	background-attachment:fixed;
+}
 .wowroster .wowinput192 {
 	border:none;
 	vertical-align:middle;
@@ -85,6 +88,9 @@
 	padding-right:5px;
 	background-color:transparent;
 	background:url('../img/searchbox192.png') no-repeat;
+}
+* html .wowinput192 {
+	background-attachment:fixed;
 }
 .wowroster .wowinput128 {
 	border:none;
@@ -97,6 +103,9 @@
 	background-color:transparent;
 	background:url('../img/searchbox128.png') no-repeat;
 }
+* html .wowinput128 {
+	background-attachment:fixed;
+}
 .wowroster .wowinput64 {
 	border:none;
 	vertical-align:middle;
@@ -107,6 +116,9 @@
 	padding-right:5px;
 	background-color:transparent;
 	background:url('../img/searchbox64.png') no-repeat;
+}
+* html .wowinput64 {
+	background-attachment:fixed;
 }
 /* Added for rosterDF */
 .wowroster select {
