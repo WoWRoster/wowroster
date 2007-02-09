@@ -46,7 +46,7 @@ $inClause .= "'";
 $showNewSkill = " AND SUBSTRING_INDEX( s.skill_level, ':', 1 ) > 1 ";
 
 // Gather a list of players that have the skills we are looking for
-$query = "SELECT `s`.*, `p`.`name` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
+$query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
 	WHERE p.member_id = s.member_id
 	AND p.guild_id = '".$guildId."'
 	$showNewSkill
@@ -71,7 +71,7 @@ if( $wowdb->num_rows($result) )
 	while( $row = $wowdb->fetch_assoc($result) )
 	{
 		$skill_name = $row['skill_name'];
-		$skill_image = 'Interface/Icons/'.$wordings[$roster_conf['roster_lang']]['ts_iconArray'][$skill_name];
+		$skill_image = 'Interface/Icons/'.$wordings[$row['clientLocale']]['ts_iconArray'][$skill_name];
 		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="'.$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix'].'" alt="" /></div>';
 		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_'.$id.'\',\'img_'.$id.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
 	'.$skill_image.'

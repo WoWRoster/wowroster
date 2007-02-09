@@ -388,7 +388,7 @@ $wordings['frFR']['Cooking']='Cuisine';
 $wordings['frFR']['Fishing']='PÃªche';
 $wordings['frFR']['First Aid']='Premiers soins';
 $wordings['frFR']['Poisons']='Poisons';
-$wordings['frFR']['backpack']='Backpack';
+$wordings['frFR']['backpack']='Sac Ã  dos';
 $wordings['frFR']['PvPRankNone']='none';
 
 // Uses preg_match() to find required level in recipie tooltip

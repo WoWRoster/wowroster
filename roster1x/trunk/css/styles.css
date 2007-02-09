@@ -59,6 +59,58 @@ input[type="reset"],
 input[type="button"] {
 	cursor:pointer;
 }
+.wowinput {
+	border:none;
+	vertical-align:middle;
+	width:246px;
+	height:16px;
+	padding-top:3px;
+	padding-left:5px;
+	padding-right:5px;
+	background:transparent url('../img/searchbox.png') no-repeat;
+}
+* html .wowinput {
+	background-attachment:fixed;
+}
+.wowinput192 {
+	border:none;
+	vertical-align:middle;
+	width:182px;
+	height:16px;
+	padding-top:3px;
+	padding-left:5px;
+	padding-right:5px;
+	background:transparent url('../img/searchbox192.png') no-repeat;
+}
+* html .wowinput192 {
+	background-attachment:fixed;
+}
+.wowinput128 {
+	border:none;
+	vertical-align:middle;
+	width:118px;
+	height:16px;
+	padding-top:3px;
+	padding-left:5px;
+	padding-right:5px;
+	background:transparent url('../img/searchbox128.png') no-repeat;
+}
+* html .wowinput128 {
+	background-attachment:fixed;
+}
+.wowinput64 {
+	border:none;
+	vertical-align:middle;
+	width:54px;
+	height:16px;
+	padding-top:3px;
+	padding-left:5px;
+	padding-right:5px;
+	background:transparent url('../img/searchbox64.png') no-repeat;
+}
+* html .wowinput64 {
+	background-attachment:fixed;
+}
 select {
 	border:1px solid #CBA300;
 	font-size:10px;
@@ -108,6 +160,61 @@ table.expOutline {
 	font:10px Verdana, Arial;
 	background-color:transparent;
 }
+/* Off state for a ARC checkbox */
+.checkboxOff {
+	display:inline;
+	margin:0;
+	padding:2px; /* NS 6 problem */
+	padding-left:20px;
+	line-height:16px;
+	background-image:url('../img/check_off.png');
+	background-repeat:no-repeat;
+	background-position:0% 50%;
+	border:0;
+}
+/* On state for a ARC checkbox */
+.checkboxOn {
+	display:inline;
+	margin:0;
+	padding:2px; /* NS 6 problem */
+	padding-left:20px;
+	line-height:16px;
+	background-image:url('../img/check_on.png');
+	background-repeat:no-repeat;
+	background-position:0% 50%;
+	border:0;
+}
+/* Off state for a ARC radio button */
+.radioOff {
+	display:inline;
+	margin:0;
+	padding:2px;
+	padding-left:15px;
+	background:transparent url('../img/radio_off.png') no-repeat 0% 50%;
+}
+/* On state for a ARC radio button */
+.radioOn {
+	display:inline;
+	margin:0px;
+	padding:2px; /* NS 6 problem */
+	padding-left:15px;
+	background: transparent url('../img/radio_on.png') no-repeat 0% 50%;
+}
+/* use CSS to full effect with hover states. Ohhh, perty! */
+.checkboxOn:hover {
+	background-image: url('../img/check_on_hover.png');
+}
+.checkboxOff:hover {
+	background-image: url('../img/check_off_hover.png');
+}
+.radioOn:hover {
+	background-image: url('../img/radio_hover.png');
+}
+.radioOff:hover {
+	background-image: url('../img/radio_hover.png');
+}
+
+
 /*************** For List menus ***************/
 .tab_menu {
 	padding:0;

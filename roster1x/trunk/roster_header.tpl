@@ -18,14 +18,29 @@
 
 define('HEADER_INC',true);
 
+/**
+ * Detect and set headers
+ */
+if( !isset($no_roster_headers) && !headers_sent() )
+{
+	$now = gmdate('D, d M Y H:i:s', time()) . ' GMT';
+
+	@header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	@header('Last-Modified: ' . $now);
+	@header('Cache-Control: no-store, no-cache, must-revalidate');
+	@header('Cache-Control: post-check=0, pre-check=0', false);
+	@header('Pragma: no-cache');
+	@header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
+}
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
   <link rel="stylesheet" type="text/css" href="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['stylesheet'] ?>">
-  <?php echo(isset($showstyles2) ? $showstyles2: '');?>
 <?php echo (isset($more_css) ? $more_css : ''); ?>
+
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['tabcontent']; ?>">
     /***********************************************
