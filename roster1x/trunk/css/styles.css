@@ -59,6 +59,13 @@ input[type="reset"],
 input[type="button"] {
 	cursor:pointer;
 }
+select {
+	border:1px solid #CBA300;
+	font-size:10px;
+	color:#FFFFFF;
+	font-family:Verdana, Arial;
+	background-color:#202020;
+}
 .headline_1 {
 	margin:0;
 	padding:5px 0 5px 0;
@@ -95,7 +102,12 @@ table.expOutline {
 	color:#ffffff;
 	font-family:arial,helvetica,sans-serif;
 }
-
+.checkBox {
+	border:0;
+	color:#FFFFFF;
+	font:10px Verdana, Arial;
+	background-color:transparent;
+}
 /*************** For List menus ***************/
 .tab_menu {
 	padding:0;

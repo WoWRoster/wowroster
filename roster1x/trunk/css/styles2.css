@@ -1,10 +1,3 @@
-.checkBox {
-	border:0;
-	color:#FFFFFF;
-	font:10px Verdana, Arial;
-	background-color:transparent;
-}
-
 .checkboxOff {
 	display:inline;
 	margin:0;
@@ -101,11 +94,4 @@
 	padding-right:5px;
 	background-color:transparent;
 	background:url('../img/searchbox64.png') no-repeat;
-}
-select {
-	border:1px solid #CBA300;
-	font-size:10px;
-	color:#FFFFFF;
-	font-family:Verdana, Arial;
-	background-color:#202020;
 }
