@@ -467,7 +467,7 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 		{
 			$line = preg_replace('|\\>|','&#8250;', $line );
 			$line = preg_replace('|\\<|','&#8249;', $line );
-			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+			$line = preg_replace('/\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r/i','<span style="color:#$1;">$2</span>',$line);
 
 			// Do this on the first line
 			// This is performed when $caption_color is set
