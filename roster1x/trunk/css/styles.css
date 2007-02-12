@@ -953,9 +953,8 @@ table.expOutline {
 .bag {
 	float:left;
 	width:212px;
-	margin:10px 0 10px;
+	margin:0 5px 5px 0;
 	color:#ffffff;
-	background:url(../img/bagbg2.gif) repeat-y;
 	background-position:0 3px;
 }
 .bag .bagTop {
@@ -964,13 +963,20 @@ table.expOutline {
 	background:url(../img/bagtopbig.gif) no-repeat;
 	height:52px;
 }
-.bag .bagTop .bagIcon {
+.bag .bagBody {
+	float:left;
+	width:212px;
+	background:url(../img/bagbg2.gif) repeat-y;
+}
+.bag .bagTop .bagIcon,
+.bankbag .bagTop .bagIcon {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:5px;
 }
-.bag .bagTop .bagIcon .quant {
+.bag .bagTop .bagIcon .quant,
+.bankbag .bagTop .bagIcon .quant {
 	position:absolute;
 	bottom:0px;
 	right:3px;
@@ -978,7 +984,8 @@ table.expOutline {
 	font-weight:bold;
 	color:#ffffff;
 }
-.bag .bagTop .bagIcon .quant_shadow {
+.bag .bagTop .bagIcon .quant_shadow,
+.bankbag .bagTop .bagIcon .quant_shadow {
 	position:absolute;
 	bottom:-1px;
 	right:2px;
@@ -986,7 +993,8 @@ table.expOutline {
 	font-weight:bold;
 	color:#333333;
 }
-.bag .bagTop .bagName {
+.bag .bagTop .bagName,
+.bankbag .bagTop .bagName {
 	float:left;
 	text-align:left;
 	width:150px;
@@ -996,30 +1004,35 @@ table.expOutline {
 	font-size:13px;
 	font-weight:bold;
 }
-.bag .bagLine {
+.bag .bagLine,
+.bankbag .bagLine {
 	float:left;
 	width:100%;
 	padding:0 0 0 4px;
 }
-.bag .bagLine .bagNoSlot {
+.bag .bagLine .bagNoSlot,
+.bankbag .bagLine .bagNoSlot {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:4px 5px 5px 6px;
 }
-.bag .bagLine .bagSlot {
+.bag .bagLine .bagSlot,
+.bankbag .bagLine .bagSlot {
 	float:left;
 	width:40px;
 	height:40px;
 	padding:4px 5px 5px 6px;
 	background-image:url(../img/bagslot.gif);
 }
-.bag .bagBottomLine {
+.bag .bagBottomLine,
+.bankbag .bagBottomLine {
 	float:left;
 	width:100%;
 	padding:0 0 0 4px;
 }
-.bag .bagBottomLine .bagSlot {
+.bag .bagBottomLine .bagSlot,
+.bankbag .bagBottomLine .bagSlot {
 	float:left;
 	width:40px;
 	height:40px;
@@ -1029,17 +1042,21 @@ table.expOutline {
 }
 .bag .bagMoneyBottom {
 	float:left;
-	width:100%;
+	height:26px;
+	width:212px;
 	background-image:url(../img/bagmoneybottom.gif);
 }
 .bag .bagMoneyBottom .money {
 	float:right;
 	padding:4px 15px 7px 0;
+	font-size:12px;
+	font-family:arial,verdana,sans-serif;
+	font-weight:bold;
 }
 .bag .bagBottom {
 	float:left;
 	height:6px;
-	width:100%;
+	width:212px;
 	background-image:url(../img/bagbottom.gif) ;
 }
 /**
@@ -1052,85 +1069,26 @@ table.expOutline {
 .bankbag {
 	float:left;
 	width:362px;
-	margin:10px 0 10px;
+	margin:0 5px 5px 0;
 	color:#ffffff;
-	background:url(../img/bagbgbank.gif) repeat-y;
 	background-position:0 3px;
 }
 .bankbag .bagTop {
 	float:left;
-	width:100%;
-	background:url(../img/bagtopbank.gif) no-repeat;
+	width:362px;
+	background:url(../img/bagtopbank.GIF) no-repeat;
 	height:52px;
 }
-.bankbag .bagTop .bagIcon {
+.bankbag .bagBody {
 	float:left;
-	width:40px;
-	height:40px;
-	padding:5px;
-}
-.bankbag .bagTop .bagIcon .quant {
-	position:absolute;
-	bottom:0px;
-	right:3px;
-	font-size:12px;
-	font-weight:bold;
-	color:#ffffff;
-}
-.bankbag .bagTop .bagIcon .quant_shadow {
-	position:absolute;
-	bottom:-1px;
-	right:2px;
-	font-size:12px;
-	font-weight:bold;
-	color:#333333;
-}
-.bankbag .bagTop .bagName {
-	float:left;
-	text-align:left;
-	width:150px;
-	overflow:hidden;
-	margin:0;
-	padding-top:10px;
-	font-size:13px;
-	font-weight:bold;
-}
-.bankbag .bagLine {
-	float:left;
-	width:100%;
-	padding:0 0 0 4px;
-}
-.bankbag .bagLine .bagNoSlot {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:4px 5px 5px 6px;
-}
-.bankbag .bagLine .bagSlot {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:4px 5px 5px 6px;
-	background-image:url(../img/bagslot.gif);
-}
-.bankbag .bagBottomLine {
-	float:left;
-	width:100%;
-	padding:0 0 0 4px;
-}
-.bankbag .bagBottomLine .bagSlot {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:4px 5px 2px 6px;
-	background-image:url(../img/bagbottombox.gif);
-	background-position:left top;
+	width:362px;
+	background:url(../img/bagbgbank.GIF) repeat-y;
 }
 .bankbag .bagBottom {
 	float:left;
 	height:6px;
-	width:100%;
-	background-image:url(../img/bagbottombank.gif) ;
+	width:362px;
+	background-image:url(../img/bagbottombank.GIF) ;
 }
 /**
  * END BankBag Styles

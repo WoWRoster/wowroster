@@ -38,7 +38,7 @@ class bag extends item
 	function out( $bank = false )
 	{
 		global $wordings, $roster_conf;
-		
+
 		if( $bank )
 		{
 			$width = 7;
@@ -51,7 +51,7 @@ class bag extends item
 			$returnstring = '
 <div class="bag">';
 		}
-		
+
 		$returnstring .= '
 	<div class="bagTop">
 		<div class="bagIcon">';
@@ -59,7 +59,8 @@ class bag extends item
 		$returnstring .= parent::out();
 		$returnstring .=  '</div>
 		<div class="bagName">'. $this->data['item_name'] .'</div>
-	</div>'."\n";
+	</div>
+	<div class="bagBody">'."\n";
 
 		$offset = -1 * ($this->data['item_quantity'] % $width);
 		for( $slot = $offset, $idx = $this->data['item_quantity'] - $offset; $slot < $this->data['item_quantity'] ; $slot++, $idx-- )
@@ -68,20 +69,20 @@ class bag extends item
 			{
 				if( $idx == $width )
 				{
-					$returnstring .=  '<div class="bagBottomLine">'."\n";
+					$returnstring .=  '		<div class="bagBottomLine">'."\n";
 				}
 				else
 				{
-					$returnstring .=  '<div class="bagLine">'."\n";
+					$returnstring .=  '		<div class="bagLine">'."\n";
 				}
 			}
 			if( $slot < 0 )
 			{
-				$returnstring .=  '<div class="bagNoSlot"></div>'."\n";
+				$returnstring .=  '			<div class="bagNoSlot"></div>'."\n";
 			}
 			else
 			{
-				$returnstring .=  '<div class="bagSlot">'."\n";
+				$returnstring .=  '			<div class="bagSlot">'."\n";
 				if (isset($this->contents[$slot+1]))
 				{
 					$item = $this->contents[$slot+1];
@@ -91,35 +92,30 @@ class bag extends item
 			}
 			if( $idx % $width == 1 )
 			{
-				$returnstring .= "</div>\n";
+				$returnstring .= "		</div>\n";
 			}
 		}
-		if($roster_conf['show_money'])
+		$returnstring .= "	</div>\n";
+
+		if( $roster_conf['show_money'] && ($this->data['item_name'] == $wordings[$this->char->get('clientLocale')]['backpack']) )
 		{
-			if( ($this->data['item_name'] == $wordings[$this->char->get('clientLocale')]['backpack']) )
-			{
-				$returnstring .=  '<div class="bagMoneyBottom">';
-				$returnstring .=  '<div class="money">';
-				$returnstring .=  $this->char->get('money_g').
-					' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
+			$returnstring .=  '	<div class="bagMoneyBottom">'."\n";
+			$returnstring .=  '		<div class="money">'."\n\t\t\t";
+			$returnstring .=  $this->char->get('money_g').
+					'<img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g" /> '.
 				$this->char->get('money_s').
-					' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
+					'<img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s" /> '.
 				$this->char->get('money_c').
-					' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/> ';
-				$returnstring .=  '</div>';
-			}
-			else
-			{
-				$returnstring .=  '<div class="bagBottom"><div></div>'."\n";
-			}
-
-			$returnstring .=  '</div></div>'."\n";
-
+					'<img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c" /> ';
+			$returnstring .=  "\n\t\t</div>\n";
 		}
 		else
 		{
-			$returnstring .=  '<div class="bagBottom"><div></div></div></div>'."\n";
+			$returnstring .=  '	<div class="bagBottom">'."\n";
 		}
+
+		$returnstring .=  "\t</div>\n</div>\n";
+
 		return $returnstring;
 	}
 }
