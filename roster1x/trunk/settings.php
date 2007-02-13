@@ -196,39 +196,7 @@ $wowdb->setSQLDebug($roster_conf['sqldebug']);
 /**
  * Include locale files
  */
-$localeFilePath = ROSTER_BASE.'localization'.DIR_SEP;
-if ($handle = opendir($localeFilePath))
-{
-	while (false !== ($file = readdir($handle)))
-	{
-		if ($file != '.' && $file != '..')
-		{
-			$localeFiles[] = $file;
-		}
-	}
-}
-
-/**
- * Die if the locale directory cannot be read
- */
-if( !is_array($localeFiles) )
-{
-	die('Cannot read the directory ['.$localeFilePath.']');
-}
-
-/**
- * Include every locale file
- * And fill the $roster_conf['multilanguages'] array
- */
-foreach($localeFiles as $file)
-{
-	if( file_exists($localeFilePath.$file) && !is_dir($localeFilePath.$file) )
-	{
-		require_once ($localeFilePath.$file);
-		$roster_conf['multilanguages'][] = substr($file,0,4);
-	}
-}
-
+include(ROSTER_BASE.'localization'.DIR_SEP.'languages.php');
 
 
 /**
