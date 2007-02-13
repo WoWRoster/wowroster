@@ -277,6 +277,13 @@ img {
 	font-size:10px;
 }
 
+.last_updated {
+	width:70%;
+	color:#4f6b72;
+	font-size:11px;
+	font-weight:bold;
+}
+
 .ua_loginbox, .ua_loginbox table {
 	font-size:9px;
 }

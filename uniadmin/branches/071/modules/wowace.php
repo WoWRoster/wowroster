@@ -76,6 +76,9 @@ else
 		$uniadmin->message($user->lang['new_wowace_list']);
 
 		$uniadmin->write_file($ace_file,$filelist) === false;
+		clearstatcache();
+		$file_info = stat($ace_file);
+		$tpl->assign_var('WOWACE_UPDATED',date($user->lang['time_format'],$file_info['9']) );
 	}
 	else
 	{
