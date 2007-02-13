@@ -32,38 +32,72 @@ a:hover {
 .ua_table {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
-	border:1px solid #00487D;
-	background-color:#F2F2FF;
+	border-left:1px solid #C1DAD7;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
 }
 .ua_table th {
 	background-color:#0066B3;
 	color:#FFF;
-	font-size:16px;
+	border-right:1px solid #dcdcdc;
+	border-bottom:1px solid #dcdcdc;
+	border-top:1px solid #dcdcdc;
+	font-size:14px;
 	font-weight:bold;
+	height:16px;
+	padding:2px;
+	vertical-align:middle;
+	overflow:hidden;
 }
 .ua_error_table {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
-	border:1px solid #00487D;
-	background-color:#F2F2FF;
+	border-left:1px solid #B32400;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
 }
 .ua_error_table th {
 	color:#000;
-	border:1px solid #B32400;
 	background-color:#FFCCBF;
+	border-right:1px solid #B32400;
+	border-bottom:1px solid #B32400;
+	border-top:1px solid #B32400;
+	font-size:14px;
+	font-weight:bold;
+	height:16px;
+	padding:2px;
+	vertical-align:middle;
+	overflow:hidden;
 }
-tr, td {
-	font-family: Verdana, Tahoma, Arial;
-	font-size: 11px;
-	color: #000000;
-}
-.data_header {
-	background-color:#BFE4FF;
+.ua_error_table td {
 	font-size:11px;
+	border-right:1px solid #B32400;
+	border-bottom:1px solid #B32400;
+	padding:1px 2px 1px 2px;
+}
+.ua_table td {
+	font-size:11px;
+	border-right:1px solid #C1DAD7;
+	border-bottom:1px solid #C1DAD7;
+	padding:1px 2px 1px 2px;
+}
+.ua_table th.data_header,
+.ua_error_table th.data_header  {
+	background-color:#BFE4FF;
 	font-weight:bold;
 }
+.ua_table td.row2
+.ua_error_table td.row2 {
+	background-color:#F5FAFA;
+}
 
-th a:link, th a:visited, th a:active {
+th a:link,
+th a:visited,
+th a:active {
 	color:#006699;
 	text-decoration:none;
 	background-color:transparent;
@@ -74,12 +108,6 @@ th a:hover {
 	background-color:#E3E3FF;
 }
 
-.row1 {
-	background-color: #F2F2FF;
-}
-.row2 {
-	background-color: #EDEDFF;
-}
 .positive {
 	color: green;
 }

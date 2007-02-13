@@ -7,6 +7,7 @@
 ### Configuration values
 INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUES
 	('addon_folder', 'addon_zips', 'text{250|50'),
+	('check_updates', '1', 'radio{yes^1|no^0'),
 	('default_lang', 'english', 'function{lang_select'),
 	('default_style', 'default', 'function{style_select'),
 	('enable_gzip', '0', 'radio{yes^1|no^0'),

@@ -1,7 +1,7 @@
 <!-- INCLUDE overall_header.html -->
 
 <!-- BEGIN logo_row -->
-<table class="ua_table" width="60%" align="center">
+<table class="ua_table" align="center" width="60%">
 	<tr>
 		<th class="table_header">{logo_row.L_LOGO_NUM}</th>
 	</tr>
@@ -13,14 +13,14 @@
 		<!-- IF S_LOGO -->
 			<table class="ua_table">
 				<tr>
-					<th class="data_header">{L_UPDATE_FILE}</th>
+					<th>{L_UPDATE_FILE}</th>
 					<!-- IF logo_row.IMAGESET -->
-					<th class="data_header">{L_UPLOADED}</th>
-					<th class="data_header">{L_STATUS}</th>
+					<th>{L_UPLOADED}</th>
+					<th>{L_STATUS}</th>
 					<!-- ENDIF -->
 				</tr>
 				<tr>
-					<td class="data1" align="center">{L_SELECT_FILE}:
+					<td align="center">{L_SELECT_FILE}:
 						<form name="ua_uploadlogo{logo_row.NUM}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 							<input class="file" type="file" name="logo{logo_row.NUM}" />
 							<input class="submit" type="submit" value="{logo_row.L_UPDATE_LOGO}" />
@@ -28,8 +28,8 @@
 						</form>
 					</td>
 					<!-- IF logo_row.IMAGESET -->
-					<td class="data1">{logo_row.UPDATED}</td>
-					<td class="data1">
+					<td>{logo_row.UPDATED}</td>
+					<td>
 						<!-- IF logo_row.ACTIVE eq 1 -->
 						<form name="ua_disablelogo{logo_row.NUM}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 							<input type="hidden" name="{A_OPERATION}" value="{A_DISABLE}" />
@@ -50,12 +50,12 @@
 			<!-- IF logo_row.IMAGESET -->
 			<table class="ua_table">
 				<tr>
-					<th class="data_header">{L_UPLOADED}</th>
-					<th class="data_header">{L_STATUS}</th>
+					<th>{L_UPLOADED}</th>
+					<th>{L_STATUS}</th>
 				</tr>
 				<tr>
-					<td class="data1">{logo_row.UPDATED}</td>
-					<td class="data1">
+					<td>{logo_row.UPDATED}</td>
+					<td>
 						<!-- IF logo_row.ACTIVE eq 1 -->
 						<img src="{TEMPLATE_PATH}/images/enabled.png" class="icon" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
 						<!-- ELSEIF logo_row.ACTIVE eq 0 -->

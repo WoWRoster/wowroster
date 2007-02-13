@@ -1,6 +1,6 @@
 <!-- INCLUDE overall_header.html -->
-<form method="post" action="index.php?p=upgrade">
-<table width="" border="0" cellspacing="1" cellpadding="2" align="center" class="ua_table">
+<form method="post" action="{UA_FORMACTION}">
+<table class="ua_table" align="center">
 	<tr>
 		<th class="table_header" align="center">{L_UA_UPGRADE}</th>
 	</tr>
@@ -8,7 +8,7 @@
 		<td class="data2" align="center">{L_SELECT_VERSION}</td>
 	</tr>
 	<tr>
-		<td class="data1" align="center"><br />
+		<td align="center"><br />
 			<select name="version" class="select">
 			<!-- BEGIN version_row -->
 				<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
@@ -16,7 +16,7 @@
 			</select><br /><br /></td>
 	</tr>
 	<tr>
-		<td class="data_header" align="center"><input type="submit" name="upgrade" value="{L_UPGRADE}" class="submit" /></td>
+		<th><input type="submit" name="upgrade" value="{L_UPGRADE}" class="submit" /></th>
 	</tr>
 </table>
 </form>

@@ -1,13 +1,13 @@
 <!-- INCLUDE overall_header.html -->
 
-<table class="ua_table" width="40%" align="center">
+<table class="ua_table" align="center" width="40%">
 	<tr>
 		<th colspan="2" class="table_header">{L_MANAGE_SV}</th>
 	</tr>
 	<tr>
-		<td class="data_header">{L_FILES}</td>
+		<th>{L_FILES}</th>
 		<!-- IF S_MANAGE -->
-		<td class="data_header" width="10%">{L_REMOVE}</td>
+		<th width="10%">{L_REMOVE}</th>
 		<!-- ENDIF -->
 	</tr>
 	<!-- BEGIN sv_list -->
@@ -30,17 +30,17 @@
 
 <!-- IF S_MANAGE -->
 <form name="ua_addsv" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
-	<table class="ua_table" width="40%" align="center">
+	<table class="ua_table" align="center" width="40%">
 		<tr>
 			<th colspan="2" class="table_header">{L_ADD_SV}</th>
 		</tr>
 		<tr>
-			<td class="data_header">{L_FILENAME}</td>
-			<td class="data_header" width="10%">{L_ADD}</td>
+			<th>{L_FILENAME}</th>
+			<th width="10%">{L_ADD}</th>
 		</tr>
 		<tr>
-			<td class="data1"><input class="input_m" type="text" name="{A_SVNAME}" /> <b>.lua</b></td>
-			<td class="data2"><input class="submit" type="submit" value="{L_ADD}" /></td>
+			<td><input class="input_m" type="text" name="{A_SVNAME}" /> <b>.lua</b></td>
+			<td><input class="submit" type="submit" value="{L_ADD}" /></td>
 		</tr>
 	</table>
 	<input type="hidden" value="{A_ADD}" name="{A_OPERATION}" />
@@ -55,7 +55,7 @@
 		<th class="table_header">{L_SETTINGS_FILE}</th>
 	</tr>
 	<tr>
-		<td class="data1">
+		<td>
 			<form name="ua_uploadini" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 				<input class="file" type="file" name="file" />
 				<input type="hidden" value="{A_UPINI}" name="{A_OPERATION}" />
@@ -82,13 +82,13 @@
 		</tr>
 		<!-- BEGIN section -->
 		<tr>
-			<th colspan="4" class="data_header">[{section.NAME}]</th>
+			<th colspan="4">[{section.NAME}]</th>
 		</tr>
 		<tr>
-			<td class="data_header">{L_SETTING_NAME}</td>
-			<td class="data_header">{L_VALUE}</td>
+			<th>{L_SETTING_NAME}</th>
+			<th>{L_VALUE}</th>
 			<!-- IF S_MANAGE -->
-			<td class="data_header">{L_ENABLED}</td>
+			<th>{L_ENABLED}</th>
 			<!-- ENDIF -->
 		</tr>
 		<!-- BEGIN settings_row -->
@@ -111,8 +111,8 @@
 		<!-- END section -->
 		<!-- IF S_MANAGE -->
 		<tr>
-			<td class="data_header" colspan="4" align="center"><input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
-				<input class="submit" type="submit" name="settings" value="{L_UPDATE_SET}" /></td>
+			<th colspan="4"><input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
+				<input class="submit" type="submit" name="settings" value="{L_UPDATE_SET}" /></th>
 		</tr>
 		<!-- ENDIF -->
 	</table>

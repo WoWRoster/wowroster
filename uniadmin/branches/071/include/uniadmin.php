@@ -198,11 +198,9 @@ class UniAdmin
 	 *
 	 * @param string $debug_string
 	 */
-	function debug( $debug_string )
+	function error( $debug_string )
 	{
-		global $uniadmin;
-
-		$uniadmin->debug[] = $debug_string;
+		$this->debug[] = $debug_string;
 	}
 
 	/**
@@ -212,9 +210,7 @@ class UniAdmin
 	 */
 	function message( $message_string )
 	{
-		global $uniadmin;
-
-		$uniadmin->messages[] = $message_string;
+		$this->messages[] = $message_string;
 	}
 
 	/**
@@ -225,25 +221,20 @@ class UniAdmin
 	 */
 	function unzip( $file , $path )
 	{
-		global $user, $uniadmin;
+		global $user;
 
 		require_once(UA_INCLUDEDIR.'pclzip.lib.php');
 
 		$archive = new PclZip($file);
-		$list = $archive->extract(PCLZIP_OPT_PATH, $path); //removed PCLZIP_OPT_REMOVE_ALL_PATH to preserve file structure
+		$list = $archive->extract(PCLZIP_OPT_PATH, $path);
 		if ($list == 0)
 		{
 			$try_unlink = @unlink($file);
 			if( !$try_unlink )
 			{
-				$this->debug(sprintf($user->lang['error_unlink'],$file));
+				$this->error(sprintf($user->lang['error_unlink'],$file));
 			}
-			$this->debug(sprintf($user->lang['error_pclzip'],$archive->errorInfo(true)));
-			$this->set_vars(array(
-			    'template_file' => 'index.html',
-			    'display'       => true)
-			);
-			die();
+			ua_die(sprintf($user->lang['error_pclzip'],$archive->errorInfo(true)),'PclZip Error');
 		}
 		unset($archive);
 	}
@@ -282,9 +273,10 @@ class UniAdmin
 	 *
 	 * @param string $dir
 	 * @param array $array
+	 * @param bool $sub_dir
 	 * @return array
 	 */
-	function ls( $dir , $array )
+	function ls( $dir , $array = array() , $sub_dir = true )
 	{
 		$handle = opendir($dir);
 		for(;(false !== ($readdir = readdir($handle)));)
@@ -292,7 +284,7 @@ class UniAdmin
 			if( $readdir != '.' && $readdir != '..' && $readdir != 'index.htm' && $readdir != 'index.html' && $readdir != '.svn' )
 			{
 				$path = $dir.DIR_SEP.$readdir;
-				if( is_dir($path) )
+				if( $sub_dir && is_dir($path) )
 				{
 					$array = $this->ls($path, $array);
 				}
@@ -329,8 +321,6 @@ class UniAdmin
 	 */
 	function cleardir( $dir )
 	{
-		global $uniadmin;
-
 		$no_delete = array('.','..','index.html','index.htm','.svn','_cvs');
 
 		if( !($dir = dir($dir)) )
@@ -412,7 +402,7 @@ class UniAdmin
 
 	function page_header()
 	{
-		global $uniadmin, $db, $user, $tpl;
+		global $db, $user, $tpl;
 
 		// Define a variable so we know the header's been included
 		define('HEADER_INC', true);
@@ -445,7 +435,7 @@ class UniAdmin
 			'UA_FORMACTION'   => UA_FORMACTION,
 			'UA_INDEXPAGE'    => UA_INDEXPAGE,
 			'UA_INDEX'        => UA_INDEX,
-			'U_INTERFACE_URL' => $uniadmin->config['interface_url'],
+			'U_INTERFACE_URL' => $this->config['interface_url'],
 
 			'A_URI_PAGE'       => UA_URI_PAGE,
 			'A_OPERATION'      => UA_URI_OP,
@@ -491,7 +481,7 @@ class UniAdmin
 			{
 				$tpl->assign_block_vars('messages_row',
 					array('TEXT'    => $message,
-						'ROW_CLASS' => $uniadmin->switch_row_class(),
+						'ROW_CLASS' => $this->switch_row_class(),
 					)
 				);
 			}
@@ -507,7 +497,7 @@ class UniAdmin
 			{
 				$tpl->assign_block_vars('debug_row',
 					array('TEXT'    => $message,
-						'ROW_CLASS' => $uniadmin->switch_row_class(),
+						'ROW_CLASS' => $this->switch_row_class(),
 					)
 				);
 			}
@@ -517,19 +507,21 @@ class UniAdmin
 		// Menus
 		//
 		$menus = $this->gen_menus();
-		$main_menu = '';
 
 		foreach ( $menus as $menu )
 		{
 			// Don't display the link if they don't have permission to view it
-			if ( (empty($menu['check'])) || (isset($user->data['level']) && $user->data['level'] >= $menu['check']) )
+			if( (empty($menu['check'])) || (isset($user->data['level']) && $user->data['level'] >= $menu['check']) )
 			{
-				$main_menu .= '<a href="' . UA_INDEXPAGE . '=' . $menu['link'] . '">' . $menu['text'] . '</a> | ';
+				$tpl->assign_block_vars('main_menu',array(
+					'LINK'     => UA_INDEXPAGE . $menu['link'],
+					'TEXT'     => $menu['text'],
+					'ITEM'     => '<a href="' . UA_INDEXPAGE . $menu['link'] . '">' . $menu['text'] . '</a>',
+					'SELECTED' => ( isset($_GET[UA_URI_PAGE]) && $_GET[UA_URI_PAGE] == $menu['link'] ? true : false )
+					)
+				);
 			}
 		}
-
-		// Remove the trailing ' | ' from menus
-		$main_menu = preg_replace('# \| $#', '', $main_menu);
 
 		if ( !$this->gen_simple_header )
 		{
@@ -537,10 +529,8 @@ class UniAdmin
 				'LOGO' => $user->style['logo_path'],
 
 				'S_NORMAL_HEADER' => true,
-				'S_LOGGED_IN' => ( isset($user->data['level']) ? ( ( $user->data['level'] != UA_ID_ANON ) ? true : false) : false),
-
-				// Menu
-				'MAIN_MENU' => $main_menu)
+				'S_LOGGED_IN' => ( isset($user->data['level']) ? ( ( $user->data['level'] != UA_ID_ANON ) ? true : false) : false)
+				)
 			);
 		}
 	}
@@ -552,6 +542,7 @@ class UniAdmin
 		$main_menu = array(
 			array('link' => 'help',     'text' => $user->lang['title_help'],     'check' => ''),
 			array('link' => 'addons',   'text' => $user->lang['title_addons'],   'check' => ''),
+			array('link' => 'wowace',   'text' => $user->lang['title_wowace'],   'check' => '3'),
 			array('link' => 'logo',     'text' => $user->lang['title_logo'],     'check' => ''),
 			array('link' => 'settings', 'text' => $user->lang['title_settings'], 'check' => ''),
 			array('link' => 'stats',    'text' => $user->lang['title_stats'],    'check' => '1'),
@@ -611,8 +602,9 @@ class UniAdmin
 					foreach ( $db->queries as $query )
 					{
 						$tpl->assign_block_vars('query_row', array(
-						'ROW_CLASS' => $this->switch_row_class(),
-						'QUERY' => $query)
+							'ROW_CLASS' => $this->switch_row_class(),
+							'QUERY' => $query
+							)
 						);
 					}
 				}
@@ -662,6 +654,109 @@ class UniAdmin
 		}
 
 		return sprintf($retstring, $size, $sizes[$i]);
+	}
+
+	function get_remote_contents( $url , $timeout = 5 )
+	{
+		$contents = '';
+		$error = array();
+
+		if( function_exists('curl_init') )
+		{
+			$ch = curl_init($url);
+
+			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			$contents = curl_exec($ch);
+
+			// If there were errors
+			if (curl_errno($ch))
+			{
+				$this->error('Error: '.curl_error($ch));
+				return false;
+			}
+
+			curl_close($ch);
+
+			return $contents;
+		}
+		else
+		{
+			$url = parse_url($url);
+			if( !isset($url['port']) || $url['port'] == '' )
+			{
+				switch ($url['scheme'])
+				{
+					case 'http':
+						$url['port'] = 80;
+						break;
+
+					case 'https':
+						$url['port'] = 443;
+						break;
+
+					default:
+						$url['port'] = 80;
+						break;
+				}
+			}
+
+			// Build the post header
+			$post_header  = 'GET '.$url['path']." HTTP/1.1\r\n";
+			$post_header .= 'Host: '.$url['host']."\r\n";
+			$post_header .= "Connection: close\r\n\r\n";
+
+			$sh = @fsockopen($url['host'], $url['port'], $error['number'], $error['string'], $timeout);
+			if( $sh )
+			{
+				@fputs($sh, $post_header);
+				while ( !@feof($sh) )
+				{
+					$contents .= @fgets($sh);
+				}
+			}
+			else
+			{
+				$this->error($error['number'].' - '.$error['string']);
+				return false;
+			}
+			@fclose($sh);
+
+			return $contents;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Write a file to somewhere
+	 *
+	 * @param string $file		File location (full path)
+	 * @param string $contents	File contents
+	 * @param string $mode		Write mode (default 'w')
+	 * @return bool
+	 */
+	function write_file( $file , $contents , $mode='w' )
+	{
+		// Set our permissions to execute-only
+		$old = @umask(0111);
+
+		$fp = @fopen($file, $mode);
+
+		if ( !$fp )
+		{
+			return false;
+		}
+		else
+		{
+			@fwrite($fp, $contents);
+			@fclose($fp);
+
+			return true;
+		}
+		@umask($old);
 	}
 }
 
@@ -803,7 +898,7 @@ function ua_die($text = '', $title = '', $file = '', $line = '', $sql = '')
 		die($text);
 	}
 
-	$uniadmin->debug(( $text  != '' ) ? $text  : '&nbsp;');
+	$uniadmin->error(( $text  != '' ) ? $text  : '&nbsp;');
 
 	if( !defined('HEADER_INC') )
 	{

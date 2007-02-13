@@ -101,7 +101,7 @@ function main( )
 		switch( $logo_num )
 		{
 			case '1':
-				$logo_table = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
+				$logo_table = '<table class="logo_table" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo1_01.gif" style="width:500px;height:62px;" alt="" /></td>
 	</tr>
@@ -117,7 +117,7 @@ function main( )
 				break;
 
 			case '2':
-				$logo_table = '<table class="logo_table" border="0" cellpadding="0" cellspacing="0">
+				$logo_table = '<table class="logo_table" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="3"><img src="'.$uniadmin->url_path.'images/logo2_01.gif" style="width:500px;height:70px;" alt="" /></td>
 	</tr>
@@ -184,7 +184,7 @@ function toggle_logo( $op , $id )
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_logo_toggle'],$op));
+			$uniadmin->error(sprintf($user->lang['sql_error_logo_toggle'],$op));
 		}
 	}
 }
@@ -233,7 +233,7 @@ function process_logo( )
 		$try_move = @move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);
 		if( !$try_move )
 		{
-			$uniadmin->debug(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$file_field]['tmp_name'],$logo_location));
+			$uniadmin->error(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$file_field]['tmp_name'],$logo_location));
 			return;
 		}
 
@@ -244,7 +244,7 @@ function process_logo( )
 			$try_chmod = @chmod($logo_location,0777);
 			if( !$try_chmod )
 			{
-				$uniadmin->debug(sprintf($user->lang['error_chmod'],$logo_location));
+				$uniadmin->error(sprintf($user->lang['error_chmod'],$logo_location));
 				return;
 			}
 		}
@@ -257,7 +257,7 @@ function process_logo( )
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_logo_insert'],$logo_num));
+			$uniadmin->error(sprintf($user->lang['sql_error_logo_insert'],$logo_num));
 		}
 
 		$uniadmin->message(sprintf($user->lang['logo_uploaded'],$logo_num));

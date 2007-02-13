@@ -28,6 +28,7 @@ if( !defined('IN_UNIADMIN') )
 // <title> Titles
 $lang['title_help'] = 'Aide';
 $lang['title_addons'] = 'AddOns';
+$lang['title_wowace'] = 'WoWAce';
 $lang['title_logo'] = 'Logos';
 $lang['title_settings'] = 'Paramètres';
 $lang['title_stats'] = 'Statistiques';
@@ -66,6 +67,11 @@ or
                {fichierAddon}
 [Fonts]
      font.ttf</pre>'),
+
+array(	'header' => 'WoWAce',
+'text'   => '
+<p>This module allows you to download addons from the WoWAce.com SVN repository</p>
+<p>Only the UniAdmin Admin user has the ability to access this module</p>'),
 
 	array(	'header' => 'Logos',
 			'text'   => '
@@ -108,7 +114,7 @@ Si le réglage est un 1 ou zéro cela signifie que c\'est une case à cocher dans U
 	<dd>&nbsp;</dd>
 </dl>
 <p>Il ne devrait pas y avoir plus de 1 ou 2 utilisateurs de &quot;niveau 3&quot; dans UniAdmin</p>
-<hr />
+<div class="ua_hr"><hr /></div>
 <p>Légende des codes d\'accès:</p>
 <ul>
 	<li> 1: Gestion des AddOns
@@ -139,6 +145,12 @@ Si le réglage est un 1 ou zéro cela signifie que c\'est une case à cocher dans U
 	<li> 6: Configuration d\'UniAdmin</li>
 </ul>'),
 );
+
+
+
+
+
+
 
 
 // Column Headers
@@ -220,6 +232,7 @@ $lang['modify_user'] = 'Modifier Utilisateur';
 $lang['current_users'] = 'Utilisateurs Actuels';
 $lang['select_file'] = 'Choisir fichiers';
 $lang['userlevel'] = 'Niveau Utilisateur';
+$lang['get_wowace_addons'] = 'Get WoWAce AddOns';
 $lang['addon_management'] = 'Gestion des AddOns';
 $lang['addon_uploaded'] = '%1$s a été chargé avec succès';
 $lang['addon_edited'] = '%1$s was edited';
@@ -279,12 +292,17 @@ $lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the W
 $lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
 
+// WoWAce
+$lang['new_wowace_list'] = 'New list downloaded from WoWAce.com';
+
+
 // Upgrader
 $lang['ua_upgrade'] = 'UniAdmin Upgrade';
 $lang['no_upgrade'] = 'You have already upgraded UniAdmin<br />Or you have a newer version than this upgrader';
 $lang['select_version'] = 'Select Version';
 $lang['success'] = 'Success';
 $lang['upgrade_complete'] = 'Your UniAdmin installation has been successfully upgraded';
+$lang['new_version_available'] = 'There is a new version of UniAdmin available <span class="green">v%1$s</span><br />Get it <a href="http://www.wowroster.net" target="_blank">HERE</a>';
 
 
 // UU Sync Settings
@@ -355,15 +373,16 @@ $lang['DOWNLOADAFTERUPLOAD'] = 'Web==&gt;WoW - Faire après qu\'UU n\'ait chargé'
 
 // BEGIN UA CONFIG SETTINGS
 
-$lang['admin']['addon_folder'] = 'Spécifier le dossier ou les zips d\'addons seront sauvegardés';
-$lang['admin']['default_lang'] = 'Langue par défaut de l\'interface d\'UniAdmin<br /><br />Les valeurs présentes sont scannées automatiquement depuis le répertoire language';
-$lang['admin']['default_style'] = 'The default display style';
-$lang['admin']['enable_gzip'] = 'Enable gzip compression when displaying UniAdmin Pages';
-$lang['admin']['interface_url'] = 'Specifier l\'emplacement de interface.php ici<br /><br />Utiliser %url% pour insérer l\'url de base<br />La valeur par défaut est &quot;%url%?p=interface&quot; ou &quot;%url%interface.php&quot;';
-$lang['admin']['logo_folder'] = 'Specifier le dossier ou les logos UniUploader seront sauvegardés';
-$lang['admin']['temp_analyze_folder'] = 'Specifier le dossier ou les zips d\'addons seront extraits et anaylsés';
-$lang['admin']['UAVer'] = 'Version actuelle d\'UniAdmin<br />Vous ne pouvez pas changer ce paramètre';
-$lang['admin']['ua_debug'] = 'Debugging for UniAdmin<br /><br />- [no] No debugging<br />- [half] Show query count and rendertime in the footer<br />- [full] Show query count, rendertime, and SQL query window in the footer';
+$lang['admin']['addon_folder'] = 'AddOn Zip Folder|Specify the folder addon zip archives will be saved';
+$lang['admin']['check_updates'] = 'Check For UA Updates|Check wowroster.net if there is a newer version of UniAdmin available';
+$lang['admin']['default_lang'] = 'Default Language|Default language of the UniAdmin interface<br /><br />Values here are automatically scanned from the languages directory';
+$lang['admin']['default_style'] = 'Default Style|The default display style';
+$lang['admin']['enable_gzip'] = 'Gzip Compression|Enable gzip compression when displaying UniAdmin Pages';
+$lang['admin']['interface_url'] = 'Interface URL|Specify the location of interface.php here<br /><br />Use %url% to insert the base url<br />Default is &quot;%url%?p=interface&quot; or &quot;%url%interface.php&quot;';
+$lang['admin']['logo_folder'] = 'Logo Folder|Specify the folder UniUploader logos will be saved';
+$lang['admin']['temp_analyze_folder'] = 'AddOn Analyze Temp Folder|Specify the folder addon zip archives will be extracted to and anaylized';
+$lang['admin']['UAVer'] = 'UniAdmin Version|Current UniAdmin version<br />You cannot change this setting';
+$lang['admin']['ua_debug'] = 'Debug Mode|Debugging for UniAdmin<br /><br />- [no] No debugging<br />- [half] Show query count and rendertime in the footer<br />- [full] Show query count, rendertime, and SQL query window in the footer';
 
 // END UA CONFIG SETTINGS
 
@@ -375,7 +394,7 @@ $lang['messages'] = 'Messages';
 
 
 // Error messages
-$lang['error'] = 'Erreur UniAdmin';
+$lang['error'] = 'Erreur';
 $lang['error_invalid_login'] = 'Nom d\'Utilisateur ou Mot de passe invalide ou erroné';
 $lang['error_delete_addon'] = 'Erreur Suppression d\'AddOn';
 $lang['error_enable_addon'] = 'Erreur Activation d\'AddOn';
@@ -390,6 +409,7 @@ $lang['error_unzip'] = 'Erreur de Manipulation Zip';
 $lang['error_pclzip'] = 'PCLZip Erreur Irrécupérable: [%1$s]';
 $lang['error_addon_process'] = 'Erreur Traitement AddOn';
 $lang['error_zip_file'] = 'L\'Addon chargé <u>doit</u> être un fichier zip';
+$lang['error_addon_not_exist'] = 'AddOn with ID:%1$s does not exist';
 
 $lang['error_no_ini_uploaded'] = 'Le fichier settings.ini n\'a pas été chargé';
 $lang['error_ini_file'] = 'Le fichier chargé <u>doit</u> être settings.ini d\'UniUploader';
@@ -398,13 +418,19 @@ $lang['error_chmod'] = 'chmod [%1$s] Impossible<br />chmod Manuellement et/ou vé
 $lang['error_mkdir'] = 'mkdir [%1$s] Impossible<br />mkdir Manuellement et/ou vérifier les permissions de fichiers';
 $lang['error_unlink'] = 'unlink(delete) [%1$s] Impossible<br />Supprimer Manuellement et/ou vérifier les permissions de fichiers';
 $lang['error_move_uploaded_file'] = 'Impossible de de déplacer [%1$s] vers [%2$s]<br />Vérifier les paramètres de chargement php et les permissions de fichiers';
+$lang['error_write_file'] = 'Could not write [%1$s]<br />Check persmissions';
 
 $lang['error_no_uploaded_logo'] = 'Aucun Logo Chargé';
 $lang['error_logo_format'] = 'Le fichier chargé <u>doit</u> être une image GIF';
 
+$lang['error_name_required'] = 'Name is required';
+$lang['error_pass_required'] = 'Password is required';
 $lang['error_pass_mismatch'] = 'Passwords did not match';
 $lang['error_pass_mismatch_edit'] = 'Passwords did not match<br />Old password unchanged';
 
+$lang['error_no_wowace_addons'] = 'No WoWAce AddOns in Downloaded List';
+
+$lang['error_upgrade_needed'] = 'UniAdmin is currently being upgraded<br />Log in with an admin account to continue';
 
 // SQL Error Messages
 $lang['sql_error'] = 'Erreur SQL';

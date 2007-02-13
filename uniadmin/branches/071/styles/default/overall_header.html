@@ -5,9 +5,10 @@
 	<title>UniAdmin v{UA_VER} [{SUB_TITLE}]</title>
 	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
-	<meta HTTP-EQUIV="imagetoolbar" content="no" />
+	<meta http-equiv="imagetoolbar" content="no" />
 	<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style.css" />
 	<script type="text/javascript" src="{TEMPLATE_PATH}/script.js"></script>
+	<script type="text/javascript" src="{TEMPLATE_PATH}/tablesort.js"></script>
 	<script type="text/javascript">
 		<!--
 		var ol_wrap = 1;
@@ -23,7 +24,7 @@
 </head>
 <body{ONLOAD}>
 
-<table width="100%" border="0" cellspacing="1" cellpadding="2">
+<table width="100%">
 	<tr>
 		<td width="201" valign="top"><a href="{UA_INDEX}"><img src="{TEMPLATE_PATH}/images/logo.png" alt="UniAdmin" /></a></td>
 		<td width="100%" valign="top">
@@ -31,10 +32,14 @@
 			<!-- IF SUB_TITLE --><span class="subtitle">{SUB_TITLE}</span><br /><!-- ENDIF -->
 			<br />
 			<!-- IF S_NORMAL_HEADER -->
-			<span class="ua_menu">
-				{MAIN_MENU}
-			</span>
-			<br /><br />
+				<div id="ua_menu" class="ua_menu">
+					<ul>
+					<!-- BEGIN main_menu -->
+						<li><a href="{main_menu.LINK}"<!-- IF main_menu.SELECTED --> class="current"<!-- ENDIF -->>{main_menu.TEXT}</a></li>
+					<!-- END main_menu -->
+					</ul>
+				</div>
+			<br />
 			<span class="sync_url">{L_SYNCRO_URL} ({L_VER_SYNCRO_URL}): <a href="{U_INTERFACE_URL}" target="_blank">{U_INTERFACE_URL}</a></span>
 			<br /><br />
 			<!-- ENDIF -->

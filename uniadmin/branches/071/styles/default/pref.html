@@ -6,18 +6,18 @@
 		<th colspan="4" class="table_header">{L_CONF_SETTINGS}</th>
 	</tr>
 	<tr>
-		<td class="data_header">{L_SETTING_NAME}</td>
-		<td class="data_header">{L_VALUE}</td>
+		<th>{L_SETTING_NAME}</th>
+		<th>{L_VALUE}</th>
 	</tr>
 	<!-- BEGIN config_row -->
 	<tr>
-		<td class="data{config_row.ROW_CLASS}"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{config_row.TOOLTIP}',CAPTION,'{config_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {config_row.SETNAME}</td>
+		<td class="data{config_row.ROW_CLASS}"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{config_row.TOOLTIP}',CAPTION,'{config_row.NAME}',VAUTO);" onmouseout="return nd();" /> {config_row.NAME}</td>
 		<td class="data{config_row.ROW_CLASS}">{config_row.INPUT_FIELD}</td>
 	</tr>
 	<!-- END config_row -->
 	<tr>
-		<td class="data_header" colspan="4" align="center"><input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
-			<input class="submit" type="submit" value="{L_UPDATE_SET}" /></td>
+		<th colspan="4" align="center"><input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
+			<input class="submit" type="submit" value="{L_UPDATE_SET}" /></th>
 	</tr>
 </table>
 </form>

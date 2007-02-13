@@ -50,7 +50,7 @@ for ($y=0; $y<$countqw; $y++)
 }
 
 
-$width = 500;
+$width = 400;
 $im = ImageCreate($width, 250);
 
 $black = ImageColorAllocate($im, 0, 0, 0);
@@ -119,9 +119,9 @@ $red = ImageColorAllocate($im, 255, 153, 153);
 $blue = ImageColorAllocate($im, 0, 0, 255);
 
 // Create Color key and slice description
-$adjPosition = 20;
+$adjPosition = 15;
 
-$xPosOffset = -100;// to move the key around
+$xPosOffset = -95;// to move the key around
 $yPosOffset = -10;// to move the key around
 
 for ($z=0; $z<$degCount; $z++)

@@ -22,6 +22,7 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 }
 
 error_reporting(E_ALL);
+clearstatcache();
 
 // Disable magic quotes and add slashes to global arrays
 set_magic_quotes_runtime(0);
@@ -45,9 +46,13 @@ if( file_exists(UA_BASEDIR.'config.php') )
 	include( UA_BASEDIR.'config.php' );
 }
 
-if ( !defined('UA_INSTALLED') )
+
+if( !defined('UA_INSTALLED') )
 {
-    header('Location: install.php');
+	define( 'IN_UNIADMIN',true );
+	include(UA_BASEDIR.'include'.DIR_SEP.'constants.php');
+    require(UA_MODULEDIR . 'install.php');
+    die();
 }
 
 define( 'IN_UNIADMIN',true );
@@ -64,11 +69,43 @@ $tpl = new Template;
 $uniadmin = new UniAdmin();
 $user = new User();
 
-if( !isset($interface) )
+
+include(UA_INCLUDEDIR.'login.php');
+
+
+// Check to run upgrader
+if( $uniadmin->config['UAVer'] < UA_VER )
 {
-	include(UA_INCLUDEDIR.'login.php');
-	include(UA_INCLUDEDIR.'menu.php');
+	if( $user->data['level'] == UA_ID_ADMIN )
+	{
+		require(UA_MODULEDIR . 'upgrade.php');
+		die();
+	}
+	else
+	{
+		ua_die($user->lang['error_upgrade_needed']);
+	}
 }
+
+
+// ----[ Check for latest UniAdmin Version ]------------------
+if( $user->data['level'] == UA_ID_ADMIN && $uniadmin->config['check_updates'] )
+{
+	$ua_ver_latest = '';
+
+	$content = $uniadmin->get_remote_contents('http://wowroster.net/ua_version.txt');
+
+	if( preg_match('#<version>(.+)</version>#i',$content,$version) )
+	{
+		$ua_ver_latest = $version[1];
+	}
+
+	if( !empty($ua_ver_latest) && $ua_ver_latest > UA_VER )
+	{
+		$uniadmin->error(sprintf($user->lang['new_version_available'],$ua_ver_latest));
+	}
+}
+
 
 /**
 * Applies addslashes() to the provided data

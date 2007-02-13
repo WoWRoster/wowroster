@@ -302,7 +302,7 @@ function add_sv( $svname )
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
+			$uniadmin->error(sprintf($user->lang['sql_error_settings_sv_insert'],$svname));
 		}
 	}
 }
@@ -320,7 +320,7 @@ function remove_sv( $id )
 	$db->query($sql);
 	if( !$db->affected_rows() )
 	{
-		$uniadmin->debug(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
+		$uniadmin->error(sprintf($user->lang['sql_error_settings_sv_remove'],$id));
 	}
 }
 
@@ -353,7 +353,7 @@ function process_ini( )
 	{
 		if( $_FILES['file']['name'] != 'settings.ini' )
 		{
-			$uniadmin->debug($user->lang['error_ini_file']);
+			$uniadmin->error($user->lang['error_ini_file']);
 			return;
 		}
 
@@ -372,7 +372,7 @@ function process_ini( )
 		$try_move = move_uploaded_file($temp_file_name,$ini_file);
 		if( !$try_move )
 		{
-			$uniadmin->debug(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$ini_file));
+			$uniadmin->error(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$ini_file));
 			return;
 		}
 

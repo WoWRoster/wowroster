@@ -2,6 +2,9 @@ body {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
 }
+body.sort-active * {
+	cursor:wait;
+}
 
 a:link, a:visited, a:active {
 	color:#006699;
@@ -9,7 +12,7 @@ a:link, a:visited, a:active {
 	background-color:transparent;
 }
 a:hover {
-	color:#000000;
+	color:black;
 	text-decoration:none;
 	background-color:#E3E3FF;
 }
@@ -85,19 +88,20 @@ a:hover {
 	font-size:10px;
 	border:1px solid #781351;
 	background-color:#f2f2ff;
+	margin-top:1px;
 }
 .file {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:10px;
-	background-color:#ffffff;
-	color:#000000;
+	background-color:white;
+	color:black;
 }
 .select {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
 	border:1px solid #a7a6aa;
-	background-color:#ffffff;
-	color:#000000;
+	background-color:white;
+	color:black;
 }
 img, input, select, button {
 	vertical-align:middle;
@@ -107,7 +111,7 @@ img {
 }
 
 .ua_hr {
-	border:1px outset #00487D;
+	border-bottom:1px solid #00487D;
 }
 .ua_hr hr {
 	display:none;
@@ -131,13 +135,43 @@ img {
 	font-weight:bold;
 }
 
-.ua_menu {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:12px;
-	border:1px solid #00487D;
-	background-color:#F2F2FF;
-	padding:2px 3px;
+.ua_menu ul {
+	margin:4px;
+	padding:3px 0;
+	margin-left:0;
+	font:bold 12px verdana, arial, helvetica, geneva, sans-serif;
+	border-bottom:1px solid #00487D;
+	list-style-type:none;
+	text-align:left; /*set to left, center, or right to align the menu as desired*/
 }
+.ua_menu li {
+	display:inline;
+	margin:0;
+}
+.ua_menu li a {
+	text-decoration:none;
+	padding:3px 7px;
+	margin-right:3px;
+	border:1px solid #00487D;
+	/*border-bottom:none;*/
+	background-color:#F2F2FF;
+	color:#2d2b2b;
+}
+.ua_menu li a:visited {
+	color:#2d2b2b;
+}
+.ua_menu li a.current {
+	background-color:#006699;
+	color:white;
+}
+.ua_menu li a:hover {
+	background-color:#FFCCBF;
+	color:black;
+}
+.ua_menu li a:active {
+	color:black;
+}
+
 .sync_url {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
@@ -149,48 +183,107 @@ img {
 .ua_table {
 	font-family:verdana, arial, helvetica, geneva, sans-serif;
 	font-size:12px;
-	border:1px solid #00487D;
-	background-color:#F2F2FF;
+	border-left:1px solid #C1DAD7;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
 }
-.debug_header {
-	color:#000;
-	border:1px solid #B32400;
-	background-color:#FFCCBF;
+.ua_table th {
+	color:#4f6b72;
+	border-right:1px solid #dcdcdc;
+	border-bottom:1px solid #dcdcdc;
+	border-top:1px solid #dcdcdc;
+	font-size:11px;
+	font-weight:bold;
+	height:16px;
+	padding:2px;
+	vertical-align:middle;
+	background:#f0f0f0 repeat url('images/th.jpg');
+	overflow:hidden;
 }
+.ua_table th a:hover,
+.ua_table th a:hover {
+	background-color:transparent;
+}
+.ua_table th.sort-active * {
+	cursor:wait;
+}
+.ua_table th.sortable,
+.ua_table th.sortable-text,
+.ua_table th.sortable-date,
+.ua_table th.sortable-numeric,
+.ua_table th.sortable-currency {
+	cursor:pointer;
+}
+.ua_table th.sort-active {
+	color:#ff0000 !important;
+}
+.ua_table th.table_header {
+	color:#FFF;
+	font-size:16px;
+	height:21px;
+	background:#f0f0f0 repeat url('images/th-title.jpg');
+}
+.ua_table th.debug_header {
+	color:#FFF;
+	font-size:16px;
+	height:21px;
+	background:#FFCCBF repeat url('images/th-error.jpg');
+}
+.ua_table th.forwardSort {
+	background:transparent url('images/th-up-arrow.jpg') no-repeat 100% 0;
+}
+.ua_table th.reverseSort {
+	background:transparent url('images/th-down-arrow.jpg') no-repeat 100% 0;
+}
+.ua_table th.forwardSort a,
+.ua_table th.reverseSort a {
+	color:#FFF;
+	padding-right:10px;
+}
+.ua_table th.forwardSort a:link, .ua_table th.forwardSort a:visited, .ua_table th.forwardSort a:active, .ua_table th.forwardSort a:hover
+.ua_table th.reverseSort a:link, .ua_table th.reverseSort a:visited, .ua_table th.reverseSort a:active, .ua_table th.reverseSort a:hover {
+	color:#FFF;
+	text-decoration:none;
+	background-color:transparent;
+}
+.ua_table td,
+.ua_table td.data1 {
+	font-size:11px;
+	border-right:1px solid #C1DAD7;
+	border-bottom:1px solid #C1DAD7;
+	padding:1px 2px 1px 2px;
+}
+.ua_table tr.data2 {
+	background:#F5FAFA;
+}
+.ua_table td.data2,
+.ua_table td.data2 a {
+	background:#F5FAFA;
+}
+
 .logo_table {
 	border:0px;
 	width:500px;
 	padding:0px;
 }
-.data_header {
-	background-color:#BFE4FF;
-	font-size:11px;
-	font-weight:bold;
+.logo_table td {
+	border:0px;
+	padding:0px;
 }
-.data1 {
-	background-color:#F2F2FF;
-	font-size:11px;
-}
-.data2 {
-	background-color:#EDEDFF;
-	font-size:11px;
-}
-.table_header {
-	background-color:#0066B3;
-	color:#FFF;
-	font-size:16px;
-	font-weight:bold;
-}
-.stats_footer {
-	background-color:#BFE4FF;
-	font-size:12px;
-}
+
 .copyright {
 	font-size:10px;
 }
 
 .ua_loginbox, .ua_loginbox table {
 	font-size:9px;
+}
+.ua_loginbox, .ua_loginbox table td,
+.ua_loginbox, .ua_loginbox table th,
+.ua_loginbox, .ua_loginbox table tr {
+	border:0;
 }
 .ua_loginbox fieldset {
 	width:26em;
@@ -255,7 +348,7 @@ img {
 	background-image:url('images/radio_on_hover.png');
 }
 .radioOff:hover {
-	color: #333 !important;
+	color:#333 !important;
 	background-image:url('images/radio_off_hover.png');
 }
 
@@ -298,28 +391,67 @@ img {
 .treeview {
 	margin-left:0px;
 }
-.treeview ul{ /*CSS for Simple Tree Menu*/
+.treeview ul { /*CSS for Simple Tree Menu*/
 	margin:0;
 	padding:0;
 }
 
-.treeview li{ /*Style for LI elements in general (excludes an LI that contains sub lists)*/
+.treeview li { /*Style for LI elements in general (excludes an LI that contains sub lists)*/
 	background:url('images/list.gif') no-repeat left center;
 	list-style-type:none;
 	padding-left:20px;
 	margin-bottom:2px;
 }
 
-.treeview li.submenu{ /* Style for LI that contains sub lists (other ULs). */
+.treeview li.submenu { /* Style for LI that contains sub lists (other ULs). */
 	background:url('images/closed.png') no-repeat left 1px;
 	cursor:pointer !important;
 }
 
 
-.treeview li.submenu ul{ /*Style for ULs that are children of LIs (submenu) */
+.treeview li.submenu ul { /*Style for ULs that are children of LIs (submenu) */
 	display:none; /*Hide them by default. Don't delete. */
 }
 
-.treeview .submenu ul li{ /*Style for LIs of ULs that are children of LIs (submenu) */
+.treeview .submenu ul li { /*Style for LIs of ULs that are children of LIs (submenu) */
 	cursor:default;
+}
+
+
+
+ul.tablePaginater {
+	display:block;
+	list-style:none;
+	padding:0;
+	margin:10px 0 1em 0;
+	text-align:center;
+}
+ul.tablePaginater li {
+	display:block;
+	float:left;
+	width:2.1em;
+	height:2.1em;
+	line-height:2em;
+	vertical-align:middle;
+	margin-right:4px;
+	color:#666;
+}
+ul.tablePaginater li.currentPage a {
+	border-color:#a84444 !important;
+	color:#000;
+}
+ul.tablePaginater li a {
+	display:block;
+	width:2em;
+	height:2em;
+	color:#666;
+	text-decoration:none;
+	outline:none;
+	border:1px solid #ccc;
+}
+ul.tablePaginater li a:focus {
+	color:#333;
+	text-decoration:none;
+	outline:none;
+	border-color:#aaa;
 }

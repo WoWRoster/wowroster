@@ -5,12 +5,12 @@
 		<th colspan="6" class="table_header">{L_CURRENT_USERS}</th>
 	</tr>
 	<tr>
-		<td class="data_header">{L_USERNAME}</td>
-		<td class="data_header">{L_USERLEVEL}</td>
-		<td class="data_header">{L_LANGUAGE}</td>
-		<td class="data_header">{L_USER_STYLE}</td>
-		<td class="data_header">{L_MODIFY}</td>
-		<td class="data_header">{L_DELETE}</td>
+		<th>{L_USERNAME}</th>
+		<th>{L_USERLEVEL}</th>
+		<th>{L_LANGUAGE}</th>
+		<th>{L_USER_STYLE}</th>
+		<th>{L_MODIFY}</th>
+		<th>{L_DELETE}</th>
 	</tr>
 	<!-- BEGIN user_row -->
 	<tr>
@@ -41,8 +41,8 @@
 			<th colspan="2" class="table_header">{L_ADD_USER}</th>
 		</tr>
 		<tr>
-			<td class="data1">{L_USERNAME}:</td>
-			<td class="data1"><input class="input_m" type="text" name="name" value="{P_USERNAME}" size="20" maxlength="30" /></td>
+			<td>{L_USERNAME}:</td>
+			<td><input class="input_m" type="text" name="name" value="{P_USERNAME}" size="20" maxlength="30" /></td>
 		</tr>
 		<tr>
 			<td class="data2">{L_PASSWORD}:</td>
@@ -50,25 +50,24 @@
 		</tr>
 		<!-- IF S_POWER -->
 		<tr>
-			<td class="data2">{L_RETYPE_PASSWORD}:</td>
-			<td class="data2"><input class="input_m" type="password" name="password2" value="" size="20" maxlength="50" /></td>
+			<td>{L_RETYPE_PASSWORD}:</td>
+			<td><input class="input_m" type="password" name="password2" value="" size="20" maxlength="50" /></td>
 		</tr>
 		<!-- ENDIF -->
 		<tr>
-			<td class="data1">{L_USERLEVEL}:</td>
-			<td class="data1"><!-- IF S_ADMIN -->{U_LEVEL_SELECTBOX}<!-- ELSE -->[{U_USER_ID}]<input type="hidden" name="level" value="{U_USER_ID}" /><!-- ENDIF --></td>
+			<td class="data2">{L_USERLEVEL}:</td>
+			<td class="data2"><!-- IF S_ADMIN -->{U_LEVEL_SELECTBOX}<!-- ELSE -->[{U_USER_ID}]<input type="hidden" name="level" value="{U_USER_ID}" /><!-- ENDIF --></td>
 		</tr>
 		<tr>
-			<td class="data1">{L_LANGUAGE}:</td>
-			<td class="data2">{U_LANG_SELECTBOX}</td>
+			<td>{L_LANGUAGE}:</td>
+			<td>{U_LANG_SELECTBOX}</td>
 		</tr>
 		<tr>
-			<td class="data1">{L_USER_STYLE}:</td>
+			<td class="data2">{L_USER_STYLE}:</td>
 			<td class="data2">{U_STYLE_SELECTBOX}</td>
 		</tr>
 		<tr>
-			<td class="data2"></td>
-			<td class="data2"><input class="submit" type="submit" value="{L_ADD_USER}" /></td>
+			<th colspan="2"><input class="submit" type="submit" value="{L_ADD_USER}" /></th>
 		</tr>
 	</table>
 	<input type="hidden" value="new" name="{A_OPERATION}" />

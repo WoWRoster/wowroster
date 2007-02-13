@@ -16,25 +16,11 @@
  *
  ******************************/
 
-// This picks up the view page so people with no login can look at the addons
-if( isset($_GET['p']) && $_GET['p'] == 'interface' )
-{
-	include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.$_GET['p'].'.php');
-	die();
-}
-
 // Include the initialization file
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
-// Check to run upgrader
-if( $uniadmin->config['UAVer'] < UA_VER )
-{
-	require(UA_MODULEDIR . 'upgrade.php');
-	die();
-}
-
 // Determine the module request
-$page = ( isset($_GET['p']) ) ? $_GET['p'] : 'help';
+$page = ( isset($_GET[UA_URI_PAGE]) ) ? $_GET[UA_URI_PAGE] : 'help';
 
 // Include the module
 if( is_file( $var = UA_MODULEDIR . $page . '.php' ) )

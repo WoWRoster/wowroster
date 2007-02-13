@@ -16,33 +16,9 @@
  *
  ******************************/
 
-/**
- * Set up environment
- */
-define('IN_UNIADMIN', true);
-error_reporting(E_ALL);
-
-// Be paranoid with passed vars
-// Destroy GET/POST/Cookie variables from the global scope
-if( intval(ini_get('register_globals')) != 0 )
+if( !defined('IN_UNIADMIN') )
 {
-	foreach( $_REQUEST AS $key => $val )
-	{
-		if (isset($$key))
-			unset($$key);
-	}
-}
-
-set_magic_quotes_runtime(0);
-if( !get_magic_quotes_gpc() )
-{
-	$_GET = slash_global_data($_GET);
-	$_POST = slash_global_data($_POST);
-}
-
-if( !defined('DIR_SEP') )
-{
-	define('DIR_SEP',DIRECTORY_SEPARATOR);
+    exit('Detected invalid access to this file!');
 }
 
 // Start a script timer
@@ -51,11 +27,6 @@ $timer_start = $mc_split[0] + $mc_split[1];
 unset($mc_split);
 
 
-$ua_root_path = dirname(__FILE__).DIR_SEP;
-define( 'UA_BASEDIR' , $ua_root_path );
-define( 'UA_THEMEDIR' , UA_BASEDIR . 'styles' . DIR_SEP );
-define( 'UA_CACHEDIR' , UA_BASEDIR . 'cache' . DIR_SEP );
-define( 'UA_LANGDIR'  , UA_BASEDIR . 'language' . DIR_SEP );
 define( 'UA_ADDONZIP_DIR' , UA_BASEDIR . 'addon_zips' . DIR_SEP );
 define( 'UA_ADDONTMP_DIR' , UA_BASEDIR . 'addon_temp' . DIR_SEP );
 define( 'UA_LOGO_DIR' , UA_BASEDIR . 'logos' . DIR_SEP );
@@ -182,8 +153,9 @@ class Template_Wrap extends Template
 		$this->header_inc = true;
 
 		$this->assign_vars(array(
-			'INSTALL_STEP' => $STEP,
-			'TEMPLATE_PATH' => 'styles/install'
+			'INSTALL_STEP'  => $STEP,
+			'TEMPLATE_PATH' => 'styles/install',
+			'UA_FORMACTION' => UA_INDEXPAGE.'install'
 			)
 		);
 	}
@@ -244,7 +216,7 @@ $STEP = ( isset($_POST['install_step']) ) ? $_POST['install_step'] : '1';
 if( defined('UA_INSTALLED') )
 {
 	$tpl = new Template_Wrap('install_error.html');
-	$tpl->message_die('UniAdmin is already installed - please remove the <strong>install.php</strong> file in this directory.', 'Installation Error');
+	$tpl->message_die('UniAdmin is already installed - please remove the <strong>modules/install.php</strong> file.', 'Installation Error');
 	exit();
 }
 
@@ -257,7 +229,7 @@ if( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 
 // System defaults / available database abstraction layers
 $DEFAULTS = array(
-	'version'       => '0.7.5',
+	'version'       => UA_VER,
 	'default_lang'  => 'english',
 	'default_style' => '1',
 	'table_prefix'  => 'uniadmin_',
@@ -869,24 +841,6 @@ function process_step4()
 // Functions!
 // ---------------------------------------------------------
 
-
-/**
- * Applies addslashes() to the provided data
- *
- * @param    mixed   $data   Array of data or a single string
- * @return   mixed           Array or string of data
- */
-function slash_global_data(&$data)
-{
-	if ( is_array($data) )
-	{
-		foreach ( $data as $k => $v )
-		{
-			$data[$k] = ( is_array($v) ) ? slash_global_data($v) : addslashes($v);
-		}
-	}
-	return $data;
-}
 
 /**
  * Checks if a POST field value exists;

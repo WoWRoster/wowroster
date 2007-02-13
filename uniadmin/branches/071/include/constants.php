@@ -21,7 +21,6 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-
 // UniAdmin Version
 define('UA_VER', '0.7.5');
 define('NO_CACHE', true);
@@ -62,20 +61,20 @@ define('UA_URI_EDIT',     'edit');
 // URL parameters
 define('UA_INDEX',        'index.php');
 define('UA_URI_PAGE',     'p');
-define('UA_INDEXPAGE',    UA_INDEX.'?'.UA_URI_PAGE);
+define('UA_INDEXPAGE',    UA_INDEX.'?'.UA_URI_PAGE.'=');
 define('UA_URI_THEME',    'theme');
-define('UA_FORMACTION',   UA_INDEXPAGE.( isset($_GET[UA_URI_PAGE]) ? '='.$_GET[UA_URI_PAGE] : '') );
+define('UA_FORMACTION',   UA_INDEXPAGE.( isset($_GET[UA_URI_PAGE]) ? $_GET[UA_URI_PAGE] : '') );
 
 
 // This is to reject certain settings in UU since we don't need them, or want them displayed
 define('UA_REJECT_INI'    ,'CHECKEDADDONS,CHECKEDSVLIST,EXELOC,FILELOCATION,SELECTEDACCT,EXE1,EXE1LOCATION,EXE2,EXE2LOCATION,EXE3,EXE3LOCATION,EXEUULAUNCH,EXEWOWLAUNCH,USERAGENT');
 
 // Database Table names
-define('UA_TABLE_ADDONS',   $config['table_prefix'] . 'addons');
-define('UA_TABLE_CONFIG',   $config['table_prefix'] . 'config');
-define('UA_TABLE_FILES',    $config['table_prefix'] . 'files');
-define('UA_TABLE_LOGOS',    $config['table_prefix'] . 'logos');
-define('UA_TABLE_SETTINGS', $config['table_prefix'] . 'settings');
-define('UA_TABLE_STATS',    $config['table_prefix'] . 'stats');
-define('UA_TABLE_USERS',    $config['table_prefix'] . 'users');
-define('UA_TABLE_SVLIST',   $config['table_prefix'] . 'svlist');
+define('UA_TABLE_ADDONS',   ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'addons');
+define('UA_TABLE_CONFIG',   ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'config');
+define('UA_TABLE_FILES',    ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'files');
+define('UA_TABLE_LOGOS',    ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'logos');
+define('UA_TABLE_SETTINGS', ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'settings');
+define('UA_TABLE_STATS',    ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'stats');
+define('UA_TABLE_USERS',    ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'users');
+define('UA_TABLE_SVLIST',   ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'svlist');

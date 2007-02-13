@@ -135,11 +135,14 @@ function main( )
 				break;
 		}
 
+		list($name,$tip) = explode('|',$user->lang['admin'][$setname]);
+
 		$tpl->assign_block_vars('config_row', array(
 			'ROW_CLASS'   => $uniadmin->switch_row_class(),
 			'SETNAME'     => $setname,
 			'SETVALUE'    => $setvalue,
-			'TOOLTIP'     => addslashes($user->lang['admin'][$setname]),
+			'NAME'        => addslashes($name),
+			'TOOLTIP'     => addslashes($tip),
 			'INPUT_FIELD' => $input_field,
 			)
 		);

@@ -266,13 +266,13 @@ function finalize_user()
 			}
 			else
 			{
-				$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+				$uniadmin->error($user->lang['error_pass_mismatch_edit']);
 				$userP = $old_pass_hash;
 			}
 		}
 		elseif( empty($userP) && !empty($userP2) )
 		{
-			$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+			$uniadmin->error($user->lang['error_pass_mismatch_edit']);
 			$userP = $old_pass_hash;
 		}
 		else
@@ -296,13 +296,13 @@ function finalize_user()
 			}
 			else
 			{
-				$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+				$uniadmin->error($user->lang['error_pass_mismatch_edit']);
 				$userP = $old_pass_hash;
 			}
 		}
 		elseif( empty($userP) && !empty($userP2) )
 		{
-			$uniadmin->debug($user->lang['error_pass_mismatch_edit']);
+			$uniadmin->error($user->lang['error_pass_mismatch_edit']);
 			$userP = $old_pass_hash;
 		}
 		else
@@ -348,7 +348,7 @@ function new_user()
 	// Check name
 	if( empty($userN) )
 	{
-		$uniadmin->debug($user->lang['error_name_required']);
+		$uniadmin->error($user->lang['error_name_required']);
 		$add_error = true;
 	}
 
@@ -361,18 +361,18 @@ function new_user()
 		}
 		else
 		{
-			$uniadmin->debug($user->lang['error_pass_mismatch']);
+			$uniadmin->error($user->lang['error_pass_mismatch']);
 			$add_error = true;
 		}
 	}
 	elseif( empty($userP) && !empty($userP2) )
 	{
-		$uniadmin->debug($user->lang['error_pass_mismatch']);
+		$uniadmin->error($user->lang['error_pass_mismatch']);
 		$add_error = true;
 	}
 	else
 	{
-		$uniadmin->debug($user->lang['error_pass_required']);
+		$uniadmin->error($user->lang['error_pass_required']);
 		$add_error = true;
 	}
 
@@ -389,7 +389,7 @@ function new_user()
 			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
-				$uniadmin->debug(sprintf($user->lang['sql_error_user_add'],$userN));
+				$uniadmin->error(sprintf($user->lang['sql_error_user_add'],$userN));
 				return;
 			}
 
@@ -401,7 +401,7 @@ function new_user()
 			$db->query($sql);
 			if( !$db->affected_rows() )
 			{
-				$uniadmin->debug(sprintf($user->lang['sql_error_user_add'],$userN));
+				$uniadmin->error(sprintf($user->lang['sql_error_user_add'],$userN));
 				return;
 			}
 
@@ -435,7 +435,7 @@ function delete_user()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_user_delete'],$userN));
+			$uniadmin->error(sprintf($user->lang['sql_error_user_delete'],$userN));
 			return;
 		}
 
@@ -447,7 +447,7 @@ function delete_user()
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{
-			$uniadmin->debug(sprintf($user->lang['sql_error_user_delete'],$userN));
+			$uniadmin->error(sprintf($user->lang['sql_error_user_delete'],$userN));
 			return;
 		}
 

@@ -1,15 +1,17 @@
 <br />
 <!-- IF S_NORMAL_FOOTER -->
 <!-- IF S_SHOW_QUERIES -->
-<table class="ua_table" width="80%" align="center">
+<table class="ua_table" align="center" width="80%">
 	<tr>
 		<th class="table_header">{L_QUERIES}</th>
 	</tr>
-	<!-- BEGIN query_row -->
 	<tr>
-		<td class="{query_row.ROW_CLASS}">{query_row.QUERY}</td>
-	</tr>
+		<td>
+	<!-- BEGIN query_row -->
+		{query_row.QUERY}<br />
 	<!-- END query_row -->
+		</td>
+	</tr>
 </table>
 <br />
 <!-- ENDIF -->

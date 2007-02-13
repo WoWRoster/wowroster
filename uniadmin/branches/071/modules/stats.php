@@ -60,15 +60,11 @@ function main( )
 
 	if( isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) || isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
 	{
-		$orderby = $_REQUEST['orderby'];
-		$direction = $_REQUEST['direction'];
 		$limit = $_REQUEST['limit'];
 		$start = $_REQUEST['start'];
 	}
 	else
 	{
-		$orderby = 'time';
-		$direction = 'DESC';
 		$limit = '10';
 		$start = '0';
 	}
@@ -79,18 +75,9 @@ function main( )
 	$total_rows = $db->num_rows($result);
 
 
-	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `$orderby` $direction LIMIT $start , $limit;";
+	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `time` DESC LIMIT $start , $limit;";
 	$result = $db->query($sql);
 
-
-	if( $direction == 'ASC' )
-	{
-		$direction = 'DESC';
-	}
-	else
-	{
-		$direction = 'ASC';
-	}
 
 	while( $row = $db->fetch_record($result) )
 	{
@@ -114,31 +101,27 @@ function main( )
 	}
 
 	$prev_start = $start - $limit;
+	$prev_link = '';
+	$s_prev_link = false;
 	if( $prev_start > -1 )
 	{
-		$prev_link = '<a href="'.UA_FORMACTION.'&amp;start='.$prev_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">&lt;&lt; '.$user->lang['previous_page'].'</a>';
-	}
-	else
-	{
-		$prev_link = '';
-	}
-	$next_start = $start + $limit;
-	if( $next_start < $total_rows )
-	{
-		$next_link = '<a href="'.UA_FORMACTION.'&amp;start='.$next_start.'&amp;orderby='.$orderby.'&amp;limit='.$limit.'&amp;direction='.$direction.'">'.$user->lang['next_page'].' &gt;&gt;</a>';
-	}
-	else
-	{
-		$next_link = '';
+		$prev_link = UA_FORMACTION.'&amp;start='.$prev_start.'&amp;limit='.$limit;
+		$s_prev_link = true;
 	}
 
+	$next_start = $start + $limit;
+	$next_link = '';
+	$s_next_link = false;
+	if( $next_start < $total_rows )
+	{
+		$next_link = UA_FORMACTION.'&amp;start='.$next_start.'&amp;limit='.$limit;
+		$s_next_link = true;
+	}
+
+	$sep = '';
 	if( !empty($prev_link) && !empty($next_link) )
 	{
 		$sep = ' | ';
-	}
-	else
-	{
-		$sep = '';
 	}
 
 
@@ -155,16 +138,19 @@ function main( )
 		'L_HOST_NAME'  => $user->lang['host_name'],
 		'L_SHOW'       => $user->lang['show'],
 		'L_STAT_LIMIT' => $user->lang['stats_limit'],
+		'L_PREV_PAGE'  => $user->lang['previous_page'],
+		'L_NEXT_PAGE'  => $user->lang['next_page'],
+
+		'S_PREV_LINK'  => $s_prev_link,
+		'S_NEXT_LINK'  => $s_next_link,
 
 		'U_START'     => $start,
 		'U_LIMIT'     => $limit,
-		'U_DIRECTION' => $direction,
-		'U_ORDERBY'   => $orderby,
 
 		'U_PREV_LINK'    => $prev_link,
-		'U_SEP'    => $sep,
+		'U_SEP'          => $sep,
 		'U_NEXT_LINK'    => $next_link,
-		'U_PAGE_NUM'    => $page_num,
+		'U_PAGE_NUM'     => $page_num,
 		'U_TOTAL_PAGES'    => $total_pages,
 		)
 	);

@@ -1,4 +1,4 @@
-UniAdmin 0.7.5 (updated 7th February 2007)
+UniAdmin 0.7.5 (updated 13th February 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -39,7 +39,7 @@ Table of Contents
   cache
   logos
 
-4. Run install.php and follow the instructions
+4. Go to you UniAdmin install on the web and follow the instructions
 
 The admin user is created on installation
 Read the help page for additional info.
@@ -118,25 +118,30 @@ you get permission from the dev team at wowroster.net.
 
 UniAdmin uses the following libraries as well
 
-- PclZip Library which is released under a GNU/LGPL license.
-  More info about PclZip can be found here - http://www.phpconcept.net
+- PclZip Library http://www.phpconcept.net
+  Licensed under GNU/LGPL - http://www.gnu.org/licenses/lgpl.html
   The file is located in include/pcl.lib.php and you may upgrade this file at anytime
   with the release version at http://www.phpconcept.net
 
 
-- The Overlib tooltip library by Erik Bosrup.
+- The Overlib tooltip library by Erik Bosrup
   An unnamed license applies, available at http://www.bosrup.com/web/overlib/?License
 
 
-The installer is based on the EQdkp installer. This concerns the files:
-- install.php
-- modules/upgrade.php
+- Table sorting and pagination javascript by Brian at http://www.frequency-decoder.com
+  Licensed under a Creative Commons Attribution-ShareAlike 2.5 license - http://creativecommons.org/licenses/by-sa/2.5
 
-The templating system is based on EQdkp's template system
-This concerns include/template.php
 
-These 3 files are licensed under the GNU General Public License, which is
-available at http://gnu.org/copyleft/gpl.html
+- The installer and upgrader is based on the EQdkp installer/upgrader
+  This concerns the files:
+    modules/install.php
+    modules/upgrade.php
+
+- The templating system is based on EQdkp's template system
+  This concerns include/template.php
+
+These 3 files are licensed under the GNU General Public License,
+which is available at http://gnu.org/copyleft/gpl.html
 
 
 8 - Known Bugs / Gotchyas

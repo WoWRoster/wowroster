@@ -1,14 +1,14 @@
 <!-- INCLUDE install_header.html -->
-<table border="0" align="center">
+<table class="borderless" align="center">
 	<tr>
 		<td valign="top">
-<table width="50" border="0" cellspacing="1" cellpadding="2" class="ua_table">
+<table width="50" class="ua_table">
 	<tr>
 		<th align="left" colspan="2">Version</th>
 	</tr>
 	<tr>
-		<td align="right" class="row1"><strong>Using:</strong></td>
-		<td align="left" class="row1">{OUR_UA_VERSION}</td>
+		<td align="right"><strong>Using:</strong></td>
+		<td align="left">{OUR_UA_VERSION}</td>
 	</tr>
 	<tr>
 		<td align="right" class="row2"><strong>Latest:</strong></td>
@@ -19,22 +19,22 @@
 		</td>
 		<td valign="top">
 
-<table width="420" border="0" cellspacing="1" cellpadding="2" class="ua_table">
+<table width="420" class="ua_table">
 	<tr>
 		<th align="left" colspan="3">PHP Info</th>
 	</tr>
 	<tr>
-		<td align="left" colspan="3" class="row2"><a href="install.php?mode=phpinfo">View phpinfo()</a></td>
+		<td align="left" colspan="3" class="row2"><a href="{UA_FORMACTION}&amp;mode=phpinfo">View phpinfo()</a></td>
 	</tr>
 	<tr>
 		<td align="left" class="row2" nowrap="nowrap"><strong>Version:</strong></td>
-		<td align="left" class="row1">Using: {OUR_PHP_VERSION}</td>
-		<td align="left" class="row1">Required: {THEIR_PHP_VERSION}</td>
+		<td align="left">Using: {OUR_PHP_VERSION}</td>
+		<td align="left">Required: {THEIR_PHP_VERSION}</td>
 	</tr>
 	<tr>
 		<td align="left" class="row2" nowrap="nowrap"><strong>MySQL Module:</strong></td>
-		<td align="left" class="row1">Available: {OUR_MYSQL}</td>
-		<td align="left" class="row1">Required: {THEIR_MYSQL}</td>
+		<td align="left">Available: {OUR_MYSQL}</td>
+		<td align="left">Required: {THEIR_MYSQL}</td>
 	</tr>
 </table>
 
@@ -42,7 +42,7 @@
 </table>
 <br />
 
-<table width="175" border="0" cellspacing="1" cellpadding="2" align="center" class="ua_table">
+<table width="175" align="center" class="ua_table">
 	<tr>
 		<th align="left" colspan="2">Directory Access</th>
 	</tr>
@@ -66,7 +66,7 @@
 <br /><br />
 
 <!-- IF S_SHOW_BUTTON -->
-<form method="post" action="install.php" name="post">
+<form method="post" action="{UA_FORMACTION}" name="post">
 	<input type="hidden" name="install_step" value="2" />
 	<div align="center"><input type="submit" name="submit" value="Start Install" class="submit" /></div>
 </form>
