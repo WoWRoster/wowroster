@@ -1,0 +1,164 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- IF S_FILES -->
+<table class="ua_table" style="float:right;width:300px;">
+	<tr>
+		<th class="table_header"><div style="float:left;">
+			<img src="{TEMPLATE_PATH}/images/plus.png" style="cursor:pointer;" alt="+" onclick="ddtreemenu.flatten('treemenu','expand');" />
+			<img src="{TEMPLATE_PATH}/images/minus.png" style="cursor:pointer;" alt="-" onclick="ddtreemenu.flatten('treemenu','contract');" />
+			</div>{L_FILES}</th>
+	</tr>
+	<tr>
+		<td><ul id="treemenu" class="treeview">
+{FILE_HTML_LIST}
+		</ul></td>
+	</tr>
+</table>
+<script type="text/javascript">
+<!--
+	ddtreemenu.createTree("treemenu",false);
+//-->
+</script>
+<!-- ENDIF -->
+
+<table id="addon_display" class="ua_table" align="center">
+	<thead>
+		<tr>
+			<th class="table_header" colspan="6" width="500">{ADDONNAME}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>{L_DOWNLOAD}</th>
+			<th>{L_FILES}</th>
+			<th>{L_TOC}</th>
+			<th>{L_VERSION}</th>
+			<th>{L_UPLOADED}</th>
+			<th>{L_MANAGE}</th>
+		</tr>
+		<tr>
+			<td align="center"><a href="{DOWNLOAD}"><img src="{TEMPLATE_PATH}/images/download.png" class="icon" alt="" /><br />{FILESIZE}</a></td>
+			<td align="center">{NUMFILES}</td>
+			<td align="center">{TOC}</td>
+			<td align="center">{VERSION}</td>
+			<td align="center">{TIME}</td>
+
+			<td>
+				<!-- IF S_ADDON_ADD_DEL --><img src="{TEMPLATE_PATH}/images/edit.png" style="cursor:pointer;" class="icon" alt="" onclick="swapShow('addon_display','addon_edit');" onmouseover="return overlib('{L_EDIT}');" onmouseout="return nd();" /><!-- ENDIF -->
+				<!-- IF HOMEPAGE != '' --><a href="{HOMEPAGE}" target="_blank"><img src="{TEMPLATE_PATH}/images/home.png" class="icon" alt="" onmouseover="return overlib('{L_HOMEPAGE}');" onmouseout="return nd();" /></a><!-- ELSE --><img src="{TEMPLATE_PATH}/images/home_off.png" class="icon" alt="" /><!-- ENDIF -->
+
+	<!-- IF ENABLED -->
+		<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_disableaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_DISABLE}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/enabled.png" type="image" value="{L_ENABLED}" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+			</form>
+		<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/enabled.png" class="icon" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+		<!-- ENDIF -->
+
+	<!-- ELSE -->
+
+		<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_enableaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_ENABLE}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/disabled.png" type="image" value="{L_DISABLED}" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+			</form>
+		<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/disabled.png" class="icon" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+
+
+	<!-- IF REQUIRED -->
+		<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_optionaladdon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_OPT}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/required.png" type="image" value="{L_REQUIRED}" alt="" onmouseover="return overlib('{L_REQUIRED}');" onmouseout="return nd();" />
+			</form>
+		<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/required.png" class="icon" alt="" onmouseover="return overlib('{L_REQUIRED}');" onmouseout="return nd();" />
+		<!-- ENDIF -->
+
+	<!-- ELSE -->
+
+		<!-- IF S_ADDON_ADD_DEL -->
+			<form name="ua_requireaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+				<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+				<input type="hidden" name="{A_OPERATION}" value="{A_REQ}" />
+				<input type="hidden" name="{A_ID}" value="{ID}" />
+				<input class="icon" src="{TEMPLATE_PATH}/images/optional.png" type="image" value="{L_OPTIONAL}" alt="" onmouseover="return overlib('{L_OPTIONAL}');" onmouseout="return nd();" />
+			</form>
+		<!-- ELSE -->
+			<img src="{TEMPLATE_PATH}/images/optional.png" class="icon" alt="" onmouseover="return overlib('{L_OPTIONAL}');" onmouseout="return nd();" />
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+
+	<!-- IF S_ADDON_ADD_DEL -->
+				<form name="ua_deleteaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+					<input type="hidden" name="{A_OPERATION}" value="{A_DELETE}" />
+					<input type="hidden" name="{A_ID}" value="{ID}" />
+					<input class="icon" src="{TEMPLATE_PATH}/images/delete.png" type="image" value="{L_DELETE}" alt="" onmouseover="return overlib('{L_DELETE}');" onmouseout="return nd();" />
+				</form><!-- ENDIF --></td>
+		</tr>
+	<!-- IF NOTES != '' -->
+		<tr>
+			<th colspan="6" align="center">{L_NOTES}</th>
+		</tr>
+		<tr>
+			<td colspan="6" align="left">{NOTES}</td>
+		</tr>
+	<!-- ENDIF -->
+	</tbody>
+</table>
+	<!-- IF S_ADDON_ADD_DEL -->
+<form name="ua_editaddon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+<table id="addon_edit" class="ua_table" style="display:none;" align="center">
+	<tr>
+		<th class="table_header" colspan="6" width="500">{ADDONNAME}</th>
+	</tr>
+	<tr>
+		<th colspan="2">{L_ADDON_DETAILS}</th>
+	</tr>
+	<tr>
+		<td>{L_NAME}:</td>
+		<td><input class="input" type="text" name="name" value="{ADDONNAME}" size="20" maxlength="250" /></td>
+	</tr>
+	<tr>
+		<td class="data2">{L_TOC}:</td>
+		<td class="data2"><input class="input_s" type="text" name="toc" value="{TOC}" size="9" maxlength="9" /></td>
+	</tr>
+	<tr>
+		<td>{L_HOMEPAGE}:</td>
+		<td><input class="input" type="text" name="homepage" value="{HOMEPAGE}" size="20" maxlength="250" /></td>
+	</tr>
+	<tr>
+		<td class="data2">{L_VERSION}:</td>
+		<td class="data2"><input class="input_s" type="text" name="version" value="{VERSION}" size="20" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<th colspan="2" align="center">{L_NOTES}</th>
+	</tr>
+	<tr>
+		<td colspan="2" align="center"><img src="{TEMPLATE_PATH}/images/cancel.png" style="display:inline;float:right;cursor:pointer;" class="icon" alt="" onclick="swapShow('addon_display','addon_edit');" onmouseover="return overlib('{L_CANCEL}');" onmouseout="return nd();" />
+		<textarea class="textbox" name="notes">{NOTES}</textarea></td>
+	</tr>
+	<tr>
+		<th colspan="2" align="center">
+			<input type="hidden" name="{A_DETAIL}" value="{ID}" />
+			<input type="hidden" name="{A_OPERATION}" value="{A_EDIT}" />
+			<input type="hidden" name="{A_ID}" value="{ID}" />
+			<input class="submit" type="submit" value="{L_UPDATE}" /></th>
+	</tr>
+</table>
+</form>
+<!-- ENDIF -->
+<br clear="all" />
+
+<!-- INCLUDE overall_footer.html -->

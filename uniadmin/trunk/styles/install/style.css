@@ -1,0 +1,178 @@
+form {
+	display: inline;
+}
+img {
+	vertical-align: middle;
+	border: 0px;
+}
+
+body {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+}
+a:link, a:visited, a:active {
+	color:#006699;
+	text-decoration:none;
+	background-color:transparent;
+}
+a:hover {
+	color:#000000;
+	text-decoration:none;
+	background-color:#E3E3FF;
+}
+
+.ua_hr {
+	border:1px outset #00487D;
+}
+.ua_hr hr {
+	display:none;
+}
+
+
+.ua_table {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+	border-left:1px solid #C1DAD7;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
+}
+.ua_table th {
+	background-color:#0066B3;
+	color:#FFF;
+	border-right:1px solid #dcdcdc;
+	border-bottom:1px solid #dcdcdc;
+	border-top:1px solid #dcdcdc;
+	font-size:14px;
+	font-weight:bold;
+	height:16px;
+	padding:2px;
+	vertical-align:middle;
+	overflow:hidden;
+}
+.ua_error_table {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+	border-left:1px solid #B32400;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
+}
+.ua_error_table th {
+	color:#000;
+	background-color:#FFCCBF;
+	border-right:1px solid #B32400;
+	border-bottom:1px solid #B32400;
+	border-top:1px solid #B32400;
+	font-size:14px;
+	font-weight:bold;
+	height:16px;
+	padding:2px;
+	vertical-align:middle;
+	overflow:hidden;
+}
+.ua_error_table td {
+	font-size:11px;
+	border-right:1px solid #B32400;
+	border-bottom:1px solid #B32400;
+	padding:1px 2px 1px 2px;
+}
+.ua_table td {
+	font-size:11px;
+	border-right:1px solid #C1DAD7;
+	border-bottom:1px solid #C1DAD7;
+	padding:1px 2px 1px 2px;
+}
+.ua_table th.data_header,
+.ua_error_table th.data_header  {
+	background-color:#BFE4FF;
+	font-weight:bold;
+}
+.ua_table td.row2
+.ua_error_table td.row2 {
+	background-color:#F5FAFA;
+}
+
+th a:link,
+th a:visited,
+th a:active {
+	color:#006699;
+	text-decoration:none;
+	background-color:transparent;
+}
+th a:hover {
+	color:#000000;
+	text-decoration:none;
+	background-color:#E3E3FF;
+}
+
+.positive {
+	color: green;
+}
+.negative {
+	color: red;
+}
+.neutral {
+	color: black;
+}
+.maintitle {
+	font-size:18px;
+	font-weight:bold;
+}
+.subtitle {
+	font-size:14px;
+	font-weight:bold;
+}
+.copyright {
+	font-size: 10px;
+}
+.input {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	border:1px solid #781351;
+	background-color:#ffffff;
+}
+.submit {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	border:1px solid #781351;
+	background-color:#f2f2ff;
+}
+
+/*********** Overlib Tooltip styles ***********/
+.overlib_fg {
+/* Sets main text background */
+/* ol_fgclass */
+	background-color:#EDEDFF;
+}
+.overlib_border {
+/* Sets the border style */
+/* ol_bgclass */
+	border:1px solid #00487D;
+}
+.overlib_maintext {
+/* Sets main text style */
+/* ol_textfontclass */
+	color:#000;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+}
+.overlib_captiontext {
+/* ol_captionfontclass */
+	color:#FFFFFF;
+	background-color:#0066B3;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	font-weight:bold;
+}
+.overlib_closetext {
+/* ol_closefontclass */
+	color:#FFFFFF;
+	background-color:#0066B3;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	font-weight:bold;
+}
+/*********** End Overlib Tooltip styles ***********/

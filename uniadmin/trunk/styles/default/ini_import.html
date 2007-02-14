@@ -1,0 +1,34 @@
+<!-- INCLUDE overall_header.html -->
+
+<form id="ua_mainsettings" name="ua_mainsettings" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+	<table class="ua_table" align="center">
+		<tr>
+			<th colspan="4" class="table_header">{L_SETTINGS_FILE}</th>
+		</tr>
+		<!-- BEGIN section -->
+		<tr>
+			<th colspan="4">[{section.NAME}]</th>
+		</tr>
+		<tr>
+			<th>{L_SETTING_NAME}</th>
+			<th>{L_VALUE}</th>
+			<th>{L_IMPORT}</th>
+		</tr>
+		<!-- BEGIN settings_row -->
+		<tr>
+
+			<td class="data{section.settings_row.ROW_CLASS}"><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
+			<td class="data{section.settings_row.ROW_CLASS}"><input type="hidden" name="{section.settings_row.SETNAME}" value="{section.settings_row.SETVALUE}" />
+				{section.settings_row.SETVALUE}</td>
+			<td class="data{section.settings_row.ROW_CLASS}" align="center"><input type="checkbox" id="{section.settings_row.SETNAME}_ck" name="{section.settings_row.SETNAME}_ck" value="1" /><label for="{section.settings_row.SETNAME}_ck">&nbsp;</label></td>
+		</tr>
+		<!-- END settings_row -->
+		<!-- END section -->
+		<tr>
+			<th colspan="4" align="center"><input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
+				<input class="submit" type="submit" name="inifile" value="{L_UPDATE_SET}" /></th>
+		</tr>
+	</table>
+</form>
+
+<!-- INCLUDE overall_footer.html -->

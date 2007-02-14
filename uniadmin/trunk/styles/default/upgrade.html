@@ -1,0 +1,23 @@
+<!-- INCLUDE overall_header.html -->
+<form method="post" action="{UA_FORMACTION}">
+<table class="ua_table" align="center">
+	<tr>
+		<th class="table_header" align="center">{L_UA_UPGRADE}</th>
+	</tr>
+	<tr>
+		<td class="data2" align="center">{L_SELECT_VERSION}</td>
+	</tr>
+	<tr>
+		<td align="center"><br />
+			<select name="version" class="select">
+			<!-- BEGIN version_row -->
+				<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
+			<!-- END version_row -->
+			</select><br /><br /></td>
+	</tr>
+	<tr>
+		<th><input type="submit" name="upgrade" value="{L_UPGRADE}" class="submit" /></th>
+	</tr>
+</table>
+</form>
+<!-- INCLUDE overall_footer.html -->
