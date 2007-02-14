@@ -347,11 +347,18 @@ while ($row = $wowdb->fetch_array($result))
 		else if ($krow[$key] == '-1')
 		{
 			list($iname, $thottnum) = explode('|', $data[$key]);
-			$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
-			$iresult = $wowdb->query($iquery);
-			$idata = $wowdb->fetch_assoc($iresult);
-			$item = new item($idata);
-			print $item->out();
+			if(isset($$key))
+			{
+				print($$key);
+				continue;
+			} else {
+				$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
+				$iresult = $wowdb->query($iquery);
+				$idata = $wowdb->fetch_assoc($iresult);
+				$item = new item($idata);
+				$$key = $item->out();
+				print $$key;
+			}
 		}
 		else if ($krow[$key] == '0')
 		{
