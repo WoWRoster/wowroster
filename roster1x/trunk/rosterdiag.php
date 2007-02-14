@@ -1,7 +1,7 @@
 <?php
 /******************************
 * WoWRoster.net  Roster
-* Copyright 2002-2006
+* Copyright 2002-2007
 * Licensed under the Creative Commons
 * "Attribution-NonCommercial-ShareAlike 2.5" license
 *
@@ -430,9 +430,9 @@ $wowdb->free_result($result);
 echo "</td></tr></table>\n<br />\n";
 
 // File Versioning Information
-if (ini_get('allow_url_fopen'))
+if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 {
-	GrabRemoteVersions();
+	//GrabRemoteVersions();
 	VerifyVersions();
 
 	// Make a post form for the download of a Zip Package

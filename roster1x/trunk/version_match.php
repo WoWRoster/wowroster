@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2006
+ * Copyright 2002-2007
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -15,7 +15,7 @@
  * $Id$
  *
  ******************************/
-error_reporting(E_ALL);
+error_reporting(E_ALL ^ E_NOTICE);
 
 // Needed so files think we are in Roster =P
 define('ROSTER_INSTALLED',true);

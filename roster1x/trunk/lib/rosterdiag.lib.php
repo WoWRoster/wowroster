@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2006
+ * Copyright 2002-2007
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -284,40 +284,47 @@ function GrabRemoteVersions()
 	global $directories, $files, $svnremote, $break, $explode;
 
 	// Execute the addon_versioncheck.php script in the SVN remote site
-	$handle = fopen($svnremote, 'rb');
+	$handle = @fopen($svnremote, 'rb');
 	$contents = '';
 
-	// Read the first 80kb from the file. This should be enough for most add-ons.
-	while (!feof($handle))
+	if( $handle )
 	{
-		$contents .= fread($handle, 1024*80);
-	}
-	fclose($handle);
-
-	// Break the header into lines
-	$remoteversions = explode($break, $contents);
-	foreach ($remoteversions as $remoteversion)
-	{
-		// Break the line into strings
-		$remoteversion = explode($explode, $remoteversion);
-
-		// Insert the file info into the $files array
-		if (isset($remoteversion[1]))
+		// Read the first 80kb from the file. This should be enough for most add-ons.
+		while (!feof($handle))
 		{
-			$directory = $remoteversion[0];
-			// Check if the directory existed on the local system. If not, declare the directory inside the $directories array.
-			if (!isset($directories[$directory]))
-			{
-				$directories[$directory] = array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0);
-			}
-			$filename = $remoteversion[1];
-			$files[$directory][$filename]['remote']['versionFile'] = $filename;
-			$files[$directory][$filename]['remote']['versionDesc'] = $remoteversion[2];
-			$files[$directory][$filename]['remote']['versionRev'] = $remoteversion[3];
-			$files[$directory][$filename]['remote']['versionDate'] = $remoteversion[4];
-			$files[$directory][$filename]['remote']['versionAuthor'] = $remoteversion[5];
-			$files[$directory][$filename]['remote']['versionMD5'] = $remoteversion[6];
+			$contents .= @fread($handle, 1024*80);
 		}
+		fclose($handle);
+
+		// Break the header into lines
+		$remoteversions = explode($break, $contents);
+		foreach ($remoteversions as $remoteversion)
+		{
+			// Break the line into strings
+			$remoteversion = explode($explode, $remoteversion);
+
+			// Insert the file info into the $files array
+			if (isset($remoteversion[1]))
+			{
+				$directory = $remoteversion[0];
+				// Check if the directory existed on the local system. If not, declare the directory inside the $directories array.
+				if (!isset($directories[$directory]))
+				{
+					$directories[$directory] = array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0);
+				}
+				$filename = $remoteversion[1];
+				$files[$directory][$filename]['remote']['versionFile'] = $filename;
+				$files[$directory][$filename]['remote']['versionDesc'] = $remoteversion[2];
+				$files[$directory][$filename]['remote']['versionRev'] = $remoteversion[3];
+				$files[$directory][$filename]['remote']['versionDate'] = $remoteversion[4];
+				$files[$directory][$filename]['remote']['versionAuthor'] = $remoteversion[5];
+				$files[$directory][$filename]['remote']['versionMD5'] = $remoteversion[6];
+			}
+		}
+	}
+	else
+	{
+		return false;
 	}
 }
 

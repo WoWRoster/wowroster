@@ -1,5 +1,6 @@
 WoW Roster Changelog
-Package updated December 29, 2006
+Copyright (C) 2002-2007 The WoWRoster Dev Team
+Package updated February 14, 2007
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -8,6 +9,81 @@ For corrections and/or suggestions - http://www.wowroster.net
 
 An html version of the Change Log can be found on our WiKi
 http://www.wowroster.net/wiki/index.php/Roster:ChangeLog
+
+
+------------------------------------
+What's New v1.7.3 (February 14, 2007)
+------------------------------------
+
+--[ FIXES ]-------------------
+  * Updated lua code and parsing for WoW 2.0.3 (pleegwat)
+  * Many locale updates (zanix)
+  * MOTD now converts html characters properly (zanix)
+  * PvPLog now detects realm along with names for data insertion (zanix)
+  * Reverted spellbook fix for Opera browsers, it breaks IE 6 (zanix)
+  * Setting header logo or background image in Roster Config to nothing will remove the header logo and background correctly (zanix)
+  * Bank bags will now show 7x4 instead of 4x7 (pleegwat)
+  * Added support for Jewelcrafting, Blood Elf, and Draenei (zanix)
+  * Raised level cap to 70 (zanix)
+  * Fixed shaman class coloring (zanix)
+  * Talent Points should insert properly now (zanix)
+  * Removed Current PvP Ranking from Roster, the WoW API no longer provides this information anyway (zanix)
+  * Added EU ES url for realmstatus (zanix)
+  * Added primary keys to the spellbooktree, spellbook, talenttree, and talent tables (pleegwat)
+  * Fixed update triggers where there are addons with no triggers (zanix)
+  * Fixed rare notice in menu.php with update time (zeryl)
+  * Fixed tradeskills.php to accept an arbitrary number of different tradeskills (pleegwat)
+  * Added a result validity check for the tradeskill icon query in the main members list (pleegwat)
+  * Many fixes to rosterdiag (zanix)
+     o Added addons folder to ignore list
+     o Fixed valid html errors
+     o On file compare, longer lines do not have to be scrolled individually
+     o Changed php highlighting to return string and removed output buffering
+     o Changed/fixed some stuff in the remote file checker code
+     o Hopefully fixed "endless loop" when wowroster.net is down
+  * Modified the update trigger lib to global the $addon_conf and only load addon configuration once (pleegwat)
+  * Changed realmstatus to accept new xml status page for EU realms (zanix)
+  * Set all 'old' instance keys that are not pickable with 300 lockpicking to need 1000 lockpicking (pleegwat)
+  * Fixed memberlog last page button to start at a multiple of 30 (pleegwat)
+  * Fixed memberlog previous page button to not produce a negative start number (pleegwat)
+  * Changed messageboxtoggle() and scrollboxtoggle() to use the JS showHide() which results in less html code printed (zanix)
+  * Added a check for empty members list on update (pleegwat)
+  * Fix to tradeskills.php noted here - http://www.wowroster.net/Forums/viewtopic/t=2637.html (zanix)
+  * Moved setting of header() to roster_header.tpl (zanix)
+  * Bag code and css cleanup (zanix)
+     o Combined many css defines between bag and bank
+     o Made corners transparent :)
+     o Removed redundant code
+  * Fixed a preg_replace() in function colorTooltip() for color strings that might have UPPERCASE codes (zanix)
+  * Moved to explicitly including each of the language file in a new file in the languages folder (pleegwat)
+     o This means 1 extra operation when adding a language, namely adding it to the array in localization/languages.php
+     o This also fixes the inclusion of back-up locale files
+  * Made a small change in the key page to cut the number of sql queries down by almost half (zeryl)
+
+
+
+--[ ENAHNCEMENTS ]------------
+  * esES locale May not be complete!
+  * Changes to the upgrader, we now have a common function for upgrading (zanix)
+  * Added 2 constants (zanix)
+     o ROSTER_MAXCHARLEVEL
+     o ROSTER_MAXSKILLLEVEL
+     o Updated Roster to use these
+  * Added 4 new update trigger hooks (pleegwat)
+     o char_pre is run before character updates
+     o char_post is run after character updates
+     o guild_pre is run before guild updates
+     o guild_post is run after guild updates
+  * Added some code, js, css to change the look of text boxes, radio buttons, and check boxes (zanix)
+     o For checkboxes and radio buttons, some js has to be used to dynamically replace the buttons
+        + Set $body_action before you include roster_header.tpl
+        + example 'onLoad="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"'
+        + initARC('formID','radiOnClass','radioOffClass','checkboxOnClass','checkboxOffClass')
+     o For text boxes, it's just some css magic, class="wowinput"
+        + The only bug is that the size is fixed, so I provided additional css defines wowinput, wowinput192, wowinput128, wowinput64
+
+
+
 
 
 ------------------------------------
