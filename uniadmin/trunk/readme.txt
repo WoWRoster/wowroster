@@ -39,7 +39,7 @@ Table of Contents
   cache
   logos
 
-4. Go to you UniAdmin install on the web and follow the instructions
+4. Go to your UniAdmin install on the web and follow the instructions
 
 The admin user is created on installation
 Read the help page for additional info.
@@ -55,10 +55,11 @@ There is no upgrade from v0.7.0
 
 4 - Thanks
 ==========
-sturmy - French localization
-fubu2k - German localization
+sturmy  - French localization
+fubu2k  - German localization
 Zajsoft - Great modifications to AddOn uploading, providing a better .toc file scanner
-Zeryl - Thanks for help with parsing strings into multi-dimensional arrays
+Zeryl   - Thanks for help with parsing strings into multi-dimensional arrays
+        - Thanks for the WoWAce module code
 
 
 5 - FAQ
@@ -99,12 +100,10 @@ http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode for the
 full license information.
 
 Regarding Attribution:
-
 - Keep the credits in the footer of the UniAdmin pages.
 - Include this license with all modified versions of UniAdmin.
 
 Regarding ShareAlike:
-
 - Any changes made to the code (including, but not limited to,
   HTML, PHP, CSS, SQL, images, and Javascript) must be archived
   and accessible for public download. You may, of course, remove
@@ -156,7 +155,65 @@ Solution: After you upload an addon zip, edit the info on the addon details page
 + Added
 ! Changed
 
-Beta 0.7.1
+v0.7.5
+~ Removed all dead files
+~ Massive code cleanup
+! Overhauled the addons page
+~ Addon file paths are now determined by the current url
+~ Simplified main SQL query, now only one query
+~ SVLIST is now scanned when exporting settings.ini
+~ Fixed level 1 users so they can change locale and theme
+~ Not using $pipe_sep in interface.php
+~ Made a call to $uniadmin->config() after changing settings in UA config so they will show correctly
+~ Notice userN when editing self user in User Config page
+~ Fixed error on UA config page dealing with default style
+~ index.php to use the page variable constant defined in constants.php
++ Added installer and upgrader
+  Moved files around in zip package now that UA has an installer
+  PRIMARYURL, SYNCHROURL, RETRDATAURL are set with default values on install
+  If config.php doesn't exist, UA will direct to the installer
++ Homepage and filename to xml in interface.php
++ Implemented code from Zajsoft (thanks a bunch!)
++ Addon list sorting
++ File size is now calculated
++ Directory tree file listing (html list output)
+  Big thanks to Zeryl on this, without him, this would not be here
++ Added password confirmation
+  If you edit yourself, you need to enter old password
+  If your level > user, then no old password is needed
++ If adding a new user, and there is a form validation error, some of the info will be still in the form (name, level, lang, style)
++ Added ua_die() to kill UA when needed with a message and debug info
++ Added remote checking for new UA version
+  There is an option to turn this off in uniadmin config
++ Added WoWAce module, now you can get addons from wowace.com
++ Added a function to grab a remote file's contents $uniadmin->get_remote_contents()
+! Addon zips are loaded on the assumption that they extract to Interface/AddOns/, there is a switch on the upload form to change this action
+! Simplified the upload process
+  Only 3 fields; Required, Full Path, Select File
+! Greatly improved .toc file detection
+  Most needed fields are scanned from the .toc file
+  You can use the addon details page to edit fields
+! get_toc() changed to get_toc_val()
+  This can get any value from the .toc file such as Interface, Version, X-Website, etc...
+! Merged many addon.php functions ( require_addon, optional_addon, enable_addon, disable_addon ) into one function toggle_addon()
+! Moved addon functions to include/addon_lib.php
+! Moved debug config to the UA settings page
+! Removed all extra ?>
+! Another massive interface overhaul
+  Added js styling for overlib
+  Finally all html moved into themes and out of php code
+  Made the pie charts smaller on the stats page
+  Removed uploaded and status idication when no logo's are uploaded
+  Added meta tag the prevents IE from showing the image toolbar
+! Moved URL detection to include/uniadmin.php
+! Simplified module detection and inclusion in index.php
+! Changed $uniadmin->debug() to $uniadmin->error()
+! Changed some calls in $uniadmin that used $uniadmin to $this
+! Changed $uniadmin->ls() to be able to not traverse directories if needed
+! Moved interface.php to modules dir, interface.php still exists in the root, but includes index.php and sets $_GET['p'] = 'interface';
+! Changed uniadmin config text strings in locale files
+  Using "title|tootip" format now
+! Changed menu generation to give more variables so menu can be styled easily in themes
 
 
 Beta 0.7.0
@@ -245,5 +302,3 @@ Beta .31
 10 - The Future
 ===============
 To-do list for future versions of UA
-
-- modify cookies to include the IP address in the hash to help prevent cookie copy haxors
