@@ -722,6 +722,7 @@ class wowdb
 	{
 		$quest = array();
 		$quest['member_id'] = $memberId;
+		$quest['quest_name'] = $quest_data['Title'];
 
 		//Fix quest name if too many 'quest' addons cause level number to be added to title
 		while(substr($quest['quest_name'],0,1) == '[')
