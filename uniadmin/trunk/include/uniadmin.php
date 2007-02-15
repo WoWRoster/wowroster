@@ -104,6 +104,7 @@ class UniAdmin
 		$this->config['interface_url'] = str_replace('%url%',$this->url_path,$this->config['interface_url']);
 
 		// Get languages
+		$this->languages = array();
 		if( $handle = opendir(UA_LANGDIR) )
 		{
 			while( false !== ($file = readdir($handle)) )
@@ -121,6 +122,7 @@ class UniAdmin
 		}
 
 		// Get styles
+		$this->styles = array();
 		if( $handle = opendir(UA_THEMEDIR) )
 		{
 			while( false !== ($file = readdir($handle)) )
