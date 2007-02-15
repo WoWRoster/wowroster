@@ -28,7 +28,8 @@
 // Disable generation of headers from settings.php
 $no_roster_headers = true;
 
-require_once( 'settings.php' );
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');
+
 require_once( ROSTER_LIB.'xmlparse.php' );
 
 

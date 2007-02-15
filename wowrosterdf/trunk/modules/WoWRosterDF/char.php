@@ -16,7 +16,7 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');
 
 $name = (isset($_GET['cname']) ? $_GET['cname'] : '');
 $header_title = $name;

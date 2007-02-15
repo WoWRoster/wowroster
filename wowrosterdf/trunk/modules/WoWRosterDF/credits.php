@@ -16,7 +16,8 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');
+
 
 
 $header_title = $wordings[$roster_conf['roster_lang']]['credit'];

@@ -19,7 +19,7 @@
 // Disable generation of headers from settings.php
 $no_roster_headers = true;
 
-require_once( 'settings.php' );     ##  Uses the same settings.php as WoWProfiler
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');     ##  Uses the same settings.php as WoWProfiler
 $name = $_GET['member'];  ##  Here because some hosts need it
 
 $sitename=$roster_conf['website_address'];  ## Change this to your web address or a guild motto or whatever

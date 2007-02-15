@@ -22,7 +22,7 @@
 $roster_rel = '';
 
 // Environment
-include('.'.$roster_rel.'/settings.php');
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');
 
 // Get the char from the query string. To keep the link as short as
 // possible, we don't use member= or anything like that

@@ -31,7 +31,8 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 	exit;
 }
 
-require_once( 'settings.php' );
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');
+
 require_once( ROSTER_LIB.'luaparser.php' );
 
 $script_filename = getlink($module_name.'&amp;file=update');

@@ -16,7 +16,8 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+ require(BASEDIR . 'modules/' . $module_name . '/settings.php');
+
 
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
