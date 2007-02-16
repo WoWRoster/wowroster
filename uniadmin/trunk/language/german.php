@@ -441,7 +441,7 @@ $lang['sql_error_addons_require'] = 'Addon mit ID:%1$d konnte nicht als erforder
 $lang['sql_error_addons_optional'] = 'Addon mit ID:%1$d konnte nicht als optional gesetzt werden.';
 $lang['sql_error_addons_delete'] = 'Addon mit ID:%1$d konnte nicht aus der Datenbank gelöscht werden<br />Entferne manuell.';
 $lang['sql_error_addons_insert'] = 'Konnte Addon-Hauptinformationen nicht setzen.';
-$lang['sql_error_addons_files_insert'] = 'Konnte \'Addon-Dateien\'-Daten nicht hinzufügen';
+$lang['sql_error_addons_files_insert'] = 'Konnte Daten einer Addon-Dateien nicht hinzufügen';
 
 $lang['sql_error_logo_toggle'] = 'Konnte Logo %1$s nicht setzen';
 $lang['sql_error_logo_remove'] = 'Konnte Logo mit id=%1$d nicht aus der Datenbank entfernen';
