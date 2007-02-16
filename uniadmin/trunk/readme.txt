@@ -1,4 +1,4 @@
-UniAdmin 0.7.5 (updated 15th February 2007)
+UniAdmin 0.7.5 (updated 16th February 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
