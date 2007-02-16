@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  UniAdmin
- * Copyright 2002-2006
+ * Copyright 2002-2007
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -43,7 +43,7 @@ $lang['help'] = array(
 			'text'   => '
 <p>Je parie que vous vous demandez soit ce que c\'est ou comment vous en servir, donc:</p>
 <p>C\'est un système qui sert à tenir à jour les addons, logos et réglages des utilisateurs (qui utilisent UniUploader).<br />
-Quand vous chargez un addon dans le système et cliquez [Mise à jour] dans UU, UU va regarder &quot;l\'URL de Synchronisation&quot; (celle dans le cadre de gauche)<br />
+Quand vous chargez un addon dans le système et cliquez [Mise à jour] dans UU, UU va regarder &quot;l\'URL de Synchronisation&quot;<br />
 et procède au téléchargement des mises à jour qui sont différentes d\'une façon ou d\'une autre de la copie stockée sur le disque dur de l\'utilisateur.<br />
 UU remplacera alors l\'addon par la nouvelle copie de l\'addon depuis ce système-ci.</p>'),
 

@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  UniAdmin
- * Copyright 2002-2006
+ * Copyright 2002-2007
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -255,6 +255,21 @@ function process_addon( $fileArray )
 
 		if( !$db->affected_rows() )
 		{
+			// Clear up the addons table
+			$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$addon_id'";
+			$db->query($sql);
+			if( !$db->affected_rows() )
+			{
+			    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
+			}
+
+			$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$addon_id';";
+			$db->query($sql);
+			if( !$db->affected_rows() )
+			{
+			    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
+			}
+
 		    $uniadmin->error($user->lang['sql_error_addons_insert']);
 		    $uniadmin->cleardir($temp_folder);
 		    return;
@@ -280,6 +295,21 @@ function process_addon( $fileArray )
 				$db->query($sql);
 				if( !$db->affected_rows() )
 				{
+					// Clear up the addons table
+					$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$addon_id'";
+					$db->query($sql);
+					if( !$db->affected_rows() )
+					{
+					    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
+					}
+
+					$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$addon_id';";
+					$db->query($sql);
+					if( !$db->affected_rows() )
+					{
+					    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
+					}
+
 				    $uniadmin->error($user->lang['sql_error_addons_files_insert']);
 				    $uniadmin->cleardir($temp_folder);
 				    return;

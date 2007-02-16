@@ -1,4 +1,4 @@
-UniAdmin 0.7.5 (updated 13th February 2007)
+UniAdmin 0.7.5 (updated 15th February 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -55,11 +55,13 @@ There is no upgrade from v0.7.0
 
 4 - Thanks
 ==========
-sturmy  - French localization
-fubu2k  - German localization
-Zajsoft - Great modifications to AddOn uploading, providing a better .toc file scanner
-Zeryl   - Thanks for help with parsing strings into multi-dimensional arrays
-        - Thanks for the WoWAce module code
+sturmy   - French localization
+fubu2k   - German localization
+Carasak
+Shadowsong
+Zajsoft  - Great modifications to AddOn uploading, providing a better .toc file scanner
+Zeryl    - Thanks for help with parsing strings into multi-dimensional arrays
+           o Thanks for the WoWAce module code
 
 
 5 - FAQ

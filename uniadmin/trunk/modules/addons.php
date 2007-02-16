@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  UniAdmin
- * Copyright 2002-2006
+ * Copyright 2002-2007
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -234,7 +234,7 @@ function main( )
 	);
 }
 
-function addon_detail( $id )
+function addon_detail( $addon_id )
 {
 	global $db, $uniadmin, $user, $tpl;
 
@@ -284,7 +284,7 @@ function addon_detail( $id )
 		$tpl->assign_var('L_ADDON_MANAGE',$user->lang['view_addons']);
 	}
 
-	$sql = 'SELECT * FROM `'.UA_TABLE_ADDONS."` WHERE `id` = '$id';";
+	$sql = 'SELECT * FROM `'.UA_TABLE_ADDONS."` WHERE `id` = '$addon_id';";
 
 	$result = $db->query($sql);
 
@@ -293,7 +293,7 @@ function addon_detail( $id )
 	// Get all files
 	if( $db->num_rows($result) > 0 )
 	{
-		$sql = 'SELECT * FROM `'.UA_TABLE_FILES."` WHERE `addon_id` = '$id' ORDER BY `filename` ASC;";
+		$sql = 'SELECT * FROM `'.UA_TABLE_FILES."` WHERE `addon_id` = '$addon_id' ORDER BY `filename` ASC;";
 
 		$result2 = $db->query($sql);
 
@@ -358,7 +358,7 @@ function addon_detail( $id )
 	}
 	else
 	{
-		ua_die(sprintf($user->lang['error_addon_not_exist'],$id));
+		ua_die(sprintf($user->lang['error_addon_not_exist'],$addon_id));
 	}
 	$db->free_result($result);
 
@@ -374,33 +374,33 @@ function addon_detail( $id )
  * Toggle Addon
  *
  * @param string $op
- * @param string $id
+ * @param string $addon_id
  */
-function toggle_addon( $op , $id )
+function toggle_addon( $op , $addon_id )
 {
 	global $db, $user, $uniadmin;
 
-	if( !empty($op) && !empty($id) )
+	if( !empty($op) && !empty($addon_id) )
 	{
 		switch( $op )
 		{
 			case UA_URI_DISABLE:
-				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `enabled` = '0' WHERE `id` = '$id';";
+				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `enabled` = '0' WHERE `id` = '$addon_id';";
 				$error = 'disable';
 				break;
 
 			case UA_URI_ENABLE:
-				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `enabled` = '1' WHERE `id` = '$id';";
+				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `enabled` = '1' WHERE `id` = '$addon_id';";
 				$error = 'enable';
 				break;
 
 			case UA_URI_OPT:
-				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `required` = '0' WHERE `id` = '$id';";
+				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `required` = '0' WHERE `id` = '$addon_id';";
 				$error = 'optional';
 				break;
 
 			case UA_URI_REQ:
-				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `required` = '1' WHERE `id` = '$id';";
+				$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `required` = '1' WHERE `id` = '$addon_id';";
 				$error = 'require';
 				break;
 
@@ -411,7 +411,7 @@ function toggle_addon( $op , $id )
 		if( !$db->affected_rows() )
 		{
 		    $uniadmin->error($user->lang['error_'.$error.'_addon']);
-			$uniadmin->error(sprintf($user->lang['sql_error_addons_'.$error],$id));
+			$uniadmin->error(sprintf($user->lang['sql_error_addons_'.$error],$addon_id));
 		}
 	}
 }
@@ -419,13 +419,13 @@ function toggle_addon( $op , $id )
 /**
  * Deletes an addon from the addon_zip directory and the database
  *
- * @param int $id
+ * @param int $addon_id
  */
-function delete_addon( $id )
+function delete_addon( $addon_id )
 {
 	global $db, $user, $uniadmin;
 
-	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$id'";
+	$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$addon_id'";
 	$result = $db->query($sql);
 
 	if( $db->num_rows($result) > 0 )
@@ -443,23 +443,23 @@ function delete_addon( $id )
 			}
 		}
 
-		$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$id'";
+		$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$addon_id'";
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-		    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$id));
+		    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
 		}
 
-		$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$id';";
+		$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$addon_id';";
 		$db->query($sql);
 		if( !$db->affected_rows() )
 		{
-		    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$id));
+		    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
 		}
 	}
 }
 
-function edit_addon( $id )
+function edit_addon( $addon_id )
 {
 	global $db, $user, $uniadmin;
 
@@ -476,7 +476,7 @@ function edit_addon( $id )
 		`homepage` = '".$db->escape($addon_url)."',
 		`notes` = '".$db->escape($addon_notes)."',
 		`toc` = '".$db->escape($addon_toc)."'
-		WHERE `id` = '$id';";
+		WHERE `id` = '$addon_id';";
 
 	$db->query($sql);
 

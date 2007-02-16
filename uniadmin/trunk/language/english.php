@@ -1,20 +1,20 @@
 <?php
 /******************************
-* WoWRoster.net  UniAdmin
-* Copyright 2002-2006
-* Licensed under the Creative Commons
-* "Attribution-NonCommercial-ShareAlike 2.5" license
-*
-* Short summary
-*  http://creativecommons.org/licenses/by-nc-sa/2.5/
-*
-* Full license information
-*  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
-* -----------------------------
-*
-* $Id$
-*
-******************************/
+ * WoWRoster.net  UniAdmin
+ * Copyright 2002-2007
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
+ *
+ * $Id$
+ *
+ ******************************/
 
 if( !defined('IN_UNIADMIN') )
 {
@@ -43,7 +43,7 @@ array(	'header' => 'Intro',
 'text'   => '
 <p>I bet you\'re wondering either what this is and/or how to use it, so:</p>
 <p>This is a system used to keep the users (who use UniUploader) addons, logos, and settings updated.<br />
-When you upload an addon to this system, and hit [Update] in UU, UU will look up the &quot;Synchronization URL&quot; (the one in the frame on the left)<br />
+When you upload an addon to this system, and hit [Synchronize] in UU, UU will look up the &quot;Synchronization URL&quot;<br />
 and proceed to download any update(s) that are in any way different than the copy stored on the user\'s hard drive.<br />
 UU will then replace the addon with the new copy of the addon from this system.</p>'),
 
@@ -441,7 +441,7 @@ $lang['sql_error_addons_require'] = 'AddOn with ID:%1$d could not be set to requ
 $lang['sql_error_addons_optional'] = 'AddOn with ID:%1$d could not be set to optional';
 $lang['sql_error_addons_delete'] = 'AddOn with ID:%1$d could not be deleted from the database<br />Remove Manually';
 $lang['sql_error_addons_insert'] = 'Could not insert main addon data';
-$lang['sql_error_addons_files_insert'] = 'Could not insert addon files\' data';
+$lang['sql_error_addons_files_insert'] = 'Could not insert addon file\'s data';
 
 $lang['sql_error_logo_toggle'] = 'Could not set logo %1$s';
 $lang['sql_error_logo_remove'] = 'Could not remove logo id=%1$d from database';
