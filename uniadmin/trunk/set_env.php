@@ -24,6 +24,17 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 error_reporting(E_ALL);
 clearstatcache();
 
+// Be paranoid with passed vars
+// Destroy GET/POST/Cookie variables from the global scope
+if( intval(ini_get('register_globals')) != 0 )
+{
+	foreach( $_REQUEST AS $key => $val )
+	{
+		if( isset($$key) )
+			unset($$key);
+	}
+}
+
 // Disable magic quotes and add slashes to global arrays
 set_magic_quotes_runtime(0);
 if ( get_magic_quotes_gpc() == 0 )
