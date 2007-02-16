@@ -1,0 +1,37 @@
+<br />
+<!-- IF S_NORMAL_FOOTER -->
+<!-- IF S_SHOW_QUERIES -->
+<table class="ua_table" align="center" width="80%">
+	<tr>
+		<th class="table_header">{L_QUERIES}</th>
+	</tr>
+	<tr>
+		<td>
+	<!-- BEGIN query_row -->
+		{query_row.QUERY}<br />
+	<!-- END query_row -->
+		</td>
+	</tr>
+</table>
+<br />
+<!-- ENDIF -->
+<!--
+    If you use this software and find it to be useful, we ask that you retain the copyright notice below.
+//-->
+<div class="ua_hr"><hr /></div>
+<br />
+<div align="center">
+	<span class="copyright"><a href="http://www.wowroster.net/" target="_blank">UniAdmin</a> v{UA_VER}<br />
+	&copy; 2006 The WoWRoster Dev Team</span><br />
+<!-- IF S_SHOW_DEBUG -->
+	<br /><span class="copyright">{U_RENDERTIME} | {U_QUERYCOUNT}</span><br />
+<!-- ELSE -->
+	<br />
+<!-- ENDIF -->
+	<br />
+	<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank"><img src="{TEMPLATE_PATH}/images/somerights.png" alt="Creative Commons License" height="31" width="88" /></a><br />
+	<span class="copyright">UniAdmin is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 2.5</a></span>
+</div>
+<!-- ENDIF -->
+</body>
+</html>
