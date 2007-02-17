@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpmain/cpexception.php
+ * File: library/cpmain/cpexception.php
  *
  * This is our exception handling class, it's a direct extend of the Exception
  * default class, we are putting this simple wrapper here as a placeholder for

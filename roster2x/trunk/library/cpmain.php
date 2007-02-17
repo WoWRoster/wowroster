@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpmain.php
+ * File: library/cpmain.php
  *
  * This file is our main class, it's primary duty is object instantiation and to
  * allow public access ANYWHERE and everywhere to these objects. It uses what I
@@ -128,7 +128,7 @@ final class cpMain
 		 * bob_lib_class.etc.php => bob/lib/class.etc.php
 		 * class.description.php is the required standard
 		 */
-		if(is_file($path = R2_LIB_PATH . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
+		if(is_file($path = R2_PATH_LIB . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
 		{
 			if(!array_key_exists($arguments[1], self::$instance))
 			{
@@ -155,7 +155,7 @@ final class cpMain
 					$arguments_list_count = count($arguments_list);
 
 					/**
-					 * some might say this practice is silly.. and their may be a better, more dynamic
+					 * some might say this practice is silly.. and there may be a better, more dynamic
 					 * implimentation. However, I could not find a way to use like call_user_func or something
 					 * that could get done what were doing here, typicaly no constructor should have or needs
 					 * a construct larger then 10.. so this should work out okay, while still bench marking
@@ -306,7 +306,7 @@ final class cpMain
 		 * bob_lib_class.etc.php => bob/lib/class.etc.php
 		 * class.description.php is the required standard
 		 */
-		if(is_file($path = R2_LIB_PATH . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
+		if(is_file($path = R2_PATH_LIB . str_replace('_', DIR_SEP, $arguments[0]) . ".php"))
 		{
 			if(!array_key_exists($arguments[1], self::$instance))
 			{
@@ -386,7 +386,7 @@ final class cpMain
 		 * bob_lib_class.etc.php => bob/lib/class.etc.php
 		 * class.description.php is the required standard
 		 */
-		if(is_file($path = R2_LIB_PATH . str_replace('_', DIR_SEP, $file) . ".php"))
+		if(is_file($path = R2_PATH_LIB . str_replace('_', DIR_SEP, $file) . ".php"))
 		{
 			if(!isset(self::$_includes[$file]))
 			{
@@ -452,7 +452,7 @@ final class cpMain
 	 */
 	static public function cpError($_error, $_line, $_file, $_friendly = FALSE)
 	{
-		echo "<b>cpError [recoverable error]: </b> " . $_error  . (($_friendly == FALSE) ? " on line <b>". $_line ."</b> in file <b>" . $_file . "</b>." : "."). "<br />\n";
+		return "<b>cpError [recoverable error]: </b> " . $_error  . (($_friendly == FALSE) ? " on line <b>". $_line ."</b> in file <b>" . $_file . "</b>." : "."). "<br />\n";
 	}
 
 	/**

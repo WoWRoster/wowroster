@@ -50,9 +50,9 @@ define('SECURITY', true);
 /**
  * Site pathing and settings with trailing slash
  */
-define('PATH_LOCAL', dirname(__FILE__).DIR_SEP );
+define('PATH_LOCAL', dirname(__FILE__) . DIR_SEP);
 
-if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
+if( !empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']) )
 {
 	define('PATH_REMOTE', 'http://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']).str_replace('/index.php', '', $_SERVER['PHP_SELF']).'/' );
 }
@@ -61,33 +61,38 @@ if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
 /**
  * Create some constants
  */
+define('R2_DEBUG',      true);
 define('START_TIME',    microtime(true));
 define('R2_VER',        '1.9.0.0');
 define('ZLIBSUPPORT',   extension_loaded('zlib'));
 define('WINDOWS',       (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'));
-// Are we allowed to modify php.ini on the fly ?
+// Are we allowed to modify php.ini settings on the fly ?
 define('CAN_INI_SET',   !ereg('ini_set', ini_get('disable_functions')));
 define('MAGICQUOTES',   get_magic_quotes_gpc() || ini_get('magic_quotes_sybase'));
-define('R2_LIB_PATH',   PATH_LOCAL . 'library'.DIR_SEP);
-define('SMARTY_DIR',    R2_LIB_PATH . 'smarty'.DIR_SEP);
+
+// Set up some path defines
+define('R2_PATH_DATA',   PATH_LOCAL . 'data' . DIR_SEP);
+define('R2_PATH_MODULE', PATH_LOCAL . 'module' . DIR_SEP);
+define('R2_PATH_THEMES', PATH_LOCAL . 'themes' . DIR_SEP);
+define('R2_PATH_LANG',   PATH_LOCAL . 'language' . DIR_SEP);
+define('R2_PATH_CACHE',  PATH_LOCAL . 'cache' . DIR_SEP);
+define('R2_PATH_LIB',    PATH_LOCAL . 'library' . DIR_SEP);
+define('SMARTY_DIR',     R2_PATH_LIB . 'smarty' . DIR_SEP);
 
 $phpver = explode('.', phpversion());
 $phpver = "$phpver[0]$phpver[1]";
-define('PHPVERS', $phpver);
+define('PHPVER', $phpver);
 
 unset($phpver);
 
 # http://bugs.php.net/bug.php?id=15693
-if ($_SERVER['REQUEST_METHOD'] == 'HEAD') { exit; }
+if( $_SERVER['REQUEST_METHOD'] == 'HEAD' ) exit;
 
 // Disable magic_quotes_runtime
 set_magic_quotes_runtime(0);
 umask(0);
+if( CAN_INI_SET ) ini_set('magic_quotes_sybase', 0);
 
-if( CAN_INI_SET )
-{
-	ini_set('magic_quotes_sybase', 0);
-}
 
 /**
  * Prepare input variables
@@ -97,19 +102,14 @@ if( CAN_INI_SET )
  */
 if( intval(ini_get('register_globals')) != 0 )
 {
-	foreach ($_REQUEST AS $key => $val)
+	foreach( $_REQUEST AS $key => $val )
 	{
 		if( isset($$key) ) unset($$key);
 	}
 }
-if( is_array($_POST) )
-{
-	array_walk($_POST, 'prepareInput');
-}
-if( is_array($_GET) )
-{
-	array_walk($_GET, 'prepareInput');
-}
+if( is_array($_POST) ) array_walk($_POST, 'prepareInput');
+if( is_array($_GET) ) array_walk($_GET, 'prepareInput');
+
 
 
 /**
@@ -120,14 +120,17 @@ if( is_array($_GET) )
 error_reporting(E_ALL);
 
 /**
- * Our exception class
+ * Our error handling and exception classes
  */
-require(R2_LIB_PATH . 'cpmain'.DIR_SEP.'cpexception.php');
+require(R2_PATH_LIB . 'cpmain' . DIR_SEP . 'cpexception.php');
+require(R2_PATH_LIB . 'cperror.php');
+cpError::start();
+
 
 /**
  * Our main class, cpEngine, our instance handler
  */
-require(R2_LIB_PATH . 'cpmain.php');
+require(R2_PATH_LIB . 'cpmain.php');
 
 /**
  * The config class
@@ -142,11 +145,11 @@ cpMain::$instance['cpconfig']->loadConfig('cpconf');
 /**
  * If the config file hasn't been created yet we'll only run the config module
  */
-if( !file_exists(PATH_LOCAL . 'data'.DIR_SEP.'config'.DIR_SEP.'cpconf.php') )
+if( !file_exists(R2_PATH_DATA . 'config' . DIR_SEP . 'cpconf.php') )
 {
 	if( !defined('INSTALL') )
 	{
-		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Copy &quot;data/config/cpconf.def.php&quot; to &quot;data/config/cpconf.php&quot;",'','',true);
+		cpMain::cpErrorFatal("You must install R2CMS first before you can use it<br />Copy &quot;data/config/cpconf.def.php&quot; to &quot;data/config/cpconf.php&quot;",__LINE__,__FILE__,true);
 	}
 }
 
@@ -162,24 +165,19 @@ cpMain::$system['template_path'] = NULL;
 /**
  * Redirect handling based off the SYSTEM_REDIRECT_REQUEST.
  */
-if(cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off')
+if( cpMain::$instance['cpconfig']->cpconf['redirect_www'] !== 'off' )
 {
-	if(preg_match('/(^www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'http')
+	if( preg_match('/(^www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'http' )
 	{
 		header('Location: ' . preg_replace('/(http:\/\/|www\.)+/', 'http://', PATH_REMOTE));
 		exit;
 	}
-	elseif(!preg_match('/(www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'www')
+	elseif( !preg_match('/(www\.+)/', $_SERVER['HTTP_HOST']) && cpMain::$instance['cpconfig']->cpconf['redirect_www'] === 'www' )
 	{
 		header('Location: ' . preg_replace('/(http:\/\/|www\.)+/', 'http://www.', PATH_REMOTE));
 		exit;
 	}
 }
-
-header('Content-Type: text/html; charset=iso-8859-1');
-header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
-header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
-header('Expires: 0');
 
 /**
  * Shall we use a search friendly urls?
@@ -222,6 +220,14 @@ if( cpMain::$instance['cpconfig']->cpconf['hide_param'] )
 if( isset($_GET['module']) && $_GET['module'] != '' )
 {
 	/**
+	 * we only allow accpetable characters in our filenames
+	 */
+	if(preg_match('/[^a-zA-Z0-9_]/', $_GET['module']))
+	{
+		throw new cpException("Invalid characters in module name, match [ a-z, A-Z, 0-9, _ ] when naming files.");
+	}
+
+	/**
 	 * The users request is for module usage, we must set variables defining
 	 * the library path and the mode in which the module shall be ran. We
 	 * then define the method type - being module.
@@ -255,22 +261,51 @@ else
 	cpMain::cpErrorFatal("Error Loading Requested Method, the path the system was looking for (or at least 1 of the paths we checked) is: " . $var, __LINE__, __FILE__);
 }
 
+
+/**
+ * Grab our debug strings if debugging is turned on
+ */
+if( R2_DEBUG )
+{
+	$debug_php = $debug_sql = false;
+	$strstart = strlen(PATH_LOCAL);
+	foreach( $db->querylist as $file => $queries )
+	{
+		$file = substr($file, $strstart);
+		if (empty($file)) $file = 'unknown file';
+		$debug_sql .= '<b>'.$file.'</b><ul>';
+		foreach( $queries as $query ) { $debug_sql .= "<li>$query</li>"; }
+		$debug_sql .= '</ul>';
+	}
+	$report = cpError::stop();
+	if( is_array($report) )
+	{
+		foreach( $report as $file => $errors )
+		{
+			$debug_php .= '<b>'.substr($file, $strstart).'</b><ul>';
+			foreach( $errors as $error ) { $debug_php .= "<li>$error</li>"; }
+			$debug_php .= '</ul>';
+		}
+	}
+}
+
+
 /**
  * We only initialize our template system only if the method chosen requires its
  * usage as I want the capability of non-template driven implimentations
  * of this system to remain possible. As its general purpose is to be a
  * invaluable tool across ALL development enviroments.
  */
-if(cpMain::isClass('smarty'))
+if( cpMain::isClass('smarty') )
 {
 	/**
 	 * Make sure the specified module has a available theme (template file)
 	 */
-	if( cpMain::isClass('cpusers') && (is_file(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpusers']->data['user_theme']. DIR_SEP . 'theme.php')) )
+	if( cpMain::isClass('cpusers') && (is_file(R2_PATH_THEMES . cpMain::$instance['cpusers']->data['user_theme'] . DIR_SEP . 'theme.php')) )
 	{
 		cpMain::$system['current_theme'] = cpMain::$instance['cpusers']->data['user_theme'];
 	}
-	elseif( is_file(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$instance['cpconfig']->cpconf['def_theme']. DIR_SEP . 'theme.php') )
+	elseif( is_file(R2_PATH_THEMES . cpMain::$instance['cpconfig']->cpconf['def_theme'] . DIR_SEP . 'theme.php') )
 	{
 		cpMain::$system['current_theme'] = cpMain::$instance['cpconfig']->cpconf['def_theme'];
 	}
@@ -282,13 +317,13 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Include the theme's php file
 	 */
-	require(PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$system['current_theme'] . DIR_SEP . 'theme.php');
+	require(R2_PATH_THEMES . cpMain::$system['current_theme'] . DIR_SEP . 'theme.php');
 
 	/**
 	 * Configure smarty
 	 */
-	cpMain::$instance['smarty']->template_dir = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$system['current_theme'] . DIR_SEP;
-	cpMain::$instance['smarty']->compile_dir = PATH_LOCAL . 'cache'.DIR_SEP;
+	cpMain::$instance['smarty']->template_dir = R2_PATH_THEMES . cpMain::$system['current_theme'] . DIR_SEP;
+	cpMain::$instance['smarty']->compile_dir = R2_PATH_CACHE;
 
 
 	/**
@@ -314,7 +349,7 @@ if(cpMain::isClass('smarty'))
 	*  PHP functions are not allowed as modifiers, except those specified in the $security_settings
 	*/
 	cpMain::$instance['smarty']->security = true;
-	cpMain::$instance['smarty']->secure_dir = array(PATH_LOCAL . 'themes' . DIR_SEP);
+	cpMain::$instance['smarty']->secure_dir = array(R2_PATH_THEMES);
 
 
 	// Use GZIP output on smarty templates?
@@ -326,8 +361,14 @@ if(cpMain::isClass('smarty'))
 	/**
 	 * Set our CONSTANTS provided by our system
 	 */
-	cpMain::$instance['smarty']->assign('THEME_PATH', PATH_REMOTE.cpMain::$system['current_theme']);
+	cpMain::$instance['smarty']->assign('THEME_PATH', PATH_REMOTE . cpMain::$system['current_theme']);
 	cpMain::$instance['smarty']->assign('PATH_REMOTE', PATH_REMOTE);
+
+	/**
+	 * Set the debug strings
+	 */
+	cpMain::$instance['smarty']->assign('S_DEBUG_PHP',$debug_php);
+	cpMain::$instance['smarty']->assign('S_DEBUG_SQL',$debug_sql);
 
 	/**
 	 * Build the template for the specified block
@@ -338,11 +379,16 @@ if(cpMain::isClass('smarty'))
 	}
 	else
 	{
-		$var = PATH_LOCAL . 'themes'.DIR_SEP . cpMain::$system['current_theme'] . DIR_SEP . 'modules' . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
+		$var = R2_PATH_THEMES . cpMain::$system['current_theme'] . DIR_SEP . 'modules' . DIR_SEP . cpMain::$system['method_path'] . '.tpl';
 	}
 
 	if( is_file($var) )
 	{
+		@header('Content-Type: text/html; charset=iso-8859-1');
+		@header('Date: '.date('D, d M Y H:i:s', gmtime()).' GMT');
+		@header('Last-Modified: '.date('D, d M Y H:i:s', gmtime()).' GMT');
+		@header('Expires: 0');
+
 		cpMain::$instance['smarty']->compile_id = cpMain::$system['method_path'];
 		cpMain::$instance['smarty']->display($var);
 	}
@@ -354,14 +400,15 @@ if(cpMain::isClass('smarty'))
 
 
 
+
 /**
- * Strip slashes from GET/POST/Cookie variables because we add them back later
+ * Strip slashes from GET/POST/Cookie variables using array_walk() because we add them back later
  *
  * @param mixed $value
  * @param unknown_type $key
- * @param unknown_type $set
+ * @param bool $set
  */
-function prepareInput(&$value, $key, $set=true)
+function prepareInput( &$value , $key , $set=true )
 {
 	if( is_array($value) )
 	{
@@ -409,14 +456,14 @@ function gmtime()
 
 /**
  * Converts any link to a frienly link if the config uses it
- * Ninja looted form DragonFly and converted for our use =P
+ * Ninja looted from DragonFly and converted for our use =P
  *
  * @param string  $url      What to link to
  * @param bool    $use_seo  Convert link to friendly URL
  * @param bool    $full     Append the full URL to the link
  * @return string
  */
-function getlink( $url='', $use_seo=true, $full=false )
+function getlink( $url='' , $use_seo=true , $full=false )
 {
 	if( empty($url) || $url[0] == '&' )
 	{

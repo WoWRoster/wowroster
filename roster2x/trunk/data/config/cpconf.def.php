@@ -35,7 +35,7 @@ $config['db_prefix'] = 'R2_';
 #' def_theme type=select subtype=dir dir=themes
 // Default theme
 $config['def_theme'] = 'default';
-#' def_lang type=select subtype=dir dir=library/language
+#' def_lang type=select subtype=dir dir=language
 // Default language
 $config['def_lang'] = 'english';
 #' def_module type=select subtype=dir dir=modules
@@ -61,3 +61,6 @@ $config['output_gzip'] = false;
 #' smarty_debug type=bool
 // Enable the debug console for templates and forces recompilation of templates
 $config['smarty_debug'] = false;
+#' r2_debug type=bool
+// Enable debugging in R2
+$config['r2_debug'] = true;

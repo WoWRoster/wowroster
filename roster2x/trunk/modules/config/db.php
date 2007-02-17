@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Database layer demo
  *
@@ -85,4 +84,3 @@ echo '</table>'."\n";
 $qry->close();
 
 cpMain::$instance['cpsql']->close();
-?>

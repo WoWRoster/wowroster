@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpsql/cpmysqli.php
+ * File: library/cpsql/cpmysqli.php
  *
  * This is a extend of our cpsql class, when multi database support is required
  * a implimentation will need to be put in place, for now this is a abstract

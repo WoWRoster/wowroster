@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpusers.php
+ * File: library/cpusers.php
  *
  * This handles our user authentication and permissions management.
  * We use this class to inject a container into our global scope for

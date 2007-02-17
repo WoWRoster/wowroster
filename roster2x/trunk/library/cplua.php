@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpsqlfactory.php
+ * File: library/cplua.php
  *
  * LUA parser and writer class
  *
@@ -75,12 +75,12 @@ class cplua
 			{
 				$file_as_array = file($file_name);
 			}
-	
+
 			return($this->parseArray($file_as_array));
 		}
 		return(false);
 	}
-	
+
 	/**
 	 * Main LUA parsing function
 	 * @author six, originally mordon
@@ -193,7 +193,7 @@ class cplua
 			return($stack[0][1]);
 		}
 	}
-	
+
 	/**
 	 * LUA writer. Converts a PHP array into a lua file. When calling
 	 * from outside only the first parameter should be passed.
@@ -229,9 +229,9 @@ class cplua
 			{
 				$out .= '["'.$name.'"]';
 			}
-	
+
 			$out .= ' = ';
-	
+
 			if( is_array($value) )
 			{
 				$out .= '{'."\n";
@@ -258,7 +258,7 @@ class cplua
 			{
 				$out .= 'false';
 			}
-			
+
 			if( $top )
 			{
 				$out .= "\n";

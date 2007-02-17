@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cplang.php
+ * File: library/cplang.php
  *
  * This is a class to load and handle language requests. It loads
  * language files into a public container called lang. It's functions
@@ -75,7 +75,6 @@ class cplang
 	 */
 	public function __construct($_autorun = TRUE)
 	{
-
 		if($_autorun === TRUE)
 		{
 			/**
@@ -89,7 +88,7 @@ class cplang
 			}
 			$langs[] = cpMain::$instance['cpconfig']->cpconf['def_lang'];
 			$langs[] = 'english';
-			
+
 			/**
 			 * Try each of them. First one that exists for this module, load and return.
 			 */
@@ -98,14 +97,14 @@ class cplang
 				if( is_file(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'modules' . DIR_SEP . 'lang_' . cpMain::$system['method_name'] . '.php') )
 				{
 					$this->lang = array_merge(
-						$this->langLoad(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'lang_global.php'),
-						$this->langLoad(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'modules' . DIR_SEP . 'lang_' . cpMain::$system['method_name'] . '.php'),
-						$this->langLoad(PATH_LOCAL . 'language' . DIR_SEP . $lang . DIR_SEP . 'modules' . DIR_SEP . cpMain::$system['method_name'] . DIR_SEP . 'lang_' . cpMain::$system['method_mode'] . '.php')
+						$this->langLoad(R2_PATH_LANG . $lang . DIR_SEP . 'lang_global.php'),
+						$this->langLoad(R2_PATH_LANG . $lang . DIR_SEP . 'modules' . DIR_SEP . 'lang_' . cpMain::$system['method_name'] . '.php'),
+						$this->langLoad(R2_PATH_LANG . $lang . DIR_SEP . 'modules' . DIR_SEP . cpMain::$system['method_name'] . DIR_SEP . 'lang_' . cpMain::$system['method_mode'] . '.php')
 					);
 					return;
 				}
 			}
-			
+
 			/**
 			 * Didn't find a language file; that's not good.. We will not
 			 * continue without one if it was requested, as the site may be visualy

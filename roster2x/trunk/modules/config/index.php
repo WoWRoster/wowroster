@@ -73,13 +73,13 @@ foreach( $config as $name => &$values )
 					case 'dir':
 					{
 						$values['meta']['option'] = array();
-						$dir = PATH_LOCAL.$values['meta']['dir'];
+						$dir = PATH_LOCAL . $values['meta']['dir'];
 						if (is_dir($dir) && $handle = opendir($dir))
 						{
 							while (false !== ($file = readdir($handle)))
 							{
 								// First condition gets rid of ., .., .svn, .htaccess, etc
-								if (substr($file,0,1) != '.' && is_dir($dir.DIR_SEP.$file))
+								if( substr($file,0,1) != '.' && is_dir($dir . DIR_SEP . $file) )
 								{
 									$values['meta']['option'][] = $file;
 								}
@@ -96,7 +96,7 @@ foreach( $config as $name => &$values )
 							while (false !== ($file = readdir($handle)))
 							{
 								// First condition gets rid of ., .., .svn, .htaccess, etc
-								if (substr($file,0,1) != '.' && !is_dir($dir.DIR_SEP.$file))
+								if (substr($file,0,1) != '.' && !is_dir($dir . DIR_SEP . $file))
 								{
 									$values['meta']['option'][] = $file;
 								}
@@ -135,7 +135,7 @@ if( $save )
 		{
 			// Skip the rest (file, submit)
 			continue;
-		}		
+		}
 		$old = $config[$name]['value'];
 		$meta = $config[$name]['meta'];
 		switch( $meta['type'] )

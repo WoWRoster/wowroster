@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpconfig.php
+ * File: library/cpconfig.php
  *
  * This is a class to load and handle config settings
  *
@@ -68,7 +68,7 @@ class cpConfig
 	 */
 	public function __construct()
 	{
-		$this->cfgdir = PATH_LOCAL.'data'.DIR_SEP.'config'.DIR_SEP;
+		$this->cfgdir = R2_PATH_DATA . 'config' . DIR_SEP;
 	}
 
 	/**
@@ -100,7 +100,7 @@ class cpConfig
 
 		if( $user != '')
 		{
-			$userdir = $user.DIRECTORY_SEPARATOR;
+			$userdir = $user.DIR_SEP;
 			$places[] = $this->cfgdir.$userdir.$name.'.php';
 			$places[] = $this->cfgdir.$userdir.$name.'.bak.php';
 		}
@@ -125,7 +125,7 @@ class cpConfig
 		{
 			throw new cpException("Tried to load config file with name ".$name." for user ".$user." but the file could not be found.");
 		}
-		
+
 		$this->config[$name] = $config;
 	}
 
@@ -175,10 +175,10 @@ class cpConfig
 		{
 			throw new cpException("Config defaults file for ".$name." doesn't exist.");
 		}
-		
+
 		return $this->loadConfigMetaFile($name, $this->cfgdir.$name.'.def.php');
 	}
-	
+
 	/**
 	 * Parses the file in the supplied path for metadata
 	 *
@@ -309,7 +309,7 @@ ENDHEADER;
 		$fp = fopen($filedest,'w');
 		fwrite($fp, $file);
 		fclose($fp);
-		
+
 		// Return an updated config metadata array.
 		return $meta;
 	}

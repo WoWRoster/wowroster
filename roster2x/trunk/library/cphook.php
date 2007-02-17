@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpsqlfactory.php
+ * File: library/cpsqlfactory.php
  *
  * Code hook manager.
  * Add, manage, remove functions under named hooks.
@@ -59,7 +59,7 @@ class cphook
 	{
 		cpMain::$instance['cpconfig']->loadConfig('cphook');
 	}
-	
+
 	/**
 	 * addFunc adds a function hook
 	 *
@@ -73,17 +73,17 @@ class cphook
 	{
 		$hooks = cpMain::$instance['cpconfig']->cphook['hooks'];
 		$id = max(array_keys($hooks[$hook])) + 1;
-		
+
 		$hooks[$hook][$id] = array(
 			'file' => $file,
 			'callback' => $callback
 		);
-		
+
 		cpMain::$instance['cpconfig']->writeConfig('hooks',$hooks);
-		
+
 		return $id;
 	}
-	
+
 	/**
 	 * runHook runs all functions associated with a hook
 	 *
@@ -96,29 +96,29 @@ class cphook
 	public runHook($hook)
 	{
 		$success = true;
-		
+
 		$hooks = cpMain::$instance['cpconfig']->cphook['hooks'];
 		if( !isset($hooks[$hook]) || empty($hooks[$hook]) )
 		{
 			return true;
 		}
-		
+
 		foreach( $hooks[$hook] as $func )
 		{
-			if( !is_file(PATH_LOCAL.$func['file']) )
+			if( !is_file(PATH_LOCAL . $func['file']) )
 			{
 				$success = false;
 				continue;
 			}
-			
-			include_once(PATH_LOCAL.$func['file']);
-			
+
+			include_once(PATH_LOCAL . $func['file']);
+
 			call_user_func($callback);
 		}
-		
+
 		return $success;
 	}
-	
+
 	/**
 	 * Remove a function from a hook
 	 *

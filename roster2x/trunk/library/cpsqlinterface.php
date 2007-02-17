@@ -1,7 +1,7 @@
 <?php
 /**
  * Project: cpFramework - scalable object based modular framework
- * File: library/class/cpsqlinterface.php
+ * File: library/cpsqlinterface.php
  *
  * Our SQL interface.
  *
