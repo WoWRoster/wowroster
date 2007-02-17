@@ -39,6 +39,7 @@ $inClause = "'";
 foreach( $roster_conf['multilanguages'] as $lang )
 {
 	$inClause .= implode("', '",$tsArray[$lang]);
+	$inClause .= "', '";
 }
 $inClause .= "'";
 

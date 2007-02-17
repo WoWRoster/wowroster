@@ -156,7 +156,8 @@ require_once (ROSTER_LIB.'commonfunctions.lib.php');
 /**
  * Slash global data if magic_quotes_gpc is off.
  */
-if ( !get_magic_quotes_gpc() )
+set_magic_quotes_runtime(0);
+if( !get_magic_quotes_gpc() )
 {
 	$_GET = escape_array($_GET);
 	$_POST = escape_array($_POST);

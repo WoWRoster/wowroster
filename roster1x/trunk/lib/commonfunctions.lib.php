@@ -790,7 +790,7 @@ function escape_array($array)
 		}
 		else
 		{
-			$array[$key] = $wowdb->escape($value);
+			$array[$key] = addslashes($value);
 		}
 	}
 
