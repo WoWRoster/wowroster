@@ -41,7 +41,7 @@ if( $guild_data && $guild_data_rows > 0 )
 		die_quietly($wowdb->error(),'Could not connect to database',basename(__FILE__),__LINE__,$query);
 	}
 
-	$guildstat_query = "SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt',
+	$guildstat_query = "SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$wowdb->escape($roster_conf['alt_type'])."%',1,0) AS 'isalt',
 		FLOOR(`level`/10) AS levelgroup,
 		COUNT(`level`) AS amount,
 		SUM(`level`) AS sum
