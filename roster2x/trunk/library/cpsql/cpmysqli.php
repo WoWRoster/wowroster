@@ -54,80 +54,26 @@ if(!defined('SECURITY'))
  * cpMySQLi: MySQLi wrapper.
  * @package cpFramework
  */
-class cpmysqli implements cpsql
+class cpmysqli implements cpsqli
 {
 	/**
-	 * Database connections
+	 * mysqli
 	 */
-	private $connect = array();
-
+	private $db = FALSE;
+	
 	/**
-	 * Active connection
-	 */
-	private $active = FALSE;
-
-	/**
-	 * Store queries
-	 */
-	private $queries = array();
-
-	/**
-	 * Save configuration data privately
-	 */
-	private $config;
-
-	/**
-	 * The constructor optionally accepts 4 arguments that represent a DB
-	 * configuration
+	 * The constructor accepts 4 arguments that represent a DB configuration
 	 *
-     * @param string $host   Name of the mysql host
-     * @param string $user   Database user
-     * @param string $pass   Database password
-     * @param string $db     Name of the database
+	 * @param string $host		Name of the mysql host
+	 * @param string $user		Database user
+	 * @param string $pass		Database password
+	 * @param string $db		Name of the database
 	 * @return void
 	 * @access public
 	 */
-	public function __construct($host = '', $user = '', $pass = '', $db = '')
+	public function __construct($host, $user, $pass, $db)
 	{
-		if( $db != '' )
-		{
-			$this->configuration($host, $user, $pass, $db);
-			$this->connect('', TRUE);
-		}
-	}
-
-	/**
-	 * Manually configure a DB connection.
-	 *
-     * @param string $host   Name of the mysql host
-     * @param string $user   Database user
-     * @param string $pass   Database password
-     * @param string $db     Name of the database
-	 */
-	public function configuration($host, $user, $pass, $db)
-	{
-		$this->config = array('host'=>$host, 'user'=>$user, 'pass'=>$pass, 'db'=>$db);
-	}
-
-	/**
-	 * Connect using the previously set DB info.
-	 *
-	 * @param string $link_name		The name this link is identified by
-	 * @param bool $activate		True to activate the link, false or omit not to
-	 * @return object				MySQLi object
-	 */
-	public function connect($link_name = '', $activate = FALSE)
-	{
-		if( $link_name != '' && isset($this->connect[$link_name]) )
-		{
-			if( $this->active === $this->connect[$link_name] )
-			{
-				$this->active = FALSE;
-			}
-			unset($this->connect[$link_name]);
-		}
-
-		$link = new mysqli($this->config['host'], $this->config['user'], $this->config['pass'], $this->config['db']);
+		$this->db = new mysqli($host, $user, $pass, $db);
 
 		if( mysqli_connect_errno() )
 		{
@@ -139,116 +85,36 @@ class cpmysqli implements cpsql
 				__LINE__
 			);
 		}
-
-		if( $activate )
-		{
-			$this->active = $link;
-		}
-		if( $link_name != '' )
-		{
-			$this->connect[$link_name] = $link;
-		}
-
-		return $link;
 	}
 
 	/**
-	 * Set the active DB link
-	 */
-	public function set_active($link_name)
-	{
-		if( isset( $this->connect[$link_name] ) )
-		{
-			cpMain::cpError
-			(
-				'cpMySQLi: Unable to activate link "'.$link_name.'" because it is invalid',
-				__FILE__,
-				__LINE__
-			);
-		}
-		else
-		{
-			$this->active = $this->connect[$link_name];
-		}
-	}
-
-	/**
-	 * Set the active DB for a connection. If a link name is specified that link will be activated first
+	 * Set the active DB
 	 *
 	 * @param string $db_name		The DB name to switch to
-	 * @param string $link_name		The link to set the DB name for
 	 */
-	public function select_db($db_name, $link_name = '')
+	public function select_db($db_name)
 	{
-		if( $link_name != '' )
-		{
-			$this->set_active($link_name);
-		}
-
-		if( !$this->active )
-		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: Unable to select the database "'.$db_name.'" because there is no active link.',
-				__FILE__,
-				__LINE__
-			);
-		}
-		elseif( !$this->active->select_db($db_name) )
+		if( !$this->db->select_db($db_name) )
 		{
 			cpMain::cpErrorFatal
 			(
 				'cpMySQLi: MySQLi error, Unable to select the database "'.$db_name.'". MySQLi said:'.
-				'Errno. '.$this->active->errno.': '.$this->active->error,
+				'Errno. '.$this->db->errno.': '.$this->db->error,
 				__FILE__,
 				__LINE__
 			);
-		}
-	}
-
-	/**
-	 * Close a connection.
-	 */
-	public function close($link_name = '')
-	{
-		if( $link_name == '' )
-		{
-			$this->active = FALSE;
-		}
-		if( ($link_name != '') && !isset($this->connect[$link_name]) )
-		{
-			if( $this->active === $this->connect[$link_name] )
-			{
-				$this->active = FALSE;
-			}
-			unset($this->connect[$link_name]);
 		}
 	}
 
 	/**
 	 * Create a query object with the specified query
-	 * We're getting incompabitlbe with the old cpsql layer here
 	 *
-	 * @param string $query			The query to prepare
-	 * @param string $query_name	The name to store the query under
-	 * @param string $link_name		The link to execute it on, omit for active
+	 * @param string $query		The query to prepare
 	 * @return object				A cpMySQLi query object
 	 */
-	public function query_prepare($query, $query_name = '', $link_name = '')
+	public function query_prepare($query)
 	{
-		$link = ( $link_name == '' ) ? $this->active : ( ( isset($this->connect[$link_name]) ) ? $this->connect[$link_name] : FALSE );
-
-		if( !$link )
-		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: Unable to prepare query because the database link is invalid. The query was: '.$query,
-				__FILE__,
-				__LINE__
-			);
-		}
-
-		if( $stmt = $this->active->prepare($query) )
+		if( $stmt = $this->db->prepare($query) )
 		{
 			$stmt = new cpmysqli_stmt($stmt);
 		}
@@ -257,38 +123,13 @@ class cpmysqli implements cpsql
 			cpMain::cpErrorFatal
 			(
 				'cpMySQLi: MySQLi: Unable to prepare query. MySQLi said: '."<br/>\n".
-				'Errno. '.$this->active->errno.': '.$this->active->error,
+				'Errno. '.$this->db->errno.': '.$this->db->error,
 				__FILE__,
 				__LINE__
 			);
-		}
-
-		if( $query_name != '')
-		{
-			$this->queries[$query_name] = $stmt;
 		}
 
 		return $stmt;
-	}
-
-	/**
-	 * Get a query
-	 *
-	 * @param string $query_name	The name the query is stored under
-	 */
-	public function get_query($query_name)
-	{
-		if( !isset($this->queries[$query_name]) )
-		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: No query object to return under query name '.$query_name,
-				__FILE__,
-				__LINE__
-			);
-		}
-
-		return $this->queries[$query_name];
 	}
 }
 
@@ -296,7 +137,7 @@ class cpmysqli implements cpsql
  * SQL statement wrapper.
  * @package cpFramework
  */
-class cpmysqli_stmt implements cpsql_stmt
+class cpmysqli_stmt implements cpsqli_stmt
 {
 	/**
 	 * Query object.

@@ -52,81 +52,41 @@ if(!defined('SECURITY'))
  * cp SQL interface
  * @package cpFramework
  */
-interface cpsql
+interface cpsqli
 {
 	/**
-	 * The constructor optionally accepts 4 arguments that represent a DB
-	 * configuration
+	 * The constructor accepts 4 arguments that represent a DB configuration
 	 *
-     * @param string $host   Name of the mysql host
-     * @param string $user   Database user
-     * @param string $pass   Database password
-     * @param string $db     Name of the database
+	 * @param string $host		Hostname the DB runs on
+	 * @param string $user		Database user
+	 * @param string $pass		Database password
+	 * @param string $db		Name of the database
 	 * @return void
 	 * @access public
 	 */
-	public function __construct($host = '', $user = '', $pass = '', $db = '');
+	public function __construct($host, $user, $pass, $db);
 
 	/**
-	 * Manually configure a DB connection.
-	 *
-     * @param string $host   Name of the mysql host
-     * @param string $user   Database user
-     * @param string $pass   Database password
-     * @param string $db     Name of the database
-	 */
-	public function configuration($host, $user, $pass, $db);
-
-	/**
-	 * Connect using the previously set DB info.
-	 *
-	 * @param string $link_name		The name this link is identified by
-	 * @param bool $activate		True to activate the link, false or omit not to
-	 * @return object				MySQLi object
-	 */
-	public function connect($link_name = '', $activate = FALSE);
-
-	/**
-	 * Set the active DB link
-	 */
-	public function set_active($link_name);
-
-	/**
-	 * Set the active DB for a connection. If a link name is specified that link will be activated first
+	 * Set the active DB for a connection
 	 *
 	 * @param string $db_name		The DB name to switch to
-	 * @param string $link_name		The link to set the DB name for
 	 */
-	public function select_db($db_name, $link_name = '');
-
-	/**
-	 * Close a connection.
-	 */
-	public function close($link_name = '');
+	public function select_db($db_name);
 
 	/**
 	 * Create a query object with the specified query
 	 *
-	 * @param string $query			The query to prepare
-	 * @param string $query_name	The name to store the query under
-	 * @param string $link_name		The link to execute it on, omit for active
-	 * @return object				A cpMySQLi query object
+	 * @param string $query		The query to prepare
+	 * @return object				A cpSQL query object
 	 */
-	public function query_prepare($query, $query_name = '', $link_name = '');
-
-	/**
-	 * Get a query
-	 *
-	 * @param string $query_name	The name the query is stored under
-	 */
-	public function get_query($query_name);
+	public function query_prepare($query);
 }
 
 /**
  * cp SQL Statement
  * @package cpFramework
  */
-interface cpsql_stmt
+interface cpsqli_stmt
 {
 	/**
 	 * Prepare. Prepares a new query.
