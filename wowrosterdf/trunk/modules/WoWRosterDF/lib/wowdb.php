@@ -380,7 +380,8 @@ class wowdb
 	//wowrosterdf version
 	function affected_rows()
 	{
-		return $db->sql_affected_rows($this->db);
+		global $db;
+		return $db->sql_affectedrows($this->db);
 	}
 
 
@@ -427,7 +428,8 @@ class wowdb
 	//wowrosterdf version
 	function insert_id()
 	{
-		return $db->sql_insert_id($this->db);
+		global $db;
+		return $db->sql_nextid($this->db);
 	}
 
 
