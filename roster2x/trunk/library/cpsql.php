@@ -70,6 +70,11 @@ class cpsql
 	 * Store queries
 	 */
 	private $queries = array();
+	
+	/**
+	 * Query log
+	 */
+	private $qlog = array();
 
 	/**
 	 * Save configuration data privately
@@ -268,7 +273,7 @@ class cpsql
 		{
 			$this->queries[$query_name] = $stmt;
 		}
-
+		
 		return $stmt;
 	}
 
@@ -288,7 +293,27 @@ class cpsql
 				__LINE__
 			);
 		}
-
 		return $this->queries[$query_name];
+	}
+	
+	/**
+	 * Add a SQL log entry
+	 *
+	 * @param string file
+	 * @param string entry
+	 */
+	public function qlog_add($file, $entry)
+	{
+		$this->qlog[$file][] = $entry;
+	}
+	
+	/**
+	 * Get the SQL log
+	 *
+	 * @return array log
+	 */
+	public function qlog_get()
+	{
+		return $this->qlog;
 	}
 }

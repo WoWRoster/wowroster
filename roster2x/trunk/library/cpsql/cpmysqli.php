@@ -116,7 +116,7 @@ class cpmysqli implements cpsqli
 	{
 		if( $stmt = $this->db->prepare($query) )
 		{
-			$stmt = new cpmysqli_stmt($stmt);
+			$stmt = new cpmysqli_stmt($stmt, $query);
 		}
 		else
 		{
@@ -143,6 +143,11 @@ class cpmysqli_stmt implements cpsqli_stmt
 	 * Query object.
 	 */
 	private $qry;
+	
+	/**
+	 * Log data
+	 */
+	private $log = array();
 
 	/**
 	 * Caching for fetch functions
@@ -152,8 +157,9 @@ class cpmysqli_stmt implements cpsqli_stmt
 	/**
 	 * Constructor. Only usually called by the class above.
 	 */
-	public function __construct(mysqli_stmt $statement)
+	public function __construct(mysqli_stmt $statement, $query)
 	{
+		$this->log[0] = str_replace(array("\r\n","\r","\n"),' ',$query);
 		return $this->qry = $statement;
 	}
 
@@ -181,6 +187,10 @@ class cpmysqli_stmt implements cpsqli_stmt
 			$args[] =& $param;
 		}
 		call_user_func_array(array($this->qry, 'bind_param'), $args);
+		
+		// Store for logging
+		$args[0] = $this->log[0];
+		$this->log = $args;
 	}
 
 	/**
@@ -200,8 +210,21 @@ class cpmysqli_stmt implements cpsqli_stmt
 	 */
 	public function execute()
 	{
+		// Empty the fetch_row cache
 		$this->cache = array();
-		return $this->qry->execute();
+		
+		// Execute the query and calculate how long that takes
+		$time = microtime(true);
+		$result = $this->qry->execute();
+		$time = round(microtime(true) - $time,4);
+		
+		// Get info from cache and add a log entry
+		$call_info = debug_backtrace();
+		$call_info = $call_info[0];
+		$file = substr($call_info['file'],strlen(PATH_LOCAL));
+		cpMain::$instance['cpsql']->qlog_add($file, $time.' - LINE '.$call_info['line'].': '.implode(', ',$this->log));
+		
+		return $result;
 	}
 
 	/**
