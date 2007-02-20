@@ -1,0 +1,240 @@
+<!-- The default styles, copied and renamed Left_ and Right_ for the side by side character review -->
+
+.gearBrowserMainTable {
+}
+
+.gearBrowserMainTable .row {
+	border-top-width: 0px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #5D5D5D;
+	border-bottom-color: #5D5D5D;
+	border-left-color: #5D5D5D;
+}
+
+.gearBrowserMainTable .rowright {
+	border-top-width: 0px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #5D5D5D;
+	border-bottom-color: #5D5D5D;
+	border-left-color: #5D5D5D;
+}
+
+.char .main .page5 .gbleft {
+	float:left;
+	width:4px;
+	height:430px;
+	background:url(../../img/borderleft.gif) repeat-y;
+	background-position:left top;
+}
+.char .main .page5 .gbright {
+	float:left;
+	width:4px;
+	height:430px;
+	background:url(../../img/borderright.gif) repeat-y;
+	background-position:right top;
+}
+
+#Lefttalentpage1 {
+	background-attachment:fixed;
+	left:0px;
+	overflow:auto;
+	width:380px;
+	background-repeat:no-repeat;
+	position:relative;
+	top:5px;
+	height:370px;
+}
+#Lefttalentpage2 {
+	background-attachment:fixed;
+	left:0px;
+	overflow:auto;
+	width:380px;
+	background-repeat:no-repeat;
+	position:relative;
+	top:5px;
+	height:370px;
+}
+#Lefttalentpage3 {
+	background-attachment:fixed;
+	left:0px;
+	overflow:auto;
+	width:380px;
+	background-repeat:no-repeat;
+	position:relative;
+	top:5px;
+	height:370px;
+}
+#Lefttalentwrapper1 {
+	display:block;
+	left:10px;
+	right:10px;
+	width:360px;
+	position:relative;
+	top:10px;
+	height:355px;
+}
+#Lefttalentwrapper2 {
+	display:none;
+	left:10px;
+	right:10px;
+	width:360px;
+	position:relative;
+	top:10px;
+	height:355px;
+}
+#Lefttalentwrapper3 {
+	display:none;
+	left:10px;
+	right:10px;
+	width:360px;
+	position:relative;
+	top:10px;
+	height:355px;
+}
+
+#Lefttlab1 {
+	left:1px;
+	width:115px;
+	position:absolute;
+	top:400px;
+	text-align:center;
+}
+#Lefttlab2 {
+	left:135px;
+	width:115px;
+	position:absolute;
+	top:400px;
+	text-align:center;
+}
+#Lefttlab3 {
+	left:265px;
+	width:115px;
+	position:absolute;
+	top:400px;
+	text-align:center;
+}
+#Lefttlabbg1 {
+	left:1px;
+	position:absolute;
+	top:390px;
+}
+#Lefttlabbg2 {
+	left:138px;
+	position:absolute;
+	top:390px;
+}
+#Lefttlabbg3 {
+	left:268px;
+	position:absolute;
+	top:390px;
+}
+
+/*  */
+#Righttalentpage1 {
+	background-attachment:fixed;
+	left:0px;
+	overflow:auto;
+	width:380px;
+	background-repeat:no-repeat;
+	position:relative;
+	top:5px;
+	height:370px;
+}
+#Righttalentpage2 {
+	background-attachment:fixed;
+	left:0px;
+	overflow:auto;
+	width:380px;
+	background-repeat:no-repeat;
+	position:relative;
+	top:5px;
+	height:370px;
+}
+#Righttalentpage3 {
+	background-attachment:fixed;
+	left:0px;
+	overflow:auto;
+	width:380px;
+	background-repeat:no-repeat;
+	position:relative;
+	top:5px;
+	height:370px;
+}
+#Righttalentwrapper1 {
+	display:block;
+	left:10px;
+	right:10px;
+	width:360px;
+	position:relative;
+	top:10px;
+	height:355px;
+}
+#Righttalentwrapper2 {
+	display:none;
+	left:10px;
+	right:10px;
+	width:360px;
+	position:relative;
+	top:10px;
+	height:355px;
+}
+#Righttalentwrapper3 {
+	display:none;
+	left:10px;
+	right:10px;
+	width:360px;
+	position:relative;
+	top:10px;
+	height:355px;
+}
+
+#Righttlab1 {
+	left:1px;
+	width:115px;
+	position:absolute;
+	top:400px;
+	text-align:center;
+}
+#Righttlab2 {
+	left:135px;
+	width:115px;
+	position:absolute;
+	top:400px;
+	text-align:center;
+}
+#Righttlab3 {
+	left:265px;
+	width:115px;
+	position:absolute;
+	top:400px;
+	text-align:center;
+}
+#Righttlabbg1 {
+	left:1px;
+	position:absolute;
+	top:390px;
+}
+#Righttlabbg2 {
+	left:138px;
+	position:absolute;
+	top:390px;
+}
+#Righttlabbg3 {
+	left:268px;
+	position:absolute;
+	top:390px;
+}

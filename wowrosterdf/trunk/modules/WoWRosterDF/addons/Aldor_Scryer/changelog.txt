@@ -1,0 +1,10 @@
+------- version 0.3 -------
+fixed german localization
+add language variable
+modify the visualization of neutral people
+link the name to the profile
+add professions selected
+
+------- version 0.2 -------
+fixed english localization
+In neutre.php change m.member to m.name
