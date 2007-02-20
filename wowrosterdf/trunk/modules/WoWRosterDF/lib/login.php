@@ -57,7 +57,25 @@ class RosterLogin
 
 	function getLoginForm()
 	{
+	global $sec_code, $pagetitle, $adminindex;
+		if (is_admin()){
 		return '';
+		}
+		else
+		print border('sred', 'start', _ADMINLOGIN);
+		echo open_form($adminindex, 'login').'
+	<label for="alogin" class="ulog">'._ADMINID.'</label><input class="set" type="text" name="alogin" id="alogin" size="20" maxlength="25" /><br />
+	<label for="pwd" class="ulog">'._PASSWORD.'</label><input class="set" type="password" name="pwd" id="pwd" size="20" maxlength="40" /><br />';
+	if ($sec_code & 1) {
+		echo '<label for="gfx_check" class="ulog">'._SECURITYCODE.':</label>'.generate_secimg(7).'<br />
+		<label for="gfx_check" class="ulog">'._TYPESECCODE.':</label><input class="set" type="text" name="gfx_check" id="gfx_check" size="10" maxlength="8" /><br />';
+	}
+	echo '<label for="persistent" class="ulog">'._LOGIN_REMEMBERME.'</label><input type="checkbox" name="persistent" id="persistent" value="1" /><br />
+	<div align="center"><input type="submit" class="sub" value="'._LOGIN.'" /></div>'.
+	close_form();
+
+	echo '<script type="text/javascript">document.login.alogin.focus();</script>';
+	print border('sred','end');
 	}
 }
 
