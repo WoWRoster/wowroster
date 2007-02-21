@@ -201,11 +201,6 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 
 	$GLOBALS['die_data'] = func_get_args();
 
-	if( is_object($wowdb) )
-	{
-		$wowdb->closeDb();
-	}
-
 	if( !empty($title) )
 	{
 		$header_title = $title;
@@ -219,6 +214,11 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
 	{
 		include_once(ROSTER_LIB.'menu.php');
+	}
+
+	if( is_object($wowdb) )
+	{
+		$wowdb->closeDb();
 	}
 
 	if( empty($title) )
@@ -273,11 +273,6 @@ function message_die($message, $title = 'Message', $style = 'sred')
 {
 	global $wowdb, $roster_conf, $wordings;
 
-	if( is_object($wowdb) )
-	{
-		$wowdb->closeDb();
-	}
-
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
 		include_once(ROSTER_BASE.'roster_header.tpl');
@@ -286,6 +281,11 @@ function message_die($message, $title = 'Message', $style = 'sred')
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
 	{
 		include_once(ROSTER_LIB.'menu.php');
+	}
+
+	if( is_object($wowdb) )
+	{
+		$wowdb->closeDb();
 	}
 
 	print border($style, 'start', $title).
