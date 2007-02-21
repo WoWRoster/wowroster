@@ -206,9 +206,9 @@ switch ($action)
 	case 'bank':
 		if( $roster_conf['show_bank'] == 1 )
 		{
-			$bag0 = bag_get( $char, 'Bank Contents' );
+			$bag0 = bag_get( $char, 'Bank Bag0' );
 			if( !is_null( $bag0 ) )
-				$char_page .= $bag0->out();
+				$char_page .= $bag0->out(true);
 
 			$bag1 = bag_get( $char, 'Bank Bag1' );
 			if( !is_null( $bag1 ) )
