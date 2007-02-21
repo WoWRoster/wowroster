@@ -77,6 +77,7 @@ $roster_root_path = dirname(__FILE__).DIR_SEP;
 
 
 include_once($roster_root_path.'conf.php');
+include_once($roster_root_path.'lib'.DIR_SEP.'constants.php');
 include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
 
 $DEFAULTS = array(
@@ -103,8 +104,6 @@ if( !$roster_dblink )
 	$tpl->message_die('Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error(), 'Database Error');
 	exit();
 }
-
-define('CONFIG_TABLE', $db_prefix . 'config');
 
 
 /**
@@ -149,7 +148,7 @@ if( ROSTER_OLDVERSION >= $DEFAULTS['version'] )
 
 class Upgrade
 {
-	var $versions = array('1.6.0','1.7.0','1.7.1','1.7.2');
+	var $versions = array('1.6.0','1.7.0','1.7.1','1.7.2','1.7.3');
 	var $messages;
 
 
@@ -199,6 +198,26 @@ class Upgrade
 	//--------------------------------------------------------------
 	// Upgrade methods
 	//--------------------------------------------------------------
+
+	function upgrade_173($index)
+	{
+		global $wowdb;
+
+		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `dateupdatedutc` `dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
+		$result = $wowdb->query($query_string);
+
+		$query_string = "UPDATE `".ROSTER_PLAYERSTABLE."` SET dateupdatedutc = CONCAT('20', MID(`dateupdatedutc`, 7, 2), '-', MID(`dateupdatedutc`, 1, 2), '-', MID(`dateupdatedutc`, 4, 2), ' ', MID(`dateupdatedutc`, 10, 8));";
+		$result = $wowdb->query($query_string);
+
+		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `dateupdatedutc` `dateupdatedutc` DATETIME NULL DEFAULT NULL;";
+		$result = $wowdb->query($query_string);
+
+		$query_string = "ALTER TABLE `".ROSTER_MEMBERSTABLE."` ADD `active` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `item_bonuses`;";
+		$result = $wowdb->query($query_string);
+
+		$this->standard_upgrader('173');
+		$this->finalize($index);
+	}
 
 	function upgrade_172($index)
 	{
@@ -302,12 +321,12 @@ class Upgrade
 		//
 		// Update some config settings
 		//
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$roster_lang."' WHERE `config_name`='roster_lang'");
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$website_address."' WHERE `config_name`='website_address'");
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".md5($roster_upd_pw)."' WHERE `config_name`='roster_upd_pw';");
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$guild_name."' WHERE `config_name`='guild_name'");
-		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_name."' WHERE `config_name`='server_name';");
+		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$roster_lang."' WHERE `config_name`='roster_lang'");
+		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
+		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$website_address."' WHERE `config_name`='website_address'");
+		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".md5($roster_upd_pw)."' WHERE `config_name`='roster_upd_pw';");
+		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$guild_name."' WHERE `config_name`='guild_name'");
+		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$server_name."' WHERE `config_name`='server_name';");
 
 
 		//

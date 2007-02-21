@@ -92,12 +92,12 @@ class char
 			$sort_part = $sort ? "&amp;s=$sort" : '';
 
 			if ($start > 0)
-				$prev = $url.'&amp;start=0'.$sort_part.'">&lt;&lt;</a> '.$url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
+				$prev = $url.'&amp;start=0'.$sort_part.'">&lt;&lt;</a>&nbsp;&nbsp;'.$url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
 
 			if (($start+50) < $max)
 			{
 				$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
-				$next = ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>'.$url.'&amp;start='.($max-50).$sort_part.'">&gt;&gt;</a>';
+				$next = ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>&nbsp;&nbsp;'.$url.'&amp;start='.($max-50).$sort_part.'">&gt;&gt;</a>';
 			}
 			else
 				$listing = '<small>['.$start.' - '.($max).'] of '.$max.'</small>';
