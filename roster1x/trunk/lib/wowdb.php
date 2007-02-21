@@ -19,6 +19,7 @@
 class wowdb
 {
 	var $db;			// Database resource id
+	var $db_prefix;
 	var $assignstr;		// Data to be inserted/updated to the db
 	var $sqldebug;		//
 	var $sqlstrings;	// Array of SQL strings passed to query()
@@ -36,11 +37,13 @@ class wowdb
 	 * @param string $user MySQL server user name
 	 * @param string $password MySQL server user password
 	 * @param string $name MySQL server database name to select
+	 * @param string $db_prefix MySQL table prefix
 	 * @return bool
 	 */
-	function connect( $host, $user, $password, $name=null )
+	function connect( $host, $user, $password, $name=null, $db_prefix='' )
 	{
 		$this->db = @mysql_connect($host, $user, $password);
+		$this->db_prefix = $db_prefix;
 
 		if( $this->db )
 		{
@@ -447,12 +450,10 @@ class wowdb
 	 */
 	function table($table, $addon='', $profile='')
 	{
-		global $db_prefix;
-
 		if ($addon)
-			return $db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
+			return $this->db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
 		else
-			return $db_prefix.$table;
+			return $this->db_prefix.$table;
 	}
 
 
@@ -500,7 +501,7 @@ class wowdb
 			$this->assignstr .= ',';
 
 		// 01/01/2000 23:00:00.000
-		$row_data = "'".$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
+		$row_data = "'".$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':'.$date['seconds']."'";
 		$this->assignstr .= " `$row_name` = $row_data";
 	}
 
@@ -1704,15 +1705,14 @@ class wowdb
 
 
 	/**
-	 * Removes guild members with update_time < guild['update_time']
+	 * Removes guild members with `active` = 0
 	 *
 	 * @param int $guild_id
-	 * @param array $date
 	 */
-	function remove_guild_members($guild_id, $date)
+	function remove_guild_members($guild_id)
 	{
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `update_time` <> '".
-			$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':00'."'";
+		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1915,7 +1915,7 @@ class wowdb
 		$this->add_value( 'GPversion', $guild['DBversion'] );
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
 
-		if ($guildInfo)
+		if( is_array($guildInfo) )
 		{
 			$guildId = $guildInfo['guild_id'];
 			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '$guildId'";
@@ -1928,10 +1928,13 @@ class wowdb
 
 		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
-		if( !$guildInfo )
+		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `active` = '0' WHERE `guild_id` = '$guildId'";
+		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+
+		if( !is_array($guild_info) )
 		{
-			$guildInfo = $this->get_guild_info($realmName,$guildName);
-			$output = $guildInfo['guild_id'];
+			$guild_info = $this->get_guild_info($realmName,$guildName);
+			$output = $guild_info['guild_id'];
 		}
 
 		return $output;
@@ -1984,6 +1987,8 @@ class wowdb
 			$this->add_value( 'status', $char['Status']);
 		else
 			$this->add_value( 'status', '');
+
+		$this->add_value( 'active', '1');
 		$this->add_time( 'update_time', getDate($currentTimestamp));
 
 		if( $char['Online'] == '1' )
@@ -2644,8 +2649,7 @@ class wowdb
 
 		if( !empty($data['timestamp']['init']['DateUTC']) )
 		{
-			list($year,$month,$day,$hour,$minute,$second) = sscanf($data['timestamp']['init']['DateUTC'],"%4s-%2s-%2s %2s:%2s:%2s");
-			$this->add_value( 'dateupdatedutc', "$month/$day/".substr($year,2,2)." $hour:$minute:$second" );
+			$this->add_value( 'dateupdatedutc', $data['timestamp']['init']['DateUTC'] );
 		}
 
 		$this->add_value( 'CPversion', $data['DBversion'] );

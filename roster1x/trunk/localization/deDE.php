@@ -644,9 +644,20 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
 		$questlinks[2]['deDE']['url2']='&amp;obj=&amp;desc=&amp;minl=';
 		$questlinks[2]['deDE']['url3']='&amp;maxl=';
 
+		//$questlinks[3]['frFR']['name']='WoWHead';
+		//$questlinks[3]['frFR']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		//$questlinks[3]['frFR']['url2']=';minle=';
+		//$questlinks[3]['frFR']['url3']=';maxle=';
+
 // Items external link
-	//$itemlink['deDE'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-	$itemlink['deDE'] = 'http://www.buffed.de/?f=';
+// Add as many item links as you need
+// Just make sure their names are unique
+	$wordings['deDE']['itemlink'] = 'Item Links';
+	$itemlink['deDE']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
+	$itemlink['deDE']['buffed.de'] = 'http://www.buffed.de/?f=';
+	$itemlink['deDE']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+	//$itemlink['frFR']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
 
 // definitions for the questsearchpage
 	$wordings['deDE']['search1']="W&auml;hle eine Zone oder eine Quest um zu schauen, wer sie alles hat.<br />\n<small>Beachte: Stimmen die Questlevel bei verschiedenen Gildenleuten nicht &uuml;berein, handelt es sich um verschiedene Teile einer Questreihe.</small>";

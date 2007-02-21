@@ -208,6 +208,16 @@ function showHide(ElementID,ImgID,ImgShow,ImgHide)
 	}
 }
 
+function setOpacity( sEl,val )
+{
+	oEl = document.getElementById(sEl);
+	if(oEl)
+	{
+		oEl.style.opacity = val/10;
+		oEl.style.filter = 'alpha(opacity=' + val*10 + ')';
+	}
+}
+
 
 
 // ADAMS's RADIO CUSTOMISATION

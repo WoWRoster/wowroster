@@ -441,7 +441,7 @@ function name_value ( $row )
 
 		if ( $row['server'] )
 		{
-			return $tooltip.'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a></div>';
+			return $tooltip.'<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a></div>';
 		}
 		else
 		{
@@ -452,7 +452,7 @@ function name_value ( $row )
 	{
 		if ( $row['server'] )
 		{
-			return '<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a>';
+			return '<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a>';
 		}
 		else
 		{

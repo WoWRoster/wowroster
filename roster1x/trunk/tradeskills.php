@@ -47,7 +47,7 @@ $inClause .= "'";
 $showNewSkill = " AND SUBSTRING_INDEX( s.skill_level, ':', 1 ) > 1 ";
 
 // Gather a list of players that have the skills we are looking for
-$query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
+$query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
 	WHERE p.member_id = s.member_id
 	AND p.guild_id = '".$guildId."'
 	$showNewSkill
@@ -132,7 +132,7 @@ if( $wowdb->num_rows($result) )
 		</table>
 	</td>
 	<td class="'.$stripe_class_right.'">
-		<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'&amp;action=recipes">'.$row['name'].'</a>
+		<a href="char.php?member='.$row['member_id'].'&amp;action=recipes">'.$row['name'].'</a>
 	</td>
 	</tr>
 ');

@@ -644,9 +644,20 @@ $wordings['enUS']['lockpicking']='Lockpicking';
 		//$questlinks[2]['enUS']['url2']='&amp;levelmin=';
 		//$questlinks[2]['enUS']['url3']='&amp;levelmax=';
 
+		$questlinks[3]['enUS']['name']='WoWHead';
+		$questlinks[3]['enUS']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		$questlinks[3]['enUS']['url2']=';minle=';
+		$questlinks[3]['enUS']['url3']=';maxle=';
+
 // Items external link
-	$itemlink['enUS']='http://www.thottbot.com/index.cgi?i=';
-	//$itemlink['enUS']='http://wow.allakhazam.com/search.html?q=';
+// Add as many item links as you need
+// Just make sure their names are unique
+	$wordings['enUS']['itemlink'] = 'Item Links';
+	$itemlink['enUS']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+	$itemlink['enUS']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+	$itemlink['enUS']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
+	$itemlink['enUS']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
 
 // definitions for the questsearchpage
 	$wordings['enUS']['search1']="From the list below choose a zone or a quest name to see who is working it.<br />\n<small>Note that if the quest level is not the same for all listed guildmembers, they may be on another part of a multi-chain quest.</small>";

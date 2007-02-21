@@ -26,7 +26,7 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 $additional_sql = array(
 	'`players`.`hearth`, ',
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ",
-	"`players`.`dateupdatedutc` AS 'last_update', ",
+	"DATE_FORMAT(`players`.`dateupdatedutc`, '".$timeformat[$roster_conf['roster_lang']]."') as last_update, ",
 	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ",
 );
 
@@ -149,9 +149,8 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 	$FIELD[] = array (
 		'last_update' => array (
 			'lang_field' => 'lastupdate',
-			'order' => array( 'luisnull','last_update DESC' ),
-			'order_d' => array( 'luisnull','last_update ASC' ),
-			'value' => 'last_up_value',
+			'order' => array( '`players`.`dateupdatedutc` DESC' ),
+			'order_d' => array( '`players`.`dateupdatedutc` ASC' ),
 		),
 	);
 }

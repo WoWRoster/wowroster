@@ -96,7 +96,7 @@ if ( !include_once($roster_root_path . 'install'.DIR_SEP.'template.php') )
 /**
  * Establish our connection and select our database
  */
-$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
+$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 if( !$roster_dblink )
 {
 	$tpl = new Template_Wrap('upgrade_message.html','upgrade_header.html','upgrade_tail.html');

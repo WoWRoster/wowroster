@@ -16,10 +16,10 @@
  *
  ******************************/
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+require_once( 'settings.php' );
+
+$header_title = $wordings[$roster_conf['roster_lang']]['search'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once ROSTER_LIB.'item.php';
 require_once ROSTER_LIB.'recipes.php';
@@ -46,7 +46,7 @@ if (isset($_GET['s']))
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>">
   <?php print $wordings[$roster_conf['roster_lang']]['find'] ?>:<br />
-  <input type="text" name="s" value="<?php print $inputbox_value; ?>" size="30" maxlength="30">
+  <input type="text" class="wowinput192" name="s" value="<?php print $inputbox_value; ?>" size="30" maxlength="30">
   <input type="submit" value="search">
 </form>
 
@@ -61,12 +61,15 @@ if (isset($_GET['s']))
 </div><br /><br />';
 
 	$search = $_GET['s'];
-	print border('sgray','start','<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>').
-		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
-  <tr>
-    <td>';
+	print '<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>';
+
 	$query="SELECT players.name,players.server,items.* FROM `".ROSTER_ITEMSTABLE."` items,`".ROSTER_PLAYERSTABLE."` players WHERE items.member_id = players.member_id AND items.item_name LIKE '%$search%' ORDER BY players.name ASC";
 	$result = $wowdb->query( $query );
+
+	if (!$result)
+	{
+		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br/>'.$wowdb->error(),'Search',basename(__FILE__),__LINE__,$query);
+	}
 
 	if( $wowdb->num_rows($result) != 0 )
 	{
@@ -75,18 +78,15 @@ if (isset($_GET['s']))
 		while ($data = $wowdb->fetch_assoc( $result ))
 		{
 			$row_st = (($rc%2)+1);
-			$char_url = 'char.php?name='.$data['name'].'&amp;server='.$data['server'];
+			$char_url = 'char.php?member='.$data['member_id'];
 
 			if ( $cid != $data['member_id'] )
 			{
 				if ( $cid != '' )
 				{
-					print "</table>\n<br />\n";
+					print "</table>\n".border('sblue','end')."<br />\n";
 				}
-				print '<table cellpadding="0" cellspacing="0" width="100%">
-  <tr>
-    <th colspan="2" class="membersRowRight2"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></th>
-  </tr>';
+				print border('sblue','start','<a href="'.$char_url.'">'.$data['name'].'</a>').'<table cellpadding="0" cellspacing="0" width="600">';
 			}
 
 			print '  <tr>
@@ -176,7 +176,7 @@ if (isset($_GET['s']))
 
 		if ( $cid != '' )
 		{
-			print "</table>\n";
+			print "</table>\n".border('sblue','end')."<br />\n";
 		}
 	}
 	else
@@ -188,17 +188,18 @@ if (isset($_GET['s']))
 	}
 
 
-	print "</td></tr></table>".border('sgray','end');
+	print "<br /><hr />\n";
 
-	print "<br />\n";
+	print '<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>';
 
-	print border('sgray','start','<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>').
-		'<table cellpadding="0" cellspacing="0" width="600" class="bodyline">
-<tr>
-  <td>';
 	//$query="SELECT players.name,players.server,recipes.* FROM recipes,players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' OR recipes.recipe_tooltip LIKE '%$search%' OR recipes.reagents LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";
 	$query="SELECT players.name,players.server,recipes.* FROM `".ROSTER_RECIPESTABLE."` recipes,`".ROSTER_PLAYERSTABLE."` players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";
 	$result = $wowdb->query( $query );
+
+	if (!$result)
+	{
+		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br/>'.$wowdb->error(),'Search',basename(__FILE__),__LINE__,$query);
+	}
 
 	if( $wowdb->num_rows($result) != 0 )
 	{
@@ -209,17 +210,14 @@ if (isset($_GET['s']))
 		{
 			$row_st = (($rc%2)+1);
 
-			$char_url = 'char.php?name='.$data['name'].'&amp;server='.$data['server'].'&amp;action=recipes';
+			$char_url = 'char.php?member='.$data['member_id'].'&amp;action=recipes';
 			if ( $cid != $data['member_id'] )
 			{
 				if ( $cid != '' )
 				{
-					print "</table>\n<br />\n";
+					print "</table>\n".border('syellow','end')."<br />\n";
 				}
-				print '<table border="0" cellpadding="0" cellspacing="0" width="100%">
-  <tr>
-    <th colspan="3" class="membersRowRight1"><div style="font-size:12px;" align="center"><a href="'.$char_url.'">'.$data['name'].'</a></div></th>
-  </tr>
+				print border('syellow','start','<a href="'.$char_url.'">'.$data['name'].'</a>').'<table border="0" cellpadding="0" cellspacing="0" width="600">
   <tr>
     <th colspan="2" class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['item'].'</th>
     <th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['reagents'].'</th>';
@@ -315,17 +313,18 @@ if (isset($_GET['s']))
 
 		if ( $cid != '' )
 		{
-			print "</table>\n";
+			print "</table>\n".border('syellow','end')."<br />\n";
 		}
 	}
 	else
 	{
-		print '<table cellpadding="0" cellspacing="0" width="100%">
+		print border('sblue','start').'<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td class="membersRowRight1">No '.$wordings[$roster_conf['roster_lang']]['recipes'].'</td>
-  </tr>'."</table>\n";
+  </tr>'."</table>\n".border('sblue','end');
 	}
-
-	print "</td></tr></table>".border('sgray','end');
 }
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
+
 ?>

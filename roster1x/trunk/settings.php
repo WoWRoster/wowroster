@@ -38,6 +38,7 @@ if (intval(ini_get('register_globals')) != 0)
 			unset($$key);
 	}
 }
+unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
 
 
 /**
@@ -126,7 +127,7 @@ require_once (ROSTER_LIB.'wowdb.php');
 /**
  * Establish our connection and select our database
  */
-$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
+$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 if( !$roster_dblink )
 {
 	die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error());

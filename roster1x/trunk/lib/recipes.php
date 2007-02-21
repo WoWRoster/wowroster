@@ -32,7 +32,7 @@ class recipe
 
 	function out()
 	{
-		global $roster_conf, $wordings, $itemlink, $char;
+		global $roster_conf, $wordings, $itemlink, $char, $tooltips;
 
 		if( !is_object($char) )
 			$lang = $roster_conf['roster_lang'];
@@ -41,12 +41,24 @@ class recipe
 
 		$path = $roster_conf['interface_url'].$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
 
+		// Item links
+		$num_of_tips = (count($tooltips)+1);
+		$linktip = '';
+		foreach( $itemlink[$lang] as $key => $ilink )
+		{
+			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
+		}
+		setTooltip($num_of_tips,$linktip);
+		setTooltip('itemlink',$wordings[$lang]['itemlink']);
+
+		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
 		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
 
-		$returnstring = '<div class="item" '.$tooltip.'>';
+		$returnstring = '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
 
-		$returnstring .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.
-		'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
+		$returnstring .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+
 		$returnstring .= '</div>';
 		return $returnstring;
 	}

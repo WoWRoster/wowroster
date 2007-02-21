@@ -405,7 +405,7 @@ function process_step3()
     define('CONFIG_TABLE', $db_prefix . 'config');
 
     include_once($dbal_file);
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
+    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     // Check to make sure a connection was made
     if ( !is_resource($wowdb->db) )
@@ -541,7 +541,7 @@ function process_step4()
     }
 
 
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
+    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_upd_pw';");
 

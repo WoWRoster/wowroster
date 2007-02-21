@@ -344,7 +344,7 @@ function processGuildRoster($myProfile)
 										}
 									}
 									// Remove the members who were not in this list
-									$wowdb->remove_guild_members($guildId, $currentTime);
+									$wowdb->remove_guild_members($guildId);
 									$wowdb->remove_guild_members_id($guildId);
 
 									$guild_output .= $wowdb->getMessages()."</ul></li>\n";
@@ -525,16 +525,7 @@ $bookwormInputField
 			// print the error messages
 			if( !empty($errorstringout) )
 			{
-				print
-				'<div id="errorCol" style="display:inline;">
-					'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
-					'.border('sred','end').'
-				</div>
-				<div id="error" style="display:none">
-				'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
-				$errorstringout.
-				border('sred','end').
-				'</div>';
+				print scrollboxtoggle($errorstringout,'<span class="red">Update Errors</span>','sred',false);
 
 				// Print the downloadable errors separately so we can generate a download
 				print "<br />\n";
@@ -547,15 +538,7 @@ $bookwormInputField
 			}
 
 			// Print the update messages
-			print
-				border('syellow','start','Update Log').
-				'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
-					$parseMessages.
-					$updateMessages.
-					$updatePvPMessages.
-					$rosterUpdateMessages.
-				'</div>'.
-				border('syellow','end');
+			print scrollbox('<div style="text-align:left;font-size:10px;">'.$parseMessages.$updateMessages.$updatePvPMessages.$rosterUpdateMessages.'</div>','Update Log','syellow');
 
 			// Print the downloadable messages separately so we can generate a download
 			print "<br />\n";

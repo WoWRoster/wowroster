@@ -16,10 +16,10 @@
  *
  ******************************/
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+require_once( 'settings.php' );
+
+$header_title = $wordings[$roster_conf['roster_lang']]['keys'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');
 
@@ -54,7 +54,7 @@ function borderTop()
 
 function tableHeaderRow($th)
 {
-	global $items, $itemlink, $roster_conf;
+	global $items, $itemlink, $roster_conf, $tooltips, $wordings;
 
 	$acount = 0;
 	print "  <tr>\n";
@@ -64,7 +64,19 @@ function tableHeaderRow($th)
 		if($items[$header])
 		{
 			list($iname, $thottnum) = explode('|', $items[$header][$header]);
-			$header = '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$header.'</a>';
+			// Item links
+			$num_of_tips = (count($tooltips)+1);
+			$linktip = '';
+			foreach( $itemlink[$roster_conf['roster_lang']] as $ikey => $ilink )
+			{
+				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
+			}
+			setTooltip($num_of_tips,$linktip);
+			setTooltip('itemlink',$wordings[$roster_conf['roster_lang']]['itemlink']);
+
+			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);" onmouseout="return nd();"';
+
+			$header = '<a href="javascript:void(0);"'.$linktip.'>'.$header.'</a>';
 		}
 		if ($acount == 1)
 		{
@@ -323,7 +335,7 @@ while ($row = $wowdb->fetch_array($result))
 	print '<tr>'."\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print '<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
+	print '<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;
@@ -426,9 +438,20 @@ while ($row = $wowdb->fetch_array($result))
 
 			$pcent = round(($bcount/$qcount) * 100);
 
-			echo '<div style="cursor:default;" '.makeOverlib($tooltip,$tooltip_h,'',2).'>'."\n";
-			print '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($iname)).'" target="_blank">'."\n";
-			print '<span class="name">'.$items[$key][0].'</span></a>'."\n";
+			// Item links
+			$num_of_tips = (count($tooltips)+1);
+			$linktip = '';
+			foreach( $itemlink[$roster_conf['roster_lang']] as $ikey => $ilink )
+			{
+				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
+			}
+			setTooltip($num_of_tips,$linktip);
+			setTooltip('itemlink',$wordings[$roster_conf['roster_lang']]['itemlink']);
+
+			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
+			echo '<div style="cursor:pointer;" '.makeOverlib($tooltip,$tooltip_h,'',2).$linktip.'>'."\n";
+			print '<span class="name">'.$items[$key][0].'</span>'."\n";
 
 			print '<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">'.$bcount.'/'.$qcount.'</div></div>'."\n";
 			print '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">'."\n";
@@ -447,5 +470,7 @@ $wowdb->free_result($result);
 
 print($tableFooter);
 borderBottom();
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
 
 ?>

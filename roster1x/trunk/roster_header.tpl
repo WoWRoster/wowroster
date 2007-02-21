@@ -16,7 +16,7 @@
  *
  ******************************/
 
-define('HEADER_INC',true);
+define('ROSTER_HEADER_INC',true);
 
 /**
  * Detect and set headers
@@ -54,6 +54,12 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <?php echo (isset($html_head) ? $html_head : ''); ?>
 </head>
 <body<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url('.$roster_conf['roster_bg'].');"' : '' ); echo (isset($body_action) ? ' '.$body_action : ''); ?>>
+<div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
+<script type="text/javascript">
+<!--
+	setOpacity( 'overDiv',8.5 );
+//-->
+</script>
 <div align="center">
 
 <?php

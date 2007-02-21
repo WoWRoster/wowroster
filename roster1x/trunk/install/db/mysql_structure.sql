@@ -135,6 +135,7 @@ CREATE TABLE `renprefix_members` (
   `duels` tinyint(4) NOT NULL default '3',
   `money` tinyint(4) NOT NULL default '3',
   `item_bonuses` tinyint(4) NOT NULL default '3',
+  `active` tinyint( 1 ) NOT NULL default '1',
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),
   KEY `name` (`name`),

@@ -31,8 +31,6 @@ if ( !defined('ROSTER_INSTALLED') )
  */
 function border($style,$mode,$header_text=null)
 {
-	global $roster_conf;
-
 	$backg_css = $style.'border';
 	if( substr($style,0,1) == 's' )
 	{
@@ -189,7 +187,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 	global $wowdb, $roster_conf, $wordings;
 
 	// die_quitely died quietly
-	if (ROSTER_DIED == 1)
+	if(defined('ROSTER_DIED') )
 	{
 		print '<pre>The quiet die function suffered a fatal error. Die information below'."\n";
 		print 'First die data:'."\n";
@@ -199,7 +197,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 		exit();
 	}
 
-	define(ROSTER_DIED,1);
+	define( 'ROSTER_DIED', true );
 
 	$GLOBALS['die_data'] = func_get_args();
 
@@ -213,9 +211,14 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 		$header_title = $title;
 	}
 
-	if( !defined('HEADER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
 		include_once(ROSTER_BASE.'roster_header.tpl');
+	}
+
+	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_LIB.'menu.php');
 	}
 
 	if( empty($title) )
@@ -275,9 +278,14 @@ function message_die($message, $title = 'Message', $style = 'sred')
 		$wowdb->closeDb();
 	}
 
-	if( !defined('HEADER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
 		include_once(ROSTER_BASE.'roster_header.tpl');
+	}
+
+	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_LIB.'menu.php');
 	}
 
 	print border($style, 'start', $title).

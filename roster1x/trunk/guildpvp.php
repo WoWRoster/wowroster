@@ -16,10 +16,10 @@
  *
  ******************************/
 
-if ( !defined('ROSTER_INSTALLED') )
-{
-    exit('Detected invalid access to this file!');
-}
+require_once( 'settings.php' );
+
+$header_title = $wordings[$roster_conf['roster_lang']]['pvplist'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
@@ -52,18 +52,18 @@ $choiceArray = array(
 	'guildinfo' => 'Guild Info',
 );
 
-$choiceForm = '<form action="indexpvp.php" method="post">
+$choiceForm = '<form action="guildpvp.php" method="post">
 '.$wordings[$roster_conf['roster_lang']]['pvplist'].':
-<select name="type" onchange="top.location.href=this.options[this.selectedIndex].value">
+<select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
 ';
 foreach( $choiceArray as $item_value => $item_print )
 {
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
+			$choiceForm .= '<option value="guildpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
 		else
-			$choiceForm .= '<option value="indexpvp.php?type='.$item_value.'">'.$item_print;
+			$choiceForm .= '<option value="guildpvp.php?type='.$item_value.'">'.$item_print;
 	}
 }
 $choiceForm .= '</select>
@@ -298,7 +298,7 @@ else if ($type == 'purgewins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
 		print("</td>\n</tr>\n");
@@ -323,7 +323,7 @@ else if ($type == 'purgelosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
 		print("</td>\n</tr>\n");
@@ -348,7 +348,7 @@ else if ($type == 'purgeavewins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
@@ -379,7 +379,7 @@ else if ($type == 'purgeavelosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
@@ -416,7 +416,7 @@ else if ($type == 'pvpratio')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['name'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['name']."</a></td>\n");
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['name']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		$wins = $row['wtotal'];
 		$battles = $row ['btotal'];
@@ -506,7 +506,7 @@ else if ($type == 'playerinfo')
 		print($row['date']);
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
@@ -603,7 +603,7 @@ else if ($type == 'guildinfo')
 		print('<a href="?type=playerinfo&amp;player='.urlencode($row['name']).'">'.$row['name'].'</a>');
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
-		print('<a href="char.php?name='.$row['gn'].'&amp;server='.$roster_conf['server_name'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
+		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
@@ -632,4 +632,6 @@ else if ($type == 'guildinfo')
 
 	print($tableFooter);
 }
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
 ?>

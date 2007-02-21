@@ -644,9 +644,20 @@ $wordings['frFR']['lockpicking']='Crochetage';
 		$questlinks[2]['frFR']['url2']='&amp;obj=&amp;desc=&amp;minl=';
 		$questlinks[2]['frFR']['url3']='&amp;maxl=';
 
+		//$questlinks[3]['frFR']['name']='WoWHead';
+		//$questlinks[3]['frFR']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		//$questlinks[3]['frFR']['url2']=';minle=';
+		//$questlinks[3]['frFR']['url3']=';maxle=';
+
 // Items external link
-	$itemlink['frFR']='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
-	//$itemlink['frFR']='http://wow.allakhazam.com/search.html?q=';
+// Add as manu item links as you need
+// Just make sure their names are unique
+	$wordings['frFR']['itemlink'] = 'Item Links';
+	$itemlink['frFR']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
+	$itemlink['frFR']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=sobj&amp;Ckey=';
+	$itemlink['frFR']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+	//$itemlink['frFR']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
 
 // definitions for the questsearchpage
 	$wordings['frFR']['search1']='Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />'."\n".'<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu\'il s\'agisse d\'une autre partie d\'une quête multiple.</small>';

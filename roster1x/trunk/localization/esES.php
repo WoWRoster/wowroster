@@ -644,9 +644,20 @@ $wordings['esES']['lockpicking']='Lockpicking';
 		$questlinks[2]['esES']['url2']='&amp;descripcion=&amp;nivelde=';
 		$questlinks[2]['esES']['url3']='&amp;nivelhasta=';
 
+		//$questlinks[3]['frFR']['name']='WoWHead';
+		//$questlinks[3]['frFR']['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+		//$questlinks[3]['frFR']['url2']=';minle=';
+		//$questlinks[3]['frFR']['url3']=';maxle=';
+
 // Items external link
-	$itemlink['esES']='http://www.thottbot.com/index.cgi?i=';
-	//$itemlink['esES']='http://wow.allakhazam.com/search.html?q=';
+// Add as manu item links as you need
+// Just make sure their names are unique
+	$wordings['esES']['itemlink'] = 'Item Links';
+	$itemlink['enUS']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+	$itemlink['esES']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+	$itemlink['esES']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
+	//$itemlink['frFR']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
 
 // definitions for the questsearchpage
 	$wordings['esES']['search1']="De la siguiente lista escoge una zona o un nombre de misión para ver quien está trabajando en ello.<br />\n<small>Nótese que si el nivel de la misión no es el mismo para todos los miembros listados de la hermandad, pueden estar en otra parte de una misión de múltiples partes.</small>";
