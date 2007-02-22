@@ -219,7 +219,12 @@ function GetSettings()
 				{
 					$setting[1] .= '='.$setting[$i];
 				}
-			} 
+			}
+			
+			if (substr($setting[0], 0, 4) == 'HTTP' || substr($setting[0], 0, 4) == 'http')
+			{	
+				$setting[0] = substr($setting[0], strpos($setting[0], "\r\n\r\n") + 4);
+			}
 				
 			$phpUniSettings[$setting[0]] = $setting[1];
 		}
@@ -488,7 +493,7 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader 2.0')
 		curl_setopt($ch, CURLOPT_POST, 1 );
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
         	
         	// Put the results in the return array
 		$returndata['output'] = curl_exec($ch);
@@ -507,7 +512,7 @@ function PostData($URL, $Action = "HTTP_Post", $UserAgent = 'UniUploader 2.0')
 		curl_close($ch);
 	}
 	else
-	{
+	{	
 		// Post the data via fsockopen()
 		
 		// Declare the data holders
@@ -673,3 +678,4 @@ function download_binary($URL, $save_path = '')
 }
 
 ?>
+
