@@ -19,6 +19,7 @@ CREATE TABLE `uniadmin_addons` (
   `toc` mediumint(9) NOT NULL default '0',
   `required` tinyint(1) NOT NULL default '0',
   `filesize` int(10) unsigned NOT NULL default '0',
+  `full_path` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `addon_name` (`name`)
 );

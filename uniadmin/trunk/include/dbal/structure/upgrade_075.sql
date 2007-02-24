@@ -18,3 +18,10 @@ ALTER TABLE `uniadmin_config`  ORDER BY `config_name`;
 ### Alter uniadmin_settings
 
 UPDATE `uniadmin_settings` SET `form_type` = 'password{250|50' WHERE `set_name` = 'ADDVARVAL2' LIMIT 1;
+
+
+# --------------------------------------------------------
+### Alter uniadmin_addons
+
+ALTER TABLE `uniadmin_addons`
+  ADD `full_path` TINYINT(1) NOT NULL DEFAULT '0';

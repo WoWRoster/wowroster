@@ -241,15 +241,15 @@ function process_addon( $fileArray )
 			$db->query($sql);
 
 			// Update Main Addon data
-			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($real_addon_name)."', `file_name` = '".$db->escape($addon_file_name)."', `homepage` = '".$db->escape($homepage)."', `notes` = '".$db->escape($notes)."', `toc` = '$toc_number', `required` = '$required', `filesize` = '$file_size'
+			$sql = "UPDATE `".UA_TABLE_ADDONS."` SET `time_uploaded` = '".time()."', `version` = '".$db->escape($version)."', `enabled` = '$enabled', `name` = '".$db->escape($real_addon_name)."', `file_name` = '".$db->escape($addon_file_name)."', `homepage` = '".$db->escape($homepage)."', `notes` = '".$db->escape($notes)."', `toc` = '$toc_number', `required` = '$required', `filesize` = '$file_size', `full_path` = '".intval($full_path)."'
 				WHERE `id` = '".$addon_id."';";
 			$db->query($sql);
 		}
 		else
 		{
 			// Insert Main Addon data
-			$sql = "INSERT INTO `".UA_TABLE_ADDONS."` ( `time_uploaded` , `version` , `enabled` , `name`, `file_name`, `homepage`, `notes`, `toc`, `required`, `filesize` )
-				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($real_addon_name)."', '".$db->escape($addon_file_name)."', '".$db->escape($homepage)."', '".$db->escape($notes)."', '$toc_number', '$required', '$file_size' );";
+			$sql = "INSERT INTO `".UA_TABLE_ADDONS."` ( `time_uploaded` , `version` , `enabled` , `name`, `file_name`, `homepage`, `notes`, `toc`, `required`, `filesize`, `full_path` )
+				VALUES ( '".time()."', '".$db->escape($version)."', '1', '".$db->escape($real_addon_name)."', '".$db->escape($addon_file_name)."', '".$db->escape($homepage)."', '".$db->escape($notes)."', '$toc_number', '$required', '$file_size', '".intval($full_path)."' );";
 			$db->query($sql);
 
 			// Get the insert id of the addon just inserted
