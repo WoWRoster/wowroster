@@ -260,7 +260,6 @@ $lang['settings_updated'] = 'Paramètres Mis à Jour';
 $lang['download'] = 'Télécharger';
 $lang['user_style'] = 'Style Utilisateur';
 $lang['change_style'] = 'Changer de Style';
-$lang['fullpath_addon'] = 'Chemin Complet Addon';
 $lang['addon_details'] = 'Détails AddOn';
 $lang['manage'] = 'Gérer';
 $lang['optional'] = 'Facultatif';
@@ -288,7 +287,6 @@ $lang['interface_ready'] = 'Interface de Mise à Jour UniUploader...';
 
 // Addon Management
 $lang['addon_required_tip'] = 'Quand coché, UniUploader exigera le téléchargement de cet addon';
-$lang['addon_fullpath_tip'] = 'Ce paramètre est pour les addons qui extraient directement dans le répertoire de World of Warcraft<br /><br />- [oui] Extraire addon dans WoW/<br />- [non] Extraire dans WoW/Interface/AddOns/';
 $lang['addon_selectfile_tip'] = 'Selectionner un addon à charger';
 
 
@@ -335,7 +333,7 @@ $lang['ADDVARNAME1'] = 'Nom de la Variable Additionnelle 1 (defaut-&gt;username)
 $lang['ADDVARVAL1'] = 'Valeur de la Variable Additionnelle 1';
 $lang['ADDVAR2CH'] = 'Variable Additionelle 2';
 $lang['ADDVARNAME2'] = 'Nom de la Variable Additionnelle 2 (defaut-&gt;password)';
-$lang['ADDVARVAL2'] = 'Valeur de la Variable Additionnelle 2';
+$lang['ADDVARVAL2'] = 'Valeur de la Variable Additionnelle 2<br />This value is usually a password and so is hidden';
 $lang['ADDVAR3CH'] = 'Variable Additionelle 3';
 $lang['ADDVARNAME3'] = 'Nom de la Variable Additionnelle 3';
 $lang['ADDVARVAL3'] = 'Valeur de la Variable Additionnelle 3';
@@ -380,6 +378,7 @@ $lang['admin']['default_style'] = 'Style par Défaut|Le style d\'affichage par dé
 $lang['admin']['enable_gzip'] = 'Compression Gzip|Activer la compression gzip pour l\'affichage des pages UniAdmin';
 $lang['admin']['interface_url'] = 'URL Interface|Specifier le lieu de interface.php ici<br /><br />Utiliser %url% pour insérer l\'url de base<br />Par défaut  "%url%?p=interface" ou "%url%interface.php"';
 $lang['admin']['logo_folder'] = 'Dossier Logo|Specifier le dossier ou les logos UniUploader seront sauvés';
+$lang['admin']['remote_timeout'] = 'Remote File Timeout|This sets the timeout period to download remote files in UniAdmin<br />This setting is how many hours to wait before getting a new file<br />Default is 24 hours';
 $lang['admin']['temp_analyze_folder'] = 'Dossier Analyse Temporaire AddOn|Specifier le dossier ou les archives zip d\'addons seront décompressées et analysées';
 $lang['admin']['UAVer'] = 'Version UniAdmin|Version actuelle d\'UniAdmin<br />Vous ne pouvez pas changer ce paramètre';
 $lang['admin']['ua_debug'] = 'Mode Debug|Debuggage pour UniAdmin<br /><br />- [non] Pas de débuggage<br />- [demi] Affiche le nombre de requêtes et le temps de rendu dans le pied de page<br />- [complet] Montre le nombre de requête, temps de rendu, et la requête SQL dans le pied de page';
@@ -419,6 +418,7 @@ $lang['error_mkdir'] = 'mkdir [%1$s] Impossible<br />mkdir Manuellement et/ou vé
 $lang['error_unlink'] = 'unlink(delete) [%1$s] Impossible<br />Supprimer Manuellement et/ou vérifier les permissions de fichiers';
 $lang['error_move_uploaded_file'] = 'Impossible de de déplacer [%1$s] vers [%2$s]<br />Vérifier les paramètres de chargement php et les permissions de fichiers';
 $lang['error_write_file'] = 'Ne peut écrire [%1$s]<br />Vérifier les permissions';
+$lang['error_download_file'] = 'Could not download [%1$s]<br />$uniadmin-&gt;get_remote_contents() failed';
 
 $lang['error_no_uploaded_logo'] = 'Aucun Logo Chargé';
 $lang['error_logo_format'] = 'Le fichier chargé <u>doit</u> être une image GIF';
@@ -431,6 +431,9 @@ $lang['error_pass_mismatch_edit'] = 'Les Mots de Passe ne concordaient pas<br />
 $lang['error_no_wowace_addons'] = 'Pas d\'Addon WoWAce dans la liste téléchargée';
 
 $lang['error_upgrade_needed'] = 'UniAdmin est en cours de mise à jour<br />Se connecter avec un compte admin pour continuer';
+
+$lang['error_invalid_module_name'] = 'Invalid characters in module name';
+$lang['error_invalid_module'] = 'Invalid Module';
 
 // SQL Error Messages
 $lang['sql_error'] = 'Erreur SQL';

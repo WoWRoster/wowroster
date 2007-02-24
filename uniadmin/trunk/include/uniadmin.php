@@ -660,6 +660,8 @@ class UniAdmin
 
 	function get_remote_contents( $url , $timeout = 5 )
 	{
+		global $user;
+
 		$contents = '';
 		$error = array();
 
@@ -668,7 +670,6 @@ class UniAdmin
 			$ch = curl_init($url);
 
 			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 			$contents = curl_exec($ch);
@@ -684,52 +685,15 @@ class UniAdmin
 
 			return $contents;
 		}
-		else
+		elseif( $contents = file_get_contents($url) )
 		{
-			$url = parse_url($url);
-			if( !isset($url['port']) || $url['port'] == '' )
-			{
-				switch ($url['scheme'])
-				{
-					case 'http':
-						$url['port'] = 80;
-						break;
-
-					case 'https':
-						$url['port'] = 443;
-						break;
-
-					default:
-						$url['port'] = 80;
-						break;
-				}
-			}
-
-			// Build the post header
-			$post_header  = 'GET '.$url['path']." HTTP/1.1\r\n";
-			$post_header .= 'Host: '.$url['host']."\r\n";
-			$post_header .= "Connection: close\r\n\r\n";
-
-			$sh = @fsockopen($url['host'], $url['port'], $error['number'], $error['string'], $timeout);
-			if( $sh )
-			{
-				@fputs($sh, $post_header);
-				while ( !@feof($sh) )
-				{
-					$contents .= @fgets($sh);
-				}
-			}
-			else
-			{
-				$this->error($error['number'].' - '.$error['string']);
-				return false;
-			}
-			@fclose($sh);
-
 			return $contents;
 		}
-
-		return false;
+		else
+		{
+			$this->error(sprintf($user->lang['error_download_file'],$url));
+			return false;
+		}
 	}
 
 	/**
@@ -742,9 +706,6 @@ class UniAdmin
 	 */
 	function write_file( $file , $contents , $mode='w' )
 	{
-		// Set our permissions to execute-only
-		$old = @umask(0111);
-
 		$fp = @fopen($file, $mode);
 
 		if ( !$fp )
@@ -758,7 +719,6 @@ class UniAdmin
 
 			return true;
 		}
-		@umask($old);
 	}
 }
 
@@ -855,7 +815,7 @@ function level_select( $select_option='' )
 */
 function ua_die($text = '', $title = '', $file = '', $line = '', $sql = '')
 {
-	global $db, $tpl, $uniadmin, $user, $gen_simple_header;
+	global $db, $tpl, $uniadmin, $user;
 
 	$error_text = '';
 	if( (UA_DEBUG == 1) && ($db->error_die) )
@@ -914,7 +874,7 @@ function ua_die($text = '', $title = '', $file = '', $line = '', $sql = '')
 		}
 
 		$uniadmin->set_vars(array(
-			'gen_simple_header' => $gen_simple_header,
+			'gen_simple_header' => $uniadmin->gen_simple_header,
 			'page_title'        => $page_title,
 			'template_file'     => 'index.html'
 			)

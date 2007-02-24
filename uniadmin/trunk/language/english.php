@@ -260,7 +260,6 @@ $lang['settings_updated'] = 'Settings Updated';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
-$lang['fullpath_addon'] = 'Full Path Addon';
 $lang['addon_details'] = 'AddOn Details';
 $lang['manage'] = 'Manage';
 $lang['optional'] = 'Optional';
@@ -288,7 +287,6 @@ $lang['interface_ready'] = 'UniUploader Update Interface Ready...';
 
 // Addon Management
 $lang['addon_required_tip'] = 'When checked, UniUploader will require this addon for download';
-$lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/';
 $lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
 
@@ -335,7 +333,7 @@ $lang['ADDVARNAME1'] = 'Additional variable 1 name (default-&gt;username)';
 $lang['ADDVARVAL1'] = 'Additional variable 1 value';
 $lang['ADDVAR2CH'] = 'Additional variable 2';
 $lang['ADDVARNAME2'] = 'Additional variable 2 name (default-&gt;password)';
-$lang['ADDVARVAL2'] = 'Additional variable 2 value';
+$lang['ADDVARVAL2'] = 'Additional variable 2 value<br />This value is usually a password and so is hidden';
 $lang['ADDVAR3CH'] = 'Additional variable 3';
 $lang['ADDVARNAME3'] = 'Additional variable 3 name';
 $lang['ADDVARVAL3'] = 'Additional variable 3 value';
@@ -380,6 +378,7 @@ $lang['admin']['default_style'] = 'Default Style|The default display style';
 $lang['admin']['enable_gzip'] = 'Gzip Compression|Enable gzip compression when displaying UniAdmin Pages';
 $lang['admin']['interface_url'] = 'Interface URL|Specify the location of interface.php here<br /><br />Use %url% to insert the base url<br />Default is &quot;%url%?p=interface&quot; or &quot;%url%interface.php&quot;';
 $lang['admin']['logo_folder'] = 'Logo Folder|Specify the folder UniUploader logos will be saved';
+$lang['admin']['remote_timeout'] = 'Remote File Timeout|This sets the timeout period to download remote files in UniAdmin<br />This setting is how many hours to wait before getting a new file<br />Default is 24 hours';
 $lang['admin']['temp_analyze_folder'] = 'AddOn Analyze Temp Folder|Specify the folder addon zip archives will be extracted to and anaylized';
 $lang['admin']['UAVer'] = 'UniAdmin Version|Current UniAdmin version<br />You cannot change this setting';
 $lang['admin']['ua_debug'] = 'Debug Mode|Debugging for UniAdmin<br /><br />- [no] No debugging<br />- [half] Show query count and rendertime in the footer<br />- [full] Show query count, rendertime, and SQL query window in the footer';
@@ -419,6 +418,7 @@ $lang['error_mkdir'] = 'Could not mkdir [%1$s]<br />mkdir Manually and/or check 
 $lang['error_unlink'] = 'Could not unlink(delete) [%1$s]<br />Delete Manually and/or check file persmissions';
 $lang['error_move_uploaded_file'] = 'Could not move [%1$s] to [%2$s]<br />Check php upload settings and file persmissions';
 $lang['error_write_file'] = 'Could not write [%1$s]<br />Check persmissions';
+$lang['error_download_file'] = 'Could not download [%1$s]<br />$uniadmin-&gt;get_remote_contents() failed';
 
 $lang['error_no_uploaded_logo'] = 'No Logo Uploaded';
 $lang['error_logo_format'] = 'The uploaded file <u>must</u> be a GIF image';
@@ -431,6 +431,9 @@ $lang['error_pass_mismatch_edit'] = 'Passwords did not match<br />Old password u
 $lang['error_no_wowace_addons'] = 'No WoWAce AddOns in Downloaded List';
 
 $lang['error_upgrade_needed'] = 'UniAdmin is currently being upgraded<br />Log in with an admin account to continue';
+
+$lang['error_invalid_module_name'] = 'Invalid characters in module name';
+$lang['error_invalid_module'] = 'Invalid Module';
 
 // SQL Error Messages
 $lang['sql_error'] = 'SQL Error';

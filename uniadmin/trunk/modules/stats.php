@@ -81,6 +81,11 @@ function main( )
 
 	while( $row = $db->fetch_record($result) )
 	{
+		foreach( $row as $key => $value )
+		{
+			$row[$key] = stripslashes($value);
+		}
+
 		$time = date($user->lang['time_format'],$row['time']);
 
 		$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
@@ -176,12 +181,10 @@ function build_pie( $field_name )
 	$sql = "SELECT `$field_name` FROM `".UA_TABLE_STATS."`;";
 	$result = $db->query($sql);
 
-	$i=0;
 	$array = '';
 	while( $row = $db->fetch_record($result) )
 	{
-		$array[$i] = $row[$field_name];
-		$i++;
+		$array[] = $row[$field_name];
 	}
 	$db->free_result($result);
 
@@ -215,7 +218,6 @@ function build_pie( $field_name )
 			{
 				unset($final_array[$host_name]);
 			}
-			$i++;
 		}
 
 		$final_array = array_reverse($final_array);

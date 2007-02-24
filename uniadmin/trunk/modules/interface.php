@@ -177,7 +177,7 @@ function output_xml( )
 {
 	global $db, $ua_compat_mode;
 
-	$xml = '<addons>';
+	$xml = '';
 
 	// Don't get optional addons is UU is lower than 2.5.0
 	if( $ua_compat_mode )
@@ -192,17 +192,18 @@ function output_xml( )
 
 	if( $db->num_rows($result) > 0 )
 	{
+		$xml = '<addons>';
 		while( $row = $db->fetch_record($result) )
 		{
-			$id = $row['id'];
-			$name     = addslashes($row['name']);
-			$version  = addslashes($row['version']);
-			$required = addslashes($row['required']);
-			$homepage = addslashes($row['homepage']);
-			$addon_filename = addslashes($row['file_name']);
-			$toc      = addslashes($row['toc']);
+			$id        = addslashes($row['id']);
+			$name      = addslashes($row['name']);
+			$version   = addslashes($row['version']);
+			$required  = addslashes($row['required']);
+			$homepage  = addslashes($row['homepage']);
+			$filename  = addslashes($row['file_name']);
+			$toc       = addslashes($row['toc']);
 
-			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" homepage=\"$homepage\" filename=\"$addon_filename\" toc=\"$toc\">";
+			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" homepage=\"$homepage\" filename=\"$filename\" toc=\"$toc\">";
 
 			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$id';";
 			$result2 = $db->query($sql);
@@ -223,10 +224,9 @@ function output_xml( )
 
 			$xml .= "\n\t</addon>";
 		}
+		$xml .= "\n</addons>";
 	}
 	$db->free_result($result);
-
-	$xml .= "\n</addons>";
 
 	echo $xml;
 }
@@ -243,14 +243,9 @@ function output_url( $addonName )
 	if( $db->num_rows($result) > 0 )
 	{
 		$row = $db->fetch_record($result);
-		if(substr($row['file_name'], 0, 7) == 'http://')
-		{
-			$download = $row['file_name'];
-		}
-		else
-		{
-			$download = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
-		}
+
+		$download = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
+
 		echo $download;
 	}
 	$db->free_result($result);

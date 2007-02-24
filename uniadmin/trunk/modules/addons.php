@@ -113,7 +113,6 @@ function main( )
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
 		'L_GO'             => $user->lang['go'],
-		'L_FULLPATH'       => $user->lang['fullpath_addon'],
 		'L_ADDON_DETAILS'  => $user->lang['addon_details'],
 		'L_MANAGE'         => $user->lang['manage'],
 		'L_YES'            => $user->lang['yes'],
@@ -123,7 +122,6 @@ function main( )
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 
 		'L_REQUIRED_TIP'   => $user->lang['addon_required_tip'],
-		'L_FULLPATH_TIP'   => $user->lang['addon_fullpath_tip'],
 		'L_SELECTFILE_TIP' => $user->lang['addon_selectfile_tip'],
 
 		'S_ADDONS'         => true,

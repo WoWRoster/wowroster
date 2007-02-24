@@ -69,7 +69,7 @@ else
 {
 	clearstatcache();
 	$file_info = stat($ace_file);
-	if( ($file_info['9'] + (60 * 60 * 24)) <= time() )
+	if( ($file_info['9'] + (60 * 60 * $uniadmin->config['remote_timeout'])) <= time() )
 	{
 		// Download List
 		$filelist = $uniadmin->get_remote_contents('http://files.wowace.com/descript.ion');
@@ -148,8 +148,7 @@ function process_wowace_addons( )
 
 	foreach( $download as $key => $addon )
 	{
-		$addoncon = file_get_contents("http://files.wowace.com/$addon/$addon.zip");
-		//$addoncon = $uniadmin->get_remote_contents("http://files.wowace.com/$addon/$addon.zip");
+		$addoncon = $uniadmin->get_remote_contents("http://files.wowace.com/$addon/$addon.zip");
 		$filename = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP."$addon.zip";
 
 		$write_temp_file = $uniadmin->write_file($filename,$addoncon,'w+');
@@ -176,8 +175,6 @@ function process_wowace_addons( )
 			}
 			$toPass['size'] = filesize($toPass['tmp_name']);
 			process_addon($toPass);
-
-			@unlink($toPass['tmp_name']);
 		}
 	}
 }

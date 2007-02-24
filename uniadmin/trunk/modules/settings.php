@@ -156,6 +156,11 @@ function main( )
 				$input_field = '<input class="input" name="'.$setname.'" type="text" value="'.$setvalue.'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 				break;
 
+			case 'password':
+				$length = explode('|',$input_type[1]);
+				$input_field = '<input class="input" name="'.$setname.'" type="password" value="'.$setvalue.'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+				break;
+
 			case 'radio':
 				$options = explode('|',$input_type[1]);
 				$rad=0;
@@ -219,6 +224,7 @@ function main( )
 			'INPUT_FIELD' => $input_field,
 			'CHECKED'     => $checked,
 			'ENABLED'     => $enabled,
+			'PROTECT'     => ( $input_type[0] == 'password' ? true : false )
 			)
 		);
 	}

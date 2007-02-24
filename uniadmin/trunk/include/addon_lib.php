@@ -103,6 +103,7 @@ function process_addon( $fileArray )
 		$toc_file_name = '';
 		$toc_files = array();
 		$revision_files = array();
+		$full_path = false;
 
 		if( is_array($files) )
 		{
@@ -117,6 +118,12 @@ function process_addon( $fileArray )
 				{
 					$revision_files[] = $file;
 					continue;
+				}
+
+				// Check if the file has 'Interface/AddOns/', if so set full_path to true
+				if( stristr($file, '/Interface/AddOns/') || stristr($file, '\\Interface\\AddOns\\') )
+				{
+					$full_path = true;
 				}
 			}
 
@@ -201,14 +208,10 @@ function process_addon( $fileArray )
 			return;
 		}
 
-		if( isset($fileArray['file_name']) && substr($fileArray['file_name'], 0, 7) == 'http://' )
-		{
-			$addon_file_name = $fileArray['file_name'];
-		}
-
 		// See if AddOn exists in the database and do stuff to it
 		$sql = "SELECT * FROM `".UA_TABLE_ADDONS."` WHERE `name` = '".$db->escape($real_addon_name)."';";
 		$result = $db->query($sql);
+
 
 		if( $db->num_rows($result) > 0 )
 		{
@@ -285,7 +288,7 @@ function process_addon( $fileArray )
 
 			if( $file_name != 'index.htm' && $file_name != 'index.html' && $file_name != '.svn' )
 			{
-				if( isset($_POST['fullpath_addon']) && $_POST['fullpath_addon'] == '0' )
+				if( $full_path == false )
 				{
 					$file_name = '\Interface\AddOns'.$file_name;
 				}

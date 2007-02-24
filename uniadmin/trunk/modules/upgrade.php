@@ -47,7 +47,7 @@ class Upgrade
 				if( str_replace('.', '', $version) == $version_from )
 				{
 					$method = 'upgrade_' . $version_from;
-					$this->$method($index,str_replace('.', '', $version));
+					$this->$method($index);
 				}
 			}
 		}
@@ -59,7 +59,7 @@ class Upgrade
 
 	function finalize($index)
 	{
-		global $user;
+		global $user, $uniadmin;
 
 		if( isset($this->versions[$index + 1]) )
 		{
@@ -68,7 +68,14 @@ class Upgrade
 		}
 		else
 		{
-			ua_die($user->lang['upgrade_complete'], $user->lang['success']);
+			$uniadmin->message($user->lang['upgrade_complete']);
+
+			$uniadmin->set_vars(array(
+				'page_title'    => $user->lang['ua_upgrade'],
+				'template_file' => 'index.html',
+				'display'       => true
+				)
+			);
 		}
 	}
 
@@ -76,10 +83,9 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
-	function upgrade_xxx($index,$version)
+	function upgrade_075($index)
 	{
-		$this->standard_upgrader($version);
-
+		$this->standard_upgrader('075');
 		$this->finalize($index);
 	}
 

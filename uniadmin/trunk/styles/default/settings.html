@@ -102,9 +102,13 @@
 			<td class="data{section.settings_row.ROW_CLASS}">
 				<img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{section.settings_row.TOOLTIP}&lt;hr /&gt;&lt;img src=&quot;{URL_PATH}images/{section.settings_row.SETNAME}.jpg&quot; alt=&quot;[{L_IMG_MISSING}]&quot; /&gt;',CAPTION,'{section.settings_row.SETNAME}',VAUTO);" onmouseout="return nd();" /> {section.settings_row.SETNAME}</td>
 			<td class="data{section.settings_row.ROW_CLASS}">
-				<!-- IF section.settings_row.SETVALUE == '1' -->True
-				<!-- ELSEIF section.settings_row.SETVALUE == '0' -->False
-				<!-- ELSE -->{section.settings_row.SETVALUE}<!-- ENDIF --></td>
+				<!-- IF section.settings_row.PROTECT -->
+					<em>Hidden</em>
+				<!-- ELSE -->
+					<!-- IF section.settings_row.SETVALUE == '1' -->True
+					<!-- ELSEIF section.settings_row.SETVALUE == '0' -->False
+					<!-- ELSE -->{section.settings_row.SETVALUE}<!-- ENDIF -->
+				<!-- ENDIF --></td>
 			<!-- ENDIF -->
 		</tr>
 		<!-- END settings_row -->
