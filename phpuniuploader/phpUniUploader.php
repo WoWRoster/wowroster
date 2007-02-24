@@ -252,7 +252,7 @@ function GetSettings()
 
 function CheckAddons()
 {
-	global $post_data, $phpUniSettings, $SendUpdatePassword, $TempDir, $WoWDir, $UserAgentVersion;
+	global $post_data, $phpUniSettings, $SendUpdatePassword, $TempDir, $WoWDir, $UserAgentVersion, $GetNonRequired;
 	
 	$returnvalue = 0;
 	
@@ -277,17 +277,20 @@ function CheckAddons()
 		$rawxml = $rawxml[0];
 		foreach ($rawxml as $index => $data)
 		{
-			preg_match("'<addon\sname=\"(.*?)\"\sversion=\"(.*?)\"\srequired=\"(.*?)\"\stoc=\"(.*?)\">'", $data, $addon_info);
+			preg_match("'<addon\sname=\"(.*?)\"\sversion=\"(.*?)\"\srequired=\"(.*?)\"\shomepage=\"(.*?)\"\sfilename=\"(.*?)\"\stoc=\"(.*?)\sfull_path=\"(.*?)\">'", $data, $addon_info);
 			preg_match_all("'<file\sname=\"(.*?)\"\smd5sum=\"(.*?)\"\s\/>'", $data, $addon_files);
 
 			$addon_data[$index]['name'] = $addon_info[1];
 			$addon_data[$index]['version'] = $addon_info[2];
 			$addon_data[$index]['required'] = $addon_info[3];
-			$addon_data[$index]['toc'] = $addon_info[4];
+			$addon_data[$index]['homepage'] = $addon_info[4];
+			$addon_data[$index]['filename'] = $addon_info[5];
+			$addon_data[$index]['toc'] = $addon_info[6];
+			$addon_data[$index]['fullpath'] = $addon_info[7];
 			
 			foreach ($addon_files[0] as $fileidx => $filedata)
 			{
-				$addon_data[$index]['files'][$fileidx]['file'] = $addon_files[1][$fileidx];
+				$addon_data[$index]['files'][$fileidx]['file'] = str_replace("\\\\", "/", $addon_files[1][$fileidx]);
 				$addon_data[$index]['files'][$fileidx]['md5'] = $addon_files[2][$fileidx];
 			}
 		}
@@ -345,9 +348,18 @@ function CheckAddons()
 						}
 						else
 						{
-							WriteToLog("Unzipping AddOn ".$addon_data[$addonindex]['name']." to ".$WoWDir);
+							// Check if the AddOn was uploaded with Full-Path
+							if ($addon_data[$addonindex]['fullpath'])
+							{
+								$extract_path = $WoWDir;
+							}
+							else
+							{
+								$extract_path = $WoWDir."/Interface/AddOns";
+							}
+							WriteToLog("Unzipping AddOn ".$addon_data[$addonindex]['name']." to ".$extract_path);
 							$archive = new PclZip($downloaded_addon['filename']);
-							if ($archive->extract(PCLZIP_OPT_REPLACE_NEWER, PCLZIP_OPT_PATH, $WoWDir) == 0)
+							if ($archive->extract(PCLZIP_OPT_REPLACE_NEWER, PCLZIP_OPT_PATH, $extract_path) == 0)
 							{
 								WriteToLog("Error Unzipping: ".$archive->errorInfo(true));
 							}
@@ -375,10 +387,7 @@ function CheckAddons()
 	return $returnvalue;
 }
 
-
-
-
-
+// Little function to easily write stuff to the logfile
 function WriteToLog($string)
 {
 	global $LogFile;
@@ -409,6 +418,7 @@ function WriteToLog($string)
 	}
 }
 
+// Compress function to make gzip's out of lua's
 function gzCompressFile($path, $file, $level=false)
 {
 	global $WoWDir;
@@ -637,20 +647,34 @@ function download_binary($URL, $save_path = '')
 				$URL['port'] = 80;
 		}
 	}
-
-	$fp = fsockopen($URL['host'], $URL['port']);
-
-	$query  = 'GET ' . $URL['path'] . " HTTP/1.0\n";
-	$query .= 'Host: ' . $URL['host'];
-	$query .= "\r\n\r\n";
-
-	fwrite($fp, $query);
-	while ($tmp = fread($fp, 819200))
+	// If we have cURL, use those libraries to download the file, if not, use fsockopen().
+	if (function_exists(curl_init))
 	{
-		$buffer .= $tmp;
+		// Download the file using the cURL libraries
+		$curl_url = $URL['scheme'].'://'.$URL['host'].$URL['path'];
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $curl_url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$buffer = curl_exec ($ch);
+		curl_close ($ch);
 	}
+	else
+	{
+		// Download the file using fsockopen
+		$fp = fsockopen($URL['host'], $URL['port']);
+
+		$query  = 'GET ' . $URL['path'] . " HTTP/1.0\n";
+		$query .= 'Host: ' . $URL['host'];
+		$query .= "\r\n\r\n";
+
+		fwrite($fp, $query);
+		while ($tmp = fread($fp, 819200))
+		{
+			$buffer .= $tmp;
+		}
 	
-	preg_match('/Content-Length: ([0-9]+)/', $buffer, $parts);
+		preg_match('/Content-Length: ([0-9]+)/', $buffer, $parts);
+	}
 	
 	// Let's make sure the file exists and is writable first.
 	if (!file_exists($filename) || is_writable($filename))

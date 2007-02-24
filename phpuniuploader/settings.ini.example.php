@@ -12,9 +12,11 @@
  *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
  * -----------------------------
  *
- * $Id$
+ * $Id: $
  *
  ******************************/
+
+// Copy this file to settings.inc.php and modify it to match your system
 
 //// Account data
 // Your WoW Directory
