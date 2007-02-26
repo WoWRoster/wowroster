@@ -663,7 +663,6 @@ class UniAdmin
 		global $user;
 
 		$contents = '';
-		$error = array();
 
 		if( function_exists('curl_init') )
 		{

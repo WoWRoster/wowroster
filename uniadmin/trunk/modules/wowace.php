@@ -63,7 +63,7 @@ if( !file_exists($ace_file) )
 	$filelist = $uniadmin->get_remote_contents('http://files.wowace.com/descript.ion');
 	$uniadmin->message($user->lang['new_wowace_list']);
 
-	$uniadmin->write_file($ace_file,$filelist) === false;
+	$uniadmin->write_file($ace_file,$filelist);
 }
 else
 {
@@ -75,7 +75,7 @@ else
 		$filelist = $uniadmin->get_remote_contents('http://files.wowace.com/descript.ion');
 		$uniadmin->message($user->lang['new_wowace_list']);
 
-		$uniadmin->write_file($ace_file,$filelist) === false;
+		$uniadmin->write_file($ace_file,$filelist);
 		clearstatcache();
 		$file_info = stat($ace_file);
 		$tpl->assign_var('WOWACE_UPDATED',date($user->lang['time_format'],$file_info['9']) );

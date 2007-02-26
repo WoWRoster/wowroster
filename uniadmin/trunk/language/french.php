@@ -260,6 +260,7 @@ $lang['settings_updated'] = 'Paramètres Mis à Jour';
 $lang['download'] = 'Télécharger';
 $lang['user_style'] = 'Style Utilisateur';
 $lang['change_style'] = 'Changer de Style';
+$lang['fullpath_addon'] = 'Chemin Complet Addon';
 $lang['addon_details'] = 'Détails AddOn';
 $lang['manage'] = 'Gérer';
 $lang['optional'] = 'Facultatif';
@@ -269,6 +270,7 @@ $lang['full'] = 'Complet';
 $lang['edit'] = 'Editer';
 $lang['cancel'] = 'Annuler';
 $lang['status'] = 'Statut';
+$lang['automatic'] = 'Automatic';
 
 
 // Pagination
@@ -287,6 +289,7 @@ $lang['interface_ready'] = 'Interface de Mise à Jour UniUploader...';
 
 // Addon Management
 $lang['addon_required_tip'] = 'Quand coché, UniUploader exigera le téléchargement de cet addon';
+$lang['addon_fullpath_tip'] = 'Ce paramètre est pour les addons qui extraient directement dans le répertoire de World of Warcraft<br /><br />- [oui] Extraire addon dans WoW/<br />- [non] Extraire dans WoW/Interface/AddOns/<br />- [Automatic] Auto-detect location';
 $lang['addon_selectfile_tip'] = 'Selectionner un addon à charger';
 
 

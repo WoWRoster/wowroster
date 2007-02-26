@@ -203,8 +203,9 @@ function output_xml( )
 			$filename  = addslashes($row['file_name']);
 			$toc       = addslashes($row['toc']);
 			$full_path = addslashes($row['full_path']);
+			$notes     = addslashes($row['notes']);
 
-			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" homepage=\"$homepage\" filename=\"$filename\" toc=\"$toc\" full_path=\"$full_path\">";
+			$xml .= "\n\t<addon name=\"$name\" version=\"$version\" required=\"$required\" homepage=\"$homepage\" filename=\"$filename\" toc=\"$toc\" full_path=\"$full_path\" notes=\"$notes\">";
 
 			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$id';";
 			$result2 = $db->query($sql);

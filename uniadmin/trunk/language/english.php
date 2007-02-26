@@ -260,6 +260,7 @@ $lang['settings_updated'] = 'Settings Updated';
 $lang['download'] = 'Download';
 $lang['user_style'] = 'User Style';
 $lang['change_style'] = 'Change Style';
+$lang['fullpath_addon'] = 'Full Path Addon';
 $lang['addon_details'] = 'AddOn Details';
 $lang['manage'] = 'Manage';
 $lang['optional'] = 'Optional';
@@ -269,6 +270,7 @@ $lang['full'] = 'Full';
 $lang['edit'] = 'Edit';
 $lang['cancel'] = 'Cancel';
 $lang['status'] = 'Status';
+$lang['automatic'] = 'Automatic';
 
 
 // Pagination
@@ -287,6 +289,7 @@ $lang['interface_ready'] = 'UniUploader Update Interface Ready...';
 
 // Addon Management
 $lang['addon_required_tip'] = 'When checked, UniUploader will require this addon for download';
+$lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/<br />- [Automatic] Auto-detect location';
 $lang['addon_selectfile_tip'] = 'Select an addon to upload';
 
 

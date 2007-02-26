@@ -20,7 +20,7 @@
 include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 
 // Determine the module request
-$page = ( isset($_GET[UA_URI_PAGE]) ) ? $_GET[UA_URI_PAGE] : 'help';
+$page = ( isset($_GET[UA_URI_PAGE]) && !empty($_GET[UA_URI_PAGE]) ) ? $_GET[UA_URI_PAGE] : 'help';
 
 if(preg_match('/[^a-zA-Z0-9_]/', $page))
 {

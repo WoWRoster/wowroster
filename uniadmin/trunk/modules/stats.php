@@ -58,7 +58,7 @@ function main( )
 		);
 	}
 
-	if( isset($_REQUEST['orderby']) || isset($_REQUEST['direction']) || isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
+	if( isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
 	{
 		$limit = $_REQUEST['limit'];
 		$start = $_REQUEST['start'];
@@ -69,13 +69,16 @@ function main( )
 		$start = '0';
 	}
 
-	$sql = "SELECT * FROM `".UA_TABLE_STATS."`;";
+	$sql = "SELECT count(`id`) rows FROM `".UA_TABLE_STATS."`;";
 	$result = $db->query($sql);
 
-	$total_rows = $db->num_rows($result);
+	$total_rows = $db->fetch_record($result);
+	$total_rows = $total_rows[0];
+
+	$db->free_result($result);
 
 
-	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `time` DESC LIMIT $start , $limit;";
+	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `id` DESC LIMIT $start , $limit;";
 	$result = $db->query($sql);
 
 
@@ -104,6 +107,8 @@ function main( )
 			)
 		);
 	}
+
+	$db->free_result($result);
 
 	$prev_start = $start - $limit;
 	$prev_link = '';
@@ -178,63 +183,35 @@ function build_pie( $field_name )
 {
 	global $db, $uniadmin, $user;
 
-	$sql = "SELECT `$field_name` FROM `".UA_TABLE_STATS."`;";
+	$sql = "SELECT count(`id`) count, `$field_name` field FROM `".UA_TABLE_STATS."` GROUP BY `$field_name` ORDER BY `count` DESC LIMIT 0,5";
 	$result = $db->query($sql);
 
-	$array = '';
 	while( $row = $db->fetch_record($result) )
 	{
-		$array[] = $row[$field_name];
+		if( $field_name != 'time' )
+		{
+			$final_array[$row['field']] = $row['count'];
+		}
+		else
+		{
+			$final_array[date($user->lang['time_format'],$row['field'])] = $row['count'];
+		}
 	}
+
 	$db->free_result($result);
 
-	if( is_array($array) )
+	$field_name = urlencode($field_name);
+
+	$pie = "title=$field_name&amp;";
+	$i = 0;
+	foreach( $final_array as $host_name => $numHits )
 	{
-		$array = array_unique($array);
+		$host_name = urlencode($host_name);
+		$numHits = urlencode($numHits);
 
-		foreach( $array as $host_name )
-		{
-			$sql = "SELECT `id` FROM `".UA_TABLE_STATS."` WHERE `$field_name` = '".$db->escape($host_name)."'";
-			$result = $db->query($sql);
-
-			if( $field_name != 'time' )
-			{
-				$final_array[$host_name] = $db->num_rows($result);
-			}
-			else
-			{
-				$final_array[date($user->lang['time_format'],$host_name)] = $db->num_rows($result);
-			}
-		}
-
-		$db->free_result($result);
-
-		asort($final_array,SORT_NUMERIC);
-		reset($final_array);
-
-		foreach( $final_array as $host_name => $count )
-		{
-			if (count($final_array) > 5 )
-			{
-				unset($final_array[$host_name]);
-			}
-		}
-
-		$final_array = array_reverse($final_array);
-
-		$field_name = urlencode($field_name);
-
-		$pie = "title=$field_name&amp;";
-		$i = 0;
-		foreach( $final_array as $host_name => $numHits )
-		{
-			$host_name = urlencode($host_name);
-			$numHits = urlencode($numHits);
-
-			$pie .= "slice[$i]=$numHits&amp;itemName[$i]=$host_name&amp;";
-			$i++;
-		}
-		$pie .= "action=drawChart";
-		return $pie;
+		$pie .= "slice[$i]=$numHits&amp;itemName[$i]=$host_name&amp;";
+		$i++;
 	}
+	$pie .= "action=drawChart";
+	return $pie;
 }

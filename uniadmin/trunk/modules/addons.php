@@ -113,6 +113,8 @@ function main( )
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
 		'L_GO'             => $user->lang['go'],
+		'L_FULLPATH'       => $user->lang['fullpath_addon'],
+		'L_AUTOMATIC'      => $user->lang['automatic'],
 		'L_ADDON_DETAILS'  => $user->lang['addon_details'],
 		'L_MANAGE'         => $user->lang['manage'],
 		'L_YES'            => $user->lang['yes'],
@@ -122,6 +124,7 @@ function main( )
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 
 		'L_REQUIRED_TIP'   => $user->lang['addon_required_tip'],
+		'L_FULLPATH_TIP'   => $user->lang['addon_fullpath_tip'],
 		'L_SELECTFILE_TIP' => $user->lang['addon_selectfile_tip'],
 
 		'S_ADDONS'         => true,
@@ -163,7 +166,7 @@ function main( )
 			$tpl->assign_var('S_BELOW_15', false);
 		}
 
-		/* NOT USED YET */$addon_in_db = array();/* */
+		/* NOT USED YET $addon_in_db = array(); */
 		while( $row = $db->fetch_record($result) )
 		{
 			if( substr($row['file_name'], 0, 7) == 'http://' )
@@ -194,10 +197,10 @@ function main( )
 			);
 		}
 
+/* NOT USED YET
 		// Get a list of currently uploaded addons
 		$uploaded_addons = $uniadmin->ls(UA_BASEDIR.$uniadmin->config['addon_folder'],array(),false);
 
-/* NOT USED YET
 		$addon_not_db = array();
 		if( is_array($uploaded_addons) && count($uploaded_addons) > 0 )
 		{

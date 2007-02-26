@@ -61,6 +61,34 @@ function process_addon( $fileArray )
 		// Check if this addon is required
 		$required = ( isset($_POST['required']) ? 1 : 0 );
 
+		// See if we are auto detecting the path or are we overriding it
+		$full_path = false;
+		if( isset($_POST['fullpath_addon']) && $_POST['fullpath_addon'] != '' )
+		{
+			switch($_POST['fullpath_addon'])
+			{
+				case '0': // Force false
+					$full_path = false;
+					$auto_path = false;
+					break;
+
+				case '1': // Force true
+					$full_path = true;
+					$auto_path = false;
+					break;
+
+				case '2': // Auto-detect mode
+					$full_path = false;
+					$auto_path = true;
+					break;
+
+				default: // Default is false and auto-detect
+					$full_path = false;
+					$auto_path = true;
+					break;
+			}
+		}
+
 		// Name and location of the zip file
 		$zip_file = $addon_zip_folder.DIR_SEP.$addon_file_name;
 
@@ -103,7 +131,6 @@ function process_addon( $fileArray )
 		$toc_file_name = '';
 		$toc_files = array();
 		$revision_files = array();
-		$full_path = false;
 
 		if( is_array($files) )
 		{
@@ -114,16 +141,19 @@ function process_addon( $fileArray )
 					$toc_files[] = $file;
 					continue;
 				}
-				elseif( strpos($file, 'changelog-r') && $uniadmin->get_file_ext($file) == 'txt' )
+				elseif( strpos($file, 'changelog-r') !== false && $uniadmin->get_file_ext($file) == 'txt' )
 				{
 					$revision_files[] = $file;
 					continue;
 				}
 
-				// Check if the file has 'Interface/AddOns/', if so set full_path to true
-				if( stristr($file, '/Interface/AddOns/') || stristr($file, '\\Interface\\AddOns\\') )
+				if( $auto_path )
 				{
-					$full_path = true;
+					// Check if the file has 'Interface/AddOns/', if so set full_path to true
+					if( stristr($file, 'Interface/AddOns') || stristr($file, 'Interface\\AddOns') )
+					{
+						$full_path = true;
+					}
 				}
 			}
 
