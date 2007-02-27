@@ -62,7 +62,6 @@ CREATE TABLE `uniadmin_logos` (
   `updated` int(11) NOT NULL default '0',
   `logo_num` int(11) NOT NULL default '0',
   `active` tinyint(1) NOT NULL default '0',
-  `download_url` varchar(250) NOT NULL default '',
   `md5` varchar(32) NOT NULL,
   PRIMARY KEY  (`id`)
 );

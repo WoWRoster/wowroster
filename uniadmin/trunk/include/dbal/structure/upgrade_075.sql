@@ -25,3 +25,9 @@ UPDATE `uniadmin_settings` SET `form_type` = 'password{250|50' WHERE `set_name` 
 
 ALTER TABLE `uniadmin_addons`
   ADD `full_path` TINYINT(1) NOT NULL DEFAULT '0';
+
+
+# --------------------------------------------------------
+### Alter uniadmin_logos
+
+ALTER TABLE `uniadmin_logos` DROP `download_url`;

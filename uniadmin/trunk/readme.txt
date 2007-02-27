@@ -1,4 +1,4 @@
-UniAdmin 0.7.5 (updated 16th February 2007)
+UniAdmin 0.7.6 (updated 25th February 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -156,6 +156,40 @@ Solution: After you upload an addon zip, edit the info on the addon details page
 ~ Fixed
 + Added
 ! Changed
+
+v0.7.6
+~ slashes are now stripped in stats module
+~ ADDVARVAL2 is now a password field since it's usually a password
+~ Edited pclzip.lib.php detection of windows to something that servers don't block
+~ Removed curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  It isn't needed and some servers block this option
+~ get_remote_contents file get function in include/uniadmin.php
+  This was causing the no toc errors for wowace addons
+~ Removed umask in write_file function in include/uniadmin.php
+~ Added improper module name detection in index.php, to eliminate remote file inclusion hacks
+~ Reduced the queries on the stats page down to 9, Thanks alot PleegWat!
+~ Sorting on stats page
+~ Added user agent matching for jUU so compat mode setting will be active
+~ Logo file paths are now determined by the current url
+~ Addon XML output now escapes '&' properly as &amp;
+! Logo module has been edited so different image file types could be used in the future
+! Removed `download_url` field form logo table, `filename` is used now
+! All remote addons (wowace) will now be stored locally
+  This is so UA admins can control what addon version UU users download
+! Full path addon detection
+  There is now 3 options [automatic] [yes] [no]
+  - Automatic will attempt to auto-detect if the addon should be treated as full path or not
+  Addon XML variable "full_path" is now set if the addon should be treated as full path
+  - 0 = extract to WoW/Interface/AddOns/
+  - 1 = extract to WoW/
+! Addon xml file list is only outputted if there are addons in the UA db
+! Addon xml output is now sorted by required/optional, then by name
+! Logo output is sorted now sorted numerically
+! Setting and sv list output is sorted by name
++ Addon notes to addon xml output
++ New get settings mode, xml output
+  Use ?OPERATION=GETSETTINGSXML
+
 
 v0.7.5
 ~ Removed all dead files

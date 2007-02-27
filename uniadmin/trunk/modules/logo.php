@@ -196,6 +196,9 @@ function process_logo( )
 {
 	global $db, $uniadmin, $user;
 
+	// Image formats to allow
+	$logo_allow = array('gif');
+
 	$logo_folder = UA_BASEDIR.$uniadmin->config['logo_folder'];
 	if( isset($_FILES['logo1']) && $_FILES['logo1']['name'] != '' )
 	{
@@ -207,6 +210,8 @@ function process_logo( )
 		$logo_id = $row['id'];
 		$logo_num = '1';
 		$file_field = 'logo1';
+
+		$db->free_result($result);
 	}
 	elseif( isset($_FILES['logo2']) && $_FILES['logo2']['name'] != '' )
 	{
@@ -218,6 +223,8 @@ function process_logo( )
 		$logo_id = $row['id'];
 		$logo_num = '2';
 		$file_field = 'logo2';
+
+		$db->free_result($result);
 	}
 	else
 	{
@@ -225,10 +232,16 @@ function process_logo( )
 		return;
 	}
 
-	if( $uniadmin->get_file_ext($_FILES[$file_field]['name']) == 'gif' )
+	$logo_ext = $uniadmin->get_file_ext($_FILES[$file_field]['name']);
+
+	if( in_array($logo_ext,$logo_allow) )
 	{
-		$logo_location = $logo_folder.DIR_SEP.stripslashes('logo'.$logo_num.'.gif');
-		@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.gif');
+		$logo_location = $logo_folder.DIR_SEP.stripslashes('logo'.$logo_num.'.'.$logo_ext);
+
+		foreach( $logo_allow as $logo_del )
+		{
+			@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del);
+		}
 
 		$try_move = @move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);
 		if( !$try_move )
@@ -253,7 +266,7 @@ function process_logo( )
 		$result = $db->query($sql);
 
 
-		$sql = "INSERT INTO `".UA_TABLE_LOGOS."` ( `filename` , `updated` , `logo_num` , `active` , `download_url` , `md5` ) VALUES ( 'logo$logo_num.gif', '".time()."', '$logo_num', '1', '".$uniadmin->url_path.$uniadmin->config['logo_folder']."/logo$logo_num.gif', '$md5' );";
+		$sql = "INSERT INTO `".UA_TABLE_LOGOS."` ( `filename` , `updated` , `logo_num` , `active` , `md5` ) VALUES ( 'logo$logo_num.$logo_ext', '".time()."', '$logo_num', '1', '$md5' );";
 		$result = $db->query($sql);
 		if( !$db->affected_rows() )
 		{

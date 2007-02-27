@@ -270,7 +270,7 @@ $lang['full'] = 'Voll';
 $lang['edit'] = 'Editieren';
 $lang['cancel'] = 'Abbrechen';
 $lang['status'] = 'Status';
-$lang['automatic'] = 'Automatic';
+$lang['automatic'] = 'Automatisch';
 
 
 // Pagination
@@ -289,7 +289,7 @@ $lang['interface_ready'] = 'UniUploader Aktualisierungsschnittstelle fertig...';
 
 // Addon Management
 $lang['addon_required_tip'] = 'Wenn aktiviert, UniUploader betrachted das Addon als obligatorischen Download';
-$lang['addon_fullpath_tip'] = 'Für Addons die direkt ins World of Warcraft Verzeichnis entpackt werden<br /><br />- [ja] Entpacke Addon in WoW/<br />- [nein] Entpacke Addon in WoW/Interface/Addons/<br />- [Automatic] Auto-detect location';
+$lang['addon_fullpath_tip'] = 'Für Addons die direkt ins World of Warcraft Verzeichnis entpackt werden<br /><br />- [ja] Entpacke Addon in WoW/<br />- [nein] Entpacke Addon in WoW/Interface/Addons/<br />- [Automatisch] Finde Ziel automatisch';
 $lang['addon_selectfile_tip'] = 'Wähle ein Addon zum Hochladen aus';
 
 
