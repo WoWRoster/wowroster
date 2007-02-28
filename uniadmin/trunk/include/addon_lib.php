@@ -63,6 +63,7 @@ function process_addon( $fileArray )
 
 		// See if we are auto detecting the path or are we overriding it
 		$full_path = false;
+		$auto_path = true;
 		if( isset($_POST['fullpath_addon']) && $_POST['fullpath_addon'] != '' )
 		{
 			switch($_POST['fullpath_addon'])
@@ -134,8 +135,14 @@ function process_addon( $fileArray )
 
 		if( is_array($files) )
 		{
-			foreach( $files as $file )
+			foreach( $files as $index => $file )
 			{
+				// Do not scan files of a certain type
+				if( !in_array($uniadmin->get_file_ext($file),explode(',',UA_ALLOW_ADDON_FILES)) )
+				{
+					unset($files[$index]);
+				}
+
 				if( $uniadmin->get_file_ext($file) == 'toc' )
 				{
 					$toc_files[] = $file;

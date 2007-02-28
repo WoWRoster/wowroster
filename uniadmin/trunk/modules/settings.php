@@ -390,30 +390,33 @@ function process_ini( )
 
 			foreach( $ini_data as $section => $setting )
 			{
-				$tpl->assign_block_vars('section', array(
-					'NAME'  => $section,
-					)
-				);
-
-				foreach( $setting as $setting_name => $setting_value )
+				if( !in_array($setting,explode(',',UA_REJECT_INI)) )
 				{
-					if( $setting_value == 'True' )
+					$tpl->assign_block_vars('section', array(
+						'NAME'  => $section
+						)
+					);
+
+					foreach( $setting as $setting_name => $setting_value )
 					{
-						$setting_value = '1';
-					}
-					elseif( $setting_value == 'False' )
-					{
-						$setting_value = '0';
-					}
-					if( !in_array($setting_name,$uniadmin->reject_ini) )
-					{
-						$tpl->assign_block_vars('section.settings_row', array(
-							'ROW_CLASS'   => $uniadmin->switch_row_class(),
-							'SETNAME'     => $setting_name,
-							'SETVALUE'    => $setting_value,
-							'TOOLTIP'     => addslashes($user->lang[$setting_name]),
-							)
-						);
+						if( $setting_value == 'True' )
+						{
+							$setting_value = '1';
+						}
+						elseif( $setting_value == 'False' )
+						{
+							$setting_value = '0';
+						}
+						if( !in_array($setting_name,$uniadmin->reject_ini) )
+						{
+							$tpl->assign_block_vars('section.settings_row', array(
+								'ROW_CLASS'   => $uniadmin->switch_row_class(),
+								'SETNAME'     => $setting_name,
+								'SETVALUE'    => $setting_value,
+								'TOOLTIP'     => addslashes($user->lang[$setting_name])
+								)
+							);
+						}
 					}
 				}
 			}

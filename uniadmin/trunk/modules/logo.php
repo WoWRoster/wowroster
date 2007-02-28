@@ -196,9 +196,6 @@ function process_logo( )
 {
 	global $db, $uniadmin, $user;
 
-	// Image formats to allow
-	$logo_allow = array('gif');
-
 	$logo_folder = UA_BASEDIR.$uniadmin->config['logo_folder'];
 	if( isset($_FILES['logo1']) && $_FILES['logo1']['name'] != '' )
 	{
@@ -234,13 +231,18 @@ function process_logo( )
 
 	$logo_ext = $uniadmin->get_file_ext($_FILES[$file_field]['name']);
 
-	if( in_array($logo_ext,$logo_allow) )
+	// Only allow certain image types
+	if( in_array($logo_ext,explode(',',UA_LOGO_TYPES)) )
 	{
 		$logo_location = $logo_folder.DIR_SEP.stripslashes('logo'.$logo_num.'.'.$logo_ext);
 
-		foreach( $logo_allow as $logo_del )
+		// Remove all types we allow
+		foreach( UA_LOGO_TYPES as $logo_del )
 		{
-			@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del);
+			if( file_exists($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del) )
+			{
+				@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del);
+			}
 		}
 
 		$try_move = @move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);

@@ -119,30 +119,40 @@ you get permission from the dev team at wowroster.net.
 
 UniAdmin uses the following libraries as well
 
-- PclZip Library http://www.phpconcept.net
+- PclZip Library -  PHP Class to create and manage ZIP files
+  http://www.phpconcept.net
   Licensed under GNU/LGPL - http://www.gnu.org/licenses/lgpl.html
-  The file is located in include/pcl.lib.php and you may upgrade this file at anytime
-  with the release version at http://www.phpconcept.net
+  File located at [include/pcl.lib.php]
+  You may upgrade this file at anytime with the release version
 
 
 - The Overlib tooltip library by Erik Bosrup
+  http://www.bosrup.com/web/overlib
   An unnamed license applies, available at http://www.bosrup.com/web/overlib/?License
+  File located at [overlib/overlib.js]
 
 
-- Table sorting and pagination javascript by Brian at http://www.frequency-decoder.com
+- Table sorting and pagination javascript by Brian
+  http://www.frequency-decoder.com
   Licensed under a Creative Commons Attribution-ShareAlike 2.5 license - http://creativecommons.org/licenses/by-sa/2.5
+  File located at [styles/default/tablesort.js]
 
 
-- The installer and upgrader is based on the EQdkp installer/upgrader
+- The installer and upgrader is based on EQdkp's
   This concerns the files:
     modules/install.php
     modules/upgrade.php
 
-- The templating system is based on EQdkp's template system
+- The templating system is based on EQdkp's
   This concerns include/template.php
 
-These 3 files are licensed under the GNU General Public License,
-which is available at http://gnu.org/copyleft/gpl.html
+  These 3 files are licensed under the GNU General Public License,
+  which is available at http://gnu.org/copyleft/gpl.html
+
+
+- MiniXML - http://minixml.psychogenic.com
+  PHP class for generating and parsing XML
+  Licensed under the GNU General Public License - http://gnu.org/copyleft/gpl.html
 
 
 8 - Known Bugs / Gotchyas
@@ -162,9 +172,9 @@ v0.7.6
 ~ ADDVARVAL2 is now a password field since it's usually a password
 ~ Edited pclzip.lib.php detection of windows to something that servers don't block
 ~ Removed curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-  It isn't needed and some servers block this option
+    It isn't needed and some servers block this option
 ~ get_remote_contents file get function in include/uniadmin.php
-  This was causing the no toc errors for wowace addons
+    This was causing the no toc errors for wowace addons
 ~ Removed umask in write_file function in include/uniadmin.php
 ~ Added improper module name detection in index.php, to eliminate remote file inclusion hacks
 ~ Reduced the queries on the stats page down to 9, Thanks alot PleegWat!
@@ -172,23 +182,32 @@ v0.7.6
 ~ Added user agent matching for jUU so compat mode setting will be active
 ~ Logo file paths are now determined by the current url
 ~ Addon XML output now escapes '&' properly as &amp;
+~ settings.ini scanner will not scan certain values (IE: account name)
+~ SQL queries will never show to anonymous users
+~ Links in installer will now properly point to index.php instead of install.php
+! UA now only accepts and scans certain file types for addons
+    lua,toc,txt,tga,blp,ttf,xml,wav,mp3
+! Set header() to xml for addon output and settings xml output
 ! Logo module has been edited so different image file types could be used in the future
-! Removed `download_url` field form logo table, `filename` is used now
+! Removed `download_url` field from logo table, `filename` is used now
 ! All remote addons (wowace) will now be stored locally
-  This is so UA admins can control what addon version UU users download
+    This is so UA admins can control what addon version UU users download
 ! Full path addon detection
-  There is now 3 options [automatic] [yes] [no]
-  - Automatic will attempt to auto-detect if the addon should be treated as full path or not
-  Addon XML variable "full_path" is now set if the addon should be treated as full path
-  - 0 = extract to WoW/Interface/AddOns/
-  - 1 = extract to WoW/
+    There is now 3 options [automatic] [yes] [no]
+     - Automatic will attempt to auto-detect if the addon should be treated as full path or not
+    Addon XML variable "full_path" is now set if the addon should be treated as full path
+     - 0 = extract to WoW/Interface/AddOns/
+     - 1 = extract to WoW/
 ! Addon xml file list is only outputted if there are addons in the UA db
 ! Addon xml output is now sorted by required/optional, then by name
 ! Logo output is sorted now sorted numerically
 ! Setting and sv list output is sorted by name
 + Addon notes to addon xml output
 + New get settings mode, xml output
-  Use ?OPERATION=GETSETTINGSXML
+    Use ?OPERATION=GETSETTINGSXML
++ Now using the minixml library to generate xml output in interface.php
+    http://minixml.psychogenic.com
++ New constant for allowed logo image types
 
 
 v0.7.5
@@ -205,42 +224,42 @@ v0.7.5
 ~ Fixed error on UA config page dealing with default style
 ~ index.php to use the page variable constant defined in constants.php
 + Added installer and upgrader
-  Moved files around in zip package now that UA has an installer
-  PRIMARYURL, SYNCHROURL, RETRDATAURL are set with default values on install
-  If config.php doesn't exist, UA will direct to the installer
+    Moved files around in zip package now that UA has an installer
+    PRIMARYURL, SYNCHROURL, RETRDATAURL are set with default values on install
+    If config.php doesn't exist, UA will direct to the installer
 + Homepage and filename to xml in interface.php
 + Implemented code from Zajsoft (thanks a bunch!)
 + Addon list sorting
 + File size is now calculated
 + Directory tree file listing (html list output)
-  Big thanks to Zeryl on this, without him, this would not be here
+    Big thanks to Zeryl on this, without him, this would not be here
 + Added password confirmation
-  If you edit yourself, you need to enter old password
-  If your level > user, then no old password is needed
+    If you edit yourself, you need to enter old password
+    If your level > user, then no old password is needed
 + If adding a new user, and there is a form validation error, some of the info will be still in the form (name, level, lang, style)
 + Added ua_die() to kill UA when needed with a message and debug info
 + Added remote checking for new UA version
-  There is an option to turn this off in uniadmin config
+    There is an option to turn this off in uniadmin config
 + Added WoWAce module, now you can get addons from wowace.com
 + Added a function to grab a remote file's contents $uniadmin->get_remote_contents()
 ! Addon zips are loaded on the assumption that they extract to Interface/AddOns/, there is a switch on the upload form to change this action
 ! Simplified the upload process
-  Only 3 fields; Required, Full Path, Select File
+    Only 3 fields; Required, Full Path, Select File
 ! Greatly improved .toc file detection
-  Most needed fields are scanned from the .toc file
-  You can use the addon details page to edit fields
+    Most needed fields are scanned from the .toc file
+    You can use the addon details page to edit fields
 ! get_toc() changed to get_toc_val()
-  This can get any value from the .toc file such as Interface, Version, X-Website, etc...
+    This can get any value from the .toc file such as Interface, Version, X-Website, etc...
 ! Merged many addon.php functions ( require_addon, optional_addon, enable_addon, disable_addon ) into one function toggle_addon()
 ! Moved addon functions to include/addon_lib.php
 ! Moved debug config to the UA settings page
 ! Removed all extra ?>
 ! Another massive interface overhaul
-  Added js styling for overlib
-  Finally all html moved into themes and out of php code
-  Made the pie charts smaller on the stats page
-  Removed uploaded and status idication when no logo's are uploaded
-  Added meta tag the prevents IE from showing the image toolbar
+    Added js styling for overlib
+    Finally all html moved into themes and out of php code
+    Made the pie charts smaller on the stats page
+    Removed uploaded and status idication when no logo's are uploaded
+    Added meta tag the prevents IE from showing the image toolbar
 ! Moved URL detection to include/uniadmin.php
 ! Simplified module detection and inclusion in index.php
 ! Changed $uniadmin->debug() to $uniadmin->error()
@@ -248,7 +267,7 @@ v0.7.5
 ! Changed $uniadmin->ls() to be able to not traverse directories if needed
 ! Moved interface.php to modules dir, interface.php still exists in the root, but includes index.php and sets $_GET['p'] = 'interface';
 ! Changed uniadmin config text strings in locale files
-  Using "title|tootip" format now
+    Using "title|tootip" format now
 ! Changed menu generation to give more variables so menu can be styled easily in themes
 
 

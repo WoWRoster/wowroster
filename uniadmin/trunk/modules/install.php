@@ -618,7 +618,7 @@ function process_step3()
 	// Check to make sure a connection was made
 	if ( !is_resource($db->link_id) )
 	{
-		$tpl->message_die('Failed to connect to database <strong>' . $config['database'] . '</strong> as <strong>' . $config['username'] . '@' . $config['host'] . '</strong><br /><br /><a href="install.php">Restart Installation</a>');
+		$tpl->message_die('Failed to connect to database <strong>' . $config['database'] . '</strong> as <strong>' . $config['username'] . '@' . $config['host'] . '</strong><br /><br /><a href="index.php">Restart Installation</a>');
 	}
 
 	$db_structure_file = UA_DB_DIR . 'structure' . DIR_SEP . $config['dbtype'] . '_structure.sql';
@@ -642,7 +642,7 @@ function process_step3()
 	}
 	else
 	{
-		$tpl->message_die('Failed to get version information for database <strong>' . $config['database'] . '</strong> as <strong>' . $config['username'] . '@' . $config['host'] . '</strong><br /><br /><a href="install.php">Restart Installation</a>');
+		$tpl->message_die('Failed to get version information for database <strong>' . $config['database'] . '</strong> as <strong>' . $config['username'] . '@' . $config['host'] . '</strong><br /><br /><a href="index.php">Restart Installation</a>');
 	}
 
 	// Parse structure file and create database tables
@@ -662,7 +662,7 @@ function process_step3()
 			if( !($db->query($sql[$i])) )
 			{
 				$tpl->message_die('Failed to connect to database <strong>' . $config['database'] . '</strong> as <strong>' . $config['username'] . '@' . $config['host'] . '</strong>
-				<br /><br /><a href="install.php">Restart Installation</a>');
+				<br /><br /><a href="index.php">Restart Installation</a>');
 			}
 		}
 		$i++;
@@ -686,7 +686,7 @@ function process_step3()
 			if( !($db->query($sql[$i])) )
 			{
 				$tpl->message_die('Failed to connect to database <strong>' . $config['database'] . '</strong> as <strong>' . $config['username'] . '@' . $config['host'] . '</strong>
-				<br /><br /><a href="install.php">Restart Installation</a>');
+				<br /><br /><a href="index.php">Restart Installation</a>');
 			}
 		}
 		$i++;

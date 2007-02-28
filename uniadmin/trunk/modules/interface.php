@@ -43,6 +43,8 @@ else
 	define('UU_COMPAT', false);
 }
 
+// Include xml builder
+require(UA_INCLUDEDIR.'minixml.inc.php');
 
 
 // Decide What To Do
@@ -55,11 +57,13 @@ switch( $op )
 
 	case 'GETSETTINGSXML':
 		update_stats($op);
+		header('Content-Type: text/xml');
 		echo output_settings_xml();
 		break;
 
 	case 'GETADDONLIST':
 		update_stats($op);
+		header('Content-Type: text/xml');
 		echo output_addon_xml();
 		break;
 
@@ -179,55 +183,61 @@ function output_settings_xml( )
 {
 	global $db, $uniadmin;
 
-	$output_string = "<uasettings>\n";
+	$xmlDoc = new MiniXMLDoc();
+	$xmlRoot =& $xmlDoc->getRoot();
+
+	$uaElement =& $xmlRoot->createChild('uasettings');
+
 
 	// logos
 	$sql = "SELECT * FROM `".UA_TABLE_LOGOS."` WHERE `active` = '1' ORDER BY `logo_num` ASC;";
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
-		$output_string .= "\t<logos>\n";
+		$logosElement =& $uaElement->createChild('logos');
+
 		while( $row = $db->fetch_record($result) )
 		{
-			$output_string .= "\t\t<logo id=\"".$row['logo_num']."\">".$uniadmin->url_path.$uniadmin->config['logo_folder'].'/'.$row['filename']."</logo>\n";
+			$childElement =& $logosElement->createChild('logo');
+			$childElement->attribute('id', $row['logo_num']);
+			$childElement->text($uniadmin->url_path.$uniadmin->config['logo_folder'].'/'.$row['filename']);
 		}
-		$output_string .= "\t</logos>\n";
 	}
 	$db->free_result($result);
+
 
 	// settings
 	$sql = "SELECT * FROM `".UA_TABLE_SETTINGS."` WHERE `enabled` = '1' ORDER BY `set_name` ASC;";
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
-		$output_string .= "\t<settings>\n";
+		$settingsElement =& $uaElement->createChild('settings');
+
 		while( $row = $db->fetch_record($result) )
 		{
-			$output_string .= "\t\t<".$row['set_name'].'>'.$row['set_value'].'</'.$row['set_name'].">\n";
+			$childElement =& $settingsElement->createChild($row['set_name']);
+			$childElement->text($row['set_value']);
 		}
-		$output_string .= "\t</settings>\n";
 	}
 	$db->free_result($result);
+
 
 	// sv list
 	$sql = "SELECT * FROM `".UA_TABLE_SVLIST."` ORDER BY `sv_name` ASC;";
 	$result = $db->query($sql);
 	if( $db->num_rows($result) > 0 )
 	{
-		$output_string .= "\t<svlist>\n";
+		$svlistElement =& $uaElement->createChild('svlist');
+
 		while( $row = $db->fetch_record($result) )
 		{
-			$output_string .= "\t\t<savedvariable>".$row['sv_name']."</savedvariable>\n";
+			$childElement =& $svlistElement->createChild('savedvariable');
+			$childElement->text($row['sv_name']);
 		}
-		$output_string .= "\t</svlist>\n";
 	}
 	$db->free_result($result);
 
-	$output_string .= "</uasettings>\n";
-
-	$output_string = str_replace('&','&amp;',$output_string);
-
-	return $output_string;
+	return $xmlDoc->toString();
 }
 
 /**
@@ -236,8 +246,6 @@ function output_settings_xml( )
 function output_addon_xml( )
 {
 	global $db;
-
-	$xml = '';
 
 	// Don't get optional addons if UU_COMPAT is true
 	if( UU_COMPAT )
@@ -250,17 +258,25 @@ function output_addon_xml( )
 	}
 	$result = $db->query($sql);
 
+
 	if( $db->num_rows($result) > 0 )
 	{
-		$xml = "<addons>\n";
+		$xmlDoc = new MiniXMLDoc();
+		$xmlRoot =& $xmlDoc->getRoot();
+		$addonsElement =& $xmlRoot->createChild('addons');
+
 		while( $row = $db->fetch_record($result) )
 		{
-			foreach( $row as $key => $value )
-			{
-				$row[$key] = str_replace('"','\\"',$value);
-			}
+			$addonElement =& $addonsElement->createChild('addon');
 
-			$xml .= "\t".'<addon name="'.$row['name'].'" version="'.$row['version'].'" required="'.$row['required'].'" homepage="'.$row['homepage'].'" filename="'.$row['file_name'].'" toc="'.$row['toc'].'" full_path="'.$row['full_path'].'" notes="'.$row['notes'].'">';
+			$addonElement->attribute('name', $row['name']);
+			$addonElement->attribute('version', $row['version']);
+			$addonElement->attribute('required', $row['required']);
+			$addonElement->attribute('homepage', $row['homepage']);
+			$addonElement->attribute('filename', $row['file_name']);
+			$addonElement->attribute('toc', $row['toc']);
+			$addonElement->attribute('full_path', $row['full_path']);
+			$addonElement->attribute('notes', str_replace('"','',$row['notes']));
 
 			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '".$row['id']."';";
 			$result2 = $db->query($sql);
@@ -269,28 +285,22 @@ function output_addon_xml( )
 			{
 				while( $row2 = $db->fetch_record($result2) )
 				{
-					foreach( $row2 as $key => $value )
-					{
-						$row2[$key] = addslashes($value);
-					}
+					$childElement =& $addonElement->createChild('file');
 
-					if( $row2['filename'] != 'index.htm' && $row2['filename'] != 'index.html' && $row2['filename'] != '.svn' )
-					{
-						$xml .= "\t\t".'<file name="'.$row2['filename'].'" md5sum="'.$row2['md5sum'].'" />'."\n";
-					}
+					$childElement->attribute('name', $row2['filename']);
+					$childElement->attribute('md5sum', $row2['md5sum']);
 				}
 			}
 			$db->free_result($result2);
-
-			$xml .= "\t</addon>\n";
 		}
-		$xml .= "</addons>";
+		$db->free_result($result);
+		return $xmlDoc->toString();
 	}
-	$db->free_result($result);
-
-	$xml = str_replace('&','&amp;',$xml);
-
-	return $xml;
+	else
+	{
+		$db->free_result($result);
+		return;
+	}
 }
 
 /**

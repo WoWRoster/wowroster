@@ -32,7 +32,7 @@ class UniAdmin
 	var $row_class  = 1;                        // Alternating row class    @var row_class
 	var $menu       = '';                       // Main UA Menu             @var menu
 	var $messages   = array();                  // Messages array           @var messages
-	var $debug      = array();                  // Debug messages array     @var debug
+	var $error      = array();                  // Error messages array     @var error
 	var $languages  = array();                  // Available Languages      @var languages
 	var $styles  = array();                     // Available Styles         @var styles
 	var $reject_ini = array();                  // ini variable to not scan @var reject_ini
@@ -202,7 +202,7 @@ class UniAdmin
 	 */
 	function error( $debug_string )
 	{
-		$this->debug[] = $debug_string;
+		$this->error[] = $debug_string;
 	}
 
 	/**
@@ -490,12 +490,12 @@ class UniAdmin
 		}
 
 		//
-		// Debug
+		// Errors
 		//
-		if( !empty($this->debug) && is_array($this->debug) && UA_DEBUG )
+		if( !empty($this->error) && is_array($this->error) )
 		{
 			$tpl->assign_var('S_DEBUG',true);
-			foreach( $this->debug as $message )
+			foreach( $this->error as $message )
 			{
 				$tpl->assign_block_vars('debug_row',
 					array('TEXT'    => $message,
@@ -589,7 +589,7 @@ class UniAdmin
 
 			if ( UA_DEBUG )
 			{
-				$s_show_queries = ( UA_DEBUG == 2 ) ? true : false;
+				$s_show_queries = ( (UA_DEBUG == 2) && ($user->data['level'] > UA_ID_ANON) ) ? true : false;
 
 				$tpl->assign_vars(array(
 					'L_QUERIES'      => $user->lang['queries'],
