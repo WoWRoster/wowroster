@@ -25,7 +25,30 @@ define('ROSTER_VERSION','1.7.3');
 define('ROSTER_MAXCHARLEVEL','70');
 define('ROSTER_MAXSKILLLEVEL','375');
 
-// Table Names
+/**
+ * Page linking
+ */
+define('ROSTER_PAGE', 'p');
+define('ROSTER_LINK', 'index.php?'.ROSTER_PAGE.'=%1$s');
+
+/**
+ * Base, absolute roster admin directory
+ */
+define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
+
+/**
+ * Base, absolute roster addons directory
+ */
+define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
+
+/**
+ * Base, absolute roster pages directory
+ */
+define('ROSTER_PAGES',ROSTER_BASE.'pages'.DIR_SEP);
+
+/**
+ * Database Table Names
+ */
 define('ROSTER_GUILDTABLE',$db_prefix.'guild');
 define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
 define('ROSTER_ADDONTABLE',$db_prefix.'addon');

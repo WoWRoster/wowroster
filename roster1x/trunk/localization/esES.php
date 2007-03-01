@@ -29,7 +29,7 @@ $wordings['esES']['lualocation']='Pulsa Examinar y selecciona tus ficheros *.lua
 $wordings['esES']['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*NOMBRE_DE_CUENTA*</i>\\\\SavedVariables';
 
 $wordings['esES']['noGuild']='No puedo encontrar la hermandad en la base de datos. Por favor, actualiza primero los miembros.';
-$wordings['esES']['nodata']="No puedo encontrar la hermandad: <b>'".$roster_conf['guild_name']."'</b> del servidor <b>'".$roster_conf['server_name']."'</b><br />Necesitas <a href=\"".$roster_conf['roster_dir']."/update.php\">incluir tu hermandad</a> y asegurarte de que has <a href=\"".$roster_conf['roster_dir']."/admin.php\">terminado la configuración</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Pulsa aquí para las instrucciones de instalación</a>";
+$wordings['esES']['nodata']="No puedo encontrar la hermandad: <b>'".$roster_conf['guild_name']."'</b> del servidor <b>'".$roster_conf['server_name']."'</b><br />Necesitas <a href=\"".makelink('update')."\">incluir tu hermandad</a> y asegurarte de que has <a href=\"".makelink('update')."\">terminado la configuración</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Pulsa aquí para las instrucciones de instalación</a>";
 
 $wordings['esES']['update_page']='Actualizar Perfil';
 // NOT USED $wordings['esES']['updCharInfo']='Update Character Info';
@@ -61,7 +61,7 @@ $wordings['esES']['update_instruct']='
 <li>Inicia WoW</li>
 <li>Abre tu ventana de banco, misiones, y profesiones que contengan recetas</li>
 <li>Desconecta/Sal de WoW (Mira más arriba si deseas utilizar UniUploader para enviar los datos automáticamente.)</li>
-<li>Vete a <a href="'.$roster_conf['roster_dir'].'/update.php">la página de actualización</a></li>
+<li>Vete a <a href="'.makelink('update').'">la página de actualización</a></li>
 <li>'.$wordings['esES']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['esES']['update_instructpvp']='
 $wordings['esES']['roster_credits']='Agradecimientos a <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, y <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> por el código original usado en este sitio.<br />
 Página principal de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft y Blizzard Entertainment son marcas registradas de Blizzard Entertainment, Inc. en los E.U.A. y/u otros países. El resto de marcas registradas pertenecen a sus respectivos propietarios.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Créditos Adicionales</a>';
+<a href="'.makelink('credits').'">Créditos Adicionales</a>';
 
 
 //Charset
@@ -115,39 +115,39 @@ you have this one part it will mark all other parts lower than this one as compl
 
 // ALLIANCE KEYS
 $inst_keys['esES']['A'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Llave de la Garganta de Fuego|4826',
+	'SG' => array( 'Quests',
+		'SG' => 'Llave de la Garganta de Fuego|4826',
 			'The Horn of the Beast|',
 			'Proof of Deed|',
 			'At Last!|'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Llave de taller|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Llave de taller|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'La llave Escarlata|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'La llave Escarlata|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Marra de Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Marra de Zul\\\'Farrak|5695',
 			'Marra sacra|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
-			'Cetro de Celebras|19710',
+	'Mauro' => array( 'Parts',
+		'Mauro' => 'Cetro de Celebras|19710',
 			'Vara de Celebras|19549',
 			'Diamante de Celebras|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Llave de celda de prisión|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Llave de celda de prisión|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Llave Sombratiniebla|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Llave Sombratiniebla|2966',
 			'Ferrovil|9673'
 		),
-	'DM' => array( 'Key-Only', 'DM' =>
-			'Llave creciente|35607'
+	'DM' => array( 'Key-Only',
+		'DM' => 'Llave creciente|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Llave esqueleto|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Llave esqueleto|16854',
 			'Scholomance|',
 			'Skeletal Fragments|',
 			'Mold Rhymes With...|',
@@ -155,11 +155,11 @@ $inst_keys['esES']['A'] = array(
 			'Araj\\\'s Scarab|',
 			'The Key to Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Llave de la ciudad|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Llave de la ciudad|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Lacre de ascensión|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Lacre de ascensión|17057',
 			'Sello de ascensión sin adornar|5370',
 			'Gema de Cumbrerroca|5379',
 			'Gema de Espina Ahumada|16095',
@@ -167,8 +167,8 @@ $inst_keys['esES']['A'] = array(
 			'Sello de Ascensión sin forjar|24554||MS',
 			'Sello de Ascensión forjado|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Amuleto de Pirodraco|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Amuleto de Pirodraco|4829',
 			'Dragonkin Menace|',
 			'The True Masters|',
 			'Marshal Windsor|',
@@ -181,44 +181,44 @@ $inst_keys['esES']['A'] = array(
 			'The Dragon\\\'s Eye|',
 			'Amuleto de Pirodraco|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Quintaesencia eterna|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Quintaesencia eterna|22754'
 		),
 );
 
 
 // HORDE KEYS
 $inst_keys['esES']['H'] = array(
-	'SG' => array( 'Key-Only', 'SG' =>
-			'Llave de la Garganta de Fuego|4826'
+	'SG' => array( 'Key-Only',
+		'SG' => 'Llave de la Garganta de Fuego|4826'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Llave de taller|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Llave de taller|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'La llave Escarlata|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'La llave Escarlata|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Marra de Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Marra de Zul\\\'Farrak|5695',
 			'Marra sacra|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
-			'Cetro de Celebras|19710',
+	'Mauro' => array( 'Parts',
+		'Mauro' => 'Cetro de Celebras|19710',
 			'Vara de Celebras|19549',
 			'Diamante de Celebras|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Llave de celda de prisión|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Llave de celda de prisión|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Llave Sombratiniebla|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Llave Sombratiniebla|2966',
 			'Ferrovil|9673'
 		),
-	'DM' => array( 'Key-Only', 'DM' =>
-			'Llave creciente|35607'
+	'DM' => array( 'Key-Only',
+		'DM' => 'Llave creciente|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Llave esqueleto|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Llave esqueleto|16854',
 			'Scholomance|',
 			'Skeletal Fragments|',
 			'Mold Rhymes With...|',
@@ -226,11 +226,10 @@ $inst_keys['esES']['H'] = array(
 			'Araj\\\'s Scarab|',
 			'The Key to Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Llave de la ciudad|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Llave de la ciudad|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Lacre de ascensión|17057',
+	'UBRS' => array( 'Parts', 'UBRS' => 'Lacre de ascensión|17057',
 			'Sello de ascensión sin adornar|5370',
 			'Gema de Cumbrerroca|5379',
 			'Gema de Espina Ahumada|16095',
@@ -238,8 +237,8 @@ $inst_keys['esES']['H'] = array(
 			'Sello de Ascensión sin forjar|24554||MS',
 			'Sello de Ascensión forjado|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Amuleto de Pirodraco|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Amuleto de Pirodraco|4829',
 			'Warlord\\\'s Command|',
 			'Eitrigg\\\'s Wisdom|',
 			'For The Horde!|',
@@ -255,8 +254,8 @@ $inst_keys['esES']['H'] = array(
 			'Ascension...|',
 			'Blood of the Black Dragon Champion|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Quintaesencia eterna|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Quintaesencia eterna|22754'
 		),
 );
 
@@ -751,9 +750,9 @@ $wordings['esES']['admin']['minCPver'] = "Min CP versi&oacuten|M&iacutenima vers
 $wordings['esES']['admin']['minGPver'] = "Min GP versi&oacuten|M&iacutenima versi&oacuten permitida para usar el GuildProfiler";
 $wordings['esES']['admin']['minPvPLogver'] = "Min PvPLog versi&oacuten|M&iacutenima versi&oacuten permitida para usar el PvPLog";
 $wordings['esES']['admin']['roster_lang'] = "Roster Lenguaje principal|Elige el lenguaje del interfaz";
+$wordings['esES']['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $wordings['esES']['admin']['website_address'] = "Website dirección|Usada para el URL del logo, y para el link del nombre de la hermandad en el menú principal<br>Algunos addons del roster usarán esto";
 $wordings['esES']['admin']['roster_dir'] = "Roster URL|El path del URL al directorio del Roster<br>Esto es muy importante que este bien, si no ocurrir&aacuten muchos errores<br>(EJ: http://www.site.com/roster )<br><br>El nombre entero del URL no es necesario, en su lugar puedes poner el relativo<br>(EJ: /roster )";
-$wordings['esES']['admin']['server_name_comp'] = "char.php Compatibilidad|Si la p&aacutegina de tu personaje no funciona, prueba a activar esta opci&oacuten";
 $wordings['esES']['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacutegenes del interfaz<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
 $wordings['esES']['admin']['img_suffix'] = "Extensi&oacuten de las im&aacutegenes del interfaz|El tipo de im&aacutegenes que usa tu interfaz";
 $wordings['esES']['admin']['alt_img_suffix'] = "Extensi&oacuten de las im&aacutegenes del interfaz Alt|Posibilidad alternativa de los tipos de im&aacutegenes para el interfaz";
@@ -799,6 +798,7 @@ $wordings['esES']['admin']['index_lastupdate'] = "Columna Ultima actualizaci&oac
 $wordings['esES']['admin']['menu_left_pane'] = "Panel izquierdo (Lista r&aacutepida de miembros)|Muestra el panel izquierdo del men&uacute principal del roster<br>Este area contiene la lista r&aacutepida de miembros";
 $wordings['esES']['admin']['menu_right_pane'] = "Panel derecho (EstadoReino)|Muestra el panel derecho del men&uacute principal del roster<br>Este area contiene la imagen del estado real del reino";
 $wordings['esES']['admin']['menu_memberlog'] = "Link Member Log|Muestra el bot&oacuten Member Log";
+$wordings['esES']['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
 $wordings['esES']['admin']['menu_guild_info'] = "Link Guild-Info|Muestra el bot&oacuten Guild-Info";
 $wordings['esES']['admin']['menu_stats_page'] = "Link estad&iacutesticas|Muestra el bot&oacuten Estad&iacutesticas";
 $wordings['esES']['admin']['menu_pvp_page'] = "Link estad&iacutesticas JcJ|Muestra el bot&oacuten estad&iacutesticas JcJ";

@@ -29,7 +29,7 @@ $wordings['deDE']['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" a
 $wordings['deDE']['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['deDE']['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
-$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".$roster_conf['roster_dir']."/update.php\">Gildendaten hochladen</a> oder die <a href=\"".$roster_conf['roster_dir']."/admin.php\">Konfiguration beenden</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$wordings['deDE']['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".makelink('update')."\">Gildendaten hochladen</a> oder die <a href=\"".makelink('admin')."\">Konfiguration beenden</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
 
 $wordings['deDE']['update_page']='Gildenmitglied aktualisieren';
 // NOT USED $wordings['deDE']['updCharInfo']='Charakterinformationen aktualisieren';
@@ -61,7 +61,7 @@ $wordings['deDE']['update_instruct']='
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
-<li>Gehe zur <a href="'.$roster_conf['roster_dir'].'/update.php"> Update-Seite</a></li>
+<li>Gehe zur <a href="'.makelink('update').'"> Update-Seite</a></li>
 <li>'.$wordings['deDE']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['deDE']['update_instructpvp']='
 $wordings['deDE']['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, und <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> f&uuml;r den originalen Code der Seite. <br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
+<a href="'.makelink('credits').'">Additional Credits</a>';
 
 
 //Charset
@@ -115,39 +115,39 @@ you have this one part it will mark all other parts lower than this one as compl
 
 // ALLIANCE KEYS
 $inst_keys['deDE']['A'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Schlüssel zur Sengenden Schlucht|4826',
+	'SG' => array( 'Quests',
+		'SG' => 'Schlüssel zur Sengenden Schlucht|4826',
 			'Das Horn der Bestie|',
 			'Besitznachweis|',
 			'Endlich!|'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Werkstattschlüssel|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Werkstattschlüssel|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'Der scharlachrote Schlüssel|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'Der scharlachrote Schlüssel|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Schlaghammer von Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Schlaghammer von Zul\\\'Farrak|5695',
 			'Hochheiliger Schlaghammer|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
-			'Szepter von Celebras|19710',
+	'Mauro' => array( 'Parts',
+		'Mauro' => 'Szepter von Celebras|19710',
 			'Celebriangriff|19549',
 			'Celebriandiamant|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Gefängniszellenschlüssel|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Gefängniszellenschlüssel|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Schlüssel zur Schattenschmiede|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Schlüssel zur Schattenschmiede|2966',
 			'Ironfel|9673'
 		),
-	'DM' => array( 'Key-Only', 'DM' =>
-			'Mondsichelschlüssel|35607'
+	'DM' => array( 'Key-Only',
+		'DM' => 'Mondsichelschlüssel|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Skelettschlüssel|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Skelettschlüssel|16854',
 			'Scholomance|',
 			'Skelettfragmente|',
 			'Sold reimt sich auf...|',
@@ -155,11 +155,11 @@ $inst_keys['deDE']['A'] = array(
 			'Arajs Skarabäus',
 			'Der Schlüssel zur Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Schlüssel zur Stadt|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Schlüssel zur Stadt|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Siegel des Aufstiegs|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Siegel des Aufstiegs|17057',
 			'Unverziertes Siegel des Aufstiegs|5370',
 			'Edelstein der Felsspitzoger|5379',
 			'Edelstein der Gluthauer|16095',
@@ -167,8 +167,8 @@ $inst_keys['deDE']['A'] = array(
 			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
 			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Drachenfeueramulett|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Drachenfeueramulett|4829',
 			'Drachkin-Bedrohung|',
 			'Die wahren Meister|',
 			'Marshal Windsor|',
@@ -181,44 +181,44 @@ $inst_keys['deDE']['A'] = array(
 			'Das Großdrachenauge|',
 			'Drachenfeueramulett|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Ewige Quintessenz|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Ewige Quintessenz|22754'
 		),
 );
 
 
 // HORDE KEYS
 $inst_keys['deDE']['H'] = array(
-	'SG' => array( 'Key-Only', 'SG' =>
-			'Schlüssel zur Sengenden Schlucht|4826'
+	'SG' => array( 'Key-Only',
+		'SG' => 'Schlüssel zur Sengenden Schlucht|4826'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Werkstattschlüssel|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Werkstattschlüssel|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'Der scharlachrote Schlüssel|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'Der scharlachrote Schlüssel|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Schlaghammer von Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Schlaghammer von Zul\\\'Farrak|5695',
 			'Hochheiliger Schlaghammer|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
-			'Szepter von Celebras|19710',
+	'Mauro' => array( 'Parts',
+		'Mauro' => 'Szepter von Celebras|19710',
 			'Celebriangriff|19549',
 			'Celebriandiamant|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Gefängniszellenschlüssel|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Gefängniszellenschlüssel|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Schlüssel zur Schattenschmiede|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Schlüssel zur Schattenschmiede|2966',
 			'Ironfel|9673'
 		),
-	'DM' => array( 'Key-Only', 'DM' =>
-			'Mondsichelschlüssel|35607'
+	'DM' => array( 'Key-Only',
+		'DM' => 'Mondsichelschlüssel|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Skelettschlüssel|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Skelettschlüssel|16854',
 			'Scholomance|',
 			'Skelettfragmente|',
 			'Sold reimt sich auf...|',
@@ -229,8 +229,8 @@ $inst_keys['deDE']['H'] = array(
 	'Strath' => array( 'Key-Only', 'Strath' =>
 			'Schlüssel zur Stadt|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Siegel des Aufstiegs|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Siegel des Aufstiegs|17057',
 			'Unverziertes Siegel des Aufstiegs|5370',
 			'Edelstein der Felsspitzoger|5379',
 			'Edelstein der Gluthauer|16095',
@@ -238,8 +238,8 @@ $inst_keys['deDE']['H'] = array(
 			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
 			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Drachenfeueramulett|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Drachenfeueramulett|4829',
 			'Befehl des Kriegsherrn|',
 			'Eitriggs Weisheit|',
 			'Für die Horde!|',
@@ -255,8 +255,8 @@ $inst_keys['deDE']['H'] = array(
 			'Aufstieg...|',
 			'Blut des schwarzen Großdrachen-Helden|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Ewige Quintessenz|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Ewige Quintessenz|22754'
 		),
 );
 
@@ -751,9 +751,9 @@ $wordings['deDE']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfil
 $wordings['deDE']['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler Version zum Upload";
 $wordings['deDE']['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog Version zum Upload";
 $wordings['deDE']['admin']['roster_lang'] = "Roster Hauptsprache|Sprache, in der das Roster anzeigen soll";
+$wordings['deDE']['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $wordings['deDE']['admin']['website_address'] = "Webseitenadresse|Wird benötigt für das Logo, den Gildennamenlink und das Hauptmenü<br />Einige Roster Addons benötigen diese auch";
 $wordings['deDE']['admin']['roster_dir'] = "Roster URL|Der URL Pfad zum Rosterverzeichnis<br />Es ist wichtig, dass diese korrekt ist, da sonst Fehler auftreten können<br />(Beispiel: http://www.site.com/roster )<br /><br />Eine vollständige URL wird nicht benötigt wenn vor dem Verzeichnis ein Slashzeichen ist<br />(Beispiel: /roster )";
-$wordings['deDE']['admin']['server_name_comp']  = "char.php Compatibility Mode|Falls deine Charakterseite nicht funktionieren sollte, dann ändere diesen Wert";
 $wordings['deDE']['admin']['interface_url'] = "Interface Directory URL|Verzeichnis zu den Interface Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
 $wordings['deDE']['admin']['img_suffix'] = "Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
 $wordings['deDE']['admin']['alt_img_suffix'] = "Alternative Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
@@ -799,6 +799,7 @@ $wordings['deDE']['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Ze
 $wordings['deDE']['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
 $wordings['deDE']['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br />Hier wir der Realmstatus angezeigt";
 $wordings['deDE']['admin']['menu_memberlog'] = "Memberlog|Link zur Memberlog";
+$wordings['deDE']['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
 $wordings['deDE']['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
 $wordings['deDE']['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";
 $wordings['deDE']['admin']['menu_pvp_page'] = "PvP Statistiken Link|Link zu den PvP-Statistiken";

@@ -39,7 +39,7 @@ class RosterLogin
 	 */
 	function RosterLogin($script_filename)
 	{
-		$this->script_filename = $script_filename;
+		$this->script_filename = makelink($script_filename);
 		$this->allow_login = false;
 
 		$this->loginform = '

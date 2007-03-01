@@ -147,19 +147,20 @@ if( $roster_conf['menu_left_pane'] && is_array($guild_info) )
 ?>
     <td valign="top" class="row links">
       <ul>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
+        <li><a href="<?php print makelink($roster_conf['default_page']); ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
 <?php
+
+if( $roster_conf['menu_member_page'] )
+	print '        <li><a href="'.makelink('members').'">'.$wordings[$roster_conf['roster_lang']]['members'].'</a></li>'."\n";
+
 if( $roster_conf['menu_guild_info'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildinfo.php">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildinfo').'">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
 
 if( $roster_conf['menu_stats_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildstats.php">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
-
-if( $roster_conf['menu_tradeskills_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/tradeskills.php">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildstats').'">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
 
 if( $roster_conf['menu_guildbank'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildbank'.$roster_conf['guildbank_ver'].'.php">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildbank'.$roster_conf['guildbank_ver']).'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
 ?>
       </ul></td>
 <!-- Links Column 2 -->
@@ -167,16 +168,19 @@ if( $roster_conf['menu_guildbank'] )
       <ul>
 <?php
 if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildpvp.php">'.$wordings[$roster_conf['roster_lang']]['pvplist'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildpvp').'">'.$wordings[$roster_conf['roster_lang']]['pvplist'].'</a></li>'."\n";
 
 if( $roster_conf['menu_honor_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/guildhonor.php">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildhonor').'">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
 
 if( $roster_conf['menu_memberlog'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/memberlog.php">'.$wordings[$roster_conf['roster_lang']]['memberlog'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('memberlog').'">'.$wordings[$roster_conf['roster_lang']]['memberlog'].'</a></li>'."\n";
 
 if( $roster_conf['menu_keys_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/keys.php">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('keys').'">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
+
+if( $roster_conf['menu_tradeskills_page'] )
+	print '        <li><a href="'.makelink('tradeskills').'">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
 ?>
      </ul></td>
 <!-- Links Column 3 -->
@@ -184,16 +188,16 @@ if( $roster_conf['menu_keys_page'] )
       <ul>
 <?php
 if( $roster_conf['menu_update_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/update.php">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('update').'">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
 
 if( $roster_conf['menu_quests_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/questlist.php">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('questlist').'">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
 
 if( $roster_conf['menu_search_page'] )
-	print '        <li><a href="'.$roster_conf['roster_dir'].'/search.php">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('search').'">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
 ?>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/admin.php"><?php print $wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
-        <li><a href="<?php print $roster_conf['roster_dir']; ?>/credits.php"><?php print $wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
+        <li><a href="<?php print makelink('admin').'">'.$wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
+        <li><a href="<?php print makelink('credits').'">'.$wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
       </ul></td>
 <?php
 if( $roster_conf['menu_right_pane'] && is_array($guild_info) )
@@ -202,7 +206,7 @@ if( $roster_conf['menu_right_pane'] && is_array($guild_info) )
 
 	if( $roster_conf['rs_mode'] )
 	{
-		print '<img alt="WoW Server Status" src="'.$roster_conf['roster_dir'].'/realmstatus.php" /></td>';
+		print '<img alt="WoW Server Status" src="realmstatus.php" /></td>';
 	}
 	elseif( file_exists(ROSTER_BASE.'realmstatus.php') )
 	{
@@ -231,93 +235,3 @@ if( $addons != '' )
 <?php print border('syellow','end'); ?>
 <br />
 <!-- End WoWRoster Menu -->
-
-<?php
-
-
-/**
- * Calculates the last updated value
- *
- * @param string $updateTimeUTC dateupdatedutc
- * @return string formatted date string
- */
-function DateDataUpdated($updateTimeUTC)
-{
-	global $roster_conf, $phptimeformat;
-
-	list($month,$day,$year,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d/%d/%d %d:%d:%d");
-	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-
-	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
-}
-
-
-/**
- * Gets the list of currently installed roster addons
- *
- * @return string formatted list of addons
- */
-function makeAddonList()
-{
-	global $roster_conf, $wordings;
-
-	$addonsPath = ROSTER_BASE.'addons';
-
-	// Initialize output
-	$output = '';
-
-	if ($handle = opendir($addonsPath))
-	{
-		while (false !== ($file = readdir($handle)))
-		{
-			if ($file != '.' && $file != '..')
-			{
-				$addons[] = $file;
-			}
-		}
-	}
-
-	$aCount = 0; //addon count
-	$lCount = 0; //link count
-
-	if(count($addons) != '')
-	{
-		foreach ($addons as $addon)
-		{
-			$menufile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'menu.php';
-			if (file_exists($menufile))
-			{
-				$addonDir = ROSTER_BASE.'addons'.DIR_SEP.$addon.DIR_SEP;
-				$localizationFile = $addonsPath.DIR_SEP.$addon.DIR_SEP.'localization.php';
-				if (file_exists($localizationFile))
-				{
-					include($localizationFile);
-				}
-
-				include($menufile);
-
-				if (0 >= $config['menu_min_user_level']) //modify this line for user level / authentication stuff (show the link for user level whatever for this addon)  you understand :P
-				{
-					if (isset($config['menu_index_file'][0]))
-					{
-						//$config['menu_index_file'] is the new array type
-						foreach ($config['menu_index_file'] as $addonLink)
-						{
-							$fullQuery = '?addon='.urlencode($addon) . ( isset($addonLink[0]) ? $addonLink[0] : '' );
-							$output .= '<li><a href="' . $roster_conf['roster_dir'] . '/addon.php'.$fullQuery.'">' . $addonLink[1] . "</a></li>\n";
-							$lCount++;
-						}
-					}
-					unset($config);
-				}
-			}
-		}
-	}
-
-	if ($lCount < 1)
-	{
-		return '';
-	}
-
-	return $output;
-}

@@ -16,18 +16,14 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $header_title = $wordings[$roster_conf['roster_lang']]['pvplist'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
-}
-// Get guild_id from guild info check above
-$guildId = $guild_info['guild_id'];
 
 include_once (ROSTER_LIB.'menu.php');
 
@@ -52,7 +48,7 @@ $choiceArray = array(
 	'guildinfo' => 'Guild Info',
 );
 
-$choiceForm = '<form action="guildpvp.php" method="post">
+$choiceForm = '<form action="'.makelink('guildpvp').'" method="post">
 '.$wordings[$roster_conf['roster_lang']]['pvplist'].':
 <select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
 ';
@@ -61,9 +57,9 @@ foreach( $choiceArray as $item_value => $item_print )
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '<option value="guildpvp.php?type='.$item_value.'" selected="selected">'.$item_print;
+			$choiceForm .= '<option value="'.makelink('guildpvp&amp;type='.$item_value).'" selected="selected">'.$item_print;
 		else
-			$choiceForm .= '<option value="guildpvp.php?type='.$item_value.'">'.$item_print;
+			$choiceForm .= '<option value="'.makelink('guildpvp&amp;type='.$item_value).'">'.$item_print;
 	}
 }
 $choiceForm .= '</select>
@@ -122,9 +118,7 @@ if ($type == 'guildwins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=guildinfo&amp;guild=');
-		print urlencode($row['guild']);
-		print('">');
+		print '<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild']).'">');
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
@@ -156,9 +150,7 @@ else if($type == 'guildlosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=guildinfo&amp;guild=');
-		print urlencode($row['guild']);
-		print('">');
+		print '<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild']).'">');
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
@@ -198,9 +190,7 @@ else if ($type == 'enemywins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=playerinfo&amp;player=');
-		print urlencode($row['name']);
-		print('">');
+		print '<a href="'.makelink('guildpvp&amp;type=playerinfo&amp;player='.urlencode($row['name'])).'">';
 		print($row['name']);
 		print("</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
@@ -210,7 +200,7 @@ else if ($type == 'enemywins')
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
-			$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
+			$guildname = '<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>';
 
 		print($guildname);
 		print("</td>\n");
@@ -252,9 +242,8 @@ else if ($type == 'enemylosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="?type=playerinfo&amp;player=');
-		print urlencode($row['name']);
-		print('">');
+		print '<a href="'.makelink('guildpvp&amp;type=playerinfo&amp;player='.urlencode($row['name'])).'">';
+
 		print($row['name']);
 		print("</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
@@ -264,7 +253,7 @@ else if ($type == 'enemylosses')
 		if ($row['guild'] == '')
 			$guildname = '(unguilded)';
 		else
-			$guildname = '<a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>';
+			$guildname = '<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>';
 
 		print($guildname);
 		print("</td>\n");
@@ -298,7 +287,7 @@ else if ($type == 'purgewins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date').'">'.$row['gn']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
 		print("</td>\n</tr>\n");
@@ -323,7 +312,7 @@ else if ($type == 'purgelosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date').'">'.$row['gn']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		print($row['countg']);
 		print("</td>\n</tr>\n");
@@ -348,7 +337,7 @@ else if ($type == 'purgeavewins')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date').'">'.$row['gn']."</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
@@ -379,7 +368,7 @@ else if ($type == 'purgeavelosses')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date">'.$row['gn']."</a></td>\n");
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;start=0&amp;s=date').'">'.$row['gn']."</a></td>\n");
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if ($ave > 0)
@@ -416,7 +405,7 @@ else if ($type == 'pvpratio')
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['name']."</a></td>\n");
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;s=date').'">'.$row['name']."</a></td>\n");
 		rankRight((($striping_counter % 2) +1));
 		$wins = $row['wtotal'];
 		$battles = $row ['btotal'];
@@ -476,22 +465,22 @@ else if ($type == 'playerinfo')
 
 	while($row = $wowdb->fetch_array($result))
 	{
-		$url = '<a href="?type=playerinfo&amp;player='.urlencode($player);
+		$url = 'guildpvp&amp;type=playerinfo&amp;player='.urlencode($player);
 
 		if ($first)
 		{
 			print('<br /><small>Kill/Loss history for "');
-			print ($player.'" ('.$row['race'].' '.$row['class'].') of <a href="?type=guildinfo&amp;guild='.urlencode($row['guild']).'">'.$row['guild'].'</a>');
+			print ($player.'" ('.$row['race'].' '.$row['class'].') of <a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>');
 			print ('</small><br /><br />');
 
 			print($tableHeader);
 			tableHeaderRow(array(
-				$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a>',
-				$url.'&amp;s=name">'.$wordings[$roster_conf['roster_lang']]['name'].'</a>',
-				$url.'&amp;s=result">'.$wordings[$roster_conf['roster_lang']]['result'].'</a>',
-				$url.'&amp;s=zone">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a>',
-				$url.'&amp;s=subzone">'.$wordings[$roster_conf['roster_lang']]['subzone'].'</a>',
-				$url.'&amp;s=diff">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=date').'">'.$wordings[$roster_conf['roster_lang']]['when'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=name').'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=result').'">'.$wordings[$roster_conf['roster_lang']]['result'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=zone').'">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=subzone').'">'.$wordings[$roster_conf['roster_lang']]['subzone'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=diff').'">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a>',
 			));
 			$first = false;
 		}
@@ -506,7 +495,7 @@ else if ($type == 'playerinfo')
 		print($row['date']);
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;s=date').'">'.$row['gn'].'</a>');
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
@@ -551,15 +540,17 @@ else if ($type == 'guildinfo')
 	print ($guild);
 	print ('"</small><br /><br />');
 	print($tableHeader);
-	$url = '<a href="?type=guildinfo&amp;guild='.urlencode($guild);
+
+	$url = 'guildpvp&amp;type=guildinfo&amp;guild='.urlencode($guild);
+
 	tableHeaderRow(array(
-		$url.'&amp;s=date">'.$wordings[$roster_conf['roster_lang']]['when'].'</a>',
-		$url.'&amp;s=name">Them</a>',
-		$url.'&amp;s=name">Us</a>',
-		$url.'&amp;s=result">'.$wordings[$roster_conf['roster_lang']]['result'].'</a>',
-		$url.'&amp;s=zone">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a>',
-		$url.'&amp;s=subzone">'.$wordings[$roster_conf['roster_lang']]['subzone'].'</a>',
-		$url.'&amp;s=diff">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=date').'">'.$wordings[$roster_conf['roster_lang']]['when'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=name').'">Them</a>',
+		'<a href="'.makelink($url.'&amp;s=name').'">Us</a>',
+		'<a href="'.makelink($url.'&amp;s=result').'">'.$wordings[$roster_conf['roster_lang']]['result'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=zone').'">'.$wordings[$roster_conf['roster_lang']]['zone2'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=subzone').'">'.$wordings[$roster_conf['roster_lang']]['subzone'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=diff').'">'.$wordings[$roster_conf['roster_lang']]['leveldiff'].'</a>',
 	));
 
 
@@ -600,10 +591,10 @@ else if ($type == 'guildinfo')
 		print($row['date']);
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
-		print('<a href="?type=playerinfo&amp;player='.urlencode($row['name']).'">'.$row['name'].'</a>');
+		print('<a href="'.makelink('guildpvp&amp;type=playerinfo&amp;player='.urlencode($row['name'])).'">'.$row['name'].'</a>');
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
-		print('<a href="char.php?member='.$row['member_id'].'&amp;action=pvp&amp;s=date">'.$row['gn'].'</a>');
+		print('<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=pvp&amp;s=date').'">'.$row['gn'].'</a>');
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
@@ -634,4 +625,3 @@ else if ($type == 'guildinfo')
 }
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-?>

@@ -16,6 +16,10 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 //---[ Update File Downloader ]-----------------------------
 if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['data']) )
@@ -31,10 +35,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 	exit;
 }
 
-require_once( 'settings.php' );
 require_once( ROSTER_LIB.'luaparser.php' );
-
-$script_filename = 'update.php';
 
 // Update Triggers
 if( $roster_conf['use_update_triggers'] )
@@ -475,7 +476,7 @@ if( $htmlout )
 
 	// Construct the entire upload form
 	$inputForm = "
-                <form action=\"$script_filename\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
+                <form action=\"".makelink('update')."\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
@@ -529,7 +530,7 @@ $bookwormInputField
 
 				// Print the downloadable errors separately so we can generate a download
 				print "<br />\n";
-				print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
+				print '<form method="post" action="'.makelink('update').'" name="post">'."\n";
 				print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
 				print '<input type="hidden" name="send_file" value="error" />'."\n";
 				print '<input type="submit" name="download" value="Save Error Log" />'."\n";
@@ -542,7 +543,7 @@ $bookwormInputField
 
 			// Print the downloadable messages separately so we can generate a download
 			print "<br />\n";
-			print '<form method="post" action="'.$script_filename.'" name="post">'."\n";
+			print '<form method="post" action="'.makelink('update').'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($updateMessages.$updatePvPMessages.$rosterUpdateMessages)).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="update" />'."\n";
 			print '<input type="submit" name="download" value="Save Update Log" />'."\n";
@@ -582,5 +583,3 @@ else	// Dont need the header and footer when responding to UU
 		}
 	}
 }
-
-?>

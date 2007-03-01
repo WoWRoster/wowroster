@@ -16,12 +16,13 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
-
-$script_filename = 'admin.php';
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin($script_filename);
+$roster_login = new RosterLogin('admin');
 
 // Disallow viewing of the page
 if( !$roster_login->getAuthorized() )
@@ -106,7 +107,7 @@ foreach($conf_arrays as $type)
 
 $menu .='
 	<li><a href="#" rel="char_disp">'.$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'].'</a></li>
-	<li><a href="'.$roster_conf['roster_dir'].'/rosterdiag.php" target="_blank">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
+	<li><a href="'.makelink('rosterdiag').'" target="_blank">'.$wordings[$roster_conf['roster_lang']]['rosterdiag'].'</a></li>
     <li><a href="http://www.wowroster.net/wiki" target="_blank">Documentation</a></li>
   </ul>
 </div>
@@ -115,7 +116,7 @@ $menu .='
 
 
 
-$form_start = "<form action=\"$script_filename\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_submit']."') && submitonce(this)\">\n";
+$form_start = "<form action=\"".makelink('admin')."\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_submit']."') && submitonce(this)\">\n";
 
 $submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 
@@ -305,7 +306,7 @@ $roster_diag_message.
     </td>
     <td valign="top" align="right">
 		<!-- Begin Password Change Box -->
-		<form action="'.$script_filename.'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
+		<form action="'.makelink('admin').'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
 		'.border('sred','start','Change Roster Password').'
 		  <table class="bodyline" cellspacing="0" cellpadding="0">
 		    <tr>
@@ -562,7 +563,7 @@ function getCharData( )
 
 function changePassword( )
 {
-	global $wowdb, $script_filename;
+	global $wowdb;
 
 	// Get the current password
 	$sql = "SELECT `config_value` FROM `".ROSTER_CONFIGTABLE."` WHERE `config_name` = 'roster_upd_pw'";
@@ -601,8 +602,8 @@ function changePassword( )
 				{
 					$title = 'Roster Password changed';
 					$message = '<div style="width=100%" align="center">Your new password is<br /><br /><span style="font-size:11px;color:red;">'.$_POST['new_password1'].'</span><br /><br />Remember this, do NOT lose it!<br /><br />';
-					$message .= 'Click <form style="display:inline;" name="roster_logout" action="'.$script_filename.'" method="post"><input type="hidden" name="logout" value="1" />[<a href="javascript: document.roster_logout.submit();">HERE</a>]</form> to continue</div>';
-					message_die($message,$title);
+					$message .= 'Click <form style="display:inline;" name="roster_logout" action="'.makelink('admin').'" method="post"><input type="hidden" name="logout" value="1" />[<a href="javascript: document.roster_logout.submit();">HERE</a>]</form> to continue</div>';
+					roster_die($message,$title);
 				}
 				else
 				{
@@ -663,4 +664,40 @@ function rosterLangValue( )
 	return $input_field;
 }
 
-?>
+function pageNames( )
+{
+	global $roster_conf;
+
+	/**
+	 * Scan the pages directory to generate a list of available pages
+	 */
+	if( $handle = opendir(ROSTER_PAGES) )
+	{
+		$roster_conf['roster_pages'] = array();
+		while( false !== ($file = readdir($handle)) )
+		{
+			if( !is_dir(ROSTER_PAGES.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && get_file_ext($file) == 'php' )
+			{
+				$roster_conf['roster_pages'][] = substr($file,0,strpos($file,'.'));
+			}
+		}
+	}
+
+	$input_field = '<select name="config_default_page">'."\n";
+	$select_one = 1;
+	foreach( $roster_conf['roster_pages'] as $value )
+	{
+		if( $value == $roster_conf['default_page'] && $select_one )
+		{
+			$input_field .= '  <option value="'.$value.'" selected="selected">-'.$value.'-</option>'."\n";
+			$select_one = 0;
+		}
+		else
+		{
+			$input_field .= '  <option value="'.$value.'">'.$value.'</option>'."\n";
+		}
+	}
+	$input_field .= '</select>';
+
+	return $input_field;
+}

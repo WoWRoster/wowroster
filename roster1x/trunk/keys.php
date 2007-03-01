@@ -16,24 +16,15 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $header_title = $wordings[$roster_conf['roster_lang']]['keys'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');
-
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
-}
-
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
-$faction = $guild_info['faction'];
-
 
 include_once( ROSTER_LIB.'menu.php');
 print "<br />\n";
@@ -165,7 +156,7 @@ $min_skill_for_lock = array(
 	'MC' => 1000,
 );
 
-$items = $inst_keys[$roster_conf['roster_lang']][ substr($faction,0,1) ];
+$items = $inst_keys[$roster_conf['roster_lang']][ substr($guild_info['faction'],0,1) ];
 $keys = array('Name');
 foreach ($items as $key => $data)
 {
@@ -189,7 +180,7 @@ while ($row = $wowdb->fetch_array($result))
 	{
 		$row['clientLocale'] = $roster_conf['roster_lang'];
 	}
-	$items = $inst_keys[$row['clientLocale']][ substr($faction,0,1) ];
+	$items = $inst_keys[$row['clientLocale']][ substr($guild_info['faction'],0,1) ];
 	// build SQL search string for the instance keys only
 	$selectk = ''; $wherek = ''; $countk = 0;
 	foreach ($items as $key => $item)
@@ -335,7 +326,7 @@ while ($row = $wowdb->fetch_array($result))
 	print '<tr>'."\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print '<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
+	print '<a href="'.makelink('char&amp;member='.$row['member_id']).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;
@@ -472,5 +463,3 @@ print($tableFooter);
 borderBottom();
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-
-?>

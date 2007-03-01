@@ -17,6 +17,11 @@
  * This file contains and applies all SQL fixes from BETA till SQL BUILD[2]
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 // This number must increment
 $SQLBuild = 2;
 $config_array_fixes = array();
@@ -63,5 +68,3 @@ function apply_sql_fixes()
 	}
 	return $returnvalue;
 }
-
-?>

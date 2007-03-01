@@ -21,33 +21,22 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
-}
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
-$guildMOTD = $guild_info['guild_motd'];
-$guildFaction = $guild_info['faction'];
-
-
 
 if( $roster_conf['index_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
+	print '            <a href="'.makelink(ROSTER_PAGE_NAME.'#update').'"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
 }
 
 
-if ( $roster_conf['index_motd'] == 1 && !empty($guildMOTD) )
+if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="motd.php" alt="'.$guildMOTD.'" /><br /><br />';
+		print '<img src="motd.php" alt="'.$guild_info['guild_motd'].'" /><br /><br />';
 	}
 	else
 	{
-		echo '<span class="GMOTD">Guild MOTD: '.$guildMOTD.'</span><br /><br />';
+		echo '<span class="GMOTD">Guild MOTD: '.$guild_info['guild_motd'].'</span><br /><br />';
 	}
 }
 
@@ -70,14 +59,14 @@ echo "<table>\n  <tr>\n";
 if ( $roster_conf['index_hslist'] == 1 )
 {
 	echo '    <td valign="top">';
-	include_once( ROSTER_BASE.'hslist.php');
+	include_once( ROSTER_LIB.'hslist.php');
 	echo "    </td>\n";
 }
 
 if ( $roster_conf['index_pvplist'] == 1 )
 {
 	echo '    <td valign="top">';
-	include_once( ROSTER_BASE.'pvplist.php');
+	include_once( ROSTER_LIB.'pvplist.php');
 	echo "    </td>\n";
 }
 
@@ -203,7 +192,7 @@ $query .=
 	"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
 
 // All those people asking about guild searching, here's a spot!  and here's the simple alteration to stop guild filtering in this particular place
-	"LEFT JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = '$guildId' ".
+	"LEFT JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = '".$guild_info['guild_id']."' ".
 	"ORDER BY ";
 
 
@@ -283,11 +272,11 @@ foreach ( $FIELDS as $field => $DATA )
 
 	if ( $current_col == $cols )
 	{
-		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="?s='.$field.$desc.'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.makelink(ROSTER_PAGE_NAME.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
 	else
 	{
-		$tableHeaderRow .= '    <th class="membersHeader"><a href="?s='.$field.$desc.'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink(ROSTER_PAGE_NAME.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
 
 	$current_col++;
@@ -425,7 +414,7 @@ if( $roster_conf['index_update_inst'] )
  */
 function name_value ( $row )
 {
-	global $wordings, $roster_conf, $guildFaction;
+	global $wordings, $roster_conf, $guild_info;
 
 	if( $roster_conf['index_member_tooltip'] )
 	{
@@ -441,7 +430,7 @@ function name_value ( $row )
 
 		if ( $row['server'] )
 		{
-			return $tooltip.'<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a></div>';
+			return $tooltip.'<a href="'.makelink('char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 		}
 		else
 		{
@@ -452,7 +441,7 @@ function name_value ( $row )
 	{
 		if ( $row['server'] )
 		{
-			return '<a href="char.php?member='.$row['member_id'].'">'.$row['name'].'</a>';
+			return '<a href="'.makelink('char&amp;member='.$row['member_id']).'">'.$row['name'].'</a>';
 		}
 		else
 		{
@@ -861,4 +850,3 @@ function note_value ( $row )
 
 	return $note;
 }
-?>

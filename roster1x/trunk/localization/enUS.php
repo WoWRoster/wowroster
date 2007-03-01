@@ -29,7 +29,7 @@ $wordings['enUS']['lualocation']='Click browse and select your *.lua files to up
 $wordings['enUS']['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['enUS']['noGuild']='Could not find guild in database. Please update members first.';
-$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".$roster_conf['roster_dir']."/update.php\">load your guild</a> first and make sure you <a href=\"".$roster_conf['roster_dir']."/admin.php\">finished configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Click here for installation instructions</a>";
+$wordings['enUS']['nodata']="Could not find guild: <b>'".$roster_conf['guild_name']."'</b> for server <b>'".$roster_conf['server_name']."'</b><br />You need to <a href=\"".makelink('update')."\">load your guild</a> first and make sure you <a href=\"".makelink('update')."\">finished configuration</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Click here for installation instructions</a>";
 
 $wordings['enUS']['update_page']='Update Profile';
 // NOT USED $wordings['enUS']['updCharInfo']='Update Character Info';
@@ -61,7 +61,7 @@ $wordings['enUS']['update_instruct']='
 <li>Start WoW</li>
 <li>Open your bank, quests, and the profession windows which contain recipes</li>
 <li>Log out/Exit WoW (See above if you want to use the UniUploader to upload the data automatically for you.)</li>
-<li>Go to <a href="'.$roster_conf['roster_dir'].'/update.php">the update page</a></li>
+<li>Go to <a href="'.makelink('update').'">the update page</a></li>
 <li>'.$wordings['enUS']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['enUS']['update_instructpvp']='
 $wordings['enUS']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
+<a href="'.makelink('credits').'">Additional Credits</a>';
 
 
 //Charset
@@ -115,39 +115,39 @@ you have this one part it will mark all other parts lower than this one as compl
 
 // ALLIANCE KEYS
 $inst_keys['enUS']['A'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Key to Searing Gorge|4826',
+	'SG' => array( 'Quests',
+		'SG' =>	'Key to Searing Gorge|4826',
 			'The Horn of the Beast|',
 			'Proof of Deed|',
 			'At Last!|'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Workshop Key|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Workshop Key|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'The Scarlet Key|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'The Scarlet Key|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Mallet of Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Mallet of Zul\\\'Farrak|5695',
 			'Sacred Mallet|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
-			'Scepter of Celebras|19710',
+	'Mauro' => array( 'Parts',
+		'Mauro' => 'Scepter of Celebras|19710',
 			'Celebrian Rod|19549',
 			'Celebrian Diamond|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Prison Cell Key|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Prison Cell Key|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Shadowforge Key|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Shadowforge Key|2966',
 			'Ironfel|9673'
 		),
-	'DM' => array( 'Key-Only', 'DM' =>
-			'Crescent Key|35607'
+	'DM' => array( 'Key-Only',
+		'DM' => 'Crescent Key|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Skeleton Key|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Skeleton Key|16854',
 			'Scholomance|',
 			'Skeletal Fragments|',
 			'Mold Rhymes With...|',
@@ -155,11 +155,11 @@ $inst_keys['enUS']['A'] = array(
 			'Araj\\\'s Scarab|',
 			'The Key to Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Key to the City|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Key to the City|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Seal of Ascension|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Seal of Ascension|17057',
 			'Unadorned Seal of Ascension|5370',
 			'Gemstone of Spirestone|5379',
 			'Gemstone of Smolderthorn|16095',
@@ -167,8 +167,8 @@ $inst_keys['enUS']['A'] = array(
 			'Unforged Seal of Ascension|24554||MS',
 			'Forged Seal of Ascension|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Drakefire Amulet|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Drakefire Amulet|4829',
 			'Dragonkin Menace|',
 			'The True Masters|',
 			'Marshal Windsor|',
@@ -181,44 +181,44 @@ $inst_keys['enUS']['A'] = array(
 			'The Dragon\\\'s Eye|',
 			'Drakefire Amulet|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Eternal Quintessence|53490'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Eternal Quintessence|53490'
 		),
 );
 
 
 // HORDE KEYS
 $inst_keys['enUS']['H'] = array(
-	'SG' => array( 'Key-Only', 'SG' =>
-			'Key to Searing Gorge|4826'
+	'SG' => array( 'Key-Only',
+		'SG' => 'Key to Searing Gorge|4826'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Workshop Key|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Workshop Key|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'The Scarlet Key|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'The Scarlet Key|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Mallet of Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Mallet of Zul\\\'Farrak|5695',
 			'Sacred Mallet|8250'
 		),
-	'Mauro' => array( 'Parts', 'Mauro' =>
-			'Scepter of Celebras|19710',
+	'Mauro' => array( 'Parts',
+		'Mauro' => 'Scepter of Celebras|19710',
 			'Celebrian Rod|19549',
 			'Celebrian Diamond|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Prison Cell Key|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Prison Cell Key|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Shadowforge Key|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Shadowforge Key|2966',
 			'Ironfel|9673'
 		),
-	'DM' => array( 'Key-Only', 'DM' =>
-			'Crescent Key|35607'
+	'DM' => array( 'Key-Only',
+		'DM' => 'Crescent Key|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Skeleton Key|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Skeleton Key|16854',
 			'Scholomance|',
 			'Skeletal Fragments|',
 			'Mold Rhymes With...|',
@@ -226,11 +226,11 @@ $inst_keys['enUS']['H'] = array(
 			'Araj\\\'s Scarab|',
 			'The Key to Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Key to the City|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Key to the City|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Seal of Ascension|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Seal of Ascension|17057',
 			'Unadorned Seal of Ascension|5370',
 			'Gemstone of Spirestone|5379',
 			'Gemstone of Smolderthorn|16095',
@@ -238,8 +238,8 @@ $inst_keys['enUS']['H'] = array(
 			'Unforged Seal of Ascension|24554||MS',
 			'Forged Seal of Ascension|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Drakefire Amulet|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Drakefire Amulet|4829',
 			'Warlord\\\'s Command|',
 			'Eitrigg\\\'s Wisdom|',
 			'For The Horde!|',
@@ -255,8 +255,8 @@ $inst_keys['enUS']['H'] = array(
 			'Ascension...|',
 			'Blood of the Black Dragon Champion|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Eternal Quintessence|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Eternal Quintessence|22754'
 		),
 );
 
@@ -751,9 +751,9 @@ $wordings['enUS']['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfil
 $wordings['enUS']['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $wordings['enUS']['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog version allowed to upload";
 $wordings['enUS']['admin']['roster_lang'] = "Roster Main Language|The main language roster will be displayed in";
+$wordings['enUS']['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $wordings['enUS']['admin']['website_address'] = "Website Address|Used for url link for logo, and guildname link in the main menu<br />Some roster addons may also use this";
 $wordings['enUS']['admin']['roster_dir'] = "Roster URL|The URL path to the Roster directory<br />It is critical that this is correct or errors may occur<br />(EX: http://www.site.com/roster )<br /><br />A full url is not required but a foreward slash before the directory is<br />(EX: /roster )";
-$wordings['enUS']['admin']['server_name_comp'] = "char.php Compatibility Mode|If your character page does not work, try changing this";
 $wordings['enUS']['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $wordings['enUS']['admin']['img_suffix'] = "Interface Image Extension|The image type of the Interface images";
 $wordings['enUS']['admin']['alt_img_suffix'] = "Alt Interface Image Extension|The alternate possible image type of the Interface images";
@@ -799,6 +799,7 @@ $wordings['enUS']['admin']['index_lastupdate'] = "Last Updated Column|Display wh
 $wordings['enUS']['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
 $wordings['enUS']['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
 $wordings['enUS']['admin']['menu_memberlog'] = "Member Log Link|Controls display of the Member Log Link";
+$wordings['enUS']['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
 $wordings['enUS']['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
 $wordings['enUS']['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
 $wordings['enUS']['admin']['menu_pvp_page'] = "PvPLog Stats Link|Controls display of the PvPLog Stats Link";

@@ -17,20 +17,14 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+    exit('Detected invalid access to this file!');
 }
 
 $header_title = $wordings[$roster_conf['roster_lang']]['professions'];
 include_once(ROSTER_BASE.'roster_header.tpl');
 
-
-// Get guild_id from guild info check above
-$guildId = $guild_info['guild_id'];
 
 include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
 
@@ -49,7 +43,7 @@ $showNewSkill = " AND SUBSTRING_INDEX( s.skill_level, ':', 1 ) > 1 ";
 // Gather a list of players that have the skills we are looking for
 $query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `".ROSTER_SKILLSTABLE."` s, `".ROSTER_PLAYERSTABLE."` p
 	WHERE p.member_id = s.member_id
-	AND p.guild_id = '".$guildId."'
+	AND p.guild_id = '".$guild_info['guild_id']."'
 	$showNewSkill
 	AND skill_name IN ($inClause)
 	ORDER BY s.skill_type,s.skill_name,(mid(skill_level FROM 1 FOR (locate(':', skill_level)-1)) + 0) DESC, p.name;";
@@ -132,7 +126,7 @@ if( $wowdb->num_rows($result) )
 		</table>
 	</td>
 	<td class="'.$stripe_class_right.'">
-		<a href="char.php?member='.$row['member_id'].'&amp;action=recipes">'.$row['name'].'</a>
+		<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=recipes').'">'.$row['name'].'</a>
 	</td>
 	</tr>
 ');
@@ -145,5 +139,3 @@ if( $wowdb->num_rows($result) )
 }
 
 include_once(ROSTER_BASE.'roster_footer.tpl');
-
-?>

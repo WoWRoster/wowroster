@@ -16,25 +16,17 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+    exit('Detected invalid access to this file!');
 }
 
-// Get guild info from guild info check above
-$GuildInfo = $guild_info['guild_info_text'];
-$guildMOTD = $guild_info['guild_motd'];
-
 $header_title = $wordings[$roster_conf['roster_lang']]['Guild_Info'];
-
 include_once(ROSTER_BASE.'roster_header.tpl');
 
 
 
-if ( $roster_conf['index_motd'] == 1 && !empty($guildMOTD) )
+if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
@@ -42,18 +34,17 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guildMOTD) )
 	}
 	else
 	{
-		echo '<span class="GMOTD">Guild MOTD: '.$guildMOTD.'</span><br /><br />';
+		echo '<span class="GMOTD">Guild MOTD: '.$guild_info['guild_motd'].'</span><br /><br />';
 	}
 }
 
 include_once (ROSTER_BASE.'lib/menu.php');
 
 
-if( !empty($GuildInfo) )
+if( !empty($guild_info['guild_info_text']) )
 {
-	print border('syellow','start',$wordings[$roster_conf['roster_lang']]['Guild_Info']).'<div class="GuildInfoText">'.nl2br($GuildInfo).'</div>'.border('syellow','end');
+	print border('syellow','start',$wordings[$roster_conf['roster_lang']]['Guild_Info']).'<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>'.border('syellow','end');
 }
 
 
 include_once(ROSTER_BASE.'roster_footer.tpl');
-?>

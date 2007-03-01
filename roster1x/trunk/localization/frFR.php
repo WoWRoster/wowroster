@@ -29,7 +29,7 @@ $wordings['frFR']['lualocation']='Cliquer parcourir (browse) et télécharger le
 $wordings['frFR']['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['frFR']['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
-$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".$roster_conf['roster_dir']."/update.php\">charger votre guilde</a> et <a href=\"".$roster_conf['roster_dir']."/admin.php\">finaliser la configuration</a><br /><br /><a href=\"".$roster_conf['roster_dir']."/install.txt\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
+$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".makelink('update')."\">charger votre guilde</a> et <a href=\"".makelink('update')."\">finaliser la configuration</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
 
 $wordings['frFR']['update_page']='Mise à jour du profil';
 // NOT USED $wordings['frFR']['updCharInfo']='Mettre à jour les informations du personnage';
@@ -61,7 +61,7 @@ $wordings['frFR']['update_instruct']='
 <li>Démarrer WoW</li>
 <li>Ouvrir votre compte en banque, la fenêtre des quêtes, et la fenêtre des professions qui contient les recettes</li>
 <li>Se déconnecter ou quitter WoW.<br />(Voir ci-dessus si vous disposez d\'UniUploader pour automatiser l\'envois des informations.)</li>
-<li>Aller sur la page <a href="'.$roster_conf['roster_dir'].'/update.php">d\'actualisation</a></li>
+<li>Aller sur la page <a href="'.makelink('update').'">d\'actualisation</a></li>
 <li>'.$wordings['frFR']['lualocation'].'</li>
 </ol>';
 
@@ -77,7 +77,7 @@ $wordings['frFR']['update_instructpvp']='
 $wordings['frFR']['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.$roster_conf['roster_dir'].'/credits.php">Additional Credits</a>';
+<a href="'.makelink('credits').'">Additional Credits</a>';
 
 
 //Charset
@@ -115,39 +115,39 @@ you have this one part it will mark all other parts lower than this one as compl
 
 // ALLIANCE KEYS
 $inst_keys['frFR']['A'] = array(
-	'SG' => array( 'Quests', 'SG' =>
-			'Clé de la gorge des Vents brûlants|4826',
+	'SG' => array( 'Quests',
+		'SG' => 'Clé de la gorge des Vents brûlants|4826',
 			'La Corne de la B�te|',
 			'Titre de propriété|',
 			'Enfin !|'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Clé d\\\'atelier|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Clé d\\\'atelier|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'La Clé écarlate|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'La Clé écarlate|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Marteau de Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Marteau de Zul\\\'Farrak|5695',
 			'Maillet sacré|8250'
 		),
-	'Marau' => array( 'Parts', 'Marau' =>
-			'Sceptre de Celebras|19710',
+	'Marau' => array( 'Parts',
+		'Marau' => 'Sceptre de Celebras|19710',
 			'Bâtonnet de Celebras|19549',
 			'Diamant de Celebras|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Clé de la prison|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Clé de la prison|15545'
 		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Clé ombreforge|2966',
+	'BRDs' => array( 'Parts',
+		'BRDs' => 'Clé ombreforge|2966',
 			'Souillefer|9673'
 		),
-	'HT' => array( 'Key-Only', 'HT' =>
-			'Clé en croissant|35607'
+	'HT' => array( 'Key-Only',
+		'HT' => 'Clé en croissant|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Clé squelette|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Clé squelette|16854',
 			'Scholomance|',
 			'Fragments de squelette|',
 			'Moisissure rime avec...|',
@@ -155,11 +155,11 @@ $inst_keys['frFR']['A'] = array(
 			'Le Scarabée d\\\'Araj|',
 			'La clé de la Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Clé de la ville|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Clé de la ville|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Sceau d\\\'ascension|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Sceau d\\\'ascension|17057',
 			'Sceau d\\\'ascension non décoré|5370',
 			'Gemme de Pierre-du-pic|5379',
 			'Gemme de Brûleronce|16095',
@@ -167,8 +167,8 @@ $inst_keys['frFR']['A'] = array(
 			'Sceau d\\\'ascension brut |24554||MS',
 			'Sceau d\\\'ascension forgé|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Amulette Drakefeu|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Amulette Drakefeu|4829',
 			'La menace dragonkin|',
 			'Les véritables maîtres|',
 			'Maréchal Windsor|',
@@ -181,44 +181,44 @@ $inst_keys['frFR']['A'] = array(
 			'L\\\'Oeil de Dragon|',
 			'Amulette drakefeu|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Quintessence éternelle|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Quintessence éternelle|22754'
 		),
 );
 
 
 // HORDE KEYS
 $inst_keys['frFR']['H'] = array(
-	'SG' => array( 'Key-Only', 'SG' =>
-			'Clé de la gorge des Vents brûlants|4826'
+	'SG' => array( 'Key-Only',
+		'SG' => 'Clé de la gorge des Vents brûlants|4826'
 		),
-	'Gnome' => array( 'Key-Only', 'Gnome' =>
-			'Clé d\\\'atelier|2288'
+	'Gnome' => array( 'Key-Only',
+		'Gnome' => 'Clé d\\\'atelier|2288'
 		),
-	'SM' => array( 'Key-Only', 'SM' =>
-			'La Clé écarlate|4445'
+	'SM' => array( 'Key-Only',
+		'SM' => 'La Clé écarlate|4445'
 		),
-	'ZF' => array( 'Parts', 'ZF' =>
-			'Marteau de Zul\\\'Farrak|5695',
+	'ZF' => array( 'Parts',
+		'ZF' => 'Marteau de Zul\\\'Farrak|5695',
 			'Maillet sacré|8250'
 		),
-	'Marau' => array( 'Parts', 'Marau' =>
-			'Sceptre de Celebras|19710',
+	'Marau' => array( 'Parts',
+		'Marau' => 'Sceptre de Celebras|19710',
 			'Bâtonnet de Celebras|19549',
 			'Diamant de Celebras|19545'
 		),
-	'BRDp' => array( 'Key-Only', 'BRDp' =>
-			'Clé de la prison|15545'
+	'BRDp' => array( 'Key-Only',
+		'BRDp' => 'Clé de la prison|15545'
 		),
 	'BRDs' => array( 'Parts', 'BRDs' =>
 			'Clé ombreforge|2966',
 			'Souillefer|9673'
 		),
-	'HT' => array( 'Key-Only', 'HT' =>
-			'Clé en croissant|35607'
+	'HT' => array( 'Key-Only',
+		'HT' => 'Clé en croissant|35607'
 		),
-	'Scholo' => array( 'Quests', 'Scholo' =>
-			'Clé squelette|16854',
+	'Scholo' => array( 'Quests',
+		'Scholo' => 'Clé squelette|16854',
 			'Scholomance|',
 			'Fragments de squelette|',
 			'Moisissure rime avec...|',
@@ -226,11 +226,11 @@ $inst_keys['frFR']['H'] = array(
 			'Le Scarabée d\\\'Araj|',
 			'La clé de la Scholomance|'
 		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Clé de la ville|13146'
+	'Strath' => array( 'Key-Only',
+		'Strath' => 'Clé de la ville|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' =>
-			'Sceau d\\\'ascension|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Sceau d\\\'ascension|17057',
 			'Sceau d\\\'ascension non décoré|5370',
 			'Gemme de Pierre-du-pic|5379',
 			'Gemme de Brûleronce|16095',
@@ -238,8 +238,8 @@ $inst_keys['frFR']['H'] = array(
 			'Sceau d\\\'ascension brut |24554||MS',
 			'Sceau d\\\'ascension forgé|19463||MS'
 		),
-	'Onyxia' => array( 'Quests', 'Onyxia' =>
-			'Amulette Drakefeu|4829',
+	'Onyxia' => array( 'Quests',
+		'Onyxia' => 'Amulette Drakefeu|4829',
 			'Ordres du seigneur de guerre Goretooth|',
 			'Ordre du chef de guerre|',
 			'Pour la Horde !|',
@@ -255,8 +255,8 @@ $inst_keys['frFR']['H'] = array(
 			'Ascension...|',
 			'Sang du Champion des Dragons noirs|'
 		),
-	'MC' => array( 'Key-Only', 'MC' =>
-			'Quintessence éternelle|22754'
+	'MC' => array( 'Key-Only',
+		'MC' => 'Quintessence éternelle|22754'
 		),
 );
 
@@ -751,9 +751,9 @@ $wordings['frFR']['admin']['minCPver'] = "Version CP Minimum|Version minimale de
 $wordings['frFR']['admin']['minGPver'] = "Version GP Minimum|Version minimale de GuildProfiler autorisée";
 $wordings['frFR']['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvPLog autorisée";
 $wordings['frFR']['admin']['roster_lang'] = "Langue du Roster|Le code langue principal du Roster";
+$wordings['frFR']['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $wordings['frFR']['admin']['website_address'] = "Adresse du site Web|Utilisé pour le lien sur le logo et le lien sur le menu principal<br />Certains addon pour le roster peuvent également l'utiliser";
 $wordings['frFR']['admin']['roster_dir'] = "URL du Roster|L'URL du répertoire du roster<br />Ce paramètre est critique et doit être correct sous peine d'erreurs<br />(EX: http://www.site.com/roster )<br /><br />Une URL absolue n'est pas obligatoire mais un chemin relatif depuis la racine du serveur l'est (l'URL doit au moins commencer par un slash)<br />(EX: /roster )";
-$wordings['frFR']['admin']['server_name_comp'] = "Mode de compatibilité char.php|Si la page des personnages ne fonctionne pas, essayez de changer ce paramètre";
 $wordings['frFR']['admin']['interface_url'] = "URL du répertoire Interface|Répertoire où les images Interface images sont situés<br />La valeur par défaut est &quot;img/&quot;<br /><br />Vous pouvez utiliser un chemin relatif ou une URL absolue";
 $wordings['frFR']['admin']['img_suffix'] = "Extension des images Interface|Le type des images Interface";
 $wordings['frFR']['admin']['alt_img_suffix'] = "Extension alternative des images d'interface|Le type alternatif d'images pour les images de l'interface";
@@ -799,6 +799,7 @@ $wordings['frFR']['admin']['index_lastupdate'] = "Colonne de la dernière mise �
 $wordings['frFR']['admin']['menu_left_pane'] = "Panneau de gauche (liste rapide des membres)|Contrôle l'affichage du panneau de gauche du menu principal du roster<br />Cette zone sert à la liste rapide des membres";
 $wordings['frFR']['admin']['menu_right_pane'] = "Panneau de droite (statut du royaume)|Contrôle l'affichage du panneau de droite du menu principal du roster<br />Cette zone sert au statut du royaume";
 $wordings['frFR']['admin']['menu_memberlog'] = "Lien Journal|Contrôle l'affichage du lien Journal";
+$wordings['frFR']['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
 $wordings['frFR']['admin']['menu_guild_info'] = "Lien Info Guilde|Contrôle l'affichage du lien Info Guilde";
 $wordings['frFR']['admin']['menu_stats_page'] = "Lien Statistiques|Contrôle l'affichage du lien Statistiques";
 $wordings['frFR']['admin']['menu_pvp_page'] = "Lien Statistiques PvP / JcJ|Contrôle l'affichage du lien Statistiques PvP / JcJ";

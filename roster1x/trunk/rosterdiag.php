@@ -16,8 +16,10 @@
 *
 ******************************/
 
-// The settings.php is a required file before we can continue
-require_once ('settings.php');
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 // Set the title for the header
 $header_title = $wordings[$roster_conf['roster_lang']]['rosterdiag'];
@@ -199,7 +201,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 		print(border('sblue','start','Back Link'));
 		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
-		print('<tr><td class="membersRowRight2"><form method="POST" action="rosterdiag.php">');
+		print('<tr><td class="membersRowRight2"><form method="POST" action="'.makelink('rosterdiag').'">');
 		print ('<input type="hidden" name="filename" value="'.$filename.'">');
 		print ('<input type="hidden" name="downloadsvn" value="savefile">');
 		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;">');
@@ -273,7 +275,7 @@ echo border('syellow','start','Basic Server Info').'
 border('syellow','end').'
 <br />
 '.
-border('syellow','start','PHP Settings&nbsp;&nbsp;&nbsp;<small><a href="phpinfo.php" target="_blank"><i>phpinfo() page</i></a></small>').'
+border('syellow','start','PHP Settings').'
 <table width="300" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">PHP Version</td>
@@ -323,14 +325,14 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display conf.php info
 
-echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="?printconf=1" target="_blank">Show Entire $roster_conf array</a></small></i>').
+echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster_conf array</a></small></i>').
 '<table width="100%" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['version'].'</td>
 	</tr>
 	<tr>
-		<td class="membersRow'.((($rowstripe=0)%2)+1).'">db_version</td>
+		<td class="membersRow'.(((++$rowstripe)%2)+1).'">db_version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['roster_dbver'].'</td>
 	</tr>
 	<tr>
@@ -370,10 +372,6 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="?
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['img_suffix'].'</td>
 	</tr>
 	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">server_name_comp</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster_conf['server_name_comp']).'</td>
-	</tr>
-	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">guild_name</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['guild_name'].'</td>
 	</tr>
@@ -408,7 +406,7 @@ echo "</td><td valign=\"top\">\n";
 echo border('sgray','start','List of tables in ['.$db_name.']').
 '<table width="100%" class="bodyline" cellspacing="0">'."\n";
 
-$result = $wowdb->query("SHOW TABLES FROM $db_name");
+$result = $wowdb->query("SHOW TABLES FROM `$db_name`;");
 if( !$result )
 {
 	echo '<tr><td class="membersRow1">DB Error, could not list tables<br />'."\n";
@@ -573,7 +571,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 					echo '<td class="membersRowRight'.$row.'">'."\n";
 					if($filedata['diff'] || $filedata['missing'])
 					{
-						echo '<form method="POST" action="rosterdiag.php">'."\n";
+						echo '<form method="POST" action="'.makelink('rosterdiag').'">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
 						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
 						if (isset($filedata['diff']) && $filedata['diff'])
@@ -636,6 +634,3 @@ else
 
 
 include_once(ROSTER_BASE.'roster_footer.tpl');
-
-
-?>

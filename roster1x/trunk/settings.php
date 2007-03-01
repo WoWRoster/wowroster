@@ -25,6 +25,7 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
  * Set PHP error reporting
  */
 error_reporting(E_ALL ^ E_NOTICE);
+//error_reporting(E_ALL);
 
 
 
@@ -79,18 +80,6 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
 
 
 /**
- * Base, absolute roster admin directory
- */
-define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
-
-
-/**
- * Base, absolute roster addons directory
- */
-define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
-
-
-/**
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
@@ -118,6 +107,12 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 /**
+ * Include constants file
+ */
+require_once (ROSTER_LIB.'constants.php');
+
+
+/**
  * Include roster db file
  */
 require_once (ROSTER_LIB.'wowdb.php');
@@ -139,12 +134,6 @@ if( !$roster_dblink )
  */
 $db_user = null;
 $db_passwd = null;
-
-
-/**
- * Include constants file
- */
-require_once (ROSTER_LIB.'constants.php');
 
 
 
@@ -206,7 +195,7 @@ include(ROSTER_BASE.'localization'.DIR_SEP.'languages.php');
  */
 if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 {
-	message_die('Looks like you\'ve loaded a new version of Roster<br />
+	roster_die('Looks like you\'ve loaded a new version of Roster<br />
 <br />
 Your Version: <span class="red">'.$roster_conf['version'].'</span><br />
 New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
@@ -222,10 +211,9 @@ if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install'
 {
 	if( !file_exists(ROSTER_BASE.'version_match.php') )
 	{
-		message_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
+		roster_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
 	}
 }
-
 
 
 /**
@@ -238,3 +226,9 @@ require_once(ROSTER_LIB.'login.php');
  * Get guild data from dataabse
  */
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+
+//---[ Check for Guild Info ]------------
+if( empty($guild_info) )
+{
+	roster_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+}

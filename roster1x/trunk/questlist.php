@@ -16,19 +16,13 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $header_title = $wordings[$roster_conf['roster_lang']]['quests'];
 include_once (ROSTER_BASE.'roster_header.tpl');
-
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
-}
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
 
 
 if (isset($_GET['zoneid']))
@@ -66,9 +60,9 @@ function SelectQuery($table,$fieldtoget,$field,$current,$fieldid,$urltorun)
 		$optiontodisplay = $row["$field"];//must leave double quote
 
 		if ($current == $optiontocompare)
-			$option_block .= "          <option value=\"$urltorun=$id\" selected>$optiontodisplay</option>\n";
+			$option_block .= '          <option value="'.makelink("$urltorun=$id").'" selected>'.$optiontodisplay."</option>\n";
 		else
-			$option_block .= "          <option value=\"$urltorun=$id\" >$optiontodisplay</option>\n";
+			$option_block .= '          <option value="'.makelink("$urltorun=$id").'" >'.$optiontodisplay."</option>\n";
 	}
 	// dump out the list
 	return $option_block;
@@ -76,8 +70,8 @@ function SelectQuery($table,$fieldtoget,$field,$current,$fieldid,$urltorun)
 
 
 // The next two lines call the function SelectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-$option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.zone","zone",$zoneidsafe,"zone","questlist.php?zoneid");
-$option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.quest_name","quest_name",$questidsafe,"quest_name","questlist.php?questid");
+$option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.zone","zone",$zoneidsafe,"zone","questlist&amp;zoneid");
+$option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.quest_name","quest_name",$questidsafe,"quest_name","questlist&amp;questid");
 
 // Don't forget the menu !!
 include_once(ROSTER_LIB.'menu.php');
@@ -104,7 +98,7 @@ print border('sgray','start',$wordings[$roster_conf['roster_lang']]['team']);
 print $wordings[$roster_conf['roster_lang']]['search1'];
 
 print('<br /><br />
-      <form method="post" action="questlist.php">
+      <form method="post" action="'.makelink('questlist').'">
         '.$wordings[$roster_conf['roster_lang']]['search2'].':
         <br />
         <select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value">
@@ -189,7 +183,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 				print('<td class="membersRowRight'. (($striping_counter % 2) +1) .'">');
 				if ($row['server'])
 				{
-					print('<a href="char.php?member='.$row['member_id'].'" target="_blank">'.$row['name'].'</a>');
+					print('<a href="'.makelink('char&amp;member='.$row['member_id']).'" target="_blank">'.$row['name'].'</a>');
 				}
 				else
 					print($row['name']);
@@ -249,7 +243,7 @@ if (isset($questidsafe))
 			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
 			if ($row['server'])
 			{
-				print('<a href="char.php?member='.$row['member_id'].'" target="_blank">'.$row['name'].'</a>');
+				print('<a href="'.makelink('char&amp;member='.$row['member_id']).'" target="_blank">'.$row['name'].'</a>');
 			}
 			else
 				print($row['name']);
@@ -268,5 +262,3 @@ if (isset($questidsafe))
 }
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-
-?>

@@ -16,7 +16,10 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 if( isset($_GET['member']) && $_GET['member'] != '' )
 {
@@ -35,13 +38,13 @@ if( isset($_GET['member']) && $_GET['member'] != '' )
 }
 else
 {
-	message_die('Character was not specified','Character Error');
+	roster_die('Character was not specified','Character Error');
 }
 
 // Check for name
 if( $name == '' )
 {
-	message_die('Character name was not specified','No character name');
+	roster_die('Character name was not specified','No character name');
 }
 
 // Include character class file
@@ -53,7 +56,7 @@ if( is_numeric($name) )
 {
 	$char = char_get_one_by_id($name);
 	if( !is_object($char) )
-		message_die('Sorry no character data for member_id &quot;'.$name.'&quot;','Character Not Found');
+		roster_die('Sorry no character data for member_id &quot;'.$name.'&quot;','Character Not Found');
 
 	$name = $char->get('name');
 }
@@ -61,15 +64,14 @@ else
 {
 	$char = char_get_one( $name, $server );
 	if( !is_object($char) )
-		message_die('Sorry no character data for &quot;'.$name.'&quot; of &quot;'.$server.'&quot;','Character Not Found');
+		roster_die('Sorry no character data for &quot;'.$name.'&quot; of &quot;'.$server.'&quot;','Character Not Found');
 }
 
 
-// Set <html><title> and <form action=""> and $url
+// Set <html><title> and <form action=""> and $char_url
 $header_title = 'Character Stats for: '.$name.' @ '.$server;
-$script_filename = 'char.php?member='.$char->get('member_id');
-$script_filename_old = 'char.php?member='.$char->get('name').'@'.$char->get('server');
-$url = '<a href="char.php?member='.$char->get('member_id');
+$char_url = 'char&amp;member='.$char->get('member_id');
+$char_url_old = 'char&amp;member='.$char->get('name').'@'.$char->get('server');
 
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting'
@@ -108,7 +110,7 @@ foreach( $disp_array as $global_setting => $user_setting )
 }
 
 
-$menu_cell = '      <td class="menubarHeader" align="center" valign="middle">';
+$menu_cell = '      <td class="menubarHeader" align="center" valign="middle"><a href="';
 
 $char_menu = '<div align="center">'."\n";
 
@@ -116,34 +118,34 @@ $char_menu .= border('sorange','start');
 
 $char_menu .= '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-$char_menu .= $menu_cell.$url.'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
+$char_menu .= $menu_cell.makelink($char_url).'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
 
 if( $roster_conf['show_spellbook'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=spellbook">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=spellbook').'">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
 
 if( $roster_conf['show_inventory'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=bags">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bags').'">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
 
 if( $roster_conf['show_bank'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=bank">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bank').'">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
 
 if( $roster_conf['show_mail'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=mailbox">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=mailbox').'">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
 
 if( $roster_conf['show_quests'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=quests">'.$wordings[$roster_conf['roster_lang']]['quests'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=quests').'">'.$wordings[$roster_conf['roster_lang']]['quests'].'</a></td>'."\n";
 
 if( $roster_conf['show_recipes'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=recipes">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=recipes').'">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a></td>'."\n";
 
 if( $roster_conf['show_bg'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=bg">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bg').'">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</a></td>'."\n";
 
 if( $roster_conf['show_pvp'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=pvp">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=pvp').'">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</a></td>'."\n";
 
 if( $roster_conf['show_duels'] )
-	$char_menu .= $menu_cell.$url.'&amp;action=duels">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=duels').'">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</a></td>'."\n";
 
 $char_menu .= "  </tr>\n</table>\n";
 
@@ -249,31 +251,31 @@ switch ($action)
 	case 'bg':
 	    if ( $roster_conf['show_bg'] == 1 )
 		{
-		    $url .= '&amp;action=bg';
-		    $char_page .= $char->show_pvp2('BG', $url, $sort, $start);
+		    $char_url .= '&amp;action=bg';
+		    $char_page .= $char->show_pvp2('BG', $char_url, $sort, $start);
 		}
 		break;
 
 	case 'pvp':
 		if( $roster_conf['show_pvp'] == 1 )
 		{
-			$url .= '&amp;action=pvp';
-			$char_page .= $char->show_pvp2('PvP', $url, $sort, $start);
+			$char_url .= '&amp;action=pvp';
+			$char_page .= $char->show_pvp2('PvP', $char_url, $sort, $start);
 		}
 		break;
 
 	case 'duels':
 		if( $roster_conf['show_duels'] == 1 )
 		{
-			$url .= '&amp;action=duels';
-			$char_page .= $char->show_pvp2('Duel', $url, $sort, $start);
+			$char_url .= '&amp;action=duels';
+			$char_page .= $char->show_pvp2('Duel', $char_url, $sort, $start);
 		}
 		break;
 
 	case 'spellbook':
 		if( $roster_conf['show_spellbook'] == 1 )
 		{
-			$url .= '&amp;action=spellbook';
+			$char_url .= '&amp;action=spellbook';
 			$char_page .= $char->show_spellbook();
 		}
 		break;
@@ -281,7 +283,7 @@ switch ($action)
 	case 'mailbox':
 		if( $roster_conf['show_mail'] == 1 )
 		{
-			$url .= '&amp;action=mail';
+			$char_url .= '&amp;action=mail';
 			$char_page .= $char->show_mailbox();
 		}
 		break;
@@ -303,8 +305,8 @@ if( empty($action) && $roster_conf['show_item_bonuses'])
 }
 
 $char_page .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">'.
-	ROSTER_URL.'/'.$script_filename.( !empty($action) ? '&amp;action='.$action : '' ).'<br />'.
-	ROSTER_URL.'/char.php?member='.$script_filename_old.( !empty($action) ? '&amp;action='.$action : '' )
+	makelink($char_url.( !empty($action) ? '&amp;action='.$action : '' ),true).'<br />'.
+	makelink($char_url_old.( !empty($action) ? '&amp;action='.$action : '' ),true)
 	,'Character Links','sgreen');
 
 $char_page .= "</div>\n";
@@ -318,5 +320,3 @@ echo $char_menu;
 echo $char_page;
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-
-?>

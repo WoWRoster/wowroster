@@ -16,16 +16,10 @@
  *
  ******************************/
 
-require_once ('settings.php');
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+    exit('Detected invalid access to this file!');
 }
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
-
 
 $striping_counter = 0;
 $tableHeader = '
@@ -66,7 +60,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=guildwins">'.$wordings[$roster_conf['roster_lang']]['pvplist1'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=guildwins').'">'.$wordings[$roster_conf['roster_lang']]['pvplist1'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	if ($row['guild'] == '')
 		$guildname = '(unguilded)';
@@ -91,7 +85,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=guildlosses">'.$wordings[$roster_conf['roster_lang']]['pvplist2'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=guildlosses').'">'.$wordings[$roster_conf['roster_lang']]['pvplist2'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	if ($row['guild'] == '') {
 		$guildname = '(unguilded)';
@@ -117,7 +111,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=enemywins">'.$wordings[$roster_conf['roster_lang']]['pvplist3'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=enemywins').'">'.$wordings[$roster_conf['roster_lang']]['pvplist3'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -138,7 +132,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=enemylosses">'.$wordings[$roster_conf['roster_lang']]['pvplist4'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=enemylosses').'">'.$wordings[$roster_conf['roster_lang']]['pvplist4'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -160,7 +154,7 @@ if ($row)
 	++$striping_counter;
 
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=purgewins">'.$wordings[$roster_conf['roster_lang']]['pvplist5'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgewins').'">'.$wordings[$roster_conf['roster_lang']]['pvplist5'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -183,7 +177,7 @@ if ($row)
 	++$striping_counter;
 
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=purgelosses">'.$wordings[$roster_conf['roster_lang']]['pvplist6'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgelosses').'">'.$wordings[$roster_conf['roster_lang']]['pvplist6'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -206,7 +200,7 @@ if ($row)
 	++$striping_counter;
 
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=purgeavewins">'.$wordings[$roster_conf['roster_lang']]['pvplist7'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgeavewins').'">'.$wordings[$roster_conf['roster_lang']]['pvplist7'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -234,7 +228,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="guildpvp.php?type=purgeavelosses">'.$wordings[$roster_conf['roster_lang']]['pvplist8'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgeavelosses').'">'.$wordings[$roster_conf['roster_lang']]['pvplist8'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -251,4 +245,3 @@ if ($row)
 
 print($tableFooter);
 $wowdb->free_result($result);
-?>

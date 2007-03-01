@@ -92,12 +92,12 @@ class char
 			$sort_part = $sort ? "&amp;s=$sort" : '';
 
 			if ($start > 0)
-				$prev = $url.'&amp;start=0'.$sort_part.'">&lt;&lt;</a>&nbsp;&nbsp;'.$url.'&amp;start='.($start-50).$sort_part.'">&lt;</a> ';
+				$prev = '<a href="'.makelink($url.'&amp;start=0'.$sort_part).'">&lt;&lt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($start-50).$sort_part).'">&lt;</a> ';
 
 			if (($start+50) < $max)
 			{
 				$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
-				$next = ' '.$url.'&amp;start='.($start+50).$sort_part.'">&gt;</a>&nbsp;&nbsp;'.$url.'&amp;start='.($max-50).$sort_part.'">&gt;&gt;</a>';
+				$next = ' <a href="'.makelink($url.'&amp;start='.($start+50).$sort_part).'">&gt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($max-50).$sort_part).'">&gt;&gt;</a>';
 			}
 			else
 				$listing = '<small>['.$start.' - '.($max).'] of '.$max.'</small>';
@@ -276,12 +276,12 @@ class char
 					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" style=\"display:none;\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=item">'.$wordings[$lang]['item'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=name">'.$wordings[$lang]['name'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=difficulty">'.$wordings[$lang]['difficulty'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=type">'.$wordings[$lang]['type'].'</a></th>
-    <th class="membersHeader">'.$url.'&amp;action=recipes&amp;s=level">'.$wordings[$lang]['level'].'</a></th>
-    <th class="membersHeaderRight">'.$url.'&amp;action=recipes&amp;s=reagents">'.$wordings[$lang]['reagents'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=item').'">'.$wordings[$lang]['item'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=name').'">'.$wordings[$lang]['name'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=difficulty').'">'.$wordings[$lang]['difficulty'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=type').'">'.$wordings[$lang]['type'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=level').'">'.$wordings[$lang]['level'].'</a></th>
+    <th class="membersHeaderRight"><a href="'.makelink($url.'&amp;action=recipes&amp;s=reagents').'">'.$wordings[$lang]['reagents'].'</a></th>
   </tr>
 ';
 				}
@@ -1588,7 +1588,7 @@ echo '  </div><!-- end char-tabs -->
 		}
 		else
 		{
-			message_die('Sorry no data in database for '.$_GET['name'].' of '.$_GET['server'],'Character Not Found');
+			roster_die('Sorry no data in database for '.$_GET['name'].' of '.$_GET['server'],'Character Not Found');
 		}
 	}
 }

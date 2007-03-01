@@ -16,16 +16,10 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+    exit('Detected invalid access to this file!');
 }
-// Get guild_id from guild info check above
-$guildId = $guild_info['guild_id'];
-
 
 $striping_counter = 0;
 $tableHeader = '
@@ -67,7 +61,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="guildhonor.php?s=lifetimeRankName">'.$wordings[$roster_conf['roster_lang']]['hslist1'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=lifetimeRankName').'">'.$wordings[$roster_conf['roster_lang']]['hslist1'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -95,7 +89,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="guildhonor.php?s=lifetimeHK">'.$wordings[$roster_conf['roster_lang']]['hslist2'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=lifetimeHK').'">'.$wordings[$roster_conf['roster_lang']]['hslist2'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -116,7 +110,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="guildhonor.php?s=honorpoints">'.$wordings[$roster_conf['roster_lang']]['hslist3'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=honorpoints').'">'.$wordings[$roster_conf['roster_lang']]['hslist3'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -137,7 +131,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="guildhonor.php?s=arenapoints">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=arenapoints').'">'.$wordings[$roster_conf['roster_lang']]['hslist4'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -148,4 +142,3 @@ if ($row) {
 
 print($tableFooter);
 $wowdb->free_result($result);
-?>

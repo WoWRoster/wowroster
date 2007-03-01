@@ -269,7 +269,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
  * @param string $title | The box title (default = 'Message')
  * @param string $style | The border style (default = sred)
  */
-function message_die($message, $title = 'Message', $style = 'sred')
+function roster_die($message, $title = 'Message', $style = 'sred')
 {
 	global $wowdb, $roster_conf, $wordings;
 
@@ -792,7 +792,7 @@ function escape_array($array)
 	global $wowdb;
 	foreach ($array as $key=>$value)
 	{
-		if (is_array($value))
+		if( is_array($value) )
 		{
 			$array[$key] = escape_array($value);
 		}
@@ -803,4 +803,119 @@ function escape_array($array)
 	}
 
 	return $array;
+}
+
+function makelink( $url='' , $full=false )
+{
+	if( empty($url) || $url[0] == '&' )
+		$url = ROSTER_PAGE_NAME.$url;
+
+	$url = sprintf(ROSTER_LINK,$url);
+
+	if( $full )
+		$url = ROSTER_URL."/$url";
+
+	return $url;
+}
+
+/**
+ * Gets the list of currently installed roster addons
+ *
+ * @param array $array return only an array of available addons
+ * @return mixed list of addons
+ */
+function makeAddonList( $array=false )
+{
+	global $roster_conf, $wordings;
+
+	// Initialize output
+	$output = '';
+
+	if ($handle = opendir(ROSTER_ADDONS))
+	{
+		while (false !== ($file = readdir($handle)))
+		{
+			if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_.]/', $file) )
+			{
+				$addons[] = $file;
+			}
+		}
+	}
+
+
+	if( !$array )
+	{
+		if( count($addons) > 0 )
+		{
+			$lCount = 0; //link count
+
+			foreach ($addons as $addon)
+			{
+				$menufile = ROSTER_ADDONS.$addon.DIR_SEP.'menu.php';
+				if (file_exists($menufile))
+				{
+					$addonDir = ROSTER_ADDONS.$addon.DIR_SEP;
+					$localizationFile = ROSTER_ADDONS.$addon.DIR_SEP.'localization.php';
+					if (file_exists($localizationFile))
+					{
+						include($localizationFile);
+					}
+
+					include($menufile);
+
+					if (0 >= $config['menu_min_user_level']) //modify this line for user level / authentication stuff (show the link for user level whatever for this addon)  you understand :P
+					{
+						if (isset($config['menu_index_file'][0]))
+						{
+							//$config['menu_index_file'] is the new array type
+							foreach ($config['menu_index_file'] as $addonLink)
+							{
+								$fullQuery = urlencode($addon) . ( isset($addonLink[0]) ? $addonLink[0] : '' );
+								$output .= '<li><a href="' . makelink('addon@'.$fullQuery).'">' . $addonLink[1] . "</a></li>\n";
+								$lCount++;
+							}
+						}
+						unset($config);
+					}
+				}
+			}
+			return $output;
+		}
+		else
+		{
+			return '';
+		}
+	}
+	else
+	{
+		if( count($addons) < 0 )
+		{
+			return $addons;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+/**
+ * Calculates the last updated value
+ *
+ * @param string $updateTimeUTC dateupdatedutc
+ * @return string formatted date string
+ */
+function DateDataUpdated($updateTimeUTC)
+{
+	global $roster_conf, $phptimeformat;
+
+	list($month,$day,$year,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d/%d/%d %d:%d:%d");
+	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+
+	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+}
+
+function get_file_ext( $filename )
+{
+	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }

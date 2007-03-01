@@ -34,12 +34,9 @@
 
 // Multiple edits done for http://wowroster.net Roster
 
-require_once( 'settings.php' );
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+    exit('Detected invalid access to this file!');
 }
 
 require_once( ROSTER_LIB.'char.php' );
@@ -71,6 +68,7 @@ if ( $roster_conf['bank_money'] )
  AND p.member_id = m.member_id
  ORDER  BY m.name"
 ));
+$addsilver=0;
 if ($mulemoney['copper']>=100)
 {
 	$mulemoney['copper'] = $mulemoney['copper']/100;
@@ -79,6 +77,7 @@ if ($mulemoney['copper']>=100)
 	$mulemoney['copper'] = $mulemoney['copper'][1];
 }
 $mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
+$addgold=0;
 if ($mulemoney['silver']>=100)
 {
 	$mulemoney['silver'] = $mulemoney['silver']/100;
@@ -175,4 +174,3 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 }
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-?>

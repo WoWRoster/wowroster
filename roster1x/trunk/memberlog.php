@@ -16,15 +16,10 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if ( !defined('ROSTER_INSTALLED') )
 {
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
+    exit('Detected invalid access to this file!');
 }
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
 
 if( !isset($_REQUEST['d']) || empty($_REQUEST['d']) )
 	$get_d = 0;
@@ -148,14 +143,14 @@ $sort_part .= ($get_d != 0 ? "&amp;d=$get_d" : '');
 
 if ($start > 0)
 {
-	$prev = '<a href="?start=0'.$sort_part.'">&lt;&lt;</a> <a href="?start='.max($start-30,0).$sort_part.'">&lt;</a> ';
+	$prev = '<a href="'.makelink('memberlog&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="'.makelink('memberlog&amp;start='.max($start-30,0).$sort_part).'">&lt;</a> ';
 }
 
 if (($start+30) < $max)
 {
 	$lastpage = ceil($max/30)*30;
 	$listing = ' <small>['.$start.' - '.($start+30).'] of '.$max.'</small>';
-	$next = ' <a href="?start='.($start+30).$sort_part.'">&gt;</a> <a href="?start='.($lastpage-30).$sort_part.'">&gt;&gt;</a>';
+	$next = ' <a href="'.makelink('memberlog&amp;start='.($start+30).$sort_part).'">&gt;</a> <a href="'.makelink('memberlog&amp;start='.($lastpage-30).$sort_part).'">&gt;&gt;</a>';
 }
 else
 {
@@ -179,12 +174,12 @@ $striping_counter = 0;
 if( $wowdb->num_rows($result) > 0 )
 {
 	$tableHeaderRow = '	<tr>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=name&amp;d='.$chkd['n'].'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=class&amp;d='.$chkd['c'].'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=level&amp;d='.$chkd['l'].'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=title&amp;d='.$chkd['r'].'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=type&amp;d='.$chkd['t'].'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></th>
-	<th class="membersHeader"><a href="?start='.$start.'&amp;s=date&amp;d='.$chkd['d'].'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=name&amp;d='.$chkd['n']).'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=class&amp;d='.$chkd['c']).'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=level&amp;d='.$chkd['l']).'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=title&amp;d='.$chkd['r']).'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=type&amp;d='.$chkd['t']).'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=date&amp;d='.$chkd['d']).'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></th>
 	<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['note'].'</th>
 	</tr>'."\n";
 
@@ -250,5 +245,3 @@ $wowdb->free_result($result);
 print $content;
 
 require( ROSTER_BASE.'roster_footer.tpl' );
-
-?>

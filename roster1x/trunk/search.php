@@ -16,7 +16,10 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $header_title = $wordings[$roster_conf['roster_lang']]['search'];
 include_once (ROSTER_BASE.'roster_header.tpl');
@@ -25,33 +28,23 @@ require_once ROSTER_LIB.'item.php';
 require_once ROSTER_LIB.'recipes.php';
 
 
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	message_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
-}
-// Get guild info from guild info check above
-$guildId = $guild_info['guild_id'];
-
-
-
 include_once(ROSTER_LIB.'menu.php');
 print "<br />\n";
 
-if (isset($_GET['s']))
+if (isset($_POST['s']))
 {
-	$inputbox_value = $_GET['s'];
+	$inputbox_value = $_POST['s'];
 }
 ?>
 
-<form action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form action="<?php echo makelink('search') ?>" method="post">
   <?php print $wordings[$roster_conf['roster_lang']]['find'] ?>:<br />
   <input type="text" class="wowinput192" name="s" value="<?php print $inputbox_value; ?>" size="30" maxlength="30">
   <input type="submit" value="search">
 </form>
 
 <?php
-if (isset($_GET['s']))
+if (isset($_POST['s']))
 {
 	// Set a ank for link to top of page
 	echo '<a name="top">&nbsp;</a>
@@ -60,7 +53,7 @@ if (isset($_GET['s']))
   - <a href="#recipes">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>
 </div><br /><br />';
 
-	$search = $_GET['s'];
+	$search = $_POST['s'];
 	print '<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>';
 
 	$query="SELECT players.name,players.server,items.* FROM `".ROSTER_ITEMSTABLE."` items,`".ROSTER_PLAYERSTABLE."` players WHERE items.member_id = players.member_id AND items.item_name LIKE '%$search%' ORDER BY players.name ASC";
@@ -78,7 +71,7 @@ if (isset($_GET['s']))
 		while ($data = $wowdb->fetch_assoc( $result ))
 		{
 			$row_st = (($rc%2)+1);
-			$char_url = 'char.php?member='.$data['member_id'];
+			$char_url = makelink('char&amp;member='.$data['member_id']);
 
 			if ( $cid != $data['member_id'] )
 			{
@@ -210,7 +203,7 @@ if (isset($_GET['s']))
 		{
 			$row_st = (($rc%2)+1);
 
-			$char_url = 'char.php?member='.$data['member_id'].'&amp;action=recipes';
+			$char_url = makelink('char&amp;member='.$data['member_id'].'&amp;action=recipes');
 			if ( $cid != $data['member_id'] )
 			{
 				if ( $cid != '' )
@@ -326,5 +319,3 @@ if (isset($_GET['s']))
 }
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-
-?>

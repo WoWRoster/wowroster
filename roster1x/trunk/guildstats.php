@@ -16,7 +16,10 @@
  *
  ******************************/
 
-require_once( 'settings.php' );
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $header_title = $wordings[$roster_conf['roster_lang']]['menustats'];
 include_once (ROSTER_BASE.'roster_header.tpl');
@@ -209,7 +212,6 @@ function total_value ( $row )
 	return $cell_value;
 }
 
-include_once (ROSTER_BASE.'memberslist.php');
+include_once (ROSTER_LIB.'memberslist.php');
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
-?>

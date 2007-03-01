@@ -126,4 +126,4 @@ Serveral javascript files are libraries that are under their own licenses.
 <br />
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
-See <a href="license.txt">license.txt</a> for details';
+See <a href="'.makelink('license').'">license.txt</a> for details';
