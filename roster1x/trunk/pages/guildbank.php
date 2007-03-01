@@ -39,50 +39,56 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+require_once( ROSTER_LIB.'char.php' );
+
+if( isset($_GET['mode']) )
+{
+	$gbank_mode = ( $_GET['mode'] == 'table' ? 2 : '');
+	$columns = 15;
+}
+else
+{
+	$gbank_mode = $roster_conf['guildbank_ver'];
+	if( $gbank_mode == 2 )
+	{
+		$columns = 15;
+	}
+	else
+	{
+		$columns = 2;
+	}
+}
+
 $header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
-include_once(ROSTER_LIB.'item.php');
 
-$query1= "SELECT m.member_id, m.name as member_name, m.note as member_note, m.officer_note as member_officer_note, i.*, sum(i.item_quantity) as total_quantity
- FROM `".ROSTER_ITEMSTABLE."` as i, `".ROSTER_MEMBERSTABLE."` as m
- WHERE i.member_id=m.member_id
- AND m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
- AND i.item_parent!='bags'
- AND i.item_parent!='equip'
- AND (i.item_tooltip
- NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
- OR i.item_tooltip
- LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
- GROUP BY i.item_name";
-
-$query2= "SELECT m.member_id, m.name as member_name, m.note as member_note, m.officer_note as member_officer_note, i.*
- FROM `".ROSTER_ITEMSTABLE."` as i, `".ROSTER_MEMBERSTABLE."` as m
- WHERE i.member_id=m.member_id
- AND m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%'
- AND i.item_parent!='bags'
- AND i.item_parent!='equip'
- AND (i.item_tooltip
- NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
- OR i.item_tooltip
- LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
- ORDER BY i.item_name";
+$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
+FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
+WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id
+ORDER BY m.name";
 
 if ($wowdb->sqldebug)
-  echo "<!-- $query1 --> \n";
+	echo "<!-- $muleNameQuery --> \n";
 
 
-$result = $wowdb->query( $query1 );
-$result2 = $wowdb->query( $query2 );
-while ($row2 = $wowdb->fetch_array($result2))
-{
-	list($base_id, $extras) = split(':',$row2['item_id'],2);
-	$owners[$base_id][]=$row2['member_name'];
-	$mains[$row2['member_name']]=$row2['member_note'];
-}
+$muleNames = $wowdb->query($muleNameQuery);
 
 include_once (ROSTER_LIB.'menu.php');
-echo "<br />\n";
+echo "\n<br />\n";
+
+$bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
+
+$menu_cell = '<td class="menubarHeader" align="center" valign="middle">';
+
+$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank').'">List</a></td>'."\n";
+$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank&amp;mode=table').'">Inventory</a></td>'."\n";
+
+$bank_menu .= "</tr>\n</table>\n";
+
+echo messagebox($bank_menu,$wordings[$roster_conf['roster_lang']]['guildbank'],'sorange');
+
+echo '<br />';
 
 if ( $roster_conf['bank_money'] )
 {
@@ -112,59 +118,122 @@ if ($mulemoney['silver']>=100)
 }
 $mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
-	echo '<br /> '.$wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].
-		' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g" /> '.
-	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s" /> '.
-	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c" /></div>
+	$bank_money = '<br /> '.$wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
+	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
+	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>
 <br />';
 }
 
-echo border('sgray','start').'<table class="bodyline" cellspacing="0" cellpadding="0">
-  <tr>
-    <th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['guildbankcontact'].'</th>
-    <th colspan="2" class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['guildbankitem'].'</th>
-  </tr>
-';
+$bankers = array();
+$bank_print = '';
 
-$striping_counter = 1;
-
-while($row = $wowdb->fetch_array($result))
+while ($muleRow = $wowdb->fetch_array($muleNames))
 {
-	$stripe_class = 'membersRow'.( ( ++$striping_counter % 2 ) + 1 );
-	$stripe_class_right = 'membersRowRight'.( ( $striping_counter % 2 ) + 1 );
-	$item_texture=str_replace('\\','/',$row['item_texture']);
-	echo '  <tr valign="top">'."\n";
+	$bankers[$muleRow['member_id']] = $muleRow['member_name'];
 
-	// Item holder column
-	echo '    <td align="center" class="'.$stripe_class.'" style="white-space:normal;">';
-	list($base_id, $extras) = split(':',$row['item_id'],2);
-	//echo "<!-- base_id = $base_id -->\n";
-	foreach (array_unique($owners[$base_id]) as $owner)
+	// Parse the note field for possible html characters
+	$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
+	$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
+
+	$note = preg_replace($prg_find, $prg_rep, $muleRow['member_note']);
+
+	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
+
+	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start','<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a> ('.$note.') - Updated: '.$date_char_data_updated).
+	'<table class="bodyline" cellspacing="0" cellpadding="0">'.
+		 ( $roster_conf['bank_money'] ?
+		 	  '<tr>
+    <td colspan="'.$columns.'" class="membersRowRight2">'.
+			'<div class="money" align="center">'.
+			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
+			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
+			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>'.
+		"</td>\n</tr>\n" : '' );
+
+	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
+ FROM `".ROSTER_ITEMSTABLE."` as i
+ WHERE ".$muleRow['member_id']."=i.member_id
+ AND i.item_parent!='bags'
+ AND i.item_parent!='equip'
+ AND (i.item_tooltip
+ NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
+ OR i.item_tooltip
+ LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
+ GROUP BY real_itemid
+ ORDER BY i.item_name";
+
+	$itemsOnMule = $wowdb->query($itemsOnMuleQuery);
+
+	$itemRow=$wowdb->fetch_array($itemsOnMule);
+	if ($itemRow==FALSE)
 	{
-		// Parse the contact field for possible html characters
-		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
-		$prg_rep  = array('&quot;','&amp;','&gt;','&lt;','<br />');
+		$bank_print .= '  <tr>
+    <td class="membersRowRight1">'.$muleRow['member_name']." has not uploaded an inventory yet.</td>
+  </tr>"."\n";
 
-		$note = preg_replace($prg_find, $prg_rep, $mains[$owner]);
-		echo $owner.'&nbsp;('.$note.")<br />";
 	}
-	echo "</td>\n";
+	else
+	{
+		$bank_print .= '  <tr>
+    <td class="membersRowRight1">';
+		$column_counter=1;
+		$bank_print .= '<table width="100%" cellspacing="0" cellpadding="2">';
 
-	// Item texture and quantity column
-	echo '    <td class="'.$stripe_class.'">';
+		$striping_counter = 1;
 
-	$item = new item($row);
-	echo $item->out();
+		while ($itemRow)
+		{
+			if( $column_counter == 1 )
+			{
+				$striping_counter++;
+			}
 
-	echo '</td>'."\n";
+			$stripe_class = 'membersRow'.( ( $striping_counter % 2 ) + 1 );
+			$stripe_class_right = 'membersRowRight'.( ( $striping_counter % 2 ) + 1 );
 
-	// Item description column
-	echo '    <td width="220" class="'.$stripe_class_right.'" style="white-space:normal;">';
-	echo colorTooltip($row['item_tooltip'],$row['item_color']);
+			$item_texture=str_replace('\\','/',$itemRow['item_texture']);
+			if ($column_counter==1)
+				$bank_print .= '  <tr>';
 
-	echo '</td>
-  </tr>'."\n";
+			// Item texture and quantity column
+			if( $gbank_mode == '' )
+				$bank_print .= "\n".'    <td valign="top" align="center" class="'.$stripe_class.'">';
+			else
+				$bank_print .= "\n".'    <td valign="top" align="center">';
+
+			$itemRow['item_quantity'] = $itemRow['total_quantity'];
+
+			$item = new item($itemRow);
+			$bank_print .= $item->out();
+
+			$bank_print .= '</td>';
+			if( $gbank_mode == '' )
+			{
+				$bank_print .= '    <td width="220" class="'.$stripe_class_right.'" style="white-space:normal;">';
+				$bank_print .= colorTooltip($itemRow['item_tooltip'],$itemRow['item_color']);
+			}
+
+			if ($column_counter==$columns)
+			{
+				$bank_print .= "\n  </tr>\n";
+				$column_counter=0;
+			}
+			$column_counter++;
+			$itemRow = $wowdb->fetch_array($itemsOnMule);
+		}
+		$bank_print .= "</table></td>\n</tr>\n";
+	}
+	$bank_print .= '</table>'.border('sgray','end').'<br />';
 }
-echo "</table>\n".border('sgray','end');
+
+
+$banker_list = '- ';
+foreach( $bankers as $banker_id => $banker  )
+{
+	$banker_list .= '<a href='.makelink('guildbank'.( (isset($_GET['mode']) && $_GET['mode'] == 'table') ? '&amp;mode=table' : '' ).'#c_'.$banker_id).'>'.$banker.'</a> - ';
+}
+
+
+print $banker_list.'<br /><br />'.$bank_print;
 
 include_once (ROSTER_BASE.'roster_footer.tpl');

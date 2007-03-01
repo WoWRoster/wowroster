@@ -150,7 +150,7 @@ if( $roster_conf['menu_left_pane'] && is_array($guild_info) )
         <li><a href="<?php print makelink($roster_conf['default_page']); ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
 <?php
 
-if( $roster_conf['menu_member_page'] )
+if( $roster_conf['menu_member_page'] && $roster_conf['default_page'] != 'members' )
 	print '        <li><a href="'.makelink('members').'">'.$wordings[$roster_conf['roster_lang']]['members'].'</a></li>'."\n";
 
 if( $roster_conf['menu_guild_info'] )
@@ -160,7 +160,7 @@ if( $roster_conf['menu_stats_page'] )
 	print '        <li><a href="'.makelink('guildstats').'">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
 
 if( $roster_conf['menu_guildbank'] )
-	print '        <li><a href="'.makelink('guildbank'.$roster_conf['guildbank_ver']).'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildbank').'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
 ?>
       </ul></td>
 <!-- Links Column 2 -->
