@@ -210,7 +210,7 @@ class char
 				$q = 1;
 				foreach( $questlinks as $link )
 				{
-					if( $roster_conf['questlink_'.$q] )
+					//if( $roster_conf['questlink_'.$q] )
 						$returnstring .= '<a href="'.$link[$lang]['url1'].urlencode(utf8_decode($name)).($link[$lang]['url2'] ? $link[$lang]['url2'].$quest_level : '').($link[$lang]['url3'] ? $link[$lang]['url3'].$quest_level : '').'" target="_blank">'.$link[$lang]['name']."</a>\n";
 					$q++;
 				}

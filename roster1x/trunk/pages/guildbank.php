@@ -104,7 +104,7 @@ if ($mulemoney['copper']>=100)
 {
 	$mulemoney['copper'] = $mulemoney['copper']/100;
 	$addsilver= (int)$mulemoney['copper'];
-	$mulemoney['copper'] = explode (".", $mulemoney['copper']);
+	$mulemoney['copper'] = explode ('.', $mulemoney['copper']);
 	$mulemoney['copper'] = $mulemoney['copper'][1];
 }
 $mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
@@ -113,15 +113,14 @@ if ($mulemoney['silver']>=100)
 {
 	$mulemoney['silver'] = $mulemoney['silver']/100;
 	$addgold = (int)$mulemoney['silver'];
-	$mulemoney['silver'] = explode (".", $mulemoney['silver']);
+	$mulemoney['silver'] = explode ('.', $mulemoney['silver']);
 	$mulemoney['silver'] = $mulemoney['silver'][1];
 }
 $mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
-	$bank_money = '<br /> '.$wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
+	$bank_money = $wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
 	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
-	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>
-<br />';
+	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>';
 }
 
 $bankers = array();
@@ -234,6 +233,6 @@ foreach( $bankers as $banker_id => $banker  )
 }
 
 
-print $banker_list.'<br /><br />'.$bank_print;
+print $banker_list."\n<br /><br />\n".$bank_money."\n<br />\n".$bank_print;
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
