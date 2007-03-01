@@ -21,6 +21,9 @@ require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'settings.php' );
 // Determine the module request
 $page = ( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) ) ? $_GET[ROSTER_PAGE] : $roster_conf['default_page'];
 
+
+define('ROSTER_PAGE_NAME', $page);
+
 if( strpos($page,'addon@') !== false )
 {
 	list($page,$addon_name) = explode('@',$page,2);
@@ -30,8 +33,6 @@ if( preg_match('/[^a-zA-Z0-9_]/', $page) )
 {
 	roster_die("Invalid characters in module name");
 }
-
-define('ROSTER_PAGE_NAME', $page);
 
 // Include the module
 if( is_file( $var = ROSTER_PAGES . $page . '.php' ) )

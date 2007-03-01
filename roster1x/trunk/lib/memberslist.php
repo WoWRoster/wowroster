@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 if( $roster_conf['index_update_inst'] )
 {
-	print '            <a href="'.makelink(ROSTER_PAGE_NAME.'#update').'"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
+	print '            <a href="#update"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
 }
 
 
