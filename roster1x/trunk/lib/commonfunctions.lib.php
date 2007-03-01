@@ -821,7 +821,9 @@ function makelink( $url='' , $full=false )
 /**
  * Gets the list of currently installed roster addons
  *
- * @param array $array return only an array of available addons
+ * @param array $array 0: html list
+ *                     1: list of addons
+ *                     2: list of menu entries
  * @return mixed list of addons
  */
 function makeAddonList( $array=false )
@@ -830,7 +832,9 @@ function makeAddonList( $array=false )
 
 	// Initialize output
 	$output = '';
-
+	$addons = array();
+	$entries = array();
+	
 	if ($handle = opendir(ROSTER_ADDONS))
 	{
 		while (false !== ($file = readdir($handle)))
@@ -843,7 +847,7 @@ function makeAddonList( $array=false )
 	}
 
 
-	if( !$array )
+	if( $array != 1 )
 	{
 		if( count($addons) > 0 )
 		{
@@ -872,6 +876,7 @@ function makeAddonList( $array=false )
 							{
 								$fullQuery = urlencode($addon) . ( isset($addonLink[0]) ? $addonLink[0] : '' );
 								$output .= '<li><a href="' . makelink('addon@'.$fullQuery).'">' . $addonLink[1] . "</a></li>\n";
+								$entries[] = array('addon@'.$fullQuery, $addonLink[1]);
 								$lCount++;
 							}
 						}
@@ -879,7 +884,15 @@ function makeAddonList( $array=false )
 					}
 				}
 			}
-			return $output;
+			
+			if( $array == 0 )
+			{
+				return $output;
+			}
+			else
+			{
+				return $entries;
+			}
 		}
 		else
 		{

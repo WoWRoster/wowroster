@@ -676,25 +676,30 @@ function pageNames( )
 		$roster_conf['roster_pages'] = array();
 		while( false !== ($file = readdir($handle)) )
 		{
-			if( !is_dir(ROSTER_PAGES.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && get_file_ext($file) == 'php' )
+			if( !is_dir(ROSTER_PAGES.$file) && $file != '.' && $file != '..' && $file != 'addon.php' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && get_file_ext($file) == 'php' )
 			{
-				$roster_conf['roster_pages'][] = substr($file,0,strpos($file,'.'));
+				$pages[] = array(substr($file,0,strpos($file,'.')),substr($file,0,strpos($file,'.')));
 			}
 		}
 	}
+	
+	$addonlist = makeAddonList(2);
+	
+	$pages = array_merge($pages, $addonlist);
 
 	$input_field = '<select name="config_default_page">'."\n";
 	$select_one = 1;
-	foreach( $roster_conf['roster_pages'] as $value )
+	
+	foreach( $pages as $value )
 	{
-		if( $value == $roster_conf['default_page'] && $select_one )
+		if( $value[0] == $roster_conf['default_page'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$value.'" selected="selected">-'.$value.'-</option>'."\n";
+			$input_field .= '  <option value="'.$value[0].'" selected="selected">-'.$value[1].'-</option>'."\n";
 			$select_one = 0;
 		}
 		else
 		{
-			$input_field .= '  <option value="'.$value.'">'.$value.'</option>'."\n";
+			$input_field .= '  <option value="'.$value[0].'">'.$value[1].'</option>'."\n";
 		}
 	}
 	$input_field .= '</select>';
