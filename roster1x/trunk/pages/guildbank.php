@@ -229,7 +229,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 $banker_list = '- ';
 foreach( $bankers as $banker_id => $banker  )
 {
-	$banker_list .= '<a href='.makelink('guildbank'.( (isset($_GET['mode']) && $_GET['mode'] == 'table') ? '&amp;mode=table' : '' ).'#c_'.$banker_id).'>'.$banker.'</a> - ';
+	$banker_list .= '<a href=#c_'.$banker_id.'>'.$banker.'</a> - ';
 }
 
 

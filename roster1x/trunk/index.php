@@ -37,12 +37,13 @@ if( preg_match('/[^a-zA-Z0-9_]/', $page) )
 // Include the module
 if( is_file( $var = ROSTER_PAGES . $page . '.php' ) )
 {
-
 	require($var);
 }
 else
 {
 	roster_die("The page ($page) does not exist");
 }
+
+unset($page,$var);
 
 $wowdb->closeDb();
