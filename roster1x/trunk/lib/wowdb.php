@@ -523,6 +523,20 @@ class wowdb
 		$this->assignstr .= " `$row_name` = $row_data";
 	}
 
+	/**
+	 * Add a rating (base, buff, debuff, total)
+	 *
+	 * @param string $row_name will be appended _d, _b, _c for debuff, buff, total
+	 * @param string $data colon-separated data
+	 */
+	function add_rating( $row_name, $data )
+	{
+		$data = explode(':',$data);
+		$this->add_value( $row_name, $data[0] );
+		$this->add_value( $row_name.'_c', $data[0]+$data[1]+$data[2] );
+		$this->add_value( $row_name.'_b', $data[1] );
+		$this->add_value( $row_name.'_d', $data[2] );
+	}
 
 	/**
 	 * Format tooltips for insertion to the db
@@ -536,19 +550,7 @@ class wowdb
 
 		if( is_array( $tipdata ) )
 		{
-			$first=true;
-			foreach( $tipdata as $tip )
-			{
-				if( $first )
-				{
-					$tooltip .= "$tip";
-					$first=false;
-				}
-				else
-				{
-					$tooltip .= "\n$tip";
-				}
-			}
+			$tooltip = implode('\n',$tipdata);
 		}
 		else
 		{
@@ -2479,13 +2481,6 @@ class wowdb
 		$this->add_value( 'name', $name );
 		$this->add_value( 'guild_id', $guildId );
 
-		// CRIT, DODGE, MIT, PARRY VALUES FOR WOWROSTER
-		$this->add_value( 'dodge',      ( isset($data['Attributes']['Defense']['DodgeChance']) ?    $data['Attributes']['Defense']['DodgeChance'] : 0 ) );
-		$this->add_value( 'parry',      ( isset($data['Attributes']['Defense']['ParryChance']) ?    $data['Attributes']['Defense']['ParryChance'] : 0 ) );
-		$this->add_value( 'block',      ( isset($data['Attributes']['Defense']['BlockChance']) ?    $data['Attributes']['Defense']['BlockChance'] : 0 ) );
-		$this->add_value( 'mitigation', ( isset($data['Attributes']['Defense']['ArmorReduction']) ? $data['Attributes']['Defense']['ArmorReduction'] : 0 ) );
-		$this->add_value( 'crit',       ( isset($data['Attributes']['Melee']['CritChance']) ?       $data['Attributes']['Melee']['CritChance'] : 0 ) );
-
 		// BEGIN HONOR VALUES
 		if( is_array($data['Honor']) )
 		{
@@ -2539,95 +2534,177 @@ class wowdb
 		}
 		// END HONOR VALUES
 
+		$this->add_value( 'crit',       ( isset($data['Attributes']['Melee']['CritChance']) ?       $data['Attributes']['Melee']['CritChance'] : 0 ) );
+
 		// BEGIN STATS
 		if( is_array($data['Attributes']['Stats']) )
 		{
 			$main_stats = $data['Attributes']['Stats'];
 
-			$stats = explode(':',$main_stats['Intellect']);
-			$this->add_value( 'stat_int', $stats[0] );
-			$this->add_value( 'stat_int_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_int_b', $stats[1] );
-			$this->add_value( 'stat_int_d', $stats[2] );
+			$this->add_rating( 'stat_int', $main_stats['Intellect']);
+			$this->add_rating( 'stat_agl', $main_stats['Agility']);
+			$this->add_rating( 'stat_sta', $main_stats['Stamina']);
+			$this->add_rating( 'stat_str', $main_stats['Strength']);
+			$this->add_rating( 'stat_spr', $main_stats['Spirit']);
 
-			$stats = explode(':',$main_stats['Agility']);
-			$this->add_value( 'stat_agl', $stats[0] );
-			$this->add_value( 'stat_agl_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_agl_b', $stats[1] );
-			$this->add_value( 'stat_agl_d', $stats[2] );
-
-			$stats = explode(':',$main_stats['Stamina']);
-			$this->add_value( 'stat_sta', $stats[0] );
-			$this->add_value( 'stat_sta_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_sta_b', $stats[1] );
-			$this->add_value( 'stat_sta_d', $stats[2] );
-
-			$stats = explode(':',$main_stats['Strength']);
-			$this->add_value( 'stat_str', $stats[0] );
-			$this->add_value( 'stat_str_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_str_b', $stats[1] );
-			$this->add_value( 'stat_str_d', $stats[2] );
-
-			$stats = explode(':',$main_stats['Spirit']);
-			$this->add_value( 'stat_spr', $stats[0] );
-			$this->add_value( 'stat_spr_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_spr_b', $stats[1] );
-			$this->add_value( 'stat_spr_d', $stats[2] );
-
-			$stats = explode(':',$data['Attributes']['Defense']['Armor']);
-			$this->add_value( 'stat_armor', $stats[0] );
-			$this->add_value( 'stat_armor_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_armor_b', $stats[1] );
-			$this->add_value( 'stat_armor_d', $stats[2] );
-
-			$stats = explode(':',$data['Attributes']['Defense']['Defense']);
-			$this->add_value( 'stat_def', $stats[0] );
-			$this->add_value( 'stat_def_c', $stats[0]+$stats[1]+$stats[2] );
-			$this->add_value( 'stat_def_b', $stats[1] );
-			$this->add_value( 'stat_def_d', $stats[2] );
-
-			unset($main_stats,$stats);
+			unset($main_stats);
 		}
 		// END STATS
+
+		// BEGIN DEFENSE
+		if( is_array($data['Attributes']['Defense']) )
+		{
+			$main_stats = $data['Attributes']['Defense'];
+
+			$this->add_value( 'dodge', 		$main_stats['DodgeChance']);
+			$this->add_value( 'parry',		$main_stats['ParryChance']);
+			$this->add_value( 'block',      $main_stats['BlockChance']);
+			$this->add_value( 'mitigation', $main_stats['ArmorReduction']);
+			
+			$this->add_rating( 'stat_armor', $main_stats['Armor']);
+			$this->add_rating( 'stat_def', $main_stats['Defense']);
+			$this->add_rating( 'stat_block', $main_stats['blockrating']);
+			$this->add_rating( 'stat_parry', $main_stats['parryrating']);
+			$this->add_rating( 'stat_defr', $main_stats['defenserating']);
+			$this->add_rating( 'stat_dodge', $main_stats['dodgerating']);
+						
+			$this->add_value( 'stat_res_ranged', $main_stats['Resilience']['Ranged']);
+			$this->add_value( 'stat_res_spell', $main_stats['Resilience']['Ranged']);
+			$this->add_value( 'stat_res_melee', $main_stats['Resilience']['Ranged']);
+		}
+		// END DEFENSE
 
 		// BEGIN RESISTS
 		if( is_array($data['Attributes']['Resists']) )
 		{
 			$main_res = $data['Attributes']['Resists'];
 
-			$resist = explode(':',$main_res['Frost']);
-			$this->add_value( 'res_frost', $resist[0] );
-			$this->add_value( 'res_frost_c', $resist[0]+$resist[1]+$resist[2] );
-			$this->add_value( 'res_frost_b', $resist[1] );
-			$this->add_value( 'res_frost_d', $resist[2] );
-
-			$resist = explode(':',$main_res['Arcane']);
-			$this->add_value( 'res_arcane', $resist[0] );
-			$this->add_value( 'res_arcane_c', $resist[0]+$resist[1]+$resist[2] );
-			$this->add_value( 'res_arcane_b', $resist[1] );
-			$this->add_value( 'res_arcane_d', $resist[2] );
-
-			$resist = explode(':',$main_res['Fire']);
-			$this->add_value( 'res_fire', $resist[0] );
-			$this->add_value( 'res_fire_c', $resist[0]+$resist[1]+$resist[2] );
-			$this->add_value( 'res_fire_b', $resist[1] );
-			$this->add_value( 'res_fire_d', $resist[2] );
-
-			$resist = explode(':',$main_res['Shadow']);
-			$this->add_value( 'res_shadow', $resist[0] );
-			$this->add_value( 'res_shadow_c', $resist[0]+$resist[1]+$resist[2] );
-			$this->add_value( 'res_shadow_b', $resist[1] );
-			$this->add_value( 'res_shadow_d', $resist[2] );
-
-			$resist = explode(':',$main_res['Nature']);
-			$this->add_value( 'res_nature', $resist[0] );
-			$this->add_value( 'res_nature_c', $resist[0]+$resist[1]+$resist[2] );
-			$this->add_value( 'res_nature_b', $resist[1] );
-			$this->add_value( 'res_nature_d', $resist[2] );
-
-			unset($main_res,$resist);
+			$this->add_rating( 'res_holy', $main_res['Holy']);
+			$this->add_rating( 'res_frost', $main_res['Frost']);
+			$this->add_rating( 'res_arcane', $main_res['Arcane']);
+			$this->add_rating( 'res_fire', $main_res['Fire']);
+			$this->add_rating( 'res_shadow', $main_res['Shadow']);
+			$this->add_rating( 'res_nature', $main_res['Nature']);
+			
+			unset($main_res);
 		}
 		// END RESISTS
+
+		// BEGIN MELEE
+		if( is_array($data['Attributes']['Melee']) )
+		{
+			$attack = $data['Attributes']['Melee'];
+
+			$this->add_rating( 'melee_power', $attack['AttackPower']);
+			$this->add_rating( 'melee_hit', $attack['HitRating']);
+			$this->add_rating( 'melee_crit', $attack['CritRating']);
+			$this->add_rating( 'melee_haste', $attack['HasteRating']);
+
+			$this->add_value('melee_crit_chance', $attack['CritChance']);
+			$this->add_value('melee_power_dps', $attack['AttackPowerDPS']);
+
+			if( is_array($attack['MainHand']) )
+			{
+				$hand = $attack['MainHand'];
+				
+				$this->add_value( 'melee_mhand_speed', $hand['AttackSpeed']);
+				$this->add_value( 'melee_mhand_dps', $hand['AttackDPS']);
+				$this->add_value( 'melee_mhand_skill', $hand['AttackSkill']);
+				
+				list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
+				$this->add_value( 'melee_mhand_mindam', $mindam);
+				$this->add_value( 'melee_mhand_maxdam', $maxdam);
+				unset($mindam, $maxdam);
+				
+				$this->add_rating( 'melee_mhand_rating', $hand['Attackrating']);
+			}
+
+			if( is_array($attack['OffHand']) )
+			{
+				$hand = $attack['OffHand'];
+				
+				$this->add_value( 'melee_ohand_speed', $hand['AttackSpeed']);
+				$this->add_value( 'melee_ohand_dps', $hand['AttackDPS']);
+				$this->add_value( 'melee_ohand_skill', $hand['AttackSkill']);
+				
+				list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
+				$this->add_value( 'melee_ohand_mindam', $mindam);
+				$this->add_value( 'melee_ohand_maxdam', $maxdam);
+				unset($mindam, $maxdam);
+				
+				$this->add_rating( 'melee_ohand_rating', $hand['Attackrating']);
+			}
+
+			if( isset($attack['DamageRangeTooltip']) )
+				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			if( isset($attack['AttackPowerTooltip']) )
+				$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			
+			unset($hand, $attack);
+		}
+		// END MELEE
+
+		// BEGIN RANGED
+		if( is_array($data['Attributes']['Ranged']) )
+		{
+			$attack = $data['Attributes']['Ranged'];
+
+			$this->add_rating( 'ranged_power', $attack['AttackPower']);
+			$this->add_rating( 'ranged_hit', $attack['HitRating']);
+			$this->add_rating( 'ranged_crit', $attack['CritRating']);
+			$this->add_rating( 'ranged_haste', $attack['HasteRating']);
+
+			$this->add_value( 'ranged_crit_chance', $attack['CritChance']);
+			$this->add_value( 'ranged_power_dps', $attack['AttackPowerDPS']);
+
+			$this->add_value( 'ranged_speed', $attack['AttackSpeed']);
+			$this->add_value( 'ranged_dps', $attack['AttackDPS']);
+			$this->add_value( 'ranged_skill', $attack['AttackSkill']);
+
+			list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
+			$this->add_value( 'ranged_mindam', $mindam);
+			$this->add_value( 'ranged_maxdam', $maxdam);
+			unset($mindam, $maxdam);
+
+			$this->add_rating( 'ranged_rating', $attack['Attackrating']);
+			
+			if( isset($attack['DamageRangeTooltip']) )
+				$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			if( isset($attack['AttackPowerTooltip']) )
+				$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			unset($attack);
+		}
+		// END RANGED
+		
+		// BEGIN SPELL
+		if( is_array($data['Attributes']['Spell']) )
+		{
+			$spell = $data['Attributes']['Spell'];
+
+			$this->add_rating( 'spell_hit', $spell['HitRating']);
+			$this->add_rating( 'spell_crit', $spell['CritRating']);
+			$this->add_rating( 'spell_haste', $spell['HasteRating']);
+			
+			$this->add_value( 'spell_crit_chance', $spell['CritChance']);
+			
+			list($mana, $time) = explode(':',$spell['ManaRegen']);
+			$this->add_value( 'mana_regen_value', $mana);
+			$this->add_value( 'mana_regen_time', $time);
+			unset($mana, $time);
+			
+			$this->add_value( 'spell_penetration', $spell['Penetration']);
+			$this->add_value( 'spell_damage', $spell['BonusDamage']);
+			$this->add_value( 'spell_healing', $spell['BonusHealing']);
+			
+			$this->add_value( 'spell_damage_frost', $spell['School']['Frost']);
+			$this->add_value( 'spell_damage_arcane', $spell['School']['Arcane']);
+			$this->add_value( 'spell_damage_fire', $spell['School']['Fire']);
+			$this->add_value( 'spell_damage_shadow', $spell['School']['Shadow']);
+			$this->add_value( 'spell_damage_nature', $spell['School']['Nature']);
+			
+			unset($spell);
+		}		
+		// END SPELL
 
 		$this->add_value( 'level', $data['Level'] );
 		$this->add_value( 'server', $data['Server'] );
@@ -2675,48 +2752,6 @@ class wowdb
 		// Capture mailbox update time/date
 		if( isset($data['timestamp']['MailBox']) )
 			$this->add_value( 'maildateutc', date('m/d/y H:i:s',$data['timestamp']['MailBox']) );
-
-		if( is_array($data['Attributes']['Melee']) )
-		{
-			$attack = $data['Attributes']['Melee'];
-
-			if( isset($attack['AttackPower']) )
-			{
-				$power = explode(':',$attack['AttackPower']);
-				$this->add_value( 'melee_power', $power[0]+$power[1]+$power[2] );
-				unset($power);
-			}
-			if( isset($attack['MainHand']['AttackSkill']) )
-				$this->add_value( 'melee_rating', $attack['MainHand']['AttackSkill'] );
-			if( isset($attack['MainHand']['DamageRange']) )
-				$this->add_value( 'melee_range', $attack['MainHand']['DamageRange'] );
-			if( isset($attack['DamageRangeTooltip']) )
-				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
-			if( isset($attack['AttackPowerTooltip']) )
-				$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
-			unset($attack);
-		}
-
-		if( is_array($data['Attributes']['Ranged']) )
-		{
-			$attack = $data['Attributes']['Ranged'];
-
-			if( isset($attack['AttackPower']) )
-			{
-				$power = explode(':',$attack['AttackPower']);
-				$this->add_value( 'ranged_power', $power[0]+$power[1]+$power[2] );
-				unset($power);
-			}
-			if( isset($attack['AttackSkill']) )
-				$this->add_value( 'ranged_rating', $attack['AttackSkill'] );
-			if( isset($attack['DamageRange']) )
-				$this->add_value( 'ranged_range', $attack['DamageRange'] );
-			if( isset($attack['DamageRangeTooltip']) )
-				$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
-			if( isset($attack['AttackPowerTooltip']) )
-				$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
-			unset($attack);
-		}
 
 		// Capture client language
 		$this->add_value( 'clientLocale', $data['Locale'] );

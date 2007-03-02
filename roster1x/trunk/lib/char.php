@@ -1030,7 +1030,28 @@ $returnstring .= '  <tr>
 
 		$lang = $this->data['clientLocale'];
 
-		$atk = $this->data[$type.'_'.$stat];
+		switch($stat)
+		{
+			case 'rating':
+				if( $type == 'ranged' )
+					$atk = $this->data['ranged_skill'];
+				elseif( (int)$this->data['melee_ohand_skill'] != 0 )
+					$atk = $this->data['melee_mhand_skill'].'/'.$this->data['melee_ohand_skill'];
+				else
+					$atk = $this->data['melee_mhand_skill'];
+				break;
+			case 'power':
+				$atk = $this->data[$type.'_power_c'];
+				break;
+			case 'range':
+				if( $type == 'ranged' )
+					$atk = $this->data['ranged_mindam'].'-'.$this->data['ranged_maxdam'];
+				elseif( (int)$this->data['melee_ohand_skill'] != 0 )
+					$atk = $this->data['melee_mhand_mindam'].'-'.$this->data['melee_mhand_maxdam'].'/'.$this->data['melee_ohand_mindam'].'-'.$this->data['melee_ohand_maxdam'];
+				else
+					$atk = $this->data['melee_mhand_mindam'].'-'.$this->data['melee_mhand_maxdam'];
+				break;
+		}
 		$atktooltip = $this->data[$type.'_' .$stat.'_tooltip'];
 
 		if (ereg(':', $atk))
