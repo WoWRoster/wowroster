@@ -498,19 +498,61 @@ $wordings['enUS']['spirit']='Spirit';
 $wordings['enUS']['spirit_tooltip']= 'Increases your health and mana regeneration rates.';
 $wordings['enUS']['armor_tooltip']= 'Decreases the amount of damage you take from physical attacks.<br />The amount of reduction is influenced by the level of your attacker.';
 
-$wordings['enUS']['melee_att']='Melee Attack';
+$wordings['enUS']['mainhand']='Main Hand';
+$wordings['enUS']['offhand']='Off Hand';
+$wordings['enUS']['ranged']='Ranged';
+$wordings['enUS']['melee']='Melee';
+$wordings['enUS']['spell']='Spell';
+
+$wordings['enUS']['weapon_skill']='Skill';
+$wordings['enUS']['weapon_skill_tooltip']='Weapon Skill %d<br />Weapon Skill Rating %d';
+$wordings['enUS']['damage']='Damage';
+$wordings['enUS']['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
+$wordings['enUS']['speed']='Speed';
+$wordings['enUS']['atk_speed']='Attack Speed';
+$wordings['enUS']['haste_tooltip']='Haste rating ';
+
 $wordings['enUS']['melee_att_power']='Melee Attack Power';
-$wordings['enUS']['range_att']='Ranged Attack';
+$wordings['enUS']['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
 $wordings['enUS']['range_att_power']='Ranged Attack Power';
-$wordings['enUS']['power']='Power';
+$wordings['enUS']['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
+
+$wordings['enUS']['weapon_hit_rating']='Hit Rating';
+$wordings['enUS']['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
+$wordings['enUS']['weapon_crit_rating']='Crit rating';
+$wordings['enUS']['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
+
 $wordings['enUS']['damage']='Damage';
 $wordings['enUS']['energy']='Energy';
 $wordings['enUS']['rage']='Rage';
+$wordings['enUS']['power']='Power';
 
 $wordings['enUS']['melee_rating']='Melee Attack Rating';
 $wordings['enUS']['melee_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently holding.';
 $wordings['enUS']['range_rating']='Ranged Attack Rating';
 $wordings['enUS']['range_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently weilding.';
+
+$wordings['enUS']['spell_damage']='+Damage';
+$wordings['enUS']['fire']='Fire';
+$wordings['enUS']['nature']='Nature';
+$wordings['enUS']['frost']='Frost';
+$wordings['enUS']['shadow']='Shadow';
+$wordings['enUS']['arcane']='Arcane';
+
+$wordings['enUS']['spell_healing']='+Healing';
+$wordings['enUS']['spell_healing_tooltip']='Increases your healing by up to %d';
+$wordings['enUS']['spell_hit_rating']='Hit Rating';
+$wordings['enUS']['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
+$wordings['enUS']['spell_crit_rating']='Crit Rating';
+$wordings['enUS']['spell_crit_chance']='Crit Chance';
+$wordings['enUS']['spell_penetration']='Penetration';
+$wordings['enUS']['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
+$wordings['enUS']['mana_regen']='Mana Regen';
+$wordings['enUS']['mana_regen_tooltip']='%d mana regenerated every %d seconds while not casting';
+
+$wordings['enUS']['defense_rating']='Defense Rating ';
+$wordings['enUS']['def_tooltip']='Increases your chance to %s';
+$wordings['enUS']['resilience']='Resilience';
 
 $wordings['enUS']['res_fire']='Fire Resistance';
 $wordings['enUS']['res_fire_tooltip']='Increases your resistance to Fire damage.<br />Higher the number the better the resistance.';

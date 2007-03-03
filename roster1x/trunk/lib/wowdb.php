@@ -2634,6 +2634,17 @@ class wowdb
 				
 				$this->add_rating( 'melee_ohand_rating', $hand['Attackrating']);
 			}
+			else
+			{
+				$this->add_value( 'melee_ohand_speed', 0);
+				$this->add_value( 'melee_ohand_dps', 0);
+				$this->add_value( 'melee_ohand_skill', 0);
+				
+				$this->add_value( 'melee_ohand_mindam', 0);
+				$this->add_value( 'melee_ohand_maxdam', 0);
+				
+				$this->add_rating( 'melee_ohand_rating', 0);
+			}
 
 			if( isset($attack['DamageRangeTooltip']) )
 				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );

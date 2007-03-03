@@ -1034,7 +1034,6 @@ table.expOutline {
 }
 
 .xp {
-	float:left;
 	height:15px;
 	width:253px;
 }
@@ -1442,26 +1441,6 @@ span.blue {
 	float:left;
 }
 
-.health_mana {
-	margin-top:10px;
-	margin-left:5px;
-}
-.health_mana .mana {
-	background:url(../img/mana_background.gif) no-repeat;
-	height:27px;
-	width:125px;
-	font-size:10px;
-	padding-top:7px;
-	padding-left:30px;
-}
-.health_mana .health {
-	background:url(../img/health_background.gif) no-repeat;
-	height:27px;
-	width:125px;
-	font-size:10px;
-	padding-top:7px;
-	padding-left:30px;
-}
 
 /**********
 * Character tabs
@@ -1527,7 +1506,7 @@ span.blue {
 .char .main .page1 .middle .portrait {
 	float:left;
 	width:280px;
-	height:240px;
+	height:220px;
 	background-color:#000000;
 	background:url(../img/bgchar.gif) no-repeat;
 	color:#DFB801;
@@ -1554,19 +1533,45 @@ span.blue {
 	color:#ffffff;
 }
 .char .main .page1 .middle .portrait .info {
+	margin:5px;
+	padding:5px;
 	font-weight:bold;
 	font-size:10px;
 	margin-left:5px;
-	height:130px;
+	height:142px;
+	width:186px;
 	overflow:hidden;
+	background:url(../img/percentframe.gif) no-repeat;
 }
-.char .main .page1 .middle .bottom {
-	float:left;
-	width:280px;
-	height:170px;
+.char .main .page1 .middle .portrait .info .mana {
+	background:url(../img/mana_background.gif) no-repeat;
+	height:27px;
+	width:125px;
+	font-size:10px;
+	padding-top:7px;
+	padding-left:30px;
+}
+.char .main .page1 .middle .portrait .info .health {
+	background:url(../img/health_background.gif) no-repeat;
+	height:27px;
+	width:125px;
+	font-size:10px;
+	padding-top:7px;
+	padding-left:30px;
+}
+.char .main .page1 .middle .portrait .info .money {
+	background:url(../img/money_frame.gif) no-repeat;
+	height:16px;
+	width:180px;
+	padding:2px 2px 2px 2px;
+	text-align:right;
+}
+.char .main .page1 .middle .bottom .statselect {
+	margin: 0px 5px 5px 5px;
+	width: 125px;
 }
 .char .main .page1 .middle .bottom .padding {
-	height:100px;
+	height:105px;
 	padding:0 2px 0 2px;
 	background:url(../img/bgstats.gif) no-repeat;
 	background-position:0 0px;
@@ -1575,33 +1580,28 @@ span.blue {
 	float:left;
 	width:138px;
 	height:100px;
-	padding:0;
+	padding:2px 2px 2px 2px;
 	margin:0;
-	list-style-type:none;
 	color:#DFB801;
 }
-.char .main .page1 .middle .bottom .padding .stats li {
-	list-style-type:none;
-	padding:2px 0 0 6px;
+.char .main .page1 .middle .bottom .padding .stats tr {
+	padding:0;
 	text-align:left;
 	font:11px verdana, tahoma, sans-serif;
 	font-weight:bold;
 }
-.char .main .page1 .middle .bottom .padding .stats li ul {
-	list-style-type:none;
+.char .main .page1 .middle .bottom .padding .stats tr td.label {
+	font:11px verdana, tahoma, sans-serif;
 	padding:0;
-	margin:0;
-}
-.char .main .page1 .middle .bottom .padding .stats li span,
-.stats ul li span {
-	float:right;
-	font-family:verdana, tahoma, sans-serif;
-	padding:0 6px 0 0;
-	margin-top:-15px;
 	overflow:hidden;
+	width: 78px;
 }
-.char .main .page1 .middle .bottom .padding .stats ul li ul li span {
-	color:#ffffff;
+.char .main .page1 .middle .bottom .padding .stats tr td.value {
+	font:11px verdana, tahoma, sans-serif;
+	padding:0;
+	overflow:hidden;
+	width: 60px;
+	text-align: right;
 }
 .char .main .page1 .middle .bottom .hands {
 	height:70px;

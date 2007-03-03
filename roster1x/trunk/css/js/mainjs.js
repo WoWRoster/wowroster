@@ -102,17 +102,15 @@ function showSpellTree(ElementID)
 
 
 var tabs = new Array();
-var tab_count = 0;
 
 function addTab( name )
 {
-	tabs[tab_count] = name;
-	tab_count++;
+	tabs[tabs.length] = name;
 }
 
 function doTab( div )
 {
-	for( i=0 ; i<tab_count ; i++ )
+	for( i=0 ; i<tabs.length ; i++ )
 	{
 		obj = document.getElementById( tabs[i] );
 		fontobj = document.getElementById( 'tabfont'+tabs[i] );
@@ -125,6 +123,52 @@ function doTab( div )
 		{
 			hideElem(obj);
 			fontobj.className='yellow';
+		}
+	}
+}
+
+var lpages = new Array();
+
+function addLpage( name )
+{
+	lpages[lpages.length] = name;
+}
+
+function doLpage( div )
+{
+	for( i=0 ; i<lpages.length ; i++ )
+	{
+		obj = document.getElementById( lpages[i] );
+		if( lpages[i] == div )
+		{
+			showElem(obj);
+		}
+		else
+		{
+			hideElem(obj);
+		}
+	}
+}
+
+var rpages = new Array();
+
+function addRpage( name )
+{
+	rpages[rpages.length] = name;
+}
+
+function doRpage( div )
+{
+	for( i=0 ; i<rpages.length ; i++ )
+	{
+		obj = document.getElementById( rpages[i] );
+		if( rpages[i] == div )
+		{
+			showElem(obj);
+		}
+		else
+		{
+			hideElem(obj);
 		}
 	}
 }

@@ -863,7 +863,118 @@ $returnstring .= '  <tr>
 		;
 	}
 
+	function printStatLine( $label, $value, $tooltip)
+	{
+		$output  = '  <tr '.makeOverlib($tooltip,'','',2).'>'."\n";
+		$output .= '    <td class="label">'.$label.':</td>'."\n";
+		$output .= '    <td class="value">'.$value.'</td>'."\n";
+		$output .- '  </tr>'."\n";
 
+		return $output;
+	}
+	
+	function printRatingShort( $statname )
+	{
+		$base = $this->data[$statname];
+		$current = $this->data[$statname.'_c'];
+		$buff = $this->data[$statname.'_b'];
+		$debuff = -$this->data[$statname.'_d'];
+
+		if( $buff>0 && $debuff>0 )
+		{
+			$color = "purple";
+		}
+		elseif( $buff>0 )
+		{
+			$color = "green";
+		}
+		elseif( $debuff>0 )
+		{
+			$color = "red";
+		}
+		else
+		{
+			$color = "white";
+		}
+		
+		return '<strong class="'.$color.'">'.$current.'</strong>';
+	}
+		
+	function printRatingLong( $statname )
+	{
+		$base = $this->data[$statname];
+		$current = $this->data[$statname.'_c'];
+		$buff = $this->data[$statname.'_b'];
+		$debuff = -$this->data[$statname.'_d'];
+
+		$tooltipheader = $current;
+		
+		if( $base != $current)
+		{
+			$tooltipheader .= " ($base";
+			if( $buff > 0 )
+			{
+				$tooltipheader .= " <span class=\"green\">+ $buff</span>";
+			}
+			if( $debuff > 0 )
+			{
+				$tooltipheader .= " <span class=\"red\">- $debuff</span>";
+			}
+			$tooltipheader .= ")";
+		}
+		
+		return $tooltipheader;
+	}
+	
+	function printBox( $cat, $side, $visible)
+	{
+		print '<table class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
+		switch($cat)
+		{
+			case 'stats':
+				print $this->printStat('stat_str');
+				print $this->printStat('stat_agl');
+				print $this->printStat('stat_sta');
+				print $this->printStat('stat_int');
+				print $this->printStat('stat_spr');
+				print $this->printStat('stat_armor');
+				break;
+			case 'melee':
+				print $this->printWSkill('melee');
+				print $this->printWDamage('melee');
+				print $this->printWSpeed('melee');
+				print $this->printStat('melee_power');
+				print $this->printStat('melee_hit');
+				print $this->printStat('melee_crit');
+				break;
+			case 'ranged':
+				print $this->printWSkill('ranged');
+				print $this->printWDamage('ranged');
+				print $this->printWSpeed('ranged');
+				print $this->printStat('ranged_power');
+				print $this->printStat('ranged_hit');
+				print $this->printStat('ranged_crit');
+				break;
+			case 'spell':
+				print $this->printSpellDamage();
+				print $this->printValue('spell_healing');
+				print $this->printStat('spell_hit');
+				print $this->printSpellCrit();
+				print $this->printValue('spell_penetration');
+				print $this->printValue('mana_regen_value');
+				break;
+			case 'defense':
+				print $this->printStat('stat_armor');
+				print $this->printDefense();
+				print $this->printDef('dodge');
+				print $this->printDef('parry');
+				print $this->printDef('block');
+				print $this->printResilience();
+				break;
+		}
+		print '</table>'."\n";
+	}
+	
 	function printStat( $statname )
 	{
 		global $wordings;
@@ -873,25 +984,7 @@ $returnstring .= '  <tr>
 		$base = $this->data[$statname];
 		$current = $this->data[$statname.'_c'];
 		$buff = $this->data[$statname.'_b'];
-		$debuff = $this->data[$statname.'_d'];
-
-		$id = $statname.':'.$base.':'.$current.':'.$buff.':'.$debuff;
-
-		if( $buff == 0 )
-		{
-			$color = 'white';
-			$mod_symbol = '';
-		}
-		else if( $buff < 0 )
-		{
-			$color = 'purple';
-			$mod_symbol = '-';
-		}
-		else
-		{
-			$color = 'green';
-			$mod_symbol = '+';
-		}
+		$debuff = -$this->data[$statname.'_d'];
 
 		switch( $statname )
 		{
@@ -921,28 +1014,324 @@ $returnstring .= '  <tr>
 				if( !empty($this->data['mitigation']) )
 					$tooltip .= '<br /><span class="red">'.$wordings[$lang]['tooltip_damage_reduction'].': '.$this->data['mitigation'].'%</span>';
 				break;
+			case 'melee_power':
+				$lname = $wordings[$lang]['melee_att_power'];
+				$name = $wordings[$lang]['power'];
+				$tooltip = sprintf($wordings[$lang]['melee_att_power_tooltip'], $data['melee_power_dps']);
+				break;
+			case 'melee_hit':
+				$name = $wordings[$lang]['weapon_hit_rating'];
+				$tooltip = $wordings[$lang]['weapon_hit_rating_tooltip'];
+				break;
+			case 'melee_crit':
+				$name = $wordings[$lang]['weapon_crit_rating'];
+				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $data['melee_crit_chance']);
+				break;
+			case 'ranged_power':
+				$lname = $wordings[$lang]['ranged_att_power'];
+				$name = $wordings[$lang]['power'];
+				$tooltip = sprintf($wordings[$lang]['ranged_att_power_tooltip'], $data['ranged_power_dps']);
+				break;
+			case 'ranged_hit':
+				$name = $wordings[$lang]['weapon_hit_rating'];
+				$tooltip = $wordings[$lang]['weapon_hit_rating_tooltip'];
+				break;
+			case 'ranged_crit':
+				$name = $wordings[$lang]['weapon_crit_rating'];
+				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $data['ranged_crit_chance']);
+				break;
+			case 'spell_hit':
+				$name = $wordings[$lang]['spell_hit_rating'];
+				$tooltip = $wordings[$lang]['spell_hit_rating_tooltip'];
+				break;
 		}
+		
+		if( isset($lname) )
+			$tooltipheader = $lname.' '.$this->printRatingLong($statname);
+		else
+			$tooltipheader = $name.' '.$this->printRatingLong($statname);
+		
+		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
-		if( $mod_symbol == '' )
+		return $this->printStatLine($name, $this->printRatingShort($statname), $line);
+	}
+	
+	function printValue( $statname )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+		$value = $this->data[$statname];
+		switch( $statname )
 		{
-			$tooltipheader = $name.' '.$current;
+			case 'spell_penetration':
+				$name = $wordings[$lang]['spell_penetration'];
+				$tooltip = $wordings[$lang]['spell_penetration_tooltip'];
+				break;
+			case 'mana_regen_value':
+				$name = $wordings[$lang]['mana_regen'];
+				$tooltip = sprintf($wordings[$lang]['mana_regen_tooltip'],$this->data['mana_regen_value'],$this->data['mana_regen_time']);
+				break;
+			case 'spell_healing':
+				$name = $wordings[$lang]['spell_healing'];
+				$tooltip = sprintf($wordings[$lang]['spell_healing_tooltip'],$this->data['spell_healing']);
+				break;
+		}
+		
+		if( isset($lname) )
+			$tooltipheader = $lname;
+		else
+			$tooltipheader = $name;
+		
+		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
+	}
+
+	function printWSkill ( $location )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		if( $location == 'ranged' )
+		{
+			$value = '<strong class="white">'.$this->data['ranged_skill'].'</strong>';
+			$name = $wordings[$lang]['weapon_skill'];
+			$tooltipheader = $wordings[$lang]['ranged'];
+			$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $this->data['ranged_skill'], $this->data['ranged_rating']);
+
+			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#DFB801;">'.$tooltip.'</span>';
 		}
 		else
 		{
-			$tooltipheader = "$name $current ($base <span class=\"$color\">$mod_symbol $buff</span>)";
+			$value = '<strong class="white">'.$this->data['melee_mhand_skill'].'</strong>';
+			$name = $wordings[$lang]['weapon_skill'];
+			$tooltipheader = $wordings[$lang]['mainhand'];
+			$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $this->data['melee_mhand_skill'], $this->data['melee_mhand_rating']);
+
+			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			
+			if( $this->data['melee_ohand_dps'] > 0 )
+			{
+				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_skill'].'</strong>';
+				$tooltipheader = $wordings[$lang]['offhand'];
+				$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $this->data['melee_ohand_skill'], $this->data['melee_ohand_rating']);
+
+				$line .= '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+				$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			}
 		}
+
+		return $this->printStatLine($name, $value, $line);
+	}
+	
+	function printWDamage ( $location )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		if( $location == 'ranged' )
+		{
+			$value = '<strong class="white">'.$this->data['ranged_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['ranged_maxdam'].'</strong>';
+			$name = $wordings[$lang]['damage'];
+			$tooltipheader = $wordings[$lang]['ranged'];
+			$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $this->data['ranged_speed'], $this->data['ranged_mindam'], $this->data['ranged_maxdam'], $this->data['ranged_dps']);
+
+			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		}
+		else
+		{
+			$value = '<strong class="white">'.$this->data['melee_mhand_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['melee_mhand_maxdam'].'</strong>';
+			$name = $wordings[$lang]['damage'];
+			$tooltipheader = $wordings[$lang]['mainhand'];
+			$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $this->data['melee_mhand_speed'], $this->data['melee_mhand_mindam'], $this->data['melee_mhand_maxdam'], $this->data['melee_mhand_dps']);
+
+			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			
+			if( $this->data['melee_ohand_dps'] > 0 )
+			{
+				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['melee_ohand_maxdam'].'</strong>';
+				$tooltipheader = $wordings[$lang]['offhand'];
+				$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $this->data['melee_ohand_speed'], $this->data['melee_ohand_mindam'], $this->data['melee_ohand_maxdam'], $this->data['melee_ohand_dps']);
+
+				$line .= '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+				$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			}
+		}
+		
+
+		return $this->printStatLine($name, $value, $line);
+	}
+
+	function printWSpeed ( $location )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		if( $location == 'ranged' )
+		{
+			$value = '<strong class="white">'.$this->data['ranged_speed'].'</strong>';
+			$name = $wordings[$lang]['speed'];
+			$tooltipheader = $wordings[$lang]['atk_speed'].' '.$value;
+			$tooltip = $wordings[$lang]['haste_tooltip'].$this->printRatingLong('ranged_haste');
+
+			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		}
+		else
+		{
+			$value = '<strong class="white">'.$this->data['melee_mhand_speed'].'</strong>';
+			$name = $wordings[$lang]['speed'];
+			
+			if( $this->data['melee_ohand_dps'] > 0 )
+			{
+				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_speed'].'</strong>';
+			}
+			
+			$tooltipheader = $wordings[$lang]['atk_speed'].' '.$value;
+			$tooltip = $wordings[$lang]['haste_tooltip'].$this->printRatingLong('melee_haste');
+
+			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		}
+
+		return $this->printStatLine($name, $value, $line);
+	}
+
+	function printSpellDamage()
+	{
+		global $wordings, $roster_conf;
+		$lang = $this->data['clientLocale'];
+
+		$name = $wordings[$lang]['spell_damage'];
+		$value = '<strong class="white">'.$this->data['spell_damage'].'</strong>';
+		
+		$tooltipheader = $name.' '.$value;
+		$tooltip = '<table>';
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-holy.gif" alt=""><td>'.$wordings[$lang]['holy'].'<td>';
+		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt=""><td>'.$wordings[$lang]['fire'].'<td>'.$this->data['spell_damage_fire'];
+		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-nature.gif" alt=""><td>'.$wordings[$lang]['nature'].'<td>'.$this->data['spell_damage_nature'];
+		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-frost.gif" alt=""><td>'.$wordings[$lang]['frost'].'<td>'.$this->data['spell_damage_frost'];
+		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-shadow.gif" alt=""><td>'.$wordings[$lang]['shadow'].'<td>'.$this->data['spell_damage_shadow'];
+		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt=""><td>'.$wordings[$lang]['arcane'].'<td>'.$this->data['spell_damage_arcane'];
+		$tooltip .= '</table>';
 
 		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
-		$output  = '<span '.makeOverlib($line,'','',2).'>';
-		$output .= '<strong class="'.$color.'">'.$current.'</strong>';
-		$output .= '</span>';
-
-		return $output;
+		return $this->printStatLine($name, $value, $line);
 	}
 
+	function printSpellCrit()
+	{
+		global $wordings, $roster_conf;
+		$lang = $this->data['clientLocale'];
 
+		$name = $wordings[$lang]['spell_crit_rating'];
+		$value = $this->printRatingShort('spell_crit');
+		
+		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
+		$tooltip = $wordings[$lang]['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
+//		$tooltip = '<table>';
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-holy.gif" alt=""><td>'.$wordings[$lang]['holy'].'<td>';
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt=""><td>'.$wordings[$lang]['fire'].'<td>'.$this->data['spell_damage_fire'];
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-nature.gif" alt=""><td>'.$wordings[$lang]['nature'].'<td>'.$this->data['spell_damage_nature'];
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-frost.gif" alt=""><td>'.$wordings[$lang]['frost'].'<td>'.$this->data['spell_damage_frost'];
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-shadow.gif" alt=""><td>'.$wordings[$lang]['shadow'].'<td>'.$this->data['spell_damage_shadow'];
+//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt=""><td>'.$wordings[$lang]['arcane'].'<td>'.$this->data['spell_damage_arcane'];
+//		$tooltip .= '</table>';
+
+		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, $value, $line);
+	}
+	
+	function printDefense()
+	{
+		global $wordings, $roster_conf, $wowdb;
+		$lang = $this->data['clientLocale'];
+	
+		$qry = "SELECT `skill_level` FROM `roster_skills` WHERE `member_id` = ".$this->data['member_id']." AND `skill_name` = '".$wordings[$lang]['defense']."'";
+		$result = $wowdb->query($qry);
+		if( !$result )
+		{
+			$value = 'N/A';
+		}
+		else
+		{
+			$row = $wowdb->fetch_row($result);
+			$value = explode(':',$row[0]);
+			$value = $value[0];
+			$wowdb->free_result($result);
+			unset($row);
+		}
+		
+		$name = $wordings[$lang]['defense'];
+		$tooltipheader = $name.' '.$value;
+		
+		$tooltip = $wordings[$lang]['defense_rating'].$this->printRatingLong('stat_defr');
+		
+		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
+	}
+	
+	function printDef( $statname )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		$base = $this->data['stat_'.$statname];
+		$current = $this->data['stat_'.$statname.'_c'];
+		$buff = $this->data['stat_'.$statname.'_b'];
+		$debuff = -$this->data['stat_'.$statname.'_d'];
+		
+		$name = $wordings[$lang][$statname];
+		$value = $this->data[$statname];
+
+		$tooltipheader = $name.' '.$this->printRatingLong('stat_'.$statname);
+		$tooltip = sprintf($wordings[$lang]['def_tooltip'],$name);
+		
+		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
+	}
+	
+	function printResilience()
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		$name = $wordings[$lang]['resilience'];
+		$value = min($this->data['stat_res_melee'],$this->data['stat_res_ranged'],$this->data['stat_res_spell']);
+		
+		$tooltipheader = $name.' '.$this->printRatingLong('stat_'.$statname);
+		$tooltip = '<table>';
+		$tooltip .= '<tr><td>'.$wordings[$lang]['melee'].'<td>'.$this->data['stat_res_melee'];
+		$tooltip .= '<tr><td>'.$wordings[$lang]['ranged'].'<td>'.$this->data['stat_res_ranged'];
+		$tooltip .= '<tr><td>'.$wordings[$lang]['spell'].'<td>'.$this->data['stat_res_spell'];
+		$tooltip .= '</table>';
+		
+		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
+	}
+	
 	function printRes ( $resname )
 	{
 		global $wordings;
@@ -1420,7 +1809,7 @@ if( isset( $this->data['guild_name'] ) )
             	<?php print $this->printRes('res_shadow'); ?>
             </ul>
           </div><!-- end char-main-page1-middle-portrait-resistance -->
-          <div class="health_mana"><!-- begin char-main-page1-middle-portrait-health_mana -->
+          <div class="info"><!-- begin char-main-page1-middle-portrait-info -->
             <div class="health"><?php print $wordings[$lang]['health'].': <span class="white">'.$this->data['health']; ?></span></div>
             <?php
 
@@ -1431,16 +1820,6 @@ elseif( $this->data['class'] == $wordings[$lang]['Rogue'] )
 else
 	print '<div class="mana">'.$wordings[$lang]['mana'].': <span class="white">'.$this->data['mana'].'</span></div>';
 
-?>
-
-          </div><!-- end char-main-page1-middle-portrait-health_mana -->
-          <div class="info"><!-- begin char-main-page1-middle-portrait-info -->
-<?php
-
-if( $this->data['crit'] != '0' ) print	$wordings[$lang]['crit'].': <span class="white">'.$this->data['crit'].'%</span><br />'."\n";
-if( $this->data['dodge'] != '0' ) print	$wordings[$lang]['dodge'].': <span class="white">'.$this->data['dodge'].'%</span><br />'."\n";
-if( $this->data['parry'] != '0' ) print	$wordings[$lang]['parry'].': <span class="white">'.$this->data['parry'].'%</span><br />'."\n";
-if( $this->data['block'] != '0' ) print	$wordings[$lang]['block'].': <span class="white">'.$this->data['block'].'%</span><br />'."\n";
 
 if($this->data['talent_points'])
 	print '            '.$wordings[$lang]['unusedtalentpoints'].': <span class="white">'.$this->data['talent_points'].'</span><br />';
@@ -1450,7 +1829,13 @@ $TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
 
 print "<br />\n";
 print '            '.$wordings[$lang]['timeplayed'].': <span class="white">'.$TimePlayedConverted[days].$TimePlayedConverted[hours].$TimePlayedConverted[minutes].$TimePlayedConverted[seconds].'</span><br />'."\n";
-print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">'.$TimeLevelPlayedConverted[days].$TimeLevelPlayedConverted[hours].$TimeLevelPlayedConverted[minutes].$TimeLevelPlayedConverted[seconds].'</span>'."\n";
+print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">'.$TimeLevelPlayedConverted[days].$TimeLevelPlayedConverted[hours].$TimeLevelPlayedConverted[minutes].$TimeLevelPlayedConverted[seconds].'</span><br />'."\n";
+print '            <div class="money">';
+print '<span class="white">'.$this->data['money_g'].'</span><img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> ';
+print '<span class="white">'.$this->data['money_s'].'</span><img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> ';
+print '<span class="white">'.$this->data['money_c'].'</span><img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /> ';
+print '</div>';
+
 ?>
           </div><!-- end char-main-page1-middle-portrait-info -->
           <div class="xp" style="padding-left:12px;"><!-- begin char-main-page1-middle-portrait-xp -->
@@ -1488,28 +1873,80 @@ else
             </div>
           </div><!-- end char-main-page1-middle-portrait-xp -->
         </div><!-- end char-main-page1-middle-portrait -->
+<?php
+	switch( $this->data['class'] )
+	{
+		case $wordings[$this->data['clientLocale']]['Warrior']:
+			$rightbox = 'melee';
+			break;
+		case $wordings[$this->data['clientLocale']]['Paladin']:
+			$rightbox = 'melee';
+			break;
+		case $wordings[$this->data['clientLocale']]['Shaman']:
+			$rightbox = 'spell';
+			break;
+		case $wordings[$this->data['clientLocale']]['Hunter']:
+			$rightbox = 'ranged';
+			break;
+		case $wordings[$this->data['clientLocale']]['Druid']:
+			$rightbox = 'spell';
+			break;
+		case $wordings[$this->data['clientLocale']]['Rogue']:
+			$rightbox = 'melee';
+			break;
+		case $wordings[$this->data['clientLocale']]['Mage']:
+			$rightbox = 'spell';
+			break;
+		case $wordings[$this->data['clientLocale']]['Priest']:
+			$rightbox = 'spell';
+			break;
+		case $wordings[$this->data['clientLocale']]['Warlock']:
+			$rightbox = 'spell';
+			break;
+	}
+?>
+<script type="text/javascript">
+<!--
+  addLpage('statsleft');
+  addLpage('meleeleft');
+  addLpage('rangedleft');
+  addLpage('spellleft');
+  addLpage('defenseleft');
+  addRpage('statsright');
+  addRpage('meleeright');
+  addRpage('rangedright');
+  addRpage('spellright');
+  addRpage('defenseright');
+//-->
+</script>
         <div class="bottom"><!-- begin char-main-page1-middle-bottom -->
+		  <form>
+		    <select class="statselect" name="statbox_left" onchange="doLpage(this.value);">
+			  <option value="statsleft" selected="selected">Stats</option>
+			  <option value="meleeleft">Melee</option>
+			  <option value="rangedleft">Ranged</option>
+			  <option value="spellleft">Spell</option>
+			  <option value="defenseleft">Defense</option>
+		    </select>
+		    <select class="statselect" name="statbox_right" onchange="doRpage(this.value);">
+			  <option value="statsright">Stats</option>
+			  <option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>>Melee</option>
+			  <option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>>Ranged</option>
+			  <option value="spellright"<?php echo ($rightbox == 'spell'?' selected="selected"':'');?>>Spell</option>
+			  <option value="defenseright">Defense</option>
+		    </select>
+		  </form>
           <div class="padding">
-            <ul class="stats">
-              <li><?php print $wordings[$lang]['strength'] .': '.$this->printStat('stat_str'); ?></li>
-              <li><?php print $wordings[$lang]['agility']  .': '.$this->printStat('stat_agl'); ?></li>
-              <li><?php print $wordings[$lang]['stamina']  .': '.$this->printStat('stat_sta'); ?></li>
-              <li><?php print $wordings[$lang]['intellect'].': '.$this->printStat('stat_int'); ?></li>
-              <li><?php print $wordings[$lang]['spirit']   .': '.$this->printStat('stat_spr'); ?></li>
-              <li><?php print $wordings[$lang]['armor']    .': '.$this->printStat('stat_armor'); ?></li>
-            </ul>
-            <ul class="stats">
-              <li><?php print $wordings[$lang]['melee_att'] .' '.$this->printAtk('melee','rating')."\n"; ?>
-                <ul>
-                  <li><?php print $wordings[$lang]['power'] .': '. $this->printAtk('melee','power'); ?></li>
-                  <li><?php print $wordings[$lang]['damage'].': '. $this->printAtk('melee','range'); ?></li>
-                </ul></li>
-              <li><?php print $wordings[$lang]['range_att'] .' '. $this->printAtk('ranged','rating')."\n"; ?>
-                <ul>
-                  <li><?php print $wordings[$lang]['power'] .': '. $this->printAtk('ranged','power'); ?></li>
-                  <li><?php print $wordings[$lang]['damage'].': '. $this->printAtk('ranged','range'); ?></li>
-                </ul></li>
-            </ul>
+		    <?php print $this->printBox('stats','left',true); ?>
+		    <?php print $this->printBox('melee','left',false); ?>
+		    <?php print $this->printBox('ranged','left',false); ?>
+		    <?php print $this->printBox('spell','left',false); ?>
+		    <?php print $this->printBox('defense','left',false); ?>
+		    <?php print $this->printBox('stats','right',false); ?>
+		    <?php print $this->printBox('melee','right',$rightbox=='melee'); ?>
+		    <?php print $this->printBox('ranged','right',$rightbox=='ranged'); ?>
+		    <?php print $this->printBox('spell','right',$rightbox=='spell'); ?>
+		    <?php print $this->printBox('defense','right',false); ?>
           </div><!-- end char-main-page1-middle-bottom-padding -->
           <div class="hands">
             <div class="weapon0"><?php print $this->printEquip('MainHand'); ?></div>
