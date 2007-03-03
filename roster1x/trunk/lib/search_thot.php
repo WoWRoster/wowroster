@@ -33,7 +33,7 @@ if ( !defined('ROSTER_INSTALLED') )
       <form method="post" action="http://www.thottbot.com/">
           <?php print $wordings[$roster_conf['roster_lang']]['search'] ?>:
           <input type="text" name="s" class="wowinput" />&nbsp;&nbsp;
-          <input class="liteoption" type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'">
+          <input class="liteoption" type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'" />
       </form>
       </div></td>
   </tr>

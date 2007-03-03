@@ -38,7 +38,7 @@ $totaltime = round($endtime - ROSTER_STARTTIME, 2);
 <small><?php echo $wordings[$roster_conf['roster_lang']]['roster_credits']; ?></small>
 <br /><br />
 <a href="http://validator.w3.org/check?uri=referer" target="_blank">
-    <img src="<?php print $roster_conf['roster_dir']; ?>/img/valid-html40.gif" alt="Valid HTML 4.0 Transitional" height="15" width="119"></a>
+    <img src="<?php print $roster_conf['roster_dir']; ?>/img/valid-html40.gif" alt="Valid HTML 4.0 Transitional" height="15" width="119" /></a>
   <br /><br />
 
 <?php

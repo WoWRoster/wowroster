@@ -950,154 +950,57 @@ table.expOutline {
 /**
  * Bag Styles
 **/
-.bag {
-	float:left;
-	width:212px;
-	margin:0 5px 5px 0;
-	color:#ffffff;
-	background-position:0 3px;
-}
-.bag .bagTop {
-	float:left;
-	width:100%;
-	background:url(../img/bagtopbig.gif) no-repeat;
-	height:52px;
-}
-.bag .bagBody {
-	float:left;
-	width:212px;
-	background:url(../img/bagbg2.gif) repeat-y;
-}
-.bag .bagTop .bagIcon,
-.bankbag .bagTop .bagIcon {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:5px;
-}
-.bag .bagTop .bagIcon .quant,
-.bankbag .bagTop .bagIcon .quant {
+.bankbag { float:left;margin:0 5px 10px 0;color:#ffffff;width:399px;height:283px; }
+.bankbag .bagitem { width:49px;height:44px;float:left; }
+.bankbag .bagitem .icon { margin:0;width:40px;height:40px;border-width:0px;cursor:pointer; }
+.bankbag .bagitem .noicon { margin:0;width:40px;height:40px;border-width:0;}
+.bankbag .holder { position:absolute;margin-top:72px;margin-left:38px;width:350px; }
+
+.bag { float:left;margin:0 5px 10px 0;color:#ffffff;width:192px; }
+.bag .bagspacer0 { display:none; }
+.bag .bagspacer2 { width:42px;height:41px;float:left; }
+.bag .holder0 { position:absolute;margin-top:47px;margin-left:14px;width:178px; }
+.bag .holder2 { position:absolute;margin-top:26px;margin-left:14px;width:178px; }
+.bag .bottom { position:absolute;width:192px;height:10px;background-repeat:no-repeat; }
+.bag .bagitem { width:42px;height:41px;float:left; }
+.bag .bagitem .icon { margin-left:2px;width:38px;height:38px;border-width:0;cursor:pointer; }
+.bag .bagitem .noicon { margin-left:2px;width:38px;height:38px;border-width:0; }
+.bag .bagmask { position:absolute;width:45px;height:43px;cursor:pointer; }
+.bag .bagicon { position:absolute;margin-left:3px;width:42px;height:42px;clip:rect(6px 40px 39px 5px); }
+
+.bag_name, .key_name, .bank_name {
+	margin-top:8px;
+	margin-left:42px;
+	font:12px Arial, Helvetica, sans-serif;
+	color:#FFFFFF;
 	position:absolute;
-	bottom:0px;
-	right:3px;
-	font-size:12px;
-	font-weight:bold;
-	color:#ffffff;
-}
-.bag .bagTop .bagIcon .quant_shadow,
-.bankbag .bagTop .bagIcon .quant_shadow {
-	position:absolute;
-	bottom:-1px;
-	right:2px;
-	font-size:12px;
-	font-weight:bold;
-	color:#333333;
-}
-.bag .bagTop .bagName,
-.bankbag .bagTop .bagName {
+	text-align:center;
+	width:140px;
+	height:16px;
 	float:left;
-	text-align:left;
-	width:150px;
 	overflow:hidden;
-	margin:0;
-	padding-top:10px;
-	font-size:13px;
-	font-weight:bold;
 }
-.bag .bagLine,
-.bankbag .bagLine {
+.bankcont_name {
+	margin-top:16px;
+	margin-left:67px;
+	font:bold 12px Arial, Helvetica, sans-serif;
+	color:#FFFFFF;
+	position:absolute;
+	text-align:center;
+	width:325px;
+	height:16px;
 	float:left;
-	width:100%;
-	padding:0 0 0 4px;
-}
-.bag .bagLine .bagNoSlot,
-.bankbag .bagLine .bagNoSlot {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:4px 5px 5px 6px;
-}
-.bag .bagLine .bagSlot,
-.bankbag .bagLine .bagSlot {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:4px 5px 5px 6px;
-	background-image:url(../img/bagslot.gif);
-}
-.bag .bagBottomLine,
-.bankbag .bagBottomLine {
-	float:left;
-	width:100%;
-	padding:0 0 0 4px;
-}
-.bag .bagBottomLine .bagSlot,
-.bankbag .bagBottomLine .bagSlot {
-	float:left;
-	width:40px;
-	height:40px;
-	padding:4px 5px 2px 6px;
-	background-image:url(../img/bagbottombox.gif);
-	background-position:left top;
-}
-.bag .bagMoneyBottom {
-	float:left;
-	height:26px;
-	width:212px;
-	background-image:url(../img/bagmoneybottom.gif);
-}
-.bag .bagMoneyBottom .money {
-	float:right;
-	padding:4px 15px 7px 0;
-	font-size:12px;
-	font-family:arial,verdana,sans-serif;
-	font-weight:bold;
-}
-.bag .bagBottom {
-	float:left;
-	height:6px;
-	width:212px;
-	background-image:url(../img/bagbottom.gif) ;
+	overflow:hidden;
 }
 /**
  * END Bag Styles
-**/
-
-/**
- * BankBag Styles
-**/
-.bankbag {
-	float:left;
-	width:362px;
-	margin:0 5px 5px 0;
-	color:#ffffff;
-	background-position:0 3px;
-}
-.bankbag .bagTop {
-	float:left;
-	width:362px;
-	background:url(../img/bagtopbank.GIF) no-repeat;
-	height:52px;
-}
-.bankbag .bagBody {
-	float:left;
-	width:362px;
-	background:url(../img/bagbgbank.GIF) repeat-y;
-}
-.bankbag .bagBottom {
-	float:left;
-	height:6px;
-	width:362px;
-	background-image:url(../img/bagbottombank.GIF) ;
-}
-/**
- * END BankBag Styles
 **/
 
 .item {
 	position:relative;
 	width:40px;
 	height:40px;
+	cursor:pointer;
 }
 .item .quant {
 	position:absolute;

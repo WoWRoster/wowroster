@@ -196,9 +196,9 @@ if( $wowdb->num_rows($result) > 0 )
 			$row['type'] = '<span class="green">'.$wordings[$roster_conf['roster_lang']]['added'].'</span>';
 
 		if( !empty($row['note']) )
-			$row['note'] = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" '.makeOverlib(stripslashes($row['note']),$wordings[$roster_conf['roster_lang']]['note'],'',1).'>';
+			$row['note'] = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" '.makeOverlib(stripslashes($row['note']),$wordings[$roster_conf['roster_lang']]['note'],'',1).' />';
 		else
-			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'">';
+			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" />';
 
 
 		$body .= '<tr>'."\n";

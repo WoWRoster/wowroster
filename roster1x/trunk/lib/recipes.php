@@ -55,7 +55,7 @@ class recipe
 
 		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
 
-		$returnstring = '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
+		$returnstring = '<div class="item" '.$tooltip.$linktip.'>';
 
 		$returnstring .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
 

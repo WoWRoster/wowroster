@@ -119,7 +119,7 @@ if( $wowdb->num_rows($result) )
 		<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$levelpct.'%">
-					<img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="">
+					<img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" />
 				</td>
 				<td width="'.(100-$levelpct).'%"></td>
 			</tr>

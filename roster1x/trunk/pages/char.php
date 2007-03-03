@@ -210,7 +210,7 @@ switch ($action)
 		{
 			$bag0 = bag_get( $char, 'Bank Bag0' );
 			if( !is_null( $bag0 ) )
-				$char_page .= $bag0->out(true);
+				$char_page .= $bag0->out();
 
 			$bag1 = bag_get( $char, 'Bank Bag1' );
 			if( !is_null( $bag1 ) )
@@ -306,8 +306,8 @@ if( empty($action) && $roster_conf['show_item_bonuses'])
 
 $char_page .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">'.
 	makelink($char_url.( !empty($action) ? '&amp;action='.$action : '' ),true).'<br />'.
-	makelink($char_url_old.( !empty($action) ? '&amp;action='.$action : '' ),true)
-	,'Character Links','sgreen');
+	makelink($char_url_old.( !empty($action) ? '&amp;action='.$action : '' ),true).
+	'</div>','Character Links','sgreen');
 
 $char_page .= "</div>\n";
 

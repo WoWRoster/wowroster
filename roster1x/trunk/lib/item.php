@@ -57,7 +57,7 @@ class item
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
-		$output = '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
+		$output = '<div class="item" '.$tooltip.$linktip.'>';
 
 		if ($this->data['item_slot'] == 'Ammo')
 			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
@@ -81,8 +81,6 @@ function item_get_one( $member_id, $slot )
 
 	$slot = $wowdb->escape( $slot );
 	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_slot` = '$slot'";
-	if ($wowdb->sqldebug)
-		print "<!-- $query --> \n";
 
 	$result = $wowdb->query( $query );
 	$data = $wowdb->fetch_assoc( $result );
@@ -99,9 +97,6 @@ function item_get_many( $member_id, $parent )
 
 	$parent = $wowdb->escape( $parent );
 	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_parent` = '$parent'";
-
-	if ($wowdb->sqldebug)
-		print "<!-- $query --> \n";
 
 	$result = $wowdb->query( $query );
 
