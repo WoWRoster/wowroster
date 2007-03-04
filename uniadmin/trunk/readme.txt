@@ -186,7 +186,7 @@ v0.7.6
 ~ SQL queries will never show to anonymous users
 ~ Links in installer will now properly point to index.php instead of install.php
 ! UA now only accepts and scans certain file types for addons
-    lua,toc,txt,tga,blp,ttf,xml,wav,mp3
+    lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch
 ! Set header() to xml for addon output and settings xml output
 ! Logo module has been edited so different image file types could be used in the future
 ! Removed `download_url` field from logo table, `filename` is used now

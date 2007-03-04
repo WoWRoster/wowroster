@@ -57,13 +57,11 @@ switch( $op )
 
 	case 'GETSETTINGSXML':
 		update_stats($op);
-		header('Content-Type: text/xml');
 		echo output_settings_xml();
 		break;
 
 	case 'GETADDONLIST':
 		update_stats($op);
-		header('Content-Type: text/xml');
 		echo output_addon_xml();
 		break;
 
@@ -73,7 +71,6 @@ switch( $op )
 		break;
 
 	case 'GETUAVER':
-		update_stats($op);
 		echo $uniadmin->config['UAVer'];
 		break;
 
@@ -237,7 +234,11 @@ function output_settings_xml( )
 	}
 	$db->free_result($result);
 
-	return $xmlDoc->toString();
+	$output = $xmlDoc->toString();
+
+	header('Content-Type: text/xml');
+	header('Content-Length: ' . strlen($output) );
+	return $output;
 }
 
 /**
@@ -294,7 +295,12 @@ function output_addon_xml( )
 			$db->free_result($result2);
 		}
 		$db->free_result($result);
-		return $xmlDoc->toString();
+
+		$output = $xmlDoc->toString();
+
+		header('Content-Type: text/xml');
+		header('Content-Length: ' . strlen($output) );
+		return $output;
 	}
 	else
 	{
