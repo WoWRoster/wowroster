@@ -345,8 +345,8 @@ function processGuildRoster($myProfile)
 										}
 									}
 									// Remove the members who were not in this list
-									$wowdb->remove_guild_members($guildId);
-									$wowdb->remove_guild_members_id($guildId);
+									$wowdb->remove_guild_members($guildId, $currentTimestamp);
+									$wowdb->remove_guild_members_id($guildId, $currentTimestamp);
 
 									$guild_output .= $wowdb->getMessages()."</ul></li>\n";
 									$wowdb->resetMessages();

@@ -1,44 +1,49 @@
 $Id$
 
-WoW Roster is licensed under a Creative Commons
-"Attribution-NonCommercial-ShareAlike 2.5" license. See
-http://creativecommons.org/licenses/by-nc-sa/2.5/ for the short
-summary, and
-http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode for the
-full license information.
+WoWRoster is licensed under a Creative Commons
+"Attribution-NonCommercial-ShareAlike 2.5" license
+
+Short summary: http://creativecommons.org/licenses/by-nc-sa/2.5
+Full license: http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
 
 Regarding Attribution:
-
-- Keep the credits in the footer of the roster pages.
-
-- Include this license with all modified versions of the roster.
+  * Keep the credits in the footer of the WoWRoster pages
+  * Include this license (license.txt) with all modified versions of the WoWRoster
 
 Regarding ShareAlike:
+  * Any changes made to the WoWRoster code must be archived and accessible for public download
+  * Including, but not limited to:
+      o HTML, TXT, PHP, CSS, SQL, images, and Javascript
+  * You may, of course, remove username, password, and database host information from the archive
 
-- Any changes made to the roster code (including, but not limited to,
-  HTML, PHP, CSS, SQL, images, and Javascript) must be archived
-  and accessible for public download. You may, of course, remove
-  username, password, and database host information from the archive.
+For any reuse or distribution, you must make clear to others the license terms of this work
+Any of these conditions can be waived if you get permission from the dev team at wowroster.net
 
-For any reuse or distribution, you must make clear to others the
-license terms of this work. Any of these conditions can be waived if
-you get permission from the dev team at wowroster.net.
+---------------------------------------------------------------------------------------------------
 
+Serveral javascript libraries are included with WoWRoster
+that are not included under the main WoWRoster license
 
-Serveral javascript libraries are included with roster that are not
-included under the main roster license. These are:
+These are:
 
-- The Tab Content Script from DynamicDrive. The DynamicDrive license
-  applies, available at http://www.dynamicdrive.com/notice.htm.
+Tab Content Script - DynamicDrive
 
-- The Overlib tooltip library by Erik Bosrup. An unnamed license
-  applies, available at http://www.bosrup.com/web/overlib/?License
+  * http://www.dynamicdrive.com
+  * DynamicDrive Terms of Use http://www.dynamicdrive.com/notice.htm
+  * File located at [css/js/tabcontent.js]
 
+Overlib tooltip library - Erik Bosrup
 
-The installer was based on the EQdkp installer. This concerns the files:
-- install.php
-- update.php
-- install/template.php
+  * http://www.bosrup.com/web/overlib
+  * Overlib License: http://www.bosrup.com/web/overlib/?License
+  * File located at [css/js/overlib.js]
 
-These 3 files are licensed under the GNU General Public License, which is
-available at http://gnu.org/copyleft/gpl.html
+Modified EQdkp installer
+
+  * http://www.eqdkp.com
+  * The installer was based on the EQdkp installer
+  * GNU General Public License: http://gnu.org/copyleft/gpl.html
+  * This concerns the files:
+      o install.php
+      o update.php
+      o install/template.php

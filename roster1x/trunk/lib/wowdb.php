@@ -689,7 +689,7 @@ class wowdb
 	 * Update Memberlog function
 	 *
 	 */
-	function updateMemberlog( $data , $type )
+	function updateMemberlog( $data , $type , $timestamp )
 	{
 		$this->reset_values();
 		$this->add_value('member_id', $data['member_id'] );
@@ -701,7 +701,7 @@ class wowdb
 		$this->add_value('guild_rank', $data['guild_rank'] );
 		$this->add_value('guild_title', $data['guild_title'] );
 		$this->add_value('officer_note', $data['officer_note'] );
-		$this->add_value('update_time', $data['update_time'] );
+		$this->add_time('update_time', getDate($timestamp) );
 		$this->add_value('type', $type );
 
 		$querystr = "INSERT INTO `".ROSTER_MEMBERLOGTABLE."` SET ".$this->assignstr;
@@ -1710,8 +1710,9 @@ class wowdb
 	 * Removes guild members with `active` = 0
 	 *
 	 * @param int $guild_id
+	 * @param string $timestamp
 	 */
-	function remove_guild_members($guild_id)
+	function remove_guild_members( $guild_id , $timestamp )
 	{
 		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
 
@@ -1734,7 +1735,7 @@ class wowdb
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
-				$this->setMemberLog($row,0);
+				$this->setMemberLog($row,0,$timestamp);
 
 			}
 
@@ -1753,8 +1754,9 @@ class wowdb
 	 * Removes members that do not match current guild_id
 	 *
 	 * @param int $guild_id
+	 * @param string $timestamp
 	 */
-	function remove_guild_members_id($guild_id)
+	function remove_guild_members_id( $guild_id , $timestamp )
 	{
 		// Get a list of guild id's in the guild table to remove
 		$querystr = "SELECT `guild_id`,`guild_name` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` != '$guild_id'";
@@ -1812,7 +1814,7 @@ class wowdb
 
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] Deleted since their guild-id does not match</span></li>');
-				$this->setMemberLog($row,0);
+				$this->setMemberLog($row,0,$timestamp);
 			}
 
 			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\'s' : '').'</span>');
@@ -1854,8 +1856,9 @@ class wowdb
 	 *
 	 * @param array $data | Member info array
 	 * @param multiple $type | Action to update ( 'rem','del,0 | 'add','new',1 )
+	 * @param string $timestamp | Time
 	 */
-	function setMemberLog( $data , $type )
+	function setMemberLog( $data , $type , $timestamp )
 	{
 		if ( is_array($data) )
 		{
@@ -1865,14 +1868,14 @@ class wowdb
 				case 'rem':
 				case 0:
 					$this->membersremoved++;
-					$this->updateMemberlog($data,0);
+					$this->updateMemberlog($data,0,$timestamp);
 					break;
 
 				case 'add':
 				case 'new':
 				case 1:
 					$this->membersadded++;
-					$this->updateMemberlog($data,1);
+					$this->updateMemberlog($data,1,$timestamp);
 					break;
 			}
 		}
@@ -1899,6 +1902,7 @@ class wowdb
 
 		$this->add_value( 'server', $realmName );
 		$this->add_value( 'faction', $guild['Faction'] );
+		$this->add_value( 'factionEn', $guild['FactionEn'] );
 		$this->add_value( 'guild_motd', $guild['Motd'] );
 
 		if( !empty($guild['NumMembers']) )
@@ -1910,8 +1914,7 @@ class wowdb
 
 		if( !empty($guild['timestamp']['init']['DateUTC']) )
 		{
-			list($year,$month,$day,$hour,$minute,$second) = sscanf($guild['timestamp']['init']['DateUTC'],"%4s-%2s-%2s %2s:%2s:%2s");
-			$this->add_value( 'guild_dateupdatedutc', "$month/$day/".substr($year,2,2)." $hour:$minute:$second" );
+			$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
 		}
 
 		$this->add_value( 'GPversion', $guild['DBversion'] );
@@ -1991,7 +1994,6 @@ class wowdb
 			$this->add_value( 'status', '');
 
 		$this->add_value( 'active', '1');
-		$this->add_time( 'update_time', getDate($currentTimestamp));
 
 		if( $char['Online'] == '1' )
 		{
@@ -2059,7 +2061,7 @@ class wowdb
 			else
 			{
 				$row = $this->fetch_array($result);
-				$this->setMemberLog($row,1);
+				$this->setMemberLog($row,1,$currentTimestamp);
 			}
 		}
 	}
@@ -2560,14 +2562,14 @@ class wowdb
 			$this->add_value( 'parry',		$main_stats['ParryChance']);
 			$this->add_value( 'block',      $main_stats['BlockChance']);
 			$this->add_value( 'mitigation', $main_stats['ArmorReduction']);
-			
+
 			$this->add_rating( 'stat_armor', $main_stats['Armor']);
 			$this->add_rating( 'stat_def', $main_stats['Defense']);
 			$this->add_rating( 'stat_block', $main_stats['blockrating']);
 			$this->add_rating( 'stat_parry', $main_stats['parryrating']);
 			$this->add_rating( 'stat_defr', $main_stats['defenserating']);
 			$this->add_rating( 'stat_dodge', $main_stats['dodgerating']);
-						
+
 			$this->add_value( 'stat_res_ranged', $main_stats['Resilience']['Ranged']);
 			$this->add_value( 'stat_res_spell', $main_stats['Resilience']['Ranged']);
 			$this->add_value( 'stat_res_melee', $main_stats['Resilience']['Ranged']);
@@ -2585,7 +2587,7 @@ class wowdb
 			$this->add_rating( 'res_fire', $main_res['Fire']);
 			$this->add_rating( 'res_shadow', $main_res['Shadow']);
 			$this->add_rating( 'res_nature', $main_res['Nature']);
-			
+
 			unset($main_res);
 		}
 		// END RESISTS
@@ -2606,32 +2608,32 @@ class wowdb
 			if( is_array($attack['MainHand']) )
 			{
 				$hand = $attack['MainHand'];
-				
+
 				$this->add_value( 'melee_mhand_speed', $hand['AttackSpeed']);
 				$this->add_value( 'melee_mhand_dps', $hand['AttackDPS']);
 				$this->add_value( 'melee_mhand_skill', $hand['AttackSkill']);
-				
+
 				list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
 				$this->add_value( 'melee_mhand_mindam', $mindam);
 				$this->add_value( 'melee_mhand_maxdam', $maxdam);
 				unset($mindam, $maxdam);
-				
+
 				$this->add_rating( 'melee_mhand_rating', $hand['Attackrating']);
 			}
 
 			if( is_array($attack['OffHand']) )
 			{
 				$hand = $attack['OffHand'];
-				
+
 				$this->add_value( 'melee_ohand_speed', $hand['AttackSpeed']);
 				$this->add_value( 'melee_ohand_dps', $hand['AttackDPS']);
 				$this->add_value( 'melee_ohand_skill', $hand['AttackSkill']);
-				
+
 				list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
 				$this->add_value( 'melee_ohand_mindam', $mindam);
 				$this->add_value( 'melee_ohand_maxdam', $maxdam);
 				unset($mindam, $maxdam);
-				
+
 				$this->add_rating( 'melee_ohand_rating', $hand['Attackrating']);
 			}
 			else
@@ -2639,10 +2641,10 @@ class wowdb
 				$this->add_value( 'melee_ohand_speed', 0);
 				$this->add_value( 'melee_ohand_dps', 0);
 				$this->add_value( 'melee_ohand_skill', 0);
-				
+
 				$this->add_value( 'melee_ohand_mindam', 0);
 				$this->add_value( 'melee_ohand_maxdam', 0);
-				
+
 				$this->add_rating( 'melee_ohand_rating', 0);
 			}
 
@@ -2650,7 +2652,7 @@ class wowdb
 				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( isset($attack['AttackPowerTooltip']) )
 				$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
-			
+
 			unset($hand, $attack);
 		}
 		// END MELEE
@@ -2678,7 +2680,7 @@ class wowdb
 			unset($mindam, $maxdam);
 
 			$this->add_rating( 'ranged_rating', $attack['Attackrating']);
-			
+
 			if( isset($attack['DamageRangeTooltip']) )
 				$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
 			if( isset($attack['AttackPowerTooltip']) )
@@ -2686,7 +2688,7 @@ class wowdb
 			unset($attack);
 		}
 		// END RANGED
-		
+
 		// BEGIN SPELL
 		if( is_array($data['Attributes']['Spell']) )
 		{
@@ -2695,26 +2697,26 @@ class wowdb
 			$this->add_rating( 'spell_hit', $spell['HitRating']);
 			$this->add_rating( 'spell_crit', $spell['CritRating']);
 			$this->add_rating( 'spell_haste', $spell['HasteRating']);
-			
+
 			$this->add_value( 'spell_crit_chance', $spell['CritChance']);
-			
+
 			list($mana, $time) = explode(':',$spell['ManaRegen']);
 			$this->add_value( 'mana_regen_value', $mana);
 			$this->add_value( 'mana_regen_time', $time);
 			unset($mana, $time);
-			
+
 			$this->add_value( 'spell_penetration', $spell['Penetration']);
 			$this->add_value( 'spell_damage', $spell['BonusDamage']);
 			$this->add_value( 'spell_healing', $spell['BonusHealing']);
-			
+
 			$this->add_value( 'spell_damage_frost', $spell['School']['Frost']);
 			$this->add_value( 'spell_damage_arcane', $spell['School']['Arcane']);
 			$this->add_value( 'spell_damage_fire', $spell['School']['Fire']);
 			$this->add_value( 'spell_damage_shadow', $spell['School']['Shadow']);
 			$this->add_value( 'spell_damage_nature', $spell['School']['Nature']);
-			
+
 			unset($spell);
-		}		
+		}
 		// END SPELL
 
 		$this->add_value( 'level', $data['Level'] );
@@ -2729,7 +2731,9 @@ class wowdb
 
 		$this->add_value( 'exp', $data['Experience'] );
 		$this->add_value( 'race', $data['Race'] );
+		$this->add_value( 'raceEn', $data['RaceEn'] );
 		$this->add_value( 'class', $data['Class'] );
+		$this->add_value( 'classEn', $data['ClassEn'] );
 		$this->add_value( 'health', $data['Health'] );
 		$this->add_value( 'mana', $data['Mana'] );
 		$this->add_value( 'sex', $data['Sex'] );

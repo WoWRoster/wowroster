@@ -120,6 +120,9 @@ $char_menu .= '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr
 
 $char_menu .= $menu_cell.makelink($char_url).'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
 
+if( $roster_conf['show_talents'] )
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=talents').'">'.$wordings[$roster_conf['roster_lang']]['talents'].'</a></td>'."\n";
+
 if( $roster_conf['show_spellbook'] )
 	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=spellbook').'">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
 
@@ -169,9 +172,9 @@ if($roster_conf['show_avatar'])
 
 $char_page .= '
 <br /><br />
-<table border="0" cellpadding="0" cellspacing="0" >
+<table border="0" cellpadding="0" cellspacing="0" align="'.$roster_conf['char_bodyalign'].'">
   <tr>
-    <td align="left">';
+    <td align="left" width="100%">';
 
 
 switch ($action)
@@ -288,6 +291,14 @@ switch ($action)
 		}
 		break;
 
+	case 'talents':
+		if( $roster_conf['show_talents'] == 1 )
+		{
+			$char_url .= '&amp;action=talents';
+			$char_page .= $char->printTalents();
+		}
+		break;
+
 	default:
 		ob_start();
 			$char->out();
@@ -297,7 +308,7 @@ switch ($action)
 }
 
 
-$char_page .= "</td></tr></table>\n";
+$char_page .= "</td></tr></table>\n<br clear=\"all\" />\n";
 
 if( empty($action) && $roster_conf['show_item_bonuses'])
 {

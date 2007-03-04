@@ -317,6 +317,7 @@ $wordings['deDE']['backlink']='Zur&uuml;ck zur &Uuml;bersicht';
 $wordings['deDE']['gender']='Geschlecht';
 $wordings['deDE']['unusedtrainingpoints']='Unbenutzte Trainingspunkte';
 $wordings['deDE']['unusedtalentpoints']='Unbenutzte Talentpunkte';
+$wordings['deDE']['talentcalculator']='Talent Calculator';
 $wordings['deDE']['questlog']='Questlog';
 $wordings['deDE']['recipelist']='Rezepte Liste';
 $wordings['deDE']['reagents']='Reagenzien';
@@ -338,6 +339,7 @@ $wordings['deDE']['dodge'] = 'Ausweichen';
 $wordings['deDE']['parry'] = 'Parrieren';
 $wordings['deDE']['block'] = 'Blocken';
 $wordings['deDE']['realm'] = 'Realm';
+$wordings['deDE']['talents'] = 'Talente';
 
 // Memberlog
 $wordings['deDE']['memberlog'] = 'Mitglieder Log';
@@ -483,8 +485,7 @@ $wordings['deDE']['tab1']='Stats';
 $wordings['deDE']['tab2']='Tier';
 $wordings['deDE']['tab3']='Ruf';
 $wordings['deDE']['tab4']='Fertigk.';
-$wordings['deDE']['tab5']='Talente';
-$wordings['deDE']['tab6']='PvP';
+$wordings['deDE']['tab5']='PvP';
 
 $wordings['deDE']['strength']='Stärke';
 $wordings['deDE']['strength_tooltip']='Erhöht deine Angriffskraft mit Nahkampfwaffen.<br />Erhöht die Menge an Schaden, die mit einem Schild geblockt werden kann.';
@@ -498,19 +499,61 @@ $wordings['deDE']['spirit']='Willenskraft';
 $wordings['deDE']['spirit_tooltip']= 'Erhöht deine Mana- und Lebens- regenerationsrate.';
 $wordings['deDE']['armor_tooltip']= 'Verringert die Menge an Schaden die du von physischen Angriffen erleidest.<br />Die Höhe der Reduzierung ist abhängig vom Level deines Angreifers.';
 
-$wordings['deDE']['melee_att']='Nahkampf';
+$wordings['deDE']['mainhand']='Main Hand';
+$wordings['deDE']['offhand']='Off Hand';
+$wordings['deDE']['ranged']='Ranged';
+$wordings['deDE']['melee']='Melee';
+$wordings['deDE']['spell']='Spell';
+
+$wordings['deDE']['weapon_skill']='Skill';
+$wordings['deDE']['weapon_skill_tooltip']='Weapon Skill %d<br />Weapon Skill Rating %d';
+$wordings['deDE']['damage']='Damage';
+$wordings['deDE']['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
+$wordings['deDE']['speed']='Speed';
+$wordings['deDE']['atk_speed']='Attack Speed';
+$wordings['deDE']['haste_tooltip']='Haste rating ';
+
 $wordings['deDE']['melee_att_power']='Nahkampf Kraft';
-$wordings['deDE']['range_att']='Fernkampf';
+$wordings['deDE']['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
 $wordings['deDE']['range_att_power']='Fernkampf Kraft';
-$wordings['deDE']['power']='Kraft';
+$wordings['deDE']['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
+
+$wordings['deDE']['weapon_hit_rating']='Hit Rating';
+$wordings['deDE']['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
+$wordings['deDE']['weapon_crit_rating']='Crit rating';
+$wordings['deDE']['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
+
 $wordings['deDE']['damage']='Schaden';
 $wordings['deDE']['energy']='Energie';
 $wordings['deDE']['rage']='Wut';
+$wordings['deDE']['power']='Kraft';
 
 $wordings['deDE']['melee_rating']='Nahkampf Angriffsrate';
 $wordings['deDE']['melee_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Ziel zu treffen und basiert auf deiner Waffenfähigkeit der Waffe die du grade trägst.';
 $wordings['deDE']['range_rating']='Fernkampf Angriffsrate';
 $wordings['deDE']['range_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Ziel zu treffen und basiert auf deiner Waffenfähigkeit der Waffe die du grade trägst.';
+
+$wordings['deDE']['spell_damage']='+Damage';
+$wordings['deDE']['fire']='Fire';
+$wordings['deDE']['nature']='Nature';
+$wordings['deDE']['frost']='Frost';
+$wordings['deDE']['shadow']='Shadow';
+$wordings['deDE']['arcane']='Arcane';
+
+$wordings['deDE']['spell_healing']='+Healing';
+$wordings['deDE']['spell_healing_tooltip']='Increases your healing by up to %d';
+$wordings['deDE']['spell_hit_rating']='Hit Rating';
+$wordings['deDE']['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
+$wordings['deDE']['spell_crit_rating']='Crit Rating';
+$wordings['deDE']['spell_crit_chance']='Crit Chance';
+$wordings['deDE']['spell_penetration']='Penetration';
+$wordings['deDE']['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
+$wordings['deDE']['mana_regen']='Mana Regen';
+$wordings['deDE']['mana_regen_tooltip']='%d mana regenerated every %d seconds while not casting';
+
+$wordings['deDE']['defense_rating']='Defense Rating ';
+$wordings['deDE']['def_tooltip']='Increases your chance to %s';
+$wordings['deDE']['resilience']='Resilience';
 
 $wordings['deDE']['res_fire']='Feuer Widerstand';
 $wordings['deDE']['res_fire_tooltip']='Erh&ouml;ht deinen Widerstand gegen Feuerschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
@@ -524,7 +567,7 @@ $wordings['deDE']['res_shadow']='Schatten Widerstand';
 $wordings['deDE']['res_shadow_tooltip']='Erh&ouml;ht deinen Widerstand gegen Schattenschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
 
 $wordings['deDE']['empty_equip']='Kein Gegenstand angelegt';
-$wordings['deDE']['pointsspent']='Punkte verteilt:';
+$wordings['deDE']['pointsspent']='Punkte verteilt in';
 $wordings['deDE']['none']='Keine';
 
 $wordings['deDE']['pvplist']=' PvP Statistiken';

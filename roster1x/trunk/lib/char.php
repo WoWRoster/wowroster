@@ -36,6 +36,7 @@ class char
 {
 	var $data;
 	var $equip;
+	var $talent_build;
 
 	function char( $data )
 	{
@@ -480,7 +481,7 @@ $returnstring .= '  <tr>
 		}
 		else
 		{
-			return "No ".$wordings[$roster_conf['roster_lang']]['mailbox']." for ".$this->data['name'];
+			return '<span class="headline_1">No '.$wordings[$roster_conf['roster_lang']]['mailbox']." for ".$this->data['name'].'</span>';
 		}
 	}
 
@@ -661,7 +662,7 @@ $returnstring .= '  <tr>
 
 	function getNumPets()
 	{
-		global $wowdb; 				//the object derived from class wowdb used to do queries
+		global $wowdb;
 
 		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' order by `level` DESC";
 		$result = $wowdb->query( $query );
@@ -669,7 +670,6 @@ $returnstring .= '  <tr>
 		$wowdb->free_result($result);
 
 		return $retval;
-
 	}
 
 
@@ -872,7 +872,7 @@ $returnstring .= '  <tr>
 
 		return $output;
 	}
-	
+
 	function printRatingShort( $statname )
 	{
 		$base = $this->data[$statname];
@@ -896,10 +896,10 @@ $returnstring .= '  <tr>
 		{
 			$color = "white";
 		}
-		
+
 		return '<strong class="'.$color.'">'.$current.'</strong>';
 	}
-		
+
 	function printRatingLong( $statname )
 	{
 		$base = $this->data[$statname];
@@ -908,7 +908,7 @@ $returnstring .= '  <tr>
 		$debuff = -$this->data[$statname.'_d'];
 
 		$tooltipheader = $current;
-		
+
 		if( $base != $current)
 		{
 			$tooltipheader .= " ($base";
@@ -922,10 +922,10 @@ $returnstring .= '  <tr>
 			}
 			$tooltipheader .= ")";
 		}
-		
+
 		return $tooltipheader;
 	}
-	
+
 	function printBox( $cat, $side, $visible)
 	{
 		print '<table class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
@@ -974,7 +974,7 @@ $returnstring .= '  <tr>
 		}
 		print '</table>'."\n";
 	}
-	
+
 	function printStat( $statname )
 	{
 		global $wordings;
@@ -1045,18 +1045,18 @@ $returnstring .= '  <tr>
 				$tooltip = $wordings[$lang]['spell_hit_rating_tooltip'];
 				break;
 		}
-		
+
 		if( isset($lname) )
 			$tooltipheader = $lname.' '.$this->printRatingLong($statname);
 		else
 			$tooltipheader = $name.' '.$this->printRatingLong($statname);
-		
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, $this->printRatingShort($statname), $line);
 	}
-	
+
 	function printValue( $statname )
 	{
 		global $wordings;
@@ -1078,13 +1078,13 @@ $returnstring .= '  <tr>
 				$tooltip = sprintf($wordings[$lang]['spell_healing_tooltip'],$this->data['spell_healing']);
 				break;
 		}
-		
+
 		if( isset($lname) )
 			$tooltipheader = $lname;
 		else
 			$tooltipheader = $name;
-		
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
@@ -1103,7 +1103,7 @@ $returnstring .= '  <tr>
 			$tooltipheader = $wordings[$lang]['ranged'];
 			$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $this->data['ranged_skill'], $this->data['ranged_rating']);
 
-			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 			$line = '<span style="color:#DFB801;">'.$tooltip.'</span>';
 		}
 		else
@@ -1113,23 +1113,23 @@ $returnstring .= '  <tr>
 			$tooltipheader = $wordings[$lang]['mainhand'];
 			$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $this->data['melee_mhand_skill'], $this->data['melee_mhand_rating']);
 
-			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-			
+
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
 				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_skill'].'</strong>';
 				$tooltipheader = $wordings[$lang]['offhand'];
 				$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $this->data['melee_ohand_skill'], $this->data['melee_ohand_rating']);
 
-				$line .= '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 				$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 			}
 		}
 
 		return $this->printStatLine($name, $value, $line);
 	}
-	
+
 	function printWDamage ( $location )
 	{
 		global $wordings;
@@ -1143,7 +1143,7 @@ $returnstring .= '  <tr>
 			$tooltipheader = $wordings[$lang]['ranged'];
 			$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $this->data['ranged_speed'], $this->data['ranged_mindam'], $this->data['ranged_maxdam'], $this->data['ranged_dps']);
 
-			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 			$line = '<span style="color:#DFB801;">'.$tooltip.'</span>';
 		}
 		else
@@ -1153,20 +1153,20 @@ $returnstring .= '  <tr>
 			$tooltipheader = $wordings[$lang]['mainhand'];
 			$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $this->data['melee_mhand_speed'], $this->data['melee_mhand_mindam'], $this->data['melee_mhand_maxdam'], $this->data['melee_mhand_dps']);
 
-			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-			
+
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
 				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['melee_ohand_maxdam'].'</strong>';
 				$tooltipheader = $wordings[$lang]['offhand'];
 				$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $this->data['melee_ohand_speed'], $this->data['melee_ohand_mindam'], $this->data['melee_ohand_maxdam'], $this->data['melee_ohand_dps']);
 
-				$line .= '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 				$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 			}
 		}
-		
+
 
 		return $this->printStatLine($name, $value, $line);
 	}
@@ -1184,23 +1184,23 @@ $returnstring .= '  <tr>
 			$tooltipheader = $wordings[$lang]['atk_speed'].' '.$value;
 			$tooltip = $wordings[$lang]['haste_tooltip'].$this->printRatingLong('ranged_haste');
 
-			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 		}
 		else
 		{
 			$value = '<strong class="white">'.$this->data['melee_mhand_speed'].'</strong>';
 			$name = $wordings[$lang]['speed'];
-			
+
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
 				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_speed'].'</strong>';
 			}
-			
+
 			$tooltipheader = $wordings[$lang]['atk_speed'].' '.$value;
 			$tooltip = $wordings[$lang]['haste_tooltip'].$this->printRatingLong('melee_haste');
 
-			$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 		}
 
@@ -1214,7 +1214,7 @@ $returnstring .= '  <tr>
 
 		$name = $wordings[$lang]['spell_damage'];
 		$value = '<strong class="white">'.$this->data['spell_damage'].'</strong>';
-		
+
 		$tooltipheader = $name.' '.$value;
 		$tooltip = '<table>';
 //		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-holy.gif" alt=""><td>'.$wordings[$lang]['holy'].'<td>';
@@ -1225,7 +1225,7 @@ $returnstring .= '  <tr>
 		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt=""><td>'.$wordings[$lang]['arcane'].'<td>'.$this->data['spell_damage_arcane'];
 		$tooltip .= '</table>';
 
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, $value, $line);
@@ -1238,7 +1238,7 @@ $returnstring .= '  <tr>
 
 		$name = $wordings[$lang]['spell_crit_rating'];
 		$value = $this->printRatingShort('spell_crit');
-		
+
 		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
 		$tooltip = $wordings[$lang]['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
 //		$tooltip = '<table>';
@@ -1250,17 +1250,17 @@ $returnstring .= '  <tr>
 //		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt=""><td>'.$wordings[$lang]['arcane'].'<td>'.$this->data['spell_damage_arcane'];
 //		$tooltip .= '</table>';
 
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, $value, $line);
 	}
-	
+
 	function printDefense()
 	{
 		global $wordings, $roster_conf, $wowdb;
 		$lang = $this->data['clientLocale'];
-	
+
 		$qry = "SELECT `skill_level` FROM `roster_skills` WHERE `member_id` = ".$this->data['member_id']." AND `skill_name` = '".$wordings[$lang]['defense']."'";
 		$result = $wowdb->query($qry);
 		if( !$result )
@@ -1275,18 +1275,18 @@ $returnstring .= '  <tr>
 			$wowdb->free_result($result);
 			unset($row);
 		}
-		
+
 		$name = $wordings[$lang]['defense'];
 		$tooltipheader = $name.' '.$value;
-		
+
 		$tooltip = $wordings[$lang]['defense_rating'].$this->printRatingLong('stat_defr');
-		
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
 	}
-	
+
 	function printDef( $statname )
 	{
 		global $wordings;
@@ -1297,19 +1297,19 @@ $returnstring .= '  <tr>
 		$current = $this->data['stat_'.$statname.'_c'];
 		$buff = $this->data['stat_'.$statname.'_b'];
 		$debuff = -$this->data['stat_'.$statname.'_d'];
-		
+
 		$name = $wordings[$lang][$statname];
 		$value = $this->data[$statname];
 
 		$tooltipheader = $name.' '.$this->printRatingLong('stat_'.$statname);
 		$tooltip = sprintf($wordings[$lang]['def_tooltip'],$name);
-		
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
-	
+
 	function printResilience()
 	{
 		global $wordings;
@@ -1318,20 +1318,20 @@ $returnstring .= '  <tr>
 
 		$name = $wordings[$lang]['resilience'];
 		$value = min($this->data['stat_res_melee'],$this->data['stat_res_ranged'],$this->data['stat_res_spell']);
-		
+
 		$tooltipheader = $name.' '.$this->printRatingLong('stat_'.$statname);
 		$tooltip = '<table>';
 		$tooltip .= '<tr><td>'.$wordings[$lang]['melee'].'<td>'.$this->data['stat_res_melee'];
 		$tooltip .= '<tr><td>'.$wordings[$lang]['ranged'].'<td>'.$this->data['stat_res_ranged'];
 		$tooltip .= '<tr><td>'.$wordings[$lang]['spell'].'<td>'.$this->data['stat_res_spell'];
 		$tooltip .= '</table>';
-		
-		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
-	
+
 	function printRes ( $resname )
 	{
 		global $wordings;
@@ -1368,7 +1368,7 @@ $returnstring .= '  <tr>
 		}
 
 		$tooltipheader = $name;
-		$line = '<span style="color:'.$color.';font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
 		$output .= '<li class="'.substr($resname,4).'" '.makeOverlib($line,'','',2,'',',WRAP').'>';
@@ -1495,7 +1495,7 @@ $returnstring .= '  <tr>
 
 
 
-		$line = "<span style=\"color:#FFFFFF;font-size:12px;font-weight:bold;\">$tooltipheader</span><br />";
+		$line = "<span style=\"color:#FFFFFF;font-size:11px;font-weight:bold;\">$tooltipheader</span><br />";
 		$line .= "<span style=\"color:#DFB801;\">$tooltip</span>";
 
 		if($atk == '')
@@ -1530,148 +1530,149 @@ $returnstring .= '  <tr>
 	}
 
 
-	function printTalents($member_id)
+	function printTalents( )
 	{
 		global $roster_conf, $wowdb, $wordings;
 
-		$lang = $this->data['clientLocale'];
+		$member_id = $this->data['member_id'];
 
-		$query = "SELECT * FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '$member_id' ORDER BY `order`;";
-		$trees = $wowdb->query( $query );
+		$sqlquery = "SELECT * FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '$member_id' ORDER BY `order`;";
+		$trees = $wowdb->query( $sqlquery );
+
 		if( $wowdb->num_rows($trees) > 0 )
 		{
 			$g = 0;
 
-			$outtalent = '<div><img class="tbar" height="5" src="'.$roster_conf['img_url'].'tbar.png" width="300" alt="" />';
-			$outtalent .= '<img id="tlabbg1" height="32" src="'.$roster_conf['img_url'].'atab.gif" width="105" alt="" />';
-			$outtalent .= '<img id="tlabbg2" height="32" src="'.$roster_conf['img_url'].'itab.gif" width="105" alt="" />';
-			$outtalent .= '<img id="tlabbg3" height="32" src="'.$roster_conf['img_url'].'itab.gif" width="105" alt="" /></div>';
-
-			$query = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '".$member_id."'";
-			$result = $wowdb->query( $query );
-
-			if (!$result)
+			for( $j=0; $j < $wowdb->num_rows($trees); $j++)
 			{
-				die_quietly('Failed to fetch talents','Character Stats',__FILE__,__LINE__,$query);
+				$treedata = $wowdb->fetch_assoc($trees);
+
+				$treelayer[$j]['name'] = $treedata['tree'];
+				$treelayer[$j]['image'] = str_replace('Interface/TalentFrame/','',$treedata['background']).'.'.$roster_conf['img_suffix'];
+				$treelayer[$j]['points'] = $treedata['pointsspent'];
+				$treelayer[$j]['talents'] = $this->talentLayer($member_id,$treedata['tree']);
 			}
-			while ( $talent = $wowdb->fetch_assoc( $result ) )
-			{
-				$talents[$talent['tree']][$talent['column']][$talent['row']] = $talent;
-			}
-			$wowdb->free_result($result);
 
-			while( $tree = $wowdb->fetch_assoc( $trees ) )
-			{
-				$g++;
-				$c = 0;
-				if( $g==1 )
-					$outtalent .='<div class="tablabelactive" id="tlab'.$g.'" onclick="setActiveTalentWrapper(\''.$g.'\',\''.$roster_conf['img_url'].'\');">'.$tree["tree"].'</div>';
-				else
-					$outtalent .='<div class="tablabel" id="tlab'.$g.'" onclick="setActiveTalentWrapper(\''.$g.'\',\''.$roster_conf['img_url'].'\');">'.$tree["tree"].'</div>';
+			$returndata = '
+<div class="char_panel">
 
-				$output .= '<div id="talentwrapper'.$tree['order'].'">';
-				$output .= '<div id="talentpage'.$tree['order'].'" style="background:url(\''.$roster_conf['interface_url'].$tree['background'].'.'.$roster_conf['img_suffix'].'\') no-repeat;">';
-				$output .= '<span class="talspent">'.$wordings[$lang]['pointsspent'].' ' . $tree['pointsspent'].'</span>
-	<table align="center" width="100%">
-	  <tr>';
-				while( $c < 4)
+	<img class="char_tab_image" src="'.$roster_conf['img_url'].'char/icon_talents.gif" alt="" />
+	<div class="char_name">'.$wordings[$roster_conf['roster_lang']]['talents'].'</div>
+	<img src="'.$roster_conf['img_url'].'char/talentbar_top.gif" style="position:absolute;margin-top:43px;margin-left:65px;" alt="" />
+	<img src="'.$roster_conf['img_url'].'char/talentbar_bottom.gif" style="position:absolute;margin-top:402px;margin-left:12px;" alt="" />
+
+	<div class="talent_link"><a href="http://www.worldofwarcraft.com/info/classes/'.strtolower($this->data['classEn']).'/talents.html?'.$this->talent_build.'" target="_blank">'.$wordings[$this->data['clientLocale']]['talentcalculator'].'</a></div>
+	<div class="talent_points_unused"><span class="label">'.$wordings[$this->data['clientLocale']]['unusedtalentpoints'].':</span> '.$this->data['talent_points'].'</div>'."\n";
+
+			foreach( $treelayer as $treeindex => $tree )
+			{
+				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
+
+		<div class="talent_points"><span style="color:#FFDD00">'.$wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
+		<img class="talent_background" src="'.$roster_conf['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
+
+		<div class="talent_container">'."\n";
+
+				foreach( $tree['talents'] as $row )
 				{
-					$c++;
-					$r = 0;
-
-					$output .= '
-	    <td width="20"></td>
-	    <td>
-	      <table>';
-
-					while( $r < 9 )
+					$returndata .= '			<div class="talent_row">'."\n";
+					foreach( $row as $cell )
 					{
-						$r++;
-
-						$output .= '        <tr>
-	          <td height="45">';
-
-						if (!isset($talents[$tree['tree']][$c][$r]))
+						if( $cell['name'] != '' )
 						{
-							$output .= '<div class="item"><img src="'.$roster_conf['img_url'].'pixel.gif" class="icon" alt="" /></div>';
+							if( $cell['rank'] != 0 )
+							{
+								$returndata .= '				<div class="talent_cell" '.$cell['tooltipid'].'>
+					<img class="talent_rank_icon" src="'.$roster_conf['img_url'].'char/talent_rank.gif" alt="" />
+					<div class="talent_rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
+					<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
+							}
+							else
+							{
+								$returndata .= '				<div class="talent_cell" '.$cell['tooltipid'].'>
+					<img class="talent_icon_grey" src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
+							}
 						}
 						else
 						{
-							$talent4 = $talents[$tree['tree']][$c][$r];
-							$path4 = $roster_conf['interface_url'] . $talent4['texture'] . "." . $roster_conf['img_suffix'];
-
-							$first_line = True;
-							$talent_tooltip = '';
-
-							// Compatibility with < 1.7
-							$talent4['tooltip'] = str_replace('<br>',"\n",$talent4['tooltip']);
-							foreach (explode("\n", $talent4['tooltip']) as $line)
-							{
-								if( $first_line )
-								{
-									$color = 'ffffff;font-size:12px;font-weight: bold;';
-									$first_line = False;
-								}
-								else
-								{
-									if( substr( $line, 0, 2 ) == '|c' )
-									{
-										$color = substr( $line, 4, 6 );
-										$line = substr( $line, 10, -2 );
-									}
-									else if ( strpos( $line, $wordings[$lang]['tooltip_rank'] ) === 0 )
-									{
-										$color = '00ff00;font-size:11px';
-									}
-									else if ( strpos( $line, $wordings[$lang]['tooltip_next_rank'] ) === 0 )
-									{
-										$color = 'ffffff;font-size:11px';
-									}
-									else if ( strpos( $line, $wordings[$lang]['tooltip_requires'] ) === 0 )
-									{
-										$color = 'ff0000';
-									}
-									else
-									{
-										$color = 'dfb801';
-									}
-								}
-								if( $line != '' )
-								{
-									$talent_tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
-								}
-							}
-
-							if ($talent4['rank'] == 0)
-								$class = 'talenticonGreyed';
-							else
-								$class = 'talenticon';
-
-							$output .= '<div class="item" '.makeOverlib($talent_tooltip,'','',2).'><img src="'.$path4.'" class="'.$class.'" width="40" height="40" alt="" />';
-
-							if( $talent4['rank'] == $talent4['maxrank'] )
-							{
-								$output .= '<span class="talvalue yellow">'.$talent4['rank'].'</span>';
-							}
-							elseif( $talent4['rank'] < $talent4['maxrank'] && $talent4['rank'] > 0 )
-							{
-								$output .= '<span class="talvalue green">'.$talent4['rank'].'</span>';
-							}
-
-							$output .= '</div>';
+							$returndata .= '				<div class="talent_cell">&nbsp;</div>'."\n";
 						}
-						$output .= "</td>\n        </tr>\n";
 					}
-					$output .= "      </table></td>\n";
+					$returndata .= '			</div>'."\n";
 				}
-				$output .= "  </tr>\n</table></div></div>\n";
+
+				$returndata .= "		</div>\n	</div>\n";
 			}
-			return $output.$outtalent;
+			$returndata .= '
+	<div id="char_navagation" class="char_navagation">
+		<ul>
+			<li onclick="return displaypage(\'treetab0\',this);"><div class="text">'.$treelayer[0]['name'].'</div></li>
+			<li onclick="return displaypage(\'treetab1\',this);"><div class="text">'.$treelayer[1]['name'].'</div></li>
+			<li onclick="return displaypage(\'treetab2\',this);"><div class="text">'.$treelayer[2]['name'].'</div></li>
+		</ul>
+	</div>
+
+</div>
+<script type="text/javascript">
+	//Set tab to intially be selected when page loads:
+	//[which tab (1=first tab), ID of tab content to display]:
+	var initialtab=[1, \'treetab0\'];
+	window.onload=charpage_onload
+</script>';
+			return $returndata;
 		}
 		else
 		{
-			return 'No Talents for '.$this->data['name'];
+			return '<span class="headline_1">No Talents for '.$this->data['name'].'</span>';
 		}
+	}
+
+	function talentLayer( $member_id , $treename )
+	{
+		global $wowdb, $roster_conf;
+
+		$sqlquery = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '$member_id' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
+
+		$result = $wowdb->query($sqlquery);
+
+		$returndata = array();
+		if( $wowdb->num_rows($result) > 0 )
+		{
+			// initialize the rows and cells
+			for($r=1; $r < 10; $r++)
+			{
+				for($c=1; $c < 5; $c++)
+				{
+					$returndata[$r][$c]['name'] = '';
+				}
+			}
+
+			while( $talentdata = $wowdb->fetch_assoc( $result ) )
+			{
+				$r = $talentdata['row'];
+				$c = $talentdata['column'];
+
+				$this->talent_build .= $talentdata['rank'];
+
+				$returndata[$r][$c]['name'] = $talentdata['name'];
+				$returndata[$r][$c]['rank'] = $talentdata['rank'];
+				$returndata[$r][$c]['maxrank'] = $talentdata['maxrank'];
+				$returndata[$r][$c]['row'] = $r;
+				$returndata[$r][$c]['column'] = $c;
+				$returndata[$r][$c]['image'] = str_replace('Interface/Icons/','',$talentdata['texture']).'.'.$roster_conf['img_suffix'];
+				$returndata[$r][$c]['tooltipid'] = makeOverlib($talentdata['tooltip'],'','',0,$this->data['clientLocale']);
+
+				if( $talentdata['rank'] == $talentdata['maxrank'] )
+				{
+					$returndata[$r][$c]['numcolor'] = 'ffdd00';
+				}
+				else
+				{
+					$returndata[$r][$c]['numcolor'] = '00dd00';
+				}
+			}
+		}
+		return $returndata;
 	}
 
 
@@ -1766,11 +1767,7 @@ if( $petTab != '' )
 ?>
   addTab('page3')
   addTab('page4')
-<?php
-if( $roster_conf['show_talents'] )
-	print '  addTab(\'page5\')'."\n";
-?>
-  addTab('page6')
+  addTab('page5')
 //-->
 </script>
 
@@ -1995,30 +1992,13 @@ else
       </div>
       <div class="right"></div>
     </div><!-- end char-main-page4 -->
-<?php
-
-if( $roster_conf['show_talents'] )
-{
-	$talent_tab = '
     <div class="page5" id="page5"><!-- begin char-main-page5 -->
       <div class="left"></div>
-      <div class="talents"><!-- begin char-main-page5-talents -->
-		    '.$this->printTalents( $this->data['member_id']).'
-      </div>
-      <div class="right"></div>
-    </div><!-- end char-main-page5 -->';
-	print $talent_tab;
-}
-
-?>
-
-    <div class="page6" id="page6"><!-- begin char-main-page6 -->
-      <div class="left"></div>
-      <div class="honor"><!-- begin char-main-page6-honor -->
+      <div class="honor"><!-- begin char-main-page5-honor -->
         <?php print $this->printHonor(); ?>
       </div>
       <div class="right"></div>
-    </div><!-- end char-main-page6 -->
+    </div><!-- end char-main-page5 -->
   </div><!-- end char-main -->
   <div class="bottomBorder"></div>
   <div class="tabs"><!-- begin char-tabs -->
@@ -2033,12 +2013,7 @@ if ($petTab != '')
 }
 print $this->printTab( $wordings[$lang]['tab3'], 'page3' )."\n";
 print $this->printTab( $wordings[$lang]['tab4'], 'page4' )."\n";
-if( $roster_conf['show_talents'] )
-{
-	print $this->printTab( $wordings[$lang]['tab5'], 'page5' );
-	echo "\n";
-}
-print $this->printTab( $wordings[$lang]['tab6'], 'page6' )."\n";
+print $this->printTab( $wordings[$lang]['tab5'], 'page5' )."\n";
 
 echo '  </div><!-- end char-tabs -->
 </div><!-- end char -->

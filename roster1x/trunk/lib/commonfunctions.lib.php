@@ -480,9 +480,9 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 					$caption_color = 'ffffff';
 
 				if( strlen($caption_color) > 6 )
-					$color = substr( $caption_color, 2, 6 ) . ';font-size:12px;font-weight:bold';
+					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
 				else
-					$color = $caption_color . ';font-size:12px;font-weight:bold';
+					$color = $caption_color . ';font-size:11px;font-weight:bold';
 
 				$first_line = false;
 			}
@@ -504,6 +504,10 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 					$color = '00bbff';
 				elseif ( ereg('^'.$wordings[$locale]['tooltip_set'],$line) )
 					$color = '00ff00';
+				elseif (ereg('^'.$wordings[$locale]['tooltip_rank'],$line) )
+					$color = '00ff00';
+				elseif (ereg('^'.$wordings[$locale]['tooltip_next_rank'],$line) )
+					$color = 'ffffff';
 				elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$locale]['tooltip_set'].'|',$line) )
 					$color = '666666';
 				elseif ( ereg('^"',$line) )
@@ -580,9 +584,9 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 					$caption_color = 'ffffff';
 
 				if( strlen($caption_color) > 6 )
-					$color = substr( $caption_color, 2, 6 ) . ';font-size:12px;font-weight:bold';
+					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
 				else
-					$color = $caption_color . ';font-size:12px;font-weight:bold';
+					$color = $caption_color . ';font-size:11px;font-weight:bold';
 
 				$first_line = false;
 			}
@@ -834,7 +838,7 @@ function makeAddonList( $array=false )
 	$output = '';
 	$addons = array();
 	$entries = array();
-	
+
 	if ($handle = opendir(ROSTER_ADDONS))
 	{
 		while (false !== ($file = readdir($handle)))
@@ -884,7 +888,7 @@ function makeAddonList( $array=false )
 					}
 				}
 			}
-			
+
 			if( $array == 0 )
 			{
 				return $output;
@@ -922,7 +926,7 @@ function DateDataUpdated($updateTimeUTC)
 {
 	global $roster_conf, $phptimeformat;
 
-	list($month,$day,$year,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d/%d/%d %d:%d:%d");
+	list($year,$month,$day,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 
 	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);

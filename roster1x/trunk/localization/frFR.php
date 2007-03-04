@@ -317,6 +317,7 @@ $wordings['frFR']['backlink']='Retour au Roster';
 $wordings['frFR']['gender']='Genre';
 $wordings['frFR']['unusedtrainingpoints']='Points de formation non utilisés';
 $wordings['frFR']['unusedtalentpoints']='Points de talent non utilisés';
+$wordings['frFR']['talentcalculator']='Talent Calculator';
 $wordings['frFR']['questlog']='Journal des Quêtes';
 $wordings['frFR']['recipelist']='Liste des recettes';
 $wordings['frFR']['reagents']='Réactifs';
@@ -338,6 +339,7 @@ $wordings['frFR']['dodge'] = 'Esquive';
 $wordings['frFR']['parry'] = 'Parade';
 $wordings['frFR']['block'] = 'Bloquer';
 $wordings['frFR']['realm'] = 'Royaume';
+$wordings['frFR']['talents'] = 'Talents';
 
 // Memberlog
 $wordings['frFR']['memberlog'] = 'Journal';
@@ -483,8 +485,7 @@ $wordings['frFR']['tab1']='Stats';
 $wordings['frFR']['tab2']='Pet';
 $wordings['frFR']['tab3']='Rep';
 $wordings['frFR']['tab4']='Comp';
-$wordings['frFR']['tab5']='Talents';
-$wordings['frFR']['tab6']='JcJ';
+$wordings['frFR']['tab5']='JcJ';
 
 $wordings['frFR']['strength']='Force';
 $wordings['frFR']['strength_tooltip']='Augmente la puissance d\'attaque avec arme de mêlée.<br />Augmente le nombre de points de dégâts bloqués par le bouclier.';
@@ -498,19 +499,61 @@ $wordings['frFR']['spirit']='Esprit';
 $wordings['frFR']['spirit_tooltip']= 'Augmente la vitesse de régénération de vos points de vie et de mana.';
 $wordings['frFR']['armor_tooltip']= 'Diminue les dégâts resultant d\'attaque physique.<br />L\'importance de la diminution dépend du niveau de l\'attaquant.';
 
-$wordings['frFR']['melee_att']='Att. de mêlée';
+$wordings['frFR']['mainhand']='Main Hand';
+$wordings['frFR']['offhand']='Off Hand';
+$wordings['frFR']['ranged']='Ranged';
+$wordings['frFR']['melee']='Melee';
+$wordings['frFR']['spell']='Spell';
+
+$wordings['frFR']['weapon_skill']='Skill';
+$wordings['frFR']['weapon_skill_tooltip']='Weapon Skill %d<br />Weapon Skill Rating %d';
+$wordings['frFR']['damage']='Damage';
+$wordings['frFR']['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
+$wordings['frFR']['speed']='Speed';
+$wordings['frFR']['atk_speed']='Attack Speed';
+$wordings['frFR']['haste_tooltip']='Haste rating ';
+
 $wordings['frFR']['melee_att_power']='Puissance d\'attaque en mêlée';
-$wordings['frFR']['range_att']='Att. à distance';
+$wordings['frFR']['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
 $wordings['frFR']['range_att_power']='Puissance d\'attaque à distance';
-$wordings['frFR']['power']='Puissance';
+$wordings['frFR']['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
+
+$wordings['frFR']['weapon_hit_rating']='Hit Rating';
+$wordings['frFR']['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
+$wordings['frFR']['weapon_crit_rating']='Crit rating';
+$wordings['frFR']['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
+
 $wordings['frFR']['damage']='Dégâts';
 $wordings['frFR']['energy']='Energie';
 $wordings['frFR']['rage']='Rage';
+$wordings['frFR']['power']='Puissance';
 
 $wordings['frFR']['melee_rating']='Rang de l\'Attaque en Mêlée';
 $wordings['frFR']['melee_rating_tooltip']='Votre rang d\'attaque influence vos change de toucher une cible<br />Et est basé sur votre habilité à utiliser l\'arme que vous portez..';
 $wordings['frFR']['range_rating']='Rang de l\'Attaque à Distance';
 $wordings['frFR']['range_rating_tooltip']='Votre rang d\'attaque influence vos change de toucher une cible<br />Et est basé sur votre habilité à utiliser l\'arme que vous manipulez..';
+
+$wordings['frFR']['spell_damage']='+Damage';
+$wordings['frFR']['fire']='Fire';
+$wordings['frFR']['nature']='Nature';
+$wordings['frFR']['frost']='Frost';
+$wordings['frFR']['shadow']='Shadow';
+$wordings['frFR']['arcane']='Arcane';
+
+$wordings['frFR']['spell_healing']='+Healing';
+$wordings['frFR']['spell_healing_tooltip']='Increases your healing by up to %d';
+$wordings['frFR']['spell_hit_rating']='Hit Rating';
+$wordings['frFR']['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
+$wordings['frFR']['spell_crit_rating']='Crit Rating';
+$wordings['frFR']['spell_crit_chance']='Crit Chance';
+$wordings['frFR']['spell_penetration']='Penetration';
+$wordings['frFR']['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
+$wordings['frFR']['mana_regen']='Mana Regen';
+$wordings['frFR']['mana_regen_tooltip']='%d mana regenerated every %d seconds while not casting';
+
+$wordings['frFR']['defense_rating']='Defense Rating ';
+$wordings['frFR']['def_tooltip']='Increases your chance to %s';
+$wordings['frFR']['resilience']='Resilience';
 
 $wordings['frFR']['res_fire']='Résistance au feu';
 $wordings['frFR']['res_fire_tooltip']='Augmente votre résistance aux dégâts de feu.<br />Plus haut est le nombre, meilleure est la résistance.';
@@ -524,7 +567,7 @@ $wordings['frFR']['res_shadow']='Résistance à l\'ombre';
 $wordings['frFR']['res_shadow_tooltip']='Augmente votre résistance aux dégâts d\'ombre.<br />Plus haut est le nombre, meilleure est la résistance.';
 
 $wordings['frFR']['empty_equip']='No item equipped';
-$wordings['frFR']['pointsspent']='Points Utilisés:';
+$wordings['frFR']['pointsspent']='Points Utilisés dans';
 $wordings['frFR']['none']='Rien';
 
 $wordings['frFR']['pvplist']=' Stats JcJ/PvP';

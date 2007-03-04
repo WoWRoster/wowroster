@@ -966,12 +966,12 @@ table.expOutline {
 .bag .bagitem .icon { margin-left:2px;width:38px;height:38px;border-width:0;cursor:pointer; }
 .bag .bagitem .noicon { margin-left:2px;width:38px;height:38px;border-width:0; }
 .bag .bagmask { position:absolute;width:45px;height:43px;cursor:pointer; }
-.bag .bagicon { position:absolute;margin-left:3px;width:42px;height:42px;clip:rect(6px 40px 39px 5px); }
+.bag .bagicon { position:absolute;margin-left:3px;width:42px;height:42px;clip:rect(6px 39px 39px 5px); }
 
 .bag_name, .key_name, .bank_name {
-	margin-top:8px;
+	margin-top:9px;
 	margin-left:42px;
-	font:12px Arial, Helvetica, sans-serif;
+	font:bold 11px Arial, Helvetica, sans-serif;
 	color:#FFFFFF;
 	position:absolute;
 	text-align:center;
@@ -1202,6 +1202,162 @@ span.blue {
  * END Random color defines
 **********/
 
+
+/*********** Navagation tabs ***********/
+.char_navagation {
+	position:absolute;
+	font:11px Arial, Helvetica, sans-serif;
+	margin:428px 0 0 17px;
+	line-height:normal;
+}
+.char_navagation ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.char_navagation li {
+	float:left;
+	background:url(../img/char/tabs/inactive_left.gif) no-repeat left top;
+	margin:0;
+	padding-left:7px;
+	cursor:pointer;
+}
+.char_navagation .text {
+	display:block;
+	background:url(../img/char/tabs/inactive_right.gif) no-repeat right top;
+	padding:10px 11px 8px 3px;
+	text-decoration:none;
+	color:#FFDD00;
+}
+.char_navagation .text:hover {
+	color:#FFFFFF;
+}
+.char_navagation .current_tab {
+	background-image:url(../img/char/tabs/active_left.gif);
+	cursor:default;
+}
+.char_navagation .current_tab .text {
+	background-image:url(../img/char/tabs/active_right.gif);
+	color:#FFFFFF;
+	padding:8px 11px 10px 3px;
+}
+/*********** End Navagation tabs ***********/
+
+
+.char_panel {
+	/* Main background for character stats panel */
+	background:url(../img/char/character_back.gif) no-repeat;
+	color:#FFFFFF;
+	font:11px Arial, Helvetica, sans-serif;
+	width:344px;
+	height:464px;
+}
+.char_tab_image {
+	/* Basic, default Character Image */
+	position:absolute;
+	width:56px;
+	height:56px;
+	margin:5px;
+}
+.char_name {
+	/* Style and placement of Character Name */
+	font-size:13px;
+	font-weight:bold;
+	text-align:center;
+	position:absolute;
+	margin:13px 0 0 68px;
+	width:270px;
+}
+.char_infoline_1 {
+	/* This line appears just below the characters name */
+	/* Holds character level, gender, race, and class */
+	color:#FFDD00;
+	text-align:center;
+	position:absolute;
+	margin:35px 0 0 68px;
+	width:270px;
+}
+.char_infoline_2 {
+	/* This line appears just below "char_infoline_1" */
+	/* Holds guild rankname, guild name */
+	color:#FFDD00;
+	text-align:center;
+	position:absolute;
+	margin:48px 0 0 68px;
+	width:270px;
+}
+
+
+/*********** Talent Page ***********/
+.talent_background {
+	position:absolute;
+	margin-top:73px;
+	margin-left:16px;
+	width:318px;
+	height:333px;
+}
+.talent_points {
+	text-align:right;
+	position:absolute;
+	margin-top:48px;
+	margin-left:70px;
+	width:250px;
+}
+.talent_link {
+	text-align:left;
+	position:absolute;
+	margin-top:411px;
+	margin-left:25px;
+	width:145px;
+}
+.talent_points_unused {
+	text-align:right;
+	position:absolute;
+	margin-top:411px;
+	margin-left:172px;
+	width:150px;
+}
+.talent_points_unused .label {
+	color:#FFDD00;
+}
+.talent_container {
+	position:absolute;
+	width:318px;
+	height:329px;
+	overflow:auto;
+	margin-left:17px;
+	margin-top:74px;
+}
+.talent_row {
+	height:40px;
+	margin-top:15px;
+}
+.talent_rank_icon {
+	position:absolute;
+	margin-top:31px;
+	margin-left:30px;
+}
+.talent_rank_text {
+	position:absolute;
+	font-size:12px;
+	margin-top:31px;
+	margin-left:35px;
+	cursor:default;
+}
+.talent_cell {
+	float:left;
+	width:40px;
+	height:40px;
+	margin-left:25px;
+}
+.talent_icon_grey {
+	/* Grey out unused talents */
+	/* Filter:Gray only works in IE, not Mozilla */
+	/* So we do this to half-assed transparency for Mozilla */
+	filter:Gray;
+	-moz-opacity:0.5;
+}
+/*********** END Talent Page ***********/
 
 
 /**********
@@ -1761,9 +1917,18 @@ span.blue {
 }
 
 .char .main .page5 {
+	float:left;
 	display:none;
 	width:405px;
 }
+/* Hide from IE5-mac. Only IE-win sees this. \*/
+* html .char .main .page5 {
+	position:absolute;
+	float:left;
+	display:none;
+}
+/* End hide from IE5/mac */
+
 .char .main .page5 .left {
 	float:left;
 	width:4px;
@@ -1778,43 +1943,7 @@ span.blue {
 	background:url(../img/borderright.gif) repeat-y;
 	background-position:right top;
 }
-.char .main .page5 .talents {
-	float:left;
-	position:relative;
-	height:430px;
-	width:397px;
-	overflow:auto;
-	background-color:#000000;
-}
-
-.char .main .page6 {
-	float:left;
-	display:none;
-	width:405px;
-}
-/* Hide from IE5-mac. Only IE-win sees this. \*/
-* html .char .main .page6 {
-	position:absolute;
-	float:left;
-	display:none;
-}
-/* End hide from IE5/mac */
-
-.char .main .page6 .left {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderleft.gif) repeat-y;
-	background-position:left top;
-}
-.char .main .page6 .right {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderright.gif) repeat-y;
-	background-position:right top;
-}
-.char .main .page6 .honor {
+.char .main .page5 .honor {
 	position:relative;
 	float:left;
 	height:430px;
@@ -1823,7 +1952,7 @@ span.blue {
 	background:url(../img/bghonor.jpg) no-repeat;
 	background-position:center center;
 }
-.char .main .page6 .honor .honortext {
+.char .main .page5 .honor .honortext {
 	position:absolute;
 	margin-top:2px;
 	text-align:center;
@@ -1832,15 +1961,15 @@ span.blue {
 	font-size:16px;
 	font-weight:bold;
 }
-.char .main .page6 .honor .honortext span {
+.char .main .page5 .honor .honortext span {
 	margin:0 0 0 20px;
 	color:#FFCC00;
 }
-.char .main .page6 .honor .honortext img {
+.char .main .page5 .honor .honortext img {
 	margin:0 0 0 10px;
 	vertical-align:middle;
 }
-.char .main .page6 .honor .arenatext {
+.char .main .page5 .honor .arenatext {
 	position:absolute;
 	text-align:center;
 	width:396px;
@@ -1849,17 +1978,17 @@ span.blue {
 	font-size:16px;
 	font-weight:bold;
 }
-.char .main .page6 .honor .arenatext span {
+.char .main .page5 .honor .arenatext span {
 	margin:0 0 0 20px;
 	color:#FFCC00;
 }
-.char .main .page6 .honor .arenatext img {
+.char .main .page5 .honor .arenatext img {
 	margin:0 0 0 10px;
 	height:20px;
 	width:23px;
 	vertical-align:middle;
 }
-.char .main .page6 .honor .today {
+.char .main .page5 .honor .today {
 	position:absolute;
 	margin:30px 0 0 100px;
 	font-size:13px;
@@ -1867,7 +1996,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .yesterday {
+.char .main .page5 .honor .yesterday {
 	position:absolute;
 	margin:30px 0 0 160px;
 	font-size:13px;
@@ -1875,7 +2004,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .lifetime {
+.char .main .page5 .honor .lifetime {
 	position:absolute;
 	margin:30px 0 0 270px;
 	font-size:13px;
@@ -1883,14 +2012,14 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .divider {
+.char .main .page5 .honor .divider {
 	position:absolute;
 	margin:48px 0 0 80px;
 	border:1px outset #333333;
 	width:280px;
 	height:0;
 }
-.char .main .page6 .honor .killsline {
+.char .main .page5 .honor .killsline {
 	position:absolute;
 	margin-top:55px;
 	text-align:right;
@@ -1900,7 +2029,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .killsline1 {
+.char .main .page5 .honor .killsline1 {
 	position:absolute;
 	margin:55px 0 0 35px;
 	text-align:right;
@@ -1910,7 +2039,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .killsline2 {
+.char .main .page5 .honor .killsline2 {
 	position:absolute;
 	margin:55px 0 0 115px;
 	text-align:right;
@@ -1920,7 +2049,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .killsline3 {
+.char .main .page5 .honor .killsline3 {
 	position:absolute;
 	margin:55px 0 0 215px;
 	text-align:right;
@@ -1930,7 +2059,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .honorline {
+.char .main .page5 .honor .honorline {
 	position:absolute;
 	margin-top:80px;
 	text-align:right;
@@ -1940,7 +2069,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .honorline1 {
+.char .main .page5 .honor .honorline1 {
 	position:absolute;
 	margin:80px 0 0 35px;
 	text-align:right;
@@ -1950,7 +2079,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .honorline2 {
+.char .main .page5 .honor .honorline2 {
 	position:absolute;
 	margin:80px 0 0 115px;
 	text-align:right;
@@ -1960,7 +2089,7 @@ span.blue {
 	font-weight:bold;
 	overflow:hidden;
 }
-.char .main .page6 .honor .honorline3 {
+.char .main .page5 .honor .honorline3 {
 	position:absolute;
 	margin:80px 0 0 205px;
 	text-align:right;
@@ -2035,7 +2164,7 @@ span.blue {
 	left:35px;
 	height:100px;
 	width:280px;
-	background:url(../img/bgstats_pet.gif) no-repeat;
+	background:url(../img/bgstats.gif) no-repeat;
 	background-position:center;
 	display:none;
 }
@@ -2136,165 +2265,6 @@ span.blue {
  * CHAR.PHP - END PET TAB - function printPet()
 **********/
 
-/**********
- * Talent section
-**********/
-.talenticon {
-	width:40px;
-	height:40px;
-	padding:1px 0 0 0;
-}
-.talenticonGreyed {
-	width:40px;
-	height:40px;
-	padding:1px 0 0 0;
-	Filter:Gray;
-	/* Filter:Gray only works in IE, no Mozilla, so we do this to half-assed grey it out in Mozilla */
-	-moz-opacity:0.5;
-}
-#talentpage1 {
-	background-attachment:fixed;
-	left:0px;
-	overflow:auto;
-	width:380px;
-	background-repeat:no-repeat;
-	position:relative;
-	top:5px;
-	height:370px;
-}
-#talentpage2 {
-	background-attachment:fixed;
-	left:0px;
-	overflow:auto;
-	width:380px;
-	background-repeat:no-repeat;
-	position:relative;
-	top:5px;
-	height:370px;
-}
-#talentpage3 {
-	background-attachment:fixed;
-	left:0px;
-	overflow:auto;
-	width:380px;
-	background-repeat:no-repeat;
-	position:relative;
-	top:5px;
-	height:370px;
-}
-#talentwrapper1 {
-	display:block;
-	left:10px;
-	right:10px;
-	width:360px;
-	position:relative;
-	top:10px;
-	height:355px;
-}
-#talentwrapper2 {
-	display:none;
-	left:10px;
-	right:10px;
-	width:360px;
-	position:relative;
-	top:10px;
-	height:355px;
-}
-#talentwrapper3 {
-	display:none;
-	left:10px;
-	right:10px;
-	width:360px;
-	position:relative;
-	top:10px;
-	height:355px;
-}
-#tlab1 {
-	left:1px;
-	width:115px;
-	position:absolute;
-	top:400px;
-	text-align:center;
-}
-#tlab2 {
-	left:135px;
-	width:115px;
-	position:absolute;
-	top:400px;
-	text-align:center;
-}
-#tlab3 {
-	left:265px;
-	width:115px;
-	position:absolute;
-	top:400px;
-	text-align:center;
-}
-#tlabbg1 {
-	left:1px;
-	position:absolute;
-	top:390px;
-}
-#tlabbg2 {
-	left:138px;
-	position:absolute;
-	top:390px;
-}
-#tlabbg3 {
-	left:268px;
-	position:absolute;
-	top:390px;
-}
-.tablabel {
-	font-weight:normal;
-	color:white;
-	cursor:pointer;
-}
-.tablabelactive {
-	font-weight:bold;
-	color:#CBA300;
-	cursor:pointer;
-}
-.talspent {
-	color:white;
-	font-weight:bold;
-}
-.talvalue {
-	font-weight:bold;
-	text-align:center;
-	background-image:url(../img/talent_rank.gif);
-	width:17px;
-	height:16px;
-	left:30px;
-	cursor:default;
-	position:absolute;
-	top:30px;
-}
-.talicon {
-	left:0px;
-	width:40px;
-	position:absolute;
-	height:40px;
-	Border:0;
-}
-.taldiv {
-	width:40px;
-	position:absolute;
-	top:5px;
-	height:40px;
-}
-.tlink {
-	text-decoration:none;
-}
-.tbar {
-	left:1px;
-	position:absolute;
-	top:390px;
-	width:394px;
-}
-/**********
- * END Talent section
-**********/
 
 /******
  * CHAR.PHP - SPELLBOOK - function show_spellbook()

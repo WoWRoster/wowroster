@@ -317,6 +317,7 @@ $wordings['enUS']['backlink']='Back to the Roster';
 $wordings['enUS']['gender']='Gender';
 $wordings['enUS']['unusedtrainingpoints']='Unused Training Points';
 $wordings['enUS']['unusedtalentpoints']='Unused Talent Points';
+$wordings['enUS']['talentcalculator']='Talent Calculator';
 $wordings['enUS']['questlog']='Quest Log';
 $wordings['enUS']['recipelist']='Recipe List';
 $wordings['enUS']['reagents']='Reagents';
@@ -338,6 +339,7 @@ $wordings['enUS']['dodge'] = 'Dodge';
 $wordings['enUS']['parry'] = 'Parry';
 $wordings['enUS']['block'] = 'Block';
 $wordings['enUS']['realm'] = 'Realm';
+$wordings['enUS']['talents'] = 'Talents';
 
 // Memberlog
 $wordings['enUS']['memberlog'] = 'Member Log';
@@ -483,8 +485,7 @@ $wordings['enUS']['tab1']='Char';
 $wordings['enUS']['tab2']='Pet';
 $wordings['enUS']['tab3']='Rep';
 $wordings['enUS']['tab4']='Skills';
-$wordings['enUS']['tab5']='Talents';
-$wordings['enUS']['tab6']='PvP';
+$wordings['enUS']['tab5']='PvP';
 
 $wordings['enUS']['strength']='Strength';
 $wordings['enUS']['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
@@ -566,7 +567,7 @@ $wordings['enUS']['res_shadow']='Shadow Resistance';
 $wordings['enUS']['res_shadow_tooltip']='Increases your resistance to Shadow damage.<br />Higher the number the better the resistance.';
 
 $wordings['enUS']['empty_equip']='No item equipped';
-$wordings['enUS']['pointsspent']='Points Spent:';
+$wordings['enUS']['pointsspent']='Points Spent in';
 $wordings['enUS']['none']='None';
 
 $wordings['enUS']['pvplist']=' PvP Stats';

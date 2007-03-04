@@ -229,7 +229,8 @@ $inst_keys['esES']['H'] = array(
 	'Strath' => array( 'Key-Only',
 		'Strath' => 'Llave de la ciudad|13146'
 		),
-	'UBRS' => array( 'Parts', 'UBRS' => 'Lacre de ascensión|17057',
+	'UBRS' => array( 'Parts',
+		'UBRS' => 'Lacre de ascensión|17057',
 			'Sello de ascensión sin adornar|5370',
 			'Gema de Cumbrerroca|5379',
 			'Gema de Espina Ahumada|16095',
@@ -316,6 +317,7 @@ $wordings['esES']['backlink']='Volver al Inicio';
 $wordings['esES']['gender']='Género';
 $wordings['esES']['unusedtrainingpoints']='Puntos Entrenamiento No Usados';
 $wordings['esES']['unusedtalentpoints']='Puntos Talento No Usados';
+$wordings['esES']['talentcalculator']='Talent Calculator';
 $wordings['esES']['questlog']='Registro Misiones';
 $wordings['esES']['recipelist']='Lista Recetas';
 $wordings['esES']['reagents']='Ingredientes';
@@ -337,6 +339,7 @@ $wordings['esES']['dodge'] = 'Esquivar';
 $wordings['esES']['parry'] = 'Parar';
 $wordings['esES']['block'] = 'Bloquear';
 $wordings['esES']['realm'] = 'Reino';
+$wordings['esES']['talents'] = 'Talentos';
 
 // Memberlog
 $wordings['esES']['memberlog'] = 'Registro';
@@ -482,8 +485,7 @@ $wordings['esES']['tab1']='Persj';
 $wordings['esES']['tab2']='Mascota';
 $wordings['esES']['tab3']='Rep';
 $wordings['esES']['tab4']='Habilid';
-$wordings['esES']['tab5']='Talentos';
-$wordings['esES']['tab6']='JcJ';
+$wordings['esES']['tab5']='JcJ';
 
 $wordings['esES']['strength']='Fortaleza';
 $wordings['esES']['strength_tooltip']='Aumenta tu poder de ataque con armas cuerpo a cuerpo.<br />Aumenta la cantidad de daño que puedes bloquear con un escudo.';
@@ -497,19 +499,61 @@ $wordings['esES']['spirit']='Espíritu';
 $wordings['esES']['spirit_tooltip']= 'Aumenta tu velocidad de regeneración de salud y maná.';
 $wordings['esES']['armor_tooltip']= 'Disminuye la cantidad de daño recibido por ataques físicos.<br />La reducción se determina por el nivel del que te ataca.';
 
-$wordings['esES']['melee_att']='Cuerpo a cuerpo';
+$wordings['esES']['mainhand']='Main Hand';
+$wordings['esES']['offhand']='Off Hand';
+$wordings['esES']['ranged']='Ranged';
+$wordings['esES']['melee']='Melee';
+$wordings['esES']['spell']='Spell';
+
+$wordings['esES']['weapon_skill']='Skill';
+$wordings['esES']['weapon_skill_tooltip']='Weapon Skill %d<br />Weapon Skill Rating %d';
+$wordings['esES']['damage']='Damage';
+$wordings['esES']['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
+$wordings['esES']['speed']='Speed';
+$wordings['esES']['atk_speed']='Attack Speed';
+$wordings['esES']['haste_tooltip']='Haste rating ';
+
 $wordings['esES']['melee_att_power']='Poder de ataque cuerpo a cuerpo';
-$wordings['esES']['range_att']='A distancia';
+$wordings['esES']['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
 $wordings['esES']['range_att_power']='Poder de ataque a distancia';
-$wordings['esES']['power']='Poder';
+$wordings['esES']['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
+
+$wordings['esES']['weapon_hit_rating']='Hit Rating';
+$wordings['esES']['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
+$wordings['esES']['weapon_crit_rating']='Crit rating';
+$wordings['esES']['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
+
 $wordings['esES']['damage']='Daño';
 $wordings['esES']['energy']='Energía';
 $wordings['esES']['rage']='Ira';
+$wordings['esES']['power']='Poder';
 
 $wordings['esES']['melee_rating']='Tasa de ataque';
 $wordings['esES']['melee_rating_tooltip']='Tu velocidad de ataque afecta a las probabilidades de acertar a un enemigo<br /> y se mide por la habilidad con el arma que equipes en cada momento.';
 $wordings['esES']['range_rating']='Tasa de ataque a distancia';
 $wordings['esES']['range_rating_tooltip']='Tu velocidad de ataque afecta a las probabilidades de acertar a un enemigo<br /> y se mide por la habilidad con el arma que equipes en cada momento.';
+
+$wordings['esES']['spell_damage']='+Damage';
+$wordings['esES']['fire']='Fire';
+$wordings['esES']['nature']='Nature';
+$wordings['esES']['frost']='Frost';
+$wordings['esES']['shadow']='Shadow';
+$wordings['esES']['arcane']='Arcane';
+
+$wordings['esES']['spell_healing']='+Healing';
+$wordings['esES']['spell_healing_tooltip']='Increases your healing by up to %d';
+$wordings['esES']['spell_hit_rating']='Hit Rating';
+$wordings['esES']['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
+$wordings['esES']['spell_crit_rating']='Crit Rating';
+$wordings['esES']['spell_crit_chance']='Crit Chance';
+$wordings['esES']['spell_penetration']='Penetration';
+$wordings['esES']['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
+$wordings['esES']['mana_regen']='Mana Regen';
+$wordings['esES']['mana_regen_tooltip']='%d mana regenerated every %d seconds while not casting';
+
+$wordings['esES']['defense_rating']='Defense Rating ';
+$wordings['esES']['def_tooltip']='Increases your chance to %s';
+$wordings['esES']['resilience']='Resilience';
 
 $wordings['esES']['res_fire']='Resistencia al Fuego';
 $wordings['esES']['res_fire_tooltip']='Aumenta tu resistencia al daño de Fuego.<br />Cuanto más alto sea el número, mayor será la resistencia.';
@@ -523,7 +567,7 @@ $wordings['esES']['res_shadow']='Resistencia a las Sombras';
 $wordings['esES']['res_shadow_tooltip']='Aumenta tu resistencia al daño de Sombras.<br />Cuanto más alto sea el número, mayor será la resistencia.';
 
 $wordings['esES']['empty_equip']='No hay objeto equipado';
-$wordings['esES']['pointsspent']='Puntos Gastados:';
+$wordings['esES']['pointsspent']='Puntos Gastados en';
 $wordings['esES']['none']='Ninguno';
 
 $wordings['esES']['pvplist'] ='Estadísticas JcJ/PvP';
@@ -652,7 +696,7 @@ $wordings['esES']['lockpicking']='Lockpicking';
 // Add as manu item links as you need
 // Just make sure their names are unique
 	$wordings['esES']['itemlink'] = 'Item Links';
-	$itemlink['enUS']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+	$itemlink['esES']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 	$itemlink['esES']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 	$itemlink['esES']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
 	//$itemlink['frFR']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';

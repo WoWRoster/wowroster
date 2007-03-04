@@ -11,12 +11,14 @@ DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
   VALUES ('1050', 'default_page', 'members', 'function{pageNames', 'main_conf');
 
-
 INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
   VALUES ('4030', 'menu_member_page', '1', 'radio{on^1|off^0', 'menu_conf');
 
-UPDATE `renprefix_config` SET `config_value` = '1.7.5' WHERE `id` = '4' LIMIT 1;
-UPDATE `renprefix_config` SET `config_value` = '5' WHERE `id` = '3' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
+
 
 ALTER TABLE `renprefix_players`
   ADD `stat_block` int(11) NOT NULL default '0',
@@ -127,11 +129,18 @@ ALTER TABLE `renprefix_players`
   ADD `spell_damage_arcane` int(11) NOT NULL default '0',
   ADD `spell_damage_fire` int(11) NOT NULL default '0',
   ADD `spell_damage_shadow` int(11) NOT NULL default '0',
-  ADD `spell_damage_nature` int(11) NOT NULL default '0';
+  ADD `spell_damage_nature` int(11) NOT NULL default '0',
+  ADD `raceEn` varchar(32) NOT NULL default '' AFTER `race`,
+  ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`;
 
-  
+
 ALTER TABLE `renprefix_members`
-  ADD `active` tinyint(1) NOT NULL DEFAULT '0';
+  ADD `active` tinyint(1) NOT NULL default '0',
+  DROP `update_time`;
 
+
+ALTER TABLE `renprefix_guild`
+  CHANGE `faction` `faction` varchar(32) NOT NULL default '0',
+  ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`;
 
 ALTER TABLE `renprefix_config` ORDER BY `id`;

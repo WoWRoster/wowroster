@@ -226,9 +226,3 @@ require_once(ROSTER_LIB.'login.php');
  * Get guild data from dataabse
  */
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	roster_die( $wordings[$roster_conf['roster_lang']]['nodata'] );
-}

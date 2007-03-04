@@ -34,6 +34,12 @@ if( preg_match('/[^a-zA-Z0-9_]/', $page) )
 	roster_die("Invalid characters in module name");
 }
 
+//---[ Check for Guild Info ]------------
+if( empty($guild_info) && !in_array(ROSTER_PAGE_NAME,array('admin','update','credits','license')) )
+{
+	roster_die( $wordings[$roster_conf['roster_lang']]['nodata'] , 'No Guild Data' );
+}
+
 // Include the module
 if( is_file( $var = ROSTER_PAGES . $page . '.php' ) )
 {

@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['keys'];
+$header_title = 'License';
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');
@@ -29,49 +29,72 @@ require_once (ROSTER_LIB.'item.php');
 include_once( ROSTER_LIB.'menu.php');
 print "<br />\n";
 
-print messagebox(nl2br("<div align=\"left\">
-WoW Roster is licensed under a Creative Commons
-&quot;Attribution-NonCommercial-ShareAlike 2.5&quot; license. See
-http://creativecommons.org/licenses/by-nc-sa/2.5/ for the short
-summary, and
-http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode for the
-full license information.
+print messagebox("<div align=\"left\">
+<p align=\"center\"><span class=\"headline_2\">WoWRoster is licensed under a Creative Commons<br />
+&quot;Attribution-NonCommercial-ShareAlike 2.5&quot; license</span></p>
 
-Regarding Attribution:
+<br />
 
-- Keep the credits in the footer of the roster pages.
+<p>Short summary: <a href=\"http://creativecommons.org/licenses/by-nc-sa/2.5\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/2.5</a><br />
+Full license: <a href=\"http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode</a></p>
 
-- Include this license with all modified versions of the roster.
+<br />
 
-Regarding ShareAlike:
+<strong>Regarding Attribution:</strong>
+<ul>
+	<li>Keep the credits in the footer of the WoWRoster pages</li>
+	<li>Include this license (license.txt) with all modified versions of the WoWRoster</li>
+</ul>
+<strong>Regarding ShareAlike:</strong>
+<ul>
+	<li>Any changes made to the WoWRoster code must be archived and accessible for public download<br />
+	<li>Including, but not limited to:
+		<ul>
+		<li>HTML, TXT, PHP, CSS, SQL, images, and Javascript</li>
+		</ul></li>
+	<li>You may, of course, remove username, password, and database host information from the archive</li>
+</ul>
 
-- Any changes made to the roster code (including, but not limited to,
-  HTML, PHP, CSS, SQL, images, and Javascript) must be archived
-  and accessible for public download. You may, of course, remove
-  username, password, and database host information from the archive.
+<p>For any reuse or distribution, you must make clear to others the license terms of this work<br />
+Any of these conditions can be waived if you get permission from the dev team at <a href=\"http://www.wowroster.net\" target=\"_blank\">wowroster.net</a></p>
 
-For any reuse or distribution, you must make clear to others the
-license terms of this work. Any of these conditions can be waived if
-you get permission from the dev team at wowroster.net.
+<hr />
 
+<p align=\"center\"><span class=\"headline_2\">Serveral javascript libraries are included with WoWRoster<br />
+that are not included under the main WoWRoster license</span></p>
 
-Serveral javascript libraries are included with roster that are not
-included under the main roster license. These are:
+<br />
 
-- The Tab Content Script from DynamicDrive. The DynamicDrive license
-  applies, available at http://www.dynamicdrive.com/notice.htm.
+<p>These are:</p>
 
-- The Overlib tooltip library by Erik Bosrup. An unnamed license
-  applies, available at http://www.bosrup.com/web/overlib/?License
+<br />
 
+<strong>Tab Content Script</strong> - DynamicDrive
+<ul>
+	<li><a href=\"http://www.dynamicdrive.com\" target=\"_blank\">http://www.dynamicdrive.com</a></li>
+	<li>DynamicDrive Terms of Use <a href=\"http://www.dynamicdrive.com/notice.htm\" target=\"_blank\">http://www.dynamicdrive.com/notice.htm</a></li>
+	<li>File located at [css/js/tabcontent.js]</li>
+</ul>
 
-The installer was based on the EQdkp installer. This concerns the files:
-- install.php
-- update.php
-- install/template.php
+<strong>Overlib tooltip library</strong> - Erik Bosrup
+<ul>
+	<li><a href=\"http://www.bosrup.com/web/overlib\" target=\"_blank\">http://www.bosrup.com/web/overlib</a></li>
+	<li>Overlib License: <a href=\"http://www.bosrup.com/web/overlib/?License\" target=\"_blank\">http://www.bosrup.com/web/overlib/?License</a></li>
+	<li>File located at [css/js/overlib.js]</li>
+</ul>
 
-These 3 files are licensed under the GNU General Public License, which is
-available at http://gnu.org/copyleft/gpl.html
-</div>"),'WoWRoster License');
+<strong>Modified EQdkp installer</strong>
+<ul>
+	<li><a href=\"http://www.eqdkp.com\" target=\"_blank\">http://www.eqdkp.com</a></li>
+	<li>The installer was based on the EQdkp installer</li>
+	<li>GNU General Public License: <a href=\"http://gnu.org/copyleft/gpl.html\" target=\"_blank\">http://gnu.org/copyleft/gpl.html</a></li>
+	<li>This concerns the files:
+		<ul>
+			<li>install.php</li>
+			<li>update.php</li>
+			<li>install/template.php</li>
+		</ul></li>
+</ul>
+</div>",'WoWRoster License');
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
