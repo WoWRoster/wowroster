@@ -1,6 +1,6 @@
 <!-- INCLUDE overall_header.html -->
 
-<table class="ua_table sortable-onload-1 rowstyle-data2 no-arrow<!-- IF S_BELOW_15 --> paginate-15<!-- ENDIF -->" align="center">
+<table class="ua_table rowstyle-data2 no-arrow<!-- IF S_BELOW_15 --> paginate-15<!-- ENDIF -->" align="center">
 	<thead>
 		<tr>
 			<th class="table_header" colspan="6">{L_ADDON_MANAGE}</th>
@@ -18,7 +18,7 @@
 	<tbody>
 	<!-- BEGIN addons_row -->
 		<tr>
-			<td><a href="{UA_FORMACTION}&amp;{A_DETAIL}={addons_row.ID}" class="addon_name"<!-- IF addons_row.NOTE != '' --> onmouseover="return overlib('{addons_row.NOTE}',CAPTION,'{L_NOTES}',WRAP);" onmouseout="return nd();"<!-- ENDIF -->>{addons_row.ADDONNAME}</a></td>
+			<td<!-- IF addons_row.NOTE != '' --> onmouseover="return overlib('{addons_row.NOTE}',CAPTION,'{L_NOTES}',WRAP);" onmouseout="return nd();"<!-- ENDIF -->><a href="{UA_FORMACTION}&amp;{A_DETAIL}={addons_row.ID}" class="addon_name">{addons_row.ADDONNAME}</a></td>
 			<td>{addons_row.TOC}</td>
 			<td>{addons_row.VERSION}</td>
 			<td>{addons_row.TIME}</td>

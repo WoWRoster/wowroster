@@ -198,11 +198,11 @@ class UniAdmin
 	/**
 	 * Adds a debug message for dispaly
 	 *
-	 * @param string $debug_string
+	 * @param string $error_string
 	 */
-	function error( $debug_string )
+	function error( $error_string )
 	{
-		$this->error[] = $debug_string;
+		$this->error[] = $error_string;
 	}
 
 	/**
@@ -228,7 +228,9 @@ class UniAdmin
 		require_once(UA_INCLUDEDIR.'pclzip.lib.php');
 
 		$archive = new PclZip($file);
-		$list = $archive->extract(PCLZIP_OPT_PATH, $path);
+		$list = $archive->extract(PCLZIP_OPT_PATH, $path,
+			PCLZIP_CB_PRE_EXTRACT, 'pclzip_pre_extract');
+
 		if ($list == 0)
 		{
 			$try_unlink = @unlink($file);
@@ -239,6 +241,8 @@ class UniAdmin
 			ua_die(sprintf($user->lang['error_pclzip'],$archive->errorInfo(true)),'PclZip Error');
 		}
 		unset($archive);
+
+		return $list;
 	}
 
 	/**
@@ -519,7 +523,7 @@ class UniAdmin
 					'LINK'     => UA_INDEXPAGE . $menu['link'],
 					'TEXT'     => $menu['text'],
 					'ITEM'     => '<a href="' . UA_INDEXPAGE . $menu['link'] . '">' . $menu['text'] . '</a>',
-					'SELECTED' => ( isset($_GET[UA_URI_PAGE]) && $_GET[UA_URI_PAGE] == $menu['link'] ? true : false )
+					'SELECTED' => ( UA_CURRENT_PAGE == $menu['link'] ? true : false )
 					)
 				);
 			}
@@ -718,6 +722,32 @@ class UniAdmin
 
 			return true;
 		}
+	}
+}
+
+/**
+ * Callback function to restrict certain files from even being unzipped
+ * http://www.phpconcept.net/pclzip/man/en/index.php?options-pclzip_cb_pre_extract
+ *
+ * @param string $p_event		| The identity of the call-back argument
+ * @param array $p_header		| Description of the file that will be extracted
+ * @return bool
+ */
+function pclzip_pre_extract( $p_event , &$p_header )
+{
+	global $uniadmin, $user;
+
+	$info = $uniadmin->get_file_ext($p_header['filename']);
+	// ----- bad files are skipped
+	if( !in_array($info,explode(',',UA_ALLOW_ADDON_FILES)) )
+	{
+		$uniadmin->error(sprintf($user->lang['error_unsafe_file'],$p_header['stored_filename']));
+		return 0;
+	}
+	// ----- all other files are simply extracted
+	else
+	{
+		return 1;
 	}
 }
 

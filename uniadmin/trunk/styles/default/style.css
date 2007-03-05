@@ -1,21 +1,10 @@
-body {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:12px;
-}
-body.sort-active * {
-	cursor:wait;
-}
+body { font:12px verdana, arial, helvetica, geneva, sans-serif; }
 
-a:link, a:visited, a:active {
-	color:#006699;
-	text-decoration:none;
-	background-color:transparent;
-}
-a:hover {
-	color:black;
-	text-decoration:none;
-	background-color:#E3E3FF;
-}
+/* This is fired when the js sort is active */
+body.sort-active * { cursor:wait; }
+
+a:link, a:visited, a:active { color:#006699;text-decoration:none;background-color:transparent; }
+a:hover { color:black;text-decoration:none;background-color:#E3E3FF; }
 
 .textbox {
 	background:transparent url('images/input_text.png') no-repeat;
@@ -23,117 +12,74 @@ a:hover {
 	vertical-align:middle;
 	width:234px;
 	height:55px;
-	padding-left:3px;
-	padding-right:3px;
-	padding-top:3px;
-	padding-bottom:3px;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
+	padding:3px;
+	font:10px verdana, arial, helvetica, geneva, sans-serif;
 }
-* html .textbox {
-	background-attachment:fixed;
-	width:240px;
-	height:58px;
-}
+* html .textbox { background-attachment:fixed;width:240px;height:58px; }
+
 .input {
 	background:transparent url('images/input.png') no-repeat;
 	border:none;
 	vertical-align:middle;
 	width:194px;
 	height:15px;
-	padding-left:3px;
-	padding-right:3px;
-	padding-top:3px;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
+	padding:3px 3px 0 3px;
+	font:10px verdana, arial, helvetica, geneva, sans-serif;
 }
-* html .input {
-	background-attachment:fixed;
-	width:200px;
-}
+* html .input { background-attachment:fixed;width:200px; }
+
 .input_m {
 	background:transparent url('images/input_m.png') no-repeat;
 	border:none;
 	vertical-align:middle;
 	width:138px;
 	height:15px;
-	padding-left:3px;
-	padding-right:3px;
-	padding-top:3px;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
+	padding:3px 3px 0 3px;
+	font:10px verdana, arial, helvetica, geneva, sans-serif;
 }
-* html .input_m {
-	background-attachment:fixed;
-	width:144px;
-}
+* html .input_m { background-attachment:fixed;width:144px; }
+
 .input_s {
 	background:transparent url('images/input_s.png') no-repeat;
 	border:none;
 	vertical-align:middle;
 	width:80px;
 	height:15px;
-	padding-left:3px;
-	padding-right:3px;
-	padding-top:3px;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
+	padding:3px 3px 0 3px;
+	font:10px verdana, arial, helvetica, geneva, sans-serif;
 }
-* html .input_s {
-	background-attachment:fixed;
-	width:86px;
-}
+* html .input_s { background-attachment:fixed;width:86px; }
+
 .submit {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
+	font:10px verdana, arial, helvetica, geneva, sans-serif;
 	border:1px solid #781351;
 	background-color:#f2f2ff;
 	margin-top:1px;
 }
 .file {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
+	font:10px verdana, arial, helvetica, geneva, sans-serif;
 	background-color:white;
 	color:black;
 }
 .select {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:12px;
+	font:12px verdana, arial, helvetica, geneva, sans-serif;
 	border:1px solid #a7a6aa;
 	background-color:white;
 	color:black;
 }
-img, input, select, button {
-	vertical-align:middle;
-}
-img {
-	border:0;
-}
 
-.ua_hr {
-	border-bottom:1px solid #00487D;
-}
-.ua_hr hr {
-	display:none;
-}
+img, input, select, button { vertical-align:middle; }
+img { border:0; }
 
-.maintitle {
-	font-size:18px;
-	font-weight:bold;
-}
-.subtitle {
-	font-size:14px;
-	font-weight:bold;
-}
+.ua_hr { border-bottom:1px solid #00487D; }
+.ua_hr hr { display:none; }
 
-.icon {
-	border:0;
-}
-.addon_name {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:12px;
-	font-weight:bold;
-}
+.maintitle { font-size:18px;font-weight:bold; }
+.subtitle { font-size:14px;font-weight:bold; }
+
+.icon { border:0; }
+
+.addon_name { font:bold 12px verdana, arial, helvetica, geneva, sans-serif; }
 
 .ua_menu ul {
 	margin:4px;
@@ -144,47 +90,32 @@ img {
 	list-style-type:none;
 	text-align:left; /*set to left, center, or right to align the menu as desired*/
 }
-.ua_menu li {
-	display:inline;
-	margin:0;
-}
+.ua_menu li { display:inline;white-space:nowrap;margin:0; }
 .ua_menu li a {
 	text-decoration:none;
 	padding:3px 7px;
 	margin-right:3px;
 	border:1px solid #00487D;
-	/*border-bottom:none;*/
 	background-color:#F2F2FF;
 	color:#2d2b2b;
 }
-.ua_menu li a:visited {
-	color:#2d2b2b;
-}
-.ua_menu li a.current {
-	background-color:#006699;
-	color:white;
-}
-.ua_menu li a:hover {
-	background-color:#FFCCBF;
-	color:black;
-}
-.ua_menu li a:active {
-	color:black;
-}
+.ua_menu li a:visited { color:#2d2b2b; }
+.ua_menu li a.current { background-color:#006699;color:white; }
+.ua_menu li a:hover { background-color:#FFCCBF;color:black; }
+.ua_menu li a:active { color:black; }
 
 .sync_url {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:12px;
+	font:12px verdana, arial, helvetica, geneva, sans-serif;
 	border:1px solid #B32400;
 	background-color:#FFCCBF;
 	padding:2px 4px;
+	white-space:nowrap;
 }
 
 .ua_table {
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:12px;
+	font:12px verdana, arial, helvetica, geneva, sans-serif;
 	border-left:1px solid #C1DAD7;
-	border-spacing:0px;
+	border-spacing:0;
 	empty-cells:show;
 	padding:0;
 	border-collapse:collapse;
@@ -203,22 +134,16 @@ img {
 	overflow:hidden;
 }
 .ua_table th a:hover,
-.ua_table th a:hover {
-	background-color:transparent;
-}
-.ua_table th.sort-active * {
-	cursor:wait;
-}
+.ua_table th a:hover { background-color:transparent; }
+.ua_table th.sort-active * { cursor:wait; }
+
 .ua_table th.sortable,
 .ua_table th.sortable-text,
 .ua_table th.sortable-date,
 .ua_table th.sortable-numeric,
-.ua_table th.sortable-currency {
-	cursor:pointer;
-}
-.ua_table th.sort-active {
-	color:#ff0000 !important;
-}
+.ua_table th.sortable-currency { cursor:pointer; }
+.ua_table th.sort-active { color:#ff0000 !important; }
+
 .ua_table th.table_header {
 	color:#FFF;
 	font-size:16px;
@@ -229,19 +154,13 @@ img {
 	color:#FFF;
 	font-size:16px;
 	height:21px;
-	background:#FFCCBF repeat url('images/th-error.jpg');
+	background:#FFCCBF url('images/th-error.jpg') repeat;
 }
-.ua_table th.forwardSort {
-	background:transparent url('images/th-up-arrow.jpg') no-repeat 100% 0;
-}
-.ua_table th.reverseSort {
-	background:transparent url('images/th-down-arrow.jpg') no-repeat 100% 0;
-}
+.ua_table th.forwardSort { background:transparent url('images/th-up-arrow.jpg') no-repeat 100% 0; }
+.ua_table th.reverseSort { background:transparent url('images/th-down-arrow.jpg') no-repeat 100% 0; }
+
 .ua_table th.forwardSort a,
-.ua_table th.reverseSort a {
-	color:#FFF;
-	padding-right:10px;
-}
+.ua_table th.reverseSort a { color:#FFF;padding-right:10px; }
 .ua_table th.forwardSort a:link, .ua_table th.forwardSort a:visited, .ua_table th.forwardSort a:active, .ua_table th.forwardSort a:hover
 .ua_table th.reverseSort a:link, .ua_table th.reverseSort a:visited, .ua_table th.reverseSort a:active, .ua_table th.reverseSort a:hover {
 	color:#FFF;
@@ -255,43 +174,25 @@ img {
 	border-bottom:1px solid #C1DAD7;
 	padding:1px 2px 1px 2px;
 }
-.ua_table tr.data2 {
-	background:#F5FAFA;
-}
+.ua_table tr.data2 { background:#EFFFFC; }
 .ua_table td.data2,
-.ua_table td.data2 a {
-	background:#F5FAFA;
-}
+.ua_table td.data2 a { background:#EFFFFC; }
 
-.logo_table {
-	border:0px;
-	width:500px;
-	padding:0px;
-}
-.logo_table td {
-	border:0px;
-	padding:0px;
-}
+.ua_table tr.error2 { background:#FFEBE6; }
+.ua_table td.error2,
+.ua_table td.error2 a { background:#FFEBE6; }
 
-.copyright {
-	font-size:10px;
-}
+.logo_table { border:0;width:500px;padding:0; }
+.logo_table td { border:0;padding:0; }
 
-.last_updated {
-	width:70%;
-	color:#4f6b72;
-	font-size:11px;
-	font-weight:bold;
-}
+.copyright { font-size:10px; }
 
-.ua_loginbox, .ua_loginbox table {
-	font-size:9px;
-}
+.last_updated { width:70%;color:#4f6b72;font-size:11px;font-weight:bold; }
+
+.ua_loginbox, .ua_loginbox table { font-size:9px; }
 .ua_loginbox, .ua_loginbox table td,
 .ua_loginbox, .ua_loginbox table th,
-.ua_loginbox, .ua_loginbox table tr {
-	border:0;
-}
+.ua_loginbox, .ua_loginbox table tr { border:0; }
 .ua_loginbox fieldset {
 	width:26em;
 	padding:1px;
@@ -307,6 +208,8 @@ img {
 	font-weight:bold;
 }
 
+
+/*********** Custom Radio Buttons ***********/
 /* Off state for a ARC checkbox */
 .checkboxOff {
 	display:inline;
@@ -315,9 +218,7 @@ img {
 	padding-left:20px;
 	color:#666;
 	line-height:16px;
-	background-image:url('images/checkbox_off.png');
-	background-repeat:no-repeat;
-	background-position:0% 50%;
+	background:transparent url('images/checkbox_off.png') no-repeat 0% 50%;
 	border:0;
 }
 /* On state for a ARC checkbox */
@@ -328,9 +229,7 @@ img {
 	padding-left:20px;
 	color:#000;
 	line-height:16px;
-	background-image:url('images/checkbox_on.png');
-	background-repeat:no-repeat;
-	background-position:0% 50%;
+	background:transparent url('images/checkbox_on.png') no-repeat 0% 50%;
 	border:0;
 }
 .radioOff {
@@ -351,81 +250,46 @@ img {
 	background:transparent url('images/radio_on.png') no-repeat 0% 50%;
 }
 /* use CSS to full effect with hover states. Ohhh, perty! */
-.radioOn:hover {
-	background-image:url('images/radio_on_hover.png');
-}
-.radioOff:hover {
-	color:#333 !important;
-	background-image:url('images/radio_off_hover.png');
-}
+.radioOn:hover { background-image:url('images/radio_on_hover.png'); }
+.radioOff:hover { color:#333 !important;background-image:url('images/radio_off_hover.png'); }
+
 
 /*********** Overlib Tooltip styles ***********/
-.overlib_fg {
-/* Sets main text background */
-/* ol_fgclass */
-	background-color:#EDEDFF;
-}
-.overlib_border {
-/* Sets the border style */
-/* ol_bgclass */
-	border:1px solid #00487D;
-}
-.overlib_maintext {
-/* Sets main text style */
-/* ol_textfontclass */
-	color:#000;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
-}
-.overlib_captiontext {
-/* ol_captionfontclass */
-	color:#FFFFFF;
-	background-color:#0066B3;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
-	font-weight:bold;
-}
-.overlib_closetext {
-/* ol_closefontclass */
-	color:#FFFFFF;
-	background-color:#0066B3;
-	font-family:verdana, arial, helvetica, geneva, sans-serif;
-	font-size:10px;
-	font-weight:bold;
-}
+/* Sets main text background  ol_fgclass */
+.overlib_fg { background-color:#EDEDFF; }
+
+/* Sets the border style  ol_bgclass */
+.overlib_border { border:1px solid #00487D; }
+
+/* Sets main text style  ol_textfontclass */
+.overlib_maintext { color:#000;font:10px verdana, arial, helvetica, geneva, sans-serif; }
+
+/* Sets cpation text ol_captionfontclass */
+.overlib_captiontext { color:#FFF;background-color:#0066B3;font:10px bold verdana, arial, helvetica, geneva, sans-serif; }
+/* Sets the 'close' text ol_closefontclass */
+.overlib_closetext { color:#FFF;background-color:#0066B3;font:10px bold verdana, arial, helvetica, geneva, sans-serif; }
 /*********** End Overlib Tooltip styles ***********/
 
-.treeview {
-	margin-left:0px;
-}
-.treeview ul { /*CSS for Simple Tree Menu*/
-	margin:0;
-	padding:0;
-}
 
-.treeview li { /*Style for LI elements in general (excludes an LI that contains sub lists)*/
-	background:url('images/list.gif') no-repeat left center;
-	list-style-type:none;
-	padding-left:20px;
-	margin-bottom:2px;
-}
+/*********** CSS for Simple Tree Menu ***********/
+.treeview { margin-left:0; }
+.treeview ul { margin:0;padding:0; }
 
-.treeview li.submenu { /* Style for LI that contains sub lists (other ULs). */
-	background:url('images/closed.png') no-repeat left 1px;
-	cursor:pointer !important;
-}
+/* Style for LI elements in general (excludes an LI that contains sub lists) */
+.treeview li { background:url('images/list.gif') no-repeat left center;list-style-type:none;padding-left:20px;margin-bottom:2px; }
+
+/* Style for LI that contains sub lists (other ULs). */
+.treeview li.submenu { background:url('images/closed.png') no-repeat left 1px;cursor:pointer !important; }
+
+/*Style for ULs that are children of LIs (submenu) */
+/* Hide them by default. Don't delete. */
+.treeview li.submenu ul { display:none; }
+
+/*Style for LIs of ULs that are children of LIs (submenu) */
+.treeview .submenu ul li { cursor:default; }
 
 
-.treeview li.submenu ul { /*Style for ULs that are children of LIs (submenu) */
-	display:none; /*Hide them by default. Don't delete. */
-}
-
-.treeview .submenu ul li { /*Style for LIs of ULs that are children of LIs (submenu) */
-	cursor:default;
-}
-
-
-
+/*********** Paginate CSS ***********/
 ul.tablePaginater {
 	display:block;
 	list-style:none;

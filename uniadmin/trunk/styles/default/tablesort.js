@@ -1,5 +1,5 @@
 /*
-        TableSort revisited v2.9 by frequency-decoder.com
+        TableSort revisited v3.1 by frequency-decoder.com
 
         Released under a creative commons Attribution-ShareAlike 2.5 license (http://creativecommons.org/licenses/by-sa/2.5/)
 
@@ -32,13 +32,24 @@ var fdTableSort = {
         pos:                    -1,
         uniqueHash:             1,
         thNode:                 null,
-        tableCache:             {},
         tableId:                null,
+        tableCache:             {},
+        tmpCache:               {},
+
+        /*@cc_on
+        /*@if (@_win32)
+        colspan:                "colSpan",
+        rowspan:                "rowSpan",
+        @else @*/
+        colspan:                "colspan",
+        rowspan:                "rowspan",
+        /*@end
+        @*/
 
         addEvent: function(obj, type, fn) {
                 if( obj.attachEvent ) {
                         obj["e"+type+fn] = fn;
-                        obj[type+fn] = function(){obj["e"+type+fn]( window.event );}
+                        obj[type+fn] = function(){obj["e"+type+fn]( window.event );};
                         obj.attachEvent( "on"+type, obj[type+fn] );
                 } else
                         obj.addEventListener( type, fn, false );
@@ -50,7 +61,7 @@ var fdTableSort = {
                 if(e.stopPropagation) {
                         e.stopPropagation();
                         e.preventDefault();
-                }
+                };
                 /*@cc_on@*/
                 /*@if(@_win32)
                 e.cancelBubble = true;
@@ -62,8 +73,8 @@ var fdTableSort = {
         init: function() {
                 if (!document.getElementsByTagName) return;
 
-                var tables = document.getElementsByTagName('table');
-                var sortable, headers, thtext, aclone, a, span, columnNum, noArrow, reverseSortOnInit;
+                var tables = document.getElementsByTagName("table");
+                var workArr, sortable, headers, thtext, aclone, a, span, columnNum, noArrow, colCnt, cel, allRowArr, rowArr, sortableTable, celCount, colspan, rowspan, rowLength;
 
                 a               = document.createElement("a");
                 a.href          = "#";
@@ -71,49 +82,94 @@ var fdTableSort = {
 
                 span            = document.createElement("span");
 
-                for(var t = 0, tbl; tbl = tables[t]; t++) {
+                for(var k = 0, tbl; tbl = tables[k]; k++) {
 
-                        headers = fdTableSort.getTableHeaders(tbl);
+                        // Remove any old dataObj for this table (tables created from an ajax callback require this)
+                        if(tbl.id && tbl.id in fdTableSort.tableCache) delete fdTableSort.tableCache[tbl.id];
+
+                        allRowArr = tbl.getElementsByTagName('thead').length ? tbl.getElementsByTagName('thead')[0].getElementsByTagName('tr') : tbl.getElementsByTagName('tr');
+                        rowArr = [];
+                        sortableTable = false;
+
+                        // Grab only the tr's that contain no td's and check at least one th has the class "sortable"
+                        for(var i = 0, tr; tr = allRowArr[i]; i++) {
+                                if(tr.getElementsByTagName('td').length || !tr.getElementsByTagName('th').length) continue;
+                                rowArr[rowArr.length] = tr.getElementsByTagName('th');
+                                for(var j = 0, th; th = rowArr[rowArr.length - 1][j]; j++) {
+                                        if(th.className.search(/sortable/) != -1) sortableTable = true;
+                                }
+                        }
+
+                        if(!sortableTable) continue;
+
+                        if(!tbl.id) tbl.id = "fd-table-" + fdTableSort.uniqueHash++;
 
                         sortable  = false;
                         columnNum = tbl.className.search(/sortable-onload-([0-9]+)/) != -1 ? parseInt(tbl.className.match(/sortable-onload-([0-9]+)/)[1]) - 1 : -1;
                         showArrow = tbl.className.search(/no-arrow/) == -1;
                         reverse   = tbl.className.search(/sortable-onload-([0-9]+)-reverse/) != -1;
 
-                        // Remove any old dataObj for this table (tables created from an ajax callback require this)
-                        if(tbl.id && tbl.id in fdTableSort.tableCache) delete fdTableSort.tableCache[tbl.id];
+                        rowLength = rowArr[0].length;
 
-                        var colCnt = -1;
-
-                        for (var z=0, th; th = headers[z]; z++) {
-
-                                colCnt += th.getAttribute("colspan") ? Number(th.getAttribute("colspan")) : 1;
-
-                                if(th.className && th.className.match('sortable') && (!th.getAttribute("colspan") || th.getAttribute("colspan") == 1)) {
-
-                                        // Remove previously applied classes for the ajaxers also
-                                        th.className = th.className.replace(/forwardSort|reverseSort/, "");
-
-                                        if(colCnt == columnNum) sortable = th;
-                                        thtext = fdTableSort.getInnerText(th);
-
-                                        while(th.firstChild) th.removeChild(th.firstChild);
-
-                                        // Create the link
-                                        aclone = a.cloneNode(true);
-                                        aclone.appendChild(document.createTextNode(thtext));
-                                        aclone.title = "Sort on " + thtext;
-                                        a.onclick = th.onclick = fdTableSort.clickWrapper;
-                                        th.appendChild(aclone);
-
-                                        // Add the span if needs be
-                                        if(showArrow) th.appendChild(span.cloneNode(false));
-
-                                        var cn = "fd-column-" + colCnt;
-                                        th.className = th.className.replace(/fd-identical|fd-not-identical/, "").replace(/fd-column-([0-9]+)/, "") + " " + cn;
-                                        fdTableSort.disableSelection(th);
+                        for(var c = 0;c < rowArr[0].length;c++){
+                                if(rowArr[0][c].getAttribute(fdTableSort.colspan) && rowArr[0][c].getAttribute(fdTableSort.colspan) > 1){
+                                        rowLength = rowLength + (rowArr[0][c].getAttribute(fdTableSort.colspan) - 1);
                                 };
                         };
+
+                        workArr = new Array(rowArr.length);
+
+                        for(var c = rowArr.length;c--;){
+                                workArr[c]= new Array(rowLength);
+                        };
+
+                        for(var c = 0;c < workArr.length;c++){
+                                celCount = 0;
+                                for(var i = 0;i < rowLength;i++){
+                                        if(!workArr[c][i]){
+                                                cel = rowArr[c][celCount];
+                                                colspan = (cel.getAttribute(fdTableSort.colspan) > 1) ? cel.getAttribute(fdTableSort.colspan):1;
+                                                rowspan = (cel.getAttribute(fdTableSort.rowspan) > 1) ? cel.getAttribute(fdTableSort.rowspan):1;
+                                                for(var t = 0;((t < colspan)&&((i+t) < rowLength));t++){
+                                                        for(var n = 0;((n < rowspan)&&((c+n) < workArr.length));n++) {
+                                                                workArr[(c+n)][(i+t)] = cel;
+                                                        };
+                                                };
+                                                if(++celCount == rowArr[c].length) break;
+                                        };
+                                };
+                        };
+
+                        for(var c = 0;c < workArr.length;c++) {
+                                for(var i = 0;i < workArr[c].length;i++){
+
+                                        if(workArr[c][i].className.search("fd-column-") == -1) workArr[c][i].className = workArr[c][i].className + " fd-column-" + i;
+
+                                        if(workArr[c][i].className.match('sortable')) {
+                                                workArr[c][i].className = workArr[c][i].className.replace(/forwardSort|reverseSort/, "");
+
+                                                if(i == columnNum) sortable = workArr[c][i];
+                                                thtext = fdTableSort.getInnerText(workArr[c][i]);
+
+                                                while(workArr[c][i].firstChild) workArr[c][i].removeChild(workArr[c][i].firstChild);
+
+                                                // Create the link
+                                                aclone = a.cloneNode(true);
+                                                aclone.appendChild(document.createTextNode(thtext));
+                                                aclone.title = "Sort on " + thtext;
+                                                a.onclick = workArr[c][i].onclick = fdTableSort.clickWrapper;
+                                                workArr[c][i].appendChild(aclone);
+
+                                                // Add the span if needs be
+                                                if(showArrow) workArr[c][i].appendChild(span.cloneNode(false));
+
+                                                workArr[c][i].className = workArr[c][i].className.replace(/fd-identical|fd-not-identical/, "");
+                                                fdTableSort.disableSelection(workArr[c][i]);
+                                        };
+                                };
+                        };
+
+                        fdTableSort.tmpCache[tbl.id] = {cols:rowLength, headers:workArr};
 
                         if(sortable) {
                                 fdTableSort.thNode = sortable;
@@ -132,38 +188,6 @@ var fdTableSort = {
                 };
                 element.unselectable = "on";
                 element.style.MozUserSelect = "none";
-        },
-
-        getTableHeaders: function(tbl) {
-                var headers;
-                var thead = tbl.getElementsByTagName('thead');
-
-                if(thead && thead.length) {
-                        thead = thead[0];
-                        headers = thead.getElementsByTagName('tr');
-                        headers = headers[headers.length - 1].getElementsByTagName('th');
-                } else {
-                        headers = tbl.getElementsByTagName('th');
-                }
-                return headers;
-        },
-
-        countColumns: function(thList) {
-                var colCnt = 0;
-                for(var i = 0, th; th = thList[i]; i++) {
-                        colCnt += th.getAttribute("colspan") ? Number(th.getAttribute("colspan")) : 1;
-                };
-
-                return colCnt;
-        },
-
-        getTH: function(thList, pos) {
-                var thList = fdTableSort.thNode.parentNode.getElementsByTagName("th");
-
-                for(var i = 0, th; th = thList[i]; i++) {
-                        var re = new RegExp( "(fd-column-" + pos + ")([^0-9]+)" );
-                        if(th.className.search(re) != -1) return th;
-                };
         },
 
         clickWrapper: function(e) {
@@ -194,9 +218,8 @@ var fdTableSort = {
         },
 
         jsWrapper: function(tableid, colNum) {
-                var table = document.getElementById(tableid);
-                fdTableSort.thNode = fdTableSort.getTH(table.getElementsByTagName('th'), colnum);
-                if(!fdTableSort.thNode || fdTableSort.thNode.className.search(/fd-column/) == -1) return false;
+                if(!fdTableSort.tmpCache[tableid] || fdTableSort.tmpCache[tableid].headers[0].length <= colNum || fdTableSort.tmpCache[tableid].headers[0][colNum].className.search(/fd-column/) == -1) return false;
+                fdTableSort.thNode = fdTableSort.tmpCache[tableid].headers[0][colNum];
                 fdTableSort.addSortActiveClass();
                 fdTableSort.initSort();
         },
@@ -236,19 +259,16 @@ var fdTableSort = {
         },
 
         prepareTableData: function(table) {
-                // Create a table id if needs be
-                if(!table.id) table.id = "fd-table-" + fdTableSort.uniqueHash++;
-
                 var data = [];
 
                 var start = table.getElementsByTagName('tbody');
                 start = start.length ? start[0] : table;
 
                 var trs = start.getElementsByTagName('tr');
-                var ths = fdTableSort.getTableHeaders(table);
+                var ths = table.getElementsByTagName('th');
 
                 var numberOfRows = trs.length;
-                var numberOfCols = fdTableSort.countColumns(ths);
+                var numberOfCols = fdTableSort.tmpCache[table.id].cols;
 
                 var data = [];
                 var identical = new Array(numberOfCols);
@@ -256,7 +276,15 @@ var fdTableSort = {
 
                 var tr, td, th, txt, tds, col, row;
 
+                var re = new RegExp(/fd-column-([0-9]+)/);
                 var rowCnt = 0;
+
+                var sortableColumnNumbers = [];
+
+                for(var tmp = 0, th; th = ths[tmp]; tmp++) {
+                        if(th.className.search(re) == -1) continue;
+                        sortableColumnNumbers[sortableColumnNumbers.length] = th;
+                };
 
                 // Start to create the 2D matrix of data
                 for(row = 0; row < numberOfRows; row++) {
@@ -268,13 +296,9 @@ var fdTableSort = {
 
                         data[rowCnt]    = [];
                         tds             = tr.getElementsByTagName('td');
-                        col             = -1;
 
-                        for(var tmp = 0, th; th = ths[tmp]; tmp++) {
-
-                                col += th.getAttribute("colspan") ? Number(th.getAttribute("colspan")) : 1;
-
-                                if(th.className.search(/sortable/) == -1 || (th.getAttribute("colspan") && Number(th.getAttribute("colspan")) > 1)) continue;
+                        for(var tmp = 0, th; th = sortableColumnNumbers[tmp]; tmp++) {
+                                col = th.className.match(re)[1];
 
                                 td  = tds[col];
 
@@ -293,6 +317,8 @@ var fdTableSort = {
                                         if((th.className.match(/sortable-([a-zA-Z\_]+)/)[1] + "PrepareData") in window) {
                                                 txt = window[th.className.match(/sortable-([a-zA-Z\_]+)/)[1] + "PrepareData"](td, txt);
                                         };
+                                } else if (th.className.search(/sortable-keep/) != -1) {
+                                        txt = rowCnt;
                                 } else {
                                         if(txt != "") {
                                                 fdTableSort.removeClass(th, "sortable");
@@ -330,7 +356,7 @@ var fdTableSort = {
                 var rowStyle = table.className.search(/rowstyle-([\S]+)/) != -1 ? table.className.match(/rowstyle-([\S]+)/)[1] : false;
 
                 // Cache the data object for this table
-                fdTableSort.tableCache[table.id] = { data:data, pos:-1, identical:identical, colStyle:colStyle, rowStyle:rowStyle, noArrow:table.className.search(/no-arrow/) != -1 };
+                fdTableSort.tableCache[table.id] = { data:data, identical:identical, colStyle:colStyle, rowStyle:rowStyle, noArrow:table.className.search(/no-arrow/) != -1 };
         },
 
         initSort: function() {
@@ -359,7 +385,7 @@ var fdTableSort = {
                 var dataObj     = fdTableSort.tableCache[tableElem.id];
 
                 // Get the position of the last column that was sorted
-                var lastPos     = dataObj.pos;
+                var lastPos     = dataObj.pos ? dataObj.pos.className.match(/fd-column-([0-9]+)/)[1] : -1;
 
                 // Get the stored data object for this table
                 var data        = dataObj.data;
@@ -371,8 +397,7 @@ var fdTableSort = {
                 var noArrow     = dataObj.noArrow;
 
                 if(lastPos != fdTableSort.pos && lastPos != -1) {
-                        var th = fdTableSort.getTH(thNode.parentNode.getElementsByTagName('th'), lastPos);
-
+                        var th = dataObj.pos;
                         fdTableSort.removeClass(th, "forwardSort");
                         fdTableSort.removeClass(th, "reverseSort");
                         if(!noArrow) {
@@ -385,13 +410,14 @@ var fdTableSort = {
                 // If the same column is being sorted then just reverse the data object contents.
                 var classToAdd = "forwardSort";
 
-                if(lastPos == fdTableSort.pos && !identical) {
+                if((lastPos == fdTableSort.pos && !identical) || thNode.className.match(/sortable-keep/)) {
                         data.reverse();
                         classToAdd = thNode.className.search(/reverseSort/) != -1 ? "forwardSort" : "reverseSort";
+                        if(thNode.className.match(/sortable-keep/)) fdTableSort.tableCache[tableElem.id].pos = thNode;
                 } else {
-                        fdTableSort.tableCache[tableElem.id].pos = fdTableSort.pos;
+                        fdTableSort.tableCache[tableElem.id].pos = thNode;
                         if(!identical) {
-                                if(thNode.className.match(/sortable-numeric|sortable-currency|sortable-date/)) {
+                                if(thNode.className.match(/sortable-numeric|sortable-currency|sortable-date|sortable-keep/)) {
                                         data.sort(fdTableSort.sortNumeric);
                                 } else if(thNode.className.match('sortable-text')) {
                                         data.sort(fdTableSort.sortText);
@@ -421,10 +447,11 @@ var fdTableSort = {
                 var hook = tableElem.getElementsByTagName('tbody');
                 hook = hook.length ? hook[0] : tableElem;
 
-                var td, tr;
+                var tr;
 
                 for(var i = 0; i < len1; i++) {
                         tr = data[i][len2];
+
                         if(colStyle) {
                                 if(lastPos != -1) {
                                         fdTableSort.removeClass(tr.getElementsByTagName('td')[lastPos], colStyle);
@@ -468,20 +495,21 @@ var fdTableSort = {
 
                 var start;
                 var cnt = 0;
+                var numFormats = dateTest.length;
 
-                while(cnt < 3) {
-                        start = (cnt + (favourDMY ? 4 : 3)) % 3;
+                while(cnt < numFormats) {
+                        start = (cnt + (favourDMY ? numFormats + 1 : numFormats)) % numFormats;
 
                         if(dateIn.match(dateTest[start].regExp)) {
                                 res = dateIn.match(dateTest[start].regExp);
                                 y = res[dateTest[start].y];
                                 m = res[dateTest[start].m];
                                 d = res[dateTest[start].d];
-                                if(m.length == 1) m = "0" + m;
-                                if(d.length == 1) d = "0" + d;
-                                if(y.length != 4) y = (parseInt(y) < 50) ? '20' + y : '19' + y;
+                                if(m.length == 1) m = "0" + String(m);
+                                if(d.length == 1) d = "0" + String(d);
+                                if(y.length != 4) y = (parseInt(y) < 50) ? "20" + String(y) : "19" + String(y);
 
-                                return y+m+d;
+                                return y+String(m)+d;
                         }
 
                         cnt++;
@@ -520,6 +548,9 @@ var fdTableSort = {
 };
 
 fdTableSort.addEvent(window, "load", fdTableSort.init);
+
+
+
 
 /* The sortCompleteCallback does nothing but call the pagination object below, passing in the table id */
 function sortCompleteCallback(tableId) {
@@ -664,3 +695,72 @@ var tablePaginater = {
 }
 
 fdTableSort.addEvent(window, "load", tablePaginater.init);
+
+
+
+
+/*
+        TableSort zebraStripe & Hover plug-in v1.0 by frequency-decoder.com
+
+        Released under a creative commons Attribution-ShareAlike 2.5 license (http://creativecommons.org/licenses/by-sa/2.5/)
+
+        Please credit frequency decoder in any derivative work - thanks
+
+        You are free:
+
+        * to copy, distribute, display, and perform the work
+        * to make derivative works
+        * to make commercial use of the work
+
+        Under the following conditions:
+
+                by Attribution.
+                --------------
+                You must attribute the work in the manner specified by the author or licensor.
+
+                sa
+                --
+                Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under a license identical to this one.
+
+        * For any reuse or distribution, you must make clear to others the license terms of this work.
+        * Any of these conditions can be waived if you get permission from the copyright holder.
+*/
+function initialZebraStripe() {
+        var tables = document.getElementsByTagName("table");
+        var rowStyle, start, trs;
+
+        // Loop through all the tables
+        for(var k = 0, table; table = tables[k]; k++) {
+                // If the table has not a rowstyle-XXX className or it will be sorted onLoad anyway then continue
+                if(table.className.search(/rowstyle-([\S]+)/) == -1 || table.className.search(/sortable-onload/) != -1) continue;
+
+                // Grab the className for the alternate rows
+                rowStyle = table.className.match(/rowstyle-([\S]+)/)[1];
+
+                // Grab the table's TR nodes
+                start = table.getElementsByTagName('tbody');
+                start = start.length ? start[0] : table;
+                trs   = start.getElementsByTagName('tr');
+
+                // Loop through the TR node list
+                for(var i = 0, tr; tr = trs[i]; i++) {
+                        // Have we any th tags or are we in a tfoot ?
+                        if(tr.getElementsByTagName('th').length > 0 || (tr.parentNode && tr.parentNode.tagName.toLowerCase() == "tfoot")) continue;
+
+                        // Stripe the TR
+                        if(i % 2) fdTableSort.addClass(tr, rowStyle);
+                        else fdTableSort.removeClass(tr, rowStyle);
+
+                        // Do the Internet Explorer hover thang (using conditional compilation for this...)
+                        // Note: If you don't want to add the hover effect for Internet Explorer, just remove the code
+                        /*@cc_on
+                                /*@if (@_jscript_version >= 5)
+                                fdTableSort.addEvent(tr, "mouseover", function() { fdTableSort.addClass(this, this.className.search("alternative") == -1 ? "ieRowHover" : "ieRowHoverAlt"); });
+                                fdTableSort.addEvent(tr, "mouseout",  function() { fdTableSort.removeClass(this, this.className.search("alternative") == -1 ? "ieRowHover" : "ieRowHoverAlt"); });
+                                /*@end
+                        @*/
+                };
+        };
+};
+
+fdTableSort.addEvent(window, "load", initialZebraStripe);

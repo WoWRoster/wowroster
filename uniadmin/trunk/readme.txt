@@ -1,4 +1,4 @@
-UniAdmin 0.7.6 (updated 25th February 2007)
+UniAdmin 0.7.6 (updated 4th March 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -181,12 +181,23 @@ v0.7.6
 ~ Sorting on stats page
 ~ Added user agent matching for jUU so compat mode setting will be active
 ~ Logo file paths are now determined by the current url
-~ Addon XML output now escapes '&' properly as &amp;
 ~ settings.ini scanner will not scan certain values (IE: account name)
 ~ SQL queries will never show to anonymous users
 ~ Links in installer will now properly point to index.php instead of install.php
+~ XML output is now encoded properly with the right headers
+~ TOC scanner, found a few addons' toc files that it didn't catch properly
+! The Help tab is now "selected" when there is no page defined in the url
+! Now using the filelist that PclZip generates rather than scanning the directory
+    This should speed up the addon processing a bit
 ! UA now only accepts and scans certain file types for addons
     lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch
+    If there are other, NON-executable file extentions, let us know!
+    PclZip has an option to run a pre-extract function
+    function pclzip_pre_extract() in include/uniadmin.php
+    Files not on the allowed list are not even extracted
+! Addon note tooltip now shows over entire 'name' cell
+! Tables that use the js sort are not initially sorted, improving page load times
+! Error message rows are now reddish
 ! Set header() to xml for addon output and settings xml output
 ! Logo module has been edited so different image file types could be used in the future
 ! Removed `download_url` field from logo table, `filename` is used now
@@ -207,7 +218,10 @@ v0.7.6
     Use ?OPERATION=GETSETTINGSXML
 + Now using the minixml library to generate xml output in interface.php
     http://minixml.psychogenic.com
+    This allows proper formatting and escaping
 + New constant for allowed logo image types
+    Logo image types allowed are 'jpg,jpeg,png,ico,gif'
+    Others could have been added, but some formats are too large to be downloaded quickly
 
 
 v0.7.5

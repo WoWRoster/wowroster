@@ -87,7 +87,7 @@ If the setting is a 1 or zero that means it is a check mark in UU that should be
 
 array(	'header' => 'Statistics',
 'text'   => '
-<p>Basicly this shows who is accessing UniAdmin</p>
+<p>Basically this shows who is accessing UniAdmin</p>
 <p>The table shows each access</p>
 <ul>
 	<li> &quot;Action&quot; - What the client is asking for</li>
@@ -409,6 +409,7 @@ $lang['error_no_files_addon'] = 'No files were detected in the uploaded AddOn';
 $lang['error_no_toc_file'] = 'No \'.toc\' file was detected in the uploaded AddOn';
 $lang['error_unzip'] = 'Zip Handling Error';
 $lang['error_pclzip'] = 'PCLZip Unrecoverable Error: [%1$s]';
+$lang['error_unsafe_file'] = 'Unsafe File Rejected: [%1$s]';
 $lang['error_addon_process'] = 'AddOn Processing Error';
 $lang['error_zip_file'] = 'The uploaded addon <u>must</u> be a zip file';
 $lang['error_addon_not_exist'] = 'AddOn with ID:%1$s does not exist';

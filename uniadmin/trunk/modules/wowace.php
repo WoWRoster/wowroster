@@ -30,7 +30,7 @@ include(UA_INCLUDEDIR.'addon_lib.php');
 
 
 
-
+session_start();
 
 
 
@@ -118,6 +118,7 @@ if( !empty($filelist) )
 			'DESC'        => $description
 			)
 		);
+		$_SESSION[str_replace('.','_',$addon)] = $addon;
 		$id++;
 	}
 }
@@ -148,6 +149,8 @@ function process_wowace_addons( )
 
 	foreach( $download as $key => $addon )
 	{
+		$addon = $_SESSION[$addon];
+
 		$addoncon = $uniadmin->get_remote_contents("http://files.wowace.com/$addon/$addon.zip");
 		$filename = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP."$addon.zip";
 

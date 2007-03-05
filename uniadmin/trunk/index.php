@@ -22,6 +22,8 @@ include(dirname(__FILE__).DIRECTORY_SEPARATOR.'set_env.php');
 // Determine the module request
 $page = ( isset($_GET[UA_URI_PAGE]) && !empty($_GET[UA_URI_PAGE]) ) ? $_GET[UA_URI_PAGE] : 'help';
 
+define('UA_CURRENT_PAGE', $page);
+
 if(preg_match('/[^a-zA-Z0-9_]/', $page))
 {
 	ua_die($user->lang['error_invalid_module_name']);

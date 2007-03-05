@@ -124,9 +124,9 @@ function process_addon( $fileArray )
 		$file_size = @filesize($zip_file);
 
 		// Unzip the file
-		$uniadmin->unzip($zip_file,$temp_folder.DIR_SEP);
+		$files = $uniadmin->unzip($zip_file,$temp_folder.DIR_SEP);
 
-		$files = $uniadmin->ls($temp_folder);
+		//$files = $uniadmin->ls($temp_folder);
 
 		// Get the TOC of the addon
 		$toc_file_name = '';
@@ -137,12 +137,7 @@ function process_addon( $fileArray )
 		{
 			foreach( $files as $index => $file )
 			{
-				// Do not scan files of a certain type
-				if( !in_array($uniadmin->get_file_ext($file),explode(',',UA_ALLOW_ADDON_FILES)) )
-				{
-					unset($files[$index]);
-				}
-
+				$file = $file['filename'];
 				if( $uniadmin->get_file_ext($file) == 'toc' )
 				{
 					$toc_files[] = $file;
@@ -211,7 +206,11 @@ function process_addon( $fileArray )
 					$homepage = get_toc_val($file, 'X-Website', get_toc_val($file, 'URL', ''));
 					$notes = get_toc_val($file, 'Notes', '');
 
-					if( strpos(strtolower($addon_file_name), strtolower(str_replace(' ','_',$toc_file_name))) !== false )
+
+					$addon_file_check = strtolower(str_replace('.zip','',$addon_file_name));
+					$toc_file_check = strtolower( str_replace( array(' ','.toc'), array('_',''), basename($toc_file_name) ) );
+
+					if( strpos($addon_file_check, $toc_file_check) !== false )
 					{
 						break;
 					}
@@ -318,49 +317,53 @@ function process_addon( $fileArray )
 		// Insert Addon Files' Data
 		foreach( $files as $file )
 		{
-			$md5 = md5_file($file);
-			$k = explode(DIR_SEP,$file);
-			$pos_t = strpos($file,'addon_temp');
-			$file_name = str_replace('/','\\',substr($file,$pos_t + 10));
-
-			if( $file_name != 'index.htm' && $file_name != 'index.html' && $file_name != '.svn' )
+			$file = $file['filename'];
+			if( file_exists($file) )
 			{
-				if( $full_path == false )
-				{
-					$file_name = '\Interface\AddOns'.$file_name;
-				}
+				$md5 = md5_file($file);
+				$k = explode(DIR_SEP,$file);
+				$pos_t = strpos($file,'addon_temp');
+				$file_name = str_replace('/','\\',substr($file,$pos_t + 10));
 
-				$sql = "INSERT INTO `".UA_TABLE_FILES."` ( `addon_id` , `filename` , `md5sum` )
-					VALUES ( '".$addon_id."', '".$db->escape($file_name)."', '".$db->escape($md5)."' );";
-				$db->query($sql);
-				if( !$db->affected_rows() )
+				if( $file_name != 'index.htm' && $file_name != 'index.html' && $file_name != '.svn' )
 				{
-					// Clear up the addons table
-					$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$addon_id'";
+					if( $full_path == false )
+					{
+						$file_name = '\Interface\AddOns'.$file_name;
+					}
+
+					$sql = "INSERT INTO `".UA_TABLE_FILES."` ( `addon_id` , `filename` , `md5sum` )
+						VALUES ( '".$addon_id."', '".$db->escape($file_name)."', '".$db->escape($md5)."' );";
 					$db->query($sql);
 					if( !$db->affected_rows() )
 					{
-					    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
-					}
+						// Clear up the addons table
+						$sql = "DELETE FROM `".UA_TABLE_ADDONS."` WHERE `id` = '$addon_id'";
+						$db->query($sql);
+						if( !$db->affected_rows() )
+						{
+						    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
+						}
 
-					$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$addon_id';";
-					$db->query($sql);
-					if( !$db->affected_rows() )
-					{
-					    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
-					}
+						$sql = "DELETE FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '$addon_id';";
+						$db->query($sql);
+						if( !$db->affected_rows() )
+						{
+						    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
+						}
 
-				    $uniadmin->error($user->lang['sql_error_addons_files_insert']);
-				    $uniadmin->cleardir($temp_folder);
-				    return;
+					    $uniadmin->error($user->lang['sql_error_addons_files_insert']);
+					    $uniadmin->cleardir($temp_folder);
+					    return;
+					}
 				}
-			}
 
-			// We have obtained the md5 and inserted the row into the database, now delete the temp file
-			$try_unlink = @unlink($file);
-			if( !$try_unlink )
-			{
-				$uniadmin->error(sprintf($user->lang['error_unlink'],$file));
+				// We have obtained the md5 and inserted the row into the database, now delete the temp file
+				$try_unlink = @unlink($file);
+				if( !$try_unlink )
+				{
+					$uniadmin->error(sprintf($user->lang['error_unlink'],$file));
+				}
 			}
 		}
 

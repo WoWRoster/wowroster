@@ -409,6 +409,7 @@ $lang['error_no_files_addon'] = 'Aucun fichier detecté dans l\'AddOn chargé';
 $lang['error_no_toc_file'] = 'Aucun fichier \'.toc\' détecté dans l\'AddOn chargé';
 $lang['error_unzip'] = 'Erreur de Manipulation Zip';
 $lang['error_pclzip'] = 'PCLZip Erreur Irrécupérable: [%1$s]';
+$lang['error_unsafe_file'] = 'Unsafe File Rejected: [%1$s]';
 $lang['error_addon_process'] = 'Erreur Traitement AddOn';
 $lang['error_zip_file'] = 'L\'Addon chargé <u>doit</u> être un fichier zip';
 $lang['error_addon_not_exist'] = 'AddOn avec ID:%1$s n\'exist pas';

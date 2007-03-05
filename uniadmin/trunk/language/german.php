@@ -409,6 +409,7 @@ $lang['error_no_files_addon'] = 'Es wurden keine Dateien im hochgeladenen Addon 
 $lang['error_no_toc_file'] = 'Keine \'.toc\' Datei wurde im hochgeladenen Addon gefunden.';
 $lang['error_unzip'] = 'Zip Fehler';
 $lang['error_pclzip'] = 'PCLZip Fehler nicht zu beheben: [%1$s]';
+$lang['error_unsafe_file'] = 'Unsafe File Rejected: [%1$s]';
 $lang['error_addon_process'] = 'Fehler beim verarbeiten des Addons';
 $lang['error_zip_file'] = 'Das hochgeladene Addon <u>muss</u> eine ZIP-Datei sein';
 $lang['error_addon_not_exist'] = 'Addon mit ID:%1$s exisitert nicht';
