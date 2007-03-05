@@ -221,6 +221,7 @@ v0.7.6
 ! Addon xml output is now sorted by required/optional, then by name
 ! Logo output is sorted now sorted numerically
 ! Setting and sv list output is sorted by name
+! function get_file_ext() now uses pathinfo
 + Addon notes to addon xml output
 + New get settings mode, xml output
     Use ?OPERATION=GETSETTINGSXML
@@ -230,6 +231,7 @@ v0.7.6
 + New constant for allowed logo image types
     Logo image types allowed are 'jpg,jpeg,png,ico,gif'
     Others could have been added, but some formats are too large to be downloaded quickly
++ Global addon deletion, to delete every addon from your UniAdmin install
 
 
 v0.7.5

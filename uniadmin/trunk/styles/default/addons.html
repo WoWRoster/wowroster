@@ -15,6 +15,17 @@
 			<th>{L_MANAGE}</th>
 		</tr>
 	</thead>
+	<!-- IF S_ADDON_ADD_DEL -->
+	<tfoot>
+		<tr>
+			<th colspan="6">{L_DELETE_ALL}
+				<form name="ua_delete_all_addons" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}" onsubmit="return confirm('{L_CONFIRM_DELETE}');">
+					<input type="hidden" name="{A_OPERATION}" value="{A_DELETEALL}" />
+					<input class="icon" src="{TEMPLATE_PATH}/images/delete.png" type="image" value="{L_DELETE_ALL}" alt="" onmouseover="return overlib('{L_DELETE_ALL}');" onmouseout="return nd();" />
+				</form></th>
+		</tr>
+	</tfoot>
+	<!-- ENDIF -->
 	<tbody>
 	<!-- BEGIN addons_row -->
 		<tr>

@@ -253,7 +253,8 @@ class UniAdmin
 	 */
 	function get_file_ext( $filename )
 	{
-		return strtolower(ltrim(strrchr($filename,'.'),'.'));
+		$return = pathinfo($filename);
+		return $return['extension'];
 	}
 
 	/**
@@ -436,30 +437,34 @@ class UniAdmin
 
 		// Assign global template variables
 		$tpl->assign_vars(array(
-			'SUB_TITLE'       => $this->page_title,
-			'URL_PATH'        => $this->url_path,
-			'TEMPLATE_PATH'   => $this->url_path . 'styles/' . $user->style,
-			'UA_VER'          => UA_VER,
-			'UA_FORMACTION'   => UA_FORMACTION,
-			'UA_INDEXPAGE'    => UA_INDEXPAGE,
-			'UA_INDEX'        => UA_INDEX,
-			'U_INTERFACE_URL' => $this->config['interface_url'],
+			'SUB_TITLE'        => $this->page_title,
+			'URL_PATH'         => $this->url_path,
+			'TEMPLATE_PATH'    => $this->url_path . 'styles/' . $user->style,
+			'UA_VER'           => UA_VER,
+			'UA_FORMACTION'    => UA_FORMACTION,
+			'UA_INDEXPAGE'     => UA_INDEXPAGE,
+			'UA_INDEX'         => UA_INDEX,
+			'UA_PAGE'          => UA_URI_PAGE,
+			'UA_INTERFACE_URL' => $this->config['interface_url'],
 
-			'A_URI_PAGE'       => UA_URI_PAGE,
 			'A_OPERATION'      => UA_URI_OP,
-			'A_DELETE'         => UA_URI_DELETE,
 			'A_ID'             => UA_URI_ID,
-			'A_PROCESS'        => UA_URI_PROCESS,
 			'A_ADD'            => UA_URI_ADD,
-			'A_SVNAME'         => UA_URI_SVNAME,
-			'A_UPINI'          => UA_URI_UPINI,
-			'A_GETINI'         => UA_URI_GETINI,
-			'A_EDIT'           => UA_URI_EDIT,
+			'A_DELETE'         => UA_URI_DELETE,
+			'A_DELETEALL'      => UA_URI_DELETE_ALL,
 			'A_DISABLE'        => UA_URI_DISABLE,
 			'A_ENABLE'         => UA_URI_ENABLE,
 			'A_OPT'            => UA_URI_OPT,
 			'A_REQ'            => UA_URI_REQ,
-			'A_DETAIL'         => UA_URI_DETAIL
+			'A_PROCESS'        => UA_URI_PROCESS,
+			'A_SVNAME'         => UA_URI_SVNAME,
+			'A_LEVEL'          => UA_URI_LEVEL,
+			'A_PASS'           => UA_URI_PASS,
+			'A_NEW'            => UA_URI_NEW,
+			'A_UPINI'          => UA_URI_UPINI,
+			'A_GETINI'         => UA_URI_GETINI,
+			'A_DETAIL'         => UA_URI_DETAIL,
+			'A_EDIT'           => UA_URI_EDIT
 			)
 		);
 
@@ -739,9 +744,9 @@ function pclzip_pre_extract( $p_event , &$p_header )
 {
 	global $uniadmin, $user;
 
-	$info = $uniadmin->get_file_ext($p_header['filename']);
+	$info = pathinfo($p_header['filename']);
 	// ----- bad files are skipped
-	if( !in_array($info,explode(',',UA_ALLOW_ADDON_FILES)) )
+	if( !empty($info['extension']) && !in_array($info['extension'],explode(',',UA_ALLOW_ADDON_FILES)) )
 	{
 		$uniadmin->error(sprintf($user->lang['error_unsafe_file'],$p_header['stored_filename']));
 		return 0;

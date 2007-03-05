@@ -113,12 +113,12 @@ if( !empty($filelist) )
 		// Assign template vars
 		$tpl->assign_block_vars('addons_row', array(
 			'ROW_CLASS'   => $uniadmin->switch_row_class(),
-			'ID'          => $id,
+			'ID'          => 'addon_'.$id,
 			'NAME'        => $addon,
 			'DESC'        => $description
 			)
 		);
-		$_SESSION[str_replace('.','_',$addon)] = $addon;
+		$_SESSION['addon_'.$id] = $addon;
 		$id++;
 	}
 }

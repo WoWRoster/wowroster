@@ -271,6 +271,7 @@ $lang['edit'] = 'Edit';
 $lang['cancel'] = 'Cancel';
 $lang['status'] = 'Status';
 $lang['automatic'] = 'Automatic';
+$lang['delete_all_addons'] = 'Delete All Addons';
 
 
 // Pagination
@@ -291,6 +292,8 @@ $lang['interface_ready'] = 'UniUploader Update Interface Ready...';
 $lang['addon_required_tip'] = 'When checked, UniUploader will require this addon for download';
 $lang['addon_fullpath_tip'] = 'This is for addons that extract directly to the World of Warcraft directory<br /><br />- [yes] Extract addon to WoW/<br />- [no] Extract to WoW/Interface/AddOns/<br />- [Automatic] Auto-detect location';
 $lang['addon_selectfile_tip'] = 'Select an addon to upload';
+$lang['confirm_addons_delete'] = 'This will remove ALL addons from the database and the web server. Are you sure?';
+$lang['all_addons_delete'] = 'All addons have been removed from the database and the web server';
 
 
 // WoWAce

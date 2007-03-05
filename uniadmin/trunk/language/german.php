@@ -271,6 +271,7 @@ $lang['edit'] = 'Editieren';
 $lang['cancel'] = 'Abbrechen';
 $lang['status'] = 'Status';
 $lang['automatic'] = 'Automatisch';
+$lang['delete_all_addons'] = 'Delete All Addons';
 
 
 // Pagination
@@ -291,6 +292,8 @@ $lang['interface_ready'] = 'UniUploader Aktualisierungsschnittstelle fertig...';
 $lang['addon_required_tip'] = 'Wenn aktiviert, UniUploader betrachted das Addon als obligatorischen Download';
 $lang['addon_fullpath_tip'] = 'Für Addons die direkt ins World of Warcraft Verzeichnis entpackt werden<br /><br />- [ja] Entpacke Addon in WoW/<br />- [nein] Entpacke Addon in WoW/Interface/Addons/<br />- [Automatisch] Finde Ziel automatisch';
 $lang['addon_selectfile_tip'] = 'Wähle ein Addon zum Hochladen aus';
+$lang['confirm_addons_delete'] = 'This will remove ALL addons from the database and the web server. Are you sure?';
+$lang['all_addons_delete'] = 'All addons have been removed from the database and the web server';
 
 
 // WoWAce

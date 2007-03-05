@@ -43,6 +43,11 @@ switch($op)
 			delete_addon($id);
 		break;
 
+	case UA_URI_DELETE_ALL:
+		if( $user->data['level'] >= UA_ID_ADMIN )
+			delete_all_addons();
+		break;
+
 	case UA_URI_REQ:
 	case UA_URI_OPT:
 		if( $user->data['level'] >= UA_ID_POWER )
@@ -105,6 +110,7 @@ function main( )
 		'L_DISABLED'       => $user->lang['disabled'],
 		'L_FILES'          => $user->lang['files'],
 		'L_DELETE'         => $user->lang['delete'],
+		'L_DELETE_ALL'     => $user->lang['delete_all_addons'],
 		'L_DISABLE_ENABLE' => $user->lang['disable_enable'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_DOWNLOAD'       => $user->lang['download'],
@@ -122,6 +128,7 @@ function main( )
 		'L_NOTES'          => $user->lang['notes'],
 
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
+		'L_CONFIRM_DELETE' => $user->lang['confirm_addons_delete'],
 
 		'L_REQUIRED_TIP'   => $user->lang['addon_required_tip'],
 		'L_FULLPATH_TIP'   => $user->lang['addon_fullpath_tip'],
@@ -458,6 +465,24 @@ function delete_addon( $addon_id )
 		    $uniadmin->error(sprintf($user->lang['sql_error_addons_delete'],$addon_id));
 		}
 	}
+}
+
+/**
+ * Deletes all addons from the addon_zip directory and the database
+ */
+function delete_all_addons( )
+{
+	global $db, $user, $uniadmin;
+
+	$sql = "TRUNCATE TABLE `".UA_TABLE_ADDONS."`;";
+	$result = $db->query($sql);
+
+	$sql = "TRUNCATE TABLE `".UA_TABLE_FILES."`;";
+	$result = $db->query($sql);
+
+	$uniadmin->cleardir(UA_BASEDIR.$uniadmin->config['addon_folder']);
+
+	$uniadmin->message($user->lang['all_addons_delete']);
 }
 
 function edit_addon( $addon_id )

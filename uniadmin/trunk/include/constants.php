@@ -39,24 +39,25 @@ define('UA_ID_POWER', 2);
 define('UA_ID_ADMIN', 3);
 
 // URI Parameters
-define('UA_URI_OP',       'op');
-define('UA_URI_ID',       'id');
-define('UA_URI_ADD',      'add');
-define('UA_URI_DELETE',   'delete');
-define('UA_URI_DISABLE',  'disable');
-define('UA_URI_ENABLE',   'enable');
-define('UA_URI_OPT',      'optional');
-define('UA_URI_REQ',      'require');
-define('UA_URI_PROCESS',  'process');
-define('UA_URI_SVNAME',   'svname');
-define('UA_URI_NAME',     'name');
-define('UA_URI_LEVEL',    'level');
-define('UA_URI_PASS',     'password');
-define('UA_URI_NEW',      'new');
-define('UA_URI_UPINI',    'upini');
-define('UA_URI_GETINI',   'getini');
-define('UA_URI_DETAIL',   'detail');
-define('UA_URI_EDIT',     'edit');
+define('UA_URI_OP',         'op');
+define('UA_URI_ID',         'id');
+define('UA_URI_ADD',        'add');
+define('UA_URI_DELETE',     'delete');
+define('UA_URI_DELETE_ALL', 'deleteall');
+define('UA_URI_DISABLE',    'disable');
+define('UA_URI_ENABLE',     'enable');
+define('UA_URI_OPT',        'optional');
+define('UA_URI_REQ',        'require');
+define('UA_URI_PROCESS',    'process');
+define('UA_URI_SVNAME',     'svname');
+define('UA_URI_NAME',       'name');
+define('UA_URI_LEVEL',      'level');
+define('UA_URI_PASS',       'password');
+define('UA_URI_NEW',        'new');
+define('UA_URI_UPINI',      'upini');
+define('UA_URI_GETINI',     'getini');
+define('UA_URI_DETAIL',     'detail');
+define('UA_URI_EDIT',       'edit');
 
 // URL parameters
 define('UA_INDEX',        'index.php');
