@@ -284,10 +284,12 @@ class UniAdmin
 	 */
 	function ls( $dir , $array = array() , $sub_dir = true )
 	{
+		$no_scan = array('.','..','.svn');
+
 		$handle = opendir($dir);
 		for(;(false !== ($readdir = readdir($handle)));)
 		{
-			if( $readdir != '.' && $readdir != '..' && $readdir != 'index.htm' && $readdir != 'index.html' && $readdir != '.svn' )
+			if( !in_array($readdir,$no_scan) )
 			{
 				$path = $dir.DIR_SEP.$readdir;
 				if( $sub_dir && is_dir($path) )
@@ -327,7 +329,7 @@ class UniAdmin
 	 */
 	function cleardir( $dir )
 	{
-		$no_delete = array('.','..','index.html','index.htm','.svn','_cvs');
+		$no_delete = array('.','..','.svn');
 
 		if( !($dir = dir($dir)) )
 		{

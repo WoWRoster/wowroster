@@ -1,4 +1,4 @@
-UniAdmin 0.7.6 (updated 4th March 2007)
+UniAdmin 0.7.6 (updated 5th March 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -49,8 +49,18 @@ Read the help page for additional info.
 =============
 1. Run ?p=upgrade and follow the instructions
 
-NOTE: Upgrading from v0.7.0 to a higher version will force you to install fresh.
-There is no upgrade from v0.7.0
+
+   3a - Upgrade from v0.7.0
+   ========================
+   Upgrading from v0.7.0 to a higher version will force you to install fresh.
+   There is no upgrade from v0.7.0
+
+
+   3b - Upgrade from v0.7.5
+   ========================
+   It is suggested that you clear all your addons after upgrading
+   This is because the auto "Full Path" scanner has been implemented
+   javaUniUploader and phpUniUploader require this new setting to function properly
 
 
 4 - Thanks
@@ -187,8 +197,6 @@ v0.7.6
 ~ XML output is now encoded properly with the right headers
 ~ TOC scanner, found a few addons' toc files that it didn't catch properly
 ! The Help tab is now "selected" when there is no page defined in the url
-! Now using the filelist that PclZip generates rather than scanning the directory
-    This should speed up the addon processing a bit
 ! UA now only accepts and scans certain file types for addons
     lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch
     If there are other, NON-executable file extentions, let us know!
