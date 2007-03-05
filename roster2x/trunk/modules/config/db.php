@@ -41,19 +41,28 @@ if( !$qry->execute() )
 	echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
 }
 
+$numbers = array(
+	array('Zanix',235326),
+	array('Pleeg',26597),
+	array('Mathos',63098)
+);
+
 // Insert values
 $qry = cpMain::$instance['cpsql']->query_prepare(
 		"INSERT INTO `test` (`name`, `phone`) VALUES".
-		" ('Zanix','235326'), ".
-		" ('Pleeg','26597'), ".
-		" ('Mathos','63098'); "
+		" (?,?); "
 	);
-if( !$qry->execute() )
+foreach($numbers as $data)
 {
-	echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
+	$qry->bind_param('si',$data);
+	if( !$qry->execute() )
+	{
+		echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
+	}
+	echo "Affected rows: ".$qry->affected_rows()."<br>\n";
+	echo "Added data ".print_r($data,true)."<br>\n";
+	$qry->reset();
 }
-
-echo "Affected rows: ".$qry->affected_rows();
 
 $qry->close();
 
