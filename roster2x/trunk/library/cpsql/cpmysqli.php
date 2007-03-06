@@ -77,12 +77,9 @@ class cpmysqli implements cpsqli
 
 		if( mysqli_connect_errno() )
 		{
-			cpMain::cpErrorFatal
-			(
+			throw new cpException(
 				'cpMySQLi: MySQLi Error, Unable to connect to the server, MySQLi Said: '.
-				'Errorno '.mysqli_connect_errno().': '.mysqli_connect_error(),
-				__FILE__,
-				__LINE__
+				'Errorno '.mysqli_connect_errno().': '.mysqli_connect_error()
 			);
 		}
 	}
@@ -96,12 +93,9 @@ class cpmysqli implements cpsqli
 	{
 		if( !$this->db->select_db($db_name) )
 		{
-			cpMain::cpErrorFatal
-			(
+			throw new cpException(
 				'cpMySQLi: MySQLi error, Unable to select the database "'.$db_name.'". MySQLi said:'.
-				'Errno. '.$this->db->errno.': '.$this->db->error,
-				__FILE__,
-				__LINE__
+				'Errno. '.$this->db->errno.': '.$this->db->error
 			);
 		}
 	}
@@ -109,7 +103,7 @@ class cpmysqli implements cpsqli
 	/**
 	 * Create a query object with the specified query
 	 *
-	 * @param string $query		The query to prepare
+	 * @param string $query		    The query to prepare
 	 * @return object				A cpMySQLi query object
 	 */
 	public function query_prepare($query)
@@ -120,12 +114,9 @@ class cpmysqli implements cpsqli
 		}
 		else
 		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: MySQLi: Unable to prepare query. MySQLi said: '."<br/>\n".
-				'Errno. '.$this->db->errno.': '.$this->db->error,
-				__FILE__,
-				__LINE__
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to prepare query. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
 			);
 		}
 
@@ -160,15 +151,28 @@ class cpmysqli_stmt implements cpsqli_stmt
 	public function __construct(mysqli_stmt $statement, $query)
 	{
 		$this->log[0] = str_replace(array("\r\n","\r","\n"),' ',$query);
-		return $this->qry = $statement;
+		$this->qry = $statement;
 	}
 
 	/**
 	 * Prepare. Prepares a new query.
+	 *
+	 * @param string $query         The query to prepare
+	 * @return object               Self, for chaining
 	 */
 	public function prepare($query)
 	{
-		return $this->qry->prepare($query);
+		if( $this->qry->prepare($query) )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to prepare query. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 
@@ -178,6 +182,8 @@ class cpmysqli_stmt implements cpsqli_stmt
 	 * @param string $types		Parameter types
 	 * @param array &$params	Parameter values, these need to be passed as an array
 	 *							rather than seperately because of php restrictions
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function bind_param($types, $params)
 	{
@@ -186,27 +192,50 @@ class cpmysqli_stmt implements cpsqli_stmt
 		{
 			$args[] =& $param;
 		}
-		call_user_func_array(array($this->qry, 'bind_param'), $args);
-		
-		// Store for logging
-		$args[0] = $this->log[0];
-		$this->log = $args;
+		if( call_user_func_array(array($this->qry, 'bind_param'), $args) )
+		{
+			// Store for logging
+			$args[0] = $this->log[0];
+			$this->log = $args;
+			
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to bind parameters. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**
 	 * Send data for large blob/text fields.
 	 *
 	 * @param int $param_nr
-	 *
 	 * @param string $data
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function send_long_data($param_nr, $data)
 	{
-		return $this->qry->send_long_data($param_nr, $data);
+		if( $this->qry->send_long_data($param_nr, $data) )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Failed to send data. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**
 	 * Execute
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function execute()
 	{
@@ -224,15 +253,37 @@ class cpmysqli_stmt implements cpsqli_stmt
 		$file = substr($call_info['file'],strlen(PATH_LOCAL));
 		cpMain::$instance['cpsql']->qlog_add($file, $time.' - LINE '.$call_info['line'].': '.implode(', ',$this->log));
 		
-		return $result;
+		if( $result )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Failed to execute query. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**
 	 * Buffer results
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function store_result()
 	{
-		return $this->qry->store_result();
+		if( $this->qry->store_result() )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to store result. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**
@@ -240,22 +291,52 @@ class cpmysqli_stmt implements cpsqli_stmt
 	 *
 	 * @param array &$result	Return variables. Note to self: Examine behaviour and
 	 *							document appropriately
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function bind_result($result)
 	{
-		return call_user_func_array(array($this->qry, 'bind_result'), $result);
+		if( call_user_func_array(array($this->qry, 'bind_result'), $result) )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to bind result. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**
 	 * Fetch into bound variables
+	 *
+	 * @return bool                 True if there was a new row, false if there was not
 	 */
 	public function fetch()
 	{
-		return $this->qry->fetch();
+		if( result = $this->qry->fetch() )
+		{
+			return true;
+		}
+		elseif( false === $result )
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Failed to fetch. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
 	 * Fetch into associative array
+	 *
+	 * @return mixed                The new row, false if there isn't one
 	 */
 	public function fetch_assoc()
 	{
@@ -271,9 +352,16 @@ class cpmysqli_stmt implements cpsqli_stmt
 
 		call_user_func_array(array($this->qry, 'bind_result'), $this->cache['bindAssoc']);
 
-		if( $this->qry->fetch() )
+		if( $result = $this->qry->fetch() )
 		{
 			return $this->cache['resAssoc'];
+		}
+		elseif( false === $result )
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Failed to fetch. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
 		}
 		else
 		{
@@ -283,6 +371,8 @@ class cpmysqli_stmt implements cpsqli_stmt
 
 	/**
 	 * Fetch into enumerated array
+	 *
+	 * @return mixed                The new row, false if there isn't one
 	 */
 	public function fetch_row()
 	{
@@ -296,9 +386,16 @@ class cpmysqli_stmt implements cpsqli_stmt
 
 		call_user_func_array(array($this->qry, 'bind_result'), $this->cache['bindRow']);
 
-		if( $this->qry->fetch() )
+		if( $result = $this->qry->fetch() )
 		{
 			return $this->cache['resRow'];
+		}
+		elseif( false === $result )
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Failed to fetch. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
 		}
 		else
 		{
@@ -308,6 +405,8 @@ class cpmysqli_stmt implements cpsqli_stmt
 
 	/**
 	 * Fetch into both key types
+	 *
+	 * @return mixed                The new row, false if there isn't one
 	 */
 	public function fetch_both()
 	{
@@ -326,9 +425,16 @@ class cpmysqli_stmt implements cpsqli_stmt
 
 		call_user_func_array(array($this->qry, 'bind_result'), $this->cache['bindBoth']);
 
-		if( $this->qry->fetch() )
+		if( $result = $this->qry->fetch() )
 		{
 			return $this->cache['resBoth'];
+		}
+		elseif( false === $result )
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Failed to fetch. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
 		}
 		else
 		{
@@ -338,18 +444,42 @@ class cpmysqli_stmt implements cpsqli_stmt
 
 	/**
 	 * Reset query
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function reset()
 	{
-		return $this->qry->reset();
+		if( $this->qry->reset() )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to reset query. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**
 	 * Close query
+	 *
+	 * @return object           Self, for chaining
 	 */
 	public function close()
 	{
-		return $this->qry->close();
+		if( $this->qry->close() )
+		{
+			return $this;
+		}
+		else
+		{
+			throw new cpException(
+				'cpMySQLi: MySQLi: Unable to close query. MySQLi said: '."<br />\n".
+				'Errno. '.$this->db->errno.': '.$this->db->error
+			);
+		}
 	}
 
 	/**

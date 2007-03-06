@@ -106,22 +106,26 @@ class cpsql
 			$name =  cpMain::$instance['cpconfig']->cpconf['db_name'];
 		}
 
-		$this->configuration($type, $host, $user, $pass, $name);
-		$this->connect('', TRUE);
+		$this->configuration($type, $host, $user, $pass, $name)
+				->connect('', TRUE);
 	}
 
 	/**
 	 * Manually configure a DB connection.
 	 *
-	 * @param string $type	Type of database
+	 * @param string $type	 Type of database
 	 * @param string $host   Name of the mysql host
 	 * @param string $user   Database user
 	 * @param string $pass   Database password
-	 * @param string $db	Name of the database
+	 * @param string $db	 Name of the database
+	 *
+	 * @param object $this   Self, for chaining
 	 */
 	public function configuration($type, $host, $user, $pass, $db)
 	{
 		$this->config = array('type'=>$type, 'host'=>$host, 'user'=>$user, 'pass'=>$pass, 'db'=>$db);
+		
+		return $this;
 	}
 
 	/**
@@ -129,7 +133,7 @@ class cpsql
 	 *
 	 * @param string $link_name		The name this link is identified by
 	 * @param bool $activate		True to activate the link, false or omit not to
-	 * @return object				MySQLi object
+	 * @return object				Self, for chaining
 	 */
 	public function connect($link_name = '', $activate = FALSE)
 	{
@@ -156,11 +160,8 @@ class cpsql
 
 		if( !( $link instanceof cpsqli ) )
 		{
-			cpMain::cpErrorFatal
-			(
-				'cpSQL: Tried to create a DB object of type "'.$this->config['type'].'" but that class does not implement cpsqli',
-				__FILE__,
-				__LINE__
+			throw new cpException(
+				'cpSQL: Tried to create a DB object of type "'.$this->config['type'].'" but that class does not implement cpsqli'
 			);
 		}
 
@@ -174,27 +175,30 @@ class cpsql
 			$this->connect[$link_name] = $link;
 		}
 
-		return $link;
+		return $self;
 	}
 
 	/**
 	 * Set the active DB link
+	 *
+	 * @param string $link_name     DB link to set active
+	 *
+	 * @return object               Self, for chaining
 	 */
 	public function set_active($link_name)
 	{
 		if( isset( $this->connect[$link_name] ) )
 		{
-			cpMain::cpError
-			(
-				'cpMySQLi: Unable to activate link "'.$link_name.'" because it is invalid',
-				__FILE__,
-				__LINE__
+			throw new cpException(
+				'cpSQL: Unable to activate link "'.$link_name.'" because it is invalid'
 			);
 		}
 		else
 		{
 			$this->active = $this->connect[$link_name];
 		}
+		
+		return $this;
 	}
 
 	/**
@@ -202,6 +206,8 @@ class cpsql
 	 *
 	 * @param string $db_name		The DB name to switch to
 	 * @param string $link_name		The link to set the DB name for
+	 *
+	 * @return object               Self, for chaining
 	 */
 	public function select_db($db_name, $link_name = '')
 	{
@@ -212,21 +218,24 @@ class cpsql
 
 		if( !$this->active )
 		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: Unable to select the database "'.$db_name.'" because there is no active link.',
-				__FILE__,
-				__LINE__
+			throw new cpException(
+				'cpSQL: Unable to select the database "'.$db_name.'" because there is no active link.'
 			);
 		}
 		else
 		{
 			$this->active->select_db($db_name);
 		}
+		
+		return $this;
 	}
 
 	/**
 	 * Close a connection.
+	 *
+	 * @param string $link_name     Link name to close
+	 *
+	 * @return object               Self, for chaining
 	 */
 	public function close($link_name = '')
 	{
@@ -242,6 +251,8 @@ class cpsql
 			}
 			unset($this->connect[$link_name]);
 		}
+		
+		return $this;
 	}
 
 	/**
@@ -259,11 +270,8 @@ class cpsql
 
 		if( !$link )
 		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: Unable to prepare query because the database link is invalid. The query was: '.$query,
-				__FILE__,
-				__LINE__
+			throw new cpException(
+				'cpSQL: Unable to prepare query because the database link is invalid. The query was: '.$query
 			);
 		}
 
@@ -286,11 +294,8 @@ class cpsql
 	{
 		if( !isset($this->queries[$query_name]) )
 		{
-			cpMain::cpErrorFatal
-			(
-				'cpMySQLi: No query object to return under query name '.$query_name,
-				__FILE__,
-				__LINE__
+			throw new cpException(
+				'cpMySQLi: No query object to return under query name '.$query_name
 			);
 		}
 		return $this->queries[$query_name];
@@ -299,20 +304,24 @@ class cpsql
 	/**
 	 * Add a SQL log entry
 	 *
-	 * @param string file
-	 * @param string entry
+	 * @param string $file          Filename that ran this SQL statement
+	 * @param string $entry         Formatted log entry
+	 *
+	 * @param object                Self, for chaining
 	 */
 	public function qlog_add($file, $entry)
 	{
 		$this->qlog[$file][] = $entry;
+		
+		return $this;
 	}
 	
 	/**
 	 * Get the SQL log
 	 *
-	 * @return array log
+	 * @return array                query log array
 	 */
-	public function qlog_get()
+	public function get_qlog()
 	{
 		return $this->qlog;
 	}
