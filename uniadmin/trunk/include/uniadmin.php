@@ -254,7 +254,7 @@ class UniAdmin
 	function get_file_ext( $filename )
 	{
 		$return = pathinfo($filename);
-		return $return['extension'];
+		return ( isset($return['extension']) ? $return['extension'] : '' );
 	}
 
 	/**
