@@ -1,5 +1,6 @@
 <!-- INCLUDE overall_header.html -->
 
+<!-- IF S_STATS -->
 <table class="ua_table rowstyle-data2 no-arrow" align="center" width="90%">
 	<thead>
 		<tr>
@@ -44,5 +45,20 @@
 <!-- BEGIN pie_charts -->
 <img src="{URL_PATH}images/piechart.php?{pie_charts.LINK}" alt="" />
 <!-- END pie_charts -->
+
+<!-- ELSE -->
+<table class="ua_table" align="center" width="90%">
+	<thead>
+		<tr>
+			<th class="table_header" colspan="6">{L_STATS}</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th>&nbsp;</th>
+		</tr>
+	</tfoot>
+</table>
+<!-- ENDIF -->
 
 <!-- INCLUDE overall_footer.html -->

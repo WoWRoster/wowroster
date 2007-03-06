@@ -47,17 +47,6 @@ function main( )
 {
 	global $db, $user, $uniadmin, $tpl;
 
-	$pie_chart_array = array('host_name','ip_addr','user_agent','action','time');
-
-	foreach( $pie_chart_array as $name )
-	{
-		$tpl->assign_block_vars('pie_charts', array(
-			'LINK' => build_pie($name),
-			'ALT'  => $name,
-			)
-		);
-	}
-
 	if( isset($_REQUEST['limit']) || isset($_REQUEST['start']) )
 	{
 		$limit = $_REQUEST['limit'];
@@ -77,67 +66,6 @@ function main( )
 
 	$db->free_result($result);
 
-
-	$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `id` DESC LIMIT $start , $limit;";
-	$result = $db->query($sql);
-
-
-	while( $row = $db->fetch_record($result) )
-	{
-		foreach( $row as $key => $value )
-		{
-			$row[$key] = stripslashes($value);
-		}
-
-		$time = date($user->lang['time_format'],$row['time']);
-
-		$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
-		$host_name = $uniadmin->string_chop($row['host_name'],25,'...');
-
-		$tpl->assign_block_vars('stats_row', array(
-			'ROW_CLASS'      => $uniadmin->switch_row_class(),
-			'ID'             => $row['id'],
-			'ACTION'         => $row['action'],
-			'IP_ADDR'        => $row['ip_addr'],
-			'TIME'           => $time,
-			'USER_AGENT'     => $user_agent,
-			'USER_AGENT_T'   => $row['user_agent'],
-			'HOST_NAME'      => $host_name,
-			'HOST_NAME_T'    => $row['host_name'],
-			)
-		);
-	}
-
-	$db->free_result($result);
-
-	$prev_start = $start - $limit;
-	$prev_link = '';
-	$s_prev_link = false;
-	if( $prev_start > -1 )
-	{
-		$prev_link = UA_FORMACTION.'&amp;start='.$prev_start.'&amp;limit='.$limit;
-		$s_prev_link = true;
-	}
-
-	$next_start = $start + $limit;
-	$next_link = '';
-	$s_next_link = false;
-	if( $next_start < $total_rows )
-	{
-		$next_link = UA_FORMACTION.'&amp;start='.$next_start.'&amp;limit='.$limit;
-		$s_next_link = true;
-	}
-
-	$sep = '';
-	if( !empty($prev_link) && !empty($next_link) )
-	{
-		$sep = ' | ';
-	}
-
-
-	$total_pages = floor($total_rows / $limit) + 1;
-	$page_num =  floor($start / $limit) + 1;
-
 	$tpl->assign_vars(array(
 		'L_STATS'      => $user->lang['title_stats'],
 		'L_ROW'        => $user->lang['row'],
@@ -151,19 +79,100 @@ function main( )
 		'L_PREV_PAGE'  => $user->lang['previous_page'],
 		'L_NEXT_PAGE'  => $user->lang['next_page'],
 
-		'S_PREV_LINK'  => $s_prev_link,
-		'S_NEXT_LINK'  => $s_next_link,
-
-		'U_START'     => $start,
-		'U_LIMIT'     => $limit,
-
-		'U_PREV_LINK'    => $prev_link,
-		'U_SEP'          => $sep,
-		'U_NEXT_LINK'    => $next_link,
-		'U_PAGE_NUM'     => $page_num,
-		'U_TOTAL_PAGES'    => $total_pages,
+		'S_STATS'      => false
 		)
 	);
+
+	if( $total_rows > 0 )
+	{
+		$tpl->assign_var('S_STATS',true);
+
+		$pie_chart_array = array('host_name','ip_addr','user_agent','action','time');
+
+		foreach( $pie_chart_array as $name )
+		{
+			$tpl->assign_block_vars('pie_charts', array(
+				'LINK' => build_pie($name),
+				'ALT'  => $name,
+				)
+			);
+		}
+
+		$sql = "SELECT * FROM `".UA_TABLE_STATS."` ORDER BY `id` DESC LIMIT $start , $limit;";
+		$result = $db->query($sql);
+
+
+		while( $row = $db->fetch_record($result) )
+		{
+			foreach( $row as $key => $value )
+			{
+				$row[$key] = stripslashes($value);
+			}
+
+			$time = date($user->lang['time_format'],$row['time']);
+
+			$user_agent = $uniadmin->string_chop($row['user_agent'],45,'...');
+			$host_name = $uniadmin->string_chop($row['host_name'],25,'...');
+
+			$tpl->assign_block_vars('stats_row', array(
+				'ROW_CLASS'      => $uniadmin->switch_row_class(),
+				'ID'             => $row['id'],
+				'ACTION'         => $row['action'],
+				'IP_ADDR'        => $row['ip_addr'],
+				'TIME'           => $time,
+				'USER_AGENT'     => $user_agent,
+				'USER_AGENT_T'   => $row['user_agent'],
+				'HOST_NAME'      => $host_name,
+				'HOST_NAME_T'    => $row['host_name'],
+				)
+			);
+		}
+
+		$db->free_result($result);
+
+		$prev_start = $start - $limit;
+		$prev_link = '';
+		$s_prev_link = false;
+		if( $prev_start > -1 )
+		{
+			$prev_link = UA_FORMACTION.'&amp;start='.$prev_start.'&amp;limit='.$limit;
+			$s_prev_link = true;
+		}
+
+		$next_start = $start + $limit;
+		$next_link = '';
+		$s_next_link = false;
+		if( $next_start < $total_rows )
+		{
+			$next_link = UA_FORMACTION.'&amp;start='.$next_start.'&amp;limit='.$limit;
+			$s_next_link = true;
+		}
+
+		$sep = '';
+		if( !empty($prev_link) && !empty($next_link) )
+		{
+			$sep = ' | ';
+		}
+
+		$total_pages = floor($total_rows / $limit) + 1;
+		$page_num =  floor($start / $limit) + 1;
+
+		$tpl->assign_vars(array(
+			'S_PREV_LINK'  => $s_prev_link,
+			'S_NEXT_LINK'  => $s_next_link,
+
+			'U_START'      => $start,
+			'U_LIMIT'      => $limit,
+
+			'U_PREV_LINK'   => $prev_link,
+			'U_SEP'         => $sep,
+			'U_NEXT_LINK'   => $next_link,
+
+			'U_PAGE_NUM'    => $page_num,
+			'U_TOTAL_PAGES' => $total_pages,
+			)
+		);
+	}
 
 	$uniadmin->set_vars(array(
 		'page_title'    => $user->lang['title_stats'],

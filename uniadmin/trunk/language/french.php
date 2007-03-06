@@ -271,7 +271,7 @@ $lang['edit'] = 'Editer';
 $lang['cancel'] = 'Annuler';
 $lang['status'] = 'Statut';
 $lang['automatic'] = 'Automatique';
-$lang['delete_all_addons'] = 'Delete All Addons';
+$lang['delete_all_addons'] = 'Supprimer tous les Addons';
 
 
 // Pagination
@@ -292,8 +292,8 @@ $lang['interface_ready'] = 'Interface de Mise à Jour UniUploader...';
 $lang['addon_required_tip'] = 'Quand coché, UniUploader exigera le téléchargement de cet addon';
 $lang['addon_fullpath_tip'] = 'Ce paramètre est pour les addons qui extraient directement dans le répertoire de World of Warcraft<br /><br />- [oui] Extraire addon dans WoW/<br />- [non] Extraire dans WoW/Interface/AddOns/<br />- [Automatique]Détection automatique de l\'emplacement';
 $lang['addon_selectfile_tip'] = 'Selectionner un addon à charger';
-$lang['confirm_addons_delete'] = 'This will remove ALL addons from the database and the web server. Are you sure?';
-$lang['all_addons_delete'] = 'All addons have been removed from the database and the web server';
+$lang['confirm_addons_delete'] = 'Ceci supprimera TOUS les addons de la base de donnée et du serveur web. Etes-vous sûr ?';
+$lang['all_addons_delete'] = 'Tous les addons ont été supprimés de la base de donnée et du serveur web';
 
 
 // WoWAce
@@ -412,7 +412,7 @@ $lang['error_no_files_addon'] = 'Aucun fichier detecté dans l\'AddOn chargé';
 $lang['error_no_toc_file'] = 'Aucun fichier \'.toc\' détecté dans l\'AddOn chargé';
 $lang['error_unzip'] = 'Erreur de Manipulation Zip';
 $lang['error_pclzip'] = 'PCLZip Erreur Irrécupérable: [%1$s]';
-$lang['error_unsafe_file'] = 'Unsafe File Rejected: [%1$s]';
+$lang['error_unsafe_file'] = 'Fichier Peu sûr Rejeté: [%1$s]';
 $lang['error_addon_process'] = 'Erreur Traitement AddOn';
 $lang['error_zip_file'] = 'L\'Addon chargé <u>doit</u> être un fichier zip';
 $lang['error_addon_not_exist'] = 'AddOn avec ID:%1$s n\'exist pas';
@@ -428,7 +428,7 @@ $lang['error_write_file'] = 'Ne peut écrire [%1$s]<br />Vérifier les permissions
 $lang['error_download_file'] = 'Impossible de charger [%1$s]<br />Echec de $uniadmin->get_remote_contents()';
 
 $lang['error_no_uploaded_logo'] = 'Aucun Logo Chargé';
-$lang['error_logo_format'] = 'Le fichier chargé <u>doit</u> être une image GIF';
+$lang['error_logo_format'] = 'Le fichier chargé <u>doit</u> être une image';
 
 $lang['error_name_required'] = 'Nom requis';
 $lang['error_pass_required'] = 'Mot de Passe requis';

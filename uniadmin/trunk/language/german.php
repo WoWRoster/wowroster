@@ -271,7 +271,7 @@ $lang['edit'] = 'Editieren';
 $lang['cancel'] = 'Abbrechen';
 $lang['status'] = 'Status';
 $lang['automatic'] = 'Automatisch';
-$lang['delete_all_addons'] = 'Delete All Addons';
+$lang['delete_all_addons'] = 'Lösche alle Addons';
 
 
 // Pagination
@@ -292,8 +292,8 @@ $lang['interface_ready'] = 'UniUploader Aktualisierungsschnittstelle fertig...';
 $lang['addon_required_tip'] = 'Wenn aktiviert, UniUploader betrachted das Addon als obligatorischen Download';
 $lang['addon_fullpath_tip'] = 'Für Addons die direkt ins World of Warcraft Verzeichnis entpackt werden<br /><br />- [ja] Entpacke Addon in WoW/<br />- [nein] Entpacke Addon in WoW/Interface/Addons/<br />- [Automatisch] Finde Ziel automatisch';
 $lang['addon_selectfile_tip'] = 'Wähle ein Addon zum Hochladen aus';
-$lang['confirm_addons_delete'] = 'This will remove ALL addons from the database and the web server. Are you sure?';
-$lang['all_addons_delete'] = 'All addons have been removed from the database and the web server';
+$lang['confirm_addons_delete'] = 'Dies wird ALLE Addons aus der Datenbank und vom Webserver löschen. Bist du sicher?';
+$lang['all_addons_delete'] = 'Alle Addons wurden aus der Datenbank und vom Webserver gelöscht';
 
 
 // WoWAce
@@ -412,7 +412,7 @@ $lang['error_no_files_addon'] = 'Es wurden keine Dateien im hochgeladenen Addon 
 $lang['error_no_toc_file'] = 'Keine \'.toc\' Datei wurde im hochgeladenen Addon gefunden.';
 $lang['error_unzip'] = 'Zip Fehler';
 $lang['error_pclzip'] = 'PCLZip Fehler nicht zu beheben: [%1$s]';
-$lang['error_unsafe_file'] = 'Unsafe File Rejected: [%1$s]';
+$lang['error_unsafe_file'] = 'Unsichere Datei abgelehnt: [%1$s]';
 $lang['error_addon_process'] = 'Fehler beim verarbeiten des Addons';
 $lang['error_zip_file'] = 'Das hochgeladene Addon <u>muss</u> eine ZIP-Datei sein';
 $lang['error_addon_not_exist'] = 'Addon mit ID:%1$s exisitert nicht';
@@ -428,7 +428,7 @@ $lang['error_write_file'] = 'Konnte nicht [%1$s] schreiben<br />Überprüfe Zugrif
 $lang['error_download_file'] = 'Konnte [%1$s] nicht herunterladen<br />$uniadmin->get_remote_contents() fehlgeschlagen';
 
 $lang['error_no_uploaded_logo'] = 'Kein Logo hochgeladen';
-$lang['error_logo_format'] = 'Die hochgeladene Datei <u>muss</u> ein GIF-Bild sein';
+$lang['error_logo_format'] = 'Die hochgeladene Datei <u>muss</u> ein sein';
 
 $lang['error_name_required'] = 'Name fehlt';
 $lang['error_pass_required'] = 'Passwort fehlt';

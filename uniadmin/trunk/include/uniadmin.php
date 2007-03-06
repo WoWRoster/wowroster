@@ -519,9 +519,7 @@ class UniAdmin
 		//
 		// Menus
 		//
-		$menus = $this->gen_menus();
-
-		foreach ( $menus as $menu )
+		foreach ( $this->gen_menus() as $menu )
 		{
 			// Don't display the link if they don't have permission to view it
 			if( (empty($menu['check'])) || (isset($user->data['level']) && $user->data['level'] >= $menu['check']) )
@@ -530,7 +528,7 @@ class UniAdmin
 					'LINK'     => UA_INDEXPAGE . $menu['link'],
 					'TEXT'     => $menu['text'],
 					'ITEM'     => '<a href="' . UA_INDEXPAGE . $menu['link'] . '">' . $menu['text'] . '</a>',
-					'SELECTED' => ( UA_CURRENT_PAGE == $menu['link'] ? true : false )
+					'SELECTED' => ( (defined('UA_CURRENT_PAGE') && UA_CURRENT_PAGE == $menu['link']) ? true : false )
 					)
 				);
 			}

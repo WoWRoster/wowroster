@@ -15,7 +15,7 @@ INSERT INTO `uniadmin_config` (`config_name`, `config_value`, `form_type`) VALUE
 	('logo_folder', 'logos', 'text{250|50'),
 	('remote_timeout', '24', 'text{10|10'),
 	('temp_analyze_folder', 'addon_temp', 'text{250|50'),
-	('UAVer', '0.7.5', 'display'),
+	('UAVer', '0.7.6', 'display'),
 	('ua_debug', '1', 'radio{no^0|half^1|full^2');
 
 ### Settings

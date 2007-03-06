@@ -428,7 +428,7 @@ $lang['error_write_file'] = 'Could not write [%1$s]<br />Check persmissions';
 $lang['error_download_file'] = 'Could not download [%1$s]<br />$uniadmin-&gt;get_remote_contents() failed';
 
 $lang['error_no_uploaded_logo'] = 'No Logo Uploaded';
-$lang['error_logo_format'] = 'The uploaded file <u>must</u> be a GIF image';
+$lang['error_logo_format'] = 'The uploaded file <u>must</u> be an image';
 
 $lang['error_name_required'] = 'Name is required';
 $lang['error_pass_required'] = 'Password is required';
