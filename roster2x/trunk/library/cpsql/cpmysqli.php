@@ -316,7 +316,7 @@ class cpmysqli_stmt implements cpsqli_stmt
 	 */
 	public function fetch()
 	{
-		if( result = $this->qry->fetch() )
+		if( $result = $this->qry->fetch() )
 		{
 			return true;
 		}
