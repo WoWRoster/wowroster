@@ -56,9 +56,10 @@ foreach($numbers as $data)
 $qry->close();
 
 // Select values
-$qry = cpMain::$instance['cpsql']->query_prepare(
+cpMain::$instance['cpsql']->query_prepare(
 		"SELECT * FROM `test` ".
-		"WHERE `name` LIKE ?;"
+			"WHERE `name` LIKE ?;",
+		'select'
 	)->bind_param(
 		's',
 		array(
@@ -68,7 +69,8 @@ $qry = cpMain::$instance['cpsql']->query_prepare(
 
 $name = '%at%';
 
-$qry->execute()
+cpMain::$instance['cpsql']->get_query('select')
+	->execute()
 	->bind_result(
 		array(
 			&$id,
@@ -78,12 +80,12 @@ $qry->execute()
 	);
 
 echo '<table>'."\n";
-while($qry->fetch())
+while(cpMain::$instance['cpsql']->get_query('select')->fetch())
 {
 	echo '<tr><td>'.$id.'<td>'.$name.'<td>'.$phone."\n";
 }
 echo '</table>'."\n";
 
-$qry->close();
+cpMain::$instance['cpsql']->get_query('select')->close();
 
 cpMain::$instance['cpsql']->close();
