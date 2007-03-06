@@ -19,27 +19,19 @@ if(!defined('SECURITY'))
 cpMain::loadClass('cpsql', 'cpsql');
 
 // Drop table if exists
-$qry = cpMain::$instance['cpsql']->query_prepare(
+cpMain::$instance['cpsql']
+	->query_prepare(
 		"DROP TABLE IF EXISTS `test`"
-	);
-if( !$qry->execute() )
-{
-	echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
-}
-
+	)->execute()
 // Create table
-$qry = cpMain::$instance['cpsql']->query_prepare(
+	->prepare(
 		"CREATE TABLE `test` (".
 	 	"	`id` INT(11) AUTO_INCREMENT, ".
 	 	"	`name` VARCHAR(32) NOT NULL, ".
 	 	"	`phone` int(11), ".
 	 	"	PRIMARY KEY (`id`) ".
 	 	") ENGINE=MyISAM;"
-	);
-if( !$qry->execute() )
-{
-	echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
-}
+	)->execute();
 
 $numbers = array(
 	array('Zanix',235326),
@@ -54,14 +46,11 @@ $qry = cpMain::$instance['cpsql']->query_prepare(
 	);
 foreach($numbers as $data)
 {
-	$qry->bind_param('si',$data);
-	if( !$qry->execute() )
-	{
-		echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
-	}
+	$qry->reset()
+		->bind_param('si',$data)
+		->execute();
 	echo "Affected rows: ".$qry->affected_rows()."<br>\n";
 	echo "Added data ".print_r($data,true)."<br>\n";
-	$qry->reset();
 }
 
 $qry->close();
@@ -70,18 +59,23 @@ $qry->close();
 $qry = cpMain::$instance['cpsql']->query_prepare(
 		"SELECT * FROM `test` ".
 		"WHERE `name` LIKE ?;"
+	)->bind_param(
+		's',
+		array(
+			&$name
+		)
 	);
-
-$qry->bind_param('s',array(&$name));
 
 $name = '%at%';
 
-if( !$qry->execute() )
-{
-	echo 'Errno: '.$qry->errno().': '.$qry->error()."<br>\n";
-}
-
-$qry->bind_result(array(&$id, &$name, &$phone));
+$qry->execute()
+	->bind_result(
+		array(
+			&$id,
+			&$name,
+			&$phone
+		)
+	);
 
 echo '<table>'."\n";
 while($qry->fetch())
