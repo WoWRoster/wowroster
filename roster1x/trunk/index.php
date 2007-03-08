@@ -24,12 +24,10 @@ $page = ( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) ) ? $_GET[ROST
 
 define('ROSTER_PAGE_NAME', $page);
 
-if( strpos($page,'addon@') !== false )
-{
-	list($page,$addon_name) = explode('@',$page,2);
-}
+$pages = explode('-', $page);
+$page = $pages[0];
 
-if( preg_match('/[^a-zA-Z0-9_]/', $page) )
+if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 {
 	roster_die("Invalid characters in module name");
 }

@@ -811,7 +811,7 @@ function escape_array($array)
 
 function makelink( $url='' , $full=false )
 {
-	if( empty($url) || $url[0] == '&' )
+	if( empty($url) || $url[0] == '&')
 		$url = ROSTER_PAGE_NAME.$url;
 
 	$url = sprintf(ROSTER_LINK,$url);
@@ -879,8 +879,8 @@ function makeAddonList( $array=false )
 							foreach ($config['menu_index_file'] as $addonLink)
 							{
 								$fullQuery = urlencode($addon) . ( isset($addonLink[0]) ? $addonLink[0] : '' );
-								$output .= '<li><a href="' . makelink('addon@'.$fullQuery).'">' . $addonLink[1] . "</a></li>\n";
-								$entries[] = array('addon@'.$fullQuery, $addonLink[1]);
+								$output .= '<li><a href="' . makelink('addon-'.$fullQuery).'">' . $addonLink[1] . "</a></li>\n";
+								$entries[] = array('addon-'.$fullQuery, $addonLink[1]);
 								$lCount++;
 							}
 						}

@@ -21,13 +21,13 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if( !isset($addon_name) )
+if( !isset($pages[1]) )
 {
 	roster_die('You must specify an addon name!','Addon Error');
 }
 
 // Get the addon's location
-$addonDir = ROSTER_ADDONS.$addon_name.DIR_SEP;
+$addonDir = ROSTER_ADDONS.$pages[1].DIR_SEP;
 
 // Get the addon's index file
 $addonFile = $addonDir.'index.php';
@@ -58,7 +58,7 @@ if( file_exists($addonFile) )
 	// Set the css for the template set in conf.php
 	if( file_exists($cssFile) )
 	{
-		$css = '/addons/'.$addon_name.'/default.css';
+		$css = '/addons/'.$pages[1].'/default.css';
 	}
 
 	// Include localization variables
