@@ -2,8 +2,8 @@
     PvPLog 
     Author:           Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-    Version:          2.3.7
-    Last Modified:    2007-02-01
+    Version:          2.3.8
+    Last Modified:    2007-03-07
 ]]
 
 -- Local variables
@@ -41,6 +41,8 @@ local recentDamager = { };
 local recentDamaged = { };
 local ignoreList = { };
 local ignoreRecords = { };
+
+local MAXDEBUG = 500;
 
 local lastDing = -1000;
 
@@ -407,6 +409,7 @@ function PvPLogOnEvent()
 
         -- if we're enabled
         if (PvPLogData[realm][player].enabled and softPL) then
+            PvPLogDebugAdd(arg1);
             MarsMessageParser_ParseMessage("PvPLog_PlayerDeath", arg1);  
         end
     elseif (event == "CHAT_MSG_COMBAT_HONOR_GAIN") then
@@ -436,6 +439,7 @@ function PvPLogOnEvent()
             if (arg1) then
                 -- PvPLogDebugMsg(GREEN.."Event: "..event);
                 -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                PvPLogDebugAdd(arg1.." (Ignored)");
             end
         end
     elseif (event == "CHAT_MSG_SPELL_DAMAGESHIELD_ON_SELF") then
@@ -459,6 +463,7 @@ function PvPLogOnEvent()
             if (arg1) then
                 -- PvPLogDebugMsg(GREEN.."Event: "..event);
                 -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                PvPLogDebugAdd(arg1.." (Ignored)");
             end
         end
     elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE") then
@@ -475,6 +480,7 @@ function PvPLogOnEvent()
                 -- PvPLogDebugMsg(GREEN.."Event: "..event);
                 -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
                 -- PvPLogDebugMsg(ORANGE.."Time: "..GetTime());
+                PvPLogDebugAdd(arg1.." (Ignored)");
             end
         end
     elseif (event == "CHAT_MSG_SPELL_PERIODIC_HOSTILEPLAYER_DAMAGE") then
@@ -483,6 +489,7 @@ function PvPLogOnEvent()
                 -- PvPLogDebugMsg(GREEN.."Event: "..event);
                 -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
                 -- PvPLogDebugMsg(ORANGE.."Time: "..GetTime());
+                PvPLogDebugAdd(arg1.." (Ignored)");
             end
         end
     elseif (event == "PLAYER_REGEN_DISABLED") then
@@ -581,6 +588,16 @@ end
 function PvPLogDebugMsg(msg)
     if (debug_simple) then
         PvPLogChatMsg('debug: ' .. msg);
+        PvPLogDebugAdd(msg);
+    end
+end
+
+function PvPLogDebugAdd(msg)
+    if (debug_simple) then
+        table.insert(PvPLogDebug,date()..": "..msg);
+        if (table.getn(PvPLogDebug) > MAXDEBUG) then
+            table.remove(PvPLogDebug,1);
+        end
     end
 end
 
@@ -589,7 +606,6 @@ function PvPLogDebugMsg(msg)
     -- will print to chatFrame that listens to PvPDebug Channel as the only chan
     if (debug_indx == nil) then
         local number = 1;
-        local chatFrame;
         for i = 2, 7 do
             local name1, zone1 = GetChatWindowChannels(i);
             if (name1 ~= nil) then
@@ -600,8 +616,7 @@ function PvPLogDebugMsg(msg)
                 end
             end
         end
-        chatFrame = getglobal("ChatFrame"..number);
-        debug_indx = chatFrame;
+        debug_indx = getglobal("ChatFrame"..number);
     end
     debug_indx:AddMessage(msg);
 end
@@ -874,6 +889,7 @@ function PvPLogDamageMeAura(res1, res2, res3, res4)
 end
 
 function PvPLog_myDamage(msg)
+    PvPLogDebugAdd(msg);
     foundDamaged = false;
     MarsMessageParser_ParseMessage("PvPLog_MyDamage", msg); 
     if (foundDamaged) then
@@ -883,6 +899,7 @@ function PvPLog_myDamage(msg)
 end
 
 function PvPLog_damageMe(msg)
+    PvPLogDebugAdd(msg);
     foundDamager = false;
     MarsMessageParser_ParseMessage("PvPLog_DamageMe", msg);
     if (foundDamager) then
@@ -1145,6 +1162,11 @@ function PvPLogInitialize()
     end
     PurgeLogData[realm][player].version = PVPLOG.VER_NUM;
     PurgeLogData[realm][player].vendor = PVPLOG.VENDOR;
+
+    if (PvPLogDebug == nil) then
+        PvPLogDebug = { };
+        PvPLogDebugSave = { };
+    end
 
     local stats = PvPLogGetStats();
     local allRecords = stats.totalWins + stats.totalLoss;
@@ -1622,6 +1644,7 @@ function PvPLogRecord(vname, vlevel, vrace, vclass, vguild, venemy, win, vrank, 
     notifyMsg = string.gsub( notifyMsg, "%%w", SubZone );
     notifyMsg = string.gsub( notifyMsg, " %(%)", '' );
 
+    PvPLogDebugAdd(notifyMsg);
     if (notifySystem) then
         for notifyChan in string.gmatch(notifySystem, "%w+") do
             if( venemy and notifyChan == PVPLOG.SELF) then
@@ -1853,6 +1876,11 @@ function PvPLogSlashHandler(msg)
             debug_simple = true;
         elseif (value == "off") then
             debug_simple = false;
+        elseif (value == "save") then
+            PvPLogDebugSave = { };
+            for i,v in ipairs(PvPLogDebug) do
+                table.insert(PvPLogDebugSave,v);
+            end
         else
             debug_indx = nil;
         end

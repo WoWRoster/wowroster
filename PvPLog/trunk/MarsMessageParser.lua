@@ -119,6 +119,9 @@ if((not MarsMessageParser_Version) or (MarsMessageParser_Version < 20)) then
 		parseBuffer = nil;
 		parseOrder = {};
 		parseCount = 0;
+		if(not formatString) then
+			error("Bad argument #2 (formatString): string expected, got nil.", 2);
+		end
 		local parseString = string.gsub(formatString, ".", ParseFunction);
 		local registerId = #(parseRegistrations[clientId]) + 1;
 		parseRegistrations[clientId][registerId] = { parseString, parseOrder, func, endsWithLink };

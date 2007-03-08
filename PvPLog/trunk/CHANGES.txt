@@ -1,10 +1,16 @@
 PvPLog 
 Author:           Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-Version:          2.3.7
-Last Modified:    2007-02-02
+Version:          2.3.8
+Last Modified:    2007-03-07
 
 CHANGES
+
+2007-03-07  * 2.3.8
+    * Added per character savedvariables containing the most recent combat messages and debug messages
+      captured when /pl debug on is active.
+    * Added the command /pl debug save to save the current copy of these messages.
+    * Note: No bugs were fixed with this release.
 
 2007-02-02  * 2.3.7
     * All constants in pvplog.lua and localization.lua moved into a PVPLOG table to 
