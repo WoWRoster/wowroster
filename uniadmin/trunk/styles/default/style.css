@@ -265,9 +265,10 @@ img { border:0; }
 .overlib_maintext { color:#000;font:10px verdana, arial, helvetica, geneva, sans-serif; }
 
 /* Sets cpation text ol_captionfontclass */
-.overlib_captiontext { color:#FFF;background-color:#0066B3;font:10px bold verdana, arial, helvetica, geneva, sans-serif; }
+.overlib_captiontext { color:#FFF;background:#0066B3;font:bold 10px verdana, arial, helvetica, geneva, sans-serif; }
+
 /* Sets the 'close' text ol_closefontclass */
-.overlib_closetext { color:#FFF;background-color:#0066B3;font:10px bold verdana, arial, helvetica, geneva, sans-serif; }
+.overlib_closetext { color:#FFF;background:#0066B3;font:bold 10px verdana, arial, helvetica, geneva, sans-serif; }
 /*********** End Overlib Tooltip styles ***********/
 
 

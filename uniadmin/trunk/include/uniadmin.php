@@ -254,7 +254,7 @@ class UniAdmin
 	function get_file_ext( $filename )
 	{
 		$return = pathinfo($filename);
-		return ( isset($return['extension']) ? $return['extension'] : '' );
+		return ( isset($return['extension']) ? strtolower($return['extension']) : '' );
 	}
 
 	/**
@@ -566,7 +566,7 @@ class UniAdmin
 
 	function page_tail()
 	{
-		global $db, $user, $tpl;
+		global $db, $user, $tpl, $ua_debugger;
 
 		if ( !empty($this->template_path) )
 		{
@@ -584,49 +584,70 @@ class UniAdmin
 			)
 		);
 
+
 		// Hiding the copyright/debug info if gen_simple_header is set
-		if ( !$this->gen_simple_header )
+		if( !$this->gen_simple_header )
 		{
-			$tpl->assign_vars(array(
-				'S_NORMAL_FOOTER' => true
-				)
-			);
+			$strstart = strlen(UA_BASEDIR);
+			$debug_php = $debug_sql = false;
+
+			$tpl->assign_var('S_NORMAL_FOOTER', true);
 
 			$mc_split = split(' ', microtime());
 			$this->timer_end = $mc_split[0] + $mc_split[1];
 			unset($mc_split);
 
-			if ( UA_DEBUG )
+			if( UA_DEBUG && ($user->data['level'] > UA_ID_ANON) )
 			{
-				$s_show_queries = ( (UA_DEBUG == 2) && ($user->data['level'] > UA_ID_ANON) ) ? true : false;
-
 				$tpl->assign_vars(array(
 					'L_QUERIES'      => $user->lang['queries'],
+					'L_DEBUG'        => $user->lang['debug'],
+
 					'S_SHOW_DEBUG'   => true,
-					'S_SHOW_QUERIES' => $s_show_queries,
 					'U_RENDERTIME'   => substr($this->timer_end - $this->timer_start, 0, 5),
 					'U_QUERYCOUNT'   => $db->query_count)
 				);
 
-				if ( $s_show_queries )
+				if( (UA_DEBUG == 2) )
 				{
+					$debug_sql = true;
 					foreach ( $db->queries as $query )
 					{
-						$tpl->assign_block_vars('query_row', array(
+						$tpl->assign_block_vars('debug_sql_row', array(
 							'ROW_CLASS' => $this->switch_row_class(),
-							'QUERY' => $query
+							'QUERY' => htmlentities($query)
 							)
 						);
 					}
 				}
+
+				$report = $ua_debugger->stop();
+				if( is_array($report) )
+				{
+					$debug_php = true;
+					foreach( $report as $file => $errors )
+					{
+						$tpl->assign_block_vars('debug_php', array(
+							'FILE' => substr($file, $strstart)
+							)
+						);
+						foreach( $errors as $error )
+						{
+							$tpl->assign_block_vars('debug_php.php_row', array(
+								'ERROR' => $error
+								)
+							);
+						}
+					}
+				}
 			}
-			else
-			{
-				$tpl->assign_vars(array(
-					'S_SHOW_DEBUG' => false,
-					'S_SHOW_QUERIES' => false)
-				);
-			}
+
+			$tpl->assign_vars(array(
+				'S_DEBUG_PHP' => $debug_php,
+				'S_DEBUG_SQL' => $debug_sql
+				)
+			);
+			unset($debug_php, $debug_sql);
 		}
 		else
 		{
@@ -742,9 +763,9 @@ function pclzip_pre_extract( $p_event , &$p_header )
 {
 	global $uniadmin, $user;
 
-	$info = pathinfo($p_header['filename']);
+	$info = $uniadmin->get_file_ext($p_header['filename']);
 	// ----- bad files are skipped
-	if( !empty($info['extension']) && !in_array($info['extension'],explode(',',UA_ALLOW_ADDON_FILES)) )
+	if( !empty($info) && !in_array($info,explode(',',UA_ALLOW_ADDON_FILES)) )
 	{
 		$uniadmin->error(sprintf($user->lang['error_unsafe_file'],$p_header['stored_filename']));
 		return 0;

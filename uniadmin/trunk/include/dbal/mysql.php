@@ -50,7 +50,7 @@ class SQL_DB
 	 * @param $pconnect Use persistent connection
 	 * @return mixed Link ID / false
 	 */
-	function sql_db($dbhost, $dbname, $dbuser, $dbpass='', $pconnect = false)
+	function sql_db( $dbhost , $dbname , $dbuser , $dbpass='' , $pconnect = false )
 	{
 		$this->pconnect = $pconnect;
 		$this->dbhost = $dbhost;
@@ -58,7 +58,7 @@ class SQL_DB
 		$this->dbuser = $dbuser;
 		$this->dbpass = $dbpass;
 
-		if ( $this->pconnect )
+		if( $this->pconnect )
 		{
 			if ( empty($this->dbpass) )
 			{
@@ -71,7 +71,7 @@ class SQL_DB
 		}
 		else
 		{
-			if ( empty($this->dbpass) )
+			if( empty($this->dbpass) )
 			{
 				$this->link_id = @mysql_connect($this->dbhost, $this->dbuser);
 			}
@@ -81,9 +81,9 @@ class SQL_DB
 			}
 		}
 
-		if ( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($this->dbname != '') )
+		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($this->dbname != '') )
 		{
-			if ( !@mysql_select_db($this->dbname, $this->link_id) )
+			if( !@mysql_select_db($this->dbname, $this->link_id) )
 			{
 				@mysql_close($this->link_id);
 				$this->link_id = false;
@@ -101,11 +101,11 @@ class SQL_DB
 	 *
 	 * @return bool
 	 */
-	function close_db()
+	function close_db( )
 	{
-		if ( $this->link_id )
+		if( $this->link_id )
 		{
-			if ( $this->query_id )
+			if( $this->query_id )
 			{
 				@mysql_free_result($this->query_id);
 			}
@@ -122,7 +122,7 @@ class SQL_DB
 	 *
 	 * @return array Error information
 	 */
-	function error()
+	function error( )
 	{
 		$result['message'] = @mysql_error();
 		$result['code'] = @mysql_errno();
@@ -136,19 +136,19 @@ class SQL_DB
 	 * @param $query Query string
 	 * @return mixed Query ID / Error string / Bool
 	 */
-	function query($query)
+	function query( $query )
 	{
 		// Remove pre-existing query resources
 		unset($this->query_id);
 
 		//$query = preg_replace('/;.*$/', '', $query);
 
-		if ( $query != '' )
+		if( $query != '' )
 		{
 			$this->query_count++;
 			$this->query_id = @mysql_query($query, $this->link_id);
 		}
-		if ( !empty($this->query_id) )
+		if( !empty($this->query_id) )
 		{
 			$this->queries[$this->query_count] = $query;
 
@@ -158,7 +158,7 @@ class SQL_DB
 		}
 		else
 		{
-			if ( UA_DEBUG )
+			if( UA_DEBUG )
 			{
 				$error = $this->error();
 				$message  = 'SQL query error<br /><br />';
@@ -166,7 +166,7 @@ class SQL_DB
 				$message .= 'Message: '.$error['message'].'<br />';
 				$message .= 'Code: '.$error['code'];
 
-				if ( $this->error_die )
+				if( $this->error_die )
 				{
 					die($message);
 				}
@@ -183,7 +183,7 @@ class SQL_DB
 	 *
 	 * @param $query Query string
 	 */
-	function query_first($query)
+	function query_first( $query )
 	{
 		$this->query($query);
 		$record = $this->fetch_record($this->query_id);
@@ -198,9 +198,9 @@ class SQL_DB
 	 * @param $query
 	 * @param $array Array of field => value pairs
 	 */
-	function build_query($query, $array = false)
+	function build_query( $query , $array = false )
 	{
-		if ( !is_array($array) )
+		if( !is_array($array) )
 		{
 			return false;
 		}
@@ -208,17 +208,17 @@ class SQL_DB
 		$fields = array();
 		$values = array();
 
-		if ( $query == 'INSERT' )
+		if( $query == 'INSERT' )
 		{
-			foreach ( $array as $field => $value )
+			foreach( $array as $field => $value )
 			{
 				$fields[] = $field;
 
-				if ( is_null($value) )
+				if( is_null($value) )
 				{
 					$values[] = 'NULL';
 				}
-				elseif ( is_string($value) )
+				elseif( is_string($value) )
 				{
 					$values[] = "'" . $this->escape($value) . "'";
 				}
@@ -230,15 +230,15 @@ class SQL_DB
 
 			$query = ' (' . implode(', ', $fields) . ') VALUES (' . implode(', ', $values) . ')';
 		}
-		elseif ( $query == 'UPDATE' )
+		elseif( $query == 'UPDATE' )
 		{
-			foreach ( $array as $field => $value )
+			foreach( $array as $field => $value )
 			{
-				if ( is_null($value) )
+				if( is_null($value) )
 				{
 					$values[] = "$field = NULL";
 				}
-				elseif ( is_string($value) )
+				elseif( is_string($value) )
 				{
 					$values[] = "$field = '" . $this->escape($value) . "'";
 				}
@@ -260,14 +260,14 @@ class SQL_DB
 	 * @param $query_id Query ID
 	 * @return mixed Record / false
 	 */
-	function fetch_record($query_id = 0)
+	function fetch_record( $query_id = 0 )
 	{
-		if ( !$query_id )
+		if( !$query_id )
 		{
 			$query_id = $this->query_id;
 		}
 
-		if ( $query_id )
+		if( $query_id )
 		{
 			$this->record[$query_id] = @mysql_fetch_array($query_id);
 			return $this->record[$query_id];
@@ -284,17 +284,17 @@ class SQL_DB
 	 * @param $query_id Query ID
 	 * @return mixed Record Set / false
 	 */
-	function fetch_record_set($query_id = 0)
+	function fetch_record_set( $query_id = 0 )
 	{
-		if ( !$query_id )
+		if( !$query_id )
 		{
 			$query_id = $this->query_id;
 		}
-		if ( $query_id )
+		if( $query_id )
 		{
 			unset($this->record_set[$query_id]);
 			unset($this->record[$query_id]);
-			while ( $this->record_set[$query_id] = @mysql_fetch_array($query_id) )
+			while( $this->record_set[$query_id] = @mysql_fetch_array($query_id) )
 			{
 				$result[] = $this->record_set[$query_id];
 			}
@@ -312,14 +312,14 @@ class SQL_DB
 	 * @param $query_id Query ID
 	 * @return mixed Number of rows / false
 	 */
-	function num_rows($query_id = 0)
+	function num_rows( $query_id = 0 )
 	{
-		if ( !$query_id )
+		if( !$query_id )
 		{
 			$query_id = $this->query_id;
 		}
 
-		if ( $query_id )
+		if( $query_id )
 		{
 			$result = @mysql_num_rows($query_id);
 			return $result;
@@ -335,7 +335,7 @@ class SQL_DB
 	 *
 	 * @return mixed Affected Rows / false
 	 */
-	function affected_rows()
+	function affected_rows( )
 	{
 		return ( $this->link_id ) ? @mysql_affected_rows($this->link_id) : false;
 	}
@@ -345,9 +345,9 @@ class SQL_DB
 	 *
 	 * @return mixed Last ID / false
 	 */
-	function insert_id()
+	function insert_id( )
 	{
-		if ( $this->link_id )
+		if( $this->link_id )
 		{
 			$result = @mysql_insert_id($this->link_id);
 			return $result;
@@ -364,14 +364,14 @@ class SQL_DB
 	 * @param $query_id Query ID
 	 * @return bool
 	 */
-	function free_result($query_id = 0)
+	function free_result( $query_id = 0 )
 	{
-		if ( !$query_id )
+		if( !$query_id )
 		{
 			$query_id = $this->query_id;
 		}
 
-		if ( $query_id )
+		if( $query_id )
 		{
 			unset($this->record[$query_id]);
 			unset($this->record_set[$query_id]);
@@ -392,7 +392,7 @@ class SQL_DB
 	 * @param $string
 	 * @return string
 	 */
-	function escape($string)
+	function escape( $string )
 	{
 		$string = str_replace("'", "''",    $string);
 		$string = str_replace('\\', '\\\\', $string);
@@ -405,7 +405,7 @@ class SQL_DB
 	 *
 	 * @param $setting
 	 */
-	function error_die($setting = true)
+	function error_die( $setting = true )
 	{
 		$this->error_die = $setting;
 	}

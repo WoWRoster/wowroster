@@ -246,7 +246,7 @@ function output_settings_xml( )
  */
 function output_addon_xml( )
 {
-	global $db;
+	global $db, $uniadmin;
 
 	// Don't get optional addons if UU_COMPAT is true
 	if( UU_COMPAT )
@@ -274,7 +274,7 @@ function output_addon_xml( )
 			$addonElement->attribute('version', $row['version']);
 			$addonElement->attribute('required', $row['required']);
 			$addonElement->attribute('homepage', $row['homepage']);
-			$addonElement->attribute('filename', $row['file_name']);
+			$addonElement->attribute('filename', $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name']);
 			$addonElement->attribute('toc', $row['toc']);
 			$addonElement->attribute('full_path', $row['full_path']);
 			$addonElement->attribute('notes', str_replace('"','',$row['notes']));

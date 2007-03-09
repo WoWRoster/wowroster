@@ -237,7 +237,7 @@ function process_logo( )
 		$logo_location = $logo_folder.DIR_SEP.stripslashes('logo'.$logo_num.'.'.$logo_ext);
 
 		// Remove all types we allow
-		foreach( UA_LOGO_TYPES as $logo_del )
+		foreach( explode(',',UA_LOGO_TYPES) as $logo_del )
 		{
 			if( file_exists($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del) )
 			{

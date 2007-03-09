@@ -174,6 +174,7 @@ function main( )
 		}
 
 		/* NOT USED YET $addon_in_db = array(); */
+
 		while( $row = $db->fetch_record($result) )
 		{
 			if( substr($row['file_name'], 0, 7) == 'http://' )

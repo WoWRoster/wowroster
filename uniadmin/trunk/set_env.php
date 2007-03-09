@@ -21,7 +21,6 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 	die("You can't access this file directly!");
 }
 
-error_reporting(E_ALL);
 clearstatcache();
 
 // Be paranoid with passed vars
@@ -42,6 +41,18 @@ if ( get_magic_quotes_gpc() == 0 )
     $_GET = slash_global_data($_GET);
     $_POST = slash_global_data($_POST);
     $_COOKIE = slash_global_data($_COOKIE);
+}
+
+define('CAN_INI_SET',!ereg('ini_set', ini_get('disable_functions')));
+
+$phpver = explode('.', phpversion());
+$phpver = "$phpver[0]$phpver[1]";
+define('PHPVERSION', $phpver);
+unset($phpver);
+
+if( PHPVERSION < 43 )
+{
+	die('You must have at least PHP version 4.3 and higher to run UniAdmin');
 }
 
 if( !defined('DIR_SEP') )
@@ -70,6 +81,9 @@ define( 'IN_UNIADMIN',true );
 
 
 include(UA_BASEDIR.'include'.DIR_SEP.'constants.php');
+
+include(UA_INCLUDEDIR.'uadebug.php');
+
 include(UA_INCLUDEDIR.'dbal.php');
 include(UA_INCLUDEDIR.'uniadmin.php');
 include(UA_INCLUDEDIR.'user.php');

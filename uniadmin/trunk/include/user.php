@@ -136,3 +136,14 @@ function get_user_info( $name='' )
 
 	return $row;
 }
+
+/**
+ * Returns admin name if the user is an administrator, otherwise false
+ *
+ * @return mixed
+ */
+function is_ua_admin( )
+{
+	global $user;
+	return (is_object($user) && isset($user->data['level']) && $user->data['level'] >= UA_ID_ADMIN) ? $user->data['name'] : false;
+}
