@@ -1,10 +1,17 @@
 PvPLog 
 Author:           Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-Version:          2.3.8
-Last Modified:    2007-03-07
+Version:          2.3.9
+Last Modified:    2007-03-09
 
 CHANGES
+
+2007-03-07  * 2.3.9
+    * Added more debugging.
+    * Added check to recents cleared (healthy) to reduce the number of debug messages.
+    * Modified targetRecord population to eliminate possible race condition if "target" changes while
+      capturing data.
+    * Added tracking of targets from periodic damage. Pets need more research.
 
 2007-03-07  * 2.3.8
     * Added per character savedvariables containing the most recent combat messages and debug messages

@@ -2,8 +2,8 @@
     PvPLog 
     Author:           Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-    Version:          2.3.8
-    Last Modified:    2007-03-07
+    Version:          2.3.9
+    Last Modified:    2007-03-09
 ]]
 
 -- Local variables
@@ -42,7 +42,7 @@ local recentDamaged = { };
 local ignoreList = { };
 local ignoreRecords = { };
 
-local MAXDEBUG = 500;
+local MAXDEBUG = 2000;
 
 local lastDing = -1000;
 
@@ -225,6 +225,11 @@ function PvPLogOnEvent()
     -- loads and initializes our variables
     if (event == "VARIABLES_LOADED") then
         variablesLoaded = true;
+        if (PvPLogDebugFlag == nil) then
+            PvPLogDebugFlag = false;
+        else
+            simple_debug = PvPLogDebugFlag; -- Manually set to true if you want to always debug.
+        end
         PvPLog_RegisterWithAddonManagers();
         
     -- initialize when entering world
@@ -288,13 +293,13 @@ function PvPLogOnEvent()
                     PvPLogChatMsgCyan("PvP "..PVPLOG.DLKB..RED..lastDamagerToMe);
                     PvPLogRecord(lastDamagerToMe, v.level, v.race, v.class, v.guild, 1, 0, v.rank, v.realm);
                 else
-                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..lastDamagerToMe);
+                    PvPLogDebugMsg("Empty targetRecords for: "..lastDamagerToMe, RED);
                 end
             else
-                PvPLogDebugMsg(RED.."No targetRecords for: "..lastDamagerToMe);
+                PvPLogDebugMsg("No targetRecords for: "..lastDamagerToMe, RED);
             end
         else
-            PvPLogDebugMsg(RED.."No recentDamager for: "..lastDamagerToMe);
+            PvPLogDebugMsg("No recentDamager for: "..lastDamagerToMe, RED);
         end
 
         -- we are dead, clear the variables
@@ -421,75 +426,75 @@ function PvPLogOnEvent()
     elseif (event == "CHAT_MSG_COMBAT_HOSTILEPLAYER_HITS") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLog_damageMe(arg1);
             end
         end
     elseif (event == "CHAT_MSG_COMBAT_SELF_HITS") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLog_myDamage(arg1);
             end
         end
     elseif (event == "CHAT_MSG_COMBAT_PET_HITS") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLogDebugAdd(arg1.." (Ignored)");
             end
         end
     elseif (event == "CHAT_MSG_SPELL_DAMAGESHIELD_ON_SELF") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLog_myDamage(arg1);
             end
         end
     elseif (event == "CHAT_MSG_SPELL_SELF_DAMAGE") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLog_myDamage(arg1);
             end
         end
     elseif (event == "CHAT_MSG_SPELL_PET_DAMAGE") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLogDebugAdd(arg1.." (Ignored)");
             end
         end
     elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 PvPLog_damageMe(arg1);
             end
         end
     elseif (event == "CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
-                -- PvPLogDebugMsg(ORANGE.."Time: "..GetTime());
-                PvPLogDebugAdd(arg1.." (Ignored)");
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
+                -- PvPLogDebugMsg("Time: "..GetTime(), ORANGE);
+                PvPLog_myDamage(arg1);
             end
         end
     elseif (event == "CHAT_MSG_SPELL_PERIODIC_HOSTILEPLAYER_DAMAGE") then
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
-                -- PvPLogDebugMsg(GREEN.."Event: "..event);
-                -- PvPLogDebugMsg(FIRE.."Msg: "..arg1);
-                -- PvPLogDebugMsg(ORANGE.."Time: "..GetTime());
-                PvPLogDebugAdd(arg1.." (Ignored)");
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
+                -- PvPLogDebugMsg("Time: "..GetTime(), ORANGE);
+                PvPLog_damageMe(arg1);
             end
         end
     elseif (event == "PLAYER_REGEN_DISABLED") then
@@ -497,7 +502,9 @@ function PvPLogOnEvent()
         PvPLogConfigHide();
 --  elseif (event == "PLAYER_REGEN_ENABLED") then
     elseif (event == "UNIT_HEALTH") then
-        if ( not UnitAffectingCombat("player") and UnitHealth("player") == UnitHealthMax("player")) then
+        if ( not UnitAffectingCombat("player") and 
+          UnitHealth("player") == UnitHealthMax("player") and
+          ((recentDamager and table.getn(recentDamager) > 0) or lastDamagerToMe ~= "")) then
             PvPLogDebugMsg('Recents cleared (healthy).');
             recentDamager = { };
             lastDamagerToMe = "";
@@ -524,12 +531,12 @@ function PvPLogPrintDamage()
     local arcaneAvg = (dmgType.dmg_arcane.norm + dmgType.dmg_arcane.crit)/
         dmgType.dmg_arcane.count;
 
-    PvPLogDebugMsg(CYAN .. "Physical Avg: " .. physAvg);
-    PvPLogDebugMsg(BLUE .. "Fire Avg: " .. fireAvg);
-    PvPLogDebugMsg(MAGENTA .. "Frost Avg: " .. frostAvg);
-    PvPLogDebugMsg(CYAN .. "Nature Avg: " .. natureAvg);
-    PvPLogDebugMsg(BLUE .. "Shadow Avg: " .. shadowAvg);
-    PvPLogDebugMsg(MAGENTA .. "Arcane Avg: " .. arcaneAvg);
+    PvPLogDebugMsg("Physical Avg: " .. physAvg, CYAN);
+    PvPLogDebugMsg("Fire Avg: " .. fireAvg, BLUE);
+    PvPLogDebugMsg("Frost Avg: " .. frostAvg, MAGENTA);
+    PvPLogDebugMsg("Nature Avg: " .. natureAvg, CYAN);
+    PvPLogDebugMsg("Shadow Avg: " .. shadowAvg, BLUE);
+    PvPLogDebugMsg("Arcane Avg: " .. arcaneAvg, MAGENTA);
 end
 
 function PvPLogPrintStats()
@@ -585,9 +592,13 @@ function PvPLogPrintStats()
         " ("..PVPLOG.ALD..": "..(math.floor(stats.duelLossAvgLevelDiff*100)/100)..")");
 end
 
-function PvPLogDebugMsg(msg)
+function PvPLogDebugMsg(msg, color)
     if (debug_simple) then
-        PvPLogChatMsg('debug: ' .. msg);
+        if (color) then
+            PvPLogChatMsg('PvPLog: ' .. color .. msg);
+        else
+            PvPLogChatMsg('PvPLog: ' .. msg);
+        end
         PvPLogDebugAdd(msg);
     end
 end
@@ -602,7 +613,7 @@ function PvPLogDebugAdd(msg)
 end
 
 --[[
-function PvPLogDebugMsg(msg)
+function PvPLogDebugMsg(msg, color)
     -- will print to chatFrame that listens to PvPDebug Channel as the only chan
     if (debug_indx == nil) then
         local number = 1;
@@ -618,7 +629,11 @@ function PvPLogDebugMsg(msg)
         end
         debug_indx = getglobal("ChatFrame"..number);
     end
-    debug_indx:AddMessage(msg);
+    if (color) then
+        debug_indx:AddMessage(color..msg);
+    else
+        debug_indx:AddMessage(msg);
+    end
 end
 ]]--
 
@@ -663,12 +678,12 @@ function PvPLogFloatMsg(msg, color)
 end
 
 function PvPLogDuelStart(seconds)
-    PvPLogDebugMsg(ORANGE.."Starting duel");
+    PvPLogDebugMsg("Starting duel", ORANGE);
     isDuel = true;
 end
 
 function PvPLogDuel(parseWinner, parseLoser)
-    PvPLogDebugMsg(ORANGE.."Processing duel: "..parseWinner..", "..parseLoser);
+    PvPLogDebugMsg("Processing duel: "..parseWinner..", "..parseLoser, ORANGE);
     if (parseWinner and parseLoser) then
         if (UnitName("player") == parseWinner) then
             PvPLogUpdateTarget(isDuel);
@@ -678,10 +693,10 @@ function PvPLogDuel(parseWinner, parseLoser)
                     PvPLogChatMsgCyan(PVPLOG.DWLA..GREEN..parseLoser);
                     PvPLogRecord(parseLoser, v.level, v.race, v.class, v.guild, 0, 1, v.rank);
                 else
-                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseLoser);
+                    PvPLogDebugMsg("Empty targetRecords for: "..parseLoser, RED);
                 end
             else
-                PvPLogDebugMsg(RED.."No targetRecords for: "..parseLoser);
+                PvPLogDebugMsg("No targetRecords for: "..parseLoser, RED);
             end
         elseif (UnitName("player") == parseLoser) then
             if (targetRecords[parseWinner]) then
@@ -691,10 +706,10 @@ function PvPLogDuel(parseWinner, parseLoser)
                     PvPLogChatMsgCyan(PVPLOG.DLLA..GREEN..parseWinner);
                     PvPLogRecord(parseWinner, v.level, v.race, v.class, v.guild, 0, 0, v.rank);
                 else
-                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseWinner);
+                    PvPLogDebugMsg("Empty targetRecords for: "..parseWinner, RED);
                 end
             else
-                PvPLogDebugMsg(RED.."No targetRecords for: "..parseWinner);
+                PvPLogDebugMsg("No targetRecords for: "..parseWinner, RED);
             end
         end
         isDuel = false;
@@ -704,7 +719,7 @@ end
 function PvPLogPlayerDeath(parseName)
     -- if we have a name
     if (parseName) then
-        PvPLogDebugMsg(YELLOW.."Processing death of: "..parseName);
+        PvPLogDebugMsg("Processing death of: "..parseName, YELLOW);
         local found = false;
         table.foreach(recentDamaged,
             function(i,tname)
@@ -724,13 +739,13 @@ function PvPLogPlayerDeath(parseName)
                         lastDamagerToMe = "";
                     end
                 else
-                    PvPLogDebugMsg(RED.."Empty targetRecords for: "..parseName);
+                    PvPLogDebugMsg("Empty targetRecords for: "..parseName, RED);
                 end
             else
-                PvPLogDebugMsg(RED.."No targetRecords for: "..parseName);
+                PvPLogDebugMsg("No targetRecords for: "..parseName, RED);
             end
         else
-            PvPLogDebugMsg(RED.."No recentDamaged for: "..parseName);
+            PvPLogDebugMsg("No recentDamaged for: "..parseName, RED);
         end
     end
 end
@@ -772,7 +787,7 @@ end
 function PvPLogMyDamage(res1, res2, res3, res4, res5)
     if (res1) then
         if ((isDuel or not ignoreRecords[res1]) and not targetRecords[res1]) then
-            PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res1);
+            PvPLogDebugMsg("Damaged Targets Addition: "..res1, RED);
             targetRecords[res1] = { };
             table.insert(targetList, res1);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -791,7 +806,7 @@ end
 function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
     if (res2) then
         if ((isDuel or not ignoreRecords[res2]) and not targetRecords[res2]) then
-            PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res2);
+            PvPLogDebugMsg("Damaged Targets Addition: "..res2, RED);
             targetRecords[res2] = { };
             table.insert(targetList, res2);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -810,7 +825,7 @@ end
 function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
     if (res3) then
         if ((isDuel or not ignoreRecords[res3]) and not targetRecords[res3]) then
-            PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res3);
+            PvPLogDebugMsg("Damaged Targets Addition: "..res3, RED);
             targetRecords[res3] = { };
             table.insert(targetList, res3);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -829,7 +844,7 @@ end
 function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
     if (res4) then
         if ((isDuel or not ignoreRecords[res4]) and not targetRecords[res4]) then
-            PvPLogDebugMsg(RED.."Damaged Targets Addition: "..res4);
+            PvPLogDebugMsg("Damaged Targets Addition: "..res4, RED);
             targetRecords[res4] = { };
             table.insert(targetList, res4);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -849,7 +864,7 @@ function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
     if (res1) then
         
         if ((isDuel or not ignoreRecords[res1]) and not targetRecords[res1]) then
-            PvPLogDebugMsg(RED.."Recent Targets Addition: "..res1);
+            PvPLogDebugMsg("Recent Targets Addition: "..res1, RED);
             targetRecords[res1] = { };
             table.insert(targetList, res1);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -871,7 +886,7 @@ end
 function PvPLogDamageMeAura(res1, res2, res3, res4)
     if (res3) then
         if ((isDuel or not ignoreRecords[res3]) and not targetRecords[res3]) then
-            PvPLogDebugMsg(RED.."Recent Targets Addition: "..res3);
+            PvPLogDebugMsg("Recent Targets Addition: "..res3, RED);
             targetRecords[res3] = { };
             table.insert(targetList, res3);
             if (table.getn(targetList) > NUMTARGETS) then
@@ -1670,10 +1685,22 @@ end
 -- In WoW V2, this is about the only place where we can be sure of capturing
 -- information about our target.
 function PvPLogUpdateTarget(dueling)
-    targetName, targetRealm = UnitName("target") 
+    local targetName, targetRealm = UnitName("target"); 
+    local targetLevel = UnitLevel("target");
+    local targetRace = UnitRace("target");
+    local targetClass = UnitClass("target");
+    local targetGuild = GetGuildInfo("target");
+    local targetRank = UnitPVPName("target");
+    local targetIsPlayer = UnitIsPlayer("target");
+    local targetIsEnemy = UnitIsEnemy("player", "target");
+    local targetName2 = UnitName("target");
+    if (targetName and targetName2 and targetName ~= targetName2) then
+        PvPLogDebugMsg('Target changed from "'.. targetName ..'" to "' .. targetName2 .. '"');
+        return;
+    end
     if (targetName) then
         -- We have a valid target
-        if (dueling or (UnitIsPlayer("target") and UnitIsEnemy("player", "target"))) then
+        if (dueling or (targetIsPlayer and targetIsEnemy)) then
             -- Its a player and its an enemy
             if (not targetRecords[targetName]) then
                 PvPLogDebugMsg('Target added: "' .. targetName .. '"');
@@ -1688,20 +1715,19 @@ function PvPLogUpdateTarget(dueling)
             if (not targetRecords[targetName].level) then
                 PvPLogDebugMsg('Target populated: "' .. targetName .. '"');
                 targetRecords[targetName].realm = targetRealm;
-                targetRecords[targetName].level = UnitLevel("target");
-                targetRecords[targetName].race = UnitRace("target");
-                targetRecords[targetName].class = UnitClass("target");
-                targetRecords[targetName].guild = GetGuildInfo("target");
+                targetRecords[targetName].level = targetLevel;
+                targetRecords[targetName].race = targetRace;
+                targetRecords[targetName].class = targetClass;
+                targetRecords[targetName].guild = targetGuild;
                 targetRecords[targetName].rank = "";
                 MarsMessageParser_ParseMessage("PvPLog_GetRank", 
-                    UnitPVPName("target"));
+                    targetRank);
                 targetRecords[targetName].rank = fullrank;
                 fullrank = "";
             else
-                local level = UnitLevel("target");
-                if (level > targetRecords[targetName].level) then
+                if (targetLevel > targetRecords[targetName].level) then
                     PvPLogDebugMsg('Target updated: "' .. targetName .. '"');
-                    targetRecords[targetName].level = level;
+                    targetRecords[targetName].level = targetLevel;
                 end
             end
         else
@@ -1738,7 +1764,7 @@ function PvPLogUpdateTarget(dueling)
         end
 
         local total = PvPLogGetPvPTotals(targetName);
-        local guildTotal = PvPLogGetGuildTotals(GetGuildInfo("target"));
+        local guildTotal = PvPLogGetGuildTotals(targetGuild);
         local msg = "";
         local show = false;
         if (total and (total.wins > 0 or total.loss > 0)) then
