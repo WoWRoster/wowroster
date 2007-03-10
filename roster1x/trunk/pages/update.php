@@ -174,10 +174,16 @@ if( is_array($uploadData['myProfile']) )
 {
 	$updateMessages = processMyProfile($uploadData['myProfile']);
 }
+else {
+	$updateMessages = '';
+}
 
 if( is_array($uploadData['PvpLogData']) )
 {
 	$updatePvPMessages = processPvP($uploadData['PvpLogData']);
+}
+else {
+	$updatePvPMessages = '';
 }
 
 function processPvP($pvpdata)
