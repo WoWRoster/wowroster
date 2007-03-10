@@ -8,11 +8,41 @@
 
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 
+# --------------------------------------------------------
+### New master entry: Startpage
 INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
-  VALUES ('1050', 'default_page', 'members', 'function{pageNames', 'main_conf');
+  VALUES (5, 'startpage', 'main_conf', 'display', 'master');
+
+# --------------------------------------------------------
+### Config Menu Entries
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (110, 'main_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (130, 'menu_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (170, 'realmstatus_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (210, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
-  VALUES ('4030', 'menu_member_page', '1', 'radio{on^1|off^0', 'menu_conf');
+  VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
+
+INSERT INTO `renprefix_config` ( `id` , `config_name` , `config_value` , `form_type` , `config_type` )
+  VALUES (4030, 'menu_member_page', '1', 'radio{on^1|off^0', 'menu_conf');
 
 UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
