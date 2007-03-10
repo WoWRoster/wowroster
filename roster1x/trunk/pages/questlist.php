@@ -58,7 +58,10 @@ function SelectQuery($table,$fieldtoget,$field,$current,$fieldid,$urltorun)
 		$id = $row["$fieldid"];//must leave double quote
 		$optiontocompare = addslashes($row["$field"]);//must leave double quote
 		$optiontodisplay = $row["$field"];//must leave double quote
-
+		if(!isset($option_block))
+		{
+			$option_block = '';
+		}
 		if ($current == $optiontocompare)
 			$option_block .= '          <option value="'.makelink("$urltorun=$id").'" selected>'.$optiontodisplay."</option>\n";
 		else
@@ -70,7 +73,7 @@ function SelectQuery($table,$fieldtoget,$field,$current,$fieldid,$urltorun)
 
 
 // The next two lines call the function SelectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-$option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.zone","zone",$zoneidsafe,"zone","questlist&amp;zoneid");
+$option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.zone","zone",(isset($zoneidsafe) ? $zoneidsafe : ""),"zone","questlist&amp;zoneid");
 $option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.quest_name","quest_name",$questidsafe,"quest_name","questlist&amp;questid");
 
 // Don't forget the menu !!
@@ -124,7 +127,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 	$zquery = "SELECT DISTINCT `zone` FROM `".ROSTER_QUESTSTABLE."` WHERE `zone` = '".$zoneidsafe."' ORDER BY `zone`";
 
 	$zresult = $wowdb->query($zquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$zquery);
-	if ($roster_conf['sqldebug'])
+	if ($roster_conf['sqldebug'] && isset($query))
 		print ("<!--$query-->");
 
 	while($zrow = $wowdb->fetch_array($zresult))
@@ -137,7 +140,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 		$qquery .= " ORDER BY quest_name";
 
 		$qresult = $wowdb->query($qquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qquery);
-		if ($roster_conf['sqldebug'])
+		if ($roster_conf['sqldebug'] && isset($query))
 		print ("<!--$query-->");
 
 		while($qrow = $wowdb->fetch_array($qresult))
@@ -171,7 +174,7 @@ if (isset($zoneidsafe) or isset($questidsafe))
 				print('<tr>');
 
 				// Increment counter so rows are colored alternately
-				++$striping_counter;
+				(isset($striping_counter) ? ++$striping_counter : $striping_counter = '0');
 
 				// Echoing cells w/ data
 				print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');
@@ -203,7 +206,7 @@ if (isset($questidsafe))
 	$qnquery = "SELECT DISTINCT `quest_name` FROM `".ROSTER_QUESTSTABLE."` WHERE `quest_name` = '" .$questidsafe. "' ORDER BY `quest_name`";
 	$qnresult = $wowdb->query($qnquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qnquery);
 
-	if ($roster_conf['sqldebug'])
+	if ($roster_conf['sqldebug'] && isset($query))
 		print ("<!--$query-->");
 
 	while($qnrow = $wowdb->fetch_array($qnresult))
@@ -216,7 +219,7 @@ if (isset($questidsafe))
 		$query .= " ORDER BY q.zone, q.quest_name, q.quest_level, p.name";
 
 		$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-		if ($roster_conf['sqldebug'])
+		if ($roster_conf['sqldebug'] && isset($query))
 			print ("<!--$query-->");
 
 		$tableHeader = border('syellow','start').'<table cellpadding="0" cellspacing="0">';
@@ -237,7 +240,7 @@ if (isset($questidsafe))
 			print('<tr>');
 
 			// Increment counter so rows are colored alternately
-			++$striping_counter;
+			(isset($striping_counter) ? ++$striping_counter : $striping_counter = '0');
 
 			// Echoing cells w/ data
 			print('<td class="membersRow'. (($striping_counter % 2) +1) .'">');

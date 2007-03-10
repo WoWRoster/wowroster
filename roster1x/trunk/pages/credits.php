@@ -171,7 +171,7 @@ function makeAddonCredits()
 		}
 	}
 
-	if ($lCount < 1)
+	if (isset($lCount) && $lCount < 1)
 	{
 		return '';
 	}

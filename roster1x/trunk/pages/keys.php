@@ -52,7 +52,7 @@ function tableHeaderRow($th)
 	foreach ($th as $header)
 	{
 		++$acount;
-		if($items[$header])
+		if(isset($items[$header]) && $items[$header])
 		{
 			list($iname, $thottnum) = explode('|', $items[$header][$header]);
 			// Item links

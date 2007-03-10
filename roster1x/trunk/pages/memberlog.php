@@ -145,6 +145,9 @@ if ($start > 0)
 {
 	$prev = '<a href="'.makelink('memberlog&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="'.makelink('memberlog&amp;start='.max($start-30,0).$sort_part).'">&lt;</a> ';
 }
+else {
+	$prev = '';
+}
 
 if (($start+30) < $max)
 {
@@ -200,7 +203,10 @@ if( $wowdb->num_rows($result) > 0 )
 		else
 			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" />';
 
-
+		if(!isset($body))
+		{
+			$body = '';
+		}
 		$body .= '<tr>'."\n";
 		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['name'].'</td>'."\n";
 		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['class'].'</td>'."\n";

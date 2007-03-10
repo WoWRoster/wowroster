@@ -265,9 +265,12 @@ foreach ( $FIELDS as $field => $DATA )
 
 	// click a sorted field again to reverse sort it
 	// Don't add it if it is detected already
-	if( $_REQUEST['d'] != 'true' )
+	if( isset($_REQUEST['d']) && $_REQUEST['d'] != 'true' )
 	{
 		$desc = ( $order_field == $field ) ? '&amp;d=true' : '';
+	} 
+	else {
+		$desc = '';
 	}
 
 	if ( $current_col == $cols )
@@ -300,7 +303,7 @@ $last_value = 'some obscurely random string because i\'m too lazy to do this a b
 while ( $row = $wowdb->fetch_assoc( $result ) )
 {
 	// Adding grouping dividers
-	if ( $ORDER_FIELD['divider'] )
+	if ( isset($ORDER_FIELD['divider']) && $ORDER_FIELD['divider'] )
 	{
 		if ( $last_value != $row[$order_field] )
 		{
@@ -465,7 +468,7 @@ function honor_value ( $row )
 	{
 		if ( $roster_conf['index_honoricon'] )
 		{
-			if( $playersData['lifetimeHighestRank'] < 10 )
+			if( isset($playersData['lifetimeHighestRank']) && $playersData['lifetimeHighestRank'] < 10 )
 			{
 				$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
 			}
