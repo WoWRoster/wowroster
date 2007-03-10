@@ -29,7 +29,7 @@ $wordings['frFR']['lualocation']='Cliquer parcourir (browse) et télécharger le
 $wordings['frFR']['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $wordings['frFR']['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
-$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".makelink('update')."\">charger votre guilde</a> et <a href=\"".makelink('update')."\">finaliser la configuration</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
+$wordings['frFR']['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".makelink('update')."\">charger votre guilde</a> et <a href=\"".makelink('rostercp')."\">finaliser la configuration</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
 
 $wordings['frFR']['update_page']='Mise à jour du profil';
 // NOT USED $wordings['frFR']['updCharInfo']='Mettre à jour les informations du personnage';

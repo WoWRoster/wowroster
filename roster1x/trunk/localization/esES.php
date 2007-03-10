@@ -29,7 +29,7 @@ $wordings['esES']['lualocation']='Pulsa Examinar y selecciona tus ficheros *.lua
 $wordings['esES']['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*NOMBRE_DE_CUENTA*</i>\\\\SavedVariables';
 
 $wordings['esES']['noGuild']='No puedo encontrar la hermandad en la base de datos. Por favor, actualiza primero los miembros.';
-$wordings['esES']['nodata']="No puedo encontrar la hermandad: <b>'".$roster_conf['guild_name']."'</b> del servidor <b>'".$roster_conf['server_name']."'</b><br />Necesitas <a href=\"".makelink('update')."\">incluir tu hermandad</a> y asegurarte de que has <a href=\"".makelink('update')."\">terminado la configuración</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Pulsa aquí para las instrucciones de instalación</a>";
+$wordings['esES']['nodata']="No puedo encontrar la hermandad: <b>'".$roster_conf['guild_name']."'</b> del servidor <b>'".$roster_conf['server_name']."'</b><br />Necesitas <a href=\"".makelink('update')."\">incluir tu hermandad</a> y asegurarte de que has <a href=\"".makelink('rostercp')."\">terminado la configuración</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Pulsa aquí para las instrucciones de instalación</a>";
 
 $wordings['esES']['update_page']='Actualizar Perfil';
 // NOT USED $wordings['esES']['updCharInfo']='Update Character Info';
