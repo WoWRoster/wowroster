@@ -59,11 +59,6 @@ $pages['password'] = array(
 	"title"=>	"pagebar_changepass",
 	"file"=>	"change_pass.php",
 	);
-$pages['update'] = array(
-	"href"=>	"-update",
-	"title"=>	"pagebar_update",
-	"file"=>	"update.php",
-	);
 $pages['hr'] = array(
 	"special"=>	"divider",
 	);

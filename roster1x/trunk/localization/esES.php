@@ -753,22 +753,24 @@ $wordings['esES']['lockpicking']='Lockpicking';
  * Roster Admin Strings
  ******************************/
 
+$wordings['esES']['pagebar_function'] = 'Function';
+$wordings['esES']['pagebar_rosterconf'] = 'Configure Main Roster';
+$wordings['esES']['pagebar_charpref'] = 'Character Preferences';
+$wordings['esES']['pagebar_changepass'] = 'Change Password';
+$wordings['esES']['pagebar_addoninst'] = 'Manage Addons';
+$wordings['esES']['pagebar_update'] = 'Upload Profile';
+$wordings['esES']['pagebar_rosterdiag'] = 'Roster Diag';
+$wordings['esES']['pagebar_menuconf'] = 'Menu configuration';
+
+$wordings['esES']['pagebar_addonconf'] = 'Addon Config';
+
+$wordings['esES']['roster_config_menu'] = 'Config Menu';
+
 // Submit/Reset confirm questions
-$wordings['esES']['confirm_config_submit'] = 'Esto guardar&aacute los datos en la base de datos. ¿EstÃ¡s seguro?';
-$wordings['esES']['confirm_config_reset'] = 'Esto resetear&aacute a los valores antes de modificarlo. Est&aacutes seguro?';
-
-// Main Menu words
-$wordings['esES']['admin']['main_conf'] = 'Opciones Principales';
-$wordings['esES']['admin']['guild_conf'] = 'Configuraci&oacuten de la hermandad';
-$wordings['esES']['admin']['index_conf'] = 'P&aacutegina principal';
-$wordings['esES']['admin']['menu_conf'] = 'Men&uacute';
-$wordings['esES']['admin']['display_conf'] = 'Mostrar Configuraci&oacuten';
-$wordings['esES']['admin']['char_conf'] = 'P&aacutegina de personaje';
-$wordings['esES']['admin']['realmstatus_conf'] = 'Estado del reino';
-$wordings['esES']['admin']['guildbank_conf'] = 'Guildbanco';
-$wordings['esES']['admin']['data_links'] = 'Links de los Objetos/Quests';
-$wordings['esES']['admin']['update_access'] = 'update.php Acceso';
-
+$wordings['esES']['config_submit_button'] = 'Save Settings';
+$wordings['esES']['config_reset_button'] = 'Reset';
+$wordings['esES']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
+$wordings['esES']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
 
 // All strings here
 // Each variable must be the same name as the config variable name
@@ -782,6 +784,20 @@ $wordings['esES']['admin']['update_access'] = 'update.php Acceso';
 // Example:
 //   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br />Use with care"
 
+
+// Main Menu words
+$wordings['esES']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$wordings['esES']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
+$wordings['esES']['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
+$wordings['esES']['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
+$wordings['esES']['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
+$wordings['esES']['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
+$wordings['esES']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$wordings['esES']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
+$wordings['esES']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$wordings['esES']['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
+
+$wordings['esES']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
 $wordings['esES']['admin']['roster_upd_pw'] = "Roster Actualizaci&oacuten Clave|Esta es la clave para permitir las actualizaciones de la hermandad en la p&aacutegina de actualizaciones<br>Algunos addons usar&aacuten esta clave";

@@ -753,22 +753,24 @@ $wordings['deDE']['lockpicking']='Schlossknacken';
  * Roster Admin Strings
  ******************************/
 
+$wordings['deDE']['pagebar_function'] = 'Aufgaben';
+$wordings['deDE']['pagebar_rosterconf'] = 'Konfiguriere Roster';
+$wordings['deDE']['pagebar_charpref'] = 'Character Preferenzen';
+$wordings['deDE']['pagebar_changepass'] = 'Passwort Änderung';
+$wordings['deDE']['pagebar_addoninst'] = 'Verwalte Addons';
+$wordings['deDE']['pagebar_update'] = 'Upload Profile';
+$wordings['deDE']['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
+$wordings['deDE']['pagebar_menuconf'] = 'Menu Konfiguration';
+
+$wordings['deDE']['pagebar_addonconf'] = 'Addon Konfiguration';
+
+$wordings['deDE']['roster_config_menu'] = 'Config Menu';
+
 // Submit/Reset confirm questions
+$wordings['deDE']['config_submit_button'] = 'Speichere Einstellungen';
+$wordings['deDE']['config_reset_button'] = 'Zurücksetzen';
 $wordings['deDE']['confirm_config_submit'] = 'Dies wird die Änderungen in die Datenbank schreiben. Sind sie sicher?';
 $wordings['deDE']['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurücksetzen in dem es am Anfang war. Sind sie sicher?';
-
-// Main Menu words
-$wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen';
-$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration';
-$wordings['deDE']['admin']['index_conf'] = 'Indexseite';
-$wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen';
-$wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen';
-$wordings['deDE']['admin']['char_conf'] = 'Charakterseite';
-$wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus';
-$wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank';
-$wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links';
-$wordings['deDE']['admin']['update_access'] = 'Update Zugriff';
-
 
 // All strings here
 // Each variable must be the same name as the config variable name
@@ -782,6 +784,20 @@ $wordings['deDE']['admin']['update_access'] = 'Update Zugriff';
 // Example:
 //   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br />Use with care"
 
+
+// Main Menu words
+$wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br>Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
+$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration|Gib deine Gildeninfos ein<br>- Gildenname<br>- Realmname (Server)<br>- Eine kurze Beschreibung<br>- Servertyp<br>- etc...';
+$wordings['deDE']['admin']['index_conf'] = 'Indexseite|Einstellen was auf der Hauptseite angezeigt werden soll';
+$wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im Menü gezeigt werden sollen';
+$wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br>css, javascript, motd, etc...';
+$wordings['deDE']['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den Charakterseite angezeigt werden soll';
+$wordings['deDE']['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br><br>Um es auszustellen, bitte bei Menüeinstellungen gucken';
+$wordings['deDE']['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gildenbank';
+$wordings['deDE']['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
+$wordings['deDE']['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update';
+
+$wordings['deDE']['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
 
 // main_conf
 $wordings['deDE']['admin']['roster_upd_pw'] = "Roster Update Passwort|Dieses Passwort erlaubt die Aktualisierung der Gildenmitglieder<br />Eine Addons benötigen dieses PW auch";

@@ -753,22 +753,24 @@ $wordings['frFR']['lockpicking']='Crochetage';
  * Roster Admin Strings
  ******************************/
 
+$wordings['frFR']['pagebar_function'] = 'Function';
+$wordings['frFR']['pagebar_rosterconf'] = 'Configure Main Roster';
+$wordings['frFR']['pagebar_charpref'] = 'Character Preferences';
+$wordings['frFR']['pagebar_changepass'] = 'Change Password';
+$wordings['frFR']['pagebar_addoninst'] = 'Manage Addons';
+$wordings['frFR']['pagebar_update'] = 'Upload Profile';
+$wordings['frFR']['pagebar_rosterdiag'] = 'Roster Diag';
+$wordings['frFR']['pagebar_menuconf'] = 'Menu configuration';
+
+$wordings['frFR']['pagebar_addonconf'] = 'Addon Config';
+
+$wordings['frFR']['roster_config_menu'] = 'Config Menu';
+
 // Submit/Reset confirm questions
-$wordings['frFR']['confirm_config_submit'] = 'Ceci enregistrera les changements dans la base de données. Etes-vous sûr ?';
-$wordings['frFR']['confirm_config_reset'] = 'Celà réinitialisera le formulaire aux valeurs précédentes. Etes-vous sûr ?';
-
-// Main Menu words
-$wordings['frFR']['admin']['main_conf'] = 'Options principales';
-$wordings['frFR']['admin']['guild_conf'] = 'Options Guilde';
-$wordings['frFR']['admin']['index_conf'] = 'Option Affichage';
-$wordings['frFR']['admin']['menu_conf'] = 'Option Menu';
-$wordings['frFR']['admin']['display_conf'] = 'Option Style';
-$wordings['frFR']['admin']['char_conf'] = 'Options Joueurs';
-$wordings['frFR']['admin']['realmstatus_conf'] = 'Option Royaume';
-$wordings['frFR']['admin']['guildbank_conf'] = 'Option Banque';
-$wordings['frFR']['admin']['data_links'] = 'Liens vers données objets/quêtes';
-$wordings['frFR']['admin']['update_access'] = 'Accès à la mise à jour';
-
+$wordings['frFR']['config_submit_button'] = 'Save Settings';
+$wordings['frFR']['config_reset_button'] = 'Reset';
+$wordings['frFR']['confirm_config_submit'] = 'This will save the changes to the database. Are you sure?';
+$wordings['frFR']['confirm_config_reset'] = 'This will reset the form to how it was when you loaded it. Are you sure?';
 
 // All strings here
 // Each variable must be the same name as the config variable name
@@ -782,6 +784,20 @@ $wordings['frFR']['admin']['update_access'] = 'Accès à la mise à jour';
 // Example:
 //   "Controls Flux-Capacitor|Turning this on may cause serious temporal distortions<br />Use with care"
 
+
+// Main Menu words
+$wordings['frFR']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$wordings['frFR']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
+$wordings['frFR']['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
+$wordings['frFR']['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
+$wordings['frFR']['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
+$wordings['frFR']['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
+$wordings['frFR']['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$wordings['frFR']['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
+$wordings['frFR']['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$wordings['frFR']['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
+
+$wordings['frFR']['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
 $wordings['frFR']['admin']['roster_upd_pw'] = "Mot de passe du Roster|Il s'agit du mot de passe permettant la mise à jour de la liste des membres de la Guilde.<br />Certains addons peuvent aussi utilisé ce mot de passe.";
