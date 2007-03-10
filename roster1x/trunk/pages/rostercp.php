@@ -61,7 +61,7 @@ $menu = '';
 $body = '';
 $pagebar = '';
 
-$page = ($page = isset($pages[1]) && ($pages[1]==''))?$pages[1]:'roster';
+$page = (isset($pages[1]) && ($pages[1]!=''))?$pages[1]:'roster';
 
 if (isset($pages[$page]['file']) and (!isset($pages[$page]['access']) or $roster_login->getAuthorized($pages[$page]['access'])))
 { // There is something defined to include and we're allowed to access it
