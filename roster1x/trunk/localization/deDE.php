@@ -800,7 +800,7 @@ $wordings['deDE']['confirm_config_reset'] = 'Dies wird das Formular in den Zusta
 
 // Main Menu words
 $wordings['deDE']['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br>Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
-$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration|Gib deine Gildeninfos ein<br>- Gildenname<br>- Realmname (Server)<br>- Eine kurze Beschreibung<br>- Servertyp<br>- etc...';
+$wordings['deDE']['admin']['guild_conf'] = 'Gildenkonfiguration|Gib deine Gildeninfos ein<ul><li>Gildenname</li><li>Realmname (Server)</li><li>Eine kurze Beschreibung</li><li>Servertyp</li><li>etc...</li></ul>';
 $wordings['deDE']['admin']['index_conf'] = 'Indexseite|Einstellen was auf der Hauptseite angezeigt werden soll';
 $wordings['deDE']['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im Menü gezeigt werden sollen';
 $wordings['deDE']['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br>css, javascript, motd, etc...';

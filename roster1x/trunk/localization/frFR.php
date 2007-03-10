@@ -800,7 +800,7 @@ $wordings['frFR']['confirm_config_reset'] = 'This will reset the form to how it 
 
 // Main Menu words
 $wordings['frFR']['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
-$wordings['frFR']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<br>- Guild name<br>- Realm name (server)<br>- Short guild description<br>- Server type<br>- etc...';
+$wordings['frFR']['admin']['guild_conf'] = 'Guild Config|Set up your guild info<ul><li>Guild name</li><li>Realm name (server)</li><li>Short guild description</li><li>Server type</li><li>etc...</li></ul>';
 $wordings['frFR']['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
 $wordings['frFR']['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
 $wordings['frFR']['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
