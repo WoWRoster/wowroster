@@ -196,7 +196,7 @@ if( $roster_conf['menu_quests_page'] )
 if( $roster_conf['menu_search_page'] )
 	print '        <li><a href="'.makelink('search').'">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
 ?>
-        <li><a href="<?php print makelink('admin').'">'.$wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
+        <li><a href="<?php print makelink('rostercp').'">'.$wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
         <li><a href="<?php print makelink('credits').'">'.$wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
       </ul></td>
 <?php
