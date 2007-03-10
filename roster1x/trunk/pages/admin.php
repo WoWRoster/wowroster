@@ -118,7 +118,7 @@ $menu .='
 
 $form_start = "<form action=\"".makelink('admin')."\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_submit']."') && submitonce(this)\">\n";
 
-$submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+$submit_button = "<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onclick=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 
 $form_end = "</form>\n";
 
@@ -682,14 +682,14 @@ function pageNames( )
 			}
 		}
 	}
-	
+
 	$addonlist = makeAddonList(2);
-	
+
 	$pages = array_merge($pages, $addonlist);
 
 	$input_field = '<select name="config_default_page">'."\n";
 	$select_one = 1;
-	
+
 	foreach( $pages as $value )
 	{
 		if( $value[0] == $roster_conf['default_page'] && $select_one )

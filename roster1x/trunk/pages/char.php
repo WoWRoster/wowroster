@@ -162,12 +162,12 @@ $char_page .= '<br />
 <span class="lastupdated">'.$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$char->data['update_format']."</span><br />\n";
 
 if($roster_conf['show_signature'])
-	$char_page .= "<img onmouseover=\"return overlib('To access this signature use: ".$roster_conf['roster_dir']."/addons/siggen/sig.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Signature Access',RIGHT);\" onmouseout=\"return nd();\" ".
-		"src=\"".$roster_conf['roster_dir']."/addons/siggen/sig.php?name=".urlencode(utf8_decode($name))."&amp;saveonly=0\" alt=\"Signature Image for $name\" />&nbsp;\n";
+	$char_page .= "<img onmouseover=\"return overlib('To access this signature use: ".$roster_conf['roster_dir']."/addons/siggen/sig.php?member=".urlencode(utf8_decode($name))."',CAPTION,'Signature Access',RIGHT);\" onmouseout=\"return nd();\" ".
+		"src=\"".$roster_conf['roster_dir']."/addons/siggen/sig.php?member=".urlencode(utf8_decode($name))."&amp;saveonly=0\" alt=\"Signature Image for $name\" />&nbsp;\n";
 
 if($roster_conf['show_avatar'])
-	$char_page .= "<img onmouseover=\"return overlib('To access this avatar use: ".$roster_conf['roster_dir']."/addons/siggen/av.php?name=".urlencode(utf8_decode($name))."',CAPTION,'Avatar Access');\" onmouseout=\"return nd();\" ".
-		"src=\"".$roster_conf['roster_dir']."/addons/siggen/av.php?name=".urlencode(utf8_decode($name))."&amp;saveonly=0\" alt=\"Avatar Image for $name\" />\n";
+	$char_page .= "<img onmouseover=\"return overlib('To access this avatar use: ".$roster_conf['roster_dir']."/addons/siggen/av.php?member=".urlencode(utf8_decode($name))."',CAPTION,'Avatar Access');\" onmouseout=\"return nd();\" ".
+		"src=\"".$roster_conf['roster_dir']."/addons/siggen/av.php?member=".urlencode(utf8_decode($name))."&amp;saveonly=0\" alt=\"Avatar Image for $name\" />\n";
 
 
 $char_page .= '

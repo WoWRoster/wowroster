@@ -1561,7 +1561,32 @@ $returnstring .= '  <tr>
 	<img src="'.$roster_conf['img_url'].'char/talentbar_top.gif" style="position:absolute;margin-top:43px;margin-left:65px;" alt="" />
 	<img src="'.$roster_conf['img_url'].'char/talentbar_bottom.gif" style="position:absolute;margin-top:402px;margin-left:12px;" alt="" />
 
-	<div class="talent_link"><a href="http://www.worldofwarcraft.com/info/classes/'.strtolower($this->data['classEn']).'/talents.html?'.$this->talent_build.'" target="_blank">'.$wordings[$this->data['clientLocale']]['talentcalculator'].'</a></div>
+	<div class="talent_link"><a href="';
+
+			switch($this->data['clientLocale'])
+			{
+				case 'enUS':
+					$returndata .= 'http://www.worldofwarcraft.com/info/classes/';
+					break;
+
+				case 'frFR':
+					$returndata .= 'http://www.wow-europe.com/fr/info/basics/talents/';
+					break;
+
+				case 'deDE':
+					$returndata .= 'http://www.wow-europe.com/de/info/basics/talents/';
+					break;
+
+				case 'esES':
+					$returndata .= 'http://www.wow-europe.com/es/info/basics/talents/';
+					break;
+
+				default:
+					$returndata .= 'http://www.worldofwarcraft.com/info/classes/';
+					break;
+			}
+
+			$returndata .= strtolower($this->data['classEn']).'/talents.html?'.$this->talent_build.'" target="_blank">'.$wordings[$this->data['clientLocale']]['talentexport'].'</a></div>
 	<div class="talent_points_unused"><span class="label">'.$wordings[$this->data['clientLocale']]['unusedtalentpoints'].':</span> '.$this->data['talent_points'].'</div>'."\n";
 
 			foreach( $treelayer as $treeindex => $tree )

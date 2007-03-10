@@ -473,8 +473,6 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 		}
 	}
 
-	//include_once ('rosterdiag_sql.php');
-
 	// Open the main FileVersion table in total color
 	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
 
