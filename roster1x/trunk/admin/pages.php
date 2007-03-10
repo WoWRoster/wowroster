@@ -35,27 +35,27 @@ if ( !defined('ROSTER_INSTALLED') )
 
 
 $pages['roster'] = array(
-	"href"=>	"-roster",
+	"href"=>	$pages[0]."-roster",
 	"title"=>	"pagebar_rosterconf",
 	"file"=>	"roster_conf.php",
 	);
 $pages['character'] = array(
-	"href"=>	"-character",
+	"href"=>	$pages[0]."-character",
 	"title"=>	"pagebar_charpref",
 	"file"=>	"character_conf.php",
 	);
 $pages['menu'] = array(
-	"href"=>	"-menu",
+	"href"=>	$pages[0]."-menu",
 	"title"=>	"pagebar_menuconf",
 	"file"=>	"menu_conf.php",
 	);
 $pages['install'] = array(
-	"href"=>	"-install",
+	"href"=>	$pages[0]."-install",
 	"title"=>	"pagebar_addoninst",
 	"file"=>	"addon_install.php",
 	);
 $pages['password'] = array(
-	"href"=>	"-password",
+	"href"=>	$pages[0]."-password",
 	"title"=>	"pagebar_changepass",
 	"file"=>	"change_pass.php",
 	);

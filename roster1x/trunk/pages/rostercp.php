@@ -61,8 +61,7 @@ $menu = '';
 $body = '';
 $pagebar = '';
 
-
-$page = (array_key_exists('page',$_GET) && $_GET['page'] != '') ? $_GET['page'] : ( 'roster' );
+$page = ($page = isset($pages[1]) && ($pages[1]==''))?$pages[1]:'roster';
 
 if (isset($pages[$page]['file']) and (!isset($pages[$page]['access']) or $roster_login->getAuthorized($pages[$page]['access'])))
 { // There is something defined to include and we're allowed to access it
@@ -84,7 +83,7 @@ foreach ($pages as $page => $data)
 {
 	if (!isset($data['special']))
 	{
-		$pagebar .= '<li><a href="'.$data['href'].'">'.$wordings[$roster_conf['roster_lang']][$data['title']].'</a></li>'."\n";
+		$pagebar .= '<li><a href="'.makelink($data['href']).'">'.$wordings[$roster_conf['roster_lang']][$data['title']].'</a></li>'."\n";
 	}
 	elseif ($data['special'] == 'divider')
 	{

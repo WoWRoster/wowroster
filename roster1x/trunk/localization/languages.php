@@ -27,6 +27,8 @@ foreach( $roster_conf['multilanguages'] as $lang )
 	include(ROSTER_BASE.'localization'.DIR_SEP.$lang.'.php');
 }
 
+$act_words = &$wordings[$roster_conf['roster_lang']];
+
 // Credits page
 // Only defined here because we don't need to translate this for EVERY locale
 
