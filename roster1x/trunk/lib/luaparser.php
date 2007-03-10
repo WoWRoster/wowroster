@@ -79,7 +79,7 @@ function ParseLuaArray( &$file_as_array )
 			}
 
 			// Look for end of an array
-			if( $line[0] == '}' )
+			if( isset($line[0]) && $line[0] == '}' )
 			{
 				$hash = $stack[$stack_pos];
 				unset($stack[$stack_pos]);
@@ -121,7 +121,7 @@ function ParseLuaArray( &$file_as_array )
 					}
 					$value = trim($value,', ');
 				}
-				if( $value == '{' )
+				if( isset($value) && $value == '{' )
 				{
 					$stack_pos++;
 					$stack[$stack_pos] = array($name, array());
