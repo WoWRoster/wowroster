@@ -1,4 +1,4 @@
-UniAdmin 0.7.6 (updated 5th March 2007)
+UniAdmin 0.7.6 (updated 9th March 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
 
@@ -196,6 +196,7 @@ v0.7.6
 ~ Links in installer will now properly point to index.php instead of install.php
 ~ XML output is now encoded properly with the right headers
 ~ TOC scanner, found a few addons' toc files that it didn't catch properly
+! UA will now die with an error if php is not 4.3 and higher
 ! The Help tab is now "selected" when there is no page defined in the url
 ! UA now only accepts and scans certain file types for addons
     lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch
@@ -222,6 +223,7 @@ v0.7.6
 ! Logo output is sorted now sorted numerically
 ! Setting and sv list output is sorted by name
 ! function get_file_ext() now uses pathinfo
+! addon xml filename="" attribute is now the full url path to the file
 + Addon notes to addon xml output
 + New get settings mode, xml output
     Use ?OPERATION=GETSETTINGSXML
@@ -232,6 +234,9 @@ v0.7.6
     Logo image types allowed are 'jpg,jpeg,png,ico,gif'
     Others could have been added, but some formats are too large to be downloaded quickly
 + Global addon deletion, to delete every addon from your UniAdmin install
++ Error handling class
+    Catchable PHP errors are now displayed at the bottom of the page above sql queries
++ is_ua_admin() for an easier way to check if the user is an admin
 
 
 v0.7.5

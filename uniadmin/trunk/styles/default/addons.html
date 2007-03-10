@@ -1,5 +1,30 @@
 <!-- INCLUDE overall_header.html -->
 
+<!-- IF S_ADDON_ADD_DEL -->
+<form id="ua_orphan_addon" name="ua_orphan_addon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+<table class="ua_table" style="float:right;width:300px;">
+	<thead>
+		<tr>
+			<th class="table_header">Un-Scanned AddOns</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th>Button</th>
+		</tr>
+	</tfoot>
+	<tbody>
+	<!-- BEGIN orphan_addons_row -->
+		<tr>
+			<td class="data{orphan_addons_row.ROW_CLASS}"><input type="checkbox" id="{orphan_addons_row.ID}" name="{orphan_addons_row.ID}" />
+					<label for="{orphan_addons_row.ID}">{orphan_addons_row.NAME}</label></td>
+		</tr>
+	<!-- END orphan_addons_row -->
+	</tbody>
+</table>
+</form>
+<!-- ENDIF -->
+
 <table class="ua_table rowstyle-data2 no-arrow<!-- IF S_BELOW_15 --> paginate-15<!-- ENDIF -->" align="center">
 	<thead>
 		<tr>

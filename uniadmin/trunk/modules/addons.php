@@ -143,7 +143,7 @@ function main( )
 	if( $user->data['level'] == UA_ID_ADMIN )
 	{
 		$tpl->assign_var('S_ADDON_ADD_DEL',true);
-		$tpl->assign_var('ONLOAD'," onload=\"initARC('ua_updateaddon','radioOn', 'radioOff','checkboxOn', 'checkboxOff');\"");
+		$tpl->assign_var('ONLOAD'," onload=\"initARC('ua_updateaddon','radioOn', 'radioOff','checkboxOn', 'checkboxOff'); initARC('ua_orphan_addon','radioOn', 'radioOff','checkboxOn', 'checkboxOff');\"");
 	}
 
 	// Set string to "View Addons" if user is anonymous
@@ -161,6 +161,9 @@ function main( )
 
 	$result = $db->query($sql);
 
+	// Set not scanned addons array
+	$addon_in_db = array();
+
 	// Loop for every addon in database
 	if( $db->num_rows($result) > 0 )
 	{
@@ -173,7 +176,6 @@ function main( )
 			$tpl->assign_var('S_BELOW_15', false);
 		}
 
-		/* NOT USED YET $addon_in_db = array(); */
 
 		while( $row = $db->fetch_record($result) )
 		{
@@ -184,7 +186,8 @@ function main( )
 			else
 			{
 				$download = $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name'];
-				/* NOT USED YET $addon_in_db[] = $row['file_name']; */
+				// Add to not scanned addons array
+				$addon_in_db[] = $row['file_name'];
 			}
 			// Assign template vars
 			$tpl->assign_block_vars('addons_row', array(
@@ -205,27 +208,6 @@ function main( )
 			);
 		}
 
-/* NOT USED YET
-		// Get a list of currently uploaded addons
-		$uploaded_addons = $uniadmin->ls(UA_BASEDIR.$uniadmin->config['addon_folder'],array(),false);
-
-		$addon_not_db = array();
-		if( is_array($uploaded_addons) && count($uploaded_addons) > 0 )
-		{
-			foreach( $uploaded_addons as $addon )
-			{
-				$addon = basename($addon);
-				if ( !in_array($addon,$addon_in_db) )
-				{
-					$addon_not_db[] = $addon;
-				}
-			}
-		}
-		if( count($addon_not_db) > 0 )
-		{
-			$uniadmin->error('<pre>'.print_r($addon_not_db,true).'</pre>');
-		}
-*/
 
 	}
 	else // Set var to display "No Addons"
@@ -234,6 +216,29 @@ function main( )
 	}
 
 	$db->free_result($result);
+
+
+	// Get a list of currently uploaded addons
+	$uploaded_addons = $uniadmin->ls(UA_BASEDIR.$uniadmin->config['addon_folder'],array(),false);
+
+	$addon_not_db = array();
+	if( is_array($uploaded_addons) && count($uploaded_addons) > 0 )
+	{
+		foreach( $uploaded_addons as $addon_index => $addon )
+		{
+			$addon = basename($addon);
+			if ( !in_array($addon,$addon_in_db) )
+			{
+				$tpl->assign_block_vars('orphan_addons_row', array(
+					'ROW_CLASS'   => $uniadmin->switch_row_class(),
+					'ID'          => "id_$addon_index",
+					'NAME'        => $addon
+					)
+				);
+			}
+		}
+	}
+
 
 	$uniadmin->set_vars(array(
 		'page_title'    => $user->lang['title_addons'],

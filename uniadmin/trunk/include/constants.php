@@ -64,7 +64,7 @@ define('UA_INDEX',        'index.php');
 define('UA_URI_PAGE',     'p');
 define('UA_INDEXPAGE',    UA_INDEX.'?'.UA_URI_PAGE.'=');
 define('UA_URI_THEME',    'theme');
-define('UA_FORMACTION',   UA_INDEXPAGE.( isset($_GET[UA_URI_PAGE]) ? $_GET[UA_URI_PAGE] : '') );
+define('UA_FORMACTION',   UA_INDEX.( isset($_GET[UA_URI_PAGE]) && ($_GET[UA_URI_PAGE] != '') ? '?'.UA_URI_PAGE.'='.$_GET[UA_URI_PAGE] : '') );
 
 
 // Reject certain settings in UU since we don't need them, or want them displayed
