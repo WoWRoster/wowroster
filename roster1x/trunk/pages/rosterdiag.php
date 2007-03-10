@@ -22,7 +22,7 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 // Set the title for the header
-$header_title = $wordings[$roster_conf['roster_lang']]['rosterdiag'];
+$header_title = $act_words['rosterdiag'];
 
 // Include the library for RosterDiag
 include_once(ROSTER_LIB.'rosterdiag.lib.php');

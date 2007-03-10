@@ -22,7 +22,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['professions'];
+$header_title = $act_words['professions'];
 include_once(ROSTER_BASE.'roster_header.tpl');
 
 
@@ -86,8 +86,8 @@ if( $wowdb->num_rows($result) )
 			print ('
 <table border="0" cellpadding="0" cellspacing="0" class="bodyline" id="table_'.$id.'">
 	<tr>
-		<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['level'].'</th>
-		<th class="membersHeaderRight" width="150">'.$wordings[$roster_conf['roster_lang']]['name'].'</th>
+		<th class="membersHeader">'.$act_words['level'].'</th>
+		<th class="membersHeaderRight" width="150">'.$act_words['name'].'</th>
 	</tr>
 ');
 

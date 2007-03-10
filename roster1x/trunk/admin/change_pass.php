@@ -63,7 +63,7 @@ if ( array_key_exists('oldpass',$_POST))
 			}
 
 			$wowdb->free_result($result);
-			
+
 			$success = 1;
 
 			$body = messagebox('Password changed. Your new password is <span style="font-size:11px;color:red;">'.$_POST['newpass1'].'</span>.<br /> Do not forget this password, it is stored encrypted only.','Roster Control Panel','sgreen');
@@ -100,5 +100,3 @@ $body .='<form action="" method="post" enctype="multipart/form-data" id="conf_ch
 	  </table>
 	'.border('sred','end').'
 	</form>';
-
-?>

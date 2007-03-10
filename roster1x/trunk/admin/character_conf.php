@@ -31,7 +31,7 @@ $char_data = getCharData();
 // Build the character display control
 if( is_array($char_data) )
 {
-	$body = "<div id=\"char_disp\">\n".border('syellow','start',$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$body = "<div id=\"char_disp\">\n".border('syellow','start',$act_words['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	$disp_array = array(
 		'talents',
@@ -50,19 +50,19 @@ if( is_array($char_data) )
 
 	$body .= '
 <tr>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['name'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['tab5'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bags'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['money'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bank'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['quests'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</th>
-	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['itembonuses2'].'</th>
+	<th class="membersHeader">'.$act_words['name'].'</th>
+	<th class="membersHeader">'.$act_words['talents'].'</th>
+	<th class="membersHeader">'.$act_words['spellbook'].'</th>
+	<th class="membersHeader">'.$act_words['mailbox'].'</th>
+	<th class="membersHeader">'.$act_words['bags'].'</th>
+	<th class="membersHeader">'.$act_words['money'].'</th>
+	<th class="membersHeader">'.$act_words['bank'].'</th>
+	<th class="membersHeader">'.$act_words['recipes'].'</th>
+	<th class="membersHeader">'.$act_words['quests'].'</th>
+	<th class="membersHeader">'.$act_words['bglog'].'</th>
+	<th class="membersHeader">'.$act_words['pvplog'].'</th>
+	<th class="membersHeader">'.$act_words['duellog'].'</th>
+	<th class="membersHeader">'.$act_words['itembonuses2'].'</th>
 ';
 
 	$i=0;
@@ -207,5 +207,3 @@ function processData( )
 		return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
 	}
 }
-
-?>

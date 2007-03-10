@@ -80,6 +80,8 @@ if( is_array($_FILES) && !empty($_FILES) )
 		{
 			$file_name=$file_ext=$file_type='';
 
+			$file_location = $file['tmp_name'];
+
 			list( $file_name, $file_ext, $file_type ) = explode( '.',$file['name'] );
 
 			if( in_array(strtolower($file_name),$filefields) )
@@ -92,7 +94,10 @@ if( is_array($_FILES) && !empty($_FILES) )
 					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
 					// Parse the lua file into a php array that we can use
-					$data = ParseLuaFile( $file['tmp_name'],$file_type );
+					$data = ParseLuaFile( $file_location,$file_type );
+
+					// Done with the file, we don't need it anymore
+					@unlink($file_location);
 
 					// Calculate parse time
 					$parse_endtime = explode(' ', microtime() );
@@ -152,7 +157,6 @@ if( is_array($_FILES) && !empty($_FILES) )
 				$parseMessages .= '<li>Did not accept '.$file['name'].'</li>'."\n";
 			}
 		}
-		@unlink($filename);	// Done with the file, we don't need it anymore
 	}
 
 	$parseMessages .= '</ul>'."<br />\n";
@@ -188,7 +192,7 @@ else {
 
 function processPvP($pvpdata)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $act_words;
 
 	$wowdb->resetMessages();
 
@@ -214,7 +218,7 @@ function processPvP($pvpdata)
 				else // PvPLog version not high enough
 				{
 					$output .= "<span class=\"red\">NOT Updating PvP for [$char_name] - ".$char['version']."</span><br />\n";
-					$output .= $wordings[$roster_conf['roster_lang']]['PvPLogver_err']."\n";
+					$output .= $act_words['PvPLogver_err']."\n";
 				}
 			}
 		}
@@ -224,7 +228,7 @@ function processPvP($pvpdata)
 
 function processMyProfile($myProfile)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $act_words;
 
 	$wowdb->resetMessages();
 
@@ -267,7 +271,7 @@ function processMyProfile($myProfile)
 					{
 						$output .= "<span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
 						$output .= "Data is from CharacterProfiler v".$char['DBversion']."<br />\n";
-						$output .= $wordings[$roster_conf['roster_lang']]['CPver_err']."\n";
+						$output .= $act_words['CPver_err']."\n";
 					}
 					$output .= "<br />\n";
 				}
@@ -280,12 +284,12 @@ function processMyProfile($myProfile)
 			}
 			else
 			{
-				$output .= $wordings[$roster_conf['roster_lang']]['noGuild'];
+				$output .= $act_words['noGuild'];
 			}
 		}
 		else
 		{
-			$output .= 'Realm: '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
+			$output .= 'Realm: '.$realm_name.' '.$act_words['ignored']."<br />\n";
 		}
 	}
 	return $output;
@@ -293,7 +297,7 @@ function processMyProfile($myProfile)
 
 function processGuildRoster($myProfile)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $act_words;
 
 	$wowdb->resetMessages();
 
@@ -383,28 +387,28 @@ function processGuildRoster($myProfile)
 							{
 								$output .= "<span class=\"red\">NOT Updating Guild list for $guild_name</span><br />\n";
 								$output .= "Data is from GuildProfiler v".$guild['DBversion']."<br />\n";
-								$output .= $wordings[$roster_conf['roster_lang']]['GPver_err']."<br />\n";
+								$output .= $act_words['GPver_err']."<br />\n";
 							}
 						}
 						else
 						{
-							$output .= 'Guild: '.$guild_name.' @ Server: '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
+							$output .= 'Guild: '.$guild_name.' @ Server: '.$realm_name.' '.$act_words['ignored']."<br />\n";
 						}
 					}
 					if( !isset($guild) )
 					{
-						$output .= sprintf($wordings[$roster_conf['roster_lang']]['guild_nameNotFound'],$guild_name)."<br />\n";
+						$output .= sprintf($act_words['guild_nameNotFound'],$guild_name)."<br />\n";
 					}
 
 				}
 				else
 				{
-					$output .= '<span class="red">'.$wordings[$roster_conf['roster_lang']]['guild_addonNotFound'].'</span>'."<br />\n";
+					$output .= '<span class="red">'.$act_words['guild_addonNotFound'].'</span>'."<br />\n";
 				}
 			}
 			else
 			{
-				$output .= 'Server: '.$realm_name.' '.$wordings[$roster_conf['roster_lang']]['ignored']."<br />\n";
+				$output .= 'Server: '.$realm_name.' '.$act_words['ignored']."<br />\n";
 			}
 		}
 	}
@@ -428,7 +432,7 @@ if( $htmlout )
 	{
 		$pvplogInputField = "
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$act_words['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
                       <td class=\"membersRowRight1\"><input type=\"file\" accept=\"PvPLog.lua\" name=\"PvPLog\"></td>
                     </tr>";
 	}
@@ -442,7 +446,7 @@ if( $htmlout )
 	{
 		$raidtrackerInputField = "
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CT_RaidTracker.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CT_RaidTracker.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CT_RaidTracker.lua</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CT_RaidTracker.lua</b> ".$act_words['filelocation']."\\\\CT_RaidTracker.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CT_RaidTracker.lua</td>
                       <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CT_RaidTracker.lua\" name=\"RaidTracker\"></td>
                     </tr>";
 	}
@@ -456,7 +460,7 @@ if( $htmlout )
 	{
 		$eventcalendarInputField = "
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>GuildEventManager2.lua or GroupCalendar.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> EventCalendar</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>GuildEventManager2.lua or GroupCalendar.lua</b> ".$act_words['filelocation']."\\\\',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> EventCalendar</td>
                       <td class=\"membersRowRight1\"><input type=\"file\" accept=\"GuildEventManager2.lua,GroupCalendar.lua\" name=\"EventCalendar\"></td>
                     </tr>";
 	}
@@ -470,7 +474,7 @@ if( $htmlout )
 	{
 		$bookwormInputField = "
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>bookworm.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\bookworm.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> bookworm.lua</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>bookworm.lua</b> ".$act_words['filelocation']."\\\\bookworm.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> bookworm.lua</td>
                       <td class=\"membersRowRight1\"><input type=\"file\" accept=\"bookworm.lua\" name=\"bookworm\"></td>
                     </tr>";
 	}
@@ -486,10 +490,10 @@ if( $htmlout )
 ".border('syellow','start','Upload Files')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
-                      <th class=\"membersHeaderRight\" colspan=\"2\"><div align=\"center\">".$wordings[$roster_conf['roster_lang']]['lualocation']."</div></th>
+                      <th class=\"membersHeaderRight\" colspan=\"2\"><div align=\"center\">".$act_words['lualocation']."</div></th>
                     </tr>
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$wordings[$roster_conf['roster_lang']]['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$act_words['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
                       <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
                     </tr>
 $pvplogInputField
@@ -506,12 +510,12 @@ $bookwormInputField
 ".border('sgray','start','GuildProfiler User Only')."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
-                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$wordings[$roster_conf['roster_lang']]['roster_upd_pw_help']."',CAPTION,'".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$wordings[$roster_conf['roster_lang']]['roster_upd_pwLabel']."</td>
+                      <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$act_words['roster_upd_pw_help']."',CAPTION,'".$act_words['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$act_words['roster_upd_pwLabel']."</td>
                       <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
                     </tr>
                   </table>
 ".border('sgray','end')."<br />
-                  <input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['upload']."\">";
+                  <input type=\"submit\" value=\"".$act_words['upload']."\">";
 
 
 	$inputForm .= "\n                </form>";
@@ -522,11 +526,11 @@ $bookwormInputField
 
 	if( !$roster_conf['authenticated_user'] )
 	{
-		print messagebox($wordings[$roster_conf['roster_lang']]['update_disabled'],$wordings[$roster_conf['roster_lang']]['update_page'],'sred');
+		print messagebox($act_words['update_disabled'],$act_words['update_page'],'sred');
 	}
 	else
 	{
-		print '<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['update_page']."</span><br /><br />\n";
+		print '<span class="title_text">'.$act_words['update_page']."</span><br /><br />\n";
 		if( $uploadFound )
 		{
 			// print the error messages
@@ -568,7 +572,7 @@ else	// Dont need the header and footer when responding to UU
 {
 	if( !$roster_conf['authenticated_user'] )
 	{
-		print $wordings[$roster_conf['roster_lang']]['update_disabled'];
+		print $act_words['update_disabled'];
 	}
 	else
 	{
@@ -585,7 +589,7 @@ else	// Dont need the header and footer when responding to UU
 		else
 		{
 			// Weren't any files in the upload that correspond to anything in the array of filefields that we take.
-			print $wordings[$roster_conf['roster_lang']]['nofileUploaded'];
+			print $act_words['nofileUploaded'];
 		}
 	}
 }

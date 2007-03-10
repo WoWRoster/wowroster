@@ -59,7 +59,7 @@ else
 	}
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['guildbank'];
+$header_title = $act_words['guildbank'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 
@@ -86,7 +86,7 @@ $bank_menu .= $menu_cell.'<a href="'.makelink('guildbank&amp;mode=table').'">Inv
 
 $bank_menu .= "</tr>\n</table>\n";
 
-echo messagebox($bank_menu,$wordings[$roster_conf['roster_lang']]['guildbank'],'sorange');
+echo messagebox($bank_menu,$act_words['guildbank'],'sorange');
 
 echo '<br />';
 
@@ -118,9 +118,9 @@ if ($mulemoney['silver']>=100)
 }
 $mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
-	$bank_money = $wordings[$roster_conf['roster_lang']]['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
-	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
-	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>';
+	$bank_money = $act_words['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g"/> '.
+	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s"/> '.
+	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c"/></div>';
 }
 
 $bankers = array();
@@ -144,9 +144,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 		 	  '<tr>
     <td colspan="'.$columns.'" class="membersRowRight2">'.
 			'<div class="money" align="center">'.
-			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'bagcoingold.gif" alt="g"/> '.
-			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'bagcoinsilver.gif" alt="s"/> '.
-			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'bagcoinbronze.gif" alt="c"/></div>'.
+			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g"/> '.
+			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s"/> '.
+			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c"/></div>'.
 		"</td>\n</tr>\n" : '' );
 
 	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
@@ -155,9 +155,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
  AND i.item_parent!='bags'
  AND i.item_parent!='equip'
  AND (i.item_tooltip
- NOT LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_soulbound']."%'
+ NOT LIKE '%".$act_words['tooltip_soulbound']."%'
  OR i.item_tooltip
- LIKE '%".$wordings[$roster_conf['roster_lang']]['tooltip_boe']."%')
+ LIKE '%".$act_words['tooltip_boe']."%')
  GROUP BY real_itemid
  ORDER BY i.item_name";
 

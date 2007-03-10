@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['menuhonor'];
+$header_title = $act_words['menuhonor'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 

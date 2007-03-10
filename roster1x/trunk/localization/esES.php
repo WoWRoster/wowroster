@@ -651,6 +651,19 @@ $wordings['esES']['loss']='Pierde';
 $wordings['esES']['kills']='Asesinatos';
 $wordings['esES']['unknown']='Desconocido';
 
+// guildpvp strings
+$wordings['esES']['guildwins'] = 'Wins by Guild';
+$wordings['esES']['guildlosses'] = 'Losses by Guild';
+$wordings['esES']['enemywins'] = 'Wins by Enemy';
+$wordings['esES']['enemylosses'] = 'Losses by Enemy';
+$wordings['esES']['purgewins'] = 'Guild Member Kills';
+$wordings['esES']['purgelosses'] = 'Guild Member Deaths';
+$wordings['esES']['purgeavewins'] = 'Best Win/Level-Diff Average';
+$wordings['esES']['purgeavelosses'] = 'Best Loss/Level-Diff Average';
+$wordings['esES']['pvpratio'] = 'Solo Win/Loss Ratios';
+$wordings['esES']['playerinfo'] = 'Player Info';
+$wordings['esES']['guildinfo'] = 'Guild Info';
+
 //strings for Rep-tab
 $wordings['esES']['exalted']='Exaltado';
 $wordings['esES']['revered']='Reverenciado';

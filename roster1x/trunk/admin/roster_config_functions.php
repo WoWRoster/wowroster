@@ -34,7 +34,7 @@ function rosterLangValue( $values )
 	{
 		if( $value == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$value.'" selected="selected">&gt;'.$value.'&lt;</option>'."\n";
+			$input_field .= '  <option value="'.$value.'" selected="selected">-'.$value.'-</option>'."\n";
 			$select_one = 0;
 		}
 		else
@@ -92,5 +92,3 @@ function pageNames( )
 
 	return $input_field;
 }
-
-?>

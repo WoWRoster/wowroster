@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['search'];
+$header_title = $act_words['search'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once ROSTER_LIB.'item.php';
@@ -31,30 +31,27 @@ require_once ROSTER_LIB.'recipes.php';
 include_once(ROSTER_LIB.'menu.php');
 print "<br />\n";
 
-if (isset($_POST['s']))
-{
-	$inputbox_value = $_POST['s'];
-}
-?>
+$inputbox_value = (isset($_POST['s']) ? $_POST['s'] : '');
 
-<form action="<?php echo makelink('search') ?>" method="post">
-  <?php print $wordings[$roster_conf['roster_lang']]['find'] ?>:<br />
-  <input type="text" class="wowinput192" name="s" value="<?php print $inputbox_value; ?>" size="30" maxlength="30" />
+$input_form = '<form action="'.makelink('search').'" method="post">
+  <input type="text" class="wowinput192" name="s" value="'.$inputbox_value.'" size="30" maxlength="30" />
   <input type="submit" value="search" />
 </form>
+';
 
-<?php
+print messagebox($input_form,$act_words['find'],'sgreen');
+
 if (isset($_POST['s']))
 {
 	// Set a ank for link to top of page
 	echo '<a name="top">&nbsp;</a>
 <div style="color:white;text-align;center">
-  <a href="#items">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>
-  - <a href="#recipes">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>
+  <a href="#items">'.$act_words['items'].'</a>
+  - <a href="#recipes">'.$act_words['recipes'].'</a>
 </div><br /><br />';
 
 	$search = $_POST['s'];
-	print '<a name="items"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['items'].'</a>';
+	print '<a name="items"></a><a href="#top">'.$act_words['items'].'</a>';
 
 	$query="SELECT players.name,players.server,items.* FROM `".ROSTER_ITEMSTABLE."` items,`".ROSTER_PLAYERSTABLE."` players WHERE items.member_id = players.member_id AND items.item_name LIKE '%$search%' ORDER BY players.name ASC";
 	$result = $wowdb->query( $query );
@@ -109,14 +106,14 @@ if (isset($_POST['s']))
 	{
 		print '<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td class="membersRowRight1">No '.$wordings[$roster_conf['roster_lang']]['items'].'</td>
+    <td class="membersRowRight1">No '.$act_words['items'].'</td>
   </tr>'."</table>\n";
 	}
 
 
 	print "<br /><hr />\n";
 
-	print '<a name="recipes"></a><a href="#top">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a>';
+	print '<a name="recipes"></a><a href="#top">'.$act_words['recipes'].'</a>';
 
 	//$query="SELECT players.name,players.server,recipes.* FROM recipes,players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' OR recipes.recipe_tooltip LIKE '%$search%' OR recipes.reagents LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";
 	$query="SELECT players.name,players.server,recipes.* FROM `".ROSTER_RECIPESTABLE."` recipes,`".ROSTER_PLAYERSTABLE."` players WHERE recipes.member_id = players.member_id AND recipes.recipe_name LIKE '%$search%' ORDER BY players.name ASC, recipes.recipe_name ASC";
@@ -145,8 +142,8 @@ if (isset($_POST['s']))
 				}
 				print border('syellow','start','<a href="'.$char_url.'">'.$data['name'].'</a>').'<table border="0" cellpadding="0" cellspacing="0" width="600">
   <tr>
-    <th colspan="2" class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['item'].'</th>
-    <th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['reagents'].'</th>';
+    <th colspan="2" class="membersHeader">'.$act_words['item'].'</th>
+    <th class="membersHeaderRight">'.$act_words['reagents'].'</th>';
 			}
 
 			print '<tr><td width="45" valign="top" align="center" class="membersRow'.$row_st.'">';
@@ -178,7 +175,7 @@ if (isset($_POST['s']))
 	{
 		print border('sblue','start').'<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td class="membersRowRight1">No '.$wordings[$roster_conf['roster_lang']]['recipes'].'</td>
+    <td class="membersRowRight1">No '.$act_words['recipes'].'</td>
   </tr>'."</table>\n".border('sblue','end');
 	}
 }

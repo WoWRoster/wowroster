@@ -130,9 +130,6 @@ switch($get_s)
 
 $content = '';
 
-if ($roster_conf['sqldebug'])
-	$content .= ("<!--$query-->\n");
-
 
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
@@ -145,7 +142,8 @@ if ($start > 0)
 {
 	$prev = '<a href="'.makelink('memberlog&amp;start=0'.$sort_part).'">&lt;&lt;</a> <a href="'.makelink('memberlog&amp;start='.max($start-30,0).$sort_part).'">&lt;</a> ';
 }
-else {
+else
+{
 	$prev = '';
 }
 
@@ -158,9 +156,10 @@ if (($start+30) < $max)
 else
 {
 	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
+	$next = '';
 }
 
-$borderTop = border('sgreen', 'start', $prev.$wordings[$roster_conf['roster_lang']]['memberlog'].$listing.$next);
+$borderTop = border('sgreen', 'start', $prev.$act_words['memberlog'].$listing.$next);
 $tableHeader = '<table width="100%" cellspacing="0" class="bodyline">'."\n";
 
 $borderBottom = border('sgreen', 'end');
@@ -170,22 +169,20 @@ $tableFooter = '</table>'."\n";
 $query .= ' LIMIT '.$start.' , 30';
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-if ($roster_conf['sqldebug'])
-	$content .= ("<!--$query-->\n");
-
 $striping_counter = 0;
 if( $wowdb->num_rows($result) > 0 )
 {
 	$tableHeaderRow = '	<tr>
-	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=name&amp;d='.$chkd['n']).'">'.$wordings[$roster_conf['roster_lang']]['name'].'</a></th>
-	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=class&amp;d='.$chkd['c']).'">'.$wordings[$roster_conf['roster_lang']]['class'].'</a></th>
-	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=level&amp;d='.$chkd['l']).'">'.$wordings[$roster_conf['roster_lang']]['level'].'</a></th>
-	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=title&amp;d='.$chkd['r']).'">'.$wordings[$roster_conf['roster_lang']]['title'].'</a></th>
-	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=type&amp;d='.$chkd['t']).'">'.$wordings[$roster_conf['roster_lang']]['type'].'</a></th>
-	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=date&amp;d='.$chkd['d']).'">'.$wordings[$roster_conf['roster_lang']]['date'].'</a></th>
-	<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['note'].'</th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=name&amp;d='.$chkd['n']).'">'.$act_words['name'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=class&amp;d='.$chkd['c']).'">'.$act_words['class'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=level&amp;d='.$chkd['l']).'">'.$act_words['level'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=title&amp;d='.$chkd['r']).'">'.$act_words['title'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=type&amp;d='.$chkd['t']).'">'.$act_words['type'].'</a></th>
+	<th class="membersHeader"><a href="'.makelink('memberlog&amp;start='.$start.'&amp;s=date&amp;d='.$chkd['d']).'">'.$act_words['date'].'</a></th>
+	<th class="membersHeaderRight">'.$act_words['note'].'</th>
 	</tr>'."\n";
 
+	$body = '';
 	while( $row = $wowdb->fetch_assoc($result) )
 	{
 		foreach( $row as $key => $value )
@@ -194,19 +191,15 @@ if( $wowdb->num_rows($result) > 0 )
 		}
 
 		if( $row['type'] == 0 )
-			$row['type'] = '<span class="red">'.$wordings[$roster_conf['roster_lang']]['removed'].'</span>';
+			$row['type'] = '<span class="red">'.$act_words['removed'].'</span>';
 		else
-			$row['type'] = '<span class="green">'.$wordings[$roster_conf['roster_lang']]['added'].'</span>';
+			$row['type'] = '<span class="green">'.$act_words['added'].'</span>';
 
 		if( !empty($row['note']) )
-			$row['note'] = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" '.makeOverlib(stripslashes($row['note']),$wordings[$roster_conf['roster_lang']]['note'],'',1).' />';
+			$row['note'] = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" class="membersRowimg" alt="'.$act_words['note'].'" '.makeOverlib(stripslashes($row['note']),$act_words['note'],'',1).' />';
 		else
-			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$wordings[$roster_conf['roster_lang']]['note'].'" />';
+			$row['note'] = '<img src="'.$roster_conf['img_url'].'no_note.gif" class="membersRowimg" alt="'.$act_words['note'].'" />';
 
-		if(!isset($body))
-		{
-			$body = '';
-		}
 		$body .= '<tr>'."\n";
 		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['name'].'</td>'."\n";
 		$body .= '	<td class="membersRow'. (($striping_counter % 2) +1) .'">'.$row['class'].'</td>'."\n";
@@ -222,7 +215,7 @@ if( $wowdb->num_rows($result) > 0 )
 }
 else
 {
-	$body = $wordings[$roster_conf['roster_lang']]['no_memberlog'];
+	$body = $act_words['no_memberlog'];
 }
 
 $content .= $borderTop;

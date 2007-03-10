@@ -970,24 +970,24 @@ table.expOutline {
 
 .bag_name, .key_name, .bank_name {
 	margin-top:9px;
-	margin-left:42px;
+	margin-left:48px;
 	font:bold 11px Arial, Helvetica, sans-serif;
 	color:#FFFFFF;
 	position:absolute;
-	text-align:center;
-	width:140px;
+	text-align:left;
+	width:134px;
 	height:16px;
 	float:left;
 	overflow:hidden;
 }
 .bankcont_name {
 	margin-top:16px;
-	margin-left:67px;
+	margin-left:78px;
 	font:bold 12px Arial, Helvetica, sans-serif;
 	color:#FFFFFF;
 	position:absolute;
-	text-align:center;
-	width:325px;
+	text-align:left;
+	width:316px;
 	height:16px;
 	float:left;
 	overflow:hidden;

@@ -651,6 +651,19 @@ $wordings['deDE']['loss']='Niederlage';
 $wordings['deDE']['kills']='Kills';
 $wordings['deDE']['unknown']='Unknown';
 
+// guildpvp strings
+$wordings['deDE']['guildwins'] = 'Wins by Guild';
+$wordings['deDE']['guildlosses'] = 'Losses by Guild';
+$wordings['deDE']['enemywins'] = 'Wins by Enemy';
+$wordings['deDE']['enemylosses'] = 'Losses by Enemy';
+$wordings['deDE']['purgewins'] = 'Guild Member Kills';
+$wordings['deDE']['purgelosses'] = 'Guild Member Deaths';
+$wordings['deDE']['purgeavewins'] = 'Best Win/Level-Diff Average';
+$wordings['deDE']['purgeavelosses'] = 'Best Loss/Level-Diff Average';
+$wordings['deDE']['pvpratio'] = 'Solo Win/Loss Ratios';
+$wordings['deDE']['playerinfo'] = 'Player Info';
+$wordings['deDE']['guildinfo'] = 'Guild Info';
+
 //strings for Rep-tab
 $wordings['deDE']['exalted']='Ehrfürchtig';
 $wordings['deDE']['revered']='Respektvoll';

@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['credit'];
+$header_title = $act_words['credit'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 include_once (ROSTER_LIB.'menu.php');

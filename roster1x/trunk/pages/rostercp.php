@@ -45,7 +45,7 @@ if( !$roster_login->getAuthorized() )
 	include_once (ROSTER_LIB.'menu.php');
 
 	print
-	'<span class="title_text">'.$wordings[$roster_conf['roster_lang']]['roster_config'].'</span><br />'.
+	'<span class="title_text">'.$act_words['roster_config'].'</span><br />'.
 	$roster_login->getMessage().
 	$roster_login->getLoginForm();
 
@@ -85,17 +85,17 @@ foreach ($pages as $page => $data)
 {
 	if (!isset($data['special']))
 	{
-		$pagebar .= '<li><a href="'.makelink($data['href']).'">'.$wordings[$roster_conf['roster_lang']][$data['title']].'</a></li>'."\n";
+		$pagebar .= '<li><a href="'.makelink($data['href']).'">'.$act_words[$data['title']].'</a></li>'."\n";
 	}
 	elseif ($data['special'] == 'divider')
 	{
-		$pagebar .= '<li><hr></li>';
+		$pagebar .= '<li><hr /></li>';
 	}
 }
 
 if ($pagebar != '')
 {
-	$pagebar = border('sgray','start',$wordings[$roster_conf['roster_lang']]['pagebar_function'])."\n".
+	$pagebar = border('sgray','start',$act_words['pagebar_function'])."\n".
 		'<ul class="tab_menu">'."\n".
 		$pagebar.
 		'</ul>'."\n".
@@ -145,4 +145,3 @@ echo
 	$footer;
 
 include_once( ROSTER_BASE.'roster_footer.tpl' );
-?>

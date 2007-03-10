@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['keys'];
+$header_title = $act_words['keys'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');
@@ -45,7 +45,7 @@ function borderTop()
 
 function tableHeaderRow($th)
 {
-	global $items, $itemlink, $roster_conf, $tooltips, $wordings;
+	global $items, $itemlink, $roster_conf, $tooltips, $act_words;
 
 	$acount = 0;
 	print "  <tr>\n";
@@ -63,11 +63,11 @@ function tableHeaderRow($th)
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$wordings[$roster_conf['roster_lang']]['itemlink']);
+			setTooltip('itemlink',$act_words['itemlink']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);" onmouseout="return nd();"';
 
-			$header = '<a href="javascript:void(0);"'.$linktip.'>'.$header.'</a>';
+			$header = '<a href="#"'.$linktip.'>'.$header.'</a>';
 		}
 		if ($acount == 1)
 		{
@@ -107,7 +107,7 @@ function rankRight($sc)
 
 function buildSQL($item,$key,$type)
 {
-	global $wowdb, $selectp, $wherep, $pcount, $selectq, $whereq, $qcount;
+	global $selectp, $wherep, $pcount, $selectq, $whereq, $qcount;
 
 	list($iname, $thottnum) = explode('|', $item);
 
@@ -169,10 +169,6 @@ tableHeaderRow($keys);
 
 $query = "SELECT name, level, member_id, class, clientLocale FROM `".ROSTER_PLAYERSTABLE."` GROUP BY name ORDER BY name ASC";
 $result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-if ($roster_conf['sqldebug'])
-{
-	print ("<!--$query-->");
-}
 
 while ($row = $wowdb->fetch_array($result))
 {
@@ -270,11 +266,12 @@ while ($row = $wowdb->fetch_array($result))
 		{
 			foreach ($prow as $pkey => $pvalue)
 			{
-				if ($pvalue == 1 && !is_numeric($pkey))
+				if ( $pvalue == 1 && !is_numeric($pkey))
 				{
 					++$kcount;
 					$key = preg_replace('/[0-9]/', '', $pkey);
 					$step = preg_replace('/[A-Za-z]/', '', $pkey);
+					if( isset($items[$key]) ) { continue; }
 					list($junk,$milestone) = explode('||',$items[$key][$step]);
 					if ($milestone == 'MS')
 					{
@@ -385,13 +382,13 @@ while ($row = $wowdb->fetch_array($result))
 				$bcount = count($parray)-1;
 			}
 
-			$tooltip_h = $key.' '.$wordings[$roster_conf['roster_lang']]['key'].' Status';
-			$tooltip = '<span style="color:#'.$colorcmp.'">'.$wordings[$roster_conf['roster_lang']]['completedsteps'].'</span><br />';
+			$tooltip_h = $key.' '.$act_words['key'].' Status';
+			$tooltip = '<span style="color:#'.$colorcmp.'">'.$act_words['completedsteps'].'</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
-				$tooltip .= '<span style="color:#'.$colorcur.'">'.$wordings[$roster_conf['roster_lang']]['currentstep'].'</span><br />';
+				$tooltip .= '<span style="color:#'.$colorcur.'">'.$act_words['currentstep'].'</span><br />';
 			}
-			$tooltip .= '<span style="color:#'.$colorno.'">'.$wordings[$roster_conf['roster_lang']]['uncompletedsteps'].'</span><br /><br />';
+			$tooltip .= '<span style="color:#'.$colorno.'">'.$act_words['uncompletedsteps'].'</span><br /><br />';
 			if ($items[$key][0] == 'Quests')
 			{
 				for ($i=1;$i<count($items[$key])-1;$i++)
@@ -437,7 +434,7 @@ while ($row = $wowdb->fetch_array($result))
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$wordings[$roster_conf['roster_lang']]['itemlink']);
+			setTooltip('itemlink',$act_words['itemlink']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 

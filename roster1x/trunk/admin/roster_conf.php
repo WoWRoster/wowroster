@@ -46,5 +46,3 @@ $body = $config->form_start.
 	$config->form_end.
 	$config->nonformpages.
 	$config->jscript;
-
-?>

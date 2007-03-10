@@ -118,37 +118,37 @@ $char_menu .= border('sorange','start');
 
 $char_menu .= '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-$char_menu .= $menu_cell.makelink($char_url).'">'.$wordings[$roster_conf['roster_lang']]['character'].' Stats</a></td>'."\n";
+$char_menu .= $menu_cell.makelink($char_url).'">'.$act_words['character'].' Stats</a></td>'."\n";
 
 if( $roster_conf['show_talents'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=talents').'">'.$wordings[$roster_conf['roster_lang']]['talents'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=talents').'">'.$act_words['talents'].'</a></td>'."\n";
 
 if( $roster_conf['show_spellbook'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=spellbook').'">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=spellbook').'">'.$act_words['spellbook'].'</a></td>'."\n";
 
 if( $roster_conf['show_inventory'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bags').'">'.$wordings[$roster_conf['roster_lang']]['bags'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bags').'">'.$act_words['bags'].'</a></td>'."\n";
 
 if( $roster_conf['show_bank'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bank').'">'.$wordings[$roster_conf['roster_lang']]['bank'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bank').'">'.$act_words['bank'].'</a></td>'."\n";
 
 if( $roster_conf['show_mail'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=mailbox').'">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=mailbox').'">'.$act_words['mailbox'].'</a></td>'."\n";
 
 if( $roster_conf['show_quests'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=quests').'">'.$wordings[$roster_conf['roster_lang']]['quests'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=quests').'">'.$act_words['quests'].'</a></td>'."\n";
 
 if( $roster_conf['show_recipes'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=recipes').'">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=recipes').'">'.$act_words['recipes'].'</a></td>'."\n";
 
 if( $roster_conf['show_bg'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bg').'">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=bg').'">'.$act_words['bglog'].'</a></td>'."\n";
 
 if( $roster_conf['show_pvp'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=pvp').'">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=pvp').'">'.$act_words['pvplog'].'</a></td>'."\n";
 
 if( $roster_conf['show_duels'] )
-	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=duels').'">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</a></td>'."\n";
+	$char_menu .= $menu_cell.makelink($char_url.'&amp;action=duels').'">'.$act_words['duellog'].'</a></td>'."\n";
 
 $char_menu .= "  </tr>\n</table>\n";
 
@@ -159,7 +159,7 @@ $char_menu .="\n</div>\n";
 $char_page = "<div align=\"".$roster_conf['char_bodyalign']."\" style=\"margin:10px;\">\n";
 
 $char_page .= '<br />
-<span class="lastupdated">'.$wordings[$roster_conf['roster_lang']]['lastupdate'].': '.$char->data['update_format']."</span><br />\n";
+<span class="lastupdated">'.$act_words['lastupdate'].': '.$char->data['update_format']."</span><br />\n";
 
 if($roster_conf['show_signature'])
 	$char_page .= "<img onmouseover=\"return overlib('To access this signature use: ".$roster_conf['roster_dir']."/addons/siggen/sig.php?member=".urlencode(utf8_decode($name))."',CAPTION,'Signature Access',RIGHT);\" onmouseout=\"return nd();\" ".

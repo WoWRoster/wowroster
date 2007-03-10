@@ -35,11 +35,11 @@ class config
 	 */
 	function config( $tablename )
 	{
-		global $wordings, $roster_conf;
+		global $act_words;
 
 		$this->tablename = $tablename;
-		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_submit']."') && submitonce(this);\">\n";
-		$this->submit_button = "<input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$wordings[$roster_conf['roster_lang']]['config_reset_button']."\" onClick=\"return confirm('".$wordings[$roster_conf['roster_lang']]['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
+		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onClick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
 	}
@@ -51,10 +51,10 @@ class config
 	 */
 	function buildConfigMenu()
 	{
-		global $wordings, $roster_conf;
+		global $act_words;
 
 		$menu = '<!-- Begin Config Menu -->'."\n".
-			border('sgray','start',$wordings[$roster_conf['roster_lang']]['roster_config_menu'])."\n".
+			border('sgray','start',$act_words['roster_config_menu'])."\n".
 			'<div style="width:145px;">'."\n".
 			'  <ul id="config_tabs" class="tab_menu">'."\n";
 
@@ -101,7 +101,7 @@ class config
 	 */
 	function buildConfigPage()
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster_conf, $act_words;
 
 		if (is_array($this->db_values['menu']))
 		{
@@ -110,7 +110,7 @@ class config
 				$type = explode('{',$values['form_type']);
 				$page = '<div id="'.$values['name'].'" style="display:none;">'."\n";
 
-				$header_text = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]);
+				$header_text = explode('|',$act_words['admin'][$values['name']]);
 				$header_text = $header_text[0];
 
 				switch ($type[0])
@@ -193,7 +193,7 @@ class config
 	 */
 	function buildPage($page,$columns)
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster_conf, $act_words;
 
 		$html = '<table><tr><td>';
 		$i = 0;
@@ -201,7 +201,7 @@ class config
 
 		foreach($this->db_values[$page] as $values)
 		{
-			$header_text = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]);
+			$header_text = explode('|',$act_words['admin'][$values['name']]);
 			$header_text = $header_text[0];
 
 			$type = explode('{',$values['form_type']);
@@ -459,7 +459,7 @@ class config
 	 */
 	function getConfigData ()
 	{
-		global $wowdb, $wordings, $roster_conf;
+		global $wowdb, $wordings, $roster_conf, $act_words;
 
 		$sql = "SELECT * FROM `".$this->tablename."` ORDER BY `id` ASC;";
 
@@ -479,7 +479,7 @@ class config
 				$this->db_values[$setitem][$arrayitem]['form_type'] = stripslashes($row['form_type']);
 
 				// Get description and tooltip
-				$desc_tip = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$row['config_name']]);
+				$desc_tip = explode('|',$act_words['admin'][$row['config_name']]);
 
 				$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
 
@@ -509,12 +509,12 @@ class config
 	{
 		$tipsettings = ",WRAP";
 
-		$content = str_replace("'","\'", $content);
+		$content = str_replace("'","\\'", $content);
 		$content = str_replace('"','&quot;', $content);
 
 		if( !empty($caption) )
 		{
-			$caption = str_replace("'","\'", $caption);
+			$caption = str_replace("'","\\'", $caption);
 			$caption = str_replace('"','&quot;', $caption);
 			$caption = ",CAPTION,'$caption'";
 		}
@@ -527,4 +527,3 @@ class config
 }
 
 $config = new config($tablename);
-?>

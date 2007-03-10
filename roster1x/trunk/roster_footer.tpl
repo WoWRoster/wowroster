@@ -35,7 +35,7 @@ $totaltime = round($endtime - ROSTER_STARTTIME, 2);
 <hr />
 <small>WoWRoster v<?php print $roster_conf['version'] ?></small>
 <br /><br />
-<small><?php echo $wordings[$roster_conf['roster_lang']]['roster_credits']; ?></small>
+<small><?php echo $act_words['roster_credits']; ?></small>
 <br /><br />
 <a href="http://validator.w3.org/check?uri=referer" target="_blank">
     <img src="<?php print $roster_conf['roster_dir']; ?>/img/validxhtml.gif" alt="Valid XHTML 1.0 Transitional" width="80" height="15" /></a>

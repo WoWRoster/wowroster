@@ -31,7 +31,7 @@ if ( !defined('ROSTER_INSTALLED') )
         <img src="<?php print $roster_conf['img_url']; ?>thottbot.gif" alt="Thottbot" width="158" height="51" /><br />
         <br />
       <form method="post" action="http://www.thottbot.com/">
-          <?php print $wordings[$roster_conf['roster_lang']]['search'] ?>:
+          <?php print $act_words['search'] ?>:
           <input type="text" name="s" class="wowinput" />&nbsp;&nbsp;
           <input class="liteoption" type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'" />
       </form>

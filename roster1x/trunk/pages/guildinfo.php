@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['Guild_Info'];
+$header_title = $act_words['Guild_Info'];
 include_once(ROSTER_BASE.'roster_header.tpl');
 
 
@@ -43,7 +43,7 @@ include_once (ROSTER_BASE.'lib/menu.php');
 
 if( !empty($guild_info['guild_info_text']) )
 {
-	print border('syellow','start',$wordings[$roster_conf['roster_lang']]['Guild_Info']).'<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>'.border('syellow','end');
+	print border('syellow','start',$act_words['Guild_Info']).'<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>'.border('syellow','end');
 }
 
 

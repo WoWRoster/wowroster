@@ -124,60 +124,60 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 							case '0':
 							case 'RPPVP':
 							case 'RP-PVP':
-								$realmData['servertype'] = $wordings[$roster_conf['roster_lang']]['rs']['RPPVP'];
+								$realmData['servertype'] = $act_words['rs']['RPPVP'];
 								$realmData['servertypecolor'] = '535600';
 								break;
 
 							case '1':
 							case 'PVE':
-								$realmData['servertype'] = $wordings[$roster_conf['roster_lang']]['rs']['PVE'];
+								$realmData['servertype'] = $act_words['rs']['PVE'];
 								$realmData['servertypecolor'] = '234303';
 								break;
 
 							case '2':
 							case 'PVP':
-								$realmData['servertype'] = $wordings[$roster_conf['roster_lang']]['rs']['PVP'];
+								$realmData['servertype'] = $act_words['rs']['PVP'];
 								$realmData['servertypecolor'] = '660D02';
 								break;
 
 							case '3':
 							case 'RP':
-								$realmData['servertype'] = $wordings[$roster_conf['roster_lang']]['rs']['RP'];
+								$realmData['servertype'] = $act_words['rs']['RP'];
 								$realmData['servertypecolor'] = '535600';
 								break;
 
 							default:
-								$realmData['servertype'] = $wordings[$roster_conf['roster_lang']]['rs']['UNKNOWN'];
+								$realmData['servertype'] = $act_words['rs']['UNKNOWN'];
 								$realmData['servertypecolor'] = '860D02';
 						}
 						switch( strtoupper( $xml_server['L'] ) )
 						{
 							case '1':
 							case 'LOW':
-								$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['LOW'];
+								$realmData['serverpop'] = $act_words['rs']['LOW'];
 								$realmData['serverpopcolor'] = '234303';
 								break;
 
 							case '2':
 							case 'MEDIUM':
-								$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['MEDIUM'];
+								$realmData['serverpop'] = $act_words['rs']['MEDIUM'];
 								$realmData['serverpopcolor'] = '535600';
 								break;
 
 							case '3':
 							case 'HIGH':
-								$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['HIGH'];
+								$realmData['serverpop'] = $act_words['rs']['HIGH'];
 								$realmData['serverpopcolor'] = '660D02';
 								break;
 
 							case '4':
 							case 'MAX': // <-- unused?
-								$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['MAX'];
+								$realmData['serverpop'] = $act_words['rs']['MAX'];
 								$realmData['serverpopcolor'] = '860D02';
 								break;
 
 							default:
-								$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['ERROR'];
+								$realmData['serverpop'] = $act_words['rs']['ERROR'];
 								$realmData['serverpopcolor'] = '860D02';
 						}
 					}
@@ -210,12 +210,6 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 			$querystr = "INSERT INTO `".ROSTER_REALMSTATUSTABLE."` SET ".$wowdb->assignstr.";";
 			$realmData['server_name'] = $realmstatus;
 		}
-		// Give only debug info with text-status enabled
-		// Otherwise the debug-statement will destroy the png-generation
-		if ($roster_conf['sqldebug'] && !$generate_image)
-		{
-			print "<!-- $querystr -->\n";
-		}
 
 		$wowdb->query($querystr);
 	}
@@ -228,7 +222,7 @@ if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmD
 if( $realmData['serverstatus'] == 'down' || $realmData['serverstatus'] == 'maintenance' )
 {
 	$realmData['serverstatus'] = 'down';
-	$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['OFFLINE'];
+	$realmData['serverpop'] = $act_words['rs']['OFFLINE'];
 	$realmData['serverpopcolor'] = '660D02';
 }
 
@@ -247,7 +241,7 @@ else
 if( $err )
 {
 	$realmData['serverstatus'] = 'unknown';
-	$realmData['serverpop'] = $wordings[$roster_conf['roster_lang']]['rs']['NOSTATUS'];
+	$realmData['serverpop'] = $act_words['rs']['NOSTATUS'];
 	$realmData['serverpopcolor'] = '660D02';
 }
 

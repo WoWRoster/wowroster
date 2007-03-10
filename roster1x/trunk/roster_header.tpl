@@ -35,7 +35,7 @@ if( !isset($no_roster_headers) && !headers_sent() )
 	@header('Cache-Control: no-store, no-cache, must-revalidate');
 	@header('Cache-Control: post-check=0, pre-check=0', false);
 	@header('Pragma: no-cache');
-	@header('Content-type: text/html; '.$wordings[$roster_conf['roster_lang']]['charset']);
+	@header('Content-type: text/html; '.$act_words['charset']);
 }
 
 ?>

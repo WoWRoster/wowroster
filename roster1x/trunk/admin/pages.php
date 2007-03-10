@@ -63,7 +63,7 @@ $pages['hr'] = array(
 	"special"=>	"divider",
 	);
 $pages['rosterdiag'] = array(
-	"href"=>	"rosterdiag.php",
+	"href"=>	"rosterdiag",
 	"title"=>	"pagebar_rosterdiag",
 	);
 

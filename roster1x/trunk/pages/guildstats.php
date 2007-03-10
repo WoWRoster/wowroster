@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $wordings[$roster_conf['roster_lang']]['menustats'];
+$header_title = $act_words['menustats'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 
@@ -202,8 +202,6 @@ $FIELD[] = array (
  */
 function total_value ( $row )
 {
-	global $wowdb, $roster_conf, $wordings;
-
 	if( $row['stat_int_c'] )
 		$cell_value = $row['stat_int_c'] + $row['stat_agl_c'] + $row['stat_sta_c'] + $row['stat_str_c'] + $row['stat_spr_c'];
 	else

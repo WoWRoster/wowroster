@@ -138,7 +138,7 @@ class char
 
 	function show_quests()
 	{
-		global $wordings, $roster_conf, $questlinks;
+		global $questlinks, $act_words;
 
 		$lang = $this->data['clientLocale'];
 
@@ -146,7 +146,7 @@ class char
 		if( isset( $quests[0] ) )
 		{
 			$zone = '';
-			$returnstring .= border('sgray','start',$wordings[$lang]['questlog'].' ('.count($quests).'/25)').
+			$returnstring .= border('sgray','start',$act_words['questlog'].' ('.count($quests).'/25)').
 				'<table class="bodyline" cellspacing="0" cellpadding="0">';
 
 			foreach ($quests as $quest)
@@ -322,7 +322,7 @@ $returnstring .= '  <tr>
 
 	function show_mailbox()
 	{
-		global $wowdb, $wordings, $roster_conf, $phptimeformat, $itemlink, $tooltips;
+		global $wowdb, $wordings, $roster_conf, $phptimeformat, $itemlink, $tooltips, $act_words;
 
 		$sqlquery = "SELECT * FROM `".ROSTER_MAILBOXTABLE."` ".
 			"WHERE `member_id` = '".$this->data['member_id']."' ".
@@ -336,19 +336,19 @@ $returnstring .= '  <tr>
 
 		if( !$result )
 		{
-			return "No ".$wordings[$roster_conf['roster_lang']]['mailbox']." for ".$this->data['name'];
+			return "No ".$act_words['mailbox']." for ".$this->data['name'];
 		}
 
 		if( $wowdb->num_rows($result) > 0 )
 		{
 			//begin generation of mailbox's output
-			$content .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['mailbox']).
+			$content .= border('sgray','start',$act_words['mailbox']).
 				'<table cellpadding="0" cellspacing="0" class="bodyline">'."\n";
 			$content .= "<tr>\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_item'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_sender'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mail_subject'].'</th>'."\n";
-			$content .= '<th class="membersHeaderRight">'.$wordings[$roster_conf['roster_lang']]['mail_expires'].'</th>'."\n";
+			$content .= '<th class="membersHeader">'.$act_words['mail_item'].'</th>'."\n";
+			$content .= '<th class="membersHeader">'.$act_words['mail_sender'].'</th>'."\n";
+			$content .= '<th class="membersHeader">'.$act_words['mail_subject'].'</th>'."\n";
+			$content .= '<th class="membersHeaderRight">'.$act_words['mail_expires'].'</th>'."\n";
 			$content .= "</tr>\n";
 			$content .= "<tr>\n";
 
@@ -481,7 +481,7 @@ $returnstring .= '  <tr>
 		}
 		else
 		{
-			return '<span class="headline_1">No '.$wordings[$roster_conf['roster_lang']]['mailbox']." for ".$this->data['name'].'</span>';
+			return '<span class="headline_1">No '.$act_words['mailbox']." for ".$this->data['name'].'</span>';
 		}
 	}
 
@@ -489,7 +489,7 @@ $returnstring .= '  <tr>
 
 	function show_spellbook()
 	{
-		global $wowdb, $wordings, $roster_conf;
+		global $wowdb, $wordings, $roster_conf, $act_words;
 
 		$query = "SELECT `spelltree`.*, `talenttree`.`order` ".
 			"FROM `".ROSTER_SPELLTREETABLE."` AS spelltree ".
@@ -501,14 +501,14 @@ $returnstring .= '  <tr>
 
 		if( !$result )
 		{
-			return "No ".$wordings[$roster_conf['roster_lang']]['spellbook']." for ".$this->data['name'];
+			return "No ".$act_words['spellbook']." for ".$this->data['name'];
 		}
 
 		$num_trees = $wowdb->num_rows($result);
 
 		if( $num_trees == 0 )
 		{
-			return "No ".$wordings[$roster_conf['roster_lang']]['spellbook']." for ".$this->data['name'];
+			return "No ".$act_words['spellbook']." for ".$this->data['name'];
 		}
 
 		for( $t=0; $t < $num_trees; $t++)
@@ -559,7 +559,7 @@ $returnstring .= '  <tr>
 
 		$return_string .= '
 <div class="spell_panel">
-	<div class="spell_panel_name">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</div>
+	<div class="spell_panel_name">'.$act_words['spellbook'].'</div>
 
 	<!-- Skill Type Icons Menu -->
 	<div class="spell_skill_tab_bar">
@@ -602,20 +602,20 @@ $returnstring .= '  <tr>
 					else
 					{
 						$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '			<div class="spell_page_forward" onclick="show(\'page_'.($page+1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$roster_conf['roster_lang']]['next'].' <img src="'.$roster_conf['img_url'].'spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '			<div class="spell_page_forward" onclick="show(\'page_'.($page+1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');">'.$act_words['next'].' <img src="'.$roster_conf['img_url'].'spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
 					$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '			<div class="spell_page_back" onclick="show(\'page_'.($page-1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$roster_conf['roster_lang']]['prev'].'</div>'."\n";
+					$return_string .= '			<div class="spell_page_back" onclick="show(\'page_'.($page-1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'spellbook/pageback.gif" class="navicon" alt="" /> '.$act_words['prev'].'</div>'."\n";
 				}
 				else
 				{
 					$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '			<div class="spell_page_back" onclick="show(\'page_'.($page-1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$roster_conf['roster_lang']]['prev'].'</div>'."\n";
-					$return_string .= '			<div class="spell_page_forward" onclick="show(\'page_'.($page+1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$roster_conf['roster_lang']]['next'].' <img src="'.$roster_conf['img_url'].'spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '			<div class="spell_page_back" onclick="show(\'page_'.($page-1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'spellbook/pageback.gif" class="navicon" alt="" /> '.$act_words['prev'].'</div>'."\n";
+					$return_string .= '			<div class="spell_page_forward" onclick="show(\'page_'.($page+1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');">'.$act_words['next'].' <img src="'.$roster_conf['img_url'].'spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 				}
 				$return_string .= '			<div class="spell_pagenumber">Page '.($page+1).'</div>'."\n";
 
@@ -868,7 +868,7 @@ $returnstring .= '  <tr>
 		$output  = '  <tr '.makeOverlib($tooltip,'','',2).'>'."\n";
 		$output .= '    <td class="label">'.$label.':</td>'."\n";
 		$output .= '    <td class="value">'.$value.'</td>'."\n";
-		$output .- '  </tr>'."\n";
+		$output .= '  </tr>'."\n";
 
 		return $output;
 	}
@@ -1017,7 +1017,7 @@ $returnstring .= '  <tr>
 			case 'melee_power':
 				$lname = $wordings[$lang]['melee_att_power'];
 				$name = $wordings[$lang]['power'];
-				$tooltip = sprintf($wordings[$lang]['melee_att_power_tooltip'], $data['melee_power_dps']);
+				$tooltip = sprintf($wordings[$lang]['melee_att_power_tooltip'], $this->data['melee_power_dps']);
 				break;
 			case 'melee_hit':
 				$name = $wordings[$lang]['weapon_hit_rating'];
@@ -1025,12 +1025,12 @@ $returnstring .= '  <tr>
 				break;
 			case 'melee_crit':
 				$name = $wordings[$lang]['weapon_crit_rating'];
-				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $data['melee_crit_chance']);
+				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $this->data['melee_crit_chance']);
 				break;
 			case 'ranged_power':
 				$lname = $wordings[$lang]['ranged_att_power'];
 				$name = $wordings[$lang]['power'];
-				$tooltip = sprintf($wordings[$lang]['ranged_att_power_tooltip'], $data['ranged_power_dps']);
+				$tooltip = sprintf($wordings[$lang]['ranged_att_power_tooltip'], $this->data['ranged_power_dps']);
 				break;
 			case 'ranged_hit':
 				$name = $wordings[$lang]['weapon_hit_rating'];
@@ -1038,7 +1038,7 @@ $returnstring .= '  <tr>
 				break;
 			case 'ranged_crit':
 				$name = $wordings[$lang]['weapon_crit_rating'];
-				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $data['ranged_crit_chance']);
+				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $this->data['ranged_crit_chance']);
 				break;
 			case 'spell_hit':
 				$name = $wordings[$lang]['spell_hit_rating'];
@@ -1391,7 +1391,7 @@ $returnstring .= '  <tr>
 
 	function printEquip( $slot )
 	{
-		global $roster_conf, $wordings;
+		global $roster_conf, $wordings, $act_words;
 
 		$item = $this->equip[$slot];
 
@@ -1401,7 +1401,7 @@ $returnstring .= '  <tr>
 		}
 		else
 		{
-			$output = '<div class="item" '.makeOverlib($wordings[$roster_conf['roster_lang']]['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
+			$output = '<div class="item" '.makeOverlib($act_words['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
 			if ($slot == 'Ammo')
 				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall" alt="" />'."\n";
 			else
@@ -1532,7 +1532,7 @@ $returnstring .= '  <tr>
 
 	function printTalents( )
 	{
-		global $roster_conf, $wowdb, $wordings;
+		global $roster_conf, $wowdb, $wordings, $act_words;
 
 		$member_id = $this->data['member_id'];
 
@@ -1541,8 +1541,6 @@ $returnstring .= '  <tr>
 
 		if( $wowdb->num_rows($trees) > 0 )
 		{
-			$g = 0;
-
 			for( $j=0; $j < $wowdb->num_rows($trees); $j++)
 			{
 				$treedata = $wowdb->fetch_assoc($trees);
@@ -1557,7 +1555,7 @@ $returnstring .= '  <tr>
 <div class="char_panel">
 
 	<img class="char_tab_image" src="'.$roster_conf['img_url'].'char/icon_talents.gif" alt="" />
-	<div class="char_name">'.$wordings[$roster_conf['roster_lang']]['talents'].'</div>
+	<div class="char_name">'.$act_words['talents'].'</div>
 	<img src="'.$roster_conf['img_url'].'char/talentbar_top.gif" style="position:absolute;margin-top:43px;margin-left:65px;" alt="" />
 	<img src="'.$roster_conf['img_url'].'char/talentbar_bottom.gif" style="position:absolute;margin-top:402px;margin-left:12px;" alt="" />
 
@@ -2330,7 +2328,7 @@ function dumpString( $aString)
 
 function dumpBonuses($char)
 {
-	global $myBonus, $myTooltip, $wordings, $roster_conf, $wowdb;
+	global $myBonus, $myTooltip, $wordings, $roster_conf, $wowdb, $act_words;
 
 	$char->fetchEquip();
 
@@ -2339,7 +2337,7 @@ function dumpBonuses($char)
 		sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], $item->data['item_color'],$char->data['clientLocale'] );
 	}
 
-	$bt .= border('sgray','start',$wordings[$roster_conf['roster_lang']]['itembonuses']).
+	$bt .= border('sgray','start',$act_words['itembonuses']).
 		'<table style="width:400px;" class="bodyline" cellspacing="0" cellpadding="0" border="0">'."\n";
 
 	$row = 0;

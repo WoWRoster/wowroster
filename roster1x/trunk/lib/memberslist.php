@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 if( $roster_conf['index_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$wordings[$roster_conf['roster_lang']]['update_link'].'</font></a><br /><br />';
+	print '            <a href="#update"><font size="4">'.$act_words['update_link'].'</font></a><br /><br />';
 }
 
 
@@ -227,12 +227,6 @@ if( isset($_GET['s']) && $ORDER_FIELD = $FIELDS[$_GET['s']] )
 $query .= $always_sort;
 
 
-// Print the sql string
-if ( $roster_conf['sqldebug'] )
-{
-	echo "<!-- $query -->\n";
-}
-
 $result = $wowdb->query( $query ) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 
@@ -254,9 +248,9 @@ $current_col = 1;
 foreach ( $FIELDS as $field => $DATA )
 {
 	// See if there is a lang value for the header
-	if( !empty($wordings[$roster_conf['roster_lang']][$DATA['lang_field']]) )
+	if( !empty($act_words[$DATA['lang_field']]) )
 	{
-		$th_text = $wordings[$roster_conf['roster_lang']][$DATA['lang_field']];
+		$th_text = $act_words[$DATA['lang_field']];
 	}
 	else
 	{
@@ -268,7 +262,7 @@ foreach ( $FIELDS as $field => $DATA )
 	if( isset($_REQUEST['d']) && $_REQUEST['d'] != 'true' )
 	{
 		$desc = ( $order_field == $field ) ? '&amp;d=true' : '';
-	} 
+	}
 	else {
 		$desc = '';
 	}
@@ -316,13 +310,16 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 				echo $borderBottom;
 			}
 
+			$divider_prefix = ( isset($ORDER_FIELD['divider_prefix']) ? $ORDER_FIELD['divider_prefix'] : '');
+
 			if( isset($ORDER_FIELD['divider_value']) )
 			{
-				$divider_text = $ORDER_FIELD['divider_value']( $ORDER_FIELD['divider_prefix'].$row[$order_field] );
+
+				$divider_text = $ORDER_FIELD['divider_value']( $divider_prefix.$row[$order_field] );
 			}
 			else
 			{
-				$divider_text = '<div class="membersGroup">'.$ORDER_FIELD['divider_prefix'].$row[$order_field]."</div>\n";
+				$divider_text = '<div class="membersGroup">'.$divider_prefix.$row[$order_field]."</div>\n";
 			}
 
 			echo
@@ -392,12 +389,12 @@ if( $roster_conf['index_update_inst'] )
 {
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
-	echo border('sgray','start',$wordings[$roster_conf['roster_lang']]['update_instructions']);
-	echo '<div align="left" style="font-size:10px;">'.$wordings[$roster_conf['roster_lang']]['update_instruct'];
+	echo border('sgray','start',$act_words['update_instructions']);
+	echo '<div align="left" style="font-size:10px;">'.$act_words['update_instruct'];
 
 	if ($roster_conf['pvp_log_allow'] == 1)
 	{
-		echo $wordings[$roster_conf['roster_lang']]['update_instructpvp'];
+		echo $act_words['update_instructpvp'];
 	}
 	echo '</div>'.border('sgray','end');
 }
@@ -417,7 +414,7 @@ if( $roster_conf['index_update_inst'] )
  */
 function name_value ( $row )
 {
-	global $wordings, $roster_conf, $guild_info;
+	global $roster_conf, $act_words;
 
 	if( $roster_conf['index_member_tooltip'] )
 	{
@@ -425,8 +422,8 @@ function name_value ( $row )
 
 		$tooltip = 'Level '.$row['level'].' '.$row['class']."\n";
 
-		$tooltip .= $wordings[$roster_conf['roster_lang']]['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
-		$tooltip .= ($row['nisnull'] ? '' : "\n".$wordings[$roster_conf['roster_lang']]['note'].': '.$row['note']);
+		$tooltip .= $act_words['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
+		$tooltip .= ($row['nisnull'] ? '' : "\n".$act_words['note'].': '.$row['note']);
 
 		$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
@@ -468,7 +465,7 @@ function honor_value ( $row )
 	{
 		if ( $roster_conf['index_honoricon'] )
 		{
-			if( isset($playersData['lifetimeHighestRank']) && $playersData['lifetimeHighestRank'] < 10 )
+			if( $row['lifetimeHighestRank'] < 10 )
 			{
 				$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
 			}
@@ -667,7 +664,7 @@ function tradeskill_icons ( $row )
  */
 function level_value ( $row )
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	$tooltip = '';
 	// Configurlate exp is player has it
@@ -695,7 +692,7 @@ function level_value ( $row )
 
 		if( $row['level'] == ROSTER_MAXCHARLEVEL )
 		{
-			$tooltip = makeOverlib($wordings[$roster_conf['roster_lang']]['max_exp'],'','',2,'',',WRAP');
+			$tooltip = makeOverlib($act_words['max_exp'],'','',2,'',',WRAP');
 		}
 		else
 		{
@@ -827,9 +824,9 @@ function money_value ( $row )
  */
 function note_value ( $row )
 {
-	global $roster_conf, $wordings;
+	global $roster_conf, $wordings, $act_words;
 
-	$tooltip='';
+	$note='';
 	if( !empty($row['note']) )
 	{
 		$prg_find = array('/"/','/&/','|\\>|','|\\<|',"/\\n/");
@@ -839,7 +836,7 @@ function note_value ( $row )
 
 		if( $roster_conf['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$wordings[$roster_conf['roster_lang']]['note'],'',1,'',',WRAP').' alt="[]" />';
+			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$act_words['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 	}
 	else
