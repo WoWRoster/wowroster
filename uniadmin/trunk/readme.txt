@@ -224,6 +224,9 @@ v0.7.6
 ! Setting and sv list output is sorted by name
 ! function get_file_ext() now uses pathinfo
 ! addon xml filename="" attribute is now the full url path to the file
++ addon_zip folder scanning
+    UniAdmin now scans this folder and presents you with addon zips that have not been scanned into the database
+    Use this feature to ftp larger addon zips to UniAdmin
 + Addon notes to addon xml output
 + New get settings mode, xml output
     Use ?OPERATION=GETSETTINGSXML

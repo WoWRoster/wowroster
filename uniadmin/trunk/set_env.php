@@ -79,6 +79,9 @@ if( !defined('UA_INSTALLED') )
 
 define( 'IN_UNIADMIN',true );
 
+// Start our session
+session_start();
+
 
 include(UA_BASEDIR.'include'.DIR_SEP.'constants.php');
 

@@ -272,6 +272,7 @@ $lang['cancel'] = 'Abbrechen';
 $lang['status'] = 'Status';
 $lang['automatic'] = 'Automatisch';
 $lang['delete_all_addons'] = 'Lösche alle Addons';
+$lang['unscanned_addons'] = 'Un-Scanned AddOns';
 
 
 // Pagination

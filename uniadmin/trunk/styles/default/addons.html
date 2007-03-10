@@ -1,28 +1,31 @@
 <!-- INCLUDE overall_header.html -->
 
 <!-- IF S_ADDON_ADD_DEL -->
-<form id="ua_orphan_addon" name="ua_orphan_addon" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
-<table class="ua_table" style="float:right;width:300px;">
+<!-- IF S_ORPHAN_ADDONS -->
+<form id="ua_orphan_addon" name="ua_orphan_addon" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+<input type="hidden" name="{A_OPERATION}" value="{A_ORPHAN}" />
+<table class="ua_table" style="float:right;width:250px;">
 	<thead>
 		<tr>
-			<th class="table_header">Un-Scanned AddOns</th>
+			<th class="table_header"><div style="float:right;">
+			<img id="orphan_body_img" src="{TEMPLATE_PATH}/images/plus.png" style="cursor:pointer;" alt="" onclick="toggleShow('orphan_body','orphan_body_img','{TEMPLATE_PATH}/images/minus.png','{TEMPLATE_PATH}/images/plus.png')" />
+			</div>{L_UNSCANNED}</th>
 		</tr>
 	</thead>
-	<tfoot>
-		<tr>
-			<th>Button</th>
-		</tr>
-	</tfoot>
-	<tbody>
+	<tbody id="orphan_body" style="display:none;">
 	<!-- BEGIN orphan_addons_row -->
 		<tr>
 			<td class="data{orphan_addons_row.ROW_CLASS}"><input type="checkbox" id="{orphan_addons_row.ID}" name="{orphan_addons_row.ID}" />
 					<label for="{orphan_addons_row.ID}">{orphan_addons_row.NAME}</label></td>
 		</tr>
 	<!-- END orphan_addons_row -->
+		<tr>
+			<th><input class="submit" type="submit" value="{L_ADD}" /></th>
+		</tr>
 	</tbody>
 </table>
 </form>
+<!-- ENDIF -->
 <!-- ENDIF -->
 
 <table class="ua_table rowstyle-data2 no-arrow<!-- IF S_BELOW_15 --> paginate-15<!-- ENDIF -->" align="center">
@@ -36,7 +39,6 @@
 			<th class="sortable">{L_TOC}</th>
 			<th class="sortable">{L_VERSION}</th>
 			<th class="sortable">{L_UPLOADED}</th>
-			<th class="sortable">{L_FILES}</th>
 			<th>{L_MANAGE}</th>
 		</tr>
 	</thead>
@@ -58,7 +60,6 @@
 			<td>{addons_row.TOC}</td>
 			<td>{addons_row.VERSION}</td>
 			<td>{addons_row.TIME}</td>
-			<td>{addons_row.NUMFILES}</td>
 			<td>
 				<a href="{addons_row.DOWNLOAD}"><img src="{TEMPLATE_PATH}/images/download_mini.png" class="icon" alt="" onmouseover="return overlib('{L_DOWNLOAD}-[{addons_row.FILESIZE}]');" onmouseout="return nd();" /></a>
 				<a href="{UA_FORMACTION}&amp;{A_DETAIL}={addons_row.ID}"><img src="{TEMPLATE_PATH}/images/details_mini.png" class="icon" alt="" onmouseover="return overlib('{L_ADDON_DETAILS}');" onmouseout="return nd();" /></a>
@@ -128,13 +129,15 @@
 	</thead>
 <!-- ENDIF -->
 </table>
+
+<br />
 <br />
 
 <!-- IF S_ADDON_ADD_DEL -->
 <form id="ua_updateaddon" name="ua_updateaddon" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
 	<table class="ua_table" align="center">
 		<tr>
-			<th class="table_header" colspan="2">{L_ADDON_MANAGE}</th>
+			<th class="table_header" colspan="2">{L_ADD_UPDATE}</th>
 		</tr>
 		<tr>
 			<td><img src="{TEMPLATE_PATH}/images/help_mini.png" alt="" onmouseover="return overlib('{L_REQUIRED_TIP}',CAPTION,'{L_REQUIRED}');" onmouseout="return nd();" />
@@ -161,5 +164,6 @@
 	<input type="hidden" name="{A_OPERATION}" value="{A_PROCESS}" />
 </form>
 <!-- ENDIF -->
+
 
 <!-- INCLUDE overall_footer.html -->

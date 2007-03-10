@@ -167,6 +167,7 @@ img { border:0; }
 	text-decoration:none;
 	background-color:transparent;
 }
+.ua_table tr { background:#FFF; }
 .ua_table td,
 .ua_table td.data1 {
 	font-size:11px;

@@ -65,6 +65,11 @@ switch($op)
 			edit_addon($id);
 		break;
 
+	case UA_URI_ORPHAN:
+		if( $user->data['level'] >= UA_ID_ADMIN )
+			process_orphan_addons();
+		break;
+
 	default:
 		break;
 }
@@ -108,13 +113,13 @@ function main( )
 		'L_UPLOADED'       => $user->lang['uploaded'],
 		'L_ENABLED'        => $user->lang['enabled'],
 		'L_DISABLED'       => $user->lang['disabled'],
-		'L_FILES'          => $user->lang['files'],
 		'L_DELETE'         => $user->lang['delete'],
 		'L_DELETE_ALL'     => $user->lang['delete_all_addons'],
 		'L_DISABLE_ENABLE' => $user->lang['disable_enable'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_DOWNLOAD'       => $user->lang['download'],
 		'L_ADD_UPDATE'     => $user->lang['add_update_addon'],
+		'L_ADD'            => $user->lang['add'],
 		'L_REQUIRED_ADDON' => $user->lang['required_addon'],
 		'L_SELECT_FILE'    => $user->lang['select_file'],
 		'L_HOMEPAGE'       => $user->lang['homepage'],
@@ -126,6 +131,7 @@ function main( )
 		'L_YES'            => $user->lang['yes'],
 		'L_NO'             => $user->lang['no'],
 		'L_NOTES'          => $user->lang['notes'],
+		'L_UNSCANNED'      => $user->lang['unscanned_addons'],
 
 		'L_NO_ADDONS'      => $user->lang['error_no_addon_in_db'],
 		'L_CONFIRM_DELETE' => $user->lang['confirm_addons_delete'],
@@ -152,12 +158,7 @@ function main( )
 		$tpl->assign_var('L_ADDON_MANAGE',$user->lang['view_addons']);
 	}
 
-	$sql = 'SELECT `a`.*, COUNT(`f`.`addon_id`) AS num_files
-		FROM `'.UA_TABLE_ADDONS.'` AS a
-		LEFT JOIN `'.UA_TABLE_FILES.'` AS f
-		ON `a`.`id` = `f`.`addon_id`
-		GROUP BY `a`.`id`
-		ORDER BY name ASC;';
+	$sql = 'SELECT * FROM `'.UA_TABLE_ADDONS.'` ORDER BY name ASC;';
 
 	$result = $db->query($sql);
 
@@ -175,7 +176,6 @@ function main( )
 		{
 			$tpl->assign_var('S_BELOW_15', false);
 		}
-
 
 		while( $row = $db->fetch_record($result) )
 		{
@@ -200,7 +200,6 @@ function main( )
 				'VERSION'     => $row['version'],
 				'TIME'        => date($user->lang['time_format'],$row['time_uploaded']),
 				'ENABLED'     => $row['enabled'],
-				'NUMFILES'    => $row['num_files'],
 				'DOWNLOAD'    => $download,
 				'FILESIZE'    => $uniadmin->filesize_readable($row['filesize']),
 				'NOTE'        => addslashes(htmlentities($row['notes']))
@@ -221,7 +220,7 @@ function main( )
 	// Get a list of currently uploaded addons
 	$uploaded_addons = $uniadmin->ls(UA_BASEDIR.$uniadmin->config['addon_folder'],array(),false);
 
-	$addon_not_db = array();
+	$addon_not_db = false;
 	if( is_array($uploaded_addons) && count($uploaded_addons) > 0 )
 	{
 		foreach( $uploaded_addons as $addon_index => $addon )
@@ -229,15 +228,19 @@ function main( )
 			$addon = basename($addon);
 			if ( !in_array($addon,$addon_in_db) )
 			{
+				$addon_not_db = true;
+
 				$tpl->assign_block_vars('orphan_addons_row', array(
 					'ROW_CLASS'   => $uniadmin->switch_row_class(),
 					'ID'          => "id_$addon_index",
 					'NAME'        => $addon
 					)
 				);
+				$_SESSION['id_'.$addon_index] = $addon;
 			}
 		}
 	}
+	$tpl->assign_var('S_ORPHAN_ADDONS',$addon_not_db);
 
 
 	$uniadmin->set_vars(array(
@@ -513,4 +516,40 @@ function edit_addon( $addon_id )
 	$db->query($sql);
 
 	$uniadmin->message(sprintf($user->lang['addon_edited'],$addon_name));
+}
+
+function process_orphan_addons( )
+{
+	global $uniadmin, $user;
+
+	foreach( $_POST as $addon => $dl )
+	{
+		if( $dl == 'on' )
+		{
+			$download[] = $addon;
+		}
+	}
+
+	foreach( $download as $key => $addon )
+	{
+		$addon = $_SESSION[$addon];
+
+		$filename = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP."$addon";
+
+		$toPass = array();
+		$toPass['name'] = $addon;
+		$toPass['type'] = 'application/zip';
+		$toPass['tmp_name'] = $filename;
+
+		if( is_readable($toPass['tmp_name']) )
+		{
+			$toPass['error'] = 0;
+		}
+		else
+		{
+			$toPass['error'] = 1;
+		}
+		$toPass['size'] = filesize($toPass['tmp_name']);
+		process_addon($toPass);
+	}
 }

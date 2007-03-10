@@ -175,7 +175,10 @@ function process_update( )
 		}
 		if( $settingName != UA_URI_OP )
 		{
-			$set = $uniadmin->config_set($settingName,$settingValue);
+			if( $settingValue != $uniadmin->config[$settingName] )
+			{
+				$set = $uniadmin->config_set($settingName,$settingValue);
+			}
 		}
 	}
 }

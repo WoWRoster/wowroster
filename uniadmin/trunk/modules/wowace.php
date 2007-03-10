@@ -30,7 +30,6 @@ include(UA_INCLUDEDIR.'addon_lib.php');
 
 
 
-session_start();
 
 
 
@@ -166,7 +165,6 @@ function process_wowace_addons( )
 			$toPass['name'] = $addon.'.zip';
 			$toPass['type'] = 'application/zip';
 			$toPass['tmp_name'] = $filename;
-			$toPass['file_name'] = 'http://files.wowace.com/'.$addon.'/'.$addon.'.zip';
 
 			if( is_readable($toPass['tmp_name']) )
 			{
