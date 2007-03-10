@@ -21,16 +21,16 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if( !isset($pages[1]) )
+if( !isset($pages[2]) )
 {
 	roster_die('You must specify an addon name!','Addon Error');
 }
 
 // Get the addon's location
-$addonDir = ROSTER_ADDONS.$pages[1].DIR_SEP;
+$addonDir = ROSTER_ADDONS.$pages[2].DIR_SEP;
 
 // Get the addon's index file
-$addonFile = $addonDir.'index.php';
+$addonFile = $addonDir.'admin.php';
 
 // Get the addon's css style
 $cssFile = $addonDir.'default.css';
@@ -44,11 +44,6 @@ $configFile = $addonDir.'conf.php';
 // Initialize css holder
 $css = '';
 
-// Make the header/menu/footer show by default
-$roster_show_header = true;
-$roster_show_menu = true;
-$roster_show_footer = true;
-
 
 // Check to see if the index file exists
 if( file_exists($addonFile) )
@@ -58,7 +53,7 @@ if( file_exists($addonFile) )
 	// Set the css for the template set in conf.php
 	if( file_exists($cssFile) )
 	{
-		$css = '/addons/'.$pages[1].'/default.css';
+		$css = '/addons/'.$pages[2].'/default.css';
 	}
 
 	// Include localization variables
@@ -73,11 +68,7 @@ if( file_exists($addonFile) )
 		include_once( $configFile );
 	}
 
-	// The addon will now assign its output to $content
-	ob_start();
-		include_once( $addonFile );
-		$content = ob_get_contents();
-	ob_end_clean();
+	include_once( $addonFile );
 }
 else
 {
@@ -90,12 +81,4 @@ else
 if( $css != '' )
 	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'">'."\n";
 
-if ($roster_show_header)
-	include_once (ROSTER_BASE.'roster_header.tpl');
-if ($roster_show_menu)
-	include_once (ROSTER_LIB.'menu.php');
-
 echo $content;
-
-if ($roster_show_footer)
-	include_once (ROSTER_BASE.'roster_footer.tpl');

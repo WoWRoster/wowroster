@@ -61,10 +61,11 @@ $menu = '';
 $body = '';
 $pagebar = '';
 
+// Find out what subpage to include, and do so
 $page = (isset($pages[1]) && ($pages[1]!=''))?$pages[1]:'roster';
 
-if (isset($pages[$page]['file']) and (!isset($pages[$page]['access']) or $roster_login->getAuthorized($pages[$page]['access'])))
-{ // There is something defined to include and we're allowed to access it
+if( isset($pages[$page]['file']) )
+{
 	if (file_exists(ROSTER_ADMIN.$pages[$page]['file']))
 	{
 		require_once(ROSTER_ADMIN.$pages[$page]['file']);
@@ -79,6 +80,7 @@ else
 	$body .= messagebox('Invalid page specified or insufficient credentials to access this page.','Roster Admin Panel','sred');
 }
 
+// Build the pagebar from admin/pages.php
 foreach ($pages as $page => $data)
 {
 	if (!isset($data['special']))
@@ -90,6 +92,7 @@ foreach ($pages as $page => $data)
 		$pagebar .= '<li><hr></li>';
 	}
 }
+
 if ($pagebar != '')
 {
 	$pagebar = border('sgray','start',$wordings[$roster_conf['roster_lang']]['pagebar_function'])."\n".
@@ -99,31 +102,32 @@ if ($pagebar != '')
 		border('sgray','end')."\n".
 		"<br />\n";
 }
-/* Currently no addon config
-if ($roster_login->getAuthorized())
+
+// Add addon buttons
+if ($handle = opendir(ROSTER_ADDONS))
 {
-	$query = 'SELECT `basename`,`dbname`,`hasconfig` FROM `'.$wowdb->table('addon').'` WHERE `hasconfig` != ""';
-	$result = $wowdb->query($query);
-	if( !$result )
-	{
-		die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
-	}
+	$addons = array();
 
-	if ($wowdb->num_rows($result))
+	while (false !== ($file = readdir($handle)))
 	{
-		$pagebar .= border('sgray','start',$act_words['pagebar_addonconf'])."\n";
-		$pagebar .= '<ul class="tab_menu">'."\n";
-		while($row = $wowdb->fetch_assoc($result))
+		if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && is_file($adminfile = (ROSTER_ADDONS.$file.DIR_SEP.'admin.php')))
 		{
-			include(ROSTER_ADDONS.$row['basename'].DIR_SEP.'localization.php');
-			$pagebar .= '<li><a href="?page=addon&amp;addon='.$row['dbname'].'&amp;profile='.$row['hasconfig'].'">'.$row['basename'].' - '.$row['dbname'].'</a></li>'."\n";
+			$addons[$file] = $adminfile;
 		}
-		$pagebar .= '</ul>'."\n";
-		$pagebar .= border('sgray','end')."\n";
 	}
+}
 
-	$wowdb->free_result($result);
-}*/
+if( count($addons)>0 )
+{
+	$pagebar .= border('sgray','start',$act_words['pagebar_addonconf'])."\n";
+	$pagebar .= '<ul class="tab_menu">'."\n";
+	foreach( $addons as $addon => $adminfile )
+	{
+		$pagebar .= '<li><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
+	}
+	$pagebar .= '</ul>'."\n";
+	$pagebar .= border('sgray','end')."\n";
+}
 
 // ----[ Render the page ]----------------------------------
 include_once( ROSTER_BASE.'roster_header.tpl' );
