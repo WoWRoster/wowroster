@@ -45,7 +45,7 @@ function borderTop()
 
 function tableHeaderRow($th)
 {
-	global $items, $itemlink, $roster_conf, $tooltips, $act_words;
+	global $items, $roster_conf, $tooltips, $act_words;
 
 	$acount = 0;
 	print "  <tr>\n";
@@ -58,7 +58,7 @@ function tableHeaderRow($th)
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $itemlink[$roster_conf['roster_lang']] as $ikey => $ilink )
+			foreach( $act_words['itemlinks'] as $ikey => $ilink )
 			{
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
 			}
@@ -156,7 +156,7 @@ $min_skill_for_lock = array(
 	'MC' => 1000,
 );
 
-$items = $inst_keys[$roster_conf['roster_lang']][ substr($guild_info['faction'],0,1) ];
+$items = $act_words['inst_keys'][ substr($guild_info['faction'],0,1) ];
 $keys = array('Name');
 foreach ($items as $key => $data)
 {
@@ -176,7 +176,7 @@ while ($row = $wowdb->fetch_array($result))
 	{
 		$row['clientLocale'] = $roster_conf['roster_lang'];
 	}
-	$items = $inst_keys[$row['clientLocale']][ substr($guild_info['faction'],0,1) ];
+	$items = $act_words['inst_keys'][ substr($guild_info['faction'],0,1) ];
 	// build SQL search string for the instance keys only
 	$selectk = ''; $wherek = ''; $countk = 0;
 	foreach ($items as $key => $item)
@@ -429,7 +429,7 @@ while ($row = $wowdb->fetch_array($result))
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $itemlink[$roster_conf['roster_lang']] as $ikey => $ilink )
+			foreach( $act_words['itemlinks'] as $ikey => $ilink )
 			{
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
 			}

@@ -90,9 +90,9 @@ class pvp3
 
 function pvp_get_many3($member_id, $type, $sort, $start)
 {
-	global $wowdb, $roster_conf, $timeformat;
+	global $wowdb, $roster_conf, $act_words;
 
-	$query= "SELECT *, DATE_FORMAT(date, '".$timeformat[$roster_conf['roster_lang']]."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND ";
+	$query= "SELECT *, DATE_FORMAT(date, '".$act_words['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND ";
 
 	if ($type == 'PvP')
 	{
@@ -293,7 +293,7 @@ function calc_pwinloss($a, $b)
 
 function output_bglog($member_id)
 {
-	global $wowdb, $roster_conf, $timeformat, $wordings, $act_words;
+	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	$bg_array = array(
 		'alterac_valley',
@@ -301,7 +301,7 @@ function output_bglog($member_id)
 		'warsong_gulch',
 	);
 
-	$query= "SELECT *, DATE_FORMAT(date, '".$timeformat[$roster_conf['roster_lang']]."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` >= '1'";
+	$query= "SELECT *, DATE_FORMAT(date, '".$act_words['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` >= '1'";
 
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	$pvps = array();
@@ -508,7 +508,7 @@ border('sorange','end').
 
 function output_duellog($member_id)
 {
-	global $wowdb, $roster_conf, $timeformat, $wordings, $act_words;
+	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	$data = array();
 
@@ -596,9 +596,9 @@ function output_duellog($member_id)
 
 function output_pvplog($member_id)
 {
-	global $wowdb, $roster_conf, $timeformat, $wordings, $act_words;
+	global $wowdb, $roster_conf, $wordings, $act_words;
 
-	$query= "SELECT *, DATE_FORMAT(date, '".$timeformat[$roster_conf['roster_lang']]."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
+	$query= "SELECT *, DATE_FORMAT(date, '".$act_words['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
 
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	$pvps = array();

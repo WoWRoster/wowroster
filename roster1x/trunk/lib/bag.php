@@ -37,7 +37,7 @@ class bag extends item
 
 	function out()
 	{
-		global $wordings, $roster_conf, $char, $tooltips, $itemlink;
+		global $wordings, $roster_conf, $char, $tooltips;
 
 		if( !is_object($char) )
 			$lang = $roster_conf['roster_lang'];
@@ -73,7 +73,7 @@ class bag extends item
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $itemlink[$lang] as $key => $ilink )
+			foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
 			{
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
 			}

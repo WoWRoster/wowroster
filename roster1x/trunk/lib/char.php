@@ -138,7 +138,7 @@ class char
 
 	function show_quests()
 	{
-		global $questlinks, $act_words;
+		global $act_words;
 
 		$lang = $this->data['clientLocale'];
 
@@ -209,10 +209,9 @@ class char
 				$returnstring .= '<td class="membersRowRight1 quest_link">';
 
 				$q = 1;
-				foreach( $questlinks as $link )
+				foreach( $act_words['questlinks'] as $link )
 				{
-					//if( $roster_conf['questlink_'.$q] )
-						$returnstring .= '<a href="'.$link[$lang]['url1'].urlencode(utf8_decode($name)).($link[$lang]['url2'] ? $link[$lang]['url2'].$quest_level : '').($link[$lang]['url3'] ? $link[$lang]['url3'].$quest_level : '').'" target="_blank">'.$link[$lang]['name']."</a>\n";
+					$returnstring .= '<a href="'.$link[$lang]['url1'].urlencode(utf8_decode($name)).($link[$lang]['url2'] ? $link[$lang]['url2'].$quest_level : '').($link[$lang]['url3'] ? $link[$lang]['url3'].$quest_level : '').'" target="_blank">'.$link[$lang]['name']."</a>\n";
 					$q++;
 				}
 
@@ -322,7 +321,7 @@ $returnstring .= '  <tr>
 
 	function show_mailbox()
 	{
-		global $wowdb, $wordings, $roster_conf, $phptimeformat, $itemlink, $tooltips, $act_words;
+		global $wowdb, $wordings, $roster_conf, $tooltips, $act_words;
 
 		$sqlquery = "SELECT * FROM `".ROSTER_MAILBOXTABLE."` ".
 			"WHERE `member_id` = '".$this->data['member_id']."' ".
@@ -406,7 +405,7 @@ $returnstring .= '  <tr>
 				$tooltip = $wordings[$this->data['clientLocale']]['mail_sender'].
 					': '.$row['mailbox_sender'].'<br />';
 
-				$expires_line = date($phptimeformat[$this->data['clientLocale']],((($row['mailbox_days']*24 + $roster_conf['localtimeoffset'])*3600)+$maildateutc)).' '.$roster_conf['timezone'];
+				$expires_line = date($wordings[$this->data['clientLocale']]['phptimeformat'],((($row['mailbox_days']*24 + $roster_conf['localtimeoffset'])*3600)+$maildateutc)).' '.$roster_conf['timezone'];
 				if( (($row['mailbox_days']*24*3600)+$maildateutc) - time() < (3*24*3600) )
 					$color = 'ff0000;';
 				else
@@ -450,7 +449,7 @@ $returnstring .= '  <tr>
 				// Item links
 				$num_of_tips = (count($tooltips)+1);
 				$linktip = '';
-				foreach( $itemlink[$this->data['clientLocale']] as $ikey => $ilink )
+				foreach( $wordings[$this->data['clientLocale']]['itemlinks'] as $ikey => $ilink )
 				{
 					$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($row['item_name'])).'" target="_blank">'.$ikey.'</a><br />';
 				}
@@ -1701,8 +1700,6 @@ $returnstring .= '  <tr>
 
 	function printSkills()
 	{
-		global $skilltypes;
-
 		$allskills = skill_get_many( $this->data['member_id']);
 
 		foreach ($allskills as $cat => $skills)
@@ -2052,9 +2049,9 @@ echo '  </div><!-- end char-tabs -->
 
 function char_get_one_by_id( $member_id )
 {
-	global $wowdb, $timeformat, $roster_conf;
+	global $wowdb, $roster_conf, $act_words;
 
-	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
+	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'update_format' ".
 		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`member_id` = '$member_id' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $wowdb->query( $query );
@@ -2072,11 +2069,11 @@ function char_get_one_by_id( $member_id )
 
 function char_get_one( $name, $server )
 {
-	global $wowdb, $timeformat, $roster_conf;
+	global $wowdb, $roster_conf, $act_words;
 
 	$name = $wowdb->escape( $name );
 	$server = $wowdb->escape( $server );
-	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'update_format' ".
+	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'update_format' ".
 		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`name` = '$name' AND `a`.`server` = '$server' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $wowdb->query( $query );
@@ -2094,17 +2091,16 @@ function char_get_one( $name, $server )
 
 function DateCharDataUpdated($id)
 {
-	global $wowdb, $roster_conf, $phptimeformat;
+	global $wowdb, $roster_conf, $wordings;
 
-	$query1 = "SELECT `dateupdatedutc` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
-	$result1 = $wowdb->query($query1);
-	$data1 = $wowdb->fetch_assoc($result1);
-	$dateupdatedutc = $data1['dateupdatedutc'];
-	$wowdb->free_result($result1);
+	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
+	$result = $wowdb->query($query);
+	$data = $wowdb->fetch_assoc($result);
+	$wowdb->free_result($result);
 
-	list($year,$month,$day,$hour,$minute,$second) = sscanf($dateupdatedutc,"%d-%d-%d %d:%d:%d");
+	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+	return date($wordings[$data['clientLocale']]['phptimeformat'], $localtime);
 }
 
 

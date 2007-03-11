@@ -32,7 +32,7 @@ class recipe
 
 	function out()
 	{
-		global $roster_conf, $wordings, $itemlink, $char, $tooltips;
+		global $roster_conf, $wordings, $char, $tooltips;
 
 		if( !is_object($char) )
 			$lang = $roster_conf['roster_lang'];
@@ -44,7 +44,7 @@ class recipe
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $itemlink[$lang] as $key => $ilink )
+		foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
 		}

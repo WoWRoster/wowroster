@@ -39,7 +39,7 @@ require( ROSTER_LIB.'menu.php' );
 
 $query =
 "SELECT *,
- DATE_FORMAT( `update_time`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'date'
+ DATE_FORMAT( `update_time`, '".$act_words['timeformat']."' ) AS 'date'
  FROM `".ROSTER_MEMBERLOGTABLE."`";
 
 

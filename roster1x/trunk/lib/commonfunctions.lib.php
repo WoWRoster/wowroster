@@ -924,12 +924,12 @@ function makeAddonList( $array=false )
  */
 function DateDataUpdated($updateTimeUTC)
 {
-	global $roster_conf, $phptimeformat;
+	global $roster_conf, $act_words;
 
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 
-	return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+	return date($act_words['phptimeformat'], $localtime);
 }
 
 function get_file_ext( $filename )

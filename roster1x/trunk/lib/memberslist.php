@@ -166,7 +166,7 @@ $query =
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
 	'`members`.`zone`, '.
-	"DATE_FORMAT( `members`.`last_online`, '".$timeformat[$roster_conf['roster_lang']]."' ) AS 'last_online', ".
+	"DATE_FORMAT( `members`.`last_online`, '".$act_words['timeformat']."' ) AS 'last_online', ".
 
 // Fields to get from the players table
 	'`players`.`race`, '.
@@ -500,7 +500,7 @@ function honor_value ( $row )
  */
 function last_up_value ( $row )
 {
-	global $roster_conf, $phptimeformat;
+	global $roster_conf, $act_words;
 
 	if ( $row['last_update'] != '')
 	{
@@ -509,7 +509,7 @@ function last_up_value ( $row )
 		list($month,$day,$year,$hour,$minute,$second) = sscanf($cell_value,"%d/%d/%d %d:%d:%d");
 
 		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-		return date($phptimeformat[$roster_conf['roster_lang']], $localtime);
+		return date($act_words['phptimeformat'], $localtime);
 	}
 	else
 	{

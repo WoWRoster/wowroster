@@ -29,7 +29,7 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 $additional_sql = array(
 	'`players`.`hearth`, ',
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ",
-	"DATE_FORMAT(`players`.`dateupdatedutc`, '".$timeformat[$roster_conf['roster_lang']]."') as last_update, ",
+	"DATE_FORMAT(`players`.`dateupdatedutc`, '".$act_words['timeformat']."') as last_update, ",
 	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ",
 );
 

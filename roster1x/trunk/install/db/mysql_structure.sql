@@ -210,7 +210,7 @@ CREATE TABLE `renprefix_players` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
-  `dateupdatedutc` varchar(18) default NULL,
+  `dateupdatedutc` datetime default NULL,
   `CPversion` varchar(6) default NULL,
   `race` varchar(32) NOT NULL default '',
   `raceEn` varchar(32) NOT NULL default '',
