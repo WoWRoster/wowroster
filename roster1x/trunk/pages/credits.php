@@ -54,7 +54,7 @@ foreach( $creditspage['devs']['active'] as $dev )
 echo "</table>\n".border('sgreen','end')."<br />\n";
 
 // Print third party contributions
-echo border('spurple','start','3rd party contributions')."<table cellspacing=\"0\">\n";
+echo border('spurple','start','3rd-Party Contributions')."<table cellspacing=\"0\">\n";
 echo "<tr>
 <th class=\"membersHeader\">Name</th>
 <th class=\"membersHeaderRight\">Info</th>
@@ -98,7 +98,7 @@ echo "</table>\n".border('sred','end')."<br />\n";
 
 
 // Print used libraries
-echo border('sorange','start','Javascript libraries')."<table cellspacing=\"0\">\n";
+echo border('sorange','start','Javascript Libraries')."<table cellspacing=\"0\">\n";
 echo "<tr>
 <th class=\"membersHeader\">Name</th>
 <th class=\"membersHeaderRight\">Info</th>

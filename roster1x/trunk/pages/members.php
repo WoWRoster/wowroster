@@ -83,7 +83,7 @@ if ( $roster_conf['index_currenthonor'] == 1 )
 {
 	$FIELD[] = array (
 		'lifetimeRankName' => array(
-			'lang_field' => 'Highest Rank',
+			'lang_field' => 'highestrank',
 			'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
 			'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
 			'value' => 'honor_value',

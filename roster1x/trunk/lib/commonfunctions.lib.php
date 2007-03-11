@@ -505,9 +505,9 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 				elseif ( ereg('^'.$wordings[$locale]['tooltip_set'],$line) )
 					$color = '00ff00';
 				elseif (ereg('^'.$wordings[$locale]['tooltip_rank'],$line) )
-					$color = '00ff00';
+					$color = '00ff00;font-weight:bold';
 				elseif (ereg('^'.$wordings[$locale]['tooltip_next_rank'],$line) )
-					$color = 'ffffff';
+					$color = 'ffffff;font-weight:bold';
 				elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$locale]['tooltip_set'].'|',$line) )
 					$color = '666666';
 				elseif ( ereg('^"',$line) )

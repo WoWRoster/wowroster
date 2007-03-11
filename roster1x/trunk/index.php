@@ -29,7 +29,7 @@ $page = $pages[0];
 
 if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 {
-	roster_die("Invalid characters in module name");
+	roster_die($act_words['invalid_char_module'],$act_words['roster_error']);
 }
 
 //---[ Check for Guild Info ]------------
@@ -45,7 +45,7 @@ if( is_file( $var = ROSTER_PAGES . $page . '.php' ) )
 }
 else
 {
-	roster_die("The page ($page) does not exist");
+	roster_die(sprintf($act_words['module_not_exist'],$page),$act_words['roster_error']);
 }
 
 unset($page,$var);

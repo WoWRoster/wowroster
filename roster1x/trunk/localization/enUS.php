@@ -44,8 +44,50 @@ $lang['nofileUploaded']='UniUploader did not upload any file(s), or uploaded the
 $lang['roster_upd_pwLabel']='Roster Update Password';
 $lang['roster_upd_pw_help']='(This is required when doing a guild update)';
 
-// Updating Instructions
 
+$lang['roster_error'] = 'Roster Error';
+$lang['sql_queries'] = 'SQL Queries';
+$lang['invalid_char_module'] = 'Invalid characters in module name';
+$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+
+$lang['addon_error'] = 'Addon Error';
+$lang['specify_addon'] = 'You must specify an addon name!';
+$lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
+
+$lang['char_error'] = 'Character Error';
+$lang['specify_char'] = 'Character was not specified';
+$lang['no_char_id'] = 'Sorry no character data for member_id [ %1$s ]';
+$lang['no_char_name'] = 'Sorry no character data for <strong>%1$s</strong> of <strong>%2$s</strong>';
+$lang['char_stats'] = 'Character Stats for: %1$s @ %2$s';
+$lang['char_links'] = 'Character Links';
+
+$lang['gbank_list'] = 'Full Listing';
+$lang['gbank_inv'] = 'Inventory';
+$lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
+
+$lang['roster_cp'] = 'Roster Control Panel';
+$lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
+$lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials to access this page';
+
+$lang['parsing_files'] = 'Parsing files';
+$lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';
+$lang['error_parsed_time'] = 'Error while parsing %1$s after %2$s seconds';
+$lang['upload_not_accept'] = 'Did not accept %1$s';
+$lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
+$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
+$lang['no_members'] = 'Data does not contain any guild members';
+$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s</span>]';
+$lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
+$lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s  Not Scanned';
+$lang['update_members'] = 'Updating Members';
+$lang['gp_user_only'] = 'GuildProfiler User Only';
+$lang['update_errors'] = 'Update Errors';
+$lang['update_log'] = 'Update Log';
+$lang['save_error_log'] = 'Save Error Log';
+$lang['save_update_log'] = 'Save Update Log';
+
+
+// Updating Instructions
 $lang['index_text_uniloader'] = "(You can download the program from the WoWRoster website, look for the UniUploader Installer for the latest version)";
 
 $lang['update_instruct']='
@@ -324,6 +366,8 @@ $lang['reagents']='Reagents';
 $lang['item']='Item';
 $lang['type']='Type';
 $lang['date']='Date';
+$lang['complete'] = 'Complete';
+$lang['failed'] = 'Failed';
 $lang['completedsteps'] = 'Completed Steps';
 $lang['currentstep'] = 'Current Step';
 $lang['uncompletedsteps'] = 'Uncompleted Steps';
@@ -345,6 +389,7 @@ $lang['talents'] = 'Talents';
 $lang['memberlog'] = 'Member Log';
 $lang['removed'] = 'Removed';
 $lang['added'] = 'Added';
+$lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'No Member Log Recorded';
 
 $lang['rosterdiag'] = 'Roster Diag.';
@@ -356,12 +401,17 @@ $lang['recipe_2'] = 'easy';
 $lang['recipe_1'] = 'trivial';
 $lang['roster_config'] = 'Roster Config';
 
+// Character
+$lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
+$lang['char_guildline'] = '%1$s of %2$s';
+
 // Spellbook
 $lang['spellbook'] = 'Spellbook';
 $lang['page'] = 'Page';
 $lang['general'] = 'General';
 $lang['prev'] = 'Prev';
 $lang['next'] = 'Next';
+$lang['no_spellbook'] = 'No Spellbook for %1$s';
 
 // Mailbox
 $lang['mailbox'] = 'Mailbox';
@@ -371,6 +421,8 @@ $lang['mail_sender'] = 'Sender';
 $lang['mail_subject'] = 'Subject';
 $lang['mail_expires'] = 'Mail Expires';
 $lang['mail_money'] = 'Money Included';
+$lang['no_mail'] = 'No Mail for %1$s';
+$lang['no_info'] = 'No Information';
 
 
 //this needs to be exact as it is the wording in the db
@@ -515,7 +567,7 @@ $lang['haste_tooltip']='Haste rating ';
 
 $lang['melee_att_power']='Melee Attack Power';
 $lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
-$lang['range_att_power']='Ranged Attack Power';
+$lang['ranged_att_power']='Ranged Attack Power';
 $lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
 
 $lang['weapon_hit_rating']='Hit Rating';
@@ -597,10 +649,15 @@ $lang['Warlock']='Warlock';
 $lang['Warrior']='Warrior';
 
 $lang['today']='Today';
+$lang['todayhk']='Today HK';
+$lang['todaycp']='Today CP';
 $lang['yesterday']='Yesterday';
+$lang['yesthk']='Yest HK';
+$lang['yestcp']='Yest CP';
 $lang['thisweek']='This Week';
 $lang['lastweek']='Last Week';
 $lang['lifetime']='Lifetime';
+$lang['lifehk']='Life HK';
 $lang['honorkills']='Honorable Kills';
 $lang['dishonorkills']='Dishonorable Kills';
 $lang['honor']='Honor';
@@ -663,6 +720,9 @@ $lang['purgeavelosses'] = 'Best Loss/Level-Diff Average';
 $lang['pvpratio'] = 'Solo Win/Loss Ratios';
 $lang['playerinfo'] = 'Player Info';
 $lang['guildinfo'] = 'Guild Info';
+$lang['kill_lost_hist'] = 'Kill/Loss history for %1$s (%2$s %3$s) of %4$s';
+$lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
+$lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
 
 //strings for Rep-tab
 $lang['exalted']='Exalted';
@@ -754,7 +814,7 @@ $lang['lockpicking']='Lockpicking';
 
 // Error messages
 	$lang['CPver_err']="The version of CharacterProfiler used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minCPver']." and have logged onto this character and saved data using this version.";
-	$lang['PvPLogver_err']="The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minPvPLogver'].", and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua Saved Variables file prior to updating.";
+	$lang['PvPLogver_err']="The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minPvPLogver'].", and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua SavedVariable file prior to updating.";
 	$lang['GPver_err']="The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minGPver'];
 
 
@@ -789,7 +849,7 @@ $lang['confirm_config_reset'] = 'This will reset the form to how it was when you
 // Each variable must be the same name as the config variable name
 // Example:
 //   Assign description text and tooltip for $roster_conf['sqldebug']
-//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
+//   $lang['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
 // The first part is the short description, the next part is the tooltip
@@ -906,6 +966,7 @@ $lang['admin']['uploadapp'] = "UniUploader download link|URL to download UniUplo
 
 // char_conf
 $lang['admin']['char_bodyalign'] = "Character Page Alignment|Alignment of the data on the character page";
+$lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
 $lang['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_mail'] = "Mail|Controls the display of Mail<br /><br />Setting is global and overrides per-user setting";

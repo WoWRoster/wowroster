@@ -150,12 +150,12 @@ else
 if (($start+30) < $max)
 {
 	$lastpage = ceil($max/30)*30;
-	$listing = ' <small>['.$start.' - '.($start+30).'] of '.$max.'</small>';
+	$listing = ' <small>['.$start.' - '.($start+30).'] -- '.$max.'</small>';
 	$next = ' <a href="'.makelink('memberlog&amp;start='.($start+30).$sort_part).'">&gt;</a> <a href="'.makelink('memberlog&amp;start='.($lastpage-30).$sort_part).'">&gt;&gt;</a>';
 }
 else
 {
-	$listing = ' <small>['.$start.' - '.($max).'] of '.$max.'</small>';
+	$listing = ' <small>['.$start.' - '.($max).'] -- '.$max.'</small>';
 	$next = '';
 }
 
@@ -230,11 +230,11 @@ if ($start > 0)
 
 if (($start+30) < $max)
 {
-	$content .= '['.$start.' - '.($start+30).'] of '.$max;
+	$content .= '['.$start.' - '.($start+30).'] -- '.$max;
 	$content .= $next;
 }
 else
-	$content .= '['.$start.' - '.($max).'] of '.$max;
+	$content .= '['.$start.' - '.($max).'] -- '.$max;
 
 
 $wowdb->closeQuery($result);

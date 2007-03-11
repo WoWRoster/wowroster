@@ -385,14 +385,9 @@ else if ($type == 'purgeavelosses')
 }
 else if ($type == 'pvpratio')
 {
-	print('<br /><small>'.$act_words['pvpratio'].' (Level differences -7 to +7 counted)</small><br /><br />');
+	print('<br />'.$act_words['solo_win_loss'].'</small><br /><br />');
 	print($tableHeader);
-	tableHeaderRow(array(
-	$roster_conf['guild_name']." Member",
-	'Ratio'
-	));
 
-	//$query = "SELECT member_id, name as gn, pvp_ratio FROM `players` WHERE 1 ORDER BY pvp_ratio DESC";
 	$query = "SELECT members.name, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY members.name ORDER BY wtotal DESC";
 	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
@@ -469,9 +464,8 @@ else if ($type == 'playerinfo')
 
 		if ($first)
 		{
-			print('<br /><small>Kill/Loss history for "');
-			print ($player.'" ('.$row['race'].' '.$row['class'].') of <a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>');
-			print ('</small><br /><br />');
+			print '<br />'.sprintf($act_words['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>');
+			print ('<br /><br />');
 
 			print($tableHeader);
 			tableHeaderRow(array(
@@ -536,9 +530,10 @@ else if ($type == 'guildinfo')
 	else
 		$sort = '';
 
-	print('<br /><small>Kill/Loss history for Guild "');
-	print ($guild);
-	print ('"</small><br /><br />');
+	print ('<br />');
+	print sprintf($act_words['kill_lost_hist_guild'],$guild);
+	print ('<br /><br />');
+
 	print($tableHeader);
 
 	$url = 'guildpvp&amp;type=guildinfo&amp;guild='.urlencode($guild);

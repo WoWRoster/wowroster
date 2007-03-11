@@ -30,7 +30,7 @@ $lang['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\
 
 $lang['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
 $lang['nodata']="Impossible de trouver la guilde: <b>'".$roster_conf['guild_name']."'</b> du serveur <b>'".$roster_conf['server_name']."'</b><br />Vous devez préalablement<a href=\"".makelink('update')."\">charger votre guilde</a> et <a href=\"".makelink('rostercp')."\">finaliser la configuration</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Les instructions d'installation sont disponibles</a>";
-$wordings['nodata_title']='No Guild Data';
+$lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Mise à jour du profil';
 
@@ -44,8 +44,50 @@ $lang['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s),
 $lang['roster_upd_pwLabel']='Mot de passe du Roster';
 $lang['roster_upd_pw_help']='(Requis lors d\'une mise à jour de la Guilde)';
 
-// Updating Instructions
 
+$lang['roster_error'] = 'Roster Error';
+$lang['sql_queries'] = 'SQL Queries';
+$lang['invalid_char_module'] = 'Invalid characters in module name';
+$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+
+$lang['addon_error'] = 'Addon Error';
+$lang['specify_addon'] = 'You must specify an addon name!';
+$lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
+
+$lang['char_error'] = 'Character Error';
+$lang['specify_char'] = 'Character was not specified';
+$lang['no_char_id'] = 'Sorry no character data for member_id [ %1$s ]';
+$lang['no_char_name'] = 'Sorry no character data for <strong>%1$s</strong> of <strong>%2$s</strong>';
+$lang['char_stats'] = 'Character Stats for: %1$s @ %2$s';
+$lang['char_links'] = 'Character Links';
+
+$lang['gbank_list'] = 'Full Listing';
+$lang['gbank_inv'] = 'Inventory';
+$lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
+
+$lang['roster_cp'] = 'Roster Control Panel';
+$lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
+$lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials to access this page';
+
+$lang['parsing_files'] = 'Parsing files';
+$lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';
+$lang['error_parsed_time'] = 'Error while parsing %1$s after %2$s seconds';
+$lang['upload_not_accept'] = 'Did not accept %1$s';
+$lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
+$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
+$lang['no_members'] = 'Data does not contain any guild members';
+$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s</span>]';
+$lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
+$lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s  Not Scanned';
+$lang['update_members'] = 'Updating Members';
+$lang['gp_user_only'] = 'GuildProfiler User Only';
+$lang['update_errors'] = 'Update Errors';
+$lang['update_log'] = 'Update Log';
+$lang['save_error_log'] = 'Save Error Log';
+$lang['save_update_log'] = 'Save Update Log';
+
+
+// Updating Instructions
 $lang['index_text_uniloader'] = '<b><u>Prérequis à l\'utilisation d\'UniUploader:</b></u><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en">Microsoft .NET Framework</a> installé<br />Pour les utilisateurs d\'OS autres que Windows, utiliser JUniUploader qui vous permettra d\'effectuer les mêmes opérations que UniUploader mais en mode Java.';
 
 $lang['update_instruct']='
@@ -324,6 +366,8 @@ $lang['reagents']='Réactifs';
 $lang['item']='Objet';
 $lang['type']='Type';
 $lang['date']='Date';
+$lang['complete'] = 'Complete';
+$lang['failed'] = 'Failed';
 $lang['completedsteps'] = 'Etapes finies';
 $lang['currentstep'] = 'Etapes actuelles';
 $lang['uncompletedsteps'] = 'Etapes incomplètes';
@@ -345,6 +389,7 @@ $lang['talents'] = 'Talents';
 $lang['memberlog'] = 'Journal';
 $lang['removed'] = 'Enlevé';
 $lang['added'] = 'Ajouté';
+$lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'Aucun journal enregistré';
 
 $lang['rosterdiag'] = 'Diagnostic du Roster';
@@ -356,12 +401,17 @@ $lang['recipe_2'] = 'facile';
 $lang['recipe_1'] = 'insignifiant';
 $lang['roster_config'] = 'Configuration Roster';
 
+// Character
+$lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
+$lang['char_guildline'] = '%1$s of %2$s';
+
 // Spellbook
 $lang['spellbook'] = 'Livre de sorts';
 $lang['page'] = 'Page';
 $lang['general'] = 'Général';
 $lang['prev'] = 'Avant';
 $lang['next'] = 'Après';
+$lang['no_spellbook'] = 'No Spellbook for %1$s';
 
 // Mailbox
 $lang['mailbox'] = 'Boîte aux lettres';
@@ -371,6 +421,8 @@ $lang['mail_sender'] = 'Expéditeur';
 $lang['mail_subject'] = 'Sujet';
 $lang['mail_expires'] = 'Messages expirés';
 $lang['mail_money'] = 'Argent Inclus';
+$lang['no_mail'] = 'No Mail for %1$s';
+$lang['no_info'] = 'No Information';
 
 
 //this needs to be exact as it is the wording in the db
@@ -515,7 +567,7 @@ $lang['haste_tooltip']='Haste rating ';
 
 $lang['melee_att_power']='Puissance d\'attaque en mêlée';
 $lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
-$lang['range_att_power']='Puissance d\'attaque à distance';
+$lang['ranged_att_power']='Puissance d\'attaque à distance';
 $lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
 
 $lang['weapon_hit_rating']='Hit Rating';
@@ -597,10 +649,15 @@ $lang['Warlock']='Démoniste';
 $lang['Warrior']='Guerrier';
 
 $lang['today']='Aujourd\'hui';
+$lang['todayhk']='Today HK';
+$lang['todaycp']='Today CP';
 $lang['yesterday']='Hier';
+$lang['yesthk']='Hier HK';
+$lang['yestcp']='Hier CP';
 $lang['thisweek']='Cette semaine';
 $lang['lastweek']='Semaine passée';
 $lang['lifetime']='A vie';
+$lang['lifehk']='A vie HK';
 $lang['honorkills']='Vict. Honorables';
 $lang['dishonorkills']='Vict. Déshonorantes';
 $lang['honor']='Honneur';
@@ -663,6 +720,9 @@ $lang['purgeavelosses'] = 'Best Loss/Level-Diff Average';
 $lang['pvpratio'] = 'Solo Win/Loss Ratios';
 $lang['playerinfo'] = 'Player Info';
 $lang['guildinfo'] = 'Guild Info';
+$lang['kill_lost_hist']='Kill/Loss history for %1$s (%2$s %3$s) of %4$s';
+$lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
+$lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
 
 //strings for Rep-tab
 $lang['exalted']='Exalté';
@@ -789,7 +849,7 @@ $lang['confirm_config_reset'] = 'This will reset the form to how it was when you
 // Each variable must be the same name as the config variable name
 // Example:
 //   Assign description text and tooltip for $roster_conf['sqldebug']
-//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
+//   $lang['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
 // The first part is the short description, the next part is the tooltip
@@ -906,6 +966,7 @@ $lang['admin']['uploadapp'] = "Lien de téléchargement d'UniUploader|URL de té
 
 // char_conf
 $lang['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des donnes sur la page des personnages";
+$lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
 $lang['admin']['show_talents'] = "Talents|Visualisation des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_spellbook'] = "Livre des sorts|Visualisation du livres des sorts<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_mail'] = "Courrier|Visualisation du courrier<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";

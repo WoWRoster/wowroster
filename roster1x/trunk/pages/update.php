@@ -71,7 +71,7 @@ if( is_array($_FILES) && !empty($_FILES) )
 {
 	$uploadFound = true;
 
-	$parseMessages = 'Parsing files'."<br />\n".'<ul>';
+	$parseMessages = $act_words['parsing_files']."<br />\n".'<ul>';
 
 	// Loop through each posted file
 	foreach( $_FILES as $filefield => $file )
@@ -106,11 +106,11 @@ if( is_array($_FILES) && !empty($_FILES) )
 
 					if( $data )
 					{
-						$parseMessages .= '<li>Parsed '.$file_name.' in '.$parse_totaltime.' seconds</li>'."\n";
+						$parseMessages .= '<li>'.sprintf($act_words['parsed_time'],$file_name,$parse_totaltime).'</li>'."\n";
 					}
 					else
 					{
-						$parseMessages .= '<li>Error while parsing '.$file_name.' after '.$parse_totaltime.' seconds</li>'."\n";
+						$parseMessages .= '<li>'.sprintf($act_words['error_parsed_time'],$file_name,$parse_totaltime).'</li>'."\n";
 					}
 
 					// If pvp data is there, assign it to $uploadData['PvpLogData']
@@ -154,7 +154,7 @@ if( is_array($_FILES) && !empty($_FILES) )
 			}
 			else
 			{
-				$parseMessages .= '<li>Did not accept '.$file['name'].'</li>'."\n";
+				$parseMessages .= '<li>'.sprintf($act_words['upload_not_accept'],$file['name']).'</li>'."\n";
 			}
 		}
 	}
@@ -209,7 +209,7 @@ function processPvP($pvpdata)
 				$battles = $char['battles'];
 				if( $char['version'] >= $roster_conf['minPvPLogver'] )
 				{
-					$output .= "<strong>Updating PvP Data for [<span class=\"orange\">$char_name</span>]</strong>\n";
+					$output .= '<strong>'.sprintf($act_words['upload_data'],'PvPLog',$char_name)."</strong>\n";
 
 					$wowdb->update_pvp2($guild_id, $char_name, $battles);
 					$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
@@ -217,7 +217,7 @@ function processPvP($pvpdata)
 				}
 				else // PvPLog version not high enough
 				{
-					$output .= "<span class=\"red\">NOT Updating PvP for [$char_name] - ".$char['version']."</span><br />\n";
+					$output .= '<span class="red">'.sprintf($act_words['not_updating'],'PvPLog',$char_name,$char['version'])."</span><br />\n";
 					$output .= $act_words['PvPLogver_err']."\n";
 				}
 			}
@@ -255,7 +255,7 @@ function processMyProfile($myProfile)
 					// CP Version Detection, don't allow lower than minVer
 					if( $char['DBversion'] >= $roster_conf['minCPver'] )
 					{
-						$output .= "<strong>Updating Character [<span class=\"orange\">$char_name</span>]</strong>\n";
+						$output .= '<strong>'.sprintf($act_words['upload_data'],'Character',$char_name)."</strong>\n";
 
 						$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
 						$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
@@ -269,8 +269,7 @@ function processMyProfile($myProfile)
 					}
 					else // CP Version not new enough
 					{
-						$output .= "<span class=\"red\">NOT Updating character [$char_name]</span><br />\n";
-						$output .= "Data is from CharacterProfiler v".$char['DBversion']."<br />\n";
+						$output .= '<span class="red">'.sprintf($act_words['not_updating'],'CharacterProfiler',$char_name,$char['DBversion'])."</span><br />\n";
 						$output .= $act_words['CPver_err']."\n";
 					}
 					$output .= "<br />\n";
@@ -289,7 +288,7 @@ function processMyProfile($myProfile)
 		}
 		else
 		{
-			$output .= 'Realm: '.$realm_name.' '.$act_words['ignored']."<br />\n";
+			$output .= sprintf($act_words['realm_ignored'],$realm_name)."<br />\n";
 		}
 	}
 	return $output;
@@ -333,7 +332,7 @@ function processGuildRoster($myProfile)
 									$guildMembers = $guild['Members'];
 
 									// update the list of guild members
-									$guild_output = "<li><strong>Updating Members</strong>\n<ul>\n";
+									$guild_output = "<li><strong>".$act_words['update_members']."</strong>\n<ul>\n";
 
 									// Start update triggers
 									if( $roster_conf['use_update_triggers'] )
@@ -368,31 +367,30 @@ function processGuildRoster($myProfile)
 									}
 
 									$guild_output .= "</ul>\n";
-									$output .= "<strong>Updating Guild [<span class=\"orange\">$guild_name</span>]</strong>\n<ul>\n";
-									$output .= "<li><strong>Member Log</strong>\n<ul>\n".
-										"<li>Updated: ".$wowdb->membersupdated."</li>\n".
-										"<li>Added: ".$wowdb->membersadded."</li>\n".
-										"<li>Removed: ".$wowdb->membersremoved."</li>\n".
+									$output .= '<strong>'.sprintf($act_words['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
+									$output .= '<li><strong>'.$act_words['memberlog']."</strong>\n<ul>\n".
+										'<li>'.$act_words['updated'].': '.$wowdb->membersupdated."</li>\n".
+										'<li>'.$act_words['added'].': '.$wowdb->membersadded."</li>\n".
+										'<li>'.$act_words['removed'].': '.$wowdb->membersremoved."</li>\n".
 										"</ul>\n<br />\n";
 									$output .= $guild_output;
 								}
 								else
 								{
-									$output .= "<span class=\"red\">NOT Updateing Guild list for $guild_name</span><br />\n";
-									$output .= "Data does not contain any guild members.<br />\n";
+									$output .= '<span class="red">'.sprintf($act_words['not_update_guild'],$guild_name)."</span><br />\n";
+									$output .= $act_words['no_members']."<br />\n";
 								}
 							}
 							else
 							// GP Version not new enough
 							{
-								$output .= "<span class=\"red\">NOT Updating Guild list for $guild_name</span><br />\n";
-								$output .= "Data is from GuildProfiler v".$guild['DBversion']."<br />\n";
+								$output .= '<span class="red">'.sprintf($act_words['not_updating'],'GuildProfiler',$char_name,$guild['DBversion'])."</span><br />\n";
 								$output .= $act_words['GPver_err']."<br />\n";
 							}
 						}
 						else
 						{
-							$output .= 'Guild: '.$guild_name.' @ Server: '.$realm_name.' '.$act_words['ignored']."<br />\n";
+							$output .= sprintf($act_words['guild_realm_ignored'],$guild_name,$realm_name)."<br />\n";
 						}
 					}
 					if( !isset($guild) )
@@ -408,7 +406,7 @@ function processGuildRoster($myProfile)
 			}
 			else
 			{
-				$output .= 'Server: '.$realm_name.' '.$act_words['ignored']."<br />\n";
+				$output .= sprintf($act_words['realm_ignored'],$realm_name)."<br />\n";
 			}
 		}
 	}
@@ -487,7 +485,7 @@ if( $htmlout )
 	// Construct the entire upload form
 	$inputForm = "
                 <form action=\"".makelink('update')."\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
-".border('syellow','start','Upload Files')."
+".border('syellow','start',$act_words['update_page'])."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <th class=\"membersHeaderRight\" colspan=\"2\"><div align=\"center\">".$act_words['lualocation']."</div></th>
@@ -507,7 +505,7 @@ $bookwormInputField
 	$inputForm .= "
 <br />
 <br />
-".border('sgray','start','GuildProfiler User Only')."
+".border('sgray','start',$act_words['gp_user_only'])."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$act_words['roster_upd_pw_help']."',CAPTION,'".$act_words['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$act_words['roster_upd_pwLabel']."</td>
@@ -530,33 +528,32 @@ $bookwormInputField
 	}
 	else
 	{
-		print '<span class="title_text">'.$act_words['update_page']."</span><br /><br />\n";
 		if( $uploadFound )
 		{
 			// print the error messages
 			if( !empty($errorstringout) )
 			{
-				print scrollboxtoggle($errorstringout,'<span class="red">Update Errors</span>','sred',false);
+				print scrollboxtoggle($errorstringout,'<span class="red">'.$act_words['update_errors'].'</span>','sred',false);
 
 				// Print the downloadable errors separately so we can generate a download
 				print "<br />\n";
 				print '<form method="post" action="'.makelink('update').'" name="post">'."\n";
 				print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errorstringout)).'" />'."\n";
 				print '<input type="hidden" name="send_file" value="error" />'."\n";
-				print '<input type="submit" name="download" value="Save Error Log" />'."\n";
+				print '<input type="submit" name="download" value="'.$act_words['save_error_log'].'" />'."\n";
 				print '</form>';
 				print "<br />\n";
 			}
 
 			// Print the update messages
-			print scrollbox('<div style="text-align:left;font-size:10px;">'.$parseMessages.$updateMessages.$updatePvPMessages.$rosterUpdateMessages.'</div>','Update Log','syellow');
+			print scrollbox('<div style="text-align:left;font-size:10px;">'.$parseMessages.$updateMessages.$updatePvPMessages.$rosterUpdateMessages.'</div>',$act_words['update_log'],'syellow');
 
 			// Print the downloadable messages separately so we can generate a download
 			print "<br />\n";
 			print '<form method="post" action="'.makelink('update').'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($updateMessages.$updatePvPMessages.$rosterUpdateMessages)).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="update" />'."\n";
-			print '<input type="submit" name="download" value="Save Update Log" />'."\n";
+			print '<input type="submit" name="download" value="'.$act_words['save_update_log'].'" />'."\n";
 			print '</form>';
 			print "<br />\n";
 		}

@@ -24,8 +24,8 @@ if ( !defined('ROSTER_INSTALLED') )
 if( isset($_GET['member']) && $_GET['member'] != '' )
 {
 	$member = explode('@',$_GET['member']);
-	$name = ($member[0] != '' ? $member[0] : '');
-	$server = ($member[1] != '' ? $member[1] : $roster_conf['server_name']);
+	$name = (isset($member[0]) && $member[0] != '' ? $member[0] : '');
+	$server = (isset($member[1]) && $member[1] != '' ? $member[1] : $roster_conf['server_name']);
 
 	// Check for start for pvp log data
 	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
@@ -38,13 +38,13 @@ if( isset($_GET['member']) && $_GET['member'] != '' )
 }
 else
 {
-	roster_die('Character was not specified','Character Error');
+	roster_die($act_words['specify_char'],$act_words['char_error']);
 }
 
 // Check for name
 if( $name == '' )
 {
-	roster_die('Character name was not specified','No character name');
+	roster_die($act_words['specify_char'],$act_words['char_error']);
 }
 
 // Include character class file
@@ -56,7 +56,7 @@ if( is_numeric($name) )
 {
 	$char = char_get_one_by_id($name);
 	if( !is_object($char) )
-		roster_die('Sorry no character data for member_id &quot;'.$name.'&quot;','Character Not Found');
+		roster_die(sprintf($act_words['no_char_id'],$name),$act_words['char_error']);
 
 	$name = $char->get('name');
 }
@@ -64,12 +64,12 @@ else
 {
 	$char = char_get_one( $name, $server );
 	if( !is_object($char) )
-		roster_die('Sorry no character data for &quot;'.$name.'&quot; of &quot;'.$server.'&quot;','Character Not Found');
+		roster_die(sprintf($act_words['no_char_name'],$name,$server),$act_words['char_error']);
 }
 
 
 // Set <html><title> and <form action=""> and $char_url
-$header_title = 'Character Stats for: '.$name.' @ '.$server;
+$header_title = sprintf($act_words['char_stats'],$name,$server);
 $char_url = 'char&amp;member='.$char->get('member_id');
 $char_url_old = 'char&amp;member='.$char->get('name').'@'.$char->get('server');
 
@@ -113,6 +113,8 @@ foreach( $disp_array as $global_setting => $user_setting )
 $menu_cell = '      <td class="menubarHeader" align="center" valign="middle"><a href="';
 
 $char_menu = '<div align="center">'."\n";
+
+$char_menu .="\n<span class=\"headline_3\">$name @ $server".(!empty($action) ? ' &gt; '.ucfirst($action) : '')."</span>\n";
 
 $char_menu .= border('sorange','start');
 
@@ -318,7 +320,7 @@ if( empty($action) && $roster_conf['show_item_bonuses'])
 $char_page .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">'.
 	makelink($char_url.( !empty($action) ? '&amp;action='.$action : '' ),true).'<br />'.
 	makelink($char_url_old.( !empty($action) ? '&amp;action='.$action : '' ),true).
-	'</div>','Character Links','sgreen');
+	'</div>',$act_words['char_links'],'sgreen');
 
 $char_page .= "</div>\n";
 

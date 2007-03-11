@@ -30,7 +30,7 @@ include_once( ROSTER_LIB.'menu.php');
 print "<br />\n";
 
 print messagebox("<div align=\"left\">
-<p align=\"center\"><span class=\"headline_2\">WoWRoster is licensed under a Creative Commons<br />
+<p align=\"center\"><span class=\"headline_3\">WoWRoster is licensed under a Creative Commons<br />
 &quot;Attribution-NonCommercial-ShareAlike 2.5&quot; license</span></p>
 
 <br />
@@ -60,7 +60,7 @@ Any of these conditions can be waived if you get permission from the dev team at
 
 <hr />
 
-<p align=\"center\"><span class=\"headline_2\">Serveral javascript libraries are included with WoWRoster<br />
+<p align=\"center\"><span class=\"headline_3\">Serveral javascript libraries are included with WoWRoster<br />
 that are not included under the main WoWRoster license</span></p>
 
 <br />

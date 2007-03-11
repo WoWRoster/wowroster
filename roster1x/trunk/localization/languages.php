@@ -145,6 +145,8 @@ See <a href="'.makelink('license').'">license.txt</a> for details';
  */
 function add_locale_file( $locale , &$wordings )
 {
+	global $roster_conf;
+
 	include(ROSTER_BASE.'localization'.DIR_SEP.$locale.'.php');
 	$wordings[$locale] = $lang;
 	unset($lang);

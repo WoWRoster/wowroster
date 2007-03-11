@@ -73,7 +73,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'sessionHK' => array(
-		'lang_field' => 'Today HK',
+		'lang_field' => 'todayhk',
 		'order' => array( '`players`.`sessionHK` DESC' ),
 		'order_d' => array( '`players`.`sessionHK` ASC' ),
 	),
@@ -81,7 +81,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'sessionCP' => array(
-		'lang_field' => 'Today CP',
+		'lang_field' => 'todaycp',
 		'order' => array( '`players`.`sessionCP` DESC' ),
 		'order_d' => array( '`players`.`sessionCP` ASC' ),
 	),
@@ -89,7 +89,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'yesterdayHK' => array(
-		'lang_field' => 'Yest HK',
+		'lang_field' => 'yesthk',
 		'order' => array( '`players`.`yesterdayHK` DESC' ),
 		'order_d' => array( '`players`.`yesterdayHK` ASC' ),
 	),
@@ -97,7 +97,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'yesterdayContribution' => array(
-		'lang_field' => 'Yest CP',
+		'lang_field' => 'yestcp',
 		'order' => array( '`players`.`yesterdayContribution` DESC' ),
 		'order_d' => array( '`players`.`yesterdayContribution` ASC' ),
 	),
@@ -105,7 +105,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'lifetimeHK' => array(
-		'lang_field' => 'Life HK',
+		'lang_field' => 'lifehk',
 		'order' => array( '`players`.`lifetimeHK` DESC' ),
 		'order_d' => array( '`players`.`lifetimeHK` ASC' ),
 	),
@@ -113,7 +113,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'lifetimeRankName' => array(
-		'lang_field' => 'Highest Rank',
+		'lang_field' => 'highestrank',
 		'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
 		'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
 		'value' => 'honor_value',
@@ -122,7 +122,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'honorpoints' => array(
-		'lang_field' => 'Honor Points',
+		'lang_field' => 'honorpoints',
 		'order' => array( '`players`.`honorpoints` DESC' ),
 		'order_d' => array( '`players`.`honorpoints` ASC' ),
 	),
@@ -130,7 +130,7 @@ $FIELD[] = array (
 
 $FIELD[] = array (
 	'arenapoints' => array(
-		'lang_field' => 'Arena Points',
+		'lang_field' => 'arenapoints',
 		'order' => array( '`players`.`arenapoints` DESC' ),
 		'order_d' => array( '`players`.`arenapoints` ASC' ),
 	),

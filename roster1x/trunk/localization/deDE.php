@@ -30,7 +30,7 @@ $lang['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i
 
 $lang['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
 $lang['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".makelink('update')."\">Gildendaten hochladen</a> oder die <a href=\"".makelink('rostercp')."\">Konfiguration beenden</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
-$wordings['nodata_title']='No Guild Data';
+$lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Gildenmitglied aktualisieren';
 
@@ -44,8 +44,50 @@ $lang['nofileUploaded']='UniUploader hat keine oder die falschen Dateien hochgel
 $lang['roster_upd_pwLabel']='Roster Update Passwort';
 $lang['roster_upd_pw_help']='(Wird nur ben&ouml;tigt, wenn man die Gilde aktualisiert)';
 
-// Updating Instructions
 
+$lang['roster_error'] = 'Roster Error';
+$lang['sql_queries'] = 'SQL Queries';
+$lang['invalid_char_module'] = 'Invalid characters in module name';
+$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+
+$lang['addon_error'] = 'Addon Error';
+$lang['specify_addon'] = 'You must specify an addon name!';
+$lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
+
+$lang['char_error'] = 'Character Error';
+$lang['specify_char'] = 'Character was not specified';
+$lang['no_char_id'] = 'Sorry no character data for member_id [ %1$s ]';
+$lang['no_char_name'] = 'Sorry no character data for <strong>%1$s</strong> of <strong>%2$s</strong>';
+$lang['char_stats'] = 'Character Stats for: %1$s @ %2$s';
+$lang['char_links'] = 'Character Links';
+
+$lang['gbank_list'] = 'Full Listing';
+$lang['gbank_inv'] = 'Inventory';
+$lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
+
+$lang['roster_cp'] = 'Roster Control Panel';
+$lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
+$lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials to access this page';
+
+$lang['parsing_files'] = 'Parsing files';
+$lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';
+$lang['error_parsed_time'] = 'Error while parsing %1$s after %2$s seconds';
+$lang['upload_not_accept'] = 'Did not accept %1$s';
+$lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
+$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
+$lang['no_members'] = 'Data does not contain any guild members';
+$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s</span>]';
+$lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
+$lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s  Not Scanned';
+$lang['update_members'] = 'Updating Members';
+$lang['gp_user_only'] = 'GuildProfiler User Only';
+$lang['update_errors'] = 'Update Errors';
+$lang['update_log'] = 'Update Log';
+$lang['save_error_log'] = 'Save Error Log';
+$lang['save_update_log'] = 'Save Update Log';
+
+
+// Updating Instructions
 $lang['index_text_uniloader'] = '(Du kannst dieses Programm von der WoW-Roster-Webseite herunterladen, schaue nach dem "UniUploader Installer" f&uuml;r die aktuellste Version)';
 
 $lang['update_instruct']='
@@ -324,6 +366,8 @@ $lang['reagents']='Reagenzien';
 $lang['item']='Gegenstand';
 $lang['type']='Typ';
 $lang['date']='Datum';
+$lang['complete'] = 'Complete';
+$lang['failed'] = 'Failed';
 $lang['completedsteps'] = 'Abgeschlossen';
 $lang['currentstep'] = 'Aktuell';
 $lang['uncompletedsteps'] = 'Nicht Abgeschlossen';
@@ -345,6 +389,7 @@ $lang['talents'] = 'Talente';
 $lang['memberlog'] = 'Mitglieder Log';
 $lang['removed'] = 'Entfernt';
 $lang['added'] = 'Zugefügt';
+$lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'Kein Mitglieder Log gespeichert';
 
 $lang['rosterdiag'] = 'Roster Diagnose Seite';
@@ -356,12 +401,17 @@ $lang['recipe_2'] = 'leicht';
 $lang['recipe_1'] = 'trivial';
 $lang['roster_config'] = 'Roster Config';
 
+// Character
+$lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
+$lang['char_guildline'] = '%1$s of %2$s';
+
 // Spellbook
 $lang['spellbook'] = 'Zauberspr&uuml;che';
 $lang['page'] = 'Seite';
 $lang['general'] = 'General';
 $lang['prev'] = 'Zurück';
 $lang['next'] = 'Vor';
+$lang['no_spellbook'] = 'No Spellbook for %1$s';
 
 // Mailbox
 $lang['mailbox'] = 'Postfach';
@@ -371,6 +421,8 @@ $lang['mail_sender'] = 'Absender';
 $lang['mail_subject'] = 'Betreff';
 $lang['mail_expires'] = 'Gültig bis';
 $lang['mail_money'] = 'Geldanhang';
+$lang['no_mail'] = 'No Mail for %1$s';
+$lang['no_info'] = 'No Information';
 
 
 //this needs to be exact as it is the wording in the db
@@ -515,7 +567,7 @@ $lang['haste_tooltip']='Haste rating ';
 
 $lang['melee_att_power']='Nahkampf Kraft';
 $lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
-$lang['range_att_power']='Fernkampf Kraft';
+$lang['ranged_att_power']='Fernkampf Kraft';
 $lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
 
 $lang['weapon_hit_rating']='Hit Rating';
@@ -597,10 +649,15 @@ $lang['Warlock']='Hexenmeister';
 $lang['Warrior']='Krieger';
 
 $lang['today']='Heute';
+$lang['todayhk']='Heute HK';
+$lang['todaycp']='Heute CP';
 $lang['yesterday']='Gestern';
+$lang['yesthk']='Gestern HK';
+$lang['yestcp']='Gestern CP';
 $lang['thisweek']='Diese Woche';
 $lang['lastweek']='Letzte Woche';
 $lang['lifetime']='Gesamte Spielzeit';
+$lang['lifehk']='Gesamte HK';
 $lang['honorkills']='Ehrenhafte Siege';
 $lang['dishonorkills']='Ruchlose Morde';
 $lang['honor']='Ehre';
@@ -663,6 +720,9 @@ $lang['purgeavelosses'] = 'Best Loss/Level-Diff Average';
 $lang['pvpratio'] = 'Solo Win/Loss Ratios';
 $lang['playerinfo'] = 'Player Info';
 $lang['guildinfo'] = 'Guild Info';
+$lang['kill_lost_hist']='Kill/Loss history for %1$s (%2$s %3$s) of %4$s';
+$lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
+$lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
 
 //strings for Rep-tab
 $lang['exalted']='Ehrfürchtig';
@@ -789,7 +849,7 @@ $lang['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurückse
 // Each variable must be the same name as the config variable name
 // Example:
 //   Assign description text and tooltip for $roster_conf['sqldebug']
-//   $wordings['locale']['admin']['sqldebug'] = "Desc|Tooltip";
+//   $lang['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )
 // The first part is the short description, the next part is the tooltip
@@ -906,6 +966,7 @@ $lang['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader h
 
 // char_conf
 $lang['admin']['char_bodyalign'] = "Charakterseiten Ausrichtung|Ausrichtung der Daten auf der Charakterseite";
+$lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
 $lang['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_mail'] = "Postfach|Anzeige des Postfaches<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";

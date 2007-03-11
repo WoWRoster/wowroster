@@ -72,12 +72,12 @@ if( isset($pages[$page]['file']) )
 	}
 	else
 	{
-		$body .= messagebox('File does not exist for page '.$page.'.','Roster Control Panel','sred');
+		$body .= messagebox(sprintf($act_words['roster_cp_not_exist'],$page),$act_words['roster_cp'],'sred');
 	}
 }
 else
 {
-	$body .= messagebox('Invalid page specified or insufficient credentials to access this page.','Roster Admin Panel','sred');
+	$body .= messagebox($act_words['roster_cp_invalid'],$act_words['roster_cp'],'sred');
 }
 
 // Build the pagebar from admin/pages.php

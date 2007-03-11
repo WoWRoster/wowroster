@@ -43,7 +43,7 @@ include_once (ROSTER_BASE.'lib/menu.php');
 
 if( !empty($guild_info['guild_info_text']) )
 {
-	print border('syellow','start',$act_words['Guild_Info']).'<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>'.border('syellow','end');
+	print messagebox('<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>',$act_words['Guild_Info'],'syellow');
 }
 
 

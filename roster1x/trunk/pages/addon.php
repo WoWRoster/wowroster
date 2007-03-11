@@ -23,7 +23,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 if( !isset($pages[1]) )
 {
-	roster_die('You must specify an addon name!','Addon Error');
+	roster_die($act_words['specify_addon'],$act_words['addon_error']);
 }
 
 // Get the addon's location
@@ -53,7 +53,7 @@ $roster_show_footer = true;
 // Check to see if the index file exists
 if( file_exists($addonFile) )
 {
-	$script_filename = 'addon-'.$addon_name;
+	$script_filename = 'addon-'.$pages[1];
 
 	// Set the css for the template set in conf.php
 	if( file_exists($cssFile) )
@@ -81,7 +81,7 @@ if( file_exists($addonFile) )
 }
 else
 {
-	$content = '<b>The addon "'.$addon_name.'" does not exist!</b>';
+	$content = sprintf($act_words['addon_not_exist'],$pages[1]);
 }
 
 // Everything after this line will have to be changed to integrate into smarty! ;)

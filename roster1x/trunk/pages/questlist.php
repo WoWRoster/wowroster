@@ -103,13 +103,13 @@ print('<br /><br />
         '.$act_words['search2'].':
         <br />
         <select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value">
-          <option value="">Not Selected....</option>
+          <option value="">----------</option>
 '.$option_blockzones.'
         </select><br /><br />
         '.$act_words['search3'].'
         <br />
         <select name="questid" onchange="window.location.href=this.options[this.selectedIndex].value">
-          <option value="">Not Selected....</option>
+          <option value="">----------</option>
 '.$option_blockquests.'
         </select>
       </form>');

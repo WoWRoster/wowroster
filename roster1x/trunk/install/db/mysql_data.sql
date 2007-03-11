@@ -134,6 +134,7 @@ INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.
 ### Character Page Settings
 
 INSERT INTO `renprefix_config` VALUES (7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf');
@@ -146,8 +147,6 @@ INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '2', 'radio{on^1|off^0|u
 INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7130, 'show_signature', '0', 'radio{yes^1|no^0', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7140, 'show_avatar', '0', 'radio{yes^1|no^0', 'char_conf');
 
 # --------------------------------------------------------
 ### Realmstatus Settings

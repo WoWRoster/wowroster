@@ -46,7 +46,7 @@ if( $roster_conf['processtime'] )
 	print '  <small>'.$totaltime.' | '.count($wowdb->sqlstrings)."</small>\n\n";
 
 if( $roster_conf['sql_window'] )
-	echo "<br /><br />\n".messagebox('<div style="text-align:left;font-size:10px;">'.nl2br(htmlentities($wowdb->getSQLStrings())).'</div>','SQL Queries','sgreen');
+	echo "<br /><br />\n".messagebox('<div style="text-align:left;font-size:10px;">'.nl2br(htmlentities($wowdb->getSQLStrings())).'</div>',$act_words['sql_queries'],'sgreen');
 
 
 print getAllTooltips();

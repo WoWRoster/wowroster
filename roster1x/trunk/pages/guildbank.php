@@ -81,8 +81,8 @@ $bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n
 
 $menu_cell = '<td class="menubarHeader" align="center" valign="middle">';
 
-$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank').'">List</a></td>'."\n";
-$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank&amp;mode=table').'">Inventory</a></td>'."\n";
+$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank').'">'.$act_words['gbank_list'].'</a></td>'."\n";
+$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank&amp;mode=table').'">'.$act_words['gbank_inv'].'</a></td>'."\n";
 
 $bank_menu .= "</tr>\n</table>\n";
 
@@ -99,26 +99,27 @@ if ( $roster_conf['bank_money'] )
  AND p.member_id = m.member_id
  ORDER  BY m.name"
 ));
-$addsilver=0;
-if ($mulemoney['copper']>=100)
-{
-	$mulemoney['copper'] = $mulemoney['copper']/100;
-	$addsilver= (int)$mulemoney['copper'];
-	$mulemoney['copper'] = explode ('.', $mulemoney['copper']);
-	$mulemoney['copper'] = $mulemoney['copper'][1];
-}
-$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
-$addgold=0;
-if ($mulemoney['silver']>=100)
-{
-	$mulemoney['silver'] = $mulemoney['silver']/100;
-	$addgold = (int)$mulemoney['silver'];
-	$mulemoney['silver'] = explode ('.', $mulemoney['silver']);
-	$mulemoney['silver'] = $mulemoney['silver'][1];
-}
-$mulemoney['gold'] = $mulemoney['gold']+$addgold;
+	$addsilver=0;
+	if ($mulemoney['copper']>=100)
+	{
+		$mulemoney['copper'] = $mulemoney['copper']/100;
+		$addsilver= (int)$mulemoney['copper'];
+		$mulemoney['copper'] = explode ('.', $mulemoney['copper']);
+		$mulemoney['copper'] = $mulemoney['copper'][1];
+	}
+	$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
+	$addgold=0;
+	if ($mulemoney['silver']>=100)
+	{
+		$mulemoney['silver'] = $mulemoney['silver']/100;
+		$addgold = (int)$mulemoney['silver'];
+		$mulemoney['silver'] = explode ('.', $mulemoney['silver']);
+		$mulemoney['silver'] = $mulemoney['silver'][1];
+	}
+	$mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
-	$bank_money = $act_words['guildbank_totalmoney'].' <div class="money">'.$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g"/> '.
+	$bank_money = $act_words['guildbank_totalmoney'].' <div class="money">'.
+	$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g"/> '.
 	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s"/> '.
 	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c"/></div>';
 }
@@ -138,7 +139,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
 
-	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start','<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a> ('.$note.') - Updated: '.$date_char_data_updated).
+	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start','<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a> ('.$note.') - <small>'.$act_words['lastupdate'].': '.$date_char_data_updated.'</small>').
 	'<table class="bodyline" cellspacing="0" cellpadding="0">'.
 		 ( $roster_conf['bank_money'] ?
 		 	  '<tr>
@@ -167,8 +168,8 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 	if ($itemRow==FALSE)
 	{
 		$bank_print .= '  <tr>
-    <td class="membersRowRight1">'.$muleRow['member_name']." has not uploaded an inventory yet.</td>
-  </tr>"."\n";
+    <td class="membersRowRight1">'.sprintf($act_words['gbank_not_loaded'],$muleRow['member_name'])."</td>
+  </tr>\n";
 
 	}
 	else

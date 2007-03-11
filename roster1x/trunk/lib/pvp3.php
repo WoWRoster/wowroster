@@ -338,7 +338,7 @@ function output_bglog($member_id)
 				// Get Class Icon
 				foreach ($roster_conf['multilanguages'] as $language)
 				{
-					$icon_name = $wordings[$language]['class_iconArray'][$eclass];
+					$icon_name = isset($wordings[$language]['class_iconArray'][$eclass]) ? $wordings[$language]['class_iconArray'][$eclass] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
 
