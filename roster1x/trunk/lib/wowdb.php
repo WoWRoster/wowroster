@@ -448,10 +448,10 @@ class wowdb
 	 * @param string $profile the name of the addon's config profile.
 	 * @return string tablename as fit for MySQL queries
 	 */
-	function table($table, $addon='', $profile='')
+	function table($table, $addon='')
 	{
 		if ($addon)
-			return $this->db_prefix.'addons_'.$addon.'_'.$profile.'_'.$table;
+			return $this->db_prefix.'addons_'.$addon.'_'.$table;
 		else
 			return $this->db_prefix.$table;
 	}

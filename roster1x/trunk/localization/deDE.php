@@ -818,8 +818,15 @@ $lang['lockpicking']='Schlossknacken';
 	$lang['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
 
 
-
-
+$lang['installer_install_0']='Installation of %1$s successful';
+$lang['installer_install_1']='Installation of %1$s failed, but rollback successful';
+$lang['installer_install_2']='Installation of %1$s failed, and rollback also failed';
+$lang['installer_uninstall_0']='Uninstallation of %1$s successful';
+$lang['installer_uninstall_1']='Uninstallation of %1$s failed, but rollback successful';
+$lang['installer_uninstall_2']='Uninstallation of %1$s failed, and rollback also failed';
+$lang['installer_upgrade_0']='Upgrade of %1$s successful';
+$lang['installer_upgrade_1']='Upgrade of %1$s failed, but rollback successful';
+$lang['installer_upgrade_2']='Upgrade of %1$s failed, and rollback also failed';
 
 
 /******************************

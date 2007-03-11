@@ -818,8 +818,15 @@ $lang['lockpicking']='Lockpicking';
 	$lang['GPver_err']="La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión ".$roster_conf['minGPver'];
 
 
-
-
+$lang['installer_install_0']='Installation of %1$s successful';
+$lang['installer_install_1']='Installation of %1$s failed, but rollback successful';
+$lang['installer_install_2']='Installation of %1$s failed, and rollback also failed';
+$lang['installer_uninstall_0']='Uninstallation of %1$s successful';
+$lang['installer_uninstall_1']='Uninstallation of %1$s failed, but rollback successful';
+$lang['installer_uninstall_2']='Uninstallation of %1$s failed, and rollback also failed';
+$lang['installer_upgrade_0']='Upgrade of %1$s successful';
+$lang['installer_upgrade_1']='Upgrade of %1$s failed, but rollback successful';
+$lang['installer_upgrade_2']='Upgrade of %1$s failed, and rollback also failed';
 
 
 /******************************
