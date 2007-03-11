@@ -511,7 +511,7 @@ $bookwormInputField
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$act_words['roster_upd_pw_help']."',CAPTION,'".$act_words['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$act_words['roster_upd_pwLabel']."</td>
-                      <td class=\"membersRowRight1\"><input type=\"password\" name=\"password\"></td>
+                      <td class=\"membersRowRight1\"><input class=\"wowinput128\" type=\"password\" name=\"password\"></td>
                     </tr>
                   </table>
 ".border('sgray','end')."<br />

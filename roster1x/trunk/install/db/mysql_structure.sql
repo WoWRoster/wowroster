@@ -226,7 +226,7 @@ CREATE TABLE `renprefix_players` (
   `class` varchar(32) NOT NULL default '',
   `classEn` varchar(32) NOT NULL default '',
   `health` int(11) NOT NULL default '0',
-  `maildateutc` varchar(18) default NULL,
+  `maildateutc` datetime default NULL,
   `melee_power` int(11) NOT NULL default '0',
   `melee_power_c` int(11) NOT NULL default '0',
   `melee_power_b` int(11) NOT NULL default '0',

@@ -39,9 +39,7 @@ class item
 		else
 			$lang = $char->data['clientLocale'];
 
-		$item_texture = $this->data['item_texture'];
-
-		$path = $roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'];
+		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'];
 
 		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
 

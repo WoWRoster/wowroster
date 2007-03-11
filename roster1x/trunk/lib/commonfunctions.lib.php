@@ -517,8 +517,8 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			// Convert tabs to a formated table
 			if( strpos($line,"\t") )
 			{
-				$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
-				$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
+				$line = explode("\t",$line);
+				$line = '<div style="width:100%;"><span style="float:right;">'.$line[0].'</span>'.$line[1].'</div>';
 				$tooltip_out .= $line;
 			}
 			elseif( !empty($color) )
@@ -594,8 +594,8 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 			// Convert tabs to a formated table
 			if( strpos($line,"\t") )
 			{
-				$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
-				$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
+				$line = explode("\t",$line);
+				$line = '<div style="width:100%;"><span style="float:right;">'.$line[0].'</span>'.$line[1].'</div>';
 				$tooltip_out .= $line;
 			}
 			elseif( !empty($color) )

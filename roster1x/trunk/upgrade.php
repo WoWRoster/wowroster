@@ -199,6 +199,7 @@ class Upgrade
 	{
 		global $wowdb;
 
+		// Change player update time to datetime
 		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `dateupdatedutc` `dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
 		$result = $wowdb->query($query_string);
 
@@ -208,11 +209,17 @@ class Upgrade
 		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `dateupdatedutc` `dateupdatedutc` DATETIME NULL DEFAULT NULL;";
 		$result = $wowdb->query($query_string);
 
-		$query_string = "ALTER TABLE `".ROSTER_MEMBERSTABLE."` ADD `active` TINYINT( 1 ) NOT NULL DEFAULT '1' AFTER `item_bonuses`;";
+		// Change mail update time to datetime
+		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `maildateutc` `maildateutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
 		$result = $wowdb->query($query_string);
 
+		$query_string = "UPDATE `".ROSTER_PLAYERSTABLE."` SET maildateutc = CONCAT('20', MID(`maildateutc`, 7, 2), '-', MID(`maildateutc`, 1, 2), '-', MID(`maildateutc`, 4, 2), ' ', MID(`maildateutc`, 10, 8));";
+		$result = $wowdb->query($query_string);
 
+		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `maildateutc` `maildateutc` DATETIME NULL DEFAULT NULL;";
+		$result = $wowdb->query($query_string);
 
+		// Change guild update time to datetime
 		$query_string = "ALTER TABLE `".ROSTER_GUILDTABLE."` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
 		$result = $wowdb->query($query_string);
 
@@ -221,6 +228,7 @@ class Upgrade
 
 		$query_string = "ALTER TABLE `".ROSTER_GUILDTABLE."` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` DATETIME NULL DEFAULT NULL;";
 		$result = $wowdb->query($query_string);
+
 
 		$this->standard_upgrader('173');
 		$this->finalize($index);

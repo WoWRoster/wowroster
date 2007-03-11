@@ -387,11 +387,11 @@ $returnstring .= '  <tr>
 				// Fix icon texture
 				if( !empty($row['item_icon']) )
 				{
-					$item_icon = $roster_conf['interface_url'].$row['item_icon'].'.'.$roster_conf['img_suffix'];
+					$item_icon = $roster_conf['interface_url'].'Interface/Icons/'.$row['item_icon'].'.'.$roster_conf['img_suffix'];
 				}
 				elseif( !empty($money_included) )
 				{
-					$item_icon = $roster_conf['interface_url'].$row['mailbox_coin_icon'].'.'.$roster_conf['img_suffix'];
+					$item_icon = $roster_conf['interface_url'].'Interface/Icons/'.$row['mailbox_coin_icon'].'.'.$roster_conf['img_suffix'];
 				}
 				else
 				{
@@ -516,7 +516,7 @@ $returnstring .= '  <tr>
 			$treedata = $wowdb->fetch_assoc($result);
 
 			$spelltree[$t]['name'] = $treedata['spell_type'];
-			$spelltree[$t]['icon'] = $treedata['spell_texture'];
+			$spelltree[$t]['icon'] = 'Interface/Icons/'.$treedata['spell_texture'];
 			$spelltree[$t]['id'] = $t;
 
 			$name_id[$treedata['spell_type']] = $t;
@@ -547,7 +547,7 @@ $returnstring .= '  <tr>
 				}
 				$spelltree[$t]['spells'][$p][$i]['name'] = $spell['spell_name'];
 				$spelltree[$t]['spells'][$p][$i]['type'] = $spell['spell_type'];
-				$spelltree[$t]['spells'][$p][$i]['icon'] = $spell['spell_texture'];
+				$spelltree[$t]['spells'][$p][$i]['icon'] = 'Interface/Icons/'.$spell['spell_texture'];
 				$spelltree[$t]['spells'][$p][$i]['rank'] = $spell['spell_rank'];
 
 				// Parse the tooltip
@@ -720,12 +720,12 @@ $returnstring .= '  <tr>
 			$top = 285;
 
 			// Start Warlock Pet Icon Mod
-			$imp = 'Interface/Icons/Spell_Shadow_SummonImp';
-			$void = 'Interface/Icons/Spell_Shadow_SummonVoidWalker';
-			$suc = 'Interface/Icons/Spell_Shadow_SummonSuccubus';
-			$fel = 'Interface/Icons/Spell_Shadow_SummonFelHunter';
-			$inferno = 'Interface/Icons/Spell_Shadow_SummonInfernal';
-			$felguard = 'Interface/Icons/Spell_Shadow_SummonFelGuard';
+			$imp = 'Spell_Shadow_SummonImp';
+			$void = 'Spell_Shadow_SummonVoidWalker';
+			$suc = 'Spell_Shadow_SummonSuccubus';
+			$fel = 'Spell_Shadow_SummonFelHunter';
+			$inferno = 'Spell_Shadow_SummonInfernal';
+			$felguard = 'Spell_Shadow_SummonFelGuard';
 
 			$iconStyle='cursor:pointer;position:absolute;left:'.$left.'px;top:'.$top.'px;height:40px;width:40px;';
 
@@ -750,10 +750,10 @@ $returnstring .= '  <tr>
 
 			if ($row['icon'] == '' || !isset($row['icon']))
 			{
-				$row['icon'] = 'Interface/Icons/INV_Misc_QuestionMark';
+				$row['icon'] = 'INV_Misc_QuestionMark';
 			}
 
-			$icons			.= '<img src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
+			$icons			.= '<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
 			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';
 			$petTitle		.= '<span class="petName" style="top: 30px; left: 95px; display: none;" id="pet_title'.$petNum.'">'.$wordings[$lang]['level'].' '.$row['level'].' ' . stripslashes($row['type']).'</span>';
 			$loyalty		.= '<span class="petName" style="top: 50px; left: 95px; display: none;" id="pet_loyalty'.$petNum.'">'.$row['loyalty'].'</span>';
@@ -1546,7 +1546,7 @@ $returnstring .= '  <tr>
 				$treedata = $wowdb->fetch_assoc($trees);
 
 				$treelayer[$j]['name'] = $treedata['tree'];
-				$treelayer[$j]['image'] = str_replace('Interface/TalentFrame/','',$treedata['background']).'.'.$roster_conf['img_suffix'];
+				$treelayer[$j]['image'] = $treedata['background'].'.'.$roster_conf['img_suffix'];
 				$treelayer[$j]['points'] = $treedata['pointsspent'];
 				$treelayer[$j]['talents'] = $this->talentLayer($member_id,$treedata['tree']);
 			}
@@ -1682,7 +1682,7 @@ $returnstring .= '  <tr>
 				$returndata[$r][$c]['maxrank'] = $talentdata['maxrank'];
 				$returndata[$r][$c]['row'] = $r;
 				$returndata[$r][$c]['column'] = $c;
-				$returndata[$r][$c]['image'] = str_replace('Interface/Icons/','',$talentdata['texture']).'.'.$roster_conf['img_suffix'];
+				$returndata[$r][$c]['image'] = $talentdata['texture'].'.'.$roster_conf['img_suffix'];
 				$returndata[$r][$c]['tooltipid'] = makeOverlib($talentdata['tooltip'],'','',0,$this->data['clientLocale']);
 
 				if( $talentdata['rank'] == $talentdata['maxrank'] )

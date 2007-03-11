@@ -83,15 +83,15 @@ $body .='<form action="" method="post" enctype="multipart/form-data" id="conf_ch
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
 	      <td class="membersRow1">Old Password:</td>
-	      <td class="membersRowRight1"><input type="password" name="oldpass" value="" /></td>
+	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
 	    </tr>
 	    <tr>
 	      <td class="membersRow2">New Password:</td>
-	      <td class="membersRowRight2"><input type="password" name="newpass1" value="" /></td>
+	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass1" value="" /></td>
 	    </tr>
 	    <tr>
 	      <td class="membersRow1">New Password<br />[ confirm ]:</td>
-	      <td class="membersRowRight1"><input type="password" name="newpass2" value="" /></td>
+	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="newpass2" value="" /></td>
 	    </tr>
 	    <tr>
 	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">

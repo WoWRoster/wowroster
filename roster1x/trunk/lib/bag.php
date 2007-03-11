@@ -85,7 +85,7 @@ class bag extends item
 			$returnstring = '
 <div class="bag" style="height:'.$offset.'px;width:192px;background:url('.$roster_conf['img_url'].'bags/'.$bag_type.'_top_'.$bag_style.'.png);">
 	<div class="'.$bag_type.'_name">'. $this->data['item_name'] .'</div>
-	<img src="'.$roster_conf['interface_url'].$this->data['item_texture'].'.'.$roster_conf['img_suffix'].'" class="bagicon" alt="" />
+	<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'].'" class="bagicon" alt="" />
 	<img src="'.$roster_conf['img_url'].'bags/'.$bag_type.'_mask.png" class="bagmask" alt="" '.makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang).' '.$linktip.' />
 	<div class="bottom" style="margin-top:'.$offset.'px;background:url('.$roster_conf['img_url'].'bags/'.$bag_type.'_bot.png);"></div>
 	<div class="holder'.$bag_style.'">

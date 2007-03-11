@@ -550,7 +550,7 @@ class wowdb
 
 		if( is_array( $tipdata ) )
 		{
-			$tooltip = implode('\n',$tipdata);
+			$tooltip = implode("\n",$tipdata);
 		}
 		else
 		{
@@ -760,7 +760,7 @@ class wowdb
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
 		$mail['mail_coin'] = $mail_data['Coin'];
-		$mail['mail_coin_icon'] = 'Interface/Icons/'.$mail_data['CoinIcon'];
+		$mail['mail_coin_icon'] = $mail_data['CoinIcon'];
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
@@ -769,7 +769,7 @@ class wowdb
 		{
 			$item = $mail_data['Item'];
 
-			$mail['item_icon'] = 'Interface/Icons/'.$item['Icon'];
+			$mail['item_icon'] = $item['Icon'];
 			$mail['item_name'] = $item['Name'];
 			$mail['item_color'] = $item['Color'];
 
@@ -805,7 +805,7 @@ class wowdb
 		$item['item_slot'] = $slot_name;
 		$item['item_color'] = $item_data['Color'];
 		$item['item_id'] = $item_data['Item'];
-		$item['item_texture'] = 'Interface/Icons/'.$item_data['Icon'];
+		$item['item_texture'] = $item_data['Icon'];
 
 		if( isset( $item_data['Quantity'] ) )
 			$item['item_quantity'] = $item_data['Quantity'];
@@ -848,7 +848,7 @@ class wowdb
 		}
 		$recipe['reagents'] = substr($recipe['reagents'],0,-4);
 
-		$recipe['recipe_texture'] = 'Interface/Icons/'.$recipe_data['Icon'];
+		$recipe['recipe_texture'] = $recipe_data['Icon'];
 
 		if( !empty($recipe_data['Tooltip']) )
 			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
@@ -870,8 +870,6 @@ class wowdb
 		$buffs = $data['Attributes']['Buffs'];
 		if( !empty($buffs) && is_array($buffs) )
 		{
-			$this->setMessage('<li>Updating Buffs: ');
-
 			// Delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_BUFFSTABLE."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
@@ -893,7 +891,7 @@ class wowdb
 				$this->add_value('name', $buff['Name'] );
 
 				if( isset( $buff['Icon'] ) )
-					$this->add_value('icon', 'Interface/Icons/'.$buff['Icon'] );
+					$this->add_value('icon', $buff['Icon'] );
 
 				if( isset( $buff['Rank'] ) )
 					$this->add_value('rank', $buff['Rank'] );
@@ -918,7 +916,7 @@ class wowdb
 
 				$buffsnum++;
 			}
-			$this->setMessage($buffsnum.'</li>');
+			$this->setMessage('<li>Updating Buffs: '.$buffsnum.'</li>');
 	   	}
 		else
 		{
@@ -939,8 +937,6 @@ class wowdb
 
 		if( !empty($quests) && is_array($quests) )
 		{
-			$this->setMessage('<li>Updating Quests: ');
-
 			// Delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
@@ -965,7 +961,7 @@ class wowdb
 					$questnum++;
 				}
 			}
-			$this->setMessage($questnum.'</li>');
+			$this->setMessage('<li>Updating Quests: '.$questnum.'</li>');
 	   	}
 		else
 		{
@@ -986,7 +982,7 @@ class wowdb
 
 		if( !empty($prof) && is_array($prof) )
 		{
-			$this->setMessage('<li>Updating Professions');
+			$messages = '<li>Updating Professions';
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '$memberId'";
@@ -998,7 +994,7 @@ class wowdb
 			// Then process Professions
 			foreach( array_keys($prof) as $skill_name )
 			{
-				$this->setMessage(" : $skill_name");
+				$messages .= " : $skill_name";
 
 				$skill = $prof[$skill_name];
 				foreach( array_keys( $skill) as $recipe_type )
@@ -1016,7 +1012,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1037,7 +1033,7 @@ class wowdb
 		$equip = $data['Equipment'];
 		if( !empty($equip) && is_array($equip) )
 		{
-			$this->setMessage('<li>Updating Equipment ');
+			$messages = '<li>Updating Equipment ';
 
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
 			if( !$this->query($querystr) )
@@ -1047,7 +1043,8 @@ class wowdb
 			}
 			foreach( array_keys($equip) as $slot_name )
 			{
-				$this->setMessage('.');
+				$messages .= '.';
+
 				$slot = $equip[$slot_name];
 				if( is_null($slot) || !is_array($slot) || empty($slot) )
 				{
@@ -1056,7 +1053,7 @@ class wowdb
 				$item = $this->make_item( $slot, $memberId, 'equip', $slot_name );
 				$this->insert_item( $item,$data['Locale'] );
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1077,7 +1074,7 @@ class wowdb
 		$inv = $data['Inventory'];
 		if( !empty($inv) && is_array($inv) )
 		{
-			$this->setMessage('<li>Updating Inventory');
+			$messages = '<li>Updating Inventory';
 
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
 			if( !$this->query($querystr) )
@@ -1095,7 +1092,7 @@ class wowdb
 
 			foreach( array_keys( $inv ) as $bag_name )
 			{
-				$this->setMessage(" : $bag_name");
+				$messages .= " : $bag_name";
 
 				$bag = $inv[$bag_name];
 				if( is_null($bag) || !is_array($bag) || empty($bag) )
@@ -1121,7 +1118,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1142,7 +1139,7 @@ class wowdb
 		$inv = $data['Bank'];
 		if( !empty($inv) && is_array($inv) )
 		{
-			$this->setMessage('<li>Updating Bank');
+			$messages = '<li>Updating Bank';
 
 			// Clearing out old items
 			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
@@ -1161,7 +1158,8 @@ class wowdb
 
 			foreach( array_keys( $inv ) as $bag_name )
 			{
-				$this->setMessage(" : $bag_name");
+				$messages .= " : $bag_name";
+
 				$bag = $inv[$bag_name];
 				if( is_null($bag) || !is_array($bag) || empty($bag) )
 				{
@@ -1174,7 +1172,7 @@ class wowdb
 				// Fix bank bag icon
 				if( $bag_name == 'Bag0' )
 				{
-					$item['item_texture'] = 'Interface/Icons/INV_Misc_Bag_15';
+					$item['item_texture'] = 'INV_Misc_Bag_15';
 				}
 
 				// quantity for a bag means number of slots it has
@@ -1195,7 +1193,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1212,8 +1210,6 @@ class wowdb
 	 */
 	function do_mailbox( $data, $memberId )
 	{
-		$this->setMessage('<li>Updating Mailbox: ');
-
 		$mailbox = $data['MailBox'];
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
@@ -1238,11 +1234,11 @@ class wowdb
 				$mail = $this->make_mail( $slot, $memberId, $slot_num );
 				$this->insert_mail( $mail );
 			}
-			$this->setMessage(count($mailbox).' Message'.(count($mailbox) > 1 ? 's' : '').'</li>');
+			$this->setMessage('<li>Updating Mailbox: '.count($mailbox).'</li>');
 		}
 		else
 		{
-			$this->setMessage('No New Mail</li>');
+			$this->setMessage('<li>No New Mail</li>');
 		}
 	}
 
@@ -1259,7 +1255,7 @@ class wowdb
 
 		if( !empty($repData) && is_array($repData) )
 		{
-			$this->setMessage('<li>Updating Reputation ');
+			$messages = '<li>Updating Reputation ';
 
 			//first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$memberId'";
@@ -1297,7 +1293,8 @@ class wowdb
 						if( !empty($repData[$factions][$faction]['Standing']) )
 							$this->add_value('Standing', $repData[$factions][$faction]['Standing']);
 
-						$this->setMessage('.');
+						$messages .= '.';
+
 						$querystr = "INSERT INTO `".ROSTER_REPUTATIONTABLE."` SET ".$this->assignstr;
 
 						$result = $this->query($querystr);
@@ -1308,7 +1305,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1329,7 +1326,7 @@ class wowdb
 
 		if( !empty($skillData) && is_array($skillData) )
 		{
-			$this->setMessage('<li>Updating Skills ');
+			$messages = '<li>Updating Skills ';
 
 			//first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$memberId'";
@@ -1360,7 +1357,8 @@ class wowdb
 						if( !empty($sub_skill[$skill_name]) )
 							$this->add_value('skill_level', $sub_skill[$skill_name] );
 
-						$this->setMessage('.');
+						$messages .= '.';
+
 						$querystr = "INSERT INTO `".ROSTER_SKILLSTABLE."` SET ".$this->assignstr;
 
 						$result = $this->query($querystr);
@@ -1371,7 +1369,7 @@ class wowdb
 					}
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1392,7 +1390,7 @@ class wowdb
 
 		if( !empty($spellbook) && is_array($spellbook) )
 		{
-			$this->setMessage('<li>Updating Spellbook');
+			$messages = '<li>Updating Spellbook';
 
 			// first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '$memberId'";
@@ -1413,7 +1411,7 @@ class wowdb
 			// then process spellbook
 			foreach( array_keys( $spellbook ) as $spell_type )
 			{
-				$this->setMessage(" : $spell_type");
+				$messages .= " : $spell_type";
 
 				$data_spell_type = $spellbook[$spell_type];
 				foreach( array_keys( $data_spell_type ) as $spell )
@@ -1434,7 +1432,7 @@ class wowdb
 							if( !empty($spell_name) )
 								$this->add_value('spell_name', $spell_name );
 							if( !empty($data_spell_name['Icon']) )
-								$this->add_value('spell_texture', 'Interface/Icons/'.$data_spell_name['Icon'] );
+								$this->add_value('spell_texture', $data_spell_name['Icon'] );
 							if( !empty($data_spell_name['Rank']) )
 								$this->add_value('spell_rank', $data_spell_name['Rank'] );
 
@@ -1459,7 +1457,7 @@ class wowdb
 				$this->reset_values();
 				$this->add_value('member_id', $memberId );
 				$this->add_value('spell_type', $spell_type );
-				$this->add_value('spell_texture', 'Interface/Icons/'.$data_spell_type['Icon'] );
+				$this->add_value('spell_texture', $data_spell_type['Icon'] );
 
 				$querystr = "INSERT INTO `".ROSTER_SPELLTREETABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -1468,7 +1466,7 @@ class wowdb
 					$this->setError('Spell Tree ['.$spell_type.'] could not be inserted',$this->error());
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1489,7 +1487,7 @@ class wowdb
 
 		if( !empty($talentData) && is_array($talentData) )
 		{
-			$this->setMessage('<li>Updating Talents');
+			$messages = '<li>Updating Talents';
 
 			// first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '$memberId'";
@@ -1510,7 +1508,7 @@ class wowdb
 			// Update Talents
 			foreach( array_keys( $talentData ) as $talent_tree )
 			{
-				$this->setMessage(" : $talent_tree");
+				$messages .= " : $talent_tree";
 
 				$data_talent_tree = $talentData[$talent_tree];
 				foreach( array_keys( $data_talent_tree ) as $talent_skill )
@@ -1526,7 +1524,7 @@ class wowdb
 					}
 					elseif ( $talent_skill == 'Background')
 					{
-						$tree_background = 'Interface/TalentFrame/'.$data_talent_skill;
+						$tree_background = $data_talent_skill;
 					}
 					else
 					{
@@ -1544,7 +1542,7 @@ class wowdb
 							$this->add_value('tooltip', $talent_skill );
 
 						if( !empty($data_talent_skill['Icon']) )
-							$this->add_value('texture', 'Interface/Icons/'.$data_talent_skill['Icon'] );
+							$this->add_value('texture', $data_talent_skill['Icon'] );
 
 						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
 						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
@@ -1578,7 +1576,7 @@ class wowdb
 					$this->setError('Talent Tree ['.$talent_tree.'] could not be inserted',$this->error());
 				}
 			}
-			$this->setMessage('</li>');
+			$this->setMessage($messages.'</li>');
 		}
 		else
 		{
@@ -1595,9 +1593,9 @@ class wowdb
 	 */
 	function deleteMembers( $inClause )
 	{
-		$this->setMessage('<li>');
+		$messages = '<li>';
 
-		$this->setMessage('Character Data..');
+		$messages .= 'Character Data..';
 		$querystr = "DELETE FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1611,7 +1609,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Skills..');
+		$messages .= 'Skills..';
 		$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1619,7 +1617,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Items..');
+		$messages .= 'Items..';
 		$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1627,7 +1625,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Quests..');
+		$messages .= 'Quests..';
 		$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1635,7 +1633,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('PvPLog Data..');
+		$messages .= 'PvPLog Data..';
 		$querystr = "DELETE FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1643,7 +1641,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Professions..');
+		$messages .= 'Professions..';
 		$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1651,7 +1649,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Talents..');
+		$messages .= 'Talents..';
 		$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1665,7 +1663,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Spellbook..');
+		$messages .= 'Spellbook..';
 		$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1679,7 +1677,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Pets..');
+		$messages .= 'Pets..';
 		$querystr = "DELETE FROM `".ROSTER_PETSTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1687,7 +1685,7 @@ class wowdb
 		}
 
 
-		$this->setMessage('Reputation..');
+		$messages .= 'Reputation..';
 		$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
@@ -1695,14 +1693,14 @@ class wowdb
 		}
 
 
-		$this->setMessage('Mail..');
+		$messages .= 'Mail..';
 		$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Mail Data could not be deleted',$this->error());
 		}
 
-		$this->setMessage('</li>');
+		$this->setMessage($messages.'</li>');
 	}
 
 
@@ -2382,7 +2380,7 @@ class wowdb
 			if( !empty($data['Loyalty']) )
 				$this->add_value( 'loyalty', $data['Loyalty']);
 			if( !empty($data['Icon']) )
-				$this->add_value( 'icon', 'Interface/Icons/'.$data['Icon']);
+				$this->add_value( 'icon', $data['Icon']);
 
 			$attack = $data['Attributes']['Melee'];
 

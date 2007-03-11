@@ -39,7 +39,7 @@ class recipe
 		else
 			$lang = $char->data['clientLocale'];
 
-		$path = $roster_conf['interface_url'].$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
+		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);

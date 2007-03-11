@@ -49,7 +49,23 @@ UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 
+ALTER TABLE `renprefix_config` ORDER BY `id`;
 
+# --------------------------------------------------------
+### Fix Item Icons
+UPDATE `renprefix_items` SET `item_texture` = REPLACE(`item_texture`,'Interface/Icons/','');
+UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'Interface/Icons/','');
+UPDATE `renprefix_mailbox` SET `item_icon` = REPLACE(`item_icon`,'Interface/Icons/','');
+UPDATE `renprefix_pets` SET `icon` = REPLACE(`icon`,'Interface/Icons/','');
+UPDATE `renprefix_recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'Interface/Icons/','');
+UPDATE `renprefix_spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'Interface/Icons/','');
+UPDATE `renprefix_spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'Interface/Icons/','');
+UPDATE `renprefix_talents` SET `texture` = REPLACE(`texture`,'Interface/Icons/','');
+UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,'Interface/TalentFrame/','');
+
+
+# --------------------------------------------------------
+### Alter Players Table
 ALTER TABLE `renprefix_players`
   ADD `stat_block` int(11) NOT NULL default '0',
   ADD `stat_block_c` int(11) NOT NULL default '0',
@@ -164,13 +180,15 @@ ALTER TABLE `renprefix_players`
   ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`;
 
 
+# --------------------------------------------------------
+### Alter Members Table
 ALTER TABLE `renprefix_members`
   ADD `active` tinyint(1) NOT NULL default '0',
   DROP `update_time`;
 
 
+# --------------------------------------------------------
+### Alter Guild Table
 ALTER TABLE `renprefix_guild`
   CHANGE `faction` `faction` varchar(32) NOT NULL default '0',
   ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`;
-
-ALTER TABLE `renprefix_config` ORDER BY `id`;

@@ -127,7 +127,7 @@ if (isset($_POST['s']))
 	if( $wowdb->num_rows($result) != 0 )
 	{
 		$cid = '';
-	//name | server | member_id | recipe_name | skill_name | difficulty | reagents | recipe_texture | recipe_tooltip
+
 		$rc = 0;
 		while ($data = $wowdb->fetch_assoc( $result ))
 		{

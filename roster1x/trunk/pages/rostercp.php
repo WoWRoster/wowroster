@@ -95,12 +95,8 @@ foreach ($pages as $page => $data)
 
 if ($pagebar != '')
 {
-	$pagebar = border('sgray','start',$act_words['pagebar_function'])."\n".
-		'<ul class="tab_menu">'."\n".
-		$pagebar.
-		'</ul>'."\n".
-		border('sgray','end')."\n".
-		"<br />\n";
+	$pagebar = "<ul class=\"tab_menu\">\n$pagebar</ul>";
+	$pagebar = messagebox($pagebar,$act_words['pagebar_function'])."<br />\n";
 }
 
 // Add addon buttons

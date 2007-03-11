@@ -190,7 +190,6 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 			$stripe_class = 'membersRow'.( ( $striping_counter % 2 ) + 1 );
 			$stripe_class_right = 'membersRowRight'.( ( $striping_counter % 2 ) + 1 );
 
-			$item_texture=str_replace('\\','/',$itemRow['item_texture']);
 			if ($column_counter==1)
 				$bank_print .= '  <tr>';
 
@@ -208,8 +207,8 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 			$bank_print .= '</td>';
 			if( $gbank_mode == '' )
 			{
-				$bank_print .= '    <td width="220" class="'.$stripe_class_right.'" style="white-space:normal;">';
-				$bank_print .= colorTooltip($itemRow['item_tooltip'],$itemRow['item_color']);
+				$bank_print .= '    <td valign="top" width="220" class="'.$stripe_class_right.'" style="white-space:normal;font-size:10px;">';
+				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
 			}
 
 			if ($column_counter==$columns)

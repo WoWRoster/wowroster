@@ -30,12 +30,17 @@ class config
 	var $formpages = '';
 	var $nonformpages = '';
 
+	var $radio_num = 0;
+	var $check_num = 0;
+
 	/**
 	 * Constructor. We define the config table to work with here.
 	 */
 	function config( $tablename )
 	{
-		global $act_words;
+		global $act_words, $body_action;
+
+		$body_action = 'onLoad="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 		$this->tablename = $tablename;
 		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
@@ -299,7 +304,17 @@ class config
 			{
 				case 'text':
 					$length = explode('|',$input_type[1]);
-					$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+
+				if( $length[1] < 20 )
+					$text_class = '64';
+				elseif( $length[1] < 30 )
+					$text_class = '128';
+				elseif( $length[1] < 40 )
+					$text_class = '192';
+				else
+					$text_class = '';
+
+				$input_field = '<input class="wowinput'.$text_class.'" name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 					break;
 
 				case 'radio':
@@ -307,7 +322,8 @@ class config
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
-						$input_field .= '<label class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
+						$input_field .= '<input type="radio" id="rad_'.$this->radio_num.'" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
+						$this->radio_num++;
 					}
 					break;
 
@@ -404,7 +420,7 @@ class config
 					// Replace back-slashes
 					$settingValue = preg_replace('|\\\\|','/',$settingValue );
 
-					// Check for directories defined with no '/' at the end
+					// Check for directories defined with '/' at the end
 					// and take it off
 					if( substr($settingValue, -1, 1) == '/' )
 					{
@@ -483,7 +499,7 @@ class config
 
 				$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
 
-				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;font-size:10px;">'.$row['config_name'].'</span></span>';
+				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$row['config_name'].'</span></span>';
 				$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 
 			}
@@ -509,17 +525,8 @@ class config
 	{
 		$tipsettings = ",WRAP";
 
-		$content = str_replace("'","\\'", $content);
-		$content = str_replace('"','&quot;', $content);
-
-		if( !empty($caption) )
-		{
-			$caption = str_replace("'","\\'", $caption);
-			$caption = str_replace('"','&quot;', $caption);
-			$caption = ",CAPTION,'$caption'";
-		}
-
-		$tip = " style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption$tipsettings);\" onmouseout=\"return nd();\">$disp_text";
+		$tip = makeOverlib($content,$caption,'',2,'',',WRAP');
+		$tip = " style=\"cursor:help;\" $tip>$disp_text";
 
 		return $tip;
 	}

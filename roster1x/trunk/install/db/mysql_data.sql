@@ -134,7 +134,6 @@ INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.
 ### Character Page Settings
 
 INSERT INTO `renprefix_config` VALUES (7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7010, 'char_header_logo', '1', 'radio{on^1|off^0', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf');
