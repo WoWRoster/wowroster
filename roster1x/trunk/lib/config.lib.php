@@ -40,11 +40,11 @@ class config
 	{
 		global $act_words, $body_action;
 
-		$body_action = 'onLoad="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+		$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 		$this->tablename = $tablename;
 		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
-		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onClick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
 	}

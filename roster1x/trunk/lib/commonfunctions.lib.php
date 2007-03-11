@@ -127,7 +127,7 @@ function getAllTooltips()
 		$ret_string = "<script type=\"text/javascript\">\n<!--\n";
 		foreach ($tooltips as $var => $content)
 		{
-			$ret_string .= "\tvar overlib_$var = \"$content\";\n";
+			$ret_string .= "\tvar overlib_$var = \"".str_replace('--','-"+"-',$content)."\";\n";
 		}
 		$ret_string .= "//-->\n</script>";
 

@@ -332,7 +332,7 @@ function processGuildRoster($myProfile)
 									$guildMembers = $guild['Members'];
 
 									// update the list of guild members
-									$guild_output = "<li><strong>".$act_words['update_members']."</strong>\n<ul>\n";
+									$guild_output = "<ul><li><strong>".$act_words['update_members']."</strong>\n<ul>\n";
 
 									// Start update triggers
 									if( $roster_conf['use_update_triggers'] )
@@ -372,7 +372,7 @@ function processGuildRoster($myProfile)
 										'<li>'.$act_words['updated'].': '.$wowdb->membersupdated."</li>\n".
 										'<li>'.$act_words['added'].': '.$wowdb->membersadded."</li>\n".
 										'<li>'.$act_words['removed'].': '.$wowdb->membersremoved."</li>\n".
-										"</ul>\n<br />\n";
+										"</ul></li></ul>\n";
 									$output .= $guild_output;
 								}
 								else
@@ -431,7 +431,7 @@ if( $htmlout )
 		$pvplogInputField = "
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>PvPLog.lua</b> ".$act_words['filelocation']."\\\\PvPLog.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> PvPLog.lua</td>
-                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"PvPLog.lua\" name=\"PvPLog\"></td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"PvPLog.lua\" name=\"PvPLog\" /></td>
                     </tr>";
 	}
 	else
@@ -445,7 +445,7 @@ if( $htmlout )
 		$raidtrackerInputField = "
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CT_RaidTracker.lua</b> ".$act_words['filelocation']."\\\\CT_RaidTracker.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CT_RaidTracker.lua</td>
-                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CT_RaidTracker.lua\" name=\"RaidTracker\"></td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CT_RaidTracker.lua\" name=\"RaidTracker\" /></td>
                     </tr>";
 	}
 	else
@@ -459,7 +459,7 @@ if( $htmlout )
 		$eventcalendarInputField = "
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>GuildEventManager2.lua or GroupCalendar.lua</b> ".$act_words['filelocation']."\\\\',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> EventCalendar</td>
-                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"GuildEventManager2.lua,GroupCalendar.lua\" name=\"EventCalendar\"></td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"GuildEventManager2.lua,GroupCalendar.lua\" name=\"EventCalendar\" /></td>
                     </tr>";
 	}
 	else
@@ -473,7 +473,7 @@ if( $htmlout )
 		$bookwormInputField = "
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>bookworm.lua</b> ".$act_words['filelocation']."\\\\bookworm.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> bookworm.lua</td>
-                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"bookworm.lua\" name=\"bookworm\"></td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"bookworm.lua\" name=\"bookworm\" /></td>
                     </tr>";
 	}
 	else
@@ -484,7 +484,7 @@ if( $htmlout )
 
 	// Construct the entire upload form
 	$inputForm = "
-                <form action=\"".makelink('update')."\" enctype=\"multipart/form-data\" method=\"POST\" onsubmit=\"submitonce(this)\">
+                <form action=\"".makelink('update')."\" enctype=\"multipart/form-data\" method=\"post\" onsubmit=\"submitonce(this)\">
 ".border('syellow','start',$act_words['update_page'])."
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
@@ -492,7 +492,7 @@ if( $htmlout )
                     </tr>
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('<b>CharacterProfiler.lua</b> ".$act_words['filelocation']."\\\\CharacterProfiler.lua',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> CharacterProfiler.lua</td>
-                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\"></td>
+                      <td class=\"membersRowRight1\"><input type=\"file\" accept=\"CharacterProfiler.lua\" name=\"CharacterProfiler\" /></td>
                     </tr>
 $pvplogInputField
 $eventcalendarInputField
@@ -509,11 +509,11 @@ $bookwormInputField
                   <table class=\"bodyline\" cellspacing=\"0\" cellpadding=\"0\">
                     <tr>
                       <td class=\"membersRow1\" style=\"cursor:help;\" onmouseover=\"overlib('".$act_words['roster_upd_pw_help']."',CAPTION,'".$act_words['roster_upd_pwLabel']."',WRAP,RIGHT);\" onmouseout=\"return nd();\"><img src=\"".$roster_conf['img_url']."blue-question-mark.gif\" alt=\"\" /> ".$act_words['roster_upd_pwLabel']."</td>
-                      <td class=\"membersRowRight1\"><input class=\"wowinput128\" type=\"password\" name=\"password\"></td>
+                      <td class=\"membersRowRight1\"><input class=\"wowinput128\" type=\"password\" name=\"password\" /></td>
                     </tr>
                   </table>
 ".border('sgray','end')."<br />
-                  <input type=\"submit\" value=\"".$act_words['upload']."\">";
+                  <input type=\"submit\" value=\"".$act_words['upload']."\" />";
 
 
 	$inputForm .= "\n                </form>";

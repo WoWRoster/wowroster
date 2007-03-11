@@ -61,7 +61,7 @@ function SelectQuery($table,$fieldtoget,$field,$current,$fieldid,$urltorun)
 		$optiontodisplay = $row["$field"];//must leave double quote
 
 		if ($current == $optiontocompare)
-			$option_block .= '          <option value="'.makelink("$urltorun=$id").'" selected>'.$optiontodisplay."</option>\n";
+			$option_block .= '          <option value="'.makelink("$urltorun=$id").'" selected="selected">'.$optiontodisplay."</option>\n";
 		else
 			$option_block .= '          <option value="'.makelink("$urltorun=$id").'" >'.$optiontodisplay."</option>\n";
 	}

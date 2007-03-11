@@ -68,9 +68,6 @@ FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
 WHERE m.".$roster_conf['banker_fieldname']." LIKE '%".$roster_conf['banker_rankname']."%' AND p.member_id = m.member_id
 ORDER BY m.name";
 
-if ($wowdb->sqldebug)
-	echo "<!-- $muleNameQuery --> \n";
-
 
 $muleNames = $wowdb->query($muleNameQuery);
 
@@ -192,33 +189,38 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 			$stripe_class_right = 'membersRowRight'.( ( $striping_counter % 2 ) + 1 );
 
 			if ($column_counter==1)
-				$bank_print .= '  <tr>';
+				$bank_print .= '  <tr>'."\n";
 
 			// Item texture and quantity column
 			if( $gbank_mode == '' )
-				$bank_print .= "\n".'    <td valign="top" align="center" class="'.$stripe_class.'">';
+				$bank_print .= '    <td valign="top" align="center" class="'.$stripe_class.'">';
 			else
-				$bank_print .= "\n".'    <td valign="top" align="center">';
+				$bank_print .= '    <td valign="top" align="center">';
 
 			$itemRow['item_quantity'] = $itemRow['total_quantity'];
 
 			$item = new item($itemRow);
 			$bank_print .= $item->out();
 
-			$bank_print .= '</td>';
+			$bank_print .= '    </td>'."\n";
 			if( $gbank_mode == '' )
 			{
 				$bank_print .= '    <td valign="top" width="220" class="'.$stripe_class_right.'" style="white-space:normal;font-size:10px;">';
 				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
+				$bank_print .= '    </td>';
 			}
 
 			if ($column_counter==$columns)
 			{
-				$bank_print .= "\n  </tr>\n";
+				$bank_print .= '  </tr>'."\n";
 				$column_counter=0;
 			}
 			$column_counter++;
 			$itemRow = $wowdb->fetch_array($itemsOnMule);
+		}
+		if( $column_counter>0 )
+		{
+			$bank_print .= '  </tr>'."\n";
 		}
 		$bank_print .= "</table></td>\n</tr>\n";
 	}
@@ -229,7 +231,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 $banker_list = '- ';
 foreach( $bankers as $banker_id => $banker  )
 {
-	$banker_list .= '<a href=#c_'.$banker_id.'>'.$banker.'</a> - ';
+	$banker_list .= '<a href="#c_'.$banker_id.'">'.$banker.'</a> - ';
 }
 
 

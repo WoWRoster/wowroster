@@ -57,9 +57,9 @@ foreach( $choiceArray as $item_value )
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '<option value="'.makelink('guildpvp&amp;type='.$item_value).'" selected="selected">'.$act_words[$item_value];
+			$choiceForm .= '  <option value="'.makelink('guildpvp&amp;type='.$item_value).'" selected="selected">'.$act_words[$item_value].'</option>'."\n";
 		else
-			$choiceForm .= '<option value="'.makelink('guildpvp&amp;type='.$item_value).'">'.$act_words[$item_value];
+			$choiceForm .= '  <option value="'.makelink('guildpvp&amp;type='.$item_value).'">'.$act_words[$item_value].'</option>'."\n";
 	}
 }
 $choiceForm .= '</select>

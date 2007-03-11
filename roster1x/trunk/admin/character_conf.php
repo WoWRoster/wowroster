@@ -63,6 +63,7 @@ if( is_array($char_data) )
 	<th class="membersHeader">'.$act_words['pvplog'].'</th>
 	<th class="membersHeader">'.$act_words['duellog'].'</th>
 	<th class="membersHeader">'.$act_words['itembonuses2'].'</th>
+</tr>
 ';
 
 	$i=0;
@@ -93,9 +94,9 @@ else
 	$body = 'No Data';
 }
 
-$body_action = 'onLoad="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 $body = $roster_config_message."<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."');submitonce(this);\">
-<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
+<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
 	$body
 </form>";
 

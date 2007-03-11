@@ -201,10 +201,10 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 		print(border('sblue','start','Back Link'));
 		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
-		print('<tr><td class="membersRowRight2"><form method="POST" action="'.makelink('rosterdiag').'">');
-		print ('<input type="hidden" name="filename" value="'.$filename.'">');
-		print ('<input type="hidden" name="downloadsvn" value="savefile">');
-		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;">');
+		print('<tr><td class="membersRowRight2"><form method="post" action="'.makelink('rosterdiag').'">');
+		print ('<input type="hidden" name="filename" value="'.$filename.'" />');
+		print ('<input type="hidden" name="downloadsvn" value="savefile" />');
+		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />');
 		print('</form></td></tr></table>');
 		print(border('sblue','end'));
 
@@ -461,13 +461,13 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 		if ($zippackage_files != '')
 		{
 			echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
-			echo '<div align="center"><form method="POST" action="'.$svnremote.'">';
-			echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
-			echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
-			echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'">';
-			echo '<input type="radio" name="ziptype" value="zip" checked="checked">.zip Archive<br />';
-			echo '<input type="radio" name="ziptype" value="targz">.tar.gz Archive<br /><br />';
-			echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]">';
+			echo '<div align="center"><form method="post" action="'.$svnremote.'">';
+			echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'" />';
+			echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'" />';
+			echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'" />';
+			echo '<input type="radio" name="ziptype" value="zip" checked="checked">.zip Archive</input><br />';
+			echo '<input type="radio" name="ziptype" value="targz">.tar.gz Archive</input><br /><br />';
+			echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]" />';
 			echo '</form></div>';
 			echo border('spurple', 'end').'<br />';
 		}
@@ -569,18 +569,18 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 					echo '<td class="membersRowRight'.$row.'">'."\n";
 					if($filedata['diff'] || $filedata['missing'])
 					{
-						echo '<form method="POST" action="'.makelink('rosterdiag').'">'."\n";
-						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
-						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
+						echo '<form method="post" action="'.makelink('rosterdiag').'">'."\n";
+						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\" />\n";
+						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\" />\n";
 						if (isset($filedata['diff']) && $filedata['diff'])
 						{
-							echo "<input type=\"hidden\" name=\"downmode\" value=\"update\">\n";
-							echo "<input type=\"submit\" value=\"Diff Check\">\n";
+							echo "<input type=\"hidden\" name=\"downmode\" value=\"update\" />\n";
+							echo "<input type=\"submit\" value=\"Diff Check\" />\n";
 						}
 						elseif (isset($filedata['missing']) && $filedata['missing'])
 						{
-							echo "<input type=\"hidden\" name=\"downmode\" value=\"install\">\n";
-							echo "<input type=\"submit\" value=\"Show File\">\n";
+							echo "<input type=\"hidden\" name=\"downmode\" value=\"install\" />\n";
+							echo "<input type=\"submit\" value=\"Show File\" />\n";
 						}
 						echo '</form>';
 
@@ -607,20 +607,20 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 else
 {
 	// FOPEN URL is Not Supported, offer the oppertunity to do this remotely
-	echo '<form method="POST" action="'.$svnremote.'">';
-	echo '<input type="hidden" name="remotediag" value="true">';
-	echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
-	echo '<input type="hidden" name="website" value="'.	$roster_conf['roster_dir'].'">';
+	echo '<form method="post" action="'.$svnremote.'">';
+	echo '<input type="hidden" name="remotediag" value="true" />';
+	echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'" />';
+	echo '<input type="hidden" name="website" value="'.	$roster_conf['roster_dir'].'" />';
 
 	foreach ($files as $directory => $filedata)
 	{
 		foreach ($filedata as $filename => $file)
 		{
-			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionDesc]" value="'.$file['local']['versionDesc'].'">';
-			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionRev]" value="'.$file['local']['versionRev'].'">';
-			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionDate]" value="'.$file['local']['versionDate'].'">';
-			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionAuthor]" value="'.$file['local']['versionAuthor'].'">';
-			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionMD5]" value="'.$file['local']['versionMD5'].'">';
+			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionDesc]" value="'.$file['local']['versionDesc'].'" />';
+			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionRev]" value="'.$file['local']['versionRev'].'" />';
+			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionDate]" value="'.$file['local']['versionDate'].'" />';
+			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionAuthor]" value="'.$file['local']['versionAuthor'].'" />';
+			echo '<input type="hidden" name="files['.$directory.']['.$filename.'][versionMD5]" value="'.$file['local']['versionMD5'].'" />';
 		}
 	}
 	echo border('sblue','start','File Version Information');

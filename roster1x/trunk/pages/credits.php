@@ -37,8 +37,9 @@ echo "<table cellspacing=\"10\"><tr><td valign=\"top\">\n";
 // Print devs
 echo border('sgreen','start','Active Devs')."<table cellspacing=\"0\">\n";
 echo "<tr>
-<th class=\"membersHeader\">Name</th>
-<th class=\"membersHeaderRight\">Info</th>
+  <th class=\"membersHeader\">Name</th>
+  <th class=\"membersHeaderRight\">Info</th>
+</tr>
 ";
 
 $strip_count = 1;
@@ -56,8 +57,9 @@ echo "</table>\n".border('sgreen','end')."<br />\n";
 // Print third party contributions
 echo border('spurple','start','3rd-Party Contributions')."<table cellspacing=\"0\">\n";
 echo "<tr>
-<th class=\"membersHeader\">Name</th>
-<th class=\"membersHeaderRight\">Info</th>
+  <th class=\"membersHeader\">Name</th>
+  <th class=\"membersHeaderRight\">Info</th>
+</tr>
 ";
 
 $strip_count = 1;
@@ -80,8 +82,9 @@ echo "\n</td><td valign=\"top\">\n";
 // Print inactive devs
 echo border('sred','start','Inactive Devs')."<table width=\"100%\" cellspacing=\"0\">\n";
 echo "<tr>
-<th class=\"membersHeader\">Name</th>
-<th class=\"membersHeaderRight\">Info</th>
+  <th class=\"membersHeader\">Name</th>
+  <th class=\"membersHeaderRight\">Info</th>
+</tr>
 ";
 
 $strip_count = 1;
@@ -100,8 +103,9 @@ echo "</table>\n".border('sred','end')."<br />\n";
 // Print used libraries
 echo border('sorange','start','Javascript Libraries')."<table cellspacing=\"0\">\n";
 echo "<tr>
-<th class=\"membersHeader\">Name</th>
-<th class=\"membersHeaderRight\">Info</th>
+  <th class=\"membersHeader\">Name</th>
+  <th class=\"membersHeaderRight\">Info</th>
+</tr>
 ";
 
 $strip_count = 1;
@@ -127,9 +131,10 @@ if($AddonCredits != '')
 	// Print the Addon developer credits
 	echo "<br />\n" . border('sblue','start','WoWRoster Addons') . "<table width=\"100%\" cellspacing=\"0\">\n";
 	echo "<tr>
-<th class=\"membersHeader\">Addon</th>
-<th class=\"membersHeader\">Author</th>
-<th class=\"membersHeaderRight\">Info</th>
+  <th class=\"membersHeader\">Addon</th>
+  <th class=\"membersHeader\">Author</th>
+  <th class=\"membersHeaderRight\">Info</th>
+</tr>
 ";
 	echo $AddonCredits;
 	echo "</table>\n".border('sblue','end')."<br />\n";
