@@ -304,28 +304,35 @@ function processActive($id,$mode)
  */
 function processAddon()
 {
-	global $wowdb, $installer, $roster_conf, $wordings, $act_words;
+	global $wowdb, $installer, $roster_conf, $act_words;
+
+	$addon_name = $_POST['addon'];
+
+	if( preg_match('/[^a-zA-Z0-9_]/', $addon_name) )
+	{
+		$installer->seterrors($act_words['invalid_char_addon'],$act_words['installer_error']);
+		return;
+	}
 
 	// Include addon install definitions
-	$addonDir = ROSTER_ADDONS.$_POST['addon'].DIR_SEP;
+	$addonDir = ROSTER_ADDONS.$addon_name.DIR_SEP;
 	if (!file_exists($addonDir.'install.def.php'))
 	{
-		$installer->seterrors(sprintf($act_words['installer_no_installdef'],$_POST['addon']),$act_words['installer_error']);
+		$installer->seterrors(sprintf($act_words['installer_no_installdef'],$addon_name),$act_words['installer_error']);
 		return;
 	}
 
 	require($addonDir.'install.def.php');
 
-	$addon = new $_POST['addon']();
+	$addon = new $addon_name();
 	$addata = escape_array((array)$addon);
-	$addata['basename'] = $_POST['addon'];
+	$addata['basename'] = $addon_name;
 
 	if ($addata['basename'] == '')
 	{
 		$installer->seterrors($act_words['installer_no_empty'],$act_words['installer_error']);
 		return;
 	}
-
 
 	// Get existing addon record if available
 	$query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$addata['basename'].'"';
@@ -414,7 +421,7 @@ function processAddon()
 
 function purge($dbname)
 {
-	global $installer, $wowdb;
+	global $installer, $wowdb, $act_words;
 
 	// Delete addon tables under dbname.
 	$query = 'SHOW TABLES LIKE "'.$wowdb->db_prefix.'addons_'.$dbname.'%"';

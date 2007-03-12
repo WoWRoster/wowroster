@@ -48,6 +48,7 @@ $lang['roster_upd_pw_help']='(Wird nur ben&ouml;tigt, wenn man die Gilde aktuali
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
 $lang['invalid_char_module'] = 'Invalid characters in module name';
+$lang['invalid_char_addon'] = 'Invalid characters in addon name';
 $lang['module_not_exist'] = 'The page [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';

@@ -62,7 +62,7 @@ $body = '';
 $pagebar = '';
 
 // Find out what subpage to include, and do so
-$page = (isset($pages[1]) && ($pages[1]!=''))?$pages[1]:'roster';
+$page = (isset($pages[1]) && ($pages[1]!='')) ? $pages[1] : 'roster';
 
 if( isset($pages[$page]['file']) )
 {
@@ -81,11 +81,11 @@ else
 }
 
 // Build the pagebar from admin/pages.php
-foreach ($pages as $page => $data)
+foreach ($pages as $pindex => $data)
 {
 	if (!isset($data['special']))
 	{
-		$pagebar .= '<li><a href="'.makelink($data['href']).'">'.$act_words[$data['title']].'</a></li>'."\n";
+		$pagebar .= '<li'.($pages[0].'-'.$page == $data['href'] ? ' class="selected"' : '').'><a href="'.makelink($data['href']).'">'.$act_words[$data['title']].'</a></li>'."\n";
 	}
 	elseif ($data['special'] == 'divider')
 	{
@@ -106,7 +106,7 @@ if ($handle = opendir(ROSTER_ADDONS))
 
 	while (false !== ($file = readdir($handle)))
 	{
-		if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && is_file($adminfile = (ROSTER_ADDONS.$file.DIR_SEP.'admin.php')))
+		if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_]/', $file) && is_file($adminfile = (ROSTER_ADDONS.$file.DIR_SEP.'admin.php')))
 		{
 			$addons[$file] = $adminfile;
 		}
@@ -119,7 +119,7 @@ if( count($addons)>0 )
 	$pagebar .= '<ul class="tab_menu">'."\n";
 	foreach( $addons as $addon => $adminfile )
 	{
-		$pagebar .= '<li><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
+		$pagebar .= '<li'.(isset($pages[3]) && $pages[3] == $addon ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
 	}
 	$pagebar .= '</ul>'."\n";
 	$pagebar .= border('sgray','end')."\n";

@@ -843,7 +843,7 @@ function makeAddonList( $array=false )
 	{
 		while (false !== ($file = readdir($handle)))
 		{
-			if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_.]/', $file) )
+			if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_]/', $file) )
 			{
 				$addons[] = $file;
 			}

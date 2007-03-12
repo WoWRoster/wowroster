@@ -252,6 +252,7 @@ table.expOutline {
 }
 .tab_menu li.selected a:hover{
 	text-decoration: none;
+	background-color:#7A7772;
 }
 
 

@@ -48,6 +48,7 @@ $lang['roster_upd_pw_help']='(Requis lors d\'une mise à jour de la Guilde)';
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
 $lang['invalid_char_module'] = 'Invalid characters in module name';
+$lang['invalid_char_addon'] = 'Invalid characters in addon name';
 $lang['module_not_exist'] = 'The page [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';
