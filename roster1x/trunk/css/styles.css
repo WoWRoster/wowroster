@@ -1205,39 +1205,39 @@ span.blue {
 
 
 /*********** Navagation tabs ***********/
-.char_navagation {
+.tab_navagation {
 	position:absolute;
 	font:11px Arial, Helvetica, sans-serif;
 	margin:428px 0 0 17px;
 	line-height:normal;
 }
-.char_navagation ul {
+.tab_navagation ul {
 	margin:0;
 	padding:0;
 	list-style:none;
 }
-.char_navagation li {
+.tab_navagation li {
 	float:left;
 	background:url(../img/char/tabs/inactive_left.gif) no-repeat left top;
 	margin:0;
 	padding-left:7px;
 	cursor:pointer;
 }
-.char_navagation .text {
+.tab_navagation .text {
 	display:block;
 	background:url(../img/char/tabs/inactive_right.gif) no-repeat right top;
 	padding:10px 11px 8px 3px;
 	text-decoration:none;
 	color:#FFDD00;
 }
-.char_navagation .text:hover {
+.tab_navagation .text:hover {
 	color:#FFFFFF;
 }
-.char_navagation .current_tab {
+.tab_navagation .current_tab {
 	background-image:url(../img/char/tabs/active_left.gif);
 	cursor:default;
 }
-.char_navagation .current_tab .text {
+.tab_navagation .current_tab .text {
 	background-image:url(../img/char/tabs/active_right.gif);
 	color:#FFFFFF;
 	padding:8px 11px 10px 3px;
@@ -1290,38 +1290,48 @@ span.blue {
 
 
 /*********** Talent Page ***********/
-.talent_background {
+.talent_panel .background {
 	position:absolute;
 	margin-top:73px;
 	margin-left:16px;
 	width:318px;
 	height:333px;
 }
-.talent_points {
+.talent_panel .top_bar {
+	position:absolute;
+	margin-top:43px;
+	margin-left:65px;
+}
+.talent_panel .bot_bar {
+	position:absolute;
+	margin-top:402px;
+	margin-left:12px;
+}
+.talent_panel .points {
 	text-align:right;
 	position:absolute;
 	margin-top:48px;
 	margin-left:70px;
 	width:250px;
 }
-.talent_link {
+.talent_panel .link {
 	text-align:left;
 	position:absolute;
 	margin-top:411px;
 	margin-left:25px;
 	width:145px;
 }
-.talent_points_unused {
+.talent_panel .points_unused {
 	text-align:right;
 	position:absolute;
 	margin-top:411px;
 	margin-left:172px;
 	width:150px;
 }
-.talent_points_unused .label {
+.talent_panel .points_unused .label {
 	color:#FFDD00;
 }
-.talent_container {
+.talent_panel .container {
 	position:absolute;
 	width:318px;
 	height:329px;
@@ -1329,34 +1339,34 @@ span.blue {
 	margin-left:17px;
 	margin-top:74px;
 }
-.talent_row {
+.talent_panel .row {
 	height:40px;
 	margin-top:15px;
 }
-.talent_rank_icon {
+.talent_panel .rank_icon {
 	position:absolute;
 	margin-top:31px;
 	margin-left:30px;
 }
-.talent_rank_text {
+.talent_panel .rank_text {
 	position:absolute;
 	font-size:12px;
 	margin-top:31px;
 	margin-left:35px;
 	cursor:default;
 }
-.talent_cell {
+.talent_panel .cell {
 	float:left;
 	width:40px;
 	height:40px;
 	margin-left:25px;
 }
-.talent_icon_grey {
+.talent_panel .icon_grey {
 	/* Grey out unused talents */
-	/* Filter:Gray only works in IE, not Mozilla */
-	/* So we do this to half-assed transparency for Mozilla */
-	filter:Gray;
-	-moz-opacity:0.5;
+	/* filter:gray only works in IE */
+	/* So we do this to half-assed transparency for Mozilla and Opera */
+	filter:gray;
+	opacity:0.5;
 }
 /*********** END Talent Page ***********/
 

@@ -67,30 +67,6 @@ function swapShow(ElementID,ElementID2)
 }
 
 
-function setActiveTalentWrapper (o,imgurl)
-{
-	var obj = document.getElementById('talentwrapper' + o);
-
-	if (obj.style.display == 'block')
-	{
-		return;
-	}
-	else
-	{
-		for (var i=1; i < 4; i++)
-		{
-			document.getElementById('talentwrapper' +i).style.display = 'none';
-			document.getElementById('tlab' +i).className = 'tablabel';
-			document.getElementById('tlabbg' +i).src = imgurl + '/itab.gif';
-		}
-		obj.style.display = 'block';
-		document.getElementById('tlab' + o).className = 'tablabelactive';
-		document.getElementById('tlabbg' +o).src = imgurl + '/atab.gif';
-	}
-	return;
-}
-
-
 function showSpellTree(ElementID)
 {
 	for (i = 0; i < 4; i++)
@@ -465,6 +441,7 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 
 
 
+/* Tab control */
 var previoustab=''
 function displaypage(cid, aobject)
 {
@@ -492,15 +469,15 @@ function changetab(aobject)
 	aobject.className='current_tab'
 }
 
-function collecttablinks()
+function collecttablinks(elemID)
 {
-	var tabobj=document.getElementById('char_navagation')
+	var tabobj=document.getElementById(elemID)
 	tabobjlinks=tabobj.getElementsByTagName('li')
 }
 
-function charpage_onload()
+function charpage_onload(elemID)
 {
-	collecttablinks()
+	collecttablinks(elemID)
 
 	displaypage(initialtab[1], tabobjlinks[initialtab[0]-1])
 }

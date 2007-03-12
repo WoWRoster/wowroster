@@ -1554,14 +1554,14 @@ $returnstring .= '  <tr>
 			}
 
 			$returndata = '
-<div class="char_panel">
+<div class="char_panel talent_panel">
 
 	<img class="char_tab_image" src="'.$roster_conf['img_url'].'char/icon_talents.gif" alt="" />
 	<div class="char_name">'.$wordings[$lang]['talents'].'</div>
-	<img src="'.$roster_conf['img_url'].'char/talentbar_top.gif" style="position:absolute;margin-top:43px;margin-left:65px;" alt="" />
-	<img src="'.$roster_conf['img_url'].'char/talentbar_bottom.gif" style="position:absolute;margin-top:402px;margin-left:12px;" alt="" />
+	<img src="'.$roster_conf['img_url'].'char/talentbar_top.gif" class="top_bar" alt="" />
+	<img src="'.$roster_conf['img_url'].'char/talentbar_bottom.gif" class="bot_bar" alt="" />
 
-	<div class="talent_link"><a href="';
+	<div class="link"><a href="';
 
 			switch($this->data['clientLocale'])
 			{
@@ -1587,40 +1587,40 @@ $returnstring .= '  <tr>
 			}
 
 			$returndata .= strtolower($this->data['classEn']).'/talents.html?'.$this->talent_build.'" target="_blank">'.$wordings[$this->data['clientLocale']]['talentexport'].'</a></div>
-	<div class="talent_points_unused"><span class="label">'.$wordings[$this->data['clientLocale']]['unusedtalentpoints'].':</span> '.$this->data['talent_points'].'</div>'."\n";
+	<div class="points_unused"><span class="label">'.$wordings[$this->data['clientLocale']]['unusedtalentpoints'].':</span> '.$this->data['talent_points'].'</div>'."\n";
 
 			foreach( $treelayer as $treeindex => $tree )
 			{
 				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
 
-		<div class="talent_points"><span style="color:#FFDD00">'.$wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
-		<img class="talent_background" src="'.$roster_conf['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
+		<div class="points"><span style="color:#FFDD00">'.$wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
+		<img class="background" src="'.$roster_conf['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
 
-		<div class="talent_container">'."\n";
+		<div class="container">'."\n";
 
 				foreach( $tree['talents'] as $row )
 				{
-					$returndata .= '			<div class="talent_row">'."\n";
+					$returndata .= '			<div class="row">'."\n";
 					foreach( $row as $cell )
 					{
 						if( $cell['name'] != '' )
 						{
 							if( $cell['rank'] != 0 )
 							{
-								$returndata .= '				<div class="talent_cell" '.$cell['tooltipid'].'>
-					<img class="talent_rank_icon" src="'.$roster_conf['img_url'].'char/talent_rank.gif" alt="" />
-					<div class="talent_rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
+								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
+					<img class="rank_icon" src="'.$roster_conf['img_url'].'char/talent_rank.gif" alt="" />
+					<div class="rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
 					<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
 							else
 							{
-								$returndata .= '				<div class="talent_cell" '.$cell['tooltipid'].'>
-					<img class="talent_icon_grey" src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
+								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
+					<img class="icon_grey" src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
 						}
 						else
 						{
-							$returndata .= '				<div class="talent_cell">&nbsp;</div>'."\n";
+							$returndata .= '				<div class="cell">&nbsp;</div>'."\n";
 						}
 					}
 					$returndata .= '			</div>'."\n";
@@ -1629,7 +1629,7 @@ $returnstring .= '  <tr>
 				$returndata .= "		</div>\n	</div>\n";
 			}
 			$returndata .= '
-	<div id="char_navagation" class="char_navagation">
+	<div id="talent_navagation" class="tab_navagation">
 		<ul>
 			<li onclick="return displaypage(\'treetab0\',this);"><div class="text">'.$treelayer[0]['name'].'</div></li>
 			<li onclick="return displaypage(\'treetab1\',this);"><div class="text">'.$treelayer[1]['name'].'</div></li>
@@ -1638,11 +1638,12 @@ $returnstring .= '  <tr>
 	</div>
 
 </div>
+
 <script type="text/javascript">
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
 	var initialtab=[1, \'treetab0\'];
-	window.onload=charpage_onload
+	window.onload=charpage_onload(\'talent_navagation\')
 </script>';
 			return $returndata;
 		}
@@ -1943,18 +1944,18 @@ else
         <div class="bottom"><!-- begin char-main-page1-middle-bottom -->
 		  <form>
 		    <select class="statselect" name="statbox_left" onchange="doLpage(this.value);">
-			  <option value="statsleft" selected="selected">Stats</option>
-			  <option value="meleeleft">Melee</option>
-			  <option value="rangedleft">Ranged</option>
-			  <option value="spellleft">Spell</option>
-			  <option value="defenseleft">Defense</option>
+			  <option value="statsleft" selected="selected"><?php print $wordings[$lang]['menustats']; ?></option>
+			  <option value="meleeleft"><?php print $wordings[$lang]['melee']; ?></option>
+			  <option value="rangedleft"><?php print $wordings[$lang]['ranged']; ?></option>
+			  <option value="spellleft"><?php print $wordings[$lang]['spell']; ?></option>
+			  <option value="defenseleft"><?php print $wordings[$lang]['defense']; ?></option>
 		    </select>
 		    <select class="statselect" name="statbox_right" onchange="doRpage(this.value);">
-			  <option value="statsright">Stats</option>
-			  <option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>>Melee</option>
-			  <option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>>Ranged</option>
-			  <option value="spellright"<?php echo ($rightbox == 'spell'?' selected="selected"':'');?>>Spell</option>
-			  <option value="defenseright">Defense</option>
+			  <option value="statsright"><?php print $wordings[$lang]['menustats']; ?></option>
+			  <option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>><?php print $wordings[$lang]['melee']; ?></option>
+			  <option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>><?php print $wordings[$lang]['ranged']; ?></option>
+			  <option value="spellright"<?php echo ($rightbox == 'spell'?' selected="selected"':'');?>><?php print $wordings[$lang]['spell']; ?></option>
+			  <option value="defenseright"><?php print $wordings[$lang]['defense']; ?></option>
 		    </select>
 		  </form>
           <div class="padding">
