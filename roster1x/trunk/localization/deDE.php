@@ -828,6 +828,30 @@ $lang['installer_upgrade_0']='Upgrade of %1$s successful';
 $lang['installer_upgrade_1']='Upgrade of %1$s failed, but rollback successful';
 $lang['installer_upgrade_2']='Upgrade of %1$s failed, and rollback also failed';
 
+$lang['installer_icon'] = 'Icon';
+$lang['installer_addoninfo'] = 'Addon Info';
+$lang['installer_status'] = 'Status';
+$lang['installer_installation'] = 'Installation';
+$lang['installer_author'] = 'Author';
+$lang['installer_log'] = 'Addon Manager Log';
+$lang['installer_activated'] = 'Activated';
+$lang['installer_deactivated'] = 'Deactivated';
+$lang['installer_installed'] = 'Installed';
+$lang['installer_upgrade_avail'] = 'Upgrade Available';
+$lang['installer_not_installed'] = 'Not Installed';
+
+$lang['installer_turn_off'] = 'Click to Deactivate';
+$lang['installer_turn_on'] = 'Click to Activate';
+$lang['installer_click_uninstall'] = 'Click to Uninstall';
+$lang['installer_click_upgrade'] = 'Click to Upgrade';
+$lang['installer_click_install'] = 'Click to Install';
+$lang['installer_overwrite'] = 'Old Version Overwrite';
+$lang['installer_replace_files'] = 'Replace files with latest version';
+
+$lang['installer_error'] = 'Install Errors';
+$lang['installer_no_class'] = 'The install definition file for %1$s did not contain a correct installation class';
+$lang['installer_no_installdef'] = 'install.def.php for %1$s was not found';
+
 
 /******************************
  * Roster Admin Strings

@@ -25,23 +25,10 @@ if ( !defined('ROSTER_INSTALLED') )
 include(ROSTER_LIB.'install.lib.php');
 
 
-if( isset($_POST['op']) )
-{
-	$op = $_POST['op'];
-}
-else
-{
-	$op = '';
-}
+$op = ( isset($_POST['op']) ? $_POST['op'] : '');
 
-if( isset($_POST['id']) )
-{
-	$id = $_POST['id'];
-}
-else
-{
-	$id = '';
-}
+$id = ( isset($_POST['id']) ? $_POST['id'] : '');
+
 
 switch($op)
 {
@@ -69,16 +56,16 @@ if( !empty($addons) )
 	$output =
 	'<table class="bodyline" cellspacing="0">
 		<tr>
-			<th class="membersHeader">Icon</th>
-			<th class="membersHeader">Addon Info</th>
-			<th class="membersHeader">Status</th>
-			<th class="membersHeaderRight">Installation</th>
+			<th class="membersHeader">'.$act_words['installer_icon'].'</th>
+			<th class="membersHeader">'.$act_words['installer_addoninfo'].'</th>
+			<th class="membersHeader">'.$act_words['installer_status'].'</th>
+			<th class="membersHeaderRight">'.$act_words['installer_installation'].'</th>
 		</tr>
 	';
 	foreach( getAddonList() as $addon )
 	{
 		$output .= '	<tr>
-			<td class="membersRow1">[icon]</td>
+			<td class="membersRow1"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$addon['icon'].'.'.$roster_conf['img_suffix'].'" alt="[icon]" /></td>
 			<td class="membersRow1"><table cellpadding="0" cellspacing="0">
 				<tr>
 					<td><span style="font-size:18px;" class="green">'.ucfirst($addon['fullname']).'</span> v'.$addon['version'].'</td>
@@ -86,7 +73,7 @@ if( !empty($addons) )
 				<tr>
 					<td>'.$addon['description'].'</td>
 				<tr>
-					<td><span class="blue">Author: '.$addon['author'].'</span></td>
+					<td><span class="blue">'.$act_words['installer_author'].': '.$addon['author'].'</span></td>
 				</tr>
 			</table></td>
 			<td class="membersRow1">'.( $addon['install'] == 3 ? '&nbsp;' : activeInactive($addon['active'],$addon['id']) ).'</td>
@@ -110,22 +97,16 @@ $message = '<br />';
 // print the error messages
 if( !empty($errorstringout) )
 {
-	$message .= messagebox($errorstringout,'Install Errors','sred','550px').'<br />';
+	$message .= messagebox($errorstringout,$act_words['installer_error'],'sred','550px').'<br />';
 }
 
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$message .= messagebox($messagestringout,'Addon Manager Log','syellow','550px');
+	$message .= messagebox($messagestringout,$act_words['installer_log'],'syellow','550px');
 }
 
-// Print the SQL messages
-if( $roster_conf['sqldebug'] && !empty($sqlstringout) )
-{
-	$message .= '<br />'.scrollboxtoggle(nl2br($sqlstringout),'SQL Queries','sgreen');
-}
-
-$body = ((isset($output) && !empty($output))?messagebox($output,'Addons','sblue'):'').$message;
+$body = ((isset($output) && !empty($output)) ? messagebox($output,$act_words['pagebar_addoninst'],'sblue') : '').$message;
 
 
 
@@ -140,22 +121,22 @@ $body = ((isset($output) && !empty($output))?messagebox($output,'Addons','sblue'
  */
 function activeInactive( $mode,$id )
 {
-	global $script_filename, $roster_conf;
+	global $script_filename, $roster_conf, $act_words;
 
 	if( $mode )
 	{
-		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink('').'">
+		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="deactivate" />
 		<input type="hidden" name="id" value="'.$id.'" />
-		<input '.makeOverlib('Click to Deactivate','Activated').'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($act_words['installer_turn_off'],$act_words['installer_activated']).'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	else
 	{
-		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink('').'">
+		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="activate" />
 		<input type="hidden" name="id" value="'.$id.'" />
-		<input '.makeOverlib('Click to Activate','Deactivated').' type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($act_words['installer_turn_on'],$act_words['installer_deactivated']).' type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 
@@ -172,40 +153,40 @@ function activeInactive( $mode,$id )
  */
 function installUpgrade( $mode,$name )
 {
-	global $roster_conf, $script_filename;
+	global $roster_conf, $script_filename, $act_words;
 
 	if( $mode == -1 )
 	{
-		$type = '<img '.makeOverlib('Replace files with latest version','Old Version Overwrite').' src="'.$roster_conf['img_url'].'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />';
+		$type = '<img '.makeOverlib($act_words['installer_replace_files'],$act_words['installer_overwrite']).' src="'.$roster_conf['img_url'].'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />';
 	}
 	elseif( $mode == 0 )
 	{
-		$type = '<form name="uninstall_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink('').'">
+		$type = '<form name="uninstall_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="dbname" value="'.$name.'" />
 		<input type="hidden" name="type" value="uninstall" />
-		<input '.makeOverlib('Click to Uninstall','Installed').'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($act_words['installer_click_uninstall'],$act_words['installer_installed']).'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	elseif( $mode == 1 )
 	{
-		$type = '<form name="upgrade_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink('').'">
+		$type = '<form name="upgrade_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="dbname" value="'.$name.'" />
 		<input type="hidden" name="type" value="upgrade" />
-		<input '.makeOverlib('Click to Upgrade','Upgrade Available').'type="image" src="'.$roster_conf['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($act_words['installer_click_upgrade'],$act_words['installer_upgrade_avail']).'type="image" src="'.$roster_conf['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	elseif( $mode == 3 )
 	{
-		$type = '<form name="install_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink('').'">
+		$type = '<form name="install_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="dbname" value="'.$name.'" />
 		<input type="hidden" name="type" value="install" />
-		<input '.makeOverlib('Click to Install','Not Installed').'type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($act_words['installer_click_install'],$act_words['installer_not_installed']).'type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 
@@ -220,15 +201,14 @@ function installUpgrade( $mode,$name )
  */
 function getAddonList()
 {
-	global $roster_conf, $wordings, $wowdb, $installer;
+	global $roster_conf, $wowdb, $installer, $act_words;
 
-	$addonsPath = ROSTER_ADDONS.DIR_SEP;
 
 	// Initialize output
 	$addons = '';
 	$output = '';
 
-	if ($handle = opendir($addonsPath))
+	if ($handle = opendir(ROSTER_ADDONS))
 	{
 		while (false !== ($file = readdir($handle)))
 		{
@@ -243,15 +223,15 @@ function getAddonList()
 	{
 		foreach ($addons as $addon)
 		{
-			$installfile = $addonsPath.$addon.DIR_SEP.'install.def.php';
+			$installfile = ROSTER_ADDONS.$addon.DIR_SEP.'install.def.php';
 
 			if (file_exists($installfile))
 			{
 				include_once($installfile);
-				
+
 				if( !class_exists($addon) )
 				{
-					$installer->seterrors('The install definition file for '.$addon.' did not contain a correct installation class.');
+					$installer->seterrors(sprintf($act_words['installer_no_class'],$addon));
 					continue;
 				}
 
@@ -288,6 +268,7 @@ function getAddonList()
 				$output[$addon]['fullname'] = $addonstuff->fullname;
 				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
 				$output[$addon]['version'] = $addonstuff->version;
+				$output[$addon]['icon'] = $addonstuff->icon;
 				$output[$addon]['description'] = $addonstuff->description;
 
 				unset($addonstuff);
@@ -306,7 +287,7 @@ function getAddonList()
  */
 function processActive($id,$mode)
 {
-	global $wowdb, $installer;
+	global $wowdb, $installer, $act_words;
 
 	$query = "UPDATE `".$wowdb->table('addon')."` SET `active` = '$mode' WHERE `addon_id` = '$id' LIMIT 1;";
 	$result = $wowdb->query($query);
@@ -314,8 +295,8 @@ function processActive($id,$mode)
 		$installer->seterrors($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	else
 	{
-		$mode = ( $mode ? 'Activated' : 'Deactivated' );
-		$installer->setmessages('Addon '.$mode);
+		$mode = ( $mode ? $act_words['installer_activated'] : $act_words['installer_deactivated'] );
+		$installer->setmessages($act_words['Addon'].' '.$mode);
 	}
 }
 
@@ -332,7 +313,7 @@ function processAddon()
 	$addonDir = ROSTER_ADDONS.$_POST['addon'].DIR_SEP;
 	if (!file_exists($addonDir.'install.def.php'))
 	{
-		$installer->seterrors('Files for '.$_POST['addon'].' are not correctly installed','Roster Addon Installer');
+		$installer->seterrors(sprintf($act_words['installer_no_installdef'],$_POST['addon']),$act_words['installer_error']);
 		return;
 	}
 
@@ -473,5 +454,3 @@ function purge($dbname)
 
 	return true;
 }
-
-?>
