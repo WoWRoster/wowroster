@@ -849,8 +849,18 @@ $lang['installer_overwrite'] = 'Old Version Overwrite';
 $lang['installer_replace_files'] = 'Replace files with latest version';
 
 $lang['installer_error'] = 'Install Errors';
+$lang['installer_invalid_type'] = 'Invalid install type';
+$lang['installer_no_success_sql'] = 'Queries were not successfully added to the installer';
 $lang['installer_no_class'] = 'The install definition file for %1$s did not contain a correct installation class';
 $lang['installer_no_installdef'] = 'install.def.php for %1$s was not found';
+
+$lang['installer_no_empty'] = 'Cannot install with an empty addon name';
+$lang['installer_fetch_failed'] = 'Failed to fetch addon data for %1$s';
+$lang['installer_addon_exist'] = '%1$s already contains %2$s. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different name';
+$lang['installer_no_upgrade'] = '%1$s doesn\`t contain data to upgrade from';
+$lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename %3$s isn\'t in the list of upgradable addons';
+$lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
+$lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
 
 
 /******************************

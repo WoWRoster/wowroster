@@ -180,7 +180,7 @@ ALTER TABLE `renprefix_members`
 ALTER TABLE `renprefix_guild`
   CHANGE `faction` `faction` varchar(32) NOT NULL default '0',
   ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`;
-  
+
 # --------------------------------------------------------
 ### Addon table
 
@@ -188,7 +188,6 @@ DROP TABLE IF EXISTS `renprefix_addon`;
 CREATE TABLE `renprefix_addon` (
 	`addon_id` int(11) NOT NULL AUTO_INCREMENT,
 	`basename` varchar(16) NOT NULL DEFAULT '',
-	`dbname` varchar(16) NOT NULL DEFAULT '',
 	`version` varchar(16) NOT NULL DEFAULT '0',
 	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
 	`active` int(1) NOT NULL DEFAULT 1,

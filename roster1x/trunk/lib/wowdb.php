@@ -445,15 +445,18 @@ class wowdb
 	 *
 	 * @param string $table the base table name
 	 * @param string $addon the name of the addon, empty for a base roster table
-	 * @param string $profile the name of the addon's config profile.
 	 * @return string tablename as fit for MySQL queries
 	 */
 	function table($table, $addon='')
 	{
-		if ($addon)
-			return $this->db_prefix.'addons_'.$addon.'_'.$table;
+		if( $addon)
+		{
+			return $this->db_prefix.'addons_'.$addon.($table != '' ? '_'.$table : '');
+		}
 		else
+		{
 			return $this->db_prefix.$table;
+		}
 	}
 
 

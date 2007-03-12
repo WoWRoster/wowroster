@@ -21,7 +21,6 @@ DROP TABLE IF EXISTS `renprefix_addon`;
 CREATE TABLE `renprefix_addon` (
 	`addon_id` int(11) NOT NULL AUTO_INCREMENT,
 	`basename` varchar(16) NOT NULL DEFAULT '',
-	`dbname` varchar(16) NOT NULL DEFAULT '',
 	`version` varchar(16) NOT NULL DEFAULT '0',
 	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
 	`active` int(1) NOT NULL DEFAULT 1,

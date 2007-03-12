@@ -92,21 +92,21 @@ $errorstringout = $installer->geterrors();
 $messagestringout = $installer->getmessages();
 $sqlstringout = $installer->getsql();
 
-$message = '<br />';
+$message = '';
 
 // print the error messages
 if( !empty($errorstringout) )
 {
-	$message .= messagebox($errorstringout,$act_words['installer_error'],'sred','550px').'<br />';
+	$message .= messagebox($errorstringout,$act_words['installer_error'],'sred').'<br />';
 }
 
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$message .= messagebox($messagestringout,$act_words['installer_log'],'syellow','550px');
+	$message .= messagebox($messagestringout,$act_words['installer_log'],'syellow');
 }
 
-$body = ((isset($output) && !empty($output)) ? messagebox($output,$act_words['pagebar_addoninst'],'sblue') : '').$message;
+$body = ($message != '' ? $message.'<br />' : '').((isset($output) && !empty($output)) ? messagebox($output,$act_words['pagebar_addoninst'],'sblue') : '');
 
 
 
@@ -164,7 +164,6 @@ function installUpgrade( $mode,$name )
 		$type = '<form name="uninstall_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
-		<input type="hidden" name="dbname" value="'.$name.'" />
 		<input type="hidden" name="type" value="uninstall" />
 		<input '.makeOverlib($act_words['installer_click_uninstall'],$act_words['installer_installed']).'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
@@ -174,7 +173,6 @@ function installUpgrade( $mode,$name )
 		$type = '<form name="upgrade_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
-		<input type="hidden" name="dbname" value="'.$name.'" />
 		<input type="hidden" name="type" value="upgrade" />
 		<input '.makeOverlib($act_words['installer_click_upgrade'],$act_words['installer_upgrade_avail']).'type="image" src="'.$roster_conf['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
@@ -184,7 +182,6 @@ function installUpgrade( $mode,$name )
 		$type = '<form name="install_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
-		<input type="hidden" name="dbname" value="'.$name.'" />
 		<input type="hidden" name="type" value="install" />
 		<input '.makeOverlib($act_words['installer_click_install'],$act_words['installer_not_installed']).'type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
@@ -296,7 +293,7 @@ function processActive($id,$mode)
 	else
 	{
 		$mode = ( $mode ? $act_words['installer_activated'] : $act_words['installer_deactivated'] );
-		$installer->setmessages($act_words['Addon'].' '.$mode);
+		$installer->setmessages('Addon '.$mode);
 	}
 }
 
@@ -319,24 +316,23 @@ function processAddon()
 
 	require($addonDir.'install.def.php');
 
-	$addon = new $_POST['addon']($_POST['dbname']);
+	$addon = new $_POST['addon']();
 	$addata = escape_array((array)$addon);
-	$addata['dbname'] = $_POST['dbname'];
 	$addata['basename'] = $_POST['addon'];
 
-	if ($addata['dbname'] == '')
+	if ($addata['basename'] == '')
 	{
-		$installer->seterrors('Cannot install in empty dbname','Roster Addon Installer');
+		$installer->seterrors($act_words['installer_no_empty'],$act_words['installer_error']);
 		return;
 	}
 
 
 	// Get existing addon record if available
-	$query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `dbname` = "'.$addata['dbname'].'"';
+	$query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$addata['basename'].'"';
 	$result = $wowdb->query($query);
 	if( !$result )
 	{
-		$installer->seterrors('Failed to fetch addon data for '.$addata['dbname'].'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer');
+		$installer->seterrors(sprintf($act_words['installer_fetch_failed'],$addata['basename']).'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error']);
 		return;
 	}
 	$previous = $wowdb->fetch_assoc($result);
@@ -351,10 +347,10 @@ function processAddon()
 		case 'install':
 			if ($previous)
 			{
-				$installer->seterrors('Dbname '.$installer->addata['dbname'].' already contains '.$previous['fullname'].'. You can go back and uninstall that addon first, or upgrade it, or install this addon with a different dbname.');
+				$installer->seterrors(sprintf($act_words['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$installer->addata['basename'].'","'.$installer->addata['dbname'].'","'.$installer->addata['version'].'","'.$installer->addata['hasconfig'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
+			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'","'.$installer->addata['hasconfig'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
 			$installer->addata['addon_id'] = $wowdb->insert_id();
 			$success = $addon->install();
 			$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$installer->addata['active'];
@@ -363,16 +359,16 @@ function processAddon()
 		case 'upgrade':
 			if (!$previous)
 			{
-				$installer->seterrors('Dbname '.$installer->addata['dbname'].' doesn\`t contain an addon to upgrade from');
+				$installer->seterrors(sprintf($act_words['installer_no_upgrade'],$installer->addata['basename']));
 				break;
 			}
 			if (!in_array($previous['basename'],$addon->upgrades))
 			{
-				$installer->seterrors($addon->name.' cannot upgrade '.$previous['name'].' since its basename '.$previous['basename'].' isn\'t in the list of upgradable addons.');
+				$installer->seterrors(sprintf($act_words['installer_not_upgradable'],$addon->name,$previous['name'],$previous['basename']));
 				break;
 			}
 
-			$wowdb->query('UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `dbname`="'.$installer->addata['dbname'].'", `version`="'.$installer->addata['version'].'", `hasconfig`='.$installer->addata['hasconfig'].', `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id']);
+			$wowdb->query('UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `hasconfig`='.$installer->addata['hasconfig'].', `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id']);
 			$installer->addata['addon_id'] = $previous['addon_id'];
 			$success = $addon->upgrade($previous['basename'],$previous['version']);
 			break;
@@ -380,12 +376,12 @@ function processAddon()
 		case 'uninstall':
 			if (!$previous)
 			{
-				$installer->seterrors('Dbname '.$installer->addata['dbname'].' doesn\'t contain an addon to uninstall');
+				$installer->seterrors(sprintf($act_words['installer_no_uninstall'],$installer->addata['basename']));
 				break;
 			}
 			if ($previous['basename'] != $installer->addata['basename'])
 			{
-				$installer->seterrors($installer->addata['dbname'].' contains an addon with basename '.$previous['basename'].' which must be uninstalled with that addon\'s uninstaller.');
+				$installer->seterrors(sprintf($act_words['installer_not_uninstallable'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
 			$wowdb->query('DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id']);
@@ -394,23 +390,23 @@ function processAddon()
 			break;
 
 		case 'purge':
-			$success = purge($installer->addata['dbname']);
+			$success = purge($installer->addata['basename']);
 			break;
 
 		default:
-			$installer->seterrors('Invalid install type '.$_POST['type']);
+			$installer->seterrors($act_words['installer_invalid_type']);
 			$success = false;
 			break;
 	}
 
 	if (!$success)
 	{
-		$installer->seterrors('Queries were not successfully added to the installer');
+		$installer->seterrors($act_words['installer_no_success_sql']);
 	}
 	else
 	{
 		$success = $installer->install();
-		$installer->setmessages(sprintf($act_words['installer_'.$_POST['type'].'_'.$success],$installer->addata['dbname']));
+		$installer->setmessages(sprintf($act_words['installer_'.$_POST['type'].'_'.$success],$installer->addata['basename']));
 	}
 	return true;
 }
@@ -418,14 +414,14 @@ function processAddon()
 
 function purge($dbname)
 {
-	global $installer, $db_prefix, $wowdb;
+	global $installer, $wowdb;
 
 	// Delete addon tables under dbname.
-	$query = 'SHOW TABLES LIKE "'.$db_prefix.'addons_'.$dbname.'_%"';
+	$query = 'SHOW TABLES LIKE "'.$wowdb->db_prefix.'addons_'.$dbname.'%"';
 	$tables = $wowdb->query($query);
 	if( !$tables )
 	{
-		$installer->seterrors('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
+		$installer->seterrors('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
 		return false;
 	}
 	if ($wowdb->num_rows($tables))
@@ -436,7 +432,7 @@ function purge($dbname)
 			$dropped = $wowdb->query($query);
 			if( !$dropped )
 			{
-				$installer->seterrors('Error while dropping '.$row[0].'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
+				$installer->seterrors('Error while dropping '.$row[0].'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
 				return false;
 			}
 			$wowdb->free_result($dropped);
@@ -446,11 +442,11 @@ function purge($dbname)
 
 	// Delete menu entries
 	$query = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
-	$wowdb->query($query) or $installer->seterrors('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
+	$wowdb->query($query) or $installer->seterrors('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
 
 	// Delete addon table entry
-	$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `dbname` = "'.$dbname.'"';
-	$wowdb->query($query) or $installer->seterrors('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),'Roster Addon Installer',__FILE__,__LINE__,$query);
+	$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$dbname.'"';
+	$wowdb->query($query) or $installer->seterrors('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
 
 	return true;
 }

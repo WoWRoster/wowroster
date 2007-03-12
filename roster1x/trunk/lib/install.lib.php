@@ -34,38 +34,80 @@ class Install
 	/**
 	 * Add a query to be installed.
 	 *
-	 * @param string $query
-	 *		The query to add
+	 * @param string $query_type
+	 *      One of BACKUP, CREATE, DROP, REN, ADD, DEL, CHANGE, INSERT, DELETE, UPDATE
+	 * @param string $table
+	 *      Base table name
+	 * @param string $data
+	 *      Contents of the SQL query. Look down for details.
 	 */
-	function add_query($query)
+	function add_query($query_type, $table, $data='')
 	{
 		global $wowdb;
 
-		$this->sql[] = $query;
-	}
-	
-	/**
-	 * Have a table backed up for rollback
-	 *
-	 * @param string $table
-	 *		Table name
-	 */
-	function add_backup($table)
-	{
-		$this->sql[] = 'CREATE TEMPORARY TABLE `backup_'.$table.'` LIKE `'.$table.'`';
-		$this->sql[] = 'INSERT INTO `backup_'.$table.'` SELECT * FROM `'.$table.'`';
-		$this->tables[$table] = true; // Restore backup on rollback
-	}
-	
-	/**
-	 * Have a table be dropped on rollback
-	 *
-	 * @param string $table
-	 *		Table name
-	 */
-	function add_drop($table)
-	{
-		$this->tables[$table] = false; // Remove copy on rollback
+		switch ($query_type)
+		{
+			// Backup a table to be restored in case of rollback
+			case 'BACKUP':		// $data is ignored
+				$this->sql[] = 'CREATE TEMPORARY TABLE `'.$this->table($table, true).'` LIKE `'.$this->table($table).'`';
+				$this->sql[] = 'INSERT INTO `'.$this->table($table, true).'` SELECT * FROM `'.$this->table($table).'`';
+				$this->tables[$table] = true; // Restore backup on rollback
+				break;
+
+			// Rename a table from the old table scheme to update addons from pre-1.8
+			case 'LEGACY':		// $data holds a full table name
+				$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table).'`';
+				$this->sql[] = 'CREATE TABLE `'.$this->table($table).'` LIKE `'.$data.'`';
+				$this->sql[] = 'INSERT INTO `'.$this->table($table).'` SELECT * FROM `'.$this->table($table).'`';
+				$this->tables[$table] = false; // Remove copy on rollback
+				break;
+
+			// Table queries
+			case 'CREATE':		// $data holds column and key definitions
+				$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table).'`';
+				$this->sql[] = 'CREATE TABLE `'.$this->table($table).'` ('.$data.') TYPE=MyISAM';
+				if (!array_key_exists($table,$this->tables))
+					$this->tables[$table] = false; // Drop on rollback if there's no backup set
+				break;
+
+			case 'DROP':		// $data is ignored
+				$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table).'`';
+				break;
+
+			case 'REN':		// $data hods a table identifier
+				$this->sql[] = 'DROP TABLE IF EXISTS `'.$this->table($table).'`';
+				$this->sql[] = 'RENAME TABLE `'.$this->table($table).'` TO `'.$this->table($data).'`';
+				$this->tables[$data] = false; // Drop the renamed table on rollback
+				break;
+
+			// Column queries
+			case 'ADD':		// $data hold one column, key, index, or constraint definition
+				$this->sql[] = 'ALTER TABLE `'.$this->table($table).'` ADD '.$data;
+				break;
+
+			case 'DEL':		// $data holds one column name, KEY keyname, INDEX indexname, or PRIMARY KEY
+				$this->sql[] = 'ALTER TABLE `'.$this->table($table).'` DROP '.$data;
+				break;
+
+			case 'CHANGE':		// $data holds one column name followed by one column definition
+				$this->sql[] = 'ALTER TABLE `'.$this->table($table).'` CHANGE '.$data;
+
+			// Data queries
+			case 'INSERT':		// $data holds comma-seperated data for each column.
+				$this->sql[] = 'INSERT INTO `'.$this->table($table).'` VALUES ('.$data.')';
+				break;
+
+			case 'DELETE':		// $data holds comma-seperated column=condition pairs.
+				$this->sql[] = 'DELETE FROM `'.$this->table($table).'` WHERE '.$data;
+				break;
+
+			case 'UPDATE':		// $data holds column=data WHERE column=condition
+				$this->sql[] = 'UPDATE `'.$this->table($table).'` SET '.$data;
+				break;
+
+			default:
+				$this->seterrors('Invalid query type '.$query_type.'. Table is '.$table.', and data is '.$data);
+		}
 	}
 
 	/**
@@ -82,7 +124,7 @@ class Install
 	 */
 	function add_menu_button($title, $url)
 	{
-		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (0,"'.$this->addata['addon_id'].'","'.$title.'","'.$url.'")';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$url.'")';
 	}
 
 	/**
@@ -127,7 +169,7 @@ class Install
 	{
 		global $wowdb;
 
-		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES (0,"'.$this->addata['addon_id'].'","'.$file.'","'.$active.'")';
+		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$file.'","'.$active.'")';
 	}
 
 	/**
@@ -218,7 +260,7 @@ class Install
 	{
 		global $wowdb;
 
-		return (($backup)?'backup_':'').$wowdb->table($table, $this->addata['dbname']);
+		return (($backup) ? 'backup_' : '').$wowdb->table($table, $this->addata['basename']);
 	}
 
 	/**
@@ -273,5 +315,3 @@ class Install
 }
 
 $installer = new Install;
-
-?>
