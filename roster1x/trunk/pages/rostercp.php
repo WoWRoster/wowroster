@@ -119,7 +119,7 @@ if( count($addons)>0 )
 	$pagebar .= '<ul class="tab_menu">'."\n";
 	foreach( $addons as $addon => $adminfile )
 	{
-		$pagebar .= '<li'.(isset($pages[3]) && $pages[3] == $addon ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
+		$pagebar .= '<li'.(isset($pages[2]) && $pages[2] == $addon ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
 	}
 	$pagebar .= '</ul>'."\n";
 	$pagebar .= border('sgray','end')."\n";
