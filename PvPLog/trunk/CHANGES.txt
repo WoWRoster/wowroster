@@ -1,10 +1,16 @@
 PvPLog 
 Author:           Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-Version:          2.4.0
+Version:          2.4.1
 Last Modified:    2007-03-12
 
 CHANGES
+
+2007-03-12  * 2.4.1
+    * Added PvPLog2 for the per character savedvariables (so the file has a different name).
+    * Removed some unused code and variables.
+    * Changed the removal of recentDamaged entries to be one every 3 seconds while 
+      not in combat and at full health.
 
 2007-03-12  * 2.4.0
     * Fixed tracking periodic damage (really).

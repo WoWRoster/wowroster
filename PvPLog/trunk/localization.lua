@@ -2,8 +2,8 @@
     PvPLog 
     Author:           Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-    Version:          2.3.7
-    Last Modified:    2007-02-01
+    Version:          2.4.1
+    Last Modified:    2007-03-12
 ]]
 
 PVPLOG = {};
@@ -80,22 +80,6 @@ PVPLOG = {};
     PVPLOG.KL = "Kill logged: ";
     PVPLOG.DWLA = "Duel win logged against: ";
     PVPLOG.DLLA = "Duel loss logged against: ";
-    
-    -- Gank levels
-    PVPLOG.GL0 = "Fair Fighter";
-    PVPLOG.GL_25 = "I Have No Mercy";
-    PVPLOG.GL_20 = "Newb Masher";
-    PVPLOG.GL_15 = "No Seriously, Get a Life";
-    PVPLOG.GL_12 = "Get a Life";
-    PVPLOG.GL_9 = "Gankity Gank Gank";
-    PVPLOG.GL_6 = "Major Ganker";
-    PVPLOG.GL_3 = "Minor Ganker";
-    PVPLOG.GL8 = "I Gank GankMasters";
-    PVPLOG.GL5 = "PvP God";
-    PVPLOG.GL4 = "PvP Legend";
-    PVPLOG.GL3 = "Ungankable";
-    PVPLOG.GL2 = "Just try to gank me";
-    PVPLOG.GL1 = "Difficult to Gank";
     
     -- Default display text for notify
     PVPLOG.DEFAULT_KILL_TEXT = "I killed %n (Level %l %r %c) at [%x,%y] in %z (%w).";
@@ -196,22 +180,6 @@ if (GetLocale() == "deDE") then
     PVPLOG.KL = "Tod geloggt: ";
     PVPLOG.DWLA = "Duell gewonnen gegen: ";
     PVPLOG.DLLA = "Duell verloren gegen: ";
-
-    -- Gank levels
-    PVPLOG.GL0 = "Fair Fighter";
-    PVPLOG.GL_25 = "I Have No Mercy";
-    PVPLOG.GL_20 = "Newb Masher";
-    PVPLOG.GL_15 = "No Seriously, Get a Life";
-    PVPLOG.GL_12 = "Get a Life";
-    PVPLOG.GL_9 = "Gankity Gank Gank";
-    PVPLOG.GL_6 = "Major Ganker";
-    PVPLOG.GL_3 = "Minor Ganker";
-    PVPLOG.GL8 = "I Gank GankMasters";
-    PVPLOG.GL5 = "PvP God";
-    PVPLOG.GL4 = "PvP Legend";
-    PVPLOG.GL3 = "Ungankable";
-    PVPLOG.GL2 = "Just try to gank me";
-    PVPLOG.GL1 = "Difficult to Gank";
 
     -- Default display text for notify
     PVPLOG.DEFAULT_KILL_TEXT = "Ich habe %n (Level %l %r %c) bei [%x,%y] in %z (%w) getötet.";
@@ -314,22 +282,6 @@ elseif (GetLocale() == "frFR") then
     PVPLOG.DWLA = "Duel gagnant logué contre : ";
     PVPLOG.DLLA = "Duel perdant logué contre : ";
     
-    -- Gank levels
-    PVPLOG.GL0 = "Combattant fair-play";
-    PVPLOG.GL_25 = "Je n'ai aucune pitié";
-    PVPLOG.GL_20 = "Ecrabouilleur de newbie";
-    PVPLOG.GL_15 = "Non sérieusement, sort un peu";
-    PVPLOG.GL_12 = "Sort un peu";
-    PVPLOG.GL_9 = "C'est en gankant, qu'on gank, qu'on gank";
-    PVPLOG.GL_6 = "Grand ganker";
-    PVPLOG.GL_3 = "Petit ganker";
-    PVPLOG.GL8 = "Je gank les maïtres du gank";
-    PVPLOG.GL5 = "Dieu du JcJ";
-    PVPLOG.GL4 = "Légende du JcJ";
-    PVPLOG.GL3 = "Ingankable";
-    PVPLOG.GL2 = "Essaie donc de me ganker";
-    PVPLOG.GL1 = "Dur à ganker";
-    
     -- Default display text for notify
     PVPLOG.DEFAULT_KILL_TEXT = "J'ai tué %n (Niveau %l %r %c) à [%x,%y] en %z (%w).";
     PVPLOG.DEFAULT_DEATH_TEXT = "%n (Niveau %l %r %c) m'a tué à [%x,%y] en %z (%w).";
@@ -425,22 +377,6 @@ elseif (GetLocale() == "esES") then
     PVPLOG.KL = "Asesinato grabado: ";
     PVPLOG.DWLA = "Victoria en duelo grabada contra: ";
     PVPLOG.DLLA = "Derrota en duelo grabada contra: ";
-    
-    -- Gank levels
-    PVPLOG.GL0 = "Fair Fighter";
-    PVPLOG.GL_25 = "I Have No Mercy";
-    PVPLOG.GL_20 = "Newb Masher";
-    PVPLOG.GL_15 = "No Seriously, Get a Life";
-    PVPLOG.GL_12 = "Get a Life";
-    PVPLOG.GL_9 = "Gankity Gank Gank";
-    PVPLOG.GL_6 = "Major Ganker";
-    PVPLOG.GL_3 = "Minor Ganker";
-    PVPLOG.GL8 = "I Gank GankMasters";
-    PVPLOG.GL5 = "PvP God";
-    PVPLOG.GL4 = "PvP Legend";
-    PVPLOG.GL3 = "Ungankable";
-    PVPLOG.GL2 = "Just try to gank me";
-    PVPLOG.GL1 = "Difficult to Gank";
     
     -- Default display text for notify
     PVPLOG.DEFAULT_KILL_TEXT = "He asesinado a %n (Nivel %l %r %c) en [%x,%y] en %z (%w).";

@@ -2,7 +2,7 @@
     PvPLog 
     Author:           Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-    Version:          2.4.0
+    Version:          2.4.1
     Last Modified:    2007-03-12
 ]]
 
@@ -29,8 +29,7 @@ local rank = "";
 local fullrank = "";
 local est_honor = 0;
 
-local debug_indx;
-local debug_simple = false; -- Overridden by PvPLogDebugFlag after VARIABLES_LOADED event.
+local debug_flag = false;   -- Overridden by PvPLogDebugFlag after VARIABLES_LOADED event.
 local debug_ignore = true;  -- Overridden by PvPLogDebugIgnore after VARIABLES_LOADED event.
 
 local lastDamagerToMe = "";
@@ -46,7 +45,9 @@ local ignoreRecords = { };
 
 local MAXDEBUG = 2000;
 
-local lastDing = -1000;
+local lastDing = -1;        -- This will contain the GetTime() of the last ding and overhead message.
+local lastRecent = -1;      -- This will contain the GetTime() of the last removal of a recentDamaged.
+local nextRecent = 3.0;     -- Seconds between removing each recentDamaged.
 
 local RED     = "|cffbe0303";
 local GREEN   = "|cff6bb700";
@@ -232,7 +233,7 @@ function PvPLogOnEvent()
         if (PvPLogDebugFlag == nil) then
             PvPLogDebugFlag = false;
         else
-            debug_simple = PvPLogDebugFlag; -- Manually set to true if you want to always debug.
+            debug_flag = PvPLogDebugFlag; -- Manually set to true if you want to always debug.
         end
         if (PvPLogDebugIgnore == nil) then
             PvPLogDebugIgnore = true;
@@ -369,7 +370,7 @@ function PvPLogOnEvent()
                         GameTooltip:NumLines());
                 end
 
-                if (lastDing <= GetTime()-PvPLogData[realm][player].dingTimeout and
+                if (GetTime() > lastDing + PvPLogData[realm][player].dingTimeout and
                   not UnitInParty("mouseover") and UnitIsPlayer("mouseover") and
                   ((total and (total.wins > 0 or total.loss > 0)) or
                   (guildTotal and (guildTotal.wins > 0 or guildTotal.loss > 0)))) then
@@ -506,7 +507,7 @@ function PvPLogOnEvent()
                 PvPLog_damageBoth(arg1);
             end
         end
-    elseif (event == "CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE") then
+    elseif (event == "CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE" and debug_flag) then
 -- This event isn't needed for PvP but it is useful for debugging!
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
@@ -527,8 +528,10 @@ function PvPLogOnEvent()
                 recentDamager = { };
                 lastDamagerToMe = "";
             end
-            if (recentDamaged and table.getn(recentDamaged) > 0) then 
+            if (GetTime() > lastRecent + nextRecent and recentDamaged and table.getn(recentDamaged) > 0) then 
+                PvPLogDebugMsg('recentDamaged removed: ' .. recentDamaged[1]);
                 table.remove(recentDamaged,1);
+                lastRecent = GetTime();
             end
         end
     end
@@ -563,36 +566,6 @@ end
 
 function PvPLogPrintStats()
     local stats = PvPLogGetStats();
---[[
-    local gankLevel = PVPLOG.GL0;
-    if (stats.pvpWinAvgLevelDiff <= -25) then
-        gankLevel = PVPLOG.GL_25;
-    elseif (stats.pvpWinAvgLevelDiff <= -20) then
-        gankLevel = PVPLOG.GL_20;
-    elseif (stats.pvpWinAvgLevelDiff <= -15) then
-        gankLevel = PVPLOG.GL_15;
-    elseif (stats.pvpWinAvgLevelDiff <= -12) then
-        gankLevel = PVPLOG.GL_12;
-    elseif (stats.pvpWinAvgLevelDiff <= -9) then
-        gankLevel = PVPLOG.GL_9;
-    elseif (stats.pvpWinAvgLevelDiff <= -6) then
-        gankLevel = PVPLOG.GL_6;
-    elseif (stats.pvpWinAvgLevelDiff <= -3) then
-        gankLevel = PVPLOG.GL_3;
-    elseif (stats.pvpWinAvgLevelDiff >= 8) then
-        gankLevel = PVPLOG.GL8;
-    elseif (stats.pvpWinAvgLevelDiff >= 5) then
-        gankLevel = PVPLOG.GL5;
-    elseif (stats.pvpWinAvgLevelDiff >= 4) then
-        gankLevel = PVPLOG.GL4;
-    elseif (stats.pvpWinAvgLevelDiff >= 3) then
-        gankLevel = PVPLOG.GL3;
-    elseif (stats.pvpWinAvgLevelDiff >= 2) then
-        gankLevel = PVPLOG.GL2;
-    elseif (stats.pvpWinAvgLevelDiff >= 1) then
-        gankLevel = PVPLOG.GL1;
-    end
-]]--
     PvPLogChatMsgCyan("PvPLog " .. PVPLOG.STATS .. ":");
     PvPLogChatMsg(MAGENTA.."   "..PVPLOG.TOTAL.." "..PVPLOG.WINS..":     ".. stats.totalWins ..
         " ("..PVPLOG.ALD..": "..(math.floor(stats.totalWinAvgLevelDiff*100)/100)..")");
@@ -602,7 +575,6 @@ function PvPLogPrintStats()
 
     PvPLogChatMsg(ORANGE .. "    "..PVPLOG.UI_PVP.." "..PVPLOG.WINS..":     ".. stats.pvpWins ..
         " ("..PVPLOG.ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..")");
---      " ("..PVPLOG.ALD..": "..(math.floor(stats.pvpWinAvgLevelDiff*100)/100)..", " .. gankLevel .. ")");
 
     PvPLogChatMsg(ORANGE .. "    "..PVPLOG.UI_PVP.." "..PVPLOG.LOSSES..":  ".. stats.pvpLoss ..
         " ("..PVPLOG.ALD..": "..(math.floor(stats.pvpLossAvgLevelDiff*100)/100)..")");
@@ -615,7 +587,7 @@ function PvPLogPrintStats()
 end
 
 function PvPLogDebugMsg(msg, color)
-    if (debug_simple) then
+    if (debug_flag) then
         if (color) then
             PvPLogChatMsg('PvPLog: ' .. color .. msg);
         else
@@ -626,38 +598,13 @@ function PvPLogDebugMsg(msg, color)
 end
 
 function PvPLogDebugAdd(msg)
-    if (debug_simple) then
+    if (debug_flag) then
         table.insert(PvPLogDebug,date()..": "..msg);
         if (table.getn(PvPLogDebug) > MAXDEBUG) then
             table.remove(PvPLogDebug,1);
         end
     end
 end
-
---[[
-function PvPLogDebugMsg(msg, color)
-    -- will print to chatFrame that listens to PvPDebug Channel as the only chan
-    if (debug_indx == nil) then
-        local number = 1;
-        for i = 2, 7 do
-            local name1, zone1 = GetChatWindowChannels(i);
-            if (name1 ~= nil) then
-                if (string.lower(name1) == "pvpdebug") then
-                   number = i;
-                   PvPLogChatMsg(FIRE.."Found Debug Channel for PvPLog at: "..number);
-                   break;
-                end
-            end
-        end
-        debug_indx = getglobal("ChatFrame"..number);
-    end
-    if (color) then
-        debug_indx:AddMessage(color..msg);
-    else
-        debug_indx:AddMessage(msg);
-    end
-end
-]]--
 
 function PvPLogChatMsg(msg)
     if (DEFAULT_CHAT_FRAME) then
@@ -818,7 +765,7 @@ function PvPLogMyDamage(res1, res2, res3, res4, res5, res6)
             targetRecords[res1] = { };
             table.insert(targetList, res1);
             if (table.getn(targetList) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                 targetRecords[targetList[1]] = nil;
                 table.remove(targetList,1);
             end
@@ -840,7 +787,7 @@ function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
             targetRecords[res2] = { };
             table.insert(targetList, res2);
             if (table.getn(targetList) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                 targetRecords[targetList[1]] = nil;
                 table.remove(targetList,1);
             end
@@ -862,7 +809,7 @@ function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
             targetRecords[res3] = { };
             table.insert(targetList, res3);
             if (table.getn(targetList) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                 targetRecords[targetList[1]] = nil;
                 table.remove(targetList,1);
             end
@@ -884,7 +831,7 @@ function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
             targetRecords[res4] = { };
             table.insert(targetList, res4);
             if (table.getn(targetList) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                 targetRecords[targetList[1]] = nil;
                 table.remove(targetList,1);
             end
@@ -906,7 +853,7 @@ function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
             targetRecords[res1] = { };
             table.insert(targetList, res1);
             if (table.getn(targetList) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                 targetRecords[targetList[1]] = nil;
                 table.remove(targetList,1);
             end
@@ -931,7 +878,7 @@ function PvPLogDamageMeAura(res1, res2, res3, res4)
             targetRecords[res3] = { };
             table.insert(targetList, res3);
             if (table.getn(targetList) > NUMTARGETS) then
-                PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                 targetRecords[targetList[1]] = nil;
                 table.remove(targetList,1);
             end
@@ -997,7 +944,6 @@ function PvPLogInitialize()
         return;
     end
 
-    debug_indx = nil;
     isDuel = false;
 
     -- Hook the ChatFrame_OnEvent function
@@ -1752,7 +1698,7 @@ function PvPLogUpdateTarget(dueling)
     local targetIsEnemy = UnitIsEnemy("player", "target");
     local targetName2 = UnitName("target");
     if (targetName and targetName2 and targetName ~= targetName2) then
-        PvPLogDebugMsg('Target changed from "'.. targetName ..'" to "' .. targetName2 .. '"');
+        PvPLogDebugMsg('Target changed from '.. targetName ..' to ' .. targetName2);
         return;
     end
     if (targetName) then
@@ -1760,17 +1706,17 @@ function PvPLogUpdateTarget(dueling)
         if (dueling or (targetIsPlayer and targetIsEnemy)) then
             -- Its a player and its an enemy
             if (not targetRecords[targetName]) then
-                PvPLogDebugMsg('Target added: "' .. targetName .. '"');
+                PvPLogDebugMsg('Target added: ' .. targetName);
                 targetRecords[targetName] = { };
                 table.insert(targetList, targetName);
                 if (table.getn(targetList) > NUMTARGETS) then
-                    PvPLogDebugMsg('Target removed: "' .. targetList[1] .. '"');
+                    PvPLogDebugMsg('Target removed: ' .. targetList[1]);
                     targetRecords[targetList[1]] = nil;
                     table.remove(targetList,1);
                 end
             end
             if (not targetRecords[targetName].level) then
-                PvPLogDebugMsg('Target populated: "' .. targetName .. '"');
+                PvPLogDebugMsg('Target populated: ' .. targetName);
                 targetRecords[targetName].realm = targetRealm;
                 targetRecords[targetName].level = targetLevel;
                 targetRecords[targetName].race = targetRace;
@@ -1783,18 +1729,18 @@ function PvPLogUpdateTarget(dueling)
                 fullrank = "";
             else
                 if (targetLevel > targetRecords[targetName].level) then
-                    PvPLogDebugMsg('Target updated: "' .. targetName .. '"');
+                    PvPLogDebugMsg('Target updated: ' .. targetName);
                     targetRecords[targetName].level = targetLevel;
                 end
             end
         elseif (debug_ignore) then
             -- Its not a player or its not an enemy
             if (not ignoreRecords[targetName]) then
-                PvPLogDebugMsg('Ignore added: "' .. targetName .. '"');
+                PvPLogDebugMsg('Ignore added: ' .. targetName);
                 ignoreRecords[targetName] = true;
                 table.insert(ignoreList, targetName);
                 if (table.getn(ignoreList) > NUMTARGETS) then
-                    PvPLogDebugMsg('Ignore removed: "' .. ignoreList[1] .. '"');
+                    PvPLogDebugMsg('Ignore removed: ' .. ignoreList[1]);
                     ignoreRecords[ignoreList[1]] = nil;
                     table.remove(ignoreList,1);
                 end
@@ -1811,7 +1757,7 @@ function PvPLogUpdateTarget(dueling)
                     end
                 );
                 if (index ~= -1) then
-                    PvPLogDebugMsg('Target removed: "' .. targetList[index] .. '"');
+                    PvPLogDebugMsg('Target removed: ' .. targetList[index]);
                     targetRecords[targetName] = nil;
                     table.remove(targetList,index);
                 else
@@ -1956,16 +1902,14 @@ function PvPLogSlashHandler(msg)
         PvPLogDisplayUsage();
     elseif (command == "debug") then
         if (value == "on") then
-            debug_simple = true;
+            debug_flag = true;
         elseif (value == "off") then
-            debug_simple = false;
+            debug_flag = false;
         elseif (value == "save") then
             PvPLogDebugSave = { };
             for i,v in ipairs(PvPLogDebug) do
                 table.insert(PvPLogDebugSave,v);
             end
-        else
-            debug_indx = nil;
         end
     elseif (command == "ignore") then
         if (value == "on") then
@@ -2244,7 +2188,7 @@ function PvPLogGetChannelNumber(channel)
             break;
         end
     end
---  PvPLogDebugMsg('channelNum: "' .. num .. '"');
+--  PvPLogDebugMsg('channelNum: ' .. num);
     return num;
 end
 
