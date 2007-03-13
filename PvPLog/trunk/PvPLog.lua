@@ -112,7 +112,7 @@ function PvPLogOnLoad()
     this:RegisterEvent("CHAT_MSG_SPELL_PET_DAMAGE");
     this:RegisterEvent("CHAT_MSG_SPELL_SELF_DAMAGE");
     this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_HOSTILEPLAYER_DAMAGE");
-    this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE");
+    this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE"); -- Not needed for PvP but helpful for debugging
     this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE");
 
     -- enters/leaves combat (for DPS)
@@ -507,6 +507,7 @@ function PvPLogOnEvent()
             end
         end
     elseif (event == "CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE") then
+-- This event isn't needed for PvP but it is useful for debugging!
         if (PvPLogData[realm][player].enabled and softPL) then
             if (arg1) then
                 -- PvPLogDebugMsg("Event: "..event, GREEN);
@@ -823,7 +824,6 @@ function PvPLogMyDamage(res1, res2, res3, res4, res5, res6)
             end
         end
         if (isDuel or not ignoreRecords[res1]) then
-            PvPLogDebugMsg("recentDamaged(1): "..res1, ORANGE);
             if (not PvPLogPutInTable(recentDamaged, res1)) then
                 PvPLogDebugMsg("recentDamaged(1): "..res1, ORANGE);
             end
