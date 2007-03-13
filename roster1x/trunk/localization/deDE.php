@@ -345,7 +345,7 @@ $lang['quests']='Quests';
 $lang['roster']='Mitglieder';
 $lang['alternate']='Alternative Ansicht';
 $lang['byclass']='Nach Klasse';
-$lang['menustats']='Stats';
+$lang['menustats']='Grundwerte';
 $lang['menuhonor']='Ehre';
 $lang['keys']='Schl&uuml;ssel';
 $lang['team']='Questgruppe Suchen';
@@ -381,7 +381,7 @@ $lang['itembonuses'] = 'Boni f&uuml;r angelegte Gegenst&auml;nde';
 $lang['itembonuses2'] = 'Gegenstand Boni';
 $lang['crit'] = 'Krit.';
 $lang['dodge'] = 'Ausweichen';
-$lang['parry'] = 'Parrieren';
+$lang['parry'] = 'Parieren';
 $lang['block'] = 'Blocken';
 $lang['realm'] = 'Realm';
 $lang['talents'] = 'Talente';
@@ -412,7 +412,7 @@ $lang['page'] = 'Seite';
 $lang['general'] = 'General';
 $lang['prev'] = 'Zurück';
 $lang['next'] = 'Vor';
-$lang['no_spellbook'] = 'No Spellbook for %1$s';
+$lang['no_spellbook'] = 'Keine Zaubersprüche für %1$s';
 
 // Mailbox
 $lang['mailbox'] = 'Postfach';
@@ -422,8 +422,8 @@ $lang['mail_sender'] = 'Absender';
 $lang['mail_subject'] = 'Betreff';
 $lang['mail_expires'] = 'Gültig bis';
 $lang['mail_money'] = 'Geldanhang';
-$lang['no_mail'] = 'No Mail for %1$s';
-$lang['no_info'] = 'No Information';
+$lang['no_mail'] = 'Keine Briefe für %1$s';
+$lang['no_info'] = 'Keine Information';
 
 
 //this needs to be exact as it is the wording in the db
@@ -552,29 +552,29 @@ $lang['spirit']='Willenskraft';
 $lang['spirit_tooltip']= 'Erhöht deine Mana- und Lebens- regenerationsrate.';
 $lang['armor_tooltip']= 'Verringert die Menge an Schaden die du von physischen Angriffen erleidest.<br />Die Höhe der Reduzierung ist abhängig vom Level deines Angreifers.';
 
-$lang['mainhand']='Main Hand';
+$lang['mainhand']='Waffenhand';
 $lang['offhand']='Off Hand';
-$lang['ranged']='Ranged';
-$lang['melee']='Melee';
-$lang['spell']='Spell';
+$lang['ranged']='Distanzangriff';
+$lang['melee']='Nahkampf';
+$lang['spell']='Zauber';
 
-$lang['weapon_skill']='Skill';
-$lang['weapon_skill_tooltip']='Weapon Skill %d<br />Weapon Skill Rating %d';
-$lang['damage']='Damage';
-$lang['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
-$lang['speed']='Speed';
-$lang['atk_speed']='Attack Speed';
-$lang['haste_tooltip']='Haste rating ';
+$lang['weapon_skill']='Waffe';
+$lang['weapon_skill_tooltip']='Waffe %d<br />Waffenfertigkeitswertung %d';
+$lang['damage']='Schaden';
+$lang['damage_tooltip']='<table><tr><td>Angriffstempo (Sekunden):<td>%.2f<tr><td>Schaden:<td>%d-%d<tr><td>Schaden pro Sekunde:<td>%.1f</table>';
+$lang['speed']='Tempo';
+$lang['atk_speed']='Angriffstempo';
+$lang['haste_tooltip']='Tempowertung ';
 
-$lang['melee_att_power']='Nahkampf Kraft';
-$lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
-$lang['ranged_att_power']='Fernkampf Kraft';
-$lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
+$lang['melee_att_power']='Nahkampfangriffskraft';
+$lang['melee_att_power_tooltip']='Erhöht die Angriffskraft mit Nahkampfwaffen um %.1f pro Sekunde.';
+$lang['ranged_att_power']='Distanzangriffskraft';
+$lang['ranged_att_power_tooltip']='Erhöht die Angriffskraft mit Distanzwaffen um %.1f pro Sekunde.';
 
-$lang['weapon_hit_rating']='Hit Rating';
-$lang['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
-$lang['weapon_crit_rating']='Crit rating';
-$lang['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
+$lang['weapon_hit_rating']='Trefferwert.';
+$lang['weapon_hit_rating_tooltip']='Erhöht die Trefferchance im Nahkampf gegen ein Ziel.';
+$lang['weapon_crit_rating']='Kritisch';
+$lang['weapon_crit_rating_tooltip']='Kritische Trefferchance %.2f%%.';
 
 $lang['damage']='Schaden';
 $lang['energy']='Energie';
@@ -586,27 +586,27 @@ $lang['melee_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Zi
 $lang['range_rating']='Fernkampf Angriffsrate';
 $lang['range_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Ziel zu treffen und basiert auf deiner Waffenfähigkeit der Waffe die du grade trägst.';
 
-$lang['spell_damage']='+Damage';
-$lang['fire']='Fire';
-$lang['nature']='Nature';
+$lang['spell_damage']='Schadensboni';
+$lang['fire']='Feuer';
+$lang['nature']='Natur';
 $lang['frost']='Frost';
-$lang['shadow']='Shadow';
-$lang['arcane']='Arcane';
+$lang['shadow']='Schatten';
+$lang['arcane']='Arkan';
 
-$lang['spell_healing']='+Healing';
-$lang['spell_healing_tooltip']='Increases your healing by up to %d';
-$lang['spell_hit_rating']='Hit Rating';
-$lang['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
-$lang['spell_crit_rating']='Crit Rating';
-$lang['spell_crit_chance']='Crit Chance';
-$lang['spell_penetration']='Penetration';
-$lang['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
-$lang['mana_regen']='Mana Regen';
-$lang['mana_regen_tooltip']='%d mana regenerated every %d seconds while not casting';
+$lang['spell_healing']='Heilungsboni';
+$lang['spell_healing_tooltip']='Erhöht die Heilung um bis zu %d';
+$lang['spell_hit_rating']='Trefferwertung';
+$lang['spell_hit_rating_tooltip']='Erhöht die Trefferchance mit Zaubern gegen ein Ziel.';
+$lang['spell_crit_rating']='Kritisch';
+$lang['spell_crit_chance']='Kritische Chance';
+$lang['spell_penetration']='Durchschlag';
+$lang['spell_penetration_tooltip']='Verringert den Widerstand des Ziels gegen Eure Zauber.';
+$lang['mana_regen']='Regeneration';
+$lang['mana_regen_tooltip']='Regeneriert alle %d Sekunden %d Mana, wenn kein Zauber gewirkt wird.';
 
-$lang['defense_rating']='Defense Rating ';
-$lang['def_tooltip']='Increases your chance to %s';
-$lang['resilience']='Resilience';
+$lang['defense_rating']='Verteidigungswertung ';
+$lang['def_tooltip']='Erhöht die Chance auf %s';
+$lang['resilience']='Abhärtung';
 
 $lang['res_fire']='Feuer Widerstand';
 $lang['res_fire_tooltip']='Erh&ouml;ht deinen Widerstand gegen Feuerschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
