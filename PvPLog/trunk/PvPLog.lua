@@ -2,8 +2,8 @@
     PvPLog 
     Author:           Brad Morgan
     Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-    Version:          2.3.9
-    Last Modified:    2007-03-09
+    Version:          2.4.0
+    Last Modified:    2007-03-12
 ]]
 
 -- Local variables
@@ -30,13 +30,15 @@ local fullrank = "";
 local est_honor = 0;
 
 local debug_indx;
-local debug_simple = false;
+local debug_simple = false; -- Overridden by PvPLogDebugFlag after VARIABLES_LOADED event.
+local debug_ignore = true;  -- Overridden by PvPLogDebugIgnore after VARIABLES_LOADED event.
 
 local lastDamagerToMe = "";
 local foundDamaged = false;
 local foundDamager = false;
 
 local NUMTARGETS = 45;
+local NUMRECENTS = 10;
 local recentDamager = { };
 local recentDamaged = { };
 local ignoreList = { };
@@ -110,6 +112,7 @@ function PvPLogOnLoad()
     this:RegisterEvent("CHAT_MSG_SPELL_PET_DAMAGE");
     this:RegisterEvent("CHAT_MSG_SPELL_SELF_DAMAGE");
     this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_HOSTILEPLAYER_DAMAGE");
+    this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE");
     this:RegisterEvent("CHAT_MSG_SPELL_PERIODIC_SELF_DAMAGE");
 
     -- enters/leaves combat (for DPS)
@@ -222,13 +225,19 @@ function PvPLogCreateMinimapButton()
 end
 
 function PvPLogOnEvent()   
+    -- PvPLogDebugAdd("Event: "..event);
     -- loads and initializes our variables
     if (event == "VARIABLES_LOADED") then
         variablesLoaded = true;
         if (PvPLogDebugFlag == nil) then
             PvPLogDebugFlag = false;
         else
-            simple_debug = PvPLogDebugFlag; -- Manually set to true if you want to always debug.
+            debug_simple = PvPLogDebugFlag; -- Manually set to true if you want to always debug.
+        end
+        if (PvPLogDebugIgnore == nil) then
+            PvPLogDebugIgnore = true;
+        else
+            debug_ignore = PvPLogDebugIgnore; -- Manually set to false if you want to not ignore anything.
         end
         PvPLog_RegisterWithAddonManagers();
         
@@ -304,7 +313,7 @@ function PvPLogOnEvent()
 
         -- we are dead, clear the variables
         PvPLogDebugMsg('Recents cleared (dead).');
-        recentDamaged = { };
+        -- recentDamaged = { }; -- Deferred because some of them may still die.
         recentDamager = { };
         lastDamagerToMe = "";
 
@@ -494,7 +503,16 @@ function PvPLogOnEvent()
                 -- PvPLogDebugMsg("Event: "..event, GREEN);
                 -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
                 -- PvPLogDebugMsg("Time: "..GetTime(), ORANGE);
-                PvPLog_damageMe(arg1);
+                PvPLog_damageBoth(arg1);
+            end
+        end
+    elseif (event == "CHAT_MSG_SPELL_PERIODIC_CREATURE_DAMAGE") then
+        if (PvPLogData[realm][player].enabled and softPL) then
+            if (arg1) then
+                -- PvPLogDebugMsg("Event: "..event, GREEN);
+                -- PvPLogDebugMsg("Msg: "..arg1, FIRE);
+                -- PvPLogDebugMsg("Time: "..GetTime(), ORANGE);
+                PvPLog_damageBoth(arg1);
             end
         end
     elseif (event == "PLAYER_REGEN_DISABLED") then
@@ -502,12 +520,15 @@ function PvPLogOnEvent()
         PvPLogConfigHide();
 --  elseif (event == "PLAYER_REGEN_ENABLED") then
     elseif (event == "UNIT_HEALTH") then
-        if ( not UnitAffectingCombat("player") and 
-          UnitHealth("player") == UnitHealthMax("player") and
-          ((recentDamager and table.getn(recentDamager) > 0) or lastDamagerToMe ~= "")) then
-            PvPLogDebugMsg('Recents cleared (healthy).');
-            recentDamager = { };
-            lastDamagerToMe = "";
+        if (not UnitAffectingCombat("player") and UnitHealth("player") == UnitHealthMax("player")) then
+            if ((recentDamager and table.getn(recentDamager) > 0) or lastDamagerToMe ~= "") then
+                PvPLogDebugMsg('Recents cleared (healthy).');
+                recentDamager = { };
+                lastDamagerToMe = "";
+            end
+            if (recentDamaged and table.getn(recentDamaged) > 0) then 
+                table.remove(recentDamaged,1);
+            end
         end
     end
 end
@@ -721,15 +742,18 @@ function PvPLogPlayerDeath(parseName)
     if (parseName) then
         PvPLogDebugMsg("Processing death of: "..parseName, YELLOW);
         local found = false;
+        local index = 0;
         table.foreach(recentDamaged,
             function(i,tname)
                 if (tname == parseName) then
                     found = true;
-                    return true;
+                    index = i;
+                    return found;
                 end
             end
         );
         if (found) then
+            table.remove(recentDamaged,index); -- We can't take credit for their future deaths.
             if (targetRecords[parseName]) then
                 if (targetRecords[parseName].level) then
                     v = targetRecords[parseName];
@@ -778,13 +802,15 @@ function PvPLogPutInTable(tab, nam)
     );
     if (not exists) then
         table.insert(tab, nam);
-        if (table.getn(tab) > NUMTARGETS) then
+        if (table.getn(tab) > NUMRECENTS) then
            table.remove(tab,1);
         end
     end
+    return exists;
 end
 
-function PvPLogMyDamage(res1, res2, res3, res4, res5)
+function PvPLogMyDamage(res1, res2, res3, res4, res5, res6)
+    -- PvPLogDebugMsg("PvPLogMyDamage("..tostring(res1)..", "..tostring(res2)..", "..tostring(res3)..", "..tostring(res4)..", "..tostring(res5)..", "..tostring(res6)..")");
     if (res1) then
         if ((isDuel or not ignoreRecords[res1]) and not targetRecords[res1]) then
             PvPLogDebugMsg("Damaged Targets Addition: "..res1, RED);
@@ -797,13 +823,17 @@ function PvPLogMyDamage(res1, res2, res3, res4, res5)
             end
         end
         if (isDuel or not ignoreRecords[res1]) then
-            PvPLogPutInTable(recentDamaged, res1);
+            PvPLogDebugMsg("recentDamaged(1): "..res1, ORANGE);
+            if (not PvPLogPutInTable(recentDamaged, res1)) then
+                PvPLogDebugMsg("recentDamaged(1): "..res1, ORANGE);
+            end
             foundDamaged = true;
         end
     end
 end
 
 function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
+    -- PvPLogDebugMsg("PvPLogMyDamageSecond("..tostring(res1)..", "..tostring(res2)..", "..tostring(res3)..", "..tostring(res4)..", "..tostring(res5)..", "..tostring(res6)..")");
     if (res2) then
         if ((isDuel or not ignoreRecords[res2]) and not targetRecords[res2]) then
             PvPLogDebugMsg("Damaged Targets Addition: "..res2, RED);
@@ -816,13 +846,16 @@ function PvPLogMyDamageSecond(res1, res2, res3, res4, res5, res6)
             end
         end
         if (isDuel or not ignoreRecords[res2]) then
-            PvPLogPutInTable(recentDamaged, res2);
+            if (not PvPLogPutInTable(recentDamaged, res2)) then
+                PvPLogDebugMsg("recentDamaged(2): "..res2, ORANGE);
+            end
             foundDamaged = true;
         end
     end
 end
 
 function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
+    -- PvPLogDebugMsg("PvPLogMyDamageThird("..tostring(res1)..", "..tostring(res2)..", "..tostring(res3)..", "..tostring(res4)..", "..tostring(res5)..", "..tostring(res6)..")");
     if (res3) then
         if ((isDuel or not ignoreRecords[res3]) and not targetRecords[res3]) then
             PvPLogDebugMsg("Damaged Targets Addition: "..res3, RED);
@@ -835,13 +868,16 @@ function PvPLogMyDamageThird(res1, res2, res3, res4, res5, res6)
             end
         end
         if (isDuel or not ignoreRecords[res3]) then
-            PvPLogPutInTable(recentDamaged, res3);
+            if (not PvPLogPutInTable(recentDamaged, res3)) then
+                PvPLogDebugMsg("recentDamaged(3): "..res3, ORANGE);
+            end
             foundDamaged = true;
         end
     end
 end
 
 function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
+    -- PvPLogDebugMsg("PvPLogMyDamageFourth("..tostring(res1)..", "..tostring(res2)..", "..tostring(res3)..", "..tostring(res4)..", "..tostring(res5)..", "..tostring(res6)..")");
     if (res4) then
         if ((isDuel or not ignoreRecords[res4]) and not targetRecords[res4]) then
             PvPLogDebugMsg("Damaged Targets Addition: "..res4, RED);
@@ -854,15 +890,17 @@ function PvPLogMyDamageFourth(res1, res2, res3, res4, res5, res6)
             end
         end
         if (isDuel or not ignoreRecords[res4]) then
-            PvPLogPutInTable(recentDamaged, res3);
+            if (not PvPLogPutInTable(recentDamaged, res4)) then
+                PvPLogDebugMsg("recentDamaged(4): "..res4, ORANGE);
+            end
             foundDamaged = true;
         end
     end
 end
 
 function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
+    -- PvPLogDebugMsg("PvPLogDamageMe("..tostring(res1)..", "..tostring(res2)..", "..tostring(res3)..", "..tostring(res4)..", "..tostring(res5)..", "..tostring(res6)..")");
     if (res1) then
-        
         if ((isDuel or not ignoreRecords[res1]) and not targetRecords[res1]) then
             PvPLogDebugMsg("Recent Targets Addition: "..res1, RED);
             targetRecords[res1] = { };
@@ -874,7 +912,9 @@ function PvPLogDamageMe(res1, res2, res3, res4, res5, res6, res7)
             end
         end
         if (isDuel or not ignoreRecords[res1]) then
-            PvPLogPutInTable(recentDamager, res1);
+            if (not PvPLogPutInTable(recentDamager, res1)) then
+                PvPLogDebugMsg("recentDamager(1): "..res1, ORANGE);
+            end
             lastDamagerToMe = res1;
             foundDamager = true;
         end
@@ -884,6 +924,7 @@ end
 -- PERIODICAURADAMAGEOTHERSELF = "You suffer %d %s damage from %s's %s."; 
 -- You suffer 3 frost damage from Rabbit's Ice Nova.
 function PvPLogDamageMeAura(res1, res2, res3, res4)
+    -- PvPLogDebugMsg("PvPLogDamageMeAura("..tostring(res1)..", "..tostring(res2)..", "..tostring(res3)..", "..tostring(res4)..")");
     if (res3) then
         if ((isDuel or not ignoreRecords[res3]) and not targetRecords[res3]) then
             PvPLogDebugMsg("Recent Targets Addition: "..res3, RED);
@@ -896,7 +937,9 @@ function PvPLogDamageMeAura(res1, res2, res3, res4)
             end
         end
         if (isDuel or not ignoreRecords[res3]) then
-            PvPLogPutInTable(recentDamager, res3);
+            if (not PvPLogPutInTable(recentDamager, res3)) then
+                PvPLogDebugMsg("recentDamager(3): "..res3, ORANGE);
+            end
             lastDamagerToMe = res3;
             foundDamager = true;
         end
@@ -918,6 +961,17 @@ function PvPLog_damageMe(msg)
     foundDamager = false;
     MarsMessageParser_ParseMessage("PvPLog_DamageMe", msg);
     if (foundDamager) then
+        return true;
+    end
+    return false;
+end
+
+function PvPLog_damageBoth(msg)
+    PvPLogDebugAdd(msg);
+    foundDamager = false;
+    foundDamaged = false;
+    MarsMessageParser_ParseMessage("PvPLog_DamageBoth", msg);
+    if (foundDamager or foundDamaged) then
         return true;
     end
     return false;
@@ -986,8 +1040,6 @@ function PvPLogInitialize()
     -- SPELLPOWERDRAINOTHERSELF = "%s's %s drains %d %s from you.";
     -- SPELLSPLITDAMAGEOTHERSELF = "%s's %s causes you %d damage.";
     -- SPELLPOWERLEECHOTHERSELF="%s's %s drains %d %s from you. %s gains %d %s.";
-    -- PERIODICAURADAMAGEOTHERSELF = "You suffer %d %s damage from %s's %s."; 
-                       -- You suffer 3 frost damage from Rabbit's Ice Nova.
     -- DAMAGESHIELDOTHERSELF = "%s reflects %d %s damage to you.";
     MarsMessageParser_RegisterFunction("PvPLog_DamageMe", 
                       SPELLLOGSCHOOLOTHERSELF,
@@ -1011,9 +1063,6 @@ function PvPLogInitialize()
                       SPELLSPLITDAMAGEOTHERSELF,
                       PvPLogDamageMe);
     MarsMessageParser_RegisterFunction("PvPLog_DamageMe", 
-                      PERIODICAURADAMAGEOTHERSELF,
-                      PvPLogDamageMeAura);
-    MarsMessageParser_RegisterFunction("PvPLog_DamageMe", 
                       DAMAGESHIELDOTHERSELF,
                       PvPLogDamageMe);
     MarsMessageParser_RegisterFunction("PvPLog_DamageMe", 
@@ -1030,6 +1079,7 @@ function PvPLogInitialize()
                       PvPLogDamageMe);
 
     -- *** My Damage to Enemy Strings ***
+    -- DO NOT CHANGE THE ORDER AS IT IS IMPORTANT --
     -- COMBATHITSELFOTHER = "You hit %s for %d.";
     -- COMBATHITCRITSELFOTHER = "You crit %s for %d.";
     -- COMBATHITSCHOOLSELFOTHER = "You hit %s for %d %s damage.";
@@ -1041,8 +1091,6 @@ function PvPLogInitialize()
     -- SPELLPOWERDRAINSELFOTHER = "Your %s drains %d %s from %s.";
     -- SPELLSPLITDAMAGESELFOTHER = "Your %s causes %s %d damage.";
     -- SPELLPOWERLEECHSELFOTHER= "Your %s drains %d %s from %s. You gain %d %s.";
-    -- PERIODICAURADAMAGESELFOTHER = "%s suffers %d %s damage from your %s.";
-                           -- Rabbit suffers 3 frost damage from your Ice Nova.
     -- DAMAGESHIELDSELFOTHER = "You reflect %d %s damage to %s.";
     MarsMessageParser_RegisterFunction("PvPLog_MyDamage",
                       SPELLLOGSCHOOLSELFOTHER,
@@ -1066,9 +1114,6 @@ function PvPLogInitialize()
                       SPELLSPLITDAMAGESELFOTHER,
                       PvPLogMyDamageSecond);
     MarsMessageParser_RegisterFunction("PvPLog_MyDamage",
-                      PERIODICAURADAMAGESELFOTHER,
-                      PvPLogMyDamage);
-    MarsMessageParser_RegisterFunction("PvPLog_MyDamage",
                       DAMAGESHIELDSELFOTHER,
                       PvPLogMyDamageThird);
     MarsMessageParser_RegisterFunction("PvPLog_MyDamage",
@@ -1083,6 +1128,18 @@ function PvPLogInitialize()
     MarsMessageParser_RegisterFunction("PvPLog_MyDamage",
                       COMBATHITCRITSELFOTHER,
                       PvPLogMyDamage);
+
+    -- *** Damage to either Enemy or Player Strings ***
+    -- PERIODICAURADAMAGEOTHERSELF = "You suffer %d %s damage from %s's %s."; 
+                       -- You suffer 3 frost damage from Rabbit's Ice Nova.
+    -- PERIODICAURADAMAGESELFOTHER = "%s suffers %d %s damage from your %s.";
+                           -- Rabbit suffers 3 frost damage from your Ice Nova.
+    MarsMessageParser_RegisterFunction("PvPLog_DamageBoth",
+                      PERIODICAURADAMAGESELFOTHER,
+                      PvPLogMyDamage);
+    MarsMessageParser_RegisterFunction("PvPLog_DamageBoth", 
+                      PERIODICAURADAMAGEOTHERSELF,
+                      PvPLogDamageMeAura);
 
     -- Register command handler and new commands
     SlashCmdList["PvPLogCOMMAND"] = PvPLogSlashHandler;
@@ -1730,7 +1787,7 @@ function PvPLogUpdateTarget(dueling)
                     targetRecords[targetName].level = targetLevel;
                 end
             end
-        else
+        elseif (debug_ignore) then
             -- Its not a player or its not an enemy
             if (not ignoreRecords[targetName]) then
                 PvPLogDebugMsg('Ignore added: "' .. targetName .. '"');
@@ -1910,28 +1967,36 @@ function PvPLogSlashHandler(msg)
         else
             debug_indx = nil;
         end
+    elseif (command == "ignore") then
+        if (value == "on") then
+            debug_ignore = true;
+        elseif (value == "off") then
+            debug_ignore = false;
+            ignoreList = { };
+            ignoreRecords = { };
+        end
     elseif (command == "vars") then
         if (softPL) then
             PvPLogDebugMsg("softPL = TRUE");
         else
             PvPLogDebugMsg("softPL = FALSE");
         end
-        PvPLogDebugMsg("targetList = {"..table.concat(targetList,",").."}");
+        PvPLogDebugMsg("targetList = {"..table.concat(targetList,", ").."}");
         s = "";
         for i in pairs(targetRecords) do
-            s = s..","..i;
+            s = s..", "..i;
         end
-        s = string.sub(s,2);
+        s = string.sub(s,3);
         PvPLogDebugMsg("targetRecords = {"..s.."}");
-        PvPLogDebugMsg("ignoreList = {"..table.concat(ignoreList,",").."}");
+        PvPLogDebugMsg("ignoreList = {"..table.concat(ignoreList,", ").."}");
         s = "";
         for i in pairs(ignoreRecords) do
-            s = s..","..i;
+            s = s..", "..i;
         end
-        s = string.sub(s,2);
+        s = string.sub(s,3);
         PvPLogDebugMsg("ignoreRecords = {"..s.."}");
-        PvPLogDebugMsg("recentDamager = {"..table.concat(recentDamager,",").."}");
-        PvPLogDebugMsg("recentDamaged = {"..table.concat(recentDamaged,",").."}");
+        PvPLogDebugMsg("recentDamager = {"..table.concat(recentDamager,", ").."}");
+        PvPLogDebugMsg("recentDamaged = {"..table.concat(recentDamaged,", ").."}");
         if (isDuel) then
             PvPLogDebugMsg("isDuel = TRUE");
         else

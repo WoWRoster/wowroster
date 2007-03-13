@@ -1,17 +1,22 @@
 PvPLog 
 Author:           Brad Morgan
 Based on Work by: Josh Estelle, Daniel S. Reichenbach, Andrzej Gorski, Matthew Musgrove
-Version:          2.3.9
-Last Modified:    2007-03-09
+Version:          2.4.0
+Last Modified:    2007-03-12
 
 CHANGES
 
-2007-03-07  * 2.3.9
+2007-03-12  * 2.4.0
+    * Fixed tracking periodic damage (really).
+    * Reduced the size of the recentDamager and recentDamaged lists.
+    * Changed the removal of recentDamaged entries to be one at a time (may need some tweaking).
+
+2007-03-09  * 2.3.9
     * Added more debugging.
     * Added check to recents cleared (healthy) to reduce the number of debug messages.
     * Modified targetRecord population to eliminate possible race condition if "target" changes while
       capturing data.
-    * Added tracking of targets from periodic damage. Pets need more research.
+    * Added tracking of periodic damage. Pets need more research.
 
 2007-03-07  * 2.3.8
     * Added per character savedvariables containing the most recent combat messages and debug messages
