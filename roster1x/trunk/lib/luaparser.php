@@ -22,61 +22,23 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 /**
-* Wrapper function so that you can parse a file instead of an array.
-* @author six
-*/
-function ParseLuaFile( $file_name , $file_type=null )
+ * Main LUA parsing function
+ * @author six, originally mordon
+ */
+function ParseLuaFile( $file_name )
 {
 	if( file_exists($file_name) && is_readable($file_name) )
 	{
-		if( $file_type == 'gz' )
-		{
-			$file_as_array = gzfile($file_name);
-		}
-		else
-		{
-			$file_as_array = file($file_name);
-		}
-
-		return(ParseLuaArray($file_as_array));
-	}
-	return(false);
-}
-
-/**
-* Main LUA parsing function
-* @author six, originally mordon
-*/
-function ParseLuaArray( &$file_as_array )
-{
-	if( !is_array($file_as_array) )
-	{
-		// return false if not presented with an array
-		return(false);
-	}
-	else
-	{
-		// Parse the contents of the array
 		$stack = array( array( '',  array() ) );
 		$stack_pos = 0;
 		$last_line = '';
-		foreach( $file_as_array as $line )
+		
+		$file = gzopen($file_name,'r');
+		
+		while( !gzeof($file) )
 		{
-			// join lines ending in \\ together
-			if( substr( $line, -2, 1 ) == '\\' )
-			{
-				$last_line .= substr($line, 0, -2) . "\n";
-				continue;
-			}
-			if($last_line!='')
-			{
-				$line = trim($last_line . $line);
-				$last_line = '';
-			}
-			else
-			{
-				$line = trim($line);
-			}
+			$line = gzgets($file);
+			$line = trim($line);
 
 			// Look for end of an array
 			if( isset($line[0]) && $line[0] == '}' )
@@ -148,6 +110,8 @@ function ParseLuaArray( &$file_as_array )
 				}
 			}
 		}
+		
+		gzclose($file);
 		return($stack[0][1]);
 	}
 }
