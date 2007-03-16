@@ -270,14 +270,14 @@ function output_addon_xml( )
 		{
 			$addonElement =& $addonsElement->createChild('addon');
 
-			$addonElement->attribute('name', $row['name']);
-			$addonElement->attribute('version', $row['version']);
+			$addonElement->attribute('name', htmlspecialchars($row['name']));
+			$addonElement->attribute('version', htmlspecialchars($row['version']));
 			$addonElement->attribute('required', $row['required']);
 			$addonElement->attribute('homepage', $row['homepage']);
 			$addonElement->attribute('filename', $uniadmin->url_path.$uniadmin->config['addon_folder'].'/'.$row['file_name']);
 			$addonElement->attribute('toc', $row['toc']);
 			$addonElement->attribute('full_path', $row['full_path']);
-			$addonElement->attribute('notes', str_replace('"','',$row['notes']));
+			$addonElement->attribute('notes', htmlspecialchars($row['notes']));
 
 			$sql = "SELECT * FROM `".UA_TABLE_FILES."` WHERE `addon_id` = '".$row['id']."';";
 			$result2 = $db->query($sql);

@@ -72,7 +72,7 @@ define('UA_FORMACTION',   UA_INDEX.( isset($_GET[UA_URI_PAGE]) && ($_GET[UA_URI_
 define('UA_REJECT_INI'   , 'CHECKEDADDONS,CHECKEDSVLIST,EXELOC,FILELOCATION,SELECTEDACCT,EXE1,EXE1LOCATION,EXE2,EXE2LOCATION,EXE3,EXE3LOCATION,EXEUULAUNCH,EXEWOWLAUNCH,USERAGENT');
 
 // File types to ignore when scanning addons
-define('UA_ALLOW_ADDON_FILES' , 'lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch');
+define('UA_ALLOW_ADDON_FILES' , 'lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch,bak,jpeg,jpg,gif,png');
 
 // Allowed logo image types
 define('UA_LOGO_TYPES'  , 'jpg,jpeg,png,ico,gif');

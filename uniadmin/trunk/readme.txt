@@ -1,6 +1,7 @@
-UniAdmin 0.7.6 (updated 9th March 2007)
+UniAdmin 0.7.6 (updated 12th March 2007)
 ===============================================
-UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and auto-updating WoW addons.
+UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and
+auto-updating WoW addons.
 
 If you don't know what UniUploader is, then... well... you're a bit ahead of yourself then aren't you? ;-)
 
@@ -8,15 +9,16 @@ If you don't know what UniUploader is, then... well... you're a bit ahead of you
 Table of Contents
 =================
    1 - Requirements
-   2 - Installation
-   3 - Upgrading
-   4 - Thanks
-   5 - FAQ
-   6 - Support
-   7 - License
-   8 - Known Bugs / Gotchyas
-   9 - Change Log
-  10 - The Future
+   2 - Recommended Tools
+   3 - Installation
+   4 - Upgrading
+   5 - Thanks
+   6 - FAQ
+   7 - Support
+   8 - License
+   9 - Known Bugs / Gotchyas
+  10 - Change Log
+  11 - The Future
 
 
 1 - Requirements
@@ -26,14 +28,19 @@ Table of Contents
 - MySQL Database 4.0 or higher (http://www.mysql.com)
 
 
-2 - Installation
+2 - Recommended Tools
+=====================
+- phpMyAdmin for managing MySQL databases
+
+
+3 - Installation
 ================
 1. Create a new database (eg. uniadmin)
 2. Upload the contents of the zip file to your webserver
-3. After FTPing, CHMOD the following folders to 0777, or change NTFS file permissions for these folders to make them
-   available as "Everyone - Write" on a Windows machine.
+3. After FTPing, CHMOD the following folders to 0777, or change NTFS file permissions for these folders
+   to make them available as "Everyone - Write" on a Windows machine.
 
-[folders]
+[uniadmin]
   addon_temp
   addon_zips
   cache
@@ -45,15 +52,15 @@ The admin user is created on installation
 Read the help page for additional info.
 
 
-3 - Upgrading
+4 - Upgrading
 =============
-1. Run ?p=upgrade and follow the instructions
+1. Run index.php?p=upgrade and follow the instructions
 
 
    3a - Upgrade from v0.7.0
    ========================
-   Upgrading from v0.7.0 to a higher version will force you to install fresh.
    There is no upgrade from v0.7.0
+   Upgrading from v0.7.0 to a higher version will force you to install fresh
 
 
    3b - Upgrade from v0.7.5
@@ -63,7 +70,7 @@ Read the help page for additional info.
    javaUniUploader and phpUniUploader require this new setting to function properly
 
 
-4 - Thanks
+5 - Thanks
 ==========
 sturmy   - French localization
 fubu2k   - German localization
@@ -74,7 +81,7 @@ Zeryl    - Thanks for help with parsing strings into multi-dimensional arrays
            o Thanks for the WoWAce module code
 
 
-5 - FAQ
+6 - FAQ
 ======
 Q. I'm not sure what I set SYNCHROURL and PRIMARYURL to in the Settings Management page.
 A. SYNCHROURL is the URL path to the UniAdmin interface.php, eg. http://www.myserver.com/uniadmin/interface.php
@@ -83,7 +90,8 @@ A. SYNCHROURL is the URL path to the UniAdmin interface.php, eg. http://www.myse
    owner or their on-line help for the appropriate URL.
 
 Q. I'm still confused about the settings in the Settings Management page and how to configure them.
-A. 1. First, hover your mouse over each setting, you'll get a tooltip with the corresponding part of the UniUploader interface.
+A. 1. First, hover your mouse over each setting, you'll get a tooltip with the corresponding part of the
+UniUploader interface.
    2. If you are still confused
      a. Manually configure UniUploader with the settings needed for your config.
        - Open the settings.ini and you'll see all the settings just like in the Settings Management page.
@@ -96,20 +104,18 @@ A. 1. Go to http://gdataonline.com/makehash.php
    4. Put the hash in the password field of users table in UniAdmin database - for the correct user(s)
 
 
-6 - Support
+7 - Support
 ===========
 For any support issues, questions, comments, feedback, or suggestions
 please go to the support forums here - http://www.wowroster.net/Forums/viewforum/f=24.html
 
 
-7 - License
+8 - License
 ===========
 UniAdmin is licensed under a Creative Commons
 "Attribution-NonCommercial-ShareAlike 2.5" license.
-See http://creativecommons.org/licenses/by-nc-sa/2.5/ for the short
-summary, and
-http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode for the
-full license information.
+Short summary: http://creativecommons.org/licenses/by-nc-sa/2.5
+Full License: http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
 
 Regarding Attribution:
 - Keep the credits in the footer of the UniAdmin pages.
@@ -154,7 +160,7 @@ UniAdmin uses the following libraries as well
     modules/upgrade.php
 
 - The templating system is based on EQdkp's
-  This concerns include/template.php
+  File located at [include/template.php]
 
   These 3 files are licensed under the GNU General Public License,
   which is available at http://gnu.org/copyleft/gpl.html
@@ -163,29 +169,30 @@ UniAdmin uses the following libraries as well
 - MiniXML - http://minixml.psychogenic.com
   PHP class for generating and parsing XML
   Licensed under the GNU General Public License - http://gnu.org/copyleft/gpl.html
+  Files are located at [include/minixml/]
 
 
-8 - Known Bugs / Gotchyas
+9 - Known Bugs / Gotchyas
 =========================
 Bug: Addon zip files that have more than one addon in them may show up funny
 Solution: After you upload an addon zip, edit the info on the addon details page
 
 
-9 - Change Log
+10 - Change Log
 ===============
 ~ Fixed
 + Added
 ! Changed
 
 v0.7.6
-~ slashes are now stripped in stats module
+~ slashes are now stripped in the stats module
 ~ ADDVARVAL2 is now a password field since it's usually a password
 ~ Edited pclzip.lib.php detection of windows to something that servers don't block
 ~ Removed curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     It isn't needed and some servers block this option
 ~ get_remote_contents file get function in include/uniadmin.php
-    This was causing the no toc errors for wowace addons
 ~ Removed umask in write_file function in include/uniadmin.php
+    These two were causing the no toc errors for wowace addons
 ~ Added improper module name detection in index.php, to eliminate remote file inclusion hacks
 ~ Reduced the queries on the stats page down to 9, Thanks alot PleegWat!
 ~ Sorting on stats page
@@ -200,14 +207,14 @@ v0.7.6
 ! The Help tab is now "selected" when there is no page defined in the url
 ! UA now only accepts and scans certain file types for addons
     lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch
-    If there are other, NON-executable file extentions, let us know!
+    UniAdmin will notify you if a file was skipped
+    If there are other, NON-executable file extensions, let us know!
     PclZip has an option to run a pre-extract function
     function pclzip_pre_extract() in include/uniadmin.php
     Files not on the allowed list are not even extracted
 ! Addon note tooltip now shows over entire 'name' cell
 ! Tables that use the js sort are not initially sorted, improving page load times
 ! Error message rows are now reddish
-! Set header() to xml for addon output and settings xml output
 ! Logo module has been edited so different image file types could be used in the future
 ! Removed `download_url` field from logo table, `filename` is used now
 ! All remote addons (wowace) will now be stored locally
@@ -233,7 +240,7 @@ v0.7.6
 + Now using the minixml library to generate xml output in interface.php
     http://minixml.psychogenic.com
     This allows proper formatting and escaping
-+ New constant for allowed logo image types
++ New logo image types are allowed
     Logo image types allowed are 'jpg,jpeg,png,ico,gif'
     Others could have been added, but some formats are too large to be downloaded quickly
 + Global addon deletion, to delete every addon from your UniAdmin install
@@ -268,13 +275,15 @@ v0.7.5
 + Added password confirmation
     If you edit yourself, you need to enter old password
     If your level > user, then no old password is needed
-+ If adding a new user, and there is a form validation error, some of the info will be still in the form (name, level, lang, style)
++ If adding a new user, and there is a form validation error, some of the info will be still in the form (name,
+level, lang, style)
 + Added ua_die() to kill UA when needed with a message and debug info
 + Added remote checking for new UA version
     There is an option to turn this off in uniadmin config
 + Added WoWAce module, now you can get addons from wowace.com
 + Added a function to grab a remote file's contents $uniadmin->get_remote_contents()
-! Addon zips are loaded on the assumption that they extract to Interface/AddOns/, there is a switch on the upload form to change this action
+! Addon zips are loaded on the assumption that they extract to Interface/AddOns/, there is a switch on the upload
+form to change this action
 ! Simplified the upload process
     Only 3 fields; Required, Full Path, Select File
 ! Greatly improved .toc file detection
@@ -282,7 +291,8 @@ v0.7.5
     You can use the addon details page to edit fields
 ! get_toc() changed to get_toc_val()
     This can get any value from the .toc file such as Interface, Version, X-Website, etc...
-! Merged many addon.php functions ( require_addon, optional_addon, enable_addon, disable_addon ) into one function toggle_addon()
+! Merged many addon.php functions ( require_addon, optional_addon, enable_addon, disable_addon ) into one
+function toggle_addon()
 ! Moved addon functions to include/addon_lib.php
 ! Moved debug config to the UA settings page
 ! Removed all extra ?>
@@ -297,7 +307,8 @@ v0.7.5
 ! Changed $uniadmin->debug() to $uniadmin->error()
 ! Changed some calls in $uniadmin that used $uniadmin to $this
 ! Changed $uniadmin->ls() to be able to not traverse directories if needed
-! Moved interface.php to modules dir, interface.php still exists in the root, but includes index.php and sets $_GET['p'] = 'interface';
+! Moved interface.php to modules dir, interface.php still exists in the root, but includes index.php and sets
+$_GET['p'] = 'interface';
 ! Changed uniadmin config text strings in locale files
     Using "title|tootip" format now
 ! Changed menu generation to give more variables so menu can be styled easily in themes
@@ -386,6 +397,6 @@ Beta .31
 ! Updated this install.txt file
 
 
-10 - The Future
+11 - The Future
 ===============
 To-do list for future versions of UA
