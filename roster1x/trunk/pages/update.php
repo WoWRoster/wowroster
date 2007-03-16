@@ -82,7 +82,7 @@ if( is_array($_FILES) && !empty($_FILES) )
 
 			$file_location = $file['tmp_name'];
 
-			list( $file_name, $file_ext, $file_type ) = explode( '.',$file['name'] );
+			list( $file_name, $file_ext ) = explode( '.',$file['name'] );
 
 			if( in_array(strtolower($file_name),$filefields) )
 			{
@@ -94,7 +94,7 @@ if( is_array($_FILES) && !empty($_FILES) )
 					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
 					// Parse the lua file into a php array that we can use
-					$data = ParseLuaFile( $file_location,$file_type );
+					$data = ParseLuaFile( $file_location );
 
 					// Done with the file, we don't need it anymore
 					@unlink($file_location);
