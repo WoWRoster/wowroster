@@ -1,0 +1,74 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- BEGIN logo_row -->
+<table class="ua_table" align="center" width="60%">
+	<tr>
+		<th class="table_header">{logo_row.L_LOGO_NUM}</th>
+	</tr>
+	<tr>
+		<td align="center">{logo_row.IMAGE}</td>
+	</tr>
+	<tr>
+		<td align="center">
+		<!-- IF S_LOGO -->
+			<table class="ua_table">
+				<tr>
+					<th>{L_UPDATE_FILE}</th>
+					<!-- IF logo_row.IMAGESET -->
+					<th>{L_UPLOADED}</th>
+					<th>{L_STATUS}</th>
+					<!-- ENDIF -->
+				</tr>
+				<tr>
+					<td align="center">{L_SELECT_FILE}:
+						<form name="ua_uploadlogo{logo_row.NUM}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+							<input class="file" type="file" name="logo{logo_row.NUM}" />
+							<input class="submit" type="submit" value="{logo_row.L_UPDATE_LOGO}" />
+							<input type="hidden" value="{A_PROCESS}" name="{A_OPERATION}" />
+						</form>
+					</td>
+					<!-- IF logo_row.IMAGESET -->
+					<td>{logo_row.UPDATED}</td>
+					<td>
+						<!-- IF logo_row.ACTIVE eq 1 -->
+						<form name="ua_disablelogo{logo_row.NUM}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+							<input type="hidden" name="{A_OPERATION}" value="{A_DISABLE}" />
+							<input type="hidden" name="{A_ID}" value="{logo_row.ID}" />
+							<input class="icon" src="{TEMPLATE_PATH}/images/enabled.png" type="image" value="{L_ENABLED}" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+						</form>
+						<!-- ELSEIF logo_row.ACTIVE eq 0 -->
+						<form name="ua_enablelogo{logo_row.NUM}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+							<input type="hidden" name="{A_OPERATION}" value="{A_ENABLE}" />
+							<input type="hidden" name="{A_ID}" value="{logo_row.ID}" />
+							<input class="icon" src="{TEMPLATE_PATH}/images/disabled.png" type="image" value="{L_DISABLED}" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+						</form>
+						<!-- ENDIF --></td>
+					<!-- ENDIF -->
+				</tr>
+			</table>
+		<!-- ELSE -->
+			<!-- IF logo_row.IMAGESET -->
+			<table class="ua_table">
+				<tr>
+					<th>{L_UPLOADED}</th>
+					<th>{L_STATUS}</th>
+				</tr>
+				<tr>
+					<td>{logo_row.UPDATED}</td>
+					<td>
+						<!-- IF logo_row.ACTIVE eq 1 -->
+						<img src="{TEMPLATE_PATH}/images/enabled.png" class="icon" alt="" onmouseover="return overlib('{L_ENABLED}');" onmouseout="return nd();" />
+						<!-- ELSEIF logo_row.ACTIVE eq 0 -->
+						<img src="{TEMPLATE_PATH}/images/disabled.png" class="icon" alt="" onmouseover="return overlib('{L_DISABLED}');" onmouseout="return nd();" />
+						<!-- ENDIF --></td>
+				</tr>
+			</table>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+		</td>
+	</tr>
+</table>
+<br />
+<!-- END logo_row -->
+
+<!-- INCLUDE overall_footer.html -->

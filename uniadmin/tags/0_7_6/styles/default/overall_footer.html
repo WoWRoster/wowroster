@@ -1,0 +1,60 @@
+<br />
+<!-- IF S_NORMAL_FOOTER -->
+
+<!--
+    If you use this software and find it to be useful, we ask that you retain the copyright notice below.
+//-->
+<div class="ua_hr"><hr /></div>
+<br />
+<div align="center">
+	<span class="copyright"><a href="http://www.wowroster.net/" target="_blank">UniAdmin</a> v{UA_VER}<br />
+	&copy; 2006 The WoWRoster Dev Team</span><br />
+<!-- IF S_SHOW_DEBUG -->
+	<br /><span class="copyright">{U_RENDERTIME} | {U_QUERYCOUNT}</span><br />
+<!-- ELSE -->
+	<br />
+<!-- ENDIF -->
+	<br />
+	<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank"><img src="{TEMPLATE_PATH}/images/somerights.png" alt="Creative Commons License" height="31" width="88" /></a><br />
+	<span class="copyright">UniAdmin is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 2.5</a></span>
+</div>
+
+<br />
+
+<!-- IF S_DEBUG_PHP -->
+<table class="ua_table" align="center" width="80%">
+	<tr>
+		<th class="debug_header">{L_DEBUG}</th>
+	</tr>
+	<!-- BEGIN debug_php -->
+	<tr>
+		<td class="error2"><strong>{debug_php.FILE}</strong></td>
+	</tr>
+	<!-- BEGIN php_row -->
+	<tr>
+		<td>&nbsp;&nbsp;&nbsp;{debug_php.php_row.ERROR}</td>
+	</tr>
+	<!-- END php_row -->
+	<!-- END debug_php -->
+</table>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_DEBUG_SQL -->
+<table class="ua_table" align="center" width="80%">
+	<tr>
+		<th class="table_header">{L_QUERIES}</th>
+	</tr>
+	<!-- BEGIN debug_sql_row -->
+	<tr>
+		<td>{debug_sql_row.QUERY}</td>
+	</tr>
+	<!-- END debug_sql_row -->
+</table>
+<br />
+<!-- ENDIF -->
+
+
+<!-- ENDIF -->
+</body>
+</html>

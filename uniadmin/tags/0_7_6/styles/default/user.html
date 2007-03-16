@@ -1,0 +1,77 @@
+<!-- INCLUDE overall_header.html -->
+
+<table class="ua_table" align="center">
+	<tr>
+		<th colspan="6" class="table_header">{L_CURRENT_USERS}</th>
+	</tr>
+	<tr>
+		<th>{L_USERNAME}</th>
+		<th>{L_USERLEVEL}</th>
+		<th>{L_LANGUAGE}</th>
+		<th>{L_USER_STYLE}</th>
+		<th>{L_MODIFY}</th>
+		<th>{L_DELETE}</th>
+	</tr>
+	<!-- BEGIN user_row -->
+	<tr>
+		<td class="data{user_row.ROW_CLASS}" valign="top">{user_row.NAME}</td>
+		<td class="data{user_row.ROW_CLASS}" valign="top">{user_row.LEVEL}</td>
+		<td class="data{user_row.ROW_CLASS}" valign="top">{user_row.LANG}</td>
+		<td class="data{user_row.ROW_CLASS}" valign="top">{user_row.STYLE}</td>
+		<td class="data{user_row.ROW_CLASS}" valign="top"><!-- IF user_row.S_EDIT --><form name="ua_edituser_{user_row.USER_ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+			<input type="hidden" name="{A_OPERATION}" value="edit" />
+			<input type="hidden" name="{A_ID}" value="{user_row.USER_ID}" />
+			<input class="submit" style="color:green;" type="submit" value="{L_MODIFY}" />
+			</form><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+		<td class="data{user_row.ROW_CLASS}" valign="top"><!-- IF user_row.S_DELETE --><form name="ua_deleteuser_{user_row.USER_ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+			<input type="hidden" name="{A_OPERATION}" value="delete" />
+			<input type="hidden" name="{A_ID}" value="{user_row.USER_ID}" />
+			<input class="submit" style="color:red;" type="submit" value="{L_DELETE}" />
+			</form><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+	</tr>
+	<!-- END user_row -->
+</table>
+
+<br />
+
+<!-- IF S_POWER -->
+<form name="ua_adduser" method="post" enctype="multipart/form-data" action="{UA_FORMACTION}">
+	<table class="ua_table" align="center">
+		<tr>
+			<th colspan="2" class="table_header">{L_ADD_USER}</th>
+		</tr>
+		<tr>
+			<td>{L_USERNAME}:</td>
+			<td><input class="input_m" type="text" name="name" value="{P_USERNAME}" size="20" maxlength="30" /></td>
+		</tr>
+		<tr>
+			<td class="data2">{L_PASSWORD}:</td>
+			<td class="data2"><input class="input_m" type="password" name="password" value="" size="20" maxlength="50" /></td>
+		</tr>
+		<!-- IF S_POWER -->
+		<tr>
+			<td>{L_RETYPE_PASSWORD}:</td>
+			<td><input class="input_m" type="password" name="password2" value="" size="20" maxlength="50" /></td>
+		</tr>
+		<!-- ENDIF -->
+		<tr>
+			<td class="data2">{L_USERLEVEL}:</td>
+			<td class="data2"><!-- IF S_ADMIN -->{U_LEVEL_SELECTBOX}<!-- ELSE -->[{U_USER_ID}]<input type="hidden" name="level" value="{U_USER_ID}" /><!-- ENDIF --></td>
+		</tr>
+		<tr>
+			<td>{L_LANGUAGE}:</td>
+			<td>{U_LANG_SELECTBOX}</td>
+		</tr>
+		<tr>
+			<td class="data2">{L_USER_STYLE}:</td>
+			<td class="data2">{U_STYLE_SELECTBOX}</td>
+		</tr>
+		<tr>
+			<th colspan="2"><input class="submit" type="submit" value="{L_ADD_USER}" /></th>
+		</tr>
+	</table>
+	<input type="hidden" value="new" name="{A_OPERATION}" />
+</form>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->
