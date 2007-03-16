@@ -278,12 +278,12 @@ class char
 					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" ".($roster_conf['recipe_disp'] == '0' ? 'style="display:none;"' : '').";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
-    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=item').'">'.$wordings[$lang]['item'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=name').'">'.$wordings[$lang]['name'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=difficulty').'">'.$wordings[$lang]['difficulty'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=type').'">'.$wordings[$lang]['type'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink($url.'&amp;action=recipes&amp;s=level').'">'.$wordings[$lang]['level'].'</a></th>
-    <th class="membersHeaderRight"><a href="'.makelink($url.'&amp;action=recipes&amp;s=reagents').'">'.$wordings[$lang]['reagents'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=item').'">'.$wordings[$lang]['item'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=name').'">'.$wordings[$lang]['name'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=difficulty').'">'.$wordings[$lang]['difficulty'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=type').'">'.$wordings[$lang]['type'].'</a></th>
+    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=level').'">'.$wordings[$lang]['level'].'</a></th>
+    <th class="membersHeaderRight"><a href="'.makelink('char-recipes&amp;s=reagents').'">'.$wordings[$lang]['reagents'].'</a></th>
   </tr>
 ';
 				}

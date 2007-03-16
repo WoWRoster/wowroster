@@ -133,7 +133,7 @@ if (isset($_POST['s']))
 		{
 			$row_st = (($rc%2)+1);
 
-			$char_url = makelink('char&amp;member='.$data['member_id'].'&amp;action=recipes');
+			$char_url = makelink('char-recipes&amp;member='.$data['member_id']);
 			if ( $cid != $data['member_id'] )
 			{
 				if ( $cid != '' )

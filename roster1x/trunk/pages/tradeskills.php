@@ -126,7 +126,7 @@ if( $wowdb->num_rows($result) )
 		</table>
 	</td>
 	<td class="'.$stripe_class_right.'">
-		<a href="'.makelink('char&amp;member='.$row['member_id'].'&amp;action=recipes').'">'.$row['name'].'</a>
+		<a href="'.makelink('char-recipes&amp;member='.$row['member_id']).'">'.$row['name'].'</a>
 	</td>
 	</tr>
 ');
