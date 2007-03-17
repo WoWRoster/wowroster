@@ -41,9 +41,9 @@ function border($style,$mode,$header_text=null)
 	if( $header_text != '' && $style != 'end' )
 	{
 		$header_text = '  <tr>
-    <td class="'.$style.'centerleft '.$backg_css.'centerleft"></td>
+    <td class="'.$style.'_c_l '.$backg_css.'_c_l"></td>
     <th class="'.$style.'header '.$backg_css.'header" align="center" valign="top">'.$header_text.'</th>
-    <td class="'.$style.'centerright '.$backg_css.'centerright"></td>
+    <td class="'.$style.'_c_r '.$backg_css.'_c_r"></td>
   </tr>';
 	}
 	else
@@ -56,25 +56,25 @@ function border($style,$mode,$header_text=null)
 <!-- START [open-'.$style.'] container -->
 <table cellspacing="0" cellpadding="0" border="0">
   <tr>
-   <td class="'.$style.'topleft '.$backg_css.'topleft"></td>
-   <td class="'.$style.'top '.$backg_css.'top"></td>
-   <td class="'.$style.'topright '.$backg_css.'topright"></td>
+   <td class="'.$style.'_t_l '.$backg_css.'_t_l"></td>
+   <td class="'.$style.'_t '.$backg_css.'_t"></td>
+   <td class="'.$style.'_t_r '.$backg_css.'_t_r"></td>
   </tr>
 '.$header_text.'
   <tr>
-    <td class="'.$style.'centerleft '.$backg_css.'centerleft"></td>
-    <td class="'.$style.'center">
+    <td class="'.$style.'_c_l '.$backg_css.'_c_l"></td>
+    <td class="'.$style.'_c">
 <!-- END [open-'.$style.'] container -->';
 
 	$end = '
 <!-- START [close-'.$style.'] container -->
     </td>
-    <td class="'.$style.'centerright '.$backg_css.'centerright"></td>
+    <td class="'.$style.'_c_r '.$backg_css.'_c_r"></td>
   </tr>
   <tr>
-   <td class="'.$style.'botleft '.$backg_css.'botleft"></td>
-   <td class="'.$style.'bot '.$backg_css.'bot"></td>
-   <td class="'.$style.'botright '.$backg_css.'botright"></td>
+   <td class="'.$style.'_b_l '.$backg_css.'_b_l"></td>
+   <td class="'.$style.'_b '.$backg_css.'_b"></td>
+   <td class="'.$style.'_b_r '.$backg_css.'_b_r"></td>
   </tr>
 </table>
 <!-- END [close-'.$style.'] container -->';

@@ -492,11 +492,13 @@ $returnstring .= '  <tr>
 
 		$lang = $this->data['clientLocale'];
 
-		$query = "SELECT `spelltree`.*, `talenttree`.`order` ".
-			"FROM `".ROSTER_SPELLTREETABLE."` AS spelltree ".
-			"LEFT JOIN `".ROSTER_TALENTTREETABLE."` AS talenttree ON `spelltree`.`member_id` = `talenttree`.`member_id` AND `spelltree`.`spell_type` = `talenttree`.`tree` ".
-			"WHERE `spelltree` . `member_id` = ".$this->data['member_id']." ".
-			"ORDER BY `talenttree` . `order` ASC";
+		$query = "SELECT `spelltree`.*, `talenttree`.`order`
+			FROM `".ROSTER_SPELLTREETABLE."` AS spelltree
+			LEFT JOIN `".ROSTER_TALENTTREETABLE."` AS talenttree
+				ON `spelltree`.`member_id` = `talenttree`.`member_id`
+				AND `spelltree`.`spell_type` = `talenttree`.`tree`
+			WHERE `spelltree`.`member_id` = ".$this->data['member_id']."
+			ORDER BY `talenttree`.`order` ASC";
 
 		$result = $wowdb->query($query);
 
@@ -559,22 +561,21 @@ $returnstring .= '  <tr>
 		}
 
 		$return_string = '
-<div class="spell_panel">
-	<div class="spell_panel_name">'.$wordings[$lang]['spellbook'].'</div>
+<div class="char_panel spell_panel">
+	<img class="panel_icon" src="'.$roster_conf['img_url'].'char/menubar/icon_spellbook.gif" alt=""/>
+	<div class="panel_title">'.$wordings[$lang]['spellbook'].'</div>
+	<div class="background">&nbsp;</div>
 
-	<!-- Skill Type Icons Menu -->
-	<div class="spell_skill_tab_bar">
+	<div class="skill_types" id="skill_tab_bar">
+		<ul>
 ';
 
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '
-		<div class="spell_skill_tab">
-			<img class="spell_skill_tab_icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" onclick="showSpellTree(\'spelltree_'.$tree['id'].'\');" />
-		</div>'."\n";
+			$return_string .= '			<li onclick="return displaypage(\'spelltree_'.$tree['id'].'\',this);"><div class="icon_hover"></div><img class="icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" /><div class="icon_hover"></div></li>'."\n";
 		}
-		$return_string .= "	</div>\n";
+		$return_string .= "		</ul>\n	</div>\n";
 
 
 		foreach( $spelltree as $tree )
@@ -598,27 +599,31 @@ $returnstring .= '  <tr>
 					if( ($num_pages-1) == $page )
 					{
 						$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
+						$return_string .= '			<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+						$return_string .= '			<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 					else
 					{
 						$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '			<div class="spell_page_forward" onclick="show(\'page_'.($page+1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '			<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+						$return_string .= '			<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
 					$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '			<div class="spell_page_back" onclick="show(\'page_'.($page-1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '			<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '			<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
 				}
 				else
 				{
 					$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '			<div class="spell_page_back" onclick="show(\'page_'.($page-1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-					$return_string .= '			<div class="spell_page_forward" onclick="show(\'page_'.($page+1).'_'.$tree['id'].'\');hide(\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '			<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '			<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 				}
-				$return_string .= '			<div class="spell_pagenumber">Page '.($page+1).'</div>'."\n";
+				$return_string .= '			<div class="pagenumber">'.$wordings[$lang]['page'].' '.($page+1).'</div>'."\n";
 
 
 				$icon_num = 0;
@@ -626,19 +631,19 @@ $returnstring .= '  <tr>
 				{
 					if( $icon_num == 0 )
 					{
-						$return_string .= '			<div class="spell_container_1">'."\n";
+						$return_string .= '			<div class="container_1">'."\n";
 					}
 					elseif( $icon_num == 7 )
 					{
-						$return_string .= "			</div>\n			<div class=\"spell_container_2\">\n";
+						$return_string .= "			</div>\n			<div class=\"container_2\">\n";
 					}
 					$return_string .= '
-				<div class="spell_info_container">
+				<div class="info_container">
 					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
-					<span class="text"><span class="spellYellow">'.$spellicons['name'].'</span>';
+					<span class="text"><span class="yellow">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
-						$return_string .= '<br /><span class="spellBrown">'.$spellicons['rank'].'</span>';
+						$return_string .= '<br /><span class="brown">'.$spellicons['rank'].'</span>';
 					}
 					$return_string .= "</span>\n				</div>\n";
 					$icon_num++;
@@ -649,7 +654,14 @@ $returnstring .= '  <tr>
 			}
 			$return_string .= "	</div>\n";
 		}
-		$return_string .= "</div>\n";
+		$return_string .= '</div>
+
+<script type="text/javascript">
+	//Set tab to intially be selected when page loads:
+	//[which tab (1=first tab), ID of tab content to display]:
+	var initialtab=[1, \'spelltree_0\'];
+	window.onload=charpage_onload(\'skill_tab_bar\')
+</script>'."\n";
 
 		return $return_string;
 	}
@@ -760,14 +772,14 @@ $returnstring .= '  <tr>
 			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';
 			$petTitle		.= '<span class="petName" style="top: 30px; left: 95px; display: none;" id="pet_title'.$petNum.'">'.$wordings[$lang]['level'].' '.$row['level'].' ' . stripslashes($row['type']).'</span>';
 			$loyalty		.= '<span class="petName" style="top: 50px; left: 95px; display: none;" id="pet_loyalty'.$petNum.'">'.$row['loyalty'].'</span>';
-			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 30px; top: 8px; width: 64px; height: 64px; display: none;" src="'.$roster_conf['interface_url'].$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" />';
+			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 30px; top: 8px; width: 64px; height: 64px; display: none;" src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" />';
 			$resistances	.= '<div  class="pet_resistance" id="pet_resistances'.$petNum.'">
 				<ul>
-					<li class="pet_fire"><span class="white">'.$row['res_fire'].'</span></li>
-					<li class="pet_nature"><span class="white">'.$row['res_nature'].'</span></li>
-					<li class="pet_arcane"><span class="white">'.$row['res_arcane'].'</span></li>
-					<li class="pet_frost"><span class="white">'.$row['res_frost'].'</span></li>
-					<li class="pet_shadow"><span class="white">'.$row['res_shadow'].'</span></li>
+					<li class="pet_fire"><span class="white">'.(isset($row['res_fire']) ? $row['res_fire'] : '0').'</span></li>
+					<li class="pet_nature"><span class="white">'.(isset($row['res_nature']) ? $row['res_nature'] : '0').'</span></li>
+					<li class="pet_arcane"><span class="white">'.(isset($row['res_arcane']) ? $row['res_arcane'] : '0').'</span></li>
+					<li class="pet_frost"><span class="white">'.(isset($row['res_frost']) ? $row['res_frost'] : '0').'</span></li>
+					<li class="pet_shadow"><span class="white">'.(isset($row['res_shadow']) ? $row['res_shadow'] : '0').'</span></li>
 				</ul>
 			</div>';
 			$stats			.= '
@@ -840,10 +852,10 @@ $returnstring .= '  <tr>
 			$hpMana	.= '
 			<div id="pet_hpmana'.$petNum.'" class="health_mana" style="position: absolute;	left: 35px; top: 65px; display: none;">
 				<div class="health" style="text-align: left;">
-					'.$wordings[$lang]['health'].': <span class="white">'.$row['health'].'</span>
+					'.$wordings[$lang]['health'].': <span class="white">'.(isset($row['health']) ? $row['health'] : '0').'</span>
 				</div>
 		        <div class="mana" style="text-align: left;">
-		        	'.$wordings[$lang]['mana'].': <span class="white">'.$row['mana'].'</span>
+		        	'.$wordings[$lang]['mana'].': <span class="white">'.(isset($row['mana']) ? $row['mana'] : '0').'</span>
 		        </div>
 			</div>';
 
@@ -1556,10 +1568,10 @@ $returnstring .= '  <tr>
 			$returndata = '
 <div class="char_panel talent_panel">
 
-	<img class="char_tab_image" src="'.$roster_conf['img_url'].'char/icon_talents.gif" alt="" />
-	<div class="char_name">'.$wordings[$lang]['talents'].'</div>
-	<img src="'.$roster_conf['img_url'].'char/talentbar_top.gif" class="top_bar" alt="" />
-	<img src="'.$roster_conf['img_url'].'char/talentbar_bottom.gif" class="bot_bar" alt="" />
+	<img class="panel_icon" src="'.$roster_conf['img_url'].'char/menubar/icon_talents.gif" alt="" />
+	<div class="panel_title">'.$wordings[$lang]['talents'].'</div>
+	<img src="'.$roster_conf['img_url'].'char/talent/bar_top.gif" class="top_bar" alt="" />
+	<img src="'.$roster_conf['img_url'].'char/talent/bar_bottom.gif" class="bot_bar" alt="" />
 
 	<div class="link"><a href="';
 
@@ -1593,7 +1605,7 @@ $returnstring .= '  <tr>
 			{
 				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
 
-		<div class="points"><span style="color:#FFDD00">'.$wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
+		<div class="points"><span style="color:#ffdd00">'.$wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
 		<img class="background" src="'.$roster_conf['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
 
 		<div class="container">'."\n";
@@ -1608,7 +1620,7 @@ $returnstring .= '  <tr>
 							if( $cell['rank'] != 0 )
 							{
 								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="rank_icon" src="'.$roster_conf['img_url'].'char/talent_rank.gif" alt="" />
+					<img class="rank_icon" src="'.$roster_conf['img_url'].'char/talent/rank.gif" alt="" />
 					<div class="rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
 					<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
@@ -1942,7 +1954,7 @@ else
 //-->
 </script>
         <div class="bottom"><!-- begin char-main-page1-middle-bottom -->
-		  <form>
+		  <form action="">
 		    <select class="statselect" name="statbox_left" onchange="doLpage(this.value);">
 			  <option value="statsleft" selected="selected"><?php print $wordings[$lang]['menustats']; ?></option>
 			  <option value="meleeleft"><?php print $wordings[$lang]['melee']; ?></option>
@@ -1989,20 +2001,13 @@ else
         <div class="equip"><?php print $this->printEquip('Trinket1'); ?></div>
       </div><!-- end char-main-page1-right -->
     </div><!-- end char-main-page1 -->
-<?php
-
-	$tab = '
     <div class="page2" id="page2"><!-- begin char-main-page2 -->
       <div class="left"></div>
       <div class="pet"><!-- begin char-main-page2-pet -->
-		    '.$petTab.'
+        <?php print $petTab; ?>
       </div>
       <div class="right"></div>
-		</div><!-- end char-main-page2 -->';
-	print $tab;
-
-?>
-
+	</div><!-- end char-main-page2 -->
     <div class="page3" id="page3"><!-- begin char-main-page3 -->
       <div class="left"></div>
       <div class="reputation"><!-- begin char-main-page3-reputation -->

@@ -110,63 +110,65 @@ foreach( $disp_array as $global_setting => $user_setting )
 }
 
 
-$menu_cell = '      <td class="menubarHeader" align="center" valign="middle"><a href="';
+$char_icon = ($char->data['sexid'] == '0' ? 'male-' : 'female-').strtolower($char->data['raceEn']);
 
-$char_menu = '<div align="center">'."\n";
 
-$char_menu .="\n<span class=\"headline_3\">$name @ $server".(!empty($action) ? ' &gt; '.ucfirst($action) : '')."</span>\n";
-
-$char_menu .= border('sorange','start');
-
-$char_menu .= '  <table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
-
-$char_menu .= $menu_cell.makelink('char'.$char_url).'">'.$act_words['character'].' Stats</a></td>'."\n";
+$char_menu = '<div class="char_menubar">
+	
+	<a href="'.makelink('char'.$char_url).'" onmouseover="overlib(\''.$act_words['character'].' Stats\',WRAP);" onmouseout="return nd();">
+		<img class="char_image" src="'.$roster_conf['img_url'].'char/portrait/'.$char_icon.'.gif" alt="" /></a>';
 
 if( $roster_conf['show_talents'] )
-	$char_menu .= $menu_cell.makelink('char-talents'.$char_url).'">'.$act_words['talents'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-talents'.$char_url).'" onmouseover="overlib(\''.$act_words['talents'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_talents.jpg" alt="" /></a>';
 
 if( $roster_conf['show_spellbook'] )
-	$char_menu .= $menu_cell.makelink('char-spellbook'.$char_url).'">'.$act_words['spellbook'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-spellbook'.$char_url).'" onmouseover="overlib(\''.$act_words['spellbook'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_spellbook.jpg" alt="" /></a>';
 
 if( $roster_conf['show_inventory'] )
-	$char_menu .= $menu_cell.makelink('char-bags'.$char_url).'">'.$act_words['bags'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-bags'.$char_url).'" onmouseover="overlib(\''.$act_words['bags'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_bags.jpg" alt="" /></a>';
 
 if( $roster_conf['show_bank'] )
-	$char_menu .= $menu_cell.makelink('char-bank'.$char_url).'">'.$act_words['bank'].'</a></td>'."\n";
-
-if( $roster_conf['show_mail'] )
-	$char_menu .= $menu_cell.makelink('char-mailbox'.$char_url).'">'.$act_words['mailbox'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-bank'.$char_url).'" onmouseover="overlib(\''.$act_words['bank'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_bank.jpg" alt="" /></a>';
 
 if( $roster_conf['show_quests'] )
-	$char_menu .= $menu_cell.makelink('char-quests'.$char_url).'">'.$act_words['quests'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-quests'.$char_url).'" onmouseover="overlib(\''.$act_words['quests'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_questlog.jpg" alt="" /></a>';
 
 if( $roster_conf['show_recipes'] )
-	$char_menu .= $menu_cell.makelink('char-recipes'.$char_url).'">'.$act_words['recipes'].'</a></td>'."\n";
-
-if( $roster_conf['show_bg'] )
-	$char_menu .= $menu_cell.makelink('char-bg'.$char_url).'">'.$act_words['bglog'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-recipes'.$char_url).'" onmouseover="overlib(\''.$act_words['recipes'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_recipes.jpg" alt="" /></a>';
 
 if( $roster_conf['show_pvp'] )
-	$char_menu .= $menu_cell.makelink('char-pvp'.$char_url).'">'.$act_words['pvplog'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-pvp'.$char_url).'" onmouseover="overlib(\''.$act_words['pvplog'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_pvp.jpg" alt="" /></a>';
+
+if( $roster_conf['show_bg'] )
+	$char_menu .= '	<a href="'.makelink('char-bg'.$char_url).'" onmouseover="overlib(\''.$act_words['bglog'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_bg.jpg" alt="" /></a>';
 
 if( $roster_conf['show_duels'] )
-	$char_menu .= $menu_cell.makelink('char-duels'.$char_url).'">'.$act_words['duellog'].'</a></td>'."\n";
+	$char_menu .= '	<a href="'.makelink('char-duels'.$char_url).'" onmouseover="overlib(\''.$act_words['duellog'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_duel.jpg" alt="" /></a>';
 
-$char_menu .= "  </tr>\n</table>\n";
+$char_menu .= '
+</div>
 
-$char_menu .= border('sorange','end');
-$char_menu .="\n</div>\n";
+<div class="char_title">'.$name.' @ '.$server.(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
+	<div class="lastupdated">'.$act_words['lastupdate'].': '.$char->data['update_format'].'</div>
+</div>';
+
 
 
 $char_page = "<div align=\"".$roster_conf['char_bodyalign']."\" style=\"margin:10px;\">\n";
 
-$char_page .= '<br />
-<span class="lastupdated">'.$act_words['lastupdate'].': '.$char->data['update_format']."</span><br />\n";
-
 
 $char_page .= '
-<br /><br />
-<table border="0" cellpadding="0" cellspacing="0" align="'.$roster_conf['char_bodyalign'].'">
+<br />
+<table border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td align="left" width="100%">';
 

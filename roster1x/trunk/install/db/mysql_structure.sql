@@ -268,6 +268,7 @@ CREATE TABLE `renprefix_players` (
   `race` varchar(32) NOT NULL default '',
   `raceEn` varchar(32) NOT NULL default '',
   `sex` varchar(10) NOT NULL default '',
+  `sexid` tinyint(1) NOT NULL default '0',
   `hearth` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
   `server` varchar(32) NOT NULL default '',

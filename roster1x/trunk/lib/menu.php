@@ -123,7 +123,7 @@ if( !empty($roster_conf['timezone']) )
 </span></td>
   </tr>
   <tr>
-    <td colspan="5" class="simpleborderbot syellowborderbot"></td>
+    <td colspan="5" class="simpleborder_b syellowborder_b"></td>
   </tr>
   <tr>
 <!-- Links Column 1 -->

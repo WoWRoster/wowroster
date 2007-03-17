@@ -48,6 +48,7 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
+  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/css/js/scrollbar.js"></script>
   <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['tabcontent']; ?>">
     /***********************************************
     * Tab Content script- Dynamic Drive DHTML code library (www.dynamicdrive.com)

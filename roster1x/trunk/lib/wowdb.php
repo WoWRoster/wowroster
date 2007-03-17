@@ -540,6 +540,11 @@ class wowdb
 		$this->add_value( $row_name.'_b', $data[1] );
 		$this->add_value( $row_name.'_d', $data[2] );
 	}
+	
+	function fix_icon($icon_name)
+	{
+		return strtolower(str_replace(' ','_',$icon_name));
+	}
 
 	/**
 	 * Format tooltips for insertion to the db
@@ -763,7 +768,7 @@ class wowdb
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
 		$mail['mail_coin'] = $mail_data['Coin'];
-		$mail['mail_coin_icon'] = $mail_data['CoinIcon'];
+		$mail['mail_coin_icon'] = $this->fix_icon($mail_data['CoinIcon']);
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
@@ -772,7 +777,7 @@ class wowdb
 		{
 			$item = $mail_data['Item'];
 
-			$mail['item_icon'] = $item['Icon'];
+			$mail['item_icon'] = $this->fix_icon($item['Icon']);
 			$mail['item_name'] = $item['Name'];
 			$mail['item_color'] = $item['Color'];
 
@@ -808,7 +813,7 @@ class wowdb
 		$item['item_slot'] = $slot_name;
 		$item['item_color'] = $item_data['Color'];
 		$item['item_id'] = $item_data['Item'];
-		$item['item_texture'] = $item_data['Icon'];
+		$item['item_texture'] = $this->fix_icon($item_data['Icon']);
 
 		if( isset( $item_data['Quantity'] ) )
 			$item['item_quantity'] = $item_data['Quantity'];
@@ -851,7 +856,7 @@ class wowdb
 		}
 		$recipe['reagents'] = substr($recipe['reagents'],0,-4);
 
-		$recipe['recipe_texture'] = $recipe_data['Icon'];
+		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
 
 		if( !empty($recipe_data['Tooltip']) )
 			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
@@ -1175,7 +1180,7 @@ class wowdb
 				// Fix bank bag icon
 				if( $bag_name == 'Bag0' )
 				{
-					$item['item_texture'] = 'INV_Misc_Bag_15';
+					$item['item_texture'] = 'inv_misc_bag_15';
 				}
 
 				// quantity for a bag means number of slots it has
@@ -1435,7 +1440,7 @@ class wowdb
 							if( !empty($spell_name) )
 								$this->add_value('spell_name', $spell_name );
 							if( !empty($data_spell_name['Icon']) )
-								$this->add_value('spell_texture', $data_spell_name['Icon'] );
+								$this->add_value('spell_texture', $this->fix_icon($data_spell_name['Icon']) );
 							if( !empty($data_spell_name['Rank']) )
 								$this->add_value('spell_rank', $data_spell_name['Rank'] );
 
@@ -1460,7 +1465,7 @@ class wowdb
 				$this->reset_values();
 				$this->add_value('member_id', $memberId );
 				$this->add_value('spell_type', $spell_type );
-				$this->add_value('spell_texture', $data_spell_type['Icon'] );
+				$this->add_value('spell_texture', $this->fix_icon($data_spell_type['Icon']) );
 
 				$querystr = "INSERT INTO `".ROSTER_SPELLTREETABLE."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
@@ -1545,7 +1550,7 @@ class wowdb
 							$this->add_value('tooltip', $talent_skill );
 
 						if( !empty($data_talent_skill['Icon']) )
-							$this->add_value('texture', $data_talent_skill['Icon'] );
+							$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']) );
 
 						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
 						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
@@ -1566,7 +1571,7 @@ class wowdb
 				if( !empty($talent_tree) )
 					$this->add_value('tree', $talent_tree );
 				if( !empty($tree_background) )
-					$this->add_value('background', $tree_background );
+					$this->add_value('background', $this->fix_icon($tree_background) );
 				if( !empty($tree_pointsspent) )
 					$this->add_value('pointsspent', $tree_pointsspent );
 				if( !empty($tree_order) )
@@ -2383,7 +2388,7 @@ class wowdb
 			if( !empty($data['Loyalty']) )
 				$this->add_value( 'loyalty', $data['Loyalty']);
 			if( !empty($data['Icon']) )
-				$this->add_value( 'icon', $data['Icon']);
+				$this->add_value( 'icon', $this->fix_icon($data['Icon']));
 
 			$attack = $data['Attributes']['Melee'];
 
@@ -2738,6 +2743,7 @@ class wowdb
 		$this->add_value( 'health', $data['Health'] );
 		$this->add_value( 'mana', $data['Mana'] );
 		$this->add_value( 'sex', $data['Sex'] );
+		$this->add_value( 'sexid', $data['SexId'] );
 		$this->add_value( 'hearth', $data['Hearth'] );
 
 		if( !empty($data['timestamp']['init']['DateUTC']) )

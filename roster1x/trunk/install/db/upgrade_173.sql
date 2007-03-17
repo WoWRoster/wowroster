@@ -51,6 +51,26 @@ UPDATE `renprefix_spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'
 UPDATE `renprefix_talents` SET `texture` = REPLACE(`texture`,'Interface/Icons/','');
 UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,'Interface/TalentFrame/','');
 
+UPDATE `renprefix_items` SET `item_texture` = REPLACE(`item_texture`,' ','_');
+UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,' ','_');
+UPDATE `renprefix_mailbox` SET `item_icon` = REPLACE(`item_icon`,' ','_');
+UPDATE `renprefix_pets` SET `icon` = REPLACE(`icon`,' ','_');
+UPDATE `renprefix_recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,' ','_');
+UPDATE `renprefix_spellbook` SET `spell_texture` = REPLACE(`spell_texture`,' ','_');
+UPDATE `renprefix_spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,' ','_');
+UPDATE `renprefix_talents` SET `texture` = REPLACE(`texture`,' ','_');
+UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,' ','_');
+
+UPDATE `renprefix_items` SET `item_texture` = LOWER(`item_texture`);
+UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = LOWER(`mailbox_coin_icon`);
+UPDATE `renprefix_mailbox` SET `item_icon` = LOWER(`item_icon`);
+UPDATE `renprefix_pets` SET `icon` = LOWER(`icon`);
+UPDATE `renprefix_recipes` SET `recipe_texture` = LOWER(`recipe_texture`);
+UPDATE `renprefix_spellbook` SET `spell_texture` = LOWER(`spell_texture`);
+UPDATE `renprefix_spellbooktree` SET `spell_texture` = LOWER(`spell_texture`);
+UPDATE `renprefix_talents` SET `texture` = LOWER(`texture`);
+UPDATE `renprefix_talenttree` SET `background` = LOWER(`background`);
+
 
 # --------------------------------------------------------
 ### Alter Players Table
@@ -165,7 +185,8 @@ ALTER TABLE `renprefix_players`
   ADD `spell_damage_shadow` int(11) NOT NULL default '0',
   ADD `spell_damage_nature` int(11) NOT NULL default '0',
   ADD `raceEn` varchar(32) NOT NULL default '' AFTER `race`,
-  ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`;
+  ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`,
+  ADD `sexid` tinyint(1) NOT NULL default '0' AFTER `sex`;
 
 
 # --------------------------------------------------------
