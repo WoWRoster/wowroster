@@ -110,13 +110,13 @@ foreach( $disp_array as $global_setting => $user_setting )
 }
 
 
-$char_icon = ($char->data['sexid'] == '0' ? 'male-' : 'female-').strtolower($char->data['raceEn']);
+$char->data['char_icon'] = $roster_conf['img_url'].'char/portrait/'.($char->data['sexid'] == '0' ? 'male-' : 'female-').strtolower($char->data['raceEn']);
 
 
 $char_menu = '<div class="char_menubar">
 	
 	<a href="'.makelink('char'.$char_url).'" onmouseover="overlib(\''.$act_words['character'].' Stats\',WRAP);" onmouseout="return nd();">
-		<img class="char_image" src="'.$roster_conf['img_url'].'char/portrait/'.$char_icon.'.gif" alt="" /></a>';
+		<img class="char_image" src="'.$char->data['char_icon'].'.gif" alt="" /></a>';
 
 if( $roster_conf['show_talents'] )
 	$char_menu .= '	<a href="'.makelink('char-talents'.$char_url).'" onmouseover="overlib(\''.$act_words['talents'].'\',WRAP);" onmouseout="return nd();">

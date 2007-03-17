@@ -77,32 +77,6 @@ function showSpellTree(ElementID)
 }
 
 
-var tabs = new Array();
-
-function addTab( name )
-{
-	tabs[tabs.length] = name;
-}
-
-function doTab( div )
-{
-	for( i=0 ; i<tabs.length ; i++ )
-	{
-		obj = document.getElementById( tabs[i] );
-		fontobj = document.getElementById( 'tabfont'+tabs[i] );
-		if( tabs[i] == div )
-		{
-			showElem(obj);
-			fontobj.className='white';
-		}
-		else
-		{
-			hideElem(obj);
-			fontobj.className='yellow';
-		}
-	}
-}
-
 var lpages = new Array();
 
 function addLpage( name )
@@ -145,47 +119,6 @@ function doRpage( div )
 		else
 		{
 			hideElem(obj);
-		}
-	}
-}
-
-function showPet(cNum)
-{
-	var ids = new Array();
-	ids[0] = 'pet_name';
-	ids[1] = 'pet_title';
-	ids[2] = 'pet_loyalty';
-	ids[3] = 'pet_top_icon';
-	ids[4] = 'pet_resistances';
-	ids[5] = 'pet_stats_table';
-	ids[6] = 'pet_xp_bar';
-	ids[7] = 'pet_training_pts';
-	ids[8] = 'pet_hpmana';
-	ids[9] = 'pet_training_nm';
-
-	for(a = 0; a < 15; a++)
-	{
-		for(i = 0; i < 15; i++)
-		{
-			if (cNum != i)
-			{
-				var oName= document.getElementById(ids[a]+String(i));
-				if (oName != null)
-				{
-					hideElem(oName);
-				}
-			}
-			else
-			{
-				var oName= document.getElementById(ids[a]+String(i));
-				if (oName != null)
-				{
-					if(oName.style.display == 'none' || oName.style.display == '')
-					{
-						showElem(oName);
-					}
-				}
-			}
 		}
 	}
 }
@@ -475,7 +408,7 @@ function collecttablinks(elemID)
 	tabobjlinks=tabobj.getElementsByTagName('li')
 }
 
-function charpage_onload(elemID)
+function tab_nav_onload(elemID)
 {
 	collecttablinks(elemID)
 

@@ -573,7 +573,7 @@ $returnstring .= '  <tr>
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '			<li onclick="return displaypage(\'spelltree_'.$tree['id'].'\',this);"><div class="icon_hover"></div><img class="icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" /><div class="icon_hover"></div></li>'."\n";
+			$return_string .= '			<li onclick="return displaypage(\'spelltree_'.$tree['id'].'\',this);"><img class="icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" /><div class="icon_hover"></div></li>'."\n";
 		}
 		$return_string .= "		</ul>\n	</div>\n";
 
@@ -660,7 +660,7 @@ $returnstring .= '  <tr>
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
 	var initialtab=[1, \'spelltree_0\'];
-	window.onload=charpage_onload(\'skill_tab_bar\')
+	window.onload=tab_nav_onload(\'skill_tab_bar\')
 </script>'."\n";
 
 		return $return_string;
@@ -880,10 +880,10 @@ $returnstring .= '  <tr>
 
 	function printStatLine( $label, $value, $tooltip )
 	{
-		$output  = '  <tr '.makeOverlib($tooltip,'','',2).'>'."\n";
-		$output .= '    <td class="label">'.$label.':</td>'."\n";
-		$output .= '    <td class="value">'.$value.'</td>'."\n";
-		$output .= '  </tr>'."\n";
+		$output  = '  <div class="statline" '.makeOverlib($tooltip,'','',2,'',',WRAP').'>'."\n";
+		$output .= '    <span class="value">'.$value.'</span>'."\n";
+		$output .= '    <span class="label">'.$label.':</span>'."\n";
+		$output .= '  </div>'."\n";
 
 		return $output;
 	}
@@ -943,7 +943,7 @@ $returnstring .= '  <tr>
 
 	function printBox( $cat, $side, $visible )
 	{
-		print '<table class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
+		print '<div class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
 		switch($cat)
 		{
 			case 'stats':
@@ -987,7 +987,7 @@ $returnstring .= '  <tr>
 				print $this->printResilience();
 				break;
 		}
-		print '</table>'."\n";
+		print '</div>'."\n";
 	}
 
 	function printStat( $statname )
@@ -1228,14 +1228,13 @@ $returnstring .= '  <tr>
 		$value = '<strong class="white">'.$this->data['spell_damage'].'</strong>';
 
 		$tooltipheader = $name.' '.$value;
-		$tooltip = '<table>';
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-holy.gif" alt=""><td>'.$wordings[$lang]['holy'].'<td>';
-		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt=""><td>'.$wordings[$lang]['fire'].'<td>'.$this->data['spell_damage_fire'];
-		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-nature.gif" alt=""><td>'.$wordings[$lang]['nature'].'<td>'.$this->data['spell_damage_nature'];
-		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-frost.gif" alt=""><td>'.$wordings[$lang]['frost'].'<td>'.$this->data['spell_damage_frost'];
-		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-shadow.gif" alt=""><td>'.$wordings[$lang]['shadow'].'<td>'.$this->data['spell_damage_shadow'];
-		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt=""><td>'.$wordings[$lang]['arcane'].'<td>'.$this->data['spell_damage_arcane'];
-		$tooltip .= '</table>';
+		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt="" />'.$wordings[$lang]['holy'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt="" />'.$wordings[$lang]['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster_conf['img_url'].'icon-nature.gif" alt="" />'.$wordings[$lang]['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster_conf['img_url'].'icon-frost.gif" alt="" />'.$wordings[$lang]['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster_conf['img_url'].'icon-shadow.gif" alt="" />'.$wordings[$lang]['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt="" />'.$wordings[$lang]['arcane'].'</div>';
+
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1253,15 +1252,14 @@ $returnstring .= '  <tr>
 
 		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
 		$tooltip = $wordings[$lang]['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
-//		$tooltip = '<table>';
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-holy.gif" alt=""><td>'.$wordings[$lang]['holy'].'<td>';
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt=""><td>'.$wordings[$lang]['fire'].'<td>'.$this->data['spell_damage_fire'];
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-nature.gif" alt=""><td>'.$wordings[$lang]['nature'].'<td>'.$this->data['spell_damage_nature'];
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-frost.gif" alt=""><td>'.$wordings[$lang]['frost'].'<td>'.$this->data['spell_damage_frost'];
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-shadow.gif" alt=""><td>'.$wordings[$lang]['shadow'].'<td>'.$this->data['spell_damage_shadow'];
-//		$tooltip .= '<tr><td><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt=""><td>'.$wordings[$lang]['arcane'].'<td>'.$this->data['spell_damage_arcane'];
-//		$tooltip .= '</table>';
-
+/*
+		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt="" />'.$wordings[$lang]['holy'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster_conf['img_url'].'icon-fire.gif" alt="" />'.$wordings[$lang]['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster_conf['img_url'].'icon-nature.gif" alt="" />'.$wordings[$lang]['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster_conf['img_url'].'icon-frost.gif" alt="" />'.$wordings[$lang]['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster_conf['img_url'].'icon-shadow.gif" alt="" />'.$wordings[$lang]['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster_conf['img_url'].'icon-arcane.gif" alt="" />'.$wordings[$lang]['arcane'].'</div>';
+*/
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
@@ -1332,11 +1330,10 @@ $returnstring .= '  <tr>
 		$value = min($this->data['stat_res_melee'],$this->data['stat_res_ranged'],$this->data['stat_res_spell']);
 
 		$tooltipheader = $name;
-		$tooltip = '<table>';
-		$tooltip .= '<tr><td>'.$wordings[$lang]['melee'].'<td>'.$this->data['stat_res_melee'];
-		$tooltip .= '<tr><td>'.$wordings[$lang]['ranged'].'<td>'.$this->data['stat_res_ranged'];
-		$tooltip .= '<tr><td>'.$wordings[$lang]['spell'].'<td>'.$this->data['stat_res_spell'];
-		$tooltip .= '</table>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['stat_res_melee'].'</span>'.$wordings[$lang]['melee'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['stat_res_ranged'].'</span>'.$wordings[$lang]['ranged'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['stat_res_spell'].'</span>'.$wordings[$lang]['spell'].'</div>';
+
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1379,14 +1376,10 @@ $returnstring .= '  <tr>
 			break;
 		}
 
-		$tooltipheader = $name;
-		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span><br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<li class="'.substr($resname,4).'" '.makeOverlib($line,'','',2,'',',WRAP').'>';
-
-		$output .= $this->data[$resname.'_c'];
-		$output .= "</li>\n";
+		$output = '<div class="resist_'.substr($resname,4).'" '.makeOverlib($line,'','',2,'',',WRAP').'>' . $this->data[$resname.'_c'] . "</div>\n";
 
 		return $output;
 	}
@@ -1416,130 +1409,12 @@ $returnstring .= '  <tr>
 		{
 			$output = '<div class="item" '.makeOverlib($wordings[$lang]['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
 			if ($slot == 'Ammo')
-				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall" alt="" />'."\n";
+				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall"'." alt=\"\" />\n";
 			else
-				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="icon" alt="" />'."\n";
-
+				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="icon"'." alt=\"\" />\n";
 			$output .= "</div>\n";
 		}
-		return $output;
-	}
-
-
-	function printAtk( $type, $stat )
-	{
-		global $wordings;
-
-		$lang = $this->data['clientLocale'];
-
-		switch($stat)
-		{
-			case 'rating':
-				if( $type == 'ranged' )
-					$atk = $this->data['ranged_skill'];
-				elseif( (int)$this->data['melee_ohand_skill'] != 0 )
-					$atk = $this->data['melee_mhand_skill'].'/'.$this->data['melee_ohand_skill'];
-				else
-					$atk = $this->data['melee_mhand_skill'];
-				break;
-			case 'power':
-				$atk = $this->data[$type.'_power_c'];
-				break;
-			case 'range':
-				if( $type == 'ranged' )
-					$atk = $this->data['ranged_mindam'].'-'.$this->data['ranged_maxdam'];
-				elseif( (int)$this->data['melee_ohand_skill'] != 0 )
-					$atk = $this->data['melee_mhand_mindam'].'-'.$this->data['melee_mhand_maxdam'].'/'.$this->data['melee_ohand_mindam'].'-'.$this->data['melee_ohand_maxdam'];
-				else
-					$atk = $this->data['melee_mhand_mindam'].'-'.$this->data['melee_mhand_maxdam'];
-				break;
-		}
-		$atktooltip = $this->data[$type.'_' .$stat.'_tooltip'];
-
-		if (ereg(':', $atk))
-			$atk = ereg_replace(':', ' - ', $atk);
-
-		$matches='';
-		preg_match('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|',$atk,$matches);
-		$atkcolor = (isset($matches[1]))?$matches[1]:'ffffff';
-		$atk = preg_replace('|\|c[a-f0-9]{8}(.+?)\|r|','$1',$atk);
-
-		switch($stat)
-		{
-			case 'rating':
-				if($type =='melee')
-				{
-					$tooltipheader = $wordings[$lang]['melee_rating'];
-					$tooltip = $wordings[$lang]['melee_rating_tooltip'];
-				}
-				else
-				{
-					$tooltipheader = $wordings[$lang]['range_rating'];
-					$tooltip = $wordings[$lang]['range_rating_tooltip'];
-				}
-				break;
-
-			case 'power':
-				if($type =='melee')
-				{
-					$tooltipheader = $wordings[$lang]['melee_att_power'].' '.$atk;
-				}
-				else
-				{
-					$tooltipheader = $wordings[$lang]['range_att_power'].' '.$atk;
-				}
-				$tooltip = nl2br($atktooltip);
-				break;
-
-			case 'range':
-				$tooltipheader = $wordings[$lang]['damage'].' '.$atk;
-				if( !empty($atktooltip) )
-				{
-					$tooltip = str_replace("\n",'</td></tr><tr><td style="font-size:10px;">',$atktooltip);
-					$tooltip = str_replace(":\t",':</td><td align="right" style="color:white;font-size:10px;">',$tooltip);
-					$tooltip = '<table style="width:220px;" cellspacing="0" cellpadding="0"><tr><td colspan="2">'.$tooltip.'</table>';
-				}
-				else
-				{
-					$tooltip = 'N/A';
-				}
-				break;
-		}
-
-
-
-		$line = "<span style=\"color:#FFFFFF;font-size:11px;font-weight:bold;\">$tooltipheader</span><br />";
-		$line .= "<span style=\"color:#DFB801;\">$tooltip</span>";
-
-		if($atk == '')
-			$atk = 'N/A';
-
-		$output = '<span>';
-		$output .= '<strong '.makeOverlib($line,'','',2).' style="color:#'.$atkcolor.'">'.$atk.'</strong>';
-		$output .= '</span>';
-
-		return $output;
-	}
-
-
-	function printTab( $name, $div, $enabled = false )
-	{
-		/**********************************************************
-		 * onlclick event has additional Javascript that will
-		 * select the first pet and show the elements for it
-		**********************************************************/
-		if ($div == 'page2')
-			$action = 'onclick="showPet(1); doTab( \''.$div.'\' )"';
-		else
-			$action = 'onclick="doTab( \''.$div.'\' )"';
-
-
-		if( $enabled )
-			$output = '<div class="tab" '.$action.'><span id="tabfont'.$div.'" class="white">'.$name.'</span></div>';
-		else
-			$output = '<div class="tab" '.$action.'><span id="tabfont'.$div.'" class="yellow">'.$name.'</span></div>';
-
-		return $output;
+		return '<div class="equip_'.$slot.'">'.$output.'</div>';
 	}
 
 
@@ -1570,8 +1445,8 @@ $returnstring .= '  <tr>
 
 	<img class="panel_icon" src="'.$roster_conf['img_url'].'char/menubar/icon_talents.gif" alt="" />
 	<div class="panel_title">'.$wordings[$lang]['talents'].'</div>
-	<img src="'.$roster_conf['img_url'].'char/talent/bar_top.gif" class="top_bar" alt="" />
-	<img src="'.$roster_conf['img_url'].'char/talent/bar_bottom.gif" class="bot_bar" alt="" />
+	<img class="top_bar" src="'.$roster_conf['img_url'].'char/talent/bar_top.gif" alt="" />
+	<img class="bot_bar" src="'.$roster_conf['img_url'].'char/talent/bar_bottom.gif" alt="" />
 
 	<div class="link"><a href="';
 
@@ -1655,7 +1530,7 @@ $returnstring .= '  <tr>
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
 	var initialtab=[1, \'treetab0\'];
-	window.onload=charpage_onload(\'talent_navagation\')
+	window.onload=tab_nav_onload(\'talent_navagation\')
 </script>';
 			return $returndata;
 		}
@@ -1795,91 +1670,115 @@ $returnstring .= '  <tr>
 			$petTab = $this->printPet();
 
 ?>
-<script type="text/javascript">
-<!--
-  addTab('page1')
-<?php
-if( $petTab != '' )
-	print '  addTab(\'page2\')'."\n";
-?>
-  addTab('page3')
-  addTab('page4')
-  addTab('page5')
-//-->
-</script>
 
-
-<div class="char" id="char"><!-- Begin char -->
-  <div class="main"><!-- Begin char-main -->
-    <div class="top" id="top"><!-- Begin char-main-top -->
-      <div class="headline_1"><?php print $this->data['name']; ?></div>
-      <div class="headline_2"><?php print sprintf($wordings[$lang]['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']); ?></div>
+<div class="char_panel">
+	<img src="<?php print $this->data['char_icon']; ?>.gif" class="panel_icon" alt="" />
+	<div class="panel_title"><?php print $this->data['name']; ?></div>
+	<div class="infoline_1"><?php print sprintf($wordings[$lang]['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']); ?></div>
 <?php
 
 if( isset( $this->data['guild_name'] ) )
-	echo '      <div class="headline_2">'.sprintf($wordings[$lang]['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
+	echo '	<div class="infoline_2">'.sprintf($wordings[$lang]['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
 
 ?>
-    </div><!-- End char-main-top -->
-    <div class="page1" id="page1"><!-- begin char-main-page1 -->
-      <div class="left"><!-- begin char-main-page1-left -->
-        <div class="equip"><?php print $this->printEquip('Head'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Neck'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Shoulder'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Back'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Chest'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Shirt'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Tabard'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Wrist'); ?></div>
-      </div><!-- end char-main-page1-left -->
-      <div class="middle"><!-- begin char-main-page1-middle -->
-        <div class="portrait"><!-- begin char-main-page1-middle-portrait -->
-          <div class="resistance"><!-- begin char-main-page1-middle-portrait-resistance -->
-            <ul>
-                <?php print $this->printRes('res_fire'); ?>
-            	<?php print $this->printRes('res_nature'); ?>
-            	<?php print $this->printRes('res_arcane'); ?>
-            	<?php print $this->printRes('res_frost'); ?>
-            	<?php print $this->printRes('res_shadow'); ?>
-            </ul>
-          </div><!-- end char-main-page1-middle-portrait-resistance -->
-          <div class="info"><!-- begin char-main-page1-middle-portrait-info -->
-            <div class="health"><?php print $wordings[$lang]['health'].': <span class="white">'.$this->data['health']; ?></span></div>
-            <?php
 
+<!-- Begin Character Page -->
+	<div id="tab1" class="tab1" style="display:none;">
+		<div class="background">&nbsp;</div>
+
+	<!-- Begin Equipment Items Loop -->
+		<div class="equip">
+			<?php print $this->printEquip('Head'); ?>
+			<?php print $this->printEquip('Neck'); ?>
+			<?php print $this->printEquip('Shoulder'); ?>
+			<?php print $this->printEquip('Back'); ?>
+			<?php print $this->printEquip('Chest'); ?>
+			<?php print $this->printEquip('Shirt'); ?>
+			<?php print $this->printEquip('Tabard'); ?>
+			<?php print $this->printEquip('Wrist'); ?>
+
+			<?php print $this->printEquip('MainHand'); ?>
+			<?php print $this->printEquip('SecondaryHand'); ?>
+			<?php print $this->printEquip('Ranged'); ?>
+			<?php print $this->printEquip('Ammo'); ?>
+
+			<?php print $this->printEquip('Hands'); ?>
+			<?php print $this->printEquip('Waist'); ?>
+			<?php print $this->printEquip('Legs'); ?>
+			<?php print $this->printEquip('Feet'); ?>
+			<?php print $this->printEquip('Finger0'); ?>
+			<?php print $this->printEquip('Finger1'); ?>
+			<?php print $this->printEquip('Trinket0'); ?>
+			<?php print $this->printEquip('Trinket1'); ?>
+		</div>
+	<!-- End Equipment Items Loop -->
+
+	<!-- Begin Resists Loop -->
+		<?php print $this->printRes('res_fire'); ?>
+		<?php print $this->printRes('res_nature'); ?>
+		<?php print $this->printRes('res_arcane'); ?>
+		<?php print $this->printRes('res_frost'); ?>
+		<?php print $this->printRes('res_shadow'); ?>
+	<!-- End Resists Loop -->
+
+	<!-- Begin Advanced Stats -->
+		<img src="<?php print $roster_conf['img_url']; ?>char/percentframe.gif" class="percent_frame" alt="" />
+<?php
 if( $this->data['class'] == $wordings[$lang]['Warrior'] )
-	print '<div class="mana">'.$wordings[$lang]['rage'].': <span class="white">'.$this->data['mana'].'</span></div>';
+	$mana_word = $wordings[$lang]['rage'];
 elseif( $this->data['class'] == $wordings[$lang]['Rogue'] )
-	print '<div class="mana">'.$wordings[$lang]['energy'].': <span class="white">'.$this->data['mana'].'</span></div>';
+	$mana_word = $wordings[$lang]['energy'];
 else
-	print '<div class="mana">'.$wordings[$lang]['mana'].': <span class="white">'.$this->data['mana'].'</span></div>';
+	$mana_word = $wordings[$lang]['mana'];
+?>
+		<div class="health"><span class="yellow"><?php print $wordings[$lang]['health']; ?>:</span> <?php print $this->data['health']; ?></div>
+		<div class="mana"><span class="yellow"><?php print $mana_word; ?>:</span> <?php print $this->data['mana']; ?></div>
 
+		<div class="info_desc">
+<?php
 
 if($this->data['talent_points'])
-	print '            '.$wordings[$lang]['unusedtalentpoints'].': <span class="white">'.$this->data['talent_points'].'</span><br />';
+	print '			'.$wordings[$lang]['unusedtalentpoints']."<br />\n";
+
+print '			'.$wordings[$lang]['timeplayed']."<br />\n";
+print '			'.$wordings[$lang]['timelevelplayed']."<br />\n";
+
+?>
+		</div>
+		<div class="info_values">
+<?php
+
+if($this->data['talent_points'])
+	print '			'.$this->data['talent_points']."<br />\n";
 
 $TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
 $TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
-
-print "<br />\n";
-print '            '.$wordings[$lang]['timeplayed'].': <span class="white">'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds'].'</span><br />'."\n";
-print '            '.$wordings[$lang]['timelevelplayed'].': <span class="white">'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds'].'</span><br />'."\n";
-print '            <div class="money">';
-print '<span class="white">'.$this->data['money_g'].'</span><img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> ';
-print '<span class="white">'.$this->data['money_s'].'</span><img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> ';
-print '<span class="white">'.$this->data['money_c'].'</span><img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /> ';
-print '</div>';
-
+print '			'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds']."<br />\n";
+print '			'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds']."<br />\n";
 ?>
-          </div><!-- end char-main-page1-middle-portrait-info -->
-          <div class="xp" style="padding-left:12px;"><!-- begin char-main-page1-middle-portrait-xp -->
-            <div class="xpbox">
+		</div>
 <?php
+
+if( $roster_conf['show_money'] )
+{
+	print '
+		<!-- Money Display -->
+		<div class="money_disp">'."\n";
+	if( $this->data['money_g'] != '0' )
+		print '			'.$this->data['money_g'].'<img src="'.$roster_conf['img_url'].'coin_gold.gif" class="coin" alt="" />'."\n";
+	if( $this->data['money_s'] != '0' )
+		print '			'.$this->data['money_s'].'<img src="'.$roster_conf['img_url'].'coin_silver.gif" class="coin" alt="" />'."\n";
+	if( $this->data['money_c'] != '0' )
+		print '			'.$this->data['money_c'].'<img src="'.$roster_conf['img_url'].'coin_copper.gif" class="coin" alt="" />'."\n";
+print '			&nbsp;
+		</div>
+';
+}
 
 // Code to write a "Max Exp bar" just like in SigGen
 if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 {
-	$expbar_width = '248';
+	$expbar_width = '216';
 	$expbar_text = $wordings[$lang]['max_exp'];
 }
 else
@@ -1888,25 +1787,31 @@ else
 	list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
 	if ($xplevel != '0' && $xplevel != '')
 	{
-		$exp_percent = ( $xplevel > 0 ? round(($xp/$xplevel)*100) : 0);
+		$exp_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+
+		$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
+
 		if( $xprest > 0 )
 		{
 			$expbar_text = $xp.'/'.$xplevel.' : '.$xprest.' ('.$exp_percent.'%)';
+			$expbar_type = 'expbar_full_rested';
 		}
 		else
 		{
 			$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
+			$expbar_type = 'expbar_full';
 		}
 	}
 }
 
 ?>
-              <img class="bg" alt="" src="<?php echo $roster_conf['img_url']?>barxpempty.gif"/>
-              <img src="<?php echo $roster_conf['img_url']?>expbar-var2.gif" alt="" class="bit" width="<?php print $expbar_width; ?>"/>
-              <span class="level"><?php print $expbar_text;?></span>
-            </div>
-          </div><!-- end char-main-page1-middle-portrait-xp -->
-        </div><!-- end char-main-page1-middle-portrait -->
+	<!-- Begin EXP Bar -->
+		<img src="<?php print $roster_conf['img_url']; ?>char/expbar_empty.gif" class="xpbar_empty" alt="" />
+		<div class="xpbar" style="clip:rect(0px <?php print $exp_width; ?>px 12px 0px);"><img src="<?php print $roster_conf['img_url'].'char/'.$expbar_type.'.gif'; ?>" alt="" /></div>
+		<div class="xpbar_text"><?php print $expbar_text; ?></div>
+	<!-- End EXP Bar -->
+
+
 <?php
 	switch( $this->data['class'] )
 	{
@@ -1941,113 +1846,73 @@ else
 ?>
 <script type="text/javascript">
 <!--
-  addLpage('statsleft');
-  addLpage('meleeleft');
-  addLpage('rangedleft');
-  addLpage('spellleft');
-  addLpage('defenseleft');
-  addRpage('statsright');
-  addRpage('meleeright');
-  addRpage('rangedright');
-  addRpage('spellright');
-  addRpage('defenseright');
+	addLpage('statsleft');
+	addLpage('meleeleft');
+	addLpage('rangedleft');
+	addLpage('spellleft');
+	addLpage('defenseleft');
+	addRpage('statsright');
+	addRpage('meleeright');
+	addRpage('rangedright');
+	addRpage('spellright');
+	addRpage('defenseright');
 //-->
 </script>
-        <div class="bottom"><!-- begin char-main-page1-middle-bottom -->
-		  <form action="">
-		    <select class="statselect" name="statbox_left" onchange="doLpage(this.value);">
-			  <option value="statsleft" selected="selected"><?php print $wordings[$lang]['menustats']; ?></option>
-			  <option value="meleeleft"><?php print $wordings[$lang]['melee']; ?></option>
-			  <option value="rangedleft"><?php print $wordings[$lang]['ranged']; ?></option>
-			  <option value="spellleft"><?php print $wordings[$lang]['spell']; ?></option>
-			  <option value="defenseleft"><?php print $wordings[$lang]['defense']; ?></option>
-		    </select>
-		    <select class="statselect" name="statbox_right" onchange="doRpage(this.value);">
-			  <option value="statsright"><?php print $wordings[$lang]['menustats']; ?></option>
-			  <option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>><?php print $wordings[$lang]['melee']; ?></option>
-			  <option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>><?php print $wordings[$lang]['ranged']; ?></option>
-			  <option value="spellright"<?php echo ($rightbox == 'spell'?' selected="selected"':'');?>><?php print $wordings[$lang]['spell']; ?></option>
-			  <option value="defenseright"><?php print $wordings[$lang]['defense']; ?></option>
-		    </select>
-		  </form>
-          <div class="padding">
-		    <?php print $this->printBox('stats','left',true); ?>
-		    <?php print $this->printBox('melee','left',false); ?>
-		    <?php print $this->printBox('ranged','left',false); ?>
-		    <?php print $this->printBox('spell','left',false); ?>
-		    <?php print $this->printBox('defense','left',false); ?>
-		    <?php print $this->printBox('stats','right',false); ?>
-		    <?php print $this->printBox('melee','right',$rightbox=='melee'); ?>
-		    <?php print $this->printBox('ranged','right',$rightbox=='ranged'); ?>
-		    <?php print $this->printBox('spell','right',$rightbox=='spell'); ?>
-		    <?php print $this->printBox('defense','right',false); ?>
-          </div><!-- end char-main-page1-middle-bottom-padding -->
-          <div class="hands">
-            <div class="weapon0"><?php print $this->printEquip('MainHand'); ?></div>
-            <div class="weapon1"><?php print $this->printEquip('SecondaryHand'); ?></div>
-            <div class="weapon2"><?php print $this->printEquip('Ranged'); ?></div>
-            <div class="ammo"><?php print $this->printEquip('Ammo'); ?></div>
-          </div><!-- end char-main-page1-middle-bottom-hands -->
-        </div><!-- end char-main-page1-middle-bottom -->
-      </div><!-- end char-main-page1-middle -->
-      <div class="right"> <!-- begin char-main-page1-right -->
-        <div class="equip"><?php print $this->printEquip('Hands'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Waist'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Legs'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Feet'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Finger0'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Finger1'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Trinket0'); ?></div>
-        <div class="equip"><?php print $this->printEquip('Trinket1'); ?></div>
-      </div><!-- end char-main-page1-right -->
-    </div><!-- end char-main-page1 -->
-    <div class="page2" id="page2"><!-- begin char-main-page2 -->
-      <div class="left"></div>
-      <div class="pet"><!-- begin char-main-page2-pet -->
-        <?php print $petTab; ?>
-      </div>
-      <div class="right"></div>
-	</div><!-- end char-main-page2 -->
-    <div class="page3" id="page3"><!-- begin char-main-page3 -->
-      <div class="left"></div>
-      <div class="reputation"><!-- begin char-main-page3-reputation -->
-        <?php print $this->printReputation(); ?>
-      </div>
-      <div class="right"></div>
-    </div><!-- end char-main-page3 -->
-    <div class="page4" id="page4"><!-- begin char-main-page4 -->
-      <div class="left"></div>
-      <div class="skills"><!-- begin char-main-page4-skills -->
-        <?php print $this->printSkills(); ?>
-      </div>
-      <div class="right"></div>
-    </div><!-- end char-main-page4 -->
-    <div class="page5" id="page5"><!-- begin char-main-page5 -->
-      <div class="left"></div>
-      <div class="honor"><!-- begin char-main-page5-honor -->
-        <?php print $this->printHonor(); ?>
-      </div>
-      <div class="right"></div>
-    </div><!-- end char-main-page5 -->
-  </div><!-- end char-main -->
-  <div class="bottomBorder"></div>
-  <div class="tabs"><!-- begin char-tabs -->
+		<form action="">
+			<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
+				<option value="statsleft" selected="selected"><?php print $wordings[$lang]['menustats']; ?></option>
+				<option value="meleeleft"><?php print $wordings[$lang]['melee']; ?></option>
+				<option value="rangedleft"><?php print $wordings[$lang]['ranged']; ?></option>
+				<option value="spellleft"><?php print $wordings[$lang]['spell']; ?></option>
+				<option value="defenseleft"><?php print $wordings[$lang]['defense']; ?></option>
+			</select>
+				<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
+				<option value="statsright"><?php print $wordings[$lang]['menustats']; ?></option>
+				<option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>><?php print $wordings[$lang]['melee']; ?></option>
+				<option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>><?php print $wordings[$lang]['ranged']; ?></option>
+				<option value="spellright"<?php echo ($rightbox == 'spell'?' selected="selected"':'');?>><?php print $wordings[$lang]['spell']; ?></option>
+				<option value="defenseright"><?php print $wordings[$lang]['defense']; ?></option>
+			</select>
+		</form>
+		<div class="padding">
+			<?php print $this->printBox('stats','left',true); ?>
+			<?php print $this->printBox('melee','left',false); ?>
+			<?php print $this->printBox('ranged','left',false); ?>
+			<?php print $this->printBox('spell','left',false); ?>
+			<?php print $this->printBox('defense','left',false); ?>
+			<?php print $this->printBox('stats','right',false); ?>
+			<?php print $this->printBox('melee','right',$rightbox=='melee'); ?>
+			<?php print $this->printBox('ranged','right',$rightbox=='ranged'); ?>
+			<?php print $this->printBox('spell','right',$rightbox=='spell'); ?>
+			<?php print $this->printBox('defense','right',false); ?>
+		</div>
+	</div>
+
+	<div id="char_navagation" class="tab_navagation">
+		<ul>
+			<li onclick="return displaypage('tab1',this);"><div class="text"><?php print $wordings[$lang]['tab1']; ?></div></li>
+<?php
+if ($petTab != '')
+	print '			<li onclick="return displaypage(\'tab2\',this);"><div class="text">'.$wordings[$lang]['tab2'].'</div></li>'."\n";
+?>
+			<li onclick="return displaypage('tab3',this);"><div class="text"><?php print $wordings[$lang]['tab3']; ?></div></li>
+			<li onclick="return displaypage('tab4',this);"><div class="text"><?php print $wordings[$lang]['tab4']; ?></div></li>
+			<li onclick="return displaypage('tab5',this);"><div class="text"><?php print $wordings[$lang]['tab5']; ?></div></li>
+		</ul>
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	//Set tab to intially be selected when page loads:
+	//[which tab (1=first tab), ID of tab content to display]:
+	var initialtab=[1, 'tab1'];
+	window.onload=tab_nav_onload('char_navagation')
+</script>
+
 <?php
 
-print $this->printTab( $wordings[$lang]['tab1'], 'page1', True );
-echo "\n";
-if ($petTab != '')
-{
-	print $this->printTab( $wordings[$lang]['tab2'], 'page2' );
-	echo "\n";
-}
-print $this->printTab( $wordings[$lang]['tab3'], 'page3' )."\n";
-print $this->printTab( $wordings[$lang]['tab4'], 'page4' )."\n";
-print $this->printTab( $wordings[$lang]['tab5'], 'page5' )."\n";
-
-echo '  </div><!-- end char-tabs -->
-</div><!-- end char -->
-';
 		}
 		else
 		{
