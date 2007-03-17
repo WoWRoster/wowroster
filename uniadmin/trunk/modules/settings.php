@@ -371,7 +371,10 @@ function process_ini( )
 		$ini_file = $ini_folder.$file_name;
 
 		// Delete ini if it exists
-		@unlink($ini_file);
+		if( file_exists($ini_file) )
+		{
+			unlink($ini_file);
+		}
 
 
 		// Try to move to the addon_temp directory
@@ -423,7 +426,10 @@ function process_ini( )
 		}
 
 		// Delete ini if it exists
-		@unlink($ini_file);
+		if( file_exists($ini_file) )
+		{
+			unlink($ini_file);
+		}
 
 
 		$uniadmin->set_vars(array(

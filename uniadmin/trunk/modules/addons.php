@@ -168,15 +168,6 @@ function main( )
 	// Loop for every addon in database
 	if( $db->num_rows($result) > 0 )
 	{
-		if( $db->num_rows($result) > 15 )
-		{
-			$tpl->assign_var('S_BELOW_15', true);
-		}
-		else
-		{
-			$tpl->assign_var('S_BELOW_15', false);
-		}
-
 		while( $row = $db->fetch_record($result) )
 		{
 			if( substr($row['file_name'], 0, 7) == 'http://' )
@@ -189,6 +180,7 @@ function main( )
 				// Add to not scanned addons array
 				$addon_in_db[] = $row['file_name'];
 			}
+
 			// Assign template vars
 			$tpl->assign_block_vars('addons_row', array(
 				'ROW_CLASS'   => $uniadmin->switch_row_class(),
@@ -452,7 +444,7 @@ function delete_addon( $addon_id )
 		if( substr($row['file_name'], 0, 7) != 'http://' )
 		{
 			$local_path = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP.$row['file_name'];
-			$try_unlink = @unlink($local_path);
+			$try_unlink = unlink($local_path);
 			if( !$try_unlink )
 			{
 				$uniadmin->error($user->lang['error_delete_addon']);

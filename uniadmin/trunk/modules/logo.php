@@ -241,28 +241,28 @@ function process_logo( )
 		{
 			if( file_exists($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del) )
 			{
-				@unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del);
+				unlink($logo_folder.DIR_SEP.'logo'.$logo_num.'.'.$logo_del);
 			}
 		}
 
-		$try_move = @move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);
+		$try_move = move_uploaded_file($_FILES[$file_field]['tmp_name'],$logo_location);
 		if( !$try_move )
 		{
 			$uniadmin->error(sprintf($user->lang['error_move_uploaded_file'],$_FILES[$file_field]['tmp_name'],$logo_location));
 			return;
 		}
 
-		$md5 = md5_file($logo_location);
-
-		if( !is_writeable($logo_location) )
+		if( !is_writeable($logo_location) || !is_readable($logo_location) )
 		{
-			$try_chmod = @chmod($logo_location,0777);
+			$try_chmod = chmod($logo_location,0777);
 			if( !$try_chmod )
 			{
 				$uniadmin->error(sprintf($user->lang['error_chmod'],$logo_location));
 				return;
 			}
 		}
+
+		$md5 = md5_file($logo_location);
 
 		$sql = "DELETE FROM `".UA_TABLE_LOGOS."` WHERE `id` = '$logo_id'";
 		$result = $db->query($sql);

@@ -21,24 +21,24 @@ if( !defined('IN_UNIADMIN') )
     exit('Detected invalid access to this file!');
 }
 
-// UniAdmin Version
+//UniAdmin Version
 define('UA_VER', '0.7.6');
 define('NO_CACHE', true);
 
-// Directories
+//Directories
 define('UA_INCLUDEDIR', UA_BASEDIR.'include'.DIR_SEP);
 define('UA_LANGDIR',    UA_BASEDIR.'language'.DIR_SEP);
 define('UA_THEMEDIR',   UA_BASEDIR.'styles'.DIR_SEP);
 define('UA_MODULEDIR',  UA_BASEDIR.'modules'.DIR_SEP);
 define('UA_CACHEDIR',   UA_BASEDIR.'cache'.DIR_SEP);
 
-// User Levels
+//User Levels
 define('UA_ID_ANON',  0);
 define('UA_ID_USER',  1);
 define('UA_ID_POWER', 2);
 define('UA_ID_ADMIN', 3);
 
-// URI Parameters
+//URI Parameters
 define('UA_URI_OP',         'op');
 define('UA_URI_ID',         'id');
 define('UA_URI_ADD',        'add');
@@ -60,7 +60,7 @@ define('UA_URI_DETAIL',     'detail');
 define('UA_URI_EDIT',       'edit');
 define('UA_URI_ORPHAN',     'orphan');
 
-// URL parameters
+//URL parameters
 define('UA_INDEX',        'index.php');
 define('UA_URI_PAGE',     'p');
 define('UA_INDEXPAGE',    UA_INDEX.'?'.UA_URI_PAGE.'=');
@@ -68,16 +68,19 @@ define('UA_URI_THEME',    'theme');
 define('UA_FORMACTION',   UA_INDEX.( isset($_GET[UA_URI_PAGE]) && ($_GET[UA_URI_PAGE] != '') ? '?'.UA_URI_PAGE.'='.$_GET[UA_URI_PAGE] : '') );
 
 
-// Reject certain settings in UU since we don't need them, or want them displayed
+//Reject certain settings in UU since we don't need them, or want them displayed
 define('UA_REJECT_INI'   , 'CHECKEDADDONS,CHECKEDSVLIST,EXELOC,FILELOCATION,SELECTEDACCT,EXE1,EXE1LOCATION,EXE2,EXE2LOCATION,EXE3,EXE3LOCATION,EXEUULAUNCH,EXEWOWLAUNCH,USERAGENT');
 
-// File types to ignore when scanning addons
-define('UA_ALLOW_ADDON_FILES' , 'lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch,bak,jpeg,jpg,gif,png');
+//File types to allow when scanning addons
+define('UA_ADDON_WHITELIST',  'lua,toc,txt,tga,blp,ttf,xml,wav,mp3,nopatch,bak,jpeg,jpg,gif,png,xsd');
 
-// Allowed logo image types
+//File types to ignore when scanning addons
+define('UA_ADDON_BLACKLIST', 'exe,com,jar,vbs,bat,cmd');
+
+//Allowed logo image types
 define('UA_LOGO_TYPES'  , 'jpg,jpeg,png,ico,gif');
 
-// Database Table names
+//Database Table names
 define('UA_TABLE_ADDONS',   ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'addons');
 define('UA_TABLE_CONFIG',   ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'config');
 define('UA_TABLE_FILES',    ( isset($config['table_prefix']) ? $config['table_prefix'] : '' ) . 'files');

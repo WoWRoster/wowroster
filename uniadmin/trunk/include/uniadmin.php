@@ -253,8 +253,7 @@ class UniAdmin
 	 */
 	function get_file_ext( $filename )
 	{
-		$return = pathinfo($filename);
-		return ( isset($return['extension']) ? strtolower($return['extension']) : '' );
+		return strtolower(ltrim(strrchr($filename,'.'),'.'));
 	}
 
 	/**
@@ -765,13 +764,13 @@ function pclzip_pre_extract( $p_event , &$p_header )
 	global $uniadmin, $user;
 
 	$info = $uniadmin->get_file_ext($p_header['filename']);
-	// ----- bad files are skipped
-	if( !empty($info) && !in_array($info,explode(',',UA_ALLOW_ADDON_FILES)) )
+	//bad files are skipped
+	if( !empty($info) && in_array($info,explode(',',UA_ADDON_BLACKLIST)) )
 	{
 		$uniadmin->error(sprintf($user->lang['error_unsafe_file'],$p_header['stored_filename']));
 		return 0;
 	}
-	// ----- all other files are simply extracted
+	//all other files are simply extracted
 	else
 	{
 		return 1;

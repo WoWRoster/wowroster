@@ -1,4 +1,4 @@
-UniAdmin 0.7.6 (updated 12th March 2007)
+UniAdmin 0.7.7 (updated 16th March 2007)
 ===============================================
 UniAdmin is a back-end web-based tool for managing the configuration of and logos in UniUploader and
 auto-updating WoW addons.
@@ -54,16 +54,18 @@ Read the help page for additional info.
 
 4 - Upgrading
 =============
-1. Run index.php?p=upgrade and follow the instructions
+   4a - Standard Upgrade Instructions
+   ==================================
+   Run index.php?p=upgrade and follow the instructions
 
 
-   3a - Upgrade from v0.7.0
+   4b - Upgrade from v0.7.0
    ========================
    There is no upgrade from v0.7.0
    Upgrading from v0.7.0 to a higher version will force you to install fresh
 
 
-   3b - Upgrade from v0.7.5
+   4c - Upgrade from v0.7.5
    ========================
    It is suggested that you clear all your addons after upgrading
    This is because the auto "Full Path" scanner has been implemented
@@ -72,13 +74,13 @@ Read the help page for additional info.
 
 5 - Thanks
 ==========
-sturmy   - French localization
-fubu2k   - German localization
-Carasak
-Shadowsong
-Zajsoft  - Great modifications to AddOn uploading, providing a better .toc file scanner
-Zeryl    - Thanks for help with parsing strings into multi-dimensional arrays
-           o Thanks for the WoWAce module code
+sturmy     - French localization
+fubu2k     -|
+Carasak    - German localization
+Shadowsong -|
+Zajsoft    - Great modifications to AddOn uploading, providing a better .toc file scanner
+Zeryl      - Thanks for help with parsing strings into multi-dimensional arrays
+             o Thanks for the WoWAce module code
 
 
 6 - FAQ
@@ -183,6 +185,15 @@ Solution: After you upload an addon zip, edit the info on the addon details page
 ~ Fixed
 + Added
 ! Changed
+
+v0.7.7
+~ Addon processing now checks if the addon zip exists before trying to unlink it
+~ UA does not attempt to delete temp upload file, move_uploaded_file already does this
+~ addon xml output htmlspecialchars() encoded
+! Now using a blacklist for invalid addon files
+! Returned to old method for figuring out file extention
+! Paginate tpl variable was removed from addon page
+
 
 v0.7.6
 ~ slashes are now stripped in the stats module

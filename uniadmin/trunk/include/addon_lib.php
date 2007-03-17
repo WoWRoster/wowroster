@@ -55,7 +55,7 @@ function process_addon( $fileArray )
 			return;
 		}
 
-		$addon_zip_folder = UA_BASEDIR.$uniadmin->config['addon_folder'];
+		$addon_zip_folder = UA_BASEDIR.$uniadmin->config['addon_folder'].DIR_SEP;
 		$temp_folder = UA_BASEDIR.$uniadmin->config['temp_analyze_folder'];
 
 		// Check if this addon is required
@@ -91,13 +91,16 @@ function process_addon( $fileArray )
 		}
 
 		// Name and location of the zip file
-		$zip_file = $addon_zip_folder.DIR_SEP.$addon_file_name;
+		$zip_file = $addon_zip_folder.$addon_file_name;
 
 		// Do the following actions only if we are not processing an existing addon
 		if( is_uploaded_file($temp_file_name) )
 		{
 			// Delete Addon if it exists
-			@unlink($zip_file);
+			if( file_exists($zip_file) )
+			{
+				unlink($zip_file);
+			}
 
 			// Try to move to the addon_temp directory
 			$try_move = move_uploaded_file($temp_file_name,$zip_file);
@@ -106,13 +109,13 @@ function process_addon( $fileArray )
 				$uniadmin->error(sprintf($user->lang['error_move_uploaded_file'],$temp_file_name,$zip_file));
 				return;
 			}
-			@unlink($temp_file_name);
 		}
 
+
 		// Try to set write access on the uploaded file
-		if( !is_writeable($zip_file) )
+		if( !is_writeable($zip_file) || !is_readable($zip_file) )
 		{
-			$try_chmod = @chmod($zip_file,0777);
+			$try_chmod = chmod($zip_file,0777);
 			if( !$try_chmod )
 			{
 				$uniadmin->error(sprintf($user->lang['error_chmod'],$zip_file));
@@ -121,7 +124,7 @@ function process_addon( $fileArray )
 		}
 
 		// Get the file size
-		$file_size = @filesize($zip_file);
+		$file_size = filesize($zip_file);
 
 		// Unzip the file
 		$files = $uniadmin->unzip($zip_file,$temp_folder.DIR_SEP);
@@ -221,7 +224,7 @@ function process_addon( $fileArray )
 			}
 			else
 			{
-				$try_unlink = @unlink($zip_file);
+				$try_unlink = unlink($zip_file);
 				if( !$try_unlink )
 				{
 					$uniadmin->error(sprintf($user->lang['error_unlink'],$zip_file));
@@ -233,7 +236,7 @@ function process_addon( $fileArray )
 		}
 		else
 		{
-			$try_unlink = @unlink($zip_file);
+			$try_unlink = unlink($zip_file);
 			if( !$try_unlink )
 			{
 				$uniadmin->error(sprintf($user->lang['error_unlink'],$zip_file));
@@ -355,7 +358,7 @@ function process_addon( $fileArray )
 			}
 
 			// We have obtained the md5 and inserted the row into the database, now delete the temp file
-			$try_unlink = @unlink($file);
+			$try_unlink = unlink($file);
 			if( !$try_unlink )
 			{
 				$uniadmin->error(sprintf($user->lang['error_unlink'],$file));
@@ -443,14 +446,12 @@ function arrayToLi( $array, &$string, $baseName='', $call=false )
 	//Reset the array loop pointer
 	reset ($array);
 
-	//Use list() and each() to loop over each key/value
-	//pair of the array
+	//Use list() and each() to loop over each key/value pair of the array
 	while (list($key, $value) = each($array))
 	{
 		if (is_array($value))
 		{
-			//The value is another array, so simply call
-			//another instance of this function to handle it
+			//The value is another array, so simply call another instance of this function to handle it
 			arrayToLi($value, $string, $key, true);
 			if( $call )
 			{
