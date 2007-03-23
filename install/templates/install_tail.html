@@ -1,0 +1,36 @@
+<!-- * $Id$ -->
+ <br />
+
+</div>
+<br />
+<div align="center" class="copy"><a href="http://wowroster.net" target="_blank">WoWRoster</a> Installer<br />
+  &copy; 2007 The Roster <a href="http://www.wowroster.net/groupcp.php?g=5" target="_blank">Dev Team</a><br />
+  Roster v<?php print $_tpldata['ROSTER_VERSION']; ?>
+</div>
+<br />
+<?php
+
+if( isset($_tpldata['sql_rows']) )
+{
+
+?>
+<table cellspacing="1" cellpadding="2">
+  <tr>
+    <th align="left">SQL Queries</th>
+  </tr>
+<?php
+
+	foreach( $_tpldata['sql_rows'] as $print )
+	{
+		print '
+  <tr>
+    <td align="left" class="row1">'.$print['TEXT'].'</td>
+  </tr>
+';
+	}
+
+?>
+</table>
+<?php } ?>
+</body>
+</html>
