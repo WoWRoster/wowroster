@@ -11,7 +11,7 @@
 
 INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
-INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '6', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '3', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (4, 'version', '1.8.0', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
 
@@ -33,15 +33,13 @@ INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://www.wowrost
 ### Main Roster Config
 
 INSERT INTO `renprefix_config` VALUES (1000, 'sqldebug', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1001, 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1002, 'sql_window', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.0.0', 'text{10|10', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.0.0', 'text{10|10', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.6.1', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '1.6.2', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '1.6.0', 'text{10|10', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.5.2', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1040, 'roster_lang', 'enUS', 'function{rosterLangValue', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1070, 'roster_dir', '/roster', 'text{128|30', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1080, 'server_name_comp', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'jpg', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
@@ -73,27 +71,27 @@ INSERT INTO `renprefix_config` VALUES (3040, 'index_sort', '', 'select{Default S
 INSERT INTO `renprefix_config` VALUES (3050, 'index_motd', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3060, 'index_level_bar', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3070, 'index_iconsize', '16', 'select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3080, 'index_tradeskill_icon', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3090, 'index_tradeskill_loc', 'professions', 'select{Name^name|Class^class|Level^level|Guild Title^guild_title|PvP Rank^RankName|Note^note|Professions^professions|Hearthed^hearth|Last Zone^zone|Last On-line^lastonline|Last Updated^last_update', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3100, 'index_class_color', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3110, 'index_classicon', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3120, 'index_honoricon', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3130, 'index_prof', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3140, 'index_currenthonor', '0', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3150, 'index_note', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3160, 'index_title', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3170, 'index_hearthed', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3180, 'index_zone', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3190, 'index_lastonline', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '1', 'radio{on^1|off^0', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3130, 'index_prof', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3140, 'index_currenthonor', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3150, 'index_note', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3160, 'index_title', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3170, 'index_hearthed', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3180, 'index_zone', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3190, 'index_lastonline', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '10', 'access', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3210, 'members_openfilter', '1', 'radio{open^1|closed^0', 'index_conf');
 
 # --------------------------------------------------------
 ### Roster Menu Settings
 
 INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4013, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4016, 'menu_button_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4020, 'menu_memberlog', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4030, 'menu_member_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4040, 'menu_guild_info', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4050, 'menu_stats_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4055, 'menu_pvp_page', '1', 'radio{on^1|off^0', 'menu_conf');
@@ -101,7 +99,6 @@ INSERT INTO `renprefix_config` VALUES (4060, 'menu_honor_page', '1', 'radio{on^1
 INSERT INTO `renprefix_config` VALUES (4070, 'menu_guildbank', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4080, 'menu_keys_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4090, 'menu_tradeskills_page', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4100, 'menu_update_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4110, 'menu_quests_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4120, 'menu_search_page', '1', 'radio{on^1|off^0', 'menu_conf');
 
@@ -127,31 +124,33 @@ INSERT INTO `renprefix_config` VALUES (6000, 'questlink_1', '1', 'radio{on^1|off
 INSERT INTO `renprefix_config` VALUES (6010, 'questlink_2', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6020, 'questlink_3', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/Downloads/details/id=51.html', 'text{128|30', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/Downloads/details/id=7.html', 'text{128|30', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/Downloads/c=2.html', 'text{128|30', 'data_links');
 
 # --------------------------------------------------------
 ### Character Page Settings
 
 INSERT INTO `renprefix_config` VALUES (7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7040, 'show_inventory', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7050, 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7060, 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7070, 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7080, 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7010, 'char_header_logo', '1', 'radio{on^1|off^0', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7040, 'show_inventory', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7050, 'show_money', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7060, 'show_bank', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7070, 'show_recipes', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7080, 'show_quests', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '10', 'access', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7130, 'show_signature', '0', 'radio{yes^1|no^0', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7140, 'show_avatar', '0', 'radio{yes^1|no^0', 'char_conf');
 
 # --------------------------------------------------------
 ### Realmstatus Settings
 
-INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8010, 'rs_display', 'full', 'select{full^full|half^half', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8020, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8030, 'realmstatus', '', 'text{50|30', 'realmstatus_conf');
@@ -167,4 +166,31 @@ INSERT INTO `renprefix_config` VALUES (9030, 'banker_fieldname', 'note', 'select
 # --------------------------------------------------------
 ### Update Access
 
-INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10000, 'auth_update', '10', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10010, 'auth_updateGP', '1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10020, 'auth_install_addon', '-1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'auth_roster_config', '-1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10040, 'auth_character_config', '1', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10050, 'auth_change_pass', '10', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10060, 'auth_diag_button', '0', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10070, 'auth_addon_config', '-1', 'access', 'update_access');
+
+# --------------------------------------------------------
+### Menu table entries
+INSERT INTO `renprefix_menu` VALUES (1, 0, 'main', 'b1:b2:b3:b4:b5|b6:b7:b8:b9|b10:b11:b12:b13');
+
+# --------------------------------------------------------
+### Menu Button entries
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'Roster', 'index.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Stats', 'stats.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Professions', 'tradeskills.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'GuildBank', 'guildbank.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'PvP Stats', 'guildpvp.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Honor', 'honor.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Member Log', 'memberlog.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Keys', 'keys.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'User Control', 'rostercp.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'questlist.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search.php','11');
+INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Credits', 'credits.php','11');

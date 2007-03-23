@@ -2,18 +2,18 @@ $Id$
 
 These are the changes for the roster addon framework:
 
-    * All addons need to be installed. For an example of an 'empty' installer that only generates addon and menu table entries see the reputation addon.
+    *  All addons need to be installed. For an example of an 'empty' installer that only generates addon and menu table entries see the reputation addon.
     * During install database tables, graphical configuration, menu buttons, and triggers can be registered with the main framework.
     * The menu.php file is no longer required. The conf.php is still loaded because there is often more to initialize than just settings.
     * Serveral variables in addon.php, most notably $addonDir, have changed names.
     * conf.php and localization.php are called from a function. All variables other $addon_conf and $wordings that need to be accessed should be accessed via $_GLOBALS.
     * Configuration from database is automatically added. Addons are initialized in this order:
+
           o Addon registration record
           o Other constants (locations of addon files and the addon base dir)
           o Database configuration for the selected default profile.
           o Localization file
           o Config file
-
     * The following data is in the addon registration record, stored in $addon.
 
       Array

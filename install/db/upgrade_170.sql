@@ -42,7 +42,6 @@ ALTER TABLE `renprefix_players`
 ### Items Table
 
 ALTER TABLE `renprefix_items`
-  ADD `level` INT( 11 ) default NULL,
   CHANGE `item_name` `item_name` varchar(96) NOT NULL default '';
 
 
@@ -50,7 +49,6 @@ ALTER TABLE `renprefix_items`
 ### Mailbox Table
 
 ALTER TABLE `renprefix_mailbox`
-  ADD `item_color` varchar(16) NOT NULL default '';
   CHANGE `item_name` `item_name` varchar(96) NOT NULL default '';
 
 
@@ -103,19 +101,12 @@ CREATE TABLE `renprefix_realmstatus` (
 ) TYPE=MyISAM;
 
 
-# --------------------------------------------------------
-### Fix those pesky double slashes...
+ALTER TABLE `renprefix_mailbox`
+  ADD `item_color` varchar(16) NOT NULL default '';
 
-UPDATE `renprefix_items` SET `item_texture` = REPLACE(`item_texture`,'\\\\','/');
-UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/');
-UPDATE `renprefix_mailbox` SET `item_icon` = REPLACE(`item_icon`,'\\\\','/');
-UPDATE `renprefix_pets` SET `icon` = REPLACE(`icon`,'\\\\','/');
-UPDATE `renprefix_players` SET `RankIcon` = REPLACE(`RankIcon`,'\\\\','/');
-UPDATE `renprefix_recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/');
-UPDATE `renprefix_spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');
-UPDATE `renprefix_spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');
-UPDATE `renprefix_talents` SET `texture` = REPLACE(`texture`,'\\\\','/');
-UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,'\\\\','/');
+
+ALTER TABLE `renprefix_items`
+  ADD `level` INT( 11 ) default NULL;
 
 
 # --------------------------------------------------------

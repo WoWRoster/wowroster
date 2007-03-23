@@ -31,7 +31,7 @@ $char_data = getCharData();
 // Build the character display control
 if( is_array($char_data) )
 {
-	$body = "<div id=\"char_disp\">\n".border('syellow','start',$act_words['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$body = "<div id=\"char_disp\">\n".border('syellow','start',$wordings[$roster_conf['roster_lang']]['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	$disp_array = array(
 		'talents',
@@ -50,20 +50,19 @@ if( is_array($char_data) )
 
 	$body .= '
 <tr>
-	<th class="membersHeader">'.$act_words['name'].'</th>
-	<th class="membersHeader">'.$act_words['talents'].'</th>
-	<th class="membersHeader">'.$act_words['spellbook'].'</th>
-	<th class="membersHeader">'.$act_words['mailbox'].'</th>
-	<th class="membersHeader">'.$act_words['bags'].'</th>
-	<th class="membersHeader">'.$act_words['money'].'</th>
-	<th class="membersHeader">'.$act_words['bank'].'</th>
-	<th class="membersHeader">'.$act_words['recipes'].'</th>
-	<th class="membersHeader">'.$act_words['quests'].'</th>
-	<th class="membersHeader">'.$act_words['bglog'].'</th>
-	<th class="membersHeader">'.$act_words['pvplog'].'</th>
-	<th class="membersHeader">'.$act_words['duellog'].'</th>
-	<th class="membersHeader">'.$act_words['itembonuses2'].'</th>
-</tr>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['name'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['tab5'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['spellbook'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['mailbox'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bags'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['money'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bank'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['recipes'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['quests'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['bglog'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['pvplog'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['duellog'].'</th>
+	<th class="membersHeader">'.$wordings[$roster_conf['roster_lang']]['itembonuses2'].'</th>
 ';
 
 	$i=0;
@@ -73,16 +72,12 @@ if( is_array($char_data) )
 <tr>
 	<td class="membersRow'.(($i%2)+1).'">'.$name.'</td>';
 
-		$k=0;
-		foreach( $data as $val_name => $values )
+		foreach( $data as $values )
 		{
 			$body .= '
 	<td class="membersRow'.(($i%2)+1).'">';
-			$body .= '<input type="radio" id="chard_f'.$k.'_'.$values['member_id'].'" name="disp_'.$values['member_id'].':'.$val_name.'" value="1" '.( $values['value'] == '1' ? 'checked="checked"' : '' ).' /><label for="chard_f'.$k.'_'.$values['member_id'].'">off</label><br />'."\n";
-			$body .= '<input type="radio" id="chard_n'.$k.'_'.$values['member_id'].'" name="disp_'.$values['member_id'].':'.$val_name.'" value="3" '.( $values['value'] == '3' ? 'checked="checked"' : '' ).' /><label for="chard_n'.$k.'_'.$values['member_id'].'">on</label>'."\n";
+			$body .= $roster_login->accessConfig($values);
 			$body .= '</td>';
-
-			$k++;
 		}
 		$body .= '</tr>';
 		$i++;
@@ -94,9 +89,9 @@ else
 	$body = 'No Data';
 }
 
-$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+
 $body = $roster_config_message."<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."');submitonce(this);\">
-<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
+<input type=\"submit\" value=\"Save Settings\" />\n<input type=\"reset\" name=\"Reset\" value=\"Reset\" onClick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
 	$body
 </form>";
 
@@ -113,22 +108,22 @@ function getCharData( )
 	global $wowdb, $wordings, $roster_conf;
 
 	$sql = "SELECT ".
-		"`members`.`member_id`, ".
-		"`members`.`name`, ".
-		"`members`.`inv`, ".
-		"`members`.`talents`, ".
-		"`members`.`quests`, ".
-		"`members`.`bank`, ".
-		"`members`.`spellbook`, ".
-		"`members`.`mail`, ".
-		"`members`.`money`, ".
-		"`members`.`recipes`, ".
-		"`members`.`bg`, ".
-		"`members`.`pvp`, ".
-		"`members`.`duels`, ".
-		"`members`.`item_bonuses` ".
-		"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
-		"INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` ".
+		"`players`.`member_id`, ".
+		"`characters`.`name`, ".
+		"`players`.`inv`, ".
+		"`players`.`talents`, ".
+		"`players`.`quests`, ".
+		"`players`.`bank`, ".
+		"`players`.`spellbook`, ".
+		"`players`.`mail`, ".
+		"`players`.`money`, ".
+		"`players`.`recipes`, ".
+		"`players`.`bg`, ".
+		"`players`.`pvp`, ".
+		"`players`.`duels`, ".
+		"`players`.`item_bonuses` ".
+		"FROM `".ROSTER_CHARACTERSTABLE."` AS characters ".
+		"INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `characters`.`member_id` = `players`.`member_id` ".
 		"ORDER BY `name` ASC;";
 
 	// Get the current config values
@@ -142,7 +137,6 @@ function getCharData( )
 				if ($field != 'name' && $field != 'member_id')
 				{
 					$db_values[$row['name']][$field]['name'] = $row['name'];
-					$db_values[$row['name']][$field]['member_id'] = $row['member_id'];
 					$db_values[$row['name']][$field]['value'] = $value;
 				}
 			}
@@ -151,7 +145,7 @@ function getCharData( )
 	}
 	else
 	{
-		die_quietly( $wowdb->error(), 'Database Error',basename(__FILE__),__LINE__,$sql);
+		return $wowdb->error();
 	}
 }
 
@@ -175,7 +169,7 @@ function processData( )
 
 			list($member_id,$settingName) = explode(':',$settingName);
 
-			$get_val = "SELECT `$settingName` FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` = '$member_id';";
+			$get_val = "SELECT `$settingName` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$member_id';";
 			$result = $wowdb->query($get_val)
 				or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
 
@@ -183,7 +177,7 @@ function processData( )
 
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
-				$update_sql[] = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `$settingName` = '".$wowdb->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
+				$update_sql[] = "UPDATE `".ROSTER_PLAYERSTABLE."` SET `$settingName` = '".$wowdb->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
 			}
 		}
 	}
@@ -208,3 +202,5 @@ function processData( )
 		return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
 	}
 }
+
+?>

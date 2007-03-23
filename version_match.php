@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -15,12 +15,9 @@
  * $Id$
  *
  ******************************/
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
 
-// Needed so files think we are in Roster =P
-define('ROSTER_INSTALLED',true);
-
-// This file is for on the SVN only, so this should NOT be shipped to the clients!!!
+// This file is for on the CVS only, so this should NOT be shipped to the clients!!!
 require_once 'lib/commonfunctions.lib.php';
 require_once 'lib/rosterdiag.lib.php';
 
@@ -89,13 +86,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster_conf['img_url'] = $roster_conf['roster_dir'].'/img/';
 	$roster_conf['stylesheet'] = 'css/styles.css';
 	$roster_conf['roster_js'] = 'css/js/mainjs.js';
-	$roster_conf['tabcontent'] = 'css/js/tabcontent.js';
 	$roster_conf['overlib'] = 'css/js/overlib.js';
 	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
-	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
-	//$svnremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
+	$roster_conf['website_address'] = $_SERVER["HTTP_REFERER"];
+	//$cvsremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the CVS temporarily changes.....Normally the value will come from the local (CVS) lib/rosterdiag.lib.php
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
-	$roster_conf['roster_bg'] = 'img/wowroster_bg.jpg';
 
 
 	include_once 'lib/commonfunctions.lib.php';
@@ -105,7 +100,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	{
 		if(substr($value, 0, 15) == "files")
 		{
-  			$_POST['files'][] = substr($value, 15, strlen($value));
+  		$_POST['files'][] = substr($value, 15, strlen($value));
 		}
 	}
 	foreach ($files as $directory => $filedata)
@@ -168,8 +163,8 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 	if ($zippackage_files != '')
 	{
-		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
-		echo '<div align="center"><form method="POST" action="'.$svnremote.'">';
+		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
+		echo '<div align="center"><form method="POST" action="'.$cvsremote.'">';
 		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
 		echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
 		echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'">';
@@ -181,8 +176,9 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	}
 
 	// Open the main FileVersion table in total color
-	//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>SVN @ '.str_replace("version_match.php", "", $svnremote).'</i></span>');
-	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
+//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>CVS @ '.str_replace("version_match.php", "", $cvsremote).'</i></span>');
+	// Open the main FileVersion table in total color
+	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>CVS @ '.str_replace('version_match.php', '', $cvsremote).'</i></small>');
 
 	// Get all the gathered information and display it in a table
 	foreach ($directories as $directory => $filecount)
@@ -199,11 +195,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" alt="+" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" alt="-" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
@@ -211,7 +207,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 
 			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
-			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
+			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">CVS</th>';
 			echo '</tr>';
 			$row=0;
 			foreach ($files[$directory] as $file => $filedata)
@@ -279,7 +275,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 					{
 						echo '<form method="POST" action="rosterdiag.php">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
-						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
+						echo "<input type=\"hidden\" name=\"downloadcvs\" value=\"confirmation\">\n";
 						if (isset($filedata['diff']) && $filedata['diff'])
 						{
 							echo "<input type=\"hidden\" name=\"downmode\" value=\"update\">\n";
@@ -328,14 +324,12 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 	$roster_conf['roster_dir'] = '.';
 	$roster_conf['stylesheet'] = 'css/styles.css';
 	$roster_conf['roster_js'] = 'css/js/mainjs.js';
-	$roster_conf['tabcontent'] = 'css/js/tabcontent.js';
 	$roster_conf['overlib'] = 'css/js/overlib.js';
 	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
-	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
+	$roster_conf['website_address'] = $_SERVER["HTTP_REFERER"];
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
-	$roster_conf['logo'] = 'img/wowroster_bg.jpg';
 
-	$filesarray = explode(';', $_POST['filestoget']);
+	$filesarray = explode(";", $_POST['filestoget']);
 	$ziptype = $_POST['ziptype']; // targz  or  zip
 	$errors = '';
 

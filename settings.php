@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -25,12 +25,12 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
  * Set PHP error reporting
  */
 error_reporting(E_ALL ^ E_NOTICE);
-//error_reporting(E_ALL);
 
 
 
 // Be paranoid with passed vars
 // Destroy GET/POST/Cookie variables from the global scope
+// Also destroy $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS, $_REQUEST
 if (intval(ini_get('register_globals')) != 0)
 {
 	foreach ($_REQUEST AS $key => $val)
@@ -38,8 +38,8 @@ if (intval(ini_get('register_globals')) != 0)
 		if (isset($$key))
 			unset($$key);
 	}
+	unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS,$_REQUEST);
 }
-unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
 
 
 /**
@@ -80,6 +80,22 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
 
 
 /**
+ * Base, absolute roster admin directory
+ */
+define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
+
+/**
+ * Base, absolute roster ajax directory
+ */
+define('ROSTER_AJAX',ROSTER_BASE.'ajax'.DIR_SEP);
+
+/**
+ * Base, absolute roster addons directory
+ */
+define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
+
+
+/**
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
@@ -106,11 +122,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
 }
 
-/**
- * Include constants file
- */
-require_once (ROSTER_LIB.'constants.php');
-
 
 /**
  * Include roster db file
@@ -122,7 +133,7 @@ require_once (ROSTER_LIB.'wowdb.php');
 /**
  * Establish our connection and select our database
  */
-$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+$roster_dblink = $wowdb = new wowdb($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 if( !$roster_dblink )
 {
 	die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error());
@@ -136,24 +147,30 @@ $db_user = null;
 $db_passwd = null;
 
 
+/**
+ * Include constants file
+ */
+require_once (ROSTER_LIB.'constants.php');
+
+
 
 /**
  * Include common functions
- **/
+ */
 require_once (ROSTER_LIB.'commonfunctions.lib.php');
 
 
 /**
  * Slash global data if magic_quotes_gpc is off.
  */
-set_magic_quotes_runtime(0);
-if( !get_magic_quotes_gpc() )
+if ( !get_magic_quotes_gpc() )
 {
 	$_GET = escape_array($_GET);
 	$_POST = escape_array($_POST);
 	$_COOKIE = escape_array($_COOKIE);
 	$_REQUEST = escape_array($_REQUEST);
 }
+
 
 
 /**
@@ -176,7 +193,6 @@ while( $row = $wowdb->fetch_assoc($results) )
 }
 $wowdb->free_result($results);
 
-
 /**
  * Set SQL debug value
  */
@@ -187,7 +203,48 @@ $wowdb->setSQLDebug($roster_conf['sqldebug']);
 /**
  * Include locale files
  */
-include(ROSTER_BASE.'localization'.DIR_SEP.'languages.php');
+$localeFilePath = ROSTER_BASE.'localization'.DIR_SEP;
+if ($handle = opendir($localeFilePath))
+{
+	while (false !== ($file = readdir($handle)))
+	{
+		if ($file != '.' && $file != '..')
+		{
+			$localeFiles[] = $file;
+		}
+	}
+}
+
+/**
+ * Die if the locale directory cannot be read
+ */
+if( !is_array($localeFiles) )
+{
+	die('Cannot read the directory ['.$localeFilePath.']');
+}
+
+/**
+ * Include every locale file
+ * And fill the $roster_conf['multilanguages'] array
+ */
+foreach($localeFiles as $file)
+{
+	if( file_exists($localeFilePath.$file) && !is_dir($localeFilePath.$file) )
+	{
+		require_once ($localeFilePath.$file);
+		$roster_conf['multilanguages'][] = substr($file,0,4);
+	}
+}
+
+
+
+/**
+ * Assign by reference of the active locale's wordings to a variable with a
+ * shorter name. This way the short var will also update if the full wordings
+ * array gets updated.
+ */
+$act_words = &$wordings[$roster_conf['roster_lang']];
+
 
 
 /**
@@ -195,12 +252,12 @@ include(ROSTER_BASE.'localization'.DIR_SEP.'languages.php');
  */
 if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 {
-	roster_die('Looks like you\'ve loaded a new version of Roster<br />
+	die_quietly('Looks like you\'ve loaded a new version of Roster<br />
 <br />
 Your Version: <span class="red">'.$roster_conf['version'].'</span><br />
 New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
 <br />
-<a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster','sred');
+<a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster');
 }
 
 
@@ -211,9 +268,17 @@ if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install'
 {
 	if( !file_exists(ROSTER_BASE.'version_match.php') )
 	{
-		roster_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
+		die_quietly('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files');
 	}
 }
+
+
+
+/**
+ * Get guild info
+ */
+$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+$guild_ranks = $wowdb->get_guild_ranks($guild_info['guild_id']);
 
 
 /**
@@ -221,8 +286,13 @@ if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install'
  */
 require_once(ROSTER_LIB.'login.php');
 
+$roster_login = new RosterLogin($_SERVER['REQUEST_URI']);
 
 /**
- * Get guild data from dataabse
+ * Include roster Menu class
  */
-$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+require_once(ROSTER_LIB.'menu.php');
+
+$roster_menu = new RosterMenu();
+
+?>

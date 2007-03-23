@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -15,9 +15,6 @@
  * $Id$
  *
  ******************************/
-
-// Disable generation of headers from settings.php
-$no_roster_headers = true;
 
 require_once( 'settings.php' );     ##  Uses the same settings.php as WoWProfiler
 $name = $_GET['name'];  ##  Here because some hosts need it
@@ -89,7 +86,7 @@ while ($r = $wowdb->fetch_array($result4))
 {
 	extract($r);
 
-	if ($skill_type==$act_words['professions'])
+	if ($skill_type==$wordings[$roster_conf['roster_lang']]['professions'])
 	{
 		ImageTTFText($im, 6, 0, 290, $pos, $color, "fonts/VERANDA.TTF", $skill_name);
 		ImageTTFText($im, 6, 0, 355, $pos, $color, "fonts/VERANDA.TTF", $skill_level);
@@ -106,7 +103,7 @@ while ($r = $wowdb->fetch_array($result5))
 {
 	extract($r);
 
-	if ($skill_type==$act_words['secondary'])
+	if ($skill_type==$wordings[$roster_conf['roster_lang']]['secondary'])
 	{
 		ImageTTFText($im, 6, 0, 290, $pos, $color, "fonts/VERANDA.TTF", $skill_name);
 		ImageTTFText($im, 6, 0, 355, $pos, $color, "fonts/VERANDA.TTF", $skill_level);

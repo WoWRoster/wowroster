@@ -30,21 +30,16 @@ class config
 	var $formpages = '';
 	var $nonformpages = '';
 
-	var $radio_num = 0;
-	var $check_num = 0;
-
 	/**
 	 * Constructor. We define the config table to work with here.
 	 */
 	function config( $tablename )
 	{
-		global $act_words, $body_action;
-
-		$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+		global $act_words,$wordings, $roster_conf;
 
 		$this->tablename = $tablename;
 		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
-		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+		$this->submit_button = "<input type=\"submit\" value=\"".$wordings[$roster_conf['roster_lang']]['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$wordings[$roster_conf['roster_lang']]['config_reset_button']."\" onClick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
 	}
@@ -56,10 +51,10 @@ class config
 	 */
 	function buildConfigMenu()
 	{
-		global $act_words;
+		global $wordings, $roster_conf;
 
 		$menu = '<!-- Begin Config Menu -->'."\n".
-			border('sgray','start',$act_words['roster_config_menu'])."\n".
+			border('sgray','start',$wordings[$roster_conf['roster_lang']]['roster_config_menu'])."\n".
 			'<div style="width:145px;">'."\n".
 			'  <ul id="config_tabs" class="tab_menu">'."\n";
 
@@ -106,7 +101,7 @@ class config
 	 */
 	function buildConfigPage()
 	{
-		global $wordings, $roster_conf, $act_words;
+		global $wordings, $roster_conf;
 
 		if (is_array($this->db_values['menu']))
 		{
@@ -115,7 +110,7 @@ class config
 				$type = explode('{',$values['form_type']);
 				$page = '<div id="'.$values['name'].'" style="display:none;">'."\n";
 
-				$header_text = explode('|',$act_words['admin'][$values['name']]);
+				$header_text = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]);
 				$header_text = $header_text[0];
 
 				switch ($type[0])
@@ -198,7 +193,7 @@ class config
 	 */
 	function buildPage($page,$columns)
 	{
-		global $wordings, $roster_conf, $act_words;
+		global $wordings, $roster_conf;
 
 		$html = '<table><tr><td>';
 		$i = 0;
@@ -206,7 +201,7 @@ class config
 
 		foreach($this->db_values[$page] as $values)
 		{
-			$header_text = explode('|',$act_words['admin'][$values['name']]);
+			$header_text = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$values['name']]);
 			$header_text = $header_text[0];
 
 			$type = explode('{',$values['form_type']);
@@ -304,17 +299,7 @@ class config
 			{
 				case 'text':
 					$length = explode('|',$input_type[1]);
-
-				if( $length[1] < 20 )
-					$text_class = '64';
-				elseif( $length[1] < 30 )
-					$text_class = '128';
-				elseif( $length[1] < 40 )
-					$text_class = '192';
-				else
-					$text_class = '';
-
-				$input_field = '<input class="wowinput'.$text_class.'" name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+					$input_field = '<input name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 					break;
 
 				case 'radio':
@@ -322,8 +307,7 @@ class config
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
-						$input_field .= '<input type="radio" id="rad_'.$this->radio_num.'" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
-						$this->radio_num++;
+						$input_field .= '<label class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'"><input class="checkBox" type="radio" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' />'.$vals[0]."</label>\n";
 					}
 					break;
 
@@ -336,7 +320,7 @@ class config
 						$vals = explode('^',$value);
 						if( $values['value'] == $vals[1] && $select_one )
 						{
-							$input_field .= '  <option value="'.$vals[1].'" selected="selected">-'.$vals[0].'-</option>'."\n";
+							$input_field .= '  <option value="'.$vals[1].'" selected="selected">&gt;'.$vals[0].'&lt;</option>'."\n";
 							$select_one = 0;
 						}
 						else
@@ -420,7 +404,7 @@ class config
 					// Replace back-slashes
 					$settingValue = preg_replace('|\\\\|','/',$settingValue );
 
-					// Check for directories defined with '/' at the end
+					// Check for directories defined with no '/' at the end
 					// and take it off
 					if( substr($settingValue, -1, 1) == '/' )
 					{
@@ -475,7 +459,7 @@ class config
 	 */
 	function getConfigData ()
 	{
-		global $wowdb, $wordings, $roster_conf, $act_words;
+		global $wowdb, $wordings, $roster_conf;
 
 		$sql = "SELECT * FROM `".$this->tablename."` ORDER BY `id` ASC;";
 
@@ -495,11 +479,11 @@ class config
 				$this->db_values[$setitem][$arrayitem]['form_type'] = stripslashes($row['form_type']);
 
 				// Get description and tooltip
-				$desc_tip = explode('|',$act_words['admin'][$row['config_name']]);
+				$desc_tip = explode('|',$wordings[$roster_conf['roster_lang']]['admin'][$row['config_name']]);
 
 				$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
 
-				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$row['config_name'].'</span></span>';
+				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;font-size:10px;">'.$row['config_name'].'</span></span>';
 				$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 
 			}
@@ -525,8 +509,17 @@ class config
 	{
 		$tipsettings = ",WRAP";
 
-		$tip = makeOverlib($content,$caption,'',2,'',',WRAP');
-		$tip = " style=\"cursor:help;\" $tip>$disp_text";
+		$content = str_replace("'","\'", $content);
+		$content = str_replace('"','&quot;', $content);
+
+		if( !empty($caption) )
+		{
+			$caption = str_replace("'","\'", $caption);
+			$caption = str_replace('"','&quot;', $caption);
+			$caption = ",CAPTION,'$caption'";
+		}
+
+		$tip = " style=\"cursor:help;\" onmouseover=\"return overlib('$content'$caption$tipsettings);\" onmouseout=\"return nd();\">$disp_text";
 
 		return $tip;
 	}
@@ -534,3 +527,4 @@ class config
 }
 
 $config = new config($tablename);
+?>

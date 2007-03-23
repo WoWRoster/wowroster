@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -44,6 +44,7 @@ error_reporting(E_ALL);
 
 // Be paranoid with passed vars
 // Destroy GET/POST/Cookie variables from the global scope
+// Also destroy $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS, $_REQUEST
 if (intval(ini_get('register_globals')) != 0)
 {
 	foreach ($_REQUEST AS $key => $val)
@@ -51,6 +52,7 @@ if (intval(ini_get('register_globals')) != 0)
 		if (isset($$key))
 			unset($$key);
 	}
+	unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS,$_REQUEST);
 }
 
 set_magic_quotes_runtime(0);
@@ -61,15 +63,15 @@ if ( !get_magic_quotes_gpc() )
 }
 
 define('DIR_SEP',DIRECTORY_SEPARATOR);
-define('ROSTER_BASE', dirname(__FILE__).DIR_SEP);
+$roster_root_path = dirname(__FILE__).DIR_SEP;
 
 
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if ( !include_once(ROSTER_BASE . 'install'.DIR_SEP.'template.php') )
+if ( !include_once($roster_root_path . 'install'.DIR_SEP.'template.php') )
 {
-	die('Could not include ' . ROSTER_BASE . 'install'.DIR_SEP.'template.php - check to make sure that the file exists!');
+	die('Could not include ' . $roster_root_path . 'install'.DIR_SEP.'template.php - check to make sure that the file exists!');
 }
 
 
@@ -95,12 +97,30 @@ $STEP = ( isset($_POST['install_step']) ) ? $_POST['install_step'] : 1;
 
 
 // Get the config file
-if ( file_exists(ROSTER_BASE . 'conf.php') )
+if ( file_exists($roster_root_path . 'conf.php') )
 {
-	include_once(ROSTER_BASE . 'conf.php');
+	include_once($roster_root_path . 'conf.php');
 }
 
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'constants.php');
+
+// If Roster is already installed, don't let them install it again
+if ( defined('ROSTER_INSTALLED') )
+{
+	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
+	$tpl->message_die('Roster is already installed - <span class="negative">remove</span> the file <span class="positive">install.php</span> and the folder <span class="positive">install/</span> in this directory.', 'Installation Error');
+	exit();
+}
+
+
+// Detect Roster 1.6.0
+if ( isset($roster_upd_pw) )
+{
+	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
+	$tpl->message_die('Looks like you\'ve loaded a new version of Roster<br />
+<br />
+<a href="upgrade.php" style="font-weight:bold;border:1px outset white;padding:2px 6px;">UPGRADE</a>', 'Upgrade Roster');
+	exit();
+}
 
 
 // View phpinfo() if requested
@@ -112,6 +132,7 @@ if ( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 
 // System defaults / available database abstraction layers
 $DEFAULTS = array(
+	'version'        => '1.8.0',
 	'default_locale' => 'enUS',
 	'db_prefix'      => 'roster_',
 	'dbal'           => 'mysql',
@@ -142,31 +163,7 @@ $LOCALES = array(
 		'label' => 'French',
 		'type'	=> 'frFR'
 		),
-	'Spanish'  => array(
-		'label' => 'Spanish',
-		'type'	=> 'esES'
-		)
 	);
-
-
-// If Roster is already installed, don't let them install it again
-if ( defined('ROSTER_INSTALLED') )
-{
-	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
-	$tpl->message_die('Roster is already installed - <span class="negative">remove</span> the file <span class="positive">install.php</span> and the folder <span class="positive">install/</span> in this directory.', 'Installation Error');
-	exit();
-}
-
-
-// Detect Roster 1.6.0
-if ( isset($roster_upd_pw) )
-{
-	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
-	$tpl->message_die('Looks like you\'ve loaded a new version of Roster<br />
-<br />
-<a href="upgrade.php" style="font-weight:bold;border:1px outset white;padding:2px 6px;">UPGRADE</a>', 'Upgrade Roster');
-	exit();
-}
 
 // ---------------------------------------------------------
 // Figure out what we're doing...
@@ -195,20 +192,20 @@ switch ( $STEP )
 // ---------------------------------------------------------
 function process_step1()
 {
-	global $DEFAULTS;
+	global $roster_root_path, $DEFAULTS;
 
 	$tpl = new Template_Wrap('install_step1.html','install_header.html','install_tail.html');
 
-
+/* DISABLED
     //
     // Check to make sure conf.php exists and is readable / writeable
     //
-    $config_file = ROSTER_BASE . 'conf.php';
+    $config_file = $roster_root_path . 'conf.php';
     if ( !file_exists($config_file) )
     {
         if ( !@touch($config_file) )
         {
-            $tpl->message_append('The <b>conf.php</b> file does not exist and could not be created in Roster\'s root folder.<br />Although not critical, you should create this file and enable write access before proceeding.<br />If conf.php is not writable, you will be promtped to download this file, then upload it to your server.');
+            $tpl->error_append('The <b>conf.php</b> file does not exist and could not be created in Roster\'s root folder.<br />You must create this file and enable write access on your server before proceeding.');
         }
         else
         {
@@ -221,7 +218,7 @@ function process_step1()
         {
             if ( !@chmod($config_file, 0666) )
             {
-                $tpl->message_append('The file <b>conf.php</b> is not set to be readable/writeable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <b>chmod 0666 conf.php</b> on your server.');
+                $tpl->error_append('The file <b>conf.php</b> is not set to be readable/writeable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <b>chmod 0666 conf.php</b> on your server.');
             }
             else
             {
@@ -231,13 +228,13 @@ function process_step1()
         // config file exists and is writeable, we're good to go
     }
     clearstatcache();
-
+*/
 
     //
     // Server settings
     //
     // Roster versions
-    $our_roster_version   = ROSTER_VERSION;
+    $our_roster_version   = $DEFAULTS['version'];
     $their_roster_version = 'Unknown';
 
 
@@ -246,7 +243,7 @@ function process_step1()
     $sh = @fsockopen('wowroster.net', 80, $errno, $error, 5);
     if ( !$sh )
     {
-        $their_roster_version = 'Connection failed';
+        $their_roster_version = 'Connection failed.';
     }
     else
     {
@@ -311,7 +308,7 @@ function process_step1()
 
 function process_step2()
 {
-    global $DEFAULTS, $DBALS, $LOCALES;
+    global $roster_root_path, $DEFAULTS, $DBALS, $LOCALES;
 
     $tpl = new Template_Wrap('install_step2.html','install_header.html','install_tail.html');
 
@@ -331,7 +328,7 @@ function process_step2()
     //
     foreach ( $LOCALES as $locale_type => $locale_desc )
     {
-    	if( file_exists(ROSTER_BASE.'localization'.DIR_SEP.$locale_desc['type'].'.php') )
+    	if( file_exists($roster_root_path.'localization'.DIR_SEP.$locale_desc['type'].'.php') )
     	{
 	        $tpl->assign_block_vars('locale_row', array(
 	            'VALUE'  => $locale_desc['type'],
@@ -378,7 +375,7 @@ function process_step2()
 
 function process_step3()
 {
-    global $DEFAULTS, $DBALS, $LOCALES;
+    global $roster_root_path, $DEFAULTS, $DBALS, $LOCALES;
 
     $tpl = new Template_Wrap('install_step3.html','install_header.html','install_tail.html');
 
@@ -394,7 +391,7 @@ function process_step3()
     $db_prefix      = post_or_db('db_prefix', $DEFAULTS);
     $default_locale = post_or_db('default_locale', $DEFAULTS);
 
-    $dbal_file = ROSTER_BASE . 'lib'.DIR_SEP.'wowdb.php';
+    $dbal_file = $roster_root_path . 'lib'.DIR_SEP.'wowdb.php';
     if ( !file_exists($dbal_file) )
     {
         $tpl->message_die('Unable to find the database layer for Roster, check to make sure ' . $dbal_file . ' exists.', 'Database Error');
@@ -406,7 +403,7 @@ function process_step3()
     define('CONFIG_TABLE', $db_prefix . 'config');
 
     include_once($dbal_file);
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+    $wowdb = new wowdb($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     // Check to make sure a connection was made
     if ( !is_resource($wowdb->db) )
@@ -414,8 +411,8 @@ function process_step3()
         $tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
     }
 
-    $db_structure_file = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_structure.sql';
-    $db_data_file      = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
+    $db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_structure.sql';
+    $db_data_file      = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
 
     $remove_remarks_function = $DBALS['mysql']['comments'];
 
@@ -472,7 +469,7 @@ function process_step3()
 		// Added failure checks to the database transactions
 		/*if ( !($wowdb->query($sql[$i])) )
 		{
-			$tpl->message_die('Install Failed <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
+			$tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
 		}*/
     }
     unset($sql);
@@ -499,14 +496,13 @@ function process_step3()
     //
     // Output the page
     //
-    sql_output($tpl, $wowdb);
     $tpl->page_header();
     $tpl->page_tail();
 }
 
 function process_step4()
 {
-    global $DEFAULTS;
+    global $roster_root_path, $DEFAULTS;
 
     $tpl = new Template_Wrap('install_step4.html','install_header.html','install_tail.html');
 
@@ -526,7 +522,7 @@ function process_step4()
     //
     define('CONFIG_TABLE', $db_prefix . 'config');
 
-    include_once(ROSTER_BASE . 'lib'.DIR_SEP.'wowdb.php');
+    include_once($roster_root_path . 'lib'.DIR_SEP.'wowdb.php');
 
 
     if( $user_password1 == '' || $user_password2 == '' )
@@ -543,7 +539,7 @@ function process_step4()
     }
 
 
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+    $wowdb = new wowdb($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_upd_pw';");
 
@@ -574,6 +570,7 @@ function process_step4()
 
     $config_file .= 'define(\'ROSTER_INSTALLED\', true);' . "\n";
 
+    $config_file .= '?>';
 
     // Set our permissions to execute-only
     @umask(0111);
@@ -599,7 +596,6 @@ function process_step4()
         $tpl->message_append('Your configuration file has been written, but installation will not be complete until you configure Roster');
     }
 
-    sql_output($tpl, $wowdb);
     $tpl->page_header();
     $tpl->page_tail();
 }
@@ -723,17 +719,6 @@ function parse_sql($sql, $delim)
     unset($statements);
 
     return $retval;
-}
-
-function sql_output(&$tpl, &$wowdb)
-{
-	foreach( explode("\n",$wowdb->getSQLStrings()) as $string )
-	{
-		$tpl->assign_block_vars('sql_rows', array(
-			'TEXT' => $string
-			)
-		);
-	}
 }
 
 ?>

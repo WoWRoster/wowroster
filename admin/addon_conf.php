@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -21,64 +21,83 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if( !isset($pages[2]) )
+// ----[ Get addon record ]---------------------------------
+$addon = getaddon($_GET['addon']);
+if (file_exists(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'config.func.php'))
 {
-	roster_die($act_words['specify_addon'],$act_words['addon_error']);
+	include(ROSTER_ADDONS.$addon['basename'].DIR_SEP.'config.func.php');
 }
 
-// Get the addon's location
-$addonDir = ROSTER_ADDONS.$pages[2].DIR_SEP;
 
-// Get the addon's index file
-$addonFile = $addonDir.'admin.php';
+// ----[ Set the tablename and create the config class ]----
+$tablename = $wowdb->table('config',$_GET['addon'],$_GET['profile']);
+include(ROSTER_LIB.'config.lib.php');
 
-// Get the addon's css style
-$cssFile = $addonDir.'default.css';
+// ----[ Process data if available ]------------------------
+$save_message = $config->processData();
 
-// Get the addon's locale file
-$localizationFile = $addonDir.'localization.php';
+// ----[ Get configuration data ]---------------------------
+$config->getConfigData();
 
-// Get the addon's config file
-$configFile = $addonDir.'conf.php';
+// ----[ Build profile select box ]-------------------------
+$menu  = border('sblue','start',$act_words['profileselect'])."\n";
+$menu .= profilebox();
+$menu .= border('sblue','end')."\n";
+$menu .= '<br />'."\n";
 
-// Initialize css holder
-$css = '';
+// ----[ Build the page items using lib functions ]---------
+$menu .= $config->buildConfigMenu();
 
+$config->buildConfigPage();
 
-// Check to see if the index file exists
-if( file_exists($addonFile) )
+if (isset($addon_hastopbox) && $addon_hastopbox)
 {
-	$script_filename = 'addon-'.$pages[2];
-
-	// Set the css for the template set in conf.php
-	if( file_exists($cssFile) )
-	{
-		$css = '/addons/'.$pages[2].'/default.css';
-	}
-
-	// Include localization variables
-	if( file_exists($localizationFile) )
-	{
-		include_once( $localizationFile );
-	}
-
-	// Include addon's conf.php settings
-	if( file_exists($configFile) )
-	{
-		include_once( $configFile );
-	}
-
-	include_once( $addonFile );
+	$body = topbox();
 }
 else
 {
-	$content = sprintf($act_words['addon_not_exist'],$pages[2]);
+	$body = '';
 }
 
-// Everything after this line will have to be changed to integrate into smarty! ;)
+$body.= $config->form_start.
+	$config->submit_button.
+	$config->formpages.
+	$config->form_end.
+	$config->nonformpages.
+	$config->jscript;
 
-// Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
-if( $css != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'">'."\n";
+function profilebox()
+{
+	global $wowdb, $act_words;
 
-echo $content;
+	$menu = '<form method="get" action="">'."\n";
+	$menu .= '<select name="profile">'."\n";
+
+	$query = 'SHOW TABLES LIKE "'.str_replace('_','\_',$wowdb->table('config',$_GET['addon'],'%')).'"';
+	if (!$result = $wowdb->query($query))
+	{
+		return 'Failed to get list of config tables for '.$_GET['addon'].'. MySQL said: '.$wowdb->error();
+	}
+	while ($row = $wowdb->fetch_row($result))
+	{
+		preg_match('|'.$wowdb->table('config',$_GET['addon'],'([\w]+)').'|i',$row[0],$prof);
+		if ($prof[1] = $_GET['profile'])
+		{
+			$menu .= '<option value="'.$prof[1].'" selected="selected">&gt;'.$prof[1].'&lt;</option>'."\n";
+		}
+		else
+		{
+			$menu .= '<option value="'.$prof[1].'">'.$prof[1].'</option>'."\n";
+		}
+	}
+	$wowdb->free_result($result);
+
+	$menu .= '</select>'."\n";
+	$menu .= '<input type="hidden" name="page" value="addon">';
+	$menu .= '<input type="hidden" name="addon" value="'.$_GET['addon'].'">';
+	$menu .= '<input type="submit" value="'.$act_words['profilego'].'">';
+	$menu .= '</form>'."\n";
+
+	return $menu;
+}
+?>

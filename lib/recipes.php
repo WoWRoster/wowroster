@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -32,19 +32,19 @@ class recipe
 
 	function out()
 	{
-		global $roster_conf, $wordings, $char, $tooltips;
+		global $roster_conf, $wordings, $itemlink, $char, $tooltips;
 
 		if( !is_object($char) )
 			$lang = $roster_conf['roster_lang'];
 		else
 			$lang = $char->data['clientLocale'];
 
-		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
+		$path = $roster_conf['interface_url'].$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
+		foreach( $itemlink[$lang] as $key => $ilink )
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
 		}
@@ -55,10 +55,9 @@ class recipe
 
 		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
 
-		$returnstring = '<div class="item" '.$tooltip.$linktip.'>';
+		$returnstring = '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
 
 		$returnstring .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
-
 		$returnstring .= '</div>';
 		return $returnstring;
 	}
@@ -130,7 +129,7 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 
 	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".ROSTER_RECIPESTABLE."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
-	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
+	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')");
 
 	switch ($sort)
 	{
@@ -168,3 +167,4 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 	return $recipes;
 }
+?>

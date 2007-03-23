@@ -25,6 +25,8 @@ if ( !defined('ROSTER_INSTALLED') )
 // The value is an array whose keys have these menaings:
 //	"href"		The link this should refer to.
 //	"title"		The localization key for the button title.
+//	"access"	The access level to be met before this button is visible.
+//			Should refer to a $roster_conf value.
 //	"file"		The file to include if this page is called. Missing means
 //			invalid page.
 //	"special"	Ignored unless it's one of the following:
@@ -35,39 +37,57 @@ if ( !defined('ROSTER_INSTALLED') )
 
 
 $pages['roster'] = array(
-	'href'=>	$pages[0].'-roster',
-	'title'=>	'pagebar_rosterconf',
-	'file'=>	'roster_conf.php',
+	"href"=>	"?page=roster",
+	"title"=>	"pagebar_rosterconf",
+	"access"=>	$roster_conf['auth_roster_config'],
+	"file"=>	"roster_conf.php",
 	);
 $pages['character'] = array(
-	'href'=>	$pages[0].'-character',
-	'title'=>	'pagebar_charpref',
-	'file'=>	'character_conf.php',
+	"href"=>	"?page=character",
+	"title"=>	"pagebar_charpref",
+	"access"=>	$roster_conf['auth_character_config'],
+	"file"=>	"character_conf.php",
 	);
 $pages['menu'] = array(
-	'href'=>	$pages[0].'-menu',
-	'title'=>	'pagebar_menuconf',
-	'file'=>	'menu_conf.php',
+	"href"=>	"?page=menu",
+	"title"=>	"pagebar_menuconf",
+	"file"=>	"menu_conf.php",
+	"access"=>	10
 	);
 $pages['install'] = array(
-	'href'=>	$pages[0].'-install',
-	'title'=>	'pagebar_addoninst',
-	'file'=>	'addon_install.php',
+	"href"=>	"?page=install",
+	"title"=>	"pagebar_addoninst",
+	"access"=>	$roster_conf['auth_install_addon'],
+	"file"=>	"addon_install.php",
 	);
 $pages['password'] = array(
-	'href'=>	$pages[0].'-password',
-	'title'=>	'pagebar_changepass',
-	'file'=>	'change_pass.php',
+	"href"=>	"?page=password",
+	"title"=>	"pagebar_changepass",
+	"access"=>	$roster_conf['auth_change_pass'],
+	"file"=>	"change_pass.php",
+	);
+$pages['update'] = array(
+	"href"=>	"?page=update",
+	"title"=>	"pagebar_update",
+	"access"=>	$roster_conf['auth_update'],
+	"file"=>	"update.php",
+	);
+$pages['create'] = array(
+	"href"=>	"?page=create",
+	"title"=>	"pagebar_usercreate",
+	"file"=>	"user_create.php",
 	);
 $pages['hr'] = array(
-	'special'=>	'divider',
+	"special"=>	"divider",
+	"access"=>	$roster_conf['auth_diag_button'],
 	);
 $pages['rosterdiag'] = array(
-	'href'=>	'rosterdiag',
-	'title'=>	'pagebar_rosterdiag',
+	"href"=>	"rosterdiag.php",
+	"title"=>	"pagebar_rosterdiag",
+	"access"=>	$roster_conf['auth_diag_button'],
 	);
 
 $pages['addon'] = array(
-	'special'=>	'hidden',
-	'file'=>	'addon_conf.php',
+	"special"=>	"hidden",
+	"file"=>	"addon_conf.php",
 	);
