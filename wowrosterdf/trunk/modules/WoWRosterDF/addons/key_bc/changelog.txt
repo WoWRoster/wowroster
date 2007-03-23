@@ -1,8 +1,0 @@
-------- version 0.1 -------
-fixed bug in menu 
-created 1 file by localization in directory lang
-fixed language bug in enUS & deDE
-
-------- version 0.1 -------
-display a bc key
-
