@@ -71,7 +71,10 @@ function pageNames( )
 
 	$addonlist = makeAddonList(2);
 
-	$pages = array_merge($pages, $addonlist);
+	if( !empty($addonlist) )
+	{
+		$pages = array_merge($pages, $addonlist);
+	}
 
 	$input_field = '<select name="config_default_page">'."\n";
 	$select_one = 1;
