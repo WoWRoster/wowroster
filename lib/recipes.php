@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -32,33 +32,70 @@ class recipe
 
 	function out()
 	{
-		global $roster_conf, $wordings, $char, $tooltips;
+		global $roster_conf, $wordings, $itemlink;
 
-		if( !is_object($char) )
-			$lang = $roster_conf['roster_lang'];
-		else
-			$lang = $char->data['clientLocale'];
+		$path = $roster_conf['interface_url'].preg_replace('|\\\\|','/', $this->data['recipe_texture']).'.'.$roster_conf['img_suffix'];
 
-		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
-
-		// Item links
-		$num_of_tips = (count($tooltips)+1);
-		$linktip = '';
-		foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
+		$first_line = True;
+		foreach (explode("\n", $this->data['recipe_tooltip']) as $line )
 		{
-			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
+			if( $first_line )
+			{
+				$color = substr( $this->data['item_color'], 2, 6 ) . '; font-size: 12px; font-weight: bold';
+				$first_line = False;
+			}
+			else
+			{
+				if( substr( $line, 0, 2 ) == '|c' )
+				{
+					$color = substr( $line, 4, 6 ).';';
+					$line = substr( $line, 10, -2 );
+				}
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) === 0 )
+					$color = 'ff0000;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) === 0 )
+					$color = '00bbff;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_set'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_set'] ) === 4 )
+					$color = 'd9b200;';
+				elseif ( strpos( $line, '"' ) )
+					$color = 'ffd517';
+				else
+					$color='ffffff;';
+			}
+			$line = preg_replace('|\\>|','&#8250;', $line );
+			$line = preg_replace('|\\<|','&#8249;', $line );
+
+			if( strpos($line,"\t") )
+			{
+				$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
+				$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
+				$tooltip = $tooltip.$line;
+			}
+			elseif( $line != '')
+				$tooltip = $tooltip."<span style=\"color:#$color\">$line</span><br />";
 		}
-		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$wordings[$lang]['itemlink']);
 
-		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+		$tooltip = str_replace("'", "\'", $tooltip);
+		$tooltip = str_replace('"','&quot;', $tooltip);
+		$tooltip = str_replace('<','&lt;', $tooltip);
+		$tooltip = str_replace('>','&gt;', $tooltip);
 
-		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
+		$returnstring = '<div class="item" onmouseover="return overlib(\''.$tooltip.'\');" onmouseout="return nd();">';
 
-		$returnstring = '<div class="item" '.$tooltip.$linktip.'>';
-
-		$returnstring .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
-
+		$returnstring .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['recipe_name'])).'" target="_itemlink">'.
+		'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
 		$returnstring .= '</div>';
 		return $returnstring;
 	}
@@ -86,10 +123,6 @@ function recipe_get_many( $member_id, $search, $sort )
 
 		case 'name':
 			$query .= " ORDER BY `skill_name` ASC , `recipe_name` ASC , `recipe_type` ASC , `difficulty` DESC";
-			break;
-
-		case 'level':
-			$query .= " ORDER BY `skill_name` ASC , `level` ASC , `difficulty` DESC , `recipe_name` ASC";
 			break;
 
 		case 'type':
@@ -130,7 +163,7 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 
 	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".ROSTER_RECIPESTABLE."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
-	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
+	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')");
 
 	switch ($sort)
 	{
@@ -168,3 +201,4 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 	return $recipes;
 }
+?>

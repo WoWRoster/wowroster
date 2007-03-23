@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -49,13 +49,9 @@ class reputation
 
 	function out()
 	{
-		global $wordings, $roster_conf, $char;
+		global $wordings, $roster_conf;
 
-		$lang = $char->data['clientLocale'];
-
-		$level = $this->data['curr_rep'];
-		$max = $this->data['max_rep'];
-
+		list( $level, $max ) = explode( '/', $this->data['Value'] );
 		if( $max == 1 )
 		{
 			$bgImage = $roster_conf['img_url'].'bargrey.gif';
@@ -67,37 +63,37 @@ class reputation
 
 		switch ( $this->data['Standing'] )
 		{
-		case ($wordings[$lang]['hated']):
+		case ($wordings[$roster_conf['roster_lang']]['hated']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_r.gif';
 			$width = intval((($level+26000)/23000) * 354);
 			break;
-		case ($wordings[$lang]['hostile']):
+		case ($wordings[$roster_conf['roster_lang']]['hostile']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_r.gif';
 			$width = intval((($level+6000)/3000) * 354);
 			break;
-		case ($wordings[$lang]['neutral']):
+		case ($wordings[$roster_conf['roster_lang']]['neutral']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_y.gif';
 			break;
-		case ($wordings[$lang]['unfriendly']):
+		case ($wordings[$roster_conf['roster_lang']]['unfriendly']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_o.gif';
 			$width = intval(($level/-3000) * 354);
 			break;
-		case ($wordings[$lang]['honored']):
+		case ($wordings[$roster_conf['roster_lang']]['honored']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['friendly']):
+		case ($wordings[$roster_conf['roster_lang']]['friendly']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['exalted']):
+		case ($wordings[$roster_conf['roster_lang']]['exalted']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['revered']):
+		case ($wordings[$roster_conf['roster_lang']]['revered']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
 		}
 
 		// Giving each rep a unique id so the onmouseover can work correctly
-		$id = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $this->data['faction'].$this->data['name']));
+		$id = strtolower(str_replace(' ','',$this->data['faction'].$this->data['name']));
 
 		$hover_code = "<div style=\"cursor:default;\" onmouseover=\"swapShow('rep_value_$id','rep_standing_$id');\" onmouseout=\"swapShow('rep_value_$id','rep_standing_$id');\">";
 		$value = $hover_code."<div class=\"value\" style=\"display:none;\" id=\"rep_value_$id\">$level/$max</div>".
@@ -126,7 +122,11 @@ class reputation
 
 		if ($this->data['AtWar'] == 1 )
 		{
-			$output .= '              <span class="war">'.$wordings[$lang]['atwar'].'</span>';
+			$output .= '              <span class="war">'.$wordings[$roster_conf['roster_lang']]['atwar'].'</span>';
+		}
+		else
+		{
+			//$output .= '              <span class="nowar">'.$wordings[$roster_conf['roster_lang']]['notatwar'].'</span>';
 		}
 
 		$output .= "\n            </div>\n          </div>";
@@ -158,3 +158,4 @@ function get_reputation( $member_id)
 	}
 	return $reputations;
 }
+?>

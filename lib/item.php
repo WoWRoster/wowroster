@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -32,36 +32,82 @@ class item
 
 	function out()
 	{
-		global $roster_conf, $wordings, $char, $tooltips;
+		global $roster_conf, $wordings, $itemlink;
 
-		if( !is_object($char) )
-			$lang = $roster_conf['roster_lang'];
-		else
-			$lang = $char->data['clientLocale'];
+		$item_texture = preg_replace('|\\\\|','/', $this->data['item_texture']);
+		$item_texture = preg_replace('|//|','/', $item_texture);
 
-		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'];
+		$path = $roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'];
 
-		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
-
-		// Item links
-		$num_of_tips = (count($tooltips)+1);
-		$linktip = '';
-		foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
+		$first_line = True;
+		foreach (explode("\n", $this->data['item_tooltip']) as $line )
 		{
-			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
+			if( $first_line )
+			{
+				$color = substr( $this->data['item_color'], 2, 6 ) . '; font-size: 12px; font-weight: bold';
+				$first_line = False;
+			}
+			else
+			{
+				if( substr( $line, 0, 2 ) == '|c' )
+				{
+					$color = substr( $line, 4, 6 ).';';
+					$line = substr( $line, 10, -2 );
+				}
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_use'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_requires'] ) === 0 )
+					$color = 'ff0000;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_reinforced'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_equip'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_chance'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_enchant'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_soulbound'] ) === 0 )
+					$color = '00bbff;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_set'] ) === 0 )
+					$color = '00ff00;';
+				else if ( strpos( $line, $wordings[$roster_conf['roster_lang']]['tooltip_set'] ) === 4 )
+					$color = 'd9b200;';
+				elseif ( strpos( $line, '"' ) )
+					$color = 'ffd517';
+				else
+					$color='ffffff;';
+			}
+			$line = preg_replace('|\\>|','&#8250;', $line );
+			$line = preg_replace('|\\<|','&#8249;', $line );
+
+			if( strpos($line,"\t") )
+			{
+				$line = str_replace("\t",'</td><td align="right" style="font-size:10px;color:white;">', $line);
+				$line = '<table width="220" cellspacing="0" cellpadding="0"><tr><td style="font-size:10px;color:white;">'.$line.'</td></tr></table>';
+				$tooltip .= $line;
+			}
+			elseif( $line != '')
+				$tooltip .= "<span style=\"color:#$color\">$line</span><br />";
 		}
-		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$wordings[$lang]['itemlink']);
 
-		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+		$tooltip = str_replace("'", "\'", $tooltip);
+		$tooltip = str_replace('"','&quot;', $tooltip);
+		$tooltip = str_replace('<','&lt;', $tooltip);
+		$tooltip = str_replace('>','&gt;', $tooltip);
 
-		$output = '<div class="item" '.$tooltip.$linktip.'>';
+
+		$output = '<div class="item" onmouseover="overlib(\''.$tooltip.'\');" onmouseout="return nd();">';
 
 		if ($this->data['item_slot'] == 'Ammo')
-			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
+		{
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_itemlink">'."\n".
+			'<img src="'.$path.'" class="iconsmall"'." alt=\"\" /></a>\n";
+		}
 		else
-			$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
-
+		{
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_itemlink">'."\n".
+			'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
+		}
 		if( ($this->data['item_quantity'] > 1) )
 		{
 			$output .= '<span class="quant_shadow">'.$this->data['item_quantity'].'</span>';
@@ -78,7 +124,9 @@ function item_get_one( $member_id, $slot )
 	global $wowdb;
 
 	$slot = $wowdb->escape( $slot );
-	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_slot` = '$slot'";
+	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` where member_id = $member_id and item_slot = '$slot'";
+	if ($wowdb->sqldebug)
+		print "<!-- $query --> \n";
 
 	$result = $wowdb->query( $query );
 	$data = $wowdb->fetch_assoc( $result );
@@ -94,7 +142,10 @@ function item_get_many( $member_id, $parent )
 	global $wowdb;
 
 	$parent = $wowdb->escape( $parent );
-	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_parent` = '$parent'";
+	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` where member_id = $member_id and item_parent = '$parent'";
+
+	if ($wowdb->sqldebug)
+		print "<!-- $query --> \n";
 
 	$result = $wowdb->query( $query );
 
@@ -106,3 +157,4 @@ function item_get_many( $member_id, $parent )
 	}
 	return $items;
 }
+?>

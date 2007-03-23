@@ -6,8 +6,8 @@
 # --------------------------------------------------------
 ### Config
 
-DROP TABLE IF EXISTS `renprefix_config`;
-CREATE TABLE IF NOT EXISTS `renprefix_config` (
+DROP TABLE IF EXISTS `roster_config`;
+CREATE TABLE IF NOT EXISTS `roster_config` (
   `id` int(11) NOT NULL,
   `config_name` varchar(255) default NULL,
   `config_value` tinytext,
@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS `renprefix_config` (
 # --------------------------------------------------------
 ### Mailbox
 
-DROP TABLE IF EXISTS `renprefix_mailbox`;
-CREATE TABLE IF NOT EXISTS `renprefix_mailbox` (
+DROP TABLE IF EXISTS `roster_mailbox`;
+CREATE TABLE IF NOT EXISTS `roster_mailbox` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `mailbox_slot` int(11) NOT NULL default '0',
   `mailbox_coin` int(11) NOT NULL default '0',
@@ -38,20 +38,20 @@ CREATE TABLE IF NOT EXISTS `renprefix_mailbox` (
 # --------------------------------------------------------
 ### Guild
 
-ALTER TABLE `renprefix_guild`
+ALTER TABLE `roster_guild`
   ADD `guild_num_accounts` INT( 11 ) NOT NULL default '0' AFTER `guild_num_members`,
   ADD `guild_info_text` mediumtext NULL;
 
 # --------------------------------------------------------
 ### Items
 
-ALTER TABLE `renprefix_items`
+ALTER TABLE `roster_items`
   CHANGE `item_name` `item_name` VARCHAR( 96 ) NOT NULL default '';
 
 # --------------------------------------------------------
 ### Members
 
-ALTER TABLE `renprefix_members`
+ALTER TABLE `roster_members`
   CHANGE `group` `status` VARCHAR( 16 ) NOT NULL default '',
   ADD `spellbook` TINYINT( 4 ) NOT NULL default '3',
   ADD `mail` TINYINT( 4 ) NOT NULL default '3',
@@ -65,7 +65,7 @@ ALTER TABLE `renprefix_members`
 # --------------------------------------------------------
 ### Players
 
-ALTER TABLE `renprefix_players`
+ALTER TABLE `roster_players`
   DROP `version`,
   DROP `res_frost`,
   DROP `res_arcane`,
@@ -138,24 +138,24 @@ ALTER TABLE `renprefix_players`
 # --------------------------------------------------------
 ### Recipies
 
-ALTER TABLE `renprefix_recipes`
+ALTER TABLE `roster_recipes`
   ADD `item_color` VARCHAR( 16 ) NOT NULL AFTER `difficulty`;
 
 # --------------------------------------------------------
 ### Spellbook
 
-ALTER TABLE `renprefix_spellbook`
+ALTER TABLE `roster_spellbook`
   ADD `spell_tooltip` mediumtext NOT NULL;
 
 # --------------------------------------------------------
 ### Talents
 
-ALTER TABLE `renprefix_talents`
+ALTER TABLE `roster_talents`
   CHANGE `name` `name` VARCHAR( 64 ) NOT NULL default '',
   CHANGE `tree` `tree` VARCHAR( 64 ) NOT NULL default '';
 
 # --------------------------------------------------------
 ### Talent Tree
 
-ALTER TABLE `renprefix_talenttree`
+ALTER TABLE `roster_talenttree`
   CHANGE `tree` `tree` VARCHAR( 64 ) NOT NULL default '';

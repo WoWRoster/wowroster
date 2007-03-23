@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -126,14 +126,12 @@ class Template_Wrap
 	 */
 	function set_filename($handle,$filename)
 	{
-		global $roster_root_path;
-
 		if (empty($filename))
 		{
 			trigger_error("Template error - Empty filename specified for $handle", E_USER_ERROR);
 		}
 
-		$filename = $roster_root_path.'install/templates/'.$filename;
+		$filename = 'install/templates/'.$filename;
 
 		$this->template_file[$handle] = $filename;
 
@@ -201,7 +199,7 @@ class Template_Wrap
 
 	function page_tail()
 	{
-	    global $wowdb;
+	    global $DEFAULTS, $wowdb;
 
 	    $this->assign_var('S_SHOW_BUTTON', true);
 
@@ -217,7 +215,7 @@ class Template_Wrap
 	        $this->error_out(false);
 	    }
 
-	    $this->assign_var('ROSTER_VERSION', ROSTER_VERSION);
+	    $this->assign_var('ROSTER_VERSION', $DEFAULTS['version']);
 
 	    if ( is_object($wowdb) )
 	    {
