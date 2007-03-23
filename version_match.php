@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -15,7 +15,7 @@
  * $Id$
  *
  ******************************/
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
 
 // Needed so files think we are in Roster =P
 define('ROSTER_INSTALLED',true);
@@ -89,13 +89,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster_conf['img_url'] = $roster_conf['roster_dir'].'/img/';
 	$roster_conf['stylesheet'] = 'css/styles.css';
 	$roster_conf['roster_js'] = 'css/js/mainjs.js';
-	$roster_conf['tabcontent'] = 'css/js/tabcontent.js';
 	$roster_conf['overlib'] = 'css/js/overlib.js';
 	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
-	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
+	$roster_conf['website_address'] = $_SERVER["HTTP_REFERER"];
 	//$svnremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
-	$roster_conf['roster_bg'] = 'img/wowroster_bg.jpg';
 
 
 	include_once 'lib/commonfunctions.lib.php';
@@ -105,7 +103,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	{
 		if(substr($value, 0, 15) == "files")
 		{
-  			$_POST['files'][] = substr($value, 15, strlen($value));
+  		$_POST['files'][] = substr($value, 15, strlen($value));
 		}
 	}
 	foreach ($files as $directory => $filedata)
@@ -181,7 +179,8 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	}
 
 	// Open the main FileVersion table in total color
-	//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>SVN @ '.str_replace("version_match.php", "", $svnremote).'</i></span>');
+//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>SVN @ '.str_replace("version_match.php", "", $svnremote).'</i></span>');
+	// Open the main FileVersion table in total color
 	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
 
 	// Get all the gathered information and display it in a table
@@ -328,14 +327,12 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 	$roster_conf['roster_dir'] = '.';
 	$roster_conf['stylesheet'] = 'css/styles.css';
 	$roster_conf['roster_js'] = 'css/js/mainjs.js';
-	$roster_conf['tabcontent'] = 'css/js/tabcontent.js';
 	$roster_conf['overlib'] = 'css/js/overlib.js';
 	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
-	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
+	$roster_conf['website_address'] = $_SERVER["HTTP_REFERER"];
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
-	$roster_conf['logo'] = 'img/wowroster_bg.jpg';
 
-	$filesarray = explode(';', $_POST['filestoget']);
+	$filesarray = explode(";", $_POST['filestoget']);
 	$ziptype = $_POST['ziptype']; // targz  or  zip
 	$errors = '';
 

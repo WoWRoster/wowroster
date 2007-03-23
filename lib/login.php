@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -39,7 +39,7 @@ class RosterLogin
 	 */
 	function RosterLogin($script_filename)
 	{
-		$this->script_filename = makelink($script_filename);
+		$this->script_filename = $script_filename;
 		$this->allow_login = false;
 
 		$this->loginform = '
@@ -49,7 +49,7 @@ class RosterLogin
 			  <table class="bodyline" cellspacing="0" cellpadding="0">
 			    <tr>
 			      <td class="membersRowRight1">Password:<br />
-			        <input name="pass_word" class="wowinput192" type="password" size="30" maxlength="30" /></td>
+			        <input name="pass_word" type="password" size="30" maxlength="30" /></td>
 			    </tr>
 			    <tr>
 			      <td class="membersRowRight2" valign="bottom">

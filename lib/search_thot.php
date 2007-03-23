@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -31,9 +31,9 @@ if ( !defined('ROSTER_INSTALLED') )
         <img src="<?php print $roster_conf['img_url']; ?>thottbot.gif" alt="Thottbot" width="158" height="51" /><br />
         <br />
       <form method="post" action="http://www.thottbot.com/">
-          <?php print $act_words['search'] ?>:
-          <input type="text" name="s" class="wowinput" />&nbsp;&nbsp;
-          <input class="liteoption" type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'" />
+          <?php print $wordings[$roster_conf['roster_lang']]['search'] ?>:
+          <input type="text" name="s" />&nbsp;&nbsp;
+          <input class="liteoption" type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'">
       </form>
       </div></td>
   </tr>

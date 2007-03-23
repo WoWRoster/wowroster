@@ -1,6 +1,6 @@
-WoWRoster v1.7.3
-Copyright (C) 2002-2007 The WoWRoster Dev Team
-Package updated February 14, 2007
+WoWRoster v1.7.2
+Copyright (C) 2005-2006 The WoWRoster Dev Team
+Package updated December 29, 2006
 $Id$
 
 You can view the open source project at - http://www.wowroster.net

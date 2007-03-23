@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -40,7 +40,7 @@ error_reporting(E_ALL);
 
 // Be paranoid with passed vars
 // Destroy GET/POST/Cookie variables from the global scope
-if( intval(ini_get('register_globals')) != 0 )
+if (intval(ini_get('register_globals')) != 0)
 {
 	foreach ($_REQUEST AS $key => $val)
 	{
@@ -55,6 +55,17 @@ if ( !get_magic_quotes_gpc() )
 	$_GET = slash_global_data($_GET);
 	$_POST = slash_global_data($_POST);
 }
+
+define('DIR_SEP',DIRECTORY_SEPARATOR);
+$roster_root_path = dirname(__FILE__).DIR_SEP;
+
+
+include_once($roster_root_path.'conf.php');
+include_once($roster_root_path.'lib'.DIR_SEP.'wowdb.php');
+
+$DEFAULTS = array(
+	'version'        => '1.7.2',
+);
 
 // ---------------------------------------------------------
 // Config file Downloader
@@ -72,34 +83,28 @@ if( isset($_POST['send_file']) && $_POST['send_file'] == 1 && !empty($_POST['con
 	exit;
 }
 
-define('DIR_SEP',DIRECTORY_SEPARATOR);
-define('ROSTER_BASE', dirname(__FILE__).DIR_SEP);
-
-
-include_once(ROSTER_BASE.'conf.php');
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'constants.php');
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'wowdb.php');
-
 
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if ( !include_once(ROSTER_BASE . 'install'.DIR_SEP.'template.php') )
+if ( !include_once($roster_root_path . 'install'.DIR_SEP.'template.php') )
 {
-	die('Could not include ' . ROSTER_BASE . 'install'.DIR_SEP.'template.php - check to make sure that the file exists!');
+	die('Could not include ' . $roster_root_path . 'install'.DIR_SEP.'template.php - check to make sure that the file exists!');
 }
 
 
 /**
  * Establish our connection and select our database
  */
-$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
 if( !$roster_dblink )
 {
 	$tpl = new Template_Wrap('upgrade_message.html','upgrade_header.html','upgrade_tail.html');
 	$tpl->message_die('Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error(), 'Database Error');
 	exit();
 }
+
+define('CONFIG_TABLE', $db_prefix . 'config');
 
 
 /**
@@ -131,7 +136,7 @@ define('ROSTER_OLDVERSION',$version);
 
 
 
-if( ROSTER_OLDVERSION >= ROSTER_VERSION )
+if( $version >= $DEFAULTS['version'] )
 {
 	$tpl = new Template_Wrap('upgrade_message.html','upgrade_header.html','upgrade_tail.html');
 	$tpl->message_die('You have already upgraded Roster<br />Or you have a newer version than this upgrader', 'Upgrade Error');
@@ -144,7 +149,7 @@ if( ROSTER_OLDVERSION >= ROSTER_VERSION )
 
 class Upgrade
 {
-	var $versions = array('1.6.0','1.7.0','1.7.1','1.7.2','1.7.3');
+	var $versions = array('1.6.0','1.7.0','1.7.1');
 	var $messages;
 
 
@@ -171,7 +176,7 @@ class Upgrade
 
 	function finalize($index)
 	{
-		if( isset($this->versions[$index + 1]) )
+		if ( isset($this->versions[$index + 1]) )
 		{
 			$method = 'upgrade_' . str_replace('.', '', $this->versions[$index + 1]);
 			$this->$method($index + 1);
@@ -195,73 +200,77 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
-	function upgrade_173($index)
-	{
-		global $wowdb;
-
-		// Change player update time to datetime
-		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `dateupdatedutc` `dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
-		$result = $wowdb->query($query_string);
-
-		$query_string = "UPDATE `".ROSTER_PLAYERSTABLE."` SET dateupdatedutc = CONCAT('20', MID(`dateupdatedutc`, 7, 2), '-', MID(`dateupdatedutc`, 1, 2), '-', MID(`dateupdatedutc`, 4, 2), ' ', MID(`dateupdatedutc`, 10, 8));";
-		$result = $wowdb->query($query_string);
-
-		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `dateupdatedutc` `dateupdatedutc` DATETIME NULL DEFAULT NULL;";
-		$result = $wowdb->query($query_string);
-
-		// Change mail update time to datetime
-		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `maildateutc` `maildateutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
-		$result = $wowdb->query($query_string);
-
-		$query_string = "UPDATE `".ROSTER_PLAYERSTABLE."` SET maildateutc = CONCAT('20', MID(`maildateutc`, 7, 2), '-', MID(`maildateutc`, 1, 2), '-', MID(`maildateutc`, 4, 2), ' ', MID(`maildateutc`, 10, 8));";
-		$result = $wowdb->query($query_string);
-
-		$query_string = "ALTER TABLE `".ROSTER_PLAYERSTABLE."` CHANGE `maildateutc` `maildateutc` DATETIME NULL DEFAULT NULL;";
-		$result = $wowdb->query($query_string);
-
-		// Change guild update time to datetime
-		$query_string = "ALTER TABLE `".ROSTER_GUILDTABLE."` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
-		$result = $wowdb->query($query_string);
-
-		$query_string = "UPDATE `".ROSTER_GUILDTABLE."` SET `guild_dateupdatedutc` = CONCAT('20', MID(`guild_dateupdatedutc`, 7, 2), '-', MID(`guild_dateupdatedutc`, 1, 2), '-', MID(`guild_dateupdatedutc`, 4, 2), ' ', MID(`guild_dateupdatedutc`, 10, 8));";
-		$result = $wowdb->query($query_string);
-
-		$query_string = "ALTER TABLE `".ROSTER_GUILDTABLE."` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` DATETIME NULL DEFAULT NULL;";
-		$result = $wowdb->query($query_string);
-
-
-		$this->standard_upgrader('173');
-		$this->finalize($index);
-	}
-
-	function upgrade_172($index)
-	{
-		$this->standard_upgrader('172');
-		$this->finalize($index);
-	}
-
 	function upgrade_171($index)
 	{
-		$this->standard_upgrader('171');
+		global $wowdb, $roster_root_path, $db_prefix;
+
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_171.sql';
+
+		// Parse structure file and create database tables
+		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
+		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+
+		$sql = remove_remarks($sql);
+		$sql = parse_sql($sql, ';');
+
+		$sql_count = count($sql);
+		for ( $i = 0; $i < $sql_count; $i++ )
+		{
+			$wowdb->query($sql[$i]);
+		}
+		unset($sql);
+
 		$this->finalize($index);
 	}
+
 
 	function upgrade_170($index)
 	{
-		$this->standard_upgrader('170');
+		global $wowdb, $roster_root_path, $db_prefix;
+
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_170.sql';
+
+		//
+		// Fix those pesky double slashes...
+		//
+		$query_build = array();
+		$query_build[] = "UPDATE `".$db_prefix."items` SET `item_texture` = REPLACE(`item_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."mailbox` SET `item_icon` = REPLACE(`item_icon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."pets` SET `icon` = REPLACE(`icon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."players` SET `RankIcon` = REPLACE(`RankIcon`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."talents` SET `texture` = REPLACE(`texture`,'\\\\','/');";
+		$query_build[] = "UPDATE `".$db_prefix."talenttree` SET `background` = REPLACE(`background`,'\\\\','/');";
+
+		foreach( $query_build as $query_string )
+		{
+			$result = $wowdb->query($query_string);
+		}
+
+		// Parse structure file and create database tables
+		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
+		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+
+		$sql = remove_remarks($sql);
+		$sql = parse_sql($sql, ';');
+
+		$sql_count = count($sql);
+		for ( $i = 0; $i < $sql_count; $i++ )
+		{
+			$wowdb->query($sql[$i]);
+		}
+		unset($sql);
+
 		$this->finalize($index);
 	}
 
 
-	/**
-	 * The upgrader for Roster 1.6.0
-	 * This has to do alot, whew
-	 *
-	 * @param unknown_type $index
-	 */
 	function upgrade_160($index)
 	{
-		global $wowdb,
+		global $wowdb, $roster_root_path,
 			$db_host, $db_name, $db_user, $db_passwd, $db_prefix,
 			$roster_lang, $roster_upd_pw, $guild_name, $server_name;
 
@@ -283,8 +292,8 @@ class Upgrade
 		}
 
 
-		$db_structure_file = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_160.sql';
-		$db_data_file      = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
+		$db_structure_file = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_160.sql';
+		$db_data_file      = $roster_root_path . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
 
 
 		// Parse structure file and create database tables
@@ -336,12 +345,12 @@ class Upgrade
 		//
 		// Update some config settings
 		//
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$roster_lang."' WHERE `config_name`='roster_lang'");
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$website_address."' WHERE `config_name`='website_address'");
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".md5($roster_upd_pw)."' WHERE `config_name`='roster_upd_pw';");
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$guild_name."' WHERE `config_name`='guild_name'");
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$server_name."' WHERE `config_name`='server_name';");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$roster_lang."' WHERE `config_name`='roster_lang'");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$website_address."' WHERE `config_name`='website_address'");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".md5($roster_upd_pw)."' WHERE `config_name`='roster_upd_pw';");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$guild_name."' WHERE `config_name`='guild_name'");
+		$wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_name."' WHERE `config_name`='server_name';");
 
 
 		//
@@ -472,36 +481,6 @@ class Upgrade
 		$this->finalize($index);
 	}
 
-	/**
-	 * The standard upgrader
-	 * This parses the requested sql file for database upgrade
-	 * Most upgrades will use this function
-	 *
-	 * @param string $ver
-	 */
-	function standard_upgrader($ver)
-	{
-		global $wowdb, $db_prefix;
-
-		$db_structure_file = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'upgrade_'.$ver.'.sql';
-
-		// Parse structure file and create database tables
-		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
-		$sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
-
-		$sql = remove_remarks($sql);
-		$sql = parse_sql($sql, ';');
-
-		$sql_count = count($sql);
-		for ( $i = 0; $i < $sql_count; $i++ )
-		{
-			$wowdb->query($sql[$i]);
-		}
-		unset($sql);
-
-		return;
-	}
-
 	function display_form()
 	{
 		$tpl = new Template_Wrap('upgrade.html','upgrade_header.html','upgrade_tail.html');
@@ -527,19 +506,6 @@ class Upgrade
 
 		$tpl->page_header();
 		$tpl->page_tail();
-	}
-
-	function sql_output()
-	{
-		global $tpl, $wowdb;
-
-		foreach( explode("\n",$wowdb->getSQLStrings()) as $string )
-		{
-			$tpl->assign_block_vars('sql_rows', array(
-				'TEXT' => $string
-				)
-			);
-		}
 	}
 }
 

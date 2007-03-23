@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -22,17 +22,21 @@ $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 if( isset($_GET['motd']) )
 {
-	$guildMOTD = substr(stripslashes(urldecode($_GET['motd'])),0,145);
+	$guildMOTD = urldecode($_GET['motd']);
 }
 else
 {
 	include( $roster_root_path . 'settings.php' );
 	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-	$guildMOTD = substr(htmlspecialchars($guildMOTD['guild_motd']),0,145);
+	$guildMOTD = $guildMOTD['guild_motd'];
 }
 
+// FIT IT!!!!!!
+$guildMOTD = htmlspecialchars(stripslashes(substr($guildMOTD,0,145)));
 
-// Path to font folder 
+
+
+// Path to font folder
 $image_path = $roster_root_path . 'img' . DIRECTORY_SEPARATOR;
 $font_path = $roster_root_path . 'fonts' . DIRECTORY_SEPARATOR;
 
@@ -45,8 +49,6 @@ die();
 
 function motd_img( $guildMOTD,$image_path,$font_path )
 {
-	$guildMOTD = html_entity_decode($guildMOTD);
-
 	// Set ttf font
 	$visitor = $font_path . 'VERANDA.TTF';
 

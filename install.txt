@@ -1,6 +1,6 @@
-WoWRoster v1.7.3
-Copyright (C) 2002-2007 The WoWRoster Dev Team
-Package updated February 14, 2007
+WoWRoster v1.7.2
+Copyright (C) 2005-2006 The WoWRoster Dev Team
+Package updated December XX, 2006
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -51,7 +51,7 @@ For corrections and/or suggestions - http://www.wowroster.net
   For full functionality, be sure to have all current image packs installed
   We keep a full zip archive with the latest files, and some upgrade zip archives
 
-* Configuring Roster (*ROSTERDIR*/admin.php) - ACCESS VIA WEB!
+* Configuring Roster (*ROSTERDIR*/admin/config.php)
   Copy your guild and server name directly from CharacterProfiler.lua
   This is especially important if you have characters with accent marks on them
   Also, all names are case sensitive. "Feathermoon" is not the same as "feathermoon"
@@ -165,11 +165,11 @@ As always, we recommend a fresh install, in a clean folder, and a clean database
 But for those that absolutely need to upgrade, we have worked really hard for you on the upgrade script.
 
 
-Special Instructions for 1.6.0 to 1.7.x
-  This information is specific on upgrading from Roster 1.6.0 to 1.7.x
+Upgrading 1.6.0 to 1.7.0 +
+  This information is specific on upgrading from Roster 1.6.0 to 1.7.0
 
   Back up your conf.php file!
-  WoWRoster 1.7.x DOES have a new conf.php file, so you should back it up!
+  WoWRoster 1.7.0 DOES have a new conf.php file, so you should back it up!
   The new conf.php file should be automatically be upgraded for you.
   If this fails, the upgrader will give you the option to download this file, then you can upload it to your web server.
 

@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -22,68 +22,73 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 /**
- * Main LUA parsing function
- * @author six, originally mordon
- */
-function ParseLuaFile( $file_name )
+* Wrapper function so that you can parse a file instead of an array.
+* @author six
+*/
+function ParseLuaFile( $file_name , $file_type=null )
 {
 	if( file_exists($file_name) && is_readable($file_name) )
 	{
+		if( $file_type == 'gz' )
+		{
+			$file_as_array = gzfile($file_name);
+		}
+		else
+		{
+			$file_as_array = file($file_name);
+		}
+
+		return(ParseLuaArray($file_as_array));
+	}
+	return(false);
+}
+
+/**
+* Main LUA parsing function
+* @author six, originally mordon
+*/
+function ParseLuaArray( &$file_as_array )
+{
+	if( !is_array($file_as_array) )
+	{
+		// return false if not presented with an array
+		return(false);
+	}
+	else
+	{
+		// Parse the contents of the array
 		$stack = array( array( '',  array() ) );
 		$stack_pos = 0;
 		$last_line = '';
-		
-		$file = gzopen($file_name,'r');
-		
-		while( !gzeof($file) )
+		foreach( $file_as_array as $line )
 		{
-			$line = gzgets($file);
-			$line = trim($line);
-
-			// Look for end of an array
-			if( isset($line[0]) && $line[0] == '}' )
+			// join lines ending in \\ together
+			if( substr( $line, -2, 1 ) == '\\' )
 			{
-				$hash = $stack[$stack_pos];
-				unset($stack[$stack_pos]);
-				$stack_pos--;
-				$stack[$stack_pos][1][$hash[0]] = $hash[1];
-				unset($hash);
+				$last_line .= substr($line, 0, -2) . "\n";
+				continue;
 			}
-			// Handle other cases
+			if($last_line!='')
+			{
+				$line = trim($last_line . $line);
+				$last_line = '';
+			}
 			else
 			{
-				// Check if the key is given
-				if( strpos($line,'=') )
+				$line = trim($line);
+			}
+			$line = rtrim($line, ',');
+			// Look for a key value pair
+			if( strpos( $line, '=' ) )
+			{
+				list($name, $value) = explode( '=', $line, 2 );
+				$name = trim($name);
+				$value = trim($value);
+				if($name[0]=='[')
 				{
-					list($name, $value) = explode( '=', $line, 2 );
-					$name = trim($name);
-					$value = trim($value,', ');
-					if($name[0]=='[')
-					{
-						$name = trim($name, '[]"');
-					}
+					$name = trim($name, '[]"');
 				}
-				// Otherwise we'll have to make one up for ourselves
-				else
-				{
-					$value = $line;
-					if( empty($stack[$stack_pos][1]) )
-					{
-						$name = 1;
-					}
-					else
-					{
-						$name = max(array_keys($stack[$stack_pos][1]))+1;
-					}
-					if( strpos($line,'-- [') )
-					{
-						$value = explode('-- [',$value);
-						array_pop($value);
-						$value = implode('-- [',$value);
-					}
-					$value = trim($value,', ');
-				}
-				if( isset($value) && $value == '{' )
+				if( $value == '{' )
 				{
 					$stack_pos++;
 					$stack[$stack_pos] = array($name, array());
@@ -109,9 +114,13 @@ function ParseLuaFile( $file_name )
 					$stack[$stack_pos][1][$name] = $value;
 				}
 			}
+			else if( $line == '}' )
+			{
+				$hash = $stack[$stack_pos];
+				$stack_pos--;
+				$stack[$stack_pos][1][$hash[0]] = $hash[1];
+			}
 		}
-		
-		gzclose($file);
 		return($stack[0][1]);
 	}
 }

@@ -11,23 +11,8 @@
 
 INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
-INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '6', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (4, 'version', '1.8.0', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
-
-# --------------------------------------------------------
-### Menu Entries
-INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '4', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (4, 'version', '1.7.2', 'display', 'master');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -39,9 +24,9 @@ INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.0.0', 'text{10|10', 
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.0.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.6.1', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1040, 'roster_lang', 'enUS', 'function{rosterLangValue', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1070, 'roster_dir', '/roster', 'text{128|30', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1080, 'server_name_comp', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'jpg', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
@@ -93,7 +78,6 @@ INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '1', 'radio{on^
 INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4020, 'menu_memberlog', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4030, 'menu_member_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4040, 'menu_guild_info', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4050, 'menu_stats_page', '1', 'radio{on^1|off^0', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4055, 'menu_pvp_page', '1', 'radio{on^1|off^0', 'menu_conf');
@@ -134,7 +118,7 @@ INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.
 ### Character Page Settings
 
 INSERT INTO `renprefix_config` VALUES (7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7010, 'char_header_logo', '1', 'radio{on^1|off^0', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf');
@@ -147,11 +131,13 @@ INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '2', 'radio{on^1|off^0|u
 INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7130, 'show_signature', '0', 'radio{yes^1|no^0', 'char_conf');
+INSERT INTO `renprefix_config` VALUES (7140, 'show_avatar', '0', 'radio{yes^1|no^0', 'char_conf');
 
 # --------------------------------------------------------
 ### Realmstatus Settings
 
-INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|European English^http://www.wow-europe.com/en/serverstatus/index.html|European German^http://www.wow-europe.com/de/serverstatus/index.html|European French^http://www.wow-europe.com/fr/serverstatus/index.html', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8010, 'rs_display', 'full', 'select{full^full|half^half', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8020, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'realmstatus_conf');
 INSERT INTO `renprefix_config` VALUES (8030, 'realmstatus', '', 'text{50|30', 'realmstatus_conf');

@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -50,7 +50,7 @@ class quest
 	{
 		global $roster_conf;
 
-		$max = ROSTER_MAXCHARLEVEL;
+		$max = 60;
 		$level = $this->data['quest_level'];
 		if( $max == 1 )
 		{
@@ -84,7 +84,7 @@ function quest_get_many( $member_id, $search )
 {
 	global $wowdb;
 
-	$query= "SELECT * FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` DESC";
+	$query= "SELECT * FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$member_id' ORDER BY 'quest_index' ASC";
 
 	$result = $wowdb->query( $query );
 

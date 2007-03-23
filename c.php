@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -40,7 +40,7 @@ if( !$result )
 
 if( $row = $wowdb->fetch_assoc($result) )
 {
-	header("Location: ".ROSTER_URL.$roster_rel."/?p=char&amp;member=".$row['member_id']);
+	header("Location: ".ROSTER_URL.$roster_rel."/char.php?name=".$char);
 	exit();
 }
 
