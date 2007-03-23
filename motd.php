@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -22,31 +22,31 @@ $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 if( isset($_GET['motd']) )
 {
-	$guildMOTD = substr(stripslashes(urldecode($_GET['motd'])),0,145);
+	$guildMOTD = stripslashes(urldecode($_GET['motd']));
+	// Chomp $guildMOTD at 145 characters
+	$guildMOTD = substr($guildMOTD,0,145);
 }
 else
 {
 	include( $roster_root_path . 'settings.php' );
 	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-	$guildMOTD = substr(htmlspecialchars($guildMOTD['guild_motd']),0,145);
+	$guildMOTD = $guildMOTD['guild_motd'];
 }
 
 
-// Path to font folder 
+
+// Path to font folder
 $image_path = $roster_root_path . 'img' . DIRECTORY_SEPARATOR;
 $font_path = $roster_root_path . 'fonts' . DIRECTORY_SEPARATOR;
 
 
 motd_img($guildMOTD,$image_path,$font_path);
-die();
 
 
 //==========[ IMAGE GENERATOR ]=================================================
 
 function motd_img( $guildMOTD,$image_path,$font_path )
 {
-	$guildMOTD = html_entity_decode($guildMOTD);
-
 	// Set ttf font
 	$visitor = $font_path . 'VERANDA.TTF';
 
@@ -60,26 +60,26 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 	$text_loc = ($final_size/2) - ($dimensions[2]/2);
 
 	// Create new image
-	$img = imagecreatetruecolor( $final_size,38 );
+	$img = imagecreate($final_size,38);
 
 	// Get and combine base images, set colors
 	$img_file = imagecreatefrompng($image_path . 'gmotd.png');
 
 	// Copy image file into new image
 	// Copy Left part
-	imagecopy( $img, $img_file, 0, 0, 0, 0, 38, 38 );
+	imagecopy ( $img, $img_file, 0, 0, 0, 0, 38, 38 );
 
 	// Copy center part however times needed
-	for( $i=0;$i<$image_size;$i++ )
+	for ($i=0;$i<$image_size;$i++)
 	{
-		imagecopy( $img, $img_file, ($i*198)+38, 0, 39, 0, 198, 38 );
+		imagecopy ( $img, $img_file, ($i*198)+38, 0, 39, 0, 198, 38 );
 	}
 	// Copy Right part
-	imagecopy( $img, $img_file, ($image_size*198)+38, 0, 237, 0, 17, 38 );
+	imagecopy ( $img, $img_file, ($image_size*198)+38, 0, 237, 0, 17, 38 );
 
-	$textcolor = imagecolorallocate( $img, 255, 255, 255 );
+	$textcolor = imagecolorallocate($img, 255, 255, 255);
 
-	imagettftext( $img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD );
+	imagettftext($img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD);
 
 	header('Content-type: image/png');
 	imagepng($img);

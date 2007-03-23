@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -33,9 +33,9 @@ if ( !defined('ROSTER_INSTALLED') )
 // the name out of the database with member_id.
 //
 
-function start_update_trigger($name, $mode, $data)
+function start_update_trigger($name,$mode)
 {
-	global $wowdb, $roster_conf, $addon_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings;
 
 	$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name'";
 	$result = $wowdb->query($query)	or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
@@ -67,107 +67,41 @@ function start_update_trigger($name, $mode, $data)
 				}
 			}
 
-			if( count($triggers) > 0 )
+			// Start ouput buffering
+			ob_start();
+
+			foreach ($triggers as $trigger)
 			{
-				// Start ouput buffering
-				ob_start();
+				$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
+				$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
+				$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
 
-				foreach ($triggers as $trigger)
+				if ( file_exists($triggerfile) )
 				{
-					$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
-					$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
-					$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
+					if ( file_exists($triggerconf) )
+						include( $triggerconf );
 
-					if ( file_exists($triggerfile) )
-					{
-						if ( file_exists($triggerconf) )
-							include_once( $triggerconf );
-
-						include( $triggerfile );
-					}
+					include( $triggerfile );
 				}
+			}
 
-				// Get buffer contents
-				$ob_output .= ob_get_contents();
-				ob_end_clean();
+			// Get buffer contents
+			$ob_output .= ob_get_contents();
+			ob_end_clean();
 
-				if ( empty($ob_output) )
-				{
-					return '';
-				}
-				else
-				{
-					$output .= $ob_output;
-				}
+			if ( empty($ob_output) )
+			{
+				return '';
 			}
 			else
 			{
-				$output = '';
+				$output .= $ob_output;
 			}
 		}
 	}
 	return $output;
 }
 
-// Separate function to do the pre/post guild/char hooks
-function start_update_hook($mode, $data)
-{
-	global $wowdb, $roster_conf, $addon_conf, $wordings;
-
-	$triggerPath = ROSTER_BASE.'addons';
-
-	if ( $handle = opendir( $triggerPath ) )
-	{
-		while (false !== ($file = readdir($handle)))
-		{
-			if($file != '.' && $file != '..' )
-			{
-				$triggers[$i] = $file;
-				$i++;
-			}
-		}
-	}
-
-	if( count($triggers) > 0 )
-	{
-		// Start ouput buffering
-		ob_start();
-
-		foreach ($triggers as $trigger)
-		{
-			$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
-			$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
-			$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
-
-			if ( file_exists($triggerfile) )
-			{
-				if ( file_exists($triggerconf) )
-					include( $triggerconf );
-
-				include( $triggerfile );
-			}
-		}
-
-		// Get buffer contents
-		$ob_output .= ob_get_contents();
-		ob_end_clean();
-
-		if ( empty($ob_output) )
-		{
-			return '';
-		}
-		else
-		{
-			$output .= $ob_output;
-		}
-	}
-	else
-	{
-		$output = '';
-	}
-
-	return $output;
-}
 
 // Search for character's name by member_id
 // If there is one, get the name of the char with this member id
@@ -200,3 +134,4 @@ function read_name( $member_id )
 	}
 	return $name;
 }
+?>
