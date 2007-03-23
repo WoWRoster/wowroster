@@ -70,6 +70,8 @@ $rollups[] = array('rollup' => 14, 'severity' => 6);
 $totalseverity = 0;
 
 
+$script_filename = 'rosterdiag.php';
+
 //!!!!!!!!!!!!!// Do NOT edit anything below //!!!!!!!!!!!!!//
 // Set some characters we will use for exploding the data streams
 $explode = '*|*';

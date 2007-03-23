@@ -201,7 +201,7 @@ class Template_Wrap
 
 	function page_tail()
 	{
-	    global $wowdb;
+	    global $DEFAULTS, $wowdb;
 
 	    $this->assign_var('S_SHOW_BUTTON', true);
 
@@ -217,7 +217,7 @@ class Template_Wrap
 	        $this->error_out(false);
 	    }
 
-	    $this->assign_var('ROSTER_VERSION', ROSTER_VERSION);
+	    $this->assign_var('ROSTER_VERSION', $DEFAULTS['version']);
 
 	    if ( is_object($wowdb) )
 	    {

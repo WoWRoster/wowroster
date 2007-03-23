@@ -31,9 +31,9 @@ if ( !defined('ROSTER_INSTALLED') )
         <img src="http://wow.allakhazam.com/images/wowex.png" alt="Allakhazam" width="158" height="51" /><br />
         <br />
       <form method="get" action="http://wow.allakhazam.com/search.html">
-          <?php print $act_words['search'] ?>:
+          <?php print $wordings[$roster_conf['roster_lang']]['search'] ?>:
           <input type="text" name="q" class="wowinput" />&nbsp;&nbsp;
-          <input type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'" />
+          <input type="submit" value="Go" onclick="win=window.open('','myWin',''); this.form.target='myWin'">
       </form>
       </div></td>
   </tr>

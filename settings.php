@@ -25,7 +25,6 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
  * Set PHP error reporting
  */
 error_reporting(E_ALL ^ E_NOTICE);
-//error_reporting(E_ALL);
 
 
 
@@ -39,7 +38,6 @@ if (intval(ini_get('register_globals')) != 0)
 			unset($$key);
 	}
 }
-unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
 
 
 /**
@@ -80,6 +78,18 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
 
 
 /**
+ * Base, absolute roster admin directory
+ */
+define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
+
+
+/**
+ * Base, absolute roster addons directory
+ */
+define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
+
+
+/**
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
@@ -107,12 +117,6 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 /**
- * Include constants file
- */
-require_once (ROSTER_LIB.'constants.php');
-
-
-/**
  * Include roster db file
  */
 require_once (ROSTER_LIB.'wowdb.php');
@@ -122,7 +126,7 @@ require_once (ROSTER_LIB.'wowdb.php');
 /**
  * Establish our connection and select our database
  */
-$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name);
 if( !$roster_dblink )
 {
 	die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error());
@@ -136,6 +140,12 @@ $db_user = null;
 $db_passwd = null;
 
 
+/**
+ * Include constants file
+ */
+require_once (ROSTER_LIB.'constants.php');
+
+
 
 /**
  * Include common functions
@@ -146,8 +156,7 @@ require_once (ROSTER_LIB.'commonfunctions.lib.php');
 /**
  * Slash global data if magic_quotes_gpc is off.
  */
-set_magic_quotes_runtime(0);
-if( !get_magic_quotes_gpc() )
+if ( !get_magic_quotes_gpc() )
 {
 	$_GET = escape_array($_GET);
 	$_POST = escape_array($_POST);
@@ -195,7 +204,7 @@ include(ROSTER_BASE.'localization'.DIR_SEP.'languages.php');
  */
 if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
 {
-	roster_die('Looks like you\'ve loaded a new version of Roster<br />
+	message_die('Looks like you\'ve loaded a new version of Roster<br />
 <br />
 Your Version: <span class="red">'.$roster_conf['version'].'</span><br />
 New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
@@ -211,9 +220,10 @@ if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install'
 {
 	if( !file_exists(ROSTER_BASE.'version_match.php') )
 	{
-		roster_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
+		message_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
 	}
 }
+
 
 
 /**

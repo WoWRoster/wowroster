@@ -15,35 +15,6 @@ CREATE TABLE `renprefix_account` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
-### Addon table
-
-DROP TABLE IF EXISTS `renprefix_addon`;
-CREATE TABLE `renprefix_addon` (
-	`addon_id` int(11) NOT NULL AUTO_INCREMENT,
-	`basename` varchar(16) NOT NULL DEFAULT '',
-	`version` varchar(16) NOT NULL DEFAULT '0',
-	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
-	`active` int(1) NOT NULL DEFAULT 1,
-	`fullname` tinytext NOT NULL,
-	`description` mediumtext NOT NULL,
-	`credits` mediumtext NOT NULL,
-	PRIMARY KEY (`addon_id`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Addon Trigger table
-
-DROP TABLE IF EXISTS `renprefix_addon_trigger`;
-CREATE TABLE `renprefix_addon_trigger` (
-	`trigger_id` int(11) AUTO_INCREMENT,
-	`addon_id` int(11),
-	`file` varchar(32),
-	`active` int(1) NOT NULL default 0,
-	PRIMARY KEY (`trigger_id`),
-	KEY idfile (`addon_id`,`file`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
 ### Buffs
 
 DROP TABLE IF EXISTS `renprefix_buffs`;
@@ -78,13 +49,12 @@ CREATE TABLE `renprefix_guild` (
   `guild_id` int(11) unsigned NOT NULL auto_increment,
   `guild_name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
-  `faction` varchar(32) NOT NULL default '',
-  `factionEn` varchar(32) NOT NULL default '',
+  `faction` varchar(8) default NULL,
   `guild_motd` varchar(255) NOT NULL default '',
   `guild_num_members` int(11) NOT NULL default '0',
   `guild_num_accounts` int(11) NOT NULL default '0',
   `update_time` datetime default NULL,
-  `guild_dateupdatedutc` datetime default NULL,
+  `guild_dateupdatedutc` varchar(18) default NULL,
   `GPversion` varchar(6) default NULL,
   `guild_info_text` mediumtext,
   PRIMARY KEY  (`guild_id`),
@@ -151,6 +121,7 @@ CREATE TABLE `renprefix_members` (
   `status` varchar(16) NOT NULL default '',
   `online` int(1) default '0',
   `last_online` datetime default NULL,
+  `update_time` datetime default NULL,
   `account_id` smallint(6) NOT NULL default '0',
   `inv` tinyint(4) NOT NULL default '3',
   `talents` tinyint(4) NOT NULL default '3',
@@ -164,7 +135,6 @@ CREATE TABLE `renprefix_members` (
   `duels` tinyint(4) NOT NULL default '3',
   `money` tinyint(4) NOT NULL default '3',
   `item_bonuses` tinyint(4) NOT NULL default '3',
-  `active` tinyint( 1 ) NOT NULL default '1',
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),
   KEY `name` (`name`),
@@ -192,30 +162,6 @@ CREATE TABLE `renprefix_memberlog` (
   `update_time` datetime default NULL,
   `type` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`log_id`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Menu config table
-
-DROP TABLE IF EXISTS `renprefix_menu`;
-CREATE TABLE `renprefix_menu` (
-	`config_id` int(11) AUTO_INCREMENT,
-	`section` varchar(16),
-	`config` mediumtext,
-	PRIMARY KEY (`config_id`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Menu button table
-
-DROP TABLE IF EXISTS `renprefix_menu_button`;
-CREATE TABLE `renprefix_menu_button` (
-	`button_id` int(11) AUTO_INCREMENT,
-	`addon_id` int(11) NOT NULL COMMENT '0 for main roster',
-	`title` varchar(32),
-	`url` varchar(128),
-	PRIMARY KEY (`button_id`),
-	KEY `idtitle` (`addon_id`,`title`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -263,12 +209,10 @@ CREATE TABLE `renprefix_players` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
-  `dateupdatedutc` datetime default NULL,
+  `dateupdatedutc` varchar(18) default NULL,
   `CPversion` varchar(6) default NULL,
   `race` varchar(32) NOT NULL default '',
-  `raceEn` varchar(32) NOT NULL default '',
   `sex` varchar(10) NOT NULL default '',
-  `sexid` tinyint(1) NOT NULL default '0',
   `hearth` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
   `server` varchar(32) NOT NULL default '',
@@ -278,99 +222,18 @@ CREATE TABLE `renprefix_players` (
   `money_g` int(11) NOT NULL default '0',
   `exp` varchar(32) NOT NULL default '',
   `class` varchar(32) NOT NULL default '',
-  `classEn` varchar(32) NOT NULL default '',
   `health` int(11) NOT NULL default '0',
-  `maildateutc` datetime default NULL,
-  `melee_power` int(11) NOT NULL default '0',
-  `melee_power_c` int(11) NOT NULL default '0',
-  `melee_power_b` int(11) NOT NULL default '0',
-  `melee_power_d` int(11) NOT NULL default '0',
-  `melee_hit` int(11) NOT NULL default '0',
-  `melee_hit_c` int(11) NOT NULL default '0',
-  `melee_hit_b` int(11) NOT NULL default '0',
-  `melee_hit_d` int(11) NOT NULL default '0',
-  `melee_crit` int(11) NOT NULL default '0',
-  `melee_crit_c` int(11) NOT NULL default '0',
-  `melee_crit_b` int(11) NOT NULL default '0',
-  `melee_crit_d` int(11) NOT NULL default '0',
-  `melee_haste` int(11) NOT NULL default '0',
-  `melee_haste_c` int(11) NOT NULL default '0',
-  `melee_haste_b` int(11) NOT NULL default '0',
-  `melee_haste_d` int(11) NOT NULL default '0',
-  `melee_crit_chance` float NOT NULL default '0',
-  `melee_power_dps` float NOT NULL default '0',
-  `melee_mhand_speed` float NOT NULL default '0',
-  `melee_mhand_dps` float NOT NULL default '0',
-  `melee_mhand_skill` int(11) NOT NULL default '0',
-  `melee_mhand_mindam` int(11) NOT NULL default '0',
-  `melee_mhand_maxdam` int(11) NOT NULL default '0',
-  `melee_mhand_rating` int(11) NOT NULL default '0',
-  `melee_mhand_rating_c` int(11) NOT NULL default '0',
-  `melee_mhand_rating_b` int(11) NOT NULL default '0',
-  `melee_mhand_rating_d` int(11) NOT NULL default '0',
-  `melee_ohand_speed` float NOT NULL default '0',
-  `melee_ohand_dps` float NOT NULL default '0',
-  `melee_ohand_skill` int(11) NOT NULL default '0',
-  `melee_ohand_mindam` int(11) NOT NULL default '0',
-  `melee_ohand_maxdam` int(11) NOT NULL default '0',
-  `melee_ohand_rating` int(11) NOT NULL default '0',
-  `melee_ohand_rating_c` int(11) NOT NULL default '0',
-  `melee_ohand_rating_b` int(11) NOT NULL default '0',
-  `melee_ohand_rating_d` int(11) NOT NULL default '0',
+  `maildateutc` varchar(18) default NULL,
+  `melee_power` int(11) default NULL,
+  `melee_rating` int(11) default NULL,
+  `melee_range` varchar(32) default NULL,
   `melee_range_tooltip` tinytext,
   `melee_power_tooltip` tinytext,
-  `ranged_power` int(11) NOT NULL default '0',
-  `ranged_power_c` int(11) NOT NULL default '0',
-  `ranged_power_b` int(11) NOT NULL default '0',
-  `ranged_power_d` int(11) NOT NULL default '0',
-  `ranged_hit` int(11) NOT NULL default '0',
-  `ranged_hit_c` int(11) NOT NULL default '0',
-  `ranged_hit_b` int(11) NOT NULL default '0',
-  `ranged_hit_d` int(11) NOT NULL default '0',
-  `ranged_crit` int(11) NOT NULL default '0',
-  `ranged_crit_c` int(11) NOT NULL default '0',
-  `ranged_crit_b` int(11) NOT NULL default '0',
-  `ranged_crit_d` int(11) NOT NULL default '0',
-  `ranged_haste` int(11) NOT NULL default '0',
-  `ranged_haste_c` int(11) NOT NULL default '0',
-  `ranged_haste_b` int(11) NOT NULL default '0',
-  `ranged_haste_d` int(11) NOT NULL default '0',
-  `ranged_crit_chance` float NOT NULL default '0',
-  `ranged_power_dps` float NOT NULL default '0',
-  `ranged_speed` float NOT NULL default '0',
-  `ranged_dps` float NOT NULL default '0',
-  `ranged_skill` int(11) NOT NULL default '0',
-  `ranged_mindam` int(11) NOT NULL default '0',
-  `ranged_maxdam` int(11) NOT NULL default '0',
-  `ranged_rating` int(11) NOT NULL default '0',
-  `ranged_rating_c` int(11) NOT NULL default '0',
-  `ranged_rating_b` int(11) NOT NULL default '0',
-  `ranged_rating_d` int(11) NOT NULL default '0',
+  `ranged_power` int(11) default NULL,
+  `ranged_rating` int(11) default NULL,
+  `ranged_range` varchar(32) default NULL,
   `ranged_range_tooltip` tinytext,
   `ranged_power_tooltip` tinytext,
-  `spell_hit` int(11) NOT NULL default '0',
-  `spell_hit_c` int(11) NOT NULL default '0',
-  `spell_hit_b` int(11) NOT NULL default '0',
-  `spell_hit_d` int(11) NOT NULL default '0',
-  `spell_crit` int(11) NOT NULL default '0',
-  `spell_crit_c` int(11) NOT NULL default '0',
-  `spell_crit_b` int(11) NOT NULL default '0',
-  `spell_crit_d` int(11) NOT NULL default '0',
-  `spell_haste` int(11) NOT NULL default '0',
-  `spell_haste_c` int(11) NOT NULL default '0',
-  `spell_haste_b` int(11) NOT NULL default '0',
-  `spell_haste_d` int(11) NOT NULL default '0',
-  `spell_crit_chance` float NOT NULL default '0',
-  `mana_regen_value` int(11) NOT NULL default '0',
-  `mana_regen_time` int(11) NOT NULL default '0',
-  `spell_penetration` int(11) NOT NULL default '0',
-  `spell_damage` int(11) NOT NULL default '0',
-  `spell_healing` int(11) NOT NULL default '0',
-  `spell_damage_frost` int(11) NOT NULL default '0',
-  `spell_damage_arcane` int(11) NOT NULL default '0',
-  `spell_damage_fire` int(11) NOT NULL default '0',
-  `spell_damage_shadow` int(11) NOT NULL default '0',
-  `spell_damage_nature` int(11) NOT NULL default '0',
   `mana` int(11) NOT NULL default '0',
   `stat_int` int(11) NOT NULL default '0',
   `stat_int_c` int(11) NOT NULL default '0',
@@ -400,29 +263,6 @@ CREATE TABLE `renprefix_players` (
   `stat_armor_c` int(11) NOT NULL default '0',
   `stat_armor_b` int(11) NOT NULL default '0',
   `stat_armor_d` int(11) NOT NULL default '0',
-  `stat_block` int(11) NOT NULL default '0',
-  `stat_block_c` int(11) NOT NULL default '0',
-  `stat_block_b` int(11) NOT NULL default '0',
-  `stat_block_d` int(11) NOT NULL default '0',
-  `stat_parry` int(11) NOT NULL default '0',
-  `stat_parry_c` int(11) NOT NULL default '0',
-  `stat_parry_b` int(11) NOT NULL default '0',
-  `stat_parry_d` int(11) NOT NULL default '0',
-  `stat_defr` int(11) NOT NULL default '0',
-  `stat_defr_c` int(11) NOT NULL default '0',
-  `stat_defr_b` int(11) NOT NULL default '0',
-  `stat_defr_d` int(11) NOT NULL default '0',
-  `stat_dodge` int(11) NOT NULL default '0',
-  `stat_dodge_c` int(11) NOT NULL default '0',
-  `stat_dodge_b` int(11) NOT NULL default '0',
-  `stat_dodge_d` int(11) NOT NULL default '0',
-  `stat_res_ranged` int(11) NOT NULL default '0',
-  `stat_res_spell` int(11) NOT NULL default '0',
-  `stat_res_melee` int(11) NOT NULL default '0',
-  `res_holy` int(11) NOT NULL default '0',
-  `res_holy_c` int(11) NOT NULL default '0',
-  `res_holy_b` int(11) NOT NULL default '0',
-  `res_holy_d` int(11) NOT NULL default '0',
   `res_frost` int(11) NOT NULL default '0',
   `res_frost_c` int(11) NOT NULL default '0',
   `res_frost_b` int(11) NOT NULL default '0',

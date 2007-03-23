@@ -51,8 +51,6 @@ class reputation
 	{
 		global $wordings, $roster_conf, $char;
 
-		$lang = $char->data['clientLocale'];
-
 		$level = $this->data['curr_rep'];
 		$max = $this->data['max_rep'];
 
@@ -67,31 +65,31 @@ class reputation
 
 		switch ( $this->data['Standing'] )
 		{
-		case ($wordings[$lang]['hated']):
+		case ($wordings[$char->data['clientLocale']]['hated']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_r.gif';
 			$width = intval((($level+26000)/23000) * 354);
 			break;
-		case ($wordings[$lang]['hostile']):
+		case ($wordings[$char->data['clientLocale']]['hostile']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_r.gif';
 			$width = intval((($level+6000)/3000) * 354);
 			break;
-		case ($wordings[$lang]['neutral']):
+		case ($wordings[$char->data['clientLocale']]['neutral']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_y.gif';
 			break;
-		case ($wordings[$lang]['unfriendly']):
+		case ($wordings[$char->data['clientLocale']]['unfriendly']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_o.gif';
 			$width = intval(($level/-3000) * 354);
 			break;
-		case ($wordings[$lang]['honored']):
+		case ($wordings[$char->data['clientLocale']]['honored']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['friendly']):
+		case ($wordings[$char->data['clientLocale']]['friendly']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['exalted']):
+		case ($wordings[$char->data['clientLocale']]['exalted']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['revered']):
+		case ($wordings[$char->data['clientLocale']]['revered']):
 			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
 			break;
 		}
@@ -126,7 +124,11 @@ class reputation
 
 		if ($this->data['AtWar'] == 1 )
 		{
-			$output .= '              <span class="war">'.$wordings[$lang]['atwar'].'</span>';
+			$output .= '              <span class="war">'.$wordings[$char->data['clientLocale']]['atwar'].'</span>';
+		}
+		else
+		{
+			//$output .= '              <span class="nowar">'.$wordings[$char->data['clientLocale']]['notatwar'].'</span>';
 		}
 
 		$output .= "\n            </div>\n          </div>";

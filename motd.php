@@ -32,7 +32,7 @@ else
 }
 
 
-// Path to font folder 
+// Path to font folder
 $image_path = $roster_root_path . 'img' . DIRECTORY_SEPARATOR;
 $font_path = $roster_root_path . 'fonts' . DIRECTORY_SEPARATOR;
 

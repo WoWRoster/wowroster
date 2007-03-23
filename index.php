@@ -16,38 +16,159 @@
  *
  ******************************/
 
-require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'settings.php' );
+require_once( 'settings.php' );
 
-// Determine the module request
-$page = ( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) ) ? $_GET[ROSTER_PAGE] : $roster_conf['default_page'];
+include_once (ROSTER_BASE.'roster_header.tpl');
 
 
-define('ROSTER_PAGE_NAME', $page);
+// Additional querries needed for this page
+// Make sure the last item in this array DOES NOT have a (,) at the end
+$additional_sql = array(
+	'`players`.`hearth`, ',
+	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ",
+	"`players`.`dateupdatedutc` AS 'last_update', ",
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull' ",
+);
 
-$pages = explode('-', $page);
-$page = $pages[0];
+$FIELD[] = array (
+	'name' => array(
+		'lang_field' => 'name',
+		'order'    => array( '`members`.`name` ASC' ),
+		'order_d'    => array( '`members`.`name` DESC' ),
+		'required' => true,
+		'default'  => true,
+		'value' => 'name_value',
+	),
+);
 
-if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
+$FIELD[] = array (
+	'class' => array(
+		'lang_field' => 'class',
+		'divider' => true,
+		'divider_value' => 'class_divider',
+		'order'    => array( '`members`.`class` ASC' ),
+		'order_d'    => array( '`members`.`class` DESC' ),
+		'default'  => true,
+		'value' => 'class_value',
+	),
+);
+
+$FIELD[] = array (
+	'level' => array(
+		'lang_field' => 'level',
+		'divider' => true,
+		'divider_prefix' => 'Level ',
+		'order_d'    => array( '`members`.`level` ASC' ),
+		'default'  => true,
+		'value' => 'level_value',
+	),
+);
+
+if ( $roster_conf['index_title'] == 1 )
 {
-	roster_die($act_words['invalid_char_module'],$act_words['roster_error']);
+	$FIELD[] = array (
+		'guild_title' => array (
+			'lang_field' => 'title',
+			'divider' => true,
+			'order' => array( '`members`.`guild_rank` ASC' ),
+			'order_d' => array( '`members`.`guild_rank` DESC' ),
+		),
+	);
 }
 
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) && !in_array($page,array('rostercp','update','credits','license')) )
+if ( $roster_conf['index_currenthonor'] == 1 )
 {
-	roster_die( $act_words['nodata'] , $act_words['nodata_title'] );
+	$FIELD[] = array (
+		'lifetimeRankName' => array(
+			'lang_field' => 'Highest Rank',
+			'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
+			'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
+			'value' => 'honor_value',
+		),
+	);
 }
 
-// Include the module
-if( is_file( $var = ROSTER_PAGES . $page . '.php' ) )
+if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 0 )
 {
-	require($var);
-}
-else
-{
-	roster_die(sprintf($act_words['module_not_exist'],$page),$act_words['roster_error']);
+	$FIELD[] = array (
+		'note' => array(
+			'lang_field' => 'note',
+			'order' => array( 'nisnull','`members`.`note` ASC' ),
+			'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+			'value' => 'note_value',
+		),
+	);
 }
 
-unset($page,$var);
+if ( $roster_conf['index_prof'] == 1 )
+{
+	$FIELD[] = array (
+		'professions' => array(
+			'lang_field' => 'professions',
+		),
+	);
+}
 
-$wowdb->closeDb();
+if ( $roster_conf['index_hearthed'] == 1 )
+{
+	$FIELD[] = array (
+		'hearth' => array(
+			'lang_field' => 'hearthed',
+			'divider' => true,
+			'order' => array( 'hisnull', 'hearth ASC' ),
+			'order_d' => array( 'hisnull', 'hearth DESC' ),
+		),
+	);
+}
+
+if ( $roster_conf['index_zone'] == 1 )
+{
+	$FIELD[] = array (
+		'zone' => array(
+			'lang_field' => 'zone',
+			'divider' => true,
+			'order' => array( '`members`.`zone` ASC' ),
+			'order_d' => array( '`members`.`zone` DESC' ),
+		),
+	);
+}
+
+if ( $roster_conf['index_lastonline'] == 1 )
+{
+	$FIELD[] = array (
+		'last_online' => array (
+			'lang_field' => 'lastonline',
+			'order' => array( '`members`.`last_online` DESC' ),
+			'order_d' => array( '`members`.`last_online` ASC' ),
+		),
+	);
+}
+
+if ( $roster_conf['index_lastupdate'] == 1 )
+{
+	$FIELD[] = array (
+		'last_update' => array (
+			'lang_field' => 'lastupdate',
+			'order' => array( 'luisnull','last_update DESC' ),
+			'order_d' => array( 'luisnull','last_update ASC' ),
+			'value' => 'last_up_value',
+		),
+	);
+}
+
+if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 1 )
+{
+	$FIELD[] = array (
+		'note' => array(
+			'lang_field' => 'note',
+			'order' => array( 'nisnull','`members`.`note` ASC' ),
+			'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+			'value' => 'note_value',
+		),
+	);
+}
+
+include_once (ROSTER_BASE.'memberslist.php');
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
+?>

@@ -32,36 +32,31 @@ class item
 
 	function out()
 	{
-		global $roster_conf, $wordings, $char, $tooltips;
+		global $roster_conf, $wordings, $itemlink, $char;
 
 		if( !is_object($char) )
 			$lang = $roster_conf['roster_lang'];
 		else
 			$lang = $char->data['clientLocale'];
 
-		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'];
+		$item_texture = $this->data['item_texture'];
+
+		$path = $roster_conf['interface_url'].$item_texture.'.'.$roster_conf['img_suffix'];
 
 		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
 
-		// Item links
-		$num_of_tips = (count($tooltips)+1);
-		$linktip = '';
-		foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
-		{
-			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
-		}
-		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$wordings[$lang]['itemlink']);
-
-		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
-		$output = '<div class="item" '.$tooltip.$linktip.'>';
+		$output = '<div class="item" '.$tooltip.'>';
 
 		if ($this->data['item_slot'] == 'Ammo')
-			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
+		{
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
+			'<img src="'.$path.'" class="iconsmall"'." alt=\"\" /></a>\n";
+		}
 		else
-			$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
-
+		{
+			$output .= '<a href="'.$itemlink[$roster_conf['roster_lang']].urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'."\n".
+			'<img src="'.$path.'" class="icon"'." alt=\"\" /></a>\n";
+		}
 		if( ($this->data['item_quantity'] > 1) )
 		{
 			$output .= '<span class="quant_shadow">'.$this->data['item_quantity'].'</span>';
@@ -79,6 +74,8 @@ function item_get_one( $member_id, $slot )
 
 	$slot = $wowdb->escape( $slot );
 	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_slot` = '$slot'";
+	if ($wowdb->sqldebug)
+		print "<!-- $query --> \n";
 
 	$result = $wowdb->query( $query );
 	$data = $wowdb->fetch_assoc( $result );
@@ -95,6 +92,9 @@ function item_get_many( $member_id, $parent )
 
 	$parent = $wowdb->escape( $parent );
 	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_parent` = '$parent'";
+
+	if ($wowdb->sqldebug)
+		print "<!-- $query --> \n";
 
 	$result = $wowdb->query( $query );
 

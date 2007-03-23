@@ -67,6 +67,30 @@ function swapShow(ElementID,ElementID2)
 }
 
 
+function setActiveTalentWrapper (o,imgurl)
+{
+	var obj = document.getElementById('talentwrapper' + o);
+
+	if (obj.style.display == 'block')
+	{
+		return;
+	}
+	else
+	{
+		for (var i=1; i < 4; i++)
+		{
+			document.getElementById('talentwrapper' +i).style.display = 'none';
+			document.getElementById('tlab' +i).className = 'tablabel';
+			document.getElementById('tlabbg' +i).src = imgurl + '/itab.gif';
+		}
+		obj.style.display = 'block';
+		document.getElementById('tlab' + o).className = 'tablabelactive';
+		document.getElementById('tlabbg' +o).src = imgurl + '/atab.gif';
+	}
+	return;
+}
+
+
 function showSpellTree(ElementID)
 {
 	for (i = 0; i < 4; i++)
@@ -77,48 +101,71 @@ function showSpellTree(ElementID)
 }
 
 
-var lpages = new Array();
+var tabs = new Array();
+var tab_count = 0;
 
-function addLpage( name )
+function addTab( name )
 {
-	lpages[lpages.length] = name;
+	tabs[tab_count] = name;
+	tab_count++;
 }
 
-function doLpage( div )
+function doTab( div )
 {
-	for( i=0 ; i<lpages.length ; i++ )
+	for( i=0 ; i<tab_count ; i++ )
 	{
-		obj = document.getElementById( lpages[i] );
-		if( lpages[i] == div )
+		obj = document.getElementById( tabs[i] );
+		fontobj = document.getElementById( 'tabfont'+tabs[i] );
+		if( tabs[i] == div )
 		{
 			showElem(obj);
+			fontobj.className='white';
 		}
 		else
 		{
 			hideElem(obj);
+			fontobj.className='yellow';
 		}
 	}
 }
 
-var rpages = new Array();
-
-function addRpage( name )
+function showPet(cNum)
 {
-	rpages[rpages.length] = name;
-}
+	var ids = new Array();
+	ids[0] = 'pet_name';
+	ids[1] = 'pet_title';
+	ids[2] = 'pet_loyalty';
+	ids[3] = 'pet_top_icon';
+	ids[4] = 'pet_resistances';
+	ids[5] = 'pet_stats_table';
+	ids[6] = 'pet_xp_bar';
+	ids[7] = 'pet_training_pts';
+	ids[8] = 'pet_hpmana';
+	ids[9] = 'pet_training_nm';
 
-function doRpage( div )
-{
-	for( i=0 ; i<rpages.length ; i++ )
+	for(a = 0; a < 15; a++)
 	{
-		obj = document.getElementById( rpages[i] );
-		if( rpages[i] == div )
+		for(i = 0; i < 15; i++)
 		{
-			showElem(obj);
-		}
-		else
-		{
-			hideElem(obj);
+			if (cNum != i)
+			{
+				var oName= document.getElementById(ids[a]+String(i));
+				if (oName != null)
+				{
+					hideElem(oName);
+				}
+			}
+			else
+			{
+				var oName= document.getElementById(ids[a]+String(i));
+				if (oName != null)
+				{
+					if(oName.style.display == 'none' || oName.style.display == '')
+					{
+						showElem(oName);
+					}
+				}
+			}
 		}
 	}
 }
@@ -158,16 +205,6 @@ function showHide(ElementID,ImgID,ImgShow,ImgHide)
 			if(ImgHide)
 				document.getElementById(ImgID).src = ImgHide;
 		}
-	}
-}
-
-function setOpacity( sEl,val )
-{
-	oEl = document.getElementById(sEl);
-	if(oEl)
-	{
-		oEl.style.opacity = val/10;
-		oEl.style.filter = 'alpha(opacity=' + val*10 + ')';
 	}
 }
 
@@ -369,48 +406,4 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 			}
 		}
 	}
-}
-
-
-
-
-/* Tab control */
-var previoustab=''
-function displaypage(cid, aobject)
-{
-	if (document.getElementById)
-	{
-		changetab(aobject)
-		if (previoustab!='')
-			document.getElementById(previoustab).style.display='none'
-		document.getElementById(cid).style.display=''
-		previoustab=cid
-		if (aobject.blur)
-			aobject.blur()
-		return false
-	}
-	else
-		return true
-}
-
-function changetab(aobject)
-{
-	if (typeof tabobjlinks=='undefined')
-		collecttablinks()
-	for (i=0; i<tabobjlinks.length; i++)
-		tabobjlinks[i].className=''
-	aobject.className='current_tab'
-}
-
-function collecttablinks(elemID)
-{
-	var tabobj=document.getElementById(elemID)
-	tabobjlinks=tabobj.getElementsByTagName('li')
-}
-
-function tab_nav_onload(elemID)
-{
-	collecttablinks(elemID)
-
-	displaypage(initialtab[1], tabobjlinks[initialtab[0]-1])
 }

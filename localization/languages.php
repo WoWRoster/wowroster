@@ -16,27 +16,19 @@
  *
  ******************************/
 
-// Add locales via a function call
-// This prevents one locale from overwritting the others
 $roster_conf['multilanguages'] = array();
 $roster_conf['multilanguages'][] = 'deDE';
 $roster_conf['multilanguages'][] = 'enUS';
 $roster_conf['multilanguages'][] = 'esES';
 $roster_conf['multilanguages'][] = 'frFR';
 
-
-$wordings = array();
 foreach( $roster_conf['multilanguages'] as $lang )
 {
-	add_locale_file($lang,$wordings);
+	include(ROSTER_BASE.'localization'.DIR_SEP.$lang.'.php');
 }
 
-$act_words = &$wordings[$roster_conf['roster_lang']];
-
-
-
 // Credits page
-// Only defined here because we don't need to or want to translate this for EVERY locale
+// Only defined here because we don't need to translate this for EVERY locale
 
 $creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site
 <br />
@@ -134,20 +126,4 @@ Serveral javascript files are libraries that are under their own licenses.
 <br />
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
-See <a href="'.makelink('license').'">license.txt</a> for details';
-
-
-/**
- * Adds locale strings to global $wordings array
- *
- * @param string $locale
- * @param array $wordings
- */
-function add_locale_file( $locale , &$wordings )
-{
-	global $roster_conf;
-
-	include(ROSTER_BASE.'localization'.DIR_SEP.$locale.'.php');
-	$wordings[$locale] = $lang;
-	unset($lang);
-}
+See <a href="license.txt">license.txt</a> for details';
