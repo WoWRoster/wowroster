@@ -739,17 +739,6 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
  * Random color defines
 **********/
 
-span.white { font-weight:bold;color:#ffffff }
-span.yellow { font-weight:bold;color:#ffd517; }
-span.green {font-weight:bold;color:#22ff22; }
-span.grey {font-weight:bold;color:#808080; }
-span.red {font-weight:bold;color:#ff2222; }
-span.orange { font-weight:bold;color:#FF9900; }
-span.purple { font-weight:bold;color:#8000ff; }
-span.blue { font-weight:bold;color:#0068ff; }
-span.gold { font-weight:bold;color:#ffcc00; }
-span.brown { font-weight:bold;color:#593300; }
-
 .white { color:#ffffff; }
 .yellow { color:#ffd517; }
 .green { color:#00bb00; }
@@ -760,6 +749,17 @@ span.brown { font-weight:bold;color:#593300; }
 .blue { color:#0068ff; }
 .gold { color:#ffcc00; }
 .brown { color:#593300; }
+
+.whiteB { font-weight:bold;color:#ffffff; }
+.yellowB { font-weight:bold;color:#ffd517; }
+.greenB { font-weight:bold;color:#00bb00; }
+.greyB { font-weight:bold;color:#808080; }
+.redB { font-weight:bold;color:#ff0000; }
+.orangeB { font-weight:bold;color:#ff9900; }
+.purpleB { font-weight:bold;color:#8000ff; }
+.blueB { font-weight:bold;color:#0068ff; }
+.goldB { font-weight:bold;color:#ffcc00; }
+.brownB { font-weight:bold;color:#593300; }
 
 .iconwhite, .icongrey, .icongreen, .iconblue, .iconpurple { float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1; }
 .iconwhite { border:2px solid #ffffff; }
@@ -836,6 +836,7 @@ span.brown { font-weight:bold;color:#593300; }
 	font:11px arial,helvetica,sans-serif;
 	width:344px;
 	height:434px;
+	margin-top:15px;
 	margin-bottom:40px;
 }
 /* Panel Icon */
@@ -858,13 +859,11 @@ span.brown { font-weight:bold;color:#593300; }
 
 /* Background image for character tab */
 .char_panel .tab1 .background {
-	width:344px;
-	height:428px;
-	background:url(../img/char/charframe.jpg) no-repeat;
+	position:absolute;
 	width:332px;
 	height:358px;
-	position:absolute;
 	margin:70px 0 0 9px;
+	background:url(../img/char/charframe.jpg) no-repeat;
 }
 
 /* Equipment Items */
@@ -896,59 +895,59 @@ span.brown { font-weight:bold;color:#593300; }
 .equip_Ammo { position:absolute;cursor:pointer;margin-top:381px;margin-left:252px; }
 
 /* Resistances */
+.char_panel .tab1 .resist_arcane {
+	margin:77px 0pt 0pt 261px;
+	text-align:center;
+	font-weight:bold;
+	color:#000000;
+	position:absolute;
+	width:27px;
+	height:21px;
+	padding-top:6px;
+	cursor:default;
+}
 .char_panel .tab1 .resist_fire {
-	margin:79px 0 0 264px;
+	margin:106px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
 	color:#FFFFFF;
 	position:absolute;
-	width:22px;
-	height:17px;
-	padding-top:3px;
+	width:27px;
+	height:21px;
+	padding-top:6px;
 	cursor:default;
 }
 .char_panel .tab1 .resist_nature {
-	margin:109px 0 0 264px;
+	margin:135px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
 	color:#FFFFFF;
 	position:absolute;
-	width:22px;
-	height:17px;
-	padding-top:3px;
-	cursor:default;
-}
-.char_panel .tab1 .resist_arcane {
-	margin:138px 0 0 264px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFFFFF;
-	position:absolute;
-	width:22px;
-	height:17px;
-	padding-top:3px;
+	width:27px;
+	height:21px;
+	padding-top:6px;
 	cursor:default;
 }
 .char_panel .tab1 .resist_frost {
-	margin:167px 0 0 264px;
+	margin:164px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
 	color:#FFFFFF;
 	position:absolute;
-	width:22px;
-	height:17px;
-	padding-top:3px;
+	width:27px;
+	height:21px;
+	padding-top:6px;
 	cursor:default;
 }
 .char_panel .tab1 .resist_shadow {
-	margin:196px 0 0 264px;
+	margin:193px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
 	color:#FFFFFF;
 	position:absolute;
-	width:22px;
-	height:17px;
-	padding-top:3px;
+	width:27px;
+	height:21px;
+	padding-top:6px;
 	cursor:default;
 }
 
@@ -976,31 +975,33 @@ span.brown { font-weight:bold;color:#593300; }
 	position:absolute;
 	margin:81px 0 0 70px;
 	background:url(../img/char/bar_health.gif) no-repeat;
-	width:117px;
+	width:125px;
 	font:9px verdana,arial,helvetica,sans-serif;
 	padding-top:3px;
 	padding-bottom:3px;
-	padding-left:22px;
+	padding-left:25px;
 }
 .char_panel .tab1 .mana {
 	position:absolute;
 	margin:100px 0 0 70px;
 	background:url(../img/char/bar_mana.gif) no-repeat;
-	width:117px;
+	width:125px;
 	font:9px verdana,arial,helvetica,sans-serif;
 	padding-top:3px;
 	padding-bottom:3px;
-	padding-left:22px;
+	padding-left:25px;
 }
-/* Placement of health, mana, dodge, etc...*/
+/* Placement of health, mana, timeplayed, etc...*/
 .char_panel .tab1 .info_desc {
+	font-size:10px;
 	line-height:14px;
 	color:#ffdd00;
 	position:absolute;
 	margin:120px 0 0 73px;
 }
-/* Placement of values of health, mana, dodge, etc...*/
+/* Placement of values of health, mana, timeplayed, etc...*/
 .char_panel .tab1 .info_values {
+	font-size:9px;
 	line-height:14px;
 	text-align:right;
 	position:absolute;
@@ -1026,7 +1027,6 @@ span.brown { font-weight:bold;color:#593300; }
 	color:#FFFFFF;
 	text-align:center;
 	font-size:9px;
-	/*font-weight:bold;*/
 	width:216px;
 	position:absolute;
 	margin:233px 0 0 67px;
@@ -1067,14 +1067,188 @@ span.brown { font-weight:bold;color:#593300; }
 
 /* Background image for pet tab */
 .char_panel .tab2 .background {
-	width:344px;
-	height:428px;
-	background:url(../img/char/pet_back.gif) no-repeat;
-	width:332px;
-	height:358px;
 	position:absolute;
-	margin:70px 0 0 9px;
+	width:333px;
+	height:87px;
+	margin:342px 0pt 0pt 9px;
+	background:url(../img/char/pet_back.gif) no-repeat;
 }
+.char_panel .tab2 .name {
+	font-weight:bold;
+	font-size:14px;
+	color:#FFDD00;
+	position:absolute;
+	margin-top:78px;
+	margin-left:85px;
+}
+.char_panel .tab2 .info {
+	font-weight:bold;
+	font-size:12px;
+	position:absolute;
+	margin-top:98px;
+	margin-left:85px;
+}
+.char_panel .tab2 .loyalty {
+	font-weight:bold;
+	font-size:12px;
+	position:absolute;
+	margin-top:118px;
+	margin-left:85px;
+}
+.char_panel .tab2 .icon {
+	position:absolute;
+	margin-left:25px;
+	margin-top:78px;
+	width:55px;
+	height:55px;
+}
+.char_panel .tab2 .health {
+	position:absolute;
+	margin:143px 0 0 40px;
+	background:url(../img/char/bar_health.gif) no-repeat;
+	width:125px;
+	font:9px verdana,arial,helvetica,sans-serif;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left:25px;
+}
+.char_panel .tab2 .mana {
+	position:absolute;
+	margin:165px 0 0 40px;
+	background:url(../img/char/bar_mana.gif) no-repeat;
+	width:125px;
+	font:9px verdana,arial,helvetica,sans-serif;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left:25px;
+}
+
+/* Resistances */
+.char_panel .tab2 .resist_arcane {
+	margin:84px 0pt 0pt 304px;
+	text-align:center;
+	font-weight:bold;
+	color:#000000;
+	position:absolute;
+	width:27px;
+	height:21px;
+	padding-top:6px;
+	cursor:default;
+}
+.char_panel .tab2 .resist_fire {
+	margin:113px 0 0 304px;
+	text-align:center;
+	font-weight:bold;
+	color:#FFFFFF;
+	position:absolute;
+	width:27px;
+	height:21px;
+	padding-top:6px;
+	cursor:default;
+}
+.char_panel .tab2 .resist_nature {
+	margin:142px 0 0 304px;
+	text-align:center;
+	font-weight:bold;
+	color:#FFFFFF;
+	position:absolute;
+	width:27px;
+	height:21px;
+	padding-top:6px;
+	cursor:default;
+}
+.char_panel .tab2 .resist_frost {
+	margin:171px 0 0 304px;
+	text-align:center;
+	font-weight:bold;
+	color:#FFFFFF;
+	position:absolute;
+	width:27px;
+	height:21px;
+	padding-top:6px;
+	cursor:default;
+}
+.char_panel .tab2 .resist_shadow {
+	margin:200px 0 0 304px;
+	text-align:center;
+	font-weight:bold;
+	color:#FFFFFF;
+	position:absolute;
+	width:27px;
+	height:21px;
+	padding-top:6px;
+	cursor:default;
+}
+
+.char_panel .tab2 .padding {
+	position:absolute;
+	margin:245px 0 0 59px;
+	width:235px;
+	height:79px;
+	background:url(../img/char/stat_back.gif) no-repeat;
+}
+.char_panel .tab2 .padding .stats {
+	float:left;
+	width:109px;
+	height:74px;
+	padding:3px 2px 1px 4px;
+	color:#DFB801;
+}
+.char_panel .tab2 .padding .stats .statline {
+	padding:0;
+	font:10px verdana, tahoma, sans-serif;
+	font-weight:bold;
+}
+.char_panel .tab2 .padding .stats .statline .label {
+	overflow:hidden;
+	width:85px;
+}
+.char_panel .tab2 .padding .stats .statline .value {
+	float:right;
+	overflow:hidden;
+	text-align:right;
+}
+
+.char_panel .tab2 .xpbar_empty {
+	/* Placement for the empty experience bar */
+	width:216px;
+	height:12px;
+	position:absolute;
+	margin-top:208px;
+	margin-left:67px;
+}
+.char_panel .tab2 .xpbar {
+	/* Placement for the experience bar */
+	width:216px;
+	height:12px;
+	position:absolute;
+	margin-top:208px;
+	margin-left:67px;
+}
+.char_panel .tab2 .xpbar_text {
+	/* Placement for experience text */
+	color:#FFFFFF;
+	text-align:center;
+	font-size:9px;
+	width:216px;
+	position:absolute;
+	margin-top:208px;
+	margin-left:67px;
+}
+.char_panel .tab2 .trainingpts {
+	/* Placement for training points */
+	text-align:right;
+	font-size:12px;
+	font-weight:bold;
+	width:200px;
+	position:absolute;
+	margin-top:411px;
+	margin-left:120px;
+}
+.pet_tabs { position:absolute;font:11px arial,helvetica,sans-serif;margin:360px 0 0 17px;line-height:normal; }
+.pet_tabs ul { margin:0;padding:0;list-style:none; }
+.pet_tabs li { float:left;margin:0;padding-left:7px;cursor:pointer; }
+.pet_tabs .current_tab { cursor:default; }
 
 
 
@@ -1106,36 +1280,6 @@ span.brown { font-weight:bold;color:#593300; }
 /**
  * Character Page styles
 **/
-.rep { float:left;height:20px;width:360px; }
-.rep .repbox { position:relative;left:0;top:0;width:360px;height:20px; }
-.rep .repbox .repbg { position:absolute;left:5px;top:0;width:360px;height:20px; }
-.rep .repbox .repbit { position:absolute;left:1px;top:1px;left:8px;height:18px; }
-
-.skill { float:left;height:20px;width:360px; }
-.skill .skillbox { position:relative;left:0;top:0;width:360px;height:20px; }
-.skill .skillbox .bg { position:absolute;left:5px;top:0;width:360px;height:20px; }
-.skill .skillbox .bit { position:absolute;left:5px;top:1px;left:8px;height:18px; }
-.skill .skillbox .name { position:absolute;left:5px;top:0;height:15px;padding:3px 0 5px 10px;font:bold 11px verdana,arial,sans-serif;color:#aa9900; }
-.skill .skillbox .level {
-	position:absolute;
-	left:5px;
-	top:0;
-	height:15px;
-	width:100%;
-	text-align:center;
-	padding:3px 0 5px 10px;
-	font:11px verdana, arial, sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-}
-.skilltype {
-	float:left;
-	height:12px;
-	padding:10px 2px 2px 10px;
-	font:bold 12px verdana,arial,sans-serif;
-	color:#ffffff;
-}
-
 .questtype {
 	float:left;
 	height:12px;
@@ -1160,20 +1304,6 @@ span.brown { font-weight:bold;color:#593300; }
 /* Links in menu on-mouseover */
 .quest_link a:hover { background-color:#7A7772; }
 
-.resistance { color:#ffffff;float:right;margin-top:5px;width:35px;height:210px; }
-.resistance ul { margin:0;padding:0; }
-.resistance ul li { list-style-type:none;font:bold 11px verdana, tahoma, sans-serif;text-align:right;position:relative; }
-.resistance .fire { background:url(../img/resfire.gif) no-repeat;height:27px;width:27px;padding:2px; }
-.resistance .nature { background:url(../img/resnature.gif) no-repeat;height:27px;width:27px;padding:2px; }
-.resistance .arcane { background:url(../img/resarcane.gif) no-repeat;height:27px;width:27px;padding:2px; }
-.resistance .frost { background:url(../img/resfrost.gif) no-repeat;height:27px;width:27px;padding:2px; }
-.resistance .shadow { background:url(../img/resshadow.gif) no-repeat;height:27px;width:27px;padding:2px; }
-.resistance span {font:bold 11px verdana, tahoma, sans-serif;text-align:right;position:relative;float:left; }
-
-.health_mana { margin-top:10px;margin-left:5px; }
-.health_mana .mana { background:url(../img/mana_background.gif) no-repeat;height:27px;width:125px;font-size:10px;padding-top:7px;padding-left:30px; }
-.health_mana .health { background:url(../img/health_background.gif) no-repeat;height:27px;width:125px;font-size:10px;padding-top:7px;padding-left:30px; }
-
 
 /**
  * Character Tabs
@@ -1194,303 +1324,6 @@ span.brown { font-weight:bold;color:#593300; }
 	text-align:center;
 	background:url(../img/bgtop.gif) no-repeat;
 	overflow:hidden;
-}
-.char .main .page1 {
-	float:left;
-	width:405px;
-}
-.char .main .page1 .left {
-	float:left;
-	width:62px;
-	height:430px;
-	background:url(../img/borderleft.gif) repeat-y;
-	background-position:left top;
-	overflow:hidden;
-	clear:none;
-}
-.char .main .page1 .right {
-	float:left;
-	width:62px;
-	height:430px;
-	background:url(../img/borderright.gif) repeat-y;
-	background-position:right top;
-	overflow:hidden;
-}
-.char .main .page1 .left .equip {
-	float:left;
-	width:52px;
-	height:43px;
-	padding:3px 0 3px 10px;
-	background:url(../img/bgitem.gif) no-repeat;
-	background-position:3px 0;
-}
-.char .main .page1 .right .equip {
-	float:left;
-	width:52px;
-	height:43px;
-	padding:3px 0 3px 7px;
-	background:url(../img/bgitem.gif) no-repeat;
-}
-.char .main .page1 .middle {
-	float:left;
-	width:280px;
-	height:430px;
-}
-.char .main .page1 .middle .portrait {
-	float:left;
-	width:280px;
-	height:220px;
-	background-color:#000000;
-	background:url(../img/bgchar.gif) no-repeat;
-	color:#DFB801;
-}
-.char .main .page1 .middle .portrait li {
-	list-style-type:none;
-	padding:1px 0 0 6px;
-	text-align:left;
-	font:12px verdana, tahoma, sans-serif;
-	font-weight:bold;
-}
-.char .main .page1 .middle .portrait li ul {
-	list-style-type:none;
-	padding:0;
-	margin:0;
-}
-.char .main .page1 .middle .portrait ul li span {
-	float:right;
-	font-family:verdana, tahoma, sans-serif;
-	padding:0 6px 0 0;
-	margin-top:-15px;
-}
-.char .main .page1 .middle .portrait ul li ul li span {
-	color:#ffffff;
-}
-.char .main .page1 .middle .portrait .info {
-	margin:5px;
-	padding:5px;
-	font-weight:bold;
-	font-size:10px;
-	margin-left:5px;
-	height:142px;
-	width:186px;
-	overflow:hidden;
-	background:url(../img/percentframe.gif) no-repeat;
-}
-.char .main .page1 .middle .portrait .info .mana {
-	background:url(../img/mana_background.gif) no-repeat;
-	height:27px;
-	width:125px;
-	font-size:10px;
-	padding-top:7px;
-	padding-left:30px;
-}
-.char .main .page1 .middle .portrait .info .health {
-	background:url(../img/health_background.gif) no-repeat;
-	height:27px;
-	width:125px;
-	font-size:10px;
-	padding-top:7px;
-	padding-left:30px;
-}
-.char .main .page1 .middle .portrait .info .money {
-	background:url(../img/money_frame.gif) no-repeat;
-	height:16px;
-	width:180px;
-	padding:2px 2px 2px 2px;
-	text-align:right;
-}
-.char .main .page1 .middle .bottom .statselect {
-	margin: 0 5px 5px 5px;
-	width: 125px;
-}
-.char .main .page1 .middle .bottom .padding {
-	height:105px;
-	padding:0 2px 0 2px;
-	background:url(../img/bgstats.gif) no-repeat;
-	background-position:0 0;
-}
-.char .main .page1 .middle .bottom .padding .stats {
-	float:left;
-	width:138px;
-	height:100px;
-	padding:2px 2px 2px 2px;
-	margin:0;
-	color:#DFB801;
-}
-.char .main .page1 .middle .bottom .padding .stats tr {
-	padding:0;
-	text-align:left;
-	font:11px verdana, tahoma, sans-serif;
-	font-weight:bold;
-}
-.char .main .page1 .middle .bottom .padding .stats tr td.label {
-	font:11px verdana, tahoma, sans-serif;
-	padding:0;
-	overflow:hidden;
-	width: 78px;
-}
-.char .main .page1 .middle .bottom .padding .stats tr td.value {
-	font:11px verdana, tahoma, sans-serif;
-	padding:0;
-	overflow:hidden;
-	width: 60px;
-	text-align: right;
-}
-.char .main .page1 .middle .bottom .hands {
-	height:70px;
-	width:280px;
-	background:url(../img/bghands.gif) no-repeat;
-}
-.char .main .page1 .middle .bottom .hands .weapon0 {
-	padding:16px 0 0 69px;
-	float:left;
-}
-.char .main .page1 .middle .bottom .hands .weapon1 {
-	padding:16px 0 0 11px;
-	float:left;
-}
-.char .main .page1 .middle .bottom .hands .weapon2 {
-	padding:16px 0 0 10px;
-	float:left;
-}
-.char .main .page1 .middle .bottom .hands .ammo {
-	padding:21px 0 0 21px;
-	float:left;
-}
-
-.char .main .page2 {
-	float:left;
-	width:405px;
-	display:none;
-}
-.char .main .page2 .left {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderleft.gif) repeat-y;
-	background-position:left top;
-}
-.char .main .page2 .right {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderright.gif) repeat-y;
-	background-position:right top;
-}
-.char .main .page2 .pet {
-	float:left;
-	text-align:right;
-	position:relative;
-	height:430px;
-	width:397px;
-	overflow:hidden;
-	background-color:#000000;
-	background:url(../img/bg_pet.gif) no-repeat;
-	color:#DFB801;
-}
-
-.char .main .page3 {
-	float:left;
-	width:405px;
-	display:none;
-}
-.char .main .page3 .left {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderleft.gif) repeat-y;
-	background-position:left top;
-}
-.char .main .page3 .right {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderright.gif) repeat-y;
-	background-position:right top;
-}
-.char .main .page3 .reputation {
-	float:left;
-	position:relative;
-	height:430px;
-	width:397px;
-	overflow:auto;
-	background-color:#000000;
-	background:url(../img/bgrep.gif);
-	background-repeat:repeat;
-	background-position:top left;
-}
-.char .main .page3 .faction {
-	position:absolute;
-	left:5px;
-	top:0;
-	height:15px;
-	padding:3px 0 5px 10px;
-	font:11px verdana, tahoma, sans-serif;
-	font-weight:bold;
-	color:#aa9900;
-}
-.char .main .page3 .war {
-	position:absolute;
-	right:0;
-	top:0;
-	height:15px;
-	padding:3px 5px 5px 0;
-	font:9px verdana, tahoma, sans-serif;
-	font-weight:bold;
-	color:#FF0000;
-}
-.char .main .page3 .nowar {
-	position:absolute;
-	right:0;
-	top:0;
-	height:15px;
-	padding:3px 5px 5px 0;
-	font:9px verdana, tahoma, sans-serif;
-	font-weight:bold;
-	color:#00FF00;
-}
-.char .main .page3 .value {
-	position:absolute;
-	left:150px;
-	top:0;
-	height:15px;
-	width:100px;
-	text-align:center;
-	padding:3px 0 5px 18px;
-	font:11px verdana, tahoma, sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-}
-
-.char .main .page4 {
-	float:left;
-	display:none;
-	width:405px;
-}
-.char .main .page4 .left {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderleft.gif) repeat-y;
-	background-position:left top;
-}
-.char .main .page4 .right {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderright.gif) repeat-y;
-	background-position:right top;
-}
-.char .main .page4 .skills {
-	float:left;
-	position:relative;
-	height:430px;
-	width:397px;
-	overflow:auto;
-	background-color:#000000;
-	background:url(../img/bgrep.gif);
-	background-repeat:repeat;
-	background-position:top left;
 }
 
 .char .main .page5 {
@@ -1686,160 +1519,8 @@ span.brown { font-weight:bold;color:#593300; }
 	font-size:0;
 }
 
-.char .tabs {
-	width:405px;
-	height:20px;
-	float:left;
-	padding:0 0 0 5px ;
-}
-.char .tabs .tab {
-	float:left;
-	width:56px;
-	height:15px;
-	background:url(../img/tab.gif) no-repeat;
-	background-position:left top;
-	font-weight:bold;
-	padding:5px 5px 5px 5px;
-	text-align:center;
-	cursor:pointer;
-}
 /**********
  * END Character tabs
-**********/
-
-/**********
- * CHAR.PHP - PET TAB - function printPet()
-**********/
-.petName{
-	position:absolute;
-	font-family:sans-serif;
-	font-weight:bold;
-	font-size:12px;
-	color:#FFC000;
-}
-.petTrainingPts{
-	font-family:sans-serif;
-	font-weight:bold;
-	font-size:12px;
-	color:#FFC000;
-	white-space:nowrap;
-	display:none;
-}
-.petStatsTableStatname{
-	text-align:left;
-	color:#FFC000;
-	white-space:nowrap;
-}
-.petStatsTableStatValue{
-	text-align:right;
-	color:#ffffff;
-	white-space:nowrap;
-}
-.petStatsBg{
-	position:absolute;
-	top:150px;
-	left:35px;
-	height:100px;
-	width:280px;
-	background:url(../img/bgstats.gif) no-repeat;
-	background-position:center;
-	display:none;
-}
-.pet_xp {
-	float:left;
-	height:15px;
-	width:381px;
-	display:none;
-}
-.pet_xp .pet_xpbox {
-	position:absolute;
-	left:6px;
-	top:392px;
-	width:381px;
-	height:15px;
-}
-.pet_xp .pet_xpbox .pet_bg {
-	position:absolute;
-	left:0;
-	top:0;
-	width:381px;
-	height:15px
-}
-.pet_xp .pet_xpbox .pet_bit {
-	position:absolute;
-	left:0;
-	top:1px;
-	left:3px;
-	height:12px;
-}
-.pet_xp .pet_xpbox .pet_xp_name {
-	position:absolute;
-	left:0;
-	top:0;
-	height:10px;
-	padding:2px 0 5px 10px;
-	font:10px tahoma, sans-serif;
-	font-weight:bold;
-	color:#ffffff;
-}
-.pet_xp .pet_xpbox .pet_xp_level {
-	position:absolute;
-	left:0;
-	top:0;
-	height:10px;
-	width:100%;
-	text-align:center;
-	padding:1px 0 5px 10px;
-	font:10px tahoma, sans-serif;
-	color:#ffffff;
-	font-weight:bold;
-}
-.pet_resistance {
-	float:right;
-	margin-top:20px;
-	position:absolute;
-	left:280px;
-	top:66px;
-	height:190px;
-	display:none;
-}
-.pet_resistance ul li {
-	list-style-type:none;
-	font-weight:bold;
-	text-align:center;
-}
-.pet_resistance .pet_fire {
-	background:url(../img/resfire.gif) no-repeat;
-	height:27px;
-	width:27px;
-	padding:2px;
-}
-.pet_resistance .pet_nature {
-	background:url(../img/resnature.gif) no-repeat;
-	height:27px;
-	width:27px;
-	padding:2px;
-}
-.pet_resistance .pet_arcane {
-	background:url(../img/resarcane.gif) no-repeat;
-	height:27px;
-	width:27px;
-	padding:2px;
-}
-.pet_resistance .pet_frost {
-	background:url(../img/resfrost.gif) no-repeat;
-	height:27px;
-	width:27px;
-	padding:2px;
-}
-.pet_resistance .pet_shadow {
-	background:url(../img/resshadow.gif) no-repeat;
-	height:27px;
-	width:27px;
-	padding:2px;
-}
-/**********
- * CHAR.PHP - END PET TAB - function printPet()
 **********/
 
 

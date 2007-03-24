@@ -640,10 +640,10 @@ $returnstring .= '  <tr>
 					$return_string .= '
 				<div class="info_container">
 					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
-					<span class="text"><span class="yellow">'.$spellicons['name'].'</span>';
+					<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
-						$return_string .= '<br /><span class="brown">'.$spellicons['rank'].'</span>';
+						$return_string .= '<br /><span class="brownB">'.$spellicons['rank'].'</span>';
 					}
 					$return_string .= "</span>\n				</div>\n";
 					$icon_num++;
@@ -659,8 +659,7 @@ $returnstring .= '  <tr>
 <script type="text/javascript">
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
-	var initialtab=[1, \'spelltree_0\'];
-	window.onload=tab_nav_onload(\'skill_tab_bar\')
+	window.onload=tab_nav_onload(\'skill_tab_bar\',[1, \'spelltree_0\'])
 </script>'."\n";
 
 		return $return_string;
@@ -692,195 +691,156 @@ $returnstring .= '  <tr>
 
 		$lang = $this->data['clientLocale'];
 
-		$petName = $petTitle = $loyalty = $petIcon = $resistances = $stats = $xpBar = $trainingPoints = $hpMana = $icons = '';
-
 		$member_id = $this->data['member_id'];
 		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$member_id' ORDER BY `level` DESC";
 		$result = $wowdb->query( $query );
 
-		$petNum = 1;
+		$output = $icons = '';
+
+		$petNum = 0;
 		while ($row = $wowdb->fetch_assoc($result))
 		{
-			$showxpBar = true;
-			if ( strlen($row['xp']) < 1 )
-				$showxpBar = false;
+			$xpbarshow = true;
 
-			list($xpearned, $totalxp) = split(":",$row['xp']);
-			if ($totalxp == 0)
-				$xp_percent = .00;
+			if( $row['level'] == ROSTER_MAXCHARLEVEL )
+			{
+				$expbar_width = '216';
+				$expbar_text = $wordings[$lang]['max_exp'];
+			}
 			else
-				$xp_percent = $xpearned / $totalxp;
+			{
+				$expbar_width = $this->printXP();
+				list($xp, $xplevel) = explode(':',$row['xp']);
+				if ($xplevel != '0' && $xplevel != '')
+				{
+					$exp_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
 
-			$barpixelwidth = floor(381 * $xp_percent);
-			$xp_percent_word = floor($xp_percent * 100).'%';
+					$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
+
+					$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
+				}
+				else
+				{
+					$xpbarshow = false;
+				}
+			}
+
 			$unusedtp = $row['totaltp'] - $row['usedtp'];
 
 			if( $row['level'] == ROSTER_MAXCHARLEVEL )
 				$showxpBar = false;
 
-			$tmp = split(':',$row['stat_str']);
-			$str = $tmp[0];
-			$tmp = split(':',$row['stat_agl']);
-			$agi = $tmp[0];
-			$tmp = split(':',$row['stat_sta']);
-			$sta = $tmp[0];
-			$tmp = split(':',$row['stat_int']);
-			$int = $tmp[0];
-			$tmp = split(':',$row['stat_spr']);
-			$spr = $tmp[0];
+			$left = 35+(($petNum)*50);
+			$top = 285;
+
+			// Start Warlock Pet Icon Fix
+			if( $row['type'] == $wordings[$lang]['Imp'] )
+			{
+				$row['icon'] = 'spell_shadow_summonimp';
+			}
+			elseif( $row['type'] == $wordings[$lang]['Voidwalker'] )
+			{
+				$row['icon'] = 'spell_shadow_summonvoidwalker';
+			}
+			elseif( $row['type'] == $wordings[$lang]['Succubus'] )
+			{
+				$row['icon'] = 'spell_shadow_summonsuccubus';
+			}
+			elseif( $row['type'] == $wordings[$lang]['Felhunter'] )
+			{
+				$row['icon'] = 'spell_shadow_summonfelhunter';
+			}
+			elseif( $row['type'] == $wordings[$lang]['Felguard'] )
+			{
+				$row['icon'] = 'spell_shadow_summonfelguard';
+			}
+			elseif( $row['type'] == $wordings[$lang]['Infernal'] )
+			{
+				$row['icon'] = 'spell_shadow_summoninfernal';
+			}
+			// End Warlock Pet Icon Fix
+
+			if( $row['icon'] == '' || !isset($row['icon']) )
+			{
+				$row['icon'] = 'inv_misc_questionmark';
+			}
+
+			$icons .= '			<li onclick="return showPet(\''. $petNum .'\');" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').'>
+				<div class="text"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" style="'.$iconStyle.'" alt="" /></div></li>
+';
+
+			$output .= '
+		<div id="pet_'.$petNum.'"'. ($petNum == 0 ? '' : ' style="display:none;"') .'>
+			<div class="name">'. stripslashes($row['name']) .'</div>
+			<div class="info">'. $wordings[$lang]['level'] .' '. $row['level'] .' '. stripslashes($row['type']) .'</div>
+
+			<div class="loyalty">'. $row['loyalty'] .'</div>
+
+			<img class="icon" src="'. $roster_conf['interface_url'] .'Interface/Icons/'. $row['icon'] .'.'. $roster_conf['img_suffix'] .'" alt="" />
+
+			<div class="health"><span class="yellow">'. $wordings[$lang]['health'] .':</span> '. (isset($row['health']) ? $row['health'] : '0') .'</div>
+			<div class="mana"><span class="yellow">'. $wordings[$lang]['mana'] .':</span> '. (isset($row['mana']) ? $row['mana'] : '0') .'</div>
+
+			'. $this->printPetResist('arcane',$row['res_arcane']) .'
+			'. $this->printPetResist('fire',$row['res_fire']) .'
+			'. $this->printPetResist('nature',$row['res_nature']) .'
+			'. $this->printPetResist('frost',$row['res_frost']) .'
+			'. $this->printPetResist('shadow',$row['res_shadow']) .'
+';
+			if( $xpbarshow )
+			{
+				$output .= '
+			<img src="'. $roster_conf['img_url'] .'char/expbar_empty.gif" class="xpbar_empty" alt="" />
+			<div class="xpbar" style="clip:rect(0px '. $exp_width .'px 12px 0px);"><img src="'. $roster_conf['img_url'].'char/expbar_full.gif' .'" alt="" /></div>
+			<div class="xpbar_text">'. $expbar_text .'</div>';
+			}
+
+			$output .= '
+			<div class="padding">
+				<div class="stats">
+					'. $this->printPetStat('stat_str',$row).'
+					'. $this->printPetStat('stat_agl',$row).'
+					'. $this->printPetStat('stat_sta',$row).'
+					'. $this->printPetStat('stat_int',$row).'
+					'. $this->printPetStat('stat_spr',$row).'
+				</div>
+				<div class="stats">
+					'. $this->printPetStat('melee_rating',$row).'
+					'. $this->printPetStat('melee_power',$row).'
+					'. $this->printPetStat('melee_range',$row).'
+					'. $this->printPetStat('defense',$row).'
+					'. $this->printPetStat('armor',$row).'
+				</div>
+			</div>
+';
+			if( $row['totaltp'] != 0 )
+			{
+				$output .= '
+			<div class="trainingpts">'.$wordings[$lang]['unusedtrainingpoints'].': '. $unusedtp .' / '. $row['totaltp'] .'</div>';
+			}
+			$output .= '
+		</div>
+';
+
 			$tmp = split(':',$row['armor']);
 			$basearmor = $tmp[0];
 
-			$left = 35+(($petNum-1)*50);
-			$top = 285;
-
-			// Start Warlock Pet Icon Mod
-			$imp = 'Spell_Shadow_SummonImp';
-			$void = 'Spell_Shadow_SummonVoidWalker';
-			$suc = 'Spell_Shadow_SummonSuccubus';
-			$fel = 'Spell_Shadow_SummonFelHunter';
-			$inferno = 'Spell_Shadow_SummonInfernal';
-			$felguard = 'Spell_Shadow_SummonFelGuard';
-
-			$iconStyle='cursor:pointer;position:absolute;left:'.$left.'px;top:'.$top.'px;height:40px;width:40px;';
-
-			if ($row['type'] == $wordings[$lang]['Imp'])
-				$row['icon'] = $imp;
-
-			if ($row['type'] == $wordings[$lang]['Voidwalker'])
-				$row['icon'] = $void;
-
-			if ($row['type'] == $wordings[$lang]['Succubus'])
-				$row['icon'] = $suc;
-
-			if ($row['type'] == $wordings[$lang]['Felhunter'])
-				$row['icon'] = $fel;
-
-			if ($row['type'] == $wordings[$lang]['Felguard'])
-				$row['icon'] = $felguard;
-
-			if ($row['type'] == $wordings[$lang]['Infernal'])
-				$row['icon'] = $inferno;
-			// End Warlock Pet Icon Mod
-
-			if ($row['icon'] == '' || !isset($row['icon']))
-			{
-				$row['icon'] = 'INV_Misc_QuestionMark';
-			}
-
-			$icons			.= '<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" onclick="showPet(\''.$petNum.'\')" style="'.$iconStyle.'" alt="" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').' />';
-			$petName		.= '<span class="petName" style="top: 10px; left: 95px; display: none;" id="pet_name'.$petNum.'">' . stripslashes($row['name']).'</span>';
-			$petTitle		.= '<span class="petName" style="top: 30px; left: 95px; display: none;" id="pet_title'.$petNum.'">'.$wordings[$lang]['level'].' '.$row['level'].' ' . stripslashes($row['type']).'</span>';
-			$loyalty		.= '<span class="petName" style="top: 50px; left: 95px; display: none;" id="pet_loyalty'.$petNum.'">'.$row['loyalty'].'</span>';
-			$petIcon		.= '<img id="pet_top_icon'.$petNum.'" style="position: absolute; left: 30px; top: 8px; width: 64px; height: 64px; display: none;" src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" />';
-			$resistances	.= '<div  class="pet_resistance" id="pet_resistances'.$petNum.'">
-				<ul>
-					<li class="pet_fire"><span class="white">'.(isset($row['res_fire']) ? $row['res_fire'] : '0').'</span></li>
-					<li class="pet_nature"><span class="white">'.(isset($row['res_nature']) ? $row['res_nature'] : '0').'</span></li>
-					<li class="pet_arcane"><span class="white">'.(isset($row['res_arcane']) ? $row['res_arcane'] : '0').'</span></li>
-					<li class="pet_frost"><span class="white">'.(isset($row['res_frost']) ? $row['res_frost'] : '0').'</span></li>
-					<li class="pet_shadow"><span class="white">'.(isset($row['res_shadow']) ? $row['res_shadow'] : '0').'</span></li>
-				</ul>
-			</div>';
-			$stats			.= '
-			<div class="petStatsBg" id="pet_stats_table'.$petNum.'" >
-					<table style="text-align: left; position: absolute; top: 5px; left: 5px;" border="0" cellpadding="2" cellspacing="0" width="130">
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['strength'].':</td>
-							<td class="petStatsTableStatValue">'.$str.'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['agility'].':</td>
-							<td class="petStatsTableStatValue">'.$agi.'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['stamina'].':</td>
-							<td class="petStatsTableStatValue">'.$sta.'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['intellect'].':</td>
-							<td class="petStatsTableStatValue">'.$int.'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['spirit'].':</td>
-							<td class="petStatsTableStatValue">'.$spr.'</td>
-						</tr>
-					</table>
-
-					<table style="text-align: left;	position: absolute;	top: 5px; left: 146px;" border="0" cellpadding="2" cellspacing="0" width="130">
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['attack'].':</td>
-							<td class="petStatsTableStatValue">'.$row['melee_rating'].'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['power'].':</td>
-							<td class="petStatsTableStatValue">'.$row['melee_power'].'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['damage'].':</td>
-							<td class="petStatsTableStatValue">'.str_replace(':',' - ',$row['melee_range']).'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['defense'].':</td>
-							<td class="petStatsTableStatValue">'.$row['defense'].'</td>
-						</tr>
-						<tr>
-							<td class="petStatsTableStatname">'.$wordings[$lang]['armor'].':</td>
-							<td class="petStatsTableStatValue">'.$basearmor.'</td>
-						</tr>
-					</table>
-			</div>';
-
-			if ($showxpBar)
-				$xpBar			.= '
-				<div class="pet_xp" id="pet_xp_bar'.$petNum.'">
-		            <div class="pet_xpbox">
-		                <img class="xp_bg" width="100%" height="15" src="'.$roster_conf['img_url'].'barxpempty.gif" alt="" />
-		                <img src="'.$roster_conf['img_url'].'expbar-var2.gif" alt="" class="pet_bit" width="'.$barpixelwidth.'" />
-		                <span class="pet_xp_level">'.$xpearned.'/'.$totalxp.' ( '.$xp_percent_word.' )</span>
-		            </div>
-		        </div>';
-
-
-			if( $row['totaltp'] != '' && $row['totaltp'] != '0' )
-			{
-				$trainingPoints .= '
-			<span class="petTrainingPts" style="position: absolute; top: 412px; left: 100px;" id="pet_training_nm'.$petNum.'">'.$wordings[$lang]['unusedtrainingpoints'].': </span>
-			<span class="petTrainingPts" style="color: #FFFFFF; position: absolute; top: 413px; left: 305px;" id="pet_training_pts'.$petNum.'" >'.$unusedtp.' / '.$row['totaltp'].'</span>';
-			}
-
-			$hpMana	.= '
-			<div id="pet_hpmana'.$petNum.'" class="health_mana" style="position: absolute;	left: 35px; top: 65px; display: none;">
-				<div class="health" style="text-align: left;">
-					'.$wordings[$lang]['health'].': <span class="white">'.(isset($row['health']) ? $row['health'] : '0').'</span>
-				</div>
-		        <div class="mana" style="text-align: left;">
-		        	'.$wordings[$lang]['mana'].': <span class="white">'.(isset($row['mana']) ? $row['mana'] : '0').'</span>
-		        </div>
-			</div>';
-
 			$petNum++;
 		}
+		$output .= '
+<!-- Begin Navagation Tabs -->
+	<div class="pet_tabs">
+		<ul>
+'. $icons .'
+		</ul>
+	</div>';
 
-
-		//return all the objects
-		return
-		$petName
-		.$petTitle
-		.$loyalty
-		.$petIcon
-		.$resistances
-		.$stats
-		.$xpBar
-		.$trainingPoints
-		.$hpMana
-		.$icons
-		;
+		return $output;
 	}
 
 	function printStatLine( $label, $value, $tooltip )
 	{
-		$output  = '  <div class="statline" '.makeOverlib($tooltip,'','',2,'',',WRAP').'>'."\n";
+		$output  = '  <div class="statline" '.makeOverlib($tooltip,'','',2,'','').'>'."\n";
 		$output .= '    <span class="value">'.$value.'</span>'."\n";
 		$output .= '    <span class="label">'.$label.':</span>'."\n";
 		$output .= '  </div>'."\n";
@@ -1070,6 +1030,109 @@ $returnstring .= '  <tr>
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, $this->printRatingShort($statname), $line);
+	}
+
+	function printPetStat( $statname , $row )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		$tmp = split(':',$row[$statname]);
+
+		$base = $tmp[0];
+		$current = $tmp[0]+$tmp[1]+$tmp[2];
+		$buff = $tmp[1];
+		$debuff = -$tmp[2];
+
+		switch( $statname )
+		{
+			case 'stat_str':
+				$name = $wordings[$lang]['strength'];
+				$tooltip = $wordings[$lang]['strength_tooltip'];
+				break;
+			case 'stat_int':
+				$name = $wordings[$lang]['intellect'];
+				$tooltip = $wordings[$lang]['intellect_tooltip'];
+				break;
+			case 'stat_sta':
+				$name = $wordings[$lang]['stamina'];
+				$tooltip = $wordings[$lang]['stamina_tooltip'];
+				break;
+			case 'stat_spr':
+				$name = $wordings[$lang]['spirit'];
+				$tooltip = $wordings[$lang]['spirit_tooltip'];
+				break;
+			case 'stat_agl':
+				$name = $wordings[$lang]['agility'];
+				$tooltip = $wordings[$lang]['agility_tooltip'];
+				break;
+			case 'armor':
+				$name = $wordings[$lang]['armor'];
+				$tooltip = $wordings[$lang]['armor_tooltip'];
+				break;
+			case 'melee_power':
+				$lname = $wordings[$lang]['melee_att_power'];
+				$name = $wordings[$lang]['attack'];
+				$tooltip = $row['melee_powertooltip'];
+				break;
+			case 'melee_rating':
+				$name = $wordings[$lang]['weapon_hit_rating'];
+				break;
+			case 'melee_range':
+				$name = $wordings[$lang]['damage'];
+				$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$name.' '.$base.' - '.$current.'</span>';
+				return $this->printStatLine($name, '<span style="color:#FFFFFF;">'.$base.' - '.$current.'</span>', $line);
+				break;
+			case 'defense':
+				$name = $wordings[$lang]['defense'];
+				break;
+		}
+
+		if( isset($lname) )
+			$tooltipheader = $lname.' ';
+		else
+			$tooltipheader = $name.' ';
+
+		if( $base != $current)
+		{
+			$tooltipheader .= " ($base";
+			if( $buff > 0 )
+			{
+				$tooltipheader .= " <span class=\"green\">+ $buff</span>";
+			}
+			if( $debuff > 0 )
+			{
+				$tooltipheader .= " <span class=\"red\">- $debuff</span>";
+			}
+			$tooltipheader .= ")";
+		}
+		else
+		{
+			$tooltipheader .= " $current";
+		}
+
+		if( $buff>0 && $debuff>0 )
+		{
+			$color = "purple";
+		}
+		elseif( $buff>0 )
+		{
+			$color = "green";
+		}
+		elseif( $debuff>0 )
+		{
+			$color = "red";
+		}
+		else
+		{
+			$color = "white";
+		}
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, '<strong class="'.$color.'">'.$current.'</strong>', $line);
 	}
 
 	function printValue( $statname )
@@ -1341,45 +1404,88 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
 
-	function printRes ( $resname )
+	function printResist ( $resname )
 	{
-		global $wordings;
+		global $wordings, $roster_conf;
 
 		$lang = $this->data['clientLocale'];
 
 		switch($resname)
 		{
-		case 'res_fire':
+		case 'fire':
 			$name = $wordings[$lang]['res_fire'];
 			$tooltip = $wordings[$lang]['res_fire_tooltip'];
 			$color = 'red';
 			break;
-		case 'res_nature':
+		case 'nature':
 			$name = $wordings[$lang]['res_nature'];
 			$tooltip = $wordings[$lang]['res_nature_tooltip'];
 			$color = 'green';
 			break;
-		case 'res_arcane':
+		case 'arcane':
 			$name = $wordings[$lang]['res_arcane'];
 			$tooltip = $wordings[$lang]['res_arcane_tooltip'];
 			$color = 'yellow';
 			break;
-		case 'res_frost':
+		case 'frost':
 			$name = $wordings[$lang]['res_frost'];
 			$tooltip = $wordings[$lang]['res_frost_tooltip'];
 			$color = 'blue';
 			break;
-		case 'res_shadow':
+		case 'shadow':
 			$name = $wordings[$lang]['res_shadow'];
 			$tooltip = $wordings[$lang]['res_shadow_tooltip'];
 			$color = 'purple';
 			break;
 		}
 
-		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span><br />';
+		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname).'<br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<div class="resist_'.substr($resname,4).'" '.makeOverlib($line,'','',2,'',',WRAP').'>' . $this->data[$resname.'_c'] . "</div>\n";
+		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>' . $this->data['res_'.$resname.'_c'] . "</div>\n";
+
+		return $output;
+	}
+
+	function printPetResist ( $resname , $data )
+	{
+		global $wordings, $roster_conf;
+
+		$lang = $this->data['clientLocale'];
+
+		switch($resname)
+		{
+		case 'fire':
+			$name = $wordings[$lang]['res_fire'];
+			$tooltip = $wordings[$lang]['res_fire_tooltip'];
+			$color = 'red';
+			break;
+		case 'nature':
+			$name = $wordings[$lang]['res_nature'];
+			$tooltip = $wordings[$lang]['res_nature_tooltip'];
+			$color = 'green';
+			break;
+		case 'arcane':
+			$name = $wordings[$lang]['res_arcane'];
+			$tooltip = $wordings[$lang]['res_arcane_tooltip'];
+			$color = 'yellow';
+			break;
+		case 'frost':
+			$name = $wordings[$lang]['res_frost'];
+			$tooltip = $wordings[$lang]['res_frost_tooltip'];
+			$color = 'blue';
+			break;
+		case 'shadow':
+			$name = $wordings[$lang]['res_shadow'];
+			$tooltip = $wordings[$lang]['res_shadow_tooltip'];
+			$color = 'purple';
+			break;
+		}
+
+		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$data.'<br />';
+		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
+
+		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>' . $data . "</div>\n";
 
 		return $output;
 	}
@@ -1409,9 +1515,9 @@ $returnstring .= '  <tr>
 		{
 			$output = '<div class="item" '.makeOverlib($wordings[$lang]['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
 			if ($slot == 'Ammo')
-				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="iconsmall"'." alt=\"\" />\n";
+				$output .= '<img src="'.$roster_conf['img_url'].'pixel.gif" class="iconsmall"'." alt=\"\" />\n";
 			else
-				$output .= '<img src="'.$roster_conf['interface_url'].'Interface/EmptyEquip/'.$slot.'.gif" class="icon"'." alt=\"\" />\n";
+				$output .= '<img src="'.$roster_conf['img_url'].'pixel.gif" class="icon"'." alt=\"\" />\n";
 			$output .= "</div>\n";
 		}
 		return '<div class="equip_'.$slot.'">'.$output.'</div>';
@@ -1529,8 +1635,7 @@ $returnstring .= '  <tr>
 <script type="text/javascript">
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
-	var initialtab=[1, \'treetab0\'];
-	window.onload=tab_nav_onload(\'talent_navagation\')
+	window.onload=tab_nav_onload(\'talent_navagation\',[1, \'treetab0\'])
 </script>';
 			return $returndata;
 		}
@@ -1714,11 +1819,11 @@ if( isset( $this->data['guild_name'] ) )
 	<!-- End Equipment Items Loop -->
 
 	<!-- Begin Resists Loop -->
-		<?php print $this->printRes('res_fire'); ?>
-		<?php print $this->printRes('res_nature'); ?>
-		<?php print $this->printRes('res_arcane'); ?>
-		<?php print $this->printRes('res_frost'); ?>
-		<?php print $this->printRes('res_shadow'); ?>
+		<?php print $this->printResist('arcane'); ?>
+		<?php print $this->printResist('fire'); ?>
+		<?php print $this->printResist('nature'); ?>
+		<?php print $this->printResist('frost'); ?>
+		<?php print $this->printResist('shadow'); ?>
 	<!-- End Resists Loop -->
 
 	<!-- Begin Advanced Stats -->
@@ -1731,8 +1836,8 @@ elseif( $this->data['class'] == $wordings[$lang]['Rogue'] )
 else
 	$mana_word = $wordings[$lang]['mana'];
 ?>
-		<div class="health"><span class="yellow"><?php print $wordings[$lang]['health']; ?>:</span> <?php print $this->data['health']; ?></div>
-		<div class="mana"><span class="yellow"><?php print $mana_word; ?>:</span> <?php print $this->data['mana']; ?></div>
+		<div class="health"><span class="yellowB"><?php print $wordings[$lang]['health']; ?>:</span> <?php print $this->data['health']; ?></div>
+		<div class="mana"><span class="yellowB"><?php print $mana_word; ?>:</span> <?php print $this->data['mana']; ?></div>
 
 		<div class="info_desc">
 <?php
@@ -1890,6 +1995,7 @@ else
 <!-- Begin tab2 -->
 	<div id="tab2" class="tab2" style="display:none;">
 		<div class="background">&nbsp;</div>
+		<?php print $petTab; ?>
 	</div>
 
 <!-- Begin tab3 -->
@@ -1927,8 +2033,7 @@ if ($petTab != '')
 <script type="text/javascript">
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
-	var initialtab=[1, 'tab1'];
-	window.onload=tab_nav_onload('char_navagation')
+	window.onload=tab_nav_onload('char_navagation',[1, 'tab1'])
 </script>
 
 <?php
