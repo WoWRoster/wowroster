@@ -408,9 +408,18 @@ function collecttablinks(elemID)
 	tabobjlinks=tabobj.getElementsByTagName('li')
 }
 
-function tab_nav_onload(elemID)
+function tab_nav_onload(elemID,FirstTab)
 {
 	collecttablinks(elemID)
 
-	displaypage(initialtab[1], tabobjlinks[initialtab[0]-1])
+	displaypage(FirstTab[1], tabobjlinks[FirstTab[0]-1])
+}
+
+function showPet(num)
+{
+	for (i = 0; i <= 5; i++)
+	{
+		hide('pet_' + i);
+	}
+	show('pet_' + num);
 }

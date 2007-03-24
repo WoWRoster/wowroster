@@ -469,58 +469,50 @@ $lang['tsArray'] = array (
 
 //Tradeskill Icons-Array
 $lang['ts_iconArray'] = array (
-	$lang['Alchemy']=>'Trade_Alchemy',
-	$lang['Herbalism']=>'Trade_Herbalism',
-	$lang['Blacksmithing']=>'Trade_BlackSmithing',
-	$lang['Mining']=>'Trade_Mining',
-	$lang['Leatherworking']=>'Trade_LeatherWorking',
-	$lang['Jewelcrafting']=>'INV_Misc_Gem_02',
-	$lang['Skinning']=>'INV_Misc_Pelt_Wolf_01',
-	$lang['Tailoring']=>'Trade_Tailoring',
-	$lang['Enchanting']=>'Trade_Engraving',
-	$lang['Engineering']=>'Trade_Engineering',
-	$lang['Cooking']=>'INV_Misc_Food_15',
-	$lang['Fishing']=>'Trade_Fishing',
-	$lang['First Aid']=>'Spell_Holy_SealOfSacrifice',
-	$lang['Poisons']=>'Ability_Poisons',
-	'Tigerreiten'=>'Ability_Mount_WhiteTiger',
-	'Pferdreiten'=>'Ability_Mount_RidingHorse',
-	'Widderreiten'=>'Ability_Mount_MountainRam',
-	'Roboschreiter-Lenken'=>'Ability_Mount_MechaStrider',
-	'Untoten-Reitkunst'=>'Ability_Mount_Undeadhorse',
-	'Raptorreiten'=>'Ability_Mount_Raptor',
-	'Kodoreiten'=>'Ability_Mount_Kodo_03',
-	'Wolfreiten'=>'Ability_Mount_BlackDireWolf',
+	$lang['Alchemy']=>'trade_alchemy',
+	$lang['Herbalism']=>'trade_herbalism',
+	$lang['Blacksmithing']=>'trade_blacksmithing',
+	$lang['Mining']=>'trade_mining',
+	$lang['Leatherworking']=>'trade_leatherworking',
+	$lang['Jewelcrafting']=>'inv_misc_gem_02',
+	$lang['Skinning']=>'inv_misc_pelt_wolf_01',
+	$lang['Tailoring']=>'trade_tailoring',
+	$lang['Enchanting']=>'trade_engraving',
+	$lang['Engineering']=>'trade_engineering',
+	$lang['Cooking']=>'inv_misc_food_15',
+	$lang['Fishing']=>'trade_fishing',
+	$lang['First Aid']=>'spell_holy_sealofsacrifice',
+	$lang['Poisons']=>'ability_poisons'
 );
 
 // Riding Skill Icons-Array
 $lang['riding'] = 'Reiten';
 $lang['ts_ridingIcon'] = array(
-	'Nachtelf'=>'Ability_Mount_WhiteTiger',
-	'Mensch'=>'Ability_Mount_RidingHorse',
-	'Zwerg'=>'Ability_Mount_MountainRam',
-	'Gnom'=>'Ability_Mount_MechaStrider',
-	'Untoter'=>'Ability_Mount_Undeadhorse',
-	'Troll'=>'Ability_Mount_Raptor',
-	'Tauren'=>'Ability_Mount_Kodo_03',
-	'Orc'=>'Ability_Mount_BlackDireWolf',
-	'Blutelf' => 'Ability_Mount_CockatriceMount',
-	'Draenei' => 'Ability_Mount_RidingElekk',
-	'Paladin'=>'Ability_Mount_Dreadsteed',
-	'Hexenmeister'=>'Ability_Mount_NightmareHorse'
+	'Nachtelf'=>'ability_mount_whitetiger',
+	'Mensch'=>'ability_mount_ridinghorse',
+	'Zwerg'=>'ability_mount_mountainram',
+	'Gnom'=>'ability_mount_mechastrider',
+	'Untoter'=>'ability_mount_undeadhorse',
+	'Troll'=>'ability_mount_raptor',
+	'Tauren'=>'ability_mount_kodo_03',
+	'Orc'=>'ability_mount_blackdirewolf',
+	'Blutelf' => 'ability_mount_cockatricemount',
+	'Draenei' => 'ability_mount_ridingelekk',
+	'Paladin'=>'ability_mount_dreadsteed',
+	'Hexenmeister'=>'ability_mount_nightmarehorse'
 );
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
-	'Druide'=>'Ability_Druid_Maul',
-	'Jäger'=>'INV_Weapon_Bow_08',
-	'Magier'=>'INV_Staff_13',
-	'Paladin'=>'Spell_Fire_FlameTounge',
-	'Priester'=>'Spell_Holy_LayOnHands',
-	'Schurke'=>'INV_ThrowingKnife_04',
-	'Schamane'=>'Spell_Nature_BloodLust',
-	'Hexenmeister'=>'Spell_Shadow_Cripple',
-	'Krieger'=>'INV_Sword_25',
+	'Druide'=>'ability_druid_maul',
+	'J�ger'=>'inv_weapon_bow_08',
+	'Magier'=>'inv_staff_13',
+	'Paladin'=>'spell_fire_flametounge',
+	'Priester'=>'spell_holy_layonhands',
+	'Schurke'=>'inv_throwingknife_04',
+	'Schamane'=>'spell_nature_bloodlust',
+	'Hexenmeister'=>'spell_shadow_cripple',
+	'Krieger'=>'inv_sword_25',
 );
 
 //skills
@@ -608,16 +600,16 @@ $lang['defense_rating']='Verteidigungswertung ';
 $lang['def_tooltip']='Erhöht die Chance auf %s';
 $lang['resilience']='Abhärtung';
 
-$lang['res_fire']='Feuer Widerstand';
-$lang['res_fire_tooltip']='Erh&ouml;ht deinen Widerstand gegen Feuerschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
-$lang['res_nature']='Natur Widerstand';
-$lang['res_nature_tooltip']='Erh&ouml;ht deinen Widerstand gegen Naturschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
 $lang['res_arcane']='Arkan Widerstand';
-$lang['res_arcane_tooltip']='Erh&ouml;ht deinen Widerstand gegen Arkanschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
+$lang['res_arcane_tooltip']='Increases your ability to resist Arcane Resistance-based attacks, spells, and abilities.';
+$lang['res_fire']='Feuer Widerstand';
+$lang['res_fire_tooltip']='Increases your ability to resist Fire Resistance-based attacks, spells, and abilities.';
+$lang['res_nature']='Natur Widerstand';
+$lang['res_nature_tooltip']='Increases your ability to resist Nature Resistance-based attacks, spells, and abilities.';
 $lang['res_frost']='Frost Widerstand';
-$lang['res_frost_tooltip']='Erh&ouml;ht deinen Widerstand gegen Frostschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
+$lang['res_frost_tooltip']='Increases your ability to resist Frost Resistance-based attacks, spells, and abilities.';
 $lang['res_shadow']='Schatten Widerstand';
-$lang['res_shadow_tooltip']='Erh&ouml;ht deinen Widerstand gegen Schattenschaden.<br />Je h&ouml;her der Wert, desto h&ouml;her der Widerstand.';
+$lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
 
 $lang['empty_equip']='Kein Gegenstand angelegt';
 $lang['pointsspent']='Punkte verteilt in';
