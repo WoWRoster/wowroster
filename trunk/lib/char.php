@@ -235,7 +235,7 @@ class char
 		if( isset( $recipes[0] ) )
 		{
 			$skill_name = '';
-			$returnstring = '<span class="headline_1">'.$wordings[$lang]['recipelist'].'</span>'."\n";
+			$returnstring = '';
 
 			// Get char professions for quick links
 			$query = "SELECT `skill_name` FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
@@ -1682,7 +1682,7 @@ if( isset( $this->data['guild_name'] ) )
 
 ?>
 
-<!-- Begin Character Page -->
+<!-- Begin tab1 -->
 	<div id="tab1" class="tab1" style="display:none;">
 		<div class="background">&nbsp;</div>
 
@@ -1887,7 +1887,27 @@ else
 			<?php print $this->printBox('defense','right',false); ?>
 		</div>
 	</div>
+<!-- Begin tab2 -->
+	<div id="tab2" class="tab2" style="display:none;">
+		<div class="background">&nbsp;</div>
+	</div>
 
+<!-- Begin tab3 -->
+	<div id="tab3" class="tab3" style="display:none;">
+		<div class="background">&nbsp;</div>
+	</div>
+
+<!-- Begin tab4 -->
+	<div id="tab4" class="tab4" style="display:none;">
+		<div class="background">&nbsp;</div>
+	</div>
+
+<!-- Begin tab5 -->
+	<div id="tab5" class="tab5" style="display:none;">
+		<div class="background">&nbsp;</div>
+	</div>
+
+<!-- Begin Navagation Tabs -->
 	<div id="char_navagation" class="tab_navagation">
 		<ul>
 			<li onclick="return displaypage('tab1',this);"><div class="text"><?php print $wordings[$lang]['tab1']; ?></div></li>

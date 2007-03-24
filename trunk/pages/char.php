@@ -161,6 +161,10 @@ $char_menu .= '
 	<div class="lastupdated">'.$act_words['lastupdate'].': '.$char->data['update_format'].'</div>
 </div>';
 
+$char_menu .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">'.
+	makelink('char'.(empty($action)?'':'-'.$action).$char_url,true).'<br />'.
+	makelink('char'.(empty($action)?'':'-'.$action).$char_url_old,true).
+	'</div>','','sgreen');
 
 
 $char_page = "<div align=\"".$roster_conf['char_bodyalign']."\" style=\"margin:10px;\">\n";
@@ -305,10 +309,6 @@ if( empty($action) && $roster_conf['show_item_bonuses'])
 	$char_page .= dumpBonuses($char);
 }
 
-$char_page .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">'.
-	makelink('char'.(empty($action)?'':'-'.$action).$char_url,true).'<br />'.
-	makelink('char'.(empty($action)?'':'-'.$action).$char_url_old,true).
-	'</div>',$act_words['char_links'],'sgreen');
 
 $char_page .= "</div>\n";
 
