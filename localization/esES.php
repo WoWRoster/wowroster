@@ -536,7 +536,7 @@ $lang['skilltypes'] = array(
 //tabs
 $lang['tab1']='Persj';
 $lang['tab2']='Mascota';
-$lang['tab3']='Rep';
+$lang['tab3']='Reputation';
 $lang['tab4']='Habilid';
 $lang['tab5']='JcJ';
 
