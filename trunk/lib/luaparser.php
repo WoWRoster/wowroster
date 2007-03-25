@@ -115,5 +115,3 @@ function ParseLuaFile( $file_name )
 		return($stack[0][1]);
 	}
 }
-
-?>

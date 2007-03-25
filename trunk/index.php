@@ -18,6 +18,22 @@
 
 require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'settings.php' );
 
+
+//---[ Text File Downloader ]-----------------------------
+if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['data']) )
+{
+	$file = $_POST['data'];
+
+	header('Content-Type: text/x-delimtext; name="'.$_POST['send_file'].'.txt"');
+	header('Content-disposition: attachment; filename="'.$_POST['send_file'].'.txt"');
+
+	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
+	echo stripslashes($file);
+
+	exit;
+}
+
+
 // Determine the module request
 $page = ( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) ) ? $_GET[ROSTER_PAGE] : $roster_conf['default_page'];
 
