@@ -73,6 +73,7 @@ if( isset($db_prefix) )
 	define('ROSTER_SKILLSTABLE',$db_prefix.'skills');
 	define('ROSTER_SPELLTABLE',$db_prefix.'spellbook');
 	define('ROSTER_SPELLTREETABLE',$db_prefix.'spellbooktree');
+	define('ROSTER_PETSPELLTABLE',$db_prefix.'spellbook_pet');
 	define('ROSTER_TALENTSTABLE',$db_prefix.'talents');
 	define('ROSTER_TALENTTREETABLE',$db_prefix.'talenttree');
 }

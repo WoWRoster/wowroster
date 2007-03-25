@@ -696,6 +696,20 @@ CREATE TABLE `renprefix_spellbooktree` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Pet Spellbook
+
+DROP TABLE IF EXISTS `renprefix_spellbook_pet`;
+CREATE TABLE `renprefix_spellbook_pet` (
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `pet_id` int(11) unsigned NOT NULL default '0',
+  `spell_name` varchar(64) NOT NULL default '',
+  `spell_texture` varchar(64) NOT NULL default '',
+  `spell_rank` varchar(64) NOT NULL default '',
+  `spell_tooltip` mediumtext NOT NULL,
+  PRIMARY KEY (`member_id`,`pet_id`,`spell_name`,`spell_rank`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
 ### Talents
 
 DROP TABLE IF EXISTS `renprefix_talents`;

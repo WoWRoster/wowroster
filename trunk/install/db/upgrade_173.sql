@@ -42,6 +42,7 @@ ALTER TABLE `renprefix_config` ORDER BY `id`;
 # --------------------------------------------------------
 ### Fix Item Icons
 UPDATE `renprefix_items` SET `item_texture` = REPLACE(`item_texture`,'Interface/Icons/','');
+UPDATE `renprefix_buffs` SET `icon` = REPLACE(`icon`,'Interface/Icons/','');
 UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'Interface/Icons/','');
 UPDATE `renprefix_mailbox` SET `item_icon` = REPLACE(`item_icon`,'Interface/Icons/','');
 UPDATE `renprefix_recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'Interface/Icons/','');
@@ -51,6 +52,7 @@ UPDATE `renprefix_talents` SET `texture` = REPLACE(`texture`,'Interface/Icons/',
 UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,'Interface/TalentFrame/','');
 
 UPDATE `renprefix_items` SET `item_texture` = LOWER(REPLACE(`item_texture`,' ','_'));
+UPDATE `renprefix_buffs` SET `icon` = LOWER(REPLACE(`icon`,' ','_'));
 UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = LOWER(REPLACE(`mailbox_coin_icon`,' ','_'));
 UPDATE `renprefix_mailbox` SET `item_icon` = LOWER(REPLACE(`item_icon`,' ','_'));
 UPDATE `renprefix_recipes` SET `recipe_texture` = LOWER(REPLACE(`recipe_texture`,' ','_'));
@@ -303,6 +305,19 @@ CREATE TABLE `renprefix_pets` (
   PRIMARY KEY  (`pet_id`,`member_id`,`name`)
 ) TYPE=MyISAM;
 
+# --------------------------------------------------------
+### Pet Spellbook
+
+DROP TABLE IF EXISTS `renprefix_spellbook_pet`;
+CREATE TABLE `renprefix_spellbook_pet` (
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `pet_id` int(11) unsigned NOT NULL default '0',
+  `spell_name` varchar(64) NOT NULL default '',
+  `spell_texture` varchar(64) NOT NULL default '',
+  `spell_rank` varchar(64) NOT NULL default '',
+  `spell_tooltip` mediumtext NOT NULL,
+  PRIMARY KEY (`member_id`,`pet_id`,`spell_name`,`spell_rank`)
+) TYPE=MyISAM;
 
 # --------------------------------------------------------
 ### Alter Members Table

@@ -110,7 +110,7 @@ foreach( $disp_array as $global_setting => $user_setting )
 }
 
 
-$char->data['char_icon'] = $roster_conf['img_url'].'char/portrait/'.($char->data['sexid'] == '0' ? 'male-' : 'female-').strtolower($char->data['raceEn']);
+$char->data['char_icon'] = $roster_conf['img_url'].'char/portrait/'.strtolower($char->data['raceEn']).'-'.($char->data['sexid'] == '0' ? 'male' : 'female');
 
 
 $char_menu = '<div class="char_menubar">
