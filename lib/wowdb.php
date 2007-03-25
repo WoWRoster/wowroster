@@ -899,7 +899,7 @@ class wowdb
 				$this->add_value('name', $buff['Name'] );
 
 				if( isset( $buff['Icon'] ) )
-					$this->add_value('icon', $buff['Icon'] );
+					$this->add_value('icon', $this->fix_icon($buff['Icon']) );
 
 				if( isset( $buff['Rank'] ) )
 					$this->add_value('rank', $buff['Rank'] );
@@ -1479,6 +1479,71 @@ class wowdb
 		else
 		{
 			$this->setMessage('<li>No Spellbook Data</li>');
+		}
+	}
+
+
+	/**
+	 * Handles formating and insertion of spellbook data
+	 *
+	 * @param array $data
+	 * @param int $petID
+	 */
+	function do_pet_spellbook( $data , $memberId , $petID )
+	{
+		$spellbook = $data['SpellBook']['Spells'];
+
+		if( !empty($spellbook) && is_array($spellbook) )
+		{
+			$messages = '<li><ul><li>Updating Spellbook';
+
+			// first delete the stale data
+			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `pet_id` = '$petID'";
+			if( !$this->query($querystr) )
+			{
+				$this->setError('Spells could not be deleted',$this->error());
+				return;
+			}
+
+			// then process spellbook
+
+			foreach( array_keys( $spellbook ) as $spell )
+			{
+				$messages .= '.';
+				$data_spell = $spellbook[$spell];
+
+				if( is_array($data_spell) )
+				{
+					$this->reset_values();
+					$this->add_value('member_id', $memberId );
+					$this->add_value('pet_id', $petID );
+					$this->add_value('spell_name', $spell );
+					$this->add_value('spell_texture', $this->fix_icon($data_spell['Icon']) );
+					$this->add_value('spell_rank', $data_spell['Rank'] );
+
+					if( !empty($data_spell['Tooltip']) )
+					{
+						$this->add_value('spell_tooltip', $this->tooltip($data_spell['Tooltip']) );
+					}
+					elseif( !empty($spell) || !empty($data_spell['Rank']) )
+					{
+						$this->add_value('spell_tooltip', $spell."\n".$data_spell['Rank'] );
+					}
+
+					$querystr = "INSERT INTO `".ROSTER_PETSPELLTABLE."` SET ".$this->assignstr;
+					$result = $this->query($querystr);
+					if( !$result )
+					{
+						$this->setError('Spell ['.$spell_name.'] could not be inserted',$this->error());
+					}
+				}
+			}
+
+			$this->setMessage($messages.'</li></ul></li>');
+		}
+		else
+		{
+			$this->setMessage('<li><ul><li>No Spellbook Data</li></ul></li>');
 		}
 	}
 
@@ -2300,10 +2365,29 @@ class wowdb
 	 * @param int $memberId
 	 * @param array $data
 	 */
-	function update_pets( $memberId, $data )
+	function update_pet( $memberId, $data )
 	{
 		if (!empty($data['Name']))
 		{
+			$querystr = "SELECT `pet_id`
+				FROM `".ROSTER_PETSTABLE."`
+				WHERE `member_id` = '$memberId' AND `name` LIKE '".$this->escape($data['Name'])."'";
+
+			$result = $this->query($querystr);
+			if( !$result )
+			{
+				$this->setError('Cannot select Pet Data',$this->error());
+				return;
+			}
+
+			if( $this->num_rows( $result ) == 1 )
+			{
+				$update = true;
+				$petID = $this->fetch_assoc($result);
+				$petID = $petID['pet_id'];
+			}
+			$this->closeQuery($result);
+
 			$this->reset_values();
 
 			$this->add_value( 'member_id', $memberId );
@@ -2415,16 +2499,26 @@ class wowdb
 			$this->add_value( 'loyalty', $data['Loyalty']);
 			$this->add_value( 'icon', $this->fix_icon($data['Icon']));
 
-			$this->setMessage('<li>Updating pet ['.$data['Name'].']</li>');
+			if( $update )
+			{
+				$this->setMessage('<li>Updating pet ['.$data['Name'].']');
+				$querystr = "UPDATE `".ROSTER_PETSTABLE."` SET ".$this->assignstr." WHERE `pet_id` = '$petID'";
+				$result = $this->query($querystr);
+			}
+			else
+			{
+				$this->setMessage('<li>New pet ['.$data['Name'].']');
+				$querystr = "INSERT INTO `".ROSTER_PETSTABLE."` SET ".$this->assignstr;
+				$result = $this->query($querystr);
+				$petID = $this->insert_id();
+			}
 
-			$querystr = "INSERT INTO `".ROSTER_PETSTABLE."` SET ".$this->assignstr;
-
-			$result = $this->query($querystr);
 			if( !$result )
 			{
 				$this->setError('Cannot update Pet Data',$this->error());
 				return;
 			}
+			$this->do_pet_spellbook($data,$memberId,$petID);
 		}
 	}
 
@@ -2800,7 +2894,15 @@ class wowdb
 		$this->do_buffs( $data, $memberId );
 
 		// Adding pet info
-		if( !empty( $data['Pets'] ) )
+		if( !empty( $data['Pets'] ) && is_array($data['Pets']) )
+		{
+			$petsdata = $data['Pets'];
+			foreach( $petsdata as $pet )
+			{
+				$this->update_pet( $memberId, $pet );
+			}
+		}
+		else
 		{
 			$querystr = "DELETE FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$memberId'";
 			$result = $this->query($querystr);
@@ -2809,13 +2911,11 @@ class wowdb
 				$this->setError('Cannot delete Pet Data',$this->error());
 			}
 
-			$petsdata = $data['Pets'];
-			foreach( array_keys( $petsdata ) as $pet )
+			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `member_id` = '$memberId'";
+			$result = $this->query($querystr);
+			if( !$result )
 			{
-				$petinfo = $petsdata[$pet];
-				//print_r( $petinfo );
-				//print '</pre>';
-				$this->update_pets( $memberId, $petinfo );
+				$this->setError('Cannot delete Pet Spell Data',$this->error());
 			}
 		}
 

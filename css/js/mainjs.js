@@ -423,3 +423,12 @@ function showPet(num)
 	}
 	show('pet_' + num);
 }
+
+function showSpell(num)
+{
+	for (i = 0; i <= 3; i++)
+	{
+		hide('spelltree_' + i);
+	}
+	show('spelltree_' + num);
+}

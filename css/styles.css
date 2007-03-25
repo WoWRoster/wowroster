@@ -1581,7 +1581,6 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 .skill_types ul { margin:0;padding:0;list-style:none; }
 .skill_types li { background:url(../img/char/spellbook/skilltab.gif) no-repeat left top;margin:0;padding:1px 0 0 1px;cursor:pointer;height:49px;width:38px; }
 .skill_types .icon { display:block;width:34px;height:34px;margin:8px 0 0 1px; }
-.skill_types .current_tab { cursor:default; }
 
 /* Position of the spells on the left side */
 .spell_panel .container_1 { position:absolute;margin-top:80px;margin-left:20px; }

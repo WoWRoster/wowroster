@@ -485,7 +485,6 @@ $returnstring .= '  <tr>
 	}
 
 
-
 	function show_spellbook()
 	{
 		global $wowdb, $wordings, $roster_conf;
@@ -559,6 +558,34 @@ $returnstring .= '  <tr>
 				$i++;
 			}
 		}
+		$wowdb->free_result($result);
+
+
+		// Get the PET spell data
+		$query = "SELECT `spell`.*, `pet`.`name`
+			FROM `".ROSTER_PETSPELLTABLE."` as spell
+			LEFT JOIN `".ROSTER_PETSTABLE."` AS pet
+			ON `spell`.`pet_id` = `pet`.`pet_id`
+			WHERE `spell`.`member_id` = '".$this->data['member_id']."' ORDER BY `spell`.`spell_name`;";
+
+		$result = $wowdb->query($query);
+
+		$petspells = array();
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			$petid = $row['pet_id'];
+			$petspells[$petid]['name'] = $row['name'];
+			$petspells[$petid][$i]['name'] = $row['spell_name'];
+			$petspells[$petid][$i]['icon'] = 'Interface/Icons/'.$row['spell_texture'];
+			$petspells[$petid][$i]['rank'] = $row['spell_rank'];
+
+			// Parse the tooltip
+			$petspells[$petid][$i]['tooltip'] = makeOverlib($row['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
+			$i++;
+		}
+		$wowdb->free_result($result);
+
+
 
 		$return_string = '
 <div class="char_panel spell_panel">
@@ -566,27 +593,28 @@ $returnstring .= '  <tr>
 	<div class="panel_title">'.$wordings[$lang]['spellbook'].'</div>
 	<div class="background">&nbsp;</div>
 
-	<div class="skill_types" id="skill_tab_bar">
-		<ul>
+	<div id="main_spells">
+		<div class="skill_types">
+			<ul>
 ';
 
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '			<li onclick="return displaypage(\'spelltree_'.$tree['id'].'\',this);"><img class="icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" /><div class="icon_hover"></div></li>'."\n";
+			$return_string .= '				<li onclick="return showSpell(\''.$tree['id'].'\');"><img class="icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" /></li>'."\n";
 		}
-		$return_string .= "		</ul>\n	</div>\n";
+		$return_string .= "			</ul>\n		</div>\n";
 
 
 		foreach( $spelltree as $tree )
 		{
 			if( $tree['id'] == 0 )
 			{
-				$return_string .= '	<div id="spelltree_'.$tree['id'].'">'."\n";
+				$return_string .= '		<div id="spelltree_'.$tree['id'].'">'."\n";
 			}
 			else
 			{
-				$return_string .= '	<div id="spelltree_'.$tree['id'].'" style="display:none;">'."\n";
+				$return_string .= '		<div id="spelltree_'.$tree['id'].'" style="display:none;">'."\n";
 			}
 
 			$num_pages = count($tree['spells']);
@@ -598,36 +626,76 @@ $returnstring .= '  <tr>
 				{
 					if( ($num_pages-1) == $page )
 					{
-						$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '			<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-						$return_string .= '			<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
+						$return_string .= '				<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+						$return_string .= '				<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 					else
 					{
-						$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '			<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-						$return_string .= '			<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
+						$return_string .= '				<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
-					$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '			<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-					$return_string .= '			<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '				<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
 				}
 				else
 				{
-					$return_string .= '		<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '			<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-					$return_string .= '			<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 				}
-				$return_string .= '			<div class="pagenumber">'.$wordings[$lang]['page'].' '.($page+1).'</div>'."\n";
+				$return_string .= '				<div class="pagenumber">'.$wordings[$lang]['page'].' '.($page+1).'</div>'."\n";
 
 
 				$icon_num = 0;
 				foreach( $spellpage as $spellicons )
+				{
+					if( $icon_num == 0 )
+					{
+						$return_string .= '				<div class="container_1">'."\n";
+					}
+					elseif( $icon_num == 7 )
+					{
+						$return_string .= "				</div>\n				<div class=\"container_2\">\n";
+					}
+					$return_string .= '
+				<div class="info_container">
+					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
+					<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
+					if( $spellicons['rank'] != '' )
+					{
+						$return_string .= '<br /><span class="brownB">'.$spellicons['rank'].'</span>';
+					}
+					$return_string .= "</span>\n					</div>\n";
+					$icon_num++;
+				}
+				$return_string .= "				</div>\n			</div>\n";
+
+				$page++;
+			}
+			$return_string .= "		</div>\n";
+		}
+		$return_string .= "	</div>\n";
+
+		// PET SPELLS
+		$pet_tabs = '';
+		foreach( $petspells as $petid => $pet )
+		{
+			$pet_tabs .= '			<li onclick="return displaypage(\'petspell_'.$petid.'\',this);"><div class="text">'.$pet['name']."</div></li>\n";
+
+			$return_string .= '		<div id="petspell_'.$petid.'" style="display:none;">'."\n";
+
+			$icon_num = 0;
+			foreach( $pet as $arrayname => $spellicons )
+			{
+				if( $arrayname != 'name' )
 				{
 					if( $icon_num == 0 )
 					{
@@ -638,9 +706,9 @@ $returnstring .= '  <tr>
 						$return_string .= "			</div>\n			<div class=\"container_2\">\n";
 					}
 					$return_string .= '
-				<div class="info_container">
-					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
-					<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
+			<div class="info_container">
+				<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
+				<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
 						$return_string .= '<br /><span class="brownB">'.$spellicons['rank'].'</span>';
@@ -648,18 +716,27 @@ $returnstring .= '  <tr>
 					$return_string .= "</span>\n				</div>\n";
 					$icon_num++;
 				}
-				$return_string .= "			</div>\n		</div>\n";
-
-				$page++;
 			}
-			$return_string .= "	</div>\n";
+			$return_string .= "			</div>\n		</div>\n";
 		}
-		$return_string .= '</div>
+
+		//$return_string .= "	</div>\n";
+
+
+		$return_string .= '
+<!-- Begin Navagation Tabs -->
+	<div id="spell_set" class="tab_navagation">
+		<ul>
+			<li onclick="return displaypage(\'main_spells\',this);"><div class="text">'.$this->data['name'].'</div></li>
+'.$pet_tabs.'
+		</ul>
+	</div>
+</div>
 
 <script type="text/javascript">
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
-	window.onload=tab_nav_onload(\'skill_tab_bar\',[1, \'spelltree_0\'])
+	window.onload=tab_nav_onload(\'spell_set\',[1, \'main_spells\'])
 </script>'."\n";
 
 		return $return_string;
@@ -1897,6 +1974,7 @@ if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 {
 	$expbar_width = '216';
 	$expbar_text = $wordings[$lang]['max_exp'];
+	$expbar_type = 'expbar_full';
 }
 else
 {
