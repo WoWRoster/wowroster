@@ -702,7 +702,7 @@ function messagebox($message, $title = 'Message', $style = 'sgray')
 {
 	return
 		border($style, 'start', $title).
-		'<div align="center">'.
+		'<div align="center" style="background-color:#1F1E1D;">'.
 		$message.
 		'</div>'.
 		border($style, 'end');
@@ -751,7 +751,7 @@ function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open 
 
 	return
 		border($style, 'start', $title).
-		'<div style="display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
+		'<div style="display:'.(($open)?'inline':'none').';background-color:#1F1E1D;" id="msgbox_'.$toggleboxes.'">'.
 		$message.
 		'</div>'.
 		border($style, 'end');

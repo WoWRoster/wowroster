@@ -500,12 +500,22 @@ class wowdb
 	 */
 	function add_time( $row_name, $date )
 	{
-		if( $this->assignstr != '' )
-			$this->assignstr .= ',';
+		// 2000-01-01 23:00:00.000
+		$row_data = $date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':'.$date['seconds'];
+		$this->add_value($row_name,$row_data);
+	}
 
-		// 01/01/2000 23:00:00.000
-		$row_data = "'".$date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':'.$date['seconds']."'";
-		$this->assignstr .= " `$row_name` = $row_data";
+
+	/**
+	 * Add a time value to an INSERT or UPDATE SQL string
+	 *
+	 * @param string $row_name
+	 * @param string $date | UNIX TIMESTAMP
+	 */
+	function add_timestamp( $row_name, $date )
+	{
+		$date = date('Y-m-d H:i:s',$date);
+		$this->add_value($row_name,$date);
 	}
 
 
@@ -517,13 +527,9 @@ class wowdb
 	 */
 	function add_pvp2time( $row_name, $date )
 	{
-		if( $this->assignstr != '' )
-			$this->assignstr .= ',';
-
 		$date_str = strtotime($date);
-		$p2newdate = date('Y-m-d G:i:s',$date_str);
-		$row_data = "'".$p2newdate."'";
-		$this->assignstr .= " `$row_name` = $row_data";
+		$p2newdate = date('Y-m-d H:i:s',$date_str);
+		$this->add_value($row_name,$p2newdate);
 	}
 
 	/**
@@ -1495,7 +1501,7 @@ class wowdb
 
 		if( !empty($spellbook) && is_array($spellbook) )
 		{
-			$messages = '<li><ul><li>Updating Spellbook';
+			$messages = '<ul><li>Updating Spellbook';
 
 			// first delete the stale data
 			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `pet_id` = '$petID'";
@@ -1543,7 +1549,7 @@ class wowdb
 		}
 		else
 		{
-			$this->setMessage('<li><ul><li>No Spellbook Data</li></ul></li>');
+			$this->setMessage('<ul><li>No Spellbook Data</li></ul></li>');
 		}
 	}
 
@@ -1976,17 +1982,12 @@ class wowdb
 		$this->add_value( 'factionEn', $guild['FactionEn'] );
 		$this->add_value( 'guild_motd', $guild['Motd'] );
 
-		if( !empty($guild['NumMembers']) )
-			$this->add_value( 'guild_num_members', $guild['NumMembers'] );
-		if( !empty($guild['NumAccounts']) )
-			$this->add_value( 'guild_num_accounts', $guild['NumAccounts'] );
-		if( !empty($currentTime) )
-			$this->add_time( 'update_time', $currentTime );
+		$this->add_value( 'guild_num_members', $guild['NumMembers'] );
+		$this->add_value( 'guild_num_accounts', $guild['NumAccounts'] );
 
-		if( !empty($guild['timestamp']['init']['DateUTC']) )
-		{
-			$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
-		}
+		$this->add_timestamp( 'update_time', $currentTime );
+
+		$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
 
 		$this->add_value( 'GPversion', $guild['DBversion'] );
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
@@ -2857,7 +2858,7 @@ class wowdb
 
 		// Capture mailbox update time/date
 		if( isset($data['timestamp']['MailBox']) )
-			$this->add_value( 'maildateutc', date('m/d/y H:i:s',$data['timestamp']['MailBox']) );
+			$this->add_timestamp( 'maildateutc', $data['timestamp']['MailBox'] );
 
 		// Capture client language
 		$this->add_value( 'clientLocale', $data['Locale'] );

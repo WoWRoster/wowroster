@@ -321,6 +321,7 @@ $lang['mana']='Mana';
 $lang['gold']='Gold';
 $lang['armor']='Rüstung';
 $lang['lastonline']='Zuletzt Online';
+$lang['online']='Online';
 $lang['lastupdate']='Zuletzt aktualisiert';
 $lang['currenthonor']='Aktueller Ehrenrang';
 $lang['rank']='Rank';
@@ -385,6 +386,7 @@ $lang['parry'] = 'Parieren';
 $lang['block'] = 'Blocken';
 $lang['realm'] = 'Realm';
 $lang['talents'] = 'Talente';
+$lang['online_at_up'] = 'Online at Update';
 
 // Memberlog
 $lang['memberlog'] = 'Mitglieder Log';
