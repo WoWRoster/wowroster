@@ -100,14 +100,11 @@ class update
 				$filebase = strtolower($filename[0]);
 				if (in_array($filebase,$this->files))
 				{
-					// Check if this file is gzipped
-					$filemode = (in_array('gz',$filename))?'gz':'';
-
 					// Get start of parse time
 					$parse_starttime = explode(' ', microtime() );
 					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
-					$data = ParseLuaFile( $file['tmp_name'], $filemode );
+					$data = ParseLuaFile( $file['tmp_name'] );
 
 					// Calculate parse time
 					$parse_endtime = explode(' ', microtime() );
@@ -243,7 +240,7 @@ class update
 	function processMyProfile()
 	{
 		global $wowdb, $roster_conf, $act_words;
-		
+
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 
 		$wowdb->resetMessages();
@@ -463,4 +460,3 @@ class update
 		return $filefields;
 	}
 }
-?>

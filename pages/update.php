@@ -21,21 +21,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-//---[ Update File Downloader ]-----------------------------
-if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['data']) )
-{
-	$file = $_POST['data'];
-
-	header('Content-Type: text/x-delimtext; name="'.$_POST['send_file'].'_log.txt"');
-	header('Content-disposition: attachment; filename="'.$_POST['send_file'].'_log.txt"');
-
-	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
-	echo stripslashes($file);
-
-	exit;
-}
-
-
 // Include update lib
 require_once(ROSTER_LIB.'update.lib.php');
 $update = new update;
@@ -66,7 +51,7 @@ if (($_POST['process'] == 'process') || $isUU)
 {
 	$messages .= $update->parseFiles();
 	$messages .= $update->processFiles();
-	
+
 	$errors = $wowdb->getErrors();
 
 	// Normal upload results
@@ -82,9 +67,9 @@ if (($_POST['process'] == 'process') || $isUU)
 
 			// Print the downloadable errors separately so we can generate a download
 			print "<br />\n";
-			print '<form method="post" action="'.makelink('update').'" name="post">'."\n";
+			print '<form method="post" action="'.makelink().'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errors)).'" />'."\n";
-			print '<input type="hidden" name="send_file" value="error" />'."\n";
+			print '<input type="hidden" name="send_file" value="error_log" />'."\n";
 			print '<input type="submit" name="download" value="'.$act_words['save_error_log'].'" />'."\n";
 			print '</form>';
 			print "<br />\n";
@@ -95,13 +80,13 @@ if (($_POST['process'] == 'process') || $isUU)
 
 		// Print the downloadable messages separately so we can generate a download
 		print "<br />\n";
-		print '<form method="post" action="'.makelink('update').'" name="post">'."\n";
+		print '<form method="post" action="'.makelink().'" name="post">'."\n";
 		print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($messages)).'" />'."\n";
-		print '<input type="hidden" name="send_file" value="update" />'."\n";
+		print '<input type="hidden" name="send_file" value="update_log" />'."\n";
 		print '<input type="submit" name="download" value="'.$act_words['save_update_log'].'" />'."\n";
 		print '</form>';
 		print "<br />\n";
-		
+
 		include_once(ROSTER_BASE.'roster_footer.tpl');
 	}
 	else
@@ -115,7 +100,7 @@ else
 	include_once(ROSTER_BASE.'roster_header.tpl');
 	include_once(ROSTER_LIB.'menu.php');
 
-	print '<form action="'.makelink('update').'" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this);">'."\n";
+	print '<form action="'.makelink().'" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this);">'."\n";
 
 	print messagebox('<table class="bodyline" cellspacing="0" cellpadding="0">'.$update->makeFileFields().'</table>',$act_words['update_page'],'sblue');
 
@@ -130,7 +115,7 @@ else
                     </tr>
                   </table>'."\n";
 	print border('sgray','end');
-	
+
 	print "<br />\n";
 
 	print '<input type="hidden" name="process" value="process">'."\n";
@@ -142,6 +127,6 @@ else
 		print "<br />\n";
 		print scrollbox($messages,'Messages','syellow');
 	}
-	
+
 	include_once(ROSTER_BASE.'roster_footer.tpl');
 }
