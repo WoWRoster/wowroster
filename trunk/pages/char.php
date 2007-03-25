@@ -114,7 +114,7 @@ $char->data['char_icon'] = $roster_conf['img_url'].'char/portrait/'.($char->data
 
 
 $char_menu = '<div class="char_menubar">
-	
+
 	<a href="'.makelink('char'.$char_url).'" onmouseover="overlib(\''.$act_words['character'].' Stats\',WRAP);" onmouseout="return nd();">
 		<img class="char_image" src="'.$char->data['char_icon'].'.gif" alt="" /></a>';
 
@@ -125,6 +125,10 @@ if( $roster_conf['show_talents'] )
 if( $roster_conf['show_spellbook'] )
 	$char_menu .= '	<a href="'.makelink('char-spellbook'.$char_url).'" onmouseover="overlib(\''.$act_words['spellbook'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_spellbook.jpg" alt="" /></a>';
+
+if( $roster_conf['show_mail'] )
+	$char_menu .= '	<a href="'.makelink('char-mailbox'.$char_url).'" onmouseover="overlib(\''.$act_words['mailbox'].'\',WRAP);" onmouseout="return nd();">
+		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_mail.jpg" alt="" /></a>';
 
 if( $roster_conf['show_inventory'] )
 	$char_menu .= '	<a href="'.makelink('char-bags'.$char_url).'" onmouseover="overlib(\''.$act_words['bags'].'\',WRAP);" onmouseout="return nd();">
@@ -167,7 +171,7 @@ $char_menu .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">
 	'</div>','','sgreen');
 
 
-$char_page = "<div align=\"".$roster_conf['char_bodyalign']."\" style=\"margin:10px;\">\n";
+$char_page = "<div align=\"".$roster_conf['char_bodyalign']."\">\n";
 
 
 $char_page .= '

@@ -791,7 +791,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 /* Character page Menu Bar */
 .char_menubar {
 	background:url(../img/char/menubar/menubar.gif) no-repeat;
-	width:454px;
+	width:496px;
 	height:66px;
 }
 /* Character Image on menu bar */
@@ -899,7 +899,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	margin:77px 0pt 0pt 261px;
 	text-align:center;
 	font-weight:bold;
-	color:#000000;
+	color:#000;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -910,7 +910,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	margin:106px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
-	color:#FFFFFF;
+	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -921,7 +921,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	margin:135px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
-	color:#FFFFFF;
+	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -932,7 +932,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	margin:164px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
-	color:#FFFFFF;
+	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -943,7 +943,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	margin:193px 0 0 261px;
 	text-align:center;
 	font-weight:bold;
-	color:#FFFFFF;
+	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -957,19 +957,19 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 
 /* Money display on the character tab */
 .char_panel .tab1 .money_disp {
-	background:url(../img/char/money_frame.gif) no-repeat;
+	background:url(../img/char/money_frame.png) no-repeat;
 	font:10px verdana,arial,helvetica,sans-serif;
-	text-align:right;
+	text-align:center;
 	color:#FFFFFF;
 	position:absolute;
-	width:180px;
-	height:16px;
-	padding-top:2px;
-	margin:200px 0 0 70px;
+	width:115px;
+	height:15px;
+	padding-top:5px;
+	margin:201px 0 0 139px;
 	overflow:hidden;
 }
 /* Attributes of the coin images */
-.char_panel .tab1 .money_disp .coin { width:11px;height:10px;display:inline; }
+.char_panel .tab1 .money_disp .coin { width:11px;height:10px; }
 
 .char_panel .tab1 .health {
 	position:absolute;

@@ -44,7 +44,6 @@ ALTER TABLE `renprefix_config` ORDER BY `id`;
 UPDATE `renprefix_items` SET `item_texture` = REPLACE(`item_texture`,'Interface/Icons/','');
 UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = REPLACE(`mailbox_coin_icon`,'Interface/Icons/','');
 UPDATE `renprefix_mailbox` SET `item_icon` = REPLACE(`item_icon`,'Interface/Icons/','');
-UPDATE `renprefix_pets` SET `icon` = REPLACE(`icon`,'Interface/Icons/','');
 UPDATE `renprefix_recipes` SET `recipe_texture` = REPLACE(`recipe_texture`,'Interface/Icons/','');
 UPDATE `renprefix_spellbook` SET `spell_texture` = REPLACE(`spell_texture`,'Interface/Icons/','');
 UPDATE `renprefix_spellbooktree` SET `spell_texture` = REPLACE(`spell_texture`,'Interface/Icons/','');
@@ -54,7 +53,6 @@ UPDATE `renprefix_talenttree` SET `background` = REPLACE(`background`,'Interface
 UPDATE `renprefix_items` SET `item_texture` = LOWER(REPLACE(`item_texture`,' ','_'));
 UPDATE `renprefix_mailbox` SET `mailbox_coin_icon` = LOWER(REPLACE(`mailbox_coin_icon`,' ','_'));
 UPDATE `renprefix_mailbox` SET `item_icon` = LOWER(REPLACE(`item_icon`,' ','_'));
-UPDATE `renprefix_pets` SET `icon` = LOWER(REPLACE(`icon`,' ','_'));
 UPDATE `renprefix_recipes` SET `recipe_texture` = LOWER(REPLACE(`recipe_texture`,' ','_'));
 UPDATE `renprefix_spellbook` SET `spell_texture` = LOWER(REPLACE(`spell_texture`,' ','_'));
 UPDATE `renprefix_spellbooktree` SET `spell_texture` = LOWER(REPLACE(`spell_texture`,' ','_'));
@@ -175,7 +173,135 @@ ALTER TABLE `renprefix_players`
   ADD `spell_damage_nature` int(11) NOT NULL default '0',
   ADD `raceEn` varchar(32) NOT NULL default '' AFTER `race`,
   ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`,
-  ADD `sexid` tinyint(1) NOT NULL default '0' AFTER `sex`;
+  ADD `sexid` tinyint(1) NOT NULL default '0' AFTER `sex`,
+  ADD `power` varchar(32) NOT NULL default '' AFTER `mana`;
+
+
+# --------------------------------------------------------
+### Alter Pets Table
+
+DROP TABLE IF EXISTS `renprefix_pets`;
+CREATE TABLE `renprefix_pets` (
+  `pet_id` int(11) unsigned NOT NULL auto_increment,
+  `member_id` int(10) unsigned NOT NULL default '0',
+  `name` varchar(32) NOT NULL default '',
+  `slot` int(11) NOT NULL default '0',
+  `level` int(11) NOT NULL default '0',
+  `health` int(11) NOT NULL default '0',
+  `mana` int(11) NOT NULL default '0',
+  `power` varchar(32) NOT NULL default '',
+  `xp` varchar(32) NOT NULL default '0',
+  `usedtp` int(11) NOT NULL default '0',
+  `totaltp` int(11) NOT NULL default '0',
+  `type` varchar(32) NOT NULL default '',
+  `loyalty` varchar(32) NOT NULL default '',
+  `icon` varchar(64) NOT NULL default '',
+  `melee_power` int(11) NOT NULL default '0',
+  `melee_power_c` int(11) NOT NULL default '0',
+  `melee_power_b` int(11) NOT NULL default '0',
+  `melee_power_d` int(11) NOT NULL default '0',
+  `melee_hit` int(11) NOT NULL default '0',
+  `melee_hit_c` int(11) NOT NULL default '0',
+  `melee_hit_b` int(11) NOT NULL default '0',
+  `melee_hit_d` int(11) NOT NULL default '0',
+  `melee_crit` int(11) NOT NULL default '0',
+  `melee_crit_c` int(11) NOT NULL default '0',
+  `melee_crit_b` int(11) NOT NULL default '0',
+  `melee_crit_d` int(11) NOT NULL default '0',
+  `melee_haste` int(11) NOT NULL default '0',
+  `melee_haste_c` int(11) NOT NULL default '0',
+  `melee_haste_b` int(11) NOT NULL default '0',
+  `melee_haste_d` int(11) NOT NULL default '0',
+  `melee_crit_chance` float NOT NULL default '0',
+  `melee_power_dps` float NOT NULL default '0',
+  `melee_mhand_speed` float NOT NULL default '0',
+  `melee_mhand_dps` float NOT NULL default '0',
+  `melee_mhand_skill` int(11) NOT NULL default '0',
+  `melee_mhand_mindam` int(11) NOT NULL default '0',
+  `melee_mhand_maxdam` int(11) NOT NULL default '0',
+  `melee_mhand_rating` int(11) NOT NULL default '0',
+  `melee_mhand_rating_c` int(11) NOT NULL default '0',
+  `melee_mhand_rating_b` int(11) NOT NULL default '0',
+  `melee_mhand_rating_d` int(11) NOT NULL default '0',
+  `melee_range_tooltip` tinytext,
+  `melee_power_tooltip` tinytext,
+  `stat_int` int(11) NOT NULL default '0',
+  `stat_int_c` int(11) NOT NULL default '0',
+  `stat_int_b` int(11) NOT NULL default '0',
+  `stat_int_d` int(11) NOT NULL default '0',
+  `stat_agl` int(11) NOT NULL default '0',
+  `stat_agl_c` int(11) NOT NULL default '0',
+  `stat_agl_b` int(11) NOT NULL default '0',
+  `stat_agl_d` int(11) NOT NULL default '0',
+  `stat_sta` int(11) NOT NULL default '0',
+  `stat_sta_c` int(11) NOT NULL default '0',
+  `stat_sta_b` int(11) NOT NULL default '0',
+  `stat_sta_d` int(11) NOT NULL default '0',
+  `stat_str` int(11) NOT NULL default '0',
+  `stat_str_c` int(11) NOT NULL default '0',
+  `stat_str_b` int(11) NOT NULL default '0',
+  `stat_str_d` int(11) NOT NULL default '0',
+  `stat_spr` int(11) NOT NULL default '0',
+  `stat_spr_c` int(11) NOT NULL default '0',
+  `stat_spr_b` int(11) NOT NULL default '0',
+  `stat_spr_d` int(11) NOT NULL default '0',
+  `stat_def` int(11) NOT NULL default '0',
+  `stat_def_c` int(11) NOT NULL default '0',
+  `stat_def_b` int(11) NOT NULL default '0',
+  `stat_def_d` int(11) NOT NULL default '0',
+  `stat_armor` int(11) NOT NULL default '0',
+  `stat_armor_c` int(11) NOT NULL default '0',
+  `stat_armor_b` int(11) NOT NULL default '0',
+  `stat_armor_d` int(11) NOT NULL default '0',
+  `stat_block` int(11) NOT NULL default '0',
+  `stat_block_c` int(11) NOT NULL default '0',
+  `stat_block_b` int(11) NOT NULL default '0',
+  `stat_block_d` int(11) NOT NULL default '0',
+  `stat_parry` int(11) NOT NULL default '0',
+  `stat_parry_c` int(11) NOT NULL default '0',
+  `stat_parry_b` int(11) NOT NULL default '0',
+  `stat_parry_d` int(11) NOT NULL default '0',
+  `stat_defr` int(11) NOT NULL default '0',
+  `stat_defr_c` int(11) NOT NULL default '0',
+  `stat_defr_b` int(11) NOT NULL default '0',
+  `stat_defr_d` int(11) NOT NULL default '0',
+  `stat_dodge` int(11) NOT NULL default '0',
+  `stat_dodge_c` int(11) NOT NULL default '0',
+  `stat_dodge_b` int(11) NOT NULL default '0',
+  `stat_dodge_d` int(11) NOT NULL default '0',
+  `stat_res_ranged` int(11) NOT NULL default '0',
+  `stat_res_spell` int(11) NOT NULL default '0',
+  `stat_res_melee` int(11) NOT NULL default '0',
+  `res_holy` int(11) NOT NULL default '0',
+  `res_holy_c` int(11) NOT NULL default '0',
+  `res_holy_b` int(11) NOT NULL default '0',
+  `res_holy_d` int(11) NOT NULL default '0',
+  `res_frost` int(11) NOT NULL default '0',
+  `res_frost_c` int(11) NOT NULL default '0',
+  `res_frost_b` int(11) NOT NULL default '0',
+  `res_frost_d` int(11) NOT NULL default '0',
+  `res_arcane` int(11) NOT NULL default '0',
+  `res_arcane_c` int(11) NOT NULL default '0',
+  `res_arcane_b` int(11) NOT NULL default '0',
+  `res_arcane_d` int(11) NOT NULL default '0',
+  `res_fire` int(11) NOT NULL default '0',
+  `res_fire_c` int(11) NOT NULL default '0',
+  `res_fire_b` int(11) NOT NULL default '0',
+  `res_fire_d` int(11) NOT NULL default '0',
+  `res_shadow` int(11) NOT NULL default '0',
+  `res_shadow_c` int(11) NOT NULL default '0',
+  `res_shadow_b` int(11) NOT NULL default '0',
+  `res_shadow_d` int(11) NOT NULL default '0',
+  `res_nature` int(11) NOT NULL default '0',
+  `res_nature_c` int(11) NOT NULL default '0',
+  `res_nature_b` int(11) NOT NULL default '0',
+  `res_nature_d` int(11) NOT NULL default '0',
+  `dodge` float NOT NULL default '0',
+  `parry` float NOT NULL default '0',
+  `block` float NOT NULL default '0',
+  `mitigation` float NOT NULL default '0',
+  PRIMARY KEY  (`pet_id`,`member_id`,`name`)
+) TYPE=MyISAM;
 
 
 # --------------------------------------------------------
