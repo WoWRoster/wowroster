@@ -160,13 +160,15 @@ $query =
 	'`members`.`member_id`, '.
 	'`members`.`name`, '.
 	'`members`.`class`, '.
+	'`members`.`online`, '.
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`level`, '.
 	'`members`.`guild_rank`, '.
 	'`members`.`guild_title`, '.
 	'`members`.`zone`, '.
-	"DATE_FORMAT( `members`.`last_online`, '".$act_words['timeformat']."' ) AS 'last_online', ".
+	'`members`.`last_online`, '.
+	"DATE_FORMAT( `members`.`last_online`, '".$act_words['timeformat']."' ) AS 'last_online_f', ".
 
 // Fields to get from the players table
 	'`players`.`race`, '.
@@ -422,7 +424,7 @@ function name_value ( $row )
 
 		$tooltip = 'Level '.$row['level'].' '.$row['class']."\n";
 
-		$tooltip .= $act_words['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
+		$tooltip .= $act_words['lastonline'].': '.$row['last_online_f'].' in '.$row['zone'];
 		$tooltip .= ($row['nisnull'] ? '' : "\n".$act_words['note'].': '.$row['note']);
 
 		$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
@@ -493,23 +495,77 @@ function honor_value ( $row )
 
 
 /**
- * Controls Output of the Last Updated Column
+ * Controls Output of the Last Online Column
  *
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function last_up_value ( $row )
+function last_online_value ( $row )
 {
-	global $roster_conf, $act_words;
+	global $roster_conf, $act_words, $guild_info;
 
-	if ( $row['last_update'] != '')
+	if ( $row['last_online'] != '')
 	{
-		$cell_value = $row['last_update'];
+		$guild_time = strtotime($guild_info['update_time']);
+		$update_time = strtotime($row['last_online']);
 
-		list($month,$day,$year,$hour,$minute,$second) = sscanf($cell_value,"%d/%d/%d %d:%d:%d");
+		$difference = $guild_time - $update_time;
 
-		$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-		return date($act_words['phptimeformat'], $localtime);
+		if( $row['online'] == '1' || $difference < 0 )
+		{
+			return $act_words['online_at_up'];
+		}
+
+		if($difference < 60)
+		{
+			return $difference.' second'.($difference == '1' ? '' : 's').' ago';
+		}
+		else
+		{
+			$difference = round($difference / 60);
+			if($difference < 60)
+			{
+				return $difference.' minute'.($difference == '1' ? '' : 's').' ago';
+			}
+			else
+			{
+				$difference = round($difference / 60);
+				if($difference < 24)
+				{
+					return $difference.' hour'.($difference == '1' ? '' : 's').' ago';
+				}
+				else
+				{
+					$difference = round($difference / 24);
+					if($difference < 7)
+					{
+						return $difference.' day'.($difference == '1' ? '' : 's').' ago';
+					}
+					else
+					{
+						$difference = round($difference / 7);
+						if( $difference < 4 )
+						{
+							return $difference.' week'.($difference == '1' ? '' : 's').' ago';
+						}
+						else
+						{
+							$difference = round($difference / 4);
+							if( $difference < 12 )
+							{
+								return $difference.' month'.($difference == '1' ? '' : 's').' ago';
+							}
+							else
+							{
+								$difference = round($difference / 12);
+								return $difference.' year'.($difference == '1' ? '' : 's').' ago';
+							}
+
+						}
+					}
+				}
+			}
+		}
 	}
 	else
 	{

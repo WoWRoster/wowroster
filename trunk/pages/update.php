@@ -296,7 +296,7 @@ function processMyProfile($myProfile)
 
 function processGuildRoster($myProfile)
 {
-	global $wowdb, $roster_conf, $act_words;
+	global $wowdb, $roster_conf, $act_words, $guild_info;
 
 	$wowdb->resetMessages();
 
@@ -327,8 +327,12 @@ function processGuildRoster($myProfile)
 									$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
 									$currentTime = getDate($currentTimestamp);
 
+									if( $guild_info && ( ( strtotime($guild_info['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) <= 0 ) )
+									{
+										return sprintf($act_words['not_update_guild'],$guild_name)."<br />\n";
+									}
 									// Update the guild
-									$guildId = $wowdb->update_guild($realm_name, $guild_name, $currentTime, $guild);
+									$guildId = $wowdb->update_guild($realm_name, $guild_name, $currentTimestamp, $guild);
 									$guildMembers = $guild['Members'];
 
 									// update the list of guild members
