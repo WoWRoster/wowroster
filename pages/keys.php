@@ -224,7 +224,7 @@ while ($row = $wowdb->fetch_array($result))
 		}
 		else
 		{
-			if ($row['class'] == $wordings[$row['clientLocale']]['Rogue'])
+			if (($row['class'] == $wordings[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
 			{
 				$squery = "SELECT skill_level FROM `".ROSTER_SKILLSTABLE."` WHERE member_id = ".$row['member_id']." and skill_name = '".$wordings[$row['clientLocale']]['lockpicking']."'";
 				$sresult = $wowdb->query($squery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$squery);
