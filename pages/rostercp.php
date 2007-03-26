@@ -128,16 +128,17 @@ if( count($addons)>0 )
 // ----[ Render the page ]----------------------------------
 include_once( ROSTER_BASE.'roster_header.tpl' );
 include_once( ROSTER_LIB.'menu.php' );
+
 echo
-	$header."\n".
+	(isset($header) ? $header : '')."\n".
 	'<table width="100%"><tr><td valign="top" align="left">'."\n".
 	$menu."\n".
 	'</td><td valign="top" align="center">'."\n".
-	( ($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
+	( isset($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
 	$body."\n".
 	'</td><td valign="top" align="right">'."\n".
 	$pagebar."\n".
 	'</td></tr></table>'."\n".
-	$footer;
+	(isset($footer) ? $footer : '');
 
 include_once( ROSTER_BASE.'roster_footer.tpl' );
