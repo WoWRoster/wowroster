@@ -57,9 +57,11 @@ if( !$roster_login->getAuthorized() )
 
 include_once(ROSTER_ADMIN.'pages.php');
 
+$header = '';
 $menu = '';
 $body = '';
 $pagebar = '';
+$footer = '';
 
 // Find out what subpage to include, and do so
 $page = (isset($pages[1]) && ($pages[1]!='')) ? $pages[1] : 'roster';
@@ -130,15 +132,14 @@ include_once( ROSTER_BASE.'roster_header.tpl' );
 include_once( ROSTER_LIB.'menu.php' );
 
 echo
-	(isset($header) ? $header : '')."\n".
+	$header."\n".
 	'<table width="100%"><tr><td valign="top" align="left">'."\n".
 	$menu."\n".
 	'</td><td valign="top" align="center">'."\n".
-	( isset($showlogin) ? $roster_login->getLoginForm() : '' )."<br /><br />\n".
 	$body."\n".
 	'</td><td valign="top" align="right">'."\n".
 	$pagebar."\n".
 	'</td></tr></table>'."\n".
-	(isset($footer) ? $footer : '');
+	$footer;
 
 include_once( ROSTER_BASE.'roster_footer.tpl' );
