@@ -24,7 +24,6 @@ if ( !defined('ROSTER_INSTALLED') )
 require_once (ROSTER_LIB.'item.php');
 require_once (ROSTER_LIB.'bag.php');
 require_once (ROSTER_LIB.'skill.php');
-require_once (ROSTER_LIB.'reputation.php');
 require_once (ROSTER_LIB.'quest.php');
 require_once (ROSTER_LIB.'recipes.php');
 require_once (ROSTER_LIB.'pvp3.php');
@@ -1809,12 +1808,105 @@ $returnstring .= '  <tr>
 
 	function printReputation()
 	{
-		$reputation = get_reputation( $this->data['member_id']);
-		$temp = '';
-		for( $i=0 ; $i<sizeof($reputation) ;  $i++ )
+		global $roster_conf;
+
+		$repData = $this->getRepTabValues($this->data['member_id']);
+
+		$output = '';
+		foreach( $repData as $findex => $faction )
 		{
-			$temp = $reputation[$i]->outHeader($temp);
-			echo $reputation[$i]->out();
+			$output .= '
+		<div class="header"><img src="'.$roster_conf['img_url'].'minus.gif" id="rep'.$findex.'_img" class="minus_plus" alt="" onclick="showHide(\'rep'.$findex.'\',\'rep'.$findex.'_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');" />'.$faction['name'].'</div>
+		<div id="rep'.$findex.'">
+';
+			foreach( $faction['bars'] as $repbar )
+			{
+				$output .= '
+			<div class="rep_bar">
+				<div class="rep_title">'.$repbar['name'].'</div>
+				<div class="rep_bar_field" style="clip:rect(0px '.$repbar['barwidth'].'px 13px 0px);"><img class="rep_bar_image" src="'.$repbar['image'].'" alt="" /></div>
+				<div id="rb_'.$repbar['barid'].'" class="rep_bar_text">'.$repbar['standing'].'</div>
+				<div id="rbn_'.$repbar['barid'].'" class="rep_bar_text" style="display:none">'.$repbar['value'].' / '.$repbar['maxvalue'].'</div>
+				<div class="rep_bar_field"><img class="rep_bar_image" src="'.$roster_conf['img_url'].'pixel.gif" onmouseout="swapShow(\'rb_'.$repbar['barid'].'\',\'rbn_'.$repbar['barid'].'\');" onmouseover="swapShow(\'rb_'.$repbar['barid'].'\',\'rbn_'.$repbar['barid'].'\');" alt="" /></div>'."\n";
+				if( $repbar['atwar'] == 1 )
+				{
+					$output .= '				<img src="'.$roster_conf['img_url'].'/char/rep/atwar.gif" style="float:right;" alt="" />'."\n";
+				}
+				$output .= "			</div>\n";
+			}
+			$output .= "		</div>\n";
+		}
+
+		return $output;
+	}
+
+
+	function getRepBarValues( $repdata )
+	{
+		static $repnum = 0;
+
+		global $wordings, $roster_conf, $char;
+
+		$lang = $char->data['clientLocale'];
+
+		$level = $repdata['curr_rep'];
+		$max = $repdata['max_rep'];
+
+		$img = array(
+			$wordings[$lang]['exalted'] => $roster_conf['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['revered'] => $roster_conf['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['honored'] => $roster_conf['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['friendly'] => $roster_conf['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['neutral'] => $roster_conf['img_url'].'char/rep/yellow.gif',
+			$wordings[$lang]['unfriendly'] => $roster_conf['img_url'].'char/rep/orange.gif',
+			$wordings[$lang]['hostile'] => $roster_conf['img_url'].'char/rep/red.gif',
+			$wordings[$lang]['hated'] => $roster_conf['img_url'].'char/rep/red.gif'
+		);
+
+		$returnData['name'] = $repdata['name'];
+		$returnData['barwidth'] = ceil($level / $max * 139);
+		$returnData['image'] = $img[$repdata['Standing']];
+		$returnData['barid'] = $repnum;
+		$returnData['standing'] = $repdata['Standing'];
+		$returnData['value'] = $level;
+		$returnData['maxvalue'] = $max;
+		$returnData['atwar'] = $repdata['AtWar'];
+
+		$repnum++;
+
+		return $returnData;
+	}
+
+
+	function getRepTabValues( $member_id )
+	{
+		global $wowdb;
+
+		$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
+		$result = $wowdb->query( $query );
+
+		$rep_rows = $wowdb->num_rows($result);
+
+		$i=0;
+		$j=0;
+		if ( $rep_rows > 0 )
+		{
+			$data = $wowdb->fetch_assoc( $result );
+			$repInfo[$i]['name'] = $data['faction'];
+
+			for( $r=0; $r < $rep_rows; $r++ )
+			{
+				if( $repInfo[$i]['name'] != $data['faction'] )
+				{
+					$i++;
+					$j=0;
+					$repInfo[$i]['name'] = $data['faction'];
+				}
+				$repInfo[$i]['bars'][$j] = $this->getRepBarValues($data);
+				$j++;
+				$data = $wowdb->fetch_assoc( $result );
+			}
+			return $repInfo;
 		}
 	}
 
@@ -2080,7 +2172,13 @@ else
 
 <!-- Begin tab3 -->
 	<div id="tab3" class="tab3" style="display:none;">
-		<div class="background">&nbsp;</div>
+		<div class="faction"><?php print $wordings[$lang]['faction']; ?></div>
+		<div class="standing"><?php print $wordings[$lang]['standing']; ?></div>
+		<div class="atwar"><?php print $wordings[$lang]['atwar']; ?></div>
+
+		<div class="container">
+<?php print $this->printReputation(); ?>
+		</div>
 	</div>
 
 <!-- Begin tab4 -->

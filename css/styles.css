@@ -644,23 +644,23 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 /**
  * Bag Styles
 **/
-.bankbag { float:left;margin:0 5px 10px 0;color:#ffffff;width:399px;height:283px; }
+.bankbag { float:left;margin:0 5px 10px 0;color:#ffffff;width:395px;height:275px;background-repeat:no-repeat; }
 .bankbag .bagitem { width:49px;height:44px;float:left; }
 .bankbag .bagitem .icon { margin:0;width:40px;height:40px;border-width:0;cursor:pointer; }
 .bankbag .bagitem .noicon { margin:0;width:40px;height:40px;border-width:0;}
-.bankbag .holder { position:absolute;margin-top:72px;margin-left:38px;width:350px; }
+.bankbag .holder { position:absolute;margin-top:70px;margin-left:35px;width:345px; }
 
-.bag { float:left;margin:0 5px 10px 0;color:#ffffff;width:192px; }
+.bag { float:left;margin:0 5px 10px 0;color:#ffffff;width:184px;background-repeat:repeat-y; }
 .bag .bagspacer0 { display:none; }
 .bag .bagspacer2 { width:42px;height:41px;float:left; }
-.bag .holder0 { position:absolute;margin-top:47px;margin-left:14px;width:178px; }
-.bag .holder2 { position:absolute;margin-top:26px;margin-left:14px;width:178px; }
-.bag .bottom { position:absolute;width:192px;height:10px;background-repeat:no-repeat; }
+.bag .holder0 { position:absolute;margin-top:48px;margin-left:13px;width:170px; }
+.bag .holder2 { position:absolute;margin-top:26px;margin-left:13px;width:170px; }
+.bag .bottom { position:absolute;margin-left:7px;width:177px;height:7px;background-repeat:no-repeat; }
 .bag .bagitem { width:42px;height:41px;float:left; }
-.bag .bagitem .icon { margin-left:2px;width:38px;height:38px;border-width:0;cursor:pointer; }
+.bag .bagitem .icon { margin-left:2px;width:37px;height:37px;border-width:0;cursor:pointer; }
 .bag .bagitem .noicon { margin-left:2px;width:38px;height:38px;border-width:0; }
-.bag .bagmask { position:absolute;width:45px;height:43px;cursor:pointer; }
-.bag .bagicon { position:absolute;margin-left:3px;width:42px;height:42px;clip:rect(6px 39px 39px 5px); }
+.bag .bagmask { position:absolute;width:39px;height:39px;cursor:pointer; }
+.bag .bagicon { position:absolute;width:40px;height:40px;clip:rect(5px 37px 37px 5px); }
 
 .bag_name, .key_name, .bank_name {
 	margin-top:9px;
@@ -1063,6 +1063,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	text-align:right;
 }
 
+
 /*********** Pet Page Tab(2) ***********/
 
 /* Background image for pet tab */
@@ -1251,7 +1252,94 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 .pet_tabs .current_tab { cursor:default; }
 
 
+/*********** Reputation Page Tab(3) ***********/
 
+.char_panel .tab3 .faction {
+	/* Faction text Placement */
+	font-size:11px;
+	font-weight:bold;
+	position:absolute;
+	margin-top:58px;
+	margin-left:66px;
+}
+.char_panel .tab3 .standing {
+	/* Standing text Placement */
+	text-align:center;
+	font-size:11px;
+	font-weight:bold;
+	position:absolute;
+	margin-top:58px;
+	margin-left:180px;
+}
+.char_panel .tab3 .atwar {
+	/* At War text Placement */
+	text-align:right;
+	font-size:11px;
+	font-weight:bold;
+	position:absolute;
+	margin-top:58px;
+	margin-left:275px;
+}
+.char_panel .tab3 .container {
+	/* Container for reputation tab contents */
+	position:absolute;
+	width:320px;
+	height:355px;
+	overflow:auto;
+	margin-left:14px;
+	margin-top:73px;
+}
+.char_panel .tab3 .minus_plus {
+	/* Minus Plus boxs for reputation page */
+	margin-top:4px;
+	margin-left:6px;
+	margin-right:4px;
+	cursor:pointer;
+}
+.char_panel .tab3 .header {
+	/* Reputation headers for each faction group */
+	font-size:12px;
+	font-weight:bold;
+	width:265px;
+	color:#FFDD00;
+}
+.char_panel .tab3 .rep_bar {
+	/* Position and Style of each rep bar */
+	background-image:url(../img/char/rep/repbar.gif);
+	font-size:11px;
+	width:289px;
+	vertical-align:top;
+	height:23px;
+	padding-left:7px;
+	background-repeat:no-repeat;
+}
+.char_panel .tab3 .rep_title {
+	/* Style of each rep title */
+	color:#FFFFFF;
+	margin-top:3px;
+	position:absolute;
+}
+.char_panel .tab3 .rep_bar_field {
+	/* Placement of empty rep progess bar */
+	position:absolute;
+	margin-left:118px;
+	margin-top:4px;
+}
+.char_panel .tab3 .rep_bar_image {
+	/* Actual rep progess bar image */
+	width:139px;
+	height:13px;
+}
+.char_panel .tab3 .rep_bar_text {
+	/* Placement of rep progess text */
+	color:#FFFFFF;
+	text-align:center;
+	width:133px;
+	margin-left:119px;
+	margin-top:3px;
+	position:absolute;
+	font-size:12px;
+}
 
 
 

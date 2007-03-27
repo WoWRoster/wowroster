@@ -136,18 +136,10 @@ class reputation
 	}
 }
 
-function get_reputation( $member_id)
+function get_reputation( $member_id )
 {
 	global $wowdb;
 
-	if (isset($char))
-	{
-		$char = $wowdb->escape( $char );
-	}
-	if (isset($server))
-	{
-		$server = $wowdb->escape( $server );
-	}
 	$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
 	$result = $wowdb->query( $query );
 	$reputations = array();
