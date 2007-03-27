@@ -650,7 +650,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 .bankbag .bagitem .noicon { margin:0;width:40px;height:40px;border-width:0;}
 .bankbag .holder { position:absolute;margin-top:70px;margin-left:35px;width:345px; }
 
-.bag { float:left;margin:0 5px 10px 0;color:#ffffff;width:184px;background-repeat:repeat-y; }
+.bag { float:left;margin:0 5px 10px 0;color:#ffffff;width:184px;background-repeat:no-repeat; }
 .bag .bagspacer0 { display:none; }
 .bag .bagspacer2 { width:42px;height:41px;float:left; }
 .bag .holder0 { position:absolute;margin-top:48px;margin-left:13px;width:170px; }

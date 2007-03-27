@@ -176,9 +176,7 @@ $char_page = "<div align=\"".$roster_conf['char_bodyalign']."\">\n";
 
 $char_page .= '
 <br />
-<table border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td align="left" width="100%">';
+<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left" width="100%">';
 
 
 switch ($action)
