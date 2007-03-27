@@ -387,6 +387,7 @@ $lang['block'] = 'Bloquer';
 $lang['realm'] = 'Royaume';
 $lang['talents'] = 'Talents';
 $lang['online_at_up'] = 'Online at Update';
+$lang['faction'] = 'Faction';
 
 // Memberlog
 $lang['memberlog'] = 'Journal';

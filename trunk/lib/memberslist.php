@@ -740,7 +740,7 @@ function level_value ( $row )
 		$tooltip = '<div style="white-space:nowrap;" class="levelbarParent" style="width:200px;"><div class="levelbarChild">XP '.$current.'/'.$max.$rested.'</div></div>';
 		$tooltip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="200">';
 		$tooltip .= '<tr>';
-		$tooltip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+		$tooltip .= '<td style="background-image:url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
 		$tooltip .= '<td width="'.(100 - $percent_exp).'%"></td>';
 		$tooltip .= '</tr>';
 		$tooltip .= '</table>';
@@ -763,7 +763,7 @@ function level_value ( $row )
 		$cell_value = '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 		$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 		$cell_value .= '<tr>';
-		$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+		$cell_value .= '<td style="background-image:url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
 		$cell_value .= '<td width="'.(100 - $percentage).'%"></td>';
 		$cell_value .= "</tr>\n</table>\n</div>\n";
 	}
