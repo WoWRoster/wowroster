@@ -67,15 +67,6 @@ function swapShow(ElementID,ElementID2)
 }
 
 
-function showSpellTree(ElementID)
-{
-	for (i = 0; i < 4; i++)
-	{
-		hide('spelltree_' + i);
-	}
-	show(ElementID);
-}
-
 
 var lpages = new Array();
 

@@ -21,7 +21,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 define('ROSTER_INSTALLED',true);
 
 // This file is for on the SVN only, so this should NOT be shipped to the clients!!!
-require_once 'lib/commonfunctions.lib.php';
+require_once 'lib/functions.lib.php';
 require_once 'lib/rosterdiag.lib.php';
 
 if(isset($_GET['getfile']) && $_GET['getfile'] != '')
@@ -98,7 +98,6 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster_conf['roster_bg'] = 'img/wowroster_bg.jpg';
 
 
-	include_once 'lib/commonfunctions.lib.php';
 	include_once ('roster_header.tpl');
 	$temp_array = split("&", $_SERVER['QUERY_STRING']);
 	foreach($temp_array as $key=>$value)
@@ -396,7 +395,6 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 		{
 			echo $file.'<br />';
 		}
-		include_once 'lib/commonfunctions.lib.php';
 		echo border('sgreen','start', 'DOWNLOAD STARTING of the following files');
 		echo border('sgreen','end');
 	}

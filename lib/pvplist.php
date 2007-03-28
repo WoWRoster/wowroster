@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 $striping_counter = 0;
 $tableHeader = '
 <!-- Begin PvPLIST -->
-'.border('sgray','start','<div style="cursor:pointer;width:370px;" onclick="showHide(\'pvp_table\',\'pvp_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
+'.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'pvp_table\',\'pvp_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
 	<div style="display:inline;float:right;"><img id="pvp_img" src="'.$roster_conf['img_url'].$pvp_hs_image.'.gif" alt="" /></div>
 '.$act_words['pvplist'].'</div>').'
 <table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="pvp_table"'.$pvp_hs_colapse.'>'."\n";

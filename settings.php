@@ -24,8 +24,8 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 /**
  * Set PHP error reporting
  */
-error_reporting(E_ALL ^ E_NOTICE);
-//error_reporting(E_ALL);
+//error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
 
 
 
@@ -140,7 +140,7 @@ $db_passwd = null;
 /**
  * Include common functions
  **/
-require_once (ROSTER_LIB.'commonfunctions.lib.php');
+require_once (ROSTER_LIB.'functions.lib.php');
 
 
 /**

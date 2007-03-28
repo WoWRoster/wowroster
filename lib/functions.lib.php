@@ -936,3 +936,51 @@ function get_file_ext( $filename )
 {
 	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }
+
+function seconds_to_time($seconds)
+{
+	while ($seconds >= 60)
+	{
+		if ($seconds >= 86400)
+		{
+		// there is more than 1 day
+			$days = floor($seconds / 86400);
+			$seconds = $seconds - ($days * 86400);
+		}
+		elseif ($seconds >= 3600)
+		{
+			$hours = floor($seconds / 3600);
+			$seconds = $seconds - ($hours * 3600);
+		}
+		elseif ($seconds >= 60)
+		{
+			$minutes = floor($seconds / 60);
+			$seconds = $seconds - ($minutes * 60);
+		}
+	}
+
+	// convert variables into sentence structure components
+	if (!isset($days))
+	{
+		$days = '';
+	}
+	else
+	{
+		if ($days == 1)
+			$days = $days.'d, ';
+		else
+			$days = $days.'d, ';
+	}
+	if (!$hours)
+		$hours = '';
+	else $hours = $hours.'h, ';
+	if (!$minutes)
+		$minutes = '';
+	else $minutes = $minutes.'m, ';
+	if (!$seconds)
+		$seconds = '';
+	else
+		$seconds = $seconds.'s';
+
+	return array('days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds);
+}
