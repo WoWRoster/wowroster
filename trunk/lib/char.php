@@ -28,9 +28,6 @@ require_once (ROSTER_LIB.'quest.php');
 require_once (ROSTER_LIB.'recipes.php');
 require_once (ROSTER_LIB.'pvp3.php');
 
-$myBonus = array();
-$myTooltip = array();
-
 class char
 {
 	var $data;
@@ -43,19 +40,7 @@ class char
 	}
 
 
-	function printXP()
-	{
-		list($current, $max) = explode( ':', $this->data['exp'] );
-
-		$perc = 0;
-		if( $max > 0 )
-		{
-			$perc = round(($current / $max)* 248, 0);
-		}
-		return $perc;
-	}
-
-	function show_pvp2($type, $url, $sort, $start)
+	function show_pvp2( $type , $url , $sort , $start )
 	{
 		$pvps = pvp_get_many3( $this->data['member_id'],$type, $sort, -1);
 		$returnstring = '<div align="center">';
@@ -135,7 +120,7 @@ class char
 	}
 
 
-	function show_quests()
+	function show_quests( )
 	{
 		global $wordings;
 
@@ -223,8 +208,7 @@ class char
 		return $returnstring;
 	}
 
-
-	function show_recipes()
+	function show_recipes( )
 	{
 		global $roster_conf, $url, $sort, $wordings, $wowdb;
 
@@ -319,8 +303,7 @@ $returnstring .= '  <tr>
 		return $returnstring;
 	}
 
-
-	function show_mailbox()
+	function show_mailbox( )
 	{
 		global $wowdb, $wordings, $roster_conf, $tooltips;
 
@@ -483,8 +466,7 @@ $returnstring .= '  <tr>
 		}
 	}
 
-
-	function show_spellbook()
+	function show_spellbook( )
 	{
 		global $wowdb, $wordings, $roster_conf;
 
@@ -741,20 +723,19 @@ $returnstring .= '  <tr>
 		return $return_string;
 	}
 
-
 	function get( $field )
 	{
 		return $this->data[$field];
 	}
 
-	function printPet()
+
+	function printPet( )
 	{
 		global $wowdb, $wordings, $roster_conf;
 
 		$lang = $this->data['clientLocale'];
-		$member_id = $this->data['member_id'];
 
-		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$member_id' ORDER BY `level` DESC";
+		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `level` DESC";
 		$result = $wowdb->query( $query );
 
 		$output = $icons = '';
@@ -773,11 +754,10 @@ $returnstring .= '  <tr>
 				}
 				else
 				{
-					$expbar_width = $this->printXP();
 					list($xp, $xplevel) = explode(':',$row['xp']);
 					if ($xplevel != '0' && $xplevel != '')
 					{
-						$exp_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+						$expbar_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
 
 						$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
 
@@ -830,7 +810,7 @@ $returnstring .= '  <tr>
 				}
 
 				$icons .= '			<li onclick="return showPet(\''. $petNum .'\');" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').'>
-				<div class="text"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" style="'.$iconStyle.'" alt="" /></div></li>
+				<div class="text"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" /></div></li>
 ';
 
 				$output .= '
@@ -855,7 +835,7 @@ $returnstring .= '  <tr>
 				{
 					$output .= '
 			<img src="'. $roster_conf['img_url'] .'char/expbar_empty.gif" class="xpbar_empty" alt="" />
-			<div class="xpbar" style="clip:rect(0px '. $exp_width .'px 12px 0px);"><img src="'. $roster_conf['img_url'].'char/expbar_full.gif' .'" alt="" /></div>
+			<div class="xpbar" style="clip:rect(0px '. $expbar_width .'px 12px 0px);"><img src="'. $roster_conf['img_url'].'char/expbar_full.gif' .'" alt="" /></div>
 			<div class="xpbar_text">'. $expbar_text .'</div>';
 				}
 
@@ -888,9 +868,6 @@ $returnstring .= '  <tr>
 		</div>
 ';
 
-				$tmp = split(':',$row['armor']);
-				$basearmor = $tmp[0];
-
 				$petNum++;
 			}
 			$output .= '
@@ -905,7 +882,172 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
-	function printStatLine( $label, $value, $tooltip )
+	function printPetStat( $statname , $data )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		$base = $data[$statname];
+		$current = $data[$statname.'_c'];
+		$buff = $data[$statname.'_b'];
+		$debuff = -$data[$statname.'_d'];
+
+		switch( $statname )
+		{
+			case 'stat_str':
+				$name = $wordings[$lang]['strength'];
+				$tooltip = $wordings[$lang]['strength_tooltip'];
+				break;
+			case 'stat_int':
+				$name = $wordings[$lang]['intellect'];
+				$tooltip = $wordings[$lang]['intellect_tooltip'];
+				break;
+			case 'stat_sta':
+				$name = $wordings[$lang]['stamina'];
+				$tooltip = $wordings[$lang]['stamina_tooltip'];
+				break;
+			case 'stat_spr':
+				$name = $wordings[$lang]['spirit'];
+				$tooltip = $wordings[$lang]['spirit_tooltip'];
+				break;
+			case 'stat_agl':
+				$name = $wordings[$lang]['agility'];
+				$tooltip = $wordings[$lang]['agility_tooltip'];
+				break;
+			case 'stat_armor':
+				$name = $wordings[$lang]['armor'];
+				$tooltip = $wordings[$lang]['armor_tooltip'];
+				if( !empty($data['mitigation']) )
+					$tooltip .= '<br /><span class="red">'.$wordings[$lang]['tooltip_damage_reduction'].': '.$data['mitigation'].'%</span>';
+				break;
+			case 'melee_power':
+				$lname = $wordings[$lang]['melee_att_power'];
+				$name = $wordings[$lang]['power'];
+				$tooltip = sprintf($wordings[$lang]['melee_att_power_tooltip'], $data['melee_power_dps']);
+				break;
+			case 'melee_hit':
+				$name = $wordings[$lang]['weapon_hit_rating'];
+				$tooltip = $wordings[$lang]['weapon_hit_rating_tooltip'];
+				break;
+			case 'melee_crit':
+				$name = $wordings[$lang]['weapon_crit_rating'];
+				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $data['melee_crit_chance']);
+				break;
+		}
+
+		if( isset($lname) )
+			$tooltipheader = $lname.' '.$this->printRatingLong($statname,$data);
+		else
+			$tooltipheader = $name.' '.$this->printRatingLong($statname,$data);
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, $this->printRatingShort($statname,$data), $line);
+	}
+
+	function printPetWSkill ( $data )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		$value = '<strong class="white">'.$data['melee_mhand_skill'].'</strong>';
+		$name = $wordings[$lang]['weapon_skill'];
+		$tooltipheader = $wordings[$lang]['mainhand'];
+		$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $data['melee_mhand_skill'], $data['melee_mhand_rating']);
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, $value, $line);
+	}
+
+	function printPetWDamage ( $data )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+
+		$value = '<strong class="white">'.$data['melee_mhand_mindam'].'</strong>'.'-'.'<strong class="white">'.$data['melee_mhand_maxdam'].'</strong>';
+		$name = $wordings[$lang]['damage'];
+		$tooltipheader = $wordings[$lang]['mainhand'];
+		$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $data['melee_mhand_speed'], $data['melee_mhand_mindam'], $data['melee_mhand_maxdam'], $data['melee_mhand_dps']);
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, $value, $line);
+	}
+
+	function printPetResist( $resname , $data )
+	{
+		global $wordings, $roster_conf;
+
+		$lang = $this->data['clientLocale'];
+
+		switch($resname)
+		{
+		case 'fire':
+			$name = $wordings[$lang]['res_fire'];
+			$tooltip = $wordings[$lang]['res_fire_tooltip'];
+			$color = 'red';
+			break;
+		case 'nature':
+			$name = $wordings[$lang]['res_nature'];
+			$tooltip = $wordings[$lang]['res_nature_tooltip'];
+			$color = 'green';
+			break;
+		case 'arcane':
+			$name = $wordings[$lang]['res_arcane'];
+			$tooltip = $wordings[$lang]['res_arcane_tooltip'];
+			$color = 'yellow';
+			break;
+		case 'frost':
+			$name = $wordings[$lang]['res_frost'];
+			$tooltip = $wordings[$lang]['res_frost_tooltip'];
+			$color = 'blue';
+			break;
+		case 'shadow':
+			$name = $wordings[$lang]['res_shadow'];
+			$tooltip = $wordings[$lang]['res_shadow_tooltip'];
+			$color = 'purple';
+			break;
+		}
+
+		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname,$data).'<br />';
+		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
+
+		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $data['res_'.$resname.'_c'] ."</div>\n";
+
+		return $output;
+	}
+
+	function printPetResilience( $data )
+	{
+		global $wordings;
+
+		$lang = $this->data['clientLocale'];
+
+		$name = $wordings[$lang]['resilience'];
+		$value = min($data['stat_res_melee'],$data['stat_res_ranged'],$data['stat_res_spell']);
+
+		$tooltipheader = $name;
+		$tooltip  = '<div><span style="float:right;">'.$data['stat_res_melee'].'</span>'.$wordings[$lang]['melee'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$data['stat_res_ranged'].'</span>'.$wordings[$lang]['ranged'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$data['stat_res_spell'].'</span>'.$wordings[$lang]['spell'].'</div>';
+
+
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
+		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+
+		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
+	}
+
+
+	function printStatLine( $label , $value , $tooltip )
 	{
 		$output  = '  <div class="statline" '.makeOverlib($tooltip,'','',2,'','').'>'."\n";
 		$output .= '    <span class="value">'.$value.'</span>'."\n";
@@ -978,7 +1120,7 @@ $returnstring .= '  <tr>
 		return $tooltipheader;
 	}
 
-	function printBox( $cat, $side, $visible )
+	function printBox( $cat , $side , $visible )
 	{
 		print '<div class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
 		switch($cat)
@@ -1107,71 +1249,6 @@ $returnstring .= '  <tr>
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
 		return $this->printStatLine($name, $this->printRatingShort($statname), $line);
-	}
-
-	function printPetStat( $statname , $data )
-	{
-		global $wordings;
-
-		$lang = $this->data['clientLocale'];
-
-		$base = $data[$statname];
-		$current = $data[$statname.'_c'];
-		$buff = $data[$statname.'_b'];
-		$debuff = -$data[$statname.'_d'];
-
-		switch( $statname )
-		{
-			case 'stat_str':
-				$name = $wordings[$lang]['strength'];
-				$tooltip = $wordings[$lang]['strength_tooltip'];
-				break;
-			case 'stat_int':
-				$name = $wordings[$lang]['intellect'];
-				$tooltip = $wordings[$lang]['intellect_tooltip'];
-				break;
-			case 'stat_sta':
-				$name = $wordings[$lang]['stamina'];
-				$tooltip = $wordings[$lang]['stamina_tooltip'];
-				break;
-			case 'stat_spr':
-				$name = $wordings[$lang]['spirit'];
-				$tooltip = $wordings[$lang]['spirit_tooltip'];
-				break;
-			case 'stat_agl':
-				$name = $wordings[$lang]['agility'];
-				$tooltip = $wordings[$lang]['agility_tooltip'];
-				break;
-			case 'stat_armor':
-				$name = $wordings[$lang]['armor'];
-				$tooltip = $wordings[$lang]['armor_tooltip'];
-				if( !empty($data['mitigation']) )
-					$tooltip .= '<br /><span class="red">'.$wordings[$lang]['tooltip_damage_reduction'].': '.$data['mitigation'].'%</span>';
-				break;
-			case 'melee_power':
-				$lname = $wordings[$lang]['melee_att_power'];
-				$name = $wordings[$lang]['power'];
-				$tooltip = sprintf($wordings[$lang]['melee_att_power_tooltip'], $data['melee_power_dps']);
-				break;
-			case 'melee_hit':
-				$name = $wordings[$lang]['weapon_hit_rating'];
-				$tooltip = $wordings[$lang]['weapon_hit_rating_tooltip'];
-				break;
-			case 'melee_crit':
-				$name = $wordings[$lang]['weapon_crit_rating'];
-				$tooltip = sprintf($wordings[$lang]['weapon_crit_rating_tooltip'], $data['melee_crit_chance']);
-				break;
-		}
-
-		if( isset($lname) )
-			$tooltipheader = $lname.' '.$this->printRatingLong($statname,$data);
-		else
-			$tooltipheader = $name.' '.$this->printRatingLong($statname,$data);
-
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-
-		return $this->printStatLine($name, $this->printRatingShort($statname,$data), $line);
 	}
 
 	function printValue( $statname )
@@ -1321,63 +1398,7 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
-	function printPetWSkill ( $data )
-	{
-		global $wordings;
-
-		$lang = $this->data['clientLocale'];
-
-		$value = '<strong class="white">'.$data['melee_mhand_skill'].'</strong>';
-		$name = $wordings[$lang]['weapon_skill'];
-		$tooltipheader = $wordings[$lang]['mainhand'];
-		$tooltip = sprintf($wordings[$lang]['weapon_skill_tooltip'], $data['melee_mhand_skill'], $data['melee_mhand_rating']);
-
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-
-		return $this->printStatLine($name, $value, $line);
-	}
-
-	function printPetWDamage ( $data )
-	{
-		global $wordings;
-
-		$lang = $this->data['clientLocale'];
-
-
-		$value = '<strong class="white">'.$data['melee_mhand_mindam'].'</strong>'.'-'.'<strong class="white">'.$data['melee_mhand_maxdam'].'</strong>';
-		$name = $wordings[$lang]['damage'];
-		$tooltipheader = $wordings[$lang]['mainhand'];
-		$tooltip = sprintf($wordings[$lang]['damage_tooltip'], $data['melee_mhand_speed'], $data['melee_mhand_mindam'], $data['melee_mhand_maxdam'], $data['melee_mhand_dps']);
-
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-
-		return $this->printStatLine($name, $value, $line);
-	}
-
-	function printPetResilience( $data )
-	{
-		global $wordings;
-
-		$lang = $this->data['clientLocale'];
-
-		$name = $wordings[$lang]['resilience'];
-		$value = min($data['stat_res_melee'],$data['stat_res_ranged'],$data['stat_res_spell']);
-
-		$tooltipheader = $name;
-		$tooltip  = '<div><span style="float:right;">'.$data['stat_res_melee'].'</span>'.$wordings[$lang]['melee'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$data['stat_res_ranged'].'</span>'.$wordings[$lang]['ranged'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$data['stat_res_spell'].'</span>'.$wordings[$lang]['spell'].'</div>';
-
-
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-
-		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
-	}
-
-	function printSpellDamage()
+	function printSpellDamage( )
 	{
 		global $wordings, $roster_conf;
 		$lang = $this->data['clientLocale'];
@@ -1424,7 +1445,7 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
-	function printDefense()
+	function printDefense( )
 	{
 		global $wordings, $roster_conf, $wowdb;
 		$lang = $this->data['clientLocale'];
@@ -1478,7 +1499,7 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
 
-	function printResilience()
+	function printResilience( )
 	{
 		global $wordings;
 
@@ -1499,7 +1520,7 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
 
-	function printResist ( $resname )
+	function printResist( $resname )
 	{
 		global $wordings, $roster_conf;
 
@@ -1542,49 +1563,6 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
-	function printPetResist ( $resname , $data )
-	{
-		global $wordings, $roster_conf;
-
-		$lang = $this->data['clientLocale'];
-
-		switch($resname)
-		{
-		case 'fire':
-			$name = $wordings[$lang]['res_fire'];
-			$tooltip = $wordings[$lang]['res_fire_tooltip'];
-			$color = 'red';
-			break;
-		case 'nature':
-			$name = $wordings[$lang]['res_nature'];
-			$tooltip = $wordings[$lang]['res_nature_tooltip'];
-			$color = 'green';
-			break;
-		case 'arcane':
-			$name = $wordings[$lang]['res_arcane'];
-			$tooltip = $wordings[$lang]['res_arcane_tooltip'];
-			$color = 'yellow';
-			break;
-		case 'frost':
-			$name = $wordings[$lang]['res_frost'];
-			$tooltip = $wordings[$lang]['res_frost_tooltip'];
-			$color = 'blue';
-			break;
-		case 'shadow':
-			$name = $wordings[$lang]['res_shadow'];
-			$tooltip = $wordings[$lang]['res_shadow_tooltip'];
-			$color = 'purple';
-			break;
-		}
-
-		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname,$data).'<br />';
-		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
-
-		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $data['res_'.$resname.'_c'] ."</div>\n";
-
-		return $output;
-	}
-
 
 	function fetchEquip()
 	{
@@ -1593,7 +1571,6 @@ $returnstring .= '  <tr>
 			$this->equip = item_get_many($this->data['member_id'], 'equip');
 		}
 	}
-
 
 	function printEquip( $slot )
 	{
@@ -1623,10 +1600,9 @@ $returnstring .= '  <tr>
 	{
 		global $roster_conf, $wowdb, $wordings;
 
-		$member_id = $this->data['member_id'];
 		$lang = $this->data['clientLocale'];
 
-		$sqlquery = "SELECT * FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '$member_id' ORDER BY `order`;";
+		$sqlquery = "SELECT * FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order`;";
 		$trees = $wowdb->query( $sqlquery );
 
 		if( $wowdb->num_rows($trees) > 0 )
@@ -1638,7 +1614,7 @@ $returnstring .= '  <tr>
 				$treelayer[$j]['name'] = $treedata['tree'];
 				$treelayer[$j]['image'] = $treedata['background'].'.'.$roster_conf['img_suffix'];
 				$treelayer[$j]['points'] = $treedata['pointsspent'];
-				$treelayer[$j]['talents'] = $this->talentLayer($member_id,$treedata['tree']);
+				$treelayer[$j]['talents'] = $this->talentLayer($treedata['tree']);
 			}
 
 			$returndata = '
@@ -1740,11 +1716,11 @@ $returnstring .= '  <tr>
 		}
 	}
 
-	function talentLayer( $member_id , $treename )
+	function talentLayer( $treename )
 	{
 		global $wowdb, $roster_conf;
 
-		$sqlquery = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '$member_id' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
+		$sqlquery = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
 
 		$result = $wowdb->query($sqlquery);
 
@@ -1789,28 +1765,93 @@ $returnstring .= '  <tr>
 	}
 
 
-	function printSkills()
-	{
-		$allskills = skill_get_many( $this->data['member_id']);
-
-		$returnstring = '';
-		foreach ($allskills as $cat => $skills)
-		{
-			$returnstring .= $skills[0]->outHeader();
-			foreach ($skills as $skill)
-			{
-				$returnstring .= $skill->out();
-			}
-		}
-		return $returnstring;
-	}
-
-
-	function printReputation()
+	function printSkills( )
 	{
 		global $roster_conf;
 
-		$repData = $this->getRepTabValues($this->data['member_id']);
+		$skillData = $this->getSkillTabValues();
+
+		$output = '';
+		foreach( $skillData as $sindex => $skill )
+		{
+			$output .= '
+		<div class="header"><img src="'.$roster_conf['img_url'].'minus.gif" id="skill'.$sindex.'_img" class="minus_plus" alt="" onclick="showHide(\'skill'.$sindex.'\',\'skill'.$sindex.'_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');" />'.$skill['name'].'</div>
+		<div id="skill'.$sindex.'">
+';
+			foreach( $skill['bars'] as $skillbar )
+			{
+				$output .= '
+			<div class="skill_bar">';
+				if( $skillbar['maxvalue'] == '1' )
+				{
+					$output .= '
+				<div style="position:absolute;"><img src="'.$roster_conf['img_url'].'char/skill/bar_grey.gif" alt="" /></div>
+				<div class="text">'.$skillbar['name'].'</div>';
+				}
+				else
+				{
+					$output .= '
+				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="'.$roster_conf['img_url'].'char/skill/bar.gif" alt="" /></div>
+				<div class="text">'.$skillbar['name'].'<span class="text_num">'.$skillbar['value'].' / '.$skillbar['maxvalue'].'</span></div>';
+				}
+				$output .= "\n			</div>\n";
+			}
+			$output .= "		</div>\n";
+		}
+
+		return $output;
+	}
+
+	function getSkillBarValues( $skilldata )
+	{
+		list($level, $max) = explode( ':', $skilldata['skill_level'] );
+
+		$returnData['maxvalue'] = $max;
+		$returnData['value'] = $level;
+		$returnData['name'] = $skilldata['skill_name'];
+		$returnData['barwidth'] = ceil($level/$max*273);
+
+		return $returnData;
+	}
+
+	function getSkillTabValues( )
+	{
+		global $wowdb;
+
+		$query = "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `skill_order` ASC, `skill_name` ASC;";
+		$result = $wowdb->query( $query );
+
+		$skill_rows = $wowdb->num_rows($result);
+
+		$i=0;
+		$j=0;
+		if ( $skill_rows > 0 )
+		{
+			$data = $wowdb->fetch_assoc( $result );
+			$skillInfo[$i]['name'] = $data['skill_type'];
+
+			for( $r=0; $r < $skill_rows; $r++ )
+			{
+				if( $skillInfo[$i]['name'] != $data['skill_type'] )
+				{
+					$i++;
+					$j=0;
+					$skillInfo[$i]['name'] = $data['skill_type'];
+				}
+				$skillInfo[$i]['bars'][$j] = $this->getSkillBarValues($data);
+				$j++;
+				$data = $wowdb->fetch_assoc( $result );
+			}
+			return $skillInfo;
+		}
+	}
+
+
+	function printReputation( )
+	{
+		global $roster_conf;
+
+		$repData = $this->getRepTabValues();
 
 		$output = '';
 		foreach( $repData as $findex => $faction )
@@ -1840,6 +1881,37 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+	function getRepTabValues( )
+	{
+		global $wowdb;
+
+		$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `name` ASC;";
+		$result = $wowdb->query( $query );
+
+		$rep_rows = $wowdb->num_rows($result);
+
+		$i=0;
+		$j=0;
+		if ( $rep_rows > 0 )
+		{
+			$data = $wowdb->fetch_assoc( $result );
+			$repInfo[$i]['name'] = $data['faction'];
+
+			for( $r=0; $r < $rep_rows; $r++ )
+			{
+				if( $repInfo[$i]['name'] != $data['faction'] )
+				{
+					$i++;
+					$j=0;
+					$repInfo[$i]['name'] = $data['faction'];
+				}
+				$repInfo[$i]['bars'][$j] = $this->getRepBarValues($data);
+				$j++;
+				$data = $wowdb->fetch_assoc( $result );
+			}
+			return $repInfo;
+		}
+	}
 
 	function getRepBarValues( $repdata )
 	{
@@ -1878,39 +1950,6 @@ $returnstring .= '  <tr>
 	}
 
 
-	function getRepTabValues( $member_id )
-	{
-		global $wowdb;
-
-		$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
-		$result = $wowdb->query( $query );
-
-		$rep_rows = $wowdb->num_rows($result);
-
-		$i=0;
-		$j=0;
-		if ( $rep_rows > 0 )
-		{
-			$data = $wowdb->fetch_assoc( $result );
-			$repInfo[$i]['name'] = $data['faction'];
-
-			for( $r=0; $r < $rep_rows; $r++ )
-			{
-				if( $repInfo[$i]['name'] != $data['faction'] )
-				{
-					$i++;
-					$j=0;
-					$repInfo[$i]['name'] = $data['faction'];
-				}
-				$repInfo[$i]['bars'][$j] = $this->getRepBarValues($data);
-				$j++;
-				$data = $wowdb->fetch_assoc( $result );
-			}
-			return $repInfo;
-		}
-	}
-
-
 	function printHonor()
 	{
 		global $roster_conf, $wowdb, $wordings, $guild_info;
@@ -1928,30 +1967,31 @@ $returnstring .= '  <tr>
 				break;
 		}
 
-		$output = '<div class="honortext">'.$wordings[$lang]['honor'].':<span>'.$this->data['honorpoints'].'</span>'.$icon.'</div>'."\n";
+		$output = '
+		<div class="honortext">'.$wordings[$lang]['honor'].':<span>'.$this->data['honorpoints'].'</span>'.$icon.'</div>
 
-		$output .= '<div class="today">'.$wordings[$lang]['today'].'</div>'."\n";
-		$output .= '<div class="yesterday">'.$wordings[$lang]['yesterday'].'</div>'."\n";
-		$output .= '<div class="lifetime">'.$wordings[$lang]['lifetime'].'</div>'."\n";
+		<div class="today">'.$wordings[$lang]['today'].'</div>
+		<div class="yesterday">'.$wordings[$lang]['yesterday'].'</div>
+		<div class="lifetime">'.$wordings[$lang]['lifetime'].'</div>
 
-		$output .= '<div class="divider"></div>'."\n";
+		<div class="divider"></div>
 
-		$output .= '<div class="killsline">'.$wordings[$lang]['kills'].'</div>'."\n";
-		$output .= '<div class="killsline1">'.$this->data['sessionHK'].'</div>'."\n";
-		$output .= '<div class="killsline2">'.$this->data['yesterdayHK'].'</div>'."\n";
-		$output .= '<div class="killsline3">'.$this->data['lifetimeHK'].'</div>'."\n";
+		<div class="killsline">'.$wordings[$lang]['kills'].'</div>
+		<div class="killsline1">'.$this->data['sessionHK'].'</div>
+		<div class="killsline2">'.$this->data['yesterdayHK'].'</div>
+		<div class="killsline3">'.$this->data['lifetimeHK'].'</div>
 
-		$output .= '<div class="honorline">'.$wordings[$lang]['honor'].'</div>'."\n";
-		$output .= '<div class="honorline1">~'.$this->data['sessionCP'].'</div>'."\n";
-		$output .= '<div class="honorline2">'.$this->data['yesterdayContribution'].'</div>'."\n";
-		$output .= '<div class="honorline3">-</div>'."\n";
+		<div class="honorline">'.$wordings[$lang]['honor'].'</div>
+		<div class="honorline1">~'.$this->data['sessionCP'].'</div>
+		<div class="honorline2">'.$this->data['yesterdayContribution'].'</div>
+		<div class="honorline3">-</div>
 
-		$output .= '<div class="arenatext">'.$wordings[$lang]['arena'].':<span>'.$this->data['arenapoints'].'</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
+		<div class="arenatext">'.$wordings[$lang]['arena'].':<span>'.$this->data['arenapoints'].'</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
 
 		return $output;
 	}
 
-	function out()
+	function out( )
 	{
 		global $wordings, $roster_conf;
 
@@ -2070,11 +2110,10 @@ if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 }
 else
 {
-	$expbar_width = $this->printXP();
 	list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
 	if ($xplevel != '0' && $xplevel != '')
 	{
-		$exp_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+		$expbar_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
 
 		$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
 
@@ -2094,7 +2133,7 @@ else
 ?>
 	<!-- Begin EXP Bar -->
 		<img src="<?php print $roster_conf['img_url']; ?>char/expbar_empty.gif" class="xpbar_empty" alt="" />
-		<div class="xpbar" style="clip:rect(0px <?php print $exp_width; ?>px 12px 0px);"><img src="<?php print $roster_conf['img_url'].'char/'.$expbar_type.'.gif'; ?>" alt="" /></div>
+		<div class="xpbar" style="clip:rect(0px <?php print $expbar_width; ?>px 12px 0px);"><img src="<?php print $roster_conf['img_url'].'char/'.$expbar_type.'.gif'; ?>" alt="" /></div>
 		<div class="xpbar_text"><?php print $expbar_text; ?></div>
 	<!-- End EXP Bar -->
 
@@ -2183,12 +2222,15 @@ else
 
 <!-- Begin tab4 -->
 	<div id="tab4" class="tab4" style="display:none;">
-		<div class="background">&nbsp;</div>
+		<div class="container">
+<?php print $this->printSkills(); ?>
+		</div>
 	</div>
 
 <!-- Begin tab5 -->
 	<div id="tab5" class="tab5" style="display:none;">
 		<div class="background">&nbsp;</div>
+<?php print $this->printHonor(); ?>
 	</div>
 
 <!-- Begin Navagation Tabs -->
@@ -2279,263 +2321,4 @@ function DateCharDataUpdated($id)
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 	return date($wordings[$data['clientLocale']]['phptimeformat'], $localtime);
-}
-
-
-function seconds_to_time($seconds)
-{
-	while ($seconds >= 60)
-	{
-		if ($seconds >= 86400)
-		{
-		// there is more than 1 day
-			$days = floor($seconds / 86400);
-			$seconds = $seconds - ($days * 86400);
-		}
-		elseif ($seconds >= 3600)
-		{
-			$hours = floor($seconds / 3600);
-			$seconds = $seconds - ($hours * 3600);
-		}
-		elseif ($seconds >= 60)
-		{
-			$minutes = floor($seconds / 60);
-			$seconds = $seconds - ($minutes * 60);
-		}
-	}
-
-	// convert variables into sentence structure components
-	if (!isset($days))
-	{
-		$days = '';
-	}
-	else
-	{
-		if ($days == 1)
-			$days = $days.'d, ';
-		else
-			$days = $days.'d, ';
-	}
-	if (!$hours)
-		$hours = '';
-	else $hours = $hours.'h, ';
-	if (!$minutes)
-		$minutes = '';
-	else $minutes = $minutes.'m, ';
-	if (!$seconds)
-		$seconds = '';
-	else
-		$seconds = $seconds.'s';
-
-	return array('days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds);
-}
-
-
-/*****************************************************************************************************
- Code originally from cybrey's 'Bonuses/Advanced Stats' addon with output formatting by dehoskins
- http://www.wowroster.net/viewtopic.php?t=1506
-
- Modified by the roster dev team
-*****************************************************************************************************/
-
-function dbl( $frontString, $value)
-{
-	echo $frontString . ' : ' . $value . '<br />';
-}
-
-function getStartofModifier( $aString )
-{
-	$startpos =  strlen( $aString);
-
-	//Count back till we get to the first number
-	while ( (is_numeric($aString[$startpos])==FALSE) and ($startpos <> 0) )
-	{
-		$startpos--;
-	}
-
-	//Get start position of the number
-	while ( is_numeric($aString[$startpos]))
-	{
-		$startpos = $startpos-1;
-	}
-	return $startpos + 1;
-}
-
-function getLengthofModifier( $aString)
-{
-	$startpos = getStartofModifier( $aString);
-	$length = 0;
-	while (is_numeric($aString[$startpos+$length])){
-		//$startpos ++;
-		$length ++;
-	}
-	return $length;
-}
-
-function getModifier( $aString)
-{
-	$startpos = getStartofModifier($aString);
-	$modifier = '';
-
-	// Extract the number
-	while ( is_numeric( $aString[$startpos] ))
-	{
-		$modifier .= $aString[$startpos];
-		$startpos++;
-	}
-	return $modifier;
-}
-
-function getString( $aString)
-{
-	return substr_replace( $aString, 'XX',getStartofModifier($aString), getLengthofModifier($aString));
-}
-
-function getStartofModifierMana( $aString)
-{
-	$startpos = 0;
-	while ( (is_numeric($aString[$startpos])==FALSE) and ($startpos <> strlen($aString)) ){
-		$startpos ++;
-	}
-	return $startpos;
-}
-
-function getLengthofModifierMana( $aString)
-{
-	$startpos = getStartofModifierMana( $aString);
-	$length = 0;
-	while (is_numeric($aString[$startpos+$length])){
-		$length ++;
-	}
-	return $length;
-}
-
-function getModifierString( $aString)
-{
-	return substr_replace( $aString, 'XX',getStartofModifierMana($aString), getLengthofModifierMana($aString));
-}
-
-function getModifierMana( $aString)
-{
-	return subStr($aString, getStartofModifierMana($aString), getLengthofModifierMana($aString));
-}
-
-function setBonus( $modifier, $string, $item_name, $item_color)
-{
-	global $myBonus, $myTooltip;
-
-	$full = '<span style="color:#'.$item_color.';">' . $item_name . '</span> : ' . $modifier;
-
-	if (array_key_exists($string, $myBonus)) {
-		$myBonus[$string] = $myBonus[$string] + $modifier;
-		$myTooltip[$string] = $myTooltip[$string] . '<br />' . $full;
-	} else {
-		$myBonus[$string] = $modifier;
-		$myTooltip[$string] = $full;
-	}
-}
-
-function hasNumeric( $aString)
-{
-	$pos = 0;
-
-	while (($pos <= strlen($aString)) and (is_numeric($aString[$pos])==FALSE))
-	{
-		$pos++;
-	}
-
-	if ($pos < strlen($aString) )
-		return TRUE;
-	else
-		return FALSE;
-}
-
-function sortOutTooltip( $tooltip, $item_name, $item_color,$client_lang )
-{
-	global $wordings;
-
-	$lines = explode(chr(10), $tooltip);
-
-	foreach ($lines as $line)
-	{
-		if ((ereg('^'.$wordings[$client_lang]['tooltip_equip'], $line)) and ( hasNumeric($line)==FALSE)){
-			setBonus( '', $line, $item_name,$item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_equip_restores'], $line)){
-			setBonus( getModifierMana( $line), getModifierString( $line), $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_equip_when'], $line)){
-			setBonus( getModifierMana( $line), getModifierString( $line), $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_equip'], $line)){
-			setBonus( getModifier( $line), getString( $line), $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_set'], $line)){
-			setBonus( '', $line, $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_spell_damage'], $line)){
-			setBonus( getModifier( $line), $line, $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_healing_power'], $line)){
-			setBonus( getModifier( $line), $line, $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_chance_hit'], $line)){
-			setBonus( getModifier( $line), getModifierString( $line), $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_reinforced_armor'], $line)){
-			setBonus( getModifier( $line), getModifierString( $line), $item_name, $item_color);
-		}
-		else if (ereg('^'.$wordings[$client_lang]['tooltip_school_damage'], $line)){
-			setBonus( getModifier( $line), getString( $line), $item_name, $item_color);
-		}
-	}
-}
-
-function dumpString( $aString)
-{
-	//$aString = str_replace( chr(10), 'TWAT', $aString);
-	dbl( 'STRING', $aString);
-	for ($i = 0; $i < strlen($aString); $i++)
-	{
-		dbl( $aString[$i], ord($aString[$i]));
-	}
-}
-
-
-function dumpBonuses($char)
-{
-	global $myBonus, $myTooltip, $wordings, $roster_conf, $wowdb;
-
-	$char->fetchEquip();
-
-	$lang = $char->data['clientLocale'];
-
-	foreach($char->equip as $slot=>$item)
-	{
-		sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], $item->data['item_color'],$char->data['clientLocale'] );
-	}
-
-	$bt = border('sgray','start',$wordings[$lang]['itembonuses']).
-		'<table style="width:330px;" class="bodyline" cellspacing="0" cellpadding="0" border="0">'."\n";
-
-	$row = 0;
-	foreach ($myBonus as $key => $value)
-	{
-		$bt .= '	<tr>
-		<td class="membersRowRight'.(($row%2)+1).'" style="white-space:normal;" '.makeOverlib($myTooltip[$key],str_replace('XX', $value, $key),'',2).'>'.
-		str_replace('XX', $value, $key).'</td>
-	</tr>';
-
-		$row++;
-	}
-	$bt .= '</table>'.border('sgray','end');
-
-	if( !empty($myBonus) )
-	{
-		return $bt;
-	}
-	else
-	{
-		return;
-	}
 }

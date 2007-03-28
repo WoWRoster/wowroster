@@ -30,14 +30,11 @@ class item
 		$this->data = $data;
 	}
 
-	function out()
+	function out( )
 	{
-		global $roster_conf, $wordings, $char, $tooltips;
+		global $roster_conf, $wordings, $tooltips;
 
-		if( !is_object($char) )
-			$lang = $roster_conf['roster_lang'];
-		else
-			$lang = $char->data['clientLocale'];
+		$lang = $this->data['clientLocale'];
 
 		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'];
 
@@ -73,12 +70,12 @@ class item
 	}
 }
 
-function item_get_one( $member_id, $slot )
+function item_get_one( $member_id , $slot )
 {
 	global $wowdb;
 
 	$slot = $wowdb->escape( $slot );
-	$query = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_slot` = '$slot'";
+	$query = "SELECT `i`.*, `p`.`clientLocale` FROM `".ROSTER_ITEMSTABLE."` AS i, `".ROSTER_PLAYERSTABLE."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_slot` = '$slot';";
 
 	$result = $wowdb->query( $query );
 	$data = $wowdb->fetch_assoc( $result );
@@ -89,12 +86,12 @@ function item_get_one( $member_id, $slot )
 
 }
 
-function item_get_many( $member_id, $parent )
+function item_get_many( $member_id , $parent )
 {
 	global $wowdb;
 
 	$parent = $wowdb->escape( $parent );
-	$query= "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = $member_id AND `item_parent` = '$parent'";
+	$query= "SELECT `i`.*, `p`.`clientLocale` FROM `".ROSTER_ITEMSTABLE."` AS i, `".ROSTER_PLAYERSTABLE."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_parent` = '$parent';";
 
 	$result = $wowdb->query( $query );
 

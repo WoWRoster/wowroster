@@ -116,9 +116,9 @@ if ( $roster_conf['bank_money'] )
 	$mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
 	$bank_money = $act_words['guildbank_totalmoney'].' <div class="money">'.
-	$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g"/> '.
-	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s"/> '.
-	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c"/></div>';
+	$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> '.
+	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> '.
+	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /></div>';
 }
 
 $bankers = array();
@@ -142,22 +142,22 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 		 	  '<tr>
     <td colspan="'.$columns.'" class="membersRowRight2">'.
 			'<div class="money" align="center">'.
-			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g"/> '.
-			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s"/> '.
-			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c"/></div>'.
+			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> '.
+			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> '.
+			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /></div>'.
 		"</td>\n</tr>\n" : '' );
 
 	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
- FROM `".ROSTER_ITEMSTABLE."` as i
- WHERE ".$muleRow['member_id']."=i.member_id
- AND i.item_parent!='bags'
- AND i.item_parent!='equip'
- AND (i.item_tooltip
- NOT LIKE '%".$act_words['tooltip_soulbound']."%'
- OR i.item_tooltip
- LIKE '%".$act_words['tooltip_boe']."%')
- GROUP BY real_itemid
- ORDER BY i.item_name";
+		FROM `".ROSTER_ITEMSTABLE."` as i
+		WHERE ".$muleRow['member_id']."=i.member_id
+		AND i.item_parent!='bags'
+		AND i.item_parent!='equip'
+		AND (i.item_tooltip
+		NOT LIKE '%".$act_words['tooltip_soulbound']."%'
+		OR i.item_tooltip
+		LIKE '%".$act_words['tooltip_boe']."%')
+		GROUP BY real_itemid
+		ORDER BY i.item_name";
 
 	$itemsOnMule = $wowdb->query($itemsOnMuleQuery);
 
@@ -173,7 +173,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 	{
 		$bank_print .= '  <tr>
     <td class="membersRowRight1">';
-		$column_counter=1;
+		$column_counter = 1;
 		$bank_print .= '<table width="100%" cellspacing="0" cellpadding="2">';
 
 		$striping_counter = 1;
@@ -212,15 +212,15 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 			if ($column_counter==$columns)
 			{
-				$bank_print .= '  </tr>'."\n";
+				$bank_print .= "  </tr>\n";
 				$column_counter=0;
 			}
 			$column_counter++;
 			$itemRow = $wowdb->fetch_array($itemsOnMule);
 		}
-		if( $column_counter>0 )
+		if( $column_counter >= 0 && substr($bank_print,-6) != "</tr>\n")
 		{
-			$bank_print .= '  </tr>'."\n";
+			$bank_print .= "  </tr>\n";
 		}
 		$bank_print .= "</table></td>\n</tr>\n";
 	}

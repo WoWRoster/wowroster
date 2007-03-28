@@ -21,15 +21,25 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 img, p { padding:0;margin:0;border:0; }
 
-input { border:1px solid #CBA300;color:#FFF;font:10px verdana,arial;background-color:#202020; }
+input {
+	border:1px solid #CBA300;
+	color:#FFF;
+	font:10px verdana,arial;
+	background-color:#202020;
+}
 input[type="submit"], input[type="reset"], input[type="button"] { cursor:pointer; }
 
-select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;background-color:#202020; }
+select {
+	border:1px solid #CBA300;
+	color:#ffffff;
+	font:10px verdana,arial;
+	background-color:#202020;
+}
 
 
 /**
  * Custom Text Input Boxes
-**/
+ */
 .wowinput {
 	border:0;
 	vertical-align:middle;
@@ -38,7 +48,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	padding-top:3px;
 	padding-left:5px;
 	padding-right:5px;
-	background:transparent url('../img/searchbox.png') no-repeat;
+	background:transparent url(../img/searchbox.png) no-repeat;
 }
 * html .wowinput { background-attachment:fixed; }
 .wowinput192 {
@@ -47,7 +57,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	width:182px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url('../img/searchbox192.png') no-repeat;
+	background:transparent url(../img/searchbox192.png) no-repeat;
 }
 * html .wowinput192 { background-attachment:fixed; }
 .wowinput128 {
@@ -56,7 +66,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	width:118px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url('../img/searchbox128.png') no-repeat;
+	background:transparent url(../img/searchbox128.png) no-repeat;
 }
 * html .wowinput128 { background-attachment:fixed; }
 .wowinput64 {
@@ -65,7 +75,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	width:54px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url('../img/searchbox64.png') no-repeat;
+	background:transparent url(../img/searchbox64.png) no-repeat;
 }
 * html .wowinput64 { background-attachment:fixed; }
 
@@ -91,7 +101,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 
 /**
  * Special Radio Buttons and Checkboxes
-**/
+ */
 /* Off state for checkbox */
 .checkboxOff {
 	display:inline;
@@ -99,7 +109,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	padding:2px; /* NS 6 problem */
 	padding-left:20px;
 	line-height:16px;
-	background:transparent url('../img/check_off.png') no-repeat 0% 50%;
+	background:transparent url(../img/check_off.png) no-repeat 0% 50%;
 	border:0;
 }
 /* On state for checkbox */
@@ -109,7 +119,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	padding:2px; /* NS 6 problem */
 	padding-left:20px;
 	line-height:16px;
-	background:transparent url('../img/check_on.png') no-repeat 0% 50%;
+	background:transparent url(../img/check_on.png) no-repeat 0% 50%;
 	border:0;
 }
 /* Off state for radio button */
@@ -118,7 +128,7 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	margin:0;
 	padding:2px;
 	padding-left:15px;
-	background:transparent url('../img/radio_off.png') no-repeat 0% 50%;
+	background:transparent url(../img/radio_off.png) no-repeat 0% 50%;
 }
 /* On state for radio button */
 .radioOn {
@@ -129,10 +139,10 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 	background:transparent url('../img/radio_on.png') no-repeat 0% 50%;
 }
 /* use CSS to full effect with hover states. Ohhh, perty! */
-.checkboxOn:hover { background-image:url('../img/check_on_hover.png'); }
-.checkboxOff:hover { background-image:url('../img/check_off_hover.png'); }
-.radioOn:hover { background-image:url('../img/radio_hover.png'); }
-.radioOff:hover { background-image:url('../img/radio_hover.png'); }
+.checkboxOn:hover { background-image:url(../img/check_on_hover.png); }
+.checkboxOff:hover { background-image:url(../img/check_off_hover.png); }
+.radioOn:hover { background-image:url(../img/radio_hover.png); }
+.radioOff:hover { background-image:url(../img/radio_hover.png); }
 
 
 /**
@@ -1342,11 +1352,213 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 }
 
 
+/*********** Skill Page Tab(4) ***********/
+.char_panel .tab4 .container {
+	position:absolute;
+	width:320px;
+	height:355px;
+	overflow:auto;
+	margin-left:15px;
+	margin-top:73px;
+}
+.char_panel .tab4 .header {
+	font-size:12px;
+	font-weight:bold;
+	width:265px;
+	color:#FFDD00;
+}
+.char_panel .tab4 .minus_plus {
+	/* Minus Plus boxs for skills tab */
+	margin-top:4px;
+	margin-left:6px;
+	margin-right:4px;
+	cursor:pointer;
+}
+.char_panel .tab4 .skill_bar {
+	background-image:url(../img/char/skill/bar_empty.gif);
+	font-size:11px;
+	vertical-align:top;
+	height:18px;
+	width:287px;
+	padding-left:14px;
+	background-repeat:no-repeat;
+}
+.char_panel .tab4 .text {
+	margin-left:10px;
+	margin-top:0px;
+	color:#FFDD00;
+	position:absolute;
+}
+.char_panel .tab4 .text_num {
+	margin-left:10px;
+	color:#FFFFFF;
+}
+
+
+/*********** PvP Page Tab(5) ***********/
+
+/* Background image for pvp tab */
+.char_panel .tab5 .background {
+	position:absolute;
+	width:337px;
+	height:393px;
+	margin:32px 0pt 0pt 7px;
+	background:url(../img/char/pvpframe.gif) no-repeat;
+}
+.char_panel .tab5 .honortext {
+	position:absolute;
+	margin:34px 0 0 6px;
+	text-align:center;
+	width:337px;
+	color:#ffffff;
+	font-size:14px;
+	font-weight:bold;
+}
+.char_panel .tab5 .honortext span {
+	margin-left:20px;
+	color:#FFCC00;
+}
+.char_panel .tab5 .honortext img {
+	margin-left:10px;
+	vertical-align:middle;
+}
+.char_panel .tab5 .arenatext {
+	position:absolute;
+	margin:129px 0 0 6px;
+	text-align:center;
+	width:337px;
+	color:#ffffff;
+	font-size:14px;
+	font-weight:bold;
+}
+.char_panel .tab5 .arenatext span {
+	margin-left:20px;
+	color:#FFCC00;
+}
+.char_panel .tab5 .arenatext img {
+	margin:0 0 0 10px;
+	height:20px;
+	width:23px;
+	vertical-align:middle;
+}
+.char_panel .tab5 .today {
+	position:absolute;
+	margin:57px 0 0 100px;
+	font-size:13px;
+	color:#999;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .yesterday {
+	position:absolute;
+	margin:57px 0 0 160px;
+	font-size:13px;
+	color:#999;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .lifetime {
+	position:absolute;
+	margin:57px 0 0 270px;
+	font-size:13px;
+	color:#999;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .divider {
+	position:absolute;
+	margin:74px 0 0 50px;
+	border:1px outset #333333;
+	width:280px;
+	height:0;
+}
+.char_panel .tab5 .killsline {
+	position:absolute;
+	margin-top:80px;
+	text-align:right;
+	width:76px;
+	font-size:13px;
+	color:#999;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .killsline1 {
+	position:absolute;
+	margin:80px 0 0 35px;
+	text-align:right;
+	width:100px;
+	font-size:13px;
+	color:#FFF;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .killsline2 {
+	position:absolute;
+	margin:80px 0 0 115px;
+	text-align:right;
+	width:100px;
+	font-size:13px;
+	color:#FFF;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .killsline3 {
+	position:absolute;
+	margin:80px 0 0 215px;
+	text-align:right;
+	width:100px;
+	font-size:13px;
+	color:#FFF;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .honorline {
+	position:absolute;
+	margin-top:100px;
+	text-align:right;
+	width:76px;
+	font-size:13px;
+	color:#999;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .honorline1 {
+	position:absolute;
+	margin:100px 0 0 35px;
+	text-align:right;
+	width:100px;
+	font-size:13px;
+	color:#FFF;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .honorline2 {
+	position:absolute;
+	margin:100px 0 0 115px;
+	text-align:right;
+	width:100px;
+	font-size:13px;
+	color:#FFF;
+	font-weight:bold;
+	overflow:hidden;
+}
+.char_panel .tab5 .honorline3 {
+	position:absolute;
+	margin:100px 0 0 205px;
+	text-align:right;
+	width:100px;
+	font-size:13px;
+	color:#FFF;
+	font-weight:bold;
+	overflow:hidden;
+}
+
+
 
 
 /**
  * Talent Page
-**/
+ */
 .talent_panel .background { position:absolute;margin-top:73px;margin-left:16px;width:318px;height:333px; }
 .talent_panel .top_bar { position:absolute;margin-top:43px;margin-left:65px; }
 .talent_panel .bot_bar { position:absolute;margin-top:402px;margin-left:12px; }
@@ -1392,224 +1604,6 @@ select { border:1px solid #CBA300;color:#ffffff;font:10px verdana,arial;backgrou
 /* Links in menu on-mouseover */
 .quest_link a:hover { background-color:#7A7772; }
 
-
-/**
- * Character Tabs
-**/
-.char {
-	width:405px;
-	height:560px;
-}
-.char .main {
-	width:405px;
-	height:500px;
-	background:url(../img/borderbottomsides.gif) no-repeat;
-	background-position:center bottom;
-}
-.char .main .top {
-	width:405px;
-	height:70px;
-	text-align:center;
-	background:url(../img/bgtop.gif) no-repeat;
-	overflow:hidden;
-}
-
-.char .main .page5 {
-	float:left;
-	display:none;
-	width:405px;
-}
-/* Hide from IE5-mac. Only IE-win sees this. \*/
-* html .char .main .page5 {
-	position:absolute;
-	float:left;
-	display:none;
-}
-/* End hide from IE5/mac */
-
-.char .main .page5 .left {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderleft.gif) repeat-y;
-	background-position:left top;
-}
-.char .main .page5 .right {
-	float:left;
-	width:4px;
-	height:430px;
-	background:url(../img/borderright.gif) repeat-y;
-	background-position:right top;
-}
-.char .main .page5 .honor {
-	position:relative;
-	float:left;
-	height:430px;
-	width:397px;
-	overflow:hidden;
-	background:url(../img/bghonor.jpg) no-repeat;
-	background-position:center center;
-}
-.char .main .page5 .honor .honortext {
-	position:absolute;
-	margin-top:2px;
-	text-align:center;
-	width:396px;
-	color:#ffffff;
-	font-size:16px;
-	font-weight:bold;
-}
-.char .main .page5 .honor .honortext span {
-	margin:0 0 0 20px;
-	color:#FFCC00;
-}
-.char .main .page5 .honor .honortext img {
-	margin:0 0 0 10px;
-	vertical-align:middle;
-}
-.char .main .page5 .honor .arenatext {
-	position:absolute;
-	text-align:center;
-	width:396px;
-	margin-top:104px;
-	color:#ffffff;
-	font-size:16px;
-	font-weight:bold;
-}
-.char .main .page5 .honor .arenatext span {
-	margin:0 0 0 20px;
-	color:#FFCC00;
-}
-.char .main .page5 .honor .arenatext img {
-	margin:0 0 0 10px;
-	height:20px;
-	width:23px;
-	vertical-align:middle;
-}
-.char .main .page5 .honor .today {
-	position:absolute;
-	margin:30px 0 0 100px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .yesterday {
-	position:absolute;
-	margin:30px 0 0 160px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .lifetime {
-	position:absolute;
-	margin:30px 0 0 270px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .divider {
-	position:absolute;
-	margin:48px 0 0 80px;
-	border:1px outset #333333;
-	width:280px;
-	height:0;
-}
-.char .main .page5 .honor .killsline {
-	position:absolute;
-	margin-top:55px;
-	text-align:right;
-	width:76px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .killsline1 {
-	position:absolute;
-	margin:55px 0 0 35px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .killsline2 {
-	position:absolute;
-	margin:55px 0 0 115px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .killsline3 {
-	position:absolute;
-	margin:55px 0 0 215px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .honorline {
-	position:absolute;
-	margin-top:80px;
-	text-align:right;
-	width:76px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .honorline1 {
-	position:absolute;
-	margin:80px 0 0 35px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .honorline2 {
-	position:absolute;
-	margin:80px 0 0 115px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char .main .page5 .honor .honorline3 {
-	position:absolute;
-	margin:80px 0 0 205px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-
-.char .bottomBorder {
-	float:left;
-	width:405px;
-	height:10px;
-	background:url(../img/borderbottom.gif);
-	background-position:left top;
-	font-size:0;
-}
-
-/**********
- * END Character tabs
-**********/
 
 
 /**

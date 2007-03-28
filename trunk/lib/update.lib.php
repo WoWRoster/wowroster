@@ -98,13 +98,15 @@ class update
 			{
 				$filename = explode('.',$file['name']);
 				$filebase = strtolower($filename[0]);
-				if (in_array($filebase,$this->files))
+
+				if( in_array($filebase,$this->files) )
 				{
 					// Get start of parse time
 					$parse_starttime = explode(' ', microtime() );
 					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
-					$data = ParseLuaFile( $file['tmp_name'] );
+					$luahandler = new lua();
+					$data = $luahandler->luatophp( $file['tmp_name'] );
 
 					// Calculate parse time
 					$parse_endtime = explode(' ', microtime() );
@@ -113,17 +115,19 @@ class update
 
 					if( $data )
 					{
-						$output .= '<li>'.sprintf($act_words['parsed_time'],$file_name,$parse_totaltime).'</li>'."\n";
+						$output .= '<li>'.sprintf($act_words['parsed_time'],$filename[0],$parse_totaltime).'</li>'."\n";
 						$this->uploadData[$filebase] = $data;
 					}
 					else
 					{
-						$output .= '<li>'.sprintf($act_words['error_parsed_time'],$file_name,$parse_totaltime).'</li>'."\n";
+						$output .= '<li>'.sprintf($act_words['error_parsed_time'],$filename[0],$parse_totaltime).'</li>'."\n";
+						$output .= ($luahandler->error !='' ? '<li>'.$luahandler->error().'</li>'."\n" : '');
 					}
+					unset($luahandler);
 				}
 				else
 				{
-				$output .= '<li>'.sprintf($act_words['upload_not_accept'],$file['name']).'</li>'."\n";
+					$output .= '<li>'.sprintf($act_words['upload_not_accept'],$file['name']).'</li>'."\n";
 				}
 			}
 		}
@@ -138,7 +142,7 @@ class update
 	 */
 	function processFiles()
 	{
-		global $roster_login, $roster_conf;
+		global $roster_conf;
 
 		if (!is_array($this->uploadData))
 		{

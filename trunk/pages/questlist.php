@@ -24,6 +24,8 @@ if ( !defined('ROSTER_INSTALLED') )
 $header_title = $act_words['quests'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
+include_once(ROSTER_LIB.'sitesearch.lib.php');
+
 
 if (isset($_GET['zoneid']))
 {
@@ -79,13 +81,25 @@ include_once(ROSTER_LIB.'menu.php');
 print("<br />\n");
 
 echo "<table cellspacing=\"6\">\n  <tr>\n";
+
 echo '    <td valign="top">';
-include_once(ROSTER_LIB.'search_thot.php');
+echo sitesearch('thott');
 echo "    </td>\n";
 
 echo '    <td valign="top">';
-include_once(ROSTER_LIB.'search_alla.php');
+echo sitesearch('alla');
 echo "    </td>\n";
+
+echo "  </tr>\n  <tr>\n";
+
+echo '    <td valign="top">';
+echo sitesearch('wowhead');
+echo "    </td>\n";
+
+echo '    <td valign="top">';
+echo sitesearch('wwndata');
+echo "    </td>\n";
+
 echo "  </tr>\n</table>\n";
 
 print("<br />\n");
