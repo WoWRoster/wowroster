@@ -72,13 +72,9 @@ if( file_exists($addonFile) )
 }
 else
 {
-	$content = sprintf($act_words['addon_not_exist'],$pages[2]);
+	$body = sprintf($act_words['addon_not_exist'],$pages[2]);
 }
-
-// Everything after this line will have to be changed to integrate into smarty! ;)
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
 if( $css != '' )
 	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'">'."\n";
-
-echo ( isset($content) ? $content: '');
