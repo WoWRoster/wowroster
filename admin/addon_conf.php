@@ -81,4 +81,4 @@ else
 if( $css != '' )
 	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'">'."\n";
 
-echo $content;
+echo ( isset($content) ? $content: '');

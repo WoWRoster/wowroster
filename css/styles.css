@@ -1560,13 +1560,13 @@ select {
  * Talent Page
  */
 .talent_panel .background { position:absolute;margin-top:73px;margin-left:16px;width:318px;height:333px; }
+.talent_panel .container { position:absolute;margin-top:73px;margin-left:16px;width:318px;height:333px;overflow:auto; }
 .talent_panel .top_bar { position:absolute;margin-top:43px;margin-left:65px; }
 .talent_panel .bot_bar { position:absolute;margin-top:402px;margin-left:12px; }
 .talent_panel .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
 .talent_panel .link { text-align:left;position:absolute;margin-top:411px;margin-left:25px;width:145px; }
 .talent_panel .points_unused { text-align:right;position:absolute;margin-top:411px;margin-left:172px;width:150px; }
 .talent_panel .points_unused .label { color:#ffdd00; }
-.talent_panel .container { position:absolute;width:318px;height:329px;overflow:auto;margin-left:17px;margin-top:74px; }
 .talent_panel .row { height:40px;margin-top:15px; }
 .talent_panel .rank_icon { position:absolute;margin-top:31px;margin-left:30px; }
 .talent_panel .rank_text { position:absolute;font-size:12px;margin-top:31px;margin-left:35px;cursor:default; }

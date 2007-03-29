@@ -106,7 +106,7 @@ if( !empty($messagestringout) )
 	$message .= messagebox($messagestringout,$act_words['installer_log'],'syellow');
 }
 
-$body = ($message != '' ? $message.'<br />' : '').((isset($output) && !empty($output)) ? messagebox($output,$act_words['pagebar_addoninst'],'sblue') : '');
+$body = $roster_login->getMessage().'<br />'.($message != '' ? $message.'<br />' : '').((isset($output) && !empty($output)) ? messagebox($output,$act_words['pagebar_addoninst'],'sblue') : '');
 
 
 
