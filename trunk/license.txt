@@ -21,8 +21,7 @@ Any of these conditions can be waived if you get permission from the dev team at
 
 ---------------------------------------------------------------------------------------------------
 
-Serveral javascript libraries are included with WoWRoster
-that are not included under the main WoWRoster license
+Serveral external libraries are included with WoWRoster that are not included under the main WoWRoster license
 
 These are:
 
@@ -47,3 +46,15 @@ Modified EQdkp installer
       o install.php
       o update.php
       o install/template.php
+
+MiniXML Library
+
+  * http://minixml.psychogenic.com
+  * GNU General Public License: http://gnu.org/copyleft/gpl.html
+  * This concerns the files:
+      o lib/minixml.lib.php
+      o lib/minixml/doc.inc.php
+      o lib/minixml/element.inc.php
+      o lib/minixml/LICENSE
+      o lib/minixml/node.inc.php
+      o lib/minixml/treecomp.inc.php

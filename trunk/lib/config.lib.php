@@ -38,12 +38,12 @@ class config
 	 */
 	function config( $tablename )
 	{
-		global $act_words, $body_action;
+		global $act_words, $body_action, $roster_login;
 
 		$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 		$this->tablename = $tablename;
-		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
+		$this->form_start = $roster_login->getMessage()."<br /><form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
 		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
@@ -58,6 +58,8 @@ class config
 	{
 		global $act_words;
 
+		$addonGET = ( isset($_GET['addon']) ? $_GET['addon'] : '');
+
 		$menu = '<!-- Begin Config Menu -->'."\n".
 			border('sgray','start',$act_words['roster_config_menu'])."\n".
 			'<div style="width:145px;">'."\n".
@@ -68,7 +70,7 @@ class config
 			foreach($this->db_values['menu'] as $values)
 			{
 				$menu_type = explode('{',$values['form_type']);
-				$URL = str_replace(array('%addon%','%roster%'),array($_REQUEST['addon'],ROSTER_URL),$values['value']);
+				$URL = str_replace(array('%addon%','%roster%'),array($addonGET,ROSTER_URL),$values['value']);
 
 				switch ($menu_type[0])
 				{
@@ -115,6 +117,8 @@ class config
 				$type = explode('{',$values['form_type']);
 				$page = '<div id="'.$values['name'].'" style="display:none;">'."\n";
 
+				$type[1] = ( isset($type[1]) ? $type[1] : '');
+
 				$header_text = explode('|',$act_words['admin'][$values['name']]);
 				$header_text = $header_text[0];
 
@@ -152,7 +156,7 @@ class config
 					case 'blockframe':
 						$page .= border('sblue','start',$header_text)."\n";
 						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-						$page .= $this->buildBlock($values['name'],$type[1]);
+						$page .= $this->buildBlock($values['name']);
 						$page .= "</table>\n";
 						$page .= border('sblue','end')."\n";
 						$addpage = true;
@@ -166,7 +170,7 @@ class config
 						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
 						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-						$page .= $this->buildBlock($values['name'],$type[1]);
+						$page .= $this->buildBlock($values['name']);
 						$page .= "</table>\n";
 						$page .= border('sblue','end');
 						$page .= '</div>'."\n";
@@ -290,6 +294,7 @@ class config
 	{
 		global $roster_login;
 		$i = 0;
+		$html = '';
 		foreach($this->db_values[$block] as $values)
 		{
 			// Here is my nifty auto form generator
@@ -494,14 +499,21 @@ class config
 				$this->db_values[$setitem][$arrayitem]['value'] = stripslashes($row['config_value']);
 				$this->db_values[$setitem][$arrayitem]['form_type'] = stripslashes($row['form_type']);
 
-				// Get description and tooltip
-				$desc_tip = explode('|',$act_words['admin'][$row['config_name']]);
-
-				$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
-
 				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$row['config_name'].'</span></span>';
-				$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 
+				// Get description and tooltip
+				if( isset($act_words['admin'][$row['config_name']]) )
+				{
+					$desc_tip = explode('|',$act_words['admin'][$row['config_name']]);
+					$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
+					$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
+				}
+				else
+				{
+					$desc_tip = '';
+					$this->db_values[$setitem][$arrayitem]['description'] = '';
+					$this->db_values[$setitem][$arrayitem]['tooltip'] = $db_val_line;
+				}
 			}
 
 			return;

@@ -60,7 +60,7 @@ Any of these conditions can be waived if you get permission from the dev team at
 
 <hr />
 
-<p align=\"center\"><span class=\"headline_3\">Serveral javascript libraries are included with WoWRoster<br />
+<p align=\"center\"><span class=\"headline_3\">Serveral external libraries are included with WoWRoster<br />
 that are not included under the main WoWRoster license</span></p>
 
 <br />
@@ -93,6 +93,21 @@ that are not included under the main WoWRoster license</span></p>
 			<li>install.php</li>
 			<li>update.php</li>
 			<li>install/template.php</li>
+		</ul></li>
+</ul>
+
+<strong>MiniXML Library</strong>
+<ul>
+	<li><a href=\"http://minixml.psychogenic.com\" target=\"_blank\">http://minixml.psychogenic.com</a></li>
+	<li>GNU General Public License: <a href=\"http://gnu.org/copyleft/gpl.html\" target=\"_blank\">http://gnu.org/copyleft/gpl.html</a></li>
+	<li>This concerns the files:
+		<ul>
+			<li>lib/minixml.lib.php</li>
+			<li>lib/minixml/doc.inc.php</li>
+			<li>lib/minixml/element.inc.php</li>
+			<li>lib/minixml/LICENSE</li>
+			<li>lib/minixml/node.inc.php</li>
+			<li>lib/minixml/treecomp.inc.php</li>
 		</ul></li>
 </ul>
 </div>",'WoWRoster License');

@@ -34,7 +34,7 @@ class item
 	{
 		global $roster_conf, $wordings, $tooltips;
 
-		$lang = $this->data['clientLocale'];
+		$lang = ( isset($this->data['clientLocale']) ? $this->data['clientLocale'] : $roster_conf['roster_lang']);
 
 		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'];
 
