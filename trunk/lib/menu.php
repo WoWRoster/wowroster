@@ -112,9 +112,9 @@ print '
 
 if(!isset($updateTime))
 {
-	$updateTime = $wordings[$roster_conf['roster_lang']]['none'];
+	$updateTime = $act_words['none'];
 }
-print $wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.$updateTime;
+print $act_words['update'].': <span style="color:#0099FF;">'.$updateTime;
 
 if( !empty($roster_conf['timezone']) )
 	print ' ('.$roster_conf['timezone'].')';
@@ -132,35 +132,35 @@ if( $roster_conf['menu_left_pane'] && is_array($guild_info) )
 {
 	print '   <td rowspan="2" valign="top" class="row">';
 
-	print $wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
+	print $act_words['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
       <br />
       <ul>
         <li style="color:#999999;">Average Level: '.round($result_avg).'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 70: '.$num_lvl_70.'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60-69: '.$num_lvl_60_69.'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 50-59: '.$num_lvl_50_59.'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 30-39: '.$num_lvl_30_39.'</li>
-        <li>'.$wordings[$roster_conf['roster_lang']]['level'].' 1-29: '.$num_lvl_1_29.'</li>
+        <li>'.$act_words['level'].' 70: '.$num_lvl_70.'</li>
+        <li>'.$act_words['level'].' 60-69: '.$num_lvl_60_69.'</li>
+        <li>'.$act_words['level'].' 50-59: '.$num_lvl_50_59.'</li>
+        <li>'.$act_words['level'].' 40-49: '.$num_lvl_40_49.'</li>
+        <li>'.$act_words['level'].' 30-39: '.$num_lvl_30_39.'</li>
+        <li>'.$act_words['level'].' 1-29: '.$num_lvl_1_29.'</li>
       </ul></td>';
 }
 ?>
     <td valign="top" class="row links">
       <ul>
-        <li><a href="<?php print makelink($roster_conf['default_page']); ?>"><?php print $wordings[$roster_conf['roster_lang']]['roster']; ?></a></li>
+        <li><a href="<?php print makelink($roster_conf['default_page']); ?>"><?php print $act_words['roster']; ?></a></li>
 <?php
 
 if( $roster_conf['menu_member_page'] && $roster_conf['default_page'] != 'members' )
-	print '        <li><a href="'.makelink('members').'">'.$wordings[$roster_conf['roster_lang']]['members'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('members').'">'.$act_words['members'].'</a></li>'."\n";
 
 if( $roster_conf['menu_guild_info'] )
-	print '        <li><a href="'.makelink('guildinfo').'">'.$wordings[$roster_conf['roster_lang']]['Guild_Info'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildinfo').'">'.$act_words['Guild_Info'].'</a></li>'."\n";
 
 if( $roster_conf['menu_stats_page'] )
-	print '        <li><a href="'.makelink('guildstats').'">'.$wordings[$roster_conf['roster_lang']]['menustats'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildstats').'">'.$act_words['menustats'].'</a></li>'."\n";
 
 if( $roster_conf['menu_guildbank'] )
-	print '        <li><a href="'.makelink('guildbank').'">'.$wordings[$roster_conf['roster_lang']]['guildbank'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildbank').'">'.$act_words['guildbank'].'</a></li>'."\n";
 ?>
       </ul></td>
 <!-- Links Column 2 -->
@@ -168,19 +168,19 @@ if( $roster_conf['menu_guildbank'] )
       <ul>
 <?php
 if( $roster_conf['menu_pvp_page'] && $roster_conf['pvp_log_allow'] )
-	print '        <li><a href="'.makelink('guildpvp').'">'.$wordings[$roster_conf['roster_lang']]['pvplist'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildpvp').'">'.$act_words['pvplist'].'</a></li>'."\n";
 
 if( $roster_conf['menu_honor_page'] )
-	print '        <li><a href="'.makelink('guildhonor').'">'.$wordings[$roster_conf['roster_lang']]['menuhonor'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('guildhonor').'">'.$act_words['menuhonor'].'</a></li>'."\n";
 
 if( $roster_conf['menu_memberlog'] )
-	print '        <li><a href="'.makelink('memberlog').'">'.$wordings[$roster_conf['roster_lang']]['memberlog'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('memberlog').'">'.$act_words['memberlog'].'</a></li>'."\n";
 
 if( $roster_conf['menu_keys_page'] )
-	print '        <li><a href="'.makelink('keys').'">'.$wordings[$roster_conf['roster_lang']]['keys'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('keys').'">'.$act_words['keys'].'</a></li>'."\n";
 
 if( $roster_conf['menu_tradeskills_page'] )
-	print '        <li><a href="'.makelink('tradeskills').'">'.$wordings[$roster_conf['roster_lang']]['professions'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('tradeskills').'">'.$act_words['professions'].'</a></li>'."\n";
 ?>
      </ul></td>
 <!-- Links Column 3 -->
@@ -188,16 +188,16 @@ if( $roster_conf['menu_tradeskills_page'] )
       <ul>
 <?php
 if( $roster_conf['menu_update_page'] )
-	print '        <li><a href="'.makelink('update').'">'.$wordings[$roster_conf['roster_lang']]['upprofile'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('update').'">'.$act_words['upprofile'].'</a></li>'."\n";
 
 if( $roster_conf['menu_quests_page'] )
-	print '        <li><a href="'.makelink('questlist').'">'.$wordings[$roster_conf['roster_lang']]['team'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('questlist').'">'.$act_words['team'].'</a></li>'."\n";
 
 if( $roster_conf['menu_search_page'] )
-	print '        <li><a href="'.makelink('search').'">'.$wordings[$roster_conf['roster_lang']]['search'].'</a></li>'."\n";
+	print '        <li><a href="'.makelink('search').'">'.$act_words['search'].'</a></li>'."\n";
 ?>
-        <li><a href="<?php print makelink('rostercp').'">'.$wordings[$roster_conf['roster_lang']]['roster_config']; ?></a></li>
-        <li><a href="<?php print makelink('credits').'">'.$wordings[$roster_conf['roster_lang']]['credit']; ?></a></li>
+        <li><a href="<?php print makelink('rostercp').'">'.$act_words['roster_config']; ?></a></li>
+        <li><a href="<?php print makelink('credits').'">'.$act_words['credit']; ?></a></li>
       </ul></td>
 <?php
 if( $roster_conf['menu_right_pane'] && is_array($guild_info) )
@@ -224,7 +224,7 @@ if( $roster_conf['menu_right_pane'] && is_array($guild_info) )
 if( $addons != '' )
 {
 	print "  <tr>\n    <td colspan=\"3\" align=\"center\" valign=\"top\" class=\"row".(($roster_conf['menu_right_pane'] && is_array($guild_info)) ? '' : 'right')." addon\" style=\"width:320px;\">\n";
-	print '<span style="color:#0099FF;font-weight:bold;">'.$wordings[$roster_conf['roster_lang']]['Addon'].'</span>';
+	print '<span style="color:#0099FF;font-weight:bold;">'.$act_words['Addon'].'</span>';
 	print "    <ul>\n";
 	print $addons;
 	print "    </ul></td>\n  </tr>\n";

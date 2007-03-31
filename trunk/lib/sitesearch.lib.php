@@ -37,6 +37,7 @@ function sitesearch($site)
 			$method = 'get';
 			$url = 'http://wow.allakhazam.com/search.html';
 			$color = 'sorange';
+			$link = 'http://wow.allakhazam.com/';
 			break;
 
 		case 'thott':
@@ -47,6 +48,7 @@ function sitesearch($site)
 			$method = 'post';
 			$url = 'http://www.thottbot.com';
 			$color = 'sblue';
+			$link = 'http://www.thottbot.com';
 			break;
 
 		case 'wowhead':
@@ -57,6 +59,7 @@ function sitesearch($site)
 			$method = 'get';
 			$url = 'http://www.wowhead.com';
 			$color = 'sred';
+			$link = 'http://www.wowhead.com';
 			break;
 
 		case 'wwndata':
@@ -67,6 +70,7 @@ function sitesearch($site)
 			$method = 'get';
 			$url = 'http://wwndata.worldofwar.net/search.php';
 			$color = 'sgray';
+			$link = 'http://wwndata.worldofwar.net/';
 			break;
 	}
 
@@ -76,7 +80,7 @@ function sitesearch($site)
 <table cellspacing="0" class="bodyline">
 	<tr>
 		<td valign="middle" class="membersRowRight1"><div align="center">
-			<img src="'.$img.'" alt="'.$title.'" width="158" height="51" /><br />
+			<a href="'.$link.'"target="_blank"><img src="'.$img.'" alt="'.$title.'" width="158" height="51" /></a><br />
 			<br />
 			<form method="'.$method.'" action="'.$url.'">
 				'.$act_words['search'].':
