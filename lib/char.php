@@ -213,6 +213,7 @@ class char
 		global $roster_conf, $url, $sort, $wordings, $wowdb;
 
 		$lang = $this->data['clientLocale'];
+		$returnstring = '';
 
 		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
 		if( isset( $recipes[0] ) )

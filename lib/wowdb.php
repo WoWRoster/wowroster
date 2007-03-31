@@ -541,6 +541,9 @@ class wowdb
 	function add_rating( $row_name, $data )
 	{
 		$data = explode(':',$data);
+		$data[0] = ( isset($data[0]) ? $data[0] : 0 );
+		$data[1] = ( isset($data[1]) ? $data[1] : 0 );
+		$data[2] = ( isset($data[2]) ? $data[2] : 0 );
 		$this->add_value( $row_name, $data[0] );
 		$this->add_value( $row_name.'_c', $data[0]+$data[1]+$data[2] );
 		$this->add_value( $row_name.'_b', $data[1] );
@@ -746,7 +749,7 @@ class wowdb
 		{
 			$quest['quest_name'] = ltrim(substr($quest['quest_name'],strpos($quest['quest_name'],']')+1));
 		}
-		$quest['quest_tag'] = $quest_data['Tag'];
+		$quest['quest_tag'] = (isset($quest_data['Tag']) ? $quest_data['Tag'] : '');
 		$quest['quest_index'] = $slot;
 		$quest['quest_level'] = $quest_data['Level'];
 		$quest['zone'] = $zone;
@@ -817,10 +820,10 @@ class wowdb
 		$item['item_name'] = $item_data['Name'];
 		$item['item_parent'] = $parent;
 		$item['item_slot'] = $slot_name;
-		$item['item_color'] = $item_data['Color'];
-		$item['item_id'] = $item_data['Item'];
-		$item['item_texture'] = $this->fix_icon($item_data['Icon']);
-
+		$item['item_color'] = ( isset($item_data['Color']) ? $item_data['Color'] : 'ffffff' );
+		$item['item_id'] = ( isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0' );
+		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
+		
 		if( isset( $item_data['Quantity'] ) )
 			$item['item_quantity'] = $item_data['Quantity'];
 		else
@@ -881,7 +884,11 @@ class wowdb
 	 */
 	function do_buffs( $data, $memberId )
 	{
-		$buffs = $data['Attributes']['Buffs'];
+		if(isset($data['Attributes']['Buffs']))
+		{
+			$buffs = $data['Attributes']['Buffs'];
+		}
+
 		if( !empty($buffs) && is_array($buffs) )
 		{
 			// Delete the stale data
@@ -947,8 +954,11 @@ class wowdb
 	 */
 	function do_quests( $data, $memberId )
 	{
-		$quests = $data['Quests'];
-
+		if(isset($data['Quests']))
+		{
+			$quests = $data['Quests'];
+		}
+		
 		if( !empty($quests) && is_array($quests) )
 		{
 			// Delete the stale data
@@ -992,7 +1002,10 @@ class wowdb
 	 */
 	function do_recipes( $data, $memberId )
 	{
-		$prof = $data['Professions'];
+		if(isset($data['Professions']))
+		{
+			$prof = $data['Professions'];
+		}
 
 		if( !empty($prof) && is_array($prof) )
 		{
@@ -1150,7 +1163,11 @@ class wowdb
 	function do_bank( $data, $memberId )
 	{
 		// Update Bank Inventory
-		$inv = $data['Bank'];
+		if(isset($data['Bank']))
+		{
+			$inv = $data['Bank'];
+		}
+		
 		if( !empty($inv) && is_array($inv) )
 		{
 			$messages = '<li>Updating Bank';
@@ -1224,7 +1241,12 @@ class wowdb
 	 */
 	function do_mailbox( $data, $memberId )
 	{
-		$mailbox = $data['MailBox'];
+		
+		if(isset($data['MailBox']))
+		{
+			$mailbox = $data['MailBox'];	
+		}
+		
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
@@ -1265,7 +1287,10 @@ class wowdb
 	 */
 	function do_reputation( $data, $memberId )
 	{
-		$repData = $data['Reputation'];
+		if(isset($data['Reputation']))
+		{
+			$repData = $data['Reputation'];
+		}
 
 		if( !empty($repData) && is_array($repData) )
 		{
@@ -1336,7 +1361,10 @@ class wowdb
 	 */
 	function do_skills( $data, $memberId )
 	{
-		$skillData = $data['Skills'];
+		if(isset($data['Skills']))
+		{
+			$skillData = $data['Skills'];
+		}
 
 		if( !empty($skillData) && is_array($skillData) )
 		{
@@ -1400,7 +1428,10 @@ class wowdb
 	 */
 	function do_spellbook( $data, $memberId )
 	{
-		$spellbook = $data['SpellBook'];
+		if(isset($data['SpellBook']))
+		{
+			$spellbook = $data['SpellBook'];
+		}
 
 		if( !empty($spellbook) && is_array($spellbook) )
 		{
@@ -1562,8 +1593,11 @@ class wowdb
 	 */
 	function do_talents( $data, $memberId )
 	{
-		$talentData = $data['Talents'];
-
+		if(isset($data['Talents']))
+		{
+			$talentData = $data['Talents'];	
+		}
+		
 		if( !empty($talentData) && is_array($talentData) )
 		{
 			$messages = '<li>Updating Talents';
@@ -2585,7 +2619,7 @@ class wowdb
 		$this->add_value( 'guild_id', $guildId );
 
 		// BEGIN HONOR VALUES
-		if( is_array($data['Honor']) )
+		if( isset($data['Honor']) && is_array($data['Honor']) )
 		{
 			$honor = $data['Honor'];
 			if( isset($honor['Session']['HK']) )
@@ -2722,7 +2756,7 @@ class wowdb
 				$this->add_rating( 'melee_mhand_rating', $hand['AttackRating']);
 			}
 
-			if( is_array($attack['OffHand']) )
+			if( isset($attack['OffHand']) && is_array($attack['OffHand']) )
 			{
 				$hand = $attack['OffHand'];
 
@@ -2759,7 +2793,7 @@ class wowdb
 		// END MELEE
 
 		// BEGIN RANGED
-		if( is_array($data['Attributes']['Ranged']) )
+		if( isset($data['Attributes']['Ranged']) && is_array($data['Attributes']['Ranged']) )
 		{
 			$attack = $data['Attributes']['Ranged'];
 
@@ -2849,10 +2883,10 @@ class wowdb
 
 		$this->add_value( 'CPversion', $data['DBversion'] );
 
-		if ($data['TimePlayed'] > 0 )
+		if (isset($data['TimePlayed']) && $data['TimePlayed'] > 0 )
 			$this->add_value( 'timeplayed', $data['TimePlayed'] );
 
-		if ($data['TimeLevelPlayed'] > 0 )
+		if (isset($data['TimeLevelPlayed']) && $data['TimeLevelPlayed'] > 0 )
 			$this->add_value( 'timelevelplayed', $data['TimeLevelPlayed'] );
 
 

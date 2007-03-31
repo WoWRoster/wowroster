@@ -47,7 +47,7 @@ if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 $messages = $update->fetchAddonData();
 
 // Has data been uploaded?
-if (($_POST['process'] == 'process') || $isUU)
+if ((isset($_POST['process']) && $_POST['process'] == 'process') || $isUU)
 {
 	$messages .= $update->parseFiles();
 	$messages .= $update->processFiles();
@@ -119,7 +119,7 @@ else
 	print "<br />\n";
 
 	print '<input type="hidden" name="process" value="process">'."\n";
-	print '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['upload'].'">'."\n";
+	print '<input type="submit" value="'.$act_words['upload'].'">'."\n";
 	print '</form>'."\n";
 
 	if (!empty($messages))

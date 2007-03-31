@@ -104,10 +104,10 @@ if (isset($_POST['s']))
 	}
 	else
 	{
-		print '<table cellpadding="0" cellspacing="0" width="100%">
+		print border('sblue','start').'<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td class="membersRowRight1">No '.$act_words['items'].'</td>
-  </tr>'."</table>\n";
+  </tr>'."</table>\n".border('sblue','end');
 	}
 
 

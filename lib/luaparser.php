@@ -163,7 +163,7 @@ class lua
 					}
 					else
 					{
-						if($value[0]=='"')
+						if(isset($value[0]) && $value[0]=='"')
 						{
 							$value = substr($value,1,-1);
 						}

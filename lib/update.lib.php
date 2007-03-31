@@ -43,7 +43,7 @@ class update
 			$this->files[] = 'pvplog';
 		}
 
-		if ( !$roster_conf['user_upgrade_triggers'] )
+		if ( !isset($roster_conf['user_upgrade_triggers']) )
 		{
 			return '';
 		}
@@ -154,7 +154,7 @@ class update
 		{
 			if( ( md5($_POST['password']) == $roster_conf['roster_upd_pw'] ) ||
 				( $_POST['password'] == $roster_conf['roster_upd_pw'] ) ||
-				( $roster_conf['phpbb_authenticated_admin'] )
+				( isset($roster_conf['phpbb_authenticated_admin']) )
 			  )
 			{
 				$output .= $this->processGuildRoster();
@@ -245,6 +245,7 @@ class update
 	{
 		global $wowdb, $roster_conf, $act_words;
 
+		$output = '';
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 
 		$wowdb->resetMessages();

@@ -289,6 +289,8 @@ function text_output($realmData)
 function img_output ($realmData,$err,$image_path,$font_path)
 {
 	global $roster_conf;
+	
+	$vadj = 0;
 
 	$serverfont = $font_path . 'VERANDA.TTF';
 	$serverfontsize = 7;
