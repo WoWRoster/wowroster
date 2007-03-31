@@ -40,7 +40,7 @@ if( !$result )
 
 if( $row = $wowdb->fetch_assoc($result) )
 {
-	header("Location: ".ROSTER_URL.$roster_rel."/?p=char&amp;member=".$row['member_id']);
+	header("Location: ".ROSTER_URL.$roster_rel."/?p=char&member=".$row['member_id']);
 	exit();
 }
 
