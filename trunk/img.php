@@ -20,7 +20,7 @@
 $no_roster_headers = true;
 
 require_once( 'settings.php' );     ##  Uses the same settings.php as WoWProfiler
-$name = $_GET['name'];  ##  Here because some hosts need it
+$name = addslashes(urldecode($_SERVER['QUERY_STRING']));
 
 $sitename=$roster_conf['website_address'];  ## Change this to your web address or a guild motto or whatever
 
