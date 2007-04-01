@@ -32,7 +32,7 @@ include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
 $inClause = "'";
 foreach( $roster_conf['multilanguages'] as $lang )
 {
-	$inClause .= implode("', '",$act_words['tsArray']);
+	$inClause .= implode("', '",$wordings[$lang]['tsArray']);
 	$inClause .= "', '";
 }
 $inClause .= "'";

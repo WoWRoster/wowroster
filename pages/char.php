@@ -31,7 +31,7 @@ if( isset($_GET['member']) && $_GET['member'] != '' )
 	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 	// Get char page mode
-	$action = (isset($pages[1]) ? $pages[1] : '' );
+	$action = (isset($roster_pages[1]) ? $roster_pages[1] : '' );
 
 	// Get pvp table/recipe sort mode
 	$sort = (isset($_GET['s']) ? $_GET['s'] : '');

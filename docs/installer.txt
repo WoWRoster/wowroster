@@ -16,8 +16,8 @@ some important exeptions:
 Creating the installer
 ===================
 You should create a file called install.def.php with in it a class that is named
-identical to your addon's install directory name. This name will be refered to as your
-addon's basename.
+identical to your addon's install directory name.
+This name will be refered to as your addon's basename.
 
 var $active
 	Boolean, set to true to activate this addon after installing, set to
@@ -37,7 +37,7 @@ var $version
 	includes a database update.
 
 var $icon
-	String, an icon to display for your addon
+	String, an icon to display for your addon in the addon management page in RosterCP
 	Valid icons are from the Interface ImagePack
 
 var $fullname
@@ -66,7 +66,7 @@ upgrade($oldbasename, $oldversion)
 	Return true on success, false on failure.
 
 	You should supply your own file to be called for upgrades of a Roster
-	1.7 addon since roster cannot detect these addons.
+	1.7.x addon since Roster cannot detect these addons.
 
 uninstall()
 	Here you should add all queries for an uninstall. No parameters.
@@ -75,73 +75,21 @@ uninstall()
 
 Adding queries
 ==============
-Queries are added to the install using the $installer->add_query() function.
-It has 3 parameters
+Queries are added to the install using the $installer functions.
 
-$query_type
-	the type of query
+$installer->add_query($sqlstring);
+	Any SQL query
 
-$table_name
-	the base table name this query affects. Prefixes are
-	automatically added, you only need to worry about duplicate
-	table names inside your addon.
-
-$data
-	the other data needed to execute the query. Not needed for
-	query types BACKUP and DROP.
-
-You need to add data to each profile seperately. The profile you're adding data
-to is set using the $installer->profile variable.
-
-
-Query Types
-===========
-BACKUP:
+$installer->add_backup($table)
 	Makes a temporary copy of a table and its contents that is put back in case of a rollback
-	$table contains the table name to copy
-	$data doesn't matter
 
-LEGACY:
-	Makes a permanent copy of a table and its contents. Meant to upgrade pre-1.8 roster addons.
-	$table contains the table name to copy to
-	$data contains the full table name of the source.
+$installer->add_drop($table)
+	Have a table be dropped on rollback
 
-CREATE:
-	Creates a table
-	$data contains the column/key/index/constraint definitions
-
-DROP:
-	Drops a table
-	$data doesn't matter
-
-RENAME:
-	Renames a table
-	$table is the old base table name
-	$data is the new base table name
-
-ADD:
-	Adds a column, key, index, or constraint
-	$data contains definition
-
-DEL:
-	Removes a column, key, index, or constraint
-	$data contains definition
-
-CHANGE:
-	Changes the name and/or definition of a column
-	$data contains old name and new definition (with name)
-
-INSERT:
-	Adds a record
-	$data contains the values
-
-DELETE:
-	Removes a record
-	$data contains the WHERE condition for the delete
-
-UPDATE:
-	Updates a record
-	$data contains the column=values to insert, WHERE, the condition to define the record(s)
+$installer->add_config($sqlstring);
+	Add config sql to `roster_addon_config` table
+	"'id','config_name','config_value','form_type','config_type'"
+	These entries will be used to build a config page through Roster's config page API
 
 
 Creating/Editing menu entries

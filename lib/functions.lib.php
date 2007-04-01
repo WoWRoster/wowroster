@@ -184,7 +184,7 @@ function sql_highlight( $sql )
  */
 function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	// die_quitely died quietly
 	if(defined('ROSTER_DIED') )
@@ -271,7 +271,7 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
  */
 function roster_die($message, $title = 'Message', $style = 'sred')
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
@@ -443,7 +443,7 @@ function check_if_image($imagefilename)
  */
 function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1 )
 {
-	global $wordings, $roster_conf;
+	global $wordings, $roster_conf, $act_words;
 
 	// Use main locale if one is not specified
 	if( $locale == '' )
@@ -635,7 +635,7 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  */
 function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
 {
-	global $wordings, $roster_conf, $tooltips;
+	global $wordings, $roster_conf, $tooltips, $act_words;
 
 	$tooltip = stripslashes($tooltip);
 
@@ -832,7 +832,7 @@ function makelink( $url='' , $full=false )
  */
 function makeAddonList( $array=false )
 {
-	global $roster_conf, $wordings;
+	global $roster_conf, $wordings, $act_words;
 
 	// Initialize output
 	$output = '';
@@ -863,10 +863,15 @@ function makeAddonList( $array=false )
 				if (file_exists($menufile))
 				{
 					$addonDir = ROSTER_ADDONS.$addon.DIR_SEP;
-					$localizationFile = ROSTER_ADDONS.$addon.DIR_SEP.'localization.php';
-					if (file_exists($localizationFile))
+					$localization_dir = ROSTER_ADDONS.$addon.DIR_SEP.'localization.php';
+
+					// Include addon's locale files if they exist
+					foreach( $roster_conf['multilanguages'] as $lang )
 					{
-						include($localizationFile);
+						if( file_exists($localization_dir.$lang.'.php') )
+						{
+							add_locale_file($localization_dir.$lang.'.php',$lang,$wordings);
+						}
 					}
 
 					include($menufile);
@@ -1001,4 +1006,115 @@ function seconds_to_time($seconds)
 	}
 
 	return array('days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds);
+}
+
+/**
+ * Includes an addon's files to create the addon framework for that addon.
+ *
+ * @param string $addonname | The name of the addon
+ * @return array $addon  | The addon's database record
+ *
+ * @global array $addon_conf | The addon's config data is added to this global array.
+ */
+function getaddon( $addonname )
+{
+	global $wowdb, $act_words, $wordings;
+
+	// Get addon registration entry
+	$query = "SELECT * FROM `".$wowdb->table('addon')."` WHERE `basename` = '$addonname' LIMIT 1";
+
+	$result = $wowdb->query( $query );
+
+	if ( !$result )
+	{
+		die_quietly($wowdb->error(),$act_words['addon_error'],__FILE__,__LINE__, $query );
+	}
+
+	if ( $wowdb->num_rows($result) != 1 )
+	{
+		roster_die(sprintf($act_words['addon_not_installed'],$addonname),$act_words['addon_error']);
+	}
+
+	$addon = $wowdb->fetch_assoc($result);
+
+	$wowdb->free_result($result);
+
+	// Get the addon's location
+	$addon['dir'] = ROSTER_ADDONS.$addon['basename'].DIR_SEP;
+
+	// Get the addon's index file
+	$addon['index_file'] = $addon['dir'].'index.php';
+
+	// Get the addon's css style
+	$addon['css_file'] = $addon['dir'].'style.css';
+
+	if( file_exists($addon['css_file']) )
+	{
+		$addon['css_url'] = '/addons/'.$addon['basename'].'/style.css';
+	}
+	else
+	{
+		$addon['css_url'] = '';
+	}
+
+	// Get the addon's conf file
+	$addon['conf_file'] = $addon['dir'].'conf.php';
+
+	// Get the addon's locale file
+	$addon['locale_dir'] = $addon['dir'].'locale'.DIR_SEP;
+
+	// Get the addon's admin file
+	$addon['admin_file'] = $addon['dir'].'admin.php';
+
+	// Get config values for the default profile and insert them into the array
+	$addon['config'] = '';
+	if( file_exists($addon['admin_file']))
+	{
+		$query = "SELECT `config_name`, `config_value` FROM `".$wowdb->table('addon_config')."` WHERE `addon_id` = ".$addon['addon_id']." ORDER BY `id` ASC;";
+
+		$result = $wowdb->query( $query );
+
+		if ( !$result )
+		{
+			die_quietly($wowdb->error(),$act_words['addon_error'],__FILE__,__LINE__, $query );
+		}
+
+		if( $wowdb->num_rows($result) > 0 )
+		{
+			while( $row = $wowdb->fetch_assoc($result) )
+			{
+				$addon['config'][$row['config_name']] = stripslashes($row['config_value']);
+			}
+		}
+
+		$wowdb->free_result($result);
+	}
+
+	return $addon;
+}
+
+/**
+ * Adds locale strings to global $wordings array
+ *
+ * @param string $localefile | Full path to locale file
+ * @param string $locale | Locale to add to (IE: enUS)
+ * @param array $array | Array you would like to add the locale strings to
+ */
+function add_locale_file( $localefile , $locale , &$array )
+{
+	global $roster_conf;
+
+	include($localefile);
+
+	if( isset($array[$locale]) )
+	{
+		$array[$locale] = array_merge($array[$locale], $lang);
+	}
+	else
+	{
+		$array[$locale] = array();
+		$array[$locale] = array_merge($array[$locale], $lang);
+	}
+
+	unset($lang);
 }

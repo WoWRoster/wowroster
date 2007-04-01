@@ -40,8 +40,8 @@ $page = ( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) ) ? $_GET[ROST
 
 define('ROSTER_PAGE_NAME', $page);
 
-$pages = explode('-', $page);
-$page = $pages[0];
+$roster_pages = explode('-', $page);
+$page = $roster_pages[0];
 
 if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 {

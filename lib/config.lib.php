@@ -427,7 +427,7 @@ class config
 
 					// Check for directories defined with '/' at the end
 					// and take it off
-					if( substr($settingValue, -1, 1) == '/' )
+					if( strlen($settingValue) != 1 && substr($settingValue, -1, 1) == '/' )
 					{
 						$settingValue = substr($settingValue, 0, -1);
 					}
@@ -471,18 +471,24 @@ class config
 		}
 	}
 
-
-
 	/**
-	 * Get roster config data
+	 * Get config data
 	 *
+	 * @param string WHERE clause for SQL
 	 * @return error string on failure
 	 */
-	function getConfigData ()
+	function getConfigData ( $addon='' )
 	{
 		global $wowdb, $wordings, $roster_conf, $act_words;
 
-		$sql = "SELECT * FROM `".$this->tablename."` ORDER BY `id` ASC;";
+		if( $addon == '' )
+		{
+			$sql = "SELECT * FROM `".$this->tablename."` ORDER BY `id` ASC;";
+		}
+		else
+		{
+			$sql = "SELECT * FROM `".$this->tablename."` WHERE `addon_id` = '$addon' ORDER BY `id` ASC;";
+		}
 
 		// Get the current config values
 		$results = $wowdb->query($sql);

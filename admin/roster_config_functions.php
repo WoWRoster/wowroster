@@ -64,7 +64,7 @@ function pageNames( )
 		{
 			if( !is_dir(ROSTER_PAGES.$file) && $file != '.' && $file != '..' && $file != 'addon.php' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && get_file_ext($file) == 'php' )
 			{
-				$pages[] = array(substr($file,0,strpos($file,'.')),substr($file,0,strpos($file,'.')));
+				$config_pages[] = array(substr($file,0,strpos($file,'.')),substr($file,0,strpos($file,'.')));
 			}
 		}
 	}
@@ -73,13 +73,13 @@ function pageNames( )
 
 	if( !empty($addonlist) )
 	{
-		$pages = array_merge($pages, $addonlist);
+		$config_pages = array_merge($config_pages, $addonlist);
 	}
 
 	$input_field = '<select name="config_default_page">'."\n";
 	$select_one = 1;
 
-	foreach( $pages as $value )
+	foreach( $config_pages as $value )
 	{
 		if( $value[0] == $roster_conf['default_page'] && $select_one )
 		{

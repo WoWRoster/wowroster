@@ -1,4 +1,5 @@
 $Id$
+
 This is the current functionality of the config class.
 There are two classes of form types: Option blocks for layout, and the actual
 options. Items of the page, pageframe, and pagehide class contain option blocks.
@@ -42,7 +43,7 @@ radio{op1^val1|op2^val2|op3^val3...
 	A list of radio buttons with labels op1, op2, op3,... which produce
 	values val1, val2, val3,... Labels are literal, not localization keys.
 select{op1^val1|op2^val2|op3^val3...
-	A a dropdown box with options op1, op2, op3,... which produce
+	A dropdown box with options op1, op2, op3,... which produce
 	values val1, val2, val3,... Labels are literal, not localization keys.
 function{name
 	Calls the function called name with the option record as parameter to

@@ -80,6 +80,12 @@ define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
 
 
 /**
+ * Base, absolute roster localiztion directory
+ */
+define('ROSTER_LOCALE_DIR',ROSTER_BASE.'localization'.DIR_SEP);
+
+
+/**
  * Full path to roster config file
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE.'conf.php');
@@ -187,7 +193,7 @@ $wowdb->setSQLDebug($roster_conf['sqldebug']);
 /**
  * Include locale files
  */
-include(ROSTER_BASE.'localization'.DIR_SEP.'languages.php');
+include(ROSTER_LOCALE_DIR.'languages.php');
 
 
 /**

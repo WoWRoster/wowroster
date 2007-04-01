@@ -62,7 +62,7 @@ if( !empty($addons) )
 			<th class="membersHeaderRight">'.$act_words['installer_installation'].'</th>
 		</tr>
 	';
-	foreach( getAddonList() as $addon )
+	foreach( $addons as $addon )
 	{
 		$output .= '	<tr>
 			<td class="membersRow1"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$addon['icon'].'.'.$roster_conf['img_suffix'].'" alt="[icon]" /></td>
@@ -357,7 +357,7 @@ function processAddon()
 				$installer->seterrors(sprintf($act_words['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (0,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'","'.$installer->addata['hasconfig'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
+			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'","'.$installer->addata['hasconfig'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
 			$installer->addata['addon_id'] = $wowdb->insert_id();
 			$success = $addon->install();
 			$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$installer->addata['active'];
