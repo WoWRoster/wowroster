@@ -750,8 +750,8 @@ select {
 **********/
 
 .white { color:#ffffff; }
-.yellow { color:#ffd517; }
-.green { color:#00bb00; }
+.yellow { color:#ffd200; }
+.green { color:#7eff00; }
 .grey { color:#808080; }
 .red { color:#ff0000; }
 .orange { color:#ff9900; }
@@ -761,8 +761,8 @@ select {
 .brown { color:#593300; }
 
 .whiteB { font-weight:bold;color:#ffffff; }
-.yellowB { font-weight:bold;color:#ffd517; }
-.greenB { font-weight:bold;color:#00bb00; }
+.yellowB { font-weight:bold;color:#ffd200; }
+.greenB { font-weight:bold;color:#7eff00; }
 .greyB { font-weight:bold;color:#808080; }
 .redB { font-weight:bold;color:#ff0000; }
 .orangeB { font-weight:bold;color:#ff9900; }
@@ -905,55 +905,62 @@ select {
 .equip_Ammo { position:absolute;cursor:pointer;margin-top:381px;margin-left:252px; }
 
 /* Resistances */
-.char_panel .tab1 .resist_arcane {
+.char_panel .tab1 .resist b {
+	color:black;
+	text-align:center;
+	font-size:12px;
+	font-weight:bold;
+	position:absolute;
+	right:-1px;
+	text-align:center;
+	top:6px;
+	width:27px;
+}
+.char_panel .tab1 .resist span {
+	color:white;
+	font-size:12px !important;
+	font-weight:bold;
+	position:absolute;
+	right:0px;
+	text-align:center;
+	top:5px;
+	width:27px;
+}
+.char_panel .tab1 .resist .arcane {
 	margin:77px 0pt 0pt 261px;
-	text-align:center;
 	font-weight:bold;
-	color:#000;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab1 .resist_fire {
+.char_panel .tab1 .resist .fire {
 	margin:106px 0 0 261px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab1 .resist_nature {
+.char_panel .tab1 .resist .nature {
 	margin:135px 0 0 261px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab1 .resist_frost {
+.char_panel .tab1 .resist .frost {
 	margin:164px 0 0 261px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab1 .resist_shadow {
+.char_panel .tab1 .resist .shadow {
 	margin:193px 0 0 261px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFF;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -1135,55 +1142,61 @@ select {
 }
 
 /* Resistances */
-.char_panel .tab2 .resist_arcane {
+.char_panel .tab2 .resist b {
+	color:black;
+	text-align:center;
+	font-size:12px;
+	font-weight:bold;
+	position:absolute;
+	right:-1px;
+	text-align:center;
+	top:6px;
+	width:27px;
+}
+.char_panel .tab2 .resist span {
+	color:white;
+	font-size:12px !important;
+	font-weight:bold;
+	position:absolute;
+	right:0px;
+	text-align:center;
+	top:5px;
+	width:27px;
+}
+.char_panel .tab2 .resist .arcane {
 	margin:84px 0pt 0pt 304px;
-	text-align:center;
-	font-weight:bold;
-	color:#000000;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab2 .resist_fire {
+.char_panel .tab2 .resist .fire {
 	margin:113px 0 0 304px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFFFFF;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab2 .resist_nature {
+.char_panel .tab2 .resist .nature {
 	margin:142px 0 0 304px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFFFFF;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab2 .resist_frost {
+.char_panel .tab2 .resist .frost {
 	margin:171px 0 0 304px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFFFFF;
 	position:absolute;
 	width:27px;
 	height:21px;
 	padding-top:6px;
 	cursor:default;
 }
-.char_panel .tab2 .resist_shadow {
+.char_panel .tab2 .resist .shadow {
 	margin:200px 0 0 304px;
-	text-align:center;
-	font-weight:bold;
-	color:#FFFFFF;
 	position:absolute;
 	width:27px;
 	height:21px;
@@ -1323,6 +1336,7 @@ select {
 	padding-left:7px;
 	background-repeat:no-repeat;
 }
+.char_panel .tab3 .rep_bar:hover { background-image:url(../img/char/rep/repbar_hover.gif); }
 .char_panel .tab3 .rep_title {
 	/* Style of each rep title */
 	color:#FFFFFF;
@@ -1346,9 +1360,10 @@ select {
 	text-align:center;
 	width:133px;
 	margin-left:119px;
-	margin-top:3px;
+	margin-top:4px;
 	position:absolute;
-	font-size:12px;
+	font-size:11px;
+	font-weight:bold;
 }
 
 
@@ -1383,9 +1398,12 @@ select {
 	padding-left:14px;
 	background-repeat:no-repeat;
 }
+.char_panel .tab4 .text:hover { background:transparent url(../img/char/skill/bar_empty_hover.gif) no-repeat; }
 .char_panel .tab4 .text {
-	margin-left:10px;
-	margin-top:0px;
+	padding-left:10px;
+	padding-top:0px;
+	width:273px;
+	height:18px;
 	color:#FFDD00;
 	position:absolute;
 }
