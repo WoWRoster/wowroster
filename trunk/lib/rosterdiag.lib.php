@@ -26,10 +26,6 @@ if ( !defined('ROSTER_INSTALLED') )
 //!!!!!!!!!!!!!// Developer Config //!!!!!!!!!!!!!//
 // As a NON-Developer, please do not modify any content of this file, or the version check might fail!!!
 
-// SVN Remote -> Please make a page on the web where you place the most rescent version of the files, including this file.
-//               The webpage must be entered below without a trailing slash
-$svnremote = 'http://www.wowroster.net/roster_updater/version_match.php';
-
 // Ignored Directories
 $ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'addons', 'admin');
 
@@ -279,10 +275,10 @@ function GetFileVersionInfo($directory, $file)
 
 function GrabRemoteVersions()
 {
-	global $directories, $files, $svnremote, $break, $explode;
+	global $directories, $files, $break, $explode;
 
 	// Execute the addon_versioncheck.php script in the SVN remote site
-	$handle = @fopen($svnremote, 'rb');
+	$handle = @fopen(ROSTER_SVNREMOTE, 'rb');
 	$contents = '';
 
 	if( $handle )
@@ -628,9 +624,7 @@ function yesNo($bool)
 
 function downloadsvn($filename)
 {
-	global $svnremote;
-
-	$file_source = $svnremote.'?getfile='.$filename.'&mode=full';
+	$file_source = ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=full';
 
 	$rh = fopen($file_source, 'rb');
 	$wh = fopen($filename, 'wb');

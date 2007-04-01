@@ -26,12 +26,6 @@ define('ROSTER_MAXCHARLEVEL','70');
 define('ROSTER_MAXSKILLLEVEL','375');
 
 /**
- * Page linking
- */
-define('ROSTER_PAGE', 'p');
-define('ROSTER_LINK', 'index.php?'.ROSTER_PAGE.'=%1$s');
-
-/**
  * Base, absolute roster admin directory
  */
 define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
@@ -47,7 +41,20 @@ define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);
 define('ROSTER_PAGES',ROSTER_BASE.'pages'.DIR_SEP);
 
 /**
+ * Base, absolute roster localization directory
+ */
+define('ROSTER_LOCALE_DIR',ROSTER_BASE.'localization'.DIR_SEP);
+
+/**
+ * Roster Remote File Validation
+ * Please make a page on the web where you place the most rescent version of the files, including this file.
+ * The webpage must be entered below without a trailing slash
+ */
+define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_updater/version_match.php');
+
+/**
  * Database Table Names
+ * Only set if $db_prefix exists
  */
 if( isset($db_prefix) )
 {

@@ -16,9 +16,6 @@
  *
  ******************************/
 
-// Disable generation of headers from settings.php
-$no_roster_headers = true;
-
 require_once( 'settings.php' );     ##  Uses the same settings.php as WoWProfiler
 $name = addslashes(urldecode($_SERVER['QUERY_STRING']));
 

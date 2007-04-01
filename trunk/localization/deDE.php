@@ -56,6 +56,7 @@ $lang['specify_addon'] = 'You must specify an addon name!';
 $lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
 $lang['addon_disabled'] = '<b>The addon [%1$s] has been disabled</b>';
 $lang['addon_not_installed'] = '<b>The addon [%1$s] has not been installed yet</b>';
+$lang['addon_no_config'] = '<b>The addon [%1$s] does not have a config</b>';
 
 $lang['char_error'] = 'Character Error';
 $lang['specify_char'] = 'Character was not specified';
@@ -924,7 +925,6 @@ $lang['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog Version zum 
 $lang['admin']['roster_lang'] = "Roster Hauptsprache|Sprache, in der das Roster anzeigen soll";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $lang['admin']['website_address'] = "Webseitenadresse|Wird benötigt für das Logo, den Gildennamenlink und das Hauptmenü<br />Einige Roster Addons benötigen diese auch";
-$lang['admin']['roster_dir'] = "Roster URL|Der URL Pfad zum Rosterverzeichnis<br />Es ist wichtig, dass diese korrekt ist, da sonst Fehler auftreten können<br />(Beispiel: http://www.site.com/roster )<br /><br />Eine vollständige URL wird nicht benötigt wenn vor dem Verzeichnis ein Slashzeichen ist<br />(Beispiel: /roster )";
 $lang['admin']['interface_url'] = "Interface Directory URL|Verzeichnis zu den Interface Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
 $lang['admin']['img_suffix'] = "Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
 $lang['admin']['alt_img_suffix'] = "Alternative Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
@@ -983,11 +983,6 @@ $lang['admin']['menu_quests_page'] = "Questgruppe Suchen Link|Link zur Questgrup
 $lang['admin']['menu_search_page'] = "Suche Link|Link zur Suchseite";
 
 // display_conf
-$lang['admin']['stylesheet'] = "CSS Stylesheet|CSS stylesheet für das Roster";
-$lang['admin']['roster_js'] = "Roster JS File|Main Roster JavaScript Dateiort";
-$lang['admin']['tabcontent'] = "Dynamic Tab JS File|JavaScript file location for dynamic tab menus";
-$lang['admin']['overlib'] = "Tooltip JS File|Tooltip JavaScript Dateiort";
-$lang['admin']['overlib_hide'] = "Overlib JS Fix|JavaScript Dateiort für den Fix für Overlib im Internet Explorer";
 $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Message of the day) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";

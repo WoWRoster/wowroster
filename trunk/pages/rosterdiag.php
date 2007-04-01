@@ -30,7 +30,7 @@ include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
 // Loging in as Admin to allow up- / downgrades && Downloads
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin($script_filename);
+$roster_login = new RosterLogin();
 
 
 include_once (ROSTER_BASE.'roster_header.tpl');
@@ -65,7 +65,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 			$md5local = "Local File does not exist yet";
 		}
 
-		$rhmd5 = fopen($svnremote.'?getfile='.$filename.'&mode=md5', 'rb');
+		$rhmd5 = fopen(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=md5', 'rb');
 		if ($rhmd5===false)
 		{
 			print("[ERROR] Cannot Read MD5 Remote File\n");
@@ -81,7 +81,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		}
 		fclose($rhmd5);
 
-		$rhheadersvn = fopen($svnremote.'?getfile='.$filename.'&mode=diff', 'rb');
+		$rhheadersvn = fopen(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=diff', 'rb');
 		if ($rhheadersvn===false)
 		{
 			print("[ERROR] Cannot Read Remote File\n");
@@ -120,7 +120,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 			// Perform a DIFF check on the local and remote file
 			if (check_if_image($filename))
 			{
-				$svnurl = parse_url($svnremote);
+				$svnurl = parse_url(ROSTER_SVNREMOTE);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
 				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
@@ -176,7 +176,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		{
 			if (check_if_image($filename))
 			{
-				$svnurl = parse_url($svnremote);
+				$svnurl = parse_url(ROSTER_SVNREMOTE);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
 				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">SVN Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'" alt="" /></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
@@ -356,10 +356,6 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['roster_lang'].'</td>
 	</tr>
 	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_dir</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['roster_dir'].'</td>
-	</tr>
-	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">img_url</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['img_url'].'</td>
 	</tr>
@@ -460,21 +456,21 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 
 		if ($zippackage_files != '')
 		{
-			echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
-			echo '<div align="center"><form method="post" action="'.$svnremote.'">';
+			echo border('spurple', 'start', '<span class="blue">Download Update Package</span>');
+			echo '<div align="center" style="background-color:#1F1E1D;"><form method="post" action="'.ROSTER_SVNREMOTE.'">';
 			echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'" />';
 			echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'" />';
 			echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'" />';
-			echo '<input type="radio" name="ziptype" value="zip" checked="checked">.zip Archive</input><br />';
-			echo '<input type="radio" name="ziptype" value="targz">.tar.gz Archive</input><br /><br />';
-			echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]" />';
+			echo '<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">.zip Archive</label><br />';
+			echo '<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">.tar.gz Archive</label><br /><br />';
+			echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]" /><br />';
 			echo '</form></div>';
 			echo border('spurple', 'end').'<br />';
 		}
 	}
 
 	// Open the main FileVersion table in total color
-	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
+	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>Roster File Validator @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
 
 	// Get all the gathered information and display it in a table
 	foreach ($directories as $directory => $filecount)
@@ -486,7 +482,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 			$dirtooltip = str_replace('"','&quot;', $dirtooltip);
 			$directory_id = str_replace(array('.','/','\\'),'', $directory);
 
-			$dirshow = substr_replace($directory, $roster_conf['roster_dir'], 0, 1);
+			$dirshow = substr_replace($directory, ROSTER_PATH, 0, 1);
 
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
@@ -607,10 +603,10 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 else
 {
 	// FOPEN URL is Not Supported, offer the oppertunity to do this remotely
-	echo '<form method="post" action="'.$svnremote.'">';
+	echo '<form method="post" action="'.ROSTER_SVNREMOTE.'">';
 	echo '<input type="hidden" name="remotediag" value="true" />';
 	echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'" />';
-	echo '<input type="hidden" name="website" value="'.	$roster_conf['roster_dir'].'" />';
+	echo '<input type="hidden" name="website" value="'.	ROSTER_PATH .'" />';
 
 	foreach ($files as $directory => $filedata)
 	{

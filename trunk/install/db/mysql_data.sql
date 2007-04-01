@@ -41,7 +41,6 @@ INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.6.1', 'text{10|1
 INSERT INTO `renprefix_config` VALUES (1040, 'roster_lang', 'enUS', 'function{rosterLangValue', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1070, 'roster_dir', '/roster', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'jpg', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
@@ -108,11 +107,6 @@ INSERT INTO `renprefix_config` VALUES (4120, 'menu_search_page', '1', 'radio{on^
 # --------------------------------------------------------
 ### Display Settings
 
-INSERT INTO `renprefix_config` VALUES (5000, 'stylesheet', 'css/styles.css', 'text{128|30', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5005, 'roster_js', 'css/js/mainjs.js', 'text{128|30', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5008, 'tabcontent', 'css/js/tabcontent.js', 'text{128|30', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5010, 'overlib', 'css/js/overlib.js', 'text{128|30', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5015, 'overlib_hide', 'css/js/overlib_hideform.js', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '1', 'radio{Image^1|Text^0', 'display_conf');

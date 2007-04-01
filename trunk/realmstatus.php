@@ -25,9 +25,6 @@
 // XML parsing by Swipe
 // Most other changes by Zanix
 
-// Disable generation of headers from settings.php
-$no_roster_headers = true;
-
 require_once( 'settings.php' );
 require_once( ROSTER_LIB.'xmlparse.php' );
 
@@ -289,7 +286,7 @@ function text_output($realmData)
 function img_output ($realmData,$err,$image_path,$font_path)
 {
 	global $roster_conf;
-	
+
 	$vadj = 0;
 
 	$serverfont = $font_path . 'VERANDA.TTF';

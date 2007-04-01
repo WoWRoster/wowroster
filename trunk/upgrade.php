@@ -337,7 +337,6 @@ class Upgrade
 		// Update some config settings
 		//
 		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$roster_lang."' WHERE `config_name`='roster_lang'");
-		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
 		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$website_address."' WHERE `config_name`='website_address'");
 		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".md5($roster_upd_pw)."' WHERE `config_name`='roster_upd_pw';");
 		$wowdb->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='".$guild_name."' WHERE `config_name`='guild_name'");

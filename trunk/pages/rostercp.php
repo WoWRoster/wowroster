@@ -36,7 +36,7 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin('');
+$roster_login = new RosterLogin();
 
 // Disallow viewing of the page
 if( !$roster_login->getAuthorized() )
@@ -98,26 +98,20 @@ if ($pagebar != '')
 }
 
 // Add addon buttons
-if ($handle = opendir(ROSTER_ADDONS))
+$query = 'SELECT `basename`,`hasconfig` FROM `'.$wowdb->table('addon').'` WHERE `hasconfig` != "";';
+$result = $wowdb->query($query);
+if( !$result )
 {
-	$addons = array();
-
-	while (false !== ($file = readdir($handle)))
-	{
-		if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_]/', $file) && is_file($adminfile = (ROSTER_ADDONS.$file.DIR_SEP.'admin.php')))
-		{
-			$addons[$file] = $adminfile;
-		}
-	}
+	die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
 }
 
-if( count($addons)>0 )
+if ($wowdb->num_rows($result))
 {
 	$pagebar .= border('sgray','start',$act_words['pagebar_addonconf'])."\n";
 	$pagebar .= '<ul class="tab_menu">'."\n";
-	foreach( $addons as $addon => $adminfile )
+	while($row = $wowdb->fetch_assoc($result))
 	{
-		$pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $addon ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
+		$pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $row['basename'] ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$row['basename']).'">'.$row['basename'].'</a></li>'."\n";
 	}
 	$pagebar .= '</ul>'."\n";
 	$pagebar .= border('sgray','end')."\n";

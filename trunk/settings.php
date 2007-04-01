@@ -55,17 +55,6 @@ define('ROSTER_STARTTIME',$starttime[1] + $starttime[0]);
  */
 define('DIR_SEP',DIRECTORY_SEPARATOR);
 
-/**
- * Get the url
- */
-$url = explode('/','http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
-array_pop($url);
-
-/**
- * URL to roster's root directory
- */
-define('ROSTER_URL',implode('/',$url));
-
 
 /**
  * Base, absolute roster directory
@@ -77,12 +66,6 @@ define('ROSTER_BASE',dirname(__FILE__).DIR_SEP);
  * Base, absolute roster library directory
  */
 define('ROSTER_LIB',ROSTER_BASE.'lib'.DIR_SEP);
-
-
-/**
- * Base, absolute roster localiztion directory
- */
-define('ROSTER_LOCALE_DIR',ROSTER_BASE.'localization'.DIR_SEP);
 
 
 /**
@@ -116,6 +99,11 @@ if ( !defined('ROSTER_INSTALLED') )
  * Include constants file
  */
 require_once (ROSTER_LIB.'constants.php');
+
+/**
+ * Include linking file
+ */
+require_once (ROSTER_LIB.'cmslink.lib.php');
 
 
 /**
