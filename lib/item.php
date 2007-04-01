@@ -61,8 +61,8 @@ class item
 
 		if( ($this->data['item_quantity'] > 1) )
 		{
-			$output .= '<span class="quant_shadow">'.$this->data['item_quantity'].'</span>';
-			$output .= '<span class="quant">'.$this->data['item_quantity'].'</span>';
+			$output .= '<b>'.$this->data['item_quantity'].'</b>';
+			$output .= '<span>'.$this->data['item_quantity'].'</span>';
 		}
 		$output .= '</div>';
 
