@@ -826,11 +826,13 @@ $returnstring .= '  <tr>
 			<div class="health"><span class="yellowB">'. $wordings[$lang]['health'] .':</span> '. (isset($row['health']) ? $row['health'] : '0') .'</div>
 			<div class="mana"><span class="yellowB">'. $row['power'] .':</span> '. (isset($row['mana']) ? $row['mana'] : '0') .'</div>
 
-			'. $this->printPetResist('arcane',$row) .'
-			'. $this->printPetResist('fire',$row) .'
-			'. $this->printPetResist('nature',$row) .'
-			'. $this->printPetResist('frost',$row) .'
-			'. $this->printPetResist('shadow',$row) .'
+			<div class="resist">
+				'. $this->printPetResist('arcane',$row) .'
+				'. $this->printPetResist('fire',$row) .'
+				'. $this->printPetResist('nature',$row) .'
+				'. $this->printPetResist('frost',$row) .'
+				'. $this->printPetResist('shadow',$row) .'
+			</div>
 ';
 				if( $xpbarshow )
 				{
@@ -1022,6 +1024,7 @@ $returnstring .= '  <tr>
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
 		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $data['res_'.$resname.'_c'] ."</div>\n";
+		$output = '<div style="background-image:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $data['res_'.$resname.'_c'] .'</b><span>'. $data['res_'.$resname.'_c'] ."</span></div>\n";
 
 		return $output;
 	}
@@ -1559,7 +1562,7 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname).'<br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $this->data['res_'.$resname.'_c'] ."</div>\n";
+		$output = '<div style="background-image:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $this->data['res_'.$resname.'_c'] .'</b><span>'. $this->data['res_'.$resname.'_c'] ."</span></div>\n";
 
 		return $output;
 	}
@@ -2020,7 +2023,7 @@ if( isset( $this->data['guild_name'] ) )
 	<div id="tab1" class="tab1" style="display:none;">
 		<div class="background">&nbsp;</div>
 
-	<!-- Begin Equipment Items Loop -->
+	<!-- Begin Equipment Items -->
 		<div class="equip">
 			<?php print $this->printEquip('Head'); ?>
 			<?php print $this->printEquip('Neck'); ?>
@@ -2045,15 +2048,17 @@ if( isset( $this->data['guild_name'] ) )
 			<?php print $this->printEquip('Trinket0'); ?>
 			<?php print $this->printEquip('Trinket1'); ?>
 		</div>
-	<!-- End Equipment Items Loop -->
+	<!-- End Equipment Items -->
 
-	<!-- Begin Resists Loop -->
-		<?php print $this->printResist('arcane'); ?>
-		<?php print $this->printResist('fire'); ?>
-		<?php print $this->printResist('nature'); ?>
-		<?php print $this->printResist('frost'); ?>
-		<?php print $this->printResist('shadow'); ?>
-	<!-- End Resists Loop -->
+	<!-- Begin Resists -->
+		<div class="resist">
+			<?php print $this->printResist('arcane'); ?>
+			<?php print $this->printResist('fire'); ?>
+			<?php print $this->printResist('nature'); ?>
+			<?php print $this->printResist('frost'); ?>
+			<?php print $this->printResist('shadow'); ?>
+		</div>
+	<!-- End Resists -->
 
 	<!-- Begin Advanced Stats -->
 		<img src="<?php print $roster_conf['img_url']; ?>char/percentframe.gif" class="percent_frame" alt="" />
