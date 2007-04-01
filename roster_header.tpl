@@ -44,20 +44,20 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <html>
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
-  <link rel="stylesheet" type="text/css" href="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['stylesheet'] ?>" />
+  <link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/styles.css" />
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['roster_js']; ?>"></script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/css/js/scrollbar.js"></script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['tabcontent']; ?>">
+  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>
+  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/scrollbar.js"></script>
+  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/tabcontent.js">
     /***********************************************
     * Tab Content script- Dynamic Drive DHTML code library (www.dynamicdrive.com)
     * This notice MUST stay intact for legal use
     * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
     ***********************************************/
   </script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib']; ?>"></script>
-  <script type="text/javascript" src="<?php echo $roster_conf['roster_dir'] ?>/<?php echo $roster_conf['overlib_hide']; ?>"></script>
+  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib.js"></script>
+  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib_hideform.js"></script>
 <?php echo (isset($html_head) ? $html_head : ''); ?>
 </head>
 <body<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url('.$roster_conf['roster_bg'].');"' : '' ); echo (isset($body_action) ? ' '.$body_action : ''); ?>>

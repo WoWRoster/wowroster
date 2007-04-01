@@ -6,9 +6,16 @@
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
 
+DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = 5000 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 5005 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 5008 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 5010 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
 
 # --------------------------------------------------------
 ### New master entry: Startpage
@@ -340,7 +347,7 @@ CREATE TABLE `renprefix_addon` (
 	`addon_id` int(11) NOT NULL AUTO_INCREMENT,
 	`basename` varchar(16) NOT NULL DEFAULT '',
 	`version` varchar(16) NOT NULL DEFAULT '0',
-	`hasconfig` varchar(16) NOT NULL DEFAULT '0',
+	`hasconfig` int(1) NOT NULL DEFAULT '0',
 	`active` int(1) NOT NULL DEFAULT 1,
 	`fullname` tinytext NOT NULL,
 	`description` mediumtext NOT NULL,

@@ -56,6 +56,7 @@ $lang['specify_addon'] = 'You must specify an addon name!';
 $lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
 $lang['addon_disabled'] = '<b>The addon [%1$s] has been disabled</b>';
 $lang['addon_not_installed'] = '<b>The addon [%1$s] has not been installed yet</b>';
+$lang['addon_no_config'] = '<b>The addon [%1$s] does not have a config</b>';
 
 $lang['char_error'] = 'Character Error';
 $lang['specify_char'] = 'Character was not specified';
@@ -924,7 +925,6 @@ $lang['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvP
 $lang['admin']['roster_lang'] = "Langue du Roster|Le code langue principal du Roster";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $lang['admin']['website_address'] = "Adresse du site Web|Utilisé pour le lien sur le logo et le lien sur le menu principal<br />Certains addon pour le roster peuvent également l'utiliser";
-$lang['admin']['roster_dir'] = "URL du Roster|L'URL du répertoire du roster<br />Ce paramètre est critique et doit être correct sous peine d'erreurs<br />(EX: http://www.site.com/roster )<br /><br />Une URL absolue n'est pas obligatoire mais un chemin relatif depuis la racine du serveur l'est (l'URL doit au moins commencer par un slash)<br />(EX: /roster )";
 $lang['admin']['interface_url'] = "URL du répertoire Interface|Répertoire où les images Interface images sont situés<br />La valeur par défaut est &quot;img/&quot;<br /><br />Vous pouvez utiliser un chemin relatif ou une URL absolue";
 $lang['admin']['img_suffix'] = "Extension des images Interface|Le type des images Interface";
 $lang['admin']['alt_img_suffix'] = "Extension alternative des images d'interface|Le type alternatif d'images pour les images de l'interface";
@@ -983,11 +983,6 @@ $lang['admin']['menu_quests_page'] = "Lien Trouver un groupe|Contrôle l'afficha
 $lang['admin']['menu_search_page'] = "Lien Rechercher|Contrôle l'affichage du lien Rechercher";
 
 // display_conf
-$lang['admin']['stylesheet'] = "Feuille de style CSS|Feuille de style CSS pour le roster";
-$lang['admin']['roster_js'] = "Fichier JavaScript du roster|Principal fichier JavaScript pour le roster";
-$lang['admin']['tabcontent'] = "Fichier JavaScript des menus à onglets|Fichier JavaScript pour les  menus à onglets";
-$lang['admin']['overlib'] = "Fichier JavaScript des infobulles|Fichier JavaScript pour les infobulles";
-$lang['admin']['overlib_hide'] = "Fichier JavaScript Overlib|Fichier JavaScript de correction pour la librairie Overlib dans Internet Explorer";
 $lang['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolue de l'image pour le fond principal<br>Ou en laissant &quot;img/&quot; devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";

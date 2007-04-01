@@ -26,7 +26,7 @@ require_once(ROSTER_LIB.'update.lib.php');
 $update = new update;
 
 // login class for guild update pass check
-$roster_login = new RosterLogin('update');
+$roster_login = new RosterLogin();
 
 // Update Triggers
 if( $roster_conf['use_update_triggers'] )

@@ -419,20 +419,6 @@ class config
 					}
 				}
 
-				// Fix roster url
-				if( $settingName == 'roster_dir' )
-				{
-					// Replace back-slashes
-					$settingValue = preg_replace('|\\\\|','/',$settingValue );
-
-					// Check for directories defined with '/' at the end
-					// and take it off
-					if( strlen($settingValue) != 1 && substr($settingValue, -1, 1) == '/' )
-					{
-						$settingValue = substr($settingValue, 0, -1);
-					}
-				}
-
 				$get_val = "SELECT `config_value` FROM `".$this->tablename."` WHERE `config_name` = '".$settingName."';";
 				$result = $wowdb->query($get_val);
 
@@ -451,7 +437,7 @@ class config
 		}
 
 		// Update DataBase
-		if( is_array($update_sql) )
+		if( isset($update_sql) && ($update_sql) )
 		{
 			foreach( $update_sql as $sql )
 			{

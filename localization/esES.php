@@ -56,6 +56,7 @@ $lang['specify_addon'] = 'You must specify an addon name!';
 $lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
 $lang['addon_disabled'] = '<b>The addon [%1$s] has been disabled</b>';
 $lang['addon_not_installed'] = '<b>The addon [%1$s] has not been installed yet</b>';
+$lang['addon_no_config'] = '<b>The addon [%1$s] does not have a config</b>';
 
 $lang['char_error'] = 'Character Error';
 $lang['specify_char'] = 'Character was not specified';
@@ -924,7 +925,6 @@ $lang['admin']['minPvPLogver'] = "Min PvPLog versi&oacuten|M&iacutenima versi&oa
 $lang['admin']['roster_lang'] = "Roster Lenguaje principal|Elige el lenguaje del interfaz";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $lang['admin']['website_address'] = "Website dirección|Usada para el URL del logo, y para el link del nombre de la hermandad en el menú principal<br>Algunos addons del roster usarán esto";
-$lang['admin']['roster_dir'] = "Roster URL|El path del URL al directorio del Roster<br>Esto es muy importante que este bien, si no ocurrir&aacuten muchos errores<br>(EJ: http://www.site.com/roster )<br><br>El nombre entero del URL no es necesario, en su lugar puedes poner el relativo<br>(EJ: /roster )";
 $lang['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacutegenes del interfaz<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
 $lang['admin']['img_suffix'] = "Extensi&oacuten de las im&aacutegenes del interfaz|El tipo de im&aacutegenes que usa tu interfaz";
 $lang['admin']['alt_img_suffix'] = "Extensi&oacuten de las im&aacutegenes del interfaz Alt|Posibilidad alternativa de los tipos de im&aacutegenes para el interfaz";
@@ -983,11 +983,6 @@ $lang['admin']['menu_quests_page'] = "Link Encontrar Grupo/Quests|Muestra el bot
 $lang['admin']['menu_search_page'] = "Link Buscar objetos o recetas|Muestra el bot&oacuten Buscar objetos o recetas";
 
 // display_conf
-$lang['admin']['stylesheet'] = "CSS Stylesheet|Indica la direci&oacuten del archivo styles.css";
-$lang['admin']['roster_js'] = "Roster JS Archivo|Localizaci&oacuten del archivo Roster JavaScript";
-$lang['admin']['tabcontent'] = "Dynamic Tab JS Archivos|Localizaci&oacuten de los archivos JavaScript para los men&uacutes din&aacutemicos";
-$lang['admin']['overlib'] = "Tooltip JS Archivo|Localizaci&oacuten del archivo de la ventana JavaScript";
-$lang['admin']['overlib_hide'] = "Overlib JS Fix|Localizaci&oacuten del archivo de JavaScript para arreglar Overlib en Internet Explorer";
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute mostrada en la cabecera de la p&aacutegina";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
 $lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute el texto del mensaje del d&iacutea<br><br>&quot;Texto&quot; - Muestra el MDD en rojo<br>&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";

@@ -85,13 +85,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 {
 	$roster_conf['guild_name'] = $_POST['guildname'];
 	$header_title = 'Remote Diagnostics';
-	$roster_conf['roster_dir'] = '.';
-	$roster_conf['img_url'] = $roster_conf['roster_dir'].'/img/';
-	$roster_conf['stylesheet'] = 'css/styles.css';
-	$roster_conf['roster_js'] = 'css/js/mainjs.js';
-	$roster_conf['tabcontent'] = 'css/js/tabcontent.js';
-	$roster_conf['overlib'] = 'css/js/overlib.js';
-	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
+	$roster_conf['img_url'] = ROSTER_PATH.'img/';
 	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
 	//$svnremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
@@ -193,7 +187,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			$dirtooltip = str_replace('"','&quot;', $dirtooltip);
 			$directory_id = str_replace(array('.','/','\\'),'', $directory);
 
-			$dirshow = substr_replace($directory, $roster_conf['roster_dir'], 0, 1);
+			$dirshow = substr_replace($directory, ROSTER_PATH, 0, 1);
 
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
@@ -324,12 +318,6 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 
 	$roster_conf['guild_name'] = $_POST['guildname'];
 	$header_title = 'Remote Diagnostics';
-	$roster_conf['roster_dir'] = '.';
-	$roster_conf['stylesheet'] = 'css/styles.css';
-	$roster_conf['roster_js'] = 'css/js/mainjs.js';
-	$roster_conf['tabcontent'] = 'css/js/tabcontent.js';
-	$roster_conf['overlib'] = 'css/js/overlib.js';
-	$roster_conf['overlib_hide'] = 'css/js/overlib_hideform.js';
 	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
 	$roster_conf['logo'] = 'img/wowroster_bg.jpg';

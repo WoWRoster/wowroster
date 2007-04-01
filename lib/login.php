@@ -37,7 +37,7 @@ class RosterLogin
 	 * @param array $fields
 	 * @return RosterLogin
 	 */
-	function RosterLogin($script_filename)
+	function RosterLogin($script_filename='')
 	{
 		$this->script_filename = makelink($script_filename);
 		$this->allow_login = false;

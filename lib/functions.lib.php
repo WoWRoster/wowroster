@@ -809,19 +809,6 @@ function escape_array($array)
 	return $array;
 }
 
-function makelink( $url='' , $full=false )
-{
-	if( empty($url) || $url[0] == '&')
-		$url = ROSTER_PAGE_NAME.$url;
-
-	$url = sprintf(ROSTER_LINK,$url);
-
-	if( $full )
-		$url = ROSTER_URL."/$url";
-
-	return $url;
-}
-
 /**
  * Gets the list of currently installed roster addons
  *
@@ -910,7 +897,7 @@ function makeAddonList( $array=false )
 	}
 	else
 	{
-		if( count($addons) < 0 )
+		if( count($addons) > 0 )
 		{
 			return $addons;
 		}

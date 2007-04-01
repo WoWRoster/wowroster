@@ -33,25 +33,26 @@ $addon = getaddon($roster_pages[2]);
 // Check if addon is active
 if( $addon['active'] = '1' )
 {
+	$script_filename = 'rostercp-addon-'.$roster_pages[2];
+
+	// Include addon's locale files if they exist
+	foreach( $roster_conf['multilanguages'] as $langvalue )
+	{
+		if( file_exists($addon['locale_dir'].$langvalue.'.php') )
+		{
+			add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue,$wordings);
+		}
+	}
+
+	// Include addon's conf.php file
+	if( file_exists($addon['conf_file']) )
+	{
+		include_once( $addon['conf_file'] );
+	}
+
 	// Check to see if the index file exists
 	if( file_exists($addon['admin_file']) )
 	{
-		$script_filename = 'rostercp-addon-'.$roster_pages[2];
-
-		// Include addon's locale files if they exist
-		foreach( $roster_conf['multilanguages'] as $langvalue )
-		{
-			if( file_exists($addon['locale_dir'].$langvalue.'.php') )
-			{
-				add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue,$wordings);
-			}
-		}
-
-		// Include addon's conf.php file
-		if( file_exists($addon['conf_file']) )
-		{
-			include_once( $addon['conf_file'] );
-		}
 
 		// The addon will now assign its output to $content
 		ob_start();
@@ -59,9 +60,34 @@ if( $addon['active'] = '1' )
 			$content = ob_get_contents();
 		ob_end_clean();
 	}
+	elseif( $addon['hasconfig'] = '1' )
+	{
+		// ----[ Set the tablename and create the config class ]----
+		$tablename = $wowdb->table('addon_config');
+		include(ROSTER_LIB.'config.lib.php');
+
+		// ----[ Process data if available ]------------------------
+		$save_message = $config->processData();
+
+		// ----[ Get configuration data ]---------------------------
+		$config->getConfigData($addon['addon_id']);
+
+		// ----[ Build the page items using lib functions ]---------
+		$menu = $config->buildConfigMenu();
+
+		$config->buildConfigPage();
+
+		$body = $config->form_start.
+			$save_message.
+			$config->submit_button.
+			$config->formpages.
+			$config->form_end.
+			$config->nonformpages.
+			$config->jscript;
+	}
 	else
 	{
-		$body =  messagebox(sprintf($act_words['addon_not_exist'],$addon['basename']),$act_words['addon_error'],'sred');
+		$body =  messagebox(sprintf($act_words['addon_no_config'],$addon['basename']),$act_words['addon_error'],'sred');
 	}
 }
 else
@@ -71,4 +97,4 @@ else
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$addon['css_url'].'">'."\n";
+	$more_css = '  <link rel="stylesheet" type="text/css" href="'.ROSTER_PATH.$addon['css_url'].'">'."\n";

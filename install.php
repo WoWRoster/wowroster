@@ -357,8 +357,6 @@ function process_step2()
 		$server_name = '';
 	}
 
-    $server_path = str_replace('/install.php', '', $_SERVER['PHP_SELF']);
-
     $tpl->message_append('Before proceeding, please verify that the database name you provided is already created<br />And that the user you provided has permission to create tables in that database');
 
     //
@@ -367,8 +365,7 @@ function process_step2()
     $tpl->assign_vars(array(
         'DB_HOST'      => 'localhost',
         'TABLE_PREFIX' => $DEFAULTS['db_prefix'],
-        'SERVER_NAME'  => $server_name,
-        'SERVER_PATH'  => $server_path
+        'SERVER_NAME'  => $server_name
        )
     );
 
@@ -386,7 +383,6 @@ function process_step3()
     // Get our posted data
     //
     $server_name    = post_or_db('server_name');
-    $server_path    = post_or_db('server_path');
     $db_host        = post_or_db('db_host');
     $db_name        = post_or_db('db_name');
     $db_user        = post_or_db('db_user');
@@ -481,7 +477,6 @@ function process_step3()
     // Update some config settings
     //
     $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$default_locale."' WHERE `config_name`='roster_lang'");
-    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_path."' WHERE `config_name`='roster_dir'");
     $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_name."' WHERE `config_name`='website_address'");
 
     //

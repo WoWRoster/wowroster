@@ -25,7 +25,7 @@ class recipe
 {
 	var $active = true;
 	var $icon = 'inv_misc_food_65';
-	var $hasconfig = 'default';
+	var $hasconfig = true;
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
@@ -60,7 +60,7 @@ class recipe
 		$installer->add_config("'1060','display_makers','1','radio{on^1|off^0','recipe_conf'");
 		$installer->add_config("'1070','display_makers_count','3','text{2|10','recipe_conf'");
 
-		$installer->add_menu_button('madeby','',1);
+		$installer->add_menu_button('madeby','');
 		return true;
 	}
 
