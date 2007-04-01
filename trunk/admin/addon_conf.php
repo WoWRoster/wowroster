@@ -57,7 +57,7 @@ if( $addon['active'] = '1' )
 		// The addon will now assign its output to $content
 		ob_start();
 			include_once( $addon['admin_file'] );
-			$content = ob_get_contents();
+			$body .= ob_get_contents();
 		ob_end_clean();
 	}
 	elseif( $addon['hasconfig'] = '1' )
