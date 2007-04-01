@@ -57,20 +57,16 @@ if( !$roster_login->getAuthorized() )
 
 include_once(ROSTER_ADMIN.'pages.php');
 
-$header = '';
-$menu = '';
-$body = '';
-$pagebar = '';
-$footer = '';
+$header = $menu = $body = $pagebar = $footer = '';
 
 // Find out what subpage to include, and do so
-$page = (isset($pages[1]) && ($pages[1]!='')) ? $pages[1] : 'roster';
+$page = (isset($roster_pages[1]) && ($roster_pages[1]!='')) ? $roster_pages[1] : 'roster';
 
-if( isset($pages[$page]['file']) )
+if( isset($config_pages[$page]['file']) )
 {
-	if (file_exists(ROSTER_ADMIN.$pages[$page]['file']))
+	if (file_exists(ROSTER_ADMIN.$config_pages[$page]['file']))
 	{
-		require_once(ROSTER_ADMIN.$pages[$page]['file']);
+		require_once(ROSTER_ADMIN.$config_pages[$page]['file']);
 	}
 	else
 	{
@@ -83,11 +79,11 @@ else
 }
 
 // Build the pagebar from admin/pages.php
-foreach ($pages as $pindex => $data)
+foreach ($config_pages as $pindex => $data)
 {
 	if (!isset($data['special']))
 	{
-		$pagebar .= '<li'.($pages[0].'-'.$page == $data['href'] ? ' class="selected"' : '').'><a href="'.makelink($data['href']).'">'.$act_words[$data['title']].'</a></li>'."\n";
+		$pagebar .= '<li'.($roster_pages[0].'-'.$page == $data['href'] ? ' class="selected"' : '').'><a href="'.makelink($data['href']).'">'.$act_words[$data['title']].'</a></li>'."\n";
 	}
 	elseif ($data['special'] == 'divider')
 	{
@@ -121,7 +117,7 @@ if( count($addons)>0 )
 	$pagebar .= '<ul class="tab_menu">'."\n";
 	foreach( $addons as $addon => $adminfile )
 	{
-		$pagebar .= '<li'.(isset($pages[2]) && $pages[2] == $addon ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
+		$pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $addon ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$addon).'">'.$addon.'</a></li>'."\n";
 	}
 	$pagebar .= '</ul>'."\n";
 	$pagebar .= border('sgray','end')."\n";
@@ -133,13 +129,14 @@ include_once( ROSTER_LIB.'menu.php' );
 
 echo
 	$header."\n".
-	'<table width="100%"><tr><td valign="top" align="left">'."\n".
-	$menu."\n".
-	'</td><td valign="top" align="center">'."\n".
-	$body."\n".
-	'</td><td valign="top" align="right">'."\n".
-	$pagebar."\n".
-	'</td></tr></table>'."\n".
+	'<table width="100%"><tr>'."\n".
+	'<td valign="top" align="left" width="15%">'."\n".
+	$menu."</td>\n".
+	'<td valign="top" align="center" width="70%">'."\n".
+	$body."</td>\n".
+	'<td valign="top" align="right" width="15%">'."\n".
+	$pagebar."</td>\n".
+	'</tr></table>'."\n".
 	$footer;
 
 include_once( ROSTER_BASE.'roster_footer.tpl' );

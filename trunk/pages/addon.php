@@ -1,7 +1,7 @@
 <?php
 /******************************
  * WoWRoster.net  Roster
- * Copyright 2002-2007
+ * Copyright 2002-2006
  * Licensed under the Creative Commons
  * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
@@ -21,77 +21,65 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if( !isset($pages[1]) )
+if( !isset($roster_pages[1]) )
 {
 	roster_die($act_words['specify_addon'],$act_words['addon_error']);
 }
 
-// Get the addon's location
-$addonDir = ROSTER_ADDONS.$pages[1].DIR_SEP;
-
-// Get the addon's index file
-$addonFile = $addonDir.'index.php';
-
-// Get the addon's css style
-$cssFile = $addonDir.'default.css';
-
-// Get the addon's locale file
-$localizationFile = $addonDir.'localization.php';
-
-// Get the addon's config file
-$configFile = $addonDir.'conf.php';
-
-// Initialize css holder
-$css = '';
+// Initialize addon framework for this addon and return the addon's db profile.
+$addon = getaddon($roster_pages[1]);
 
 // Make the header/menu/footer show by default
 $roster_show_header = true;
 $roster_show_menu = true;
 $roster_show_footer = true;
 
-
-// Check to see if the index file exists
-if( file_exists($addonFile) )
+// Check if addon is active
+if( $addon['active'] = '1' )
 {
-	$script_filename = 'addon-'.$pages[1];
-
-	// Set the css for the template set in conf.php
-	if( file_exists($cssFile) )
+	// Check to see if the index file exists
+	if( file_exists($addon['index_file']) )
 	{
-		$css = '/addons/'.$pages[1].'/default.css';
-	}
+		$script_filename = 'addon-'.$roster_pages[1];
 
-	// Include localization variables
-	if( file_exists($localizationFile) )
+		// Include addon's locale files if they exist
+		foreach( $roster_conf['multilanguages'] as $lang )
+		{
+			if( file_exists($addon['locale_dir'].$lang.'.php') )
+			{
+				add_locale_file($addon['locale_dir'].$lang.'.php',$lang,$wordings);
+			}
+		}
+
+		// Include addon's conf.php file
+		if( file_exists($addon['conf_file']) )
+		{
+			include_once( $addon['conf_file'] );
+		}
+
+		// The addon will now assign its output to $content
+		ob_start();
+			include_once( $addon['index_file'] );
+			$content = ob_get_contents();
+		ob_end_clean();
+	}
+	else
 	{
-		include_once( $localizationFile );
+		roster_die(sprintf($act_words['addon_not_exist'],$addon['basename']),$act_words['addon_error']);
 	}
-
-	// Include addon's conf.php settings
-	if( file_exists($configFile) )
-	{
-		include_once( $configFile );
-	}
-
-	// The addon will now assign its output to $content
-	ob_start();
-		include_once( $addonFile );
-		$content = ob_get_contents();
-	ob_end_clean();
 }
 else
 {
-	$content = sprintf($act_words['addon_not_exist'],$pages[1]);
+	roster_die(sprintf($act_words['addon_disabled'],$addon['basename']),$act_words['addon_error']);
 }
 
-// Everything after this line will have to be changed to integrate into smarty! ;)
-
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
-if( $css != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$css.'">'."\n";
+if( $addon['css_url'] != '' )
+	$more_css = '  <link rel="stylesheet" type="text/css" href="'.$roster_conf['roster_dir'].$addon['css_url'].'">'."\n";
 
 if ($roster_show_header)
 	include_once (ROSTER_BASE.'roster_header.tpl');
+
 if ($roster_show_menu)
 	include_once (ROSTER_LIB.'menu.php');
 

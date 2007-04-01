@@ -392,7 +392,7 @@ if( $roster_conf['index_update_inst'] )
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$act_words['update_instructions']);
-	echo '<div align="left" style="font-size:10px;">'.$act_words['update_instruct'];
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.$act_words['update_instruct'];
 
 	if ($roster_conf['pvp_log_allow'] == 1)
 	{

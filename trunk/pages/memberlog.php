@@ -130,10 +130,12 @@ switch($get_s)
 
 $content = '';
 
-
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$total_sql = "SELECT `log_id` FROM `".ROSTER_MEMBERLOGTABLE."`;";
+$result = $wowdb->query($total_sql) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$total_sql);
 
 $max = $wowdb->num_rows($result);
+
+$wowdb->free_result($result);
 
 $sort_part = ($get_s != '' ? "&amp;s=$get_s" : '');
 $sort_part .= ($get_d != 0 ? "&amp;d=$get_d" : '');

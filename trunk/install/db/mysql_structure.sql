@@ -62,12 +62,26 @@ CREATE TABLE `renprefix_buffs` (
 
 DROP TABLE IF EXISTS `renprefix_config`;
 CREATE TABLE `renprefix_config` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `config_name` varchar(255) default NULL,
   `config_value` tinytext,
   `form_type` mediumtext,
   `config_type` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Addon Config
+
+DROP TABLE IF EXISTS `renprefix_addon_config`;
+CREATE TABLE `renprefix_addon_config` (
+  `addon_id` int(11),
+  `id` int(11) unsigned NOT NULL,
+  `config_name` varchar(255) default NULL,
+  `config_value` tinytext,
+  `form_type` mediumtext,
+  `config_type` varchar(255) default NULL,
+  KEY `addon` (`id`,`addon_id`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------

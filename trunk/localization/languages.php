@@ -26,9 +26,9 @@ $roster_conf['multilanguages'][] = 'frFR';
 
 
 $wordings = array();
-foreach( $roster_conf['multilanguages'] as $lang )
+foreach( $roster_conf['multilanguages'] as $langvalue )
 {
-	add_locale_file($lang,$wordings);
+	add_locale_file(ROSTER_LOCALE_DIR.$langvalue.'.php',$langvalue,$wordings);
 }
 
 $act_words = &$wordings[$roster_conf['roster_lang']];
@@ -135,19 +135,3 @@ Serveral javascript files are libraries that are under their own licenses.
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
 See <a href="'.makelink('license').'">license.txt</a> for details';
-
-
-/**
- * Adds locale strings to global $wordings array
- *
- * @param string $locale
- * @param array $wordings
- */
-function add_locale_file( $locale , &$wordings )
-{
-	global $roster_conf;
-
-	include(ROSTER_BASE.'localization'.DIR_SEP.$locale.'.php');
-	$wordings[$locale] = $lang;
-	unset($lang);
-}

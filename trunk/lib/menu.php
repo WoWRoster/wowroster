@@ -21,6 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+global $guild_info;
 
 if( is_array($guild_info) )
 {

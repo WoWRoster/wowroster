@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-// The key in the $pages array is the pagename for the admincp file.
+// The key in the $config_pages array is the pagename for the admincp file.
 // The value is an array whose keys have these menaings:
 //	"href"		The link this should refer to.
 //	"title"		The localization key for the button title.
@@ -34,40 +34,40 @@ if ( !defined('ROSTER_INSTALLED') )
 
 
 
-$pages['roster'] = array(
-	'href'=>	$pages[0].'-roster',
+$config_pages['roster'] = array(
+	'href'=>	$roster_pages[0].'-roster',
 	'title'=>	'pagebar_rosterconf',
 	'file'=>	'roster_conf.php',
 	);
-$pages['character'] = array(
-	'href'=>	$pages[0].'-character',
+$config_pages['character'] = array(
+	'href'=>	$roster_pages[0].'-character',
 	'title'=>	'pagebar_charpref',
 	'file'=>	'character_conf.php',
 	);
-$pages['menu'] = array(
-	'href'=>	$pages[0].'-menu',
+$config_pages['menu'] = array(
+	'href'=>	$roster_pages[0].'-menu',
 	'title'=>	'pagebar_menuconf',
 	'file'=>	'menu_conf.php',
 	);
-$pages['install'] = array(
-	'href'=>	$pages[0].'-install',
+$config_pages['install'] = array(
+	'href'=>	$roster_pages[0].'-install',
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
 	);
-$pages['password'] = array(
-	'href'=>	$pages[0].'-password',
+$config_pages['password'] = array(
+	'href'=>	$roster_pages[0].'-password',
 	'title'=>	'pagebar_changepass',
 	'file'=>	'change_pass.php',
 	);
-$pages['hr'] = array(
+$config_pages['hr'] = array(
 	'special'=>	'divider',
 	);
-$pages['rosterdiag'] = array(
+$config_pages['rosterdiag'] = array(
 	'href'=>	'rosterdiag',
 	'title'=>	'pagebar_rosterdiag',
 	);
 
-$pages['addon'] = array(
+$config_pages['addon'] = array(
 	'special'=>	'hidden',
 	'file'=>	'addon_conf.php',
 	);

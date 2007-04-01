@@ -55,6 +55,7 @@ if( isset($db_prefix) )
 	define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
 	define('ROSTER_ADDONTABLE',$db_prefix.'addon');
 	define('ROSTER_ADDONMENUTABLE',$db_prefix.'addon_menu');
+	define('ROSTER_ADDONCONFTABLE',$db_prefix.'addon_config');
 	define('ROSTER_BUFFSTABLE',$db_prefix.'buffs');
 	define('ROSTER_CONFIGTABLE',$db_prefix.'config');
 	define('ROSTER_ITEMSTABLE',$db_prefix.'items');
