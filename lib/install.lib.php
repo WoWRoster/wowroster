@@ -80,12 +80,33 @@ class Install
 	}
 
 	/**
-	 * Removes the all the config settings for an addon
+	 * Update a config setting
 	 *
+	 * @param int $id
+	 *		Config ID to update
 	 * @param string $sql
-	 *		SQL string to add to the roster_addon_config table
+	 *		Set string
 	 */
-	function remove_config()
+	function update_config($id, $sql)
+	{
+		$this->sql[] = "UPDATE `".ROSTER_ADDONCONFTABLE."` SET ".$sql." WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
+	}
+	
+	/**
+	 * Delete a config setting
+	 *
+	 * @param int $id
+	 *		Config ID to delete
+	 */
+	function remove_config($id)
+	{
+		$this->sql[] = "DELETE FROM `".ROSTER_ADDONCONFTABLE."` WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
+	}
+	
+	/**
+	 * Removes the all the config settings for an addon
+	 */
+	function remove_all_config()
 	{
 		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONCONFTABLE.'` WHERE `addon_id` = "'.$this->addata['addon_id'].'";';
 	}
