@@ -701,10 +701,10 @@ select {
 **/
 
 .item { position:relative;width:40px;height:40px;cursor:pointer; }
-.item .quant { position:absolute;bottom:0;right:3px;font-size:12px;font-weight:bold;color:#ffffff; }
-.item .quant_shadow { position:absolute;bottom:-1px;right:2px;font-size:12px;font-weight:bold;color:#333333; }
+.item span { position:absolute;bottom:0;right:3px;color:#fff;font-weight:bold;font-size:12px; }
+.item b { position:absolute;bottom:-1px;right:2px;color:#000;font-weight:bold;font-size:12px; }
 .item .icon { float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1; }
-.item .iconsmall { float:left;width:31px;height:30px;padding:1px 0 0 0;z-index:1; }
+.item .iconsmall { float:left;width:30px;height:30px;padding:1px 0 0 0;z-index:1; }
 
 .xp { height:15px;width:253px; }
 .xp .xpbox { position:relative;left:0;top:0;width:253px;height:15px; }
@@ -878,8 +878,8 @@ select {
 
 /* Equipment Items */
 .equip .item { position:relative;width:36px;height:36px;cursor:pointer; }
-.equip .item .quant { position:absolute;bottom:0;right:3px;font-size:10px;font-weight:bold;color:#ffffff; }
-.equip .item .quant_shadow { position:absolute;bottom:-1px;right:2px;font-size:10px;font-weight:bold;color:#333333; }
+.equip .item span { position:absolute;bottom:0;right:3px;color:#fff;font-weight:bold;font-size:10px; }
+.equip .item b { position:absolute;bottom:-1px;right:2px;color:#000;font-weight:bold;font-size:10px; }
 .equip .item .icon { float:left;width:36px;height:36px;padding:1px 0 0 0;z-index:1; }
 .equip .item .iconsmall { float:left;width:29px;height:29px;padding:1px 0 0 0;z-index:1; }
 
