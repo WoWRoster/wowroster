@@ -80,7 +80,7 @@ if ( array_key_exists('oldpass',$_POST))
 
 $body .= $roster_login->getMessage().'<br />
 <form action="" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
-	'.border('sred','start','Change Roster Admin Password').'
+	'.border('sred','start',$act_words['pagebar_changeadminpass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
 	      <td class="membersRow1">Old Password:</td>

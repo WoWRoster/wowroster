@@ -22,7 +22,7 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 // The key in the $config_pages array is the pagename for the admincp file.
-// The value is an array whose keys have these menaings:
+// The value is an array whose keys have these meanings:
 //	"href"		The link this should refer to.
 //	"title"		The localization key for the button title.
 //	"file"		The file to include if this page is called. Missing means
@@ -54,13 +54,13 @@ $config_pages['install'] = array(
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
 	);
-$config_pages['admin'] = array(
-	'href'=>	$roster_pages[0].'-admin-password',
+$config_pages['admin_pass'] = array(
+	'href'=>	$roster_pages[0].'-admin_pass',
 	'title'=>	'pagebar_changeadminpass',
 	'file'=>	'change_admin_pass.php',
 	);
-$config_pages['update'] = array(
-	'href'=>	$roster_pages[0].'-update-password',
+$config_pages['upd_pass'] = array(
+	'href'=>	$roster_pages[0].'-upd_pass',
 	'title'=>	'pagebar_changeupdatepass',
 	'file'=>	'change_update_pass.php',
 	);
