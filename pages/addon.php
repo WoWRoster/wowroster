@@ -35,7 +35,7 @@ $roster_show_menu = true;
 $roster_show_footer = true;
 
 // Check if addon is active
-if( $addon['active'] = '1' )
+if( $addon['active'] == '1' )
 {
 	// Check to see if the index file exists
 	if( file_exists($addon['index_file']) )

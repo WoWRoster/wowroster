@@ -816,6 +816,7 @@ $lang['lockpicking']='Lockpicking';
 	$lang['PvPLogver_err']="La versión de PvPLog uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión ".$roster_conf['minPvPLogver'].", y si has actualizado recientemente PvPLog, asegúrate de que has borrado el antiguo fichero PvPLog.lua en la carpeta SavedVariables antes de enviar los datos.";
 	$lang['GPver_err']="La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión ".$roster_conf['minGPver'];
 
+$lang['menuconf_sectionselect']='Select Section';
 
 $lang['installer_install_0']='Installation of %1$s successful';
 $lang['installer_install_1']='Installation of %1$s failed, but rollback successful';

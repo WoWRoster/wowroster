@@ -29,7 +29,7 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 define('ROSTER_PAGE', 'p');
 
 // This is the url to access a page in Roster
-define('ROSTER_LINK', 'index.php?'.ROSTER_PAGE.'=%1$s');
+define('ROSTER_LINK', '?'.ROSTER_PAGE.'=%1$s');
 
 
 /**

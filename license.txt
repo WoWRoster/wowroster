@@ -37,6 +37,12 @@ Overlib tooltip library - Erik Bosrup
   * Overlib License: http://www.bosrup.com/web/overlib/?License
   * File located at [css/js/overlib.js]
 
+DHTML Drag & Drop library - Walter Zorn
+
+  * http://www.walterzorn.com/dragdrop/dragdrop_e.htm
+  * GNU Lesser General Public License: http://gnu.org/copyleft/lesser.html
+  * File located at [css/js/wz_dragdrop.js]
+
 Modified EQdkp installer
 
   * http://www.eqdkp.com

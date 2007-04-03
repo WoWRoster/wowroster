@@ -83,6 +83,13 @@ that are not included under the main WoWRoster license</span></p>
 	<li>File located at [css/js/overlib.js]</li>
 </ul>
 
+<strong>DHTML Drag & Drop library</strong> - Walter Zorn
+<ul>
+	<li><a href=\"http://www.walterzorn.com/dragdrop/dragdrop_e.htm\" target=\"_blank\">http://www.walterzorn.com/dragdrop/dragdrop_e.htm</a></li>
+	<li>GNU Lesser General Public License: <a href=\"http://gnu.org/copyleft/lesser.html\" target=\"_blank\">http://gnu.org/copyleft/lesser.html</a></li>
+	<li>File located at [css/js/wz_dragdrop.js]</li>
+</ul>
+
 <strong>Modified EQdkp installer</strong>
 <ul>
 	<li><a href=\"http://www.eqdkp.com\" target=\"_blank\">http://www.eqdkp.com</a></li>
@@ -93,7 +100,8 @@ that are not included under the main WoWRoster license</span></p>
 			<li>install.php</li>
 			<li>update.php</li>
 			<li>install/template.php</li>
-		</ul></li>
+		</ul>
+	</li>
 </ul>
 
 <strong>MiniXML Library</strong>
@@ -108,7 +116,8 @@ that are not included under the main WoWRoster license</span></p>
 			<li>lib/minixml/LICENSE</li>
 			<li>lib/minixml/node.inc.php</li>
 			<li>lib/minixml/treecomp.inc.php</li>
-		</ul></li>
+		</ul>
+	</li>
 </ul>
 </div>",'WoWRoster License');
 
