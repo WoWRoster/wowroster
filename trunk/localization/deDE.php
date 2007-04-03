@@ -816,7 +816,8 @@ $lang['lockpicking']='Schlossknacken';
 	$lang['PvPLogver_err']="Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minPvPLogver']." verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.";
 	$lang['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
 
-
+$lang['menuconf_sectionselect']='Select Section';
+	
 $lang['installer_install_0']='Installation of %1$s successful';
 $lang['installer_install_1']='Installation of %1$s failed, but rollback successful';
 $lang['installer_install_2']='Installation of %1$s failed, and rollback also failed';

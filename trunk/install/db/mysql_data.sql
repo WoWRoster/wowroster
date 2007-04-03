@@ -163,3 +163,24 @@ INSERT INTO `renprefix_config` VALUES (9030, 'banker_fieldname', 'note', 'select
 ### Update Access
 
 INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');
+
+# --------------------------------------------------------
+### Menu table entries
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8:b9|b10:b11:b12:b13:b14');
+
+# --------------------------------------------------------
+### Menu Button entries
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'Members', 'members');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Guild Stats', 'guildstats');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Guild Bank', 'guildbank');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'PvP Stats', 'pvplist');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'Honor', 'guildhonor');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Memberlog', 'memberlog');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Keys', 'keys');
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Tradeskills', 'tradeskills');
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'Update', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'team');
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search');
+INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Roster Config', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (14, 0, 'Credits', 'credits');

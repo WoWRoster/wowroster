@@ -31,6 +31,11 @@ define('ROSTER_MAXSKILLLEVEL','375');
 define('ROSTER_ADMIN',ROSTER_BASE.'admin'.DIR_SEP);
 
 /**
+ * Base, absolute roster ajax directory
+ */
+define('ROSTER_AJAX',ROSTER_BASE.'ajax'.DIR_SEP);
+
+/**
  * Base, absolute roster addons directory
  */
 define('ROSTER_ADDONS',ROSTER_BASE.'addons'.DIR_SEP);

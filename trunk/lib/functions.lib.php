@@ -1052,6 +1052,9 @@ function getaddon( $addonname )
 
 	// Get the addon's admin file
 	$addon['admin_file'] = $addon['dir'].'admin.php';
+	
+	// Get the addon's ajax functions file
+	$addon['ajax_file'] = $addon['dir'].'ajax.php';
 
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';

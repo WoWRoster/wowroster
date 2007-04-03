@@ -33,6 +33,7 @@ These are the changes for the roster addon framework:
       [ css_file ] => /home/public_html/roster/addons/recipe/default.css
       [ css_url ] => /addons/recipe/default.css
       [ admin_file ] => /home/public_html/roster/addons/recipe/admin.php
+	  [ ajax_file ] => /home/public_html/roster/addons/recipe/ajax.php
       [ conf_file ] => /home/public_html/roster/addons/recipe/conf.php
       [ locale_dir ] => /home/public_html/roster/addons/recipe/locale/
   )
@@ -53,6 +54,7 @@ These are the changes for the roster addon framework:
    o $addon['css_file'] - The full path to the addon's style.css file.
    o $addon['css_url'] - The full URL path to the addon's style.css file.
    o $addon['admin_file'] - The full path to the addon's admin.php file.
+   o $addon['ajax_file'] - The full path to the addon's ajax.php file.
    o $addon['conf_file'] - The full path to the addon's conf.php file.
    o $addon['locale_dir'] - The full path to the addon's locale directory.
 
