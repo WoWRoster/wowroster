@@ -18,8 +18,15 @@ DELETE FROM `renprefix_config` WHERE `id` = 5010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
 
 # --------------------------------------------------------
-### New master entry: Startpage
+### New master entries: Startpage, admin pass
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (6, 'roster_admin_pw', '', 'password:30|30', 'master');
+
+### Set the admin pass equal to the update pass. Doing it in php is more complicated.
+UPDATE `roster_config` source, `roster_config` target 
+	SET `target`.`config_value` = `source`.`config_value` 
+	WHERE `target`.`config_name` = 'roster_admin_pw' 
+		AND `source`.`config_name` = 'roster_upd_pw'; 
 
 # --------------------------------------------------------
 ### Config Menu Entries
