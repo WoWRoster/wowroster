@@ -2101,7 +2101,7 @@ class wowdb
 
 		$this->add_value( 'active', '1');
 
-		if( $char['Online'] == '1' )
+		if( isset($char['Online']) && $char['Online'] == '1' )
 		{
 			$this->add_value( 'online', 1 );
 			$this->add_time('last_online', getDate($currentTimestamp));

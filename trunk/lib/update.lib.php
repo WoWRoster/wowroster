@@ -154,7 +154,8 @@ class update
 		{
 			if( ( md5($_POST['password']) == $roster_conf['roster_upd_pw'] ) ||
 				( $_POST['password'] == $roster_conf['roster_upd_pw'] ) ||
-				( isset($roster_conf['phpbb_authenticated_admin']) )
+				( md5($_POST['password']) == $roster_conf['roster_admin_pw']) ||
+				( $_POST['password'] == $roster_conf['roster_admin_pw'])
 			  )
 			{
 				$output .= $this->processGuildRoster();
@@ -349,8 +350,8 @@ class update
 										// take the current time and get the offset. Upload must occur same day that roster was obtained
 										$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
 										$currentTime = getDate($currentTimestamp);
-
-										if( $guild_info && ( ( strtotime($guild_info['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) <= 0 ) )
+										
+										if( $guild_info && ( ( strtotime($guild_info['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) >= 0 ) )
 										{
 											return sprintf($act_words['not_update_guild'],$guild_name)."<br />\n";
 										}

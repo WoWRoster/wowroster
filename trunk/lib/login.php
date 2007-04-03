@@ -72,9 +72,9 @@ class RosterLogin
 		{
 			if( isset($_POST['pass_word']) )
 			{
-				if( md5($_POST['pass_word']) == $roster_conf['roster_upd_pw'] )
+				if( md5($_POST['pass_word']) == $roster_conf['roster_admin_pw'] )
 				{
-					setcookie( 'roster_pass',$roster_conf['roster_upd_pw'],0,'/' );
+					setcookie( 'roster_pass',$roster_conf['roster_admin_pw'],0,'/' );
 					$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 					$this->allow_login = true;
 				}
@@ -89,7 +89,7 @@ class RosterLogin
 		{
 			$BigCookie = $_COOKIE['roster_pass'];
 
-			if( $BigCookie == $roster_conf['roster_upd_pw'] )
+			if( $BigCookie == $roster_conf['roster_admin_pw'] )
 			{
  				$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 				$this->allow_login = true;
