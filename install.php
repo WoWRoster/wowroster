@@ -540,7 +540,8 @@ function process_step4()
 
     $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
-    $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_upd_pw';");
+    $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_admin_pw';");
+    $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_update_pw';");
 
     //
     // Check password and notify uer

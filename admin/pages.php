@@ -54,10 +54,15 @@ $config_pages['install'] = array(
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
 	);
-$config_pages['password'] = array(
-	'href'=>	$roster_pages[0].'-password',
-	'title'=>	'pagebar_changepass',
-	'file'=>	'change_pass.php',
+$config_pages['admin'] = array(
+	'href'=>	$roster_pages[0].'-admin-password',
+	'title'=>	'pagebar_changeadminpass',
+	'file'=>	'change_admin_pass.php',
+	);
+$config_pages['update'] = array(
+	'href'=>	$roster_pages[0].'-update-password',
+	'title'=>	'pagebar_changeupdatepass',
+	'file'=>	'change_update_pass.php',
 	);
 $config_pages['hr'] = array(
 	'special'=>	'divider',
