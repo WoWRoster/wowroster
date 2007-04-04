@@ -856,7 +856,7 @@ class wowdb
 		$recipe['recipe_type'] = $recipe_type;
 		$recipe['skill_name'] = $parent;
 		$recipe['difficulty'] = $recipe_data['Difficulty'];
-		$recipe['item_color'] = $recipe_data['Color'];
+		$recipe['item_color'] = isset($recipe_data['Color']) ? $recipe_data['Color'] : '';
 
 		$recipe['reagents'] = '';
 		foreach( $recipe_data['Reagents'] as $reagent )
@@ -2425,6 +2425,10 @@ class wowdb
 				$petID = $this->fetch_assoc($result);
 				$petID = $petID['pet_id'];
 			}
+			else
+			{
+				$update = false;
+			}
 			$this->closeQuery($result);
 
 			$this->reset_values();
@@ -2432,7 +2436,7 @@ class wowdb
 			$this->add_value( 'member_id', $memberId );
 
 			$this->add_value( 'name', $data['Name'] );
-			$this->add_value( 'slot', $data['Slot'] );
+			$this->add_value( 'slot', (isset($data['Slot']) ? $data['Slot'] : '0') );
 
 			// BEGIN STATS
 			if( is_array($data['Attributes']['Stats']) )
@@ -2535,8 +2539,8 @@ class wowdb
 			$this->add_value( 'usedtp', $data['TalentPointsUsed'] );
 			$this->add_value( 'totaltp', $data['TalentPoints'] );
 			$this->add_value( 'type', $data['Type'] );
-			$this->add_value( 'loyalty', $data['Loyalty']);
-			$this->add_value( 'icon', $this->fix_icon($data['Icon']));
+			$this->add_value( 'loyalty', (isset($data['Loyalty']) ? $data['Loyalty'] : '') );
+			$this->add_value( 'icon', (isset($data['Icon']) ? $this->fix_icon($data['Icon']) : '') );
 
 			if( $update )
 			{
