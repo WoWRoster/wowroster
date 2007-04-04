@@ -984,20 +984,9 @@ $lang['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, w
 $lang['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
 
 // menu_conf
-$lang['admin']['menu_left_pane'] = "Linker Bereich (Kleine Mitgliederübersicht)|Anzeige des linken Bereichs des Menüs<br />Hier wird eine kurze Mitgliederübersicht gezeigt";
-$lang['admin']['menu_right_pane'] = "Rechter Bereich (Realmstatus)|Anzeige des rechten Bereichs des Menüs<br />Hier wir der Realmstatus angezeigt";
-$lang['admin']['menu_memberlog'] = "Memberlog|Link zur Memberlog";
-$lang['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
-$lang['admin']['menu_guild_info'] = "Gilden Info Link|Link zum Gilden Info";
-$lang['admin']['menu_stats_page'] = "Stats Link|Link zu den einfachen Stats";
-$lang['admin']['menu_pvp_page'] = "PvP Statistiken Link|Link zu den PvP-Statistiken";
-$lang['admin']['menu_honor_page'] = "Ehre Link|Link zur Ehrenseite";
-$lang['admin']['menu_guildbank'] = "Gildenbank Link|Link zur Gildenbank";
-$lang['admin']['menu_keys_page'] = "Schlüssel Link|Link zu den Instanzschlüsseln";
-$lang['admin']['menu_tradeskills_page'] = "Berufe Link|Link zu den Berufen";
-$lang['admin']['menu_update_page'] = "Profil Updaten Link|Link zur Update-Seite";
-$lang['admin']['menu_quests_page'] = "Questgruppe Suchen Link|Link zur Questgruppen-Seite";
-$lang['admin']['menu_search_page'] = "Suche Link|Link zur Suchseite";
+$lang['admin']['menu_left_pane'] = "Left Pane|Controls display of the left pane of the main roster menu<br />By default this area holds the member quick list";
+$lang['admin']['menu_right_pane'] = "Right Pane|Controls display of the right pane of the main roster menu<br />By default this area holds the realmstatus image";
+$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
 
 // display_conf
 $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";

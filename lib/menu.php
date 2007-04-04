@@ -33,58 +33,37 @@ class RosterMenu
 
 		define('ROSTER_MENU_INC',true);
 
-		$cols = 1;
-
-		if( $roster_conf['menu_left_pane'] && $guild_info !==false )
+		if( $guild_info == false )
 		{
-			$left_pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
-			$cols++;
+			$topbar = $left_pane = $right_pane = '';
 		}
 		else
 		{
-			$left_pane = '';
+			if( $roster_conf['menu_top_pane'] )
+			{
+				$topbar = '  <tr>'."\n".
+					'    <td colspan="3" align="center" valign="top" class="header">'."\n".
+					'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
+					'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
+					$act_words['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc']).
+					((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
+					'      </span>'."\n".
+					'    </td>'."\n".
+					'  </tr>'."\n".
+					'  <tr>'."\n".
+					'    <td colspan="3" class="simpleborder_b syellowborder_b"></td>'."\n".
+					'  </tr>'."\n";
+			}
+			else
+			{
+				$topbar = '';
+			}
+
+			$left_pane = $this->makePane($roster_conf['menu_left_pane']);
+			$right_pane = $this->makePane($roster_conf['menu_right_pane']);
 		}
 
-		if( $roster_conf['menu_right_pane'] && $guild_info !==false )
-		{
-			$right_pane = $this->makeRealmStatus();
-			$cols++;
-		}
-		else
-		{
-			$right_pane = '';
-		}
-
-//		if( $roster_conf['menu_top_pane'] && !empty($guild_info))
-		{
-			$topbar = '  <tr>'."\n".
-				'    <td colspan="'.$cols.'" align="center" valign="top" class="header">'."\n".
-				'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
-				'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
-				$act_words['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc']).
-				((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
-				'      </span>'."\n".
-				'    </td>'."\n".
-				'  </tr>'."\n".
-				'  <tr>'."\n".
-				'    <td colspan="'.$cols.'" class="simpleborder_b syellowborder_b"></td>'."\n".
-				'  </tr>'."\n";
-		}
-//		else
-		{
-//			$topbar = '';
-		}
-
-//		if( $roster_conf['menu_button_pane'] )
-		{
-			$buttonlist = $this->makeButtonList($sections);
-		}
-//		else
-		{
-//			$buttonlist = $menuLogin;
-//			$menuLogin = '';
-		}
-
+		$buttonlist = $this->makeButtonList($sections);
 
 		return "\n".'<!-- Begin WoWRoster Menu -->'.
 			border('syellow','start')."\n".
@@ -102,12 +81,52 @@ class RosterMenu
 	}
 
 	/**
+	 * Builds either of the side panes.
+	 *
+	 * @param kind of pane to build
+	 */
+	function makePane( $type )
+	{
+		global $guild_info;
+
+		switch( $type )
+		{
+			case 'level':
+				$pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
+				break;
+			case 'levellong':
+				$pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id'],true);
+				break;
+			case 'class':
+				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id']);
+				break;
+			case 'class50':
+				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id'].' AND `level` >= 50');
+				break;
+			case 'class60':
+				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id'].' AND `level` >= 60');
+				break;
+			case 'class70':
+				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id'].' AND `level` >= 70');
+				break;
+			case 'realmstatus':
+				$pane = $this->makeRealmStatus();
+				break;
+			default:
+				$pane = '';
+				break;
+		}
+		
+		return $pane;
+	}
+	
+	/**
 	 * Builds the level distribution list
 	 *
 	 * @param $condition where condition
 	 * @return formatted level distribution list
 	 */
-	function makeLevelList( $condition )
+	function makeLevelList( $condition, $long = false )
 	{
 		global $wordings, $act_words, $wowdb, $roster_conf;
 
@@ -134,13 +153,8 @@ class RosterMenu
 		$num_non_alts = 0;
 		$num_alts = 0;
 
-		$num_lvl_70 = 0;
-		$num_lvl_60_69 = 0;
-		$num_lvl_50_59 = 0;
-		$num_lvl_40_49 = 0;
-		$num_lvl_30_39 = 0;
-		$num_lvl_1_29 = 0;
-
+		$num_lvl = array(0=>0, 1=>0, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0, 7=>0);
+		
 		$level_sum = 0;
 
 		while ($row = $wowdb->fetch_assoc($result_menu))
@@ -154,46 +168,27 @@ class RosterMenu
 				$num_non_alts += $row['amount'];
 			}
 
-			switch ($row['levelgroup'])
-			{
-				case 7:
-					$num_lvl_70 += $row['amount'];
-				case 6:
-					$num_lvl_60_69 += $row['amount'];
-					break;
-				case 5:
-					$num_lvl_50_59 += $row['amount'];
-					break;
-				case 4:
-					$num_lvl_40_49 += $row['amount'];
-					break;
-				case 3:
-					$num_lvl_30_39 += $row['amount'];
-					break;
-				case 2:
-				case 1:
-				case 0:
-					$num_lvl_1_29 += $row['amount'];
-					break;
-				default:
-			}
+			$num_lvl[$row['levelgroup']] += $row['amount'];
 			$level_sum += $row['sum'];
 		}
 
 		$result_avg = $level_sum/($num_alts + $num_non_alts);
 
-		return '   <td valign="top" class="row">
+		return '	<td valign="top" class="row">
 	      '.$act_words['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
-	      <br />
-	      <ul>
-		<li style="color:#999999;">Average Level: '.round($result_avg).'</li>
-		<li>'.$act_words['level'].' 70: '.$num_lvl_70.'</li>
-		<li>'.$act_words['level'].' 60-69: '.$num_lvl_60_69.'</li>
-		<li>'.$act_words['level'].' 50-59: '.$num_lvl_50_59.'</li>
-		<li>'.$act_words['level'].' 40-49: '.$num_lvl_40_49.'</li>
-		<li>'.$act_words['level'].' 30-39: '.$num_lvl_30_39.'</li>
-		<li>'.$act_words['level'].' 1-29: '.$num_lvl_1_29.'</li>
-	      </ul>
+			<br />
+			<ul>
+			<li style="color:#999999;">Average Level: '.round($result_avg).'</li>
+			<li>'.$act_words['level'].' 70: '.$num_lvl[7].'</li>
+			<li>'.$act_words['level'].' 60-69: '.$num_lvl[6].'</li>
+			<li>'.$act_words['level'].' 50-59: '.$num_lvl[5].'</li>
+			<li>'.$act_words['level'].' 40-49: '.$num_lvl[4].'</li>
+			<li>'.$act_words['level'].' 30-39: '.$num_lvl[3].'</li>
+			'.(($long)?'<li>'.$act_words['level'].' 20-29: '.$num_lvl[2].'</li>
+			<li>'.$act_words['level'].' 10-19: '.$num_lvl[1].'</li>
+			<li>'.$act_words['level'].' 1-9: '.$num_lvl[0].'</li>
+			':'<li>'.$act_words['level'].' 1-29: '.($num_lvl[0]+$num_lvl[1]+$num_lvl[2]).'</li>').'
+			</ul>
 	    </td>'."\n";
 	}
 

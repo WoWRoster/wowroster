@@ -984,20 +984,9 @@ $lang['admin']['index_lastonline'] = "Columna Ultima vez visto|Muestra la column
 $lang['admin']['index_lastupdate'] = "Columna Ultima actualizaci&oacuten|Muestra la &uacuteltima actualizaci&oacuten de cada personaje (la &uacuteltima vez que ha subido informaci&oacuten)";
 
 // menu_conf
-$lang['admin']['menu_left_pane'] = "Panel izquierdo (Lista r&aacutepida de miembros)|Muestra el panel izquierdo del men&uacute principal del roster<br>Este area contiene la lista r&aacutepida de miembros";
-$lang['admin']['menu_right_pane'] = "Panel derecho (EstadoReino)|Muestra el panel derecho del men&uacute principal del roster<br>Este area contiene la imagen del estado real del reino";
-$lang['admin']['menu_memberlog'] = "Link Member Log|Muestra el bot&oacuten Member Log";
-$lang['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
-$lang['admin']['menu_guild_info'] = "Link Guild-Info|Muestra el bot&oacuten Guild-Info";
-$lang['admin']['menu_stats_page'] = "Link estad&iacutesticas|Muestra el bot&oacuten Estad&iacutesticas";
-$lang['admin']['menu_pvp_page'] = "Link estad&iacutesticas JcJ|Muestra el bot&oacuten estad&iacutesticas JcJ";
-$lang['admin']['menu_honor_page'] = "Link Honor|Muestra el bot&oacuten de Honor";
-$lang['admin']['menu_guildbank'] = "Link Guildbank|Muestra el bot&oacuten de GuildBank";
-$lang['admin']['menu_keys_page'] = "Link Llaves de dungeon|Muestra el bot&oacuten Llaves de dungeon";
-$lang['admin']['menu_tradeskills_page'] = "Link Profesiones|Muestra el bot&oacuten Profesiones";
-$lang['admin']['menu_update_page'] = "Link Actualizar ficha|Muestra el bot&oacuten Actualizar ficha";
-$lang['admin']['menu_quests_page'] = "Link Encontrar Grupo/Quests|Muestra el bot&oacuten Encontrar Grupo/Quests";
-$lang['admin']['menu_search_page'] = "Link Buscar objetos o recetas|Muestra el bot&oacuten Buscar objetos o recetas";
+$lang['admin']['menu_left_pane'] = "Left Pane|Controls display of the left pane of the main roster menu<br />By default this area holds the member quick list";
+$lang['admin']['menu_right_pane'] = "Right Pane|Controls display of the right pane of the main roster menu<br />By default this area holds the realmstatus image";
+$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
 
 // display_conf
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute mostrada en la cabecera de la p&aacutegina";
