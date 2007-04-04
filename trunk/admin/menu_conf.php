@@ -20,15 +20,9 @@ if ( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
-// --[ Translate GET/POST data ]--
-if (isset($_GET['section']))
-{
-	$section = $_GET['section'];
-}
-else
-{
-	$section = 'main';
-}
+
+// --[ Translate GET data ]--
+$section = (isset($_GET['section']) ? $_GET['section'] : 'main' );
 
 // --[ Write submitted menu configuration to DB if applicable ]--
 if (isset($_POST['process']) && $_POST['process'] == 'process')
@@ -53,7 +47,10 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 }
 
 // --[ Fetch button list from DB ]--
-$query = "SELECT * FROM ".$wowdb->table('menu_button');
+$query = "SELECT `mb`.*, `a`.`basename`
+	FROM `".$wowdb->table('menu_button')."` AS mb
+	LEFT JOIN `".$wowdb->table('addon')."` AS a
+	ON `mb`.`addon_id` = `a`.`addon_id`;";
 
 $result = $wowdb->query($query);
 
@@ -125,8 +122,7 @@ $html_head .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/menuc
 
 // --[ Section select. ]--
 $menu .= border('sorange','start',$act_words['menuconf_sectionselect'])."\n";
-$menu .= '<form action="" method="get">'."\n";
-$menu .= '<input type="hidden" name="page" value="menu">'."\n";
+$menu .= '<form action="'.makelink().'" method="post">'."\n";
 $menu .= '<select name="section">'."\n";
 
 $query = "SELECT `section` FROM ".$wowdb->table('menu').";";
@@ -164,24 +160,35 @@ $menu .= '<br />'."\n";
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
-	$menu .= '<div id="'.$id.'" class="menu_config_div">'.$button['title'].'</div>'."\n";
+	if( $button['addon_id'] != '0' && !isset($act_words[$button['title']]) )
+	{
+		// Include addon's locale files if they exist
+		foreach( $roster_conf['multilanguages'] as $lang )
+		{
+			if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
+			{
+				add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+			}
+		}
+	}
+	$menu .= '<div id="'.$id.'" class="menu_config_div">'.( isset($act_words[$button['title']]) ? $act_words[$button['title']] : $button['title'] ).' ('.$button['title'].')</div>'."\n";
 }
 $menu .= "<br />\n";
 
 // --[ Add button ]--
 $menu .= border('syellow','start','Add button')."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
-$menu .= '<tr><td>title:<td><input id="title" type="text" size="16" maxlength="32">'."\n";
-$menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="128">'."\n";
+$menu .= '<tr><td>title:<td><input id="title" type="text" size="16" maxlength="32" />'."\n";
+$menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="128" />'."\n";
 //$menu .= '<tr><td>show: <td>'.$roster_login->accessConfig(array('name'=>'access','value'=>$roster_login->everyone()))."\n";
-$menu .= '<tr><td colspan="2" align="right"><button onClick="sendAddElement()">Go</button>'."\n";
+$menu .= '<tr><td colspan="2" align="right"><button onclick="sendAddElement()">Go</button>'."\n";
 $menu .= '</table>';
 $menu .= border('syellow','end')."\n";
 
 // --[ Main grid design ]--
 $body .= isset($save_status)?$save_status:'';
-$body .= '<form action="" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
-$body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'"><input type="hidden" name="process" value="process">';
+$body .= '<form action="'.makelink().'" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
+$body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'" /><input type="hidden" name="process" value="process" />';
 $body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['config_submit_button'].'" />'."\n";
 $body .= '</form><br />'."\n";
 
@@ -193,7 +200,18 @@ foreach($arrayButtons as $posX=>$column)
 {
 	foreach($column as $posY=>$button)
 	{
-		$body .= '<div id="b'.$button['button_id'].'" class="menu_config_div">'.$button['title'].'</div>'."\n";
+		if( $button['addon_id'] != '0' && !isset($act_words[$button['title']]) )
+		{
+			// Include addon's locale files if they exist
+			foreach( $roster_conf['multilanguages'] as $lang )
+			{
+				if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
+				{
+					add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+				}
+			}
+		}
+		$body .= '<div id="b'.$button['button_id'].'" class="menu_config_div">'.( isset($act_words[$button['title']]) ? $act_words[$button['title']] : $button['title'] ).' ('.$button['title'].')</div>'."\n";
 	}
 }
 
@@ -245,5 +263,3 @@ $footer .= '
 updatePositions();
 //-->
 </script>';
-
-?>

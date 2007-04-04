@@ -43,17 +43,6 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 include_once (ROSTER_LIB.'menu.php');
 
 
-if( $roster_conf['hspvp_list_disp'] == 'hide' )
-{
-	$pvp_hs_colapse=' style="display:none;"';
-	$pvp_hs_image='plus';
-}
-else
-{
-	$pvp_hs_colapse='';
-	$pvp_hs_image='minus';
-}
-
 echo "<table>\n  <tr>\n";
 
 if ( $roster_conf['index_hslist'] == 1 )

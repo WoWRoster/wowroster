@@ -29,7 +29,7 @@ class RosterMenu
 {
 	function makeMenu($sections)
 	{
-		global $roster_conf, $guild_info, $roster_login, $wordings;
+		global $roster_conf, $guild_info, $roster_login, $wordings, $act_words;
 
 		define('ROSTER_MENU_INC',true);
 
@@ -61,7 +61,7 @@ class RosterMenu
 				'    <td colspan="'.$cols.'" align="center" valign="top" class="header">'."\n".
 				'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
 				'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
-				$wordings[$roster_conf['roster_lang']]['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc']).
+				$act_words['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc']).
 				((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
 				'      </span>'."\n".
 				'    </td>'."\n".
@@ -109,7 +109,7 @@ class RosterMenu
 	 */
 	function makeLevelList( $condition )
 	{
-		global $wordings, $wowdb, $roster_conf;
+		global $wordings, $act_words, $wowdb, $roster_conf;
 
 		$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
 			"FLOOR(`level`/10) AS levelgroup, ".
@@ -183,16 +183,16 @@ class RosterMenu
 		$result_avg = $level_sum/($num_alts + $num_non_alts);
 
 		return '   <td valign="top" class="row">
-	      '.$wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
+	      '.$act_words['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
 	      <br />
 	      <ul>
 		<li style="color:#999999;">Average Level: '.round($result_avg).'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 70: '.$num_lvl_70.'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 60-69: '.$num_lvl_60_69.'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 50-59: '.$num_lvl_50_59.'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 40-49: '.$num_lvl_40_49.'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 30-39: '.$num_lvl_30_39.'</li>
-		<li>'.$wordings[$roster_conf['roster_lang']]['level'].' 1-29: '.$num_lvl_1_29.'</li>
+		<li>'.$act_words['level'].' 70: '.$num_lvl_70.'</li>
+		<li>'.$act_words['level'].' 60-69: '.$num_lvl_60_69.'</li>
+		<li>'.$act_words['level'].' 50-59: '.$num_lvl_50_59.'</li>
+		<li>'.$act_words['level'].' 40-49: '.$num_lvl_40_49.'</li>
+		<li>'.$act_words['level'].' 30-39: '.$num_lvl_30_39.'</li>
+		<li>'.$act_words['level'].' 1-29: '.$num_lvl_1_29.'</li>
 	      </ul>
 	    </td>'."\n";
 	}
@@ -205,7 +205,7 @@ class RosterMenu
 	 */
 	function makeClassList($condition = 'true')
 	{
-		global $wordings, $wowdb, $roster_conf;
+		global $wordings, $act_words, $wowdb, $roster_conf;
 
 		$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
 			"class, ".
@@ -318,7 +318,7 @@ class RosterMenu
 		}
 
 		return '   <td valign="top" class="row">
-			'.$wordings[$roster_conf['roster_lang']]['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
+			'.$act_words['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
 			<br />
 			<ul>
 				<li>Druids: '.$num_druids.' (+'.$num_druids_alts.')</li>
@@ -369,7 +369,7 @@ class RosterMenu
 	 */
 	function makeButtonList($sections)
 	{
-		global $wordings, $wowdb, $roster_conf;
+		global $wordings, $act_words, $wowdb, $roster_conf;
 
 		if (is_array($sections))
 		{
@@ -382,7 +382,10 @@ class RosterMenu
 		}
 
 		// --[ Fetch button list from DB ]--
-		$query = "SELECT * FROM ".$wowdb->table('menu_button');
+		$query = "SELECT `mb`.*, `a`.`basename`
+			FROM `".$wowdb->table('menu_button')."` AS mb
+			LEFT JOIN `".$wowdb->table('addon')."` AS a
+			ON `mb`.`addon_id` = `a`.`addon_id`;";
 
 		$result = $wowdb->query($query);
 
@@ -399,7 +402,7 @@ class RosterMenu
 		$wowdb->free_result($result);
 
 		// --[ Fetch menu configuration from DB ]--
-		$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `section` IN ('".$section."')";
+		$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `section` IN ('".$section."');";
 
 		$result = $wowdb->query($query);
 
@@ -452,7 +455,18 @@ class RosterMenu
 				$html .= '            <ul>'."\n";
 				foreach( $column as $button )
 				{
-					$html .= '              <li><a href="'.makelink($button['url']).'">'.$button['title'].'</a></li>'."\n";
+					if( $button['addon_id'] != '0' && !isset($act_words[$button['title']]) )
+					{
+						// Include addon's locale files if they exist
+						foreach( $roster_conf['multilanguages'] as $lang )
+						{
+							if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
+							{
+								add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+							}
+						}
+					}
+					$html .= '              <li><a href="'.makelink($button['url']).'">'.( isset($act_words[$button['title']]) ? $act_words[$button['title']] : $button['title'] ).'</a></li>'."\n";
 				}
 				$html .= '            </ul>'."\n";
 				$html .= '          </td>'."\n";
