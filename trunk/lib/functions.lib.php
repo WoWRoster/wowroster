@@ -288,11 +288,7 @@ function roster_die($message, $title = 'Message', $style = 'sred')
 		$wowdb->closeDb();
 	}
 
-	print border($style, 'start', $title).
-		'<div align="center">'.
-		$message.
-		'</div>'.
-		border($style, 'end');
+	print messagebox('<div align="center">'.$message.'</div>',$title,$style);
 
 	if( is_array($roster_conf) )
 	{
@@ -1052,7 +1048,7 @@ function getaddon( $addonname )
 
 	// Get the addon's admin file
 	$addon['admin_file'] = $addon['dir'].'admin.php';
-	
+
 	// Get the addon's ajax functions file
 	$addon['ajax_file'] = $addon['dir'].'ajax.php';
 

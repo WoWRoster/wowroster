@@ -823,7 +823,7 @@ class wowdb
 		$item['item_color'] = ( isset($item_data['Color']) ? $item_data['Color'] : 'ffffff' );
 		$item['item_id'] = ( isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0' );
 		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
-		
+
 		if( isset( $item_data['Quantity'] ) )
 			$item['item_quantity'] = $item_data['Quantity'];
 		else
@@ -958,7 +958,7 @@ class wowdb
 		{
 			$quests = $data['Quests'];
 		}
-		
+
 		if( !empty($quests) && is_array($quests) )
 		{
 			// Delete the stale data
@@ -1167,7 +1167,7 @@ class wowdb
 		{
 			$inv = $data['Bank'];
 		}
-		
+
 		if( !empty($inv) && is_array($inv) )
 		{
 			$messages = '<li>Updating Bank';
@@ -1241,12 +1241,12 @@ class wowdb
 	 */
 	function do_mailbox( $data, $memberId )
 	{
-		
+
 		if(isset($data['MailBox']))
 		{
-			$mailbox = $data['MailBox'];	
+			$mailbox = $data['MailBox'];
 		}
-		
+
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
@@ -1595,9 +1595,9 @@ class wowdb
 	{
 		if(isset($data['Talents']))
 		{
-			$talentData = $data['Talents'];	
+			$talentData = $data['Talents'];
 		}
-		
+
 		if( !empty($talentData) && is_array($talentData) )
 		{
 			$messages = '<li>Updating Talents';
@@ -2028,9 +2028,8 @@ class wowdb
 
 		if( is_array($guildInfo) )
 		{
-			$guildId = $guildInfo['guild_id'];
-			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '$guildId'";
-			$output = $guildId;
+			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$output = $guildInfo['guild_id'];
 		}
 		else
 		{
@@ -2039,13 +2038,16 @@ class wowdb
 
 		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
-		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `active` = '0' WHERE `guild_id` = '$guildId'";
-		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
-
-		if( !is_array($guild_info) )
+		if( is_array($guildInfo) )
 		{
-			$guild_info = $this->get_guild_info($realmName,$guildName);
-			$output = $guild_info['guild_id'];
+			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+		}
+
+		if( !is_array($guildInfo) )
+		{
+			$guildInfo = $this->get_guild_info($realmName,$guildName);
+			$output = $guildInfo['guild_id'];
 		}
 
 		return $output;
@@ -2073,8 +2075,10 @@ class wowdb
 		}
 
 		$memberInfo = $this->fetch_assoc( $result );
-		if ($memberInfo)
+		if( $memberInfo )
+		{
 			$memberId = $memberInfo['member_id'];
+		}
 
 		$this->closeQuery($result);
 
@@ -2129,7 +2133,7 @@ class wowdb
 			$this->add_time( 'last_online', getDate($lastOnlineTime) );
 		}
 
-		if( $memberId )
+		if( isset($memberId) )
 		{
 			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
 			$this->setMessage('<li>[ '.$name.' ]</li>');
@@ -2797,13 +2801,13 @@ class wowdb
 		{
 			$attack = $data['Attributes']['Ranged'];
 
-			$this->add_rating( 'ranged_power', $attack['AttackPower']);
+			$this->add_rating( 'ranged_power', ( isset($attack['AttackPower']) ? $attack['AttackPower'] : '0' ));
 			$this->add_rating( 'ranged_hit', $attack['HitRating']);
 			$this->add_rating( 'ranged_crit', $attack['CritRating']);
 			$this->add_rating( 'ranged_haste', $attack['HasteRating']);
 
 			$this->add_value( 'ranged_crit_chance', $attack['CritChance']);
-			$this->add_value( 'ranged_power_dps', $attack['AttackPowerDPS']);
+			$this->add_value( 'ranged_power_dps', ( isset($attack['AttackPowerDPS']) ? $attack['AttackPowerDPS'] : '0' ));
 
 			$this->add_value( 'ranged_speed', $attack['AttackSpeed']);
 			$this->add_value( 'ranged_dps', $attack['AttackDPS']);
