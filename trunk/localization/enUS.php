@@ -984,20 +984,9 @@ $lang['admin']['index_lastonline'] = "Last Seen Online Column|Toggles the displa
 $lang['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
 
 // menu_conf
-$lang['admin']['menu_left_pane'] = "Left Pane (Member Quick List)|Controls display of the left pane of the main roster menu<br />This area holds the member quick list";
-$lang['admin']['menu_right_pane'] = "Right Pane (Realmstatus)|Controls display of the right pane of the main roster menu<br />This area holds the realmstatus image";
-$lang['admin']['menu_memberlog'] = "Member Log Link|Controls display of the Member Log Link";
-$lang['admin']['menu_member_page'] = "MemberList Link|Controls display of the MemberList Link";
-$lang['admin']['menu_guild_info'] = "Guild-Info Link|Controls display of the Guild-Info Link";
-$lang['admin']['menu_stats_page'] = "Basic Stats Link|Controls display of the Basic Stats Link";
-$lang['admin']['menu_pvp_page'] = "PvPLog Stats Link|Controls display of the PvPLog Stats Link";
-$lang['admin']['menu_honor_page'] = "Honor Page Link|Controls display of the Honor Page Link";
-$lang['admin']['menu_guildbank'] = "Guildbank Link|Controls display of the Guildbank Link";
-$lang['admin']['menu_keys_page'] = "Instance Keys Link|Controls display of the Instance Keys Link";
-$lang['admin']['menu_tradeskills_page'] = "Professions Link|Controls display of the Professions Link";
-$lang['admin']['menu_update_page'] = "Profile Update Link|Controls display of the Profile Update Link";
-$lang['admin']['menu_quests_page'] = "Find Team/Quests Link|Controls display of the Find Team/Quests Link";
-$lang['admin']['menu_search_page'] = "Search Page Link|Controls display of the Search Page Link";
+$lang['admin']['menu_left_pane'] = "Left Pane|Controls display of the left pane of the main roster menu<br />By default this area holds the member quick list";
+$lang['admin']['menu_right_pane'] = "Right Pane|Controls display of the right pane of the main roster menu<br />By default this area holds the realmstatus image";
+$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
 
 // display_conf
 $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";

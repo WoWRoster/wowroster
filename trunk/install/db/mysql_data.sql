@@ -90,8 +90,9 @@ INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '1', 'radio{on^
 # --------------------------------------------------------
 ### Roster Menu Settings
 
-INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', '1', 'radio{on^1|off^0', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', 'level', 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', 'realmstatus', 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4020, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf');
 
 # --------------------------------------------------------
 ### Display Settings
