@@ -202,7 +202,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 		print(border('sblue','start','Back Link'));
 		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
-		print('<tr><td class="membersRowRight2"><form method="post" action="'.makelink('rosterdiag').'">');
+		print('<tr><td class="membersRowRight2"><form method="post" action="'.makelink().'">');
 		print ('<input type="hidden" name="filename" value="'.$filename.'" />');
 		print ('<input type="hidden" name="downloadsvn" value="savefile" />');
 		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />');
@@ -566,7 +566,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 					echo '<td class="membersRowRight'.$row.'">'."\n";
 					if($filedata['diff'] || $filedata['missing'])
 					{
-						echo '<form method="post" action="'.makelink('rosterdiag').'">'."\n";
+						echo '<form method="post" action="'.makelink().'">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\" />\n";
 						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\" />\n";
 						if (isset($filedata['diff']) && $filedata['diff'])

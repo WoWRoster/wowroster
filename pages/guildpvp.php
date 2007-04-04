@@ -48,7 +48,7 @@ $choiceArray = array(
 	'guildinfo'
 );
 
-$choiceForm = '<form action="'.makelink('guildpvp').'" method="post">
+$choiceForm = '<form action="'.makelink().'" method="get">
 '.$act_words['pvplist'].':
 <select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
 ';

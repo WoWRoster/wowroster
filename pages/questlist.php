@@ -113,7 +113,7 @@ print border('sgray','start',$act_words['team']);
 print $act_words['search1'];
 
 print('<br /><br />
-      <form method="post" action="'.makelink('questlist').'">
+      <form method="post" action="'.makelink().'">
         '.$act_words['search2'].':
         <br />
         <select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value">

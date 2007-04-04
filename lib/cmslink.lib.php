@@ -79,3 +79,25 @@ function makelink( $url='' , $full=false )
 
 	return $url;
 }
+
+/**
+ * Function to insert get variables in a <form> that uses GET to post
+ * If this is a Roster port, insert any additional get vars needed to point to the right location
+ *
+ * @param array $get_links | Optional, Additional vars you need to pass
+ *        array( 'key name of var' => 'value of var' )
+ *        Makes <input type="hidden" name="{key name of var}" value="{value of var}" />
+ */
+function linkform( $get_links = false )
+{
+	$return = '<input type="hidden" name="'.ROSTER_PAGE.'" value="'.ROSTER_PAGE_NAME.'">'."\n";
+
+	if( $get_links !== false )
+	{
+		foreach( $get_links as $name => $value )
+		{
+			$return = '<input type="hidden" name="'.$name.'" value="'.$value.'">'."\n";
+		}
+	}
+	return $return;
+}

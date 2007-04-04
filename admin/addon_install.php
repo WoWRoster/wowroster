@@ -125,7 +125,7 @@ function activeInactive( $mode,$id )
 
 	if( $mode )
 	{
-		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
+		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="deactivate" />
 		<input type="hidden" name="id" value="'.$id.'" />
 		<input '.makeOverlib($act_words['installer_turn_off'],$act_words['installer_activated']).'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
@@ -133,7 +133,7 @@ function activeInactive( $mode,$id )
 	}
 	else
 	{
-		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
+		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="activate" />
 		<input type="hidden" name="id" value="'.$id.'" />
 		<input '.makeOverlib($act_words['installer_turn_on'],$act_words['installer_deactivated']).' type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
@@ -161,7 +161,7 @@ function installUpgrade( $mode,$name )
 	}
 	elseif( $mode == 0 )
 	{
-		$type = '<form name="uninstall_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
+		$type = '<form name="uninstall_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="type" value="uninstall" />
@@ -170,7 +170,7 @@ function installUpgrade( $mode,$name )
 	}
 	elseif( $mode == 1 )
 	{
-		$type = '<form name="upgrade_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
+		$type = '<form name="upgrade_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="type" value="upgrade" />
@@ -179,7 +179,7 @@ function installUpgrade( $mode,$name )
 	}
 	elseif( $mode == 3 )
 	{
-		$type = '<form name="install_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink($script_filename).'">
+		$type = '<form name="install_'.$name.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="type" value="install" />

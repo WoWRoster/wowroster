@@ -26,10 +26,10 @@ include('.'.$roster_rel.'/settings.php');
 
 // Get the char from the query string. To keep the link as short as
 // possible, we don't use member= or anything like that
-$char = addslashes(urldecode($_SERVER['QUERY_STRING']));
+$char = $wowdb->escape(urldecode($_SERVER['QUERY_STRING']));
 
 // Check if there's a character with this name
-$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$char'";
+$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$char' OR `member_id` = '$char';";
 
 $result = $wowdb->query($query);
 
@@ -40,9 +40,11 @@ if( !$result )
 
 if( $row = $wowdb->fetch_assoc($result) )
 {
+	$wowdb->free_result($result);
 	header("Location: ".ROSTER_URL.$roster_rel.sprintf(ROSTER_LINK,'char&member='.$row['member_id']));
 	exit();
 }
+
 
 // There's no char with that name? Redirect to guild page.
 
