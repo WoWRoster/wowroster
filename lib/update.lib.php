@@ -350,10 +350,10 @@ class update
 										// take the current time and get the offset. Upload must occur same day that roster was obtained
 										$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
 										$currentTime = getDate($currentTimestamp);
-										
+
 										if( $guild_info && ( ( strtotime($guild_info['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) >= 0 ) )
 										{
-											return sprintf($act_words['not_update_guild'],$guild_name)."<br />\n";
+											return sprintf($act_words['not_update_guild_time'],$guild_name)."<br />\n";
 										}
 
 										// Update the guild
