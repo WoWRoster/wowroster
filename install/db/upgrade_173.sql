@@ -8,14 +8,28 @@
 
 DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
-DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
-DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = 4020 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4030 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4040 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4050 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4055 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4060 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4070 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4080 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4090 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4100 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4110 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4120 LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 5000 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5005 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5008 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;
 
 # --------------------------------------------------------
 ### New master entries: Startpage, admin pass
