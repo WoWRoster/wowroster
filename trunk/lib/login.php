@@ -23,8 +23,8 @@ if ( !defined('ROSTER_INSTALLED') )
 
 class RosterLogin
 {
-	var $allow_admin_login;
-	var $allow_update_login;
+	var $allow_login;
+	var $admin;
 	var $message;
 	var $loginform;
 	var $script_filename;
@@ -38,20 +38,23 @@ class RosterLogin
 	 * @param array $fields
 	 * @return RosterLogin
 	 */
-	function RosterLogin($script_filename='', $admin=TRUE)
+	function RosterLogin( $script_filename='' , $admin=true )
 	{
+		global $act_words;
+
 		$this->script_filename = makelink($script_filename);
-		$this->allow_admin_login = false;
-		$this->allow_update_login = false;
+		$this->allow_login = false;
+		$this->admin = $admin;
+		$this->log_word = ($this->admin ? 'Admin' : 'Access');
 
 		$this->loginform = '
 			<!-- Begin Password Input Box -->
 			<form action="'.$this->script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)">
-			'.border('sred','start','Authorization Required').'
-			  <table class="bodyline" cellspacing="0" cellpadding="0">
+			'.border('sred','start',$this->log_word .' '. $act_words['auth_req']).'
+			  <table class="bodyline" cellspacing="0" cellpadding="0" width="100%">
 			    <tr>
-			      <td class="membersRowRight1">Password:<br />
-			        <input name="pass_word" class="wowinput192" type="password" size="30" maxlength="30" /></td>
+			      <td class="membersRowRight1">'.$act_words['password'].':<br />
+			        <input name="password" class="wowinput192" type="password" size="30" maxlength="30" /></td>
 			    </tr>
 			    <tr>
 			      <td class="membersRowRight2" valign="bottom">
@@ -62,36 +65,30 @@ class RosterLogin
 			</form>
 			<!-- End Password Input Box -->';
 
-		if($admin === TRUE)
-		{
-			$this->checkAdminLogin();
-			$this->checkLogout();	
-		} else {
-			$this->checkUpdateLogin();
-			$this->checkLogout();
-		}
+		$this->checkLogin();
+		$this->checkLogout();
 	}
 
-	function checkAdminLogin()
+	function checkLogin()
 	{
 		global $roster_conf;
 
+		$pass_type = ($this->admin ? 'roster_admin_pw' : 'roster_upd_pw');
+
 		if( !isset($_COOKIE['roster_pass']) )
 		{
-			if( isset($_POST['pass_word']) )
+			if( isset($_POST['password']) )
 			{
-				if( md5($_POST['pass_word']) == $roster_conf['roster_admin_pw'] )
+				if( md5($_POST['password']) == $roster_conf[$pass_type] || md5($_POST['password']) == $roster_conf['roster_admin_pw'] )
 				{
-					setcookie( 'roster_pass',$roster_conf['roster_admin_pw'],0,'/' );
-					$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-					$this->allow_admin_login = true;
-					$this->allow_update_login = true;
+					setcookie( 'roster_pass',$roster_conf[$pass_type],0,'/' );
+					$this->message = '<span style="font-size:10px;color:red;">Logged in '.$this->log_word.':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
+					$this->allow_login = true;
 				}
 				else
 				{
-					$this->message = '<span style="font-size:11px;color:red;">Wrong password</span><br />';
-					$this->allow_admin_login = false;
-					$this->allow_update_login = false;
+					$this->message = '<span style="font-size:11px;color:red;">Wrong password for '.$this->log_word.'</span><br />';
+					$this->allow_login = false;
 				}
 			}
 		}
@@ -99,11 +96,10 @@ class RosterLogin
 		{
 			$BigCookie = $_COOKIE['roster_pass'];
 
-			if( $BigCookie == $roster_conf['roster_admin_pw'] )
+			if( $BigCookie == $roster_conf[$pass_type] || $BigCookie == $roster_conf['roster_admin_pw'] )
 			{
- 				$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-				$this->allow_admin_login = true;
-				$this->allow_update_login = true;
+ 				$this->message = '<span style="font-size:10px;color:red;">Logged in '.$this->log_word.':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
+				$this->allow_login = true;
 			}
 			else
 			{
@@ -112,71 +108,21 @@ class RosterLogin
 			}
 		}
 	}
-	
-	function checkUpdateLogin()
-	{
-		global $roster_conf;
-
-		if( !isset($_COOKIE['roster_update_pass']) )
-		{
-			if( isset($_POST['pass_word']) )
-			{
-				if( (md5($_POST['pass_word']) == $roster_conf['roster_update_pw']) || md5($_POST['pass_word']) == $roster_conf['roster_admin_pw'])
-				{
-					setcookie( 'roster_pass',$roster_conf['roster_roster_pw'],0,'/' );
-					$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-					$this->allow_update_login = true;
-				}
-				else
-				{
-					$this->message = '<span style="font-size:11px;color:red;">Wrong password</span><br />';
-					$this->allow_admin_login = false;
-					$this->allow_update_login = false;
-				}
-			}
-		}
-		else
-		{
-			$BigCookie = $_COOKIE['roster_update_pass'];
-
-			if( ($BigCookie == $roster_conf['roster_update_pw']) || ($BigCookie == $roster_conf['roster_admin_pw']))
-			{
- 				$this->message = '<span style="font-size:10px;color:red;">Logged in:</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-				$this->allow_update_login = true;
-			}
-			else
-			{
-				setcookie( 'roster_pass','',time()-86400,'/' );
-				$this->allow_update_login = false;
-			}
-		}
-	}
 
 	function checkLogout()
 	{
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
-			if( isset($_COOKIE['roster_admin_pass']) )
-				setcookie( 'roster_admin_pass','',time()-86400,'/' );
-			if( isset($_COOKIE['roster_update_pass']) )
-				setcookie( 'roster_update_pass','',time()-86400,'/' );
-			$this->allow_admin_login = false;
-			$this->allow_update_login = false;
+			if( isset($_COOKIE['roster_pass']) )
+				setcookie( 'roster_pass','',time()-86400,'/' );
+			$this->allow_login = false;
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 		}
 	}
 
 	function getAuthorized()
 	{
-		global $admin;
-		if($admin == TRUE)
-		{
-			return $this->allow_admin_login;
-		} 
-		elseif($admin == FALSE)
-		{
-			return $this->allow_update_login;
-		}
+		return $this->allow_login;
 	}
 
 	function getMessage()
