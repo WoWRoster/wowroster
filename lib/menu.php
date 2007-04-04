@@ -436,7 +436,10 @@ class RosterMenu
 					$config[$id][$posX] = explode(':',$column);
 					foreach($config[$id][$posX] as $posY=>$button)
 					{
-						$arrayButtons[$id][$posX][$posY] = $palet[$button];
+						if( isset($palet[$button]) )
+						{
+							$arrayButtons[$id][$posX][$posY] = $palet[$button];
+						}
 					}
 				}
 			}
