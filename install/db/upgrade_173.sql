@@ -23,10 +23,10 @@ INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', '
 INSERT INTO `renprefix_config` VALUES (6, 'roster_admin_pw', '', 'password:30|30', 'master');
 
 ### Set the admin pass equal to the update pass. Doing it in php is more complicated.
-UPDATE `roster_config` source, `roster_config` target 
-	SET `target`.`config_value` = `source`.`config_value` 
-	WHERE `target`.`config_name` = 'roster_admin_pw' 
-		AND `source`.`config_name` = 'roster_upd_pw'; 
+UPDATE `roster_config` source, `roster_config` target
+	SET `target`.`config_value` = `source`.`config_value`
+	WHERE `target`.`config_name` = 'roster_admin_pw'
+		AND `source`.`config_name` = 'roster_upd_pw';
 
 # --------------------------------------------------------
 ### Config Menu Entries
@@ -412,3 +412,25 @@ CREATE TABLE `renprefix_addon_config` (
   `config_type` varchar(255) default NULL,
   KEY `addon` (`id`,`addon_id`)
 ) TYPE=MyISAM;
+
+
+# --------------------------------------------------------
+### Menu table entries
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8:b9|b10:b11:b12:b13:b14');
+
+# --------------------------------------------------------
+### Menu Button entries
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'Members', 'members');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild Info', 'guildinfo');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'Guild Stats', 'guildstats');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'Guild Bank', 'guildbank');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'PvP Stats', 'pvplist');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'Honor', 'guildhonor');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'Memberlog', 'memberlog');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'Keys', 'keys');
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'Tradeskills', 'tradeskills');
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'Update', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'Find Team', 'team');
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'Search', 'search');
+INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'Roster Config', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (14, 0, 'Credits', 'credits');

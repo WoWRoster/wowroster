@@ -862,6 +862,19 @@ $lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename
 $lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
 $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
 
+// Change Password
+$lang['changeadminpass'] = 'Change Admin Password';
+$lang['changeupdatepass'] = 'Change Update Password';
+$lang['old_pass'] = 'Old Password';
+$lang['new_pass'] = 'New Password';
+$lang['new_pass_confirm'] = 'New Password [ confirm ]';
+$lang['pass_old_error'] = 'Wrong password. Please enter the correct old password';
+$lang['pass_submit_error'] = 'Submit error. The old password, the new password, and the confirmed new password need to be submitted';
+$lang['pass_mismatch'] = 'Passwords do not match. Please type the exact same password in both new password fields';
+$lang['pass_blank'] = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed';
+$lang['pass_isold'] = 'Password not changed. The new password was the same as the old one';
+$lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
+
 
 /******************************
  * Roster Admin Strings
@@ -914,7 +927,6 @@ $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
-$lang['admin']['roster_upd_pw'] = "Mot de passe du Roster|Il s'agit du mot de passe permettant la mise à jour de la liste des membres de la Guilde.<br />Certains addons peuvent aussi utilisé ce mot de passe.";
 $lang['admin']['roster_dbver'] = "Version de la base de données Roster|La version de la base de données";
 $lang['admin']['version'] = "Version du Roster|Version actuelle du Roster";
 $lang['admin']['sqldebug'] = "Affichage SQL de debug|Afficher les informations de contrôles de MySQL en format HTML";

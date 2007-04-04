@@ -862,6 +862,19 @@ $lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename
 $lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
 $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
 
+// Change Password
+$lang['changeadminpass'] = 'Change Admin Password';
+$lang['changeupdatepass'] = 'Change Update Password';
+$lang['old_pass'] = 'Old Password';
+$lang['new_pass'] = 'New Password';
+$lang['new_pass_confirm'] = 'New Password [ confirm ]';
+$lang['pass_old_error'] = 'Wrong password. Please enter the correct old password';
+$lang['pass_submit_error'] = 'Submit error. The old password, the new password, and the confirmed new password need to be submitted';
+$lang['pass_mismatch'] = 'Passwords do not match. Please type the exact same password in both new password fields';
+$lang['pass_blank'] = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed';
+$lang['pass_isold'] = 'Password not changed. The new password was the same as the old one';
+$lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
+
 
 /******************************
  * Roster Admin Strings
@@ -914,7 +927,6 @@ $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
-$lang['admin']['roster_upd_pw'] = "Roster Actualizaci&oacuten Clave|Esta es la clave para permitir las actualizaciones de la hermandad en la p&aacutegina de actualizaciones<br>Algunos addons usar&aacuten esta clave";
 $lang['admin']['roster_dbver'] = "Roster Base de datos Versi&oacuten|Lave versi&oacuten de la base de datos";
 $lang['admin']['version'] = "Roster Versi&oacuten|Versi&oacuten actual del Roster";
 $lang['admin']['sqldebug'] = "Mensajes de SQL|Muestra errores de MySQL en comentarios en HTML";

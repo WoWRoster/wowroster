@@ -718,8 +718,8 @@ select {
 .item { position:relative;width:40px;height:40px;cursor:pointer; }
 .item span { position:absolute;bottom:0;right:3px;color:#fff;font-weight:bold;font-size:12px; }
 .item b { position:absolute;bottom:-1px;right:2px;color:#000;font-weight:bold;font-size:12px; }
-.item .icon { float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1; }
-.item .iconsmall { float:left;width:30px;height:30px;padding:1px 0 0 0;z-index:1; }
+.item .icon { float:left;width:40px;height:40px;padding:1px 0 0 0; }
+.item .iconsmall { float:left;width:30px;height:30px;padding:1px 0 0 0; }
 
 .xp { height:15px;width:253px; }
 .xp .xpbox { position:relative;left:0;top:0;width:253px;height:15px; }
@@ -895,28 +895,28 @@ select {
 .equip .item { position:relative;width:36px;height:36px;cursor:pointer; }
 .equip .item span { position:absolute;bottom:0;right:3px;color:#fff;font-weight:bold;font-size:10px; }
 .equip .item b { position:absolute;bottom:-1px;right:2px;color:#000;font-weight:bold;font-size:10px; }
-.equip .item .icon { float:left;width:36px;height:36px;padding:1px 0 0 0;z-index:1; }
-.equip .item .iconsmall { float:left;width:29px;height:29px;padding:1px 0 0 0;z-index:1; }
+.equip .item .icon { float:left;width:36px;height:36px;padding:1px 0 0 0; }
+.equip .item .iconsmall { float:left;width:29px;height:29px;padding:1px 0 0 0; }
 
-.equip_Head { position:absolute;cursor:pointer;margin-top:73px;margin-left:15px; }
-.equip_Neck { position:absolute;cursor:pointer;margin-top:114px;margin-left:15px; }
-.equip_Shoulder { position:absolute;cursor:pointer;margin-top:155px;margin-left:15px; }
-.equip_Back { position:absolute;cursor:pointer;margin-top:196px;margin-left:15px; }
-.equip_Chest { position:absolute;cursor:pointer;margin-top:237px;margin-left:15px; }
-.equip_Shirt { position:absolute;cursor:pointer;margin-top:278px;margin-left:15px; }
-.equip_Tabard { position:absolute;cursor:pointer;margin-top:319px;margin-left:15px; }
-.equip_Wrist { position:absolute;cursor:pointer;margin-top:360px;margin-left:15px; }
-.equip_Hands { position:absolute;cursor:pointer;margin-top:73px;margin-left:300px; }
-.equip_Waist { position:absolute;cursor:pointer;margin-top:114px;margin-left:300px; }
-.equip_Legs { position:absolute;cursor:pointer;margin-top:155px;margin-left:300px; }
-.equip_Feet { position:absolute;cursor:pointer;margin-top:196px;margin-left:300px; }
-.equip_Finger0 { position:absolute;cursor:pointer;margin-top:237px;margin-left:300px; }
-.equip_Finger1 { position:absolute;cursor:pointer;margin-top:278px;margin-left:300px; }
-.equip_Trinket0 { position:absolute;cursor:pointer;margin-top:319px;margin-left:300px; }
-.equip_Trinket1 { position:absolute;cursor:pointer;margin-top:360px;margin-left:300px; }
-.equip_MainHand { position:absolute;cursor:pointer;margin-top:383px;margin-left:115px; }
-.equip_SecondaryHand { position:absolute;cursor:pointer;margin-top:383px;margin-left:155px; }
-.equip_Ranged { position:absolute;cursor:pointer;margin-top:383px;margin-left:198px; }
+.equip_Head { position:absolute;cursor:pointer;margin-top:72px;margin-left:15px; }
+.equip_Neck { position:absolute;cursor:pointer;margin-top:113px;margin-left:15px; }
+.equip_Shoulder { position:absolute;cursor:pointer;margin-top:154px;margin-left:15px; }
+.equip_Back { position:absolute;cursor:pointer;margin-top:195px;margin-left:15px; }
+.equip_Chest { position:absolute;cursor:pointer;margin-top:236px;margin-left:15px; }
+.equip_Shirt { position:absolute;cursor:pointer;margin-top:277px;margin-left:15px; }
+.equip_Tabard { position:absolute;cursor:pointer;margin-top:318px;margin-left:15px; }
+.equip_Wrist { position:absolute;cursor:pointer;margin-top:359px;margin-left:15px; }
+.equip_Hands { position:absolute;cursor:pointer;margin-top:72px;margin-left:300px; }
+.equip_Waist { position:absolute;cursor:pointer;margin-top:113px;margin-left:300px; }
+.equip_Legs { position:absolute;cursor:pointer;margin-top:154px;margin-left:300px; }
+.equip_Feet { position:absolute;cursor:pointer;margin-top:195px;margin-left:300px; }
+.equip_Finger0 { position:absolute;cursor:pointer;margin-top:236px;margin-left:300px; }
+.equip_Finger1 { position:absolute;cursor:pointer;margin-top:277px;margin-left:300px; }
+.equip_Trinket0 { position:absolute;cursor:pointer;margin-top:318px;margin-left:300px; }
+.equip_Trinket1 { position:absolute;cursor:pointer;margin-top:359px;margin-left:300px; }
+.equip_MainHand { position:absolute;cursor:pointer;margin-top:382px;margin-left:115px; }
+.equip_SecondaryHand { position:absolute;cursor:pointer;margin-top:382px;margin-left:155px; }
+.equip_Ranged { position:absolute;cursor:pointer;margin-top:382px;margin-left:198px; }
 .equip_Ammo { position:absolute;cursor:pointer;margin-top:381px;margin-left:252px; }
 
 /* Resistances */

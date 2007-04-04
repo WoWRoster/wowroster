@@ -817,7 +817,7 @@ $lang['lockpicking']='Lockpicking';
 	$lang['GPver_err']="The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v".$roster_conf['minGPver'];
 
 $lang['menuconf_sectionselect']='Select Section';
-	
+
 $lang['installer_install_0']='Installation of %1$s successful';
 $lang['installer_install_1']='Installation of %1$s failed, but rollback successful';
 $lang['installer_install_2']='Installation of %1$s failed, and rollback also failed';
@@ -862,6 +862,19 @@ $lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename
 $lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
 $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
 
+// Change Password
+$lang['changeadminpass'] = 'Change Admin Password';
+$lang['changeupdatepass'] = 'Change Update Password';
+$lang['old_pass'] = 'Old Password';
+$lang['new_pass'] = 'New Password';
+$lang['new_pass_confirm'] = 'New Password [ confirm ]';
+$lang['pass_old_error'] = 'Wrong password. Please enter the correct old password';
+$lang['pass_submit_error'] = 'Submit error. The old password, the new password, and the confirmed new password need to be submitted';
+$lang['pass_mismatch'] = 'Passwords do not match. Please type the exact same password in both new password fields';
+$lang['pass_blank'] = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed';
+$lang['pass_isold'] = 'Password not changed. The new password was the same as the old one';
+$lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
+
 
 /******************************
  * Roster Admin Strings
@@ -870,8 +883,7 @@ $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must b
 $lang['pagebar_function'] = 'Function';
 $lang['pagebar_rosterconf'] = 'Configure Main Roster';
 $lang['pagebar_charpref'] = 'Character Preferences';
-$lang['pagebar_changeadminpass'] = 'Change Admin Password';
-$lang['pagebar_changeupdatepass'] = 'Change Update Password';
+$lang['pagebar_changepass'] = 'Change Password';
 $lang['pagebar_addoninst'] = 'Manage Addons';
 $lang['pagebar_update'] = 'Upload Profile';
 $lang['pagebar_rosterdiag'] = 'Roster Diag';
@@ -915,7 +927,6 @@ $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
-$lang['admin']['roster_upd_pw'] = "Roster Update Password|This is a password to allow guild updates on the update page<br />Some addons may also use this password";
 $lang['admin']['roster_dbver'] = "Roster Database Version|The version of the database";
 $lang['admin']['version'] = "Roster Version|Current version of Roster";
 $lang['admin']['sqldebug'] = "SQL Debug Output|Print MySQL Debug Statements in html comments";
