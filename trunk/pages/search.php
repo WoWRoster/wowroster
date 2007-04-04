@@ -31,17 +31,18 @@ require_once ROSTER_LIB.'recipes.php';
 include_once(ROSTER_LIB.'menu.php');
 print "<br />\n";
 
-$inputbox_value = (isset($_POST['s']) ? $_POST['s'] : '');
+$search = (isset($_GET['s']) ? $_GET['s'] : '');
 
-$input_form = '<form action="'.makelink('search').'" method="post">
-  <input type="text" class="wowinput192" name="s" value="'.$inputbox_value.'" size="30" maxlength="30" />
-  <input type="submit" value="search" />
+$input_form = '<form action="'.makelink().'" method="get">
+	'.linkform().'
+	<input type="text" class="wowinput192" name="s" value="'.$search.'" size="30" maxlength="30" />
+	<input type="submit" value="search" />
 </form>
 ';
 
 print messagebox($input_form,$act_words['find'],'sgreen');
 
-if (isset($_POST['s']))
+if( !empty($search) )
 {
 	// Set a ank for link to top of page
 	echo '<a name="top">&nbsp;</a>
@@ -50,7 +51,6 @@ if (isset($_POST['s']))
   - <a href="#recipes">'.$act_words['recipes'].'</a>
 </div><br /><br />';
 
-	$search = $_POST['s'];
 	print '<a name="items"></a><a href="#top">'.$act_words['items'].'</a>';
 
 	$query="SELECT players.name,players.server,items.* FROM `".ROSTER_ITEMSTABLE."` items,`".ROSTER_PLAYERSTABLE."` players WHERE items.member_id = players.member_id AND items.item_name LIKE '%$search%' ORDER BY players.name ASC";

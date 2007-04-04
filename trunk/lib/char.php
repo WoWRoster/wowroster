@@ -2180,7 +2180,7 @@ else
 	addRpage('defenseright');
 //-->
 </script>
-		<form action="">
+		<form action="<?php print makelink(); ?>">
 			<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
 				<option value="statsleft" selected="selected"><?php print $wordings[$lang]['menustats']; ?></option>
 				<option value="meleeleft"><?php print $wordings[$lang]['melee']; ?></option>

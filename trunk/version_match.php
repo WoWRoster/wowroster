@@ -87,7 +87,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$header_title = 'Remote Diagnostics';
 	$roster_conf['img_url'] = ROSTER_PATH.'img/';
 	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
-	//$svnremote = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
+	//ROSTER_SVNREMOTE = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
 	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
 	$roster_conf['roster_bg'] = 'img/wowroster_bg.jpg';
 
@@ -161,8 +161,8 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 	if ($zippackage_files != '')
 	{
-		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
-		echo '<div align="center"><form method="POST" action="'.$svnremote.'">';
+		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
+		echo '<div align="center"><form method="POST" action="'.ROSTER_SVNREMOTE.'">';
 		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
 		echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
 		echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'">';
@@ -174,8 +174,8 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	}
 
 	// Open the main FileVersion table in total color
-	//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>SVN @ '.str_replace("version_match.php", "", $svnremote).'</i></span>');
-	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', $svnremote).'</i></small>');
+	//	echo border('sgray', 'start', '<span style="color:#0F41FA;">File Versions&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#6ABED7;"><i>SVN @ '.str_replace("version_match.php", "", ROSTER_SVNREMOTE).'</i></span>');
+	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
 
 	// Get all the gathered information and display it in a table
 	foreach ($directories as $directory => $filecount)
@@ -270,7 +270,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 					echo '<td class="membersRowRight'.$row.'">'."\n";
 					if($filedata['diff'] || $filedata['missing'])
 					{
-						echo '<form method="POST" action="rosterdiag.php">'."\n";
+						echo '<form method="POST" action="'.makelink('rosterdiag').'">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
 						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
 						if (isset($filedata['diff']) && $filedata['diff'])

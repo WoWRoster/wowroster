@@ -32,8 +32,8 @@ $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 $result_prof = $wowdb->query($qry_prof) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_prof);
 
 
-$choiceForm = '<form action="'.makelink($script_filename).'" method="get" name="myform">
-	<input type="hidden" name="'.ROSTER_PAGE.'" value="'.$script_filename.'">
+$choiceForm = '<form action="'.makelink().'" method="get" name="myform">
+	'.linkform().'
 '.border('sgray','start').'
 	<table cellspacing="0" cellpadding="2" class="bodyline">
 		<tr class="membersRowColor1">
