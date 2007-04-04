@@ -817,7 +817,7 @@ $lang['lockpicking']='Schlossknacken';
 	$lang['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
 
 $lang['menuconf_sectionselect']='Select Section';
-	
+
 $lang['installer_install_0']='Installation of %1$s successful';
 $lang['installer_install_1']='Installation of %1$s failed, but rollback successful';
 $lang['installer_install_2']='Installation of %1$s failed, and rollback also failed';
@@ -861,6 +861,19 @@ $lang['installer_no_upgrade'] = '%1$s doesn\`t contain data to upgrade from';
 $lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename %3$s isn\'t in the list of upgradable addons';
 $lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
 $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
+
+// Change Password
+$lang['changeadminpass'] = 'Change Admin Password';
+$lang['changeupdatepass'] = 'Change Update Password';
+$lang['old_pass'] = 'Old Password';
+$lang['new_pass'] = 'New Password';
+$lang['new_pass_confirm'] = 'New Password [ confirm ]';
+$lang['pass_old_error'] = 'Wrong password. Please enter the correct old password';
+$lang['pass_submit_error'] = 'Submit error. The old password, the new password, and the confirmed new password need to be submitted';
+$lang['pass_mismatch'] = 'Passwords do not match. Please type the exact same password in both new password fields';
+$lang['pass_blank'] = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed';
+$lang['pass_isold'] = 'Password not changed. The new password was the same as the old one';
+$lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
 
 
 /******************************
@@ -914,7 +927,6 @@ $lang['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung
 $lang['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
 
 // main_conf
-$lang['admin']['roster_upd_pw'] = "Roster Update Passwort|Dieses Passwort erlaubt die Aktualisierung der Gildenmitglieder<br />Eine Addons benötigen dieses PW auch";
 $lang['admin']['roster_dbver'] = "Roster Datenbank Version|Die Version der Datenbank";
 $lang['admin']['version'] = "Roster Version|Aktuelle Version des Rosters";
 $lang['admin']['sqldebug'] = "SQL Debug Output|Gib MySQL Debug Ausgaben in HTML Kommentaren";

@@ -30,28 +30,29 @@ class RosterMenu
 	function makeMenu($sections)
 	{
 		global $roster_conf, $guild_info, $roster_login, $wordings;
+
 		define('ROSTER_MENU_INC',true);
 
 		$cols = 1;
 
-		if( $roster_conf['menu_left_pane'] && !empty($guild_info))
+		if( $roster_conf['menu_left_pane'] && $guild_info !==false )
 		{
 			$left_pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
 			$cols++;
 		}
 		else
 		{
-			$levellist = '';
+			$left_pane = '';
 		}
 
-		if( $roster_conf['menu_right_pane'] && !empty($guild_info))
+		if( $roster_conf['menu_right_pane'] && $guild_info !==false )
 		{
 			$right_pane = $this->makeRealmStatus();
 			$cols++;
 		}
 		else
 		{
-			$realmstatus = '';
+			$right_pane = '';
 		}
 
 //		if( $roster_conf['menu_top_pane'] && !empty($guild_info))
@@ -106,7 +107,7 @@ class RosterMenu
 	 * @param $condition where condition
 	 * @return formatted level distribution list
 	 */
-	function makeLevelList($condition)
+	function makeLevelList( $condition )
 	{
 		global $wordings, $wowdb, $roster_conf;
 
