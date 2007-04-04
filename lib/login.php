@@ -76,7 +76,7 @@ class RosterLogin
 	{
 		global $roster_conf;
 
-		if( !isset($_COOKIE['roster_admin_pass']) )
+		if( !isset($_COOKIE['roster_pass']) )
 		{
 			if( isset($_POST['pass_word']) )
 			{
@@ -97,7 +97,7 @@ class RosterLogin
 		}
 		else
 		{
-			$BigCookie = $_COOKIE['roster_admin_pass'];
+			$BigCookie = $_COOKIE['roster_pass'];
 
 			if( $BigCookie == $roster_conf['roster_admin_pw'] )
 			{
