@@ -34,8 +34,8 @@ $result_prof = $wowdb->query($qry_prof) or die_quietly($wowdb->error(),'Database
 
 $choiceForm = '<form action="'.makelink($script_filename).'" method="get" name="myform">
 	<input type="hidden" name="'.ROSTER_PAGE.'" value="'.$script_filename.'">
-'.border('sgray','start','').'
-	<table cellspacing="0" cellpadding="0" class="bodyline">
+'.border('sgray','start').'
+	<table cellspacing="0" cellpadding="2" class="bodyline">
 		<tr class="membersRowColor1">
 		<td class="membersRowCell">'.$act_words['professionfilter'].'
 			<select name="proffilter">';

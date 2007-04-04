@@ -1054,7 +1054,7 @@ function getaddon( $addonname )
 
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';
-	if( file_exists($addon['admin_file']))
+	if( $addon['hasconfig'] )
 	{
 		$query = "SELECT `config_name`, `config_value` FROM `".$wowdb->table('addon_config')."` WHERE `addon_id` = ".$addon['addon_id']." ORDER BY `id` ASC;";
 
