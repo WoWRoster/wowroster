@@ -864,7 +864,8 @@ $lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename
 $lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
 $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
 
-// Change Password
+// Password Stuff
+$lang['password'] = 'Password';
 $lang['changeadminpass'] = 'Change Admin Password';
 $lang['changeupdatepass'] = 'Change Update Password';
 $lang['old_pass'] = 'Old Password';
@@ -876,6 +877,7 @@ $lang['pass_mismatch'] = 'Passwords do not match. Please type the exact same pas
 $lang['pass_blank'] = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed';
 $lang['pass_isold'] = 'Password not changed. The new password was the same as the old one';
 $lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
+$lang['auth_req'] = 'Authorization Required';
 
 
 /******************************
