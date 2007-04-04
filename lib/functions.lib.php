@@ -1054,27 +1054,25 @@ function getaddon( $addonname )
 
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';
-	if( $addon['hasconfig'] )
+
+	$query = "SELECT `config_name`, `config_value` FROM `".$wowdb->table('addon_config')."` WHERE `addon_id` = ".$addon['addon_id']." ORDER BY `id` ASC;";
+
+	$result = $wowdb->query( $query );
+
+	if ( !$result )
 	{
-		$query = "SELECT `config_name`, `config_value` FROM `".$wowdb->table('addon_config')."` WHERE `addon_id` = ".$addon['addon_id']." ORDER BY `id` ASC;";
+		die_quietly($wowdb->error(),$act_words['addon_error'],__FILE__,__LINE__, $query );
+	}
 
-		$result = $wowdb->query( $query );
-
-		if ( !$result )
+	if( $wowdb->num_rows($result) > 0 )
+	{
+		while( $row = $wowdb->fetch_assoc($result) )
 		{
-			die_quietly($wowdb->error(),$act_words['addon_error'],__FILE__,__LINE__, $query );
+			$addon['config'][$row['config_name']] = stripslashes($row['config_value']);
 		}
-
-		if( $wowdb->num_rows($result) > 0 )
-		{
-			while( $row = $wowdb->fetch_assoc($result) )
-			{
-				$addon['config'][$row['config_name']] = stripslashes($row['config_value']);
-			}
-		}
-
 		$wowdb->free_result($result);
 	}
+
 
 	return $addon;
 }
