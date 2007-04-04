@@ -70,6 +70,7 @@ $lang['gbank_inv'] = 'Inventory';
 $lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
 
 $lang['roster_cp'] = 'Roster Control Panel';
+$lang['roster_cp_ab'] = 'Roster CP';
 $lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
 $lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials to access this page';
 

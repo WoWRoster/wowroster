@@ -91,7 +91,7 @@ class Install
 	{
 		$this->sql[] = "UPDATE `".ROSTER_ADDONCONFTABLE."` SET ".$sql." WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
 	}
-	
+
 	/**
 	 * Delete a config setting
 	 *
@@ -102,7 +102,7 @@ class Install
 	{
 		$this->sql[] = "DELETE FROM `".ROSTER_ADDONCONFTABLE."` WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
 	}
-	
+
 	/**
 	 * Removes the all the config settings for an addon
 	 */
@@ -123,9 +123,9 @@ class Install
 	 *		addon not to be active on install, this parameter means if this
 	 *		button is active after the addon is enabled.
 	 */
-	function add_menu_button($title, $url)
+	function add_menu_button($title, $url='')
 	{
-		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$url.'");';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","addon-'.$this->addata['basename'].$url.'");';
 	}
 
 	/**

@@ -21,13 +21,24 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+if( $roster_conf['hspvp_list_disp'] == 'hide' )
+{
+	$hslist_collapse=' style="display:none;"';
+	$hslist_image='plus';
+}
+else
+{
+	$hslist_collapse='';
+	$hslist_image='minus';
+}
+
 $striping_counter = 0;
 $tableHeader = '
 <!-- Begin HSLIST -->
 '.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'hs_table\',\'hs_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
-	<div style="display:inline;float:right;"><img id="hs_img" src="'.$roster_conf['img_url'].$pvp_hs_image.'.gif" alt="" /></div>
+	<div style="display:inline;float:right;"><img id="hs_img" src="'.$roster_conf['img_url'].$hslist_image.'.gif" alt="" /></div>
 '.$act_words['hslist'].'</div>').'
-<table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="hs_table"'.$pvp_hs_colapse.'>'."\n";
+<table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="hs_table"'.$hslist_collapse.'>'."\n";
 
 
 $tableFooter = "</table>\n".border('sgray','end')."\n<!-- End HSLIST -->\n";
