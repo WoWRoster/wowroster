@@ -41,12 +41,16 @@ $roster_login = new RosterLogin();
 // Disallow viewing of the page
 if( !$roster_login->getAuthorized() )
 {
-	display_page(
-		'<span class="title_text">'.$act_words['roster_config'].'</span><br />'.
-		$roster_login->getMessage().
-		$roster_login->getLoginForm(),
-		$act_words['roster_cp']
-	);
+	include_once (ROSTER_BASE.'roster_header.tpl');
+	$roster_menu = new RosterMenu;
+	print $roster_menu->makeMenu('main');
+
+	print
+	'<span class="title_text">'.$act_words['roster_config'].'</span><br />'.
+	$roster_login->getMessage().
+	$roster_login->getLoginForm();
+
+	include_once (ROSTER_BASE.'roster_footer.tpl');
 	exit();
 }
 // ----[ End Check log-in ]---------------------------------
@@ -119,7 +123,11 @@ if ($wowdb->num_rows($result))
 }
 
 // ----[ Render the page ]----------------------------------
-display_page(
+include_once( ROSTER_BASE.'roster_header.tpl' );
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
+
+echo
 	$header."\n".
 	'<table width="100%"><tr>'."\n".
 	'<td valign="top" align="left" width="15%">'."\n".
@@ -129,6 +137,6 @@ display_page(
 	'<td valign="top" align="right" width="15%">'."\n".
 	$pagebar."</td>\n".
 	'</tr></table>'."\n".
-	$footer,
-	$act_words['roster_cp']
-);
+	$footer;
+
+include_once( ROSTER_BASE.'roster_footer.tpl' );

@@ -184,6 +184,7 @@ function sql_highlight( $sql )
  */
 function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 {
+
 	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	// die_quitely died quietly
@@ -201,40 +202,57 @@ function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 
 	$GLOBALS['die_data'] = func_get_args();
 
+	$header_title = $title;
+
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_BASE.'roster_header.tpl');
+	}
+
+	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	{
+		$roster_menu = new RosterMenu;
+		print $roster_menu->makeMenu('main');
+	}
+
 	if( is_object($wowdb) )
 	{
 		$wowdb->closeDb();
 	}
 
-	$output = border('sred','start',$title).'<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	print border('sred','start',$title).'<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{
-		$output .= "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
 	}
 	if( !empty($sql) )
 	{
-		$output .= "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />".sql_highlight($sql)."</td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />".sql_highlight($sql)."</td>\n</tr>\n";
 	}
 	if( !empty($file) )
 	{
-		$output .= "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
 	}
 	if( !empty($line) )
 	{
-		$output .= "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
 	if( $roster_conf['debug_mode'] )
 	{
-		$output .= "<tr>\n<td class=\"membersRowRight1\">";
-		$output .= backtrace();
-		$output .= "</td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\">";
+		print  backtrace();
+		print "</td>\n</tr>\n";
 	}
 
-	$output .= "</table>\n".border('sred','end');
+	print "</table>\n".border('sred','end');
 
-	display_page($output,$title);
+	if( !defined('ROSTER_FOOTER_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_BASE.'roster_footer.tpl');
+	}
+
 	exit();
 }
 
@@ -249,14 +267,29 @@ function roster_die($message, $title = 'Message', $style = 'sred')
 {
 	global $wowdb, $roster_conf, $wordings, $act_words;
 
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
+	{
+		include_once(ROSTER_BASE.'roster_header.tpl');
+	}
+
+	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	{
+		$roster_menu = new RosterMenu;
+		print $roster_menu->makeMenu('main');
+	}
+
 	if( is_object($wowdb) )
 	{
 		$wowdb->closeDb();
 	}
 
-	$output = messagebox('<div align="center">'.$message.'</div>',$title,$style);
+	print messagebox('<div align="center">'.$message.'</div>',$title,$style);
 
-	display_page($output,$title);
+	if( is_array($roster_conf) )
+	{
+		include_once(ROSTER_BASE.'roster_footer.tpl');
+	}
+
 	exit();
 }
 
@@ -771,105 +804,6 @@ function escape_array($array)
 }
 
 /**
- * Gets the list of currently installed roster addons
- *
- * @param array $array 0: html list
- *                     1: list of addons
- *                     2: list of menu entries
- * @return mixed list of addons
- */
-function makeAddonList( $array=false )
-{
-	global $roster_conf, $wordings, $act_words;
-
-	// Initialize output
-	$output = '';
-	$addons = array();
-	$entries = array();
-
-	if ($handle = opendir(ROSTER_ADDONS))
-	{
-		while (false !== ($file = readdir($handle)))
-		{
-			if( is_dir(ROSTER_ADDONS.$file) && $file != '.' && $file != '..' && !preg_match('/[^a-zA-Z0-9_]/', $file) )
-			{
-				$addons[] = $file;
-			}
-		}
-	}
-
-
-	if( $array != 1 )
-	{
-		if( count($addons) > 0 )
-		{
-			$lCount = 0; //link count
-
-			foreach ($addons as $addon)
-			{
-				$menufile = ROSTER_ADDONS.$addon.DIR_SEP.'menu.php';
-				if (file_exists($menufile))
-				{
-					$addonDir = ROSTER_ADDONS.$addon.DIR_SEP;
-					$localization_dir = ROSTER_ADDONS.$addon.DIR_SEP.'localization.php';
-
-					// Include addon's locale files if they exist
-					foreach( $roster_conf['multilanguages'] as $lang )
-					{
-						if( file_exists($localization_dir.$lang.'.php') )
-						{
-							add_locale_file($localization_dir.$lang.'.php',$lang,$wordings);
-						}
-					}
-
-					include($menufile);
-
-					if (0 >= $config['menu_min_user_level']) //modify this line for user level / authentication stuff (show the link for user level whatever for this addon)  you understand :P
-					{
-						if (isset($config['menu_index_file'][0]))
-						{
-							//$config['menu_index_file'] is the new array type
-							foreach ($config['menu_index_file'] as $addonLink)
-							{
-								$fullQuery = urlencode($addon) . ( isset($addonLink[0]) ? $addonLink[0] : '' );
-								$output .= '<li><a href="' . makelink('addon-'.$fullQuery).'">' . $addonLink[1] . "</a></li>\n";
-								$entries[] = array('addon-'.$fullQuery, $addonLink[1]);
-								$lCount++;
-							}
-						}
-						unset($config);
-					}
-				}
-			}
-
-			if( $array == 0 )
-			{
-				return $output;
-			}
-			else
-			{
-				return $entries;
-			}
-		}
-		else
-		{
-			return '';
-		}
-	}
-	else
-	{
-		if( count($addons) > 0 )
-		{
-			return $addons;
-		}
-		else
-		{
-			return false;
-		}
-	}
-}
-
-/**
  * Calculates the last updated value
  *
  * @param string $updateTimeUTC dateupdatedutc
@@ -1066,30 +1000,4 @@ function add_locale_file( $localefile , $locale , &$array )
 	}
 
 	unset($lang);
-}
-
-function display_page( $body , $header_title='' , $menu='main' , $header=true , $footer=true )
-{
-	global $wowdb, $roster_conf, $wordings, $act_words, $more_css, $no_roster_headers, $html_head, $body_action;
-
-	if( $header || !defined('ROSTER_HEADER_INC') )
-	{
-		include_once (ROSTER_BASE.'roster_header.tpl');
-	}
-
-
-	if( !defined('ROSTER_MENU_INC') )
-	{
-		$roster_menu = new RosterMenu;
-		print $roster_menu->makeMenu($menu);
-	}
-
-	print $body;
-
-	if( $footer || !defined('ROSTER_FOOTER_INC') )
-	{
-		include_once (ROSTER_BASE.'roster_footer.tpl');
-	}
-
-	return;
 }
