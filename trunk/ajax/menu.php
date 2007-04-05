@@ -21,10 +21,12 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+$roster_login = new RosterLogin();
+
 switch ($method)
 {
 	case 'menu_button_add':
-		if (!isset($_COOKIE['roster_pass']) || ($_COOKIE['roster_pass'] != $roster_conf['roster_admin_pw']) )
+		if ( !$roster_login->getAuthorized() )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';
@@ -71,7 +73,7 @@ switch ($method)
 		break;
 
 	case 'menu_button_del':
-		if (!isset($_COOKIE['roster_pass']) || ($_COOKIE['roster_pass'] != $roster_conf['roster_admin_pw']) )
+		if ( !$roster_login->getAuthorized() )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';

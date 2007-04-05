@@ -19,6 +19,11 @@
 // Initialization
 header('Content-Type: text/xml');
 include('settings.php');
+
+// Some stuff that doesn't mean anything but is needed to make other stuff not error
+define('ROSTER_PAGE_NAME','ajax');
+$roster_pages = array('ajax');
+
 include(ROSTER_AJAX.'functions.php');
 if( isset($_GET['method']) )
 {
