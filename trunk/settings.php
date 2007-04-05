@@ -220,3 +220,9 @@ require_once(ROSTER_LIB.'login.php');
  * Get guild data from dataabse
  */
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+
+
+/**
+ * Include the Roster Menu class
+ */
+require_once(ROSTER_LIB.'menu.php');

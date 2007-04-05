@@ -21,10 +21,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$roster_menu = new RosterMenu;
-
-echo $roster_menu->makeMenu('main');
-
 class RosterMenu
 {
 	function makeMenu($sections)
@@ -116,10 +112,10 @@ class RosterMenu
 				$pane = '';
 				break;
 		}
-		
+
 		return $pane;
 	}
-	
+
 	/**
 	 * Builds the level distribution list
 	 *
@@ -154,7 +150,7 @@ class RosterMenu
 		$num_alts = 0;
 
 		$num_lvl = array(0=>0, 1=>0, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0, 7=>0);
-		
+
 		$level_sum = 0;
 
 		while ($row = $wowdb->fetch_assoc($result_menu))

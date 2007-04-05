@@ -51,7 +51,7 @@ Thanks to all the coders who have contributed code, bug fixes, time, and testing
 $creditspage['devs'] = array(
 		'active'=>array(
 			array(	"name"=>	"zanix",
-					"info"=>	"Site Admin, WoWRoster Coordinator<br />Author of SigGen"),
+					"info"=>	"Site Admin, WoWRoster Coordinator<br />Author of SigGen<br />Author of UniAdmin"),
 			array(	"name"=>	"Anaxent",
 					"info"=>	"WoWRoster Dev<br />WoWRosterDF Author (DragonflyCMS Port)"),
 			array(	"name"=>	"mathos",

@@ -25,7 +25,6 @@ class recipe
 {
 	var $active = true;
 	var $icon = 'inv_misc_food_65';
-	var $hasconfig = true;
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 

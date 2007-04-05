@@ -182,7 +182,7 @@ function sql_highlight( $sql )
  * @param string $line Line in file to display
  * @param string $sql Any SQL text to display
  */
-function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
+function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 {
 	global $wowdb, $roster_conf, $wordings, $act_words;
 
@@ -201,64 +201,40 @@ function die_quietly( $text='', $title='', $file='', $line='', $sql='' )
 
 	$GLOBALS['die_data'] = func_get_args();
 
-	if( !empty($title) )
-	{
-		$header_title = $title;
-	}
-
-	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
-	{
-		include_once(ROSTER_BASE.'roster_header.tpl');
-	}
-
-	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
-	{
-		include_once(ROSTER_LIB.'menu.php');
-	}
-
 	if( is_object($wowdb) )
 	{
 		$wowdb->closeDb();
 	}
 
-	if( empty($title) )
-	{
-		$title = 'Message';
-	}
-
-	print border('sred','start',$title).'<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	$output = border('sred','start',$title).'<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
+		$output .= "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
 	}
 	if( !empty($sql) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />".sql_highlight($sql)."</td>\n</tr>\n";
+		$output .= "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />".sql_highlight($sql)."</td>\n</tr>\n";
 	}
 	if( !empty($file) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
+		$output .= "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
 	}
 	if( !empty($line) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
+		$output .= "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
 	if( $roster_conf['debug_mode'] )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\">";
-		backtrace();
-		print "</td>\n</tr>\n";
+		$output .= "<tr>\n<td class=\"membersRowRight1\">";
+		$output .= backtrace();
+		$output .= "</td>\n</tr>\n";
 	}
 
-	print "</table>\n".border('sred','end');
+	$output .= "</table>\n".border('sred','end');
 
-	if( is_array($roster_conf) )
-	{
-		include_once(ROSTER_BASE.'roster_footer.tpl');
-	}
-
+	display_page($output,$title);
 	exit();
 }
 
@@ -273,28 +249,14 @@ function roster_die($message, $title = 'Message', $style = 'sred')
 {
 	global $wowdb, $roster_conf, $wordings, $act_words;
 
-	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
-	{
-		include_once(ROSTER_BASE.'roster_header.tpl');
-	}
-
-	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
-	{
-		include_once(ROSTER_LIB.'menu.php');
-	}
-
 	if( is_object($wowdb) )
 	{
 		$wowdb->closeDb();
 	}
 
-	print messagebox('<div align="center">'.$message.'</div>',$title,$style);
+	$output = messagebox('<div align="center">'.$message.'</div>',$title,$style);
 
-	if( is_array($roster_conf) )
-	{
-		include_once(ROSTER_BASE.'roster_footer.tpl');
-	}
-
+	display_page($output,$title);
 	exit();
 }
 
@@ -310,48 +272,50 @@ function backtrace()
 	}
 	$bt = debug_backtrace();
 
-	echo "Backtrace (most recent call last):<ul>\n";
+	$output = "Backtrace (most recent call last):<ul>\n";
 	for($i = 0; $i <= count($bt) - 1; $i++)
 	{
 		if(!isset($bt[$i]["file"]))
 		{
-			echo "<li>[PHP core called function]<ul>\n";
+			$output .= "<li>[PHP core called function]<ul>\n";
 		}
 		else
 		{
-			echo "<li>File: ".$bt[$i]["file"]."<ul>\n";
+			$output .= "<li>File: ".$bt[$i]["file"]."<ul>\n";
 		}
 
 		if(isset($bt[$i]["line"]))
 		{
-			echo "<li>line ".$bt[$i]["line"]."</li>\n";
+			$output .= "<li>line ".$bt[$i]["line"]."</li>\n";
 		}
-		echo "<li>function called: ".$bt[$i]["function"]."</li>\n";
+		$output .= "<li>function called: ".$bt[$i]["function"]."</li>\n";
 
 		if($bt[$i]["args"])
 		{
-			echo "<li>args: ";
+			$output .= "<li>args: ";
 			for($j = 0; $j <= count($bt[$i]["args"]) - 1; $j++)
 			{
 				if( is_array($bt[$i]["args"][$j]) )
 				{
-					print_r($bt[$i]["args"][$j]);
+					$output .= print_r($bt[$i]["args"][$j],true);
 				}
 				else
 				{
-					echo $bt[$i]["args"][$j] ;
+					$output .= $bt[$i]["args"][$j] ;
 				}
 
 				if($j != count($bt[$i]["args"]) - 1)
 				{
-					echo ", ";
+					$output .= ", ";
 				}
 			}
-			echo "</li>\n";
+			$output .= "</li>\n";
 		}
-		echo "</ul></li>\n";
+		$output .= "</ul></li>\n";
 	}
-	echo "</ul>\n";
+	$output .= "</ul>\n";
+
+	return $output;
 }
 
 /**
@@ -391,34 +355,35 @@ function stripAllHtml($string)
  */
 function check_if_image($imagefilename)
 {
-	if (($extension = pathinfo($imagefilename, PATHINFO_EXTENSION)) === FALSE)
+	if( ($extension = pathinfo($imagefilename, PATHINFO_EXTENSION)) === FALSE )
 	{
 		return false;
 	}
 	else
 	{
-  	switch($extension)
-  	{
-	  	case 'bmp': 	return $extension;
-	  	case 'cod': 	return $extension;
-	  	case 'gif': 	return $extension;
-	  	case 'ief': 	return $extension;
-	  	case 'jpg': 	return $extension;
-	  	case 'jpeg': 	return $extension;
-	  	case 'jfif': 	return $extension;
-	  	case 'tif': 	return $extension;
-	  	case 'ras': 	return $extension;
-	  	case 'ico': 	return $extension;
-	  	case 'pnm': 	return $extension;
-	  	case 'pbm': 	return $extension;
-	  	case 'pgm': 	return $extension;
-	  	case 'ppm': 	return $extension;
-	  	case 'rgb': 	return $extension;
-	  	case 'xwd': 	return $extension;
-	  	case 'png': 	return $extension;
-	  	case 'jps': 	return $extension;
-	  	case 'fh': 		return $extension;
-			default: 			return false;
+	  	switch($extension)
+	  	{
+		  	case 'bmp': 	return $extension;
+		  	case 'cod': 	return $extension;
+		  	case 'gif': 	return $extension;
+		  	case 'ief': 	return $extension;
+		  	case 'jpg': 	return $extension;
+		  	case 'jpeg': 	return $extension;
+		  	case 'jfif': 	return $extension;
+		  	case 'tif': 	return $extension;
+		  	case 'ras': 	return $extension;
+		  	case 'ico': 	return $extension;
+		  	case 'pnm': 	return $extension;
+		  	case 'pbm': 	return $extension;
+		  	case 'pgm': 	return $extension;
+		  	case 'ppm': 	return $extension;
+		  	case 'rgb': 	return $extension;
+		  	case 'xwd': 	return $extension;
+		  	case 'png': 	return $extension;
+		  	case 'jps': 	return $extension;
+		  	case 'fh': 		return $extension;
+
+			default: 		return false;
 		}
 	}
 }
@@ -1101,4 +1066,30 @@ function add_locale_file( $localefile , $locale , &$array )
 	}
 
 	unset($lang);
+}
+
+function display_page( $body , $header_title='' , $menu='main' , $header=true , $footer=true )
+{
+	global $wowdb, $roster_conf, $wordings, $act_words, $more_css, $no_roster_headers, $html_head, $body_action;
+
+	if( $header || !defined('ROSTER_HEADER_INC') )
+	{
+		include_once (ROSTER_BASE.'roster_header.tpl');
+	}
+
+
+	if( !defined('ROSTER_MENU_INC') )
+	{
+		$roster_menu = new RosterMenu;
+		print $roster_menu->makeMenu($menu);
+	}
+
+	print $body;
+
+	if( $footer || !defined('ROSTER_FOOTER_INC') )
+	{
+		include_once (ROSTER_BASE.'roster_footer.tpl');
+	}
+
+	return;
 }

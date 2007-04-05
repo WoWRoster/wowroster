@@ -234,7 +234,8 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 }
 
 // Include the menu-box
-include_once(ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 // Diplay Password Box
 if ( $roster_login->getAuthorized() )

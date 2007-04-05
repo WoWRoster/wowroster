@@ -41,16 +41,12 @@ $roster_login = new RosterLogin();
 // Disallow viewing of the page
 if( !$roster_login->getAuthorized() )
 {
-	include_once (ROSTER_BASE.'roster_header.tpl');
-	include_once (ROSTER_LIB.'menu.php');
-
-	print
-	'<span class="title_text">'.$act_words['roster_config'].'</span><br />'.
-	$roster_login->getMessage().
-	$roster_login->getLoginForm();
-
-	include_once (ROSTER_BASE.'roster_footer.tpl');
-
+	display_page(
+		'<span class="title_text">'.$act_words['roster_config'].'</span><br />'.
+		$roster_login->getMessage().
+		$roster_login->getLoginForm(),
+		$act_words['roster_cp']
+	);
 	exit();
 }
 // ----[ End Check log-in ]---------------------------------
@@ -98,7 +94,7 @@ if ($pagebar != '')
 }
 
 // Add addon buttons
-$query = 'SELECT `basename`,`hasconfig` FROM `'.$wowdb->table('addon').'` WHERE `hasconfig` != "";';
+$query = 'SELECT `basename` FROM `'.$wowdb->table('addon').'`;';
 $result = $wowdb->query($query);
 if( !$result )
 {
@@ -111,17 +107,19 @@ if ($wowdb->num_rows($result))
 	$pagebar .= '<ul class="tab_menu">'."\n";
 	while($row = $wowdb->fetch_assoc($result))
 	{
-		$pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $row['basename'] ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$row['basename']).'">'.$row['basename'].'</a></li>'."\n";
+		$addon = getaddon($row['basename']);
+
+		if( file_exists($addon['admin_file']) || $addon['config'] != '' )
+		{
+			$pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $row['basename'] ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$row['basename']).'">'.$row['basename'].'</a></li>'."\n";
+		}
 	}
 	$pagebar .= '</ul>'."\n";
 	$pagebar .= border('sgray','end')."\n";
 }
 
 // ----[ Render the page ]----------------------------------
-include_once( ROSTER_BASE.'roster_header.tpl' );
-include_once( ROSTER_LIB.'menu.php' );
-
-echo
+display_page(
 	$header."\n".
 	'<table width="100%"><tr>'."\n".
 	'<td valign="top" align="left" width="15%">'."\n".
@@ -131,6 +129,6 @@ echo
 	'<td valign="top" align="right" width="15%">'."\n".
 	$pagebar."</td>\n".
 	'</tr></table>'."\n".
-	$footer;
-
-include_once( ROSTER_BASE.'roster_footer.tpl' );
+	$footer,
+	$act_words['roster_cp']
+);

@@ -77,7 +77,9 @@ $option_blockzones = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMB
 $option_blockquests = selectQuery("`".ROSTER_QUESTSTABLE."` quests,`".ROSTER_MEMBERSTABLE."` members WHERE quests.member_id = members.member_id","DISTINCT quests.quest_name","quest_name",(isset($questidsafe) ? $questidsafe : ''),"quest_name","questlist&amp;questid");
 
 // Don't forget the menu !!
-include_once(ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
+
 print("<br />\n");
 
 echo "<table cellspacing=\"6\">\n  <tr>\n";

@@ -30,7 +30,7 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
-		print '<img src="motd.php" alt="Guild msg of the day" /><br /><br />';
+		print '<img src="motd.php" alt="Guild message of the day" /><br /><br />';
 	}
 	else
 	{
@@ -38,7 +38,8 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 	}
 }
 
-include_once (ROSTER_BASE.'lib/menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 
 if( !empty($guild_info['guild_info_text']) )

@@ -60,7 +60,7 @@ if( $addon['active'] = '1' )
 			$body .= ob_get_contents();
 		ob_end_clean();
 	}
-	elseif( $addon['hasconfig'] = '1' )
+	elseif( $addon['config'] != '' )
 	{
 		// ----[ Set the tablename and create the config class ]----
 		$tablename = $wowdb->table('addon_config');

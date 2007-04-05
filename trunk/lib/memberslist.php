@@ -40,7 +40,8 @@ if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 	}
 }
 
-include_once (ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 
 echo "<table>\n  <tr>\n";

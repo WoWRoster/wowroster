@@ -891,7 +891,7 @@ $lang['pagebar_changepass'] = 'Change Password';
 $lang['pagebar_addoninst'] = 'Manage Addons';
 $lang['pagebar_update'] = 'Upload Profile';
 $lang['pagebar_rosterdiag'] = 'Roster Diag';
-$lang['pagebar_menuconf'] = 'Menu configuration';
+$lang['pagebar_menuconf'] = 'Menu Configuration';
 
 $lang['pagebar_addonconf'] = 'Addon Config';
 

@@ -81,7 +81,10 @@ if ($roster_show_header)
 	include_once (ROSTER_BASE.'roster_header.tpl');
 
 if ($roster_show_menu)
-	include_once (ROSTER_LIB.'menu.php');
+{
+	$roster_menu = new RosterMenu;
+	print $roster_menu->makeMenu('main');
+}
 
 echo $content;
 

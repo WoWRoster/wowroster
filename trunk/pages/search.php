@@ -28,7 +28,9 @@ require_once ROSTER_LIB.'item.php';
 require_once ROSTER_LIB.'recipes.php';
 
 
-include_once(ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
+
 print "<br />\n";
 
 $search = (isset($_GET['s']) ? $_GET['s'] : '');

@@ -52,7 +52,7 @@ function rosterLangValue( $values )
  */
 function pageNames( )
 {
-	global $roster_conf;
+	global $roster_conf, $wowdb;
 
 	/**
 	 * Scan the pages directory to generate a list of available pages
@@ -69,9 +69,25 @@ function pageNames( )
 		}
 	}
 
-	$addonlist = makeAddonList(2);
+	$addonlist = array();
 
-	if( !empty($addonlist) )
+	// Add addon buttons
+	$query = 'SELECT `basename` FROM `'.$wowdb->table('addon').'`;';
+	$result = $wowdb->query($query);
+	if( !$result )
+	{
+		die_quietly('Could not fetch addon records for default page select','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
+	}
+
+	if ($wowdb->num_rows($result))
+	{
+		while($row = $wowdb->fetch_assoc($result))
+		{
+			$addonlist[] = array(0 => 'addon-'.$row['basename'],1 => $row['basename'].' (addon)');
+		}
+	}
+
+	if( count($addonlist) > 0 )
 	{
 		$config_pages = array_merge($config_pages, $addonlist);
 	}

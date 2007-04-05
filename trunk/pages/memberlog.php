@@ -35,7 +35,9 @@ else
 $start = (isset($_REQUEST['start']) ? $_REQUEST['start'] : 0);
 
 require( ROSTER_BASE.'roster_header.tpl' );
-require( ROSTER_LIB.'menu.php' );
+
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 $query =
 "SELECT *,
