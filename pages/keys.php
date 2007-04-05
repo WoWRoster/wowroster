@@ -26,7 +26,9 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');
 
-include_once( ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
+
 print "<br />\n";
 
 // Tooltip colors

@@ -25,7 +25,8 @@ $header_title = $act_words['pvplist'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 
-include_once (ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 
 if (isset($_GET['type']))

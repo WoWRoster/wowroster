@@ -357,7 +357,7 @@ function processAddon()
 				$installer->seterrors(sprintf($act_words['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'","'.(int)$installer->addata['hasconfig'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
+			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
 			$installer->addata['addon_id'] = $wowdb->insert_id();
 			$success = $addon->install();
 			$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$installer->addata['active'];
@@ -375,7 +375,7 @@ function processAddon()
 				break;
 			}
 
-			$wowdb->query('UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `hasconfig`='.$installer->addata['hasconfig'].', `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id']);
+			$wowdb->query('UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id']);
 			$installer->addata['addon_id'] = $previous['addon_id'];
 			$success = $addon->upgrade($previous['basename'],$previous['version']);
 			break;

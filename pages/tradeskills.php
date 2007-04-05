@@ -26,7 +26,8 @@ $header_title = $act_words['professions'];
 include_once(ROSTER_BASE.'roster_header.tpl');
 
 
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 // Build a list of "Skills" to look for
 $inClause = "'";

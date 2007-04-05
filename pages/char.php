@@ -320,7 +320,9 @@ $char_page .= "</div>\n";
 
 // Include Header
 include_once (ROSTER_BASE.'roster_header.tpl');
-include_once (ROSTER_LIB.'menu.php');
+
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 echo $char_menu;
 echo $char_page;

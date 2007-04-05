@@ -21,6 +21,8 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+define('ROSTER_FOOTER_INC',true);
+
 // Explicitly close the db
 $wowdb->closeDb();
 

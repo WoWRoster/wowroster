@@ -45,7 +45,7 @@ class RosterLogin
 		$this->script_filename = makelink($script_filename);
 		$this->allow_login = false;
 		$this->admin = $admin;
-		$this->log_word = ($this->admin ? 'Admin' : 'Access');
+		$this->log_word = ($this->admin ? 'Admin' : 'Officer');
 
 		$this->loginform = '
 			<!-- Begin Password Input Box -->

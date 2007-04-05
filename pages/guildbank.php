@@ -71,7 +71,9 @@ ORDER BY m.name";
 
 $muleNames = $wowdb->query($muleNameQuery);
 
-include_once (ROSTER_LIB.'menu.php');
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
+
 echo "\n<br />\n";
 
 $bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";

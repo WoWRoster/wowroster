@@ -58,7 +58,8 @@ if ((isset($_POST['process']) && $_POST['process'] == 'process') || $isUU)
 	if( !$isUU )
 	{
 		include_once(ROSTER_BASE.'roster_header.tpl');
-		include_once(ROSTER_LIB.'menu.php');
+		$roster_menu = new RosterMenu;
+		print $roster_menu->makeMenu('main');
 
 		// print the error messages
 		if( !empty($errorstringout) )
@@ -98,7 +99,8 @@ else
 {
 	// No data uploaded, so return upload form
 	include_once(ROSTER_BASE.'roster_header.tpl');
-	include_once(ROSTER_LIB.'menu.php');
+	$roster_menu = new RosterMenu;
+	print $roster_menu->makeMenu('main');
 
 	print '<form action="'.makelink().'" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this);">'."\n";
 
