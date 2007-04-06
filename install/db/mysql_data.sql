@@ -20,7 +20,7 @@ INSERT INTO `renprefix_config` VALUES (6, 'roster_admin_pw', '', 'password:30|30
 ### Menu Entries
 INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
@@ -90,9 +90,20 @@ INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '1', 'radio{on^
 # --------------------------------------------------------
 ### Roster Menu Settings
 
-INSERT INTO `renprefix_config` VALUES (4000, 'menu_left_pane', 'level', 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4010, 'menu_right_pane', 'realmstatus', 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4020, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4000, 'menu_conf_top', NULL, 'blockframe', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4001, 'menu_conf_wide', NULL, 'page{2', 'menu_conf');
+INSERT INTO `renprefix_config` VALUES (4002, 'menu_conf_left', NULL, 'blockframe', 'menu_conf_wide');
+INSERT INTO `renprefix_config` VALUES (4003, 'menu_conf_right', NULL, 'blockframe', 'menu_conf_wide');
+
+INSERT INTO `renprefix_config` VALUES (4020, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
+
+INSERT INTO `renprefix_config` VALUES (4200, 'menu_left_type', 'level', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_left');
+INSERT INTO `renprefix_config` VALUES (4210, 'menu_left_level', '30', 'text{2|10', 'menu_conf_left');
+INSERT INTO `renprefix_config` VALUES (4220, 'menu_left_style', 'list', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'menu_conf_left');
+
+INSERT INTO `renprefix_config` VALUES (4400, 'menu_right_type', 'realm', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4410, 'menu_right_level', '60', 'text{2|10', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4420, 'menu_right_style', 'list', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'menu_conf_right');
 
 # --------------------------------------------------------
 ### Display Settings

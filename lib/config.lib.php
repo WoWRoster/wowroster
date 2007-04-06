@@ -180,6 +180,7 @@ class config
 					case 'function':
 						$this->nonformpages .= $type[1]();
 						$addpage = false;
+						break;
 
 					default:
 						$addpage = false;
@@ -204,14 +205,20 @@ class config
 	{
 		global $wordings, $roster_conf, $act_words;
 
-		$html = '<table><tr><td>';
+		$html = '<table><tr><td align="center">';
 		$i = 0;
-
 
 		foreach($this->db_values[$page] as $values)
 		{
-			$header_text = explode('|',$act_words['admin'][$values['name']]);
-			$header_text = $header_text[0];
+			if( isset($act_words['admin'][$values['name']]) )
+			{
+				$header_text = explode('|',$act_words['admin'][$values['name']]);
+				$header_text = $header_text[0];
+			}
+			else
+			{
+				$header_text = '';
+			}
 
 			$type = explode('{',$values['form_type']);
 			switch ($type[0])
