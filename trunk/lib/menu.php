@@ -55,8 +55,8 @@ class RosterMenu
 				$topbar = '';
 			}
 
-			$left_pane = $this->makePane($roster_conf['menu_left_pane']);
-			$right_pane = $this->makePane($roster_conf['menu_right_pane']);
+			$left_pane = $this->makePane('menu_left');
+			$right_pane = $this->makePane('menu_right');
 		}
 
 		$buttonlist = $this->makeButtonList($sections);
@@ -81,31 +81,17 @@ class RosterMenu
 	 *
 	 * @param kind of pane to build
 	 */
-	function makePane( $type )
+	function makePane( $side )
 	{
-		global $guild_info;
+		global $roster_conf;
 
-		switch( $type )
+		switch( $roster_conf[$side.'_type'] )
 		{
 			case 'level':
-				$pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id']);
-				break;
-			case 'levellong':
-				$pane = $this->makeLevelList('`guild_id` = '.$guild_info['guild_id'],true);
-				break;
 			case 'class':
-				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id']);
+				$pane = $this->makeList($roster_conf[$side.'_type'],$roster_conf[$side.'_level'],$roster_conf[$side.'_style']);
 				break;
-			case 'class50':
-				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id'].' AND `level` >= 50');
-				break;
-			case 'class60':
-				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id'].' AND `level` >= 60');
-				break;
-			case 'class70':
-				$pane = $this->makeClassList('`guild_id` = '.$guild_info['guild_id'].' AND `level` >= 70');
-				break;
-			case 'realmstatus':
+			case 'realm':
 				$pane = $this->makeRealmStatus();
 				break;
 			default:
@@ -117,212 +103,151 @@ class RosterMenu
 	}
 
 	/**
-	 * Builds the level distribution list
+	 * Make level/class distribution list
 	 *
-	 * @param $condition where condition
-	 * @return formatted level distribution list
+	 * @param string $type
+	 *		'level' for level list
+	 *		'class' for class list
+	 * @param int $level
+	 *		minimum level to display
+	 * @param string $style
+	 *		'list' for text list
+	 *		'bar' for bargraph
+	 *		'barlog' for logarithmic bargraph
 	 */
-	function makeLevelList( $condition, $long = false )
+	function makeList( $type, $level, $style )
 	{
-		global $wordings, $act_words, $wowdb, $roster_conf;
-
-		$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
-			"FLOOR(`level`/10) AS levelgroup, ".
-			"COUNT(`level`) AS amount, ".
-			"SUM(`level`) AS sum ".
-			"FROM `".ROSTER_MEMBERSTABLE."` AS `members`".
-			"WHERE ".$condition." ".
-			"GROUP BY isalt, levelgroup ".
-			"ORDER BY isalt ASC, levelgroup DESC";
-		$result_menu = $wowdb->query($guildstat_query);
-
-		if (!$result_menu)
+		global $roster_conf, $act_words, $wowdb;
+		
+		// Initialize data array
+		$dat = array();
+		if( $type == 'level' )
 		{
-			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
+			for( $i=floor(ROSTER_MAXCHARLEVEL/10); $i>=floor($level/10); $i-- )
+			{
+				if( $i * 10 == ROSTER_MAXCHARLEVEL )
+				{
+					$dat[$i]['name'] = ROSTER_MAXCHARLEVEL;
+				}
+				elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL )
+				{
+					$dat[$i]['name'] = ($i*10).' - '.ROSTER_MAXCHARLEVEL;
+				}
+				else
+				{
+					$dat[$i]['name'] = ($i*10).' - '.($i*10+9);
+				}
+				$dat[$i]['icon'] = false;
+				$dat[$i]['alt'] = 0;
+				$dat[$i]['nonalt'] = 0;
+			}
+			
+			$qrypart = "FLOOR(`level`/10)";
 		}
-
-		if ($wowdb->num_rows($result_menu) == 0)
+		elseif( $type == 'class' )
 		{
-			return '';
+			foreach($act_words['class_iconArray'] as $class => $icon)
+			{
+				$dat[$class]['name'] = $class;
+				$dat[$class]['icon'] = $icon;
+				$dat[$class]['alt'] = 0;
+				$dat[$class]['nonalt'] = 0;
+			}
+			
+			$qrypart = "`class`";
 		}
+		else
+		{
+			die_quietly('Invalid list type','Menu Sidepane error',basename(__FILE__),__LINE__);
+		}
+		$num_alts = $num_non_alts = 0;
 
-		$num_non_alts = 0;
-		$num_alts = 0;
+		// Build query
+		$query  = "SELECT count(`member_id`) AS `amount`, ".
+			"IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
+			$qrypart." AS label ".
+			"FROM `".ROSTER_MEMBERSTABLE."` ".
+			"WHERE `level` > ".$level." ".
+			"GROUP BY isalt, label;";
 
-		$num_lvl = array(0=>0, 1=>0, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0, 7=>0);
+		$result = $wowdb->query($query);
 
-		$level_sum = 0;
-
-		while ($row = $wowdb->fetch_assoc($result_menu))
+		if (!$result)
+		{
+			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		}
+		
+		// Fetch results
+		while( $row = $wowdb->fetch_assoc($result) )
 		{
 			if ($row['isalt'])
 			{
 				$num_alts += $row['amount'];
+				$dat[$row['label']]['alt'] += $row['amount'];
 			}
 			else
 			{
 				$num_non_alts += $row['amount'];
+				$dat[$row['label']]['nonalt'] += $row['amount'];
 			}
-
-			$num_lvl[$row['levelgroup']] += $row['amount'];
-			$level_sum += $row['sum'];
 		}
-
-		$result_avg = $level_sum/($num_alts + $num_non_alts);
-
-		return '	<td valign="top" class="row">
-	      '.$act_words['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
-			<br />
-			<ul>
-			<li style="color:#999999;">Average Level: '.round($result_avg).'</li>
-			<li>'.$act_words['level'].' 70: '.$num_lvl[7].'</li>
-			<li>'.$act_words['level'].' 60-69: '.$num_lvl[6].'</li>
-			<li>'.$act_words['level'].' 50-59: '.$num_lvl[5].'</li>
-			<li>'.$act_words['level'].' 40-49: '.$num_lvl[4].'</li>
-			<li>'.$act_words['level'].' 30-39: '.$num_lvl[3].'</li>
-			'.(($long)?'<li>'.$act_words['level'].' 20-29: '.$num_lvl[2].'</li>
-			<li>'.$act_words['level'].' 10-19: '.$num_lvl[1].'</li>
-			<li>'.$act_words['level'].' 1-9: '.$num_lvl[0].'</li>
-			':'<li>'.$act_words['level'].' 1-29: '.($num_lvl[0]+$num_lvl[1]+$num_lvl[2]).'</li>').'
-			</ul>
-	    </td>'."\n";
-	}
-
-	/**
-	 * Builds the class distribution list
-	 *
-	 * @param $condition where condition
-	 * @return formatted level distribution list
-	 */
-	function makeClassList($condition = 'true')
-	{
-		global $wordings, $act_words, $wowdb, $roster_conf;
-
-		$guildstat_query="SELECT IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
-			"class, ".
-			"COUNT(`class`) AS amount ".
-			"FROM `".ROSTER_MEMBERSTABLE."` AS `members` ".
-			"WHERE ".$condition." ".
-			"GROUP BY isalt, class ".
-			"ORDER BY isalt ASC, class";
-		$result_menu = $wowdb->query($guildstat_query);
-
-		if (!$result_menu)
+		
+		$output = '	<td valign="top" class="row">
+	      Total: '.$num_non_alts.' (+'.$num_alts.' Alts)
+			<br />';
+		
+		if( $style == 'bar' )
 		{
-			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$guildstat_query);
+			$req = 'img/graphs/bargraph.php?';
+			$i = 0;
+			foreach( $dat as $bar )
+			{
+				$req .= 'barnames['.$i.']='.$bar['name'].'&amp;';
+				$req .= 'barsizes['.$i.']='.($bar['alt']+$bar['nonalt']).'&amp;';
+				$req .= 'bar2sizes['.$i.']='.$bar['alt'].'&amp;';
+				if($bar['icon'])
+				{
+					$req .= 'icons['.$i.']='.$bar['icon'].'&amp;';
+				}
+				$i++;
+			}
+			$req .= 'dummy=dummy';
+			
+			$output .= '<img src="'.$req.'" alt="" />';
 		}
-
-		$num_non_alts = 0;
-		$num_alts = 0;
-
-		$num_druids = 0;
-		$num_druids_alts = 0;
-		$num_hunters = 0;
-		$num_hunters_alts = 0;
-		$num_mages = 0;
-		$num_mages_alts = 0;
-		$num_paladins = 0;
-		$num_paladins_alts = 0;
-		$num_priests = 0;
-		$num_priests_alts = 0;
-		$num_rogues = 0;
-		$num_rogues_alts = 0;
-		$num_shamans = 0;
-		$num_shamans_alts = 0;
-		$num_warlocks = 0;
-		$num_warlocks_alts = 0;
-		$num_warriors = 0;
-		$num_warriors_alts = 0;
-
-		while ($row = $wowdb->fetch_assoc($result_menu))
+		elseif( $style == 'barlog' )
 		{
-			if ($row['isalt'])
+			$req = 'img/graphs/bargraph.php?';
+			$i = 0;
+			foreach( $dat as $bar )
 			{
-				switch ($row['class'])
+				$req .= 'barnames['.$i.']='.$bar['name'].'&amp;';
+				$req .= 'barsizes['.$i.']='.(($bar['alt']+$bar['nonalt']==0)?-1:log($bar['alt']+$bar['nonalt'])).'&amp;';
+				$req .= 'bar2sizes['.$i.']='.(($bar['alt']==0)?-1:log($bar['alt'])).'&amp;';
+				if($bar['icon'])
 				{
-					case 'Druid':
-						$num_druids_alts += $row['amount'];
-						break;
-					case 'Hunter':
-						$num_hunters_alts += $row['amount'];
-						break;
-					case 'Mage':
-						$num_mages_alts += $row['amount'];
-						break;
-					case 'Paladin':
-						$num_paladins_alts += $row['amount'];
-						break;
-					case 'Priest':
-						$num_priests_alts += $row['amount'];
-						break;
-					case 'Rogue':
-						$num_rogues_alts += $row['amount'];
-						break;
-					case 'Shaman':
-						$num_shamans_alts += $row['amount'];
-						break;
-					case 'Warlock':
-						$num_warlocks_alts += $row['amount'];
-						break;
-					case 'Warrior':
-						$num_warriors_alts += $row['amount'];
-						break;
-					default:
+					$req .= 'icons['.$i.']='.$bar['icon'].'&amp;';
 				}
-				$num_alts += $row['amount'];
+				$i++;
 			}
-			else
-			{
-				switch ($row['class'])
-				{
-					case 'Druid':
-						$num_druids += $row['amount'];
-						break;
-					case 'Hunter':
-						$num_hunters += $row['amount'];
-						break;
-					case 'Mage':
-						$num_mages += $row['amount'];
-						break;
-					case 'Paladin':
-						$num_paladins += $row['amount'];
-						break;
-					case 'Priest':
-						$num_priests += $row['amount'];
-						break;
-					case 'Rogue':
-						$num_rogues += $row['amount'];
-						break;
-					case 'Shaman':
-						$num_shamans += $row['amount'];
-						break;
-					case 'Warlock':
-						$num_warlocks += $row['amount'];
-						break;
-					case 'Warrior':
-						$num_warriors += $row['amount'];
-						break;
-					default:
-				}
-				$num_non_alts += $row['amount'];
-			}
+			$req .= 'dummy=dummy';
+			
+			$output .= '<img src="'.$req.'" alt="" />';
 		}
+		else
+		{
+			$output .= '<ul>'."\n";
 
-		return '   <td valign="top" class="row">
-			'.$act_words['members'].': '.$num_non_alts.' (+'.$num_alts.' Alts)
-			<br />
-			<ul>
-				<li>Druids: '.$num_druids.' (+'.$num_druids_alts.')</li>
-				<li>Hunters: '.$num_hunters.' (+'.$num_hunters_alts.')</li>
-				<li>Mages: '.$num_mages.' (+'.$num_mages_alts.')</li>
-				<li>Paladins: '.$num_paladins.' (+'.$num_paladins_alts.')</li>
-				<li>Priests: '.$num_priests.' (+'.$num_priests_alts.')</li>
-				<li>Rogues: '.$num_rogues.' (+'.$num_rogues_alts.')</li>
-				<li>Shamans: '.$num_shamans.' (+'.$num_shamans_alts.')</li>
-				<li>Warlocks: '.$num_warlocks.' (+'.$num_warlocks_alts.')</li>
-				<li>Warriors: '.$num_warriors.' (+'.$num_warriors_alts.')</li>
-			</ul>
-		</td>';
+			foreach( $dat as $line )
+			{
+				$output .= '<li>';
+				$output .= $line['name'].': '.$line['nonalt'].' (+'.$line['alt'].' Alts)</li>'."\n";
+			}
+			$output .= '</ul>';
+		}
+		$output .= '</td>'."\n";
+		
+		return $output;
 	}
 
 	/**

@@ -984,9 +984,18 @@ $lang['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, w
 $lang['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
 
 // menu_conf
-$lang['admin']['menu_left_pane'] = "Left Pane|Controls display of the left pane of the main roster menu<br />By default this area holds the member quick list";
-$lang['admin']['menu_right_pane'] = "Right Pane|Controls display of the right pane of the main roster menu<br />By default this area holds the realmstatus image";
+$lang['admin']['menu_conf_left'] = "Left pane|";
+$lang['admin']['menu_conf_right'] = "Right pane|";
+
 $lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
+
+$lang['admin']['menu_left_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
+$lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
+$lang['admin']['menu_left_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
+
+$lang['admin']['menu_right_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
+$lang['admin']['menu_right_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
+$lang['admin']['menu_right_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
 
 // display_conf
 $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
