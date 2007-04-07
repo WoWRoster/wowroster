@@ -52,59 +52,44 @@ function rosterLangValue( $values )
  */
 function pageNames( )
 {
-	global $roster_conf, $wowdb;
-
-	/**
-	 * Scan the pages directory to generate a list of available pages
-	 */
-	if( $handle = opendir(ROSTER_PAGES) )
-	{
-		$roster_conf['roster_pages'] = array();
-		while( false !== ($file = readdir($handle)) )
-		{
-			if( !is_dir(ROSTER_PAGES.$file) && $file != '.' && $file != '..' && $file != 'addon.php' && !preg_match('/[^a-zA-Z0-9_.]/', $file) && get_file_ext($file) == 'php' )
-			{
-				$config_pages[] = array(substr($file,0,strpos($file,'.')),substr($file,0,strpos($file,'.')));
-			}
-		}
-	}
-
-	$addonlist = array();
-
-	// Add addon buttons
-	$query = 'SELECT `basename` FROM `'.$wowdb->table('addon').'`;';
-	$result = $wowdb->query($query);
-	if( !$result )
-	{
-		die_quietly('Could not fetch addon records for default page select','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
-	}
-
-	if ($wowdb->num_rows($result))
-	{
-		while($row = $wowdb->fetch_assoc($result))
-		{
-			$addonlist[] = array(0 => 'addon-'.$row['basename'],1 => $row['basename'].' (addon)');
-		}
-	}
-
-	if( count($addonlist) > 0 )
-	{
-		$config_pages = array_merge($config_pages, $addonlist);
-	}
+	global $roster_conf, $wowdb, $act_words, $wordings;
 
 	$input_field = '<select name="config_default_page">'."\n";
 	$select_one = 1;
 
-	foreach( $config_pages as $value )
+	// --[ Fetch button list from DB ]--
+	$query = "SELECT `mb`.*, `a`.`basename`
+		FROM `".$wowdb->table('menu_button')."` AS mb
+		LEFT JOIN `".$wowdb->table('addon')."` AS a
+		ON `mb`.`addon_id` = `a`.`addon_id`;";
+
+	$result = $wowdb->query($query);
+	if( !$result )
 	{
-		if( $value[0] == $roster_conf['default_page'] && $select_one )
+		die_quietly('Could not fetch menu buttons from table');
+	}
+	while( $row = $wowdb->fetch_assoc($result) )
+	{
+		if( $row['addon_id'] != '0' && !isset($act_words[$row['title']]) )
 		{
-			$input_field .= '  <option value="'.$value[0].'" selected="selected">-'.$value[1].'-</option>'."\n";
+			// Include addon's locale files if they exist
+			foreach( $roster_conf['multilanguages'] as $lang )
+			{
+				if( file_exists(ROSTER_ADDONS.$row['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
+				{
+					add_locale_file(ROSTER_ADDONS.$row['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+				}
+			}
+		}
+
+		if( $row['url'] == $roster_conf['default_page'] && $select_one )
+		{
+			$input_field .= '  <option value="'.$row['url'].'" selected="selected">-'.( isset($act_words[$row['title']]) ? $act_words[$row['title']] : $row['title'] ).'-</option>'."\n";
 			$select_one = 0;
 		}
 		else
 		{
-			$input_field .= '  <option value="'.$value[0].'">'.$value[1].'</option>'."\n";
+			$input_field .= '  <option value="'.$row['url'].'">'.( isset($act_words[$row['title']]) ? $act_words[$row['title']] : $row['title'] ).'</option>'."\n";
 		}
 	}
 	$input_field .= '</select>';

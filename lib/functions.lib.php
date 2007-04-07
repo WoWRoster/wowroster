@@ -991,12 +991,12 @@ function add_locale_file( $localefile , $locale , &$array )
 
 	if( isset($array[$locale]) )
 	{
-		$array[$locale] = array_merge($array[$locale], $lang);
+		$array[$locale] = array_merge_recursive($array[$locale], $lang);
 	}
 	else
 	{
 		$array[$locale] = array();
-		$array[$locale] = array_merge($array[$locale], $lang);
+		$array[$locale] = array_merge_recursive($array[$locale], $lang);
 	}
 
 	unset($lang);

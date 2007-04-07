@@ -35,8 +35,23 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 
 
 // Determine the module request
-$page = ( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) ) ? $_GET[ROSTER_PAGE] : $roster_conf['default_page'];
-
+if( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) )
+{
+	$page = $_GET[ROSTER_PAGE];
+}
+elseif( !strpos($roster_conf['default_page'], '&amp;') )
+{
+	$page = $roster_conf['default_page'];
+}
+else
+{
+	list($page, $gets) = explode('&amp;',$roster_conf['default_page'],2);
+	foreach( explode('&amp;',$gets) as $get )
+	{
+		list($key, $value) = explode('=',$get,2);
+		$_GET[$key] = $value;
+	}
+}
 
 define('ROSTER_PAGE_NAME', $page);
 

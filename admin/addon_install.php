@@ -357,7 +357,13 @@ function processAddon()
 				$installer->seterrors(sprintf($act_words['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$wowdb->query('INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")');
+			$query = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")';
+			$result = $wowdb->query($query);
+			if( !$result )
+			{
+				$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:'.$wowdb->error(),$act_words['installer_error']);
+				return;
+			}
 			$installer->addata['addon_id'] = $wowdb->insert_id();
 			$success = $addon->install();
 			$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$installer->addata['active'];
@@ -375,7 +381,13 @@ function processAddon()
 				break;
 			}
 
-			$wowdb->query('UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id']);
+			$query = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
+			$result = $wowdb->query($query);
+			if( !$result )
+			{
+				$installer->seterrors('DB error while updating the addon record. <br /> MySQL said:'.$wowdb->error(),$act_words['installer_error']);
+				return;
+			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
 			$success = $addon->upgrade($previous['basename'],$previous['version']);
 			break;
@@ -391,7 +403,13 @@ function processAddon()
 				$installer->seterrors(sprintf($act_words['installer_not_uninstallable'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$wowdb->query('DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id']);
+			$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id'];
+			$result = $wowdb->query($query);
+			if( !$result )
+			{
+				$installer->seterrors('DB error while deleting the addon record. <br /> MySQL said:'.$wowdb->error(),$act_words['installer_error']);
+				return;
+			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
 			$success = $addon->uninstall();
 			break;
