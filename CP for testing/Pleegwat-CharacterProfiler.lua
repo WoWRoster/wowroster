@@ -37,12 +37,620 @@ myProfile = {
 				["GPprovider"] = "rpgo",
 				["Server"] = "Aggramar",
 				["Created"] = "2006-4-2",
-				["Motd"] = "Hey, and welcome to all new members. **Officers only**: From now on dont recruit anyone in lower level than level 55.",
-				["FactionEn"] = "Horde",
+				["Motd"] = "happy birthday to me(grat) and tregha",
+				["Members"] = {
+					["Ayres"] = {
+						["Zone"] = "Undercity",
+						["Class"] = "Rogue",
+						["Name"] = "Ayres",
+						["LastOnline"] = "0:0:0:1",
+						["Level"] = 37,
+						["Rank"] = 6,
+					},
+					["Firesham"] = {
+						["Note"] = "tailoring 210 ench 150 ATM -- N",
+						["Zone"] = "Silverpine Forest",
+						["Class"] = "Shaman",
+						["Name"] = "Firesham",
+						["LastOnline"] = "0:0:29:1",
+						["Level"] = 36,
+						["Rank"] = 5,
+					},
+					["Golamo"] = {
+						["Note"] = "moo 2 you",
+						["Zone"] = "Thousand Needles",
+						["Class"] = "Paladin",
+						["Name"] = "Golamo",
+						["LastOnline"] = "0:0:0:2",
+						["Level"] = 30,
+						["Rank"] = 1,
+					},
+					["Aiwan"] = {
+						["Zone"] = "The Slave Pens",
+						["Class"] = "Rogue",
+						["Name"] = "Aiwan",
+						["LastOnline"] = "0:0:20:13",
+						["Level"] = 70,
+						["Rank"] = 4,
+					},
+					["Azyplagat"] = {
+						["Zone"] = "Stranglethorn Vale",
+						["Class"] = "Warrior",
+						["Name"] = "Azyplagat",
+						["LastOnline"] = "0:0:21:23",
+						["Level"] = 42,
+						["Rank"] = 4,
+					},
+					["Cashdefender"] = {
+						["Note"] = "Urgal's alt/merchanter",
+						["Zone"] = "Orgrimmar",
+						["Class"] = "Rogue",
+						["Name"] = "Cashdefender",
+						["LastOnline"] = "0:0:2:8",
+						["Level"] = 19,
+						["Rank"] = 3,
+					},
+					["Balake"] = {
+						["Note"] = "Golama's alt",
+						["Zone"] = "Hellfire Peninsula",
+						["Class"] = "Warrior",
+						["Name"] = "Balake",
+						["LastOnline"] = "0:0:11:1",
+						["Level"] = 60,
+						["Rank"] = 1,
+					},
+					["Ravenmaster"] = {
+						["Zone"] = "Durotar",
+						["Class"] = "Rogue",
+						["Name"] = "Ravenmaster",
+						["LastOnline"] = "0:0:27:0",
+						["Level"] = 11,
+						["Rank"] = 6,
+					},
+					["Stegman"] = {
+						["Zone"] = "Orgrimmar",
+						["Class"] = "Hunter",
+						["Name"] = "Stegman",
+						["LastOnline"] = "0:0:0:6",
+						["Level"] = 47,
+						["Rank"] = 6,
+					},
+					["Viscount"] = {
+						["Note"] = ".",
+						["Zone"] = "Shattrath City",
+						["Class"] = "Shaman",
+						["Name"] = "Viscount",
+						["LastOnline"] = "0:0:1:5",
+						["Level"] = 70,
+						["Rank"] = 2,
+					},
+					["Firevox"] = {
+						["Zone"] = "Nagrand",
+						["Class"] = "Mage",
+						["Name"] = "Firevox",
+						["LastOnline"] = "0:0:0:1",
+						["Level"] = 65,
+						["Rank"] = 5,
+					},
+					["Darkrangers"] = {
+						["Note"] = "Bugstar's Alt",
+						["Class"] = "Warrior",
+						["Name"] = "Darkrangers",
+						["LastOnline"] = "0:0:8:5",
+						["Level"] = 35,
+						["Rank"] = 5,
+					},
+					["Bugstaralt"] = {
+						["Note"] = "Alt for Bugstar",
+						["Zone"] = "Ashenvale",
+						["Class"] = "Paladin",
+						["Name"] = "Bugstaralt",
+						["LastOnline"] = "0:0:9:2",
+						["Level"] = 21,
+						["Rank"] = 5,
+					},
+					["Rockard"] = {
+						["Note"] = "full on fury warrior",
+						["Zone"] = "Shadowmoon Valley",
+						["Class"] = "Warrior",
+						["Name"] = "Rockard",
+						["LastOnline"] = "0:0:5:14",
+						["Level"] = 70,
+						["Rank"] = 4,
+					},
+					["Larsi"] = {
+						["Note"] = "woof",
+						["Zone"] = "Hellfire Peninsula",
+						["Class"] = "Shaman",
+						["Name"] = "Larsi",
+						["LastOnline"] = "0:0:14:0",
+						["Level"] = 62,
+						["Rank"] = 5,
+					},
+					["Aarseter"] = {
+						["Note"] = "ik eet aars",
+						["Zone"] = "The Barrens",
+						["Class"] = "Shaman",
+						["Online"] = 1,
+						["Name"] = "Aarseter",
+						["Level"] = 13,
+						["Rank"] = 6,
+					},
+					["Thandar"] = {
+						["Note"] = "dutch",
+						["Zone"] = "Thousand Needles",
+						["Class"] = "Rogue",
+						["Name"] = "Thandar",
+						["LastOnline"] = "0:0:0:4",
+						["Level"] = 31,
+						["Rank"] = 5,
+					},
+					["Luige"] = {
+						["Zone"] = "Shattrath City",
+						["Class"] = "Warrior",
+						["Name"] = "Luige",
+						["LastOnline"] = "0:0:2:5",
+						["Level"] = 66,
+						["Rank"] = 6,
+					},
+					["Hofsuger"] = {
+						["Note"] = "Ugly",
+						["Zone"] = "Stranglethorn Vale",
+						["Class"] = "Warrior",
+						["Name"] = "Hofsuger",
+						["LastOnline"] = "0:0:20:10",
+						["Level"] = 35,
+						["Rank"] = 5,
+					},
+					["Tregha"] = {
+						["Note"] = "woof",
+						["Zone"] = "Stranglethorn Vale",
+						["Class"] = "Rogue",
+						["Name"] = "Tregha",
+						["LastOnline"] = "0:0:0:0",
+						["Level"] = 28,
+						["Rank"] = 5,
+					},
+					["Mizuti"] = {
+						["Note"] = "mizuti/sam/nederlands",
+						["Zone"] = "Hellfire Peninsula",
+						["Class"] = "Hunter",
+						["Name"] = "Mizuti",
+						["LastOnline"] = "0:0:0:6",
+						["OfficerNote"] = "holland",
+						["Level"] = 70,
+						["Rank"] = 3,
+					},
+					["Dhmoon"] = {
+						["Note"] = "Restoration",
+						["Zone"] = "The Shattered Halls",
+						["Class"] = "Shaman",
+						["Online"] = 1,
+						["Name"] = "Dhmoon",
+						["Level"] = 70,
+						["Rank"] = 3,
+					},
+					["Illiidan"] = {
+						["Note"] = "Nederlands^^",
+						["Zone"] = "The Barrens",
+						["Class"] = "Priest",
+						["Name"] = "Illiidan",
+						["LastOnline"] = "0:0:0:4",
+						["Level"] = 27,
+						["Rank"] = 5,
+					},
+					["Theflint"] = {
+						["Note"] = "I'm A newby with awesome bootie",
+						["Zone"] = "The Barrens",
+						["Class"] = "Shaman",
+						["Name"] = "Theflint",
+						["LastOnline"] = "0:0:20:1",
+						["Level"] = 16,
+						["Rank"] = 5,
+					},
+					["Sudden"] = {
+						["Zone"] = "Zangarmarsh",
+						["Class"] = "Druid",
+						["Name"] = "Sudden",
+						["LastOnline"] = "0:0:0:4",
+						["Level"] = 66,
+						["Rank"] = 5,
+					},
+					["Telwbank"] = {
+						["Note"] = "woof",
+						["Zone"] = "Thunder Bluff",
+						["Class"] = "Shaman",
+						["Name"] = "Telwbank",
+						["LastOnline"] = "0:0:2:1",
+						["Level"] = 5,
+						["Rank"] = 6,
+					},
+					["Shamán"] = {
+						["Zone"] = "Durotar",
+						["Class"] = "Shaman",
+						["Name"] = "Shamán",
+						["LastOnline"] = "0:0:4:5",
+						["Level"] = 6,
+						["Rank"] = 6,
+					},
+					["Broken"] = {
+						["Note"] = "kanker gierig",
+						["Zone"] = "Nagrand",
+						["Class"] = "Hunter",
+						["Name"] = "Broken",
+						["LastOnline"] = "0:0:0:4",
+						["OfficerNote"] = "lama",
+						["Level"] = 64,
+						["Rank"] = 2,
+					},
+					["Icespitter"] = {
+						["Zone"] = "Hillsbrad Foothills",
+						["Class"] = "Mage",
+						["Name"] = "Icespitter",
+						["LastOnline"] = "0:0:6:1",
+						["Level"] = 21,
+						["Rank"] = 5,
+					},
+					["Sharpshoter"] = {
+						["Zone"] = "Scarlet Monastery",
+						["Class"] = "Hunter",
+						["Name"] = "Sharpshoter",
+						["LastOnline"] = "0:0:10:4",
+						["Level"] = 28,
+						["Rank"] = 6,
+					},
+					["Azaraka"] = {
+						["Note"] = "grateno's alt",
+						["Zone"] = "Thousand Needles",
+						["Class"] = "Priest",
+						["Name"] = "Azaraka",
+						["LastOnline"] = "0:0:0:5",
+						["Level"] = 29,
+						["Rank"] = 3,
+					},
+					["Grateno"] = {
+						["Note"] = "WOOF",
+						["Zone"] = "Tirisfal Glades",
+						["Class"] = "Warlock",
+						["Name"] = "Grateno",
+						["LastOnline"] = "0:0:0:0",
+						["Level"] = 70,
+						["Rank"] = 2,
+					},
+					["Midnan"] = {
+						["Zone"] = "Stranglethorn Vale",
+						["Class"] = "Paladin",
+						["Name"] = "Midnan",
+						["LastOnline"] = "0:0:0:4",
+						["Level"] = 28,
+						["Rank"] = 6,
+					},
+					["Ferreg"] = {
+						["Zone"] = "Silvermoon City",
+						["Class"] = "Priest",
+						["Name"] = "Ferreg",
+						["LastOnline"] = "0:0:27:12",
+						["Level"] = 18,
+						["Rank"] = 5,
+					},
+					["Killingspre"] = {
+						["Zone"] = "The Barrens",
+						["Class"] = "Rogue",
+						["Name"] = "Killingspre",
+						["LastOnline"] = "0:0:0:4",
+						["Level"] = 19,
+						["Rank"] = 6,
+					},
+					["Daroth"] = {
+						["Zone"] = "Zangarmarsh",
+						["Class"] = "Hunter",
+						["Online"] = 1,
+						["Name"] = "Daroth",
+						["Level"] = 62,
+						["Rank"] = 6,
+					},
+					["Azzmaster"] = {
+						["Note"] = "woof",
+						["Zone"] = "Tanaris",
+						["Class"] = "Mage",
+						["Name"] = "Azzmaster",
+						["LastOnline"] = "0:0:4:1",
+						["OfficerNote"] = "holland",
+						["Level"] = 45,
+						["Rank"] = 5,
+					},
+					["Ikini"] = {
+						["Zone"] = "Undercity",
+						["Class"] = "Warlock",
+						["Online"] = 1,
+						["Name"] = "Ikini",
+						["Status"] = "<AFK>",
+						["Level"] = 39,
+						["Rank"] = 6,
+					},
+					["Savagequake"] = {
+						["Note"] = "drugs are bad m'kay",
+						["Zone"] = "Shadowmoon Valley",
+						["Class"] = "Shaman",
+						["Name"] = "Savagequake",
+						["LastOnline"] = "0:0:0:0",
+						["Level"] = 70,
+						["Rank"] = 4,
+					},
+					["Cooldown"] = {
+						["Note"] = "Good enchanter :D",
+						["Zone"] = "Orgrimmar",
+						["Class"] = "Mage",
+						["Name"] = "Cooldown",
+						["LastOnline"] = "0:0:0:4",
+						["OfficerNote"] = "Holland FTW :P",
+						["Level"] = 53,
+						["Rank"] = 2,
+					},
+					["Cluny"] = {
+						["Zone"] = "Blade's Edge Mountains",
+						["Class"] = "Warlock",
+						["Name"] = "Cluny",
+						["LastOnline"] = "0:0:0:1",
+						["Level"] = 67,
+						["Rank"] = 5,
+					},
+					["Golama"] = {
+						["Note"] = "moo",
+						["Zone"] = "Tanaris",
+						["Class"] = "Druid",
+						["Name"] = "Golama",
+						["LastOnline"] = "0:0:0:0",
+						["OfficerNote"] = "holland",
+						["Level"] = 70,
+						["Rank"] = 0,
+					},
+					["Darknagar"] = {
+						["Note"] = "woof",
+						["Zone"] = "Undercity",
+						["Class"] = "Mage",
+						["Name"] = "Darknagar",
+						["LastOnline"] = "0:0:0:1",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Azymyrta"] = {
+						["Note"] = "Tailor - Netherweave welcome",
+						["Zone"] = "Tanaris",
+						["Class"] = "Warlock",
+						["Online"] = 1,
+						["Name"] = "Azymyrta",
+						["Level"] = 70,
+						["Rank"] = 2,
+					},
+					["Nimees"] = {
+						["Note"] = "Enchanting",
+						["Zone"] = "Thousand Needles",
+						["Class"] = "Warlock",
+						["Name"] = "Nimees",
+						["LastOnline"] = "0:0:5:13",
+						["OfficerNote"] = "Nimees Hopland",
+						["Level"] = 29,
+						["Rank"] = 5,
+					},
+					["Speediena"] = {
+						["Note"] = "Enhancement / elemental",
+						["Zone"] = "Blade's Edge Mountains",
+						["Class"] = "Shaman",
+						["Online"] = 1,
+						["Name"] = "Speediena",
+						["Level"] = 69,
+						["Rank"] = 5,
+					},
+					["Darkemi"] = {
+						["Zone"] = "Orgrimmar",
+						["Class"] = "Warlock",
+						["Name"] = "Darkemi",
+						["LastOnline"] = "0:0:2:4",
+						["Level"] = 30,
+						["Rank"] = 6,
+					},
+					["Bugstar"] = {
+						["Note"] = "woof",
+						["Zone"] = "Nagrand",
+						["Class"] = "Shaman",
+						["Name"] = "Bugstar",
+						["LastOnline"] = "0:0:1:0",
+						["Level"] = 66,
+						["Rank"] = 2,
+					},
+					["Boriscrusher"] = {
+						["Note"] = ">mizuti< ",
+						["Zone"] = "Hellfire Peninsula",
+						["Class"] = "Warrior",
+						["Name"] = "Boriscrusher",
+						["LastOnline"] = "0:0:0:6",
+						["Level"] = 60,
+						["Rank"] = 5,
+					},
+					["Wurrmal"] = {
+						["Note"] = "Engineer/Miner",
+						["Zone"] = "Shattrath City",
+						["Class"] = "Hunter",
+						["Name"] = "Wurrmal",
+						["LastOnline"] = "0:0:8:2",
+						["Level"] = 70,
+						["Rank"] = 4,
+					},
+					["Glowbo"] = {
+						["Note"] = "tailoring/skinning",
+						["Zone"] = "Undercity",
+						["Class"] = "Mage",
+						["Name"] = "Glowbo",
+						["LastOnline"] = "0:0:4:10",
+						["OfficerNote"] = "holland",
+						["Level"] = 46,
+						["Rank"] = 5,
+					},
+					["Beetyswollac"] = {
+						["Note"] = "woof",
+						["Zone"] = "Hillsbrad Foothills",
+						["Class"] = "Shaman",
+						["Name"] = "Beetyswollac",
+						["LastOnline"] = "0:0:0:3",
+						["OfficerNote"] = "Gratz on L70",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Snow"] = {
+						["Zone"] = "Stranglethorn Vale",
+						["Class"] = "Hunter",
+						["Name"] = "Snow",
+						["LastOnline"] = "0:0:0:0",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Vumer"] = {
+						["Note"] = "woof",
+						["Zone"] = "Hellfire Peninsula",
+						["Class"] = "Priest",
+						["Name"] = "Vumer",
+						["LastOnline"] = "0:0:4:1",
+						["Level"] = 64,
+						["Rank"] = 5,
+					},
+					["Quqbec"] = {
+						["Zone"] = "Undercity",
+						["Class"] = "Rogue",
+						["Name"] = "Quqbec",
+						["LastOnline"] = "0:0:2:6",
+						["Level"] = 41,
+						["Rank"] = 6,
+					},
+					["Achillesy"] = {
+						["Note"] = "woof",
+						["Zone"] = "Thunder Bluff",
+						["Class"] = "Warrior",
+						["Name"] = "Achillesy",
+						["LastOnline"] = "0:0:13:5",
+						["Level"] = 24,
+						["Rank"] = 5,
+					},
+					["Dzabadzaba"] = {
+						["Zone"] = "Nagrand",
+						["Class"] = "Warrior",
+						["Name"] = "Dzabadzaba",
+						["LastOnline"] = "0:0:3:8",
+						["Level"] = 67,
+						["Rank"] = 4,
+					},
+					["Dryneax"] = {
+						["Note"] = "Ugly",
+						["Zone"] = "Shattrath City",
+						["Class"] = "Priest",
+						["Name"] = "Dryneax",
+						["LastOnline"] = "0:0:10:7",
+						["Level"] = 28,
+						["Rank"] = 5,
+					},
+					["Strip"] = {
+						["Zone"] = "Hellfire Peninsula",
+						["Class"] = "Warlock",
+						["Name"] = "Strip",
+						["LastOnline"] = "0:0:1:0",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Xavarash"] = {
+						["Note"] = "Tailor 366, Enc 284",
+						["Zone"] = "Orgrimmar",
+						["Class"] = "Warlock",
+						["Name"] = "Xavarash",
+						["LastOnline"] = "0:0:0:3",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Oekbah"] = {
+						["Note"] = "fuck the  person who said that",
+						["Zone"] = "Orgrimmar",
+						["Class"] = "Warrior",
+						["Name"] = "Oekbah",
+						["LastOnline"] = "0:0:1:6",
+						["OfficerNote"] = "Not very active in dungeons",
+						["Level"] = 53,
+						["Rank"] = 5,
+					},
+					["Yamono"] = {
+						["Note"] = "woof",
+						["Zone"] = "Shattrath City",
+						["Class"] = "Shaman",
+						["Name"] = "Yamono",
+						["LastOnline"] = "0:0:0:23",
+						["Level"] = 65,
+						["Rank"] = 6,
+					},
+					["Phantomsw"] = {
+						["Note"] = "Miner/Blacksmith",
+						["Zone"] = "Nagrand",
+						["Class"] = "Warrior",
+						["Name"] = "Phantomsw",
+						["LastOnline"] = "0:0:6:10",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Rillon"] = {
+						["Zone"] = "Zangarmarsh",
+						["Class"] = "Rogue",
+						["Online"] = 1,
+						["Name"] = "Rillon",
+						["Level"] = 62,
+						["Rank"] = 5,
+					},
+					["Labrie"] = {
+						["Zone"] = "Undercity",
+						["Class"] = "Priest",
+						["Online"] = 1,
+						["Name"] = "Labrie",
+						["Level"] = 70,
+						["Rank"] = 6,
+					},
+					["Nomeat"] = {
+						["Zone"] = "Dire Maul",
+						["Class"] = "Mage",
+						["Name"] = "Nomeat",
+						["LastOnline"] = "0:0:24:19",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Croziz"] = {
+						["Note"] = "Enchanter/Jeweler",
+						["Zone"] = "Shattrath City",
+						["Class"] = "Paladin",
+						["Name"] = "Croziz",
+						["LastOnline"] = "0:0:0:6",
+						["Level"] = 70,
+						["Rank"] = 5,
+					},
+					["Honalulu"] = {
+						["Note"] = "alch/herb",
+						["Zone"] = "Nagrand",
+						["Class"] = "Priest",
+						["Name"] = "Honalulu",
+						["LastOnline"] = "0:0:1:9",
+						["Level"] = 66,
+						["Rank"] = 5,
+					},
+					["Sneakypeak"] = {
+						["Zone"] = "Feralas",
+						["Class"] = "Rogue",
+						["Name"] = "Sneakypeak",
+						["LastOnline"] = "0:0:0:9",
+						["Level"] = 40,
+						["Rank"] = 6,
+					},
+				},
 				["DBversion"] = "2.0.0",
 				["Name"] = "the everlasting wind",
-				["Faction"] = "Horde",
-				["NumAccounts"] = "49",
+				["ScanInfo"] = {
+					["HasOfficerNote"] = true,
+					["Character"] = "Azymyrta",
+				},
+				["FactionEn"] = "Horde",
 				["Ranks"] = {
 					{
 						["Title"] = "2e in Comand",
@@ -54,7 +662,7 @@ myProfile = {
 					}, -- [2]
 					{
 						["Title"] = "Elite Wind",
-						["Control"] = "1:1:0:1:0:0:0:0:0:1:1:0:0",
+						["Control"] = "1:1:0:1:0:0:1:0:0:1:1:0:0",
 					}, -- [3]
 					{
 						["Title"] = "Member",
@@ -73,7 +681,7 @@ myProfile = {
 						["Control"] = "1:1:1:1:1:1:1:1:1:1:1:1:1",
 					},
 				},
-				["NumMembers"] = 64,
+				["NumMembers"] = 69,
 				["History"] = {
 					{
 						["member"] = "Darkavenger",
@@ -116,22 +724,22 @@ myProfile = {
 						["time"] = 1169666564,
 					}, -- [8]
 					{
-						["time"] = 1169750337,
-						["member"] = "Icespitter",
 						["info"] = "by:Azymyrta",
+						["member"] = "Icespitter",
 						["action"] = "JOIN",
+						["time"] = 1169750337,
 					}, -- [9]
 					{
-						["action"] = "PROMOTE",
-						["member"] = "Ferreg",
 						["time"] = 1170184064,
+						["member"] = "Ferreg",
 						["info"] = "by:Golama;to:member",
+						["action"] = "PROMOTE",
 					}, -- [10]
 					{
-						["action"] = "PROMOTE",
-						["member"] = "Asukaa",
 						["time"] = 1170184067,
+						["member"] = "Asukaa",
 						["info"] = "by:Golama;to:member",
+						["action"] = "PROMOTE",
 					}, -- [11]
 					{
 						["member"] = "Sharpshoter",
@@ -139,16 +747,16 @@ myProfile = {
 						["time"] = 1170245320,
 					}, -- [12]
 					{
-						["time"] = 1170330632,
-						["member"] = "Azyjupido",
 						["info"] = "by:Azymyrta;to:member",
+						["member"] = "Azyjupido",
 						["action"] = "PROMOTE",
+						["time"] = 1170330632,
 					}, -- [13]
 					{
-						["time"] = 1170330633,
-						["member"] = "Azyjupido",
 						["info"] = "by:Azymyrta;to:member",
+						["member"] = "Azyjupido",
 						["action"] = "PROMOTE",
+						["time"] = 1170330633,
 					}, -- [14]
 					{
 						["member"] = "Agnatos",
@@ -181,22 +789,22 @@ myProfile = {
 						["time"] = 1170449052,
 					}, -- [20]
 					{
-						["time"] = 1170449057,
-						["member"] = "Viscount",
 						["info"] = "by:Broken;to:member",
+						["member"] = "Viscount",
 						["action"] = "PROMOTE",
+						["time"] = 1170449057,
 					}, -- [21]
 					{
-						["time"] = 1170449057,
-						["member"] = "Viscount",
 						["info"] = "by:Broken;to:member",
+						["member"] = "Viscount",
 						["action"] = "PROMOTE",
+						["time"] = 1170449057,
 					}, -- [22]
 					{
-						["time"] = 1170449060,
-						["member"] = "Viscount",
 						["info"] = "by:Broken;to:elite wind",
+						["member"] = "Viscount",
 						["action"] = "PROMOTE",
+						["time"] = 1170449060,
 					}, -- [23]
 					{
 						["member"] = "Aiwan",
@@ -209,10 +817,10 @@ myProfile = {
 						["time"] = 1170794793,
 					}, -- [25]
 					{
-						["info"] = "by:Azymyrta",
-						["member"] = "Telwbank",
 						["action"] = "JOIN",
+						["member"] = "Telwbank",
 						["time"] = 1170797191,
+						["info"] = "by:Azymyrta",
 					}, -- [26]
 					{
 						["member"] = "Wurrmal",
@@ -225,10 +833,10 @@ myProfile = {
 						["time"] = 1171142086,
 					}, -- [28]
 					{
-						["time"] = 1171196987,
-						["member"] = "Dhmoon",
 						["info"] = "by:Golama;to:elite wind",
+						["member"] = "Dhmoon",
 						["action"] = "PROMOTE",
+						["time"] = 1171196987,
 					}, -- [29]
 					{
 						["member"] = "Phantomsw",
@@ -241,13 +849,128 @@ myProfile = {
 						["time"] = 1171484565,
 					}, -- [31]
 					{
-						["action"] = "PROMOTE",
-						["member"] = "Rogt",
 						["time"] = 1171484753,
+						["member"] = "Rogt",
 						["info"] = "by:Golama;to:member",
+						["action"] = "PROMOTE",
 					}, -- [32]
+					{
+						["action"] = "PROMOTE",
+						["member"] = "Azyplagat",
+						["time"] = 1174320070,
+						["info"] = "by:Azymyrta;to:member",
+					}, -- [33]
+					{
+						["action"] = "PROMOTE",
+						["member"] = "Azyplagat",
+						["time"] = 1174320070,
+						["info"] = "by:Azymyrta;to:Member",
+					}, -- [34]
+					{
+						["action"] = "PROMOTE",
+						["member"] = "Azyplagat",
+						["time"] = 1174320071,
+						["info"] = "by:Azymyrta;to:Elite Wind",
+					}, -- [35]
+					{
+						["action"] = "DEMOTE",
+						["member"] = "Azyplagat",
+						["time"] = 1174320072,
+						["info"] = "by:Azymyrta;to:Member",
+					}, -- [36]
+					{
+						["info"] = "by:Golama;to:member",
+						["member"] = "Tregha",
+						["action"] = "PROMOTE",
+						["time"] = 1175105000,
+					}, -- [37]
+					{
+						["info"] = "by:Grateno;to:trialer",
+						["member"] = "Snow",
+						["action"] = "DEMOTE",
+						["time"] = 1175105102,
+					}, -- [38]
+					{
+						["info"] = "by:Grateno;to:member",
+						["member"] = "Snow",
+						["action"] = "PROMOTE",
+						["time"] = 1175105106,
+					}, -- [39]
+					{
+						["info"] = "by:Golama",
+						["member"] = "Grateno",
+						["action"] = "REMOVE",
+						["time"] = 1175105759,
+					}, -- [40]
+					{
+						["member"] = "Grateno",
+						["action"] = "JOIN",
+						["time"] = 1175105771,
+					}, -- [41]
+					{
+						["info"] = "by:Golama;to:member",
+						["member"] = "Grateno",
+						["action"] = "PROMOTE",
+						["time"] = 1175105780,
+					}, -- [42]
+					{
+						["info"] = "by:Golama;to:Member",
+						["member"] = "Grateno",
+						["action"] = "PROMOTE",
+						["time"] = 1175105782,
+					}, -- [43]
+					{
+						["info"] = "by:Golama;to:Elite Wind",
+						["member"] = "Grateno",
+						["action"] = "PROMOTE",
+						["time"] = 1175105783,
+					}, -- [44]
+					{
+						["info"] = "by:Golama;to:Wind Comander",
+						["member"] = "Grateno",
+						["action"] = "PROMOTE",
+						["time"] = 1175105785,
+					}, -- [45]
+					{
+						["info"] = "by:Golama;to:member",
+						["member"] = "Gorginio",
+						["action"] = "PROMOTE",
+						["time"] = 1175106005,
+					}, -- [46]
+					{
+						["member"] = "Shamán",
+						["action"] = "JOIN",
+						["time"] = 1175106880,
+					}, -- [47]
+					{
+						["member"] = "Labrie",
+						["action"] = "JOIN",
+						["time"] = 1175795830,
+					}, -- [48]
+					{
+						["member"] = "Ikini",
+						["action"] = "JOIN",
+						["time"] = 1175795966,
+					}, -- [49]
+					{
+						["member"] = "Ayres",
+						["action"] = "JOIN",
+						["time"] = 1175797995,
+					}, -- [50]
+					{
+						["info"] = "by:Golama;to:member",
+						["member"] = "Rillon",
+						["action"] = "PROMOTE",
+						["time"] = 1175798180,
+					}, -- [51]
+					{
+						["member"] = "Daroth",
+						["action"] = "JOIN",
+						["time"] = 1175799371,
+					}, -- [52]
 				},
 				["Info"] = "\n***THE EVERLASTING WIND*******\n\nCLASLEADERS:\nGolama=Druid\nshaman=Viscount\nwarlock=\nwarrior=\nmage=\nrogue=\npaladin=\npriest=\n\n*****Terms of use (sort off :P)******\n1.only inv people you like playing whit\n2. dont spamm the guild chat\n3.dont spamm caps lock\n4. get all needed addons working\n\n******Adoons needed***********\n\nhttp://Leegwater-68.demon.nl/forum\n",
+				["Faction"] = "Horde",
 				["Control"] = {
 					"Guildchat Listen", -- [1]
 					"Guildchat Speak", -- [2]
@@ -263,576 +986,17 @@ myProfile = {
 					"Edit Officer Note", -- [12]
 					"Modify Guild Info", -- [13]
 				},
-				["ScanInfo"] = {
-					["HasOfficerNote"] = true,
-					["Character"] = "Azymyrta",
-				},
 				["timestamp"] = {
-					["Members"] = 1173630938,
+					["Members"] = 1175805773,
 					["init"] = {
-						["datakey"] = "eu:2.0.10:6448",
-						["TimeStamp"] = 1173630938,
-						["Date"] = "2007-03-11 17:35:38",
-						["ServerTime"] = "17:38",
-						["DateUTC"] = "2007-03-11 16:35:38",
+						["datakey"] = "eu:2.0.12:6546",
+						["TimeStamp"] = 1175805773,
+						["Date"] = "2007-04-05 22:42:53",
+						["ServerTime"] = "22:45",
+						["DateUTC"] = "2007-04-05 20:42:53",
 					},
 				},
-				["Members"] = {
-					["Golama"] = {
-						["Note"] = "mooozaa",
-						["Zone"] = "Shadowfang Keep",
-						["Class"] = "Druid",
-						["Name"] = "Golama",
-						["LastOnline"] = "0:0:1:2",
-						["OfficerNote"] = "holland",
-						["Level"] = 70,
-						["Rank"] = 0,
-					},
-					["Sharpshoter"] = {
-						["Zone"] = "Thousand Needles",
-						["Class"] = "Hunter",
-						["Name"] = "Sharpshoter",
-						["LastOnline"] = "0:0:3:1",
-						["Level"] = 28,
-						["Rank"] = 6,
-					},
-					["Azaraka"] = {
-						["Note"] = "grateno's alt",
-						["Zone"] = "The Barrens",
-						["Class"] = "Priest",
-						["Online"] = 1,
-						["Name"] = "Azaraka",
-						["Level"] = 22,
-						["Rank"] = 5,
-					},
-					["Balake"] = {
-						["Note"] = "Golama's alt",
-						["Zone"] = "Hellfire Peninsula",
-						["Class"] = "Warrior",
-						["Name"] = "Balake",
-						["LastOnline"] = "0:0:5:21",
-						["Level"] = 60,
-						["Rank"] = 1,
-					},
-					["Firesham"] = {
-						["Note"] = "tailoring 210 ench 150 ATM -- N",
-						["Zone"] = "Silverpine Forest",
-						["Class"] = "Shaman",
-						["Name"] = "Firesham",
-						["LastOnline"] = "0:0:3:21",
-						["Level"] = 36,
-						["Rank"] = 5,
-					},
-					["Vumer"] = {
-						["Zone"] = "Shattrath City",
-						["Class"] = "Priest",
-						["Name"] = "Vumer",
-						["LastOnline"] = "0:0:1:18",
-						["Level"] = 60,
-						["Rank"] = 6,
-					},
-					["Nomeat"] = {
-						["Zone"] = "The Barrens",
-						["Class"] = "Mage",
-						["Name"] = "Nomeat",
-						["LastOnline"] = "0:0:4:20",
-						["Level"] = 70,
-						["Rank"] = 5,
-					},
-					["Golamo"] = {
-						["Note"] = "moo 2 you",
-						["Zone"] = "Ragefire Chasm",
-						["Class"] = "Paladin",
-						["Name"] = "Golamo",
-						["LastOnline"] = "0:0:0:5",
-						["Level"] = 25,
-						["Rank"] = 1,
-					},
-					["Aiorrk"] = {
-						["Zone"] = "Netherstorm",
-						["Class"] = "Druid",
-						["Name"] = "Aiorrk",
-						["LastOnline"] = "0:0:6:17",
-						["Level"] = 70,
-						["Rank"] = 5,
-					},
-					["Azymonda"] = {
-						["Note"] = "Azymyrta's alt, tailor",
-						["Zone"] = "Thunder Bluff",
-						["Class"] = "Mage",
-						["Name"] = "Azymonda",
-						["LastOnline"] = "0:1:21:18",
-						["Level"] = 22,
-						["Rank"] = 4,
-					},
-					["Grateno"] = {
-						["Note"] = "/yawn",
-						["Zone"] = "Netherstorm",
-						["Class"] = "Warlock",
-						["Name"] = "Grateno",
-						["LastOnline"] = "0:0:0:5",
-						["OfficerNote"] = "holland XD",
-						["Level"] = 70,
-						["Rank"] = 2,
-					},
-					["Ferreg"] = {
-						["Zone"] = "Silvermoon City",
-						["Class"] = "Priest",
-						["Name"] = "Ferreg",
-						["LastOnline"] = "0:0:2:8",
-						["Level"] = 18,
-						["Rank"] = 5,
-					},
-					["Azymyrta"] = {
-						["Note"] = "Tailor - Guild first 61,2,3,4",
-						["Zone"] = "Shadowmoon Valley",
-						["Class"] = "Warlock",
-						["Online"] = 1,
-						["Name"] = "Azymyrta",
-						["Level"] = 70,
-						["Rank"] = 2,
-					},
-					["Bugstar"] = {
-						["Zone"] = "Nagrand",
-						["Class"] = "Shaman",
-						["Name"] = "Bugstar",
-						["LastOnline"] = "0:0:13:21",
-						["Level"] = 64,
-						["Rank"] = 2,
-					},
-					["Dryneax"] = {
-						["Note"] = "Ugly",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Priest",
-						["Name"] = "Dryneax",
-						["LastOnline"] = "0:0:1:19",
-						["Level"] = 28,
-						["Rank"] = 5,
-					},
-					["Konduum"] = {
-						["Zone"] = "Hellfire Peninsula",
-						["Class"] = "Warrior",
-						["Name"] = "Konduum",
-						["LastOnline"] = "0:0:8:2",
-						["Level"] = 61,
-						["Rank"] = 6,
-					},
-					["Cashdefender"] = {
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Rogue",
-						["Name"] = "Cashdefender",
-						["LastOnline"] = "0:0:0:5",
-						["Level"] = 19,
-						["Rank"] = 4,
-					},
-					["Gorginio"] = {
-						["Zone"] = "Hellfire Peninsula",
-						["Class"] = "Druid",
-						["Name"] = "Gorginio",
-						["LastOnline"] = "0:0:0:1",
-						["Level"] = 61,
-						["Rank"] = 5,
-					},
-					["Darkemi"] = {
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Warlock",
-						["Name"] = "Darkemi",
-						["LastOnline"] = "0:0:1:7",
-						["Level"] = 26,
-						["Rank"] = 6,
-					},
-					["Menegroth"] = {
-						["Zone"] = "Nagrand",
-						["Class"] = "Shaman",
-						["Name"] = "Menegroth",
-						["LastOnline"] = "0:0:0:3",
-						["Level"] = 67,
-						["Rank"] = 6,
-					},
-					["Rockard"] = {
-						["Note"] = "full on fury warrior",
-						["Zone"] = "Hellfire Peninsula",
-						["Class"] = "Warrior",
-						["Name"] = "Rockard",
-						["LastOnline"] = "0:0:1:1",
-						["Level"] = 70,
-						["Rank"] = 4,
-					},
-					["Aiwan"] = {
-						["Zone"] = "Netherstorm",
-						["Class"] = "Rogue",
-						["Online"] = 1,
-						["Name"] = "Aiwan",
-						["Level"] = 70,
-						["Rank"] = 4,
-					},
-					["Azzmaster"] = {
-						["Zone"] = "Undercity",
-						["Class"] = "Mage",
-						["Name"] = "Azzmaster",
-						["LastOnline"] = "0:0:4:22",
-						["OfficerNote"] = "holland",
-						["Level"] = 44,
-						["Rank"] = 5,
-					},
-					["Azyjupido"] = {
-						["Zone"] = "Ghostlands",
-						["Class"] = "Paladin",
-						["Name"] = "Azyjupido",
-						["LastOnline"] = "0:0:25:0",
-						["Level"] = 15,
-						["Rank"] = 4,
-					},
-					["Lifedrain"] = {
-						["Zone"] = "Thunder Bluff",
-						["Class"] = "Warlock",
-						["Name"] = "Lifedrain",
-						["LastOnline"] = "0:0:28:8",
-						["Level"] = 60,
-						["Rank"] = 6,
-					},
-					["Croziz"] = {
-						["Zone"] = "Terokkar Forest",
-						["Class"] = "Paladin",
-						["Name"] = "Croziz",
-						["LastOnline"] = "0:0:0:0",
-						["Level"] = 70,
-						["Rank"] = 6,
-					},
-					["Savagequake"] = {
-						["Note"] = "...              shut up",
-						["Zone"] = "Blade's Edge Mountains",
-						["Class"] = "Shaman",
-						["Name"] = "Savagequake",
-						["LastOnline"] = "0:0:0:6",
-						["Level"] = 67,
-						["Rank"] = 4,
-					},
-					["Ravenmaster"] = {
-						["Zone"] = "Durotar",
-						["Class"] = "Rogue",
-						["Name"] = "Ravenmaster",
-						["LastOnline"] = "0:0:1:20",
-						["Level"] = 11,
-						["Rank"] = 6,
-					},
-					["Wurrmal"] = {
-						["Note"] = "Engineer/Miner",
-						["Zone"] = "Netherstorm",
-						["Class"] = "Hunter",
-						["Online"] = 1,
-						["Name"] = "Wurrmal",
-						["Level"] = 69,
-						["Rank"] = 4,
-					},
-					["Dzabadzaba"] = {
-						["Zone"] = "Zangarmarsh",
-						["Class"] = "Warrior",
-						["Name"] = "Dzabadzaba",
-						["LastOnline"] = "0:0:1:23",
-						["Level"] = 63,
-						["Rank"] = 4,
-					},
-					["Cooldown"] = {
-						["Note"] = "Good enchanter :D",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Mage",
-						["Name"] = "Cooldown",
-						["LastOnline"] = "0:0:4:1",
-						["OfficerNote"] = "Holland FTW :P",
-						["Level"] = 53,
-						["Rank"] = 2,
-					},
-					["Xavarash"] = {
-						["Note"] = "Tailor 357, Enc 255",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Warlock",
-						["Name"] = "Xavarash",
-						["LastOnline"] = "0:0:1:4",
-						["Level"] = 70,
-						["Rank"] = 5,
-					},
-					["Gyos"] = {
-						["Zone"] = "Silvermoon City",
-						["Class"] = "Mage",
-						["Name"] = "Gyos",
-						["LastOnline"] = "0:0:21:4",
-						["Level"] = 16,
-						["Rank"] = 6,
-					},
-					["Phantomsw"] = {
-						["Zone"] = "Terokkar Forest",
-						["Class"] = "Warrior",
-						["Name"] = "Phantomsw",
-						["LastOnline"] = "0:0:0:0",
-						["Level"] = 70,
-						["Rank"] = 5,
-					},
-					["Viscount"] = {
-						["Note"] = "fuck off",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Shaman",
-						["Online"] = 1,
-						["Name"] = "Viscount",
-						["Status"] = "<AFK>",
-						["Level"] = 70,
-						["Rank"] = 2,
-					},
-					["Bobik"] = {
-						["Zone"] = "Netherstorm",
-						["Class"] = "Warrior",
-						["Name"] = "Bobik",
-						["LastOnline"] = "0:0:7:5",
-						["Level"] = 70,
-						["Rank"] = 5,
-					},
-					["Darkrangers"] = {
-						["Note"] = "Bugstar's Alt",
-						["Zone"] = "Undercity",
-						["Class"] = "Warrior",
-						["Name"] = "Darkrangers",
-						["LastOnline"] = "0:0:15:18",
-						["Level"] = 35,
-						["Rank"] = 5,
-					},
-					["Darknagar"] = {
-						["Zone"] = "Undercity",
-						["Class"] = "Mage",
-						["Online"] = 1,
-						["Name"] = "Darknagar",
-						["Level"] = 70,
-						["Rank"] = 5,
-					},
-					["Bugstaralt"] = {
-						["Note"] = "Alt for Bugstar",
-						["Zone"] = "Ashenvale",
-						["Class"] = "Paladin",
-						["Name"] = "Bugstaralt",
-						["LastOnline"] = "0:0:14:16",
-						["Level"] = 21,
-						["Rank"] = 5,
-					},
-					["Nimees"] = {
-						["Note"] = "Enchanting",
-						["Zone"] = "Thousand Needles",
-						["Class"] = "Warlock",
-						["Name"] = "Nimees",
-						["LastOnline"] = "0:0:2:23",
-						["OfficerNote"] = "Nimees Hopland",
-						["Level"] = 29,
-						["Rank"] = 5,
-					},
-					["Treason"] = {
-						["Zone"] = "Nagrand",
-						["Class"] = "Warrior",
-						["Name"] = "Treason",
-						["LastOnline"] = "0:0:0:22",
-						["Level"] = 68,
-						["Rank"] = 5,
-					},
-					["Zupatoll"] = {
-						["Zone"] = "Ashenvale",
-						["Class"] = "Hunter",
-						["Name"] = "Zupatoll",
-						["LastOnline"] = "0:0:14:18",
-						["Level"] = 27,
-						["Rank"] = 6,
-					},
-					["Larsi"] = {
-						["Zone"] = "Elwynn Forest",
-						["Class"] = "Shaman",
-						["Name"] = "Larsi",
-						["LastOnline"] = "0:0:0:5",
-						["Level"] = 62,
-						["Rank"] = 5,
-					},
-					["Aarseter"] = {
-						["Note"] = "ik eet aars",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Shaman",
-						["Name"] = "Aarseter",
-						["LastOnline"] = "0:0:7:6",
-						["Level"] = 10,
-						["Rank"] = 6,
-					},
-					["Thandar"] = {
-						["Zone"] = "Wailing Caverns",
-						["Class"] = "Rogue",
-						["Online"] = 1,
-						["Name"] = "Thandar",
-						["Level"] = 18,
-						["Rank"] = 6,
-					},
-					["Glowbo"] = {
-						["Note"] = "tailoring/skinning",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Mage",
-						["Name"] = "Glowbo",
-						["LastOnline"] = "0:0:0:23",
-						["OfficerNote"] = "holland",
-						["Level"] = 45,
-						["Rank"] = 5,
-					},
-					["Hofsuger"] = {
-						["Note"] = "Ugly",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Warrior",
-						["Name"] = "Hofsuger",
-						["LastOnline"] = "0:0:6:23",
-						["Level"] = 34,
-						["Rank"] = 5,
-					},
-					["Honalulu"] = {
-						["Note"] = "alch/herb",
-						["Zone"] = "Nagrand",
-						["Class"] = "Priest",
-						["Name"] = "Honalulu",
-						["LastOnline"] = "0:0:0:16",
-						["Level"] = 65,
-						["Rank"] = 5,
-					},
-					["Sorf"] = {
-						["Note"] = "exams=afk for wile(kick if want",
-						["Zone"] = "Silverpine Forest",
-						["Class"] = "Hunter",
-						["Name"] = "Sorf",
-						["LastOnline"] = "0:0:22:2",
-						["Level"] = 61,
-						["Rank"] = 5,
-					},
-					["Oekbah"] = {
-						["Note"] = "fuck the  person who said that",
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Warrior",
-						["Name"] = "Oekbah",
-						["LastOnline"] = "0:0:6:20",
-						["OfficerNote"] = "Not very active in dungeons",
-						["Level"] = 53,
-						["Rank"] = 5,
-					},
-					["Achillesy"] = {
-						["Zone"] = "The Barrens",
-						["Class"] = "Warrior",
-						["Name"] = "Achillesy",
-						["LastOnline"] = "0:0:0:3",
-						["Level"] = 21,
-						["Rank"] = 5,
-					},
-					["Mizuti"] = {
-						["Note"] = "mizuti/sam/nederlands",
-						["Zone"] = "Shattrath City",
-						["Class"] = "Hunter",
-						["Name"] = "Mizuti",
-						["LastOnline"] = "0:0:0:2",
-						["OfficerNote"] = "holland",
-						["Level"] = 70,
-						["Rank"] = 3,
-					},
-					["Thavlan"] = {
-						["Zone"] = "Orgrimmar",
-						["Class"] = "Warrior",
-						["Name"] = "Thavlan",
-						["LastOnline"] = "0:0:15:0",
-						["Level"] = 52,
-						["Rank"] = 6,
-					},
-					["Dhmoon"] = {
-						["Note"] = "Last School year, cant play lot",
-						["Zone"] = "Nagrand",
-						["Class"] = "Shaman",
-						["Name"] = "Dhmoon",
-						["LastOnline"] = "0:0:26:23",
-						["Level"] = 68,
-						["Rank"] = 3,
-					},
-					["Illiidan"] = {
-						["Note"] = "Nederlands^^",
-						["Zone"] = "The Barrens",
-						["Class"] = "Priest",
-						["Name"] = "Illiidan",
-						["LastOnline"] = "0:0:0:1",
-						["Level"] = 26,
-						["Rank"] = 5,
-					},
-					["Theflint"] = {
-						["Note"] = "I'm A newby with awesome bootie",
-						["Zone"] = "The Barrens",
-						["Class"] = "Shaman",
-						["Name"] = "Theflint",
-						["LastOnline"] = "0:0:29:7",
-						["Level"] = 16,
-						["Rank"] = 5,
-					},
-					["Sudden"] = {
-						["Zone"] = "Nagrand",
-						["Class"] = "Druid",
-						["Name"] = "Sudden",
-						["LastOnline"] = "0:0:0:4",
-						["Level"] = 66,
-						["Rank"] = 5,
-					},
-					["Telwbank"] = {
-						["Note"] = "Ugly",
-						["Zone"] = "Thunder Bluff",
-						["Class"] = "Shaman",
-						["Name"] = "Telwbank",
-						["LastOnline"] = "0:0:3:8",
-						["Level"] = 5,
-						["Rank"] = 6,
-					},
-					["Boriscrusher"] = {
-						["Note"] = ">mizuti< ",
-						["Zone"] = "Hellfire Peninsula",
-						["Class"] = "Warrior",
-						["Name"] = "Boriscrusher",
-						["LastOnline"] = "0:0:2:23",
-						["Level"] = 60,
-						["Rank"] = 5,
-					},
-					["Urgal"] = {
-						["Note"] = "Miner/Blacksmither",
-						["Zone"] = "Nagrand",
-						["Class"] = "Warrior",
-						["Name"] = "Urgal",
-						["LastOnline"] = "0:0:0:5",
-						["Level"] = 70,
-						["Rank"] = 2,
-					},
-					["Broken"] = {
-						["Note"] = "kanker gierig",
-						["Zone"] = "Terokkar Forest",
-						["Class"] = "Hunter",
-						["Name"] = "Broken",
-						["LastOnline"] = "0:0:1:1",
-						["OfficerNote"] = "lama",
-						["Level"] = 64,
-						["Rank"] = 2,
-					},
-					["Rogt"] = {
-						["Zone"] = "Winterspring",
-						["Class"] = "Rogue",
-						["Name"] = "Rogt",
-						["LastOnline"] = "0:0:1:4",
-						["Level"] = 60,
-						["Rank"] = 5,
-					},
-					["Yamono"] = {
-						["Zone"] = "Shattrath City",
-						["Class"] = "Shaman",
-						["Name"] = "Yamono",
-						["LastOnline"] = "0:0:1:14",
-						["Level"] = 65,
-						["Rank"] = 6,
-					},
-					["Icespitter"] = {
-						["Zone"] = "Ghostlands",
-						["Class"] = "Mage",
-						["Name"] = "Icespitter",
-						["LastOnline"] = "0:0:7:17",
-						["Level"] = 21,
-						["Rank"] = 5,
-					},
-				},
+				["NumAccounts"] = "49",
 				["GPversion"] = "2.0.4",
 			},
 		},
@@ -843,7 +1007,7 @@ myProfile = {
 					["Name"] = "the everlasting wind",
 					["Rank"] = 2,
 				},
-				["Mana"] = 7504,
+				["Mana"] = 7735,
 				["Locale"] = "enUS",
 				["Race"] = "Orc",
 				["Power"] = "Mana",
@@ -884,6 +1048,16 @@ myProfile = {
 							["AtWar"] = 0,
 							["Standing"] = "Unfriendly",
 						},
+						["The Scale of the Sands"] = {
+							["Value"] = "0:3000",
+							["AtWar"] = 0,
+							["Standing"] = "Neutral",
+						},
+						["Magram Clan Centaur"] = {
+							["Value"] = "2500:3000",
+							["AtWar"] = 1,
+							["Standing"] = "Hostile",
+						},
 						["Hydraxian Waterlords"] = {
 							["Value"] = "1390:3000",
 							["AtWar"] = 0,
@@ -894,10 +1068,10 @@ myProfile = {
 							["AtWar"] = 0,
 							["Standing"] = "Neutral",
 						},
-						["Magram Clan Centaur"] = {
-							["Value"] = "2500:3000",
-							["AtWar"] = 1,
-							["Standing"] = "Hostile",
+						["Keepers of Time"] = {
+							["Value"] = "3452:6000",
+							["AtWar"] = 0,
+							["Standing"] = "Friendly",
 						},
 						["Brood of Nozdormu"] = {
 							["Value"] = "50:36000",
@@ -905,30 +1079,30 @@ myProfile = {
 							["Standing"] = "Hated",
 						},
 						["Argent Dawn"] = {
-							["Value"] = "5021:6000",
+							["Value"] = "5127:6000",
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
 					},
-					["Count"] = 39,
+					["Count"] = 42,
 					["Shattrath City"] = {
 						["The Scryers"] = {
-							["Value"] = "32832:36000",
+							["Value"] = "29422:36000",
 							["AtWar"] = 1,
 							["Standing"] = "Hated",
 						},
 						["Lower City"] = {
-							["Value"] = "1850:6000",
+							["Value"] = "2536:6000",
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
 						["The Aldor"] = {
-							["Value"] = "5335:6000",
+							["Value"] = "2435:12000",
 							["AtWar"] = 0,
-							["Standing"] = "Friendly",
+							["Standing"] = "Honored",
 						},
 						["The Sha'tar"] = {
-							["Value"] = "3287:6000",
+							["Value"] = "4837:6000",
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
@@ -979,17 +1153,22 @@ myProfile = {
 					},
 					["Outland"] = {
 						["The Mag'har"] = {
-							["Value"] = "6914:12000",
+							["Value"] = "7074:12000",
 							["AtWar"] = 0,
 							["Standing"] = "Honored",
 						},
-						["Cenarion Expedition"] = {
-							["Value"] = "7209:12000",
+						["Ashtongue Deathsworn"] = {
+							["Value"] = "275:3000",
 							["AtWar"] = 0,
-							["Standing"] = "Honored",
+							["Standing"] = "Neutral",
 						},
 						["Thrallmar"] = {
 							["Value"] = "1655:12000",
+							["AtWar"] = 0,
+							["Standing"] = "Honored",
+						},
+						["The Consortium"] = {
+							["Value"] = "1445:12000",
 							["AtWar"] = 0,
 							["Standing"] = "Honored",
 						},
@@ -998,8 +1177,8 @@ myProfile = {
 							["AtWar"] = 0,
 							["Standing"] = "Honored",
 						},
-						["The Consortium"] = {
-							["Value"] = "1445:12000",
+						["Cenarion Expedition"] = {
+							["Value"] = "7209:12000",
 							["AtWar"] = 0,
 							["Standing"] = "Honored",
 						},
@@ -1032,7 +1211,7 @@ myProfile = {
 					["Waist"] = {
 						["Item"] = "27638:0:0:0:0:0:0:0",
 						["Color"] = "0070dd",
-						["Tooltip"] = "Hierophant's Sash<br>Soulbound<br>Unique<br>Waist	Cloth<br>77 Armor<br>+28 Stamina<br>+19 Intellect<br>Durability 23 / 30<br>Requires Level 66<br>Equip: Improves your resilience rating by 19.<br>Equip: Increases damage and healing done by magical spells and effects by up to 22.",
+						["Tooltip"] = "Hierophant's Sash<br>Soulbound<br>Unique<br>Waist	Cloth<br>77 Armor<br>+28 Stamina<br>+19 Intellect<br>Durability 30 / 30<br>Requires Level 66<br>Equip: Improves your resilience rating by 19.<br>Equip: Increases damage and healing done by magical spells and effects by up to 22.",
 						["Icon"] = "INV_Belt_17",
 						["Name"] = "Hierophant's Sash",
 					},
@@ -1044,11 +1223,11 @@ myProfile = {
 						["Name"] = "Wildlord's Band",
 					},
 					["Legs"] = {
-						["Item"] = "25711:0:0:0:0:0:0:1015002116",
-						["Color"] = "0070dd",
-						["Tooltip"] = "Deadly Borer Leggings<br>Soulbound<br>Legs	Cloth<br>106 Armor<br>+21 Stamina<br>+23 Intellect<br>+15 Spirit<br>Durability 51 / 65<br>Equip: Improves spell critical strike rating by 22.<br>Equip: Increases damage and healing done by magical spells and effects by up to 27.",
-						["Icon"] = "INV_Pants_14",
-						["Name"] = "Deadly Borer Leggings",
+						["Item"] = "30929:0:0:0:0:0:0:1357124159",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Soothsayer's Kilt<br>Soulbound<br>Legs	Cloth<br>120 Armor<br>+31 Stamina<br>+16 Intellect<br>Durability 55 / 55<br>Equip: Improves spell critical strike rating by 25.<br>Equip: Increases damage and healing done by magical spells and effects by up to 30.",
+						["Icon"] = "INV_Pants_Cloth_12",
+						["Name"] = "Soothsayer's Kilt",
 					},
 					["Trinket0"] = {
 						["Item"] = "21565:0:0:0:0:0:0:0",
@@ -1067,14 +1246,14 @@ myProfile = {
 					["Hands"] = {
 						["Item"] = "24450:0:2959:2967:0:0:0:566688994",
 						["Color"] = "0070dd",
-						["Tooltip"] = "Manaspark Gloves<br>Soulbound<br>Hands	Cloth<br>81 Armor<br>+14 Stamina<br>+14 Intellect<br>+10 Spirit<br>+5 Spell Damage<br>+4 Spell Critical Rating<br>Socket Bonus: +3 Spell Crit Rating<br>Durability 24 / 30<br>Requires Level 63<br>Equip: Improves spell hit rating by 15.<br>Equip: Increases damage and healing done by magical spells and effects by up to 16.<br><Shift Right Click to Socket>",
+						["Tooltip"] = "Manaspark Gloves<br>Soulbound<br>Hands	Cloth<br>81 Armor<br>+14 Stamina<br>+14 Intellect<br>+10 Spirit<br>+5 Spell Damage<br>+4 Spell Critical Rating<br>Socket Bonus: +3 Spell Crit Rating<br>Durability 30 / 30<br>Requires Level 63<br>Equip: Improves spell hit rating by 15.<br>Equip: Increases damage and healing done by magical spells and effects by up to 16.<br><Shift Right Click to Socket>",
 						["Icon"] = "INV_Gauntlets_14",
 						["Name"] = "Manaspark Gloves",
 					},
 					["Wrist"] = {
 						["Item"] = "30520:0:0:0:0:0:0:605653216",
 						["Color"] = "1eff00",
-						["Tooltip"] = "Gold-Trimmed Cuffs<br>Soulbound<br>Wrist	Cloth<br>60 Armor<br>+18 Stamina<br>+9 Intellect<br>Durability 20 / 25<br>Equip: Increases damage and healing done by magical spells and effects by up to 25.",
+						["Tooltip"] = "Gold-Trimmed Cuffs<br>Soulbound<br>Wrist	Cloth<br>60 Armor<br>+18 Stamina<br>+9 Intellect<br>Durability 25 / 25<br>Equip: Increases damage and healing done by magical spells and effects by up to 25.",
 						["Icon"] = "INV_Bracer_07",
 						["Name"] = "Gold-Trimmed Cuffs",
 					},
@@ -1086,9 +1265,9 @@ myProfile = {
 						["Name"] = "Ancient Crystal Talisman",
 					},
 					["Head"] = {
-						["Item"] = "31104:0:0:0:0:0:0:1824571680",
+						["Item"] = "31104:0:2963:2963:2967:0:0:1824571680",
 						["Color"] = "0070dd",
-						["Tooltip"] = "Evoker's Helmet of Second Sight<br>Soulbound<br>Head	Cloth<br>120 Armor<br>+12 Stamina<br>+15 Intellect<br>+8 Spirit<br>Blue Socket<br>Blue Socket<br>Yellow Socket<br>Socket Bonus: +5 Spell Damage<br>Durability 45 / 50<br>Equip: Improves spell critical strike rating by 24.<br>Equip: Increases damage and healing done by magical spells and effects by up to 35.<br>Equip: Allows the bearer to see into the ghost world of Shadowmoon Valley. Only effective in Shadowmoon Valley.<br><Shift Right Click to Socket>",
+						["Tooltip"] = "Evoker's Helmet of Second Sight<br>Soulbound<br>Head	Cloth<br>120 Armor<br>+12 Stamina<br>+15 Intellect<br>+8 Spirit<br>+1 Mana every 5 seconds<br>+1 Mana every 5 seconds<br>+4 Spell Critical Rating<br>Socket Bonus: +5 Spell Damage<br>Durability 50 / 50<br>Equip: Improves spell critical strike rating by 24.<br>Equip: Increases damage and healing done by magical spells and effects by up to 35.<br>Equip: Allows the bearer to see into the ghost world of Shadowmoon Valley. Only effective in Shadowmoon Valley.<br><Shift Right Click to Socket>",
 						["Icon"] = "INV_Helmet_70",
 						["Name"] = "Evoker's Helmet of Second Sight",
 					},
@@ -1100,16 +1279,23 @@ myProfile = {
 						["Name"] = "Cenarion Ring of Casting",
 					},
 					["Chest"] = {
-						["Item"] = "30928:0:0:0:0:0:0:1440114384",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Sketh'lon Survivor's Tunic<br>Soulbound<br>Chest	Cloth<br>137 Armor<br>+31 Stamina<br>+16 Intellect<br>Durability 53 / 70<br>Equip: Increases damage and healing done by magical spells and effects by up to 44.",
-						["Icon"] = "INV_Chest_Cloth_03",
-						["Name"] = "Sketh'lon Survivor's Tunic",
+						["Item"] = "29129:0:2967:2963:2967:0:0:0",
+						["Color"] = "0070dd",
+						["Tooltip"] = "Anchorite's Robes<br>Soulbound<br>Unique<br>Chest	Cloth<br>156 Armor<br>+16 Stamina<br>+38 Intellect<br>+18 Spirit<br>+4 Spell Critical Rating<br>+1 Mana every 5 seconds<br>+4 Spell Critical Rating<br>Socket Bonus: 2 mana per 5 sec.<br>Durability 80 / 80<br>Requires Level 70<br>Requires The Aldor - Honored<br>Equip: Increases damage and healing done by magical spells and effects by up to 29.<br><Shift Right Click to Socket>",
+						["Icon"] = "INV_Chest_Cloth_19",
+						["Name"] = "Anchorite's Robes",
+					},
+					["Tabard"] = {
+						["Item"] = "5976:0:0:0:0:0:0:0",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Guild Tabard<br>Tabard",
+						["Icon"] = "INV_Shirt_GuildTabard_01",
+						["Name"] = "Guild Tabard",
 					},
 					["Ranged"] = {
 						["Item"] = "25640:0:0:0:0:0:0:897766525",
 						["Color"] = "0070dd",
-						["Tooltip"] = "Nesingwary Safari Stick<br>Soulbound<br>Ranged	Wand<br>142 - 265 Shadow Damage	Speed 1.80<br>(113.1 damage per second)<br>Durability 53 / 65<br>Equip: Improves spell critical strike rating by 12.<br>Equip: Increases damage and healing done by magical spells and effects by up to 14.",
+						["Tooltip"] = "Nesingwary Safari Stick<br>Soulbound<br>Ranged	Wand<br>142 - 265 Shadow Damage	Speed 1.80<br>(113.1 damage per second)<br>Durability 65 / 65<br>Equip: Improves spell critical strike rating by 12.<br>Equip: Increases damage and healing done by magical spells and effects by up to 14.",
 						["Icon"] = "INV_Wand_05",
 						["Name"] = "Nesingwary Safari Stick",
 					},
@@ -1130,30 +1316,30 @@ myProfile = {
 					["MainHand"] = {
 						["Item"] = "25543:0:0:0:0:0:0:1021543034",
 						["Color"] = "1eff00",
-						["Tooltip"] = "Talbuk Sticker<br>Soulbound<br>Main Hand	Dagger<br>36 - 88 Damage	Speed 1.50<br>(41.2 damage per second)<br>+15 Stamina<br>+11 Intellect<br>Durability 45 / 55<br>Equip: Improves spell critical strike rating by 10.<br>Equip: Increases damage and healing done by magical spells and effects by up to 58.",
+						["Tooltip"] = "Talbuk Sticker<br>Soulbound<br>Main Hand	Dagger<br>36 - 88 Damage	Speed 1.50<br>(41.2 damage per second)<br>+15 Stamina<br>+11 Intellect<br>Durability 55 / 55<br>Equip: Improves spell critical strike rating by 10.<br>Equip: Increases damage and healing done by magical spells and effects by up to 58.",
 						["Icon"] = "INV_Weapon_ShortBlade_14",
 						["Name"] = "Talbuk Sticker",
 					},
 					["Shoulder"] = {
 						["Color"] = "1eff00",
-						["Tooltip"] = "Eldr'naan Shoulderpads of the Invoker<br>Soulbound<br>Shoulder	Cloth<br>105 Armor<br>|cffffffff+21 Intellect|r<br><br>|cffffffff+24 Spell Damage and Healing|r<br><br>|cffffffff+21 Spell Critical Strike Rating|r<br><br>Durability 35 / 45<br>Requires Level 68",
+						["Tooltip"] = "Eldr'naan Shoulderpads of the Invoker<br>Soulbound<br>Shoulder	Cloth<br>105 Armor<br>+15 Spell Power<br>|cffffffff+21 Intellect|r<br><br>|cffffffff+24 Spell Damage and Healing|r<br><br>|cffffffff+21 Spell Critical Strike Rating|r<br><br>Durability 45 / 45<br>Requires Level 68",
 						["Name"] = "Eldr'naan Shoulderpads of the Invoker",
 						["Icon"] = "INV_Shoulder_18",
 					},
 					["Feet"] = {
 						["Item"] = "29808:0:0:0:0:0:0:1392566290",
 						["Color"] = "1eff00",
-						["Tooltip"] = "Shimmering Azure Boots<br>Soulbound<br>Feet	Cloth<br>94 Armor<br>+19 Intellect<br>Durability 25 / 35<br>Equip: Improves spell hit rating by 16.<br>Equip: Increases damage and healing done by magical spells and effects by up to 23.<br>Equip: Restores 5 mana per 5 sec.",
+						["Tooltip"] = "Shimmering Azure Boots<br>Soulbound<br>Feet	Cloth<br>94 Armor<br>+19 Intellect<br>Durability 34 / 35<br>Equip: Improves spell hit rating by 16.<br>Equip: Increases damage and healing done by magical spells and effects by up to 23.<br>Equip: Restores 5 mana per 5 sec.",
 						["Icon"] = "INV_Boots_07",
 						["Name"] = "Shimmering Azure Boots",
 					},
 				},
-				["Health"] = 6479,
+				["Health"] = 6417,
 				["CPversion"] = "2.0.5",
 				["RaceEn"] = "Orc",
 				["Quests"] = {
 					["Mana-Tombs"] = {
-						[5] = {
+						[9] = {
 							["RewardMoney"] = 84900,
 							["Title"] = "Safety Is Job One",
 							["Tasks"] = {
@@ -1177,7 +1363,7 @@ myProfile = {
 							["Level"] = 66,
 							["Tag"] = "Dungeon",
 						},
-						[6] = {
+						[10] = {
 							["RewardMoney"] = 207000,
 							["Choice"] = {
 								{
@@ -1220,72 +1406,8 @@ myProfile = {
 							["Tag"] = "Dungeon",
 						},
 					},
-					["Tempest Keep"] = {
-						[21] = {
-							["Choice"] = {
-								{
-									["Item"] = "31465:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Sha'tari Anchorite's Cloak<br>Binds when picked up<br>Back<br>78 Armor<br>+27 Intellect<br>Equip: Increases healing done by spells and effects by up to 37.",
-									["Icon"] = "INV_Misc_Cape_11",
-									["Name"] = "Sha'tari Anchorite's Cloak",
-								}, -- [1]
-								{
-									["Item"] = "31461:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "A'dal's Gift<br>Binds when picked up<br>Waist	Cloth<br>88 Armor<br>+25 Intellect<br>Equip: Improves spell critical strike rating by 21.<br>Equip: Increases damage and healing done by magical spells and effects by up to 34.",
-									["Icon"] = "INV_Belt_10",
-									["Name"] = "A'dal's Gift",
-								}, -- [2]
-								{
-									["Item"] = "31464:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Naaru Belt of Precision<br>Binds when picked up<br>Waist	Leather<br>164 Armor<br>+25 Agility<br>Equip: Increases your dodge rating by 21.<br>Equip: Improves hit rating by 15.<br>Equip: Increases attack power by 44.",
-									["Icon"] = "INV_Belt_16",
-									["Name"] = "Naaru Belt of Precision",
-								}, -- [3]
-								{
-									["Item"] = "31462:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Shattrath's Champion Belt<br>Binds when picked up<br>Unique<br>Waist	Mail<br>367 Armor<br>+22 Intellect<br>Equip: Improves hit rating by 15.<br>Equip: Improves critical strike rating by 21.<br>Equip: Increases attack power by 50.",
-									["Icon"] = "INV_Belt_11",
-									["Name"] = "Shattrath's Champion Belt",
-								}, -- [4]
-								{
-									["Item"] = "31460:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Sha'tari Vindicator's Waistguard<br>Binds when picked up<br>Waist	Plate<br>655 Armor<br>+33 Stamina<br>Equip: Increases defense rating by 20.<br>Equip: Increases your shield block rating by 24.<br>Equip: Increases the block value of your shield by 29.",
-									["Icon"] = "INV_Belt_23",
-									["Name"] = "Sha'tari Vindicator's Waistguard",
-								}, -- [5]
-							},
-							["Title"] = "How to Break Into the Arcatraz",
-							["Rewards"] = {
-								{
-									["Item"] = "31084:0:0:0:0:0:0:0",
-									["Color"] = "ffffff",
-									["Tooltip"] = "Key to the Arcatraz<br>Binds when picked up<br>Unique<br>\"Unlocks the Arcatraz satellite of Tempest Keep.\"",
-									["Icon"] = "INV_DataCrystal03",
-									["Name"] = "Key to the Arcatraz",
-								}, -- [1]
-							},
-							["Tasks"] = {
-								{
-									["Note"] = "Top Shard of the Arcatraz Key: 0/1",
-									["Type"] = "item",
-								}, -- [1]
-								{
-									["Note"] = "Bottom Shard of the Arcatraz Key: 0/1",
-									["Type"] = "item",
-								}, -- [2]
-							},
-							["Level"] = 70,
-							["RewardMoney"] = 246000,
-							["Tag"] = "Dungeon",
-						},
-					},
 					["Netherstorm"] = {
-						[10] = {
+						[17] = {
 							["RewardMoney"] = 114800,
 							["Tasks"] = {
 								{
@@ -1298,50 +1420,7 @@ myProfile = {
 							["Level"] = 69,
 							["Tag"] = "Group",
 						},
-						[9] = {
-							["Choice"] = {
-								{
-									["Item"] = "29780:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Kirin Tor Apprentice's Robes<br>Binds when picked up<br>Chest	Cloth<br>148 Armor<br>+19 Stamina<br>+26 Intellect<br>+17 Spirit<br>Equip: Improves spell hit rating by 14.<br>Equip: Increases damage and healing done by magical spells and effects by up to 40.",
-									["Icon"] = "INV_Chest_Cloth_49",
-									["Name"] = "Kirin Tor Apprentice's Robes",
-								}, -- [1]
-								{
-									["Item"] = "29781:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Lifewarden's Breastplate<br>Binds when picked up<br>Chest	Leather<br>270 Armor<br>+27 Stamina<br>+25 Intellect<br>+28 Spirit<br>Equip: Increases healing done by spells and effects by up to 64.",
-									["Icon"] = "INV_Chest_Leather_08",
-									["Name"] = "Lifewarden's Breastplate",
-								}, -- [2]
-								{
-									["Item"] = "29782:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Coif of the Wicked<br>Binds when picked up<br>Head	Mail<br>490 Armor<br>+26 Agility<br>+39 Stamina<br>Equip: Increases attack power by 52.<br>Equip: Restores 10 mana per 5 sec.",
-									["Icon"] = "INV_Helmet_03",
-									["Name"] = "Coif of the Wicked",
-								}, -- [3]
-								{
-									["Item"] = "29783:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Legguards of the Resolute Defender<br>Binds when picked up<br>Legs	Plate<br>942 Armor<br>+23 Agility<br>+42 Stamina<br>Equip: Increases defense rating by 31.<br>Equip: Increases your parry rating by 20.",
-									["Icon"] = "INV_Pants_04",
-									["Name"] = "Legguards of the Resolute Defender",
-								}, -- [4]
-							},
-							["Title"] = "Destroy Naberius!",
-							["RewardMoney"] = 133400,
-							["Group"] = 3,
-							["Level"] = 69,
-							["Tasks"] = {
-								{
-									["Note"] = "Naberius slain: 0/1",
-									["Type"] = "monster",
-								}, -- [1]
-							},
-							["Tag"] = "Group",
-						},
-						[11] = {
+						[18] = {
 							["Choice"] = {
 								{
 									["Item"] = "30368:0:0:0:0:0:0:0",
@@ -1391,7 +1470,50 @@ myProfile = {
 							},
 							["Tag"] = "Group",
 						},
-						[12] = {
+						[16] = {
+							["Choice"] = {
+								{
+									["Item"] = "29780:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Kirin Tor Apprentice's Robes<br>Binds when picked up<br>Chest	Cloth<br>148 Armor<br>+19 Stamina<br>+26 Intellect<br>+17 Spirit<br>Equip: Improves spell hit rating by 14.<br>Equip: Increases damage and healing done by magical spells and effects by up to 40.",
+									["Icon"] = "INV_Chest_Cloth_49",
+									["Name"] = "Kirin Tor Apprentice's Robes",
+								}, -- [1]
+								{
+									["Item"] = "29781:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Lifewarden's Breastplate<br>Binds when picked up<br>Chest	Leather<br>270 Armor<br>+27 Stamina<br>+25 Intellect<br>+28 Spirit<br>Equip: Increases healing done by spells and effects by up to 64.",
+									["Icon"] = "INV_Chest_Leather_08",
+									["Name"] = "Lifewarden's Breastplate",
+								}, -- [2]
+								{
+									["Item"] = "29782:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Coif of the Wicked<br>Binds when picked up<br>Head	Mail<br>490 Armor<br>+26 Agility<br>+39 Stamina<br>Equip: Increases attack power by 52.<br>Equip: Restores 10 mana per 5 sec.",
+									["Icon"] = "INV_Helmet_03",
+									["Name"] = "Coif of the Wicked",
+								}, -- [3]
+								{
+									["Item"] = "29783:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Legguards of the Resolute Defender<br>Binds when picked up<br>Legs	Plate<br>942 Armor<br>+23 Agility<br>+42 Stamina<br>Equip: Increases defense rating by 31.<br>Equip: Increases your parry rating by 20.",
+									["Icon"] = "INV_Pants_04",
+									["Name"] = "Legguards of the Resolute Defender",
+								}, -- [4]
+							},
+							["Title"] = "Destroy Naberius!",
+							["RewardMoney"] = 133400,
+							["Group"] = 3,
+							["Level"] = 69,
+							["Tasks"] = {
+								{
+									["Note"] = "Naberius slain: 0/1",
+									["Type"] = "monster",
+								}, -- [1]
+							},
+							["Tag"] = "Group",
+						},
+						[19] = {
 							["Choice"] = {
 								{
 									["Item"] = "30011:0:0:0:0:0:0:0",
@@ -1442,59 +1564,72 @@ myProfile = {
 							["Tag"] = "Group",
 						},
 					},
-					["Shattrath City"] = {
-						[19] = {
-							["Rewards"] = {
-								{
-									["Item"] = "29735:0:0:0:0:0:0:0",
-									["Color"] = "ffffff",
-									["Tooltip"] = "Holy Dust<br>Binds when picked up<br>\"This shimmering dust is used as a material for Aldor inscriptions.\"",
-									["Icon"] = "INV_Misc_Dust_06",
-									["Name"] = "Holy Dust",
-								}, -- [1]
-							},
+					["Shadowmoon Valley"] = {
+						[23] = {
 							["RewardMoney"] = 94800,
-							["Title"] = "A Cleansing Light",
 							["Tasks"] = {
 								{
-									["Note"] = "Fel Armament: 0/1",
+									["Note"] = "Chancellor Bloodleaf slain: 0/1",
+									["Type"] = "monster",
+								}, -- [1]
+								{
+									["Note"] = "Corok the Mighty slain: 0/1",
+									["Type"] = "monster",
+								}, -- [2]
+								{
+									["Note"] = "Illidan's Command: 0/1",
+									["Type"] = "item",
+								}, -- [3]
+							},
+							["Title"] = "When Worlds Collide...",
+							["Group"] = 3,
+							["Level"] = 70,
+							["Tag"] = "Group",
+						},
+						[20] = {
+							["RewardMoney"] = 96500,
+							["Title"] = "Additional Materials",
+							["Tasks"] = {
+								{
+									["Note"] = "Adamantite Frame: 0/1",
 									["Type"] = "item",
 								}, -- [1]
-							},
-							["Level"] = 70,
-						},
-					},
-					["Tailoring"] = {
-						[20] = {
-							["Rewards"] = {
 								{
-									["Item"] = "10461:0:0:0:0:0:0:0",
-									["Color"] = "1eff00",
-									["Tooltip"] = "Shadowy Bracers<br>Binds when picked up<br>Wrist	Cloth<br>26 Armor<br>+8 Intellect<br>+4 Spirit<br>Equip: Increases damage done by Shadow spells and effects by up to 4.",
-									["Icon"] = "INV_Bracer_07",
-									["Name"] = "Shadowy Bracers",
-								}, -- [1]
+									["Note"] = "Heavy Knothide Leather: 0/4",
+									["Type"] = "item",
+								}, -- [2]
+								{
+									["Note"] = "Demon Warding Totem: 0/1",
+									["Type"] = "item",
+								}, -- [3]
 							},
-							["RewardMoney"] = 17320,
-							["Title"] = "Shadoweaver",
+							["Level"] = 69,
+						},
+						[24] = {
+							["RewardMoney"] = 75900,
 							["Tasks"] = {
 								{
-									["Note"] = "Shadowsilk Poacher slain: 0/5",
+									["Note"] = "Karynaku freed: 0/1",
 									["Type"] = "monster",
 								}, -- [1]
 							},
-							["Level"] = 50,
-						},
-					},
-					["Shadowmoon Valley"] = {
-						[16] = {
-							["RewardMoney"] = 18900,
-							["Title"] = "Karynaku",
+							["Title"] = "Zuluhed the Whacked",
 							["Group"] = 5,
 							["Level"] = 70,
 							["Tag"] = "Group",
 						},
-						[14] = {
+						[21] = {
+							["RewardMoney"] = 114800,
+							["Title"] = "The Fate of Kagrosh",
+							["Tasks"] = {
+								{
+									["Note"] = "Kagrosh's Pack: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+							},
+							["Level"] = 69,
+						},
+						[22] = {
 							["RewardMoney"] = 75900,
 							["Choice"] = {
 								{
@@ -1539,67 +1674,119 @@ myProfile = {
 							},
 							["Level"] = 70,
 						},
-						[17] = {
-							["RewardMoney"] = 75900,
-							["Title"] = "Tablets of Baa'ri",
+					},
+					["Nagrand"] = {
+						[12] = {
+							["RewardMoney"] = 72000,
 							["Tasks"] = {
 								{
-									["Note"] = "Baa'ri Tablet Fragment: 0/12",
-									["Type"] = "item",
+									["Note"] = "Sal'salabim Persuaded",
+									["Type"] = "event",
+								}, -- [1]
+							},
+							["Title"] = "Patience and Understanding",
+							["Group"] = 3,
+							["Level"] = 68,
+							["Tag"] = "Group",
+						},
+						[14] = {
+							["RewardMoney"] = 75900,
+							["Title"] = "Against the Illidari",
+							["Tasks"] = {
+								{
+									["Note"] = "Lothros slain: 0/1",
+									["Type"] = "monster",
 								}, -- [1]
 							},
 							["Level"] = 70,
 						},
-						[13] = {
-							["RewardMoney"] = 94800,
-							["Tasks"] = {
+						[11] = {
+							["Choice"] = {
 								{
-									["Note"] = "Eclipsion Soldier slain: 0/20",
-									["Type"] = "monster",
+									["Item"] = "25774:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Azure Lightblade<br>Binds when picked up<br>Main Hand	Dagger<br>43 - 81 Damage	Speed 1.50<br>(41.3 damage per second)<br>+18 Stamina<br>+13 Intellect<br>+12 Spirit<br>Equip: Increases healing done by spells and effects by up to 143.",
+									["Icon"] = "INV_Weapon_ShortBlade_21",
+									["Name"] = "Azure Lightblade",
 								}, -- [1]
 								{
-									["Note"] = "Eclipsion Cavalier slain: 0/10",
-									["Type"] = "monster",
+									["Item"] = "25773:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Hungering Bone Cudgel<br>Binds when picked up<br>One-Hand	Mace<br>67 - 126 Damage	Speed 1.60<br>(60.3 damage per second)<br>+12 Agility<br>+18 Stamina<br>Equip: Increases attack power by 26.",
+									["Icon"] = "INV_Mace_09",
+									["Name"] = "Hungering Bone Cudgel",
 								}, -- [2]
 								{
-									["Note"] = "Eclipsion Spellbinder slain: 0/10",
-									["Type"] = "monster",
+									["Item"] = "25772:0:0:0:0:0:0:0",
+									["Color"] = "0070dd",
+									["Tooltip"] = "Crystalline Kopesh<br>Binds when picked up<br>One-Hand	Sword<br>88 - 165 Damage	Speed 2.10<br>(60.2 damage per second)<br>+18 Stamina<br>Equip: Increases defense rating by 12.<br>Equip: Improves hit rating by 13.",
+									["Icon"] = "INV_Sword_20",
+									["Name"] = "Crystalline Kopesh",
 								}, -- [3]
 							},
-							["Title"] = "Breaching the Path",
-							["Group"] = 3,
-							["Level"] = 70,
+							["Title"] = "Wanted: Durn the Hungerer",
+							["RewardMoney"] = 198600,
+							["Group"] = 5,
+							["Level"] = 67,
+							["Tasks"] = {
+								{
+									["Note"] = "Durn the Hungerer slain: 0/1",
+									["Type"] = "monster",
+								}, -- [1]
+							},
 							["Tag"] = "Group",
+						},
+						[13] = {
+							["RewardMoney"] = 75900,
+							["Title"] = "Against All Odds",
+							["Tasks"] = {
+								{
+									["Note"] = "Xeleth slain: 0/1",
+									["Type"] = "monster",
+								}, -- [1]
+							},
+							["Level"] = 70,
 						},
 						[15] = {
 							["RewardMoney"] = 75900,
-							["Title"] = "Karabor Training Grounds",
+							["Title"] = "Against the Legion",
 							["Tasks"] = {
 								{
-									["Note"] = "Sunfury Glaive: 0/8",
-									["Type"] = "item",
+									["Note"] = "Avatar of Sathal slain: 0/1",
+									["Type"] = "monster",
 								}, -- [1]
 							},
 							["Level"] = 70,
 						},
-						[18] = {
-							["RewardMoney"] = 75900,
-							["Title"] = "The Ashtongue Tribe",
+					},
+					["Caverns of Time"] = {
+						[6] = {
+							["RewardMoney"] = 114000,
+							["Title"] = "The Opening of the Dark Portal",
 							["Tasks"] = {
 								{
-									["Note"] = "Ashtongue Handler slain: 0/3",
-									["Type"] = "monster",
+									["Note"] = "The Dark Portal Opened",
+									["Type"] = "event",
 								}, -- [1]
-								{
-									["Note"] = "Ashtongue Warrior slain: 0/4",
-									["Type"] = "monster",
-								}, -- [2]
-								{
-									["Note"] = "Ashtongue Shaman slain: 0/6",
-									["Type"] = "monster",
-								}, -- [3]
 							},
 							["Level"] = 70,
+							["Tag"] = "Dungeon",
+						},
+						[7] = {
+							["RewardMoney"] = 246000,
+							["Title"] = "The Vials of Eternity",
+							["Tasks"] = {
+								{
+									["Note"] = "Vashj's Vial Remnant: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+								{
+									["Note"] = "Kael's Vial Remnant: 0/1",
+									["Type"] = "item",
+								}, -- [2]
+							},
+							["Level"] = 70,
+							["Tag"] = "Raid",
 						},
 					},
 					["Auchindoun"] = {
@@ -1736,61 +1923,24 @@ myProfile = {
 							["Tag"] = "Dungeon",
 						}, -- [3]
 						{
-							["Title"] = "Trouble at Auchindoun",
-							["RewardMoney"] = 60000,
+							["Title"] = "Find Spy To'gun",
+							["RewardMoney"] = 80100,
 							["Level"] = 72,
 							["Tag"] = "Dungeon",
 						}, -- [4]
+						{
+							["Title"] = "The Codex of Blood",
+							["RewardMoney"] = 99900,
+							["Level"] = 72,
+							["Tag"] = "Dungeon",
+						}, -- [5]
 					},
-					["Nagrand"] = {
-						[7] = {
-							["Choice"] = {
-								{
-									["Item"] = "25774:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Azure Lightblade<br>Binds when picked up<br>Main Hand	Dagger<br>43 - 81 Damage	Speed 1.50<br>(41.3 damage per second)<br>+18 Stamina<br>+13 Intellect<br>+12 Spirit<br>Equip: Increases healing done by spells and effects by up to 143.",
-									["Icon"] = "INV_Weapon_ShortBlade_21",
-									["Name"] = "Azure Lightblade",
-								}, -- [1]
-								{
-									["Item"] = "25773:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Hungering Bone Cudgel<br>Binds when picked up<br>One-Hand	Mace<br>67 - 126 Damage	Speed 1.60<br>(60.3 damage per second)<br>+12 Agility<br>+18 Stamina<br>Equip: Increases attack power by 26.",
-									["Icon"] = "INV_Mace_09",
-									["Name"] = "Hungering Bone Cudgel",
-								}, -- [2]
-								{
-									["Item"] = "25772:0:0:0:0:0:0:0",
-									["Color"] = "0070dd",
-									["Tooltip"] = "Crystalline Kopesh<br>Binds when picked up<br>One-Hand	Sword<br>88 - 165 Damage	Speed 2.10<br>(60.2 damage per second)<br>+18 Stamina<br>Equip: Increases defense rating by 12.<br>Equip: Improves hit rating by 13.",
-									["Icon"] = "INV_Sword_20",
-									["Name"] = "Crystalline Kopesh",
-								}, -- [3]
-							},
-							["Title"] = "Wanted: Durn the Hungerer",
-							["RewardMoney"] = 198600,
-							["Group"] = 5,
-							["Level"] = 67,
-							["Tasks"] = {
-								{
-									["Note"] = "Durn the Hungerer slain: 0/1",
-									["Type"] = "monster",
-								}, -- [1]
-							},
-							["Tag"] = "Group",
-						},
+					["Hellfire Peninsula"] = {
 						[8] = {
-							["RewardMoney"] = 72000,
-							["Tasks"] = {
-								{
-									["Note"] = "Sal'salabim Persuaded",
-									["Type"] = "event",
-								}, -- [1]
-							},
-							["Title"] = "Patience and Understanding",
-							["Group"] = 3,
-							["Level"] = 68,
-							["Tag"] = "Group",
+							["Title"] = "Entry Into the Citadel",
+							["RewardMoney"] = 75900,
+							["Level"] = 70,
+							["Complete"] = 1,
 						},
 					},
 				},
@@ -1841,90 +1991,104 @@ myProfile = {
 					},
 					["Bag4"] = {
 						["Contents"] = {
-							[12] = {
-								["Item"] = "6265:0:0:0:0:0:0:1818607927",
+							nil, -- [1]
+							nil, -- [2]
+							nil, -- [3]
+							nil, -- [4]
+							nil, -- [5]
+							nil, -- [6]
+							nil, -- [7]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:936763398",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
-							[13] = {
-								["Item"] = "6265:0:0:0:0:0:0:320675994",
+							}, -- [8]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:2108515638",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
-							[14] = {
-								["Item"] = "6265:0:0:0:0:0:0:403057670",
+							}, -- [9]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:1494015605",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
-							[15] = {
+							}, -- [10]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:1396119350",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
+								["Icon"] = "INV_Misc_Gem_Amethyst_02",
+								["Name"] = "Soul Shard",
+							}, -- [11]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:769461120",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
+								["Icon"] = "INV_Misc_Gem_Amethyst_02",
+								["Name"] = "Soul Shard",
+							}, -- [12]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:1383788788",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
+								["Icon"] = "INV_Misc_Gem_Amethyst_02",
+								["Name"] = "Soul Shard",
+							}, -- [13]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:597261520",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
+								["Icon"] = "INV_Misc_Gem_Amethyst_02",
+								["Name"] = "Soul Shard",
+							}, -- [14]
+							{
 								["Item"] = "6265:0:0:0:0:0:0:1496545136",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
-							[16] = {
+							}, -- [15]
+							{
 								["Item"] = "6265:0:0:0:0:0:0:1069421816",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
-							[17] = {
+							}, -- [16]
+							{
 								["Item"] = "6265:0:0:0:0:0:0:265607870",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
-							[9] = {
-								["Item"] = "6265:0:0:0:0:0:0:812261388",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
-								["Icon"] = "INV_Misc_Gem_Amethyst_02",
-								["Name"] = "Soul Shard",
-							},
-							[19] = {
-								["Item"] = "6265:0:0:0:0:0:0:1043154478",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
-								["Icon"] = "INV_Misc_Gem_Amethyst_02",
-								["Name"] = "Soul Shard",
-							},
-							[10] = {
-								["Item"] = "6265:0:0:0:0:0:0:11567016",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
-								["Icon"] = "INV_Misc_Gem_Amethyst_02",
-								["Name"] = "Soul Shard",
-							},
-							[20] = {
-								["Item"] = "6265:0:0:0:0:0:0:511992746",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
-								["Icon"] = "INV_Misc_Gem_Amethyst_02",
-								["Name"] = "Soul Shard",
-							},
-							[11] = {
-								["Item"] = "6265:0:0:0:0:0:0:911359814",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Soul Shard<br>Soulbound",
-								["Icon"] = "INV_Misc_Gem_Amethyst_02",
-								["Name"] = "Soul Shard",
-							},
-							[18] = {
+							}, -- [17]
+							{
 								["Item"] = "6265:0:0:0:0:0:0:1602075128",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
 								["Icon"] = "INV_Misc_Gem_Amethyst_02",
 								["Name"] = "Soul Shard",
-							},
+							}, -- [18]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:1043154478",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
+								["Icon"] = "INV_Misc_Gem_Amethyst_02",
+								["Name"] = "Soul Shard",
+							}, -- [19]
+							{
+								["Item"] = "6265:0:0:0:0:0:0:511992746",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Soul Shard<br>Soulbound<br>|cff00ff00<Made by Azymyrta>|r",
+								["Icon"] = "INV_Misc_Gem_Amethyst_02",
+								["Name"] = "Soul Shard",
+							}, -- [20]
 						},
 						["Name"] = "Soul Pouch",
 						["Icon"] = "INV_Misc_Bag_Soulbag",
@@ -1936,7 +2100,7 @@ myProfile = {
 					["Bag0"] = {
 						["Contents"] = {
 							{
-								["Quantity"] = 16,
+								["Quantity"] = 20,
 								["Name"] = "Heavy Netherweave Bandage",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Heavy Netherweave Bandage<br>Requires First Aid (325)<br>Use: Heals 3400 damage over 8 sec.",
@@ -1944,11 +2108,12 @@ myProfile = {
 								["Item"] = "21991:0:0:0:0:0:0:947084298",
 							}, -- [1]
 							{
-								["Item"] = "27860:0:0:0:0:0:0:1992558573",
+								["Quantity"] = 14,
+								["Name"] = "Lyribread",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Purified Draenic Water<br>Requires Level 65<br>Use: Restores 7200 mana over 30 sec.  Must remain seated while drinking.",
-								["Icon"] = "INV_Drink_Waterskin_12",
-								["Name"] = "Purified Draenic Water",
+								["Tooltip"] = "Lyribread<br>Requires Level 65<br>Use: Restores 7500 health over 30 sec.  Must remain seated while eating.",
+								["Icon"] = "INV_Holiday_ToW_SpiceBrownie",
+								["Item"] = "29394:0:0:0:0:0:0:0",
 							}, -- [2]
 							{
 								["Item"] = "20534:0:0:0:0:0:0:54240626",
@@ -1958,12 +2123,12 @@ myProfile = {
 								["Name"] = "Abyss Shard",
 							}, -- [3]
 							{
-								["Quantity"] = 6,
-								["Name"] = "Doom Skull",
+								["Quantity"] = 5,
+								["Name"] = "Super Healing Potion",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Doom Skull<br>Unique (20)",
-								["Icon"] = "INV_Misc_Bone_ElfSkull_01",
-								["Item"] = "31812:0:0:0:0:0:0:606210442",
+								["Tooltip"] = "Super Healing Potion<br>Requires Level 55<br>Use: Restores 1500 to 2500 health.",
+								["Icon"] = "INV_Potion_131",
+								["Item"] = "22829:0:0:0:0:0:0:790244012",
 							}, -- [4]
 							{
 								["Item"] = "19029:0:0:0:0:0:0:0",
@@ -1972,19 +2137,13 @@ myProfile = {
 								["Icon"] = "INV_Misc_Horn_01",
 								["Name"] = "Horn of the Frostwolf Howler",
 							}, -- [5]
+							nil, -- [6]
 							{
-								["Quantity"] = 9,
-								["Name"] = "Netherweave Cloth",
+								["Item"] = "30853:0:0:0:0:0:0:1237810168",
 								["Color"] = "ffffff",
-								["Icon"] = "INV_Fabric_Netherweave",
-							}, -- [6]
-							{
-								["Quantity"] = 3,
-								["Name"] = "Ethermead",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Ethermead<br>Requires Level 65<br>Use: Restores 7200 mana over 30 sec.  Must remain seated while drinking.",
-								["Icon"] = "INV_Drink_21",
-								["Item"] = "29395:0:0:0:0:0:0:0",
+								["Tooltip"] = "Imbued Silver Spear<br>Quest Item<br>Unique<br>Use: Plant into the ground at Portal Clearing near Marshlight Lake to awake the demon who sleeps by the sunken portal.",
+								["Icon"] = "INV_Spear_04",
+								["Name"] = "Imbued Silver Spear",
 							}, -- [7]
 							{
 								["Quantity"] = 4,
@@ -1993,26 +2152,20 @@ myProfile = {
 								["Icon"] = "INV_Misc_Orb_05",
 								["Item"] = "16583:0:0:0:0:0:0:0",
 							}, -- [8]
+							nil, -- [9]
 							{
-								["Item"] = "22446:0:0:0:0:0:0:1436482926",
-								["Color"] = "1eff00",
-								["Tooltip"] = "Greater Planar Essence<br>Use: Turn a greater planar essence into three lesser ones.",
-								["Icon"] = "INV_Enchant_EssenceArcaneLarge",
-								["Name"] = "Greater Planar Essence",
-							}, -- [9]
-							{
-								["Quantity"] = 25,
+								["Quantity"] = 27,
 								["Name"] = "Oshu'gun Crystal Powder Sample",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Oshu'gun Crystal Powder Sample<br>Soulbound<br>Unique (100)<br>\"You may turn 20 of these items in to Chief Researcher Amereldine at Halaa if the Horde have control of the base.\"",
 								["Icon"] = "INV_Enchant_DustVision",
 							}, -- [10]
 							{
-								["Item"] = "12846:0:0:0:0:0:0:51905469",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Argent Dawn Commission<br>Soulbound<br>Unique<br>Trinket<br>\"Equipping this badge is an indication of service to the Argent Dawn.\"",
-								["Icon"] = "INV_Jewelry_Talisman_07",
-								["Name"] = "Argent Dawn Commission",
+								["Item"] = "21565:0:0:0:0:0:0:0",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Rune of Perfection<br>Soulbound<br>Unique<br>Trinket<br>+7 Stamina<br>Classes: Priest, Shaman, Mage, Warlock, Druid<br>Requires Level 40<br>Equip: Increases your spell penetration by 20.",
+								["Icon"] = "INV_Misc_Rune_05",
+								["Name"] = "Rune of Perfection",
 							}, -- [11]
 							{
 								["Item"] = "25475:0:0:0:0:0:0:0",
@@ -2061,16 +2214,16 @@ myProfile = {
 							{
 								["Item"] = "6948:0:0:0:0:0:0:0",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Hearthstone<br>Soulbound<br>Unique<br>Use: Returns you to Shadowmoon Village.  Speak to an Innkeeper in a different place to change your home location.<br>Cooldown remaining: 59 min",
+								["Tooltip"] = "Hearthstone<br>Soulbound<br>Unique<br>Use: Returns you to Shadowmoon Village.  Speak to an Innkeeper in a different place to change your home location.<br>Cooldown remaining: 60 min",
 								["Icon"] = "INV_Misc_Rune_01",
 								["Name"] = "Hearthstone",
 							}, -- [1]
 							{
-								["Quantity"] = 5,
-								["Name"] = "Arcane Dust",
-								["Color"] = "ffffff",
-								["Icon"] = "INV_Enchant_DustArcane",
-								["Item"] = "22445:0:0:0:0:0:0:1458233757",
+								["Quantity"] = 4,
+								["Name"] = "Severed Claw",
+								["Color"] = "9d9d9d",
+								["Icon"] = "INV_Misc_MonsterClaw_01",
+								["Item"] = "25420:0:0:0:0:0:0:1624026742",
 							}, -- [2]
 							{
 								["Item"] = "18852:0:0:0:0:0:0:0",
@@ -2094,12 +2247,12 @@ myProfile = {
 								["Name"] = "Zergling Leash",
 							}, -- [5]
 							{
-								["Quantity"] = 3,
-								["Name"] = "Smoked Talbuk Venison",
+								["Quantity"] = 14,
+								["Name"] = "Ethermead",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Smoked Talbuk Venison<br>Requires Level 55<br>Use: Restores 4320 health over 30 sec.  Must remain seated while eating.",
-								["Icon"] = "INV_Misc_Food_50",
-								["Item"] = "27854:0:0:0:0:0:0:426206978",
+								["Tooltip"] = "Ethermead<br>Requires Level 65<br>Use: Restores 7200 mana over 30 sec.  Must remain seated while drinking.",
+								["Icon"] = "INV_Drink_21",
+								["Item"] = "29395:0:0:0:0:0:0:0",
 							}, -- [6]
 							{
 								["Item"] = "19315:0:0:0:0:0:0:0",
@@ -2109,12 +2262,10 @@ myProfile = {
 								["Name"] = "Therazane's Touch",
 							}, -- [7]
 							{
-								["Quantity"] = 5,
-								["Name"] = "Sunfury Signet",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Sunfury Signet<br>\"Can be turned in at Shattrath City to prove your slaying of a high-ranking follower of Kael'thas.\"",
-								["Icon"] = "INV_Jewelry_Ring_36",
-								["Item"] = "30810:0:0:0:0:0:0:1770088754",
+								["Item"] = "29739:0:0:0:0:0:0:1916475788",
+								["Color"] = "1eff00",
+								["Icon"] = "INV_Misc_Book_07",
+								["Name"] = "Arcane Tome",
 							}, -- [8]
 							{
 								["Item"] = "31108:0:0:0:0:0:0:209276296",
@@ -2138,40 +2289,38 @@ myProfile = {
 								["Name"] = "The Master Planner's Blueprints",
 							}, -- [11]
 							{
-								["Quantity"] = 3,
-								["Name"] = "Enormous Molar",
-								["Color"] = "9d9d9d",
-								["Icon"] = "INV_Misc_Bone_07",
-								["Item"] = "30814:0:0:0:0:0:0:1935066642",
+								["Item"] = "21842:0:0:0:0:0:0:2060642292",
+								["Color"] = "1eff00",
+								["Icon"] = "INV_Fabric_Netherweave_Bolt_Imbued",
+								["Name"] = "Bolt of Imbued Netherweave",
 							}, -- [12]
 							{
-								["Quantity"] = 2,
-								["Name"] = "Zangar Caps",
+								["Item"] = "6657:0:0:0:0:0:0:121168288",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Zangar Caps<br>Requires Level 55<br>Use: Restores 4320 health over 30 sec.  Must remain seated while eating.",
-								["Icon"] = "INV_Mushroom_04",
-								["Item"] = "27859:0:0:0:0:0:0:2132600247",
+								["Tooltip"] = "Savory Deviate Delight<br>Use: Eat me.",
+								["Icon"] = "INV_Misc_MonsterHead_04",
+								["Name"] = "Savory Deviate Delight",
 							}, -- [13]
 							{
-								["Item"] = "29550:0:0:0:0:0:0:349792430",
-								["Color"] = "0070dd",
-								["Tooltip"] = "Tome of Conjure Water IX<br>Classes: Mage<br>Requires Level 70",
-								["Icon"] = "INV_Misc_Book_07",
-								["Name"] = "Tome of Conjure Water IX",
+								["Item"] = "31241:0:0:0:0:0:0:802971168",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Primed Key Mold<br>Soulbound<br>Unique<br>This Item Begins a Quest<br>Requires Level 68<br>\"The outline of Hellfire Citadel is engraved on the back of this mold.\"",
+								["Icon"] = "INV_Misc_StoneTablet_05",
+								["Name"] = "Primed Key Mold",
 							}, -- [14]
 							{
-								["Quantity"] = 7,
-								["Name"] = "Mote of Water",
+								["Item"] = "30457:0:0:0:0:0:0:1897439734",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Mote of Water<br>Use: Turn ten Motes of Water into Primal Water.",
-								["Icon"] = "INV_Elemental_Mote_Water01",
-								["Item"] = "22578:0:0:0:0:0:0:419302832",
+								["Tooltip"] = "Gilneas Sparkling Water<br>Requires Level 65<br>Use: Restores 7200 mana over 30 sec.  Must remain seated while drinking.",
+								["Icon"] = "INV_Drink_Waterskin_12",
+								["Name"] = "Gilneas Sparkling Water",
 							}, -- [15]
 							{
-								["Color"] = "9d9d9d",
-								["Tooltip"] = "Broken Longbow<br>Ranged	Bow<br>48 - 90 Damage	Speed 2.50<br>(27.6 damage per second)<br>Durability 65 / 65<br>Requires Level 64",
-								["Name"] = "Broken Longbow",
-								["Icon"] = "INV_Weapon_Bow_02",
+								["Quantity"] = 14,
+								["Name"] = "Netherweave Cloth",
+								["Color"] = "ffffff",
+								["Icon"] = "INV_Fabric_Netherweave",
+								["Item"] = "21877:0:0:0:0:0:0:1099714513",
 							}, -- [16]
 						},
 						["Name"] = "Netherweave Bag",
@@ -2185,9 +2334,9 @@ myProfile = {
 						["Contents"] = {
 							{
 								["Color"] = "1eff00",
-								["Tooltip"] = "Ceremonial Slayer's Axe of the Eagle<br>Binds when equipped<br>Two-Hand	Axe<br>217 - 327 Damage	Speed 3.50<br>(77.7 damage per second)<br>|cffffffff+34 Intellect|r<br><br>|cffffffff+52 Stamina|r<br><br>Durability 85 / 85<br>Requires Level 67",
-								["Name"] = "Ceremonial Slayer's Axe of the Eagle",
-								["Icon"] = "INV_Axe_21",
+								["Tooltip"] = "Corruptor's Scourgestone<br>Soulbound",
+								["Name"] = "Corruptor's Scourgestone",
+								["Icon"] = "INV_Jewelry_Talisman_12",
 							}, -- [1]
 							{
 								["Item"] = "29618:0:0:0:0:0:0:6116348",
@@ -2197,18 +2346,19 @@ myProfile = {
 								["Name"] = "Protectorate Disruptor",
 							}, -- [2]
 							{
-								["Quantity"] = 3,
-								["Name"] = "Dragon's Claw",
-								["Color"] = "9d9d9d",
-								["Icon"] = "INV_Misc_MonsterClaw_02",
+								["Quantity"] = 5,
+								["Name"] = "Blackened Basilisk",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Blackened Basilisk<br>Requires Level 55<br>Use: Restores 7500 health over 30 sec.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain 23 Spell Damage and 20 Spirit for 30 min.<br>\"Seared to perfection!\"",
+								["Icon"] = "INV_Misc_Food_86_Basilisk",
+								["Item"] = "27657:0:0:0:0:0:0:225246715",
 							}, -- [3]
 							{
-								["Quantity"] = 2,
-								["Name"] = "Super Healing Potion",
+								["Item"] = "22829:0:0:0:0:0:0:1609316718",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Super Healing Potion<br>Requires Level 55<br>Use: Restores 1500 to 2500 health.",
 								["Icon"] = "INV_Potion_131",
-								["Item"] = "22829:0:0:0:0:0:0:1609316718",
+								["Name"] = "Super Healing Potion",
 							}, -- [4]
 							{
 								["Item"] = "31702:0:0:0:0:0:0:100014690",
@@ -2225,32 +2375,22 @@ myProfile = {
 								["Name"] = "Archmage Vargoth's Staff",
 							}, -- [6]
 							{
-								["Quantity"] = 2,
-								["Name"] = "Lyribread",
+								["Quantity"] = 9,
+								["Name"] = "Mote of Shadow",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Lyribread<br>Requires Level 65<br>Use: Restores 7500 health over 30 sec.  Must remain seated while eating.",
-								["Icon"] = "INV_Holiday_ToW_SpiceBrownie",
-								["Item"] = "29394:0:0:0:0:0:0:0",
+								["Tooltip"] = "Mote of Shadow<br>Use: Turn ten Motes of Shadow into Primal Shadow.",
+								["Icon"] = "INV_Elemental_Mote_Shadow01",
+								["Item"] = "22577:0:0:0:0:0:0:2059429420",
 							}, -- [7]
+							nil, -- [8]
+							nil, -- [9]
 							{
-								["Item"] = "21539:0:0:0:0:0:0:60528188",
+								["Quantity"] = 4,
+								["Name"] = "Mark of Kil'jaeden",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Festive Purple Dress<br>Soulbound<br>Chest",
-								["Icon"] = "INV_Chest_Cloth_59",
-								["Name"] = "Festive Purple Dress",
-							}, -- [8]
-							{
-								["Item"] = "30462:0:0:0:0:0:0:198031506",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Oronok's Boar Whistle<br>Quest Item<br>Unique<br>Use: Blow this whistle when you are on top of a tuber mound and if a domesticated felboar is near, they will come and dig up a tuber. Better protect those felboars!",
-								["Icon"] = "Ability_Hunter_BeastCall",
-								["Name"] = "Oronok's Boar Whistle",
-							}, -- [9]
-							{
-								["Item"] = "21840:0:0:0:0:0:0:318782384",
-								["Color"] = "ffffff",
-								["Icon"] = "INV_Fabric_Netherweave_Bolt",
-								["Name"] = "Bolt of Netherweave",
+								["Tooltip"] = "Mark of Kil'jaeden<br>\"Can be turned in at Shattrath City to prove your slaying of a low-ranking follower of the Burning Legion.\"",
+								["Icon"] = "Spell_Shadow_DemonicFortitude",
+								["Item"] = "29425:0:0:0:0:0:0:947012923",
 							}, -- [10]
 							{
 								["Quantity"] = 4,
@@ -2259,22 +2399,10 @@ myProfile = {
 								["Tooltip"] = "Mote of Air<br>Use: Turn ten Motes of Air into Primal Air.",
 								["Icon"] = "INV_Elemental_Mote_Air01",
 							}, -- [11]
-							{
-								["Item"] = "31272:0:0:0:0:0:0:2016276529",
-								["Color"] = "0070dd",
-								["Tooltip"] = "Crown of Endless Knowledge<br>Soulbound<br>Head	Cloth<br>114 Armor<br>+22 Stamina<br>+30 Intellect<br>+23 Spirit<br>Durability 46 / 50<br>Requires Level 66<br>Equip: Increases damage and healing done by magical spells and effects by up to 36.",
-								["Icon"] = "INV_MISC_GEM_BLOODSTONE_02",
-								["Name"] = "Crown of Endless Knowledge",
-							}, -- [12]
+							nil, -- [12]
 							nil, -- [13]
 							nil, -- [14]
-							{
-								["Item"] = "30721:0:0:0:0:0:0:1309159734",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Spectrecles<br>Soulbound<br>Unique<br>Head<br>Equip: Allows the bearer to see into the ghost world of Shadowmoon Valley. Only effective in Shadowmoon Valley.<br>\"*WARNING* Ghosts don't like to be seen.\"",
-								["Icon"] = "INV_Helmet_47",
-								["Name"] = "Spectrecles",
-							}, -- [15]
+							nil, -- [15]
 							{
 								["Item"] = "10455:0:0:0:0:0:0:860686879",
 								["Color"] = "1eff00",
@@ -2323,13 +2451,7 @@ myProfile = {
 								["Icon"] = "INV_Misc_Herb_11a",
 								["Name"] = "Everlasting Underspore Frond",
 							}, -- [5]
-							{
-								["Quantity"] = 7,
-								["Name"] = "Mark of Kil'jaeden",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Mark of Kil'jaeden<br>\"Can be turned in at Shattrath City to prove your slaying of a low-ranking follower of the Burning Legion.\"",
-								["Icon"] = "Spell_Shadow_DemonicFortitude",
-							}, -- [6]
+							nil, -- [6]
 							{
 								["Quantity"] = 4,
 								["Name"] = "Mark of Thrallmar",
@@ -2354,20 +2476,14 @@ myProfile = {
 								["Name"] = "Bloodgem Shard",
 							}, -- [9]
 							{
-								["Quantity"] = 6,
+								["Quantity"] = 9,
 								["Name"] = "Mark of Sargeras",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Mark of Sargeras<br>\"Can be turned in at Shattrath City to prove your slaying of a high-ranking follower of the Burning Legion.\"",
 								["Icon"] = "Spell_Shadow_DemonicFortitude",
 								["Item"] = "30809:0:0:0:0:0:0:1149102940",
 							}, -- [10]
-							{
-								["Item"] = "5976:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Guild Tabard<br>Tabard",
-								["Icon"] = "INV_Shirt_GuildTabard_01",
-								["Name"] = "Guild Tabard",
-							}, -- [11]
+							nil, -- [11]
 							{
 								["Quantity"] = 5,
 								["Name"] = "Super Mana Potion",
@@ -2376,27 +2492,20 @@ myProfile = {
 								["Icon"] = "INV_Potion_137",
 							}, -- [12]
 							{
-								["Item"] = "22832:0:0:0:0:0:0:1319714294",
+								["Quantity"] = 3,
+								["Name"] = "Super Mana Potion",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Super Mana Potion<br>Requires Level 55<br>Use: Restores 1800 to 3000 mana.",
 								["Icon"] = "INV_Potion_137",
-								["Name"] = "Super Mana Potion",
+								["Item"] = "22832:0:0:0:0:0:0:1319714294",
 							}, -- [13]
-							{
-								["Quantity"] = 20,
-								["Name"] = "Netherweave Cloth",
-								["Color"] = "ffffff",
-								["Icon"] = "INV_Fabric_Netherweave",
-								["Item"] = "21877:0:0:0:0:0:0:344555363",
-							}, -- [14]
-							{
-								["Quantity"] = 2,
-								["Name"] = "Mote of Fire",
+							[15] = {
+								["Item"] = "22574:0:0:0:0:0:0:1932940876",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Mote of Fire<br>Use: Turn ten Motes of Fire into Primal Fire.",
 								["Icon"] = "INV_Elemental_Mote_Fire01",
-								["Item"] = "22574:0:0:0:0:0:0:1932940876",
-							}, -- [15]
+								["Name"] = "Mote of Fire",
+							},
 						},
 						["Name"] = "Netherweave Bag",
 						["Icon"] = "INV_Misc_Bag_23_Netherweave",
@@ -2914,22 +3023,77 @@ myProfile = {
 						["Name"] = "Tangtaz",
 						["Experience"] = "0:0",
 					},
-					["Jhuuthun"] = {
-						["Type"] = "Felguard",
+					["Nokmat"] = {
+						["Type"] = "Imp",
 						["TalentPoints"] = 0,
 						["Power"] = "Mana",
-						["Mana"] = 4023,
+						["Mana"] = 3201,
 						["TalentPointsUsed"] = 0,
 						["Attributes"] = {
+							["Stats"] = {
+								["Intellect"] = "376:118:0",
+								["Agility"] = "39:0:0",
+								["Stamina"] = "116:211:0",
+								["Strength"] = "145:0:0",
+								["Spirit"] = "263:0:0",
+							},
+							["Melee"] = {
+								["AttackPower"] = "135:327:0",
+								["CritChance"] = "0.00",
+								["CritRating"] = "0:0:0",
+								["HitRating"] = "0:0:0",
+								["AttackPowerDPS"] = "33.0",
+								["MainHand"] = {
+									["AttackSpeed"] = "2.00",
+									["AttackRating"] = "350:0:0",
+									["AttackDPS"] = "46.5",
+									["AttackSkill"] = 350,
+									["DamageRange"] = "43:97",
+								},
+								["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92 x105%<br>Damage per Second:	46.5",
+								["HasteRating"] = "0:0:0",
+								["AttackPowerTooltip"] = "Increases damage with melee weapons by 3.1 damage per second.",
+							},
+							["Resists"] = {
+								["Holy"] = "0:0:0",
+								["Arcane"] = "0:0:0",
+								["Shadow"] = "0:0:0",
+								["Fire"] = "0:0:0",
+								["Frost"] = "0:0:0",
+								["Nature"] = "0:0:0",
+							},
+							["Buffs"] = {
+								{
+									["Tooltip"] = "Phase Shift",
+									["Name"] = "Phase Shift",
+									["Icon"] = "Spell_Shadow_ImpPhaseShift",
+								}, -- [1]
+								{
+									["Tooltip"] = "Demonic Knowledge<br>Increases spell damage by a percentage of your active demon's Stamina plus Intellect.",
+									["Name"] = "Demonic Knowledge",
+									["Icon"] = "Spell_Shadow_ImprovedVampiricEmbrace",
+								}, -- [2]
+								{
+									["Icon"] = "Spell_Shadow_BloodBoil",
+									["Tooltip"] = "Blood Pact<br>Increases Stamina by 70.",
+									["Name"] = "Blood Pact",
+									["Rank"] = "Rank 6",
+								}, -- [3]
+								{
+									["Tooltip"] = "Master Demonologist<br>Reduces threat caused by 20%.",
+									["Name"] = "Master Demonologist",
+									["Icon"] = "Spell_Shadow_ShadowPact",
+								}, -- [4]
+							},
 							["Defense"] = {
 								["BlockRating"] = "0:0:0",
 								["Defense"] = "350:0:0",
 								["BlockChance"] = "0.00",
-								["ArmorReduction"] = "44.65",
+								["ArmorReduction"] = "19.33",
 								["ParryRating"] = "0:0:0",
-								["Armor"] = "7889:629:0",
+								["Armor"] = "2207:322:0",
 								["DodgeRating"] = "0:0:0",
-								["DodgeChance"] = "4.11",
+								["DodgeChance"] = "3.67",
 								["DefenseRating"] = "0:0:0",
 								["DefensePercent"] = 0,
 								["ParryChance"] = "0.00",
@@ -2939,20 +3103,72 @@ myProfile = {
 									["Melee"] = 19,
 								},
 							},
+						},
+						["Experience"] = "0:0",
+						["SpellBook"] = {
+							["Count"] = 4,
+							["Spells"] = {
+								["Blood Pact"] = {
+									["Icon"] = "Spell_Shadow_BloodBoil",
+									["Rank"] = "Rank 6",
+								},
+								["Firebolt"] = {
+									["Icon"] = "Spell_Fire_FireBolt",
+									["Rank"] = "Rank 8",
+								},
+								["Fire Shield"] = {
+									["Icon"] = "Spell_Fire_FireArmor",
+									["Rank"] = "Rank 6",
+								},
+								["Phase Shift"] = {
+									["Icon"] = "Spell_Shadow_ImpPhaseShift",
+									["Rank"] = "",
+								},
+							},
+						},
+						["Level"] = 70,
+						["Name"] = "Nokmat",
+						["Health"] = 1834,
+					},
+					["Jhuuthun"] = {
+						["Type"] = "Felguard",
+						["TalentPoints"] = 0,
+						["Power"] = "Mana",
+						["Mana"] = 4012,
+						["TalentPointsUsed"] = 0,
+						["Attributes"] = {
+							["Defense"] = {
+								["BlockRating"] = "0:0:0",
+								["Defense"] = "350:0:0",
+								["BlockChance"] = "0.00",
+								["ArmorReduction"] = "44.71",
+								["ParryRating"] = "0:0:0",
+								["DefenseRating"] = "0:0:0",
+								["DodgeRating"] = "0:0:0",
+								["ParryChance"] = "0.00",
+								["Armor"] = "7889:647:0",
+								["DefensePercent"] = 0,
+								["DodgeChance"] = "4.15",
+								["Resilience"] = {
+									["Ranged"] = 19,
+									["Spell"] = 19,
+									["Melee"] = 19,
+								},
+							},
 							["Melee"] = {
-								["AttackPower"] = "286:303:0",
-								["CritChance"] = "0.00",
+								["AttackPower"] = "286:309:0",
+								["CritChance"] = "3.59",
 								["CritRating"] = "0:0:0",
 								["HitRating"] = "0:0:0",
-								["AttackPowerDPS"] = "42.1",
+								["AttackPowerDPS"] = "42.5",
 								["MainHand"] = {
 									["AttackSpeed"] = "2.00",
 									["AttackRating"] = "350:0:0",
-									["AttackDPS"] = "51.3",
+									["AttackDPS"] = "48.9",
 									["AttackSkill"] = 350,
-									["DamageRange"] = "47:107",
+									["DamageRange"] = "45:102",
 								},
-								["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92 x116%<br>Damage per Second:	51.3",
+								["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92 x110%<br>Damage per Second:	48.9",
 								["HasteRating"] = "0:0:0",
 								["AttackPowerTooltip"] = "Increases damage with melee weapons by 3.1 damage per second.",
 							},
@@ -2966,25 +3182,25 @@ myProfile = {
 							},
 							["Buffs"] = {
 								{
-									["Tooltip"] = "Demonic Knowledge<br>Increases Master's spell damage by a percentage of the active demon's Stamina plus Intellect.",
 									["Name"] = "Demonic Knowledge",
+									["Tooltip"] = "Demonic Knowledge<br>Increases Master's spell damage by a percentage of the active demon's Stamina plus Intellect.",
 									["Icon"] = "Spell_Shadow_ImprovedVampiricEmbrace",
 								}, -- [1]
 								{
-									["Tooltip"] = "Master Demonologist<br>Increases damage caused by 5% and resistance to all magic schools by 35.",
 									["Name"] = "Master Demonologist",
+									["Tooltip"] = "Master Demonologist<br>Increases damage caused by 5% and resistance to all magic schools by 35.",
 									["Icon"] = "Spell_Shadow_ShadowPact",
 								}, -- [2]
 								{
-									["Tooltip"] = "Soul Link	Magic<br>20% of damage taken by master is split with demon.  All damage increased by 5%.",
 									["Name"] = "Soul Link",
+									["Tooltip"] = "Soul Link	Magic<br>20% of damage taken by master is split with demon.  All damage increased by 5%.",
 									["Icon"] = "Spell_Shadow_GatherShadows",
 								}, -- [3]
 							},
 							["Stats"] = {
-								["Intellect"] = "152:119:0",
+								["Intellect"] = "152:118:0",
 								["Agility"] = "109:0:0",
-								["Stamina"] = "322:100:0",
+								["Stamina"] = "322:97:0",
 								["Strength"] = "153:0:0",
 								["Spirit"] = "122:0:0",
 							},
@@ -3017,7 +3233,7 @@ myProfile = {
 						},
 						["Level"] = 70,
 						["Name"] = "Jhuuthun",
-						["Health"] = 4660,
+						["Health"] = 4630,
 					},
 					["Unknown"] = {
 						["Type"] = "Felguard",
@@ -3221,34 +3437,34 @@ myProfile = {
 						["Name"] = "Ghaakun",
 						["Experience"] = "0:0",
 					},
-					["Nokmat"] = {
-						["Type"] = "Imp",
+					["Glynlissa"] = {
+						["Type"] = "Succubus",
 						["TalentPoints"] = 0,
 						["Power"] = "Mana",
-						["Mana"] = 3201,
+						["Mana"] = 4012,
 						["TalentPointsUsed"] = 0,
 						["Attributes"] = {
 							["Stats"] = {
-								["Intellect"] = "376:118:0",
-								["Agility"] = "39:0:0",
-								["Stamina"] = "116:211:0",
-								["Strength"] = "145:0:0",
-								["Spirit"] = "263:0:0",
+								["Intellect"] = "152:118:0",
+								["Agility"] = "109:0:0",
+								["Stamina"] = "322:100:0",
+								["Strength"] = "153:0:0",
+								["Spirit"] = "122:0:0",
 							},
 							["Melee"] = {
-								["AttackPower"] = "135:327:0",
-								["CritChance"] = "0.00",
+								["AttackPower"] = "286:309:0",
+								["CritChance"] = "3.59",
 								["CritRating"] = "0:0:0",
 								["HitRating"] = "0:0:0",
-								["AttackPowerDPS"] = "33.0",
+								["AttackPowerDPS"] = "42.5",
 								["MainHand"] = {
 									["AttackSpeed"] = "2.00",
 									["AttackRating"] = "350:0:0",
-									["AttackDPS"] = "46.5",
+									["AttackDPS"] = "51.2",
 									["AttackSkill"] = 350,
-									["DamageRange"] = "43:97",
+									["DamageRange"] = "47:107",
 								},
-								["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92 x105%<br>Damage per Second:	46.5",
+								["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92 x115%<br>Damage per Second:	51.2",
 								["HasteRating"] = "0:0:0",
 								["AttackPowerTooltip"] = "Increases damage with melee weapons by 3.1 damage per second.",
 							},
@@ -3262,39 +3478,38 @@ myProfile = {
 							},
 							["Buffs"] = {
 								{
-									["Tooltip"] = "Phase Shift",
-									["Name"] = "Phase Shift",
-									["Icon"] = "Spell_Shadow_ImpPhaseShift",
+									["Name"] = "Demonic Knowledge",
+									["Tooltip"] = "Demonic Knowledge<br>Increases Master's spell damage by a percentage of the active demon's Stamina plus Intellect.",
+									["Icon"] = "Spell_Shadow_ImprovedVampiricEmbrace",
 								}, -- [1]
 								{
-									["Tooltip"] = "Demonic Knowledge<br>Increases spell damage by a percentage of your active demon's Stamina plus Intellect.",
-									["Name"] = "Demonic Knowledge",
-									["Icon"] = "Spell_Shadow_ImprovedVampiricEmbrace",
+									["Name"] = "Master Demonologist",
+									["Tooltip"] = "Master Demonologist<br>Increases damage caused by 10%.",
+									["Icon"] = "Spell_Shadow_ShadowPact",
 								}, -- [2]
 								{
-									["Icon"] = "Spell_Shadow_BloodBoil",
-									["Tooltip"] = "Blood Pact<br>Increases Stamina by 70.",
-									["Name"] = "Blood Pact",
-									["Rank"] = "Rank 6",
+									["Name"] = "Soul Link",
+									["Tooltip"] = "Soul Link	Magic<br>20% of damage taken by master is split with demon.  All damage increased by 5%.",
+									["Icon"] = "Spell_Shadow_GatherShadows",
 								}, -- [3]
 								{
-									["Tooltip"] = "Master Demonologist<br>Reduces threat caused by 20%.",
-									["Name"] = "Master Demonologist",
-									["Icon"] = "Spell_Shadow_ShadowPact",
+									["Name"] = "Lesser Invisibility",
+									["Tooltip"] = "Lesser Invisibility<br>Invisible.",
+									["Icon"] = "Spell_Magic_LesserInvisibilty",
 								}, -- [4]
 							},
 							["Defense"] = {
 								["BlockRating"] = "0:0:0",
 								["Defense"] = "350:0:0",
 								["BlockChance"] = "0.00",
-								["ArmorReduction"] = "19.33",
+								["ArmorReduction"] = "30.53",
 								["ParryRating"] = "0:0:0",
-								["Armor"] = "2207:322:0",
-								["DodgeRating"] = "0:0:0",
-								["DodgeChance"] = "3.67",
 								["DefenseRating"] = "0:0:0",
-								["DefensePercent"] = 0,
+								["DodgeRating"] = "0:0:0",
 								["ParryChance"] = "0.00",
+								["Armor"] = "4294:346:0",
+								["DefensePercent"] = 0,
+								["DodgeChance"] = "4.15",
 								["Resilience"] = {
 									["Ranged"] = 19,
 									["Spell"] = 19,
@@ -3302,31 +3517,31 @@ myProfile = {
 								},
 							},
 						},
-						["Experience"] = "0:0",
+						["Health"] = 3262,
 						["SpellBook"] = {
 							["Count"] = 4,
 							["Spells"] = {
-								["Blood Pact"] = {
-									["Icon"] = "Spell_Shadow_BloodBoil",
-									["Rank"] = "Rank 6",
-								},
-								["Firebolt"] = {
-									["Icon"] = "Spell_Fire_FireBolt",
-									["Rank"] = "Rank 8",
-								},
-								["Fire Shield"] = {
-									["Icon"] = "Spell_Fire_FireArmor",
-									["Rank"] = "Rank 6",
-								},
-								["Phase Shift"] = {
-									["Icon"] = "Spell_Shadow_ImpPhaseShift",
+								["Seduction"] = {
+									["Icon"] = "Spell_Shadow_MindSteal",
 									["Rank"] = "",
+								},
+								["Lesser Invisibility"] = {
+									["Icon"] = "Spell_Magic_LesserInvisibilty",
+									["Rank"] = "",
+								},
+								["Soothing Kiss"] = {
+									["Icon"] = "Spell_Shadow_SoothingKiss",
+									["Rank"] = "Rank 5",
+								},
+								["Lash of Pain"] = {
+									["Icon"] = "Spell_Shadow_Curse",
+									["Rank"] = "Rank 7",
 								},
 							},
 						},
 						["Level"] = 70,
-						["Name"] = "Nokmat",
-						["Health"] = 1834,
+						["Name"] = "Glynlissa",
+						["Experience"] = "0:0",
 					},
 				},
 				["Skills"] = {
@@ -3345,7 +3560,7 @@ myProfile = {
 					},
 					["Professions"] = {
 						["Herbalism"] = "354:375",
-						["Tailoring"] = "347:375",
+						["Tailoring"] = "352:375",
 						["Order"] = 2,
 					},
 					["Languages"] = {
@@ -3357,11 +3572,11 @@ myProfile = {
 						["Cloth"] = "1:1",
 					},
 					["Weapon Skills"] = {
-						["Defense"] = "347:350",
+						["Defense"] = "348:350",
 						["Wands"] = "350:350",
 						["Swords"] = "1:350",
 						["Order"] = 4,
-						["Daggers"] = "208:350",
+						["Daggers"] = "209:350",
 						["Unarmed"] = "23:350",
 						["Staves"] = "255:350",
 					},
@@ -3371,27 +3586,27 @@ myProfile = {
 						["CritChance"] = "9.23",
 						["AttackSpeed"] = "1.8",
 						["CritRating"] = "0:0:0",
-						["AttackDPS"] = "113.1",
+						["AttackDPS"] = "150.8",
 						["HasWandEquipped"] = true,
 						["HitRating"] = "0:0:0",
 						["AttackRating"] = "350:0:0",
-						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	1.80<br>Damage:	142 - 265<br>Damage per Second:	113.1",
+						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	1.80<br>Damage:	164 - 307<br>Damage per Second:	150.8",
 						["AttackSkill"] = 350,
 						["HasteRating"] = "0:0:0",
-						["DamageRange"] = "142:265",
+						["DamageRange"] = "164:307",
 					},
 					["Defense"] = {
 						["BlockRating"] = "0:0:0",
-						["Defense"] = "347:0:0",
+						["Defense"] = "348:0:0",
 						["BlockChance"] = "0.00",
-						["ArmorReduction"] = "14.68",
+						["ArmorReduction"] = "8.58",
 						["ParryRating"] = "0:0:0",
 						["DefenseRating"] = "0:0:0",
 						["DodgeRating"] = "0:0:0",
 						["ParryChance"] = "0.00",
-						["Armor"] = "958:858:0",
+						["Armor"] = "991:0:0",
 						["DefensePercent"] = 0,
-						["DodgeChance"] = "4.11",
+						["DodgeChance"] = "4.15",
 						["Resilience"] = {
 							["Ranged"] = 19,
 							["Spell"] = 19,
@@ -3400,25 +3615,25 @@ myProfile = {
 					},
 					["Melee"] = {
 						["AttackPower"] = "44:0:0",
-						["CritChance"] = "3.55",
+						["CritChance"] = "3.59",
 						["CritRating"] = "0:0:0",
 						["HitRating"] = "0:0:0",
 						["AttackPowerDPS"] = "3.1",
 						["MainHand"] = {
 							["AttackSpeed"] = "1.50",
-							["AttackRating"] = "208:0:0",
-							["AttackDPS"] = "44.3",
-							["AttackSkill"] = 208,
-							["DamageRange"] = "40:92",
+							["AttackRating"] = "209:0:0",
+							["AttackDPS"] = "51.2",
+							["AttackSkill"] = 209,
+							["DamageRange"] = "47:107",
 						},
-						["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92<br>Damage per Second:	44.3",
+						["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	1.50<br>Damage:	40 - 92 x115%<br>Damage per Second:	51.2",
 						["HasteRating"] = "0:0:0",
 						["AttackPowerTooltip"] = "Increases damage with melee weapons by 3.1 damage per second.",
 					},
 					["Resists"] = {
 						["Holy"] = "0:0:0",
 						["Arcane"] = "0:0:0",
-						["Shadow"] = "0:23:0",
+						["Shadow"] = "0:0:0",
 						["Fire"] = "0:0:0",
 						["Frost"] = "0:0:0",
 						["Nature"] = "0:0:0",
@@ -3430,35 +3645,44 @@ myProfile = {
 							["Icon"] = "Spell_Holy_SpiritualGuidence",
 						}, -- [1]
 						{
-							["Name"] = "Demon Armor",
-							["Tooltip"] = "Demon Armor	Magic<br>Increases armor by 660, Shadow resistance by 18 and restores 18 health every 5 sec.",
-							["Icon"] = "Spell_Shadow_RagingScream",
-							["Rank"] = "Rank 6",
+							["Name"] = "Demonic Knowledge",
+							["Tooltip"] = "Demonic Knowledge<br>Increases Master's spell damage by a percentage of the active demon's Stamina plus Intellect.",
+							["Icon"] = "Spell_Shadow_ImprovedVampiricEmbrace",
 						}, -- [2]
+						{
+							["Name"] = "Master Demonologist",
+							["Tooltip"] = "Master Demonologist<br>Increases damage caused by 10%.",
+							["Icon"] = "Spell_Shadow_ShadowPact",
+						}, -- [3]
+						{
+							["Name"] = "Soul Link",
+							["Tooltip"] = "Soul Link	Magic<br>20% of damage taken by master is split with demon.  All damage increased by 5%.",
+							["Icon"] = "Spell_Shadow_GatherShadows",
+						}, -- [4]
 					},
 					["Stats"] = {
-						["Intellect"] = "130:200:0",
+						["Intellect"] = "130:215:0",
 						["Agility"] = "55:0:0",
-						["Stamina"] = "89:209:0",
+						["Stamina"] = "89:203:0",
 						["Strength"] = "54:0:0",
-						["Spirit"] = "134:41:0",
+						["Spirit"] = "134:44:0",
 					},
 					["Spell"] = {
-						["CritChance"] = "17.16",
-						["CritRating"] = "142:6.4320556636364:0",
-						["ManaRegen"] = "130:5",
+						["CritChance"] = "18.02",
+						["CritRating"] = "157:7.1114981633163:0",
+						["ManaRegen"] = "136:10",
 						["HitRating"] = "31:2.4573169874337:0",
 						["Penetration"] = 20,
 						["School"] = {
-							["Frost"] = 432,
-							["Arcane"] = 432,
-							["Fire"] = 432,
-							["Shadow"] = 432,
-							["Nature"] = 432,
+							["Frost"] = 543,
+							["Arcane"] = 543,
+							["Fire"] = 543,
+							["Shadow"] = 543,
+							["Nature"] = 543,
 						},
 						["HasteRating"] = "0:0:0",
-						["BonusHealing"] = 432,
-						["BonusDamage"] = 432,
+						["BonusHealing"] = 440,
+						["BonusDamage"] = 543,
 					},
 				},
 				["Professions"] = {
@@ -3551,7 +3775,7 @@ myProfile = {
 								},
 							},
 							["Imbued Netherweave Bag"] = {
-								["Difficulty"] = 2,
+								["Difficulty"] = 1,
 								["Item"] = "21843:0:0:0:0:0:0:0",
 								["Color"] = "1eff00",
 								["Tooltip"] = "Imbued Netherweave Bag<br>Binds when equipped<br>18 Slot Bag",
@@ -4671,7 +4895,7 @@ myProfile = {
 								},
 							},
 							["Netherweave Robe"] = {
-								["Difficulty"] = 4,
+								["Difficulty"] = 3,
 								["Item"] = "21854:0:0:0:0:0:0:0",
 								["Color"] = "1eff00",
 								["Tooltip"] = "Netherweave Robe<br>Binds when equipped<br>Chest	Cloth<br>137 Armor<br>+45 Stamina<br>Requires Level 67<br>Equip: Increases damage and healing done by magical spells and effects by up to 44.<br> <br><br>Netherweave Vestments (0/7)<br>  Netherweave Tunic<br>  Netherweave Robe<br>  Netherweave Pants<br>  Netherweave Gloves<br>  Netherweave Bracers<br>  Netherweave Boots<br>  Netherweave Belt<br> <br><br>(2) Set: Increases damage and healing done by magical spells and effects by up to 23.<br>(4) Set: Increases your spell critical strike rating by 14.",
@@ -5645,7 +5869,7 @@ myProfile = {
 								},
 							},
 							["Netherweave Boots"] = {
-								["Difficulty"] = 3,
+								["Difficulty"] = 2,
 								["Item"] = "21853:0:0:0:0:0:0:0",
 								["Color"] = "1eff00",
 								["Tooltip"] = "Netherweave Boots<br>Binds when equipped<br>Feet	Cloth<br>92 Armor<br>+30 Stamina<br>Requires Level 62<br>Equip: Increases damage and healing done by magical spells and effects by up to 34.<br> <br><br>Netherweave Vestments (0/7)<br>  Netherweave Tunic<br>  Netherweave Robe<br>  Netherweave Pants<br>  Netherweave Gloves<br>  Netherweave Bracers<br>  Netherweave Boots<br>  Netherweave Belt<br> <br><br>(2) Set: Increases damage and healing done by magical spells and effects by up to 23.<br>(4) Set: Increases your spell critical strike rating by 14.",
@@ -5958,6 +6182,25 @@ myProfile = {
 							},
 						},
 						["Consumable"] = {
+							["Silver Spellthread"] = {
+								["Difficulty"] = 2,
+								["Item"] = "24275:0:0:0:0:0:0:0",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Silver Spellthread<br>Requires Level 60<br>Use: Permanently embroids spellthread into pants increasing healing by up to 46 and stamina by 15.",
+								["Icon"] = "Spell_Nature_Lightning",
+								["Reagents"] = {
+									{
+										["itemID"] = "14341",
+										["Name"] = "Rune Thread",
+										["Count"] = 1,
+									}, -- [1]
+									{
+										["itemID"] = "21886",
+										["Name"] = "Primal Life",
+										["Count"] = 5,
+									}, -- [2]
+								},
+							},
 							["Netherweave Net"] = {
 								["Difficulty"] = 1,
 								["Item"] = "24268:0:0:0:0:0:0:0",
@@ -5974,18 +6217,31 @@ myProfile = {
 							},
 						},
 						["Trade Goods"] = {
-							["Bolt of Mageweave"] = {
-								["Difficulty"] = 1,
-								["Item"] = "4339:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Bolt of Mageweave",
-								["Icon"] = "INV_Fabric_Mageweave_03",
+							["Shadowcloth"] = {
+								["DateUTC"] = "2007-04-05 17:19:15",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Shadowcloth<br>Cooldown remaining: 3 Days 21 Hrs ",
+								["Difficulty"] = 3,
+								["Item"] = "24272:0:0:0:0:0:0:0",
+								["Cooldown"] = 338105.6480591558,
+								["timestamp"] = 1175793555,
+								["Icon"] = "INV_Fabric_Felcloth_Ebon",
 								["Reagents"] = {
 									{
-										["itemID"] = "4338",
-										["Name"] = "Mageweave Cloth",
-										["Count"] = 5,
+										["itemID"] = "21842",
+										["Name"] = "Bolt of Imbued Netherweave",
+										["Count"] = 1,
 									}, -- [1]
+									{
+										["itemID"] = "22456",
+										["Name"] = "Primal Shadow",
+										["Count"] = 1,
+									}, -- [2]
+									{
+										["itemID"] = "21884",
+										["Name"] = "Primal Fire",
+										["Count"] = 1,
+									}, -- [3]
 								},
 							},
 							["Bolt of Netherweave"] = {
@@ -6027,6 +6283,74 @@ myProfile = {
 										["itemID"] = "2592",
 										["Name"] = "Wool Cloth",
 										["Count"] = 3,
+									}, -- [1]
+								},
+							},
+							["Spellcloth"] = {
+								["DateUTC"] = "2007-04-05 17:19:15",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Spellcloth<br>Cooldown remaining: 3 Days 21 Hrs ",
+								["Difficulty"] = 3,
+								["Item"] = "24271:0:0:0:0:0:0:0",
+								["Cooldown"] = 335685.0419441832,
+								["timestamp"] = 1175793555,
+								["Icon"] = "INV_Fabric_Spellfire",
+								["Reagents"] = {
+									{
+										["itemID"] = "21842",
+										["Name"] = "Bolt of Imbued Netherweave",
+										["Count"] = 1,
+									}, -- [1]
+									{
+										["itemID"] = "22457",
+										["Name"] = "Primal Mana",
+										["Count"] = 1,
+									}, -- [2]
+									{
+										["itemID"] = "21884",
+										["Name"] = "Primal Fire",
+										["Count"] = 1,
+									}, -- [3]
+								},
+							},
+							["Primal Mooncloth"] = {
+								["DateUTC"] = "2007-04-05 17:19:15",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Primal Mooncloth<br>Cooldown remaining: 3 Days 22 Hrs ",
+								["Difficulty"] = 3,
+								["Item"] = "21845:0:0:0:0:0:0:0",
+								["Cooldown"] = 341498.0972202885,
+								["timestamp"] = 1175793555,
+								["Icon"] = "INV_Fabric_MoonRag_Primal",
+								["Reagents"] = {
+									{
+										["itemID"] = "21842",
+										["Name"] = "Bolt of Imbued Netherweave",
+										["Count"] = 1,
+									}, -- [1]
+									{
+										["itemID"] = "21886",
+										["Name"] = "Primal Life",
+										["Count"] = 1,
+									}, -- [2]
+									{
+										["itemID"] = "21885",
+										["Name"] = "Primal Water",
+										["Count"] = 1,
+									}, -- [3]
+								},
+							},
+							["Bolt of Mageweave"] = {
+								["Difficulty"] = 1,
+								["Item"] = "4339:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bolt of Mageweave",
+								["Icon"] = "INV_Fabric_Mageweave_03",
+								["Reagents"] = {
+									{
+										["itemID"] = "4338",
+										["Name"] = "Mageweave Cloth",
+										["Count"] = 5,
 									}, -- [1]
 								},
 							},
@@ -7047,17 +7371,11 @@ myProfile = {
 						},
 					},
 				},
-				["TimePlayed"] = 2492126,
+				["TimePlayed"] = 2555593,
 				["Level"] = 70,
-				["TimeLevelPlayed"] = 135588,
+				["TimeLevelPlayed"] = 199055,
 				["Bank"] = {
 					["Bag5"] = {
-						["Name"] = "Runecloth Bag",
-						["Item"] = "14046:0:0:0:0:0:0:409526344",
-						["Icon"] = "INV_Misc_Bag_19",
-						["Color"] = "ffffff",
-						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag<br>|cff00ff00<Made by Letumeversor>|r",
-						["Slots"] = 14,
 						["Contents"] = {
 							{
 								["Quantity"] = 15,
@@ -7067,15 +7385,34 @@ myProfile = {
 								["Icon"] = "INV_Jewelry_Necklace_21",
 								["Item"] = "20560:0:0:0:0:0:0:16514268",
 							}, -- [1]
+							{
+								["Item"] = "12811:0:0:0:0:0:0:2141312378",
+								["Color"] = "1eff00",
+								["Icon"] = "INV_Misc_Gem_Pearl_03",
+								["Name"] = "Righteous Orb",
+							}, -- [2]
+							{
+								["Quantity"] = 2,
+								["Name"] = "Spellcloth",
+								["Color"] = "0070dd",
+								["Icon"] = "INV_Fabric_Spellfire",
+								["Item"] = "24271:0:0:0:0:0:0:63816781",
+							}, -- [3]
+							[8] = {
+								["Item"] = "22457:0:0:0:0:0:0:929136294",
+								["Color"] = "1eff00",
+								["Icon"] = "INV_Elemental_Primal_Mana",
+								["Name"] = "Primal Mana",
+							},
 						},
-					},
-					["Bag4"] = {
 						["Name"] = "Runecloth Bag",
-						["Item"] = "14046:0:0:0:0:0:0:1394274046",
 						["Icon"] = "INV_Misc_Bag_19",
 						["Color"] = "ffffff",
 						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag<br>|cff00ff00<Made by Letumeversor>|r",
 						["Slots"] = 14,
+						["Item"] = "14046:0:0:0:0:0:0:409526344",
+					},
+					["Bag4"] = {
 						["Contents"] = {
 							{
 								["Item"] = "1973:0:0:0:0:0:0:0",
@@ -7101,10 +7438,10 @@ myProfile = {
 								["Item"] = "12840:0:0:0:0:0:0:0",
 							}, -- [3]
 							{
+								["Item"] = "23117:0:0:0:0:0:0:1469947869",
 								["Color"] = "1eff00",
 								["Icon"] = "INV_Misc_Gem_AzureDraenite_03",
 								["Name"] = "Azure Moonstone",
-								["Item"] = "23117:0:0:0:0:0:0:1469947869",
 							}, -- [4]
 							{
 								["Quantity"] = 2,
@@ -7152,31 +7489,46 @@ myProfile = {
 								["Item"] = "21745:0:0:0:0:0:0:1471242226",
 							}, -- [10]
 							{
+								["Quantity"] = 11,
+								["Name"] = "Primal Shadow",
 								["Color"] = "1eff00",
-								["Icon"] = "INV_Elemental_Primal_Fire",
-								["Name"] = "Primal Fire",
-								["Item"] = "21884:0:0:0:0:0:0:358002926",
+								["Icon"] = "INV_Elemental_Primal_Shadow",
+								["Item"] = "22456:0:0:0:0:0:0:1532789286",
 							}, -- [11]
-							[13] = {
+							{
+								["Item"] = "21539:0:0:0:0:0:0:60528188",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Festive Purple Dress<br>Soulbound<br>Chest",
+								["Icon"] = "INV_Chest_Cloth_59",
+								["Name"] = "Festive Purple Dress",
+							}, -- [12]
+							{
 								["Item"] = "16252:0:0:0:0:0:0:505631017",
 								["Color"] = "1eff00",
 								["Tooltip"] = "Formula: Enchant Weapon - Crusader<br>Requires Enchanting (300)<br>Use: Teaches you how to permanently enchant a weapon to occasionally bless the wielder with great strength.",
 								["Icon"] = "INV_Misc_Note_01",
 								["Name"] = "Formula: Enchant Weapon - Crusader",
-							},
-							[14] = {
+							}, -- [13]
+							{
 								["Quantity"] = 10,
 								["Name"] = "Ghost Dye",
 								["Color"] = "ffffff",
 								["Icon"] = "INV_Poison_MindNumbing",
 								["Item"] = "9210:0:0:0:0:0:0:653142614",
-							},
+							}, -- [14]
 						},
+						["Name"] = "Runecloth Bag",
+						["Icon"] = "INV_Misc_Bag_19",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag<br>|cff00ff00<Made by Letumeversor>|r",
+						["Slots"] = 14,
+						["Item"] = "14046:0:0:0:0:0:0:1394274046",
 					},
 					["Bag0"] = {
+						["Name"] = "Bank Contents",
 						["Contents"] = {
 							{
-								["Quantity"] = 20,
+								["Quantity"] = 16,
 								["Name"] = "Arcane Dust",
 								["Color"] = "ffffff",
 								["Icon"] = "INV_Enchant_DustArcane",
@@ -7309,11 +7661,11 @@ myProfile = {
 								["Name"] = "Evergreen Pouch",
 							}, -- [18]
 							{
-								["Quantity"] = 19,
+								["Quantity"] = 20,
 								["Name"] = "Arcane Dust",
 								["Color"] = "ffffff",
 								["Icon"] = "INV_Enchant_DustArcane",
-								["Item"] = "22445:0:0:0:0:0:0:1295640491",
+								["Item"] = "22445:0:0:0:0:0:0:1458233757",
 							}, -- [19]
 							{
 								["Item"] = "20010:0:0:0:0:0:0:169976856",
@@ -7381,29 +7733,20 @@ myProfile = {
 							}, -- [28]
 						},
 						["Slots"] = 28,
-						["Name"] = "Bank Contents",
 					},
 					["Bag1"] = {
-						["Name"] = "Runecloth Bag",
-						["Item"] = "14046:0:0:0:0:0:0:1584565448",
-						["Icon"] = "INV_Misc_Bag_19",
-						["Color"] = "ffffff",
-						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag",
-						["Slots"] = 14,
 						["Contents"] = {
 							{
-								["Quantity"] = 2,
-								["Name"] = "Primal Life",
+								["Item"] = "21886:0:0:0:0:0:0:1735269622",
 								["Color"] = "1eff00",
 								["Icon"] = "INV_Elemental_Primal_Life",
-								["Item"] = "21886:0:0:0:0:0:0:1735269622",
+								["Name"] = "Primal Life",
 							}, -- [1]
 							{
-								["Quantity"] = 10,
-								["Name"] = "Primal Shadow",
-								["Color"] = "1eff00",
-								["Icon"] = "INV_Elemental_Primal_Shadow",
-								["Item"] = "22456:0:0:0:0:0:0:945616913",
+								["Item"] = "21845:0:0:0:0:0:0:750451267",
+								["Color"] = "0070dd",
+								["Icon"] = "INV_Fabric_MoonRag_Primal",
+								["Name"] = "Primal Mooncloth",
 							}, -- [2]
 							{
 								["Item"] = "14544:0:0:0:0:0:0:410264680",
@@ -7471,7 +7814,7 @@ myProfile = {
 								["Name"] = "Hive'Ashi Rubbing",
 							}, -- [11]
 							{
-								["Quantity"] = 7,
+								["Quantity"] = 8,
 								["Name"] = "Greater Planar Essence",
 								["Color"] = "1eff00",
 								["Tooltip"] = "Greater Planar Essence<br>Use: Turn a greater planar essence into three lesser ones.",
@@ -7479,10 +7822,10 @@ myProfile = {
 								["Item"] = "22446:0:0:0:0:0:0:1345622929",
 							}, -- [12]
 							{
+								["Item"] = "14344:0:0:0:0:0:0:0",
 								["Color"] = "0070dd",
 								["Icon"] = "INV_Enchant_ShardBrilliantLarge",
 								["Name"] = "Large Brilliant Shard",
-								["Item"] = "14344:0:0:0:0:0:0:0",
 							}, -- [13]
 							{
 								["Item"] = "12219:0:0:0:0:0:0:0",
@@ -7492,14 +7835,14 @@ myProfile = {
 								["Name"] = "Unadorned Seal of Ascension",
 							}, -- [14]
 						},
-					},
-					["Bag2"] = {
 						["Name"] = "Runecloth Bag",
-						["Item"] = "14046:0:0:0:0:0:0:1687732988",
 						["Icon"] = "INV_Misc_Bag_19",
 						["Color"] = "ffffff",
 						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag",
 						["Slots"] = 14,
+						["Item"] = "14046:0:0:0:0:0:0:1584565448",
+					},
+					["Bag2"] = {
 						["Contents"] = {
 							{
 								["Quantity"] = 3,
@@ -7538,11 +7881,10 @@ myProfile = {
 								["Item"] = "18945:0:0:0:0:0:0:0",
 							}, -- [5]
 							{
-								["Quantity"] = 2,
-								["Name"] = "Primal Mana",
-								["Color"] = "1eff00",
-								["Icon"] = "INV_Elemental_Primal_Mana",
-								["Item"] = "22457:0:0:0:0:0:0:929136294",
+								["Item"] = "24272:0:0:0:0:0:0:1107294736",
+								["Color"] = "0070dd",
+								["Icon"] = "INV_Fabric_Felcloth_Ebon",
+								["Name"] = "Shadowcloth",
 							}, -- [6]
 							{
 								["Quantity"] = 20,
@@ -7588,10 +7930,10 @@ myProfile = {
 								["Item"] = "22446:0:0:0:0:0:0:1345622929",
 							}, -- [12]
 							{
+								["Item"] = "23107:0:0:0:0:0:0:2140199888",
 								["Color"] = "1eff00",
 								["Icon"] = "INV_Misc_Gem_EbonDraenite_03",
 								["Name"] = "Shadow Draenite",
-								["Item"] = "23107:0:0:0:0:0:0:2140199888",
 							}, -- [13]
 							{
 								["Item"] = "12336:0:0:0:0:0:0:0",
@@ -7601,14 +7943,14 @@ myProfile = {
 								["Name"] = "Gemstone of Spirestone",
 							}, -- [14]
 						},
-					},
-					["Bag3"] = {
 						["Name"] = "Runecloth Bag",
-						["Item"] = "14046:0:0:0:0:0:0:1599495722",
 						["Icon"] = "INV_Misc_Bag_19",
 						["Color"] = "ffffff",
-						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag<br>|cff00ff00<Made by Washuman>|r",
+						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag",
 						["Slots"] = 14,
+						["Item"] = "14046:0:0:0:0:0:0:1687732988",
+					},
+					["Bag3"] = {
 						["Contents"] = {
 							{
 								["Item"] = "12844:0:0:0:0:0:0:698792812",
@@ -7681,10 +8023,10 @@ myProfile = {
 								["Item"] = "22527:0:0:0:0:0:0:0",
 							}, -- [10]
 							{
+								["Item"] = "13926:0:0:0:0:0:0:1724692253",
 								["Color"] = "1eff00",
 								["Icon"] = "INV_Misc_Gem_Pearl_04",
 								["Name"] = "Golden Pearl",
-								["Item"] = "13926:0:0:0:0:0:0:1724692253",
 							}, -- [11]
 							{
 								["Quantity"] = 6,
@@ -7708,6 +8050,12 @@ myProfile = {
 								["Name"] = "Primal Hakkari Kossack",
 							}, -- [14]
 						},
+						["Name"] = "Runecloth Bag",
+						["Icon"] = "INV_Misc_Bag_19",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Runecloth Bag<br>14 Slot Bag",
+						["Slots"] = 14,
+						["Item"] = "14046:0:0:0:0:0:0:1599495722",
 					},
 				},
 				["SubZone"] = "Shadowmoon Village",
@@ -7737,9 +8085,9 @@ myProfile = {
 					},
 				},
 				["Money"] = {
-					["Copper"] = 14,
-					["Silver"] = 67,
-					["Gold"] = 1520,
+					["Copper"] = 57,
+					["Silver"] = 31,
+					["Gold"] = 1682,
 				},
 				["CPprovider"] = "rpgo",
 				["Server"] = "Aggramar",
@@ -7752,7 +8100,7 @@ myProfile = {
 					["Demonology"] = {
 						["Spells"] = {
 							["Fel Armor"] = {
-								["Tooltip"] = "Fel Armor<br>725 Mana<br>Instant cast<br>Surrounds the caster with fel energy, increasing the amount of health generated through spells and effects by 26% and increasing spell damage by up to 130.  Only one type of Armor spell can be active on the Warlock at any time.  Lasts 30 min.",
+								["Tooltip"] = "Fel Armor<br>725 Mana<br>Instant cast<br>Surrounds the caster with fel energy, increasing the amount of health generated through spells and effects by 20% and increasing spell damage by up to 100.  Only one type of Armor spell can be active on the Warlock at any time.  Lasts 30 min.",
 								["Icon"] = "Spell_Shadow_FelArmour",
 								["Rank"] = "Rank 2",
 							},
@@ -7777,12 +8125,12 @@ myProfile = {
 								["Rank"] = "Rank 1",
 							},
 							["Summon Felguard"] = {
-								["Tooltip"] = "Summon Felguard<br>1255 Mana<br>6 sec cast<br>Reagents: Soul Shard<br>Summons a Felguard under the command of the Warlock.",
+								["Tooltip"] = "Summon Felguard<br>2092 Mana<br>10 sec cast<br>Reagents: Soul Shard<br>Summons a Felguard under the command of the Warlock.",
 								["Icon"] = "Spell_Shadow_SummonFelGuard",
 								["Rank"] = "Summon",
 							},
 							["Summon Voidwalker"] = {
-								["Tooltip"] = "Summon Voidwalker<br>1255 Mana<br>6 sec cast<br>Reagents: Soul Shard<br>Summons a Voidwalker under the command of the Warlock.",
+								["Tooltip"] = "Summon Voidwalker<br>2092 Mana<br>10 sec cast<br>Reagents: Soul Shard<br>Summons a Voidwalker under the command of the Warlock.",
 								["Icon"] = "Spell_Shadow_SummonVoidWalker",
 								["Rank"] = "Summon",
 							},
@@ -7807,7 +8155,7 @@ myProfile = {
 								["Rank"] = "",
 							},
 							["Summon Succubus"] = {
-								["Tooltip"] = "Summon Succubus<br>1255 Mana<br>6 sec cast<br>Reagents: Soul Shard<br>Summons a Succubus under the command of the Warlock.",
+								["Tooltip"] = "Summon Succubus<br>2092 Mana<br>10 sec cast<br>Reagents: Soul Shard<br>Summons a Succubus under the command of the Warlock.",
 								["Icon"] = "Spell_Shadow_SummonSuccubus",
 								["Rank"] = "Summon",
 							},
@@ -7827,12 +8175,12 @@ myProfile = {
 								["Rank"] = "Summon",
 							},
 							["Summon Imp"] = {
-								["Tooltip"] = "Summon Imp<br>1003 Mana<br>6 sec cast<br>Summons an Imp under the command of the Warlock.",
+								["Tooltip"] = "Summon Imp<br>1673 Mana<br>10 sec cast<br>Summons an Imp under the command of the Warlock.",
 								["Icon"] = "Spell_Shadow_SummonImp",
 								["Rank"] = "Summon",
 							},
 							["Summon Felhunter"] = {
-								["Tooltip"] = "Summon Felhunter<br>1255 Mana<br>6 sec cast<br>Reagents: Soul Shard<br>Summons a Felhunter under the command of the Warlock.",
+								["Tooltip"] = "Summon Felhunter<br>2092 Mana<br>10 sec cast<br>Reagents: Soul Shard<br>Summons a Felhunter under the command of the Warlock.",
 								["Icon"] = "Spell_Shadow_SummonFelHunter",
 								["Rank"] = "Summon",
 							},
@@ -7857,7 +8205,7 @@ myProfile = {
 								["Rank"] = "Rank 3",
 							},
 							["Fel Domination"] = {
-								["Tooltip"] = "Fel Domination<br>Instant	15 min cooldown<br>Cooldown remaining: 6 min<br>Your next Imp, Voidwalker, Succubus, Felhunter or Felguard Summon spell has its casting time reduced by 5.5 sec and its Mana cost reduced by 50%.",
+								["Tooltip"] = "Fel Domination<br>Instant	15 min cooldown<br>Your next Imp, Voidwalker, Succubus, Felhunter or Felguard Summon spell has its casting time reduced by 5.5 sec and its Mana cost reduced by 50%.",
 								["Icon"] = "Spell_Nature_RemoveCurse",
 								["Rank"] = "",
 							},
@@ -7892,7 +8240,7 @@ myProfile = {
 								["Rank"] = "Rank 5",
 							},
 							["Demon Armor"] = {
-								["Tooltip"] = "Demon Armor<br>820 Mana<br>Instant cast<br>Protects the caster, increasing armor by 858, Shadow resistance by 23 and restores 23 health every 5 sec.  Only one type of Armor spell can be active on the Warlock at any time.  Lasts 30 min.",
+								["Tooltip"] = "Demon Armor<br>820 Mana<br>Instant cast<br>Protects the caster, increasing armor by 660, Shadow resistance by 18 and restores 18 health every 5 sec.  Only one type of Armor spell can be active on the Warlock at any time.  Lasts 30 min.",
 								["Icon"] = "Spell_Shadow_RagingScream",
 								["Rank"] = "Rank 6",
 							},
@@ -7905,10 +8253,132 @@ myProfile = {
 						["Icon"] = "Spell_Shadow_Metamorphosis",
 						["Count"] = 67,
 					},
+					["General"] = {
+						["Spells"] = {
+							["Axe Specialization"] = {
+								["Tooltip"] = "Axe Specialization<br>Skill with Axes and Two-Handed Axes increased by 5.",
+								["Icon"] = "INV_Axe_02",
+								["Rank"] = "Racial Passive",
+							},
+							["Hardiness"] = {
+								["Tooltip"] = "Hardiness<br>Chance to resist Stun effects increased by an additional 15%.",
+								["Icon"] = "INV_Helmet_23",
+								["Rank"] = "Racial Passive",
+							},
+							["Tailoring"] = {
+								["Tooltip"] = "Tailoring<br>Allows a tailor to make incomparable shirts and armors up to a maximum potential skill of 375.",
+								["Icon"] = "Trade_Tailoring",
+								["Rank"] = "Master",
+							},
+							["Fishing"] = {
+								["Tooltip"] = "Fishing<br>10-20 yd range<br>Channeled<br>Requires Fishing Pole<br>Equip a fishing pole and find a body of water to fish.  Right-Click on the bob in the water when it splashes to catch your fish.  Higher skill increases your chance of fishing successfully in higher level areas.",
+								["Icon"] = "Trade_Fishing",
+								["Rank"] = "Journeyman",
+							},
+							["Spellfire Tailoring"] = {
+								["Tooltip"] = "Spellfire Tailoring<br>Allows the tailor access to special self-only spellfire recipes and to create an additional spellcloth in netherstorm.",
+								["Icon"] = "Spell_Holy_BlessingOfProtection",
+								["Rank"] = "",
+							},
+							["First Aid"] = {
+								["Tooltip"] = "First Aid<br>Allows a physician to make and use bandages up to a potential skill of 375.   The cloth used to make those bandages are found on humanoids in the world.",
+								["Icon"] = "Spell_Holy_SealOfSacrifice",
+								["Rank"] = "Master",
+							},
+							["Shoot"] = {
+								["Tooltip"] = "Shoot<br>30 yd range<br>0.5 sec cast	1.8 sec cooldown<br>Requires Wands<br>Attack with an equipped wand.",
+								["Icon"] = "INV_Wand_05",
+								["Rank"] = "",
+							},
+							["Cooking"] = {
+								["Tooltip"] = "Cooking<br>Allows a cook to make delicious recipes up to a maximum potential skill of 150.",
+								["Icon"] = "INV_Misc_Food_15",
+								["Rank"] = "Journeyman",
+							},
+							["Blood Fury"] = {
+								["Tooltip"] = "Blood Fury<br>Instant	2 min cooldown<br>Increases your damage and healing from spells and effects by up to 143, but reduces healing effects on you by 50%.  Lasts 15 sec.",
+								["Icon"] = "Racial_Orc_BerserkerStrength",
+								["Rank"] = "Racial",
+							},
+							["Herb Gathering"] = {
+								["Tooltip"] = "Herb Gathering<br>5 yd range<br>5 sec cast<br>How to find and gather Outland herbs.   Gives a potential herbalism skill of 375.",
+								["Icon"] = "Spell_Nature_NatureTouchGrow",
+								["Rank"] = "Master",
+							},
+							["Dodge"] = {
+								["Tooltip"] = "Dodge<br>4.15% chance to dodge<br>Gives a chance to dodge enemy melee attacks.",
+								["Icon"] = "Spell_Nature_Invisibilty",
+								["Rank"] = "Passive",
+							},
+							["Command"] = {
+								["Tooltip"] = "Command<br>Damage dealt by Hunter and Warlock pets increased by 5%.",
+								["Icon"] = "Ability_Warrior_WarCry",
+								["Rank"] = "Racial Passive",
+							},
+							["Find Herbs"] = {
+								["Tooltip"] = "Find Herbs<br>Instant<br>Nearby herb bushes appear on the minimap.   Only one type of thing can be tracked at a time.",
+								["Icon"] = "INV_Misc_Flower_02",
+								["Rank"] = "",
+							},
+							["Basic Campfire"] = {
+								["Tooltip"] = "Basic Campfire<br>10 sec cast	5 min cooldown<br>Tools: |cffff2020Flint and Tinder|r<br>Reagents: |cffff2020Simple Wood|r<br>Builds a campfire that increases the spirits of those nearby by 4 and allows cooking.",
+								["Icon"] = "Spell_Fire_Fire",
+								["Rank"] = "",
+							},
+							["Attack"] = {
+								["Tooltip"] = "Attack<br>3.59% chance to crit",
+								["Icon"] = "INV_Weapon_ShortBlade_14",
+								["Rank"] = "",
+							},
+						},
+						["Icon"] = "Ability_Kick",
+						["Count"] = 15,
+					},
+					["Destruction"] = {
+						["Spells"] = {
+							["Searing Pain"] = {
+								["Tooltip"] = "Searing Pain<br>205 Mana	30 yd range<br>1.5 sec cast<br>Inflict searing pain on the enemy target, causing 270 to 320 Fire damage.  Causes a high amount of threat.",
+								["Icon"] = "Spell_Fire_SoulBurn",
+								["Rank"] = "Rank 8",
+							},
+							["Shadow Bolt"] = {
+								["Tooltip"] = "Shadow Bolt<br>420 Mana	30 yd range<br>3 sec cast<br>Sends a shadowy bolt at the enemy, causing 544 to 607 Shadow damage.",
+								["Icon"] = "Spell_Shadow_ShadowBolt",
+								["Rank"] = "Rank 11",
+							},
+							["Soul Fire"] = {
+								["Tooltip"] = "Soul Fire<br>250 Mana	30 yd range<br>6 sec cast	1 min cooldown<br>Reagents: Soul Shard<br>Burn the enemy's soul, causing 1003 to 1257 Fire damage.",
+								["Icon"] = "Spell_Fire_Fireball02",
+								["Rank"] = "Rank 4",
+							},
+							["Incinerate"] = {
+								["Tooltip"] = "Incinerate<br>355 Mana	30 yd range<br>2.5 sec cast<br>Deals 444 to 514 Fire damage to your target and an additional 111 to 129 Fire damage if the target is affected by an Immolate spell.",
+								["Icon"] = "Spell_Fire_Burnout",
+								["Rank"] = "Rank 2",
+							},
+							["Hellfire"] = {
+								["Tooltip"] = "Hellfire<br>1665 Mana<br>Channeled<br>Ignites the area surrounding the caster, causing 307 to 308 Fire damage to herself and 307 to 308 Fire damage to all nearby enemies every 1 sec.  Lasts 15 sec.",
+								["Icon"] = "Spell_Fire_Incinerate",
+								["Rank"] = "Rank 4",
+							},
+							["Immolate"] = {
+								["Tooltip"] = "Immolate<br>445 Mana	30 yd range<br>2 sec cast<br>Burns the enemy for 331 to 332 Fire damage and then an additional 615 Fire damage over 15 sec.",
+								["Icon"] = "Spell_Fire_Immolation",
+								["Rank"] = "Rank 9",
+							},
+							["Rain of Fire"] = {
+								["Tooltip"] = "Rain of Fire<br>1480 Mana	30 yd range<br>Channeled<br>Calls down a fiery rain to burn enemies in the area of effect for 1212 to 1216 Fire damage over 8 sec.",
+								["Icon"] = "Spell_Shadow_RainOfFire",
+								["Rank"] = "Rank 5",
+							},
+						},
+						["Icon"] = "Spell_Shadow_RainOfFire",
+						["Count"] = 43,
+					},
 					["Affliction"] = {
 						["Spells"] = {
 							["Corruption"] = {
-								["Tooltip"] = "Corruption<br>370 Mana	30 yd range<br>Instant cast<br>Corrupts the target, causing 900 Shadow damage over 18 sec.",
+								["Tooltip"] = "Corruption<br>370 Mana	30 yd range<br>2 sec cast<br>Corrupts the target, causing 900 Shadow damage over 18 sec.",
 								["Icon"] = "Spell_Shadow_AbominationExplosion",
 								["Rank"] = "Rank 8",
 							},
@@ -7928,7 +8398,7 @@ myProfile = {
 								["Rank"] = "Rank 7",
 							},
 							["Death Coil"] = {
-								["Tooltip"] = "Death Coil<br>600 Mana	30 yd range<br>Instant cast	2 min cooldown<br>Cooldown remaining: 9 sec<br>Causes the enemy target to run in horror for 3 sec and causes 525 to 526 Shadow damage.  The caster gains 100% of the damage caused in health.",
+								["Tooltip"] = "Death Coil<br>600 Mana	30 yd range<br>Instant cast	2 min cooldown<br>Causes the enemy target to run in horror for 3 sec and causes 525 to 526 Shadow damage.  The caster gains 100% of the damage caused in health.",
 								["Icon"] = "Spell_Shadow_DeathCoil",
 								["Rank"] = "Rank 4",
 							},
@@ -7991,161 +8461,40 @@ myProfile = {
 						["Icon"] = "Spell_Shadow_DeathCoil",
 						["Count"] = 75,
 					},
-					["General"] = {
-						["Spells"] = {
-							["Axe Specialization"] = {
-								["Tooltip"] = "Axe Specialization<br>Skill with Axes and Two-Handed Axes increased by 5.",
-								["Icon"] = "INV_Axe_02",
-								["Rank"] = "Racial Passive",
-							},
-							["Hardiness"] = {
-								["Tooltip"] = "Hardiness<br>Chance to resist Stun effects increased by an additional 15%.",
-								["Icon"] = "INV_Helmet_23",
-								["Rank"] = "Racial Passive",
-							},
-							["Fishing"] = {
-								["Tooltip"] = "Fishing<br>10-20 yd range<br>Channeled<br>Requires Fishing Pole<br>Equip a fishing pole and find a body of water to fish.  Right-Click on the bob in the water when it splashes to catch your fish.  Higher skill increases your chance of fishing successfully in higher level areas.",
-								["Icon"] = "Trade_Fishing",
-								["Rank"] = "Journeyman",
-							},
-							["Tailoring"] = {
-								["Tooltip"] = "Tailoring<br>Allows a tailor to make incomparable shirts and armors up to a maximum potential skill of 375.",
-								["Icon"] = "Trade_Tailoring",
-								["Rank"] = "Master",
-							},
-							["First Aid"] = {
-								["Tooltip"] = "First Aid<br>Allows a physician to make and use bandages up to a potential skill of 375.   The cloth used to make those bandages are found on humanoids in the world.",
-								["Icon"] = "Spell_Holy_SealOfSacrifice",
-								["Rank"] = "Master",
-							},
-							["Shoot"] = {
-								["Tooltip"] = "Shoot<br>30 yd range<br>0.5 sec cast	1.8 sec cooldown<br>Requires Wands<br>Attack with an equipped wand.",
-								["Icon"] = "INV_Wand_05",
-								["Rank"] = "",
-							},
-							["Cooking"] = {
-								["Tooltip"] = "Cooking<br>Allows a cook to make delicious recipes up to a maximum potential skill of 150.",
-								["Icon"] = "INV_Misc_Food_15",
-								["Rank"] = "Journeyman",
-							},
-							["Blood Fury"] = {
-								["Tooltip"] = "Blood Fury<br>Instant	2 min cooldown<br>Increases your damage and healing from spells and effects by up to 143, but reduces healing effects on you by 50%.  Lasts 15 sec.",
-								["Icon"] = "Racial_Orc_BerserkerStrength",
-								["Rank"] = "Racial",
-							},
-							["Herb Gathering"] = {
-								["Tooltip"] = "Herb Gathering<br>5 yd range<br>5 sec cast<br>How to find and gather Outland herbs.   Gives a potential herbalism skill of 375.",
-								["Icon"] = "Spell_Nature_NatureTouchGrow",
-								["Rank"] = "Master",
-							},
-							["Dodge"] = {
-								["Tooltip"] = "Dodge<br>4.11% chance to dodge<br>Gives a chance to dodge enemy melee attacks.",
-								["Icon"] = "Spell_Nature_Invisibilty",
-								["Rank"] = "Passive",
-							},
-							["Command"] = {
-								["Tooltip"] = "Command<br>Damage dealt by Hunter and Warlock pets increased by 5%.",
-								["Icon"] = "Ability_Warrior_WarCry",
-								["Rank"] = "Racial Passive",
-							},
-							["Find Herbs"] = {
-								["Tooltip"] = "Find Herbs<br>Instant<br>Nearby herb bushes appear on the minimap.   Only one type of thing can be tracked at a time.",
-								["Icon"] = "INV_Misc_Flower_02",
-								["Rank"] = "",
-							},
-							["Basic Campfire"] = {
-								["Tooltip"] = "Basic Campfire<br>10 sec cast	5 min cooldown<br>Tools: |cffff2020Flint and Tinder|r<br>Reagents: |cffff2020Simple Wood|r<br>Builds a campfire that increases the spirits of those nearby by 4 and allows cooking.",
-								["Icon"] = "Spell_Fire_Fire",
-								["Rank"] = "",
-							},
-							["Attack"] = {
-								["Tooltip"] = "Attack<br>3.55% chance to crit",
-								["Icon"] = "INV_Weapon_ShortBlade_14",
-								["Rank"] = "",
-							},
-						},
-						["Icon"] = "Ability_Kick",
-						["Count"] = 14,
-					},
-					["Destruction"] = {
-						["Spells"] = {
-							["Searing Pain"] = {
-								["Tooltip"] = "Searing Pain<br>205 Mana	30 yd range<br>1.5 sec cast<br>Inflict searing pain on the enemy target, causing 270 to 320 Fire damage.  Causes a high amount of threat.",
-								["Icon"] = "Spell_Fire_SoulBurn",
-								["Rank"] = "Rank 8",
-							},
-							["Shadow Bolt"] = {
-								["Tooltip"] = "Shadow Bolt<br>420 Mana	30 yd range<br>2.5 sec cast<br>Sends a shadowy bolt at the enemy, causing 544 to 607 Shadow damage.",
-								["Icon"] = "Spell_Shadow_ShadowBolt",
-								["Rank"] = "Rank 11",
-							},
-							["Soul Fire"] = {
-								["Tooltip"] = "Soul Fire<br>250 Mana	30 yd range<br>4 sec cast	1 min cooldown<br>Reagents: Soul Shard<br>Burn the enemy's soul, causing 1003 to 1257 Fire damage.",
-								["Icon"] = "Spell_Fire_Fireball02",
-								["Rank"] = "Rank 4",
-							},
-							["Incinerate"] = {
-								["Tooltip"] = "Incinerate<br>355 Mana	30 yd range<br>2.5 sec cast<br>Deals 444 to 514 Fire damage to your target and an additional 111 to 129 Fire damage if the target is affected by an Immolate spell.",
-								["Icon"] = "Spell_Fire_Burnout",
-								["Rank"] = "Rank 2",
-							},
-							["Hellfire"] = {
-								["Tooltip"] = "Hellfire<br>1665 Mana<br>Channeled<br>Ignites the area surrounding the caster, causing 307 to 308 Fire damage to herself and 307 to 308 Fire damage to all nearby enemies every 1 sec.  Lasts 15 sec.",
-								["Icon"] = "Spell_Fire_Incinerate",
-								["Rank"] = "Rank 4",
-							},
-							["Immolate"] = {
-								["Tooltip"] = "Immolate<br>445 Mana	30 yd range<br>1.5 sec cast<br>Burns the enemy for 331 to 332 Fire damage and then an additional 615 Fire damage over 15 sec.",
-								["Icon"] = "Spell_Fire_Immolation",
-								["Rank"] = "Rank 9",
-							},
-							["Rain of Fire"] = {
-								["Tooltip"] = "Rain of Fire<br>1480 Mana	30 yd range<br>Channeled<br>Calls down a fiery rain to burn enemies in the area of effect for 1212 to 1216 Fire damage over 8 sec.",
-								["Icon"] = "Spell_Shadow_RainOfFire",
-								["Rank"] = "Rank 5",
-							},
-						},
-						["Icon"] = "Spell_Shadow_RainOfFire",
-						["Count"] = 43,
-					},
 				},
 				["MailBox"] = {
 				},
 				["timestamp"] = {
-					["Inventory"] = 1173630985,
+					["Inventory"] = 1175805950,
 					["init"] = {
-						["datakey"] = "eu:2.0.10:6448",
-						["TimeStamp"] = 1173630985,
-						["Date"] = "2007-03-11 17:36:25",
-						["ServerTime"] = "17:38",
-						["DateUTC"] = "2007-03-11 16:36:25",
+						["datakey"] = "eu:2.0.12:6546",
+						["TimeStamp"] = 1175805950,
+						["Date"] = "2007-04-05 22:45:50",
+						["ServerTime"] = "22:47",
+						["DateUTC"] = "2007-04-05 20:45:50",
 					},
 					["Pets"] = {
 						["Tangtaz"] = 1171364902,
+						["Jhuuthun"] = 1175795195,
 						["Nokmat"] = 1171128308,
 						["Unknown"] = 1172337467,
 						["Ghaakun"] = 1168707990,
-						["Jhuuthun"] = 1172611950,
+						["Glynlissa"] = 1175805950,
 					},
-					["Attributes"] = 1173630985,
+					["Attributes"] = 1175805950,
 					["Professions"] = {
-						["Tailoring"] = 1173630952,
-						["First Aid"] = 1173630957,
-						["Cooking"] = 1173630962,
+						["Tailoring"] = 1175793555,
+						["First Aid"] = 1175793563,
+						["Cooking"] = 1175793580,
 					},
-					["SpellBook"] = 1173630985,
-					["MailBox"] = 1173624544,
-					["Equipment"] = 1173630979,
-					["Bank"] = 1172347892,
+					["SpellBook"] = 1175805950,
+					["MailBox"] = 1175777966,
+					["Equipment"] = 1175805160,
+					["Bank"] = 1175796392,
 				},
 				["Faction"] = "Horde",
 			},
 			["Azymonda"] = {
-				["Guild"] = {
-					["Title"] = "member",
-					["Name"] = "the everlasting wind",
-					["Rank"] = 4,
-				},
 				["Mana"] = 1250,
 				["Locale"] = "enUS",
 				["Race"] = "Troll",
@@ -8185,7 +8534,7 @@ myProfile = {
 							["AtWar"] = 0,
 							["Standing"] = "Neutral",
 						},
-						["Gadgetzan"] = {
+						["Booty Bay"] = {
 							["Value"] = "2637:3000",
 							["AtWar"] = 0,
 							["Standing"] = "Neutral",
@@ -8195,7 +8544,7 @@ myProfile = {
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
-						["Booty Bay"] = {
+						["Gadgetzan"] = {
 							["Value"] = "2637:3000",
 							["AtWar"] = 0,
 							["Standing"] = "Neutral",
@@ -8224,68 +8573,12 @@ myProfile = {
 						["Icon"] = "INV_Pants_02",
 						["Name"] = "Sea Dog Britches",
 					},
-					["Tabard"] = {
-						["Item"] = "5976:0:0:0:0:0:0:0",
-						["Color"] = "ffffff",
-						["Tooltip"] = "Guild Tabard<br>Tabard",
-						["Icon"] = "INV_Shirt_GuildTabard_01",
-						["Name"] = "Guild Tabard",
-					},
 					["Back"] = {
 						["Item"] = "15333:0:0:0:0:0:1014:911606596",
 						["Color"] = "1eff00",
 						["Tooltip"] = "Wrangler's Cloak of the Whale<br>Soulbound<br>Back<br>18 Armor<br>|cffffffff+2 Spirit|r<br><br>|cffffffff+3 Stamina|r<br><br>Requires Level 17",
 						["Icon"] = "INV_Misc_Cape_01",
 						["Name"] = "Wrangler's Cloak of the Whale",
-					},
-					["Chest"] = {
-						["Item"] = "7510:24:0:0:0:0:0:2091899684",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Lesser Spellfire Robes<br>Soulbound<br>Chest	Cloth<br>34 Armor<br>+6 Intellect<br>+5 Mana<br>Durability 58 / 60<br>Classes: Mage",
-						["Icon"] = "INV_Chest_Cloth_18",
-						["Name"] = "Lesser Spellfire Robes",
-					},
-					["SecondaryHand"] = {
-						["Item"] = "11855:0:0:0:0:0:0:1818935048",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Tork Wrench<br>Soulbound<br>Held In Off-hand<br>30 Armor<br>+2 Strength<br>+2 Intellect",
-						["Icon"] = "INV_Misc_Wrench_01",
-						["Name"] = "Tork Wrench",
-					},
-					["Ranged"] = {
-						["Item"] = "8071:0:0:0:0:0:0:1239993704",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Sizzle Stick<br>Soulbound<br>Ranged	Wand<br>21 - 39 Fire Damage	Speed 1.70<br>(17.6 damage per second)<br>Durability 45 / 45",
-						["Icon"] = "INV_Staff_02",
-						["Name"] = "Sizzle Stick",
-					},
-					["MainHand"] = {
-						["Item"] = "4571:0:0:0:0:0:1876:169200404",
-						["Color"] = "1eff00",
-						["Tooltip"] = "War Knife of Fiery Wrath<br>Soulbound<br>One-Hand	Dagger<br>10 - 19 Damage	Speed 1.70<br>(8.5 damage per second)<br>|cffffffff+3 Fire Spell Damage|r<br><br>Durability 35 / 35<br>Requires Level 12",
-						["Icon"] = "INV_Weapon_ShortBlade_15",
-						["Name"] = "War Knife of Fiery Wrath",
-					},
-					["Hands"] = {
-						["Item"] = "10919:0:0:0:0:0:0:515749250",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Apothecary Gloves<br>Soulbound<br>Hands	Cloth<br>20 Armor<br>+3 Intellect<br>+2 Spirit<br>Durability 20 / 20",
-						["Icon"] = "INV_Gauntlets_06",
-						["Name"] = "Apothecary Gloves",
-					},
-					["Wrist"] = {
-						["Item"] = "15452:41:0:0:0:0:0:917103470",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Featherbead Bracers<br>Soulbound<br>Wrist	Cloth<br>14 Armor<br>+3 Intellect<br>+5 Health<br>Durability 18 / 20",
-						["Icon"] = "INV_Bracer_08",
-						["Name"] = "Featherbead Bracers",
-					},
-					["Shoulder"] = {
-						["Item"] = "10657:0:0:0:0:0:0:875758596",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Talbar Mantle<br>Soulbound<br>Shoulder	Cloth<br>30 Armor<br>+3 Stamina<br>+6 Intellect<br>Durability 40 / 40",
-						["Icon"] = "INV_Shoulder_09",
-						["Name"] = "Talbar Mantle",
 					},
 					["Feet"] = {
 						["Item"] = "2583:0:0:0:0:0:0:116798534",
@@ -8294,9 +8587,65 @@ myProfile = {
 						["Icon"] = "INV_Boots_09",
 						["Name"] = "Woolen Boots",
 					},
+					["Chest"] = {
+						["Item"] = "7510:24:0:0:0:0:0:2091899684",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Lesser Spellfire Robes<br>Soulbound<br>Chest	Cloth<br>34 Armor<br>+6 Intellect<br>+5 Mana<br>Durability 58 / 60<br>Classes: Mage",
+						["Icon"] = "INV_Chest_Cloth_18",
+						["Name"] = "Lesser Spellfire Robes",
+					},
+					["Shoulder"] = {
+						["Item"] = "10657:0:0:0:0:0:0:875758596",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Talbar Mantle<br>Soulbound<br>Shoulder	Cloth<br>30 Armor<br>+3 Stamina<br>+6 Intellect<br>Durability 40 / 40",
+						["Icon"] = "INV_Shoulder_09",
+						["Name"] = "Talbar Mantle",
+					},
+					["Ranged"] = {
+						["Item"] = "8071:0:0:0:0:0:0:1239993704",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Sizzle Stick<br>Soulbound<br>Ranged	Wand<br>21 - 39 Fire Damage	Speed 1.70<br>(17.6 damage per second)<br>Durability 45 / 45",
+						["Icon"] = "INV_Staff_02",
+						["Name"] = "Sizzle Stick",
+					},
+					["Hands"] = {
+						["Item"] = "10919:0:0:0:0:0:0:515749250",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Apothecary Gloves<br>Soulbound<br>Hands	Cloth<br>20 Armor<br>+3 Intellect<br>+2 Spirit<br>Durability 20 / 20",
+						["Icon"] = "INV_Gauntlets_06",
+						["Name"] = "Apothecary Gloves",
+					},
+					["MainHand"] = {
+						["Item"] = "4571:0:0:0:0:0:1876:169200404",
+						["Color"] = "1eff00",
+						["Tooltip"] = "War Knife of Fiery Wrath<br>Soulbound<br>One-Hand	Dagger<br>10 - 19 Damage	Speed 1.70<br>(8.5 damage per second)<br>|cffffffff+3 Fire Spell Damage|r<br><br>Durability 35 / 35<br>Requires Level 12",
+						["Icon"] = "INV_Weapon_ShortBlade_15",
+						["Name"] = "War Knife of Fiery Wrath",
+					},
+					["Wrist"] = {
+						["Item"] = "15452:41:0:0:0:0:0:917103470",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Featherbead Bracers<br>Soulbound<br>Wrist	Cloth<br>14 Armor<br>+3 Intellect<br>+5 Health<br>Durability 18 / 20",
+						["Icon"] = "INV_Bracer_08",
+						["Name"] = "Featherbead Bracers",
+					},
+					["SecondaryHand"] = {
+						["Item"] = "11855:0:0:0:0:0:0:1818935048",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Tork Wrench<br>Soulbound<br>Held In Off-hand<br>30 Armor<br>+2 Strength<br>+2 Intellect",
+						["Icon"] = "INV_Misc_Wrench_01",
+						["Name"] = "Tork Wrench",
+					},
+					["Tabard"] = {
+						["Item"] = "5976:0:0:0:0:0:0:0",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Guild Tabard<br>Tabard",
+						["Icon"] = "INV_Shirt_GuildTabard_01",
+						["Name"] = "Guild Tabard",
+					},
 				},
 				["Health"] = 442,
-				["CPversion"] = "2.0.4",
+				["CPversion"] = "2.0.5",
 				["RaceEn"] = "Troll",
 				["Quests"] = {
 					["Ragefire Chasm"] = {
@@ -8306,13 +8655,13 @@ myProfile = {
 							["Level"] = 16,
 							["Tasks"] = {
 								{
-									["Note"] = "Bazzalan slain: 0/1",
 									["Type"] = "monster",
+									["Note"] = "Bazzalan slain: 0/1",
 								}, -- [1]
 								{
 									["Note"] = "Jergosh the Invoker slain: 1/1",
-									["Done"] = 1,
 									["Type"] = "monster",
+									["Done"] = 1,
 								}, -- [2]
 							},
 							["Tag"] = "Dungeon",
@@ -8344,12 +8693,12 @@ myProfile = {
 							["Title"] = "The Power to Destroy...",
 							["Tasks"] = {
 								{
-									["Note"] = "Spells of Shadow: 0/1",
 									["Type"] = "item",
+									["Note"] = "Spells of Shadow: 0/1",
 								}, -- [1]
 								{
-									["Note"] = "Incantations from the Nether: 0/1",
 									["Type"] = "item",
+									["Note"] = "Incantations from the Nether: 0/1",
 								}, -- [2]
 							},
 							["Level"] = 16,
@@ -8366,8 +8715,8 @@ myProfile = {
 						{
 							["Tasks"] = {
 								{
-									["Note"] = "Bristleback Quilboar Tusk: 40/60",
 									["Type"] = "item",
+									["Note"] = "Bristleback Quilboar Tusk: 40/60",
 								}, -- [1]
 							},
 							["Choice"] = {
@@ -8395,8 +8744,8 @@ myProfile = {
 							["Title"] = "Deepmoss Spider Eggs",
 							["Tasks"] = {
 								{
-									["Note"] = "Deepmoss Egg: 0/15",
 									["Type"] = "item",
+									["Note"] = "Deepmoss Egg: 0/15",
 								}, -- [1]
 							},
 						}, -- [5]
@@ -8411,8 +8760,8 @@ myProfile = {
 						{
 							["Tasks"] = {
 								{
-									["Note"] = "Silithid Egg: 0/12",
 									["Type"] = "item",
+									["Note"] = "Silithid Egg: 0/12",
 								}, -- [1]
 							},
 							["Choice"] = {
@@ -8437,16 +8786,16 @@ myProfile = {
 						{
 							["Tasks"] = {
 								{
-									["Note"] = "Razormane Backstabber: 0/1",
 									["Type"] = "item",
+									["Note"] = "Razormane Backstabber: 0/1",
 								}, -- [1]
 								{
-									["Note"] = "Charred Razormane Wand: 0/1",
 									["Type"] = "item",
+									["Note"] = "Charred Razormane Wand: 0/1",
 								}, -- [2]
 								{
-									["Note"] = "Razormane War Shield: 0/1",
 									["Type"] = "item",
+									["Note"] = "Razormane War Shield: 0/1",
 								}, -- [3]
 							},
 							["Choice"] = {
@@ -8471,16 +8820,16 @@ myProfile = {
 						{
 							["Tasks"] = {
 								{
-									["Note"] = "Kuz's Skull: 0/1",
 									["Type"] = "item",
+									["Note"] = "Kuz's Skull: 0/1",
 								}, -- [1]
 								{
-									["Note"] = "Nak's Skull: 0/1",
 									["Type"] = "item",
+									["Note"] = "Nak's Skull: 0/1",
 								}, -- [2]
 								{
-									["Note"] = "Lok's Skull: 0/1",
 									["Type"] = "item",
+									["Note"] = "Lok's Skull: 0/1",
 								}, -- [3]
 							},
 							["Level"] = 25,
@@ -8495,8 +8844,8 @@ myProfile = {
 						[12] = {
 							["Tasks"] = {
 								{
-									["Note"] = "Steelsnap's Rib: 0/1",
 									["Type"] = "item",
+									["Note"] = "Steelsnap's Rib: 0/1",
 								}, -- [1]
 							},
 							["Level"] = 30,
@@ -8506,6 +8855,7 @@ myProfile = {
 				},
 				["Inventory"] = {
 					["Bag4"] = {
+						["Item"] = "918:0:0:0:0:0:0:610053690",
 						["Contents"] = {
 							{
 								["Color"] = "1eff00",
@@ -8549,12 +8899,11 @@ myProfile = {
 								["Name"] = "Flaring Baton",
 							}, -- [7]
 						},
-						["Name"] = "Deviate Hide Pack",
-						["Icon"] = "INV_Misc_Bag_07_Black",
+						["Slots"] = 10,
 						["Color"] = "ffffff",
 						["Tooltip"] = "Deviate Hide Pack<br>Soulbound<br>Unique<br>10 Slot Bag",
-						["Slots"] = 10,
-						["Item"] = "918:0:0:0:0:0:0:610053690",
+						["Icon"] = "INV_Misc_Bag_07_Black",
+						["Name"] = "Deviate Hide Pack",
 					},
 					["Bag0"] = {
 						["Contents"] = {
@@ -8601,14 +8950,7 @@ myProfile = {
 								["Icon"] = "INV_Potion_50",
 								["Item"] = "858:0:0:0:0:0:0:1470418290",
 							}, -- [6]
-							{
-								["Quantity"] = 15,
-								["Name"] = "Conjured Bread",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Conjured Bread<br>Conjured Item<br>Requires Level 5<br>Use: Restores 243 health over 21 sec.  Must remain seated while eating.",
-								["Icon"] = "INV_Misc_Food_09",
-								["Item"] = "1113:0:0:0:0:0:0:237058722",
-							}, -- [7]
+							nil, -- [7]
 							{
 								["Quantity"] = 3,
 								["Name"] = "Minor Rejuvenation Potion",
@@ -8632,9 +8974,9 @@ myProfile = {
 							}, -- [10]
 							{
 								["Color"] = "ffffff",
+								["Name"] = "Bolt of Linen Cloth",
 								["Item"] = "2996:0:0:0:0:0:0:397546292",
 								["Icon"] = "INV_Fabric_Linen_02",
-								["Name"] = "Bolt of Linen Cloth",
 							}, -- [11]
 							{
 								["Item"] = "4310:0:0:0:0:0:0:963469234",
@@ -8672,12 +9014,13 @@ myProfile = {
 								["Name"] = "Crescent Staff",
 							}, -- [16]
 						},
-						["Name"] = "Backpack",
-						["Tooltip"] = "Backpack<br>16 Slot Bag",
 						["Slots"] = 16,
+						["Tooltip"] = "Backpack<br>16 Slot Bag",
 						["Icon"] = "Button-Backpack-Up",
+						["Name"] = "Backpack",
 					},
 					["Bag1"] = {
+						["Item"] = "5574:0:0:0:0:0:0:738878638",
 						["Contents"] = {
 							{
 								["Quantity"] = 20,
@@ -8687,14 +9030,7 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bandage_18",
 								["Item"] = "2581:0:0:0:0:0:0:48895412",
 							}, -- [1]
-							{
-								["Quantity"] = 4,
-								["Name"] = "Conjured Purified Water",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Conjured Purified Water<br>Conjured Item<br>Requires Level 15<br>Use: Restores 835 mana over 24 sec.  Must remain seated while drinking.",
-								["Icon"] = "INV_Drink_Milk_02",
-								["Item"] = "2136:0:0:0:0:0:0:511310818",
-							}, -- [2]
+							nil, -- [2]
 							{
 								["Quantity"] = 2,
 								["Name"] = "Wool Cloth",
@@ -8740,14 +9076,14 @@ myProfile = {
 								["Item"] = "2997:0:0:0:0:0:0:1091921546",
 							}, -- [8]
 						},
-						["Name"] = "White Leather Bag",
-						["Icon"] = "INV_Misc_Bag_06",
+						["Slots"] = 8,
 						["Color"] = "ffffff",
 						["Tooltip"] = "White Leather Bag<br>8 Slot Bag",
-						["Slots"] = 8,
-						["Item"] = "5574:0:0:0:0:0:0:738878638",
+						["Icon"] = "INV_Misc_Bag_06",
+						["Name"] = "White Leather Bag",
 					},
 					["Bag2"] = {
+						["Item"] = "4957:0:0:0:0:0:0:1122690824",
 						["Contents"] = {
 							{
 								["Quantity"] = 18,
@@ -8779,14 +9115,14 @@ myProfile = {
 								["Name"] = "Brackwater Vest",
 							},
 						},
-						["Name"] = "Old Moneybag",
-						["Icon"] = "INV_Misc_Bag_10",
+						["Slots"] = 6,
 						["Color"] = "ffffff",
 						["Tooltip"] = "Old Moneybag<br>Soulbound<br>Unique<br>6 Slot Bag",
-						["Slots"] = 6,
-						["Item"] = "4957:0:0:0:0:0:0:1122690824",
+						["Icon"] = "INV_Misc_Bag_10",
+						["Name"] = "Old Moneybag",
 					},
 					["Bag3"] = {
+						["Item"] = "5573:0:0:0:0:0:0:1574603657",
 						["Contents"] = {
 							nil, -- [1]
 							nil, -- [2]
@@ -8827,12 +9163,11 @@ myProfile = {
 								["Name"] = "Hunting Pants",
 							}, -- [8]
 						},
-						["Name"] = "Green Leather Bag",
-						["Icon"] = "INV_Misc_Bag_03",
+						["Slots"] = 8,
 						["Color"] = "ffffff",
 						["Tooltip"] = "Green Leather Bag<br>8 Slot Bag",
-						["Slots"] = 8,
-						["Item"] = "5573:0:0:0:0:0:0:1574603657",
+						["Icon"] = "INV_Misc_Bag_03",
+						["Name"] = "Green Leather Bag",
 					},
 				},
 				["Talents"] = {
@@ -8898,18 +9233,8 @@ myProfile = {
 							["Icon"] = "Spell_Fire_Immolation",
 							["Rank"] = "0:5",
 						},
-						["Empowered Fireball"] = {
-							["Location"] = "8:3",
-							["Tooltip"] = "Empowered Fireball<br>Rank 0/5<br>Requires 35 points in Fire Talents<br>Your Fireball spell gains an additional 3% of your bonus spell damage effects.",
-							["Icon"] = "Spell_Fire_FlameBolt",
-							["Rank"] = "0:5",
-						},
-						["Blazing Speed"] = {
-							["Location"] = "6:1",
-							["Tooltip"] = "Blazing Speed<br>Rank 0/2<br>Requires 25 points in Fire Talents<br>Gives you a 5% chance when hit by a melee or ranged attack to increase your movement speed by 50% and remove all movement impairing effects.  This effect lasts 8 sec.",
-							["Icon"] = "Spell_Fire_BurningSpeed",
-							["Rank"] = "0:2",
-						},
+						["PointsSpent"] = 13,
+						["Order"] = 2,
 						["Improved Fire Blast"] = {
 							["Location"] = "2:3",
 							["Tooltip"] = "Improved Fire Blast<br>Rank 0/3<br>Reduces the cooldown of your Fire Blast spell by 0.5 sec.",
@@ -8922,24 +9247,29 @@ myProfile = {
 							["Icon"] = "Spell_Fire_SealOfFire",
 							["Rank"] = "0:1",
 						},
+						["Flame Throwing"] = {
+							["Location"] = "2:2",
+							["Tooltip"] = "Flame Throwing<br>Rank 2/2<br>Increases the range of your Fire spells by 6 yards.",
+							["Icon"] = "Spell_Fire_Flare",
+							["Rank"] = "2:2",
+						},
+						["Impact"] = {
+							["Location"] = "1:3",
+							["Tooltip"] = "Impact<br>Rank 0/5<br>Gives your Fire spells a 2% chance to stun the target for 2 sec.",
+							["Icon"] = "Spell_Fire_MeteorStorm",
+							["Rank"] = "0:5",
+						},
 						["Improved Scorch"] = {
 							["Location"] = "4:1",
 							["Tooltip"] = "Improved Scorch<br>Rank 0/3<br>Requires 15 points in Fire Talents<br>Your Scorch spells have a 33% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by 3% and lasts 30 sec.  Stacks up to 5 times.",
 							["Icon"] = "Spell_Fire_SoulBurn",
 							["Rank"] = "0:3",
 						},
-						["PointsSpent"] = 13,
-						["Ignite"] = {
-							["Location"] = "2:1",
-							["Tooltip"] = "Ignite<br>Rank 3/5<br>Your critical strikes from Fire damage spells cause the target to burn for an additional 24% of your spell's damage over 4 sec.<br> <br>Next rank:<br>Your critical strikes from Fire damage spells cause the target to burn for an additional 32% of your spell's damage over 4 sec.",
-							["Icon"] = "Spell_Fire_Incinerate",
-							["Rank"] = "3:5",
-						},
-						["Flame Throwing"] = {
-							["Location"] = "2:2",
-							["Tooltip"] = "Flame Throwing<br>Rank 2/2<br>Increases the range of your Fire spells by 6 yards.",
-							["Icon"] = "Spell_Fire_Flare",
-							["Rank"] = "2:2",
+						["Master of Elements"] = {
+							["Location"] = "4:4",
+							["Tooltip"] = "Master of Elements<br>Rank 0/3<br>Requires 15 points in Fire Talents<br>Your Fire and Frost spell criticals will refund 10% of their base mana cost.",
+							["Icon"] = "Spell_Fire_MasterOfElements",
+							["Rank"] = "0:3",
 						},
 						["Improved Flamestrike"] = {
 							["Location"] = "3:2",
@@ -8953,11 +9283,11 @@ myProfile = {
 							["Icon"] = "Spell_Holy_Excorcism_02",
 							["Rank"] = "0:1",
 						},
-						["Master of Elements"] = {
-							["Location"] = "4:4",
-							["Tooltip"] = "Master of Elements<br>Rank 0/3<br>Requires 15 points in Fire Talents<br>Your Fire and Frost spell criticals will refund 10% of their base mana cost.",
-							["Icon"] = "Spell_Fire_MasterOfElements",
-							["Rank"] = "0:3",
+						["Ignite"] = {
+							["Location"] = "2:1",
+							["Tooltip"] = "Ignite<br>Rank 3/5<br>Your critical strikes from Fire damage spells cause the target to burn for an additional 24% of your spell's damage over 4 sec.<br> <br>Next rank:<br>Your critical strikes from Fire damage spells cause the target to burn for an additional 32% of your spell's damage over 4 sec.",
+							["Icon"] = "Spell_Fire_Incinerate",
+							["Rank"] = "3:5",
 						},
 						["Critical Mass"] = {
 							["Location"] = "5:2",
@@ -8965,13 +9295,18 @@ myProfile = {
 							["Icon"] = "Spell_Nature_WispHeal",
 							["Rank"] = "0:3",
 						},
-						["Impact"] = {
-							["Location"] = "1:3",
-							["Tooltip"] = "Impact<br>Rank 0/5<br>Gives your Fire spells a 2% chance to stun the target for 2 sec.",
-							["Icon"] = "Spell_Fire_MeteorStorm",
+						["Blazing Speed"] = {
+							["Location"] = "6:1",
+							["Tooltip"] = "Blazing Speed<br>Rank 0/2<br>Requires 25 points in Fire Talents<br>Gives you a 5% chance when hit by a melee or ranged attack to increase your movement speed by 50% and remove all movement impairing effects.  This effect lasts 8 sec.",
+							["Icon"] = "Spell_Fire_BurningSpeed",
+							["Rank"] = "0:2",
+						},
+						["Empowered Fireball"] = {
+							["Location"] = "8:3",
+							["Tooltip"] = "Empowered Fireball<br>Rank 0/5<br>Requires 35 points in Fire Talents<br>Your Fireball spell gains an additional 3% of your bonus spell damage effects.",
+							["Icon"] = "Spell_Fire_FlameBolt",
 							["Rank"] = "0:5",
 						},
-						["Order"] = 2,
 					},
 					["Frost"] = {
 						["Order"] = 3,
@@ -9012,10 +9347,10 @@ myProfile = {
 							["Rank"] = "0:3",
 						},
 						["Background"] = "MageFrost",
-						["Winter's Chill"] = {
-							["Location"] = "6:3",
-							["Tooltip"] = "Winter's Chill<br>Rank 0/5<br>Requires 25 points in Frost Talents<br>Gives your Frost damage spells a 20% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by 2% for 15 sec.  Stacks up to 5 times.",
-							["Icon"] = "Spell_Frost_ChillingBlast",
+						["Ice Shards"] = {
+							["Location"] = "2:1",
+							["Tooltip"] = "Ice Shards<br>Rank 0/5<br>Requires 5 points in Frost Talents<br>Increases the critical strike damage bonus of your Frost spells by 20%.",
+							["Icon"] = "Spell_Frost_IceShard",
 							["Rank"] = "0:5",
 						},
 						["Ice Barrier"] = {
@@ -9024,22 +9359,22 @@ myProfile = {
 							["Icon"] = "Spell_Ice_Lament",
 							["Rank"] = "0:1",
 						},
+						["Ice Floes"] = {
+							["Location"] = "6:1",
+							["Tooltip"] = "Ice Floes<br>Rank 0/2<br>Requires 25 points in Frost Talents<br>Reduces the cooldown of your Cone of Cold, Cold Snap, Ice Barrier and Ice Block spells by 10%.",
+							["Icon"] = "Spell_Frost_IceFloes",
+							["Rank"] = "0:2",
+						},
 						["Cold Snap"] = {
 							["Location"] = "3:2",
 							["Tooltip"] = "Cold Snap<br>Rank 0/1<br>Requires 10 points in Frost Talents<br>Instant	10 min cooldown<br>When activated, this spell finishes the cooldown on all of your Frost spells.",
 							["Icon"] = "Spell_Frost_WizardMark",
 							["Rank"] = "0:1",
 						},
-						["Frost Warding"] = {
-							["Location"] = "1:1",
-							["Tooltip"] = "Frost Warding<br>Rank 0/2<br>Increases the armor and resistances given by your Frost Armor and Ice Armor spells by 15%.  In addition, gives your Frost Ward a 10% chance to reflect Frost spells and effects while active.",
-							["Icon"] = "Spell_Frost_FrostWard",
-							["Rank"] = "0:2",
-						},
-						["Permafrost"] = {
-							["Location"] = "2:4",
-							["Tooltip"] = "Permafrost<br>Rank 0/3<br>Requires 5 points in Frost Talents<br>Increases the duration of your Chill effects by 1 sec and reduces the target's speed by an additional 4%.",
-							["Icon"] = "Spell_Frost_Wisp",
+						["Piercing Ice"] = {
+							["Location"] = "3:1",
+							["Tooltip"] = "Piercing Ice<br>Rank 0/3<br>Requires 10 points in Frost Talents<br>Increases the damage done by your Frost spells by 2%.",
+							["Icon"] = "Spell_Frost_Frostbolt",
 							["Rank"] = "0:3",
 						},
 						["Summon Water Elemental"] = {
@@ -9047,6 +9382,25 @@ myProfile = {
 							["Tooltip"] = "Summon Water Elemental<br>Rank 0/1<br>Requires 40 points in Frost Talents<br>66 Mana<br>Instant cast	3 min cooldown<br>Summon a Water Elemental to fight for the caster for 45 sec.",
 							["Icon"] = "Spell_Frost_SummonWaterElemental_2",
 							["Rank"] = "0:1",
+						},
+						["Elemental Precision"] = {
+							["Location"] = "1:3",
+							["Tooltip"] = "Elemental Precision<br>Rank 0/3<br>Reduces the mana cost and chance targets resist your Frost and Fire spells by 1%.",
+							["Icon"] = "Spell_Ice_MagicDamage",
+							["Rank"] = "0:3",
+						},
+						["Improved Blizzard"] = {
+							["Location"] = "3:4",
+							["Tooltip"] = "Improved Blizzard<br>Rank 0/3<br>Requires 10 points in Frost Talents<br>Adds a chill effect to your Blizzard spell.  This effect lowers the target's movement speed by 30%.  Lasts 1.50 sec.",
+							["Icon"] = "Spell_Frost_IceStorm",
+							["Rank"] = "0:3",
+						},
+						["PointsSpent"] = 0,
+						["Frost Channeling"] = {
+							["Location"] = "4:2",
+							["Tooltip"] = "Frost Channeling<br>Rank 0/3<br>Requires 15 points in Frost Talents<br>Reduces the mana cost of your Frost spells by 5% and reduces the threat caused by your Frost spells by 4%.",
+							["Icon"] = "Spell_Frost_Stun",
+							["Rank"] = "0:3",
 						},
 						["Arctic Winds"] = {
 							["Location"] = "7:3",
@@ -9060,41 +9414,22 @@ myProfile = {
 							["Icon"] = "Spell_Frost_Frost",
 							["Rank"] = "0:1",
 						},
-						["PointsSpent"] = 0,
-						["Frost Channeling"] = {
-							["Location"] = "4:2",
-							["Tooltip"] = "Frost Channeling<br>Rank 0/3<br>Requires 15 points in Frost Talents<br>Reduces the mana cost of your Frost spells by 5% and reduces the threat caused by your Frost spells by 4%.",
-							["Icon"] = "Spell_Frost_Stun",
-							["Rank"] = "0:3",
-						},
-						["Ice Shards"] = {
-							["Location"] = "2:1",
-							["Tooltip"] = "Ice Shards<br>Rank 0/5<br>Requires 5 points in Frost Talents<br>Increases the critical strike damage bonus of your Frost spells by 20%.",
-							["Icon"] = "Spell_Frost_IceShard",
-							["Rank"] = "0:5",
-						},
-						["Improved Blizzard"] = {
-							["Location"] = "3:4",
-							["Tooltip"] = "Improved Blizzard<br>Rank 0/3<br>Requires 10 points in Frost Talents<br>Adds a chill effect to your Blizzard spell.  This effect lowers the target's movement speed by 30%.  Lasts 1.50 sec.",
-							["Icon"] = "Spell_Frost_IceStorm",
-							["Rank"] = "0:3",
-						},
 						["Frozen Core"] = {
 							["Location"] = "5:1",
 							["Tooltip"] = "Frozen Core<br>Rank 0/3<br>Requires 20 points in Frost Talents<br>Reduces the damage taken by Frost and Fire effects by 2%.",
 							["Icon"] = "Spell_Frost_FrozenCore",
 							["Rank"] = "0:3",
 						},
-						["Elemental Precision"] = {
-							["Location"] = "1:3",
-							["Tooltip"] = "Elemental Precision<br>Rank 0/3<br>Reduces the mana cost and chance targets resist your Frost and Fire spells by 1%.",
-							["Icon"] = "Spell_Ice_MagicDamage",
-							["Rank"] = "0:3",
+						["Frost Warding"] = {
+							["Location"] = "1:1",
+							["Tooltip"] = "Frost Warding<br>Rank 0/2<br>Increases the armor and resistances given by your Frost Armor and Ice Armor spells by 15%.  In addition, gives your Frost Ward a 10% chance to reflect Frost spells and effects while active.",
+							["Icon"] = "Spell_Frost_FrostWard",
+							["Rank"] = "0:2",
 						},
-						["Piercing Ice"] = {
-							["Location"] = "3:1",
-							["Tooltip"] = "Piercing Ice<br>Rank 0/3<br>Requires 10 points in Frost Talents<br>Increases the damage done by your Frost spells by 2%.",
-							["Icon"] = "Spell_Frost_Frostbolt",
+						["Permafrost"] = {
+							["Location"] = "2:4",
+							["Tooltip"] = "Permafrost<br>Rank 0/3<br>Requires 5 points in Frost Talents<br>Increases the duration of your Chill effects by 1 sec and reduces the target's speed by an additional 4%.",
+							["Icon"] = "Spell_Frost_Wisp",
 							["Rank"] = "0:3",
 						},
 						["Improved Cone of Cold"] = {
@@ -9103,11 +9438,11 @@ myProfile = {
 							["Icon"] = "Spell_Frost_Glacier",
 							["Rank"] = "0:3",
 						},
-						["Ice Floes"] = {
-							["Location"] = "6:1",
-							["Tooltip"] = "Ice Floes<br>Rank 0/2<br>Requires 25 points in Frost Talents<br>Reduces the cooldown of your Cone of Cold, Cold Snap, Ice Barrier and Ice Block spells by 10%.",
-							["Icon"] = "Spell_Frost_IceFloes",
-							["Rank"] = "0:2",
+						["Winter's Chill"] = {
+							["Location"] = "6:3",
+							["Tooltip"] = "Winter's Chill<br>Rank 0/5<br>Requires 25 points in Frost Talents<br>Gives your Frost damage spells a 20% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by 2% for 15 sec.  Stacks up to 5 times.",
+							["Icon"] = "Spell_Frost_ChillingBlast",
+							["Rank"] = "0:5",
 						},
 					},
 					["Arcane"] = {
@@ -9179,10 +9514,10 @@ myProfile = {
 							["Icon"] = "Spell_Nature_Slow",
 							["Rank"] = "0:1",
 						},
-						["Mind Mastery"] = {
-							["Location"] = "8:2",
-							["Tooltip"] = "Mind Mastery<br>Rank 0/5<br>Requires 35 points in Arcane Talents<br>Increases spell damage by up to 5% of your total Intellect.",
-							["Icon"] = "Spell_Arcane_MindMastery",
+						["Arcane Focus"] = {
+							["Location"] = "1:2",
+							["Tooltip"] = "Arcane Focus<br>Rank 0/5<br>Reduces the chance that the opponent can resist your Arcane spells by 2%.",
+							["Icon"] = "Spell_Holy_Devotion",
 							["Rank"] = "0:5",
 						},
 						["Arcane Subtlety"] = {
@@ -9197,10 +9532,10 @@ myProfile = {
 							["Icon"] = "Spell_Arcane_ArcanePotency",
 							["Rank"] = "0:3",
 						},
-						["Improved Counterspell"] = {
-							["Location"] = "4:2",
-							["Tooltip"] = "Improved Counterspell<br>Rank 0/2<br>Requires 15 points in Arcane Talents<br>Gives your Counterspell a 50% chance to silence the target for 4 sec.",
-							["Icon"] = "Spell_Frost_IceShock",
+						["Spell Power"] = {
+							["Location"] = "7:3",
+							["Tooltip"] = "Spell Power<br>Rank 0/2<br>Requires 30 points in Arcane Talents<br>Increases critical strike damage bonus of all spells by 25%.",
+							["Icon"] = "Spell_Arcane_ArcaneTorrent",
 							["Rank"] = "0:2",
 						},
 						["PointsSpent"] = 0,
@@ -9210,16 +9545,16 @@ myProfile = {
 							["Icon"] = "Spell_Nature_WispSplode",
 							["Rank"] = "0:3",
 						},
+						["Improved Counterspell"] = {
+							["Location"] = "4:2",
+							["Tooltip"] = "Improved Counterspell<br>Rank 0/2<br>Requires 15 points in Arcane Talents<br>Gives your Counterspell a 50% chance to silence the target for 4 sec.",
+							["Icon"] = "Spell_Frost_IceShock",
+							["Rank"] = "0:2",
+						},
 						["Arcane Concentration"] = {
 							["Location"] = "2:3",
 							["Tooltip"] = "Arcane Concentration<br>Rank 0/5<br>Requires 5 points in Arcane Talents<br>Gives you a 2% chance of entering a Clearcasting state after any damage spell hits a target.  The Clearcasting state reduces the mana cost of your next damage spell by 100%.",
 							["Icon"] = "Spell_Shadow_ManaBurn",
-							["Rank"] = "0:5",
-						},
-						["Arcane Focus"] = {
-							["Location"] = "1:2",
-							["Tooltip"] = "Arcane Focus<br>Rank 0/5<br>Reduces the chance that the opponent can resist your Arcane spells by 2%.",
-							["Icon"] = "Spell_Holy_Devotion",
 							["Rank"] = "0:5",
 						},
 						["Improved Blink"] = {
@@ -9240,11 +9575,11 @@ myProfile = {
 							["Icon"] = "INV_Wand_01",
 							["Rank"] = "0:2",
 						},
-						["Spell Power"] = {
-							["Location"] = "7:3",
-							["Tooltip"] = "Spell Power<br>Rank 0/2<br>Requires 30 points in Arcane Talents<br>Increases critical strike damage bonus of all spells by 25%.",
-							["Icon"] = "Spell_Arcane_ArcaneTorrent",
-							["Rank"] = "0:2",
+						["Mind Mastery"] = {
+							["Location"] = "8:2",
+							["Tooltip"] = "Mind Mastery<br>Rank 0/5<br>Requires 35 points in Arcane Talents<br>Increases spell damage by up to 5% of your total Intellect.",
+							["Icon"] = "Spell_Arcane_MindMastery",
+							["Rank"] = "0:5",
 						},
 						["Arcane Fortitude"] = {
 							["Location"] = "3:4",
@@ -9267,27 +9602,17 @@ myProfile = {
 						["HasWandEquipped"] = true,
 						["HitRating"] = "0:0:0",
 						["AttackRating"] = "1:0:0",
-						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	1.70<br>Damage:	21 - 39<br>Damage per Second:	17.6",
 						["AttackSkill"] = 1,
+						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	1.70<br>Damage:	21 - 39<br>Damage per Second:	17.6",
 						["HasteRating"] = "0:0:0",
 						["DamageRange"] = "21:39",
 					},
-					["Spell"] = {
-						["CritChance"] = "4.31",
-						["CritRating"] = "0:0:0",
-						["ManaRegen"] = "70:0",
-						["HitRating"] = "0:0:0",
-						["Penetration"] = 0,
-						["School"] = {
-							["Frost"] = 0,
-							["Arcane"] = 0,
-							["Fire"] = 3,
-							["Shadow"] = 0,
-							["Nature"] = 0,
-						},
-						["HasteRating"] = "0:0:0",
-						["BonusHealing"] = 0,
-						["BonusDamage"] = 0,
+					["Stats"] = {
+						["Intellect"] = "47:27:0",
+						["Agility"] = "26:2:0",
+						["Stamina"] = "28:6:0",
+						["Strength"] = "24:6:0",
+						["Spirit"] = "50:12:0",
 					},
 					["Melee"] = {
 						["AttackPower"] = "20:0:0",
@@ -9314,73 +9639,83 @@ myProfile = {
 						["Frost"] = "0:0:0",
 						["Nature"] = "0:0:0",
 					},
-					["Stats"] = {
-						["Intellect"] = "47:27:0",
-						["Agility"] = "26:2:0",
-						["Stamina"] = "28:6:0",
-						["Strength"] = "24:6:0",
-						["Spirit"] = "50:12:0",
-					},
 					["Defense"] = {
 						["BlockRating"] = "0:0:0",
 						["Defense"] = "95:0:0",
 						["BlockChance"] = "0.00",
 						["ArmorReduction"] = "10.59",
 						["ParryRating"] = "0:0:0",
-						["DefenseRating"] = "0:0:0",
-						["DodgeRating"] = "0:0:0",
-						["ParryChance"] = "0.00",
 						["Armor"] = "269:0:0",
-						["DefensePercent"] = 0,
+						["DodgeRating"] = "0:0:0",
 						["DodgeChance"] = "4.66",
+						["DefenseRating"] = "0:0:0",
+						["DefensePercent"] = 0,
+						["ParryChance"] = "0.00",
 						["Resilience"] = {
 							["Ranged"] = 0,
 							["Spell"] = 0,
 							["Melee"] = 0,
 						},
 					},
+					["Spell"] = {
+						["CritChance"] = "4.31",
+						["CritRating"] = "0:0:0",
+						["ManaRegen"] = "70:0",
+						["HitRating"] = "0:0:0",
+						["Penetration"] = 0,
+						["School"] = {
+							["Frost"] = 0,
+							["Arcane"] = 0,
+							["Fire"] = 3,
+							["Shadow"] = 0,
+							["Nature"] = 0,
+						},
+						["BonusDamage"] = 0,
+						["BonusHealing"] = 0,
+						["HasteRating"] = "0:0:0",
+					},
 				},
 				["timestamp"] = {
-					["Equipment"] = 1168705009,
-					["Attributes"] = 1168705276,
+					["Equipment"] = 1175789843,
+					["Attributes"] = 1175789843,
 					["init"] = {
-						["datakey"] = "eu:2.0.4:6314",
-						["TimeStamp"] = 1168705276,
-						["Date"] = "2007-01-13 17:21:16",
-						["ServerTime"] = "17:20",
-						["DateUTC"] = "2007-01-13 16:21:16",
+						["datakey"] = "eu:2.0.12:6546",
+						["TimeStamp"] = 1175789843,
+						["Date"] = "2007-04-05 18:17:23",
+						["ServerTime"] = "18:19",
+						["DateUTC"] = "2007-04-05 16:17:23",
 					},
-					["SpellBook"] = 1168705276,
-					["Inventory"] = 1168705276,
+					["SpellBook"] = 1175789843,
+					["Inventory"] = 1175789843,
 					["Professions"] = {
-						["Tailoring"] = 1168702534,
+						["Tailoring"] = 1175789794,
 						["First Aid"] = 1168702537,
 					},
 				},
-				["TimePlayed"] = 105933,
+				["TimePlayed"] = 106129,
 				["Level"] = 22,
-				["TimeLevelPlayed"] = 529,
+				["TimeLevelPlayed"] = 725,
 				["Hearth"] = "Camp Taurajo",
 				["SpellBook"] = {
 					["Fire"] = {
 						["Spells"] = {
 							["Fireball"] = {
-								["Tooltip"] = "Fireball<br>95 Mana	41 yd range<br>2.5 sec cast<br>Hurls a fiery ball that causes 89 to 122 Fire damage and an additional 12 Fire damage over 8 sec.",
+								["Tooltip"] = "Fireball<br>95 Mana	35 yd range<br>3 sec cast<br>Hurls a fiery ball that causes 89 to 122 Fire damage and an additional 12 Fire damage over 8 sec.",
 								["Icon"] = "Spell_Fire_FlameBolt",
 								["Rank"] = "Rank 4",
 							},
 							["Pyroblast"] = {
-								["Tooltip"] = "Pyroblast<br>125 Mana	41 yd range<br>6 sec cast<br>Hurls an immense fiery boulder that causes 144 to 191 Fire damage and an additional 56 Fire damage over 12 sec.",
+								["Tooltip"] = "Pyroblast<br>125 Mana	35 yd range<br>6 sec cast<br>Hurls an immense fiery boulder that causes 144 to 191 Fire damage and an additional 56 Fire damage over 12 sec.",
 								["Icon"] = "Spell_Fire_Fireball02",
 								["Rank"] = "Rank 1",
 							},
 							["Scorch"] = {
-								["Tooltip"] = "Scorch<br>50 Mana	36 yd range<br>1.5 sec cast<br>Scorch the enemy for 53 to 65 Fire damage.",
+								["Tooltip"] = "Scorch<br>50 Mana	30 yd range<br>1.5 sec cast<br>Scorch the enemy for 53 to 65 Fire damage.",
 								["Icon"] = "Spell_Fire_SoulBurn",
 								["Rank"] = "Rank 1",
 							},
 							["Flamestrike"] = {
-								["Tooltip"] = "Flamestrike<br>195 Mana	36 yd range<br>3 sec cast<br>Calls down a pillar of fire, burning all enemies within the area for 55 to 71 Fire damage and an additional 48 Fire damage over 8 sec.",
+								["Tooltip"] = "Flamestrike<br>195 Mana	30 yd range<br>3 sec cast<br>Calls down a pillar of fire, burning all enemies within the area for 55 to 71 Fire damage and an additional 48 Fire damage over 8 sec.",
 								["Icon"] = "Spell_Fire_SelfDestruct",
 								["Rank"] = "Rank 1",
 							},
@@ -9390,7 +9725,7 @@ myProfile = {
 								["Rank"] = "Rank 1",
 							},
 							["Fire Blast"] = {
-								["Tooltip"] = "Fire Blast<br>115 Mana	26 yd range<br>Instant cast	8 sec cooldown<br>Blasts the enemy for 103 to 127 Fire damage.",
+								["Tooltip"] = "Fire Blast<br>115 Mana	20 yd range<br>Instant cast	8 sec cooldown<br>Blasts the enemy for 103 to 127 Fire damage.",
 								["Icon"] = "Spell_Fire_Fireball",
 								["Rank"] = "Rank 3",
 							},
@@ -9447,8 +9782,8 @@ myProfile = {
 								["Rank"] = "Apprentice",
 							},
 							["Shoot"] = {
-								["Tooltip"] = "Shoot<br>30 yd range<br>0.5 sec cast	1.9 sec cooldown<br>Requires Wands<br>Attack with an equipped wand.",
-								["Icon"] = "INV_Staff_02",
+								["Tooltip"] = "Shoot<br>30 yd range<br>0.5 sec cast	1.7 sec cooldown<br>Requires Wands<br>Attack with an equipped wand.",
+								["Icon"] = "INV_Misc_QuestionMark",
 								["Rank"] = "",
 							},
 							["Bow Specialization"] = {
@@ -9456,15 +9791,15 @@ myProfile = {
 								["Icon"] = "INV_Weapon_Bow_12",
 								["Rank"] = "Racial Passive",
 							},
+							["Berserking"] = {
+								["Tooltip"] = "Berserking<br>24 Mana<br>Instant cast	3 min cooldown<br>Increases your casting and attack speed by 10% to 30%.  At full health the speed increase is 10% with a greater effect up to 30% if you are badly hurt when you activate Berserking.  Lasts 10 sec.",
+								["Icon"] = "Racial_Troll_Berserk",
+								["Rank"] = "Racial",
+							},
 							["Regeneration"] = {
 								["Tooltip"] = "Regeneration<br>Health regeneration rate increased by 10%.  10% of total Health regeneration may continue during combat.",
 								["Icon"] = "Spell_Nature_Regenerate",
 								["Rank"] = "Racial Passive",
-							},
-							["Berserking"] = {
-								["Tooltip"] = "Berserking<br>23 Mana<br>Instant cast	3 min cooldown<br>Increases your casting and attack speed by 10% to 30%.  At full health the speed increase is 10% with a greater effect up to 30% if you are badly hurt when you activate Berserking.  Lasts 10 sec.",
-								["Icon"] = "Racial_Troll_Berserk",
-								["Rank"] = "Racial",
 							},
 							["Find Herbs"] = {
 								["Tooltip"] = "Find Herbs<br>Instant<br>Nearby herb bushes appear on the minimap.   Only one type of thing can be tracked at a time.",
@@ -9477,13 +9812,13 @@ myProfile = {
 								["Rank"] = "Racial Passive",
 							},
 							["Dodge"] = {
-								["Tooltip"] = "Dodge<br>4.92% chance to dodge<br>Gives a chance to dodge enemy melee attacks.",
+								["Tooltip"] = "Dodge<br>4.66% chance to dodge<br>Gives a chance to dodge enemy melee attacks.",
 								["Icon"] = "Spell_Nature_Invisibilty",
 								["Rank"] = "Passive",
 							},
 							["Attack"] = {
-								["Tooltip"] = "Attack<br>4.36% chance to crit",
-								["Icon"] = "INV_Weapon_ShortBlade_15",
+								["Tooltip"] = "Attack<br>4.14% chance to crit",
+								["Icon"] = "INV_Misc_QuestionMark",
 								["Rank"] = "",
 							},
 						},
@@ -9497,39 +9832,39 @@ myProfile = {
 								["Icon"] = "Spell_Holy_FlashHeal",
 								["Rank"] = "Rank 1",
 							},
-							["Teleport: Orgrimmar"] = {
-								["Tooltip"] = "Teleport: Orgrimmar<br>120 Mana<br>10 sec cast<br>Reagents: Rune of Teleportation<br>Teleports the caster to Orgrimmar.",
-								["Icon"] = "Spell_Arcane_TeleportOrgrimmar",
-								["Rank"] = "",
+							["Conjure Water"] = {
+								["Tooltip"] = "Conjure Water<br>180 Mana<br>3 sec cast<br>Conjures 6 bottles of purified water, providing the mage and her allies with something to drink.<br><br>Conjured items disappear if logged out for more than 15 minutes.",
+								["Icon"] = "INV_Drink_Milk_02",
+								["Rank"] = "Rank 3",
 							},
 							["Arcane Intellect"] = {
 								["Tooltip"] = "Arcane Intellect<br>185 Mana	30 yd range<br>Instant cast<br>Increases the target's Intellect by 7 for 30 min.",
 								["Icon"] = "Spell_Holy_MagicalSentry",
 								["Rank"] = "Rank 2",
 							},
-							["Remove Lesser Curse"] = {
-								["Tooltip"] = "Remove Lesser Curse<br>33 Mana	30 yd range<br>Instant cast<br>Removes 1 Curse from a friendly target.",
-								["Icon"] = "Spell_Nature_RemoveCurse",
-								["Rank"] = "",
-							},
-							["Teleport: Undercity"] = {
-								["Tooltip"] = "Teleport: Undercity<br>120 Mana<br>10 sec cast<br>Reagents: Rune of Teleportation<br>Teleports the caster to Undercity.",
-								["Icon"] = "Spell_Arcane_TeleportUnderCity",
-								["Rank"] = "",
-							},
 							["Dampen Magic"] = {
 								["Tooltip"] = "Dampen Magic<br>100 Mana	30 yd range<br>Instant cast<br>Dampens magic used against the targeted party member, decreasing damage taken from spells by up to 10 and healing spells by up to 20.  Lasts 10 min.",
 								["Icon"] = "Spell_Nature_AbolishMagic",
 								["Rank"] = "Rank 1",
 							},
-							["Conjure Water"] = {
-								["Tooltip"] = "Conjure Water<br>180 Mana<br>3 sec cast<br>Conjures 6 bottles of purified water, providing the mage and her allies with something to drink.<br><br>Conjured items disappear if logged out for more than 15 minutes.",
-								["Icon"] = "INV_Drink_Milk_02",
-								["Rank"] = "Rank 3",
+							["Teleport: Undercity"] = {
+								["Tooltip"] = "Teleport: Undercity<br>120 Mana<br>10 sec cast<br>Teleports the caster to Undercity.",
+								["Icon"] = "Spell_Arcane_TeleportUnderCity",
+								["Rank"] = "",
 							},
-							["Slow Fall"] = {
-								["Tooltip"] = "Slow Fall<br>40 Mana<br>Instant cast<br>Reagents: Light Feather<br>Slows falling speed for 30 sec.",
-								["Icon"] = "Spell_Magic_FeatherFall",
+							["Arcane Missiles"] = {
+								["Tooltip"] = "Arcane Missiles<br>140 Mana	30 yd range<br>Channeled<br>Launches Arcane Missiles at the enemy, causing 37 to 38 Arcane damage each second for 4 sec.",
+								["Icon"] = "Spell_Nature_StarFall",
+								["Rank"] = "Rank 2",
+							},
+							["Arcane Explosion"] = {
+								["Tooltip"] = "Arcane Explosion<br>120 Mana<br>Instant cast<br>Causes an explosion of arcane magic around the caster, causing 57 to 63 Arcane damage to all targets within 10 yards.",
+								["Icon"] = "Spell_Nature_WispSplode",
+								["Rank"] = "Rank 2",
+							},
+							["Detect Magic"] = {
+								["Tooltip"] = "Detect Magic<br>35 Mana	40 yd range<br>Instant cast<br>Detects beneficial magic effects on the target for 2 min.",
+								["Icon"] = "Spell_Holy_Dizzy",
 								["Rank"] = "",
 							},
 							["Conjure Food"] = {
@@ -9542,35 +9877,35 @@ myProfile = {
 								["Icon"] = "Spell_Arcane_Blink",
 								["Rank"] = "",
 							},
-							["Detect Magic"] = {
-								["Tooltip"] = "Detect Magic<br>35 Mana	40 yd range<br>Instant cast<br>Detects beneficial magic effects on the target for 2 min.",
-								["Icon"] = "Spell_Holy_Dizzy",
+							["Slow Fall"] = {
+								["Tooltip"] = "Slow Fall<br>40 Mana<br>Instant cast<br>Slows falling speed for 30 sec.",
+								["Icon"] = "Spell_Magic_FeatherFall",
 								["Rank"] = "",
+							},
+							["Mana Shield"] = {
+								["Tooltip"] = "Mana Shield<br>40 Mana<br>Instant cast<br>Absorbs 120 damage, draining mana instead.  Drains 2.0 mana per damage absorbed.  Lasts 1 min.",
+								["Icon"] = "Spell_Shadow_DetectLesserInvisibility",
+								["Rank"] = "Rank 1",
 							},
 							["Polymorph"] = {
 								["Tooltip"] = "Polymorph<br>90 Mana	30 yd range<br>1.5 sec cast<br>Transforms the enemy into a sheep, forcing it to wander around for up to 30 sec.  While wandering, the sheep cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
 								["Icon"] = "Spell_Nature_Polymorph",
 								["Rank"] = "Rank 2",
 							},
-							["Mana Shield"] = {
-								["Tooltip"] = "Mana Shield<br>40 Mana<br>Instant cast<br>Absorbs 120 physical damage, draining mana instead.  Drains 2.0 mana per damage absorbed.  Lasts 1 min.",
-								["Icon"] = "Spell_Shadow_DetectLesserInvisibility",
-								["Rank"] = "Rank 1",
-							},
 							["Evocation"] = {
 								["Tooltip"] = "Evocation<br>Channeled	8 min cooldown<br>While channeling this spell, your mana regeneration is active and increased by 1500%.  Lasts 8 sec.",
 								["Icon"] = "Spell_Nature_Purge",
 								["Rank"] = "",
 							},
-							["Arcane Explosion"] = {
-								["Tooltip"] = "Arcane Explosion<br>120 Mana<br>Instant cast<br>Causes an explosion of arcane magic around the caster, causing 57 to 63 Arcane damage to all targets within 10 yards.",
-								["Icon"] = "Spell_Nature_WispSplode",
-								["Rank"] = "Rank 2",
+							["Remove Lesser Curse"] = {
+								["Tooltip"] = "Remove Lesser Curse<br>33 Mana	30 yd range<br>Instant cast<br>Removes 1 Curse from a friendly target.",
+								["Icon"] = "Spell_Nature_RemoveCurse",
+								["Rank"] = "",
 							},
-							["Arcane Missiles"] = {
-								["Tooltip"] = "Arcane Missiles<br>140 Mana	30 yd range<br>Channeled<br>Launches Arcane Missiles at the enemy, causing 37 to 38 Arcane damage each second for 4 sec.",
-								["Icon"] = "Spell_Nature_StarFall",
-								["Rank"] = "Rank 2",
+							["Teleport: Orgrimmar"] = {
+								["Tooltip"] = "Teleport: Orgrimmar<br>120 Mana<br>10 sec cast<br>Teleports the caster to Orgrimmar.",
+								["Icon"] = "Spell_Arcane_TeleportOrgrimmar",
+								["Rank"] = "",
 							},
 						},
 						["Icon"] = "Spell_Holy_MagicalSentry",
@@ -9579,8 +9914,8 @@ myProfile = {
 				},
 				["Honor"] = {
 					["Yesterday"] = {
-						["CP"] = 0,
 						["HK"] = 0,
+						["CP"] = 0,
 					},
 					["Current"] = {
 						["Name"] = "None",
@@ -9591,24 +9926,24 @@ myProfile = {
 						["Rank"] = 0,
 					},
 					["Session"] = {
-						["CP"] = 0,
 						["HK"] = 0,
+						["CP"] = 0,
 					},
 					["Lifetime"] = {
-						["HK"] = 1,
-						["Name"] = "None",
 						["Rank"] = 0,
+						["Name"] = "None",
+						["HK"] = 1,
 					},
 				},
 				["TalentPoints"] = 0,
 				["DBversion"] = "2.0.0",
 				["Money"] = {
-					["Copper"] = 57,
 					["Silver"] = 91,
+					["Copper"] = 57,
 					["Gold"] = 0,
 				},
 				["Name"] = "Azymonda",
-				["Experience"] = "2282:27300:24",
+				["Experience"] = "2282:27300:40950",
 				["Server"] = "Aggramar",
 				["CPprovider"] = "rpgo",
 				["SexId"] = 1,
@@ -9625,14 +9960,14 @@ myProfile = {
 								["Icon"] = "INV_Pants_11",
 								["Reagents"] = {
 									{
+										["Count"] = 4,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 4,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -9644,19 +9979,19 @@ myProfile = {
 								["Icon"] = "INV_Misc_Cape_11",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2997",
 										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 3,
 									}, -- [1]
 									{
+										["Count"] = 2,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 2,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "5498",
 										["Name"] = "Small Lustrous Pearl",
-										["Count"] = 1,
 									}, -- [3]
 								},
 							},
@@ -9668,19 +10003,19 @@ myProfile = {
 								["Icon"] = "INV_Boots_09",
 								["Reagents"] = {
 									{
+										["Count"] = 5,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 5,
 									}, -- [1]
 									{
+										["Count"] = 2,
 										["itemID"] = "2318",
 										["Name"] = "Light Leather",
-										["Count"] = 2,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 1,
 									}, -- [3]
 								},
 							},
@@ -9692,14 +10027,14 @@ myProfile = {
 								["Icon"] = "INV_Pants_07",
 								["Reagents"] = {
 									{
+										["Count"] = 4,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 4,
 									}, -- [1]
 									{
+										["Count"] = 2,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 2,
 									}, -- [2]
 								},
 							},
@@ -9711,14 +10046,14 @@ myProfile = {
 								["Icon"] = "INV_Misc_Cape_14",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -9730,19 +10065,19 @@ myProfile = {
 								["Icon"] = "INV_Boots_09",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 3,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "2318",
 										["Name"] = "Light Leather",
-										["Count"] = 1,
 									}, -- [3]
 								},
 							},
@@ -9754,14 +10089,14 @@ myProfile = {
 								["Icon"] = "INV_Pants_06",
 								["Reagents"] = {
 									{
+										["Count"] = 2,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -9773,14 +10108,14 @@ myProfile = {
 								["Icon"] = "INV_Pants_11",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -9792,196 +10127,14 @@ myProfile = {
 								["Icon"] = "INV_Shirt_05",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
-									}, -- [2]
-								},
-							},
-							["Simple Linen Boots"] = {
-								["Difficulty"] = 1,
-								["Item"] = "10046:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Simple Linen Boots<br>Feet	Cloth<br>11 Armor<br>Requires Level 4",
-								["Icon"] = "INV_Boots_05",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
-									}, -- [1]
-									{
-										["itemID"] = "2318",
-										["Name"] = "Light Leather",
-										["Count"] = 1,
-									}, -- [2]
-									{
-										["itemID"] = "2320",
-										["Name"] = "Coarse Thread",
-										["Count"] = 1,
-									}, -- [3]
-								},
-							},
-							["Green Linen Bracers"] = {
-								["Difficulty"] = 2,
-								["Item"] = "4308:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Green Linen Bracers<br>Wrist	Cloth<br>9 Armor<br>Requires Level 7",
-								["Icon"] = "INV_Bracer_12",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 3,
-									}, -- [1]
-									{
-										["itemID"] = "2320",
-										["Name"] = "Coarse Thread",
-										["Count"] = 2,
-									}, -- [2]
-									{
-										["itemID"] = "2605",
-										["Name"] = "Green Dye",
-										["Count"] = 1,
-									}, -- [3]
-								},
-							},
-							["Heavy Woolen Cloak"] = {
-								["Difficulty"] = 4,
-								["Item"] = "4311:0:0:0:0:0:0:0",
-								["Color"] = "1eff00",
-								["Tooltip"] = "Heavy Woolen Cloak<br>Binds when equipped<br>Back<br>17 Armor<br>+4 Spirit<br>Requires Level 16",
-								["Icon"] = "INV_Misc_Cape_14",
-								["Reagents"] = {
-									{
-										["itemID"] = "2997",
-										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 3,
-									}, -- [1]
-									{
-										["itemID"] = "2321",
-										["Name"] = "Fine Thread",
-										["Count"] = 2,
-									}, -- [2]
-									{
-										["itemID"] = "5498",
-										["Name"] = "Small Lustrous Pearl",
-										["Count"] = 2,
-									}, -- [3]
-								},
-							},
-							["Reinforced Linen Cape"] = {
-								["Difficulty"] = 2,
-								["Item"] = "2580:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Reinforced Linen Cape<br>Back<br>11 Armor<br>Requires Level 7",
-								["Icon"] = "INV_Misc_Cape_07",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
-									}, -- [1]
-									{
-										["itemID"] = "2320",
-										["Name"] = "Coarse Thread",
-										["Count"] = 3,
-									}, -- [2]
-								},
-							},
-							["White Linen Robe"] = {
-								["Difficulty"] = 1,
-								["Item"] = "6241:0:0:0:0:0:0:0",
-								["Color"] = "1eff00",
-								["Tooltip"] = "White Linen Robe<br>Binds when equipped<br>Chest	Cloth<br>19 Armor<br>+1 Intellect<br>Requires Level 5",
-								["Icon"] = "INV_Chest_Cloth_04",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 3,
-									}, -- [1]
-									{
-										["itemID"] = "2320",
-										["Name"] = "Coarse Thread",
-										["Count"] = 1,
-									}, -- [2]
-									{
-										["itemID"] = "2324",
-										["Name"] = "Bleach",
-										["Count"] = 1,
-									}, -- [3]
-								},
-							},
-							["Barbaric Linen Vest"] = {
-								["Difficulty"] = 3,
-								["Item"] = "2578:0:0:0:0:0:0:0",
-								["Color"] = "1eff00",
-								["Tooltip"] = "Barbaric Linen Vest<br>Binds when equipped<br>Chest	Cloth<br>26 Armor<br>+2 Stamina<br>+2 Spirit<br>Requires Level 9",
-								["Icon"] = "INV_Chest_Fur",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 4,
-									}, -- [1]
-									{
-										["itemID"] = "2318",
-										["Name"] = "Light Leather",
-										["Count"] = 1,
-									}, -- [2]
-									{
-										["itemID"] = "2321",
-										["Name"] = "Fine Thread",
-										["Count"] = 1,
-									}, -- [3]
-								},
-							},
-							["Green Woolen Vest"] = {
-								["Difficulty"] = 4,
-								["Item"] = "2582:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Green Woolen Vest<br>Chest	Cloth<br>29 Armor<br>Requires Level 12",
-								["Icon"] = "INV_Chest_Cloth_39",
-								["Reagents"] = {
-									{
-										["itemID"] = "2997",
-										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 2,
-									}, -- [1]
-									{
-										["itemID"] = "2321",
-										["Name"] = "Fine Thread",
-										["Count"] = 2,
-									}, -- [2]
-									{
-										["itemID"] = "2605",
-										["Name"] = "Green Dye",
-										["Count"] = 1,
-									}, -- [3]
-								},
-							},
-							["Brown Linen Robe"] = {
-								["Difficulty"] = 1,
-								["Item"] = "6238:0:0:0:0:0:0:0",
-								["Color"] = "1eff00",
-								["Tooltip"] = "Brown Linen Robe<br>Binds when equipped<br>Chest	Cloth<br>19 Armor<br>+1 Spirit<br>Requires Level 5",
-								["Icon"] = "INV_Chest_Cloth_21",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 3,
-									}, -- [1]
-									{
-										["itemID"] = "2320",
-										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -9993,58 +10146,68 @@ myProfile = {
 								["Icon"] = "INV_Boots_09",
 								["Reagents"] = {
 									{
+										["Count"] = 4,
 										["itemID"] = "2997",
 										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 4,
 									}, -- [1]
 									{
+										["Count"] = 2,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 2,
 									}, -- [2]
 									{
+										["Count"] = 2,
 										["itemID"] = "2318",
 										["Name"] = "Light Leather",
-										["Count"] = 2,
 									}, -- [3]
 								},
 							},
-							["Heavy Woolen Gloves"] = {
-								["Difficulty"] = 4,
-								["Item"] = "4310:0:0:0:0:0:0:0",
-								["Color"] = "1eff00",
-								["Tooltip"] = "Heavy Woolen Gloves<br>Binds when equipped<br>Hands	Cloth<br>19 Armor<br>+2 Intellect<br>+2 Spirit<br>Requires Level 12",
-								["Icon"] = "INV_Gauntlets_05",
-								["Reagents"] = {
-									{
-										["itemID"] = "2997",
-										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 3,
-									}, -- [1]
-									{
-										["itemID"] = "2321",
-										["Name"] = "Fine Thread",
-										["Count"] = 1,
-									}, -- [2]
-								},
-							},
-							["Heavy Linen Gloves"] = {
-								["Difficulty"] = 1,
-								["Item"] = "4307:0:0:0:0:0:0:0",
+							["Green Linen Bracers"] = {
+								["Difficulty"] = 2,
+								["Item"] = "4308:0:0:0:0:0:0:0",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Heavy Linen Gloves<br>Hands	Cloth<br>11 Armor<br>Requires Level 5",
-								["Icon"] = "INV_Gauntlets_05",
+								["Tooltip"] = "Green Linen Bracers<br>Wrist	Cloth<br>9 Armor<br>Requires Level 7",
+								["Icon"] = "INV_Bracer_12",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
 									}, -- [1]
 									{
+										["Count"] = 2,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2605",
+										["Name"] = "Green Dye",
+									}, -- [3]
+								},
+							},
+							["Heavy Woolen Cloak"] = {
+								["Difficulty"] = 4,
+								["Item"] = "4311:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Heavy Woolen Cloak<br>Binds when equipped<br>Back<br>17 Armor<br>+4 Spirit<br>Requires Level 16",
+								["Icon"] = "INV_Misc_Cape_14",
+								["Reagents"] = {
+									{
+										["Count"] = 3,
+										["itemID"] = "2997",
+										["Name"] = "Bolt of Woolen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2321",
+										["Name"] = "Fine Thread",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "5498",
+										["Name"] = "Small Lustrous Pearl",
+									}, -- [3]
 								},
 							},
 							["Linen Belt"] = {
@@ -10055,15 +10218,187 @@ myProfile = {
 								["Icon"] = "INV_Belt_05",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
+								},
+							},
+							["Reinforced Linen Cape"] = {
+								["Difficulty"] = 2,
+								["Item"] = "2580:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Reinforced Linen Cape<br>Back<br>11 Armor<br>Requires Level 7",
+								["Icon"] = "INV_Misc_Cape_07",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 3,
+										["itemID"] = "2320",
+										["Name"] = "Coarse Thread",
+									}, -- [2]
+								},
+							},
+							["Heavy Woolen Gloves"] = {
+								["Difficulty"] = 4,
+								["Item"] = "4310:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Heavy Woolen Gloves<br>Binds when equipped<br>Hands	Cloth<br>19 Armor<br>+2 Intellect<br>+2 Spirit<br>Requires Level 12",
+								["Icon"] = "INV_Gauntlets_05",
+								["Reagents"] = {
+									{
+										["Count"] = 3,
+										["itemID"] = "2997",
+										["Name"] = "Bolt of Woolen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2321",
+										["Name"] = "Fine Thread",
+									}, -- [2]
+								},
+							},
+							["Brown Linen Robe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "6238:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Brown Linen Robe<br>Binds when equipped<br>Chest	Cloth<br>19 Armor<br>+1 Spirit<br>Requires Level 5",
+								["Icon"] = "INV_Chest_Cloth_21",
+								["Reagents"] = {
+									{
+										["Count"] = 3,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2320",
+										["Name"] = "Coarse Thread",
+									}, -- [2]
+								},
+							},
+							["Green Woolen Vest"] = {
+								["Difficulty"] = 4,
+								["Item"] = "2582:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Green Woolen Vest<br>Chest	Cloth<br>29 Armor<br>Requires Level 12",
+								["Icon"] = "INV_Chest_Cloth_39",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2997",
+										["Name"] = "Bolt of Woolen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2321",
+										["Name"] = "Fine Thread",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2605",
+										["Name"] = "Green Dye",
+									}, -- [3]
+								},
+							},
+							["Barbaric Linen Vest"] = {
+								["Difficulty"] = 3,
+								["Item"] = "2578:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Barbaric Linen Vest<br>Binds when equipped<br>Chest	Cloth<br>26 Armor<br>+2 Stamina<br>+2 Spirit<br>Requires Level 9",
+								["Icon"] = "INV_Chest_Fur",
+								["Reagents"] = {
+									{
+										["Count"] = 4,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2321",
+										["Name"] = "Fine Thread",
+									}, -- [3]
+								},
+							},
+							["White Linen Robe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "6241:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "White Linen Robe<br>Binds when equipped<br>Chest	Cloth<br>19 Armor<br>+1 Intellect<br>Requires Level 5",
+								["Icon"] = "INV_Chest_Cloth_04",
+								["Reagents"] = {
+									{
+										["Count"] = 3,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2320",
+										["Name"] = "Coarse Thread",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2324",
+										["Name"] = "Bleach",
+									}, -- [3]
+								},
+							},
+							["Heavy Linen Gloves"] = {
+								["Difficulty"] = 1,
+								["Item"] = "4307:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Heavy Linen Gloves<br>Hands	Cloth<br>11 Armor<br>Requires Level 5",
+								["Icon"] = "INV_Gauntlets_05",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2320",
+										["Name"] = "Coarse Thread",
+									}, -- [2]
+								},
+							},
+							["Simple Linen Boots"] = {
+								["Difficulty"] = 1,
+								["Item"] = "10046:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Simple Linen Boots<br>Feet	Cloth<br>11 Armor<br>Requires Level 4",
+								["Icon"] = "INV_Boots_05",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2320",
+										["Name"] = "Coarse Thread",
+									}, -- [3]
 								},
 							},
 							["Woolen Cape"] = {
@@ -10074,14 +10409,14 @@ myProfile = {
 								["Icon"] = "INV_Misc_Cape_10",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2997",
 										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -10095,14 +10430,14 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bag_01",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 3,
 									}, -- [1]
 									{
+										["Count"] = 3,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 3,
 									}, -- [2]
 								},
 							},
@@ -10114,14 +10449,14 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bag_10",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2997",
 										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 3,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -10135,9 +10470,9 @@ myProfile = {
 								["Icon"] = "INV_Fabric_Wool_03",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2592",
 										["Name"] = "Wool Cloth",
-										["Count"] = 3,
 									}, -- [1]
 								},
 							},
@@ -10149,9 +10484,9 @@ myProfile = {
 								["Icon"] = "INV_Fabric_Linen_02",
 								["Reagents"] = {
 									{
+										["Count"] = 2,
 										["itemID"] = "2589",
 										["Name"] = "Linen Cloth",
-										["Count"] = 2,
 									}, -- [1]
 								},
 							},
@@ -10165,14 +10500,14 @@ myProfile = {
 								["Icon"] = "INV_Shirt_02",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 								},
 							},
@@ -10184,19 +10519,19 @@ myProfile = {
 								["Icon"] = "INV_Shirt_Grey_01",
 								["Reagents"] = {
 									{
+										["Count"] = 2,
 										["itemID"] = "2997",
 										["Name"] = "Bolt of Woolen Cloth",
-										["Count"] = 2,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 1,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "4340",
 										["Name"] = "Gray Dye",
-										["Count"] = 1,
 									}, -- [3]
 								},
 							},
@@ -10208,43 +10543,19 @@ myProfile = {
 								["Icon"] = "INV_Shirt_Green_01",
 								["Reagents"] = {
 									{
+										["Count"] = 3,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 3,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2321",
 										["Name"] = "Fine Thread",
-										["Count"] = 1,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "2605",
 										["Name"] = "Green Dye",
-										["Count"] = 1,
-									}, -- [3]
-								},
-							},
-							["Red Linen Shirt"] = {
-								["Difficulty"] = 1,
-								["Item"] = "2575:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Red Linen Shirt<br>Shirt",
-								["Icon"] = "INV_Shirt_Red_01",
-								["Reagents"] = {
-									{
-										["itemID"] = "2996",
-										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
-									}, -- [1]
-									{
-										["itemID"] = "2320",
-										["Name"] = "Coarse Thread",
-										["Count"] = 1,
-									}, -- [2]
-									{
-										["itemID"] = "2604",
-										["Name"] = "Red Dye",
-										["Count"] = 1,
 									}, -- [3]
 								},
 							},
@@ -10256,19 +10567,43 @@ myProfile = {
 								["Icon"] = "INV_Shirt_Blue_01",
 								["Reagents"] = {
 									{
+										["Count"] = 2,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "6260",
 										["Name"] = "Blue Dye",
+									}, -- [3]
+								},
+							},
+							["Red Linen Shirt"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2575:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Red Linen Shirt<br>Shirt",
+								["Icon"] = "INV_Shirt_Red_01",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2996",
+										["Name"] = "Bolt of Linen Cloth",
+									}, -- [1]
+									{
 										["Count"] = 1,
+										["itemID"] = "2320",
+										["Name"] = "Coarse Thread",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2604",
+										["Name"] = "Red Dye",
 									}, -- [3]
 								},
 							},
@@ -10280,24 +10615,24 @@ myProfile = {
 								["Icon"] = "INV_Shirt_12",
 								["Reagents"] = {
 									{
+										["Count"] = 2,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 2,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "6260",
 										["Name"] = "Blue Dye",
-										["Count"] = 1,
 									}, -- [3]
 									{
+										["Count"] = 1,
 										["itemID"] = "2324",
 										["Name"] = "Bleach",
-										["Count"] = 1,
 									}, -- [4]
 								},
 							},
@@ -10309,19 +10644,19 @@ myProfile = {
 								["Icon"] = "INV_Shirt_White_01",
 								["Reagents"] = {
 									{
+										["Count"] = 1,
 										["itemID"] = "2996",
 										["Name"] = "Bolt of Linen Cloth",
-										["Count"] = 1,
 									}, -- [1]
 									{
+										["Count"] = 1,
 										["itemID"] = "2320",
 										["Name"] = "Coarse Thread",
-										["Count"] = 1,
 									}, -- [2]
 									{
+										["Count"] = 1,
 										["itemID"] = "2324",
 										["Name"] = "Bleach",
-										["Count"] = 1,
 									}, -- [3]
 								},
 							},
@@ -10337,9 +10672,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bandage_15",
 								["Reagents"] = {
 									{
-										["itemID"] = "2589",
 										["Name"] = "Linen Cloth",
 										["Count"] = 1,
+										["itemID"] = "2589",
 									}, -- [1]
 								},
 							},
@@ -10351,9 +10686,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bandage_18",
 								["Reagents"] = {
 									{
-										["itemID"] = "2589",
 										["Name"] = "Linen Cloth",
 										["Count"] = 2,
+										["itemID"] = "2589",
 									}, -- [1]
 								},
 							},
@@ -10373,8 +10708,8 @@ myProfile = {
 					},
 					["Professions"] = {
 						["Herbalism"] = "16:75",
-						["Tailoring"] = "106:150",
 						["Order"] = 2,
+						["Tailoring"] = "106:150",
 					},
 					["Languages"] = {
 						["Order"] = 6,
@@ -10390,14 +10725,19 @@ myProfile = {
 						["Unarmed"] = "16:110",
 						["Order"] = 4,
 						["Daggers"] = "82:110",
-						["Wands"] = "1:110",
 						["Staves"] = "79:110",
+						["Wands"] = "1:110",
 					},
 				},
 				["Zone"] = "Thunder Bluff",
 				["HasRelicSlot"] = false,
 			},
 			["Azyplagat"] = {
+				["Guild"] = {
+					["Title"] = "trialer",
+					["Name"] = "the everlasting wind",
+					["Rank"] = 6,
+				},
 				["Mana"] = 100,
 				["Locale"] = "enUS",
 				["CPprovider"] = "rpgo",
@@ -10430,32 +10770,9 @@ myProfile = {
 							["Standing"] = "Honored",
 						},
 					},
-					["Steamwheedle Cartel"] = {
-						["Everlook"] = {
-							["Value"] = "2499:3000",
-							["AtWar"] = 0,
-							["Standing"] = "Neutral",
-						},
-						["Booty Bay"] = {
-							["Value"] = "254:6000",
-							["AtWar"] = 0,
-							["Standing"] = "Friendly",
-						},
-						["Ratchet"] = {
-							["Value"] = "931:6000",
-							["AtWar"] = 0,
-							["Standing"] = "Friendly",
-						},
-						["Gadgetzan"] = {
-							["Value"] = "2512:3000",
-							["AtWar"] = 0,
-							["Standing"] = "Neutral",
-						},
-					},
-					["Count"] = 15,
 					["Other"] = {
 						["Bloodsail Buccaneers"] = {
-							["Value"] = "29875:36000",
+							["Value"] = "28700:36000",
 							["AtWar"] = 1,
 							["Standing"] = "Hated",
 						},
@@ -10470,114 +10787,38 @@ myProfile = {
 							["Standing"] = "Hostile",
 						},
 					},
+					["Steamwheedle Cartel"] = {
+						["Everlook"] = {
+							["Value"] = "2852:3000",
+							["AtWar"] = 0,
+							["Standing"] = "Neutral",
+						},
+						["Gadgetzan"] = {
+							["Value"] = "2864:3000",
+							["AtWar"] = 0,
+							["Standing"] = "Neutral",
+						},
+						["Ratchet"] = {
+							["Value"] = "1284:6000",
+							["AtWar"] = 0,
+							["Standing"] = "Friendly",
+						},
+						["Booty Bay"] = {
+							["Value"] = "959:6000",
+							["AtWar"] = 0,
+							["Standing"] = "Friendly",
+						},
+					},
+					["Count"] = 15,
 				},
 				["FactionEn"] = "Horde",
 				["Equipment"] = {
 					["Waist"] = {
 						["Item"] = "14906:0:0:0:0:0:1203:317684768",
 						["Color"] = "1eff00",
-						["Tooltip"] = "Brutish Belt of the Bear<br>Soulbound<br>Waist	Plate<br>241 Armor<br>|cffffffff+9 Stamina|r<br><br>|cffffffff+9 Strength|r<br><br>Durability 39 / 40<br>Requires Level 40",
+						["Tooltip"] = "Brutish Belt of the Bear<br>Soulbound<br>Waist	Plate<br>241 Armor<br>|cffffffff+9 Stamina|r<br><br>|cffffffff+9 Strength|r<br><br>Durability 40 / 40<br>Requires Level 40",
 						["Icon"] = "INV_Belt_24",
 						["Name"] = "Brutish Belt of the Bear",
-					},
-					["Legs"] = {
-						["Item"] = "9291:18:0:0:0:0:1041:1374070144",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Field Plate Leggings of the Whale<br>Soulbound<br>Legs	Plate<br>334 Armor<br>Reinforced (+32 Armor)<br>|cffffffff+11 Spirit|r<br><br>|cffffffff+12 Stamina|r<br><br>Durability 83 / 85<br>Requires Level 40",
-						["Icon"] = "INV_Pants_03",
-						["Name"] = "Field Plate Leggings of the Whale",
-					},
-					["Shoulder"] = {
-						["Item"] = "9292:0:0:0:0:0:947:1301038464",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Field Plate Pauldrons of the Gorilla<br>Soulbound<br>Shoulder	Plate<br>255 Armor<br>|cffffffff+8 Intellect|r<br><br>|cffffffff+9 Strength|r<br><br>Durability 69 / 70<br>Requires Level 40",
-						["Icon"] = "INV_Shoulder_09",
-						["Name"] = "Field Plate Pauldrons of the Gorilla",
-					},
-					["Head"] = {
-						["Item"] = "9290:0:0:0:0:0:1124:1536816640",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Field Plate Helmet of the Boar<br>Soulbound<br>Head	Plate<br>276 Armor<br>|cffffffff+11 Spirit|r<br><br>|cffffffff+11 Strength|r<br><br>Durability 68 / 70<br>Requires Level 40",
-						["Icon"] = "INV_Helmet_22",
-						["Name"] = "Field Plate Helmet of the Boar",
-					},
-					["Neck"] = {
-						["Item"] = "15690:0:0:0:0:0:0:105435456",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Kodobone Necklace<br>Soulbound<br>Neck<br>+7 Stamina<br>+4 Spirit",
-						["Icon"] = "INV_Jewelry_Necklace_09",
-						["Name"] = "Kodobone Necklace",
-					},
-					["Ammo"] = {
-						["Quantity"] = 159,
-						["Name"] = "Exploding Shot",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Exploding Shot<br>Projectile	Bullet<br>Adds 9.5 damage per second",
-						["Icon"] = "INV_Ammo_Bullet_02",
-						["Item"] = "3465:0:0:0:0:0:0:0",
-					},
-					["Back"] = {
-						["Item"] = "4735:0:0:0:0:0:0:0",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Mistscape Cloak<br>Soulbound<br>Back<br>27 Armor<br>+3 Stamina<br>+8 Spirit<br>Requires Level 36",
-						["Icon"] = "INV_Misc_Cape_13",
-						["Name"] = "Mistscape Cloak",
-					},
-					["Feet"] = {
-						["Item"] = "17688:0:0:0:0:0:0:1340510720",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Jungle Boots<br>Soulbound<br>Feet	Plate<br>182 Armor<br>+7 Strength<br>+4 Stamina<br>Durability 55 / 55",
-						["Icon"] = "INV_Boots_Plate_01",
-						["Name"] = "Jungle Boots",
-					},
-					["Chest"] = {
-						["Item"] = "2870:0:0:0:0:0:0:1382428416",
-						["Color"] = "0070dd",
-						["Tooltip"] = "Shining Silver Breastplate<br>Soulbound<br>Chest	Mail<br>214 Armor<br>+14 Strength<br>+6 Stamina<br>Durability 119 / 120<br>Requires Level 24<br>|cff00ff00<Made by Schranlinz>|r",
-						["Icon"] = "INV_Chest_Plate15",
-						["Name"] = "Shining Silver Breastplate",
-					},
-					["Hands"] = {
-						["Item"] = "7927:18:0:0:0:0:0:1785444736",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Ornate Mithril Gloves<br>Soulbound<br>Hands	Plate<br>268 Armor<br>Reinforced (+32 Armor)<br>Durability 39 / 40<br>Requires Level 40<br>Equip: Increases your critical strike rating by 14.<br>|cff00ff00<Made by Melonatorr>|r",
-						["Icon"] = "INV_Gauntlets_31",
-						["Name"] = "Ornate Mithril Gloves",
-					},
-					["Finger0"] = {
-						["Item"] = "15467:0:0:0:0:0:0:1959282560",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Inventor's League Ring<br>Soulbound<br>Finger<br>+4 Stamina<br>+4 Spirit",
-						["Icon"] = "INV_Jewelry_Ring_22",
-						["Name"] = "Inventor's League Ring",
-					},
-					["Finger1"] = {
-						["Item"] = "6414:0:0:0:0:0:0:2094695168",
-						["Color"] = "0070dd",
-						["Tooltip"] = "Seal of Sylvanas<br>Soulbound<br>Finger<br>+3 Strength<br>+8 Stamina",
-						["Icon"] = "INV_Jewelry_Ring_15",
-						["Name"] = "Seal of Sylvanas",
-					},
-					["MainHand"] = {
-						["Item"] = "15234:0:0:0:0:0:595:1309941760",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Greater Scythe of the Monkey<br>Soulbound<br>Main Hand	Axe<br>43 - 81 Damage	Speed 2.80<br>(22.1 damage per second)<br>|cffffffff+4 Agility|r<br><br>|cffffffff+5 Stamina|r<br><br>Durability 75 / 75<br>Requires Level 35",
-						["Icon"] = "INV_Axe_03",
-						["Name"] = "Greater Scythe of the Monkey",
-					},
-					["Wrist"] = {
-						["Item"] = "8137:0:0:0:0:0:0:0",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Chromite Bracers<br>Soulbound<br>Wrist	Plate<br>167 Armor<br>+4 Agility<br>+8 Stamina<br>Durability 39 / 40<br>Requires Level 40",
-						["Icon"] = "INV_Bracer_14",
-						["Name"] = "Chromite Bracers",
-					},
-					["SecondaryHand"] = {
-						["Item"] = "9935:0:0:0:0:0:1110:395022720",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Embossed Plate Shield of the Boar<br>Soulbound<br>Off Hand	Shield<br>1408 Armor<br>20 Block<br>|cffffffff+7 Spirit|r<br><br>|cffffffff+6 Strength|r<br><br>Durability 85 / 85<br>Requires Level 40",
-						["Icon"] = "INV_Shield_05",
-						["Name"] = "Embossed Plate Shield of the Boar",
 					},
 					["Ranged"] = {
 						["Item"] = "17687:0:0:0:0:0:0:198478334",
@@ -10586,8 +10827,107 @@ myProfile = {
 						["Icon"] = "INV_Weapon_Rifle_05",
 						["Name"] = "Master Hunter's Rifle",
 					},
+					["SecondaryHand"] = {
+						["Item"] = "9935:0:0:0:0:0:1110:395022720",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Embossed Plate Shield of the Boar<br>Soulbound<br>Off Hand	Shield<br>1408 Armor<br>20 Block<br>|cffffffff+7 Spirit|r<br><br>|cffffffff+6 Strength|r<br><br>Durability 85 / 85<br>Requires Level 40",
+						["Icon"] = "INV_Shield_05",
+						["Name"] = "Embossed Plate Shield of the Boar",
+					},
+					["Head"] = {
+						["Item"] = "9290:0:0:0:0:0:1124:1536816640",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Field Plate Helmet of the Boar<br>Soulbound<br>Head	Plate<br>276 Armor<br>|cffffffff+11 Spirit|r<br><br>|cffffffff+11 Strength|r<br><br>Durability 70 / 70<br>Requires Level 40",
+						["Icon"] = "INV_Helmet_22",
+						["Name"] = "Field Plate Helmet of the Boar",
+					},
+					["Legs"] = {
+						["Item"] = "9291:18:0:0:0:0:1041:1374070144",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Field Plate Leggings of the Whale<br>Soulbound<br>Legs	Plate<br>334 Armor<br>Reinforced (+32 Armor)<br>|cffffffff+11 Spirit|r<br><br>|cffffffff+12 Stamina|r<br><br>Durability 85 / 85<br>Requires Level 40",
+						["Icon"] = "INV_Pants_03",
+						["Name"] = "Field Plate Leggings of the Whale",
+					},
+					["Ammo"] = {
+						["Quantity"] = 152,
+						["Name"] = "Exploding Shot",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Exploding Shot<br>Projectile	Bullet<br>Adds 9.5 damage per second",
+						["Icon"] = "INV_Ammo_Bullet_02",
+						["Item"] = "3465:0:0:0:0:0:0:0",
+					},
+					["Feet"] = {
+						["Item"] = "17688:0:0:0:0:0:0:1340510720",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Jungle Boots<br>Soulbound<br>Feet	Plate<br>182 Armor<br>+7 Strength<br>+4 Stamina<br>Durability 55 / 55",
+						["Icon"] = "INV_Boots_Plate_01",
+						["Name"] = "Jungle Boots",
+					},
+					["Back"] = {
+						["Item"] = "4114:0:0:0:0:0:0:650214751",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Darktide Cape<br>Soulbound<br>Back<br>28 Armor<br>+6 Agility<br>+7 Stamina",
+						["Icon"] = "INV_Misc_Cape_06",
+						["Name"] = "Darktide Cape",
+					},
+					["Chest"] = {
+						["Item"] = "2870:0:0:0:0:0:0:1382428416",
+						["Color"] = "0070dd",
+						["Tooltip"] = "Shining Silver Breastplate<br>Soulbound<br>Chest	Mail<br>214 Armor<br>+14 Strength<br>+6 Stamina<br>Durability 120 / 120<br>Requires Level 24<br>|cff00ff00<Made by Schranlinz>|r",
+						["Icon"] = "INV_Chest_Plate15",
+						["Name"] = "Shining Silver Breastplate",
+					},
+					["MainHand"] = {
+						["Item"] = "15234:0:0:0:0:0:595:1309941760",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Greater Scythe of the Monkey<br>Soulbound<br>Main Hand	Axe<br>43 - 81 Damage	Speed 2.80<br>(22.1 damage per second)<br>|cffffffff+4 Agility|r<br><br>|cffffffff+5 Stamina|r<br><br>Durability 75 / 75<br>Requires Level 35",
+						["Icon"] = "INV_Axe_03",
+						["Name"] = "Greater Scythe of the Monkey",
+					},
+					["Finger1"] = {
+						["Item"] = "6414:0:0:0:0:0:0:2094695168",
+						["Color"] = "0070dd",
+						["Tooltip"] = "Seal of Sylvanas<br>Soulbound<br>Finger<br>+3 Strength<br>+8 Stamina",
+						["Icon"] = "INV_Jewelry_Ring_15",
+						["Name"] = "Seal of Sylvanas",
+					},
+					["Finger0"] = {
+						["Item"] = "15467:0:0:0:0:0:0:1959282560",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Inventor's League Ring<br>Soulbound<br>Finger<br>+4 Stamina<br>+4 Spirit",
+						["Icon"] = "INV_Jewelry_Ring_22",
+						["Name"] = "Inventor's League Ring",
+					},
+					["Hands"] = {
+						["Item"] = "7927:18:0:0:0:0:0:1785444736",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Ornate Mithril Gloves<br>Soulbound<br>Hands	Plate<br>268 Armor<br>Reinforced (+32 Armor)<br>Durability 40 / 40<br>Requires Level 40<br>Equip: Increases your critical strike rating by 14.<br>|cff00ff00<Made by Melonatorr>|r",
+						["Icon"] = "INV_Gauntlets_31",
+						["Name"] = "Ornate Mithril Gloves",
+					},
+					["Wrist"] = {
+						["Item"] = "8137:0:0:0:0:0:0:0",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Chromite Bracers<br>Soulbound<br>Wrist	Plate<br>167 Armor<br>+4 Agility<br>+8 Stamina<br>Durability 40 / 40<br>Requires Level 40",
+						["Icon"] = "INV_Bracer_14",
+						["Name"] = "Chromite Bracers",
+					},
+					["Shoulder"] = {
+						["Item"] = "9292:0:0:0:0:0:947:1301038464",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Field Plate Pauldrons of the Gorilla<br>Soulbound<br>Shoulder	Plate<br>255 Armor<br>|cffffffff+8 Intellect|r<br><br>|cffffffff+9 Strength|r<br><br>Durability 70 / 70<br>Requires Level 40",
+						["Icon"] = "INV_Shoulder_09",
+						["Name"] = "Field Plate Pauldrons of the Gorilla",
+					},
+					["Neck"] = {
+						["Item"] = "15690:0:0:0:0:0:0:105435456",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Kodobone Necklace<br>Soulbound<br>Neck<br>+7 Stamina<br>+4 Spirit",
+						["Icon"] = "INV_Jewelry_Necklace_09",
+						["Name"] = "Kodobone Necklace",
+					},
 				},
-				["Health"] = 1975,
+				["Health"] = 2015,
 				["CPversion"] = "2.0.5",
 				["RaceEn"] = "Orc",
 				["Quests"] = {
@@ -10598,8 +10938,8 @@ myProfile = {
 							["Level"] = 40,
 							["Tasks"] = {
 								{
-									["Type"] = "item",
 									["Note"] = "Sigil Fragment: 0/11",
+									["Type"] = "item",
 								}, -- [1]
 							},
 							["Tag"] = "Group",
@@ -10607,8 +10947,8 @@ myProfile = {
 						{
 							["Tasks"] = {
 								{
-									["Type"] = "item",
 									["Note"] = "Rod of Order: 0/1",
+									["Type"] = "item",
 								}, -- [1]
 							},
 							["Level"] = 42,
@@ -10616,174 +10956,12 @@ myProfile = {
 							["Tag"] = "Group",
 						}, -- [2]
 					},
-					["Desolace"] = {
-						[3] = {
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Khan Jehn's Head: 0/1",
-								}, -- [1]
-								{
-									["Note"] = "Gelkis Clan Centaur:  Friendly / Friendly",
-									["Type"] = "reputation",
-									["Done"] = 1,
-								}, -- [2]
-							},
-							["Level"] = 37,
-							["Title"] = "Khan Jehn",
-						},
-					},
-					["Thousand Needles"] = {
-						[13] = {
-							["RewardMoney"] = 5500,
-							["Level"] = 41,
-							["Title"] = "Razzeric's Tweaking",
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Seaforium Booster: 0/1",
-								}, -- [1]
-							},
-						},
-					},
-					["Tanaris"] = {
-						[12] = {
-							["Title"] = "Stoley's Debt",
-							["Level"] = 45,
-						},
-					},
-					["Stranglethorn Vale"] = {
-						nil, -- [1]
-						nil, -- [2]
-						nil, -- [3]
-						{
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Snuff: 4/15",
-								}, -- [1]
-							},
-							["Level"] = 41,
-							["Title"] = "Up to Snuff",
-						}, -- [4]
-						{
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Dizzy's Eye: 0/1",
-								}, -- [1]
-							},
-							["Rewards"] = {
-								{
-									["Item"] = "4114:0:0:0:0:0:0:0",
-									["Color"] = "1eff00",
-									["Tooltip"] = "Darktide Cape<br>Binds when picked up<br>Back<br>28 Armor<br>+6 Agility<br>+7 Stamina",
-									["Icon"] = "INV_Misc_Cape_06",
-									["Name"] = "Darktide Cape",
-								}, -- [1]
-							},
-							["Title"] = "Keep An Eye Out",
-							["Level"] = 42,
-						}, -- [5]
-						{
-							["RewardMoney"] = 5500,
-							["Level"] = 42,
-							["Title"] = "Skullsplitter Tusks",
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Skullsplitter Tusk: 5/18",
-								}, -- [1]
-							},
-						}, -- [6]
-						{
-							["Title"] = "Akiris by the Bundle",
-							["RewardMoney"] = 6000,
-							["Rewards"] = {
-								{
-									["Item"] = "4117:0:0:0:0:0:0:0",
-									["Color"] = "1eff00",
-									["Tooltip"] = "Scorching Sash<br>Binds when picked up<br>Waist	Cloth<br>33 Armor<br>+9 Spirit<br>Equip: Increases damage done by Fire spells and effects by up to 13.",
-									["Icon"] = "INV_Misc_Bandana_03",
-									["Name"] = "Scorching Sash",
-								}, -- [1]
-							},
-							["Level"] = 43,
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Akiris Reed: 0/10",
-								}, -- [1]
-							},
-						}, -- [7]
-						{
-							["RewardMoney"] = 6500,
-							["Level"] = 44,
-							["Title"] = "Voodoo Dues",
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Maury's Clubbed Foot: 0/1",
-								}, -- [1]
-								{
-									["Type"] = "item",
-									["Note"] = "Jon-Jon's Golden Spyglass: 0/1",
-								}, -- [2]
-								{
-									["Type"] = "item",
-									["Note"] = "Chucky's Huge Ring: 0/1",
-								}, -- [3]
-							},
-						}, -- [8]
-						{
-							["Title"] = "Zanzil's Secret",
-							["RewardMoney"] = 6500,
-							["Rewards"] = {
-								{
-									["Item"] = "4131:0:0:0:0:0:0:0",
-									["Color"] = "1eff00",
-									["Tooltip"] = "Belt of Corruption<br>Binds when picked up<br>Waist	Leather<br>67 Armor<br>+9 Stamina<br>+9 Intellect",
-									["Icon"] = "INV_Belt_17",
-									["Name"] = "Belt of Corruption",
-								}, -- [1]
-							},
-							["Level"] = 44,
-							["Tasks"] = {
-								{
-									["Type"] = "item",
-									["Note"] = "Zanzil's Mixture: 0/12",
-								}, -- [1]
-							},
-						}, -- [9]
-						{
-							["Tasks"] = {
-								{
-									["Type"] = "monster",
-									["Note"] = "Skullsplitter Hunter slain: 0/8",
-								}, -- [1]
-								{
-									["Type"] = "monster",
-									["Note"] = "Skullsplitter Headhunter slain: 0/6",
-								}, -- [2]
-								{
-									["Type"] = "monster",
-									["Note"] = "Skullsplitter Berserker slain: 0/4",
-								}, -- [3]
-								{
-									["Type"] = "item",
-									["Note"] = "Broken Armor of Ana'thek: 0/1",
-								}, -- [4]
-							},
-							["Level"] = 46,
-							["Title"] = "Speaking with Gan'zulah",
-						}, -- [10]
-					},
 					["Swamp of Sorrows"] = {
-						[11] = {
+						[12] = {
 							["Tasks"] = {
 								{
-									["Type"] = "item",
 									["Note"] = "Monstrous Crawler Leg: 0/10",
+									["Type"] = "item",
 								}, -- [1]
 							},
 							["Rewards"] = {
@@ -10807,23 +10985,216 @@ myProfile = {
 							["Level"] = 44,
 						},
 					},
+					["Thousand Needles"] = {
+						[14] = {
+							["RewardMoney"] = 5500,
+							["Level"] = 41,
+							["Title"] = "Razzeric's Tweaking",
+							["Tasks"] = {
+								{
+									["Note"] = "Seaforium Booster: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+							},
+						},
+					},
+					["Tanaris"] = {
+						[13] = {
+							["Title"] = "Stoley's Debt",
+							["Level"] = 45,
+						},
+					},
+					["Stranglethorn Vale"] = {
+						nil, -- [1]
+						nil, -- [2]
+						nil, -- [3]
+						{
+							["Tasks"] = {
+								{
+									["Note"] = "Snuff: 9/15",
+									["Type"] = "item",
+								}, -- [1]
+							},
+							["Level"] = 41,
+							["Title"] = "Up to Snuff",
+						}, -- [4]
+						{
+							["Title"] = "Akiris by the Bundle",
+							["RewardMoney"] = 6000,
+							["Rewards"] = {
+								{
+									["Item"] = "4117:0:0:0:0:0:0:0",
+									["Color"] = "1eff00",
+									["Tooltip"] = "Scorching Sash<br>Binds when picked up<br>Waist	Cloth<br>33 Armor<br>+9 Spirit<br>Equip: Increases damage done by Fire spells and effects by up to 13.",
+									["Icon"] = "INV_Misc_Bandana_03",
+									["Name"] = "Scorching Sash",
+								}, -- [1]
+							},
+							["Tasks"] = {
+								{
+									["Note"] = "Akiris Reed: 0/10",
+									["Type"] = "item",
+								}, -- [1]
+							},
+							["Level"] = 43,
+						}, -- [5]
+						{
+							["RewardMoney"] = 6500,
+							["Level"] = 44,
+							["Title"] = "Voodoo Dues",
+							["Tasks"] = {
+								{
+									["Note"] = "Maury's Clubbed Foot: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+								{
+									["Note"] = "Jon-Jon's Golden Spyglass: 0/1",
+									["Type"] = "item",
+								}, -- [2]
+								{
+									["Note"] = "Chucky's Huge Ring: 0/1",
+									["Type"] = "item",
+								}, -- [3]
+							},
+						}, -- [6]
+						{
+							["Title"] = "Zanzil's Secret",
+							["RewardMoney"] = 6500,
+							["Rewards"] = {
+								{
+									["Item"] = "4131:0:0:0:0:0:0:0",
+									["Color"] = "1eff00",
+									["Tooltip"] = "Belt of Corruption<br>Binds when picked up<br>Waist	Leather<br>67 Armor<br>+9 Stamina<br>+9 Intellect",
+									["Icon"] = "INV_Belt_17",
+									["Name"] = "Belt of Corruption",
+								}, -- [1]
+							},
+							["Tasks"] = {
+								{
+									["Note"] = "Zanzil's Mixture: 0/12",
+									["Type"] = "item",
+								}, -- [1]
+							},
+							["Level"] = 44,
+						}, -- [7]
+						{
+							["Tasks"] = {
+								{
+									["Note"] = "Heart of Mokk: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+							},
+							["Rewards"] = {
+								{
+									["Item"] = "4113:0:0:0:0:0:0:0",
+									["Color"] = "1eff00",
+									["Tooltip"] = "Medicine Blanket<br>Binds when picked up<br>Back<br>30 Armor<br>+4 Stamina<br>+9 Spirit",
+									["Icon"] = "INV_Misc_Cape_10",
+									["Name"] = "Medicine Blanket",
+								}, -- [1]
+							},
+							["Title"] = "Stranglethorn Fever",
+							["Level"] = 45,
+						}, -- [8]
+						{
+							["Tasks"] = {
+								{
+									["Note"] = "Captain Stillwater slain: 0/1",
+									["Type"] = "monster",
+								}, -- [1]
+								{
+									["Note"] = "Captain Keelhaul slain: 0/1",
+									["Type"] = "monster",
+								}, -- [2]
+								{
+									["Note"] = "Fleet Master Firallon slain: 0/1",
+									["Type"] = "monster",
+								}, -- [3]
+							},
+							["Rewards"] = {
+								{
+									["Item"] = "4138:0:0:0:0:0:0:0",
+									["Color"] = "1eff00",
+									["Tooltip"] = "Blackwater Tunic<br>Binds when picked up<br>Chest	Mail<br>248 Armor<br>+7 Strength<br>+15 Spirit",
+									["Icon"] = "INV_Chest_Chain_16",
+									["Name"] = "Blackwater Tunic",
+								}, -- [1]
+							},
+							["Title"] = "The Bloodsail Buccaneers",
+							["Level"] = 45,
+						}, -- [9]
+						{
+							["Tasks"] = {
+								{
+									["Note"] = "Skullsplitter Hunter slain: 2/8",
+									["Type"] = "monster",
+								}, -- [1]
+								{
+									["Note"] = "Skullsplitter Headhunter slain: 0/6",
+									["Type"] = "monster",
+								}, -- [2]
+								{
+									["Note"] = "Skullsplitter Berserker slain: 0/4",
+									["Type"] = "monster",
+								}, -- [3]
+								{
+									["Note"] = "Broken Armor of Ana'thek: 0/1",
+									["Type"] = "item",
+								}, -- [4]
+							},
+							["Level"] = 46,
+							["Title"] = "Speaking with Gan'zulah",
+						}, -- [10]
+						{
+							["Title"] = "The Captain's Chest",
+							["Tasks"] = {
+								{
+									["Note"] = "Smotts' Chest: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+							},
+							["Rewards"] = {
+								{
+									["Item"] = "11469:0:0:0:0:0:0:0",
+									["Color"] = "1eff00",
+									["Tooltip"] = "Bloodband Bracers<br>Binds when picked up<br>Wrist	Cloth<br>26 Armor<br>+4 Stamina<br>+9 Intellect<br>+3 Spirit",
+									["Icon"] = "INV_Bracer_13",
+									["Name"] = "Bloodband Bracers",
+								}, -- [1]
+							},
+							["Level"] = 47,
+							["Tag"] = "Group",
+						}, -- [11]
+					},
+					["Desolace"] = {
+						[3] = {
+							["Tasks"] = {
+								{
+									["Note"] = "Khan Jehn's Head: 0/1",
+									["Type"] = "item",
+								}, -- [1]
+								{
+									["Note"] = "Gelkis Clan Centaur:  Friendly / Friendly",
+									["Done"] = 1,
+									["Type"] = "reputation",
+								}, -- [2]
+							},
+							["Level"] = 37,
+							["Title"] = "Khan Jehn",
+						},
+					},
 				},
 				["Inventory"] = {
 					["Bag5"] = {
 						["Contents"] = {
 						},
-						["Slots"] = 4,
-						["Tooltip"] = "Keyring<br>4 Slot Keyring",
-						["Icon"] = "UI-Button-KeyRing",
 						["Name"] = "Keyring",
+						["Tooltip"] = "Keyring<br>4 Slot Keyring",
+						["Slots"] = 4,
+						["Icon"] = "UI-Button-KeyRing",
 					},
 					["Bag4"] = {
-						["Name"] = "Woolen Bag",
 						["Item"] = "4240:0:0:0:0:0:0:1295253760",
-						["Slots"] = 8,
-						["Color"] = "ffffff",
-						["Tooltip"] = "Woolen Bag<br>8 Slot Bag",
-						["Icon"] = "INV_Misc_Bag_10",
 						["Contents"] = {
 							{
 								["Item"] = "6948:0:0:0:0:0:0:0",
@@ -10856,7 +11227,7 @@ myProfile = {
 							{
 								["Item"] = "6256:0:0:0:0:0:0:0",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Fishing Pole<br>Two-Hand	Fishing Pole<br>2 - 4 Damage	Speed 3.00<br>(1.0 damage per second)<br>Durability 0 / 16",
+								["Tooltip"] = "Fishing Pole<br>Two-Hand	Fishing Pole<br>2 - 4 Damage	Speed 3.00<br>(1.0 damage per second)<br>Durability 16 / 16",
 								["Icon"] = "INV_Fishingpole_02",
 								["Name"] = "Fishing Pole",
 							}, -- [5]
@@ -10870,7 +11241,7 @@ myProfile = {
 								["Item"] = "15870:0:0:0:0:0:0:1309336320",
 							}, -- [7]
 							{
-								["Quantity"] = 159,
+								["Quantity"] = 152,
 								["Name"] = "Exploding Shot",
 								["Color"] = "1eff00",
 								["Tooltip"] = "Exploding Shot<br>Projectile	Bullet<br>Adds 9.5 damage per second",
@@ -10878,10 +11249,21 @@ myProfile = {
 								["Item"] = "3465:0:0:0:0:0:0:1623165824",
 							}, -- [8]
 						},
+						["Icon"] = "INV_Misc_Bag_10",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Woolen Bag<br>8 Slot Bag",
+						["Slots"] = 8,
+						["Name"] = "Woolen Bag",
 					},
 					["Bag0"] = {
 						["Contents"] = {
-							nil, -- [1]
+							{
+								["Item"] = "5665:0:0:0:0:0:0:0",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Horn of the Dire Wolf<br>Soulbound<br>Races: Orc, Undead, Tauren, Troll, Blood Elf<br>Requires Level 40<br>Requires Riding (75)<br>Use: Summons and dismisses a rideable Dire Wolf.",
+								["Icon"] = "Ability_Mount_WhiteDireWolf",
+								["Name"] = "Horn of the Dire Wolf",
+							}, -- [1]
 							{
 								["Quantity"] = 10,
 								["Name"] = "Gold Bar",
@@ -10889,24 +11271,29 @@ myProfile = {
 								["Icon"] = "INV_Ingot_03",
 								["Item"] = "3577:0:0:0:0:0:0:649584640",
 							}, -- [2]
-							nil, -- [3]
 							{
-								["Quantity"] = 5,
-								["Name"] = "Skullsplitter Tusk",
+								["Quantity"] = 20,
+								["Name"] = "Silk Cloth",
 								["Color"] = "ffffff",
-								["Tooltip"] = "Skullsplitter Tusk<br>Quest Item",
-								["Icon"] = "INV_Misc_MonsterFang_01",
-								["Item"] = "1524:0:0:0:0:0:0:0",
-							}, -- [4]
+								["Icon"] = "INV_Fabric_Silk_01",
+								["Item"] = "4306:0:0:0:0:0:0:1184127432",
+							}, -- [3]
+							nil, -- [4]
 							{
-								["Quantity"] = 4,
+								["Quantity"] = 10,
 								["Name"] = "Snuff",
 								["Color"] = "ffffff",
 								["Tooltip"] = "Snuff<br>Quest Item",
 								["Icon"] = "INV_Misc_Dust_02",
 								["Item"] = "3910:0:0:0:0:0:0:0",
 							}, -- [5]
-							nil, -- [6]
+							{
+								["Item"] = "2740:0:0:0:0:0:0:1216404503",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Green Hills of Stranglethorn - Page 16<br><Right Click to Read>",
+								["Icon"] = "INV_Misc_Note_06",
+								["Name"] = "Green Hills of Stranglethorn - Page 16",
+							}, -- [6]
 							{
 								["Item"] = "4098:0:0:0:0:0:0:0",
 								["Color"] = "ffffff",
@@ -10921,26 +11308,69 @@ myProfile = {
 								["Icon"] = "INV_Stone_12",
 								["Item"] = "2838:0:0:0:0:0:0:0",
 							}, -- [8]
+							{
+								["Item"] = "9260:0:0:0:0:0:0:1484839959",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Volatile Rum<br>Use: A strong alcoholic beverage.",
+								["Icon"] = "INV_Drink_01",
+								["Name"] = "Volatile Rum",
+							}, -- [9]
+							{
+								["Quantity"] = 3,
+								["Name"] = "Silk Cloth",
+								["Color"] = "ffffff",
+								["Icon"] = "INV_Fabric_Silk_01",
+								["Item"] = "4306:0:0:0:0:0:0:1863311810",
+							}, -- [10]
+							{
+								["Item"] = "2728:0:0:0:0:0:0:2131747266",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Green Hills of Stranglethorn - Page 4<br><Right Click to Read>",
+								["Icon"] = "INV_Misc_Note_06",
+								["Name"] = "Green Hills of Stranglethorn - Page 4",
+							}, -- [11]
+							{
+								["Quantity"] = 4,
+								["Name"] = "Mageweave Cloth",
+								["Color"] = "ffffff",
+								["Icon"] = "INV_Fabric_Mageweave_01",
+								["Item"] = "4338:0:0:0:0:0:0:1714384348",
+							}, -- [12]
+							{
+								["Quantity"] = 2,
+								["Name"] = "Goldenbark Apple",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Goldenbark Apple<br>Requires Level 25<br>Use: Restores 874 health over 27 sec.  Must remain seated while eating.",
+								["Icon"] = "INV_Misc_Food_20",
+							}, -- [13]
 						},
-						["Slots"] = 16,
-						["Tooltip"] = "Backpack<br>16 Slot Bag",
-						["Icon"] = "Button-Backpack-Up",
 						["Name"] = "Backpack",
+						["Tooltip"] = "Backpack<br>16 Slot Bag",
+						["Slots"] = 16,
+						["Icon"] = "Button-Backpack-Up",
 					},
 					["Bag1"] = {
-						["Name"] = "Small Silk Pack",
 						["Item"] = "4245:0:0:0:0:0:0:544669120",
-						["Slots"] = 10,
-						["Color"] = "ffffff",
-						["Tooltip"] = "Small Silk Pack<br>10 Slot Bag<br>|cff00ff00<Made by Gezotronas>|r",
-						["Icon"] = "INV_Misc_Bag_07",
 						["Contents"] = {
+							[2] = {
+								["Color"] = "ffffff",
+								["Tooltip"] = "Wild Hog Shank<br>Requires Level 25<br>Use: Restores 874 health over 27 sec.  Must remain seated while eating.",
+								["Name"] = "Wild Hog Shank",
+								["Icon"] = "INV_Misc_Food_13",
+							},
 							[9] = {
 								["Quantity"] = 20,
 								["Name"] = "Solid Stone",
 								["Color"] = "ffffff",
 								["Icon"] = "INV_Stone_10",
 								["Item"] = "7912:0:0:0:0:0:0:0",
+							},
+							[3] = {
+								["Item"] = "1710:0:0:0:0:0:0:767365738",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Greater Healing Potion<br>Requires Level 21<br>Use: Restores 455 to 585 health.",
+								["Icon"] = "INV_Potion_52",
+								["Name"] = "Greater Healing Potion",
 							},
 							[10] = {
 								["Quantity"] = 15,
@@ -10950,24 +11380,24 @@ myProfile = {
 								["Item"] = "7912:0:0:0:0:0:0:0",
 							},
 						},
+						["Icon"] = "INV_Misc_Bag_07",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Small Silk Pack<br>10 Slot Bag<br>|cff00ff00<Made by Gezotronas>|r",
+						["Slots"] = 10,
+						["Name"] = "Small Silk Pack",
 					},
 					["Bag2"] = {
-						["Name"] = "Deviate Hide Pack",
 						["Item"] = "918:0:0:0:0:0:0:2071110528",
-						["Slots"] = 10,
-						["Color"] = "ffffff",
-						["Tooltip"] = "Deviate Hide Pack<br>Soulbound<br>Unique<br>10 Slot Bag",
-						["Icon"] = "INV_Misc_Bag_07_Black",
 						["Contents"] = {
 						},
+						["Icon"] = "INV_Misc_Bag_07_Black",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Deviate Hide Pack<br>Soulbound<br>Unique<br>10 Slot Bag",
+						["Slots"] = 10,
+						["Name"] = "Deviate Hide Pack",
 					},
 					["Bag3"] = {
-						["Name"] = "Woolen Bag",
 						["Item"] = "4240:0:0:0:0:0:0:126020104",
-						["Slots"] = 8,
-						["Color"] = "ffffff",
-						["Tooltip"] = "Woolen Bag<br>8 Slot Bag",
-						["Icon"] = "INV_Misc_Bag_10",
 						["Contents"] = {
 							[2] = {
 								["Quantity"] = 20,
@@ -10998,6 +11428,11 @@ myProfile = {
 								["Name"] = "Simple Dress",
 							},
 						},
+						["Icon"] = "INV_Misc_Bag_10",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Woolen Bag<br>8 Slot Bag",
+						["Slots"] = 8,
+						["Name"] = "Woolen Bag",
 					},
 				},
 				["Talents"] = {
@@ -11006,6 +11441,12 @@ myProfile = {
 							["Location"] = "4:3",
 							["Tooltip"] = "Enrage<br>Rank 0/5<br>Requires 15 points in Fury Talents<br>Gives you a 5% melee damage bonus for 12 sec up to a maximum of 12 swings after being the victim of a critical strike.",
 							["Icon"] = "Spell_Shadow_UnholyFrenzy",
+							["Rank"] = "0:5",
+						},
+						["Commanding Presence"] = {
+							["Location"] = "3:4",
+							["Tooltip"] = "Commanding Presence<br>Rank 0/5<br>Requires 10 points in Fury Talents<br>Increases the melee attack power bonus of your Battle Shout and the health bonus of your Commanding Shout by 5%.",
+							["Icon"] = "Spell_Nature_FocusedMind",
 							["Rank"] = "0:5",
 						},
 						["Improved Execute"] = {
@@ -11038,11 +11479,11 @@ myProfile = {
 							["Icon"] = "Ability_Warrior_Rampage",
 							["Rank"] = "0:1",
 						},
-						["Unbridled Wrath"] = {
-							["Location"] = "2:3",
-							["Tooltip"] = "Unbridled Wrath<br>Rank 0/5<br>Requires 5 points in Fury Talents<br>Gives you a 8% chance to generate an additional rage point when you deal melee damage with a weapon.",
-							["Icon"] = "Spell_Nature_StoneClawTotem",
-							["Rank"] = "0:5",
+						["Piercing Howl"] = {
+							["Location"] = "3:2",
+							["Tooltip"] = "Piercing Howl<br>Rank 0/1<br>Requires 10 points in Fury Talents<br>10 Rage<br>Instant<br>Causes all enemies near the warrior to be Dazed, reducing movement speed by 50% for 6 sec.",
+							["Icon"] = "Spell_Shadow_DeathScream",
+							["Rank"] = "0:1",
 						},
 						["Bloodthirst"] = {
 							["Location"] = "7:2",
@@ -11056,22 +11497,22 @@ myProfile = {
 							["Icon"] = "Ability_Warrior_DecisiveStrike",
 							["Rank"] = "0:2",
 						},
-						["Improved Battle Shout"] = {
-							["Location"] = "3:4",
-							["Tooltip"] = "Improved Battle Shout<br>Rank 0/5<br>Requires 10 points in Fury Talents<br>Increases the melee attack power bonus of your Battle Shout by 5%.",
-							["Icon"] = "Ability_Warrior_BattleShout",
-							["Rank"] = "0:5",
+						["Death Wish"] = {
+							["Location"] = "5:2",
+							["Tooltip"] = "Death Wish<br>Rank 0/1<br>Requires 20 points in Fury Talents<br>10 Rage<br>Instant	3 min cooldown<br>When activated, increases your physical damage by 20% and makes you immune to Fear effects, but increases all damage taken by 5%.  Lasts 30 sec.",
+							["Icon"] = "Spell_Shadow_DeathPact",
+							["Rank"] = "0:1",
 						},
 						["Background"] = "WarriorFury",
 						["Booming Voice"] = {
 							["Location"] = "1:2",
-							["Tooltip"] = "Booming Voice<br>Rank 0/5<br>Increases the area of effect and duration of your Battle Shout, Demoralizing Shout and Commanding Shout by 10%.<br>Click to learn",
+							["Tooltip"] = "Booming Voice<br>Rank 0/5<br>Increases the area of effect and duration of your Battle Shout, Demoralizing Shout and Commanding Shout by 10%.",
 							["Icon"] = "Spell_Nature_Purge",
 							["Rank"] = "0:5",
 						},
 						["Cruelty"] = {
 							["Location"] = "1:3",
-							["Tooltip"] = "Cruelty<br>Rank 0/5<br>Increases your chance to get a critical strike with melee weapons by 1%.<br>Click to learn",
+							["Tooltip"] = "Cruelty<br>Rank 0/5<br>Increases your chance to get a critical strike with melee weapons by 1%.",
 							["Icon"] = "Ability_Rogue_Eviscerate",
 							["Rank"] = "0:5",
 						},
@@ -11081,18 +11522,18 @@ myProfile = {
 							["Icon"] = "Ability_Racial_Avatar",
 							["Rank"] = "0:5",
 						},
+						["PointsSpent"] = 0,
+						["Unbridled Wrath"] = {
+							["Location"] = "2:3",
+							["Tooltip"] = "Unbridled Wrath<br>Rank 0/5<br>Requires 5 points in Fury Talents<br>Gives you a chance to generate an additional rage point when you deal melee damage with a weapon.",
+							["Icon"] = "Spell_Nature_StoneClawTotem",
+							["Rank"] = "0:5",
+						},
 						["Improved Cleave"] = {
 							["Location"] = "3:1",
 							["Tooltip"] = "Improved Cleave<br>Rank 0/3<br>Requires 10 points in Fury Talents<br>Increases the bonus damage done by your Cleave ability by 40%.",
 							["Icon"] = "Ability_Warrior_Cleave",
 							["Rank"] = "0:3",
-						},
-						["PointsSpent"] = 0,
-						["Piercing Howl"] = {
-							["Location"] = "3:2",
-							["Tooltip"] = "Piercing Howl<br>Rank 0/1<br>Requires 10 points in Fury Talents<br>10 Rage<br>Instant<br>Causes all enemies near the warrior to be Dazed, reducing movement speed by 50% for 6 sec.",
-							["Icon"] = "Spell_Shadow_DeathScream",
-							["Rank"] = "0:1",
 						},
 						["Flurry"] = {
 							["Location"] = "6:3",
@@ -11100,19 +11541,13 @@ myProfile = {
 							["Icon"] = "Ability_GhoulFrenzy",
 							["Rank"] = "0:5",
 						},
-						["Order"] = 2,
-						["Death Wish"] = {
-							["Location"] = "5:2",
-							["Tooltip"] = "Death Wish<br>Rank 0/1<br>Requires 20 points in Fury Talents<br>10 Rage<br>Instant	3 min cooldown<br>When activated, increases your physical damage by 20% and makes you immune to Fear effects, but increases all damage taken by 5%.  Lasts 30 sec.",
-							["Icon"] = "Spell_Shadow_DeathPact",
-							["Rank"] = "0:1",
-						},
 						["Improved Berserker Rage"] = {
 							["Location"] = "6:1",
 							["Tooltip"] = "Improved Berserker Rage<br>Rank 0/2<br>Requires 25 points in Fury Talents<br>The Berserker Rage ability will generate 5 rage when used.",
 							["Icon"] = "Spell_Nature_AncestralGuardian",
 							["Rank"] = "0:2",
 						},
+						["Order"] = 2,
 						["Precision"] = {
 							["Location"] = "7:1",
 							["Tooltip"] = "Precision<br>Rank 0/3<br>Requires 30 points in Fury Talents<br>Increases your chance to hit with melee weapons by 1%.",
@@ -11130,149 +11565,6 @@ myProfile = {
 							["Tooltip"] = "Dual Wield Specialization<br>Rank 0/5<br>Requires 15 points in Fury Talents<br>Increases the damage done by your offhand weapon by 5%.",
 							["Icon"] = "Ability_DualWield",
 							["Rank"] = "0:5",
-						},
-					},
-					["Arms"] = {
-						["Improved Thunder Clap"] = {
-							["Location"] = "2:3",
-							["Tooltip"] = "Improved Thunder Clap<br>Rank 0/3<br>Requires 5 points in Arms Talents<br>Reduces the cost of your Thunder Clap ability by 1 rage point and increases the damage by 40% and the slowing effect by an additional 4%.",
-							["Icon"] = "Ability_ThunderClap",
-							["Rank"] = "0:3",
-						},
-						["Improved Disciplines"] = {
-							["Location"] = "6:4",
-							["Tooltip"] = "Improved Disciplines<br>Rank 0/3<br>Requires 25 points in Arms Talents<br>Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 4 min and increases their duration by 2 sec.",
-							["Icon"] = "Ability_Warrior_ImprovedDisciplines",
-							["Rank"] = "0:3",
-						},
-						["Improved Mortal Strike"] = {
-							["Location"] = "8:2",
-							["Tooltip"] = "Improved Mortal Strike<br>Rank 0/5<br>Requires 1 point in Mortal Strike<br>Requires 35 points in Arms Talents<br>Reduces the cooldown of your Mortal Strike ability by 0.2 sec and increases the damage it causes by 1%.",
-							["Icon"] = "Ability_Warrior_SavageBlow",
-							["Rank"] = "0:5",
-						},
-						["Sweeping Strikes"] = {
-							["Location"] = "5:2",
-							["Tooltip"] = "Sweeping Strikes<br>Rank 0/1<br>Requires 20 points in Arms Talents<br>30 Rage<br>Instant	30 sec cooldown<br>Requires Battle Stance<br>Your next 5 melee attacks strike an additional nearby opponent.",
-							["Icon"] = "Ability_Rogue_SliceDice",
-							["Rank"] = "0:1",
-						},
-						["Second Wind"] = {
-							["Location"] = "7:3",
-							["Tooltip"] = "Second Wind<br>Rank 0/2<br>Requires 30 points in Arms Talents<br>Whenever you are struck by a Stun or Immobilize effect you will generate 10 rage and 5% of your total health over 10 sec.",
-							["Icon"] = "Ability_Hunter_Harass",
-							["Rank"] = "0:2",
-						},
-						["Poleaxe Specialization"] = {
-							["Location"] = "5:1",
-							["Tooltip"] = "Poleaxe Specialization<br>Rank 0/5<br>Requires 20 points in Arms Talents<br>Increases your chance to get a critical strike with Axes and Polearms by 1%.",
-							["Icon"] = "INV_Axe_06",
-							["Rank"] = "0:5",
-						},
-						["Impale"] = {
-							["Location"] = "4:3",
-							["Tooltip"] = "Impale<br>Rank 0/2<br>Requires 3 points in Deep Wounds<br>Requires 15 points in Arms Talents<br>Increases the critical strike damage bonus of your abilities in Battle, Defensive, and Berserker stance by 10%.",
-							["Icon"] = "Ability_SearingArrow",
-							["Rank"] = "0:2",
-						},
-						["Background"] = "WarriorArms",
-						["Order"] = 1,
-						["Improved Heroic Strike"] = {
-							["Location"] = "1:1",
-							["Tooltip"] = "Improved Heroic Strike<br>Rank 0/3<br>Reduces the cost of your Heroic Strike ability by 1 rage point.<br>Click to learn",
-							["Icon"] = "Ability_Rogue_Ambush",
-							["Rank"] = "0:3",
-						},
-						["Blood Frenzy"] = {
-							["Location"] = "7:1",
-							["Tooltip"] = "Blood Frenzy<br>Rank 0/2<br>Requires 30 points in Arms Talents<br>Your Rend and Deep Wounds abilities also increase all physical damage caused to that target by 2%.",
-							["Icon"] = "Ability_Warrior_BloodFrenzy",
-							["Rank"] = "0:2",
-						},
-						["Deflection"] = {
-							["Location"] = "1:2",
-							["Tooltip"] = "Deflection<br>Rank 0/5<br>Increases your Parry chance by 1%.<br>Click to learn",
-							["Icon"] = "Ability_Parry",
-							["Rank"] = "0:5",
-						},
-						["Endless Rage"] = {
-							["Location"] = "9:2",
-							["Tooltip"] = "Endless Rage<br>Rank 0/1<br>Requires 40 points in Arms Talents<br>You generate 25% more rage from damage dealt.",
-							["Icon"] = "Ability_Warrior_EndlessRage",
-							["Rank"] = "0:1",
-						},
-						["Improved Charge"] = {
-							["Location"] = "2:1",
-							["Tooltip"] = "Improved Charge<br>Rank 0/2<br>Requires 5 points in Arms Talents<br>Increases the amount of rage generated by your Charge ability by 3.",
-							["Icon"] = "Ability_Warrior_Charge",
-							["Rank"] = "0:2",
-						},
-						["Mace Specialization"] = {
-							["Location"] = "5:3",
-							["Tooltip"] = "Mace Specialization<br>Rank 0/5<br>Requires 20 points in Arms Talents<br>Gives your melee attacks a chance to stun your target for 3 sec and generate 6 rage when using a Mace.",
-							["Icon"] = "INV_Mace_01",
-							["Rank"] = "0:5",
-						},
-						["Anger Management"] = {
-							["Location"] = "3:2",
-							["Tooltip"] = "Anger Management<br>Rank 0/1<br>Requires 10 points in Arms Talents<br>Generates 1 rage per 3 seconds.",
-							["Icon"] = "Spell_Holy_BlessingOfStamina",
-							["Rank"] = "0:1",
-						},
-						["Iron Will"] = {
-							["Location"] = "2:2",
-							["Tooltip"] = "Iron Will<br>Rank 0/5<br>Requires 5 points in Arms Talents<br>Increases your chance to resist Stun and Charm effects by an additional 3%.",
-							["Icon"] = "Spell_Magic_MageArmor",
-							["Rank"] = "0:5",
-						},
-						["PointsSpent"] = 0,
-						["Improved Overpower"] = {
-							["Location"] = "3:1",
-							["Tooltip"] = "Improved Overpower<br>Rank 0/2<br>Requires 10 points in Arms Talents<br>Increases the critical strike chance of your Overpower ability by 25%.",
-							["Icon"] = "INV_Sword_05",
-							["Rank"] = "0:2",
-						},
-						["Two-Handed Weapon Specialization"] = {
-							["Location"] = "4:2",
-							["Tooltip"] = "Two-Handed Weapon Specialization<br>Rank 0/5<br>Requires 15 points in Arms Talents<br>Increases the damage you deal with two-handed melee weapons by 1%.",
-							["Icon"] = "INV_Axe_09",
-							["Rank"] = "0:5",
-						},
-						["Improved Rend"] = {
-							["Location"] = "1:3",
-							["Tooltip"] = "Improved Rend<br>Rank 0/3<br>Increases the bleed damage done by your Rend ability by 25%.<br>Click to learn",
-							["Icon"] = "Ability_Gouge",
-							["Rank"] = "0:3",
-						},
-						["Deep Wounds"] = {
-							["Location"] = "3:3",
-							["Tooltip"] = "Deep Wounds<br>Rank 0/3<br>Requires 10 points in Arms Talents<br>Your critical strikes cause the opponent to bleed, dealing 20% of your melee weapon's average damage over 12 sec.",
-							["Icon"] = "Ability_BackStab",
-							["Rank"] = "0:3",
-						},
-						["Mortal Strike"] = {
-							["Location"] = "7:2",
-							["Tooltip"] = "Mortal Strike<br>Rank 0/1<br>Requires 1 point in Sweeping Strikes<br>Requires 30 points in Arms Talents<br>30 Rage	5 yd range<br>Instant	6 sec cooldown<br>Requires Melee Weapon<br>A vicious strike that deals weapon damage plus 85 and wounds the target, reducing the effectiveness of any healing by 50% for 10 sec.",
-							["Icon"] = "Ability_Warrior_SavageBlow",
-							["Rank"] = "0:1",
-						},
-						["Weapon Mastery"] = {
-							["Location"] = "6:1",
-							["Tooltip"] = "Weapon Mastery<br>Rank 0/2<br>Requires 25 points in Arms Talents<br>Increases skill with all weapons by 2 and increases your chance to resist Disarm effects by an additional 50%.",
-							["Icon"] = "Ability_Warrior_WeaponMastery",
-							["Rank"] = "0:2",
-						},
-						["Sword Specialization"] = {
-							["Location"] = "5:4",
-							["Tooltip"] = "Sword Specialization<br>Rank 0/5<br>Requires 20 points in Arms Talents<br>Gives you a 1% chance to get an extra attack on the same target after dealing damage with your Sword.",
-							["Icon"] = "INV_Sword_27",
-							["Rank"] = "0:5",
-						},
-						["Improved Hamstring"] = {
-							["Location"] = "6:3",
-							["Tooltip"] = "Improved Hamstring<br>Rank 0/3<br>Requires 25 points in Arms Talents<br>Gives your Hamstring ability a 5% chance to immobilize the target for 5 sec.",
-							["Icon"] = "Ability_ShockWave",
-							["Rank"] = "0:3",
 						},
 					},
 					["Protection"] = {
@@ -11326,28 +11618,33 @@ myProfile = {
 							["Icon"] = "Ability_Warrior_Revenge",
 							["Rank"] = "0:3",
 						},
-						["Improved Shield Block"] = {
-							["Location"] = "3:2",
-							["Tooltip"] = "Improved Shield Block<br>Rank 0/1<br>Requires 5 points in Shield Specialization<br>Requires 10 points in Protection Talents<br>Allows your Shield Block ability to block an additional attack and increases the duration by 1 second.",
-							["Icon"] = "Ability_Defend",
-							["Rank"] = "0:1",
+						["Focused Rage"] = {
+							["Location"] = "7:3",
+							["Tooltip"] = "Focused Rage<br>Rank 0/3<br>Requires 30 points in Protection Talents<br>Reduces the rage cost of your offensive abilities by 1.",
+							["Icon"] = "Ability_Warrior_FocusedRage",
+							["Rank"] = "0:3",
 						},
 						["Improved Bloodrage"] = {
 							["Location"] = "1:1",
-							["Tooltip"] = "Improved Bloodrage<br>Rank 0/2<br>Increases the instant rage generated by your Bloodrage ability by 3.<br>Click to learn",
+							["Tooltip"] = "Improved Bloodrage<br>Rank 0/2<br>Increases the instant rage generated by your Bloodrage ability by 3.",
 							["Icon"] = "Ability_Racial_BloodRage",
 							["Rank"] = "0:2",
 						},
-						["PointsSpent"] = 0,
+						["Improved Sunder Armor"] = {
+							["Location"] = "4:1",
+							["Tooltip"] = "Improved Sunder Armor<br>Rank 0/3<br>Requires 15 points in Protection Talents<br>Reduces the cost of your Sunder Armor ability by 1 rage point.",
+							["Icon"] = "Ability_Warrior_Sunder",
+							["Rank"] = "0:3",
+						},
 						["Tactical Mastery"] = {
 							["Location"] = "1:2",
-							["Tooltip"] = "Tactical Mastery<br>Rank 0/3<br>You retain up to an additional 5 of your rage points when you change stances.<br>Click to learn",
+							["Tooltip"] = "Tactical Mastery<br>Rank 0/3<br>You retain up to an additional 5 of your rage points when you change stances.",
 							["Icon"] = "Spell_Nature_EnchantArmor",
 							["Rank"] = "0:3",
 						},
 						["Anticipation"] = {
 							["Location"] = "1:3",
-							["Tooltip"] = "Anticipation<br>Rank 0/5<br>Increases your Defense skill by 4.<br>Click to learn",
+							["Tooltip"] = "Anticipation<br>Rank 0/5<br>Increases your Defense skill by 4.",
 							["Icon"] = "Spell_Nature_MirrorImage",
 							["Rank"] = "0:5",
 						},
@@ -11357,12 +11654,7 @@ myProfile = {
 							["Icon"] = "Spell_Nature_Reincarnation",
 							["Rank"] = "0:2",
 						},
-						["Shield Specialization"] = {
-							["Location"] = "2:2",
-							["Tooltip"] = "Shield Specialization<br>Rank 0/5<br>Requires 5 points in Protection Talents<br>Increases your chance to block attacks with a shield by 1% and has a 20% chance to generate 1 rage when a block occurs.",
-							["Icon"] = "INV_Shield_06",
-							["Rank"] = "0:5",
-						},
+						["PointsSpent"] = 0,
 						["Last Stand"] = {
 							["Location"] = "3:1",
 							["Tooltip"] = "Last Stand<br>Rank 0/1<br>Requires 10 points in Protection Talents<br>Instant	8 min cooldown<br>When activated, this ability temporarily grants you 30% of your maximum health for 20 sec.  After the effect expires, the health is lost.",
@@ -11381,17 +11673,17 @@ myProfile = {
 							["Icon"] = "Ability_Warrior_ShieldBash",
 							["Rank"] = "0:2",
 						},
-						["Toughness"] = {
-							["Location"] = "2:3",
-							["Tooltip"] = "Toughness<br>Rank 0/5<br>Requires 5 points in Protection Talents<br>Increases your armor value from items by 2%.",
-							["Icon"] = "Spell_Holy_Devotion",
-							["Rank"] = "0:5",
-						},
 						["Improved Shield Wall"] = {
 							["Location"] = "5:1",
 							["Tooltip"] = "Improved Shield Wall<br>Rank 0/2<br>Requires 20 points in Protection Talents<br>Increases the effect duration of your Shield Wall ability by 3 secs.",
 							["Icon"] = "Ability_Warrior_ShieldWall",
 							["Rank"] = "0:2",
+						},
+						["Toughness"] = {
+							["Location"] = "2:3",
+							["Tooltip"] = "Toughness<br>Rank 0/5<br>Requires 5 points in Protection Talents<br>Increases your armor value from items by 2%.",
+							["Icon"] = "Spell_Holy_Devotion",
+							["Rank"] = "0:5",
 						},
 						["Devastate"] = {
 							["Location"] = "9:2",
@@ -11399,53 +11691,214 @@ myProfile = {
 							["Icon"] = "INV_Sword_11",
 							["Rank"] = "0:1",
 						},
-						["Improved Sunder Armor"] = {
-							["Location"] = "4:1",
-							["Tooltip"] = "Improved Sunder Armor<br>Rank 0/3<br>Requires 15 points in Protection Talents<br>Reduces the cost of your Sunder Armor ability by 1 rage point.",
-							["Icon"] = "Ability_Warrior_Sunder",
+						["Shield Specialization"] = {
+							["Location"] = "2:2",
+							["Tooltip"] = "Shield Specialization<br>Rank 0/5<br>Requires 5 points in Protection Talents<br>Increases your chance to block attacks with a shield by 1% and has a 20% chance to generate 1 rage when a block occurs.",
+							["Icon"] = "INV_Shield_06",
+							["Rank"] = "0:5",
+						},
+						["Improved Shield Block"] = {
+							["Location"] = "3:2",
+							["Tooltip"] = "Improved Shield Block<br>Rank 0/1<br>Requires 5 points in Shield Specialization<br>Requires 10 points in Protection Talents<br>Allows your Shield Block ability to block an additional attack and increases the duration by 1 second.",
+							["Icon"] = "Ability_Defend",
+							["Rank"] = "0:1",
+						},
+					},
+					["Arms"] = {
+						["Improved Thunder Clap"] = {
+							["Location"] = "2:3",
+							["Tooltip"] = "Improved Thunder Clap<br>Rank 0/3<br>Reduces the cost of your Thunder Clap ability by 1 rage point and increases the damage by 40% and the slowing effect by an additional 4%.",
+							["Icon"] = "Ability_ThunderClap",
 							["Rank"] = "0:3",
 						},
-						["Focused Rage"] = {
+						["Improved Disciplines"] = {
+							["Location"] = "6:4",
+							["Tooltip"] = "Improved Disciplines<br>Rank 0/3<br>Reduces the cooldown of your Retaliation, Recklessness and Shield Wall abilities by 4 min and increases their duration by 2 sec.",
+							["Icon"] = "Ability_Warrior_ImprovedDisciplines",
+							["Rank"] = "0:3",
+						},
+						["Improved Mortal Strike"] = {
+							["Location"] = "8:2",
+							["Tooltip"] = "Improved Mortal Strike<br>Rank 0/5<br>Requires 35 points in Arms Talents<br>Reduces the cooldown of your Mortal Strike ability by 0.2 sec and increases the damage it causes by 1%.",
+							["Icon"] = "Ability_Warrior_SavageBlow",
+							["Rank"] = "0:5",
+						},
+						["Sweeping Strikes"] = {
+							["Location"] = "5:2",
+							["Tooltip"] = "Sweeping Strikes<br>Rank 1/1<br>30 Rage<br>Instant	30 sec cooldown<br>Requires Battle Stance<br>Your next 5 melee attacks strike an additional nearby opponent.",
+							["Icon"] = "Ability_Rogue_SliceDice",
+							["Rank"] = "1:1",
+						},
+						["Second Wind"] = {
 							["Location"] = "7:3",
-							["Tooltip"] = "Focused Rage<br>Rank 0/3<br>Requires 30 points in Protection Talents<br>Reduces the rage cost of your offensive abilities by 1.",
-							["Icon"] = "Ability_Warrior_FocusedRage",
-							["Rank"] = "0:3",
+							["Tooltip"] = "Second Wind<br>Rank 0/2<br>Whenever you are struck by a Stun or Immobilize effect you will generate 10 rage and 5% of your total health over 10 sec.",
+							["Icon"] = "Ability_Hunter_Harass",
+							["Rank"] = "0:2",
 						},
+						["Poleaxe Specialization"] = {
+							["Location"] = "5:1",
+							["Tooltip"] = "Poleaxe Specialization<br>Rank 5/5<br>Increases your chance to get a critical strike with Axes and Polearms by 5%.",
+							["Icon"] = "INV_Axe_06",
+							["Rank"] = "5:5",
+						},
+						["Impale"] = {
+							["Location"] = "4:3",
+							["Tooltip"] = "Impale<br>Rank 2/2<br>Increases the critical strike damage bonus of your abilities in Battle, Defensive, and Berserker stance by 20%.",
+							["Icon"] = "Ability_SearingArrow",
+							["Rank"] = "2:2",
+						},
+						["Background"] = "WarriorArms",
+						["Improved Hamstring"] = {
+							["Location"] = "6:3",
+							["Tooltip"] = "Improved Hamstring<br>Rank 3/3<br>Gives your Hamstring ability a 15% chance to immobilize the target for 5 sec.",
+							["Icon"] = "Ability_ShockWave",
+							["Rank"] = "3:3",
+						},
+						["Improved Heroic Strike"] = {
+							["Location"] = "1:1",
+							["Tooltip"] = "Improved Heroic Strike<br>Rank 2/3<br>Reduces the cost of your Heroic Strike ability by 2 rage points.<br> <br>Next rank:<br>Reduces the cost of your Heroic Strike ability by 3 rage points.",
+							["Icon"] = "Ability_Rogue_Ambush",
+							["Rank"] = "2:3",
+						},
+						["Blood Frenzy"] = {
+							["Location"] = "7:1",
+							["Tooltip"] = "Blood Frenzy<br>Rank 1/2<br>Your Rend and Deep Wounds abilities also increase all physical damage caused to that target by 2%.<br> <br>Next rank:<br>Your Rend and Deep Wounds abilities also increase all physical damage caused to that target by 4%.",
+							["Icon"] = "Ability_Warrior_BloodFrenzy",
+							["Rank"] = "1:2",
+						},
+						["Sword Specialization"] = {
+							["Location"] = "5:4",
+							["Tooltip"] = "Sword Specialization<br>Rank 0/5<br>Gives you a 1% chance to get an extra attack on the same target after dealing damage with your Sword.",
+							["Icon"] = "INV_Sword_27",
+							["Rank"] = "0:5",
+						},
+						["Endless Rage"] = {
+							["Location"] = "9:2",
+							["Tooltip"] = "Endless Rage<br>Rank 0/1<br>Requires 40 points in Arms Talents<br>You generate 25% more rage from damage dealt.",
+							["Icon"] = "Ability_Warrior_EndlessRage",
+							["Rank"] = "0:1",
+						},
+						["Weapon Mastery"] = {
+							["Location"] = "6:1",
+							["Tooltip"] = "Weapon Mastery<br>Rank 2/2<br>Increases skill with all weapons by 4 and makes you immune to Disarm effects.",
+							["Icon"] = "Ability_Warrior_WeaponMastery",
+							["Rank"] = "2:2",
+						},
+						["Mace Specialization"] = {
+							["Location"] = "5:3",
+							["Tooltip"] = "Mace Specialization<br>Rank 0/5<br>Gives your melee attacks a chance to stun your target for 3 sec and generate 6 rage when using a Mace.",
+							["Icon"] = "INV_Mace_01",
+							["Rank"] = "0:5",
+						},
+						["Mortal Strike"] = {
+							["Location"] = "7:2",
+							["Tooltip"] = "Mortal Strike<br>Rank 1/1<br>30 Rage	5 yd range<br>Instant	6 sec cooldown<br>Requires Melee Weapon<br>A vicious strike that deals weapon damage plus 85 and wounds the target, reducing the effectiveness of any healing by 50% for 10 sec.",
+							["Icon"] = "Ability_Warrior_SavageBlow",
+							["Rank"] = "1:1",
+						},
+						["Iron Will"] = {
+							["Location"] = "2:2",
+							["Tooltip"] = "Iron Will<br>Rank 0/5<br>Increases your chance to resist Stun and Charm effects by an additional 3%.",
+							["Icon"] = "Spell_Magic_MageArmor",
+							["Rank"] = "0:5",
+						},
+						["PointsSpent"] = 33,
+						["Improved Rend"] = {
+							["Location"] = "1:3",
+							["Tooltip"] = "Improved Rend<br>Rank 3/3<br>Increases the bleed damage done by your Rend ability by 75%.",
+							["Icon"] = "Ability_Gouge",
+							["Rank"] = "3:3",
+						},
+						["Two-Handed Weapon Specialization"] = {
+							["Location"] = "4:2",
+							["Tooltip"] = "Two-Handed Weapon Specialization<br>Rank 0/5<br>Increases the damage you deal with two-handed melee weapons by 1%.",
+							["Icon"] = "INV_Axe_09",
+							["Rank"] = "0:5",
+						},
+						["Improved Overpower"] = {
+							["Location"] = "3:1",
+							["Tooltip"] = "Improved Overpower<br>Rank 2/2<br>Increases the critical strike chance of your Overpower ability by 50%.",
+							["Icon"] = "INV_Sword_05",
+							["Rank"] = "2:2",
+						},
+						["Deep Wounds"] = {
+							["Location"] = "3:3",
+							["Tooltip"] = "Deep Wounds<br>Rank 3/3<br>Your critical strikes cause the opponent to bleed, dealing 60% of your melee weapon's average damage over 12 sec.",
+							["Icon"] = "Ability_BackStab",
+							["Rank"] = "3:3",
+						},
+						["Anger Management"] = {
+							["Location"] = "3:2",
+							["Tooltip"] = "Anger Management<br>Rank 1/1<br>Generates 1 rage per 3 seconds.",
+							["Icon"] = "Spell_Holy_BlessingOfStamina",
+							["Rank"] = "1:1",
+						},
+						["Improved Charge"] = {
+							["Location"] = "2:1",
+							["Tooltip"] = "Improved Charge<br>Rank 2/2<br>Increases the amount of rage generated by your Charge ability by 6.",
+							["Icon"] = "Ability_Warrior_Charge",
+							["Rank"] = "2:2",
+						},
+						["Deflection"] = {
+							["Location"] = "1:2",
+							["Tooltip"] = "Deflection<br>Rank 5/5<br>Increases your Parry chance by 5%.",
+							["Icon"] = "Ability_Parry",
+							["Rank"] = "5:5",
+						},
+						["Order"] = 1,
 					},
 				},
 				["ClassEn"] = "WARRIOR",
 				["HasRelicSlot"] = false,
 				["SexId"] = 1,
 				["Faction"] = "Horde",
+				["timestamp"] = {
+					["Equipment"] = 1173905631,
+					["Attributes"] = 1173907784,
+					["init"] = {
+						["datakey"] = "eu:2.0.10:6448",
+						["TimeStamp"] = 1173907784,
+						["Date"] = "2007-03-14 22:29:44",
+						["ServerTime"] = "22:29",
+						["DateUTC"] = "2007-03-14 21:29:44",
+					},
+					["SpellBook"] = 1173907784,
+					["MailBox"] = 1173899577,
+					["Professions"] = {
+						["Mining"] = 1173899731,
+						["Blacksmithing"] = 1173905104,
+					},
+					["Inventory"] = 1173907784,
+				},
 				["Attributes"] = {
 					["Ranged"] = {
-						["AttackPower"] = "94:0:0",
-						["CritChance"] = "4.10",
+						["AttackPower"] = "100:0:0",
+						["CritChance"] = "5.92",
 						["AttackSpeed"] = "2.6",
 						["CritRating"] = "14:1.5294118259899:0",
-						["AttackDPS"] = "41.6",
+						["AttackDPS"] = "42.0",
 						["HasWandEquipped"] = false,
-						["DamageRange"] = "86:130",
+						["AttackPowerTooltip"] = "Increases damage with ranged weapons by 7.1 damage per second.",
+						["AttackRating"] = "168:0:0",
 						["HasteRating"] = "0:0:0",
+						["AttackPowerDPS"] = "7.1",
+						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	2.60<br>Damage:	87 - 131<br>Damage per Second:	42.0",
+						["AttackSkill"] = 168,
 						["HitRating"] = "0:0:0",
-						["AttackPowerDPS"] = "6.7",
-						["AttackSkill"] = 162,
-						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	2.60<br>Damage:	86 - 130<br>Damage per Second:	41.6",
-						["AttackRating"] = "162:0:0",
-						["AttackPowerTooltip"] = "Increases damage with ranged weapons by 6.7 damage per second.",
+						["DamageRange"] = "87:131",
 					},
 					["Defense"] = {
 						["BlockRating"] = "0:0:0",
-						["Defense"] = "208:0:0",
-						["BlockChance"] = "4.92",
-						["ArmorReduction"] = "47.28",
+						["Defense"] = "209:0:0",
+						["BlockChance"] = "4.96",
+						["ArmorReduction"] = "47.37",
 						["ParryRating"] = "0:0:0",
-						["Armor"] = "3496:64:0",
-						["DodgeRating"] = "0:0:0",
-						["DodgeChance"] = "4.49",
 						["DefenseRating"] = "0:0:0",
+						["DodgeRating"] = "0:0:0",
+						["ParryChance"] = "9.96",
+						["Armor"] = "3509:64:0",
 						["DefensePercent"] = 0,
-						["ParryChance"] = "4.92",
+						["DodgeChance"] = "4.90",
 						["Resilience"] = {
 							["Ranged"] = 0,
 							["Spell"] = 0,
@@ -11454,15 +11907,15 @@ myProfile = {
 					},
 					["Melee"] = {
 						["AttackPower"] = "394:0:0",
-						["CritChance"] = "6.22",
+						["CritChance"] = "12.96",
 						["CritRating"] = "14:1.5294118259899:0",
 						["HitRating"] = "0:0:0",
 						["AttackPowerDPS"] = "28.1",
 						["MainHand"] = {
 							["AttackSpeed"] = "2.80",
-							["AttackRating"] = "215:0:0",
+							["AttackRating"] = "219:0:0",
 							["AttackDPS"] = "50.3",
-							["AttackSkill"] = 215,
+							["AttackSkill"] = 219,
 							["DamageRange"] = "121:160",
 						},
 						["DamageRangeTooltip"] = "Main Hand<br>Attack Speed (seconds):	2.80<br>Damage:	121 - 160<br>Damage per Second:	50.3",
@@ -11490,46 +11943,31 @@ myProfile = {
 							["Shadow"] = 0,
 							["Nature"] = 0,
 						},
-						["BonusDamage"] = 0,
-						["BonusHealing"] = 0,
 						["HasteRating"] = "0:0:0",
+						["BonusHealing"] = 0,
+						["BonusDamage"] = 0,
 					},
 					["Stats"] = {
 						["Intellect"] = "23:8:0",
-						["Agility"] = "54:8:0",
-						["Stamina"] = "78:66:0",
+						["Agility"] = "54:14:0",
+						["Stamina"] = "78:70:0",
 						["Strength"] = "85:59:0",
-						["Spirit"] = "38:45:0",
+						["Spirit"] = "38:37:0",
 					},
 				},
-				["timestamp"] = {
-					["Equipment"] = 1172870977,
-					["Attributes"] = 1172871048,
-					["init"] = {
-						["datakey"] = "eu:2.0.8:6403",
-						["TimeStamp"] = 1172871048,
-						["Date"] = "2007-03-02 22:30:48",
-						["ServerTime"] = "22:29",
-						["DateUTC"] = "2007-03-02 21:30:48",
-					},
-					["SpellBook"] = 1172871048,
-					["MailBox"] = 1170882591,
-					["Inventory"] = 1172871048,
-				},
-				["TimePlayed"] = 776464,
-				["Level"] = 42,
 				["Skills"] = {
 					["Secondary Skills"] = {
 						["Cooking"] = "1:75",
 						["Order"] = 3,
 						["First Aid"] = "198:225",
+						["Riding"] = "75:75",
 						["Fishing"] = "1:75",
 					},
 					["Class Skills"] = {
 						["Arms"] = "1:1",
-						["Order"] = 1,
-						["Fury"] = "1:1",
 						["Protection"] = "1:1",
+						["Fury"] = "1:1",
+						["Order"] = 1,
 					},
 					["Professions"] = {
 						["Order"] = 2,
@@ -11542,30 +11980,1811 @@ myProfile = {
 					},
 					["Armor Proficiencies"] = {
 						["Leather"] = "1:1",
-						["Order"] = 5,
 						["Mail"] = "1:1",
+						["Shield"] = "1:1",
 						["Cloth"] = "1:1",
 						["Plate Mail"] = "1:1",
-						["Shield"] = "1:1",
+						["Order"] = 5,
 					},
 					["Weapon Skills"] = {
-						["Defense"] = "208:210",
-						["Guns"] = "162:210",
-						["Swords"] = "157:210",
+						["Defense"] = "209:210",
+						["Guns"] = "168:214",
+						["Swords"] = "161:214",
 						["Order"] = 4,
-						["Axes"] = "215:215",
-						["Unarmed"] = "143:210",
-						["Two-Handed Axes"] = "185:215",
+						["Axes"] = "219:219",
+						["Unarmed"] = "147:214",
+						["Two-Handed Axes"] = "189:219",
 					},
 				},
-				["TimeLevelPlayed"] = 12241,
+				["TimePlayed"] = 784155,
+				["Level"] = 42,
+				["Professions"] = {
+					["Mining"] = {
+						["Trade Goods"] = {
+							["Smelt Steel"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3859:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Steel Bar",
+								["Icon"] = "INV_Ingot_Steel",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3857",
+										["Name"] = "Coal",
+									}, -- [2]
+								},
+							},
+							["Smelt Silver"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2842:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Silver Bar",
+								["Icon"] = "INV_Ingot_01",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2775",
+										["Name"] = "Silver Ore",
+									}, -- [1]
+								},
+							},
+							["Smelt Tin"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3576:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Tin Bar",
+								["Icon"] = "INV_Ingot_05",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2771",
+										["Name"] = "Tin Ore",
+									}, -- [1]
+								},
+							},
+							["Smelt Bronze"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2841:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Bar",
+								["Icon"] = "INV_Ingot_Bronze",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3576",
+										["Name"] = "Tin Bar",
+									}, -- [2]
+								},
+							},
+							["Smelt Mithril"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3860:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Mithril Bar",
+								["Icon"] = "INV_Ingot_06",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "3858",
+										["Name"] = "Mithril Ore",
+									}, -- [1]
+								},
+							},
+							["Smelt Iron"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3575:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Iron Bar",
+								["Icon"] = "INV_Ingot_Iron",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2772",
+										["Name"] = "Iron Ore",
+									}, -- [1]
+								},
+							},
+							["Smelt Gold"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3577:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Gold Bar",
+								["Icon"] = "INV_Ingot_03",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2776",
+										["Name"] = "Gold Ore",
+									}, -- [1]
+								},
+							},
+							["Smelt Copper"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2840:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Bar",
+								["Icon"] = "INV_Ingot_02",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2770",
+										["Name"] = "Copper Ore",
+									}, -- [1]
+								},
+							},
+							["Smelt Truesilver"] = {
+								["Difficulty"] = 1,
+								["Item"] = "6037:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Truesilver Bar",
+								["Icon"] = "INV_Ingot_08",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "7911",
+										["Name"] = "Truesilver Ore",
+									}, -- [1]
+								},
+							},
+						},
+					},
+					["Blacksmithing"] = {
+						["Two-Handed Maces"] = {
+							["Heavy Copper Maul"] = {
+								["Difficulty"] = 1,
+								["Item"] = "6214:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Heavy Copper Maul<br>Two-Hand	Mace<br>21 - 32 Damage	Speed 2.80<br>(9.5 damage per second)<br>Requires Level 11",
+								["Icon"] = "INV_Hammer_18",
+								["Reagents"] = {
+									{
+										["Count"] = 12,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [3]
+								},
+							},
+							["Bronze Warhammer"] = {
+								["Difficulty"] = 1,
+								["Item"] = "7956:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Warhammer<br>Two-Hand	Mace<br>37 - 57 Damage	Speed 3.10<br>(15.2 damage per second)<br>Requires Level 20",
+								["Icon"] = "INV_Hammer_18",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+						},
+						["Daggers"] = {
+							["Copper Dagger"] = {
+								["Difficulty"] = 1,
+								["Item"] = "7166:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Dagger<br>One-Hand	Dagger<br>5 - 10 Damage	Speed 1.50<br>(5.0 damage per second)<br>Requires Level 6",
+								["Icon"] = "INV_Weapon_ShortBlade_14",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 1,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [4]
+								},
+							},
+							["Pearl-handled Dagger"] = {
+								["Difficulty"] = 1,
+								["Item"] = "5540:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Pearl-handled Dagger<br>Binds when equipped<br>One-Hand	Dagger<br>13 - 26 Damage	Speed 1.70<br>(11.5 damage per second)<br>+2 Agility<br>+2 Stamina<br>Requires Level 18",
+								["Icon"] = "INV_Weapon_ShortBlade_05",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "5498",
+										["Name"] = "Small Lustrous Pearl",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [4]
+								},
+							},
+							["Big Bronze Knife"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3848:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Big Bronze Knife<br>Binds when equipped<br>One-Hand	Dagger<br>13 - 25 Damage	Speed 1.90<br>(10.0 damage per second)<br>+3 Stamina<br>Requires Level 15",
+								["Icon"] = "INV_Weapon_ShortBlade_04",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 1,
+										["itemID"] = "818",
+										["Name"] = "Tigerseye",
+									}, -- [4]
+									{
+										["Count"] = 1,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [5]
+								},
+							},
+							["Glinting Steel Dagger"] = {
+								["Difficulty"] = 4,
+								["Item"] = "12259:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Glinting Steel Dagger<br>Binds when equipped<br>One-Hand	Dagger<br>19 - 37 Damage	Speed 1.50<br>(18.7 damage per second)<br>Requires Level 31<br>Equip: Increases attack power by 12.",
+								["Icon"] = "INV_Weapon_ShortBlade_05",
+								["Reagents"] = {
+									{
+										["Count"] = 10,
+										["itemID"] = "3859",
+										["Name"] = "Steel Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "1206",
+										["Name"] = "Moss Agate",
+									}, -- [3]
+									{
+										["Count"] = 1,
+										["itemID"] = "7067",
+										["Name"] = "Elemental Earth",
+									}, -- [4]
+									{
+										["Count"] = 1,
+										["itemID"] = "4234",
+										["Name"] = "Heavy Leather",
+									}, -- [5]
+								},
+							},
+						},
+						["Two-Handed Swords"] = {
+							["Bronze Greatsword"] = {
+								["Difficulty"] = 1,
+								["Item"] = "7957:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Greatsword<br>Two-Hand	Sword<br>38 - 58 Damage	Speed 3.00<br>(16.0 damage per second)<br>Requires Level 21",
+								["Icon"] = "INV_Sword_20",
+								["Reagents"] = {
+									{
+										["Count"] = 12,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+							["Heavy Copper Broadsword"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3487:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Heavy Copper Broadsword<br>Binds when equipped<br>Two-Hand	Sword<br>27 - 41 Damage	Speed 2.70<br>(12.6 damage per second)<br>+6 Stamina<br>Requires Level 14",
+								["Icon"] = "INV_Sword_14",
+								["Reagents"] = {
+									{
+										["Count"] = 14,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "818",
+										["Name"] = "Tigerseye",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [4]
+								},
+							},
+							["Copper Claymore"] = {
+								["Difficulty"] = 1,
+								["Item"] = "7955:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Claymore<br>Two-Hand	Sword<br>15 - 23 Damage	Speed 3.00<br>(6.3 damage per second)<br>Requires Level 6",
+								["Icon"] = "INV_Sword_21",
+								["Reagents"] = {
+									{
+										["Count"] = 10,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 1,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [4]
+								},
+							},
+						},
+						["One-Handed Swords"] = {
+							["Jade Serpentblade"] = {
+								["Difficulty"] = 3,
+								["Item"] = "3850:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Jade Serpentblade<br>Binds when equipped<br>One-Hand	Sword<br>33 - 62 Damage	Speed 2.60<br>(18.3 damage per second)<br>+4 Strength<br>+4 Agility<br>Requires Level 30",
+								["Icon"] = "INV_Sword_36",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "1529",
+										["Name"] = "Jade",
+									}, -- [4]
+									{
+										["Count"] = 3,
+										["itemID"] = "4234",
+										["Name"] = "Heavy Leather",
+									}, -- [5]
+								},
+							},
+							["Hardened Iron Shortsword"] = {
+								["Difficulty"] = 2,
+								["Item"] = "3849:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Hardened Iron Shortsword<br>Binds when equipped<br>Main Hand	Sword<br>21 - 39 Damage	Speed 1.80<br>(16.7 damage per second)<br>+5 Stamina<br>Requires Level 27",
+								["Icon"] = "INV_Sword_20",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "1705",
+										["Name"] = "Lesser Moonstone",
+									}, -- [4]
+									{
+										["Count"] = 3,
+										["itemID"] = "4234",
+										["Name"] = "Heavy Leather",
+									}, -- [5]
+								},
+							},
+							["Copper Shortsword"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2847:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Shortsword<br>Main Hand	Sword<br>5 - 11 Damage	Speed 2.10<br>(3.8 damage per second)<br>Requires Level 4",
+								["Icon"] = "INV_Sword_26",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
+									}, -- [3]
+								},
+							},
+							["Bronze Shortsword"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2850:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Shortsword<br>Main Hand	Sword<br>16 - 31 Damage	Speed 2.10<br>(11.2 damage per second)<br>Requires Level 19",
+								["Icon"] = "INV_Sword_04",
+								["Reagents"] = {
+									{
+										["Count"] = 5,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+						},
+						["Reagent"] = {
+							["Iron Buckle"] = {
+								["Difficulty"] = 1,
+								["Item"] = "7071:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Iron Buckle",
+								["Icon"] = "INV_Misc_ArmorKit_12",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+								},
+							},
+						},
+						["Trade Goods"] = {
+							["Coarse Sharpening Stone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2863:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Coarse Sharpening Stone<br>Requires Level 5<br>Use: Increase sharp weapon damage by 3 for 30 minutes.",
+								["Icon"] = "INV_Stone_SharpeningStone_02",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2836",
+										["Name"] = "Coarse Stone",
+									}, -- [1]
+								},
+							},
+							["Iron Shield Spike"] = {
+								["Difficulty"] = 2,
+								["Item"] = "6042:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Iron Shield Spike<br>Requires Blacksmithing (150)<br>Use: Attaches an Iron Spike to your shield that deals damage every time you block with it.",
+								["Icon"] = "INV_Misc_ArmorKit_01",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Heavy Weightstone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3241:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Heavy Weightstone<br>Requires Level 15<br>Use: Increase the damage of a blunt weapon by 4 for 30 minutes.",
+								["Icon"] = "INV_Stone_WeightStone_03",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2838",
+										["Name"] = "Heavy Stone",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2592",
+										["Name"] = "Wool Cloth",
+									}, -- [2]
+								},
+							},
+							["Solid Weightstone"] = {
+								["Difficulty"] = 3,
+								["Item"] = "7965:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Solid Weightstone<br>Requires Level 25<br>Use: Increase the damage of a blunt weapon by 6 for 30 minutes.",
+								["Icon"] = "INV_Stone_WeightStone_04",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "7912",
+										["Name"] = "Solid Stone",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "4306",
+										["Name"] = "Silk Cloth",
+									}, -- [2]
+								},
+							},
+							["Solid Sharpening Stone"] = {
+								["Difficulty"] = 3,
+								["Item"] = "7964:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Solid Sharpening Stone<br>Requires Level 25<br>Use: Increase sharp weapon damage by 6 for 30 minutes.",
+								["Icon"] = "INV_Stone_SharpeningStone_04",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "7912",
+										["Name"] = "Solid Stone",
+									}, -- [1]
+								},
+							},
+							["Heavy Grinding Stone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3486:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Heavy Grinding Stone",
+								["Icon"] = "INV_Stone_GrindingStone_03",
+								["Reagents"] = {
+									{
+										["Count"] = 3,
+										["itemID"] = "2838",
+										["Name"] = "Heavy Stone",
+									}, -- [1]
+								},
+							},
+							["Golden Skeleton Key"] = {
+								["Difficulty"] = 1,
+								["Item"] = "15870:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Golden Skeleton Key<br>Requires Blacksmithing (150)<br>Use: Allows opening of standard locks.  The skeleton key is consumed in the process.",
+								["Icon"] = "INV_Misc_Key_13",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "3577",
+										["Name"] = "Gold Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Silver Skeleton Key"] = {
+								["Difficulty"] = 1,
+								["Item"] = "15869:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Silver Skeleton Key<br>Requires Blacksmithing (100)<br>Use: Allows opening of simple locks.  The skeleton key is consumed in the process.",
+								["Icon"] = "INV_Misc_Key_03",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2842",
+										["Name"] = "Silver Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Golden Rod"] = {
+								["Difficulty"] = 1,
+								["Item"] = "11128:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Golden Rod<br>\"Needed by Enchanters.\"",
+								["Icon"] = "INV_Staff_10",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "3577",
+										["Name"] = "Gold Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Heavy Sharpening Stone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2871:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Heavy Sharpening Stone<br>Requires Level 15<br>Use: Increase sharp weapon damage by 4 for 30 minutes.",
+								["Icon"] = "INV_Stone_SharpeningStone_03",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2838",
+										["Name"] = "Heavy Stone",
+									}, -- [1]
+								},
+							},
+							["Truesilver Skeleton Key"] = {
+								["Difficulty"] = 3,
+								["Item"] = "15871:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Truesilver Skeleton Key<br>Requires Blacksmithing (200)<br>Use: Allows opening of difficult locks.  The skeleton key is consumed in the process.",
+								["Icon"] = "INV_Misc_Key_11",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "6037",
+										["Name"] = "Truesilver Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "7966",
+										["Name"] = "Solid Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Coarse Grinding Stone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3478:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Coarse Grinding Stone",
+								["Icon"] = "INV_Stone_GrindingStone_02",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2836",
+										["Name"] = "Coarse Stone",
+									}, -- [1]
+								},
+							},
+							["Silver Rod"] = {
+								["Difficulty"] = 1,
+								["Item"] = "6338:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Silver Rod<br>\"Needed by Enchanters.\"",
+								["Icon"] = "INV_Staff_01",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2842",
+										["Name"] = "Silver Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Rough Weightstone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3239:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Weightstone<br>Use: Increase the damage of a blunt weapon by 2 for 30 minutes.",
+								["Icon"] = "INV_Stone_WeightStone_01",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2835",
+										["Name"] = "Rough Stone",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
+									}, -- [2]
+								},
+							},
+							["Solid Grinding Stone"] = {
+								["Difficulty"] = 3,
+								["Item"] = "7966:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Solid Grinding Stone",
+								["Icon"] = "INV_Stone_GrindingStone_04",
+								["Reagents"] = {
+									{
+										["Count"] = 4,
+										["itemID"] = "7912",
+										["Name"] = "Solid Stone",
+									}, -- [1]
+								},
+							},
+							["Truesilver Rod"] = {
+								["Difficulty"] = 4,
+								["Item"] = "11144:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Truesilver Rod<br>\"Needed by Enchanters.\"",
+								["Icon"] = "INV_Staff_11",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "6037",
+										["Name"] = "Truesilver Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Rough Grinding Stone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3470:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Grinding Stone",
+								["Icon"] = "INV_Stone_GrindingStone_01",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2835",
+										["Name"] = "Rough Stone",
+									}, -- [1]
+								},
+							},
+							["Rough Sharpening Stone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2862:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Sharpening Stone<br>Use: Increase sharp weapon damage by 2 for 30 minutes.",
+								["Icon"] = "INV_Stone_SharpeningStone_01",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2835",
+										["Name"] = "Rough Stone",
+									}, -- [1]
+								},
+							},
+							["Coarse Weightstone"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3240:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Coarse Weightstone<br>Requires Level 5<br>Use: Increase the damage of a blunt weapon by 3 for 30 minutes.",
+								["Icon"] = "INV_Stone_WeightStone_02",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2836",
+										["Name"] = "Coarse Stone",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2592",
+										["Name"] = "Wool Cloth",
+									}, -- [2]
+								},
+							},
+						},
+						["One-Handed Axes"] = {
+							["Thick War Axe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3489:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Thick War Axe<br>Binds when equipped<br>Main Hand	Axe<br>15 - 28 Damage	Speed 2.50<br>(8.6 damage per second)<br>+1 Strength<br>+1 Stamina<br>Requires Level 12",
+								["Icon"] = "INV_ThrowingAxe_01",
+								["Reagents"] = {
+									{
+										["Count"] = 10,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2842",
+										["Name"] = "Silver Bar",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [4]
+									{
+										["Count"] = 2,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [5]
+								},
+							},
+							["Bronze Axe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2849:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Axe<br>Main Hand	Axe<br>15 - 29 Damage	Speed 2.10<br>(10.5 damage per second)<br>Requires Level 18",
+								["Icon"] = "INV_Axe_17",
+								["Reagents"] = {
+									{
+										["Count"] = 7,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+							["Copper Axe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2845:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Axe<br>Main Hand	Axe<br>5 - 10 Damage	Speed 1.90<br>(3.9 damage per second)<br>Requires Level 4",
+								["Icon"] = "INV_Axe_23",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
+									}, -- [3]
+								},
+							},
+						},
+						["Mail"] = {
+							["Green Iron Bracers"] = {
+								["Difficulty"] = 3,
+								["Item"] = "3835:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Green Iron Bracers<br>Wrist	Mail<br>86 Armor<br>Requires Level 28",
+								["Icon"] = "INV_Bracer_06",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2605",
+										["Name"] = "Green Dye",
+									}, -- [2]
+								},
+							},
+							["Copper Chain Vest"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3471:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Copper Chain Vest<br>Binds when equipped<br>Chest	Mail<br>108 Armor<br>+1 Strength<br>Requires Level 5",
+								["Icon"] = "INV_Chest_Chain",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Runed Copper Gauntlets"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3472:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Runed Copper Gauntlets<br>Hands	Mail<br>73 Armor<br>Requires Level 7",
+								["Icon"] = "INV_Gauntlets_04",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Rough Copper Vest"] = {
+								["Difficulty"] = 1,
+								["Item"] = "10421:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Copper Vest<br>Chest	Mail<br>81 Armor<br>Requires Level 2",
+								["Icon"] = "INV_Chest_Chain",
+								["Reagents"] = {
+									{
+										["Count"] = 4,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+								},
+							},
+							["Rough Bronze Leggings"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2865:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Rough Bronze Leggings<br>Binds when equipped<br>Legs	Mail<br>149 Armor<br>+5 Stamina<br>+4 Spirit<br>Requires Level 16",
+								["Icon"] = "INV_Pants_03",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+								},
+							},
+							["Copper Chain Pants"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2852:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Chain Pants<br>Legs	Mail<br>83 Armor<br>Requires Level 4",
+								["Icon"] = "INV_Pants_03",
+								["Reagents"] = {
+									{
+										["Count"] = 4,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+								},
+							},
+							["Golden Scale Bracers"] = {
+								["Difficulty"] = 4,
+								["Item"] = "6040:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Golden Scale Bracers<br>Wrist	Mail<br>91 Armor<br>Requires Level 32",
+								["Icon"] = "INV_Bracer_10",
+								["Reagents"] = {
+									{
+										["Count"] = 5,
+										["itemID"] = "3859",
+										["Name"] = "Steel Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Runed Copper Pants"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3473:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Runed Copper Pants<br>Binds when equipped<br>Legs	Mail<br>113 Armor<br>+2 Strength<br>+2 Stamina<br>Requires Level 8",
+								["Icon"] = "INV_Pants_03",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2321",
+										["Name"] = "Fine Thread",
+									}, -- [2]
+									{
+										["Count"] = 3,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [3]
+								},
+							},
+							["Barbaric Iron Boots"] = {
+								["Difficulty"] = 4,
+								["Item"] = "7916:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Barbaric Iron Boots<br>Binds when equipped<br>Feet	Mail<br>149 Armor<br>+7 Strength<br>+7 Agility<br>Requires Level 31",
+								["Icon"] = "INV_Boots_Plate_01",
+								["Reagents"] = {
+									{
+										["Count"] = 12,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "5637",
+										["Name"] = "Large Fang",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [3]
+								},
+							},
+							["Copper Chain Boots"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3469:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Chain Boots<br>Feet	Mail<br>65 Armor<br>Requires Level 4",
+								["Icon"] = "INV_Boots_01",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+								},
+							},
+							["Barbaric Iron Breastplate"] = {
+								["Difficulty"] = 2,
+								["Item"] = "7914:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Barbaric Iron Breastplate<br>Chest	Mail<br>204 Armor<br>+12 Strength<br>Requires Level 27",
+								["Icon"] = "INV_Chest_Chain_14",
+								["Reagents"] = {
+									{
+										["Count"] = 20,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Green Iron Hauberk"] = {
+								["Difficulty"] = 4,
+								["Item"] = "3844:0:0:0:0:0:0:0",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Green Iron Hauberk<br>Binds when equipped<br>Chest	Mail<br>358 Armor<br>+7 Strength<br>+11 Stamina<br>Requires Level 31",
+								["Icon"] = "INV_Chest_Chain",
+								["Reagents"] = {
+									{
+										["Count"] = 20,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "1529",
+										["Name"] = "Jade",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "1206",
+										["Name"] = "Moss Agate",
+									}, -- [4]
+									{
+										["Count"] = 1,
+										["itemID"] = "4255",
+										["Name"] = "Green Leather Armor",
+									}, -- [5]
+								},
+							},
+							["Rough Bronze Cuirass"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2866:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Bronze Cuirass<br>Chest	Mail<br>168 Armor<br>Requires Level 18",
+								["Icon"] = "INV_Chest_Chain_08",
+								["Reagents"] = {
+									{
+										["Count"] = 7,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+								},
+							},
+							["Copper Chain Belt"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2851:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Chain Belt<br>Waist	Mail<br>61 Armor<br>Requires Level 6",
+								["Icon"] = "INV_Belt_02",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+								},
+							},
+							["Silvered Bronze Boots"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3482:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Silvered Bronze Boots<br>Binds when equipped<br>Feet	Mail<br>128 Armor<br>+4 Strength<br>+4 Stamina<br>+3 Spirit<br>Requires Level 21",
+								["Icon"] = "INV_Boots_01",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2842",
+										["Name"] = "Silver Bar",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [3]
+								},
+							},
+							["Rough Bronze Boots"] = {
+								["Difficulty"] = 1,
+								["Item"] = "6350:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Bronze Boots<br>Feet	Mail<br>106 Armor<br>Requires Level 13",
+								["Icon"] = "INV_Boots_01",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 6,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Barbaric Iron Shoulders"] = {
+								["Difficulty"] = 2,
+								["Item"] = "7913:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Barbaric Iron Shoulders<br>Binds when equipped<br>Shoulder	Mail<br>153 Armor<br>+6 Strength<br>+6 Agility<br>Requires Level 27",
+								["Icon"] = "INV_Shoulder_23",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "5635",
+										["Name"] = "Sharp Claw",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [3]
+								},
+							},
+							["Copper Bracers"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2853:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Bracers<br>Wrist	Mail<br>35 Armor<br>Requires Level 2",
+								["Icon"] = "INV_Bracer_03",
+								["Reagents"] = {
+									{
+										["Count"] = 2,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+								},
+							},
+							["Runed Copper Bracers"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2854:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Runed Copper Bracers<br>Wrist	Mail<br>68 Armor<br>Requires Level 14",
+								["Icon"] = "INV_Bracer_03",
+								["Reagents"] = {
+									{
+										["Count"] = 10,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 3,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Patterned Bronze Bracers"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2868:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Patterned Bronze Bracers<br>Binds when equipped<br>Wrist	Mail<br>80 Armor<br>+5 Strength<br>Requires Level 20",
+								["Icon"] = "INV_Bracer_07",
+								["Reagents"] = {
+									{
+										["Count"] = 5,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Runed Copper Belt"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2857:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Runed Copper Belt<br>Waist	Mail<br>86 Armor<br>Requires Level 13",
+								["Icon"] = "INV_Belt_03",
+								["Reagents"] = {
+									{
+										["Count"] = 10,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+								},
+							},
+							["Shining Silver Breastplate"] = {
+								["Difficulty"] = 2,
+								["Item"] = "2870:0:0:0:0:0:0:0",
+								["Color"] = "0070dd",
+								["Tooltip"] = "Shining Silver Breastplate<br>Binds when equipped<br>Chest	Mail<br>214 Armor<br>+14 Strength<br>+6 Stamina<br>Requires Level 24",
+								["Icon"] = "INV_Chest_Plate15",
+								["Reagents"] = {
+									{
+										["Count"] = 20,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "1206",
+										["Name"] = "Moss Agate",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "1705",
+										["Name"] = "Lesser Moonstone",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "5500",
+										["Name"] = "Iridescent Pearl",
+									}, -- [4]
+									{
+										["Count"] = 4,
+										["itemID"] = "2842",
+										["Name"] = "Silver Bar",
+									}, -- [5]
+								},
+							},
+							["Green Iron Helm"] = {
+								["Difficulty"] = 3,
+								["Item"] = "3836:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Green Iron Helm<br>Binds when equipped<br>Head	Mail<br>171 Armor<br>+5 Strength<br>+11 Stamina<br>Requires Level 29",
+								["Icon"] = "INV_Helmet_03",
+								["Reagents"] = {
+									{
+										["Count"] = 12,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3864",
+										["Name"] = "Citrine",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2605",
+										["Name"] = "Green Dye",
+									}, -- [3]
+								},
+							},
+							["Silvered Bronze Gauntlets"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3483:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Silvered Bronze Gauntlets<br>Binds when equipped<br>Hands	Mail<br>118 Armor<br>+4 Strength<br>+4 Stamina<br>+3 Spirit<br>Requires Level 22",
+								["Icon"] = "INV_Gauntlets_05",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2842",
+										["Name"] = "Silver Bar",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [3]
+								},
+							},
+							["Rough Bronze Shoulders"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3480:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Rough Bronze Shoulders<br>Shoulder	Mail<br>124 Armor<br>Requires Level 17",
+								["Icon"] = "INV_Shoulder_05",
+								["Reagents"] = {
+									{
+										["Count"] = 5,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Gemmed Copper Gauntlets"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3474:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Gemmed Copper Gauntlets<br>Binds when equipped<br>Hands	Mail<br>90 Armor<br><Random enchantment><br>Requires Level 10",
+								["Icon"] = "INV_Gauntlets_05",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "818",
+										["Name"] = "Tigerseye",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "774",
+										["Name"] = "Malachite",
+									}, -- [3]
+								},
+							},
+							["Green Iron Leggings"] = {
+								["Difficulty"] = 2,
+								["Item"] = "3842:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Green Iron Leggings<br>Binds when equipped<br>Legs	Mail<br>176 Armor<br>+8 Strength<br>+8 Stamina<br>Requires Level 26",
+								["Icon"] = "INV_Pants_05",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2605",
+										["Name"] = "Green Dye",
+									}, -- [3]
+								},
+							},
+							["Steel Breastplate"] = {
+								["Difficulty"] = 4,
+								["Item"] = "7963:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Steel Breastplate<br>Binds when equipped<br>Chest	Mail<br>381 Armor<br>Requires Level 35",
+								["Icon"] = "INV_Chest_Plate05",
+								["Reagents"] = {
+									{
+										["Count"] = 16,
+										["itemID"] = "3859",
+										["Name"] = "Steel Bar",
+									}, -- [1]
+									{
+										["Count"] = 3,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [2]
+								},
+							},
+							["Runed Copper Breastplate"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2864:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Runed Copper Breastplate<br>Binds when equipped<br>Chest	Mail<br>162 Armor<br>+4 Strength<br>+3 Stamina<br>Requires Level 13",
+								["Icon"] = "INV_Chest_Plate03",
+								["Reagents"] = {
+									{
+										["Count"] = 12,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "1210",
+										["Name"] = "Shadowgem",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [3]
+								},
+							},
+						},
+						["Thrown"] = {
+							["Thick Bronze Darts"] = {
+								["Difficulty"] = 1,
+								["Item"] = "29201:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Thick Bronze Darts<br>Binds when equipped<br>Thrown	Thrown<br>19 - 29 Damage	Speed 2.20<br>(10.9 damage per second)<br>+2 Strength<br>Requires Level 15",
+								["Icon"] = "INV_Spear_05",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+							["Whirling Steel Axes"] = {
+								["Difficulty"] = 4,
+								["Item"] = "29202:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Whirling Steel Axes<br>Binds when equipped<br>Thrown	Thrown<br>35 - 66 Damage	Speed 2.20<br>(23.0 damage per second)<br>+4 Strength<br>+3 Stamina<br>Requires Level 35",
+								["Icon"] = "INV_Axe_05",
+								["Reagents"] = {
+									{
+										["Count"] = 5,
+										["itemID"] = "3859",
+										["Name"] = "Steel Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "7069",
+										["Name"] = "Elemental Air",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 1,
+										["itemID"] = "4234",
+										["Name"] = "Heavy Leather",
+									}, -- [4]
+								},
+							},
+						},
+						["One-Handed Maces"] = {
+							["Heavy Bronze Mace"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3491:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Heavy Bronze Mace<br>Binds when equipped<br>Main Hand	Mace<br>25 - 47 Damage	Speed 2.80<br>(12.9 damage per second)<br>+4 Strength<br>Requires Level 20",
+								["Icon"] = "INV_Mace_08",
+								["Reagents"] = {
+									{
+										["Count"] = 8,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "1206",
+										["Name"] = "Moss Agate",
+									}, -- [3]
+									{
+										["Count"] = 1,
+										["itemID"] = "1210",
+										["Name"] = "Shadowgem",
+									}, -- [4]
+									{
+										["Count"] = 2,
+										["itemID"] = "3478",
+										["Name"] = "Coarse Grinding Stone",
+									}, -- [5]
+									{
+										["Count"] = 2,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [6]
+								},
+							},
+							["Copper Mace"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2844:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Copper Mace<br>Main Hand	Mace<br>6 - 11 Damage	Speed 2.20<br>(3.9 damage per second)<br>Requires Level 4",
+								["Icon"] = "INV_Mace_01",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
+									}, -- [3]
+								},
+							},
+							["Bronze Mace"] = {
+								["Difficulty"] = 1,
+								["Item"] = "2848:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Mace<br>Main Hand	Mace<br>18 - 34 Damage	Speed 2.60<br>(10.0 damage per second)<br>Requires Level 17",
+								["Icon"] = "INV_Mace_08",
+								["Reagents"] = {
+									{
+										["Count"] = 6,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 4,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 1,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+						},
+						["Two-Handed Axes"] = {
+							["Copper Battle Axe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "3488:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Copper Battle Axe<br>Binds when equipped<br>Two-Hand	Axe<br>23 - 35 Damage	Speed 3.20<br>(9.1 damage per second)<br>+3 Stamina<br>Requires Level 8",
+								["Icon"] = "INV_ThrowingAxe_02",
+								["Reagents"] = {
+									{
+										["Count"] = 12,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "774",
+										["Name"] = "Malachite",
+									}, -- [3]
+									{
+										["Count"] = 2,
+										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
+									}, -- [4]
+									{
+										["Count"] = 2,
+										["itemID"] = "2318",
+										["Name"] = "Light Leather",
+									}, -- [5]
+								},
+							},
+							["Massive Iron Axe"] = {
+								["Difficulty"] = 4,
+								["Item"] = "3855:0:0:0:0:0:0:0",
+								["Color"] = "1eff00",
+								["Tooltip"] = "Massive Iron Axe<br>Binds when equipped<br>Two-Hand	Axe<br>71 - 108 Damage	Speed 3.50<br>(25.6 damage per second)<br>+11 Strength<br>+7 Stamina<br>Requires Level 32",
+								["Icon"] = "INV_ThrowingAxe_05",
+								["Reagents"] = {
+									{
+										["Count"] = 14,
+										["itemID"] = "3575",
+										["Name"] = "Iron Bar",
+									}, -- [1]
+									{
+										["Count"] = 2,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "3486",
+										["Name"] = "Heavy Grinding Stone",
+									}, -- [3]
+									{
+										["Count"] = 4,
+										["itemID"] = "3577",
+										["Name"] = "Gold Bar",
+									}, -- [4]
+									{
+										["Count"] = 2,
+										["itemID"] = "4234",
+										["Name"] = "Heavy Leather",
+									}, -- [5]
+								},
+							},
+							["Bronze Battle Axe"] = {
+								["Difficulty"] = 1,
+								["Item"] = "7958:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Battle Axe<br>Two-Hand	Axe<br>39 - 59 Damage	Speed 2.90<br>(16.9 damage per second)<br>Requires Level 22",
+								["Icon"] = "INV_Axe_21",
+								["Reagents"] = {
+									{
+										["Count"] = 14,
+										["itemID"] = "2841",
+										["Name"] = "Bronze Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3466",
+										["Name"] = "Strong Flux",
+									}, -- [2]
+									{
+										["Count"] = 2,
+										["itemID"] = "2319",
+										["Name"] = "Medium Leather",
+									}, -- [3]
+								},
+							},
+						},
+					},
+				},
+				["Server"] = "Aggramar",
 				["IsResting"] = true,
+				["Name"] = "Azyplagat",
+				["TalentPoints"] = 0,
 				["DBversion"] = "2.0.0",
-				["TalentPoints"] = 33,
+				["Money"] = {
+					["Copper"] = 35,
+					["Silver"] = 44,
+					["Gold"] = 20,
+				},
 				["Honor"] = {
 					["Yesterday"] = {
-						["HK"] = 0,
 						["CP"] = 0,
+						["HK"] = 0,
 					},
 					["Current"] = {
 						["Name"] = "None",
@@ -11576,32 +13795,26 @@ myProfile = {
 						["Rank"] = 0,
 					},
 					["Session"] = {
-						["HK"] = 0,
 						["CP"] = 0,
+						["HK"] = 0,
 					},
 					["Lifetime"] = {
-						["Rank"] = 1,
-						["Name"] = "Scout",
 						["HK"] = 138,
+						["Name"] = "Scout",
+						["Rank"] = 1,
 					},
 				},
-				["Money"] = {
-					["Silver"] = 22,
-					["Copper"] = 82,
-					["Gold"] = 9,
-				},
-				["Name"] = "Azyplagat",
 				["Hearth"] = "Booty Bay",
-				["Experience"] = "43993:101000:151500",
+				["Experience"] = "76459:101000:125422",
 				["Race"] = "Orc",
 				["Class"] = "Warrior",
-				["SubZone"] = "The Drag",
+				["SubZone"] = "The Salty Sailor Tavern",
 				["Sex"] = "Female",
 				["SpellBook"] = {
 					["Arms"] = {
 						["Spells"] = {
 							["Charge"] = {
-								["Tooltip"] = "Charge<br>8-25 yd range<br>Instant	15 sec cooldown<br>Requires Battle Stance<br>Charge an enemy, generate 12 rage, and stun it for 1 sec.  Cannot be used in combat.",
+								["Tooltip"] = "Charge<br>8-25 yd range<br>Instant	15 sec cooldown<br>Requires Battle Stance<br>Charge an enemy, generate 18 rage, and stun it for 1 sec.  Cannot be used in combat.",
 								["Icon"] = "Ability_Warrior_Charge",
 								["Rank"] = "Rank 2",
 							},
@@ -11611,43 +13824,53 @@ myProfile = {
 								["Rank"] = "Rank 2",
 							},
 							["Rend"] = {
-								["Tooltip"] = "Rend<br>10 Rage	5 yd range<br>Instant<br>Requires Melee Weapon<br>Requires Battle Stance, Defensive Stance<br>Wounds the target causing them to bleed for 98 damage plus an additional 7 (based on weapon damage) over 21 sec.",
+								["Tooltip"] = "Rend<br>10 Rage	5 yd range<br>Instant<br>Requires Melee Weapon<br>Requires Battle Stance, Defensive Stance<br>Wounds the target causing them to bleed for 168 to 175 damage plus an additional 7 (based on weapon damage) over 21 sec.",
 								["Icon"] = "Ability_Gouge",
 								["Rank"] = "Rank 5",
 							},
+							["Mortal Strike"] = {
+								["Tooltip"] = "Mortal Strike<br>30 Rage	5 yd range<br>Instant	6 sec cooldown<br>Requires Melee Weapon<br>A vicious strike that deals weapon damage plus 85 and wounds the target, reducing the effectiveness of any healing by 50% for 10 sec.",
+								["Icon"] = "Ability_Warrior_SavageBlow",
+								["Rank"] = "Rank 1",
+							},
 							["Thunder Clap"] = {
-								["Tooltip"] = "Thunder Clap<br>20 Rage<br>Instant	4 sec cooldown<br>Requires Battle Stance<br>Blasts nearby enemies with thunder increasing the time between their attacks by 10% for 22 sec and doing 55 damage to them.  Will affect up to 4 targets.",
+								["Tooltip"] = "Thunder Clap<br>20 Rage<br>Instant	4 sec cooldown<br>Requires Battle Stance, Defensive Stance<br>Blasts nearby enemies increasing the time between their attacks by 10% for 22 sec and doing 55 damage to them.  This ability causes additonal threat and will affect up to 4 targets.",
 								["Icon"] = "Spell_Nature_ThunderClap",
 								["Rank"] = "Rank 4",
-							},
-							["Retaliation"] = {
-								["Tooltip"] = "Retaliation<br>Instant	30 min cooldown<br>Requires Battle Stance<br>Instantly counterattack any enemy that strikes you in melee for 15 sec.  Melee attacks made from behind cannot be counterattacked.  A maximum of 30 attacks will cause retaliation.",
-								["Icon"] = "Ability_Warrior_Challange",
-								["Rank"] = "",
-							},
-							["Heroic Strike"] = {
-								["Tooltip"] = "Heroic Strike<br>15 Rage<br>Next melee<br>Requires Melee Weapon<br>A strong attack that increases melee damage by 80 and causes a high amount of threat.",
-								["Icon"] = "Ability_Rogue_Ambush",
-								["Rank"] = "Rank 6",
-							},
-							["Overpower"] = {
-								["Tooltip"] = "Overpower<br>5 Rage	5 yd range<br>Instant	5 sec cooldown<br>Requires Melee Weapon<br>Requires Battle Stance<br>Instantly overpower the enemy, causing weapon damage plus 15.  Only useable after the target dodges.  The Overpower cannot be blocked, dodged or parried.",
-								["Icon"] = "Ability_MeleeDamage",
-								["Rank"] = "Rank 2",
-							},
-							["Battle Stance"] = {
-								["Tooltip"] = "Battle Stance<br>Instant	1 sec cooldown<br>A balanced combat stance.",
-								["Icon"] = "Ability_Warrior_OffensiveStance",
-								["Rank"] = "",
 							},
 							["Mocking Blow"] = {
 								["Tooltip"] = "Mocking Blow<br>10 Rage	5 yd range<br>Instant	2 min cooldown<br>Requires Melee Weapon<br>Requires Battle Stance<br>A mocking attack that causes 46 damage, a moderate amount of threat and forces the target to focus attacks on you for 6 sec.",
 								["Icon"] = "Ability_Warrior_PunishingBlow",
 								["Rank"] = "Rank 3",
 							},
+							["Retaliation"] = {
+								["Tooltip"] = "Retaliation<br>Instant	30 min cooldown<br>Requires Battle Stance<br>Instantly counterattack any enemy that strikes you in melee for 15 sec.  Melee attacks made from behind cannot be counterattacked.  A maximum of 30 attacks will cause retaliation.",
+								["Icon"] = "Ability_Warrior_Challange",
+								["Rank"] = "",
+							},
+							["Battle Stance"] = {
+								["Tooltip"] = "Battle Stance<br>Instant	1 sec cooldown<br>A balanced combat stance.",
+								["Icon"] = "Ability_Warrior_OffensiveStance",
+								["Rank"] = "",
+							},
+							["Overpower"] = {
+								["Tooltip"] = "Overpower<br>5 Rage	5 yd range<br>Instant	5 sec cooldown<br>Requires Melee Weapon<br>Requires Battle Stance<br>Instantly overpower the enemy, causing weapon damage plus 15.  Only useable after the target dodges.  The Overpower cannot be blocked, dodged or parried.",
+								["Icon"] = "Ability_MeleeDamage",
+								["Rank"] = "Rank 2",
+							},
+							["Sweeping Strikes"] = {
+								["Tooltip"] = "Sweeping Strikes<br>30 Rage<br>Instant	30 sec cooldown<br>Requires Battle Stance<br>Your next 5 melee attacks strike an additional nearby opponent.",
+								["Icon"] = "Ability_Rogue_SliceDice",
+								["Rank"] = "",
+							},
+							["Heroic Strike"] = {
+								["Tooltip"] = "Heroic Strike<br>13 Rage<br>Next melee<br>Requires Melee Weapon<br>A strong attack that increases melee damage by 80 and causes a high amount of threat.",
+								["Icon"] = "Ability_Rogue_Ambush",
+								["Rank"] = "Rank 6",
+							},
 						},
 						["Icon"] = "Ability_Rogue_Eviscerate",
-						["Count"] = 9,
+						["Count"] = 11,
 					},
 					["Fury"] = {
 						["Spells"] = {
@@ -11691,10 +13914,10 @@ myProfile = {
 								["Icon"] = "INV_Gauntlets_04",
 								["Rank"] = "Rank 1",
 							},
-							["Demoralizing Shout"] = {
-								["Tooltip"] = "Demoralizing Shout<br>10 Rage<br>Instant<br>Reduces the melee attack power of all enemies within 10 yards by 78 for 30 sec.",
-								["Icon"] = "Ability_Warrior_WarCry",
-								["Rank"] = "Rank 3",
+							["Slam"] = {
+								["Tooltip"] = "Slam<br>15 Rage	5 yd range<br>1.5 sec cast<br>Requires Melee Weapon<br>Slams the opponent, causing weapon damage plus 43.",
+								["Icon"] = "Ability_Warrior_DecisiveStrike",
+								["Rank"] = "Rank 2",
 							},
 							["Berserker Stance"] = {
 								["Tooltip"] = "Berserker Stance<br>Instant	1 sec cooldown<br>An aggressive stance.  Critical hit chance is increased by 3% and all damage taken is increased by 10%.",
@@ -11706,10 +13929,10 @@ myProfile = {
 								["Icon"] = "Ability_BullRush",
 								["Rank"] = "",
 							},
-							["Slam"] = {
-								["Tooltip"] = "Slam<br>15 Rage	5 yd range<br>1.5 sec cast<br>Requires Melee Weapon<br>Slams the opponent, causing weapon damage plus 43.",
-								["Icon"] = "Ability_Warrior_DecisiveStrike",
-								["Rank"] = "Rank 2",
+							["Demoralizing Shout"] = {
+								["Tooltip"] = "Demoralizing Shout<br>10 Rage<br>Instant<br>Reduces the melee attack power of all enemies within 10 yards by 78 for 30 sec.",
+								["Icon"] = "Ability_Warrior_WarCry",
+								["Rank"] = "Rank 3",
 							},
 						},
 						["Icon"] = "Ability_Warrior_InnerRage",
@@ -11787,18 +14010,18 @@ myProfile = {
 								["Icon"] = "Trade_BlackSmithing",
 								["Rank"] = "Artisan",
 							},
-							["Dual Wield"] = {
-								["Tooltip"] = "Dual Wield<br>Allows one-hand and off-hand weapons to be equipped in the off-hand.",
-								["Icon"] = "Ability_DualWield",
-								["Rank"] = "Passive",
-							},
 							["Shoot"] = {
 								["Tooltip"] = "Shoot<br>8-30 yd range<br>1.5 sec cast	2.6 sec cooldown<br>Requires Ranged Weapon",
 								["Icon"] = "Ability_Marksmanship",
 								["Rank"] = "",
 							},
+							["Dual Wield"] = {
+								["Tooltip"] = "Dual Wield<br>Allows one-hand and off-hand weapons to be equipped in the off-hand.",
+								["Icon"] = "Ability_DualWield",
+								["Rank"] = "Passive",
+							},
 							["Attack"] = {
-								["Tooltip"] = "Attack<br>6.22% chance to crit",
+								["Tooltip"] = "Attack<br>7.36% chance to crit",
 								["Icon"] = "INV_Axe_03",
 								["Rank"] = "",
 							},
@@ -11813,15 +14036,15 @@ myProfile = {
 								["Icon"] = "Spell_Nature_Reincarnation",
 								["Rank"] = "",
 							},
-							["Revenge"] = {
-								["Tooltip"] = "Revenge<br>5 Rage	5 yd range<br>Instant	5 sec cooldown<br>Requires Melee Weapon<br>Requires Defensive Stance<br>Instantly counterattack an enemy for 25 to 31 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
-								["Icon"] = "Ability_Warrior_Revenge",
-								["Rank"] = "Rank 3",
-							},
 							["Shield Block"] = {
 								["Tooltip"] = "Shield Block<br>10 Rage<br>Instant	5 sec cooldown<br>Requires Shields<br>Requires Defensive Stance<br>Increases chance to block by 75% for 5 sec, but will only block 1 attack.",
 								["Icon"] = "Ability_Defend",
 								["Rank"] = "",
+							},
+							["Revenge"] = {
+								["Tooltip"] = "Revenge<br>5 Rage	5 yd range<br>Instant	5 sec cooldown<br>Requires Melee Weapon<br>Requires Defensive Stance<br>Instantly counterattack an enemy for 25 to 31 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+								["Icon"] = "Ability_Warrior_Revenge",
+								["Rank"] = "Rank 3",
 							},
 							["Shield Bash"] = {
 								["Tooltip"] = "Shield Bash<br>10 Rage	5 yd range<br>Instant	12 sec cooldown<br>Requires Shields<br>Requires Battle Stance, Defensive Stance<br>Bashes the target with your shield for 18 damage.  It also interrupts spellcasting and prevents any spell in that school from being cast for 6 sec.",
@@ -11855,8 +14078,8 @@ myProfile = {
 				},
 				["MailBox"] = {
 				},
-				["Server"] = "Aggramar",
-				["Zone"] = "Orgrimmar",
+				["TimeLevelPlayed"] = 19932,
+				["Zone"] = "Stranglethorn Vale",
 			},
 			["Pleegwat"] = {
 				["Mana"] = 3480,
@@ -11940,13 +14163,13 @@ myProfile = {
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
-						["Gadgetzan"] = {
-							["Value"] = "3095:6000",
+						["Ratchet"] = {
+							["Value"] = "2121:6000",
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
-						["Ratchet"] = {
-							["Value"] = "2121:6000",
+						["Gadgetzan"] = {
+							["Value"] = "3095:6000",
 							["AtWar"] = 0,
 							["Standing"] = "Friendly",
 						},
@@ -12338,18 +14561,26 @@ myProfile = {
 							["Tag"] = "Dungeon",
 						},
 					},
-					["Blackrock Spire"] = {
-						[5] = {
-							["Title"] = "Egg Collection",
-							["RewardMoney"] = 27000,
-							["Level"] = 60,
+					["Stratholme"] = {
+						[10] = {
+							["Title"] = "Dead Man's Plea",
 							["Tasks"] = {
 								{
-									["Note"] = "Collected Dragon Egg: 0/8",
-									["Type"] = "item",
+									["Note"] = "Ysida Freed: 0/1",
+									["Type"] = "monster",
 								}, -- [1]
 							},
-							["Tag"] = "Raid",
+							["Rewards"] = {
+								{
+									["Item"] = "22137:0:0:0:0:0:0:0",
+									["Color"] = "ffffff",
+									["Tooltip"] = "Ysida's Satchel<br>Binds when picked up",
+									["Icon"] = "INV_Misc_Bag_20",
+									["Name"] = "Ysida's Satchel",
+								}, -- [1]
+							},
+							["Level"] = 60,
+							["Tag"] = "Dungeon",
 						},
 					},
 					["Blackrock Depths"] = {
@@ -12467,26 +14698,18 @@ myProfile = {
 							["Tag"] = "Dungeon",
 						}, -- [4]
 					},
-					["Stratholme"] = {
-						[10] = {
-							["Title"] = "Dead Man's Plea",
+					["Blackrock Spire"] = {
+						[5] = {
+							["Title"] = "Egg Collection",
+							["RewardMoney"] = 27000,
+							["Level"] = 60,
 							["Tasks"] = {
 								{
-									["Note"] = "Ysida Freed: 0/1",
-									["Type"] = "monster",
+									["Note"] = "Collected Dragon Egg: 0/8",
+									["Type"] = "item",
 								}, -- [1]
 							},
-							["Rewards"] = {
-								{
-									["Item"] = "22137:0:0:0:0:0:0:0",
-									["Color"] = "ffffff",
-									["Tooltip"] = "Ysida's Satchel<br>Binds when picked up",
-									["Icon"] = "INV_Misc_Bag_20",
-									["Name"] = "Ysida's Satchel",
-								}, -- [1]
-							},
-							["Level"] = 60,
-							["Tag"] = "Dungeon",
+							["Tag"] = "Raid",
 						},
 					},
 					["Scholomance"] = {
@@ -12531,16 +14754,11 @@ myProfile = {
 						},
 						["Name"] = "Keyring",
 						["Tooltip"] = "Keyring<br>4 Slot Keyring",
-						["Slots"] = 4,
 						["Icon"] = "UI-Button-KeyRing",
+						["Slots"] = 4,
 					},
 					["Bag4"] = {
-						["Name"] = "Quickdraw Quiver",
 						["Item"] = "8217:0:0:0:0:0:0:440380416",
-						["Icon"] = "INV_Misc_Quiver_07",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Quickdraw Quiver<br>16 Slot Quiver<br>Requires Level 40<br>Equip: Increases ranged attack speed by 13%.<br>|cff00ff00<Made by Pleegwat>|r",
-						["Slots"] = 16,
 						["Contents"] = {
 							nil, -- [1]
 							nil, -- [2]
@@ -12650,6 +14868,11 @@ myProfile = {
 								["Item"] = "11285:0:0:0:0:0:0:0",
 							}, -- [16]
 						},
+						["Icon"] = "INV_Misc_Quiver_07",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Quickdraw Quiver<br>16 Slot Quiver<br>Requires Level 40<br>Equip: Increases ranged attack speed by 13%.<br>|cff00ff00<Made by Pleegwat>|r",
+						["Slots"] = 16,
+						["Name"] = "Quickdraw Quiver",
 					},
 					["Bag0"] = {
 						["Contents"] = {
@@ -12739,9 +14962,9 @@ myProfile = {
 							}, -- [12]
 							{
 								["Color"] = "ffffff",
-								["Icon"] = "INV_Misc_Food_14",
 								["Name"] = "Lean Wolf Flank",
 								["Item"] = "1015:0:0:0:0:0:0:705747855",
+								["Icon"] = "INV_Misc_Food_14",
 							}, -- [13]
 							{
 								["Item"] = "19881:0:0:0:0:0:0:0",
@@ -12769,16 +14992,11 @@ myProfile = {
 						},
 						["Name"] = "Backpack",
 						["Tooltip"] = "Backpack<br>16 Slot Bag",
-						["Slots"] = 16,
 						["Icon"] = "Button-Backpack-Up",
+						["Slots"] = 16,
 					},
 					["Bag1"] = {
-						["Name"] = "Traveler's Backpack",
 						["Item"] = "4500:0:0:0:0:0:0:0",
-						["Icon"] = "INV_Misc_Bag_08",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Traveler's Backpack<br>16 Slot Bag",
-						["Slots"] = 16,
 						["Contents"] = {
 							{
 								["Item"] = "6532:0:0:0:0:0:0:0",
@@ -12864,14 +15082,14 @@ myProfile = {
 								["Item"] = "15408:0:0:0:0:0:0:0",
 							}, -- [16]
 						},
-					},
-					["Bag2"] = {
-						["Name"] = "Traveler's Backpack",
-						["Item"] = "4500:0:0:0:0:0:0:0",
 						["Icon"] = "INV_Misc_Bag_08",
 						["Color"] = "1eff00",
 						["Tooltip"] = "Traveler's Backpack<br>16 Slot Bag",
 						["Slots"] = 16,
+						["Name"] = "Traveler's Backpack",
+					},
+					["Bag2"] = {
+						["Item"] = "4500:0:0:0:0:0:0:0",
 						["Contents"] = {
 							{
 								["Quantity"] = 4,
@@ -12924,14 +15142,14 @@ myProfile = {
 								["Item"] = "8171:0:0:0:0:0:0:0",
 							},
 						},
-					},
-					["Bag3"] = {
-						["Name"] = "Traveler's Backpack",
-						["Item"] = "4500:0:0:0:0:0:0:0",
 						["Icon"] = "INV_Misc_Bag_08",
 						["Color"] = "1eff00",
 						["Tooltip"] = "Traveler's Backpack<br>16 Slot Bag",
 						["Slots"] = 16,
+						["Name"] = "Traveler's Backpack",
+					},
+					["Bag3"] = {
+						["Item"] = "4500:0:0:0:0:0:0:0",
 						["Contents"] = {
 							nil, -- [1]
 							{
@@ -13020,6 +15238,11 @@ myProfile = {
 								["Item"] = "8169:0:0:0:0:0:0:0",
 							}, -- [16]
 						},
+						["Icon"] = "INV_Misc_Bag_08",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Traveler's Backpack<br>16 Slot Bag",
+						["Slots"] = 16,
+						["Name"] = "Traveler's Backpack",
 					},
 				},
 				["Talents"] = {
@@ -13205,17 +15428,17 @@ myProfile = {
 							["Icon"] = "Ability_Druid_DemoralizingRoar",
 							["Rank"] = "0:2",
 						},
-						["Improved Aspect of the Hawk"] = {
-							["Location"] = "1:2",
-							["Tooltip"] = "Improved Aspect of the Hawk<br>Rank 0/5<br>While Aspect of the Hawk is active, all normal ranged attacks have a 10% chance of increasing ranged attack speed by 3% for 12 sec.",
-							["Icon"] = "Spell_Nature_RavenForm",
-							["Rank"] = "0:5",
-						},
 						["Serpent's Swiftness"] = {
 							["Location"] = "8:3",
 							["Tooltip"] = "Serpent's Swiftness<br>Rank 0/5<br>Requires 35 points in Beast Mastery Talents<br>Increases ranged combat attack speed by 4% and your pet's melee attack speed by 4%.",
 							["Icon"] = "Ability_Hunter_SerpentSwiftness",
 							["Rank"] = "0:5",
+						},
+						["Improved Revive Pet"] = {
+							["Location"] = "2:4",
+							["Tooltip"] = "Improved Revive Pet<br>Rank 0/2<br>Requires 5 points in Beast Mastery Talents<br>Revive Pet's casting time is reduced by 3 sec, mana cost is reduced by 20%, and increases the health your pet returns with by an additional 15%.",
+							["Icon"] = "Ability_Hunter_BeastSoothe",
+							["Rank"] = "0:2",
 						},
 						["Frenzy"] = {
 							["Location"] = "6:3",
@@ -13223,13 +15446,13 @@ myProfile = {
 							["Icon"] = "INV_Misc_MonsterClaw_03",
 							["Rank"] = "0:5",
 						},
-						["Bestial Swiftness"] = {
-							["Location"] = "3:2",
-							["Tooltip"] = "Bestial Swiftness<br>Rank 0/1<br>Requires 10 points in Beast Mastery Talents<br>Increases the outdoor movement speed of your pets by 30%.",
-							["Icon"] = "Ability_Druid_Dash",
-							["Rank"] = "0:1",
-						},
 						["PointsSpent"] = 0,
+						["Animal Handler"] = {
+							["Location"] = "6:1",
+							["Tooltip"] = "Animal Handler<br>Rank 0/2<br>Requires 25 points in Beast Mastery Talents<br>Increases your speed while mounted by 4% and your pet's chance to hit by 2%.  The mounted movement speed increase does not stack with other effects.",
+							["Icon"] = "Ability_Hunter_AnimalHandler",
+							["Rank"] = "0:2",
+						},
 						["Bestial Discipline"] = {
 							["Location"] = "5:4",
 							["Tooltip"] = "Bestial Discipline<br>Rank 0/2<br>Requires 20 points in Beast Mastery Talents<br>Increases the Focus regeneration of your pets by 50%.",
@@ -13254,11 +15477,11 @@ myProfile = {
 							["Icon"] = "Ability_Devour",
 							["Rank"] = "0:1",
 						},
-						["Animal Handler"] = {
-							["Location"] = "6:1",
-							["Tooltip"] = "Animal Handler<br>Rank 0/2<br>Requires 25 points in Beast Mastery Talents<br>Increases your speed while mounted by 4% and your pet's chance to hit by 2%.  The mounted movement speed increase does not stack with other effects.",
-							["Icon"] = "Ability_Hunter_AnimalHandler",
-							["Rank"] = "0:2",
+						["Bestial Swiftness"] = {
+							["Location"] = "3:2",
+							["Tooltip"] = "Bestial Swiftness<br>Rank 0/1<br>Requires 10 points in Beast Mastery Talents<br>Increases the outdoor movement speed of your pets by 30%.",
+							["Icon"] = "Ability_Druid_Dash",
+							["Rank"] = "0:1",
 						},
 						["Bestial Wrath"] = {
 							["Location"] = "7:2",
@@ -13266,11 +15489,11 @@ myProfile = {
 							["Icon"] = "Ability_Druid_FerociousBite",
 							["Rank"] = "0:1",
 						},
-						["Improved Revive Pet"] = {
-							["Location"] = "2:4",
-							["Tooltip"] = "Improved Revive Pet<br>Rank 0/2<br>Requires 5 points in Beast Mastery Talents<br>Revive Pet's casting time is reduced by 3 sec, mana cost is reduced by 20%, and increases the health your pet returns with by an additional 15%.",
-							["Icon"] = "Ability_Hunter_BeastSoothe",
-							["Rank"] = "0:2",
+						["Improved Aspect of the Hawk"] = {
+							["Location"] = "1:2",
+							["Tooltip"] = "Improved Aspect of the Hawk<br>Rank 0/5<br>While Aspect of the Hawk is active, all normal ranged attacks have a 10% chance of increasing ranged attack speed by 3% for 12 sec.",
+							["Icon"] = "Spell_Nature_RavenForm",
+							["Rank"] = "0:5",
 						},
 						["Improved Aspect of the Monkey"] = {
 							["Location"] = "2:2",
@@ -13330,11 +15553,11 @@ myProfile = {
 							["Icon"] = "Ability_Ensnare",
 							["Rank"] = "0:2",
 						},
-						["Savage Strikes"] = {
-							["Location"] = "1:4",
-							["Tooltip"] = "Savage Strikes<br>Rank 0/2<br>Increases the critical strike chance of Raptor Strike and Mongoose Bite by 10%.",
-							["Icon"] = "Ability_Racial_BloodRage",
-							["Rank"] = "0:2",
+						["Wyvern Sting"] = {
+							["Location"] = "7:2",
+							["Tooltip"] = "Wyvern Sting<br>Rank 0/1<br>Requires 3 points in Killer Instinct<br>Requires 30 points in Survival Talents<br>115 Mana	8-35 yd range<br>1.5 sec cast	2 min cooldown<br>Requires Ranged Weapon<br>A stinging shot that puts the target to sleep for 12 sec.  Any damage will cancel the effect.  When the target wakes up, the Sting causes 390 Nature damage over 12 sec.  Only one Sting per Hunter can be active on the target at a time.",
+							["Icon"] = "INV_Spear_02",
+							["Rank"] = "0:1",
 						},
 						["Survivalist"] = {
 							["Location"] = "3:2",
@@ -13354,11 +15577,11 @@ myProfile = {
 							["Icon"] = "Ability_Rogue_FindWeakness",
 							["Rank"] = "0:3",
 						},
-						["Wyvern Sting"] = {
-							["Location"] = "7:2",
-							["Tooltip"] = "Wyvern Sting<br>Rank 0/1<br>Requires 3 points in Killer Instinct<br>Requires 30 points in Survival Talents<br>115 Mana	8-35 yd range<br>1.5 sec cast	2 min cooldown<br>Requires Ranged Weapon<br>A stinging shot that puts the target to sleep for 12 sec.  Any damage will cancel the effect.  When the target wakes up, the Sting causes 390 Nature damage over 12 sec.  Only one Sting per Hunter can be active on the target at a time.",
-							["Icon"] = "INV_Spear_02",
-							["Rank"] = "0:1",
+						["Savage Strikes"] = {
+							["Location"] = "1:4",
+							["Tooltip"] = "Savage Strikes<br>Rank 0/2<br>Increases the critical strike chance of Raptor Strike and Mongoose Bite by 10%.",
+							["Icon"] = "Ability_Racial_BloodRage",
+							["Rank"] = "0:2",
 						},
 						["Clever Traps"] = {
 							["Location"] = "3:1",
@@ -13635,12 +15858,12 @@ myProfile = {
 						["AttackDPS"] = "136.9",
 						["HasWandEquipped"] = false,
 						["AttackPowerTooltip"] = "Increases damage with ranged weapons by 31.2 damage per second.",
-						["AttackRating"] = "300:0:0",
-						["HasteRating"] = "0:0:0",
 						["AttackPowerDPS"] = "31.2",
+						["HitRating"] = "0:0:0",
+						["AttackRating"] = "300:0:0",
 						["DamageRangeTooltip"] = "Ranged<br>Attack Speed (seconds):	1.95<br>Damage:	239 - 294<br>Damage per Second:	136.9",
 						["AttackSkill"] = 300,
-						["HitRating"] = "0:0:0",
+						["HasteRating"] = "0:0:0",
 						["DamageRange"] = "239:294",
 					},
 					["Stats"] = {
@@ -13737,12 +15960,12 @@ myProfile = {
 						["BonusDamage"] = 0,
 					},
 				},
-				["TimeLevelPlayed"] = 705864,
+				["Server"] = "Aggramar",
 				["TimePlayed"] = 1795859,
 				["Level"] = 60,
 				["MailBox"] = {
 				},
-				["Server"] = "Aggramar",
+				["TimeLevelPlayed"] = 705864,
 				["Zone"] = "Darnassus",
 				["DBversion"] = "2.0.0",
 				["TalentPoints"] = 0,
@@ -13789,10 +16012,10 @@ myProfile = {
 								["Icon"] = "Spell_Arcane_Blink",
 								["Rank"] = "Rank 6",
 							},
-							["Auto Shot"] = {
-								["Tooltip"] = "Auto Shot<br>8-35 yd range<br>0.5 sec cast	1.95 sec cooldown<br>Requires Ranged Weapon<br>Automatically shoots the target until cancelled.",
-								["Icon"] = "INV_Weapon_Bow_08",
-								["Rank"] = "",
+							["Volley"] = {
+								["Tooltip"] = "Volley<br>490 Mana	35 yd range<br>Channeled	1 min cooldown<br>Requires Ranged Weapon<br>Continuously fires a volley of ammo at the target area, causing 80 Arcane damage to enemy targets within 8 yards every second for 6 sec.",
+								["Icon"] = "Ability_Marksmanship",
+								["Rank"] = "Rank 3",
 							},
 							["Flare"] = {
 								["Tooltip"] = "Flare<br>50 Mana	30 yd range<br>Instant cast	15 sec cooldown<br>Exposes all hidden and invisible enemies within 10 yards of the targeted area for 30 sec.",
@@ -13804,15 +16027,15 @@ myProfile = {
 								["Icon"] = "Ability_Hunter_RunningShot",
 								["Rank"] = "",
 							},
-							["Volley"] = {
-								["Tooltip"] = "Volley<br>490 Mana	35 yd range<br>Channeled	1 min cooldown<br>Requires Ranged Weapon<br>Continuously fires a volley of ammo at the target area, causing 80 Arcane damage to enemy targets within 8 yards every second for 6 sec.",
-								["Icon"] = "Ability_Marksmanship",
-								["Rank"] = "Rank 3",
+							["Auto Shot"] = {
+								["Tooltip"] = "Auto Shot<br>8-35 yd range<br>0.5 sec cast	1.95 sec cooldown<br>Requires Ranged Weapon<br>Automatically shoots the target until cancelled.",
+								["Icon"] = "INV_Weapon_Bow_08",
+								["Rank"] = "",
 							},
-							["Serpent Sting"] = {
-								["Tooltip"] = "Serpent Sting<br>250 Mana	8-35 yd range<br>Instant cast<br>Requires Ranged Weapon<br>Stings the target, causing 555 Nature damage over 15 sec.  Only one Sting per Hunter can be active on any one target.",
-								["Icon"] = "Ability_Hunter_Quickshot",
-								["Rank"] = "Rank 9",
+							["Scatter Shot"] = {
+								["Tooltip"] = "Scatter Shot<br>103 Mana	15 yd range<br>Instant cast	30 sec cooldown<br>Requires Ranged Weapon<br>A short-range shot that deals 50% weapon damage and disorients the target for 4 sec.  Any damage caused will remove the effect.  Turns off your attack when used.",
+								["Icon"] = "Ability_GolemStormBolt",
+								["Rank"] = "",
 							},
 							["Trueshot Aura"] = {
 								["Tooltip"] = "Trueshot Aura<br>525 Mana<br>Instant cast<br>Increases the attack power of party members within 45 yards by 100.  Lasts 30 min.",
@@ -13824,9 +16047,9 @@ myProfile = {
 								["Icon"] = "Ability_ImpalingBolt",
 								["Rank"] = "Rank 8",
 							},
-							["Scatter Shot"] = {
-								["Tooltip"] = "Scatter Shot<br>103 Mana	15 yd range<br>Instant cast	30 sec cooldown<br>Requires Ranged Weapon<br>A short-range shot that deals 50% weapon damage and disorients the target for 4 sec.  Any damage caused will remove the effect.  Turns off your attack when used.",
-								["Icon"] = "Ability_GolemStormBolt",
+							["Silencing Shot"] = {
+								["Tooltip"] = "Silencing Shot<br>103 Mana	8-35 yd range<br>Instant cast	20 sec cooldown<br>Requires Ranged Weapon<br>A shot that deals 50% weapon damage and Silences the target for 3 sec.",
+								["Icon"] = "Ability_TheBlackArrow",
 								["Rank"] = "",
 							},
 							["Viper Sting"] = {
@@ -13859,10 +16082,10 @@ myProfile = {
 								["Icon"] = "Ability_UpgradeMoonGlaive",
 								["Rank"] = "Rank 5",
 							},
-							["Silencing Shot"] = {
-								["Tooltip"] = "Silencing Shot<br>103 Mana	8-35 yd range<br>Instant cast	20 sec cooldown<br>Requires Ranged Weapon<br>A shot that deals 50% weapon damage and Silences the target for 3 sec.",
-								["Icon"] = "Ability_TheBlackArrow",
-								["Rank"] = "",
+							["Serpent Sting"] = {
+								["Tooltip"] = "Serpent Sting<br>250 Mana	8-35 yd range<br>Instant cast<br>Requires Ranged Weapon<br>Stings the target, causing 555 Nature damage over 15 sec.  Only one Sting per Hunter can be active on any one target.",
+								["Icon"] = "Ability_Hunter_Quickshot",
+								["Rank"] = "Rank 9",
 							},
 						},
 						["Icon"] = "Ability_Marksmanship",
@@ -13875,9 +16098,9 @@ myProfile = {
 								["Icon"] = "Ability_Hunter_BeastSoothe",
 								["Rank"] = "",
 							},
-							["Mend Pet"] = {
-								["Tooltip"] = "Mend Pet<br>480 Mana	45 yd range<br>Channeled<br>Heals your pet 245 health every second while you focus.  Lasts 5 sec.",
-								["Icon"] = "Ability_Hunter_MendPet",
+							["Aspect of the Hawk"] = {
+								["Tooltip"] = "Aspect of the Hawk<br>120 Mana<br>Instant cast<br>The hunter takes on the aspects of a hawk, increasing ranged attack power by 120.  Only one Aspect can be active at a time.",
+								["Icon"] = "Spell_Nature_RavenForm",
 								["Rank"] = "Rank 7",
 							},
 							["Call Pet"] = {
@@ -13885,20 +16108,20 @@ myProfile = {
 								["Icon"] = "Ability_Hunter_BeastCall",
 								["Rank"] = "",
 							},
-							["Aspect of the Hawk"] = {
-								["Tooltip"] = "Aspect of the Hawk<br>120 Mana<br>Instant cast<br>The hunter takes on the aspects of a hawk, increasing ranged attack power by 120.  Only one Aspect can be active at a time.",
-								["Icon"] = "Spell_Nature_RavenForm",
-								["Rank"] = "Rank 7",
+							["Tame Beast"] = {
+								["Tooltip"] = "Tame Beast<br>825 Mana	30 yd range<br>Channeled<br>Begins taming a beast to be your companion.  Your armor is reduced by 100% while you focus on taming the beast for 20 sec.  If you lose the beast's attention for any reason, the taming process will fail.  Once tamed, the beast will be very unhappy and disloyal.  Try feeding the pet immediately to make it happy.",
+								["Icon"] = "Ability_Hunter_BeastTaming",
+								["Rank"] = "",
 							},
 							["Beast Lore"] = {
 								["Tooltip"] = "Beast Lore<br>40 Mana	40 yd range<br>Instant cast<br>Gather information about the target beast.  The tooltip will display damage, health, armor, any special resistances, and diet.  In addition, Beast Lore will reveal whether or not the creature is tameable and what abilities the tamed creature has.",
 								["Icon"] = "Ability_Physical_Taunt",
 								["Rank"] = "",
 							},
-							["Tame Beast"] = {
-								["Tooltip"] = "Tame Beast<br>825 Mana	30 yd range<br>Channeled<br>Begins taming a beast to be your companion.  Your armor is reduced by 100% while you focus on taming the beast for 20 sec.  If you lose the beast's attention for any reason, the taming process will fail.  Once tamed, the beast will be very unhappy and disloyal.  Try feeding the pet immediately to make it happy.",
-								["Icon"] = "Ability_Hunter_BeastTaming",
-								["Rank"] = "",
+							["Mend Pet"] = {
+								["Tooltip"] = "Mend Pet<br>480 Mana	45 yd range<br>Channeled<br>Heals your pet 245 health every second while you focus.  Lasts 5 sec.",
+								["Icon"] = "Ability_Hunter_MendPet",
+								["Rank"] = "Rank 7",
 							},
 							["Aspect of the Pack"] = {
 								["Tooltip"] = "Aspect of the Pack<br>100 Mana<br>Instant cast<br>The hunter and group members within 30 yards take on the aspects of a pack of cheetahs, increasing movement speed by 30%.  If a pack member takes damage, they will be dazed for 4 sec.  Only one Aspect can be active at a time.",
@@ -13915,9 +16138,9 @@ myProfile = {
 								["Icon"] = "Ability_Mount_PinkTiger",
 								["Rank"] = "",
 							},
-							["Feed Pet"] = {
-								["Tooltip"] = "Feed Pet<br>10 yd range<br>Instant<br>Feed your pet the selected item.  Feeding your pet increases happiness.  Using food close to the pet's level will have a better result.",
-								["Icon"] = "Ability_Hunter_BeastTraining",
+							["Aspect of the Cheetah"] = {
+								["Tooltip"] = "Aspect of the Cheetah<br>40 Mana<br>Instant cast<br>The hunter takes on the aspects of a cheetah, increasing movement speed by 30%.  If the hunter takes damage, he will be dazed for 4 sec.  Only one Aspect can be active at a time.",
+								["Icon"] = "Ability_Mount_JungleTiger",
 								["Rank"] = "",
 							},
 							["Eyes of the Beast"] = {
@@ -13935,9 +16158,9 @@ myProfile = {
 								["Icon"] = "Ability_Druid_Cower",
 								["Rank"] = "Rank 3",
 							},
-							["Aspect of the Cheetah"] = {
-								["Tooltip"] = "Aspect of the Cheetah<br>40 Mana<br>Instant cast<br>The hunter takes on the aspects of a cheetah, increasing movement speed by 30%.  If the hunter takes damage, he will be dazed for 4 sec.  Only one Aspect can be active at a time.",
-								["Icon"] = "Ability_Mount_JungleTiger",
+							["Feed Pet"] = {
+								["Tooltip"] = "Feed Pet<br>10 yd range<br>Instant<br>Feed your pet the selected item.  Feeding your pet increases happiness.  Using food close to the pet's level will have a better result.",
+								["Icon"] = "Ability_Hunter_BeastTraining",
 								["Rank"] = "",
 							},
 							["Dismiss Pet"] = {
@@ -14016,20 +16239,20 @@ myProfile = {
 								["Icon"] = "Ability_Throw",
 								["Rank"] = "",
 							},
-							["Basic Campfire"] = {
-								["Tooltip"] = "Basic Campfire<br>10 sec cast	5 min cooldown<br>Tools: |cffff2020Flint and Tinder|r<br>Reagents: |cffff2020Simple Wood|r<br>Builds a campfire that increases the spirits of those nearby by 4 and allows cooking.",
-								["Icon"] = "Spell_Fire_Fire",
-								["Rank"] = "",
+							["Dual Wield"] = {
+								["Tooltip"] = "Dual Wield<br>Allows one-hand and off-hand weapons to be equipped in the off-hand.",
+								["Icon"] = "Ability_DualWield",
+								["Rank"] = "Passive",
 							},
 							["Shadowmeld"] = {
 								["Tooltip"] = "Shadowmeld<br>Instant	10 sec cooldown<br>Activate to slip into the shadows, reducing the chance for enemies to detect your presence.  Lasts until cancelled or upon moving.  Night Elf Rogues and Druids with Shadowmeld are more difficult to detect while stealthed or prowling.",
 								["Icon"] = "Ability_Ambush",
 								["Rank"] = "Racial",
 							},
-							["Dual Wield"] = {
-								["Tooltip"] = "Dual Wield<br>Allows one-hand and off-hand weapons to be equipped in the off-hand.",
-								["Icon"] = "Ability_DualWield",
-								["Rank"] = "Passive",
+							["Basic Campfire"] = {
+								["Tooltip"] = "Basic Campfire<br>10 sec cast	5 min cooldown<br>Tools: |cffff2020Flint and Tinder|r<br>Reagents: |cffff2020Simple Wood|r<br>Builds a campfire that increases the spirits of those nearby by 4 and allows cooking.",
+								["Icon"] = "Spell_Fire_Fire",
+								["Rank"] = "",
 							},
 							["Dragonscale Leatherworking"] = {
 								["Tooltip"] = "Dragonscale Leatherworking<br>Allows a leatherworker to make special dragonscale armors that are unavailable to a normal leatherworker.  Dragonscale armor is all mail armor.",
@@ -14141,8 +16364,8 @@ myProfile = {
 					["Secondary Skills"] = {
 						["Cooking"] = "300:300",
 						["Order"] = 3,
-						["First Aid"] = "46:75",
 						["Riding"] = "75:75",
+						["First Aid"] = "46:75",
 						["Fishing"] = "225:300",
 					},
 					["Class Skills"] = {
@@ -14174,13 +16397,13 @@ myProfile = {
 						["Bows"] = "300:300",
 						["Two-Handed Swords"] = "1:300",
 						["Thrown"] = "1:300",
-						["Swords"] = "1:300",
-						["Staves"] = "1:300",
-						["Crossbows"] = "1:300",
 						["Unarmed"] = "180:300",
+						["Staves"] = "1:300",
+						["Guns"] = "1:300",
+						["Swords"] = "1:300",
 						["Polearms"] = "300:300",
 						["Axes"] = "297:300",
-						["Guns"] = "1:300",
+						["Crossbows"] = "1:300",
 						["Two-Handed Axes"] = "1:300",
 					},
 				},
@@ -14288,12 +16511,12 @@ myProfile = {
 						["Icon"] = "INV_Misc_Cape_15",
 						["Name"] = "Spellbinder Cloak",
 					},
-					["Hands"] = {
-						["Item"] = "3472:0:0:0:0:0:0:804067460",
-						["Color"] = "ffffff",
-						["Tooltip"] = "Runed Copper Gauntlets<br>Hands	Mail<br>73 Armor<br>Durability 7 / 20<br>Requires Level 7",
-						["Icon"] = "INV_Gauntlets_04",
-						["Name"] = "Runed Copper Gauntlets",
+					["MainHand"] = {
+						["Item"] = "24339:0:0:0:0:0:0:499239386",
+						["Color"] = "1eff00",
+						["Tooltip"] = "Stung<br>Soulbound<br>One-Hand	Sword<br>10 - 20 Damage	Speed 2.50<br>(6.0 damage per second)<br>+1 Strength<br>Durability 22 / 40",
+						["Icon"] = "INV_Sword_06",
+						["Name"] = "Stung",
 					},
 					["Wrist"] = {
 						["Item"] = "28148:0:0:0:0:0:0:870524556",
@@ -14309,12 +16532,12 @@ myProfile = {
 						["Icon"] = "INV_Shield_04",
 						["Name"] = "Farstrider's Shield",
 					},
-					["MainHand"] = {
-						["Item"] = "24339:0:0:0:0:0:0:499239386",
-						["Color"] = "1eff00",
-						["Tooltip"] = "Stung<br>Soulbound<br>One-Hand	Sword<br>10 - 20 Damage	Speed 2.50<br>(6.0 damage per second)<br>+1 Strength<br>Durability 22 / 40",
-						["Icon"] = "INV_Sword_06",
-						["Name"] = "Stung",
+					["Hands"] = {
+						["Item"] = "3472:0:0:0:0:0:0:804067460",
+						["Color"] = "ffffff",
+						["Tooltip"] = "Runed Copper Gauntlets<br>Hands	Mail<br>73 Armor<br>Durability 7 / 20<br>Requires Level 7",
+						["Icon"] = "INV_Gauntlets_04",
+						["Name"] = "Runed Copper Gauntlets",
 					},
 				},
 				["Health"] = 321,
@@ -14522,14 +16745,14 @@ myProfile = {
 				},
 				["Inventory"] = {
 					["Bag4"] = {
-						["Contents"] = {
-						},
 						["Name"] = "Netherweave Bag",
+						["Item"] = "21841:0:0:0:0:0:0:1293591528",
 						["Slots"] = 16,
 						["Color"] = "1eff00",
 						["Tooltip"] = "Netherweave Bag<br>Soulbound<br>16 Slot Bag<br>|cff00ff00<Made by Azymyrta>|r",
 						["Icon"] = "INV_Misc_Bag_23_Netherweave",
-						["Item"] = "21841:0:0:0:0:0:0:1293591528",
+						["Contents"] = {
+						},
 					},
 					["Bag0"] = {
 						["Contents"] = {
@@ -14609,9 +16832,9 @@ myProfile = {
 							}, -- [10]
 							{
 								["Color"] = "9d9d9d",
-								["Item"] = "4814:0:0:0:0:0:0:1058632862",
 								["Icon"] = "INV_Misc_Bone_06",
 								["Name"] = "Discolored Fang",
+								["Item"] = "4814:0:0:0:0:0:0:1058632862",
 							}, -- [11]
 							{
 								["Color"] = "9d9d9d",
@@ -14648,12 +16871,18 @@ myProfile = {
 								["Name"] = "Pioneer Belt",
 							}, -- [16]
 						},
-						["Icon"] = "Button-Backpack-Up",
-						["Tooltip"] = "Backpack<br>16 Slot Bag",
 						["Slots"] = 16,
+						["Tooltip"] = "Backpack<br>16 Slot Bag",
+						["Icon"] = "Button-Backpack-Up",
 						["Name"] = "Backpack",
 					},
 					["Bag1"] = {
+						["Name"] = "Netherweave Bag",
+						["Item"] = "21841:0:0:0:0:0:0:830904932",
+						["Slots"] = 16,
+						["Color"] = "1eff00",
+						["Tooltip"] = "Netherweave Bag<br>Soulbound<br>16 Slot Bag<br>|cff00ff00<Made by Azymyrta>|r",
+						["Icon"] = "INV_Misc_Bag_23_Netherweave",
 						["Contents"] = {
 							{
 								["Quantity"] = 5,
@@ -14765,26 +16994,26 @@ myProfile = {
 								["Name"] = "Worn Hide Cloak",
 							}, -- [16]
 						},
+					},
+					["Bag2"] = {
 						["Name"] = "Netherweave Bag",
+						["Item"] = "21841:0:0:0:0:0:0:1073546419",
 						["Slots"] = 16,
 						["Color"] = "1eff00",
 						["Tooltip"] = "Netherweave Bag<br>Soulbound<br>16 Slot Bag<br>|cff00ff00<Made by Azymyrta>|r",
 						["Icon"] = "INV_Misc_Bag_23_Netherweave",
-						["Item"] = "21841:0:0:0:0:0:0:830904932",
-					},
-					["Bag2"] = {
 						["Contents"] = {
 							{
 								["Color"] = "1eff00",
-								["Item"] = "818:0:0:0:0:0:0:1070362340",
 								["Icon"] = "INV_Misc_Gem_Opal_03",
 								["Name"] = "Tigerseye",
+								["Item"] = "818:0:0:0:0:0:0:1070362340",
 							}, -- [1]
 							{
 								["Color"] = "9d9d9d",
-								["Item"] = "6293:0:0:0:0:0:0:874137027",
 								["Icon"] = "Spell_Shadow_LifeDrain",
 								["Name"] = "Dried Bat Blood",
+								["Item"] = "6293:0:0:0:0:0:0:874137027",
 							}, -- [2]
 							{
 								["Item"] = "4541:0:0:0:0:0:0:1223295783",
@@ -14868,9 +17097,9 @@ myProfile = {
 							}, -- [13]
 							{
 								["Color"] = "9d9d9d",
-								["Item"] = "1476:0:0:0:0:0:0:898765936",
 								["Icon"] = "INV_Misc_MonsterSpiderCarapace_01",
 								["Name"] = "Snapped Spider Limb",
+								["Item"] = "1476:0:0:0:0:0:0:898765936",
 							}, -- [14]
 							{
 								["Item"] = "23395:0:0:0:0:0:0:1309758659",
@@ -14885,14 +17114,14 @@ myProfile = {
 								["Icon"] = "INV_Misc_Food_70",
 							}, -- [16]
 						},
+					},
+					["Bag3"] = {
 						["Name"] = "Netherweave Bag",
+						["Item"] = "21841:0:0:0:0:0:0:257200882",
 						["Slots"] = 16,
 						["Color"] = "1eff00",
 						["Tooltip"] = "Netherweave Bag<br>Soulbound<br>16 Slot Bag<br>|cff00ff00<Made by Azymyrta>|r",
 						["Icon"] = "INV_Misc_Bag_23_Netherweave",
-						["Item"] = "21841:0:0:0:0:0:0:1073546419",
-					},
-					["Bag3"] = {
 						["Contents"] = {
 							{
 								["Item"] = "2763:0:0:0:0:0:0:1329060785",
@@ -14918,17 +17147,11 @@ myProfile = {
 							}, -- [3]
 							{
 								["Color"] = "ffffff",
-								["Item"] = "27668:0:0:0:0:0:0:2085268236",
 								["Icon"] = "INV_Misc_Food_71",
 								["Name"] = "Lynx Meat",
+								["Item"] = "27668:0:0:0:0:0:0:2085268236",
 							}, -- [4]
 						},
-						["Name"] = "Netherweave Bag",
-						["Slots"] = 16,
-						["Color"] = "1eff00",
-						["Tooltip"] = "Netherweave Bag<br>Soulbound<br>16 Slot Bag<br>|cff00ff00<Made by Azymyrta>|r",
-						["Icon"] = "INV_Misc_Bag_23_Netherweave",
-						["Item"] = "21841:0:0:0:0:0:0:257200882",
 					},
 				},
 				["Talents"] = {
@@ -14952,11 +17175,11 @@ myProfile = {
 							["Icon"] = "Spell_Holy_WeaponMastery",
 							["Rank"] = "0:5",
 						},
-						["Precision"] = {
-							["Location"] = "2:1",
-							["Tooltip"] = "Precision<br>Rank 1/3<br>Increases your chance to hit with melee weapons by 1%.<br> <br>Next rank:<br>Increases your chance to hit with melee weapons by 2%.",
-							["Icon"] = "Ability_Rogue_Ambush",
-							["Rank"] = "1:3",
+						["Blessing of Kings"] = {
+							["Location"] = "3:1",
+							["Tooltip"] = "Blessing of Kings<br>Rank 0/1<br>Requires 10 points in Protection Talents<br>16 Mana	30 yd range<br>Instant cast<br>Places a Blessing on the friendly target, increasing total stats by 10% for 5 min.  Players may only have one Blessing on them per Paladin at any one time.",
+							["Icon"] = "Spell_Magic_MageArmor",
+							["Rank"] = "0:1",
 						},
 						["Background"] = "PaladinProtection",
 						["Spell Warding"] = {
@@ -14971,11 +17194,11 @@ myProfile = {
 							["Icon"] = "Spell_Magic_LesserInvisibilty",
 							["Rank"] = "0:5",
 						},
-						["Blessing of Kings"] = {
-							["Location"] = "3:1",
-							["Tooltip"] = "Blessing of Kings<br>Rank 0/1<br>Requires 10 points in Protection Talents<br>16 Mana	30 yd range<br>Instant cast<br>Places a Blessing on the friendly target, increasing total stats by 10% for 5 min.  Players may only have one Blessing on them per Paladin at any one time.",
-							["Icon"] = "Spell_Magic_MageArmor",
-							["Rank"] = "0:1",
+						["Precision"] = {
+							["Location"] = "2:1",
+							["Tooltip"] = "Precision<br>Rank 1/3<br>Increases your chance to hit with melee weapons by 1%.<br> <br>Next rank:<br>Increases your chance to hit with melee weapons by 2%.",
+							["Icon"] = "Ability_Rogue_Ambush",
+							["Rank"] = "1:3",
 						},
 						["Redoubt"] = {
 							["Location"] = "1:3",
@@ -15007,11 +17230,11 @@ myProfile = {
 							["Icon"] = "Spell_Holy_SealOfMight",
 							["Rank"] = "0:3",
 						},
-						["Sacred Duty"] = {
-							["Location"] = "6:1",
-							["Tooltip"] = "Sacred Duty<br>Rank 0/2<br>Requires 25 points in Protection Talents<br>Increases your total Stamina by 3%, reduces the cooldown of your Divine Shield spell by 30 sec and reduces the attack speed penalty by 50%.",
-							["Icon"] = "Spell_Holy_DivineIntervention",
-							["Rank"] = "0:2",
+						["One-Handed Weapon Specialization"] = {
+							["Location"] = "6:3",
+							["Tooltip"] = "One-Handed Weapon Specialization<br>Rank 0/5<br>Requires 25 points in Protection Talents<br>Increases the damage you deal with one-handed melee weapons by 2%.",
+							["Icon"] = "INV_Sword_20",
+							["Rank"] = "0:5",
 						},
 						["PointsSpent"] = 6,
 						["Toughness"] = {
@@ -15056,11 +17279,11 @@ myProfile = {
 							["Icon"] = "Spell_Holy_ArdentDefender",
 							["Rank"] = "0:5",
 						},
-						["One-Handed Weapon Specialization"] = {
-							["Location"] = "6:3",
-							["Tooltip"] = "One-Handed Weapon Specialization<br>Rank 0/5<br>Requires 25 points in Protection Talents<br>Increases the damage you deal with one-handed melee weapons by 2%.",
-							["Icon"] = "INV_Sword_20",
-							["Rank"] = "0:5",
+						["Sacred Duty"] = {
+							["Location"] = "6:1",
+							["Tooltip"] = "Sacred Duty<br>Rank 0/2<br>Requires 25 points in Protection Talents<br>Increases your total Stamina by 3%, reduces the cooldown of your Divine Shield spell by 30 sec and reduces the attack speed penalty by 50%.",
+							["Icon"] = "Spell_Holy_DivineIntervention",
+							["Rank"] = "0:2",
 						},
 					},
 					["Holy"] = {
@@ -15282,10 +17505,10 @@ myProfile = {
 							["Icon"] = "Ability_Warrior_InnerRage",
 							["Rank"] = "0:1",
 						},
-						["Two-Handed Weapon Specialization"] = {
-							["Location"] = "5:1",
-							["Tooltip"] = "Two-Handed Weapon Specialization<br>Rank 0/3<br>Requires 20 points in Retribution Talents<br>Increases the damage you deal with two-handed melee weapons by 2%.",
-							["Icon"] = "INV_Hammer_04",
+						["Sanctified Crusader"] = {
+							["Location"] = "7:1",
+							["Tooltip"] = "Sanctified Crusader<br>Rank 0/3<br>Requires 30 points in Retribution Talents<br>In addition to the normal effect, your Judgement of the Crusader spell will also increase the critical strike chance of all attacks made against that target by an additional 1%.",
+							["Icon"] = "Spell_Holy_HolySmite",
 							["Rank"] = "0:3",
 						},
 						["Sanctified Judgement"] = {
@@ -15300,10 +17523,10 @@ myProfile = {
 							["Icon"] = "Ability_Racial_Avatar",
 							["Rank"] = "0:5",
 						},
-						["Sanctified Crusader"] = {
-							["Location"] = "7:1",
-							["Tooltip"] = "Sanctified Crusader<br>Rank 0/3<br>Requires 30 points in Retribution Talents<br>In addition to the normal effect, your Judgement of the Crusader spell will also increase the critical strike chance of all attacks made against that target by an additional 1%.",
-							["Icon"] = "Spell_Holy_HolySmite",
+						["Two-Handed Weapon Specialization"] = {
+							["Location"] = "5:1",
+							["Tooltip"] = "Two-Handed Weapon Specialization<br>Rank 0/3<br>Requires 20 points in Retribution Talents<br>Increases the damage you deal with two-handed melee weapons by 2%.",
+							["Icon"] = "INV_Hammer_04",
 							["Rank"] = "0:3",
 						},
 						["Crusader Strike"] = {
@@ -15412,7 +17635,7 @@ myProfile = {
 				["Level"] = 15,
 				["MailBox"] = {
 				},
-				["Server"] = "Aggramar",
+				["TimeLevelPlayed"] = 306,
 				["Professions"] = {
 					["Cooking"] = {
 						["Consumable"] = {
@@ -15424,14 +17647,14 @@ myProfile = {
 								["Icon"] = "INV_Egg_03",
 								["Reagents"] = {
 									{
-										["Name"] = "Small Egg",
 										["Count"] = 1,
 										["itemID"] = "6889",
+										["Name"] = "Small Egg",
 									}, -- [1]
 									{
-										["Name"] = "Mild Spices",
 										["Count"] = 1,
 										["itemID"] = "2678",
+										["Name"] = "Mild Spices",
 									}, -- [2]
 								},
 							},
@@ -15443,14 +17666,14 @@ myProfile = {
 								["Icon"] = "INV_Misc_Food_95_Grainbread",
 								["Reagents"] = {
 									{
-										["Name"] = "Simple Flour",
 										["Count"] = 1,
 										["itemID"] = "30817",
+										["Name"] = "Simple Flour",
 									}, -- [1]
 									{
-										["Name"] = "Mild Spices",
 										["Count"] = 1,
 										["itemID"] = "2678",
+										["Name"] = "Mild Spices",
 									}, -- [2]
 								},
 							},
@@ -15462,9 +17685,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Food_18",
 								["Reagents"] = {
 									{
-										["Name"] = "Stringy Wolf Meat",
 										["Count"] = 1,
 										["itemID"] = "2672",
+										["Name"] = "Stringy Wolf Meat",
 									}, -- [1]
 								},
 							},
@@ -15476,9 +17699,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Food_47",
 								["Reagents"] = {
 									{
-										["Name"] = "Lynx Meat",
 										["Count"] = 1,
 										["itemID"] = "27668",
+										["Name"] = "Lynx Meat",
 									}, -- [1]
 								},
 							},
@@ -15490,9 +17713,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Food_18",
 								["Reagents"] = {
 									{
-										["Name"] = "Chunk of Boar Meat",
 										["Count"] = 1,
 										["itemID"] = "769",
+										["Name"] = "Chunk of Boar Meat",
 									}, -- [1]
 								},
 							},
@@ -15508,29 +17731,10 @@ myProfile = {
 								["Icon"] = "INV_Ingot_05",
 								["Reagents"] = {
 									{
-										["Name"] = "Tin Ore",
 										["Count"] = 1,
 										["itemID"] = "2771",
+										["Name"] = "Tin Ore",
 									}, -- [1]
-								},
-							},
-							["Smelt Bronze"] = {
-								["Difficulty"] = 3,
-								["Item"] = "2841:0:0:0:0:0:0:0",
-								["Color"] = "ffffff",
-								["Tooltip"] = "Bronze Bar",
-								["Icon"] = "INV_Ingot_Bronze",
-								["Reagents"] = {
-									{
-										["Name"] = "Copper Bar",
-										["Count"] = 1,
-										["itemID"] = "2840",
-									}, -- [1]
-									{
-										["Name"] = "Tin Bar",
-										["Count"] = 1,
-										["itemID"] = "3576",
-									}, -- [2]
 								},
 							},
 							["Smelt Silver"] = {
@@ -15541,9 +17745,9 @@ myProfile = {
 								["Icon"] = "INV_Ingot_01",
 								["Reagents"] = {
 									{
-										["Name"] = "Silver Ore",
 										["Count"] = 1,
 										["itemID"] = "2775",
+										["Name"] = "Silver Ore",
 									}, -- [1]
 								},
 							},
@@ -15555,10 +17759,29 @@ myProfile = {
 								["Icon"] = "INV_Ingot_02",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Ore",
 										["Count"] = 1,
 										["itemID"] = "2770",
+										["Name"] = "Copper Ore",
 									}, -- [1]
+								},
+							},
+							["Smelt Bronze"] = {
+								["Difficulty"] = 3,
+								["Item"] = "2841:0:0:0:0:0:0:0",
+								["Color"] = "ffffff",
+								["Tooltip"] = "Bronze Bar",
+								["Icon"] = "INV_Ingot_Bronze",
+								["Reagents"] = {
+									{
+										["Count"] = 1,
+										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
+									}, -- [1]
+									{
+										["Count"] = 1,
+										["itemID"] = "3576",
+										["Name"] = "Tin Bar",
+									}, -- [2]
 								},
 							},
 						},
@@ -15573,9 +17796,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bandage_15",
 								["Reagents"] = {
 									{
-										["Name"] = "Linen Cloth",
 										["Count"] = 1,
 										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
 									}, -- [1]
 								},
 							},
@@ -15587,9 +17810,9 @@ myProfile = {
 								["Icon"] = "INV_Misc_Bandage_18",
 								["Reagents"] = {
 									{
-										["Name"] = "Linen Cloth",
 										["Count"] = 2,
 										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
 									}, -- [1]
 								},
 							},
@@ -15605,19 +17828,19 @@ myProfile = {
 								["Icon"] = "INV_Axe_23",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 6,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Weak Flux",
 										["Count"] = 1,
 										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
 									}, -- [2]
 									{
-										["Name"] = "Linen Cloth",
 										["Count"] = 2,
 										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
 									}, -- [3]
 								},
 							},
@@ -15631,19 +17854,19 @@ myProfile = {
 								["Icon"] = "INV_Sword_26",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 6,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Weak Flux",
 										["Count"] = 1,
 										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
 									}, -- [2]
 									{
-										["Name"] = "Linen Cloth",
 										["Count"] = 2,
 										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
 									}, -- [3]
 								},
 							},
@@ -15657,19 +17880,19 @@ myProfile = {
 								["Icon"] = "INV_Mace_01",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 6,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Weak Flux",
 										["Count"] = 1,
 										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
 									}, -- [2]
 									{
-										["Name"] = "Linen Cloth",
 										["Count"] = 2,
 										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
 									}, -- [3]
 								},
 							},
@@ -15683,24 +17906,24 @@ myProfile = {
 								["Icon"] = "INV_Sword_21",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 10,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Weak Flux",
 										["Count"] = 2,
 										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
 									}, -- [2]
 									{
-										["Name"] = "Rough Grinding Stone",
 										["Count"] = 1,
 										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
 									}, -- [3]
 									{
-										["Name"] = "Light Leather",
 										["Count"] = 1,
 										["itemID"] = "2318",
+										["Name"] = "Light Leather",
 									}, -- [4]
 								},
 							},
@@ -15714,9 +17937,9 @@ myProfile = {
 								["Icon"] = "INV_Belt_02",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 6,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 								},
 							},
@@ -15728,14 +17951,14 @@ myProfile = {
 								["Icon"] = "INV_Gauntlets_04",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 8,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Rough Grinding Stone",
 										["Count"] = 2,
 										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
 									}, -- [2]
 								},
 							},
@@ -15747,14 +17970,14 @@ myProfile = {
 								["Icon"] = "INV_Chest_Chain",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 8,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Rough Grinding Stone",
 										["Count"] = 2,
 										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
 									}, -- [2]
 								},
 							},
@@ -15766,19 +17989,19 @@ myProfile = {
 								["Icon"] = "INV_Pants_03",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 8,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Fine Thread",
 										["Count"] = 2,
 										["itemID"] = "2321",
+										["Name"] = "Fine Thread",
 									}, -- [2]
 									{
-										["Name"] = "Rough Grinding Stone",
 										["Count"] = 3,
 										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
 									}, -- [3]
 								},
 							},
@@ -15790,9 +18013,9 @@ myProfile = {
 								["Icon"] = "INV_Boots_01",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 8,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 								},
 							},
@@ -15804,9 +18027,9 @@ myProfile = {
 								["Icon"] = "INV_Pants_03",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 4,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 								},
 							},
@@ -15818,9 +18041,9 @@ myProfile = {
 								["Icon"] = "INV_Bracer_03",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 2,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 								},
 							},
@@ -15832,9 +18055,9 @@ myProfile = {
 								["Icon"] = "INV_Chest_Chain",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 4,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 								},
 							},
@@ -15848,24 +18071,24 @@ myProfile = {
 								["Icon"] = "INV_Weapon_ShortBlade_14",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 6,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Weak Flux",
 										["Count"] = 1,
 										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
 									}, -- [2]
 									{
-										["Name"] = "Rough Grinding Stone",
 										["Count"] = 1,
 										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
 									}, -- [3]
 									{
-										["Name"] = "Light Leather",
 										["Count"] = 1,
 										["itemID"] = "2318",
+										["Name"] = "Light Leather",
 									}, -- [4]
 								},
 							},
@@ -15879,9 +18102,9 @@ myProfile = {
 								["Icon"] = "INV_Stone_GrindingStone_01",
 								["Reagents"] = {
 									{
-										["Name"] = "Rough Stone",
 										["Count"] = 2,
 										["itemID"] = "2835",
+										["Name"] = "Rough Stone",
 									}, -- [1]
 								},
 							},
@@ -15893,9 +18116,9 @@ myProfile = {
 								["Icon"] = "INV_Stone_SharpeningStone_01",
 								["Reagents"] = {
 									{
-										["Name"] = "Rough Stone",
 										["Count"] = 1,
 										["itemID"] = "2835",
+										["Name"] = "Rough Stone",
 									}, -- [1]
 								},
 							},
@@ -15907,14 +18130,14 @@ myProfile = {
 								["Icon"] = "INV_Stone_WeightStone_01",
 								["Reagents"] = {
 									{
-										["Name"] = "Rough Stone",
 										["Count"] = 1,
 										["itemID"] = "2835",
+										["Name"] = "Rough Stone",
 									}, -- [1]
 									{
-										["Name"] = "Linen Cloth",
 										["Count"] = 1,
 										["itemID"] = "2589",
+										["Name"] = "Linen Cloth",
 									}, -- [2]
 								},
 							},
@@ -15928,29 +18151,29 @@ myProfile = {
 								["Icon"] = "INV_ThrowingAxe_02",
 								["Reagents"] = {
 									{
-										["Name"] = "Copper Bar",
 										["Count"] = 12,
 										["itemID"] = "2840",
+										["Name"] = "Copper Bar",
 									}, -- [1]
 									{
-										["Name"] = "Weak Flux",
 										["Count"] = 2,
 										["itemID"] = "2880",
+										["Name"] = "Weak Flux",
 									}, -- [2]
 									{
-										["Name"] = "Malachite",
 										["Count"] = 2,
 										["itemID"] = "774",
+										["Name"] = "Malachite",
 									}, -- [3]
 									{
-										["Name"] = "Rough Grinding Stone",
 										["Count"] = 2,
 										["itemID"] = "3470",
+										["Name"] = "Rough Grinding Stone",
 									}, -- [4]
 									{
-										["Name"] = "Light Leather",
 										["Count"] = 2,
 										["itemID"] = "2318",
+										["Name"] = "Light Leather",
 									}, -- [5]
 								},
 							},
@@ -16194,7 +18417,7 @@ myProfile = {
 						["Unarmed"] = "1:75",
 					},
 				},
-				["TimeLevelPlayed"] = 306,
+				["Server"] = "Aggramar",
 				["IsResting"] = true,
 			},
 		},
