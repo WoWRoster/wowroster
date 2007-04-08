@@ -28,12 +28,6 @@ $update = new update;
 // login class for guild update pass check
 $roster_login = new RosterLogin();
 
-// Update Triggers
-if( $roster_conf['use_update_triggers'] )
-{
-	include_once( ROSTER_LIB.'update_trigger_lib.php' );
-}
-
 // Set $htmlout to 1 to assume request is from a browser
 $isUU = 0;
 
@@ -62,7 +56,7 @@ if ((isset($_POST['process']) && $_POST['process'] == 'process') || $isUU)
 		print $roster_menu->makeMenu('main');
 
 		// print the error messages
-		if( !empty($errorstringout) )
+		if( !empty($errors) )
 		{
 			print scrollboxtoggle($errors,'<span class="red">'.$act_words['update_errors'].'</span>','sred',false);
 

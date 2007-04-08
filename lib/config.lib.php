@@ -59,8 +59,6 @@ class config
 	{
 		global $act_words;
 
-		$addonGET = ( isset($_GET['addon']) ? $_GET['addon'] : '');
-
 		$menu = '<!-- Begin Config Menu -->'."\n".
 			border('sgray','start',$act_words['roster_config_menu'])."\n".
 			'<div style="width:145px;">'."\n".
@@ -71,17 +69,24 @@ class config
 			foreach($this->db_values['menu'] as $values)
 			{
 				$menu_type = explode('{',$values['form_type']);
-				$URL = str_replace(array('%addon%','%roster%'),array($addonGET,ROSTER_URL),$values['value']);
 
 				switch ($menu_type[0])
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li><a href="'.$URL.'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="'.$values['value'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li><a href="'.$URL.'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="'.$values['value'].'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						break;
+
+					case 'makelink':
+						$menu .= '    <li><a href="'.makelink($values['value']).'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						break;
+
+					case 'makenewlink':
+						$menu .= '    <li><a href="'.makelink($values['value']).'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					case 'page': 	// all pages are the same here
