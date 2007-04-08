@@ -166,7 +166,7 @@ if( !$results || $wowdb->num_rows($results) == 0 )
  */
 while( $row = $wowdb->fetch_assoc($results) )
 {
-	$roster_conf[$row['config_name']] = stripslashes($row['config_value']);
+	$roster_conf[$row['config_name']] = $row['config_value'];
 }
 $wowdb->free_result($results);
 

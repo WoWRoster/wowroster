@@ -417,12 +417,15 @@ class config
 		{
 			return '';
 		}
-
+		
 		$wowdb->reset_values();
 
 		// Update only the changed fields
 		foreach( $_POST as $settingName => $settingValue )
 		{
+			// Remove the extra slashes added by settings.php
+			$settingValue = stripslashes($settingValue);
+			
 			if( substr($settingName,0,7) == 'config_' )
 			{
 				// Get rid of the prefix
@@ -464,14 +467,14 @@ class config
 
 				if( $config[$settingName] != $settingValue && $settingName != 'process' )
 				{
-					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$wowdb->escape( $settingValue )."' WHERE `config_name` = '".$settingName."';";
+					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$wowdb->escape($settingValue)."' WHERE `config_name` = '".$wowdb->escape($settingName)."';";
 					$config[$settingName] = $settingValue;
 				}
 			}
 		}
 
 		// Update DataBase
-		if( isset($update_sql) && ($update_sql) )
+		if( isset($update_sql) && is_array($update_sql) && count($update_sql)>0 )
 		{
 			foreach( $update_sql as $sql )
 			{
@@ -516,14 +519,14 @@ class config
 		{
 			while($row = $wowdb->fetch_assoc($results))
 			{
-				$setitem = stripslashes($row['config_type']);
-				$arrayitem = stripslashes($row['config_name']);
+				$setitem = $row['config_type'];
+				$arrayitem = $row['config_name'];
 
 				$this->db_values[$setitem][$arrayitem]['id'] = $row['id'];
-				$this->db_values[$setitem][$arrayitem]['name'] = stripslashes($row['config_name']);
-				$this->db_values[$setitem][$arrayitem]['config_type'] = stripslashes($row['config_type']);
-				$this->db_values[$setitem][$arrayitem]['value'] = stripslashes($row['config_value']);
-				$this->db_values[$setitem][$arrayitem]['form_type'] = stripslashes($row['form_type']);
+				$this->db_values[$setitem][$arrayitem]['name'] = $row['config_name'];
+				$this->db_values[$setitem][$arrayitem]['config_type'] = $row['config_type'];
+				$this->db_values[$setitem][$arrayitem]['value'] = $row['config_value'];
+				$this->db_values[$setitem][$arrayitem]['form_type'] = $row['form_type'];
 
 				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$row['config_name'].'</span></span>';
 

@@ -970,7 +970,7 @@ function getaddon( $addonname )
 	{
 		while( $row = $wowdb->fetch_assoc($result) )
 		{
-			$addon['config'][$row['config_name']] = stripslashes($row['config_value']);
+			$addon['config'][$row['config_name']] = $row['config_value'];
 		}
 		$wowdb->free_result($result);
 	}
