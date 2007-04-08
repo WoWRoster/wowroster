@@ -551,7 +551,7 @@ function process_step4()
 		(3, 'Admin');");
 	
 	$wowdb->query("UPDATE `".ACCOUNT_TABLE."`
-		SET `account`.`hash` = '".$pass_word."';");
+		SET `hash` = '".$pass_word."';");
 
     //
     // Check password and notify uer
