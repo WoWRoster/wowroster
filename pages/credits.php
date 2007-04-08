@@ -152,34 +152,34 @@ include_once (ROSTER_BASE.'roster_footer.tpl');
  */
 function makeAddonCredits()
 {
-	global $roster_conf, $wordings;
+	global $roster_conf, $wowdb;
 
 	$output = '';
-
-	$strip_count = 1;
-	if( isset($wordings['addoncredits']) && is_array($wordings['addoncredits']) )
+	
+	$query = "SELECT * FROM `".ROSTER_ADDONTABLE."`";
+	$result = $wowdb->query($query);
+	
+	if( !$result )
 	{
-		foreach( array_keys($wordings['addoncredits']) as $addonName )
-		{
-			$AddOnArray = $wordings['addoncredits'][$addonName];
-			foreach( $AddOnArray as $addonDev )
-			{
-				$stripe_class = 'membersRow' . ( ( ++$strip_count % 2 ) + 1 );
-				$stripe_class_right = 'membersRowRight' . ( ( $strip_count % 2 ) + 1 );
-				$output .= "\t<tr>\n";
-				$output .= "\t\t<td class=\"$stripe_class\">" . $addonName . "</td>\n";
-				$output .= "\t\t<td class=\"$stripe_class\">" . $addonDev['name']."</td>\n";
-				$output .= "\t\t<td class=\"$stripe_class_right\">" . $addonDev['info'] . "</td>\n";
-				$output .= "\t</tr>\n";
-				$addonName = '&nbsp;';
-				$lCount += 1;
-			}
-		}
+		return "\t<tr><td colspan='3'>Error fetching addon credits.<br />MySQL said:".$wowdb->error()."</td></tr>";
 	}
-
-	if (isset($lCount) && $lCount < 1)
+	
+	$strip_count = 1;
+	while( $row = $wowdb->fetch_assoc($result) )
 	{
-		return '';
+		$addonName = $row['fullname'];
+		$AddOnArray = unserialize($row['credits']);
+		foreach( $AddOnArray as $addonDev )
+		{
+			$stripe_class = 'membersRow' . ( ( ++$strip_count % 2 ) + 1 );
+			$stripe_class_right = 'membersRowRight' . ( ( $strip_count % 2 ) + 1 );
+			$output .= "\t<tr>\n";
+			$output .= "\t\t<td class=\"$stripe_class\">" . $addonName . "</td>\n";
+			$output .= "\t\t<td class=\"$stripe_class\">" . $addonDev['name']."</td>\n";
+			$output .= "\t\t<td class=\"$stripe_class_right\">" . $addonDev['info'] . "</td>\n";
+			$output .= "\t</tr>\n";
+			$addonName = '&nbsp;';
+		}
 	}
 
 	return $output;
