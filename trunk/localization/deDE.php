@@ -868,6 +868,7 @@ $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must b
 $lang['password'] = 'Password';
 $lang['changeadminpass'] = 'Change Admin Password';
 $lang['changeupdatepass'] = 'Change Update Password';
+$lang['changeguildpass'] = 'Change Guild Password';
 $lang['old_pass'] = 'Old Password';
 $lang['new_pass'] = 'New Password';
 $lang['new_pass_confirm'] = 'New Password [ confirm ]';

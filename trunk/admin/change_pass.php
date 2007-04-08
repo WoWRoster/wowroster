@@ -25,19 +25,20 @@ if( array_key_exists('mode',$_POST) )
 {
 	$mode = $_POST['mode'];
 
-	if( $mode == 'admin' )
+	$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `name` = '".$mode."';";
+	$result = $wowdb->query($query);
+	
+	if( !$result )
 	{
-		$dbfield = 'roster_admin_pw';
+		die_quietly($wowdb->error(), $act_words['roster_cp'], basename(__FILE__), __LINE__, $query);
 	}
-	elseif( $mode == 'update' )
+	
+	if( $row = $wowdb->fetch_assoc($result) )
 	{
-		$dbfield = 'roster_upd_pw';
+		$realhash = $row['hash'];
 	}
-	else
-	{
-		continue;
-	}
-
+	
+	
 	if( $roster_login->getauthorized() )
 	{
 		$oldpass  = ( isset($_POST['oldpass']) ? $_POST['oldpass'] : '' );
@@ -45,7 +46,7 @@ if( array_key_exists('mode',$_POST) )
 		$confirmpass = ( isset($_POST['confirmpass']) ? $_POST['confirmpass'] : '' );
 
 		$success = 0;
-		if( md5($oldpass) != $roster_conf[$dbfield] )
+		if( md5($oldpass) != $realhash )
 		{
 			$body = messagebox($act_words['pass_old_error'],$act_words['roster_cp'],'sred');
 		}
@@ -61,13 +62,13 @@ if( array_key_exists('mode',$_POST) )
 		{
 			$body = messagebox($act_words['pass_blank'],$act_words['roster_cp'],'sred');
 		}
-		elseif( md5($newpass) == $roster_conf[$dbfield] )
+		elseif( md5($newpass) == $realhash )
 		{
 			$body = messagebox($act_words['pass_isold'],$act_words['roster_cp'],'sred');
 		}
 		else // valid password
 		{
-			$query = 'UPDATE `'.$wowdb->table('config').'` SET `config_value` = "'.md5($newpass).'"  WHERE `config_name` = "'.$dbfield.'";';
+			$query = 'UPDATE `'.ROSTER_ACCOUNTTABLE.'` SET `hash` = "'.md5($newpass).'"  WHERE `name` = "'.$mode.'";';
 
 			$result = $wowdb->query($query);
 
@@ -92,7 +93,7 @@ if( array_key_exists('mode',$_POST) )
 
 $body .= $roster_login->getMessage().'<br />
 <form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
-<input type="hidden" name="mode" value="admin" />
+<input type="hidden" name="mode" value="Admin" />
 	'.border('sred','start',$act_words['changeadminpass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
@@ -119,7 +120,7 @@ $body .= $roster_login->getMessage().'<br />
 
 $body .= '<br />
 <form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
-<input type="hidden" name="mode" value="update" />
+<input type="hidden" name="mode" value="Officer" />
 	'.border('syellow','start',$act_words['changeupdatepass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
@@ -140,4 +141,30 @@ $body .= '<br />
 	    </tr>
 	  </table>
 	'.border('syellow','end').'
+	</form>';
+
+	
+$body .= '<br />
+<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
+<input type="hidden" name="mode" value="Guild" />
+	'.border('sgreen','start',$act_words['changeguildpass']).'
+	  <table class="bodyline" cellspacing="0" cellpadding="0">
+	    <tr>
+	      <td class="membersRow1">'.$act_words['old_pass'].':</td>
+	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
+	    </tr>
+	    <tr>
+	      <td class="membersRow2">'.$act_words['new_pass'].':</td>
+	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
+	    </tr>
+	    <tr>
+	      <td class="membersRow1">'.$act_words['new_pass_confirm'].':</td>
+	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
+	    </tr>
+	    <tr>
+	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
+		    <input type="submit" value="'.$act_words['pagebar_changepass'].'" /></div></td>
+	    </tr>
+	  </table>
+	'.border('sgreen','end').'
 	</form>';

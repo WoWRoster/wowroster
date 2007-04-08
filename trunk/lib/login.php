@@ -24,9 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class RosterLogin
 {
 	var $allow_login;
-	var $admin;
 	var $message;
-	var $loginform;
 	var $script_filename;
 
 	/**
@@ -38,19 +36,105 @@ class RosterLogin
 	 * @param array $fields
 	 * @return RosterLogin
 	 */
-	function RosterLogin( $script_filename='' , $admin=true )
+	function RosterLogin( $script_filename='' )
 	{
-		global $act_words;
+		global $act_words, $roster_conf;
 
 		$this->script_filename = makelink($script_filename);
-		$this->allow_login = false;
-		$this->admin = $admin;
-		$this->log_word = ($this->admin ? 'Admin' : 'Officer');
 
-		$this->loginform = '
+		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
+		{
+			setcookie( 'roster_pass','',time()-86400,'/' );
+			$this->allow_login = 0;
+			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
+		}
+		elseif( isset($_COOKIE['roster_pass']) )
+		{
+			$this->checkPass($_COOKIE['roster_pass']);
+		}
+		elseif( isset($_POST['password']) )
+		{
+			$this->checkPass($_POST['password']);
+		}
+		else
+		{
+			$this->allow_login = 0;
+			$this->message = '<span style="font-size:10px;color:red;">Not logged in</span><br />';
+		}
+	}
+
+	function checkPass( $pass )
+	{
+		global $wowdb;
+		
+		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` ORDER BY `account_id` DESC;";
+		$result = $wowdb->query($query);
+		
+		if( !$result )
+		{
+			setcookie( 'roster_pass','',time()-86400,'/' );
+			$this->allow_login = 0;
+			$this->message = '<span style="font-size:10px;color:red;">Failed to fetch password info</span><br />';
+			return;
+		}
+		
+		while( $row = $wowdb->fetch_assoc($result) )
+		{
+			if(( $row['hash'] == md5($pass) ) ||
+				( $row['hash'] == $pass ))
+			{
+				setcookie( 'roster_pass',$row['hash'],0,'/' );
+				$this->allow_login = $row['account_id'];
+ 				$this->message = '<span style="font-size:10px;color:red;">Logged in '.$row['name'].':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
+				
+				$wowdb->free_result($result);
+				return;
+			}
+		}
+		$wowdb->free_result($result);
+
+		setcookie( 'roster_pass','',time()-86400,'/' );
+		$this->allow_login = 0;
+		$this->message = '<span style="font-size:10px;color:red;">Invalid password</span><br />';
+		return;
+	}
+
+	function getAuthorized()
+	{
+		return $this->allow_login;
+	}
+
+	function getMessage()
+	{
+		return $this->message;
+	}
+
+	function getLoginForm( $level = 3 )
+	{
+		global $act_words, $wowdb;
+
+		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `account_id` = '".$level."';";
+		$result = $wowdb->query($query);
+		
+		if( !$result )
+		{
+			die_quietly($wowdb->error, 'Roster Auth', basename(__FILE__),__LINE__,$query);
+		}
+		
+		if( $wowdb->num_rows($result) != 1 )
+		{
+			die_quietly('Invalid required login level specified', 'Roster Auth');
+		}
+		
+		$row = $wowdb->fetch_assoc($result);
+		$wowdb->free_result($result);
+		
+		$log_word = $row['name'];
+
+		return '
 			<!-- Begin Password Input Box -->
 			<form action="'.$this->script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)">
-			'.border('sred','start',$this->log_word .' '. $act_words['auth_req']).'
+			'.border('sred','start',$log_word .' '. $act_words['auth_req']).'
 			  <table class="bodyline" cellspacing="0" cellpadding="0" width="100%">
 			    <tr>
 			      <td class="membersRowRight1">'.$act_words['password'].':<br />
@@ -64,74 +148,5 @@ class RosterLogin
 			'.border('sred','end').'
 			</form>
 			<!-- End Password Input Box -->';
-
-		$this->checkLogin();
-		$this->checkLogout();
-	}
-
-	function checkLogin()
-	{
-		global $roster_conf;
-
-		$pass_type = ($this->admin ? 'roster_admin_pw' : 'roster_upd_pw');
-
-		if( !isset($_COOKIE['roster_pass']) )
-		{
-			if( isset($_POST['password']) )
-			{
-				if( md5($_POST['password']) == $roster_conf[$pass_type] || md5($_POST['password']) == $roster_conf['roster_admin_pw'] )
-				{
-					setcookie( 'roster_pass',$roster_conf[$pass_type],0,'/' );
-					$this->message = '<span style="font-size:10px;color:red;">Logged in '.$this->log_word.':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-					$this->allow_login = true;
-				}
-				else
-				{
-					$this->message = '<span style="font-size:11px;color:red;">Wrong password for '.$this->log_word.'</span><br />';
-					$this->allow_login = false;
-				}
-			}
-		}
-		else
-		{
-			$BigCookie = $_COOKIE['roster_pass'];
-
-			if( $BigCookie == $roster_conf[$pass_type] || $BigCookie == $roster_conf['roster_admin_pw'] )
-			{
- 				$this->message = '<span style="font-size:10px;color:red;">Logged in '.$this->log_word.':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-				$this->allow_login = true;
-			}
-			else
-			{
-				setcookie( 'roster_pass','',time()-86400,'/' );
-				$this->allow_login = false;
-			}
-		}
-	}
-
-	function checkLogout()
-	{
-		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
-		{
-			if( isset($_COOKIE['roster_pass']) )
-				setcookie( 'roster_pass','',time()-86400,'/' );
-			$this->allow_login = false;
-			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
-		}
-	}
-
-	function getAuthorized()
-	{
-		return $this->allow_login;
-	}
-
-	function getMessage()
-	{
-		return $this->message;
-	}
-
-	function getLoginForm()
-	{
-		return $this->loginform;
 	}
 }

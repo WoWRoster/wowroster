@@ -38,10 +38,6 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 // If the entire config page is requested, display only THAT
 if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 {
-	// Null some stuff before we print it
-	$roster_conf['roster_upd_pw'] = null;
-	$roster_conf['roster_admin_pw'] = null;
-
 	print '<div align="left"><pre>';
 	print_r($roster_conf);
 	print '</pre></div>';
