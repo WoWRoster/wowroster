@@ -80,7 +80,7 @@ CREATE TABLE `renprefix_addon_config` (
   `config_value` tinytext,
   `form_type` mediumtext,
   `config_type` varchar(255) default NULL,
-  KEY `addon` (`id`,`addon_id`)
+  PRIMARY KEY `addon` (`id`,`addon_id`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
