@@ -10,11 +10,9 @@
 ### Master Values
 
 INSERT INTO `renprefix_config` VALUES (1, 'config_list', 'main_conf|guild_conf|menu_conf|display_conf|index_conf|char_conf|realmstatus_conf|data_links|guildbank_conf|update_access', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (2, 'roster_upd_pw', '', 'password:30|30', 'master');
 INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '6', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (4, 'version', '1.8.0', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (6, 'roster_admin_pw', '', 'password:30|30', 'master');
 
 # --------------------------------------------------------
 ### Menu Entries

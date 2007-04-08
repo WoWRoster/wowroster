@@ -520,6 +520,7 @@ function process_step4()
     // Update admin account
     //
     define('CONFIG_TABLE', $db_prefix . 'config');
+	define('ACCOUNT_TABLE', $db_prefix . 'account');
 
     include_once(ROSTER_BASE . 'lib'.DIR_SEP.'wowdb.php');
 
@@ -540,8 +541,17 @@ function process_step4()
 
     $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
-    $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_admin_pw';");
-    $wowdb->query("UPDATE " . CONFIG_TABLE . " SET `config_value`='".$pass_word."' WHERE `config_name`='roster_upd_pw';");
+	//
+	// Insert account data. This isn't in the data sql file because we don't
+	// want to include it in a settings reset
+	//
+	$wowdb->query("INSERT INTO `".ACCOUNT_TABLE."` (`account_id`, `name`) VALUES
+		(1, 'Guild'),
+		(2, 'Officer'),
+		(3, 'Admin');");
+	
+	$wowdb->query("UPDATE `".ACCOUNT_TABLE."`
+		SET `account`.`hash` = '".$pass_word."';");
 
     //
     // Check password and notify uer

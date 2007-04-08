@@ -152,11 +152,9 @@ class update
 		$gotfiles = array_keys($this->uploadData);
 		if (in_array('characterprofiler',$gotfiles))
 		{
-			if( ( md5($_POST['password']) == $roster_conf['roster_upd_pw'] ) ||
-				( $_POST['password'] == $roster_conf['roster_upd_pw'] ) ||
-				( md5($_POST['password']) == $roster_conf['roster_admin_pw']) ||
-				( $_POST['password'] == $roster_conf['roster_admin_pw'])
-			  )
+			$roster_login = new RosterLogin();
+			
+			if( $roster_login->getAuthorized(2) )
 			{
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";
@@ -396,7 +394,7 @@ class update
 										}
 
 										$guild_output .= "</ul>\n";
-										$output .= '<strong>'.sprintf($act_words['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
+										$output = '<strong>'.sprintf($act_words['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
 										$output .= '<li><strong>'.$act_words['memberlog']."</strong>\n<ul>\n".
 											'<li>'.$act_words['updated'].': '.$wowdb->membersupdated."</li>\n".
 											'<li>'.$act_words['added'].': '.$wowdb->membersadded."</li>\n".
