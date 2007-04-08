@@ -893,6 +893,7 @@ $lang['pagebar_addoninst'] = 'Verwalte Addons';
 $lang['pagebar_update'] = 'Upload Profile';
 $lang['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
 $lang['pagebar_menuconf'] = 'Menu Konfiguration';
+$lang['pagebar_configreset'] = 'Config Reset';
 
 $lang['pagebar_addonconf'] = 'Addon Konfiguration';
 
