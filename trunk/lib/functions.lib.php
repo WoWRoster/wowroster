@@ -948,6 +948,9 @@ function getaddon( $addonname )
 	// Get the addon's admin file
 	$addon['admin_file'] = $addon['dir'].'admin.php';
 
+	// Get the addon's trigger file
+	$addon['trigger_file'] = $addon['dir'].'trigger.php';
+	
 	// Get the addon's ajax functions file
 	$addon['ajax_file'] = $addon['dir'].'ajax.php';
 
@@ -991,12 +994,13 @@ function add_locale_file( $localefile , $locale , &$array )
 
 	if( isset($array[$locale]) )
 	{
-		$array[$locale] = array_merge_recursive($array[$locale], $lang);
+		$admin = array_merge($array[$locale]['admin'], $lang['admin']);
+		$array[$locale] = array_merge($array[$locale], $lang);
+		$array[$locale]['admin'] = $admin;
 	}
 	else
 	{
-		$array[$locale] = array();
-		$array[$locale] = array_merge_recursive($array[$locale], $lang);
+		$array[$locale] = $lang;
 	}
 
 	unset($lang);

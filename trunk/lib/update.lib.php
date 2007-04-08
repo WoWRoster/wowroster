@@ -43,31 +43,40 @@ class update
 			$this->files[] = 'pvplog';
 		}
 
-		if ( !isset($roster_conf['user_upgrade_triggers']) )
+		if ( !$roster_conf['use_update_triggers'] )
 		{
 			return '';
 		}
 
-		$query = 'SELECT `addon`.`basename`,`addon`.`fullname`,`trigger`.`file` '.
-			'FROM `'.$wowdb->table('addon_trigger').'` AS `trigger` '.
-			'LEFT JOIN `'.$wowdb->table('addon').'` AS `addon` '.
+		$query = 'SELECT `addon`.`basename`,`addon`.`fullname`,`trigger`.`file`,`trigger`.`active` '.
+			'FROM `'.$wowdb->table('addon').'` AS `addon` '.
+			'LEFT JOIN `'.$wowdb->table('addon_trigger').'` AS `trigger` '.
 				'ON `trigger`.`addon_id` = `addon`.`addon_id` '.
-			'WHERE `trigger`.`active` = 1 AND `addon`.`active` = 1';
+			'WHERE `addon`.`active` = 1';
 		$result = $wowdb->query($query);
 
+		$output = '';
 		if (!$result)
 		{
-			$output = 'Could not fetch addon trigger usage. Addon triggers will not be run. MySQL said: '.$wowdb->error()."<br />\n";
+			$wowdb->setError('Failed to load addon triggers',$wowdb->error());
 		}
 		else
 		{
 			while ($row = $wowdb->fetch_assoc($result))
 			{
-				$output .= 'Registering '.$row['file'].' for '.$row['fullname']."<br />\n";
-				$this->addons[$row['basename']][] = strtolower($row['file']);
-				if (!in_array(strtolower($row['file']),$this->files))
+				if( !isset($this->addons[$row['basename']]) )
 				{
-					$this->files[] = strtolower($row['file']);
+					$this->addons[$row['basename']] = getaddon($row['basename']);
+					$this->addons[$row['basename']]['files'] = array();
+				}
+				if( !is_null($row['file']) && ($row['active'] == 1) )
+				{
+					$output .= 'Registering '.$row['file'].' for '.$row['fullname']."<br />\n";
+					$this->addons[$row['basename']]['files'][] = strtolower($row['file']);
+					if (!in_array(strtolower($row['file']),$this->files))
+					{
+						$this->files[] = strtolower($row['file']);
+					}
 				}
 			}
 		}
@@ -142,7 +151,7 @@ class update
 	 */
 	function processFiles()
 	{
-		global $roster_conf;
+		global $roster_conf, $wowdb, $wordings, $act_words;
 
 		if (!is_array($this->uploadData))
 		{
@@ -169,24 +178,20 @@ class update
 			$output .= "<br />\n";
 		}
 
-		if (is_array($this->addons) && count($this->addons)>0)
+		if( is_array($this->addons) && count($this->addons)>0 )
 		{
-			foreach ($this->addons as $basename => $files)
+			foreach( $this->addons as $basename => $addon )
 			{
-				if (count(array_intersect($gotfiles, $files))>0)
+				if( count(array_intersect($gotfiles, $addon['files']))>0 )
 				{
 					ob_start();
-						$trigger = $addon['basename'];
-						$triggerfile = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'trigger.php';
-						$triggerconf = $triggerPath.DIR_SEP.$trigger.DIR_SEP.'conf.php';
-						$addonDir = $triggerPath.DIR_SEP.$trigger.DIR_SEP;
-
-						if ( file_exists($triggerfile) )
+						if( file_exists($addon['trigger_file']) )
 						{
-							if ( file_exists($triggerconf) )
-								include_once( $triggerconf );
+							if( file_exists($addon['conf_file']) )
+								include_once( $addon['conf_file'] );
 
-							include( $triggerfile );
+							$mode = 'files';
+							include( $addon['trigger_file'] );
 						}
 						$output .= ob_get_contents();
 					ob_end_clean();
@@ -194,7 +199,55 @@ class update
 			}
 		}
 		return $output;
+	}
+	
+	/**
+	 * Run trigger for character
+	 */
+	function addon_hook($mode, $data, $member_name = '')
+	{
+		global $roster_conf, $wowdb, $wordings, $act_words;
+		
+		if( $member_name != '' )
+		{
+			$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '".$member_name."';";
+			$result = $wowdb->query($query);
+			
+			if( !$result )
+			{
+				$wowdb->setError('Failed to fetch member ID for '.$member_name, $wowdb->error());
+				return;
+			}
+			
+			$row = $wowdb->fetch_assoc($result);
+			$wowdb->free_result($result);
+			
+			if( $row )
+			{
+				$member_id = $row['member_id'];
+			}
+			else
+			{
+				return;
+			}
+		}
+		
+		$output = '';
+		foreach( $this->addons as $basename => $addon )
+		{
+			ob_start();
+				if( file_exists($addon['trigger_file']) )
+				{
+					if( file_exists($addon['conf_file']) )
+						include_once( $addon['conf_file'] );
 
+					include( $addon['trigger_file'] );
+				}
+				$output .= ob_get_contents();
+			ob_end_clean();			
+		}
+		
+		return $output;
 	}
 
 	/**
@@ -262,7 +315,7 @@ class update
 					// Start update triggers
 					if( $roster_conf['use_update_triggers'] )
 					{
-						$output .= start_update_hook('char_pre', $characters);
+						$output .= $this->addon_hook('char_pre', $characters);
 					}
 
 					foreach( array_keys( $characters ) as $char_name )
@@ -281,7 +334,7 @@ class update
 							// Start update triggers
 							if( $roster_conf['use_update_triggers'] )
 							{
-								$output .= start_update_trigger($char_name,'char', $char );
+								$output .= $this->addon_hook('char', $char, $char_name);
 							}
 						}
 						else // CP Version not new enough
@@ -295,7 +348,7 @@ class update
 					// Start update triggers
 					if( $roster_conf['use_update_triggers'] )
 					{
-						$output .= start_update_hook('char_post', $characters);
+						$output .= $this->addon_hook('char_post', $characters);
 					}
 				}
 				else
@@ -364,7 +417,7 @@ class update
 										// Start update triggers
 										if( $roster_conf['use_update_triggers'] )
 										{
-											$guild_output .= start_update_hook('guild_pre', $guild);
+											$guild_output .= $this->addon_hook('guild_pre', $guild);
 										}
 
 										foreach(array_keys($guildMembers) as $char_name)
@@ -377,7 +430,7 @@ class update
 											// Start update triggers
 											if( $roster_conf['use_update_triggers'] )
 											{
-												$guild_output .= start_update_trigger($char_name, 'guild', $char);
+												$guild_output .= $this->addon_hook('guild', $char, $char_name);
 											}
 										}
 										// Remove the members who were not in this list
@@ -390,7 +443,7 @@ class update
 										// Start update triggers
 										if( $roster_conf['use_update_triggers'] )
 										{
-											$guild_output .= start_update_hook('guild_post', $guild);
+											$guild_output .= $this->addon_hook('guild_post', $guild);
 										}
 
 										$guild_output .= "</ul>\n";
