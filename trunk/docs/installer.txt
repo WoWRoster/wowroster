@@ -12,7 +12,6 @@ some important exeptions:
   create are automatically deleted in rollback.
 - A lot of different required variables to be set.
 
-
 Creating the installer
 ===================
 You should create a file called install.def.php with in it a class that is named
