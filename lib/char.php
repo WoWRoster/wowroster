@@ -321,6 +321,8 @@ $returnstring .= '  <tr>
 			return '<span class="headline_1">'.sprintf($wordings[$lang]['no_mail'],$this->data['name']).'</span>';
 		}
 
+		$content = '';
+
 		if( $wowdb->num_rows($result) > 0 )
 		{
 			//begin generation of mailbox's output
@@ -340,8 +342,6 @@ $returnstring .= '  <tr>
 				$maildateutc = strtotime($this->data['maildateutc']);
 
 				$content .= '<td class="membersRow'.$cur_row.'">'."\n";
-
-				$cur_row = (($cur_row + 1) % 1) + 1;
 
 				// Get money in mail
 				$money_included = '';
@@ -455,6 +455,8 @@ $returnstring .= '  <tr>
 				$content .= '<td class="membersRowRight'.$cur_row.'">'.$expires_line.'</td>'."\n";
 
 				$content .= "</tr>\n";
+
+				$cur_row = (($cur_row%2)+1);
 			}
 
 			$content .= "</tr>\n</table>\n".border('sgray','end');

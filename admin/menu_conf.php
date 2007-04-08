@@ -193,7 +193,7 @@ $body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['
 $body .= '</form><br />'."\n";
 
 $body .= border('sgreen','start',$section);
-$body .= '<div id="array" style="width:'.(105*$arrayWidth+5).'px;height:'.(30*$arrayHeight+5).'px;"></div>'."\n";
+$body .= '<div id="array" style="width:'.(105*$arrayWidth+10).'px;height:'.(30*$arrayHeight+5).'px;"></div>'."\n";
 $body .= border('sgreen','end',$section);
 
 foreach($arrayButtons as $posX=>$column)

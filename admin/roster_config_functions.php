@@ -34,7 +34,7 @@ function rosterLangValue( $values )
 	{
 		if( $value == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$value.'" selected="selected">-'.$value.'-</option>'."\n";
+			$input_field .= '  <option value="'.$value.'" selected="selected">-[ '.$value.' ]-</option>'."\n";
 			$select_one = 0;
 		}
 		else
@@ -84,7 +84,7 @@ function pageNames( )
 
 		if( $row['url'] == $roster_conf['default_page'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$row['url'].'" selected="selected">-'.( isset($act_words[$row['title']]) ? $act_words[$row['title']] : $row['title'] ).'-</option>'."\n";
+			$input_field .= '  <option value="'.$row['url'].'" selected="selected">-[ '.( isset($act_words[$row['title']]) ? $act_words[$row['title']] : $row['title'] ).' ]-</option>'."\n";
 			$select_one = 0;
 		}
 		else

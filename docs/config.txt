@@ -50,6 +50,8 @@ function{name
 	produce the HTML for the option.
 display
 	Displays the option's setting.
+color
+	Enables the use of the color picker js to pick a color
 
 
 config.func.php:
