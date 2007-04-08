@@ -48,13 +48,13 @@ class RosterLogin
 			$this->allow_login = 0;
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 		}
-		elseif( isset($_COOKIE['roster_pass']) )
-		{
-			$this->checkPass($_COOKIE['roster_pass']);
-		}
 		elseif( isset($_POST['password']) )
 		{
 			$this->checkPass($_POST['password']);
+		}
+		elseif( isset($_COOKIE['roster_pass']) )
+		{
+			$this->checkPass($_COOKIE['roster_pass']);
 		}
 		else
 		{

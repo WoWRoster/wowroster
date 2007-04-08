@@ -59,6 +59,11 @@ $config_pages['change_pass'] = array(
 	'title'=>	'pagebar_changepass',
 	'file'=>	'change_pass.php',
 	);
+$config_pages['config_reset'] = array(
+	'href'=>	$roster_pages[0].'-config_reset',
+	'title'=>	'pagebar_configreset',
+	'file'=>	'config_reset.php',
+	);
 $config_pages['hr'] = array(
 	'special'=>	'divider',
 	);
