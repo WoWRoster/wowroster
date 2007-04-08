@@ -38,7 +38,7 @@ class config
 	 */
 	function config( $tablename )
 	{
-		global $act_words, $body_action, $roster_login;
+		global $act_words, $body_action, $roster_login, $html_head;
 
 		$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
@@ -46,7 +46,8 @@ class config
 		$this->form_start = $roster_login->getMessage()."<br /><form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') && submitonce(this);\">\n";
 		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
-		$this->jscript = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
+		$this->jscript  = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
+		$this->jscript .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."css/js/color_functions.js\"></script>\n";
 	}
 
 	/**
@@ -299,7 +300,8 @@ class config
 	 */
 	function buildBlock($block)
 	{
-		global $roster_login;
+		global $roster_login, $roster_conf;
+
 		$i = 0;
 		$html = '';
 		foreach($this->db_values[$block] as $values)
@@ -348,7 +350,7 @@ class config
 						$vals = explode('^',$value);
 						if( $values['value'] == $vals[1] && $select_one )
 						{
-							$input_field .= '  <option value="'.$vals[1].'" selected="selected">-'.$vals[0].'-</option>'."\n";
+							$input_field .= '  <option value="'.$vals[1].'" selected="selected">-[ '.$vals[0].' ]-</option>'."\n";
 							$select_one = 0;
 						}
 						else
@@ -357,6 +359,10 @@ class config
 						}
 					}
 					$input_field .= '</select>';
+					break;
+
+				case 'color':
+					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:'.$values['value'].';" value="'.$values['value'].'" name="config_color_'.$values['name'].'" id="config_color_'.$values['name'].'" /><img src="'.$roster_conf['img_url'].'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'config_color_'.$values['name'].'\'))" alt="" />'."\n";
 					break;
 
 				case 'access':
@@ -392,8 +398,16 @@ class config
 	 */
 	function processData()
 	{
-		global $wowdb, $queries;
+		global $wowdb, $queries, $roster_conf, $addon;
 
+		if( !is_array($addon) )
+		{
+			$config = &$roster_conf;
+		}
+		else
+		{
+			$config = &$addon['config'];
+		}
 		if( !(array_key_exists('process',$_POST) && ($_POST['process'] == 'process')) )
 		{
 			return '';
@@ -406,6 +420,7 @@ class config
 		{
 			if( substr($settingName,0,7) == 'config_' )
 			{
+				// Get rid of the prefix
 				$settingName = str_replace('config_','',$settingName);
 
 				// Fix directories
@@ -426,19 +441,26 @@ class config
 					}
 				}
 
-				$get_val = "SELECT `config_value` FROM `".$this->tablename."` WHERE `config_name` = '".$settingName."';";
-				$result = $wowdb->query($get_val);
-
-				if( !$result )
+				// Fix color boxes
+				if( substr($settingName, 0, 6) == 'color_' )
 				{
-					die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
+					// Get rid of the color prefix
+					$settingName = str_replace('color_','',$settingName);
+
+					if( substr($settingValue, 0, 1) != '#' )
+					{
+						$settingValue = '#'.strtoupper($settingValue);
+					}
+					else
+					{
+						$settingValue = strtoupper($settingValue);
+					}
 				}
 
-				$config = $wowdb->fetch_assoc($result);
-
-				if( $config['config_value'] != $settingValue && $settingName != 'process' )
+				if( $config[$settingName] != $settingValue && $settingName != 'process' )
 				{
 					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$wowdb->escape( $settingValue )."' WHERE `config_name` = '".$settingName."';";
+					$config[$settingName] = $settingValue;
 				}
 			}
 		}

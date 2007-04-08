@@ -932,7 +932,7 @@ function getaddon( $addonname )
 
 	if( file_exists($addon['css_file']) )
 	{
-		$addon['css_url'] = '/addons/'.$addon['basename'].'/style.css';
+		$addon['css_url'] = 'addons/'.$addon['basename'].'/style.css';
 	}
 	else
 	{

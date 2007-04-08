@@ -134,7 +134,12 @@ function getCharData( )
 
 	// Get the current config values
 	$results = $wowdb->query($sql);
-	if( $results && $wowdb->num_rows($results) > 0 )
+	if( !$results )
+	{
+		die_quietly( $wowdb->error(), 'Database Error',basename(__FILE__),__LINE__,$sql);
+	}
+
+	if( $wowdb->num_rows($results) > 0 )
 	{
 		while($row = $wowdb->fetch_assoc($results))
 		{
@@ -149,10 +154,6 @@ function getCharData( )
 			}
 		}
 		return $db_values;
-	}
-	else
-	{
-		die_quietly( $wowdb->error(), 'Database Error',basename(__FILE__),__LINE__,$sql);
 	}
 }
 
