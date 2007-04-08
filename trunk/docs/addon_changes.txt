@@ -70,3 +70,5 @@ These are the changes for the roster addon framework:
    o lib/memberslist.php: A table with full client-side filtering and sorting ability
    o lib/login.php: Not completely new, but now automatically included and initialized and offers full authorization capabilities.
    o lib/minixml.lib.php: A XML file reader and creator
+
+   
