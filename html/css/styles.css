@@ -1,0 +1,633 @@
+BODY {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+.membersList {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+.members {
+	padding: 3px 3px 3px 3px;
+	margin: 0px 0px 0px 0px;
+	font-family: Sans-Serif;
+	width: 100%;
+}
+a:link			{ color: #CBA300; text-decoration: none;}
+
+a:visited 		{ color: #CBA300; text-decoration: none;}
+
+a:hover			{ color: #EABB00; text-decoration: none;}
+
+a:active 		{ color: #EABB00; text-decoration: none;}
+
+.membersHeader {
+	text-align: left; 
+	color: #CBA300; 
+	font-size: 8pt; 
+	font-family: arial,helvetica,sans-serif; 
+	background-color: #2E2D2B; 
+    border-color: #5D5D5D;
+    border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	padding: 0px 6px 0px 6px;
+}
+.membersHeaderRight {
+	text-align: left; 
+	color: #CBA300; 
+	font-size: 8pt; 
+	font-family: arial,helvetica,sans-serif; 
+	background-color: #2E2D2B; 
+    border-color: #5D5D5D;
+    border-style: solid; 
+	border-width: 1px 1px 0px 1px; 
+	padding: 0px 6px 0px 6px;
+}
+.membersKeyRow1 {
+	text-align:left;
+	vertical-align:center;
+	color: #ffffff; 
+    background-color: #1F1E1D;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+  height: 42px;
+  width: 42px;
+}
+.membersKeyRowLeft1 {
+	text-align:left;
+	vertical-align:center;
+	color: #ffffff; 
+    background-color: #1F1E1D;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+  height: 47px;
+}
+.membersKeyRowRight1 {
+	text-align:left;
+	vertical-align:center;
+	color: #ffffff; 
+    background-color: #1F1E1D;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	border-style: solid; 
+	border-width: 1px 1px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+  height: 47px;
+  width: 42px;
+}
+
+.membersKeyRow2  {
+	text-align:left;
+	vertical-align:center;
+	color: #ffffff; 
+    background-color: #2E2D2B;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+  height: 42px;
+  width: 42px;
+}
+.membersKeyRowLeft2  {
+	text-align:left;
+	vertical-align:center;
+	color: #ffffff; 
+    background-color: #2E2D2B;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+  height: 47px;
+}
+.membersKeyRowRight2  {
+	text-align:left;
+	vertical-align:center;
+	color: #ffffff; 
+    background-color: #2E2D2B;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	border-style: solid; 
+	border-width: 1px 1px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+  height: 47px;
+  width: 42px;
+}
+
+A.membersRow2 {
+	color: #CBA300; 
+	text-decoration: none;
+}
+A.membersRow2:active  { 
+	color: #CBA300; 
+	text-decoration: none;
+}
+
+.membersRow1 {
+	text-align:left;
+	color: #ffffff; 
+    background-color: #1F1E1D;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	white-space: nowrap;
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+}
+.membersRowRight1 {
+	text-align:left;
+	color: #ffffff; 
+    background-color: #1F1E1D;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	white-space: nowrap;
+	border-style: solid; 
+	border-width: 1px 1px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+}
+
+.membersRow2  {
+	text-align:left;
+	color: #ffffff; 
+    background-color: #2E2D2B;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	white-space: nowrap;
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+}
+.membersRowRight2  {
+	text-align:left;
+	color: #ffffff; 
+    background-color: #2E2D2B;
+    font-size: 9pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	white-space: nowrap;
+	border-style: solid; 
+	border-width: 1px 1px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 3px 6px 3px 6px;
+}
+
+A.membersRow2 {
+	color: #CBA300; 
+	text-decoration: none;
+}
+A.membersRow2:active  { 
+	color: #CBA300; 
+	text-decoration: none;
+}
+
+.membersGroup {
+	text-align:left;
+	background: #000000;
+	color: #EABB00;
+  font-size: 12pt; 
+	font-family: arial,helvetica,sans-serif; 
+	font-weight: bold; 
+	white-space: nowrap;
+	padding: 1px 18px 1px 18px;
+}
+.membersGroup A {
+	color: #FFFFFF;
+}
+
+#class-Druid {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Druid.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Hunter {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Hunter.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Mage {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Mage.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Paladin {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Paladin.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Priest {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Priest.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Rogue {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Rogue.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Shaman {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Shaman.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Warlock {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Warlock.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+#class-Warrior {
+  text-align:right;
+  color: #000000;
+  background-image: url("../img/Warrior.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 290px;
+  height: 64px;
+}
+.rankbordertopleft {
+  float:left;
+  background-image: url("../img/rankingborder-top-left.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  height: 14px;
+  width: 16px;
+}
+.rankbordertop {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px 0px 0px 0px;
+  background-image: url("../img/rankingborder-top.gif");
+  background-repeat: repeat-x;
+  background-position: left top;
+  height:14px;
+  width:100%;
+  white-space: nowrap;
+}
+.rankbordertopright {
+  float:right;
+  background-image: url("../img/rankingborder-top-right.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  height: 14px;
+  width: 16px;
+  overflow: hidden;
+}
+.rankbordercenterleft {
+  background-image: url("../img/rankingborder-left.gif");
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding: 0px 0px 0px 12px;
+  height:14px;
+}
+
+.rankbordercenter {
+  width: 100%;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px 0px 0px 0px;
+ 
+}
+.rankbordercenterright {
+  background-image: url("../img/rankingborder-right.gif");
+  background-repeat: repeat-y;
+  background-position: right top;
+  padding: 0px 12px 0px 0px;
+}
+.rankborderbotleft {
+  float:left;
+  background-image: url("../img/rankingborder-bot-left.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  height: 12px;
+  width: 19px;
+}
+.rankborderbot {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 0px 0px 0px 0px;
+  background-image: url("../img/rankingborder-bot.gif");
+  background-repeat: repeat-x;
+  background-position: left top;
+  height:12px;
+  width:100%;
+}
+.rankborderbotright {
+  float:right;
+  background-image: url("../img/rankingborder-bot-right.gif");
+  background-repeat: no-repeat;
+  background-position: left top;
+  height: 12px;
+  width: 19px;
+}
+.reagentsRow1 {
+	color: #ffffff; 
+	border-style: solid; 
+	border-width: 1px 0px 0px 1px; 
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D; 
+	padding: 0px 0px 0px 3px;
+}
+
+.bag {
+  float: left;
+  width: 212px;
+  margin: 10px 0 10px;
+  color: #ffffff;
+  background: url('../img/bagBg2.gif') repeat-y;
+  background-position: 0 3px;
+}
+
+.bag .bagTop {
+  float: left;
+  width: 100%;
+  background: url('../img/bagTopBig.gif') no-repeat;
+  height: 52px;
+}
+
+.bag .bagTop .bagIcon {
+  float: left;
+  width: 50px;
+  height: 50px;
+  padding: 5px 5px 5px 5px;
+}
+
+.bag .bagTop .bagName {
+  float: left;
+  vertical-align: center;
+  height: 50px;
+  margin: 0;
+  padding: 15px 0 10px 0;
+  font: 13px georgia, tahoma, sans-serif;
+  font-weight: bold;
+}
+
+.bag .bagLine {
+  float: left;
+  width: 100%;
+  padding: 0 0 0 4px;
+}
+
+.bag .bagLine .bagNoSlot {
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 4px 5px 5px 6px;
+}
+
+.bag .bagLine .bagSlot {
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 4px 5px 5px 6px;
+  background-image: url('../img/bagSlot.gif');
+
+}
+
+.bag .bagBottomLine {
+  float: left;
+  width: 100%;
+  padding: 0 0 0 4px;
+}
+
+.bag .bagBottomLine .bagSlot {
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 4px 5px 2px 6px;
+  background-image: url('../img/bagBottomBox.gif');
+  background-position: left top;
+}
+
+.bag .bagMoneyBottom {
+  float: left;
+  width: 100%;
+  background-image: url('../img/bagMoneyBottom.gif');
+}
+
+.bag .bagMoneyBottom .money {
+  float: right;
+  padding: 4px 15px 7px 0;
+}
+
+.bag .bagBottom {
+  float: left;
+  height: 6px;
+  width: 100%;
+  background-image: url('../img/bagBottom.gif') ;
+}
+
+.item {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.item .quant {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  font: 11px georgia, tahoma, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}
+.icon {
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+}
+
+.tooltip {
+
+}
+
+.tip{
+  margin-left:45px;
+}
+.tooltip .tip{
+  position: absolute;
+  width: 200px;
+  border: 2px solid #aa9900;
+  background-color: #000000;
+  text-decoration: none;
+  font-size: 12px;
+  display: none;
+  z-index: 1001;
+}
+
+.tooltip .tip .tooltipline {
+  float:left;
+  width: 100%;
+}
+
+.tooltip .tip .tooltipheader {
+  float:left;
+  width: 100%;
+  font-weight: bold;
+}
+
+img, p { 
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.keys { 
+float: left 
+height: 15px; 
+width: 40px; 
+} 
+ 
+.keys .name { 
+font: 12px arial, helvetica, sans-serif;
+color: #3e9cdc; 
+}
+
+.keys .xpbox { 
+position: relative; 
+left: 0; 
+top: 0; 
+width: 40px; 
+height: 15px; 
+} 
+ 
+.keys .xpbox .bg { 
+position: absolute; 
+left: 0px; 
+top: 0; 
+width: 40px; 
+height: 15px 
+} 
+ 
+.keys .xpbox .bit { 
+position: absolute; 
+left: 0px; 
+top: 1px; 
+left: 3px; 
+height: 12px; 
+} 
+
+.keys .xpbox .level { 
+position: absolute; 
+left: 0px; 
+top: 0; 
+height: 10px; 
+width: 100%; 
+text-align: center; 
+font: 10px tahoma, sans-serif; 
+padding: 2px 0px 0px 0px; 
+color: #ffffff; 
+font-weight: bold; 
+} 
+
+.xp { 
+float: left 
+height: 15px; 
+width: 253px; 
+} 
+ 
+.xp .xpbox { 
+position: relative; 
+left: 0; 
+top: 0; 
+width: 253px; 
+height: 15px; 
+} 
+ 
+.xp .xpbox .bg { 
+position: absolute; 
+left: 0px; 
+top: 0; 
+width: 253px; 
+height: 15px 
+} 
+ 
+.xp .xpbox .bit { 
+position: absolute; 
+left: 0px; 
+top: 1px; 
+left: 3px; 
+height: 12px; 
+} 
+ 
+.xp .xpbox .name { 
+position: absolute; 
+left: 0px; 
+top: 0; 
+height: 10px; 
+padding: 2px 0px 5px 10px; 
+font: 10px tahoma, sans-serif; 
+font-weight: bold; 
+color: #ffffff; 
+ 
+ 
+} 
+ 
+.xp .xpbox .level { 
+position: absolute; 
+left: 0px; 
+top: 0; 
+height: 10px; 
+width: 100%; 
+text-align: center; 
+padding: 2px 0px 5px 10px; 
+font: 10px tahoma, sans-serif; 
+color: #ffffff; 
+font-weight: bold; 
+}

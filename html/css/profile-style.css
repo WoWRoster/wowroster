@@ -1,0 +1,85 @@
+
+#talentpage1 {
+	BACKGROUND-ATTACHMENT: fixed; LEFT: 0px; OVERFLOW: auto; WIDTH: 380px; BACKGROUND-REPEAT: no-repeat; POSITION: relative; TOP: 5px; HEIGHT: 370px
+}
+#talentpage2 {
+	BACKGROUND-ATTACHMENT: fixed; LEFT: 0px; OVERFLOW: auto; WIDTH: 380px; BACKGROUND-REPEAT: no-repeat; POSITION: relative; TOP: 5px; HEIGHT: 370px
+}
+#talentpage3 {
+	BACKGROUND-ATTACHMENT: fixed; LEFT: 0px; OVERFLOW: auto; WIDTH: 380px; BACKGROUND-REPEAT: no-repeat; POSITION: relative; TOP: 5px; HEIGHT: 370px
+}
+#talentwrapper1 {
+	DISPLAY: block
+}
+#talentwrapper2 {
+	DISPLAY: none
+}
+#talentwrapper3 {
+	DISPLAY: none
+}
+#talentwrapper1 {
+	LEFT: 10px; RIGHT: 10px;WIDTH: 360PX; POSITION: relative; TOP: 10px; HEIGHT: 355px
+}
+#talentwrapper2 {
+	LEFT: 10px; RIGHT: 10px;WIDTH: 360px; POSITION: relative; TOP: 10px; HEIGHT: 355px
+}
+#talentwrapper3 {
+	LEFT: 10px; RIGHT: 10px;WIDTH: 360px; POSITION: relative; TOP: 10px; HEIGHT: 355px
+}
+#tlab1 {
+	LEFT: 1px; WIDTH: 115px; POSITION: absolute; TOP: 400px; TEXT-ALIGN: center
+}
+#tlab2 {
+	LEFT: 135px; WIDTH: 115px; POSITION: absolute; TOP: 400px; TEXT-ALIGN: center
+}
+#tlab3 {
+	LEFT: 265px; WIDTH: 115px; POSITION: absolute; TOP: 400px; TEXT-ALIGN: center
+}
+#tlabbg1 {
+	LEFT: 1px; POSITION: absolute; TOP: 390px
+}
+#tlabbg2 {
+	LEFT: 138px; POSITION: absolute; TOP: 390px
+}
+#tlabbg3 {
+	LEFT: 268px; POSITION: absolute; TOP: 390px
+}
+.tablabel {
+	CURSOR: pointer
+}
+.talentpagetotal {
+	BACKGROUND: url(/profile/taltotal.png); LEFT: 60px; WIDTH: 236px; POSITION: absolute; TOP: 5px; HEIGHT: 16px; TEXT-ALIGN: right
+}
+.taldesc {
+	BORDER-RIGHT: silver 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: silver 1px solid; DISPLAY: none; PADDING-LEFT: 2px; BACKGROUND: #252525; PADDING-BOTTOM: 2px; BORDER-LEFT: silver 1px solid; WIDTH: 115px; COLOR: white; PADDING-TOP: 2px; BORDER-BOTTOM: silver 1px solid; POSITION: absolute; TEXT-ALIGN: left; -moz-border-radius: 4px
+}
+.talspent {
+	LEFT: -4px; POSITION: relative; TOP: 2px
+}
+.talvalue {
+	BACKGROUND: #252525; LEFT: 20px; CURSOR: pointer; COLOR: white; POSITION: absolute; TOP: 26px
+}
+.talicon {
+	LEFT: 0px; WIDTH: 40px; POSITION: absolute; HEIGHT: 40px; Border: 0;
+}
+.taldiv {
+	WIDTH: 40px; POSITION: absolute; TOP: 5px; HEIGHT: 40px
+}
+.tlink {
+	TEXT-DECORATION: none
+}
+.tbar {
+	LEFT: 1px; 
+POSITION: absolute; 
+TOP: 390px;
+WIDTH: 394px;
+}
+#tagline {
+	FONT-SIZE: 10px; LEFT: 185px; WIDTH: 208px; COLOR: black; FONT-FAMILY: verdana; POSITION: absolute; TOP: 21px; TEXT-ALIGN: right
+}
+.bluelink {
+	COLOR: blue
+}
+.toolbar {
+	LEFT: 15px; WIDTH: 36px; COLOR: black; POSITION: absolute; TOP: 95px
+}

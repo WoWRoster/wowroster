@@ -1,0 +1,1 @@
+ALTER TABLE `players` ADD `Rankexp` INT( 11 ) NOT NULL DEFAULT '0';

@@ -1,0 +1,1 @@
+ALTER TABLE `players` CHANGE `sex` `sex` VARCHAR( 10 );

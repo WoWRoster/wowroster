@@ -1,0 +1,120 @@
+##############################################################
+## Title: WoWProfilers Signature Generator
+## Site: http://wowprofilers.com
+## Author: Joshua Clark < c.zanix@gmail.com > http://www.luminality.com
+##
+## Version: 1.05
+##
+## This is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY. So if it blows up your server
+## it's not my fault
+##############################################################
+
+-----------------------------------------------------------------------------------------------
+NOTES
+-----------------------------------------------------------------------------------------------
+Forum with updated info >
+  http://wowprofilers.com/modules.php?name=Forums&file=viewtopic&t=508
+
+
+All props to the creator(s) of img.php
+     -------------------------------------
+     | Ripped from the readme of img.php |
+     -------------------------------------------------------------------------------------------------------
+     | Code written by Tony Fontaine, aka Reolus, tonyfontaine@knightraven.net  www.gnomishmarinecorps.com |
+     | Inspired by the WoWSigCreator by Ashenfield ( ashenfield@gmail.com )  http://www.dizzarian.com      |
+     -------------------------------------------------------------------------------------------------------
+rubricsinger for his eXP bar and therefore making want to improve on img.php
+Anyone else I can't remember (Please tell me who else I may have forgotten)
+
+
+For members that haven't uploaded info, this will show limited information on a default background
+
+If there is an error, you can right-click, and click "view source" and it will give you a nice error, hopefully...
+
+:: Don't change the names of the race.png | race-gender.png images unless you KNOW what you are doing ::
+
+
+-----------------------------------------------------------------------------------------------
+FILES
+-----------------------------------------------------------------------------------------------
+sig.php				<- sig generator file
+/img/sig/(multiple files).png	<- images, lots of them
+/img/sig/members/		<- directory for user specific images
+
+
+-----------------------------------------------------------------------------------------------
+REQUIREMENTS
+-----------------------------------------------------------------------------------------------
+WoWprofilers roster 1.04 or higher
+PHP 4 or better with GD2 and TTF support
+
+
+-----------------------------------------------------------------------------------------------
+USAGE
+-----------------------------------------------------------------------------------------------
+
+Link to the file/image:
+
+  Standard Link:     http://yoursite.com/roster/sig.php?name=Charactername
+  Alternative link:  http://yoursite.com/roster/sig.php/Charactername.png
+  Via .htaccess:     http://yoursite.com/roster/sig/Charactername.png
+
+(For -Via .htaccess-, you must have an Apache server with mod_rewrite installed)
+
+
+-----------------------------------------------------------------------------------------------
+.htaccess code (For Apache servers ONLY)
+-----------------------------------------------------------------------------------------------
+This will allow you to access sig.php this way
+http://yoursite.com/roster/sig/Charactername.png
+
+
+Make a file in the roster directory named .htaccess
+
+Insert this (changing [roster] to [where the roster files are located])
+
+======[ Insert what is below this line ]=================
+
+RewriteEngine on
+RewriteRule ^sig/(.*).png$ /roster/sig.php?name=$1
+
+======[ Insert what is above this line ]=================
+
+
+-----------------------------------------------------------------------------------------------
+CHANGE LOG
+-----------------------------------------------------------------------------------------------
+Last changed 09.28.05
+
+    o Added some features from version 2.0beta
+      - Ability to use sig.php/CharName.png
+      - Added some error handling (If you go to view source, it will display nicer error messages)
+      - Changed some vars in "conf.php"
+
+    o Added caseless support. TREYCE, treyce, Treyce, tReYcE are all the same (thanks to Delaen)
+
+    o A NEW REWRITE. I cleaned up the code a lot and added support to display info for chars that
+	don’t have their profiles uploaded (shows name, guild name, guild rank, class, server, site
+	address/motto) I also changed the layout of this topic
+
+    o Changed the filename from "img.php" to "sig.php" so that both can exist in the same install folder
+
+    o Horde images are now included!
+
+    o Note that the included font "abaddon.ttf" doesn't support extended characters. So that means
+	you must use the old font with other languages (ie. german)
+
+    o Changed the fancy font to the font that is included in the default roster. I also attatched
+	the font I use for my sigs
+
+    o Linux is case sensitive, who knew? The language section was renamed so that case sensativity
+	shouldn't be an issue. Also, occurences of night elf were renamed to nightelf to remove the space
+
+    o Removed "isset()" from Lines 75-76. It was used to determine if the race and sex fields
+	existed. Well, I guess it just sees if it exists, even if it is empty.
+
+    o I still had a hard coded directory in the images selection code
+	Line 71 - members/ should of been $imUserDir
+
+    o I changed the code to set the default image first, then change it when info is found.
