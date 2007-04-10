@@ -1,0 +1,1 @@
+WoW Roster documentation has been moved into the html/docs/ directory

@@ -1,0 +1,405 @@
+<?php
+
+$versions['versionDate']['confbak'] = '$Date: 2006/02/05 06:01:36 $'; 
+$versions['versionRev']['confbak'] = '$Revision: 1.62 $'; 
+$versions['versionAuthor']['confbak'] = '$Author: zanix $';
+
+// Report all errors except E_NOTICE
+ # This is the default value set in php.ini
+error_reporting(E_ALL ^ E_NOTICE);
+
+#--[ MYSQL CONFIG ]--------------------------------------------------------
+
+$db_user   = 'DBUsername';	// MYSQL Database Username
+$db_passwd = 'DBPassword';	// MYSQL Database Password
+$db_name   = 'DBName';		// MYSQL Database Name
+$db_host   = 'localhost';	// MYSQL Server Address (Use 'localhost' if the database is on the same machine)
+$db_prefix = 'roster_';		// MYSQL Database Table prefix for Roster tables.
+
+
+// Table Names
+define('ROSTER_GUILDTABLE',$db_prefix.'guild');
+define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
+define('ROSTER_ITEMSTABLE',$db_prefix.'items');
+define('ROSTER_MEMBERSTABLE',$db_prefix.'members');
+define('ROSTER_PETSTABLE',$db_prefix.'pets');
+define('ROSTER_PLAYERSTABLE',$db_prefix.'players');
+define('ROSTER_PVP2TABLE',$db_prefix.'pvp2');
+define('ROSTER_QUESTSTABLE',$db_prefix.'quests');
+define('ROSTER_REALMSTATUSTABLE',$db_prefix.'realmstatus');
+define('ROSTER_RECIPESTABLE',$db_prefix.'recipes');
+define('ROSTER_REPUTATIONTABLE',$db_prefix.'reputation');
+define('ROSTER_SKILLSTABLE',$db_prefix.'skills');
+define('ROSTER_SPELLTABLE',$db_prefix.'spellbook');
+define('ROSTER_SPELLTREETABLE',$db_prefix.'spellbooktree');
+define('ROSTER_TALENTSTABLE',$db_prefix.'talents');
+define('ROSTER_TALENTTREETABLE',$db_prefix.'talenttree');
+
+
+// MySQL debug statements ( 1 on | 0 off )
+ # Change this to 0 if you don't want html comments ( <!-- comment --> )
+  # Choices { 1(on) | 0(off)-default }
+$sqldebug=1;
+
+
+#--[ ROSTER CONFIG ]-------------------------------------------------------
+
+// Roster update password
+$roster_upd_pw = "changeme";
+
+
+// Roster version number
+ # Current version of the roster
+$version = '1.6.0';
+
+
+// Addon Version Controls
+ # Minimum version that will be allowed to upload
+ # CharacterProfiler version
+$minCPver = '1.5.1';
+ # GuildProfiler version
+$minGPver = '1.5';
+ # PvPLog version
+$minPvPLogver = '0.4.8';
+
+
+// Localization setting
+ # Possible languages at the moment { deDE | enUS }
+$roster_lang = 'enUS';
+
+
+// _LIMITED_ multilanguage support
+ # Format { array('enUS','deDE') | array($roster_lang) }
+ # Remember, $roster_lang is the main roster language
+$multilanguages = array($roster_lang);
+
+
+// phpBB Authentication
+ # Uncomment the following 3 lines and comment "$authenticated_user" to enable phpBB auth
+//$phpbb_root_path = '../forums/';	# Path to root phpbb directory
+//$upload_group = '3, 4, 44';		# User groups which has access to upload profiles
+//$upload_members_group = '4';		# User groups which has access to upload members
+$authenticated_user = 1;
+
+
+// Allow uploading of PvP stats (PvPLog)
+ # Changing this to 0 will disable the PvPlog upload field in "update.php"
+  # Choices { 1(on) | 0(off)-default }
+$pvp_log_allow = 1;
+
+
+// Run Update Tiggers?
+ # Update Triggers are files that run during a character or guild update
+ # Some addons/mods my require that this is turned on to function properly
+  # Choices { 1(on) | 0(off)-default }
+$use_update_triggers = 1;
+
+
+#--[ SITE CONFIG ]---------------------------------------------------------
+
+// Roster header logo
+ # Image to use
+$logo = 'img/wowlogo.jpg';
+ # logo url-link address
+$website_address = 'http://www.yoursite.com';
+
+
+// Roster directory
+ # This should be the full URL path
+$roster_dir = 'http://www.yoursite.com/roster';
+
+
+// Which template to use
+ # DO NOT CHANGE IF YOU DON'T KNOW WHAT THIS IS FOR
+$roster_conf['template'] = 'default';
+
+
+// Char.php compatiblity mode
+ # If your character page does not work try to set this to
+  # Choices { 1(on) | 0(off)-default }
+$server_name_comp = 0;
+
+
+// Legacy support for old signature-creator
+ # (img.php) Background image for
+ # Usage -> (img.php?name=CharacterName)
+$signaturebackground = 'img/default.png';
+
+
+// Inventory icon images
+ # Image extentsion (Do NOT use a . )
+$img_suffix = 'jpg';
+ # Directory that the "/Interface/" folder is in
+$img_url = '/roster/img/';
+
+
+// CSS Styles
+ # Do not change the below files unless you know what you are doing
+ # CSS for CharacterPage (char.php)
+$char_style  = 'css/'.$roster_conf['template'].'.css';
+# CSS for other pages
+$stylesheet1 = 'css/styles.css';
+$stylesheet2 = 'css/styles2.css';
+# Tooltip JS
+$overlib = 'css/js/overlib.js';
+ # JS for CharacterPage (char.php)
+$profile = 'css/js/profile-script.js';
+ # "$color1" and "$color2" are for "tradeskills.php" only
+$color1 = '#2A2A2A';
+$color2 = '#363636';
+
+
+#--[ GUILD CONFIG ]--------------------------------------------------------
+
+// Enter your guild name EXACTLY as it is spelled in "CharacterProfiler.lua"
+$guild_name  = 'GuildName';
+
+
+// Enter your server name EXACTLY as it is spelled in "CharacterProfiler.lua" or you will not be able to upload your data
+$server_name = "GuildServerName";
+
+
+// Enter a short Guild Description here
+$guild_desc  = "A Great WoW Guild";
+
+
+// Guild faction 
+ # Choices { 'A'(Alliance)  | 'H'(Horde) }
+$faction = 'A';
+
+
+// This for your type of server
+ # Choices { 'PvE' | 'PvP' | 'RP' | 'RPPvP' }
+$server_type = 'PvE';
+
+
+// Displayed after timestamps so people know what timezone the time references are in
+ # eg. 'PST' or 'GMT+5', etc..
+$timezone = '';
+
+
+// Enter the timezone offset from UTC GMT that you would like roster times to be displayed in
+ # Eg. for PST set it to -8, for Sydney, Australia set it to 10, etc...
+$localtimeoffset = 0;
+
+
+// Alt detection, only in "menu.php"
+ # Search text
+$alt_type = "Alt";
+ # Search location, which field in the members table to look for alt text
+  # Choices { 'note'-default | 'officer_note' | 'guild_rank' | 'guild_title' }
+$alt_location = 'note';
+
+
+// Guild bank settings
+ # Guildbank display
+  # Choices { 1(on)-default | 0(off) }
+$show_guildbank = 1;
+ # Guild bank display type
+  # Choices { ''(for table view)-default | '2'(inventory like display) }
+$guildbank_ver  = '';
+ # Show Total Money in guildbank, and money on each character in guildbank2
+  # Choices { 1(on)-default | 0(off) }
+$bank_money = 1;
+ # Text match for banker selection
+$banker_rankname = "BankerMule";
+ # What database field "$banker_rankname" is searched in
+  # Choices { 'name' | 'note' | 'officer_note' | 'guild_title'(default) }
+$banker_fieldname = 'guild_title';
+
+
+#--[ DISPLAY CONFIG ]------------------------------------------------------
+
+// Honor System, PvP-Logger stats display in "index.php"
+ # PvP-Logger stats on the index page
+  # Choices { 1(on)-default | 0(off) }
+$show_pvplist = 1;
+ # Honor System stats on the index page
+  # Choices { 1(on)-default | 0(off) }
+$show_hslist = 1;
+
+
+// Tradeskill icons on index.php
+ # Tradeskill icon listing on index page
+  # Choices { 1(on)-default | 0(off) }
+$tradeskill_indexon = 1;
+ # What column to place icons
+  # Choices { 'name' | 'class' | 'level' | 'title' | 'currenthonor' | 'note' | 'professions' | 'hearthed' | 'zone' | 'lastonline' }
+$tradeskill_index = 'professions';
+ # Class Icon Display
+  # Choices { 1(on)-default | 0(off) }
+$classicon_field = 1;
+ # Honor Icon Display
+  # Choices { 1(on)-default | 0(off) }
+$honoricon_field = 1;
+ # Profession display
+  # Choices { 1(on)-default | 0(off) }
+$show_prof = 1;
+ # Width and height of the icons in pixel
+$TS_iconsize = 15;
+
+
+// Index page configuration
+ # Honor display ( 1 on | 0 off )
+$show_currenthonor = 1;
+ # Note display	{ 1(on)-default | 0(off) }
+$show_note = 1;
+ # Title display { 1(on)-default | 0(off) }
+$show_title = 1;
+ # Hearthed display { 1(on)-default | 0(off) }
+$show_hearthed = 1;
+ # Zone display	{ 1(on)-default | 0(off) }
+$show_zone = 1;
+ # Last Online display { 1(on)-default | 0(off) }
+$show_lastonline = 1;
+ # MOTD display	{ 1(on)-default | 0(off) }
+$show_motd = 1;
+ # Last Update display { 1(on)-default | 0(off) }
+$show_lastupdate = 1;
+
+
+// Character Pages configuration
+ # Alignment of the character data
+  # Choices { 'left' | 'center'-default | 'right' }
+$char_bodyalign = 'center';
+ # Header Logo display on character pages { 1(on)-default | 0(off) }
+$show_charPageLogo = 1;
+ # Inventory display { 1(on)-default | 0(off) }
+$show_inventory = 1;
+ # Bank display { 1(on)-default | 0(off) }
+$show_bank = 1;
+ # Money display { 1(on)-default | 0(off) }
+$show_money = 1;
+ # Recipe display { 1(on)-default | 0(off) }
+$show_recipes = 1;
+ # Quest display { 1(on)-default | 0(off) }
+$show_quests = 1;
+ # BattleGround display { 1(on)-default | 0(off) }
+$show_bg = 1;
+ # PvP display { 1(on)-default | 0(off) }
+$show_pvp = 1;
+ # Duel display { 1(on)-default | 0(off) }
+$show_duels = 1;
+ # Item Bonuses display { 1(on)-default | 0(off) }
+$show_advancedstats = 1;
+ # Signature image display { 1(on) | 0(off)-default }
+$show_signature	= 0;
+ # Avatar image display { 1(on) | 0(off)-default }
+$show_avatar = 0;
+
+
+// WoW server status URL
+ # for USA servers ('http://www.worldofwarcraft.com/realmstatus/status.xml')
+ # for European English servers	('http://www.wow-europe.com/en/serverstatus')
+ # for European German servers	('http://www.wow-europe.com/de/serverstatus')
+ # No server status ('')
+$blizstatuspage = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
+ # Display mode
+  # Choices { 1(image, requires GD2) | 0(compatable mode)-default }
+$rs_image = 0;
+ # Image Display Type, only when "$rs_image" is set to 1
+  # Choices {'full'(servername status and load) | 'half'(just status) }
+$display = 'full';
+ # Servername to use
+  # Some servernames may cause serverstatus to not work correctly, even if uploading profiles works
+  # The actual server name from the game may not match what is used on the server status data page
+  # You can set this so serverstatus can use another servername
+  # { default is    $realmstatus = $server_name;     }
+$realmstatus = $server_name;
+
+
+#--[ LINKS CONFIG ]--------------------------------------------------------
+
+// Items external links
+ # Moved to localization files
+ # Look in your localization-file for alternative links
+ # enUS : thottbot or allakhazam
+ # deDE : wow-handwerk oder blasc
+
+ 
+// Quests page external links (on character quests page)
+ # Toggles whether the quest link is displayed
+  # Choices { 1(on)-default | 0(off) }
+ # For URLs have a look at the localization files
+$questlink_1 = 1;
+$questlink_2 = 1;
+$questlink_3 = 1;
+
+
+// Downloadpaths
+$profiler = 'http://www.rpgoutfitter.com/CharacterProfiler';
+$pvplogger = 'http://wowprofilers.com/viewtopic.php?p=9266';
+$uploadapp = 'http://wowprofilers.com/viewtopic.php?p=9266';
+
+
+////////////////// DO NOT EDIT BELOW THIS //////////////////
+
+#--[ END OF CONFIG ]-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+// get the path realname
+$url = explode('/','http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
+array_pop($url);
+$url = implode('/',$url);
+$paths = getPaths($url);
+
+// Include the localisatzion files
+$sep = DIRECTORY_SEPARATOR;
+for ($i=0;$i<count($multilanguages);$i++)
+{
+	require $paths[0].$sep.$subdir.'localization'.$sep.$multilanguages[$i].'.php';
+}
+
+if( !headers_sent() )
+{
+	if( basename($_SERVER['PHP_SELF']) != 'img.php' )
+	if( basename($_SERVER['PHP_SELF']) != 'sig.php' )
+	if( basename($_SERVER['PHP_SELF']) != 'av.php' )
+	if( basename($_SERVER['PHP_SELF']) != 'siggen.php' )
+	if( basename($_SERVER['PHP_SELF']) != 'realmstatus.php' )
+	header("Content-type: text/html; $charset[$roster_lang]");
+}
+
+
+#--[ END OF CODE - FUNCTION AREA ]-------------------------------------------------------
+
+# Function for path calculating
+function getPaths($url)
+{
+	//$url is the current URL
+
+	//print realpath('..')."\n";
+	//print_r($_SERVER);
+	//print $config['URL'];
+	if (strstr(realpath('..'),'addons') != false)
+	{
+		$mainPath = '../../';
+		$mainURL = explode('/',$url);
+		array_pop($mainURL);
+		array_pop($mainURL);
+		$mainURL = implode('/',$mainURL);
+	}
+	else
+	{
+		$mainPath = '.';
+		$mainURL = $url;
+	}
+
+	$return[0]=$mainPath;
+	$return[1]=$mainURL;
+
+	return $return;
+}
+
+
+?>

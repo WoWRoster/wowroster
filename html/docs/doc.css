@@ -1,0 +1,46 @@
+/* CSS Document */
+
+blockquote.warning {
+	border: 3px solid #FF0000;
+	padding: 1em;
+}
+div.captioned-figure {
+	text-align: center;
+	padding: 1em;
+}
+pre {
+	border: 1px solid #000000;
+	background-color: #CCCCCC;
+}
+img.figure {
+}
+span.caption {
+	font-family: "Courier New", Courier, mono;
+	background-color: #0066CC;
+	border: 1px solid #000000;
+	font-size: 14px;
+	color: #FFFFFF;
+	font-style: normal;
+	font-weight: bold;
+}
+.bodystyle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.click {
+	font-family: "Courier New", Courier, mono;
+	font-size: 12px;
+	color: #FFFFFF;
+	background-color: #333333;
+	padding: 1px;
+	border: 1px solid #CC9900;
+	text-decoration: none;
+}
+.codestyle {
+	border: 1px solid #000000;
+	font-size: 12px;
+	font-family: "Courier New", Courier, mono;
+	padding: 1px;
+	background-color: #99FF99;
+	text-decoration: none;
+}

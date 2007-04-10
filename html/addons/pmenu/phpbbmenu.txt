@@ -1,0 +1,1 @@
+This file is a stripped down menu from roster that can be intergrated in your phpbb portal to provide guild info.  You strip it down to whatever you like, this is just a basic example on how to do it.
