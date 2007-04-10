@@ -1,0 +1,1352 @@
+* { 
+  font: 12px verdana, arial, sans-serif;
+}
+h1 { 
+  margin: 0;
+  padding: 5px 0 5px 0;
+  font: 13px georgia, tahoma, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+}
+h2 { 
+  margin: 0;
+  padding: 0;
+  font: 11px georgia, tahoma, sans-serif;
+  color: #dfb901;
+  font-weight: bold;
+}
+h3 {
+  margin: 0;
+  padding: 5px 0 5px 0;
+  font: 13px georgia, tahoma, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+}
+h4 {
+  margin: 0;
+  padding: 0;
+  font: 14px georgia, tahoma, sans-serif;
+  color: #0080FF;    
+  font-weight: bold;
+}
+h5 {
+  margin: 0 0 0 20px;
+  padding: 0;
+  font: 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: #808080;
+  font-weight: normal;
+}
+h6 {
+  margin: 0 0 0 20px;
+  padding: 0;
+  font: 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: #00bb00;
+  font-weight: normal;
+}
+cite {
+  margin: 0 0 0 20px;
+  padding: 0;
+  font: 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: #FFFF80;   
+  font-weight: normal;
+}
+blockquote {
+  margin: 0 0 0 20px;
+  padding: 0;
+  font: 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+  color: #FF0000;   
+  font-weight: normal;
+}
+.char { 
+  width: 405px;
+  height: 560px;
+  padding: 0 0 0 0;
+}
+.char .main { 
+  width: 405px;
+  height: 500px;
+  background: url('../img/borderBottomSides.gif') no-repeat;
+  background-position: center bottom;
+}
+.char .main .top { 
+  float: left;
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  background: url('../img/bgTop.gif') no-repeat;
+}
+.char .main .page1 { 
+  float: left;
+}
+.char .main .page1 .left { 
+  float: left;
+  width: 62px;
+  height: 430px;
+  background: url('../img/borderLeft.gif') repeat-y;
+  background-position: left top;
+  clear: none;
+}
+.char .main .page1 .right { 
+  float: left;
+  width: 62px;
+  height: 430px;
+  background: url('../img/borderRight.gif') repeat-y;
+  background-position: right top;
+}
+.char .main .page1 .left .equip { 
+  float: left;
+  width: 52px;
+  height: 43px;
+  padding: 3px 0 3px 10px;
+  background: url('../img/bgItem.gif') no-repeat;
+  background-position: 3px 0;
+}
+.char .main .page1 .right .equip { 
+  float: left;
+  width: 52px;
+  height: 43px;
+  padding: 3px 0 3px 7px;
+  background: url('../img/bgItem.gif') no-repeat;
+}
+.char .main .page1 .middle { 
+  float: left;
+  width: 280px;
+  height: 430px;
+}
+.char .main .page1 .middle .portrait { 
+  float: left;
+  width: 100%;
+  height: 240px;
+  background-color: #000000;
+  background: url('../img/bgChar.gif') no-repeat;
+  color: #DFB801;
+}
+.char .main .page1 .middle .portrait li {
+  list-style-type: none;
+  padding: 1px 0 0 6px;
+  text-align: left;
+  font: 11px georgia, tahoma, sans-serif;
+  font-weight: bold;
+}
+.char .main .page1 .middle .portrait li ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.char .main .page1 .middle .portrait ul li span {
+  float: right;
+  font-family: georgia, tahoma, sans-serif;
+  padding: 0 6px 0 0;
+  margin-top: -15px;
+}
+.char .main .page1 .middle .portrait ul li ul li span {
+  color: #ffffff;
+}
+.char .main .page1 .middle .bottom {
+  float: left;
+  width: 100%;
+  height: 170px;
+}
+.char .main .page1 .middle .bottom .padding { 
+  height: 100px;
+  padding: 0 2px 0 2px;
+  background: url('../img/bgStats.gif') no-repeat;
+  background-position: 0 0px;
+}
+.char .main .page1 .middle .bottom .padding .stats { 
+  float: left;
+  width: 50%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  color: #DFB801;
+}
+.char .main .page1 .middle .bottom .padding .stats li { 
+  list-style-type: none;
+  padding: 1.9px 0 0 6px;
+  text-align: left;
+  font: 11px georgia, tahoma, sans-serif;
+  font-weight: bold;
+}
+.char .main .page1 .middle .bottom .padding .stats li ul {  
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.char .main .page1 .middle .bottom .padding .stats li span, .stats ul li span { 
+  float: right;
+  font-family: georgia, tahoma, sans-serif;
+  padding: 0 6px 0 0;
+  margin-top: -15px;
+}
+.char .main .page1 .middle .bottom .padding .stats ul li ul li span { 
+  color: #ffffff;
+}
+.char .main .page1 .middle .bottom .hands { 
+  height: 70px;
+  width: 280px;
+  background: url('../img/bgHands.gif') no-repeat;
+}
+.char .main .page1 .middle .bottom .hands .weapon0 { 
+  padding: 16px 0 0 69px;
+  float: left;
+}
+.char .main .page1 .middle .bottom .hands .weapon1 { 
+  padding: 16px 0 0 11px;
+  float: left;
+}
+.char .main .page1 .middle .bottom .hands .weapon2 { 
+  padding: 16px 0 0 10px;
+  float: left;
+}
+.char .main .page1 .middle .bottom .hands .ammo { 
+  padding: 21px 0 0 21px;
+  float: left;
+}
+.char .main .page2 {  
+float: left; 
+display: none; 
+} 
+.char .main .page2 .left { 
+float: left; 
+width: 4px; 
+height: 430px; 
+background: url('../img/borderLeft.gif') repeat-y; 
+background-position: left top; 
+} 
+.char .main .page2 .right { 
+float: left; 
+width: 4px; 
+height: 430px; 
+background: url('../img/borderRight.gif') repeat-y; 
+background-position: right top; 
+} 
+.char .main .page2 .pet {  
+float: left; 
+text-align: right; 
+position: relative; 
+height: 430px; 
+width: 397px; 
+overflow: auto; 
+background-color: #000000;
+background: url('../img/bg_pet.gif') no-repeat;
+color: #DFB801;
+}
+.char .main .page2 .pet .resistance li { 
+  list-style-type: none;
+  text-align: left;
+  font: 11px georgia, tahoma, sans-serif;
+}
+.char .main .page2 .pet .resistance .fire {
+    background: url("../img/resFire.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px 5px;
+}
+.char .main .page2 .pet .resistance .nature {
+    background: url("../img/resNature.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px 5px;
+}
+.char .main .page2 .pet .resistance .arcane {
+    background: url("../img/resArcane.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px 5px;
+}
+.char .main .page2 .pet .resistance .frost {
+    background: url("../img/resFrost.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px 5px;
+}
+.char .main .page2 .pet .resistance .shadow {
+    background: url("../img/resShadow.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px 5px;
+}
+.char .main .page2 .pet .stats{ 
+  height: 100px;
+  padding: 300px 2px 0 2px;
+  background: url('../img/bgStats_pet.gif') no-repeat;
+  background-position: center;
+}
+.char .main .page3 { 
+  float: left;
+  display: none;
+}
+.char .main .page3 .left { 
+  float: left;
+  width: 4px;
+  height: 430px;
+  background: url('../img/borderLeft.gif') repeat-y;
+  background-position: left top;
+}
+.char .main .page3 .right { 
+  float: left;
+  width: 4px;
+  height: 430px;
+  background: url('../img/borderRight.gif') repeat-y;
+  background-position: right top;
+}
+.char .main .page3 .reputation { 
+  float: left;
+  position: relative;
+  height: 430px;
+  width: 397px;
+  overflow: auto;
+  background-color: #000000;
+  background: url('../img/bgrep.gif');
+  background-repeat: repeat
+  background-position: top left
+}
+.char .main .page3 .faction { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  color: #aa9900;
+}
+.char .main .page3 .war { 
+  position: absolute;
+  right: 0px;
+  top: 0;
+  height: 15px;
+  padding: 3px 5px 5px 0px;
+  font: 9px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  color: #FF0000;
+}
+.char .main .page3 .nowar { 
+  position: absolute;
+  right: 0px;
+  top: 0;
+  height: 15px;
+  padding: 3px 5px 5px 0px;
+  font: 9px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  color: #00FF00;
+}
+.char .main .page3 .value { 
+  position: absolute;
+  left: 0px;
+  top: 0;
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  padding: 3px 0px 5px 18px;
+  font: 11px georgia, tahoma, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+}
+.char .main .page4 { 
+  float: left;
+  display: none;
+}
+.char .main .page4 .left { 
+  float: left;
+  width: 4px;
+  height: 430px;
+  background: url('../img/borderLeft.gif') repeat-y;
+  background-position: left top;
+}
+.char .main .page4 .right { 
+  float: left;
+  width: 4px;
+  height: 430px;
+  background: url('../img/borderRight.gif') repeat-y;
+  background-position: right top;
+}
+.char .main .page4 .skills { 
+  float: left;
+  position: relative;
+  height: 430px;
+  width: 397px;
+  overflow: auto;
+  background-color: #000000;
+  background: url('../img/bgrep.gif');
+  background-repeat: repeat
+  background-position: top left
+}
+.char .main .page5 {
+  float: left;
+  display: none;
+}
+.char .main .page5 .left {
+  float: left;
+  width: 4px;
+  height: 430px;
+  background: url('../img/borderLeft.gif') repeat-y;
+  background-position: left top;
+}
+.char .main .page5 .right {
+  float: left;
+  width: 4px;
+  height: 430px;
+  background: url('../img/borderRight.gif') repeat-y;
+  background-position: right top;
+}
+.char .main .page5 .talents { 
+  float: left;
+  position: relative;
+  height: 430px;
+  width: 397px;
+  overflow: auto;
+  background-color: #000000;
+}
+.char .main .page5 .quests {
+  float: left;
+  position: relative;
+  height: 430px;
+  width: 397px;
+  overflow: auto;
+  background-color: #000000;
+}
+.char .main .page6 {  
+float: left; 
+display: none; 
+} 
+.char .main .page6 .left { 
+float: left; 
+width: 4px; 
+height: 430px; 
+background: url('../img/borderLeft.gif') repeat-y; 
+background-position: left top; 
+} 
+.char .main .page6 .right { 
+float: left; 
+width: 4px; 
+height: 430px; 
+background: url('../img/borderRight.gif') repeat-y; 
+background-position: right top; 
+}
+.char .main .page6 .honor {  
+float: left; 
+text-align: right; 
+position: relative; 
+height: 430px; 
+width: 397px; 
+overflow: auto; 
+background-color: #000000; 
+background: url('../img/bgHonor_new.jpg') no-repeat; 
+background-position: center center; 
+}
+.char .main .page6 .honor .honorrank {  
+float: left;  
+padding: 0px 0px 0px 0px;      
+}  
+.char .main .page6 .honor .honortitle {  
+float: left;
+padding: 10px 0 0 70px;
+font-size: 16px;
+color: #FFCC00;
+font-weight: bold;
+}  
+.char .main .page6 .honor .today {  
+float: left; 
+padding: 15px 300px 0 15px;  
+font-size: 14px; 
+color: #FFCC00;
+font-weight: bold;   
+} 
+.char .main .page6 .honor .honortext0_ {  
+float: left; 
+padding: 0 100px 0 25px;  
+color: #FFFFFF;  
+font-weight: bold;    
+}
+.char .main .page6 .honor .honortext0 {  
+float: right;  
+padding: 0 20px 0 100px; 
+color: #00FF00;  
+font-weight: bold;    
+}
+.char .main .page6 .honor .honortext1_ {  
+float: left;  
+padding: 0 100px 0 25px;
+color: #FFFFFF;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext1 {  
+float: right;  
+padding: 0 20px 0 100px; 
+color: #FF0000;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .yesterday {  
+float: left; 
+padding: 20px 250px 0 15px;  
+font-size: 14px; 
+color: #FFCC00;
+font-weight: bold;   
+} 
+.char .main .page6 .honor .honortext2_ {  
+float: left;  
+padding: 0 50px 0 25px;  
+color: #FFFFFF; 
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext2 {  
+float: right;  
+padding: 0 20px 0 150px;  
+color: #00FF00; 
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext3_ {  
+float: left;  
+padding: 0 0 0 25px;  
+color: #FFFFFF; 
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext3 {  
+float: right;  
+padding: 0 20px 0 150px; 
+color: #FFCC00; 
+font-weight: bold; 
+}
+.char .main .page6 .honor .thisweek {  
+float: left; 
+padding: 30px 250px 0 15px;   
+font-size: 14px; 
+color: #FFCC00;
+font-weight: bold;   
+} 
+.char .main .page6 .honor .honortext4_ {  
+float: left;  
+padding: 0 100px 0 25px; 
+color: #FFFFFF;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext4 {  
+float: right;  
+padding: 0 20px 0 0; 
+color: #00FF00;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext5_ {  
+float: left;  
+padding: 0 100px 0 25px;  
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext5 {  
+float: right;  
+padding: 0 20px 0 0;   
+color: #FFCC00;
+font-weight: bold; 
+}
+.char .main .page6 .honor .lastweek {  
+float: left; 
+padding: 25px 250px 0 15px;  
+font-size: 14px; 
+color: #FFCC00;
+font-weight: bold;   
+} 
+.char .main .page6 .honor .honortext6_ {  
+float: left;  
+padding: 0 100px 0 25px; 
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext6 {  
+float: right;  
+padding: 0 20px 0 0; 
+color: #00FF00;    
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext7_ {  
+float: left;  
+padding: 0 100px 0 25px;  
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext7 {  
+float: right;  
+padding: 0 20px 0 30px; 
+color: #FFCC00;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext8_ {  
+float: left;  
+padding: 0 100px 0 25px;  
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext8 {  
+float: right;  
+padding: 0 20px 0 30px; 
+color: #FFCC00;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .alltime {  
+float: left; 
+padding: 40px 100px 0 15px;  
+font-size: 14px; 
+color: #FFCC00;
+font-weight: bold;   
+}
+.char .main .page6 .honor .honortext9_ {
+float: left;
+padding: 0px 130px 0 25px;  
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext9 {
+float: right;
+padding: 0 20px 0 0;
+color: #00FF00;
+font-weight: bold;
+}
+.char .main .page6 .honor .honortext10_ {
+float: left;
+padding: 0 100px 0 25px;
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext10 {  
+float: right;  
+padding: 0 20px 0 0; 
+color: #FF0000;  
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext11_ {  
+float: left;  
+padding: 0 100px 0 25px;  
+color: #FFFFFF;
+font-weight: bold; 
+}
+.char .main .page6 .honor .honortext11 {  
+float: right;  
+padding: 0 20px 0 0; 
+color: #FFCC00;  
+font-weight: bold; 
+}
+.char .bottomBorder { 
+  float: left;
+  width: 405px;
+  height: 10px;
+  background: url('../img/borderBottom.gif');
+  background-position: left top;
+  font-size: 0px;
+}
+.char .tabs { 
+  width: 405px;
+  height: 20px;
+  float: left;
+  padding: 0 0 0 5px ;
+}
+.char .tabs .tab { 
+  float: left;
+  width: 56px;
+  height: 15px;
+  background: url('../img/tab.gif') no-repeat;
+  background-position: left top;
+  font: 10px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  padding: 5px 5px 5px 5px;
+  text-align: center;
+  cursor: hand;
+  cursor: pointer;
+}
+.bag { 
+  float: left;
+  width: 212px;
+  margin: 10px 0 10px;
+  color: #ffffff;
+  background: url('../img/bagBg2.gif') repeat-y;
+  background-position: 0 3px;
+}
+.bag .bagTop { 
+  float: left;
+  width: 100%;
+  background: url('../img/bagTopBig.gif') no-repeat;
+  height: 52px;
+}
+.bag .bagTop .bagIcon { 
+  float: left;
+  width: 50px;
+  height: 50px;
+  padding: 5px 5px 5px 5px;
+} 
+.bag .bagTop .bagName { 
+  float: left;
+  vertical-align: center;
+  height: 50px;
+  margin: 0;
+  padding: 15px 0 10px 0;
+  font: 13px georgia, tahoma, sans-serif;
+  font-weight: bold;
+}
+.bag .bagLine { 
+  float: left;
+  width: 100%;
+  padding: 0 0 0 4px;
+}
+.bag .bagLine .bagNoSlot { 
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 4px 5px 5px 6px;
+}
+.bag .bagLine .bagSlot { 
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 4px 5px 5px 6px;
+  background-image: url('../img/bagSlot.gif');
+}
+.bag .bagBottomLine { 
+  float: left;
+  width: 100%;
+  padding: 0 0 0 4px;
+}
+.bag .bagBottomLine .bagSlot { 
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 4px 5px 2px 6px;
+  background-image: url('../img/bagBottomBox.gif');
+  background-position: left top;
+}
+.bag .bagMoneyBottom { 
+  float: left;
+  width: 100%;
+  background-image: url('../img/bagMoneyBottom.gif');
+}
+.bag .bagMoneyBottom .money { 
+  float: right;
+  padding: 4px 15px 7px 0;
+}
+.bag .bagBottom { 
+  float: left;
+  height: 6px;
+  width: 100%;
+  background-image: url('../img/bagBottom.gif') ;
+}
+.faction { 
+  font-family: 10px verdana, arial, sans-serif;
+  color: #ffffff;
+}
+.atwar {
+  color: #FF0000;
+}
+.notatwar {
+  font-family: 8px verdana, arial, sans-serif;
+  color: #00FF00;
+}
+.rep { 
+  float: left
+  height: 20px;
+  width: 360px;
+}
+.rep .repbox { 
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 20px;
+}
+.rep .repbox .repbg { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  width: 360px;
+  height: 20px
+}
+.rep .repbox .repbit { 
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  left: 8px;
+  height: 18px;
+}
+.skill { 
+  float: left
+  height: 20px;
+  width: 360px;
+}
+.skill .skillbox { 
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 20px;
+}
+.skill .skillbox .bg { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  width: 360px;
+  height: 20px
+}
+.skill .skillbox .bit { 
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  left: 8px;
+  height: 18px;
+}
+.skill .skillbox .name { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  color: #aa9900;
+}
+.skill .skillbox .level { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+}
+.skilltype { 
+  float: left
+  height: 12px;
+  padding: 10px 2px 2px 10px;
+  font-family: 12px verdana, arial, sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+}
+.treename { 
+  float: left
+  height: 20px;
+  width: 340px;
+}
+.treename .treenamebox { 
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 340px;
+  height: 20px;
+}
+.treename .treenamebox .bg { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  width: 340px;
+  height: 20px
+}
+.treename .treenamebox .bit { 
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  left: 8px;
+  height: 18px;
+}
+.treename .treenamebox .name { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  color: #aa9900;
+}
+.treename .treenamebox .level { 
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+}
+.questtype {
+  float: left
+  height: 12px;
+  padding: 10px 2px 2px 10px;
+  font-family: 12px verdana, arial, sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+}
+.quest {
+  float: left
+  height: 20px;
+  width: 360px;
+}
+.quest .questbox {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 20px;
+}
+.quest .questbox .bg {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  width: 360px;
+  height: 20px
+}
+.quest .questbox .bit {
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  left: 8px;
+  height: 18px;
+}
+.quest .questbox .name {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  font-weight: bold;
+  color: #aa9900;
+}
+.quest .questbox .level {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  padding: 3px 0px 5px 10px;
+  font: 11px georgia, tahoma, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+}
+.item { 
+  position: relative;
+  width: 40px;
+  height: 40px; 
+}
+.item .quant {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  font: 11px georgia, tahoma, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}
+.icon { 
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+}
+.iconsmall { 
+  float: left;
+  width: 31px;
+  height: 30px;
+  padding: 1px 0 0 0;
+  z-index: 1;
+}
+.talenticon { 
+  width: 40px;
+  height: 40px;
+  padding: 1px 0 0 0;
+}
+.talenticonGreyed { 
+  width: 40px;
+  height: 40px;
+  padding: 1px 0 0 0;
+  Filter: Gray;
+  /* Filter: Gray only works in IE, no Mozilla, so we do this to half-assed grey it out in Mozilla */
+  -moz-opacity: 0.5; 
+}
+.tooltip {
+}
+.tip{ 
+  margin-left:45px; 
+}
+.tooltip .tip{
+  position: absolute;  
+  width: 200px;  
+  border: 2px solid #aa9900;  
+  background-color: #000000;  
+  text-decoration: none;  
+  font-size: 12px;  
+  display: none;  
+  z-index: 1001;  
+}
+.tooltip .tip .tooltipline { 
+  float:left;
+  width: 100%;
+}
+.tooltip .tip .tooltipheader { 
+  float:left;
+  width: 100%;
+  font-weight: bold;
+}
+body{
+  background-color: #000000;
+  font-family: 12px verdana, arial, sans-serif;
+  color: #ffffff;
+}
+img, p { 
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+input{
+	background-color: #222299;
+	color: #ffffff;
+}
+a{
+	color: #F3C861;
+}
+a.charlink{
+	font-weight: bold;
+	color: #22ff22;
+}
+em{
+	color: #F3C861;
+}
+a.title {
+	color: #000000;
+}
+td.char{
+	background-color: #000000;
+	color: #ffffff
+}
+table.subchar{
+	background-color: #000000;
+}
+td.subchar{
+	background-color: #000000;
+}
+
+table.bag{
+	background-color: #000000;
+}
+table.invis{
+	background-color: #000000;
+}
+table.tooltip{
+	background-color: #000000;
+}
+table.talent{
+	background-color: #000000;
+	border: 0px solid black;
+	width: 380px;
+}    
+font.white{
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 10pt;
+	color: #ffffff
+}
+font.yellow{
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 10pt;
+	color: #aa9900;
+}
+font.green{
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 10pt;
+	color: #22ff22;
+}
+font.grey{
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 10pt;
+	color: #808080;
+}
+font.red{
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 10pt;
+	color: #ff2222;
+}
+.grey {
+  color: #808080;
+}
+.yellow {
+  color: #cc9900;
+}
+.green {
+  color: #00bb00;
+}
+.blue {
+  color: #0068ff;
+}
+.purple {
+  color: #8000ff;
+}
+.white {
+  color: #ffffff;
+}
+.red { 
+color: #FF0000; 
+} 
+.gold { 
+color: #FFCC00; 
+} 
+.xp {
+float: left 
+height: 15px; 
+width: 253px; 
+} 
+.xp .xpbox { 
+position: relative;
+left: 0;
+top: 2px;
+width: 253px; 
+height: 15px; 
+} 
+.xp .xpbox .bg { 
+position: absolute;
+left: 0px; 
+top: 0; 
+width: 253px; 
+height: 15px 
+} 
+.xp .xpbox .bit { 
+position: absolute;
+left: 0px; 
+top: 1px; 
+left: 3px; 
+height: 12px; 
+} 
+.xp .xpbox .name { 
+position: absolute;
+left: 0px; 
+top: 0; 
+height: 10px; 
+padding: 2px 0px 5px 10px; 
+font: 10px tahoma, sans-serif; 
+font-weight: bold; 
+color: #ffffff; 
+} 
+.xp .xpbox .level { 
+position: absolute;
+left: 0px; 
+top: 0; 
+height: 10px; 
+width: 100%; 
+text-align: center; 
+padding: 1px 0px 5px 10px;
+font: 10px tahoma, sans-serif; 
+color: #ffffff; 
+font-weight: bold; 
+}
+.resistance {
+  float: right;
+  margin-top: 20px;
+  height: 190px;
+}
+.resistance ul li {
+  list-style-type: none;
+  font: 11px verdana, tahoma, sans-serif;
+  font-weight: bold;
+  text-align: right;
+}
+.resistance .fire {
+    background: url("../img/resFire.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.resistance .nature {
+    background: url("../img/resNature.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.resistance .arcane {
+    background: url("../img/resArcane.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.resistance .frost {
+    background: url("../img/resFrost.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.resistance .shadow {
+    background: url("../img/resShadow.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.health_mana {
+    margin-top: 20px;
+}
+.health_mana .mana {
+    background: url("../img/mana_background.gif") no-repeat;
+    height: 27px;
+    width: 125px;
+    font-size: 9px;
+    padding-top:6px;
+    padding-left: 30px;
+}
+.health_mana .health {
+    background: url("../img/health_background.gif") no-repeat;
+    height: 27px;
+    width: 125px;
+    font-size: 9px;
+    padding-top:6px;
+    padding-left: 30px;
+}
+.talentPoints {
+    margin-top: 20px;
+}
+
+table.questlist {
+	border: 0px;
+	background-color: Black;
+}
+.lastupdated {
+	color: #0099FF;
+	font-size: x-small;
+	font-style: italic;
+	padding-right: 355px;
+}
+
+/*******************************************************************
+	CHAR.PHP - PET TAB - function printPet()
+*******************************************************************/
+
+.petName{			position: absolute;
+					font-family: sans-serif;
+					font-weight: bold;
+					font-size: 10pt;
+					color: #FFC000;
+}
+.petTrainingPts{	font-family: sans-serif;
+					font-weight: bold;
+					font-size: 10pt;
+					color: #FFC000;
+					white-space: nowrap;
+					display: none;
+}
+.petStatsTableStatname{
+					text-align: left;
+					color: #FFC000;
+					white-space: nowrap;
+}
+.petStatsTableStatValue{
+					text-align: right;
+					color: #FFFFFF;
+					white-space: nowrap;
+}
+.petStatsBg{		position: absolute;
+					top: 150px;
+					left: 35px;
+					height: 100px;
+					width: 280px;
+					background: url('../img/bgStats_pet.gif') no-repeat;
+					background-position: center;
+					display: none;
+}
+.pet_xp {			float: left 
+					height: 15px; 
+					width: 381px; 
+					display: none;
+} 
+.pet_xp .pet_xpbox { 
+					position: absolute;
+					left: 6px;
+					top: 392px;
+					width: 381px; 
+					height: 15px; 
+} 
+.pet_xp .pet_xpbox .pet_bg { 
+					position: absolute;
+					left: 0px; 
+					top: 0; 
+					width: 381px; 
+					height: 15px 
+ 
+} 
+.pet_xp .pet_xpbox .pet_bit { 
+					position: absolute;
+					left: 0px; 
+					top: 1px; 
+					left: 3px; 
+					height: 12px; 
+} 
+.pet_xp .pet_xpbox .pet_xp_name { 
+					position: absolute;
+					left: 0px; 
+					top: 0; 
+					height: 10px; 
+					padding: 2px 0px 5px 10px; 
+					font: 10px tahoma, sans-serif; 
+					font-weight: bold; 
+					color: #ffffff; 
+} 
+.pet_xp .pet_xpbox .pet_xp_level {
+					position: absolute;
+					left: 0px; 
+					top: 0; 
+					height: 10px; 
+					width: 100%; 
+					text-align: center; 
+					padding: 1px 0px 5px 10px;
+					font: 10px tahoma, sans-serif; 
+					color: #ffffff; 
+					font-weight: bold; 
+}
+.pet_resistance {
+	float: right;
+	margin-top: 20px;
+	position: absolute;
+	left: 280px;
+	top: 66px;
+	
+	height: 190px;
+	display: none;
+}
+.pet_resistance ul li {
+  list-style-type: none;
+  font: 11px verdana, tahoma, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+.pet_resistance .pet_fire {
+    background: url("../img/resFire.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.pet_resistance .pet_nature {
+    background: url("../img/resNature.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.pet_resistance .pet_arcane {
+    background: url("../img/resArcane.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.pet_resistance .pet_frost {
+    background: url("../img/resFrost.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}
+.pet_resistance .pet_shadow {
+    background: url("../img/resShadow.gif") no-repeat;
+    height: 27px;
+    width: 27px;
+    padding: 2px;
+}

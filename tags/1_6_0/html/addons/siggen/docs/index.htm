@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SigGen Addon Documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="../../../docs/doc.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.row1 {
+	vertical-align: bottom;
+	color: #FFFFFF;
+	background-color: #1F1E1D;
+	font-size: 10px;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+}
+.row2 {
+	vertical-align: bottom;
+	color: #FFFFFF;
+	background-color: #2E2D2B;
+	font-size: 10px;
+	font-family: arial,helvetica,sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+}
+-->
+</style>
+<script type="text/javascript">
+var ol_close = "X";
+var ol_hpos = "RIGHT";
+var ol_fgcolor = "#000000";
+var ol_bgcolor = "#696969";
+var ol_textcolor = "#FFFFFF";
+var ol_capcolor = "#FFFFFF";
+var ol_closecolor = "#FFFFFF";
+</script>
+<script type="text/javascript" src="../../../css/js/overlib.js"></script>
+</head>
+<body class="bodystyle">
+<h1><a name="toc" id="toc"></a>SigGen Documentation</h1>
+<p><a href="../../../docs/index.html">Link to Roster Install Documentation</a></p>
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#intro">Intro</a>
+    <ul>
+      <li><a href="#intro_thanks">Thanks</a></li>
+	  <li><a href="#intro_requirements">Requirements</a></li>
+	  <li><a href="#intro_files">File Structure</a></li>
+      <li><a href="#intro_usage">Usage</a></li>
+    </ul>
+  </li>
+  <li><a href="#setup">Setup</a>
+    <ul>
+      <li><a href="#setup_install">Install</a></li>
+      <li><a href="#setup_upgrade">Upgrade</a></li>
+      <li><a href="#setup_conf">Editing the conf.php file</a></li>
+    </ul>
+  </li>
+  <li><a href="#login">Log-in to SigGen Config</a></li>
+  <li><a href="#settings">SigGen Settings</a>
+    <ul>
+      <li><a href="#settings_configselect">Config Select</a></li>
+      <li><a href="#settings_menu">The Menu</a></li>
+      <li><a href="#settings_preview">Signature/Avatar Preview (Test SigGen)</a></li>
+      <li><a href="#settings_main">Main Settings</a></li>
+      <li><a href="#settings_background">Backgrounds</a></li>
+      <li><a href="#settings_fontscolors">Font and Colors</a></li>
+      <li><a href="#settings_expbar">The eXp Bar</a></li>
+      <li><a href="#settings_lvlbubble">The Level Bubble</a></li>
+      <li><a href="#settings_skills">The Skills Block</a></li>
+      <li><a href="#settings_logos">Character/Class/PvP Logos</a></li>
+      <li><a href="#settings_textconfig">Text Configuration</a></li>
+    </ul>
+  </li>
+  <li><a href="#advanced">Advanced SigGen Options</a>
+    <ul>
+      <li><a href="#advanced_textplacement">The fine art of text placement</a></li>
+      <li><a href="#advanced_siggen_direct">siggen.php direct access</a></li>
+      <li><a href="#advanced_upload">Upload Custom Member Images</a></li>
+      <li><a href="#advanced_deleteupload">Delete Member Images</a></li>
+      <li><a href="#advanced_saveimage">Save Image Mode</a></li>
+      <li><a href="#advanced_updatetrigger">Auto-Save Images</a></li>
+    </ul>
+  </li>
+  <li><a href="#faq">FAQ/Troubleshooting</a>
+    <ul>
+      <li><a href="#faq_bugs">Known bugs/weirdness</a></li>
+      <li><a href="#faq_general_faq">General FAQ</a></li>
+    </ul>
+  </li>
+</ul>
+<hr /><hr />
+<h2><a name="intro" id="intro"></a>Intro</h2>
+<p><a href="http://www.wowroster.net" target="_new"><span class="click"><span onMouseover="return overlib('Click to go to  WoWRoster.net',CAPTION,'Link to WoWRoster.net');" onMouseout="return nd();">WoWRoster Signature Generator</span></span></a><br />
+version: 2.0-Gamma build-50</p>
+<p>author: Joshua Clark <a href="http://www.wowroster.net/profile.php?mode=viewprofile&amp;u=234" target="_new"><span class="click"><span onMouseover="return overlib('Click to go to my profile on WoWRoster.net',CAPTION,'Link to Zanix&acute;s Profile');" onMouseout="return nd();">zanix</span></span></a><br />
+  e-mail:  c.zanix@gmail.com<br />
+web: <a href="http://www.luminality.com" target="_new"><span class="click"><span onMouseover="return overlib('Click to go to my guilds&acute; website',CAPTION,'Link to Luminality.com');" onMouseout="return nd();">Luminality Guild</span></span></a></p>
+<p>This is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY. So if it blows up your server it's not my fault</p>
+<p>These signatures/avatars can be used for web forums, they will show a character's 
+  level, membership, rank, tradeskill levels, and other such information.<br />
+The information in these signature graphics will be as up to date as the roster 
+information.</p>
+<p>This is very configurable, everything can be moved fairly easily, text colors can be changed, almost everying can be displayed/hidden<br />
+To congifure, open <span class="codestyle">/roster/addon.php?roster_addon_name=siggen</span> in a web-browser</p>
+<p>For members that haven't uploaded info, this will show limited information on a default background</p>
+<hr />
+<h3><a name="intro_thanks" id="intro_thanks"></a>Thanks</h3>
+<p>All props to the original creator(s) of <span class="codestyle">img.php</span></p>
+<span class="caption">Ripped from the readme of img.php</span><br />
+<blockquote class="warning">
+Code written by Tony Fontaine, aka Reolus, tonyfontaine@knightraven.net  <a href="http://www.gnomishmarinecorps.com" target="_new">http://www.gnomishmarinecorps.com</a><br />
+Inspired by the WoWSigCreator by Ashenfield ( ashenfield@gmail.com )  <a href="http://www.dizzarian.com" target="_new">http://www.dizzarian.com</a></blockquote>
+
+<table cellpadding="3" cellspacing="1" style="border:solid 1px #333333; font-size:12px;">
+  <tr>
+    <td valign="top" class="row1">rubricsinger</td>
+    <td valign="top" class="row1">For his eXP bar and therefore making want to improve on img.php</td>
+  </tr>
+  <tr>
+    <td valign="top" class="row2">zeth_russ</td>
+    <td valign="top" class="row2">Etag cacheing (lovin' the reduced server load!)</td>
+  </tr>
+  <tr>
+    <td valign="top" class="row1">RossiRat</td>
+    <td valign="top" class="row1">Ideas on showing debug/error info<br />
+Getting the full path for fonts, directories<br />
+Shadow fonts<br />
+Saving images to a directory on the server</td>
+  </tr>
+  <tr>
+    <td valign="top" class="row2">BlackCat83</td>
+    <td valign="top" class="row2">For the original &quot;avatar.php&quot; using my code from &quot;sig.php&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="row1">Jessy</td>
+    <td valign="top" class="row1">For making &quot;av.php&quot; just plug into &quot;sig.php&quot; -  Very nice</td>
+  </tr>
+  <tr>
+    <td valign="top" class="row2">Matt Miller</td>
+    <td valign="top" class="row2">Code from UniAdmin. Without it I couldn't of made the config page</td>
+  </tr>
+  <tr>
+    <td valign="top" class="row1">Ahrtvuailla</td>
+    <td valign="top" class="row1">For help with re-designing the sigconfig page, and a way to delete uploaded images</td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" class="row2">To everyone else that I haven't mentioned<br />
+      And all those that have tested the previous versions; sig1.5 : sig2.0 : sig2.0-gamma</td>
+  </tr>
+</table>
+<hr />
+<h3><a name="intro_requirements" id="intro_requirements"></a>Requirements</h3>
+<blockquote class="warning">
+  WoWRoster.net Roster v1.6.0 or higher<br />
+  PHP 4.3.x or better<br />
+  GD2 with PNG and Freetype Support<br />
+  Advanced functions in SigGen Config REQUIRE that <span class="codestyle">safe_mode</span> be turned <span class="caption">off</span> in your PHP config file<br />
+  <br />
+  <span class="caption">SigGen</span> absolutely requires that your PHP installation 
+    supports the GD2 library, and that GD2 has  <span class="caption">PNG Support</span> and <span class="caption">FreeType Support</span> turned on<br />
+    <br />
+  If you have trouble with the signature generator, first check the <span class="codestyle">gd_info.php</span> file in the top-level roster directory for information about how the GD2 library 
+    is configured (or not available) on your web server (if you're reading this 
+    document off your roster website, try <a href="../../../gd_info.php" target="_new">this 
+      link</a>).<br />
+      <br />
+    Then, check <a href="http://www.wowroster.net/viewtopic.php?t=10" target="_new">the 
+      signature troubleshooting thread</a> at WoWRoster.net<br />
+      <br />
+      <strong>gd_info.php MUST SAY</strong> <span class="caption">FreeType Support: 
+    yes</span> for you to use SigGen<br />
+    <span class="caption">FreeType Linkage: with freetype</span> is best although <span class="caption">with TTF</span> works ok<br />
+    <br />
+  If you DO NOT want SigGen, or if you cannot get GD2 to work on your server, 
+  you can just delete the folder from the addons directory <span class="codestyle">/addons/siggen/</span> and that will remove all traces of SigGen</blockquote>
+<hr />
+<h3><a name="intro_files" id="intro_files"></a>File Structure</h3>
+<p>The addon &quot;SigGen Gamma&quot; for signature and avatar graphics is included 
+in the default roster package</p>
+<p>Here are the files and where they should be located</p>
+<div class="captioned-figure">
+<span class="caption">SigGen File Structure</span><br />
+<img src="img/siggen_files.gif" alt="SigGen File Structure" width="404" height="631" style="border:solid 1px #000000;"/></div>
+<hr />
+<h3><a name="intro_usage" id="intro_usage"></a>Usage</h3>
+<p>The PHP file that generates the signatures is <span class="codestyle">sig.php</span>, 
+  for avatars it is <span class="codestyle">av.php</span><br />
+They are located in <span class="codestyle">/addons/siggen/</span></p>
+<p> So if your roster URL is <span class="codestyle">http://www.yourguildname.com/roster/</span></p>
+<p>The generators are at:<br />
+Signature: <span class="codestyle">http://www.yourguildname.com/roster/addons/siggen/sig.php</span><br />
+Avatar: <span class="codestyle">http://www.yourguildname.com/roster/addons/siggen/av.php</span></p>
+<p>To get the graphic for a character named &quot;Bob&quot;, use:<br />
+  Signature: <span class="codestyle">http://www.yourguildname.com/roster/addons/siggen/sig.php?name=Bob</span><br />
+Avatar: <span class="codestyle">http://www.yourguildname.com/roster/addons/siggen/av.php?name=Bob</span></p>
+<p>  Alternatively, you can try to use these:<br />
+  Signature: <span class="codestyle">http://www.yourguildname.com/roster/addons/siggen/sig.php/Bob.png</span><br />
+  Avatar: <span class="codestyle">http://www.yourguildname.com/roster/addons/siggen/av.php/Bob.png</span><br />
+NOTE: This method for accessing these does not work on all servers</p>
+<p>For another method, you can use <span class="caption">mod_rewrite</span> to re-write the path to the generator files</p>
+<p> To use the this method, you must have an Apache server with <span class="caption">mod_rewrite</span> turned on</p>
+<p><span class="caption">.htaccess file (for Apache)</span></p>
+<pre>RewriteEngine on
+RewriteRule ^(sig|av)/(.*).png$ ./addons/siggen/$1.php?name=$2</pre>
+<p>There is a way to mimic <span class="caption">mod_rewrite</span> on IIS using an ISAPI filter<br />
+  <a href="http://www.iismods.com/url-rewrite/index.htm" target="_new">http://www.iismods.com/url-rewrite/index.htm</a><br />
+You need admin access to your IIS installation<br />
+This is untested and may not work</p>
+<p><span class="caption">mod_rewrite.ini file (for IIS with URL Rewrite Filter for IIS)</span></p>
+<pre>Debug 0
+Reload 1000
+RewriteRule ^(sig|av)/(.*).png$ ./addons/siggen/$1.php?name=$2</pre>
+<p>With the power of <span class="caption">mod_rewrite</span>  you can access your images at:<br />
+  Signature: <span class="codestyle">http://www.yourguildname.com/roster/sig/Charactername.png</span><br />
+Avatar: <span class="codestyle">http://www.yourguildname.com/roster/av/Charactername.png</span></p>
+<div class="captioned-figure"> <span class="caption">SigGen signature/avatar Example</span><br />
+    <img src="img/siggen_example.gif" alt="SigGen Example" width="508" height="85" /></div>
+<hr /><hr />
+<h2><a name="setup" id="Setup"></a>Setup</h2>
+<p><a href="#toc">(Back to  ToC)</a></p>
+<hr />
+<h3><a name="setup_install" id="setup_install"></a>Install</h3>
+<p>Now that you are sure that GD2 works properly on your server, here is how to 
+  get <span class="caption">SigGen</span> working</p>
+<p>Before you even start trying to access the signatures/avatars, you need to 
+  run the configuration page at<br />
+  <span class="codestyle">http://www.yourguildname.com/addon.php?roster_addon_name=siggen</span><br />
+  (if you're reading this document off your roster website, try 
+  <a href="../../../addon.php?roster_addon_name=siggen" target="_new">this link</a>)</p>
+<p>This will set up the database tables and will give you great control over the 
+  look and feel of your signatures</p>
+<p>Choose your version of MySQL your server is running<br />
+  ( If you are unsure, try <span class="caption">MySQL 4 or less</span> )</p>
+<div class="captioned-figure">
+<span class="caption">SigGen DB Install</span><br />
+  <img src="img/siggen_firstrun.gif" alt="SigGen DB Install" width="800" height="600" /></div>
+<p>The next screen should show the following<br />
+  Follow the directions (There is only one)</p>
+<div class="captioned-figure">
+<span class="caption">SigGen DB Install Successfull</span><br />
+  <img src="img/siggen_install_success.gif" alt="SigGen DB Install Successfull" width="800" height="600" /></div>
+<hr />
+<h3><a name="setup_upgrade" id="setup_upgrade"></a>Upgrade</h3>
+<p>This mode appears when you already have the `sig_config` table in the database</p>
+<p>You have three options</p>
+<ul>
+  <li><strong class="click">Upgrade with reset</strong>
+    <ul>
+      <li>This is the BEST option<br />
+      This will upgrade the data tables and reset everything to defaults</li>
+    </ul>
+  </li>
+  <li><strong class="click">Upgrade without reset</strong>
+    <ul>
+      <li>This option is not supported<br />
+      And yes, I can tell if you chose this option</li>
+      <li>Use this only if you are comfortable with editing the database manually as you may have to do so</li>
+    </ul>
+  </li>
+</ul>
+<div class="captioned-figure"> <span class="caption">SigGen DB Upgrade</span><br />
+    <img src="img/siggen_upgrade.gif" alt="SigGen DB Upgrade" width="800" height="600" /></div>
+<hr />
+<h3><a name="setup_conf" id="setup_conf"></a>Editing the conf.php file</h3>
+<h4>SigConfig password <span class="caption">$sc_pass</span></h4>
+<p>  By default, this is set to <span class="codestyle">$roster_upd_pw</span> which is set in roster's <span class="codestyle">conf.php</span> file<br />
+  You can change this if you want to use a different password</p>
+<h4>Show the SQL Debug Window <span class="caption">$sc_show_sql_win</span></h4>
+<p> This toggles the display of the SQL Debug window in <span class="caption">SigGen Config</span><br />
+Set to <span style="color:#FF0000;">0</span> to turn off the window</p>
+<hr /><hr />
+<h2><a name="login" id="login"></a>Log-in to SigGen Config</h2>
+<p><a href="#toc">(Back to  ToC)</a></p>
+<p>Fill in the password box from what you set <span class="codestyle">$roster_upd_pw</span> 
+  in <span class="codestyle">conf.php</span><br />
+  This config page uses cookies so you don't have to log-in everytime you re-visit 
+  this page</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Password</span><br />
+  <img src="img/siggen_password.gif" alt="SigGen Password" width="800" height="600" /></div>
+<hr /><hr />
+<h2><a name="settings" id="main"></a>SigGen Settings</h2>
+<p><a href="#toc">(Back to  ToC)</a></p>
+<blockquote class="warning">
+  Alot of the settings on the SigConfig page have tooltips breifly describing 
+    what each function does<br />
+  It's a VERY good idea to click <span class="click">Update Settings</span> after 
+    you are done on each page, but it is not required</blockquote>
+<hr />
+<h3><a name="settings_configselect" id="settings_configselect"></a>Config Select</h3>
+<p>Select which mode to edit. Either <span class="caption">signature</span> 
+  or <span class="caption">avatar</span><br />
+Hit <span class="click">Go</span> to select that mode</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Config Select</span><br />
+  <img src="img/siggen_config_select.gif" alt="SigGen Config Select" width="333" height="201" /></div>
+<hr />
+<h3><a name="settings_menu" id="settings_menu"></a>The Menu</h3>
+<p>Select which part of <span class="caption">SigGen</span> to configure</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Menu</span><br />
+  <img src="img/siggen_menu.gif" alt="SigGen Menu" width="287" height="224" /></div>
+<hr />
+<h3><a name="settings_preview" id="settings_preview"></a>Signature/Avatar Preview (Test SigGen)</h3>
+<p>Use this to test your changes to <span class="caption">SigGen</span><br />
+  The drop down list is populated with the members in your guild<br />
+  Select a name then hit <span class="click">Go</span> to view that character's 
+image</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Image Preview</span><br />
+  <img src="img/siggen_preview.gif" alt="SigGen Image Preview" width="477" height="223" /></div>
+<hr />
+<h3><a name="settings_main" id="settings_main"></a>Main Settings</h3>
+<p> This is where you set the main settings for <span class="caption">SigGen</span></p>
+<div class="captioned-figure">
+<span class="caption">SigGen Main Settings</span><br />
+  <img src="img/siggen_settings_main.gif" alt="SigGen Main Settings" width="800" height="600" /></div>
+<hr />
+<h3><a name="settings_background" id="settings_background"></a>Backgrounds</h3>
+<p>Control the display of the background in <span class="caption">SigGen</span></p>
+<p>All image selection pull down boxes are automatically filled from the <span class="codestyle">/img/</span> directory</p>
+<p>Display options for the colored frames and the outside border are here as well<br />
+You can set each of these to &quot;--None--&quot; to disable their display</p>
+<p>The options for the backgrounds are very customizable<br />
+The default set-up for SigGen is to check for the character's race, and match to that race's home city</p>
+<p>For example, the &quot;Search Config&quot; is set to read from &quot;Players Table&quot;, &quot;race&quot; field by default<br />
+When the character's race matches one of the search's below, their background is set to that background filename<br />
+(when char.race = &quot;Night Elf&quot;, set backg = darnassus)</p>
+<p>NOTE: When you change the &quot;Table:&quot; option, you need to hit <span class="click">Update Settings</span> to get the new list of fields</p>
+<p>You can set this up to search for the character's guild title, and match that to a specific image</p>
+<ul>
+  <li>Under &quot;Search Config&quot;, set &quot;Table:&quot; to &quot;Members Table&quot;</li>
+  <li>Hit <span class="click">Update Settings</span></li>
+  <li>Set &quot;Field:&quot; to &quot;guild_title&quot;</li>
+  <li>For each &quot;Background&quot; box, set &quot;Search:&quot; to a guild title (ex. &quot;Member&quot;) and &quot;Image Name:&quot; (ex. &quot;member_image&quot;)</li>
+</ul>
+<p>So for every character that has a guild title of &quot;Member&quot;, &quot;member_image&quot; is set as their background image</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Background Settings</span><br />
+  <img src="img/siggen_backgrounds.gif" alt="SigGen Background Settings" width="800" height="600" /></div>
+<hr />
+<h3><a name="settings_fontscolors" id="settings_fontscolors"></a>Fonts and Colors</h3>
+<p>Here you can select what fonts and colors are available to the other areas 
+  of SigConfig<br />
+  If you change anything here and want it available to the other sections, you 
+  need to click <span class="click">Update Settings</span> first</p>
+<p>For the color selection, you can click on <span class="click">[color swatch]</span> to open a &quot;color picker&quot; window  to help you choose a color</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Fonts and Colors</span><br />
+  <img src="img/siggen_fonts_colors.gif" alt="SigGen Fonts and Colors" width="800" height="600" /></div>
+<hr />
+<h3><a name="settings_expbar" id="settings_expbar"></a>The eXp Bar</h3>
+<p>This is where you can adjust the display of the eXp bar on the generated image</p>
+<div class="captioned-figure">
+<span class="caption">SigGen eXp Bar</span><br />
+  <img src="img/siggen_expbar.gif" alt="SigGen eXp Bar" width="800" height="719" /></div>
+<hr />
+<h3><a name="settings_lvlbubble" id="settings_lvlbubble"></a>The Level Bubble</h3>
+<p>Control the display of the level bubble</p>
+<p>You can set &quot;Level Bubble Image Name&quot; to &quot;--None--&quot; to turn off the image and keep the text</p>
+<div class="captioned-figure"> <span class="caption">SigGen Level Bubble</span><br />
+    <img src="img/siggen_lvlbubble.gif" alt="SigGen Level Bubble" width="800" height="600" /></div>
+<hr />
+<h3><a name="settings_skills" id="settings_skills"></a>The Skills Block</h3>
+<p>Control the display of the character's skills, trades, and mount info</p>
+<p>The order of the skills will always display in this order, whether or not each part is turned off</p>
+<ul>
+  <li>Primary</li>
+  <li>Secondary</li>
+  <li>Riding Skill</li>
+</ul>
+<div class="captioned-figure"> <span class="caption">SigGen Skills Block</span><br />
+    <img src="img/siggen_skillsconfig.gif" alt="SigGen Skills Block" width="800" height="600" /></div>
+<hr />
+<h3><a name="settings_logos" id="settings_logos"></a>Character/Class/PvP Logos</h3>
+<p>Control the placement of the Character Portrait, PvP Rank Logo, and the class logo</p>
+<div class="captioned-figure"> 
+<span class="caption">SigGen Logos</span><br />
+  <img src="img/siggen_logos.gif" alt="SigGen Logos" width="800" height="600" /></div>
+<hr />
+<h3><a name="settings_textconfig" id="settings_textconfig"></a>Text Configuration</h3>
+<p>Control the placement and display attributes of each piece of text on the generated image</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Text Configuration</span><br />
+  <img src="img/siggen_textconfig.gif" alt="SigGen Text Configuration" width="800" height="702" /></div>
+<hr /><hr />
+<h2><a name="advanced" id="advanced"></a>Advanced SigGen Options</h2>
+<p><a href="#toc">(Back to  ToC)</a></p>
+<hr />
+<h3><a name="advanced_textplacement" id="advanced_textplacement"></a>The fine art of text placement</h3>
+<p>There are many options for adjusting the placement of the text within the image<br />
+Here is a guide on how <span class="caption">SigGen</span> calculates where to draw the text</p>
+<ul>
+  <li>When &quot;Left&quot; alignment is selected, text is drawn from the starting point, going left </li>
+  <li>When &quot;Center&quot; alignment is selected, text is drawn equally from that point on both sides</li>
+  <li>When &quot;Right&quot; alignemnt is selected, text is drawn from the starting point, going right</li>
+</ul>
+<p>Hover-over <span class="click">[example]</span> for an example</p>
+<table cellpadding="2" cellspacing="1" style="border:solid 1px #333333;font-size:12px;">
+  <tr>
+    <th class="row1" scope="col">Alignment</th>
+    <th class="row1" scope="col">Horiz point</th>
+    <th class="row1" scope="col">Width of text</th>
+    <th class="row1" scope="col">Starts drawing</th>
+    <th class="row1" scope="col">Ends drawing</th>
+  </tr>
+  <tr>
+    <td rowspan="3" class="row2">Left<br />
+    <span style="cursor:help" onMouseover="return overlib('<img src=&quot;img/siggen_textex_1.gif&quot; />',CAPTION,'Example of Text Placement');" onMouseout="return nd();">[example]</span></td>
+    <td align="right" class="row2">200</td>
+    <td align="right" class="row2">50</td>
+    <td align="right" class="row2">200</td>
+    <td align="right" class="row2">250</td>
+  </tr>
+  <tr>
+    <td align="right" class="row2">0</td>
+    <td align="right" class="row2">30</td>
+    <td align="right" class="row2">0</td>
+    <td align="right" class="row2">30</td>
+  </tr>
+  <tr>
+    <td align="right" class="row2">395</td>
+    <td align="right" class="row2">10</td>
+    <td align="right" class="row2">395</td>
+    <td align="right" class="row2">405</td>
+  </tr>
+  
+  <tr>
+    <td rowspan="3" class="row1">Center<br />
+    <span style="cursor:help" onMouseover="return overlib('<img src=&quot;img/siggen_textex_2.gif&quot; />',CAPTION,'Example of Text Placement');" onMouseout="return nd();">[example]</span></td>
+    <td align="right" class="row1">200</td>
+    <td align="right" class="row1">50</td>
+    <td align="right" class="row1">175</td>
+    <td align="right" class="row1">225</td>
+  </tr>
+  <tr>
+    <td align="right" class="row1">0</td>
+    <td align="right" class="row1">30</td>
+    <td align="right" class="row1">-15</td>
+    <td align="right" class="row1">15</td>
+  </tr>
+  <tr>
+    <td align="right" class="row1">350</td>
+    <td align="right" class="row1">10</td>
+    <td align="right" class="row1">345</td>
+    <td align="right" class="row1">355</td>
+  </tr>
+  
+  <tr>
+    <td rowspan="3" class="row2">Right<br />
+    <span style="cursor:help" onMouseover="return overlib('<img src=&quot;img/siggen_textex_3.gif&quot; />',CAPTION,'Example of Text Placement');" onMouseout="return nd();">[example]</span></td>
+    <td align="right" class="row2">200</td>
+    <td align="right" class="row2">50</td>
+    <td align="right" class="row2">150</td>
+    <td align="right" class="row2">200</td>
+  </tr>
+  <tr>
+    <td align="right" class="row2">0</td>
+    <td align="right" class="row2">30</td>
+    <td align="right" class="row2">-30</td>
+    <td align="right" class="row2">0</td>
+  </tr>
+  <tr>
+    <td align="right" class="row2">350</td>
+    <td align="right" class="row2">10</td>
+    <td align="right" class="row2">340</td>
+    <td align="right" class="row2">350</td>
+  </tr>
+</table>
+<hr />
+<h3><a name="advanced_siggen_direct" id="advanced_siggen_direct"></a>siggen.php Direct Access</h3>
+<p>These are the arguments <span class="codestyle">siggen.php</span> will accept (applicable to <span class="codestyle">sig.php</span>, and <span class="codestyle">av.php</span> as well)</p>
+<ul>
+  <li>( <span style="color: red;">name</span>=<span style="color: blue;">[string] </span>) The name for the script to retrieve and display<br />
+</li>
+<li>( <span style="color: red;">mode</span>=<span style="color: blue;">[string]</span> ) What config setting to get from the db ( current options: 'signature' | 'avatar' )
+  <br />
+</li>
+<li>( <span style="color: red;">saveonly</span>=<span style="color: blue;">[ 1 | 0 ]</span> ) Turns on/off &quot;Save Only Mode&quot;<br />
+</li>
+<li>( <span style="color: red;">etag</span>=<span style="color: blue;">[ 1 | 0 ]</span> ) Turns on/off &quot;eTag&quot; caching</li>
+</ul>
+<hr />
+<h3><a name="advanced_upload" id="advanced_upload"></a>Upload Custom Member Images</h3>
+<p>You can set custom images for each character for <span class="caption">SigGen</span>, and you can set a custom background as well</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Upload Images</span><br />
+  <img src="img/siggen_upload.gif" alt="SigGen Upload Images" width="365" height="388" /></div>
+<p>The images you upload must be in <span class="codestyle">.png</span> format (24-bit color is best) with a transparent background</p>
+<ul>
+  <li>Pick the name you want to upload for from the pull down list</li>
+  <li>Pick what image type you wish to upload ( Character Image | Background Image )</li>
+  <li>Browse to the image you wish to upload</li>
+  <li>Hit upload, SigGen Config will tell you if it was successful or not</li>
+</ul>
+<hr />
+<h3><a name="advanced_deleteupload" id="advanced_deleteupload"></a>Delete Member Images</h3>
+<p>This box will let you delete any currently uploaded images</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Delete Images</span><br />
+<img src="img/siggen_delete.gif" alt="SigGen Delete Images" width="365" height="388" /></div>
+<ul>
+  <li>Pick the file you want to delete from the pull down list <br />
+  </li>
+  <li>Hit delete, SigGen Config will tell you if it was successful or not</li>
+</ul>
+<hr />
+<h3><a name="advanced_saveimage" id="advanced_saveimage"></a>Save Image Mode</h3>
+<p>This is how &quot;Save Image Mode&quot; works</p>
+<p>When activated, every visit to <span class="codestyle">siggen.php</span>, <span class="codestyle">sig.php</span>, or <span class="codestyle">av.php</span>, when a name is specified, will generate the image and save it to the server as a static image</p>
+<p>This mode is generally used in conjunction with the &quot;<a href="#advanced_updatetrigger">Update Trigger</a>&quot;</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Save Image Mode</span><br />
+  <img src="img/siggen_saveconfig.gif" alt="SigGen Save Image Mode" width="365" height="273" /></div>
+<ul>
+  <li><span class="click">Jpeg image quality</span>
+    <ul>
+      <li>This controls the level of detail when images are saved in <span class="codestyle">.jpg</span> format</li>
+    </ul>
+  </li>
+  <li><span class="click">Gif image dithering</span>
+    <ul>
+      <li>This controls the image dithering     mode when images are saved in <span class="codestyle">.gif</span> format</li>
+    </ul>
+  </li>
+  <li><span class="click">Save images to server</span> 
+    <ul>
+      <li>This activates/de-activates &quot;Save Image Mode&quot;</li>
+    </ul>
+  </li>
+  <li><span class="click">Save only mode</span>
+    <ul>
+      <li>Activating this will suppress image output when <span class="codestyle">siggen.php</span>, <span class="codestyle">sig.php</span>, or <span class="codestyle">av.php</span> are accessed directly, but still generate the image and save it to the server's disk</li>
+    </ul>
+  </li>
+  <li><span class="click">Saved images directory</span>
+    <ul>
+      <li>This is the directory that SigGen will write the generated images to</li>
+      <li>The directory specified here   will be a directory in <span class="codestyle">/roster/addons/siggen/</span></li>
+      <li>If you change this directory, SigGen Config will try to create the new directory, but it <u>will not</u> move any images that are in the old directory to the new one, nor will it delete them</li>
+    </ul>
+  </li>
+  <li><span class="click">Saved images format</span>
+    <ul>
+      <li>The format in which SigGen will sve the image to the server</li>
+      <li>Current choices are gif, jpeg, png</li>
+    </ul>
+  </li>
+  <li><span class="click">Saved images Prefix/Suffix</span>
+    <ul>
+      <li>The text specified here will be added to the filename of the saved image</li>
+      <li>Example
+        <ul>
+          <li>The character's name is &quot;Treyce&quot;</li>
+          <li>Saved image format is &quot;jpeg&quot; </li>
+          <li>Prefix is set to &quot;sig-&quot;</li>
+          <li>Suffix is set to &quot;-sig&quot;</li>
+          <li>The saved image on the server will be &quot;sig-Treyce-sig.jpg&quot;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<hr />
+<h3><a name="advanced_updatetrigger" id="advanced_updatetrigger"></a>Auto-Save Images</h3>
+<p>Auto-Save images  for signatures and avatars<br />
+Turning these on will generate and save a signature and/or avatar image to the server's disk when a player updates their data<br />
+Only turn these on after you have configured the signatures</p>
+<p>Combining the powers of &quot;Save Image Mode&quot; and &quot;Update_Triggers&quot;, images can be automaticaly generated and saved on the server everytime <span class="codestyle">update.php</span> is ran</p>
+<p>The &quot;Save Images Directory&quot; has to exist for this to work</p>
+<p>To activate, turn on &quot;Auto-save image on character update&quot; on the Main Settings page</p>
+<div class="captioned-figure">
+<span class="caption">SigGen Auto-Save on Character Update</span><br />
+  <img src="img/siggen_updatetrigger.gif" alt="SigGen Auto-Save" width="800" height="600" /></div>
+<p>This &quot;auto-save mode &quot; can also run during a guild update, which would generate an image for every guild memeber</p>
+<p>To activate, turn on &quot;Auto-save images on guild update&quot; on the Main Settings page</p>
+<blockquote class="warning"> You must also check the &quot;Run Update Triggers&quot; on <span class="codestyle">update.php</span> to activate this mode <br />
+    <br />
+    <span style="color:#FF0000;">WARNING:</span> This can take a very long time. Expect to wait <strong>10</strong> minutes <strong>or longer</strong> when this is activated<br />
+  This can, and probably will,  use 100% of the server's processor time<br />
+  If your site is hosted, they will most likely smack you for this action<br />
+  <br />
+  You also may get time-out errors, there is protection against this but it wont work on some servers<br />
+If you do get time-out errors, then you should disable this</blockquote>
+<div class="captioned-figure"> <span class="caption">SigGen Auto-Save on Guild Update</span><br />
+<img src="img/siggen_updatetrigger_guild.gif" alt="SigGen Auto-Save" width="800" height="600" /></div>
+<hr />
+<h2><a name="faq" id="faq"></a>FAQ/Troubleshooting</h2>
+<h3><a name="faq_bugs" id="faq_bugs"></a>Known bugs/weirdness</h3>
+<ul>
+  <li>Turing off &quot;Display Skill Description&quot; when &quot;Display Mount Info&quot; is turned on will not remove the Mount description
+    <ul>
+      <li>This is by design</li>
+    </ul>
+  </li>
+  <li>Running Auto-Save images during a guild update will appear to hang update.php
+    <ul>
+      <li>This is how things are, it takes time to generate and save every image, just be patient</li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="faq_general_faq" id="faq_general_faq"></a>General FAQ</h3>
+<ul>
+  <li>Reset to the default settings
+    <ul>
+      <li>Check the box and hit <span class="click">Default Settings</span> to reset to defaults</li>
+    </ul>
+  </li>
+</ul>
+<div class="captioned-figure"> <span class="caption">SigGen Reset to Defaults</span><br />
+    <img src="img/siggen_reset.gif" alt="SigGen Reset to Defaults" width="227" height="264" /></div>
+<p>&nbsp;</p>
+</body>
+</html>

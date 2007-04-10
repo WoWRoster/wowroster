@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>WoW Roster 1.5.0 Installation Documentation</title>
+    <style type="text/css">
+      blockquote.warning { border: solid red 3px; padding: 1em;}
+      code { background: grey; border: solid black 1px;}
+      div.captioned-figure { text-align: center; padding: 1em;}
+      pre { background: grey; border: solid black 1px;}
+      img.figure { }
+      span.caption { }
+    </style>
+  </head>
+
+  <body>
+    <h1><a name="toc">WoW Roster 1.5.0 Installation Documentation</a></h1>
+
+    <p><a href="index.html">Back to Documentation Index</a></p>
+
+    <p>Table of Contents</p>
+    <ul>
+      <li><a href="#system_requirements">System Requirements</a></li>
+      <li><a href="#mysql_setup">MySQL Setup</a></li>
+      <li><a href="#php_and_html_setup">PHP and HTML Setup</a></li>
+      <li><a href="#uploading_the_first_roster">Uploading the First Roster</a></li>
+      <li><a href="#testing_other_roster_features">Testing Other Roster Features</a></li>
+    </ul>
+
+    <h2><a name="system_requirements">System Requirements</a></h2> <a href="#toc">(Back to Table of Contents)</a>
+
+    <ul>
+
+      <li>A web server supporting PHP (Apache, IIS)</li>
+
+      <li>PHP 4.3.x or higher. GD with PNG and TrueType font support
+      is required if you want the roster to show server status,
+      generate signature graphics, etc.</li>
+
+      <li>MySQL (version 4.0.x or higher, 3.x may be possible but is
+      unsupported)</li>
+
+      <li>A MySQL username and password with permission to create,
+      modify, and otherwise modify tables in a particular
+      database</li>
+
+    </ul>
+
+    <h2><a name="mysql_setup">MySQL Setup</a></h2> <a href="#toc">(Back to Table of Contents)</a>
+
+    <p>A full discussion of installing and configuring MySQL,
+    phpMyAdmin, and other related tools is beyond the scope of this
+    document. We'll assume that whoever runs your MySQL server has
+    already created an account that your roster installation can use,
+    and that they've already installed phpMyAdmin.</p>
+
+    <p>Log into phpMyAdmin with the username and password that the
+    roster will use. In our examples, the username is
+    <code>roster150</code>, the user's password has already been set,
+    and the WoW roster tables will be stored in a database named
+    <code>roster150</code>.</p>
+
+    <div class="captioned-figure"><span class="caption">Login screen for phpMyAdmin</span><br /><img src="01-phpmyadmin-login.gif" alt="Login screen for phpMyAdmin" class="figure"></div>
+
+    <h3>New Installations</h3>
+
+    <p>If this is your first installation of WoW Roster, your roster
+    database will be completely empty, as shown in the figure
+    below.</p>
+
+    <div class="captioned-figure"><span class="caption">phpMyAdmin window with empty database</span><br /><img src="02-empty-database-selected.gif" alt="phpMyAdmin window with empty database"></div>
+
+    <p>Click the <em>SQL</em> tab in the right-hand pane of the
+    phpMyAdmin page. At the bottom of the SQL tab, you'll see an
+    option to upload a file containing SQL commands. The file
+    <code>roster150.sql</code> included in the WoW Roster distribution
+    will create an empty set of tables for the roster
+    information. Click the <em>Browse</em> button and locate your copy
+    of the <code>roster150.sql</code> file. Then click the <em>Go</em>
+    button at the bottom of the pane to upload the SQL commands.</p>
+
+    <div class="captioned-figure"><span class="caption">Ready to upload database schema</span><br /><img src="03-ready-to-upload-sql.gif" alt="Ready to upload database schema"></div>
+
+    <p>Assuming everything works, you should get a response from
+    phpMyAdmin similar to the one below. In particular, you're looking
+    for a message of "Your SQL query has been executed
+    successfully".</p>
+
+    <div class="captioned-figure"><span class="caption">Database schema uploaded successfully</span><br /><img src="04-sql-uploaded.gif" alt="Database schema uploaded successfully"></div>
+
+    <h3>Upgrade Installations</h3>
+
+    <p>Due to the significant number of changes usually made to all
+    files, the conf.php and the database structure, it is generally
+    recommended that you start again with a fresh database and roster
+    directory when upgrading and then migrate your
+    <code>conf.php</code> settings across.</p>
+
+    <p>The next best option is to update your existing database with
+    the update script (eg. for v1.04 to v1.5.0 -
+    <code>updateAll_v1.04-to-v1.5.0.sql</code>). But you should still
+    create a new roster directory. The downside of this is that there
+    may be orphaned data or tables/fields no longer used and still in
+    your database.</p>
+
+    <h2><a name="php_and_html_setup">PHP and HTML Setup</a></h2> <a href="#toc">(Back to Table of Contents)</a>
+
+    <p>Copy the file <code>conf.php.bak</code> to
+    <code>conf.php</code>. Edit it with Notepad or some other text
+    editor and make the following changes to suite your guild and site
+    setup.</p>
+
+    <blockquote class="warning">
+      If a variable in <code>conf.php</code> is in double-quotes, it's
+      because the developers expect that the variable contents might
+      contain an apostrophe. For example, there's a
+      <code>server_name</code> variable, and your guild might play on
+      the Eldre'Thalas server, so the <code>server_name</code>
+      variable is in double-quotes. Other variables that aren't
+      supposed to ever have apostrophes in them (like
+      <code>guild_name</code>, <code>faction</code>, etc.) are listed
+      in single-quotes for performance reasons. Please don't switch
+      around the quoting conventions used in conf.php -- if you run
+      into a problem, post in the general support forum at <a
+      href="http://wowprofilers.com/">WoWProfilers.com</a>.
+    </blockquote>
+
+    <h3>conf.php, MySQL Config Section</h3>
+
+    <ol>
+
+      <li>Change the variable <code>db_user</code> to the MySQL
+      username that has control over the roster tables. In our
+      examples, that username is <code>roster150</code>.</li>
+
+      <li>Change the variable <code>db_passwd</code> to the password
+      for the MySQL username given above.</li>
+
+      <li>Change the variable <code>db_name</code> to the database
+      that the WoW roster will use. In our examples, that database is
+      named <code>roster150</code>.</li>
+
+      <li>Change the variable <code>db_host</code> to the hostname of
+      your MySQL server. Use <code>localhost</code> if MySQL is
+      running on the web server itself. Many web hosting companies
+      will have MySQL running on servers other than the web servers,
+      and you might have seen that server's name in the title bar of
+      the phpMyAdmin windows. Contact whoever's running your web host
+      if you don't know the answer to this.</li>
+
+    </ol>
+
+    <h3>conf.php, Roster Config Section</h3>
+
+    <ol>
+
+      <li>Change the variable <code>lang</code> to the desired
+      language for the roster pages. Current language support is
+      limited to English (<code>'enUS'</code>) and German
+      (<code>'deDE'</code>).</li>
+
+    </ol>
+
+    <h3>conf.php, Site Config Section</h3>
+
+    <ol>
+
+      <li>Change the variable <code>website_address</code> to your
+      guild's normal home page, whether that's a set of forums, a
+      portal site, or whatever. This variable exists solely to give
+      people reading your roster a link back to the main guild
+      site.</li>
+
+      <li>Change the variable <code>roster_dir</code> to the URL that
+      your roster will be stored in, something like
+      <code>http://www.yourguildname.com/roster/</code>.</li>
+
+    </ol>
+
+    <h3>conf.php, Guild Config Section</h3>
+
+    <ol>
+
+      <li>Change the variable <code>guild_name</code> to your guild's
+      name, exactly as it is stored in the game.</li>
+
+      <li>Change the variable <code>server_name</code> to your guild's
+      server. Server names that contain apostrophe characters
+      shouldn't be a problem here, but do make sure that you keep the
+      server name in double-quotes.</li>
+
+      <li>Change the variable <code>guild_desc</code> to a short
+      description of your guild.</li>
+
+      <li>Change the variable <code>faction</code> to the faction of
+      your guild. Use <code>'A'</code> for Alliance guilds, and
+      <code>'H'</code> for Horde guilds.</li>
+
+      <li>Change the variable <code>server_type</code> to the general
+      type of server your guild is on. The convention for this
+      variable is <code>(TYPE-TIMEZONE)</code> where <code>TYPE</code>
+      is either <code>PvE</code>, <code>PvP</code>, <code>RP</code>,
+      or <code>RPPvP</code>, and <code>TIMEZONE</code> is an
+      abbreviation for your local time zone, such as <code>EST</code>
+      for Eastern Standard Time in the U.S.</li>
+
+      <li>Change the variable <code>localtimeoffset</code> to your
+      local time zone's offset from UTC. See <a
+      href="http://en.wikipedia.org/wiki/Time_zone">the Wikipedia
+      entry for time zones</a> to find yours. In the U.S., Pacific
+      Standard Time is <code>-8</code>, Mountain Standard Time is
+      <code>-7</code>, Central Standard Time is <code>-6</code>, and
+      Eastern Standard Time is <code>-5</code>. If your area is
+      currently observing daylight saving time, you'll need to add 1
+      to the above numbers (so PDT is <code>-7</code>, MDT is
+      <code>-6</code>, etc.).</li>
+
+    </ol>
+
+    <h3>Upload the Roster Files</h3>
+
+    <p>Upload all the roster files to your web host by whatever means
+    you normally do (FTP, mapped network drive, etc.) -- if you go to
+    the main roster page (the address you entered for
+    <code>roster_dir</code> in <code>conf.php</code>), you should see
+    something similar to the following page (if you're reading this
+    documentation off your roster site, try <a
+    href="../index.php" target="_new">this link</a>):</p>
+
+    <div class="captioned-figure"><span class="caption">Roster site before uploading data</span><br /><img src="04a-roster-empty.gif" alt="Roster site before uploading data"></div>
+
+
+    <h2><a name="uploading_the_first_roster">Uploading the First Roster</a></h2> <a href="#toc">(Back to Table of Contents)</a>
+
+    <h3>Get the Profiler Addons</h3>
+
+    <p>All your guild members who want to publish their character
+    information should download and install the <a
+    href="http://curse-gaming.com/mod.php?addid=1444">CharacterProfiler</a>
+    addon. At least one guild member needs to download both the <a
+    href="http://curse-gaming.com/mod.php?addid=1124">GuildProfiler</a>
+    and <a
+    href="http://curse-gaming.com/mod.php?addid=1444">CharacterProfiler</a>
+    addons and regularly update the list of guild members on the front
+    page of your roster. <strong>Even if all your other members use
+    CharacterProfiler regularly, the roster page that lists all your
+    members, their levels, notes, ranks, etc. only gets updated when
+    someone with GuildProfiler updates the roster.</strong></p>
+
+    <p>If you (or some of your guild members) never installed WoW
+    Addons before, see <a
+    href="http://www.wowinterface.com/forums/faq.php?faq=install">this
+    page at WoWInterface.com</a> on how to install them.
+
+    <h3>Run the Profiler Addons</h3>
+
+    <p>Log into WoW. Scroll back up through your main chat window and
+    you should see a message of <code>rpgo-CharacterProfiler [v1.31]
+    loaded</code>, and you should see a message of
+    <code>rpgo-GuildProfiler [v1.3] loaded</code> if you installed
+    GuildProfiler.</p>
+
+    <p><strong>If you installed GuildProfiler</strong>, click the
+    <em>Guild</em> tab in your Social window. There should be a
+    <em>Save</em> button at the top of it. Click the <em>Save</em>
+    button, and you should see messages like
+
+    <pre>Guild: YOURGUILD
+Guild created M-D-YYYY, X players, Y accounts</pre>
+    
+    that are an indication that GuildProfiler saved your list of guild
+    members.
+
+    <p><strong>If you installed CharacterProfiler</strong> (and you
+    had to install that, right?), open up the following windows before
+    you log out of WoW:
+    <ul>
+      <li>Your character information (your stats, equipment, portrait)</li>
+      <li>Your talents dialog</li>
+      <li>Your bags</li>
+      <li>Your bank</li>
+      <li>Your tradeskill recipes</li>
+      <li>Your stable (Hunters only)</li>
+    </ul>
+
+    To see what information CharacterProfiler has been able to pick up
+    about your character, type <code>/cp show</code> in your main chat
+    window at any time. Any red-colored warnings indicate areas that
+    CharacterProfiler hasn't yet gathered information on. You can
+    click the <em>Save</em> button at the top of your character
+    information window, or simply log out and CharacterProfiler will
+    save all its scanned information for later upload.</p>
+
+    <h3>Upload Character and Guild Data (Users with CharacterProfiler
+    and GuildProfiler)</h3>
+
+    <p>Go to the updateMembers page in your roster. If your roster URL
+    is <code>http://www.yourguildname.com/roster/</code>, the
+    updateMembers page will be
+    <code>http://www.yourguildname.com/roster/admin/updateMembers.php</code>
+    (if you're reading this document off your roster website, try <a
+    href="../admin/updateMembers.php" target="_new">this
+    link</a>).</p>
+
+    <div class="captioned-figure"><span class="caption">Ready for first upload of guild member list</span><br /><img src="05-ready-to-upload-members.gif" alt="Ready for first upload of guild member list"></div>
+
+    <p>Click the <em>Browse</em> button and find your
+    CharacterProfiler.lua file that contains the information that
+    GuildProfiler stored earlier. If you installed WoW in
+    <code>C:\Program Files\World of Warcraft</code>, the
+    CharacterProfiler.lua file will be in a folder named
+    <code>C:\Program Files\World of
+    Warcraft\WTF\Account\YOURACCOUNTNAME\SavedVariables\</code>, where
+    <code>YOURACCOUNTNAME</code> should be replaced with the username
+    for your WoW account. Select this file and click the <em>Open</em>
+    button to mark it for upload.</p>
+
+    <div class="captioned-figure"><span class="caption">Locate the CharacterProfiler.lua file</span><br /><img src="04c-find-characterprofiler.gif" alt="Locate the CharacterProfiler.lua file"></div>
+
+    <p>Then, back on the updateMembers page, click the <em>Upload</em>
+    button to actually send the guild information to the roster's web
+    server. This should result in a page similar to the one shown
+    below.</p>
+
+    <div class="captioned-figure"><span class="caption">Member list successfully uploaded</span><br /><img src="07-members-uploaded.gif" alt="Member list successfully uploaded"></div>
+
+    <p>Now go back to the main page for your roster, and you should
+    see a page similar to the one below, showing statistics on your
+    membership, their names, ranks, levels, etc.
+
+    <div class="captioned-figure"><img src="08-roster-front-page.gif" alt="New roster front page"></div>
+
+    <h3>Upload Character Data (Users with CharacterProfiler only)</h3>
+
+    <p>Go to the update page in your roster. If your roster URL is
+    <code>http://www.yourguildname.com/roster/</code>, the update page
+    will be
+    <code>http://www.yourguildname.com/roster/admin/update.php</code>
+    (if you're reading this document off your roster website, try <a
+    href="../admin/update.php" target="_new">this link</a>).
+
+    <div class="captioned-figure"><span class="caption">Ready for first upload of character data</span><br /><img src="04b-ready-to-upload-character.gif" alt="Ready for first upload of character data"></div>
+
+    <p>Click the first <em>Browse</em> button and locate the file
+    <code>CharacterProfiler.lua</code>. If you installed WoW in
+    <code>C:\Program Files\World of Warcraft</code>, the
+    CharacterProfiler.lua file will be in a folder named
+    <code>C:\Program Files\World of
+    Warcraft\WTF\Account\YOURACCOUNTNAME\SavedVariables\</code>, where
+    <code>YOURACCOUNTNAME</code> should be replaced with the username
+    for your WoW account. Select this file and click the <em>Open</em>
+    button to mark it for upload.</p>
+
+    <div class="captioned-figure"><span class="caption">Locate the CharacterProfiler.lua file</span><br /><img src="04c-find-characterprofiler.gif" alt="Locate the CharacterProfiler.lua file"></div>
+
+    <p>Then, back on the update page, click the <em>Upload</em> button
+    to actually send the character information to the roster's web
+    server. This should result in a page similar to the one shown
+    below.</p>
+
+    <div class="captioned-figure"><span class="caption">Character information successfully uploaded</span><br /><img src="04d-characters-uploaded.gif" alt="Character information successfully uploaded"></div>
+
+    <p>Some characters will uploaded without any errors or warnings at
+    all. These would be characters on your guild's server that are in
+    the guild and also have quest and tradeskill
+    information. Characters that have no quests (such as level 1
+    "mules") may cause a warning similar to the one shown in the above
+    figure. Characters on other servers will generate errors of
+    <code>Could not find guild in database. Please update members
+    first</code>. Characters on your guild's server, but not in the
+    guild will generate errors like <code>Doug is not in the list of
+    guild members so their data will not be inserted</code>.</p>
+
+    <h2><a name="testing_other_roster_features">Testing Other Roster Features</a></h2> <a href="#toc">(Back to Table of Contents)</a>
+
+    <h3>Guild Bank</h3>
+
+    <p>New in WoW Roster 1.5.0 is a guild bank page, where all the
+    inventory and bank items for designated "mule" characters can be
+    collected for display. How your guild designates mule characters
+    can vary. For example, you might assign all mule characters a rank
+    of "Mule" or "Banker". They might all have a particular tag in
+    their note, or in their name. For the purposes of this document,
+    we'll assume that your guild assigns all the mule characters a
+    rank of "Banker Mule".</p>
+
+    <p>To enable the guild bank features, edit <code>conf.php</code>
+    according to these instructions:
+    <ol>
+      <li>Make sure that the variable <code>show_guildbank</code> is
+      set to <code>1</code>.</li>
+
+      <li>Make sure that the variable <code>banker_rankname</code> is
+      set to <code>"Banker Mule"</code>.</li>
+
+      <li>Make sure that the variable <code>banker_fieldname</code> is
+      set to <code>'guild_title'</code>.</li>
+    </ol>
+    After doing these three steps, any characters with a guild rank of
+    "Banker Mule" who upload their profiles will automatically have
+    their inventories added to the guild bank page. If your guild's
+    main roster page is
+    <code>http://www.yourguildname.com/roster/</code>, then the link
+    to the guild bank is
+    <code>http://www.yourguildname.com/roster/guildbank.php</code> (if
+    you're reading this document off your roster website, try <a
+    href="../guildbank.php" target="_new">this link</a>).</p>
+
+    <div class="captioned-figure"><span class="caption">Guild bank page</span><br /><img src="08a-guild-bank.gif" alt="Guild bank page"></div>
+
+    <p>An alternative bank display page, similar to a character
+    inventory, is available if you set the variable
+    <code>guildbank_ver</code> to <code>'2'</code>. Leave it with the
+    default value of <code>''</code> for the default list-style view
+    (if you're reading this document off your roster website, try <a
+    href="../guildbank2.php" target="_new">this link</a>).
+
+    <h3>Character Signatures for Forums</h3>
+
+    <p>WoW Roster includes the ability for your guild members to have
+    signature graphics for web forums that will automatically show
+    their level, membership and rank, tradeskill levels, and other
+    such information. The information in these signature graphics will
+    be as up to date as the roster information.</p>
+
+    <p>The PHP file that generates the signature graphics is
+    <code>sig.php</code>, and is located in your top-level roster
+    directory. So if your roster URL is
+    <code>http://www.yourguildname.com/roster/</code>, the signature
+    generator is at
+    <code>http://www.yourguildname.com/roster/sig.php</code>. To get
+    the signature graphic for a character named "Bob", use
+    <code>http://www.yourguildname.com/roster/sig.php?name=Bob</code></p>
+
+    <div class="captioned-figure"><img src="09-new-sig-test.gif" alt="Testing the signature generator"></div>
+
+    <p>Alternatively, you can also get the same signature graphic at
+    the url <code>http://www.yourguildname.com/roster/sig.php/Bob.png</code></p>
+
+    <p>If you have trouble with the signature generator, first check
+    the <code>gd_info.php</code> file in the top-level roster
+    directory for information about how the GD library is configured
+    (or not available) on your web server (if you're reading this
+    document off your roster website, try <a href="../gd_info.php"
+    target="_new">this link</a>). <code>sig.php</code> absolutely
+    requires that your PHP installation support the GD library, and
+    that GD has built-in support for both PNG graphics and TrueType
+    fonts (possibly marked as FreeType support). Then, check <a
+    href="http://wowprofilers.com/viewtopic.php?t=10">the signature
+    troubleshooting thread</a> at WoWProfilers.com.
+
+    <hr>
+    <address><a href="mailto:vaccafoeda.hellscream@gmail.com">Vaccafoeda (Hellscream server)</a></address>
+<!-- hhmts start -->
+Last modified: Sun Oct 09 21:42:33 Central Daylight Time 2005
+<!-- hhmts end -->
+  </body>
+</html>

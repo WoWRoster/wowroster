@@ -334,13 +334,13 @@ $returnstring .= '  <tr>
 			$content .= '<th class="membersHeader">'.$wordings[$lang]['mail_subject'].'</th>'."\n";
 			$content .= '<th class="membersHeaderRight">'.$wordings[$lang]['mail_expires'].'</th>'."\n";
 			$content .= "</tr>\n";
-			$content .= "<tr>\n";
 
 			$cur_row = 1;
 			while( $row = $wowdb->fetch_assoc($result) )
 			{
 				$maildateutc = strtotime($this->data['maildateutc']);
 
+				$content .= "<tr>\n";
 				$content .= '<td class="membersRow'.$cur_row.'">'."\n";
 
 				// Get money in mail
@@ -459,7 +459,7 @@ $returnstring .= '  <tr>
 				$cur_row = (($cur_row%2)+1);
 			}
 
-			$content .= "</tr>\n</table>\n".border('sgray','end');
+			$content .= "</table>\n".border('sgray','end');
 
 			return $content;
 		}

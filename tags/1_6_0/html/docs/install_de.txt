@@ -1,0 +1,18 @@
+WoW Roster v1.6.0
+Package aktualisiert am 04. Februar 2006
+
+Geöffnete Quellprojekt sieht man bei - http://www.wowroster.net
+
+Korrekturen und Vorschläge gibt man bei - http://www.wowroster.net
+
+
+
+
+*****************************************************************
+
+BITTE lesen Sie die HTML Unterlagen für ausführliche Anweisungen.
+
+*****************************************************************
+
+
+Changelog ist nach changelog.txt verschoben.

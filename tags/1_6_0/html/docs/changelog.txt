@@ -1,0 +1,249 @@
+WoW Roster Changelog
+Package updated February 04, 2006
+
+You can view the open source project at - http://www.wowroster.net
+
+For corrections and/or suggestions - http://www.wowroster.net
+
+------------------------------------
+What's New v1.6.0 (February 04, 2006)
+------------------------------------
+
+--[ FIXES ]-------------------
+- Basic support for PvPLog 0.4.8
+  More fixes, enhancements comming soon!
+
+- update.php and updateMembers.php have merged
+  use update.php for guild AND member updating
+
+- The usual... major code cleanup, html fixes, css issues
+  Index pages conformance to W3C HTML 4.0 Transitional
+  Fixed multiple gap issues, hopefully
+
+- Fixed "headers already sent". Roster now checks to see if headers were sent and sets them if they aren't
+- Cleanup of old files no longer in use: index2.php, altindex.php, indexupdate.php, membersInst2.php, indexProf.php, ProfList.php, and ProfList2.php
+- Changed realmstatus to use the database to store values instead of "wowss/wowss.txt"
+  Deleted wowss-folder: fonts moved to /fonts and images to /img/realmstatus
+  cURL will now be used if fopen()/file_get_contents() fails, Thanks to Jerry for the fix
+  To use fopen()/file_get_contents(), allow_url_open must be on in php.ini, to use cURL, it must be compiled into your PHP
+
+- Fixed guildbank2 not showing the correct stack heights
+  Fix for first item of query getting "eaten" in guildbank2
+  Added money totals and per character money in guildbanks
+  Added character last updated to guildbank2
+
+- Header and Footer files added, now it is easier to adjust the header and footer for each page
+  Character pages DO NOT use the header/footer files because this would break it's functionality
+
+- Improvements to localization
+- Tooltip and overlib adjustments
+- Fixed docs link in memberslist.php - was just docs/ which assumes a default file is loaded - changed to docs/index.html
+- Fixed a bug where some servers will not display character info, or "Character Not Found"
+- Replaced all instances of <? with <?php to ensure compatibility with systems where PHP configuration has short_open_tag = Off
+- Replaced multiple insatances of hard-coded '/' with the DIRECTORY_SEPERATOR value to fix incorrect slash on certain systems
+- Re-added "img/default.png" for legacy signature generator (img.php)
+- Character pages
+  Changed how reputation values display, looks more like in game
+  Fixed exp bar at around 97% to 99%, the bar would be larger than the container
+  "Unused Talent Points" will no longer display "Unused Talent Points: 0" it will now only display if there are actually unused talent points
+  Fix to recipies, when a character had only one type of recipie, the table breaks
+  Recipes pages with wrong icon placement + quicklinks
+
+- Fix for images having a space and generating errors on some systems when referencing images with spaces in the name, in one case "First Aid.gif" on the recipes page
+- Removed the thottbot option in conf.php as they no longer let you link to their images
+- Fixed unescaped server name when doing an update to the database. ' in server name would break it before
+- Now you can choose between two external itemlink-urls for each language-setting. (thx @ Merella for the hint)
+- Fixes for sqldebug. Eeverything should now properly recognize sql debug statements only when necessary
+- pvp update now modifies the levels: if < 1 then make it equal to itself multiplied by negative one
+- Pet bugs and bag bugs fixed by mortencb
+- Fix for ' in server names when displaying character stats for a warlock / hunter with a pet
+- When updating a character, wowdb will update the level of in the members table, as well as players table
+
+
+--[ ENHANCEMENTS ]------------
+- Roster Addons support
+- Full DB prefix support, default DB prefix is 'roster_'
+- New 1.9 icons from rpgoutfitter.com
+- CharacterProfiler, GuildProfiler, and PvPLog version detection
+  Prevents old versions of CP, GP, or PvP from uploading data
+
+- Basic support for PvPLog 0.4.8
+  More fixes, enhancements comming soon!
+
+- Included addons
+  "SigGen" by Zanix, see the SigGen docs for more info
+  "Made by Recipe" by Cybrey
+  "Faction Filter" by Cybrey
+  "Dummy Addon" template. This is for making your own addons
+
+- Added a stripped down version of menu to use in phpbb if you want to show the roster menu with links in your website portal
+  (It's in the "addons/pmenu" folder)
+
+- Added Spellbook to database backend, there is NO front end (no display in roster)
+- Index page
+  Added profession icons, class icons, and pvp icons to index.php, switchable via conf.php
+  Added column "Last Update" to main page, switchable via conf.php
+  Added displaying of Guild MOTD on main index page
+
+- Added hot links/ancors to search "indexSearch.php"
+- Added credits page
+- Added link to wowprofilers.com in the Credits section. No need for us to hide anymore!
+- Added more info when doing a guild member update, will show members a being "Updated", "Added", or "Removed"
+- Added removal for members not assigned to the current guild id
+- Updated all the files to show the revisions numbers in all the files for CVS changes for future use and troubleshooting
+- Added localized item tooltip coloring
+
+- Character pages
+  Added Advanced Stats & Bonuses, Thanks to cybrey (original author) and dehoskins (for additional output formatting)
+  Added Max Exp to exp bar
+  Added Time Played and Time Level Played
+  Added Honor EXP bar to the honor tab
+  Added "Points Spent" to talents
+  Added Pet icons
+
+
+--[ KNOWN BUGS with 1.6.0 ]--------------
+- Bags with long names are not displayed correctly, they appear to be moved into the bag
+  This is a css issue, no known fix at this time
+
+- Servernames with non-english characters, or mis-matched names may cause serverstatus to not work correctly
+  Fix: Open "realmstatus.php" in a text editor and edit the variable "$server" to match exact name from the WoW realmstatus page
+
+- Random gaps on the character page
+  This is a css issue, we have done our best to resolve this but it still happens sometimes
+
+
+
+
+
+------------------------------------
+What's New v1.5.1 (October 20, 2005)
+------------------------------------
+FIXES
+- Character pane blank for any tabs other than Skill when DB doesn't contain any Pet data [337-338]
+- "Headers already sent" issue with update.php for some people fixed [330-331]
+- PvP data page will now retain custom column sort across pages when using Previous/Next links [334]
+- Bag names being being truncated at 17 characters fixed [335]
+
+ENHANCEMENTS
+- $lang variable replaced with $roster_lang to resolve compatibility issues with phpBB [329]
+
+
+
+
+
+------------------------------------
+What's New v1.5.0 (October 17, 2005)
+------------------------------------
+FIXES
+- Missing Poison profession icon added
+- Large amounts of display inconsistencies between IE6 and Firefox 1.0.6 fixed
+- Large numbers of formatting inconsistencies fixed
+- Removed incessantly repeating and redundant guild name variable usage from PvP and Honor stats tables on main page to make them less cluttered and smaller for guilds with long names
+- Remove a lot of mixed case variables to reduce issues on Unix system that are overly pedantic about case...
+- Fixed annoying yellow border on image headers in recipes with IE6
+- Replaced hard-coded Thottbot variable on column header link with $itemlink variable defined in conf.php same as item links on Keys page
+- Added _target to column header link so links open in new page on Keys page
+- Re-added unlink command which had gone missing somewhere along the way and was causing temp to be left behind in webserver %temp% directories when data was uploaded with UniUploader using GZip
+- Fix for quest title containing quest level caused by multiple 'quest' related addons overloading the function in WoW post 1.7 patch. This will strip the offending data out prior to committing to the DB 
+- Inserted logic to account for Horde not getting a Searing Gorge key so it won't be displayed on Keys page
+- Fixed US server status page and implemented XML parser
+- Modified query to return character level as whichever is higher between members.level (data from GP) or players.level (data from CP) to solve problem of main view character level often being lower than the character pane level due to guild admins not doing GP updates frequently. Also modified the various display sort queries to suit change.
+- Untold amount of code clean-up and optimization
+- One less stylesheet, removed "css\styles3.css"
+- Update page now supports post 1.7.0 patch use of seperate data files for each addon 
+- Data upload will now only upload chars whose guild matches the one defined in the conf.php 
+
+ENHANCEMENTS
+- Localization completely re-done and almost the entire roster now supports localization. Current language support is English (enUS) and German (deDE) but will be easy to now include other languages
+- Reputation tab added to character panel
+- Pet tab added to character panel (only visible for Hunters and Warlocks)
+- All icon images converted to jpg for easier updating
+- Recipe list columns now sortable
+- Class and Profession icons all re-made - much better quality now
+- Added Quest count (like in game, eg. 16/20) to the quest list page
+- Money display on main backpack now configurable (global only) via $show_money variable in conf.php
+- Added $char_bodyalign to control the characters’ data display either left center or right
+- Keys page now includes Rogue Thieves' tools and partial quest completion gauges
+- Character page now has a 'Date Updated' tag which reports the date/time, as recorded by CharacterProfiler value 'DateUTC', the data was saved in-game. This date/time is stored in the database in UTC and then displayed with whatever time display offset is configured in the $localtimeoffset variable in conf.php. The date/time format is configurable by the $phptimeformat variable.
+- Implemented local time display for data GuildProfiler data is updated based on new GuildProfiler value 'DateUTC'. Uses same function and local time display offset var as character date - $phptimeformat
+- New Guildbank feature added
+- Updated icons to include the 55 new items/abilities/etc. from WoW 1.7.0 patch
+- New signature generator (sig.php) Use of this is the same as img.php. See /docs/sig.php(new_signature_generator)-readme.txt for more information
+- All new Talents tab with in-game layout! 
+- Implemented Overlib tooltip engine - tooltips are now MUCH faster and don't disappear off-screen! 
+- Update page now supports post 1.7.0 patch use of seperate data files for each addon 
+- Honor support updated to include current features 
+- Realm Status now supports new Blizzard XML based page
+- All new setup documentation in HTML format! OMG!!!
+- Ammot slot contents now displayed on Character screen!
+
+
+
+
+
+------------------------------------
+What's New v1.04 (July 30, 2005)
+------------------------------------
+FIXES
+- Updated the $blizstatuspage variable in conf.php to fix issues since WoW 1.6.0 patch 
+- Renamed "roster\CSS FILES" directory to "roster\css" to reduce issues with UNIX based web servers caused by spaces in the directory name.
+- Renamed "roster\CSS FILES\JV Scripts" directory to "roster\css\js" to reduce issues with UNIX based web servers caused by spaces in the directory name. 
+- Deleted \roster\lib\wowdb.zip from distribution package - don't know why it's there in the first place... 
+- Changed default UniUploader link in conf.php - existing link is broken
+- Changed default CharacterProfiler link in conf.php - existing link is to old non-working version
+- Cleaned up all files for spaces at end of files after PHP closing tag (can cause problems)
+- Fixed character link being invalid on the query return page of the "Find Team" page
+- Fixed "Find Team" queries returning no results (incorrectly) when the quest name contained an apostrophe
+- Included a MySQL 3.x compatible roster.sql called roster104_MySQL3.sql for creating database during installation (untested as I don't have a MySQL 3.x installation nor will I. This version is SO old there's no excuse for people to still be running it)
+- Main roster page version number use $version variable in conf.php rather than hard coded value in index.php page
+- Added slot_Waist.gif (missing) to /roster/img
+
+ENHANCEMENTS
+- Percentage value shown on the XP bar on the character page
+- Character gender now captured and displayed on the character page
+- Equipment slots not containing an item now show the same "greyed" icon as in-game rather than an empty slot on the character page
+- Smaller tab image used on bottom of character panel so they all fit on one row. This also creates room for more tabs... ;-)
+- Recipes now colour coded to reflect difficulty on recipes page
+- Generic Horde image now included for signatures
+- Additional quest lookup links now available on Quests page - Allakhazam and WWN Data added to existing Thottbot links
+- Quest lookup links now fully configurable via conf.php - show as many or as few as you like and add your own custom ones
+- Menu bar on top of most pages tidied up, dividers added, and now honors the individual On/Off flags in conf.php for whether they are displayed or not.
+- Added GZip support to updatemembers.php page for consistency with update.php - UniUploader users rejoice!
+- Included gd_info.php file to help troubleshooting issues with Signatures and the Server Status image. gd_info.php only shows the GD support info so is able to be safely link to publicly unlike phpinfo which gives away information which *could* be potentially be used maliciously.
+- Server Status image now able to be disabled via conf.php for those that do not want it displayed at all.
+- Various miscellaneous minor changes to main menu "box", including the guild character level breakdown info, and menu names.
+- Change variable declarations to be enclosed in ' rather than " if they don't contain variables (performance improvement - 'x' gets treated as a string and is assumed to not contain any variables and therefore doesn't get parsed which improves performance)
+- General code formatting cleanup, eg. remove large numbers of line spaces, correct formatting, replace multiple spaces with tabs, etc. on some files (there's still a LONG way to go!) 
+
+
+
+
+
+------------------------------------
+What's New v1.03 (July 11, 2005)
+------------------------------------
+Just a package maintenance update to prevent issues with old addons and links - no functionality changes.
+Removed GuildProfiler addon from package - must now download saperately
+Removed CharacterProfiler addon from package - must now download separately
+Update config.php.bak to remove old CharacterProfiler URL (www.cethinchimera.com) and replace with current dev source (http://www.rpgoutfitter.com/CharacterProfiler)
+
+
+
+
+
+------------------------------------
+What's New v1.03 (May 05, 2005)
+------------------------------------
+Updated lib/wowdb.php to except Angarth' Wow Profiler 1.0.3
+Updated lib/wowdb.php for Recipe and Bank Fix
+Updated lib/char.php with new graphics and updated honor format
+Updated code to configure everything from the config.php
+Updated update.php 
+Updated newer PvP support and added in PvPLog 0.4.6
+Added Server Status, it parses the realm status of Blizzard's website
+Added support in conf.php to turn off or on the Quest's, recipes, PvP, and duel data from displaying
+Added new info to the menu
+Upload profile now available on the menu
+
+

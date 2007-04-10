@@ -1,0 +1,359 @@
+WoW Roster v1.5.1
+Package updated October 20, 2005
+
+You can view the open source project at http://wowprofilers.com
+
+For corrections and/or suggestions - http://wowprofilers.com
+
+
+------------------------------------
+What's New v1.5.1 (October 20, 2005)
+------------------------------------
+FIXES
+- Character pane blank for any tabs other than Skill when DB doesn't contain any Pet data [337-338]
+- "Headers already sent" issue with update.php for some people fixed [330-331]
+- PvP data page will now retain custom column sort across pages when using Previous/Next links [334]
+- Bag names being being truncated at 17 characters fixed [335]
+
+ENHANCEMENTS
+- $lang variable replaced with $roster_lang to resolve compatibility issues with phpBB [329]
+
+------------------------------------
+What's New v1.5.0 (October 17, 2005)
+------------------------------------
+FIXES
+- Missing Poison profession icon added
+- Large amounts of display inconsistencies between IE6 and Firefox 1.0.6 fixed
+- Large numbers of formatting inconsistencies fixed
+- Removed incessantly repeating and redundant guild name variable usage from PvP and Honor stats tables on main page to make them less cluttered and smaller for guilds with long names
+- Remove a lot of mixed case variables to reduce issues on Unix system that are overly pedantic about case...
+- Fixed annoying yellow border on image headers in recipes with IE6
+- Replaced hard-coded Thottbot variable on column header link with $itemlink variable defined in conf.php same as item links on Keys page
+- Added _target to column header link so links open in new page on Keys page
+- Re-added unlink command which had gone missing somewhere along the way and was causing temp to be left behind in webserver %temp% directories when data was uploaded with UniUploader using GZip
+- Fix for quest title containing quest level caused by multiple 'quest' related addons overloading the function in WoW post 1.7 patch. This will strip the offending data out prior to committing to the DB 
+- Inserted logic to account for Horde not getting a Searing Gorge key so it won't be displayed on Keys page
+- Fixed US server status page and implemented XML parser
+- Modified query to return character level as whichever is higher between members.level (data from GP) or players.level (data from CP) to solve problem of main view character level often being lower than the character pane level due to guild admins not doing GP updates frequently. Also modified the various display sort queries to suit change.
+- Untold amount of code clean-up and optimization
+- One less stylesheet, removed "css\styles3.css"
+- Update page now supports post 1.7.0 patch use of seperate data files for each addon 
+- Data upload will now only upload chars whose guild matches the one defined in the conf.php 
+
+ENHANCEMENTS
+- Localization completely re-done and almost the entire roster now supports localization. Current language support is English (enUS) and German (deDE) but will be easy to now include other languages
+- Reputation tab added to character panel
+- Pet tab added to character panel (only visible for Hunters and Warlocks)
+- All icon images converted to jpg for easier updating
+- Recipe list columns now sortable
+- Class and Profession icons all re-made - much better quality now
+- Added Quest count (like in game, eg. 16/20) to the quest list page
+- Money display on main backpack now configurable (global only) via $show_money variable in conf.php
+- Added $char_bodyalign to control the characters’ data display either left center or right
+- Keys page now includes Rogue Thieves' tools and partial quest completion gauges
+- Character page now has a 'Date Updated' tag which reports the date/time, as recorded by CharacterProfiler value 'DateUTC', the data was saved in-game. This date/time is stored in the database in UTC and then displayed with whatever time display offset is configured in the $localtimeoffset variable in conf.php. The date/time format is configurable by the $phptimeformat variable.
+- Implemented local time display for data GuildProfiler data is updated based on new GuildProfiler value 'DateUTC'. Uses same function and local time display offset var as character date - $phptimeformat
+- New Guildbank feature added
+- Updated icons to include the 55 new items/abilities/etc. from WoW 1.7.0 patch
+- New signature generator (sig.php) Use of this is the same as img.php. See /docs/sig.php(new_signature_generator)-readme.txt for more information
+- All new Talents tab with in-game layout! 
+- Implemented Overlib tooltip engine - tooltips are now MUCH faster and don't disappear off-screen! 
+- Update page now supports post 1.7.0 patch use of seperate data files for each addon 
+- Honor support updated to include current features 
+- Realm Status now supports new Blizzard XML based page
+- All new setup documentation in HTML format! OMG!!!
+- Ammot slot contents now displayed on Character screen!
+
+
+------------------------------------
+What's New v1.04 (July 30, 2005)
+------------------------------------
+FIXES
+- Updated the $blizstatuspage variable in conf.php to fix issues since WoW 1.6.0 patch 
+- Renamed "roster\CSS FILES" directory to "roster\css" to reduce issues with UNIX based web servers caused by spaces in the directory name.
+- Renamed "roster\CSS FILES\JV Scripts" directory to "roster\css\js" to reduce issues with UNIX based web servers caused by spaces in the directory name. 
+- Deleted \roster\lib\wowdb.zip from distribution package - don't know why it's there in the first place... 
+- Changed default UniUploader link in conf.php - existing link is broken
+- Changed default CharacterProfiler link in conf.php - existing link is to old non-working version
+- Cleaned up all files for spaces at end of files after PHP closing tag (can cause problems)
+- Fixed character link being invalid on the query return page of the "Find Team" page
+- Fixed "Find Team" queries returning no results (incorrectly) when the quest name contained an apostrophe
+- Included a MySQL 3.x compatible roster.sql called roster104_MySQL3.sql for creating database during installation (untested as I don't have a MySQL 3.x installation nor will I. This version is SO old there's no excuse for people to still be running it)
+- Main roster page version number use $version variable in conf.php rather than hard coded value in index.php page
+- Added slot_Waist.gif (missing) to /roster/img
+
+ENHANCEMENTS
+- Percentage value shown on the XP bar on the character page
+- Character gender now captured and displayed on the character page
+- Equipment slots not containing an item now show the same "greyed" icon as in-game rather than an empty slot on the character page
+- Smaller tab image used on bottom of character panel so they all fit on one row. This also creates room for more tabs... ;-)
+- Recipes now colour coded to reflect difficulty on recipes page
+- Generic Horde image now included for signatures
+- Additional quest lookup links now available on Quests page - Allakhazam and WWN Data added to existing Thottbot links
+- Quest lookup links now fully configurable via conf.php - show as many or as few as you like and add your own custom ones
+- Menu bar on top of most pages tidied up, dividers added, and now honors the individual On/Off flags in conf.php for whether they are displayed or not.
+- Added GZip support to updatemembers.php page for consistency with update.php - UniUploader users rejoice!
+- Included gd_info.php file to help troubleshooting issues with Signatures and the Server Status image. gd_info.php only shows the GD support info so is able to be safely link to publicly unlike phpinfo which gives away information which *could* be potentially be used maliciously.
+- Server Status image now able to be disabled via conf.php for those that do not want it displayed at all.
+- Various miscellaneous minor changes to main menu "box", including the guild character level breakdown info, and menu names.
+- Change variable declarations to be enclosed in ' rather than " if they don't contain variables (performance improvement - 'x' gets treated as a string and is assumed to not contain any variables and therefore doesn't get parsed which improves performance)
+- General code formatting cleanup, eg. remove large numbers of line spaces, correct formatting, replace multiple spaces with tabs, etc. on some files (there's still a LONG way to go!) 
+
+
+------------------------------------
+What's New v1.03 (July 11, 2005)
+------------------------------------
+Just a package maintenance update to prevent issues with old addons and links - no functionality changes.
+Removed GuildProfiler addon from package - must now download saperately
+Removed CharacterProfiler addon from package - must now download separately
+Update config.php.bak to remove old CharacterProfiler URL (www.cethinchimera.com) and replace with current dev source (http://www.rpgoutfitter.com/CharacterProfiler)
+
+
+------------------------------------
+What's New v1.03 (May 05, 2005)
+------------------------------------
+Updated lib/wowdb.php to except Angarth' Wow Profiler 1.0.3
+Updated lib/wowdb.php for Recipe and Bank Fix
+Updated lib/char.php with new graphics and updated honor format
+Updated code to configure everything from the config.php
+Updated update.php 
+Updated newer PvP support and added in PvPLog 0.4.6
+Added Server Status, it parses the realm status of Blizzard's website
+Added support in config.php to turn off or on the Quest's, recipes, PvP, and duel data from displaying
+Added new info to the menu
+Upload profile now available on the menu
+
+
+------------------------------------
+This package contains the following:
+------------------------------------
+- Website Roster based on Paleblackness code drop also props to Tony at http://www.gnomishmarinecorps.com as I am using his code drop too
+- Reolus SigGenerator (img.php)
+- Zanix’s SigGenerator (sig.php)
+
+Thanks to:
+http://wowprofilers.com (originally http://sourceforge.net/projects/wowprofiler)
+And Everyone involved in the project.
+
+
+------------------
+Requirements:
+------------------
+The following are required to run the Roster backend
+
+- A web server (duh!) - Works fine on IIS, Apache, etc.
+- MySQL 4.0.x or higher (it can be made to work with MySQL 3.x but it is NOT recommended. See forums for tips on how to do this)
+- PHP 4.3.x or higher with GD and TTF support enabled. PHP 5.0.x is recommended.
+
+
+The following are WoW addons used to extract data for uploading into the roster.
+All are available from the Downloads section of the http://wowprofilers.com website plus other normal addons sites (eg. http://ui.worldofwar.net). They are no longer included in the base roster package to prevent issues when the WoW client updates and newer versions of the addons are needed.
+
+- GuildProfiler : Used to populate guild members. Should only be used by 'Roster admins'.
+- CharacterProfiler : Used to populate individual character information. Should be used by all guild members.
+- PvPLog : Used to extract PvP info. Should be used by all guild members that want PvP data uploaded.
+
+NOTE: Do not use the old CharacterProfiler from http://www.cethinchimera.com/ui/profiler - this version no longer works with current versions of WoW and is not being maintained.
+
+
+Optional recommended components:
+
+- UniUploader : Out of game tool to automate and streamline the uploading of data to the roster
+- UniAdmin : Web-based tool to automate and manage UniUploader's settings and logos and distribute addons
+- phpMyAdmin : Web-based tool for managing MySQL (www.phpmyadmin.net) and loading .sql scripts.
+
+
+------------------
+Installation:
+------------------
+1. Unzip the whole package in a temporary directory.
+
+2. Create a new database on your MySQL server	
+   Load the Roster150.sql that is located in the \sql\ directory into your database.
+   This can be done via phpMyAdmin or however you log into your MySQL database.
+   
+   NOTE: If you are using MySQL 3.x then you should use the roster150_MySQL3.sql instead.
+
+3. Configure conf.php (rename the conf.php.bak to conf.php) found in the \html\ folder.
+   For more detailed information see section below titled "Configuring conf.php"
+
+4. Upload the contents of the \html\ directory to a directory (preferably \roster\, or \guildroster\) of your web server.
+   
+5. Download GuildProfiler and CharacterProfiler addons and install on your PC.
+
+6. CHMOD 777 the 'wowss' directory (so the world status cache will work)
+
+
+----------------------------------
+Updating from a previous version:
+----------------------------------
+Due to the significant number of changes usually made to all files, the conf.php and the database structure, it is generally recommended that you start again with a fresh database and roster directory when upgrading and then migrate your conf.php settings across.
+
+The next best option is to update your existing database with the update script (eg. for v1.04 to v1.5.0 - updateAll_v1.04-to-v1.5.0.sql)
+But you should still create a new roster directory. The downside of this is that there may be orphaned data or tables/fields no longer used and still in your database.
+
+
+--------------------------
+Configuring conf.php:
+--------------------------
+The conf.php file contains a large number of variables that control how your roster works. Some *MUST* be configured, many can be optionally configured, while others should not be touched unless you know exactly what you're doing. We'll now cover the first 
+category - those that MUST be configured to get your roster up and running.
+
+After renaming the default conf.php.bak to conf.php, open it in your preferred PHP editor or Notepad and set the following variables:
+
+#--[ MYSQL CONFIG ]---
+$db_user
+$db_passwd
+$db_name
+$db_host
+
+#--[ ROSTER CONFIG ]--
+$lang
+
+#--[ SITE CONFIG ]----
+$roster_dir
+
+#--[ GUILD CONFIG ]---
+$guild_name
+$server_name
+$faction
+
+
+This is the absolute minimum of configuration to get your roster up and running.
+Descriptions of each variable are provided in the conf.php file itself.
+
+
+--------------------------
+Loading the Guild Roster:
+--------------------------
+
+This process is normally only done by a small number of designated 'guild roster admins'
+
+1. Load WoW.
+
+2. Open the Guild list. With the new GuildProfiler there will be a confirmation in the chat window when you open the Guild list, and it does not have to have "show offline members" checked as it will still pull them from the guild list.
+  
+3. Logout of WoW.
+
+4. Go to http://www.yourserver.com/roster/admin/updateMembers.php
+
+5. Upload your SavedVariables.lua
+	You should get messages that say:
+		updating guild $guildName
+		updating member $char_name (one of these per member in the guild)
+
+
+---------------------------
+Loading the Character info:
+---------------------------
+
+1. Load WoW.
+
+2. Open your Character screen. Open your Bank, each of your Professions, and if a Hunter - call your Pet and open the stable
+  
+3. Logout of WoW.
+
+4. Go to http://www.yourserver.com/roster/admin/update.php
+
+5. Upload your SavedVariables.lua
+
+
+--------------------------------------------
+Updating Character Profile via UniUploader:
+--------------------------------------------
+
+If you receive this error ""The application failed to initialize properly (0xc0000135). Click on OK to terminate the application." 
+
+UniUploader needs .NET framework installed for the UniUploader to work. Go to to WindowsUpdate, use the custom install, Go to select optional software updates, and check the Microsoft .NET Framework 1.1 or go to the following links to download:
+
+Microsoft .NET Framework Version 1.1 Redistributable Package
+http://www.microsoft.com/downloads/details.aspx?FamilyID=262d25e3-f589-4842-8157-034d1e7cf3a3&DisplayLang=en
+
+Microsoft .NET Framework 1.1 Service Pack 1 - http://www.microsoft.com/downloads/details.aspx?FamilyID=a8f5654f-088e-40b2-bbdb-a83353618b38&DisplayLang=en
+
+
+UniUploader
+    * Each user should download the latest UniUploader.
+    * Start UniUploader.
+    * On the Settings tab in the URL enter http://www.your-website.com/roster/admin/update.php
+    * The default can be changed by re-compiling the source, pre-defining the settings.ini, or using UniAdmin (preferred method).
+    * Press upload and your website will be updated. You can also launch WoW with this tool and it will upload the data automatically to the website when you quit WoW.
+
+
+---------------------------
+SigGenerators -
+Reolus's (img.php)
+Zanix’s  (sig.php)
+---------------------------
+These readme files provide more information:
+	\docs\img.php(signature_generator)_readme.txt
+	\docs\sig.php(new_signature_generator)-readme.txt
+
+
+The sig generators are preconfigured in this package, but if you have problems there are some configuration in nuke or phpbb that need to be made to make it use this package.
+
+PHP will need support for GD and TTF
+
+http://www.php.net/downloads.php
+
+PHP 4.3.10 zip package
+
+If you have a Linux or Unix webhost usually this is installed by default, but the windows binaries of php do not have this and the gd homepage states specifically that their version is NOT for php. Since I’m running my site of IIS this was my case. 
+ 
+After some digging i found out if simply download the .zip package from php.net for windows, you simply copy the php_gd2.dll file out of the zip file and place it into your php dir (usually c:\php)
+
+PHP.ini is usually found in c:\windows\php.ini
+
+Open your PHP.INI and find the line that shows: 
+	extension_dir = "./" 
+ 
+Change it to 
+	extension_dir = "c:\php" 
+ 
+Find this line: 
+	;extension=php_gd2.dll 
+ 
+Take the semicolon out: 
+	extension=php_gd2.dll 
+
+
+If you have problems displaying the sig in Nuke or phpbb check this forum out, add you may need to change your bbcode.php to may it use a php file as a image.
+
+http://nukecops.com/postlite34517-signature+image.html
+
+
+USAGE:
+------
+
+If your installation directory is 
+http://mysite/roster
+
+Goto
+http://mysite/roster/img.php to test or use the script.
+If you see "Level -" it's working.
+
+Link to the file as follows (Charactername must be in the database to work)
+
+<img src="http://yoursite.com/roster/img.php?name=Charactername">
+
+or BBcode  (Note: newer versions of phpBB may not allow this type of img call using bbcode so have the board admin add to allowed html codes <img>
+
+[img]http://yoursite.com/roster/img.php?name=Charactername[/img] 
+
+
+If you are using an Apache server with mod_rewrite installed, the .htaccess file will allow users to access their signature by using the following code:
+
+<img src="http://yoursite.com/roster/sig/Charactername.png">
+
+or BBcode
+[img]http://yoursite.com/roster/sig/Charactername.png[/img]
+
+
+NOTES:
+------
+
+This generator was inspired by the sig generator that Ashenfield released ( ashenfield@gmail.com ) and since I wanted to have an image for a background instead of just text I originally expanded on his code and eventually replaced it all with my own code to have what I'm releasing here.  This is my first ever attempt at this type of code and I feel it came out quite nicely and it is by no means complete.
+
+Any suggestions, requests are appreciated.  This software is available for use and edit by anyone.  If you wish to share your modifications or suggestions, send me an email at tonyfontaine@knightraven.net  or  come visit my guild/clan website and post in the forums
+
+http://www.gnomishmarinecorps.com

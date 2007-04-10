@@ -1,0 +1,328 @@
+##############################################################
+## Title: WoWRoster Signature Generator
+## WoWRoster.net
+## Author: Joshua Clark < c.zanix@gmail.com > http://www.luminality.com
+##
+## Version: 2.0-Gamma build-50
+##
+## This is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY. So if it blows up your server
+## it's not my fault
+##############################################################
+
+
+-----------------------------------------------------------------------------------------------
+THANKS
+-----------------------------------------------------------------------------------------------
+
+All props to the original creator(s) of img.php
+     -------------------------------------
+     | Ripped from the readme of img.php |
+     -------------------------------------------------------------------------------------------------------
+     | Code written by Tony Fontaine, aka Reolus, tonyfontaine@knightraven.net  www.gnomishmarinecorps.com |
+     | Inspired by the WoWSigCreator by Ashenfield ( ashenfield@gmail.com )  http://www.dizzarian.com      |
+     -------------------------------------------------------------------------------------------------------
+
+rubricsinger for his eXP bar and therefore making want to improve on img.php
+
+zeth_russ - Etag cacheing (lovin' the reduced server load!)
+
+RossiRat - Ideas on showing debug/error info
+           Getting the full path for fonts, directories
+           Shadow fonts
+           Saving images to a directory on the server
+           
+BlackCat83 - For the original "avatar.php" using my code from "sig.php"
+
+Jessy - For making "av.php" just plug into "sig.php"- Very nice
+
+Podunk/Matt Miller - Code from UniAdmin. Without it I couldn't of made the config page
+
+Ahrtvuailla - For help with re-designing the sigconfig page, and a way to delete uploaded images
+
+To everyone else that I haven't mentioned
+And all those that have tested the previous versions; sig1.5 : sig2.0 : sig2.0-gamma
+
+-----------------------------------------------------------------------------------------------
+CHANGE LOG
+-----------------------------------------------------------------------------------------------
+CHANGE LOG: Last changed x.x.06
+
+x.x.06 - Build 50
+    Converted to an addon for roster
+    Added an Auto-Install
+    Added an upgrade option, for future updates
+    Completely new design for the signatures and avatars
+    This version uses a new table, so an upgrade is not an option
+
+  o sig(config | gen)
+    - Fixed: Changing the database prefix should no longer cause errors
+    - Changed: Level Bubble image can be set to "None", leaving just text
+    - Changed: Outside Border Image can be set to "None" to disable
+    - Changed: Colored Frames Image can be set to "None" to disable
+    - Changed: All shadow text can have separate colors
+    - Changed: Dither mode for gif images is now changeable
+    - Added: Class images
+    - Added: Documnetation
+
+  o sigconfig.php
+    - Changed: Re-design to fit in with roster's style
+    - Added: Tooltips for almost everything
+    - Added: Color Swatch for picking colors
+
+  o siggen.php
+    - Fixed: Better handling of drawing text with special characters
+    - Fixed: Improved accessing of sigs for members with special characters in their name
+    - Fixed: Better handling of "missing" images, they will just be skipped over
+
+
+12.17.05 - Build 25
+    There has been many, many changes
+    Therefore, there is no upgrade to build 20. I'm very sorry
+
+  o sig(config | gen)
+    - Changed: "conf.php" doesn't need to be edited anymore
+    - Changed: SigConfig now tests the "Save Images Directory", not SigGen.
+      So when you change the "Save Images Directory", and "Save Images" is turned on
+      SigConfig will try to create and/or chmod that directory
+    - Changed: Character images have been moved to "img/sig/char/"
+      So it's possible to change your character images without overwritting the default images
+    - Added: Ability to change whether "http://" is removed from "Website Name"
+    - Added: "Max Level" to eXp bar config to adjust the maximum level
+    - Added: "Custom Text". Now you can add some custom text to the signatures
+    - Fixed: Translation routine, hopefully
+
+  o siggen.php
+    - Changed: How it gets database information
+      Guild Info, now uses servername and guildname
+      Members Info, now uses guild_id and requested name
+      Players Info, now uses member_id
+
+  o sigconfig.php
+    - Changed: More layout changes
+    - Changed: Slightly less SQL queries
+    - Changed: All die() commands to exit()
+    - Changed: Directories are now fixed upon database update
+    - Changed: Multiple changes to how select boxes get their lists
+    - Changed: Under "Select background using", the "Field" selection is now a pull down menu
+    - Changed: All image selection boxes are now pull down menus
+    - Changed: All font boxes are now pull down menus
+    - Fixed: "Settings are changed" is only displayed when settings are actually changed
+    - Fixed: Reset function should work with DB_prefixes
+
+
+12.14.05 - Build 16
+    If you are upgrading from Build 10, run both .sql files
+    If you are upgrading from Build 15, run "SigGen_b15_to_b16.sql" ONLY
+
+  o sig(config | gen)
+    - Added: Translation routine for backgrounds using the localization files in the next roster version
+      For now, these translation strings are built into "SigGen"
+
+  o siggen.php
+    - Fixed: Removed $wowdb->closeDb();. Could cause an error in "wowdb.php"
+
+  o sigconfig.php
+    - Fixed/Changed/Added: More interface enhancements
+    - Fixed/Changed: The order/display of html elements are rearranged to lessen DB queries
+      And this fixes some fields not being filled with current/correct data
+    - Fixed/Changed: All css styles are now prefixed with "sigconfig_" except for 'input', 'select', and 'table'
+    - Changed/Added: How messages and error messages are displayed
+    - Fixed: Entire display on a dark background (when it is changed to a dark background)
+    - Fixed: SigConfig will now notify if the uploaded images and/or the backgrounds directories cannot be read instead of showing a php error
+    - Fixed: The member lists are now filled with members with the correct "guild_id"
+    - Fixed: SigConfig now ends when there is a database error
+    - Fixed: When trying to upload an image with no character name selected, SigConfig will tell you to select a name, instead of uploading and image called ".png"
+    - Fixed: Trying to delete nothing (When "--Select One--" is selected in the Delete User Images" pulldown menu)
+    - Fixed: Replaced hardcoded slashes "/" or "\" with the correct "system slash"
+
+
+12.10.05 - Build 15
+    If you are upgrading, there is an SQL update file. It changes the (color1, color2, etc...) fields from 6 characters to 7 characters
+    Also "sigconfig.inc" replaces "sigconfightml"
+
+  o sigconfig.inc
+    - Added: New/Changed file. This file replaces "sigconfightml"
+
+  o siggen.php
+    - Fixed: Removed UTF-8 conversion. Hopefully special characters are handled better...this time
+    - Fixed: [( sig | av ).php/CharName.png] not working, changed back to the old method
+    - Changed: Variables and function names to follow my personal coding standard (nothing anyone has to worry about)
+
+  o sigconfig.php
+      Where to begin LoL
+    - Fixed: "Delete User Images" now auto selects the current character's image, if uploaded
+    - Changed: Password now uses cookies, no more hidden text fields
+    - Changed: "config_name" and "name_test" also use cookies as well
+    - Changed: One tiny thing threw off XHTML 1.0 standards (forgot an img "alt" tag)
+    - Changed: Variables and function names to follow my personal coding standard (nothing anyone has to worry about)
+    - Added: "Reset to Defaults" button
+    - Added: SQL Debug window. See the many SQL queries scurrying to your MySQL server!
+      This is controled from "conf.php". $sqldebug controls whether the table shows or not
+      There is an override setting in "sigconfig.php", open with a text editor and change $show_sqldebug
+
+
+11.30.05 - Build 10
+    There has been a big change since Build 6
+    SigConfig has been re-vamped/re-done/re-(more other things)
+    This version requires that you reset to the default settings, sorry
+    Make sure you run the .sql file if you are updating!
+
+  o sigconfightml
+    - Added: This is a new file
+
+  o .htaccess
+    - Changed: Changed to one line, and detects what dir it is in...so no more changing it
+
+  o siggen.php
+    - Fixed: Hopefully special characters are handled better...
+    - Fixed: All directory/file system slashes are now converted to system slashes
+    - Fixed: When "Save Images" is on, the image "SigGen Works.img" is no longer saved
+    - Added: SigGen will try to create the saved images directory if it does not exist
+    - Added: SigGen will try to chmod(0777) the saved images directory if it isn't writable
+
+  o sigconfig.php
+    - Changed: The overall look/feel/functionality of sigconfig
+      Looks cleaner, neater
+    - Changed: The way the backgrounds are set/handled
+      You still set the search name, but now the background files are automatically filled from the "backg" directory
+    - Fixed: Uploaded images not being seen by siggen (case conversion crap, grrr)
+    - Added: New file "sigconfightml" to hold the main html code
+    - Added: Ability to delete member images [Thanks Ahrtvuailla]
+
+
+11.22.05 - Build 6
+  o siggen.php
+    - Added/Changed/Fixed: More code optimization, uses less memory, cpu time
+    - Changed: Hardcoded max-level is now a variable for quick changing when the expansion is released
+
+  o sigconfig.php
+    - Added: Upload custom user images to the "/members" directory from sigconfig
+      The "Name Box" is what character you're uploading to
+    - Changed: Select config mode from the config screen. No more going back to the password page!
+    - Changed: Image Preview keeps the same 'name' when changing the config mode
+    - Changed: There is now a members list for the Image Preview, pulled from the DB
+
+
+11.16.05 - Build 5
+  o siggen.php
+    - Fixed: eXp bar text when aligned left is now actually aligned left
+
+
+11.15.05 - Build 4
+  o siggen.php
+    - Removed: iconv() function, Using a different method for getting name
+    - Changed: "New line feed" (\n) and comment brackets (<!-- -->) for "Image Saved: "
+      Now works better with RossiRat's "update_trigger"
+
+
+11.13.05 - Build 3
+  o sigconfig.php 
+    - Fixed: (Choose another config) link, not working for some
+    - Changed: Config name is now capialized (looks better I think)
+    - Changed: Image preview will show image even if "Save Only Mode" is enabled
+    - Changed: Image preview will show correct/newest image if "eTag" is enabled
+    - Fixed: Random input box ID was the same as another input box ID
+    - Fixed: Table layout (placement of tags) for Text Config was wrong
+    - Added: W3C compliance images. Yes, "sigconfig.php" is XHTML 1.0 compliant
+      At least that's what they say...
+
+  o siggen.php
+    - Changed/Added: Error output, changed formatting
+    - Added: For saving images, it will test to see if the save directory is writable and output an error if it isn't
+    - Changed/Added: "siggen.php?saveonly=( 1 | 0 )" Changes image output regardless of db settings
+    - Added: "siggen.php?etag=( 1 | 0 )" Changes eTag mode regardless of db settings
+    - Changed/Added: Handling of name should be better with special characters (such as umlauts)
+
+
+11.10.05 - Build 2
+  o sigconfig.php
+    - Added: A password field (password is changable inside "sigconfig.php")
+    - Added: Ability to chage the filename of sigconfig.php [RossiRat]
+      Yeah for obfuscation!
+    - Changed: Changed the disabled input field after "Config Name" to just text
+    - Changed/Added: Better description of what "Save Only Mode" does
+
+  o siggen.php
+    - Added: Ability to use "( sig | av ).php?name=xyz&saveonly=1" to turn on "SaveOnly Mode" when accessing "sig.php" or "av.php" directly
+    - Fixed: eXp bar text weirdness
+    - Changed: For the eXpbar, removed the [ ] (brackets) that are hardcoded in
+
+  o (Both) Customizable pre- and suffixes for the savenames
+  o (DataBase) added two more fields "save_prefix" and "save_suffix"
+
+    To upgrade from build 1 to build 2, download "siggen2-g_b1_to_b2.zip"
+
+
+11.08.05 - Build 1
+    First Release of Gamma. Very many new things
+  o Configuration is now done via web-page [Thanks for the code Podunk]
+  o All settings are stored in the database
+  o Avatars [Jessy]
+  o eTag Caching [zeth_russ]
+  o Save images to the server [RossiRat]
+  o Suppress image output (for a "save only" mode) [RossiRat]
+  o Shadow text [RossiRat]
+  o Ability to use full path for fonts [RossiRat]
+  o Better error output
+  o Some code clean-up
+
+
+---[ Below are changes from sig2.0-beta ]-----------------------------
+
+10.09.05
+  o Added the ability to generate a final image in a different format ( png | jpeg | gif )
+    For jpeg there is a quality modifier
+    The default final image is still .png
+    You can still use -http://www.yoursite.com/roster/sig.php/CharName.img (Changing .img to .jpg, .gif, or .png)
+  o Removed alot of { } (brackets, they are not needed on one line if() statements)
+  o Removed name uppercase converstions, they are not needed when using 'LIKE' in SQL queries
+
+
+10.03.05
+  o Fixed not being able to hide skills box, oops...
+  o Added $textConf['skills']['display-primary'] and $textConf['skills']['display-secondary']
+    to control the display of the skills box (primary and secondary skills)
+  o Thanks to Jessy for these fixes/features
+
+
+10.01.05
+  o Added background selection, default is based on race/homecity
+    (See "sigconfig.php" on how to change BG selection)
+  o Threw in some extra fonts for fun (Hopefully they support punctuation, etc...)
+  o Fixed a small (ok, well it was big) bug when a variable isn't not placed in "conf.php"
+    that made "sig.php" not able to find "sigconfig.php"
+  o Made the error messages dynamicly say what line they're at using the "__LINE__" variable
+  o Made the eXP bar text align-able ($eXPbar['align'] and $eXPbar['maxbaralign'])
+  o Re-organized "sigconfig.php" a little, not too much, just so the background swithing works.
+    Added headers for the config sections
+    Example: (#--[ FONTS AND FONT COLORS ]----)
+    And added a little more comments
+
+
+09.26.05
+  o Separated the config to it's own file "img/sig/sigconfig.php'
+  o I've added some error handling
+    (If you go to view source, it will give you nicer error messages)
+  o I've removed all variables except one from "conf.php"
+    (Less prone to errors this way, also if it isn't set in "conf.php", or if the "conf.php" doesn't exist. It will default to "img/sig/")
+  o Removed the "Script Works" message, seemed kinda redundant...
+  o Hopefully fixed $name = strtoupper(substr($_SERVER['PATH_INFO'],1,-4));
+  o Removed the Abaddon font, doesn't support some punctuation, oh well. I need a new cool font!
+  o Fixed some spelling errors Rolling Eyes
+
+
+09.20.05
+  o Added tip about fonts
+    // You might need to add a leading '/' and the extention '.TTF' to these
+
+  o Added below funtion(s) to the end of the file to check if the image exists before trying to destroy it
+    if(isset($image)) ImageDestroy($image);
+
+
+09.20.05
+  o Changed enUS to EN and deDE to DE for compatability with roster v1.04 (enUS and deDE are the new vars in the next roster version) -> Thanks silencer-ch-au
+
+
+09.19.05
+  o Changed some variables to defaults instead of my custom variables...oops

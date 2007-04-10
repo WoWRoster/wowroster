@@ -1,0 +1,168 @@
+<?php
+// Report all errors except E_NOTICE
+// This is the default value set in php.ini
+error_reporting(E_ALL ^ E_NOTICE);
+
+#--[ MYSQL CONFIG ]--------------------------------------------------------
+
+  $db_user = 'database username';    // MYSQL Database Username
+  $db_passwd = 'database password';  // MYSQL Database Password
+  $db_name = 'database name';        // MYSQL Database Name
+  $db_host = 'host server name';     // MYSQL Server Address (localhost if the database is on the same machine) 
+  $db_prefix = '';                   // MYSQL Database Table prefix for Roster tables. (Blank for backwards compatibility)
+
+  // Table Names
+  define('ROSTER_GUILDTABLE',$db_prefix.'guild');
+  define('ROSTER_ITEMSTABLE',$db_prefix.'items');
+  define('ROSTER_MEMBERSTABLE',$db_prefix.'members');
+  define('ROSTER_PETSTABLE',$db_prefix.'pets');
+  define('ROSTER_PLAYERSTABLE',$db_prefix.'players');
+  define('ROSTER_PVP2TABLE',$db_prefix.'pvp2');
+  define('ROSTER_QUESTSTABLE',$db_prefix.'quests');
+  define('ROSTER_RECIPESTABLE',$db_prefix.'recipes');
+  define('ROSTER_REPUTATIONTABLE',$db_prefix.'reputation');
+  define('ROSTER_SKILLSTABLE',$db_prefix.'skills');
+  define('ROSTER_TALENTSTABLE',$db_prefix.'talents');
+  define('ROSTER_TALENTTREETABLE',$db_prefix.'talenttree');
+
+  // MySQL debug statements ( 1 on | 0 off )
+  $sqldebug=1;
+
+#--[ ROSTER CONFIG ]-------------------------------------------------------
+
+	// Roster version number
+		$version = '1.5.1';			// Current version of the roster
+
+	// Character Profiler Version Info (Not working at the moment)
+		$cpmajor = '1';				// Not being used at the moment
+		$cpminor = '3.1';			// Not being used at the moment
+
+	// Localization setting. Possible languages at the moment ( deDE | enUS )
+		$roster_lang = 'enUS';
+	// _LIMITED_ multilanguage support. ( array('enUS','deDE') | array($roster_lang) )
+	// Remember, $roster_lang is the main roster language
+		$multilanguages = array($roster_lang);
+
+	// phpBB authentication. Uncomment out the following 3 lines and comment the 4th to enable
+		//$phpbb_root_path = '../forums/';	// Path to root phpbb directory
+		//$upload_group = '3, 4, 44';		// User groups which has access to upload profiles
+		//$upload_members_group = '4';		// User groups which has access to upload members
+		$authenticated_user = 1;
+
+#--[ SITE CONFIG ]---------------------------------------------------------
+
+	$logo = 'img/wowlogo.jpg';						// Roster header logo
+	$website_address = 'http://www.yoursite.com';			// Roster Header logo website address
+	$roster_dir = 'http://www.yoursite.com/roster';		// Roster directory
+
+	// (img.php) Background image for signature-creator
+	// Usage -> (img.php?name=CharacterName)
+		$signaturebackground='img/sig/default.png';		// Generic default-alliance.png and default-horde.png are included
+
+	// (sig.php) New Signature Generator Configuration
+	// Usage -> (sig.php?name=CharacterName) or (sig.php/CharacterName.png)
+		$sig_dir = 'img/sig/';			// Directory for backgrounds/images
+		$sig_default = 'default';		// Default background, no extention (png only, 24-bit is suggested)
+
+	// Inventory icon images
+		$img_suffix = 'jpg';			// Image extentsion (Do NOT use a . )
+
+		// For Thottbot, uncomment the next line and comment the local images
+		//$img_url = 'http://i.thottbot.com/';
+
+		// For local images, comment the Thottbot variable
+		$img_url = '/roster/img/';			// Directory to the roster image bank
+
+	// CSS Styles
+	// Do not change the below files unless you know what you are doing
+		$stylesheet  = 'css/default.css';
+		$stylesheet1 = 'css/styles.css';
+		$stylesheet2 = 'css/styles2.css';
+		$stylesheet3 = 'css/profile-style.css';
+		$overlib = 'css/js/overlib.js';
+		$profile = 'css/js/profile-script.js';
+		$color1 = '#2A2A2A';
+		$color2 = '#363636';
+
+#--[ GUILD CONFIG ]--------------------------------------------------------
+
+	$guild_name		= 'Guild Name';					// Enter your guild name EXACTLY as it is spelled in the game
+	$server_name	= "Guild Server Name";	// Enter your server name EXACTLY as it is in the game or you will not be able to upload your data
+	$guild_desc		= "A Great WoW Guild";	// Enter your Guild Description here
+	$faction = 'A';												// Guild faction ( 'A' {Alliance}  | 'H' {Horde} )
+	$server_type	= '(PvE-EST)';					// This for your type of server ( PvE-Timezone | PvP-Timezone | RP-Timezone | RPPvP-Timezone )
+	$timezone		= '';						// Display after timestamps so people know what timezone the time references are in, eg. '(PST)' or '(GMT+5)', etc..
+	$localtimeoffset = 0;				// Enter the timezone offset from UTC (GMT) that you would like roster times to be displayed in
+															// Eg. for PST set it to -8, for Sydney, Australia set it to 10, etc...
+
+	// For alt detection in "menu.php"
+		$alt_type = "Alt";				// Search text
+		$alt_location	= 'note';		// Search location, which field in the members table to look for alt text
+										// Uses members table ( note {default} | officer_note | guild_rank | guild_title )
+
+	// Guild bank settings
+		$show_guildbank = 1;				// Guildbank display ( 1 on | 0 off )
+		$guildbank_ver = '';				// Guild bank version ( '' -for list | '2' for a "bank" like display )
+		$banker_rankname = "BankerMule";	// Name of the banker
+		$banker_fieldname = 'guild_title';	// What field "name" is searched in
+										// Uses members table ( name | class | level | note | officer_note | guild_title {default} )
+
+#--[ DISPLAY CONFIG ]------------------------------------------------------
+
+	// Honor System, PvP-Logger stats display in "index.php"
+		$show_pvplist	= 0;		// PvP-Logger stats on the index page		( 1 on | 0 off )
+		$show_hslist	= 1;		// Honor System stats on the index page	( 1 on | 0 off )
+
+	// Character Pages configuration
+		$char_bodyalign = 'center';	// Alignment of the character data ( 'left' | 'center' | 'right' )
+		$show_inventory	= 1;		// Inventory display	( 1 on | 0 off )
+		$show_bank = 1;				// Bank display		( 1 on | 0 off )
+		$show_money = 1;			// Money display	( 1 on | 0 off )
+		$show_recipes = 1;			// Recipe display	( 1 on | 0 off )
+		$show_quests = 1;			// Quest display	( 1 on | 0 off )
+		$show_pvp = 1;				// PvP display		( 1 on | 0 off )
+		$show_duels = 1;			// Duel display		( 1 on | 0 off )
+		$show_charPageLogo = 1;	// Header Logo display on character pages	( 1 on | 0 off )
+		$show_rep_values = 0;		// Character Reputation tab data ( 0 =show state (eg. Friendly) | 1 =show actual value (eg. 3254/6000) )
+		$show_signature	= 0;		// Signature image display	( 1 on | 0 off )
+
+	// World of Wacraft server status page URL
+		// for USA servers 		('http://www.worldofwarcraft.com/realmstatus/status.xml')
+		// for Europeon servers	('http://www.wow-europe.com/en/serverstatus')
+		// for German servers	('http://www.wow-europe.com/de/serverstatus')
+		// for French servers	('http://www.wow-europe.com/fr/serverstatus')
+		// No server image		('')
+			$blizstatuspage = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
+			$display = 'full';	// ( full =servername status and load | half =just status )
+			$rs_image = 1;			// ( 1 -Generate Image [With GD2] | 0 -Generate table w/text and images [Non GD2] )
+
+#--[ LINKS CONFIG ]--------------------------------------------------------
+
+	// Items external links
+	// Uncomment the line for the site to use for item external links on Inventory and Character equipment
+		$itemlink='http://www.thottbot.com/index.cgi?i=';		// Use Thottbot for external Item links
+		//$itemlink='http://wow.allakhazam.com/search.html?q='; // Use Allakhazam for external Item links
+
+	// Quests page external links (on character quests page)
+		// questlink_n=?	Toggles whether the quest link is displayed ( 1 on | 0 off )
+		// For URLs have a look at the localization files
+
+		$questlink_1=1;		// ( 1 on | 0 off )
+		$questlink_2=1;		// ( 1 on | 0 off )
+		$questlink_3=1;		// ( 1 on | 0 off )
+
+	// Downloadpaths
+		$profiler='http://www.rpgoutfitter.com/CharacterProfiler';
+		$pvplogger='http://wowprofilers.com/viewtopic.php?p=9266';
+		$uploadapp='http://wowprofilers.com/viewtopic.php?p=9266';
+
+#--[ END OF CONFIG ]-------------------------------------------------------
+
+for ($i=0;$i<count($multilanguages);$i++) {
+    require $subdir.'./localization/'.$multilanguages[$i].'.php';
+}
+
+if ($_SERVER['PHP_SELF']!="/roster/img.php") header("Content-type: text/html; $charset[$roster_lang]");
+if ($_SERVER['PHP_SELF']!="/roster/sig.php") header("Content-type: text/html; $charset[$roster_lang]");
+
+?>
