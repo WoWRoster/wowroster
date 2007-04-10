@@ -146,6 +146,7 @@ class Upgrade
 {
 	var $versions = array('1.6.0','1.7.0','1.7.1','1.7.2','1.7.3');
 	var $messages;
+	var $sql_errors = array();
 
 
 	function upgrade()
@@ -171,6 +172,8 @@ class Upgrade
 
 	function finalize($index)
 	{
+		global $tpl, $wowdb;
+
 		if( isset($this->versions[$index + 1]) )
 		{
 			$method = 'upgrade_' . str_replace('.', '', $this->versions[$index + 1]);
@@ -185,6 +188,7 @@ class Upgrade
 				$tpl->message_append($this->messages);
 			}
 
+			$this->sql_output($tpl, $wowdb);
 			$tpl->message_append('Your Roster installation has been successfully upgraded.<br /><br /><b class="negative">For extra security, remove this file!</b>', 'Success');
 			$tpl->page_header();
 			$tpl->page_tail();
@@ -300,10 +304,10 @@ class Upgrade
 			// Added failure checks to the database transactions
 			if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 			{
-				$tpl->assign_block_vars('sql_errors',array(
+				$this->sql_errors[] = array(
 					'query'=>$sql[$i],
 					'error'=>$wowdb->error()
-				));
+				);
 			}
 		}
 		unset($sql);
@@ -322,10 +326,10 @@ class Upgrade
 			// Added failure checks to the database transactions
 			if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 			{
-				$tpl->assign_block_vars('sql_errors',array(
+				$this->sql_errors[] = array(
 					'query'=>$sql[$i],
 					'error'=>$wowdb->error()
-				));
+				);
 			}
 		}
 		unset($sql);
@@ -511,10 +515,10 @@ class Upgrade
 			// Added failure checks to the database transactions
 			if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 			{
-				$tpl->assign_block_vars('sql_errors',array(
+				$this->sql_errors[] = array(
 					'query'=>$sql[$i],
 					'error'=>$wowdb->error()
-				));
+				);
 			}
 		}
 		unset($sql);
@@ -559,6 +563,10 @@ class Upgrade
 				'TEXT' => $string
 				)
 			);
+		}
+		foreach( $this->sql_errors as $array )
+		{
+			$tpl->assign_block_vars('sql_errors', $array);
 		}
 	}
 }
