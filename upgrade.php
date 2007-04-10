@@ -297,7 +297,14 @@ class Upgrade
 		$sql_count = count($sql);
 		for ( $i = 0; $i < $sql_count; $i++ )
 		{
-			$wowdb->query($sql[$i]);
+			// Added failure checks to the database transactions
+			if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+			{
+				$tpl->assign_block_vars('sql_errors',array(
+					'query'=>$sql[$i],
+					'error'=>$wowdb->error()
+				));
+			}
 		}
 		unset($sql);
 
@@ -312,7 +319,14 @@ class Upgrade
 		$sql_count = count($sql);
 		for ( $i = 0; $i < $sql_count; $i++ )
 		{
-			$wowdb->query($sql[$i]);
+			// Added failure checks to the database transactions
+			if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+			{
+				$tpl->assign_block_vars('sql_errors',array(
+					'query'=>$sql[$i],
+					'error'=>$wowdb->error()
+				));
+			}
 		}
 		unset($sql);
 
@@ -494,7 +508,14 @@ class Upgrade
 		$sql_count = count($sql);
 		for ( $i = 0; $i < $sql_count; $i++ )
 		{
-			$wowdb->query($sql[$i]);
+			// Added failure checks to the database transactions
+			if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+			{
+				$tpl->assign_block_vars('sql_errors',array(
+					'query'=>$sql[$i],
+					'error'=>$wowdb->error()
+				));
+			}
 		}
 		unset($sql);
 

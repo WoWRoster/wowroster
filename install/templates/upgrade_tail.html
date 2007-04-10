@@ -10,6 +10,30 @@
 <br />
 <?php
 
+if( isset($_tpldata['sql_errors']) )
+{
+
+?>
+<table cellspacing="1" cellpadding="2">
+  <tr>
+    <th align="left">SQL Query</th><th align="left">Error</th>
+  </tr>
+<?php
+
+	foreach( $_tpldata['sql_errors'] as $print )
+	{
+		print '
+  <tr>
+    <td align="left" class="row1">'.$print['query'].'</td>
+    <td align="left" class="row2">'.$print['error'].'</td>
+  </tr>
+';
+	}
+
+?>
+</table>
+<?php }
+
 if( isset($_tpldata['sql_rows']) )
 {
 
@@ -32,6 +56,5 @@ if( isset($_tpldata['sql_rows']) )
 ?>
 </table>
 <?php } ?>
-
 </body>
 </html>

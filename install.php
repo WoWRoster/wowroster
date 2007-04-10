@@ -445,12 +445,14 @@ function process_step3()
     $sql_count = count($sql);
     for ( $i = 0; $i < $sql_count; $i++ )
     {
-        $wowdb->query($sql[$i]);
 		// Added failure checks to the database transactions
-		/*if ( !($wowdb->query($sql[$i]) ) )
+		if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 		{
-			$tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
-		}*/
+			$tpl->assign_block_vars('sql_errors',array(
+				'query'=>$sql[$i],
+				'error'=>$wowdb->error()
+			));
+		}
     }
     unset($sql);
 
@@ -464,12 +466,14 @@ function process_step3()
     $sql_count = count($sql);
     for ( $i = 0; $i < $sql_count; $i++ )
     {
-        $wowdb->query($sql[$i]);
 		// Added failure checks to the database transactions
-		/*if ( !($wowdb->query($sql[$i])) )
+		if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 		{
-			$tpl->message_die('Install Failed <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
-		}*/
+			$tpl->assign_block_vars('sql_errors',array(
+				'query'=>$sql[$i],
+				'error'=>$wowdb->error()
+			));
+		}
     }
     unset($sql);
 
