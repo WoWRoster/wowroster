@@ -66,10 +66,10 @@ class RosterLogin
 	function checkPass( $pass )
 	{
 		global $wowdb;
-		
+
 		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` ORDER BY `account_id` DESC;";
 		$result = $wowdb->query($query);
-		
+
 		if( !$result )
 		{
 			setcookie( 'roster_pass','',time()-86400,'/' );
@@ -77,16 +77,17 @@ class RosterLogin
 			$this->message = '<span style="font-size:10px;color:red;">Failed to fetch password info</span><br />';
 			return;
 		}
-		
+
 		while( $row = $wowdb->fetch_assoc($result) )
 		{
-			if(( $row['hash'] == md5($pass) ) ||
-				( $row['hash'] == $pass ))
+			if( ( $row['hash'] == md5($pass) ) ||
+				( $row['hash'] == $pass )
+			)
 			{
 				setcookie( 'roster_pass',$row['hash'],0,'/' );
 				$this->allow_login = $row['account_id'];
  				$this->message = '<span style="font-size:10px;color:red;">Logged in '.$row['name'].':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
-				
+
 				$wowdb->free_result($result);
 				return;
 			}
@@ -115,20 +116,20 @@ class RosterLogin
 
 		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `account_id` = '".$level."';";
 		$result = $wowdb->query($query);
-		
+
 		if( !$result )
 		{
 			die_quietly($wowdb->error, 'Roster Auth', basename(__FILE__),__LINE__,$query);
 		}
-		
+
 		if( $wowdb->num_rows($result) != 1 )
 		{
 			die_quietly('Invalid required login level specified', 'Roster Auth');
 		}
-		
+
 		$row = $wowdb->fetch_assoc($result);
 		$wowdb->free_result($result);
-		
+
 		$log_word = $row['name'];
 
 		return '

@@ -949,8 +949,8 @@ function getaddon( $addonname )
 	$addon['admin_file'] = $addon['dir'].'admin.php';
 
 	// Get the addon's trigger file
-	$addon['trigger_file'] = $addon['dir'].'trigger.php';
-	
+	$addon['trigger_file'] = $addon['dir'].'update_hook.php';
+
 	// Get the addon's ajax functions file
 	$addon['ajax_file'] = $addon['dir'].'ajax.php';
 

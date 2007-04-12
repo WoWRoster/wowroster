@@ -23,9 +23,10 @@ if ( !defined('ROSTER_INSTALLED') )
 
 class update
 {
+	var $textmode = false;
 	var $uploadData;
-	var $addons;
-	var $files;
+	var $addons = array();
+	var $files = array();
 
 	/**
 	 * Collect info on what files are used
@@ -35,15 +36,14 @@ class update
 		global $wowdb, $roster_conf;
 
 		// Add roster-used tables
-		$this->addons = array();
 		$this->files[] = 'characterprofiler';
 
-		if ( $roster_conf['pvp_log_allow'] )
+		if( $roster_conf['pvp_log_allow'] )
 		{
 			$this->files[] = 'pvplog';
 		}
 
-		if ( !$roster_conf['use_update_triggers'] )
+		if( !$roster_conf['use_update_triggers'] )
 		{
 			return '';
 		}
@@ -56,24 +56,31 @@ class update
 		$result = $wowdb->query($query);
 
 		$output = '';
-		if (!$result)
+		if( !$result )
 		{
 			$wowdb->setError('Failed to load addon triggers',$wowdb->error());
 		}
 		else
 		{
-			while ($row = $wowdb->fetch_assoc($result))
+			while( $row = $wowdb->fetch_assoc($result) )
 			{
 				if( !isset($this->addons[$row['basename']]) )
 				{
-					$this->addons[$row['basename']] = getaddon($row['basename']);
-					$this->addons[$row['basename']]['files'] = array();
+					$hookfile = ROSTER_ADDONS.$row['basename'].DIR_SEP.'update_hook.php';
+
+					if( file_exists($hookfile) )
+					{
+						include_once($hookfile);
+						$this->addons[$row['basename']] = new $row['basename'](getaddon($row['basename']));
+					}
 				}
 				if( !is_null($row['file']) && ($row['active'] == 1) )
 				{
 					$output .= 'Registering '.$row['file'].' for '.$row['fullname']."<br />\n";
-					$this->addons[$row['basename']]['files'][] = strtolower($row['file']);
-					if (!in_array(strtolower($row['file']),$this->files))
+
+					$this->addons[$row['basename']]->files[] = strtolower($row['file']);
+
+					if( !in_array(strtolower($row['file']),$this->files) )
 					{
 						$this->files[] = strtolower($row['file']);
 					}
@@ -93,7 +100,7 @@ class update
 	function parseFiles()
 	{
 		global $act_words;
-		if (!is_array($_FILES))
+		if( !is_array($_FILES) )
 		{
 			return '<span class="red">Upload failed: No files present</span>'."<br />\n";
 		}
@@ -101,7 +108,7 @@ class update
 		require_once(ROSTER_LIB.'luaparser.php');
 
 		$output = $act_words['parsing_files']."<br />\n".'<ul>';
-		foreach ($_FILES as $file)
+		foreach( $_FILES as $file )
 		{
 			if( !empty($file['name']) )
 			{
@@ -111,15 +118,13 @@ class update
 				if( in_array($filebase,$this->files) )
 				{
 					// Get start of parse time
-					$parse_starttime = explode(' ', microtime() );
-					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
+					$parse_starttime = microtime(true);
 
 					$luahandler = new lua();
 					$data = $luahandler->luatophp( $file['tmp_name'] );
 
 					// Calculate parse time
-					$parse_endtime = explode(' ', microtime() );
-					$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
+					$parse_endtime = microtime(true);
 					$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
 
 					if( $data )
@@ -153,16 +158,16 @@ class update
 	{
 		global $roster_conf, $wowdb, $wordings, $act_words;
 
-		if (!is_array($this->uploadData))
+		if( !is_array($this->uploadData) )
 		{
 			return '';
 		}
 		$output = 'Processing files'."<br />\n";
 		$gotfiles = array_keys($this->uploadData);
-		if (in_array('characterprofiler',$gotfiles))
+		if( in_array('characterprofiler',$gotfiles) )
 		{
 			$roster_login = new RosterLogin();
-			
+
 			if( $roster_login->getAuthorized(2) )
 			{
 				$output .= $this->processGuildRoster();
@@ -182,71 +187,54 @@ class update
 		{
 			foreach( $this->addons as $basename => $addon )
 			{
-				if( count(array_intersect($gotfiles, $addon['files']))>0 )
+				if( count(array_intersect($gotfiles, $addon->files))>0 )
 				{
-					ob_start();
-						if( file_exists($addon['trigger_file']) )
-						{
-							if( file_exists($addon['conf_file']) )
-								include_once( $addon['conf_file'] );
+					if( file_exists($addon->data['trigger_file']) )
+					{
+						$addon->reset_messages();
+						$result = $addon->update();
 
-							$mode = 'files';
-							include( $addon['trigger_file'] );
+						if( $result )
+						{
+							$output .= $addon->messages;
 						}
-						$output .= ob_get_contents();
-					ob_end_clean();
+						else
+						{
+							$output .= 'There was an error in addon '.$addon->data['fullname']." in method update<br />\n".
+								"Addon messages:<br />\n".$addon->messages;
+						}
+					}
 				}
 			}
 		}
 		return $output;
 	}
-	
+
 	/**
 	 * Run trigger for character
 	 */
-	function addon_hook($mode, $data, $member_name = '')
+	function addon_hook( $mode , $data , $memberid = '0' )
 	{
-		global $roster_conf, $wowdb, $wordings, $act_words;
-		
-		if( $member_name != '' )
-		{
-			$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '".$member_name."';";
-			$result = $wowdb->query($query);
-			
-			if( !$result )
-			{
-				$wowdb->setError('Failed to fetch member ID for '.$member_name, $wowdb->error());
-				return;
-			}
-			
-			$row = $wowdb->fetch_assoc($result);
-			$wowdb->free_result($result);
-			
-			if( $row )
-			{
-				$member_id = $row['member_id'];
-			}
-			else
-			{
-				return;
-			}
-		}
-		
 		$output = '';
 		foreach( $this->addons as $basename => $addon )
 		{
-			ob_start();
-				if( file_exists($addon['trigger_file']) )
-				{
-					if( file_exists($addon['conf_file']) )
-						include_once( $addon['conf_file'] );
+			if( file_exists($addon->data['trigger_file']) )
+			{
+				$addon->reset_messages();
+				$result = $addon->{$mode}($data , $memberid);
 
-					include( $addon['trigger_file'] );
+				if( $result )
+				{
+					$output .= $addon->messages;
 				}
-				$output .= ob_get_contents();
-			ob_end_clean();			
+				else
+				{
+					$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
+						"Addon messages:<br />\n".$addon->messages;
+				}
+			}
 		}
-		
+
 		return $output;
 	}
 
@@ -327,14 +315,14 @@ class update
 						{
 							$output .= '<strong>'.sprintf($act_words['upload_data'],'Character',$char_name)."</strong>\n";
 
-							$wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
+							$memberid = $wowdb->update_char( $guildInfo['guild_id'], $char_name, $char );
 							$output .= "<ul>\n".$wowdb->getMessages()."</ul>\n";
 							$wowdb->resetMessages();
 
 							// Start update triggers
-							if( $roster_conf['use_update_triggers'] )
+							if( $memberid !== false && $roster_conf['use_update_triggers'] )
 							{
-								$output .= $this->addon_hook('char', $char, $char_name);
+								$output .= $this->addon_hook('char', $char, $memberid);
 							}
 						}
 						else // CP Version not new enough
@@ -423,14 +411,14 @@ class update
 										foreach(array_keys($guildMembers) as $char_name)
 										{
 											$char = $guildMembers[$char_name];
-											$wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $guild['Ranks']);
+											$memberid = $wowdb->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $guild['Ranks']);
 											$guild_output .= $wowdb->getMessages();
 											$wowdb->resetMessages();
 
 											// Start update triggers
-											if( $roster_conf['use_update_triggers'] )
+											if( $memberid !== false && $roster_conf['use_update_triggers'] )
 											{
-												$guild_output .= $this->addon_hook('guild', $char, $char_name);
+												$guild_output .= $this->addon_hook('guild', $char, $memberid);
 											}
 										}
 										// Remove the members who were not in this list
@@ -501,7 +489,7 @@ class update
 	function makeFileFields()
 	{
 		global $roster_conf;
-		$filefields = "";
+		$filefields = '';
 		if (!is_array($this->files) || (count($this->files) == 0)) // Just in case
 		{
 			return "No files accepted!";
@@ -510,8 +498,8 @@ class update
 		{
 			$filefields .=
 			'<tr>'."\n".
-				"\t".'<td class="membersRow1" '.makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\'.$file.'.lua',$file.'.lua Location','',2).'><img src="'.$roster_conf['img_url'].'blue-question-mark.gif" alt="">'.$file.'.lua</td>'."\n".
-				"\t".'<td class="membersRowRight1"><input type="file" accept="'.$file.'.lua" name="'.$file.'"></td>'."\n".
+				"\t".'<td class="membersRow1" '.makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\'.$file.'.lua',$file.'.lua Location','',2).'><img src="'.$roster_conf['img_url'].'blue-question-mark.gif" alt="?" />'.$file.'.lua</td>'."\n".
+				"\t".'<td class="membersRowRight1"><input type="file" accept="'.$file.'.lua" name="'.$file.'" /></td>'."\n".
 			'</tr>'."\n";
 		}
 		return $filefields;
