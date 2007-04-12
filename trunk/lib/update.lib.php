@@ -48,14 +48,11 @@ class update
 			return '';
 		}
 
-		$query = 'SELECT `addon`.`basename`,`addon`.`fullname`,`trigger`.`file`,`trigger`.`active` '.
+		$query = 'SELECT `addon`.`basename`,`addon`.`fullname` '.
 			'FROM `'.$wowdb->table('addon').'` AS `addon` '.
-			'LEFT JOIN `'.$wowdb->table('addon_trigger').'` AS `trigger` '.
-				'ON `trigger`.`addon_id` = `addon`.`addon_id` '.
 			'WHERE `addon`.`active` = 1';
 		$result = $wowdb->query($query);
 
-		$output = '';
 		if( !$result )
 		{
 			$wowdb->setError('Failed to load addon triggers',$wowdb->error());
@@ -74,29 +71,20 @@ class update
 						if( class_exists($row['basename']) )
 						{
 							$this->addons[$row['basename']] = new $row['basename'](getaddon($row['basename']));
+							$this->files += $this->addons[$row['basename']]->files;
 						}
 						else
 						{
-							$output .= '<li>Not loading '.$row['basename'].': Update class not found</li>'."\n";
-							continue;
+							$wowdb->setError('Failed to load addon '.$row['basename'].': Update class did not exist','');
 						}
-					}
-				}
-				if( !is_null($row['file']) && ($row['active'] == 1) )
-				{
-					$output .= '<li>Registering '.$row['file'].' for '.$row['fullname']."</li>\n";
-
-					$this->addons[$row['basename']]->files[] = strtolower($row['file']);
-
-					if( !in_array(strtolower($row['file']),$this->files) )
-					{
-						$this->files[] = strtolower($row['file']);
 					}
 				}
 			}
 		}
 		
-		return empty($output)?'':'<ul>'.$output.'</ul>';
+		$this->files = array_unique($this->files);
+		
+		return '';
 	}
 
 	/**
@@ -376,26 +364,23 @@ class update
 
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 
+		$output = '';
 		$wowdb->resetMessages();
 
 		if( is_array($myProfile) )
 		{
-			foreach( array_keys($myProfile) as $realm_name )
+			foreach( $myProfile as $realm_name => $realm )
 			{
 				// Only allow realms specified in config
 				if( $realm_name == $roster_conf['server_name'])
 				{
-					$realm = $myProfile[$realm_name];
-
 					if( isset($realm['Guild']) && is_array($realm['Guild']) )
 					{
-						foreach( array_keys($realm['Guild']) as $guild_name )
+						foreach( $realm['Guild'] as $guild_name => $guild )
 						{
 							// Only allow the guild specified in config
 							if( $roster_conf['guild_name'] == $guild_name )
 							{
-								$guild = $realm['Guild'][$guild_name];
-
 								// GP Version Detection, don't allow lower than minVer
 								if( $guild['DBversion'] >= $roster_conf['minGPver'] )
 								{
@@ -450,7 +435,7 @@ class update
 										}
 
 										$guild_output .= "</ul>\n";
-										$output = '<strong>'.sprintf($act_words['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
+										$output .= '<strong>'.sprintf($act_words['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
 										$output .= '<li><strong>'.$act_words['memberlog']."</strong>\n<ul>\n".
 											'<li>'.$act_words['updated'].': '.$wowdb->membersupdated."</li>\n".
 											'<li>'.$act_words['added'].': '.$wowdb->membersadded."</li>\n".

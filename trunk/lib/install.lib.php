@@ -157,36 +157,6 @@ class Install
 	}
 
 	/**
-	 * Register a file for updates
-	 *
-	 * @param string $file
-	 *		Name of the WoW addon
-	 * @param boolean $active
-	 *		If this trigger should be active initially. If you specify your
-	 *		addon not to be active on install, this parameter means if this
-	 *		trigger is active after the addon in enabled.
-	 */
-	function add_trigger($file, $active)
-	{
-		global $wowdb;
-
-		$this->sql[] = 'INSERT INTO `'.$wowdb->table('addon_trigger').'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$file.'","'.$active.'");';
-	}
-
-	/**
-	 * Unregister a file for updates
-	 *
-	 * @param string $file
-	 *		Name of the WoW addon
-	 */
-	 function remove_trigger($file)
-	 {
-	 	global $wowdb;
-
-	 	$this->sql[] = 'DELETE FROM `'.$wowdb->table('addon_trigger').'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `file`="'.$file.'";';
-	 }
-
-	/**
 	 * Do the actual installation.
 	 *
 	 * @return int
