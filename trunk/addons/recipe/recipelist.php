@@ -16,6 +16,11 @@
  *
  ******************************/
 
+if ( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 require_once(ROSTER_LIB.'recipes.php');
 
 $prof_filter = ( isset($_REQUEST['proffilter']) ? $_REQUEST['proffilter'] : '');

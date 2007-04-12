@@ -28,20 +28,17 @@ $update = new update;
 // login class for guild update pass check
 $roster_login = new RosterLogin();
 
-// Set $htmlout to 1 to assume request is from a browser
-$isUU = 0;
-
 // See if UU is requesting this page
 if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 {
-	$isUU = 1;
+	$update->textmode = true;
 }
 
 // Fetch addon data
 $messages = $update->fetchAddonData();
 
 // Has data been uploaded?
-if ((isset($_POST['process']) && $_POST['process'] == 'process') || $isUU)
+if ((isset($_POST['process']) && $_POST['process'] == 'process') || $update->textmode)
 {
 	$messages .= $update->parseFiles();
 	$messages .= $update->processFiles();
@@ -49,7 +46,7 @@ if ((isset($_POST['process']) && $_POST['process'] == 'process') || $isUU)
 	$errors = $wowdb->getErrors();
 
 	// Normal upload results
-	if( !$isUU )
+	if( !$update->textmode )
 	{
 		include_once(ROSTER_BASE.'roster_header.tpl');
 		$roster_menu = new RosterMenu;
@@ -96,7 +93,7 @@ else
 	$roster_menu = new RosterMenu;
 	print $roster_menu->makeMenu('main');
 
-	print '<form action="'.makelink().'" enctype="multipart/form-data" method="POST" onsubmit="submitonce(this);">'."\n";
+	print '<form action="'.makelink().'" enctype="multipart/form-data" method="post" onsubmit="submitonce(this);">'."\n";
 
 	print messagebox('<table class="bodyline" cellspacing="0" cellpadding="0">'.$update->makeFileFields().'</table>',$act_words['update_page'],'sblue');
 
@@ -114,8 +111,8 @@ else
 
 	print "<br />\n";
 
-	print '<input type="hidden" name="process" value="process">'."\n";
-	print '<input type="submit" value="'.$act_words['upload'].'">'."\n";
+	print '<input type="hidden" name="process" value="process" />'."\n";
+	print '<input type="submit" value="'.$act_words['upload'].'" />'."\n";
 	print '</form>'."\n";
 
 	if (!empty($messages))

@@ -2142,7 +2142,7 @@ class wowdb
 			$result = $this->query($querystr);
 			if( !$result )
 			{
-				$this->setError(''.$name.' could not be inserted',$this->error());
+				$this->setError($name.' could not be inserted',$this->error());
 				return;
 			}
 		}
@@ -2150,7 +2150,9 @@ class wowdb
 		{
 			// Add the guild Id first
 			if( !empty($guildId) )
+			{
 				$this->add_value( 'guild_id', $guildId);
+			}
 
 			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">[</span> '.$name.' <span class="green">] - Added</span></li>');
@@ -2158,9 +2160,11 @@ class wowdb
 			$result = $this->query($querystr);
 			if( !$result )
 			{
-				$this->setError(''.$name_escape.' could not be inserted',$this->error());
+				$this->setError($name_escape.' could not be inserted',$this->error());
 				return;
 			}
+
+			$memberId = $this->insert_id();
 
 			$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
 			$result = $this->query($querystr);
@@ -2174,6 +2178,8 @@ class wowdb
 				$this->setMemberLog($row,1,$currentTimestamp);
 			}
 		}
+
+		return $memberId;
 	}
 
 
@@ -2569,11 +2575,12 @@ class wowdb
 	/**
 	 * Handles formatting an insertion of Character Data
 	 *
-	 * @param int $guildId
-	 * @param string $name
-	 * @param array $data
+	 * @param int $guildId	| Character's guild id
+	 * @param string $name	| Character's name
+	 * @param array $data	| LUA data
+	 * @return mixed		| False on error, memberid on success
 	 */
-	function update_char( $guildId, $name, $data )
+	function update_char( $guildId , $name , $data )
 	{
 		//print '<pre>';
 		//print_r( $data );
@@ -2586,7 +2593,7 @@ class wowdb
 		if( !$result )
 		{
 			$this->setError('Cannot select member_id for Character Data',$this->error());
-			return;
+			return false;
 		}
 
 		$memberInfo = $this->fetch_assoc( $result );
@@ -2598,7 +2605,7 @@ class wowdb
 		else
 		{
 			$this->setMessage('<li>'.$name.' is not in the list of guild members so their data will not be inserted.</li>');
-			return;
+			return false;
 		}
 
 		// update level in members table
@@ -2615,7 +2622,7 @@ class wowdb
 		if( !$result )
 		{
 			$this->setError('Cannot select member_id for Character Data',$this->error());
-			return;
+			return false;
 		}
 
 		$update = $this->num_rows( $result ) == 1;
@@ -2921,7 +2928,7 @@ class wowdb
 		if( !$result )
 		{
 			$this->setError('Cannot update Character Data',$this->error());
-			return;
+			return false;
 		}
 
 		$this->do_equip( $data, $memberId );
@@ -2968,6 +2975,9 @@ class wowdb
 			$rosterdata = $data['Roster'];
 			$this->update_account( $memberId, $name, $rosterdata);
 		}
+
+		return $memberId;
+
 	} //-END function update_char()
 
 } //-END CLASS
