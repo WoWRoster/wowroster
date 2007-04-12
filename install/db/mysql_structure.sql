@@ -30,19 +30,6 @@ CREATE TABLE `renprefix_addon` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
-### Addon Trigger table
-
-DROP TABLE IF EXISTS `renprefix_addon_trigger`;
-CREATE TABLE `renprefix_addon_trigger` (
-	`trigger_id` int(11) AUTO_INCREMENT,
-	`addon_id` int(11),
-	`file` varchar(32),
-	`active` int(1) NOT NULL default 0,
-	PRIMARY KEY (`trigger_id`),
-	KEY idfile (`addon_id`,`file`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
 ### Buffs
 
 DROP TABLE IF EXISTS `renprefix_buffs`;
@@ -80,7 +67,7 @@ CREATE TABLE `renprefix_addon_config` (
   `config_value` tinytext,
   `form_type` mediumtext,
   `config_type` varchar(255) default NULL,
-  PRIMARY KEY `addon` (`id`,`addon_id`)
+  PRIMARY KEY (`id`,`addon_id`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
