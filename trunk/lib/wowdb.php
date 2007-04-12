@@ -2057,10 +2057,11 @@ class wowdb
 	/**
 	 * Updates or adds guild members
 	 *
-	 * @param int $guildId
-	 * @param string $name
-	 * @param array $char
+	 * @param int $guildId	| Character's guild id
+	 * @param string $name	| Character's name
+	 * @param array $char	| LUA data
 	 * @param array $currentTimestamp
+	 * @return mixed		| False on error, memberid on success
 	 */
 	function update_guild_member( $guildId, $name, $char, $currentTimestamp, $guildRanks )
 	{
@@ -2071,7 +2072,7 @@ class wowdb
 		if( !$result )
 		{
 			$this->setError('Member could not be selected for update',$this->error());
-			return;
+			return false;
 		}
 
 		$memberInfo = $this->fetch_assoc( $result );
@@ -2143,7 +2144,7 @@ class wowdb
 			if( !$result )
 			{
 				$this->setError($name.' could not be inserted',$this->error());
-				return;
+				return false;
 			}
 		}
 		else
@@ -2161,7 +2162,7 @@ class wowdb
 			if( !$result )
 			{
 				$this->setError($name_escape.' could not be inserted',$this->error());
-				return;
+				return false;
 			}
 
 			$memberId = $this->insert_id();

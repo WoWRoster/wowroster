@@ -71,12 +71,20 @@ class update
 					if( file_exists($hookfile) )
 					{
 						include_once($hookfile);
-						$this->addons[$row['basename']] = new $row['basename'](getaddon($row['basename']));
+						if( class_exists($row['basename']) )
+						{
+							$this->addons[$row['basename']] = new $row['basename'](getaddon($row['basename']));
+						}
+						else
+						{
+							$output .= '<li>Not loading '.$row['basename'].': Update class not found</li>'."\n";
+							continue;
+						}
 					}
 				}
 				if( !is_null($row['file']) && ($row['active'] == 1) )
 				{
-					$output .= 'Registering '.$row['file'].' for '.$row['fullname']."<br />\n";
+					$output .= '<li>Registering '.$row['file'].' for '.$row['fullname']."</li>\n";
 
 					$this->addons[$row['basename']]->files[] = strtolower($row['file']);
 
@@ -87,9 +95,8 @@ class update
 				}
 			}
 		}
-
-		return $output;
-
+		
+		return empty($output)?'':'<ul>'.$output.'</ul>';
 	}
 
 	/**
@@ -118,13 +125,15 @@ class update
 				if( in_array($filebase,$this->files) )
 				{
 					// Get start of parse time
-					$parse_starttime = microtime(true);
+					$parse_starttime = explode(' ', microtime() );
+					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
 
 					$luahandler = new lua();
 					$data = $luahandler->luatophp( $file['tmp_name'] );
 
 					// Calculate parse time
-					$parse_endtime = microtime(true);
+					$parse_endtime = explode(' ', microtime() );
+					$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
 					$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
 
 					if( $data )
@@ -192,16 +201,19 @@ class update
 					if( file_exists($addon->data['trigger_file']) )
 					{
 						$addon->reset_messages();
-						$result = $addon->update();
+						if( method_exists($addon, 'update') )
+						{
+							$result = $addon->update();
 
-						if( $result )
-						{
-							$output .= $addon->messages;
-						}
-						else
-						{
-							$output .= 'There was an error in addon '.$addon->data['fullname']." in method update<br />\n".
-								"Addon messages:<br />\n".$addon->messages;
+							if( $result )
+							{
+								$output .= $addon->messages;
+							}
+							else
+							{
+								$output .= 'There was an error in addon '.$addon->data['fullname']." in method update<br />\n".
+									"Addon messages:<br />\n".$addon->messages;
+							}
 						}
 					}
 				}
@@ -221,16 +233,19 @@ class update
 			if( file_exists($addon->data['trigger_file']) )
 			{
 				$addon->reset_messages();
-				$result = $addon->{$mode}($data , $memberid);
+				if( method_exists($addon, $mode) )
+				{
+					$result = $addon->{$mode}($data , $memberid);
 
-				if( $result )
-				{
-					$output .= $addon->messages;
-				}
-				else
-				{
-					$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
-						"Addon messages:<br />\n".$addon->messages;
+					if( $result )
+					{
+						$output .= $addon->messages;
+					}
+					else
+					{
+						$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
+							"Addon messages:<br />\n".$addon->messages;
+					}
 				}
 			}
 		}
