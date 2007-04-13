@@ -67,10 +67,18 @@ class update
 
 					if( file_exists($hookfile) )
 					{
+						$addon = getaddon($row['basename']);
+						
+						if( file_exists($addon['conf_file']) )
+						{
+							include_once($addon['conf_file']);
+						}
+						
 						include_once($hookfile);
+						
 						if( class_exists($row['basename']) )
 						{
-							$this->addons[$row['basename']] = new $row['basename'](getaddon($row['basename']));
+							$this->addons[$row['basename']] = new $row['basename']($addon);
 							$this->files += $this->addons[$row['basename']]->files;
 						}
 						else
