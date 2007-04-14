@@ -201,11 +201,11 @@ New Version: <span class="green">'.ROSTER_VERSION.'</span><br />
 /**
  * If the install directory or files exist, die()
  */
-if( file_exists(ROSTER_BASE.'install.php') ||  file_exists(ROSTER_BASE.'install') || file_exists(ROSTER_BASE.'upgrade.php') )
+if( file_exists(ROSTER_BASE.'install.php') || file_exists(ROSTER_BASE.'upgrade.php') )
 {
 	if( !file_exists(ROSTER_BASE.'version_match.php') )
 	{
-		roster_die('Please remove the files <span class="green">install.php</span>, <span class="green">upgrade.php</span> and the folder <span class="green">/install/</span> in this directory','Remove Install Files','sred');
+		roster_die('Please remove the files <span class="green">install.php</span> and <span class="green">upgrade.php</span> in this directory','Remove Install Files','sred');
 	}
 }
 
