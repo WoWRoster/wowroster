@@ -95,13 +95,13 @@ $arrayHeight = 0;
 $arrayButtons = array();
 foreach(explode('|',$row['config']) AS $posX=>$column)
 {
-	$config[$posX] = explode(':',$column);
 	$arrayButtons[$posX] = array();
-	foreach($config[$posX] as $posY=>$button)
+	foreach(explode(':',$column) as $posY=>$button)
 	{
 		if( isset($palet[$button]) )
 		{
-			$arrayButtons[$posX][$posY] = $palet[$button];
+			$config[$posX][] = $button;
+			$arrayButtons[$posX][] = $palet[$button];
 			unset($palet[$button]);
 		}
 	}
