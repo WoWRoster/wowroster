@@ -143,7 +143,7 @@ if ( $roster_conf['index_lastonline'] == 1 )
 			'lang_field' => 'lastonline',
 			'order' => array( '`members`.`last_online` DESC' ),
 			'order_d' => array( '`members`.`last_online` ASC' ),
-			/*'value' => 'last_online_value',*/
+			'value' => 'last_online_value',
 		),
 	);
 }

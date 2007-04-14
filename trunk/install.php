@@ -153,7 +153,7 @@ $LOCALES = array(
 if ( defined('ROSTER_INSTALLED') )
 {
 	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
-	$tpl->message_die('Roster is already installed - <span class="negative">remove</span> the file <span class="positive">install.php</span> and the folder <span class="positive">install/</span> in this directory.', 'Installation Error');
+	$tpl->message_die('Roster is already installed - <span class="negative">remove</span> the files <span class="positive">install.php</span> and <span class="positive">upgrade.php</span> in this directory.', 'Installation Error');
 	exit();
 }
 
@@ -553,7 +553,7 @@ function process_step4()
 		(1, 'Guild'),
 		(2, 'Officer'),
 		(3, 'Admin');");
-	
+
 	$wowdb->query("UPDATE `".ACCOUNT_TABLE."`
 		SET `hash` = '".$pass_word."';");
 

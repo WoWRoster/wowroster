@@ -64,7 +64,7 @@ if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 }
 
 //---[ Check for Guild Info ]------------
-if( empty($guild_info) && !in_array($page,array('rostercp','update','credits','license')) )
+if( empty($guild_info) && !in_array($page,array('rosterdiag','rostercp','update','credits','license')) )
 {
 	roster_die( $act_words['nodata'] , $act_words['nodata_title'] );
 }

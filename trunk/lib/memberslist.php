@@ -261,11 +261,11 @@ foreach ( $FIELDS as $field => $DATA )
 
 	if ( $current_col == $cols )
 	{
-		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.makelink(ROSTER_PAGE_NAME.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
 	else
 	{
-		$tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink(ROSTER_PAGE_NAME.'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+		$tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
 
 	$current_col++;

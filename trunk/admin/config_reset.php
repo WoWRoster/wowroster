@@ -25,13 +25,13 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 {
 	$query = "TRUNCATE `roster_config`;";
 	$wowdb->query($query);
-	
+
 	$query = "TRUNCATE `roster_menu_button`";
 	$wowdb->query($query);
-	
-	$query = "TRUNCATE `rsoter_menu`;";
+
+	$query = "TRUNCATE `roster_menu`;";
 	$wowdb->query($query);
-	
+
     $db_data_file      = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
 
     // Parse the data file and populate the database tables
@@ -51,7 +51,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 		}*/
     }
     unset($sql);
-	
+
 	$body .= messagebox('Configuration has been reset. Please remember to configure the guild name and server before attempting to upload guild data',$act_words['roster_cp']);
 	return;
 }
@@ -77,4 +77,42 @@ $body .= $roster_login->getMessage().'<br />
 	  </table>
 	'.border('sred','end').'
 	</form>';
-	  
+
+
+
+/**
+* Parse multi-line SQL statements into a single line
+*
+* @param    string  $sql    SQL file contents
+* @param    char    $delim  End-of-statement SQL delimiter
+* @return   array
+*/
+function parse_sql($sql, $delim)
+{
+    if ( $sql == '' )
+    {
+        die('Could not obtain SQL structure/data');
+    }
+
+    $retval     = array();
+    $statements = explode($delim, $sql);
+    unset($sql);
+
+    $linecount = count($statements);
+    for ( $i = 0; $i < $linecount; $i++ )
+    {
+        if ( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
+        {
+            $statements[$i] = trim($statements[$i]);
+            $statements[$i] = str_replace("\r\n", '', $statements[$i]) . "\n";
+
+            // Remove 2 or more spaces
+            $statements[$i] = preg_replace('#\s{2,}#', ' ', $statements[$i]);
+
+            $retval[] = trim($statements[$i]);
+        }
+    }
+    unset($statements);
+
+    return $retval;
+}
