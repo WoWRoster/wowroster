@@ -29,7 +29,7 @@ $lang['lualocation']='Pulsa Examinar y selecciona tus ficheros *.lua para el env
 $lang['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*NOMBRE_DE_CUENTA*</i>\\\\SavedVariables';
 
 $lang['noGuild']='No puedo encontrar la hermandad en la base de datos. Por favor, actualiza primero los miembros.';
-$lang['nodata']="No puedo encontrar la hermandad: <b>'".$roster_conf['guild_name']."'</b> del servidor <b>'".$roster_conf['server_name']."'</b><br />Necesitas <a href=\"".makelink('update')."\">incluir tu hermandad</a> y asegurarte de que has <a href=\"".makelink('rostercp')."\">terminado la configuración</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Pulsa aquí para las instrucciones de instalación</a>";
+$lang['nodata']='No puedo encontrar la hermandad: <b>\'%1$s\'</b> del servidor <b>\'%2$s\'</b><br />Necesitas <a href="%3$s">incluir tu hermandad</a> y asegurarte de que has <a href="%4$s">terminado la configuración</a><br /><br /><a href="http://www.wowroster.net/wiki/index.php/Roster:Install" target="_blank">Pulsa aquí para las instrucciones de instalación</a>';
 $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Actualizar Perfil';
@@ -99,24 +99,24 @@ $lang['index_text_uniloader'] = "(Puedes descargar este programa desde la web de
 $lang['update_instruct']='
 <strong>Actualizadores Automáticos Recomendados:</strong>
 <ul>
-<li>Utiliza <a href="'.$roster_conf['uploadapp'].'" target="_blank">UniUploader</a><br />
-'.$lang['index_text_uniloader'].'</li>
+<li>Utiliza <a href="%1$s" target="_blank">UniUploader</a><br />
+%2$s</li>
 </ul>
 <strong>Instrucciones de Actualización:</strong>
 <ol>
-<li>Descarga <a href="'.$roster_conf['profiler'].'" target="_blank">Character Profiler</a></li>
+<li>Descarga <a href="%3$s" target="_blank">Character Profiler</a></li>
 <li>Extrae el zip en su propia carpeta en C:\Archivos de Programa\World of Warcraft\Interface\Addons\</li>
 <li>Inicia WoW</li>
 <li>Abre tu ventana de banco, misiones, y profesiones que contengan recetas</li>
 <li>Desconecta/Sal de WoW (Mira más arriba si deseas utilizar UniUploader para enviar los datos automáticamente.)</li>
-<li>Vete a <a href="'.makelink('update').'">la página de actualización</a></li>
-<li>'.$lang['lualocation'].'</li>
+<li>Vete a <a href="%4$s">la página de actualización</a></li>
+<li>%5$s</li>
 </ol>';
 
 $lang['update_instructpvp']='
 <strong>Estadísticas JcJ Opcionales:</strong>
 <ol>
-<li>Descarga <a href="'.$roster_conf['pvplogger'].'" target="_blank">PvPLog</a></li>
+<li>Descarga <a href="%1$s" target="_blank">PvPLog</a></li>
 <li>Extrae PvPLog en la carpeta de Addons.</li>
 <li>Haz duelos o combates JcJ</li>
 <li>Envía PvPLog.lua</li>
@@ -125,7 +125,7 @@ $lang['update_instructpvp']='
 $lang['roster_credits']='Agradecimientos a <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, y <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> por el código original usado en este sitio.<br />
 Página principal de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft y Blizzard Entertainment son marcas registradas de Blizzard Entertainment, Inc. en los E.U.A. y/u otros países. El resto de marcas registradas pertenecen a sus respectivos propietarios.<br />
-<a href="'.makelink('credits').'">Créditos Adicionales</a>';
+<a href="%1$s">Créditos Adicionales</a>';
 
 
 //Charset
@@ -814,9 +814,9 @@ $lang['lockpicking']='Lockpicking';
 	$lang['max_exp']='Max XP';
 
 // Error messages
-	$lang['CPver_err']="La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión ".$roster_conf['minCPver']." y has iniciado sesión y grabado los datos utilizando la misma.";
-	$lang['PvPLogver_err']="La versión de PvPLog uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión ".$roster_conf['minPvPLogver'].", y si has actualizado recientemente PvPLog, asegúrate de que has borrado el antiguo fichero PvPLog.lua en la carpeta SavedVariables antes de enviar los datos.";
-	$lang['GPver_err']="La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión ".$roster_conf['minGPver'];
+	$lang['CPver_err']='La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
+	$lang['PvPLogver_err']='La versión de PvPLog uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s, y si has actualizado recientemente PvPLog, asegúrate de que has borrado el antiguo fichero PvPLog.lua en la carpeta SavedVariables antes de enviar los datos.';
+	$lang['GPver_err']='La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s';
 
 $lang['menuconf_sectionselect']='Select Section';
 

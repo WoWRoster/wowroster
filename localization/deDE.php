@@ -29,7 +29,7 @@ $lang['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" aus';
 $lang['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
-$lang['nodata']="Konnte Gilde <b>'".$roster_conf['guild_name']."'</b> auf dem Server <b>'".$roster_conf['server_name']."'</b> nicht finden<br />Du musst erst einmal die <a href=\"".makelink('update')."\">Gildendaten hochladen</a> oder die <a href=\"".makelink('rostercp')."\">Konfiguration beenden</a><br /><br /><a href=\"http://www.wowroster.net/wiki/index.php/Roster:Install\" target=\"_blank\">Klicke hier um zur Installationsanleitung zu gelangen</a>";
+$lang['nodata']='Konnte Gilde <b>\'%1$s\'</b> auf dem Server <b>\'%2$s\'</b> nicht finden<br />Du musst erst einmal die <a href="%3$s">Gildendaten hochladen</a> oder die <a href="%4$s">Konfiguration beenden</a><br /><br /><a href="http://www.wowroster.net/wiki/index.php/Roster:Install" target="_blank">Klicke hier um zur Installationsanleitung zu gelangen</a>';
 $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Gildenmitglied aktualisieren';
@@ -99,24 +99,24 @@ $lang['index_text_uniloader'] = '(Du kannst dieses Programm von der WoW-Roster-W
 $lang['update_instruct']='
 <strong>Empfehlung zur automatischen Aktualisierung:</strong>
 <ul>
-<li>Benutze den <a href="'.$roster_conf['uploadapp'].'" target="_blank">UniUploader</a><br />
-'.$lang['index_text_uniloader'].'</li>
+<li>Benutze den <a href="%1$s" target="_blank">UniUploader</a><br />
+%2$s</li>
 </ul>
 <strong>Anleitung:</strong>
 <ol>
-<li>Lade den <a href="'.$roster_conf['profiler'].'" target="_blank">Character Profiler</a> herunter</li>
+<li>Lade den <a href="%3$s" target="_blank">Character Profiler</a> herunter</li>
 <li>Extrahiere die Zip-Datei in ein eigenes Verzeichnis unter C:\Program Files\World of Warcraft\Interface\Addons\CharacterProfiler\</li>
 <li>Starte WoW</li>
 <li>&Ouml;ffne einmal dein Bankschliessfach, deine Rucks&auml;cke, deine Berufsseiten und deine Charakter-&Uuml;bersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
-<li>Gehe zur <a href="'.makelink('update').'"> Update-Seite</a></li>
-<li>'.$lang['lualocation'].'</li>
+<li>Gehe zur <a href="%4$s"> Update-Seite</a></li>
+<li>%5$s</li>
 </ol>';
 
 $lang['update_instructpvp']='
 <strong>Optionale PvP Stats:</strong>
 <ol>
-<li>Lade <a href="'.$roster_conf['pvplogger'].'" target="_blank">PvPLog</a> herunter</li>
+<li>Lade <a href="%1$s" target="_blank">PvPLog</a> herunter</li>
 <li>Auch in ein eigenes Addon-Verzeichnis entpacken</li>
 <li>Mache ein paar Duelle oder PvP-Kills</li>
 <li>Lade "PvPLog.lua" &uuml;ber die Update-Seite hoch</li>
@@ -125,7 +125,7 @@ $lang['update_instructpvp']='
 $lang['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, und <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> f&uuml;r den originalen Code der Seite. <br />
 WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="'.makelink('credits').'">Additional Credits</a>';
+<a href="%1$s">Additional Credits</a>';
 
 
 //Charset
@@ -814,9 +814,9 @@ $lang['lockpicking']='Schlossknacken';
 	$lang['max_exp']='Max XP';
 
 // Error messages
-	$lang['CPver_err']="Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minCPver']." verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.";
-	$lang['PvPLogver_err']="Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minPvPLogver']." verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.";
-	$lang['GPver_err']="Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v".$roster_conf['minGPver']." verwenden.";
+	$lang['CPver_err']='Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.';
+	$lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.';
+	$lang['GPver_err']='Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden.';
 
 $lang['menuconf_sectionselect']='Select Section';
 
