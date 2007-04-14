@@ -184,7 +184,8 @@ $query .=
 	"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
 
 // All those people asking about guild searching, here's a spot!  and here's the simple alteration to stop guild filtering in this particular place
-	"LEFT JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` AND `members`.`guild_id` = '".$guild_info['guild_id']."' ".
+	"LEFT JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` ".
+	"WHERE `members`.`guild_id` = '".$guild_info['guild_id']."' ".
 	"ORDER BY ";
 
 
