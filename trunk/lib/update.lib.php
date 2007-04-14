@@ -281,7 +281,7 @@ class update
 					else // PvPLog version not high enough
 					{
 						$output .= '<span class="red">'.sprintf($act_words['not_updating'],'PvPLog',$char_name,$char['version'])."</span><br />\n";
-						$output .= $act_words['PvPLogver_err']."\n";
+						$output .= sprintf($act_words['PvPLogver_err'], $roster_conf['minPvPLogver'])."\n";
 					}
 				}
 			}
@@ -339,7 +339,7 @@ class update
 						else // CP Version not new enough
 						{
 							$output .= '<span class="red">'.sprintf($act_words['not_updating'],'CharacterProfiler',$char_name,$char['DBversion'])."</span><br />\n";
-							$output .= $act_words['CPver_err']."\n";
+							$output .= sprintf($act_words['CPver_err'], $roster_conf['minCPver'])."\n";
 						}
 						$output .= "<br />\n";
 					}
@@ -461,7 +461,7 @@ class update
 								// GP Version not new enough
 								{
 									$output .= '<span class="red">'.sprintf($act_words['not_updating'],'GuildProfiler',$char_name,$guild['DBversion'])."</span><br />\n";
-									$output .= $act_words['GPver_err']."<br />\n";
+									$output .= sprintf($act_words['GPver_err'], $roster_conf['minGPver'])."<br />\n";
 								}
 							}
 							else

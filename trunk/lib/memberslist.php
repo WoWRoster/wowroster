@@ -382,11 +382,11 @@ if( $roster_conf['index_update_inst'] )
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$act_words['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.$act_words['update_instruct'];
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($act_words['update_instruct'], $roster_conf['uploadapp'], $act_words['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $act_words['lualocation']);
 
 	if ($roster_conf['pvp_log_allow'] == 1)
 	{
-		echo $act_words['update_instructpvp'];
+		echo sprintf($act_words['update_instructpvp'], $roster_conf['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }
