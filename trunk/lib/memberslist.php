@@ -26,7 +26,7 @@ if( $roster_conf['index_update_inst'] )
 }
 
 
-if ( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
+if( $roster_conf['index_motd'] == 1 && !empty($guild_info['guild_motd']) )
 {
 	if( $roster_conf['motd_display_mode'] )
 	{
@@ -44,14 +44,14 @@ print $roster_menu->makeMenu('main');
 
 echo "<table>\n  <tr>\n";
 
-if ( $roster_conf['index_hslist'] == 1 )
+if( $roster_conf['index_hslist'] == 1 )
 {
 	echo '    <td valign="top">';
 	include_once( ROSTER_LIB.'hslist.php');
 	echo "    </td>\n";
 }
 
-if ( $roster_conf['index_pvplist'] == 1 )
+if( $roster_conf['index_pvplist'] == 1 )
 {
 	echo '    <td valign="top">';
 	include_once( ROSTER_LIB.'pvplist.php');
@@ -121,7 +121,7 @@ $FIELD[] = array (
 
 // Merge Arrays
 $FIELDS = array();
-foreach ($FIELD as $field )
+foreach( $FIELD as $field )
 {
 	$FIELDS += $field;
 }
@@ -186,21 +186,23 @@ $query .=
 	"WHERE `members`.`guild_id` = '".$guild_info['guild_id']."' ".
 	"ORDER BY ";
 
+// Set GET vars here, to avoid NOTICE error hell
+$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
+$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
+
 
 // Add custom primary and secondary ORDER BY definitions
 // removed all the switchstring jazz as it wasn't needed
 
 // Get default sort from roster config
-if( !isset($_GET['s']) && !empty($roster_conf['index_sort']) )
+if( !empty($get_s) && !empty($roster_conf['index_sort']) )
 {
-   $_GET['s'] = $roster_conf['index_sort'];
+   $get_s = $roster_conf['index_sort'];
 }
 
-if( isset($_GET['s']) && $ORDER_FIELD = $FIELDS[$_GET['s']] )
+if( isset($FIELDS[$get_s]) && $ORDER_FIELD = $FIELDS[$get_s] )
 {
-	$order_field = $_GET['s'];
-
-	if( isset($_GET['d']) && isset( $ORDER_FIELD['order_d'] ) )
+	if( !empty($get_d) && isset( $ORDER_FIELD['order_d'] ) )
 	{
 		foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 		{
@@ -250,15 +252,16 @@ foreach ( $FIELDS as $field => $DATA )
 
 	// click a sorted field again to reverse sort it
 	// Don't add it if it is detected already
-	if( isset($_REQUEST['d']) && $_REQUEST['d'] != 'true' )
+	if( $get_d != 'true' )
 	{
-		$desc = ( $order_field == $field ) ? '&amp;d=true' : '';
+		$desc = ( $get_s == $field ) ? '&amp;d=true' : '';
 	}
-	else {
+	else
+	{
 		$desc = '';
 	}
 
-	if ( $current_col == $cols )
+	if( $current_col == $cols )
 	{
 		$tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 	}
@@ -285,18 +288,18 @@ $striping_counter = 0;
 
 $last_value = 'some obscurely random string because i\'m too lazy to do this a better way.';
 
-while ( $row = $wowdb->fetch_assoc( $result ) )
+while( $row = $wowdb->fetch_assoc( $result ) )
 {
 	// Adding grouping dividers
-	if ( isset($ORDER_FIELD['divider']) && $ORDER_FIELD['divider'] )
+	if( isset($ORDER_FIELD['divider']) && $ORDER_FIELD['divider'] )
 	{
-		if ( $last_value != $row[$order_field] )
+		if( $last_value != $row[$get_s] )
 		{
-			if ( $roster_conf['sqldebug'] )
+			if( $roster_conf['sqldebug'] )
 			{
-				echo "<!-- $order_field :: $last_value != $row[$order_field] -->\n";
+				echo "<!-- $get_s :: $last_value != $row[$get_s] -->\n";
 			}
-			if ( $striping_counter )
+			if( $striping_counter )
 			{
 				echo $borderBottom;
 			}
@@ -306,11 +309,11 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 			if( isset($ORDER_FIELD['divider_value']) )
 			{
 
-				$divider_text = $ORDER_FIELD['divider_value']( $divider_prefix.$row[$order_field] );
+				$divider_text = $ORDER_FIELD['divider_value']( $divider_prefix.$row[$get_s] );
 			}
 			else
 			{
-				$divider_text = '<div class="membersGroup">'.$divider_prefix.$row[$order_field]."</div>\n";
+				$divider_text = '<div class="membersGroup">'.$divider_prefix.$row[$get_s]."</div>\n";
 			}
 
 			echo
@@ -318,10 +321,10 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 			$tableHeaderRow;
 
 			$striping_counter = 0;
-			$last_value = $row[$order_field];
+			$last_value = $row[$get_s];
 		}
 	}
-	else if ( $striping_counter == 0 )
+	elseif( $striping_counter == 0 )
 	{
 		echo borderTop().
 			$tableHeaderRow;
@@ -339,9 +342,9 @@ while ( $row = $wowdb->fetch_assoc( $result ) )
 
 
 	// Echoing cells w/ data
-	foreach ( $FIELDS as $field => $DATA )
+	foreach( $FIELDS as $field => $DATA )
 	{
-		if ( isset( $DATA['value'] ) )
+		if( isset( $DATA['value'] ) )
 		{
 			$cell_value = $DATA['value']( $row );
 		}

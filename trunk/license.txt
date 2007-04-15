@@ -26,25 +26,26 @@ Serveral external libraries are included with WoWRoster that are not included un
 These are:
 
 Tab Content Script - DynamicDrive
-
   * http://www.dynamicdrive.com
   * DynamicDrive Terms of Use http://www.dynamicdrive.com/notice.htm
   * File located at [css/js/tabcontent.js]
 
-Overlib tooltip library - Erik Bosrup
+Color Pallet Script - DhtmlGoodies
+  * http://www.dhtmlgoodies.com
+  * dhtmlgoodies Terms of Use http://www.dhtmlgoodies.com/index.html?page=termsOfUse
+  * File located at [css/js/color_functions.js]
 
+Overlib tooltip library - Erik Bosrup
   * http://www.bosrup.com/web/overlib
   * Overlib License: http://www.bosrup.com/web/overlib/?License
   * File located at [css/js/overlib.js]
 
 DHTML Drag & Drop library - Walter Zorn
-
   * http://www.walterzorn.com/dragdrop/dragdrop_e.htm
   * GNU Lesser General Public License: http://gnu.org/copyleft/lesser.html
   * File located at [css/js/wz_dragdrop.js]
 
 Modified EQdkp installer
-
   * http://www.eqdkp.com
   * The installer was based on the EQdkp installer
   * GNU General Public License: http://gnu.org/copyleft/gpl.html
@@ -54,7 +55,6 @@ Modified EQdkp installer
       o install/template.php
 
 MiniXML Library
-
   * http://minixml.psychogenic.com
   * GNU General Public License: http://gnu.org/copyleft/gpl.html
   * This concerns the files:

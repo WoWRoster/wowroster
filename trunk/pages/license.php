@@ -76,6 +76,13 @@ that are not included under the main WoWRoster license</span></p>
 	<li>File located at [css/js/tabcontent.js]</li>
 </ul>
 
+<strong>Color Pallet Script</strong> - DhtmlGoodies
+<ul>
+	<li><a href=\"http://www.dynamicdrive.com\" target=\"_blank\">http://www.dynamicdrive.com</a></li>
+	<li>DynamicDrive Terms of Use <a href=\"http://www.dynamicdrive.com/notice.htm\" target=\"_blank\">http://www.dynamicdrive.com/notice.htm</a></li>
+	<li>File located at [css/js/color_functions.js]</li>
+</ul>
+
 <strong>Overlib tooltip library</strong> - Erik Bosrup
 <ul>
 	<li><a href=\"http://www.bosrup.com/web/overlib\" target=\"_blank\">http://www.bosrup.com/web/overlib</a></li>

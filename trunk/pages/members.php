@@ -80,10 +80,10 @@ if ( $roster_conf['index_title'] == 1 )
 if ( $roster_conf['index_currenthonor'] == 1 )
 {
 	$FIELD[] = array (
-		'lifetimeRankName' => array(
+		'lifetimeHighestRank' => array(
 			'lang_field' => 'highestrank',
-			'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
-			'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
+			'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
+			'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
 			'value' => 'honor_value',
 		),
 	);
@@ -151,8 +151,8 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 	$FIELD[] = array (
 		'last_update' => array (
 			'lang_field' => 'lastupdate',
-			'order' => array( '`players`.`dateupdatedutc` DESC' ),
-			'order_d' => array( '`players`.`dateupdatedutc` ASC' ),
+			'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
+			'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
 		),
 	);
 }

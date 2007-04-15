@@ -6,10 +6,10 @@
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * @copyright  2002-2007 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @copyright  2007 DynamicDrive.com
+ * @license    http://www.dynamicdrive.com/notice.htm   DynamicDrive Terms of Use
  * @version    SVN: $Id$
- * @link       http://www.wowroster.net
+ * @link       http://www.dynamicdrive.com
  * @since      File available since Release 1.7.1
 */
 

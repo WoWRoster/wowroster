@@ -12,7 +12,7 @@ INSERT INTO `renprefix_account` (`account_id`, `name`) VALUES
 	(1, 'Guild'),
 	(2, 'Officer'),
 	(3, 'Admin');
-	
+
 UPDATE `renprefix_account` account, `renprefix_config` config
 	SET `account`.`hash` = `config`.`config_value`
 	WHERE `config`.`id` = 2;
@@ -84,7 +84,7 @@ UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'level', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` =4010;
 UPDATE `renprefix_config` SET `config_value` = 'realmstatus', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` =4020;
-
+UPDATE `renprefix_config` SET `form_type` = 'select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update' WHERE `id` =3040;
 
 ALTER TABLE `renprefix_config` ORDER BY `id`;
 

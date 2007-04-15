@@ -76,8 +76,8 @@ header('Content-Type: text/xml');
 echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
 	'<response>'."\n".
 	'  <method>'.$method.'</method>'."\n".
-	(isset($cont)?'  <cont>'.$cont.'</cont>'."\n":'').
-	(isset($result)?'  <result>'.$result.'</result>'."\n":'').
+	'  <cont>'.$cont.'</cont>'."\n".
+	'  <result>'.$result.'</result>'."\n".
 	'  <status>'.(int)$status.'</status>'."\n".
-	(isset($errmsg)?'  <errmsg>'.$errmsg.'</errmsg>'."\n":'').
+	'  <errmsg>'.$errmsg.'</errmsg>'."\n".
 	'</response>'."\n";

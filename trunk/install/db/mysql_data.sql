@@ -67,7 +67,7 @@ INSERT INTO `renprefix_config` VALUES (3010, 'index_hslist', '1', 'radio{on^1|of
 INSERT INTO `renprefix_config` VALUES (3015, 'hspvp_list_disp', 'show', 'radio{show^show|hide^hide', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3020, 'index_member_tooltip', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3030, 'index_update_inst', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3040, 'index_sort', '', 'select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|PvP Rank^RankName|Note^note|Hearthstone Location^hearth|Zone Location^zone', 'index_conf');
+INSERT INTO `renprefix_config` VALUES (3040, 'index_sort', '', 'select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3050, 'index_motd', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3060, 'index_level_bar', '1', 'radio{on^1|off^0', 'index_conf');
 INSERT INTO `renprefix_config` VALUES (3070, 'index_iconsize', '16', 'select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20', 'index_conf');

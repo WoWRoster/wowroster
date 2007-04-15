@@ -75,10 +75,14 @@ $creditspage['devs'] = array(
 		'library'=>array(
 			array(	"name"=>	"DynamicDrive",
 					"info"=>	"<a href='http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm'>Tab content script</a><br /><a href='http://www.dynamicdrive.com/notice.htm'>DynamicDrive license</a>"),
+			array(	"name"=>	"DhtmlGoodies",
+					"info"=>	"<a href='http://www.dhtmlgoodies.com/index.html?whichScript=js_color_picker_v2'>Color pallet script</a><br /><a href='http://www.dhtmlgoodies.com/index.html?page=termsOfUse'>DhtmlGoodies license</a>"),
 			array(	"name"=>	"Erik Bosrup",
 					"info"=>	"<a href='http://www.bosrup.com/web/overlib/'>OverLib tooltip library</a><br /><a href='http://www.bosrup.com/web/overlib/?License'>License</a>"),
 			array(	"name"=>	"Walter Zorn",
 					"info"=>	"<a href='http://www.walterzorn.com/dragdrop/dragdrop_e.htm'>DHTML Drag/Drop library</a><br /><a href='http://gnu.org/copyleft/lesser.html'>Lesser General Public License</a>"),
+			array(	"name"=>	"MiniXML",
+					"info"=>	"<a href='http://minixml.psychogenic.com'>MiniXML Library</a><br /><a href='http://gnu.org/copyleft/gpl.html'>GNU General Public License</a>"),
 		),
 
 		'3rdparty'=>array(
@@ -88,10 +92,10 @@ $creditspage['devs'] = array(
 					"info"=>	"Original MemberLog author"),
 			array(	"name"=>	"Cybrey",
 					"info"=>	"Advanced stats &amp; bonuses block on the character page"),
-			array(	"name"=>	"vgjunkie",
-					"info"=>	"Recoded professions page for v1.7.1<br />New show/hide javascript code for collapsable tables"),
 			array(	"name"=>	"dehoskins",
 					"info"=>	"Improvements to the stats &amp; bonuses block"),
+			array(	"name"=>	"vgjunkie",
+					"info"=>	"Recoded professions page for v1.7.1<br />New show/hide javascript code for collapsable tables"),
 			array(	"name"=>	"<a href='http://www.eqdkp.com' target='_blank'>EQdkp team</a>",
 					"info"=>	"Original version of the installer/upgrader code<br />and their templating engine"),
 		),
