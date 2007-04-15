@@ -70,29 +70,8 @@ else
 	$errmsg = 'This method is not supported';
 }
 
-$xmlDoc = new MiniXMLDoc();
-$xmlRoot =& $xmlDoc->getRoot();
-
-$responseElement =& $xmlRoot->createChild('response');
-
-$methodElement =& $responseElement->createChild('method');
-$methodElement->text($method);
-
-$contElement =& $responseElement->createChild('cont');
-$contElement->text($cont);
-
-$resultElement =& $responseElement->createChild('result');
-$resultElement->text($result);
-
-$statusElement =& $responseElement->createChild('status');
-$statusElement->text((int)$status);
-
-$errmsgElement =& $responseElement->createChild('errmsg');
-$errmsgElement->text($errmsg);
-
 header('Content-Type: text/xml');
-echo $xmlDoc->toString();
-/*
+
 // Output XML
 echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
 	'<response>'."\n".
@@ -102,4 +81,3 @@ echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
 	'  <status>'.(int)$status.'</status>'."\n".
 	(isset($errmsg)?'  <errmsg>'.$errmsg.'</errmsg>'."\n":'').
 	'</response>'."\n";
-*/
