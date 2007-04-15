@@ -1,22 +1,20 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2007
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Displays Roster and Roster AddOn credits
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
 
-if ( !defined('ROSTER_INSTALLED') )
+if( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -155,15 +153,15 @@ function makeAddonCredits()
 	global $roster_conf, $wowdb;
 
 	$output = '';
-	
+
 	$query = "SELECT * FROM `".ROSTER_ADDONTABLE."`";
 	$result = $wowdb->query($query);
-	
+
 	if( !$result )
 	{
 		return "\t<tr><td colspan='3'>Error fetching addon credits.<br />MySQL said:".$wowdb->error()."</td></tr>";
 	}
-	
+
 	$strip_count = 1;
 	while( $row = $wowdb->fetch_assoc($result) )
 	{

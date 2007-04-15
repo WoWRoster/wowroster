@@ -1,20 +1,18 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2007
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * The only file anyone should directly access in Roster
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
 
 require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'settings.php' );
 
@@ -24,8 +22,8 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 {
 	$file = $_POST['data'];
 
-	header('Content-Type: text/x-delimtext; name="'.$_POST['send_file'].'.txt"');
-	header('Content-disposition: attachment; filename="'.$_POST['send_file'].'.txt"');
+	header('Content-Type: text/x-delimtext; name="' . $_POST['send_file'] . '.txt"');
+	header('Content-disposition: attachment; filename="' . $_POST['send_file'] . '.txt"');
 
 	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
 	echo stripslashes($file);

@@ -1,22 +1,20 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Roster password changer
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
 
-if ( !defined('ROSTER_INSTALLED') )
+if( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -27,18 +25,18 @@ if( array_key_exists('mode',$_POST) )
 
 	$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `name` = '".$mode."';";
 	$result = $wowdb->query($query);
-	
+
 	if( !$result )
 	{
 		die_quietly($wowdb->error(), $act_words['roster_cp'], basename(__FILE__), __LINE__, $query);
 	}
-	
+
 	if( $row = $wowdb->fetch_assoc($result) )
 	{
 		$realhash = $row['hash'];
 	}
-	
-	
+
+
 	if( $roster_login->getauthorized() )
 	{
 		$oldpass  = ( isset($_POST['oldpass']) ? $_POST['oldpass'] : '' );
@@ -143,7 +141,7 @@ $body .= '<br />
 	'.border('syellow','end').'
 	</form>';
 
-	
+
 $body .= '<br />
 <form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Guild" />

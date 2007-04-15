@@ -1,4 +1,4 @@
-WoWRoster v1.7.3
+WoWRoster v1.8.0
 Copyright (C) 2002-2007 The WoWRoster Dev Team
 Package updated February 14, 2007
 $Id$

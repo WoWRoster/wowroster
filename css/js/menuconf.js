@@ -1,19 +1,17 @@
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Menu config javascript
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
 
 function my_PickFunc()
 {
@@ -221,7 +219,7 @@ function updatePositions()
 
 function sendDeleteElement(obj)
 {
-	loadXMLDoc(roster_url+'/ajax.php?method=menu_button_del&cont=doDeleteElement','button='+obj.name);
+	loadXMLDoc(roster_url+'ajax.php?method=menu_button_del&cont=doDeleteElement','button='+obj.name);
 }
 
 function doDeleteElement(result)
@@ -236,8 +234,9 @@ function sendAddElement()
 {
 	var title = document.getElementById('title'        ).value;
 	var url   = document.getElementById('url'          ).value;
-	var show  = document.getElementById('config_access').value;
-	loadXMLDoc(roster_url+'/ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url)+'&show='+show);
+	//var show  = document.getElementById('config_access').value;
+	//loadXMLDoc(roster_url+'ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url)+'&show='+show);
+	loadXMLDoc(roster_url+'ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url));
 }
 
 function doAddElement(result)

@@ -1,20 +1,18 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2007
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Roster Installer
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.7.0
+*/
 
 /**
 * NOTICE: This file was not written by the WoWRoster Dev Team
@@ -44,17 +42,17 @@ error_reporting(E_ALL);
 
 // Be paranoid with passed vars
 // Destroy GET/POST/Cookie variables from the global scope
-if (intval(ini_get('register_globals')) != 0)
+if( intval(ini_get('register_globals')) != 0 )
 {
-	foreach ($_REQUEST AS $key => $val)
+	foreach( $_REQUEST AS $key => $val )
 	{
-		if (isset($$key))
+		if( isset($$key) )
 			unset($$key);
 	}
 }
 
 set_magic_quotes_runtime(0);
-if ( !get_magic_quotes_gpc() )
+if( !get_magic_quotes_gpc() )
 {
 	$_GET = slash_global_data($_GET);
 	$_POST = slash_global_data($_POST);
@@ -67,9 +65,9 @@ define('ROSTER_BASE', dirname(__FILE__).DIR_SEP);
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if ( !include_once(ROSTER_BASE . 'install'.DIR_SEP.'template.php') )
+if( !include_once(ROSTER_BASE . 'install' . DIR_SEP . 'template.php') )
 {
-	die('Could not include ' . ROSTER_BASE . 'install'.DIR_SEP.'template.php - check to make sure that the file exists!');
+	die('Could not include ' . ROSTER_BASE . 'install' . DIR_SEP . 'template.php - check to make sure that the file exists!');
 }
 
 
@@ -95,16 +93,16 @@ $STEP = ( isset($_POST['install_step']) ) ? $_POST['install_step'] : 1;
 
 
 // Get the config file
-if ( file_exists(ROSTER_BASE . 'conf.php') )
+if( file_exists(ROSTER_BASE . 'conf.php') )
 {
 	include_once(ROSTER_BASE . 'conf.php');
 }
 
-include_once(ROSTER_BASE.'lib'.DIR_SEP.'constants.php');
+include_once(ROSTER_BASE . 'lib' . DIR_SEP . 'constants.php');
 
 
 // View phpinfo() if requested
-if ( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
+if( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 {
 	phpinfo();
 	exit;
@@ -150,7 +148,7 @@ $LOCALES = array(
 
 
 // If Roster is already installed, don't let them install it again
-if ( defined('ROSTER_INSTALLED') )
+if( defined('ROSTER_INSTALLED') )
 {
 	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
 	$tpl->message_die('Roster is already installed - <span class="negative">remove</span> the files <span class="positive">install.php</span> and <span class="positive">upgrade.php</span> in this directory.', 'Installation Error');
@@ -159,7 +157,7 @@ if ( defined('ROSTER_INSTALLED') )
 
 
 // Detect Roster 1.6.0
-if ( isset($roster_upd_pw) )
+if( isset($roster_upd_pw) )
 {
 	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
 	$tpl->message_die('Looks like you\'ve loaded a new version of Roster<br />
@@ -171,7 +169,7 @@ if ( isset($roster_upd_pw) )
 // ---------------------------------------------------------
 // Figure out what we're doing...
 // ---------------------------------------------------------
-switch ( $STEP )
+switch( $STEP )
 {
 	case 1:
 		process_step1();
@@ -204,7 +202,7 @@ function process_step1()
     // Check to make sure conf.php exists and is readable / writeable
     //
     $config_file = ROSTER_BASE . 'conf.php';
-    if ( !file_exists($config_file) )
+    if( !file_exists($config_file) )
     {
         if ( !@touch($config_file) )
         {
@@ -217,9 +215,9 @@ function process_step1()
     }
     else
     {
-        if ( (!is_writeable($config_file)) || (!is_readable($config_file)) )
+        if( (!is_writeable($config_file)) || (!is_readable($config_file)) )
         {
-            if ( !@chmod($config_file, 0666) )
+            if( !@chmod($config_file, 0666) )
             {
                 $tpl->message_append('The file <b>conf.php</b> is not set to be readable/writeable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <b>chmod 0666 conf.php</b> on your server.');
             }
@@ -244,17 +242,17 @@ function process_step1()
 
     // Check wowroster.net for versioning
     $sh = @fsockopen('wowroster.net', 80, $errno, $error, 5);
-    if ( !$sh )
+    if( !$sh )
     {
         $their_roster_version = 'Connection failed';
     }
     else
     {
         @fputs($sh, "GET /roster_updater/version.txt HTTP/1.1\r\nHost: wowroster.net\r\nConnection: close\r\n\r\n");
-        while ( !@feof($sh) )
+        while( !@feof($sh) )
         {
             $content = @fgets($sh, 512);
-            if ( preg_match('#<version>(.+)</version>#i',$content,$version) )
+            if ( preg_match('#<version>(.+)</version>#i', $content, $version) )
             {
                 $their_roster_version = $version[1];
                 break;
@@ -281,7 +279,7 @@ function process_step1()
     $their_gd  = 'Optional';
 
 
-    if ( (phpversion() < '4.3.0') || (!extension_loaded('mysql')) )
+    if( (phpversion() < '4.3.0') || (!extension_loaded('mysql')) )
     {
         $tpl->error_append('<span style="font-weight: bold; font-size: 14px;">Sorry, your server does not meet the minimum requirements for Roster</span>');
     }
@@ -318,7 +316,7 @@ function process_step2()
     //
     // Build the database drop-down
     //
-    foreach ( $DBALS as $db_type => $db_options )
+    foreach( $DBALS as $db_type => $db_options )
     {
         $tpl->assign_block_vars('dbal_row', array(
             'VALUE'  => $db_type,
@@ -329,9 +327,9 @@ function process_step2()
     //
     // Build the default language drop-down
     //
-    foreach ( $LOCALES as $locale_type => $locale_desc )
+    foreach( $LOCALES as $locale_type => $locale_desc )
     {
-    	if( file_exists(ROSTER_BASE.'localization'.DIR_SEP.$locale_desc['type'].'.php') )
+    	if( file_exists(ROSTER_BASE . 'localization' . DIR_SEP . $locale_desc['type'] . '.php') )
     	{
 	        $tpl->assign_block_vars('locale_row', array(
 	            'VALUE'  => $locale_desc['type'],
@@ -344,13 +342,13 @@ function process_step2()
     //
     // Determine server settings
     //
-	if (!empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']))
+	if( !empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']) )
 	{
-		$server_name = 'http://'.((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']);
+		$server_name = 'http://' . ((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']);
 	}
-	else if (!empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']))
+	elseif( !empty($_SERVER['HTTP_HOST']) || !empty($_ENV['HTTP_HOST']) )
 	{
-		$server_name = 'http://'.((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']);
+		$server_name = 'http://' . ((!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : $_ENV['HTTP_HOST']);
 	}
 	else
 	{
@@ -390,8 +388,8 @@ function process_step3()
     $db_prefix      = post_or_db('db_prefix', $DEFAULTS);
     $default_locale = post_or_db('default_locale', $DEFAULTS);
 
-    $dbal_file = ROSTER_BASE . 'lib'.DIR_SEP.'wowdb.php';
-    if ( !file_exists($dbal_file) )
+    $dbal_file = ROSTER_BASE . 'lib' . DIR_SEP . 'wowdb.php';
+    if( !file_exists($dbal_file) )
     {
         $tpl->message_die('Unable to find the database layer for Roster, check to make sure ' . $dbal_file . ' exists.', 'Database Error');
     }
@@ -405,13 +403,13 @@ function process_step3()
     $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     // Check to make sure a connection was made
-    if ( !is_resource($wowdb->db) )
+    if( !is_resource($wowdb->db) )
     {
         $tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
     }
 
-    $db_structure_file = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_structure.sql';
-    $db_data_file      = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
+    $db_structure_file = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'mysql_structure.sql';
+    $db_data_file      = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'mysql_data.sql';
 
     $remove_remarks_function = $DBALS['mysql']['comments'];
 
@@ -419,7 +417,7 @@ function process_step3()
     $server_version = mysql_get_server_info();
     $client_version = mysql_get_client_info();
 
-    if ( (isset($server_version) && isset($client_version)) )
+    if( (isset($server_version) && isset($client_version)) )
     {
         $tpl->message_append('MySQL client <b>and</b> server versions 4.1.0 or higher and MyISAM table support are required for Roster.<br /><br />
           <b>You are running</b>
@@ -443,10 +441,10 @@ function process_step3()
     $sql = parse_sql($sql, $DBALS['mysql']['delim']);
 
     $sql_count = count($sql);
-    for ( $i = 0; $i < $sql_count; $i++ )
+    for( $i = 0; $i < $sql_count; $i++ )
     {
 		// Added failure checks to the database transactions
-		if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+		if( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 		{
 			$tpl->assign_block_vars('sql_errors',array(
 				'query'=>$sql[$i],
@@ -464,10 +462,10 @@ function process_step3()
     $sql = parse_sql($sql, $DBALS['mysql']['delim']);
 
     $sql_count = count($sql);
-    for ( $i = 0; $i < $sql_count; $i++ )
+    for( $i = 0; $i < $sql_count; $i++ )
     {
 		// Added failure checks to the database transactions
-		if ( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+		if( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
 		{
 			$tpl->assign_block_vars('sql_errors',array(
 				'query'=>$sql[$i],
@@ -480,8 +478,8 @@ function process_step3()
     //
     // Update some config settings
     //
-    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$default_locale."' WHERE `config_name`='roster_lang'");
-    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='".$server_name."' WHERE `config_name`='website_address'");
+    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='$default_locale' WHERE `config_name` = 'roster_lang';");
+    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='$server_name' WHERE `config_name` = 'website_address';");
 
     //
     // Assign Variables
@@ -554,13 +552,12 @@ function process_step4()
 		(2, 'Officer'),
 		(3, 'Admin');");
 
-	$wowdb->query("UPDATE `".ACCOUNT_TABLE."`
-		SET `hash` = '".$pass_word."';");
+	$wowdb->query("UPDATE `".ACCOUNT_TABLE."` SET `hash` = '".$pass_word."';");
 
     //
     // Check password and notify uer
     //
-    if ( $user_password1 != $user_password2 || $user_password1 == '' || $user_password2 == '' )
+    if( $user_password1 != $user_password2 || $user_password1 == '' || $user_password2 == '' )
     {
         $tpl->message_append('<span style="font-weight: bold; font-size: 14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <b>admin</b>. You can change it by logging into Roster Config');
     }
@@ -569,8 +566,7 @@ function process_step4()
 	//
     // Write the config file
     //
-    $config_file  = '';
-    $config_file .= '<?php' . "\n";
+    $config_file  = '<?php' . "\n";
 	$config_file .= "/******************************\n";
 	$config_file .= " * AUTO-GENERATED CONF FILE\n";
 	$config_file .= " * DO NOT EDIT !!!\n";
@@ -588,7 +584,7 @@ function process_step4()
     // Set our permissions to execute-only
     @umask(0111);
 
-    if ( !$fp = @fopen('conf.php', 'w') )
+    if( !$fp = @fopen('conf.php', 'w') )
     {
 	    $tpl->assign_vars(array(
 	        'DOWNLOAD'   => true,
@@ -628,9 +624,9 @@ function process_step4()
 */
 function slash_global_data(&$data)
 {
-    if ( is_array($data) )
+    if( is_array($data) )
     {
-        foreach ( $data as $k => $v )
+        foreach( $data as $k => $v )
         {
             $data[$k] = ( is_array($v) ) ? slash_global_data($v) : addslashes($v);
         }
@@ -650,9 +646,9 @@ function slash_global_data(&$data)
 */
 function post_or_db($post_field, $db_row = array(), $db_field = '')
 {
-    if ( @sizeof($db_row) > 0 )
+    if( @sizeof($db_row) > 0 )
     {
-        if ( $db_field == '' )
+        if( $db_field == '' )
         {
             $db_field = $post_field;
         }
@@ -675,7 +671,7 @@ function post_or_db($post_field, $db_row = array(), $db_field = '')
 */
 function remove_remarks($sql)
 {
-    if ( $sql == '' )
+    if( $sql == '' )
     {
         die('Could not obtain SQL structure/data');
     }
@@ -684,10 +680,10 @@ function remove_remarks($sql)
     $lines  = explode("\n", $sql);
     unset($sql);
 
-    foreach ( $lines as $line )
+    foreach( $lines as $line )
     {
         // Only parse this line if there's something on it, and we're not on the last line
-        if ( strlen($line) > 0 )
+        if( strlen($line) > 0 )
         {
             // If '#' is the first character, strip the line
             $retval .= ( substr($line, 0, 1) != '#' ) ? $line . "\n" : "\n";
@@ -707,7 +703,7 @@ function remove_remarks($sql)
 */
 function parse_sql($sql, $delim)
 {
-    if ( $sql == '' )
+    if( $sql == '' )
     {
         die('Could not obtain SQL structure/data');
     }
@@ -717,9 +713,9 @@ function parse_sql($sql, $delim)
     unset($sql);
 
     $linecount = count($statements);
-    for ( $i = 0; $i < $linecount; $i++ )
+    for( $i = 0; $i < $linecount; $i++ )
     {
-        if ( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
+        if( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
         {
             $statements[$i] = trim($statements[$i]);
             $statements[$i] = str_replace("\r\n", '', $statements[$i]) . "\n";
@@ -745,5 +741,3 @@ function sql_output(&$tpl, &$wowdb)
 		);
 	}
 }
-
-?>

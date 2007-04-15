@@ -1,22 +1,20 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2007
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Overall header for Roster
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.6.0
+*/
 
-if ( !defined('ROSTER_INSTALLED') )
+if( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -35,7 +33,7 @@ if( !isset($no_roster_headers) && !headers_sent() )
 	@header('Cache-Control: no-store, no-cache, must-revalidate');
 	@header('Cache-Control: post-check=0, pre-check=0', false);
 	@header('Pragma: no-cache');
-	@header('Content-type: text/html; '.$act_words['charset']);
+	@header('Content-type: text/html; ' . $act_words['charset']);
 }
 
 ?>
@@ -44,23 +42,29 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <html>
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
-  <link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/styles.css" />
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 
-  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>
-  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/scrollbar.js"></script>
-  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/tabcontent.js">
-    /***********************************************
-    * Tab Content script- Dynamic Drive DHTML code library (www.dynamicdrive.com)
-    * This notice MUST stay intact for legal use
-    * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-    ***********************************************/
-  </script>
-  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib.js"></script>
-  <script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib_hideform.js"></script>
+	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>
+	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/scrollbar.js"></script>
+	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/tabcontent.js">
+		/**
+		 * Tab Content script- Dynamic Drive DHTML code library (www.dynamicdrive.com)
+		 * This notice MUST stay intact for legal use
+		 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+		 **/
+	</script>
+	<script type="text/javascript">
+	<!--
+		var ol_width='220';var ol_offestx=10;var ol_offesty=10;var ol_hauto=1;var ol_vauto=1;
+		var ol_fgclass='overlib_fg';var ol_bgclass='overlib_border';var ol_textfontclass='overlib_maintext';var ol_captionfontclass='overlib_captiontext';var ol_closefontclass='overlib_closetext';
+	//-->
+	</script>
+	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib.js"></script>
+	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib_hideform.js"></script>
 <?php echo (isset($html_head) ? $html_head : ''); ?>
 </head>
-<body<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url('.$roster_conf['roster_bg'].');"' : '' ); echo (isset($body_action) ? ' '.$body_action : ''); ?>>
+<body<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url(' . $roster_conf['roster_bg'] . ');"' : '' ); echo (isset($body_action) ? ' ' . $body_action : ''); ?>>
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 <script type="text/javascript">
 <!--
@@ -72,8 +76,8 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <?php
 if( !empty($roster_conf['logo']) )
 {
-	echo '<div style="text-align:center;margin:10px;"><a href="'.$roster_conf['website_address'].'">
-  <img src="'.$roster_conf['logo'].'" alt="" style="border:0;margin:10px;" /></a>
+	echo '<div style="text-align:center;margin:10px;"><a href="' . $roster_conf['website_address'] . '">
+  <img src="' . $roster_conf['logo'] . '" alt="" style="border:0;margin:10px;" /></a>
 </div>';
 }
 ?>
