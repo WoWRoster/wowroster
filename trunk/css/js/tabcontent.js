@@ -1,3 +1,18 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Tab Content javascript
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.7.1
+*/
+
 //** Tab Content script- Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
 //** Last updated: June 29th, 06
 

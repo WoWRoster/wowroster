@@ -1,22 +1,20 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Roster ajax function for Roster menu
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
 
-if ( !defined('ROSTER_INSTALLED') )
+if( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -32,7 +30,7 @@ switch ($method)
 			$errmsg = 'Not authorized';
 			return;
 		}
-		
+
 		if( isset($_POST['title'] ) )
 		{
 			$title = $_POST['title'];
@@ -55,7 +53,7 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `".$wowdb->table('menu_button')."` VALUES (0,0,'".$wowdb->escape($_POST['title'])."','".$wowdb->escape($_POST['url'])."',1)";
+		$query = "INSERT INTO `".$wowdb->table('menu_button')."` VALUES (NULL,0,'".$wowdb->escape($_POST['title'])."','".$wowdb->escape($_POST['url'])."')";
 
 		$DBres = $wowdb->query($query);
 
@@ -118,5 +116,3 @@ switch ($method)
 		$result = $button;
 		break;
 }
-
-?>

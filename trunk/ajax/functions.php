@@ -1,31 +1,27 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Roster ajax functions list
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
 
-if ( !defined('ROSTER_INSTALLED') )
+if( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
 
 $ajaxfuncs['menu_button_add'] = array(
 	'file'=>ROSTER_AJAX.'menu.php',
-	);
+);
 $ajaxfuncs['menu_button_del'] = array(
 	'file'=>ROSTER_AJAX.'menu.php',
-	);
-
-?>
+);

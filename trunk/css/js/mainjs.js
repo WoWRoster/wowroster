@@ -1,19 +1,17 @@
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2007
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Main javascript file
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.03
+*/
 
 function submitonce(theform)
 {
@@ -468,7 +466,7 @@ function processReqChange()
 		if (req.status == 200)
 		{
 //			Unescape this to show the result XLM in a pupup for debugging.
-//			alert(req.responseText);
+			alert(req.responseText);
 			response = req.responseXML.documentElement;
 			cont = response.getElementsByTagName('cont')[0].firstChild.data;
 			result = response.getElementsByTagName('result')[0];

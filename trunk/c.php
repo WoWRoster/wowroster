@@ -1,20 +1,18 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2007
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Short URL link for characters
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.7.2
+*/
 
 // Set the relative URL here. Use slashes, not backslashes. Use slash in front
 // and omit the one at the end. If your windows server does not accept slashes
@@ -48,6 +46,4 @@ if( $row = $wowdb->fetch_assoc($result) )
 
 // There's no char with that name? Redirect to guild page.
 
-header("Location: ".ROSTER_URL.$roster_rel);
-
-?>
+header('Location: '.ROSTER_URL.$roster_rel);

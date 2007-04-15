@@ -1,22 +1,20 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Roster Menu class
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.03
+*/
 
-if ( !defined('ROSTER_INSTALLED') )
+if( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -118,7 +116,7 @@ class RosterMenu
 	function makeList( $type, $level, $style )
 	{
 		global $roster_conf, $act_words, $wowdb;
-		
+
 		// Initialize data array
 		$dat = array();
 		if( $type == 'level' )
@@ -141,7 +139,7 @@ class RosterMenu
 				$dat[$i]['alt'] = 0;
 				$dat[$i]['nonalt'] = 0;
 			}
-			
+
 			$qrypart = "FLOOR(`level`/10)";
 		}
 		elseif( $type == 'class' )
@@ -153,7 +151,7 @@ class RosterMenu
 				$dat[$class]['alt'] = 0;
 				$dat[$class]['nonalt'] = 0;
 			}
-			
+
 			$qrypart = "`class`";
 		}
 		else
@@ -176,7 +174,7 @@ class RosterMenu
 		{
 			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 		}
-		
+
 		// Fetch results
 		while( $row = $wowdb->fetch_assoc($result) )
 		{
@@ -191,11 +189,11 @@ class RosterMenu
 				$dat[$row['label']]['nonalt'] += $row['amount'];
 			}
 		}
-		
+
 		$output = '	<td valign="top" class="row">
 	      Total: '.$num_non_alts.' (+'.$num_alts.' Alts)
 			<br />';
-		
+
 		if( $style == 'bar' )
 		{
 			$req = 'img/graphs/bargraph.php?';
@@ -212,7 +210,7 @@ class RosterMenu
 				$i++;
 			}
 			$req .= 'dummy=dummy';
-			
+
 			$output .= '<img src="'.$req.'" alt="" />';
 		}
 		elseif( $style == 'barlog' )
@@ -231,7 +229,7 @@ class RosterMenu
 				$i++;
 			}
 			$req .= 'dummy=dummy';
-			
+
 			$output .= '<img src="'.$req.'" alt="" />';
 		}
 		else
@@ -246,7 +244,7 @@ class RosterMenu
 			$output .= '</ul>';
 		}
 		$output .= '</td>'."\n";
-		
+
 		return $output;
 	}
 

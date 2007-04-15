@@ -1,42 +1,38 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * Ajax interface file
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+*/
+
+$roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 // Initialization
-header('Content-Type: text/xml');
-include('settings.php');
+include($roster_root_path . 'settings.php');
 
 // Some stuff that doesn't mean anything but is needed to make other stuff not error
 define('ROSTER_PAGE_NAME','ajax');
 $roster_pages = array('ajax');
 
-include(ROSTER_AJAX.'functions.php');
-if( isset($_GET['method']) )
-{
-	$method = $_GET['method'];
-}
-else
-{
-	$method = '';
-}
-if( isset($_GET['cont']) )
-{
-	$cont = $_GET['cont'];
-}
+include(ROSTER_AJAX . 'functions.php');
+include(ROSTER_LIB . 'minixml.lib.php');
+
+$method = (isset($_GET['method']) ? $_GET['method'] : '');
+
+$cont = (isset($_GET['cont']) ? $_GET['cont'] : '');
+
+$errmsg = $result = '';
+
+
 if( isset($_GET['addon']) )
 {
 	$addon = getaddon($_GET['addon']);
@@ -74,6 +70,29 @@ else
 	$errmsg = 'This method is not supported';
 }
 
+$xmlDoc = new MiniXMLDoc();
+$xmlRoot =& $xmlDoc->getRoot();
+
+$responseElement =& $xmlRoot->createChild('response');
+
+$methodElement =& $responseElement->createChild('method');
+$methodElement->text($method);
+
+$contElement =& $responseElement->createChild('cont');
+$contElement->text($cont);
+
+$resultElement =& $responseElement->createChild('result');
+$resultElement->text($result);
+
+$statusElement =& $responseElement->createChild('status');
+$statusElement->text((int)$status);
+
+$errmsgElement =& $responseElement->createChild('errmsg');
+$errmsgElement->text($errmsg);
+
+header('Content-Type: text/xml');
+echo $xmlDoc->toString();
+/*
 // Output XML
 echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
 	'<response>'."\n".
@@ -83,4 +102,4 @@ echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
 	'  <status>'.(int)$status.'</status>'."\n".
 	(isset($errmsg)?'  <errmsg>'.$errmsg.'</errmsg>'."\n":'').
 	'</response>'."\n";
-?>
+*/
