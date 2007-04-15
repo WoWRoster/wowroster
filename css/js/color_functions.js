@@ -1,6 +1,33 @@
 /**
- * $Id$
- **/
+ * WoWRoster.net WoWRoster
+ *
+ * Color pallet javascript file
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2005 dhtmlgoodies.com
+ * @license    http://www.dhtmlgoodies.com/index.html?page=termsOfUse   dhtmlgoodies.com License
+ * @version    SVN: $Id$
+ * @link       http://www.dhtmlgoodies.com
+ * @since      File available since Release 1.8.0
+*/
+
+/************************************************************************************************************
+(C) www.dhtmlgoodies.com, October 2005
+
+This is a script from www.dhtmlgoodies.com. You will find this and a lot of other scripts at our website.
+
+Terms of use:
+You are free to use this script as long as the copyright message is kept intact. However, you may not
+redistribute, sell or repost it without our permission.
+
+Thank you!
+
+www.dhtmlgoodies.com
+Alf Magne Kalleland
+
+************************************************************************************************************/
 
 var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
 var navigatorVersion = navigator.appVersion.replace(/.*?MSIE (\d\.\d).*/g,'$1')/1;
