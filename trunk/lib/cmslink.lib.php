@@ -88,13 +88,13 @@ function makelink( $url='' , $full=false )
  */
 function linkform( $get_links = false )
 {
-	$return = '<input type="hidden" name="'.ROSTER_PAGE.'" value="'.ROSTER_PAGE_NAME.'">'."\n";
+	$return = '<input type="hidden" name="'.ROSTER_PAGE.'" value="'.ROSTER_PAGE_NAME.'" />'."\n";
 
 	if( $get_links !== false )
 	{
 		foreach( $get_links as $name => $value )
 		{
-			$return = '<input type="hidden" name="'.$name.'" value="'.$value.'">'."\n";
+			$return = '<input type="hidden" name="'.$name.'" value="'.$value.'" />'."\n";
 		}
 	}
 	return $return;

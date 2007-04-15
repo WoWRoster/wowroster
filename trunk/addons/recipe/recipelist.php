@@ -41,35 +41,36 @@ $choiceForm = '<form action="'.makelink().'" method="get" name="myform">
 	'.linkform().'
 '.border('sgray','start').'
 	<table cellspacing="0" cellpadding="2" class="bodyline">
-		<tr class="membersRowColor1">
-		<td class="membersRowCell">'.$act_words['professionfilter'].'
-			<select name="proffilter">';
+		<tr>
+			<td class="membersRow1">'.$act_words['professionfilter'].'
+				<select name="proffilter">';
 
 while($row_prof = $wowdb->fetch_array($result_prof))
 {
 	if ($prof_filter==$row_prof['proff'])
-		$choiceForm .= '<option value="'.$row_prof['proff'].'" selected="selected">'.$row_prof['proff'];
+		$choiceForm .= '					<option value="'.$row_prof['proff'].'" selected="selected">'.$row_prof['proff'];
 	else
-		$choiceForm .= '<option vaue="'.$row_prof['proff'].'">'.$row_prof['proff'];
+		$choiceForm .= '					<option value="'.$row_prof['proff'].'">'.$row_prof['proff'];
 }
 
 
 $wowdb->free_result($result_prof);
 
 
-$choiceForm .= '</select></td>
-		<td class="membersRowCell">'.$act_words['search'].'
-			<input type="text" name="filterbox"';
+$choiceForm .= '				</select></td>
+			<td class="membersRow1">'.$act_words['search'].'
+				<input type="text" name="filterbox"';
 if (!empty($filter_box))
 {
 	$choiceForm .= ' value="'.$filter_box.'"';
 }
 
-$choiceForm .= '></td>
-		<td class="membersRowRightCell"><input type="submit" value="'.$act_words['applybutton'].'" /></td>
-	</tr>
-</table>
-</form>'.border('sgray','end').'<br />';
+$choiceForm .= ' /></td>
+			<td class="membersRowRightCell"><input type="submit" value="'.$act_words['applybutton'].'" /></td>
+		</tr>
+	</table>
+'.border('sgray','end').'
+</form><br />';
 
 $content =  $choiceForm;
 
@@ -101,7 +102,7 @@ if (!empty($prof_filter))
 		}
 		while($row_recipe_type = $wowdb->fetch_array($result_recipe_type))
 		{
-			$content .=  '<a href="#'.$row_recipe_type['recipe_type'].'">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
+			$content .=  '<a href="#'.str_replace(' ','_',$row_recipe_type['recipe_type']).'">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
 		}
 		$content .=  "</td></tr></table>\n<br /><br />\n";
 
@@ -116,7 +117,7 @@ if (!empty($prof_filter))
 				}
 				$first_table = false;
 
-				$content .= border('syellow','start','<a href="#top_menu" id="'.$recipe_type.'">'.$recipe_type.'</a>').
+				$content .= border('syellow','start','<a href="#top_menu" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
 					'<table class="bodyline" cellspacing="0">'."\n";
 
 				$content .= '<tr>'."\n";
@@ -135,7 +136,7 @@ if (!empty($prof_filter))
 				}
 				if ($addon['config']['display_tooltip'])
 				{
-					$content .=  '<th width="220" class="membersHeader">&nbsp;'.$act_words['itemdescription'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader" style="width:220px;">&nbsp;'.$act_words['itemdescription'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_type'])
 				{
@@ -192,88 +193,11 @@ if (!empty($prof_filter))
 			// Increment counter so rows are colored alternately
 			++$rc;
 
-			$table_cell_start = '<td class="membersRowCell" align="center" valign="middle">';
+			$table_cell_start = '<td class="membersRow'.(($rc%2)+1).'" align="center" valign="middle">';
 
 
-			if ($addon['config']['display_tooltip'])
-			{
-				$tooltip = '';
-				$first_line = true;
-				$recipe->data['item_tooltip'] = stripslashes($recipe->data['recipe_tooltip']);
-				foreach (explode("\n", $recipe->data['recipe_tooltip']) as $line )
-				{
-					$color = '';
+			$content .=  '<tr>'."\n";
 
-					if( !empty($line) )
-					{
-						$line = preg_replace('|\\>|','&#8250;', $line );
-						$line = preg_replace('|\\<|','&#8249;', $line );
-						$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
-
-						// Do this on the first line
-						// This is performed when $caption_color is set
-						if( $first_line )
-						{
-							if( $recipe->data['item_color'] == '' )
-								$recipe->data['item_color'] = '9d9d9d';
-
-							if( strlen($recipe->data['item_color']) > 6 )
-								$color = substr( $recipe->data['item_color'], 2, 6 );
-							else
-								$color = $recipe->data['item_color'];
-
-							$color .= ';font-size:12px;font-weight:bold';
-							$first_line = false;
-						}
-						else
-						{
-							if ( ereg('^'.$act_words['tooltip_use'],$line) )
-								$color = '00ff00';
-							elseif ( ereg('^'.$act_words['tooltip_requires'],$line) )
-								$color = 'ff0000';
-							elseif ( ereg('^'.$act_words['tooltip_reinforced'],$line) )
-								$color = '00ff00';
-							elseif ( ereg('^'.$act_words['tooltip_equip'],$line) )
-								$color = '00ff00';
-							elseif ( ereg('^'.$act_words['tooltip_chance'],$line) )
-								$color = '00ff00';
-							elseif ( ereg('^'.$act_words['tooltip_enchant'],$line) )
-								$color = '00ff00';
-							elseif ( ereg('^'.$act_words['tooltip_soulbound'],$line) )
-								$color = '00bbff';
-							elseif ( ereg('^'.$act_words['tooltip_set'],$line) )
-								$color = '00ff00';
-							elseif ( preg_match('|\([a-f0-9]\).'.$act_words['tooltip_set'].'|',$line) )
-								$color = '666666';
-							elseif ( ereg('^\\"',$line) )
-								$color = 'ffd517';
-						}
-
-						// Convert tabs to a formated table
-						if( strpos($line,"\t") )
-						{
-							$line = str_replace("\t",'</td><td align="right" class="overlib_maintext">', $line);
-							$line = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td class="overlib_maintext">'.$line.'</td></tr></table>';
-							$tooltip .= $line;
-						}
-						elseif( !empty($color) )
-						{
-							$tooltip .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
-						}
-						else
-						{
-							$tooltip .= "$line<br />";
-						}
-					}
-					else
-					{
-						$tooltip .= '<br />';
-					}
-				}
-				$users = rtrim($users,'<br>');
-			}
-
-			$content .=  '<tr class="membersRowColor'.(($rc%2)+1).'">'."\n";
 			if ($addon['config']['display_icon'])
 			{
 				$content .=  $table_cell_start.'<div class="equip">';
@@ -282,27 +206,29 @@ if (!empty($prof_filter))
 			}
 			if ($addon['config']['display_name'])
 			{
-				$content .=  $table_cell_start.'&nbsp;<span style="color:#'.substr( $recipe->data['item_color'], 2, 6 ).';">'.$recipe->data['recipe_name'].'</span>&nbsp;</td>';
+				$content .=  $table_cell_start.'<span style="color:#'.$recipe->data['item_color'].';">'.$recipe->data['recipe_name'].'</span></td>';
 			}
 			if ($addon['config']['display_level'])
 			{
-				$content .=  $table_cell_start.'&nbsp;'.$recipe->data['level'].'&nbsp;</td>';
+				$content .=  $table_cell_start.$recipe->data['level'].'</td>';
 			}
 			if ($addon['config']['display_tooltip'])
 			{
-				$content .=  $table_cell_start.'<table style="width:220;white-space:normal;"><tr><td>'.$tooltip.'</td></tr></table></td>';
+				$tooltip = colorTooltip(stripslashes($recipe->data['recipe_tooltip']),$recipe->data['item_color']);
+				$content .=  $table_cell_start.'<div class="overlib_maintext">'.$tooltip.'</div></td>';
 			}
 			if ($addon['config']['display_type'])
 			{
-				$content .=  $table_cell_start.'&nbsp;'.$recipe->data['recipe_type'].'&nbsp;</td>';
+				$content .=  $table_cell_start.$recipe->data['recipe_type'].'</td>';
 			}
 			if ($addon['config']['display_reagents'])
 			{
-				$content .=  $table_cell_start.'&nbsp;'.str_replace('<br>','&nbsp;<br />&nbsp;',$recipe->data['reagents']).'</td>';
+				$content .=  $table_cell_start.str_replace('<br>','<br />',$recipe->data['reagents']).'</td>';
 			}
 			if ($addon['config']['display_makers'])
 			{
-				$content .=  $table_cell_start.'&nbsp;'.$users.'&nbsp;</td>';
+				$users = rtrim($users,'<br />');
+				$content .=  $table_cell_start.$users.'</td>';
 			}
 			$content .=  '</tr>';
 		}
@@ -315,6 +241,3 @@ if (!empty($prof_filter))
 	}
 
 }
-
-
-?>
