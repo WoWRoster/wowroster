@@ -91,10 +91,20 @@ class wowdb
 	 */
 	function error()
 	{
-		$result = @mysql_errno().': '.mysql_error();
+		$result = @mysql_errno($this->db).': '.mysql_error($this->db);
 		return $result;
 	}
 
+	/**
+	 * Get last SQL errno
+	 *
+	 * @return string last SQL errno
+	 */
+	function errno()
+	{
+		$result = @mysql_errno($this->db);
+		return $result;
+	}
 
 	/**
 	 * Front-end for SQL_fetch_assoc
