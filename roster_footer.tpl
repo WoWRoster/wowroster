@@ -21,9 +21,6 @@ if( !defined('ROSTER_INSTALLED') )
 
 define('ROSTER_FOOTER_INC',true);
 
-// Explicitly close the db
-$wowdb->closeDb();
-
 $endtime = explode(' ', microtime() );
 $endtime = $endtime[1] + $endtime[0];
 $totaltime = round($endtime - ROSTER_STARTTIME, 2);
