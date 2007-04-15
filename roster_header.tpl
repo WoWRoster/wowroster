@@ -42,7 +42,7 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <html>
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/style.css" />
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>

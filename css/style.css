@@ -1729,7 +1729,7 @@ select {
 .overlib_border { border:1px outset white; }
 
 /* Sets main text style - ol_textfontclass */
-.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif; }
+.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
 
 /* Sets Caption Text - ol_captionfontclass */
 .overlib_captiontext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }

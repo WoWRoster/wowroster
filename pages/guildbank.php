@@ -76,10 +76,8 @@ echo "\n<br />\n";
 
 $bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-$menu_cell = '<td class="menubarHeader" align="center" valign="middle">';
-
-$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank').'">'.$act_words['gbank_list'].'</a></td>'."\n";
-$bank_menu .= $menu_cell.'<a href="'.makelink('guildbank&amp;mode=table').'">'.$act_words['gbank_inv'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeader"><a href="'.makelink('guildbank').'">'.$act_words['gbank_list'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeaderRight"><a href="'.makelink('guildbank&amp;mode=table').'">'.$act_words['gbank_inv'].'</a></td>'."\n";
 
 $bank_menu .= "</tr>\n</table>\n";
 
@@ -205,7 +203,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 			$bank_print .= '    </td>'."\n";
 			if( $gbank_mode == '' )
 			{
-				$bank_print .= '    <td valign="top" width="220" class="'.$stripe_class_right.'" style="white-space:normal;font-size:10px;">';
+				$bank_print .= '    <td valign="top" class="'.$stripe_class_right.' overlib_maintext" style="width:220px;">';
 				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
 				$bank_print .= '    </td>';
 			}
