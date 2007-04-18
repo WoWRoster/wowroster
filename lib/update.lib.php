@@ -138,7 +138,7 @@ class update
 					else
 					{
 						$output .= '<li>'.sprintf($act_words['error_parsed_time'],$filename[0],$parse_totaltime).'</li>'."\n";
-						$output .= ($luahandler->error !='' ? '<li>'.$luahandler->error().'</li>'."\n" : '');
+						$output .= ($luahandler->error() !='' ? '<li>'.$luahandler->error().'</li>'."\n" : '');
 					}
 					unset($luahandler);
 				}
