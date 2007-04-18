@@ -110,7 +110,11 @@ class lua
 			{
 				$line = gzgets($file);
 				$line = trim($line);
-
+				
+				if( empty($line) )
+				{
+					continue;
+				}
 				// Look for end of an array
 				if( isset($line[0]) && $line[0] == '}' )
 				{
@@ -135,6 +139,11 @@ class lua
 						}
 					}
 					// Otherwise we'll have to make one up for ourselves
+					elseif( $stack_pos == 0 )
+					{
+						$this->seterror('LUA parsing error. Are you sure this is a SavedVariables file?');
+						return false;
+					}
 					else
 					{
 						$value = $line;
