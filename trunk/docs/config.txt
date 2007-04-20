@@ -9,27 +9,31 @@ Items of the blockframe or blockhide class contain options.
 Menu bar items:
 page, pageframe, pagehide, blockframe, blockhide:
 	A page of options that gets selected with javascript
-link:
+link
 	An external link to be opened in the same window
-newlink:
+newlink
 	An external link to be opened in a new window
 
 	In the URLs for these links, %roster% is substituted for the roster
 	base url, and %addon% is substituted for the addon's dbname.
+makelink
+	Passes this through Roster's makelink() function to generate
+	a correct link to another page in Roster.
+makenewlink
+	Same as makelink, except it opens a new browser window.
 
 
 Options blocks:
-page{n:
-	n collumns of options blocks
+page{n
+	n columns of options blocks
 pageframe{n
-	n collumns of options blocks in a border
+	n columns of options blocks in a border
 pagehide{n
-	n collumns of options blocks in a border, with a show/hide option
-
+	n columns of options blocks in a border, with a show/hide option
 blockframe
 	A list of options in a border
 blockhide
-	A list of options in a border, witha  show/hide option
+	A list of options in a border, with a show/hide option
 function{name
 	Calls the function called name with no parameters to produce the HTML
 	for the page. If this is a tab (directly linked from the switch menu on

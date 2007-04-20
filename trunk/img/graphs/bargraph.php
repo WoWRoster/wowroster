@@ -17,7 +17,7 @@
  ******************************/
 
 include('../../settings.php');
- 
+
 // Parameter fetching and checking
 $barnames = isset($_GET['barnames'])?$_GET['barnames']:false;
 $barsizes = isset($_GET['barsizes'])?$_GET['barsizes']:false;
@@ -58,7 +58,7 @@ if( is_array($bar2sizes) && (count($bar2sizes) != count($barnames)) )
 // Hardcoded options
 $w = 150;
 $h = 160;
-$font = ROSTER_BASE.'fonts/VERANDA.TTF';
+$font = ROSTER_BASE . 'fonts' . DIR_SEP . $roster_conf[$side.'_text'];
 
 // calculate extra attributes
 $count = count($barnames);
@@ -319,7 +319,7 @@ imagedestroy($image);
 		}
 		return($html);
 	}
-	
+
 	// Function to set color of text
 	function setColor( $image,$color,$trans=0 )
 	{

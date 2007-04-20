@@ -58,8 +58,7 @@ if( $addon['active'] == '1' )
 		// The addon will now assign its output to $content
 		ob_start();
 			include_once( $addon['index_file'] );
-			$content = ob_get_contents();
-		ob_end_clean();
+		$content = ob_get_clean();
 	}
 	else
 	{

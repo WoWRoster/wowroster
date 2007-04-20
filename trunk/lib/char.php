@@ -284,7 +284,7 @@ $returnstring .= '  <tr>
 				// Dont' set an CSS class for the image cell - center it
 				$stripe = (($rc%2)+1);
 				$returnstring .= '  <tr>
-    <td class="membersRow'.$stripe.'">';
+    <td class="membersRow'.$stripe.' equip">';
 
 				$returnstring .= $recipe->out();
 				$returnstring .= '</td>

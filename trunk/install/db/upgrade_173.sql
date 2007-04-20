@@ -78,6 +78,7 @@ INSERT INTO `renprefix_config` VALUES (4220, 'menu_left_style', 'list', 'select{
 INSERT INTO `renprefix_config` VALUES (4230, 'menu_left_barcolor', '#3e0000', 'color', 'menu_conf_left');
 INSERT INTO `renprefix_config` VALUES (4240, 'menu_left_bar2color', '#003e00', 'color', 'menu_conf_left');
 INSERT INTO `renprefix_config` VALUES (4250, 'menu_left_textcolor', '#ffffff', 'color', 'menu_conf_left');
+INSERT INTO `renprefix_config` VALUES (4260, 'menu_left_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_left');
 
 INSERT INTO `renprefix_config` VALUES (4400, 'menu_right_type', 'realm', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_right');
 INSERT INTO `renprefix_config` VALUES (4410, 'menu_right_level', '60', 'text{2|10', 'menu_conf_right');
@@ -85,6 +86,7 @@ INSERT INTO `renprefix_config` VALUES (4420, 'menu_right_style', 'list', 'select
 INSERT INTO `renprefix_config` VALUES (4430, 'menu_right_barcolor', '#3e0000', 'color', 'menu_conf_right');
 INSERT INTO `renprefix_config` VALUES (4440, 'menu_right_bar2color', '#003e00', 'color', 'menu_conf_right');
 INSERT INTO `renprefix_config` VALUES (4450, 'menu_right_textcolor', '#ffffff', 'color', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4460, 'menu_right_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_right');
 
 INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
 
