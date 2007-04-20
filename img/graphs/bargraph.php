@@ -22,7 +22,8 @@ include('../../settings.php');
 $barnames = isset($_GET['barnames'])?$_GET['barnames']:false;
 $barsizes = isset($_GET['barsizes'])?$_GET['barsizes']:false;
 $bar2sizes = isset($_GET['bar2sizes'])?$_GET['bar2sizes']:false;
-$icons = isset($_GET['icons'])?$_GET['icons']:false;
+$type = isset($_GET['type'])?$_GET['type']:false;
+$side = isset($_GET['side'])?$_GET['side']:'menu_left';
 
 if( !$barnames )
 {
@@ -49,11 +50,6 @@ if( count($barnames) != count($barsizes) )
 	debugMode(__LINE__,'Barnames/barsizes array length doesn\'t match');
 }
 
-if( is_array($icons) && (count($icons) != count($barnames)) )
-{
-	debugMode(__LINE__,'some icons were passed but the count doesn\'t match');
-}
-
 if( is_array($bar2sizes) && (count($bar2sizes) != count($barnames)) )
 {
 	debugMode(__LINE__,'some secondary bar sizes were passed but the count doesn\'t match');
@@ -67,7 +63,7 @@ $font = ROSTER_BASE.'fonts/VERANDA.TTF';
 // calculate extra attributes
 $count = count($barnames);
 $colh = $h/$count;
-$offset = ($icons !== false)?$colh:0;
+$offset = ($type == 'class')?$colh:0;
 $factor = ($w-$offset)/max($barsizes);
 $textheight = .6*$colh;
 $textbase = .8*$colh;
@@ -81,32 +77,41 @@ imagefilledrectangle($image,0,0,$w,$h,$bgcolor);
 imagealphablending($image,true);
 
 // Initialize colors
-$barcolor = imagecolorallocate($image,0,0,0);
-$bar2color = imagecolorallocate($image,0,255,0);
-$textcolor = imagecolorallocate($image,255,255,255);
+$barcolor = setColor($image,$roster_conf[$side.'_barcolor']);
+$bar2color = setColor($image,$roster_conf[$side.'_bar2color']);
+$textcolor = setColor($image,$roster_conf[$side.'_textcolor']);
 
 // Draw bars
 for($i=0; $i<$count; $i++)
 {
 	// Get icon
-	if( $icons ) switch ($roster_conf['img_suffix'])
+	if( $type == 'class' )
 	{
-		case 'jpg':
-			$icon = @imagecreatefromjpeg($roster_conf['interface_url'].'Interface/Icons/'.$icons[$i].'.jpg');
-			break;
-		case 'png':
-			$icon = @imagecreatefrompng($roster_conf['interface_url'].'Interface/Icons/'.$icons[$i].'.png');
-			break;
-		case 'gif':
-			$icon = @imagecreatefromgif($roster_conf['interface_url'].'Interface/Icons/'.$icons[$i].'.gif');
-			break;
-		default:
-			$icon = false;
-			break;
+		switch ($roster_conf['img_suffix'])
+		{
+			case 'jpg':
+				$icon = @imagecreatefromjpeg($roster_conf['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.jpg');
+				break;
+			case 'png':
+				$icon = @imagecreatefrompng($roster_conf['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.png');
+				break;
+			case 'gif':
+				$icon = @imagecreatefromgif($roster_conf['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.gif');
+				break;
+			default:
+				$icon = false;
+				break;
+		}
+		$thisbarcolor = $barcolor;
+		$thisbar2color = $bar2color;
+		$thistextcolor = setColor($image, $act_words['class_colorArray'][$barnames[$i]]);
 	}
 	else
 	{
 		$icon = false;
+		$thisbarcolor = $barcolor;
+		$thisbar2color = $bar2color;
+		$thistextcolor = $textcolor;
 	}
 
 	// If there was an error $icon will be false, otherwise add the icon
@@ -119,17 +124,17 @@ for($i=0; $i<$count; $i++)
 	// Draw the bar
 	if( $barsizes[$i] >= 0 )
 	{
-		imagefilledrectangle($image, $offset, $colh * $i, $offset+$barsizes[$i]*$factor, $colh * ($i+1), $barcolor);
+		imagefilledrectangle($image, $offset, $colh * $i, $offset+$barsizes[$i]*$factor, $colh * ($i+1), $thisbarcolor);
 	}
-	if( $bar2sizes[$i] >= 0 )
+	if( isset($bar2sizes[$i]) && $bar2sizes[$i] >= 0 )
 	{
-		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.5), $bar2color);
+		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.5), $thisbar2color);
 	}
 
 	// Draw the label
 	if( isset($font) )
 	{
-		imagettftext($image, $textheight, 0, $textoffset, $colh*$i+$textbase, $textcolor, $font, $barnames[$i]);
+		imagettftext($image, $textheight, 0, $textoffset, $colh*$i+$textbase, $thistextcolor, $font, $barnames[$i]);
 	}
 }
 
@@ -313,4 +318,34 @@ imagedestroy($image);
 			}
 		}
 		return($html);
+	}
+	
+	// Function to set color of text
+	function setColor( $image,$color,$trans=0 )
+	{
+		$red = 100;
+		$green = 100;
+		$blue = 100;
+
+		$ret = '';
+		if( eregi("[#]?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})",$color,$ret) )
+		{
+			$red = hexdec($ret[1]);
+			$green = hexdec($ret[2]);
+			$blue = hexdec($ret[3]);
+		}
+
+		// Get a transparent color if trans > 0
+		if( $trans > 0 )
+		{
+			$color_index = @imageColorAllocateAlpha( $image,$red,$green,$blue,$trans )
+				or debugMode((__LINE__),$php_errormsg);
+		}
+		else // Get a regular color
+		{
+			// Damn, we cannot supress this function...
+			$color_index = imageColorAllocate( $image,$red,$green,$blue );
+		}
+
+		return $color_index;
 	}

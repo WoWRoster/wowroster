@@ -521,6 +521,19 @@ $lang['class_iconArray'] = array (
 	'Guerrero'=>'inv_sword_25',
 );
 
+// Class Color-Array
+$lang['class_colorArray'] = array(
+	'Druida' => 'FF7C0A',
+	'Cazador' => 'AAD372',
+	'Mago' => '68CCEF',
+	'Paladã­n' => 'F48CBA',
+	'Sacerdote' => 'ffffff',
+	'Pã­caro' => 'FFF468',
+	'Chamã¡n' => '00DBBA',
+	'Brujo' => '9382C9',
+	'Guerrero' => 'C69B6D'
+);
+
 //skills
 $lang['skilltypes'] = array(
 	1 => 'Habilidades de clase',
@@ -992,10 +1005,16 @@ $lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of 
 $lang['admin']['menu_left_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
 $lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
 $lang['admin']['menu_left_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
+$lang['admin']['menu_left_barcolor'] = "Bar color|The color for the bar showing the number of characters of this level group/class";
+$lang['admin']['menu_left_bar2color'] = "Bar 2 color|The color for the bar showing the number of alts of this level group/class";
+$lang['admin']['menu_left_textcolor'] = "Text color|The color for the level group labels (class graph uses class colors for labels)";
 
 $lang['admin']['menu_right_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
 $lang['admin']['menu_right_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
 $lang['admin']['menu_right_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
+$lang['admin']['menu_right_barcolor'] = "Bar color|The color for the bar showing the number of characters of this level group/class";
+$lang['admin']['menu_right_bar2color'] = "Bar 2 color|The color for the bar showing the number of alts of this level group/class";
+$lang['admin']['menu_right_textcolor'] = "Text color|The color for the level group labels (class graph uses class colors for labels)";
 
 // display_conf
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute mostrada en la cabecera de la p&aacutegina";

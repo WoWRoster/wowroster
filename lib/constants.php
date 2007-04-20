@@ -20,8 +20,6 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 }
 
 define('ROSTER_VERSION','1.8.0');
-define('ROSTER_MAXCHARLEVEL','70');
-define('ROSTER_MAXSKILLLEVEL','375');
 
 /**
  * Base, absolute roster admin directory
@@ -88,3 +86,9 @@ if( isset($db_prefix) )
 	define('ROSTER_TALENTSTABLE',$db_prefix.'talents');
 	define('ROSTER_TALENTTREETABLE',$db_prefix.'talenttree');
 }
+
+/**
+ * Some static and semi-static game data.
+ */
+define('ROSTER_MAXCHARLEVEL','70');
+define('ROSTER_MAXSKILLLEVEL','375');
