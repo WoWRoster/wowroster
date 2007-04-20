@@ -1007,14 +1007,16 @@ $lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters 
 $lang['admin']['menu_left_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
 $lang['admin']['menu_left_barcolor'] = "Bar color|The color for the bar showing the number of characters of this level group/class";
 $lang['admin']['menu_left_bar2color'] = "Bar 2 color|The color for the bar showing the number of alts of this level group/class";
-$lang['admin']['menu_left_textcolor'] = "Text color|The color for the level group labels (class graph uses class colors for labels)";
+$lang['admin']['menu_left_textcolor'] = "Text color|The color for the level/class group labels (class graph uses class colors for labels)";
+$lang['admin']['menu_left_text'] = "Text Font|The font for the level/class group labels";
 
 $lang['admin']['menu_right_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
 $lang['admin']['menu_right_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
 $lang['admin']['menu_right_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
 $lang['admin']['menu_right_barcolor'] = "Bar color|The color for the bar showing the number of characters of this level group/class";
 $lang['admin']['menu_right_bar2color'] = "Bar 2 color|The color for the bar showing the number of alts of this level group/class";
-$lang['admin']['menu_right_textcolor'] = "Text color|The color for the level group labels (class graph uses class colors for labels)";
+$lang['admin']['menu_right_textcolor'] = "Text color|The color for the level/class group labels (class graph uses class colors for labels)";
+$lang['admin']['menu_right_text'] = "Text font|The font for the level/class group labels";
 
 // display_conf
 $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";

@@ -94,3 +94,53 @@ function pageNames( )
 
 	return $input_field;
 }
+
+/**
+ * Get a list of font from the font directory
+ *
+ * @return array | $file => $name
+ */
+function fontFiles( $values )
+{
+	$arrFiles = array();
+
+	// Open the directory
+	$tmp_dir = @opendir( ROSTER_BASE.'fonts' );
+
+	if( !empty($tmp_dir) )
+	{
+		// Read the files
+		while( $file = readdir($tmp_dir) )
+		{
+			$pfad_info = pathinfo($file);
+
+			if( strtolower($pfad_info['extension']) == strtolower('ttf') )
+			{
+				$name = str_replace('.'.$pfad_info['extension'],'',$file);
+				$arrFiles += array($file => $name);
+			}
+		}
+		// close the directory
+		closedir($tmp_dir);
+
+		//sort the list
+		asort($arrFiles);
+	}
+
+	$input_field = '<select name="config_'.$values['name'].'">'."\n";
+	$select_one = 1;
+	foreach( $arrFiles as $file=>$name )
+	{
+		if( $file == $values['value'] && $select_one )
+		{
+			$input_field .= '  <option value="'.$file.'" selected="selected">-[ '.$name.' ]-</option>'."\n";
+			$select_one = 0;
+		}
+		else
+		{
+			$input_field .= '  <option value="'.$file.'">'.$name.'</option>'."\n";
+		}
+	}
+	$input_field .= '</select>';
+	return $input_field;
+}
