@@ -87,7 +87,7 @@ class RosterMenu
 		{
 			case 'level':
 			case 'class':
-				$pane = $this->makeList($roster_conf[$side.'_type'],$roster_conf[$side.'_level'],$roster_conf[$side.'_style']);
+				$pane = $this->makeList($roster_conf[$side.'_type'], $roster_conf[$side.'_level'], $roster_conf[$side.'_style'], $side);
 				break;
 			case 'realm':
 				$pane = $this->makeRealmStatus();
@@ -112,8 +112,10 @@ class RosterMenu
 	 *		'list' for text list
 	 *		'bar' for bargraph
 	 *		'barlog' for logarithmic bargraph
+	 * @param string $side
+	 *		side this is appearing on, for the image to get the colors
 	 */
-	function makeList( $type, $level, $style )
+	function makeList( $type, $level, $style, $side )
 	{
 		global $roster_conf, $act_words, $wowdb;
 
@@ -135,7 +137,6 @@ class RosterMenu
 				{
 					$dat[$i]['name'] = ($i*10).' - '.($i*10+9);
 				}
-				$dat[$i]['icon'] = false;
 				$dat[$i]['alt'] = 0;
 				$dat[$i]['nonalt'] = 0;
 			}
@@ -147,7 +148,6 @@ class RosterMenu
 			foreach($act_words['class_iconArray'] as $class => $icon)
 			{
 				$dat[$class]['name'] = $class;
-				$dat[$class]['icon'] = $icon;
 				$dat[$class]['alt'] = 0;
 				$dat[$class]['nonalt'] = 0;
 			}
@@ -191,7 +191,7 @@ class RosterMenu
 		}
 
 		$output = '	<td valign="top" class="row">
-	      Total: '.$num_non_alts.' (+'.$num_alts.' Alts)
+	      Total: '.$num_non_alts.' (+'.$num_alts.' Alts)'.($level>0?' Above L'.$level:'').'
 			<br />';
 
 		if( $style == 'bar' )
@@ -203,13 +203,9 @@ class RosterMenu
 				$req .= 'barnames['.$i.']='.$bar['name'].'&amp;';
 				$req .= 'barsizes['.$i.']='.($bar['alt']+$bar['nonalt']).'&amp;';
 				$req .= 'bar2sizes['.$i.']='.$bar['alt'].'&amp;';
-				if($bar['icon'])
-				{
-					$req .= 'icons['.$i.']='.$bar['icon'].'&amp;';
-				}
 				$i++;
 			}
-			$req .= 'dummy=dummy';
+			$req .= 'type='.$type.'&amp;side='.$side;
 
 			$output .= '<img src="'.$req.'" alt="" />';
 		}
@@ -222,13 +218,9 @@ class RosterMenu
 				$req .= 'barnames['.$i.']='.$bar['name'].'&amp;';
 				$req .= 'barsizes['.$i.']='.(($bar['alt']+$bar['nonalt']==0)?-1:log($bar['alt']+$bar['nonalt'])).'&amp;';
 				$req .= 'bar2sizes['.$i.']='.(($bar['alt']==0)?-1:log($bar['alt'])).'&amp;';
-				if($bar['icon'])
-				{
-					$req .= 'icons['.$i.']='.$bar['icon'].'&amp;';
-				}
 				$i++;
 			}
-			$req .= 'dummy=dummy';
+			$req .= 'type='.$type.'&amp;side='.$side;
 
 			$output .= '<img src="'.$req.'" alt="" />';
 		}
