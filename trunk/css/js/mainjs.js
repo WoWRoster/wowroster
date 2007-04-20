@@ -466,7 +466,7 @@ function processReqChange()
 		if (req.status == 200)
 		{
 //			Unescape this to show the result XLM in a pupup for debugging.
-			alert(req.responseText);
+//			alert(req.responseText);
 			response = req.responseXML.documentElement;
 			cont = response.getElementsByTagName('cont')[0].firstChild.data;
 			result = response.getElementsByTagName('result')[0];
