@@ -13,6 +13,10 @@
  * @since      File available since Release 1.8.0
 */
 
+/**
+ * Pick function. This is called if a button is picked up.
+ * Here the button's position in the palet or grid is filled up.
+ */
 function my_PickFunc()
 {
 	for (var i=0; i<aElts.length; i++)
@@ -37,6 +41,11 @@ function my_PickFunc()
 	updatePositions();
 }
 
+/**
+ * Drop function. This is called if a button has been released.
+ * This uses quite some 2d calculus to determine what should happen with the
+ * button.
+ */
 function my_DropFunc()
 {
 	var mode;
@@ -110,8 +119,17 @@ function my_DropFunc()
 	updatePositions();
 }
 
+/**
+ * Remove a button from the grid. It is assumed the calling code already saved
+ * a reference to the object represending the button.
+ *
+ * @param posX
+ * @param posY
+ *		The grid location that needs to be cleared.
+ */
 function removeGridElement(posX,posY)
 {
+	// Remove the element from the grid
 	for (i=posY+1; i<aElts[posX].length; i++)
 	{
 		aElts[posX][i-1] = aElts[posX][i];
@@ -119,6 +137,7 @@ function removeGridElement(posX,posY)
 
 	aElts[posX].length--;
 
+	// Check if it leaves an empty column. If so, fill it up.
 	if (aElts[posX].length == 0)
 	{
 		for (i=posX; i<aElts.length-1; i++)
@@ -129,6 +148,7 @@ function removeGridElement(posX,posY)
 		dd.elements.array.resizeBy(-dx,0);
 		arrayWidth--;
 	}
+	// Check if we need to reduce the height of the palet
 	else if (aElts[posX].length == arrayHeight - 1)
 	{
 		var max = 0;
@@ -144,8 +164,18 @@ function removeGridElement(posX,posY)
 	}
 }
 
+/**
+ * Insert a button in the menu grid in an existing column
+ *
+ * @param posX
+ * @param posY
+ *		The grid location the button should be added in
+ * @param obj
+ *		The object representing the button to be added
+ */
 function insertGridElement(posX,posY,obj)
 {
+	// Insert the element
 	aElts[posX].length++;
 
 	for (i=aElts[posX].length-1; i>posY; i--)
@@ -155,6 +185,7 @@ function insertGridElement(posX,posY,obj)
 
 	aElts[posX][posY] = obj;
 
+	// Increase the grid height if needed
 	if (aElts[posX].length > arrayHeight)
 	{
 		dd.elements.array.resizeBy(0,dy);
@@ -162,8 +193,17 @@ function insertGridElement(posX,posY,obj)
 	}
 }
 
+/**
+ * Insert a button in a new column in the menu grid.
+ *
+ * @param posX
+ *		The grid location the column should be inserted at.
+ * @param obj
+ *		The object representing the button to be added in the new column.
+ */
 function insertGridColumn(posX,obj)
 {
+	// Create the column and insert the element in it
 	aElts.length++;
 	for (i=aElts.length-1; i>posX; i--)
 	{
@@ -173,10 +213,18 @@ function insertGridColumn(posX,obj)
 	aElts[posX] = Array();
 	aElts[posX][0] = obj;
 
+	// increase the grid width
 	dd.elements.array.resizeBy(dx,0);
 	arrayWidth++;
 }
 
+/**
+ * Remove a button from the palet. It is assumed the calling code already saved
+ * a reference to the object represending the button.
+ *
+ * @param posY
+ *		The palet location that needs to be cleared.
+ */
 function removeListElement(posY)
 {
 	for (i=posY+1; i<palet.length; i++)
@@ -188,6 +236,14 @@ function removeListElement(posY)
 	dd.elements.palet.resizeBy(0,-dy);
 }
 
+/**
+ * Insert an button into the palet.
+ *
+ * @param posY
+ *		The palet location the button should be inserted at
+ * @param obj
+ *		The dhtml object representing the button to be added
+ */
 function insertListElement(posY,obj)
 {
 	palet.length++;
@@ -200,6 +256,11 @@ function insertListElement(posY,obj)
 	dd.elements.palet.resizeBy(0,dy);
 }
 
+/**
+ * Update all button positions, based on their array/palet grid location and
+ * thearray/palet locations themselves.
+ * Some variables used that are php-generated, for easy tuning.
+ */
 function updatePositions()
 {
 	for (i=0;i<aElts.length;i++)
@@ -217,6 +278,14 @@ function updatePositions()
 
 }
 
+/**
+ * Function called if a button has been dropped inside the delete square, and
+ * the deletiong has been confirmed. This sends the button name
+ * off to the server for deletion.
+ *
+ * @param obj
+ *		DHTML object represending the button.
+ */
 function sendDeleteElement(obj)
 {
 	loadXMLDoc(roster_url+'ajax.php?method=menu_button_del&cont=doDeleteElement','button='+obj.name);
@@ -230,6 +299,11 @@ function doDeleteElement(result)
 	div.parentNode.removeChild(div);
 }
 
+/** 
+ * Function called by the add button button. Fetches the info from the form
+ * fields and sends the request off to the server.
+ * After the server is done doAddElement() is called.
+ */
 function sendAddElement()
 {
 	var title = document.getElementById('title'        ).value;
@@ -239,8 +313,16 @@ function sendAddElement()
 	loadXMLDoc(roster_url+'ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url));
 }
 
+/**
+ * Handler called after the ADD request has been handled by the server. This
+ * creates and adds the button.
+ *
+ * @param result
+ *		XML reply from the server
+ */
 function doAddElement(result)
 {
+	// Create the button
 	var button = document.createElement('div');
 	button.id = result.getElementsByTagName('id')[0].firstChild.data;
 	button.className = 'menu_config_div';
@@ -249,7 +331,7 @@ function doAddElement(result)
 	dd.elements.palet.div.appendChild(button);
 	ADD_DHTML(button.id);
 
-
+	// And add it to the bottom palet position
 	palet.length++;
 	palet[palet.length-1] = dd.elements[button.id];
 	dd.elements.palet.resizeBy(0,dy);
@@ -257,6 +339,9 @@ function doAddElement(result)
 	updatePositions();
 }
 
+/**
+ * Writes the current configuration of the buttons to the (invisible) form field.
+ */
 function writeValue()
 {
 	var value = '';
@@ -275,6 +360,14 @@ function writeValue()
 	return true;
 }
 
+/**
+ * Calculates the square of a number
+ *
+ * @param x
+ *		number
+ * @return
+ *		square of the number
+ */
 function sqr(x)
 {
 	return x*x;
