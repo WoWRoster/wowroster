@@ -22,3 +22,5 @@ $lang['guildbank_totalmoney']='Total bank holdings';
 $lang['gbank_list'] = 'Full Listing';
 $lang['gbank_inv'] = 'Inventory';
 $lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
+$lang['guildbankcontact']='Held By (Contact)';
+$lang['guildbankitem']='Item Name and Description';

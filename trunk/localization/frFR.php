@@ -148,160 +148,6 @@ $lang['rs'] = array(
 );
 
 
-/*
-Instance Keys
-=============
-A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
-you have this one part it will mark all other parts lower than this one as complete.
-*/
-
-// ALLIANCE KEYS
-$lang['inst_keys']['A'] = array(
-	'SG' => array( 'Quests',
-		'SG' => 'Clé de la gorge des Vents brûlants|4826',
-			'La Corne de la B�te|',
-			'Titre de propriété|',
-			'Enfin !|'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Clé d\\\'atelier|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'La Clé écarlate|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Marteau de Zul\\\'Farrak|5695',
-			'Maillet sacré|8250'
-		),
-	'Marau' => array( 'Parts',
-		'Marau' => 'Sceptre de Celebras|19710',
-			'Bâtonnet de Celebras|19549',
-			'Diamant de Celebras|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Clé de la prison|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Clé ombreforge|2966',
-			'Souillefer|9673'
-		),
-	'HT' => array( 'Key-Only',
-		'HT' => 'Clé en croissant|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Clé squelette|16854',
-			'Scholomance|',
-			'Fragments de squelette|',
-			'Moisissure rime avec...|',
-			'Plume de feu forgée|',
-			'Le Scarabée d\\\'Araj|',
-			'La clé de la Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Clé de la ville|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Sceau d\\\'ascension|17057',
-			'Sceau d\\\'ascension non décoré|5370',
-			'Gemme de Pierre-du-pic|5379',
-			'Gemme de Brûleronce|16095',
-			'Gemme de Hache-sanglante|21777',
-			'Sceau d\\\'ascension brut |24554||MS',
-			'Sceau d\\\'ascension forgé|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amulette Drakefeu|4829',
-			'La menace dragonkin|',
-			'Les véritables maîtres|',
-			'Maréchal Windsor|',
-			'Espoir abandonné|',
-			'Une Note chiffonnée|',
-			'Un espoir en lambeaux|',
-			'Evasion !|',
-			'Le rendez-vous à Stormwind|',
-			'La grande mascarade|',
-			'L\\\'Oeil de Dragon|',
-			'Amulette drakefeu|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Quintessence éternelle|22754'
-		),
-);
-
-
-// HORDE KEYS
-$inst_keys['H'] = array(
-	'SG' => array( 'Key-Only',
-		'SG' => 'Clé de la gorge des Vents brûlants|4826'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Clé d\\\'atelier|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'La Clé écarlate|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Marteau de Zul\\\'Farrak|5695',
-			'Maillet sacré|8250'
-		),
-	'Marau' => array( 'Parts',
-		'Marau' => 'Sceptre de Celebras|19710',
-			'Bâtonnet de Celebras|19549',
-			'Diamant de Celebras|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Clé de la prison|15545'
-		),
-	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Clé ombreforge|2966',
-			'Souillefer|9673'
-		),
-	'HT' => array( 'Key-Only',
-		'HT' => 'Clé en croissant|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Clé squelette|16854',
-			'Scholomance|',
-			'Fragments de squelette|',
-			'Moisissure rime avec...|',
-			'Plume de feu forgée|',
-			'Le Scarabée d\\\'Araj|',
-			'La clé de la Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Clé de la ville|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Sceau d\\\'ascension|17057',
-			'Sceau d\\\'ascension non décoré|5370',
-			'Gemme de Pierre-du-pic|5379',
-			'Gemme de Brûleronce|16095',
-			'Gemme de Hache-sanglante|21777',
-			'Sceau d\\\'ascension brut |24554||MS',
-			'Sceau d\\\'ascension forgé|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amulette Drakefeu|4829',
-			'Ordres du seigneur de guerre Goretooth|',
-			'Ordre du chef de guerre|',
-			'Pour la Horde !|',
-			'Ce que le vent apporte|',
-			'Le Champion de la Horde|',
-			'Le testament de Rexxar|',
-			'Illusions d\\\'Occulus|',
-			'Querelleur ardent|',
-			'L\\\'épreuve des crânes, Cristallomancier|',
-			'L\\\'épreuve des crânes, Somnus|',
-			'L\\\'épreuve des crânes, Chronalis|',
-			'L\\\'épreuve des crânes, Axtroz|',
-			'Ascension...|',
-			'Sang du Champion des Dragons noirs|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Quintessence éternelle|22754'
-		),
-);
-
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['upload']='Télécharger';
 $lang['required']='Requis';
@@ -337,8 +183,6 @@ $lang['duelsummary']='Résumé Duel';
 $lang['money']='Argent';
 $lang['bank']='Banque';
 $lang['raid']='CT_Raid';
-$lang['guildbankcontact']='Porté par (Contact)';
-$lang['guildbankitem']='Nom de l\'objet et sa description';
 $lang['quests']='Quêtes';
 $lang['roster']='Roster';
 $lang['alternate']='Alternate';
@@ -393,7 +237,6 @@ $lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'Aucun journal enregistré';
 
 $lang['rosterdiag'] = 'Diagnostic du Roster';
-$lang['Guild_Info'] = 'Info Guilde';
 $lang['difficulty'] = 'Difficultée';
 $lang['recipe_4'] = 'optimal';
 $lang['recipe_3'] = 'moyen';
@@ -929,7 +772,6 @@ $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
-$lang['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
@@ -1049,12 +891,6 @@ $lang['admin']['realmstatus_url'] = "URL de statut des royaumes|URL vers la page
 $lang['admin']['rs_display'] = "Mode d'information|&quot;full&quot; montrera le statut et le nom du serveur, la population, and le type<br />&quot;half&quot; ne montrera que le statut";
 $lang['admin']['rs_mode'] = "Mode d'affichage|Comment le statut du royaume sera affiché<br /><br />&quot;DIV Container&quot; - Le statut du royaume sera affiché dans une balise DIV avec du texte et des images<br />&quot;Image&quot; - Le statut du royaume sera affiché comme une image (NECESSITE GD !)";
 $lang['admin']['realmstatus'] = "Nom de serveur alternatif|Quelques noms de serveur peuvent faire que le statut du royaume ne fonctionne pas même si le téléchargement de fichier marche<br />Le nom actuel du serveur provenant du jeu peut ne pas correspondre avec celui qui est utilisé sur la page de statut des royaumes<br />Vous pouvez donc régler le statut du royaume sur un autre nom de serveur<br /><br />Laissez vide pour prendre le nom utilisé dans la configuration de la guilde";
-
-// guildbank_conf
-$lang['admin']['guildbank_ver'] = "Type d'affichage de la banque de guilde|Type d'affichage de la banque de guilde<br /><br />&quot;Table&quot; est une vue simple montrant tous les objets de chaque personnage-banque dans une seule liste<br />&quot;Inventory&quot; montre une table d'objets par personnage-banque";
-$lang['admin']['bank_money'] = "Affichage des avoirs de la guilde|Contrôle l'affichage des avoirs de la guilde";
-$lang['admin']['banker_rankname'] = "Texte de recherche des personnages-banques|Texte utilisé pour désigner les personnages-banques";
-$lang['admin']['banker_fieldname'] = "Champ de recherche des personnages-banques|Champ utilisé pour désigner les personnages-banques";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Accès à Update.php|Contrôle l'accès à update.php<br /><br />Passer ce paramètre à off désactive l'accès à TOUT LE MONDE";

@@ -12,8 +12,8 @@
  *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
  * -----------------------------
  *
- * $Id: esES.php 814 2007-04-21 17:37:59Z Zanix $
+ * $Id: enUS.php 747 2007-04-01 02:44:44Z Zeryl $
  *
  ******************************/
 
-$lang['guildinfo'] = 'Guild Info';
+$lang['guildinfo'] = 'Info Clan';

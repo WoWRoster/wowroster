@@ -148,160 +148,6 @@ $lang['rs'] = array(
 );
 
 
-/*
-Instance Keys
-=============
-A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
-you have this one part it will mark all other parts lower than this one as complete.
-*/
-
-// ALLIANCE KEYS
-$lang['inst_keys']['A'] = array(
-	'SG' => array( 'Quests',
-		'SG' => 'Schlüssel zur Sengenden Schlucht|4826',
-			'Das Horn der Bestie|',
-			'Besitznachweis|',
-			'Endlich!|'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Werkstattschlüssel|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'Der scharlachrote Schlüssel|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Schlaghammer von Zul\\\'Farrak|5695',
-			'Hochheiliger Schlaghammer|8250'
-		),
-	'Mauro' => array( 'Parts',
-		'Mauro' => 'Szepter von Celebras|19710',
-			'Celebriangriff|19549',
-			'Celebriandiamant|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Gefängniszellenschlüssel|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Schlüssel zur Schattenschmiede|2966',
-			'Ironfel|9673'
-		),
-	'DM' => array( 'Key-Only',
-		'DM' => 'Mondsichelschlüssel|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skelettschlüssel|16854',
-			'Scholomance|',
-			'Skelettfragmente|',
-			'Sold reimt sich auf...|',
-			'Feuerfeder geschmiedet|',
-			'Arajs Skarabäus',
-			'Der Schlüssel zur Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Schlüssel zur Stadt|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Siegel des Aufstiegs|17057',
-			'Unverziertes Siegel des Aufstiegs|5370',
-			'Edelstein der Felsspitzoger|5379',
-			'Edelstein der Gluthauer|16095',
-			'Edelstein der Blutäxte|21777',
-			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
-			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drachenfeueramulett|4829',
-			'Drachkin-Bedrohung|',
-			'Die wahren Meister|',
-			'Marshal Windsor|',
-			'Verlorene Hoffnung|',
-			'Eine zusammengeknüllte Notiz|',
-			'Ein Funken Hoffnung|',
-			'Gefängnisausbruch!|',
-			'Treffen in Stormwind|',
-			'Die große Maskerade|',
-			'Das Großdrachenauge|',
-			'Drachenfeueramulett|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Ewige Quintessenz|22754'
-		),
-);
-
-
-// HORDE KEYS
-$lang['inst_keys']['H'] = array(
-	'SG' => array( 'Key-Only',
-		'SG' => 'Schlüssel zur Sengenden Schlucht|4826'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Werkstattschlüssel|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'Der scharlachrote Schlüssel|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Schlaghammer von Zul\\\'Farrak|5695',
-			'Hochheiliger Schlaghammer|8250'
-		),
-	'Mauro' => array( 'Parts',
-		'Mauro' => 'Szepter von Celebras|19710',
-			'Celebriangriff|19549',
-			'Celebriandiamant|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Gefängniszellenschlüssel|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Schlüssel zur Schattenschmiede|2966',
-			'Ironfel|9673'
-		),
-	'DM' => array( 'Key-Only',
-		'DM' => 'Mondsichelschlüssel|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skelettschlüssel|16854',
-			'Scholomance|',
-			'Skelettfragmente|',
-			'Sold reimt sich auf...|',
-			'Feuerfeder geschmiedet|',
-			'Arajs Skarabäus',
-			'Der Schlüssel zur Scholomance|'
-		),
-	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Schlüssel zur Stadt|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Siegel des Aufstiegs|17057',
-			'Unverziertes Siegel des Aufstiegs|5370',
-			'Edelstein der Felsspitzoger|5379',
-			'Edelstein der Gluthauer|16095',
-			'Edelstein der Blutäxte|21777',
-			'Ungeschmiedetes Siegel des Aufstiegs|24554||MS',
-			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drachenfeueramulett|4829',
-			'Befehl des Kriegsherrn|',
-			'Eitriggs Weisheit|',
-			'Für die Horde!|',
-			'Was der Wind erzählt|',
-			'Der Champion der Horde|',
-			'Nachricht von Rexxar|',
-			'Oculus-Illusionen|',
-			'Emberstrife|',
-			'Die Prüfung der Schädel, Scryer|',
-			'Die Prüfung der Schädel, Somnus|',
-			'Die Prüfung der Schädel, Chronalis|',
-			'Die Prüfung der Schädel, Axtroz|',
-			'Aufstieg...|',
-			'Blut des schwarzen Großdrachen-Helden|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Ewige Quintessenz|22754'
-		),
-);
-
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['upload']='Upload';
 $lang['required']='Benötigt';
@@ -337,8 +183,6 @@ $lang['duelsummary']='Duell Summary';
 $lang['money']='Money';
 $lang['bank']='Bank';
 $lang['raid']='CT_Raid';
-$lang['guildbankcontact']='Im Besitz von (Kontakt)';
-$lang['guildbankitem']='Gegenstand und Beschreibung';
 $lang['quests']='Quests';
 $lang['roster']='Mitglieder';
 $lang['alternate']='Alternative Ansicht';
@@ -393,7 +237,6 @@ $lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'Kein Mitglieder Log gespeichert';
 
 $lang['rosterdiag'] = 'Roster Diagnose Seite';
-$lang['Guild_Info'] = 'Gilden Info';
 $lang['difficulty'] = 'Schwierigkeit';
 $lang['recipe_4'] = 'optimal';
 $lang['recipe_3'] = 'mittel';
@@ -929,7 +772,6 @@ $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im 
 $lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br>css, javascript, motd, etc...';
 $lang['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den Charakterseite angezeigt werden soll';
 $lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br><br>Um es auszustellen, bitte bei Menüeinstellungen gucken';
-$lang['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gildenbank';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
 $lang['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update';
 
@@ -1049,12 +891,6 @@ $lang['admin']['realmstatus_url'] = "Realmstatus URL|URL zu Blizzard's Realmstat
 $lang['admin']['rs_display'] = "Info Mode|&quot;full&quot; zeigt Status, Name, Population, und Servertyp<br />&quot;half&quot; zeigt nur den Status an";
 $lang['admin']['rs_mode'] = "Display Mode|Wie der Status angezeigt werden soll:<br /><br />&quot;DIV Container&quot; - Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern<br />&quot;Image&quot; - Zeigt Realmstatus als ein Bild (BENÖTIGT GD!)";
 $lang['admin']['realmstatus'] = "Alternativer Servername|Manche Servernamen funktionieren hier nicht richtig, auch wenn der Upload von Profilen geht<br />Der tatsächliche Servername stimmt dann mit dem Namen auf der Statusseite von Blizzard nicht überein.<br />Dann kannst du hier einen anderen Servernamen setzen<br /><br />Leer lassen, um den Namen in der Gildenkonfiguration einzustellen";
-
-// guildbank_conf
-$lang['admin']['guildbank_ver'] = "Gildenbank Anzeigeeinstellung|Gildenbank Anzeigeeinstellung:<br /><br />&quot;Table&quot; ist eine einfache Ansicht die eine Liste aller Sachen der Banker anzeigt<br />&quot;Inventory&quot; zeigt eine eigene Tabelle für jeden Banker";
-$lang['admin']['bank_money'] = "Goldanzeige|Steuert die Anzeige der Goldmenge in der Gildenbank";
-$lang['admin']['banker_rankname'] = "Banker Suchtext|Text um den Banker zu finden";
-$lang['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";

@@ -22,3 +22,5 @@ $lang['guildbank_totalmoney']='Total des avoirs de la Guilde';
 $lang['gbank_list'] = 'Full Listing';
 $lang['gbank_inv'] = 'Inventory';
 $lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
+$lang['guildbankcontact']='Porté par (Contact)';
+$lang['guildbankitem']='Nom de l\'objet et sa description';

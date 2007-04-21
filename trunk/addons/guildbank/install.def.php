@@ -29,12 +29,12 @@ class guildbank
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
 	var $version = '1.0.0';
-	
+
 	var $fullname = 'Guild Bank';
 	var $description = 'Default Guild Bank display';
 	var $credits = array(
 	array(	"name"=>	"vaccafoeda.hellscream@gmail.com",
-			"info"=>	"Original authors")
+			"info"=>	"Original author")
 	);
 
 
@@ -52,7 +52,7 @@ class guildbank
 		$installer->add_config("'1100', 'bank_money', '1', 'radio{yes^1|no^0', 'guildbank_conf'");
 		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
 		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
-		
+
 		$installer->add_menu_button('guildbank');
 		return true;
 	}
