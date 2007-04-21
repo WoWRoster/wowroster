@@ -35,7 +35,7 @@ $roster_show_footer = true;
 // Check if addon is active
 if( $addon['active'] == '1' )
 {
-	if( isset($roster_pages[2]) && !in_array($roster_pages[2],explode(',',ROSTER_NON_ADDON)) && ($addon['dir'].$roster_pages[2] . '.php') )
+	if( isset($roster_pages[2]) && !in_array($roster_pages[2],explode(',',ROSTER_NON_ADDON)) && file_exists($addon['dir'].$roster_pages[2] . '.php') )
 	{
 		$addon['active_file'] = $addon['dir'] . $roster_pages[2] . '.php';
 	}
