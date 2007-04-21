@@ -20,13 +20,12 @@
 // http://53x11.com
 
 // EDITED BY: http://wowroster.net for use in wowroster
-// XML parsing by Swipe
+// XML parsing by minixml
 // Most other changes by Zanix
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once( $roster_root_path . 'settings.php' );
-//require_once( ROSTER_LIB . 'xmlparse.php' );
 require_once( ROSTER_LIB . 'minixml.lib.php' );
 
 
