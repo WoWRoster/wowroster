@@ -983,7 +983,22 @@ function getaddon( $addonname )
  */
 function add_locale_file( $localefile , $locale , &$array )
 {
-	include($localefile);
+	if( file_exists($localefile) )
+	{
+		include($localefile);
+	}
+	else
+	{
+		$localefile = str_replace($locale . '.php','enUS.php',$localefile);
+		if( file_exists($localefile) )
+		{
+			include($localefile);
+		}
+		else
+		{
+			die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
+		}
+	}
 
 	if( isset($lang) )
 	{
