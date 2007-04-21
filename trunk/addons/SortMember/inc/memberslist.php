@@ -21,6 +21,11 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+if ( !defined('IN_SORTMEMBER') )
+{
+	die_quietly('Detected invalid access to this file!','SortMember');
+}
+
 class memberslist {
 
 	var $listname = 'membersData';	// table ID for javascript
