@@ -35,29 +35,35 @@ $roster_show_footer = true;
 // Check if addon is active
 if( $addon['active'] == '1' )
 {
-	// Check to see if the index file exists
-	if( file_exists($addon['index_file']) )
+	if( isset($roster_pages[2]) && !in_array($roster_pages[2],explode(',',ROSTER_NON_ADDON)) && ($addon['dir'].$roster_pages[2] . '.php') )
 	{
-		$script_filename = 'addon-'.$roster_pages[1];
-
+		$addon['active_file'] = $addon['dir'] . $roster_pages[2] . '.php';
+	}
+	else
+	{
+		$addon['active_file'] = $addon['dir'] . 'index.php';
+	}
+	// Check to see if the index file exists
+	if( file_exists($addon['active_file']) )
+	{
 		// Include addon's locale files if they exist
 		foreach( $roster_conf['multilanguages'] as $lang )
 		{
-			if( file_exists($addon['locale_dir'].$lang.'.php') )
+			if( file_exists($addon['locale_dir'] . $lang . '.php') )
 			{
-				add_locale_file($addon['locale_dir'].$lang.'.php',$lang,$wordings);
+				add_locale_file($addon['locale_dir'] . $lang . '.php',$lang,$wordings);
 			}
 		}
 
 		// Include addon's conf.php file
 		if( file_exists($addon['conf_file']) )
 		{
-			include_once( $addon['conf_file'] );
+			include_once($addon['conf_file']);
 		}
 
 		// The addon will now assign its output to $content
 		ob_start();
-			include_once( $addon['index_file'] );
+			include_once($addon['active_file']);
 		$content = ob_get_clean();
 	}
 	else
@@ -72,12 +78,11 @@ else
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="'.ROSTER_PATH.$addon['css_url'].'" />'."\n";
+	$more_css = '  <link rel="stylesheet" type="text/css" href="' . ROSTER_PATH . $addon['css_url'] . '" />' . "\n";
 
-if ($roster_show_header)
-	include_once (ROSTER_BASE.'roster_header.tpl');
+if( $roster_show_header ) include_once (ROSTER_BASE . 'roster_header.tpl');
 
-if ($roster_show_menu)
+if( $roster_show_menu )
 {
 	$roster_menu = new RosterMenu;
 	print $roster_menu->makeMenu('main');
@@ -85,5 +90,4 @@ if ($roster_show_menu)
 
 echo $content;
 
-if ($roster_show_footer)
-	include_once (ROSTER_BASE.'roster_footer.tpl');
+if( $roster_show_footer ) include_once (ROSTER_BASE . 'roster_footer.tpl');

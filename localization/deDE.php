@@ -351,7 +351,6 @@ $lang['alternate']='Alternative Ansicht';
 $lang['byclass']='Nach Klasse';
 $lang['menustats']='Grundwerte';
 $lang['menuhonor']='Ehre';
-$lang['keys']='Schl&uuml;ssel';
 $lang['team']='Questgruppe Suchen';
 $lang['search']='Suche';
 $lang['update']='Letzte Aktualisierung';

@@ -48,6 +48,11 @@ $starttime = explode(' ', microtime() );
 define('ROSTER_STARTTIME',$starttime[1] + $starttime[0]);
 
 
+/**
+ * Can we use ini_set
+ */
+define('CAN_INI_SET', !ereg('ini_set', ini_get('disable_functions')));
+
 
 /**
  * OS specific Directory Seperator

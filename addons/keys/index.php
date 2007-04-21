@@ -1,19 +1,20 @@
 <?php
-/**
- * WoWRoster.net WoWRoster
+/******************************
+ * WoWRoster.net  Roster
+ * Copyright 2002-2006
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Shows all instance keys for each character
+ * Short summary
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ * Full license information
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ * -----------------------------
  *
- * @copyright  2002-2007 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id: keys.php 798 2007-04-15 00:00:43Z Zanix $
- * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
-*/
-
+ * $Id: index.php 747 2007-04-01 02:44:44Z Zanix $
+ *
+ ******************************/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -24,10 +25,6 @@ $header_title = $act_words['keys'];
 
 require_once (ROSTER_LIB.'item.php');
 
-// Tooltip colors
-$colorcmp = '00ff00;'; // Complete color
-$colorcur = 'ffd700;'; // Current color
-$colorno = 'ff0000;';  // Uncomplete color
 
 $striping_counter = 1;
 $tableHeader = '<table cellpadding="0" cellspacing="0">'."\n";
@@ -378,25 +375,25 @@ while ($row = $wowdb->fetch_array($result))
 			}
 
 			$tooltip_h = $key.' '.$act_words['key'].' Status';
-			$tooltip = '<span style="color:#'.$colorcmp.'">'.$act_words['completedsteps'].'</span><br />';
+			$tooltip = '<span style="color:#'.$addon->config['colorcmp'].';">'.$act_words['completedsteps'].'</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
-				$tooltip .= '<span style="color:#'.$colorcur.'">'.$act_words['currentstep'].'</span><br />';
+				$tooltip .= '<span style="color:#'.$addon->config['colorcur'].';">'.$act_words['currentstep'].'</span><br />';
 			}
-			$tooltip .= '<span style="color:#'.$colorno.'">'.$act_words['uncompletedsteps'].'</span><br /><br />';
+			$tooltip .= '<span style="color:#'.$addon->config['colorno'].';">'.$act_words['uncompletedsteps'].'</span><br /><br />';
 			if ($items[$key][0] == 'Quests')
 			{
 				for ($i=1;$i<count($items[$key])-1;$i++)
 				{
 					if ($krow[$key]>$i)
-						$color = $colorcmp;
+						$color = $addon->config['colorcmp'];
 					else if ($krow[$key]==$i)
-						$color = $colorcur;
+						$color = $addon->config['colorcur'];
 					else
-						$color = $colorno;
+						$color = $addon->config['colorno'];
 					list($qname,$junk) = explode('|',$items[$key][$i]);
 					$qname = preg_replace('/\\\/', '', $qname);
-					$tooltip .= '<span style="color:#'.$color.'">'.$i.': '.$qname.'</span><br />';
+					$tooltip .= '<span style="color:#'.$color.';">'.$i.': '.$qname.'</span><br />';
 				}
 			}
 			else
@@ -406,16 +403,16 @@ while ($row = $wowdb->fetch_array($result))
 				{
 					if ($j < count($parray) && $parray[$j] == $i)
 					{
-						$color = $colorcmp;
+						$color = $addon->config['colorcmp'];
 						$j++;
 					}
 					else
 					{
-						$color = $colorno;
+						$color = $addon->config['colorno'];
 					}
 					list($pname,$junk) = explode('|',$items[$key][$i]);
 					$pname = preg_replace('/\\\/', '', $pname);
-					$tooltip .= '<span style="color:#'.$color.'">'.$i.': '.$pname.'</span><br />';
+					$tooltip .= '<span style="color:#'.$color.';">'.$i.': '.$pname.'</span><br />';
 				}
 			}
 

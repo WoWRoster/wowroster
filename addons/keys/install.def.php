@@ -29,11 +29,11 @@ class keys
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
 	var $version = '1.0.0';
-	
-	var $fullname = 'Keys';
+
+	var $fullname = 'Instance Keys';
 	var $description = 'Lists Dungeon keys for members';
 	var $credits = array(
-	array(	"name"=>	"Unknown",
+	array(	"name"=>	"WoWRoster Dev Team",
 			"info"=>	"Original author")
 	);
 
@@ -46,6 +46,13 @@ class keys
 		$installer->add_backup(ROSTER_ADDONCONFTABLE);
 
 		// Master and menu entries
+		$installer->add_config("'1','startpage','keys_conf','display','master'");
+		$installer->add_config("'110','keys_conf',NULL,'blockframe','menu'");
+
+		$installer->add_config("'1010','colorcmp','#00ff00','color','keys_conf'");
+		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
+		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
+
 		$installer->add_menu_button('keys');
 		return true;
 	}

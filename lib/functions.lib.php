@@ -922,9 +922,6 @@ function getaddon( $addonname )
 	// Get the addon's location
 	$addon['dir'] = ROSTER_ADDONS.$addon['basename'].DIR_SEP;
 
-	// Get the addon's index file
-	$addon['index_file'] = $addon['dir'].'index.php';
-
 	// Get the addon's css style
 	$addon['css_file'] = $addon['dir'].'style.css';
 
@@ -986,27 +983,28 @@ function getaddon( $addonname )
  */
 function add_locale_file( $localefile , $locale , &$array )
 {
-	global $roster_conf;
-
 	include($localefile);
 
-	if( isset($array[$locale]) )
+	if( isset($lang) )
 	{
-		if( isset($lang['admin']) && isset($array[$locale]['admin']) )
+		if( isset($array[$locale]) )
 		{
-			$admin = array_merge($array[$locale]['admin'], $lang['admin']);
-			$array[$locale] = array_merge($array[$locale], $lang);
-			$array[$locale]['admin'] = $admin;
+			if( isset($lang['admin']) && isset($array[$locale]['admin']) )
+			{
+				$admin = array_merge($array[$locale]['admin'], $lang['admin']);
+				$array[$locale] = array_merge($array[$locale], $lang);
+				$array[$locale]['admin'] = $admin;
+			}
+			else
+			{
+				$array[$locale] = array_merge($array[$locale], $lang);
+			}
 		}
 		else
 		{
-			$array[$locale] = array_merge($array[$locale], $lang);
+			$array[$locale] = $lang;
 		}
-	}
-	else
-	{
-		$array[$locale] = $lang;
-	}
 
-	unset($lang);
+		unset($lang);
+	}
 }

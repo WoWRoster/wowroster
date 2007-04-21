@@ -31,8 +31,6 @@ $addon = getaddon($roster_pages[2]);
 // Check if addon is active
 if( $addon['active'] = '1' )
 {
-	$script_filename = 'rostercp-addon-'.$roster_pages[2];
-
 	// Include addon's locale files if they exist
 	foreach( $roster_conf['multilanguages'] as $langvalue )
 	{

@@ -351,7 +351,6 @@ $lang['alternate']='Alternate';
 $lang['byclass']='Par Classe';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honneur';
-$lang['keys']='Clefs';
 $lang['team']='Trouver un groupe';
 $lang['search']='Rechercher';
 $lang['update']='Dernière mise à jour';
