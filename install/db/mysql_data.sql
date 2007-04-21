@@ -177,15 +177,14 @@ INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8:b9|b10:
 # --------------------------------------------------------
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'members', 'members');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'Guild_Info', 'guildinfo');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menustats', 'guildstats');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'guildbank', 'guildbank');
-INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'pvplist', 'guildpvp');
-INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'menuhonor', 'guildhonor');
-INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'memberlog', 'memberlog');
-INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'professions', 'tradeskills');
-INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'team', 'questlist');
-INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'search', 'search');
-INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (13, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menustats', 'guildstats');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'guildbank', 'guildbank');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'pvplist', 'guildpvp');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'menuhonor', 'guildhonor');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'memberlog', 'memberlog');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'professions', 'tradeskills');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'upprofile', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'team', 'questlist');
+INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'search', 'search');
+INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (12, 0, 'credit', 'credits');
