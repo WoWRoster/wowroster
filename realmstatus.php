@@ -26,173 +26,169 @@
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once( $roster_root_path . 'settings.php' );
-require_once( ROSTER_LIB . 'xmlparse.php' );
+//require_once( ROSTER_LIB . 'xmlparse.php' );
 require_once( ROSTER_LIB . 'minixml.lib.php' );
 
 
 //==========[ GET FROM CONF.PHP ]====================================================
 
 if( empty($roster_conf['realmstatus']) )
-	$realmstatus = utf8_decode($roster_conf['server_name']);
+$realmstatus = utf8_decode($roster_conf['server_name']);
 else
-	$realmstatus = utf8_decode($roster_conf['realmstatus']);
+$realmstatus = utf8_decode($roster_conf['realmstatus']);
 
 $realmstatus = trim($realmstatus);
 
 if( $roster_conf['rs_mode'] )
-	$generate_image = true;
+$generate_image = true;
 elseif( !$roster_conf['rs_mode'] )
-	$generate_image = false;
+$generate_image = false;
 else
-	$generate_image = true;
+$generate_image = true;
 
 
 //==========[ OTHER SETTINGS ]=========================================================
 
 // Minutes between status update refresh 0-60
-	$timer = 10;
+$timer = 0;
 
 // Path to image folder
-	$image_path = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP;
+$image_path = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP;
 
 // Path to font folder
-	$font_path = ROSTER_BASE . 'fonts' . DIR_SEP;
+$font_path = ROSTER_BASE . 'fonts' . DIR_SEP;
 
 // URL for status page
-	$url = $roster_conf['realmstatus_url'];
+$url = $roster_conf['realmstatus_url'];
 
 #--[ MYSQL CONNECT AND STORE ]=========================================================
 
 // Read info from Database
-	$querystr = "SELECT * FROM `" . ROSTER_REALMSTATUSTABLE . "` WHERE `server_name` = '" . $wowdb->escape($realmstatus) . "';";
-	$sql = $wowdb->query($querystr);
-	if( $sql && $wowdb->num_rows($sql) > 0 )
-	{
-		$realmData = $wowdb->fetch_array($sql);
-	}
-	else
-	{
-		$realmData['server_name'] = '';
-		$realmData['servertype'] = '';
-		$realmData['servertypecolor'] = '';
-		$realmData['serverstatus'] = '';
-		$realmData['serverpop'] = '';
-		$realmData['serverpopcolor'] = '';
-		$realmData['timestamp'] = '0';
-	}
+$querystr = "SELECT * FROM `" . ROSTER_REALMSTATUSTABLE . "` WHERE `server_name` = '" . $wowdb->escape($realmstatus) . "';";
+$sql = $wowdb->query($querystr);
+if( $sql && $wowdb->num_rows($sql) > 0 )
+{
+	$realmData = $wowdb->fetch_array($sql);
+}
+else
+{
+	$realmData['server_name'] = '';
+	$realmData['servertype'] = '';
+	$realmData['servertypecolor'] = '';
+	$realmData['serverstatus'] = '';
+	$realmData['serverpop'] = '';
+	$realmData['serverpopcolor'] = '';
+	$realmData['timestamp'] = '0';
+}
 
 //==========[ STATUS GENERATION CODE ]=================================================
 
 // Check timestamp, update when ready
-	$current_time = date('i')*1;
-
+$current_time = date('i')*1;
 
 if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmData['timestamp'] )
 {
-	$xml_parse =& new xmlParser();
-
+	$xml = $wowdb->urlgrabber($url);
+	
+	$xmldoc =& new MiniXMLDoc($xml);
+	$xmlarray = $xmldoc->toArray($xmldoc);
 
 	$err = 1;
-	if( $xml_parse->parse($url) )
+	if( $xml != FALSE )
 	{
-		if( count( $xml_parse->output ) )
+		foreach($xmlarray['rs']['r'] as $key => $value)
 		{
-			if( is_array($xml_parse->output[0]['child']) )
+			$xml_server = $value['_attributes'];
+			if( $xml_server['n'] == $realmstatus )
 			{
-				foreach( $xml_parse->output[0]['child'] as $xml_array )
+				$err = 0;
+				switch( strtoupper($xml_server['s']) )
 				{
-					$xml_server = $xml_array['attrs'];
-					if( $xml_server['N'] == $realmstatus )
-					{
-						$err = 0;
-						switch( strtoupper($xml_server['S']) )
-						{
-							case '0':
-							case 'DOWN':
-								$realmData['serverstatus'] = 'down';
-								break;
+					case '0':
+					case 'DOWN':
+						$realmData['serverstatus'] = 'down';
+						break;
 
-							case '1':
-							case 'UP':
-								$realmData['serverstatus'] = 'Up';
-								break;
+					case '1':
+					case 'UP':
+						$realmData['serverstatus'] = 'Up';
+						break;
 
-							case '2':
-							case 'MAINTENANCE':  // <-- unchecked
-								$realmData['serverstatus'] = 'maintenance';
-								break;
+					case '2':
+					case 'MAINTENANCE':  // <-- unchecked
+					$realmData['serverstatus'] = 'maintenance';
+					break;
 
-							default:
-								$realmData['serverstatus'] = 'unknown';
-						}
-						switch( strtoupper($xml_server['T']) )
-						{
-							case '0':
-							case 'RPPVP':
-							case 'RP-PVP':
-								$realmData['servertype'] = $act_words['rs']['RPPVP'];
-								$realmData['servertypecolor'] = '535600';
-								break;
+					default:
+						$realmData['serverstatus'] = 'unknown';
+				}
+				switch( strtoupper($xml_server['t']) )
+				{
+					case '0':
+					case 'RPPVP':
+					case 'RP-PVP':
+						$realmData['servertype'] = $act_words['rs']['RPPVP'];
+						$realmData['servertypecolor'] = '535600';
+						break;
 
-							case '1':
-							case 'PVE':
-								$realmData['servertype'] = $act_words['rs']['PVE'];
-								$realmData['servertypecolor'] = '234303';
-								break;
+					case '1':
+					case 'PVE':
+						$realmData['servertype'] = $act_words['rs']['PVE'];
+						$realmData['servertypecolor'] = '234303';
+						break;
 
-							case '2':
-							case 'PVP':
-								$realmData['servertype'] = $act_words['rs']['PVP'];
-								$realmData['servertypecolor'] = '660D02';
-								break;
+					case '2':
+					case 'PVP':
+						$realmData['servertype'] = $act_words['rs']['PVP'];
+						$realmData['servertypecolor'] = '660D02';
+						break;
 
-							case '3':
-							case 'RP':
-								$realmData['servertype'] = $act_words['rs']['RP'];
-								$realmData['servertypecolor'] = '535600';
-								break;
+					case '3':
+					case 'RP':
+						$realmData['servertype'] = $act_words['rs']['RP'];
+						$realmData['servertypecolor'] = '535600';
+						break;
 
-							default:
-								$realmData['servertype'] = $act_words['rs']['UNKNOWN'];
-								$realmData['servertypecolor'] = '860D02';
-						}
-						switch( strtoupper($xml_server['L']) )
-						{
-							case '1':
-							case 'LOW':
-								$realmData['serverpop'] = $act_words['rs']['LOW'];
-								$realmData['serverpopcolor'] = '234303';
-								break;
+					default:
+						$realmData['servertype'] = $act_words['rs']['UNKNOWN'];
+						$realmData['servertypecolor'] = '860D02';
+				}
+				switch( strtoupper($xml_server['l']) )
+				{
+					case '1':
+					case 'LOW':
+						$realmData['serverpop'] = $act_words['rs']['LOW'];
+						$realmData['serverpopcolor'] = '234303';
+						break;
 
-							case '2':
-							case 'MEDIUM':
-								$realmData['serverpop'] = $act_words['rs']['MEDIUM'];
-								$realmData['serverpopcolor'] = '535600';
-								break;
+					case '2':
+					case 'MEDIUM':
+						$realmData['serverpop'] = $act_words['rs']['MEDIUM'];
+						$realmData['serverpopcolor'] = '535600';
+						break;
 
-							case '3':
-							case 'HIGH':
-								$realmData['serverpop'] = $act_words['rs']['HIGH'];
-								$realmData['serverpopcolor'] = '660D02';
-								break;
+					case '3':
+					case 'HIGH':
+						$realmData['serverpop'] = $act_words['rs']['HIGH'];
+						$realmData['serverpopcolor'] = '660D02';
+						break;
 
-							case '4':
-							case 'MAX': // <-- unused?
-								$realmData['serverpop'] = $act_words['rs']['MAX'];
-								$realmData['serverpopcolor'] = '860D02';
-								break;
+					case '4':
+					case 'MAX': // <-- unused?
+					$realmData['serverpop'] = $act_words['rs']['MAX'];
+					$realmData['serverpopcolor'] = '860D02';
+					break;
 
-							default:
-								$realmData['serverpop'] = $act_words['rs']['ERROR'];
-								$realmData['serverpopcolor'] = '860D02';
-						}
-					}
+					default:
+						$realmData['serverpop'] = $act_words['rs']['ERROR'];
+						$realmData['serverpopcolor'] = '860D02';
 				}
 			}
 		}
 	}
 
-//==========[ WRITE INFO TO DATABASE ]=================================================
+
+	//==========[ WRITE INFO TO DATABASE ]=================================================
 
 	if( !$err ) // Don't write to DB if there has been an error
 	{
@@ -358,7 +354,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 			{
 				$t--;
 				$box = imagettfbbox($serverfontsize, 0,$serverfont,substr($realmData['server_name'],0,$t));
-			  	$i = abs($box[0]) + abs($box[2]);
+				$i = abs($box[0]) + abs($box[2]);
 			}
 			$t = strrpos(substr($realmData['server_name'], 0, $t), ' ');
 			$output[0] = substr($realmData['server_name'], 0, $t);
@@ -366,7 +362,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 			$vadj = -6;
 		}
 		else
-			$output[0] = $realmData['server_name'];
+		$output[0] = $realmData['server_name'];
 
 		$i = 0;
 		foreach( $output as $value )
@@ -394,7 +390,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 				{
 					$t--;
 					$box = imagettfbbox($serverpopfontsize, 0,$serverpopfont,substr($realmData['serverpop'],0,$t));
-				  	$i = abs($box[0]) + abs($box[2]);
+					$i = abs($box[0]) + abs($box[2]);
 				}
 				$t = strrpos(substr($realmData['serverpop'], 0, $t), ' ');
 				$output[0] = substr($realmData['serverpop'], 0, $t);
@@ -471,5 +467,5 @@ function shadowText( $im , $fontsize , $xpos , $ypos , $font , $text , $color )
 	$_y = array( 1, 0, 1 );
 
 	for( $n=0; $n<=2; $n++ )
-		@imageTTFText( $im,$fontsize,0,$xpos+$_x[$n],$ypos+$_y[$n],$color,$font,$text );
+	@imageTTFText( $im,$fontsize,0,$xpos+$_x[$n],$ypos+$_y[$n],$color,$font,$text );
 }
