@@ -46,6 +46,11 @@ DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;
 
+DELETE FROM `renprefix_config` WHERE `id` = 9000 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 9010 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 9020 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 9030 LIMIT 1;
+
 # --------------------------------------------------------
 ### New master entry: Startpage
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
