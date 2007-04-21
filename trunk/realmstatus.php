@@ -50,7 +50,7 @@ $generate_image = true;
 //==========[ OTHER SETTINGS ]=========================================================
 
 // Minutes between status update refresh 0-60
-$timer = 0;
+$timer = 10;
 
 // Path to image folder
 $image_path = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP;
