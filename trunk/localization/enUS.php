@@ -63,10 +63,6 @@ $lang['no_char_name'] = 'Sorry no character data for <strong>%1$s</strong> of <s
 $lang['char_stats'] = 'Character Stats for: %1$s @ %2$s';
 $lang['char_links'] = 'Character Links';
 
-$lang['gbank_list'] = 'Full Listing';
-$lang['gbank_inv'] = 'Inventory';
-$lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
-
 $lang['roster_cp'] = 'Roster Control Panel';
 $lang['roster_cp_ab'] = 'Roster CP';
 $lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
@@ -340,8 +336,6 @@ $lang['duellog']='Duel Log';
 $lang['duelsummary']='Duel Summary';
 $lang['money']='Money';
 $lang['bank']='Bank';
-$lang['guildbank']='GuildBank';
-$lang['guildbank_totalmoney']='Total bank holdings';
 $lang['raid']='CT_Raid';
 $lang['guildbankcontact']='Held By (Contact)';
 $lang['guildbankitem']='Item Name and Description';
