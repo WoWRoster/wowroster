@@ -391,7 +391,7 @@ class config
 
 			$html .= '
 		<tr>
-			<td class="membersRow'.(($i%2)+1).'"><div '.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</div></td>
+			<td class="membersRow'.(($i%2)+1).'"><div'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</div></td>
 			<td class="membersRowRight'.(($i%2)+1).'"><div align="right">'.$input_field.'</div></td>
 		</tr>';
 
