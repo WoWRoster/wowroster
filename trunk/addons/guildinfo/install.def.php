@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class guildinfo
 {
 	var $active = true;
-	var $icon = 'inv_misc_key_06';
+	var $icon = 'inv_misc_note_06';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
