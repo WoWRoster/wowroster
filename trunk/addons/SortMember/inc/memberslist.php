@@ -48,11 +48,45 @@ class memberslist {
 	 */
 	function prepareData($query, $fields, $listname)
 	{
-		global $wowdb, $wordings, $act_words, $roster_conf;
+		global $wowdb, $wordings, $act_words, $roster_conf, $addon;
 
 		$this->listname = $listname;
 		$this->fields = $fields;
-		$this->query = $query;
+
+		$query .= 'ORDER BY ';
+
+		if( $addon['config']['nojs'] )
+		{
+			// Set GET vars here, to avoid NOTICE error hell
+			$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
+			$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
+
+			// Get default sort from roster config
+			if( !empty($get_s) && !empty($roster_conf['index_sort']) )
+			{
+			   $get_s = $roster_conf['index_sort'];
+			}
+
+			if( isset($fields[$get_s]) && $ORDER_FIELD = $fields[$get_s] )
+			{
+				if( !empty($get_d) && isset( $ORDER_FIELD['order_d'] ) )
+				{
+					foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
+					{
+						$query .= $order_field_sql.', ';
+					}
+				}
+				elseif( isset( $ORDER_FIELD['order']) )
+				{
+					foreach ( $ORDER_FIELD['order'] as $order_field_sql )
+					{
+						$query .= $order_field_sql.', ';
+					}
+				}
+			}
+		}
+		
+		$this->query = $query . ' `members`.`level` DESC, `members`.`name` ASC';
 
 		$cols = count( $fields );
 
@@ -73,20 +107,44 @@ class memberslist {
 				$th_text = $DATA['lang_field'];
 			}
 
-			if ( $current_col == $cols )
+			if( $addon['config']['nojs'] )
 			{
-				$this->tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
+				// click a sorted field again to reverse sort it
+				// Don't add it if it is detected already
+				if( $get_d != 'true' )
+				{
+					$desc = ( $get_s == $field ) ? '&amp;d=true' : '';
+				}
+				else
+				{
+					$desc = '';
+				}
+
+				if( $current_col == $cols )
+				{
+					$this->tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				}
+				else
+				{
+					$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				}
 			}
 			else
 			{
-				$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
+				if ( $current_col == $cols )
+				{
+					$this->tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
+				}
+				else
+				{
+					$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
+				}
 			}
 
 			$this->sortoptions .= '<optgroup label="'.$th_text.'">'.
 				'<option value="'.$current_col.'_asc">'.$th_text.' ASC</option>'.
 				'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
 				'</optgroup>'."\n";
-
 
 			if ($current_col > 1)
 			{
@@ -108,6 +166,11 @@ class memberslist {
 	{
 		global $wowdb, $wordings, $act_words, $roster_conf, $addon;
 
+		if( $addon['config']['nojs'] )
+		{
+			return '';
+		}
+		
 		$cols = count( $this->fields );
 
 		$output =
@@ -153,7 +216,7 @@ class memberslist {
 
 		if ( !$result )
 		{
-			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$mainQuery);
+			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
 		}
 
 		$striping_counter = 0;

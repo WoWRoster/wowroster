@@ -65,25 +65,25 @@ $mainQuery =
 	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
 		'FROM `'.ROSTER_SKILLSTABLE.'` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
-	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' '.
-	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' ';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
-	'required' => true,
-	'default'  => true,
+	'order'    => array( '`members`.`name` ASC' ),
+	'order_d'    => array( '`members`.`name` DESC' ),
 	'value' => 'name_value',
 );
 
 $FIELD['class'] = array (
 	'lang_field' => 'class',
-	'default'  => true,
+	'order'    => array( '`members`.`class` ASC' ),
+	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => 'class_value',
 );
 
 $FIELD['level'] = array (
 	'lang_field' => 'level',
-	'default'  => true,
+	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => 'level_value',
 );
 
@@ -91,6 +91,8 @@ if ( $roster_conf['index_title'] == 1 )
 {
 	$FIELD['guild_title'] = array (
 		'lang_field' => 'title',
+		'order' => array( '`members`.`guild_rank` ASC' ),
+		'order_d' => array( '`members`.`guild_rank` DESC' ),
 		'jsort' => 'guild_rank',
 	);
 }
@@ -99,6 +101,8 @@ if ( $roster_conf['index_currenthonor'] == 1 )
 {
 	$FIELD['lifetimeRankName'] = array (
 		'lang_field' => 'currenthonor',
+		'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
+		'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
 		'value' => 'honor_value',
 	);
 }
@@ -107,6 +111,8 @@ if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 0 )
 {
 	$FIELD['note'] = array (
 		'lang_field' => 'note',
+		'order' => array( 'nisnull','`members`.`note` ASC' ),
+		'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 		'value' => 'note_value',
 	);
 }
@@ -123,6 +129,8 @@ if ( $roster_conf['index_hearthed'] == 1 )
 {
 	$FIELD['hearth'] = array (
 		'lang_field' => 'hearthed',
+		'order' => array( 'hisnull', 'hearth ASC' ),
+		'order_d' => array( 'hisnull', 'hearth DESC' ),
 	);
 }
 
@@ -130,6 +138,8 @@ if ( $roster_conf['index_zone'] == 1 )
 {
 	$FIELD['zone'] = array (
 		'lang_field' => 'zone',
+		'order' => array( '`members`.`zone` ASC' ),
+		'order_d' => array( '`members`.`zone` DESC' ),
 	);
 }
 
@@ -137,6 +147,8 @@ if ( $roster_conf['index_lastonline'] == 1 )
 {
 	$FIELD['last_online'] = array (
 		'lang_field' => 'lastonline',
+		'order' => array( '`members`.`last_online` DESC' ),
+		'order_d' => array( '`members`.`last_online` ASC' ),
 		'jsort' => 'last_online_stamp',
 	);
 }
@@ -145,6 +157,8 @@ if ( $roster_conf['index_lastupdate'] == 1 )
 {
 	$FIELD['last_update_format'] = array (
 		'lang_field' => 'lastupdate',
+		'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
+		'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
 		'jsort' => 'last_update_stamp',
 	);
 }
@@ -153,10 +167,12 @@ if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 1 )
 {
 	$FIELD['note'] = array (
 		'lang_field' => 'note',
+		'order' => array( 'nisnull','`members`.`note` ASC' ),
+		'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 		'value' => 'note_value',
 	);
 }
-	
+
 include_once ($addon['dir'].'inc/memberslist.php');
 
 $memberlist = new memberslist;
