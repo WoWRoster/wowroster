@@ -12,11 +12,11 @@
  *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
  * -----------------------------
  *
- * $Id: enUS.php 747 2007-04-01 02:44:44Z Zanix $
+ * $Id$
  *
  ******************************/
 
-$lang['keys'] = 'Instance Keys';
+$lang['keys'] = 'Clefs';
 
 $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
 $lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';

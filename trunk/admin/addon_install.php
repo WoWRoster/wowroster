@@ -119,7 +119,7 @@ $body = $roster_login->getMessage().'<br />'.($message != '' ? $message.'<br />'
  */
 function activeInactive( $mode,$id )
 {
-	global $script_filename, $roster_conf, $act_words;
+	global $roster_conf, $act_words;
 
 	if( $mode )
 	{
@@ -151,7 +151,7 @@ function activeInactive( $mode,$id )
  */
 function installUpgrade( $mode,$name )
 {
-	global $roster_conf, $script_filename, $act_words;
+	global $roster_conf, $act_words;
 
 	if( $mode == -1 )
 	{

@@ -54,6 +54,11 @@ define('ROSTER_LOCALE_DIR',ROSTER_BASE.'localization'.DIR_SEP);
 define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_updater/version_match.php');
 
 /**
+ * Deny access to these addon files
+ */
+define('ROSTER_NON_ADDON','install.def,update_hook');
+
+/**
  * Database Table Names
  * Only set if $db_prefix exists
  */
