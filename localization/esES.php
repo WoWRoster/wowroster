@@ -730,7 +730,6 @@ $lang['purgeavewins'] = 'Best Win/Level-Diff Average';
 $lang['purgeavelosses'] = 'Best Loss/Level-Diff Average';
 $lang['pvpratio'] = 'Solo Win/Loss Ratios';
 $lang['playerinfo'] = 'Player Info';
-$lang['guildinfo'] = 'Guild Info';
 $lang['kill_lost_hist']='Kill/Loss history for %1$s (%2$s %3$s) of %4$s';
 $lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
 $lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';

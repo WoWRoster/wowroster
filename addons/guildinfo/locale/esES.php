@@ -16,9 +16,4 @@
  *
  ******************************/
 
-$lang['keys'] = 'Llaves';
-
-$lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
-$lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
-$lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
-$lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
+$lang['guildinfo'] = 'Guild Info';
