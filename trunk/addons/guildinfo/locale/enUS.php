@@ -15,3 +15,5 @@
  * $Id: enUS.php 747 2007-04-01 02:44:44Z Zeryl $
  *
  ******************************/
+
+$lang['guildinfo'] = 'Guild Info';
