@@ -149,6 +149,24 @@ $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 $roster_show_menu = false;
 
+echo "<table>\n  <tr>\n";
+
+if ( $roster_conf['index_hslist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_LIB.'hslist.php');
+	echo "    </td>\n";
+}
+
+if ( $roster_conf['index_pvplist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_LIB.'pvplist.php');
+	echo "    </td>\n";
+}
+
+echo "  </tr>\n</table>\n";
+
 echo $memberlist->makeFilterBox();
 
 echo "<br />\n".border('syellow','start')."\n";
