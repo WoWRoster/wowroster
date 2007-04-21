@@ -21,6 +21,8 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+define('IN_SORTMEMBER',true);
+
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
 {
