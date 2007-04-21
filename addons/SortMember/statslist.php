@@ -80,76 +80,103 @@ $mainQuery =
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
-	'required' => true,
-	'default'  => true,
+	'order'    => array( '`members`.`name` ASC' ),
+	'order_d'    => array( '`members`.`name` DESC' ),
 	'value' => 'name_value',
 );
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
-	'default'  => true,
+	'order'    => array( '`members`.`class` ASC' ),
+	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => 'class_value',
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
-	'default'  => true,
+	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => 'level_value',
 );
 
 $FIELD['stat_int_c'] = array (
 	'lang_field' => 'intellect',
+	'order' => array( "`stat_int_c` DESC" ),
+	'order_d' => array( "`stat_int_c` ASC" ),
 );
 
 $FIELD['stat_agl_c'] = array (
 	'lang_field' => 'agility',
+	'order' => array( "`stat_agl_c` DESC" ),
+	'order_d' => array( "`stat_agl_c` ASC" ),
 );
 
 $FIELD['stat_sta_c'] = array (
 	'lang_field' => 'stamina',
+	'order' => array( "`stat_sta_c` DESC" ),
+	'order_d' => array( "`stat_sta_c` ASC" ),
 );
 
 $FIELD['stat_str_c'] = array (
 	'lang_field' => 'strength',
+	'order' => array( "`stat_str_c` DESC" ),
+	'order_d' => array( "`stat_str_c` ASC" ),
 );
 
 $FIELD['stat_spr_c'] = array (
 	'lang_field' => 'spirit',
+	'order' => array( "`stat_spr_c` DESC" ),
+	'order_d' => array( "`stat_spr_c` ASC" ),
 );
 
 $FIELD['total'] = array (
 	'lang_field' => 'total',
+	'order' => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) DESC" ),
+	'order_d' => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) ASC" ),
 	'value' => 'total_value',
 );
 
 $FIELD['health'] = array (
 	'lang_field' => 'health',
+	'order' => array( 'hisnull','`players`.`health` DESC' ),
+	'order_d' => array( 'hisnull','`players`.`health` ASC' ),
 );
 
 $FIELD['mana'] = array(
 	'lang_field' => 'mana',
+	'order' => array( 'misnull','`players`.`mana` DESC' ),
+	'order_d' => array( 'misnull','`players`.`mana` ASC' ),
 );
 
 $FIELD['stat_armor_c'] = array(
 	'lang_field' => 'armor',
+	'order' => array( 'aisnull','`players`.`stat_armor_c` DESC' ),
+	'order_d' => array( 'aisnull','`players`.`stat_armor_c` ASC' ),
 	'value' => 'armor_value',
 );
 
 
 $FIELD['dodge'] = array(
 	'lang_field' => 'dodge',
+	'order' => array( 'disnull','`players`.`dodge` DESC' ),
+	'order_d' => array( 'disnull','`players`.`dodge` ASC' ),
 );
 
 $FIELD['parry'] = array(
 	'lang_field' => 'parry',
+	'order' => array( 'pisnull','`players`.`parry` DESC' ),
+	'order_d' => array( 'pisnull','`players`.`parry` ASC' ),
 );
 
 $FIELD['block'] = array(
 	'lang_field' => 'block',
+	'order' => array( 'bisnull','`players`.`block` DESC' ),
+	'order_d' => array( 'bisnull','`players`.`block` ASC' ),
 );
 
 $FIELD['crit'] = array(
 	'lang_field' => 'crit',
+	'order' => array( 'cisnull','`players`.`crit` DESC' ),
+	'order_d' => array( 'cisnull','`players`.`crit` ASC' ),
 );
 
 

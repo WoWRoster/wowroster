@@ -67,54 +67,71 @@ $mainQuery =
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
-	'required' => true,
-	'default'  => true,
+	'order'    => array( '`members`.`name` ASC' ),
+	'order_d'    => array( '`members`.`name` DESC' ),
 	'value' => 'name_value',
 );
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
-	'default'  => true,
+	'order'    => array( '`members`.`class` ASC' ),
+	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => 'class_value',
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
-	'default'  => true,
+	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => 'level_value',
 );
 
 $FIELD['sessionHK'] = array(
 	'lang_field' => 'todayhk',
+	'order' => array( '`players`.`sessionHK` DESC' ),
+	'order_d' => array( '`players`.`sessionHK` ASC' ),
 );
 
 $FIELD['sessionCP'] = array(
 	'lang_field' => 'todaycp',
+	'order' => array( '`players`.`sessionCP` DESC' ),
+	'order_d' => array( '`players`.`sessionCP` ASC' ),
 );
 
 $FIELD['yesterdayHK'] = array(
 	'lang_field' => 'yesthk',
+	'order' => array( '`players`.`yesterdayHK` DESC' ),
+	'order_d' => array( '`players`.`yesterdayHK` ASC' ),
 );
 
 $FIELD['yesterdayContribution'] = array(
 	'lang_field' => 'yestcp',
+	'order' => array( '`players`.`yesterdayContribution` DESC' ),
+	'order_d' => array( '`players`.`yesterdayContribution` ASC' ),
 );
 
 $FIELD['lifetimeHK'] = array(
 	'lang_field' => 'lifehk',
+	'order' => array( '`players`.`lifetimeHK` DESC' ),
+	'order_d' => array( '`players`.`lifetimeHK` ASC' ),
 );
 
 $FIELD['lifetimeRankName'] = array(
 	'lang_field' => 'highestrank',
+	'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
+	'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
 	'value' => 'honor_value',
 );
 
 $FIELD['honorpoints'] = array(
-		'lang_field' => 'honorpoints',
+	'lang_field' => 'honorpoints',
+	'order' => array( '`players`.`honorpoints` DESC' ),
+	'order_d' => array( '`players`.`honorpoints` ASC' ),
 );
 
 $FIELD['arenapoints'] = array(
 	'lang_field' => 'arenapoints',
+	'order' => array( '`players`.`arenapoints` DESC' ),
+	'order_d' => array( '`players`.`arenapoints` ASC' ),
 );
 
 

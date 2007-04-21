@@ -55,6 +55,7 @@ class SortMember
 
 		# setting
 		$installer->add_config("1000,'openfilter','0','radio{Show^1|Hide^0','display'");
+		$installer->add_config("1010,'nojs','0','radio{Server^1|Client^0','display'");
 
 		# Roster menu entry
 		$installer->add_menu_button('SortMember_Members','-memberslist');

@@ -30,7 +30,7 @@ $lang['SortMember_uninstalled'] = 'SortMember a été désinstallé. Vous pouvez
 // Main/Alt display
 $lang['SortMember_Members']		= 'SortMembers';
 $lang['SortMember_Stats']		= 'SortStats';
-$lang['SortMember_Stats']		= 'SortHonor';
+$lang['SortMember_Honor']		= 'SortHonor';
 $lang['SortMember_NoAction']    = 'Action invalide : Veuillez vérifier si vous avez correctement tapé l\'url. Si vous avez accédé à cette page via le lien présent sur cet addon, signalez ce bug sur les forums de WoWroster.';
 
 $lang['memberssortfilter']		= 'Ordre et filtre de tri';
@@ -50,7 +50,7 @@ $lang['admin']['documentation'] = 'Documentation|AltMonitor documentation on the
 
 // Settings names on build page
 $lang['admin']['openfilter']	= 'Options de tri|Indiquer l\'état de la fenêtre des options de filtre et du tri.';
-
+$lang['admin']['nojs']          = 'List type|Specify if you want to use serverside sorting or clientside sorting+filtering.';
 // Translators:
 //
 // Harut
