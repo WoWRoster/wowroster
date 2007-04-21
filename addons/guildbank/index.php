@@ -225,4 +225,4 @@ foreach( $bankers as $banker_id => $banker  )
 }
 
 
-print $banker_list."\n<br /><br />\n".$bank_money."\n<br />\n".$bank_print;
+print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\n<br />\n".$bank_print;
