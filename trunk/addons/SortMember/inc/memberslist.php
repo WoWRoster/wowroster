@@ -411,7 +411,7 @@ function honor_value ( $row )
 	{
 		if ( $roster_conf['index_honoricon'] )
 		{
-			if( $playersData['lifetimeHighestRank'] < 10 )
+			if( $row['lifetimeHighestRank'] < 10 )
 			{
 				$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
 			}

@@ -30,6 +30,7 @@ $lang['SortMember_uninstalled'] = 'SortMember a été désinstallé. Vous pouvez
 // Main/Alt display
 $lang['SortMember_Members']		= 'SortMembers';
 $lang['SortMember_Stats']		= 'SortStats';
+$lang['SortMember_Stats']		= 'SortHonor';
 $lang['SortMember_NoAction']    = 'Action invalide : Veuillez vérifier si vous avez correctement tapé l\'url. Si vous avez accédé à cette page via le lien présent sur cet addon, signalez ce bug sur les forums de WoWroster.';
 
 $lang['memberssortfilter']		= 'Ordre et filtre de tri';

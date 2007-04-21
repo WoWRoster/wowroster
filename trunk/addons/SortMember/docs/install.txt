@@ -40,6 +40,7 @@ is faster.
 VERSION LOG:
 0.3.0
 -- Roster 1.8 compatibility
+-- Added the honor page
 
 0.2.0
 -- Inequality filters on date columns work in FF, work even better in Opera,
