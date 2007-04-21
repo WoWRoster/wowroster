@@ -148,160 +148,6 @@ $lang['rs'] = array(
 );
 
 
-/*
-Instance Keys
-=============
-A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
-you have this one part it will mark all other parts lower than this one as complete.
-*/
-
-// ALLIANCE KEYS
-$lang['inst_keys']['A'] = array(
-	'SG' => array( 'Quests',
-		'SG' =>	'Key to Searing Gorge|4826',
-			'The Horn of the Beast|',
-			'Proof of Deed|',
-			'At Last!|'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Workshop Key|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'The Scarlet Key|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Mallet of Zul\\\'Farrak|5695',
-			'Sacred Mallet|8250'
-		),
-	'Mauro' => array( 'Parts',
-		'Mauro' => 'Scepter of Celebras|19710',
-			'Celebrian Rod|19549',
-			'Celebrian Diamond|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Prison Cell Key|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Shadowforge Key|2966',
-			'Ironfel|9673'
-		),
-	'DM' => array( 'Key-Only',
-		'DM' => 'Crescent Key|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skeleton Key|16854',
-			'Scholomance|',
-			'Skeletal Fragments|',
-			'Mold Rhymes With...|',
-			'Fire Plume Forged|',
-			'Araj\\\'s Scarab|',
-			'The Key to Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Key to the City|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Seal of Ascension|17057',
-			'Unadorned Seal of Ascension|5370',
-			'Gemstone of Spirestone|5379',
-			'Gemstone of Smolderthorn|16095',
-			'Gemstone of Bloodaxe|21777',
-			'Unforged Seal of Ascension|24554||MS',
-			'Forged Seal of Ascension|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drakefire Amulet|4829',
-			'Dragonkin Menace|',
-			'The True Masters|',
-			'Marshal Windsor|',
-			'Abandoned Hope|',
-			'A Crumpled Up Note|',
-			'A Shred of Hope|',
-			'Jail Break!|',
-			'Stormwind Rendezvous|',
-			'The Great Masquerade|',
-			'The Dragon\\\'s Eye|',
-			'Drakefire Amulet|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Eternal Quintessence|53490'
-		),
-);
-
-
-// HORDE KEYS
-$lang['inst_keys']['H'] = array(
-	'SG' => array( 'Key-Only',
-		'SG' => 'Key to Searing Gorge|4826'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Workshop Key|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'The Scarlet Key|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Mallet of Zul\\\'Farrak|5695',
-			'Sacred Mallet|8250'
-		),
-	'Mauro' => array( 'Parts',
-		'Mauro' => 'Scepter of Celebras|19710',
-			'Celebrian Rod|19549',
-			'Celebrian Diamond|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Prison Cell Key|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Shadowforge Key|2966',
-			'Ironfel|9673'
-		),
-	'DM' => array( 'Key-Only',
-		'DM' => 'Crescent Key|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skeleton Key|16854',
-			'Scholomance|',
-			'Skeletal Fragments|',
-			'Mold Rhymes With...|',
-			'Fire Plume Forged|',
-			'Araj\\\'s Scarab|',
-			'The Key to Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Key to the City|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Seal of Ascension|17057',
-			'Unadorned Seal of Ascension|5370',
-			'Gemstone of Spirestone|5379',
-			'Gemstone of Smolderthorn|16095',
-			'Gemstone of Bloodaxe|21777',
-			'Unforged Seal of Ascension|24554||MS',
-			'Forged Seal of Ascension|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drakefire Amulet|4829',
-			'Warlord\\\'s Command|',
-			'Eitrigg\\\'s Wisdom|',
-			'For The Horde!|',
-			'What the Wind Carries|',
-			'The Champion of the Horde|',
-			'The Testament of Rexxar|',
-			'Oculus Illusions|',
-			'Emberstrife|',
-			'The Test of Skulls, Scryer|',
-			'The Test of Skulls, Somnus|',
-			'The Test of Skulls, Chronalis|',
-			'The Test of Skulls, Axtroz|',
-			'Ascension...|',
-			'Blood of the Black Dragon Champion|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Eternal Quintessence|22754'
-		),
-);
-
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['upload']='Upload';
 $lang['required']='Required';
@@ -337,8 +183,6 @@ $lang['duelsummary']='Duel Summary';
 $lang['money']='Money';
 $lang['bank']='Bank';
 $lang['raid']='CT_Raid';
-$lang['guildbankcontact']='Held By (Contact)';
-$lang['guildbankitem']='Item Name and Description';
 $lang['quests']='Quests';
 $lang['roster']='Roster';
 $lang['alternate']='Alternate';
@@ -393,7 +237,6 @@ $lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'No Member Log Recorded';
 
 $lang['rosterdiag'] = 'Roster Diag.';
-$lang['Guild_Info'] = 'Guild Info';
 $lang['difficulty'] = 'Difficulty';
 $lang['recipe_4'] = 'optimal';
 $lang['recipe_3'] = 'medium';
@@ -929,7 +772,6 @@ $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
-$lang['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
@@ -1049,12 +891,6 @@ $lang['admin']['realmstatus_url'] = "Realmstatus URL|URL to Blizzard's Realmstat
 $lang['admin']['rs_display'] = "Info Mode|&quot;full&quot; will show status and server name, population, and type<br />&quot;half&quot; will display just the status";
 $lang['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<br /><br />&quot;DIV Container&quot; - Shows Realmstatus in a DIV container with text and standard images<br />&quot;Image&quot; - Shows Realmstatus as an image (REQUIRES GD!)";
 $lang['admin']['realmstatus'] = "Alternate Servername|Some server names may cause realmstatus to not work correctly, even if uploading profiles works<br />The actual server name from the game may not match what is used on the server status data page<br />You can set this so serverstatus can use another servername<br /><br />Leave blank to use the name set in Guild Config";
-
-// guildbank_conf
-$lang['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display type<br /><br />&quot;Table&quot; is a basic view showing all items available from every bank character in one list<br />&quot;Inventory&quot; shows a table of items for each bank character";
-$lang['admin']['bank_money'] = "Money Display|Controls Money display in guildbanks";
-$lang['admin']['banker_rankname'] = "Banker Search Text|Text used to designate banker characters";
-$lang['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";

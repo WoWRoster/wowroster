@@ -16,4 +16,4 @@
  *
  ******************************/
 
-$lang['guildinfo'] = 'Guild Info';
+$lang['guildinfo'] = 'Info Guilde';

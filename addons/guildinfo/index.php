@@ -19,10 +19,10 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['Guild_Info'];
+$header_title = $act_words['guildinfo'];
 
 
 if( !empty($guild_info['guild_info_text']) )
 {
-	print messagebox('<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>',$act_words['Guild_Info'],'syellow');
+	print messagebox('<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>',$act_words['guildinfo'],'syellow');
 }

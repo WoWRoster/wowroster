@@ -148,160 +148,6 @@ $lang['rs'] = array(
 );
 
 
-/*
-Instance Keys
-=============
-A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
-you have this one part it will mark all other parts lower than this one as complete.
-*/
-
-// ALLIANCE KEYS
-$lang['inst_keys']['A'] = array(
-	'SG' => array( 'Quests',
-		'SG' => 'Llave de la Garganta de Fuego|4826',
-			'The Horn of the Beast|',
-			'Proof of Deed|',
-			'At Last!|'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Llave de taller|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'La llave Escarlata|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Marra de Zul\\\'Farrak|5695',
-			'Marra sacra|8250'
-		),
-	'Mauro' => array( 'Parts',
-		'Mauro' => 'Cetro de Celebras|19710',
-			'Vara de Celebras|19549',
-			'Diamante de Celebras|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Llave de celda de prisión|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Llave Sombratiniebla|2966',
-			'Ferrovil|9673'
-		),
-	'DM' => array( 'Key-Only',
-		'DM' => 'Llave creciente|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Llave esqueleto|16854',
-			'Scholomance|',
-			'Skeletal Fragments|',
-			'Mold Rhymes With...|',
-			'Fire Plume Forged|',
-			'Araj\\\'s Scarab|',
-			'The Key to Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Llave de la ciudad|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Lacre de ascensión|17057',
-			'Sello de ascensión sin adornar|5370',
-			'Gema de Cumbrerroca|5379',
-			'Gema de Espina Ahumada|16095',
-			'Gema de Hacha de Sangre|21777',
-			'Sello de Ascensión sin forjar|24554||MS',
-			'Sello de Ascensión forjado|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amuleto de Pirodraco|4829',
-			'Dragonkin Menace|',
-			'The True Masters|',
-			'Marshal Windsor|',
-			'Abandoned Hope|',
-			'A Crumpled Up Note|',
-			'A Shred of Hope|',
-			'Jail Break!|',
-			'Stormwind Rendezvous|',
-			'The Great Masquerade|',
-			'The Dragon\\\'s Eye|',
-			'Amuleto de Pirodraco|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Quintaesencia eterna|22754'
-		),
-);
-
-
-// HORDE KEYS
-$lang['inst_keys']['H'] = array(
-	'SG' => array( 'Key-Only',
-		'SG' => 'Llave de la Garganta de Fuego|4826'
-		),
-	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Llave de taller|2288'
-		),
-	'SM' => array( 'Key-Only',
-		'SM' => 'La llave Escarlata|4445'
-		),
-	'ZF' => array( 'Parts',
-		'ZF' => 'Marra de Zul\\\'Farrak|5695',
-			'Marra sacra|8250'
-		),
-	'Mauro' => array( 'Parts',
-		'Mauro' => 'Cetro de Celebras|19710',
-			'Vara de Celebras|19549',
-			'Diamante de Celebras|19545'
-		),
-	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Llave de celda de prisión|15545'
-		),
-	'BRDs' => array( 'Parts',
-		'BRDs' => 'Llave Sombratiniebla|2966',
-			'Ferrovil|9673'
-		),
-	'DM' => array( 'Key-Only',
-		'DM' => 'Llave creciente|35607'
-		),
-	'Scholo' => array( 'Quests',
-		'Scholo' => 'Llave esqueleto|16854',
-			'Scholomance|',
-			'Skeletal Fragments|',
-			'Mold Rhymes With...|',
-			'Fire Plume Forged|',
-			'Araj\\\'s Scarab|',
-			'The Key to Scholomance|'
-		),
-	'Strath' => array( 'Key-Only',
-		'Strath' => 'Llave de la ciudad|13146'
-		),
-	'UBRS' => array( 'Parts',
-		'UBRS' => 'Lacre de ascensión|17057',
-			'Sello de ascensión sin adornar|5370',
-			'Gema de Cumbrerroca|5379',
-			'Gema de Espina Ahumada|16095',
-			'Gema de Hacha de Sangre|21777',
-			'Sello de Ascensión sin forjar|24554||MS',
-			'Sello de Ascensión forjado|19463||MS'
-		),
-	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amuleto de Pirodraco|4829',
-			'Warlord\\\'s Command|',
-			'Eitrigg\\\'s Wisdom|',
-			'For The Horde!|',
-			'What the Wind Carries|',
-			'The Champion of the Horde|',
-			'The Testament of Rexxar|',
-			'Oculus Illusions|',
-			'Emberstrife|',
-			'The Test of Skulls, Scryer|',
-			'The Test of Skulls, Somnus|',
-			'The Test of Skulls, Chronalis|',
-			'The Test of Skulls, Axtroz|',
-			'Ascension...|',
-			'Blood of the Black Dragon Champion|'
-		),
-	'MC' => array( 'Key-Only',
-		'MC' => 'Quintaesencia eterna|22754'
-		),
-);
-
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['upload']='Enviar';
 $lang['required']='Requerido';
@@ -337,8 +183,6 @@ $lang['duelsummary']='Resumen Duelos';
 $lang['money']='Dinero';
 $lang['bank']='Banco';
 $lang['raid']='CT_Raid';
-$lang['guildbankcontact']='Mantenido por (Contacto)';
-$lang['guildbankitem']='Nombre de Objeto y Descripción';
 $lang['quests']='Misiones';
 $lang['roster']='Roster';
 $lang['alternate']='Suplente';
@@ -393,7 +237,6 @@ $lang['updated'] = 'Updated';
 $lang['no_memberlog'] = 'No existe registro de miembros';
 
 $lang['rosterdiag'] = 'Roster Diag.';
-$lang['Guild_Info'] = 'Info Clan';
 $lang['difficulty'] = 'Dificultad';
 $lang['recipe_4'] = 'Óptima';
 $lang['recipe_3'] = 'Media';
@@ -929,7 +772,6 @@ $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
-$lang['admin']['guildbank_conf'] = 'Guildbank|Set up your guildbank display and characters';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
@@ -1049,12 +891,6 @@ $lang['admin']['realmstatus_url'] = "Estado real del reino URL|URL a la p&aacute
 $lang['admin']['rs_display'] = "Mostrar Informaci&oacuten|&quot;lleno&quot; mostrar&aacute el estado y el nombre del servidor, poblaci&oacuten y tipo<br>&quot;medio&quot; mostrar&aacute el estado del reino";
 $lang['admin']['rs_mode'] = "Modo de mostrar|Como aparecer&aacute el EstadoReino<br><br>&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br>&quot;Imagen&quot; - Muestra el ReinoEstado como una imagen (REQUERIDO GD!)";
 $lang['admin']['realmstatus'] = "Nombre alternativo del reino|Algunos nombres de los servidores no permiten al ReinoEstado funcionar correctamente<br>A veces el nombre del servidor no es encontrado en la base de datos de la p&aacutegina de EstadoReino<br>Puedes activar esta opci&oacuten y as&iacute utilizar otro nombre para tu servidor<br><br>D&eacutejalo en blanco para utilizar el nombre elegido en la configuraci&oacuten de la hermandad";
-
-// guildbank_conf
-$lang['admin']['guildbank_ver'] = "GuildBanco|Banco de la hermandad<br><br>&quot;Tabla&quot; mostrar todos los objetos de todos los jugadores banco en una &uacutenica lista<br>&quot;Inventario&quot; muestra una tabla para cada uno de los jugadores banco";
-$lang['admin']['bank_money'] = "Mostrar dinero|Muestra el dinero en el addon GuildBanco";
-$lang['admin']['banker_rankname'] = "Texto para buscar un banco|Indica el texto con el que se localizar&aacute a un personaje banco";
-$lang['admin']['banker_fieldname'] = "Campo de b&uacutesqueda de banquero|Indica el campo en el que se localiza el texto que has puesto en el apartado anterior";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opcion en off desactivas el acceso para todo el mundo.";
