@@ -87,7 +87,7 @@ $current_time = date('i')*1;
 
 if( $current_time >= ($realmData['timestamp']+$timer) || $current_time < $realmData['timestamp'] )
 {
-	$xml = $wowdb->urlgrabber($url);
+	$xml = urlgrabber($url);
 	
 	$xmldoc =& new MiniXMLDoc($xml);
 	$xmlarray = $xmldoc->toArray($xmldoc);

@@ -2989,48 +2989,6 @@ class wowdb
 
 	} //-END function update_char()
 	
-	/**
-	 * Handles retrieving a URL multiple ways
-	 *
-	 * @param string $url	| URL to retrieve
-	 * @param int $timeout	| Timeout
-	 * @return mixed		| False on error, contents on success
-	 */
-	function urlgrabber( $url , $timeout = 5 )
-	{
-		$contents = '';
-
-		if( function_exists('curl_init') )
-		{
-			$ch = curl_init($url);
-
-			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-			$contents = curl_exec($ch);
-
-			// If there were errors
-			if (curl_errno($ch))
-			{
-				$this->error('Error: '.curl_error($ch));
-				return false;
-			}
-
-			curl_close($ch);
-
-			return $contents;
-		}
-		elseif( $contents = file_get_contents($url) )
-		{
-			return $contents;
-		}
-		else
-		{
-			$this->error(sprintf($user->lang['error_download_file'],$url));
-			return false;
-		}
-	} //-END function urlgrabber()
-
 } //-END CLASS
 
 $wowdb = new wowdb;

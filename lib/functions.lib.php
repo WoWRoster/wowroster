@@ -1023,3 +1023,45 @@ function add_locale_file( $localefile , $locale , &$array )
 		unset($lang);
 	}
 }
+
+	/**
+	 * Handles retrieving a URL multiple ways
+	 *
+	 * @param string $url	| URL to retrieve
+	 * @param int $timeout	| Timeout
+	 * @return mixed		| False on error, contents on success
+	 */
+	function urlgrabber( $url , $timeout = 5 )
+	{
+		$contents = '';
+
+		if( function_exists('curl_init') )
+		{
+			$ch = curl_init($url);
+
+			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+			$contents = curl_exec($ch);
+
+			// If there were errors
+			if (curl_errno($ch))
+			{
+				$this->error('Error: '.curl_error($ch));
+				return false;
+			}
+
+			curl_close($ch);
+
+			return $contents;
+		}
+		elseif( $contents = file_get_contents($url) )
+		{
+			return $contents;
+		}
+		else
+		{
+			die_quietly('Could not retrieve URL','URL Grabber');
+			return false;
+		}
+	} //-END function urlgrabber()
