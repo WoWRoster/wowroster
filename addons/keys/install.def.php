@@ -46,10 +46,6 @@ class keys
 		$installer->add_backup(ROSTER_ADDONCONFTABLE);
 
 		// Master and menu entries
-		$installer->add_config("'1','startpage','keys_conf','display','master'");
-		$installer->add_config("'110','keys_conf',NULL,'blockframe','menu'");
-		$installer->add_config("'1000','display_icon','1','radio{on^1|off^0','keys_conf'");
-
 		$installer->add_menu_button('keys');
 		return true;
 	}
