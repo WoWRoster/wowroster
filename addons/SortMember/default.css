@@ -1,0 +1,36 @@
+
+
+.membersRowColor1 {
+	background-color:#1F1E1D;
+}
+
+.membersRowColor2 {
+	background-color:#2E2D2B;
+}
+
+.membersRowCell {
+	position:relative;
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
+}
+
+.membersRowRightCell {
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
+}
