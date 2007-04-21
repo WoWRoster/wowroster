@@ -1,0 +1,113 @@
+$Id$
+
+NOTES:
+-- Displays the main members list, but sortable and filterable using JS.
+
+INSTALL:
+1) Extract the SortMember archive to the roster/addons/ directory on your site.
+
+2) Go to the Roster Control Panel, manage addons, and click the SortMember
+   installation icon.
+
+3) The addon installs automatically. 
+
+4) Click the new SortMember button in the pagebar to configure SortMember.
+
+CONFIGURE:
+1) Go to the SortMember configuration panel using the link in the Roster Control
+   Panel
+
+2) Change any options you want. Use the buttons on the left side to see more
+   options.
+
+3) Use the reset button at the top of the config page to reset to the settings
+   as they were when you loaded the page.
+
+4) Use the save button at the top of the config page to save the changes.
+
+UNINSTALL:
+1) Click the uninstall link in the config page.
+
+2) Click OK to confirm the uninstall.
+
+3) Delete the SortMember folder from your webserver.
+
+USE:
+Click one of this addon's buttons in the menu to view the sortable list.
+It may take a couple of seconds to sort the full list; sorting a filtered list
+is faster.
+
+VERSION LOG:
+0.3.0
+-- Roster 1.8 compatibility
+
+0.2.0
+-- Inequality filters on date columns work in FF, work even better in Opera,
+   and fail to work completely in IE. I'm not gonna fix this since it'd involve
+   writing my own date parsing function, and there are limits.
+-- Added inequality filtering. Currently supports <, >, <=, =<, >=, =>, == for
+   number fields and == for string fields. Put the symbol at the beginning of
+   the field.
+
+0.1.0
+-- Initial beta release.
+-- Merged the AltMonitor framework with a couple of files from the roster 1x
+   AdminPanel branch.
+
+CREDITS / FILE BY FILE FUNCTION INFO
+conf.php
+	by PleegWat.
+	Loads configuration from the ROSTER_SORTMEMBER_CONFIG_TABLE and detects if
+	we need to install.
+config.php
+	by PleegWat
+	Configuration page. Calls the inc/config.php library for functionality.
+index.php
+	by PleegWat.
+	Wrapper file, called by Roster's addon.php. Uses the $_GET['action']
+	parameter to decide which file to load
+install.php
+	by PleegWat.
+	Installs/upgrades the addon.
+localization.php
+	Translation wrapper. Includes all 'real' translation files
+localization.de.php
+	German localization
+localization.en.php
+	English localization
+localization.es.php
+	Spanish localization
+localization.fr.php
+	French localization
+login.php
+	by PleegWat.
+	Contains login code. Calls roster's lib/login.php for functionality
+menu.php
+	by PleegWat.
+	Sets variable entries needed to show SortMember in the main Roster
+	menu.
+uninstall.php
+	by PleegWat
+	Uninstalls the addon.
+	
+docs/install.txt
+	by PleegWat.
+	This file. Installation instructions, usage instructions, version log,
+	todo info, credits/file overview.
+inc/sql.php
+	by PleegWat.
+	Used by install.php, cointains all install sql. Not fit for direct run
+	in phpMyAdmin or similar.
+inc/config.php
+	Originally admin/config.php, release 63 as shipped with Roster 1.7.
+	Significant edits by PleegWat to turn this into a library that can be
+	called within the addon framework
+inc/memberslist.php
+	Originally roster's memberslist.php, significantly edited by PleegWat
+	into a library for the later abandoned AdminPanel branch. Minor edits
+	to make it work in an addon.
+
+js/sorttable.js
+	Original sorting code by Stuard Langridge. I found this code at
+	http://kryogenix.org/code/browser/sorttable/. The filtering code and
+	the column show/hide code is all by PleegWat.
