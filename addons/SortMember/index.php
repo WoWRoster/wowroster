@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 // -[ This file is nearly dummy now since the addon.php is switching. ]-
 if( !isset($roster_pages[2]) )
 {
-	include($addon['dir'].'memberslist.php'] );
+	include($addon['dir'].'memberslist.php' );
 }
 else
 {
