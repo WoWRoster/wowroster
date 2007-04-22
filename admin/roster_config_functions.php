@@ -59,7 +59,8 @@ function pageNames( )
 	$query = "SELECT `mb`.*, `a`.`basename`
 		FROM `".$wowdb->table('menu_button')."` AS mb
 		LEFT JOIN `".$wowdb->table('addon')."` AS a
-		ON `mb`.`addon_id` = `a`.`addon_id`;";
+		ON `mb`.`addon_id` = `a`.`addon_id`
+		ORDER BY `mb`.`title`;";
 
 	$result = $wowdb->query($query);
 	if( !$result )

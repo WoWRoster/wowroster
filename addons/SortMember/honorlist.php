@@ -62,7 +62,7 @@ $mainQuery =
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
 	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$guild_info['guild_id'].'" '.
-	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+	'ORDER BY ';
 
 
 $FIELD['name'] = array(
@@ -117,8 +117,8 @@ $FIELD['lifetimeHK'] = array(
 
 $FIELD['lifetimeRankName'] = array(
 	'lang_field' => 'highestrank',
-	'order' => array( 'risnull', '`players`.`lifetimeRankName` DESC' ),
-	'order_d' => array( 'risnull', '`players`.`lifetimeRankName` ASC' ),
+	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
+	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
 	'value' => 'honor_value',
 );
 
