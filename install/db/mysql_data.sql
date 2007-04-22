@@ -22,10 +22,10 @@ INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu')
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (190, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (200, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -151,10 +151,39 @@ INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '2', 'radio{on
 # --------------------------------------------------------
 ### Realmstatus Settings
 
-INSERT INTO `renprefix_config` VALUES (8000, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml', 'realmstatus_conf');
-INSERT INTO `renprefix_config` VALUES (8010, 'rs_display', 'full', 'select{full^full|half^half', 'realmstatus_conf');
-INSERT INTO `renprefix_config` VALUES (8020, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'realmstatus_conf');
-INSERT INTO `renprefix_config` VALUES (8030, 'realmstatus', '', 'text{50|30', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8010, 'rs_top', NULL, 'blockframe', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8020, 'rs_wide', NULL, 'page{3', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8030, 'rs_left', NULL, 'blockframe', 'rs_wide');
+INSERT INTO `renprefix_config` VALUES (8040, 'rs_middle', NULL, 'blockframe', 'rs_wide');
+INSERT INTO `renprefix_config` VALUES (8050, 'rs_right', NULL, 'blockframe', 'rs_wide');
+
+INSERT INTO `renprefix_config` VALUES (8100, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8110, 'rs_display', 'full', 'select{full^full|half^half', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8120, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8130, 'realmstatus', '', 'text{50|30', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8140, 'rs_timer', '10', 'text{5|5', 'rs_top');
+
+INSERT INTO `renprefix_config` VALUES (8200, 'rs_font_server', 'VERANDA.TTF', 'function{fontFiles', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8210, 'rs_size_server', '7', 'text{5|5', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8220, 'rs_color_server', '#000000', 'color', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8230, 'rs_color_shadow', '#95824e', 'color', 'rs_left');
+
+INSERT INTO `renprefix_config` VALUES (8300, 'rs_font_type', 'silkscreenb.ttf', 'function{fontFiles', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8310, 'rs_size_type', '6', 'text{5|5', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8320, 'rs_color_rppvp', '#535600', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8330, 'rs_color_pve', '#234303', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8340, 'rs_color_pvp', '#660D02', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8350, 'rs_color_rp', '#535600', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8360, 'rs_color_unknown', '#860D02', 'color', 'rs_middle');
+
+INSERT INTO `renprefix_config` VALUES (8400, 'rs_font_pop', 'GREY.TTF', 'function{fontFiles', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8410, 'rs_size_pop', '11', 'text{5|5', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8420, 'rs_color_low', '#234303', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8430, 'rs_color_medium', '#535600', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8440, 'rs_color_high', '#660D02', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8450, 'rs_color_max', '#860D02', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_error', '#860D02', 'color', 'rs_right');
+
 
 # --------------------------------------------------------
 ### Update Access

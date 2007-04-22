@@ -96,7 +96,7 @@ if ($pagebar != '')
 }
 
 // Add addon buttons
-$query = 'SELECT `basename` FROM `'.$wowdb->table('addon').'`;';
+$query = 'SELECT `basename` FROM `'.$wowdb->table('addon').'` ORDER BY `basename`;';
 $result = $wowdb->query($query);
 if( !$result )
 {

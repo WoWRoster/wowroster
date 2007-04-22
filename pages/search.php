@@ -84,7 +84,7 @@ if( !empty($search) )
 			$item = new item($data);
 			echo $item->out();
 			print "</td>\n";
-			print '    <td valign="middle" class="membersRowRight'.$row_st.'" style="white-space:normal;">';
+			print '    <td valign="middle" class="membersRowRight'.$row_st.' overlib_maintext" style="white-space:normal;">';
 
 			$first_line = true;
 			$tooltip_out = '';
