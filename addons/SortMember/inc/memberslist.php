@@ -95,7 +95,7 @@ class memberslist {
 		foreach ( $this->fields as $field => $DATA )
 		{
 			// If this is a force invisible field, don't do anything with it.
-			if( $DATA['display'] == 0 || ($DATA['display'] == 1 && !$addon['config']['nojs']))
+			if( $DATA['display'] == 0 || ($DATA['display'] == 1 && $addon['config']['nojs']))
 			{
 				unset($this->fields[$field]);
 				continue;

@@ -82,14 +82,14 @@ $FIELD['class'] = array (
 	'order'    => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => 'class_value',
-	'display' => 2,
+	'display' => $addon['config']['member_class'],
 );
 
 $FIELD['level'] = array (
 	'lang_field' => 'level',
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => 'level_value',
-	'display' => 2,
+	'display' => $addon['config']['member_level'],
 );
 
 $FIELD['guild_title'] = array (
@@ -97,7 +97,7 @@ $FIELD['guild_title'] = array (
 	'order' => array( '`members`.`guild_rank` ASC' ),
 	'order_d' => array( '`members`.`guild_rank` DESC' ),
 	'jsort' => 'guild_rank',
-	'display' => 2,
+	'display' => $addon['config']['member_gtitle'],
 );
 
 $FIELD['lifetimeRankName'] = array (
@@ -105,27 +105,27 @@ $FIELD['lifetimeRankName'] = array (
 	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
 	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
 	'value' => 'honor_value',
-	'display' => 2,
+	'display' => $addon['config']['member_hrank'],
 );
 
 $FIELD['professions'] = array (
 	'lang_field' => 'professions',
 	'value' => 'tradeskill_icons',
-	'display' => 2,
+	'display' => $addon['config']['member_prof'],
 );
 
 $FIELD['hearth'] = array (
 	'lang_field' => 'hearthed',
 	'order' => array( 'hisnull', 'hearth ASC' ),
 	'order_d' => array( 'hisnull', 'hearth DESC' ),
-	'display' => 2,
+	'display' => $addon['config']['member_hearth'],
 );
 
 $FIELD['zone'] = array (
 	'lang_field' => 'zone',
 	'order' => array( '`members`.`zone` ASC' ),
 	'order_d' => array( '`members`.`zone` DESC' ),
-	'display' => 2,
+	'display' => $addon['config']['member_zone'],
 );
 
 $FIELD['last_online'] = array (
@@ -133,7 +133,7 @@ $FIELD['last_online'] = array (
 	'order' => array( '`members`.`last_online` DESC' ),
 	'order_d' => array( '`members`.`last_online` ASC' ),
 	'jsort' => 'last_online_stamp',
-	'display' => 2,
+	'display' => $addon['config']['member_online'],
 );
 
 $FIELD['last_update_format'] = array (
@@ -141,7 +141,7 @@ $FIELD['last_update_format'] = array (
 	'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
 	'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
 	'jsort' => 'last_update_stamp',
-	'display' => 2,
+	'display' => $addon['config']['member_update'],
 );
 
 $FIELD['note'] = array (
@@ -149,7 +149,7 @@ $FIELD['note'] = array (
 	'order' => array( 'nisnull','`members`.`note` ASC' ),
 	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 	'value' => 'note_value',
-	'display' => 2,
+	'display' => $addon['config']['member_note'],
 );
 
 $FIELD['officer_note'] = array (
@@ -157,7 +157,7 @@ $FIELD['officer_note'] = array (
 	'order' => array( 'nisnull','`members`.`note` ASC' ),
 	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 	'value' => 'note_value',
-	'display' => 0,
+	'display' => $addon['config']['member_onote'],
 );
 
 include_once ($addon['dir'].'inc/memberslist.php');

@@ -78,49 +78,49 @@ $FIELD['class'] = array(
 	'order'    => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => 'class_value',
-	'display' => 2,
+	'display' => $addon['config']['honor_class'],
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => 'level_value',
-	'display' => 2,
+	'display' => $addon['config']['honor_level'],
 );
 
 $FIELD['sessionHK'] = array(
 	'lang_field' => 'todayhk',
 	'order' => array( '`players`.`sessionHK` DESC' ),
 	'order_d' => array( '`players`.`sessionHK` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_thk'],
 );
 
 $FIELD['sessionCP'] = array(
 	'lang_field' => 'todaycp',
 	'order' => array( '`players`.`sessionCP` DESC' ),
 	'order_d' => array( '`players`.`sessionCP` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_tcp'],
 );
 
 $FIELD['yesterdayHK'] = array(
 	'lang_field' => 'yesthk',
 	'order' => array( '`players`.`yesterdayHK` DESC' ),
 	'order_d' => array( '`players`.`yesterdayHK` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_yhk'],
 );
 
 $FIELD['yesterdayContribution'] = array(
 	'lang_field' => 'yestcp',
 	'order' => array( '`players`.`yesterdayContribution` DESC' ),
 	'order_d' => array( '`players`.`yesterdayContribution` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_ycp'],
 );
 
 $FIELD['lifetimeHK'] = array(
 	'lang_field' => 'lifehk',
 	'order' => array( '`players`.`lifetimeHK` DESC' ),
 	'order_d' => array( '`players`.`lifetimeHK` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_lifehk'],
 );
 
 $FIELD['lifetimeRankName'] = array(
@@ -128,21 +128,21 @@ $FIELD['lifetimeRankName'] = array(
 	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
 	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
 	'value' => 'honor_value',
-	'display' => 2,
+	'display' => $addon['config']['honor_hrank'],
 );
 
 $FIELD['honorpoints'] = array(
 	'lang_field' => 'honorpoints',
 	'order' => array( '`players`.`honorpoints` DESC' ),
 	'order_d' => array( '`players`.`honorpoints` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_hp'],
 );
 
 $FIELD['arenapoints'] = array(
 	'lang_field' => 'arenapoints',
 	'order' => array( '`players`.`arenapoints` DESC' ),
 	'order_d' => array( '`players`.`arenapoints` ASC' ),
-	'display' => 2,
+	'display' => $addon['config']['honor_ap'],
 );
 
 
