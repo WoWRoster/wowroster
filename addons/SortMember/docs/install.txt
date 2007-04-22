@@ -57,59 +57,86 @@ VERSION LOG:
    AdminPanel branch.
 
 CREDITS / FILE BY FILE FUNCTION INFO
-conf.php
-	by PleegWat.
-	Loads configuration from the ROSTER_SORTMEMBER_CONFIG_TABLE and detects if
-	we need to install.
-config.php
-	by PleegWat
-	Configuration page. Calls the inc/config.php library for functionality.
+honorlist.php
+	shows the honour attributes
 index.php
-	by PleegWat.
 	Wrapper file, called by Roster's addon.php. Uses the $_GET['action']
 	parameter to decide which file to load
-install.php
-	by PleegWat.
-	Installs/upgrades the addon.
-localization.php
-	Translation wrapper. Includes all 'real' translation files
-localization.de.php
-	German localization
-localization.en.php
-	English localization
-localization.es.php
-	Spanish localization
-localization.fr.php
-	French localization
-login.php
-	by PleegWat.
-	Contains login code. Calls roster's lib/login.php for functionality
-menu.php
-	by PleegWat.
-	Sets variable entries needed to show SortMember in the main Roster
-	menu.
-uninstall.php
-	by PleegWat
-	Uninstalls the addon.
+install.def.php
+	Installer definition file. Read by the roster addon installer
+memberlist.php
+	Shows the standard memberlist, with guild rank, online times, guild note,
+	professions.
+statslist.php
+	Shows character attributes like strength, stamina, etc.
 	
 docs/install.txt
 	by PleegWat.
 	This file. Installation instructions, usage instructions, version log,
 	todo info, credits/file overview.
-inc/sql.php
-	by PleegWat.
-	Used by install.php, cointains all install sql. Not fit for direct run
-	in phpMyAdmin or similar.
-inc/config.php
-	Originally admin/config.php, release 63 as shipped with Roster 1.7.
-	Significant edits by PleegWat to turn this into a library that can be
-	called within the addon framework
+
 inc/memberslist.php
-	Originally roster's memberslist.php, significantly edited by PleegWat
-	into a library for the later abandoned AdminPanel branch. Minor edits
-	to make it work in an addon.
+	Originally roster's memberslist.php, significantly edited by PleegWat into
+	a library for the later abandoned AdminPanel branch. Minor edits to make it
+	work in an addon. More edits to reinsert support for serverside sorting,
+	allowing this addon to replace the standard memberlist in roster
+	completely.
 
 js/sorttable.js
 	Original sorting code by Stuard Langridge. I found this code at
 	http://kryogenix.org/code/browser/sorttable/. The filtering code and
 	the column show/hide code is all by PleegWat.
+
+locale/deDE.php
+	German localization
+locale/enUS.php
+	English localization
+locale/esES.php
+	Spanish localization
+locale/frFR.php
+	French localization
+
+EDITING THE CODE
+If you want to add more, similar member listings, or you want to change the
+displays in the existing listings beyond what is possible from the config,
+the following points are interesting:
+
+- To create a new page, copy one of the memberlist/statslist/honorlist to a
+  new file in the SortMembers directory. A file called mylist.php will be
+  accessible as ?p=addon-SortMember-mylist
+- The MOTD, honor/pvp overviews, and update info are all included from this
+  list file.
+- The query is fully defined in the list file, except for the order part.
+  Delete the fields you don't use and add those you want to use additionally.
+  Remember some of the fields are still used in the name popup.
+- The columns are defined as elements of the FIELD array. This is the syntax:
+
+
+$FIELD['name'] = array (
+		// The FIELD key is the DB field to be displayed
+	'lang_field' => 'name',
+		// 'lang_field' is the localization key for the header. If the key
+		// is invalid, it is printed in the header literally.
+	'order'    => array( '`members`.`name` ASC' ),
+		// 'order' contains the SQL for an ascending sort
+	'order_d'    => array( '`members`.`name` DESC' ),
+		// 'order_d' contains the SQL for a descending sort
+	'value' => 'name_value',
+		// 'value' is the name (no class callbacks allowed) of the function to
+		// call to draw this column. The function should also be defined in the
+		// list file (except for the name/class/level/honor value functions).
+		// It has one parameter, the DB row for the current player.
+	'jsort' => 'name',
+		// 'jsort' is the field the javascript (clientside sorting) should sort
+		// and filter on. This can be omitted if it's the same as the display
+		// field, and should never occur together with 'value'
+	'display' => 3,
+		// 'display' generally refers to a config field. It determines if the
+		// column is visible:
+		// - 0 for force hidden (not drawn/passed to the client)
+		// - 1 for default hidden (can be made visible if clientside sorting is
+		//     active)
+		// - 2 for default shown (can be made invisible if clientside sorting
+		//     is active)
+		// - 3 for force shown (always shown and cannot be hidden using JS)
+);

@@ -47,11 +47,12 @@ $mainQuery =
 	'`players`.`server`, '.
 	'`players`.`race`, '.
 	'`players`.`sex`, '.
+	'`players`.`exp`, '.
+	'`players`.`clientLocale`, '.
+
 	'`players`.`lifetimeRankName`, '.
 	'`players`.`lifetimeHighestRank`, '.
 	"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
-	'`players`.`exp`, '.
-	'`players`.`clientLocale`, '.
 	'`players`.`hearth`, '.
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
 	"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
@@ -73,6 +74,7 @@ $FIELD['name'] = array (
 	'order'    => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'value' => 'name_value',
+	'display' => 3,
 );
 
 $FIELD['class'] = array (
@@ -80,99 +82,83 @@ $FIELD['class'] = array (
 	'order'    => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => 'class_value',
+	'display' => 2,
 );
 
 $FIELD['level'] = array (
 	'lang_field' => 'level',
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => 'level_value',
+	'display' => 2,
 );
 
-if ( $roster_conf['index_title'] == 1 )
-{
-	$FIELD['guild_title'] = array (
-		'lang_field' => 'title',
-		'order' => array( '`members`.`guild_rank` ASC' ),
-		'order_d' => array( '`members`.`guild_rank` DESC' ),
-		'jsort' => 'guild_rank',
-	);
-}
+$FIELD['guild_title'] = array (
+	'lang_field' => 'title',
+	'order' => array( '`members`.`guild_rank` ASC' ),
+	'order_d' => array( '`members`.`guild_rank` DESC' ),
+	'jsort' => 'guild_rank',
+	'display' => 2,
+);
 
-if ( $roster_conf['index_currenthonor'] == 1 )
-{
-	$FIELD['lifetimeRankName'] = array (
-		'lang_field' => 'currenthonor',
-		'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
-		'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
-		'value' => 'honor_value',
-	);
-}
+$FIELD['lifetimeRankName'] = array (
+	'lang_field' => 'currenthonor',
+	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
+	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
+	'value' => 'honor_value',
+	'display' => 2,
+);
 
-if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 0 )
-{
-	$FIELD['note'] = array (
-		'lang_field' => 'note',
-		'order' => array( 'nisnull','`members`.`note` ASC' ),
-		'order_d' => array( 'nisnull','`members`.`note` DESC' ),
-		'value' => 'note_value',
-	);
-}
+$FIELD['professions'] = array (
+	'lang_field' => 'professions',
+	'value' => 'tradeskill_icons',
+	'display' => 2,
+);
 
-if ( $roster_conf['index_prof'] == 1 )
-{
-	$FIELD['professions'] = array (
-		'lang_field' => 'professions',
-		'value' => 'tradeskill_icons',
-	);
-}
+$FIELD['hearth'] = array (
+	'lang_field' => 'hearthed',
+	'order' => array( 'hisnull', 'hearth ASC' ),
+	'order_d' => array( 'hisnull', 'hearth DESC' ),
+	'display' => 2,
+);
 
-if ( $roster_conf['index_hearthed'] == 1 )
-{
-	$FIELD['hearth'] = array (
-		'lang_field' => 'hearthed',
-		'order' => array( 'hisnull', 'hearth ASC' ),
-		'order_d' => array( 'hisnull', 'hearth DESC' ),
-	);
-}
+$FIELD['zone'] = array (
+	'lang_field' => 'zone',
+	'order' => array( '`members`.`zone` ASC' ),
+	'order_d' => array( '`members`.`zone` DESC' ),
+	'display' => 2,
+);
 
-if ( $roster_conf['index_zone'] == 1 )
-{
-	$FIELD['zone'] = array (
-		'lang_field' => 'zone',
-		'order' => array( '`members`.`zone` ASC' ),
-		'order_d' => array( '`members`.`zone` DESC' ),
-	);
-}
+$FIELD['last_online'] = array (
+	'lang_field' => 'lastonline',
+	'order' => array( '`members`.`last_online` DESC' ),
+	'order_d' => array( '`members`.`last_online` ASC' ),
+	'jsort' => 'last_online_stamp',
+	'display' => 2,
+);
 
-if ( $roster_conf['index_lastonline'] == 1 )
-{
-	$FIELD['last_online'] = array (
-		'lang_field' => 'lastonline',
-		'order' => array( '`members`.`last_online` DESC' ),
-		'order_d' => array( '`members`.`last_online` ASC' ),
-		'jsort' => 'last_online_stamp',
-	);
-}
+$FIELD['last_update_format'] = array (
+	'lang_field' => 'lastupdate',
+	'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
+	'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
+	'jsort' => 'last_update_stamp',
+	'display' => 2,
+);
 
-if ( $roster_conf['index_lastupdate'] == 1 )
-{
-	$FIELD['last_update_format'] = array (
-		'lang_field' => 'lastupdate',
-		'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
-		'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
-		'jsort' => 'last_update_stamp',
-	);
-}
+$FIELD['note'] = array (
+	'lang_field' => 'note',
+	'order' => array( 'nisnull','`members`.`note` ASC' ),
+	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+	'value' => 'note_value',
+	'display' => 2,
+);
 
-if ( $roster_conf['index_note'] == 1 && $roster_conf['compress_note'] == 1 )
-{
-	$FIELD['note'] = array (
-		'lang_field' => 'note',
-		'order' => array( 'nisnull','`members`.`note` ASC' ),
-		'order_d' => array( 'nisnull','`members`.`note` DESC' ),
-		'value' => 'note_value',
-	);
-}
+$FIELD['officer_note'] = array (
+	'lang_field' => 'officer_note',
+	'order' => array( 'nisnull','`members`.`note` ASC' ),
+	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+	'value' => 'note_value',
+	'display' => 0,
+);
 
 include_once ($addon['dir'].'inc/memberslist.php');
 
@@ -246,7 +232,7 @@ if( $roster_conf['index_update_inst'] )
  */
 function tradeskill_icons ( $row )
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster_conf, $wordings, $addon;
 
 	$cell_value ='';
 
@@ -283,7 +269,7 @@ function tradeskill_icons ( $row )
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
 		if ($icon != '') {
-			$cell_value .= "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$roster_conf['interface_url'].'Interface/Icons/'.$icon.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$addon['config']['icon_size']."\" height=\"".$addon['config']['icon_size']."\" src=\"".$roster_conf['interface_url'].'Interface/Icons/'.$icon.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
 		}
 	}
 	return $cell_value;
@@ -295,16 +281,16 @@ function tradeskill_icons ( $row )
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function note_value ( $row )
+function note_value ( $row, $field )
 {
-	global $roster_conf, $wordings, $act_words;
+	global $roster_conf, $wordings, $act_words, $addon;
 
 	$tooltip='';
-	if( !empty($row['note']) )
+	if( !empty($row[$field]) )
 	{
-		$note = htmlspecialchars(nl2br($row['note']));
+		$note = htmlspecialchars(nl2br($row[$field]));
 
-		if( $roster_conf['compress_note'] )
+		if( $addon['config']['compress_note'] )
 		{
 			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$act_words['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
@@ -312,7 +298,7 @@ function note_value ( $row )
 	else
 	{
 		$note = '&nbsp;';
-		if( $roster_conf['compress_note'] )
+		if( $addon['config']['compress_note'] )
 		{
 			$note = '<img src="'.$roster_conf['img_url'].'no_note.gif" alt="[]" />';
 		}
