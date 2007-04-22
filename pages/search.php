@@ -151,7 +151,7 @@ if( !empty($search) )
 			$recipe = new recipe($data);
 			echo $recipe->out();
 				print '</td>'."\n";
-			print '<td valign="top" class="membersRow'.$row_st.'" style="white-space:normal;">';
+			print '<td valign="top" class="membersRow'.$row_st.' overlib_maintext" style="white-space:normal;">';
 
 			$first_line = true;
 			$tooltip_out = '';

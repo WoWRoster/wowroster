@@ -400,10 +400,10 @@ function process_step3()
     define('CONFIG_TABLE', $db_prefix . 'config');
 
     include_once($dbal_file);
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+    $connect = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
 
     // Check to make sure a connection was made
-    if( !is_resource($wowdb->db) )
+    if( !$connect )
     {
         $tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
     }
