@@ -431,7 +431,7 @@ class config
 			if( substr($settingName,0,7) == 'config_' )
 			{
 				// Get rid of the prefix
-				$settingName = str_replace('config_','',$settingName);
+				$settingName = substr($settingName,7);
 
 				// Fix directories
 				if( $settingName == 'img_url' || $settingName == 'interface_url' )
@@ -455,7 +455,7 @@ class config
 				if( substr($settingName, 0, 6) == 'color_' )
 				{
 					// Get rid of the color prefix
-					$settingName = str_replace('color_','',$settingName);
+					$settingName = substr($settingName, 6);
 
 					if( substr($settingValue, 0, 1) != '#' )
 					{

@@ -24,8 +24,6 @@ DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 4000 LIMIT 1;
-DELETE FROM `renprefix_config` WHERE `id` = 4010 LIMIT 1;
-DELETE FROM `renprefix_config` WHERE `id` = 4020 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4040 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4050 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4055 LIMIT 1;
@@ -46,6 +44,11 @@ DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;
 
+DELETE FROM `renprefix_config` WHERE `id` = 8000 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 8010 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 8020 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 8030 LIMIT 1;
+
 DELETE FROM `renprefix_config` WHERE `id` = 9000 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 9010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 9020 LIMIT 1;
@@ -65,9 +68,8 @@ INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'm
 INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (190, 'guildbank_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (200, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (210, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (190, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (200, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 
@@ -95,13 +97,50 @@ INSERT INTO `renprefix_config` VALUES (4460, 'menu_right_text', 'VERANDA.TTF', '
 
 INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
 
-UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
-UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
-UPDATE `renprefix_config` SET `config_value` = 'level', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` =4010;
-UPDATE `renprefix_config` SET `config_value` = 'realmstatus', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` =4020;
+UPDATE `renprefix_config` SET `config_value` = 'level', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` = 4010;
+UPDATE `renprefix_config` SET `config_value` = 'realmstatus', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` = 4020;
 UPDATE `renprefix_config` SET `form_type` = 'select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update' WHERE `id` =3040;
 
-ALTER TABLE `renprefix_config` ORDER BY `id`;
+# --------------------------------------------------------
+### Realmstatus Settings
+
+INSERT INTO `renprefix_config` VALUES (8010, 'rs_top', NULL, 'blockframe', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8020, 'rs_wide', NULL, 'page{3', 'realmstatus_conf');
+INSERT INTO `renprefix_config` VALUES (8030, 'rs_left', NULL, 'blockframe', 'rs_wide');
+INSERT INTO `renprefix_config` VALUES (8040, 'rs_middle', NULL, 'blockframe', 'rs_wide');
+INSERT INTO `renprefix_config` VALUES (8050, 'rs_right', NULL, 'blockframe', 'rs_wide');
+
+INSERT INTO `renprefix_config` VALUES (8100, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8110, 'rs_display', 'full', 'select{full^full|half^half', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8120, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8130, 'realmstatus', '', 'text{50|30', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8140, 'rs_timer', '10', 'text{5|5', 'rs_top');
+
+INSERT INTO `renprefix_config` VALUES (8200, 'rs_font_server', 'VERANDA.TTF', 'function{fontFiles', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8210, 'rs_size_server', '7', 'text{5|5', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8220, 'rs_color_server', '#000000', 'color', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8230, 'rs_color_shadow', '#95824e', 'color', 'rs_left');
+
+INSERT INTO `renprefix_config` VALUES (8300, 'rs_font_type', 'silkscreenb.ttf', 'function{fontFiles', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8310, 'rs_size_type', '6', 'text{5|5', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8320, 'rs_color_rppvp', '#535600', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8330, 'rs_color_pve', '#234303', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8340, 'rs_color_pvp', '#660D02', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8350, 'rs_color_rp', '#535600', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8360, 'rs_color_no', '#860D02', 'color', 'rs_middle');
+
+INSERT INTO `renprefix_config` VALUES (8400, 'rs_font_pop', 'GREY.TTF', 'function{fontFiles', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8410, 'rs_size_pop', '11', 'text{5|5', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8420, 'rs_color_low', '#234303', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8430, 'rs_color_medium', '#535600', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8440, 'rs_color_high', '#660D02', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8450, 'rs_color_max', '#860D02', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_offline', '#860D02', 'color', 'rs_right');
+
+
+ALTER TABLE `renprefix_realmstatus`
+  DROP `servertypecolor`,
+  DROP `serverpopcolor`;
 
 # --------------------------------------------------------
 ### Fix Item Icons
@@ -467,3 +506,12 @@ INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'team', 'questlist');
 INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'search', 'search');
 INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'roster_cp_ab', 'rostercp');
 INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'credit', 'credits');
+
+
+# --------------------------------------------------------
+### The roster version and db version MUST be last
+
+UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
+
+ALTER TABLE `renprefix_config` ORDER BY `id`;

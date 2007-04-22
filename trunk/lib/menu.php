@@ -247,22 +247,25 @@ class RosterMenu
 	 */
 	function makeRealmStatus()
 	{
-		global $roster_conf;
+		global $roster_conf, $guild_info, $wowdb, $act_words;
 
-		$realmStatus = '    <td valign="top" class="row">'."\n";
+		$realmStatus = '    <td valign="top" class="row">' . "\n";
 		if( $roster_conf['rs_mode'] )
 		{
-			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php" />'."\n";
+			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . ( !empty($roster_conf['realmstatus']) ? $roster_conf['realmstatus'] : $guild_info['server'] ) . '" />' . "\n";
 		}
-		elseif( file_exists(ROSTER_BASE.'realmstatus.php') )
+		elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
 		{
 			ob_start();
 				include_once (ROSTER_BASE.'realmstatus.php');
-				$realmStatus .= ob_get_contents()."\n";
-			ob_end_flush();
+			$realmStatus .= ob_get_clean() . "\n";
+		}
+		else
+		{
+			$realmStatus .= '&nbsp;';
 		}
 
-		$realmStatus .= '    </td>'."\n";
+		$realmStatus .= "    </td>\n";
 
 		return $realmStatus;
 	}

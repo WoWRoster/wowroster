@@ -183,9 +183,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 			// Item texture and quantity column
 			if( $gbank_mode == '' )
-				$bank_print .= '    <td valign="top" align="center" class="'.$stripe_class.' equip">';
+				$bank_print .= '    <td valign="top" align="center" class="'.$stripe_class.'">';
 			else
-				$bank_print .= '    <td valign="top" align="center" class="equip">';
+				$bank_print .= '    <td valign="top" align="center">';
 
 			$itemRow['item_quantity'] = $itemRow['total_quantity'];
 
