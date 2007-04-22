@@ -258,10 +258,10 @@ function tradeskill_icons ( $row )
 	$lang = $row['clientLocale'];
 
 	$profs = explode(',',$row['professions']);
-	foreach ( $profs as $prof)
+	foreach ( $profs as $prof )
 	{
 		$r_prof = explode('|',$prof);
-		$toolTip = str_replace(':','/',$r_prof[1]);
+		$toolTip = (isset($r_prof[1]) ? str_replace(':','/',$r_prof[1]) : '');
 		$toolTiph = $r_prof[0];
 
 		if( $r_prof[0] == $wordings[$lang]['riding'] )
