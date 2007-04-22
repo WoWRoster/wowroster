@@ -65,7 +65,8 @@ $mainQuery =
 	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
 		'FROM `'.ROSTER_SKILLSTABLE.'` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
-	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' ';
+	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' '.
+	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',

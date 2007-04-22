@@ -53,7 +53,7 @@ class memberslist {
 		$this->listname = $listname;
 		$this->fields = $fields;
 
-		$query .= 'ORDER BY ';
+		$query .= ', ';
 
 		if( $addon['config']['nojs'] )
 		{
@@ -85,7 +85,7 @@ class memberslist {
 				}
 			}
 		}
-		
+
 		$this->query = $query . ' `members`.`level` DESC, `members`.`name` ASC';
 
 		$cols = count( $fields );
@@ -170,7 +170,7 @@ class memberslist {
 		{
 			return '';
 		}
-		
+
 		$cols = count( $this->fields );
 
 		$output =
