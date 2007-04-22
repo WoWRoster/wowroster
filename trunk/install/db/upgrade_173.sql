@@ -24,6 +24,29 @@ DELETE FROM `renprefix_config` WHERE `id` =    2 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 
+DELETE FROM `renprefix_config` WHERE `id` = 3000 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3010 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3015 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3020 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3030 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3040 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3050 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3060 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3070 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3080 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3090 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3100 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3110 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3120 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3130 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3140 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3150 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3160 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3170 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3180 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3190 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 3200 LIMIT 1;
+
 DELETE FROM `renprefix_config` WHERE `id` = 4000 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4020 LIMIT 1;
@@ -67,12 +90,11 @@ INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'me
 INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (190, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (200, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (150, 'char_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (160, 'realmstatus_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (170, 'data_links', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (180, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (190, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 
@@ -491,24 +513,19 @@ CREATE TABLE `renprefix_addon_config` (
 ) TYPE=MyISAM;
 
 
-# --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8:b9|b10:b11:b12:b13:b14');
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8');
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'members', 'members');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menustats', 'guildstats');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'pvplist', 'guildpvp');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'menuhonor', 'guildhonor');
-INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'memberlog', 'memberlog');
-INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'professions', 'tradeskills');
-INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'team', 'questlist');
-INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'search', 'search');
-INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'credit', 'credits');
-
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'pvplist', 'guildpvp');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'memberlog', 'memberlog');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'professions', 'tradeskills');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'upprofile', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'team', 'questlist');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'search', 'search');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'credit', 'credits');
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last

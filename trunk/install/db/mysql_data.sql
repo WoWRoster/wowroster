@@ -19,12 +19,11 @@ INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'me
 INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (150, 'index_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (160, 'char_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (170, 'realmstatus_conf', NULL, 'page{1', 'menu');
-INSERT INTO `renprefix_config` VALUES (180, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (190, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (200, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (150, 'char_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (160, 'realmstatus_conf', NULL, 'page{1', 'menu');
+INSERT INTO `renprefix_config` VALUES (170, 'data_links', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (180, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (190, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -56,32 +55,6 @@ INSERT INTO `renprefix_config` VALUES (2020, 'guild_desc', 'A Great WoW Guild', 
 INSERT INTO `renprefix_config` VALUES (2030, 'server_type', 'PvE', 'select{PvE^PvE|PvP^PvP|RP^RP|RPPvP^RPPvP', 'guild_conf');
 INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'guild_conf');
 INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'guild_conf');
-
-# --------------------------------------------------------
-### Index Page
-
-INSERT INTO `renprefix_config` VALUES (3000, 'index_pvplist', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3010, 'index_hslist', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3015, 'hspvp_list_disp', 'show', 'radio{show^show|hide^hide', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3020, 'index_member_tooltip', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3030, 'index_update_inst', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3040, 'index_sort', '', 'select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3050, 'index_motd', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3060, 'index_level_bar', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3070, 'index_iconsize', '16', 'select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3080, 'index_tradeskill_icon', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3090, 'index_tradeskill_loc', 'professions', 'select{Name^name|Class^class|Level^level|Guild Title^guild_title|PvP Rank^RankName|Note^note|Professions^professions|Hearthed^hearth|Last Zone^zone|Last On-line^lastonline|Last Updated^last_update', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3100, 'index_class_color', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3110, 'index_classicon', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3120, 'index_honoricon', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3130, 'index_prof', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3140, 'index_currenthonor', '0', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3150, 'index_note', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3160, 'index_title', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3170, 'index_hearthed', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3180, 'index_zone', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3190, 'index_lastonline', '1', 'radio{on^1|off^0', 'index_conf');
-INSERT INTO `renprefix_config` VALUES (3200, 'index_lastupdate', '1', 'radio{on^1|off^0', 'index_conf');
 
 # --------------------------------------------------------
 ### Roster Menu Settings
@@ -191,18 +164,15 @@ INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8:b9|b10:b11:b12:b13:b14');
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3:b4|b5:b6:b7:b8');
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'members', 'members');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menustats', 'guildstats');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'pvplist', 'guildpvp');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'menuhonor', 'guildhonor');
-INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'memberlog', 'memberlog');
-INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'professions', 'tradeskills');
-INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'team', 'questlist');
-INSERT INTO `renprefix_menu_button` VALUES (9, 0, 'search', 'search');
-INSERT INTO `renprefix_menu_button` VALUES (10, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (11, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'pvplist', 'guildpvp');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'memberlog', 'memberlog');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'professions', 'tradeskills');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'upprofile', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'team', 'questlist');
+INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'search', 'search');
+INSERT INTO `renprefix_menu_button` VALUES (7, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (8, 0, 'credit', 'credits');

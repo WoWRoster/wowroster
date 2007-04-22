@@ -19,9 +19,9 @@
 // -[ enUS Localization ]-
 
 // Button names
-$lang['SortMember_Members']		= 'SortMembers';
-$lang['SortMember_Stats']		= 'SortStats';
-$lang['SortMember_Honor']		= 'SortHonor';
+$lang['SortMember_Members']		= 'Members';
+$lang['SortMember_Stats']		= 'Stats';
+$lang['SortMember_Honor']		= 'Honor';
 
 // Index: Wrong $roster_pages[2]
 $lang['SortMember_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';
