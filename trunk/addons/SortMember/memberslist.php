@@ -158,7 +158,7 @@ $FIELD['note'] = array (
 );
 
 $FIELD['officer_note'] = array (
-	'lang_field' => 'officer_note',
+	'lang_field' => 'onote',
 	'order' => array( 'onisnull','`members`.`note` ASC' ),
 	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
 	'value' => 'note_value',
