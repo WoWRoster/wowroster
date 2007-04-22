@@ -33,8 +33,45 @@ $lang['memberscolshow']			= 'Show/Hide Columns';
 $lang['membersfilter']			= 'Filter rows';
 
 // Column headers
+$lang['name']                   = 'Name';
+$lang['class']                  = 'Class';
+$lang['level']                  = 'Level';
+$lang['title']                  = 'Title';
+$lang['currenthonor']           = 'Current Honor Rank';
+$lang['professions']            = 'Professions';
+$lang['hearthed']               = 'Hearthed';
+$lang['zone']                   = 'Last Zone';
+$lang['lastonline']             = 'Last Online';
+$lang['lastupdate']             = 'Last Updated';
+$lang['note']                   = 'Note';
+$lang['onote']                  = 'Officer Note';
+
+$lang['strength']               = 'Strength';
+$lang['agility']                = 'Agility';
+$lang['stamina']                = 'Stamina';
+$lang['intellect']              = 'Intellect';
+$lang['spirit']                 = 'Spirit';
+$lang['total']                  = 'Total';
+$lang['health']                 = 'Health';
+$lang['mana']                   = 'Mana';
+$lang['armor']                  = 'Armor';
+$lang['dodge']                  = 'Dodge';
+$lang['parry']                  = 'Parry';
+$lang['block']                  = 'Block';
+$lang['crit']                   = 'Crit';
+
+$lang['todayhk']                = 'Today HK';
+$lang['todaycp']                = 'Today CP';
+$lang['yesthk']                 = 'Yest HK';
+$lang['yestcp']                 = 'Yest CP';
+$lang['lifehk']                 = 'Life HK';
+$lang['highestrank']            = 'Highest Rank';
+$lang['honorpoints']            = 'Honor Points';
+$lang['arenapoints']            = 'Arena Points';
+
 $lang['main_name']              = 'Main name';
 $lang['alt_type']               = 'Alt type';
+
 
 // Configuration
 $lang['SortMember_config']		= 'Go to SortMember configuration';
