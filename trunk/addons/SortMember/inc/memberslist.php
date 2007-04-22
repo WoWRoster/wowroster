@@ -53,8 +53,6 @@ class memberslist {
 		$this->listname = $listname;
 		$this->fields = $fields;
 
-		$query .= ', ';
-
 		if( $addon['config']['nojs'] )
 		{
 			// Set GET vars here, to avoid NOTICE error hell

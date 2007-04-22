@@ -74,8 +74,8 @@ $mainQuery =
 
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
 	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-	'WHERE `members`.`guild_id` = '.$guild_info['guild_id'].' '.
-	'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+	'WHERE `members`.`guild_id` = "'.$guild_info['guild_id'].'" '.
+	'ORDER BY ';
 
 
 $FIELD['name'] = array(
