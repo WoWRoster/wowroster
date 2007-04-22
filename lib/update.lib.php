@@ -233,12 +233,27 @@ class update
 
 					if( $result )
 					{
-						$output .= $addon->messages;
+						if( $mode == 'guild' )
+						{
+							$output .= '<li>'.$addon->messages.'</li>';
+						}
+						else
+						{
+							$output .= $addon->messages;
+						}
 					}
 					else
 					{
-						$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
-							"Addon messages:<br />\n".$addon->messages;
+						if( $mode == 'guild' )
+						{
+							$output .= '<li>There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
+								"Addon messages:<br />\n".$addon->messages.'</li>';
+						}
+						else
+						{
+							$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
+								"Addon messages:<br />\n".$addon->messages;
+						}
 					}
 				}
 			}
@@ -396,7 +411,7 @@ class update
 										$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
 										$currentTime = getDate($currentTimestamp);
 
-										if( $guild_info && ( ( strtotime($guild_info['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) >= 0 ) )
+										if( $guild_info && ( ( strtotime($guild_info['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 ) )
 										{
 											return sprintf($act_words['not_update_guild_time'],$guild_name)."<br />\n";
 										}
@@ -405,14 +420,16 @@ class update
 										$guildId = $wowdb->update_guild($realm_name, $guild_name, $currentTimestamp, $guild);
 										$guildMembers = $guild['Members'];
 
-										// update the list of guild members
-										$guild_output = "<ul><li><strong>".$act_words['update_members']."</strong>\n<ul>\n";
-
+										$guild_output = '';
+										
 										// Start update triggers
 										if( $roster_conf['use_update_triggers'] )
 										{
 											$guild_output .= $this->addon_hook('guild_pre', $guild);
 										}
+
+										// update the list of guild members
+										$guild_output .= "<ul><li><strong>".$act_words['update_members']."</strong>\n<ul>\n";
 
 										foreach(array_keys($guildMembers) as $char_name)
 										{
@@ -434,13 +451,14 @@ class update
 										$guild_output .= $wowdb->getMessages()."</ul></li>\n";
 										$wowdb->resetMessages();
 
+										$guild_output .= "</ul>\n";
+
 										// Start update triggers
 										if( $roster_conf['use_update_triggers'] )
 										{
 											$guild_output .= $this->addon_hook('guild_post', $guild);
 										}
 
-										$guild_output .= "</ul>\n";
 										$output .= '<strong>'.sprintf($act_words['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
 										$output .= '<li><strong>'.$act_words['memberlog']."</strong>\n<ul>\n".
 											'<li>'.$act_words['updated'].': '.$wowdb->membersupdated."</li>\n".
