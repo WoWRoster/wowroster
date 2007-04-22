@@ -41,6 +41,8 @@ $mainQuery =
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`guild_title`, '.
+	
+	'`alts`.`main_id`, '.
 
 	'`players`.`server`, '.
 	'`players`.`race`, '.
@@ -74,8 +76,9 @@ $mainQuery =
 
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
 	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$guild_info['guild_id'].'" '.
-	'ORDER BY ';
+	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 
 $FIELD['name'] = array(

@@ -8,6 +8,14 @@
 	background-color:#2E2D2B;
 }
 
+.membersRowAltColor1 {
+	background-color:#1F1E3D;
+}
+
+.membersRowAltColor2 {
+	background-color:#2E2D4B;
+}
+
 .membersRowCell {
 	position:relative;
 	text-align:left;

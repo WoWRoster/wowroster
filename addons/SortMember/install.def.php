@@ -53,19 +53,22 @@ class SortMember
 		$installer->add_config("120,'members',NULL,'blockframe','menu'");
 		$installer->add_config("130,'stats',NULL,'blockframe','menu'");
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
-		$installer->add_config("150,'documentation','http://www.wowroster.net/wiki/index.php/Roster:Addon:SortMember','link','menu'");
+		$installer->add_config("150,'build',NULL,'blockframe','menu'");
+		$installer->add_config("160,'documentation','http://www.wowroster.net/wiki/index.php/Roster:Addon:SortMember','link','menu'");
+		$installer->add_config("170,'updMainAlt','addon-AltMonitor-update','makenewlink','menu'");
 
 		# Generic display settings
 		$installer->add_config("1000,'openfilter','0','radio{Show^1|Hide^0','display'");
 		$installer->add_config("1010,'nojs','0','radio{Server^1|Client^0','display'");
 		$installer->add_config("1020,'def_sort','','select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update','display'");
 		$installer->add_config("1030,'member_tooltip','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1040,'icon_size','16','select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20','display'");
-		$installer->add_config("1050,'class_icon','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1060,'class_color','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1070,'level_bar','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1080,'honor_icon','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1090,'compress_note','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1040,'group_alts','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1050,'icon_size','16','select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20','display'");
+		$installer->add_config("1060,'class_icon','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1070,'class_color','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1080,'level_bar','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1090,'honor_icon','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1100,'compress_note','1','radio{On^1|Off^0','display'");
 	
 		# Per page settings: Memberlist
 		$installer->add_config("2000,'member_class','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
@@ -109,6 +112,25 @@ class SortMember
 		$installer->add_config("4080,'honor_hp','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','honor'");
 		$installer->add_config("4090,'honor_ap','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','honor'");
 
+		# Main/Alt Build settings
+		$installer->add_config("5000,'getmain_regex','/ALT-([\\\\w]+)/i','text{50|30','build'");
+		$installer->add_config("5010,'getmain_field','Note','select{Public Note^Note|Officer Note^OfficerNote','build'");
+		$installer->add_config("5020,'getmain_match','1','text{2|30','build'");
+		$installer->add_config("5030,'getmain_main','Main','text{20|30','build'");
+		$installer->add_config("5040,'defmain','1','radio{Main^1|Mainless Alt^0','build'");
+		$installer->add_config("5050,'invmain','0','radio{Main^1|Mainless Alt^0','build'");
+		$installer->add_config("5060,'altofalt','alt','select{Try to resolve^resolve|Leave in table^leave|Set as main^main|Set as mainless alt^alt','build'");
+		$installer->add_config("5070,'update_type','1','select{None^0|Guild^1|Character^2|Both^3','build'");
+
+		$installer->add_query("DROP TABLE IF EXISTS `".$installer->table('alts')."`;");
+		$installer->add_query("
+			CREATE TABLE `".$installer->table('alts')."` (
+				`member_id` int(11)    unsigned NOT NULL default '0',
+				`main_id`   int(11)    unsigned NOT NULL default '0',
+				`alt_type`  tinyint(3) unsigned NOT NULL default '0',
+				PRIMARY KEY (`member_id`)
+			) TYPE=MyISAM;");
+		
 		# Roster menu entry
 		$installer->add_menu_button('SortMember_Members','-memberslist');
 		$installer->add_menu_button('SortMember_Stats','-statslist');
@@ -127,6 +149,8 @@ class SortMember
 		global $installer;
 
 		$installer->remove_all_config();
+
+		$installer->add_query("DROP TABLE IF EXISTS `".$installer->table('alts')."`;");
 		
 		$installer->remove_menu_button('SortMember_Members');
 		$installer->remove_menu_button('SortMember_Stats');

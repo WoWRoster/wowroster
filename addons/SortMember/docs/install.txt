@@ -42,6 +42,7 @@ VERSION LOG:
 -- Roster 1.8 compatibility
 -- Added the honor page
 -- Added serverside sorting support
+-- Merged in AltMonitor
 
 0.2.0
 -- Inequality filters on date columns work in FF, work even better in Opera,
@@ -57,6 +58,10 @@ VERSION LOG:
    AdminPanel branch.
 
 CREDITS / FILE BY FILE FUNCTION INFO
+conf.php
+	Some defines for the alt detection system, and the main/alt relation table
+debug.php
+	Main/Alt system debug mode
 honorlist.php
 	shows the honour attributes
 index.php
@@ -69,6 +74,11 @@ memberlist.php
 	professions.
 statslist.php
 	Shows character attributes like strength, stamina, etc.
+update.php
+	Wrapper for update_hook.php. Simulates a guild update on current data,
+	so the main/alt relations can be updated.
+update_hook.php
+	Writes the Main/Alt table.
 	
 docs/install.txt
 	by PleegWat.
