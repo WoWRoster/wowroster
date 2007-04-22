@@ -52,49 +52,55 @@ class memberslist {
 
 		$this->listname = $listname;
 		$this->fields = $fields;
+		unset($fields);
 
-		if( $addon['config']['nojs'] )
+		// Set GET vars here, to avoid NOTICE error hell
+		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
+		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
+
+		// Get default sort from roster config
+		if( empty($get_s) && !empty($addon['config']['def_sort']) )
 		{
-			// Set GET vars here, to avoid NOTICE error hell
-			$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
-			$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
+		   $get_s = $addon['config']['def_sort'];
+		}
 
-			// Get default sort from roster config
-			if( !empty($get_s) && !empty($roster_conf['index_sort']) )
+		if( isset($this->fields[$get_s]) )
+		{
+			$ORDER_FIELD = $this->fields[$get_s];
+			if( !empty($get_d) && isset( $ORDER_FIELD['order_d'] ) )
 			{
-			   $get_s = $roster_conf['index_sort'];
-			}
-
-			if( isset($fields[$get_s]) && $ORDER_FIELD = $fields[$get_s] )
-			{
-				if( !empty($get_d) && isset( $ORDER_FIELD['order_d'] ) )
+				foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 				{
-					foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
-					{
-						$query .= $order_field_sql.', ';
-					}
+					$query .= $order_field_sql.', ';
 				}
-				elseif( isset( $ORDER_FIELD['order']) )
+			}
+			elseif( isset( $ORDER_FIELD['order']) )
+			{
+				foreach ( $ORDER_FIELD['order'] as $order_field_sql )
 				{
-					foreach ( $ORDER_FIELD['order'] as $order_field_sql )
-					{
-						$query .= $order_field_sql.', ';
-					}
+					$query .= $order_field_sql.', ';
 				}
 			}
 		}
 
 		$this->query = $query . ' `members`.`level` DESC, `members`.`name` ASC';
 
-		$cols = count( $fields );
+		$cols = count( $this->fields );
 
 		// header row
 		$this->tableHeaderRow = "  <thead><tr>\n";
 		$this->sortFields = "";
 		$this->sortoptions = '<option selected value="none"></option>'."\n";
 		$current_col = 1;
-		foreach ( $fields as $field => $DATA )
+		foreach ( $this->fields as $field => $DATA )
 		{
+			// If this is a force invisible field, don't do anything with it.
+			if( $DATA['display'] == 0 || ($DATA['display'] == 1 && !$addon['config']['nojs']))
+			{
+				unset($this->fields[$field]);
+				continue;
+			}
+			
 			// See if there is a lang value for the header
 			if( !empty($act_words[$DATA['lang_field']]) )
 			{
@@ -118,20 +124,13 @@ class memberslist {
 					$desc = '';
 				}
 
-				if( $current_col == $cols )
-				{
-					$this->tableHeaderRow .= '    <th class="membersHeaderRight"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
-				}
-				else
-				{
-					$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
-				}
+				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 			}
 			else
 			{
-				if ( $current_col == $cols )
+				if( $DATA['display'] == 1 )
 				{
-					$this->tableHeaderRow .= '    <th class="membersHeaderRight" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
+					$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;display:none;">'.$th_text."</th>\n";
 				}
 				else
 				{
@@ -144,12 +143,26 @@ class memberslist {
 				'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
 				'</optgroup>'."\n";
 
-			if ($current_col > 1)
+			if( $current_col > 1 )
 			{
 				$this->sortFields .= '    <tr>';
 			}
-			$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text.'</th>'.
-			'<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" />'."\n";
+			
+			// Name in sort box toggles if this isn't a force visible field.
+			if( $DATA['display'] == 3 )
+			{
+				$this->sortFields .= '<th class="membersHeader">'.$th_text.'</th>';
+			}
+			elseif( $DATA['display'] == 2 )
+			{
+				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text.'</th>';
+			}
+			else
+			{
+				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer; background-color:#5b5955;">'.$th_text.'</th>';
+			}
+			
+			$this->sortFields .= '<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" />'."\n";
 
 			$current_col++;
 		}
@@ -233,7 +246,7 @@ class memberslist {
 			{
 				if ( isset( $DATA['value'] ) )
 				{
-					$cell_value = $DATA['value']( $row );
+					$cell_value = call_user_func($DATA['value'], $row, $field );
 				}
 				elseif ( isset( $DATA['jsort'] ) )
 				{
@@ -253,9 +266,9 @@ class memberslist {
 				}
 
 				// IMPORTANT do not add any spaces between the td and the $cell_value or the javascript will break
-				if ( $current_col == $cols ) // last col
+				if( $DATA['display'] == 1 )
 				{
-					$output .= "    <td class='membersRowRightCell'>$cell_value</td>\n";
+					$output .= "    <td class='membersRowCell' style='display:none;'>$cell_value</td>\n";
 				}
 				else
 				{
@@ -303,11 +316,11 @@ class memberslist {
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function name_value ( $row )
+function name_value ( $row, $field )
 {
-	global $wordings, $roster_conf, $guildFaction, $act_words;
+	global $wordings, $roster_conf, $guildFaction, $act_words, $addon;
 
-	if( $roster_conf['index_member_tooltip'] )
+	if( $addon['config']['member_tooltip'] )
 	{
 		$tooltip_h = $row['name'].' : '.$row['guild_title'];
 
@@ -347,14 +360,14 @@ function name_value ( $row )
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function class_value ( $row )
+function class_value ( $row, $field )
 {
-	global $wordings, $roster_conf;
+	global $wordings, $roster_conf, $addon;
 
 	if( $row['class'] != '' )
 	{
 		// Class Icon
-		if( $roster_conf['index_classicon'] == 1 )
+		if( $addon['config']['class_icon'] == 1 )
 		{
 			foreach ($roster_conf['multilanguages'] as $language)
 			{
@@ -363,7 +376,7 @@ function class_value ( $row )
 			}
 			$icon_name = 'Interface/Icons/'.$icon_name;
 
-			$icon_value = '<img class="membersRowimg" width="'.$roster_conf['index_iconsize'].'" height="'.$roster_conf['index_iconsize'].'" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+			$icon_value = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -371,7 +384,7 @@ function class_value ( $row )
 		}
 
 		// Class name coloring
-		if ( $roster_conf['index_class_color'] == 1 )
+		if ( $addon['config']['class_color'] == 1 )
 		{
 			foreach( $roster_conf['multilanguages'] as $language )
 			{
@@ -405,9 +418,9 @@ function class_value ( $row )
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function level_value ( $row )
+function level_value ( $row, $field )
 {
-	global $wowdb, $roster_conf, $wordings, $act_words;
+	global $wowdb, $roster_conf, $wordings, $act_words, $addon;
 
 	$tooltip = '';
 	// Configurlate exp is player has it
@@ -443,7 +456,7 @@ function level_value ( $row )
 		}
 	}
 
-	if( $roster_conf['index_level_bar'] )
+	if( $addon['config']['level_bar'] )
 	{
 		$percentage = round(($row['level']/ROSTER_MAXCHARLEVEL)*100);
 
@@ -468,13 +481,13 @@ function level_value ( $row )
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function honor_value ( $row )
+function honor_value ( $row, $field )
 {
-	global $roster_conf, $wordings;
+	global $roster_conf, $wordings, $addon;
 
 	if ( $row['lifetimeHighestRank'] > 0 )
 	{
-		if ( $roster_conf['index_honoricon'] )
+		if ( $addon['config']['honor_icon'] )
 		{
 			if( $row['lifetimeHighestRank'] < 10 )
 			{
@@ -485,7 +498,7 @@ function honor_value ( $row )
 				$rankicon = 'Interface/PvPRankBadges/PvPRank'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
 			}
 			$rankicon = $roster_conf['interface_url'].$rankicon;
-			$rankicon = "<img class=\"membersRowimg\" width=\"".$roster_conf['index_iconsize']."\" height=\"".$roster_conf['index_iconsize']."\" src=\"".$rankicon."\" alt=\"\" />";
+			$rankicon = "<img class=\"membersRowimg\" width=\"".$addon['config']['icon_size']."\" height=\"".$addon['config']['icon_size']."\" src=\"".$rankicon."\" alt=\"\" />";
 		}
 		else
 		{

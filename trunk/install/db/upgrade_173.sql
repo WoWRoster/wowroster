@@ -19,11 +19,14 @@ UPDATE `renprefix_account` account, `renprefix_config` config
 
 # --------------------------------------------------------
 ### Config table: drop unused settings
+DELETE FROM `renprefix_config` WHERE `id` =    1 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` =    2 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 4000 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4010 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 4020 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4040 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4050 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 4055 LIMIT 1;
@@ -77,6 +80,7 @@ INSERT INTO `renprefix_config` VALUES (4000, 'menu_conf_top', NULL, 'blockframe'
 INSERT INTO `renprefix_config` VALUES (4001, 'menu_conf_wide', NULL, 'page{2', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4002, 'menu_conf_left', NULL, 'blockframe', 'menu_conf_wide');
 INSERT INTO `renprefix_config` VALUES (4003, 'menu_conf_right', NULL, 'blockframe', 'menu_conf_wide');
+
 INSERT INTO `renprefix_config` VALUES (4020, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
 
 INSERT INTO `renprefix_config` VALUES (4200, 'menu_left_type', 'level', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_left');
@@ -97,8 +101,6 @@ INSERT INTO `renprefix_config` VALUES (4460, 'menu_right_text', 'VERANDA.TTF', '
 
 INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
 
-UPDATE `renprefix_config` SET `config_value` = 'level', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` = 4010;
-UPDATE `renprefix_config` SET `config_value` = 'realmstatus', `form_type` = 'select{Hide^|Levels^level|Long levels^levellong|Class^class|Class 50+^class50|Class 60+^class60|Class 70+^class70|Realmstatus^realmstatus' WHERE `id` = 4020;
 UPDATE `renprefix_config` SET `form_type` = 'select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update' WHERE `id` =3040;
 
 # --------------------------------------------------------
