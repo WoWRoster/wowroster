@@ -55,7 +55,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 }
 
 $body .= $roster_login->getMessage().'<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="return confirm(\'This is irreversible. Do you really want to continue?\') && submitonce(this)">
+<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="return confirm(\'This is irreversible. Do you really want to continue?\') &amp;&amp; submitonce(this)">
 <input type="hidden" name="doit" value="doit" />
 	'.border('sred','start','Config Reset').'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">

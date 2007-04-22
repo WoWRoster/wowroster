@@ -90,7 +90,7 @@ if( array_key_exists('mode',$_POST) )
 }
 
 $body .= $roster_login->getMessage().'<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
+<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Admin" />
 	'.border('sred','start',$act_words['changeadminpass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
@@ -117,7 +117,7 @@ $body .= $roster_login->getMessage().'<br />
 
 
 $body .= '<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
+<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_officer_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Officer" />
 	'.border('syellow','start',$act_words['changeupdatepass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
@@ -143,7 +143,7 @@ $body .= '<br />
 
 
 $body .= '<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="submitonce(this)">
+<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_guild_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Guild" />
 	'.border('sgreen','start',$act_words['changeguildpass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">

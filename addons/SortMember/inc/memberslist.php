@@ -90,7 +90,7 @@ class memberslist {
 		// header row
 		$this->tableHeaderRow = "  <thead><tr>\n";
 		$this->sortFields = "";
-		$this->sortoptions = '<option selected value="none"></option>'."\n";
+		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>'."\n";
 		$current_col = 1;
 		foreach ( $this->fields as $field => $DATA )
 		{
@@ -162,11 +162,11 @@ class memberslist {
 				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer; background-color:#5b5955;">'.$th_text.'</th>';
 			}
 			
-			$this->sortFields .= '<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" />'."\n";
+			$this->sortFields .= '<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" /></td></tr>'."\n";
 
 			$current_col++;
 		}
-		$this->tableHeaderRow .= "  </tr>\n";
+		$this->tableHeaderRow .= "  </tr>\n</thead>\n";
 		// end header row
 	}
 
@@ -195,14 +195,16 @@ class memberslist {
 			'<td class="membersHeader">'.$act_words['memberssort'].'</td>'."\n".
 			'<td class="membersHeader">'.$act_words['memberscolshow'].'</td>'."\n".
 			'<td class="membersHeader">'.$act_words['membersfilter'].'</td>'."\n".
+			'</tr>'."\n".
 			'<tr><td rowspan="'.$cols.'">'."\n";
 		for ($i=0; $i<4; $i++) {
 			$output .= '<select id="'.$this->listname.'_sort_'.$i.'" name="'.$this->listname.'_sort_'.$i.'">'."\n".$this->sortoptions.'</select><br />';
 		}
 		$output .=
 			'<button onclick="dosort(6,\''.$this->listname.'\'); return false;">Go</button>'."\n".
-			'<input type="hidden" id="'.$this->listname.'_sort_4" name="'.$this->listname.'_sort_4" value="3_desc" />'.
-			'<input type="hidden" id="'.$this->listname.'_sort_5" name="'.$this->listname.'_sort_5" value="1_asc" />'.
+			'<input type="hidden" id="'.$this->listname.'_sort_4" name="'.$this->listname.'_sort_4" value="3_desc" />'."\n".
+			'<input type="hidden" id="'.$this->listname.'_sort_5" name="'.$this->listname.'_sort_5" value="1_asc" />'."\n".
+			'</td>'."\n".
 			$this->sortFields.
 			'</table>'."\n".
 			border('sblue','end').
@@ -276,7 +278,7 @@ class memberslist {
 				}
 				$current_col++;
 			}
-			$output .= "  </tr>\n";
+			$output .= "  </tr>\n</tbody>\n";
 		}
 
 		$output .= "</table>\n";
