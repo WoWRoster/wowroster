@@ -235,11 +235,11 @@ class update
 					{
 						if( $mode == 'guild' )
 						{
-							$output .= '<li>'.$addon->messages.'</li>';
+							$output .= '<li>'.$addon->messages.'</li>'."\n";
 						}
 						else
 						{
-							$output .= $addon->messages;
+							$output .= $addon->messages.'<br/>'."\n";
 						}
 					}
 					else
@@ -247,12 +247,12 @@ class update
 						if( $mode == 'guild' )
 						{
 							$output .= '<li>There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
-								"Addon messages:<br />\n".$addon->messages.'</li>';
+								"Addon messages:<br />\n".$addon->messages.'</li>'."\n";
 						}
 						else
 						{
 							$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
-								"Addon messages:<br />\n".$addon->messages;
+								"Addon messages:<br />\n".$addon->messages.'<br />'."\n";
 						}
 					}
 				}
