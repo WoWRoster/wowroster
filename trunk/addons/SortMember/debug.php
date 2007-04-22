@@ -33,44 +33,19 @@ $mainQuery =
 	'SELECT '.
 	'`members`.`member_id`, '.
 	'`members`.`name`, '.
-	'`members`.`class`, '.
-	'`members`.`level`, '.
-	'`members`.`zone`, '.
-	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster_conf['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'last_online', ".
 	'`members`.`note`, '.
-	'`members`.`guild_title`, '.
-	
-	'`alts`.`main_id`, '.
-
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`officer_note`, '.
 	"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
-	'`members`.`guild_rank`, '.
-
-	'`players`.`server`, '.
-	'`players`.`race`, '.
-	'`players`.`sex`, '.
-	'`players`.`exp`, '.
-	'`players`.`clientLocale`, '.
-
-	'`players`.`lifetimeRankName`, '.
-	'`players`.`lifetimeHighestRank`, '.
-	"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
-	'`players`.`hearth`, '.
-	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
-	"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'last_update_format', ".
-	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
-
-	'`proftable`.`professions` '.
+	
+	'`alts`.`main_id`, '.
+	'`alts`.`alt_type`, '.
+	
+	'`mains`.`name` AS main_name '.
 
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
-	'LEFT JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
-		'FROM `'.ROSTER_SKILLSTABLE.'` '.
-		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
+	'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` AS mains ON `alts`.`main_id` = `mains`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$guild_info['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
@@ -78,91 +53,35 @@ $FIELD['name'] = array (
 	'lang_field' => 'name',
 	'order'    => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'value' => 'name_value',
 	'display' => 3,
 );
 
-$FIELD['class'] = array (
-	'lang_field' => 'class',
-	'order'    => array( '`members`.`class` ASC' ),
-	'order_d'    => array( '`members`.`class` DESC' ),
-	'value' => 'class_value',
-	'display' => $addon['config']['member_class'],
+$FIELD['main_name'] = array (
+	'lang_field' => 'main_name',
+	'order'    => array( '`mains`.`name` ASC' ),
+	'order_d'    => array( '`mains`.`name` DESC' ),
+	'display' => 3,
 );
 
-$FIELD['level'] = array (
-	'lang_field' => 'level',
-	'order_d'    => array( '`members`.`level` ASC' ),
-	'value' => 'level_value',
-	'display' => $addon['config']['member_level'],
-);
-
-$FIELD['guild_title'] = array (
-	'lang_field' => 'title',
-	'order' => array( '`members`.`guild_rank` ASC' ),
-	'order_d' => array( '`members`.`guild_rank` DESC' ),
-	'jsort' => 'guild_rank',
-	'display' => $addon['config']['member_gtitle'],
-);
-
-$FIELD['lifetimeRankName'] = array (
-	'lang_field' => 'currenthonor',
-	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
-	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
-	'value' => 'honor_value',
-	'display' => $addon['config']['member_hrank'],
-);
-
-$FIELD['professions'] = array (
-	'lang_field' => 'professions',
-	'value' => 'tradeskill_icons',
-	'display' => $addon['config']['member_prof'],
-);
-
-$FIELD['hearth'] = array (
-	'lang_field' => 'hearthed',
-	'order' => array( 'hisnull', 'hearth ASC' ),
-	'order_d' => array( 'hisnull', 'hearth DESC' ),
-	'display' => $addon['config']['member_hearth'],
-);
-
-$FIELD['zone'] = array (
-	'lang_field' => 'zone',
-	'order' => array( '`members`.`zone` ASC' ),
-	'order_d' => array( '`members`.`zone` DESC' ),
-	'display' => $addon['config']['member_zone'],
-);
-
-$FIELD['last_online'] = array (
-	'lang_field' => 'lastonline',
-	'order' => array( '`members`.`last_online` DESC' ),
-	'order_d' => array( '`members`.`last_online` ASC' ),
-	'jsort' => 'last_online_stamp',
-	'display' => $addon['config']['member_online'],
-);
-
-$FIELD['last_update_format'] = array (
-	'lang_field' => 'lastupdate',
-	'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
-	'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
-	'jsort' => 'last_update_stamp',
-	'display' => $addon['config']['member_update'],
+$FIELD['alt_type'] = array (
+	'lang_field' => 'alt_type',
+	'order'    => array('`alts`.`alt_type` ASC' ),
+	'order_d'    => array('`alts`.`alt_type` DESC' ),
+	'display' => 3,
 );
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
 	'order' => array( 'nisnull','`members`.`note` ASC' ),
 	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
-	'value' => 'note_value',
-	'display' => $addon['config']['member_note'],
+	'display' => 3,
 );
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'officer_note',
 	'order' => array( 'onisnull','`members`.`note` ASC' ),
 	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
-	'value' => 'note_value',
-	'display' => $addon['config']['member_onote'],
+	'display' => 3,
 );
 
 include_once ($addon['dir'].'inc/memberslist.php');

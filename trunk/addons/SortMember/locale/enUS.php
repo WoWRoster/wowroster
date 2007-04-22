@@ -18,25 +18,23 @@
 
 // -[ enUS Localization ]-
 
-// Installer
-$lang['SortMember_install_page']= 'SortMember Installer';
-$lang['SortMember_install']		= 'The SortMember tables haven\'t been installed yet. Click Install to start the installation';
-$lang['SortMember_upgrade']		= 'The SortMember tables are not up to date. Click Updade to update the database or click Install to drop and recreate the SortMember tables.';
-$lang['SortMember_no_upgrade']	= 'The SortMember tables are already up to date. Click Reinstall below to reinstall the tables.';
-$lang['SortMember_uninstall']	= 'This will remove the SortMember configuration. Click \'Uninstall\' to proceed';
-$lang['SortMember_installed']	= 'Congratulations, SortMember has been successfully installed. Click the link below to configure it.';
-$lang['SortMember_uninstalled']	= 'SortMember has been uninstalled. You may now delete the addon from your webserver.';
-
-// Main/Alt display
+// Button names
 $lang['SortMember_Members']		= 'SortMembers';
 $lang['SortMember_Stats']		= 'SortStats';
 $lang['SortMember_Honor']		= 'SortHonor';
+
+// Index: Wrong $roster_pages[2]
 $lang['SortMember_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';
 
+// Interface wordings
 $lang['memberssortfilter']		= 'Sorting order and filtering';
 $lang['memberssort']			= 'Sort';
 $lang['memberscolshow']			= 'Show/Hide Columns';
 $lang['membersfilter']			= 'Filter rows';
+
+// Column headers
+$lang['main_name']              = 'Main name';
+$lang['alt_type']               = 'Alt type';
 
 // Configuration
 $lang['SortMember_config']		= 'Go to SortMember configuration';
@@ -49,13 +47,16 @@ $lang['admin']['display']       = 'Display|Configure display options specific to
 $lang['admin']['members']       = 'Members List|Configure visibility of members list columns.';
 $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list columns.';
 $lang['admin']['honor']         = 'Honor List|Configure visibility of honor list columns.';
+$lang['admin']['build']         = 'Main/Alt Relations|Configure how the Main/Alt relations are detected.';
 $lang['admin']['documentation'] = 'Documentation|SortMember documentation on the WoWRoster wiki.';
+$lang['admin']['updMainAlt']    = 'Update Relations|Update the Main/Alt relations using the data already in the DB.';
 
 // Settings names on display page
 $lang['admin']['openfilter']	= 'Open filterbox|Specify if you want the filterbox open or closed by default.';
 $lang['admin']['nojs']          = 'List type|Specify if you want to use serverside sorting or clientside sorting+filtering.';
 $lang['admin']['def_sort']		= 'Default sort|Specify the default sort method.';
 $lang['admin']['member_tooltip']= 'Member tooltip|Turn the info tooltips on the member names on or off.';
+$lang['admin']['group_alts']    = 'Group alts|Goup alts under their main, rather than sorting them separately.';
 $lang['admin']['icon_size']     = 'Icon size|Set the size for the class/honor/profession icons.';
 $lang['admin']['class_icon']    = 'Class icon|Turn the class icon display on or off.';
 $lang['admin']['class_color']   = 'Class colors|Turn the coloring of class names on or off.';
@@ -104,3 +105,13 @@ $lang['admin']['honor_lifehk']  = 'Lifetime HK|Set visibility of the Lifetime HK
 $lang['admin']['honor_hrank']   = 'Honor Rank|Set visibility of the Honor Rank column on the honor page';
 $lang['admin']['honor_hp']      = 'Honor Points|Set visibility of the honor points column on the honor page';
 $lang['admin']['honor_ap']      = 'Arena Points|Set visibility of the arena points column on the honor page';
+
+// Settings names on build page
+$lang['admin']['getmain_regex'] = 'Regex|The top 3 variables define how the regex is extracted from the member info. <br /> See the wiki link for details. <br /> This field specifies the regex to use.';
+$lang['admin']['getmain_field'] = 'Apply on field|The top 3 variables define how the regex is extracted from the member info. <br /> See the wiki link for details. <br /> This field specifies which member field the regex is applied on.';
+$lang['admin']['getmain_match'] = 'Use match no|The top 3 variables define how the regex is extracted from the member info. <br /> See the wiki link for details. <br /> This field specifies which return value of the regex is used.';
+$lang['admin']['getmain_main']  = 'Main identifier|If the regex resolves to this value the character is assumed to be a main.';
+$lang['admin']['defmain']       = 'No result|Set what you want the character to be defined as if the regex doesn\'t return anything.';
+$lang['admin']['invmain']       = 'Invalid result|Set what you want the character to be defined as if the regex returns a result that isn\'t a guild member or equal to the main identifier.';
+$lang['admin']['altofalt']      = 'Alt of Alt|Specify what to do if the character is a mainless alt.';
+$lang['admin']['update_type']   = 'Update type|Specify on which trigger types to update main/alt relations.';

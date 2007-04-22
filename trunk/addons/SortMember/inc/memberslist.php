@@ -53,7 +53,7 @@ class memberslist {
 		$this->listname = $listname;
 		$this->fields = $fields;
 		unset($fields);
-
+		
 		// Set GET vars here, to avoid NOTICE error hell
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
@@ -88,8 +88,8 @@ class memberslist {
 		$cols = count( $this->fields );
 
 		// header row
-		$this->tableHeaderRow = "  <thead><tr>\n";
-		$this->sortFields = "";
+		$this->tableHeaderRow = '  <thead><tr>'."\n".'<th class="membersHeader">&nbsp;</th>'."\n";
+		$this->sortFields = '';
 		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>'."\n";
 		$current_col = 1;
 		foreach ( $this->fields as $field => $DATA )
@@ -155,11 +155,11 @@ class memberslist {
 			}
 			elseif( $DATA['display'] == 2 )
 			{
-				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text.'</th>';
+				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col).',this,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text.'</th>';
 			}
 			else
 			{
-				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col-1).',this,\''.$this->listname.'\');" style="cursor:pointer; background-color:#5b5955;">'.$th_text.'</th>';
+				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col).',this,\''.$this->listname.'\');" style="cursor:pointer; background-color:#5b5955;">'.$th_text.'</th>';
 			}
 			
 			$this->sortFields .= '<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" /></td></tr>'."\n";
@@ -218,7 +218,7 @@ class memberslist {
 	 */
 	function makeMembersList()
 	{
-		global $wowdb, $wordings, $act_words, $roster_conf;
+		global $wowdb, $wordings, $act_words, $roster_conf, $addon;
 
 		$cols = count( $this->fields );
 
@@ -232,14 +232,9 @@ class memberslist {
 			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
 		}
 
-		$striping_counter = 0;
-
 		while ( $row = $wowdb->fetch_assoc( $result ) )
 		{
-			// actual player rows
-			// Increment counter so rows are colored alternately
-			$stripe_counter = ( ( $striping_counter++ % 2 ) + 1 );
-			$output .= "<tbody><tr class='membersRowColor".$stripe_counter."'>\n";
+			$line = '';
 			$current_col = 1;
 
 
@@ -267,18 +262,87 @@ class memberslist {
 					$cell_value = '<div>'.$row[$field].'</div>';
 				}
 
-				// IMPORTANT do not add any spaces between the td and the $cell_value or the javascript will break
-				if( $DATA['display'] == 1 )
+				
+				/**
+				 * IMPORTANT do not add any spaces between the td and the
+				 * $cell_value or the javascript will break
+				 * This construct means we can't hide the first column. But
+				 * that's no problem cause it's probably the name anyway which
+				 * is locked on force visible.
+				 */
+				if( $current_col == 1 )
 				{
-					$output .= "    <td class='membersRowCell' style='display:none;'>$cell_value</td>\n";
+					// Cache lines for main/alt stuff
+					if( !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
+					{
+						$line .= '    <td class="membersRowCell">'.$cell_value.'</td>'."\n";
+					}
+					else
+					{
+						$line .= '    <td class="membersRowCell" style="padding-left: 20px;">'.$cell_value.'</td>'."\n";
+					}
+				}
+				elseif( $DATA['display'] == 1 )
+				{
+					$line .= '    <td class="membersRowCell" style="display:none;">'.$cell_value.'</td>'."\n";
 				}
 				else
 				{
-					$output .= "    <td class='membersRowCell'>$cell_value</td>\n";
+					$line .= '    <td class="membersRowCell">'.$cell_value.'</td>'."\n";
 				}
 				$current_col++;
 			}
-			$output .= "  </tr>\n</tbody>\n";
+			
+			// Cache lines for main/alt stuff
+			if( !$addon['config']['group_alts'] || !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
+			{
+				$lines[$row['member_id']]['main'] = $line;
+			}
+			else
+			{
+				$lines[$row['main_id']]['alts'][] = $line;
+			}
+		}
+		
+		$stripe_counter = 1;
+		// Main/Alt block
+		foreach($lines as $member_id => $block)
+		{
+			$stripe_counter = ($stripe_counter % 2) + 1;
+			$stripe_class = ' class="membersRowColor'.$stripe_counter.'"';
+
+			// Main, or no alt data
+			if( !isset($block['alts']) || 0 == count($block['alts']) )
+			{
+				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell"></td>'.$block['main'].'</tr></tbody>';
+				continue;
+			}
+			// Mainless alt.
+			if( !isset($block['main']) )
+			{
+				foreach( $block['alts'] as $line )
+				{
+					$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell"><span class="red">MA</span></td>'.$line.'</tr></tbody>';
+				}
+				continue;
+			}
+			
+			// Main with alts
+			$openimg = 'minus.gif';
+			
+			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'."\n".
+				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\'); return false;">'.
+				'<img src="'.$roster_conf['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="" /></a></td>'.
+				$block['main']."\n".'</tr>'."\n";
+			
+			$alt_counter = 1;
+			foreach( $block['alts'] as $line )
+			{
+				$alt_counter %= 2 + 1;
+				$stripe_class = ' class="membersRowAltColor'.$alt_counter.'"';
+				$output .= '<tr'.$stripe_class.'><td class="membersRowCell"></td>'."\n".$line."\n".'</tr>'."\n";
+			}
+			$output .= '</tbody>'."\n";
 		}
 
 		$output .= "</table>\n";
@@ -336,7 +400,7 @@ function name_value ( $row, $field )
 
 		if ( $row['server'] )
 		{
-			return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a></div>';
+			return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 		}
 		else
 		{
