@@ -342,7 +342,6 @@ while ($row = $wowdb->fetch_array($result))
 			if(isset($$key))
 			{
 				print($$key);
-				continue;
 			} else {
 				$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
 				$iresult = $wowdb->query($iquery);

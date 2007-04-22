@@ -70,6 +70,7 @@ if( !empty($addons) )
 				</tr>
 				<tr>
 					<td>'.$addon['description'].'</td>
+				</tr>
 				<tr>
 					<td><span class="blue">'.$act_words['installer_author'].': '.$addon['author'].'</span></td>
 				</tr>

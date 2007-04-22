@@ -176,16 +176,15 @@ $menu .= "<br />\n";
 // --[ Add button ]--
 $menu .= border('syellow','start','Add button')."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
-$menu .= '<tr><td>title:<td><input id="title" type="text" size="16" maxlength="32" />'."\n";
-$menu .= '<tr><td>url:  <td><input id="url"   type="text" size="16" maxlength="128" />'."\n";
-//$menu .= '<tr><td>show: <td>'.$roster_login->accessConfig(array('name'=>'access','value'=>$roster_login->everyone()))."\n";
-$menu .= '<tr><td colspan="2" align="right"><button onclick="sendAddElement()">Go</button>'."\n";
+$menu .= '<tr><td>title:</td><td><input id="title" type="text" size="16" maxlength="32" /></td></tr>'."\n";
+$menu .= '<tr><td>url:  </td><td><input id="url"   type="text" size="16" maxlength="128" /></td></tr>'."\n";
+$menu .= '<tr><td colspan="2" align="right"><button onclick="sendAddElement()">Go</button></td></tr>'."\n";
 $menu .= '</table>';
 $menu .= border('syellow','end')."\n";
 
 // --[ Main grid design ]--
 $body .= isset($save_status)?$save_status:'';
-$body .= '<form action="'.makelink().'" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') && writeValue() && submitonce(this);">'."\n";
+$body .= '<form action="'.makelink().'" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') &amp;&amp; writeValue() &amp;&amp; submitonce(this);">'."\n";
 $body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'" /><input type="hidden" name="process" value="process" />';
 $body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['config_submit_button'].'" />'."\n";
 $body .= '</form><br />'."\n";

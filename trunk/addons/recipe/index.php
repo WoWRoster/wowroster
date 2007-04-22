@@ -50,9 +50,9 @@ $choiceForm = '<form action="'.makelink().'" method="get" name="myform">
 while($row_prof = $wowdb->fetch_array($result_prof))
 {
 	if ($prof_filter==$row_prof['proff'])
-		$choiceForm .= '					<option value="'.$row_prof['proff'].'" selected="selected">'.$row_prof['proff'];
+		$choiceForm .= '					<option value="'.$row_prof['proff'].'" selected="selected">'.$row_prof['proff'].'</option>';
 	else
-		$choiceForm .= '					<option value="'.$row_prof['proff'].'">'.$row_prof['proff'];
+		$choiceForm .= '					<option value="'.$row_prof['proff'].'">'.$row_prof['proff'].'</option>';
 }
 
 

@@ -131,11 +131,11 @@ class RosterMenu
 				}
 				elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL )
 				{
-					$dat[$i]['name'] = ($i*10).' - '.ROSTER_MAXCHARLEVEL;
+					$dat[$i]['name'] = ($i*10).'%20-%20'.ROSTER_MAXCHARLEVEL;
 				}
 				else
 				{
-					$dat[$i]['name'] = ($i*10).' - '.($i*10+9);
+					$dat[$i]['name'] = ($i*10).'%20-%20'.($i*10+9);
 				}
 				$dat[$i]['alt'] = 0;
 				$dat[$i]['nonalt'] = 0;

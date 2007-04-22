@@ -143,7 +143,8 @@ if( !empty($search) )
 				print border('syellow','start','<a href="'.$char_url.'">'.$data['name'].'</a>').'<table border="0" cellpadding="0" cellspacing="0" width="600">
   <tr>
     <th colspan="2" class="membersHeader">'.$act_words['item'].'</th>
-    <th class="membersHeaderRight">'.$act_words['reagents'].'</th>';
+    <th class="membersHeaderRight">'.$act_words['reagents'].'</th>
+  </tr>';
 			}
 
 			print '<tr><td width="45" valign="top" align="center" class="membersRow'.$row_st.'">';
