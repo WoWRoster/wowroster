@@ -29,8 +29,7 @@ These are the changes for the roster addon framework:
       [ hasconfig ] => default
       [ active ] => 1
       [ dir ] => /home/public_html/roster/addons/recipe/
-      [ index_file ] => /home/public_html/roster/addons/recipe/index.php
-      [ css_file ] => /home/public_html/roster/addons/recipe/default.css
+      [ css_file ] => /home/public_html/roster/addons/recipe/style.css
       [ css_url ] => /addons/recipe/default.css
       [ admin_file ] => /home/public_html/roster/addons/recipe/admin.php
 	  [ ajax_file ] => /home/public_html/roster/addons/recipe/ajax.php
@@ -71,4 +70,3 @@ These are the changes for the roster addon framework:
    o lib/login.php: Not completely new, but now automatically included and initialized and offers full authorization capabilities.
    o lib/minixml.lib.php: A XML file reader and creator
 
-   
