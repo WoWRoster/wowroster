@@ -437,7 +437,10 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 {
 	if(document.getElementById)
 	{
-		if((element = document.getElementById(ElementID)).firstChild.nextSibling.nextSibling.style.display == 'none')
+		element = document.getElementById(ElementID);
+		image = document.getElementById(ImgID);
+		
+		if(image.src.indexOf(ImgHide) >= 0)
 		{
 			element = element.firstChild;
 			while(element = element.nextSibling)
@@ -445,8 +448,7 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 				if( element.tagName !== undefined )
 					element.style.display = '';
 			}
-			if(ImgShow)
-				document.getElementById(ImgID).src = ImgShow;
+			image.src = ImgShow;
 		}
 		else
 		{
@@ -456,8 +458,7 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 				if( element.tagName !== undefined )
 					element.style.display = 'none';
 			}
-			if(ImgHide)
-				document.getElementById(ImgID).src = ImgHide;
+			image.src = ImgHide;
 		}
 	}
 }
