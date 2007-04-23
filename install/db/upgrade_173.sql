@@ -517,16 +517,14 @@ CREATE TABLE `renprefix_addon_config` (
 
 
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:b3|b4:b5:b6');
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:|b3:b4');
 
 # --------------------------------------------------------
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'pvplist', 'guildpvp');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'memberlog', 'memberlog');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'professions', 'tradeskills');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (5, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (6, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'upprofile', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'credit', 'credits');
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last

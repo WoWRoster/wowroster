@@ -159,6 +159,7 @@ $lang['race']='Rasse';
 $lang['level']='Level';
 $lang['zone']='Letztes Gebiet';
 $lang['note']='Notiz';
+$lang['officer_note']='Officer Note';
 $lang['title']='Rang';
 $lang['name']='Name';
 $lang['health']='Gesundheit';
