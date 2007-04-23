@@ -189,7 +189,6 @@ $lang['alternate']='Alternate';
 $lang['byclass']='By Class';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honor';
-$lang['team']='Find Team';
 $lang['search']='Search';
 $lang['update']='Last updated';
 $lang['credit']='Credits';
@@ -621,11 +620,6 @@ $lang['lockpicking']='Lockpicking';
 	$lang['itemlinks']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
 	$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
-
-// definitions for the questsearchpage
-	$lang['search1']="From the list below choose a zone or a quest name to see who is working it.<br />\n<small>Note that if the quest level is not the same for all listed guildmembers, they may be on another part of a multi-chain quest.</small>";
-	$lang['search2']='Search by Zone';
-	$lang['search3']='Search by Quest Name';
 
 // Definition for item tooltip coloring
 	$lang['tooltip_use']='Use:';

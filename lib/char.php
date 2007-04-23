@@ -130,7 +130,7 @@ class char
 		if( isset( $quests[0] ) )
 		{
 			$zone = '';
-			$returnstring = border('sgray','start',$wordings[$lang]['questlog'].' ('.count($quests).'/25)').
+			$returnstring = border('sgray','start',$wordings[$lang]['questlog'] . ' (' . count($quests) . '/25)').
 				'<table class="bodyline" cellspacing="0" cellpadding="0">';
 
 			foreach ($quests as $quest)
@@ -138,21 +138,20 @@ class char
 				if ($zone != $quest->data['zone'])
 				{
 					$zone = $quest->data['zone'];
-					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight">'.$zone.'</th></tr>';
+					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight">' . $zone . '</th></tr>';
 				}
 				$quest_level = $quest->data['quest_level'];
 				$char_level = $this->data['level'];
-				$font = 'grey';
 
-				if ($quest_level + 9 < $char_level)
+				if( $quest_level + 9 < $char_level )
 				{
 					$font = 'grey';
 				}
-				else if ($quest_level + 2 < $char_level)
+				elseif( $quest_level + 2 < $char_level )
 				{
 					$font = 'green';
 				}
-				else if ( $quest_level < $char_level+3 )
+				elseif( $quest_level < $char_level+3 )
 				{
 					$font = 'yellow';
 				}
@@ -162,46 +161,49 @@ class char
 				}
 
 				$name = $quest->data['quest_name'];
-				if ($name{0} == '[')
+				if( $name{0} == '[' )
+				{
 					$name = trim(strstr($name, ' '));
+				}
 
 				$returnstring .= '        <tr>
           <td class="membersRow1">';
 
-				$returnstring .= '<span class="'.$font.'">['.$quest_level.'] '.$name.'</span>';
+				$returnstring .= '<span class="' . $font . '">[' . $quest_level . '] ' . $name . '</span>';
 
 				$quest_tags = '';
 
-				if ($quest->data['quest_tag'])
+				if( $quest->data['quest_tag'] )
+				{
 					$quest_tags[] = $quest->data['quest_tag'];
+				}
 
 				if( $quest->data['is_complete'] == 1 )
+				{
 					$quest_tags[] = $wordings[$lang]['complete'];
+				}
 				elseif( $quest->data['is_complete'] == -1 )
+				{
 					$quest_tags[] = $wordings[$lang]['failed'];
+				}
 
 				if( is_array($quest_tags) )
 				{
-					foreach( $quest_tags as $quest_tag )
-					{
-						$returnstring .= ' ('.$quest_tag.')';
-					}
+						$returnstring .= ' (' . implode(', ',$quest_tags) . ')';
 				}
 
 				$returnstring .= "</td>\n";
 
 				$returnstring .= '<td class="membersRowRight1 quest_link">';
 
-				$q = 1;
 				foreach( $wordings[$lang]['questlinks'] as $link )
 				{
-					$returnstring .= '<a href="'.$link['url1'].urlencode(utf8_decode($name)).(isset($link['url2']) ? $link['url2'].$quest_level : '').(isset($link['url3']) ? $link['url3'].$quest_level : '').'" target="_blank">'.$link['name']."</a>\n";
-					$q++;
+					$returnstring .= '<a href="' . $link['url1'] . urlencode(utf8_decode($name)) . (isset($link['url2']) ? $link['url2'] . $quest_level : '') . (isset($link['url3']) ? $link['url3'] . $quest_level : '') . '" target="_blank">' . $link['name'] . "</a>\n";
 				}
 
 				$returnstring .= '</td></tr>';
 			}
-			$returnstring .= '      </table>'.border('sgray','end');
+			$returnstring .= '      </table>' . border('sgray','end');
 		}
 		return $returnstring;
 	}

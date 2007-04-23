@@ -189,7 +189,6 @@ $lang['alternate']='Alternative Ansicht';
 $lang['byclass']='Nach Klasse';
 $lang['menustats']='Grundwerte';
 $lang['menuhonor']='Ehre';
-$lang['team']='Questgruppe Suchen';
 $lang['search']='Suche';
 $lang['update']='Letzte Aktualisierung';
 $lang['credit']='Credits';
@@ -621,11 +620,6 @@ $lang['lockpicking']='Schlossknacken';
 	$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
-
-// definitions for the questsearchpage
-	$lang['search1']="W&auml;hle eine Zone oder eine Quest um zu schauen, wer sie alles hat.<br />\n<small>Beachte: Stimmen die Questlevel bei verschiedenen Gildenleuten nicht &uuml;berein, handelt es sich um verschiedene Teile einer Questreihe.</small>";
-	$lang['search2']='Suche nach Zone';
-	$lang['search3']='Suche nach Questname';
 
 // Definitions for item tooltip coloring
 	$lang['tooltip_use']='Benutzen';
