@@ -67,11 +67,6 @@ class update
 					{
 						$addon = getaddon($row['basename']);
 
-						if( file_exists($addon['conf_file']) )
-						{
-							include_once($addon['conf_file']);
-						}
-
 						include_once($hookfile);
 
 						if( class_exists($row['basename']) )
