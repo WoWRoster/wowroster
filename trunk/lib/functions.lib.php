@@ -27,7 +27,7 @@ if( !defined('ROSTER_INSTALLED') )
  * @param string $header_text Place text in a styled header
  * @return string
  */
-function border($style,$mode,$header_text=null)
+function border( $style , $mode , $header_text=null )
 {
 	$backg_css = $style.'border';
 	if( substr($style,0,1) == 's' )
@@ -39,9 +39,9 @@ function border($style,$mode,$header_text=null)
 	if( $header_text != '' && $style != 'end' )
 	{
 		$header_text = '  <tr>
-    <td class="'.$style.'_c_l '.$backg_css.'_c_l"></td>
-    <th class="'.$style.'header '.$backg_css.'header" align="center" valign="top">'.$header_text.'</th>
-    <td class="'.$style.'_c_r '.$backg_css.'_c_r"></td>
+    <td class="' . $style . '_c_l ' . $backg_css . '_c_l"></td>
+    <th class="' . $style . 'header ' . $backg_css . 'header" align="center" valign="top">' . $header_text . '</th>
+    <td class="' . $style . '_c_r ' . $backg_css . '_c_r"></td>
   </tr>';
 	}
 	else
@@ -51,31 +51,31 @@ function border($style,$mode,$header_text=null)
 
 	// Dynamic Bordering
 	$start = '
-<!-- START [open-'.$style.'] container -->
+<!-- START [open-' . $style . '] container -->
 <table cellspacing="0" cellpadding="0" border="0">
   <tr>
-   <td class="'.$style.'_t_l '.$backg_css.'_t_l"></td>
-   <td class="'.$style.'_t '.$backg_css.'_t"></td>
-   <td class="'.$style.'_t_r '.$backg_css.'_t_r"></td>
+   <td class="' . $style. '_t_l ' . $backg_css . '_t_l"></td>
+   <td class="' . $style. '_t ' . $backg_css . '_t"></td>
+   <td class="' . $style. '_t_r ' . $backg_css . '_t_r"></td>
   </tr>
 '.$header_text.'
   <tr>
-    <td class="'.$style.'_c_l '.$backg_css.'_c_l"></td>
-    <td class="'.$style.'_c">
-<!-- END [open-'.$style.'] container -->';
+    <td class="' . $style . '_c_l ' . $backg_css . '_c_l"></td>
+    <td class="' . $style . '_c">
+<!-- END [open-' . $style . '] container -->';
 
 	$end = '
-<!-- START [close-'.$style.'] container -->
+<!-- START [close-' . $style . '] container -->
     </td>
-    <td class="'.$style.'_c_r '.$backg_css.'_c_r"></td>
+    <td class="' . $style. '_c_r ' . $backg_css . '_c_r"></td>
   </tr>
   <tr>
-   <td class="'.$style.'_b_l '.$backg_css.'_b_l"></td>
-   <td class="'.$style.'_b '.$backg_css.'_b"></td>
-   <td class="'.$style.'_b_r '.$backg_css.'_b_r"></td>
+   <td class="' . $style . '_b_l ' . $backg_css . '_b_l"></td>
+   <td class="' . $style . '_b ' . $backg_css . '_b"></td>
+   <td class="' . $style . '_b_r ' . $backg_css . '_b_r"></td>
   </tr>
 </table>
-<!-- END [close-'.$style.'] container -->';
+<!-- END [close-' . $style . '] container -->';
 
 	switch ($mode)
 	{
@@ -101,12 +101,15 @@ function setTooltip( $var , $content )
 {
 	global $tooltips;
 
-	$content = str_replace("\n",'',$content);
-	$content = addslashes($content);
-	$content = str_replace('</','<\\/',$content);
-	$content = str_replace('/>','\\/>',$content);
+	if( !isset($tooltips[$var]) )
+	{
+		$content = str_replace("\n",'',$content);
+		$content = addslashes($content);
+		$content = str_replace('</','<\\/',$content);
+		$content = str_replace('/>','\\/>',$content);
 
-	$tooltips += array($var=>$content);
+		$tooltips += array($var=>$content);
+	}
 }
 
 
@@ -116,7 +119,7 @@ function setTooltip( $var , $content )
  * @param array $tooltipArray
  * @return string Tooltips placed in javascript variables
  */
-function getAllTooltips()
+function getAllTooltips( )
 {
 	global $tooltips;
 
@@ -125,7 +128,7 @@ function getAllTooltips()
 		$ret_string = "<script type=\"text/javascript\">\n<!--\n";
 		foreach ($tooltips as $var => $content)
 		{
-			$ret_string .= "\tvar overlib_$var = \"".str_replace('--','-"+"-',$content)."\";\n";
+			$ret_string .= "\tvar overlib_$var = \"" . str_replace('--','-"+"-',$content) . "\";\n";
 		}
 		$ret_string .= "//-->\n</script>";
 
@@ -149,7 +152,7 @@ function sql_highlight( $sql )
 	global $db_prefix;
 
 	// Make table names bold
-	$sql = preg_replace('/' . $db_prefix .'(\S+?)([\s\.,]|$)/', '<span class="blue">' . $db_prefix . "\\1\\2</span>", $sql);
+	$sql = preg_replace('/' . $db_prefix . '(\S+?)([\s\.,]|$)/', '<span class="blue">' . $db_prefix . "\\1\\2</span>", $sql);
 
 	// Non-passive keywords
 	$red_keywords = array('/(INSERT INTO)/','/(UPDATE\s+)/','/(DELETE FROM\s+)/','/(CREATE TABLE)/','/(IF (NOT)? EXISTS)/',
@@ -180,18 +183,17 @@ function sql_highlight( $sql )
  * @param string $line Line in file to display
  * @param string $sql Any SQL text to display
  */
-function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
+function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='' )
 {
-
 	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	// die_quitely died quietly
 	if(defined('ROSTER_DIED') )
 	{
-		print '<pre>The quiet die function suffered a fatal error. Die information below'."\n";
-		print 'First die data:'."\n";
+		print "<pre>The quiet die function suffered a fatal error. Die information below\n";
+		print "First die data:\n";
 		print_r($GLOBALS['die_data']);
-		print "\n".'Second die data'."\n";
+		print "\nSecond die data:\n";
 		print_r(func_get_args());
 		exit();
 	}
@@ -204,7 +206,7 @@ function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
-		include_once(ROSTER_BASE.'roster_header.tpl');
+		include_once(ROSTER_BASE . 'roster_header.tpl');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
@@ -218,7 +220,7 @@ function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 		$wowdb->closeDb();
 	}
 
-	print border('sred','start',$title).'<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	print border('sred','start',$title) . '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{
@@ -226,7 +228,7 @@ function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 	}
 	if( !empty($sql) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />".sql_highlight($sql)."</td>\n</tr>\n";
+		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />" . sql_highlight($sql) . "</td>\n</tr>\n";
 	}
 	if( !empty($file) )
 	{
@@ -239,16 +241,16 @@ function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
 
 	if( $roster_conf['debug_mode'] )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\">";
+		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
 		print  backtrace();
 		print "</td>\n</tr>\n";
 	}
 
-	print "</table>\n".border('sred','end');
+	print "</table>\n" . border('sred','end');
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster_conf) )
 	{
-		include_once(ROSTER_BASE.'roster_footer.tpl');
+		include_once(ROSTER_BASE . 'roster_footer.tpl');
 	}
 
 	exit();
@@ -261,13 +263,13 @@ function die_quietly( $text='', $title='Message', $file='', $line='', $sql='' )
  * @param string $title | The box title (default = 'Message')
  * @param string $style | The border style (default = sred)
  */
-function roster_die($message, $title = 'Message', $style = 'sred')
+function roster_die( $message , $title = 'Message' , $style = 'sred' )
 {
 	global $wowdb, $roster_conf, $wordings, $act_words;
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
 	{
-		include_once(ROSTER_BASE.'roster_header.tpl');
+		include_once(ROSTER_BASE . 'roster_header.tpl');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
@@ -281,11 +283,11 @@ function roster_die($message, $title = 'Message', $style = 'sred')
 		$wowdb->closeDb();
 	}
 
-	print messagebox('<div align="center">'.$message.'</div>',$title,$style);
+	print messagebox('<div align="center">' . $message . '</div>',$title,$style);
 
-	if( is_array($roster_conf) )
+	if( !defined('ROSTER_FOOTER_INC') && is_array($roster_conf) )
 	{
-		include_once(ROSTER_BASE.'roster_footer.tpl');
+		include_once(ROSTER_BASE . 'roster_footer.tpl');
 	}
 
 	exit();
@@ -299,45 +301,45 @@ function backtrace()
 {
 	if( version_compare( phpversion(), '4.3', '<' ) )
 	{
-		return "Unable to print backtrace: PHP version too low";
+		return 'Unable to print backtrace: PHP version too low';
 	}
 	$bt = debug_backtrace();
 
 	$output = "Backtrace (most recent call last):<ul>\n";
-	for($i = 0; $i <= count($bt) - 1; $i++)
+	for( $i = 0; $i <= count($bt) - 1; $i++ )
 	{
-		if(!isset($bt[$i]["file"]))
+		if( !isset($bt[$i]['file']) )
 		{
 			$output .= "<li>[PHP core called function]<ul>\n";
 		}
 		else
 		{
-			$output .= "<li>File: ".$bt[$i]["file"]."<ul>\n";
+			$output .= '<li>File: ' . $bt[$i]['file'] . "<ul>\n";
 		}
 
-		if(isset($bt[$i]["line"]))
+		if( isset($bt[$i]['line']) )
 		{
-			$output .= "<li>line ".$bt[$i]["line"]."</li>\n";
+			$output .= '<li>line ' . $bt[$i]['line'] . "</li>\n";
 		}
-		$output .= "<li>function called: ".$bt[$i]["function"]."</li>\n";
+		$output .= '<li>function called: ' . $bt[$i]['function'] . "</li>\n";
 
-		if($bt[$i]["args"])
+		if( $bt[$i]['args'] )
 		{
-			$output .= "<li>args: ";
-			for($j = 0; $j <= count($bt[$i]["args"]) - 1; $j++)
+			$output .= '<li>args: ';
+			for( $j = 0; $j <= count($bt[$i]['args']) - 1; $j++ )
 			{
-				if( is_array($bt[$i]["args"][$j]) )
+				if( is_array($bt[$i]['args'][$j]) )
 				{
-					$output .= print_r($bt[$i]["args"][$j],true);
+					$output .= print_r($bt[$i]['args'][$j],true);
 				}
 				else
 				{
-					$output .= $bt[$i]["args"][$j] ;
+					$output .= $bt[$i]['args'][$j] ;
 				}
 
-				if($j != count($bt[$i]["args"]) - 1)
+				if($j != count($bt[$i]['args']) - 1)
 				{
-					$output .= ", ";
+					$output .= ', ';
 				}
 			}
 			$output .= "</li>\n";
@@ -355,7 +357,7 @@ function backtrace()
  *
  * @param string $file
  */
-function stripAllHtml($string)
+function stripAllHtml( $string )
 {
 	$search = array ('@<script[^>]*?>.*?</script>@si', // Strip out javascript
 					'@<[\/\!]*?[^<>]*?>@si',           // Strip out HTML tags
@@ -384,7 +386,7 @@ function stripAllHtml($string)
  * @param imagefile $file
  * Returns the extentsion if the filetype is an image
  */
-function check_if_image($imagefilename)
+function check_if_image( $imagefilename )
 {
 	if( ($extension = pathinfo($imagefilename, PATHINFO_EXTENSION)) === FALSE )
 	{
@@ -392,7 +394,7 @@ function check_if_image($imagefilename)
 	}
 	else
 	{
-	  	switch($extension)
+	  	switch( $extension )
 	  	{
 		  	case 'bmp': 	return $extension;
 		  	case 'cod': 	return $extension;
@@ -439,13 +441,19 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 
 	// Use main locale if one is not specified
 	if( $locale == '' )
+	{
 		$locale = $roster_conf['roster_lang'];
+	}
 
 	// Detect caption mode and display accordingly
 	if( $inline_caption )
+	{
 		$first_line = true;
+	}
 	else
+	{
 		$first_line = false;
+	}
 
 
 	// Initialize tooltip_out
@@ -469,40 +477,46 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			if( $first_line )
 			{
 				if( $caption_color == '' )
+				{
 					$caption_color = 'ffffff';
+				}
 
 				if( strlen($caption_color) > 6 )
+				{
 					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
+				}
 				else
+				{
 					$color = $caption_color . ';font-size:11px;font-weight:bold';
+				}
 
 				$first_line = false;
 			}
 			else
 			{
-				if ( ereg('^'.$wordings[$locale]['tooltip_use'],$line) )
+				if( ereg('^' . $wordings[$locale]['tooltip_use'],$line) )
 					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_requires'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_requires'],$line) )
 					$color = 'ff0000';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_reinforced'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_reinforced'],$line) )
 					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_equip'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_equip'],$line) )
 					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_chance'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_chance'],$line) )
 					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_enchant'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_enchant'],$line) )
 					$color = '00ff00';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_soulbound'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_soulbound'],$line) )
 					$color = '00bbff';
-				elseif ( ereg('^'.$wordings[$locale]['tooltip_set'],$line) )
+				elseif( ereg('^' . $wordings[$locale]['tooltip_set'],$line) )
 					$color = '00ff00';
-				elseif (ereg('^'.$wordings[$locale]['tooltip_rank'],$line) )
+				elseif(ereg('^' . $wordings[$locale]['tooltip_rank'],$line) )
 					$color = '00ff00;font-weight:bold';
-				elseif (ereg('^'.$wordings[$locale]['tooltip_next_rank'],$line) )
+				elseif(ereg('^' . $wordings[$locale]['tooltip_next_rank'],$line) )
 					$color = 'ffffff;font-weight:bold';
-				elseif ( preg_match('|\([a-f0-9]\).'.$wordings[$locale]['tooltip_set'].'|',$line) )
+				elseif( preg_match('/\([a-f0-9]\).' . $wordings[$locale]['tooltip_set'].'/i',$line) )
 					$color = '666666';
-				elseif ( ereg('^"',$line) )
+				elseif( ereg('^"',$line) )
 					$color = 'ffd517';
 			}
 
@@ -510,12 +524,12 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			if( strpos($line,"\t") )
 			{
 				$line = explode("\t",$line);
-				$line = '<div style="width:100%;"><span style="float:right;">'.$line[0].'</span>'.$line[1].'</div>';
+				$line = '<div style="width:100%;"><span style="float:right;">' . $line[0] . '</span>' . $line[1] . '</div>';
 				$tooltip_out .= $line;
 			}
 			elseif( !empty($color) )
 			{
-				$tooltip_out .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+				$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
 			}
 			else
 			{
@@ -547,9 +561,13 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 {
 	// Detect caption mode and display accordingly
 	if( $inline_caption )
+	{
 		$first_line = true;
+	}
 	else
+	{
 		$first_line = false;
+	}
 
 
 	// Initialize tooltip_out
@@ -558,7 +576,7 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 	// Parsing time!
 	$tooltip = str_replace('<br>',"\n",$tooltip);
 	$tooltip = str_replace('<br />',"\n",$tooltip);
-	foreach (explode("\n", $tooltip) as $line )
+	foreach( explode("\n", $tooltip) as $line )
 	{
 		$color = '';
 
@@ -573,12 +591,18 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 			if( $first_line )
 			{
 				if( $caption_color == '' )
+				{
 					$caption_color = 'ffffff';
+				}
 
 				if( strlen($caption_color) > 6 )
+				{
 					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
+				}
 				else
+				{
 					$color = $caption_color . ';font-size:11px;font-weight:bold';
+				}
 
 				$first_line = false;
 			}
@@ -587,12 +611,12 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 			if( strpos($line,"\t") )
 			{
 				$line = explode("\t",$line);
-				$line = '<div style="width:100%;"><span style="float:right;">'.$line[0].'</span>'.$line[1].'</div>';
+				$line = '<div style="width:100%;"><span style="float:right;">' . $line[0] . '</span>' . $line[1] . '</div>';
 				$tooltip_out .= $line;
 			}
 			elseif( !empty($color) )
 			{
-				$tooltip_out .= '<span style="color:#'.$color.';">'.$line.'</span><br />';
+				$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
 			}
 			else
 			{
@@ -633,7 +657,9 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 
 	// Use main locale if one is not specified
 	if( $locale == '' )
+	{
 		$locale = $roster_conf['roster_lang'];
+	}
 
 	// Detect caption text and display accordingly
 	$caption_mode = 1;
@@ -649,10 +675,10 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 	{
 		if( $caption_color != '' )
 		{
-			$caption = '<span style="color:#'.$caption_color.';">'.$caption.'</span>';
+			$caption = '<span style="color:#' . $caption_color . ';">' . $caption . '</span>';
 		}
 
-		$caption = ",CAPTION,'".addslashes($caption)."'";
+		$caption = ",CAPTION,'" . addslashes($caption) . "'";
 
 		$caption_mode = 0;
 	}
@@ -679,7 +705,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 
 	setTooltip($num_of_tips,$tooltip);
 
-	return 'onmouseover="return overlib(overlib_'.$num_of_tips.$caption.$extra_parameters.');" onmouseout="return nd();"';
+	return 'onmouseover="return overlib(overlib_' . $num_of_tips . $caption . $extra_parameters . ');" onmouseout="return nd();"';
 }
 
 /**
@@ -690,12 +716,12 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
  * @param string $style | The border style
  * @return string $html | The HTML for the messagebox
  */
-function messagebox($message, $title = 'Message', $style = 'sgray')
+function messagebox( $message , $title='Message' , $style='sgray' )
 {
 	return
 		border($style, 'start', $title).
 		'<div align="center" style="background-color:#1F1E1D;">'.
-		$message.
+			$message.
 		'</div>'.
 		border($style, 'end');
 }
@@ -710,11 +736,11 @@ function messagebox($message, $title = 'Message', $style = 'sgray')
  * @param string $height | Initial height with unit
  * @return string $html | The HTML for the messagebox
  */
-function scrollbox($message, $title = 'Message', $style = 'sgray', $width = '550px', $height = '300px')
+function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px' , $height='300px' )
 {
 	return
 		border($style,'start',$title).
-		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:'.$height.';width:'.$width.';overflow:auto;">'.
+		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:' . $height . ';width:' . $width . ';overflow:auto;">'.
 			$message.
 		'</div>'.
 		border($style,'end');
@@ -733,18 +759,19 @@ $toggleboxes = 0;
  * @param string $width | Initial width with unit
  * @return string $html | The HTML for the messagebox
  */
-function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px')
+function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=false , $width='550px' )
 {
 	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:".$width.";\" onclick=\"showHide('msgbox_".$toggleboxes."','msgboximg_".$toggleboxes."','".$roster_conf['img_url']."minus.gif','".$roster_conf['img_url']."plus.gif');\"><img src=\"".$roster_conf['img_url'].(($open)?'minus':'plus').".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_".$toggleboxes."\" />".$title."</div>";
+	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster_conf['img_url'] . "minus.gif','" . $roster_conf['img_url'] . "plus.gif');\">"
+		   . "<img src=\"" . $roster_conf['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style, 'start', $title).
-		'<div style="display:'.(($open)?'inline':'none').';background-color:#1F1E1D;" id="msgbox_'.$toggleboxes.'">'.
-		$message.
+		'<div style="display:' . (($open)?'inline':'none') . ';background-color:#1F1E1D;" id="msgbox_' . $toggleboxes . '">'.
+			$message.
 		'</div>'.
 		border($style, 'end');
 }
@@ -759,17 +786,18 @@ function messageboxtoggle($message, $title = 'Message', $style = 'sgray', $open 
  * @param string $height | Initial height with unit
  * @return string $html | The HTML for the messagebox
  */
-function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open = false, $width = '550px', $height = '300px')
+function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=false , $width='550px' , $height='300px' )
 {
 	global $toggleboxes, $roster_conf;
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:".$width.";\" onclick=\"showHide('msgbox_".$toggleboxes."','msgboximg_".$toggleboxes."','".$roster_conf['img_url']."minus.gif','".$roster_conf['img_url']."plus.gif');\"><img src=\"".$roster_conf['img_url'].(($open)?'minus':'plus').".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_".$toggleboxes."\" />".$title."</div>";
+	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster_conf['img_url'] . "minus.gif','" . $roster_conf['img_url'] . "plus.gif');\">"
+		   . "<img src=\"" . $roster_conf['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style,'start',$title).
-		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:'.$height.';width:'.$width.';overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
+		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:' . $height . ';width:' . $width . ';overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
 			$message.
 		'</div>'.
 		border($style,'end');
@@ -783,9 +811,10 @@ function scrollboxtoggle($message, $title = 'Message', $style = 'sgray', $open =
  * @return array
  *	The same array, escaped
  */
-function escape_array($array)
+function escape_array( $array )
 {
 	global $wowdb;
+
 	foreach ($array as $key=>$value)
 	{
 		if( is_array($value) )
@@ -807,7 +836,7 @@ function escape_array($array)
  * @param string $updateTimeUTC dateupdatedutc
  * @return string formatted date string
  */
-function DateDataUpdated($updateTimeUTC)
+function DateDataUpdated( $updateTimeUTC )
 {
 	global $roster_conf, $act_words;
 
@@ -822,13 +851,12 @@ function get_file_ext( $filename )
 	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }
 
-function seconds_to_time($seconds)
+function seconds_to_time( $seconds )
 {
 	while( $seconds >= 60 )
 	{
-		if( $seconds >= 86400 )
+		if( $seconds >= 86400 )	// there is more than 1 day
 		{
-		// there is more than 1 day
 			$days = floor($seconds / 86400);
 			$seconds = $seconds - ($days * 86400);
 		}
@@ -853,11 +881,11 @@ function seconds_to_time($seconds)
 	{
 		if( $days == 1 )
 		{
-			$days = $days.'d, ';
+			$days = $days . 'd, ';
 		}
 		else
 		{
-			$days = $days.'d, ';
+			$days = $days . 'd, ';
 		}
 	}
 	if( !isset($hours) )
@@ -866,7 +894,7 @@ function seconds_to_time($seconds)
 	}
 	else
 	{
-		$hours = $hours.'h, ';
+		$hours = $hours . 'h, ';
 	}
 	if( !isset($minutes) )
 	{
@@ -874,7 +902,7 @@ function seconds_to_time($seconds)
 	}
 	else
 	{
-		$minutes = $minutes.'m, ';
+		$minutes = $minutes . 'm, ';
 	}
 	if( !isset($seconds) )
 	{
@@ -882,7 +910,7 @@ function seconds_to_time($seconds)
 	}
 	else
 	{
-		$seconds = $seconds.'s';
+		$seconds = $seconds . 's';
 	}
 
 	return array('days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds);
@@ -901,7 +929,7 @@ function getaddon( $addonname )
 	global $wowdb, $act_words, $wordings;
 
 	// Get addon registration entry
-	$query = "SELECT * FROM `".$wowdb->table('addon')."` WHERE `basename` = '$addonname' LIMIT 1;";
+	$query = "SELECT * FROM `" . $wowdb->table('addon') . "` WHERE `basename` = '" . $wowdb->escape($addonname) . "' LIMIT 1;";
 
 	$result = $wowdb->query( $query );
 
@@ -920,14 +948,14 @@ function getaddon( $addonname )
 	$wowdb->free_result($result);
 
 	// Get the addon's location
-	$addon['dir'] = ROSTER_ADDONS.$addon['basename'].DIR_SEP;
+	$addon['dir'] = ROSTER_ADDONS . $addon['basename'] . DIR_SEP;
 
 	// Get the addon's css style
-	$addon['css_file'] = $addon['dir'].'style.css';
+	$addon['css_file'] = $addon['dir'] . 'style.css';
 
 	if( file_exists($addon['css_file']) )
 	{
-		$addon['css_url'] = 'addons/'.$addon['basename'].'/style.css';
+		$addon['css_url'] = 'addons/' . $addon['basename'] . '/style.css';
 	}
 	else
 	{
@@ -935,24 +963,24 @@ function getaddon( $addonname )
 	}
 
 	// Get the addon's conf file
-	$addon['conf_file'] = $addon['dir'].'conf.php';
+	$addon['conf_file'] = $addon['dir'] . 'conf.php';
 
 	// Get the addon's locale file
-	$addon['locale_dir'] = $addon['dir'].'locale'.DIR_SEP;
+	$addon['locale_dir'] = $addon['dir'] . 'locale' . DIR_SEP;
 
 	// Get the addon's admin file
-	$addon['admin_file'] = $addon['dir'].'admin.php';
+	$addon['admin_file'] = $addon['dir'] . 'admin.php';
 
 	// Get the addon's trigger file
-	$addon['trigger_file'] = $addon['dir'].'update_hook.php';
+	$addon['trigger_file'] = $addon['dir'] . 'update_hook.php';
 
 	// Get the addon's ajax functions file
-	$addon['ajax_file'] = $addon['dir'].'ajax.php';
+	$addon['ajax_file'] = $addon['dir'] . 'ajax.php';
 
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';
 
-	$query = "SELECT `config_name`, `config_value` FROM `".$wowdb->table('addon_config')."` WHERE `addon_id` = ".$addon['addon_id']." ORDER BY `id` ASC;";
+	$query = "SELECT `config_name`, `config_value` FROM `" . $wowdb->table('addon_config') . "` WHERE `addon_id` = '" . $addon['addon_id'] . "' ORDER BY `id` ASC;";
 
 	$result = $wowdb->query( $query );
 
@@ -1006,13 +1034,13 @@ function add_locale_file( $localefile , $locale , &$array )
 		{
 			if( isset($lang['admin']) && isset($array[$locale]['admin']) )
 			{
-				$admin = array_merge($array[$locale]['admin'], $lang['admin']);
-				$array[$locale] = array_merge($array[$locale], $lang);
+				$admin = array_merge($lang['admin'], $array[$locale]['admin']);
+				$array[$locale] = array_merge($lang, $array[$locale]);
 				$array[$locale]['admin'] = $admin;
 			}
 			else
 			{
-				$array[$locale] = array_merge($array[$locale], $lang);
+				$array[$locale] = array_merge($lang, $array[$locale]);
 			}
 		}
 		else
@@ -1024,44 +1052,44 @@ function add_locale_file( $localefile , $locale , &$array )
 	}
 }
 
-	/**
-	 * Handles retrieving a URL multiple ways
-	 *
-	 * @param string $url	| URL to retrieve
-	 * @param int $timeout	| Timeout
-	 * @return mixed		| False on error, contents on success
-	 */
-	function urlgrabber( $url , $timeout = 5 )
+/**
+ * Handles retrieving a URL multiple ways
+ *
+ * @param string $url	| URL to retrieve
+ * @param int $timeout	| Timeout
+ * @return mixed		| False on error, contents on success
+ */
+function urlgrabber( $url , $timeout = 5 )
+{
+	$contents = '';
+
+	if( function_exists('curl_init') )
 	{
-		$contents = '';
+		$ch = curl_init($url);
 
-		if( function_exists('curl_init') )
+		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$contents = curl_exec($ch);
+
+		// If there were errors
+		if( curl_errno($ch) )
 		{
-			$ch = curl_init($url);
-
-			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-			$contents = curl_exec($ch);
-
-			// If there were errors
-			if (curl_errno($ch))
-			{
-				$this->error('Error: '.curl_error($ch));
-				return false;
-			}
-
-			curl_close($ch);
-
-			return $contents;
-		}
-		elseif( $contents = file_get_contents($url) )
-		{
-			return $contents;
-		}
-		else
-		{
-			die_quietly('Could not retrieve URL','URL Grabber');
+			$this->error('Error: ' . curl_error($ch));
 			return false;
 		}
-	} //-END function urlgrabber()
+
+		curl_close($ch);
+
+		return $contents;
+	}
+	elseif( $contents = file_get_contents($url) )
+	{
+		return $contents;
+	}
+	else
+	{
+		die_quietly('Could not retrieve URL','URL Grabber');
+		return false;
+	}
+} //-END function urlgrabber()

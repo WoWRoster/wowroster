@@ -29,12 +29,12 @@ class guildinfo
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
 	var $version = '1.0.0';
-	
+
 	var $fullname = 'Guild Info';
 	var $description = 'Shows /guildinfo';
 	var $credits = array(
-	array(	"name"=>	"Zanix/Zeryl",
-			"info"=>	"Original authors")
+	array(	"name"=>	"WoWRoster Dev Team",
+			"info"=>	"Original Author")
 	);
 
 

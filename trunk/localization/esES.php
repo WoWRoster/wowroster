@@ -189,7 +189,6 @@ $lang['alternate']='Suplente';
 $lang['byclass']='Por Clase';
 $lang['menustats']='Estadísticas';
 $lang['menuhonor']='Honor';
-$lang['team']='Buscar Equipo';
 $lang['search']='Búsqueda';
 $lang['update']='Última Actualización';
 $lang['credit']='Créditos';
@@ -621,11 +620,6 @@ $lang['lockpicking']='Lockpicking';
 	$lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
 	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
-
-// definitions for the questsearchpage
-	$lang['search1']="De la siguiente lista escoge una zona o un nombre de misión para ver quien está trabajando en ello.<br />\n<small>Nótese que si el nivel de la misión no es el mismo para todos los miembros listados de la hermandad, pueden estar en otra parte de una misión de múltiples partes.</small>";
-	$lang['search2']='Buscar por Zona';
-	$lang['search3']='Buscar por Nombre de Misión';
 
 // Definition for item tooltip coloring
 	$lang['tooltip_use']='Uso:';

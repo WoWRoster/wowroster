@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class guildbank
 {
 	var $active = true;
-	var $icon = 'inv_misc_bag_08';
+	var $icon = 'inv_misc_bag_15';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 

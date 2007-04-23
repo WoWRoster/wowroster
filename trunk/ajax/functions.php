@@ -20,8 +20,8 @@ if( !defined('ROSTER_INSTALLED') )
 }
 
 $ajaxfuncs['menu_button_add'] = array(
-	'file'=>ROSTER_AJAX.'menu.php',
+	'file'=>ROSTER_AJAX . 'menu.php',
 );
 $ajaxfuncs['menu_button_del'] = array(
-	'file'=>ROSTER_AJAX.'menu.php',
+	'file'=>ROSTER_AJAX . 'menu.php',
 );

@@ -189,7 +189,6 @@ $lang['alternate']='Alternate';
 $lang['byclass']='Par Classe';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honneur';
-$lang['team']='Trouver un groupe';
 $lang['search']='Rechercher';
 $lang['update']='Dernière mise à jour';
 $lang['credit']='Crédits';
@@ -621,11 +620,6 @@ $lang['lockpicking']='Crochetage';
 	$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
-
-// definitions for the questsearchpage
-	$lang['search1']='Choisir la zone ou la quête dans la liste ci-dessous pour visualiser les joueurs concernés.<br />'."\n".'<small>Attention si les niveaux de quêtes ne sont pas les mêmes, il se peut qu\'il s\'agisse d\'une autre partie d\'une quête multiple.</small>';
-	$lang['search2']='Recherche par Zone';
-	$lang['search3']='Recherche par nom de quête';
 
 // Definition for item tooltip coloring
 	$lang['tooltip_use']='Utiliser';

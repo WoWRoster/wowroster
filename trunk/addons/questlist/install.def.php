@@ -12,7 +12,7 @@
  *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
  * -----------------------------
  *
- * $Id: install.def.php 769 2007-04-05 08:13:18Z Zanix $
+ * $Id$
  *
  ******************************/
 
@@ -21,17 +21,17 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class keys
+class questlist
 {
 	var $active = true;
-	var $icon = 'inv_misc_key_06';
+	var $icon = 'inv_misc_note_02';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
 	var $version = '1.0.0';
 
-	var $fullname = 'Instance Keys';
-	var $description = 'Lists Dungeon keys for members';
+	var $fullname = 'Quest List';
+	var $description = 'Search for quests other guild members are on';
 	var $credits = array(
 	array(	"name"=>	"WoWRoster Dev Team",
 			"info"=>	"Original Author")
@@ -46,14 +46,7 @@ class keys
 		$installer->add_backup(ROSTER_ADDONCONFTABLE);
 
 		// Master and menu entries
-		$installer->add_config("'1','startpage','keys_conf','display','master'");
-		$installer->add_config("'110','keys_conf',NULL,'blockframe','menu'");
-
-		$installer->add_config("'1010','colorcmp','#00ff00','color','keys_conf'");
-		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
-		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
-
-		$installer->add_menu_button('keys');
+		$installer->add_menu_button('questlist');
 		return true;
 	}
 
@@ -69,7 +62,7 @@ class keys
 
 		$installer->remove_all_config();
 
-		$installer->remove_menu_button('keys');
+		$installer->remove_menu_button('questlist');
 		return true;
 	}
 }

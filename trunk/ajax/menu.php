@@ -24,14 +24,14 @@ $roster_login = new RosterLogin();
 switch ($method)
 {
 	case 'menu_button_add':
-		if ( !$roster_login->getAuthorized() )
+		if( !$roster_login->getAuthorized() )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';
 			return;
 		}
 
-		if( isset($_POST['title'] ) )
+		if( isset($_POST['title']) )
 		{
 			$title = $_POST['title'];
 		}
@@ -42,7 +42,7 @@ switch ($method)
 			return;
 		}
 
-		if( isset($_POST['url'] ) )
+		if( isset($_POST['url']) )
 		{
 			$url = $_POST['url'];
 		}
@@ -53,25 +53,25 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `".$wowdb->table('menu_button')."` VALUES (NULL,0,'".$wowdb->escape($_POST['title'])."','".$wowdb->escape($_POST['url'])."')";
+		$query = "INSERT INTO `" . $wowdb->table('menu_button') . "` VALUES (NULL,0,'" . $wowdb->escape($_POST['title']) . "','" . $wowdb->escape($_POST['url']) . "')";
 
 		$DBres = $wowdb->query($query);
 
 		if (!$DBres)
 		{
 			$status = 101;
-			$errmsg = 'Failed to insert button. MySQL said: '.$wowdb->error();
+			$errmsg = 'Failed to insert button. MySQL said: ' . $wowdb->error();
 			return;
 		}
 
 		$status=0;
-		$result  = '<id>b'.$wowdb->insert_id().'</id>'."\n";
-		$result .= '<title>'.$_POST['title'].'</title>';
+		$result  = '<id>b' . $wowdb->insert_id() . "</id>\n";
+		$result .= '<title>' . $_POST['title'] . '</title>';
 
 		break;
 
 	case 'menu_button_del':
-		if ( !$roster_login->getAuthorized() )
+		if( !$roster_login->getAuthorized() )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';
@@ -81,34 +81,41 @@ switch ($method)
 		$button = $_POST['button'];
 		$button_id = (int)substr($button,1);
 
-		$query = "SELECT * FROM `".$wowdb->table('menu_button')."` WHERE `button_id` = '".$button_id."';";
+		$query = "SELECT * FROM `" . $wowdb->table('menu_button') . "` WHERE `button_id` = '" . $button_id . "';";
 		$DBres = $wowdb->query($query);
 
-		if (!$DBres)
+		if( !$DBres )
 		{
 			$status = 101;
-			$errmsg = 'Failed to fetch button properties. MySQL said: '."\n".$wowdb->error()."\n".$query;
+			$errmsg = 'Failed to fetch button properties. MySQL said: ' . "\n" . $wowdb->error() . "\n" . $query;
 			return;
 		}
 
-		if ($wowdb->num_rows($DBres) == 0)
+		if( $wowdb->num_rows($DBres) == 0 )
 		{
 			$status = 102;
-			$errmsg = 'The specified button does not exist: '.$button;
+			$errmsg = 'The specified button does not exist: ' . $button;
 			return;
 		}
 
 		$row = $wowdb->fetch_assoc($DBres);
 		$wowdb->free_result($DBres);
 
-		$query = "DELETE FROM `".$wowdb->table('menu_button')."` WHERE `button_id` = ".$button_id;
+		if( $row['addon_id'] == '0' )
+		{
+			$status = 105;
+			$errmsg = 'You cannot delete WoWRoster made buttons: ' . $button;
+			return;
+		}
+
+		$query = "DELETE FROM `".$wowdb->table('menu_button')."` WHERE `button_id` = '" . $button_id . "';";
 
 		$DBres = $wowdb->query($query);
 
 		if (!$DBres)
 		{
 			$status = 101;
-			$errmsg = 'Failed to delete button. MySQL said: '."\n".$wowdb->error()."\n".$query;
+			$errmsg = 'Failed to delete button. MySQL said: ' . "\n" . $wowdb->error() . "\n" . $query;
 			return;
 		}
 
