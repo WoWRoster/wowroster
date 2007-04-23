@@ -800,30 +800,6 @@ $lang['admin']['server_type'] = "Servertyp|Gib an, um welche Art von Server es s
 $lang['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur Anzeige der Anzahl der 2.-Charaktere auf der Hautpseite benutzt wird";
 $lang['admin']['alt_location'] = "Twink Suchfeld|In welchem Feld soll der Twink-Text gesucht werden";
 
-// index_conf
-$lang['admin']['index_pvplist'] = "PvP-Logger Statistiken|PvP-Logger Statistiken auf der Index-Seite<br />Wenn due PvPLog-Upload deaktiviert hast, brauchst du das nicht aktivieren";
-$lang['admin']['index_hslist'] = "Ehrensystem Statistiken|Ehrensystem Statistiken auf der Index-Seite";
-$lang['admin']['hspvp_list_disp'] = "PvP/Ehren-Listen Anzeige|Wie sollen die PvP- und Ehren Listen initial angezeigt werden:<br />Die Listen können auf- und zugeklappt werden, indem man auf den Kopf klickt<br /><br />&quot;show&quot; zeigt die Listen aufgeklappt beim Seitenaufruf<br />&quot;hide&quot; zeigt die Listen zugeklappt";
-$lang['admin']['index_member_tooltip'] = "Mitglied Info Tooltip|Zeigt einige Infos über das Mitglied im Tooltip an";
-$lang['admin']['index_update_inst'] = "Aktualisierungsanleitung|Zeigt die Anleitung zum Aktualisieren auf der Indexseite";
-$lang['admin']['index_sort'] = "Mitgliedsliste Sortierung|Stellt die Standardsortierung ein";
-$lang['admin']['index_motd'] = "Gilden MOTD|Zeige Gilden MOTD auf der Indexseite<br /><br />Regelt auch die Anzeige auf der &quot;Gilden Info&quot; Seite";
-$lang['admin']['index_level_bar'] = "Level Balken|Zeigt einen prozentualen Levelbalken auf der Indexseite";
-$lang['admin']['index_iconsize'] = "Icon Größe|Wähle die Größe der Icons auf der Indexseite (PvP, Berufe, Klassen, etc..)";
-$lang['admin']['index_tradeskill_icon'] = "Beruf Icons|Ermöglich die Anzeige von Berufsicons auf der Indexseite";
-$lang['admin']['index_tradeskill_loc'] = "Beruf Spalte Anzeige|In welcher Spalte sollen die Berufsicons angezeigt werden";
-$lang['admin']['index_class_color'] = "Klassenfarben|Färbt die Klassennamen ein";
-$lang['admin']['index_classicon'] = "Klassen Icons|Zeigt ein Icon für jeden Charakter jeder Klasse an";
-$lang['admin']['index_honoricon'] = "PvP Ehrenrang Icons|Zeigt ein Icon des Ehrenrangs neben dem Namen an";
-$lang['admin']['index_prof'] = "Berufs Spalte|Dies ist eine eigene Spalte für die Berufsicons<br />Wenn du sie in einer anderen Spalte anzeigst, kannst du diese deaktivieren.";
-$lang['admin']['index_currenthonor'] = "Ehren Spalte|Zeigt eine Spalte mit dem aktuellen Ehrenrang an";
-$lang['admin']['index_note'] = "Notiz Spalte|Zeigt eine Spalte mit der Spielernotiz an";
-$lang['admin']['index_title'] = "Gildentitel Spalte|Zeigt eine Spalte mit dem Gildentitel an";
-$lang['admin']['index_hearthed'] = "Ruhestein Ort Spalte|Zeigt eine Spalte mit dem Ort des Ruhesteins an";
-$lang['admin']['index_zone'] = "Letztes Gebiet Spalte|Zeigt eine Spalte mit dem letzten Aufenthaltsort an";
-$lang['admin']['index_lastonline'] = "Zuletzt Online Spalte|Zeigt eine Spalte, wann der Spieler zuletzt online war";
-$lang['admin']['index_lastupdate'] = "Zuletzt aktualisiert Spalte|Zeigt eine Spalte, wann ein Spieler zuletzt sein Profil aktualisiert hat";
-
 // menu_conf
 $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
@@ -852,7 +828,6 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Message of the day) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";
-$lang['admin']['compress_note'] = "Notiz Anzeige Modus|Wie die Notiz angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt die Notiz als Text<br />&quot;Icon&quot; - Zeigt ein Notizicon mit dem Text in einem Tooltip";
 $lang['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
 $lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
 

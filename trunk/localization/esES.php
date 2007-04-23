@@ -800,30 +800,6 @@ $lang['admin']['server_type'] = "Tipo de servidor|Esto es para determinar tu tip
 $lang['admin']['alt_type'] = "Alt-Texto b&uacutesqueda|Asignamos un texto a cada uno de los alts de la gente, para su siguiente localizaci&oacuten";
 $lang['admin']['alt_location'] = "Campo b&uacutesqueda de alts|Indica el campo en el que se tiene que buscar la etiqueta indicada en el campo anterior";
 
-// index_conf
-$lang['admin']['index_pvplist'] = "Estad&iacutesticas de PVPlog|Mostrar las estad&iacutesticas del PVPlog en la p&aacutegina principal<br>Si tienes desactivado el addon PVPlog entonces no tienes que hacer nada aqu&iacute";
-$lang['admin']['index_hslist'] = "Estad&iacutesticas Honor|Muestra las estad&iacutesticas de Honor en la p&aacutegina principal";
-$lang['admin']['hspvp_list_disp'] = "JcJ/Honor Mostrar lista|Mostrar o esconder las listas de JcJ y Honor en la p&aacutegina principal<br>Las listas pueden ser abiertas y cerradas haciendo click en la cabecera<br><br>&quot;show&quot; mostrar&aacute el listado completo cuando la p&aacutegina cargue<br>&quot;hide&quot; no mostrar&aacute el listado cuando la p&aacutegina cargue (aparecer&aacute minimizado)";
-$lang['admin']['index_member_tooltip'] = "Info de miembros|Muestra informaci&oacuten sobre un miembro en una ventanita al poner el cursor sobre su nombre";
-$lang['admin']['index_update_inst'] = "Instrucciones subir datos|Muestra o esconde el texto de la parte inferior de la web donde se explica como subir personajes";
-$lang['admin']['index_sort'] = "Orden lista miembros|Elige el orden en el que se mostrar&aacute la lista";
-$lang['admin']['index_motd'] = "MDD de la hermandad|Muestra el mensaje del d&iacutea de la hermandad en la parte de arriba de la p&aacutegina";
-$lang['admin']['index_level_bar'] = "Barra de nivel|Muestra una barra visual con el porcentaje de nivel en la p&aacutegina principal";
-$lang['admin']['index_iconsize'] = "Tama&ntildeo icono|Selecciona el tama&ntildeo de los iconos en la p&aacutegina principal (JcJ, habilidades, clases, etc..)";
-$lang['admin']['index_tradeskill_icon'] = "Iconos de habilidades|Activa los iconos de las habilidades en la p&aacutegina principal";
-$lang['admin']['index_tradeskill_loc'] = "Mostrar columna de habilidades|Selecciona en que columna mostrar los iconos de las habilidades";
-$lang['admin']['index_class_color'] = "Colores clases|Colorea los nombres de las clases";
-$lang['admin']['index_classicon'] = "Iconos Clases|Muestra el icono de la clase de personaje";
-$lang['admin']['index_honoricon'] = "JcJ Honor iconos|Muestra un icono con el rango de JcJ al lado del nombre del rango de honor";
-$lang['admin']['index_prof'] = "Columna profesiones|Esto es para mostrar los iconos de las habilidades en la columna de las habilidades<br>Si quieres cambiarlos a otra columna, entonces debes desactivar esta opci&oacuten";
-$lang['admin']['index_currenthonor'] = "Columna honor|Muestra la columna del honor";
-$lang['admin']['index_note'] = "Columna nota|Muestra la columna de las notas de los personajes (p&uacuteblicas)";
-$lang['admin']['index_title'] = "Columna Titulo Hermandad|Muestra la columna del t&iacutetulo de la hermandad";
-$lang['admin']['index_hearthed'] = "Columna Hearthstone Loc.|Muestra la localizaci&oacuten donde cada personaje tiene su posada";
-$lang['admin']['index_zone'] = "Columna Ultima zona Loc.|Muestra la columna de la &uacuteltima zona donde estuvo el personaje";
-$lang['admin']['index_lastonline'] = "Columna Ultima vez visto|Muestra la columna con la fecha de la &uacuteltima vez visto un personaje";
-$lang['admin']['index_lastupdate'] = "Columna Ultima actualizaci&oacuten|Muestra la &uacuteltima actualizaci&oacuten de cada personaje (la &uacuteltima vez que ha subido informaci&oacuten)";
-
 // menu_conf
 $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
@@ -852,7 +828,6 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute mostrada en la cabecera de la p&aacutegina";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
 $lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute el texto del mensaje del d&iacutea<br><br>&quot;Texto&quot; - Muestra el MDD en rojo<br>&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";
-$lang['admin']['compress_note'] = "Modo de mostrar las notas|Indica como ser&aacuten mostradas las notas de los jugadores<br /><br />&quot;Text&quot; - Muestra el texto de la nota<br />&quot;Icon&quot; - Muestra un icono y el mensaje en una ventanita";
 $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fondo de pantalla";
 $lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacutegina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
 

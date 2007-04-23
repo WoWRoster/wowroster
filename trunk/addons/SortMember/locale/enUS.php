@@ -101,6 +101,10 @@ $lang['admin']['honor_icon']    = 'Honor icon|Display honor rank icon.';
 $lang['admin']['compress_note'] = 'Compress note|Show guild note in a tooltip instead of in the column.';
 
 // Settings on Members page
+$lang['admin']['member_update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the members page';
+$lang['admin']['member_motd'] = 'Guild MOTD|Show Guild Message of the Day on the top of the members page';
+$lang['admin']['member_hslist']  = 'Honor System Stats|Controls the display of the Honor stats list on the members page';
+$lang['admin']['member_pvplist']  = 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the members page<br />If you have disabled PvPlog uploading, there is no need to have this on';
 $lang['admin']['member_class']  = 'Class|Set visibility of the class column on the members page';
 $lang['admin']['member_level']  = 'Level|Set visibility of the level column on the members page';
 $lang['admin']['member_gtitle'] = 'Guild Title|Set visibility of the guild title column on the members page';
@@ -114,6 +118,10 @@ $lang['admin']['member_note']   = 'Note|Set visibility of the note column on the
 $lang['admin']['member_onote']  = 'Officer Note|Set visibility of the officer note column on the members page';
 
 // Settings on Stats page
+$lang['admin']['stats_update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the stats page';
+$lang['admin']['stats_motd'] = 'Guild MOTD|Show Guild Message of the Day on the top of the stats page';
+$lang['admin']['stats_hslist']  = 'Honor System Stats|Controls the display of the Honor stats list on the stats page';
+$lang['admin']['stats_pvplist']  = 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the stats page<br />If you have disabled PvPlog uploading, there is no need to have this on';
 $lang['admin']['stats_class']   = 'Class|Set visibility of the class column on the stats page';
 $lang['admin']['stats_level']   = 'Level|Set visibility of the level column on the stats page';
 $lang['admin']['stats_str']     = 'Strength|Set visibility of the strength column on the stats page';
@@ -131,6 +139,10 @@ $lang['admin']['stats_block']   = 'Block|Set visibility of the block column on t
 $lang['admin']['stats_crit']    = 'Crit|Set visibility of the crit column on the stats page';
 
 // Settings on Honor page
+$lang['admin']['honor_update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the honor page';
+$lang['admin']['honor_motd'] = 'Guild MOTD|Show Guild Message of the Day on the top of the honor page';
+$lang['admin']['honor_hslist']  = 'Honor System Stats|Controls the display of the Honor stats list on the honor page';
+$lang['admin']['honor_pvplist']  = 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the honor page<br />If you have disabled PvPlog uploading, there is no need to have this on';
 $lang['admin']['honor_class']   = 'Class|Set visibility of the class column on the honor page';
 $lang['admin']['honor_level']   = 'Level|Set visibility of the level column on the honor page';
 $lang['admin']['honor_thk']     = 'Today\'s HK|Set visibility of the Today\'s HK column on the honor page';

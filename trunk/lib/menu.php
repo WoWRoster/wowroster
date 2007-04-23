@@ -35,18 +35,18 @@ class RosterMenu
 		{
 			if( $roster_conf['menu_top_pane'] )
 			{
-				$topbar = '  <tr>'."\n".
-					'    <td colspan="3" align="center" valign="top" class="header">'."\n".
-					'      <span style="font-size:18px;"><a href="'.$roster_conf['website_address'].'">'.$roster_conf['guild_name'].'</a></span>'."\n".
-					'      <span style="font-size:11px;"> @ '.$roster_conf['server_name'].' ('.$roster_conf['server_type'].')</span><br />'.
-					$act_words['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc']).
-					((!empty($roster_conf['timezone']))?' ('.$roster_conf['timezone'].')':'').
-					'      </span>'."\n".
-					'    </td>'."\n".
-					'  </tr>'."\n".
-					'  <tr>'."\n".
-					'    <td colspan="3" class="simpleborder_b syellowborder_b"></td>'."\n".
-					'  </tr>'."\n";
+				$topbar = "  <tr>\n"
+						. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
+						. '      <span style="font-size:18px;"><a href="' . $roster_conf['website_address'] . '">' . $roster_conf['guild_name'] . '</a></span>'."\n"
+						. '      <span style="font-size:11px;"> @ ' . $roster_conf['server_name'] . ' (' . $roster_conf['server_type'] . ')</span><br />'
+						. $act_words['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc'])
+						. ((!empty($roster_conf['timezone']))?' (' . $roster_conf['timezone'] . ')':'')
+						. "      </span>\n"
+						. "    </td>\n"
+						. "  </tr>\n"
+						. "  <tr>\n"
+						. '    <td colspan="3" class="simpleborder_b syellowborder_b"></td>' . "\n"
+						. "  </tr>\n";
 			}
 			else
 			{
@@ -196,7 +196,7 @@ class RosterMenu
 
 		if( $style == 'bar' )
 		{
-			$req = 'img/graphs/bargraph.php?';
+			$req = 'graphs/bargraph.php?';
 			$i = 0;
 			foreach( $dat as $bar )
 			{
@@ -207,11 +207,11 @@ class RosterMenu
 			}
 			$req .= 'type='.$type.'&amp;side='.$side;
 
-			$output .= '<img src="'.$req.'" alt="" />';
+			$output .= '<img src="'.$roster_conf['img_url'].$req.'" alt="" />';
 		}
 		elseif( $style == 'barlog' )
 		{
-			$req = 'img/graphs/bargraph.php?';
+			$req = 'graphs/bargraph.php?';
 			$i = 0;
 			foreach( $dat as $bar )
 			{
@@ -222,7 +222,7 @@ class RosterMenu
 			}
 			$req .= 'type='.$type.'&amp;side='.$side;
 
-			$output .= '<img src="'.$req.'" alt="" />';
+			$output .= '<img src="'.$roster_conf['img_url'].$req.'" alt="" />';
 		}
 		else
 		{

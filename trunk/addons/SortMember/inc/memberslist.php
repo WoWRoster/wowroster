@@ -26,8 +26,8 @@ if ( !defined('IN_SORTMEMBER') )
 	die_quietly('Detected invalid access to this file!','SortMember');
 }
 
-class memberslist {
-
+class memberslist
+{
 	var $listname = 'membersData';	// table ID for javascript
 	var $fields;					// field definitions
 	var $query;						// main query
@@ -53,7 +53,7 @@ class memberslist {
 		$this->listname = $listname;
 		$this->fields = $fields;
 		unset($fields);
-		
+
 		// Set GET vars here, to avoid NOTICE error hell
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
@@ -100,7 +100,7 @@ class memberslist {
 				unset($this->fields[$field]);
 				continue;
 			}
-			
+
 			// See if there is a lang value for the header
 			if( !empty($act_words[$DATA['lang_field']]) )
 			{
@@ -147,7 +147,7 @@ class memberslist {
 			{
 				$this->sortFields .= '    <tr>';
 			}
-			
+
 			// Name in sort box toggles if this isn't a force visible field.
 			if( $DATA['display'] == 3 )
 			{
@@ -161,7 +161,7 @@ class memberslist {
 			{
 				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col).',this,\''.$this->listname.'\');" style="cursor:pointer; background-color:#5b5955;">'.$th_text.'</th>';
 			}
-			
+
 			$this->sortFields .= '<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" /></td></tr>'."\n";
 
 			$current_col++;
@@ -237,7 +237,6 @@ class memberslist {
 			$line = '';
 			$current_col = 1;
 
-
 			// Echoing cells w/ data
 			foreach ( $this->fields as $field => $DATA )
 			{
@@ -262,7 +261,7 @@ class memberslist {
 					$cell_value = '<div>'.$row[$field].'</div>';
 				}
 
-				
+
 				/**
 				 * IMPORTANT do not add any spaces between the td and the
 				 * $cell_value or the javascript will break
@@ -279,7 +278,7 @@ class memberslist {
 					}
 					else
 					{
-						$line .= '    <td class="membersRowCell" style="padding-left: 20px;">'.$cell_value.'</td>'."\n";
+						$line .= '    <td class="membersRowCell" style="padding-left:20px;">'.$cell_value.'</td>'."\n";
 					}
 				}
 				elseif( $DATA['display'] == 1 )
@@ -292,7 +291,7 @@ class memberslist {
 				}
 				$current_col++;
 			}
-			
+
 			// Cache lines for main/alt stuff
 			if( !$addon['config']['group_alts'] || !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
 			{
@@ -303,8 +302,8 @@ class memberslist {
 				$lines[$row['main_id']]['alts'][] = $line;
 			}
 		}
-		
-		$stripe_counter = 1;
+
+		$stripe_counter = 0;
 		// Main/Alt block
 		foreach($lines as $member_id => $block)
 		{
@@ -326,15 +325,15 @@ class memberslist {
 				}
 				continue;
 			}
-			
+
 			// Main with alts
 			$openimg = 'minus.gif';
-			
+
 			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'."\n".
 				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\'); return false;">'.
 				'<img src="'.$roster_conf['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="" /></a></td>'.
 				$block['main']."\n".'</tr>'."\n";
-			
+
 			$alt_counter = 1;
 			foreach( $block['alts'] as $line )
 			{

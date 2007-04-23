@@ -317,11 +317,6 @@ function img_output( $realmData , $err , $image_path , $font_path )
 		imagecopy($full,$bottom,0,imagesy($top),0,0,imagesx($bottom),imagesy($bottom));
 		imagealphablending( $full, true );
 
-		$popcolor = getColor($realmData['serverpopcolor'],$full);
-		$typecolor = getColor($realmData['servertypecolor'],$full);
-		$textcolor = getColor($roster_conf['rs_color_server'],$full);
-		$shadow = getColor($roster_conf['rs_color_shadow'],$full);
-
 		$top = $full;
 
 
@@ -355,7 +350,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 		{
 			$box = imagettfbbox($roster_conf['rs_size_server'],0,$serverfont,$value);
 			$w = abs($box[0]) + abs($box[2]);
-			writeText($top,$roster_conf['rs_size_server'], round(($topwidth-$w)/2), 54+($i*8)+$vadj,$textcolor,$serverfont,$value,$shadow);
+			writeText($top,$roster_conf['rs_size_server'], round(($topwidth-$w)/2), 54+($i*8)+$vadj,$roster_conf['rs_color_server'],$serverfont,$value,$roster_conf['rs_color_shadow']);
 			$i++;
 		}
 
@@ -393,7 +388,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 			{
 				$box = imagettfbbox($roster_conf['rs_size_pop'],0,$serverpopfont,$value);
 				$w = abs($box[0]) + abs($box[2]);
-				writeText($top,$roster_conf['rs_size_pop'], round(($topwidth-$w)/2), 73+($i*10)+$vadj,$popcolor,$serverpopfont,$value,$shadow);
+				writeText($top,$roster_conf['rs_size_pop'], round(($topwidth-$w)/2), 73+($i*10)+$vadj,$realmData['serverpopcolor'],$serverpopfont,$value,$roster_conf['rs_color_shadow']);
 				$i++;
 			}
 		}
@@ -403,7 +398,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 		{
 			$box = imagettfbbox($roster_conf['rs_size_type'],0,$typefont,$realmData['servertype']);
 			$w = abs($box[0]) + abs($box[2]);
-			writeText($top,$roster_conf['rs_size_type'], round(($topwidth-$w)/2), 88,$typecolor,$typefont,$realmData['servertype'],$shadow);
+			writeText($top,$roster_conf['rs_size_type'], round(($topwidth-$w)/2), 88,$realmData['servertypecolor'],$typefont,$realmData['servertype'],$roster_conf['rs_color_shadow']);
 		}
 	}
 
@@ -436,9 +431,12 @@ function getColor( $color , $image )
 // Write Text
 function writeText( $image , $size , $xpos , $ypos , $color , $font , $text , $shadow )
 {
+	$color = getColor($color,$image);
+
 	// Create a drop shadow
 	if( $shadow != '' )
 	{
+		$shadow = getColor($shadow,$image);
 		imagettftext($image,$size,0,$xpos+1,$ypos+1,$shadow,$font,$text);
 	}
 

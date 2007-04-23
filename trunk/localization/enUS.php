@@ -800,30 +800,6 @@ $lang['admin']['server_type'] = "Server Type|This for your type of server in WoW
 $lang['admin']['alt_type'] = "Alt-Text Search|Text used to designate alts for display count in the main menu";
 $lang['admin']['alt_location'] = "Alt-Search Field|Search location, what field to search for Alt-Text";
 
-// index_conf
-$lang['admin']['index_pvplist'] = "PvP-Logger Stats|PvP-Logger stats on the index page<br />If you have disabled PvPlog uploading, there is no need to have this on";
-$lang['admin']['index_hslist'] = "Honor System Stats|Honor System stats on the index page";
-$lang['admin']['hspvp_list_disp'] = "PvP/Honor List Display|Controls how the PvP and Honor Lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
-$lang['admin']['index_member_tooltip'] = "Member Info Tooltip|Displays some info about a character in a tooltip";
-$lang['admin']['index_update_inst'] = "Update Instructions|Controls the display of the Update Instructions on the page";
-$lang['admin']['index_sort'] = "Member List Sort|Controls the default sorting";
-$lang['admin']['index_motd'] = "Guild MOTD|Show Guild Message of the Day on the top of the page<br /><br />This also controls the display on the &quot;Guild Info&quot; page as well";
-$lang['admin']['index_level_bar'] = "Level Bar|Toggles the display of a visual level percentage bar on the main page";
-$lang['admin']['index_iconsize'] = "Icon Size|Select the size of the icons on the main pages (PvP, tradeskills, class, etc..)";
-$lang['admin']['index_tradeskill_icon'] = "Tradeskill Icons|Enables tradeskill icons on the main pages";
-$lang['admin']['index_tradeskill_loc'] = "Tradeskill Column Display|Select what column to place tradeskill icons";
-$lang['admin']['index_class_color'] = "Class Colorizing|Colorize the class names";
-$lang['admin']['index_classicon'] = "Class Icons|Displays an icon for each class, for each character";
-$lang['admin']['index_honoricon'] = "PvP Honor Icons|Displays a PvP rank icon next to the rank name";
-$lang['admin']['index_prof'] = "Professions Column|This is a specific coulmn for the tradeskill icons<br />If you move them to another column, you might want to turn this off";
-$lang['admin']['index_currenthonor'] = "Honor Column|Toggles the display of the honor column";
-$lang['admin']['index_note'] = "Note Column|Toggles the display of the public note column";
-$lang['admin']['index_title'] = "Guild Title Column|Toggles the display of the guild title column";
-$lang['admin']['index_hearthed'] = "Hearthstone Loc. Column|Toggles the display of the hearthstone location column";
-$lang['admin']['index_zone'] = "Last Zone Loc. Column|Toggles the display of the last zone column";
-$lang['admin']['index_lastonline'] = "Last Seen Online Column|Toggles the display of the last seen online column";
-$lang['admin']['index_lastupdate'] = "Last Updated Column|Display when the character last updated their info";
-
 // menu_conf
 $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
@@ -852,7 +828,6 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
-$lang['admin']['compress_note'] = "Note Display Mode|How the Player Notes will be displayed<br /><br />&quot;Text&quot; - Shows the note text<br />&quot;Icon&quot; - Shows an note icon with the text in a tooltip";
 $lang['admin']['signaturebackground'] = "img.php Background|Support for legacy signature-creator";
 $lang['admin']['processtime'] = "Process time|Displays &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; in the footer of roster";
 

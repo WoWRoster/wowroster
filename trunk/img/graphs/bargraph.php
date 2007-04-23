@@ -80,7 +80,6 @@ imagealphablending($image,true);
 $barcolor = setColor($image,$roster_conf[$side.'_barcolor']);
 $bar2color = setColor($image,$roster_conf[$side.'_bar2color']);
 $textcolor = setColor($image,$roster_conf[$side.'_textcolor']);
-$outlinecolor = ( !empty($roster_conf[$side.'_outlinecolor']) ? setColor($image,$roster_conf[$side.'_outlinecolor']) : '' );
 
 // Draw bars
 for($i=0; $i<$count; $i++)
@@ -135,9 +134,9 @@ for($i=0; $i<$count; $i++)
 	// Draw the label
 	if( isset($font) )
 	{
-		if( !empty($outlinecolor) )
+		if( $roster_conf[$side.'_outlinecolor'] != '' )
 		{
-			writeOutline($image,$textheight,$textoffset,$colh*$i+$textbase,$outlinecolor,$font,$barnames[$i]);
+			writeOutline($image,$textheight,$textoffset,$colh*$i+$textbase,$roster_conf[$side.'_outlinecolor'],$font,$barnames[$i]);
 		}
 		imagettftext($image, $textheight, 0, $textoffset, $colh*$i+$textbase, $thistextcolor, $font, $barnames[$i]);
 	}
@@ -357,6 +356,8 @@ function setColor( $image,$color,$trans=0 )
 
 function writeOutline( $image , $size , $xpos , $ypos , $color , $font , $text , $width=1 )
 {
+	$color = setColor($image,$color);
+
 	// For every X pixel to the left and the right
 	for( $xc=$xpos-abs($width);$xc<=$xpos+abs($width);$xc++ )
 	{

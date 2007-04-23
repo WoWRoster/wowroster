@@ -41,7 +41,7 @@ $mainQuery =
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`guild_title`, '.
-	
+
 	'`alts`.`main_id`, '.
 
 	'`players`.`server`, '.
@@ -206,18 +206,61 @@ $memberlist = new memberslist;
 $memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
 
 $html_head  = '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
-$html_head .= '<link rel="stylesheet" type="text/css" href="addons/'.$addon['basename'].'/default.css" />';
 
 // Start output
+if( $addon['config']['stats_update_inst'] )
+{
+	print '            <a href="#update"><font size="4">'.$act_words['update_link'].'</font></a><br /><br />';
+}
+
+
+if ( $addon['config']['stats_motd'] == 1 )
+{
+	print $memberlist->makeMotd();
+}
+
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 $roster_show_menu = false;
+
+echo "<table>\n  <tr>\n";
+
+if ( $addon['config']['stats_hslist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_LIB.'hslist.php');
+	echo "    </td>\n";
+}
+
+if ( $addon['config']['stats_pvplist'] == 1 )
+{
+	echo '    <td valign="top">';
+	include_once( ROSTER_LIB.'pvplist.php');
+	echo "    </td>\n";
+}
+
+echo "  </tr>\n</table>\n";
 
 echo $memberlist->makeFilterBox();
 
 echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
 echo border('syellow','end');
+
+// Print the update instructions
+if( $addon['config']['stats_update_inst'] )
+{
+	print "<br />\n\n<a name=\"update\"></a>\n";
+
+	echo border('sgray','start',$act_words['update_instructions']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($act_words['update_instruct'], $roster_conf['uploadapp'], $act_words['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $act_words['lualocation']);
+
+	if ($roster_conf['pvp_log_allow'] == 1)
+	{
+		echo sprintf($act_words['update_instructpvp'], $roster_conf['pvplogger']);
+	}
+	echo '</div>'.border('sgray','end');
+}
 
 /**
  * Controls Output of the Total Stats value Column
@@ -267,7 +310,7 @@ function armor_value ( $row )
 			$color = 'white';
 			$mod_symbol = '';
 		}
-		else if( $buff < 0 )
+		elseif( $buff < 0 )
 		{
 			$color = 'purple';
 			$mod_symbol = '-';

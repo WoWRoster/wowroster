@@ -457,13 +457,16 @@ class config
 					// Get rid of the color prefix
 					$settingName = substr($settingName, 6);
 
-					if( substr($settingValue, 0, 1) != '#' )
+					if( $settingValue != '' )
 					{
-						$settingValue = '#'.strtoupper($settingValue);
-					}
-					else
-					{
-						$settingValue = strtoupper($settingValue);
+						if( substr($settingValue, 0, 1) != '#' )
+						{
+							$settingValue = '#'.strtoupper($settingValue);
+						}
+						else
+						{
+							$settingValue = strtoupper($settingValue);
+						}
 					}
 				}
 

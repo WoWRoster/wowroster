@@ -66,6 +66,7 @@ DELETE FROM `renprefix_config` WHERE `id` = 5005 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5008 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 5035 LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;

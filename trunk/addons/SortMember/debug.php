@@ -37,10 +37,10 @@ $mainQuery =
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`officer_note`, '.
 	"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
-	
+
 	'`alts`.`main_id`, '.
 	'`alts`.`alt_type`, '.
-	
+
 	'`mains`.`name` AS main_name '.
 
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
@@ -94,13 +94,13 @@ $html_head  = '<script type="text/javascript" src="addons/'.$addon['basename'].'
 $html_head .= '<link rel="stylesheet" type="text/css" href="addons/'.$addon['basename'].'/default.css" />';
 
 // Start output
-if( $roster_conf['index_update_inst'] )
+if( $addon['config']['member_update_inst'] )
 {
 	print '            <a href="#update"><font size="4">'.$act_words['update_link'].'</font></a><br /><br />';
 }
 
 
-if ( $roster_conf['index_motd'] == 1 )
+if ( $addon['config']['member_motd'] == 1 )
 {
 	print $memberlist->makeMotd();
 }
@@ -111,14 +111,14 @@ $roster_show_menu = false;
 
 echo "<table>\n  <tr>\n";
 
-if ( $roster_conf['index_hslist'] == 1 )
+if ( $addon['config']['member_hslist'] == 1 )
 {
 	echo '    <td valign="top">';
 	include_once( ROSTER_LIB.'hslist.php');
 	echo "    </td>\n";
 }
 
-if ( $roster_conf['index_pvplist'] == 1 )
+if ( $addon['config']['member_pvplist'] == 1 )
 {
 	echo '    <td valign="top">';
 	include_once( ROSTER_LIB.'pvplist.php');
@@ -134,7 +134,7 @@ echo $memberlist->makeMembersList();
 echo border('syellow','end');
 
 // Print the update instructions
-if( $roster_conf['index_update_inst'] )
+if( $addon['config']['member_update_inst'] )
 {
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
