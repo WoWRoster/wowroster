@@ -334,10 +334,10 @@ class memberslist
 				'<img src="'.$roster_conf['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="" /></a></td>'.
 				$block['main']."\n".'</tr>'."\n";
 
-			$alt_counter = 1;
+			$alt_counter = 0;
 			foreach( $block['alts'] as $line )
 			{
-				$alt_counter %= 2 + 1;
+				$alt_counter = ($alt_counter % 2) + 1;
 				$stripe_class = ' class="membersRowAltColor'.$alt_counter.'"';
 				$output .= '<tr'.$stripe_class.'><td class="membersRowCell"></td>'."\n".$line."\n".'</tr>'."\n";
 			}
