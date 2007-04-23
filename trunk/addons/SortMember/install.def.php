@@ -144,7 +144,7 @@ class SortMember
 			) TYPE=MyISAM;");
 
 		# Roster menu entry
-		$installer->add_menu_button('SortMember_Members','-memberslist');
+		$installer->add_menu_button('SortMember_Members');
 		$installer->add_menu_button('SortMember_Stats','-statslist');
 		$installer->add_menu_button('SortMember_Honor','-honorlist');
 		return true;
