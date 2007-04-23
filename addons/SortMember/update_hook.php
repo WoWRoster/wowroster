@@ -44,6 +44,8 @@ class SortMember
 	function SortMember($data)
 	{
 		$this->data = $data;
+		
+		include_once($addon['conf_file']);
 	}
 	
 	/**

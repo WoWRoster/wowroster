@@ -132,10 +132,11 @@ $FIELD['name'] = array (
 	'order_d'    => array( '`members`.`name` DESC' ),
 		// 'order_d' contains the SQL for a descending sort
 	'value' => 'name_value',
-		// 'value' is the name (no class callbacks allowed) of the function to
-		// call to draw this column. The function should also be defined in the
-		// list file (except for the name/class/level/honor value functions).
-		// It has one parameter, the DB row for the current player.
+		// 'value' is a callback to the function that draws this column. The
+		// function should also be defined in the list file (except for the
+		// name/class/level/honor value functions included in the lib).
+		// It has two parameter, the DB row for the current player and the
+		// db field name to be displayed.
 	'jsort' => 'name',
 		// 'jsort' is the field the javascript (clientside sorting) should sort
 		// and filter on. This can be omitted if it's the same as the display

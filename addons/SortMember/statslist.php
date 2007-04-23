@@ -23,11 +23,9 @@ if ( !defined('ROSTER_INSTALLED') )
 
 define('IN_SORTMEMBER',true);
 
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) )
-{
-	die_quietly( $act_words['nodata'] );
-}
+include_once ($addon['dir'] . 'inc/memberslist.php');
+
+$memberlist = new memberslist($addon);
 
 $mainQuery =
 	'SELECT '.
@@ -85,7 +83,7 @@ $FIELD['name'] = array(
 	'lang_field' => 'name',
 	'order'    => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'value' => 'name_value',
+	'value' => array($memberlist,'name_value'),
 	'display' => 3,
 );
 
@@ -93,14 +91,14 @@ $FIELD['class'] = array(
 	'lang_field' => 'class',
 	'order'    => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
-	'value' => 'class_value',
+	'value' => array($memberlist,'class_value'),
 	'display' => $addon['config']['stats_class'],
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
 	'order_d'    => array( '`members`.`level` ASC' ),
-	'value' => 'level_value',
+	'value' => array($memberlist,'level_value'),
 	'display' => $addon['config']['stats_level'],
 );
 
@@ -197,11 +195,6 @@ $FIELD['crit'] = array(
 	'order_d' => array( 'cisnull','`players`.`crit` ASC' ),
 	'display' => $addon['config']['stats_crit'],
 );
-
-
-include_once ($addon['dir'].'inc/memberslist.php');
-
-$memberlist = new memberslist;
 
 $memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
 
