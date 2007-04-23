@@ -53,11 +53,11 @@ class memberslist
 
 		if( isset($_GET['style']) )
 		{
-			$this->addon['config']['nojs'] = ($_GET['style'] == 'server');
+			$this->addon['config']['nojs'] = ($_GET['style'] == 'server')?1:0;
 		}
 		if( isset($_GET['alts']) )
 		{
-			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'show');
+			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'show')?1:0;
 		}
 	}
 	
@@ -112,8 +112,11 @@ class memberslist
 
 		$cols = count( $this->fields );
 
+		// If group alts is off, hide the column for it
+		$style = ($this->addon['config']['group_alts'])?'':' style="display:none;"';
+		
 		// header row
-		$this->tableHeaderRow = '  <thead><tr>'."\n".'<th class="membersHeader">&nbsp;</th>'."\n";
+		$this->tableHeaderRow = '  <thead><tr>'."\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
 		$this->sortFields = '';
 		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>'."\n";
 		$current_col = 1;
@@ -149,7 +152,7 @@ class memberslist
 					$desc = '';
 				}
 
-				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;alts='.($this->addon['config']['group_alts']?'show':'hide').'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 			}
 			else
 			{
@@ -246,14 +249,14 @@ class memberslist
 	 */
 	function makeToolBar($dir = 'horizontal')
 	{
-		global $roster_conf, $addon;
+		global $roster_conf;
 
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s='.$_GET['s'] : '' );
 		$get = ( isset($_GET['d']) ? '&amp;d='.$_GET['d'] : '' );
 		
 		$style = '&amp;style='.($this->addon['config']['nojs']?'server':'client');
-		$alts = '&amp;alts='.($this->addon['config']['group_alts']?'hide':'show');
+		$alts = '&amp;alts='.($this->addon['config']['group_alts']?'show':'hide');
 				
 		if( $this->addon['config']['group_alts'] )
 		{
@@ -265,7 +268,7 @@ class memberslist
 		{
 			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">Show alts</a></th>';
 		}
-		if( $addon['config']['nojs'] )
+		if( $this->addon['config']['nojs'] )
 		{
 			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=client'.$alts).'">Client sorting</a></th>';
 		}
@@ -344,7 +347,7 @@ class memberslist
 				if( $current_col == 1 )
 				{
 					// Cache lines for main/alt stuff
-					if( !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
+					if( !$this->addon['config']['group_alts'] || !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
 					{
 						$line .= '    <td class="membersRowCell">'.$cell_value.'</td>'."\n";
 					}
@@ -382,6 +385,12 @@ class memberslist
 			$stripe_counter = ($stripe_counter % 2) + 1;
 			$stripe_class = ' class="membersRowColor'.$stripe_counter.'"';
 
+			// Group alts off
+			if( !$this->addon['config']['group_alts'] )
+			{
+				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell" style="display:none;"></td>'.$block['main'].'</tr></tbody>';
+				continue;
+			}
 			// Main, or no alt data
 			if( !isset($block['alts']) || 0 == count($block['alts']) )
 			{
