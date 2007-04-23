@@ -78,7 +78,7 @@ else
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="' . ROSTER_PATH . $addon['css_url'] . '" />' . "\n";
+	$more_css = '	<link rel="stylesheet" type="text/css" href="' . ROSTER_PATH . $addon['css_url'] . '" />' . "\n";
 
 if( $roster_show_header ) include_once (ROSTER_BASE . 'roster_header.tpl');
 

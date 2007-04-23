@@ -800,30 +800,6 @@ $lang['admin']['server_type'] = "Type de Serveur|Type de serveurs dans WoW";
 $lang['admin']['alt_type'] = "Identification des rerolls|Textes identifiant les rerolls pour le décompte dans le menu principal";
 $lang['admin']['alt_location'] = "Identification des rerolls (champ)|Où faut-il rechercher l'identification des rerolls";
 
-// index_conf
-$lang['admin']['index_pvplist'] = "Statistiques PvP|Statistiques du journal JcJ sur la page d'accueil<br />Si vous avez désactivé le téléchargement des données PvPLog, il n'y a pas besoin d'activer ceci";
-$lang['admin']['index_hslist'] = "Statistiques Honneur|Statistiques du système d'honneur sur la page d'accueil";
-$lang['admin']['hspvp_list_disp'] = "Affichage des listes JcJ et Honneur|Contrôle comment les listes JcJ et d'honneur d'affichent au chargement de la page<br />Les listes peuvent être masquées et ouvertes en cliquant sur leur titre<br /><br />&quot;show&quot; montrera les listes complètes quand la page se chargera<br />&quot;hide&quot; masquera les listes";
-$lang['admin']['index_member_tooltip'] = "Infobulle sur les membres|Affiche quelques informations sur un personnage dans une infobulle";
-$lang['admin']['index_update_inst'] = "Instructions de mise à jour|Contrôle l'affichage des instructions de mise à jour sur la page";
-$lang['admin']['index_sort'] = "Tri de la liste des membres|Contrôle le tri par défaut";
-$lang['admin']['index_motd'] = "Message du jour de la guilde|Montre le message du jour de la guilde en haut de la page<br /><br />Celà contrôle également l'affichage de la page &quot;Info Guilde&quot;";
-$lang['admin']['index_level_bar'] = "Barre de niveau|Change l'affichage d'une barre de niveau en pourcentage sur la page principale";
-$lang['admin']['index_iconsize'] = "Taille des icônes|Sélectionne la taille des icônes sur les pages principales (JcJ, compétences, classes, etc..)";
-$lang['admin']['index_tradeskill_icon'] = "Icônes de compétences|Active les icônes de compétence sur les pages principales";
-$lang['admin']['index_tradeskill_loc'] = "Affichage de la colonne des compétences|Sélectionne quelle dans colonne placer les icônes de compétence";
-$lang['admin']['index_class_color'] = "Couleurs des classes|Mets en couleur les noms suivant les classes";
-$lang['admin']['index_classicon'] = "Icônes des classes|Affiche une icône pour chaque classe et chaque personnage";
-$lang['admin']['index_honoricon'] = "Icônes JcJ|Affiche une icône du rang JcJ à côté du nom du rang";
-$lang['admin']['index_prof'] = "Colonne des professions|C'est une colonne sp�ciale pour les ic�nes de comp�tence<br />Si vous les placez dans une autre colonne, vous pouvez vouloir désactiver ceci";
-$lang['admin']['index_currenthonor'] = "Colonne honneur|Change l'affichage de la colonne d'honneur";
-$lang['admin']['index_note'] = "Colonne des notes|Change l'affichage de la colonne de la note publique";
-$lang['admin']['index_title'] = "Colonne du titre au sein de la guilde|Change l'affichage de la colonne du titre au sein de la guilde";
-$lang['admin']['index_hearthed'] = "Colonne de la pierre de foyer|Change l'affichage de la colonne de la pierre de foyer";
-$lang['admin']['index_zone'] = "Colonne de la dernière zone|Change l'affichage de la colonne de la dernière zone";
-$lang['admin']['index_lastonline'] = "Colonne de la dernière connexion|Change l'affichage de la colonne de la dernière connexion";
-$lang['admin']['index_lastupdate'] = "Colonne de la dernière mise à jour|Affiche quand un personnage a été mis à jour pour la dernière fois";
-
 // menu_conf
 $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
@@ -852,7 +828,6 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolue de l'image pour le fond principal<br>Ou en laissant &quot;img/&quot; devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";
-$lang['admin']['compress_note'] = "Mode d'affichage des notes du joueur|Comment les notes du joueur seront affichées<br /><br />&quot;Text&quot; - Montre les notes du joueur sous format texte<br />&quot;Icon&quot; - Montre image avec une infobulle";
 $lang['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
 $lang['admin']['processtime'] = "Temps de génération de la page|Affiche &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; en bas de page du roster";
 

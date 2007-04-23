@@ -96,28 +96,33 @@ if ($pagebar != '')
 }
 
 // Add addon buttons
-$query = 'SELECT `basename` FROM `'.$wowdb->table('addon').'` ORDER BY `basename`;';
+$query = 'SELECT `basename` FROM `' . $wowdb->table('addon') . '` ORDER BY `basename`;';
 $result = $wowdb->query($query);
 if( !$result )
 {
 	die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
 }
 
-if ($wowdb->num_rows($result))
+if( $wowdb->num_rows($result) > 0 )
 {
-	$pagebar .= border('sgray','start',$act_words['pagebar_addonconf'])."\n";
-	$pagebar .= '<ul class="tab_menu">'."\n";
+	$addon_pagebar = '';
 	while($row = $wowdb->fetch_assoc($result))
 	{
 		$addon = getaddon($row['basename']);
 
 		if( file_exists($addon['admin_file']) || $addon['config'] != '' )
 		{
-			$pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $row['basename'] ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$row['basename']).'">'.$row['basename'].'</a></li>'."\n";
+			$addon_pagebar .= '<li'.(isset($roster_pages[2]) && $roster_pages[2] == $row['basename'] ? ' class="selected"' : '').'><a href="'.makelink('rostercp-addon-'.$row['basename']).'">'.$row['basename'].'</a></li>'."\n";
 		}
 	}
-	$pagebar .= '</ul>'."\n";
-	$pagebar .= border('sgray','end')."\n";
+	if( $addon_pagebar != '' )
+	{
+		$pagebar .= border('sgray','start',$act_words['pagebar_addonconf'])."\n";
+		$pagebar .= '<ul class="tab_menu">'."\n";
+		$pagebar .= $addon_pagebar;
+		$pagebar .= '</ul>'."\n";
+		$pagebar .= border('sgray','end')."\n";
+	}
 }
 
 // ----[ Render the page ]----------------------------------
