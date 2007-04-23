@@ -50,6 +50,15 @@ class memberslist
 			$basename = basename(dirname(dirname(__FILE__)));
 			$this->addon = getaddon($basename);
 		}
+
+		if( isset($_GET['style']) )
+		{
+			$this->addon['config']['nojs'] = ($_GET['style'] == 'server');
+		}
+		if( isset($_GET['alts']) )
+		{
+			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'show');
+		}
 	}
 	
 	/**
@@ -140,7 +149,7 @@ class memberslist
 					$desc = '';
 				}
 
-				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 			}
 			else
 			{
@@ -229,6 +238,53 @@ class memberslist
 		return $output;
 	}
 
+	/**
+	 * Returns the additional controls
+	 *
+	 * @param string $dir
+	 *		direction
+	 */
+	function makeToolBar($dir = 'horizontal')
+	{
+		global $roster_conf, $addon;
+
+		// Pre-store server get params
+		$get = ( isset($_GET['s']) ? '&amp;s='.$_GET['s'] : '' );
+		$get = ( isset($_GET['d']) ? '&amp;d='.$_GET['d'] : '' );
+		
+		$style = '&amp;style='.($this->addon['config']['nojs']?'server':'client');
+		$alts = '&amp;alts='.($this->addon['config']['group_alts']?'hide':'show');
+				
+		if( $this->addon['config']['group_alts'] )
+		{
+			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster_conf['img_url'].'plus.gif\'); return false;"><img src="'.$roster_conf['img_url'].'plus.gif" alt="+" />Close all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster_conf['img_url'].'minus.gif\'); return false;"><img src="'.$roster_conf['img_url'].'minus.gif" alt="-" />Open all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Hide alts</a></th>';
+		}
+		else
+		{
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">Show alts</a></th>';
+		}
+		if( $addon['config']['nojs'] )
+		{
+			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=client'.$alts).'">Client sorting</a></th>';
+		}
+		else
+		{
+			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=server'.$alts.$get).'">Server sorting</a></th>';
+		}
+
+		if( $dir = 'horizontal' )
+		{
+			$output = implode("\n",$button);
+		}
+		else
+		{
+			$output = implode("</tr>\n<tr>",$button);
+		}
+		return messagebox('<table><tr>'.$output.'</tr></table>','','sgray');
+	}
+	
 	/**
 	 * Returns the actual list. (but not the border)
 	 */
@@ -344,10 +400,11 @@ class memberslist
 
 			// Main with alts
 			$openimg = 'minus.gif';
+			$openalt = '-';
 
-			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'."\n".
+			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'.
 				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\'); return false;">'.
-				'<img src="'.$roster_conf['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="" /></a></td>'.
+				'<img src="'.$roster_conf['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
 				$block['main']."\n".'</tr>'."\n";
 
 			$alt_counter = 0;

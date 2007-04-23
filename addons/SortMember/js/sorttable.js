@@ -502,6 +502,7 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 					element.style.display = '';
 			}
 			image.src = ImgShow;
+			image.alt = '-';
 		}
 		else
 		{
@@ -512,6 +513,72 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 					element.style.display = 'none';
 			}
 			image.src = ImgHide;
+			image.alt = '+';
 		}
 	}
 }
+
+/**
+ * Open all alt boxes
+ *
+ * @param listname
+ *		Name of the list to open all alts in
+ * @param Img
+ *		Image to put on the folding icons
+ */
+function openAlts(listname, Img)
+{
+	if(document.getElementById)
+	{
+		table = document.getElementById(listname);
+		for(i=0; i<table.tBodies.length; i++)
+		{
+			// The first element in the first cell.
+			el = table.tBodies[i].rows[0].cells[0].firstChild;
+			if( (el !== null) && (el.tagName !== undefined) && (el.tagName.toLowerCase() == 'a'))
+			{
+				el.firstChild.src = Img;
+				el.firstChild.alt = '-';
+				
+				// Now hide the rows
+				for( j=1; j < table.tBodies[i].rows.length; i++ )
+				{
+					table.tBodies[i].rows[j].style.display = '';
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Close all alt boxes
+ *
+ * @param listname
+ *		Name of the list to open all alts in
+ * @param Img
+ *		Image to put on the folding icons
+ */
+function closeAlts(listname, Img)
+{
+	if(document.getElementById)
+	{
+		table = document.getElementById(listname);
+		for(i=0; i<table.tBodies.length; i++)
+		{
+			// The first element in the first cell.
+			el = table.tBodies[i].rows[0].cells[0].firstChild;
+			if( (el !== null) && (el.tagName !== undefined) && (el.tagName.toLowerCase() == 'a'))
+			{
+				el.firstChild.src = Img;
+				el.firstChild.alt = '+';
+				
+				// Now hide the rows
+				for( j=1; j < table.tBodies[i].rows.length; i++ )
+				{
+					table.tBodies[i].rows[j].style.display = 'none';
+				}
+			}
+		}
+	}
+}
+
