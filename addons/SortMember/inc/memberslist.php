@@ -383,7 +383,7 @@ class memberslist
  */
 function name_value ( $row, $field )
 {
-	global $wordings, $roster_conf, $guildFaction, $act_words, $addon;
+	global $roster_conf, $act_words, $addon;
 
 	if( $addon['config']['member_tooltip'] )
 	{

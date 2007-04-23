@@ -42,20 +42,20 @@ $wowdb->free_result($result);
 // Start the actual update process
 include_once($addon['dir'].'update_hook.php');
 
-$AltMonitor = new AltMonitor;
+$SortMember = new SortMember($addon);
 
 // Loop over all members
 foreach($guild['Members'] as $member_name => $char)
 {
 	$member_id = $char['member_id'];
-	$AltMonitor->messages .= $member_name;
-	$AltMonitor->guild($char, $member_id);
+	$SortMember->messages .= $member_name;
+	$SortMember->guild($char, $member_id);
 }
 
 // Guild post hook. Deletes old entries.
-$AltMonitor->guild_post($guild);
+$SortMember->guild_post($guild);
 
-$messages = $AltMonitor->messages;
+$messages = $SortMember->messages;
 $errorstringout = $wowdb->getErrors();
 
 // print the error messages
