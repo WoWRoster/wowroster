@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class memberlog
 {
 	var $active = true;
-	var $icon = '';
+	var $icon = 'inv_misc_book_06';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
