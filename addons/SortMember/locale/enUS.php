@@ -155,11 +155,11 @@ $lang['admin']['honor_hp']      = 'Honor Points|Set visibility of the honor poin
 $lang['admin']['honor_ap']      = 'Arena Points|Set visibility of the arena points column on the honor page';
 
 // Settings names on build page
-$lang['admin']['getmain_regex'] = 'Regex|The top 3 variables define how the regex is extracted from the member info. <br /> See the wiki link for details. <br /> This field specifies the regex to use.';
-$lang['admin']['getmain_field'] = 'Apply on field|The top 3 variables define how the regex is extracted from the member info. <br /> See the wiki link for details. <br /> This field specifies which member field the regex is applied on.';
-$lang['admin']['getmain_match'] = 'Use match no|The top 3 variables define how the regex is extracted from the member info. <br /> See the wiki link for details. <br /> This field specifies which return value of the regex is used.';
+$lang['admin']['getmain_regex'] = 'Regex|This field specifies the regex to use. <br /> See the wiki link for details.';
+$lang['admin']['getmain_field'] = 'Apply on field|This field specifies which member field the regex is applied on. <br /> See the wiki link for details.';
+$lang['admin']['getmain_match'] = 'Use match no|This field specifies which return value of the regex is used. <br /> See the wiki link for details.';
 $lang['admin']['getmain_main']  = 'Main identifier|If the regex resolves to this value the character is assumed to be a main.';
 $lang['admin']['defmain']       = 'No result|Set what you want the character to be defined as if the regex doesn\'t return anything.';
-$lang['admin']['invmain']       = 'Invalid result|Set what you want the character to be defined as if the regex returns a result that isn\'t a guild member or equal to the main identifier.';
+$lang['admin']['invmain']       = 'Invalid result|Set what you want the character to be defined as <br /> if the regex returns a result that isn\'t a guild member or equal to the main identifier.';
 $lang['admin']['altofalt']      = 'Alt of Alt|Specify what to do if the character is a mainless alt.';
 $lang['admin']['update_type']   = 'Update type|Specify on which trigger types to update main/alt relations.';
