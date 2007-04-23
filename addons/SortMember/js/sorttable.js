@@ -1,12 +1,23 @@
 // $Id$
 // Table sorting engine. Originally by Stuard Langridge.
 
+/**
+ * Some global variables
+ */
 var SORT_COLUMN_INDEX;
 var SORT_COLUMNS;
 var SORTERS;
 var FILTER;
 var TYPES;
 
+/**
+ * Get the embedded sort data field. Little php addition, lot faster JS than the original here.
+ *
+ * @param el
+ *		Table cell to get the value for
+ * @return string
+ *		Value to use for sorting/filtering
+ */
 function ts_getInnerText(el)
 {
 	if (typeof el == "string") return el;
@@ -16,6 +27,14 @@ function ts_getInnerText(el)
 	return el.childNodes[0].innerHTML;
 }
 
+/**
+ * Get the first parent of a certain type
+ *
+ * @param el
+ *		Element
+ * @param pTagName
+ *		Tagname we're looking for
+ */
 function getParent(el, pTagName)
 {
 	if (el == null)
@@ -31,6 +50,10 @@ function getParent(el, pTagName)
 		return getParent(el.parentNode, pTagName);
 	}
 }
+
+/**
+ * Date compare function. Unused, we pass unix timestamps for date sorting
+ */
 function ts_sort_date(a,b)
 {
 	// y2k notes: two digit years less than 50 are treated as 20XX, greater than 50 are treated as 19XX
@@ -81,6 +104,9 @@ function ts_sort_date(a,b)
 	return 1;
 }
 
+/**
+ * Currency compare function. Unused.
+ */
 function ts_sort_currency(a,b)
 {
 	aa = ts_getInnerText(a.cells[SORT_COLUMN_INDEX]).replace(/[^0-9.]/g,'');
@@ -88,6 +114,9 @@ function ts_sort_currency(a,b)
 	return parseFloat(aa) - parseFloat(bb);
 }
 
+/**
+ * Numeric compare function
+ */
 function ts_sort_numeric(a,b)
 {
 	aa = parseFloat(ts_getInnerText(a.cells[SORT_COLUMN_INDEX]));
@@ -97,21 +126,9 @@ function ts_sort_numeric(a,b)
 	return aa-bb;
 }
 
-function ts_sort_numeric_inv(a,b)
-{
-	aa = parseFloat(ts_getInnerText(a.cells[SORT_COLUMN_INDEX]));
-	if (isNaN(aa))
-	{
-		aa = 0;
-	}
-    bb = parseFloat(ts_getInnerText(b.cells[SORT_COLUMN_INDEX]));
-    if (isNaN(bb))
-    {
-		bb = 0;
-	}
-    return bb-aa;
-}
-
+/**
+ * Case-insensitive string compare function
+ */
 function ts_sort_caseinsensitive(a,b)
 {
 	aa = ts_getInnerText(a.cells[SORT_COLUMN_INDEX]).toLowerCase();
@@ -127,6 +144,9 @@ function ts_sort_caseinsensitive(a,b)
 	return 1;
 }
 
+/**
+ * Case-sensitive string compare function.
+ */
 function ts_sort_default(a,b) {
 	aa = ts_getInnerText(a.cells[SORT_COLUMN_INDEX]);
 	bb = ts_getInnerText(b.cells[SORT_COLUMN_INDEX]);
@@ -141,30 +161,17 @@ function ts_sort_default(a,b) {
 	return 1;
 }
 
-
-function addEvent(elm, evType, fn, useCapture)
-// addEvent and removeEvent
-// cross-browser event handling for IE5+,  NS6 and Mozilla
-// By Scott Andrew
-{
-	if (elm.addEventListener)
-	{
-		elm.addEventListener(evType, fn, useCapture);
-		return true;
-	}
-	else if (elm.attachEvent)
-	{
-		var r = elm.attachEvent("on"+evType, fn);
-		return r;
-	}
-	else
-	{
-		alert("Handler could not be removed");
-	}
-}
-
+/**
+ * The sort function. This does all of the control reading etc.
+ *
+ * @param count
+ *		number of sort fields to look for
+ * @param listname
+ *		tablename we're sorting, also part of the name of various other controls we use.
+ */
 function dosort(count,listname)
 {
+	// Reset the global vars
 	SORT_COLUMNS = new Array();
 	SORTERS = new Array();
 	FILTER = new Array();
@@ -172,6 +179,7 @@ function dosort(count,listname)
 
 	table = document.getElementById(listname);
 
+	// Look up and store the data from the sort fields
 	for (i=0; i<count;i++)
 	{
 		cs = document.getElementById(listname+'_sort_'+i);
@@ -185,6 +193,7 @@ function dosort(count,listname)
 		{
 			SORT_COLUMNS[i] = parseFloat(cs.value);
 			var itm = table.rows[0].cells[SORT_COLUMNS[i]-1].id;
+			// I want a better detection method here, but can't think of one
 			if ((itm == 'name')
 				|| (itm == 'class')
 				|| (itm == 'note')
@@ -198,11 +207,12 @@ function dosort(count,listname)
 				SORTERS[i] = ts_sort_numeric;
 			}
 			
+			// Descending sorts
 			if (cs.value.indexOf('desc') > -1) SORT_COLUMNS[i] = -SORT_COLUMNS[i];
 		}
 	}
 	
-	var newRows = new Array();
+	// Look up and store the data from the filter fields
 	for (var i=0;i<table.rows[0].cells.length-1;i++)
 	{
 		FILTER[i] = document.getElementById(listname +'_filter_'+(i+1));
@@ -226,7 +236,9 @@ function dosort(count,listname)
 			TYPES[i] = 'number';
 		}
 	}
-	j=0;
+	
+	// Filter the rows, and add them to a storage array
+	var newRows = new Array();
 	for (var i=0;i<table.tBodies.length;i++)
 	{
 		// Don't sort filtered rows
@@ -241,6 +253,7 @@ function dosort(count,listname)
 		}
 	}
 
+	// Sort
 	newRows.sort(compare);
 
 	// We appendChild rows that already exist to the tbody, so it moves them rather than creating new ones
@@ -253,6 +266,10 @@ function dosort(count,listname)
 	}
 }
 
+/**
+ * Row compare function. This reads the global variable to check what sort functions
+ * to use, on what columns, in what order.
+ */
 function compare(a,b)
 {
 	for (var i=0; i<SORTERS.length; i++)
@@ -270,6 +287,9 @@ function compare(a,b)
 	return 0;
 }
 
+/**
+ * Filter function. Checks if a row meets the filter criteria.
+ */
 function checkfilter(row)
 {
 	for (var j=0;j<row.cells.length-1;j++)
@@ -346,6 +366,15 @@ function checkfilter(row)
 	return true;
 }
 
+/**
+ * Function called onkeydown for some fields. If the key is enter, run the sorter.
+ *
+ * @param e
+ *		onkeydown event
+ * @param count
+ * @param listname
+ *		passed to dosort()
+ */
 function enter_sort(e,count,listname)
 {
 	var key;
@@ -367,6 +396,16 @@ function enter_sort(e,count,listname)
 	return true;
 }
 
+/**
+ * Make a column visible/invisible. Actually, we're hiding each cell individually.
+ *
+ * @param colnr
+ *		column number to show/hide
+ * @param dispcell
+ *		button pressed. Passed so the color can be changed.
+ * @param listname
+ *		table ID to toggle the column for.
+ */
 function toggleColumn(colnr,dispcell,listname)
 {
 	table = document.getElementById(listname);
@@ -386,6 +425,15 @@ function toggleColumn(colnr,dispcell,listname)
 	}
 }
 
+/**
+ * Click-header sorting.
+ *
+ * @param colnr
+ *		column number that was clicked
+ * @param count
+ * @param listname
+ *		as in dosort
+ */
 function sortColumn(colnr,count,listname)
 {
 	table = document.getElementById(listname);
@@ -433,6 +481,11 @@ function sortColumn(colnr,count,listname)
 
 }
 
+/**
+ * Function to show/hide alts. Based on the showHide function in mainjs, but
+ * adapated because I can't have a single element I'm hiding. I want to show/hide
+ * all but the first child of the (tbody) element
+ */
 function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 {
 	if(document.getElementById)
