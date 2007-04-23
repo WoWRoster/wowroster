@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-define('IN_ALTMONITOR',true);
+define('IN_SORTMEMBER',true);
 
 require($addon['dir'].'inc'.DIR_SEP.'login.php');
 
