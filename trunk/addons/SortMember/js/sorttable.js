@@ -541,7 +541,7 @@ function openAlts(listname, Img)
 				el.firstChild.alt = '-';
 				
 				// Now hide the rows
-				for( j=1; j < table.tBodies[i].rows.length; i++ )
+				for( j=1; j < table.tBodies[i].rows.length; j++ )
 				{
 					table.tBodies[i].rows[j].style.display = '';
 				}
@@ -573,7 +573,7 @@ function closeAlts(listname, Img)
 				el.firstChild.alt = '+';
 				
 				// Now hide the rows
-				for( j=1; j < table.tBodies[i].rows.length; i++ )
+				for( j=1; j < table.tBodies[i].rows.length; j++ )
 				{
 					table.tBodies[i].rows[j].style.display = 'none';
 				}
