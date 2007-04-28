@@ -965,11 +965,11 @@ function getaddon( $addonname )
 	// Get the addon's conf file
 	$addon['conf_file'] = $addon['dir'] . 'conf.php';
 
-	// Get the addon's locale file
+	// Get the addon's locale dir
 	$addon['locale_dir'] = $addon['dir'] . 'locale' . DIR_SEP;
 
-	// Get the addon's admin file
-	$addon['admin_file'] = $addon['dir'] . 'admin.php';
+	// Get the addon's admin dir
+	$addon['admin_dir'] = $addon['dir'] . 'admin' . DIR_SEP;
 
 	// Get the addon's trigger file
 	$addon['trigger_file'] = $addon['dir'] . 'update_hook.php';

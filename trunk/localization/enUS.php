@@ -46,8 +46,7 @@ $lang['roster_upd_pw_help']='(This is required when doing a guild update)';
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
 $lang['invalid_char_module'] = 'Invalid characters in module name';
-$lang['invalid_char_addon'] = 'Invalid characters in addon name';
-$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+$lang['module_not_exist'] = 'The module [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';
 $lang['specify_addon'] = 'You must specify an addon name!';
@@ -85,6 +84,8 @@ $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
+
+$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="http://www.wowroster.net" target="_blank">HERE</a>';
 
 
 // Updating Instructions
@@ -191,7 +192,7 @@ $lang['byclass']='By Class';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honor';
 $lang['search']='Search';
-$lang['update']='Last updated';
+$lang['update']='Update';
 $lang['credit']='Credits';
 $lang['members']='Members';
 $lang['items']='Items';
@@ -792,6 +793,7 @@ $lang['admin']['timezone'] = "Timezone|Displayed after timestamps so people know
 $lang['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
 $lang['admin']['pvp_log_allow'] = "Allow upload of PvPLog Data|Changing this to &quot;no&quot; will disable the PvPLog upload field in &quot;update&quot;";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
+$lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 
 // guild_conf
 $lang['admin']['guild_name'] = "Guild Name|This must be spelled exactly as it is in the game<br />or you <u>WILL</u> <u>NOT</u> be able to upload profiles";

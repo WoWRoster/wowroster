@@ -309,7 +309,7 @@ function processAddon()
 
 	if( preg_match('/[^a-zA-Z0-9_]/', $addon_name) )
 	{
-		$installer->seterrors($act_words['invalid_char_addon'],$act_words['installer_error']);
+		$installer->seterrors($act_words['invalid_char_module'],$act_words['installer_error']);
 		return;
 	}
 

@@ -177,7 +177,7 @@ $char_page .= '
 <table border="0" cellpadding="0" cellspacing="0"><tr><td align="left" width="100%">';
 
 
-switch ($action)
+switch( $action )
 {
 	case 'bags':
 		if( $roster_conf['show_inventory'] == 1 )
@@ -296,8 +296,7 @@ switch ($action)
 	default:
 		ob_start();
 			$char->out();
-			$char_page .= ob_get_contents();
-		ob_end_clean();
+		$char_page .= ob_get_clean();
 		break;
 }
 

@@ -189,9 +189,15 @@ include(ROSTER_LOCALE_DIR . 'languages.php');
 
 
 /**
+ * Include the Roster Menu class
+ */
+require_once(ROSTER_LIB . 'menu.php');
+
+
+/**
  * If the version doesnt match the one in constants, redirect to upgrader
  */
-if( empty($roster_conf['version']) || $roster_conf['version'] < ROSTER_VERSION )
+if( empty($roster_conf['version']) || version_compare($roster_conf['version'],ROSTER_VERSION,'<') )
 {
 	roster_die('Looks like you\'ve loaded a new version of Roster<br />
 <br />
@@ -224,9 +230,3 @@ require_once(ROSTER_LIB . 'login.php');
  * Get guild data from dataabse
  */
 $guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
-
-
-/**
- * Include the Roster Menu class
- */
-require_once(ROSTER_LIB . 'menu.php');

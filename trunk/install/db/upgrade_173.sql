@@ -529,7 +529,7 @@ INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'credit', 'credits');
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
 
-UPDATE `renprefix_config` SET `config_value` = '1.8.0' WHERE `id` = '4' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.8.0dev' WHERE `id` = '4' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
 
 ALTER TABLE `renprefix_config` ORDER BY `id`;

@@ -19,7 +19,7 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 	die("You can't access this file directly!");
 }
 
-define('ROSTER_VERSION','1.8.0');
+define('ROSTER_VERSION','1.8.0dev');
 
 /**
  * Base, absolute roster admin directory
@@ -56,7 +56,7 @@ define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_updater/version_matc
 /**
  * Deny access to these addon files
  */
-define('ROSTER_NON_ADDON','install.def,update_hook');
+define('ROSTER_NON_ADDON','conf,install.def,update_hook');
 
 /**
  * Database Table Names

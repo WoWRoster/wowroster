@@ -39,7 +39,7 @@ class RosterMenu
 						. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
 						. '      <span style="font-size:18px;"><a href="' . $roster_conf['website_address'] . '">' . $roster_conf['guild_name'] . '</a></span>'."\n"
 						. '      <span style="font-size:11px;"> @ ' . $roster_conf['server_name'] . ' (' . $roster_conf['server_type'] . ')</span><br />'
-						. $act_words['update'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc'])
+						. $act_words['lastupdate'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc'])
 						. ((!empty($roster_conf['timezone']))?' (' . $roster_conf['timezone'] . ')':'')
 						. "      </span>\n"
 						. "    </td>\n"

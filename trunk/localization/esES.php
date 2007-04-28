@@ -46,8 +46,7 @@ $lang['roster_upd_pw_help']='(Es necesaria para actualizar los datos de la herma
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
 $lang['invalid_char_module'] = 'Invalid characters in module name';
-$lang['invalid_char_addon'] = 'Invalid characters in addon name';
-$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+$lang['module_not_exist'] = 'The module [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';
 $lang['specify_addon'] = 'You must specify an addon name!';
@@ -85,6 +84,8 @@ $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
+
+$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="http://www.wowroster.net" target="_blank">HERE</a>';
 
 
 // Updating Instructions
@@ -191,7 +192,7 @@ $lang['byclass']='Por Clase';
 $lang['menustats']='Estadísticas';
 $lang['menuhonor']='Honor';
 $lang['search']='Búsqueda';
-$lang['update']='Última Actualización';
+$lang['update']='Update';
 $lang['credit']='Créditos';
 $lang['members']='Miembros';
 $lang['items']='Objetos';
@@ -792,6 +793,7 @@ $lang['admin']['timezone'] = "HoraZona|Mostrar&aacute la hora de tu regi&oacuten
 $lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br>La hora del roster ser&aacute calculada con esta diferencia";
 $lang['admin']['pvp_log_allow'] = "Permitir subir informaci&oacuten del PvPLog|Cambiando esto a &quot;no&quot; desactivaras mostrar la parte del PvPlog en &quot;update.php&quot;";
 $lang['admin']['use_update_triggers'] = "Actualizar Addon Triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad<br>Algunos addons requieren de esto para funcionar correctamente";
+$lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 
 // guild_conf
 $lang['admin']['guild_name'] = "Nombre de la hermandad|Debe ser exactamente igual a como esta escrito en el juego<br>o <u>NO</u> <u>PODRAS</u> subir personajes a la web";

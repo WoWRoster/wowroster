@@ -32,7 +32,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 }
 
 
-// Determine the module request
+//---[ Determine the module request ]---------------------
 if( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) )
 {
 	$page = $_GET[ROSTER_PAGE];
@@ -43,6 +43,7 @@ elseif( !strpos($roster_conf['default_page'], '&amp;') )
 }
 else
 {
+	//---[ Insert directly into GET request ]-----------------
 	list($page, $gets) = explode('&amp;',$roster_conf['default_page'],2);
 	foreach( explode('&amp;',$gets) as $get )
 	{
@@ -54,29 +55,93 @@ else
 define('ROSTER_PAGE_NAME', $page);
 
 $roster_pages = explode('-', $page);
-$page = $roster_pages[0];
+unset($page);
 
+//---[ We only accept certain characters in our page ]----
 if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 {
 	roster_die($act_words['invalid_char_module'],$act_words['roster_error']);
 }
 
-//---[ Check for Guild Info ]------------
-if( empty($guild_info) && !in_array($page,array('rosterdiag','rostercp','update','credits','license')) )
+//---[ Special handling for certain pages ]---------------
+if( in_array($roster_pages[0],array('credits','license','rostercp','rosterdiag','update')) )
+{
+	require(ROSTER_PAGES . $roster_pages[0] . '.php');
+	exit();
+}
+
+//---[ Check for empty Guild info ]-----------------------
+if( empty($guild_info) )
 {
 	roster_die( sprintf($act_words['nodata'], $roster_conf['guild_name'], $roster_conf['server_name'], makelink('update'), makelink('rostercp') ), $act_words['nodata_title'] );
 }
 
-// Include the module
-if( is_file( $var = ROSTER_PAGES . $page . '.php' ) )
+$addon = getaddon($roster_pages[0]);
+$file = ( isset($roster_pages[1]) ? $roster_pages[1] : 'index' );
+$path = ROSTER_ADDONS . $roster_pages[0] . DIR_SEP . $file . '.php';
+
+//---[ Make the header/menu/footer show by default ]------
+$roster_show_header = true;
+$roster_show_menu = 'main';
+$roster_show_footer = true;
+
+//---[ Check if the module exists ]-----------------------
+if( !file_exists($path) )
 {
-	require($var);
+	roster_die(sprintf($act_words['module_not_exist'],$roster_pages[0]),$act_words['roster_error']);
+}
+
+if( $addon['active'] == '1' )
+{
+	// Include addon's locale files if they exist
+	foreach( $roster_conf['multilanguages'] as $lang )
+	{
+		if( file_exists($addon['locale_dir'] . $lang . '.php') )
+		{
+			add_locale_file($addon['locale_dir'] . $lang . '.php',$lang,$wordings);
+		}
+	}
+
+	// Include addon's conf.php file
+	if( file_exists($addon['conf_file']) )
+	{
+		include_once($addon['conf_file']);
+	}
+
+	// The addon will now assign its output to $content
+	ob_start();
+		require($path);
+	$content = ob_get_clean();
+
+
+	// Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
+	if( $addon['css_url'] != '' )
+	{
+		$more_css = '	<link rel="stylesheet" type="text/css" href="' . ROSTER_PATH . $addon['css_url'] . '" />' . "\n";
+	}
+
+	if( $roster_show_header )
+	{
+		include_once(ROSTER_BASE . 'roster_header.tpl');
+	}
+
+	if( $roster_show_menu )
+	{
+		$roster_menu = new RosterMenu;
+		print $roster_menu->makeMenu($roster_show_menu);
+	}
+
+	echo $content;
+
+	if( $roster_show_footer )
+	{
+		include_once(ROSTER_BASE . 'roster_footer.tpl');
+	}
 }
 else
 {
-	roster_die(sprintf($act_words['module_not_exist'],$page),$act_words['roster_error']);
+	roster_die(sprintf($act_words['addon_disabled'],$addon['basename']),$act_words['addon_error']);
 }
 
-unset($page,$var);
 
 $wowdb->closeDb();
