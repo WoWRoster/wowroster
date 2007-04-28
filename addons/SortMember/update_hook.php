@@ -43,9 +43,12 @@ class SortMember
 	 */
 	function SortMember($data)
 	{
-		$this->data = $data;
+		global $wowdb;
 		
-		include_once($addon['conf_file']);
+		$this->data = $data;
+		$addon = $data;
+		
+		include_once($this->data['conf_file']);
 	}
 	
 	/**

@@ -31,6 +31,15 @@ $addon = getaddon($roster_pages[2]);
 // Check if addon is active
 if( $addon['active'] = '1' )
 {
+	if( isset($roster_pages[3]) && !in_array($roster_pages[3],explode(',',ROSTER_NON_ADDON)) && file_exists($addon['dir'].$roster_pages[3] . '.php') )
+	{
+		$addon['active_file'] = $addon['admin_dir'] . $roster_pages[3] . '.php';
+	}
+	else
+	{
+		$addon['active_file'] = $addon['admin_dir'] . 'index.php';
+	}
+
 	// Include addon's locale files if they exist
 	foreach( $roster_conf['multilanguages'] as $langvalue )
 	{
@@ -47,7 +56,7 @@ if( $addon['active'] = '1' )
 	}
 
 	// Check to see if the index file exists
-	if( file_exists($addon['admin_file']) )
+	if( file_exists($addon['active_file']) )
 	{
 
 		// The addon will now assign its output to $content

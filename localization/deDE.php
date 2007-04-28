@@ -46,8 +46,7 @@ $lang['roster_upd_pw_help']='(Wird nur ben&ouml;tigt, wenn man die Gilde aktuali
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
 $lang['invalid_char_module'] = 'Invalid characters in module name';
-$lang['invalid_char_addon'] = 'Invalid characters in addon name';
-$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+$lang['module_not_exist'] = 'The module [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';
 $lang['specify_addon'] = 'You must specify an addon name!';
@@ -85,6 +84,8 @@ $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
+
+$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="http://www.wowroster.net" target="_blank">HERE</a>';
 
 
 // Updating Instructions
@@ -191,7 +192,7 @@ $lang['byclass']='Nach Klasse';
 $lang['menustats']='Grundwerte';
 $lang['menuhonor']='Ehre';
 $lang['search']='Suche';
-$lang['update']='Letzte Aktualisierung';
+$lang['update']='Update';
 $lang['credit']='Credits';
 $lang['members']='Mitglieder';
 $lang['items']='Gegenst&auml;nde';
@@ -792,6 +793,7 @@ $lang['admin']['timezone'] = "Zeitzone|Wird hinter der Zeit angezeigt, damit man
 $lang['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
 $lang['admin']['pvp_log_allow'] = "Erlaube Upload von PvPLog-Daten|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
+$lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 
 // guild_conf
 $lang['admin']['guild_name'] = "Gildenname|Dieser muß exakt so wie im Spiel geschrieben sein,<br />oder du <u>WIRST</u> <u>NICHT</u> in der Lage sein, Daten hochzuladen";

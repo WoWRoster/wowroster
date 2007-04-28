@@ -108,10 +108,14 @@ if( !$roster_dblink )
 if( !isset($version) )
 {
 	if( !defined('ROSTER_CONFIGTABLE') )
+	{
 		define('ROSTER_CONFIGTABLE', $db_prefix . 'config');
+	}
 
 	if( !defined('ACCOUNT_TABLE') )
+	{
 		define('ACCOUNT_TABLE', $db_prefix . 'account');
+	}
 
 	$sql = "SELECT `config_value` FROM `" . ROSTER_CONFIGTABLE . "` WHERE `config_name` = 'version';";
 	$results = $wowdb->query($sql);

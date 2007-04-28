@@ -46,8 +46,7 @@ $lang['roster_upd_pw_help']='(Requis lors d\'une mise à jour de la Guilde)';
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
 $lang['invalid_char_module'] = 'Invalid characters in module name';
-$lang['invalid_char_addon'] = 'Invalid characters in addon name';
-$lang['module_not_exist'] = 'The page [%1$s] does not exist';
+$lang['module_not_exist'] = 'The module [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';
 $lang['specify_addon'] = 'You must specify an addon name!';
@@ -85,6 +84,8 @@ $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
+
+$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="http://www.wowroster.net" target="_blank">HERE</a>';
 
 
 // Updating Instructions
@@ -191,7 +192,7 @@ $lang['byclass']='Par Classe';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honneur';
 $lang['search']='Rechercher';
-$lang['update']='Dernière mise à jour';
+$lang['update']='Update';
 $lang['credit']='Crédits';
 $lang['members']='Membres';
 $lang['items']='Objets';
@@ -792,6 +793,7 @@ $lang['admin']['timezone'] = "Fuseau horaire|Affiché après les dates et heures
 $lang['admin']['localtimeoffset'] = "Décalage horaire|Le décalage horaire par rapport à l'heure UTC/GMT<br />Les heures sur le roster seront affichées avec ce décalage";
 $lang['admin']['pvp_log_allow'] = "Permettre le téléchargement des données PvPLog|Mettre la valeur à &quot;no&quot; désactivera le champ de téléchargement du PvPLog dans &quot;mise à jour&quot;";
 $lang['admin']['use_update_triggers'] = "Permettre le déclenchement de mise à jour d'AddOn|Le déclenchement de mise à jour d'AddOn est nécessaire pour les AddOns qui ont besoin de fonctionner lors d'une mise à jour d'un profil<br />Quelques AddOns ont besoin de ce paramètre à on pour fonctionner correctement";
+$lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 
 // guild_conf
 $lang['admin']['guild_name'] = "Nom de la Guilde|Ce nom doit être orthographié exactement comme dans le jeu<br />ou vous <u>NE POURREZ PAS</u> charger les profils";
