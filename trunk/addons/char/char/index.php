@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id$
+ * @version    SVN: $Id: index.php 867 2007-04-29 07:41:43Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
@@ -21,9 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-if ( $roster_conf['show_bg'] == 1 )
-{
-    $char_page .= $char->show_pvp2('BG', 'char-bg'.$char_url, $sort, $start);
-}
+ob_start();
+	$char->out();
+$char_page .= ob_get_clean();
 
 include( $addon['dir'] . 'inc/footer.php' );

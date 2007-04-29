@@ -42,7 +42,7 @@ class guildinfo
 	{
 		global $installer;
 
-		$installer->add_menu_button('guildinfo');
+		$installer->add_menu_button('guildinfo','guild','');
 		return true;
 	}
 

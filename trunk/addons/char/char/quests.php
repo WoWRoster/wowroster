@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id$
+ * @version    SVN: $Id: quests.php 867 2007-04-29 07:41:43Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
@@ -21,9 +21,9 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-if( $addon['config']['show_spellbook'] == 1 )
+if( $addon['config']['show_quests'] == 1 )
 {
-	$char_page .= $char->show_spellbook();
+	$char_page .= $char->show_quests();
 }
 
 include( $addon['dir'] . 'inc/footer.php' );

@@ -121,9 +121,9 @@ class Install
 	 *		addon not to be active on install, this parameter means if this
 	 *		button is active after the addon is enabled.
 	 */
-	function add_menu_button($title, $url='')
+	function add_menu_button($title, $scope='util', $url='')
 	{
-		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$this->addata['basename'].$url.'");';
+		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$scope.'-'.$this->addata['basename'].$url.'");';
 	}
 
 	/**
@@ -138,9 +138,9 @@ class Install
 	 *		addon not to be active on install, this parameter means if this
 	 *		button is active after the addon is enabled.
 	 */
-	function update_menu_button($title, $url)
+	function update_menu_button($title, $scope='util',$url='')
 	{
-		$this->sql[] = 'UPDATE `'.ROSTER_MENUBUTTONTABLE.'` SET `url`="'.$url.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
+		$this->sql[] = 'UPDATE `'.ROSTER_MENUBUTTONTABLE.'` SET `url`="'.$scope.'-'.$this->addata['basename'].$url.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
 	}
 
 	/**

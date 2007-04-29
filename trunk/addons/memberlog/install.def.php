@@ -55,7 +55,7 @@ class memberlog
 		$installer->add_config("'1060','show_note','0','radio{No^0|Yes^1','memberlog_conf'");
 		$installer->add_config("'1070','show_officer_note','0','radio{No^0|Yes^1','memberlog_conf'");
 
-		$installer->add_menu_button('memberlog');
+		$installer->add_menu_button('memberlog','guild','');
 		return true;
 	}
 

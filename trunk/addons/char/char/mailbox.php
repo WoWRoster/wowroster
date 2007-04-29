@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id$
+ * @version    SVN: $Id: mailbox.php 867 2007-04-29 07:41:43Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
@@ -21,9 +21,9 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-if( $roster_conf['show_pvp'] == 1 )
+if( $addon['config']['show_mail'] == 1 )
 {
-	$char_page .= $char->show_pvp2('PvP', 'char-pvp'.$char_url, $sort, $start);
+	$char_page .= $char->show_mailbox();
 }
 
 include( $addon['dir'] . 'inc/footer.php' );
