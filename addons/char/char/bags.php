@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id$
+ * @version    SVN: $Id: bags.php 867 2007-04-29 07:41:43Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
@@ -21,48 +21,42 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-if( $addon['config']['show_bank'] == 1 )
+if( $addon['config']['show_inventory'] == 1 )
 {
-	$bag0 = bag_get( $char->get('member_id'), 'Bank Bag0' );
+	$bag0 = bag_get( $char->get('member_id'), 'Bag0' );
 	if( !is_null( $bag0 ) )
 	{
 		$char_page .= $bag0->out();
 	}
 
-	$bag1 = bag_get( $char->get('member_id'), 'Bank Bag1' );
+	$bag1 = bag_get( $char->get('member_id'), 'Bag1' );
 	if( !is_null( $bag1 ) )
 	{
 		$char_page .= $bag1->out();
 	}
 
-	$bag2 = bag_get( $char->get('member_id'), 'Bank Bag2' );
+	$bag2 = bag_get( $char->get('member_id'), 'Bag2' );
 	if( !is_null( $bag2 ) )
 	{
 		$char_page .= $bag2->out();
 	}
 
-	$bag3 = bag_get( $char->get('member_id'), 'Bank Bag3' );
+	$bag3 = bag_get( $char->get('member_id'), 'Bag3' );
 	if( !is_null( $bag3 ) )
 	{
 		$char_page .= $bag3->out();
 	}
 
-	$bag4 = bag_get( $char->get('member_id'), 'Bank Bag4' );
+	$bag4 = bag_get( $char->get('member_id'), 'Bag4' );
 	if( !is_null( $bag4 ) )
 	{
 		$char_page .= $bag4->out();
 	}
 
-	$bag5 = bag_get( $char->get('member_id'), 'Bank Bag5' );
+	$bag5 = bag_get( $char->get('member_id'), 'Bag5' );
 	if( !is_null( $bag5 ) )
 	{
 		$char_page .= $bag5->out();
-	}
-
-	$bag6 = bag_get( $char->get('member_id'), 'Bank Bag6' );
-	if( !is_null( $bag6 ) )
-	{
-		$char_page .= $bag6->out();
 	}
 }
 

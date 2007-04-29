@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id$
+ * @version    SVN: $Id: duels.php 867 2007-04-29 07:41:43Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */

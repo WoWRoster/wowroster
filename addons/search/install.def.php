@@ -42,7 +42,7 @@ class search
 	{
 		global $installer;
 
-		$installer->add_menu_button('search');
+		$installer->add_menu_button('search','util','');
 		return true;
 	}
 

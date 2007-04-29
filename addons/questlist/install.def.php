@@ -42,7 +42,7 @@ class questlist
 	{
 		global $installer;
 
-		$installer->add_menu_button('questlist');
+		$installer->add_menu_button('questlist','util','');
 		return true;
 	}
 

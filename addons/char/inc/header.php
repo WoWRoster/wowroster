@@ -19,59 +19,24 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if( isset($_GET['member']) && $_GET['member'] != '' )
-{
-	$member = explode('@',$_GET['member']);
-	$name = (isset($member[0]) && $member[0] != '' ? $member[0] : '');
-	$server = (isset($member[1]) && $member[1] != '' ? $member[1] : $roster_conf['server_name']);
+// Check for start for pvp log data
+$start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
-	// Check for start for pvp log data
-	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
+// Get char page mode
+$action = (isset($roster_pages[1]) ? $roster_pages[1] : '' );
 
-	// Get char page mode
-	$action = (isset($roster_pages[1]) ? $roster_pages[1] : '' );
-
-	// Get pvp table/recipe sort mode
-	$sort = (isset($_GET['s']) ? $_GET['s'] : '');
-}
-else
-{
-	roster_die($act_words['specify_char'],$act_words['char_error']);
-}
-
-// Check for name
-if( $name == '' )
-{
-	roster_die($act_words['specify_char'],$act_words['char_error']);
-}
+// Get pvp table/recipe sort mode
+$sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 // Include character class file
 require_once ($addon['dir'] . 'inc/char.lib.php');
 
 
 // Get Character Info
-if( is_numeric($name) )
-{
-	$char = char_get_one_by_id($name);
-	if( !is_object($char) )
-	{
-		roster_die(sprintf($act_words['no_char_id'],$name),$act_words['char_error']);
-	}
-
-	$name = $char->get('name');
-}
-else
-{
-	$char = char_get_one( $name, $server );
-	if( !is_object($char) )
-	{
-		roster_die(sprintf($act_words['no_char_name'],$name,$server),$act_words['char_error']);
-	}
-}
-
+$char = new char($char_data);
 
 // Set <html><title> and <form action=""> and $char_url
-$header_title = sprintf($act_words['char_stats'],$name,$server);
+$header_title = sprintf($act_words['char_stats'],$char->get('name'),$char->get('server'));
 $char_url = '&amp;member='.$char->get('member_id');
 $char_url_old = '&amp;member='.$char->get('name').'@'.$char->get('server');
 
@@ -89,7 +54,6 @@ $disp_array = array(
 	'show_bg'=>'bg',
 	'show_pvp'=>'pvp',
 	'show_duels'=>'duels',
-	'show_item_bonuses'=>'item_bonuses'
 );
 
 // Loop through this array and set display accordingly
@@ -164,7 +128,7 @@ if( $addon['config']['show_duels'] )
 $char_menu .= '
 </div>
 
-<div class="char_title">'.$name.' @ '.$server.(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
+<div class="char_title">'.$char->get('name').' @ '.$char->get('server').(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
 	<div class="lastupdated">'.$act_words['lastupdate'].': '.$char->data['update_format'].'</div>
 </div>';
 

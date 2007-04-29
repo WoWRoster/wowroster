@@ -225,8 +225,3 @@ if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgra
  */
 require_once(ROSTER_LIB . 'login.php');
 
-
-/**
- * Get guild data from dataabse
- */
-$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);

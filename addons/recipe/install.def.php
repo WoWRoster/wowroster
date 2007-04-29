@@ -56,7 +56,7 @@ class recipe
 		$installer->add_config("'1060','display_makers','1','radio{on^1|off^0','recipe_conf'");
 		$installer->add_config("'1070','display_makers_count','3','text{2|10','recipe_conf'");
 
-		$installer->add_menu_button('madeby');
+		$installer->add_menu_button('madeby','util','');
 		return true;
 	}
 

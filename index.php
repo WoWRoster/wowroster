@@ -63,22 +63,98 @@ if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 	roster_die($act_words['invalid_char_module'],$act_words['roster_error']);
 }
 
-//---[ Special handling for certain pages ]---------------
-if( in_array($roster_pages[0],array('credits','license','rostercp','rosterdiag','update')) )
+//---[ Fetch the right data for the scope ]---------------
+switch( $roster_pages[0] )
 {
-	require(ROSTER_PAGES . $roster_pages[0] . '.php');
-	exit();
+	case 'char':
+		// Check if the member attribute is set
+		if( !isset($_GET['member']) )
+		{
+			roster_die('You need to provide a member id or name@server in character scope','WoWRoster');
+		}
+
+		// Parse the attribute
+		if( is_numeric($_GET['member']) )
+		{
+			$where = ' `players`.`member_id` = "'.$_GET['member'].'"';
+		}
+		elseif( strpos('@',$_GET['member']) >= 0 )
+		{
+			list($name, $realm) = explode('@',$_GET['member']);
+			$where = ' `players`.`name` = "'.$name.'" AND `players`.`server` = "'.$realm.'"';
+		}
+		else
+		{
+			$where = ' `players`.`name` = "'.$name.'" AND `players`.`server` = "'.$roster_conf['server_name'].'"';
+		}
+		
+		// Get the data
+		$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '.$roster_conf['localtimeoffset'].' HOUR ), "'.$act_words['timeformat'].'" ) AS "update_format"'.
+			'FROM `'.ROSTER_PLAYERSTABLE.'` players '.
+			'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` members ON `players`.`member_id` = `members`.`member_id` '.
+			'LEFT JOIN `'.ROSTER_GUILDTABLE.'` guild ON `players`.`guild_id` = `guild`.`guild_id` '.
+			'WHERE'.$where.';';
+		
+		$result = $wowdb->query($query);
+		
+		if( !$result )
+		{
+			die_quietly($wowdb->error(),'Database error',basename(__FILE__),__LINE__,$query);
+		}
+		
+		if(!( $char_data = $wowdb->fetch_assoc($result)) )
+		{
+			message_die('This member is not in the database',$act_words['roster_error']);
+		}
+		
+		// And get the guild info, for menu
+		$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+		
+		// Set the file to be included
+		$path = ROSTER_ADDONS . $roster_pages[1] . DIR_SEP . 'char' . DIR_SEP .
+			( isset($roster_pages[2]) ? $roster_pages[2] : 'index' ). '.php';
+
+		break;
+	case 'guild':
+		// If we ever go multiguild in 1x, we need to check the guild= attribute here.
+		$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+		
+		if( empty($guild_info) )
+		{
+			roster_die( sprintf($act_words['nodata'], $roster_conf['guild_name'], $roster_conf['server_name'], makelink('update'), makelink('rostercp') ), $act_words['nodata_title'] );
+		}
+		
+		// Set the file to be included
+		$path = ROSTER_ADDONS . $roster_pages[1] . DIR_SEP . 'guild' . DIR_SEP .
+			( isset($roster_pages[2]) ? $roster_pages[2] : 'index' ). '.php';
+		break;
+	case 'util':
+		// Not really any data to get here, but get the guild info anyway for the menu.
+		$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+
+		// Set the file to be included
+		$path = ROSTER_ADDONS . $roster_pages[1] . DIR_SEP .
+			( isset($roster_pages[2]) ? $roster_pages[2] : 'index' ). '.php';
+		break;
+	default:
+		// OK, so it isn't a scope. Prolly a file in pages.
+		if( file_exists($file = ROSTER_PAGES . $roster_pages[0] . '.php') )
+		{
+			// Get guild info for the menu
+			$guild_info = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+			
+			require($file);
+			exit();
+		}
+		else
+		{
+			// Send a 404. Then the browser knows what's going on as well.
+			header('HTTP/1.0 404 Not Found');
+			roster_die(sprintf($act_words['module_not_exist'],ROSTER_PAGE_NAME),$act_words['roster_error']);
+		}
 }
 
-//---[ Check for empty Guild info ]-----------------------
-if( empty($guild_info) )
-{
-	roster_die( sprintf($act_words['nodata'], $roster_conf['guild_name'], $roster_conf['server_name'], makelink('update'), makelink('rostercp') ), $act_words['nodata_title'] );
-}
-
-$addon = getaddon($roster_pages[0]);
-$file = ( isset($roster_pages[1]) ? $roster_pages[1] : 'index' );
-$path = ROSTER_ADDONS . $roster_pages[0] . DIR_SEP . $file . '.php';
+$addon = getaddon($roster_pages[1]);
 
 //---[ Make the header/menu/footer show by default ]------
 $roster_show_header = true;
@@ -88,6 +164,8 @@ $roster_show_footer = true;
 //---[ Check if the module exists ]-----------------------
 if( !file_exists($path) )
 {
+	// Send a 404. Then the browser knows what's going on as well.
+	header('HTTP/1.0 404 Not Found');
 	roster_die(sprintf($act_words['module_not_exist'],ROSTER_PAGE_NAME),$act_words['roster_error']);
 }
 

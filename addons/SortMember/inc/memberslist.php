@@ -480,7 +480,7 @@ class memberslist
 
 			if ( $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
 			else
 			{
@@ -491,7 +491,7 @@ class memberslist
 		{
 			if ( $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="char.php?name='.$row['name'].'&amp;server='.$row['server'].'">'.$row['name'].'</a>';
+				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
 			else
 			{
@@ -661,3 +661,4 @@ class memberslist
 		}
 	}
 }
+
