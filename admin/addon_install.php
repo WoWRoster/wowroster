@@ -364,6 +364,10 @@ function processAddon()
 				return;
 			}
 			$installer->addata['addon_id'] = $wowdb->insert_id();
+
+			// We backup the addon config table to prevent damage
+			$installer->add_backup(ROSTER_ADDONCONFTABLE);
+
 			$success = $addon->install();
 			$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$installer->addata['active'];
 			break;
@@ -388,6 +392,10 @@ function processAddon()
 				return;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
+
+			// We backup the addon config table to prevent damage
+			$installer->add_backup(ROSTER_ADDONCONFTABLE);
+
 			$success = $addon->upgrade($previous['basename'],$previous['version']);
 			break;
 
@@ -410,6 +418,10 @@ function processAddon()
 				return;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
+
+			// We backup the addon config table to prevent damage
+			$installer->add_backup(ROSTER_ADDONCONFTABLE);
+
 			$success = $addon->uninstall();
 			break;
 

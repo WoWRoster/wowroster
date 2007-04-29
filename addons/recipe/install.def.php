@@ -44,9 +44,6 @@ class recipe
 	{
 		global $installer;
 
-		// First we backup the config table to prevent damage
-		$installer->add_backup(ROSTER_ADDONCONFTABLE);
-
 		// Master and menu entries
 		$installer->add_config("'1','startpage','recipe_conf','display','master'");
 		$installer->add_config("'110','recipe_conf',NULL,'blockframe','menu'");

@@ -28,8 +28,8 @@ $questidsafe = ( isset($_GET['questid']) ? $_GET['questid'] : '' );
 
 
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-$option_blockzones = selectQuery("`" . ROSTER_QUESTSTABLE . "` AS quests,`" . ROSTER_MEMBERSTABLE . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','addon-questlist&amp;zoneid');
-$option_blockquests = selectQuery("`" . ROSTER_QUESTSTABLE . "` AS quests,`" . ROSTER_MEMBERSTABLE . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','addon-questlist&amp;questid');
+$option_blockzones = selectQuery("`" . ROSTER_QUESTSTABLE . "` AS quests,`" . ROSTER_MEMBERSTABLE . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','&amp;zoneid');
+$option_blockquests = selectQuery("`" . ROSTER_QUESTSTABLE . "` AS quests,`" . ROSTER_MEMBERSTABLE . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','&amp;questid');
 
 
 echo "<table cellspacing=\"6\">\n  <tr>\n";

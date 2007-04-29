@@ -42,9 +42,6 @@ class SortMember
 	{
 		global $installer, $wowdb;
 
-		// First we backup the config table to prevent damage
-		$installer->add_backup(ROSTER_ADDONCONFTABLE);
-
 		# Master data for the config file
 		$installer->add_config("1,'startpage','display','display','master'");
 
@@ -55,7 +52,7 @@ class SortMember
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
 		$installer->add_config("150,'build',NULL,'blockframe','menu'");
 		$installer->add_config("160,'documentation','http://www.wowroster.net/wiki/index.php/Roster:Addon:SortMember','newlink','menu'");
-		$installer->add_config("170,'updMainAlt','addon-SortMember-update','makenewlink','menu'");
+		$installer->add_config("170,'updMainAlt','SortMember-update','makenewlink','menu'");
 
 		# Generic display settings
 		$installer->add_config("1000,'openfilter','0','radio{Show^1|Hide^0','display'");

@@ -42,9 +42,6 @@ class tradeskills
 	{
 		global $installer;
 
-		// First we backup the config table to prevent damage
-		$installer->add_backup(ROSTER_ADDONCONFTABLE);
-
 		// Master and menu entries
 		$installer->add_config("'1','startpage','tradeskill_conf','display','master'");
 		$installer->add_config("'110','tradeskill_conf',NULL,'blockframe','menu'");
