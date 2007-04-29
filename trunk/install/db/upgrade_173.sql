@@ -68,6 +68,20 @@ DELETE FROM `renprefix_config` WHERE `id` = 5010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5035 LIMIT 1;
 
+DELETE FROM `renprefix_config` WHERE `id` = 7000 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7005 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7015 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7020 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7030 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7040 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7050 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7060 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7070 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7080 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7090 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7100 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7110 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 7120 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7130 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7140 LIMIT 1;
 
@@ -91,11 +105,10 @@ INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'me
 INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (150, 'char_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (160, 'realmstatus_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (170, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (180, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (190, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (150, 'realmstatus_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (160, 'data_links', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (170, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://wowroster.net/wiki', 'newlink', 'menu');
 
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '1', 'radio{yes^1|no^0', 'main_conf');

@@ -88,7 +88,7 @@ $roster_show_footer = true;
 //---[ Check if the module exists ]-----------------------
 if( !file_exists($path) )
 {
-	roster_die(sprintf($act_words['module_not_exist'],$roster_pages[0]),$act_words['roster_error']);
+	roster_die(sprintf($act_words['module_not_exist'],ROSTER_PAGE_NAME),$act_words['roster_error']);
 }
 
 if( $addon['active'] == '1' )

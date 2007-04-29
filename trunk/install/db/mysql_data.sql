@@ -19,11 +19,10 @@ INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'me
 INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (150, 'char_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (160, 'realmstatus_conf', NULL, 'page{1', 'menu');
-INSERT INTO `renprefix_config` VALUES (170, 'data_links', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (180, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (190, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (150, 'realmstatus_conf', NULL, 'page{1', 'menu');
+INSERT INTO `renprefix_config` VALUES (160, 'data_links', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (170, 'update_access', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -103,24 +102,6 @@ INSERT INTO `renprefix_config` VALUES (6020, 'questlink_3', '1', 'radio{on^1|off
 INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/Downloads/details/id=51.html', 'text{128|30', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/Downloads/c=2.html', 'text{128|30', 'data_links');
-
-# --------------------------------------------------------
-### Character Page Settings
-
-INSERT INTO `renprefix_config` VALUES (7000, 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7005, 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7015, 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7020, 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7030, 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7040, 'show_inventory', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7050, 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7060, 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7070, 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7080, 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7090, 'show_bg', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7100, 'show_pvp', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7110, 'show_duels', '2', 'radio{on^1|off^0|user^2', 'char_conf');
-INSERT INTO `renprefix_config` VALUES (7120, 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf');
 
 # --------------------------------------------------------
 ### Realmstatus Settings

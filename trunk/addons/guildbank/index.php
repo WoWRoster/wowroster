@@ -37,25 +37,19 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-require_once( ROSTER_LIB.'char.php' );
+include( ROSTER_LIB . 'item.php');
 
 if( isset($_GET['mode']) )
 {
-	$gbank_mode = ( $_GET['mode'] == 'table' ? 2 : '');
-	$columns = 15;
+	$gbank_mode = ( $_GET['mode'] == 'inv' ? 2 : 1);
+	$gbank_mode = ( $_GET['mode'] == 'full' ? 1 : 2);
 }
 else
 {
 	$gbank_mode = $addon['config']['guildbank_ver'];
-	if( $gbank_mode == 2 )
-	{
-		$columns = 15;
-	}
-	else
-	{
-		$columns = 2;
-	}
 }
+
+$columns = ( $gbank_mode == 2 ? 15 : 2 );
 
 $header_title = $act_words['guildbank'];
 
@@ -68,8 +62,8 @@ $muleNames = $wowdb->query($muleNameQuery);
 
 $bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-$bank_menu .= '<td class="membersHeader"><a href="'.makelink('addon-guildbank').'">'.$act_words['gbank_list'].'</a></td>'."\n";
-$bank_menu .= '<td class="membersHeaderRight"><a href="'.makelink('addon-guildbank&amp;mode=table').'">'.$act_words['gbank_inv'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeader"><a href="'.makelink('&amp;mode=full').'">'.$act_words['gbank_list'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeaderRight"><a href="'.makelink('&amp;mode=inv').'">'.$act_words['gbank_inv'].'</a></td>'."\n";
 
 $bank_menu .= "</tr>\n</table>\n";
 
@@ -182,7 +176,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 				$bank_print .= '  <tr>'."\n";
 
 			// Item texture and quantity column
-			if( $gbank_mode == '' )
+			if( $gbank_mode == '1' )
 				$bank_print .= '    <td valign="top" align="center" class="'.$stripe_class.'">';
 			else
 				$bank_print .= '    <td valign="top" align="center">';
@@ -193,7 +187,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 			$bank_print .= $item->out();
 
 			$bank_print .= '    </td>'."\n";
-			if( $gbank_mode == '' )
+			if( $gbank_mode == '1' )
 			{
 				$bank_print .= '    <td valign="top" class="'.$stripe_class_right.' overlib_maintext" style="width:220px;">';
 				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
@@ -226,3 +220,17 @@ foreach( $bankers as $banker_id => $banker  )
 
 
 print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\n<br />\n".$bank_print;
+
+function DateCharDataUpdated($id)
+{
+	global $wowdb, $roster_conf, $wordings;
+
+	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
+	$result = $wowdb->query($query);
+	$data = $wowdb->fetch_assoc($result);
+	$wowdb->free_result($result);
+
+	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
+	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	return date($wordings[$data['clientLocale']]['phptimeformat'], $localtime);
+}

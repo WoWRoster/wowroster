@@ -42,10 +42,6 @@ class guildinfo
 	{
 		global $installer;
 
-		// First we backup the config table to prevent damage
-		$installer->add_backup(ROSTER_ADDONCONFTABLE);
-
-		// Master and menu entries
 		$installer->add_menu_button('guildinfo');
 		return true;
 	}
@@ -59,8 +55,6 @@ class guildinfo
 	function uninstall()
 	{
 		global $installer;
-
-		$installer->remove_all_config();
 
 		$installer->remove_menu_button('guildinfo');
 		return true;

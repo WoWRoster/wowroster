@@ -71,12 +71,12 @@ if( $roster_conf['check_updates'] )
 
 	if( preg_match('#<info>(.+)</info>#i',$content,$info) )
 	{
-		$roster_ver_info = $info[1];
+		$roster_ver_info = '<br />' . $info[1];
 	}
 
 	if( version_compare($roster_ver_latest,ROSTER_VERSION,'>') )
 	{
-		$header = messagebox(sprintf($act_words['new_version_available'],'WoWRoster',$roster_ver_latest) . '<br />' . $roster_ver_info,$act_words['update']);
+		$header = messagebox(sprintf($act_words['new_version_available'],'WoWRoster',$roster_ver_latest) . $roster_ver_info,$act_words['update']);
 	}
 }
 
