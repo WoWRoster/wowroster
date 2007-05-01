@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class SortMember
+class memberslist
 {
 	// Update messages
 	var $messages = '';
@@ -41,12 +41,11 @@ class SortMember
 	 * @param array $data
 	 *		Addon data object
 	 */
-	function SortMember($data)
+	function memberslist($data)
 	{
 		global $wowdb;
 		
 		$this->data = $data;
-		$addon = $data;
 		
 		include_once($this->data['conf_file']);
 	}
@@ -70,13 +69,13 @@ class SortMember
 	function guild($char, $member_id)
 	{
 		global $wowdb, $roster_conf;
-		
-		// --[ Check if this update type is enables ]--
-		if(( $this->data['config']['update_type'] & 1 ) == 0 )
+	
+		// --[ Check if this update type is enabled ]--
+		if( !( $this->data['config']['update_type'] & 1 ) )
 		{
 			return true;
 		}
-		
+
 		// --[ Fetch full member data ]--
 		$query =
 			"SELECT `alt`.*, `member`.`name` ".

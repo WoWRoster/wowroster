@@ -12,7 +12,7 @@
  *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
  * -----------------------------
  *
- * $Id$
+ * $Id: update.php 869 2007-05-01 14:30:57Z pleegwat $
  *
  ******************************/
 
@@ -22,8 +22,6 @@ if ( !defined('ROSTER_INSTALLED') )
 }
 
 define('IN_SORTMEMBER',true);
-
-require($addon['dir'].'inc'.DIR_SEP.'login.php');
 
 // Recreate the CP.lua guild subtree. Or at least the relevant parts.
 $guild = $GLOBALS['guild_info'];
@@ -42,20 +40,20 @@ $wowdb->free_result($result);
 // Start the actual update process
 include_once($addon['dir'].'update_hook.php');
 
-$SortMember = new SortMember($addon);
+$memberslist = new memberslist($addon);
 
 // Loop over all members
 foreach($guild['Members'] as $member_name => $char)
 {
 	$member_id = $char['member_id'];
-	$SortMember->messages .= $member_name;
-	$SortMember->guild($char, $member_id);
+	$memberslist->messages .= $member_name;
+	$memberslist->guild($char, $member_id);
 }
 
 // Guild post hook. Deletes old entries.
-$SortMember->guild_post($guild);
+$memberslist->guild_post($guild);
 
-$messages = $SortMember->messages;
+$messages = $memberslist->messages;
 $errorstringout = $wowdb->getErrors();
 
 // print the error messages
