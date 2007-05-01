@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class SortMember
+class memberslist
 {
 	var $active = true;
 	var $icon = 'inv_letter_06';
@@ -30,7 +30,7 @@ class SortMember
 
 	var $version = '0.3.0';
 
-	var $fullname = 'SortMembers';
+	var $fullname = 'memberslist';
 	var $description = 'A sortable, filterable memberslist.';
 	var $credits = array(
 		array(	"name"=>	"PleegWat",
@@ -52,7 +52,7 @@ class SortMember
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
 		$installer->add_config("150,'build',NULL,'blockframe','menu'");
 		$installer->add_config("160,'documentation','http://www.wowroster.net/wiki/index.php/Roster:Addon:SortMember','newlink','menu'");
-		$installer->add_config("170,'updMainAlt','SortMember-update','makenewlink','menu'");
+		$installer->add_config("170,'updMainAlt','rostercp-addon-memberslist-update','makenewlink','menu'");
 
 		# Generic display settings
 		$installer->add_config("1000,'openfilter','0','radio{Show^1|Hide^0','display'");
@@ -66,6 +66,7 @@ class SortMember
 		$installer->add_config("1080,'level_bar','1','radio{On^1|Off^0','display'");
 		$installer->add_config("1090,'honor_icon','1','radio{On^1|Off^0','display'");
 		$installer->add_config("1100,'compress_note','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1110,'page_size','0','text{4|30','display'");
 
 		# Per page settings: Memberlist
 		$installer->add_config("2000,'member_update_inst','1','radio{Off^0|On^1','members'");
@@ -141,9 +142,9 @@ class SortMember
 			) TYPE=MyISAM;");
 
 		# Roster menu entry
-		$installer->add_menu_button('SortMember_Members','guild','');
-		$installer->add_menu_button('SortMember_Stats','guild','-statslist');
-		$installer->add_menu_button('SortMember_Honor','guild','-honorlist');
+		$installer->add_menu_button('memberslist_Members','guild','');
+		$installer->add_menu_button('memberslist_Stats','guild','-statslist');
+		$installer->add_menu_button('memberslist_Honor','guild','-honorlist');
 		return true;
 	}
 
@@ -161,9 +162,9 @@ class SortMember
 
 		$installer->add_query("DROP TABLE IF EXISTS `".$installer->table('alts')."`;");
 
-		$installer->remove_menu_button('SortMember_Members');
-		$installer->remove_menu_button('SortMember_Stats');
-		$installer->remove_menu_button('SortMember_Honor');
+		$installer->remove_menu_button('memberslist_Members');
+		$installer->remove_menu_button('memberslist_Stats');
+		$installer->remove_menu_button('memberslist_Honor');
 		return true;
 	}
 }

@@ -102,3 +102,6 @@ echo $memberlist->makeFilterBox();
 echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
 echo border('syellow','end');
+
+echo "<br />\n".scrollbox('<pre>'.print_r($addon,true).'</pre>','','sgray');
+

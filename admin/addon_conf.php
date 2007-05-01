@@ -31,7 +31,7 @@ $addon = getaddon($roster_pages[2]);
 // Check if addon is active
 if( $addon['active'] = '1' )
 {
-	if( isset($roster_pages[3]) && !in_array($roster_pages[3],explode(',',ROSTER_NON_ADDON)) && file_exists($addon['dir'].$roster_pages[3] . '.php') )
+	if( isset($roster_pages[3]) && !in_array($roster_pages[3],explode(',',ROSTER_NON_ADDON)) && file_exists($addon['admin_dir'].$roster_pages[3] . '.php') )
 	{
 		$addon['active_file'] = $addon['admin_dir'] . $roster_pages[3] . '.php';
 	}
@@ -59,9 +59,9 @@ if( $addon['active'] = '1' )
 	if( file_exists($addon['active_file']) )
 	{
 
-		// The addon will now assign its output to $content
+		// The addon will now assign its output to $body
 		ob_start();
-			include_once( $addon['admin_file'] );
+			include_once( $addon['active_file'] );
 		$body .= ob_get_clean();
 	}
 	elseif( $addon['config'] != '' )

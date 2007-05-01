@@ -19,12 +19,12 @@
 // -[ enUS Localization ]-
 
 // Button names
-$lang['SortMember_Members']		= 'Members';
-$lang['SortMember_Stats']		= 'Stats';
-$lang['SortMember_Honor']		= 'Honor';
+$lang['memberslist_Members']	= 'Members';
+$lang['memberslist_Stats']		= 'Stats';
+$lang['memberslist_Honor']		= 'Honor';
 
 // Index: Wrong $roster_pages[2]
-$lang['SortMember_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';
+$lang['memberslist_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';
 
 // Interface wordings
 $lang['memberssortfilter']		= 'Sorting order and filtering';
@@ -73,19 +73,20 @@ $lang['main_name']              = 'Main name';
 $lang['alt_type']               = 'Alt type';
 
 // Configuration
-$lang['SortMember_config']		= 'Go to SortMember configuration';
-$lang['SortMember_config_page']	= 'SortMember Configuration';
+$lang['memberslist_config']		= 'Go to memberslist configuration';
+$lang['memberslist_config_page']= 'memberslist Configuration';
 $lang['documentation']			= 'Documentation';
 $lang['uninstall']				= 'Uninstall';
 
 // Page names
-$lang['admin']['display']       = 'Display|Configure display options specific to SortMember.';
+$lang['admin']['display']       = 'Display|Configure display options specific to memberslist.';
 $lang['admin']['members']       = 'Members List|Configure visibility of members list columns.';
 $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list columns.';
 $lang['admin']['honor']         = 'Honor List|Configure visibility of honor list columns.';
 $lang['admin']['build']         = 'Main/Alt Relations|Configure how the Main/Alt relations are detected.';
-$lang['admin']['documentation'] = 'Documentation|SortMember documentation on the WoWRoster wiki.';
+$lang['admin']['documentation'] = 'Documentation|memberslist documentation on the WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Update Relations|Update the Main/Alt relations using the data already in the DB.';
+$lang['admin']['page_size']		= 'Page size|Configure the number of items per page, or 0 for no pagination';
 
 // Settings names on display page
 $lang['admin']['openfilter']	= 'Open filterbox|Specify if you want the filterbox open or closed by default.';

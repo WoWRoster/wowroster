@@ -38,8 +38,20 @@ class memberslist
 	var $sortFields;				// Column names and sort input fields
 	var $sortoptions;				// List of 'option' fields for the sort select boxes
 
-	function memberslist($addon = '')
+	/**
+	 * Constructor
+	 *
+	 * @param array $options
+	 *		Override any of the default options, like client/server sorting, alt
+	 *		grouping, or pagination.
+	 * @param array $addon
+	 *		If the SortMembers addon array has already been loaded, pass it here
+	 *		for efficiency. if the addon array is not available, omit it, and it
+	 *		will be loaded automatically.
+	 */
+	function memberslist($options = array(), $addon = array())
 	{
+		// --[ Get addon array only if not passed ]--
 		if( !empty($addon) )
 		{
 			$this->addon = $addon;
@@ -51,6 +63,13 @@ class memberslist
 			$this->addon = getaddon($basename);
 		}
 
+		// Merge in the override options from the calling file
+		if( !empty($options) )
+		{
+			$this->addon['config'] = array_merge($this->addon['config'], $options);
+		}
+
+		// Overwrite some options if they're specified by the client
 		if( isset($_GET['style']) )
 		{
 			$this->addon['config']['nojs'] = ($_GET['style'] == 'server')?1:0;
@@ -75,15 +94,85 @@ class memberslist
 	{
 		global $wowdb, $wordings, $act_words, $roster_conf;
 
+		// Save some info
 		$this->listname = $listname;
 		$this->fields = $fields;
 		unset($fields);
+		$cols = count( $this->fields );
 
-		// Set GET vars here, to avoid NOTICE error hell
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
+		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
 
-		// Get default sort from roster config
+		// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
+		$rowsqry = 'SELECT COUNT(*) '.substr($query, strpos($query,'FROM')).'1';
+		$result = $wowdb->query($rowsqry);
+		if( !$result )
+		{
+			die_quietly($wowdb->error(),'Database error',basename(__FILE__),__LINE__,$rowsqry);
+		}
+
+		$row = $wowdb->fetch_row($result);
+		$num_rows = $row[0];
+
+		// --[ Page list ]--
+		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size'] 
+			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
+		)
+		{
+			$get_st = isset($_GET['st']) ? $_GET['st'] : 0;
+
+			$pages = array_fill(0,$num_pages - 1, false);
+			
+			$pages[0] = true;
+			$pages[1] = true;
+			if( $get_st > 0 )
+			{
+				$pages[$get_st - 1] = true;
+			}
+			$pages[$get_st] = true;
+			if( $get_st < $num_pages - 1 )
+			{
+				$pages[$get_st + 1] = true;
+			}
+			$pages[$num_pages - 2] = true;
+			$pages[$num_pages - 1] = true;
+
+			$params = '&amp;style='.($this->addon['config']['nojs']?'server':'client').
+				'&amp;alts='.($this->addon['config']['group_alts']?'show':'hide');
+			
+			$this->tableHeaderRow = '<thead><tr><th colspan="'.($cols+1).'" class="membersHeader" style="text-align:center;color:#ffffff">';
+			
+			$dots = true;
+			foreach( $pages as $id => $show )
+			{
+				if( !$show )
+				{
+					if( !$dots )
+					{
+						$this->tableHeaderRow .= ' ... ';
+					}
+					$dots = 'true';
+					continue;
+				}
+				if( !$dots )
+				{
+					$this->tableHeaderRow .= ' - ';
+				}
+				$dots = false;
+				
+				if( $id = $get_st )
+				{
+					$this->tableHeaderRow .= $id."\n";
+				}
+				else
+				{
+					$this->tableHeaderRow .= '<a href="'.makelink($params.'&amp;st='.$id).'">'.$id.'</a>'."\n";
+				}
+			}
+		}
+		
+		// --[ Add sorting SQL ]--
 		if( empty($get_s) && !empty($this->addon['config']['def_sort']) )
 		{
 		   $get_s = $this->addon['config']['def_sort'];
@@ -107,16 +196,25 @@ class memberslist
 				}
 			}
 		}
+		
+		$query .=  ' `members`.`level` DESC, `members`.`name` ASC';
+		
+		// --[ Add pagination SQL, if we're in client mode ]--
+		if( $this->addon['config']['nojs']
+			&& $this->addon['config']['page_size'] 
+			&& is_numeric($get_st) )
+		{
+			$start = $get_st * $this->addon['config']['page_size'];
+			$query .= ' LIMIT '.$start.','.$this->addon['config']['page_size'];
+		}
 
-		$this->query = $query . ' `members`.`level` DESC, `members`.`name` ASC';
-
-		$cols = count( $this->fields );
+		$this->query = $query.';';
 
 		// If group alts is off, hide the column for it
 		$style = ($this->addon['config']['group_alts'])?'':' style="display:none;"';
 		
 		// header row
-		$this->tableHeaderRow = '  <thead><tr>'."\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
+		$this->tableHeaderRow .= '<tr>'."\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
 		$this->sortFields = '';
 		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>'."\n";
 		$current_col = 1;
@@ -297,16 +395,16 @@ class memberslist
 
 		$cols = count( $this->fields );
 
-		$output  = "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n";
-		$output .= $this->tableHeaderRow;
-
+		$output  = "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n".$this->tableHeaderRow;
+		
 		$result = $wowdb->query( $this->query );
 
 		if ( !$result )
 		{
 			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
 		}
-
+		
+		// --[ Actual list ]--
 		while ( $row = $wowdb->fetch_assoc( $result ) )
 		{
 			$line = '';
