@@ -26,9 +26,19 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 // This is what GET var the page link should be
 define('ROSTER_PAGE', 'p');
 
-// This is the url to access a page in Roster
-define('ROSTER_LINK', '?'.ROSTER_PAGE.'=%1$s');
+if( $roster_conf['seo_url'] )
+{
+	// This is the url to access a page in Roster
+	define('ROSTER_LINK', '%1$s.html?%2$s');
 
+	define('ROSTER_LINK_NOARGS', '%1$s');
+}
+else
+{
+	define('ROSTER_LINK', '?'.ROSTER_PAGE.'=%1$s&amp;%2$s');
+
+	define('ROSTER_LINK_NOARGS', '?'.ROSTER_PAGE.'=%1$s');
+}
 
 /**
  * Get the full URL to roster's root directory
@@ -53,7 +63,6 @@ $urlpath = implode('/',$urlpath).'/';
 define('ROSTER_PATH',$urlpath);
 unset($urlpath);
 
-
 /**
  * Function to create links in Roster
  * ALL LINKS SHOULD PASS THROUGH THIS FUNCTION
@@ -67,10 +76,32 @@ unset($urlpath);
  */
 function makelink( $url='' , $full=false )
 {
+	global $roster_conf;
+
 	if( empty($url) || $url[0] == '&')
 		$url = ROSTER_PAGE_NAME.$url;
+		
+	if( strpos($url, '&amp;') )
+	{
+		list($page, $url) = explode('&amp;',$url,2);
 
-	$url = sprintf(ROSTER_LINK,$url);
+		if( $roster_conf['seo_url'] )
+		{
+			$page = str_replace('-','/',$page);
+		}
+
+		$url = sprintf(ROSTER_LINK,$page,$url);
+	}
+	else
+	{
+		if( $roster_conf['seo_url'] )
+		{
+			$url = str_replace('-','/',$url);
+		}
+
+		$url = sprintf(ROSTER_LINK_NOARGS,$url);
+	}
+
 
 	if( $full )
 		$url = ROSTER_URL."$url";
@@ -99,3 +130,4 @@ function linkform( $get_links = false )
 	}
 	return $return;
 }
+

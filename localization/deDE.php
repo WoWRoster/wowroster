@@ -793,6 +793,7 @@ $lang['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur U
 $lang['admin']['pvp_log_allow'] = "Erlaube Upload von PvPLog-Daten|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
+$lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
 // guild_conf
 $lang['admin']['guild_name'] = "Gildenname|Dieser muß exakt so wie im Spiel geschrieben sein,<br />oder du <u>WIRST</u> <u>NICHT</u> in der Lage sein, Daten hochzuladen";

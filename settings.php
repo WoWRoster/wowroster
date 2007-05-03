@@ -104,11 +104,6 @@ if( !defined('ROSTER_INSTALLED') )
  */
 require_once (ROSTER_LIB . 'constants.php');
 
-/**
- * Include linking file
- */
-require_once (ROSTER_LIB . 'cmslink.lib.php');
-
 
 /**
  * Include roster db file
@@ -174,6 +169,10 @@ while( $row = $wowdb->fetch_assoc($results) )
 }
 $wowdb->free_result($results);
 
+/**
+ * Include linking file
+ */
+require_once (ROSTER_LIB . 'cmslink.lib.php');
 
 /**
  * Set SQL debug value
