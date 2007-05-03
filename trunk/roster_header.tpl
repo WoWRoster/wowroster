@@ -42,6 +42,7 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <html>
 <head>
 <title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
+	<base href="<?php echo ROSTER_URL ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/style.css" />
 <?php echo (isset($more_css) ? $more_css : ''); ?>
 
@@ -83,3 +84,4 @@ if( !empty($roster_conf['logo']) )
 ?>
 
 <!-- End Roster Header -->
+

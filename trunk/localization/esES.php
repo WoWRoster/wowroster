@@ -793,6 +793,7 @@ $lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria de
 $lang['admin']['pvp_log_allow'] = "Permitir subir informaci&oacuten del PvPLog|Cambiando esto a &quot;no&quot; desactivaras mostrar la parte del PvPlog en &quot;update.php&quot;";
 $lang['admin']['use_update_triggers'] = "Actualizar Addon Triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad<br>Algunos addons requieren de esto para funcionar correctamente";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
+$lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
 // guild_conf
 $lang['admin']['guild_name'] = "Nombre de la hermandad|Debe ser exactamente igual a como esta escrito en el juego<br>o <u>NO</u> <u>PODRAS</u> subir personajes a la web";
