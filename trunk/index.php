@@ -31,10 +31,13 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'settings.php' );
 
 // --[ Experimental mod_rewrite code ]--
-$uri = $_SERVER['REQUEST_URI'];
-$page = substr($uri,strlen(ROSTER_PATH));
-list($page) = explode('.',$page);
-$_GET[ROSTER_PAGE] = str_replace('/','-',$page);
+if( !isset($_GET[ROSTER_PAGE]) )
+{
+	$uri = $_SERVER['REQUEST_URI'];
+	$page = substr($uri,strlen(ROSTER_PATH));
+	list($page) = explode('.',$page);
+	$_GET[ROSTER_PAGE] = str_replace('/','-',$page);
+}
 
 //---[ Determine the module request ]---------------------
 if( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) )
