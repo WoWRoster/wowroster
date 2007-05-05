@@ -107,9 +107,7 @@ if( !empty($messagestringout) )
 
 $body = $roster_login->getMessage().'<br />'.($message != '' ? $message.'<br />' : '').((isset($output) && !empty($output)) ? messagebox($output,$roster->locale->act['pagebar_addoninst'],'sblue') : '');
 
-
-
-
+return;
 
 /**
  * Gets the current action for active/inactive
@@ -346,6 +344,8 @@ function processAddon()
 
 	// Give the installer the addon data
 	$installer->addata = $addata;
+
+	$success = false;
 
 	// Collect data for this install type
 	switch ($_POST['type'])
