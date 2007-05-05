@@ -40,13 +40,13 @@ class config
 	 */
 	function config( $tablename )
 	{
-		global $act_words, $body_action, $roster_login, $html_head;
+		global $roster_login, $roster;
 
 		$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 		$this->tablename = $tablename;
-		$this->form_start = $roster_login->getMessage()."<br /><form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$act_words['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
-		$this->submit_button = "<input type=\"submit\" value=\"".$act_words['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$act_words['config_reset_button']."\" onclick=\"return confirm('".$act_words['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
+		$this->form_start = $roster_login->getMessage()."<br /><form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
+		$this->submit_button = "<input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript  = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
 		$this->jscript .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."css/js/color_functions.js\"></script>\n";
@@ -59,10 +59,10 @@ class config
 	 */
 	function buildConfigMenu()
 	{
-		global $act_words;
+		global $roster;
 
 		$menu = '<!-- Begin Config Menu -->'."\n".
-			border('sgray','start',$act_words['roster_config_menu'])."\n".
+			border('sgray','start',$roster->locale->act['roster_config_menu'])."\n".
 			'<div style="width:145px;">'."\n".
 			'  <ul id="config_tabs" class="tab_menu">'."\n";
 
@@ -116,7 +116,7 @@ class config
 	 */
 	function buildConfigPage()
 	{
-		global $wordings, $roster_conf, $act_words;
+		global $roster;
 
 		if (is_array($this->db_values['menu']))
 		{
@@ -127,7 +127,7 @@ class config
 
 				$type[1] = ( isset($type[1]) ? $type[1] : '');
 
-				$header_text = explode('|',$act_words['admin'][$values['name']]);
+				$header_text = explode('|',$roster->locale->act['admin'][$values['name']]);
 				$header_text = $header_text[0];
 
 				switch ($type[0])
@@ -148,11 +148,11 @@ class config
 
 					case 'pagehide':
 						$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 						$page .= border('sblue','end');
 						$page .= '</div>'."\n";
 						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 						$page .= $this->buildPage($values['name'],$type[1]);
 						$page .= "</table>\n";
@@ -172,11 +172,11 @@ class config
 
 					case 'blockhide':
 						$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 						$page .= border('sblue','end');
 						$page .= '</div>'."\n";
 						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 						$page .= $this->buildBlock($values['name']);
 						$page .= "</table>\n";
@@ -211,16 +211,16 @@ class config
 	 */
 	function buildPage($page,$columns)
 	{
-		global $wordings, $roster_conf, $act_words;
+		global $roster;
 
 		$html = '<table><tr><td align="center">';
 		$i = 0;
 
 		foreach($this->db_values[$page] as $values)
 		{
-			if( isset($act_words['admin'][$values['name']]) )
+			if( isset($roster->locale->act['admin'][$values['name']]) )
 			{
-				$header_text = explode('|',$act_words['admin'][$values['name']]);
+				$header_text = explode('|',$roster->locale->act['admin'][$values['name']]);
 				$header_text = $header_text[0];
 			}
 			else
@@ -245,11 +245,11 @@ class config
 
 				case 'pagehide':
 					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 					$html .= border('sblue','end');
 					$html .= '</div>'."\n";
 					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
@@ -267,11 +267,11 @@ class config
 
 				case 'blockhide':
 					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
 					$html .= border('sblue','end');
 					$html .= '</div>'."\n";
 					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
 					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">'."\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= '</table>'."\n";
@@ -307,7 +307,7 @@ class config
 	 */
 	function buildBlock($block)
 	{
-		global $roster_login, $roster_conf;
+		global $roster_login, $roster;
 
 		$i = 0;
 		$html = '';
@@ -369,7 +369,7 @@ class config
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:'.$values['value'].';" value="'.$values['value'].'" name="config_color_'.$values['name'].'" id="config_color_'.$values['name'].'" /><img src="'.$roster_conf['img_url'].'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'config_color_'.$values['name'].'\'))" alt="" />'."\n";
+					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:'.$values['value'].';" value="'.$values['value'].'" name="config_color_'.$values['name'].'" id="config_color_'.$values['name'].'" /><img src="'.$roster->config['img_url'].'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'config_color_'.$values['name'].'\'))" alt="" />'."\n";
 					break;
 
 				case 'access':
@@ -405,11 +405,11 @@ class config
 	 */
 	function processData()
 	{
-		global $wowdb, $queries, $roster_conf, $addon;
+		global $queries, $roster, $addon;
 
 		if( !is_array($addon) )
 		{
-			$config = &$roster_conf;
+			$config = &$roster->config;
 		}
 		else
 		{
@@ -419,8 +419,6 @@ class config
 		{
 			return '';
 		}
-
-		$wowdb->reset_values();
 
 		// Update only the changed fields
 		foreach( $_POST as $settingName => $settingValue )
@@ -472,7 +470,7 @@ class config
 
 				if( $config[$settingName] != $settingValue && $settingName != 'process' )
 				{
-					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$wowdb->escape($settingValue)."' WHERE `config_name` = '".$wowdb->escape($settingName)."';";
+					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE `config_name` = '".$roster->db->escape($settingName)."';";
 					$config[$settingName] = $settingValue;
 				}
 			}
@@ -485,10 +483,10 @@ class config
 			{
 				$queries[] = $sql;
 
-				$result = $wowdb->query($sql);
+				$result = $roster->db->query($sql);
 				if( !$result )
 				{
-					return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>'.$wowdb->error().'</pre><br />';
+					return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>'.$roster->db->error().'</pre><br />';
 				}
 			}
 			return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span><br />';
@@ -507,7 +505,7 @@ class config
 	 */
 	function getConfigData ( $addon='' )
 	{
-		global $wowdb, $wordings, $roster_conf, $act_words;
+		global $roster;
 
 		if( $addon == '' )
 		{
@@ -519,10 +517,10 @@ class config
 		}
 
 		// Get the current config values
-		$results = $wowdb->query($sql);
-		if( $results && $wowdb->num_rows($results) > 0 )
+		$results = $roster->db->query($sql);
+		if( $results && $roster->db->num_rows($results) > 0 )
 		{
-			while($row = $wowdb->fetch_assoc($results))
+			while($row = $roster->db->fetch($results))
 			{
 				$setitem = $row['config_type'];
 				$arrayitem = $row['config_name'];
@@ -536,9 +534,9 @@ class config
 				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$row['config_name'].'</span></span>';
 
 				// Get description and tooltip
-				if( isset($act_words['admin'][$row['config_name']]) )
+				if( isset($roster->locale->act['admin'][$row['config_name']]) )
 				{
-					$desc_tip = explode('|',$act_words['admin'][$row['config_name']]);
+					$desc_tip = explode('|',$roster->locale->act['admin'][$row['config_name']]);
 					$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
 					$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 				}
@@ -549,12 +547,14 @@ class config
 					$this->db_values[$setitem][$arrayitem]['tooltip'] = $db_val_line;
 				}
 			}
+			
+			$roster->db->free_result($results);
 
 			return;
 		}
 		else
 		{
-			return $wowdb->error();
+			return $roster->db->error();
 		}
 	}
 

@@ -25,16 +25,16 @@ $section = (isset($_GET['section']) ? $_GET['section'] : 'main' );
 // --[ Write submitted menu configuration to DB if applicable ]--
 if (isset($_POST['process']) && $_POST['process'] == 'process')
 {
-	$query = "UPDATE `".$wowdb->table('menu')."` SET `config` = '".$_POST['arrayput']."' WHERE `section` = '".$section."'";
+	$query = "UPDATE `".$roster->db->table('menu')."` SET `config` = '".$_POST['arrayput']."' WHERE `section` = '".$section."'";
 
-	$result = $wowdb->query($query);
+	$result = $roster->db->query($query);
 
 	if (!$result)
 	{
-		$body .= messagebox('Failed to update '.$section.' menu configuration due to a database error. MySQL said: <br />'.$wowdb->error(),'WoW Roster','sred');
+		$body .= messagebox('Failed to update '.$section.' menu configuration due to a database error. MySQL said: <br />'.$roster->db->error(),'WoW Roster','sred');
 	}
 
-	if ($wowdb->affected_rows()>0) // the config row was actually changed
+	if ($roster->db->affected_rows()>0) // the config row was actually changed
 	{
 		$save_status = '<span style="color:#0099FF;font-size:11px;">Changes to '.$section.' saved</span>';
 	}
@@ -46,42 +46,42 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 
 // --[ Fetch button list from DB ]--
 $query = "SELECT `mb`.*, `a`.`basename`
-	FROM `".$wowdb->table('menu_button')."` AS mb
-	LEFT JOIN `".$wowdb->table('addon')."` AS a
+	FROM `".$roster->db->table('menu_button')."` AS mb
+	LEFT JOIN `".$roster->db->table('addon')."` AS a
 	ON `mb`.`addon_id` = `a`.`addon_id`;";
 
-$result = $wowdb->query($query);
+$result = $roster->db->query($query);
 
 if (!$result)
 {
-	die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+	die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$roster->db->error(),'Roster');
 }
 
 $palet = array();
 $dhtml_reg = '';
-while ($row = $wowdb->fetch_assoc($result))
+while ($row = $roster->db->fetch($result))
 {
 	$palet['b'.$row['button_id']] = $row;
 	$dhtml_reg .= ', "b'.$row['button_id'].'"';
 }
 
-$wowdb->free_result($result);
+$roster->db->free_result($result);
 
 // --[ Fetch menu configuration from DB ]--
-$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `section` = '".$section."'";
+$query = "SELECT * FROM ".$roster->db->table('menu')." WHERE `section` = '".$section."'";
 
-$result = $wowdb->query($query);
+$result = $roster->db->query($query);
 
 if (!$result)
 {
-	die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster');
+	die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$roster->db->error(),'Roster');
 }
 
-if ($wowdb->num_rows($result))
+if ($roster->db->num_rows($result))
 {
-	$row = $wowdb->fetch_assoc($result);
+	$row = $roster->db->fetch($result);
 
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 }
 else
 {
@@ -111,27 +111,23 @@ $paletHeight = count($palet);
 $paletWidth = 1;
 
 // --[ Render configuration screen. ]--
-if (!isset($html_head))
-{
-	$html_head = '';
-}
-$html_head .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/wz_dragdrop.js"></script>'."\n";
-$html_head .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/menuconf.js"></script>'."\n";
+$roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/wz_dragdrop.js"></script>'."\n";
+$roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/menuconf.js"></script>'."\n";
 
 // --[ Section select. ]--
-$menu .= border('sorange','start',$act_words['menuconf_sectionselect'])."\n";
+$menu .= border('sorange','start',$roster->locale->act['menuconf_sectionselect'])."\n";
 $menu .= '<form action="'.makelink().'" method="post">'."\n";
 $menu .= '<select name="section">'."\n";
 
-$query = "SELECT `section` FROM ".$wowdb->table('menu').";";
-$result = $wowdb->query($query);
+$query = "SELECT `section` FROM ".$roster->db->table('menu').";";
+$result = $roster->db->query($query);
 
 if (!$result)
 {
-	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said: <br />'.$wowdb->error(),'WoW Roster',basename(__FILE__),__LINE__,$query);
+	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said: <br />'.$roster->db->error(),'WoW Roster',basename(__FILE__),__LINE__,$query);
 }
 
-while ($row = $wowdb->fetch_assoc($result))
+while ($row = $roster->db->fetch($result))
 {
 	if ($row['section'] == $section)
 	{
@@ -143,7 +139,7 @@ while ($row = $wowdb->fetch_assoc($result))
 	}
 }
 
-$wowdb->free_result($result);
+$roster->db->free_result($result);
 
 $menu .= '</select>&nbsp;'."\n";
 
@@ -158,18 +154,18 @@ $menu .= '<br />'."\n";
 $menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
-	if( $button['addon_id'] != '0' && !isset($act_words[$button['title']]) )
+	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 	{
 		// Include addon's locale files if they exist
-		foreach( $roster_conf['multilanguages'] as $lang )
+		foreach( $roster->multilanguages as $lang )
 		{
 			if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
 			{
-				add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+				add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$roster->locale->wordings);
 			}
 		}
 	}
-	$menu .= '<div id="'.$id.'" class="menu_config_div">'.( isset($act_words[$button['title']]) ? $act_words[$button['title']] : $button['title'] ).(!empty($button['basename']) ? ' (addon)' : '').' ['.$button['title'].']</div>'."\n";
+	$menu .= '<div id="'.$id.'" class="menu_config_div">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).(!empty($button['basename']) ? ' (addon)' : '').' ['.$button['title'].']</div>'."\n";
 }
 $menu .= "<br />\n";
 
@@ -184,9 +180,9 @@ $menu .= border('syellow','end')."\n";
 
 // --[ Main grid design ]--
 $body .= isset($save_status)?$save_status:'';
-$body .= '<form action="'.makelink().'" method="post" onsubmit="return confirm(\''.$act_words['confirm_config_submit'].'\') &amp;&amp; writeValue() &amp;&amp; submitonce(this);">'."\n";
+$body .= '<form action="'.makelink().'" method="post" onsubmit="return confirm(\''.$roster->locale->act['confirm_config_submit'].'\') &amp;&amp; writeValue() &amp;&amp; submitonce(this);">'."\n";
 $body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'" /><input type="hidden" name="process" value="process" />';
-$body .= '<input type="submit" value="'.$wordings[$roster_conf['roster_lang']]['config_submit_button'].'" />'."\n";
+$body .= '<input type="submit" value="'.$roster->locale->act['config_submit_button'].'" />'."\n";
 $body .= '</form><br />'."\n";
 
 $body .= border('sgreen','start',$section);
@@ -197,18 +193,18 @@ foreach($arrayButtons as $posX=>$column)
 {
 	foreach($column as $posY=>$button)
 	{
-		if( $button['addon_id'] != '0' && !isset($act_words[$button['title']]) )
+		if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 		{
 			// Include addon's locale files if they exist
-			foreach( $roster_conf['multilanguages'] as $lang )
+			foreach( $roster->multilanguages as $lang )
 			{
 				if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
 				{
-					add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+					add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$roster->locale->wordings);
 				}
 			}
 		}
-		$body .= '<div id="b'.$button['button_id'].'" class="menu_config_div">'.( isset($act_words[$button['title']]) ? $act_words[$button['title']] : $button['title'] ).(!empty($button['basename']) ? ' (addon)' : '').' ['.$button['title'].']</div>'."\n";
+		$body .= '<div id="b'.$button['button_id'].'" class="menu_config_div">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).(!empty($button['basename']) ? ' (addon)' : '').' ['.$button['title'].']</div>'."\n";
 	}
 }
 

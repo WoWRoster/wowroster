@@ -37,8 +37,6 @@ class Install
 	 */
 	function add_query($query)
 	{
-		global $wowdb;
-
 		$this->sql[] = $query;
 	}
 
@@ -164,14 +162,14 @@ class Install
 	 */
 	function install()
 	{
-		global $wowdb;
+		global $roster;
 
 		$retval = 0;
 		foreach ($this->sql as $id => $query)
 		{
-			if (!$wowdb->query($query))
+			if (!$roster->db->query($query))
 			{
-				$this->seterrors('Install error in query '.$id.'. MySQL said: <br/>'.$wowdb->error().'<br />The query was: <br />'.$query);
+				$this->seterrors('Install error in query '.$id.'. MySQL said: <br/>'.$roster->db->error().'<br />The query was: <br />'.$query);
 				$retval = 1;
 				break;
 			}
@@ -181,36 +179,36 @@ class Install
 			foreach ($this->tables as $table => $backup)
 			{
 				$query = 'DROP TABLE IF EXISTS `'.$table.'`';
-				if ($result = $wowdb->query($query))
+				if ($result = $roster->db->query($query))
 				{
-					$wowdb->free_result($result);
+					$roster->db->free_result($result);
 				}
 				else
 				{
-					$this->seterrors('Rollback error while dropping '.$table.'. MySQL said: '.$wowdb->error());
+					$this->seterrors('Rollback error while dropping '.$table.'. MySQL said: '.$roster->db->error());
 					$retval = 2;
 				}
 				if ($backup)
 				{
 					$query = 'CREATE TABLE `'.$table.'` LIKE `backup_'.$table.'`';
-					if ($result = $wowdb->query($query))
+					if ($result = $roster->db->query($query))
 					{
-						$wowdb->free_result($result);
+						$roster->db->free_result($result);
 					}
 					else
 					{
-						$this->seterrors('Rollback error while recreating '.$table.'. MySQL said: '.$wowdb->error());
+						$this->seterrors('Rollback error while recreating '.$table.'. MySQL said: '.$roster->db->error());
 						$retval = 2;
 					}
 					$query = 'INSERT INTO `'.$table.'` SELECT * FROM `backup_'.$table.'`';
 
-					if ($result = $wowdb->query($query))
+					if ($result = $roster->db->query($query))
 					{
-						$wowdb->free_result($result);
+						$roster->db->free_result($result);
 					}
 					else
 					{
-						$this->seterrors('Rollback error while reinserting data in '.$table.'. MySQL said: '.$wowdb->error());
+						$this->seterrors('Rollback error while reinserting data in '.$table.'. MySQL said: '.$roster->error());
 						$retval = 2;
 					}
 				}
@@ -227,9 +225,9 @@ class Install
 	 */
 	function table($table, $backup=false)
 	{
-		global $wowdb;
+		global $roster;
 
-		return (($backup) ? 'backup_' : '').$wowdb->table($table, $this->addata['basename']);
+		return (($backup) ? 'backup_' : '').$roster->db->table($table, $this->addata['basename']);
 	}
 
 	/**

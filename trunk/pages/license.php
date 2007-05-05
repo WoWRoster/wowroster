@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = 'License';
+$roster->output['title'] = 'License';
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 require_once (ROSTER_LIB.'item.php');

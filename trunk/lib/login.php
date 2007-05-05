@@ -36,7 +36,7 @@ class RosterLogin
 	 */
 	function RosterLogin( $script_filename='' )
 	{
-		global $act_words, $roster_conf;
+		global $roster;
 
 		$this->script_filename = makelink($script_filename);
 
@@ -63,10 +63,10 @@ class RosterLogin
 
 	function checkPass( $pass )
 	{
-		global $wowdb;
+		global $roster;
 
 		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` ORDER BY `account_id` DESC;";
-		$result = $wowdb->query($query);
+		$result = $roster->db->query($query);
 
 		if( !$result )
 		{
@@ -76,7 +76,7 @@ class RosterLogin
 			return;
 		}
 
-		while( $row = $wowdb->fetch_assoc($result) )
+		while( $row = $roster->db->fetch($result) )
 		{
 			if( ( $row['hash'] == md5($pass) ) ||
 				( $row['hash'] == $pass )
@@ -86,11 +86,11 @@ class RosterLogin
 				$this->allow_login = $row['account_id'];
  				$this->message = '<span style="font-size:10px;color:red;">Logged in '.$row['name'].':</span><form style="display:inline;" name="roster_logout" action="'.$this->script_filename.'" method="post"><span style="font-size:10px;color:#FFFFFF"><input type="hidden" name="logout" value="1" />[<a href="javascript:document.roster_logout.submit();">Logout</a>]</span></form><br />';
 
-				$wowdb->free_result($result);
+				$roster->db->free_result($result);
 				return;
 			}
 		}
-		$wowdb->free_result($result);
+		$roster->db->free_result($result);
 
 		setcookie( 'roster_pass','',time()-86400,'/' );
 		$this->allow_login = 0;
@@ -110,33 +110,33 @@ class RosterLogin
 
 	function getLoginForm( $level = 3 )
 	{
-		global $act_words, $wowdb;
+		global $roster;
 
 		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `account_id` = '".$level."';";
-		$result = $wowdb->query($query);
+		$result = $roster->db->query($query);
 
 		if( !$result )
 		{
-			die_quietly($wowdb->error, 'Roster Auth', basename(__FILE__),__LINE__,$query);
+			die_quietly($roster->db->error, 'Roster Auth', basename(__FILE__),__LINE__,$query);
 		}
 
-		if( $wowdb->num_rows($result) != 1 )
+		if( $roster->db->num_rows($result) != 1 )
 		{
 			die_quietly('Invalid required login level specified', 'Roster Auth');
 		}
 
-		$row = $wowdb->fetch_assoc($result);
-		$wowdb->free_result($result);
+		$row = $roster->db->fetch($result);
+		$roster->db->free_result($result);
 
 		$log_word = $row['name'];
 
 		return '
 			<!-- Begin Password Input Box -->
 			<form action="'.$this->script_filename.'" method="post" enctype="multipart/form-data" onsubmit="submitonce(this)">
-			'.border('sred','start',$log_word .' '. $act_words['auth_req']).'
+			'.border('sred','start',$log_word .' '. $roster->locale->act['auth_req']).'
 			  <table class="bodyline" cellspacing="0" cellpadding="0" width="100%">
 			    <tr>
-			      <td class="membersRowRight1">'.$act_words['password'].':<br />
+			      <td class="membersRowRight1">'.$roster->locale->act['password'].':<br />
 			        <input name="password" class="wowinput192" type="password" size="30" maxlength="30" /></td>
 			    </tr>
 			    <tr>

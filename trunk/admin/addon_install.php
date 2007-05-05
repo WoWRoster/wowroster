@@ -54,16 +54,16 @@ if( !empty($addons) )
 	$output =
 	'<table class="bodyline" cellspacing="0">
 		<tr>
-			<th class="membersHeader">'.$act_words['installer_icon'].'</th>
-			<th class="membersHeader">'.$act_words['installer_addoninfo'].'</th>
-			<th class="membersHeader">'.$act_words['installer_status'].'</th>
-			<th class="membersHeaderRight">'.$act_words['installer_installation'].'</th>
+			<th class="membersHeader">'.$roster->locale->act['installer_icon'].'</th>
+			<th class="membersHeader">'.$roster->locale->act['installer_addoninfo'].'</th>
+			<th class="membersHeader">'.$roster->locale->act['installer_status'].'</th>
+			<th class="membersHeaderRight">'.$roster->locale->act['installer_installation'].'</th>
 		</tr>
 	';
 	foreach( $addons as $addon )
 	{
 		$output .= '	<tr>
-			<td class="membersRow1"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$addon['icon'].'.'.$roster_conf['img_suffix'].'" alt="[icon]" /></td>
+			<td class="membersRow1"><img src="'.$roster->config['interface_url'].'Interface/Icons/'.$addon['icon'].'.'.$roster->config['img_suffix'].'" alt="[icon]" /></td>
 			<td class="membersRow1"><table cellpadding="0" cellspacing="0">
 				<tr>
 					<td><span style="font-size:18px;" class="green">'.ucfirst($addon['fullname']).'</span> v'.$addon['version'].'</td>
@@ -72,7 +72,7 @@ if( !empty($addons) )
 					<td>'.$addon['description'].'</td>
 				</tr>
 				<tr>
-					<td><span class="blue">'.$act_words['installer_author'].': '.$addon['author'].'</span></td>
+					<td><span class="blue">'.$roster->locale->act['installer_author'].': '.$addon['author'].'</span></td>
 				</tr>
 			</table></td>
 			<td class="membersRow1">'.( $addon['install'] == 3 ? '&nbsp;' : activeInactive($addon['active'],$addon['id']) ).'</td>
@@ -96,16 +96,16 @@ $message = '';
 // print the error messages
 if( !empty($errorstringout) )
 {
-	$message .= messagebox($errorstringout,$act_words['installer_error'],'sred').'<br />';
+	$message .= messagebox($errorstringout,$roster->locale->act['installer_error'],'sred').'<br />';
 }
 
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$message .= messagebox($messagestringout,$act_words['installer_log'],'syellow');
+	$message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow');
 }
 
-$body = $roster_login->getMessage().'<br />'.($message != '' ? $message.'<br />' : '').((isset($output) && !empty($output)) ? messagebox($output,$act_words['pagebar_addoninst'],'sblue') : '');
+$body = $roster_login->getMessage().'<br />'.($message != '' ? $message.'<br />' : '').((isset($output) && !empty($output)) ? messagebox($output,$roster->locale->act['pagebar_addoninst'],'sblue') : '');
 
 
 
@@ -120,14 +120,14 @@ $body = $roster_login->getMessage().'<br />'.($message != '' ? $message.'<br />'
  */
 function activeInactive( $mode,$id )
 {
-	global $roster_conf, $act_words;
+	global $roster;
 
 	if( $mode )
 	{
 		$type = '<form name="deactivate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="deactivate" />
 		<input type="hidden" name="id" value="'.$id.'" />
-		<input '.makeOverlib($act_words['installer_turn_off'],$act_words['installer_activated']).'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']).'type="image" src="'.$roster->config['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	else
@@ -135,7 +135,7 @@ function activeInactive( $mode,$id )
 		$type = '<form name="activate_'.$id.'" style="display:inline;" method="post" enctype="multipart/form-data" action="'.makelink().'">
 		<input type="hidden" name="op" value="activate" />
 		<input type="hidden" name="id" value="'.$id.'" />
-		<input '.makeOverlib($act_words['installer_turn_on'],$act_words['installer_deactivated']).' type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']).' type="image" src="'.$roster->config['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 
@@ -152,11 +152,11 @@ function activeInactive( $mode,$id )
  */
 function installUpgrade( $mode,$name )
 {
-	global $roster_conf, $act_words;
+	global $roster;
 
 	if( $mode == -1 )
 	{
-		$type = '<img '.makeOverlib($act_words['installer_replace_files'],$act_words['installer_overwrite']).' src="'.$roster_conf['img_url'].'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />';
+		$type = '<img '.makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']).' src="'.$roster->config['img_url'].'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />';
 	}
 	elseif( $mode == 0 )
 	{
@@ -164,7 +164,7 @@ function installUpgrade( $mode,$name )
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="type" value="uninstall" />
-		<input '.makeOverlib($act_words['installer_click_uninstall'],$act_words['installer_installed']).'type="image" src="'.$roster_conf['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']).'type="image" src="'.$roster->config['img_url'].'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	elseif( $mode == 1 )
@@ -173,7 +173,7 @@ function installUpgrade( $mode,$name )
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="type" value="upgrade" />
-		<input '.makeOverlib($act_words['installer_click_upgrade'],$act_words['installer_upgrade_avail']).'type="image" src="'.$roster_conf['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($roster->locale->act['installer_click_upgrade'],$roster->locale->act['installer_upgrade_avail']).'type="image" src="'.$roster->config['img_url'].'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	elseif( $mode == 3 )
@@ -182,7 +182,7 @@ function installUpgrade( $mode,$name )
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="'.$name.'" />
 		<input type="hidden" name="type" value="install" />
-		<input '.makeOverlib($act_words['installer_click_install'],$act_words['installer_not_installed']).'type="image" src="'.$roster_conf['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input '.makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']).'type="image" src="'.$roster->config['img_url'].'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 
@@ -197,7 +197,7 @@ function installUpgrade( $mode,$name )
  */
 function getAddonList()
 {
-	global $roster_conf, $wowdb, $installer, $act_words;
+	global $roster, $installer;
 
 
 	// Initialize output
@@ -227,24 +227,24 @@ function getAddonList()
 
 				if( !class_exists($addon) )
 				{
-					$installer->seterrors(sprintf($act_words['installer_no_class'],$addon));
+					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
 					continue;
 				}
 
 				$addonstuff = new $addon;
 
-				$query = "SELECT * FROM `".$wowdb->table('addon')."` WHERE `basename` = '$addon'";
-				$result = $wowdb->query($query);
+				$query = "SELECT * FROM `".$roster->db->table('addon')."` WHERE `basename` = '$addon'";
+				$result = $roster->db->query($query);
 				if (!$result)
 				{
-					$installer->seterrors($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+					$installer->seterrors($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 					return;
 				}
 
 
-				if( $wowdb->num_rows($result) > 0 )
+				if( $roster->db->num_rows($result) > 0 )
 				{
-					$row = $wowdb->fetch_assoc($result);
+					$row = $roster->db->fetch($result);
 
 					$output[$addon]['id'] = $row['addon_id'];
 					$output[$addon]['active'] = $row['active'];
@@ -283,15 +283,15 @@ function getAddonList()
  */
 function processActive($id,$mode)
 {
-	global $wowdb, $installer, $act_words;
+	global $roster, $installer;
 
-	$query = "UPDATE `".$wowdb->table('addon')."` SET `active` = '$mode' WHERE `addon_id` = '$id' LIMIT 1;";
-	$result = $wowdb->query($query);
+	$query = "UPDATE `".$roster->db->table('addon')."` SET `active` = '$mode' WHERE `addon_id` = '$id' LIMIT 1;";
+	$result = $roster->db->query($query);
 	if (!$result)
-		$installer->seterrors($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		$installer->seterrors($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	else
 	{
-		$mode = ( $mode ? $act_words['installer_activated'] : $act_words['installer_deactivated'] );
+		$mode = ( $mode ? $roster->locale->act['installer_activated'] : $roster->locale->act['installer_deactivated'] );
 		$installer->setmessages('Addon '.$mode);
 	}
 }
@@ -303,13 +303,13 @@ function processActive($id,$mode)
  */
 function processAddon()
 {
-	global $wowdb, $installer, $roster_conf, $act_words;
+	global $roster, $installer;
 
 	$addon_name = $_POST['addon'];
 
 	if( preg_match('/[^a-zA-Z0-9_]/', $addon_name) )
 	{
-		$installer->seterrors($act_words['invalid_char_module'],$act_words['installer_error']);
+		$installer->seterrors($roster->locale->act['invalid_char_module'],$roster->locale->act['installer_error']);
 		return;
 	}
 
@@ -317,7 +317,7 @@ function processAddon()
 	$addonDir = ROSTER_ADDONS.$addon_name.DIR_SEP;
 	if (!file_exists($addonDir.'install.def.php'))
 	{
-		$installer->seterrors(sprintf($act_words['installer_no_installdef'],$addon_name),$act_words['installer_error']);
+		$installer->seterrors(sprintf($roster->locale->act['installer_no_installdef'],$addon_name),$roster->locale->act['installer_error']);
 		return;
 	}
 
@@ -329,20 +329,20 @@ function processAddon()
 
 	if ($addata['basename'] == '')
 	{
-		$installer->seterrors($act_words['installer_no_empty'],$act_words['installer_error']);
+		$installer->seterrors($roster->locale->act['installer_no_empty'],$roster->locale->act['installer_error']);
 		return;
 	}
 
 	// Get existing addon record if available
 	$query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$addata['basename'].'"';
-	$result = $wowdb->query($query);
+	$result = $roster->db->query($query);
 	if( !$result )
 	{
-		$installer->seterrors(sprintf($act_words['installer_fetch_failed'],$addata['basename']).'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error']);
+		$installer->seterrors(sprintf($roster->locale->act['installer_fetch_failed'],$addata['basename']).'.<br />MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error']);
 		return;
 	}
-	$previous = $wowdb->fetch_assoc($result);
-	$wowdb->free_result($result);
+	$previous = $roster->db->fetch($result);
+	$roster->db->free_result($result);
 
 	// Give the installer the addon data
 	$installer->addata = $addata;
@@ -353,17 +353,17 @@ function processAddon()
 		case 'install':
 			if ($previous)
 			{
-				$installer->seterrors(sprintf($act_words['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$query = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$wowdb->escape(serialize($installer->addata['credits'])).'")';
-			$result = $wowdb->query($query);
+			$query = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$roster->db->escape(serialize($installer->addata['credits'])).'")';
+			$result = $roster->db->query($query);
 			if( !$result )
 			{
-				$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:'.$wowdb->error(),$act_words['installer_error']);
+				$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:'.$roster->db->error(),$roster->locale->act['installer_error']);
 				return;
 			}
-			$installer->addata['addon_id'] = $wowdb->insert_id();
+			$installer->addata['addon_id'] = $roster->db->insert_id();
 
 			// We backup the addon config table to prevent damage
 			$installer->add_backup(ROSTER_ADDONCONFTABLE);
@@ -375,20 +375,20 @@ function processAddon()
 		case 'upgrade':
 			if (!$previous)
 			{
-				$installer->seterrors(sprintf($act_words['installer_no_upgrade'],$installer->addata['basename']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_no_upgrade'],$installer->addata['basename']));
 				break;
 			}
 			if (!in_array($previous['basename'],$addon->upgrades))
 			{
-				$installer->seterrors(sprintf($act_words['installer_not_upgradable'],$addon->name,$previous['name'],$previous['basename']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_not_upgradable'],$addon->name,$previous['name'],$previous['basename']));
 				break;
 			}
 
 			$query = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
-			$result = $wowdb->query($query);
+			$result = $roster->db->query($query);
 			if( !$result )
 			{
-				$installer->seterrors('DB error while updating the addon record. <br /> MySQL said:'.$wowdb->error(),$act_words['installer_error']);
+				$installer->seterrors('DB error while updating the addon record. <br /> MySQL said:'.$roster->db->error(),$roster->locale->act['installer_error']);
 				return;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
@@ -402,19 +402,19 @@ function processAddon()
 		case 'uninstall':
 			if (!$previous)
 			{
-				$installer->seterrors(sprintf($act_words['installer_no_uninstall'],$installer->addata['basename']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_no_uninstall'],$installer->addata['basename']));
 				break;
 			}
 			if ($previous['basename'] != $installer->addata['basename'])
 			{
-				$installer->seterrors(sprintf($act_words['installer_not_uninstallable'],$installer->addata['basename'],$previous['fullname']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_not_uninstallable'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
 			$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id'];
-			$result = $wowdb->query($query);
+			$result = $roster->db->query($query);
 			if( !$result )
 			{
-				$installer->seterrors('DB error while deleting the addon record. <br /> MySQL said:'.$wowdb->error(),$act_words['installer_error']);
+				$installer->seterrors('DB error while deleting the addon record. <br /> MySQL said:'.$roster->db->error(),$roster->locale->act['installer_error']);
 				return;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
@@ -430,19 +430,19 @@ function processAddon()
 			break;
 
 		default:
-			$installer->seterrors($act_words['installer_invalid_type']);
+			$installer->seterrors($roster->locale->act['installer_invalid_type']);
 			$success = false;
 			break;
 	}
 
 	if (!$success)
 	{
-		$installer->seterrors($act_words['installer_no_success_sql']);
+		$installer->seterrors($roster->locale->act['installer_no_success_sql']);
 	}
 	else
 	{
 		$success = $installer->install();
-		$installer->setmessages(sprintf($act_words['installer_'.$_POST['type'].'_'.$success],$installer->addata['basename']));
+		$installer->setmessages(sprintf($roster->locale->act['installer_'.$_POST['type'].'_'.$success],$installer->addata['basename']));
 	}
 	return true;
 }
@@ -450,39 +450,39 @@ function processAddon()
 
 function purge($dbname)
 {
-	global $installer, $wowdb, $act_words;
+	global $roster, $installer;
 
 	// Delete addon tables under dbname.
-	$query = 'SHOW TABLES LIKE "'.$wowdb->db_prefix.'addons_'.$dbname.'%"';
-	$tables = $wowdb->query($query);
+	$query = 'SHOW TABLES LIKE "'.$roster->db->prefix.'addons_'.$dbname.'%"';
+	$tables = $roster->db->query($query);
 	if( !$tables )
 	{
-		$installer->seterrors('Error while getting table names for '.$dbname.'. MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
+		$installer->seterrors('Error while getting table names for '.$dbname.'. MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 		return false;
 	}
-	if ($wowdb->num_rows($tables))
+	if ($roster->db->num_rows($tables))
 	{
-		while ($row = $wowdb->fetch_row($tables))
+		while ($row = $roster->db->fetch($tables))
 		{
 			$query = 'DROP TABLE `'.$row[0].'`';
-			$dropped = $wowdb->query($query);
+			$dropped = $roster->db->query($query);
 			if( !$dropped )
 			{
-				$installer->seterrors('Error while dropping '.$row[0].'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
+				$installer->seterrors('Error while dropping '.$row[0].'.<br />MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 				return false;
 			}
-			$wowdb->free_result($dropped);
+			$roster->db->free_result($dropped);
 		}
 	}
-	$wowdb->free_result($tables);
+	$roster->db->free_result($tables);
 
 	// Delete menu entries
 	$query = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
-	$wowdb->query($query) or $installer->seterrors('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
+	$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 
 	// Delete addon table entry
 	$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$dbname.'"';
-	$wowdb->query($query) or $installer->seterrors('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$wowdb->error(),$act_words['installer_error'],__FILE__,__LINE__,$query);
+	$roster->db->query($query) or $installer->seterrors('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 
 	return true;
 }

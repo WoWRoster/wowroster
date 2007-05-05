@@ -22,26 +22,26 @@ if( !defined('ROSTER_INSTALLED') )
 if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 {
 	$query = "TRUNCATE `roster_config`;";
-	$wowdb->query($query);
+	$roster->db->query($query);
 
 	$query = "TRUNCATE `roster_menu_button`";
-	$wowdb->query($query);
+	$roster->db->query($query);
 
 	$query = "TRUNCATE `roster_menu`;";
-	$wowdb->query($query);
+	$roster->db->query($query);
 
     $db_data_file      = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
 
     // Parse the data file and populate the database tables
     $sql = @fread(@fopen($db_data_file, 'r'), @filesize($db_data_file));
-    $sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $db_prefix . '\\1\\2', $sql);
+    $sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $roster->db->prefix . '\\1\\2', $sql);
 
     $sql = parse_sql($sql, $DBALS['mysql']['delim']);
 
     $sql_count = count($sql);
     for ( $i = 0; $i < $sql_count; $i++ )
     {
-        $wowdb->query($sql[$i]);
+        $roster->db->query($sql[$i]);
 		// Added failure checks to the database transactions
 		/*if ( !($wowdb->query($sql[$i])) )
 		{
@@ -50,7 +50,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     }
     unset($sql);
 
-	$body .= messagebox('Configuration has been reset. Please remember to configure the guild name and server before attempting to upload guild data',$act_words['roster_cp']);
+	$body .= messagebox('Configuration has been reset. Please remember to configure the guild name and server before attempting to upload guild data',$roster->locale->act['roster_cp']);
 	return;
 }
 

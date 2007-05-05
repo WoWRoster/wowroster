@@ -34,7 +34,7 @@ member_id is the ID of the member this record is about. main_id is the ID of the
 main. alt_type one of the following
 */
 
-define('ROSTER_ALT_TABLE',$wowdb->table('alts',$addon['basename']));
+define('ROSTER_ALT_TABLE',$roster->db->table('alts',$addon['basename']));
 
 define('ALTMONITOR_MAIN_ALTS',0);
 define('ALTMONITOR_MAIN_NO_ALTS',1);

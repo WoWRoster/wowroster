@@ -33,32 +33,32 @@ if( !defined('ROSTER_INSTALLED') )
 
 
 $config_pages['roster'] = array(
-	'href'=>	$roster_pages[0].'-roster',
+	'href'=>	$roster->pages[0].'-roster',
 	'title'=>	'pagebar_rosterconf',
 	'file'=>	'roster_conf.php',
 	);
 $config_pages['character'] = array(
-	'href'=>	$roster_pages[0].'-character',
+	'href'=>	$roster->pages[0].'-character',
 	'title'=>	'pagebar_charpref',
 	'file'=>	'character_conf.php',
 	);
 $config_pages['menu'] = array(
-	'href'=>	$roster_pages[0].'-menu',
+	'href'=>	$roster->pages[0].'-menu',
 	'title'=>	'pagebar_menuconf',
 	'file'=>	'menu_conf.php',
 	);
 $config_pages['install'] = array(
-	'href'=>	$roster_pages[0].'-install',
+	'href'=>	$roster->pages[0].'-install',
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
 	);
 $config_pages['change_pass'] = array(
-	'href'=>	$roster_pages[0].'-change_pass',
+	'href'=>	$roster->pages[0].'-change_pass',
 	'title'=>	'pagebar_changepass',
 	'file'=>	'change_pass.php',
 	);
 $config_pages['config_reset'] = array(
-	'href'=>	$roster_pages[0].'-config_reset',
+	'href'=>	$roster->pages[0].'-config_reset',
 	'title'=>	'pagebar_configreset',
 	'file'=>	'config_reset.php',
 	);

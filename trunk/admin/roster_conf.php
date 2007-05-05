@@ -20,7 +20,7 @@ if( !defined('ROSTER_INSTALLED') )
 }
 
 // ----[ Set the tablename and create the config class ]----
-$tablename = $wowdb->table('config');
+$tablename = $roster->db->table('config');
 include(ROSTER_LIB.'config.lib.php');
 
 // ----[ Include special functions file ]-------------------

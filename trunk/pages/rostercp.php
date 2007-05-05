@@ -44,7 +44,7 @@ if( !$roster_login->getAuthorized() )
 	print $roster_menu->makeMenu('main');
 
 	print
-	'<span class="title_text">' . $act_words['roster_config'] . '</span><br />'.
+	'<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'.
 	$roster_login->getMessage().
 	$roster_login->getLoginForm();
 
@@ -58,7 +58,7 @@ include_once(ROSTER_ADMIN . 'pages.php');
 $header = $menu = $body = $pagebar = $footer = '';
 
 // ----[ Check for latest UniAdmin Version ]------------------
-if( $roster_conf['check_updates'] )
+if( $roster->config['check_updates'] )
 {
 	$roster_ver_latest = $roster_ver_info = '';
 
@@ -76,12 +76,12 @@ if( $roster_conf['check_updates'] )
 
 	if( version_compare($roster_ver_latest,ROSTER_VERSION,'>') )
 	{
-		$header = messagebox(sprintf($act_words['new_version_available'],'WoWRoster',$roster_ver_latest) . $roster_ver_info,$act_words['update']);
+		$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$roster_ver_latest) . $roster_ver_info,$roster->locale->act['update']);
 	}
 }
 
 // Find out what subpage to include, and do so
-$page = (isset($roster_pages[1]) && ($roster_pages[1]!='')) ? $roster_pages[1] : 'roster';
+$page = (isset($roster->pages[1]) && ($roster->pages[1]!='')) ? $roster->pages[1] : 'roster';
 
 if( isset($config_pages[$page]['file']) )
 {
@@ -91,12 +91,12 @@ if( isset($config_pages[$page]['file']) )
 	}
 	else
 	{
-		$body .= $roster_login->getMessage() . '<br />' . messagebox(sprintf($act_words['roster_cp_not_exist'],$page),$act_words['roster_cp'],'sred');
+		$body .= $roster_login->getMessage() . '<br />' . messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
 	}
 }
 else
 {
-	$body .= $roster_login->getMessage() . '<br />' . messagebox($act_words['roster_cp_invalid'],$act_words['roster_cp'],'sred');
+	$body .= $roster_login->getMessage() . '<br />' . messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
 }
 
 // Build the pagebar from admin/pages.php
@@ -104,7 +104,7 @@ foreach ($config_pages as $pindex => $data)
 {
 	if (!isset($data['special']))
 	{
-		$pagebar .= '<li' . ($roster_pages[0] . '-' . $page == $data['href'] ? ' class="selected"' : '') . '><a href="' . makelink($data['href']) . '">' . $act_words[$data['title']] . "</a></li>\n";
+		$pagebar .= '<li' . ($roster->pages[0] . '-' . $page == $data['href'] ? ' class="selected"' : '') . '><a href="' . makelink($data['href']) . '">' . $roster->locale->act[$data['title']] . "</a></li>\n";
 	}
 	elseif ($data['special'] == 'divider')
 	{
@@ -115,32 +115,33 @@ foreach ($config_pages as $pindex => $data)
 if ($pagebar != '')
 {
 	$pagebar = "<ul class=\"tab_menu\">\n$pagebar</ul>";
-	$pagebar = messagebox($pagebar,$act_words['pagebar_function']) . "<br />\n";
+	$pagebar = messagebox($pagebar,$roster->locale->act['pagebar_function']) . "<br />\n";
 }
 
 // Add addon buttons
-$query = 'SELECT `basename` FROM `' . $wowdb->table('addon') . '` ORDER BY `basename`;';
-$result = $wowdb->query($query);
+$query = 'SELECT `basename` FROM `' . $roster->db->table('addon') . '` ORDER BY `basename`;';
+$result = $roster->db->query($query);
 if( !$result )
 {
 	die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
 }
 
-if( $wowdb->num_rows($result) > 0 )
+if( $roster->db->num_rows($result) > 0 )
 {
 	$addon_pagebar = '';
-	while($row = $wowdb->fetch_assoc($result))
+	while($row = $roster->db->fetch($result))
 	{
 		$addon = getaddon($row['basename']);
 
 		if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
 		{
-			$addon_pagebar .= '<li' . (isset($roster_pages[2]) && $roster_pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['basename'] . "</a></li>\n";
+			$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['basename'] . "</a></li>\n";
 		}
 	}
+	$roster->db->free_result($result);
 	if( $addon_pagebar != '' )
 	{
-		$pagebar .= border('sgray','start',$act_words['pagebar_addonconf']) . "\n";
+		$pagebar .= border('sgray','start',$roster->locale->act['pagebar_addonconf']) . "\n";
 		$pagebar .= '<ul class="tab_menu">' . "\n";
 		$pagebar .= $addon_pagebar;
 		$pagebar .= "</ul>\n";
