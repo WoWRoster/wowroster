@@ -14,14 +14,12 @@
  * @since      File available since Release 1.8.0
 */
 
-$roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
-
+if( !isset($_GET[ROSTER_PAGE]) )
+{
+	$_GET[ROSTER_PAGE] = 'ajax';
+}
 // Initialization
-include($roster_root_path . 'settings.php');
-
-// Some stuff that doesn't mean anything but is needed to make other stuff not error
-define('ROSTER_PAGE_NAME','ajax');
-$roster_pages = array('ajax');
+include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
 
 include(ROSTER_AJAX . 'functions.php');
 include(ROSTER_LIB . 'minixml.lib.php');
@@ -81,3 +79,4 @@ echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
 	'  <status>'.(int)$status.'</status>'."\n".
 	'  <errmsg>'.$errmsg.'</errmsg>'."\n".
 	'</response>'."\n";
+
