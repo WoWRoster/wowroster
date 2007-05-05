@@ -45,14 +45,14 @@ class CharBonus
 
 	function dumpBonus( )
 	{
-		global $wordings, $roster, $wowdb;
+		global $roster, $wowdb;
 
 		foreach( $this->equip as $slot=>$item )
 		{
 			$this->sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], $item->data['item_color'] );
 		}
 
-		$bt = border('sgray','start',$wordings[$this->lang]['itembonuses']).
+		$bt = border('sgray','start',$roster->locale[$this->lang]['itembonuses']).
 		'<table style="width:330px;" class="bodyline" cellspacing="0" cellpadding="0" border="0">'."\n";
 
 		$row = 0;
@@ -199,49 +199,49 @@ class CharBonus
 
 	function sortOutTooltip( $tooltip, $item_name, $item_color )
 	{
-		global $wordings;
+		global $roster;
 
 		$lines = explode(chr(10), $tooltip);
 
 		foreach( $lines as $line )
 		{
-			if( (ereg('^'.$wordings[$this->lang]['tooltip_equip'], $line)) && ( $this->hasNumeric($line)==FALSE) )
+			if( (ereg('^'.$roster->locale[$this->lang]['tooltip_equip'], $line)) && ( $this->hasNumeric($line)==FALSE) )
 			{
 				$this->setBonus( '', $line, $item_name,$item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_equip_restores'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_equip_restores'], $line) )
 			{
 				$this->setBonus( $this->getModifierMana($line), $this->getModifierString( $line), $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_equip_when'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_equip_when'], $line) )
 			{
 				$this->setBonus( $this->getModifierMana($line), $this->getModifierString( $line), $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_equip'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_equip'], $line) )
 			{
 				$this->setBonus( $this->getModifier($line), $this->getString( $line), $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_set'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_set'], $line) )
 			{
 				$this->setBonus( '', $line, $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_spell_damage'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_spell_damage'], $line) )
 			{
 				$this->setBonus( $this->getModifier($line), $line, $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_healing_power'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_healing_power'], $line) )
 			{
 				$this->setBonus( $this->getModifier($line), $line, $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_chance_hit'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_chance_hit'], $line) )
 			{
 				$this->setBonus( $this->getModifier($line), $this->getModifierString( $line), $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_reinforced_armor'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_reinforced_armor'], $line) )
 			{
 				$this->setBonus( $this->getModifier($line), $this->getModifierString( $line), $item_name, $item_color);
 			}
-			elseif( ereg('^'.$wordings[$this->lang]['tooltip_school_damage'], $line) )
+			elseif( ereg('^'.$roster->locale[$this->lang]['tooltip_school_damage'], $line) )
 			{
 				$this->setBonus( $this->getModifier($line), $this->getString( $line), $item_name, $item_color);
 			}

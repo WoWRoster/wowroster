@@ -291,7 +291,7 @@ function calc_pwinloss($a, $b)
 
 function output_bglog($member_id)
 {
-	global $roster, $wowdb, $wordings;
+	global $roster, $wowdb;
 
 	$bg_array = array(
 		'alterac_valley',
@@ -336,7 +336,7 @@ function output_bglog($member_id)
 				// Get Class Icon
 				foreach ($roster->config['multilanguages'] as $language)
 				{
-					$icon_name = isset($wordings[$language]['class_iconArray'][$eclass]) ? $wordings[$language]['class_iconArray'][$eclass] : '';
+					$icon_name = isset($roster->locale[$language]['class_iconArray'][$eclass]) ? $roster->locale[$language]['class_iconArray'][$eclass] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
 
@@ -506,7 +506,7 @@ border('sorange','end').
 
 function output_duellog($member_id)
 {
-	global $roster, $wowdb, $wordings;
+	global $roster, $wowdb;
 
 	$data = array();
 
@@ -527,7 +527,7 @@ function output_duellog($member_id)
 		// Get Class Icon
 		foreach ($roster->config['multilanguages'] as $language)
 		{
-			$dataset['icon_name'] = $wordings[$language]['class_iconArray'][$dataset['class']];
+			$dataset['icon_name'] = $roster->locale[$language]['class_iconArray'][$dataset['class']];
 			if( strlen($dataset['icon_name']) > 0 ) break;
 		}
 
@@ -594,7 +594,7 @@ function output_duellog($member_id)
 
 function output_pvplog($member_id)
 {
-	global $roster, $wowdb, $wordings;
+	global $roster, $wowdb;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
 
@@ -738,7 +738,7 @@ function output_pvplog($member_id)
 		// Get Class Icon
 		foreach ($roster->config['multilanguages'] as $language)
 		{
-			$dataset['icon_name'] = $wordings[$language]['class_iconArray'][$dataset['class']];
+			$dataset['icon_name'] = $roster->locale[$language]['class_iconArray'][$dataset['class']];
 			if( strlen($dataset['icon_name']) > 0 ) break;
 		}
 
@@ -805,7 +805,7 @@ function output_pvplog($member_id)
 
 function output_pvp2($pvps,$url,$type)
 {
-	global $roster, $wordings;
+	global $roster;
 
 	$returnstring = '
 <table class="bodyline" cellspacing="0">
@@ -871,7 +871,7 @@ function output_pvp2($pvps,$url,$type)
 		// Get Class Icon
 		foreach ($roster->config['multilanguages'] as $language)
 		{
-			$icon_name = $wordings[$language]['class_iconArray'][$row->data['class']];
+			$icon_name = $roster->locale[$language]['class_iconArray'][$row->data['class']];
 			if( strlen($icon_name) > 0 ) break;
 		}
 		$icon_name = 'Interface/Icons/'.$icon_name;

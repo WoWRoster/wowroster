@@ -232,7 +232,7 @@ if( $addon['config']['member_update_inst'] )
  */
 function tradeskill_icons ( $row )
 {
-	global $roster, $wowdb, $wordings, $addon;
+	global $roster, $wowdb, $addon;
 
 	$cell_value ='';
 
@@ -251,20 +251,20 @@ function tradeskill_icons ( $row )
 		$toolTip = (isset($r_prof[1]) ? str_replace(':','/',$r_prof[1]) : '');
 		$toolTiph = $r_prof[0];
 
-		if( $r_prof[0] == $wordings[$lang]['riding'] )
+		if( $r_prof[0] == $roster->locale[$lang]['riding'] )
 		{
-			if( $row['class']==$wordings[$lang]['Paladin'] || $row['class']==$wordings[$lang]['Warlock'] )
+			if( $row['class']==$roster->locale[$lang]['Paladin'] || $row['class']==$roster->locale[$lang]['Warlock'] )
 			{
-				$icon = $wordings[$lang]['ts_ridingIcon'][$row['class']];
+				$icon = $roster->locale[$lang]['ts_ridingIcon'][$row['class']];
 			}
 			else
 			{
-				$icon = $wordings[$lang]['ts_ridingIcon'][$row['race']];
+				$icon = $roster->locale[$lang]['ts_ridingIcon'][$row['race']];
 			}
 		}
 		else
 		{
-			$icon = isset($wordings[$lang]['ts_iconArray'][$r_prof[0]])?$wordings[$lang]['ts_iconArray'][$r_prof[0]]:'';
+			$icon = isset($roster->locale[$lang]['ts_iconArray'][$r_prof[0]])?$roster->locale[$lang]['ts_iconArray'][$r_prof[0]]:'';
 		}
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
@@ -283,7 +283,7 @@ function tradeskill_icons ( $row )
  */
 function note_value ( $row, $field )
 {
-	global $roster, $wordings, $addon;
+	global $roster, $addon;
 
 	$tooltip='';
 	if( !empty($row[$field]) )

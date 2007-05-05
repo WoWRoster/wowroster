@@ -283,7 +283,7 @@ function total_value ( $row )
  */
 function armor_value ( $row )
 {
-	global $wowdb, $roster, $wordings;
+	global $wowdb, $roster;
 
 	$cell_value = '&nbsp;';
 
@@ -317,9 +317,9 @@ function armor_value ( $row )
 		}
 
 
-		$name = $wordings[$lang]['armor'];
+		$name = $roster->locale[$lang]['armor'];
 		if( !empty($row['mitigation']) )
-			$tooltip = '<span class="red">'.$wordings[$lang]['tooltip_damage_reduction'].': '.$row['mitigation'].'%</span>';
+			$tooltip = '<span class="red">'.$roster->locale[$lang]['tooltip_damage_reduction'].': '.$row['mitigation'].'%</span>';
 
 		if( $mod_symbol == '' )
 		{
