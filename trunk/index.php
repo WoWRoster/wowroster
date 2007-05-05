@@ -48,7 +48,8 @@ switch( $roster->pages[0] )
 		break;
 	case 'util':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP .
-			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+			( isset($roster->pages[2]) && !in_array($roster->pages[2],explode(',',ROSTER_NON_ADDON))
+			? $roster->pages[2] : 'index' ). '.php';
 		break;
 	default:
 		// OK, so it isn't a scope. Prolly a file in pages.

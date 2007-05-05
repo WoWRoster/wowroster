@@ -1081,7 +1081,7 @@ function urlgrabber( $url , $timeout = 5 )
 		// If there were errors
 		if( curl_errno($ch) )
 		{
-			$this->error('Error: ' . curl_error($ch));
+//			$this->error('Error: ' . curl_error($ch));
 			return false;
 		}
 
