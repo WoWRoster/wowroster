@@ -30,7 +30,7 @@ class recipe
 
 	function out()
 	{
-		global $roster, $wordings, $char, $tooltips;
+		global $roster, $char, $tooltips;
 
 		if( !is_object($char) )
 			$lang = $roster->config['roster_lang'];
@@ -42,12 +42,12 @@ class recipe
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $wordings[$lang]['itemlinks'] as $key => $ilink )
+		foreach( $roster->locale[$lang]['itemlinks'] as $key => $ilink )
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$wordings[$lang]['itemlink']);
+		setTooltip('itemlink',$roster->locale[$lang]['itemlink']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 

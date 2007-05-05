@@ -224,7 +224,7 @@ print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\
 
 function DateCharDataUpdated($id)
 {
-	global $roster, $wowdb, $wordings;
+	global $roster, $wowdb;
 
 	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
 	$result = $wowdb->query($query);
@@ -233,5 +233,5 @@ function DateCharDataUpdated($id)
 
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-	return date($wordings[$data['clientLocale']]['phptimeformat'], $localtime);
+	return date($roster->locale[$data['clientLocale']]['phptimeformat'], $localtime);
 }

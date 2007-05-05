@@ -216,9 +216,9 @@ while ($row = $wowdb->fetch_array($result))
 		}
 		else
 		{
-			if (($row['class'] == $wordings[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
+			if (($row['class'] == $roster->locale[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
 			{
-				$squery = "SELECT skill_level FROM `".ROSTER_SKILLSTABLE."` WHERE member_id = ".$row['member_id']." and skill_name = '".$wordings[$row['clientLocale']]['lockpicking']."'";
+				$squery = "SELECT skill_level FROM `".ROSTER_SKILLSTABLE."` WHERE member_id = ".$row['member_id']." and skill_name = '".$roster->locale[$row['clientLocale']]['lockpicking']."'";
 				$sresult = $wowdb->query($squery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$squery);
 				$srow = $wowdb->fetch_array($sresult);
 				list($current_skill,$max_skill) = explode(':',$srow['skill_level']);
@@ -329,7 +329,7 @@ while ($row = $wowdb->fetch_array($result))
 		}
 		if ($krow[$key] == '-2')
 		{
-			$iname = $wordings[$row['clientLocale']]['thievestools'];
+			$iname = $roster->locale[$row['clientLocale']]['thievestools'];
 			$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
 			$iresult = $wowdb->query($iquery);
 			$idata = $wowdb->fetch_assoc($iresult);

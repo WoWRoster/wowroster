@@ -26,7 +26,7 @@ $header_title = $roster->locale->act['professions'];
 $inClause = "'";
 foreach( $roster->config['multilanguages'] as $lang )
 {
-	$inClause .= implode("', '",$wordings[$lang]['tsArray']);
+	$inClause .= implode("', '",$roster->locale[$lang]['tsArray']);
 	$inClause .= "', '";
 }
 $inClause .= "'";
@@ -58,7 +58,7 @@ if( $wowdb->num_rows($result) )
 	while( $row = $wowdb->fetch_assoc($result) )
 	{
 		$skill_name = $row['skill_name'];
-		$skill_image = 'Interface/Icons/' . $wordings[$row['clientLocale']]['ts_iconArray'][$skill_name];
+		$skill_image = 'Interface/Icons/' . $roster->locale[$row['clientLocale']]['ts_iconArray'][$skill_name];
 		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="' . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . '" alt="" /></div>';
 
 		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_' . $id . '\',\'img_' . $id . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">

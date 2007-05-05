@@ -168,7 +168,7 @@ if( $addon['config']['log_update_inst'] )
  */
 function note_value ( $row, $field )
 {
-	global $roster, $wordings, $addon;
+	global $roster, $addon;
 
 	$tooltip='';
 	if( !empty($row[$field]) )
@@ -201,7 +201,7 @@ function note_value ( $row, $field )
  */
 function type_value ( $row, $field )
 {
-	global $roster, $wordings, $addon;
+	global $roster, $addon;
 
 	if( $row['type'] == 0 )
 	{

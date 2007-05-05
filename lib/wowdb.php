@@ -593,7 +593,7 @@ class wowdb
 	 */
 	function insert_item( $item,$locale )
 	{
-		global $wordings;
+		global $roster;
 
 		$this->reset_values();
 		$this->add_value('member_id', $item['member_id'] );
@@ -605,7 +605,7 @@ class wowdb
 		$this->add_value('item_texture', $item['item_texture'] );
 		$this->add_value('item_tooltip', $item['item_tooltip'] );
 
-		if( preg_match($wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
+		if( preg_match($roster->locale[$locale]['requires_level'],$item['item_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
@@ -684,7 +684,7 @@ class wowdb
 	 */
 	function insert_recipe( $recipe,$locale )
 	{
-		global $wordings;
+		global $roster;
 
 		$this->reset_values();
 		$this->add_value('member_id', $recipe['member_id'] );
@@ -698,7 +698,7 @@ class wowdb
 
 		$this->add_value('recipe_tooltip', $recipe['recipe_tooltip'] );
 
-		if( preg_match($wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
+		if( preg_match($roster->locale[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
 		$querystr = "INSERT INTO `".ROSTER_RECIPESTABLE."` SET ".$this->assignstr;

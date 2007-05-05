@@ -47,7 +47,7 @@ class reputation
 
 	function out()
 	{
-		global $wordings, $roster, $char;
+		global $roster, $char;
 
 		$lang = $char->data['clientLocale'];
 
@@ -65,31 +65,31 @@ class reputation
 
 		switch ( $this->data['Standing'] )
 		{
-		case ($wordings[$lang]['hated']):
+		case ($roster->locale[$lang]['hated']):
 			$RepBarImg = $roster->config['img_url'].'barbit_r.gif';
 			$width = intval((($level+26000)/23000) * 354);
 			break;
-		case ($wordings[$lang]['hostile']):
+		case ($roster->locale[$lang]['hostile']):
 			$RepBarImg = $roster->config['img_url'].'barbit_r.gif';
 			$width = intval((($level+6000)/3000) * 354);
 			break;
-		case ($wordings[$lang]['neutral']):
+		case ($roster->locale[$lang]['neutral']):
 			$RepBarImg = $roster->config['img_url'].'barbit_y.gif';
 			break;
-		case ($wordings[$lang]['unfriendly']):
+		case ($roster->locale[$lang]['unfriendly']):
 			$RepBarImg = $roster->config['img_url'].'barbit_o.gif';
 			$width = intval(($level/-3000) * 354);
 			break;
-		case ($wordings[$lang]['honored']):
+		case ($roster->locale[$lang]['honored']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['friendly']):
+		case ($roster->locale[$lang]['friendly']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['exalted']):
+		case ($roster->locale[$lang]['exalted']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
-		case ($wordings[$lang]['revered']):
+		case ($roster->locale[$lang]['revered']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
 		}
@@ -124,7 +124,7 @@ class reputation
 
 		if ($this->data['AtWar'] == 1 )
 		{
-			$output .= '              <span class="war">'.$wordings[$lang]['atwar'].'</span>';
+			$output .= '              <span class="war">'.$roster->locale[$lang]['atwar'].'</span>';
 		}
 
 		$output .= "\n            </div>\n          </div>";

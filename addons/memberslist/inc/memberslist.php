@@ -92,7 +92,7 @@ class memberslist
 	 */
 	function prepareData($query, $fields, $listname)
 	{
-		global $roster, $wowdb, $wordings;
+		global $roster, $wowdb;
 
 		// Save some info
 		$this->listname = $listname;
@@ -305,7 +305,7 @@ class memberslist
 	 */
 	function makeFilterBox()
 	{
-		global $roster, $wowdb, $wordings;
+		global $roster, $wowdb;
 
 		if( $this->addon['config']['nojs'] )
 		{
@@ -395,7 +395,7 @@ class memberslist
 	 */
 	function makeMembersList()
 	{
-		global $roster, $wowdb, $wordings;
+		global $roster, $wowdb;
 
 		$cols = count( $this->fields );
 
@@ -610,7 +610,7 @@ class memberslist
 	 */
 	function class_value ( $row, $field )
 	{
-		global $wordings, $roster;
+		global $roster;
 
 		if( $row['class'] != '' )
 		{
@@ -619,7 +619,7 @@ class memberslist
 			{
 				foreach ($roster->config['multilanguages'] as $language)
 				{
-					$icon_name = isset($wordings[$language]['class_iconArray'][$row['class']]) ? $wordings[$language]['class_iconArray'][$row['class']] : '';
+					$icon_name = isset($roster->locale[$language]['class_iconArray'][$row['class']]) ? $roster->locale[$language]['class_iconArray'][$row['class']] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
 				$icon_name = 'Interface/Icons/'.$icon_name;
@@ -636,10 +636,10 @@ class memberslist
 			{
 				foreach( $roster->config['multilanguages'] as $language )
 				{
-					$class_color = array_search($row['class'],$wordings[$language]);
+					$class_color = array_search($row['class'],$roster->locale[$language]);
 					if( strlen($class_color) > 0 )
 					{
-						$class_color = $wordings['enUS'][$class_color];
+						$class_color = $roster->locale['enUS'][$class_color];
 						break;
 					}
 				}
@@ -668,7 +668,7 @@ class memberslist
 	 */
 	function level_value ( $row, $field )
 	{
-		global $roster, $wowdb, $wordings;
+		global $roster, $wowdb;
 
 		$tooltip = '';
 		// Configurlate exp is player has it
@@ -731,7 +731,7 @@ class memberslist
 	 */
 	function honor_value ( $row, $field )
 	{
-		global $roster, $wordings;
+		global $roster;
 
 		if ( $row['lifetimeHighestRank'] > 0 )
 		{
