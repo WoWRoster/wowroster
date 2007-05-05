@@ -28,7 +28,7 @@ include_once ($addon['dir'] . 'inc/memberslist.php');
 $memberlist = new memberslist(array('group_alts'=>0));
 
 $mainQuery =
-	'SELECT *, DATE_FORMAT( `update_time`, "' . $act_words['timeformat'] . '" ) AS date, '.
+	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
 	'FROM `'.ROSTER_MEMBERLOGTABLE.'` AS members '.
 	'WHERE `guild_id` = "'.$guild_info['guild_id'].'"'.
@@ -105,7 +105,7 @@ $html_head  = '<script type="text/javascript" src="addons/'.$addon['basename'].'
 // Start output
 if( $addon['config']['log_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$act_words['update_link'].'</font></a><br /><br />';
+	print '            <a href="#update"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
 }
 
 
@@ -149,12 +149,12 @@ if( $addon['config']['log_update_inst'] )
 {
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
-	echo border('sgray','start',$act_words['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($act_words['update_instruct'], $roster_conf['uploadapp'], $act_words['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $act_words['lualocation']);
+	echo border('sgray','start',$roster->locale->act['update_instructions']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster_conf['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 
 	if ($roster_conf['pvp_log_allow'] == 1)
 	{
-		echo sprintf($act_words['update_instructpvp'], $roster_conf['pvplogger']);
+		echo sprintf($roster->locale->act['update_instructpvp'], $roster_conf['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }
@@ -168,7 +168,7 @@ if( $addon['config']['log_update_inst'] )
  */
 function note_value ( $row, $field )
 {
-	global $roster_conf, $wordings, $act_words, $addon;
+	global $roster, $roster_conf, $wordings, $addon;
 
 	$tooltip='';
 	if( !empty($row[$field]) )
@@ -177,7 +177,7 @@ function note_value ( $row, $field )
 
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$act_words['note'],'',1,'',',WRAP').' alt="[]" />';
+			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 	}
 	else
@@ -201,15 +201,15 @@ function note_value ( $row, $field )
  */
 function type_value ( $row, $field )
 {
-	global $roster_conf, $wordings, $act_words, $addon;
+	global $roster, $roster_conf, $wordings, $addon;
 
 	if( $row['type'] == 0 )
 	{
-		$return = '<span class="red">' . $act_words['removed'] . '</span>';
+		$return = '<span class="red">' . $roster->locale->act['removed'] . '</span>';
 	}
 	else
 	{
-		$return = '<span class="green">' . $act_words['added'] . '</span>';
+		$return = '<span class="green">' . $roster->locale->act['added'] . '</span>';
 	}
 
 	return '<div style="display:none; ">'.$row['type'].'</div>'.$return;

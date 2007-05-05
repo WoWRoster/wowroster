@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['pvplist'];
+$header_title = $roster->locale->act['pvplist'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 
@@ -48,7 +48,7 @@ $choiceArray = array(
 );
 
 $choiceForm = '<form action="'.makelink().'" method="get">
-'.$act_words['pvplist'].':
+'.$roster->locale->act['pvplist'].':
 <select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
 ';
 foreach( $choiceArray as $item_value )
@@ -56,9 +56,9 @@ foreach( $choiceArray as $item_value )
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
 		if( $type == $item_value )
-			$choiceForm .= '  <option value="'.makelink('guildpvp&amp;type='.$item_value).'" selected="selected">'.$act_words[$item_value].'</option>'."\n";
+			$choiceForm .= '  <option value="'.makelink('guildpvp&amp;type='.$item_value).'" selected="selected">'.$roster->locale->act[$item_value].'</option>'."\n";
 		else
-			$choiceForm .= '  <option value="'.makelink('guildpvp&amp;type='.$item_value).'">'.$act_words[$item_value].'</option>'."\n";
+			$choiceForm .= '  <option value="'.makelink('guildpvp&amp;type='.$item_value).'">'.$roster->locale->act[$item_value].'</option>'."\n";
 	}
 }
 $choiceForm .= '</select>
@@ -69,7 +69,7 @@ print $choiceForm;
 
 $striping_counter = 1;
 
-$tableHeader = border('sgray','start',$act_words[$type]).'<table width="100%" cellspacing="0" class="bodyline">';
+$tableHeader = border('sgray','start',$roster->locale->act[$type]).'<table width="100%" cellspacing="0" class="bodyline">';
 
 function tableHeaderRow($th)
 {
@@ -169,12 +169,12 @@ else if ($type == 'enemywins')
 {
 	print($tableHeader);
 	tableHeaderRow(array(
-		$act_words['name'],
-		$act_words['kills'],
-		$act_words['guild'],
-		$act_words['race'],
-		$act_words['class'],
-		$act_words['leveldiff'],
+		$roster->locale->act['name'],
+		$roster->locale->act['kills'],
+		$roster->locale->act['guild'],
+		$roster->locale->act['race'],
+		$roster->locale->act['class'],
+		$roster->locale->act['leveldiff'],
 	));
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE win = '1' AND enemy = '1' GROUP BY name ORDER BY countg DESC, leveldiff DESC";
@@ -221,12 +221,12 @@ else if ($type == 'enemylosses')
 {
 	print($tableHeader);
 	tableHeaderRow(array(
-		$act_words['name'],
-		$act_words['kills'],
-		$act_words['guild'],
-		$act_words['race'],
-		$act_words['class'],
-		$act_words['leveldiff'],
+		$roster->locale->act['name'],
+		$roster->locale->act['kills'],
+		$roster->locale->act['guild'],
+		$roster->locale->act['race'],
+		$roster->locale->act['class'],
+		$roster->locale->act['leveldiff'],
 	));
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) as countg FROM `".ROSTER_PVP2TABLE."` WHERE win = '0' AND enemy = '1' GROUP BY name ORDER BY countg DESC, leveldiff DESC";
@@ -384,7 +384,7 @@ else if ($type == 'purgeavelosses')
 }
 else if ($type == 'pvpratio')
 {
-	print('<br />'.$act_words['solo_win_loss'].'</small><br /><br />');
+	print('<br />'.$roster->locale->act['solo_win_loss'].'</small><br /><br />');
 	print($tableHeader);
 
 	$query = "SELECT members.name, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY members.name ORDER BY wtotal DESC";
@@ -463,17 +463,17 @@ else if ($type == 'playerinfo')
 
 		if ($first)
 		{
-			print '<br />'.sprintf($act_words['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>');
+			print '<br />'.sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="'.makelink('guildpvp&amp;type=guildinfo&amp;guild='.urlencode($row['guild'])).'">'.$row['guild'].'</a>');
 			print ('<br /><br />');
 
 			print($tableHeader);
 			tableHeaderRow(array(
-				'<a href="'.makelink($url.'&amp;s=date').'">'.$act_words['when'].'</a>',
-				'<a href="'.makelink($url.'&amp;s=name').'">'.$act_words['name'].'</a>',
-				'<a href="'.makelink($url.'&amp;s=result').'">'.$act_words['result'].'</a>',
-				'<a href="'.makelink($url.'&amp;s=zone').'">'.$act_words['zone2'].'</a>',
-				'<a href="'.makelink($url.'&amp;s=subzone').'">'.$act_words['subzone'].'</a>',
-				'<a href="'.makelink($url.'&amp;s=diff').'">'.$act_words['leveldiff'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=date').'">'.$roster->locale->act['when'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=name').'">'.$roster->locale->act['name'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=result').'">'.$roster->locale->act['result'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=zone').'">'.$roster->locale->act['zone2'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=subzone').'">'.$roster->locale->act['subzone'].'</a>',
+				'<a href="'.makelink($url.'&amp;s=diff').'">'.$roster->locale->act['leveldiff'].'</a>',
 			));
 			$first = false;
 		}
@@ -492,9 +492,9 @@ else if ($type == 'playerinfo')
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
-			$res = $act_words['win'];
+			$res = $roster->locale->act['win'];
 		else
-			$res = $act_words['loss'];
+			$res = $roster->locale->act['loss'];
 
 		print($res);
 		print("</td>\n");
@@ -530,7 +530,7 @@ else if ($type == 'guildinfo')
 		$sort = '';
 
 	print ('<br />');
-	print sprintf($act_words['kill_lost_hist_guild'],$guild);
+	print sprintf($roster->locale->act['kill_lost_hist_guild'],$guild);
 	print ('<br /><br />');
 
 	print($tableHeader);
@@ -538,13 +538,13 @@ else if ($type == 'guildinfo')
 	$url = 'guildpvp&amp;type=guildinfo&amp;guild='.urlencode($guild);
 
 	tableHeaderRow(array(
-		'<a href="'.makelink($url.'&amp;s=date').'">'.$act_words['when'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=date').'">'.$roster->locale->act['when'].'</a>',
 		'<a href="'.makelink($url.'&amp;s=name').'">Them</a>',
 		'<a href="'.makelink($url.'&amp;s=name').'">Us</a>',
-		'<a href="'.makelink($url.'&amp;s=result').'">'.$act_words['result'].'</a>',
-		'<a href="'.makelink($url.'&amp;s=zone').'">'.$act_words['zone2'].'</a>',
-		'<a href="'.makelink($url.'&amp;s=subzone').'">'.$act_words['subzone'].'</a>',
-		'<a href="'.makelink($url.'&amp;s=diff').'">'.$act_words['leveldiff'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=result').'">'.$roster->locale->act['result'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=zone').'">'.$roster->locale->act['zone2'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=subzone').'">'.$roster->locale->act['subzone'].'</a>',
+		'<a href="'.makelink($url.'&amp;s=diff').'">'.$roster->locale->act['leveldiff'].'</a>',
 	));
 
 
@@ -592,9 +592,9 @@ else if ($type == 'guildinfo')
 		print("</td>\n");
 		rankMid((($striping_counter % 2) +1));
 		if ($row['win'] == '1')
-			$res = $act_words['win'];
+			$res = $roster->locale->act['win'];
 		else
-			$res = $act_words['loss'];
+			$res = $roster->locale->act['loss'];
 
 		print($res);
 		print("</td>\n");

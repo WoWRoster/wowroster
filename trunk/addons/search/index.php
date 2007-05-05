@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['search'];
+$header_title = $roster->locale->act['search'];
 
 require_once ROSTER_LIB . 'item.php';
 require_once ROSTER_LIB . 'recipes.php';
@@ -71,15 +71,15 @@ $input_form = '<form id="searchform" action="' . makelink() . '" method="get">
 
 	<div align="left">
 		<input type="checkbox" id="name" name="name" value="1"' . (!empty($searchname) ? ' checked="checked"' : '' ) . ' />
-			<label for="name">' . $act_words['search_names'] . '</label><br />
+			<label for="name">' . $roster->locale->act['search_names'] . '</label><br />
 		<input type="checkbox" id="tooltip" name="tooltip" value="1"' . (!empty($searchtooltip) ? ' checked="checked"' : '' ) . ' />
-			<label for="tooltip">' . $act_words['search_tooltips'] . '</label>
+			<label for="tooltip">' . $roster->locale->act['search_tooltips'] . '</label>
 	</div>
 
 	<input type="submit" value="search" />
 </form>';
 
-$output .= messagebox($input_form,$act_words['find'],'sgreen');
+$output .= messagebox($input_form,$roster->locale->act['find'],'sgreen');
 
 if( !empty($search) )
 {
@@ -88,11 +88,11 @@ if( !empty($search) )
 	// Set a ank for link to top of page
 	$output .= '<a name="top">&nbsp;</a>
 <div style="color:white;text-align;center">
-	<a href="#items">'.$act_words['items'].'</a> - <a href="#recipes">'.$act_words['recipes'].'</a>
+	<a href="#items">'.$roster->locale->act['items'].'</a> - <a href="#recipes">'.$roster->locale->act['recipes'].'</a>
 </div>
 <br /><br />';
 
-	$output .= '<a name="items"></a><div class="headline_1"><a href="#top">' . $act_words['items'] . '</a></div>';
+	$output .= '<a name="items"></a><div class="headline_1"><a href="#top">' . $roster->locale->act['items'] . '</a></div>';
 
 	if( !empty($searchname) && !empty($searchtooltip) )
 	{
@@ -115,7 +115,7 @@ if( !empty($search) )
 
 	if (!$result)
 	{
-		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br />' . $wowdb->error(),$act_words['search'],basename(__FILE__),__LINE__,$query);
+		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br />' . $wowdb->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
 	}
 
 	if( $wowdb->num_rows($result) != 0 )
@@ -163,14 +163,14 @@ if( !empty($search) )
 	{
 		$output .= border('sblue','start') . '<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td class="membersRowRight1">No ' . $act_words['items'] . '</td>
+    <td class="membersRowRight1">No ' . $roster->locale->act['items'] . '</td>
   </tr>'."</table>\n" . border('sblue','end');
 	}
 
 
 	$output .= "<br /><hr />\n";
 
-	$output .= '<a name="recipes"></a><div class="headline_1"><a href="#top">' . $act_words['recipes'] . '</a></div>';
+	$output .= '<a name="recipes"></a><div class="headline_1"><a href="#top">' . $roster->locale->act['recipes'] . '</a></div>';
 
 	if( !empty($searchname) && !empty($searchtooltip) )
 	{
@@ -193,7 +193,7 @@ if( !empty($search) )
 
 	if( !$result )
 	{
-		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br />' . $wowdb->error(),$act_words['search'],basename(__FILE__),__LINE__,$query);
+		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br />' . $wowdb->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
 	}
 
 	if( $wowdb->num_rows($result) != 0 )
@@ -214,8 +214,8 @@ if( !empty($search) )
 				}
 				$output .= border('syellow','start',$char_url) . '<table border="0" cellpadding="0" cellspacing="0" width="600">
   <tr>
-    <th colspan="2" class="membersHeader">' . $act_words['item'] . '</th>
-    <th class="membersHeaderRight">' . $act_words['reagents'] . '</th>
+    <th colspan="2" class="membersHeader">' . $roster->locale->act['item'] . '</th>
+    <th class="membersHeaderRight">' . $roster->locale->act['reagents'] . '</th>
   </tr>';
 			}
 
@@ -248,7 +248,7 @@ if( !empty($search) )
 	{
 		$output .= border('sblue','start') . '<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td class="membersRowRight1">No ' . $act_words['recipes'] . "</td>
+    <td class="membersRowRight1">No ' . $roster->locale->act['recipes'] . "</td>
   </tr>
 </table>\n".border('sblue','end');
 	}

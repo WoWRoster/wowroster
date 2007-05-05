@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$roster->output['title'] = $act_words['guildinfo'];
+$roster->output['title'] = $roster->locale->act['guildinfo'];
 
 $guild_info_text = empty($roster->data['guild_info_text'])?'&nbsp;':$roster->data['guild_info_text'];
 

@@ -51,7 +51,7 @@ else
 
 $columns = ( $gbank_mode == 2 ? 15 : 2 );
 
-$header_title = $act_words['guildbank'];
+$header_title = $roster->locale->act['guildbank'];
 
 $muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
 FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
@@ -62,12 +62,12 @@ $muleNames = $wowdb->query($muleNameQuery);
 
 $bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
-$bank_menu .= '<td class="membersHeader"><a href="'.makelink('&amp;mode=full').'">'.$act_words['gbank_list'].'</a></td>'."\n";
-$bank_menu .= '<td class="membersHeaderRight"><a href="'.makelink('&amp;mode=inv').'">'.$act_words['gbank_inv'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeader"><a href="'.makelink('&amp;mode=full').'">'.$roster->locale->act['gbank_list'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeaderRight"><a href="'.makelink('&amp;mode=inv').'">'.$roster->locale->act['gbank_inv'].'</a></td>'."\n";
 
 $bank_menu .= "</tr>\n</table>\n";
 
-echo messagebox($bank_menu,$act_words['guildbank'],'sorange');
+echo messagebox($bank_menu,$roster->locale->act['guildbank'],'sorange');
 
 echo '<br />';
 
@@ -99,7 +99,7 @@ if ( $addon['config']['bank_money'] )
 	}
 	$mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
-	$bank_money = $act_words['guildbank_totalmoney'].' <div class="money">'.
+	$bank_money = $roster->locale->act['guildbank_totalmoney'].' <div class="money">'.
 	$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> '.
 	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> '.
 	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /></div>';
@@ -121,7 +121,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
 
 	$bank_print_member = ( active_addon('char') ? '<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a>' : $muleRow['member_name']);
-	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start',$bank_print_member . ' ('.$note.') - <small>'.$act_words['lastupdate'].': '.$date_char_data_updated.'</small>').
+	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start',$bank_print_member . ' ('.$note.') - <small>'.$roster->locale->act['lastupdate'].': '.$date_char_data_updated.'</small>').
 	'<table class="bodyline" cellspacing="0" cellpadding="0">'.
 		 ( $addon['config']['bank_money'] ?
 		 	  '<tr>
@@ -138,9 +138,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 		AND i.item_parent!='bags'
 		AND i.item_parent!='equip'
 		AND (i.item_tooltip
-		NOT LIKE '%".$act_words['tooltip_soulbound']."%'
+		NOT LIKE '%".$roster->locale->act['tooltip_soulbound']."%'
 		OR i.item_tooltip
-		LIKE '%".$act_words['tooltip_boe']."%')
+		LIKE '%".$roster->locale->act['tooltip_boe']."%')
 		GROUP BY real_itemid
 		ORDER BY i.item_name";
 
@@ -150,7 +150,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 	if ($itemRow==FALSE)
 	{
 		$bank_print .= '  <tr>
-    <td class="membersRowRight1">'.sprintf($act_words['gbank_not_loaded'],$muleRow['member_name'])."</td>
+    <td class="membersRowRight1">'.sprintf($roster->locale->act['gbank_not_loaded'],$muleRow['member_name'])."</td>
   </tr>\n";
 
 	}

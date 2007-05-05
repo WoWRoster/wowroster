@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['madeby'];
+$header_title = $roster->locale->act['madeby'];
 
 require_once(ROSTER_LIB.'recipes.php');
 
@@ -31,9 +31,9 @@ $prof_sort = ( isset($_REQUEST['sort']) ? $_REQUEST['sort'] : '');
 
 $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 	FROM ".ROSTER_RECIPESTABLE."
-	WHERE `skill_name` != '".$act_words['First Aid']."'
-		AND `skill_name` != '".$act_words['Poisons']."'
-		AND `skill_name` != '".$act_words['Mining']."'
+	WHERE `skill_name` != '".$roster->locale->act['First Aid']."'
+		AND `skill_name` != '".$roster->locale->act['Poisons']."'
+		AND `skill_name` != '".$roster->locale->act['Mining']."'
 	ORDER BY `skill_name`;";
 
 $result_prof = $wowdb->query($qry_prof) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_prof);
@@ -44,7 +44,7 @@ $choiceForm = '<form action="'.makelink().'" method="get" name="myform">
 '.border('sgray','start').'
 	<table cellspacing="0" cellpadding="2" class="bodyline">
 		<tr>
-			<td class="membersRow1">'.$act_words['professionfilter'].'
+			<td class="membersRow1">'.$roster->locale->act['professionfilter'].'
 				<select name="proffilter">';
 
 while($row_prof = $wowdb->fetch_array($result_prof))
@@ -60,7 +60,7 @@ $wowdb->free_result($result_prof);
 
 
 $choiceForm .= '				</select></td>
-			<td class="membersRow1">'.$act_words['search'].'
+			<td class="membersRow1">'.$roster->locale->act['search'].'
 				<input type="text" name="filterbox"';
 if (!empty($filter_box))
 {
@@ -68,7 +68,7 @@ if (!empty($filter_box))
 }
 
 $choiceForm .= ' /></td>
-			<td class="membersRowRightCell"><input type="submit" value="'.$act_words['applybutton'].'" /></td>
+			<td class="membersRowRightCell"><input type="submit" value="'.$roster->locale->act['applybutton'].'" /></td>
 		</tr>
 	</table>
 '.border('sgray','end').'
@@ -126,31 +126,31 @@ if (!empty($prof_filter))
 
 				if ($addon['config']['display_icon'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$act_words['item'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader">&nbsp;'.$roster->locale->act['item'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_name'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$act_words['name'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader">&nbsp;'.$roster->locale->act['name'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_level'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$act_words['level'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader">&nbsp;'.$roster->locale->act['level'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_tooltip'])
 				{
-					$content .=  '<th class="membersHeader" style="width:220px;">&nbsp;'.$act_words['itemdescription'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader" style="width:220px;">&nbsp;'.$roster->locale->act['itemdescription'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_type'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$act_words['type'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader">&nbsp;'.$roster->locale->act['type'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_reagents'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$act_words['reagents'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader">&nbsp;'.$roster->locale->act['reagents'].'&nbsp;</th>'."\n";
 				}
 				if ($addon['config']['display_makers'])
 				{
-					$content .=  '<th class="membersHeader">&nbsp;'.$act_words['whocanmakeit'].'&nbsp;</th>'."\n";
+					$content .=  '<th class="membersHeader">&nbsp;'.$roster->locale->act['whocanmakeit'].'&nbsp;</th>'."\n";
 				}
 
 				$content .=  '</tr>';
@@ -239,7 +239,7 @@ if (!empty($prof_filter))
 	}
 	else
 	{
-		$content .=  $act_words['dnotpopulatelist'];
+		$content .=  $roster->locale->act['dnotpopulatelist'];
 	}
 
 }

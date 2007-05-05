@@ -55,7 +55,7 @@ class recipe
 
 	function update()
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"green\">This is a non CP hook</span><br />\n";
 
@@ -64,7 +64,7 @@ class recipe
 
 	function guild_pre( $data )
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"green\">This is a guild_pre hook</span><br />\n";
 
@@ -73,7 +73,7 @@ class recipe
 
 	function guild( $data , $memberid )
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"yellow\">This is a guild hook</span><br />\n";
 
@@ -82,7 +82,7 @@ class recipe
 
 	function guild_post( $data )
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"red\">This is a guild_post hook</span><br />\n";
 
@@ -91,7 +91,7 @@ class recipe
 
 	function char_pre( $data )
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"green\">This is a char_pre hook</span><br />\n";
 
@@ -101,7 +101,7 @@ class recipe
 
 	function char( $data , $memberid )
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"yellow\">This is a char hook</span><br />\n";
 
@@ -110,7 +110,7 @@ class recipe
 
 	function char_post( $data )
 	{
-		global $wowdb, $roster_conf, $act_words, $wordings;
+		global $roster;
 
 		$this->messages .= "<span class=\"red\">This is a char_post hook</span><br />\n";
 

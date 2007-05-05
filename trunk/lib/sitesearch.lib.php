@@ -21,7 +21,7 @@ if( !defined('ROSTER_INSTALLED') )
 
 function sitesearch($site)
 {
-	global $act_words;
+	global $roster;
 
 	$inputs = array();
 	$title = $img = $url = $text = $url = $color = $method = '';
@@ -81,7 +81,7 @@ function sitesearch($site)
 			<a href="'.$link.'"target="_blank"><img src="'.$img.'" alt="'.$title.'" width="158" height="51" /></a><br />
 			<br />
 			<form method="'.$method.'" action="'.$url.'">
-				'.$act_words['search'].':
+				'.$roster->locale->act['search'].':
 				<input type="text" name="'.$text.'" class="wowinput128" />&nbsp;&nbsp;
 				<input type="submit" value="Go" onclick="win=window.open(\'\',\'myWin\',\'\'); this.form.target=\'myWin\'" />
 			</form></div></td>

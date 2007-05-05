@@ -2,7 +2,7 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Here is where all the majic happens
+ * Here is where all the magic happens
  * All of the includes, defines, locales, this file loads everything
  *
  * LICENSE: Licensed under the Creative Commons
