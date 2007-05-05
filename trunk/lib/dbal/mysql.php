@@ -33,8 +33,9 @@ class roster_db
 	var $record_set  = array();             // Record set               @var record_set
 	var $query_count = 0;                   // Query count              @var query_count
 	var $queries     = array();             // Queries                  @var queries
-	var $error_die   = true;                // Die on errors?           @var error_die
+	var $error_die   = false;               // Die on errors?           @var error_die
 
+	var $prefix      = '';
 	/**
 	 * Constructor
 	 *
@@ -47,26 +48,22 @@ class roster_db
 	 * @param $pconnect Use persistent connection
 	 * @return mixed Link ID / false
 	 */
-	function sql_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix)
+	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix)
 	{
-		$this->dbhost = $dbhost;
-		$this->dbname = $dbname;
-		$this->dbuser = $dbuser;
-		$this->dbpass = $dbpass;
 		$this->prefix = $prefix;
 
-		if( empty($this->dbpass) )
+		if( empty($dbpass) )
 		{
-			$this->link_id = @mysql_connect($this->dbhost, $this->dbuser);
+			$this->link_id = @mysql_connect($dbhost, $dbuser);
 		}
 		else
 		{
-			$this->link_id = @mysql_connect($this->dbhost, $this->dbuser, $this->dbpass);
+			$this->link_id = @mysql_connect($dbhost, $dbuser, $dbpass);
 		}
-
-		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($this->dbname != '') )
+		
+		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($dbname != '') )
 		{
-			if( !@mysql_select_db($this->dbname, $this->link_id) )
+			if( !@mysql_select_db($dbname, $this->link_id) )
 			{
 				@mysql_close($this->link_id);
 				$this->link_id = false;
@@ -107,7 +104,7 @@ class roster_db
 	 */
 	function error()
 	{
-		$result = @mysql_errno($this->db).': '.mysql_error($this->db);
+		$result = @mysql_errno($this->link_id).': '.mysql_error($this->link_id);
 		return $result;
 	}
 
@@ -118,8 +115,16 @@ class roster_db
 	 */
 	function errno()
 	{
-		$result = @mysql_errno($this->db);
+		$result = @mysql_errno($this->link_id);
 		return $result;
+	}
+	
+	/**
+	 * Get connection error
+	 */
+	function connect_error()
+	{
+		return @mysql_errno().': '.mysql_error();
 	}
 
 	/**
@@ -150,7 +155,7 @@ class roster_db
 			unset($this->record_set[$this->query_id]);
 			return $this->query_id;
 		}
-		elseif( $roster->config['debug_mode'] || $this->error_die )
+		elseif( isset($roster) && $roster->config['debug_mode'] || $this->error_die )
 		{
 			die_quietly($this->error(), 'Database Error',basename(__LINE__),__FILE__,$query);
 		}
@@ -404,12 +409,25 @@ class roster_db
 	{
 		if( $addon)
 		{
-			return $this->db_prefix.'addons_'.$addon.($table != '' ? '_'.$table : '');
+			return $this->prefix.'addons_'.$addon.($table != '' ? '_'.$table : '');
 		}
 		else
 		{
-			return $this->db_prefix.$table;
+			return $this->prefix.$table;
 		}
 	}
 
+	/**
+	 * Get the queries for the footer
+	 */
+	function getQueries()
+	{
+		$output = "<ul>\n";
+		foreach( $this->queries as $query )
+		{
+			$output .= "  <li>".nl2br(htmlentities($query))."</li>\n";
+		}
+		$output .= "</ul>\n";
+		return $output;
+	}
 }

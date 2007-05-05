@@ -23,24 +23,24 @@ class RosterMenu
 {
 	function makeMenu($sections)
 	{
-		global $roster_conf, $guild_info, $roster_login, $wordings, $act_words;
+		global $roster, $roster_login;
 
 		define('ROSTER_MENU_INC',true);
 
-		if( $guild_info == false )
+		if( $roster->data == false )
 		{
 			$topbar = $left_pane = $right_pane = '';
 		}
 		else
 		{
-			if( $roster_conf['menu_top_pane'] )
+			if( $roster->config['menu_top_pane'] )
 			{
 				$topbar = "  <tr>\n"
 						. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
-						. '      <span style="font-size:18px;"><a href="' . $roster_conf['website_address'] . '">' . $roster_conf['guild_name'] . '</a></span>'."\n"
-						. '      <span style="font-size:11px;"> @ ' . $roster_conf['server_name'] . ' (' . $roster_conf['server_type'] . ')</span><br />'
-						. $act_words['lastupdate'].': <span style="color:#0099FF;">'.DateDataUpdated($guild_info['guild_dateupdatedutc'])
-						. ((!empty($roster_conf['timezone']))?' (' . $roster_conf['timezone'] . ')':'')
+						. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['guild_name'] . '</a></span>'."\n"
+						. '      <span style="font-size:11px;"> @ ' . $roster->config['server_name'] . ' (' . $roster->config['server_type'] . ')</span><br />'
+						. $roster->locale->act['lastupdate'].': <span style="color:#0099FF;">'.DateDataUpdated($roster->data['guild_dateupdatedutc'])
+						. ((!empty($roster->config['timezone']))?' (' . $roster->config['timezone'] . ')':'')
 						. "      </span>\n"
 						. "    </td>\n"
 						. "  </tr>\n"
@@ -81,13 +81,13 @@ class RosterMenu
 	 */
 	function makePane( $side )
 	{
-		global $roster_conf;
+		global $roster;
 
-		switch( $roster_conf[$side.'_type'] )
+		switch( $roster->config[$side.'_type'] )
 		{
 			case 'level':
 			case 'class':
-				$pane = $this->makeList($roster_conf[$side.'_type'], $roster_conf[$side.'_level'], $roster_conf[$side.'_style'], $side);
+				$pane = $this->makeList($roster->config[$side.'_type'], $roster->config[$side.'_level'], $roster->config[$side.'_style'], $side);
 				break;
 			case 'realm':
 				$pane = $this->makeRealmStatus();
@@ -117,7 +117,7 @@ class RosterMenu
 	 */
 	function makeList( $type, $level, $style, $side )
 	{
-		global $roster_conf, $act_words, $wowdb;
+		global $roster;
 
 		// Initialize data array
 		$dat = array();
@@ -145,7 +145,7 @@ class RosterMenu
 		}
 		elseif( $type == 'class' )
 		{
-			foreach($act_words['class_iconArray'] as $class => $icon)
+			foreach($roster->locale->act['class_iconArray'] as $class => $icon)
 			{
 				$dat[$class]['name'] = $class;
 				$dat[$class]['alt'] = 0;
@@ -162,21 +162,21 @@ class RosterMenu
 
 		// Build query
 		$query  = "SELECT count(`member_id`) AS `amount`, ".
-			"IF(`".$roster_conf['alt_location']."` LIKE '%".$roster_conf['alt_type']."%',1,0) AS 'isalt', ".
+			"IF(`".$roster->config['alt_location']."` LIKE '%".$roster->config['alt_type']."%',1,0) AS 'isalt', ".
 			$qrypart." AS label ".
 			"FROM `".ROSTER_MEMBERSTABLE."` ".
 			"WHERE `level` > ".$level." ".
 			"GROUP BY isalt, label;";
 
-		$result = $wowdb->query($query);
+		$result = $roster->db->query($query);
 
 		if (!$result)
 		{
-			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+			die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 		}
 
 		// Fetch results
-		while( $row = $wowdb->fetch_assoc($result) )
+		while( $row = $roster->db->fetch($result) )
 		{
 			if ($row['isalt'])
 			{
@@ -208,7 +208,7 @@ class RosterMenu
 			$req .= 'type='.$type.'&amp;side='.$side;
 			$req = str_replace(' ','%20',$req);
 
-			$output .= '<img src="'.$roster_conf['img_url'].$req.'" alt="" />';
+			$output .= '<img src="'.$roster->config['img_url'].$req.'" alt="" />';
 		}
 		elseif( $style == 'barlog' )
 		{
@@ -223,7 +223,7 @@ class RosterMenu
 			}
 			$req .= 'type='.$type.'&amp;side='.$side;
 
-			$output .= '<img src="'.$roster_conf['img_url'].$req.'" alt="" />';
+			$output .= '<img src="'.$roster->config['img_url'].$req.'" alt="" />';
 		}
 		else
 		{
@@ -248,12 +248,12 @@ class RosterMenu
 	 */
 	function makeRealmStatus()
 	{
-		global $roster_conf, $guild_info, $wowdb, $act_words;
+		global $roster;
 
 		$realmStatus = '    <td valign="top" class="row">' . "\n";
-		if( $roster_conf['rs_mode'] )
+		if( $roster->config['rs_mode'] )
 		{
-			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . ( !empty($roster_conf['realmstatus']) ? $roster_conf['realmstatus'] : $guild_info['server'] ) . '" />' . "\n";
+			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . ( !empty($roster->config['realmstatus']) ? $roster->config['realmstatus'] : $roster->data['server'] ) . '" />' . "\n";
 		}
 		elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
 		{
@@ -279,7 +279,7 @@ class RosterMenu
 	 */
 	function makeButtonList($sections)
 	{
-		global $wordings, $act_words, $wowdb, $roster_conf;
+		global $roster;
 
 		if (is_array($sections))
 		{
@@ -293,40 +293,42 @@ class RosterMenu
 
 		// --[ Fetch button list from DB ]--
 		$query = "SELECT `mb`.*, `a`.`basename`
-			FROM `".$wowdb->table('menu_button')."` AS mb
-			LEFT JOIN `".$wowdb->table('addon')."` AS a
+			FROM `".$roster->db->table('menu_button')."` AS mb
+			LEFT JOIN `".$roster->db->table('addon')."` AS a
 			ON `mb`.`addon_id` = `a`.`addon_id`;";
 
-		$result = $wowdb->query($query);
+		$result = $roster->db->query($query);
 
 		if (!$result)
 		{
-			die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$wowdb->error(),'Roster',basename(__FILE__),__LINE__,$query);
+			die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$roster->db->error(),'Roster',basename(__FILE__),__LINE__,$query);
 		}
 
-		while ($row = $wowdb->fetch_assoc($result))
+		while ($row = $roster->db->fetch($result))
 		{
 			$palet['b'.$row['button_id']] = $row;
 		}
 
-		$wowdb->free_result($result);
+		$roster->db->free_result($result);
 
 		// --[ Fetch menu configuration from DB ]--
-		$query = "SELECT * FROM ".$wowdb->table('menu')." WHERE `section` IN ('".$section."');";
+		$query = "SELECT * FROM `".$roster->db->table('menu')."` WHERE `section` IN ('".$section."');";
 
-		$result = $wowdb->query($query);
+		$result = $roster->db->query($query);
 
 		if (!$result)
 		{
-			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$wowdb->error(),'Roster',basename(__FILE__),__LINE__,$query);
+			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$roster->db->error(),'Roster',basename(__FILE__),__LINE__,$query);
 		}
 
-		while($row = $wowdb->fetch_assoc($result))
+		while($row = $roster->db->fetch($result))
 		{
 			$data[$row['section']] = $row;
 		}
 
-		$wowdb->free_result($result);
+		$roster->db->free_result($result);
+
+		$page = array();
 
 		foreach ($sections as $id=>$value)
 		{
@@ -337,19 +339,16 @@ class RosterMenu
 		}
 
 		// --[ Parse DB data ]--
-		if( is_array($page) )
+		foreach ($page as $id => $value)
 		{
-			foreach ($page as $id => $value)
+			foreach (explode('|',$value['config']) AS $posX=>$column)
 			{
-				foreach (explode('|',$value['config']) AS $posX=>$column)
+				$config[$id][$posX] = explode(':',$column);
+				foreach($config[$id][$posX] as $posY=>$button)
 				{
-					$config[$id][$posX] = explode(':',$column);
-					foreach($config[$id][$posX] as $posY=>$button)
+					if( isset($palet[$button]) )
 					{
-						if( isset($palet[$button]) )
-						{
-							$arrayButtons[$id][$posX][$posY] = $palet[$button];
-						}
+						$arrayButtons[$id][$posX][$posY] = $palet[$button];
 					}
 				}
 			}
@@ -368,18 +367,18 @@ class RosterMenu
 				$html .= '            <ul>'."\n";
 				foreach( $column as $button )
 				{
-					if( $button['addon_id'] != '0' && !isset($act_words[$button['title']]) )
+					if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 					{
 						// Include addon's locale files if they exist
-						foreach( $roster_conf['multilanguages'] as $lang )
+						foreach( $roster->multilanguages as $lang )
 						{
 							if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
 							{
-								add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$wordings);
+								add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$roster->locale->wordings);
 							}
 						}
 					}
-					$html .= '              <li><a href="'.makelink($button['url']).'">'.( isset($act_words[$button['title']]) ? $act_words[$button['title']] : $button['title'] ).'</a></li>'."\n";
+					$html .= '              <li><a href="'.makelink($button['url']).'">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).'</a></li>'."\n";
 				}
 				$html .= '            </ul>'."\n";
 				$html .= '          </td>'."\n";

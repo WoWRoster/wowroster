@@ -16,20 +16,11 @@
 
 // Add locales via a function call
 // This prevents one locale from overwritting the others
-$roster_conf['multilanguages'] = array();
-$roster_conf['multilanguages'][] = 'deDE';
-$roster_conf['multilanguages'][] = 'enUS';
-$roster_conf['multilanguages'][] = 'esES';
-$roster_conf['multilanguages'][] = 'frFR';
-
-
-$wordings = array();
-foreach( $roster_conf['multilanguages'] as $langvalue )
-{
-	add_locale_file(ROSTER_LOCALE_DIR.$langvalue.'.php',$langvalue,$wordings);
-}
-
-$act_words = &$wordings[$roster_conf['roster_lang']];
+$roster->multilanguages = array();
+$roster->multilanguages[] = 'deDE';
+$roster->multilanguages[] = 'enUS';
+$roster->multilanguages[] = 'esES';
+$roster->multilanguages[] = 'frFR';
 
 
 

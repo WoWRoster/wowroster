@@ -21,16 +21,18 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 
 class roster
 {
-
 	var $config = array();
+	var $multilanguages = array();
 	var $locale;
 	var $db;
 	var $pages;
-	var $data; // scope data
+	var $data = false; // scope data
+	var $addon_data;
 
 	var $output = array(
+			'http_header' => true,
 	        'show_header' => true,
-	        'show_menu' => 'menu',
+	        'show_menu' => 'main',
 	        'show_footer' => true,
 
 	        // used on rostercp pages
@@ -50,55 +52,12 @@ class roster
 	);
 
 	/**
-	 * Initialize the objects.
-	 */
-	function roster()
-	{
-		/**
-		 * Load the dbal
-		 */
-		$this->load_dbal();
-
-		/**
-		 * Load the config
-		 */
-		$query = "SELECT `config_name`, `config_value` FROM `" . ROSTER_CONFIGTABLE . "` ORDER BY `id` ASC;";
-		$results = $this->db->query($query);
-
-		if( !$results || $this->db->num_rows($results) == 0 )
-		{
-			die("Cannot get roster configuration from database<br />\nMySQL Said: " . $this->db->error() . "<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
-		}
-
-		while( $row = $this->db->fetch($results) )
-		{
-			$this->config[$row['config_name']] = $row['config_value'];
-		}
-		$this->db->free_result($results);
-		
-		/**
-		 * Load the locale class
-		 */
-		include(ROSTER_LIB.'locale.php');
-		$this->locale = new roster_locale;
-		
-		/**
-		 * Figure out the page
-		 */
-		get_page_name();
-		
-
-		/**
-		 * Run the scope algorithm to load the data and figure out the file to load
-		 */
-		get_scope_data();
-	}
-	
-	/**
 	 * Load the DBAL
 	 */
 	function load_dbal()
 	{
+		define('ROSTER_CONF_FILE',ROSTER_BASE . 'conf.php');
+
 		// --[ Get the config file for the DB info. ]--
 		if( !file_exists(ROSTER_CONF_FILE) )
 		{
@@ -128,10 +87,31 @@ class roster
 		include_once(ROSTER_LIB.'dbal'.DIR_SEP.'mysql.php');
 
 		$this->db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
-		if ( !$db->link_id )
+
+		if ( !$this->db->link_id )
 		{
-			die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error());
+			die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$this->db->connect_error());
 		}	}
+	
+	/**
+	 * Load the config
+	 */
+	function load_config()
+	{
+		$query = "SELECT `config_name`, `config_value` FROM `" . ROSTER_CONFIGTABLE . "` ORDER BY `id` ASC;";
+		$results = $this->db->query($query);
+
+		if( !$results || $this->db->num_rows($results) == 0 )
+		{
+			die("Cannot get roster configuration from database<br />\nMySQL Said: " . $this->db->error() . "<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
+		}
+
+		while( $row = $this->db->fetch($results) )
+		{
+			$this->config[$row['config_name']] = $row['config_value'];
+		}
+		$this->db->free_result($results);
+	}
 	
 	/**
 	 * Figure out the page to load, and put it in $this->pages and ROSTER_PAGE_NAME
@@ -152,9 +132,9 @@ class roster
 		{
 			$page = $_GET[ROSTER_PAGE];
 		}
-		elseif( !strpos($this->conf['default_page'], '&amp;') )
+		elseif( !strpos($this->config['default_page'], '&amp;') )
 		{
-			$page = $this->conf['default_page'];
+			$page = $this->config['default_page'];
 		}
 		else
 		{
@@ -184,7 +164,7 @@ class roster
 	function get_scope_data()
 	{
 		// --[ Fetch the right data for the scope ]--
-		switch( $roster_pages[0] )
+		switch( $this->pages[0] )
 		{
 			case 'char':
 				// Check if the member attribute is set
@@ -198,14 +178,14 @@ class roster
 				{
 					$where = ' `players`.`member_id` = "'.$_GET['member'].'"';
 				}
-				elseif( strpos('@',$_GET['member']) >= 0 )
+				elseif( strpos('@',$_GET['member']) !== false )
 				{
 					list($name, $realm) = explode('@',$_GET['member']);
 					$where = ' `players`.`name` = "'.$name.'" AND `players`.`server` = "'.$realm.'"';
 				}
 				else
 				{
-					$where = ' `players`.`name` = "'.$name.'" AND `players`.`server` = "'.$this->config['server_name'].'"';
+					$where = ' `players`.`name` = "'.$_GET['member'].'" AND `players`.`server` = "'.$this->config['server_name'].'"';
 				}
 				
 				// Get the data
@@ -253,7 +233,7 @@ class roster
 					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server_name'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
-				$wowdb->free_result($result);
+				$this->db->free_result($result);
 
 				break;
 			default:
@@ -276,7 +256,22 @@ class roster
 
 				$this->data = $this->db->fetch($result);
 
-				$wowdb->free_result($result);
+				$this->db->free_result($result);
+		}
+	}
+	
+	/**
+	 * Fetch all addon data. We need to cache the active status for addon_active()
+	 * and fetching everything isn't much slower and saves extra fetches later on.
+	 */
+	function get_addon_data()
+	{
+		$query = "SELECT * FROM `" . $this->db->table('addon') . "`;";
+		$result = $this->db->query($query);
+		$this->addon_data = array();
+		while( $row = $this->db->fetch($result) )
+		{
+			$this->addon_data[$row['basename']] = $row;
 		}
 	}
 }

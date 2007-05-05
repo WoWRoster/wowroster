@@ -60,36 +60,36 @@ define('ROSTER_NON_ADDON','conf,install.def,update_hook');
 
 /**
  * Database Table Names
- * Only set if $db_prefix exists
+ * Only set if $roster->db->prefix exists
  */
-if( isset($db_prefix) )
+if( isset($roster->db->prefix) )
 {
-	define('ROSTER_GUILDTABLE',$db_prefix.'guild');
-	define('ROSTER_ACCOUNTTABLE',$db_prefix.'account');
-	define('ROSTER_ADDONTABLE',$db_prefix.'addon');
-	define('ROSTER_ADDONMENUTABLE',$db_prefix.'addon_menu');
-	define('ROSTER_ADDONCONFTABLE',$db_prefix.'addon_config');
-	define('ROSTER_BUFFSTABLE',$db_prefix.'buffs');
-	define('ROSTER_CONFIGTABLE',$db_prefix.'config');
-	define('ROSTER_ITEMSTABLE',$db_prefix.'items');
-	define('ROSTER_MAILBOXTABLE',$db_prefix.'mailbox');
-	define('ROSTER_MEMBERLOGTABLE',$db_prefix.'memberlog');
-	define('ROSTER_MEMBERSTABLE',$db_prefix.'members');
-	define('ROSTER_MENUTABLE',$db_prefix.'menu');
-	define('ROSTER_MENUBUTTONTABLE',$db_prefix.'menu_button');
-	define('ROSTER_PETSTABLE',$db_prefix.'pets');
-	define('ROSTER_PLAYERSTABLE',$db_prefix.'players');
-	define('ROSTER_PVP2TABLE',$db_prefix.'pvp2');
-	define('ROSTER_QUESTSTABLE',$db_prefix.'quests');
-	define('ROSTER_REALMSTATUSTABLE',$db_prefix.'realmstatus');
-	define('ROSTER_RECIPESTABLE',$db_prefix.'recipes');
-	define('ROSTER_REPUTATIONTABLE',$db_prefix.'reputation');
-	define('ROSTER_SKILLSTABLE',$db_prefix.'skills');
-	define('ROSTER_SPELLTABLE',$db_prefix.'spellbook');
-	define('ROSTER_SPELLTREETABLE',$db_prefix.'spellbooktree');
-	define('ROSTER_PETSPELLTABLE',$db_prefix.'spellbook_pet');
-	define('ROSTER_TALENTSTABLE',$db_prefix.'talents');
-	define('ROSTER_TALENTTREETABLE',$db_prefix.'talenttree');
+	define('ROSTER_GUILDTABLE',$roster->db->prefix.'guild');
+	define('ROSTER_ACCOUNTTABLE',$roster->db->prefix.'account');
+	define('ROSTER_ADDONTABLE',$roster->db->prefix.'addon');
+	define('ROSTER_ADDONMENUTABLE',$roster->db->prefix.'addon_menu');
+	define('ROSTER_ADDONCONFTABLE',$roster->db->prefix.'addon_config');
+	define('ROSTER_BUFFSTABLE',$roster->db->prefix.'buffs');
+	define('ROSTER_CONFIGTABLE',$roster->db->prefix.'config');
+	define('ROSTER_ITEMSTABLE',$roster->db->prefix.'items');
+	define('ROSTER_MAILBOXTABLE',$roster->db->prefix.'mailbox');
+	define('ROSTER_MEMBERLOGTABLE',$roster->db->prefix.'memberlog');
+	define('ROSTER_MEMBERSTABLE',$roster->db->prefix.'members');
+	define('ROSTER_MENUTABLE',$roster->db->prefix.'menu');
+	define('ROSTER_MENUBUTTONTABLE',$roster->db->prefix.'menu_button');
+	define('ROSTER_PETSTABLE',$roster->db->prefix.'pets');
+	define('ROSTER_PLAYERSTABLE',$roster->db->prefix.'players');
+	define('ROSTER_PVP2TABLE',$roster->db->prefix.'pvp2');
+	define('ROSTER_QUESTSTABLE',$roster->db->prefix.'quests');
+	define('ROSTER_REALMSTATUSTABLE',$roster->db->prefix.'realmstatus');
+	define('ROSTER_RECIPESTABLE',$roster->db->prefix.'recipes');
+	define('ROSTER_REPUTATIONTABLE',$roster->db->prefix.'reputation');
+	define('ROSTER_SKILLSTABLE',$roster->db->prefix.'skills');
+	define('ROSTER_SPELLTABLE',$roster->db->prefix.'spellbook');
+	define('ROSTER_SPELLTREETABLE',$roster->db->prefix.'spellbooktree');
+	define('ROSTER_PETSPELLTABLE',$roster->db->prefix.'spellbook_pet');
+	define('ROSTER_TALENTSTABLE',$roster->db->prefix.'talents');
+	define('ROSTER_TALENTTREETABLE',$roster->db->prefix.'talenttree');
 }
 
 /**

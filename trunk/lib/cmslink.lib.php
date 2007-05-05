@@ -26,7 +26,8 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 // This is what GET var the page link should be
 define('ROSTER_PAGE', 'p');
 
-if( $roster_conf['seo_url'] )
+// Loaded from the $roster constructor, so reference it as $this
+if( $roster->config['seo_url'] )
 {
 	// This is the url to access a page in Roster
 	define('ROSTER_LINK', '%1$s.html?%2$s');
@@ -76,7 +77,7 @@ unset($urlpath);
  */
 function makelink( $url='' , $full=false )
 {
-	global $roster_conf;
+	global $roster;
 
 	if( empty($url) || $url[0] == '&' )
 		$url = ROSTER_PAGE_NAME.$url;
@@ -85,7 +86,7 @@ function makelink( $url='' , $full=false )
 	{
 		list($page, $url) = explode('&amp;',$url,2);
 
-		if( $roster_conf['seo_url'] )
+		if( $roster->config['seo_url'] )
 		{
 			$page = str_replace('-','/',$page);
 		}
@@ -94,7 +95,7 @@ function makelink( $url='' , $full=false )
 	}
 	else
 	{
-		if( $roster_conf['seo_url'] )
+		if( $roster->config['seo_url'] )
 		{
 			$url = str_replace('-','/',$url);
 		}

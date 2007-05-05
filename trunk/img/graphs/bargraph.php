@@ -58,7 +58,7 @@ if( is_array($bar2sizes) && (count($bar2sizes) != count($barnames)) )
 // Hardcoded options
 $w = 150;
 $h = 160;
-$font = ROSTER_BASE . 'fonts' . DIR_SEP . $roster_conf[$side . '_text'];
+$font = ROSTER_BASE . 'fonts' . DIR_SEP . $roster->config[$side . '_text'];
 
 // calculate extra attributes
 $count = count($barnames);
@@ -77,9 +77,9 @@ imagefilledrectangle($image,0,0,$w,$h,$bgcolor);
 imagealphablending($image,true);
 
 // Initialize colors
-$barcolor = setColor($image,$roster_conf[$side.'_barcolor']);
-$bar2color = setColor($image,$roster_conf[$side.'_bar2color']);
-$textcolor = setColor($image,$roster_conf[$side.'_textcolor']);
+$barcolor = setColor($image,$roster->config[$side.'_barcolor']);
+$bar2color = setColor($image,$roster->config[$side.'_bar2color']);
+$textcolor = setColor($image,$roster->config[$side.'_textcolor']);
 
 // Draw bars
 for($i=0; $i<$count; $i++)
@@ -87,16 +87,16 @@ for($i=0; $i<$count; $i++)
 	// Get icon
 	if( $type == 'class' )
 	{
-		switch ($roster_conf['img_suffix'])
+		switch ($roster->config['img_suffix'])
 		{
 			case 'jpg':
-				$icon = @imagecreatefromjpeg($roster_conf['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.jpg');
+				$icon = @imagecreatefromjpeg($roster->config['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.jpg');
 				break;
 			case 'png':
-				$icon = @imagecreatefrompng($roster_conf['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.png');
+				$icon = @imagecreatefrompng($roster->config['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.png');
 				break;
 			case 'gif':
-				$icon = @imagecreatefromgif($roster_conf['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.gif');
+				$icon = @imagecreatefromgif($roster->config['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.gif');
 				break;
 			default:
 				$icon = false;
@@ -144,9 +144,9 @@ for($i=0; $i<$count; $i++)
 
 	if( isset($font) )
 	{
-		if( $roster_conf[$side.'_outlinecolor'] != '' )
+		if( $roster->config[$side.'_outlinecolor'] != '' )
 		{
-			writeOutline($image,$textheight,$textoffset,$colh*$i+$textbase,$roster_conf[$side.'_outlinecolor'],$font,$barnames[$i]);
+			writeOutline($image,$textheight,$textoffset,$colh*$i+$textbase,$roster->config[$side.'_outlinecolor'],$font,$barnames[$i]);
 		}
 		imagettftext($image, $textheight, 0, $textoffset, $colh*$i+$textbase, $thistextcolor, $font, $barnames[$i]);
 	}

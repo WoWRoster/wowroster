@@ -19,10 +19,9 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['guildinfo'];
+$roster->output['title'] = $act_words['guildinfo'];
 
+$guild_info_text = empty($roster->data['guild_info_text'])?'&nbsp;':$roster->data['guild_info_text'];
 
-if( !empty($guild_info['guild_info_text']) )
-{
-	print messagebox('<div class="GuildInfoText">'.nl2br($guild_info['guild_info_text']).'</div>',$act_words['guildinfo'],'syellow');
-}
+print messagebox('<div class="GuildInfoText">'.nl2br($guild_info_text).'</div>',$roster->locale->act['guildinfo'],'syellow');
+

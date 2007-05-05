@@ -185,7 +185,7 @@ function sql_highlight( $sql )
  */
 function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='' )
 {
-	global $wowdb, $roster_conf, $wordings, $act_words;
+	global $roster;
 
 	// die_quitely died quietly
 	if(defined('ROSTER_DIED') )
@@ -204,20 +204,20 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	$header_title = $title;
 
-	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'roster_header.tpl');
 	}
 
-	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
 		$roster_menu = new RosterMenu;
 		print $roster_menu->makeMenu('main');
 	}
 
-	if( is_object($wowdb) )
+	if( is_object($roster->db) )
 	{
-		$wowdb->closeDb();
+		$roster->db->close_db();
 	}
 
 	print border('sred','start',$title) . '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
@@ -239,7 +239,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
-	if( $roster_conf['debug_mode'] )
+	if( $roster->config['debug_mode'] )
 	{
 		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
 		print  backtrace();
@@ -248,7 +248,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	print "</table>\n" . border('sred','end');
 
-	if( !defined('ROSTER_FOOTER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'roster_footer.tpl');
 	}
@@ -265,27 +265,27 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
  */
 function roster_die( $message , $title = 'Message' , $style = 'sred' )
 {
-	global $wowdb, $roster_conf, $wordings, $act_words;
+	global $roster;
 
-	if( !defined('ROSTER_HEADER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'roster_header.tpl');
 	}
 
-	if( !defined('ROSTER_MENU_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
 		$roster_menu = new RosterMenu;
 		print $roster_menu->makeMenu('main');
 	}
 
-	if( is_object($wowdb) )
+	if( is_object($roster->db) )
 	{
-		$wowdb->closeDb();
+		$roster->db->close_db();
 	}
 
 	print messagebox('<div align="center">' . $message . '</div>',$title,$style);
 
-	if( !defined('ROSTER_FOOTER_INC') && is_array($roster_conf) )
+	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'roster_footer.tpl');
 	}
@@ -437,12 +437,12 @@ function check_if_image( $imagefilename )
  */
 function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1 )
 {
-	global $wordings, $roster_conf, $act_words;
+	global $roster;
 
 	// Use main locale if one is not specified
 	if( $locale == '' )
 	{
-		$locale = $roster_conf['roster_lang'];
+		$locale = $roster->config['roster_lang'];
 	}
 
 	// Detect caption mode and display accordingly
@@ -651,14 +651,14 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  */
 function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
 {
-	global $wordings, $roster_conf, $tooltips, $act_words;
+	global $roster;
 
 	$tooltip = stripslashes($tooltip);
 
 	// Use main locale if one is not specified
 	if( $locale == '' )
 	{
-		$locale = $roster_conf['roster_lang'];
+		$locale = $roster->config['roster_lang'];
 	}
 
 	// Detect caption text and display accordingly
@@ -761,12 +761,12 @@ $toggleboxes = 0;
  */
 function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=false , $width='550px' )
 {
-	global $toggleboxes, $roster_conf;
+	global $toggleboxes, $roster;
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster_conf['img_url'] . "minus.gif','" . $roster_conf['img_url'] . "plus.gif');\">"
-		   . "<img src=\"" . $roster_conf['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
+		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style, 'start', $title).
@@ -788,12 +788,12 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
  */
 function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=false , $width='550px' , $height='300px' )
 {
-	global $toggleboxes, $roster_conf;
+	global $toggleboxes, $roster;
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster_conf['img_url'] . "minus.gif','" . $roster_conf['img_url'] . "plus.gif');\">"
-		   . "<img src=\"" . $roster_conf['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
+		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style,'start',$title).
@@ -813,8 +813,6 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
  */
 function escape_array( $array )
 {
-	global $wowdb;
-
 	foreach ($array as $key=>$value)
 	{
 		if( is_array($value) )
@@ -838,12 +836,12 @@ function escape_array( $array )
  */
 function DateDataUpdated( $updateTimeUTC )
 {
-	global $roster_conf, $act_words;
+	global $roster;
 
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d-%d-%d %d:%d:%d");
-	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 
-	return date($act_words['phptimeformat'], $localtime);
+	return date($roster->locale->act['phptimeformat'], $localtime);
 }
 
 function get_file_ext( $filename )
@@ -926,26 +924,14 @@ function seconds_to_time( $seconds )
  */
 function getaddon( $addonname )
 {
-	global $wowdb, $act_words, $wordings;
+	global $roster;
 
-	// Get addon registration entry
-	$query = "SELECT * FROM `" . $wowdb->table('addon') . "` WHERE `basename` = '" . $wowdb->escape($addonname) . "' LIMIT 1;";
-
-	$result = $wowdb->query( $query );
-
-	if ( !$result )
+	if ( !isset($roster->addon_data[$addonname]) )
 	{
-		die_quietly($wowdb->error(),$act_words['addon_error'],__FILE__,__LINE__, $query );
+		roster_die(sprintf($roster->locale->act['addon_not_installed'],$addonname),$roster->locale->act['addon_error']);
 	}
 
-	if ( $wowdb->num_rows($result) != 1 )
-	{
-		roster_die(sprintf($act_words['addon_not_installed'],$addonname),$act_words['addon_error']);
-	}
-
-	$addon = $wowdb->fetch_assoc($result);
-
-	$wowdb->free_result($result);
+	$addon = $roster->addon_data[$addonname];
 
 	// Get the addon's location
 	$addon['dir'] = ROSTER_ADDONS . $addon['basename'] . DIR_SEP;
@@ -980,22 +966,22 @@ function getaddon( $addonname )
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';
 
-	$query = "SELECT `config_name`, `config_value` FROM `" . $wowdb->table('addon_config') . "` WHERE `addon_id` = '" . $addon['addon_id'] . "' ORDER BY `id` ASC;";
+	$query = "SELECT `config_name`, `config_value` FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $addon['addon_id'] . "' ORDER BY `id` ASC;";
 
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 
 	if ( !$result )
 	{
-		die_quietly($wowdb->error(),$act_words['addon_error'],__FILE__,__LINE__, $query );
+		die_quietly($roster->db->error(),$roster->locale->act['addon_error'],__FILE__,__LINE__, $query );
 	}
 
-	if( $wowdb->num_rows($result) > 0 )
+	if( $roster->db->num_rows($result) > 0 )
 	{
-		while( $row = $wowdb->fetch_assoc($result) )
+		while( $row = $roster->db->fetch($result) )
 		{
 			$addon['config'][$row['config_name']] = $row['config_value'];
 		}
-		$wowdb->free_result($result);
+		$roster->db->free_result($result);
 	}
 
 
@@ -1010,15 +996,15 @@ function getaddon( $addonname )
  */
 function active_addon( $name )
 {
-	global $roster_conf;
+	global $roster;
 
-	if( !isset($roster_conf['active_addons'][$name]) )
+	if( !isset($roster->addon_data[$name]) )
 	{
 		return false;
 	}
 	else
 	{
-		return (bool)$roster_conf['active_addons'][$name];
+		return (bool)$roster->addon_data[$name]['active'];
 	}
 }
 

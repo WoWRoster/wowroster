@@ -24,7 +24,7 @@ define('ROSTER_HEADER_INC',true);
 /**
  * Detect and set headers
  */
-if( !isset($no_roster_headers) && !headers_sent() )
+if( $roster->output['http_header'] && !headers_sent() )
 {
 	$now = gmdate('D, d M Y H:i:s', time()) . ' GMT';
 
@@ -33,7 +33,7 @@ if( !isset($no_roster_headers) && !headers_sent() )
 	@header('Cache-Control: no-store, no-cache, must-revalidate');
 	@header('Cache-Control: post-check=0, pre-check=0', false);
 	@header('Pragma: no-cache');
-	@header('Content-type: text/html; ' . $act_words['charset']);
+	@header('Content-type: text/html; ' . $roster->locale->act['charset']);
 }
 
 ?>
@@ -41,11 +41,9 @@ if( !isset($no_roster_headers) && !headers_sent() )
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>[<?php echo $roster_conf['guild_name']; ?> Roster] <?php echo (isset($header_title) ? $header_title : ''); ?></title>
+<title>[<?php echo $roster->config['guild_name']; ?> Roster] <?php echo (isset($roster->output['title']) ? $roster->output['title'] : ''); ?></title>
 	<base href="<?php echo ROSTER_URL ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/style.css" />
-<?php echo (isset($more_css) ? $more_css : ''); ?>
-
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/scrollbar.js"></script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/tabcontent.js">
@@ -63,9 +61,9 @@ if( !isset($no_roster_headers) && !headers_sent() )
 	</script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib.js"></script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib_hideform.js"></script>
-<?php echo (isset($html_head) ? $html_head : ''); ?>
+<?php echo (isset($roster->output['html_head']) ? $roster->output['html_head'] : ''); ?>
 </head>
-<body<?php print( !empty($roster_conf['roster_bg']) ? ' style="background-image:url(' . $roster_conf['roster_bg'] . ');"' : '' ); echo (isset($body_action) ? ' ' . $body_action : ''); ?>>
+<body<?php print( !empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '' ); echo (isset($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''); ?>>
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 <script type="text/javascript">
 <!--
@@ -75,10 +73,10 @@ if( !isset($no_roster_headers) && !headers_sent() )
 <div align="center">
 
 <?php
-if( !empty($roster_conf['logo']) )
+if( !empty($roster->config['logo']) )
 {
-	echo '<div style="text-align:center;margin:10px;"><a href="' . $roster_conf['website_address'] . '">
-  <img src="' . $roster_conf['logo'] . '" alt="" style="border:0;margin:10px;" /></a>
+	echo '<div style="text-align:center;margin:10px;"><a href="' . $roster->config['website_address'] . '">
+  <img src="' . $roster->config['logo'] . '" alt="" style="border:0;margin:10px;" /></a>
 </div>';
 }
 ?>
