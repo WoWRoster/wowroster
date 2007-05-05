@@ -71,70 +71,33 @@ define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
  */
 define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 
+include( ROSTER_LIB.'roster.php' );
+$roster = new roster;
 
 /**
- * Full path to roster config file
+ * Load the dbal
  */
-define('ROSTER_CONF_FILE',ROSTER_BASE . 'conf.php');
-
-
-/**
- * If conf.php is not found, then die to installer link
- */
-if( !file_exists(ROSTER_CONF_FILE) )
-{
-    die("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
-}
-else
-{
-	require_once (ROSTER_CONF_FILE);
-}
-
-
-/**
- * If ROSTER_INSTALLED is not defined, then die to installer link
- */
-if( !defined('ROSTER_INSTALLED') )
-{
-    die("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
-}
+$roster->load_dbal();
 
 /**
  * Include constants file
  */
 require_once (ROSTER_LIB . 'constants.php');
 
+/**
+ * Load the config
+ */
+$roster->load_config();
 
 /**
- * Include roster db file
+ * Cache addon data
  */
-require_once (ROSTER_LIB . 'wowdb.php');
-
-
-
-/**
- * Establish our connection and select our database
- */
-$roster_dblink = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
-if( !$roster_dblink )
-{
-	die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$wowdb->error());
-}
-
-
-/**
- * NULL DB Connect Info for Safety
- */
-$db_user = null;
-$db_passwd = null;
-
-
+$roster->get_addon_data();
 
 /**
  * Include common functions
  **/
 require_once (ROSTER_LIB . 'functions.lib.php');
-
 
 /**
  * Slash global data if magic_quotes_gpc is off.
@@ -148,71 +111,41 @@ if( !get_magic_quotes_gpc() )
 	$_REQUEST = escape_array($_REQUEST);
 }
 
-
-/**
- * Get the current config values
- */
-$sql = "SELECT `config_name`, `config_value` FROM `" . ROSTER_CONFIGTABLE . "` ORDER BY `id` ASC;";
-$results = $wowdb->query($sql);
-
-if( !$results || $wowdb->num_rows($results) == 0 )
-{
-	die("Cannot get roster configuration from database<br />\nMySQL Said: " . $wowdb->error() . "<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
-}
-
-/**
- * Fill the config array with values
- */
-while( $row = $wowdb->fetch_assoc($results) )
-{
-	$roster_conf[$row['config_name']] = $row['config_value'];
-}
-$wowdb->free_result($results);
-
-
-/**
- * Get list of addons and their active state
- */
-$sql = "SELECT `basename`, `active` FROM `" . $wowdb->table('addon') . "`;";
-$result = $wowdb->query($sql);
-$roster_conf['active_addons'] = array();
-while( $row = $wowdb->fetch_assoc($result) )
-{
-	$roster_conf['active_addons'][$row['basename']] = $row['active'];
-}
-
 /**
  * Include linking file
  */
 require_once (ROSTER_LIB . 'cmslink.lib.php');
 
 /**
- * Set SQL debug value
+ * Load the locale class
  */
-$wowdb->setSQLDebug($roster_conf['sqldebug']);
-
-
-
-/**
- * Include locale files
- */
-include(ROSTER_LOCALE_DIR . 'languages.php');
-
+include(ROSTER_LIB.'locale.php');
+$roster->locale = new roster_locale;
 
 /**
  * Include the Roster Menu class
  */
 require_once(ROSTER_LIB . 'menu.php');
 
+/**
+ * Figure out the page
+ */
+$roster->get_page_name();
+
+
+/**
+ * Run the scope algorithm to load the data and figure out the file to load
+ */
+$roster->get_scope_data();
 
 /**
  * If the version doesnt match the one in constants, redirect to upgrader
  */
-if( empty($roster_conf['version']) || version_compare($roster_conf['version'],ROSTER_VERSION,'<') )
+if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
 {
 	roster_die('Looks like you\'ve loaded a new version of Roster<br />
 <br />
-Your Version: <span class="red">' . $roster_conf['version'] . '</span><br />
+Your Version: <span class="red">' . $roster->config['version'] . '</span><br />
 New Version: <span class="green">' . ROSTER_VERSION . '</span><br />
 <br />
 <a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster','sred');

@@ -29,7 +29,7 @@ class roster_locale
 		
 		include(ROSTER_LOCALE_DIR.'languages.php');
 
-		foreach( $roster->config['multilanguages'] as $language )
+		foreach( $roster->multilanguages as $language )
 		{
 			$this->add_locale_file(ROSTER_LOCALE_DIR.$language.'.php',$language,$this->wordings);
 		}
