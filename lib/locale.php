@@ -25,7 +25,7 @@ class roster_locale
 	
 	function roster_locale()
 	{
-		global $act_words, $roster;
+		global $roster;
 		
 		include(ROSTER_LOCALE_DIR.'languages.php');
 
@@ -37,7 +37,6 @@ class roster_locale
 		}
 
 		$this->act = &$this->wordings[$roster->config['roster_lang']];
-		$act_words = &$this->act;
 	}
 
 	/**
