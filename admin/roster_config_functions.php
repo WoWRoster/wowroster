@@ -76,7 +76,7 @@ function pageNames( )
 			{
 				if( file_exists(ROSTER_ADDONS.$row['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
 				{
-					$roster->locale->add_locale_file(ROSTER_ADDONS.$row['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$roster->locale->wordings);
+					$roster->locale->add_locale_file(ROSTER_ADDONS.$row['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 				}
 			}
 		}
