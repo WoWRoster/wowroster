@@ -19,21 +19,21 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-if( !isset($roster_pages[2]) )
+if( !isset($roster->pages[2]) )
 {
-	$body = messagebox($act_words['specify_addon'],$act_words['addon_error'],'sred');
+	$body = messagebox($roster->locale->act['specify_addon'],$roster->locale->act['addon_error'],'sred');
 	return;
 }
 
 // Initialize addon framework for this addon and return the addon's db profile.
-$addon = getaddon($roster_pages[2]);
+$addon = getaddon($roster->pages[2]);
 
 // Check if addon is active
 if( $addon['active'] = '1' )
 {
-	if( isset($roster_pages[3]) && !in_array($roster_pages[3],explode(',',ROSTER_NON_ADDON)) && file_exists($addon['admin_dir'].$roster_pages[3] . '.php') )
+	if( isset($roster->pages[3]) && file_exists($addon['admin_dir'].$roster->pages[3] . '.php') )
 	{
-		$addon['active_file'] = $addon['admin_dir'] . $roster_pages[3] . '.php';
+		$addon['active_file'] = $addon['admin_dir'] . $roster->pages[3] . '.php';
 	}
 	else
 	{
@@ -41,11 +41,11 @@ if( $addon['active'] = '1' )
 	}
 
 	// Include addon's locale files if they exist
-	foreach( $roster_conf['multilanguages'] as $langvalue )
+	foreach( $roster->multilanguages as $langvalue )
 	{
 		if( file_exists($addon['locale_dir'].$langvalue.'.php') )
 		{
-			add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue,$wordings);
+			add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue,$roster->locale->wordings);
 		}
 	}
 
@@ -67,7 +67,7 @@ if( $addon['active'] = '1' )
 	elseif( $addon['config'] != '' )
 	{
 		// ----[ Set the tablename and create the config class ]----
-		$tablename = $wowdb->table('addon_config');
+		$tablename = $roster->db->table('addon_config');
 		include(ROSTER_LIB.'config.lib.php');
 
 		// ----[ Process data if available ]------------------------
