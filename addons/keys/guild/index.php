@@ -37,7 +37,7 @@ function borderTop()
 
 function tableHeaderRow($th)
 {
-	global $roster, $items, $roster_conf, $tooltips;
+	global $roster, $items, $tooltips;
 
 	$acount = 0;
 	print "  <tr>\n";
@@ -166,7 +166,7 @@ while ($row = $wowdb->fetch_array($result))
 {
 	if ($row['clientLocale'] == '')
 	{
-		$row['clientLocale'] = $roster_conf['roster_lang'];
+		$row['clientLocale'] = $roster->config['roster_lang'];
 	}
 	$items = $roster->locale->act['inst_keys'][ substr($guild_info['faction'],0,1) ];
 	// build SQL search string for the instance keys only
@@ -435,7 +435,7 @@ while ($row = $wowdb->fetch_array($result))
 			print '<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">'.$bcount.'/'.$qcount.'</div></div>'."\n";
 			print '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">'."\n";
 			print "<tr>\n";
-			print '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$pcent.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>'."\n";
+			print '<td style="background-image: url(\''.$roster->config['img_url'].'expbar-var2.gif\');" width="'.$pcent.'%"><img src="'.$roster->config['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>'."\n";
 			print '<td width="'.(100 - $pcent).'%"></td>'."\n";
 			print "</tr>\n</table>\n</div>\n";
 		}

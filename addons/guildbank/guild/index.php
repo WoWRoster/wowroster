@@ -100,9 +100,9 @@ if ( $addon['config']['bank_money'] )
 	$mulemoney['gold'] = $mulemoney['gold']+$addgold;
 
 	$bank_money = $roster->locale->act['guildbank_totalmoney'].' <div class="money">'.
-	$mulemoney['gold'].' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> '.
-	$mulemoney['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> '.
-	$mulemoney['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /></div>';
+	$mulemoney['gold'].' <img src="'.$roster->config['img_url'].'coin_gold.gif" alt="g" /> '.
+	$mulemoney['silver'].' <img src="'.$roster->config['img_url'].'coin_silver.gif" alt="s" /> '.
+	$mulemoney['copper'].' <img src="'.$roster->config['img_url'].'coin_copper.gif" alt="c" /></div>';
 }
 
 $bankers = array();
@@ -127,9 +127,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 		 	  '<tr>
     <td colspan="'.$columns.'" class="membersRowRight2">'.
 			'<div class="money" align="center">'.
-			$muleRow['gold'].  ' <img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> '.
-			$muleRow['silver'].' <img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> '.
-			$muleRow['copper'].' <img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" /></div>'.
+			$muleRow['gold'].  ' <img src="'.$roster->config['img_url'].'coin_gold.gif" alt="g" /> '.
+			$muleRow['silver'].' <img src="'.$roster->config['img_url'].'coin_silver.gif" alt="s" /> '.
+			$muleRow['copper'].' <img src="'.$roster->config['img_url'].'coin_copper.gif" alt="c" /></div>'.
 		"</td>\n</tr>\n" : '' );
 
 	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
@@ -224,7 +224,7 @@ print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\
 
 function DateCharDataUpdated($id)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $roster, $wowdb, $wordings;
 
 	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
 	$result = $wowdb->query($query);
@@ -232,6 +232,6 @@ function DateCharDataUpdated($id)
 	$wowdb->free_result($result);
 
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
-	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 	return date($wordings[$data['clientLocale']]['phptimeformat'], $localtime);
 }

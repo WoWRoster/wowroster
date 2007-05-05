@@ -535,7 +535,7 @@ function describeGDdyn()
 
 function ConfigErrors()
 {
-	global $roster_conf;
+	global $roster;
 
 	// Get freetype installation status
 	if ( function_exists('gd_info'))
@@ -552,7 +552,7 @@ function ConfigErrors()
 	$errors = '';
 
 	// Check GD and Freetype status in PHP config if GD Realm Status option is set
-	if ($roster_conf['rs_mode'] == 1)
+	if ($roster->config['rs_mode'] == 1)
 	{
 		if( !function_exists('gd_info') )
 		{
@@ -563,7 +563,7 @@ function ConfigErrors()
 			$errors .= "Realm Status GD image mode enabled (rs_mode = on) in Config but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (rs_mode = off) in Roster Config<br />\n";
 		}
 	}
-	if ($roster_conf['motd_display_mode'] == 1)
+	if ($roster->config['motd_display_mode'] == 1)
 	{
 		if( !function_exists('gd_info') )
 		{

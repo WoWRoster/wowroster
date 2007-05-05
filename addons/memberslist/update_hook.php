@@ -69,7 +69,7 @@ class memberslist
 	 */
 	function guild($char, $member_id)
 	{
-		global $wowdb, $roster_conf;
+		global $wowdb, $roster;
 
 		// --[ Check if this update type is enabled ]--
 		if( !( $this->data['config']['update_type'] & 1 ) )
@@ -358,7 +358,7 @@ class memberslist
 	 */
 	function guild_post($guild)
 	{
-		global $wowdb, $roster_conf;
+		global $wowdb, $roster;
 
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 1 ) == 0 )
@@ -394,7 +394,7 @@ class memberslist
 	 */
 	function char($char, $member_id)
 	{
-		global $wowdb, $roster_conf;
+		global $wowdb, $roster;
 
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
@@ -455,7 +455,7 @@ class memberslist
 	 */
 	function char_post($chars)
 	{
-		global $wowdb, $roster_conf;
+		global $wowdb, $roster;
 
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )

@@ -92,7 +92,7 @@ class memberslist
 	 */
 	function prepareData($query, $fields, $listname)
 	{
-		global $roster, $wowdb, $wordings, $roster_conf;
+		global $roster, $wowdb, $wordings;
 
 		// Save some info
 		$this->listname = $listname;
@@ -305,7 +305,7 @@ class memberslist
 	 */
 	function makeFilterBox()
 	{
-		global $roster, $wowdb, $wordings, $roster_conf;
+		global $roster, $wowdb, $wordings;
 
 		if( $this->addon['config']['nojs'] )
 		{
@@ -316,11 +316,11 @@ class memberslist
 
 		$output =
 			'<div id="sortfilterCol" style="display:'.(($this->addon['config']['openfilter'])?'none':'inline').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
 			border('sblue','end')."\n".
 			'</div>'."\n".
 			'<div id="sortfilter" style="display:'.(($this->addon['config']['openfilter'])?'inline':'none').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
 			'<table><tr>'."\n".
 			'<td class="membersHeader">'.$roster->locale->act['memberssort'].'</td>'."\n".
 			'<td class="membersHeader">'.$roster->locale->act['memberscolshow'].'</td>'."\n".
@@ -351,7 +351,7 @@ class memberslist
 	 */
 	function makeToolBar($dir = 'horizontal')
 	{
-		global $roster_conf;
+		global $roster;
 
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s='.$_GET['s'] : '' );
@@ -362,8 +362,8 @@ class memberslist
 
 		if( $this->addon['config']['group_alts'] )
 		{
-			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster_conf['img_url'].'plus.gif\'); return false;"><img src="'.$roster_conf['img_url'].'plus.gif" alt="+" />Close all</a></th>';
-			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster_conf['img_url'].'minus.gif\'); return false;"><img src="'.$roster_conf['img_url'].'minus.gif" alt="-" />Open all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="+" />Close all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="-" />Open all</a></th>';
 			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Hide alts</a></th>';
 		}
 		else
@@ -395,7 +395,7 @@ class memberslist
 	 */
 	function makeMembersList()
 	{
-		global $roster, $wowdb, $wordings, $roster_conf;
+		global $roster, $wowdb, $wordings;
 
 		$cols = count( $this->fields );
 
@@ -514,8 +514,8 @@ class memberslist
 			$openalt = '-';
 
 			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'.
-				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\'); return false;">'.
-				'<img src="'.$roster_conf['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
+				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\'); return false;">'.
+				'<img src="'.$roster->config['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
 				$block['main']."\n".'</tr>'."\n";
 
 			$alt_counter = 0;
@@ -541,9 +541,9 @@ class memberslist
 	 */
 	function makeMotd()
 	{
-		global $roster_conf, $guild_info;
+		global $roster, $guild_info;
 
-		if( $roster_conf['motd_display_mode'] )
+		if( $roster->config['motd_display_mode'] )
 		{
 			return '<img src="motd.php" alt="Guild MOTD: '.htmlspecialchars($guild_info['guild_motd']).'" /><br /><br />';
 		}
@@ -566,7 +566,7 @@ class memberslist
 	 */
 	function name_value ( $row, $field )
 	{
-		global $roster, $roster_conf;
+		global $roster;
 
 		if( $this->addon['config']['member_tooltip'] )
 		{
@@ -610,21 +610,21 @@ class memberslist
 	 */
 	function class_value ( $row, $field )
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster;
 
 		if( $row['class'] != '' )
 		{
 			// Class Icon
 			if( $this->addon['config']['class_icon'] == 1 )
 			{
-				foreach ($roster_conf['multilanguages'] as $language)
+				foreach ($roster->config['multilanguages'] as $language)
 				{
 					$icon_name = isset($wordings[$language]['class_iconArray'][$row['class']]) ? $wordings[$language]['class_iconArray'][$row['class']] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
 				$icon_name = 'Interface/Icons/'.$icon_name;
 
-				$icon_value = '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+				$icon_value = '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 			}
 			else
 			{
@@ -634,7 +634,7 @@ class memberslist
 			// Class name coloring
 			if ( $this->addon['config']['class_color'] == 1 )
 			{
-				foreach( $roster_conf['multilanguages'] as $language )
+				foreach( $roster->config['multilanguages'] as $language )
 				{
 					$class_color = array_search($row['class'],$wordings[$language]);
 					if( strlen($class_color) > 0 )
@@ -668,7 +668,7 @@ class memberslist
 	 */
 	function level_value ( $row, $field )
 	{
-		global $roster, $wowdb, $roster_conf, $wordings;
+		global $roster, $wowdb, $wordings;
 
 		$tooltip = '';
 		// Configurlate exp is player has it
@@ -688,7 +688,7 @@ class memberslist
 			$tooltip = '<div style="white-space:nowrap;" class="levelbarParent" style="width:200px;"><div class="levelbarChild">XP '.$current.'/'.$max.$rested.'</div></div>';
 			$tooltip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="200">';
 			$tooltip .= '<tr>';
-			$tooltip .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+			$tooltip .= '<td style="background-image: url(\''.$roster->config['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster->config['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
 			$tooltip .= '<td width="'.(100 - $percent_exp).'%"></td>';
 			$tooltip .= '</tr>';
 			$tooltip .= '</table>';
@@ -711,7 +711,7 @@ class memberslist
 			$cell_value = '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
 			$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 			$cell_value .= '<tr>';
-			$cell_value .= '<td style="background-image: url(\''.$roster_conf['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster_conf['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
+			$cell_value .= '<td style="background-image: url(\''.$roster->config['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster->config['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
 			$cell_value .= '<td width="'.(100 - $percentage).'%"></td>';
 			$cell_value .= "</tr>\n</table>\n</div>\n";
 		}
@@ -731,7 +731,7 @@ class memberslist
 	 */
 	function honor_value ( $row, $field )
 	{
-		global $roster_conf, $wordings;
+		global $roster, $wordings;
 
 		if ( $row['lifetimeHighestRank'] > 0 )
 		{
@@ -739,13 +739,13 @@ class memberslist
 			{
 				if( $row['lifetimeHighestRank'] < 10 )
 				{
-					$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
+					$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
 				}
 				else
 				{
-					$rankicon = 'Interface/PvPRankBadges/PvPRank'.$row['lifetimeHighestRank'].'.'.$roster_conf['alt_img_suffix'];
+					$rankicon = 'Interface/PvPRankBadges/PvPRank'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
 				}
-				$rankicon = $roster_conf['interface_url'].$rankicon;
+				$rankicon = $roster->config['interface_url'].$rankicon;
 				$rankicon = "<img class=\"membersRowimg\" width=\"".$this->addon['config']['icon_size']."\" height=\"".$this->addon['config']['icon_size']."\" src=\"".$rankicon."\" alt=\"\" />";
 			}
 			else

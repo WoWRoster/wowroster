@@ -24,7 +24,7 @@ $header_title = $roster->locale->act['professions'];
 
 // Build a list of "Skills" to look for
 $inClause = "'";
-foreach( $roster_conf['multilanguages'] as $lang )
+foreach( $roster->config['multilanguages'] as $lang )
 {
 	$inClause .= implode("', '",$wordings[$lang]['tsArray']);
 	$inClause .= "', '";
@@ -59,11 +59,11 @@ if( $wowdb->num_rows($result) )
 	{
 		$skill_name = $row['skill_name'];
 		$skill_image = 'Interface/Icons/' . $wordings[$row['clientLocale']]['ts_iconArray'][$skill_name];
-		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="' . $roster_conf['interface_url'] . $skill_image . '.' . $roster_conf['img_suffix'] . '" alt="" /></div>';
+		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="' . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . '" alt="" /></div>';
 
-		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_' . $id . '\',\'img_' . $id . '\',\'' . $roster_conf['img_url'] . 'minus.gif\',\'' . $roster_conf['img_url'] . 'plus.gif\');">
+		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_' . $id . '\',\'img_' . $id . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
 	' . $skill_image . '
-	<div style="display:inline;float:right;"><img id="img_' . $id . '" src="' . $roster_conf['img_url'] . ( $addon['config']['collapse_list'] ? 'plus' : 'minus' ) . '.gif" alt="" /></div>
+	<div style="display:inline;float:right;"><img id="img_' . $id . '" src="' . $roster->config['img_url'] . ( $addon['config']['collapse_list'] ? 'plus' : 'minus' ) . '.gif" alt="" /></div>
 ' . $skill_name . '</div>';
 
 		if( $last_value != $skill_name )
@@ -111,8 +111,8 @@ if( $wowdb->num_rows($result) )
 			</div>
 			<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
 				<tr>
-					<td style="background-image: url(\'' . $roster_conf['img_url'] . 'expbar-var2.gif\');" width="' . $levelpct . '%">
-						<img src="' . $roster_conf['img_url'] . 'pixel.gif" height="14" width="1" alt="" />
+					<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $levelpct . '%">
+						<img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" />
 					</td>
 					<td width="' . (100-$levelpct) . '%"></td>
 				</tr>

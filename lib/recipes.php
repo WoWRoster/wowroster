@@ -30,14 +30,14 @@ class recipe
 
 	function out()
 	{
-		global $roster_conf, $wordings, $char, $tooltips;
+		global $roster, $wordings, $char, $tooltips;
 
 		if( !is_object($char) )
-			$lang = $roster_conf['roster_lang'];
+			$lang = $roster->config['roster_lang'];
 		else
 			$lang = $char->data['clientLocale'];
 
-		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster_conf['img_suffix'];
+		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster->config['img_suffix'];
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);

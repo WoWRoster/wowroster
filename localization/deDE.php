@@ -750,7 +750,7 @@ $lang['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurückse
 // All strings here
 // Each variable must be the same name as the config variable name
 // Example:
-//   Assign description text and tooltip for $roster_conf['sqldebug']
+//   Assign description text and tooltip for $roster->config['sqldebug']
 //   $lang['admin']['sqldebug'] = "Desc|Tooltip";
 
 // Each string is separated by a pipe ( | )

@@ -20,7 +20,7 @@ $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 require_once($roster_root_path . 'settings.php');     ##  Uses the same settings.php as WoWProfiler
 $name = addslashes(urldecode($_SERVER['QUERY_STRING']));
 
-$sitename = $roster_conf['website_address'];  ## Change this to your web address or a guild motto or whatever
+$sitename = $roster->config['website_address'];  ## Change this to your web address or a guild motto or whatever
 
 
 $result = $wowdb->query("SELECT * FROM `" . ROSTER_PLAYERSTABLE . "` WHERE `name` LIKE '$name' LIMIT 0 , 1;");
@@ -48,7 +48,7 @@ $nameid = $getdata['member_id'];
 
 ##  This sets up the image that is going to be used as the background
 ##  This sets up my font color, this is Black
-$im = imagecreatefrompng($roster_conf['signaturebackground']);
+$im = imagecreatefrompng($roster->config['signaturebackground']);
 $color = ImageColorAllocate($im, 0,0,0);
 
 ##   Making it so the servername aligns from the right instead of the left of the image field

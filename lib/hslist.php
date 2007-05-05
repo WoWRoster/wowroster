@@ -22,8 +22,8 @@ if( !defined('ROSTER_INSTALLED') )
 $striping_counter = 0;
 $tableHeader = '
 <!-- Begin HSLIST -->
-'.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'hs_table\',\'hs_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
-	<div style="display:inline;float:right;"><img id="hs_img" src="'.$roster_conf['img_url'].'plus.gif" alt="" /></div>
+'.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'hs_table\',\'hs_img\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');">
+	<div style="display:inline;float:right;"><img id="hs_img" src="'.$roster->config['img_url'].'plus.gif" alt="" /></div>
 '.$roster->locale->act['hslist'].'</div>').'
 <table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="hs_table" style="display:none;">'."\n";
 

@@ -47,7 +47,7 @@ class reputation
 
 	function out()
 	{
-		global $wordings, $roster_conf, $char;
+		global $wordings, $roster, $char;
 
 		$lang = $char->data['clientLocale'];
 
@@ -56,41 +56,41 @@ class reputation
 
 		if( $max == 1 )
 		{
-			$bgImage = $roster_conf['img_url'].'bargrey.gif';
+			$bgImage = $roster->config['img_url'].'bargrey.gif';
 		}
 		else
 		{
-			$bgImage = $roster_conf['img_url'].'barempty.gif';
+			$bgImage = $roster->config['img_url'].'barempty.gif';
 		}
 
 		switch ( $this->data['Standing'] )
 		{
 		case ($wordings[$lang]['hated']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_r.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_r.gif';
 			$width = intval((($level+26000)/23000) * 354);
 			break;
 		case ($wordings[$lang]['hostile']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_r.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_r.gif';
 			$width = intval((($level+6000)/3000) * 354);
 			break;
 		case ($wordings[$lang]['neutral']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_y.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_y.gif';
 			break;
 		case ($wordings[$lang]['unfriendly']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_o.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_o.gif';
 			$width = intval(($level/-3000) * 354);
 			break;
 		case ($wordings[$lang]['honored']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
 		case ($wordings[$lang]['friendly']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
 		case ($wordings[$lang]['exalted']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
 		case ($wordings[$lang]['revered']):
-			$RepBarImg = $roster_conf['img_url'].'barbit_g.gif';
+			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
 		}
 

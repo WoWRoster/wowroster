@@ -150,11 +150,11 @@ if( $addon['config']['log_update_inst'] )
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster_conf['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $roster->locale->act['lualocation']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 
-	if ($roster_conf['pvp_log_allow'] == 1)
+	if ($roster->config['pvp_log_allow'] == 1)
 	{
-		echo sprintf($roster->locale->act['update_instructpvp'], $roster_conf['pvplogger']);
+		echo sprintf($roster->locale->act['update_instructpvp'], $roster->config['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }
@@ -168,7 +168,7 @@ if( $addon['config']['log_update_inst'] )
  */
 function note_value ( $row, $field )
 {
-	global $roster, $roster_conf, $wordings, $addon;
+	global $roster, $wordings, $addon;
 
 	$tooltip='';
 	if( !empty($row[$field]) )
@@ -177,7 +177,7 @@ function note_value ( $row, $field )
 
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
+			$note = '<img src="'.$roster->config['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 	}
 	else
@@ -185,7 +185,7 @@ function note_value ( $row, $field )
 		$note = '&nbsp;';
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'no_note.gif" alt="[]" />';
+			$note = '<img src="'.$roster->config['img_url'].'no_note.gif" alt="[]" />';
 		}
 	}
 
@@ -201,7 +201,7 @@ function note_value ( $row, $field )
  */
 function type_value ( $row, $field )
 {
-	global $roster, $roster_conf, $wordings, $addon;
+	global $roster, $wordings, $addon;
 
 	if( $row['type'] == 0 )
 	{

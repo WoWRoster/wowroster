@@ -30,11 +30,11 @@ class item
 
 	function out( )
 	{
-		global $roster_conf, $wordings, $tooltips;
+		global $roster, $wordings, $tooltips;
 
-		$lang = ( isset($this->data['clientLocale']) ? $this->data['clientLocale'] : $roster_conf['roster_lang']);
+		$lang = ( isset($this->data['clientLocale']) ? $this->data['clientLocale'] : $roster->config['roster_lang']);
 
-		$path = $roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'];
+		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'];
 
 		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
 
