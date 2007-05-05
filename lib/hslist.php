@@ -24,7 +24,7 @@ $tableHeader = '
 <!-- Begin HSLIST -->
 '.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'hs_table\',\'hs_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
 	<div style="display:inline;float:right;"><img id="hs_img" src="'.$roster_conf['img_url'].'plus.gif" alt="" /></div>
-'.$act_words['hslist'].'</div>').'
+'.$roster->locale->act['hslist'].'</div>').'
 <table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="hs_table" style="display:none;">'."\n";
 
 
@@ -59,7 +59,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildhonor&amp;s=lifetimeRankName').'">'.$act_words['hslist1'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=lifetimeRankName').'">'.$roster->locale->act['hslist1'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -87,7 +87,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildhonor&amp;s=lifetimeHK').'">'.$act_words['hslist2'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=lifetimeHK').'">'.$roster->locale->act['hslist2'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -108,7 +108,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildhonor&amp;s=honorpoints').'">'.$act_words['hslist3'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=honorpoints').'">'.$roster->locale->act['hslist3'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -129,7 +129,7 @@ if ($row) {
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	rankLeft((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildhonor&amp;s=arenapoints').'">'.$act_words['hslist4'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildhonor&amp;s=arenapoints').'">'.$roster->locale->act['hslist4'].'</a></td>'."\n");
 	rankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");

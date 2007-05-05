@@ -26,7 +26,7 @@ define('IN_SORTMEMBER',true);
 //---[ Check for Guild Info ]------------
 if( empty($guild_info) )
 {
-	die_quietly( $act_words['nodata'] );
+	die_quietly( $roster->locale->act['nodata'] );
 }
 
 $mainQuery =

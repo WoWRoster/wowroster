@@ -87,7 +87,7 @@ while( $r = $wowdb->fetch_array($result4) )
 {
 	extract($r);
 
-	if( $skill_type==$act_words['professions'] )
+	if( $skill_type==$roster->locale->act['professions'] )
 	{
 		ImageTTFText($im, 6, 0, 290, $pos, $color, 'fonts/VERANDA.TTF', $skill_name);
 		ImageTTFText($im, 6, 0, 355, $pos, $color, 'fonts/VERANDA.TTF', $skill_level);
@@ -104,7 +104,7 @@ while( $r = $wowdb->fetch_array($result5) )
 {
 	extract($r);
 
-	if( $skill_type==$act_words['secondary'] )
+	if( $skill_type==$roster->locale->act['secondary'] )
 	{
 		ImageTTFText($im, 6, 0, 290, $pos, $color, 'fonts/VERANDA.TTF', $skill_name);
 		ImageTTFText($im, 6, 0, 355, $pos, $color, 'fonts/VERANDA.TTF', $skill_level);

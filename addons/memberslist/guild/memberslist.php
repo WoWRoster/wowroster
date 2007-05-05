@@ -35,7 +35,7 @@ $mainQuery =
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
 	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster_conf['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'last_online', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
 	'`members`.`note`, '.
 	'`members`.`guild_title`, '.
 
@@ -58,7 +58,7 @@ $mainQuery =
 	'`players`.`hearth`, '.
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
 	"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'last_update_format', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
 	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`proftable`.`professions` '.
@@ -170,7 +170,7 @@ $html_head = '<script type="text/javascript" src="addons/'.$addon['basename'].'/
 // Start output
 if( $addon['config']['member_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$act_words['update_link'].'</font></a><br /><br />';
+	print '            <a href="#update"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
 }
 
 
@@ -214,12 +214,12 @@ if( $addon['config']['member_update_inst'] )
 {
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
-	echo border('sgray','start',$act_words['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($act_words['update_instruct'], $roster_conf['uploadapp'], $act_words['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $act_words['lualocation']);
+	echo border('sgray','start',$roster->locale->act['update_instructions']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster_conf['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 
 	if ($roster_conf['pvp_log_allow'] == 1)
 	{
-		echo sprintf($act_words['update_instructpvp'], $roster_conf['pvplogger']);
+		echo sprintf($roster->locale->act['update_instructpvp'], $roster_conf['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }
@@ -283,7 +283,7 @@ function tradeskill_icons ( $row )
  */
 function note_value ( $row, $field )
 {
-	global $roster_conf, $wordings, $act_words, $addon;
+	global $roster, $roster_conf, $wordings, $addon;
 
 	$tooltip='';
 	if( !empty($row[$field]) )
@@ -292,7 +292,7 @@ function note_value ( $row, $field )
 
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$act_words['note'],'',1,'',',WRAP').' alt="[]" />';
+			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 	}
 	else

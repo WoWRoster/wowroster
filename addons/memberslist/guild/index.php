@@ -28,5 +28,5 @@ if( !isset($roster_pages[2]) )
 }
 else
 {
-	die_quietly($act_words['SortMember_NoAction'],'SortMember');
+	die_quietly($roster->locale->act['SortMember_NoAction'],'SortMember');
 }

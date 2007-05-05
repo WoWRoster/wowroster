@@ -35,7 +35,7 @@ $mainQuery =
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
 	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster_conf['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$act_words['timeformat']."' ) AS 'last_online', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`guild_title`, '.
@@ -203,7 +203,7 @@ $html_head  = '<script type="text/javascript" src="addons/'.$addon['basename'].'
 // Start output
 if( $addon['config']['stats_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$act_words['update_link'].'</font></a><br /><br />';
+	print '            <a href="#update"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
 }
 
 
@@ -247,12 +247,12 @@ if( $addon['config']['stats_update_inst'] )
 {
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
-	echo border('sgray','start',$act_words['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($act_words['update_instruct'], $roster_conf['uploadapp'], $act_words['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $act_words['lualocation']);
+	echo border('sgray','start',$roster->locale->act['update_instructions']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster_conf['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 
 	if ($roster_conf['pvp_log_allow'] == 1)
 	{
-		echo sprintf($act_words['update_instructpvp'], $roster_conf['pvplogger']);
+		echo sprintf($roster->locale->act['update_instructpvp'], $roster_conf['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }

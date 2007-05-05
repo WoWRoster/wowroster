@@ -90,13 +90,13 @@ for($i=0; $i<$count; $i++)
 		switch ($roster->config['img_suffix'])
 		{
 			case 'jpg':
-				$icon = @imagecreatefromjpeg($roster->config['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.jpg');
+				$icon = @imagecreatefromjpeg($roster->config['interface_url'].'Interface/Icons/'.$roster->locale->act['class_iconArray'][$barnames[$i]].'.jpg');
 				break;
 			case 'png':
-				$icon = @imagecreatefrompng($roster->config['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.png');
+				$icon = @imagecreatefrompng($roster->config['interface_url'].'Interface/Icons/'.$roster->locale->act['class_iconArray'][$barnames[$i]].'.png');
 				break;
 			case 'gif':
-				$icon = @imagecreatefromgif($roster->config['interface_url'].'Interface/Icons/'.$act_words['class_iconArray'][$barnames[$i]].'.gif');
+				$icon = @imagecreatefromgif($roster->config['interface_url'].'Interface/Icons/'.$roster->locale->act['class_iconArray'][$barnames[$i]].'.gif');
 				break;
 			default:
 				$icon = false;
@@ -135,7 +135,7 @@ for($i=0; $i<$count; $i++)
 {
 	if( $type == 'class' )
 	{
-		$thistextcolor = setColor($image, $act_words['class_colorArray'][$barnames[$i]]);
+		$thistextcolor = setColor($image, $roster->locale->act['class_colorArray'][$barnames[$i]]);
 	}
 	else
 	{

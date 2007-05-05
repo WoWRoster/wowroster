@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['keys'];
+$header_title = $roster->locale->act['keys'];
 
 require_once (ROSTER_LIB.'item.php');
 
@@ -37,7 +37,7 @@ function borderTop()
 
 function tableHeaderRow($th)
 {
-	global $items, $roster_conf, $tooltips, $act_words;
+	global $roster, $items, $roster_conf, $tooltips;
 
 	$acount = 0;
 	print "  <tr>\n";
@@ -50,12 +50,12 @@ function tableHeaderRow($th)
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $act_words['itemlinks'] as $ikey => $ilink )
+			foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
 			{
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$act_words['itemlink']);
+			setTooltip('itemlink',$roster->locale->act['itemlink']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);" onmouseout="return nd();"';
 
@@ -148,7 +148,7 @@ $min_skill_for_lock = array(
 	'MC' => 1000,
 );
 
-$items = $act_words['inst_keys'][ substr($guild_info['faction'],0,1) ];
+$items = $roster->locale->act['inst_keys'][ substr($guild_info['faction'],0,1) ];
 $keys = array('Name');
 foreach ($items as $key => $data)
 {
@@ -168,7 +168,7 @@ while ($row = $wowdb->fetch_array($result))
 	{
 		$row['clientLocale'] = $roster_conf['roster_lang'];
 	}
-	$items = $act_words['inst_keys'][ substr($guild_info['faction'],0,1) ];
+	$items = $roster->locale->act['inst_keys'][ substr($guild_info['faction'],0,1) ];
 	// build SQL search string for the instance keys only
 	$selectk = ''; $wherek = ''; $countk = 0;
 	foreach ($items as $key => $item)
@@ -373,13 +373,13 @@ while ($row = $wowdb->fetch_array($result))
 				$bcount = count($parray)-1;
 			}
 
-			$tooltip_h = $key.' '.$act_words['key'].' Status';
-			$tooltip = '<span style="color:#'.$addon->config['colorcmp'].';">'.$act_words['completedsteps'].'</span><br />';
+			$tooltip_h = $key.' '.$roster->locale->act['key'].' Status';
+			$tooltip = '<span style="color:#'.$addon->config['colorcmp'].';">'.$roster->locale->act['completedsteps'].'</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
-				$tooltip .= '<span style="color:#'.$addon->config['colorcur'].';">'.$act_words['currentstep'].'</span><br />';
+				$tooltip .= '<span style="color:#'.$addon->config['colorcur'].';">'.$roster->locale->act['currentstep'].'</span><br />';
 			}
-			$tooltip .= '<span style="color:#'.$addon->config['colorno'].';">'.$act_words['uncompletedsteps'].'</span><br /><br />';
+			$tooltip .= '<span style="color:#'.$addon->config['colorno'].';">'.$roster->locale->act['uncompletedsteps'].'</span><br /><br />';
 			if ($items[$key][0] == 'Quests')
 			{
 				for ($i=1;$i<count($items[$key])-1;$i++)
@@ -420,12 +420,12 @@ while ($row = $wowdb->fetch_array($result))
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $act_words['itemlinks'] as $ikey => $ilink )
+			foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
 			{
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode(stripslashes($iname))).'" target="_blank">'.$ikey.'</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$act_words['itemlink']);
+			setTooltip('itemlink',$roster->locale->act['itemlink']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 

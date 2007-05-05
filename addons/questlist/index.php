@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['questlist'];
+$header_title = $roster->locale->act['questlist'];
 
 include_once(ROSTER_LIB . 'sitesearch.lib.php');
 
@@ -56,16 +56,16 @@ echo "  </tr>\n</table>\n";
 
 print("<br />\n");
 
-$searchbox = $act_words['questlist_help'].'<br /><br />
+$searchbox = $roster->locale->act['questlist_help'].'<br /><br />
 	<form method="post" action="' . makelink() . '">
-		<strong>' . $act_words['search_by_zone'] . '</strong>
+		<strong>' . $roster->locale->act['search_by_zone'] . '</strong>
 		<br />
 		<select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value">
 			<option value="">----------</option>
 ' . $option_blockzones . '
 		</select>
 		<br /><br />
-		<strong>' . $act_words['search_by_quest'] . '</strong>
+		<strong>' . $roster->locale->act['search_by_quest'] . '</strong>
 		<br />
 		<select name="questid" onchange="window.location.href=this.options[this.selectedIndex].value">
 			<option value="">----------</option>
@@ -73,7 +73,7 @@ $searchbox = $act_words['questlist_help'].'<br /><br />
 		</select>
 </form><br />';
 
-print messagebox($searchbox,$act_words['questlist']);
+print messagebox($searchbox,$roster->locale->act['questlist']);
 
 
 if( !empty($zoneidsafe) )
@@ -104,12 +104,12 @@ if( !empty($zoneidsafe) )
 			// Quest links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $act_words['questlinks'] as $link )
+			foreach( $roster->locale->act['questlinks'] as $link )
 			{
 				$linktip .= '<a href="' . $link['url1'] . urlencode(utf8_decode($qrow['quest_name'])) . '" target="_blank">' . $link['name'] . '</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('questlink',$act_words['quest_links']);
+			setTooltip('questlink',$roster->locale->act['quest_links']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
@@ -117,8 +117,8 @@ if( !empty($zoneidsafe) )
 				'<table cellpadding="0" cellspacing="0" width="100%">';
 
 			$tableHeaderRow = '  <tr>
-    <th class="membersHeader">' . $act_words['name'] . '</th>
-    <th class="membersHeader">' . $act_words['quest_data'] . '</th>
+    <th class="membersHeader">' . $roster->locale->act['name'] . '</th>
+    <th class="membersHeader">' . $roster->locale->act['quest_data'] . '</th>
   </tr>';
 
 			$tableFooter = '</table>' . border('syellow','end') . '<br />';
@@ -144,11 +144,11 @@ if( !empty($zoneidsafe) )
 
 				if( $row['is_complete'] == 1 )
 				{
-					$quest_tags[] = $act_words['complete'];
+					$quest_tags[] = $roster->locale->act['complete'];
 				}
 				elseif( $row['is_complete'] == -1 )
 				{
-					$quest_tags[] = $act_words['failed'];
+					$quest_tags[] = $roster->locale->act['failed'];
 				}
 
 				if( is_array($quest_tags) )
@@ -181,12 +181,12 @@ if( !empty($questidsafe) )
 		// Quest links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $act_words['questlinks'] as $link )
+		foreach( $roster->locale->act['questlinks'] as $link )
 		{
 			$linktip .= '<a href="' . $link['url1'] . urlencode(utf8_decode($qnrow['quest_name'])) . '" target="_blank">' . $link['name'] . '</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
-		setTooltip('questlink',$act_words['quest_links']);
+		setTooltip('questlink',$roster->locale->act['quest_links']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
@@ -202,9 +202,9 @@ if( !empty($questidsafe) )
 		$tableHeader = border('syellow','start') . '<table cellpadding="0" cellspacing="0">';
 
 		$tableHeaderRow = '  <tr>
-    <th class="membersHeader">' . $act_words['name'] . '</th>
-    <th class="membersHeader">' . $act_words['quest_data'] . '</th>
-    <th class="membersHeaderRight">' . $act_words['zone2'] . '</th>
+    <th class="membersHeader">' . $roster->locale->act['name'] . '</th>
+    <th class="membersHeader">' . $roster->locale->act['quest_data'] . '</th>
+    <th class="membersHeaderRight">' . $roster->locale->act['zone2'] . '</th>
   </tr>';
 
 		$tableFooter = '</table>' . border('syellow','end');
@@ -230,11 +230,11 @@ if( !empty($questidsafe) )
 
 			if( $row['is_complete'] == 1 )
 			{
-				$quest_tags[] = $act_words['complete'];
+				$quest_tags[] = $roster->locale->act['complete'];
 			}
 			elseif( $row['is_complete'] == -1 )
 			{
-				$quest_tags[] = $act_words['failed'];
+				$quest_tags[] = $roster->locale->act['failed'];
 			}
 
 			if( is_array($quest_tags) )

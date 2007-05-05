@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-class char
+class info
 {
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';

@@ -126,7 +126,7 @@ foreach( $roster->addon_data as $row )
 
 	if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
 	{
-		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['basename'] . "</a></li>\n";
+		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['fullname'] . "</a></li>\n";
 	}
 }
 

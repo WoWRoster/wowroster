@@ -92,7 +92,7 @@ class memberslist
 	 */
 	function prepareData($query, $fields, $listname)
 	{
-		global $wowdb, $wordings, $act_words, $roster_conf;
+		global $roster, $wowdb, $wordings, $roster_conf;
 
 		// Save some info
 		$this->listname = $listname;
@@ -232,9 +232,9 @@ class memberslist
 			}
 
 			// See if there is a lang value for the header
-			if( !empty($act_words[$DATA['lang_field']]) )
+			if( !empty($roster->locale->act[$DATA['lang_field']]) )
 			{
-				$th_text = $act_words[$DATA['lang_field']];
+				$th_text = $roster->locale->act[$DATA['lang_field']];
 			}
 			else
 			{
@@ -305,7 +305,7 @@ class memberslist
 	 */
 	function makeFilterBox()
 	{
-		global $wowdb, $wordings, $act_words, $roster_conf;
+		global $roster, $wowdb, $wordings, $roster_conf;
 
 		if( $this->addon['config']['nojs'] )
 		{
@@ -316,15 +316,15 @@ class memberslist
 
 		$output =
 			'<div id="sortfilterCol" style="display:'.(($this->addon['config']['openfilter'])?'none':'inline').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\"/>".$act_words['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
 			border('sblue','end')."\n".
 			'</div>'."\n".
 			'<div id="sortfilter" style="display:'.(($this->addon['config']['openfilter'])?'inline':'none').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\"/>".$act_words['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster_conf['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
 			'<table><tr>'."\n".
-			'<td class="membersHeader">'.$act_words['memberssort'].'</td>'."\n".
-			'<td class="membersHeader">'.$act_words['memberscolshow'].'</td>'."\n".
-			'<td class="membersHeader">'.$act_words['membersfilter'].'</td>'."\n".
+			'<td class="membersHeader">'.$roster->locale->act['memberssort'].'</td>'."\n".
+			'<td class="membersHeader">'.$roster->locale->act['memberscolshow'].'</td>'."\n".
+			'<td class="membersHeader">'.$roster->locale->act['membersfilter'].'</td>'."\n".
 			'</tr>'."\n".
 			'<tr><td rowspan="'.$cols.'">'."\n";
 		for ($i=0; $i<4; $i++) {
@@ -395,7 +395,7 @@ class memberslist
 	 */
 	function makeMembersList()
 	{
-		global $wowdb, $wordings, $act_words, $roster_conf;
+		global $roster, $wowdb, $wordings, $roster_conf;
 
 		$cols = count( $this->fields );
 
@@ -566,7 +566,7 @@ class memberslist
 	 */
 	function name_value ( $row, $field )
 	{
-		global $roster_conf, $act_words;
+		global $roster, $roster_conf;
 
 		if( $this->addon['config']['member_tooltip'] )
 		{
@@ -574,8 +574,8 @@ class memberslist
 
 			$tooltip = 'Level '.$row['level'].' '.$row['sex'].' '.$row['race'].' '.$row['class']."\n";
 
-			$tooltip .= $act_words['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
-			$tooltip .= ($row['nisnull'] ? '' : "\n".$act_words['note'].': '.$row['note']);
+			$tooltip .= $roster->locale->act['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
+			$tooltip .= ($row['nisnull'] ? '' : "\n".$roster->locale->act['note'].': '.$row['note']);
 
 			$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
@@ -668,7 +668,7 @@ class memberslist
 	 */
 	function level_value ( $row, $field )
 	{
-		global $wowdb, $roster_conf, $wordings, $act_words;
+		global $roster, $wowdb, $roster_conf, $wordings;
 
 		$tooltip = '';
 		// Configurlate exp is player has it
@@ -696,7 +696,7 @@ class memberslist
 
 			if( $row['level'] == ROSTER_MAXCHARLEVEL )
 			{
-				$tooltip = makeOverlib($act_words['max_exp'],'','',2,'',',WRAP');
+				$tooltip = makeOverlib($roster->locale->act['max_exp'],'','',2,'',',WRAP');
 			}
 			else
 			{

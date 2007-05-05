@@ -24,7 +24,7 @@ $tableHeader = '
 <!-- Begin PvPLIST -->
 '.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'pvp_table\',\'pvp_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
 	<div style="display:inline;float:right;"><img id="pvp_img" src="'.$roster_conf['img_url'].'plus.gif" alt="" /></div>
-'.$act_words['pvplist'].'</div>').'
+'.$roster->locale->act['pvplist'].'</div>').'
 <table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="pvp_table" style="display:none;">'."\n";
 
 
@@ -58,7 +58,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=guildwins').'">'.$act_words['pvplist1'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=guildwins').'">'.$roster->locale->act['pvplist1'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	if ($row['guild'] == '')
 		$guildname = '(unguilded)';
@@ -83,7 +83,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=guildlosses').'">'.$act_words['pvplist2'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=guildlosses').'">'.$roster->locale->act['pvplist2'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	if ($row['guild'] == '') {
 		$guildname = '(unguilded)';
@@ -109,7 +109,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=enemywins').'">'.$act_words['pvplist3'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=enemywins').'">'.$roster->locale->act['pvplist3'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -130,7 +130,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=enemylosses').'">'.$act_words['pvplist4'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=enemylosses').'">'.$roster->locale->act['pvplist4'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['name']);
 	print("</td>\n");
@@ -152,7 +152,7 @@ if ($row)
 	++$striping_counter;
 
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgewins').'">'.$act_words['pvplist5'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgewins').'">'.$roster->locale->act['pvplist5'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -175,7 +175,7 @@ if ($row)
 	++$striping_counter;
 
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgelosses').'">'.$act_words['pvplist6'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgelosses').'">'.$roster->locale->act['pvplist6'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -198,7 +198,7 @@ if ($row)
 	++$striping_counter;
 
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgeavewins').'">'.$act_words['pvplist7'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgeavewins').'">'.$roster->locale->act['pvplist7'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");
@@ -226,7 +226,7 @@ if ($row)
 	// Increment counter so rows are colored alternately
 	++$striping_counter;
 	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgeavelosses').'">'.$act_words['pvplist8'].'</a></td>'."\n");
+	print('<a href="'.makelink('guildpvp&amp;type=purgeavelosses').'">'.$roster->locale->act['pvplist8'].'</a></td>'."\n");
 	pvprankMid((($striping_counter % 2) +1));
 	print($row['gn']);
 	print("</td>\n");

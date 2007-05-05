@@ -20,7 +20,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['professions'];
+$header_title = $roster->locale->act['professions'];
 
 // Build a list of "Skills" to look for
 $inClause = "'";
@@ -79,8 +79,8 @@ if( $wowdb->num_rows($result) )
 			print ('
 <table border="0" cellpadding="0" cellspacing="0" class="bodyline" id="table_'.$id.'"' . ( $addon['config']['collapse_list'] ? ' style="display:none;"' : '' ) . '>
 	<tr>
-		<th class="membersHeader">' . $act_words['level'] . '</th>
-		<th class="membersHeaderRight" width="150">' . $act_words['name'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['level'] . '</th>
+		<th class="membersHeaderRight" width="150">' . $roster->locale->act['name'] . '</th>
 	</tr>
 ');
 

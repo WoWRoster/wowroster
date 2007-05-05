@@ -91,12 +91,12 @@ if( $addon['active'] = '1' )
 	}
 	else
 	{
-		$body =  messagebox(sprintf($act_words['addon_no_config'],$addon['basename']),$act_words['addon_error'],'sred');
+		$body =  messagebox(sprintf($roster->locale->act['addon_no_config'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
 	}
 }
 else
 {
-	$body =  messagebox(sprintf($act_words['addon_disabled'],$addon['basename']),$act_words['addon_error'],'sred');
+	$body =  messagebox(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
 }
 
 // Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
