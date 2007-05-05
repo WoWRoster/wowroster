@@ -2106,7 +2106,11 @@ class wowdb
 			$this->add_value( 'officer_note', $char['OfficerNote']);
 		else
 			$this->add_value( 'officer_note', '');
-		$this->add_value( 'zone', $char['Zone']);
+		if( isset($char['Zone']) )
+			$this->add_value( 'zone', $char['Zone']);
+		else
+			$this->add_value( 'zone', '');
+
 		if( isset($char['Status']) )
 			$this->add_value( 'status', $char['Status']);
 		else
@@ -2988,7 +2992,7 @@ class wowdb
 		return $memberId;
 
 	} //-END function update_char()
-	
+
 } //-END CLASS
 
 $wowdb = new wowdb;

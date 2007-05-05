@@ -25,16 +25,16 @@ class memberslist
 {
 	// Update messages
 	var $messages = '';
-	
+
 	// Addon data object, recieved in constructor
 	var $data;
-	
+
 	// LUA upload files accepted. We don't use any.
 	var $files = array();
-	
+
 	// Character data cache
 	var $chars = array();
-	
+
 	/**
 	 * Constructor
 	 *
@@ -44,12 +44,13 @@ class memberslist
 	function memberslist($data)
 	{
 		global $wowdb;
-		
+
 		$this->data = $data;
-		
+		$addon = $this->data;
+
 		include_once($this->data['conf_file']);
 	}
-	
+
 	/**
 	 * Resets addon messages
 	 */
@@ -69,7 +70,7 @@ class memberslist
 	function guild($char, $member_id)
 	{
 		global $wowdb, $roster_conf;
-	
+
 		// --[ Check if this update type is enabled ]--
 		if( !( $this->data['config']['update_type'] & 1 ) )
 		{
@@ -269,7 +270,7 @@ class memberslist
 				if($this->data['config']['invmain'])
 				{
 					$this->messages .= " - <span style='color:green;'>Main</span>\n";
-					
+
 					// --[ Main name invalid, so we're making this a main ]--
 					$main_id = $member_id;
 
@@ -344,7 +345,7 @@ class memberslist
 			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'</span><br/>'."\n";
 			return false;
 		}
-		
+
 		$this->messages .= '<br/>';
 		return true;
 	}
@@ -358,11 +359,11 @@ class memberslist
 	function guild_post($guild)
 	{
 		global $wowdb, $roster_conf;
-		
+
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 1 ) == 0 )
 		{
-			return true; 
+			return true;
 		}
 
 		$query = "DELETE `".ROSTER_ALT_TABLE."` ".
@@ -379,10 +380,10 @@ class memberslist
 			$this->messages .= ' - <span style="color:red;">Old records not deleted. MySQL said: '.$wowdb->error().'</span><br/>'."\n";
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Char trigger: add the member record to the local data array
 	 *
@@ -394,13 +395,13 @@ class memberslist
 	function char($char, $member_id)
 	{
 		global $wowdb, $roster_conf;
-		
+
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
 		{
-			return true; 
+			return true;
 		}
-		
+
 		// --[ Fetch full member data ]--
 		$query =
 			"SELECT `alt`.*, `member`.`name` ".
@@ -441,11 +442,11 @@ class memberslist
 		$this->chars[$member_id] = $char;
 		$this->chars[$member_id]['main_id'] = $row['main_id'];
 		$this->chars[$member_id]['alt_type'] = $row['alt_type'];
-		
+
 		$this->messages = substr($this->messages,0,-10);
 		return true;
 	}
-	
+
 	/**
 	 * Char_post trigger: does the actual update.
 	 *
@@ -455,19 +456,19 @@ class memberslist
 	function char_post($chars)
 	{
 		global $wowdb, $roster_conf;
-		
+
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
 		{
-			return true; 
+			return true;
 		}
-	
+
 		if( empty($this->chars) ) { return true; }
-		
+
 		// Decide upon a main: Highest leveled among those with highest guild rank
 		$maxrank = 11;
 		$maxlevel = 0;
-		
+
 		foreach($this->chars as $char)
 		{
 			if( $char['Guild']['Rank'] < $maxrank )
@@ -475,7 +476,7 @@ class memberslist
 				$maxrank = $char['Guild']['Rank'];
 			}
 		}
-		
+
 		foreach($this->chars as $member_id => $char)
 		{
 			if( $char['Guild']['Rank'] == $maxrank && $char['Level'] > $maxlevel )
@@ -484,10 +485,10 @@ class memberslist
 				$mainid = $member_id;
 			}
 		}
-		
+
 		// And the update code
 		$inclause = implode(',',array_diff(array_keys($this->chars),array($mainid)));
-		
+
 		if( empty($inclause) )
 		{
 			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_NO_ALTS."' WHERE `member_id` = '".$mainid."'";
@@ -513,7 +514,7 @@ class memberslist
 				$this->messages .= ' - <span style="color:red;">Alts not written. MySQL said: '.$wowdb->error().'</span><br/>'."\n";
 				return false;
 			}
-			
+
 			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_WITH_ALTS."' WHERE `member_id` = '".$mainid."'";
 			if( $wowdb->query($query) )
 			{
@@ -525,7 +526,7 @@ class memberslist
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 }

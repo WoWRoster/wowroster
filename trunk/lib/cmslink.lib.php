@@ -31,7 +31,7 @@ if( $roster_conf['seo_url'] )
 	// This is the url to access a page in Roster
 	define('ROSTER_LINK', '%1$s.html?%2$s');
 
-	define('ROSTER_LINK_NOARGS', '%1$s');
+	define('ROSTER_LINK_NOARGS', '%1$s.html');
 }
 else
 {
@@ -78,9 +78,9 @@ function makelink( $url='' , $full=false )
 {
 	global $roster_conf;
 
-	if( empty($url) || $url[0] == '&')
+	if( empty($url) || $url[0] == '&' )
 		$url = ROSTER_PAGE_NAME.$url;
-		
+
 	if( strpos($url, '&amp;') )
 	{
 		list($page, $url) = explode('&amp;',$url,2);
