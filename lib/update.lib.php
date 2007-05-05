@@ -209,8 +209,6 @@ class update
 	 */
 	function addon_hook( $mode , $data , $memberid = '0' )
 	{
-		// disable while getting the rest to work
-		return '';
 		$output = '';
 		foreach( $this->addons as $basename => $addon )
 		{
