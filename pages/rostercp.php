@@ -119,34 +119,24 @@ if ($pagebar != '')
 }
 
 // Add addon buttons
-$query = 'SELECT `basename` FROM `' . $roster->db->table('addon') . '` ORDER BY `basename`;';
-$result = $roster->db->query($query);
-if( !$result )
+$addon_pagebar = '';
+foreach( $roster->addon_data as $row )
 {
-	die_quietly('Could not fetch addon records for pagebar','Roster Admin Panel',__LINE__,basename(__FILE__),$query);
+	$addon = getaddon($row['basename']);
+
+	if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
+	{
+		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['basename'] . "</a></li>\n";
+	}
 }
 
-if( $roster->db->num_rows($result) > 0 )
+if( $addon_pagebar != '' )
 {
-	$addon_pagebar = '';
-	while($row = $roster->db->fetch($result))
-	{
-		$addon = getaddon($row['basename']);
-
-		if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
-		{
-			$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['basename'] . "</a></li>\n";
-		}
-	}
-	$roster->db->free_result($result);
-	if( $addon_pagebar != '' )
-	{
-		$pagebar .= border('sgray','start',$roster->locale->act['pagebar_addonconf']) . "\n";
-		$pagebar .= '<ul class="tab_menu">' . "\n";
-		$pagebar .= $addon_pagebar;
-		$pagebar .= "</ul>\n";
-		$pagebar .= border('sgray','end') . "\n";
-	}
+	$pagebar .= border('sgray','start',$roster->locale->act['pagebar_addonconf']) . "\n";
+	$pagebar .= '<ul class="tab_menu">' . "\n";
+	$pagebar .= $addon_pagebar;
+	$pagebar .= "</ul>\n";
+	$pagebar .= border('sgray','end') . "\n";
 }
 
 // ----[ Render the page ]----------------------------------
