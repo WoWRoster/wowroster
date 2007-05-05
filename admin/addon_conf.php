@@ -45,7 +45,7 @@ if( $addon['active'] = '1' )
 	{
 		if( file_exists($addon['locale_dir'].$langvalue.'.php') )
 		{
-			add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue,$roster->locale->wordings);
+			$roster->locale->add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue,$roster->locale->wordings);
 		}
 	}
 

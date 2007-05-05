@@ -1009,56 +1009,6 @@ function active_addon( $name )
 }
 
 /**
- * Adds locale strings to global $wordings array
- *
- * @param string $localefile | Full path to locale file
- * @param string $locale | Locale to add to (IE: enUS)
- * @param array $array | Array you would like to add the locale strings to
- */
-function add_locale_file( $localefile , $locale , &$array )
-{
-	if( file_exists($localefile) )
-	{
-		include($localefile);
-	}
-	else
-	{
-		$localefile = str_replace($locale . '.php','enUS.php',$localefile);
-		if( file_exists($localefile) )
-		{
-			include($localefile);
-		}
-		else
-		{
-			die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
-		}
-	}
-
-	if( isset($lang) )
-	{
-		if( isset($array[$locale]) )
-		{
-			if( isset($lang['admin']) && isset($array[$locale]['admin']) )
-			{
-				$admin = array_merge($lang['admin'], $array[$locale]['admin']);
-				$array[$locale] = array_merge($lang, $array[$locale]);
-				$array[$locale]['admin'] = $admin;
-			}
-			else
-			{
-				$array[$locale] = array_merge($lang, $array[$locale]);
-			}
-		}
-		else
-		{
-			$array[$locale] = $lang;
-		}
-
-		unset($lang);
-	}
-}
-
-/**
  * Handles retrieving a URL multiple ways
  *
  * @param string $url	| URL to retrieve
