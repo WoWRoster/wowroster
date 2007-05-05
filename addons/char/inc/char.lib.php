@@ -210,7 +210,7 @@ class char
 
 	function show_recipes( )
 	{
-		global $roster_conf, $url, $sort, $wordings, $wowdb;
+		global $roster_conf, $url, $sort, $wordings, $wowdb, $addon;
 
 		$lang = $this->data['clientLocale'];
 		$returnstring = '';
@@ -259,7 +259,7 @@ class char
 <a name="'.strtolower(str_replace(' ','',$skill_name)).'"></a>'.$skill_name.'</div>';
 
 
-					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" ".($roster_conf['recipe_disp'] == '0' ? 'style="display:none;"' : '').";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
+					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" ".($addon['config']['recipe_disp'] == '0' ? 'style="display:none;"' : '').";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
     <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=item').'">'.$wordings[$lang]['item'].'</a></th>

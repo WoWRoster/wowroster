@@ -23,7 +23,7 @@ if( !defined('ROSTER_INSTALLED') )
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 // Get char page mode
-$action = (isset($roster_pages[1]) ? $roster_pages[1] : '' );
+$action = (isset($roster_pages[2]) ? $roster_pages[2] : '' );
 
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
@@ -82,47 +82,47 @@ $char->data['char_icon'] = $roster_conf['img_url'].'char/portrait/'.strtolower($
 
 $char_menu = '<div class="char_menubar">
 
-	<a href="'.makelink('char'.$char_url).'" onmouseover="overlib(\''.$act_words['character'].' Stats\',WRAP);" onmouseout="return nd();">
+	<a href="'.makelink('char-char'.$char_url).'" onmouseover="overlib(\''.$act_words['character'].' Stats\',WRAP);" onmouseout="return nd();">
 		<img class="char_image" src="'.$char->data['char_icon'].'.gif" alt="" /></a>';
 
 if( $addon['config']['show_talents'] )
-	$char_menu .= '	<a href="'.makelink('char-talents'.$char_url).'" onmouseover="overlib(\''.$act_words['talents'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-talents'.$char_url).'" onmouseover="overlib(\''.$act_words['talents'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_talents.jpg" alt="" /></a>';
 
 if( $addon['config']['show_spellbook'] )
-	$char_menu .= '	<a href="'.makelink('char-spellbook'.$char_url).'" onmouseover="overlib(\''.$act_words['spellbook'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-spellbook'.$char_url).'" onmouseover="overlib(\''.$act_words['spellbook'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_spellbook.jpg" alt="" /></a>';
 
 if( $addon['config']['show_mail'] )
-	$char_menu .= '	<a href="'.makelink('char-mailbox'.$char_url).'" onmouseover="overlib(\''.$act_words['mailbox'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-mailbox'.$char_url).'" onmouseover="overlib(\''.$act_words['mailbox'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_mail.jpg" alt="" /></a>';
 
 if( $addon['config']['show_inventory'] )
-	$char_menu .= '	<a href="'.makelink('char-bags'.$char_url).'" onmouseover="overlib(\''.$act_words['bags'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-bags'.$char_url).'" onmouseover="overlib(\''.$act_words['bags'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_bags.jpg" alt="" /></a>';
 
 if( $addon['config']['show_bank'] )
-	$char_menu .= '	<a href="'.makelink('char-bank'.$char_url).'" onmouseover="overlib(\''.$act_words['bank'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-bank'.$char_url).'" onmouseover="overlib(\''.$act_words['bank'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_bank.jpg" alt="" /></a>';
 
 if( $addon['config']['show_quests'] )
-	$char_menu .= '	<a href="'.makelink('char-quests'.$char_url).'" onmouseover="overlib(\''.$act_words['quests'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-quests'.$char_url).'" onmouseover="overlib(\''.$act_words['quests'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_questlog.jpg" alt="" /></a>';
 
 if( $addon['config']['show_recipes'] )
-	$char_menu .= '	<a href="'.makelink('char-recipes'.$char_url).'" onmouseover="overlib(\''.$act_words['recipes'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-recipes'.$char_url).'" onmouseover="overlib(\''.$act_words['recipes'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_recipes.jpg" alt="" /></a>';
 
 if( $addon['config']['show_pvp'] )
-	$char_menu .= '	<a href="'.makelink('char-pvp'.$char_url).'" onmouseover="overlib(\''.$act_words['pvplog'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-pvp'.$char_url).'" onmouseover="overlib(\''.$act_words['pvplog'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_pvp.jpg" alt="" /></a>';
 
 if( $addon['config']['show_bg'] )
-	$char_menu .= '	<a href="'.makelink('char-bg'.$char_url).'" onmouseover="overlib(\''.$act_words['bglog'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-bg'.$char_url).'" onmouseover="overlib(\''.$act_words['bglog'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_bg.jpg" alt="" /></a>';
 
 if( $addon['config']['show_duels'] )
-	$char_menu .= '	<a href="'.makelink('char-duels'.$char_url).'" onmouseover="overlib(\''.$act_words['duellog'].'\',WRAP);" onmouseout="return nd();">
+	$char_menu .= '	<a href="'.makelink('char-char-duels'.$char_url).'" onmouseover="overlib(\''.$act_words['duellog'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster_conf['img_url'].'char/menubar/menu_duel.jpg" alt="" /></a>';
 
 $char_menu .= '
@@ -133,8 +133,8 @@ $char_menu .= '
 </div>';
 
 $char_menu .= '<br />'.messagebox('<div style="text-align:left;font-size:10px;">'.
-	makelink('char'.(empty($action)?'':'-'.$action).$char_url,true).'<br />'.
-	makelink('char'.(empty($action)?'':'-'.$action).$char_url_old,true).
+	makelink('char-char'.(empty($action)?'':'-'.$action).$char_url,true).'<br />'.
+	makelink('char-char'.(empty($action)?'':'-'.$action).$char_url_old,true).
 	'</div>','','sgreen');
 
 
