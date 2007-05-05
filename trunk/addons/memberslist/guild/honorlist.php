@@ -34,8 +34,8 @@ $mainQuery =
 	'`members`.`class`, '.
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
-	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster_conf['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
+	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster->config['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
 	'`members`.`note`, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`guild_title`, '.
@@ -199,11 +199,11 @@ if( $addon['config']['honor_update_inst'] )
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster_conf['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $roster->locale->act['lualocation']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 
-	if ($roster_conf['pvp_log_allow'] == 1)
+	if ($roster->config['pvp_log_allow'] == 1)
 	{
-		echo sprintf($roster->locale->act['update_instructpvp'], $roster_conf['pvplogger']);
+		echo sprintf($roster->locale->act['update_instructpvp'], $roster->config['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }

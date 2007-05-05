@@ -46,17 +46,17 @@ class quest
 
 	function out()
 	{
-		global $roster_conf;
+		global $roster;
 
 		$max = ROSTER_MAXCHARLEVEL;
 		$level = $this->data['quest_level'];
 		if( $max == 1 )
 		{
-			$bgImage = $roster_conf['img_url'].'bargrey.gif';
+			$bgImage = $roster->config['img_url'].'bargrey.gif';
 		}
 		else
 		{
-			$bgImage = $roster_conf['img_url'].'barempty.gif';
+			$bgImage = $roster->config['img_url'].'barempty.gif';
 		}
 
 		echo '
@@ -66,7 +66,7 @@ class quest
 		if( $max > 1 )
 		{
 			$width = intval(($level/$max) * 354);
-			echo '<img src="'.$roster_conf['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
+			echo '<img src="'.$roster->config['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
 		}
 		echo '
 		<span class="name">'.$this->data['quest_name'].'</span>';

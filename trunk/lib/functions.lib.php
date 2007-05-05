@@ -430,7 +430,7 @@ function check_if_image( $imagefilename )
  * @param string $caption_color | (optional) Color for the caption
  * Default is 'ffffff' - white
  * @param string $locale | (optional) Locale so color parser can work correctly
- * Default is $roster_conf['roster_lang']
+ * Default is $roster->config['roster_lang']
  * @param bool $inline_caption | (optional)
  * Default is true
  * @return string | Formatted tooltip
@@ -645,7 +645,7 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  * Default 0 (colorize)
  * @param string $locale | Locale so color parser can work correctly
  * Only needed when $colorize is true
- * Default is $roster_conf['roster_lang']
+ * Default is $roster->config['roster_lang']
  * @param string $extra_parameters | (optional) Extra OverLib parameters you wish to pass
  * @return unknown
  */

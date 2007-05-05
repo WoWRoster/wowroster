@@ -50,17 +50,17 @@ class pvp3
 
 	function out()
 	{
-		global $roster_conf;
+		global $roster;
 
 		$max = ROSTER_MAXCHARLEVEL;
 		$level = $this->data['pvp_level'];
 		if( $max == 1 )
 		{
-			$bgImage = $roster_conf['img_url'].'bargrey.gif';
+			$bgImage = $roster->config['img_url'].'bargrey.gif';
 		}
 		else
 		{
-			$bgImage = $roster_conf['img_url'].'barempty.gif';
+			$bgImage = $roster->config['img_url'].'barempty.gif';
 		}
 
 		$returnstring = '
@@ -70,7 +70,7 @@ class pvp3
 		if( $max > 1 )
 		{
 			$width = intval(($level/$max) * 354);
-			$returnstring .= '<img src="'.$roster_conf['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
+			$returnstring .= '<img src="'.$roster->config['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
 		}
 		$returnstring .= '<span class="name">'.$this->data['pvp_name'].'</span>';
 
@@ -88,7 +88,7 @@ class pvp3
 
 function pvp_get_many3($member_id, $type, $sort, $start)
 {
-	global $roster, $wowdb, $roster_conf;
+	global $roster, $wowdb;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND ";
 
@@ -157,7 +157,7 @@ function pvp_get_many3($member_id, $type, $sort, $start)
 
 function output_pvp_summary($pvps,$type)
 {
-	global $roster, $roster_conf;
+	global $roster;
 
 	$tot_wins = 0;
 	$tot_losses = 0;
@@ -291,7 +291,7 @@ function calc_pwinloss($a, $b)
 
 function output_bglog($member_id)
 {
-	global $roster, $wowdb, $roster_conf, $wordings;
+	global $roster, $wowdb, $wordings;
 
 	$bg_array = array(
 		'alterac_valley',
@@ -334,7 +334,7 @@ function output_bglog($member_id)
 					$esub = 'None';
 
 				// Get Class Icon
-				foreach ($roster_conf['multilanguages'] as $language)
+				foreach ($roster->config['multilanguages'] as $language)
 				{
 					$icon_name = isset($wordings[$language]['class_iconArray'][$eclass]) ? $wordings[$language]['class_iconArray'][$eclass] : '';
 					if( strlen($icon_name) > 0 ) break;
@@ -343,7 +343,7 @@ function output_bglog($member_id)
 				if( !empty($icon_name) )
 				{
 					$icon_name = 'Interface/Icons/'.$icon_name;
-					$class_icon = '<img style="cursor:help;" '.makeOverlib($eclass,'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+					$class_icon = '<img style="cursor:help;" '.makeOverlib($eclass,'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 				}
 				else
 				{
@@ -447,11 +447,11 @@ function output_bglog($member_id)
 
 		$returnstring .= '
 <div id="'.$bgname.'Col" style="display:inline">
-'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'plus.gif" style="float:right;" alt="+" />'.$roster->locale->act[$bgname].'</div>').
+'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster->config['img_url'].'plus.gif" style="float:right;" alt="+" />'.$roster->locale->act[$bgname].'</div>').
 border('sorange','end').
 '</div>
 <div id="'.$bgname.'" style="display:none">
-'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster_conf['img_url'].'minus.gif" style="float:right;" alt="-" />'.$roster->locale->act[$bgname].'</div>').
+'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster->config['img_url'].'minus.gif" style="float:right;" alt="-" />'.$roster->locale->act[$bgname].'</div>').
 "			<table width='100%' cellpadding='0' cellspacing='0' class='bodyline'>
 				<tr>
 					<td class='membersRow2'>".$roster->locale->act['wins']."</td>
@@ -506,7 +506,7 @@ border('sorange','end').
 
 function output_duellog($member_id)
 {
-	global $roster, $wowdb, $roster_conf, $wordings;
+	global $roster, $wowdb, $wordings;
 
 	$data = array();
 
@@ -525,7 +525,7 @@ function output_duellog($member_id)
 	foreach( $data as $datakey => $dataset )
 	{
 		// Get Class Icon
-		foreach ($roster_conf['multilanguages'] as $language)
+		foreach ($roster->config['multilanguages'] as $language)
 		{
 			$dataset['icon_name'] = $wordings[$language]['class_iconArray'][$dataset['class']];
 			if( strlen($dataset['icon_name']) > 0 ) break;
@@ -534,7 +534,7 @@ function output_duellog($member_id)
 		if( !empty($dataset['icon_name']) )
 		{
 			$dataset['icon_name'] = 'Interface/Icons/'.$dataset['icon_name'];
-			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$dataset['icon_name'].'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$dataset['icon_name'].'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -594,7 +594,7 @@ function output_duellog($member_id)
 
 function output_pvplog($member_id)
 {
-	global $roster, $wowdb, $roster_conf, $wordings;
+	global $roster, $wowdb, $wordings;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
 
@@ -736,7 +736,7 @@ function output_pvplog($member_id)
 	foreach( $data as $datakey => $dataset )
 	{
 		// Get Class Icon
-		foreach ($roster_conf['multilanguages'] as $language)
+		foreach ($roster->config['multilanguages'] as $language)
 		{
 			$dataset['icon_name'] = $wordings[$language]['class_iconArray'][$dataset['class']];
 			if( strlen($dataset['icon_name']) > 0 ) break;
@@ -745,7 +745,7 @@ function output_pvplog($member_id)
 		if( !empty($dataset['icon_name']) )
 		{
 			$dataset['icon_name'] = 'Interface/Icons/'.$dataset['icon_name'];
-			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$dataset['icon_name'].'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$dataset['icon_name'].'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -805,7 +805,7 @@ function output_pvplog($member_id)
 
 function output_pvp2($pvps,$url,$type)
 {
-	global $roster, $wordings, $roster_conf;
+	global $roster, $wordings;
 
 	$returnstring = '
 <table class="bodyline" cellspacing="0">
@@ -869,13 +869,13 @@ function output_pvp2($pvps,$url,$type)
 		}
 
 		// Get Class Icon
-		foreach ($roster_conf['multilanguages'] as $language)
+		foreach ($roster->config['multilanguages'] as $language)
 		{
 			$icon_name = $wordings[$language]['class_iconArray'][$row->data['class']];
 			if( strlen($icon_name) > 0 ) break;
 		}
 		$icon_name = 'Interface/Icons/'.$icon_name;
-		$class_icon = '<img style="cursor:help;" '.makeOverlib($row->data['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster_conf['interface_url'].$icon_name.'.'.$roster_conf['img_suffix'].'" alt="" />&nbsp;';
+		$class_icon = '<img style="cursor:help;" '.makeOverlib($row->data['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 
 
 

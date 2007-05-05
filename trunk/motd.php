@@ -25,7 +25,7 @@ if( isset($_GET['motd']) )
 else
 {
 	include( $roster_root_path . 'settings.php' );
-	$guildMOTD = $wowdb->get_guild_info($roster_conf['server_name'],$roster_conf['guild_name']);
+	$guildMOTD = $wowdb->get_guild_info($roster->config['server_name'],$roster->config['guild_name']);
 	$guildMOTD = substr(htmlspecialchars($guildMOTD['guild_motd']),0,145);
 }
 

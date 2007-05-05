@@ -83,13 +83,13 @@ if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 }
 elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 {
-	$roster_conf['guild_name'] = $_POST['guildname'];
+	$roster->config['guild_name'] = $_POST['guildname'];
 	$header_title = 'Remote Diagnostics';
-	$roster_conf['img_url'] = ROSTER_PATH.'img/';
-	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
+	$roster->config['img_url'] = ROSTER_PATH.'img/';
+	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
 	//ROSTER_SVNREMOTE = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
-	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
-	$roster_conf['roster_bg'] = 'img/wowroster_bg.jpg';
+	$roster->config['logo'] = 'img/wowroster_logo.jpg';
+	$roster->config['roster_bg'] = 'img/wowroster_bg.jpg';
 
 
 	include_once ('roster_header.tpl');
@@ -164,8 +164,8 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
 		echo '<div align="center"><form method="POST" action="'.ROSTER_SVNREMOTE.'">';
 		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
-		echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'">';
-		echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'">';
+		echo '<input type="hidden" name="guildname" value="'.$roster->config['guild_name'].'">';
+		echo '<input type="hidden" name="website" value="'.$roster->config['website_address'].'">';
 		echo '<input type="radio" name="ziptype" value="zip" checked="checked">.zip Archive<br />';
 		echo '<input type="radio" name="ziptype" value="targz">.tar.gz Archive<br /><br />';
 		echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]">';
@@ -192,11 +192,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'plus.gif" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'minus.gif" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
@@ -316,11 +316,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 {
 
-	$roster_conf['guild_name'] = $_POST['guildname'];
+	$roster->config['guild_name'] = $_POST['guildname'];
 	$header_title = 'Remote Diagnostics';
-	$roster_conf['website_address'] = $_SERVER['HTTP_REFERER'];
-	$roster_conf['logo'] = 'img/wowroster_logo.jpg';
-	$roster_conf['logo'] = 'img/wowroster_bg.jpg';
+	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
+	$roster->config['logo'] = 'img/wowroster_logo.jpg';
+	$roster->config['logo'] = 'img/wowroster_bg.jpg';
 
 	$filesarray = explode(';', $_POST['filestoget']);
 	$ziptype = $_POST['ziptype']; // targz  or  zip
@@ -328,11 +328,11 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 
 	if ($ziptype == 'targz')
 	{
-		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.$roster_conf['guild_name'].'_'.date("Ymd_Hi").'.tar.gz');
+		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.$roster->config['guild_name'].'_'.date("Ymd_Hi").'.tar.gz');
 	}
 	else
 	{
-		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.$roster_conf['guild_name'].'_'.date("Ymd_Hi").'.zip');
+		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.$roster->config['guild_name'].'_'.date("Ymd_Hi").'.zip');
 	}
 
 	$downloadpackage->set_options(array('inmemory' => 1, 'recurse' => 0, 'storepaths' => 1));

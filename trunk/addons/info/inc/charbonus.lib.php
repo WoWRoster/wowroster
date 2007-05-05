@@ -45,7 +45,7 @@ class CharBonus
 
 	function dumpBonus( )
 	{
-		global $wordings, $roster_conf, $wowdb;
+		global $wordings, $roster, $wowdb;
 
 		foreach( $this->equip as $slot=>$item )
 		{

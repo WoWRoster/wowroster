@@ -37,7 +37,7 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 {
 	print '<div align="left"><pre>';
-	print_r($roster_conf);
+	print_r($roster->config);
 	print '</pre></div>';
 
 	include_once(ROSTER_BASE.'roster_footer.tpl');
@@ -321,15 +321,15 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display conf.php info
 
-echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster_conf array</a></small></i>').
+echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster->config array</a></small></i>').
 '<table width="100%" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">version</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['version'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['version'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">db_version</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['roster_dbver'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['roster_dbver'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">db_name</td>
@@ -345,45 +345,45 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">sqldebug</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster_conf['sqldebug']).'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['sqldebug']).'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_lang</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['roster_lang'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['roster_lang'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">img_url</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['img_url'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['img_url'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">interface_url</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['interface_url'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['interface_url'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">img_suffix</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['img_suffix'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['img_suffix'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">guild_name</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['guild_name'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['guild_name'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">server_name</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['server_name'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['server_name'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">use_update_triggers</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster_conf['use_update_triggers']).'</td></tr>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['use_update_triggers']).'</td></tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">realmstatus_url</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster_conf['realmstatus_url'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['realmstatus_url'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">realmstatus</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.($roster_conf['realmstatus'] != '' ? $roster_conf['realmstatus'] : 'Uses server_name').'</td></tr>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.($roster->config['realmstatus'] != '' ? $roster->config['realmstatus'] : 'Uses server_name').'</td></tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">rs_mode</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster_conf['rs_mode']).'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['rs_mode']).'</td>
 	</tr>
 </table>
 '.border('sblue','end')."
@@ -455,8 +455,8 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 			echo border('spurple', 'start', '<span class="blue">Download Update Package</span>');
 			echo '<div align="center" style="background-color:#1F1E1D;"><form method="post" action="'.ROSTER_SVNREMOTE.'">';
 			echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'" />';
-			echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'" />';
-			echo '<input type="hidden" name="website" value="'.$roster_conf['website_address'].'" />';
+			echo '<input type="hidden" name="guildname" value="'.$roster->config['guild_name'].'" />';
+			echo '<input type="hidden" name="website" value="'.$roster->config['website_address'].'" />';
 			echo '<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">.zip Archive</label><br />';
 			echo '<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">.tar.gz Archive</label><br /><br />';
 			echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]" /><br />';
@@ -483,11 +483,11 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'plus.gif" alt="" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'plus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster_conf['img_url'].'minus.gif" alt="" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'minus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
@@ -601,7 +601,7 @@ else
 	// FOPEN URL is Not Supported, offer the oppertunity to do this remotely
 	echo '<form method="post" action="'.ROSTER_SVNREMOTE.'">';
 	echo '<input type="hidden" name="remotediag" value="true" />';
-	echo '<input type="hidden" name="guildname" value="'.$roster_conf['guild_name'].'" />';
+	echo '<input type="hidden" name="guildname" value="'.$roster->config['guild_name'].'" />';
 	echo '<input type="hidden" name="website" value="'.	ROSTER_PATH .'" />';
 
 	foreach ($files as $directory => $filedata)

@@ -39,16 +39,16 @@ class skill
 	}
 	function out()
 	{
-		global $roster_conf;
+		global $roster;
 
 		list($level, $max) = explode( ':', $this->data['skill_level'] );
 		if( $max == 1 )
 		{
-			$bgImage = $roster_conf['img_url'].'bargrey.gif';
+			$bgImage = $roster->config['img_url'].'bargrey.gif';
 		}
 		else
 		{
-			$bgImage = $roster_conf['img_url'].'barempty.gif';
+			$bgImage = $roster->config['img_url'].'barempty.gif';
 		}
 
 		$returnstring = '
@@ -58,7 +58,7 @@ class skill
 		if( $max > 1 )
 		{
 			$width = intval(($level/$max) * 354);
-			$returnstring .= '<img src="'.$roster_conf['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
+			$returnstring .= '<img src="'.$roster->config['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
 		}
 
 		$returnstring .= '

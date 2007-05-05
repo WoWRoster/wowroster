@@ -210,7 +210,7 @@ class char
 
 	function show_recipes( )
 	{
-		global $roster_conf, $url, $sort, $wordings, $wowdb, $addon;
+		global $roster, $url, $sort, $wordings, $wowdb, $addon;
 
 		$lang = $this->data['clientLocale'];
 		$returnstring = '';
@@ -251,11 +251,11 @@ class char
 
 					// Set an link to the top behind the profession image
 					$skill_image = 'Interface/Icons/'.$wordings[$this->data['clientLocale']]['ts_iconArray'][$skill_name];
-					$skill_image = "<img style=\"float:left;\" width=\"17\" height=\"17\" src=\"".$roster_conf['interface_url'].$skill_image.'.'.$roster_conf['img_suffix']."\" alt=\"\" />\n";
+					$skill_image = "<img style=\"float:left;\" width=\"17\" height=\"17\" src=\"".$roster->config['interface_url'].$skill_image.'.'.$roster->config['img_suffix']."\" alt=\"\" />\n";
 
-					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_'.$rc.'\',\'img_'.$rc.'\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');">
+					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_'.$rc.'\',\'img_'.$rc.'\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');">
 	'.$skill_image.'
-	<div style="display:inline;float:right;"><img id="img_'.$rc.'" src="'.$roster_conf['img_url'].'plus.gif" alt="" /></div>
+	<div style="display:inline;float:right;"><img id="img_'.$rc.'" src="'.$roster->config['img_url'].'plus.gif" alt="" /></div>
 <a name="'.strtolower(str_replace(' ','',$skill_name)).'"></a>'.$skill_name.'</div>';
 
 
@@ -306,7 +306,7 @@ $returnstring .= '  <tr>
 
 	function show_mailbox( )
 	{
-		global $wowdb, $wordings, $roster_conf, $tooltips, $addon;
+		global $roster, $wowdb, $wordings, $tooltips, $addon;
 
 		$lang = $this->data['clientLocale'];
 
@@ -351,33 +351,33 @@ $returnstring .= '  <tr>
 
 					$mail_money['c'] = substr($db_money,-2,2);
 					$db_money = substr($db_money,0,-2);
-					$money_included = $mail_money['c'].'<img src="'.$roster_conf['img_url'].'coin_copper.gif" alt="c" />';
+					$money_included = $mail_money['c'].'<img src="'.$roster->config['img_url'].'coin_copper.gif" alt="c" />';
 
 					if( !empty($db_money) )
 					{
 						$mail_money['s'] = substr($db_money,-2,2);
 						$db_money = substr($db_money,0,-2);
-						$money_included = $mail_money['s'].'<img src="'.$roster_conf['img_url'].'coin_silver.gif" alt="s" /> '.$money_included;
+						$money_included = $mail_money['s'].'<img src="'.$roster->config['img_url'].'coin_silver.gif" alt="s" /> '.$money_included;
 					}
 					if( !empty($db_money) )
 					{
 						$mail_money['g'] = $db_money;
-						$money_included = $mail_money['g'].'<img src="'.$roster_conf['img_url'].'coin_gold.gif" alt="g" /> '.$money_included;
+						$money_included = $mail_money['g'].'<img src="'.$roster->config['img_url'].'coin_gold.gif" alt="g" /> '.$money_included;
 					}
 				}
 
 				// Fix icon texture
 				if( !empty($row['item_icon']) )
 				{
-					$item_icon = $roster_conf['interface_url'].'Interface/Icons/'.$row['item_icon'].'.'.$roster_conf['img_suffix'];
+					$item_icon = $roster->config['interface_url'].'Interface/Icons/'.$row['item_icon'].'.'.$roster->config['img_suffix'];
 				}
 				elseif( !empty($money_included) )
 				{
-					$item_icon = $roster_conf['interface_url'].'Interface/Icons/'.$row['mailbox_coin_icon'].'.'.$roster_conf['img_suffix'];
+					$item_icon = $roster->config['interface_url'].'Interface/Icons/'.$row['mailbox_coin_icon'].'.'.$roster->config['img_suffix'];
 				}
 				else
 				{
-					$item_icon = $roster_conf['interface_url'].'Interface/Icons/INV_Misc_Note_02.'.$roster_conf['img_suffix'];
+					$item_icon = $roster->config['interface_url'].'Interface/Icons/INV_Misc_Note_02.'.$roster->config['img_suffix'];
 				}
 
 
@@ -388,7 +388,7 @@ $returnstring .= '  <tr>
 				$tooltip = $wordings[$this->data['clientLocale']]['mail_sender'].
 					': '.$row['mailbox_sender'].'<br />';
 
-				$expires_line = date($wordings[$this->data['clientLocale']]['phptimeformat'],((($row['mailbox_days']*24 + $roster_conf['localtimeoffset'])*3600)+$maildateutc)).' '.$roster_conf['timezone'];
+				$expires_line = date($wordings[$this->data['clientLocale']]['phptimeformat'],((($row['mailbox_days']*24 + $roster->config['localtimeoffset'])*3600)+$maildateutc)).' '.$roster->config['timezone'];
 				if( (($row['mailbox_days']*24*3600)+$maildateutc) - time() < (3*24*3600) )
 					$color = 'ff0000;';
 				else
@@ -471,7 +471,7 @@ $returnstring .= '  <tr>
 
 	function show_spellbook( )
 	{
-		global $wowdb, $wordings, $roster_conf;
+		global $roster, $wowdb, $wordings;
 
 		$lang = $this->data['clientLocale'];
 
@@ -573,7 +573,7 @@ $returnstring .= '  <tr>
 
 		$return_string = '
 <div class="char_panel spell_panel">
-	<img class="panel_icon" src="'.$roster_conf['img_url'].'char/menubar/icon_spellbook.gif" alt=""/>
+	<img class="panel_icon" src="'.$roster->config['img_url'].'char/menubar/icon_spellbook.gif" alt=""/>
 	<div class="panel_title">'.$wordings[$lang]['spellbook'].'</div>
 	<div class="background">&nbsp;</div>
 
@@ -585,7 +585,7 @@ $returnstring .= '  <tr>
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '				<li onclick="return showSpell(\''.$tree['id'].'\');"><img class="icon" src="'.$roster_conf['interface_url'].$tree['icon'].'.'.$roster_conf['img_suffix'].'" '.$treetip.' alt="" /></li>'."\n";
+			$return_string .= '				<li onclick="return showSpell(\''.$tree['id'].'\');"><img class="icon" src="'.$roster->config['interface_url'].$tree['icon'].'.'.$roster->config['img_suffix'].'" '.$treetip.' alt="" /></li>'."\n";
 		}
 		$return_string .= "			</ul>\n		</div>\n";
 
@@ -611,29 +611,29 @@ $returnstring .= '  <tr>
 					if( ($num_pages-1) == $page )
 					{
 						$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '				<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-						$return_string .= '				<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '				<div class="page_back_off"><img src="'.$roster->config['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+						$return_string .= '				<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 					else
 					{
 						$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '				<div class="page_back_off"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '				<div class="page_back_off"><img src="'.$roster->config['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
 					$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-					$return_string .= '				<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster->config['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '				<div class="page_forward_off">'.$wordings[$lang]['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
 				}
 				else
 				{
 					$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster_conf['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
-					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster_conf['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster->config['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$wordings[$lang]['prev'].'</div>'."\n";
+					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$wordings[$lang]['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
 				}
 				$return_string .= '				<div class="pagenumber">'.$wordings[$lang]['page'].' '.($page+1).'</div>'."\n";
 
@@ -651,7 +651,7 @@ $returnstring .= '  <tr>
 					}
 					$return_string .= '
 				<div class="info_container">
-					<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
+					<img src="'.$roster->config['interface_url'].$spellicons['icon'].'.'.$roster->config['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
 					<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
@@ -691,7 +691,7 @@ $returnstring .= '  <tr>
 					}
 					$return_string .= '
 			<div class="info_container">
-				<img src="'.$roster_conf['interface_url'].$spellicons['icon'].'.'.$roster_conf['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
+				<img src="'.$roster->config['interface_url'].$spellicons['icon'].'.'.$roster->config['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
 				<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
 					if( $spellicons['rank'] != '' )
 					{
@@ -734,7 +734,8 @@ $returnstring .= '  <tr>
 
 	function printPet( )
 	{
-		global $wowdb, $wordings, $roster_conf;
+		global $roster, $wowdb, $wordings;
+		global $roster, $wowdb, $wordings;
 
 		$lang = $this->data['clientLocale'];
 
@@ -813,7 +814,7 @@ $returnstring .= '  <tr>
 				}
 
 				$icons .= '			<li onclick="return showPet(\''. $petNum .'\');" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').'>
-				<div class="text"><img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster_conf['img_suffix'].'" alt="" /></div></li>
+				<div class="text"><img src="'.$roster->config['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster->config['img_suffix'].'" alt="" /></div></li>
 ';
 
 				$output .= '
@@ -823,7 +824,7 @@ $returnstring .= '  <tr>
 
 			<div class="loyalty">'. $row['loyalty'] .'</div>
 
-			<img class="icon" src="'. $roster_conf['interface_url'] .'Interface/Icons/'. $row['icon'] .'.'. $roster_conf['img_suffix'] .'" alt="" />
+			<img class="icon" src="'. $roster->config['interface_url'] .'Interface/Icons/'. $row['icon'] .'.'. $roster->config['img_suffix'] .'" alt="" />
 
 			<div class="health"><span class="yellowB">'. $wordings[$lang]['health'] .':</span> '. (isset($row['health']) ? $row['health'] : '0') .'</div>
 			<div class="mana"><span class="yellowB">'. $row['power'] .':</span> '. (isset($row['mana']) ? $row['mana'] : '0') .'</div>
@@ -839,8 +840,8 @@ $returnstring .= '  <tr>
 				if( $xpbarshow )
 				{
 					$output .= '
-			<img src="'. $roster_conf['img_url'] .'char/expbar_empty.gif" class="xpbar_empty" alt="" />
-			<div class="xpbar" style="clip:rect(0px '. $expbar_width .'px 12px 0px);"><img src="'. $roster_conf['img_url'].'char/expbar_full.gif' .'" alt="" /></div>
+			<img src="'. $roster->config['img_url'] .'char/expbar_empty.gif" class="xpbar_empty" alt="" />
+			<div class="xpbar" style="clip:rect(0px '. $expbar_width .'px 12px 0px);"><img src="'. $roster->config['img_url'].'char/expbar_full.gif' .'" alt="" /></div>
 			<div class="xpbar_text">'. $expbar_text .'</div>';
 				}
 
@@ -989,7 +990,7 @@ $returnstring .= '  <tr>
 
 	function printPetResist( $resname , $data )
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster;
 
 		$lang = $this->data['clientLocale'];
 
@@ -1025,8 +1026,8 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname,$data).'<br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<div style="background:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $data['res_'.$resname.'_c'] ."</div>\n";
-		$output = '<div style="background-image:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $data['res_'.$resname.'_c'] .'</b><span>'. $data['res_'.$resname.'_c'] ."</span></div>\n";
+		$output = '<div style="background:url('.$roster->config['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $data['res_'.$resname.'_c'] ."</div>\n";
+		$output = '<div style="background-image:url('.$roster->config['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $data['res_'.$resname.'_c'] .'</b><span>'. $data['res_'.$resname.'_c'] ."</span></div>\n";
 
 		return $output;
 	}
@@ -1406,19 +1407,20 @@ $returnstring .= '  <tr>
 
 	function printSpellDamage( )
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster;
+
 		$lang = $this->data['clientLocale'];
 
 		$name = $wordings[$lang]['spell_damage'];
 		$value = '<strong class="white">'.$this->data['spell_damage'].'</strong>';
 
 		$tooltipheader = $name.' '.$value;
-		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['holy'].'</div>';
-		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-nature.gif" alt="" />'.$wordings[$lang]['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-frost.gif" alt="" />'.$wordings[$lang]['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$wordings[$lang]['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$wordings[$lang]['arcane'].'</div>';
+		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['holy'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$wordings[$lang]['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$wordings[$lang]['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$wordings[$lang]['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$wordings[$lang]['arcane'].'</div>';
 
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
@@ -1429,7 +1431,8 @@ $returnstring .= '  <tr>
 
 	function printSpellCrit()
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster;
+
 		$lang = $this->data['clientLocale'];
 
 		$name = $wordings[$lang]['spell_crit_rating'];
@@ -1438,12 +1441,12 @@ $returnstring .= '  <tr>
 		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
 		$tooltip = $wordings[$lang]['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
 /*
-		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['holy'].'</div>';
-		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-nature.gif" alt="" />'.$wordings[$lang]['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-frost.gif" alt="" />'.$wordings[$lang]['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$wordings[$lang]['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster_conf['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$wordings[$lang]['arcane'].'</div>';
+		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['holy'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$wordings[$lang]['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$wordings[$lang]['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$wordings[$lang]['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$wordings[$lang]['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$wordings[$lang]['arcane'].'</div>';
 */
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1453,7 +1456,7 @@ $returnstring .= '  <tr>
 
 	function printDefense( )
 	{
-		global $wordings, $roster_conf, $wowdb;
+		global $wordings, $roster, $wowdb;
 		$lang = $this->data['clientLocale'];
 
 		$qry = "SELECT `skill_level` FROM `roster_skills` WHERE `member_id` = ".$this->data['member_id']." AND `skill_name` = '".$wordings[$lang]['defense']."'";
@@ -1528,7 +1531,7 @@ $returnstring .= '  <tr>
 
 	function printResist( $resname )
 	{
-		global $wordings, $roster_conf;
+		global $wordings, $roster;
 
 		$lang = $this->data['clientLocale'];
 
@@ -1564,7 +1567,7 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname).'<br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<div style="background-image:url('.$roster_conf['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $this->data['res_'.$resname.'_c'] .'</b><span>'. $this->data['res_'.$resname.'_c'] ."</span></div>\n";
+		$output = '<div style="background-image:url('.$roster->config['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $this->data['res_'.$resname.'_c'] .'</b><span>'. $this->data['res_'.$resname.'_c'] ."</span></div>\n";
 
 		return $output;
 	}
@@ -1580,7 +1583,7 @@ $returnstring .= '  <tr>
 
 	function printEquip( $slot )
 	{
-		global $roster_conf, $wordings;
+		global $roster, $wordings;
 
 		$lang = $this->data['clientLocale'];
 
@@ -1593,9 +1596,9 @@ $returnstring .= '  <tr>
 		{
 			$output = '<div class="item" '.makeOverlib($wordings[$lang]['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
 			if ($slot == 'Ammo')
-				$output .= '<img src="'.$roster_conf['img_url'].'pixel.gif" class="iconsmall"'." alt=\"\" />\n";
+				$output .= '<img src="'.$roster->config['img_url'].'pixel.gif" class="iconsmall"'." alt=\"\" />\n";
 			else
-				$output .= '<img src="'.$roster_conf['img_url'].'pixel.gif" class="icon"'." alt=\"\" />\n";
+				$output .= '<img src="'.$roster->config['img_url'].'pixel.gif" class="icon"'." alt=\"\" />\n";
 			$output .= "</div>\n";
 		}
 		return '<div class="equip_'.$slot.'">'.$output.'</div>';
@@ -1604,7 +1607,7 @@ $returnstring .= '  <tr>
 
 	function printTalents( )
 	{
-		global $roster_conf, $wowdb, $wordings;
+		global $roster, $wowdb, $wordings;
 
 		$lang = $this->data['clientLocale'];
 
@@ -1618,7 +1621,7 @@ $returnstring .= '  <tr>
 				$treedata = $wowdb->fetch_assoc($trees);
 
 				$treelayer[$j]['name'] = $treedata['tree'];
-				$treelayer[$j]['image'] = $treedata['background'].'.'.$roster_conf['img_suffix'];
+				$treelayer[$j]['image'] = $treedata['background'].'.'.$roster->config['img_suffix'];
 				$treelayer[$j]['points'] = $treedata['pointsspent'];
 				$treelayer[$j]['talents'] = $this->talentLayer($treedata['tree']);
 			}
@@ -1626,10 +1629,10 @@ $returnstring .= '  <tr>
 			$returndata = '
 <div class="char_panel talent_panel">
 
-	<img class="panel_icon" src="'.$roster_conf['img_url'].'char/menubar/icon_talents.gif" alt="" />
+	<img class="panel_icon" src="'.$roster->config['img_url'].'char/menubar/icon_talents.gif" alt="" />
 	<div class="panel_title">'.$wordings[$lang]['talents'].'</div>
-	<img class="top_bar" src="'.$roster_conf['img_url'].'char/talent/bar_top.gif" alt="" />
-	<img class="bot_bar" src="'.$roster_conf['img_url'].'char/talent/bar_bottom.gif" alt="" />
+	<img class="top_bar" src="'.$roster->config['img_url'].'char/talent/bar_top.gif" alt="" />
+	<img class="bot_bar" src="'.$roster->config['img_url'].'char/talent/bar_bottom.gif" alt="" />
 
 	<div class="link"><a href="';
 
@@ -1664,7 +1667,7 @@ $returnstring .= '  <tr>
 				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
 
 		<div class="points"><span style="color:#ffdd00">'.$wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
-		<img class="background" src="'.$roster_conf['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
+		<img class="background" src="'.$roster->config['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
 
 		<div class="container">'."\n";
 
@@ -1678,14 +1681,14 @@ $returnstring .= '  <tr>
 							if( $cell['rank'] != 0 )
 							{
 								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="rank_icon" src="'.$roster_conf['img_url'].'char/talent/rank.gif" alt="" />
+					<img class="rank_icon" src="'.$roster->config['img_url'].'char/talent/rank.gif" alt="" />
 					<div class="rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
-					<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
+					<img src="'.$roster->config['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
 							else
 							{
 								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="icon_grey" src="'.$roster_conf['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
+					<img class="icon_grey" src="'.$roster->config['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
 						}
 						else
@@ -1724,7 +1727,7 @@ $returnstring .= '  <tr>
 
 	function talentLayer( $treename )
 	{
-		global $wowdb, $roster_conf;
+		global $wowdb, $roster;
 
 		$sqlquery = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
 
@@ -1754,7 +1757,7 @@ $returnstring .= '  <tr>
 				$returndata[$r][$c]['maxrank'] = $talentdata['maxrank'];
 				$returndata[$r][$c]['row'] = $r;
 				$returndata[$r][$c]['column'] = $c;
-				$returndata[$r][$c]['image'] = $talentdata['texture'].'.'.$roster_conf['img_suffix'];
+				$returndata[$r][$c]['image'] = $talentdata['texture'].'.'.$roster->config['img_suffix'];
 				$returndata[$r][$c]['tooltipid'] = makeOverlib($talentdata['tooltip'],'','',0,$this->data['clientLocale']);
 
 				if( $talentdata['rank'] == $talentdata['maxrank'] )
@@ -1773,7 +1776,7 @@ $returnstring .= '  <tr>
 
 	function printSkills( )
 	{
-		global $roster_conf;
+		global $roster;
 
 		$skillData = $this->getSkillTabValues();
 
@@ -1781,7 +1784,7 @@ $returnstring .= '  <tr>
 		foreach( $skillData as $sindex => $skill )
 		{
 			$output .= '
-		<div class="header"><img src="'.$roster_conf['img_url'].'minus.gif" id="skill'.$sindex.'_img" class="minus_plus" alt="" onclick="showHide(\'skill'.$sindex.'\',\'skill'.$sindex.'_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');" />'.$skill['name'].'</div>
+		<div class="header"><img src="'.$roster->config['img_url'].'minus.gif" id="skill'.$sindex.'_img" class="minus_plus" alt="" onclick="showHide(\'skill'.$sindex.'\',\'skill'.$sindex.'_img\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');" />'.$skill['name'].'</div>
 		<div id="skill'.$sindex.'">
 ';
 			foreach( $skill['bars'] as $skillbar )
@@ -1791,13 +1794,13 @@ $returnstring .= '  <tr>
 				if( $skillbar['maxvalue'] == '1' )
 				{
 					$output .= '
-				<div style="position:absolute;"><img src="'.$roster_conf['img_url'].'char/skill/bar_grey.gif" alt="" /></div>
+				<div style="position:absolute;"><img src="'.$roster->config['img_url'].'char/skill/bar_grey.gif" alt="" /></div>
 				<div class="text">'.$skillbar['name'].'</div>';
 				}
 				else
 				{
 					$output .= '
-				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="'.$roster_conf['img_url'].'char/skill/bar.gif" alt="" /></div>
+				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="'.$roster->config['img_url'].'char/skill/bar.gif" alt="" /></div>
 				<div class="text">'.$skillbar['name'].'<span class="text_num">'.$skillbar['value'].' / '.$skillbar['maxvalue'].'</span></div>';
 				}
 				$output .= "\n			</div>\n";
@@ -1855,7 +1858,7 @@ $returnstring .= '  <tr>
 
 	function printReputation( )
 	{
-		global $roster_conf;
+		global $roster;
 
 		$repData = $this->getRepTabValues();
 
@@ -1863,7 +1866,7 @@ $returnstring .= '  <tr>
 		foreach( $repData as $findex => $faction )
 		{
 			$output .= '
-		<div class="header"><img src="'.$roster_conf['img_url'].'minus.gif" id="rep'.$findex.'_img" class="minus_plus" alt="" onclick="showHide(\'rep'.$findex.'\',\'rep'.$findex.'_img\',\''.$roster_conf['img_url'].'minus.gif\',\''.$roster_conf['img_url'].'plus.gif\');" />'.$faction['name'].'</div>
+		<div class="header"><img src="'.$roster->config['img_url'].'minus.gif" id="rep'.$findex.'_img" class="minus_plus" alt="" onclick="showHide(\'rep'.$findex.'\',\'rep'.$findex.'_img\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');" />'.$faction['name'].'</div>
 		<div id="rep'.$findex.'">
 ';
 			foreach( $faction['bars'] as $repbar )
@@ -1874,10 +1877,10 @@ $returnstring .= '  <tr>
 				<div class="rep_bar_field" style="clip:rect(0px '.$repbar['barwidth'].'px 13px 0px);"><img class="rep_bar_image" src="'.$repbar['image'].'" alt="" /></div>
 				<div id="rb_'.$repbar['barid'].'" class="rep_bar_text">'.$repbar['standing'].'</div>
 				<div id="rbn_'.$repbar['barid'].'" class="rep_bar_text" style="display:none">'.$repbar['value'].' / '.$repbar['maxvalue'].'</div>
-				<div class="rep_bar_field"><img class="rep_bar_image" src="'.$roster_conf['img_url'].'pixel.gif" onmouseout="swapShow(\'rb_'.$repbar['barid'].'\',\'rbn_'.$repbar['barid'].'\');" onmouseover="swapShow(\'rb_'.$repbar['barid'].'\',\'rbn_'.$repbar['barid'].'\');" alt="" /></div>'."\n";
+				<div class="rep_bar_field"><img class="rep_bar_image" src="'.$roster->config['img_url'].'pixel.gif" onmouseout="swapShow(\'rb_'.$repbar['barid'].'\',\'rbn_'.$repbar['barid'].'\');" onmouseover="swapShow(\'rb_'.$repbar['barid'].'\',\'rbn_'.$repbar['barid'].'\');" alt="" /></div>'."\n";
 				if( $repbar['atwar'] == 1 )
 				{
-					$output .= '				<img src="'.$roster_conf['img_url'].'/char/rep/atwar.gif" style="float:right;" alt="" />'."\n";
+					$output .= '				<img src="'.$roster->config['img_url'].'/char/rep/atwar.gif" style="float:right;" alt="" />'."\n";
 				}
 				$output .= "			</div>\n";
 			}
@@ -1923,7 +1926,7 @@ $returnstring .= '  <tr>
 	{
 		static $repnum = 0;
 
-		global $wordings, $roster_conf, $char;
+		global $wordings, $roster, $char;
 
 		$lang = $char->data['clientLocale'];
 
@@ -1931,14 +1934,14 @@ $returnstring .= '  <tr>
 		$max = $repdata['max_rep'];
 
 		$img = array(
-			$wordings[$lang]['exalted'] => $roster_conf['img_url'].'char/rep/green.gif',
-			$wordings[$lang]['revered'] => $roster_conf['img_url'].'char/rep/green.gif',
-			$wordings[$lang]['honored'] => $roster_conf['img_url'].'char/rep/green.gif',
-			$wordings[$lang]['friendly'] => $roster_conf['img_url'].'char/rep/green.gif',
-			$wordings[$lang]['neutral'] => $roster_conf['img_url'].'char/rep/yellow.gif',
-			$wordings[$lang]['unfriendly'] => $roster_conf['img_url'].'char/rep/orange.gif',
-			$wordings[$lang]['hostile'] => $roster_conf['img_url'].'char/rep/red.gif',
-			$wordings[$lang]['hated'] => $roster_conf['img_url'].'char/rep/red.gif'
+			$wordings[$lang]['exalted'] => $roster->config['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['revered'] => $roster->config['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['honored'] => $roster->config['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['friendly'] => $roster->config['img_url'].'char/rep/green.gif',
+			$wordings[$lang]['neutral'] => $roster->config['img_url'].'char/rep/yellow.gif',
+			$wordings[$lang]['unfriendly'] => $roster->config['img_url'].'char/rep/orange.gif',
+			$wordings[$lang]['hostile'] => $roster->config['img_url'].'char/rep/red.gif',
+			$wordings[$lang]['hated'] => $roster->config['img_url'].'char/rep/red.gif'
 		);
 
 		$returnData['name'] = $repdata['name'];
@@ -1958,7 +1961,7 @@ $returnstring .= '  <tr>
 
 	function printHonor()
 	{
-		global $roster_conf, $wowdb, $wordings, $guild_info;
+		global $roster, $wowdb, $wordings, $guild_info;
 
 		$lang = $this->data['clientLocale'];
 
@@ -1966,10 +1969,10 @@ $returnstring .= '  <tr>
 		switch( substr($guild_info['faction'],0,1) )
 		{
 			case 'A':
-				$icon = '<img src="'.$roster_conf['img_url'].'battleground-alliance.png" alt="" />';
+				$icon = '<img src="'.$roster->config['img_url'].'battleground-alliance.png" alt="" />';
 				break;
 			case 'H':
-				$icon = '<img src="'.$roster_conf['img_url'].'battleground-horde.png" alt="" />';
+				$icon = '<img src="'.$roster->config['img_url'].'battleground-horde.png" alt="" />';
 				break;
 		}
 
@@ -1992,14 +1995,14 @@ $returnstring .= '  <tr>
 		<div class="honorline2">'.$this->data['yesterdayContribution'].'</div>
 		<div class="honorline3">-</div>
 
-		<div class="arenatext">'.$wordings[$lang]['arena'].':<span>'.$this->data['arenapoints'].'</span><img src="'.$roster_conf['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
+		<div class="arenatext">'.$wordings[$lang]['arena'].':<span>'.$this->data['arenapoints'].'</span><img src="'.$roster->config['img_url'].'arenapointsicon.png" alt="" /></div>'."\n";
 
 		return $output;
 	}
 
 	function out( )
 	{
-		global $wordings, $roster_conf, $addon;
+		global $wordings, $roster, $addon;
 
 		$lang = $this->data['clientLocale'];
 
@@ -2063,7 +2066,7 @@ if( isset( $this->data['guild_name'] ) )
 	<!-- End Resists -->
 
 	<!-- Begin Advanced Stats -->
-		<img src="<?php print $roster_conf['img_url']; ?>char/percentframe.gif" class="percent_frame" alt="" />
+		<img src="<?php print $roster->config['img_url']; ?>char/percentframe.gif" class="percent_frame" alt="" />
 
 		<div class="health"><span class="yellowB"><?php print $wordings[$lang]['health']; ?>:</span> <?php print $this->data['health']; ?></div>
 		<div class="mana"><span class="yellowB"><?php print $this->data['power']; ?>:</span> <?php print $this->data['mana']; ?></div>
@@ -2099,11 +2102,11 @@ if( $addon['config']['show_money'] )
 		<!-- Money Display -->
 		<div class="money_disp">'."\n";
 	if( $this->data['money_g'] != '0' )
-		print '			'.$this->data['money_g'].'<img src="'.$roster_conf['img_url'].'coin_gold.gif" class="coin" alt="g" />'."\n";
+		print '			'.$this->data['money_g'].'<img src="'.$roster->config['img_url'].'coin_gold.gif" class="coin" alt="g" />'."\n";
 	if( $this->data['money_s'] != '0' )
-		print '			'.$this->data['money_s'].'<img src="'.$roster_conf['img_url'].'coin_silver.gif" class="coin" alt="s" />'."\n";
+		print '			'.$this->data['money_s'].'<img src="'.$roster->config['img_url'].'coin_silver.gif" class="coin" alt="s" />'."\n";
 	if( $this->data['money_c'] != '0' )
-		print '			'.$this->data['money_c'].'<img src="'.$roster_conf['img_url'].'coin_copper.gif" class="coin" alt="c" />'."\n";
+		print '			'.$this->data['money_c'].'<img src="'.$roster->config['img_url'].'coin_copper.gif" class="coin" alt="c" />'."\n";
 print '
 		</div>
 ';
@@ -2140,8 +2143,8 @@ else
 
 ?>
 	<!-- Begin EXP Bar -->
-		<img src="<?php print $roster_conf['img_url']; ?>char/expbar_empty.gif" class="xpbar_empty" alt="" />
-		<div class="xpbar" style="clip:rect(0px <?php print $expbar_width; ?>px 12px 0px);"><img src="<?php print $roster_conf['img_url'].'char/'.$expbar_type.'.gif'; ?>" alt="" /></div>
+		<img src="<?php print $roster->config['img_url']; ?>char/expbar_empty.gif" class="xpbar_empty" alt="" />
+		<div class="xpbar" style="clip:rect(0px <?php print $expbar_width; ?>px 12px 0px);"><img src="<?php print $roster->config['img_url'].'char/'.$expbar_type.'.gif'; ?>" alt="" /></div>
 		<div class="xpbar_text"><?php print $expbar_text; ?></div>
 	<!-- End EXP Bar -->
 
@@ -2279,7 +2282,7 @@ function char_get_one_by_id( $member_id )
 {
 	global $wowdb, $roster;
 
-	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
+	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
 		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`member_id` = '$member_id' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $wowdb->query( $query );
@@ -2301,7 +2304,7 @@ function char_get_one( $name, $server )
 
 	$name = $wowdb->escape( $name );
 	$server = $wowdb->escape( $server );
-	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
+	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
 		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`name` = '$name' AND `a`.`server` = '$server' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $wowdb->query( $query );
@@ -2319,7 +2322,7 @@ function char_get_one( $name, $server )
 
 function DateCharDataUpdated($id)
 {
-	global $wowdb, $roster_conf, $wordings;
+	global $wowdb, $roster, $wordings;
 
 	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
 	$result = $wowdb->query($query);
@@ -2327,6 +2330,6 @@ function DateCharDataUpdated($id)
 	$wowdb->free_result($result);
 
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
-	$localtime = mktime($hour+$roster_conf['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 	return date($wordings[$data['clientLocale']]['phptimeformat'], $localtime);
 }

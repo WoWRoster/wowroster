@@ -34,8 +34,8 @@ $mainQuery =
 	'`members`.`class`, '.
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
-	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster_conf['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
+	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster->config['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
 	'`members`.`note`, '.
 	'`members`.`guild_title`, '.
 
@@ -58,7 +58,7 @@ $mainQuery =
 	'`players`.`hearth`, '.
 	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
 	"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster_conf['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
 	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	'`proftable`.`professions` '.
@@ -215,11 +215,11 @@ if( $addon['config']['member_update_inst'] )
 	print "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster_conf['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster_conf['profiler'], makelink('update'), $roster->locale->act['lualocation']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 
-	if ($roster_conf['pvp_log_allow'] == 1)
+	if ($roster->config['pvp_log_allow'] == 1)
 	{
-		echo sprintf($roster->locale->act['update_instructpvp'], $roster_conf['pvplogger']);
+		echo sprintf($roster->locale->act['update_instructpvp'], $roster->config['pvplogger']);
 	}
 	echo '</div>'.border('sgray','end');
 }
@@ -232,7 +232,7 @@ if( $addon['config']['member_update_inst'] )
  */
 function tradeskill_icons ( $row )
 {
-	global $wowdb, $roster_conf, $wordings, $addon;
+	global $roster, $wowdb, $wordings, $addon;
 
 	$cell_value ='';
 
@@ -269,7 +269,7 @@ function tradeskill_icons ( $row )
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
 		if ($icon != '') {
-			$cell_value .= "<img class=\"membersRowimg\" width=\"".$addon['config']['icon_size']."\" height=\"".$addon['config']['icon_size']."\" src=\"".$roster_conf['interface_url'].'Interface/Icons/'.$icon.'.'.$roster_conf['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
+			$cell_value .= "<img class=\"membersRowimg\" width=\"".$addon['config']['icon_size']."\" height=\"".$addon['config']['icon_size']."\" src=\"".$roster->config['interface_url'].'Interface/Icons/'.$icon.'.'.$roster->config['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
 		}
 	}
 	return $cell_value;
@@ -283,7 +283,7 @@ function tradeskill_icons ( $row )
  */
 function note_value ( $row, $field )
 {
-	global $roster, $roster_conf, $wordings, $addon;
+	global $roster, $wordings, $addon;
 
 	$tooltip='';
 	if( !empty($row[$field]) )
@@ -292,7 +292,7 @@ function note_value ( $row, $field )
 
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
+			$note = '<img src="'.$roster->config['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 	}
 	else
@@ -300,7 +300,7 @@ function note_value ( $row, $field )
 		$note = '&nbsp;';
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster_conf['img_url'].'no_note.gif" alt="[]" />';
+			$note = '<img src="'.$roster->config['img_url'].'no_note.gif" alt="[]" />';
 		}
 	}
 

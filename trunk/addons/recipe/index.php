@@ -98,7 +98,7 @@ if (!empty($prof_filter))
 
 		$content .= ("<!--$qry_recipe_type -->\n");
 		$result_recipe_type = $wowdb->query($qry_recipe_type) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_recipe_type);
-		if ($roster_conf['sqldebug'])
+		if ($roster->config['sqldebug'])
 		{
 			$content .= ("<!--$qry_recipe_type -->\n");
 		}

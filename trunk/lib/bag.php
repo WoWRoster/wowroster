@@ -33,7 +33,7 @@ class bag extends item
 
 	function out( )
 	{
-		global $wordings, $roster_conf, $tooltips;
+		global $wordings, $roster, $tooltips;
 
 		$lang = $this->data['clientLocale'];
 
@@ -41,7 +41,7 @@ class bag extends item
 		{
 
 			$returnstring = '
-<div class="bankbag" style="background:url('.$roster_conf['img_url'].'bags/bank_frame.png);">
+<div class="bankbag" style="background:url('.$roster->config['img_url'].'bags/bank_frame.png);">
 	<div class="bankcont_name">'. $this->data['item_name'] .'</div>
 	<div class="holder">';
 		}
@@ -76,11 +76,11 @@ class bag extends item
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 			$returnstring = '
-<div class="bag" style="height:'.$offset.'px;background-image:url('.$roster_conf['img_url'].'bags/'.$bag_type.'_top_'.$bag_style.'.png);">
+<div class="bag" style="height:'.$offset.'px;background-image:url('.$roster->config['img_url'].'bags/'.$bag_type.'_top_'.$bag_style.'.png);">
 	<div class="'.$bag_type.'_name">'. $this->data['item_name'] .'</div>
-	<img src="'.$roster_conf['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster_conf['img_suffix'].'" class="bagicon" alt="" />
-	<img src="'.$roster_conf['img_url'].'bags/'.$bag_type.'_mask.png" class="bagmask" alt="" '.makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang).' '.$linktip.' />
-	<div class="bottom" style="margin-top:'.$offset.'px;background-image:url('.$roster_conf['img_url'].'bags/'.$bag_type.'_bot.png);"></div>
+	<img src="'.$roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'].'" class="bagicon" alt="" />
+	<img src="'.$roster->config['img_url'].'bags/'.$bag_type.'_mask.png" class="bagmask" alt="" '.makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang).' '.$linktip.' />
+	<div class="bottom" style="margin-top:'.$offset.'px;background-image:url('.$roster->config['img_url'].'bags/'.$bag_type.'_bot.png);"></div>
 	<div class="holder'.$bag_style.'">
 			<div class="bagspacer'.$bag_style.'">&nbsp;</div>
 			<div class="bagspacer'.$bag_style.'">&nbsp;</div>
@@ -92,7 +92,7 @@ class bag extends item
 		{
 			if( $slot < 0 )
 			{
-				$returnstring .=  '			<div class="bagitem"><img src="'.$roster_conf['img_url'].'pixel.gif" class="noicon" alt="" /></div>'."\n";
+				$returnstring .=  '			<div class="bagitem"><img src="'.$roster->config['img_url'].'pixel.gif" class="noicon" alt="" /></div>'."\n";
 			}
 			else
 			{

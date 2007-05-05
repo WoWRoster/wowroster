@@ -21,9 +21,9 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-if( $roster_conf['show_pvp'] == 1 )
+if( $roster->config['show_pvp'] == 1 )
 {
-	$char_page .= $char->show_pvp2('PvP', 'char-pvp'.$char_url, $sort, $start);
+	$char_page .= $char->show_pvp2('PvP', 'char-info-pvp'.$char_url, $sort, $start);
 }
 
 include( $addon['dir'] . 'inc/footer.php' );
