@@ -155,11 +155,11 @@ New Version: <span class="green">' . ROSTER_VERSION . '</span><br />
 /**
  * If the install directory or files exist, die()
  */
-if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgrade.php') )
+if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgrade.php')  || file_exists(ROSTER_BASE . 'install') )
 {
 	if( !file_exists(ROSTER_BASE . 'version_match.php') )
 	{
-		roster_die('Please remove the files <span class="green">install.php</span> and <span class="green">upgrade.php</span> in this directory','Remove Install Files','sred');
+		roster_die('Please remove the <span class="green">install</span> folder and the files <span class="green">install.php</span> and <span class="green">upgrade.php</span> in this directory','Remove Install Files','sred');
 	}
 }
 
@@ -168,4 +168,3 @@ if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgra
  * Include roster Login class
  */
 require_once(ROSTER_LIB . 'login.php');
-

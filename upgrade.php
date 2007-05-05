@@ -72,11 +72,12 @@ if( isset($_POST['send_file']) && $_POST['send_file'] == 1 && !empty($_POST['con
 
 define('DIR_SEP',DIRECTORY_SEPARATOR);
 define('ROSTER_BASE', dirname(__FILE__) . DIR_SEP);
+define('ROSTER_LIB', ROSTER_BASE . 'lib' . DIR_SEP);
 
 
 include_once(ROSTER_BASE . 'conf.php');
-include_once(ROSTER_BASE . 'lib' . DIR_SEP . 'constants.php');
-include_once(ROSTER_BASE . 'lib' . DIR_SEP . 'wowdb.php');
+include_once(ROSTER_LIB . 'constants.php');
+include_once(ROSTER_LIB . 'wowdb.php');
 
 
 // ---------------------------------------------------------
@@ -291,8 +292,8 @@ class Upgrade
 		}
 
 
-		$db_structure_file = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'upgrade_160.sql';
-		$db_data_file      = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'mysql_data.sql';
+		$db_structure_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'upgrade_160.sql';
+		$db_data_file      = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_data.sql';
 
 
 		// Parse structure file and create database tables
@@ -503,7 +504,7 @@ class Upgrade
 	{
 		global $wowdb, $db_prefix;
 
-		$db_structure_file = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'upgrade_' . $ver . '.sql';
+		$db_structure_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'upgrade_' . $ver . '.sql';
 
 		// Parse structure file and create database tables
 		$sql = @fread(@fopen($db_structure_file, 'r'), @filesize($db_structure_file));
