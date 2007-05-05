@@ -30,7 +30,7 @@ class memberslist
 
 	var $version = '0.3.0';
 
-	var $fullname = 'Member List';
+	var $fullname = 'Members List';
 	var $description = 'A sortable, filterable member list.';
 	var $credits = array(
 		array(	"name"=>	"PleegWat",
@@ -50,9 +50,10 @@ class memberslist
 		$installer->add_config("120,'members',NULL,'blockframe','menu'");
 		$installer->add_config("130,'stats',NULL,'blockframe','menu'");
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
-		$installer->add_config("150,'build',NULL,'blockframe','menu'");
-		$installer->add_config("160,'documentation','http://www.wowroster.net/wiki/index.php/Roster:Addon:SortMember','newlink','menu'");
-		$installer->add_config("170,'updMainAlt','rostercp-addon-memberslist-update','makenewlink','menu'");
+		$installer->add_config("150,'log',NULL,'blockframe','menu'");
+		$installer->add_config("160,'build',NULL,'blockframe','menu'");
+		$installer->add_config("170,'documentation','http://www.wowroster.net/wiki/index.php/Roster:Addon:SortMember','newlink','menu'");
+		$installer->add_config("180,'updMainAlt','rostercp-addon-memberslist-update','makenewlink','menu'");
 
 		# Generic display settings
 		$installer->add_config("1000,'openfilter','0','radio{Show^1|Hide^0','display'");
@@ -122,19 +123,32 @@ class memberslist
 		$installer->add_config("4120,'honor_hp','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','honor'");
 		$installer->add_config("4130,'honor_ap','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','honor'");
 
-		# Main/Alt Build settings
-		$installer->add_config("5000,'getmain_regex','/ALT-([\\\\w]+)/i','text{50|30','build'");
-		$installer->add_config("5010,'getmain_field','Note','select{Public Note^Note|Officer Note^OfficerNote','build'");
-		$installer->add_config("5020,'getmain_match','1','text{2|30','build'");
-		$installer->add_config("5030,'getmain_main','Main','text{20|30','build'");
-		$installer->add_config("5040,'defmain','1','radio{Main^1|Mainless Alt^0','build'");
-		$installer->add_config("5050,'invmain','0','radio{Main^1|Mainless Alt^0','build'");
-		$installer->add_config("5060,'altofalt','alt','select{Try to resolve^resolve|Leave in table^leave|Set as main^main|Set as mainless alt^alt','build'");
-		$installer->add_config("5070,'update_type','1','select{None^0|Guild^1|Character^2|Both^3','build'");
+		# Per page settings: Member Log
+		$installer->add_config("5000,'log_update_inst','0','radio{Off^0|On^1','log'");
+		$installer->add_config("5010,'log_motd','0','radio{Off^0|On^1','log'");
+		$installer->add_config("5020,'log_hslist','0','radio{Off^0|On^1','log'");
+		$installer->add_config("5030,'log_pvplist','0','radio{Off^0|On^1','log'");
+		$installer->add_config("5040,'log_class','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
+		$installer->add_config("5050,'log_level','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
+		$installer->add_config("5060,'log_gtitle','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
+		$installer->add_config("5070,'log_type','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
+		$installer->add_config("5080,'log_date','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
+		$installer->add_config("5090,'log_note','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
+		$installer->add_config("5100,'log_onote','0','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','log'");
 
-		$installer->add_query("DROP TABLE IF EXISTS `".$installer->table('alts')."`;");
+		# Main/Alt Build settings
+		$installer->add_config("6000,'getmain_regex','/ALT-([\\\\w]+)/i','text{50|30','build'");
+		$installer->add_config("6010,'getmain_field','Note','select{Public Note^Note|Officer Note^OfficerNote','build'");
+		$installer->add_config("6020,'getmain_match','1','text{2|30','build'");
+		$installer->add_config("6030,'getmain_main','Main','text{20|30','build'");
+		$installer->add_config("6040,'defmain','1','radio{Main^1|Mainless Alt^0','build'");
+		$installer->add_config("6050,'invmain','0','radio{Main^1|Mainless Alt^0','build'");
+		$installer->add_config("6060,'altofalt','alt','select{Try to resolve^resolve|Leave in table^leave|Set as main^main|Set as mainless alt^alt','build'");
+		$installer->add_config("6070,'update_type','1','select{None^0|Guild^1|Character^2|Both^3','build'");
+
+		$installer->add_query("DROP TABLE IF EXISTS `" . $installer->table('alts') . "`;");
 		$installer->add_query("
-			CREATE TABLE `".$installer->table('alts')."` (
+			CREATE TABLE `" . $installer->table('alts') . "` (
 				`member_id` int(11)    unsigned NOT NULL default '0',
 				`main_id`   int(11)    unsigned NOT NULL default '0',
 				`alt_type`  tinyint(3) unsigned NOT NULL default '0',
@@ -145,6 +159,7 @@ class memberslist
 		$installer->add_menu_button('memberslist_Members','guild','');
 		$installer->add_menu_button('memberslist_Stats','guild','-statslist');
 		$installer->add_menu_button('memberslist_Honor','guild','-honorlist');
+		$installer->add_menu_button('memberslist_Log','guild','-log');
 		return true;
 	}
 
@@ -160,11 +175,12 @@ class memberslist
 
 		$installer->remove_all_config();
 
-		$installer->add_query("DROP TABLE IF EXISTS `".$installer->table('alts')."`;");
+		$installer->add_query("DROP TABLE IF EXISTS `" . $installer->table('alts') . "`;");
 
 		$installer->remove_menu_button('memberslist_Members');
 		$installer->remove_menu_button('memberslist_Stats');
 		$installer->remove_menu_button('memberslist_Honor');
+		$installer->remove_menu_button('memberslist_Log');
 		return true;
 	}
 }

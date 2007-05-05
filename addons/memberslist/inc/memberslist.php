@@ -31,7 +31,7 @@ class memberslist
 	var $listname = 'membersData';	// table ID for javascript
 	var $fields;					// field definitions
 	var $query;						// main query
-	
+
 	var $addon;						// SortMembers addon data
 
 	var $tableHeaderRow;			// Column headers
@@ -79,7 +79,7 @@ class memberslist
 			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'show')?1:0;
 		}
 	}
-	
+
 	/**
 	 * Prepare the data to build a memberlist.
 	 *
@@ -116,14 +116,14 @@ class memberslist
 		$num_rows = $row[0];
 
 		// --[ Page list ]--
-		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size'] 
+		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size']
 			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
 		)
 		{
 			$get_st = isset($_GET['st']) ? $_GET['st'] : 0;
 
 			$pages = array_fill(0,$num_pages - 1, false);
-			
+
 			$pages[0] = true;
 			$pages[1] = true;
 			if( $get_st > 0 )
@@ -140,9 +140,9 @@ class memberslist
 
 			$params = '&amp;style='.($this->addon['config']['nojs']?'server':'client').
 				'&amp;alts='.($this->addon['config']['group_alts']?'show':'hide');
-			
-			$this->tableHeaderRow = '<thead><tr><th colspan="'.($cols+1).'" class="membersHeader" style="text-align:center;color:#ffffff">';
-			
+
+			$this->tableHeaderRow = "<thead>\n  <tr>\n" . '    <th colspan="'.($cols+1).'" class="membersHeader" style="text-align:center;color:#ffffff">';
+
 			$dots = true;
 			foreach( $pages as $id => $show )
 			{
@@ -160,7 +160,7 @@ class memberslist
 					$this->tableHeaderRow .= ' - ';
 				}
 				$dots = false;
-				
+
 				if( $id = $get_st )
 				{
 					$this->tableHeaderRow .= $id."\n";
@@ -171,7 +171,11 @@ class memberslist
 				}
 			}
 		}
-		
+		else
+		{
+			$this->tableHeaderRow = "<thead>\n";
+		}
+
 		// --[ Add sorting SQL ]--
 		if( empty($get_s) && !empty($this->addon['config']['def_sort']) )
 		{
@@ -196,12 +200,12 @@ class memberslist
 				}
 			}
 		}
-		
+
 		$query .=  ' `members`.`level` DESC, `members`.`name` ASC';
-		
+
 		// --[ Add pagination SQL, if we're in client mode ]--
 		if( $this->addon['config']['nojs']
-			&& $this->addon['config']['page_size'] 
+			&& $this->addon['config']['page_size']
 			&& is_numeric($get_st) )
 		{
 			$start = $get_st * $this->addon['config']['page_size'];
@@ -212,9 +216,9 @@ class memberslist
 
 		// If group alts is off, hide the column for it
 		$style = ($this->addon['config']['group_alts'])?'':' style="display:none;"';
-		
+
 		// header row
-		$this->tableHeaderRow .= '<tr>'."\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
+		$this->tableHeaderRow .= "<tr>\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
 		$this->sortFields = '';
 		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>'."\n";
 		$current_col = 1;
@@ -352,10 +356,10 @@ class memberslist
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s='.$_GET['s'] : '' );
 		$get = ( isset($_GET['d']) ? '&amp;d='.$_GET['d'] : '' );
-		
+
 		$style = '&amp;style='.($this->addon['config']['nojs']?'server':'client');
 		$alts = '&amp;alts='.($this->addon['config']['group_alts']?'show':'hide');
-				
+
 		if( $this->addon['config']['group_alts'] )
 		{
 			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster_conf['img_url'].'plus.gif\'); return false;"><img src="'.$roster_conf['img_url'].'plus.gif" alt="+" />Close all</a></th>';
@@ -385,7 +389,7 @@ class memberslist
 		}
 		return messagebox('<table><tr>'.$output.'</tr></table>','','sgray');
 	}
-	
+
 	/**
 	 * Returns the actual list. (but not the border)
 	 */
@@ -396,14 +400,14 @@ class memberslist
 		$cols = count( $this->fields );
 
 		$output  = "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n".$this->tableHeaderRow;
-		
+
 		$result = $wowdb->query( $this->query );
 
 		if ( !$result )
 		{
 			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
 		}
-		
+
 		// --[ Actual list ]--
 		while ( $row = $wowdb->fetch_assoc( $result ) )
 		{
@@ -716,7 +720,7 @@ class memberslist
 			$cell_value = '<div'.$tooltip.' style="cursor:default;">'.$row['level'].'</div>';
 		}
 
-		return '<div style="display:none; ">'.$row['level'].'</div>'.$cell_value;
+		return '<div style="display:none; ">' . str_pad($row['level'],2,'0',STR_PAD_LEFT) . '</div>'.$cell_value;
 	}
 
 	/**

@@ -22,6 +22,7 @@
 $lang['memberslist_Members']	= 'Members';
 $lang['memberslist_Stats']		= 'Stats';
 $lang['memberslist_Honor']		= 'Honor';
+$lang['memberslist_Log']		= 'Member Log';
 
 // Index: Wrong $roster_pages[2]
 $lang['memberslist_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';
@@ -83,6 +84,7 @@ $lang['admin']['display']       = 'Display|Configure display options specific to
 $lang['admin']['members']       = 'Members List|Configure visibility of members list columns.';
 $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list columns.';
 $lang['admin']['honor']         = 'Honor List|Configure visibility of honor list columns.';
+$lang['admin']['log']           = 'Member Log|Configure visibility of member log columns.';
 $lang['admin']['build']         = 'Main/Alt Relations|Configure how the Main/Alt relations are detected.';
 $lang['admin']['documentation'] = 'Documentation|memberslist documentation on the WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Update Relations|Update the Main/Alt relations using the data already in the DB.';
@@ -154,6 +156,19 @@ $lang['admin']['honor_lifehk']  = 'Lifetime HK|Set visibility of the Lifetime HK
 $lang['admin']['honor_hrank']   = 'Honor Rank|Set visibility of the Honor Rank column on the honor page';
 $lang['admin']['honor_hp']      = 'Honor Points|Set visibility of the honor points column on the honor page';
 $lang['admin']['honor_ap']      = 'Arena Points|Set visibility of the arena points column on the honor page';
+
+// Settings on Members page
+$lang['admin']['log_update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the member log page';
+$lang['admin']['log_motd'] = 'Guild MOTD|Show Guild Message of the Day on the top of the member log page';
+$lang['admin']['log_hslist']  = 'Honor System Stats|Controls the display of the Honor stats list on the member log page';
+$lang['admin']['log_pvplist']  = 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the member log page<br />If you have disabled PvPlog uploading, there is no need to have this on';
+$lang['admin']['log_class']  = 'Class|Set visibility of the class column on the member log page';
+$lang['admin']['log_level']  = 'Level|Set visibility of the level column on the member log page';
+$lang['admin']['log_gtitle'] = 'Guild Title|Set visibility of the guild title column on the member log page';
+$lang['admin']['log_type'] = 'Update Type|Set visibility of the update type column on the member log page';
+$lang['admin']['log_date'] = 'Last Update|Set visibility of the date column on the member log page';
+$lang['admin']['log_note']   = 'Note|Set visibility of the note column on the member log page';
+$lang['admin']['log_onote']  = 'Officer Note|Set visibility of the officer note column on the member log page';
 
 // Settings names on build page
 $lang['admin']['getmain_regex'] = 'Regex|This field specifies the regex to use. <br /> See the wiki link for details.';
