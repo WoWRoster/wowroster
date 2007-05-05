@@ -19,27 +19,29 @@
 // in pathnames set the include statement seperately.
 $roster_rel = '';
 
+$_GET[ROSTER_PAGE] = 'dummy';
+
 // Environment
 include('.'.$roster_rel.'/settings.php');
 
 // Get the char from the query string. To keep the link as short as
 // possible, we don't use member= or anything like that
-$char = $wowdb->escape(urldecode($_SERVER['QUERY_STRING']));
+$char = $roster->db->escape(urldecode($_SERVER['QUERY_STRING']));
 
 // Check if there's a character with this name
 $query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$char' OR `member_id` = '$char';";
 
-$result = $wowdb->query($query);
+$result = $roster->db->query($query);
 
 if( !$result )
 {
-	die_quietly($wowdb->error(),'Roster Autopointer',basename(__FILE__),__LINE__,$query);
+	die_quietly($roster->db->error(),'Roster Autopointer',basename(__FILE__),__LINE__,$query);
 }
 
-if( $row = $wowdb->fetch_assoc($result) )
+if( $row = $roster->db->fetch($result) )
 {
-	$wowdb->free_result($result);
-	header("Location: ".ROSTER_URL.$roster_rel.sprintf(ROSTER_LINK,'char&member='.$row['member_id']));
+	$roster->db->free_result($result);
+	header("Location: ".ROSTER_URL.$roster_rel.sprintf(ROSTER_LINK,'char-char','member='.$row['member_id']));
 	exit();
 }
 
@@ -47,3 +49,4 @@ if( $row = $wowdb->fetch_assoc($result) )
 // There's no char with that name? Redirect to guild page.
 
 header('Location: '.ROSTER_URL.$roster_rel);
+
