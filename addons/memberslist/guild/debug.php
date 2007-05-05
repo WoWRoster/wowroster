@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 define('IN_SORTMEMBER',true);
 
 //---[ Check for Guild Info ]------------
-if( empty($guild_info) )
+if( empty($roster->data) )
 {
 	die_quietly( $roster->locale->act['nodata'] );
 }
@@ -46,7 +46,7 @@ $mainQuery =
 	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
 	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` AS mains ON `alts`.`main_id` = `mains`.`member_id` '.
-	'WHERE `members`.`guild_id` = "'.$guild_info['guild_id'].'" '.
+	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 $FIELD['name'] = array (

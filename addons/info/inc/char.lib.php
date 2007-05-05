@@ -1961,12 +1961,12 @@ $returnstring .= '  <tr>
 
 	function printHonor()
 	{
-		global $roster, $wowdb, $guild_info;
+		global $roster, $wowdb;
 
 		$lang = $this->data['clientLocale'];
 
 		$icon = '';
-		switch( substr($guild_info['faction'],0,1) )
+		switch( substr($roster->data['faction'],0,1) )
 		{
 			case 'A':
 				$icon = '<img src="'.$roster->config['img_url'].'battleground-alliance.png" alt="" />';

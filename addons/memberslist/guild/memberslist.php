@@ -69,7 +69,7 @@ $mainQuery =
 		'FROM `'.ROSTER_SKILLSTABLE.'` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'WHERE `members`.`guild_id` = "'.$guild_info['guild_id'].'" '.
+	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 $FIELD['name'] = array (
