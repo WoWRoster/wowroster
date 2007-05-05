@@ -1003,6 +1003,26 @@ function getaddon( $addonname )
 }
 
 /**
+ * Check to see if an addon is active or not
+ *
+ * @param string $name | Addon basename
+ * @return bool
+ */
+function active_addon( $name )
+{
+	global $roster_conf;
+
+	if( !isset($roster_conf['active_addons'][$name]) )
+	{
+		return false;
+	}
+	else
+	{
+		return (bool)$roster_conf['active_addons'][$name];
+	}
+}
+
+/**
  * Adds locale strings to global $wordings array
  *
  * @param string $localefile | Full path to locale file

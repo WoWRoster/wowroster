@@ -580,7 +580,7 @@ class memberslist
 			$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
 
-			if ( $row['server'] )
+			if( active_addon('char') && $row['server'] )
 			{
 				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}

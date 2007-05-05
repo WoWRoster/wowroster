@@ -83,7 +83,7 @@ define('ROSTER_CONF_FILE',ROSTER_BASE . 'conf.php');
  */
 if( !file_exists(ROSTER_CONF_FILE) )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
+    die("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
 }
 else
 {
@@ -96,7 +96,7 @@ else
  */
 if( !defined('ROSTER_INSTALLED') )
 {
-    exit("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
+    die("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
 }
 
 /**
@@ -168,6 +168,18 @@ while( $row = $wowdb->fetch_assoc($results) )
 	$roster_conf[$row['config_name']] = $row['config_value'];
 }
 $wowdb->free_result($results);
+
+
+/**
+ * Get list of addons and their active state
+ */
+$sql = "SELECT `basename`, `active` FROM `" . $wowdb->table('addon') . "`;";
+$result = $wowdb->query($sql);
+$roster_conf['active_addons'] = array();
+while( $row = $wowdb->fetch_assoc($result) )
+{
+	$roster_conf['active_addons'][$row['basename']] = $row['active'];
+}
 
 /**
  * Include linking file

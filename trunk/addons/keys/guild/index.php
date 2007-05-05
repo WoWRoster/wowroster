@@ -315,7 +315,7 @@ while ($row = $wowdb->fetch_array($result))
 	print '<tr>'."\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print '<a href="'.makelink('char&amp;member='.$row['member_id']).'">'.$row['name'].'</a><br />'.$row['class'].' ('.$row['level'].')</td>'."\n";
+	print ( active_addon('char') ? '<a href="' . makelink('char&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '<br />' . $row['class'] . ' (' . $row['level'] . ')</td>' . "\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;

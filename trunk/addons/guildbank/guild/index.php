@@ -120,7 +120,8 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
 
-	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start','<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a> ('.$note.') - <small>'.$act_words['lastupdate'].': '.$date_char_data_updated.'</small>').
+	$bank_print_member = ( active_addon('char') ? '<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a>' : $muleRow['member_name']);
+	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start',$bank_print_member . ' ('.$note.') - <small>'.$act_words['lastupdate'].': '.$date_char_data_updated.'</small>').
 	'<table class="bodyline" cellspacing="0" cellpadding="0">'.
 		 ( $addon['config']['bank_money'] ?
 		 	  '<tr>
