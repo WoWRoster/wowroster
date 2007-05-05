@@ -53,19 +53,19 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `" . $wowdb->table('menu_button') . "` VALUES (NULL,0,'" . $wowdb->escape($_POST['title']) . "','" . $wowdb->escape($_POST['url']) . "')";
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,0,'" . $roster->db->escape($_POST['title']) . "','" . $roster->db->escape($_POST['url']) . "')";
 
-		$DBres = $wowdb->query($query);
+		$DBres = $roster->db->query($query);
 
 		if (!$DBres)
 		{
 			$status = 101;
-			$errmsg = 'Failed to insert button. MySQL said: ' . $wowdb->error();
+			$errmsg = 'Failed to insert button. MySQL said: ' . $roster->db->error();
 			return;
 		}
 
 		$status=0;
-		$result  = '<id>b' . $wowdb->insert_id() . "</id>\n";
+		$result  = '<id>b' . $roster->db->insert_id() . "</id>\n";
 		$result .= '<title>' . $_POST['title'] . '</title>';
 
 		break;
@@ -81,25 +81,25 @@ switch ($method)
 		$button = $_POST['button'];
 		$button_id = (int)substr($button,1);
 
-		$query = "SELECT * FROM `" . $wowdb->table('menu_button') . "` WHERE `button_id` = '" . $button_id . "';";
-		$DBres = $wowdb->query($query);
+		$query = "SELECT * FROM `" . $roster->db->table('menu_button') . "` WHERE `button_id` = '" . $button_id . "';";
+		$DBres = $roster->db->query($query);
 
 		if( !$DBres )
 		{
 			$status = 101;
-			$errmsg = 'Failed to fetch button properties. MySQL said: ' . "\n" . $wowdb->error() . "\n" . $query;
+			$errmsg = 'Failed to fetch button properties. MySQL said: ' . "\n" . $roster->db->error() . "\n" . $query;
 			return;
 		}
 
-		if( $wowdb->num_rows($DBres) == 0 )
+		if( $roster->db->num_rows($DBres) == 0 )
 		{
 			$status = 102;
 			$errmsg = 'The specified button does not exist: ' . $button;
 			return;
 		}
 
-		$row = $wowdb->fetch_assoc($DBres);
-		$wowdb->free_result($DBres);
+		$row = $roster->db->fetch($DBres);
+		$roster->db->free_result($DBres);
 
 		if( $row['addon_id'] == '0' )
 		{
@@ -108,14 +108,14 @@ switch ($method)
 			return;
 		}
 
-		$query = "DELETE FROM `".$wowdb->table('menu_button')."` WHERE `button_id` = '" . $button_id . "';";
+		$query = "DELETE FROM `".$roster->db->table('menu_button')."` WHERE `button_id` = '" . $button_id . "';";
 
-		$DBres = $wowdb->query($query);
+		$DBres = $roster->db->query($query);
 
 		if (!$DBres)
 		{
 			$status = 101;
-			$errmsg = 'Failed to delete button. MySQL said: ' . "\n" . $wowdb->error() . "\n" . $query;
+			$errmsg = 'Failed to delete button. MySQL said: ' . "\n" . $roster->db->error() . "\n" . $query;
 			return;
 		}
 
@@ -123,3 +123,4 @@ switch ($method)
 		$result = $button;
 		break;
 }
+
