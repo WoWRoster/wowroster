@@ -130,6 +130,8 @@ class roster_db
 	 */
 	function query( $query )
 	{
+		global $roster;
+		
 		// Remove pre-existing query resources
 		unset($this->query_id);
 

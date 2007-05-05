@@ -2,7 +2,7 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Common functions for Roster
+ * Roster global class
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -62,22 +62,25 @@ class roster
 		/**
 		 * Load the config
 		 */
-		$sql = "SELECT `config_name`, `config_value` FROM `" . ROSTER_CONFIGTABLE . "` ORDER BY `id` ASC;";
-		$results = $wowdb->query($sql);
+		$query = "SELECT `config_name`, `config_value` FROM `" . ROSTER_CONFIGTABLE . "` ORDER BY `id` ASC;";
+		$results = $this->db->query($query);
 
-		if( !$results || $wowdb->num_rows($results) == 0 )
+		if( !$results || $this->db->num_rows($results) == 0 )
 		{
-			die("Cannot get roster configuration from database<br />\nMySQL Said: " . $wowdb->error() . "<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
+			die("Cannot get roster configuration from database<br />\nMySQL Said: " . $this->db->error() . "<br /><br />\nYou might not have roster installed<br />\n<a href=\"install.php\">INSTALL</a>");
 		}
 
-		while( $row = $wowdb->fetch_assoc($results) )
+		while( $row = $this->db->fetch($results) )
 		{
 			$this->config[$row['config_name']] = $row['config_value'];
 		}
-		$wowdb->free_result($results);
+		$this->db->free_result($results);
 		
-		// include(ROSTER_LIB.'locale.php');
-		// $locale = new roster_locale;
+		/**
+		 * Load the locale class
+		 */
+		include(ROSTER_LIB.'locale.php');
+		$this->locale = new roster_locale;
 		
 		/**
 		 * Figure out the page
@@ -171,7 +174,7 @@ class roster
 		// --[ We only accept certain characters in our page ]--
 		if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 		{
-			roster_die($act_words['invalid_char_module'],$act_words['roster_error']);
+			roster_die($this->locale->act['invalid_char_module'],$this->locale->act['roster_error']);
 		}
 	}
 	
@@ -206,48 +209,48 @@ class roster
 				}
 				
 				// Get the data
-				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '.$this->config['localtimeoffset'].' HOUR ), "'.$this->locale->timeformat.'" ) AS "update_format"'.
+				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '.$this->config['localtimeoffset'].' HOUR ), "'.$this->locale->act['timeformat'].'" ) AS "update_format"'.
 					'FROM `'.ROSTER_PLAYERSTABLE.'` players '.
 					'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` members ON `players`.`member_id` = `members`.`member_id` '.
 					'LEFT JOIN `'.ROSTER_GUILDTABLE.'` guild ON `players`.`guild_id` = `guild`.`guild_id` '.
 					'WHERE'.$where.';';
 				
-				$result = $wowdb->query($query);
+				$result = $this->db->query($query);
 				
 				if( !$result )
 				{
-					die_quietly($wowdb->error(),'Database error',basename(__FILE__),__LINE__,$query);
+					die_quietly($this->db->error(),'Database error',basename(__FILE__),__LINE__,$query);
 				}
 				
-				if(!( $this->data = $wowdb->fetch_assoc($result)) )
+				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					message_die('This member is not in the database',$this->locale->roster_error);
+					message_die('This member is not in the database',$this->locale->act['roster_error']);
 				}
 				
-				$wowdb->free_result($result);
+				$this->db->free_result($result);
 				
 				break;
 			case 'guild':
 				// If we ever go multiguild in 1x, we need to check the guild=
 				// attribute here.
-				$guild_escape = $wowdb->escape( $this->config['guild_name'] );
-				$server_escape = $wowdb->escape( $this->config['server_name'] );
+				$guild_escape = $this->db->escape( $this->config['guild_name'] );
+				$server_escape = $this->db->escape( $this->config['server_name'] );
 
-				$queryr = "SELECT * ".
+				$query = "SELECT * ".
 					"FROM `".ROSTER_GUILDTABLE."` ".
 					"WHERE `guild_name` = '".$guild_escape."' ".
 						"AND `server` = '".$server_escape."';";
 						
-				$result = $wowdb->query($query);
+				$result = $this->db->query($query);
 				
 				if( !$result )
 				{
-					die_quietly($wowdb->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 				}
 
-				if(!( $this->data = $wowdb->fetch_array($result)) )
+				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					roster_die( sprintf($this->locale->nodata, $this->config['guild_name'], $this->config['server_name'], makelink('update'), makelink('rostercp') ), $this->locale->nodata_title );
+					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server_name'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
 				$wowdb->free_result($result);
@@ -256,22 +259,22 @@ class roster
 			default:
 				// Not really any data to load here, but we'll load guild anyway,
 				// cause menu uses it.
-				$guild_escape = $wowdb->escape( $this->config['guild_name'] );
-				$server_escape = $wowdb->escape( $this->config['server_name'] );
+				$guild_escape = $this->db->escape( $this->config['guild_name'] );
+				$server_escape = $this->db->escape( $this->config['server_name'] );
 
-				$queryr = "SELECT * ".
+				$query = "SELECT * ".
 					"FROM `".ROSTER_GUILDTABLE."` ".
 					"WHERE `guild_name` = '".$guild_escape."' ".
 						"AND `server` = '".$server_escape."';";
 						
-				$result = $wowdb->query($query);
+				$result = $this->db->query($query);
 				
 				if( !$result )
 				{
-					die_quietly($wowdb->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 				}
 
-				$this->data = $wowdb->fetch_array($result);
+				$this->data = $this->db->fetch($result);
 
 				$wowdb->free_result($result);
 		}
