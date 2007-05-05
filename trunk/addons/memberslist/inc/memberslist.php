@@ -541,15 +541,15 @@ class memberslist
 	 */
 	function makeMotd()
 	{
-		global $roster, $guild_info;
+		global $roster;
 
 		if( $roster->config['motd_display_mode'] )
 		{
-			return '<img src="motd.php" alt="Guild MOTD: '.htmlspecialchars($guild_info['guild_motd']).'" /><br /><br />';
+			return '<img src="motd.php" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
 		}
 		else
 		{
-			return '<span class="GMOTD">Guild MOTD: '.htmlspecialchars($guild_info['guild_motd']).'</span><br /><br />';
+			return '<span class="GMOTD">Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'</span><br /><br />';
 		}
 	}
 

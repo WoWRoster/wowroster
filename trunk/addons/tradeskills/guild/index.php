@@ -37,7 +37,7 @@ $showNewSkill = ( $addon['config']['show_new_skills'] ? " AND SUBSTRING_INDEX(`s
 // Gather a list of players that have the skills we are looking for
 $query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `" . ROSTER_SKILLSTABLE . "` AS s, `" . ROSTER_PLAYERSTABLE . "` AS p"
 	   . " WHERE `p`.`member_id` = `s`.`member_id`"
-	   . " AND `p`.`guild_id` = '" . $guild_info['guild_id'] . "'"
+	   . " AND `p`.`guild_id` = '" . $roster->data['guild_id'] . "'"
 	   . $showNewSkill
 	   . " AND `skill_name` IN ($inClause)"
 	   . " ORDER BY `s`.`skill_type`, `s`.`skill_name`,(mid(`skill_level` FROM 1 FOR (locate(':', `skill_level`)-1)) + 0) DESC, `p`.`name`;";

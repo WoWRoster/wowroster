@@ -41,7 +41,7 @@ elseif( !empty($roster->config['realmstatus']) )
 }
 else
 {
-	$realmname = utf8_decode($guild_info['server']);
+	$realmname = utf8_decode($roster->data['server']);
 }
 
 $realmname = trim($realmname);

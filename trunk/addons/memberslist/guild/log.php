@@ -31,7 +31,7 @@ $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
 	'FROM `'.ROSTER_MEMBERLOGTABLE.'` AS members '.
-	'WHERE `guild_id` = "'.$guild_info['guild_id'].'"'.
+	'WHERE `guild_id` = "'.$roster->data['guild_id'].'"'.
 	'ORDER BY ';
 
 
