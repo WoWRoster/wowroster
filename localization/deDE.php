@@ -523,7 +523,7 @@ $lang['loss_average']='Durchschnittliche Level Differenz  (Verluste)';
 // These need to be EXACTLY what PvPLog stores them as
 $lang['alterac_valley']='Alteractal';
 $lang['arathi_basin']='Arathibecken';
-$lang['warsong_gulch']='Warsongschlucht';
+$lang['warsong_gulch']='Kriegshymnenschlucht';
 
 $lang['world_pvp']='Welt-PvP';
 $lang['versus_guilds']='Gegengilden';

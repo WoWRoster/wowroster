@@ -30,11 +30,11 @@ class memberslist
 
 	var $version = '0.3.0';
 
-	var $fullname = 'memberslist';
-	var $description = 'A sortable, filterable memberslist.';
+	var $fullname = 'Member List';
+	var $description = 'A sortable, filterable member list.';
 	var $credits = array(
 		array(	"name"=>	"PleegWat",
-				"info"=>	"Sortable/filterable memberslist"),
+				"info"=>	"Sortable/filterable member list"),
 	);
 
 
