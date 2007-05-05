@@ -104,14 +104,12 @@ for($i=0; $i<$count; $i++)
 		}
 		$thisbarcolor = $barcolor;
 		$thisbar2color = $bar2color;
-		$thistextcolor = setColor($image, $act_words['class_colorArray'][$barnames[$i]]);
 	}
 	else
 	{
 		$icon = false;
 		$thisbarcolor = $barcolor;
 		$thisbar2color = $bar2color;
-		$thistextcolor = $textcolor;
 	}
 
 	// If there was an error $icon will be false, otherwise add the icon
@@ -130,8 +128,20 @@ for($i=0; $i<$count; $i++)
 	{
 		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.5), $thisbar2color);
 	}
+}
+// Draw the labels
+// This is separate so the text is on top of the bars
+for($i=0; $i<$count; $i++)
+{
+	if( $type == 'class' )
+	{
+		$thistextcolor = setColor($image, $act_words['class_colorArray'][$barnames[$i]]);
+	}
+	else
+	{
+		$thistextcolor = $textcolor;
+	}
 
-	// Draw the label
 	if( isset($font) )
 	{
 		if( $roster_conf[$side.'_outlinecolor'] != '' )
