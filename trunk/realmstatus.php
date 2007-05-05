@@ -234,8 +234,8 @@ if( $err )
 $realmData['serverpopcolor'] = $roster->config['rs_color_' . strtolower($realmData['serverpop'])];
 $realmData['servertypecolor'] = $roster->config['rs_color_' . strtolower($realmData['servertype'])];
 
-$realmData['serverpop'] = $act_words['rs'][$realmData['serverpop']];
-$realmData['servertype'] = $act_words['rs'][$realmData['servertype']];
+$realmData['serverpop'] = $roster->locale->act['rs'][$realmData['serverpop']];
+$realmData['servertype'] = $roster->locale->act['rs'][$realmData['servertype']];
 
 // Generate image or text?
 if( $generate_image )

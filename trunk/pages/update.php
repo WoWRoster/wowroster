@@ -41,7 +41,7 @@ if ((isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 	$messages .= $update->parseFiles();
 	$messages .= $update->processFiles();
 
-	$errors = $wowdb->getErrors();
+	$errors = $update->getErrors();
 
 	// Normal upload results
 	if( !$update->textmode )
@@ -53,27 +53,27 @@ if ((isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 		// print the error messages
 		if( !empty($errors) )
 		{
-			print scrollboxtoggle($errors,'<span class="red">'.$act_words['update_errors'].'</span>','sred',false);
+			print scrollboxtoggle($errors,'<span class="red">'.$roster->locale->act['update_errors'].'</span>','sred',false);
 
 			// Print the downloadable errors separately so we can generate a download
 			print "<br />\n";
 			print '<form method="post" action="'.makelink().'" name="post">'."\n";
 			print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($errors)).'" />'."\n";
 			print '<input type="hidden" name="send_file" value="error_log" />'."\n";
-			print '<input type="submit" name="download" value="'.$act_words['save_error_log'].'" />'."\n";
+			print '<input type="submit" name="download" value="'.$roster->locale->act['save_error_log'].'" />'."\n";
 			print '</form>';
 			print "<br />\n";
 		}
 
 		// Print the update messages
-		print scrollbox('<div style="text-align:left;font-size:10px;">'.$messages.'</div>',$act_words['update_log'],'syellow');
+		print scrollbox('<div style="text-align:left;font-size:10px;">'.$messages.'</div>',$roster->locale->act['update_log'],'syellow');
 
 		// Print the downloadable messages separately so we can generate a download
 		print "<br />\n";
 		print '<form method="post" action="'.makelink().'" name="post">'."\n";
 		print '<input type="hidden" name="data" value="'.htmlspecialchars(stripAllHtml($messages)).'" />'."\n";
 		print '<input type="hidden" name="send_file" value="update_log" />'."\n";
-		print '<input type="submit" name="download" value="'.$act_words['save_update_log'].'" />'."\n";
+		print '<input type="submit" name="download" value="'.$roster->locale->act['save_update_log'].'" />'."\n";
 		print '</form>';
 		print "<br />\n";
 
@@ -93,15 +93,15 @@ else
 
 	print '<form action="'.makelink().'" enctype="multipart/form-data" method="post" onsubmit="submitonce(this);">'."\n";
 
-	print messagebox('<table class="bodyline" cellspacing="0" cellpadding="0">'.$update->makeFileFields().'</table>',$act_words['update_page'],'sblue');
+	print messagebox('<table class="bodyline" cellspacing="0" cellpadding="0">'.$update->makeFileFields().'</table>',$roster->locale->act['update_page'],'sblue');
 
 	print "<br />\n";
 
-	print border('sgray','start',$act_words['gp_user_only']);
+	print border('sgray','start',$roster->locale->act['gp_user_only']);
 	print '
                   <table class="bodyline" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td class="membersRow1" style="cursor:help;" onmouseover="overlib(\''.$act_words['roster_upd_pw_help'].'\',CAPTION,\''.$act_words['roster_upd_pwLabel'].'\',WRAP,RIGHT);" onmouseout="return nd();"><img src="'.$roster_conf['img_url'].'blue-question-mark.gif" alt="" /> '.$act_words['roster_upd_pwLabel'].'</td>
+                      <td class="membersRow1" style="cursor:help;" onmouseover="overlib(\''.$roster->locale->act['roster_upd_pw_help'].'\',CAPTION,\''.$roster->locale->act['roster_upd_pwLabel'].'\',WRAP,RIGHT);" onmouseout="return nd();"><img src="'.$roster->config['img_url'].'blue-question-mark.gif" alt="?" /> '.$roster->locale->act['roster_upd_pwLabel'].'</td>
                       <td class="membersRowRight1"><input class="wowinput128" type="password" name="password" /></td>
                     </tr>
                   </table>'."\n";
@@ -110,7 +110,7 @@ else
 	print "<br />\n";
 
 	print '<input type="hidden" name="process" value="process" />'."\n";
-	print '<input type="submit" value="'.$act_words['upload'].'" />'."\n";
+	print '<input type="submit" value="'.$roster->locale->act['upload'].'" />'."\n";
 	print '</form>'."\n";
 
 	if (!empty($messages))
