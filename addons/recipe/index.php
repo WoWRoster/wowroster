@@ -179,11 +179,11 @@ if (!empty($prof_filter))
 
 				if (substr($row_users['skill_level'],0,strpos($row_users['skill_level'],':')) < 300)
 				{
-					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'" href="'.makelink('char-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>'."\n";
+					$users .= '<span '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'">'.( active_addon('char') ? '<a href="'.makelink('char-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>' : $row_users['name'] ).'</span>'."\n";
 				}
 				else
 				{
-					$users .= '<a '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1" href="'.makelink('char-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>'."\n";
+					$users .= '<span '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1">'.( active_addon('char') ? '<a href="'.makelink('char-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>' : $row_users['name'] ).'</span>'."\n";
 				}
 				$break_counter++;
 			}

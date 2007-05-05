@@ -125,7 +125,7 @@ if( !empty($search) )
 		while( $data = $wowdb->fetch_assoc($result) )
 		{
 			$row_st = (($rc%2)+1);
-			$char_url = makelink('char&amp;member=' . $data['member_id']);
+			$char_url = ( active_addon('char') ? '<a href="' . makelink('char&amp;member=' . $data['member_id']) . '">' . $data['name'] . '</a>' : $data['name'] );
 
 			if( $cid != $data['member_id'] )
 			{
@@ -133,7 +133,7 @@ if( !empty($search) )
 				{
 					$output .= "</table>\n" . border('sblue','end') . "<br />\n";
 				}
-				$output .= border('sblue','start','<a href="' . $char_url . '">' . $data['name'] . '</a>') . '<table cellpadding="0" cellspacing="0" width="600">';
+				$output .= border('sblue','start',$char_url) . '<table cellpadding="0" cellspacing="0" width="600">';
 			}
 
 			$output .= '  <tr>
@@ -205,14 +205,14 @@ if( !empty($search) )
 		{
 			$row_st = (($rc%2)+1);
 
-			$char_url = makelink('char-recipes&amp;member=' . $data['member_id']);
+			$char_url = ( active_addon('char') ? '<a href="' . makelink('char-recipes&amp;member=' . $data['member_id']) . '">' . $data['name'] . '</a>' : $data['name'] );
 			if( $cid != $data['member_id'] )
 			{
 				if( $cid != '' )
 				{
 					$output .= "</table>\n" . border('syellow','end') . "<br />\n";
 				}
-				$output .= border('syellow','start','<a href="' . $char_url . '">' . $data['name'] . '</a>') . '<table border="0" cellpadding="0" cellspacing="0" width="600">
+				$output .= border('syellow','start',$char_url) . '<table border="0" cellpadding="0" cellspacing="0" width="600">
   <tr>
     <th colspan="2" class="membersHeader">' . $act_words['item'] . '</th>
     <th class="membersHeaderRight">' . $act_words['reagents'] . '</th>

@@ -16,27 +16,15 @@
  ******************************/
 
 
-.difficulty_1:visited {
+.difficulty_1 {
 	color: #CCCCCC
 }
-.difficulty_1:link    {
-	color: #CCCCCC
-}
-.difficulty_2:visited {
+.difficulty_2 {
 	color: #339900
 }
-.difficulty_2:link    {
-	color: #339900
-}
-.difficulty_3:visited {
+.difficulty_3 {
 	color: #FFFF66
 }
-.difficulty_3:link    {
-	color: #FFFF66
-}
-.difficulty_4:visited {
-	color: #FF9900
-}
-.difficulty_4:link    {
+.difficulty_4 {
 	color: #FF9900
 }
