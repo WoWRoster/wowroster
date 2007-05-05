@@ -494,27 +494,27 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			}
 			else
 			{
-				if( ereg('^' . $wordings[$locale]['tooltip_use'],$line) )
+				if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'],$line) )
 					$color = '00ff00';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_requires'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'],$line) )
 					$color = 'ff0000';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_reinforced'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'],$line) )
 					$color = '00ff00';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_equip'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'],$line) )
 					$color = '00ff00';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_chance'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
 					$color = '00ff00';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_enchant'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'],$line) )
 					$color = '00ff00';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_soulbound'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'],$line) )
 					$color = '00bbff';
-				elseif( ereg('^' . $wordings[$locale]['tooltip_set'],$line) )
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'],$line) )
 					$color = '00ff00';
-				elseif(ereg('^' . $wordings[$locale]['tooltip_rank'],$line) )
+				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'],$line) )
 					$color = '00ff00;font-weight:bold';
-				elseif(ereg('^' . $wordings[$locale]['tooltip_next_rank'],$line) )
+				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
 					$color = 'ffffff;font-weight:bold';
-				elseif( preg_match('/\([a-f0-9]\).' . $wordings[$locale]['tooltip_set'].'/i',$line) )
+				elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
 					$color = '666666';
 				elseif( ereg('^"',$line) )
 					$color = 'ffd517';
@@ -651,7 +651,7 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  */
 function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
 {
-	global $roster;
+	global $roster, $tooltips;
 
 	$tooltip = stripslashes($tooltip);
 

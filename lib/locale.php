@@ -29,6 +29,8 @@ class roster_locale
 		
 		include(ROSTER_LOCALE_DIR.'languages.php');
 
+		$this->creditspage = $creditspage;
+
 		foreach( $roster->multilanguages as $language )
 		{
 			$this->add_locale_file(ROSTER_LOCALE_DIR.$language.'.php',$language,$this->wordings);

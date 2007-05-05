@@ -19,14 +19,14 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $act_words['credit'];
+$roster->output['title'] = $roster->locale->act['credit'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 
 
-echo "<div style=\"font-size:12px;\">\n".$creditspage['top']."\n</div>\n";
+echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['top']."\n</div>\n";
 
 
 // format table locations
@@ -42,7 +42,7 @@ echo "<tr>
 ";
 
 $strip_count = 1;
-foreach( $creditspage['devs']['active'] as $dev )
+foreach( $roster->locale->creditspage['devs']['active'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -62,7 +62,7 @@ echo "<tr>
 ";
 
 $strip_count = 1;
-foreach( $creditspage['devs']['3rdparty'] as $dev )
+foreach( $roster->locale->creditspage['devs']['3rdparty'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -87,7 +87,7 @@ echo "<tr>
 ";
 
 $strip_count = 1;
-foreach( $creditspage['devs']['inactive'] as $dev )
+foreach( $roster->locale->creditspage['devs']['inactive'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -108,7 +108,7 @@ echo "<tr>
 ";
 
 $strip_count = 1;
-foreach( $creditspage['devs']['library'] as $dev )
+foreach( $roster->locale->creditspage['devs']['library'] as $dev )
 {
 	$stripe_class = 'membersRow'.( ( ++$strip_count % 2 ) + 1 );
 	$stripe_class_right = 'membersRowRight'.( ( $strip_count % 2 ) + 1 );
@@ -139,7 +139,7 @@ if($AddonCredits != '')
 	echo "</table>\n".border('sblue','end')."<br />\n";
 }
 
-echo "<div style=\"font-size:12px;\">\n".$creditspage['bottom']."\n</div>\n";
+echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['bottom']."\n</div>\n";
 
 include_once (ROSTER_BASE.'roster_footer.tpl');
 
@@ -150,20 +150,20 @@ include_once (ROSTER_BASE.'roster_footer.tpl');
  */
 function makeAddonCredits()
 {
-	global $roster_conf, $wowdb;
+	global $roster;
 
 	$output = '';
 
 	$query = "SELECT * FROM `".ROSTER_ADDONTABLE."`";
-	$result = $wowdb->query($query);
+	$result = $roster->db->query($query);
 
 	if( !$result )
 	{
-		return "\t<tr><td colspan='3'>Error fetching addon credits.<br />MySQL said:".$wowdb->error()."</td></tr>";
+		return "\t<tr><td colspan='3'>Error fetching addon credits.<br />MySQL said:".$roster->db->error()."</td></tr>";
 	}
 
 	$strip_count = 1;
-	while( $row = $wowdb->fetch_assoc($result) )
+	while( $row = $roster->db->fetch($result) )
 	{
 		$addonName = $row['fullname'];
 		$AddOnArray = unserialize($row['credits']);
