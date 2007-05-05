@@ -33,7 +33,7 @@ class roster_locale
 
 		foreach( $roster->multilanguages as $language )
 		{
-			$this->add_locale_file(ROSTER_LOCALE_DIR.$language.'.php',$language,$this->wordings);
+			$this->add_locale_file(ROSTER_LOCALE_DIR.$language.'.php',$language);
 		}
 
 		$this->act = &$this->wordings[$roster->config['roster_lang']];
@@ -44,9 +44,8 @@ class roster_locale
 	 *
 	 * @param string $localefile | Full path to locale file
 	 * @param string $locale | Locale to add to (IE: enUS)
-	 * @param array $array | Array you would like to add the locale strings to
 	 */
-	function add_locale_file( $localefile , $locale , &$array )
+	function add_locale_file( $localefile , $locale )
 	{
 		if( file_exists($localefile) )
 		{
@@ -67,22 +66,22 @@ class roster_locale
 
 		if( isset($lang) )
 		{
-			if( isset($array[$locale]) )
+			if( isset($this->wordings[$locale]) )
 			{
-				if( isset($lang['admin']) && isset($array[$locale]['admin']) )
+				if( isset($lang['admin']) && isset($this->wordings[$locale]['admin']) )
 				{
-					$admin = array_merge($lang['admin'], $array[$locale]['admin']);
-					$array[$locale] = array_merge($lang, $array[$locale]);
-					$array[$locale]['admin'] = $admin;
+					$admin = array_merge($lang['admin'], $this->wordings[$locale]['admin']);
+					$this->wordings[$locale] = array_merge($lang, $this->wordings[$locale]);
+					$this->wordings[$locale]['admin'] = $admin;
 				}
 				else
 				{
-					$array[$locale] = array_merge($lang, $array[$locale]);
+					$this->wordings[$locale] = array_merge($lang, $this->wordings[$locale]);
 				}
 			}
 			else
 			{
-				$array[$locale] = $lang;
+				$this->wordings[$locale] = $lang;
 			}
 
 			unset($lang);
