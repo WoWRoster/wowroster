@@ -30,7 +30,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 	$query = "TRUNCATE `roster_menu`;";
 	$roster->db->query($query);
 
-    $db_data_file      = ROSTER_BASE . 'install'.DIR_SEP.'db'.DIR_SEP.'mysql_data.sql';
+    $db_data_file      = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_data.sql';
 
     // Parse the data file and populate the database tables
     $sql = @fread(@fopen($db_data_file, 'r'), @filesize($db_data_file));

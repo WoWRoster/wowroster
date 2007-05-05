@@ -60,6 +60,7 @@ if( !get_magic_quotes_gpc() )
 
 define('DIR_SEP',DIRECTORY_SEPARATOR);
 define('ROSTER_BASE', dirname(__FILE__).DIR_SEP);
+define('ROSTER_LIB', ROSTER_BASE . 'lib' . DIR_SEP);
 
 
 // ---------------------------------------------------------
@@ -98,7 +99,7 @@ if( file_exists(ROSTER_BASE . 'conf.php') )
 	include_once(ROSTER_BASE . 'conf.php');
 }
 
-include_once(ROSTER_BASE . 'lib' . DIR_SEP . 'constants.php');
+include_once(ROSTER_LIB . 'constants.php');
 
 
 // View phpinfo() if requested
@@ -151,7 +152,7 @@ $LOCALES = array(
 if( defined('ROSTER_INSTALLED') )
 {
 	$tpl = new Template_Wrap('install_message.html','install_header.html','install_tail.html');
-	$tpl->message_die('Roster is already installed - <span class="negative">remove</span> the files <span class="positive">install.php</span> and <span class="positive">upgrade.php</span> in this directory.', 'Installation Error');
+	$tpl->message_die('Roster is already installed - <span class="negative">Remove</span> the folder <span class="positive">install</span> and the files <span class="positive">install.php</span> and <span class="positive">upgrade.php</span> in this directory.', 'Installation Error');
 	exit();
 }
 
@@ -388,7 +389,7 @@ function process_step3()
     $db_prefix      = post_or_db('db_prefix', $DEFAULTS);
     $default_locale = post_or_db('default_locale', $DEFAULTS);
 
-    $dbal_file = ROSTER_BASE . 'lib' . DIR_SEP . 'wowdb.php';
+    $dbal_file = ROSTER_LIB . 'wowdb.php';
     if( !file_exists($dbal_file) )
     {
         $tpl->message_die('Unable to find the database layer for Roster, check to make sure ' . $dbal_file . ' exists.', 'Database Error');
@@ -408,8 +409,8 @@ function process_step3()
         $tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
     }
 
-    $db_structure_file = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'mysql_structure.sql';
-    $db_data_file      = ROSTER_BASE . 'install' . DIR_SEP . 'db' . DIR_SEP . 'mysql_data.sql';
+    $db_structure_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_structure.sql';
+    $db_data_file      = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_data.sql';
 
     $remove_remarks_function = $DBALS['mysql']['comments'];
 
@@ -524,7 +525,7 @@ function process_step4()
     define('CONFIG_TABLE', $db_prefix . 'config');
 	define('ACCOUNT_TABLE', $db_prefix . 'account');
 
-    include_once(ROSTER_BASE . 'lib'.DIR_SEP.'wowdb.php');
+    include_once(ROSTER_LIB . 'wowdb.php');
 
 
     if( $user_password1 == '' || $user_password2 == '' )
