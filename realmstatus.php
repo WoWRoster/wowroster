@@ -39,9 +39,13 @@ elseif( !empty($roster->config['realmstatus']) )
 {
 	$realmname = utf8_decode($roster->config['realmstatus']);
 }
-else
+elseif( isset($roster->data['server']) )
 {
 	$realmname = utf8_decode($roster->data['server']);
+}
+else
+{
+	$realmname = utf8_decode($roster->config['server_name']);
 }
 
 $realmname = trim($realmname);
@@ -227,15 +231,18 @@ else
 if( $err )
 {
 	$realmData['serverstatus'] = 'UNKNOWN';
-	$realmData['serverpop'] = 'NOSTATUS';
+	$realmData['serverpop'] = $roster->locale->act['rs']['NOSTATUS'];
 	$realmData['serverpopcolor'] = $roster->config['rs_color_error'];
+	$realmData['servertypecolor'] = $roster->config['rs_color_error'];
+}
+else
+{
+	$realmData['serverpopcolor'] = $roster->config['rs_color_' . strtolower($realmData['serverpop'])];
+	$realmData['servertypecolor'] = $roster->config['rs_color_' . strtolower($realmData['servertype'])];
+	$realmData['serverpop'] = $roster->locale->act['rs'][$realmData['serverpop']];
+	$realmData['servertype'] = $roster->locale->act['rs'][$realmData['servertype']];
 }
 
-$realmData['serverpopcolor'] = $roster->config['rs_color_' . strtolower($realmData['serverpop'])];
-$realmData['servertypecolor'] = $roster->config['rs_color_' . strtolower($realmData['servertype'])];
-
-$realmData['serverpop'] = $roster->locale->act['rs'][$realmData['serverpop']];
-$realmData['servertype'] = $roster->locale->act['rs'][$realmData['servertype']];
 
 // Generate image or text?
 if( $generate_image )
