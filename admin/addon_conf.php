@@ -58,7 +58,6 @@ if( $addon['active'] = '1' )
 	// Check to see if the index file exists
 	if( file_exists($addon['active_file']) )
 	{
-
 		// The addon will now assign its output to $body
 		ob_start();
 			include_once( $addon['active_file'] );
@@ -66,6 +65,19 @@ if( $addon['active'] = '1' )
 	}
 	elseif( $addon['config'] != '' )
 	{
+		if( file_exists($addon['dir'].'admin/config.func.php') )
+		{
+			include($addon['dir'].'admin/config.func.php');
+			if( function_exists('topBox') )
+			{
+				$body = topBox();
+			}
+			else
+			{
+				$body = '';
+			}
+		}
+
 		// ----[ Set the tablename and create the config class ]----
 		$tablename = $roster->db->table('addon_config');
 		include(ROSTER_LIB.'config.lib.php');
@@ -81,7 +93,7 @@ if( $addon['active'] = '1' )
 
 		$config->buildConfigPage();
 
-		$body = $config->form_start.
+		$body .= $config->form_start.
 			$save_message.
 			$config->submit_button.
 			$config->formpages.
@@ -101,4 +113,6 @@ else
 
 // Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
+{
 	$roster->output['html_head'] .= '  <link rel="stylesheet" type="text/css" href="'.ROSTER_PATH.$addon['css_url'].'" />'."\n";
+}
