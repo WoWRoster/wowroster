@@ -192,8 +192,8 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 		}
 		else
 		{
-			$roster->db->add_value('server_name', $realmname);
-			$querystr = "INSERT INTO `" . ROSTER_REALMSTATUSTABLE . "` SET " . $roster->db->build_query('INSERT',$values) . ";";
+			$values['server_name'] = $realmname;
+			$querystr = "INSERT INTO `" . ROSTER_REALMSTATUSTABLE . "` SET " . $roster->db->build_query('UPDATE',$values) . ";";
 			$realmData['server_name'] = $realmname;
 		}
 

@@ -79,38 +79,40 @@ class skill
 
 function skill_get_many_by_type( $member_id, $type )
 {
-	global $wowdb;
-	$type = $wowdb->escape( $type );
+	global $roster;
+
+	$type = $roster->db->escape( $type );
 
 	return skill_get_many( $member_id, "`skill_type` = '$type'" );
 }
 
 function skill_get_many_by_order( $member_id, $order )
 {
-	global $wowdb;
-	$order = $wowdb->escape( $order );
+	global $roster;
+
+	$order = $roster->db->escape( $order );
 
 	return skill_get_many( $member_id, "`skill_order` = '$order'" );
 }
 
 function skill_get_many( $member_id )
 {
-	global $wowdb;
+	global $roster;
 
 	if (isset($char))
 	{
-		$char = $wowdb->escape( $char );
+		$char = $roster->db->escape( $char );
 	}
 	if (isset($server))
 	{
-		$server = $wowdb->escape( $server );
+		$server = $roster->db->escape( $server );
 	}
 	$query= "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$member_id'";
 
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 
 	$skills = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$skill = new skill( $data );
 		$skills[$skill->data['skill_order']][] = $skill;

@@ -43,7 +43,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     {
         $roster->db->query($sql[$i]);
 		// Added failure checks to the database transactions
-		/*if ( !($wowdb->query($sql[$i])) )
+		/*if ( !($roster->db->query($sql[$i])) )
 		{
 			$tpl->message_die('Install Failed <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
 		}*/

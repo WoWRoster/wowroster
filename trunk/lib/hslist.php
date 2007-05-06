@@ -49,8 +49,8 @@ print($tableHeader);
 
 //Highest Lifetime Rank
 $query = "SELECT `name`, `lifetimeRankName` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$row = $roster->db->fetch( $result );
 
 if ($row) {
 	// Striping rows
@@ -77,8 +77,8 @@ if ($row) {
 
 //Highest LifeTime HKs
 $query = "SELECT `name`, `lifetimeHK` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `lifetimeHK` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$row = $roster->db->fetch( $result );
 
 if ($row) {
 	// Striping rows
@@ -98,8 +98,8 @@ if ($row) {
 
 //Highest honorpoints
 $query = "SELECT `name`, `honorpoints` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `honorpoints` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$row = $roster->db->fetch( $result );
 
 if ($row) {
 	// Striping rows
@@ -119,8 +119,8 @@ if ($row) {
 
 //Highest arenapoints
 $query = "SELECT `name`, `arenapoints` FROM `".ROSTER_PLAYERSTABLE."` ORDER BY `arenapoints` DESC LIMIT 0 , 1";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $wowdb->fetch_assoc( $result );
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$row = $roster->db->fetch( $result );
 
 if ($row) {
 	// Striping rows
@@ -139,4 +139,4 @@ if ($row) {
 }
 
 print($tableFooter);
-$wowdb->free_result($result);
+$roster->db->free_result($result);

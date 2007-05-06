@@ -389,7 +389,7 @@ function process_step3()
     $db_prefix      = post_or_db('db_prefix', $DEFAULTS);
     $default_locale = post_or_db('default_locale', $DEFAULTS);
 
-    $dbal_file = ROSTER_LIB . 'wowdb.php';
+    $dbal_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php';
     if( !file_exists($dbal_file) )
     {
         $tpl->message_die('Unable to find the database layer for Roster, check to make sure ' . $dbal_file . ' exists.', 'Database Error');
@@ -401,10 +401,11 @@ function process_step3()
     define('CONFIG_TABLE', $db_prefix . 'config');
 
     include_once($dbal_file);
-    $connect = $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+
+    $db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
 
     // Check to make sure a connection was made
-    if( !$connect )
+    if( !$db )
     {
         $tpl->message_die('Failed to connect to database <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
     }
@@ -445,11 +446,11 @@ function process_step3()
     for( $i = 0; $i < $sql_count; $i++ )
     {
 		// Added failure checks to the database transactions
-		if( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+		if( !empty($sql[$i]) && !($db->query($sql[$i]) ) )
 		{
 			$tpl->assign_block_vars('sql_errors',array(
 				'query'=>$sql[$i],
-				'error'=>$wowdb->error()
+				'error'=>$db->error()
 			));
 		}
     }
@@ -466,11 +467,11 @@ function process_step3()
     for( $i = 0; $i < $sql_count; $i++ )
     {
 		// Added failure checks to the database transactions
-		if( !empty($sql[$i]) && !($wowdb->query($sql[$i]) ) )
+		if( !empty($sql[$i]) && !($db->query($sql[$i]) ) )
 		{
 			$tpl->assign_block_vars('sql_errors',array(
 				'query'=>$sql[$i],
-				'error'=>$wowdb->error()
+				'error'=>$db->error()
 			));
 		}
     }
@@ -479,8 +480,8 @@ function process_step3()
     //
     // Update some config settings
     //
-    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='$default_locale' WHERE `config_name` = 'roster_lang';");
-    $wowdb->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='$server_name' WHERE `config_name` = 'website_address';");
+    $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='$default_locale' WHERE `config_name` = 'locale';");
+    $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value`='$server_name' WHERE `config_name` = 'website_address';");
 
     //
     // Assign Variables
@@ -497,7 +498,7 @@ function process_step3()
     //
     // Output the page
     //
-    sql_output($tpl, $wowdb);
+    sql_output($tpl, $db);
     $tpl->page_header();
     $tpl->page_tail();
 }
@@ -525,7 +526,8 @@ function process_step4()
     define('CONFIG_TABLE', $db_prefix . 'config');
 	define('ACCOUNT_TABLE', $db_prefix . 'account');
 
-    include_once(ROSTER_LIB . 'wowdb.php');
+	$dbal_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php';
+    include_once($dbal_file);
 
 
     if( $user_password1 == '' || $user_password2 == '' )
@@ -542,18 +544,18 @@ function process_step4()
     }
 
 
-    $wowdb->connect($db_host, $db_user, $db_passwd, $db_name, $db_prefix);
+    $db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
 
 	//
 	// Insert account data. This isn't in the data sql file because we don't
 	// want to include it in a settings reset
 	//
-	$wowdb->query("INSERT INTO `".ACCOUNT_TABLE."` (`account_id`, `name`) VALUES
+	$db->query("INSERT INTO `".ACCOUNT_TABLE."` (`account_id`, `name`) VALUES
 		(1, 'Guild'),
 		(2, 'Officer'),
 		(3, 'Admin');");
 
-	$wowdb->query("UPDATE `".ACCOUNT_TABLE."` SET `hash` = '".$pass_word."';");
+	$db->query("UPDATE `".ACCOUNT_TABLE."` SET `hash` = '".$pass_word."';");
 
     //
     // Check password and notify uer
@@ -606,7 +608,7 @@ function process_step4()
         $tpl->message_append('Your configuration file has been written, but installation will not be complete until you configure Roster');
     }
 
-    sql_output($tpl, $wowdb);
+    sql_output($tpl, $db);
     $tpl->page_header();
     $tpl->page_tail();
 }
@@ -732,9 +734,9 @@ function parse_sql($sql, $delim)
     return $retval;
 }
 
-function sql_output(&$tpl, &$wowdb)
+function sql_output(&$tpl, &$db)
 {
-	foreach( explode("\n",$wowdb->getSQLStrings()) as $string )
+	foreach( explode("\n",$db->getQueries()) as $string )
 	{
 		$tpl->assign_block_vars('sql_rows', array(
 			'TEXT' => $string

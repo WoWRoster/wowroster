@@ -92,7 +92,7 @@ else
 	$body = 'No Data';
 }
 
-$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+$roster->output['body_attr'] = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 $body = $roster_login->getMessage()."<br />
 <form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."');submitonce(this);\">
 <input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
@@ -138,7 +138,7 @@ function getCharData( )
 	}
 
 	$db_values = false;
-	
+
 	while($row = $roster->db->fetch($results,MYSQL_ASSOC))
 	{
 		foreach ($row as $field => $value)
@@ -151,7 +151,7 @@ function getCharData( )
 			}
 		}
 	}
-	
+
 	$roster->db->free_result($results);
 
 	return $db_values;

@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $roster->locale->act['pvplist'];
+$roster->output['title'] = $roster->locale->act['pvplist'];
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 
@@ -106,9 +106,9 @@ if ($type == 'guildwins')
 	print($tableHeader);
 
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE win = '1' AND enemy = '1' GROUP BY guild ORDER BY countg DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "  <tr>\n";
@@ -129,7 +129,7 @@ if ($type == 'guildwins')
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -138,9 +138,9 @@ else if($type == 'guildlosses')
 	print($tableHeader);
 
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE win = '0' AND enemy = '1' GROUP BY guild ORDER BY countg DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -161,7 +161,7 @@ else if($type == 'guildlosses')
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -178,9 +178,9 @@ else if ($type == 'enemywins')
 	));
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE win = '1' AND enemy = '1' GROUP BY name ORDER BY countg DESC, leveldiff DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print('<tr class="membersRow'. (($striping_counter % 2) +1) ."\">\n");
@@ -213,7 +213,7 @@ else if ($type == 'enemywins')
 		print($row['leveldiff']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -230,9 +230,9 @@ else if ($type == 'enemylosses')
 	));
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) as countg FROM `".ROSTER_PVP2TABLE."` WHERE win = '0' AND enemy = '1' GROUP BY name ORDER BY countg DESC, leveldiff DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -266,7 +266,7 @@ else if ($type == 'enemylosses')
 		print($row['leveldiff']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -275,9 +275,9 @@ else if ($type == 'purgewins')
 	print($tableHeader);
 
 	$query = "SELECT pvp3.member_id, members.name AS gn, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY countg DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -291,7 +291,7 @@ else if ($type == 'purgewins')
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -300,9 +300,9 @@ else if ($type == 'purgelosses')
 	print($tableHeader);
 
 	$query = "SELECT pvp3.member_id, members.name AS gn, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY countg DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -316,7 +316,7 @@ else if ($type == 'purgelosses')
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -325,9 +325,9 @@ else if ($type == 'purgeavewins')
 	print($tableHeader);
 
 	$query = "SELECT pvp3.member_id, members.name as gn, AVG(pvp3.`leveldiff`) as ave, COUNT(pvp3.member_id) as countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY ave DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -347,7 +347,7 @@ else if ($type == 'purgeavewins')
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -356,9 +356,9 @@ else if ($type == 'purgeavelosses')
 	print($tableHeader);
 
 	$query = "SELECT pvp3.member_id, members.name AS gn, AVG(pvp3.`leveldiff`) AS ave, COUNT(pvp3.member_id) AS countg FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp3.member_id ORDER BY ave DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -378,7 +378,7 @@ else if ($type == 'purgeavelosses')
 		print($row['countg']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -388,9 +388,9 @@ else if ($type == 'pvpratio')
 	print($tableHeader);
 
 	$query = "SELECT members.name, IF(pvp3.win = '1', 1, 0) AS win, SUM(win) AS wtotal, COUNT(win) AS btotal FROM `".ROSTER_PVP2TABLE."` pvp3 LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = pvp3.member_id WHERE pvp3.leveldiff < 8 AND pvp3.leveldiff > -8 AND pvp3.enemy = '1' GROUP BY members.name ORDER BY wtotal DESC";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -414,7 +414,7 @@ else if ($type == 'pvpratio')
 		}
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -455,9 +455,9 @@ else if ($type == 'playerinfo')
 		$query=$query." ORDER BY 'date' DESC, 'name' ";
 
 
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		$url = 'guildpvp&amp;type=playerinfo&amp;player='.urlencode($player);
 
@@ -513,7 +513,7 @@ else if ($type == 'playerinfo')
 		print($row['leveldiff']);
 		print("</td>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }
@@ -571,9 +571,9 @@ else if ($type == 'guildinfo')
 	else
 		$query=$query." ORDER BY 'date' DESC, 'name' ";
 
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	while($row = $wowdb->fetch_array($result))
+	while($row = $roster->db->fetch($result))
 	{
 		// Striping rows
 		print "<tr>\n";
@@ -613,7 +613,7 @@ else if ($type == 'guildinfo')
 		print($row['leveldiff']);
 		print("</td>\n</tr>\n");
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	print($tableFooter);
 }

@@ -198,7 +198,7 @@ $FIELD['crit'] = array(
 
 $memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
 
-$html_head  = '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
+$roster->output['html_head']  = '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 
 // Start output
 if( $addon['config']['stats_update_inst'] )
@@ -214,7 +214,7 @@ if ( $addon['config']['stats_motd'] == 1 )
 
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
-$roster_show_menu = false;
+$roster->output['show_menu'] = false;
 
 echo "<table>\n  <tr>\n";
 
@@ -265,7 +265,7 @@ if( $addon['config']['stats_update_inst'] )
  */
 function total_value ( $row )
 {
-	global $wowdb, $roster;
+	global $roster;
 
 	if( $row['stat_int_c'] )
 		$cell_value = '<div>'.($row['stat_int_c'] + $row['stat_agl_c'] + $row['stat_sta_c'] + $row['stat_str_c'] + $row['stat_spr_c']).'</div>';
@@ -283,14 +283,14 @@ function total_value ( $row )
  */
 function armor_value ( $row )
 {
-	global $wowdb, $roster;
+	global $roster;
 
 	$cell_value = '&nbsp;';
 
 	if( !empty($row['clientLocale']) )
 		$lang = $row['clientLocale'];
 	else
-		$lang = $roster->config['roster_lang'];
+		$lang = $roster->config['locale'];
 
 	// Configurlate armor is player has it
 	if( $row['stat_armor_c'] )
@@ -317,9 +317,9 @@ function armor_value ( $row )
 		}
 
 
-		$name = $roster->locale[$lang]['armor'];
+		$name = $roster->locale->wordings[$lang]['armor'];
 		if( !empty($row['mitigation']) )
-			$tooltip = '<span class="red">'.$roster->locale[$lang]['tooltip_damage_reduction'].': '.$row['mitigation'].'%</span>';
+			$tooltip = '<span class="red">'.$roster->locale->wordings[$lang]['tooltip_damage_reduction'].': '.$row['mitigation'].'%</span>';
 
 		if( $mod_symbol == '' )
 		{

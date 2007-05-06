@@ -80,14 +80,14 @@ class quest
 
 function quest_get_many( $member_id, $search )
 {
-	global $wowdb;
+	global $roster;
 
 	$query= "SELECT * FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` DESC";
 
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 
 	$quests = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$quest = new quest( $data );
 		$quests[] = $quest;

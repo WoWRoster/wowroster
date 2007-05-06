@@ -16,9 +16,9 @@
  *
  ******************************/
 
-if( !defined('ROSTER_INSTALLED') )
+if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 {
-	die('Detected invalid access to this file!');
+	die("You can't access this file directly!");
 }
 
 /**
@@ -60,7 +60,7 @@ class roster_db
 		{
 			$this->link_id = @mysql_connect($dbhost, $dbuser, $dbpass);
 		}
-		
+
 		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($dbname != '') )
 		{
 			if( !@mysql_select_db($dbname, $this->link_id) )
@@ -118,7 +118,7 @@ class roster_db
 		$result = @mysql_errno($this->link_id);
 		return $result;
 	}
-	
+
 	/**
 	 * Get connection error
 	 */
@@ -136,7 +136,7 @@ class roster_db
 	function query( $query )
 	{
 		global $roster;
-		
+
 		// Remove pre-existing query resources
 		unset($this->query_id);
 
@@ -173,7 +173,7 @@ class roster_db
 	function query_first( $query )
 	{
 		$this->query($query);
-		$record = $this->fetch_record($this->query_id);
+		$record = $this->fetch($this->query_id);
 		$this->free_result($this->query_id);
 
 		return $record[0];
@@ -397,7 +397,7 @@ class roster_db
 	{
 		$this->error_die = $setting;
 	}
-	
+
 	/**
 	 * Expand base table name to a full table name
 	 *

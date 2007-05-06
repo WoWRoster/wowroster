@@ -22,11 +22,11 @@ if ( !defined('ROSTER_INSTALLED') )
 class roster_locale
 {
 	var $wordings = array();
-	
+
 	function roster_locale()
 	{
 		global $roster;
-		
+
 		include(ROSTER_LOCALE_DIR.'languages.php');
 
 		$this->creditspage = $creditspage;
@@ -36,7 +36,7 @@ class roster_locale
 			$this->add_locale_file(ROSTER_LOCALE_DIR.$language.'.php',$language);
 		}
 
-		$this->act = &$this->wordings[$roster->config['roster_lang']];
+		$this->act = &$this->wordings[$roster->config['locale']];
 	}
 
 	/**
@@ -87,5 +87,4 @@ class roster_locale
 			unset($lang);
 		}
 	}
-
 }

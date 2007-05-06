@@ -66,12 +66,12 @@ class bag extends item
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
-			foreach( $roster->locale[$lang]['itemlinks'] as $key => $ilink )
+			foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 			{
 				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$roster->locale[$lang]['itemlink']);
+			setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 

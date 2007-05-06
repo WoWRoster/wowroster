@@ -106,7 +106,7 @@ if( $addon['active'] == '1' )
 	$content = ob_get_clean();
 
 
-	// Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
+	// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 	if( $addon['css_url'] != '' )
 	{
 		$roster->output['html_head'] .= '	<link rel="stylesheet" type="text/css" href="' . ROSTER_PATH . $addon['css_url'] . '" />' . "\n";

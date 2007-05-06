@@ -43,7 +43,7 @@ if( $roster->config['processtime'] )
 	print '  <small>' . $totaltime . ' | ' . $roster->db->query_count . "</small>\n\n";
 
 if( $roster->config['sql_window'] )
-	echo "<br /><br />\n".messagebox('<div style="text-align:left;font-size:10px;">' . $roster->db->getQueries() . '</div>',$roster->locale->act['sql_queries'],'sgreen');
+	echo "<br /><br />\n".messagebox($roster->db->getQueries(),$roster->locale->act['sql_queries'],'sgreen');
 
 
 print getAllTooltips();

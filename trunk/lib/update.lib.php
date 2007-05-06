@@ -25,11 +25,11 @@ class update
 	var $uploadData;
 	var $addons = array();
 	var $files = array();
-	
+
 	var $messages = array();
 	var $errors = array();
 	var $assignstr = '';
-	
+
 	var $membersadded = 0;
 	var $membersupdated = 0;
 	var $membersremoved = 0;
@@ -54,24 +54,27 @@ class update
 			return '';
 		}
 
-		foreach( $roster->addon_data as $row );
+		if( !empty($roster->addon_data) )
 		{
-			$hookfile = ROSTER_ADDONS.$row['basename'].DIR_SEP.'update_hook.php';
-
-			if( file_exists($hookfile) )
+			foreach( $roster->addon_data as $row );
 			{
-				$addon = getaddon($row['basename']);
+				$hookfile = ROSTER_ADDONS.$row['basename'].DIR_SEP.'update_hook.php';
 
-				include_once($hookfile);
+				if( file_exists($hookfile) )
+				{
+					$addon = getaddon($row['basename']);
 
-				if( class_exists($row['basename']) )
-				{
-					$this->addons[$row['basename']] = new $row['basename']($addon);
-					$this->files += $this->addons[$row['basename']]->files;
-				}
-				else
-				{
-					$wowdb->setError('Failed to load addon '.$row['basename'].': Update class did not exist','');
+					include_once($hookfile);
+
+					if( class_exists($row['basename']) )
+					{
+						$this->addons[$row['basename']] = new $row['basename']($addon);
+						$this->files += $this->addons[$row['basename']]->files;
+					}
+					else
+					{
+						$wowdb->setError('Failed to load addon '.$row['basename'].': Update class did not exist','');
+					}
 				}
 			}
 		}
@@ -409,7 +412,7 @@ class update
 										$guildMembers = $guild['Members'];
 
 										$guild_output = '';
-										
+
 										// Start update triggers
 										if( $roster->config['use_update_triggers'] )
 										{
@@ -621,7 +624,7 @@ class update
 	function add_value( $row_name, $row_data )
 	{
 		global $roster;
-		
+
 		if( $this->assignstr != '' )
 			$this->assignstr .= ',';
 
@@ -761,7 +764,7 @@ class update
 	function insert_mail( $mail )
 	{
 		global $roster;
-		
+
 		$this->reset_values();
 		$this->add_value('member_id', $mail['member_id'] );
 		$this->add_value('mailbox_slot', $mail['mail_slot'] );
@@ -795,7 +798,7 @@ class update
 	function insert_quest( $quest )
 	{
 		global $roster;
-		
+
 		$this->reset_values();
 		$this->add_value('member_id', $quest['member_id'] );
 		$this->add_value('quest_name', $quest['quest_name'] );
@@ -1033,7 +1036,7 @@ class update
 	function do_buffs( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['Attributes']['Buffs']))
 		{
 			$buffs = $data['Attributes']['Buffs'];
@@ -1105,7 +1108,7 @@ class update
 	function do_quests( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['Quests']))
 		{
 			$quests = $data['Quests'];
@@ -1155,7 +1158,7 @@ class update
 	function do_recipes( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['Professions']))
 		{
 			$prof = $data['Professions'];
@@ -1211,7 +1214,7 @@ class update
 	function do_equip( $data, $memberId )
 	{
 		global $roster;
-		
+
 		// Update Equipment Inventory
 		$equip = $data['Equipment'];
 		if( !empty($equip) && is_array($equip) )
@@ -1254,7 +1257,7 @@ class update
 	function do_inventory( $data, $memberId )
 	{
 		global $roster;
-		
+
 		// Update Bag Inventory
 		$inv = $data['Inventory'];
 		if( !empty($inv) && is_array($inv) )
@@ -1321,7 +1324,7 @@ class update
 	function do_bank( $data, $memberId )
 	{
 		global $roster;
-		
+
 		// Update Bank Inventory
 		if(isset($data['Bank']))
 		{
@@ -1449,7 +1452,7 @@ class update
 	function do_reputation( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['Reputation']))
 		{
 			$repData = $data['Reputation'];
@@ -1525,7 +1528,7 @@ class update
 	function do_skills( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['Skills']))
 		{
 			$skillData = $data['Skills'];
@@ -1594,7 +1597,7 @@ class update
 	function do_spellbook( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['SpellBook']))
 		{
 			$spellbook = $data['SpellBook'];
@@ -1696,7 +1699,7 @@ class update
 	function do_pet_spellbook( $data , $memberId , $petID )
 	{
 		global $roster;
-		
+
 		$spellbook = $data['SpellBook']['Spells'];
 
 		if( !empty($spellbook) && is_array($spellbook) )
@@ -1763,7 +1766,7 @@ class update
 	function do_talents( $data, $memberId )
 	{
 		global $roster;
-		
+
 		if(isset($data['Talents']))
 		{
 			$talentData = $data['Talents'];
@@ -1878,7 +1881,7 @@ class update
 	function deleteMembers( $inClause )
 	{
 		global $roster;
-		
+
 		$messages = '<li>';
 
 		$messages .= 'Character Data..';
@@ -1999,7 +2002,7 @@ class update
 	function remove_guild_members( $guild_id , $timestamp )
 	{
 		global $roster;
-		
+
 		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
 
 		$result = $roster->db->query($querystr);
@@ -2045,7 +2048,7 @@ class update
 	function remove_guild_members_id( $guild_id , $timestamp )
 	{
 		global $roster;
-		
+
 		// Get a list of guild id's in the guild table to remove
 		$querystr = "SELECT `guild_id`,`guild_name` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` != '$guild_id'";
 		$result = $roster->db->query($querystr);
@@ -2127,7 +2130,7 @@ class update
 	function get_guild_info($realmName,$guildName)
 	{
 		global $roster;
-		
+
 		$guild_name_escape = $roster->db->escape( $guildName );
 		$server_escape = $roster->db->escape( $realmName );
 
@@ -2185,7 +2188,7 @@ class update
 	function update_guild( $realmName, $guildName, $currentTime, $guild )
 	{
 		global $roster;
-		
+
 		$guildInfo = $this->get_guild_info($realmName,$guildName);
 
 		$this->reset_values();
@@ -2247,7 +2250,7 @@ class update
 	function update_guild_member( $guildId, $name, $char, $currentTimestamp, $guildRanks )
 	{
 		global $roster;
-		
+
 		$name_escape = $roster->db->escape( $name );
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
@@ -2381,7 +2384,7 @@ class update
 	function update_pvp2($guildId, $name, $data )
 	{
 		global $roster;
-		
+
 		$name_escape = $roster->db->escape( $name );
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
@@ -2517,7 +2520,7 @@ class update
 	function update_pet( $memberId, $data )
 	{
 		global $roster;
-		
+
 		if (!empty($data['Name']))
 		{
 			$querystr = "SELECT `pet_id`
@@ -2689,7 +2692,7 @@ class update
 	function update_char( $guildId , $name , $data )
 	{
 		global $roster;
-		
+
 		$name_escape = $roster->db->escape( $name );
 
 		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";

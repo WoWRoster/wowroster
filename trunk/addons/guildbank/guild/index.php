@@ -51,14 +51,14 @@ else
 
 $columns = ( $gbank_mode == 2 ? 15 : 2 );
 
-$header_title = $roster->locale->act['guildbank'];
+$roster->output['title'] = $roster->locale->act['guildbank'];
 
 $muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
 FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
 WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%' AND p.member_id = m.member_id
 ORDER BY m.name";
 
-$muleNames = $wowdb->query($muleNameQuery);
+$muleNames = $roster->db->query($muleNameQuery);
 
 $bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
 
@@ -73,7 +73,7 @@ echo '<br />';
 
 if ( $addon['config']['bank_money'] )
 {
-	$mulemoney = $wowdb->fetch_array($wowdb->query(
+	$mulemoney = $roster->db->fetch($roster->db->query(
 "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
  FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m
  WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%'
@@ -108,7 +108,7 @@ if ( $addon['config']['bank_money'] )
 $bankers = array();
 $bank_print = '';
 
-while ($muleRow = $wowdb->fetch_array($muleNames))
+while ($muleRow = $roster->db->fetch($muleNames))
 {
 	$bankers[$muleRow['member_id']] = $muleRow['member_name'];
 
@@ -120,7 +120,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
 
-	$bank_print_member = ( active_addon('char') ? '<a href="'.makelink('char&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a>' : $muleRow['member_name']);
+	$bank_print_member = ( active_addon('info') ? '<a href="'.makelink('char-info&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a>' : $muleRow['member_name']);
 	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start',$bank_print_member . ' ('.$note.') - <small>'.$roster->locale->act['lastupdate'].': '.$date_char_data_updated.'</small>').
 	'<table class="bodyline" cellspacing="0" cellpadding="0">'.
 		 ( $addon['config']['bank_money'] ?
@@ -144,9 +144,9 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 		GROUP BY real_itemid
 		ORDER BY i.item_name";
 
-	$itemsOnMule = $wowdb->query($itemsOnMuleQuery);
+	$itemsOnMule = $roster->db->query($itemsOnMuleQuery);
 
-	$itemRow=$wowdb->fetch_array($itemsOnMule);
+	$itemRow=$roster->db->fetch($itemsOnMule);
 	if ($itemRow==FALSE)
 	{
 		$bank_print .= '  <tr>
@@ -201,7 +201,7 @@ while ($muleRow = $wowdb->fetch_array($muleNames))
 				$column_counter=0;
 			}
 			$column_counter++;
-			$itemRow = $wowdb->fetch_array($itemsOnMule);
+			$itemRow = $roster->db->fetch($itemsOnMule);
 		}
 		if( $column_counter >= 0 && substr($bank_print,-6) != "</tr>\n")
 		{
@@ -224,14 +224,14 @@ print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\
 
 function DateCharDataUpdated($id)
 {
-	global $roster, $wowdb;
+	global $roster;
 
 	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
-	$result = $wowdb->query($query);
-	$data = $wowdb->fetch_assoc($result);
-	$wowdb->free_result($result);
+	$result = $roster->db->query($query);
+	$data = $roster->db->fetch($result);
+	$roster->db->free_result($result);
 
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-	return date($roster->locale[$data['clientLocale']]['phptimeformat'], $localtime);
+	return date($roster->locale->wordings[$data['clientLocale']]['phptimeformat'], $localtime);
 }

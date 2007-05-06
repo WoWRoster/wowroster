@@ -88,7 +88,7 @@ class pvp3
 
 function pvp_get_many3($member_id, $type, $sort, $start)
 {
-	global $roster, $wowdb;
+	global $roster;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND ";
 
@@ -137,12 +137,12 @@ function pvp_get_many3($member_id, $type, $sort, $start)
 	if ($start != -1)
 		$query = $query.' LIMIT '.$start.', 50';
 
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-	if( $wowdb->num_rows($result) > 0 )
+	if( $roster->db->num_rows($result) > 0 )
 	{
 		$pvps = array();
-		while( $data = $wowdb->fetch_assoc( $result ) )
+		while( $data = $roster->db->fetch( $result ) )
 		{
 			$pvp = new pvp3( $data );
 			$pvps[] = $pvp;
@@ -291,7 +291,7 @@ function calc_pwinloss($a, $b)
 
 function output_bglog($member_id)
 {
-	global $roster, $wowdb;
+	global $roster;
 
 	$bg_array = array(
 		'alterac_valley',
@@ -301,9 +301,9 @@ function output_bglog($member_id)
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` >= '1'";
 
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	$pvps = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$pvp = new pvp3( $data );
 		$pvps[] = $pvp;
@@ -334,9 +334,9 @@ function output_bglog($member_id)
 					$esub = 'None';
 
 				// Get Class Icon
-				foreach ($roster->config['multilanguages'] as $language)
+				foreach ($roster->multilanguages as $language)
 				{
-					$icon_name = isset($roster->locale[$language]['class_iconArray'][$eclass]) ? $roster->locale[$language]['class_iconArray'][$eclass] : '';
+					$icon_name = isset($roster->locale->wordings[$language]['class_iconArray'][$eclass]) ? $roster->locale->wordings[$language]['class_iconArray'][$eclass] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
 
@@ -506,28 +506,28 @@ border('sorange','end').
 
 function output_duellog($member_id)
 {
-	global $roster, $wowdb;
+	global $roster;
 
 	$data = array();
 
 	$returnstring = '<br />'.border('sblue','start',$roster->locale->act['duelsummary']);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '0' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$data['loss'] = $wowdb->fetch_array($result);
-	$wowdb->free_result($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$data['loss'] = $roster->db->fetch($result);
+	$roster->db->free_result($result);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '0' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$data['win'] = $wowdb->fetch_array($result);
-	$wowdb->free_result($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$data['win'] = $roster->db->fetch($result);
+	$roster->db->free_result($result);
 
 	foreach( $data as $datakey => $dataset )
 	{
 		// Get Class Icon
-		foreach ($roster->config['multilanguages'] as $language)
+		foreach ($roster->multilanguages as $language)
 		{
-			$dataset['icon_name'] = $roster->locale[$language]['class_iconArray'][$dataset['class']];
+			$dataset['icon_name'] = $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']];
 			if( strlen($dataset['icon_name']) > 0 ) break;
 		}
 
@@ -594,13 +594,13 @@ function output_duellog($member_id)
 
 function output_pvplog($member_id)
 {
-	global $roster, $wowdb;
+	global $roster;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
 
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 	$pvps = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$pvp = new pvp3( $data );
 		$pvps[] = $pvp;
@@ -641,8 +641,8 @@ function output_pvplog($member_id)
 		<td class='membersRow1'><div align='center'>";
 
 	$query = "SELECT `zone`, COUNT(`zone`) as countz FROM ".ROSTER_PVP2TABLE." WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$rzone = $wowdb->fetch_array($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$rzone = $roster->db->fetch($result);
 	if ($rzone)
 	{
 		$returnstring .= $rzone['zone'];
@@ -651,14 +651,14 @@ function output_pvplog($member_id)
 	{
 		$returnstring .= "N/A";
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	$returnstring .= "</div></td>
 		<td class='membersRowRight1'><div align='center'>";
 
 	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$rzone = $wowdb->fetch_array($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$rzone = $roster->db->fetch($result);
 	if ($rzone)
 	{
 		$returnstring .= $rzone['zone'];
@@ -667,7 +667,7 @@ function output_pvplog($member_id)
 	{
 		$returnstring .= "N/A";
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	$returnstring .= "</div></td>
 	</tr>
@@ -686,8 +686,8 @@ function output_pvplog($member_id)
 		<td class='membersRow1'><div align='center'>";
 
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$rguild = $wowdb->fetch_array($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$rguild = $roster->db->fetch($result);
 	if ($rguild)
 	{
 		$returnstring .= $rguild['guild'];
@@ -696,14 +696,14 @@ function output_pvplog($member_id)
 	{
 		$returnstring .= "N/A";
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	$returnstring .= "</div></td>
 		<td class='membersRowRight1'><div align='center'>";
 
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$rguild = $wowdb->fetch_array($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$rguild = $roster->db->fetch($result);
 	if ($rguild)
 	{
 		$returnstring .= $rguild['guild'];
@@ -712,7 +712,7 @@ function output_pvplog($member_id)
 	{
 		$returnstring .= "N/A";
 	}
-	$wowdb->free_result($result);
+	$roster->db->free_result($result);
 
 	$returnstring .= "</div></td>
 	</tr>
@@ -724,21 +724,21 @@ function output_pvplog($member_id)
 ".border('sblue','start',$roster->locale->act['versus_players']);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$data['loss'] = $wowdb->fetch_array($result);
-	$wowdb->free_result($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$data['loss'] = $roster->db->fetch($result);
+	$roster->db->free_result($result);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-	$data['win'] = $wowdb->fetch_array($result);
-	$wowdb->free_result($result);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$data['win'] = $roster->db->fetch($result);
+	$roster->db->free_result($result);
 
 	foreach( $data as $datakey => $dataset )
 	{
 		// Get Class Icon
-		foreach ($roster->config['multilanguages'] as $language)
+		foreach ($roster->multilanguages as $language)
 		{
-			$dataset['icon_name'] = $roster->locale[$language]['class_iconArray'][$dataset['class']];
+			$dataset['icon_name'] = $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']];
 			if( strlen($dataset['icon_name']) > 0 ) break;
 		}
 
@@ -869,9 +869,9 @@ function output_pvp2($pvps,$url,$type)
 		}
 
 		// Get Class Icon
-		foreach ($roster->config['multilanguages'] as $language)
+		foreach ($roster->multilanguages as $language)
 		{
-			$icon_name = $roster->locale[$language]['class_iconArray'][$row->data['class']];
+			$icon_name = $roster->locale->wordings[$language]['class_iconArray'][$row->data['class']];
 			if( strlen($icon_name) > 0 ) break;
 		}
 		$icon_name = 'Interface/Icons/'.$icon_name;

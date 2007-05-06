@@ -20,7 +20,7 @@ if( !defined('ROSTER_INSTALLED') )
 }
 
 // Set the title for the header
-$header_title = $roster->locale->act['rosterdiag'];
+$roster->output['title'] = $roster->locale->act['rosterdiag'];
 
 // Include the library for RosterDiag
 include_once(ROSTER_LIB.'rosterdiag.lib.php');
@@ -349,7 +349,7 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_lang</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['roster_lang'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['locale'].'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">img_url</td>
@@ -398,22 +398,22 @@ echo "</td><td valign=\"top\">\n";
 echo border('sgray','start','List of tables in ['.$db_name.']').
 '<table width="100%" class="bodyline" cellspacing="0">'."\n";
 
-$result = $wowdb->query("SHOW TABLES FROM `$db_name`;");
+$result = $roster->db->query("SHOW TABLES FROM `$db_name`;");
 if( !$result )
 {
 	echo '<tr><td class="membersRow1">DB Error, could not list tables<br />'."\n";
-	echo 'MySQL Error: '.$wowdb->error().'</td></tr>'."\n";
+	echo 'MySQL Error: '.$roster->db->error().'</td></tr>'."\n";
 }
 else
 {
 	$rowstripe = 1;
-	while( $row = $wowdb->fetch_array($result) )
+	while( $row = $roster->db->fetch($result) )
 	{
 		echo '<tr><td class="membersRowRight'.(((++$rowstripe)%2)+1).'">'.$row[0].'</td></tr>'."\n";
 	}
 }
 echo "</table>\n".border('sgray','end');
-$wowdb->free_result($result);
+$roster->db->free_result($result);
 
 
 // Table display fix

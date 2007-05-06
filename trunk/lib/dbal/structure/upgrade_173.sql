@@ -95,6 +95,9 @@ DELETE FROM `renprefix_config` WHERE `id` = 9010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 9020 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 9030 LIMIT 1;
 
+# Change config variables
+UPDATE `renprefix_config` SET `config_name` = 'locale' WHERE `id` = '1040' LIMIT 1;
+
 # --------------------------------------------------------
 ### New master entry: Startpage
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');

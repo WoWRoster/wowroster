@@ -84,7 +84,7 @@ if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 {
 	$roster->config['guild_name'] = $_POST['guildname'];
-	$header_title = 'Remote Diagnostics';
+	$roster->output['title'] = 'Remote Diagnostics';
 	$roster->config['img_url'] = ROSTER_PATH.'img/';
 	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
 	//ROSTER_SVNREMOTE = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
@@ -317,7 +317,7 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 {
 
 	$roster->config['guild_name'] = $_POST['guildname'];
-	$header_title = 'Remote Diagnostics';
+	$roster->output['title'] = 'Remote Diagnostics';
 	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
 	$roster->config['logo'] = 'img/wowroster_logo.jpg';
 	$roster->config['logo'] = 'img/wowroster_bg.jpg';

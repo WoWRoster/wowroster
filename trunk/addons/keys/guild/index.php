@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $roster->locale->act['keys'];
+$roster->output['title'] = $roster->locale->act['keys'];
 
 require_once (ROSTER_LIB.'item.php');
 
@@ -160,13 +160,13 @@ print($tableHeader);
 tableHeaderRow($keys);
 
 $query = "SELECT name, level, member_id, class, clientLocale FROM `".ROSTER_PLAYERSTABLE."` GROUP BY name ORDER BY name ASC";
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
-while ($row = $wowdb->fetch_array($result))
+while ($row = $roster->db->fetch($result))
 {
 	if ($row['clientLocale'] == '')
 	{
-		$row['clientLocale'] = $roster->config['roster_lang'];
+		$row['clientLocale'] = $roster->config['locale'];
 	}
 	$items = $roster->locale->act['inst_keys'][ substr($roster->data['faction'],0,1) ];
 	// build SQL search string for the instance keys only
@@ -194,8 +194,8 @@ while ($row = $wowdb->fetch_array($result))
 	}
 	// instance key search
 	$kquery = "SELECT members.name".$selectk." FROM `".ROSTER_ITEMSTABLE."` items LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = items.member_id WHERE items.member_id = '".$row['member_id']."' AND (".$wherek.") GROUP BY members.name";
-	$kresult = $wowdb->query($kquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$kquery);
-	$krow = $wowdb->fetch_array($kresult);
+	$kresult = $roster->db->query($kquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$kquery);
+	$krow = $roster->db->fetch($kresult);
 	$kcount = 0; // counts how many keys this player has. if 0 at the end don't display
 	$selectp = ''; $wherep = ''; $pcount = 0;
 	$selectq = ''; $whereq = ''; $qcount = 0;
@@ -216,13 +216,13 @@ while ($row = $wowdb->fetch_array($result))
 		}
 		else
 		{
-			if (($row['class'] == $roster->locale[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
+			if (($row['class'] == $roster->locale->wordings[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
 			{
-				$squery = "SELECT skill_level FROM `".ROSTER_SKILLSTABLE."` WHERE member_id = ".$row['member_id']." and skill_name = '".$roster->locale[$row['clientLocale']]['lockpicking']."'";
-				$sresult = $wowdb->query($squery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$squery);
-				$srow = $wowdb->fetch_array($sresult);
+				$squery = "SELECT skill_level FROM `".ROSTER_SKILLSTABLE."` WHERE member_id = ".$row['member_id']." and skill_name = '".$roster->locale->wordings[$row['clientLocale']]['lockpicking']."'";
+				$sresult = $roster->db->query($squery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$squery);
+				$srow = $roster->db->fetch($sresult);
 				list($current_skill,$max_skill) = explode(':',$srow['skill_level']);
-				$wowdb->free_result($sresult);
+				$roster->db->free_result($sresult);
 				if ($current_skill >= $min_skill_for_lock[$key])
 				{
 					$krow[$key] = '-2';
@@ -252,8 +252,8 @@ while ($row = $wowdb->fetch_array($result))
 	{
 		// parts search (only the remaining ones!)
 		$queryp = "SELECT members.name".$selectp." FROM `".ROSTER_ITEMSTABLE."` items LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = items.member_id WHERE items.member_id = ".$row['member_id']." AND (".$wherep.") GROUP BY members.name ORDER BY members.name ASC";
-		$presult = $wowdb->query($queryp) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$queryp);
-		$prow = $wowdb->fetch_array($presult);
+		$presult = $roster->db->query($queryp) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$queryp);
+		$prow = $roster->db->fetch($presult);
 		if (is_array($prow))
 		{
 			foreach ($prow as $pkey => $pvalue)
@@ -280,14 +280,14 @@ while ($row = $wowdb->fetch_array($result))
 				}
 			}
 		}
-		$wowdb->free_result($presult);
+		$roster->db->free_result($presult);
 	}
 	if ($selectq != '')
 	{
 		// quests search (only the remaining ones!)
 		$queryq = "SELECT members.name".$selectq." FROM `".ROSTER_QUESTSTABLE."` quests LEFT JOIN `".ROSTER_MEMBERSTABLE."` members ON members.member_id = quests.member_id WHERE quests.member_id = ".$row['member_id']." AND (".$whereq.") GROUP BY members.name ORDER BY members.name ASC";
-		$qresult = $wowdb->query($queryq) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$queryq);
-		$qrow = $wowdb->fetch_array($qresult);
+		$qresult = $roster->db->query($queryq) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$queryq);
+		$qrow = $roster->db->fetch($qresult);
 		if (is_array($qrow))
 		{
 			foreach ($qrow as $qkey => $qvalue)
@@ -301,7 +301,7 @@ while ($row = $wowdb->fetch_array($result))
 				}
 			}
 		}
-		$wowdb->free_result($qresult);
+		$roster->db->free_result($qresult);
 	}
 	if ($kcount == 0)
 	{
@@ -315,7 +315,7 @@ while ($row = $wowdb->fetch_array($result))
 	print '<tr>'."\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print ( active_addon('char') ? '<a href="' . makelink('char&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '<br />' . $row['class'] . ' (' . $row['level'] . ')</td>' . "\n";
+	print ( active_addon('info') ? '<a href="' . makelink('char-info&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '<br />' . $row['class'] . ' (' . $row['level'] . ')</td>' . "\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;
@@ -329,10 +329,10 @@ while ($row = $wowdb->fetch_array($result))
 		}
 		if ($krow[$key] == '-2')
 		{
-			$iname = $roster->locale[$row['clientLocale']]['thievestools'];
+			$iname = $roster->locale->wordings[$row['clientLocale']]['thievestools'];
 			$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
-			$iresult = $wowdb->query($iquery);
-			$idata = $wowdb->fetch_assoc($iresult);
+			$iresult = $roster->db->query($iquery);
+			$idata = $roster->db->fetch($iresult);
 			$item = new item($idata);
 			print $item->out($key);
 		}
@@ -344,8 +344,8 @@ while ($row = $wowdb->fetch_array($result))
 				print($$key);
 			} else {
 				$iquery = "SELECT * FROM `".ROSTER_ITEMSTABLE."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
-				$iresult = $wowdb->query($iquery);
-				$idata = $wowdb->fetch_assoc($iresult);
+				$iresult = $roster->db->query($iquery);
+				$idata = $roster->db->fetch($iresult);
 				$item = new item($idata);
 				$$key = $item->out();
 				print $$key;
@@ -443,9 +443,9 @@ while ($row = $wowdb->fetch_array($result))
 		print "</td>\n";
 	}
 	print("  </tr>\n");
-	$wowdb->free_result($kresult);
+	$roster->db->free_result($kresult);
 }
-$wowdb->free_result($result);
+$roster->db->free_result($result);
 
 print($tableFooter);
 borderBottom();

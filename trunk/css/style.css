@@ -482,8 +482,10 @@ select {
 	height:14px;
 	overflow:hidden;
 }
-.rankbordercenter {
+.rankborder_c {
 	background-color:#1F1E1D;
+	font-size:10px;
+	text-align:left;
 	padding:0;
 	margin:0;
 	border:0;
@@ -565,11 +567,13 @@ select {
 	border:0;
 	overflow:hidden;
 }
-.simplebordercenter {
+.simpleborder_c {
 	padding:0;
 	margin:0;
 	border:0;
 	background-color:#1F1E1D;
+	font-size:10px;
+	text-align:left;
 }
 .simpleborder_c_r {
 	background-repeat:repeat-y;

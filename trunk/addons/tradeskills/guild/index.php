@@ -20,13 +20,13 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $roster->locale->act['professions'];
+$roster->output['title'] = $roster->locale->act['professions'];
 
 // Build a list of "Skills" to look for
 $inClause = "'";
-foreach( $roster->config['multilanguages'] as $lang )
+foreach( $roster->multilanguages as $lang )
 {
-	$inClause .= implode("', '",$roster->locale[$lang]['tsArray']);
+	$inClause .= implode("', '",$roster->locale->wordings[$lang]['tsArray']);
 	$inClause .= "', '";
 }
 $inClause .= "'";
@@ -42,7 +42,7 @@ $query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `" 
 	   . " AND `skill_name` IN ($inClause)"
 	   . " ORDER BY `s`.`skill_type`, `s`.`skill_name`,(mid(`skill_level` FROM 1 FOR (locate(':', `skill_level`)-1)) + 0) DESC, `p`.`name`;";
 
-$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 
 ############################### START OUTPUT ##############################
@@ -52,13 +52,13 @@ $striping_counter = 0;
 $last_value = 'some obscurely random string to keep me lazy';
 
 
-if( $wowdb->num_rows($result) )
+if( $roster->db->num_rows($result) )
 {
 	$id = 0;
-	while( $row = $wowdb->fetch_assoc($result) )
+	while( $row = $roster->db->fetch($result) )
 	{
 		$skill_name = $row['skill_name'];
-		$skill_image = 'Interface/Icons/' . $roster->locale[$row['clientLocale']]['ts_iconArray'][$skill_name];
+		$skill_image = 'Interface/Icons/' . $roster->locale->wordings[$row['clientLocale']]['ts_iconArray'][$skill_name];
 		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="' . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . '" alt="" /></div>';
 
 		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_' . $id . '\',\'img_' . $id . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
@@ -119,7 +119,7 @@ if( $wowdb->num_rows($result) )
 			</table>
 		</td>
 		<td class="' . $stripe_class_right . '">
-			' . ( active_addon('char') ? '<a href="' . makelink('char-recipes&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '
+			' . ( active_addon('info') ? '<a href="' . makelink('char-info-recipes&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '
 		</td>
 	</tr>
 ';

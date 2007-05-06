@@ -99,6 +99,6 @@ else
 	$body =  messagebox(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
 }
 
-// Pass all the css to $more_css which is a placeholder in roster_header for more css style defines
+// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
-	$more_css = '  <link rel="stylesheet" type="text/css" href="'.ROSTER_PATH.$addon['css_url'].'" />'."\n";
+	$roster->output['html_head'] .= '  <link rel="stylesheet" type="text/css" href="'.ROSTER_PATH.$addon['css_url'].'" />'."\n";
