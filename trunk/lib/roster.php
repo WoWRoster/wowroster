@@ -212,15 +212,32 @@ class roster
 
 				break;
 			case 'guild':
-				// If we ever go multiguild in 1x, we need to check the guild=
-				// attribute here.
-				$guild_escape = $this->db->escape( $this->config['guild_name'] );
-				$server_escape = $this->db->escape( $this->config['server_name'] );
+				// Check if the guild attribute is set
+				if( !isset($_GET['guild']) )
+				{
+					$name = $this->db->escape( $this->config['guild_name'] );
+					$realm = $this->db->escape( $this->config['server_name'] );
+					$where = ' `guild_name` = "'.$name.'" AND `server` = "'.$realm.'"';
+				}
+				// Parse the attribute
+				elseif( is_numeric($_GET['guild']) )
+				{
+					$where = ' `guild_id` = "'.$_GET['guild'].'"';
+				}
+				elseif( strpos('@',$_GET['guild']) !== false )
+				{
+					list($name, $realm) = explode('@',$_GET['guild']);
+					$where = ' `guild_name` = "'.$name.'" AND `server` = "'.$realm.'"';
+				}
+				else
+				{
+					$where = ' `guild_name` = "'.$_GET['guild'].'" AND `server` = "'.$this->config['server_name'].'"';
+				}
 
+				// Get the data
 				$query = "SELECT * ".
 					"FROM `".$this->db->table('guild')."` ".
-					"WHERE `guild_name` = '".$guild_escape."' ".
-						"AND `server` = '".$server_escape."';";
+					"WHERE ".$where.";";
 
 				$result = $this->db->query($query);
 

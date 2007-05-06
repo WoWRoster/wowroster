@@ -259,11 +259,11 @@ class update
 
 		foreach( array_keys( $myProfile ) as $realm_name )
 		{
-			if( $roster->config['server_name'] == $realm_name )
+//			if( $roster->config['server_name'] == $realm_name )
 			{
-				$guildInfo = $this->get_guild_info($realm_name,$roster->config['guild_name']);
+//				$guildInfo = $this->get_guild_info($realm_name,$roster->config['guild_name']);
 
-				if( $guildInfo && is_array($myProfile[$realm_name]['Character']) )
+				if( is_array($myProfile[$realm_name]['Character']) )
 				{
 					$characters = $myProfile[$realm_name]['Character'];
 
@@ -281,6 +281,9 @@ class update
 						if( $char['DBversion'] >= $roster->config['minCPver'] )
 						{
 							$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Character',$char_name)."</strong>\n";
+
+							if(!isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
+								continue;
 
 							$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
 							$output .= "<ul>\n".$this->getMessages()."</ul>\n";
@@ -311,9 +314,9 @@ class update
 					$output .= $roster->locale->act['noGuild'];
 				}
 			}
-			else
+//			else
 			{
-				$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name)."<br />\n";
+//				$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name)."<br />\n";
 			}
 		}
 		return $output;
@@ -336,14 +339,14 @@ class update
 			foreach( $myProfile as $realm_name => $realm )
 			{
 				// Only allow realms specified in config
-				if( $realm_name == $roster->config['server_name'])
+//				if( $realm_name == $roster->config['server_name'])
 				{
 					if( isset($realm['Guild']) && is_array($realm['Guild']) )
 					{
 						foreach( $realm['Guild'] as $guild_name => $guild )
 						{
 							// Only allow the guild specified in config
-							if( $roster->config['guild_name'] == $guild_name )
+//							if( $roster->config['guild_name'] == $guild_name )
 							{
 								// GP Version Detection, don't allow lower than minVer
 								if( $guild['DBversion'] >= $roster->config['minGPver'] )
@@ -388,8 +391,8 @@ class update
 											}
 										}
 										// Remove the members who were not in this list
-										$this->remove_guild_members($guildId, $currentTimestamp);
-										$this->remove_guild_members_id($guildId, $currentTimestamp);
+//										$this->remove_guild_members($guildId, $currentTimestamp);
+//										$this->remove_guild_members_id($guildId, $currentTimestamp);
 
 										$guild_output .= $this->getMessages()."</ul></li>\n";
 										$this->resetMessages();
@@ -423,9 +426,9 @@ class update
 									$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver'])."<br />\n";
 								}
 							}
-							else
+//							else
 							{
-								$output .= sprintf($roster->locale->act['guild_realm_ignored'],$guild_name,$realm_name)."<br />\n";
+//								$output .= sprintf($roster->locale->act['guild_realm_ignored'],$guild_name,$realm_name)."<br />\n";
 							}
 						}
 						if( !isset($guild) )
@@ -439,9 +442,9 @@ class update
 						$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span>'."<br />\n";
 					}
 				}
-				else
+//				else
 				{
-					$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name)."<br />\n";
+//					$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name)."<br />\n";
 				}
 			}
 		}
