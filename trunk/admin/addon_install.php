@@ -380,7 +380,7 @@ function processAddon()
 			}
 			if (!in_array($previous['basename'],$addon->upgrades))
 			{
-				$installer->seterrors(sprintf($roster->locale->act['installer_not_upgradable'],$addon->name,$previous['name'],$previous['basename']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_not_upgradable'],$addon->fullname,$previous['fullname'],$previous['basename']));
 				break;
 			}
 

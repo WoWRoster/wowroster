@@ -51,7 +51,7 @@ class update
 
 		if( !empty($roster->addon_data) )
 		{
-			foreach( $roster->addon_data as $row );
+			foreach( ($roster->addon_data) as $row )
 			{
 				$hookfile = ROSTER_ADDONS.$row['basename'].DIR_SEP.'update_hook.php';
 
