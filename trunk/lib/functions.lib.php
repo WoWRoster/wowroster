@@ -829,14 +829,14 @@ function escape_array( $array )
 /**
  * Calculates the last updated value
  *
- * @param string $updateTimeUTC dateupdatedutc
+ * @param string $datetime datetime field data in DB
  * @return string formatted date string
  */
-function DateDataUpdated( $updateTimeUTC )
+function readbleDate( $datetime )
 {
 	global $roster;
 
-	list($year,$month,$day,$hour,$minute,$second) = sscanf($updateTimeUTC,"%d-%d-%d %d:%d:%d");
+	list($year,$month,$day,$hour,$minute,$second) = sscanf($datetime,"%d-%d-%d %d:%d:%d");
 	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 
 	return date($roster->locale->act['phptimeformat'], $localtime);

@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
 define('IN_SORTMEMBER',true);
 
 // Recreate the CP.lua guild subtree. Or at least the relevant parts.
-$guild = $GLOBALS['guild_info'];
+$guild = $roster->data;
 
 $query = "SELECT `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".ROSTER_MEMBERSTABLE."` as members";
 $result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
@@ -38,7 +38,8 @@ $roster->db->free_result($result);
 
 
 // Start the actual update process
-include_once($addon['dir'].'update_hook.php');
+include_once($addon['dir'] . 'update_hook.php');
+include_once(ROSTER_LIB . 'wowdb.php');
 
 $memberslist = new memberslist($addon);
 
