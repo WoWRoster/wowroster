@@ -54,7 +54,7 @@ $columns = ( $gbank_mode == 2 ? 15 : 2 );
 $roster->output['title'] = $roster->locale->act['guildbank'];
 
 $muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
-FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."`  AS m
+FROM `".$roster->db->table('players')."` AS p, `".$roster->db->table('members')."`  AS m
 WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%' AND p.member_id = m.member_id
 ORDER BY m.name";
 
@@ -75,7 +75,7 @@ if ( $addon['config']['bank_money'] )
 {
 	$mulemoney = $roster->db->fetch($roster->db->query(
 "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
- FROM `".ROSTER_PLAYERSTABLE."` AS p, `".ROSTER_MEMBERSTABLE."` AS m
+ FROM `".$roster->db->table('players')."` AS p, `".$roster->db->table('members')."` AS m
  WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%'
  AND p.member_id = m.member_id
  ORDER  BY m.name"
@@ -133,7 +133,7 @@ while ($muleRow = $roster->db->fetch($muleNames))
 		"</td>\n</tr>\n" : '' );
 
 	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
-		FROM `".ROSTER_ITEMSTABLE."` as i
+		FROM `".$roster->db->table('items')."` as i
 		WHERE ".$muleRow['member_id']."=i.member_id
 		AND i.item_parent!='bags'
 		AND i.item_parent!='equip'
@@ -226,7 +226,7 @@ function DateCharDataUpdated($id)
 {
 	global $roster;
 
-	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
+	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$id'";
 	$result = $roster->db->query($query);
 	$data = $roster->db->fetch($result);
 	$roster->db->free_result($result);

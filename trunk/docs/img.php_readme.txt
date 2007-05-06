@@ -1,5 +1,6 @@
 CHANGE NOTES
 $Id$
+
 ----
 fixed typo in readme file that incorrectly showed the variable name as Name in the url
 updated readme to include alternate url links to images
@@ -43,9 +44,9 @@ Copy the contents of the WoWSigCreator directory to the directory you installed 
 
 WoWSigCreator will use the WoW Profiler config file to get your database information.
 
-If your installation directory is 
+If your installation directory is
 http://mysite/wowprofiler
-Goto 
+Goto
 http://mysite/wowprofiler/img.php to test or use the script.
 If you see "Level -" it's working.
 
@@ -59,7 +60,7 @@ Link to the file as follows (Charactername must be in the database to work)
 
 or BBcode  (Note: newer versions of phpBB may not allow this type of img call using bbcode so have the board admin add to allowed html codes <img>
 
-[img]http://yoursite.com/installdir/img.php?name=Charactername[/img] 
+[img]http://yoursite.com/installdir/img.php?name=Charactername[/img]
 
 
 If you are using an Apache server with mod_rewrite installed, the .htaccess file will allow users to access their signature by using the following code:

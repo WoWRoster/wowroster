@@ -138,7 +138,7 @@ function get_reputation( $member_id )
 {
 	global $roster;
 
-	$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
+	$query= "SELECT * FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
 	$result = $roster->db->query( $query );
 	$reputations = array();
 	while( $data = $roster->db->fetch( $result ) )

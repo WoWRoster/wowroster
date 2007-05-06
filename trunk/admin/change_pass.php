@@ -23,7 +23,7 @@ if( array_key_exists('mode',$_POST) )
 {
 	$mode = $_POST['mode'];
 
-	$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `name` = '".$mode."';";
+	$query = "SELECT * FROM `".$roster->db->table('account')."` WHERE `name` = '".$mode."';";
 	$result = $roster->db->query($query);
 
 	if( !$result )
@@ -66,7 +66,7 @@ if( array_key_exists('mode',$_POST) )
 		}
 		else // valid password
 		{
-			$query = 'UPDATE `'.ROSTER_ACCOUNTTABLE.'` SET `hash` = "'.md5($newpass).'"  WHERE `name` = "'.$mode.'";';
+			$query = 'UPDATE `'.$roster->db->table('account').'` SET `hash` = "'.md5($newpass).'"  WHERE `name` = "'.$mode.'";';
 
 			$result = $roster->db->query($query);
 

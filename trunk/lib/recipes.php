@@ -70,7 +70,7 @@ function recipe_get_many( $member_id, $search, $sort )
 	if (isset($server))
 		$server = $roster->db->escape( $server );
 
-	$query= "SELECT * FROM `".ROSTER_RECIPESTABLE."` where `member_id` = '$member_id'";
+	$query= "SELECT * FROM `".$roster->db->table('recipes')."` where `member_id` = '$member_id'";
 
 	switch ($sort)
 	{
@@ -127,8 +127,8 @@ function recipe_get_all( $skill_name, $search, $sort )
 		$server = $roster->db->escape( $server );
 	}
 
-	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".ROSTER_RECIPESTABLE."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
-	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".ROSTER_RECIPESTABLE."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
+	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".$roster->db->table('recipes')."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
+	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".$roster->db->table('recipes')."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
 
 	switch ($sort)
 	{

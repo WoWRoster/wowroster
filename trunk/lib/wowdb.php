@@ -248,14 +248,9 @@ class wowdb
 	 */
 	function table($table, $addon='')
 	{
-		if( $addon)
-		{
-			return $this->db_prefix.'addons_'.$addon.($table != '' ? '_'.$table : '');
-		}
-		else
-		{
-			return $this->db_prefix.$table;
-		}
+		global $roster;
+
+		return $roster->db->table($table, $addon);
 	}
 
 
@@ -401,7 +396,7 @@ class wowdb
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
 
-		$querystr = "INSERT INTO `".ROSTER_ITEMSTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$this->table('items')."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -433,7 +428,7 @@ class wowdb
 		if( isset( $mail['item_quantity'] ) )
 			$this->add_value('item_quantity', $mail['item_quantity'] );
 
-		$querystr = "INSERT INTO `".ROSTER_MAILBOXTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$this->table('mailbox')."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -458,7 +453,7 @@ class wowdb
 		$this->add_value('quest_tag', $quest['quest_tag'] );
 		$this->add_value('is_complete', $quest['is_complete'] );
 
-		$querystr = "INSERT INTO `".ROSTER_QUESTSTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$this->table('quests')."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -492,7 +487,7 @@ class wowdb
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
-		$querystr = "INSERT INTO `".ROSTER_RECIPESTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$this->table('recipes')."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -520,7 +515,7 @@ class wowdb
 		$this->add_time('update_time', getDate($timestamp) );
 		$this->add_value('type', $type );
 
-		$querystr = "INSERT INTO `".ROSTER_MEMBERLOGTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$this->table('memberlog')."` SET ".$this->assignstr;
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -691,7 +686,7 @@ class wowdb
 		if( !empty($buffs) && is_array($buffs) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_BUFFSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('buffs')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Buffs could not be deleted',$this->error());
@@ -727,7 +722,7 @@ class wowdb
 				else
 					$this->add_value('tooltip', $buff['Name'] );
 
-				$querystr = "INSERT INTO `".ROSTER_BUFFSTABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$this->table('buffs')."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
 				if( !$result )
 				{
@@ -761,7 +756,7 @@ class wowdb
 		if( !empty($quests) && is_array($quests) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('quests')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Quests could not be deleted',$this->error());
@@ -811,7 +806,7 @@ class wowdb
 			$messages = '<li>Updating Professions';
 
 			// Delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('recipes')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$this->error());
@@ -861,7 +856,7 @@ class wowdb
 		{
 			$messages = '<li>Updating Equipment ';
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
+			$querystr = "DELETE FROM `".$this->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Equipment could not be deleted',$this->error());
@@ -902,14 +897,14 @@ class wowdb
 		{
 			$messages = '<li>Updating Inventory';
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
+			$querystr = "DELETE FROM `".$this->table('items')."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$this->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
+			$querystr = "DELETE FROM `".$this->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$this->error());
@@ -972,14 +967,14 @@ class wowdb
 			$messages = '<li>Updating Bank';
 
 			// Clearing out old items
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `".$this->table('items')."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$this->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `".$this->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$this->error());
@@ -1049,7 +1044,7 @@ class wowdb
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
-			$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('mailbox')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Mail could not be deleted',$this->error());
@@ -1096,7 +1091,7 @@ class wowdb
 			$messages = '<li>Updating Reputation ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('reputation')."` WHERE `member_id` = '$memberId'";
 
 			if( !$this->query($querystr) )
 			{
@@ -1133,7 +1128,7 @@ class wowdb
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `".ROSTER_REPUTATIONTABLE."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `".$this->table('reputation')."` SET ".$this->assignstr;
 
 						$result = $this->query($querystr);
 						if( !$result )
@@ -1170,7 +1165,7 @@ class wowdb
 			$messages = '<li>Updating Skills ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('skills')."` WHERE `member_id` = '$memberId'";
 
 			if( !$this->query($querystr) )
 			{
@@ -1200,7 +1195,7 @@ class wowdb
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `".ROSTER_SKILLSTABLE."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `".$this->table('skills')."` SET ".$this->assignstr;
 
 						$result = $this->query($querystr);
 						if( !$result )
@@ -1237,7 +1232,7 @@ class wowdb
 			$messages = '<li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('spellbook')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$this->error());
@@ -1245,7 +1240,7 @@ class wowdb
 			}
 
 			// then process Spellbook Tree
-			$querystr = "DELETE FROM `".ROSTER_SPELLTREETABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('spellbooktree')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Spell Trees could not be deleted',$this->error());
@@ -1289,7 +1284,7 @@ class wowdb
 								$this->add_value('spell_tooltip', $spell_name."\n".$data_spell_name['Rank'] );
 							}
 
-							$querystr = "INSERT INTO `".ROSTER_SPELLTABLE."` SET ".$this->assignstr;
+							$querystr = "INSERT INTO `".$this->table('spellbook')."` SET ".$this->assignstr;
 							$result = $this->query($querystr);
 							if( !$result )
 							{
@@ -1303,7 +1298,7 @@ class wowdb
 				$this->add_value('spell_type', $spell_type );
 				$this->add_value('spell_texture', $this->fix_icon($data_spell_type['Icon']) );
 
-				$querystr = "INSERT INTO `".ROSTER_SPELLTREETABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$this->table('spellbooktree')."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
 				if( !$result )
 				{
@@ -1334,7 +1329,7 @@ class wowdb
 			$messages = '<ul><li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `pet_id` = '$petID'";
+			$querystr = "DELETE FROM `".$this->table('spellbook_pet')."` WHERE `pet_id` = '$petID'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$this->error());
@@ -1366,7 +1361,7 @@ class wowdb
 						$this->add_value('spell_tooltip', $spell."\n".$data_spell['Rank'] );
 					}
 
-					$querystr = "INSERT INTO `".ROSTER_PETSPELLTABLE."` SET ".$this->assignstr;
+					$querystr = "INSERT INTO `".$this->table('spellbook_pet')."` SET ".$this->assignstr;
 					$result = $this->query($querystr);
 					if( !$result )
 					{
@@ -1402,7 +1397,7 @@ class wowdb
 			$messages = '<li>Updating Talents';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('talents')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Talents could not be deleted',$this->error());
@@ -1410,7 +1405,7 @@ class wowdb
 			}
 
 			// then process Talents
-			$querystr = "DELETE FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('talenttree')."` WHERE `member_id` = '$memberId'";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Talent Trees could not be deleted',$this->error());
@@ -1461,7 +1456,7 @@ class wowdb
 						$this->add_value('rank', substr($data_talent_skill['Rank'], 0, 1) );
 						$this->add_value('maxrank', substr($data_talent_skill['Rank'], 2, 1) );
 
-						$querystr = "INSERT INTO `".ROSTER_TALENTSTABLE."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `".$this->table('talents')."` SET ".$this->assignstr;
 						$result = $this->query($querystr);
 						if( !$result )
 						{
@@ -1481,7 +1476,7 @@ class wowdb
 				if( !empty($tree_order) )
 					$this->add_value('order', $tree_order );
 
-				$querystr = "INSERT INTO `".ROSTER_TALENTTREETABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$this->table('talenttree')."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
 				if( !$result )
 				{
@@ -1508,13 +1503,13 @@ class wowdb
 		$messages = '<li>';
 
 		$messages .= 'Character Data..';
-		$querystr = "DELETE FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('members')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Member Data could not be deleted',$this->error());
 		}
 
-		$querystr = "DELETE FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('players')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Player Data could not be deleted',$this->error());
@@ -1522,7 +1517,7 @@ class wowdb
 
 
 		$messages .= 'Skills..';
-		$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('skills')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Skill Data could not be deleted',$this->error());
@@ -1530,7 +1525,7 @@ class wowdb
 
 
 		$messages .= 'Items..';
-		$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('items')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Items Data could not be deleted',$this->error());
@@ -1538,7 +1533,7 @@ class wowdb
 
 
 		$messages .= 'Quests..';
-		$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('quests')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Quest Data could not be deleted',$this->error());
@@ -1546,7 +1541,7 @@ class wowdb
 
 
 		$messages .= 'PvPLog Data..';
-		$querystr = "DELETE FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('pvp2')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('PvPLog Data could not be deleted',$this->error());
@@ -1554,7 +1549,7 @@ class wowdb
 
 
 		$messages .= 'Professions..';
-		$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('recipes')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Recipe Data could not be deleted',$this->error());
@@ -1562,13 +1557,13 @@ class wowdb
 
 
 		$messages .= 'Talents..';
-		$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('talents')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Talent Data could not be deleted',$this->error());
 		}
 
-		$querystr = "DELETE FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('talenttree')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Talent Tree Data could not be deleted',$this->error());
@@ -1576,13 +1571,13 @@ class wowdb
 
 
 		$messages .= 'Spellbook..';
-		$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('spellbook')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Spell Data could not be deleted',$this->error());
 		}
 
-		$querystr = "DELETE FROM `".ROSTER_SPELLTREETABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('spellbooktree')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Spell Tree Data could not be deleted',$this->error());
@@ -1590,7 +1585,7 @@ class wowdb
 
 
 		$messages .= 'Pets..';
-		$querystr = "DELETE FROM `".ROSTER_PETSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('pets')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Pet Data could not be deleted',$this->error());
@@ -1598,7 +1593,7 @@ class wowdb
 
 
 		$messages .= 'Reputation..';
-		$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('reputation')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Reputation Data could not be deleted',$this->error());
@@ -1606,7 +1601,7 @@ class wowdb
 
 
 		$messages .= 'Mail..';
-		$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$this->table('mailbox')."` WHERE `member_id` IN ($inClause)";
 		if( !$this->query($querystr) )
 		{
 			$this->setError('Mail Data could not be deleted',$this->error());
@@ -1624,7 +1619,7 @@ class wowdb
 	 */
 	function remove_guild_members( $guild_id , $timestamp )
 	{
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+		$querystr = "SELECT * FROM `".$this->table('members')."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
 
 		$result = $this->query($querystr);
 		if( !$result )
@@ -1669,7 +1664,7 @@ class wowdb
 	function remove_guild_members_id( $guild_id , $timestamp )
 	{
 		// Get a list of guild id's in the guild table to remove
-		$querystr = "SELECT `guild_id`,`guild_name` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `guild_id`,`guild_name` FROM `".$this->table('guild')."` WHERE `guild_id` != '$guild_id'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1692,7 +1687,7 @@ class wowdb
 			}
 
 			// now that we have our inclause, time to do some deletes
-			$querystr = "DELETE FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` IN ($inClause)";
+			$querystr = "DELETE FROM `".$this->table('guild')."` WHERE `guild_id` IN ($inClause)";
 			if( !$this->query($querystr) )
 			{
 				$this->setError('Guild'.($num > 1 ? 's' : '').' with ID'.($num > 1 ? 's' : '').' '.$inClause.' could not be deleted',$this->error());
@@ -1704,7 +1699,7 @@ class wowdb
 
 
 		// Get a list of members that don't match current guild id
-		$querystr = "SELECT `member_id`,`name` FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `member_id`,`name` FROM `".$this->table('members')."` WHERE `guild_id` != '$guild_id'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1751,7 +1746,7 @@ class wowdb
 		$guild_name_escape = $this->escape( $guildName );
 		$server_escape = $this->escape( $realmName );
 
-		$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
+		$querystr = "SELECT * FROM `".$this->table('guild')."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
 		$result = $this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		$retval = $this->fetch_array( $result );
@@ -1827,19 +1822,19 @@ class wowdb
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$querystr = "UPDATE `".$this->table('guild')."` SET ".$this->assignstr." WHERE `guild_id` = '".$guildInfo['guild_id']."';";
 			$output = $guildInfo['guild_id'];
 		}
 		else
 		{
-			$querystr = "INSERT INTO `".ROSTER_GUILDTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".$this->table('guild')."` SET ".$this->assignstr;
 		}
 
 		$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$querystr = "UPDATE `".$this->table('members')."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
 			$this->query($querystr) or die_quietly($this->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 		}
 
@@ -1866,7 +1861,7 @@ class wowdb
 	{
 		$name_escape = $this->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".$this->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -1939,7 +1934,7 @@ class wowdb
 
 		if( isset($memberId) )
 		{
-			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
+			$querystr = "UPDATE `".$this->table('members')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
 			$this->setMessage('<li>[ '.$name.' ]</li>');
 			$this->membersupdated++;
 
@@ -1958,7 +1953,7 @@ class wowdb
 				$this->add_value( 'guild_id', $guildId);
 			}
 
-			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".$this->table('members')."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">[</span> '.$name.' <span class="green">] - Added</span></li>');
 
 			$result = $this->query($querystr);
@@ -1970,7 +1965,7 @@ class wowdb
 
 			$memberId = $this->insert_id();
 
-			$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
+			$querystr = "SELECT * FROM `".$this->table('members')."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
 			$result = $this->query($querystr);
 			if( !$result )
 			{
@@ -1998,7 +1993,7 @@ class wowdb
 	{
 		$name_escape = $this->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".$this->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2028,7 +2023,7 @@ class wowdb
 			$playerRealm = $playerInfo['realm'];
 
 			// skip if entry already there
-			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$this->escape( $playerName )."' AND `date` = '".$this->escape( $playerDate )."'".( !empty($playerRealm) ? " AND `realm` = '".$this->escape( $playerRealm )."';" : ';' );
+			$querystr = "SELECT `guild` FROM `".$this->table('pvp2')."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$this->escape( $playerName )."' AND `date` = '".$this->escape( $playerDate )."'".( !empty($playerRealm) ? " AND `realm` = '".$this->escape( $playerRealm )."';" : ';' );
 
 			$result = $this->query($querystr);
 			if( !$result )
@@ -2063,7 +2058,7 @@ class wowdb
 				$this->add_value('rank', $playerInfo['rank']);
 				$this->add_value('honor', $playerInfo['honor']);
 
-				$querystr = "INSERT INTO `".ROSTER_PVP2TABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$this->table('pvp2')."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
 				if( !$result )
 				{
@@ -2074,7 +2069,7 @@ class wowdb
 
 		// now calculate ratio
 		$wins = 0;
-		$querystr = "SELECT COUNT(`win`) AS wins FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '1' AND `member_id` = '$memberId' GROUP BY `win`";
+		$querystr = "SELECT COUNT(`win`) AS wins FROM `".$this->table('pvp2')."` WHERE `win` = '1' AND `member_id` = '$memberId' GROUP BY `win`";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2089,7 +2084,7 @@ class wowdb
 
 
 		$losses = 0;
-		$querystr = "SELECT COUNT(`win`) AS losses FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '0' AND `member_id` = '$memberId' GROUP BY `win`";
+		$querystr = "SELECT COUNT(`win`) AS losses FROM `".$this->table('pvp2')."` WHERE `win` = '0' AND `member_id` = '$memberId' GROUP BY `win`";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2114,7 +2109,7 @@ class wowdb
 		else
 			$ratio = $wins / $losses;
 
-		$querystr = "UPDATE `".ROSTER_PLAYERSTABLE."` SET `pvp_ratio` = ".$ratio." WHERE `member_id` = '$memberId'";
+		$querystr = "UPDATE `".$this->table('players')."` SET `pvp_ratio` = ".$ratio." WHERE `member_id` = '$memberId'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2137,7 +2132,7 @@ class wowdb
 		if($data['Account'] == $name)
 		{
 			$name_escape = $this->escape( $name );
-			$querystr = "SELECT `name` FROM `".ROSTER_ACCOUNTTABLE."`";
+			$querystr = "SELECT `name` FROM `".$this->table('account')."`";
 			$result = $this->query($querystr);
 			if( !$result )
 			{
@@ -2154,9 +2149,9 @@ class wowdb
 			$this->add_value( 'hash', $data['Hash'] );
 
 			if( $update )
-				$querystr = "UPDATE `".ROSTER_ACCOUNTTABLE."` SET ".$this->assignstr." WHERE `name` = '$name_escape'";
+				$querystr = "UPDATE `".$this->table('account')."` SET ".$this->assignstr." WHERE `name` = '$name_escape'";
 			else
-				$querystr = "INSERT INTO `".ROSTER_ACCOUNTTABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$this->table('account')."` SET ".$this->assignstr;
 
 			$result = $this->query($querystr);
 			if( !$result )
@@ -2173,7 +2168,7 @@ class wowdb
 		}
 
 		$name_escape = $this->escape( $data['Account'] );
-		$querystr = "SELECT `account_id` FROM `".ROSTER_ACCOUNTTABLE."` WHERE `name` = '$name_escape'";
+		$querystr = "SELECT `account_id` FROM `".$this->table('account')."` WHERE `name` = '$name_escape'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2199,7 +2194,7 @@ class wowdb
 		}
 		$this->closeQuery($result);
 
-		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
+		$querystr = "UPDATE `".$this->table('members')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2219,7 +2214,7 @@ class wowdb
 		if (!empty($data['Name']))
 		{
 			$querystr = "SELECT `pet_id`
-				FROM `".ROSTER_PETSTABLE."`
+				FROM `".$this->table('pets')."`
 				WHERE `member_id` = '$memberId' AND `name` LIKE '".$this->escape($data['Name'])."'";
 
 			$result = $this->query($querystr);
@@ -2355,13 +2350,13 @@ class wowdb
 			if( $update )
 			{
 				$this->setMessage('<li>Updating pet ['.$data['Name'].']');
-				$querystr = "UPDATE `".ROSTER_PETSTABLE."` SET ".$this->assignstr." WHERE `pet_id` = '$petID'";
+				$querystr = "UPDATE `".$this->table('pets')."` SET ".$this->assignstr." WHERE `pet_id` = '$petID'";
 				$result = $this->query($querystr);
 			}
 			else
 			{
 				$this->setMessage('<li>New pet ['.$data['Name'].']');
-				$querystr = "INSERT INTO `".ROSTER_PETSTABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$this->table('pets')."` SET ".$this->assignstr;
 				$result = $this->query($querystr);
 				$petID = $this->insert_id();
 			}
@@ -2392,7 +2387,7 @@ class wowdb
 
 		$name_escape = $this->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".$this->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2413,7 +2408,7 @@ class wowdb
 		}
 
 		// update level in members table
-		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
+		$querystr = "UPDATE `".$this->table('members')."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2421,7 +2416,7 @@ class wowdb
 		}
 
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$memberId'";
+		$querystr = "SELECT `member_id` FROM `".$this->table('players')."` WHERE `member_id` = '$memberId'";
 		$result = $this->query($querystr);
 		if( !$result )
 		{
@@ -2720,12 +2715,12 @@ class wowdb
 
 		if( $update )
 		{
-			$querystr = "UPDATE `".ROSTER_PLAYERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
+			$querystr = "UPDATE `".$this->table('players')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
 		}
 		else
 		{
 			$this->add_value( 'member_id', $memberId );
-			$querystr = "INSERT INTO `".ROSTER_PLAYERSTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".$this->table('players')."` SET ".$this->assignstr;
 		}
 
 		$result = $this->query($querystr);
@@ -2758,14 +2753,14 @@ class wowdb
 		}
 		else
 		{
-			$querystr = "DELETE FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('pets')."` WHERE `member_id` = '$memberId'";
 			$result = $this->query($querystr);
 			if( !$result )
 			{
 				$this->setError('Cannot delete Pet Data',$this->error());
 			}
 
-			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$this->table('spellbook_pet')."` WHERE `member_id` = '$memberId'";
 			$result = $this->query($querystr);
 			if( !$result )
 			{

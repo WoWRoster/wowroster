@@ -11,7 +11,6 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -28,8 +27,8 @@ $questidsafe = ( isset($_GET['questid']) ? $_GET['questid'] : '' );
 
 
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-$option_blockzones = selectQuery("`" . ROSTER_QUESTSTABLE . "` AS quests,`" . ROSTER_MEMBERSTABLE . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','&amp;zoneid');
-$option_blockquests = selectQuery("`" . ROSTER_QUESTSTABLE . "` AS quests,`" . ROSTER_MEMBERSTABLE . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','&amp;questid');
+$option_blockzones = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','&amp;zoneid');
+$option_blockquests = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','&amp;questid');
 
 
 echo "<table cellspacing=\"6\">\n  <tr>\n";
@@ -78,7 +77,7 @@ print messagebox($searchbox,$roster->locale->act['questlist']);
 
 if( !empty($zoneidsafe) )
 {
-	$zquery = "SELECT DISTINCT `zone` FROM `" . ROSTER_QUESTSTABLE . "` WHERE `zone` = '$zoneidsafe' ORDER BY `zone`;";
+	$zquery = "SELECT DISTINCT `zone` FROM `" . $roster->db->table('quests') . "` WHERE `zone` = '$zoneidsafe' ORDER BY `zone`;";
 	$zresult = $roster->db->query($zquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$zquery);
 
 	while( $zrow = $roster->db->fetch($zresult) )
@@ -86,7 +85,7 @@ if( !empty($zoneidsafe) )
 		print '<div class="headline_1">' . $zrow['zone'] . "</div>\n";
 
 		$qquery = "SELECT DISTINCT `quest_name`";
-		$qquery .= " FROM `" . ROSTER_QUESTSTABLE . "`";
+		$qquery .= " FROM `" . $roster->db->table('quests') . "`";
 		$qquery .= " WHERE `zone` = '" . $zoneidsafe . "'";
 		$qquery .= " ORDER BY `quest_name`;";
 
@@ -95,7 +94,7 @@ if( !empty($zoneidsafe) )
 		while( $qrow = $roster->db->fetch($qresult) )
 		{
 			$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
-			       . " FROM `" . ROSTER_QUESTSTABLE . "` AS q, `" . ROSTER_PLAYERSTABLE . "` AS p"
+			       . " FROM `" . $roster->db->table('quests') . "` AS q, `" . $roster->db->table('players') . "` AS p"
 			       . " WHERE `q`.`zone` = '" .$zoneidsafe . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qrow['quest_name']) . "'"
 			       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
@@ -173,7 +172,7 @@ if( !empty($zoneidsafe) )
 
 if( !empty($questidsafe) )
 {
-	$qnquery = "SELECT DISTINCT `quest_name` FROM `" . ROSTER_QUESTSTABLE . "` WHERE `quest_name` = '" . $questidsafe . "' ORDER BY `quest_name`;";
+	$qnquery = "SELECT DISTINCT `quest_name` FROM `" . $roster->db->table('quests') . "` WHERE `quest_name` = '" . $questidsafe . "' ORDER BY `quest_name`;";
 	$qnresult = $roster->db->query($qnquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qnquery);
 
 	while( $qnrow = $roster->db->fetch($qnresult) )
@@ -193,7 +192,7 @@ if( !empty($questidsafe) )
 		print '<div class="headline_1"><a href="#"' . $linktip . '>' . $qnrow['quest_name'] . "</a></div>\n";
 
 		$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
-		       . " FROM `" . ROSTER_QUESTSTABLE . "` AS q, `" . ROSTER_PLAYERSTABLE . "` AS p"
+		       . " FROM `" . $roster->db->table('quests') . "` AS q, `" . $roster->db->table('players') . "` AS p"
 		       . " WHERE `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qnrow['quest_name'])  . "'"
 		       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
@@ -204,7 +203,7 @@ if( !empty($questidsafe) )
 		$tableHeaderRow = '  <tr>
     <th class="membersHeader">' . $roster->locale->act['name'] . '</th>
     <th class="membersHeader">' . $roster->locale->act['quest_data'] . '</th>
-    <th class="membersHeaderRight">' . $roster->locale->act['zone2'] . '</th>
+    <th class="membersHeaderRight">' . $roster->locale->act['zone'] . '</th>
   </tr>';
 
 		$tableFooter = '</table>' . border('syellow','end');

@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id: memberslist.php 861 2007-04-23 12:22:08Z PleegWat $
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -63,12 +58,12 @@ $mainQuery =
 
 	'`proftable`.`professions` '.
 
-	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
-	'LEFT JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+	'FROM `'.$roster->db->table('members').'` AS members '.
+	'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
-		'FROM `'.ROSTER_SKILLSTABLE.'` '.
+		'FROM `'.$roster->db->table('skills').'` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
-	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
+	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
@@ -125,7 +120,7 @@ $FIELD['hearth'] = array (
 );
 
 $FIELD['zone'] = array (
-	'lang_field' => 'zone',
+	'lang_field' => 'last_zone',
 	'order' => array( '`members`.`zone` ASC' ),
 	'order_d' => array( '`members`.`zone` DESC' ),
 	'display' => $addon['config']['member_zone'],
@@ -170,7 +165,7 @@ $roster->output['html_head'] = '<script type="text/javascript" src="addons/'.$ad
 // Start output
 if( $addon['config']['member_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
+	print '            <a href="' . makelink('guild-' . $addon['basename'] . '#update') . '"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
 }
 
 
@@ -183,23 +178,26 @@ $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 $roster->output['show_menu'] = false;
 
-echo "<table>\n  <tr>\n";
-
-if ( $addon['config']['member_hslist'] == 1 )
+if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist'] == 1 )
 {
-	echo '    <td valign="top">';
-	include_once( ROSTER_LIB.'hslist.php');
-	echo "    </td>\n";
-}
+	echo "<table>\n  <tr>\n";
 
-if ( $addon['config']['member_pvplist'] == 1 )
-{
-	echo '    <td valign="top">';
-	include_once( ROSTER_LIB.'pvplist.php');
-	echo "    </td>\n";
-}
+	if ( $addon['config']['member_hslist'] == 1 )
+	{
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'hslist.php');
+		echo "    </td>\n";
+	}
 
-echo "  </tr>\n</table>\n";
+	if ( $addon['config']['member_pvplist'] == 1 )
+	{
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'pvplist.php');
+		echo "    </td>\n";
+	}
+
+	echo "  </tr>\n</table>\n";
+}
 
 echo $memberlist->makeFilterBox();
 
@@ -216,11 +214,6 @@ if( $addon['config']['member_update_inst'] )
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
 	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
-
-	if ($roster->config['pvp_log_allow'] == 1)
-	{
-		echo sprintf($roster->locale->act['update_instructpvp'], $roster->config['pvplogger']);
-	}
 	echo '</div>'.border('sgray','end');
 }
 

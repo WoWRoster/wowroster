@@ -72,7 +72,9 @@ class Install
 	 */
 	function add_config($sql)
 	{
-		$this->sql[] = "INSERT INTO `".ROSTER_ADDONCONFTABLE."` VALUES ('".$this->addata['addon_id']."',$sql);";
+		global $roster;
+
+		$this->sql[] = "INSERT INTO `".$roster->db->table('addon_config')."` VALUES ('".$this->addata['addon_id']."',$sql);";
 	}
 
 	/**
@@ -85,7 +87,9 @@ class Install
 	 */
 	function update_config($id, $sql)
 	{
-		$this->sql[] = "UPDATE `".ROSTER_ADDONCONFTABLE."` SET ".$sql." WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
+		global $roster;
+
+		$this->sql[] = "UPDATE `".$roster->db->table('addon_config')."` SET ".$sql." WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
 	}
 
 	/**
@@ -96,7 +100,9 @@ class Install
 	 */
 	function remove_config($id)
 	{
-		$this->sql[] = "DELETE FROM `".ROSTER_ADDONCONFTABLE."` WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
+		global $roster;
+
+		$this->sql[] = "DELETE FROM `".$roster->db->table('addon_config')."` WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
 	}
 
 	/**
@@ -104,7 +110,9 @@ class Install
 	 */
 	function remove_all_config()
 	{
-		$this->sql[] = 'DELETE FROM `'.ROSTER_ADDONCONFTABLE.'` WHERE `addon_id` = "'.$this->addata['addon_id'].'";';
+		global $roster;
+
+		$this->sql[] = 'DELETE FROM `'.$roster->db->table('addon_config').'` WHERE `addon_id` = "'.$this->addata['addon_id'].'";';
 	}
 
 	/**
@@ -121,7 +129,9 @@ class Install
 	 */
 	function add_menu_button($title, $scope='util', $url='')
 	{
-		$this->sql[] = 'INSERT INTO `'.ROSTER_MENUBUTTONTABLE.'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$scope.'-'.$this->addata['basename'].$url.'");';
+		global $roster;
+
+		$this->sql[] = 'INSERT INTO `'.$roster->db->table('menu_button').'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$scope.'-'.$this->addata['basename'].$url.'");';
 	}
 
 	/**
@@ -138,7 +148,9 @@ class Install
 	 */
 	function update_menu_button($title, $scope='util',$url='')
 	{
-		$this->sql[] = 'UPDATE `'.ROSTER_MENUBUTTONTABLE.'` SET `url`="'.$scope.'-'.$this->addata['basename'].$url.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
+		global $roster;
+
+		$this->sql[] = 'UPDATE `'.$roster->db->table('menu_button').'` SET `url`="'.$scope.'-'.$this->addata['basename'].$url.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
 	}
 
 	/**
@@ -149,7 +161,9 @@ class Install
 	 */
 	function remove_menu_button($title)
 	{
-		$this->sql[] = 'DELETE FROM `'.ROSTER_MENUBUTTONTABLE.'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
+		global $roster;
+
+		$this->sql[] = 'DELETE FROM `'.$roster->db->table('menu_button').'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
 	}
 
 	/**

@@ -65,7 +65,7 @@ $font_path = ROSTER_BASE . 'fonts' . DIR_SEP;
 #--[ MYSQL CONNECT AND STORE ]=========================================================
 
 // Read info from Database
-$querystr = "SELECT * FROM `" . ROSTER_REALMSTATUSTABLE . "` WHERE `server_name` = '" . $roster->db->escape($realmname) . "';";
+$querystr = "SELECT * FROM `" . $roster->db->table('realmstatus') . "` WHERE `server_name` = '" . $roster->db->escape($realmname) . "';";
 $sql = $roster->db->query($querystr);
 if( $sql && $roster->db->num_rows($sql) > 0 )
 {
@@ -188,12 +188,12 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 
 		if( $realmname == $realmData['server_name'] )
 		{
-			$querystr = "UPDATE `" . ROSTER_REALMSTATUSTABLE . "` SET " . $roster->db->build_query('UPDATE',$values) . " WHERE `server_name` = '" . $roster->db->escape($realmname) . "';";
+			$querystr = "UPDATE `" . $roster->db->table('realmstatus') . "` SET " . $roster->db->build_query('UPDATE',$values) . " WHERE `server_name` = '" . $roster->db->escape($realmname) . "';";
 		}
 		else
 		{
 			$values['server_name'] = $realmname;
-			$querystr = "INSERT INTO `" . ROSTER_REALMSTATUSTABLE . "` SET " . $roster->db->build_query('UPDATE',$values) . ";";
+			$querystr = "INSERT INTO `" . $roster->db->table('realmstatus') . "` SET " . $roster->db->build_query('UPDATE',$values) . ";";
 			$realmData['server_name'] = $realmname;
 		}
 

@@ -183,7 +183,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		if (isset($files[$directory]))
 		{
 			//echo $directory.', '.$files[$directory]['tooltip'].'<br>';
-			$dirtooltip = str_replace("'", "\'", $files[$directory]['tooltip']);
+			$dirtooltip = str_replace("'", "\\'", $files[$directory]['tooltip']);
 			$dirtooltip = str_replace('"','&quot;', $dirtooltip);
 			$directory_id = str_replace(array('.','/','\\'),'', $directory);
 
@@ -216,7 +216,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 				if (isset($filedata['tooltip']))
 				{
-					$filetooltip = str_replace("'", "\'", $filedata['tooltip']);
+					$filetooltip = str_replace("'", "\\'", $filedata['tooltip']);
 					$filetooltip = str_replace('"','&quot;', $filetooltip);
 				}
 				else
@@ -406,7 +406,7 @@ else
 // Check the file requested function
 function checkfile()
 {
-	global $extensions, $getfile, $pathparts_getfile, $realpath_getfile, $realpathparts_getfile, $thisfile, $realpath_thisfile, $pathparts_thisfile, $realpathparts_thisfile, $subpath_getfile;
+	global $extensions, $pathparts_getfile, $realpath_getfile, $realpath_thisfile, $subpath_getfile;
 
 	$returnvalue = 0;
 	$unwanted = 0;
@@ -574,7 +574,9 @@ class archive
 				return 0;
 			}
 			else if ($this->archive = @fopen($this->options['name'] . ($this->options['type'] == "gzip" || $this->options['type'] == "bzip" ? ".tmp" : ""), "wb+"))
+			{
 				chdir($pwd);
+			}
 			else
 			{
 				$this->error[] = "Could not open {$this->options['name']} for writing.";
@@ -583,77 +585,101 @@ class archive
 			}
 		}
 		else
+		{
 			$this->archive = "";
+		}
 
 		switch ($this->options['type'])
 		{
-		case "zip":
-			if (!$this->create_zip())
-			{
-				$this->error[] = "Could not create zip file.";
-				return 0;
-			}
-			break;
-		case "bzip":
-			if (!$this->create_tar())
-			{
-				$this->error[] = "Could not create tar file.";
-				return 0;
-			}
-			if (!$this->create_bzip())
-			{
-				$this->error[] = "Could not create bzip2 file.";
-				return 0;
-			}
-			break;
-		case "gzip":
-			if (!$this->create_tar())
-			{
-				$this->error[] = "Could not create tar file.";
-				return 0;
-			}
-			if (!$this->create_gzip())
-			{
-				$this->error[] = "Could not create gzip file.";
-				return 0;
-			}
-			break;
-		case "tar":
-			if (!$this->create_tar())
-			{
-				$this->error[] = "Could not create tar file.";
-				return 0;
-			}
+			case "zip":
+				if (!$this->create_zip())
+				{
+					$this->error[] = "Could not create zip file.";
+					return 0;
+				}
+				break;
+			case "bzip":
+				if (!$this->create_tar())
+				{
+					$this->error[] = "Could not create tar file.";
+					return 0;
+				}
+				if (!$this->create_bzip())
+				{
+					$this->error[] = "Could not create bzip2 file.";
+					return 0;
+				}
+				break;
+			case "gzip":
+				if (!$this->create_tar())
+				{
+					$this->error[] = "Could not create tar file.";
+					return 0;
+				}
+				if (!$this->create_gzip())
+				{
+					$this->error[] = "Could not create gzip file.";
+					return 0;
+				}
+				break;
+			case "tar":
+				if (!$this->create_tar())
+				{
+					$this->error[] = "Could not create tar file.";
+					return 0;
+				}
 		}
 
 		if ($this->options['inmemory'] == 0)
 		{
 			fclose($this->archive);
 			if ($this->options['type'] == "gzip" || $this->options['type'] == "bzip")
+			{
 				unlink($this->options['basedir'] . "/" . $this->options['name'] . ".tmp");
+			}
 		}
 	}
 
 	function add_data($data)
 	{
 		if ($this->options['inmemory'] == 0)
+		{
 			fwrite($this->archive, $data);
+		}
 		else
+		{
 			$this->archive .= $data;
+		}
 	}
 
 	function make_list()
 	{
 		if (!empty ($this->exclude))
+		{
 			foreach ($this->files as $key => $value)
+			{
 				foreach ($this->exclude as $current)
+				{
 					if ($value['name'] == $current['name'])
+					{
 						unset ($this->files[$key]);
+					}
+				}
+			}
+		}
 		if (!empty ($this->storeonly))
+		{
 			foreach ($this->files as $key => $value)
+			{
 				foreach ($this->storeonly as $current)
+				{
 					if ($value['name'] == $current['name'])
+					{
 						$this->files[$key]['method'] = 0;
+					}
+				}
+			}
+		}
 		unset ($this->exclude, $this->storeonly);
 	}
 
@@ -771,18 +797,32 @@ class archive
 	function sort_files($a, $b)
 	{
 		if ($a['type'] != $b['type'])
+		{
 			if ($a['type'] == 5 || $b['type'] == 2)
+			{
 				return -1;
+			}
 			else if ($a['type'] == 2 || $b['type'] == 5)
+			{
 				return 1;
+			}
+		}
 		else if ($a['type'] == 5)
+		{
 			return strcmp(strtolower($a['name']), strtolower($b['name']));
+		}
 		else if ($a['ext'] != $b['ext'])
+		{
 			return strcmp($a['ext'], $b['ext']);
+		}
 		else if ($a['stat'][7] != $b['stat'][7])
+		{
 			return $a['stat'][7] > $b['stat'][7] ? -1 : 1;
+		}
 		else
+		{
 			return strcmp(strtolower($a['name']), strtolower($b['name']));
+		}
 		return 0;
 	}
 

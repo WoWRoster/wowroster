@@ -1,27 +1,22 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
     exit('Detected invalid access to this file!');
 }
 
-class memberslist
+class memberslistUpdate
 {
 	// Update messages
 	var $messages = '';
@@ -41,12 +36,9 @@ class memberslist
 	 * @param array $data
 	 *		Addon data object
 	 */
-	function memberslist($data)
+	function memberslistUpdate($data)
 	{
-		global $roster;
-
 		$this->data = $data;
-		$addon = $this->data;
 
 		include_once($this->data['conf_file']);
 	}
@@ -80,8 +72,8 @@ class memberslist
 		// --[ Fetch full member data ]--
 		$query =
 			"SELECT `alt`.*, `member`.`name` ".
-			"FROM `".ROSTER_MEMBERSTABLE."` member ".
-				"LEFT JOIN `".ROSTER_ALT_TABLE."` alt ".
+			"FROM `".$roster->db->table('members')."` member ".
+				"LEFT JOIN `".$roster->db->table('alts',$this->data['basename'])."` alt ".
 					"ON `alt`.`member_id` = `member`.`member_id` ".
 			"WHERE `member`.`member_id` = '".$member_id."';";
 
@@ -89,7 +81,7 @@ class memberslist
 
 		if ( !$result )
 		{
-			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'</span><br/>'."\n";
+			$this->messages .= ' - <span style="color:red;">Member with ID: '.$member_id.' not updated, failed at line '.__LINE__.'</span><br/>'."\n";
 			return false;
 		}
 
@@ -146,7 +138,7 @@ class memberslist
 			// --[ Look up if there are alts for this main ]--
 			$query =
 				"SELECT COUNT(member_id) ".
-				" FROM `".ROSTER_ALT_TABLE."` as `alts`".
+				" FROM `".$roster->db->table('alts',$this->data['basename'])."` as `alts`".
 				" WHERE `alts`.`main_id`=".$member_id;
 
 			$result = $roster->db->query( $query );
@@ -178,7 +170,7 @@ class memberslist
 			// --[ Get the main's member ID ]--
 			$query =
 				"SELECT `members`.`member_id`, `members`.`name`".
-				" FROM `".ROSTER_MEMBERSTABLE."` as `members`".
+				" FROM `".$roster->db->table('members')."` as `members`".
 				" WHERE `members`.`name`='".$main_name."'";
 
 			$result = $roster->db->query( $query );
@@ -200,7 +192,7 @@ class memberslist
 				else {
 					$query =			// Lookup main's alt_type
 						"SELECT `member_id`, `main_id`, `alt_type`".
-						" FROM `".ROSTER_ALT_TABLE."`".
+						" FROM `".$roster->db->table('alts',$this->data['basename'])."`".
 						" WHERE `member_id`=".$main_id;
 
 					$result = $roster->db->query( $query );
@@ -225,7 +217,7 @@ class memberslist
 							// --[ Look up if there are alts for this main ]--
 							$query =
 								"SELECT COUNT(member_id) ".
-								" FROM `".ROSTER_ALT_TABLE."` as `alts`".
+								" FROM `".$roster->db->table('alts',$this->data['basename'])."` as `alts`".
 								" WHERE `alts`.`main_id`=".$member_id;
 
 							$result = $roster->db->query( $query );
@@ -277,7 +269,7 @@ class memberslist
 					// --[ Look up if there are alts for this main ]--
 					$query =
 						"SELECT COUNT(member_id) ".
-						" FROM `".ROSTER_ALT_TABLE."` as `alts`".
+						" FROM `".$roster->db->table('alts',$this->data['basename'])."` as `alts`".
 						" WHERE `alts`.`main_id`=".$member_id;
 
 					$result = $roster->db->query( $query );
@@ -312,7 +304,7 @@ class memberslist
 
 
 		// -[ Start DB update code ]-
-		$query = "SELECT `member_id` FROM `".ROSTER_ALT_TABLE."` WHERE `member_id`='$member_id'";
+		$query = "SELECT `member_id` FROM `".$roster->db->table('alts',$this->data['basename'])."` WHERE `member_id`='$member_id'";
 
 		$result = $roster->db->query( $query );
 
@@ -332,9 +324,9 @@ class memberslist
 		);
 
 		if( $update )
-			$querystr = "UPDATE `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('UPDATE',$build_query)." WHERE `member_id` = '$member_id'";
+			$querystr = "UPDATE `".$roster->db->table('alts',$this->data['basename'])."` SET ".$roster->db->build_query('UPDATE',$build_query)." WHERE `member_id` = '$member_id'";
 		else
-			$querystr = "INSERT INTO `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('UPDATE',$build_query);
+			$querystr = "INSERT INTO `".$roster->db->table('alts',$this->data['basename'])."` SET ".$roster->db->build_query('UPDATE',$build_query);
 
 		$result = $roster->db->query($querystr);
 
@@ -354,7 +346,7 @@ class memberslist
 	 * @param array $guild
 	 *		CP.lua guild data
 	 */
-	function guild_post($guild)
+	function guild_post( $guild )
 	{
 		global $roster;
 
@@ -364,10 +356,10 @@ class memberslist
 			return true;
 		}
 
-		$query = "DELETE `".ROSTER_ALT_TABLE."` ".
-			"FROM `".ROSTER_ALT_TABLE."` ".
-			"LEFT JOIN `".ROSTER_MEMBERSTABLE."` USING (`member_id`) ".
-			"WHERE `".ROSTER_MEMBERSTABLE."`.`member_id` IS NULL ";
+		$query = "DELETE `".$roster->db->table('alts',$this->data['basename'])."` ".
+			"FROM `".$roster->db->table('alts',$this->data['basename'])."` ".
+			"LEFT JOIN `".$roster->db->table('members')."` USING (`member_id`) ".
+			"WHERE `".$roster->db->table('members')."`.`member_id` IS NULL ";
 
 		if( $roster->db->query($query) )
 		{
@@ -403,8 +395,8 @@ class memberslist
 		// --[ Fetch full member data ]--
 		$query =
 			"SELECT `alt`.*, `member`.`name` ".
-			"FROM `".ROSTER_MEMBERSTABLE."` member ".
-				"LEFT JOIN `".ROSTER_ALT_TABLE."` alt ".
+			"FROM `".$roster->db->table('members')."` member ".
+				"LEFT JOIN `".$roster->db->table('alts',$this->data['basename'])."` alt ".
 					"ON `alt`.`member_id` = `member`.`member_id` ".
 			"WHERE `member`.`member_id` = '".$member_id."';";
 
@@ -412,7 +404,7 @@ class memberslist
 
 		if ( !$result )
 		{
-			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'. MySQL said:<br/>'.$roster->db->error().'</span><br/>'."\n";
+			$this->messages .= ' - <span style="color:red;">Member with ID: '.$member_id.' not updated, failed at line '.__LINE__.'. MySQL said:<br/>'.$roster->db->error().'</span><br/>'."\n";
 			return false;
 		}
 
@@ -489,7 +481,7 @@ class memberslist
 
 		if( empty($inclause) )
 		{
-			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_NO_ALTS."' WHERE `member_id` = '".$mainid."'";
+			$query = "UPDATE `".$roster->db->table('alts',$this->data['basename'])."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_NO_ALTS."' WHERE `member_id` = '".$mainid."'";
 			if( $roster->db->query($query) )
 			{
 				$this->messages .= ' - '.$this->chars[$mainid]['name'].' written as main without alts<br/>'."\n";
@@ -502,7 +494,7 @@ class memberslist
 		}
 		else
 		{
-			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_ALT_MANUAL_WITH_MAIN."' WHERE `member_id` IN (".$inclause.")";
+			$query = "UPDATE `".$roster->db->table('alts',$this->data['basename'])."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_ALT_MANUAL_WITH_MAIN."' WHERE `member_id` IN (".$inclause.")";
 			if( $roster->db->query($query) )
 			{
 				$this->messages .= ' - '.$roster->db->affected_rows().' alts added to main '.$this->chars[$mainid]['Name'];
@@ -513,7 +505,7 @@ class memberslist
 				return false;
 			}
 
-			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_WITH_ALTS."' WHERE `member_id` = '".$mainid."'";
+			$query = "UPDATE `".$roster->db->table('alts',$this->data['basename'])."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_WITH_ALTS."' WHERE `member_id` = '".$mainid."'";
 			if( $roster->db->query($query) )
 			{
 				$this->messages .= ' - Main written<br/>'."\n";

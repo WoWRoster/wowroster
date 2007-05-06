@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id: debug.php 857 2007-04-23 09:36:33Z PleegWat $
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -43,9 +38,9 @@ $mainQuery =
 
 	'`mains`.`name` AS main_name '.
 
-	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
-	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` AS mains ON `alts`.`main_id` = `mains`.`member_id` '.
+	'FROM `'.$roster->db->table('members').'` AS members '.
+	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
+	'LEFT JOIN `'.$roster->db->table('members').'` AS mains ON `alts`.`main_id` = `mains`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 

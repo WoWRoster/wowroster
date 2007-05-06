@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -30,7 +25,7 @@ $memberlist = new memberslist(array('group_alts'=>0));
 $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
-	'FROM `'.ROSTER_MEMBERLOGTABLE.'` AS members '.
+	'FROM `'.$roster->db->table('memberlog').'` AS members '.
 	'WHERE `guild_id` = "'.$roster->data['guild_id'].'"'.
 	'ORDER BY ';
 
@@ -118,23 +113,26 @@ $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 $roster->output['show_menu'] = false;
 
-echo "<table>\n  <tr>\n";
-
-if ( $addon['config']['log_hslist'] == 1 )
+if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 )
 {
-	echo '    <td valign="top">';
-	include_once( ROSTER_LIB.'hslist.php');
-	echo "    </td>\n";
-}
+	echo "<table>\n  <tr>\n";
 
-if ( $addon['config']['log_pvplist'] == 1 )
-{
-	echo '    <td valign="top">';
-	include_once( ROSTER_LIB.'pvplist.php');
-	echo "    </td>\n";
-}
+	if ( $addon['config']['log_hslist'] == 1 )
+	{
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'hslist.php');
+		echo "    </td>\n";
+	}
 
-echo "  </tr>\n</table>\n";
+	if ( $addon['config']['log_pvplist'] == 1 )
+	{
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'pvplist.php');
+		echo "    </td>\n";
+	}
+
+	echo "  </tr>\n</table>\n";
+}
 
 echo $memberlist->makeFilterBox();
 
@@ -151,11 +149,6 @@ if( $addon['config']['log_update_inst'] )
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
 	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
-
-	if ($roster->config['pvp_log_allow'] == 1)
-	{
-		echo sprintf($roster->locale->act['update_instructpvp'], $roster->config['pvplogger']);
-	}
 	echo '</div>'.border('sgray','end');
 }
 
@@ -170,7 +163,6 @@ function note_value ( $row, $field )
 {
 	global $roster, $addon;
 
-	$tooltip='';
 	if( !empty($row[$field]) )
 	{
 		$note = htmlspecialchars(nl2br($row[$field]));

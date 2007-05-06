@@ -332,7 +332,7 @@ function processAddon()
 	}
 
 	// Get existing addon record if available
-	$query = 'SELECT * FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$addata['basename'].'"';
+	$query = 'SELECT * FROM `'.$roster->db->table('addon').'` WHERE `basename` = "'.$addata['basename'].'"';
 	$result = $roster->db->query($query);
 	if( !$result )
 	{
@@ -356,20 +356,20 @@ function processAddon()
 				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$query = 'INSERT INTO `'.ROSTER_ADDONTABLE.'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$roster->db->escape(serialize($installer->addata['credits'])).'")';
+			$query = 'INSERT INTO `'.$roster->db->table('addon').'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$roster->db->escape(serialize($installer->addata['credits'])).'")';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
 				$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:'.$roster->db->error(),$roster->locale->act['installer_error']);
-				return;
+				break;
 			}
 			$installer->addata['addon_id'] = $roster->db->insert_id();
 
 			// We backup the addon config table to prevent damage
-			$installer->add_backup(ROSTER_ADDONCONFTABLE);
+			$installer->add_backup($roster->db->table('addon_config'));
 
 			$success = $addon->install();
-			$installer->sql[] = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `active`='.(int)$installer->addata['active'];
+			$installer->sql[] = 'UPDATE `'.$roster->db->table('addon').'` SET `active`='.(int)$installer->addata['active'];
 			break;
 
 		case 'upgrade':
@@ -384,17 +384,17 @@ function processAddon()
 				break;
 			}
 
-			$query = 'UPDATE `'.ROSTER_ADDONTABLE.'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
+			$query = 'UPDATE `'.$roster->db->table('addon').'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
 				$installer->seterrors('DB error while updating the addon record. <br /> MySQL said:'.$roster->db->error(),$roster->locale->act['installer_error']);
-				return;
+				break;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
 
 			// We backup the addon config table to prevent damage
-			$installer->add_backup(ROSTER_ADDONCONFTABLE);
+			$installer->add_backup($roster->db->table('addon_config'));
 
 			$success = $addon->upgrade($previous['basename'],$previous['version']);
 			break;
@@ -410,17 +410,17 @@ function processAddon()
 				$installer->seterrors(sprintf($roster->locale->act['installer_not_uninstallable'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `addon_id`='.$previous['addon_id'];
+			$query = 'DELETE FROM `'.$roster->db->table('addon').'` WHERE `addon_id`='.$previous['addon_id'];
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
 				$installer->seterrors('DB error while deleting the addon record. <br /> MySQL said:'.$roster->db->error(),$roster->locale->act['installer_error']);
-				return;
+				break;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
 
 			// We backup the addon config table to prevent damage
-			$installer->add_backup(ROSTER_ADDONCONFTABLE);
+			$installer->add_backup($roster->db->table('addon_config'));
 
 			$success = $addon->uninstall();
 			break;
@@ -438,6 +438,7 @@ function processAddon()
 	if (!$success)
 	{
 		$installer->seterrors($roster->locale->act['installer_no_success_sql']);
+		return false;
 	}
 	else
 	{
@@ -477,11 +478,11 @@ function purge($dbname)
 	$roster->db->free_result($tables);
 
 	// Delete menu entries
-	$query = 'DELETE FROM `'.ROSTER_ADDONMENUTABLE.'` WHERE `addon_name` = "'.$dbname.'"';
+	$query = 'DELETE FROM `'.$roster->db->table('addon_menu').'` WHERE `addon_name` = "'.$dbname.'"';
 	$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for '.$dbname.'.<br />MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 
 	// Delete addon table entry
-	$query = 'DELETE FROM `'.ROSTER_ADDONTABLE.'` WHERE `basename` = "'.$dbname.'"';
+	$query = 'DELETE FROM `'.$roster->db->table('addon').'` WHERE `basename` = "'.$dbname.'"';
 	$roster->db->query($query) or $installer->seterrors('Error while deleting addon table entry for '.$dbname.'.<br />MySQL said: '.$roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 
 	return true;

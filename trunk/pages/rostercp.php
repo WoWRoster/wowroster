@@ -76,7 +76,7 @@ if( $roster->config['check_updates'] )
 
 	if( version_compare($roster_ver_latest,ROSTER_VERSION,'>') )
 	{
-		$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$roster_ver_latest) . $roster_ver_info,$roster->locale->act['update']);
+		$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$roster_ver_latest,'http://www.wowroster.net') . $roster_ver_info,$roster->locale->act['update']);
 	}
 }
 

@@ -154,7 +154,7 @@ function makeAddonCredits()
 
 	$output = '';
 
-	$query = "SELECT * FROM `".ROSTER_ADDONTABLE."`";
+	$query = "SELECT * FROM `".$roster->db->table('addon')."`";
 	$result = $roster->db->query($query);
 
 	if( !$result )

@@ -2,7 +2,9 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * enUS Locale File
+ * deDE Locale File
+ *
+ * deDE translation by sphinx
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -13,9 +15,6 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.5.0
 */
-
-// deDE translation by sphinx
-
 
 
 //Instructions how to upload, as seen on the mainpage
@@ -59,8 +58,6 @@ $lang['char_error'] = 'Character Error';
 $lang['specify_char'] = 'Character was not specified';
 $lang['no_char_id'] = 'Sorry no character data for member_id [ %1$s ]';
 $lang['no_char_name'] = 'Sorry no character data for <strong>%1$s</strong> of <strong>%2$s</strong>';
-$lang['char_stats'] = 'Character Stats for: %1$s @ %2$s';
-$lang['char_links'] = 'Character Links';
 
 $lang['roster_cp'] = 'Roster Control Panel';
 $lang['roster_cp_ab'] = 'Roster CP';
@@ -85,7 +82,7 @@ $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
 
-$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="http://www.wowroster.net" target="_blank">HERE</a>';
+$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="%3$s" target="_blank">HERE</a>';
 
 
 // Updating Instructions
@@ -158,7 +155,7 @@ $lang['defense']='Verteidigung';
 $lang['class']='Klasse';
 $lang['race']='Rasse';
 $lang['level']='Level';
-$lang['zone']='Letztes Gebiet';
+$lang['lastzone']='Letztes Gebiet';
 $lang['note']='Notiz';
 $lang['officer_note']='Officer Note';
 $lang['title']='Rang';
@@ -178,10 +175,6 @@ $lang['hearthed']='Ruhestein';
 $lang['recipes']='Rezepte';
 $lang['bags']='Taschen';
 $lang['character']='Charakter';
-$lang['bglog']='BG &Uuml;bersicht';
-$lang['pvplog']='PvP &Uuml;bersicht';
-$lang['duellog']='Duell &Uuml;bersicht';
-$lang['duelsummary']='Duell Summary';
 $lang['money']='Money';
 $lang['bank']='Bank';
 $lang['raid']='CT_Raid';
@@ -226,16 +219,18 @@ $lang['dodge'] = 'Ausweichen';
 $lang['parry'] = 'Parieren';
 $lang['block'] = 'Blocken';
 $lang['realm'] = 'Realm';
-$lang['talents'] = 'Talente';
 $lang['online_at_up'] = 'Online at Update';
 $lang['faction'] = 'Faction';
-
-// Memberlog
+$lang['page'] = 'Seite';
+$lang['general'] = 'General';
+$lang['prev'] = 'Zurück';
+$lang['next'] = 'Vor';
 $lang['memberlog'] = 'Mitglieder Log';
 $lang['removed'] = 'Entfernt';
 $lang['added'] = 'Zugefügt';
 $lang['updated'] = 'Updated';
-$lang['no_memberlog'] = 'Kein Mitglieder Log gespeichert';
+$lang['no_info'] = 'Keine Information';
+$lang['none']='Keine';
 
 $lang['rosterdiag'] = 'Roster Diagnose Seite';
 $lang['difficulty'] = 'Schwierigkeit';
@@ -244,29 +239,6 @@ $lang['recipe_3'] = 'mittel';
 $lang['recipe_2'] = 'leicht';
 $lang['recipe_1'] = 'trivial';
 $lang['roster_config'] = 'Roster Config';
-
-// Character
-$lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
-$lang['char_guildline'] = '%1$s of %2$s';
-
-// Spellbook
-$lang['spellbook'] = 'Zauberspr&uuml;che';
-$lang['page'] = 'Seite';
-$lang['general'] = 'General';
-$lang['prev'] = 'Zurück';
-$lang['next'] = 'Vor';
-$lang['no_spellbook'] = 'Keine Zaubersprüche für %1$s';
-
-// Mailbox
-$lang['mailbox'] = 'Postfach';
-$lang['maildateutc'] = 'Briefdatum';
-$lang['mail_item'] = 'Gegenstand';
-$lang['mail_sender'] = 'Absender';
-$lang['mail_subject'] = 'Betreff';
-$lang['mail_expires'] = 'Gültig bis';
-$lang['mail_money'] = 'Geldanhang';
-$lang['no_mail'] = 'Keine Briefe für %1$s';
-$lang['no_info'] = 'Keine Information';
 
 
 //this needs to be exact as it is the wording in the db
@@ -371,106 +343,6 @@ $lang['class_colorArray'] = array(
 	'Krieger' => 'C69B6D'
 );
 
-//skills
-$lang['skilltypes'] = array(
-	1 => 'Klassenfertigkeiten',
-	2 => 'Berufe',
-	3 => 'Sekundäre Fertigkeiten',
-	4 => 'Waffenfertigkeiten',
-	5 => 'Rüstungssachverstand',
-	6 => 'Sprachen',
-);
-
-//tabs
-$lang['tab1']='Stats';
-$lang['tab2']='Tier';
-$lang['tab3']='Ruf';
-$lang['tab4']='Fertigk.';
-$lang['tab5']='PvP';
-
-$lang['strength']='Stärke';
-$lang['strength_tooltip']='Erhöht deine Angriffskraft mit Nahkampfwaffen.<br />Erhöht die Menge an Schaden, die mit einem Schild geblockt werden kann.';
-$lang['agility']='Beweglichkeit';
-$lang['agility_tooltip']= 'Erhöht deine Angriffskraft mit Fernkampfwaffen.<br />Verbessert deine Chance auf einen kritischen Treffer mit allen Waffen.<br />Erhöht deine Rüstung und deine Chance Angriffen auszuweichen.';
-$lang['stamina']='Ausdauer';
-$lang['stamina_tooltip']= 'Erhöht deine Lebenspunkte.';
-$lang['intellect']='Intelligenz';
-$lang['intellect_tooltip']= 'Erhöht deine Manapunkte und die die Chance auf einen kritischen Treffer mit Sprüchen.<br />Erhöht die Rate mit denen du deine Waffenfertigkeiten verbesserst.';
-$lang['spirit']='Willenskraft';
-$lang['spirit_tooltip']= 'Erhöht deine Mana- und Lebens- regenerationsrate.';
-$lang['armor_tooltip']= 'Verringert die Menge an Schaden die du von physischen Angriffen erleidest.<br />Die Höhe der Reduzierung ist abhängig vom Level deines Angreifers.';
-
-$lang['mainhand']='Waffenhand';
-$lang['offhand']='Off Hand';
-$lang['ranged']='Distanzangriff';
-$lang['melee']='Nahkampf';
-$lang['spell']='Zauber';
-
-$lang['weapon_skill']='Waffe';
-$lang['weapon_skill_tooltip']='Waffe %d<br />Waffenfertigkeitswertung %d';
-$lang['damage']='Schaden';
-$lang['damage_tooltip']='<table><tr><td>Angriffstempo (Sekunden):<td>%.2f<tr><td>Schaden:<td>%d-%d<tr><td>Schaden pro Sekunde:<td>%.1f</table>';
-$lang['speed']='Tempo';
-$lang['atk_speed']='Angriffstempo';
-$lang['haste_tooltip']='Tempowertung ';
-
-$lang['melee_att_power']='Nahkampfangriffskraft';
-$lang['melee_att_power_tooltip']='Erhöht die Angriffskraft mit Nahkampfwaffen um %.1f pro Sekunde.';
-$lang['ranged_att_power']='Distanzangriffskraft';
-$lang['ranged_att_power_tooltip']='Erhöht die Angriffskraft mit Distanzwaffen um %.1f pro Sekunde.';
-
-$lang['weapon_hit_rating']='Trefferwert.';
-$lang['weapon_hit_rating_tooltip']='Erhöht die Trefferchance im Nahkampf gegen ein Ziel.';
-$lang['weapon_crit_rating']='Kritisch';
-$lang['weapon_crit_rating_tooltip']='Kritische Trefferchance %.2f%%.';
-
-$lang['damage']='Schaden';
-$lang['energy']='Energie';
-$lang['rage']='Wut';
-$lang['power']='Kraft';
-
-$lang['melee_rating']='Nahkampf Angriffsrate';
-$lang['melee_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Ziel zu treffen und basiert auf deiner Waffenfähigkeit der Waffe die du grade trägst.';
-$lang['range_rating']='Fernkampf Angriffsrate';
-$lang['range_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Ziel zu treffen und basiert auf deiner Waffenfähigkeit der Waffe die du grade trägst.';
-
-$lang['spell_damage']='Schadensboni';
-$lang['fire']='Feuer';
-$lang['nature']='Natur';
-$lang['frost']='Frost';
-$lang['shadow']='Schatten';
-$lang['arcane']='Arkan';
-
-$lang['spell_healing']='Heilungsboni';
-$lang['spell_healing_tooltip']='Erhöht die Heilung um bis zu %d';
-$lang['spell_hit_rating']='Trefferwertung';
-$lang['spell_hit_rating_tooltip']='Erhöht die Trefferchance mit Zaubern gegen ein Ziel.';
-$lang['spell_crit_rating']='Kritisch';
-$lang['spell_crit_chance']='Kritische Chance';
-$lang['spell_penetration']='Durchschlag';
-$lang['spell_penetration_tooltip']='Verringert den Widerstand des Ziels gegen Eure Zauber.';
-$lang['mana_regen']='Regeneration';
-$lang['mana_regen_tooltip']='Regeneriert alle %d Sekunden %d Mana, wenn kein Zauber gewirkt wird.';
-
-$lang['defense_rating']='Verteidigungswertung ';
-$lang['def_tooltip']='Erhöht die Chance auf %s';
-$lang['resilience']='Abhärtung';
-
-$lang['res_arcane']='Arkan Widerstand';
-$lang['res_arcane_tooltip']='Increases your ability to resist Arcane Resistance-based attacks, spells, and abilities.';
-$lang['res_fire']='Feuer Widerstand';
-$lang['res_fire_tooltip']='Increases your ability to resist Fire Resistance-based attacks, spells, and abilities.';
-$lang['res_nature']='Natur Widerstand';
-$lang['res_nature_tooltip']='Increases your ability to resist Nature Resistance-based attacks, spells, and abilities.';
-$lang['res_frost']='Frost Widerstand';
-$lang['res_frost_tooltip']='Increases your ability to resist Frost Resistance-based attacks, spells, and abilities.';
-$lang['res_shadow']='Schatten Widerstand';
-$lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
-
-$lang['empty_equip']='Kein Gegenstand angelegt';
-$lang['pointsspent']='Punkte verteilt in';
-$lang['none']='Keine';
-
 $lang['pvplist']=' PvP Statistiken';
 $lang['pvplist1']='Gilde, die am meisten unter uns zu leiden hat';
 $lang['pvplist2']='Gilde, die uns am meisten zu Schaffen macht';
@@ -514,63 +386,16 @@ $lang['standing']='Platzierung';
 $lang['highestrank']='Höchster Rank';
 $lang['arena']='Arena';
 
-$lang['totalwins']='Gewinne total';
-$lang['totallosses']='Verluste total';
-$lang['totaloverall']='Gesamt';
-$lang['win_average']='Durchschnittliche Level Differenz (Gewinne)';
-$lang['loss_average']='Durchschnittliche Level Differenz  (Verluste)';
-
-// These need to be EXACTLY what PvPLog stores them as
-$lang['alterac_valley']='Alteractal';
-$lang['arathi_basin']='Arathibecken';
-$lang['warsong_gulch']='Kriegshymnenschlucht';
-
-$lang['world_pvp']='Welt-PvP';
-$lang['versus_guilds']='Gegengilden';
-$lang['versus_players']='Gegenspieler';
-$lang['bestsub']='Beste Subzone';
-$lang['worstsub']='Schlechteste Subzone';
-$lang['killedmost']='Am meisten get&ouml;tet';
-$lang['killedmostby']='Am meisten get&ouml;tet durch';
-$lang['gkilledmost']='Am meisten get&ouml;tete Spieler der Gilde';
-$lang['gkilledmostby']='Am meister get&ouml;tet durch Spieler der Gilde';
-
-$lang['wins']='Gewinne';
-$lang['losses']='Verluste';
-$lang['overall']='Gesamt';
-$lang['best_zone']='Beste Zone';
-$lang['worst_zone']='Schlechteste Zone';
-$lang['most_killed']='Meisten get&ouml;tet';
-$lang['most_killed_by']='Meisten get&ouml;tet durch';
-
 $lang['when']='Wann';
 $lang['guild']='Gilde';
-$lang['leveldiff']='LevelDiff';
 $lang['result']='Ergebnis';
-$lang['zone2']='Zone';
+$lang['zone']='Zone';
 $lang['subzone']='Subzone';
-$lang['bg']='Schlachtfeld';
 $lang['yes']='Ja';
 $lang['no']='Nein';
 $lang['win']='Sieg';
 $lang['loss']='Niederlage';
-$lang['kills']='Kills';
 $lang['unknown']='Unknown';
-
-// guildpvp strings
-$lang['guildwins'] = 'Wins by Guild';
-$lang['guildlosses'] = 'Losses by Guild';
-$lang['enemywins'] = 'Wins by Enemy';
-$lang['enemylosses'] = 'Losses by Enemy';
-$lang['purgewins'] = 'Guild Member Kills';
-$lang['purgelosses'] = 'Guild Member Deaths';
-$lang['purgeavewins'] = 'Best Win/Level-Diff Average';
-$lang['purgeavelosses'] = 'Best Loss/Level-Diff Average';
-$lang['pvpratio'] = 'Solo Win/Loss Ratios';
-$lang['playerinfo'] = 'Player Info';
-$lang['kill_lost_hist']='Kill/Loss history for %1$s (%2$s %3$s) of %4$s';
-$lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
-$lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
 
 //strings for Rep-tab
 $lang['exalted']='Ehrfürchtig';
@@ -584,34 +409,30 @@ $lang['hated']='Hasserfüllt';
 $lang['atwar']='Im Krieg';
 $lang['notatwar']='Nicht im Krieg';
 
-// language definitions for the rogue instance keys 'fix'
-$lang['thievestools']='Diebeswerkzeug';
-$lang['lockpicking']='Schlossknacken';
-// END
 
-	// Quests page external links (on character quests page)
-		// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
-		// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
+// Quests page external links (on character quests page)
+	// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
+	// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
 
-		$lang['questlinks'][0]['name']='WoW-Handwerk';
-		$lang['questlinks'][0]['url1']='http://www.wow-handwerk.de/search.php?quicksearch=';
-		//$lang['questlinks'][0]['url2']='';
-		//$lang['questlinks'][0]['url3']='&amp;maxl='';
+	$lang['questlinks'][0]['name']='WoW-Handwerk';
+	$lang['questlinks'][0]['url1']='http://www.wow-handwerk.de/search.php?quicksearch=';
+	//$lang['questlinks'][0]['url2']='';
+	//$lang['questlinks'][0]['url3']='&amp;maxl='';
 
-		$lang['questlinks'][1]['name']='Buffed DE';
-		$lang['questlinks'][1]['url1']='http://www.buffed.de/?f=';
-		//$lang['questlinks'][1]['url2']='';
-		//$lang['questlinks'][1]['url3']='';
+	$lang['questlinks'][1]['name']='Buffed DE';
+	$lang['questlinks'][1]['url1']='http://www.buffed.de/?f=';
+	//$lang['questlinks'][1]['url2']='';
+	//$lang['questlinks'][1]['url3']='';
 
-		$lang['questlinks'][2]['name']='Thottbot';
-		$lang['questlinks'][2]['url1']='http://www.thottbot.com/?f=q&amp;title=';
-		$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-		$lang['questlinks'][2]['url3']='&amp;maxl=';
+	$lang['questlinks'][2]['name']='Thottbot';
+	$lang['questlinks'][2]['url1']='http://www.thottbot.com/?f=q&amp;title=';
+	$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+	$lang['questlinks'][2]['url3']='&amp;maxl=';
 
-		//$lang['questlinks'][3]['name']='WoWHead';
-		//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
-		//$lang['questlinks'][3]['url2']=';minle=';
-		//$lang['questlinks'][3]['url3']=';maxle=';
+	//$lang['questlinks'][3]['name']='WoWHead';
+	//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+	//$lang['questlinks'][3]['url2']=';minle=';
+	//$lang['questlinks'][3]['url3']=';maxle=';
 
 // Items external link
 // Add as many item links as you need
@@ -729,7 +550,6 @@ $lang['auth_req'] = 'Authorization Required';
 
 $lang['pagebar_function'] = 'Aufgaben';
 $lang['pagebar_rosterconf'] = 'Konfiguriere Roster';
-$lang['pagebar_charpref'] = 'Character Preferenzen';
 $lang['pagebar_changepass'] = 'Passwort Änderung';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';
 $lang['pagebar_update'] = 'Upload Profile';
@@ -780,7 +600,6 @@ $lang['admin']['debug_mode'] = "Debug Modus|Zeigt die komplette Debugprotokollie
 $lang['admin']['sql_window'] = "SQL Fenster|Zeigt die SQL Fehler in einem Fenster in der Fu&szlig;zeile an";
 $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler Version zum Upload";
 $lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler Version zum Upload";
-$lang['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog Version zum Upload";
 $lang['admin']['locale'] = "Roster Hauptsprache|Sprache, in der das Roster anzeigen soll";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $lang['admin']['website_address'] = "Webseitenadresse|Wird benötigt für das Logo, den Gildennamenlink und das Hauptmenü<br />Einige Roster Addons benötigen diese auch";
@@ -790,7 +609,6 @@ $lang['admin']['alt_img_suffix'] = "Alternative Bilder Dateierweiterung|Der Date
 $lang['admin']['img_url'] = "Roster Bilder Verzeichnis URL|Verzeichnis zu den Roster's Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
 $lang['admin']['timezone'] = "Zeitzone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
 $lang['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
-$lang['admin']['pvp_log_allow'] = "Erlaube Upload von PvPLog-Daten|Wenn man diesen Wert auf &quot;no&quot; stellt, wird das PVPLog Uploadfeld in der Datei &quot;update&quot; ausgeblendet.";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
@@ -839,7 +657,6 @@ $lang['admin']['questlink_1'] = "Quest Link #1|Externe Verlinkung der Gegenstän
 $lang['admin']['questlink_2'] = "Quest Link #2|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
 $lang['admin']['questlink_3'] = "Quest Link #3|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
 $lang['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das CharacterProfiler-Addon herunterzuladen";
-$lang['admin']['pvplogger'] = "PvPLog Downloadlink|URL um das PvPLog-Addon herunterzuladen";
 $lang['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader herunterzuladen";
 
 // realmstatus_conf

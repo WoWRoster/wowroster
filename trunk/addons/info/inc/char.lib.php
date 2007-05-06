@@ -11,7 +11,6 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.03
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -24,7 +23,6 @@ require_once (ROSTER_LIB.'bag.php');
 require_once (ROSTER_LIB.'skill.php');
 require_once (ROSTER_LIB.'quest.php');
 require_once (ROSTER_LIB.'recipes.php');
-require_once (ROSTER_LIB.'pvp3.php');
 
 class char
 {
@@ -223,7 +221,7 @@ class char
 			$returnstring = '';
 
 			// Get char professions for quick links
-			$query = "SELECT `skill_name` FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
+			$query = "SELECT `skill_name` FROM `".$roster->db->table('recipes')."` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
 			$result = $roster->db->query( $query );
 
 			// Set a ank for link to top of page
@@ -309,7 +307,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster, $tooltips, $addon;
 
-		$sqlquery = "SELECT * FROM `".ROSTER_MAILBOXTABLE."` ".
+		$sqlquery = "SELECT * FROM `".$roster->db->table('mailbox')."` ".
 			"WHERE `member_id` = '".$this->data['member_id']."' ".
 			"ORDER BY `mailbox_days`;";
 
@@ -473,8 +471,8 @@ $returnstring .= '  <tr>
 		global $roster;
 
 		$query = "SELECT `spelltree`.*, `talenttree`.`order`
-			FROM `".ROSTER_SPELLTREETABLE."` AS spelltree
-			LEFT JOIN `".ROSTER_TALENTTREETABLE."` AS talenttree
+			FROM `".$roster->db->table('spellbooktree')."` AS spelltree
+			LEFT JOIN `".$roster->db->table('talenttree')."` AS talenttree
 				ON `spelltree`.`member_id` = `talenttree`.`member_id`
 				AND `spelltree`.`spell_type` = `talenttree`.`tree`
 			WHERE `spelltree`.`member_id` = ".$this->data['member_id']."
@@ -508,7 +506,7 @@ $returnstring .= '  <tr>
 		$roster->db->free_result($result);
 
 		// Get the spell data
-		$query = "SELECT * FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `spell_name`";
+		$query = "SELECT * FROM `".$roster->db->table('spellbook')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `spell_name`";
 
 		$result = $roster->db->query($query);
 
@@ -544,8 +542,8 @@ $returnstring .= '  <tr>
 
 		// Get the PET spell data
 		$query = "SELECT `spell`.*, `pet`.`name`
-			FROM `".ROSTER_PETSPELLTABLE."` as spell
-			LEFT JOIN `".ROSTER_PETSTABLE."` AS pet
+			FROM `".$roster->db->table('spellbook_pet')."` as spell
+			LEFT JOIN `".$roster->db->table('pets')."` AS pet
 			ON `spell`.`pet_id` = `pet`.`pet_id`
 			WHERE `spell`.`member_id` = '".$this->data['member_id']."' ORDER BY `spell`.`spell_name`;";
 
@@ -733,7 +731,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `level` DESC";
+		$query = "SELECT * FROM `".$roster->db->table('pets')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `level` DESC";
 		$result = $roster->db->query( $query );
 
 		$output = $icons = '';
@@ -1549,7 +1547,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$sqlquery = "SELECT * FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order`;";
+		$sqlquery = "SELECT * FROM `".$roster->db->table('talenttree')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order`;";
 		$trees = $roster->db->query( $sqlquery );
 
 		if( $roster->db->num_rows($trees) > 0 )
@@ -1667,7 +1665,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$sqlquery = "SELECT * FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
+		$sqlquery = "SELECT * FROM `".$roster->db->table('talents')."` WHERE `member_id` = '".$this->data['member_id']."' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
 
 		$result = $roster->db->query($sqlquery);
 
@@ -1765,7 +1763,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `skill_order` ASC, `skill_name` ASC;";
+		$query = "SELECT * FROM `".$roster->db->table('skills')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `skill_order` ASC, `skill_name` ASC;";
 		$result = $roster->db->query( $query );
 
 		$skill_rows = $roster->db->num_rows($result);
@@ -1832,7 +1830,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `name` ASC;";
+		$query= "SELECT * FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `name` ASC;";
 		$result = $roster->db->query( $query );
 
 		$rep_rows = $roster->db->num_rows($result);
@@ -1864,7 +1862,7 @@ $returnstring .= '  <tr>
 	{
 		static $repnum = 0;
 
-		global $roster, $char;
+		global $roster;
 
 		$level = $repdata['curr_rep'];
 		$max = $repdata['max_rep'];
@@ -2215,7 +2213,7 @@ function char_get_one_by_id( $member_id )
 	global $roster;
 
 	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
-		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
+		"FROM `".$roster->db->table('players')."` a, `".$roster->db->table('members')."` b, `".$roster->db->table('guild')."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`member_id` = '$member_id' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $roster->db->query( $query );
 	if( $roster->db->num_rows($result) > 0 )
@@ -2237,7 +2235,7 @@ function char_get_one( $name, $server )
 	$name = $roster->db->escape( $name );
 	$server = $roster->db->escape( $server );
 	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
-		"FROM `".ROSTER_PLAYERSTABLE."` a, `".ROSTER_MEMBERSTABLE."` b, `".ROSTER_GUILDTABLE."` c " .
+		"FROM `".$roster->db->table('players')."` a, `".$roster->db->table('members')."` b, `".$roster->db->table('guild')."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`name` = '$name' AND `a`.`server` = '$server' AND `a`.`guild_id` = `c`.`guild_id`;";
 	$result = $roster->db->query( $query );
 	if( $roster->db->num_rows($result) > 0 )
@@ -2256,7 +2254,7 @@ function DateCharDataUpdated($id)
 {
 	global $roster;
 
-	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$id'";
+	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$id'";
 	$result = $roster->db->query($query);
 	$data = $roster->db->fetch($result);
 	$roster->db->free_result($result);

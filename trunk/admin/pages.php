@@ -29,18 +29,10 @@ if( !defined('ROSTER_INSTALLED') )
 //			'divider'	Prints a horizontal line and no button.
 //			'hidden'	Hides the link, but allows access to the page
 
-
-
-
 $config_pages['roster'] = array(
-	'href'=>	$roster->pages[0].'-roster',
+	'href'=>	$roster->pages[0],
 	'title'=>	'pagebar_rosterconf',
 	'file'=>	'roster_conf.php',
-	);
-$config_pages['character'] = array(
-	'href'=>	$roster->pages[0].'-character',
-	'title'=>	'pagebar_charpref',
-	'file'=>	'character_conf.php',
 	);
 $config_pages['menu'] = array(
 	'href'=>	$roster->pages[0].'-menu',

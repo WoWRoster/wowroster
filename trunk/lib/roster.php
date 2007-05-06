@@ -99,7 +99,7 @@ class roster
 	 */
 	function load_config()
 	{
-		$query = "SELECT `config_name`, `config_value` FROM `" . ROSTER_CONFIGTABLE . "` ORDER BY `id` ASC;";
+		$query = "SELECT `config_name`, `config_value` FROM `" . $this->db->table('config') . "` ORDER BY `id` ASC;";
 		$results = $this->db->query($query);
 
 		if( !$results || $this->db->num_rows($results) == 0 )
@@ -191,9 +191,9 @@ class roster
 
 				// Get the data
 				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '.$this->config['localtimeoffset'].' HOUR ), "'.$this->locale->act['timeformat'].'" ) AS "update_format"'.
-					'FROM `'.ROSTER_PLAYERSTABLE.'` players '.
-					'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` members ON `players`.`member_id` = `members`.`member_id` '.
-					'LEFT JOIN `'.ROSTER_GUILDTABLE.'` guild ON `players`.`guild_id` = `guild`.`guild_id` '.
+					'FROM `'.$this->db->table('players').'` players '.
+					'LEFT JOIN `'.$this->db->table('members').'` members ON `players`.`member_id` = `members`.`member_id` '.
+					'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '.
 					'WHERE'.$where.';';
 
 				$result = $this->db->query($query);
@@ -218,7 +218,7 @@ class roster
 				$server_escape = $this->db->escape( $this->config['server_name'] );
 
 				$query = "SELECT * ".
-					"FROM `".ROSTER_GUILDTABLE."` ".
+					"FROM `".$this->db->table('guild')."` ".
 					"WHERE `guild_name` = '".$guild_escape."' ".
 						"AND `server` = '".$server_escape."';";
 
@@ -244,7 +244,7 @@ class roster
 				$server_escape = $this->db->escape( $this->config['server_name'] );
 
 				$query = "SELECT * ".
-					"FROM `".ROSTER_GUILDTABLE."` ".
+					"FROM `".$this->db->table('guild')."` ".
 					"WHERE `guild_name` = '".$guild_escape."' ".
 						"AND `server` = '".$server_escape."';";
 

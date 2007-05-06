@@ -107,7 +107,7 @@ function skill_get_many( $member_id )
 	{
 		$server = $roster->db->escape( $server );
 	}
-	$query= "SELECT * FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$member_id'";
+	$query= "SELECT * FROM `".$roster->db->table('skills')."` WHERE `member_id` = '$member_id'";
 
 	$result = $roster->db->query( $query );
 

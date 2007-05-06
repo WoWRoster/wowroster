@@ -80,7 +80,9 @@ function makelink( $url='' , $full=false )
 	global $roster;
 
 	if( empty($url) || $url[0] == '&' )
+	{
 		$url = ROSTER_PAGE_NAME.$url;
+	}
 
 	if( strpos($url, '&amp;') )
 	{
@@ -105,7 +107,9 @@ function makelink( $url='' , $full=false )
 
 
 	if( $full )
+	{
 		$url = ROSTER_URL."$url";
+	}
 
 	return $url;
 }

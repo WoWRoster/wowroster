@@ -1,5 +1,17 @@
-// $Id$
-// Table sorting engine. Originally by Stuard Langridge.
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Table sorting engine. Originally by Stuard Langridge.
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
+
 
 /**
  * Some global variables
@@ -206,17 +218,17 @@ function dosort(count,listname)
 			{
 				SORTERS[i] = ts_sort_numeric;
 			}
-			
+
 			// Descending sorts
 			if (cs.value.indexOf('desc') > -1) SORT_COLUMNS[i] = -SORT_COLUMNS[i];
 		}
 	}
-	
+
 	// Look up and store the data from the filter fields
 	for (var i=0;i<table.rows[0].cells.length-1;i++)
 	{
 		FILTER[i] = document.getElementById(listname +'_filter_'+(i+1));
-		
+
 		var itm = table.rows[0].cells[i].id;
 		if ((itm == 'name')
 			|| (itm == 'class')
@@ -236,7 +248,7 @@ function dosort(count,listname)
 			TYPES[i] = 'number';
 		}
 	}
-	
+
 	// Filter the rows, and add them to a storage array
 	var newRows = new Array();
 	for (var i=0;i<table.tBodies.length;i++)
@@ -298,7 +310,7 @@ function checkfilter(row)
 		{
 			continue;
 		}
-		
+
 		text = ts_getInnerText(row.cells[j]);
 		op = FILTER[j].value.substr(0,2);
 
@@ -310,7 +322,7 @@ function checkfilter(row)
 		else if( TYPES[j] == 'number' )
 		{
 			text = Number(text);
-			
+
 			if( op == '<=' || op == '=<' )
 			{
 				if (text > Number(FILTER[j].value.substr(2))) return false;
@@ -335,7 +347,7 @@ function checkfilter(row)
 		else if( TYPES[j] == 'date' )
 		{
 			text = Number(text);
-			
+
 			if( op == '<=' || op == '=<' )
 			{
 				if (text > Date.parse(FILTER[j].value.substr(2))) return false;
@@ -357,7 +369,7 @@ function checkfilter(row)
 				continue;
 			}
 		}
-		
+
 		if( row.cells[j].innerHTML.toLowerCase().indexOf(FILTER[j].value.toLowerCase()) == -1 )
 		{
 			return false;
@@ -492,7 +504,7 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 	{
 		element = document.getElementById(ElementID);
 		image = document.getElementById(ImgID);
-		
+
 		if(image.src.indexOf(ImgHide) >= 0)
 		{
 			element = element.firstChild;
@@ -539,7 +551,7 @@ function openAlts(listname, Img)
 			{
 				el.firstChild.src = Img;
 				el.firstChild.alt = '-';
-				
+
 				// Now hide the rows
 				for( j=1; j < table.tBodies[i].rows.length; j++ )
 				{
@@ -571,7 +583,7 @@ function closeAlts(listname, Img)
 			{
 				el.firstChild.src = Img;
 				el.firstChild.alt = '+';
-				
+
 				// Now hide the rows
 				for( j=1; j < table.tBodies[i].rows.length; j++ )
 				{

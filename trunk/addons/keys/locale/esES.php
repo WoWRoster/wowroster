@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 $lang['keys'] = 'Llaves';
 
@@ -22,6 +17,11 @@ $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
 $lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
 $lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
 $lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
+
+// language definitions for the rogue instance keys 'fix'
+$lang['thievestools']='Thieves\\\' Tools';
+$lang['lockpicking']='Lockpicking';
+
 
 /*
 Instance Keys

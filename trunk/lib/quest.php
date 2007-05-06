@@ -82,7 +82,7 @@ function quest_get_many( $member_id, $search )
 {
 	global $roster;
 
-	$query= "SELECT * FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` DESC";
+	$query= "SELECT * FROM `".$roster->db->table('quests')."` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` DESC";
 
 	$result = $roster->db->query( $query );
 

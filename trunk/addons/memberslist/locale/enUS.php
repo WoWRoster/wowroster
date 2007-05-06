@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 // -[ enUS Localization ]-
 
@@ -24,7 +19,7 @@ $lang['memberslist_Stats']		= 'Stats';
 $lang['memberslist_Honor']		= 'Honor';
 $lang['memberslist_Log']		= 'Member Log';
 
-// Index: Wrong $roster_pages[2]
+// Index: Wrong $roster->pages[2]
 $lang['memberslist_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';
 
 // Interface wordings
@@ -41,7 +36,7 @@ $lang['title']                  = 'Title';
 $lang['currenthonor']           = 'Current Honor Rank';
 $lang['professions']            = 'Professions';
 $lang['hearthed']               = 'Hearthed';
-$lang['zone']                   = 'Last Zone';
+$lang['lastzone']               = 'Last Zone';
 $lang['lastonline']             = 'Last Online';
 $lang['lastupdate']             = 'Last Updated';
 $lang['note']                   = 'Note';

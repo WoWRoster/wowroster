@@ -11,7 +11,6 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -93,12 +92,12 @@ else
 }
 
 $roster->output['body_attr'] = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+
 $body = $roster_login->getMessage()."<br />
 <form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."');submitonce(this);\">
 <input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
 	$body
 </form>";
-
 
 
 
@@ -126,8 +125,8 @@ function getCharData( )
 		"`members`.`pvp`, ".
 		"`members`.`duels`, ".
 		"`members`.`item_bonuses` ".
-		"FROM `".ROSTER_MEMBERSTABLE."` AS members ".
-		"INNER JOIN `".ROSTER_PLAYERSTABLE."` AS players ON `members`.`member_id` = `players`.`member_id` ".
+		"FROM `".$roster->db->table('members')."` AS members ".
+		"INNER JOIN `".$roster->db->table('players')."` AS players ON `members`.`member_id` = `players`.`member_id` ".
 		"ORDER BY `name` ASC;";
 
 	// Get the current config values
@@ -177,15 +176,14 @@ function processData( )
 
 			list($member_id,$settingName) = explode(':',$settingName);
 
-			$get_val = "SELECT `$settingName` FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` = '$member_id';";
-			$result = $roster->db->query($get_val)
-				or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
+			$get_val = "SELECT `$settingName` FROM `".$roster->db->table('members')."` WHERE `member_id` = '$member_id';";
+			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
 
 			$config = $roster->db->fetch($result);
 
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
-				$update_sql[] = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `$settingName` = '".$roster->db->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
+				$update_sql[] = "UPDATE `".$roster->db->table('members')."` SET `$settingName` = '".$roster->db->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
 			}
 		}
 	}
@@ -195,8 +193,6 @@ function processData( )
 	{
 		foreach( $update_sql as $sql )
 		{
-			$queries[] = $sql;
-
 			$result = $roster->db->query($sql);
 			if( !$result )
 			{
@@ -210,4 +206,3 @@ function processData( )
 		return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
 	}
 }
-

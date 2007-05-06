@@ -1,3 +1,16 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Overlib tooltip JS library
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 //\/////
 //\  overLIB 4.21 - You may not remove or change this notice.
 //\  Copyright Erik Bosrup 1998-2004. All rights reserved.
@@ -9,7 +22,7 @@
 //\  Please read the license agreement (available through the link above)
 //\  before using overLIB. Direct any licensing questions to erik@bosrup.com.
 //\
-//\  Do not sell this as your own work or remove this copyright notice. 
+//\  Do not sell this as your own work or remove this copyright notice.
 //\  For full details on copying or changing this script please read the
 //\  license agreement at the link above. Please give credit on sites that
 //\  use overLIB and submit changes of the script so other people can use
