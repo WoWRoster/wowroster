@@ -42,7 +42,7 @@ class config
 	{
 		global $roster_login, $roster;
 
-		$body_action = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+		$roster->output['body_attr'] = 'onload="initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 		$this->tablename = $tablename;
 		$this->form_start = $roster_login->getMessage()."<br /><form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
@@ -547,7 +547,7 @@ class config
 					$this->db_values[$setitem][$arrayitem]['tooltip'] = $db_val_line;
 				}
 			}
-			
+
 			$roster->db->free_result($results);
 
 			return;

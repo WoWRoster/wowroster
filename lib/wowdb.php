@@ -16,57 +16,13 @@
 
 class wowdb
 {
-	var $db;			// Database resource id
 	var $db_prefix;
 	var $assignstr;		// Data to be inserted/updated to the db
-	var $sqldebug;		//
-	var $sqlstrings;	// Array of SQL strings passed to query()
 	var $messages;		// Array of stored messages
 	var $errors;		// Array of stored error messages
 	var $membersadded=0;
 	var $membersupdated=0;
 	var $membersremoved=0;
-
-
-	/**
-	 * Connect to the database, and select it if $name is provided
-	 *
-	 * @param string $host MySQL server host name
-	 * @param string $user MySQL server user name
-	 * @param string $password MySQL server user password
-	 * @param string $name MySQL server database name to select
-	 * @param string $db_prefix MySQL table prefix
-	 * @return bool
-	 */
-	function connect( $host, $user, $password, $name=null, $db_prefix='' )
-	{
-		$this->db = @mysql_connect($host, $user, $password);
-		$this->db_prefix = $db_prefix;
-
-		if( $this->db )
-		{
-			if ( !is_null($name) )
-			{
-				$db_selected = @mysql_select_db( $name,$this->db );
-				if( $db_selected )
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return true;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
 
 
 	/**
@@ -77,10 +33,9 @@ class wowdb
 	 */
 	function query( $querystr )
 	{
-		$this->sqlstrings[] = $querystr;
+		global $roster;
 
-		$result = @mysql_query($querystr,$this->db);
-		return $result;
+		return $roster->db->query($querystr);
 	}
 
 
@@ -91,8 +46,9 @@ class wowdb
 	 */
 	function error()
 	{
-		$result = @mysql_errno($this->db).': '.mysql_error($this->db);
-		return $result;
+		global $roster;
+
+		return $roster->db->error();
 	}
 
 	/**
@@ -102,28 +58,9 @@ class wowdb
 	 */
 	function errno()
 	{
-		$result = @mysql_errno($this->db);
-		return $result;
-	}
-
-	/**
-	 * Front-end for SQL_fetch_assoc
-	 *
-	 * @param int $result handle
-	 * @return array current db row
-	 */
-	function getrow( $result )
-	{
 		global $roster;
 
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return mysql_fetch_assoc( $result );
+		return $roster->db->errno();
 	}
 
 
@@ -137,14 +74,7 @@ class wowdb
 	{
 		global $roster;
 
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return mysql_fetch_assoc( $result );
+		return $roster->db->fetch($result,0,MYSQL_ASSOC);
 	}
 
 
@@ -158,35 +88,7 @@ class wowdb
 	{
 		global $roster;
 
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return mysql_fetch_array( $result );
-	}
-
-
-	/**
-	 * Front-end for SQL_fetch_row
-	 *
-	 * @param int $result handle
-	 * @return array current db row
-	 */
-	function fetch_row( $result )
-	{
-		global $roster;
-
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return mysql_fetch_row( $result );
+		return $roster->db->fetch($result,0,MYSQL_NUM);
 	}
 
 
@@ -200,14 +102,7 @@ class wowdb
 	{
 		global $roster;
 
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return mysql_num_rows( $result );
+		return $roster->db->num_rows($result);
 	}
 
 
@@ -219,44 +114,9 @@ class wowdb
 	 */
 	function escape( $string )
 	{
-		if( version_compare( phpversion(), '4.3.0', '>' ) )
-			return mysql_real_escape_string( $string );
-		else
-			return mysql_escape_string( $string );
-	}
-
-
-	/**
-	 * Closes the DB connection
-	 *
-	 * @return unknown
-	 */
-	function closeDb()
-	{
-		// Closing connection
-		if( is_resource($this->db) )
-			return @mysql_close($this->db);
-	}
-
-
-	/**
-	 * Frees SQL result memory
-	 *
-	 * @param int $query_id handle
-	 */
-	function closeQuery($query_id)
-	{
 		global $roster;
 
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$query_id && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		// Free resultset
-		return @mysql_free_result($query_id);
+		return $roster->db->escape($string);
 	}
 
 
@@ -269,48 +129,7 @@ class wowdb
 	{
 		global $roster;
 
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$query_id && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		// Free resultset
-		return @mysql_free_result($query_id);
-	}
-
-
-	/**
-	 * Returns number of rows affected by an INSERT, UPDATE, or DELETE operation
-	 *
-	 * @param int $query_id handle
-	 */
-	function affected_rows()
-	{
-		return @mysql_affected_rows($this->db);
-	}
-
-
-	/**
-	 * Move result pointer
-	 *
-	 * @param int $result handle
-	 * @param int $num row number
-	 * @return bool
-	 */
-	function data_seek($result,$num)
-	{
-		global $roster;
-
-		// die quietly if debugging is on and we've got an invalid result. The page may
-		// render correctly with just an error printed, so if debugging is off we don't die.
-		if (!$result && $roster->config['debug_mode'])
-		{
-			die_quietly('Invalid query result passed','Roster DB Layer');
-		}
-
-		return @mysql_data_seek($result, $num);
+		return $roster->db->free_result($query_id);
 	}
 
 
@@ -321,39 +140,11 @@ class wowdb
 	 */
 	function insert_id()
 	{
-		return @mysql_insert_id($this->db);
+		global $roster;
+
+		return $roster->db->insert_id();
 	}
 
-
-	/**
-	 * Sets the SQL Debug output flag
-	 *
-	 * @param bool $sqldebug
-	 */
-	function setSQLDebug($sqldebug)
-	{
-		$this->sqldebug = $sqldebug;
-	}
-
-
-	/**
-	 * Returns all messages
-	 *
-	 * @return string
-	 */
-	function getSQLStrings()
-	{
-		$sqlstrings = $this->sqlstrings;
-		$output = '';
-		if( is_array($sqlstrings) )
-		{
-			foreach($sqlstrings as $sql)
-			{
-				$output .= "$sql\n";
-			}
-		}
-		return $output;
-	}
 
 
 	/**
@@ -605,7 +396,7 @@ class wowdb
 		$this->add_value('item_texture', $item['item_texture'] );
 		$this->add_value('item_tooltip', $item['item_tooltip'] );
 
-		if( preg_match($roster->locale[$locale]['requires_level'],$item['item_tooltip'],$level))
+		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
@@ -698,7 +489,7 @@ class wowdb
 
 		$this->add_value('recipe_tooltip', $recipe['recipe_tooltip'] );
 
-		if( preg_match($roster->locale[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
+		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
 		$querystr = "INSERT INTO `".ROSTER_RECIPESTABLE."` SET ".$this->assignstr;
@@ -1579,7 +1370,7 @@ class wowdb
 					$result = $this->query($querystr);
 					if( !$result )
 					{
-						$this->setError('Spell ['.$spell_name.'] could not be inserted',$this->error());
+						$this->setError('Spell ['.$spell.'] could not be inserted',$this->error());
 					}
 				}
 			}

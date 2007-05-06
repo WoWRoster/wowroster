@@ -202,7 +202,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	$GLOBALS['die_data'] = func_get_args();
 
-	$header_title = $title;
+	$roster->output['title'] = $title;
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
@@ -430,7 +430,7 @@ function check_if_image( $imagefilename )
  * @param string $caption_color | (optional) Color for the caption
  * Default is 'ffffff' - white
  * @param string $locale | (optional) Locale so color parser can work correctly
- * Default is $roster->config['roster_lang']
+ * Default is $roster->config['locale']
  * @param bool $inline_caption | (optional)
  * Default is true
  * @return string | Formatted tooltip
@@ -442,7 +442,7 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 	// Use main locale if one is not specified
 	if( $locale == '' )
 	{
-		$locale = $roster->config['roster_lang'];
+		$locale = $roster->config['locale'];
 	}
 
 	// Detect caption mode and display accordingly
@@ -645,7 +645,7 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  * Default 0 (colorize)
  * @param string $locale | Locale so color parser can work correctly
  * Only needed when $colorize is true
- * Default is $roster->config['roster_lang']
+ * Default is $roster->config['locale']
  * @param string $extra_parameters | (optional) Extra OverLib parameters you wish to pass
  * @return unknown
  */
@@ -658,7 +658,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 	// Use main locale if one is not specified
 	if( $locale == '' )
 	{
-		$locale = $roster->config['roster_lang'];
+		$locale = $roster->config['locale'];
 	}
 
 	// Detect caption text and display accordingly
@@ -720,9 +720,7 @@ function messagebox( $message , $title='Message' , $style='sgray' )
 {
 	return
 		border($style, 'start', $title).
-		'<div align="center" style="background-color:#1F1E1D;">'.
 			$message.
-		'</div>'.
 		border($style, 'end');
 }
 
@@ -740,7 +738,7 @@ function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px
 {
 	return
 		border($style,'start',$title).
-		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:' . $height . ';width:' . $width . ';overflow:auto;">'.
+		'<div style="height:' . $height . ';width:' . $width . ';overflow:auto;">'.
 			$message.
 		'</div>'.
 		border($style,'end');
@@ -770,7 +768,7 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 
 	return
 		border($style, 'start', $title).
-		'<div style="display:' . (($open)?'inline':'none') . ';background-color:#1F1E1D;" id="msgbox_' . $toggleboxes . '">'.
+		'<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'.
 			$message.
 		'</div>'.
 		border($style, 'end');
@@ -797,7 +795,7 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 
 	return
 		border($style,'start',$title).
-		'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:' . $height . ';width:' . $width . ';overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
+		'<div style="height:' . $height . ';width:' . $width . ';overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
 			$message.
 		'</div>'.
 		border($style,'end');

@@ -67,7 +67,7 @@ else
 
 
 // Set <html><title> and <form action=""> and $char_url
-$header_title = sprintf($act_words['char_stats'],$name,$server);
+$roster->output['title'] = sprintf($act_words['char_stats'],$name,$server);
 $char_url = '&amp;member='.$char->get('member_id');
 $char_url_old = '&amp;member='.$char->get('name').'@'.$char->get('server');
 

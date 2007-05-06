@@ -92,7 +92,7 @@ class memberslist
 	 */
 	function prepareData($query, $fields, $listname)
 	{
-		global $roster, $wowdb;
+		global $roster;
 
 		// Save some info
 		$this->listname = $listname;
@@ -106,13 +106,13 @@ class memberslist
 
 		// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
 		$rowsqry = 'SELECT COUNT(*) '.substr($query, strpos($query,'FROM')).'1';
-		$result = $wowdb->query($rowsqry);
+		$result = $roster->db->query($rowsqry);
 		if( !$result )
 		{
-			die_quietly($wowdb->error(),'Database error',basename(__FILE__),__LINE__,$rowsqry);
+			die_quietly($roster->db->error(),'Database error',basename(__FILE__),__LINE__,$rowsqry);
 		}
 
-		$row = $wowdb->fetch_row($result);
+		$row = $roster->db->fetch($result);
 		$num_rows = $row[0];
 
 		// --[ Page list ]--
@@ -305,7 +305,7 @@ class memberslist
 	 */
 	function makeFilterBox()
 	{
-		global $roster, $wowdb;
+		global $roster;
 
 		if( $this->addon['config']['nojs'] )
 		{
@@ -395,21 +395,21 @@ class memberslist
 	 */
 	function makeMembersList()
 	{
-		global $roster, $wowdb;
+		global $roster;
 
 		$cols = count( $this->fields );
 
 		$output  = "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n".$this->tableHeaderRow;
 
-		$result = $wowdb->query( $this->query );
+		$result = $roster->db->query( $this->query );
 
 		if ( !$result )
 		{
-			die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
+			die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
 		}
 
 		// --[ Actual list ]--
-		while ( $row = $wowdb->fetch_assoc( $result ) )
+		while ( $row = $roster->db->fetch( $result ) )
 		{
 			$line = '';
 			$current_col = 1;
@@ -580,9 +580,9 @@ class memberslist
 			$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
 
-			if( active_addon('char') && $row['server'] )
+			if( active_addon('info') && $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-info&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
 			else
 			{
@@ -617,9 +617,9 @@ class memberslist
 			// Class Icon
 			if( $this->addon['config']['class_icon'] == 1 )
 			{
-				foreach ($roster->config['multilanguages'] as $language)
+				foreach ($roster->multilanguages as $language)
 				{
-					$icon_name = isset($roster->locale[$language]['class_iconArray'][$row['class']]) ? $roster->locale[$language]['class_iconArray'][$row['class']] : '';
+					$icon_name = isset($roster->locale->wordings[$language]['class_iconArray'][$row['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row['class']] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
 				$icon_name = 'Interface/Icons/'.$icon_name;
@@ -634,12 +634,12 @@ class memberslist
 			// Class name coloring
 			if ( $this->addon['config']['class_color'] == 1 )
 			{
-				foreach( $roster->config['multilanguages'] as $language )
+				foreach( $roster->multilanguages as $language )
 				{
-					$class_color = array_search($row['class'],$roster->locale[$language]);
+					$class_color = array_search($row['class'],$roster->locale->wordings[$language]);
 					if( strlen($class_color) > 0 )
 					{
-						$class_color = $roster->locale['enUS'][$class_color];
+						$class_color = $roster->locale->wordings['enUS'][$class_color];
 						break;
 					}
 				}
@@ -668,7 +668,7 @@ class memberslist
 	 */
 	function level_value ( $row, $field )
 	{
-		global $roster, $wowdb;
+		global $roster;
 
 		$tooltip = '';
 		// Configurlate exp is player has it

@@ -36,7 +36,7 @@ require_once ($addon['dir'] . 'inc/char.lib.php');
 $char = new char($char_data);
 
 // Set <html><title> and <form action=""> and $char_url
-$header_title = sprintf($roster->locale->act['char_stats'],$char->get('name'),$char->get('server'));
+$roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'),$char->get('server'));
 $char_url = '&amp;member='.$char->get('member_id');
 $char_url_old = '&amp;member='.$char->get('name').'@'.$char->get('server');
 

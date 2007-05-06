@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $roster->locale->act['search'];
+$roster->output['title'] = $roster->locale->act['search'];
 
 require_once ROSTER_LIB . 'item.php';
 require_once ROSTER_LIB . 'recipes.php';
@@ -63,7 +63,7 @@ if( empty($searchname) && empty($searchtooltip) )
 	$searchname = '1';
 }
 
-$body_action = 'onload="initARC(\'searchform\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
+$roster->output['body_attr'] = 'onload="initARC(\'searchform\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 $input_form = '<form id="searchform" action="' . makelink() . '" method="get">
 ' . linkform() . '
@@ -83,7 +83,7 @@ $output .= messagebox($input_form,$roster->locale->act['find'],'sgreen');
 
 if( !empty($search) )
 {
-	$search = $wowdb->escape($search);
+	$search = $roster->db->escape($search);
 
 	// Set a ank for link to top of page
 	$output .= '<a name="top">&nbsp;</a>
@@ -111,21 +111,21 @@ if( !empty($search) )
 	       . " FROM `" . ROSTER_ITEMSTABLE . "` AS i,`" . ROSTER_PLAYERSTABLE . "` AS p"
 	       . " WHERE `i`.`member_id` = `p`.`member_id` AND $searchstring"
 	       . " ORDER BY `p`.`name` ASC;";
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 
 	if (!$result)
 	{
-		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br />' . $wowdb->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
+		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
 	}
 
-	if( $wowdb->num_rows($result) != 0 )
+	if( $roster->db->num_rows($result) != 0 )
 	{
 		$cid = '';
 		$rc = 0;
-		while( $data = $wowdb->fetch_assoc($result) )
+		while( $data = $roster->db->fetch($result) )
 		{
 			$row_st = (($rc%2)+1);
-			$char_url = ( active_addon('char') ? '<a href="' . makelink('char&amp;member=' . $data['member_id']) . '">' . $data['name'] . '</a>' : $data['name'] );
+			$char_url = ( active_addon('info') ? '<a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '">' . $data['name'] . '</a>' : $data['name'] );
 
 			if( $cid != $data['member_id'] )
 			{
@@ -189,23 +189,23 @@ if( !empty($search) )
 	       . " FROM `" . ROSTER_RECIPESTABLE . "` AS r,`" . ROSTER_PLAYERSTABLE . "` AS p"
 	       . " WHERE `r`.`member_id` = `p`.`member_id` AND $searchstring"
 	       . " ORDER BY `p`.`name` ASC, `r`.`recipe_name` ASC;";
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 
 	if( !$result )
 	{
-		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br />' . $wowdb->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
+		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
 	}
 
-	if( $wowdb->num_rows($result) != 0 )
+	if( $roster->db->num_rows($result) != 0 )
 	{
 		$cid = '';
 
 		$rc = 0;
-		while( $data = $wowdb->fetch_assoc( $result ) )
+		while( $data = $roster->db->fetch( $result ) )
 		{
 			$row_st = (($rc%2)+1);
 
-			$char_url = ( active_addon('char') ? '<a href="' . makelink('char-recipes&amp;member=' . $data['member_id']) . '">' . $data['name'] . '</a>' : $data['name'] );
+			$char_url = ( active_addon('info') ? '<a href="' . makelink('char-info-recipes&amp;member=' . $data['member_id']) . '">' . $data['name'] . '</a>' : $data['name'] );
 			if( $cid != $data['member_id'] )
 			{
 				if( $cid != '' )

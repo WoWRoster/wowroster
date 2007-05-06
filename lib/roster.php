@@ -61,7 +61,7 @@ class roster
 		// --[ Get the config file for the DB info. ]--
 		if( !file_exists(ROSTER_CONF_FILE) )
 		{
-		    die("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
+			header('Location: install.php');
 		}
 		else
 		{
@@ -70,7 +70,7 @@ class roster
 
 		if( !defined('ROSTER_INSTALLED') )
 		{
-		    die("<center>Roster is not installed<br />\n<a href=\"install.php\">INSTALL</a></center>");
+			header('Location: install.php');
 		}
 
 /*		switch ( $this->config['dbtype'] )
@@ -83,7 +83,7 @@ class roster
 				include_once(UA_INCLUDEDIR . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 		}*/
-		
+
 		include_once(ROSTER_LIB.'dbal'.DIR_SEP.'mysql.php');
 
 		$this->db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
@@ -91,8 +91,9 @@ class roster
 		if ( !$this->db->link_id )
 		{
 			die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$this->db->connect_error());
-		}	}
-	
+		}
+	}
+
 	/**
 	 * Load the config
 	 */
@@ -112,7 +113,7 @@ class roster
 		}
 		$this->db->free_result($results);
 	}
-	
+
 	/**
 	 * Figure out the page to load, and put it in $this->pages and ROSTER_PAGE_NAME
 	 */
@@ -150,14 +151,14 @@ class roster
 		define('ROSTER_PAGE_NAME', $page);
 
 		$this->pages = explode('-', $page);
-		
+
 		// --[ We only accept certain characters in our page ]--
 		if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 		{
 			roster_die($this->locale->act['invalid_char_module'],$this->locale->act['roster_error']);
 		}
 	}
-	
+
 	/**
 	 * Get the data for the current scope and assign it to $this->data
 	 */
@@ -187,28 +188,28 @@ class roster
 				{
 					$where = ' `players`.`name` = "'.$_GET['member'].'" AND `players`.`server` = "'.$this->config['server_name'].'"';
 				}
-				
+
 				// Get the data
 				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '.$this->config['localtimeoffset'].' HOUR ), "'.$this->locale->act['timeformat'].'" ) AS "update_format"'.
 					'FROM `'.ROSTER_PLAYERSTABLE.'` players '.
 					'LEFT JOIN `'.ROSTER_MEMBERSTABLE.'` members ON `players`.`member_id` = `members`.`member_id` '.
 					'LEFT JOIN `'.ROSTER_GUILDTABLE.'` guild ON `players`.`guild_id` = `guild`.`guild_id` '.
 					'WHERE'.$where.';';
-				
+
 				$result = $this->db->query($query);
-				
+
 				if( !$result )
 				{
 					die_quietly($this->db->error(),'Database error',basename(__FILE__),__LINE__,$query);
 				}
-				
+
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
 					message_die('This member is not in the database',$this->locale->act['roster_error']);
 				}
-				
+
 				$this->db->free_result($result);
-				
+
 				break;
 			case 'guild':
 				// If we ever go multiguild in 1x, we need to check the guild=
@@ -220,12 +221,12 @@ class roster
 					"FROM `".ROSTER_GUILDTABLE."` ".
 					"WHERE `guild_name` = '".$guild_escape."' ".
 						"AND `server` = '".$server_escape."';";
-						
+
 				$result = $this->db->query($query);
-				
+
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$query);
 				}
 
 				if(!( $this->data = $this->db->fetch($result)) )
@@ -246,12 +247,12 @@ class roster
 					"FROM `".ROSTER_GUILDTABLE."` ".
 					"WHERE `guild_name` = '".$guild_escape."' ".
 						"AND `server` = '".$server_escape."';";
-						
+
 				$result = $this->db->query($query);
-				
+
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$query);
 				}
 
 				$this->data = $this->db->fetch($result);
@@ -259,7 +260,7 @@ class roster
 				$this->db->free_result($result);
 		}
 	}
-	
+
 	/**
 	 * Fetch all addon data. We need to cache the active status for addon_active()
 	 * and fetching everything isn't much slower and saves extra fetches later on.

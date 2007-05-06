@@ -32,7 +32,7 @@ class item
 	{
 		global $roster, $tooltips;
 
-		$lang = ( isset($this->data['clientLocale']) ? $this->data['clientLocale'] : $roster->config['roster_lang']);
+		$lang = ( isset($this->data['clientLocale']) ? $this->data['clientLocale'] : $roster->config['locale']);
 
 		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'];
 
@@ -41,12 +41,12 @@ class item
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $roster->locale[$lang]['itemlinks'] as $key => $ilink )
+		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$roster->locale[$lang]['itemlink']);
+		setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
@@ -70,13 +70,13 @@ class item
 
 function item_get_one( $member_id , $slot )
 {
-	global $wowdb;
+	global $roster;
 
-	$slot = $wowdb->escape( $slot );
+	$slot = $roster->db->escape( $slot );
 	$query = "SELECT `i`.*, `p`.`clientLocale` FROM `".ROSTER_ITEMSTABLE."` AS i, `".ROSTER_PLAYERSTABLE."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_slot` = '$slot';";
 
-	$result = $wowdb->query( $query );
-	$data = $wowdb->fetch_assoc( $result );
+	$result = $roster->db->query( $query );
+	$data = $roster->db->fetch( $result );
 	if( $data )
 		return new item( $data );
 	else
@@ -86,15 +86,15 @@ function item_get_one( $member_id , $slot )
 
 function item_get_many( $member_id , $parent )
 {
-	global $wowdb;
+	global $roster;
 
-	$parent = $wowdb->escape( $parent );
+	$parent = $roster->db->escape( $parent );
 	$query= "SELECT `i`.*, `p`.`clientLocale` FROM `".ROSTER_ITEMSTABLE."` AS i, `".ROSTER_PLAYERSTABLE."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_parent` = '$parent';";
 
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 
 	$items = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$item = new item( $data );
 		$items[$data['item_slot']] = $item;

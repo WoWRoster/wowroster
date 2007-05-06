@@ -27,14 +27,14 @@ define('IN_SORTMEMBER',true);
 $guild = $GLOBALS['guild_info'];
 
 $query = "SELECT `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".ROSTER_MEMBERSTABLE."` as members";
-$result = $wowdb->query( $query ) or die_quietly( $wowdb->error() );
+$result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
 
-while( $row = $wowdb->fetch_array($result))
+while( $row = $roster->db->fetch($result))
 {
 	$guild['Members'][$row['Name']] = $row;
 }
 
-$wowdb->free_result($result);
+$roster->db->free_result($result);
 
 
 // Start the actual update process

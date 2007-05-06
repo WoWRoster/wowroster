@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $roster->locale->act['madeby'];
+$roster->output['title'] = $roster->locale->act['madeby'];
 
 require_once(ROSTER_LIB.'recipes.php');
 
@@ -36,7 +36,7 @@ $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 		AND `skill_name` != '".$roster->locale->act['Mining']."'
 	ORDER BY `skill_name`;";
 
-$result_prof = $wowdb->query($qry_prof) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_prof);
+$result_prof = $roster->db->query($qry_prof) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_prof);
 
 
 $choiceForm = '<form action="'.makelink().'" method="get" name="myform">
@@ -47,7 +47,7 @@ $choiceForm = '<form action="'.makelink().'" method="get" name="myform">
 			<td class="membersRow1">'.$roster->locale->act['professionfilter'].'
 				<select name="proffilter">';
 
-while($row_prof = $wowdb->fetch_array($result_prof))
+while($row_prof = $roster->db->fetch($result_prof))
 {
 	if ($prof_filter==$row_prof['proff'])
 		$choiceForm .= '					<option value="'.$row_prof['proff'].'" selected="selected">'.$row_prof['proff'].'</option>';
@@ -56,7 +56,7 @@ while($row_prof = $wowdb->fetch_array($result_prof))
 }
 
 
-$wowdb->free_result($result_prof);
+$roster->db->free_result($result_prof);
 
 
 $choiceForm .= '				</select></td>
@@ -97,12 +97,12 @@ if (!empty($prof_filter))
 			ORDER BY `r`.`recipe_type` ASC';
 
 		$content .= ("<!--$qry_recipe_type -->\n");
-		$result_recipe_type = $wowdb->query($qry_recipe_type) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_recipe_type);
+		$result_recipe_type = $roster->db->query($qry_recipe_type) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_recipe_type);
 		if ($roster->config['sqldebug'])
 		{
 			$content .= ("<!--$qry_recipe_type -->\n");
 		}
-		while($row_recipe_type = $wowdb->fetch_array($result_recipe_type))
+		while($row_recipe_type = $roster->db->fetch($result_recipe_type))
 		{
 			$content .=  '<a href="#'.str_replace(' ','_',$row_recipe_type['recipe_type']).'">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
 		}
@@ -155,17 +155,17 @@ if (!empty($prof_filter))
 
 				$content .=  '</tr>';
 			}
-			// while($row_main = $wowdb->fetch_array($result_main)){
+			// while($row_main = $roster->db->fetch($result_main)){
 			$qry_users = "SELECT `c`.`name`, `c`.`member_id`,`r`.`difficulty`, `s`.`skill_level` ".
 				"FROM `".ROSTER_PLAYERSTABLE."` c ".
 				"INNER JOIN `".ROSTER_RECIPESTABLE."` r ON `r`.`member_id` = `c`.`member_id` ".
 				"INNER JOIN `".ROSTER_SKILLSTABLE."` s ON `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
 				"WHERE `recipe_name` = '".addslashes($recipe->data['recipe_name'])."' ORDER BY `c`.`name`;";
 
-			$result_users = $wowdb->query($qry_users) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qry_users);
+			$result_users = $roster->db->query($qry_users) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_users);
 			$users = '';
 			$break_counter = 0;
-			while($row_users = $wowdb->fetch_array($result_users))
+			while($row_users = $roster->db->fetch($result_users))
 			{
 				if ($break_counter == $addon['config']['display_makers_count'])
 				{
@@ -179,15 +179,15 @@ if (!empty($prof_filter))
 
 				if (substr($row_users['skill_level'],0,strpos($row_users['skill_level'],':')) < 300)
 				{
-					$users .= '<span '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'">'.( active_addon('char') ? '<a href="'.makelink('char-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>' : $row_users['name'] ).'</span>'."\n";
+					$users .= '<span '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_'.$row_users['difficulty'].'">'.( active_addon('info') ? '<a href="'.makelink('char-info-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>' : $row_users['name'] ).'</span>'."\n";
 				}
 				else
 				{
-					$users .= '<span '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1">'.( active_addon('char') ? '<a href="'.makelink('char-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>' : $row_users['name'] ).'</span>'."\n";
+					$users .= '<span '.makeOverlib($row_users['skill_level'],'','',2,'',',WRAP').' class="difficulty_1">'.( active_addon('info') ? '<a href="'.makelink('char-info-recipes&amp;member='.$row_users['member_id']).'">'.$row_users['name'].'</a>' : $row_users['name'] ).'</span>'."\n";
 				}
 				$break_counter++;
 			}
-			$wowdb->free_result($result_users);
+			$roster->db->free_result($result_users);
 
 			$users = rtrim($users,', ');
 

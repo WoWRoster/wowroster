@@ -199,7 +199,7 @@ class Template_Wrap
 
 	function page_tail()
 	{
-	    global $wowdb;
+	    global $db;
 
 	    $this->assign_var('S_SHOW_BUTTON', true);
 
@@ -217,9 +217,9 @@ class Template_Wrap
 
 	    $this->assign_var('ROSTER_VERSION', ROSTER_VERSION);
 
-	    if ( is_object($wowdb) )
+	    if ( is_object($db) )
 	    {
-	        $wowdb->closeDb();
+	        $db->close_db();
 	    }
 
 	    $this->display('body');

@@ -33,7 +33,7 @@ class recipe
 		global $roster, $char, $tooltips;
 
 		if( !is_object($char) )
-			$lang = $roster->config['roster_lang'];
+			$lang = $roster->config['locale'];
 		else
 			$lang = $char->data['clientLocale'];
 
@@ -42,12 +42,12 @@ class recipe
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $roster->locale[$lang]['itemlinks'] as $key => $ilink )
+		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$roster->locale[$lang]['itemlink']);
+		setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
@@ -64,11 +64,11 @@ class recipe
 
 function recipe_get_many( $member_id, $search, $sort )
 {
-	global $wowdb;
+	global $roster;
 	if (isset($char))
-		$char = $wowdb->escape( $char );
+		$char = $roster->db->escape( $char );
 	if (isset($server))
-		$server = $wowdb->escape( $server );
+		$server = $roster->db->escape( $server );
 
 	$query= "SELECT * FROM `".ROSTER_RECIPESTABLE."` where `member_id` = '$member_id'";
 
@@ -107,9 +107,9 @@ function recipe_get_many( $member_id, $search, $sort )
 			break;
 	}
 
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 	$recipes = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$recipe = new recipe( $data );
 		$recipes[] = $recipe;
@@ -120,11 +120,11 @@ function recipe_get_many( $member_id, $search, $sort )
 
 function recipe_get_all( $skill_name, $search, $sort )
 {
-	global $wowdb;
+	global $roster;
 
 	if (isset($server))
 	{
-		$server = $wowdb->escape( $server );
+		$server = $roster->db->escape( $server );
 	}
 
 	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".ROSTER_RECIPESTABLE."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
@@ -157,10 +157,10 @@ function recipe_get_all( $skill_name, $search, $sort )
 			break;
 	}
 
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 //	echo '--'.$query.'--';
 	$recipes = array();
-	while( $data = $wowdb->fetch_assoc( $result ) ) {
+	while( $data = $roster->db->fetch( $result ) ) {
 		$recipe = new recipe( $data );
 		$recipes[] = $recipe;
 	}

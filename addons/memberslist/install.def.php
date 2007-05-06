@@ -40,7 +40,7 @@ class memberslist
 
 	function install()
 	{
-		global $installer, $wowdb;
+		global $installer;
 
 		# Master data for the config file
 		$installer->add_config("1,'startpage','display','display','master'");

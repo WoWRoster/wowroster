@@ -65,31 +65,31 @@ class reputation
 
 		switch ( $this->data['Standing'] )
 		{
-		case ($roster->locale[$lang]['hated']):
+		case ($roster->locale->wordings[$lang]['hated']):
 			$RepBarImg = $roster->config['img_url'].'barbit_r.gif';
 			$width = intval((($level+26000)/23000) * 354);
 			break;
-		case ($roster->locale[$lang]['hostile']):
+		case ($roster->locale->wordings[$lang]['hostile']):
 			$RepBarImg = $roster->config['img_url'].'barbit_r.gif';
 			$width = intval((($level+6000)/3000) * 354);
 			break;
-		case ($roster->locale[$lang]['neutral']):
+		case ($roster->locale->wordings[$lang]['neutral']):
 			$RepBarImg = $roster->config['img_url'].'barbit_y.gif';
 			break;
-		case ($roster->locale[$lang]['unfriendly']):
+		case ($roster->locale->wordings[$lang]['unfriendly']):
 			$RepBarImg = $roster->config['img_url'].'barbit_o.gif';
 			$width = intval(($level/-3000) * 354);
 			break;
-		case ($roster->locale[$lang]['honored']):
+		case ($roster->locale->wordings[$lang]['honored']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
-		case ($roster->locale[$lang]['friendly']):
+		case ($roster->locale->wordings[$lang]['friendly']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
-		case ($roster->locale[$lang]['exalted']):
+		case ($roster->locale->wordings[$lang]['exalted']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
-		case ($roster->locale[$lang]['revered']):
+		case ($roster->locale->wordings[$lang]['revered']):
 			$RepBarImg = $roster->config['img_url'].'barbit_g.gif';
 			break;
 		}
@@ -124,7 +124,7 @@ class reputation
 
 		if ($this->data['AtWar'] == 1 )
 		{
-			$output .= '              <span class="war">'.$roster->locale[$lang]['atwar'].'</span>';
+			$output .= '              <span class="war">'.$roster->locale->wordings[$lang]['atwar'].'</span>';
 		}
 
 		$output .= "\n            </div>\n          </div>";
@@ -136,12 +136,12 @@ class reputation
 
 function get_reputation( $member_id )
 {
-	global $wowdb;
+	global $roster;
 
 	$query= "SELECT * FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
-	$result = $wowdb->query( $query );
+	$result = $roster->db->query( $query );
 	$reputations = array();
-	while( $data = $wowdb->fetch_assoc( $result ) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
 		$reputation = new reputation( $data );
 		$reputations[] = $reputation;

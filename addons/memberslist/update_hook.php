@@ -43,7 +43,7 @@ class memberslist
 	 */
 	function memberslist($data)
 	{
-		global $wowdb;
+		global $roster;
 
 		$this->data = $data;
 		$addon = $this->data;
@@ -69,7 +69,7 @@ class memberslist
 	 */
 	function guild($char, $member_id)
 	{
-		global $wowdb, $roster;
+		global $roster;
 
 		// --[ Check if this update type is enabled ]--
 		if( !( $this->data['config']['update_type'] & 1 ) )
@@ -85,7 +85,7 @@ class memberslist
 					"ON `alt`.`member_id` = `member`.`member_id` ".
 			"WHERE `member`.`member_id` = '".$member_id."';";
 
-		$result = $wowdb->query( $query );
+		$result = $roster->db->query( $query );
 
 		if ( !$result )
 		{
@@ -93,22 +93,22 @@ class memberslist
 			return false;
 		}
 
-		if ( $row = $wowdb->fetch_array( $result )) {
+		if ( $row = $roster->db->fetch( $result )) {
 			// Check manual record
 			if ( $row['alt_type'] & 0x8 ) {
-				$wowdb->free_result( $result );
+				$roster->db->free_result( $result );
 				$this->messages .= " - <span style='color:yellow;'>Manual entry</span><br/>\n";
 				return true;
 			}
 			else
 			{
-				$wowdb->free_result( $result );
+				$roster->db->free_result( $result );
 				$member_name = $row['name'];
 			}
 		}
 		else
 		{
-			$wowdb->free_result( $result );
+			$roster->db->free_result( $result );
 			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'</span><br/>'."\n";
 			return false;
 		}
@@ -149,7 +149,7 @@ class memberslist
 				" FROM `".ROSTER_ALT_TABLE."` as `alts`".
 				" WHERE `alts`.`main_id`=".$member_id;
 
-			$result = $wowdb->query( $query );
+			$result = $roster->db->query( $query );
 
 			if ( !$result )
 			{
@@ -181,7 +181,7 @@ class memberslist
 				" FROM `".ROSTER_MEMBERSTABLE."` as `members`".
 				" WHERE `members`.`name`='".$main_name."'";
 
-			$result = $wowdb->query( $query );
+			$result = $roster->db->query( $query );
 
 			if ( !$result )
 			{
@@ -189,9 +189,9 @@ class memberslist
 				return false;
 			}
 
-			if ( $row = $wowdb->fetch_array( $result )) {
+			if ( $row = $roster->db->fetch( $result )) {
 				$main_id = $row['member_id'];
-				$wowdb->free_result( $result );
+				$roster->db->free_result( $result );
 
 				// --[ Alt of alt check ]--
 				if ( $this->data['config']['altofalt'] == 'leave' ) {
@@ -203,7 +203,7 @@ class memberslist
 						" FROM `".ROSTER_ALT_TABLE."`".
 						" WHERE `member_id`=".$main_id;
 
-					$result = $wowdb->query( $query );
+					$result = $roster->db->query( $query );
 
 					if ( !$result )
 					{
@@ -211,7 +211,7 @@ class memberslist
 						return false;
 					}
 
-					if ( $row = $wowdb->fetch_array( $result )) {
+					if ( $row = $roster->db->fetch( $result )) {
 						if ( ( $row['alt_type'] & 2 ) == 0 ) { // Alt of main
 							$alt_type = ALTMONITOR_ALT_WITH_MAIN;
 							$this->messages .= " - <span style='color:green;'>Alt of Main</span>\n";
@@ -228,7 +228,7 @@ class memberslist
 								" FROM `".ROSTER_ALT_TABLE."` as `alts`".
 								" WHERE `alts`.`main_id`=".$member_id;
 
-							$result = $wowdb->query( $query );
+							$result = $roster->db->query( $query );
 
 							if ( !$result )
 							{
@@ -236,7 +236,7 @@ class memberslist
 								return false;
 							}
 
-							$row = $wowdb->fetch_array( $result );
+							$row = $roster->db->fetch( $result );
 
 							if ($row[0] == 1) {
 								$alt_type = ALTMONITOR_MAIN_NO_ALTS;
@@ -280,7 +280,7 @@ class memberslist
 						" FROM `".ROSTER_ALT_TABLE."` as `alts`".
 						" WHERE `alts`.`main_id`=".$member_id;
 
-					$result = $wowdb->query( $query );
+					$result = $roster->db->query( $query );
 
 					if ( !$result )
 					{
@@ -288,7 +288,7 @@ class memberslist
 						return false;
 					}
 
-					$row = $wowdb->fetch_array( $result );
+					$row = $roster->db->fetch( $result );
 
 					if ($row[0] == 1) {
 						$alt_type = ALTMONITOR_MAIN_NO_ALTS;
@@ -306,7 +306,7 @@ class memberslist
 					$this->messages .= " - <span style='color:red;'>Mainless alt</span>\n";
 				}
 
-				$wowdb->free_result( $result );
+				$roster->db->free_result( $result );
 			}
 		}
 
@@ -314,7 +314,7 @@ class memberslist
 		// -[ Start DB update code ]-
 		$query = "SELECT `member_id` FROM `".ROSTER_ALT_TABLE."` WHERE `member_id`='$member_id'";
 
-		$result = $wowdb->query( $query );
+		$result = $roster->db->query( $query );
 
 		if ( !$result )
 		{
@@ -322,23 +322,21 @@ class memberslist
 			return false;
 		}
 
-		$update = $wowdb->num_rows( $result ) == 1;
-		$wowdb->free_result($result);
+		$update = $roster->db->num_rows( $result ) == 1;
+		$roster->db->free_result($result);
 
-		$wowdb->reset_values();
-
-		$wowdb->add_value( 'member_id', $member_id );
-
-		$wowdb->add_value( 'main_id', $main_id );
-
-		$wowdb->add_value( 'alt_type', $alt_type );
+		$build_query = array(
+			'member_id' => $member_id,
+			'main_id' => $main_id,
+			'alt_type' => $alt_type
+		);
 
 		if( $update )
-			$querystr = "UPDATE `".ROSTER_ALT_TABLE."` SET ".$wowdb->assignstr." WHERE `member_id` = '$member_id'";
+			$querystr = "UPDATE `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('UPDATE',$build_query)." WHERE `member_id` = '$member_id'";
 		else
-			$querystr = "INSERT INTO `".ROSTER_ALT_TABLE."` SET ".$wowdb->assignstr;
+			$querystr = "INSERT INTO `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('INSERT',$build_query);
 
-		$result = $wowdb->query( $querystr );
+		$result = $roster->db->query($querystr);
 
 		if ( !$result )
 		{
@@ -358,7 +356,7 @@ class memberslist
 	 */
 	function guild_post($guild)
 	{
-		global $wowdb, $roster;
+		global $roster;
 
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 1 ) == 0 )
@@ -371,13 +369,13 @@ class memberslist
 			"LEFT JOIN `".ROSTER_MEMBERSTABLE."` USING (`member_id`) ".
 			"WHERE `".ROSTER_MEMBERSTABLE."`.`member_id` IS NULL ";
 
-		if( $wowdb->query($query) )
+		if( $roster->db->query($query) )
 		{
-			$this->messages .= ' - '.$wowdb->affected_rows().' records without matching member records deleted';
+			$this->messages .= ' - '.$roster->db->affected_rows().' records without matching member records deleted';
 		}
 		else
 		{
-			$this->messages .= ' - <span style="color:red;">Old records not deleted. MySQL said: '.$wowdb->error().'</span><br/>'."\n";
+			$this->messages .= ' - <span style="color:red;">Old records not deleted. MySQL said: '.$roster->db->error().'</span><br/>'."\n";
 			return false;
 		}
 
@@ -394,7 +392,7 @@ class memberslist
 	 */
 	function char($char, $member_id)
 	{
-		global $wowdb, $roster;
+		global $roster;
 
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
@@ -410,30 +408,30 @@ class memberslist
 					"ON `alt`.`member_id` = `member`.`member_id` ".
 			"WHERE `member`.`member_id` = '".$member_id."';";
 
-		$result = $wowdb->query( $query );
+		$result = $roster->db->query( $query );
 
 		if ( !$result )
 		{
-			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'. MySQL said:<br/>'.$wowdb->error().'</span><br/>'."\n";
+			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'. MySQL said:<br/>'.$roster->db->error().'</span><br/>'."\n";
 			return false;
 		}
 
-		if ( $row = $wowdb->fetch_array( $result )) {
+		if ( $row = $roster->db->fetch( $result )) {
 			// Check manual record
 			if ( $row['alt_type'] & 0x8 ) {
-				$wowdb->free_result( $result );
+				$roster->db->free_result( $result );
 				$this->messages .= " - <span style='color:yellow;'>Manual entry</span><br/>\n";
 				return true;
 			}
 			else
 			{
-				$wowdb->free_result( $result );
+				$roster->db->free_result( $result );
 				$member_name = $row['name'];
 			}
 		}
 		else
 		{
-			$wowdb->free_result( $result );
+			$roster->db->free_result( $result );
 			$this->messages .= ' - <span style="color:red;">'.$member_name.' not updated, failed at line '.__LINE__.'</span><br/>'."\n";
 			return false;
 		}
@@ -455,7 +453,7 @@ class memberslist
 	 */
 	function char_post($chars)
 	{
-		global $wowdb, $roster;
+		global $roster;
 
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
@@ -492,37 +490,37 @@ class memberslist
 		if( empty($inclause) )
 		{
 			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_NO_ALTS."' WHERE `member_id` = '".$mainid."'";
-			if( $wowdb->query($query) )
+			if( $roster->db->query($query) )
 			{
 				$this->messages .= ' - '.$this->chars[$mainid]['name'].' written as main without alts<br/>'."\n";
 			}
 			else
 			{
-				$this->messages .= ' - <span style="color:red;">Main not written. MySQL said: '.$wowdb->error().'</span><br/>'."\n";
+				$this->messages .= ' - <span style="color:red;">Main not written. MySQL said: '.$roster->db->error().'</span><br/>'."\n";
 				return false;
 			}
 		}
 		else
 		{
 			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_ALT_MANUAL_WITH_MAIN."' WHERE `member_id` IN (".$inclause.")";
-			if( $wowdb->query($query) )
+			if( $roster->db->query($query) )
 			{
-				$this->messages .= ' - '.$wowdb->affected_rows().' alts added to main '.$this->chars[$mainid]['Name'];
+				$this->messages .= ' - '.$roster->db->affected_rows().' alts added to main '.$this->chars[$mainid]['Name'];
 			}
 			else
 			{
-				$this->messages .= ' - <span style="color:red;">Alts not written. MySQL said: '.$wowdb->error().'</span><br/>'."\n";
+				$this->messages .= ' - <span style="color:red;">Alts not written. MySQL said: '.$roster->db->error().'</span><br/>'."\n";
 				return false;
 			}
 
 			$query = "UPDATE `".ROSTER_ALT_TABLE."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_WITH_ALTS."' WHERE `member_id` = '".$mainid."'";
-			if( $wowdb->query($query) )
+			if( $roster->db->query($query) )
 			{
 				$this->messages .= ' - Main written<br/>'."\n";
 			}
 			else
 			{
-				$this->messages .= ' - <span style="color:red;">Main not written. MySQL said: '.$wowdb->error().'</span><br/>'."\n";
+				$this->messages .= ' - <span style="color:red;">Main not written. MySQL said: '.$roster->db->error().'</span><br/>'."\n";
 				return false;
 			}
 		}

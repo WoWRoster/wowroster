@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$header_title = $roster->locale->act['questlist'];
+$roster->output['title'] = $roster->locale->act['questlist'];
 
 include_once(ROSTER_LIB . 'sitesearch.lib.php');
 
@@ -79,9 +79,9 @@ print messagebox($searchbox,$roster->locale->act['questlist']);
 if( !empty($zoneidsafe) )
 {
 	$zquery = "SELECT DISTINCT `zone` FROM `" . ROSTER_QUESTSTABLE . "` WHERE `zone` = '$zoneidsafe' ORDER BY `zone`;";
-	$zresult = $wowdb->query($zquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$zquery);
+	$zresult = $roster->db->query($zquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$zquery);
 
-	while( $zrow = $wowdb->fetch_array($zresult) )
+	while( $zrow = $roster->db->fetch($zresult) )
 	{
 		print '<div class="headline_1">' . $zrow['zone'] . "</div>\n";
 
@@ -90,16 +90,16 @@ if( !empty($zoneidsafe) )
 		$qquery .= " WHERE `zone` = '" . $zoneidsafe . "'";
 		$qquery .= " ORDER BY `quest_name`;";
 
-		$qresult = $wowdb->query($qquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qquery);
+		$qresult = $roster->db->query($qquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qquery);
 
-		while( $qrow = $wowdb->fetch_array($qresult) )
+		while( $qrow = $roster->db->fetch($qresult) )
 		{
 			$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
 			       . " FROM `" . ROSTER_QUESTSTABLE . "` AS q, `" . ROSTER_PLAYERSTABLE . "` AS p"
 			       . " WHERE `q`.`zone` = '" .$zoneidsafe . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qrow['quest_name']) . "'"
 			       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
-			$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+			$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 			// Quest links
 			$num_of_tips = (count($tooltips)+1);
@@ -127,7 +127,7 @@ if( !empty($zoneidsafe) )
 			print $tableHeaderRow;
 
 			$striping_counter = 1;
-			while( $row = $wowdb->fetch_array($result) )
+			while( $row = $roster->db->fetch($result) )
 			{
 				print "<tr>\n";
 
@@ -158,7 +158,7 @@ if( !empty($zoneidsafe) )
 
 				// Echoing cells w/ data
 				print '<td class="membersRow' . (($striping_counter % 2) +1) . '">';
-				print ( active_addon('char') ? '<a href="'.makelink('char-quests&amp;member=' . $row['member_id']) . '" target="_blank">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
+				print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '" target="_blank">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
 				print '</td>';
 
 				print '<td class="membersRow' . (($striping_counter % 2) +1) . '">' . $row['quest_level'] . $tagstring . '</td>';
@@ -166,7 +166,7 @@ if( !empty($zoneidsafe) )
 			}
 
 			print $tableFooter;
-			$wowdb->free_result($result);
+			$roster->db->free_result($result);
 		}
 	}
 }
@@ -174,9 +174,9 @@ if( !empty($zoneidsafe) )
 if( !empty($questidsafe) )
 {
 	$qnquery = "SELECT DISTINCT `quest_name` FROM `" . ROSTER_QUESTSTABLE . "` WHERE `quest_name` = '" . $questidsafe . "' ORDER BY `quest_name`;";
-	$qnresult = $wowdb->query($qnquery) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$qnquery);
+	$qnresult = $roster->db->query($qnquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qnquery);
 
-	while( $qnrow = $wowdb->fetch_array($qnresult) )
+	while( $qnrow = $roster->db->fetch($qnresult) )
 	{
 		// Quest links
 		$num_of_tips = (count($tooltips)+1);
@@ -197,7 +197,7 @@ if( !empty($questidsafe) )
 		       . " WHERE `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qnrow['quest_name'])  . "'"
 		       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
-		$result = $wowdb->query($query) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 
 		$tableHeader = border('syellow','start') . '<table cellpadding="0" cellspacing="0">';
 
@@ -213,7 +213,7 @@ if( !empty($questidsafe) )
 		print $tableHeaderRow;
 
 		$striping_counter = 1;
-		while( $row = $wowdb->fetch_array($result) )
+		while( $row = $roster->db->fetch($result) )
 		{
 			print "<tr>\n";
 
@@ -244,7 +244,7 @@ if( !empty($questidsafe) )
 
 			// Echoing cells w/ data
 			print '<td class="membersRow' . (($striping_counter % 2) +1) . '">';
-			print ( active_addon('char') ? '<a href="'.makelink('char-quests&amp;member=' . $row['member_id']) . '" target="_blank">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
+			print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '" target="_blank">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
 			print '</td>';
 
 			print '<td class="membersRow'. (($striping_counter % 2) +1) .'">' . $row['quest_level'] . $tagstring . '</td>';
@@ -255,14 +255,14 @@ if( !empty($questidsafe) )
 		}
 
 		print $tableFooter;
-		$wowdb->free_result($result);
+		$roster->db->free_result($result);
 	}
 }
 
 
 function selectQuery( $table , $fieldtoget , $field , $current , $fieldid , $urltorun )
 {
-	global $wowdb;
+	global $roster;
 
 	/*table, field, current option if matching to existing data (EG: $row['state'])
 	and you want the drop down to be preselected on their current data, the id field from that table (EG: stateid)*/
@@ -270,11 +270,11 @@ function selectQuery( $table , $fieldtoget , $field , $current , $fieldid , $url
 	$sql = "SELECT $fieldtoget FROM $table ORDER BY `quests`.$field ASC;";
 
 	// execute SQL query and get result
-	$sql_result = $wowdb->query($sql) or die_quietly($wowdb->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
+	$sql_result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
 
 	// put data into drop-down list box
 	$option_block = '';
-	while( $row = $wowdb->fetch_assoc($sql_result) )
+	while( $row = $roster->db->fetch($sql_result) )
 	{
 		$id = $row["$fieldid"]; // must leave double quote
 		$optiontocompare = addslashes($row["$field"]); // must leave double quote
