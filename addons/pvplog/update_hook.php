@@ -77,6 +77,33 @@ class pvplogUpdate
 		return true;
 	}
 
+	/**
+	 * Guild post trigger: remove deleted members from the pvp2 table
+	 *
+	 * @param array $guild
+	 *		CP.lua guild data
+	 */
+	function guild_post( $guild )
+	{
+		global $roster;
+
+		$query = "DELETE `".$roster->db->table('pvp2')."` ".
+			"FROM `".$roster->db->table('pvp2')."` ".
+			"LEFT JOIN `".$roster->db->table('members')."` USING (`member_id`) ".
+			"WHERE `".$roster->db->table('members')."`.`member_id` IS NULL ";
+
+		if( $roster->db->query($query) )
+		{
+			$this->messages .= 'PvPLog: '.$roster->db->affected_rows().' records without matching member records deleted';
+		}
+		else
+		{
+			$this->messages .= 'PvPLog: <span style="color:red;">Old records not deleted. MySQL said: '.$roster->db->error().'</span><br/>'."\n";
+			return false;
+		}
+
+		return true;
+	}
 
 	/**
 	 * Updates pvp table

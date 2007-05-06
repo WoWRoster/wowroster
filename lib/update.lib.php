@@ -1861,14 +1861,6 @@ class update
 		}
 
 
-		$messages .= 'PvPLog Data..';
-		$querystr = "DELETE FROM `".$roster->db->table('pvp2')."` WHERE `member_id` IN ($inClause)";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('PvPLog Data could not be deleted',$roster->db->error());
-		}
-
-
 		$messages .= 'Professions..';
 		$querystr = "DELETE FROM `".$roster->db->table('recipes')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
