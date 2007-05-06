@@ -41,8 +41,8 @@ if( $roster->output['http_header'] && !headers_sent() )
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>[<?php echo ( !empty($roster->data['guild_name']) ? $roster->data['guild_name'] . ' @ ' . $roster->data['server'] . ' ' : 'WoW' ); ?>Roster] <?php echo (isset($roster->output['title']) ? $roster->output['title'] : ''); ?></title>
-	<base href="<?php echo ROSTER_URL ?>" />
+<title>WoWRoster<?php echo ( !empty($roster->data['guild_name']) ? ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['server'] . ' ] ' : ' ' ) . (isset($roster->output['title']) ? $roster->output['title'] : ''); ?></title>
+<?php print ( $roster->config['seo_url'] ? '	<base href="' . ROSTER_URL . '" />' : '' ) ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/style.css" />
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/scrollbar.js"></script>
@@ -55,8 +55,9 @@ if( $roster->output['http_header'] && !headers_sent() )
 	</script>
 	<script type="text/javascript">
 	<!--
-		var ol_width='220';var ol_offestx=10;var ol_offesty=10;var ol_hauto=1;var ol_vauto=1;
-		var ol_fgclass='overlib_fg';var ol_bgclass='overlib_border';var ol_textfontclass='overlib_maintext';var ol_captionfontclass='overlib_captiontext';var ol_closefontclass='overlib_closetext';
+		var ol_width='220';var ol_offestx='10';var ol_offesty='10';var ol_hauto='1';var ol_vauto='1';
+		var ol_fgclass='overlib_fg';var ol_bgclass='overlib_border';var ol_textfontclass='overlib_maintext';
+		var ol_captionfontclass='overlib_captiontext';var ol_closefontclass='overlib_closetext';
 	//-->
 	</script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib.js"></script>

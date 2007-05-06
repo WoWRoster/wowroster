@@ -11,7 +11,6 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -108,7 +107,7 @@ if( !empty($search) )
 	}
 
 	$query = "SELECT `p`.`name`, `p`.`server`, `i`.*"
-	       . " FROM `" . ROSTER_ITEMSTABLE . "` AS i,`" . ROSTER_PLAYERSTABLE . "` AS p"
+	       . " FROM `" . $roster->db->table('items') . "` AS i,`" . $roster->db->table('players') . "` AS p"
 	       . " WHERE `i`.`member_id` = `p`.`member_id` AND $searchstring"
 	       . " ORDER BY `p`.`name` ASC;";
 	$result = $roster->db->query( $query );
@@ -186,7 +185,7 @@ if( !empty($search) )
 	}
 
 	$query = "SELECT `p`.name, `p`.server, `r`.*"
-	       . " FROM `" . ROSTER_RECIPESTABLE . "` AS r,`" . ROSTER_PLAYERSTABLE . "` AS p"
+	       . " FROM `" . $roster->db->table('recipes') . "` AS r,`" . $roster->db->table('players') . "` AS p"
 	       . " WHERE `r`.`member_id` = `p`.`member_id` AND $searchstring"
 	       . " ORDER BY `p`.`name` ASC, `r`.`recipe_name` ASC;";
 	$result = $roster->db->query( $query );

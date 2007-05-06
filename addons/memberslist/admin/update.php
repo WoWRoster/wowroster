@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id: update.php 869 2007-05-01 14:30:57Z pleegwat $
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -26,7 +21,7 @@ define('IN_SORTMEMBER',true);
 // Recreate the CP.lua guild subtree. Or at least the relevant parts.
 $guild = $roster->data;
 
-$query = "SELECT `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".ROSTER_MEMBERSTABLE."` as members";
+$query = "SELECT `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".$roster->db->table('members')."` as members";
 $result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
 
 while( $row = $roster->db->fetch($result))
@@ -39,9 +34,10 @@ $roster->db->free_result($result);
 
 // Start the actual update process
 include_once($addon['dir'] . 'update_hook.php');
-include_once(ROSTER_LIB . 'wowdb.php');
+include_once(ROSTER_LIB . 'update.lib.php');
+$update = new update;
 
-$memberslist = new memberslist($addon);
+$memberslist = new memberslistUpdate($addon);
 
 // Loop over all members
 foreach($guild['Members'] as $member_name => $char)
@@ -55,7 +51,7 @@ foreach($guild['Members'] as $member_name => $char)
 $memberslist->guild_post($guild);
 
 $messages = $memberslist->messages;
-$errorstringout = $wowdb->getErrors();
+$errorstringout = $update->getErrors();
 
 // print the error messages
 if( !empty($errorstringout) )

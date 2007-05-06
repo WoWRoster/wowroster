@@ -164,7 +164,7 @@ class RosterMenu
 		$query  = "SELECT count(`member_id`) AS `amount`, ".
 			"IF(`".$roster->config['alt_location']."` LIKE '%".$roster->config['alt_type']."%',1,0) AS 'isalt', ".
 			$qrypart." AS label ".
-			"FROM `".ROSTER_MEMBERSTABLE."` ".
+			"FROM `".$roster->db->table('members')."` ".
 			"WHERE `level` > ".$level." ".
 			"GROUP BY isalt, label;";
 

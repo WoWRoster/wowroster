@@ -44,11 +44,6 @@ class update
 		// Add roster-used tables
 		$this->files[] = 'characterprofiler';
 
-		if( $roster->config['pvp_log_allow'] )
-		{
-			$this->files[] = 'pvplog';
-		}
-
 		if( !$roster->config['use_update_triggers'] )
 		{
 			return '';
@@ -66,14 +61,16 @@ class update
 
 					include_once($hookfile);
 
-					if( class_exists($row['basename']) )
+					$updateclass = $row['basename'] . 'Update';
+
+					if( class_exists($updateclass) )
 					{
-						$this->addons[$row['basename']] = new $row['basename']($addon);
-						$this->files += $this->addons[$row['basename']]->files;
+						$this->addons[$row['basename']] = new $updateclass($addon);
+						$this->files = array_merge($this->files,$this->addons[$row['basename']]->files);
 					}
 					else
 					{
-						$wowdb->setError('Failed to load addon '.$row['basename'].': Update class did not exist','');
+						$this->setError('Failed to load update trigger for ' . $row['basename'] . ': Update class did not exist','');
 					}
 				}
 			}
@@ -171,11 +168,6 @@ class update
 			$output .= $this->processMyProfile();
 			$output .= "<br />\n";
 		}
-		if (in_array('pvplog',$gotfiles))
-		{
-			$output .= $this->processPvP();
-			$output .= "<br />\n";
-		}
 
 		if( is_array($this->addons) && count($this->addons)>0 )
 		{
@@ -250,48 +242,6 @@ class update
 			}
 		}
 
-		return $output;
-	}
-
-	/**
-	 * Process PvPLog data
-	 */
-	function processPvP()
-	{
-		global $roster;
-
-		$pvpdata = $this->uploadData['pvplog'];
-		$this->resetMessages();
-
-		$output = '';
-
-		foreach ($pvpdata['PurgeLogData'] as $realm_name => $realm)
-		{
-			foreach ($realm as $char_name => $char)
-			{
-				$query = "SELECT `guild_id` FROM `".ROSTER_PLAYERSTABLE."` WHERE `name` = '".addslashes($char_name)."' AND `server` = '".addslashes($realm_name)."'";
-				$result = $roster->db->query( $query );
-				if ($roster->db->num_rows($result) > 0)
-				{
-					$row = $roster->db->fetch( $result );
-					$guild_id = $row['guild_id'];
-					$battles = $char['battles'];
-					if( $char['version'] >= $roster->config['minPvPLogver'] )
-					{
-						$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'PvPLog',$char_name)."</strong>\n";
-
-						$this->update_pvp2($guild_id, $char_name, $battles);
-						$output .= "<ul>\n".$this->getMessages()."</ul>\n";
-						$this->resetMessages();
-					}
-					else // PvPLog version not high enough
-					{
-						$output .= '<span class="red">'.sprintf($roster->locale->act['not_updating'],'PvPLog',$char_name,$char['version'])."</span><br />\n";
-						$output .= sprintf($roster->locale->act['PvPLogver_err'], $roster->config['minPvPLogver'])."\n";
-					}
-				}
-			}
-		}
 		return $output;
 	}
 
@@ -506,6 +456,7 @@ class update
 	function makeFileFields()
 	{
 		global $roster;
+
 		$filefields = '';
 		if (!is_array($this->files) || (count($this->files) == 0)) // Just in case
 		{
@@ -623,7 +574,7 @@ class update
 	 * @param string $row_name
 	 * @param string $row_data
 	 */
-	function add_value( $row_name, $row_data )
+	function add_value( $row_name , $row_data )
 	{
 		global $roster;
 
@@ -642,7 +593,7 @@ class update
 	 * @param string $row_name
 	 * @param array $date
 	 */
-	function add_time( $row_name, $date )
+	function add_time( $row_name , $date )
 	{
 		// 2000-01-01 23:00:00.000
 		$row_data = $date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':'.$date['seconds'];
@@ -656,24 +607,10 @@ class update
 	 * @param string $row_name
 	 * @param string $date | UNIX TIMESTAMP
 	 */
-	function add_timestamp( $row_name, $date )
+	function add_timestamp( $row_name , $date )
 	{
 		$date = date('Y-m-d H:i:s',$date);
 		$this->add_value($row_name,$date);
-	}
-
-
-	/**
-	 * Add a time value to an INSERT or UPDATE SQL string for PVP table
-	 *
-	 * @param string $row_name
-	 * @param string $date
-	 */
-	function add_pvp2time( $row_name, $date )
-	{
-		$date_str = strtotime($date);
-		$p2newdate = date('Y-m-d H:i:s',$date_str);
-		$this->add_value($row_name,$p2newdate);
 	}
 
 	/**
@@ -697,7 +634,7 @@ class update
 	/**
 	 * Turn the wow internal icon format into the one used by us
 	 */
-	function fix_icon($icon_name)
+	function fix_icon( $icon_name )
 	{
 		return strtolower(str_replace(' ','_',$icon_name));
 	}
@@ -749,7 +686,7 @@ class update
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
 
-		$querystr = "INSERT INTO `".ROSTER_ITEMSTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$roster->db->table('items')."` SET ".$this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -783,7 +720,7 @@ class update
 		if( isset( $mail['item_quantity'] ) )
 			$this->add_value('item_quantity', $mail['item_quantity'] );
 
-		$querystr = "INSERT INTO `".ROSTER_MAILBOXTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$roster->db->table('mailbox')."` SET ".$this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -810,7 +747,7 @@ class update
 		$this->add_value('quest_tag', $quest['quest_tag'] );
 		$this->add_value('is_complete', $quest['is_complete'] );
 
-		$querystr = "INSERT INTO `".ROSTER_QUESTSTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$roster->db->table('quests')."` SET ".$this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -844,7 +781,7 @@ class update
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
-		$querystr = "INSERT INTO `".ROSTER_RECIPESTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$roster->db->table('recipes')."` SET ".$this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -874,7 +811,7 @@ class update
 		$this->add_time('update_time', getDate($timestamp) );
 		$this->add_value('type', $type );
 
-		$querystr = "INSERT INTO `".ROSTER_MEMBERLOGTABLE."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `".$roster->db->table('memberlog')."` SET ".$this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -1047,7 +984,7 @@ class update
 		if( !empty($buffs) && is_array($buffs) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_BUFFSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('buffs')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Buffs could not be deleted',$roster->db->error());
@@ -1083,7 +1020,7 @@ class update
 				else
 					$this->add_value('tooltip', $buff['Name'] );
 
-				$querystr = "INSERT INTO `".ROSTER_BUFFSTABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$roster->db->table('buffs')."` SET ".$this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
@@ -1119,7 +1056,7 @@ class update
 		if( !empty($quests) && is_array($quests) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('quests')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Quests could not be deleted',$roster->db->error());
@@ -1171,7 +1108,7 @@ class update
 			$messages = '<li>Updating Professions';
 
 			// Delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('recipes')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$roster->error());
@@ -1223,7 +1160,7 @@ class update
 		{
 			$messages = '<li>Updating Equipment ';
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
+			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Equipment could not be deleted',$roster->db->error());
@@ -1266,14 +1203,14 @@ class update
 		{
 			$messages = '<li>Updating Inventory';
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
+			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
+			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$roster->db->error());
@@ -1338,14 +1275,14 @@ class update
 			$messages = '<li>Updating Bank';
 
 			// Clearing out old items
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$roster->db->error());
@@ -1416,7 +1353,7 @@ class update
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
-			$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('mailbox')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Mail could not be deleted',$roster->db->error());
@@ -1465,7 +1402,7 @@ class update
 			$messages = '<li>Updating Reputation ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '$memberId'";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -1502,7 +1439,7 @@ class update
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `".ROSTER_REPUTATIONTABLE."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `".$roster->db->table('reputation')."` SET ".$this->assignstr;
 
 						$result = $roster->db->query($querystr);
 						if( !$result )
@@ -1541,7 +1478,7 @@ class update
 			$messages = '<li>Updating Skills ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('skills')."` WHERE `member_id` = '$memberId'";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -1571,7 +1508,7 @@ class update
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `".ROSTER_SKILLSTABLE."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `".$roster->db->table('skills')."` SET ".$this->assignstr;
 
 						$result = $roster->db->query($querystr);
 						if( !$result )
@@ -1610,7 +1547,7 @@ class update
 			$messages = '<li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('spellbook')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$roster->db->error());
@@ -1618,7 +1555,7 @@ class update
 			}
 
 			// then process Spellbook Tree
-			$querystr = "DELETE FROM `".ROSTER_SPELLTREETABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('spellbooktree')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spell Trees could not be deleted',$roster->db->error());
@@ -1662,7 +1599,7 @@ class update
 								$this->add_value('spell_tooltip', $spell_name."\n".$data_spell_name['Rank'] );
 							}
 
-							$querystr = "INSERT INTO `".ROSTER_SPELLTABLE."` SET ".$this->assignstr;
+							$querystr = "INSERT INTO `".$roster->db->table('spellbook')."` SET ".$this->assignstr;
 							$result = $roster->db->query($querystr);
 							if( !$result )
 							{
@@ -1676,7 +1613,7 @@ class update
 				$this->add_value('spell_type', $spell_type );
 				$this->add_value('spell_texture', $this->fix_icon($data_spell_type['Icon']) );
 
-				$querystr = "INSERT INTO `".ROSTER_SPELLTREETABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$roster->db->table('spellbooktree')."` SET ".$this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
@@ -1709,7 +1646,7 @@ class update
 			$messages = '<ul><li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `pet_id` = '$petID'";
+			$querystr = "DELETE FROM `".$roster->db->table('spellbook_pet')."` WHERE `pet_id` = '$petID'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$roster->db->error());
@@ -1741,7 +1678,7 @@ class update
 						$this->add_value('spell_tooltip', $spell."\n".$data_spell['Rank'] );
 					}
 
-					$querystr = "INSERT INTO `".ROSTER_PETSPELLTABLE."` SET ".$this->assignstr;
+					$querystr = "INSERT INTO `".$roster->db->table('spellbook_pet')."` SET ".$this->assignstr;
 					$result = $roster->db->query($querystr);
 					if( !$result )
 					{
@@ -1779,7 +1716,7 @@ class update
 			$messages = '<li>Updating Talents';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('talents')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Talents could not be deleted',$roster->db->error());
@@ -1787,7 +1724,7 @@ class update
 			}
 
 			// then process Talents
-			$querystr = "DELETE FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('talenttree')."` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Talent Trees could not be deleted',$roster->db->error());
@@ -1838,7 +1775,7 @@ class update
 						$this->add_value('rank', substr($data_talent_skill['Rank'], 0, 1) );
 						$this->add_value('maxrank', substr($data_talent_skill['Rank'], 2, 1) );
 
-						$querystr = "INSERT INTO `".ROSTER_TALENTSTABLE."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `".$roster->db->table('talents')."` SET ".$this->assignstr;
 						$result = $roster->db->query($querystr);
 						if( !$result )
 						{
@@ -1858,7 +1795,7 @@ class update
 				if( !empty($tree_order) )
 					$this->add_value('order', $tree_order );
 
-				$querystr = "INSERT INTO `".ROSTER_TALENTTREETABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$roster->db->table('talenttree')."` SET ".$this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
@@ -1887,13 +1824,13 @@ class update
 		$messages = '<li>';
 
 		$messages .= 'Character Data..';
-		$querystr = "DELETE FROM `".ROSTER_MEMBERSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('members')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Member Data could not be deleted',$roster->db->error());
 		}
 
-		$querystr = "DELETE FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('players')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Player Data could not be deleted',$roster->db->error());
@@ -1901,7 +1838,7 @@ class update
 
 
 		$messages .= 'Skills..';
-		$querystr = "DELETE FROM `".ROSTER_SKILLSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('skills')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Skill Data could not be deleted',$roster->db->error());
@@ -1909,7 +1846,7 @@ class update
 
 
 		$messages .= 'Items..';
-		$querystr = "DELETE FROM `".ROSTER_ITEMSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Items Data could not be deleted',$roster->db->error());
@@ -1917,7 +1854,7 @@ class update
 
 
 		$messages .= 'Quests..';
-		$querystr = "DELETE FROM `".ROSTER_QUESTSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('quests')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Quest Data could not be deleted',$roster->db->error());
@@ -1925,7 +1862,7 @@ class update
 
 
 		$messages .= 'PvPLog Data..';
-		$querystr = "DELETE FROM `".ROSTER_PVP2TABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('pvp2')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('PvPLog Data could not be deleted',$roster->db->error());
@@ -1933,7 +1870,7 @@ class update
 
 
 		$messages .= 'Professions..';
-		$querystr = "DELETE FROM `".ROSTER_RECIPESTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('recipes')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Recipe Data could not be deleted',$roster->db->error());
@@ -1941,13 +1878,13 @@ class update
 
 
 		$messages .= 'Talents..';
-		$querystr = "DELETE FROM `".ROSTER_TALENTSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('talents')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Talent Data could not be deleted',$roster->db->error());
 		}
 
-		$querystr = "DELETE FROM `".ROSTER_TALENTTREETABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('talenttree')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Talent Tree Data could not be deleted',$roster->db->error());
@@ -1955,13 +1892,13 @@ class update
 
 
 		$messages .= 'Spellbook..';
-		$querystr = "DELETE FROM `".ROSTER_SPELLTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('spellbook')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Spell Data could not be deleted',$roster->db->error());
 		}
 
-		$querystr = "DELETE FROM `".ROSTER_SPELLTREETABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('spellbooktree')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Spell Tree Data could not be deleted',$roster->db->error());
@@ -1969,7 +1906,7 @@ class update
 
 
 		$messages .= 'Pets..';
-		$querystr = "DELETE FROM `".ROSTER_PETSTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('pets')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Pet Data could not be deleted',$roster->db->error());
@@ -1977,7 +1914,7 @@ class update
 
 
 		$messages .= 'Reputation..';
-		$querystr = "DELETE FROM `".ROSTER_REPUTATIONTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('reputation')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Reputation Data could not be deleted',$roster->db->error());
@@ -1985,7 +1922,7 @@ class update
 
 
 		$messages .= 'Mail..';
-		$querystr = "DELETE FROM `".ROSTER_MAILBOXTABLE."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `".$roster->db->table('mailbox')."` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Mail Data could not be deleted',$roster->db->error());
@@ -2005,7 +1942,7 @@ class update
 	{
 		global $roster;
 
-		$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+		$querystr = "SELECT * FROM `".$roster->db->table('members')."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
 
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -2052,7 +1989,7 @@ class update
 		global $roster;
 
 		// Get a list of guild id's in the guild table to remove
-		$querystr = "SELECT `guild_id`,`guild_name` FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `guild_id`,`guild_name` FROM `".$roster->db->table('guild')."` WHERE `guild_id` != '$guild_id'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2075,7 +2012,7 @@ class update
 			}
 
 			// now that we have our inclause, time to do some deletes
-			$querystr = "DELETE FROM `".ROSTER_GUILDTABLE."` WHERE `guild_id` IN ($inClause)";
+			$querystr = "DELETE FROM `".$roster->db->table('guild')."` WHERE `guild_id` IN ($inClause)";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Guild'.($num > 1 ? 's' : '').' with ID'.($num > 1 ? 's' : '').' '.$inClause.' could not be deleted',$roster->db->error());
@@ -2087,7 +2024,7 @@ class update
 
 
 		// Get a list of members that don't match current guild id
-		$querystr = "SELECT `member_id`,`name` FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `member_id`,`name` FROM `".$roster->db->table('members')."` WHERE `guild_id` != '$guild_id'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2136,7 +2073,7 @@ class update
 		$guild_name_escape = $roster->db->escape( $guildName );
 		$server_escape = $roster->db->escape( $realmName );
 
-		$querystr = "SELECT * FROM `".ROSTER_GUILDTABLE."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
+		$querystr = "SELECT * FROM `".$roster->db->table('guild')."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
 		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		$retval = $roster->db->fetch( $result );
@@ -2214,19 +2151,19 @@ class update
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `".ROSTER_GUILDTABLE."` SET ".$this->assignstr." WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$querystr = "UPDATE `".$roster->db->table('guild')."` SET ".$this->assignstr." WHERE `guild_id` = '".$guildInfo['guild_id']."';";
 			$output = $guildInfo['guild_id'];
 		}
 		else
 		{
-			$querystr = "INSERT INTO `".ROSTER_GUILDTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".$roster->db->table('guild')."` SET ".$this->assignstr;
 		}
 
 		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$querystr = "UPDATE `".$roster->db->table('members')."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
 			$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 		}
 
@@ -2255,7 +2192,7 @@ class update
 
 		$name_escape = $roster->db->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2328,7 +2265,7 @@ class update
 
 		if( isset($memberId) )
 		{
-			$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
+			$querystr = "UPDATE `".$roster->db->table('members')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
 			$this->setMessage('<li>[ '.$name.' ]</li>');
 			$this->membersupdated++;
 
@@ -2347,7 +2284,7 @@ class update
 				$this->add_value( 'guild_id', $guildId);
 			}
 
-			$querystr = "INSERT INTO `".ROSTER_MEMBERSTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".$roster->db->table('members')."` SET ".$this->assignstr;
 			$this->setMessage('<li><span class="green">[</span> '.$name.' <span class="green">] - Added</span></li>');
 
 			$result = $roster->db->query($querystr);
@@ -2359,7 +2296,7 @@ class update
 
 			$memberId = $roster->db->insert_id();
 
-			$querystr = "SELECT * FROM `".ROSTER_MEMBERSTABLE."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
+			$querystr = "SELECT * FROM `".$roster->db->table('members')."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
@@ -2375,144 +2312,6 @@ class update
 		return $memberId;
 	}
 
-
-	/**
-	 * Updates pvp table
-	 *
-	 * @param int $guildId
-	 * @param string $name
-	 * @param array $data
-	 */
-	function update_pvp2($guildId, $name, $data )
-	{
-		global $roster;
-
-		$name_escape = $roster->db->escape( $name );
-
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('Member could not be selected for update',$roster->db->error());
-			return;
-		}
-
-		$memberInfo = $roster->db->fetch( $result );
-		$roster->db->free_result($result);
-		if ($memberInfo)
-		{
-			$memberId = $memberInfo['member_id'];
-		}
-		else
-		{
-			$this->setMessage('<li>'.$name.' is not in the list of guild members so PVP2 info will not be inserted.</li>');
-			return;
-		}
-		// process pvp
-		$this->setMessage('<li>Updating PvP data</li>');
-		// loop through each index fought
-		foreach( array_keys($data) as $index)
-		{
-			$playerInfo = $data[$index];
-			$playerName = $playerInfo['name'];
-			$playerDate = date('Y-m-d G:i:s', strtotime($playerInfo['date']));
-			$playerRealm = ( isset($playerInfo['realm']) ? $playerInfo['realm'] : '' );
-
-			// skip if entry already there
-			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$roster->db->escape( $playerName )."' AND `date` = '".$roster->db->escape( $playerDate )."'".( !empty($playerRealm) ? " AND `realm` = '".$roster->db->escape( $playerRealm )."';" : ';' );
-
-			$result = $roster->db->query($querystr);
-			if( !$result )
-			{
-				$this->setError('PvPLog cannot update',$roster->db->error());
-				return;
-			}
-
-			$memberInfo = $roster->db->fetch( $result );
-			$roster->db->free_result($result);
-			if (!$memberInfo)
-			{
-				$this->setMessage('<li>Adding pvp2 data for ['.$playerInfo['name'].']</li>');
-
-				$this->reset_values();
-				$this->add_value('member_id', $memberId);
-				$this->add_value('index', $index);
-				$this->add_pvp2time('date', $playerInfo['date']);
-				$this->add_value('name', $playerInfo['name']);
-				$this->add_value('guild', $playerInfo['guild']);
-				$this->add_value('realm', $playerRealm);
-				$this->add_value('race', $playerInfo['race']);
-				$this->add_value('class', $playerInfo['class']);
-				$this->add_value('zone', $playerInfo['zone']);
-				$this->add_value('subzone', $playerInfo['subzone']);
-				$this->add_value('leveldiff', $playerInfo['lvlDiff']);
-				$this->add_value('enemy', $playerInfo['enemy']);
-				$this->add_value('win', $playerInfo['win']);
-				$this->add_value('bg', $playerInfo['bg']);
-				$this->add_value('rank', $playerInfo['rank']);
-				$this->add_value('honor', $playerInfo['honor']);
-
-				$querystr = "INSERT INTO `".ROSTER_PVP2TABLE."` SET ".$this->assignstr;
-				$result = $roster->db->query($querystr);
-				if( !$result )
-				{
-					$this->setError('PvPLog Data could not be inserted',$roster->db->error());
-				}
-			}
-		}
-
-		// now calculate ratio
-		$wins = 0;
-		$querystr = "SELECT COUNT(`win`) AS wins FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '1' AND `member_id` = '$memberId' GROUP BY `win`";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('PvPLog cannot select wins',$roster->db->error());
-			return;
-		}
-		$memberInfo = $roster->db->fetch( $result );
-		$roster->db->free_result($result);
-		if ($memberInfo)
-			$wins = $memberInfo['wins'];
-		$this->setMessage('<li>Wins: '.$wins.'</li>');
-
-
-		$losses = 0;
-		$querystr = "SELECT COUNT(`win`) AS losses FROM `".ROSTER_PVP2TABLE."` WHERE `win` = '0' AND `member_id` = '$memberId' GROUP BY `win`";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('PvPLog cannot select losses',$roster->db->error());
-			return;
-		}
-		$memberInfo = $roster->db->fetch( $result );
-		$roster->db->free_result($result);
-		if ($memberInfo)
-			$losses = $memberInfo['losses'];
-		$this->setMessage('<li>Losses: '.$losses.'</li>');
-
-
-		if ($losses == 0 || $wins == 0)
-		{
-			if ($losses == 0 && $wins == 0)
-				$ratio = 0;
-			else
-				$ratio = 99999;
-
-		}
-		else
-			$ratio = $wins / $losses;
-
-		$querystr = "UPDATE `".ROSTER_PLAYERSTABLE."` SET `pvp_ratio` = ".$ratio." WHERE `member_id` = '$memberId'";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('PvPLog ratio could not be updated',$roster->db->error());
-		}
-
-		$this->setMessage('<li>Set PvP ratio to '.$ratio.'</li>');
-	}
-
 	/**
 	 * Updates/Inserts pets into the db
 	 *
@@ -2526,7 +2325,7 @@ class update
 		if (!empty($data['Name']))
 		{
 			$querystr = "SELECT `pet_id`
-				FROM `".ROSTER_PETSTABLE."`
+				FROM `".$roster->db->table('pets')."`
 				WHERE `member_id` = '$memberId' AND `name` LIKE '".$roster->db->escape($data['Name'])."'";
 
 			$result = $roster->db->query($querystr);
@@ -2662,13 +2461,13 @@ class update
 			if( $update )
 			{
 				$this->setMessage('<li>Updating pet ['.$data['Name'].']');
-				$querystr = "UPDATE `".ROSTER_PETSTABLE."` SET ".$this->assignstr." WHERE `pet_id` = '$petID'";
+				$querystr = "UPDATE `".$roster->db->table('pets')."` SET ".$this->assignstr." WHERE `pet_id` = '$petID'";
 				$result = $roster->db->query($querystr);
 			}
 			else
 			{
 				$this->setMessage('<li>New pet ['.$data['Name'].']');
-				$querystr = "INSERT INTO `".ROSTER_PETSTABLE."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `".$roster->db->table('pets')."` SET ".$this->assignstr;
 				$result = $roster->db->query($querystr);
 				$petID = $roster->db->insert_id();
 			}
@@ -2697,7 +2496,7 @@ class update
 
 		$name_escape = $roster->db->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2718,7 +2517,7 @@ class update
 		}
 
 		// update level in members table
-		$querystr = "UPDATE `".ROSTER_MEMBERSTABLE."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
+		$querystr = "UPDATE `".$roster->db->table('members')."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2726,7 +2525,7 @@ class update
 		}
 
 
-		$querystr = "SELECT `member_id` FROM `".ROSTER_PLAYERSTABLE."` WHERE `member_id` = '$memberId'";
+		$querystr = "SELECT `member_id` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$memberId'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -3025,12 +2824,12 @@ class update
 
 		if( $update )
 		{
-			$querystr = "UPDATE `".ROSTER_PLAYERSTABLE."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
+			$querystr = "UPDATE `".$roster->db->table('players')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
 		}
 		else
 		{
 			$this->add_value( 'member_id', $memberId );
-			$querystr = "INSERT INTO `".ROSTER_PLAYERSTABLE."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `".$roster->db->table('players')."` SET ".$this->assignstr;
 		}
 
 		$result = $roster->db->query($querystr);
@@ -3063,14 +2862,14 @@ class update
 		}
 		else
 		{
-			$querystr = "DELETE FROM `".ROSTER_PETSTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('pets')."` WHERE `member_id` = '$memberId'";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
 				$this->setError('Cannot delete Pet Data',$roster->db->error());
 			}
 
-			$querystr = "DELETE FROM `".ROSTER_PETSPELLTABLE."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `".$roster->db->table('spellbook_pet')."` WHERE `member_id` = '$memberId'";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{

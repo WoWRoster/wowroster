@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -25,7 +20,7 @@ if ( !defined('ROSTER_INSTALLED') )
  * Addon Update class
  * This MUST be the same name as the addon basename
  */
-class recipe
+class recipeUpdate
 {
 	var $messages = '';		// Update messages
 	var $data = array();	// Addon config data automatically pulled from the addon_config table
@@ -39,7 +34,7 @@ class recipe
 	 * @param array $data	| Addon data
 	 * @return recipe
 	 */
-	function recipe($data)
+	function recipeUpdate($data)
 	{
 		$this->data = $data;
 	}

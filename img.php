@@ -23,7 +23,7 @@ $name = addslashes(urldecode($_SERVER['QUERY_STRING']));
 $sitename = $roster->config['website_address'];  ## Change this to your web address or a guild motto or whatever
 
 
-$result = $roster->db->query("SELECT * FROM `" . ROSTER_PLAYERSTABLE . "` WHERE `name` LIKE '$name' LIMIT 0 , 1;");
+$result = $roster->db->query("SELECT * FROM `" . $roster->db->table('players') . "` WHERE `name` LIKE '$name' LIMIT 0 , 1;");
 
 if( !$result )  ##  Checks to see if the character name is in the database, if it's not there then it ends
 {
@@ -36,11 +36,11 @@ $getdata = $roster->db->fetch($result);
 
 
 ##  Could have just pulled what's needed from the database but left open in case I want to add later
-$result2 = $roster->db->query("SELECT * FROM `" . ROSTER_GUILDTABLE . "` LIMIT 0 , 1;");
+$result2 = $roster->db->query("SELECT * FROM `" . $roster->db->table('guild') . "` LIMIT 0 , 1;");
 $getdata2 = $roster->db->fetch($result2);
 
 
-$result3 = $roster->db->query("SELECT * FROM `" . ROSTER_MEMBERSTABLE . "` WHERE `name` LIKE '$name' LIMIT 0 , 1;");
+$result3 = $roster->db->query("SELECT * FROM `" . $roster->db->table('members') . "` WHERE `name` LIKE '$name' LIMIT 0 , 1;");
 $getdata3 = $roster->db->fetch($result3);
 
 ##  Gets the character id number set in the database
@@ -80,7 +80,7 @@ ImageTTFText($im, 6, 0, $mtxtloc, 77, $color, 'fonts/VERANDA.TTF', $sitename);
 ##  Time for the professions and secondary skills to be shown
 ##  Scrolls through database and finds the 2 main professions then prints them and their skill levels on the signature
 
-$result4 = $roster->db->query("SELECT * FROM `" . ROSTER_SKILLSTABLE . "` WHERE `member_id` LIKE '$nameid' LIMIT 0 , 30;");
+$result4 = $roster->db->query("SELECT * FROM `" . $roster->db->table('skills') . "` WHERE `member_id` LIKE '$nameid' LIMIT 0 , 30;");
 
 $pos=35; # <-- used as the variable for moving the text to the next line.  without this it would print the professions right on top of each other
 while( $r = $roster->db->fetch($result4) )
@@ -99,7 +99,7 @@ $pos += 3; # <-- just to put a small space between the primary and secondary pro
 
 ##  Scrolls through database and finds all the secondary skills then prints them and their skill levels on the signature
 
-$result5 = $roster->db->query("SELECT * FROM `" . ROSTER_SKILLSTABLE . "` WHERE `member_id` LIKE '$nameid' LIMIT 0 , 30;");
+$result5 = $roster->db->query("SELECT * FROM `" . $roster->db->table('skills') . "` WHERE `member_id` LIKE '$nameid' LIMIT 0 , 30;");
 while( $r = $roster->db->fetch($result5) )
 {
 	extract($r);

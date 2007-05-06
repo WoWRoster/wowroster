@@ -65,7 +65,7 @@ class RosterLogin
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` ORDER BY `account_id` DESC;";
+		$query = "SELECT * FROM `".$roster->db->table('account')."` ORDER BY `account_id` DESC;";
 		$result = $roster->db->query($query);
 
 		if( !$result )
@@ -112,7 +112,7 @@ class RosterLogin
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `".ROSTER_ACCOUNTTABLE."` WHERE `account_id` = '".$level."';";
+		$query = "SELECT * FROM `".$roster->db->table('account')."` WHERE `account_id` = '".$level."';";
 		$result = $roster->db->query($query);
 
 		if( !$result )

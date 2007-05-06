@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -34,7 +29,9 @@ member_id is the ID of the member this record is about. main_id is the ID of the
 main. alt_type one of the following
 */
 
-define('ROSTER_ALT_TABLE',$roster->db->table('alts',$addon['basename']));
+/* Using $roster->db->table('alts',$addon['basename']) in the files now
+This solves the need to set $addon in the update hook
+define('ROSTER_ALT_TABLE',$roster->db->table('alts',$addon['basename']));*/
 
 define('ALTMONITOR_MAIN_ALTS',0);
 define('ALTMONITOR_MAIN_NO_ALTS',1);

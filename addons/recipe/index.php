@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id$
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -30,7 +25,7 @@ $filter_box = ( isset($_REQUEST['filterbox']) ? $_REQUEST['filterbox'] : '');
 $prof_sort = ( isset($_REQUEST['sort']) ? $_REQUEST['sort'] : '');
 
 $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
-	FROM ".ROSTER_RECIPESTABLE."
+	FROM ".$roster->db->table('recipes')."
 	WHERE `skill_name` != '".$roster->locale->act['First Aid']."'
 		AND `skill_name` != '".$roster->locale->act['Poisons']."'
 		AND `skill_name` != '".$roster->locale->act['Mining']."'
@@ -92,7 +87,7 @@ if (!empty($prof_filter))
 		$content .=  "<table><tr><td valign='middle'><a id='top_menu'></a> - \n";
 
 		$qry_recipe_type = 'SELECT DISTINCT( `r`.`recipe_type` )
-			FROM '.ROSTER_RECIPESTABLE.' r
+			FROM '.$roster->db->table('recipes').' r
 			WHERE `r`.`skill_name` = "'. $prof_filter.'"
 			ORDER BY `r`.`recipe_type` ASC';
 
@@ -157,9 +152,9 @@ if (!empty($prof_filter))
 			}
 			// while($row_main = $roster->db->fetch($result_main)){
 			$qry_users = "SELECT `c`.`name`, `c`.`member_id`,`r`.`difficulty`, `s`.`skill_level` ".
-				"FROM `".ROSTER_PLAYERSTABLE."` c ".
-				"INNER JOIN `".ROSTER_RECIPESTABLE."` r ON `r`.`member_id` = `c`.`member_id` ".
-				"INNER JOIN `".ROSTER_SKILLSTABLE."` s ON `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
+				"FROM `".$roster->db->table('players')."` c ".
+				"INNER JOIN `".$roster->db->table('recipes')."` r ON `r`.`member_id` = `c`.`member_id` ".
+				"INNER JOIN `".$roster->db->table('skills')."` s ON `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
 				"WHERE `recipe_name` = '".addslashes($recipe->data['recipe_name'])."' ORDER BY `c`.`name`;";
 
 			$result_users = $roster->db->query($qry_users) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_users);

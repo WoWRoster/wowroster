@@ -73,7 +73,7 @@ function item_get_one( $member_id , $slot )
 	global $roster;
 
 	$slot = $roster->db->escape( $slot );
-	$query = "SELECT `i`.*, `p`.`clientLocale` FROM `".ROSTER_ITEMSTABLE."` AS i, `".ROSTER_PLAYERSTABLE."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_slot` = '$slot';";
+	$query = "SELECT `i`.*, `p`.`clientLocale` FROM `".$roster->db->table('items')."` AS i, `".$roster->db->table('players')."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_slot` = '$slot';";
 
 	$result = $roster->db->query( $query );
 	$data = $roster->db->fetch( $result );
@@ -89,7 +89,7 @@ function item_get_many( $member_id , $parent )
 	global $roster;
 
 	$parent = $roster->db->escape( $parent );
-	$query= "SELECT `i`.*, `p`.`clientLocale` FROM `".ROSTER_ITEMSTABLE."` AS i, `".ROSTER_PLAYERSTABLE."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_parent` = '$parent';";
+	$query= "SELECT `i`.*, `p`.`clientLocale` FROM `".$roster->db->table('items')."` AS i, `".$roster->db->table('players')."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_parent` = '$parent';";
 
 	$result = $roster->db->query( $query );
 

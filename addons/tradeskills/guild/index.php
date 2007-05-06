@@ -12,7 +12,6 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: index.php 855 2007-04-23 07:18:01Z Zanix $
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -35,7 +34,7 @@ $inClause .= "'";
 $showNewSkill = ( $addon['config']['show_new_skills'] ? " AND SUBSTRING_INDEX(`s`.`skill_level`, ':', 1 ) > 1 " : '' );
 
 // Gather a list of players that have the skills we are looking for
-$query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `" . ROSTER_SKILLSTABLE . "` AS s, `" . ROSTER_PLAYERSTABLE . "` AS p"
+$query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `" . $roster->db->table('skills') . "` AS s, `" . $roster->db->table('players') . "` AS p"
 	   . " WHERE `p`.`member_id` = `s`.`member_id`"
 	   . " AND `p`.`guild_id` = '" . $roster->data['guild_id'] . "'"
 	   . $showNewSkill

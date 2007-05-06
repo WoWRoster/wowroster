@@ -32,7 +32,6 @@ INSERT INTO `renprefix_config` VALUES (1001, 'debug_mode', '1', 'radio{on^1|off^
 INSERT INTO `renprefix_config` VALUES (1002, 'sql_window', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.0.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.0.0', 'text{10|10', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1030, 'minPvPLogver', '0.6.1', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1040, 'locale', 'enUS', 'function{rosterLangValue', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
@@ -42,7 +41,6 @@ INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'gif', 'select{jp
 INSERT INTO `renprefix_config` VALUES (1100, 'img_url', 'img/', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1110, 'timezone', 'PST', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1120, 'localtimeoffset', '0', 'select{-12^-12|-11^-11|-10^-10|-9^-9|-8^-8|-7^-7|-6^-6|-5^-5|-4^-4|-3.5^-3.5|-3^-3|-2^-2|-1^-1|0^0|+1^1|+2^2|+3^3|+3.5^3.5|+4^4|+4.5^4.5|+5^5|+5.5^5.5|+6^6|+6.5^6.5|+7^7|+8^8|+9^9|+9.5^9.5|+10^10|+11^11|+12^12|+13^13', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1130, 'pvp_log_allow', '1', 'radio{yes^1|no^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1140, 'use_update_triggers', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '1', 'radio{yes^1|no^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '1', 'radio{on^1|off^0', 'main_conf');
@@ -101,7 +99,6 @@ INSERT INTO `renprefix_config` VALUES (6000, 'questlink_1', '1', 'radio{on^1|off
 INSERT INTO `renprefix_config` VALUES (6010, 'questlink_2', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6020, 'questlink_3', '1', 'radio{on^1|off^0', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6110, 'pvplogger', 'http://www.wowroster.net/Downloads/details/id=51.html', 'text{128|30', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/Downloads/c=2.html', 'text{128|30', 'data_links');
 
 # --------------------------------------------------------
@@ -148,11 +145,10 @@ INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2|b3:b4');
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3');
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'pvplist', 'guildpvp');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'upprofile', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'credit', 'credits');

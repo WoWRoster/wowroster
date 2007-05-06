@@ -198,7 +198,6 @@ function process_step1()
 
 	$tpl = new Template_Wrap('install_step1.html','install_header.html','install_tail.html');
 
-
     //
     // Check to make sure conf.php exists and is readable / writeable
     //

@@ -53,7 +53,7 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,0,'" . $roster->db->escape($_POST['title']) . "','" . $roster->db->escape($_POST['url']) . "')";
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $roster->db->escape($_POST['title']) . "','" . $roster->db->escape($_POST['url']) . "')";
 
 		$DBres = $roster->db->query($query);
 

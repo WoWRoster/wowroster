@@ -108,17 +108,7 @@ if( !$db )
 // Detect $version variable from Roster 1.6.0
 if( !isset($version) )
 {
-	if( !defined('ROSTER_CONFIGTABLE') )
-	{
-		define('ROSTER_CONFIGTABLE', $db_prefix . 'config');
-	}
-
-	if( !defined('ACCOUNT_TABLE') )
-	{
-		define('ACCOUNT_TABLE', $db_prefix . 'account');
-	}
-
-	$sql = "SELECT `config_value` FROM `" . ROSTER_CONFIGTABLE . "` WHERE `config_name` = 'version';";
+	$sql = "SELECT `config_value` FROM `" . $db->table('config') . "` WHERE `config_name` = 'version';";
 	$results = $db->query($sql);
 
 	if( !$results )
@@ -210,33 +200,33 @@ class Upgrade
 		global $db;
 
 		// Change player update time to datetime
-		$query_string = "ALTER TABLE `" . ROSTER_PLAYERSTABLE . "` CHANGE `dateupdatedutc` `dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
+		$query_string = "ALTER TABLE `" . $db->table('players') . "` CHANGE `dateupdatedutc` `dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
-		$query_string = "UPDATE `" . ROSTER_PLAYERSTABLE . "` SET dateupdatedutc = CONCAT('20', MID(`dateupdatedutc`, 7, 2), '-', MID(`dateupdatedutc`, 1, 2), '-', MID(`dateupdatedutc`, 4, 2), ' ', MID(`dateupdatedutc`, 10, 8));";
+		$query_string = "UPDATE `" . $db->table('players') . "` SET dateupdatedutc = CONCAT('20', MID(`dateupdatedutc`, 7, 2), '-', MID(`dateupdatedutc`, 1, 2), '-', MID(`dateupdatedutc`, 4, 2), ' ', MID(`dateupdatedutc`, 10, 8));";
 		$result = $db->query($query_string);
 
-		$query_string = "ALTER TABLE `" . ROSTER_PLAYERSTABLE . "` CHANGE `dateupdatedutc` `dateupdatedutc` DATETIME NULL DEFAULT NULL;";
+		$query_string = "ALTER TABLE `" . $db->table('players') . "` CHANGE `dateupdatedutc` `dateupdatedutc` DATETIME NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
 		// Change mail update time to datetime
-		$query_string = "ALTER TABLE `" . ROSTER_PLAYERSTABLE . "` CHANGE `maildateutc` `maildateutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
+		$query_string = "ALTER TABLE `" . $db->table('players') . "` CHANGE `maildateutc` `maildateutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
-		$query_string = "UPDATE `" . ROSTER_PLAYERSTABLE . "` SET maildateutc = CONCAT('20', MID(`maildateutc`, 7, 2), '-', MID(`maildateutc`, 1, 2), '-', MID(`maildateutc`, 4, 2), ' ', MID(`maildateutc`, 10, 8));";
+		$query_string = "UPDATE `" . $db->table('players') . "` SET maildateutc = CONCAT('20', MID(`maildateutc`, 7, 2), '-', MID(`maildateutc`, 1, 2), '-', MID(`maildateutc`, 4, 2), ' ', MID(`maildateutc`, 10, 8));";
 		$result = $db->query($query_string);
 
-		$query_string = "ALTER TABLE `" . ROSTER_PLAYERSTABLE . "` CHANGE `maildateutc` `maildateutc` DATETIME NULL DEFAULT NULL;";
+		$query_string = "ALTER TABLE `" . $db->table('players') . "` CHANGE `maildateutc` `maildateutc` DATETIME NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
 		// Change guild update time to datetime
-		$query_string = "ALTER TABLE `" . ROSTER_GUILDTABLE . "` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
+		$query_string = "ALTER TABLE `" . $db->table('guild') . "` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
-		$query_string = "UPDATE `" . ROSTER_GUILDTABLE . "` SET `guild_dateupdatedutc` = CONCAT('20', MID(`guild_dateupdatedutc`, 7, 2), '-', MID(`guild_dateupdatedutc`, 1, 2), '-', MID(`guild_dateupdatedutc`, 4, 2), ' ', MID(`guild_dateupdatedutc`, 10, 8));";
+		$query_string = "UPDATE `" . $db->table('guild') . "` SET `guild_dateupdatedutc` = CONCAT('20', MID(`guild_dateupdatedutc`, 7, 2), '-', MID(`guild_dateupdatedutc`, 1, 2), '-', MID(`guild_dateupdatedutc`, 4, 2), ' ', MID(`guild_dateupdatedutc`, 10, 8));";
 		$result = $db->query($query_string);
 
-		$query_string = "ALTER TABLE `" . ROSTER_GUILDTABLE . "` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` DATETIME NULL DEFAULT NULL;";
+		$query_string = "ALTER TABLE `" . $db->table('guild') . "` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` DATETIME NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
 
@@ -279,7 +269,7 @@ class Upgrade
 		//
 		$query_string = "SELECT `member_id`,`stat_int`,`stat_agl`,`stat_sta`,`stat_str`,`stat_spr`,`armor`,`defense`,".
 			"`res_frost`,`res_arcane`,`res_fire`,`res_shadow`,`res_nature`".
-			" FROM `" . ROSTER_PLAYERSTABLE . "`";
+			" FROM `" . $db->table('players') . "`";
 		$result = $db->query($query_string);
 
 		//
@@ -354,19 +344,18 @@ class Upgrade
 		{
 			$website_address = '';
 		}
-		$server_path = str_replace('/upgrade.php', '', $_SERVER['PHP_SELF']);
 
 		//
 		// Update some config settings
 		//
-		$db->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='$roster_lang' WHERE `config_name`='locale'");
-		$db->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='$website_address' WHERE `config_name`='website_address'");
-		$db->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='" . md5($roster_upd_pw) . "' WHERE `config_name`='roster_upd_pw';");
-		$db->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='$guild_name' WHERE `config_name`='guild_name'");
-		$db->query("UPDATE `" . ROSTER_CONFIGTABLE . "` SET `config_value`='$server_name' WHERE `config_name`='server_name';");
+		$db->query("UPDATE `" . $db->table('config') . "` SET `config_value`='$roster_lang' WHERE `config_name`='locale'");
+		$db->query("UPDATE `" . $db->table('config') . "` SET `config_value`='$website_address' WHERE `config_name`='website_address'");
+		$db->query("UPDATE `" . $db->table('config') . "` SET `config_value`='" . md5($roster_upd_pw) . "' WHERE `config_name`='roster_upd_pw';");
+		$db->query("UPDATE `" . $db->table('config') . "` SET `config_value`='$guild_name' WHERE `config_name`='guild_name'");
+		$db->query("UPDATE `" . $db->table('config') . "` SET `config_value`='$server_name' WHERE `config_name`='server_name';");
 
-		$db->query("INSERT INTO `" . ACCOUNT_TABLE . "` (`account_id`, `name`) VALUES (1, 'Guild'), (2, 'Officer'), (3, 'Admin');");
-		$db->query("UPDATE `" . ACCOUNT_TABLE . "` SET `hash` = '" . md5($roster_upd_pw) . "';");
+		$db->query("INSERT INTO `" . $db->table('account') . "` (`account_id`, `name`) VALUES (1, 'Guild'), (2, 'Officer'), (3, 'Admin');");
+		$db->query("UPDATE `" . $db->table('account') . "` SET `hash` = '" . md5($roster_upd_pw) . "';");
 
 		//
 		// Now loop through this again and insert it into the db
@@ -438,7 +427,7 @@ class Upgrade
 
 			unset($stats);
 
-			$querystr = "UPDATE `" . ROSTER_PLAYERSTABLE . "` SET " . $db->build_query('UPDATE',$query) . " WHERE `member_id` = '" . $value['member_id'] . "';";
+			$querystr = "UPDATE `" . $db->table('players') . "` SET " . $db->build_query('UPDATE',$query) . " WHERE `member_id` = '" . $value['member_id'] . "';";
 			$result = $db->query($querystr);
 		}
 

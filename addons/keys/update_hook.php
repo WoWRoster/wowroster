@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id: update_hook.php 790 2007-04-12 01:53:49Z Zanix $
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -25,7 +20,7 @@ if ( !defined('ROSTER_INSTALLED') )
  * Addon Update class
  * This MUST be the same name as the addon basename
  */
-class keys
+class keysUpdate
 {
 	var $messages = '';		// Update messages
 	var $data = array();	// Addon config data automatically pulled from the addon_config table
@@ -39,7 +34,7 @@ class keys
 	 * @param array $data	| Addon data
 	 * @return recipe
 	 */
-	function keys($data)
+	function keysUpdate($data)
 	{
 		$this->data = $data;
 	}

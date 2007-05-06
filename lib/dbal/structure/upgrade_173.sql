@@ -21,8 +21,10 @@ UPDATE `renprefix_account` account, `renprefix_config` config
 ### Config table: drop unused settings
 DELETE FROM `renprefix_config` WHERE `id` =    1 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` =    2 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 1030 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 1130 LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 3000 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 3010 LIMIT 1;
@@ -67,6 +69,8 @@ DELETE FROM `renprefix_config` WHERE `id` = 5008 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5015 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 5035 LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = 6110 LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = 7000 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 7005 LIMIT 1;
@@ -535,14 +539,13 @@ CREATE TABLE `renprefix_addon_config` (
 
 
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1:b2:|b3:b4');
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3');
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'pvplist', 'guildpvp');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'upprofile', 'update');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'credit', 'credits');
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last

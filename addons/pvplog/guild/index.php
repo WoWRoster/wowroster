@@ -20,12 +20,6 @@ if( !defined('ROSTER_INSTALLED') )
 }
 
 $roster->output['title'] = $roster->locale->act['pvplist'];
-include_once (ROSTER_BASE . 'roster_header.tpl');
-
-
-$roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
-
 
 $type = ( isset($_GET['type']) ? $_GET['type'] : 'guildwins' );
 
@@ -56,11 +50,11 @@ foreach( $choiceArray as $item_value )
 		$display = ( isset($roster->locale->act[$item_value]) ? $roster->locale->act[$item_value] : $item_value );
 		if( $type == $item_value )
 		{
-			$choiceForm .= '  <option value="' . makelink('guildpvp&amp;type=' . $item_value) . '" selected="selected">' . $display . "</option>\n";
+			$choiceForm .= '  <option value="' . makelink('guild-pvplog&amp;type=' . $item_value) . '" selected="selected">' . $display . "</option>\n";
 		}
 		else
 		{
-			$choiceForm .= '  <option value="' . makelink('guildpvp&amp;type=' . $item_value) . '">' . $display . "</option>\n";
+			$choiceForm .= '  <option value="' . makelink('guild-pvplog&amp;type=' . $item_value) . '">' . $display . "</option>\n";
 		}
 	}
 }
@@ -113,7 +107,7 @@ if( $type == 'guildwins' )
 	print $tableHeader;
 
 	$query = "SELECT `guild`, COUNT(`guild`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "`"
+		   . " FROM `" . $roster->db->table('pvp2') . "`"
 		   . " WHERE `win` = '1' AND `enemy` = '1'"
 		   . " GROUP BY `guild`"
 		   . " ORDER BY countg DESC;";
@@ -129,11 +123,11 @@ if( $type == 'guildwins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guildpvp&amp;type=guildinfo&amp;guild=' . urlencode($row['guild']) . '">');
+		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild']) . '">');
 
 		if( $row['guild'] == '' )
 		{
-			$guildname = '(N/A)';
+			$guildname = '(' . $roster->locale->act['unknown'] . ')';
 		}
 		else
 		{
@@ -155,7 +149,7 @@ elseif( $type == 'guildlosses' )
 	print $tableHeader;
 
 	$query = "SELECT `guild`, COUNT(`guild`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "`"
+		   . " FROM `" . $roster->db->table('pvp2') . "`"
 		   . " WHERE `win` = '0' AND `enemy` = '1'"
 		   . " GROUP BY `guild`"
 		   . " ORDER BY countg DESC;";
@@ -171,10 +165,10 @@ elseif( $type == 'guildlosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guildpvp&amp;type=guildinfo&amp;guild=' . urlencode($row['guild']) . '">');
+		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild']) . '">');
 		if( $row['guild'] == '' )
 		{
-			$guildname = '(N/A)';
+			$guildname = '(' . $roster->locale->act['unknown'] . ')';
 		}
 		else
 		{
@@ -205,7 +199,7 @@ elseif( $type == 'enemywins' )
 	));
 
 	$query = "SELECT `name`, `guild`, `race`, `class`, `leveldiff`, COUNT(`name`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "`"
+		   . " FROM `" . $roster->db->table('pvp2') . "`"
 		   . " WHERE `win` = '1' AND `enemy` = '1'"
 		   . " GROUP BY `name`"
 		   . " ORDER BY countg DESC, `leveldiff` DESC;";
@@ -221,7 +215,7 @@ elseif( $type == 'enemywins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guildpvp&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
+		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
 		print $row['name'];
 		print "</a></td>\n";
 		rankMid((($striping_counter % 2) +1));
@@ -230,11 +224,11 @@ elseif( $type == 'enemywins' )
 		rankMid((($striping_counter % 2) +1));
 		if ($row['guild'] == '')
 		{
-			$guildname = '(N/A)';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
 		}
 		else
 		{
-			$guildname = '<a href="' . makelink('guildpvp&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
 		}
 
 		print $guildname;
@@ -266,7 +260,7 @@ elseif( $type == 'enemylosses' )
 	));
 
 	$query = "SELECT `name`, `guild`, `race`, `class`, `leveldiff`, COUNT(`name`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "`"
+		   . " FROM `" . $roster->db->table('pvp2') . "`"
 		   . " WHERE `win` = '0' AND `enemy` = '1'"
 		   . " GROUP BY `name`"
 		   . " ORDER BY countg DESC, `leveldiff` DESC;";
@@ -282,7 +276,7 @@ elseif( $type == 'enemylosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guildpvp&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
+		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
 
 		print $row['name'];
 		print "</a></td>\n";
@@ -292,11 +286,11 @@ elseif( $type == 'enemylosses' )
 		rankMid((($striping_counter % 2) +1));
 		if( $row['guild'] == '' )
 		{
-			$guildname = '(N/A)';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
 		}
 		else
 		{
-			$guildname = '<a href="' . makelink('guildpvp&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
 		}
 
 		print $guildname;
@@ -320,8 +314,8 @@ elseif( $type == 'purgewins' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `win` = '1' AND `enemy` = '1'"
 		   . " GROUP BY `pvp3`.`member_id`"
 		   . " ORDER BY countg DESC;";
@@ -351,8 +345,8 @@ elseif( $type == 'purgelosses' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `win` = '0' AND `enemy` = '1'"
 		   . " GROUP BY `pvp3`.`member_id`"
 		   . " ORDER BY countg DESC;";
@@ -382,8 +376,8 @@ elseif( $type == 'purgeavewins' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, AVG(`pvp3`.`leveldiff`) AS ave, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `win` = '1' AND `enemy` = '1'"
 		   . " GROUP BY `pvp3`.`member_id`"
 		   . " ORDER BY ave DESC;";
@@ -421,8 +415,8 @@ elseif( $type == 'purgeavelosses' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, AVG(`pvp3`.`leveldiff`) AS ave, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `win` = '0' AND `enemy` = '1'"
 		   . " GROUP BY `pvp3`.`member_id`"
 		   . " ORDER BY ave DESC;";
@@ -461,8 +455,8 @@ elseif( $type == 'pvpratio' )
 	print $tableHeader;
 
 	$query = "SELECT `members`.`name`, `members`.`member_id`, IF(`pvp3`.`win` = '1', 1, 0) AS win, SUM(`win`) AS wtotal, COUNT(`win`) AS btotal"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `pvp3`.`leveldiff` < 8 AND `pvp3`.`leveldiff` > -8 AND `pvp3`.`enemy` = '1'"
 		   . " GROUP BY `members`.`name`"
 		   . " ORDER BY wtotal DESC;";
@@ -508,8 +502,8 @@ elseif( $type == 'playerinfo' )
 
 	$first = true;
 	$query = "SELECT `pvp3`.*, `members`.`name` AS gn"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `pvp3`.`name` = '" . $roster->db->escape($player) . "'";
 
 	if ($sort == 'name')
@@ -553,11 +547,11 @@ elseif( $type == 'playerinfo' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		$url = 'guildpvp&amp;type=playerinfo&amp;player=' . urlencode($player);
+		$url = 'guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($player);
 
 		if( $first )
 		{
-			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guildpvp&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(N/A)' ) . '</a>');
+			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>');
 			print '<br /><br />';
 
 			print $tableHeader;
@@ -565,7 +559,7 @@ elseif( $type == 'playerinfo' )
 				'<a href="' . makelink($url . '&amp;s=date') . '">' . $roster->locale->act['when'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=name') . '">' . $roster->locale->act['name'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=result') . '">' . $roster->locale->act['result'] . '</a>',
-				'<a href="' . makelink($url . '&amp;s=zone') . '">' . $roster->locale->act['zone2'] . '</a>',
+				'<a href="' . makelink($url . '&amp;s=zone') . '">' . $roster->locale->act['zone'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=subzone') . '">' . $roster->locale->act['subzone'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=diff') . '">' . $roster->locale->act['leveldiff'] . '</a>',
 			));
@@ -625,27 +619,27 @@ elseif( $type == 'guildinfo' )
 	$sort = ( isset($_GET['s']) ? $_GET['s'] : '' );
 
 	print '<br />';
-	print sprintf($roster->locale->act['kill_lost_hist_guild'],$guild);
+	print sprintf($roster->locale->act['kill_lost_hist_guild'],($guild ? $guild : '(' . $roster->locale->act['unknown'] . ')'));
 	print '<br /><br />';
 
 	print $tableHeader;
 
-	$url = 'guildpvp&amp;type=guildinfo&amp;guild=' . urlencode($guild);
+	$url = 'guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($guild);
 
 	print tableHeaderRow(array(
 		'<a href="' . makelink($url . '&amp;s=date') . '">' . $roster->locale->act['when'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=name') . '">Them</a>',
 		'<a href="' . makelink($url . '&amp;s=name') . '">Us</a>',
 		'<a href="' . makelink($url . '&amp;s=result') . '">' . $roster->locale->act['result'] . '</a>',
-		'<a href="' . makelink($url . '&amp;s=zone') . '">' . $roster->locale->act['zone2'] . '</a>',
+		'<a href="' . makelink($url . '&amp;s=zone') . '">' . $roster->locale->act['zone'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=subzone') . '">' . $roster->locale->act['subzone'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=diff') . '">' . $roster->locale->act['leveldiff'] . '</a>',
 	));
 
 
 	$query = "SELECT `pvp3`.*, `members`.`name` AS gn"
-		   . " FROM `" . ROSTER_PVP2TABLE . "` AS pvp3"
-		   . " LEFT JOIN `" . ROSTER_MEMBERSTABLE . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
 		   . " WHERE `pvp3`.`guild` = '" . $roster->db->escape($guild) . "'";
 
 	if( $sort == 'name' )
@@ -699,7 +693,7 @@ elseif( $type == 'guildinfo' )
 		print readbleDate($row['date']);
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guildpvp&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">' . $row['name'] . '</a>';
+		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">' . $row['name'] . '</a>';
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		print '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>';
@@ -739,5 +733,3 @@ elseif( $type == 'guildinfo' )
 
 	print $tableFooter;
 }
-
-include_once (ROSTER_BASE.'roster_footer.tpl');

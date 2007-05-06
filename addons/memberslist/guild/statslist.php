@@ -1,20 +1,15 @@
 <?php
-/******************************
- * WoWRoster.net  Roster
- * Copyright 2002-2006
- * Licensed under the Creative Commons
- * "Attribution-NonCommercial-ShareAlike 2.5" license
+/**
+ * WoWRoster.net WoWRoster
  *
- * Short summary
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * Full license information
- *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
- * -----------------------------
- *
- * $Id: statslist.php 861 2007-04-23 12:22:08Z PleegWat $
- *
- ******************************/
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
+ * @link       http://www.wowroster.net
+*/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
@@ -72,9 +67,9 @@ $mainQuery =
 	'`players`.`crit`, '.
 	"IF( `players`.`crit` IS NULL OR `players`.`crit` = '', 1, 0 ) AS 'cisnull' ".
 
-	'FROM `'.ROSTER_MEMBERSTABLE.'` AS members '.
-	'INNER JOIN `'.ROSTER_PLAYERSTABLE.'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-	'LEFT JOIN `'.ROSTER_ALT_TABLE.'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
+	'FROM `'.$roster->db->table('members').'` AS members '.
+	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
@@ -216,23 +211,26 @@ $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 $roster->output['show_menu'] = false;
 
-echo "<table>\n  <tr>\n";
-
-if ( $addon['config']['stats_hslist'] == 1 )
+if( $addon['config']['stats_hslist'] == 1 || $addon['config']['stats_pvplist'] == 1 )
 {
-	echo '    <td valign="top">';
-	include_once( ROSTER_LIB.'hslist.php');
-	echo "    </td>\n";
-}
+	echo "<table>\n  <tr>\n";
 
-if ( $addon['config']['stats_pvplist'] == 1 )
-{
-	echo '    <td valign="top">';
-	include_once( ROSTER_LIB.'pvplist.php');
-	echo "    </td>\n";
-}
+	if ( $addon['config']['stats_hslist'] == 1 )
+	{
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'hslist.php');
+		echo "    </td>\n";
+	}
 
-echo "  </tr>\n</table>\n";
+	if ( $addon['config']['stats_pvplist'] == 1 )
+	{
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'pvplist.php');
+		echo "    </td>\n";
+	}
+
+	echo "  </tr>\n</table>\n";
+}
 
 echo $memberlist->makeFilterBox();
 
@@ -249,11 +247,6 @@ if( $addon['config']['stats_update_inst'] )
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
 	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
-
-	if ($roster->config['pvp_log_allow'] == 1)
-	{
-		echo sprintf($roster->locale->act['update_instructpvp'], $roster->config['pvplogger']);
-	}
 	echo '</div>'.border('sgray','end');
 }
 
@@ -263,14 +256,16 @@ if( $addon['config']['stats_update_inst'] )
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function total_value ( $row )
+function total_value( $row )
 {
-	global $roster;
-
 	if( $row['stat_int_c'] )
+	{
 		$cell_value = '<div>'.($row['stat_int_c'] + $row['stat_agl_c'] + $row['stat_sta_c'] + $row['stat_str_c'] + $row['stat_spr_c']).'</div>';
+	}
 	else
+	{
 		$cell_value =  '&nbsp;';
+	}
 
 	return $cell_value;
 }
@@ -281,16 +276,20 @@ function total_value ( $row )
  * @param array $row - of character data
  * @return string - Formatted output
  */
-function armor_value ( $row )
+function armor_value( $row )
 {
 	global $roster;
 
 	$cell_value = '&nbsp;';
 
 	if( !empty($row['clientLocale']) )
+	{
 		$lang = $row['clientLocale'];
+	}
 	else
+	{
 		$lang = $roster->config['locale'];
+	}
 
 	// Configurlate armor is player has it
 	if( $row['stat_armor_c'] )
@@ -298,7 +297,6 @@ function armor_value ( $row )
 		$base = $row['stat_armor'];
 		$current = $row['stat_armor_c'];
 		$buff = $row['stat_armor_b'];
-		$debuff = $row['stat_armor_d'];
 
 		if( $buff == 0 )
 		{
@@ -332,10 +330,10 @@ function armor_value ( $row )
 
 		$line = '<span style="color:#ffffff;font-size:12px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
-		$clean_line = str_replace("'", "\'", $line);
+		$clean_line = str_replace("'", "\\'", $line);
 		$clean_line = str_replace('"','&quot;', $clean_line);
-		$clean_line = str_replace('(',"\(", $clean_line);
-		$clean_line = str_replace(')',"\)", $clean_line);
+		$clean_line = str_replace('(',"\\(", $clean_line);
+		$clean_line = str_replace(')',"\\)", $clean_line);
 		$clean_line = str_replace('<','&lt;', $clean_line);
 		$clean_line = str_replace('>','&gt;', $clean_line);
 

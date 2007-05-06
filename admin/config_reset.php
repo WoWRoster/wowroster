@@ -24,9 +24,6 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 	$query = "TRUNCATE `roster_config`;";
 	$roster->db->query($query);
 
-	$query = "TRUNCATE `roster_menu_button`";
-	$roster->db->query($query);
-
 	$query = "TRUNCATE `roster_menu`;";
 	$roster->db->query($query);
 
@@ -36,7 +33,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     $sql = @fread(@fopen($db_data_file, 'r'), @filesize($db_data_file));
     $sql = preg_replace('#renprefix\_(\S+?)([\s\.,]|$)#', $roster->db->prefix . '\\1\\2', $sql);
 
-    $sql = parse_sql($sql, $DBALS['mysql']['delim']);
+    $sql = parse_sql($sql, ';');
 
     $sql_count = count($sql);
     for ( $i = 0; $i < $sql_count; $i++ )

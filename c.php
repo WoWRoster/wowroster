@@ -29,7 +29,7 @@ include('.'.$roster_rel.'/settings.php');
 $char = $roster->db->escape(urldecode($_SERVER['QUERY_STRING']));
 
 // Check if there's a character with this name
-$query = "SELECT `member_id` FROM `".ROSTER_MEMBERSTABLE."` WHERE `name` = '$char' OR `member_id` = '$char';";
+$query = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$char' OR `member_id` = '$char';";
 
 $result = $roster->db->query($query);
 

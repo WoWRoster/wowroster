@@ -88,7 +88,7 @@ class bag extends item
 		}
 
 		// Select all item for this bag
-		for( $slot = 0, $idx = $this->data['item_quantity']; $slot < $this->data['item_quantity'] ; $slot++ )
+		for( $slot = 0; $slot < $this->data['item_quantity'] ; $slot++ )
 		{
 			if( $slot < 0 )
 			{
