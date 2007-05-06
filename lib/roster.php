@@ -179,7 +179,7 @@ class roster
 				{
 					$where = ' `players`.`member_id` = "'.$_GET['member'].'"';
 				}
-				elseif( strpos('@',$_GET['member']) !== false )
+				elseif( strpos($_GET['member'], '@') !== false )
 				{
 					list($name, $realm) = explode('@',$_GET['member']);
 					$where = ' `players`.`name` = "'.$name.'" AND `players`.`server` = "'.$realm.'"';
@@ -205,7 +205,7 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					message_die('This member is not in the database',$this->locale->act['roster_error']);
+					roster_die('This member is not in the database',$this->locale->act['roster_error']);
 				}
 
 				$this->db->free_result($result);
@@ -224,7 +224,7 @@ class roster
 				{
 					$where = ' `guild_id` = "'.$_GET['guild'].'"';
 				}
-				elseif( strpos('@',$_GET['guild']) !== false )
+				elseif( strpos($_GET['guild'],'@') !== false )
 				{
 					list($name, $realm) = explode('@',$_GET['guild']);
 					$where = ' `guild_name` = "'.$name.'" AND `server` = "'.$realm.'"';
