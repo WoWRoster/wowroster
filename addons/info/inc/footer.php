@@ -23,7 +23,7 @@ $char_page .= "</td></tr></table>\n<br clear=\"all\" />\n";
 
 if( empty($action) && $addon['config']['show_item_bonuses'])
 {
-	require_once (ROSTER_LIB.'charbonus.lib.php');
+	require_once ($addon['dir'] . 'inc/charbonus.lib.php');
 	$char_bonus = new CharBonus($char);
 	$char_page .= $char_bonus->dumpBonus();
 	unset($char_bonus);

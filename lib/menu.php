@@ -39,7 +39,7 @@ class RosterMenu
 						. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
 						. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['guild_name'] . '</a></span>'."\n"
 						. '      <span style="font-size:11px;"> @ ' . $roster->config['server_name'] . ' (' . $roster->config['server_type'] . ')</span><br />'
-						. $roster->locale->act['lastupdate'].': <span style="color:#0099FF;">'.DateDataUpdated($roster->data['guild_dateupdatedutc'])
+						. $roster->locale->act['lastupdate'].': <span style="color:#0099FF;">'.readbleDate($roster->data['guild_dateupdatedutc'])
 						. ((!empty($roster->config['timezone']))?' (' . $roster->config['timezone'] . ')':'')
 						. "      </span>\n"
 						. "    </td>\n"

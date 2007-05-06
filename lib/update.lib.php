@@ -263,6 +263,8 @@ class update
 		$pvpdata = $this->uploadData['pvplog'];
 		$this->resetMessages();
 
+		$output = '';
+
 		foreach ($pvpdata['PurgeLogData'] as $realm_name => $realm)
 		{
 			foreach ($realm as $char_name => $char)
@@ -2414,10 +2416,10 @@ class update
 			$playerInfo = $data[$index];
 			$playerName = $playerInfo['name'];
 			$playerDate = date('Y-m-d G:i:s', strtotime($playerInfo['date']));
-			$playerRealm = $playerInfo['realm'];
+			$playerRealm = ( isset($playerInfo['realm']) ? $playerInfo['realm'] : '' );
 
 			// skip if entry already there
-			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$this->escape( $playerName )."' AND `date` = '".$this->escape( $playerDate )."'".( !empty($playerRealm) ? " AND `realm` = '".$this->escape( $playerRealm )."';" : ';' );
+			$querystr = "SELECT `guild` FROM `".ROSTER_PVP2TABLE."` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '".$roster->db->escape( $playerName )."' AND `date` = '".$roster->db->escape( $playerDate )."'".( !empty($playerRealm) ? " AND `realm` = '".$roster->db->escape( $playerRealm )."';" : ';' );
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
@@ -2438,7 +2440,7 @@ class update
 				$this->add_pvp2time('date', $playerInfo['date']);
 				$this->add_value('name', $playerInfo['name']);
 				$this->add_value('guild', $playerInfo['guild']);
-				$this->add_value('realm', $playerInfo['realm']);
+				$this->add_value('realm', $playerRealm);
 				$this->add_value('race', $playerInfo['race']);
 				$this->add_value('class', $playerInfo['class']);
 				$this->add_value('zone', $playerInfo['zone']);

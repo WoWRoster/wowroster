@@ -33,7 +33,7 @@ require_once ($addon['dir'] . 'inc/char.lib.php');
 
 
 // Get Character Info
-$char = new char($char_data);
+$char = new char($roster->data);
 
 // Set <html><title> and <form action=""> and $char_url
 $roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'),$char->get('server'));

@@ -334,7 +334,7 @@ class memberslist
 		if( $update )
 			$querystr = "UPDATE `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('UPDATE',$build_query)." WHERE `member_id` = '$member_id'";
 		else
-			$querystr = "INSERT INTO `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('INSERT',$build_query);
+			$querystr = "INSERT INTO `".ROSTER_ALT_TABLE."` SET ".$roster->db->build_query('UPDATE',$build_query);
 
 		$result = $roster->db->query($querystr);
 
