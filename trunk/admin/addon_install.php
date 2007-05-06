@@ -396,7 +396,7 @@ function processAddon()
 			// We backup the addon config table to prevent damage
 			$installer->add_backup($roster->db->table('addon_config'));
 
-			$success = $addon->upgrade($previous['basename'],$previous['version']);
+			$success = $addon->upgrade($previous['version']);
 			break;
 
 		case 'uninstall':

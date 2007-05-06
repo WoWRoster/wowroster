@@ -200,7 +200,7 @@ class RosterMenu
 				$dat[$row['label']]['nonalt'] += $row['amount'];
 			}
 		}
-		
+
 		// No entries at all? Then there's no data uploaded, so there's no use
 		// rendering the panel.
 		if( $num_alts + $num_non_alts == 0 )
@@ -409,7 +409,12 @@ class RosterMenu
 							}
 						}
 					}
-					$html .= '              <li><a href="'.makelink($button['url']).'">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).'</a></li>'."\n";
+
+					if( substr($button['url'],0,7) != 'http://')
+					{
+						makelink($button['url']);
+					}
+					$html .= '              <li><a href="'.$button['url'].'">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).'</a></li>'."\n";
 				}
 				$html .= '            </ul>'."\n";
 				$html .= '          </td>'."\n";

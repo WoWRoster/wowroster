@@ -158,7 +158,7 @@ class memberslist
 		return true;
 	}
 
-	function upgrade($oldbasename, $oldversion)
+	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
