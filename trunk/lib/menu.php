@@ -27,34 +27,27 @@ class RosterMenu
 
 		define('ROSTER_MENU_INC',true);
 
-		if( $roster->data == false )
+		$left_pane = $this->makePane('menu_left');
+		$right_pane = $this->makePane('menu_right');
+
+		if( $roster->config['menu_top_pane'] )
 		{
-			$topbar = $left_pane = $right_pane = '';
+			$topbar = "  <tr>\n"
+					. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
+					. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . ( isset($roster->data['guild_name']) ? $roster->data['guild_name'] : $roster->config['guild_name'] ) . '</a></span>'."\n"
+					. '      <span style="font-size:11px;"> @ ' . $roster->config['server_name'] . ' (' . $roster->config['server_type'] . ')</span><br />'
+					. (isset($roster->data['guild_dateupdatedutc'])?$roster->locale->act['lastupdate'].': <span style="color:#0099FF;">'.readbleDate($roster->data['guild_dateupdatedutc'])
+					. ((!empty($roster->config['timezone']))?' (' . $roster->config['timezone'] . ')':''):'')
+					. "      </span>\n"
+					. "    </td>\n"
+					. "  </tr>\n"
+					. "  <tr>\n"
+					. '    <td colspan="3" class="simpleborder_b syellowborder_b"></td>' . "\n"
+					. "  </tr>\n";
 		}
 		else
 		{
-			if( $roster->config['menu_top_pane'] )
-			{
-				$topbar = "  <tr>\n"
-						. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
-						. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['guild_name'] . '</a></span>'."\n"
-						. '      <span style="font-size:11px;"> @ ' . $roster->config['server_name'] . ' (' . $roster->config['server_type'] . ')</span><br />'
-						. $roster->locale->act['lastupdate'].': <span style="color:#0099FF;">'.readbleDate($roster->data['guild_dateupdatedutc'])
-						. ((!empty($roster->config['timezone']))?' (' . $roster->config['timezone'] . ')':'')
-						. "      </span>\n"
-						. "    </td>\n"
-						. "  </tr>\n"
-						. "  <tr>\n"
-						. '    <td colspan="3" class="simpleborder_b syellowborder_b"></td>' . "\n"
-						. "  </tr>\n";
-			}
-			else
-			{
-				$topbar = '';
-			}
-
-			$left_pane = $this->makePane('menu_left');
-			$right_pane = $this->makePane('menu_right');
+			$topbar = '';
 		}
 
 		$buttonlist = $this->makeButtonList($sections);
@@ -119,6 +112,23 @@ class RosterMenu
 	{
 		global $roster;
 
+		// Figure out the scope and limit accordingly.
+		switch( $roster->pages[0] )
+		{
+			case 'guild':
+				// Restrict on the selected guild
+				$where = "AND `guild_id` = '".$roster->data['guild_id']."' ";
+				break;
+			case 'char':
+				// Restrict on this char's guild
+				$where = "AND `guild_id` = '".$roster->data['guild_id']."' ";
+				break;
+			default:
+				// util/pages uses all entries
+				$where = '';
+				break;
+		}
+
 		// Initialize data array
 		$dat = array();
 		if( $type == 'level' )
@@ -166,6 +176,7 @@ class RosterMenu
 			$qrypart." AS label ".
 			"FROM `".$roster->db->table('members')."` ".
 			"WHERE `level` > ".$level." ".
+			$where.
 			"GROUP BY isalt, label;";
 
 		$result = $roster->db->query($query);
@@ -188,6 +199,13 @@ class RosterMenu
 				$num_non_alts += $row['amount'];
 				$dat[$row['label']]['nonalt'] += $row['amount'];
 			}
+		}
+		
+		// No entries at all? Then there's no data uploaded, so there's no use
+		// rendering the panel.
+		if( $num_alts + $num_non_alts == 0 )
+		{
+			return '';
 		}
 
 		$output = '	<td valign="top" class="row">
@@ -250,10 +268,23 @@ class RosterMenu
 	{
 		global $roster;
 
+		if( !empty($roster->config['realmstatus']) )
+		{
+			$realmname = utf8_decode($roster->config['realmstatus']);
+		}
+		elseif( isset($roster->data['server']) )
+		{
+			$realmname = utf8_decode($roster->data['server']);
+		}
+		else
+		{
+			$realmname = utf8_decode($roster->config['server_name']);
+		}
+
 		$realmStatus = '    <td valign="top" class="row">' . "\n";
 		if( $roster->config['rs_mode'] )
 		{
-			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . ( !empty($roster->config['realmstatus']) ? $roster->config['realmstatus'] : $roster->data['server'] ) . '" />' . "\n";
+			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . $realmname . '" />' . "\n";
 		}
 		elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
 		{
@@ -374,7 +405,7 @@ class RosterMenu
 						{
 							if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
 							{
-								$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang,$roster->locale->wordings);
+								$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 							}
 						}
 					}

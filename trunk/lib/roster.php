@@ -238,26 +238,8 @@ class roster
 
 				break;
 			default:
-				// Not really any data to load here, but we'll load guild anyway,
-				// cause menu uses it.
-				$guild_escape = $this->db->escape( $this->config['guild_name'] );
-				$server_escape = $this->db->escape( $this->config['server_name'] );
-
-				$query = "SELECT * ".
-					"FROM `".$this->db->table('guild')."` ".
-					"WHERE `guild_name` = '".$guild_escape."' ".
-						"AND `server` = '".$server_escape."';";
-
-				$result = $this->db->query($query);
-
-				if( !$result )
-				{
-					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$query);
-				}
-
-				$this->data = $this->db->fetch($result);
-
-				$this->db->free_result($result);
+				$this->data = array();
+				break;
 		}
 	}
 

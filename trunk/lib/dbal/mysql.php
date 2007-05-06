@@ -174,7 +174,7 @@ class roster_db
 		$record = $this->fetch($this->query_id);
 		$this->free_result($this->query_id);
 
-		return $record[0];
+		return $record?$record[0]:false;
 	}
 
 	/**
