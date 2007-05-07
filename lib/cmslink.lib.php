@@ -78,16 +78,82 @@ unset($urlpath);
 function makelink( $url='' , $full=false )
 {
 	global $roster;
-
-	if( empty($url) || $url[0] == '&' )
+	
+	// Filter out anchor
+	if( ($pos = strpos($url,'#')) !== false )
 	{
-		$url = ROSTER_PAGE_NAME.$url;
+		$anchor = substr($url,$pos);
+		$url = substr($url,0,$pos);
+	}
+	else
+	{
+		$anchor = '';
 	}
 
-	if( strpos($url, '&amp;') )
+	// Prepend current page if needed
+	if( empty($url) || $url[0] == '&' )
+	{
+		$page = ROSTER_PAGE_NAME;
+		$url = substr($url, 5);
+	}
+	elseif( strpos($url, '&amp;') )
 	{
 		list($page, $url) = explode('&amp;',$url,2);
+	}
+	else
+	{
+		$page = $url;
+		$url = '';
+	}
+	
+	// Get target scope
+	list($scope) = explode('-',$page);
+	
+	// Get the target GET vars
+	parse_str(html_entity_decode($url), $get);
+	
+	// Add the member=/guild= param
+	switch($scope)
+	{
+		case 'char':
+			if( !isset($get['member']) && isset($roster->data['member_id']) )
+			{
+				$addget = 'member='.$roster->data['member_id'];
+			}
+			break;
+		case 'guild':
+			if( !isset($get['guild']) && isset($roster->data['guild_id']) )
+			{
+				$addget = 'guild='.$roster->data['guild_id'];
+			}
+			break;
+		default:
+			$addget = '';
+			break;
+	}
+	
+	// Put the url back together again
+	if( empty($addget) || empty($url) )
+	{
+		$url = $addget . $url;
+	}
+	else
+	{
+		$url = $addget . '&amp;' . $url;
+	}
 
+	// Pass through the SEO encoder
+	if( empty($url) )
+	{
+		if( $roster->config['seo_url'] )
+		{
+			$page = str_replace('-','/',$page);
+		}
+
+		$url = sprintf(ROSTER_LINK_NOARGS,$page);
+	}
+	else
+	{
 		if( $roster->config['seo_url'] )
 		{
 			$page = str_replace('-','/',$page);
@@ -95,23 +161,15 @@ function makelink( $url='' , $full=false )
 
 		$url = sprintf(ROSTER_LINK,$page,$url);
 	}
-	else
-	{
-		if( $roster->config['seo_url'] )
-		{
-			$url = str_replace('-','/',$url);
-		}
 
-		$url = sprintf(ROSTER_LINK_NOARGS,$url);
-	}
-
-
+	// Prepend the front end of the url if requested
 	if( $full )
 	{
 		$url = ROSTER_URL."$url";
 	}
 
-	return $url;
+	// Re-add the anchor and return
+	return $url.$anchor;
 }
 
 /**
