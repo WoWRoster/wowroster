@@ -331,7 +331,7 @@ elseif( $type == 'purgewins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
 		rankRight((($striping_counter % 2) +1));
 		print $row['countg'];
 		print "</td>\n</tr>\n";
@@ -362,7 +362,7 @@ elseif( $type == 'purgelosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="'.makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
 		rankRight((($striping_counter % 2) +1));
 		print $row['countg'];
 		print "</td>\n</tr>\n";
@@ -393,7 +393,7 @@ elseif( $type == 'purgeavewins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if( $ave > 0 )
@@ -432,7 +432,7 @@ elseif( $type == 'purgeavelosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="'.makelink('char-info-pvp&amp;member='.$row['member_id']).'">'.$row['gn']."</a></td>\n";
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if( $ave > 0 )
@@ -472,7 +472,7 @@ elseif( $type == 'pvpratio' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['name'] . "</a></td>\n";
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . "</td>\n";
 		rankRight((($striping_counter % 2) +1));
 		$wins = $row['wtotal'];
 		$battles = $row ['btotal'];
@@ -576,7 +576,7 @@ elseif( $type == 'playerinfo' )
 		print readbleDate($row['date']);
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>';
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		if( $row['win'] == '1' )
@@ -696,7 +696,7 @@ elseif( $type == 'guildinfo' )
 		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">' . $row['name'] . '</a>';
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>';
+		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		if( $row['win'] == '1' )

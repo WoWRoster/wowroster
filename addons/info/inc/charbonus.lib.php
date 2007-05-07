@@ -51,20 +51,24 @@ class CharBonus
 			$this->sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], $item->data['item_color'] );
 		}
 
-		$bt = border('sgray','start',$roster->locale->wordings[$this->lang]['itembonuses']).
-		'<table style="width:330px;" class="bodyline" cellspacing="0" cellpadding="0" border="0">'."\n";
-
+		$bt = '<div class="char_panel" style="margin-left:20px;">
+	<img src="' . $roster->config['img_url'] . 'char/menubar/icon_bonuses.gif" class="panel_icon" alt="" />
+	<div class="panel_title">' . $roster->locale->wordings[$this->lang]['item_bonuses_full'] . '</div>
+	<div class="tab3">
+		<div class="container">
+';
 		$row = 0;
 		foreach( $this->my_bonus as $key => $value )
 		{
-			$bt .= '	<tr>
-		<td class="membersRowRight'.(($row%2)+1).'" style="white-space:normal;" '.makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2).'>'.
-		str_replace('XX', $value, $key).'</td>
-	</tr>';
-
-			$row++;
+			$bt .= '		<div class="membersRowRight'.(($row%2)+1).'" style="white-space:normal;" '.makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2).'>'.
+		str_replace('XX', $value, $key).'</div>
+';
+		$row++;
 		}
-		$bt .= '</table>'.border('sgray','end');
+		$bt .= '
+		</div>
+	</div>
+</div>';
 
 		if( !empty($this->my_bonus) )
 		{

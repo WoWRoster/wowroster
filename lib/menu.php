@@ -412,7 +412,7 @@ class RosterMenu
 
 					if( substr($button['url'],0,7) != 'http://')
 					{
-						makelink($button['url']);
+						$button['url'] = makelink($button['url']);
 					}
 					$html .= '              <li><a href="'.$button['url'].'">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).'</a></li>'."\n";
 				}

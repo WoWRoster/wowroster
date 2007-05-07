@@ -20,7 +20,7 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-if( $addon['config']['show_inventory'] == 1 )
+if( $addon['config']['show_bags'] == 1 )
 {
 	$bag0 = bag_get( $char->get('member_id'), 'Bag0' );
 	if( !is_null( $bag0 ) )

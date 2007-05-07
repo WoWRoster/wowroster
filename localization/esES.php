@@ -212,8 +212,6 @@ $lang['timeplayed'] = 'Tiempo Jugado';
 $lang['timelevelplayed'] = 'Tiempo Jugado Nivel Actual';
 $lang['Addon'] = 'Addons';
 $lang['advancedstats'] = 'Estadísticas Avanzadas';
-$lang['itembonuses'] = 'Bonificaciones para objetos equipados';
-$lang['itembonuses2'] = 'Bonificaciones de objetos';
 $lang['crit'] = 'Crit';
 $lang['dodge'] = 'Esquivar';
 $lang['parry'] = 'Parar';
@@ -231,6 +229,7 @@ $lang['added'] = 'Añadido';
 $lang['updated'] = 'Updated';
 $lang['no_info'] = 'No Information';
 $lang['none']='Ninguno';
+$lang['kills']='Asesinatos';
 
 $lang['rosterdiag'] = 'Roster Diag.';
 $lang['difficulty'] = 'Dificultad';

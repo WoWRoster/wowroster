@@ -257,13 +257,13 @@ class update
 
 		$this->resetMessages();
 
-		foreach( array_keys( $myProfile ) as $realm_name )
+		foreach( array_keys($myProfile) as $realm_name )
 		{
 //			if( $roster->config['server_name'] == $realm_name )
 			{
 //				$guildInfo = $this->get_guild_info($realm_name,$roster->config['guild_name']);
 
-				if( is_array($myProfile[$realm_name]['Character']) )
+				if( isset($myProfile[$realm_name]['Character']) && is_array($myProfile[$realm_name]['Character']) )
 				{
 					$characters = $myProfile[$realm_name]['Character'];
 
@@ -282,8 +282,10 @@ class update
 						{
 							$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Character',$char_name)."</strong>\n";
 
-							if(!isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
+							if( !isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
+							{
 								continue;
+							}
 
 							$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
 							$output .= "<ul>\n".$this->getMessages()."</ul>\n";

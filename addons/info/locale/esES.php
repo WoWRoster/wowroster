@@ -129,13 +129,20 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 $lang['empty_equip']='No hay objeto equipado';
 $lang['pointsspent']='Puntos Gastados en';
 
+$lang['item_bonuses_full'] = 'Bonificaciones para objetos equipados';
+$lang['item_bonuses'] = 'Bonificaciones de objetos';
+
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
 $lang['admin']['char_bodyalign'] = "P&aacutegina del personaje Alineaci&oacuten|Alineaci&oacuten de la informaci&oacuten en la p&aacutegina del personaje";
 $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
+$lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talentos|Controla el modo de mostrar los talentos<br><br>Las opciones son globales y afectan a todos los usuarios";
 $lang['admin']['show_spellbook'] = "Libro de hechizos|Controla el modo de mostrar el libro de hechizos<br><br>Las opciones son globales y afectan a todos los usuarios";
 $lang['admin']['show_mail'] = "Correo|Controla el modo de mostrar el correo<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_inventory'] = "Bolsas|Controla el modo de mostrar las bolsas <br><br>opciones son globales y afectan a todos los usuarios";
+$lang['admin']['show_bags'] = "Bolsas|Controla el modo de mostrar las bolsas <br><br>opciones son globales y afectan a todos los usuarios";
 $lang['admin']['show_money'] = "Dinero|Controla el modo de mostrar el dinero<br><br>Las opciones son globales y afectan a todos los usuarios";
 $lang['admin']['show_bank'] = "Banco|Controla el modo de mostrar el banco<br><br>Las opciones son globales y afectan a todos los usuarios";
 $lang['admin']['show_recipes'] = "Recetas|Controla el modo de mostrar las recetas<br><br>Las opciones son globales y afectan a todos los usuarios";

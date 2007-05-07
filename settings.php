@@ -35,7 +35,9 @@ if( intval(ini_get('register_globals')) != 0 )
 	foreach( $_REQUEST AS $key => $val )
 	{
 		if( isset($$key) )
+		{
 			unset($$key);
+		}
 	}
 }
 unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
@@ -73,6 +75,13 @@ define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 
 include( ROSTER_LIB.'roster.php' );
 $roster = new roster;
+
+/**
+ * Roster Error Handler
+ */
+include( ROSTER_LIB.'roster_error.php' );
+$roster->error =& new roster_error(E_ALL);
+
 
 /**
  * Load the dbal

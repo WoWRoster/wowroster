@@ -1530,9 +1530,9 @@ select {
 }
 .char_panel .tab5 .killsline1 {
 	position:absolute;
-	margin:80px 0 0 35px;
+	margin:80px 0 0 75px;
 	text-align:right;
-	width:100px;
+	width:60px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
@@ -1540,9 +1540,9 @@ select {
 }
 .char_panel .tab5 .killsline2 {
 	position:absolute;
-	margin:80px 0 0 115px;
+	margin:80px 0 0 135px;
 	text-align:right;
-	width:100px;
+	width:80px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
@@ -1570,9 +1570,9 @@ select {
 }
 .char_panel .tab5 .honorline1 {
 	position:absolute;
-	margin:100px 0 0 35px;
+	margin:100px 0 0 75px;
 	text-align:right;
-	width:100px;
+	width:60px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
@@ -1580,9 +1580,9 @@ select {
 }
 .char_panel .tab5 .honorline2 {
 	position:absolute;
-	margin:100px 0 0 115px;
+	margin:100px 0 0 135px;
 	text-align:right;
-	width:100px;
+	width:80px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;
@@ -1590,9 +1590,9 @@ select {
 }
 .char_panel .tab5 .honorline3 {
 	position:absolute;
-	margin:100px 0 0 205px;
+	margin:100px 0 0 255px;
 	text-align:right;
-	width:100px;
+	width:50px;
 	font-size:13px;
 	color:#FFF;
 	font-weight:bold;

@@ -2144,47 +2144,73 @@ else
 			<?php print $this->printBox('defense','right',false); ?>
 		</div>
 	</div>
+<?php
+
+if( $addon['config']['show_tab2'] )
+{
+	print '
 <!-- Begin tab2 -->
 	<div id="tab2" class="tab2" style="display:none;">
 		<div class="background">&nbsp;</div>
-		<?php print $petTab; ?>
+' . $petTab . '
 	</div>
+';
+}
 
+if( $addon['config']['show_tab3'] )
+{
+	print '
 <!-- Begin tab3 -->
 	<div id="tab3" class="tab3" style="display:none;">
-		<div class="faction"><?php print $this->locale['faction']; ?></div>
-		<div class="standing"><?php print $this->locale['standing']; ?></div>
-		<div class="atwar"><?php print $this->locale['atwar']; ?></div>
+		<div class="faction">' . $this->locale['faction'] . '</div>
+		<div class="standing">' . $this->locale['standing'] . '</div>
+		<div class="atwar">' . $this->locale['atwar'] . '</div>
 
 		<div class="container">
-<?php print $this->printReputation(); ?>
+' . $this->printReputation() . '
 		</div>
 	</div>
+';
+}
 
+if( $addon['config']['show_tab4'] )
+{
+	print '
 <!-- Begin tab4 -->
 	<div id="tab4" class="tab4" style="display:none;">
 		<div class="container">
-<?php print $this->printSkills(); ?>
+' . $this->printSkills() . '
 		</div>
 	</div>
+';
+}
 
+if( $addon['config']['show_tab5'] )
+{
+	print '
 <!-- Begin tab5 -->
 	<div id="tab5" class="tab5" style="display:none;">
 		<div class="background">&nbsp;</div>
-<?php print $this->printHonor(); ?>
+' . $this->printHonor() . '
 	</div>
+';
+}
 
+?>
 <!-- Begin Navagation Tabs -->
 	<div id="char_navagation" class="tab_navagation">
 		<ul>
 			<li onclick="return displaypage('tab1',this);"><div class="text"><?php print $this->locale['tab1']; ?></div></li>
 <?php
-if( $petTab != '' )
+if( $addon['config']['show_tab2'] && $petTab != '' )
 	print '			<li onclick="return displaypage(\'tab2\',this);"><div class="text">'.$this->locale['tab2'].'</div></li>'."\n";
+if( $addon['config']['show_tab3'] )
+	print '			<li onclick="return displaypage(\'tab3\',this);"><div class="text">'.$this->locale['tab3'].'</div></li>'."\n";
+if( $addon['config']['show_tab4'] )
+	print '			<li onclick="return displaypage(\'tab4\',this);"><div class="text">'.$this->locale['tab4'].'</div></li>'."\n";
+if( $addon['config']['show_tab5'] )
+	print '			<li onclick="return displaypage(\'tab5\',this);"><div class="text">'.$this->locale['tab5'].'</div></li>'."\n";
 ?>
-			<li onclick="return displaypage('tab3',this);"><div class="text"><?php print $this->locale['tab3']; ?></div></li>
-			<li onclick="return displaypage('tab4',this);"><div class="text"><?php print $this->locale['tab4']; ?></div></li>
-			<li onclick="return displaypage('tab5',this);"><div class="text"><?php print $this->locale['tab5']; ?></div></li>
 		</ul>
 	</div>
 

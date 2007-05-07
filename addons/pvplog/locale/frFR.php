@@ -46,7 +46,6 @@ $lang['most_killed']='Le plus tué';
 $lang['most_killed_by']='Le plus tué par';
 $lang['leveldiff']='Différence de Niveau';
 $lang['bg']='Champ de Bataille';
-$lang['kills']='Tués';
 
 // guildpvp strings
 $lang['guildwins'] = 'Wins by Guild';

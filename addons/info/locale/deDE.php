@@ -129,13 +129,20 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 $lang['empty_equip']='Kein Gegenstand angelegt';
 $lang['pointsspent']='Punkte verteilt in';
 
+$lang['item_bonuses_full'] = 'Boni f&uuml;r angelegte Gegenst&auml;nde';
+$lang['item_bonuses'] = 'Gegenstand Boni';
+
 $lang['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den Charakterseite angezeigt werden soll';
 $lang['admin']['char_bodyalign'] = "Charakterseiten Ausrichtung|Ausrichtung der Daten auf der Charakterseite";
 $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
+$lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_mail'] = "Postfach|Anzeige des Postfaches<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_inventory'] = "Taschen|Anzeige der Taschen<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_bags'] = "Taschen|Anzeige der Taschen<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_bank'] = "Bank|Anzeige der Bankfächer<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_recipes'] = "Rezepte|Anzeige der Rezepte<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
