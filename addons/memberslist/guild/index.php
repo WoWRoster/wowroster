@@ -160,7 +160,7 @@ $FIELD['officer_note'] = array (
 
 $memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
 
-$roster->output['html_head'] = '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
+$roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 
 // Start output
 if( $addon['config']['member_update_inst'] )
