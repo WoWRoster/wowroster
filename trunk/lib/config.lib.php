@@ -76,11 +76,11 @@ class config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li><a href="'.str_replace('%roster%',ROSTER_PATH,$values['value']).'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="'.$values['value'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li><a href="'.str_replace('%roster%',ROSTER_PATH,$values['value']).'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="'.$values['value'].'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
 					case 'makelink':
@@ -569,8 +569,6 @@ class config
 	 */
 	function createTip( $disp_text , $content , $caption )
 	{
-		$tipsettings = ",WRAP";
-
 		$tip = makeOverlib($content,$caption,'',2,'',',WRAP');
 		$tip = " style=\"cursor:help;\" $tip>$disp_text";
 

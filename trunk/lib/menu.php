@@ -23,7 +23,7 @@ class RosterMenu
 {
 	function makeMenu($sections)
 	{
-		global $roster, $roster_login;
+		global $roster;
 
 		define('ROSTER_MENU_INC',true);
 

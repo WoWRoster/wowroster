@@ -212,6 +212,7 @@ class roster
 				$this->db->free_result($result);
 
 				break;
+
 			case 'guild':
 				// Check if the guild attribute is set
 				if( !isset($_GET['guild']) )
@@ -255,6 +256,7 @@ class roster
 				$this->db->free_result($result);
 
 				break;
+
 			default:
 				$this->data = array();
 				break;

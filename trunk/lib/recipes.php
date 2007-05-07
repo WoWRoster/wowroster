@@ -33,9 +33,13 @@ class recipe
 		global $roster, $char, $tooltips;
 
 		if( !is_object($char) )
+		{
 			$lang = $roster->config['locale'];
+		}
 		else
+		{
 			$lang = $char->data['clientLocale'];
+		}
 
 		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster->config['img_suffix'];
 
@@ -65,10 +69,6 @@ class recipe
 function recipe_get_many( $member_id, $search, $sort )
 {
 	global $roster;
-	if (isset($char))
-		$char = $roster->db->escape( $char );
-	if (isset($server))
-		$server = $roster->db->escape( $server );
 
 	$query= "SELECT * FROM `".$roster->db->table('recipes')."` where `member_id` = '$member_id'";
 
@@ -122,12 +122,6 @@ function recipe_get_all( $skill_name, $search, $sort )
 {
 	global $roster;
 
-	if (isset($server))
-	{
-		$server = $roster->db->escape( $server );
-	}
-
-	//$query= "SELECT distinct recipe_name, recipe_type, skill_name, reagents, recipe_texture, level, min(difficulty) difficulty FROM `".$roster->db->table('recipes')."` where `skill_name` = '$skill_name' GROUP BY recipe_name, recipe_type, skill_name, reagents, recipe_texture, level";
 	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".$roster->db->table('recipes')."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
 
 	switch ($sort)

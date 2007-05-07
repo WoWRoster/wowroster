@@ -36,8 +36,6 @@ class RosterLogin
 	 */
 	function RosterLogin( $script_filename='' )
 	{
-		global $roster;
-
 		$this->script_filename = makelink($script_filename);
 
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
