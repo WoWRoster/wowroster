@@ -35,7 +35,7 @@ class info
 
 	function install()
 	{
-		global $installer;
+		global $installer, $roster;
 
 		// Master and menu entries
 		$installer->add_config("'1','startpage','char_conf','display','master'");
@@ -44,17 +44,36 @@ class info
 
 		$installer->add_config("'1000', 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf'");
 		$installer->add_config("'1010', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
-		$installer->add_config("'1020', 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1030', 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1040', 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1050', 'show_inventory', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1060', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1070', 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1080', 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1090', 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1100', 'show_bg', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1110', 'show_pvp', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1120', 'show_duels', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1020', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1030', 'show_tab2', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1040', 'show_tab3', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1050', 'show_tab4', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1060', 'show_tab5', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1070', 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1080', 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1190', 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1100', 'show_bags', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1110', 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1120', 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1130', 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1140', 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+
+		$installer->add_backup($roster->db->table('players'));
+
+		$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
+		  ADD `show_money` TINYINT(1) NOT NULL default '3',
+		  ADD `show_tab2` TINYINT(1) NOT NULL default '3',
+		  ADD `show_tab3` TINYINT(1) NOT NULL default '3',
+		  ADD `show_tab4` TINYINT(1) NOT NULL default '3',
+		  ADD `show_tab5` TINYINT(1) NOT NULL default '3',
+		  ADD `show_talents` TINYINT(1) NOT NULL default '3',
+		  ADD `show_spellbook` TINYINT(1) NOT NULL default '3',
+		  ADD `show_mail` TINYINT(1) NOT NULL default '3',
+		  ADD `show_bags` TINYINT(1) NOT NULL default '3',
+		  ADD `show_bank` TINYINT(1) NOT NULL default '3',
+		  ADD `show_quests` TINYINT(1) NOT NULL default '3',
+		  ADD `show_recipes` TINYINT(1) NOT NULL default '3',
+		  ADD `show_item_bonuses` TINYINT(1) NOT NULL default '3';");
 
 		return true;
 	}
@@ -67,9 +86,26 @@ class info
 
 	function uninstall()
 	{
-		global $installer;
+		global $installer, $roster;
 
 		$installer->remove_all_config();
+
+		$installer->add_backup($roster->db->table('players'));
+
+		$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
+		  DROP `show_money`,
+		  DROP `show_tab2`,
+		  DROP `show_tab3`,
+		  DROP `show_tab4`,
+		  DROP `show_tab5`,
+		  DROP `show_talents`,
+		  DROP `show_spellbook`,
+		  DROP `show_mail`,
+		  DROP `show_bags`,
+		  DROP `show_bank`,
+		  DROP `show_quests`,
+		  DROP `show_recipes`,
+		  DROP `show_item_bonuses`;");
 
 		return true;
 	}

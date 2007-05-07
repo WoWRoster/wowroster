@@ -42,22 +42,27 @@ $char_url_old = '&amp;member=' . $char->get('name') . '@' . $char->get('server')
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
 $disp_array = array(
-	'show_talents'=>'talents',
-	'show_spellbook'=>'spellbook',
-	'show_mail'=>'mail',
-	'show_inventory'=>'inv',
-	'show_money'=>'money',
-	'show_bank'=>'bank',
-	'show_recipes'=>'recipes',
-	'show_quests'=>'quests'
+	'show_money',
+	'show_tab2',
+	'show_tab3',
+	'show_tab4',
+	'show_tab5',
+	'show_talents',
+	'show_spellbook',
+	'show_mail',
+	'show_bags',
+	'show_bank',
+	'show_quests',
+	'show_recipes',
+	'show_item_bonuses'
 );
 
 // Loop through this array and set display accordingly
-foreach( $disp_array as $global_setting => $user_setting )
+foreach( $disp_array as $global_setting )
 {
 	if( $addon['config'][$global_setting] == '2' )
 	{
-		switch ($char->get($user_setting))
+		switch ($char->get($global_setting))
 		{
 			case '1': // Private setting
 				$addon['config'][$global_setting] = 0;
@@ -93,7 +98,7 @@ if( $addon['config']['show_mail'] )
 	$char_menu .= '	<a href="'.makelink('char-info-mailbox'.$char_url).'" onmouseover="overlib(\''.$roster->locale->act['mailbox'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster->config['img_url'].'char/menubar/menu_mail.jpg" alt="" /></a>';
 
-if( $addon['config']['show_inventory'] )
+if( $addon['config']['show_bags'] )
 	$char_menu .= '	<a href="'.makelink('char-info-bags'.$char_url).'" onmouseover="overlib(\''.$roster->locale->act['bags'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster->config['img_url'].'char/menubar/menu_bags.jpg" alt="" /></a>';
 
@@ -124,7 +129,6 @@ $char_menu .= '<br />'.messagebox(
 
 $char_page = '<div align="' . $addon['config']['char_bodyalign'] . "\">\n";
 
-
 $char_page .= '
 <br />
-<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left" width="100%">';
+<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';

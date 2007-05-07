@@ -24,42 +24,29 @@ if( isset($_POST['process']) && $_POST['process'] != '' )
 }
 
 $char_data = getCharData();
+//echo '<pre style="text-align:left">';print_r($char_data);echo '</pre>';
 
 // Build the character display control
 if( is_array($char_data) )
 {
 	$body = "<div id=\"char_disp\">\n".border('syellow','start',$roster->locale->act['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
-	$disp_array = array(
-		'talents',
-		'spellbook',
-		'mail',
-		'inv',
-		'money',
-		'bank',
-		'recipes',
-		'quests',
-		'bg',
-		'pvp',
-		'duels',
-		'item_bonuses',
-	);
-
 	$body .= '
 <tr>
 	<th class="membersHeader">'.$roster->locale->act['name'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['money'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['tab2'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['tab3'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['tab4'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['tab5'].'</th>
 	<th class="membersHeader">'.$roster->locale->act['talents'].'</th>
 	<th class="membersHeader">'.$roster->locale->act['spellbook'].'</th>
 	<th class="membersHeader">'.$roster->locale->act['mailbox'].'</th>
 	<th class="membersHeader">'.$roster->locale->act['bags'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['money'].'</th>
 	<th class="membersHeader">'.$roster->locale->act['bank'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['recipes'].'</th>
 	<th class="membersHeader">'.$roster->locale->act['quests'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['bglog'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['pvplog'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['duellog'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['itembonuses2'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['recipes'].'</th>
+	<th class="membersHeader">'.$roster->locale->act['item_bonuses'].'</th>
 </tr>
 ';
 
@@ -68,15 +55,16 @@ if( is_array($char_data) )
 	{
 		$body .= '
 <tr>
-	<td class="membersRow'.(($i%2)+1).'">'.$name.'</td>';
+	<td class="membersRow'.(($i%2)+1).'"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">'.$name.'</a><br />
+		' . $data['level'] . ':' . $data['class'] . '</td>';
 
 		$k=0;
-		foreach( $data as $val_name => $values )
+		foreach( $data['values'] as $val_name => $value )
 		{
 			$body .= '
 	<td class="membersRow'.(($i%2)+1).'">';
-			$body .= '<input type="radio" id="chard_f'.$k.'_'.$values['member_id'].'" name="disp_'.$values['member_id'].':'.$val_name.'" value="1" '.( $values['value'] == '1' ? 'checked="checked"' : '' ).' /><label for="chard_f'.$k.'_'.$values['member_id'].'">off</label><br />'."\n";
-			$body .= '<input type="radio" id="chard_n'.$k.'_'.$values['member_id'].'" name="disp_'.$values['member_id'].':'.$val_name.'" value="3" '.( $values['value'] == '3' ? 'checked="checked"' : '' ).' /><label for="chard_n'.$k.'_'.$values['member_id'].'">on</label>'."\n";
+			$body .= '<input type="radio" id="chard_f'.$k.'_'.$data['member_id'].'" name="disp_'.$data['member_id'].':'.$val_name.'" value="1" '.( $value == '1' ? 'checked="checked"' : '' ).' /><label for="chard_f'.$k.'_'.$data['member_id'].'">off</label><br />'."\n";
+			$body .= '<input type="radio" id="chard_n'.$k.'_'.$data['member_id'].'" name="disp_'.$data['member_id'].':'.$val_name.'" value="3" '.( $value == '3' ? 'checked="checked"' : '' ).' /><label for="chard_n'.$k.'_'.$data['member_id'].'">on</label>'."\n";
 			$body .= '</td>';
 
 			$k++;
@@ -100,7 +88,6 @@ $body = $roster_login->getMessage()."<br />
 </form>";
 
 
-
 /**
  * Get character config data
  *
@@ -111,22 +98,24 @@ function getCharData( )
 	global $roster;
 
 	$sql = "SELECT ".
-		"`members`.`member_id`, ".
-		"`members`.`name`, ".
-		"`members`.`inv`, ".
-		"`members`.`talents`, ".
-		"`members`.`quests`, ".
-		"`members`.`bank`, ".
-		"`members`.`spellbook`, ".
-		"`members`.`mail`, ".
-		"`members`.`money`, ".
-		"`members`.`recipes`, ".
-		"`members`.`bg`, ".
-		"`members`.`pvp`, ".
-		"`members`.`duels`, ".
-		"`members`.`item_bonuses` ".
-		"FROM `".$roster->db->table('members')."` AS members ".
-		"INNER JOIN `".$roster->db->table('players')."` AS players ON `members`.`member_id` = `players`.`member_id` ".
+		"`member_id`, ".
+		"`name`, ".
+		"`level`, ".
+		"`class`, ".
+		"`show_money`, ".
+		"`show_tab2`, ".
+		"`show_tab3`, ".
+		"`show_tab4`, ".
+		"`show_tab5`, ".
+		"`show_talents`, ".
+		"`show_spellbook`, ".
+		"`show_mail`, ".
+		"`show_bags`, ".
+		"`show_bank`, ".
+		"`show_quests`, ".
+		"`show_recipes`, ".
+		"`show_item_bonuses` ".
+		"FROM `".$roster->db->table('players')."` ".
 		"ORDER BY `name` ASC;";
 
 	// Get the current config values
@@ -138,15 +127,17 @@ function getCharData( )
 
 	$db_values = false;
 
-	while($row = $roster->db->fetch($results,MYSQL_ASSOC))
+	while( $row = $roster->db->fetch($results,MYSQL_ASSOC) )
 	{
-		foreach ($row as $field => $value)
+		$db_values[$row['name']]['member_id'] = $row['member_id'];
+		$db_values[$row['name']]['level'] = $row['level'];
+		$db_values[$row['name']]['class'] = $row['class'];
+
+		foreach( $row as $field => $value )
 		{
-			if ($field != 'name' && $field != 'member_id')
+			if( $field != 'name' && $field != 'member_id' && $field != 'level' && $field != 'class' )
 			{
-				$db_values[$row['name']][$field]['name'] = $row['name'];
-				$db_values[$row['name']][$field]['member_id'] = $row['member_id'];
-				$db_values[$row['name']][$field]['value'] = $value;
+				$db_values[$row['name']]['values'][$field] = $value;
 			}
 		}
 	}
@@ -176,14 +167,14 @@ function processData( )
 
 			list($member_id,$settingName) = explode(':',$settingName);
 
-			$get_val = "SELECT `$settingName` FROM `".$roster->db->table('members')."` WHERE `member_id` = '$member_id';";
+			$get_val = "SELECT `$settingName` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$member_id';";
 			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
 
 			$config = $roster->db->fetch($result);
 
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
-				$update_sql[] = "UPDATE `".$roster->db->table('members')."` SET `$settingName` = '".$roster->db->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
+				$update_sql[] = "UPDATE `".$roster->db->table('players')."` SET `$settingName` = '".$roster->db->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
 			}
 		}
 	}

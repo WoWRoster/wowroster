@@ -24,4 +24,15 @@ ob_start();
 	$char->out();
 $char_page .= ob_get_clean();
 
+
+if( $addon['config']['show_item_bonuses'])
+{
+	$char_page .= "</td><td align=\"left\">\n";
+
+	require_once ($addon['dir'] . 'inc/charbonus.lib.php');
+	$char_bonus = new CharBonus($char);
+	$char_page .= $char_bonus->dumpBonus();
+	unset($char_bonus);
+}
+
 include( $addon['dir'] . 'inc/footer.php' );

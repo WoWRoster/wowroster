@@ -18,19 +18,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$char_page .= "</td></tr></table>\n<br clear=\"all\" />\n";
 
-if( empty($action) && $addon['config']['show_item_bonuses'])
-{
-	require_once ($addon['dir'] . 'inc/charbonus.lib.php');
-	$char_bonus = new CharBonus($char);
-	$char_page .= $char_bonus->dumpBonus();
-	unset($char_bonus);
-}
-
-
-$char_page .= "</div>\n";
-
+$char_page .= "</td></tr></table>\n</div>\n<br clear=\"all\" />\n";
 
 echo $char_menu;
 echo $char_page;

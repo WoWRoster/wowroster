@@ -28,6 +28,7 @@ class roster
 	var $pages;
 	var $data = false; // scope data
 	var $addon_data;
+	var $error; // Error handler class
 
 	var $output = array(
 			'http_header' => true,

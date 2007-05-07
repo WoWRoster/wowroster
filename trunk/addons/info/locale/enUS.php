@@ -129,13 +129,20 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 $lang['empty_equip']='No item equipped';
 $lang['pointsspent']='Points Spent in';
 
+$lang['item_bonuses_full'] = 'Bonuses For Equipped Items';
+$lang['item_bonuses'] = 'Item Bonuses';
+
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
 $lang['admin']['char_bodyalign'] = "Character Page Alignment|Alignment of the data on the character page";
 $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
+$lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_mail'] = "Mail|Controls the display of Mail<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_inventory'] = "Bags|Controls the display of Bags<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_bags'] = "Bags|Controls the display of Bags<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_money'] = "Money|Controls the display of Money<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_bank'] = "Bank|Controls the display of Bank contents<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_recipes'] = "Recipes|Controls the display of Recipes<br /><br />Setting is global and overrides per-user setting";

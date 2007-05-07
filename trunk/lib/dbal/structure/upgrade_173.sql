@@ -475,7 +475,19 @@ CREATE TABLE `renprefix_spellbook_pet` (
 ### Alter Members Table
 ALTER TABLE `renprefix_members`
   ADD `active` tinyint(1) NOT NULL default '0',
-  DROP `update_time`;
+  DROP `update_time`,
+  DROP `inv`,
+  DROP `talents`,
+  DROP `quests`,
+  DROP `bank`,
+  DROP `spellbook`,
+  DROP `mail`,
+  DROP `recipes`,
+  DROP `bg`,
+  DROP `pvp`,
+  DROP `duels`,
+  DROP `money`,
+  DROP `item_bonuses`;
 
 
 # --------------------------------------------------------
