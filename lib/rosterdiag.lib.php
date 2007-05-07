@@ -122,7 +122,7 @@ function GrabAllLocalDirectories($dir)
 // and will fill the $versions array with this data
 function GrabLocalVersions($directory)
 {
-	global $extensions, $directories, $files;
+	global $directories;
 
 	if ($handle = opendir($directory))
 	{
@@ -591,13 +591,31 @@ function ConfigErrors()
  */
 function onOff($bool)
 {
-	if($bool)
+	if( $bool )
 	{
 		return "<span class=\"green\">On</span>";
 	}
 	else
 	{
 		return "<span class=\"red\">Off</span>";
+	}
+}
+
+/**
+ * Determine a on/off value from a bool. true/1=on false/0=off
+ *
+ * @param bool $bool
+ * @return formatted on/off string
+ */
+function onOffRev($bool)
+{
+	if( $bool )
+	{
+		return "<span class=\"red\">On</span>";
+	}
+	else
+	{
+		return "<span class=\"green\">Off</span>";
 	}
 }
 

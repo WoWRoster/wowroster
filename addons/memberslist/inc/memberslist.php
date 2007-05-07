@@ -540,7 +540,7 @@ class memberslist
 
 		if( $roster->config['motd_display_mode'] )
 		{
-			return '<img src="motd.php" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
+			return '<img src="motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
 		}
 		else
 		{

@@ -283,11 +283,11 @@ border('syellow','start','PHP Settings').'
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">safe_mode</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff(ini_get('safe_mode')).'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev(ini_get('safe_mode')).'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">open_basedir</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff(ini_get('open_basedir')).'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev(ini_get('open_basedir')).'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">allow_url_fopen</td>
@@ -332,20 +332,16 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['roster_dbver'].'</td>
 	</tr>
 	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">db_name</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$db_name.'</td>
-	</tr>
-	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">db_host</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$db_host.'</td>
-	</tr>
-	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">db_prefix</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$db_prefix.'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->db->prefix.'</td>
+	</tr>
+	<tr>
+		<td class="membersRow'.(((++$rowstripe)%2)+1).'">debug_mode</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['debug_mode']).'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">sqldebug</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['sqldebug']).'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['sqldebug']).'</td>
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_lang</td>
@@ -395,10 +391,10 @@ echo "</td><td valign=\"top\">\n";
 
 
 // Display MySQL Tables
-echo border('sgray','start','List of tables in ['.$db_name.']').
+echo border('sgray','start','List of Tables').
 '<table width="100%" class="bodyline" cellspacing="0">'."\n";
 
-$result = $roster->db->query("SHOW TABLES FROM `$db_name`;");
+$result = $roster->db->query("SHOW TABLES;");
 if( !$result )
 {
 	echo '<tr><td class="membersRow1">DB Error, could not list tables<br />'."\n";

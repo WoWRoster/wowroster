@@ -48,7 +48,7 @@ print($tableHeader);
 
 
 //Highest Lifetime Rank
-$query = "SELECT `name`, `lifetimeRankName` FROM `".$roster->db->table('players')."` ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `lifetimeRankName` FROM `".$roster->db->table('players')."` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $roster->db->fetch( $result );
 
@@ -76,7 +76,7 @@ if ($row) {
 }
 
 //Highest LifeTime HKs
-$query = "SELECT `name`, `lifetimeHK` FROM `".$roster->db->table('players')."` ORDER BY `lifetimeHK` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `lifetimeHK` FROM `".$roster->db->table('players')."` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `lifetimeHK` DESC, `lifetimeHighestRank` DESC LIMIT 0 , 1";
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $roster->db->fetch( $result );
 
@@ -97,7 +97,7 @@ if ($row) {
 }
 
 //Highest honorpoints
-$query = "SELECT `name`, `honorpoints` FROM `".$roster->db->table('players')."` ORDER BY `honorpoints` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `honorpoints` FROM `".$roster->db->table('players')."` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `honorpoints` DESC LIMIT 0 , 1";
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $roster->db->fetch( $result );
 
@@ -118,7 +118,7 @@ if ($row) {
 }
 
 //Highest arenapoints
-$query = "SELECT `name`, `arenapoints` FROM `".$roster->db->table('players')."` ORDER BY `arenapoints` DESC LIMIT 0 , 1";
+$query = "SELECT `name`, `arenapoints` FROM `".$roster->db->table('players')."` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `arenapoints` DESC LIMIT 0 , 1";
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
 $row = $roster->db->fetch( $result );
 

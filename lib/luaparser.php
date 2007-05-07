@@ -102,7 +102,6 @@ class lua
 		{
 			$stack = array( array( '',  array() ) );
 			$stack_pos = 0;
-			$last_line = '';
 
 			$file = gzopen($this->file_location,'r');
 
@@ -110,7 +109,7 @@ class lua
 			{
 				$line = gzgets($file);
 				$line = trim($line);
-				
+
 				if( empty($line) )
 				{
 					continue;

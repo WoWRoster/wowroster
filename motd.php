@@ -22,6 +22,24 @@ if( isset($_GET['motd']) )
 {
 	$guildMOTD = substr(stripslashes(urldecode($_GET['motd'])),0,145);
 }
+elseif( isset($_GET['id']) )
+{
+	include( $roster_root_path . 'settings.php' );
+
+	$guild_escape = $roster->db->escape( $_GET['id'] );
+
+	$query = "SELECT `guild_motd` "
+		   . "FROM `" . $roster->db->table('guild') . "` "
+		   . "WHERE `guild_id` = '" . $guild_escape . "';";
+
+	$guild_motd = $roster->db->query_first($query);
+
+	if( !$guild_motd )
+	{
+		$guild_motd = 'Failed to fetch guild MOTD';
+	}
+	$guildMOTD = substr(htmlspecialchars($guild_motd),0,145);
+}
 else
 {
 	include( $roster_root_path . 'settings.php' );
@@ -29,10 +47,10 @@ else
 	$guild_escape = $roster->db->escape( $roster->config['guild_name'] );
 	$server_escape = $roster->db->escape( $roster->config['server_name'] );
 
-	$query = "SELECT `guild_motd` ".
-		"FROM `".$roster->db->table('guild')."` ".
-		"WHERE `guild_name` = '".$guild_escape."' ".
-			"AND `server` = '".$server_escape."';";
+	$query = "SELECT `guild_motd` "
+		   . "FROM `" . $roster->db->table('guild') . "` "
+		   . "WHERE `guild_name` = '" . $guild_escape . "' "
+		   . "AND `server` = '" . $server_escape . "';";
 
 	$guild_motd = $roster->db->query_first($query);
 

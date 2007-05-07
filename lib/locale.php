@@ -22,6 +22,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class roster_locale
 {
 	var $wordings = array();
+	var $creditspage = '';
 
 	function roster_locale()
 	{
