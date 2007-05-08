@@ -49,7 +49,8 @@ class roster
 	        // header stuff
 	        'title' => '',
 	        'html_head' => '',
-	        'body_attr' => ''
+	        'body_attr' => '',
+	        'body_onload' => ''
 	);
 
 	/**

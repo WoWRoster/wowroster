@@ -239,6 +239,9 @@ $lang['recipe_2'] = 'Fácil';
 $lang['recipe_1'] = 'Trivial';
 $lang['roster_config'] = 'Config. Roster';
 
+$lang['search_names'] = 'Search Names';
+$lang['search_items'] = 'Search Items';
+$lang['search_tooltips'] = 'Search Tooltips';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Profesiones';
@@ -436,11 +439,20 @@ $lang['notatwar']='En Paz';
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
-	$lang['itemlink'] = 'Item Links';
+	$lang['data_search'] = 'WoW Data Site Search';
 	$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 	$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 	$lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
 	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
+// WoW Data Site Search
+// Add as many item links as you need
+// Just make sure their names are unique
+	$lang['data_search'] = 'WoW Data Site Search';
+	$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
+	$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+	$lang['data_links']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
+	//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 
 // Definition for item tooltip coloring

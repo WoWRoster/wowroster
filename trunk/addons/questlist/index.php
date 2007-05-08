@@ -20,8 +20,6 @@ if( !defined('ROSTER_INSTALLED') )
 
 $roster->output['title'] = $roster->locale->act['questlist'];
 
-include_once(ROSTER_LIB . 'sitesearch.lib.php');
-
 $zoneidsafe = ( isset($_GET['zoneid']) ? $_GET['zoneid'] : '' );
 $questidsafe = ( isset($_GET['questid']) ? $_GET['questid'] : '' );
 
@@ -29,31 +27,6 @@ $questidsafe = ( isset($_GET['questid']) ? $_GET['questid'] : '' );
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
 $option_blockzones = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','&amp;zoneid');
 $option_blockquests = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','&amp;questid');
-
-
-echo "<table cellspacing=\"6\">\n  <tr>\n";
-
-echo '    <td valign="top">';
-echo sitesearch('thott');
-echo "    </td>\n";
-
-echo '    <td valign="top">';
-echo sitesearch('alla');
-echo "    </td>\n";
-
-echo "  </tr>\n  <tr>\n";
-
-echo '    <td valign="top">';
-echo sitesearch('wowhead');
-echo "    </td>\n";
-
-echo '    <td valign="top">';
-echo sitesearch('wwndata');
-echo "    </td>\n";
-
-echo "  </tr>\n</table>\n";
-
-print("<br />\n");
 
 $searchbox = $roster->locale->act['questlist_help'].'<br /><br />
 	<form method="post" action="' . makelink() . '">

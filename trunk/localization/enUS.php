@@ -239,6 +239,9 @@ $lang['recipe_2'] = 'easy';
 $lang['recipe_1'] = 'trivial';
 $lang['roster_config'] = 'Roster Config';
 
+$lang['search_names'] = 'Search Names';
+$lang['search_items'] = 'Search Items';
+$lang['search_tooltips'] = 'Search Tooltips';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Professions';
@@ -441,6 +444,15 @@ $lang['notatwar']='Not at War';
 	$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 	$lang['itemlinks']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
 	$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
+// WoW Data Site Search
+// Add as many item links as you need
+// Just make sure their names are unique
+	$lang['data_search'] = 'WoW Data Site Search';
+	$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
+	$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+	$lang['data_links']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
+	$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 
 // Definition for item tooltip coloring

@@ -18,38 +18,28 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$roster->output['title'] = $roster->locale->act['search'];
+if( isset($_POST['search']) && $_POST['search'] != '' )
+{
+	$search = urlencode($_POST['search']);
+	header('Location: ' . $_POST['url'] . $search);
+	exit();
+}
 
 require_once ROSTER_LIB . 'item.php';
 require_once ROSTER_LIB . 'recipes.php';
-include_once ROSTER_LIB . 'sitesearch.lib.php';
+
+$roster->output['title'] = $roster->locale->act['search'];
+
+$roster->output['body_onload'] .= 'initARC(\'searchform\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+
+include_once (ROSTER_BASE.'roster_header.tpl');
+
+$roster_menu = new RosterMenu;
+print $roster_menu->makeMenu('main');
 
 
 $output = "<br />\n";
 
-$output .= "<table cellspacing=\"6\">\n  <tr>\n";
-
-$output .= '    <td valign="top">';
-$output .= sitesearch('thott');
-$output .= "    </td>\n";
-
-$output .= '    <td valign="top">';
-$output .= sitesearch('alla');
-$output .= "    </td>\n";
-
-$output .= "  </tr>\n  <tr>\n";
-
-$output .= '    <td valign="top">';
-$output .= sitesearch('wowhead');
-$output .= "    </td>\n";
-
-$output .= '    <td valign="top">';
-$output .= sitesearch('wwndata');
-$output .= "    </td>\n";
-
-$output .= "  </tr>\n</table>\n";
-
-$output .= "<br />\n";
 
 $search = (isset($_GET['s']) ? $_GET['s'] : '');
 
@@ -66,20 +56,20 @@ if( empty($searchname) && empty($searchtooltip) )
 	$searchname = '1';
 }
 
-$roster->output['body_attr'] = 'onload="initARC(\'searchform\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');"';
 
 $input_form = '<form id="searchform" action="' . makelink() . '" method="get">
 ' . linkform() . '
+	<div align="center">
 	<input type="text" class="wowinput192" name="s" value="' . $search . '" size="30" maxlength="30" />
-
-	<div align="left">
+<br /><br />
 		<input type="checkbox" id="name" name="name" value="1"' . (!empty($searchname) ? ' checked="checked"' : '' ) . ' />
-			<label for="name">' . $roster->locale->act['search_names'] . '</label><br />
+			<label for="name">' . $roster->locale->act['search_names'] . '</label>
 		<input type="checkbox" id="tooltip" name="tooltip" value="1"' . (!empty($searchtooltip) ? ' checked="checked"' : '' ) . ' />
 			<label for="tooltip">' . $roster->locale->act['search_tooltips'] . '</label>
-	</div>
+<br /><br />
 
-	<input type="submit" value="search" />
+	<input type="submit" value="Search" />
+	</div>
 </form>';
 
 $output .= messagebox($input_form,$roster->locale->act['find'],'sgreen');
@@ -258,3 +248,6 @@ if( !empty($search) )
 }
 
 print $output;
+
+
+include_once (ROSTER_BASE.'roster_footer.tpl');
