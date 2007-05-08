@@ -120,14 +120,8 @@ class roster
 	 */
 	function get_page_name()
 	{
-		// --[ mod_rewrite code ]--
-		if( !isset($_GET[ROSTER_PAGE]) )
-		{
-			$uri = $_SERVER['REQUEST_URI'];
-			$page = substr($uri,strlen(ROSTER_PATH));
-			list($page) = explode('.',$page);
-			$_GET[ROSTER_PAGE] = str_replace('/','-',$page);
-		}
+		// cmslink function to resolve SEO linking etc.
+		parse_params();
 
 		// --[ Determine the module request ]--
 		if( isset($_GET[ROSTER_PAGE]) && !empty($_GET[ROSTER_PAGE]) )
