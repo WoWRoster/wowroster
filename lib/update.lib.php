@@ -2071,7 +2071,7 @@ class update
 		$server_escape = $roster->db->escape( $realmName );
 
 		$querystr = "SELECT * FROM `".$roster->db->table('guild')."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
-		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		$retval = $roster->db->fetch( $result );
 		$roster->db->free_result($result);
@@ -2156,12 +2156,12 @@ class update
 			$querystr = "INSERT INTO `".$roster->db->table('guild')."` SET ".$this->assignstr;
 		}
 
-		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		if( is_array($guildInfo) )
 		{
 			$querystr = "UPDATE `".$roster->db->table('members')."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
-			$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+			$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 		}
 
 		if( !is_array($guildInfo) )

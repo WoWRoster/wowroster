@@ -78,7 +78,7 @@ unset($urlpath);
 function makelink( $url='' , $full=false )
 {
 	global $roster;
-	
+
 	// Filter out anchor
 	if( ($pos = strpos($url,'#')) !== false )
 	{
@@ -105,15 +105,16 @@ function makelink( $url='' , $full=false )
 		$page = $url;
 		$url = '';
 	}
-	
+
 	// Get target scope
 	list($scope) = explode('-',$page);
-	
+
 	// Get the target GET vars
 	parse_str(html_entity_decode($url), $get);
-	
+
 	// Add the member=/guild= param
-	switch($scope)
+	$addget = '';
+	switch( $scope )
 	{
 		case 'char':
 			if( !isset($get['member']) && isset($roster->data['member_id']) )
@@ -121,17 +122,19 @@ function makelink( $url='' , $full=false )
 				$addget = 'member='.$roster->data['member_id'];
 			}
 			break;
+
 		case 'guild':
 			if( !isset($get['guild']) && isset($roster->data['guild_id']) )
 			{
 				$addget = 'guild='.$roster->data['guild_id'];
 			}
 			break;
+
 		default:
 			$addget = '';
 			break;
 	}
-	
+
 	// Put the url back together again
 	if( empty($addget) || empty($url) )
 	{
@@ -143,22 +146,17 @@ function makelink( $url='' , $full=false )
 	}
 
 	// Pass through the SEO encoder
+	if( $roster->config['seo_url'] )
+	{
+		$page = str_replace('-','/',$page);
+	}
+
 	if( empty($url) )
 	{
-		if( $roster->config['seo_url'] )
-		{
-			$page = str_replace('-','/',$page);
-		}
-
 		$url = sprintf(ROSTER_LINK_NOARGS,$page);
 	}
 	else
 	{
-		if( $roster->config['seo_url'] )
-		{
-			$page = str_replace('-','/',$page);
-		}
-
 		$url = sprintf(ROSTER_LINK,$page,$url);
 	}
 
@@ -182,13 +180,19 @@ function makelink( $url='' , $full=false )
  */
 function linkform( $get_links = false )
 {
-	$return = '<input type="hidden" name="'.ROSTER_PAGE.'" value="'.ROSTER_PAGE_NAME.'" />'."\n";
+	global $roster;
+
+	$return = '';
+	if( !$roster->config['seo_url'] )
+	{
+		$return .= '<input type="hidden" name="'.ROSTER_PAGE.'" value="'.ROSTER_PAGE_NAME.'" />'."\n";
+	}
 
 	if( $get_links !== false )
 	{
 		foreach( $get_links as $name => $value )
 		{
-			$return = '<input type="hidden" name="'.$name.'" value="'.$value.'" />'."\n";
+			$return .= '<input type="hidden" name="'.$name.'" value="'.$value.'" />'."\n";
 		}
 	}
 	return $return;

@@ -106,13 +106,14 @@ if( $type == 'guildwins' )
 {
 	print $tableHeader;
 
-	$query = "SELECT `guild`, COUNT(`guild`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "`"
-		   . " WHERE `win` = '1' AND `enemy` = '1'"
-		   . " GROUP BY `guild`"
+	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`guild`"
 		   . " ORDER BY countg DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -123,7 +124,7 @@ if( $type == 'guildwins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild']) . '">');
+		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild']) . '">');
 
 		if( $row['guild'] == '' )
 		{
@@ -148,13 +149,14 @@ elseif( $type == 'guildlosses' )
 {
 	print $tableHeader;
 
-	$query = "SELECT `guild`, COUNT(`guild`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "`"
-		   . " WHERE `win` = '0' AND `enemy` = '1'"
-		   . " GROUP BY `guild`"
+	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`guild`"
 		   . " ORDER BY countg DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -165,7 +167,7 @@ elseif( $type == 'guildlosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild']) . '">');
+		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild']) . '">');
 		if( $row['guild'] == '' )
 		{
 			$guildname = '(' . $roster->locale->act['unknown'] . ')';
@@ -198,13 +200,14 @@ elseif( $type == 'enemywins' )
 		$roster->locale->act['leveldiff'],
 	));
 
-	$query = "SELECT `name`, `guild`, `race`, `class`, `leveldiff`, COUNT(`name`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "`"
-		   . " WHERE `win` = '1' AND `enemy` = '1'"
-		   . " GROUP BY `name`"
-		   . " ORDER BY countg DESC, `leveldiff` DESC;";
+	$query = "SELECT `pvp`.`name`, `pvp`.`guild`, `pvp`.`race`, `pvp`.`class`, `pvp`.`leveldiff`, COUNT(`pvp`.`name`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`name`"
+		   . " ORDER BY countg DESC, `pvp`.`leveldiff` DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -224,11 +227,11 @@ elseif( $type == 'enemywins' )
 		rankMid((($striping_counter % 2) +1));
 		if ($row['guild'] == '')
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
 		}
 		else
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
 		}
 
 		print $guildname;
@@ -259,13 +262,14 @@ elseif( $type == 'enemylosses' )
 		$roster->locale->act['leveldiff'],
 	));
 
-	$query = "SELECT `name`, `guild`, `race`, `class`, `leveldiff`, COUNT(`name`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "`"
-		   . " WHERE `win` = '0' AND `enemy` = '1'"
-		   . " GROUP BY `name`"
-		   . " ORDER BY countg DESC, `leveldiff` DESC;";
+	$query = "SELECT `pvp`.`name`, `pvp`.`guild`, `pvp`.`race`, `pvp`.`class`, `pvp`.`leveldiff`, COUNT(`pvp`.`name`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`name`"
+		   . " ORDER BY countg DESC, `pvp`.`leveldiff` DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -286,11 +290,11 @@ elseif( $type == 'enemylosses' )
 		rankMid((($striping_counter % 2) +1));
 		if( $row['guild'] == '' )
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
 		}
 		else
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
+			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
 		}
 
 		print $guildname;
@@ -313,14 +317,14 @@ elseif( $type == 'purgewins' )
 {
 	print $tableHeader;
 
-	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `win` = '1' AND `enemy` = '1'"
-		   . " GROUP BY `pvp3`.`member_id`"
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id`"
 		   . " ORDER BY countg DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -344,14 +348,14 @@ elseif( $type == 'purgelosses' )
 {
 	print $tableHeader;
 
-	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `win` = '0' AND `enemy` = '1'"
-		   . " GROUP BY `pvp3`.`member_id`"
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id`"
 		   . " ORDER BY countg DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -375,14 +379,14 @@ elseif( $type == 'purgeavewins' )
 {
 	print $tableHeader;
 
-	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, AVG(`pvp3`.`leveldiff`) AS ave, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `win` = '1' AND `enemy` = '1'"
-		   . " GROUP BY `pvp3`.`member_id`"
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id`"
 		   . " ORDER BY ave DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -414,14 +418,14 @@ elseif( $type == 'purgeavelosses' )
 {
 	print $tableHeader;
 
-	$query = "SELECT `pvp3`.`member_id`, `members`.`name` AS gn, AVG(`pvp3`.`leveldiff`) AS ave, COUNT(`pvp3`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `win` = '0' AND `enemy` = '1'"
-		   . " GROUP BY `pvp3`.`member_id`"
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id`"
 		   . " ORDER BY ave DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -454,14 +458,14 @@ elseif( $type == 'pvpratio' )
 	print '<br />'.$roster->locale->act['solo_win_loss'].'</small><br /><br />';
 	print $tableHeader;
 
-	$query = "SELECT `members`.`name`, `members`.`member_id`, IF(`pvp3`.`win` = '1', 1, 0) AS win, SUM(`win`) AS wtotal, COUNT(`win`) AS btotal"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `pvp3`.`leveldiff` < 8 AND `pvp3`.`leveldiff` > -8 AND `pvp3`.`enemy` = '1'"
+	$query = "SELECT `members`.`name`, `members`.`member_id`, IF(`pvp`.`win` = '1', 1, 0) AS win, SUM(`pvp`.`win`) AS wtotal, COUNT(`pvp`.`win`) AS btotal"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`leveldiff` < 8 AND `pvp`.`leveldiff` > -8 AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `members`.`name`"
 		   . " ORDER BY wtotal DESC;";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -501,10 +505,10 @@ elseif( $type == 'playerinfo' )
 	$sort = ( isset($_GET['s']) ? $_GET['s'] : '' );
 
 	$first = true;
-	$query = "SELECT `pvp3`.*, `members`.`name` AS gn"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `pvp3`.`name` = '" . $roster->db->escape($player) . "'";
+	$query = "SELECT `pvp`.*, `members`.`name` AS gn"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `pvp`.`name` = '" . $roster->db->escape($player) . "'";
 
 	if ($sort == 'name')
 	{
@@ -543,7 +547,7 @@ elseif( $type == 'playerinfo' )
 		$query .= ' ORDER BY `date` DESC, `name`;';
 	}
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -551,7 +555,7 @@ elseif( $type == 'playerinfo' )
 
 		if( $first )
 		{
-			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>');
+			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>');
 			print '<br /><br />';
 
 			print $tableHeader;
@@ -615,7 +619,7 @@ elseif( $type == 'playerinfo' )
 }
 elseif( $type == 'guildinfo' )
 {
-	$guild = ( isset($_GET['guild']) ? stripslashes($_GET['guild']) : '' );
+	$guild = ( isset($_GET['pvpguild']) ? stripslashes($_GET['pvpguild']) : '' );
 	$sort = ( isset($_GET['s']) ? $_GET['s'] : '' );
 
 	print '<br />';
@@ -624,7 +628,7 @@ elseif( $type == 'guildinfo' )
 
 	print $tableHeader;
 
-	$url = 'guild-pvplog&amp;type=guildinfo&amp;guild=' . urlencode($guild);
+	$url = 'guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($guild);
 
 	print tableHeaderRow(array(
 		'<a href="' . makelink($url . '&amp;s=date') . '">' . $roster->locale->act['when'] . '</a>',
@@ -637,10 +641,10 @@ elseif( $type == 'guildinfo' )
 	));
 
 
-	$query = "SELECT `pvp3`.*, `members`.`name` AS gn"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp3"
-		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp3`.`member_id`"
-		   . " WHERE `pvp3`.`guild` = '" . $roster->db->escape($guild) . "'";
+	$query = "SELECT `pvp`.*, `members`.`name` AS gn"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `pvp`.`guild` = '" . $roster->db->escape($guild) . "'";
 
 	if( $sort == 'name' )
 	{
@@ -679,7 +683,7 @@ elseif( $type == 'guildinfo' )
 		$query .= ' ORDER BY `date` DESC, `name`;';
 	}
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while($row = $roster->db->fetch($result))
 	{

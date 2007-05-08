@@ -28,7 +28,7 @@ if( array_key_exists('mode',$_POST) )
 
 	if( !$result )
 	{
-		die_quietly($roster->db->error(), $roster->locale->act['roster_cp'], basename(__FILE__), __LINE__, $query);
+		die_quietly($roster->db->error(), $roster->locale->act['roster_cp'], __FILE__, __LINE__, $query);
 	}
 
 	if( $row = $roster->db->fetch_assoc($result) )
@@ -72,7 +72,7 @@ if( array_key_exists('mode',$_POST) )
 
 			if (!$result)
 			{
-				die_quietly('There was a database error while trying to change the password. MySQL said: <br />'.$roster->db->error(),$roster->locale->act['roster_cp'],basename(__FILE__),__LINE__,$query);
+				die_quietly('There was a database error while trying to change the password. MySQL said: <br />'.$roster->db->error(),$roster->locale->act['roster_cp'],__FILE__,__LINE__,$query);
 			}
 
 			$success = 1;

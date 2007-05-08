@@ -165,7 +165,7 @@ $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$a
 // Start output
 if( $addon['config']['member_update_inst'] )
 {
-	print '            <a href="' . makelink('guild-' . $addon['basename'] . '#update') . '"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
+	print '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
 
@@ -186,6 +186,7 @@ if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist']
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_LIB.'hslist.php');
+		echo generateHsList();
 		echo "    </td>\n";
 	}
 
@@ -193,6 +194,7 @@ if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist']
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
+		echo generatePvpList();
 		echo "    </td>\n";
 	}
 

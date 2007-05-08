@@ -104,7 +104,7 @@ class memberslist
 		$result = $roster->db->query($rowsqry);
 		if( !$result )
 		{
-			die_quietly($roster->db->error(),'Database error',basename(__FILE__),__LINE__,$rowsqry);
+			die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$rowsqry);
 		}
 
 		$row = $roster->db->fetch($result);
@@ -400,7 +400,7 @@ class memberslist
 
 		if ( !$result )
 		{
-			die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$this->query);
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$this->query);
 		}
 
 		// --[ Actual list ]--

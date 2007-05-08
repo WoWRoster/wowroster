@@ -78,7 +78,7 @@ print messagebox($searchbox,$roster->locale->act['questlist']);
 if( !empty($zoneidsafe) )
 {
 	$zquery = "SELECT DISTINCT `zone` FROM `" . $roster->db->table('quests') . "` WHERE `zone` = '$zoneidsafe' ORDER BY `zone`;";
-	$zresult = $roster->db->query($zquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$zquery);
+	$zresult = $roster->db->query($zquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$zquery);
 
 	while( $zrow = $roster->db->fetch($zresult) )
 	{
@@ -89,7 +89,7 @@ if( !empty($zoneidsafe) )
 		$qquery .= " WHERE `zone` = '" . $zoneidsafe . "'";
 		$qquery .= " ORDER BY `quest_name`;";
 
-		$qresult = $roster->db->query($qquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qquery);
+		$qresult = $roster->db->query($qquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qquery);
 
 		while( $qrow = $roster->db->fetch($qresult) )
 		{
@@ -98,7 +98,7 @@ if( !empty($zoneidsafe) )
 			       . " WHERE `q`.`zone` = '" .$zoneidsafe . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qrow['quest_name']) . "'"
 			       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
-			$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+			$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 			// Quest links
 			$num_of_tips = (count($tooltips)+1);
@@ -173,7 +173,7 @@ if( !empty($zoneidsafe) )
 if( !empty($questidsafe) )
 {
 	$qnquery = "SELECT DISTINCT `quest_name` FROM `" . $roster->db->table('quests') . "` WHERE `quest_name` = '" . $questidsafe . "' ORDER BY `quest_name`;";
-	$qnresult = $roster->db->query($qnquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qnquery);
+	$qnresult = $roster->db->query($qnquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qnquery);
 
 	while( $qnrow = $roster->db->fetch($qnresult) )
 	{
@@ -196,7 +196,7 @@ if( !empty($questidsafe) )
 		       . " WHERE `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qnrow['quest_name'])  . "'"
 		       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
-		$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 		$tableHeader = border('syellow','start') . '<table cellpadding="0" cellspacing="0">';
 
@@ -269,7 +269,7 @@ function selectQuery( $table , $fieldtoget , $field , $current , $fieldid , $url
 	$sql = "SELECT $fieldtoget FROM $table ORDER BY `quests`.$field ASC;";
 
 	// execute SQL query and get result
-	$sql_result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
+	$sql_result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$sql);
 
 	// put data into drop-down list box
 	$option_block = '';

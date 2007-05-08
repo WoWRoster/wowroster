@@ -35,7 +35,7 @@ $result = $roster->db->query($query);
 
 if( !$result )
 {
-	die_quietly($roster->db->error(),'Roster Autopointer',basename(__FILE__),__LINE__,$query);
+	die_quietly($roster->db->error(),'Roster Autopointer',__FILE__,__LINE__,$query);
 }
 
 if( $row = $roster->db->fetch($result) )

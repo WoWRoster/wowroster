@@ -167,7 +167,7 @@ function pvp_get_many3($member_id, $type, $sort, $start)
 		$query = $query.' LIMIT '.$start.', 50';
 	}
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	if( $roster->db->num_rows($result) > 0 )
 	{
@@ -331,7 +331,7 @@ function output_bglog($member_id)
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` >= '1'";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$pvps = array();
 	while( $data = $roster->db->fetch( $result ) )
 	{
@@ -543,12 +543,12 @@ function output_duellog($member_id)
 	$returnstring = '<br />'.border('sblue','start',$roster->locale->act['duelsummary']);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '0' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$data['loss'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '0' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$data['win'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
@@ -628,7 +628,7 @@ function output_pvplog($member_id)
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$pvps = array();
 	while( $data = $roster->db->fetch( $result ) )
 	{
@@ -671,7 +671,7 @@ function output_pvplog($member_id)
 		<td class='membersRow1'><div align='center'>";
 
 	$query = "SELECT `zone`, COUNT(`zone`) as countz FROM ".$roster->db->table('pvp2')." WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$rzone = $roster->db->fetch($result);
 	if ($rzone)
 	{
@@ -687,7 +687,7 @@ function output_pvplog($member_id)
 		<td class='membersRowRight1'><div align='center'>";
 
 	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$rzone = $roster->db->fetch($result);
 	if ($rzone)
 	{
@@ -716,7 +716,7 @@ function output_pvplog($member_id)
 		<td class='membersRow1'><div align='center'>";
 
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$rguild = $roster->db->fetch($result);
 	if ($rguild)
 	{
@@ -732,7 +732,7 @@ function output_pvplog($member_id)
 		<td class='membersRowRight1'><div align='center'>";
 
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$rguild = $roster->db->fetch($result);
 	if ($rguild)
 	{
@@ -754,12 +754,12 @@ function output_pvplog($member_id)
 ".border('sblue','start',$roster->locale->act['versus_players']);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$data['loss'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	$data['win'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
