@@ -219,6 +219,7 @@ if( $addon['config']['stats_hslist'] == 1 || $addon['config']['stats_pvplist'] =
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_LIB.'hslist.php');
+		echo generateHsList();
 		echo "    </td>\n";
 	}
 
@@ -226,6 +227,7 @@ if( $addon['config']['stats_hslist'] == 1 || $addon['config']['stats_pvplist'] =
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
+		echo generatePvpList();
 		echo "    </td>\n";
 	}
 

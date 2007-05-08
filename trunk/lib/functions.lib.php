@@ -149,10 +149,10 @@ function getAllTooltips( )
 */
 function sql_highlight( $sql )
 {
-	global $db_prefix;
+	global $roster;
 
 	// Make table names bold
-	$sql = preg_replace('/' . $db_prefix . '(\S+?)([\s\.,]|$)/', '<span class="blue">' . $db_prefix . "\\1\\2</span>", $sql);
+	$sql = preg_replace('/' . $roster->db->prefix . '(\S+?)([\s\.,]|$)/', '<span class="blue">' . $roster->db->prefix . "\\1\\2</span>", $sql);
 
 	// Non-passive keywords
 	$red_keywords = array('/(INSERT INTO)/','/(UPDATE\s+)/','/(DELETE FROM\s+)/','/(CREATE TABLE)/','/(IF (NOT)? EXISTS)/',
@@ -232,6 +232,8 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 	}
 	if( !empty($file) )
 	{
+		$file = str_replace(ROSTER_BASE,'',$file);
+
 		print "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
 	}
 	if( !empty($line) )
@@ -314,35 +316,30 @@ function backtrace()
 		}
 		else
 		{
-			$output .= '<li>File: ' . $bt[$i]['file'] . "<ul>\n";
+			$output .= '<li>' . str_replace(ROSTER_BASE,'',$bt[$i]['file']) . "<ul>\n";
 		}
 
 		if( isset($bt[$i]['line']) )
 		{
-			$output .= '<li>line ' . $bt[$i]['line'] . "</li>\n";
+			$output .= '<li>Line: ' . $bt[$i]['line'] . "</li>\n";
 		}
-		$output .= '<li>function called: ' . $bt[$i]['function'] . "</li>\n";
+		$output .= '<li>Function Called: ' . $bt[$i]['function'] . "</li>\n";
 
 		if( $bt[$i]['args'] )
 		{
-			$output .= '<li>args: ';
+			$output .= '<li>Arguments:<ul>';
 			for( $j = 0; $j <= count($bt[$i]['args']) - 1; $j++ )
 			{
 				if( is_array($bt[$i]['args'][$j]) )
 				{
-					$output .= print_r($bt[$i]['args'][$j],true);
+					$output .= '<li>' . print_r($bt[$i]['args'][$j],true) . "</li>\n";
 				}
 				else
 				{
-					$output .= $bt[$i]['args'][$j] ;
-				}
-
-				if($j != count($bt[$i]['args']) - 1)
-				{
-					$output .= ', ';
+					$output .= '<li>' . $bt[$i]['args'][$j] . "</li>\n";
 				}
 			}
-			$output .= "</li>\n";
+			$output .= "</ul></li>\n";
 		}
 		$output .= "</ul></li>\n";
 	}

@@ -155,7 +155,7 @@ print($tableHeader);
 tableHeaderRow($keys);
 
 $query = "SELECT name, level, member_id, class, clientLocale FROM `".$roster->db->table('players')."` GROUP BY name ORDER BY name ASC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 while ($row = $roster->db->fetch($result))
 {
@@ -189,7 +189,7 @@ while ($row = $roster->db->fetch($result))
 	}
 	// instance key search
 	$kquery = "SELECT members.name".$selectk." FROM `".$roster->db->table('items')."` items LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = items.member_id WHERE items.member_id = '".$row['member_id']."' AND (".$wherek.") GROUP BY members.name";
-	$kresult = $roster->db->query($kquery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$kquery);
+	$kresult = $roster->db->query($kquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$kquery);
 	$krow = $roster->db->fetch($kresult);
 	$kcount = 0; // counts how many keys this player has. if 0 at the end don't display
 	$selectp = ''; $wherep = ''; $pcount = 0;
@@ -214,7 +214,7 @@ while ($row = $roster->db->fetch($result))
 			if (($row['class'] == $roster->locale->wordings[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
 			{
 				$squery = "SELECT skill_level FROM `".$roster->db->table('skills')."` WHERE member_id = ".$row['member_id']." and skill_name = '".$roster->locale->wordings[$row['clientLocale']]['lockpicking']."'";
-				$sresult = $roster->db->query($squery) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$squery);
+				$sresult = $roster->db->query($squery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$squery);
 				$srow = $roster->db->fetch($sresult);
 				list($current_skill,$max_skill) = explode(':',$srow['skill_level']);
 				$roster->db->free_result($sresult);
@@ -247,7 +247,7 @@ while ($row = $roster->db->fetch($result))
 	{
 		// parts search (only the remaining ones!)
 		$queryp = "SELECT members.name".$selectp." FROM `".$roster->db->table('items')."` items LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = items.member_id WHERE items.member_id = ".$row['member_id']." AND (".$wherep.") GROUP BY members.name ORDER BY members.name ASC";
-		$presult = $roster->db->query($queryp) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$queryp);
+		$presult = $roster->db->query($queryp) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$queryp);
 		$prow = $roster->db->fetch($presult);
 		if (is_array($prow))
 		{
@@ -281,7 +281,7 @@ while ($row = $roster->db->fetch($result))
 	{
 		// quests search (only the remaining ones!)
 		$queryq = "SELECT members.name".$selectq." FROM `".$roster->db->table('quests')."` quests LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = quests.member_id WHERE quests.member_id = ".$row['member_id']." AND (".$whereq.") GROUP BY members.name ORDER BY members.name ASC";
-		$qresult = $roster->db->query($queryq) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$queryq);
+		$qresult = $roster->db->query($queryq) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$queryq);
 		$qrow = $roster->db->fetch($qresult);
 		if (is_array($qrow))
 		{

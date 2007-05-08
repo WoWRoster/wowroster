@@ -55,7 +55,7 @@ $roster->output['title'] = $roster->locale->act['guildbank'];
 
 $muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
 FROM `".$roster->db->table('players')."` AS p, `".$roster->db->table('members')."`  AS m
-WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%' AND p.member_id = m.member_id
+WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%' AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id'] . "
 ORDER BY m.name";
 
 $muleNames = $roster->db->query($muleNameQuery);
@@ -77,7 +77,7 @@ if ( $addon['config']['bank_money'] )
 "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
  FROM `".$roster->db->table('players')."` AS p, `".$roster->db->table('members')."` AS m
  WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%'
- AND p.member_id = m.member_id
+ AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id'] . "
  ORDER  BY m.name"
 ));
 	$addsilver=0;
@@ -216,7 +216,7 @@ while ($muleRow = $roster->db->fetch($muleNames))
 $banker_list = '- ';
 foreach( $bankers as $banker_id => $banker  )
 {
-	$banker_list .= '<a href="#c_'.$banker_id.'">'.$banker.'</a> - ';
+	$banker_list .= '<a href="' . makelink('#c_'.$banker_id) . '">'.$banker.'</a> - ';
 }
 
 

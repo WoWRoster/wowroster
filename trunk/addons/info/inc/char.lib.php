@@ -231,7 +231,7 @@ class char
 			while( $data = $roster->db->fetch( $result ) )
 			{
 				$skill_name_header = $data['skill_name'];
-				$returnstring .= $skill_name_divider .'<a href="#' . strtolower(str_replace(' ','',$skill_name_header)) . '">' . $skill_name_header . '</a>';
+				$returnstring .= $skill_name_divider .'<a href="' . makelink('#' . strtolower(str_replace(' ','',$skill_name_header))) . '">' . $skill_name_header . '</a>';
 				$skill_name_divider = '&nbsp;-&nbsp;';
 			}
 			$returnstring .= "</div>\n<br />\n";

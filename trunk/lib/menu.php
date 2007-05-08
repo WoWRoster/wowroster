@@ -166,7 +166,7 @@ class RosterMenu
 		}
 		else
 		{
-			die_quietly('Invalid list type','Menu Sidepane error',basename(__FILE__),__LINE__);
+			die_quietly('Invalid list type','Menu Sidepane error',__FILE__,__LINE__);
 		}
 		$num_alts = $num_non_alts = 0;
 
@@ -183,7 +183,7 @@ class RosterMenu
 
 		if (!$result)
 		{
-			die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 		}
 
 		// Fetch results
@@ -332,7 +332,7 @@ class RosterMenu
 
 		if (!$result)
 		{
-			die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$roster->db->error(),'Roster',basename(__FILE__),__LINE__,$query);
+			die_quietly('Could not fetch buttons from database. MySQL said: <br />'.$roster->db->error(),'Roster',__FILE__,__LINE__,$query);
 		}
 
 		while ($row = $roster->db->fetch($result))
@@ -349,7 +349,7 @@ class RosterMenu
 
 		if (!$result)
 		{
-			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$roster->db->error(),'Roster',basename(__FILE__),__LINE__,$query);
+			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />'.$roster->db->error(),'Roster',__FILE__,__LINE__,$query);
 		}
 
 		while($row = $roster->db->fetch($result))

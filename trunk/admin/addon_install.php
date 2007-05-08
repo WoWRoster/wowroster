@@ -235,7 +235,7 @@ function getAddonList()
 				$result = $roster->db->query($query);
 				if (!$result)
 				{
-					$installer->seterrors($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+					$installer->seterrors('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
 					return;
 				}
 
@@ -286,7 +286,7 @@ function processActive($id,$mode)
 	$query = "UPDATE `".$roster->db->table('addon')."` SET `active` = '$mode' WHERE `addon_id` = '$id' LIMIT 1;";
 	$result = $roster->db->query($query);
 	if (!$result)
-		$installer->seterrors($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		$installer->seterrors('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
 	else
 	{
 		$mode = ( $mode ? $roster->locale->act['installer_activated'] : $roster->locale->act['installer_deactivated'] );

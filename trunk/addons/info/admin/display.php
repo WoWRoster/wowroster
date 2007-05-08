@@ -122,7 +122,7 @@ function getCharData( )
 	$results = $roster->db->query($sql);
 	if( !$results )
 	{
-		die_quietly( $roster->db->error(), 'Database Error',basename(__FILE__),__LINE__,$sql);
+		die_quietly( $roster->db->error(), 'Database Error',__FILE__,__LINE__,$sql);
 	}
 
 	$db_values = false;
@@ -168,7 +168,7 @@ function processData( )
 			list($member_id,$settingName) = explode(':',$settingName);
 
 			$get_val = "SELECT `$settingName` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$member_id';";
-			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$get_val);
+			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 
 			$config = $roster->db->fetch($result);
 

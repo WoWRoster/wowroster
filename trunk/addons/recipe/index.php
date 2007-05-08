@@ -24,6 +24,10 @@ $prof_filter = ( isset($_REQUEST['proffilter']) ? $_REQUEST['proffilter'] : '');
 $filter_box = ( isset($_REQUEST['filterbox']) ? $_REQUEST['filterbox'] : '');
 $prof_sort = ( isset($_REQUEST['sort']) ? $_REQUEST['sort'] : '');
 
+$anchor_link = ( isset($_GET['proffilter']) ? '&amp;proffilter=' . $_GET['proffilter'] : '' )
+			 . ( isset($_GET['filterbox']) ? '&amp;filterbox=' . $_GET['filterbox'] : '' )
+			 . ( isset($_GET['sort']) ? '&amp;sort=' . $_GET['sort'] : '' );
+
 $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 	FROM ".$roster->db->table('recipes')."
 	WHERE `skill_name` != '".$roster->locale->act['First Aid']."'
@@ -31,7 +35,7 @@ $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 		AND `skill_name` != '".$roster->locale->act['Mining']."'
 	ORDER BY `skill_name`;";
 
-$result_prof = $roster->db->query($qry_prof) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_prof);
+$result_prof = $roster->db->query($qry_prof) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qry_prof);
 
 
 $choiceForm = '<form action="'.makelink().'" method="get" name="myform">
@@ -92,14 +96,14 @@ if (!empty($prof_filter))
 			ORDER BY `r`.`recipe_type` ASC';
 
 		$content .= ("<!--$qry_recipe_type -->\n");
-		$result_recipe_type = $roster->db->query($qry_recipe_type) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_recipe_type);
+		$result_recipe_type = $roster->db->query($qry_recipe_type) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qry_recipe_type);
 		if ($roster->config['sqldebug'])
 		{
 			$content .= ("<!--$qry_recipe_type -->\n");
 		}
 		while($row_recipe_type = $roster->db->fetch($result_recipe_type))
 		{
-			$content .=  '<a href="#'.str_replace(' ','_',$row_recipe_type['recipe_type']).'">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
+			$content .=  '<a href="' . makelink($anchor_link . '#'.str_replace(' ','_',$row_recipe_type['recipe_type'])) . '">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
 		}
 		$content .=  "</td></tr></table>\n<br /><br />\n";
 
@@ -114,7 +118,7 @@ if (!empty($prof_filter))
 				}
 				$first_table = false;
 
-				$content .= border('syellow','start','<a href="#top_menu" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
+				$content .= border('syellow','start','<a href="' . makelink($anchor_link . '#top_menu') . '" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
 					'<table class="bodyline" cellspacing="0">'."\n";
 
 				$content .= '<tr>'."\n";
@@ -157,7 +161,7 @@ if (!empty($prof_filter))
 				"INNER JOIN `".$roster->db->table('skills')."` s ON `r`.`member_id` = `s`.`member_id` AND `r`.`skill_name` = `s`.`skill_name` ".
 				"WHERE `recipe_name` = '".addslashes($recipe->data['recipe_name'])."' ORDER BY `c`.`name`;";
 
-			$result_users = $roster->db->query($qry_users) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$qry_users);
+			$result_users = $roster->db->query($qry_users) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qry_users);
 			$users = '';
 			$break_counter = 0;
 			while($row_users = $roster->db->fetch($result_users))

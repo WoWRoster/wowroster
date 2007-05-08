@@ -100,7 +100,7 @@ $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$a
 // Start output
 if( $addon['config']['log_update_inst'] )
 {
-	print '            <a href="#update"><font size="4">'.$roster->locale->act['update_link'].'</font></a><br /><br />';
+	print '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
 
@@ -121,6 +121,7 @@ if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_LIB.'hslist.php');
+		echo generateHsList();
 		echo "    </td>\n";
 	}
 
@@ -128,6 +129,7 @@ if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
+		echo generatePvpList();
 		echo "    </td>\n";
 	}
 

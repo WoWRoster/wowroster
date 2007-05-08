@@ -124,7 +124,7 @@ $result = $roster->db->query($query);
 
 if (!$result)
 {
-	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said: <br />'.$roster->db->error(),'WoW Roster',basename(__FILE__),__LINE__,$query);
+	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said: <br />'.$roster->db->error(),'WoW Roster',__FILE__,__LINE__,$query);
 }
 
 while ($row = $roster->db->fetch($result))

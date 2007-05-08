@@ -19,227 +19,286 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-$striping_counter = 0;
-$tableHeader = '
+function pvprankMid( $sc )
+{
+	return '    <td class="membersRow' . $sc . '">';
+}
+function pvprankRight( $sc )
+{
+	return '    <td class="membersRowRight' . $sc . '">';
+}
+function generatePvpList( )
+{
+	global $roster;
+
+	$output = '';
+
+	$striping_counter = 0;
+	$tableHeader = '
 <!-- Begin PvPLIST -->
-'.border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'pvp_table\',\'pvp_img\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');">
-	<div style="display:inline;float:right;"><img id="pvp_img" src="'.$roster->config['img_url'].'plus.gif" alt="" /></div>
-'.$roster->locale->act['pvplist'].'</div>').'
-<table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="pvp_table" style="display:none;">'."\n";
+' . border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'pvp_table\',\'pvp_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+	<div style="display:inline;float:right;"><img id="pvp_img" src="' . $roster->config['img_url'] . 'plus.gif" alt="" /></div>
+' . $roster->locale->act['pvplist'] . '</div>') . '
+<table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="pvp_table"">' . "\n";
+// style="display:none;
 
+	$tableFooter = "</table>\n" . border('sgray','end') . "\n<!-- End PvPLIST -->\n";
 
-$tableFooter = "</table>\n".border('sgray','end')."\n<!-- End PvPLIST -->\n";
+	$output .= $tableHeader;
 
+	// Guild that suffered most at our hands
+	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`guild` != '' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`guild` ORDER BY countg DESC";
 
-function pvprankRight($sc)
-{
-	print '    <td class="membersRow'.$sc.'">';
-}
-function pvprankMid($sc)
-{
-	print '    <td class="membersRow'.$sc.'">';
-}
-function pvprankLeft($sc)
-{
-	print '    <td class="membersRowRight'.$sc.'">';
-}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
 
-print($tableHeader);
-
-
-$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".$roster->db->table('pvp2')."` WHERE `win` = '1' AND `enemy` = '1' GROUP BY `guild` ORDER BY countg DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=guildwins').'">'.$roster->locale->act['pvplist1'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	if ($row['guild'] == '')
-		$guildname = '(unguilded)';
-	else
-		$guildname = $row['guild'];
-	print($guildname);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-	print($row['countg']);
-	print("</td>\n  </tr>\n");
-}
-
-
-$query = "SELECT `guild`, COUNT(`guild`) AS countg FROM `".$roster->db->table('pvp2')."` WHERE `win` = '0' AND `enemy` = '1' GROUP BY `guild` ORDER BY countg DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=guildlosses').'">'.$roster->locale->act['pvplist2'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	if ($row['guild'] == '') {
-		$guildname = '(unguilded)';
-	} else {
-		$guildname = $row['guild'];
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=guildwins') . '">'.$roster->locale->act['pvplist1'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		if( $row['guild'] == '' )
+		{
+			$guildname = '(unguilded)';
+		}
+		else
+		{
+			$guildname = $row['guild'];
+		}
+		$output .= $guildname;
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+		$output .= $row['countg'];
+		$output .= "</td>\n  </tr>\n";
 	}
-	print($guildname);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-	print($row['countg']);
-	print("</td>\n  </tr>\n");
-}
 
 
-$query = "SELECT `name`, COUNT(`name`) AS countg FROM `".$roster->db->table('pvp2')."` WHERE `win` = '1' AND `enemy` = '1' GROUP BY `name` ORDER BY countg DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
+	// Guild that killed us the most
+	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`guild` != '' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`guild` ORDER BY countg DESC";
 
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=enemywins').'">'.$roster->locale->act['pvplist3'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-	print($row['countg']);
-	print("</td>\n  </tr>\n");
-}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
 
-
-$query = "SELECT `name`, COUNT(`name`) AS countg FROM `".$roster->db->table('pvp2')."` WHERE `win` = '0' AND `enemy` = '1' GROUP BY `name` ORDER BY countg DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=enemylosses').'">'.$roster->locale->act['pvplist4'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	print($row['name']);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-	print($row['countg']);
-	print("</td>\n  </tr>\n");
-}
-
-
-$query = "SELECT pvp2.member_id, members.name AS gn, COUNT(pvp2.member_id) AS countg FROM `".$roster->db->table('pvp2')."` pvp2 LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = pvp2.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY countg DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgewins').'">'.$roster->locale->act['pvplist5'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	print($row['gn']);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-	print($row['countg']);
-	print("</td>\n  </tr>\n");
-}
-
-
-$query = "SELECT pvp2.member_id, members.name AS gn, COUNT(pvp2.member_id) as countg FROM `".$roster->db->table('pvp2')."` pvp2 LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = pvp2.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY countg DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgelosses').'">'.$roster->locale->act['pvplist6'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	print($row['gn']);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-	print($row['countg']);
-	print("</td>\n  </tr>\n");
-}
-
-
-$query = "SELECT pvp2.member_id, members.name as gn, AVG(pvp2.`leveldiff`) as ave, COUNT(pvp2.member_id) as countg FROM `".$roster->db->table('pvp2')."` pvp2 LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = pvp2.member_id WHERE win = '1' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY ave DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
-
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
-
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgeavewins').'">'.$roster->locale->act['pvplist7'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	print($row['gn']);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-
-	$ave = round($row['ave'], 2);
-
-	if ($ave > 0) {
-		$ave = '+'.$ave;
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=guildlosses') . '">'.$roster->locale->act['pvplist2'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		if( $row['guild'] == '' )
+		{
+			$guildname = '(unguilded)';
+		}
+		else
+		{
+			$guildname = $row['guild'];
+		}
+		$output .= $guildname;
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+		$output .= $row['countg'];
+		$output .= "</td>\n  </tr>\n";
 	}
-	print($ave);
-	print("</td>\n  </tr>\n");
-}
 
 
-$query = "SELECT pvp2.member_id, members.name as gn, AVG(pvp2.`leveldiff`) as ave, COUNT(pvp2.member_id) as countg FROM `".$roster->db->table('pvp2')."` pvp2 LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = pvp2.member_id WHERE win = '0' AND enemy = '1' GROUP BY pvp2.member_id ORDER BY ave DESC";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
-$row = $roster->db->fetch( $result );
+	// Player who we killed the most
+	$query = "SELECT `pvp`.`name`, COUNT(`pvp`.`name`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`guild` != '' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`name` ORDER BY countg DESC";
 
-if ($row)
-{
-	// Striping rows
-	print("  <tr>\n");
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
 
-	// Increment counter so rows are colored alternately
-	++$striping_counter;
-	pvprankRight((($striping_counter % 2) +1));
-	print('<a href="'.makelink('guildpvp&amp;type=purgeavelosses').'">'.$roster->locale->act['pvplist8'].'</a></td>'."\n");
-	pvprankMid((($striping_counter % 2) +1));
-	print($row['gn']);
-	print("</td>\n");
-	pvprankLeft((($striping_counter % 2) +1));
-
-	$ave = round($row['ave'], 2);
-
-	if ($ave > 0) {
-		$ave = '+'.$ave;
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=enemywins') . '">' . $roster->locale->act['pvplist3'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= $row['name'];
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+		$output .= $row['countg'];
+		$output .= "</td>\n  </tr>\n";
 	}
-	print($ave);
-	print("</td>\n  </tr>\n");
-}
 
-print($tableFooter);
-$roster->db->free_result($result);
+
+	// Player who killed us the most
+	$query = "SELECT `pvp`.`name`, COUNT(`pvp`.`name`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`name` ORDER BY countg DESC";
+
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
+
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=enemylosses') . '">' . $roster->locale->act['pvplist4'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= $row['name'];
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+		$output .= $row['countg'];
+		$output .= "</td>\n  </tr>\n";
+	}
+
+
+	// Member with the most kills
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id` ORDER BY countg DESC;";
+
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
+
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=purgewins') . '">' . $roster->locale->act['pvplist5'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= $row['gn'];
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+		$output .= $row['countg'];
+		$output .= "</td>\n  </tr>\n";
+	}
+
+
+	// Member who has died the most
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id` ORDER BY countg DESC;";
+
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
+
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=purgelosses') . '">' . $roster->locale->act['pvplist6'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= $row['gn'];
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+		$output .= $row['countg'];
+		$output .= "</td>\n  </tr>\n";
+	}
+
+
+	// Member with best kill average
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id` ORDER BY ave DESC";
+
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
+
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=purgeavewins') . '">' . $roster->locale->act['pvplist7'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= $row['gn'];
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+
+		$ave = round($row['ave'], 2);
+
+		if( $ave > 0 )
+		{
+			$ave = '+'.$ave;
+		}
+		$output .= $ave;
+		$output .= "</td>\n  </tr>\n";
+	}
+
+
+	// Member with best loss average
+	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
+		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
+		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
+		   . " GROUP BY `pvp`.`member_id` ORDER BY ave DESC";
+
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$row = $roster->db->fetch( $result );
+
+	if( $row )
+	{
+		// Striping rows
+		$output .= "  <tr>\n";
+
+		// Increment counter so rows are colored alternately
+		++$striping_counter;
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= '<a href="' . makelink('guildpvp&amp;type=purgeavelosses') . '">' . $roster->locale->act['pvplist8'] . '</a></td>' . "\n";
+		$output .= pvprankMid((($striping_counter % 2) +1));
+		$output .= $row['gn'];
+		$output .= "</td>\n";
+		$output .= pvprankRight((($striping_counter % 2) +1));
+
+		$ave = round($row['ave'], 2);
+
+		if( $ave > 0 )
+		{
+			$ave = '+'.$ave;
+		}
+		$output .= $ave;
+		$output .= "</td>\n  </tr>\n";
+	}
+
+	$output .= $tableFooter;
+	$roster->db->free_result($result);
+
+	return $output;
+}

@@ -57,6 +57,10 @@ $searchname = ( isset($_GET['name']) ? $_GET['name'] : '' );
 $searchtooltip = ( isset($_GET['tooltip']) ? $_GET['tooltip'] : '' );
 $searchstring = '';
 
+$anchor_link = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' )
+			 . ( isset($_GET['name']) ? '&amp;name=' . $_GET['name'] : '' )
+			 . ( isset($_GET['tooltip']) ? '&amp;tooltip=' . $_GET['tooltip'] : '' );
+
 if( empty($searchname) && empty($searchtooltip) )
 {
 	$searchname = '1';
@@ -87,11 +91,11 @@ if( !empty($search) )
 	// Set a ank for link to top of page
 	$output .= '<a name="top">&nbsp;</a>
 <div style="color:white;text-align;center">
-	<a href="#items">'.$roster->locale->act['items'].'</a> - <a href="#recipes">'.$roster->locale->act['recipes'].'</a>
+	<a href="' . makelink($anchor_link . '#items') . '">'.$roster->locale->act['items'].'</a> - <a href="' . makelink($anchor_link . '#recipes') . '">'.$roster->locale->act['recipes'].'</a>
 </div>
 <br /><br />';
 
-	$output .= '<a name="items"></a><div class="headline_1"><a href="#top">' . $roster->locale->act['items'] . '</a></div>';
+	$output .= '<a name="items"></a><div class="headline_1"><a href="' . makelink($anchor_link . '#top') . '">' . $roster->locale->act['items'] . '</a></div>';
 
 	if( !empty($searchname) && !empty($searchtooltip) )
 	{
@@ -114,7 +118,7 @@ if( !empty($search) )
 
 	if (!$result)
 	{
-		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
+		die_quietly('There was a database error trying to fetch matching items. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['search'],__FILE__,__LINE__,$query);
 	}
 
 	if( $roster->db->num_rows($result) != 0 )
@@ -169,7 +173,7 @@ if( !empty($search) )
 
 	$output .= "<br /><hr />\n";
 
-	$output .= '<a name="recipes"></a><div class="headline_1"><a href="#top">' . $roster->locale->act['recipes'] . '</a></div>';
+	$output .= '<a name="recipes"></a><div class="headline_1"><a href="' . makelink($anchor_link . '#top') . '">' . $roster->locale->act['recipes'] . '</a></div>';
 
 	if( !empty($searchname) && !empty($searchtooltip) )
 	{
@@ -192,7 +196,7 @@ if( !empty($search) )
 
 	if( !$result )
 	{
-		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['search'],basename(__FILE__),__LINE__,$query);
+		die_quietly('There was a database error trying to fetch matching recipes. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['search'],__FILE__,__LINE__,$query);
 	}
 
 	if( $roster->db->num_rows($result) != 0 )

@@ -115,7 +115,7 @@ class RosterLogin
 
 		if( !$result )
 		{
-			die_quietly($roster->db->error, 'Roster Auth', basename(__FILE__),__LINE__,$query);
+			die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
 		}
 
 		if( $roster->db->num_rows($result) != 1 )

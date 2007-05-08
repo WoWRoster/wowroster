@@ -155,7 +155,7 @@ class roster_db
 		}
 		elseif( isset($roster) && $roster->config['debug_mode'] || $this->error_die )
 		{
-			die_quietly($this->error(), 'Database Error',basename(__LINE__),__FILE__,$query);
+			die_quietly($this->error(), 'Database Error',__FILE__,__LINE__,$query);
 		}
 		else
 		{

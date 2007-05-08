@@ -91,7 +91,7 @@ class roster
 
 		if ( !$this->db->link_id )
 		{
-			die(basename(__FILE__).': line['.(__LINE__).']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$this->db->connect_error());
+			die(__FILE__.': line['.__LINE__.']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$this->db->connect_error());
 		}
 	}
 
@@ -201,7 +201,7 @@ class roster
 
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database error',basename(__FILE__),__LINE__,$query);
+					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
 				}
 
 				if(!( $this->data = $this->db->fetch($result)) )
@@ -245,7 +245,7 @@ class roster
 
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database Error',basename(__FILE__).'<br />Function: '.(__FUNCTION__),__LINE__,$query);
+					die_quietly($this->db->error(),'Database Error',__FILE__.'<br />Function: '.__FUNCTION__,__LINE__,$query);
 				}
 
 				if(!( $this->data = $this->db->fetch($result)) )
