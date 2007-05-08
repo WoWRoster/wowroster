@@ -239,6 +239,9 @@ $lang['recipe_2'] = 'leicht';
 $lang['recipe_1'] = 'trivial';
 $lang['roster_config'] = 'Roster Config';
 
+$lang['search_names'] = 'Search Names';
+$lang['search_items'] = 'Search Items';
+$lang['search_tooltips'] = 'Search Tooltips';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Berufe';
@@ -441,6 +444,15 @@ $lang['notatwar']='Nicht im Krieg';
 	$lang['itemlinks']['buffed.de'] = 'http://www.buffed.de/?f=';
 	$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+
+// WoW Data Site Search
+// Add as many item links as you need
+// Just make sure their names are unique
+	$lang['data_search'] = 'WoW Data Site Search';
+	$lang['data_links']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
+	$lang['data_links']['buffed.de'] = 'http://www.buffed.de/?f=';
+	$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
+	//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 
 // Definitions for item tooltip coloring

@@ -64,7 +64,7 @@ if( $roster->output['http_header'] && !headers_sent() )
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib_hideform.js"></script>
 <?php echo (!empty($roster->output['html_head']) ? $roster->output['html_head'] : ''); ?>
 </head>
-<body<?php print( !empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '' ); echo (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''); ?>>
+<body <?php print( !empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '' ); echo (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''); echo (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''); ?>>
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 <script type="text/javascript">
 <!--

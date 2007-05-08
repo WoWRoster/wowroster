@@ -39,8 +39,7 @@ function generatePvpList( )
 ' . border('sgray','start','<div style="cursor:pointer;width:400px;" onclick="showHide(\'pvp_table\',\'pvp_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
 	<div style="display:inline;float:right;"><img id="pvp_img" src="' . $roster->config['img_url'] . 'plus.gif" alt="" /></div>
 ' . $roster->locale->act['pvplist'] . '</div>') . '
-<table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="pvp_table"">' . "\n";
-// style="display:none;
+<table width="100%" cellpadding="0" cellspacing="0" class="bodyline" id="pvp_table" style="display:none;">' . "\n";
 
 	$tableFooter = "</table>\n" . border('sgray','end') . "\n<!-- End PvPLIST -->\n";
 
