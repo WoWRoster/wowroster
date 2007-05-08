@@ -195,6 +195,11 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		print_r($GLOBALS['die_data']);
 		print "\nSecond die data:\n";
 		print_r(func_get_args());
+		if( !empty($roster->error->report) )
+		{
+			print "\nPHP Notices/Warnings:\n";
+			print_r( $roster->error->report );
+		}
 		exit();
 	}
 

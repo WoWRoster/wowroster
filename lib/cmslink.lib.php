@@ -65,6 +65,20 @@ define('ROSTER_PATH',$urlpath);
 unset($urlpath);
 
 /**
+ * Parse any get params that might be hidden in the URL
+ */
+function parse_params()
+{
+	// --[ mod_rewrite code ]--
+	if( !isset($_GET[ROSTER_PAGE]) )
+	{
+		$uri = $_SERVER['REQUEST_URI'];
+		$page = substr($uri,strlen(ROSTER_PATH));
+		list($page) = explode('.',$page);
+		$_GET[ROSTER_PAGE] = str_replace('/','-',$page);
+	}
+}
+/**
  * Function to create links in Roster
  * ALL LINKS SHOULD PASS THROUGH THIS FUNCTION
  * Hopefully this function will be the magic that makes porting Roster easier
