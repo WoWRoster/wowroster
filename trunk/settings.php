@@ -148,6 +148,16 @@ $roster->get_page_name();
 $roster->get_scope_data();
 
 /**
+ * Inject some different settings if the debug url switch is set
+ */
+if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
+{
+	$roster->config['sqldebug'] = 1;
+	$roster->config['debug_mode'] = 1;
+	$roster->config['sql_window'] = 1;
+}
+
+/**
  * If the version doesnt match the one in constants, redirect to upgrader
  */
 if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
