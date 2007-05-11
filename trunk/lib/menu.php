@@ -469,8 +469,8 @@ class RosterMenu
 		$id = 0;
 		foreach( $roster->locale->act['data_links'] as $name => $link )
 		{
-			$output .= '<input type="radio" id="rad_' . $id . '" name="url" value="' . $link . '"' . ($id==0 ? ' checked="checked"' : '') . ' />
-<label style="margin: 1px;" for="rad_' . $id . '">' . $name . '</label>' . "\n";
+			$output .= '<input type="radio" id="search_' . $id . '" name="url" value="' . $link . '" />
+<label style="margin: 1px;" for="search_' . $id . '">' . $name . '</label>' . "\n";
 			$id++;
 		}
 		$output .= '

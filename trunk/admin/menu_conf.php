@@ -165,7 +165,7 @@ foreach($palet as $id=>$button)
 			}
 		}
 	}
-	$menu .= '<div id="'.$id.'" class="menu_config_div">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).(!empty($button['basename']) ? ' (addon)' : '').' ['.$button['title'].']</div>'."\n";
+	$menu .= '<div id="' . $id . '" class="menu_config_div">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . ' [' . $button['title'] . ']</div>' . "\n";
 }
 $menu .= "<br />\n";
 
@@ -204,7 +204,7 @@ foreach($arrayButtons as $posX=>$column)
 				}
 			}
 		}
-		$body .= '<div id="b'.$button['button_id'].'" class="menu_config_div">'.( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ).(!empty($button['basename']) ? ' (addon)' : '').' ['.$button['title'].']</div>'."\n";
+		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . ' [' . $button['title'] . ']</div>' . "\n";
 	}
 }
 
