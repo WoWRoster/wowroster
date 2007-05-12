@@ -22,7 +22,7 @@ INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 
 INSERT INTO `renprefix_config` VALUES (150, 'realmstatus_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (160, 'data_links', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (170, 'update_access', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://www.wowroster.net/wiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://www.wowroster.net/wiki.html', 'newlink', 'menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -62,8 +62,9 @@ INSERT INTO `renprefix_config` VALUES (4000, 'menu_conf_top', NULL, 'blockframe'
 INSERT INTO `renprefix_config` VALUES (4001, 'menu_conf_wide', NULL, 'page{2', 'menu_conf');
 INSERT INTO `renprefix_config` VALUES (4002, 'menu_conf_left', NULL, 'blockframe', 'menu_conf_wide');
 INSERT INTO `renprefix_config` VALUES (4003, 'menu_conf_right', NULL, 'blockframe', 'menu_conf_wide');
+INSERT INTO `renprefix_config` VALUES (4004, 'menu_conf_bottom', NULL, 'blockframe', 'menu_conf');
 
-INSERT INTO `renprefix_config` VALUES (4020, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
+INSERT INTO `renprefix_config` VALUES (4100, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
 
 INSERT INTO `renprefix_config` VALUES (4200, 'menu_left_type', 'level', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_left');
 INSERT INTO `renprefix_config` VALUES (4210, 'menu_left_level', '30', 'text{2|10', 'menu_conf_left');
@@ -74,14 +75,16 @@ INSERT INTO `renprefix_config` VALUES (4250, 'menu_left_textcolor', '#ffffff', '
 INSERT INTO `renprefix_config` VALUES (4260, 'menu_left_outlinecolor', '#000000', 'color', 'menu_conf_left');
 INSERT INTO `renprefix_config` VALUES (4270, 'menu_left_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_left');
 
-INSERT INTO `renprefix_config` VALUES (4400, 'menu_right_type', 'realm', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4410, 'menu_right_level', '60', 'text{2|10', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4420, 'menu_right_style', 'list', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4430, 'menu_right_barcolor', '#3e0000', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4440, 'menu_right_bar2color', '#003e00', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4450, 'menu_right_textcolor', '#ffffff', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4460, 'menu_right_outlinecolor', '#000000', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4470, 'menu_right_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4300, 'menu_right_type', 'realm', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4310, 'menu_right_level', '60', 'text{2|10', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4320, 'menu_right_style', 'list', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4330, 'menu_right_barcolor', '#3e0000', 'color', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4340, 'menu_right_bar2color', '#003e00', 'color', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4350, 'menu_right_textcolor', '#ffffff', 'color', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4360, 'menu_right_outlinecolor', '#000000', 'color', 'menu_conf_right');
+INSERT INTO `renprefix_config` VALUES (4370, 'menu_right_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_right');
+
+INSERT INTO `renprefix_config` VALUES (4400, 'menu_bottom_pane', '1', 'radio{on^1|off^0', 'menu_conf_bottom');
 
 # --------------------------------------------------------
 ### Display Settings
@@ -145,10 +148,11 @@ INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3');
+INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3|b4');
 
 # --------------------------------------------------------
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'search', 'search');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'roster_cp_ab', 'rostercp');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'credit', 'credits');
