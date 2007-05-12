@@ -50,6 +50,15 @@ class RosterMenu
 		}
 
 
+		if( $roster->config['menu_bottom_pane'] )
+		{
+			$bottombar = $this->makeBottom();
+		}
+		else
+		{
+			$bottombar = '';
+		}
+
 
 		$buttonlist = $this->makeButtonList($sections);
 
@@ -62,7 +71,7 @@ class RosterMenu
 			. $buttonlist
 			. $right_pane
 			. "  </tr>\n"
-			. $this->makeBottom()
+			. $bottombar
 			. '</table>'."\n"
 			. border('syellow','end') . "\n"
 			. "<br />\n"
