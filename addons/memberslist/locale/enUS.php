@@ -68,6 +68,23 @@ $lang['arenapoints']            = 'Arena Points';
 $lang['main_name']              = 'Main name';
 $lang['alt_type']               = 'Alt type';
 
+// Last Online words
+$lang['online_at_update']       = 'Online at Update';
+$lang['second']                 = '%s second ago';
+$lang['seconds']                = '%s seconds ago';
+$lang['minute']                 = '%s minute ago';
+$lang['minutes']                = '%s minutes ago';
+$lang['hour']                   = '%s hour ago';
+$lang['hours']                  = '%s hours ago';
+$lang['day']                    = '%s day ago';
+$lang['days']                   = '%s days ago';
+$lang['week']                   = '%s week ago';
+$lang['weeks']                  = '%s weeks ago';
+$lang['month']                  = '%s month ago';
+$lang['months']                 = '%s months ago';
+$lang['year']                   = '%s year ago';
+$lang['years']                  = '%s years ago';
+
 // Configuration
 $lang['memberslist_config']		= 'Go to memberslist configuration';
 $lang['memberslist_config_page']= 'memberslist Configuration';

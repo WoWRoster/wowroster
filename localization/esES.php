@@ -217,7 +217,6 @@ $lang['dodge'] = 'Esquivar';
 $lang['parry'] = 'Parar';
 $lang['block'] = 'Bloquear';
 $lang['realm'] = 'Reino';
-$lang['online_at_up'] = 'Online at Update';
 $lang['faction'] = 'Faction';
 $lang['page'] = 'Página';
 $lang['general'] = 'General';
