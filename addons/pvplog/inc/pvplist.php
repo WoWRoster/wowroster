@@ -62,7 +62,7 @@ function generatePvpList( )
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=guildwins') . '">'.$roster->locale->act['pvplist1'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=guildwins') . '">'.$roster->locale->act['pvplist1'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		if( $row['guild'] == '' )
 		{
@@ -97,7 +97,7 @@ function generatePvpList( )
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=guildlosses') . '">'.$roster->locale->act['pvplist2'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=guildlosses') . '">'.$roster->locale->act['pvplist2'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		if( $row['guild'] == '' )
 		{
@@ -132,7 +132,7 @@ function generatePvpList( )
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=enemywins') . '">' . $roster->locale->act['pvplist3'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=enemywins') . '">' . $roster->locale->act['pvplist3'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		$output .= $row['name'];
 		$output .= "</td>\n";
@@ -159,7 +159,7 @@ function generatePvpList( )
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=enemylosses') . '">' . $roster->locale->act['pvplist4'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=enemylosses') . '">' . $roster->locale->act['pvplist4'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		$output .= $row['name'];
 		$output .= "</td>\n";
@@ -187,7 +187,7 @@ function generatePvpList( )
 		++$striping_counter;
 
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=purgewins') . '">' . $roster->locale->act['pvplist5'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=purgewins') . '">' . $roster->locale->act['pvplist5'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		$output .= $row['gn'];
 		$output .= "</td>\n";
@@ -216,7 +216,7 @@ function generatePvpList( )
 		++$striping_counter;
 
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=purgelosses') . '">' . $roster->locale->act['pvplist6'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=purgelosses') . '">' . $roster->locale->act['pvplist6'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		$output .= $row['gn'];
 		$output .= "</td>\n";
@@ -245,7 +245,7 @@ function generatePvpList( )
 		++$striping_counter;
 
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=purgeavewins') . '">' . $roster->locale->act['pvplist7'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=purgeavewins') . '">' . $roster->locale->act['pvplist7'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		$output .= $row['gn'];
 		$output .= "</td>\n";
@@ -280,7 +280,7 @@ function generatePvpList( )
 		// Increment counter so rows are colored alternately
 		++$striping_counter;
 		$output .= pvprankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildpvp&amp;type=purgeavelosses') . '">' . $roster->locale->act['pvplist8'] . '</a></td>' . "\n";
+		$output .= '<a href="' . makelink('guild-pvplog&amp;type=purgeavelosses') . '">' . $roster->locale->act['pvplist8'] . '</a></td>' . "\n";
 		$output .= pvprankMid((($striping_counter % 2) +1));
 		$output .= $row['gn'];
 		$output .= "</td>\n";

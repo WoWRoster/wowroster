@@ -124,7 +124,7 @@ if( $type == 'guildwins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild']) . '">');
+		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
 
 		if( $row['guild'] == '' )
 		{
@@ -167,7 +167,7 @@ elseif( $type == 'guildlosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild']) . '">');
+		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
 		if( $row['guild'] == '' )
 		{
 			$guildname = '(' . $roster->locale->act['unknown'] . ')';

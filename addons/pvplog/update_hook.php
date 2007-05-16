@@ -60,7 +60,7 @@ class pvplogUpdate
 					$battles = $char['battles'];
 					if( $char['version'] >= $this->data['config']['minPvPLogver'] )
 					{
-						$this->messages .= '<strong>'.sprintf($roster->locale->act['upload_data'],'PvPLog',$char_name)."</strong>\n";
+						$this->messages .= '<strong>'.sprintf($roster->locale->act['upload_data'],'PvPLog',$char_name,$realm_name)."</strong>\n";
 
 						$this->messages .= "<ul>\n";
 						$this->update_pvp($guild_id, $char_name, $battles);
