@@ -255,11 +255,11 @@ class memberslist
 			{
 				if( $DATA['display'] == 1 )
 				{
-					$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;display:none;">'.$th_text."</th>\n";
+					$this->tableHeaderRow .= '    <th class="membersHeader '.$DATA['js_type'].'" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;display:none;">'.$th_text."</th>\n";
 				}
 				else
 				{
-					$this->tableHeaderRow .= '    <th class="membersHeader" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
+					$this->tableHeaderRow .= '    <th class="membersHeader '.$DATA['js_type'].'" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
 				}
 			}
 

@@ -204,13 +204,8 @@ function dosort(count,listname)
 		else
 		{
 			SORT_COLUMNS[i] = parseFloat(cs.value);
-			var itm = table.rows[0].cells[SORT_COLUMNS[i]].id;
-			// I want a better detection method here, but can't think of one
-			if ((itm == 'name')
-				|| (itm == 'class')
-				|| (itm == 'note')
-				|| (itm == 'hearth')
-				|| (itm == 'zone'))
+			var itm = table.rows[0].cells[SORT_COLUMNS[i]].className.split(' ');
+			if (itm.indexOf('ts_string') >= 0)
 			{
 				SORTERS[i] = ts_sort_caseinsensitive;
 			}
@@ -229,17 +224,12 @@ function dosort(count,listname)
 	{
 		FILTER[i] = document.getElementById(listname +'_filter_'+(i+1));
 
-		var itm = table.rows[0].cells[i+1].id;
-		if ((itm == 'name')
-			|| (itm == 'class')
-			|| (itm == 'note')
-			|| (itm == 'hearth')
-			|| (itm == 'zone'))
+		var itm = table.rows[0].cells[i+1].className.split(' ');
+		if (itm.indexOf('ts_string') >= 0)
 		{
 			TYPES[i] = 'string';
 		}
-		else if (( itm == 'lastonline' )
-			|| (itm == 'lastupdate' ))
+		else if (itm.indexOf('ts_date') >= 0)
 		{
 			TYPES[i] = 'date';
 		}
