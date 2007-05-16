@@ -18,15 +18,11 @@ if ( !defined('ROSTER_INSTALLED') )
 
 $roster->output['title'] = $roster->locale->act['madeby'];
 
-require_once(ROSTER_LIB.'recipes.php');
+require_once(ROSTER_LIB . 'recipes.php');
 
 $prof_filter = ( isset($_REQUEST['proffilter']) ? $_REQUEST['proffilter'] : '');
 $filter_box = ( isset($_REQUEST['filterbox']) ? $_REQUEST['filterbox'] : '');
 $prof_sort = ( isset($_REQUEST['sort']) ? $_REQUEST['sort'] : '');
-
-$anchor_link = ( isset($_GET['proffilter']) ? '&amp;proffilter=' . $_GET['proffilter'] : '' )
-			 . ( isset($_GET['filterbox']) ? '&amp;filterbox=' . $_GET['filterbox'] : '' )
-			 . ( isset($_GET['sort']) ? '&amp;sort=' . $_GET['sort'] : '' );
 
 $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 	FROM ".$roster->db->table('recipes')."
@@ -38,9 +34,8 @@ $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 $result_prof = $roster->db->query($qry_prof) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qry_prof);
 
 
-$choiceForm = '<form action="'.makelink().'" method="get" name="myform">
-	'.linkform().'
-'.border('sgray','start').'
+$choiceForm = '<form action="' . makelink() . '" method="post" name="myform">
+' . border('sgray','start') . '
 	<table cellspacing="0" cellpadding="2" class="bodyline">
 		<tr>
 			<td class="membersRow1">'.$roster->locale->act['professionfilter'].'
@@ -103,7 +98,7 @@ if (!empty($prof_filter))
 		}
 		while($row_recipe_type = $roster->db->fetch($result_recipe_type))
 		{
-			$content .=  '<a href="' . makelink($anchor_link . '#'.str_replace(' ','_',$row_recipe_type['recipe_type'])) . '">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
+			$content .=  '<a href="' . makelink('util-recipe#'.str_replace(' ','_',$row_recipe_type['recipe_type'])) . '">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
 		}
 		$content .=  "</td></tr></table>\n<br /><br />\n";
 
@@ -118,7 +113,7 @@ if (!empty($prof_filter))
 				}
 				$first_table = false;
 
-				$content .= border('syellow','start','<a href="' . makelink($anchor_link . '#top_menu') . '" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
+				$content .= border('syellow','start','<a href="' . makelink('util-recipe#top_menu') . '" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
 					'<table class="bodyline" cellspacing="0">'."\n";
 
 				$content .= '<tr>'."\n";

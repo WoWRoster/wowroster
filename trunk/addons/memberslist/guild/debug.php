@@ -91,7 +91,6 @@ $memberlist = new memberslist;
 $memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
 
 $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
-$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="addons/'.$addon['basename'].'/default.css" />';
 
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');

@@ -173,16 +173,16 @@ class roster
 				// Parse the attribute
 				if( is_numeric($_GET['member']) )
 				{
-					$where = ' `players`.`member_id` = "'.$_GET['member'].'"';
+					$where = ' `players`.`member_id` = "' . $_GET['member'] . '"';
 				}
 				elseif( strpos($_GET['member'], '@') !== false )
 				{
 					list($name, $realm) = explode('@',$_GET['member']);
-					$where = ' `players`.`name` = "'.$name.'" AND `players`.`server` = "'.$realm.'"';
+					$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '"';
 				}
 				else
 				{
-					$where = ' `players`.`name` = "'.$_GET['member'].'" AND `players`.`server` = "'.$this->config['server_name'].'"';
+					$where = ' `players`.`name` = "' . $_GET['member'] . '" AND `players`.`server` = "' . $this->config['server_name'] . '"';
 				}
 
 				// Get the data
@@ -233,8 +233,8 @@ class roster
 
 				// Get the data
 				$query = "SELECT * ".
-					"FROM `".$this->db->table('guild')."` ".
-					"WHERE ".$where.";";
+					"FROM `" . $this->db->table('guild') . "` ".
+					"WHERE " . $where . ";";
 
 				$result = $this->db->query($query);
 

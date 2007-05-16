@@ -636,6 +636,9 @@ $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
 
 $lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
+$lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
+$lang['admin']['menu_top_list'] = "Top Pane|Controls display of the guild list in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
+$lang['admin']['menu_top_locale'] = "Top Pane|Controls display of the locale selection in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
 
 $lang['admin']['menu_left_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
 $lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
@@ -654,6 +657,8 @@ $lang['admin']['menu_right_bar2color'] = "Bar 2 color|The color for the bar show
 $lang['admin']['menu_right_textcolor'] = "Text color|The color for the level/class group labels (class graph uses class colors for labels)";
 $lang['admin']['menu_right_outlinecolor'] = "Text Outline color|The outline color for the level/class group labels<br />Clear this box to turn the outline off";
 $lang['admin']['menu_right_text'] = "Text font|The font for the level/class group labels";
+
+$lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
 
 // display_conf
 $lang['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" devant le nom, celà cherchera dans le répertoire img/ du roster";
