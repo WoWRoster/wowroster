@@ -65,6 +65,9 @@ INSERT INTO `renprefix_config` VALUES (4003, 'menu_conf_right', NULL, 'blockfram
 INSERT INTO `renprefix_config` VALUES (4004, 'menu_conf_bottom', NULL, 'blockframe', 'menu_conf');
 
 INSERT INTO `renprefix_config` VALUES (4100, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
+INSERT INTO `renprefix_config` VALUES (4110, 'menu_top_faction', '1', 'radio{on^1|off^0', 'menu_conf_top');
+INSERT INTO `renprefix_config` VALUES (4120, 'menu_top_list', '1', 'radio{on^1|off^0', 'menu_conf_top');
+INSERT INTO `renprefix_config` VALUES (4130, 'menu_top_locale', '1', 'radio{on^1|off^0', 'menu_conf_top');
 
 INSERT INTO `renprefix_config` VALUES (4200, 'menu_left_type', 'level', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_left');
 INSERT INTO `renprefix_config` VALUES (4210, 'menu_left_level', '30', 'text{2|10', 'menu_conf_left');

@@ -73,13 +73,13 @@ define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
  */
 define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 
-include( ROSTER_LIB.'roster.php' );
+include( ROSTER_LIB . 'roster.php' );
 $roster = new roster;
 
 /**
  * Roster Error Handler
  */
-include( ROSTER_LIB.'roster_error.php' );
+include( ROSTER_LIB . 'roster_error.php' );
 $roster->error =& new roster_error(E_ALL);
 
 
@@ -128,7 +128,7 @@ require_once (ROSTER_LIB . 'cmslink.lib.php');
 /**
  * Load the locale class
  */
-include(ROSTER_LIB.'locale.php');
+include(ROSTER_LIB . 'locale.php');
 $roster->locale = new roster_locale;
 
 /**

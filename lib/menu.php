@@ -28,14 +28,17 @@ class RosterMenu
 		define('ROSTER_MENU_INC',true);
 
 		$icon = '';
-		switch( substr($roster->data['faction'],0,1) )
+		if( $roster->config['menu_top_faction'] )
 		{
-			case 'A':
-				$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" style="float:left;" alt="" />';
-				break;
-			case 'H':
-				$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" style="float:left;" alt="" />';
-				break;
+			switch( substr($roster->data['faction'],0,1) )
+			{
+				case 'A':
+					$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" style="float:left;" alt="" />';
+					break;
+				case 'H':
+					$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" style="float:left;" alt="" />';
+					break;
+			}
 		}
 
 		$choiceForm = '<form action="' . makelink() . '" method="get">
@@ -64,7 +67,7 @@ class RosterMenu
 					. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
 					. $icon
 					. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . ( isset($roster->data['guild_name']) ? $roster->data['guild_name'] : $roster->config['guild_name'] ) . '</a></span>'."\n"
-					. '      <span style="font-size:11px;">' . ( isset($roster->data['server']) ? $roster->data['server'] : $roster->config['server_name'] ) . '</span><br />'
+					. '      <span style="font-size:11px;"> @ ' . ( isset($roster->data['server']) ? $roster->data['server'] : $roster->config['server_name'] ) . '</span><br />'
 					. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
 					. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n"
 					. "    </td>\n"
@@ -481,8 +484,7 @@ class RosterMenu
 	</tr>
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header">
-			<form id="searchformmenu" action="' . makelink('search') . '" method="get">
-' . linkform() . '
+			<form id="searchformmenu" action="' . makelink('search') . '" method="post">
 				<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:left;cursor:pointer;" id="data_search_img" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');" alt="+" />
 
 				<input type="text" class="wowinput192" name="s" value="" size="30" maxlength="30" />

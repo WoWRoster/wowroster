@@ -30,15 +30,11 @@ define('ROSTER_PAGE', 'p');
 if( $roster->config['seo_url'] )
 {
 	// This is the url to access a page in Roster
-	define('ROSTER_LINK', '%1$s.html?%2$s');
-
-	define('ROSTER_LINK_NOARGS', '%1$s.html');
+	define('ROSTER_LINK', '%1$s');
 }
 else
 {
-	define('ROSTER_LINK', '?'.ROSTER_PAGE.'=%1$s&amp;%2$s');
-
-	define('ROSTER_LINK_NOARGS', '?'.ROSTER_PAGE.'=%1$s');
+	define('ROSTER_LINK', '?' . ROSTER_PAGE . '=%1$s');
 }
 
 /**
@@ -46,9 +42,9 @@ else
  * You can modify the defines 'ROSTER_URL' and 'ROSTER_PATH' to suit your needs
  * and bypass the url checks if needed
  */
-$url = explode('/','http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
+$url = explode('/','http://'.$_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']);
 array_pop($url);
-$url = implode('/',$url).'/';
+$url = implode('/',$url) . '/';
 
 define('ROSTER_URL',$url);
 unset($url);
@@ -59,7 +55,7 @@ unset($url);
  */
 $urlpath = explode('/',$_SERVER['PHP_SELF']);
 array_pop($urlpath);
-$urlpath = implode('/',$urlpath).'/';
+$urlpath = implode('/',$urlpath) . '/';
 
 define('ROSTER_PATH',$urlpath);
 unset($urlpath);
@@ -72,12 +68,33 @@ function parse_params()
 	// --[ mod_rewrite code ]--
 	if( !isset($_GET[ROSTER_PAGE]) )
 	{
-		$uri = $_SERVER['REQUEST_URI'];
+		$uri = request_uri();
 		$page = substr($uri,strlen(ROSTER_PATH));
 		list($page) = explode('.',$page);
-		$_GET[ROSTER_PAGE] = str_replace('/','-',$page);
+
+		// Build the Roster page var
+		$pages = array();
+		foreach( explode('/',$page) as $get )
+		{
+			if( strpos($get,'=') === false )
+			{
+				$pages[] = $get;
+			}
+		}
+		$_GET[ROSTER_PAGE] = implode('-',$pages);
+
+		// Now insert the rest of the GET vars
+		foreach( explode('/',$page) as $get )
+		{
+			if( strpos($get,'=') !== false )
+			{
+				list($var,$val) = explode('=',$get);
+				$_GET[$var] = $val;
+			}
+		}
 	}
 }
+
 /**
  * Function to create links in Roster
  * ALL LINKS SHOULD PASS THROUGH THIS FUNCTION
@@ -104,84 +121,66 @@ function makelink( $url='' , $full=false )
 		$anchor = '';
 	}
 
-	// Prepend current page if needed
-	if( empty($url) || $url[0] == '&' )
-	{
-		$page = ROSTER_PAGE_NAME;
-		$url = substr($url, 5);
-	}
-	elseif( strpos($url, '&amp;') )
-	{
-		list($page, $url) = explode('&amp;',$url,2);
-	}
-	else
-	{
-		$page = $url;
-		$url = '';
-	}
-
 	// Get target scope
-	list($scope) = explode('-',$page);
+	list($scope) = explode('-',$url);
 
 	// Get the target GET vars
 	parse_str(html_entity_decode($url), $get);
 
 	// Add the member=/guild= param
-	$addget = '';
 	switch( $scope )
 	{
 		case 'char':
 			if( !isset($get['member']) && isset($roster->data['member_id']) )
 			{
-				$addget = 'member='.$roster->data['member_id'];
+				$url .= '&amp;member=' . $roster->data['member_id'] . $anchor;
 			}
 			break;
 
 		case 'guild':
 			if( !isset($get['guild']) && isset($roster->data['guild_id']) )
 			{
-				$addget = 'guild='.$roster->data['guild_id'];
+				$url .= '&amp;guild=' . $roster->data['guild_id'] . $anchor;
 			}
 			break;
 
 		default:
-			$addget = '';
+			$url .= $anchor;
 			break;
 	}
 
-	// Put the url back together again
-	if( empty($addget) || empty($url) )
+	if( empty($url) || $url[0] == '&' )
 	{
-		$url = $addget . $url;
-	}
-	else
-	{
-		$url = $addget . '&amp;' . $url;
+		$url = ROSTER_PAGE_NAME . $url;
 	}
 
-	// Pass through the SEO encoder
 	if( $roster->config['seo_url'] )
 	{
-		$page = str_replace('-','/',$page);
-	}
+		$url = ereg_replace('&amp;', '/', $url);
+		$url = ereg_replace('&', '/', $url);
+		$url = str_replace('?', '/', $url);
+		$url = str_replace('-', '/', $url);
 
-	if( empty($url) )
-	{
-		$url = sprintf(ROSTER_LINK_NOARGS,$page);
+		if( ereg('#', $url) )
+		{
+			$url = ereg_replace('#', '.html#', $url);
+		}
+		else
+		{
+			$url .= '.html';
+		}
 	}
 	else
 	{
-		$url = sprintf(ROSTER_LINK,$page,$url);
+		$url = sprintf(ROSTER_LINK, $url);
 	}
 
-	// Prepend the front end of the url if requested
 	if( $full )
 	{
-		$url = ROSTER_URL."$url";
+		$url = ROSTER_URL . "$url";
 	}
 
-	// Re-add the anchor and return
-	return $url.$anchor;
+	return $url;
 }
 
 /**
@@ -199,16 +198,15 @@ function linkform( $get_links = false )
 	$return = '';
 	if( !$roster->config['seo_url'] )
 	{
-		$return .= '<input type="hidden" name="'.ROSTER_PAGE.'" value="'.ROSTER_PAGE_NAME.'" />'."\n";
+		$return .= '<input type="hidden" name="' . ROSTER_PAGE . '" value="' . ROSTER_PAGE_NAME . '" />' . "\n";
 	}
 
 	if( $get_links !== false )
 	{
 		foreach( $get_links as $name => $value )
 		{
-			$return .= '<input type="hidden" name="'.$name.'" value="'.$value.'" />'."\n";
+			$return .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />' . "\n";
 		}
 	}
 	return $return;
 }
-

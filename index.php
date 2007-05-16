@@ -28,7 +28,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 	exit;
 }
 
-require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'settings.php' );
+require_once( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php' );
 
 // --[ Get path info based on scope ]--
 if( !isset($roster->pages[1]) )
@@ -42,15 +42,18 @@ switch( $roster->pages[0] )
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
 		break;
+
 	case 'guild':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
 		break;
+
 	case 'util':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP .
 			( isset($roster->pages[2]) && !in_array($roster->pages[2],explode(',',ROSTER_NON_ADDON))
 			? $roster->pages[2] : 'index' ). '.php';
 		break;
+
 	default:
 		// OK, so it isn't a scope. Prolly a file in pages.
 		if( file_exists($file = ROSTER_PAGES . $roster->pages[0] . '.php') )

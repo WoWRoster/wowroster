@@ -1049,3 +1049,34 @@ function urlgrabber( $url , $timeout = 5 )
 		return false;
 	}
 } //-END function urlgrabber()
+
+
+
+/**
+ * Stupid function to create an REQUEST_URI for IIS 5 servers
+ *
+ * @return string
+ */
+function request_uri( )
+{
+	if (ereg('IIS', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']))
+	{
+		$REQUEST_URI = $_SERVER['SCRIPT_NAME'];
+		if (isset($_SERVER['QUERY_STRING']))
+		{
+			$REQUEST_URI .= '?'.$_SERVER['QUERY_STRING'];
+		}
+	}
+	else
+	{
+		$REQUEST_URI = $_SERVER['REQUEST_URI'];
+	}
+	# firefox encodes url by default but others don't
+	$REQUEST_URI = urldecode($REQUEST_URI);
+	# encode the url " %22 and <> %3C%3E
+	$REQUEST_URI = str_replace('"', '%22', $REQUEST_URI);
+	$REQUEST_URI = preg_replace('#([\x3C\x3E])#e', '"%".bin2hex(\'\\1\')', $REQUEST_URI);
+	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen(stristr($REQUEST_URI, '&CMSSESSID')));
+
+	return $REQUEST_URI;
+}
