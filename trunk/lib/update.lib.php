@@ -280,12 +280,12 @@ class update
 						// CP Version Detection, don't allow lower than minVer
 						if( $char['DBversion'] >= $roster->config['minCPver'] )
 						{
-							$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Character',$char_name)."</strong>\n";
-
 							if( !isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
 							{
 								continue;
 							}
+
+							$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name)."</strong>\n";
 
 							$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
 							$output .= "<ul>\n".$this->getMessages()."</ul>\n";

@@ -27,6 +27,34 @@ class RosterMenu
 
 		define('ROSTER_MENU_INC',true);
 
+		$icon = '';
+		switch( substr($roster->data['faction'],0,1) )
+		{
+			case 'A':
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" style="float:left;" alt="" />';
+				break;
+			case 'H':
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" style="float:left;" alt="" />';
+				break;
+		}
+
+		$choiceForm = '<form action="' . makelink() . '" method="get">
+		' . $roster->locale->act['guild'] . ':
+		<select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
+		';
+		foreach( $choiceArray as $guild_name => $guild_id )
+		{
+			if( $guild_id == $roster->data['guild_id'] )
+			{
+				$choiceForm .= '  <option value="' . makelink('&amp;guild=' . $guild_id) . '" selected="selected">' . $guild_name . "</option>\n";
+			}
+			else
+			{
+				$choiceForm .= '  <option value="' . makelink('&amp;guild=' . $guild_id) . '">' . $guild_name . "</option>\n";
+			}
+		}
+		$choiceForm .= "</select>\n</form><br />";
+
 		$left_pane = $this->makePane('menu_left');
 		$right_pane = $this->makePane('menu_right');
 
@@ -34,8 +62,9 @@ class RosterMenu
 		{
 			$topbar = "  <tr>\n"
 					. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
+					. $icon
 					. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . ( isset($roster->data['guild_name']) ? $roster->data['guild_name'] : $roster->config['guild_name'] ) . '</a></span>'."\n"
-					. '      <span style="font-size:11px;"> @ ' . ( isset($roster->data['server']) ? $roster->data['server'] : $roster->config['server_name'] ) . '</span><br />'
+					. '      <span style="font-size:11px;">' . ( isset($roster->data['server']) ? $roster->data['server'] : $roster->config['server_name'] ) . '</span><br />'
 					. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
 					. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n"
 					. "    </td>\n"

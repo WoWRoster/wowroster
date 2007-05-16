@@ -1901,10 +1901,10 @@ $returnstring .= '  <tr>
 		switch( substr($roster->data['faction'],0,1) )
 		{
 			case 'A':
-				$icon = '<img src="'.$roster->config['img_url'].'battleground-alliance.png" alt="" />';
+				$icon = '<img src="'.$roster->config['img_url'].'icon_alliance.png" style="width:20px;height:20px;" alt="" />';
 				break;
 			case 'H':
-				$icon = '<img src="'.$roster->config['img_url'].'battleground-horde.png" alt="" />';
+				$icon = '<img src="'.$roster->config['img_url'].'icon_horde.png" style="width:20px;height:20px;" alt="" />';
 				break;
 		}
 
