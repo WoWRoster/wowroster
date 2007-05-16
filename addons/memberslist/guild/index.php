@@ -120,7 +120,7 @@ $FIELD['hearth'] = array (
 );
 
 $FIELD['zone'] = array (
-	'lang_field' => 'last_zone',
+	'lang_field' => 'lastzone',
 	'order' => array( '`members`.`zone` ASC' ),
 	'order_d' => array( '`members`.`zone` DESC' ),
 	'display' => $addon['config']['member_zone'],
