@@ -23,7 +23,7 @@ class memberslist
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
-	var $version = '0.3.0.0';
+	var $version = '1.8.0-0';
 
 	var $fullname = 'Members List';
 	var $description = 'A sortable, filterable member list.';
