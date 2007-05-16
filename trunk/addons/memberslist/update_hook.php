@@ -48,7 +48,7 @@ class memberslistUpdate
 	 */
 	function reset_messages()
 	{
-		$this->messages = 'SortMember';
+		$this->messages = 'memberslist';
 	}
 
 	/**

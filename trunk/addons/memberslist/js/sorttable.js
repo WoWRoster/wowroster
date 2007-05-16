@@ -204,7 +204,7 @@ function dosort(count,listname)
 		else
 		{
 			SORT_COLUMNS[i] = parseFloat(cs.value);
-			var itm = table.rows[0].cells[SORT_COLUMNS[i]-1].id;
+			var itm = table.rows[0].cells[SORT_COLUMNS[i]].id;
 			// I want a better detection method here, but can't think of one
 			if ((itm == 'name')
 				|| (itm == 'class')
@@ -229,7 +229,7 @@ function dosort(count,listname)
 	{
 		FILTER[i] = document.getElementById(listname +'_filter_'+(i+1));
 
-		var itm = table.rows[0].cells[i].id;
+		var itm = table.rows[0].cells[i+1].id;
 		if ((itm == 'name')
 			|| (itm == 'class')
 			|| (itm == 'note')
@@ -251,7 +251,7 @@ function dosort(count,listname)
 
 	// Filter the rows, and add them to a storage array
 	var newRows = new Array();
-	for (var i=0;i<table.tBodies.length;i++)
+	for (var i=0, j=0;i<table.tBodies.length;i++)
 	{
 		// Don't sort filtered rows
 		if (checkfilter(table.tBodies[i].rows[0]))
@@ -311,7 +311,7 @@ function checkfilter(row)
 			continue;
 		}
 
-		text = ts_getInnerText(row.cells[j]);
+		text = ts_getInnerText(row.cells[j+1]);
 		op = FILTER[j].value.substr(0,2);
 
 		if( op[0] == '=' )
@@ -370,7 +370,7 @@ function checkfilter(row)
 			}
 		}
 
-		if( row.cells[j].innerHTML.toLowerCase().indexOf(FILTER[j].value.toLowerCase()) == -1 )
+		if( row.cells[j+1].innerHTML.toLowerCase().indexOf(FILTER[j].value.toLowerCase()) == -1 )
 		{
 			return false;
 		}
