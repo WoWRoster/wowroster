@@ -407,7 +407,7 @@ class update
 											$guild_output .= $this->addon_hook('guild_post', $guild);
 										}
 
-										$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Guild',$guild_name)."</strong>\n<ul>\n";
+										$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name)."</strong>\n<ul>\n";
 										$output .= '<li><strong>'.$roster->locale->act['memberlog']."</strong>\n<ul>\n".
 											'<li>'.$roster->locale->act['updated'].': '.$this->membersupdated."</li>\n".
 											'<li>'.$roster->locale->act['added'].': '.$this->membersadded."</li>\n".
@@ -2188,6 +2188,7 @@ class update
 		global $roster;
 
 		$name_escape = $roster->db->escape( $name );
+		$server_escape = $roster->db->escape( $server );
 
 		$querystr = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $roster->db->query($querystr);
@@ -2208,7 +2209,7 @@ class update
 		$this->reset_values();
 
 		$this->add_value( 'name', $name_escape);
-		$this->add_value( 'server', 
+		$this->add_value( 'server', $server_escape);
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'level', $char['Level']);
 		if( isset($char['Note']) )
