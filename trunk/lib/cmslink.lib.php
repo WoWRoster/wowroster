@@ -116,26 +116,43 @@ function makelink( $url='' , $full=false )
 		$anchor = '';
 	}
 
+	// Split the page from the rest
+	if( empty($url) || $url[0] == '&' )
+	{
+		$page = ROSTER_PAGE_NAME;
+		$url = substr($url, 5);
+	}
+	elseif( strpos($url, '&amp;') )
+	{
+		list($page, $url) = explode('&amp;',$url,2);
+	}
+	else
+	{
+		$page = $url;
+		$url = '';
+	}
+
 	// Get target scope
-	list($scope) = explode('-',$url);
+	list($scope) = explode('-',$page);
 
 	// Get the target GET vars
 	parse_str(html_entity_decode($url), $get);
 
-	// Add the member=/guild= param
+	// Add the scope param if it isn't in yet
+	$addget = '';
 	switch( $scope )
 	{
 		case 'char':
 			if( !isset($get['member']) && isset($roster->data['member_id']) )
 			{
-				$url .= '&amp;member=' . $roster->data['member_id'];
+				$addget = 'member=' . $roster->data['member_id'];
 			}
 			break;
 
 		case 'guild':
 			if( !isset($get['guild']) && isset($roster->data['guild_id']) )
 			{
-				$url .= '&amp;guild=' . $roster->data['guild_id'];
+				$addget = 'guild=' . $roster->data['guild_id'];
 			}
 			break;
 		
@@ -143,36 +160,49 @@ function makelink( $url='' , $full=false )
 		case 'realm':
 			if( !isset($get['realm']) && isset($roster->data['server']) )
 			{
-				$url .= '&amp;realm=' . $roster->data['server'];
+				$addget = 'realm=' . $roster->data['server'];
 			}
 			break;
-
-		default:
-			$url;
-			break;
 	}
 
-	// Put in the page name if needed
-	if( empty($url) || $url[0] == '&' )
+	// Put the url back together again
+	if( empty($addget) || empty($url) )
 	{
-		$url = ROSTER_PAGE_NAME . $url;
+		$url = $addget . $url;
 	}
-
+	else
+	{
+		$url = $addget . '&amp;' . $url;
+	}
+	
 	// SEO magic
 	if( $roster->config['seo_url'] )
 	{
 		$url = str_replace('&amp;', '/', $url);
-		$url = str_replace('&', '/', $url);
-		$url = str_replace('?', '/', $url);
-		$url = str_replace('-', '/', $url);
+		$page = str_replace('-', '/', $page);
 
-		$url .= '.html';
+		if( empty($url) )
+		{
+			$url = $page . '.html';
+		}
+		else
+		{
+			$url = $page . '/' . $url . '.html';
+		}
 	}
 	else
 	{
-		$url = sprintf(ROSTER_LINK, $url);
+		if( empty($url) )
+		{
+			$url = sprintf(ROSTER_LINK, $page);
+		}
+		else
+		{
+			$url = sprintf(ROSTER_LINK, $page . '&amp;' . $url);
+		}
 	}
 
+	// Return full url if requested
 	if( $full )
 	{
 		$url = ROSTER_URL . "$url";
@@ -182,29 +212,57 @@ function makelink( $url='' , $full=false )
 }
 
 /**
- * Function to insert get variables in a <form> that uses GET to post
- * If this is a Roster port, insert any additional get vars needed to point to the right location
+ * Wrapper function for GET form actions. Params like makelink.
  *
- * @param array $get_links | Optional, Additional vars you need to pass
- *        array( 'key name of var' => 'value of var' )
- *        Makes <input type="hidden" name="{key name of var}" value="{value of var}" />
+ * @param string $url
+ * @param bool $full
  */
-function linkform( $get_links = false )
+
+function getFormAction( $url='', $full=false )
+{
+	if( $roster->config['seo_url'] )
+	{
+		return makelink($url, $full);
+	}
+	elseif( $full )
+	{
+		return ROSTER_URL;
+	}
+	else
+	{
+		return '';
+	}
+}
+
+/**
+ * Function to insert get variables in a <form> that uses GET to post.
+ * Params like makelink.
+ *
+ * @param string $url
+ */
+function linkform( $url='' )
 {
 	global $roster;
+	
+	// If SEO mode is on, we don't need to pass anything here.
+	if( $roster->config['seo_url'] )
+	{
+		return '';
+	}
+	
+	// Run makelink for the extra params
+	$url = makelink($url,false);
+	
+	// Cut off the ? at the start
+	$url = substr($url,1);
 
 	$return = '';
-	if( !$roster->config['seo_url'] )
+
+	foreach( explode('&amp;',$url) as $param )
 	{
-		$return .= '<input type="hidden" name="' . ROSTER_PAGE . '" value="' . ROSTER_PAGE_NAME . '" />' . "\n";
+		list($name, $value) = explode('=',$param,2);
+		$return .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />' . "\n";
 	}
 
-	if( $get_links !== false )
-	{
-		foreach( $get_links as $name => $value )
-		{
-			$return .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />' . "\n";
-		}
-	}
 	return $return;
 }
