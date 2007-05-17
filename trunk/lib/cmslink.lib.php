@@ -138,6 +138,14 @@ function makelink( $url='' , $full=false )
 				$url .= '&amp;guild=' . $roster->data['guild_id'];
 			}
 			break;
+		
+		case 'guildless':
+		case 'realm':
+			if( !isset($get['realm']) && isset($roster->data['server']) )
+			{
+				$url .= '&amp;realm=' . $roster->data['server'];
+			}
+			break;
 
 		default:
 			$url;
