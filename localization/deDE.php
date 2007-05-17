@@ -560,6 +560,7 @@ $lang['auth_req'] = 'Authorization Required';
 
 $lang['pagebar_function'] = 'Aufgaben';
 $lang['pagebar_rosterconf'] = 'Konfiguriere Roster';
+$lang['pagebar_uploadrules'] = 'Upload rules';
 $lang['pagebar_changepass'] = 'Passwort Änderung';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';
 $lang['pagebar_update'] = 'Upload Profile';

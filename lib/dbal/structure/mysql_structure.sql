@@ -697,3 +697,15 @@ CREATE TABLE `renprefix_talenttree` (
   `pointsspent` tinyint(4) NOT NULL default '0',
   PRIMARY KEY (`member_id`,`tree`)
 ) TYPE=MyISAM;
+
+# --------------------------------------------------------
+### Upload rules
+
+DROP TABLE IF EXISTS `renprefix_upload`;
+CREATE TABLE `renprefix_upload` (
+  `rule_id` int(11) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL default '',
+  `server` varchar(32) NOT NULL default '',
+  `type` tinyint(4) NOT NULL,
+  PRIMARY KEY (`rule_id`)
+) TYPE=MyISAM;

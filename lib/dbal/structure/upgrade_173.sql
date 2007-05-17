@@ -551,6 +551,17 @@ CREATE TABLE `renprefix_addon_config` (
   PRIMARY KEY `addon` (`id`,`addon_id`)
 ) TYPE=MyISAM;
 
+# --------------------------------------------------------
+### Upload rules
+
+DROP TABLE IF EXISTS `renprefix_upload`;
+CREATE TABLE `renprefix_upload` (
+  `rule_id` int(11) unsigned NOT NULL auto_increment,
+  `name` varchar(64) NOT NULL default '',
+  `server` varchar(32) NOT NULL default '',
+  `type` tinyint(4) NOT NULL,
+  PRIMARY KEY (`rule_id`)
+) TYPE=MyISAM;
 
 ### Menu table entries
 INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3|b4');

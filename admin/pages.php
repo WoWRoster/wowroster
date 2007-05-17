@@ -34,6 +34,11 @@ $config_pages['roster'] = array(
 	'title'=>	'pagebar_rosterconf',
 	'file'=>	'roster_conf.php',
 	);
+$config_pages['upload'] = array(
+	'href'=>	$roster->pages[0].'-upload',
+	'title'=>	'pagebar_uploadrules',
+	'file'=>	'upload_rules.php',
+	);
 $config_pages['menu'] = array(
 	'href'=>	$roster->pages[0].'-menu',
 	'title'=>	'pagebar_menuconf',
