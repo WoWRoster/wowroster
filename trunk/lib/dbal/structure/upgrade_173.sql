@@ -477,6 +477,7 @@ CREATE TABLE `renprefix_spellbook_pet` (
 ### Alter Members Table
 ALTER TABLE `renprefix_members`
   ADD `active` tinyint(1) NOT NULL default '0',
+  ADD `server` varchar(32) NOT NULL default '' after `name`,
   DROP `update_time`,
   DROP `inv`,
   DROP `talents`,
@@ -491,6 +492,14 @@ ALTER TABLE `renprefix_members`
   DROP `money`,
   DROP `item_bonuses`;
 
+UPDATE `renprefix_members` members
+  INNER JOIN `renprefix_guild` guild USING (`guild_id`)
+  SET `members`.`guild_id` = `guild`.`guild_id`;
+
+# --------------------------------------------------------
+### Alter Memberlog Table
+ALTER TABLE `renprefix_memberlog`
+  ADD `server` varchar(32) NOT NULL default '' after `name`;
 
 # --------------------------------------------------------
 ### Alter Guild Table
