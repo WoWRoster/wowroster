@@ -80,18 +80,13 @@ function parse_params()
 			{
 				$pages[] = $get;
 			}
-		}
-		$_GET[ROSTER_PAGE] = implode('-',$pages);
-
-		// Now insert the rest of the GET vars
-		foreach( explode('/',$page) as $get )
-		{
-			if( strpos($get,'=') !== false )
+			else
 			{
 				list($var,$val) = explode('=',$get);
 				$_GET[$var] = $val;
 			}
 		}
+		$_GET[ROSTER_PAGE] = implode('-',$pages);
 	}
 }
 
@@ -133,42 +128,37 @@ function makelink( $url='' , $full=false )
 		case 'char':
 			if( !isset($get['member']) && isset($roster->data['member_id']) )
 			{
-				$url .= '&amp;member=' . $roster->data['member_id'] . $anchor;
+				$url .= '&amp;member=' . $roster->data['member_id'];
 			}
 			break;
 
 		case 'guild':
 			if( !isset($get['guild']) && isset($roster->data['guild_id']) )
 			{
-				$url .= '&amp;guild=' . $roster->data['guild_id'] . $anchor;
+				$url .= '&amp;guild=' . $roster->data['guild_id'];
 			}
 			break;
 
 		default:
-			$url .= $anchor;
+			$url;
 			break;
 	}
 
+	// Put in the page name if needed
 	if( empty($url) || $url[0] == '&' )
 	{
 		$url = ROSTER_PAGE_NAME . $url;
 	}
 
+	// SEO magic
 	if( $roster->config['seo_url'] )
 	{
-		$url = ereg_replace('&amp;', '/', $url);
-		$url = ereg_replace('&', '/', $url);
+		$url = str_replace('&amp;', '/', $url);
+		$url = str_replace('&', '/', $url);
 		$url = str_replace('?', '/', $url);
 		$url = str_replace('-', '/', $url);
 
-		if( ereg('#', $url) )
-		{
-			$url = ereg_replace('#', '.html#', $url);
-		}
-		else
-		{
-			$url .= '.html';
-		}
+		$url .= '.html';
 	}
 	else
 	{
@@ -180,7 +170,7 @@ function makelink( $url='' , $full=false )
 		$url = ROSTER_URL . "$url";
 	}
 
-	return $url;
+	return $url . $anchor;
 }
 
 /**

@@ -160,7 +160,7 @@ $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$a
 // Start output
 if( $addon['config']['honor_update_inst'] )
 {
-	print '            <a href="' . makelink('guild-memberslist-honorlist#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
+	print '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
 
