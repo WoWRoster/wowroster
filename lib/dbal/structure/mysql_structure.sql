@@ -140,6 +140,7 @@ DROP TABLE IF EXISTS `renprefix_members`;
 CREATE TABLE `renprefix_members` (
   `member_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
+  `server` varchar(32) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
@@ -170,6 +171,7 @@ CREATE TABLE `renprefix_memberlog` (
   `log_id` int(11) unsigned NOT NULL auto_increment,
   `member_id` int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL default '',
+  `server` varchar(32) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',

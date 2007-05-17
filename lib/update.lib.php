@@ -382,7 +382,7 @@ class update
 										foreach(array_keys($guildMembers) as $char_name)
 										{
 											$char = $guildMembers[$char_name];
-											$memberid = $this->update_guild_member($guildId, $char_name, $char, $currentTimestamp, $guild['Ranks']);
+											$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $char, $currentTimestamp, $guild['Ranks']);
 											$guild_output .= $this->getMessages();
 											$this->resetMessages();
 
@@ -2183,7 +2183,7 @@ class update
 	 * @param array $currentTimestamp
 	 * @return mixed		| False on error, memberid on success
 	 */
-	function update_guild_member( $guildId, $name, $char, $currentTimestamp, $guildRanks )
+	function update_guild_member( $guildId, $name, $server, $char, $currentTimestamp, $guildRanks )
 	{
 		global $roster;
 
@@ -2208,6 +2208,7 @@ class update
 		$this->reset_values();
 
 		$this->add_value( 'name', $name_escape);
+		$this->add_value( 'server', 
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'level', $char['Level']);
 		if( isset($char['Note']) )
