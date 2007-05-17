@@ -47,6 +47,16 @@ switch( $roster->pages[0] )
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
 		break;
+		
+	case 'guildless':
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guildless' . DIR_SEP .
+			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		break;
+
+	case 'realm':
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'realm' . DIR_SEP .
+			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		break;
 
 	case 'util':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP .

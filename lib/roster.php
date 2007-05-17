@@ -252,6 +252,22 @@ class roster
 
 				break;
 
+			case 'realm':
+			case 'guildless':
+				// Check if the realm attribute is set
+				if( !isset($_GET['realm']) )
+				{
+					$realm = $this->db->escape( $this->config['server_name'] );
+				}
+				else
+				{
+					$realm = $_GET['realm'];
+				}
+
+				$this->data = array('server' => $realm);				
+				
+				break;
+
 			default:
 				$this->data = array();
 				break;
