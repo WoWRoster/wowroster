@@ -28,7 +28,7 @@ class RosterMenu
 		define('ROSTER_MENU_INC',true);
 
 		$icon = '';
-		if( $roster->config['menu_top_faction'] )
+		if( $roster->config['menu_top_faction'] && isset($roster->data['faction']) )
 		{
 			switch( substr($roster->data['faction'],0,1) )
 			{

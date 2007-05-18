@@ -494,7 +494,7 @@ ALTER TABLE `renprefix_members`
 
 UPDATE `renprefix_members` members
   INNER JOIN `renprefix_guild` guild USING (`guild_id`)
-  SET `members`.`guild_id` = `guild`.`guild_id`;
+  SET `members`.`server` = `guild`.`server`;
 
 # --------------------------------------------------------
 ### Alter Memberlog Table
