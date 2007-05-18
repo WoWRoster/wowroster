@@ -12,6 +12,8 @@
  * @version    SVN: $Id: functions.lib.php 876 2007-05-05 05:19:20Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage Locale
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -19,6 +21,12 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Roster Locale Class
+ *
+ * @package    WoWRoster
+ * @subpackage Locale
+ */
 class roster_locale
 {
 	var $wordings = array();

@@ -12,6 +12,8 @@
  * @version    SVN: $Id: change_pass.php 913 2007-05-08 03:51:55Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage RosterCP
 */
 
 if( !defined('ROSTER_INSTALLED') )

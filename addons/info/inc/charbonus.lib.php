@@ -12,8 +12,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @package    Character Info
- * @subpackage Character Item Bonuses
+ * @package    CharacterInfo
+ * @subpackage ItemBonuses
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -29,8 +29,8 @@ if( !defined('ROSTER_INSTALLED') )
  *
  * Modified by the roster dev team
  *
- * @package    Character Info
- * @subpackage Character Item Bonuses
+ * @package    CharacterInfo
+ * @subpackage ItemBonuses
  */
 class CharBonus
 {

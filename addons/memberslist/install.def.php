@@ -175,6 +175,7 @@ class memberslist
 	/**
 	 * Upgrade Function
 	 *
+	 * @param string $oldversion
 	 * @return bool
 	 */
 	function upgrade($oldversion)

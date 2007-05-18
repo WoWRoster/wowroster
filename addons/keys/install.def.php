@@ -9,7 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
  * @link       http://www.wowroster.net
- * @package    Instance Keys
+ * @package    InstanceKeys
  * @subpackage Installer
 */
 
@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
 /**
  * Installer Instance Keys Addon
  *
- * @package    Instance Keys
+ * @package    InstanceKeys
  * @subpackage Installer
  */
 class keys
@@ -65,6 +65,7 @@ class keys
 	/**
 	 * Upgrade Function
 	 *
+	 * @param string $oldversion
 	 * @return bool
 	 */
 	function upgrade($oldversion)

@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    MadeBy
+ * @subpackage Installer
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +18,12 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Installer for Made By Addon
+ *
+ * @package    MadeBy
+ * @subpackage Installer
+ */
 class recipe
 {
 	var $active = true;
@@ -35,6 +43,11 @@ class recipe
 );
 
 
+	/**
+	 * Install Function
+	 *
+	 * @return bool
+	 */
 	function install()
 	{
 		global $installer;
@@ -55,12 +68,23 @@ class recipe
 		return true;
 	}
 
+	/**
+	 * Upgrade Function
+	 *
+	 * @param string $oldversion
+	 * @return bool
+	 */
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
 
+	/**
+	 * Un-Install Function
+	 *
+	 * @return bool
+	 */
 	function uninstall()
 	{
 		global $installer;

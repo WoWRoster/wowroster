@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage RosterCP
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -91,11 +93,11 @@ function pageNames( )
 			$input_field .= '  <option value="'.$row['url'].'">'.( isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title'] ).'</option>'."\n";
 		}
 	}
-	
+
 	$input_field .= '</select>';
 
 	$roster->db->free_result($result);
-	
+
 	return $input_field;
 }
 

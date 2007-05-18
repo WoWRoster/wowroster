@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
+ * @package    WoWRoster
+ * @subpackage Menu
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -19,6 +21,12 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Roster Menu Library
+ *
+ * @package    WoWRoster
+ * @subpackage Menu
+ */
 class RosterMenu
 {
 	function makeMenu( $sections )

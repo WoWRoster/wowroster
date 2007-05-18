@@ -12,6 +12,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: index.php 855 2007-04-23 07:18:01Z Zanix $
  * @link       http://www.wowroster.net
+ * @package    Professions
 */
 
 if ( !defined('ROSTER_INSTALLED') )

@@ -9,7 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @package    Character Info
+ * @package    CharacterInfo
  * @subpackage Installer
 */
 
@@ -20,7 +20,7 @@ if ( !defined('ROSTER_INSTALLED') )
 
 /**
  * Installer for Character Info Addon
- * @package    Character Info
+ * @package    CharacterInfo
  * @subpackage Installer
  */
 class info
@@ -93,6 +93,7 @@ class info
 	/**
 	 * Upgrade Function
 	 *
+	 * @param string $oldversion
 	 * @return bool
 	 */
 	function upgrade($oldversion)

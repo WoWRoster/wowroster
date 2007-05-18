@@ -11,8 +11,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @package    Character Info
- * @subpackage Character Class
+ * @package    CharacterInfo
+ * @subpackage CharacterLib
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -28,8 +28,8 @@ require_once (ROSTER_LIB . 'recipes.php');
 
 /**
  * Character Information Class
- * @package    Character Info
- * @subpackage Character Class
+ * @package    CharacterInfo
+ * @subpackage CharacterLib
  *
  */
 class char

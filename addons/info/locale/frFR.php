@@ -9,7 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @package    Character Info
+ * @package    CharacterInfo
  * @subpackage Locale
 */
 

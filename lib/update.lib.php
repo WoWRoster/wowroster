@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage LuaUpdate
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -19,6 +21,12 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Lua Update handler
+ *
+ * @package    WoWRoster
+ * @subpackage LuaUpdate
+ */
 class update
 {
 	var $textmode = false;

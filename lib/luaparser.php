@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
+ * @package    WoWRoster
+ * @subpackage Lua
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -21,6 +23,9 @@ if( !defined('ROSTER_INSTALLED') )
 
 /**
  * WoWRoster LUA handling class
+ *
+ * @package    WoWRoster
+ * @subpackage Lua
  */
 class lua
 {
