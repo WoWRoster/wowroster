@@ -10,6 +10,7 @@
  * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
  * @link       http://www.wowroster.net
  * @package    GuildInfo
+ * @subpackage Installer
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -20,6 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
 /**
  * Installer for GuildInfo Addon
  * @package    GuildInfo
+ * @subpackage Installer
  */
 class guildinfo
 {

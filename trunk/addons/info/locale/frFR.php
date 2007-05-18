@@ -96,6 +96,7 @@ $lang['range_rating']='Rang de l\'Attaque à Distance';
 $lang['range_rating_tooltip']='Votre rang d\'attaque influence vos change de toucher une cible<br />Et est basé sur votre habilité à utiliser l\'arme que vous manipulez..';
 
 $lang['spell_damage']='+Damage';
+$lang['holy']='Holy';
 $lang['fire']='Fire';
 $lang['nature']='Nature';
 $lang['frost']='Frost';

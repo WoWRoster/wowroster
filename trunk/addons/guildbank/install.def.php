@@ -10,6 +10,7 @@
  * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
  * @link       http://www.wowroster.net
  * @package    GuildBank
+ * @subpackage Installer
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -20,6 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
 /**
  * GuildBank Addon Installer
  * @package GuildBank
+ * @subpackage Installer
  */
 class guildbank
 {

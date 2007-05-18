@@ -96,6 +96,7 @@ $lang['range_rating']='Tasa de ataque a distancia';
 $lang['range_rating_tooltip']='Tu velocidad de ataque afecta a las probabilidades de acertar a un enemigo<br /> y se mide por la habilidad con el arma que equipes en cada momento.';
 
 $lang['spell_damage']='+Damage';
+$lang['holy']='Holy';
 $lang['fire']='Fire';
 $lang['nature']='Nature';
 $lang['frost']='Frost';

@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    Character Info
+ * @subpackage Installer
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +18,11 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Installer for Character Info Addon
+ * @package    Character Info
+ * @subpackage Installer
+ */
 class info
 {
 	var $active = true;
@@ -33,6 +40,11 @@ class info
 	);
 
 
+	/**
+	 * Install Function
+	 *
+	 * @return bool
+	 */
 	function install()
 	{
 		global $installer, $roster;
@@ -78,12 +90,22 @@ class info
 		return true;
 	}
 
+	/**
+	 * Upgrade Function
+	 *
+	 * @return bool
+	 */
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
 
+	/**
+	 * Un-Install Function
+	 *
+	 * @return bool
+	 */
 	function uninstall()
 	{
 		global $installer, $roster;

@@ -96,6 +96,7 @@ $lang['range_rating']='Ranged Attack Rating';
 $lang['range_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently weilding.';
 
 $lang['spell_damage']='+Damage';
+$lang['holy']='Holy';
 $lang['fire']='Fire';
 $lang['nature']='Nature';
 $lang['frost']='Frost';

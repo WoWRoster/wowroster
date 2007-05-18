@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    MembersList
+ * @subpackage UpdateHook
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +18,12 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * MembersList Update Hook
+ *
+ * @package    MembersList
+ * @subpackage UpdateHook
+ */
 class memberslistUpdate
 {
 	// Update messages

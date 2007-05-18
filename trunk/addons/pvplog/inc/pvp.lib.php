@@ -11,7 +11,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.6.0
+ * @package    PvPLog
+ * @subpackage PvPLog Library
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -22,6 +23,12 @@ if( !defined('ROSTER_INSTALLED') )
 // Multiple edits by Gaxme, 16 May 2006
 // Thanks :)
 
+/**
+ * PvPLog Library
+ *
+ * @package    PvPLog
+ * @subpackage PvPLog Library
+ */
 class pvp3
 {
 	var $data;
@@ -31,15 +38,18 @@ class pvp3
 		$this->data = $data;
 	}
 
+
 	function get( $field )
 	{
 		return $this->data[$field];
 	}
 
+
 	function outHeader()
 	{
 		return '<div class="pvptype">'.$this->data['guild'].' </div>';
 	}
+
 
 	function out2()
 	{
@@ -47,6 +57,7 @@ class pvp3
 		$returnstring .= '['.$this->data['pvp_level'].'] '.$this->data['pvp_name'];
 		return $returnstring;
 	}
+
 
 	function out()
 	{
@@ -85,6 +96,7 @@ class pvp3
 		return $returnstring;
 	}
 }
+
 
 function pvp_get_many3($member_id, $type, $sort, $start)
 {
@@ -184,6 +196,7 @@ function pvp_get_many3($member_id, $type, $sort, $start)
 		return false;
 	}
 }
+
 
 function output_pvp_summary($pvps,$type)
 {
@@ -290,10 +303,17 @@ function output_pvp_summary($pvps,$type)
 	return $returnstring;
 }
 
-// Let's limit how many DB calls we do
-// Callback functions for:
-//   o Comparing BG Win/Loss Ratios
-//   o Calculating most killed/most killed by
+
+/**
+ * Let's limit how many DB calls we do
+ * Callback functions for:
+ *   o Comparing BG Win/Loss Ratios
+ *   o Calculating most killed/most killed by
+ *
+ * @param array $a
+ * @param array $b
+ * @return int
+ */
 function calc_winloss($a, $b)
 {
 	if ($a['WinLoss'] == $b['WinLoss'])
@@ -302,6 +322,7 @@ function calc_winloss($a, $b)
 		return ($a['WinLoss'] < $b['WinLoss']);
 }
 
+
 function calc_gwinloss($a, $b)
 {
 	if ($a['killed'] == $b['killed'])
@@ -309,6 +330,7 @@ function calc_gwinloss($a, $b)
 	else
 		return ($a['killed'] < $b['killed']);
 }
+
 
 function calc_pwinloss($a, $b)
 {
@@ -534,6 +556,7 @@ border('sorange','end').
 	return $returnstring;
 }
 
+
 function output_duellog($member_id)
 {
 	global $roster;
@@ -621,6 +644,7 @@ function output_duellog($member_id)
 
 	return $returnstring;
 }
+
 
 function output_pvplog($member_id)
 {
@@ -832,6 +856,7 @@ function output_pvplog($member_id)
 
 	return $returnstring;
 }
+
 
 function output_pvp2($pvps,$url,$type)
 {

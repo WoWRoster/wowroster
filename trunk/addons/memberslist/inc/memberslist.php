@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    MembersList
+ * @subpackage MemberList Class
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -21,6 +23,12 @@ if ( !defined('IN_SORTMEMBER') )
 	die_quietly('Detected invalid access to this file!','SortMember');
 }
 
+/**
+ * MemberList generation class
+ *
+ * @package    MembersList
+ * @subpackage MemberList Class
+ */
 class memberslist
 {
 	var $listname = 'membersData';	// table ID for javascript

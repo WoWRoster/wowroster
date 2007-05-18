@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    MembersList
+ * @subpackage Installer
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +18,13 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Installer for MembersList Addon
+ *
+ * @package    MembersList
+ * @subpackage Installer
+ *
+ */
 class memberslist
 {
 	var $active = true;
@@ -33,6 +42,11 @@ class memberslist
 	);
 
 
+	/**
+	 * Install Function
+	 *
+	 * @return bool
+	 */
 	function install()
 	{
 		global $installer;
@@ -158,12 +172,22 @@ class memberslist
 		return true;
 	}
 
+	/**
+	 * Upgrade Function
+	 *
+	 * @return bool
+	 */
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
 
+	/**
+	 * Un-Install Function
+	 *
+	 * @return bool
+	 */
 	function uninstall()
 	{
 		global $installer;
