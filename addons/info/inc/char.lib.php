@@ -11,6 +11,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    Character Info
+ * @subpackage Character Class
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -18,12 +20,18 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_LIB.'item.php');
-require_once (ROSTER_LIB.'bag.php');
-require_once (ROSTER_LIB.'skill.php');
-require_once (ROSTER_LIB.'quest.php');
-require_once (ROSTER_LIB.'recipes.php');
+require_once (ROSTER_LIB . 'item.php');
+require_once (ROSTER_LIB . 'bag.php');
+require_once (ROSTER_LIB . 'skill.php');
+require_once (ROSTER_LIB . 'quest.php');
+require_once (ROSTER_LIB . 'recipes.php');
 
+/**
+ * Character Information Class
+ * @package    Character Info
+ * @subpackage Character Class
+ *
+ */
 class char
 {
 	var $data;
@@ -31,12 +39,44 @@ class char
 	var $talent_build;
 	var $locale;
 
+	/**
+	 * Constructor
+	 *
+	 * @param array $data
+	 * @return char
+	 */
 	function char( $data )
 	{
 		global $roster;
 
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
+	}
+
+
+	/**
+	 * Gets a value from the character data
+	 *
+	 * @param string $field
+	 * @return mixed
+	 */
+	function get( $field )
+	{
+		return $this->data[$field];
+	}
+
+
+	/**
+	 * Gathers all of the characters equiped items into an array
+	 * Array $this->equip
+	 *
+	 */
+	function fetchEquip()
+	{
+		if (!is_array($this->equip))
+		{
+			$this->equip = item_get_many($this->data['member_id'], 'equip');
+		}
 	}
 
 
@@ -120,6 +160,11 @@ class char
 	}
 
 
+	/**
+	 * Build quests
+	 *
+	 * @return string
+	 */
 	function show_quests( )
 	{
 		global $roster;
@@ -208,6 +253,12 @@ class char
 		return $returnstring;
 	}
 
+
+	/**
+	 * Build Recipes
+	 *
+	 * @return string
+	 */
 	function show_recipes( )
 	{
 		global $roster, $sort, $addon;
@@ -303,6 +354,12 @@ $returnstring .= '  <tr>
 		return $returnstring;
 	}
 
+
+	/**
+	 * Build Mail
+	 *
+	 * @return string
+	 */
 	function show_mailbox( )
 	{
 		global $roster, $tooltips, $addon;
@@ -466,6 +523,12 @@ $returnstring .= '  <tr>
 		}
 	}
 
+
+	/**
+	 * Build Spellbook
+	 *
+	 * @return string
+	 */
 	function show_spellbook( )
 	{
 		global $roster;
@@ -721,12 +784,12 @@ $returnstring .= '  <tr>
 		return $return_string;
 	}
 
-	function get( $field )
-	{
-		return $this->data[$field];
-	}
 
-
+	/**
+	 * Build Pet
+	 *
+	 * @return string
+	 */
 	function printPet( )
 	{
 		global $roster;
@@ -874,6 +937,15 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+
+
+	/**
+	 * Build Pet stats
+	 *
+	 * @param string $statname
+	 * @param array $data
+	 * @return string
+	 */
 	function printPetStat( $statname , $data )
 	{
 		global $roster;
@@ -930,6 +1002,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $this->printRatingShort($statname,$data), $line);
 	}
 
+
+	/**
+	 * Build Pet weapon skill
+	 *
+	 * @param array $data
+	 * @return string
+	 */
 	function printPetWSkill ( $data )
 	{
 		global $roster;
@@ -945,6 +1024,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build Pet weapon damage
+	 *
+	 * @param array $data
+	 * @return string
+	 */
 	function printPetWDamage ( $data )
 	{
 		global $roster;
@@ -960,6 +1046,14 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build Pet resists
+	 *
+	 * @param string $resname
+	 * @param array $data
+	 * @return string
+	 */
 	function printPetResist( $resname , $data )
 	{
 		global $roster;
@@ -1002,6 +1096,14 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+
+	/**
+	 * Build Pet resilience
+	 *
+	 * @param array $data
+	 *
+	 * @return string
+	 */
 	function printPetResilience( $data )
 	{
 		global $roster;
@@ -1022,6 +1124,14 @@ $returnstring .= '  <tr>
 	}
 
 
+	/**
+	 * Build stat line
+	 *
+	 * @param string $label
+	 * @param string $value
+	 * @param string $tooltip
+	 * @return string
+	 */
 	function printStatLine( $label , $value , $tooltip )
 	{
 		$output  = '  <div class="statline" '.makeOverlib($tooltip,'','',2,'','').'>'."\n";
@@ -1032,6 +1142,14 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+
+	/**
+	 * Build short rating value
+	 *
+	 * @param string $statname
+	 * @param array $data_or Alternative data to use
+	 * @return string
+	 */
 	function printRatingShort( $statname , $data_or=false )
 	{
 		if( $data_or == false )
@@ -1064,6 +1182,14 @@ $returnstring .= '  <tr>
 		return '<strong class="'.$color.'">'.$current.'</strong>';
 	}
 
+
+	/**
+	 * Build long rating value
+	 *
+	 * @param string $statname
+	 * @param array $data_or Alternative data to use
+	 * @return string
+	 */
 	function printRatingLong( $statname , $data_or=false )
 	{
 		if( $data_or == false )
@@ -1095,6 +1221,14 @@ $returnstring .= '  <tr>
 		return $tooltipheader;
 	}
 
+
+	/**
+	 * Build a status box
+	 *
+	 * @param string $cat
+	 * @param string $side
+	 * @param bool $visible
+	 */
 	function printBox( $cat , $side , $visible )
 	{
 		print '<div class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
@@ -1144,6 +1278,13 @@ $returnstring .= '  <tr>
 		print '</div>'."\n";
 	}
 
+
+	/**
+	 * Build a status line
+	 *
+	 * @param string $statname
+	 * @return string
+	 */
 	function printStat( $statname )
 	{
 		global $roster;
@@ -1217,6 +1358,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $this->printRatingShort($statname), $line);
 	}
 
+
+	/**
+	 * Build a special status line
+	 *
+	 * @param string $statname
+	 * @return unknown
+	 */
 	function printValue( $statname )
 	{
 		global $roster;
@@ -1248,6 +1396,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
 	}
 
+
+	/**
+	 * Build weapon skill
+	 *
+	 * @param string $location
+	 * @return string
+	 */
 	function printWSkill ( $location )
 	{
 		global $roster;
@@ -1286,6 +1441,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build weapon damage
+	 *
+	 * @param string $location
+	 * @return string
+	 */
 	function printWDamage ( $location )
 	{
 		global $roster;
@@ -1325,6 +1487,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build weapon speed
+	 *
+	 * @param string $location
+	 * @return string
+	 */
 	function printWSpeed ( $location )
 	{
 		global $roster;
@@ -1359,6 +1528,12 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build spell damage
+	 *
+	 * @return string
+	 */
 	function printSpellDamage( )
 	{
 		global $roster;
@@ -1367,13 +1542,14 @@ $returnstring .= '  <tr>
 		$value = '<strong class="white">'.$this->data['spell_damage'].'</strong>';
 
 		$tooltipheader = $name.' '.$value;
-		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+
+		$tooltip  = '';
+		//$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
-
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1381,6 +1557,12 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build spell crit chance
+	 *
+	 * @return string
+	 */
 	function printSpellCrit()
 	{
 		global $roster;
@@ -1391,8 +1573,9 @@ $returnstring .= '  <tr>
 		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
 		$tooltip = $this->locale['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
 /*
-		//$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+		$tooltip  = '';
+		//$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
@@ -1404,6 +1587,12 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, $value, $line);
 	}
 
+
+	/**
+	 * Build defense rating value
+	 *
+	 * @return string
+	 */
 	function printDefense( )
 	{
 		global $roster;
@@ -1434,6 +1623,14 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
 	}
 
+
+	/**
+	 * Build a defense value
+	 *
+	 * @param string $statname
+	 *
+	 * @return string
+	 */
 	function printDef( $statname )
 	{
 		global $roster;
@@ -1450,6 +1647,12 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
 
+
+	/**
+	 * Build resiliance value
+	 *
+	 * @return string
+	 */
 	function printResilience( )
 	{
 		global $roster;
@@ -1469,6 +1672,13 @@ $returnstring .= '  <tr>
 		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
 	}
 
+
+	/**
+	 * Build a resistance value
+	 *
+	 * @param string $resname
+	 * @return string
+	 */
 	function printResist( $resname )
 	{
 		global $roster;
@@ -1511,14 +1721,12 @@ $returnstring .= '  <tr>
 	}
 
 
-	function fetchEquip()
-	{
-		if (!is_array($this->equip))
-		{
-			$this->equip = item_get_many($this->data['member_id'], 'equip');
-		}
-	}
-
+	/**
+	 * Build a equiped item slot
+	 *
+	 * @param string $slot
+	 * @return string
+	 */
 	function printEquip( $slot )
 	{
 		global $roster;
@@ -1541,6 +1749,11 @@ $returnstring .= '  <tr>
 	}
 
 
+	/**
+	 * Build Talents
+	 *
+	 * @return string
+	 */
 	function printTalents( )
 	{
 		global $roster;
@@ -1659,6 +1872,13 @@ $returnstring .= '  <tr>
 		}
 	}
 
+
+	/**
+	 * Build a talent tree
+	 *
+	 * @param string $treename
+	 * @return array
+	 */
 	function talentLayer( $treename )
 	{
 		global $roster;
@@ -1708,6 +1928,11 @@ $returnstring .= '  <tr>
 	}
 
 
+	/**
+	 * Build character skills
+	 *
+	 * @return string
+	 */
 	function printSkills( )
 	{
 		global $roster;
@@ -1745,6 +1970,13 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+
+	/**
+	 * Build a skill bars data
+	 *
+	 * @param array $skilldata
+	 * @return array
+	 */
 	function getSkillBarValues( $skilldata )
 	{
 		list($level, $max) = explode( ':', $skilldata['skill_level'] );
@@ -1757,6 +1989,12 @@ $returnstring .= '  <tr>
 		return $returnData;
 	}
 
+
+	/**
+	 * Build skill values
+	 *
+	 * @return array
+	 */
 	function getSkillTabValues( )
 	{
 		global $roster;
@@ -1790,6 +2028,11 @@ $returnstring .= '  <tr>
 	}
 
 
+	/**
+	 * Build character reputation
+	 *
+	 * @return string
+	 */
 	function printReputation( )
 	{
 		global $roster;
@@ -1824,6 +2067,12 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+
+	/**
+	 * Build a reputation bars data
+	 *
+	 * @return array
+	 */
 	function getRepTabValues( )
 	{
 		global $roster;
@@ -1856,6 +2105,13 @@ $returnstring .= '  <tr>
 		}
 	}
 
+
+	/**
+	 * Build reputation values
+	 *
+	 * @param array $repdata
+	 * @return array
+	 */
 	function getRepBarValues( $repdata )
 	{
 		static $repnum = 0;
@@ -1891,6 +2147,11 @@ $returnstring .= '  <tr>
 	}
 
 
+	/**
+	 * Build pvp stats
+	 *
+	 * @return string
+	 */
 	function printHonor()
 	{
 		global $roster;
@@ -1930,6 +2191,10 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+
+	/**
+	 * Main output function
+	 */
 	function out( )
 	{
 		global $roster, $addon;
@@ -2232,6 +2497,12 @@ if( $addon['config']['show_tab5'] )
 }
 
 
+/**
+ * Gets one characters data using a member id
+ *
+ * @param int $member_id
+ * @return mixed False on failure
+ */
 function char_get_one_by_id( $member_id )
 {
 	global $roster;
@@ -2252,6 +2523,13 @@ function char_get_one_by_id( $member_id )
 }
 
 
+/**
+ * Gets one characters data using name, server
+ *
+ * @param string $name
+ * @param string $server
+ * @return mixed False on failure
+ */
 function char_get_one( $name, $server )
 {
 	global $roster;
@@ -2271,19 +2549,4 @@ function char_get_one( $name, $server )
 	{
 		return false;
 	}
-}
-
-
-function DateCharDataUpdated($id)
-{
-	global $roster;
-
-	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$id'";
-	$result = $roster->db->query($query);
-	$data = $roster->db->fetch($result);
-	$roster->db->free_result($result);
-
-	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
-	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
-	return date($roster->locale->wordings[$data['clientLocale']]['phptimeformat'], $localtime);
 }

@@ -3,6 +3,7 @@
  * WoWRoster.net WoWRoster
  *
  * Character item bonus class
+ * This is largely undocumented due to the fact that the WoWRoster.net dev team did not create this
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -11,6 +12,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    Character Info
+ * @subpackage Character Item Bonuses
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -25,6 +28,9 @@ if( !defined('ROSTER_INSTALLED') )
  * output formatting originally by dehoskins
  *
  * Modified by the roster dev team
+ *
+ * @package    Character Info
+ * @subpackage Character Item Bonuses
  */
 class CharBonus
 {
@@ -33,7 +39,12 @@ class CharBonus
 	var $lang;
 	var $equip;
 
-
+	/**
+	 * Constructor
+	 *
+	 * @param object $char
+	 * @return CharBonus
+	 */
 	function CharBonus( $char )
 	{
 		$char->fetchEquip();

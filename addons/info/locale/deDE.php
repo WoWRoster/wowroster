@@ -96,6 +96,7 @@ $lang['range_rating']='Fernkampf Angriffsrate';
 $lang['range_rating_tooltip']='Deine Angriffsrate beinflusst deine Chance ein Ziel zu treffen und basiert auf deiner Waffenfähigkeit der Waffe die du grade trägst.';
 
 $lang['spell_damage']='Schadensboni';
+$lang['holy']='Holy';
 $lang['fire']='Feuer';
 $lang['nature']='Natur';
 $lang['frost']='Frost';

@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    PvPLog
+ * @subpackage UpdateHook
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -19,6 +21,10 @@ if ( !defined('ROSTER_INSTALLED') )
 /**
  * Addon Update class
  * This MUST be the same name as the addon basename
+ *
+ * @package    PvPLog
+ * @subpackage Installer
+ *
  */
 class pvplogUpdate
 {
@@ -40,6 +46,11 @@ class pvplogUpdate
 		$this->files[] = 'pvplog';
 	}
 
+	/**
+	 * Standalone Update Hook
+	 *
+	 * @return bool
+	 */
 	function update( )
 	{
 		global $roster, $update;

@@ -9,6 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: log.php 928 2007-05-17 09:35:57Z pleegwat $
  * @link       http://www.wowroster.net
+ * @package    MembersList
 */
 
 if ( !defined('ROSTER_INSTALLED') )
