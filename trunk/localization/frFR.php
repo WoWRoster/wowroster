@@ -14,6 +14,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.7.1
+ * @package    WoWRoster
+ * @subpackage Locale
 */
 
 

@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    Professions
+ * @subpackage Installer
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +18,12 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Installer for Professions Addon
+ *
+ * @package    MadeBy
+ * @subpackage Locale
+ */
 class tradeskills
 {
 	var $active = true;
@@ -33,6 +41,11 @@ class tradeskills
 	);
 
 
+	/**
+	 * Install Function
+	 *
+	 * @return bool
+	 */
 	function install()
 	{
 		global $installer;
@@ -48,12 +61,23 @@ class tradeskills
 		return true;
 	}
 
+	/**
+	 * Upgrade Function
+	 *
+	 * @param string $oldversion
+	 * @return bool
+	 */
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
 
+	/**
+	 * Un-Install Function
+	 *
+	 * @return bool
+	 */
 	function uninstall()
 	{
 		global $installer;

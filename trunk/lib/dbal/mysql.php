@@ -12,6 +12,8 @@
  * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage MySQL
 */
 
 if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )

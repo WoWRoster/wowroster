@@ -64,6 +64,7 @@ class guildbank
 	/**
 	 * Upgrade functoin
 	 *
+	 * @param string $oldversion
 	 * @return bool
 	 */
 	function upgrade($oldversion)

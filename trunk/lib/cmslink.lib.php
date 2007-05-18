@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage CMSLink
 */
 
 if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
@@ -155,7 +157,7 @@ function makelink( $url='' , $full=false )
 				$addget = 'guild=' . $roster->data['guild_id'];
 			}
 			break;
-		
+
 		case 'guildless':
 		case 'realm':
 			if( !isset($get['realm']) && isset($roster->data['server']) )
@@ -174,7 +176,7 @@ function makelink( $url='' , $full=false )
 	{
 		$url = $addget . '&amp;' . $url;
 	}
-	
+
 	// SEO magic
 	if( $roster->config['seo_url'] )
 	{
@@ -243,16 +245,16 @@ function getFormAction( $url='', $full=false )
 function linkform( $url='' )
 {
 	global $roster;
-	
+
 	// If SEO mode is on, we don't need to pass anything here.
 	if( $roster->config['seo_url'] )
 	{
 		return '';
 	}
-	
+
 	// Run makelink for the extra params
 	$url = makelink($url,false);
-	
+
 	// Cut off the ? at the start
 	$url = substr($url,1);
 

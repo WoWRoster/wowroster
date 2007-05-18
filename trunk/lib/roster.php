@@ -12,6 +12,8 @@
  * @version    SVN: $Id: functions.lib.php 876 2007-05-05 05:19:20Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage RosterClass
 */
 
 if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
@@ -264,8 +266,8 @@ class roster
 					$realm = $_GET['realm'];
 				}
 
-				$this->data = array('server' => $realm);				
-				
+				$this->data = array('server' => $realm);
+
 				break;
 
 			default:
