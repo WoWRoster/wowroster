@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    Character Info
+ * @subpackage Locale
 */
 
 $lang['char_stats'] = 'Character Stats for: %1$s';
@@ -57,7 +59,7 @@ $lang['intellect']='Intelligenz';
 $lang['intellect_tooltip']= 'Erhöht deine Manapunkte und die die Chance auf einen kritischen Treffer mit Sprüchen.<br />Erhöht die Rate mit denen du deine Waffenfertigkeiten verbesserst.';
 $lang['spirit']='Willenskraft';
 $lang['spirit_tooltip']= 'Erhöht deine Mana- und Lebens- regenerationsrate.';
-$lang['armor_tooltip']= 'Verringert die Menge an Schaden die du von physischen Angriffen erleidest.<br />Die Höhe der Reduzierung ist abhängig vom Level deines Angreifers.';
+$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s';
 
 $lang['mainhand']='Waffenhand';
 $lang['offhand']='Off Hand';
@@ -109,7 +111,7 @@ $lang['spell_crit_chance']='Kritische Chance';
 $lang['spell_penetration']='Durchschlag';
 $lang['spell_penetration_tooltip']='Verringert den Widerstand des Ziels gegen Eure Zauber.';
 $lang['mana_regen']='Regeneration';
-$lang['mana_regen_tooltip']='Regeneriert alle %d Sekunden %d Mana, wenn kein Zauber gewirkt wird.';
+$lang['mana_regen_tooltip']='%1$d mana regenerated every 5 seconds while not casting<br />%2$d mana regenerated every 5 seconds while casting';
 
 $lang['defense_rating']='Verteidigungswertung ';
 $lang['def_tooltip']='Erhöht die Chance auf %s';

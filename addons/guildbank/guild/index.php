@@ -11,7 +11,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: guildbank.php 809 2007-04-20 11:41:05Z Zanix $
  * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
+ * @package    GuildBank
 */
 
 # guildbank.php -- display items held by a guild's banker characters.
@@ -222,7 +222,13 @@ foreach( $bankers as $banker_id => $banker  )
 
 print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\n<br />\n".$bank_print;
 
-function DateCharDataUpdated($id)
+/**
+ * Gets the last upload date for a character
+ *
+ * @param int $id | Member ID
+ * @return string
+ */
+function DateCharDataUpdated( $id )
 {
 	global $roster;
 

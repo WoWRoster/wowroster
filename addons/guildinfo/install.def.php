@@ -9,6 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
  * @link       http://www.wowroster.net
+ * @package    GuildInfo
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +17,10 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Installer for GuildInfo Addon
+ * @package    GuildInfo
+ */
 class guildinfo
 {
 	var $active = true;
@@ -33,6 +38,11 @@ class guildinfo
 	);
 
 
+	/**
+	 * Install Function
+	 *
+	 * @return bool
+	 */
 	function install()
 	{
 		global $installer;
@@ -41,12 +51,22 @@ class guildinfo
 		return true;
 	}
 
+	/**
+	 * Upgrade Function
+	 *
+	 * @return bool
+	 */
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
 
+	/**
+	 * Un-Install Function
+	 *
+	 * @return bool
+	 */
 	function uninstall()
 	{
 		global $installer;

@@ -24,6 +24,10 @@ $prof_filter = ( isset($_GET['proffilter']) ? $_GET['proffilter'] : '');
 $filter_box = ( isset($_GET['filterbox']) ? $_GET['filterbox'] : '');
 $prof_sort = ( isset($_GET['sort']) ? $_GET['sort'] : '');
 
+$anchor_link = ( !empty($prof_filter) ? '&amp;proffilter=' . $prof_filter : '' )
+			 . ( !empty($filter_box) ? '&amp;filterbox=' . $filter_box : '' )
+			 . ( !empty($prof_sort) ? '&amp;sort=' . $prof_sort : '' );
+
 $qry_prof  = "SELECT DISTINCT( `skill_name` ) proff
 	FROM ".$roster->db->table('recipes')."
 	WHERE `skill_name` != '".$roster->locale->act['First Aid']."'
@@ -98,7 +102,7 @@ if (!empty($prof_filter))
 		}
 		while($row_recipe_type = $roster->db->fetch($result_recipe_type))
 		{
-			$content .=  '<a href="' . makelink('&amp;proffilter='.$prof_filter.'&amp;filterbox='.$filter_box.'#'.str_replace(' ','_',$row_recipe_type['recipe_type'])) . '">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
+			$content .=  '<a href="' . makelink($anchor_link . '#'.str_replace(' ','_',$row_recipe_type['recipe_type'])) . '">'.$row_recipe_type['recipe_type'].'</a> - '."\n";
 		}
 		$content .=  "</td></tr></table>\n<br /><br />\n";
 
@@ -113,7 +117,7 @@ if (!empty($prof_filter))
 				}
 				$first_table = false;
 
-				$content .= border('syellow','start','<a href="' . makelink('&amp;proffilter='.$prof_filter.'&amp;filterbox='.$filter_box.'#top_menu') . '" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
+				$content .= border('syellow','start','<a href="' . makelink($anchor_link . '#top_menu') . '" id="'.str_replace(' ','_',$recipe_type).'">'.$recipe_type.'</a>').
 					'<table class="bodyline" cellspacing="0">'."\n";
 
 				$content .= '<tr>'."\n";

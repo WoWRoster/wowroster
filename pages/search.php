@@ -41,11 +41,15 @@ print $roster_menu->makeMenu('main');
 $output = "<br />\n";
 
 
-$search = (isset($_POST['s']) ? $_POST['s'] : '');
+$search = (isset($_GET['s']) ? $_GET['s'] : '');
 
-$searchname = ( isset($_POST['name']) ? $_POST['name'] : '' );
-$searchtooltip = ( isset($_POST['tooltip']) ? $_POST['tooltip'] : '' );
+$searchname = ( isset($_GET['name']) ? $_GET['name'] : '' );
+$searchtooltip = ( isset($_GET['tooltip']) ? $_GET['tooltip'] : '' );
 $searchstring = '';
+
+$anchor_link = ( !empty($search) ? '&amp;s=' . $search : '' )
+			 . ( !empty($searchname) ? '&amp;name=' . $searchname : '' )
+			 . ( !empty($searchtooltip) ? '&amp;tooltip=' . $searchtooltip : '' );
 
 if( empty($searchname) && empty($searchtooltip) )
 {
@@ -53,7 +57,8 @@ if( empty($searchname) && empty($searchtooltip) )
 }
 
 
-$input_form = '<form id="searchform" action="' . makelink() . '" method="post">
+$input_form = '<form id="searchform" action="' . getFormAction() . '" method="get">
+' . linkform() . '
 	<div align="center">
 	<input type="text" class="wowinput192" name="s" value="' . $search . '" size="30" maxlength="30" />
 <br /><br />
@@ -76,11 +81,11 @@ if( !empty($search) )
 	// Set a ank for link to top of page
 	$output .= '<a name="top">&nbsp;</a>
 <div style="color:white;text-align;center">
-	<a href="' . makelink('search#items') . '">'.$roster->locale->act['items'].'</a> - <a href="' . makelink('search#recipes') . '">'.$roster->locale->act['recipes'].'</a>
+	<a href="' . makelink($anchor_link . '#items') . '">'.$roster->locale->act['items'].'</a> - <a href="' . makelink($anchor_link . '#recipes') . '">'.$roster->locale->act['recipes'].'</a>
 </div>
 <br /><br />';
 
-	$output .= '<a name="items"></a><div class="headline_1"><a href="' . makelink('search#top') . '">' . $roster->locale->act['items'] . '</a></div>';
+	$output .= '<a name="items"></a><div class="headline_1"><a href="' . makelink($anchor_link . '#top') . '">' . $roster->locale->act['items'] . '</a></div>';
 
 	if( !empty($searchname) && !empty($searchtooltip) )
 	{
@@ -158,7 +163,7 @@ if( !empty($search) )
 
 	$output .= "<br /><hr />\n";
 
-	$output .= '<a name="recipes"></a><div class="headline_1"><a href="' . makelink('search#top') . '">' . $roster->locale->act['recipes'] . '</a></div>';
+	$output .= '<a name="recipes"></a><div class="headline_1"><a href="' . makelink($anchor_link . '#top') . '">' . $roster->locale->act['recipes'] . '</a></div>';
 
 	if( !empty($searchname) && !empty($searchtooltip) )
 	{

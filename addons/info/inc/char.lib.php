@@ -902,9 +902,7 @@ $returnstring .= '  <tr>
 				break;
 			case 'stat_armor':
 				$name = $this->locale['armor'];
-				$tooltip = $this->locale['armor_tooltip'];
-				if( !empty($data['mitigation']) )
-					$tooltip .= '<br /><span class="red">'.$this->locale['tooltip_damage_reduction'].': '.$data['mitigation'].'%</span>';
+				$tooltip = sprintf($this->locale['armor_tooltip'],$this->data['mitigation']);
 				break;
 			case 'melee_power':
 				$lname = $this->locale['melee_att_power'];
@@ -1132,7 +1130,7 @@ $returnstring .= '  <tr>
 				print $this->printStat('spell_hit');
 				print $this->printSpellCrit();
 				print $this->printValue('spell_penetration');
-				print $this->printValue('mana_regen_value');
+				print $this->printValue('mana_regen');
 				break;
 			case 'defense':
 				print $this->printStat('stat_armor');
@@ -1174,9 +1172,7 @@ $returnstring .= '  <tr>
 				break;
 			case 'stat_armor':
 				$name = $this->locale['armor'];
-				$tooltip = $this->locale['armor_tooltip'];
-				if( !empty($this->data['mitigation']) )
-					$tooltip .= '<br /><span class="red">'.$this->locale['tooltip_damage_reduction'].': '.$this->data['mitigation'].'%</span>';
+				$tooltip = sprintf($this->locale['armor_tooltip'],$this->data['mitigation']);
 				break;
 			case 'melee_power':
 				$lname = $this->locale['melee_att_power'];
@@ -1232,10 +1228,12 @@ $returnstring .= '  <tr>
 				$name = $this->locale['spell_penetration'];
 				$tooltip = $this->locale['spell_penetration_tooltip'];
 				break;
-			case 'mana_regen_value':
+
+			case 'mana_regen':
 				$name = $this->locale['mana_regen'];
-				$tooltip = sprintf($this->locale['mana_regen_tooltip'],$this->data['mana_regen_value'],$this->data['mana_regen_time']);
+				$tooltip = sprintf($this->locale['mana_regen_tooltip'],$this->data['mana_regen'],$this->data['mana_regen_cast']);
 				break;
+
 			case 'spell_healing':
 				$name = $this->locale['spell_healing'];
 				$tooltip = sprintf($this->locale['spell_healing_tooltip'],$this->data['spell_healing']);
