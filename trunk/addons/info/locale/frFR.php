@@ -9,6 +9,8 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
+ * @package    Character Info
+ * @subpackage Locale
 */
 
 $lang['char_stats'] = 'Character Stats for: %1$s';
@@ -57,7 +59,7 @@ $lang['intellect']='Intelligence';
 $lang['intellect_tooltip']= 'Augmente vos points de mana et vos chances de réaliser une attaque critique aux moyens de sorts.<br />Augmente la vitesse d\'apprentissage des compétences en arme.';
 $lang['spirit']='Esprit';
 $lang['spirit_tooltip']= 'Augmente la vitesse de régénération de vos points de vie et de mana.';
-$lang['armor_tooltip']= 'Diminue les dégâts resultant d\'attaque physique.<br />L\'importance de la diminution dépend du niveau de l\'attaquant.';
+$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s';
 
 $lang['mainhand']='Main Hand';
 $lang['offhand']='Off Hand';
@@ -71,7 +73,7 @@ $lang['damage']='Damage';
 $lang['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
 $lang['speed']='Speed';
 $lang['atk_speed']='Attack Speed';
-$lang['haste_tooltip']='Haste rating ';
+$lang['haste_tooltip']='Haste Rating ';
 
 $lang['melee_att_power']='Puissance d\'attaque en mêlée';
 $lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
@@ -80,7 +82,7 @@ $lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f 
 
 $lang['weapon_hit_rating']='Hit Rating';
 $lang['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
-$lang['weapon_crit_rating']='Crit rating';
+$lang['weapon_crit_rating']='Crit Rating';
 $lang['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
 
 $lang['damage']='Dégâts';
@@ -109,7 +111,7 @@ $lang['spell_crit_chance']='Crit Chance';
 $lang['spell_penetration']='Penetration';
 $lang['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
 $lang['mana_regen']='Mana Regen';
-$lang['mana_regen_tooltip']='%d mana regenerated every %d seconds while not casting';
+$lang['mana_regen_tooltip']='%1$d mana regenerated every 5 seconds while not casting<br />%2$d mana regenerated every 5 seconds while casting';
 
 $lang['defense_rating']='Defense Rating ';
 $lang['def_tooltip']='Increases your chance to %s';

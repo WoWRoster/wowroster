@@ -29,9 +29,9 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 		$type = ($mode == 'guild'?0:2)+($block == 'allow'?0:1);
 
 		$query = "INSERT INTO `".$roster->db->table('upload')."`
-				(`name`,`server`,`type`) VALUES
-					('".$_POST['name']."','".$_POST['server']."','".$type."');";
-					
+				(`name`,`server`,`region`,`type`) VALUES
+					('".$_POST['name']."','".$_POST['server']."','".$_POST['region']."','".$type."');";
+
 		if( !$roster->db->query($query) )
 		{
 			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
@@ -40,9 +40,9 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 	elseif( substr($_POST['action'],0,4) == 'del_' )
 	{
 		$rule_id = substr($_POST['action'],4);
-		
+
 		$query = "DELETE FROM `".$roster->db->table('upload')."` WHERE `rule_id` = '".$rule_id."' LIMIT 1;";
-		
+
 		if( !$roster->db->query($query) )
 		{
 			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
@@ -74,11 +74,11 @@ while( $row = $roster->db->fetch($result) )
 {
 	if( $row['type'] & 1 == 1 )
 	{
-		$data['deny'][] = $row;
+		$data['allow'][] = $row;
 	}
 	else
 	{
-		$data['allow'][] = $row;
+		$data['deny'][] = $row;
 	}
 }
 
@@ -86,17 +86,17 @@ while( $row = $roster->db->fetch($result) )
 $menu .= border('syellow','start','Menu') . "\n"
 		. '<div style="width:145px;">' . "\n"
 		. '	<ul class="tab_menu">' . "\n"
-		. '		<li'.($mode=='guild'?' class="selected"':'').'><a href="'.makelink($roster->pages[0].'-'.$roster->pages[1].'-guild').'">Guilds</a></li>' . "\n"
-		. '		<li'.($mode=='char'?' class="selected"':'').'><a href="'.makelink($roster->pages[0].'-'.$roster->pages[1].'-char').'">Chars</a></li>' . "\n"
-		. '	</ul>' . "\n"
-		. '</div>' . "\n"
+		. '		<li' . ($mode=='guild'?' class="selected"':'') . '><a href="' . makelink($roster->pages[0] . '-' . $roster->pages[1] . '-guild') . '">Guilds</a></li>' . "\n"
+		. '		<li' . ($mode=='char'?' class="selected"':'') . '><a href="' . makelink($roster->pages[0] . '-' . $roster->pages[1] . '-char') . '">Chars</a></li>' . "\n"
+		. "	</ul>\n"
+		. "</div>\n"
 		. border('syellow','end');
 
 $body .= messagebox('The rules are divided in two blocks. For each uploaded guild/char, first the top block is checked. If the name@server matches one of these \'deny\' rules, it is rejected. After that the second block is checked. If the name@server matches one of these \'accept\' rules, it is accepted. If it does not match any rule, it is rejected.','Upload rules','sgray');
 
-$body .= "<br/>\n";
+$body .= "<br />\n";
 
-$body .= '<form action="'.makelink('').'" method="post">';
+$body .= '<form action="' . makelink() . '" method="post">';
 $body .= '<input type="hidden" name="process" value="process" />';
 $body .= '<input type="hidden" name="block" value="disallow" />';
 
@@ -109,9 +109,11 @@ $body .= ruletable_foot('sred');
 
 $body .= '</form>';
 
-$body .= "<br/>\n";
 
-$body .= '<form action="'.makelink('').'" method="post">';
+$body .= "<br />\n";
+
+
+$body .= '<form action="' . makelink() . '" method="post">';
 $body .= '<input type="hidden" name="process" value="process" />';
 $body .= '<input type="hidden" name="block" value="allow" />';
 
@@ -126,27 +128,29 @@ $body .= '</form>';
 
 function ruletable_head($style,$title)
 {
-	$output = border($style,'start',$title).'
-<table>
+	$output = border($style,'start',$title) . '
+<table class="bodyline" cellspacing="0">
 	<thead>
 		<tr>
 			<th class="membersHeader">Name</th>
 			<th class="membersHeader">Server</th>
-			<th class="membersHeader">&nbsp;</th>
+			<th class="membersHeader">Region</th>
+			<th class="membersHeaderRight">&nbsp;</th>
 		</tr>
 	</thead>
-	<tbody>'."\n";
+	<tbody>' . "\n";
 	return $output;
 }
 
-function ruletable_line($row)
+function ruletable_line( $row )
 {
 	$output = '
 		<tr>
-			<td class="membersRowCell">'.$row['name'].'</td>
-			<td class="membersRowCell">'.$row['server'].'</td>
-			<td class="membersRowCell"><button name="action" value="del_'.$row['rule_id'].'">Del</button></td>
-		</tr>'."\n";
+			<td class="membersRowCell">' . $row['name'] . '</td>
+			<td class="membersRowCell">' . $row['server'] . '</td>
+			<td class="membersRowCell">' . $row['region'] . '</td>
+			<td class="membersRowCellRight"><button name="action" value="del_' . $row['rule_id'] . '">Del</button></td>
+		</tr>' . "\n";
 	return $output;
 }
 
@@ -154,12 +158,13 @@ function ruletable_foot($style)
 {
 	$output = '
 		<tr>
-			<td class="membersRowCell"><input type="text" name="name" value=""/></td>
-			<td class="membersRowCell"><input type="text" name="server" value=""/></td>
-			<td class="membersRowCell"><button name="action" value="add">Add</button></td>
+			<td class="membersRowCell"><input type="text" name="name" value="" /></td>
+			<td class="membersRowCell"><input type="text" name="server" value="" /></td>
+			<td class="membersRowCell"><input type="text" name="region" value="" /></td>
+			<td class="membersRowCellRight"><button name="action" value="add">Add</button></td>
 		</tr>
 	</tbody>
 </table>
-'.border($style,'end');
+' . border($style,'end');
 	return $output;
 }

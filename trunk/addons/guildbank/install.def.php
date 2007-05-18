@@ -9,6 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
  * @link       http://www.wowroster.net
+ * @package    GuildBank
 */
 
 if ( !defined('ROSTER_INSTALLED') )
@@ -16,6 +17,10 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * GuildBank Addon Installer
+ * @package GuildBank
+ */
 class guildbank
 {
 	var $active = true;
@@ -33,6 +38,11 @@ class guildbank
 	);
 
 
+	/**
+	 * Install function
+	 *
+	 * @return bool
+	 */
 	function install()
 	{
 		global $installer;
@@ -49,12 +59,22 @@ class guildbank
 		return true;
 	}
 
+	/**
+	 * Upgrade functoin
+	 *
+	 * @return bool
+	 */
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return false;
 	}
 
+	/**
+	 * Un-Install function
+	 *
+	 * @return bool
+	 */
 	function uninstall()
 	{
 		global $installer;

@@ -2757,10 +2757,10 @@ class update
 
 			$this->add_value( 'spell_crit_chance', $spell['CritChance']);
 
-			list($mana, $time) = explode(':',$spell['ManaRegen']);
-			$this->add_value( 'mana_regen_value', $mana);
-			$this->add_value( 'mana_regen_time', $time);
-			unset($mana, $time);
+			list($not_cast, $cast) = explode(':',$spell['ManaRegen']);
+			$this->add_value( 'mana_regen', $not_cast);
+			$this->add_value( 'mana_regen_cast', $cast);
+			unset($not_cast, $cast);
 
 			$this->add_value( 'spell_penetration', $spell['Penetration']);
 			$this->add_value( 'spell_damage', $spell['BonusDamage']);

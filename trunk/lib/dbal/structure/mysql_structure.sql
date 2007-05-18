@@ -440,8 +440,8 @@ CREATE TABLE `renprefix_players` (
   `spell_haste_b` int(11) NOT NULL default '0',
   `spell_haste_d` int(11) NOT NULL default '0',
   `spell_crit_chance` float NOT NULL default '0',
-  `mana_regen_value` int(11) NOT NULL default '0',
-  `mana_regen_time` int(11) NOT NULL default '0',
+  `mana_regen` int(11) NOT NULL default '0',
+  `mana_regen_cast` int(11) NOT NULL default '0',
   `spell_penetration` int(11) NOT NULL default '0',
   `spell_damage` int(11) NOT NULL default '0',
   `spell_healing` int(11) NOT NULL default '0',
@@ -708,6 +708,7 @@ CREATE TABLE `renprefix_upload` (
   `rule_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
+  `region` varchar(16) NOT NULL default '',
   `type` tinyint(4) NOT NULL,
   PRIMARY KEY (`rule_id`)
 ) TYPE=MyISAM;
