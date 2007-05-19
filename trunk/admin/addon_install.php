@@ -21,6 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+$roster->output['title'] .= $roster->locale->act['pagebar_addoninst'];
+
 
 include(ROSTER_LIB.'install.lib.php');
 

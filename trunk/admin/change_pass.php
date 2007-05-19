@@ -21,6 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+$roster->output['title'] .= $roster->locale->act['pagebar_changepass'];
+
 if( array_key_exists('mode',$_POST) )
 {
 	$mode = $_POST['mode'];

@@ -42,9 +42,13 @@ class roster_locale
 
 		foreach( $roster->multilanguages as $language )
 		{
-			$this->add_locale_file(ROSTER_LOCALE_DIR.$language.'.php',$language);
+			$this->add_locale_file(ROSTER_LOCALE_DIR . $language . '.php',$language);
 		}
 
+		if( isset($_SESSION['locale']) && $_SESSION['locale'] != '' )
+		{
+			$roster->config['locale'] = $_SESSION['locale'];
+		}
 		$this->act = &$this->wordings[$roster->config['locale']];
 	}
 

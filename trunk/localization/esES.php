@@ -219,6 +219,8 @@ $lang['dodge'] = 'Esquivar';
 $lang['parry'] = 'Parar';
 $lang['block'] = 'Bloquear';
 $lang['realm'] = 'Reino';
+$lang['region'] = 'Region';
+$lang['server'] = 'Server';
 $lang['faction'] = 'Faction';
 $lang['page'] = 'Página';
 $lang['general'] = 'General';
@@ -227,10 +229,15 @@ $lang['next'] = 'Siguiente';
 $lang['memberlog'] = 'Registro';
 $lang['removed'] = 'Borrado';
 $lang['added'] = 'Añadido';
+$lang['add'] = 'Add';
+$lang['delete'] = 'Delete';
 $lang['updated'] = 'Updated';
 $lang['no_info'] = 'No Information';
 $lang['none']='Ninguno';
 $lang['kills']='Asesinatos';
+$lang['allow'] = 'Allow';
+$lang['disallow'] = 'Disallow';
+$lang['locale'] = 'Locale';
 
 $lang['rosterdiag'] = 'Roster Diag.';
 $lang['difficulty'] = 'Dificultad';
@@ -555,6 +562,8 @@ $lang['pass_isold'] = 'Password not changed. The new password was the same as th
 $lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
 $lang['auth_req'] = 'Authorization Required';
 
+// Upload Rules
+$lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.';
 
 /******************************
  * Roster Admin Strings
@@ -606,22 +615,22 @@ $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
 // main_conf
-$lang['admin']['roster_dbver'] = "Roster Base de datos Versi&oacuten|Lave versi&oacuten de la base de datos";
-$lang['admin']['version'] = "Roster Versi&oacuten|Versi&oacuten actual del Roster";
+$lang['admin']['roster_dbver'] = "Roster Base de datos Versi&oacute;n|Lave versi&oacute;n de la base de datos";
+$lang['admin']['version'] = "Roster Versi&oacute;n|Versi&oacute;n actual del Roster";
 $lang['admin']['sqldebug'] = "Mensajes de SQL|Muestra errores de MySQL en comentarios en HTML";
 $lang['admin']['debug_mode'] = "Depurar Modo|Depurar errores mostrados en los comentarios ";
 $lang['admin']['sql_window'] = "SQL Window|Displays SQL Queries in a window in the footer";
-$lang['admin']['minCPver'] = "Min CP versi&oacuten|M&iacutenima versi&oacuten permitida para usar el CharacterProfiler";
-$lang['admin']['minGPver'] = "Min GP versi&oacuten|M&iacutenima versi&oacuten permitida para usar el GuildProfiler";
+$lang['admin']['minCPver'] = "Min CP versi&oacute;n|M&iacutenima versi&oacute;n permitida para usar el CharacterProfiler";
+$lang['admin']['minGPver'] = "Min GP versi&oacute;n|M&iacutenima versi&oacute;n permitida para usar el GuildProfiler";
 $lang['admin']['locale'] = "Roster Lenguaje principal|Elige el lenguaje del interfaz";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $lang['admin']['website_address'] = "Website dirección|Usada para el URL del logo, y para el link del nombre de la hermandad en el menú principal<br>Algunos addons del roster usarán esto";
-$lang['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacutegenes del interfaz<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
-$lang['admin']['img_suffix'] = "Extensi&oacuten de las im&aacutegenes del interfaz|El tipo de im&aacutegenes que usa tu interfaz";
-$lang['admin']['alt_img_suffix'] = "Extensi&oacuten de las im&aacutegenes del interfaz Alt|Posibilidad alternativa de los tipos de im&aacutegenes para el interfaz";
-$lang['admin']['img_url'] = "Directorio de im&aacutegenes del Roster|Directorio donde estan localizadas las imagenes del Roster<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
-$lang['admin']['timezone'] = "HoraZona|Mostrar&aacute la hora de tu regi&oacuten geogr&aacutefica";
-$lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br>La hora del roster ser&aacute calculada con esta diferencia";
+$lang['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacute;genes del interfaz<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
+$lang['admin']['img_suffix'] = "Extensi&oacute;n de las im&aacute;genes del interfaz|El tipo de im&aacute;genes que usa tu interfaz";
+$lang['admin']['alt_img_suffix'] = "Extensi&oacute;n de las im&aacute;genes del interfaz Alt|Posibilidad alternativa de los tipos de im&aacute;genes para el interfaz";
+$lang['admin']['img_url'] = "Directorio de im&aacute;genes del Roster|Directorio donde estan localizadas las imagenes del Roster<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
+$lang['admin']['timezone'] = "HoraZona|Mostrar&aacute; la hora de tu regi&oacute;n geogr&aacute;fica";
+$lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br>La hora del roster ser&aacute; calculada con esta diferencia";
 $lang['admin']['use_update_triggers'] = "Actualizar Addon Triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad<br>Algunos addons requieren de esto para funcionar correctamente";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
@@ -629,19 +638,19 @@ $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=val
 // guild_conf
 $lang['admin']['guild_name'] = "Nombre de la hermandad|Debe ser exactamente igual a como esta escrito en el juego<br>o <u>NO</u> <u>PODRAS</u> subir personajes a la web";
 $lang['admin']['server_name'] = "Nombre del servidor|Debe ser exactamente igual al del juego o <u>NO</u> <u>PODRAS</u> subir personajes";
-$lang['admin']['guild_desc'] = "Descripci&oacuten de la hermandad|Introduce una corta descripci&oacuten de tu hermandad";
+$lang['admin']['guild_desc'] = "Descripci&oacute;n de la hermandad|Introduce una corta descripci&oacute;n de tu hermandad";
 $lang['admin']['server_type'] = "Tipo de servidor|Esto es para determinar tu tipo de servidor en el WoW";
-$lang['admin']['alt_type'] = "Alt-Texto b&uacutesqueda|Asignamos un texto a cada uno de los alts de la gente, para su siguiente localizaci&oacuten";
-$lang['admin']['alt_location'] = "Campo b&uacutesqueda de alts|Indica el campo en el que se tiene que buscar la etiqueta indicada en el campo anterior";
+$lang['admin']['alt_type'] = "Alt-Texto b&uacute;squeda|Asignamos un texto a cada uno de los alts de la gente, para su siguiente localizaci&oacute;n";
+$lang['admin']['alt_location'] = "Campo b&uacute;squeda de alts|Indica el campo en el que se tiene que buscar la etiqueta indicada en el campo anterior";
 
 // menu_conf
 $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
 
-$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
-$lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
-$lang['admin']['menu_top_list'] = "Top Pane|Controls display of the guild list in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
-$lang['admin']['menu_top_locale'] = "Top Pane|Controls display of the locale selection in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
+$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, last update, etc...";
+$lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu";
+$lang['admin']['menu_top_locale'] = "Locale Selection|Controls display of the locale selection in the top pane of the main roster menu";
+$lang['admin']['menu_top_list'] = "List Selection|Controls display of the realm/guild/character list in the top pane of the main roster menu";
 
 $lang['admin']['menu_left_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
 $lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
@@ -664,11 +673,11 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
 
 // display_conf
-$lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute mostrada en la cabecera de la p&aacutegina";
+$lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute; mostrada en la cabecera de la p&aacute;gina";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
-$lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute el texto del mensaje del d&iacutea<br><br>&quot;Texto&quot; - Muestra el MDD en rojo<br>&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";
+$lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute; el texto del mensaje del d&iacutea<br><br>&quot;Texto&quot; - Muestra el MDD en rojo<br>&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";
 $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fondo de pantalla";
-$lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacutegina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
+$lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacute;gina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
 
 // data_links
 $lang['admin']['questlink_1'] = "Enlace para misiones #1|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
@@ -678,10 +687,10 @@ $lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para d
 $lang['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
 // realmstatus_conf
-$lang['admin']['realmstatus_url'] = "Estado real del reino URL|URL a la p&aacutegina de Blizzard's Realmstatus ";
-$lang['admin']['rs_display'] = "Mostrar Informaci&oacuten|&quot;lleno&quot; mostrar&aacute el estado y el nombre del servidor, poblaci&oacuten y tipo<br>&quot;medio&quot; mostrar&aacute el estado del reino";
-$lang['admin']['rs_mode'] = "Modo de mostrar|Como aparecer&aacute el EstadoReino<br><br>&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br>&quot;Imagen&quot; - Muestra el ReinoEstado como una imagen (REQUERIDO GD!)";
-$lang['admin']['realmstatus'] = "Nombre alternativo del reino|Algunos nombres de los servidores no permiten al ReinoEstado funcionar correctamente<br>A veces el nombre del servidor no es encontrado en la base de datos de la p&aacutegina de EstadoReino<br>Puedes activar esta opci&oacuten y as&iacute utilizar otro nombre para tu servidor<br><br>D&eacutejalo en blanco para utilizar el nombre elegido en la configuraci&oacuten de la hermandad";
+$lang['admin']['realmstatus_url'] = "Estado real del reino URL|URL a la p&aacute;gina de Blizzard's Realmstatus ";
+$lang['admin']['rs_display'] = "Mostrar Informaci&oacute;n|&quot;lleno&quot; mostrar&aacute; el estado y el nombre del servidor, poblaci&oacute;n y tipo<br>&quot;medio&quot; mostrar&aacute; el estado del reino";
+$lang['admin']['rs_mode'] = "Modo de mostrar|Como aparecer&aacute; el EstadoReino<br><br>&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br>&quot;Imagen&quot; - Muestra el ReinoEstado como una imagen (REQUERIDO GD!)";
+$lang['admin']['realmstatus'] = "Nombre alternativo del reino|Algunos nombres de los servidores no permiten al ReinoEstado funcionar correctamente<br>A veces el nombre del servidor no es encontrado en la base de datos de la p&aacute;gina de EstadoReino<br>Puedes activar esta opci&oacute;n y as&iacute utilizar otro nombre para tu servidor<br><br>D&eacutejalo en blanco para utilizar el nombre elegido en la configuraci&oacute;n de la hermandad";
 $lang['admin']['rs_timer'] = "Refresh Timer|Set the timeout period for fetching new realmstatus data";
 $lang['admin']['rs_left'] = "Display|";
 $lang['admin']['rs_middle'] = "Type Display Settings|";

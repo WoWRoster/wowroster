@@ -47,7 +47,7 @@ switch( $roster->pages[0] )
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
 		break;
-		
+
 	case 'guildless':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guildless' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
@@ -101,10 +101,7 @@ if( $addon['active'] == '1' )
 	// Include addon's locale files if they exist
 	foreach( $roster->multilanguages as $lang )
 	{
-		if( file_exists($addon['locale_dir'] . $lang . '.php') )
-		{
-			$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php',$lang);
-		}
+		$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php',$lang);
 	}
 
 	// Include addon's conf.php file

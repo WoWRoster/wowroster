@@ -48,23 +48,59 @@ class RosterMenu
 					break;
 			}
 		}
-
-		$choiceForm = '<form action="' . makelink() . '" method="get">
-		' . $roster->locale->act['guild'] . ':
-		<select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
-		';
-		foreach( $choiceArray as $guild_name => $guild_id )
+		else
 		{
-			if( $guild_id == $roster->data['guild_id'] )
-			{
-				$choiceForm .= '  <option value="' . makelink('&amp;guild=' . $guild_id) . '" selected="selected">' . $guild_name . "</option>\n";
-			}
-			else
-			{
-				$choiceForm .= '  <option value="' . makelink('&amp;guild=' . $guild_id) . '">' . $guild_name . "</option>\n";
-			}
+			$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" style="float:left;" alt="" />';
 		}
-		$choiceForm .= "</select>\n</form><br />";
+
+		$choiceForm = '';
+
+		if( $roster->config['menu_top_locale'] )
+		{
+			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post">
+		' . $roster->locale->act['locale'] . ':
+		<select name="locale" onchange="document.locale_select.submit();">
+';
+			foreach( $roster->multilanguages as $language )
+			{
+				if( $language == $roster->config['locale'] )
+				{
+					$choiceForm .= '		<option value="' . $language . '" selected="selected">' . $language . "</option>\n";
+				}
+				else
+				{
+					$choiceForm .= '		<option value="' . $language . '">' . $language . "</option>\n";
+				}
+			}
+			$choiceForm .= "\t\t</select>\n\t</form>";
+		}
+
+		if( $roster->config['menu_top_list'] && isset($roster->data['guild_id']) )
+		{
+			$choiceForm .= '	<form action="' . makelink() . '" name="guild_select" method="post">
+';
+			$choiceForm .= $roster->locale->act['guild'] . ':
+		<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
+';
+			foreach( array('drk'=>'1','sys'=>'2') as $guild_name => $guild_id )
+			{
+				if( $guild_id == $roster->data['guild_id'] )
+				{
+					$choiceForm .= '		<option value="' . makelink('&amp;guild=' . $guild_id) . '" selected="selected">' . $guild_name . "</option>\n";
+				}
+				else
+				{
+					$choiceForm .= '		<option value="' . makelink('&amp;guild=' . $guild_id) . '">' . $guild_name . "</option>\n";
+				}
+			}
+
+			$choiceForm .= "\t\t</select>\n\t</form>";
+		}
+
+		if( !empty($choiceForm) )
+		{
+			$choiceForm = '<div align="right" style="float:right;">' . "\n" . $choiceForm . "</div>\n";
+		}
 
 		$left_pane = $this->makePane('menu_left');
 		$right_pane = $this->makePane('menu_right');
@@ -73,12 +109,14 @@ class RosterMenu
 		{
 			$topbar = "  <tr>\n"
 					. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
+					. $choiceForm
 					. $icon
+					. '<div style="float:none;">'
 					. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . ( isset($roster->data['guild_name']) ? $roster->data['guild_name'] : $roster->config['guild_name'] ) . '</a></span>'."\n"
 					. '      <span style="font-size:11px;"> @ ' . ( isset($roster->data['server']) ? $roster->data['server'] : $roster->config['server_name'] ) . '</span><br />'
 					. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
 					. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n"
-					. "    </td>\n"
+					. "    </div></td>\n"
 					. "  </tr>\n"
 					. "  <tr>\n"
 					. '    <td colspan="3" class="simpleborder_b syellowborder_b"></td>' . "\n"
@@ -458,10 +496,7 @@ class RosterMenu
 						// Include addon's locale files if they exist
 						foreach( $roster->multilanguages as $lang )
 						{
-							if( file_exists(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php') )
-							{
-								$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-							}
+							$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 						}
 					}
 
