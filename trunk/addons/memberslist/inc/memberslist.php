@@ -77,7 +77,7 @@ class memberslist
 		{
 			$this->addon['config']['nojs'] = ($_GET['style'] == 'server')?1:0;
 		}
-		if( isset($_GET['alts']) )
+		if( $this->addon['config']['group_alts'] >= 0 && isset($_GET['alts']) )
 		{
 			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'show')?1:0;
 		}
@@ -88,12 +88,14 @@ class memberslist
 	 *
 	 * @param string $query
 	 *	The main SQL query for this list
+	 * @param string $always_sort
+	 *	The trailing end of the sort string, after the columnwise sort.
 	 * @param array $fields
 	 *	Array with field data. See documentation.
 	 * @param string $listname
 	 *	The ID used by javascript to identify this memberstable.
 	 */
-	function prepareData($query, $fields, $listname)
+	function prepareData($query, $always_sort, $fields, $listname)
 	{
 		global $roster;
 
@@ -107,17 +109,19 @@ class memberslist
 		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
 
-		// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-		$rowsqry = 'SELECT COUNT(*) '.substr($query, strpos($query,'FROM')).'1';
-		$result = $roster->db->query($rowsqry);
-		if( !$result )
+		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size'] )
 		{
-			die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$rowsqry);
+			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
+			$rowsqry = 'SELECT COUNT(*) '.substr($query, strpos($query,'FROM')).'1';
+			$result = $roster->db->query($rowsqry);
+			if( !$result )
+			{
+				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$rowsqry);
+			}
+
+			$row = $roster->db->fetch($result);
+			$num_rows = $row[0];
 		}
-
-		$row = $roster->db->fetch($result);
-		$num_rows = $row[0];
-
 		// --[ Page list ]--
 		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size']
 			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
@@ -142,7 +146,7 @@ class memberslist
 			$pages[$num_pages - 1] = true;
 
 			$params = '&amp;style='.($this->addon['config']['nojs']?'server':'client').
-				'&amp;alts='.($this->addon['config']['group_alts']?'show':'hide');
+				'&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide');
 
 			$this->tableHeaderRow = "<thead>\n  <tr>\n" . '    <th colspan="'.($cols+1).'" class="membersHeader" style="text-align:center;color:#ffffff">';
 
@@ -164,13 +168,13 @@ class memberslist
 				}
 				$dots = false;
 
-				if( $id = $get_st )
+				if( $id == $get_st )
 				{
-					$this->tableHeaderRow .= $id."\n";
+					$this->tableHeaderRow .= ($id+1)."\n";
 				}
 				else
 				{
-					$this->tableHeaderRow .= '<a href="'.makelink($params.'&amp;st='.$id).'">'.$id.'</a>'."\n";
+					$this->tableHeaderRow .= '<a href="'.makelink($params.'&amp;st='.($id+1)).'">'.($id+1).'</a>'."\n";
 				}
 			}
 		}
@@ -204,9 +208,9 @@ class memberslist
 			}
 		}
 
-		$query .=  ' `members`.`level` DESC, `members`.`name` ASC';
+		$query .=  $always_sort;
 
-		// --[ Add pagination SQL, if we're in client mode ]--
+		// --[ Add pagination SQL, if we're in server sort mode ]--
 		if( $this->addon['config']['nojs']
 			&& $this->addon['config']['page_size']
 			&& is_numeric($get_st) )
@@ -218,7 +222,7 @@ class memberslist
 		$this->query = $query.';';
 
 		// If group alts is off, hide the column for it
-		$style = ($this->addon['config']['group_alts'])?'':' style="display:none;"';
+		$style = ($this->addon['config']['group_alts']==1)?'':' style="display:none;"';
 
 		// header row
 		$this->tableHeaderRow .= "<tr>\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
@@ -257,7 +261,7 @@ class memberslist
 					$desc = '';
 				}
 
-				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;alts='.($this->addon['config']['group_alts']?'show':'hide').'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide').'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 			}
 			else
 			{
@@ -361,15 +365,15 @@ class memberslist
 		$get = ( isset($_GET['d']) ? '&amp;d='.$_GET['d'] : '' );
 
 		$style = '&amp;style='.($this->addon['config']['nojs']?'server':'client');
-		$alts = '&amp;alts='.($this->addon['config']['group_alts']?'show':'hide');
+		$alts = '&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide');
 
-		if( $this->addon['config']['group_alts'] )
+		if( $this->addon['config']['group_alts']==1 )
 		{
 			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="+" />Close all</a></th>';
 			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="-" />Open all</a></th>';
 			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Hide alts</a></th>';
 		}
-		else
+		elseif( $this->addon['config']['group_alts'] == 0 )
 		{
 			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">Show alts</a></th>';
 		}
@@ -452,7 +456,7 @@ class memberslist
 				if( $current_col == 1 )
 				{
 					// Cache lines for main/alt stuff
-					if( !$this->addon['config']['group_alts'] || !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
+					if( $this->addon['config']['group_alts']<=0 || $row['main_id'] == $row['member_id'] )
 					{
 						$line .= '    <td class="membersRowCell">'.$cell_value.'</td>'."\n";
 					}
@@ -473,7 +477,11 @@ class memberslist
 			}
 
 			// Cache lines for main/alt stuff
-			if( !$this->addon['config']['group_alts'] || !isset($row['main_id']) || $row['main_id'] == $row['member_id'] )
+			if( $this->addon['config']['group_alts'] <= 0 )
+			{
+				$lines[]['main'] = $line;
+			}
+			elseif( $row['main_id'] == $row['member_id'] )
 			{
 				$lines[$row['member_id']]['main'] = $line;
 			}
@@ -491,7 +499,7 @@ class memberslist
 			$stripe_class = ' class="membersRowColor'.$stripe_counter.'"';
 
 			// Group alts off
-			if( !$this->addon['config']['group_alts'] )
+			if( $this->addon['config']['group_alts'] <= 0 )
 			{
 				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell" style="display:none;"></td>'.$block['main'].'</tr></tbody>';
 				continue;

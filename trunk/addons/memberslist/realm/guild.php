@@ -21,7 +21,7 @@ define('IN_SORTMEMBER',true);
 
 include_once ($addon['dir'] . 'inc/memberslist.php');
 
-$memberlist = new memberslist;
+$memberlist = new memberslist(array('group_alts'=>-1));
 
 $mainQuery =
 	'SELECT '.
@@ -34,6 +34,8 @@ $mainQuery =
 	'FROM `'.$roster->db->table('guild').'` AS guild '.
 	'WHERE `guild`.`server` = "'.$roster->data['server'].'" '.
 	'ORDER BY ';
+
+$always_sort = ' `guild`.`guild_name` ASC';
 
 $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
@@ -76,8 +78,7 @@ $FIELD['guild_motd'] = array (
 	'display' => 2,
 );
 
-
-$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 

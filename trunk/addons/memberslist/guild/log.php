@@ -21,7 +21,7 @@ define('IN_SORTMEMBER',true);
 
 include_once ($addon['dir'] . 'inc/memberslist.php');
 
-$memberlist = new memberslist(array('group_alts'=>0));
+$memberlist = new memberslist(array('group_alts'=>-1, 'page_size'=>25));
 
 $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
@@ -29,6 +29,8 @@ $mainQuery =
 	'FROM `'.$roster->db->table('memberlog').'` AS members '.
 	'WHERE `guild_id` = "'.$roster->data['guild_id'].'"'.
 	'ORDER BY ';
+
+$always_sort = ' `members`.`update_time` DESC';
 
 
 $FIELD['name'] = array(
@@ -101,7 +103,7 @@ $FIELD['officer_note'] = array (
 	'display' => $addon['config']['log_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 
