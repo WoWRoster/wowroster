@@ -21,6 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+$roster->output['title'] .= $roster->locale->act['pagebar_menuconf'];
+
 // --[ Translate GET data ]--
 $section = (isset($_GET['section']) ? $_GET['section'] : 'main' );
 
@@ -161,10 +163,7 @@ foreach($palet as $id=>$button)
 		// Include addon's locale files if they exist
 		foreach( $roster->multilanguages as $lang )
 		{
-			if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
-			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
-			}
+			$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 		}
 	}
 	$menu .= '<div id="' . $id . '" class="menu_config_div">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . ' [' . $button['title'] . ']</div>' . "\n";
@@ -200,10 +199,7 @@ foreach($arrayButtons as $posX=>$column)
 			// Include addon's locale files if they exist
 			foreach( $roster->multilanguages as $lang )
 			{
-				if( file_exists(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php') )
-				{
-					$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
-				}
+				$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 			}
 		}
 		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . ' [' . $button['title'] . ']</div>' . "\n";

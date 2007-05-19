@@ -45,10 +45,7 @@ if( $addon['active'] = '1' )
 	// Include addon's locale files if they exist
 	foreach( $roster->multilanguages as $langvalue )
 	{
-		if( file_exists($addon['locale_dir'].$langvalue.'.php') )
-		{
-			$roster->locale->add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue);
-		}
+		$roster->locale->add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue);
 	}
 
 	// Include addon's conf.php file

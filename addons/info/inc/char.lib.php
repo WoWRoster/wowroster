@@ -2386,7 +2386,7 @@ else
 				<option value="spellleft"><?php print $this->locale['spell']; ?></option>
 				<option value="defenseleft"><?php print $this->locale['defense']; ?></option>
 			</select>
-				<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
+			<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
 				<option value="statsright"><?php print $this->locale['menustats']; ?></option>
 				<option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>><?php print $this->locale['melee']; ?></option>
 				<option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>><?php print $this->locale['ranged']; ?></option>

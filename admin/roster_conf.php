@@ -21,6 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+$roster->output['title'] .= $roster->locale->act['pagebar_rosterconf'];
+
 // ----[ Set the tablename and create the config class ]----
 $tablename = $roster->db->table('config');
 include(ROSTER_LIB.'config.lib.php');

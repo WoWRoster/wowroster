@@ -27,6 +27,8 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 error_reporting(E_ALL);
 
 
+session_start();
+
 
 // Be paranoid with passed vars
 // Destroy GET/POST/Cookie variables from the global scope
@@ -76,6 +78,7 @@ define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 include( ROSTER_LIB . 'roster.php' );
 $roster = new roster;
 
+
 /**
  * Roster Error Handler
  */
@@ -88,25 +91,30 @@ $roster->error =& new roster_error(E_ALL);
  */
 $roster->load_dbal();
 
+
 /**
  * Include constants file
  */
 require_once (ROSTER_LIB . 'constants.php');
+
 
 /**
  * Load the config
  */
 $roster->load_config();
 
+
 /**
  * Cache addon data
  */
 $roster->get_addon_data();
 
+
 /**
  * Include common functions
  **/
 require_once (ROSTER_LIB . 'functions.lib.php');
+
 
 /**
  * Slash global data if magic_quotes_gpc is off.
@@ -120,10 +128,25 @@ if( !get_magic_quotes_gpc() )
 	$_REQUEST = escape_array($_REQUEST);
 }
 
+
 /**
  * Include linking file
  */
 require_once (ROSTER_LIB . 'cmslink.lib.php');
+
+
+/**
+ * Inject some different locale setting if the locale url switch is set
+ */
+$locale = (isset($_GET['locale']) ? $_GET['locale'] : isset($_POST['locale']) ? $_POST['locale'] : '');
+if( $locale != '' )
+{
+
+	$_SESSION['locale'] = $locale;
+	$roster->config['locale'] = $locale;
+}
+unset($locale);
+
 
 /**
  * Load the locale class
@@ -131,10 +154,12 @@ require_once (ROSTER_LIB . 'cmslink.lib.php');
 include(ROSTER_LIB . 'locale.php');
 $roster->locale = new roster_locale;
 
+
 /**
  * Include the Roster Menu class
  */
 require_once(ROSTER_LIB . 'menu.php');
+
 
 /**
  * Figure out the page
@@ -147,6 +172,7 @@ $roster->get_page_name();
  */
 $roster->get_scope_data();
 
+
 /**
  * Inject some different settings if the debug url switch is set
  */
@@ -156,6 +182,7 @@ if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
 	$roster->config['debug_mode'] = 1;
 	$roster->config['sql_window'] = 1;
 }
+
 
 /**
  * If the version doesnt match the one in constants, redirect to upgrader

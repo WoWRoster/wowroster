@@ -219,6 +219,8 @@ $lang['dodge'] = 'Dodge';
 $lang['parry'] = 'Parry';
 $lang['block'] = 'Block';
 $lang['realm'] = 'Realm';
+$lang['region'] = 'Region';
+$lang['server'] = 'Server';
 $lang['faction'] = 'Faction';
 $lang['page'] = 'Page';
 $lang['general'] = 'General';
@@ -227,10 +229,15 @@ $lang['next'] = 'Next';
 $lang['memberlog'] = 'Member Log';
 $lang['removed'] = 'Removed';
 $lang['added'] = 'Added';
+$lang['add'] = 'Add';
+$lang['delete'] = 'Delete';
 $lang['updated'] = 'Updated';
 $lang['no_info'] = 'No Information';
 $lang['none']='None';
 $lang['kills']='Kills';
+$lang['allow'] = 'Allow';
+$lang['disallow'] = 'Disallow';
+$lang['locale'] = 'Locale';
 
 $lang['rosterdiag'] = 'Roster Diag.';
 $lang['difficulty'] = 'Difficulty';
@@ -555,6 +562,8 @@ $lang['pass_isold'] = 'Password not changed. The new password was the same as th
 $lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
 $lang['auth_req'] = 'Authorization Required';
 
+// Upload Rules
+$lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.';
 
 /******************************
  * Roster Admin Strings
@@ -638,10 +647,10 @@ $lang['admin']['alt_location'] = "Alt-Search Field|Search location, what field t
 $lang['admin']['menu_conf_left'] = "Left pane|";
 $lang['admin']['menu_conf_right'] = "Right pane|";
 
-$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
-$lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
-$lang['admin']['menu_top_list'] = "Top Pane|Controls display of the guild list in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
-$lang['admin']['menu_top_locale'] = "Top Pane|Controls display of the locale selection in the top pane of the main roster menu<br />This area holds the guild name, server, and last update";
+$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, last update, etc...";
+$lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu";
+$lang['admin']['menu_top_locale'] = "Locale Selection|Controls display of the locale selection in the top pane of the main roster menu";
+$lang['admin']['menu_top_list'] = "List Selection|Controls display of the realm/guild/character list in the top pane of the main roster menu";
 
 $lang['admin']['menu_left_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
 $lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";

@@ -21,6 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+$roster->output['title'] .= $roster->locale->act['pagebar_configreset'];
+
 if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 {
 	$query = "TRUNCATE `roster_config`;";
