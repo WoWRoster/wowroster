@@ -21,7 +21,7 @@ if ( !defined('ROSTER_INSTALLED') )
 /**
  * Installer for Professions Addon
  *
- * @package    MadeBy
+ * @package    Professions
  * @subpackage Locale
  */
 class tradeskills

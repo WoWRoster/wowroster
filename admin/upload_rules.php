@@ -23,16 +23,17 @@ if( !defined('ROSTER_INSTALLED') )
 
 $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild';
 
+
 // Process a new line
 if( isset($_POST['process']) && $_POST['process'] == 'process')
 {
 	if( $_POST['action'] == 'add' )
 	{
-		$type = ($mode == 'guild'?0:2)+($block == 'allow'?0:1);
+		$type = ($mode == 'guild'?0:2) + ($_POST['block'] == 'allow'?0:1);
 
-		$query = "INSERT INTO `".$roster->db->table('upload')."`
+		$query = "INSERT INTO `" . $roster->db->table('upload') . "`
 				(`name`,`server`,`region`,`type`) VALUES
-					('".$_POST['name']."','".$_POST['server']."','".$_POST['region']."','".$type."');";
+					('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "');";
 
 		if( !$roster->db->query($query) )
 		{
@@ -43,7 +44,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 	{
 		$rule_id = substr($_POST['action'],4);
 
-		$query = "DELETE FROM `".$roster->db->table('upload')."` WHERE `rule_id` = '".$rule_id."' LIMIT 1;";
+		$query = "DELETE FROM `" . $roster->db->table('upload') . "` WHERE `rule_id` = '" . $rule_id . "' LIMIT 1;";
 
 		if( !$roster->db->query($query) )
 		{
@@ -76,11 +77,11 @@ while( $row = $roster->db->fetch($result) )
 {
 	if( $row['type'] & 1 == 1 )
 	{
-		$data['allow'][] = $row;
+		$data['deny'][] = $row;
 	}
 	else
 	{
-		$data['deny'][] = $row;
+		$data['allow'][] = $row;
 	}
 }
 
@@ -151,7 +152,7 @@ function ruletable_line( $row )
 			<td class="membersRowCell">' . $row['name'] . '</td>
 			<td class="membersRowCell">' . $row['server'] . '</td>
 			<td class="membersRowCell">' . $row['region'] . '</td>
-			<td class="membersRowCellRight"><button name="action" value="del_' . $row['rule_id'] . '">Del</button></td>
+			<td class="membersRowCellRight"><button class="input" name="action" value="del_' . $row['rule_id'] . '">Del</button></td>
 		</tr>' . "\n";
 	return $output;
 }
@@ -160,10 +161,10 @@ function ruletable_foot($style)
 {
 	$output = '
 		<tr>
-			<td class="membersRowCell"><input type="text" name="name" value="" /></td>
-			<td class="membersRowCell"><input type="text" name="server" value="" /></td>
-			<td class="membersRowCell"><input type="text" name="region" value="" /></td>
-			<td class="membersRowCellRight"><button name="action" value="add">Add</button></td>
+			<td class="membersRowCell"><input class="wowinput128" type="text" name="name" value="" /></td>
+			<td class="membersRowCell"><input class="wowinput128" type="text" name="server" value="" /></td>
+			<td class="membersRowCell"><input class="wowinput128" type="text" name="region" value="" /></td>
+			<td class="membersRowCellRight"><button class="input" name="action" value="add">Add</button></td>
 		</tr>
 	</tbody>
 </table>
