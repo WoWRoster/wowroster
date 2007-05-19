@@ -61,6 +61,7 @@ $mainQuery =
 	'WHERE `members`.`server` = "'.$roster->data['server'].'" AND `members`.`guild_id` = "0" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
@@ -153,7 +154,7 @@ $FIELD['arenapoints'] = array(
 	'display' => $addon['config']['honor_ap'],
 );
 
-$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 

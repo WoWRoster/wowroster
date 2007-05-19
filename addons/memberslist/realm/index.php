@@ -71,6 +71,8 @@ $mainQuery =
 	'WHERE `members`.`server` = "'.$roster->data['server'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
+
 $FIELD['name'] = array (
 	'lang_field' => 'name',
 	'order'    => array( '`members`.`name` ASC' ),
@@ -182,7 +184,7 @@ $FIELD['officer_note'] = array (
 	'display' => $addon['config']['member_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 
