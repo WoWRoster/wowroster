@@ -28,6 +28,7 @@ $mainQuery =
 	'`guild`.`guild_name`, '.
 	'`guild`.`guild_id`, '.
 	'`guild`.`faction`, '.
+	'`guild`.`factionEn`, '.
 	'`guild`.`guild_num_members`, '.
 	'`guild`.`guild_num_accounts`, '.
 	'`guild`.`guild_motd` '.
@@ -51,6 +52,7 @@ $FIELD['faction'] = array (
 	'lang_field' => 'faction',
 	'order' => array( '`guild`.`faction` ASC' ),
 	'order_d' => array( '`guild`.`faction` DESC' ),
+	'value' => 'faction_value',
 	'js_type' => 'ts_string',
 	'display' => 2,
 );
@@ -179,10 +181,47 @@ function guild_value ( $row, $field )
 
 	if( $row['guild_id'] )
 	{
-		return '<div style="display:none; ">'.$row['guild_name'].'</div>'.'<a href="'.makelink('guild-memberslist&amp;guild='.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
+		return '<div style="display:none; ">' . $row['guild_name'] . '</div><a href="' . makelink('guild-memberslist&amp;guild=' . $row['guild_id']) . '">' . $row['guild_name'] . '</a></div>';
 	}
 	else
 	{
-		return '<div style="display:none; ">'.$row['guild_name'].'</div>'.$row['guild_name'];
+		return '<div style="display:none; ">' . $row['guild_name'] . '</div>' . $row['guild_name'];
 	}
+}
+
+/**
+ * Controls Output of the Faction Column
+ *
+ * @param array $row
+ * @return string - Formatted output
+ */
+function faction_value ( $row, $field )
+{
+	global $roster, $addon;
+
+	if ( $row['factionEn'] )
+	{
+		$faction = ( isset($row['factionEn']) ? $row['factionEn'] : '' );
+
+		switch( substr($faction,0,1) )
+		{
+			case 'A':
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '"/> ';
+				break;
+			case 'H':
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '"/> ';
+				break;
+			default:
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '"/> ';
+				break;
+		}
+	}
+	else
+	{
+		$icon = '';
+	}
+
+	$cell_value = $icon . $row['faction'];
+
+	return '<div style="display:none; ">' . $row['faction'] . '</div>' . $cell_value;
 }
