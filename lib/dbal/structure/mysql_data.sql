@@ -48,10 +48,8 @@ INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '1', 'radio{on^1|off^0',
 # --------------------------------------------------------
 ### Guild Settings
 
-INSERT INTO `renprefix_config` VALUES (2000, 'guild_name', 'guildName', 'text{50|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2010, 'server_name', 'realmName', 'text{50|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2020, 'guild_desc', 'A Great WoW Guild', 'text{255|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2030, 'server_type', 'PvE', 'select{PvE^PvE|PvP^PvP|RP^RP|RPPvP^RPPvP', 'guild_conf');
+INSERT INTO `renprefix_config` VALUES (2000, 'default_name', 'guildName', 'text{50|30', 'guild_conf');
+INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'A Great WoW Guild', 'text{255|30', 'guild_conf');
 INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'guild_conf');
 INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'guild_conf');
 

@@ -362,14 +362,6 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['img_suffix'].'</td>
 	</tr>
 	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">guild_name</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['guild_name'].'</td>
-	</tr>
-	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">server_name</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['server_name'].'</td>
-	</tr>
-	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">use_update_triggers</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['use_update_triggers']).'</td></tr>
 	<tr>
@@ -453,7 +445,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 			echo border('spurple', 'start', '<span class="blue">Download Update Package</span>');
 			echo '<div align="center" style="background-color:#1F1E1D;"><form method="post" action="'.ROSTER_SVNREMOTE.'">';
 			echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'" />';
-			echo '<input type="hidden" name="guildname" value="'.$roster->config['guild_name'].'" />';
+			echo '<input type="hidden" name="guildname" value="'.$roster->config['default_name'].'" />';
 			echo '<input type="hidden" name="website" value="'.$roster->config['website_address'].'" />';
 			echo '<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">.zip Archive</label><br />';
 			echo '<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">.tar.gz Archive</label><br /><br />';
@@ -599,7 +591,7 @@ else
 	// FOPEN URL is Not Supported, offer the oppertunity to do this remotely
 	echo '<form method="post" action="'.ROSTER_SVNREMOTE.'">';
 	echo '<input type="hidden" name="remotediag" value="true" />';
-	echo '<input type="hidden" name="guildname" value="'.$roster->config['guild_name'].'" />';
+	echo '<input type="hidden" name="guildname" value="'.$roster->config['default_name'].'" />';
 	echo '<input type="hidden" name="website" value="'.	ROSTER_PATH .'" />';
 
 	foreach ($files as $directory => $filedata)

@@ -365,15 +365,24 @@ class update
 									{
 										// take the current time and get the offset. Upload must occur same day that roster was obtained
 										$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
-										$currentTime = getDate($currentTimestamp);
 
 										if( $roster->data && ( ( strtotime($roster->data['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 ) )
 										{
 											return sprintf($roster->locale->act['not_update_guild_time'],$guild_name)."<br />\n";
 										}
 
+										// Get the region
+										if( isset($guild['timestamp']['init']['datakey']) )
+										{
+											list($region) = explode(':',$guild['timestamp']['init']['datakey']);
+										}
+										else
+										{
+											$region = '';
+										}
+
 										// Update the guild
-										$guildId = $this->update_guild($realm_name, $guild_name, $currentTimestamp, $guild);
+										$guildId = $this->update_guild($realm_name, $guild_name, $currentTimestamp, $guild, $region);
 										$guildMembers = $guild['Members'];
 
 										$guild_output = '';
@@ -1021,9 +1030,6 @@ class update
 
 				if( isset( $buff['Rank'] ) )
 					$this->add_value('rank', $buff['Rank'] );
-
-				if( isset( $buff['Rank'] ) )
-					$buff_rank = $buff['Rank'];
 
 				if( isset( $buff['Count'] ) )
 					$this->add_value('count', $buff['Count'] );
@@ -1688,14 +1694,14 @@ class update
 					}
 					elseif( !empty($spell) || !empty($data_spell['Rank']) )
 					{
-						$this->add_value('spell_tooltip', $spell."\n".$data_spell['Rank'] );
+						$this->add_value('spell_tooltip', $spell . "\n" . $data_spell['Rank'] );
 					}
 
-					$querystr = "INSERT INTO `".$roster->db->table('spellbook_pet')."` SET ".$this->assignstr;
+					$querystr = "INSERT INTO `" . $roster->db->table('spellbook_pet') . "` SET ".$this->assignstr;
 					$result = $roster->db->query($querystr);
 					if( !$result )
 					{
-						$this->setError('Spell ['.$spell_name.'] could not be inserted',$roster->db->error());
+						$this->setError('Spell [' . $spell . '] could not be inserted',$roster->db->error());
 					}
 				}
 			}
@@ -1917,6 +1923,13 @@ class update
 			$this->setError('Pet Data could not be deleted',$roster->db->error());
 		}
 
+		$messages .= 'Pets Spellbooks..';
+		$querystr = "DELETE FROM `".$roster->db->table('spellbook_pet')."` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Spell Tree Data could not be deleted',$roster->db->error());
+		}
+
 
 		$messages .= 'Reputation..';
 		$querystr = "DELETE FROM `".$roster->db->table('reputation')."` WHERE `member_id` IN ($inClause)";
@@ -1969,7 +1982,6 @@ class update
 				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
-
 			}
 
 			$this->setMessage('<li><span class="red">Deleted '.$num.' member'.($num > 1 ? 's' : '').'</span>');
@@ -2071,14 +2083,19 @@ class update
 	 * @param string $guildName
 	 * @return array
 	 */
-	function get_guild_info($realmName,$guildName)
+	function get_guild_info( $realmName , $guildName , $region='' )
 	{
 		global $roster;
 
-		$guild_name_escape = $roster->db->escape( $guildName );
-		$server_escape = $roster->db->escape( $realmName );
+		$guild_name_escape = $roster->db->escape($guildName);
+		$server_escape = $roster->db->escape($realmName);
 
-		$querystr = "SELECT * FROM `".$roster->db->table('guild')."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'";
+		if( !empty($region) )
+		{
+			$region = " AND `region` = '" . $roster->db->escape($region) . "'";
+		}
+
+		$querystr = "SELECT * FROM `".$roster->db->table('guild')."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'$region;";
 		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
 
 		$retval = $roster->db->fetch( $result );
@@ -2129,17 +2146,18 @@ class update
 	 * @param array $guild
 	 * @return string
 	 */
-	function update_guild( $realmName, $guildName, $currentTime, $guild )
+	function update_guild( $realmName , $guildName , $currentTime , $guild , $region )
 	{
 		global $roster;
 
-		$guildInfo = $this->get_guild_info($realmName,$guildName);
+		$guildInfo = $this->get_guild_info($realmName,$guildName,$region);
 
 		$this->reset_values();
 
 		$this->add_value( 'guild_name', $guildName );
 
 		$this->add_value( 'server', $realmName );
+		$this->add_value( 'region', $region );
 		$this->add_value( 'faction', $guild['Faction'] );
 		$this->add_value( 'factionEn', $guild['FactionEn'] );
 		$this->add_value( 'guild_motd', $guild['Motd'] );
@@ -2230,6 +2248,7 @@ class update
 			$this->add_value( 'officer_note', $char['OfficerNote']);
 		else
 			$this->add_value( 'officer_note', '');
+
 		if( isset($char['Zone']) )
 			$this->add_value( 'zone', $char['Zone']);
 		else

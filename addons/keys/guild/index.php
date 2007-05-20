@@ -144,7 +144,7 @@ $min_skill_for_lock = array(
 	'MC' => 1000,
 );
 
-$items = $roster->locale->act['inst_keys'][ substr($roster->data['faction'],0,1) ];
+$items = $roster->locale->act['inst_keys'][ substr($roster->data['factionEn'],0,1) ];
 $keys = array('Name');
 foreach ($items as $key => $data)
 {
@@ -164,7 +164,7 @@ while ($row = $roster->db->fetch($result))
 	{
 		$row['clientLocale'] = $roster->config['locale'];
 	}
-	$items = $roster->locale->act['inst_keys'][ substr($roster->data['faction'],0,1) ];
+	$items = $roster->locale->act['inst_keys'][ substr($roster->data['factionEn'],0,1) ];
 	// build SQL search string for the instance keys only
 	$selectk = ''; $wherek = ''; $countk = 0;
 	foreach ($items as $key => $item)
