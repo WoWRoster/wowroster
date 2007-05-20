@@ -295,7 +295,7 @@ class update
 						. " FROM `".$roster->db->table('members')."`"
 						. " WHERE `name` = '".$char_name."'"
 						. " AND `server` = '".$realm_name."'"
-//						. " AND `region` = '".$region."'"
+						. " AND `region` = '".$region."'"
 						. ";";
 					
 
@@ -343,7 +343,7 @@ class update
 
 						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name,$region) . "</strong>\n";
 
-						$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
+						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $realm_name, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
 						$this->resetMessages();
 
@@ -463,7 +463,7 @@ class update
 								foreach(array_keys($guildMembers) as $char_name)
 								{
 									$char = $guildMembers[$char_name];
-									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $char, $currentTimestamp, $guild['Ranks']);
+									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $region, $char, $currentTimestamp, $guild['Ranks']);
 									$guild_output .= $this->getMessages();
 									$this->resetMessages();
 
@@ -880,6 +880,8 @@ class update
 		$this->reset_values();
 		$this->add_value('member_id', $data['member_id'] );
 		$this->add_value('name', $data['name'] );
+		$this->add_value('server', $data['server'] );
+		$this->add_value('region', $data['region'] );
 		$this->add_value('guild_id', $data['guild_id'] );
 		$this->add_value('class', $data['class'] );
 		$this->add_value('level', $data['level'] );
@@ -2272,7 +2274,7 @@ class update
 	 * @param array $currentTimestamp
 	 * @return mixed		| False on error, memberid on success
 	 */
-	function update_guild_member( $guildId, $name, $server, $char, $currentTimestamp, $guildRanks )
+	function update_guild_member( $guildId, $name, $server, $region, $char, $currentTimestamp, $guildRanks )
 	{
 		global $roster;
 
@@ -2299,6 +2301,7 @@ class update
 
 		$this->add_value( 'name', $name_escape);
 		$this->add_value( 'server', $server_escape);
+		$this->add_value( 'region', $region);
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'level', $char['Level']);
 		if( isset($char['Note']) )
@@ -2579,7 +2582,7 @@ class update
 	 * @param array $data	| LUA data
 	 * @return mixed		| False on error, memberid on success
 	 */
-	function update_char( $guildId , $name , $data )
+	function update_char( $guildId , $region, $realm_name, $name , $data )
 	{
 		global $roster;
 
@@ -2629,6 +2632,8 @@ class update
 
 		$this->add_value( 'name', $name );
 		$this->add_value( 'guild_id', $guildId );
+		$this->add_value( 'server', $realm_name );
+		$this->add_value( 'region', $region );
 
 		// BEGIN HONOR VALUES
 		if( isset($data['Honor']) && is_array($data['Honor']) )
