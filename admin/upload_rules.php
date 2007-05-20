@@ -195,25 +195,24 @@ function ruletable_line( $row , $type )
 {
 	global $roster, $mode;
 
-	$output = '
-		<tr>
-';
+	$output = "\n\t\t<tr>\n";
+
 	if( $mode == 'guild' && $type != 'deny' )
 	{
 		if( $row['default'] == '1' )
 		{
-			$output .= '			<td class="membersRowCell" style="text-align:center;"><img src="' . $roster->config['img_url'] . 'check_on.png" alt="" /></td>';
+			$output .= '			<td class="membersRow1" style="text-align:center;"><img src="' . $roster->config['img_url'] . 'check_on.png" alt="" /></td>';
 		}
 		else
 		{
-			$output .= '			<td class="membersRowCell" style="text-align:center;"><button class="button_hide" style="cursor:pointer;" name="action" value="default_' . $row['rule_id'] . '"><img src="' . $roster->config['img_url'] . 'check_off.png" alt="" /></button></td>';
+			$output .= '			<td class="membersRow1" style="text-align:center;"><button class="button_hide" style="cursor:pointer;" name="action" value="default_' . $row['rule_id'] . '"><img src="' . $roster->config['img_url'] . 'check_off.png" alt="" /></button></td>';
 		}
 	}
 	$output .= '
-			<td class="membersRowCell">' . $row['name'] . '</td>
-			<td class="membersRowCell">' . $row['server'] . '</td>
-			<td class="membersRowCell">' . $row['region'] . '</td>
-			<td class="membersRowRightCell"><button class="input" name="action" value="del_' . $row['rule_id'] . '">' . $roster->locale->act['delete'] . '</button></td>
+			<td class="membersRow1">' . $row['name'] . '</td>
+			<td class="membersRow1">' . $row['server'] . '</td>
+			<td class="membersRow1">' . $row['region'] . '</td>
+			<td class="membersRowRight1"><button class="input" name="action" value="del_' . $row['rule_id'] . '">' . $roster->locale->act['delete'] . '</button></td>
 		</tr>' . "\n";
 	return $output;
 }
@@ -222,18 +221,17 @@ function ruletable_foot( $style , $type )
 {
 	global $roster, $mode;
 
-	$output = '
-		<tr>
-';
+	$output = "\n\t\t<tr>\n";
+
 	if( $mode == 'guild' && $type != 'deny' )
 	{
-		$output .= '			<td class="membersRowCell" style="text-align:center;"><label for="defaultchk">&nbsp;</label><input type="checkbox" name="defaultchk" id="defaultchk" value="1" /></td>';
+		$output .= '			<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label><input type="checkbox" name="defaultchk" id="defaultchk" value="1" /></td>';
 	}
 	$output .= '
-			<td class="membersRowCell"><input class="wowinput128" type="text" name="name" value="" /></td>
-			<td class="membersRowCell"><input class="wowinput128" type="text" name="server" value="" /></td>
-			<td class="membersRowCell"><input class="wowinput64" type="text" name="region" value="" /></td>
-			<td class="membersRowRightCell"><button class="input" name="action" value="add">' . $roster->locale->act['add'] . '</button></td>
+			<td class="membersRow2"><input class="wowinput128" type="text" name="name" value="" /></td>
+			<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
+			<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
+			<td class="membersRowRight2"><button class="input" name="action" value="add">' . $roster->locale->act['add'] . '</button></td>
 		</tr>
 	</tbody>
 </table>
