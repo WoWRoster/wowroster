@@ -280,13 +280,14 @@ class roster_db
 		}
 		if( $query_id )
 		{
+			$result = array();
 			unset($this->record_set[$query_id]);
 			unset($this->record[$query_id]);
 			while( $this->record_set[$query_id] = @mysql_fetch_array($query_id, $result_type) )
 			{
-				// empty loop
+				$result[] = $this->record_set[$query_id];
 			}
-			return $this->record_set[$query_id];
+			return $result;
 		}
 		else
 		{
