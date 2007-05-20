@@ -155,7 +155,7 @@ $menu .= border('sorange','end')."\n";
 $menu .= '<br />'."\n";
 
 // --[ Button palet ]--
-$menu .= messagebox('<div id="palet" style="width:'.(105*$paletWidth+5).'px;height:'.(30*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
+$menu .= messagebox('<div id="palet" style="width:'.(125*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
 	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
@@ -166,7 +166,25 @@ foreach($palet as $id=>$button)
 			$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 		}
 	}
-	$menu .= '<div id="' . $id . '" class="menu_config_div">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . ' [' . $button['title'] . ']</div>' . "\n";
+
+	$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
+	$button['titkey'] = $button['title'];
+
+	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+	if( strpos($button['title'],'|') )
+	{
+		list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+	}
+	else
+	{
+		$button['tooltip'] = '';
+	}					
+	
+	$button['tooltip'] .= '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$button['titkey'].'</span></span>';
+
+	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'',',WRAP');
+	
+	$menu .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
 }
 $menu .= "<br />\n";
 
@@ -174,7 +192,8 @@ $menu .= "<br />\n";
 $menu .= border('syellow','start','Add button')."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
 $menu .= '<tr><td>title:</td><td><input id="title" type="text" size="16" maxlength="32" /></td></tr>'."\n";
-$menu .= '<tr><td>url:  </td><td><input id="url"   type="text" size="16" maxlength="128" /></td></tr>'."\n";
+$menu .= '<tr><td>url:  </td><td><input id="url"   type="text" size="16" maxlength="128"/></td></tr>'."\n";
+$menu .= '<tr><td>icon: </td><td><input id="icon"  type="text" size="16" maxlength="64" /></td></tr>'."\n";
 $menu .= '<tr><td colspan="2" align="right"><button onclick="sendAddElement()">Go</button></td></tr>'."\n";
 $menu .= '</table>';
 $menu .= border('syellow','end')."\n";
@@ -187,7 +206,7 @@ $body .= '<input type="submit" value="'.$roster->locale->act['config_submit_butt
 $body .= '</form><br />'."\n";
 
 $body .= border('sgreen','start',$section);
-$body .= '<div id="array" style="width:'.(105*$arrayWidth+10).'px;height:'.(30*$arrayHeight+5).'px;"></div>'."\n";
+$body .= '<div id="array" style="width:'.(125*$arrayWidth+10).'px;height:'.(40*$arrayHeight+5).'px;"></div>'."\n";
 $body .= border('sgreen','end',$section);
 
 foreach($arrayButtons as $posX=>$column)
@@ -202,7 +221,25 @@ foreach($arrayButtons as $posX=>$column)
 				$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 			}
 		}
-		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . ' [' . $button['title'] . ']</div>' . "\n";
+
+		$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
+		$button['titkey'] = $button['title'];
+
+		$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+		if( strpos($button['title'],'|') )
+		{
+			list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+		}
+		else
+		{
+			$button['tooltip'] = '';
+		}					
+		
+		$button['tooltip'] .= '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$button['titkey'].'</span></span>';
+
+		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'',',WRAP');
+		
+		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
 	}
 }
 
@@ -221,9 +258,9 @@ SET_DHTML(CURSOR_MOVE'.$dhtml_reg.', "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"
 
 var roster_url	= \''.ROSTER_URL.'\';
 
-var dy		= 30;
+var dy		= 40;
 var margTop	= 5;
-var dx		= 105;
+var dx		= 125;
 var margLef	= 5;
 
 var arrayWidth = '.$arrayWidth.';
