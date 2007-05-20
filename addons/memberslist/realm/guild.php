@@ -26,6 +26,7 @@ $memberlist = new memberslist(array('group_alts'=>-1));
 $mainQuery =
 	'SELECT '.
 	'`guild`.`guild_name`, '.
+	'`guild`.`guild_id`, '.
 	'`guild`.`faction`, '.
 	'`guild`.`guild_num_members`, '.
 	'`guild`.`guild_num_accounts`, '.
@@ -41,6 +42,7 @@ $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
 	'order' => array( '`guild`.`guild_name` ASC' ),
 	'order_d' => array( '`guild`.`guild_name` DESC' ),
+	'value' => 'guild_value',
 	'js_type' => 'ts_string',
 	'display' => 3,
 );
@@ -163,4 +165,24 @@ function note_value ( $row, $field )
 	}
 
 	return '<div style="display:none; ">'.htmlentities($row[$field]).'</div>'.$note;
+}
+
+/**
+ * Controls Output of the Guild Name Column
+ *
+ * @param array $row
+ * @return string - Formatted output
+ */
+function guild_value ( $row, $field )
+{
+	global $roster;
+
+	if( $row['guild_id'] )
+	{
+		return '<div style="display:none; ">'.$row['guild_name'].'</div>'.'<a href="'.makelink('guild-memberslist&amp;guild='.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
+	}
+	else
+	{
+		return '<div style="display:none; ">'.$row['guild_name'].'</div>'.$row['guild_name'];
+	}
 }
