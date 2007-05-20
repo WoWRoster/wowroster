@@ -503,11 +503,25 @@ class RosterMenu
 						}
 					}
 
+					$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
+					
 					if( substr($button['url'],0,7) != 'http://')
 					{
 						$button['url'] = makelink($button['url']);
 					}
-					$html .= '              <li><a href="' . $button['url'] . '">' . ( isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'] ) . "</a></li>\n";
+					
+					$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+					if( strpos($button['title'],'|') )
+					{
+						list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+						$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
+					}
+					else
+					{
+						$button['tooltip'] = '';
+					}					
+					
+					$html .= '              <li'.$button['tooltip'].'><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
 				}
 				$html .= "            </ul>\n";
 				$html .= "          </td>\n";

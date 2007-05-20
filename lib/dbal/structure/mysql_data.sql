@@ -153,7 +153,7 @@ INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3|b4');
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'upprofile', 'update');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'search', 'search');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'roster_cp_ab', 'rostercp');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'credit', 'credits');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_upprofile', 'update', 'inv_banner_01');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_search', 'search', 'inv_misc_spyglass_02');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_roster_cp', 'rostercp', 'inv_misc_gear_02');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'menu_credits', 'credits', 'inv_egg_05');

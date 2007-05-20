@@ -360,7 +360,7 @@ function processAddon()
 				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$query = 'INSERT INTO `'.$roster->db->table('addon').'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$roster->db->escape(serialize($installer->addata['credits'])).'")';
+			$query = 'INSERT INTO `'.$roster->db->table('addon').'` VALUES (NULL,"'.$installer->addata['basename'].'","'.$installer->addata['version'].'",0,"'.$installer->addata['fullname'].'","'.$installer->addata['description'].'","'.$roster->db->escape(serialize($installer->addata['credits'])).'","'.$installer->addata['icon'].'")';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
@@ -388,7 +388,7 @@ function processAddon()
 				break;
 			}
 
-			$query = 'UPDATE `'.$roster->db->table('addon').'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'" WHERE `addon_id`='.$previous['addon_id'];
+			$query = 'UPDATE `'.$roster->db->table('addon').'` SET `basename`="'.$installer->addata['basename'].'", `version`="'.$installer->addata['version'].'", `active`='.$installer->addata['active'].', `fullname`="'.$installer->addata['fullname'].'", `description`="'.$installer->addata['description'].'", `credits`="'.serialize($installer->addata['credits']).'", `icon`="'.$installer->addata['icon'].'" WHERE `addon_id`='.$previous['addon_id'];
 			$result = $roster->db->query($query);
 			if( !$result )
 			{

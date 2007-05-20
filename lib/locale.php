@@ -73,7 +73,8 @@ class roster_locale
 			}
 			else
 			{
-				die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
+				// Do nothing for now. Nothing wrong with an addon not having any of its own localization
+//				die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
 			}
 		}
 
