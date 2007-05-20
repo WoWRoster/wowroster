@@ -31,6 +31,7 @@ class roster
 	var $data = false; // scope data
 	var $addon_data;
 	var $error; // Error handler class
+	var $menu_select = array(); // Menu Select data
 
 	var $output = array(
 			'http_header' => true,
@@ -88,13 +89,13 @@ class roster
 				break;
 		}*/
 
-		include_once(ROSTER_LIB.'dbal'.DIR_SEP.'mysql.php');
+		include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 
 		$this->db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
 
 		if ( !$this->db->link_id )
 		{
-			die(__FILE__.': line['.__LINE__.']<br />'.'Could not connect to database "'.$db_name.'"<br />MySQL said:<br />'.$this->db->connect_error());
+			die(__FILE__ . ': line[' . __LINE__ . ']<br />Could not connect to database "' . $db_name . '"<br />MySQL said:<br />' . $this->db->connect_error());
 		}
 	}
 
@@ -208,6 +209,23 @@ class roster
 
 				$this->db->free_result($result);
 
+
+				// Get the scope select data
+				$query = "SELECT `name`, `member_id`"
+					   . " FROM `" . $this->db->table('players') . "`"
+					   . " WHERE `guild_id` = '" . $this->data['guild_id'] . "';";
+
+				$result = $this->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
+				}
+
+				$this->menu_select = $this->db->fetch_all($result,MYSQL_NUM);
+
+				$this->db->free_result($result);
+
 				break;
 
 			case 'guild':
@@ -261,6 +279,21 @@ class roster
 
 				$this->db->free_result($result);
 
+
+				// Get the scope select data
+				$query = "SELECT CONCAT(`guild_name`,'@',`server`), `guild_id` FROM `" . $this->db->table('guild') . "`;";
+
+				$result = $this->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
+				}
+
+				$this->menu_select = $this->db->fetch_all($result,MYSQL_NUM);
+
+				$this->db->free_result($result);
+
 				break;
 
 			case 'realm':
@@ -276,6 +309,23 @@ class roster
 				}
 
 				$this->data = array('server' => $realm);
+
+
+				// Get the scope select data
+				$query = "SELECT DISTINCT `server`"
+					   . " FROM `" . $this->db->table('guild') . "`"
+					   . " UNION SELECT DISTINCT `server` FROM `" . $this->db->table('players') . "`;";
+
+				$result = $this->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
+				}
+
+				$this->menu_select = $this->db->fetch_all($result,MYSQL_NUM);
+
+				$this->db->free_result($result);
 
 				break;
 

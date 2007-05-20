@@ -71,19 +71,45 @@ class RosterMenu
 		}
 
 		// If we have a guild id, make the guild list
-		if( $roster->config['menu_top_list'] && isset($roster->data['guild_id']) )
+		if( $roster->config['menu_top_list'] )
 		{
-			$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post">
-';
-			$choiceForm .= $roster->locale->act['guild'] . ':
-		<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
-';
-			foreach( array('drk'=>'1','sys'=>'2') as $guild_name => $guild_id )
+			$label = $choices = '';
+			switch ($roster->pages[0])
 			{
-				$choiceForm .= '		<option value="' . makelink('&amp;guild=' . $guild_id) . '"' . ( $guild_id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $guild_name . "</option>\n";
+				case 'char':
+					$label = 'character';
+					foreach( $roster->menu_select as $db => $data )
+					{
+						$choices .= '		<option value="' . makelink('&amp;member=' . $data[1]) . '"' . ( $data[1] == $roster->data['member_id'] ? ' selected="selected"' : '' ) . '>' . $data[0] . "</option>\n";
+					}
+					break;
+
+				case 'guild':
+					$label = 'guild';
+					foreach( $roster->menu_select as $db => $data )
+					{
+						$choices .= '		<option value="' . makelink('&amp;guild=' . $data[1]) . '"' . ( $data[1] == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $data[0] . "</option>\n";
+					}
+					break;
+
+				case 'guildless':
+				case 'realm':
+					$label = 'realm';
+					foreach( $roster->menu_select as $db => $data )
+					{
+						$choices .= '		<option value="' . makelink('&amp;realm=' . $data[0]) . '"' . ( $data[0] == $roster->data['server'] ? ' selected="selected"' : '' ) . '>' . $data[0] . "</option>\n";
+					}
+					break;
 			}
 
-			$choiceForm .= "\t\t</select>\n\t</form>";
+			if( !empty($label) )
+			{
+				$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post">
+';
+				$choiceForm .= $roster->locale->act[$label] . ':'
+							 . '			<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">'
+							 . $choices . "\t\t</select>\n\t</form>";
+			}
 		}
 
 		if( !empty($choiceForm) )
@@ -504,12 +530,12 @@ class RosterMenu
 					}
 
 					$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
-					
+
 					if( substr($button['url'],0,7) != 'http://')
 					{
 						$button['url'] = makelink($button['url']);
 					}
-					
+
 					$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
 					if( strpos($button['title'],'|') )
 					{
@@ -519,8 +545,8 @@ class RosterMenu
 					else
 					{
 						$button['tooltip'] = '';
-					}					
-					
+					}
+
 					$html .= '              <li'.$button['tooltip'].'><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
 				}
 				$html .= "            </ul>\n";
