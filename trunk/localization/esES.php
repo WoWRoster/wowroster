@@ -238,6 +238,7 @@ $lang['kills']='Asesinatos';
 $lang['allow'] = 'Allow';
 $lang['disallow'] = 'Disallow';
 $lang['locale'] = 'Locale';
+$lang['default'] = 'Default';
 
 $lang['rosterdiag'] = 'Roster Diag.';
 $lang['difficulty'] = 'Dificultad';
@@ -636,10 +637,8 @@ $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of Wo
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
 // guild_conf
-$lang['admin']['guild_name'] = "Nombre de la hermandad|Debe ser exactamente igual a como esta escrito en el juego<br>o <u>NO</u> <u>PODRAS</u> subir personajes a la web";
-$lang['admin']['server_name'] = "Nombre del servidor|Debe ser exactamente igual al del juego o <u>NO</u> <u>PODRAS</u> subir personajes";
-$lang['admin']['guild_desc'] = "Descripci&oacute;n de la hermandad|Introduce una corta descripci&oacute;n de tu hermandad";
-$lang['admin']['server_type'] = "Tipo de servidor|Esto es para determinar tu tipo de servidor en el WoW";
+$lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
+$lang['admin']['default_desc'] = "Description|Enter a short description to be displayed when not in the guild or char scope";
 $lang['admin']['alt_type'] = "Alt-Texto b&uacute;squeda|Asignamos un texto a cada uno de los alts de la gente, para su siguiente localizaci&oacute;n";
 $lang['admin']['alt_location'] = "Campo b&uacute;squeda de alts|Indica el campo en el que se tiene que buscar la etiqueta indicada en el campo anterior";
 

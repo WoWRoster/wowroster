@@ -214,8 +214,17 @@ class roster
 				// Check if the guild attribute is set
 				if( !isset($_GET['guild']) )
 				{
-					$name = $this->db->escape( $this->config['guild_name'] );
-					$realm = $this->db->escape( $this->config['server_name'] );
+					// Get the default selected guild from the upload rules
+					$query =  "SELECT `name`, `server`"
+							. " FROM `" . $this->db->table('upload') . "`"
+							. " WHERE `default` = '1' LIMIT 1;";
+
+					$this->db->query($query);
+
+					$data = $this->db->fetch();
+
+					$name = $this->db->escape( $data['name'] );
+					$realm = $this->db->escape( $data['server'] );
 					$where = ' `guild_name` = "'.$name.'" AND `server` = "'.$realm.'"';
 				}
 				// Parse the attribute

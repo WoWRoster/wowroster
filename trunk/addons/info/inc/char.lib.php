@@ -2157,7 +2157,7 @@ $returnstring .= '  <tr>
 		global $roster;
 
 		$icon = '';
-		switch( substr($roster->data['faction'],0,1) )
+		switch( substr($roster->data['factionEn'],0,1) )
 		{
 			case 'A':
 				$icon = '<img src="'.$roster->config['img_url'].'icon_alliance.png" style="width:20px;height:20px;" alt="" />';

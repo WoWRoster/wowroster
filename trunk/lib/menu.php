@@ -35,10 +35,11 @@ class RosterMenu
 
 		define('ROSTER_MENU_INC',true);
 
-		$icon = '';
-		if( $roster->config['menu_top_faction'] && isset($roster->data['faction']) )
+		if( $roster->config['menu_top_faction'] )
 		{
-			switch( substr($roster->data['faction'],0,1) )
+			$faction = ( isset($roster->data['factionEn']) ? $roster->data['factionEn'] : '' );
+
+			switch( substr($faction,0,1) )
 			{
 				case 'A':
 					$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" style="float:left;" alt="" />';
@@ -46,15 +47,16 @@ class RosterMenu
 				case 'H':
 					$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" style="float:left;" alt="" />';
 					break;
+				default:
+					$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" style="float:left;" alt="" />';
+					break;
 			}
 		}
-		else
-		{
-			$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" style="float:left;" alt="" />';
-		}
 
+		// Time to generate some select lists
 		$choiceForm = '';
 
+		// Lets make a list of our current locales
 		if( $roster->config['menu_top_locale'] )
 		{
 			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post">
@@ -63,35 +65,22 @@ class RosterMenu
 ';
 			foreach( $roster->multilanguages as $language )
 			{
-				if( $language == $roster->config['locale'] )
-				{
-					$choiceForm .= '		<option value="' . $language . '" selected="selected">' . $language . "</option>\n";
-				}
-				else
-				{
-					$choiceForm .= '		<option value="' . $language . '">' . $language . "</option>\n";
-				}
+				$choiceForm .= '		<option value="' . $language . '"' . ( $language == $roster->config['locale'] ? ' selected="selected"' : '' ) . '>' . $language . "</option>\n";
 			}
 			$choiceForm .= "\t\t</select>\n\t</form>";
 		}
 
+		// If we have a guild id, make the guild list
 		if( $roster->config['menu_top_list'] && isset($roster->data['guild_id']) )
 		{
-			$choiceForm .= '	<form action="' . makelink() . '" name="guild_select" method="post">
+			$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post">
 ';
 			$choiceForm .= $roster->locale->act['guild'] . ':
 		<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
 ';
 			foreach( array('drk'=>'1','sys'=>'2') as $guild_name => $guild_id )
 			{
-				if( $guild_id == $roster->data['guild_id'] )
-				{
-					$choiceForm .= '		<option value="' . makelink('&amp;guild=' . $guild_id) . '" selected="selected">' . $guild_name . "</option>\n";
-				}
-				else
-				{
-					$choiceForm .= '		<option value="' . makelink('&amp;guild=' . $guild_id) . '">' . $guild_name . "</option>\n";
-				}
+				$choiceForm .= '		<option value="' . makelink('&amp;guild=' . $guild_id) . '"' . ( $guild_id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $guild_name . "</option>\n";
 			}
 
 			$choiceForm .= "\t\t</select>\n\t</form>";
@@ -107,15 +96,25 @@ class RosterMenu
 
 		if( $roster->config['menu_top_pane'] )
 		{
+			if( isset($roster->data['guild_name']) )
+			{
+				$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
+							. '      <span style="font-size:11px;"> @ ' . $roster->data['server'] . "</span><br />\n"
+							. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
+							. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
+			}
+			else
+			{
+				$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['default_name'] . '</a></span><br />' . "\n"
+							. ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
+			}
+
 			$topbar = "  <tr>\n"
 					. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
 					. $choiceForm
 					. $icon
-					. '<div style="float:none;">'
-					. '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . ( isset($roster->data['guild_name']) ? $roster->data['guild_name'] : $roster->config['guild_name'] ) . '</a></span>'."\n"
-					. '      <span style="font-size:11px;"> @ ' . ( isset($roster->data['server']) ? $roster->data['server'] : $roster->config['server_name'] ) . '</span><br />'
-					. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
-					. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n"
+					. '<div style="white-space:nowrap;">'
+					. $menu_text
 					. "    </div></td>\n"
 					. "  </tr>\n"
 					. "  <tr>\n"
@@ -361,6 +360,8 @@ class RosterMenu
 	{
 		global $roster;
 
+		$realmStatus = '';
+
 		if( !empty($roster->config['realmstatus']) )
 		{
 			$realmname = utf8_decode($roster->config['realmstatus']);
@@ -371,27 +372,29 @@ class RosterMenu
 		}
 		else
 		{
-			$realmname = utf8_decode($roster->config['server_name']);
+			$realmname = '';
 		}
 
-		$realmStatus = '    <td valign="top" class="row">' . "\n";
-		if( $roster->config['rs_mode'] )
+		if( !empty($realmname) )
 		{
-			$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . $realmname . '" />' . "\n";
-		}
-		elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
-		{
-			ob_start();
-				include_once (ROSTER_BASE . 'realmstatus.php');
-			$realmStatus .= ob_get_clean() . "\n";
-		}
-		else
-		{
-			$realmStatus .= '&nbsp;';
-		}
+			$realmStatus .= '    <td valign="top" class="row">' . "\n";
+			if( $roster->config['rs_mode'] )
+			{
+				$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . $realmname . '" />' . "\n";
+			}
+			elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
+			{
+				ob_start();
+					include_once (ROSTER_BASE . 'realmstatus.php');
+				$realmStatus .= ob_get_clean() . "\n";
+			}
+			else
+			{
+				$realmStatus .= '&nbsp;';
+			}
 
-		$realmStatus .= "    </td>\n";
-
+			$realmStatus .= "    </td>\n";
+		}
 		return $realmStatus;
 	}
 

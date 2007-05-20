@@ -26,6 +26,9 @@ DELETE FROM `renprefix_config` WHERE `id` = 1070 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1080 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 1130 LIMIT 1;
 
+DELETE FROM `renprefix_config` WHERE `id` = 2010 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = 2030 LIMIT 1;
+
 DELETE FROM `renprefix_config` WHERE `id` = 3000 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 3010 LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = 3015 LIMIT 1;
@@ -101,10 +104,14 @@ DELETE FROM `renprefix_config` WHERE `id` = 9030 LIMIT 1;
 
 # Change config variables
 UPDATE `renprefix_config` SET `config_name` = 'locale' WHERE `id` = '1040' LIMIT 1;
+UPDATE `renprefix_config` SET `config_name` = 'default_name' WHERE `id` = '2000' LIMIT 1;
+UPDATE `renprefix_config` SET `config_name` = 'default_desc' WHERE `id` = '2020' LIMIT 1;
+
 
 # --------------------------------------------------------
 ### New master entry: Startpage
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
+
 
 # --------------------------------------------------------
 ### Config Menu Entries
@@ -505,7 +512,8 @@ ALTER TABLE `renprefix_memberlog`
 ### Alter Guild Table
 ALTER TABLE `renprefix_guild`
   CHANGE `faction` `faction` varchar(32) NOT NULL default '',
-  ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`;
+  ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`,
+  ADD `region` varchar(16) NOT NULL default '' AFTER `server` ;
 
 # --------------------------------------------------------
 ### Addon table
@@ -569,7 +577,8 @@ CREATE TABLE `renprefix_upload` (
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
   `region` varchar(16) NOT NULL default '',
-  `type` tinyint(4) NOT NULL,
+  `type` tinyint(4) NOT NULL default '0',
+  `default` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`rule_id`)
 ) TYPE=MyISAM;
 

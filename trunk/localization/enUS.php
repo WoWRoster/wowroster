@@ -238,6 +238,7 @@ $lang['kills']='Kills';
 $lang['allow'] = 'Allow';
 $lang['disallow'] = 'Disallow';
 $lang['locale'] = 'Locale';
+$lang['default'] = 'Default';
 
 $lang['rosterdiag'] = 'Roster Diag.';
 $lang['difficulty'] = 'Difficulty';
@@ -636,10 +637,8 @@ $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of Wo
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
 // guild_conf
-$lang['admin']['guild_name'] = "Guild Name|This must be spelled exactly as it is in the game<br />or you <u>WILL</u> <u>NOT</u> be able to upload profiles";
-$lang['admin']['server_name'] = "Server Name|This must be spelled exactly as it is in the game<br />or you <u>WILL</u> <u>NOT</u> be able to upload profiles";
-$lang['admin']['guild_desc'] = "Guild Description|Enter a short Guild Description";
-$lang['admin']['server_type'] = "Server Type|This for your type of server in WoW";
+$lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
+$lang['admin']['default_desc'] = "Description|Enter a short description to be displayed when not in the guild or char scope";
 $lang['admin']['alt_type'] = "Alt-Text Search|Text used to designate alts for display count in the main menu";
 $lang['admin']['alt_location'] = "Alt-Search Field|Search location, what field to search for Alt-Text";
 

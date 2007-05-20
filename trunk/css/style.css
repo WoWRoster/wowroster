@@ -107,6 +107,8 @@ select {
 /* this can be used to ensure checkboxes and radio buttons do not have a border */
 .checkBox { border:0;color:#ffffff;font:10px verdana,arial;background-color:transparent; }
 
+.button_hide { border:0;background-color:transparent;padding:0;margin:0; }
+
 /**
  * Special Radio Buttons and Checkboxes
  */
@@ -375,6 +377,33 @@ select {
 	padding:3px 6px 3px 6px;
 	height:47px;
 	width:42px;
+}
+
+.membersRowCell {
+	position:relative;
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
+}
+
+.membersRowRightCell {
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
 }
 
 .membersRow1 {

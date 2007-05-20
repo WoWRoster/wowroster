@@ -78,6 +78,7 @@ CREATE TABLE `renprefix_guild` (
   `guild_id` int(11) unsigned NOT NULL auto_increment,
   `guild_name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
+  `region` varchar(16) NOT NULL default '',
   `faction` varchar(32) NOT NULL default '',
   `factionEn` varchar(32) NOT NULL default '',
   `guild_motd` varchar(255) NOT NULL default '',
@@ -709,6 +710,7 @@ CREATE TABLE `renprefix_upload` (
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
   `region` varchar(16) NOT NULL default '',
-  `type` tinyint(4) NOT NULL,
+  `type` tinyint(4) NOT NULL default '0',
+  `default` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`rule_id`)
 ) TYPE=MyISAM;

@@ -45,7 +45,7 @@ elseif( isset($roster->data['server']) )
 }
 else
 {
-	$realmname = utf8_decode($roster->config['server_name']);
+	$realmname = '';
 }
 
 $realmname = trim($realmname);

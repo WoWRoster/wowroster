@@ -44,21 +44,7 @@ else
 {
 	include( $roster_root_path . 'settings.php' );
 
-	$guild_escape = $roster->db->escape( $roster->config['guild_name'] );
-	$server_escape = $roster->db->escape( $roster->config['server_name'] );
-
-	$query = "SELECT `guild_motd` "
-		   . "FROM `" . $roster->db->table('guild') . "` "
-		   . "WHERE `guild_name` = '" . $guild_escape . "' "
-		   . "AND `server` = '" . $server_escape . "';";
-
-	$guild_motd = $roster->db->query_first($query);
-
-	if( !$guild_motd )
-	{
-		$guild_motd = 'Failed to fetch guild MOTD';
-	}
-	$guildMOTD = substr(htmlspecialchars($guild_motd),0,145);
+	$guildMOTD = 'Invalid Access';
 }
 
 

@@ -83,7 +83,7 @@ if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 }
 elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 {
-	$roster->config['guild_name'] = $_POST['guildname'];
+	$roster->config['default_name'] = $_POST['guildname'];
 	$roster->output['title'] = 'Remote Diagnostics';
 	$roster->config['img_url'] = ROSTER_PATH.'img/';
 	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
@@ -164,7 +164,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
 		echo '<div align="center"><form method="POST" action="'.ROSTER_SVNREMOTE.'">';
 		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
-		echo '<input type="hidden" name="guildname" value="'.$roster->config['guild_name'].'">';
+		echo '<input type="hidden" name="guildname" value="'.$roster->config['default_name'].'">';
 		echo '<input type="hidden" name="website" value="'.$roster->config['website_address'].'">';
 		echo '<input type="radio" name="ziptype" value="zip" checked="checked">.zip Archive<br />';
 		echo '<input type="radio" name="ziptype" value="targz">.tar.gz Archive<br /><br />';
@@ -316,7 +316,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 {
 
-	$roster->config['guild_name'] = $_POST['guildname'];
+	$roster->config['default_name'] = $_POST['guildname'];
 	$roster->output['title'] = 'Remote Diagnostics';
 	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
 	$roster->config['logo'] = 'img/wowroster_logo.jpg';
@@ -328,11 +328,11 @@ elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 
 	if ($ziptype == 'targz')
 	{
-		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.$roster->config['guild_name'].'_'.date("Ymd_Hi").'.tar.gz');
+		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.$roster->config['default_name'].'_'.date("Ymd_Hi").'.tar.gz');
 	}
 	else
 	{
-		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.$roster->config['guild_name'].'_'.date("Ymd_Hi").'.zip');
+		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.$roster->config['default_name'].'_'.date("Ymd_Hi").'.zip');
 	}
 
 	$downloadpackage->set_options(array('inmemory' => 1, 'recurse' => 0, 'storepaths' => 1));
