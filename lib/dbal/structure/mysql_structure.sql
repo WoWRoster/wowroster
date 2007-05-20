@@ -79,7 +79,7 @@ CREATE TABLE `renprefix_guild` (
   `guild_id` int(11) unsigned NOT NULL auto_increment,
   `guild_name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
-  `region` varchar(16) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
   `faction` varchar(32) NOT NULL default '',
   `factionEn` varchar(32) NOT NULL default '',
   `guild_motd` varchar(255) NOT NULL default '',
@@ -143,6 +143,7 @@ CREATE TABLE `renprefix_members` (
   `member_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
@@ -159,6 +160,7 @@ CREATE TABLE `renprefix_members` (
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),
   KEY `name` (`name`),
+  KEY `char` (`region`,`server`,`name`),
   KEY `class` (`class`),
   KEY `level` (`level`),
   KEY `guild_rank` (`guild_rank`),
@@ -174,6 +176,7 @@ CREATE TABLE `renprefix_memberlog` (
   `member_id` int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
@@ -354,6 +357,7 @@ CREATE TABLE `renprefix_players` (
   `hearth` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
   `server` varchar(32) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
   `talent_points` int(11) NOT NULL default '0',
   `money_c` int(11) NOT NULL default '0',
   `money_s` int(11) NOT NULL default '0',
@@ -545,7 +549,8 @@ CREATE TABLE `renprefix_players` (
   `timeplayed` int(11) NOT NULL default '0',
   `timelevelplayed` int(11) NOT NULL default '0',
   PRIMARY KEY  (`member_id`),
-  KEY `name` (`name`,`server`)
+  KEY `name` (`name`,`server`),
+  KEY `char` (`region`,`server`,`name`)
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
@@ -711,7 +716,7 @@ CREATE TABLE `renprefix_upload` (
   `rule_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
-  `region` varchar(16) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
   `type` tinyint(4) NOT NULL default '0',
   `default` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`rule_id`)

@@ -337,8 +337,8 @@ ALTER TABLE `renprefix_players`
   ADD `raceEn` varchar(32) NOT NULL default '' AFTER `race`,
   ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`,
   ADD `sexid` tinyint(1) NOT NULL default '0' AFTER `sex`,
-  ADD `power` varchar(32) NOT NULL default '' AFTER `mana`;
-
+  ADD `power` varchar(32) NOT NULL default '' AFTER `mana`,
+  ADD `region` char(2) NOT NULL default '' AFTER `server`;
 
 # --------------------------------------------------------
 ### Alter Pets Table
@@ -485,6 +485,7 @@ CREATE TABLE `renprefix_spellbook_pet` (
 ALTER TABLE `renprefix_members`
   ADD `active` tinyint(1) NOT NULL default '0',
   ADD `server` varchar(32) NOT NULL default '' after `name`,
+  ADD `region` char(2) NOT NULL default '' AFTER `server`,
   DROP `update_time`,
   DROP `inv`,
   DROP `talents`,
@@ -506,14 +507,15 @@ UPDATE `renprefix_members` members
 # --------------------------------------------------------
 ### Alter Memberlog Table
 ALTER TABLE `renprefix_memberlog`
-  ADD `server` varchar(32) NOT NULL default '' after `name`;
+  ADD `server` varchar(32) NOT NULL default '' after `name`,
+  ADD `region` char(2) NOT NULL default '' AFTER `server`;
 
 # --------------------------------------------------------
 ### Alter Guild Table
 ALTER TABLE `renprefix_guild`
   CHANGE `faction` `faction` varchar(32) NOT NULL default '',
   ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`,
-  ADD `region` varchar(16) NOT NULL default '' AFTER `server` ;
+  ADD `region` char(2) NOT NULL default '' AFTER `server`;
 
 # --------------------------------------------------------
 ### Addon table
@@ -578,7 +580,7 @@ CREATE TABLE `renprefix_upload` (
   `rule_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
   `server` varchar(32) NOT NULL default '',
-  `region` varchar(16) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
   `type` tinyint(4) NOT NULL default '0',
   `default` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`rule_id`)
