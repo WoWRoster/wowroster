@@ -266,68 +266,110 @@ class update
 
 		$this->resetMessages();
 
-		foreach( array_keys($myProfile) as $realm_name )
+		foreach( $myProfile as $realm_name => $realm)
 		{
-//			if( $roster->config['server_name'] == $realm_name )
+			if( isset($realm['Character']) && is_array($realm['Character']) )
 			{
-//				$guildInfo = $this->get_guild_info($realm_name,$roster->config['guild_name']);
+				$characters = $realm['Character'];
 
-				if( isset($myProfile[$realm_name]['Character']) && is_array($myProfile[$realm_name]['Character']) )
+				// Start update triggers
+				if( $roster->config['use_update_triggers'] )
 				{
-					$characters = $myProfile[$realm_name]['Character'];
-
-					// Start update triggers
-					if( $roster->config['use_update_triggers'] )
-					{
-						$output .= $this->addon_hook('char_pre', $characters);
-					}
-
-					foreach( array_keys( $characters ) as $char_name )
-					{
-						$char = $characters[$char_name];
-
-						// CP Version Detection, don't allow lower than minVer
-						if( $char['DBversion'] >= $roster->config['minCPver'] )
-						{
-							if( !isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
-							{
-								continue;
-							}
-
-							$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name) . "</strong>\n";
-
-							$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
-							$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
-							$this->resetMessages();
-
-							// Start update triggers
-							if( $memberid !== false && $roster->config['use_update_triggers'] )
-							{
-								$output .= $this->addon_hook('char', $char, $memberid);
-							}
-						}
-						else // CP Version not new enough
-						{
-							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['DBversion']) . "</span><br />\n";
-							$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
-						}
-						$output .= "<br />\n";
-					}
-
-					// Start update triggers
-					if( $roster->config['use_update_triggers'] )
-					{
-						$output .= $this->addon_hook('char_post', $characters);
-					}
+					$output .= $this->addon_hook('char_pre', $characters);
 				}
-				else
+
+				foreach( $characters as $char_name => $char)
 				{
-					$output .= $roster->locale->act['noGuild'];
+					// Get the region
+					if( isset($char['timestamp']['init']['datakey']) )
+					{
+						list($region) = explode(':',$char['timestamp']['init']['datakey']);
+					}
+					else
+					{
+						$region = '';
+					}
+
+					// Is this char already in the members table?
+					$query = "SELECT `member_id`"
+						. " FROM `".$roster->db->table('members')."`"
+						. " WHERE `name` = '".$char_name."'"
+						. " AND `server` = '".$realm_name."'"
+//						. " AND `region` = '".$region."'"
+						. ";";
+					
+
+					if(!$roster->db->query_first($query))
+					{
+						// Allowed char detection
+						$query = "SELECT `type`, COUNT(`rule_id`)"
+							. " FROM `".$roster->db->table('upload')."`"
+							. " WHERE (`type` = 2 OR `type` = 3)"
+							. " AND '".$char_name."' LIKE `name` "
+							. " AND '".$realm_name."' LIKE `server` "
+							. " AND '".$region."' LIKE `region` "
+							. " GROUP BY `type` "
+							. " ORDER BY `type` DESC;";
+						
+						/**
+						 * This might need explaining. The query potentially returns 2 rows:
+						 * First the number of matching deny rows, then the number of matching
+						 * accept rows. If there are deny rows, `type`=3 in the first row, and
+						 * we reject the upload. If there are no deny rows, but there are accept
+						 * rows, `type`=2 in the first row, and we accept the upload. If there are
+						 * no relevant rows at all, query_first will return false, and we reject
+						 * the upload.
+						 */
+						
+						if($roster->db->query_first($query) !== 2)
+						{
+							$output .= "Character ".$char_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
+							continue;
+						}
+						else
+						{
+							$output .= "Guildless character insertion currently not supported";
+							continue;
+						}
+					}
+
+					// CP Version Detection, don't allow lower than minVer
+					if( $char['DBversion'] >= $roster->config['minCPver'] )
+					{
+						if( !isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
+						{
+							continue;
+						}
+
+						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name,$region) . "</strong>\n";
+
+						$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
+						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
+						$this->resetMessages();
+
+						// Start update triggers
+						if( $memberid !== false && $roster->config['use_update_triggers'] )
+						{
+							$output .= $this->addon_hook('char', $char, $memberid);
+						}
+					}
+					else // CP Version not new enough
+					{
+						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['DBversion']) . "</span><br />\n";
+						$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
+					}
+					$output .= "<br />\n";
+				}
+
+				// Start update triggers
+				if( $roster->config['use_update_triggers'] )
+				{
+					$output .= $this->addon_hook('char_post', $characters);
 				}
 			}
-//			else
+			else
 			{
-//				$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name) . "<br />\n";
+				$output .= $roster->locale->act['noGuild'];
 			}
 		}
 		return $output;
@@ -349,122 +391,133 @@ class update
 		{
 			foreach( $myProfile as $realm_name => $realm )
 			{
-				// Only allow realms specified in config
-//				if( $realm_name == $roster->config['server_name'])
+				if( isset($realm['Guild']) && is_array($realm['Guild']) )
 				{
-					if( isset($realm['Guild']) && is_array($realm['Guild']) )
+					foreach( $realm['Guild'] as $guild_name => $guild )
 					{
-						foreach( $realm['Guild'] as $guild_name => $guild )
+						// Get the region
+						if( isset($guild['timestamp']['init']['datakey']) )
 						{
-							// Only allow the guild specified in config
-//							if( $roster->config['guild_name'] == $guild_name )
-							{
-								// GP Version Detection, don't allow lower than minVer
-								if( $guild['DBversion'] >= $roster->config['minGPver'] )
-								{
-									if( count($guild['Members']) > 0 )
-									{
-										// take the current time and get the offset. Upload must occur same day that roster was obtained
-										$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
-
-										if( $roster->data && ( ( strtotime($roster->data['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 ) )
-										{
-											return sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
-										}
-
-										// Get the region
-										if( isset($guild['timestamp']['init']['datakey']) )
-										{
-											list($region) = explode(':',$guild['timestamp']['init']['datakey']);
-										}
-										else
-										{
-											$region = '';
-										}
-
-										// Update the guild
-										$guildId = $this->update_guild($realm_name, $guild_name, $currentTimestamp, $guild, $region);
-										$guildMembers = $guild['Members'];
-
-										$guild_output = '';
-
-										// Start update triggers
-										if( $roster->config['use_update_triggers'] )
-										{
-											$guild_output .= $this->addon_hook('guild_pre', $guild);
-										}
-
-										// update the list of guild members
-										$guild_output .= "<ul><li><strong>" . $roster->locale->act['update_members'] . "</strong>\n<ul>\n";
-
-										foreach(array_keys($guildMembers) as $char_name)
-										{
-											$char = $guildMembers[$char_name];
-											$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $char, $currentTimestamp, $guild['Ranks']);
-											$guild_output .= $this->getMessages();
-											$this->resetMessages();
-
-											// Start update triggers
-											if( $memberid !== false && $roster->config['use_update_triggers'] )
-											{
-												$guild_output .= $this->addon_hook('guild', $char, $memberid);
-											}
-										}
-										// Remove the members who were not in this list
-//										$this->remove_guild_members($guildId, $currentTimestamp);
-//										$this->remove_guild_members_id($guildId, $currentTimestamp);
-
-										$guild_output .= $this->getMessages()."</ul></li>\n";
-										$this->resetMessages();
-
-										$guild_output .= "</ul>\n";
-
-										// Start update triggers
-										if( $roster->config['use_update_triggers'] )
-										{
-											$guild_output .= $this->addon_hook('guild_post', $guild);
-										}
-
-										$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name) . "</strong>\n<ul>\n";
-										$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
-												 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
-												 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
-												 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
-												 . "</ul></li></ul>\n";
-										$output .= $guild_output;
-									}
-									else
-									{
-										$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name) . "</span><br />\n";
-										$output .= $roster->locale->act['no_members'] . "<br />\n";
-									}
-								}
-								else
-								// GP Version not new enough
-								{
-									$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['DBversion']) . "</span><br />\n";
-									$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
-								}
-							}
-//							else
-							{
-//								$output .= sprintf($roster->locale->act['guild_realm_ignored'],$guild_name,$realm_name) . "<br />\n";
-							}
+							list($region) = explode(':',$guild['timestamp']['init']['datakey']);
 						}
-						if( !isset($guild) )
+						else
 						{
-							$output .= sprintf($roster->locale->act['guild_nameNotFound'],$guild_name)."<br />\n";
+							$region = '';
 						}
 
+						// Allowed guild detection
+						$query = "SELECT `type`, COUNT(`rule_id`)"
+							. " FROM `".$roster->db->table('upload')."`"
+							. " WHERE (`type` = 0 OR `type` = 1)"
+							. " AND '".$guild_name."' LIKE `name` "
+							. " AND '".$realm_name."' LIKE `server` "
+							. " AND '".$region."' LIKE `region` "
+							. " GROUP BY `type` "
+							. " ORDER BY `type` DESC;";
+						
+						/**
+						 * This might need explaining. The query potentially returns 2 rows:
+						 * First the number of matching deny rows, then the number of matching
+						 * accept rows. If there are deny rows, `type`=1 in the first row, and
+						 * we reject the upload. If there are no deny rows, but there are accept
+						 * rows, `type`=0 in the first row, and we accept the upload. If there are
+						 * no relevant rows at all, query_first will return false, and we reject
+						 * the upload.
+						 */
+						
+						if($roster->db->query_first($query) !== "0")
+						{
+							$output .= "Guild ".$guild_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
+							continue;
+						}							
+					
+						// GP Version Detection, don't allow lower than minVer
+						if( $guild['DBversion'] >= $roster->config['minGPver'] )
+						{
+							if( count($guild['Members']) > 0 )
+							{
+								// take the current time and get the offset. Upload must occur same day that roster was obtained
+								$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
+
+								if( $roster->data && ( ( strtotime($roster->data['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 ) )
+								{
+									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
+									continue;
+								}
+
+								// Update the guild
+								$guildId = $this->update_guild($realm_name, $guild_name, $currentTimestamp, $guild, $region);
+								$guildMembers = $guild['Members'];
+
+								$guild_output = '';
+
+								// Start update triggers
+								if( $roster->config['use_update_triggers'] )
+								{
+									$guild_output .= $this->addon_hook('guild_pre', $guild);
+								}
+
+								// update the list of guild members
+								$guild_output .= "<ul><li><strong>" . $roster->locale->act['update_members'] . "</strong>\n<ul>\n";
+
+								foreach(array_keys($guildMembers) as $char_name)
+								{
+									$char = $guildMembers[$char_name];
+									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $char, $currentTimestamp, $guild['Ranks']);
+									$guild_output .= $this->getMessages();
+									$this->resetMessages();
+
+									// Start update triggers
+									if( $memberid !== false && $roster->config['use_update_triggers'] )
+									{
+										$guild_output .= $this->addon_hook('guild', $char, $memberid);
+									}
+								}
+								// Remove the members who were not in this list
+//								$this->remove_guild_members($guildId, $currentTimestamp);
+//								$this->remove_guild_members_id($guildId, $currentTimestamp);
+
+								$guild_output .= $this->getMessages()."</ul></li>\n";
+								$this->resetMessages();
+
+								$guild_output .= "</ul>\n";
+
+								// Start update triggers
+								if( $roster->config['use_update_triggers'] )
+								{
+									$guild_output .= $this->addon_hook('guild_post', $guild);
+								}
+
+								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
+								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
+										 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
+										 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
+										 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
+										 . "</ul></li></ul>\n";
+								$output .= $guild_output;
+							}
+							else
+							{
+								$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name) . "</span><br />\n";
+								$output .= $roster->locale->act['no_members'] . "<br />\n";
+							}
+						}
+						else
+						// GP Version not new enough
+						{
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['DBversion']) . "</span><br />\n";
+							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
+						}
 					}
-					else
+					if( !isset($guild) )
 					{
-						$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span>'."<br />\n";
+						$output .= sprintf($roster->locale->act['guild_nameNotFound'],$guild_name)."<br />\n";
 					}
+
 				}
-//				else
+				else
 				{
-//					$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name)."<br />\n";
+					$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span>'."<br />\n";
 				}
 			}
 		}

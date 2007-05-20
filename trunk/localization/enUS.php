@@ -74,7 +74,7 @@ $lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
 $lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
 $lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old';
 $lang['no_members'] = 'Data does not contain any guild members';
-$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%3$s</span>]';
+$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
 $lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s Not Scanned';
 $lang['update_members'] = 'Updating Members';
