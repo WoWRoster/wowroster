@@ -501,6 +501,12 @@ $lang['notatwar']='Not at War';
 	$lang['PvPLogver_err']='The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v%1$s, and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua SavedVariable file prior to updating.';
 	$lang['GPver_err']='The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v%1$s';
 
+// Menu titles
+$lang['menu_upprofile']='Update Profile|Update your profile on this site';
+$lang['menu_search']='Search|Search items and recipes in the database';
+$lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
+$lang['menu_credits']='Credits|Who made WoW Roster';
+
 $lang['menuconf_sectionselect']='Select Section';
 
 $lang['installer_install_0']='Installation of %1$s successful';

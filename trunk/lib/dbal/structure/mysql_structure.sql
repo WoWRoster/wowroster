@@ -26,6 +26,7 @@ CREATE TABLE `renprefix_addon` (
 	`fullname` tinytext NOT NULL,
 	`description` mediumtext NOT NULL,
 	`credits` mediumtext NOT NULL,
+	`icon` varchar(64) NOT NULL DEFAULT '',
 	PRIMARY KEY (`addon_id`)
 ) TYPE=MyISAM;
 
@@ -205,6 +206,7 @@ CREATE TABLE `renprefix_menu_button` (
 	`addon_id` int(11) NOT NULL COMMENT '0 for main roster',
 	`title` varchar(32),
 	`url` varchar(128),
+	`icon` varchar(64) NOT NULL DEFAULT '',
 	PRIMARY KEY (`button_id`),
 	KEY `idtitle` (`addon_id`,`title`)
 ) TYPE=MyISAM;

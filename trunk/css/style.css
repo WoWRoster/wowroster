@@ -157,7 +157,7 @@ select {
 
 /**
  * Misc Defines
-**/
+ */
 .bodyline { border:1px #212121 solid; }
 .GMOTD { font-size:14px;font-weight:bold;color:#FF0000; }
 
@@ -179,7 +179,7 @@ select {
 
 /**
  * List Menus
-**/
+ */
 .tab_menu { padding:0;margin:0;font:11px arial,helvetica,sans-serif;list-style-type:none;text-align:center; }
 .tab_menu li { display:block;margin:2px 2px 2px; }
 .tab_menu li a {
@@ -200,44 +200,36 @@ select {
 
 /**
  * Roster Main Menu
-**/
+ */
 /* Container for the main roster menu */
 .main_roster_menu { font:11px arial,helvetica,sans-serif; }
 .main_roster_menu span { font:11px arial,helvetica,sans-serif;color:#ffffff; }
 
 /* List define for main menu */
-.main_roster_menu ul { font:10px arial,helvetica,sans-serif;margin:0;padding:0;list-style-type:none; }
-
-/* List item define for main menu */
-.main_roster_menu li { margin:2px 5px 2px;text-align:left; }
-
-/* List define for main menu */
 .main_roster_menu .links ul { font:11px verdana,arial,helvetica,sans-serif;margin:0;padding:0;list-style-type:none; }
 
 /* List item define for main menu */
-.main_roster_menu .links li { margin:2px 1px 2px;text-align:left; }
+.main_roster_menu .links li { margin:2px 1px 2px;text-align:left;clear:left; }
 
-/* List define for main menu */
-.main_roster_menu .addon ul { font:10px verdana,arial,helvetica,sans-serif;margin:0;padding:0;list-style-type:none; }
-
-/* List item define for main menu */
-.main_roster_menu .addon li { float:left;margin:1px 3px 1px;text-align:left; }
+/* List item icon for main menu */
+.main_roster_menu .links img { height:32px;width:32px;margin:2px;float:left; }
 
 /* Links in menu */
-.main_roster_menu .links a, .main_roster_menu .addon a {
+.main_roster_menu .links a {
 	display:block;
 	text-align:center;
-	width:100px;
+	width:120px;
+	min-height:35px;
 	border:solid #5D5D5D;
 	border-width:1px 0 0 1px;
 	background-color:#2E2D2B;
 	text-decoration:none;
 }
 /* Links in menu on-click */
-.main_roster_menu .links a:active, .main_roster_menu .addon a:active { background-color:#778899; }
+.main_roster_menu .links a:active { background-color:#778899; }
 
 /* Links in menu on-mouseover */
-.main_roster_menu .links a:hover, .main_roster_menu .addon a:hover { background-color:#7A7772; }
+.main_roster_menu .links a:hover { background-color:#7A7772; }
 
 .main_roster_menu .header {
 	background:#1F1E1D url(../img/bgrep.gif);
