@@ -114,11 +114,6 @@ if( $addon['config']['log_update_inst'] )
 }
 
 
-if ( $addon['config']['log_motd'] == 1 )
-{
-	print $memberlist->makeMotd();
-}
-
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu('main');
 $roster->output['show_menu'] = false;

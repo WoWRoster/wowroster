@@ -202,11 +202,11 @@ function ruletable_line( $row , $type )
 	{
 		if( $row['default'] == '1' )
 		{
-			$output .= '			<td class="membersRowCell" style="text-align:center;"><img src="' . $roster->config['img_url'] . 'plus.gif" alt="" /></td>';
+			$output .= '			<td class="membersRowCell" style="text-align:center;"><img src="' . $roster->config['img_url'] . 'check_on.png" alt="" /></td>';
 		}
 		else
 		{
-			$output .= '			<td class="membersRowCell" style="text-align:center;"><button class="button_hide" style="cursor:pointer;" name="action" value="default_' . $row['rule_id'] . '"><img src="' . $roster->config['img_url'] . 'minus.gif" alt="" /></button></td>';
+			$output .= '			<td class="membersRowCell" style="text-align:center;"><button class="button_hide" style="cursor:pointer;" name="action" value="default_' . $row['rule_id'] . '"><img src="' . $roster->config['img_url'] . 'check_off.png" alt="" /></button></td>';
 		}
 	}
 	$output .= '
