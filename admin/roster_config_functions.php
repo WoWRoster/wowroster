@@ -80,14 +80,15 @@ function pageNames( )
 			}
 		}
 
+		list($title) = explode('|',isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title']);
 		if( $row['url'] == $roster->config['default_page'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$row['url'].'" selected="selected">-[ '.( isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title'] ).' ]-</option>'."\n";
+			$input_field .= '  <option value="'.$row['url'].'" selected="selected">-[ '.$title.' ]-</option>'."\n";
 			$select_one = 0;
 		}
 		else
 		{
-			$input_field .= '  <option value="'.$row['url'].'">'.( isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title'] ).'</option>'."\n";
+			$input_field .= '  <option value="'.$row['url'].'">'.$title.'</option>'."\n";
 		}
 	}
 
