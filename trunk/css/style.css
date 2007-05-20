@@ -256,8 +256,8 @@ select {
 .menu_config_div {
 /* The div elements used for the menu config screen */
 	position: absolute;
-	width:100px;
-	height:25px;
+	width:120px;
+	height:35px;
 	display:block;
 	text-align:center;
 	vertical-align:middle;
@@ -268,6 +268,12 @@ select {
 	color:#EABB00;
 	font-weight:bold;
 	font-size:10px;
+}
+.menu_config_div img {
+	height:32px;
+	width:32px;
+	margin:2px;
+	float:left;
 }
 
 /**

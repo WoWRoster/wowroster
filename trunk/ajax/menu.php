@@ -55,7 +55,18 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $roster->db->escape($_POST['title']) . "','" . $roster->db->escape($_POST['url']) . "')";
+		if( isset($_POST['icon']) )
+		{
+			$icon = $_POST['icon'];
+		}
+		else
+		{
+			$status = 104;
+			$errmsg = 'Failed to insert button: Not enough data (no icon given)';
+			return;
+		}
+
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $roster->db->escape($_POST['title']) . "','" . $roster->db->escape($_POST['url']) . "','" . $roster->db->escape($_POST['icon']) . "')";
 
 		$DBres = $roster->db->query($query);
 

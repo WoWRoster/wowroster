@@ -308,9 +308,8 @@ function sendAddElement()
 {
 	var title = document.getElementById('title'        ).value;
 	var url   = document.getElementById('url'          ).value;
-	//var show  = document.getElementById('config_access').value;
-	//loadXMLDoc(roster_url+'ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url)+'&show='+show);
-	loadXMLDoc(roster_url+'ajax.php?method=menu_button_add&cont=doAddElement','title='+title+'&url='+escape(url));
+	var icon  = document.getElementById('icon'         ).value;
+	loadXMLDoc(roster_url+'ajax.php?method=menu_button_add&cont=doAddElement','title='+escape(title)+'&url='+escape(url)+'&icon='+escape(icon));
 }
 
 /**
