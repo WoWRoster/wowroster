@@ -297,7 +297,7 @@ class update
 						. " AND `server` = '".$realm_name."'"
 						. " AND `region` = '".$region."'"
 						. ";";
-					
+
 
 					if(!$roster->db->query_first($query))
 					{
@@ -310,7 +310,7 @@ class update
 							. " AND '".$region."' LIKE `region` "
 							. " GROUP BY `type` "
 							. " ORDER BY `type` DESC;";
-						
+
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
 						 * First the number of matching deny rows, then the number of matching
@@ -320,7 +320,7 @@ class update
 						 * no relevant rows at all, query_first will return false, and we reject
 						 * the upload.
 						 */
-						
+
 						if($roster->db->query_first($query) !== 2)
 						{
 							$output .= "Character ".$char_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
@@ -343,7 +343,7 @@ class update
 
 						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name,$region) . "</strong>\n";
 
-						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $realm_name, $char_name, $char );
+						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
 						$this->resetMessages();
 
@@ -414,7 +414,7 @@ class update
 							. " AND '".$region."' LIKE `region` "
 							. " GROUP BY `type` "
 							. " ORDER BY `type` DESC;";
-						
+
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
 						 * First the number of matching deny rows, then the number of matching
@@ -424,13 +424,13 @@ class update
 						 * no relevant rows at all, query_first will return false, and we reject
 						 * the upload.
 						 */
-						
+
 						if($roster->db->query_first($query) !== "0")
 						{
 							$output .= "Guild ".$guild_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
 							continue;
-						}							
-					
+						}
+
 						// GP Version Detection, don't allow lower than minVer
 						if( $guild['DBversion'] >= $roster->config['minGPver'] )
 						{
@@ -2577,12 +2577,13 @@ class update
 	/**
 	 * Handles formatting an insertion of Character Data
 	 *
-	 * @param int $guildId	| Character's guild id
-	 * @param string $name	| Character's name
-	 * @param array $data	| LUA data
-	 * @return mixed		| False on error, memberid on success
+	 * @param int $guildId
+	 * @param string $region
+	 * @param string $name
+	 * @param array $data
+	 * @return mixed False on failure | member_id on success
 	 */
-	function update_char( $guildId , $region, $realm_name, $name , $data )
+	function update_char( $guildId , $region , $name , $data )
 	{
 		global $roster;
 
@@ -2632,7 +2633,6 @@ class update
 
 		$this->add_value( 'name', $name );
 		$this->add_value( 'guild_id', $guildId );
-		$this->add_value( 'server', $realm_name );
 		$this->add_value( 'region', $region );
 
 		// BEGIN HONOR VALUES

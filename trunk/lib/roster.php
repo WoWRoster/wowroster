@@ -213,7 +213,8 @@ class roster
 				// Get the scope select data
 				$query = "SELECT `name`, `member_id`"
 					   . " FROM `" . $this->db->table('players') . "`"
-					   . " WHERE `guild_id` = '" . $this->data['guild_id'] . "';";
+					   . " WHERE `guild_id` = '" . $this->data['guild_id'] . "'"
+					   . " ORDER BY `name` ASC;";
 
 				$result = $this->db->query($query);
 
@@ -281,7 +282,8 @@ class roster
 
 
 				// Get the scope select data
-				$query = "SELECT CONCAT(`guild_name`,'@',`server`), `guild_id` FROM `" . $this->db->table('guild') . "`;";
+				$query = "SELECT CONCAT(`guild_name`,'@',`server`), `guild_id` FROM `" . $this->db->table('guild') . "`"
+					   . " ORDER BY `guild_name` ASC;";
 
 				$result = $this->db->query($query);
 
@@ -314,7 +316,8 @@ class roster
 				// Get the scope select data
 				$query = "SELECT DISTINCT `server`"
 					   . " FROM `" . $this->db->table('guild') . "`"
-					   . " UNION SELECT DISTINCT `server` FROM `" . $this->db->table('players') . "`;";
+					   . " UNION SELECT DISTINCT `server` FROM `" . $this->db->table('players') . "`"
+					   . " ORDER BY `server` ASC;";
 
 				$result = $this->db->query($query);
 
