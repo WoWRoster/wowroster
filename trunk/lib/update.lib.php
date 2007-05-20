@@ -61,7 +61,7 @@ class update
 		{
 			foreach( ($roster->addon_data) as $row )
 			{
-				$hookfile = ROSTER_ADDONS.$row['basename'].DIR_SEP.'update_hook.php';
+				$hookfile = ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'update_hook.php';
 
 				if( file_exists($hookfile) )
 				{
@@ -99,12 +99,12 @@ class update
 		global $roster;
 		if( !is_array($_FILES) )
 		{
-			return '<span class="red">Upload failed: No files present</span>'."<br />\n";
+			return '<span class="red">Upload failed: No files present</span>' . "<br />\n";
 		}
 
-		require_once(ROSTER_LIB.'luaparser.php');
+		require_once(ROSTER_LIB . 'luaparser.php');
 
-		$output = $roster->locale->act['parsing_files']."<br />\n".'<ul>';
+		$output = $roster->locale->act['parsing_files'] . "<br />\n<ul>";
 		foreach( $_FILES as $file )
 		{
 			if( !empty($file['name']) )
@@ -128,23 +128,23 @@ class update
 
 					if( $data )
 					{
-						$output .= '<li>'.sprintf($roster->locale->act['parsed_time'],$filename[0],$parse_totaltime).'</li>'."\n";
+						$output .= '<li>' . sprintf($roster->locale->act['parsed_time'],$filename[0],$parse_totaltime) . "</li>\n";
 						$this->uploadData[$filebase] = $data;
 					}
 					else
 					{
-						$output .= '<li>'.sprintf($roster->locale->act['error_parsed_time'],$filename[0],$parse_totaltime).'</li>'."\n";
-						$output .= ($luahandler->error() !='' ? '<li>'.$luahandler->error().'</li>'."\n" : '');
+						$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],$filename[0],$parse_totaltime) . "</li>\n";
+						$output .= ($luahandler->error() !='' ? '<li>' . $luahandler->error() . "</li>\n" : '');
 					}
 					unset($luahandler);
 				}
 				else
 				{
-					$output .= '<li>'.sprintf($roster->locale->act['upload_not_accept'],$file['name']).'</li>'."\n";
+					$output .= '<li>' . sprintf($roster->locale->act['upload_not_accept'],$file['name']) . "</li>\n";
 				}
 			}
 		}
-		$output .= '</ul>'."<br />\n";
+		$output .= "</ul><br />\n";
 		return $output;
 	}
 
@@ -161,7 +161,8 @@ class update
 		{
 			return '';
 		}
-		$output = 'Processing files'."<br />\n";
+		$output = "Processing files<br />\n";
+
 		$gotfiles = array_keys($this->uploadData);
 		if( in_array('characterprofiler',$gotfiles) )
 		{
@@ -196,8 +197,8 @@ class update
 							}
 							else
 							{
-								$output .= 'There was an error in addon '.$addon->data['fullname']." in method update<br />\n".
-									"Addon messages:<br />\n".$addon->messages;
+								$output .= 'There was an error in addon ' . $addon->data['fullname'] . " in method update<br />\n"
+										 . "Addon messages:<br />\n" . $addon->messages;
 							}
 						}
 					}
@@ -208,7 +209,7 @@ class update
 	}
 
 	/**
-	 * Run trigger for character
+	 * Run trigger
 	 */
 	function addon_hook( $mode , $data , $memberid = '0' )
 	{
@@ -226,24 +227,24 @@ class update
 					{
 						if( $mode == 'guild' )
 						{
-							$output .= '<li>'.$addon->messages.'</li>'."\n";
+							$output .= '<li>' . $addon->messages . "</li>\n";
 						}
 						else
 						{
-							$output .= $addon->messages.'<br/>'."\n";
+							$output .= $addon->messages . "<br/>\n";
 						}
 					}
 					else
 					{
 						if( $mode == 'guild' )
 						{
-							$output .= '<li>There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
-								"Addon messages:<br />\n".$addon->messages.'</li>'."\n";
+							$output .= '<li>There was an error in addon ' . $addon->data['fullname'] . " in method $mode<br />\n"
+									 . "Addon messages:<br />\n" . $addon->messages . "</li>\n";
 						}
 						else
 						{
-							$output .= 'There was an error in addon '.$addon->data['fullname']." in method $mode<br />\n".
-								"Addon messages:<br />\n".$addon->messages.'<br />'."\n";
+							$output .= 'There was an error in addon '.$addon->data['fullname'] . " in method $mode<br />\n"
+									 . "Addon messages:<br />\n" . $addon->messages . "<br />\n";
 						}
 					}
 				}
@@ -293,10 +294,10 @@ class update
 								continue;
 							}
 
-							$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name)."</strong>\n";
+							$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name) . "</strong>\n";
 
 							$memberid = $this->update_char( $guildInfo['guild_id'], $char_name, $char );
-							$output .= "<ul>\n".$this->getMessages()."</ul>\n";
+							$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
 							$this->resetMessages();
 
 							// Start update triggers
@@ -307,8 +308,8 @@ class update
 						}
 						else // CP Version not new enough
 						{
-							$output .= '<span class="red">'.sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['DBversion'])."</span><br />\n";
-							$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver'])."\n";
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['DBversion']) . "</span><br />\n";
+							$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
 						}
 						$output .= "<br />\n";
 					}
@@ -326,7 +327,7 @@ class update
 			}
 //			else
 			{
-//				$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name)."<br />\n";
+//				$output .= sprintf($roster->locale->act['realm_ignored'],$realm_name) . "<br />\n";
 			}
 		}
 		return $output;
@@ -368,7 +369,7 @@ class update
 
 										if( $roster->data && ( ( strtotime($roster->data['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 ) )
 										{
-											return sprintf($roster->locale->act['not_update_guild_time'],$guild_name)."<br />\n";
+											return sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
 										}
 
 										// Get the region
@@ -394,7 +395,7 @@ class update
 										}
 
 										// update the list of guild members
-										$guild_output .= "<ul><li><strong>".$roster->locale->act['update_members']."</strong>\n<ul>\n";
+										$guild_output .= "<ul><li><strong>" . $roster->locale->act['update_members'] . "</strong>\n<ul>\n";
 
 										foreach(array_keys($guildMembers) as $char_name)
 										{
@@ -424,30 +425,30 @@ class update
 											$guild_output .= $this->addon_hook('guild_post', $guild);
 										}
 
-										$output .= '<strong>'.sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name)."</strong>\n<ul>\n";
-										$output .= '<li><strong>'.$roster->locale->act['memberlog']."</strong>\n<ul>\n".
-											'<li>'.$roster->locale->act['updated'].': '.$this->membersupdated."</li>\n".
-											'<li>'.$roster->locale->act['added'].': '.$this->membersadded."</li>\n".
-											'<li>'.$roster->locale->act['removed'].': '.$this->membersremoved."</li>\n".
-											"</ul></li></ul>\n";
+										$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name) . "</strong>\n<ul>\n";
+										$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
+												 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
+												 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
+												 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
+												 . "</ul></li></ul>\n";
 										$output .= $guild_output;
 									}
 									else
 									{
-										$output .= '<span class="red">'.sprintf($roster->locale->act['not_update_guild'],$guild_name)."</span><br />\n";
-										$output .= $roster->locale->act['no_members']."<br />\n";
+										$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name) . "</span><br />\n";
+										$output .= $roster->locale->act['no_members'] . "<br />\n";
 									}
 								}
 								else
 								// GP Version not new enough
 								{
-									$output .= '<span class="red">'.sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['DBversion'])."</span><br />\n";
-									$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver'])."<br />\n";
+									$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['DBversion']) . "</span><br />\n";
+									$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
 								}
 							}
 //							else
 							{
-//								$output .= sprintf($roster->locale->act['guild_realm_ignored'],$guild_name,$realm_name)."<br />\n";
+//								$output .= sprintf($roster->locale->act['guild_realm_ignored'],$guild_name,$realm_name) . "<br />\n";
 							}
 						}
 						if( !isset($guild) )
@@ -486,11 +487,10 @@ class update
 		}
 		foreach ($this->files as $file)
 		{
-			$filefields .=
-			'<tr>'."\n".
-				"\t".'<td class="membersRow1" '.makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\'.$file.'.lua',$file.'.lua Location','',2).'><img src="'.$roster->config['img_url'].'blue-question-mark.gif" alt="?" />'.$file.'.lua</td>'."\n".
-				"\t".'<td class="membersRowRight1"><input type="file" accept="'.$file.'.lua" name="'.$file.'" /></td>'."\n".
-			'</tr>'."\n";
+			$filefields .= "<tr>\n"
+						 . "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2) . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+						 . "</tr>\n";
 		}
 		return $filefields;
 	}
@@ -513,7 +513,7 @@ class update
 	 */
 	function getMessages()
 	{
-		return implode("\n",$this->messages)."\n";
+		return implode("\n",$this->messages) . "\n";
 	}
 
 
@@ -564,12 +564,16 @@ class update
 				foreach ($errorArray as $message => $error)
 				{
 					if ( $steps == 1 )
+					{
 						$steps = 2;
+					}
 					else
+					{
 						$steps = 1;
+					}
 
-					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n".
-						"$error</td></tr>\n";
+					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n"
+							 . "$error</td></tr>\n";
 				}
 			}
 			$output .= '</table>';
@@ -618,7 +622,7 @@ class update
 	function add_time( $row_name , $date )
 	{
 		// 2000-01-01 23:00:00.000
-		$row_data = $date['year'].'-'.$date['mon'].'-'.$date['mday'].' '.$date['hours'].':'.$date['minutes'].':'.$date['seconds'];
+		$row_data = $date['year'] . '-' . $date['mon'] . '-' . $date['mday'] . ' ' . $date['hours'] . ':' . $date['minutes'] . ':' . $date['seconds'];
 		$this->add_value($row_name,$row_data);
 	}
 
@@ -648,9 +652,9 @@ class update
 		$data[1] = ( isset($data[1]) ? $data[1] : 0 );
 		$data[2] = ( isset($data[2]) ? $data[2] : 0 );
 		$this->add_value( $row_name, $data[0] );
-		$this->add_value( $row_name.'_c', $data[0]+$data[1]+$data[2] );
-		$this->add_value( $row_name.'_b', $data[1] );
-		$this->add_value( $row_name.'_d', $data[2] );
+		$this->add_value( $row_name . '_c', $data[0]+$data[1]+$data[2] );
+		$this->add_value( $row_name . '_b', $data[1] );
+		$this->add_value( $row_name . '_d', $data[2] );
 	}
 
 	/**
@@ -708,11 +712,11 @@ class update
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
 
-		$querystr = "INSERT INTO `".$roster->db->table('items')."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$this->setError('Item ['.$item['item_name'].'] could not be inserted',$roster->db->error());
+			$this->setError('Item [' . $item['item_name'] . '] could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -742,11 +746,11 @@ class update
 		if( isset( $mail['item_quantity'] ) )
 			$this->add_value('item_quantity', $mail['item_quantity'] );
 
-		$querystr = "INSERT INTO `".$roster->db->table('mailbox')."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('mailbox') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$this->setError('Mail ['.$mail['mail_subject'].'] could not be inserted',$roster->db->error());
+			$this->setError('Mail [' . $mail['mail_subject'] . '] could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -769,11 +773,11 @@ class update
 		$this->add_value('quest_tag', $quest['quest_tag'] );
 		$this->add_value('is_complete', $quest['is_complete'] );
 
-		$querystr = "INSERT INTO `".$roster->db->table('quests')."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('quests') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$this->setError('Quest ['.$quest['quest_name'].'] could not be inserted',$roster->db->error());
+			$this->setError('Quest [' . $quest['quest_name'] . '] could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -803,11 +807,11 @@ class update
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 			$this->add_value('level',$level[1]);
 
-		$querystr = "INSERT INTO `".$roster->db->table('recipes')."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$this->setError('Recipe ['.$recipe['recipe_name'].'] could not be inserted',$roster->db->error());
+			$this->setError('Recipe [' . $recipe['recipe_name'] . '] could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -833,11 +837,11 @@ class update
 		$this->add_time('update_time', getDate($timestamp) );
 		$this->add_value('type', $type );
 
-		$querystr = "INSERT INTO `".$roster->db->table('memberlog')."` SET ".$this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('memberlog') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$this->setError('Member Log ['.$data['name'].'] could not be inserted',$roster->db->error());
+			$this->setError('Member Log [' . $data['name'] . '] could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -973,7 +977,7 @@ class update
 		$recipe['reagents'] = '';
 		foreach( $recipe_data['Reagents'] as $reagent )
 		{
-			$recipe['reagents'] .= $reagent['Name'].' [x'.$reagent['Count'].']<br>';
+			$recipe['reagents'] .= $reagent['Name'] . ' [x' . $reagent['Count'] . ']<br>';
 		}
 		$recipe['reagents'] = substr($recipe['reagents'],0,-4);
 
@@ -1006,7 +1010,7 @@ class update
 		if( !empty($buffs) && is_array($buffs) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('buffs')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Buffs could not be deleted',$roster->db->error());
@@ -1039,16 +1043,16 @@ class update
 				else
 					$this->add_value('tooltip', $buff['Name'] );
 
-				$querystr = "INSERT INTO `".$roster->db->table('buffs')."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `" . $roster->db->table('buffs') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
-					$this->setError('Buff ['.$buff['Name'].'] could not be inserted',$roster->db->error());
+					$this->setError('Buff [' . $buff['Name'] . '] could not be inserted',$roster->db->error());
 				}
 
 				$buffsnum++;
 			}
-			$this->setMessage('<li>Updating Buffs: '.$buffsnum.'</li>');
+			$this->setMessage('<li>Updating Buffs: ' . $buffsnum . '</li>');
 	   	}
 		else
 		{
@@ -1075,7 +1079,7 @@ class update
 		if( !empty($quests) && is_array($quests) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('quests')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Quests could not be deleted',$roster->db->error());
@@ -1098,7 +1102,7 @@ class update
 					$questnum++;
 				}
 			}
-			$this->setMessage('<li>Updating Quests: '.$questnum.'</li>');
+			$this->setMessage('<li>Updating Quests: ' . $questnum . '</li>');
 	   	}
 		else
 		{
@@ -1127,7 +1131,7 @@ class update
 			$messages = '<li>Updating Professions';
 
 			// Delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('recipes')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$roster->error());
@@ -1154,7 +1158,7 @@ class update
 					}
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1179,7 +1183,7 @@ class update
 		{
 			$messages = '<li>Updating Equipment ';
 
-			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Equipment could not be deleted',$roster->db->error());
@@ -1197,7 +1201,7 @@ class update
 				$item = $this->make_item( $slot, $memberId, 'equip', $slot_name );
 				$this->insert_item( $item,$data['Locale'] );
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1222,14 +1226,14 @@ class update
 		{
 			$messages = '<li>Updating Inventory';
 
-			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$roster->db->error());
@@ -1264,7 +1268,7 @@ class update
 					}
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1294,14 +1298,14 @@ class update
 			$messages = '<li>Updating Bank';
 
 			// Clearing out old items
-			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$roster->db->error());
@@ -1318,7 +1322,7 @@ class update
 					continue;
 				}
 
-				$dbname = 'Bank '.$bag_name;
+				$dbname = 'Bank ' . $bag_name;
 				$item = $this->make_item( $bag, $memberId, 'bags', $dbname );
 
 				// Fix bank bag icon
@@ -1345,7 +1349,7 @@ class update
 					}
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1372,7 +1376,7 @@ class update
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
-			$querystr = "DELETE FROM `".$roster->db->table('mailbox')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('mailbox') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Mail could not be deleted',$roster->db->error());
@@ -1392,7 +1396,7 @@ class update
 				$mail = $this->make_mail( $slot, $memberId, $slot_num );
 				$this->insert_mail( $mail );
 			}
-			$this->setMessage('<li>Updating Mailbox: '.count($mailbox).'</li>');
+			$this->setMessage('<li>Updating Mailbox: ' . count($mailbox) . '</li>');
 		}
 		else
 		{
@@ -1421,7 +1425,7 @@ class update
 			$messages = '<li>Updating Reputation ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('reputation') . "` WHERE `member_id` = '$memberId'";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -1458,17 +1462,17 @@ class update
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `".$roster->db->table('reputation')."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr;
 
 						$result = $roster->db->query($querystr);
 						if( !$result )
 						{
-							$this->setError('Reputation for '.$faction.' could not be inserted',$roster->db->error());
+							$this->setError('Reputation for ' . $faction . ' could not be inserted',$roster->db->error());
 						}
 					}
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1497,7 +1501,7 @@ class update
 			$messages = '<li>Updating Skills ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('skills')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('skills') . "` WHERE `member_id` = '$memberId'";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -1527,17 +1531,17 @@ class update
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `".$roster->db->table('skills')."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `" . $roster->db->table('skills') . "` SET " . $this->assignstr;
 
 						$result = $roster->db->query($querystr);
 						if( !$result )
 						{
-							$this->setError('Skill ['.$skill_name.'] could not be inserted',$roster->db->error());
+							$this->setError('Skill [' . $skill_name . '] could not be inserted',$roster->db->error());
 						}
 					}
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1566,7 +1570,7 @@ class update
 			$messages = '<li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('spellbook')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$roster->db->error());
@@ -1574,7 +1578,7 @@ class update
 			}
 
 			// then process Spellbook Tree
-			$querystr = "DELETE FROM `".$roster->db->table('spellbooktree')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('spellbooktree') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spell Trees could not be deleted',$roster->db->error());
@@ -1615,14 +1619,14 @@ class update
 							}
 							elseif( !empty($spell_name) || !empty($data_spell_name['Rank']) )
 							{
-								$this->add_value('spell_tooltip', $spell_name."\n".$data_spell_name['Rank'] );
+								$this->add_value('spell_tooltip', $spell_name . "\n" . $data_spell_name['Rank'] );
 							}
 
-							$querystr = "INSERT INTO `".$roster->db->table('spellbook')."` SET ".$this->assignstr;
+							$querystr = "INSERT INTO `" . $roster->db->table('spellbook') . "` SET " . $this->assignstr;
 							$result = $roster->db->query($querystr);
 							if( !$result )
 							{
-								$this->setError('Spell ['.$spell_name.'] could not be inserted',$roster->db->error());
+								$this->setError('Spell [' . $spell_name . '] could not be inserted',$roster->db->error());
 							}
 						}
 					}
@@ -1632,14 +1636,14 @@ class update
 				$this->add_value('spell_type', $spell_type );
 				$this->add_value('spell_texture', $this->fix_icon($data_spell_type['Icon']) );
 
-				$querystr = "INSERT INTO `".$roster->db->table('spellbooktree')."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `" . $roster->db->table('spellbooktree') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
-					$this->setError('Spell Tree ['.$spell_type.'] could not be inserted',$roster->db->error());
+					$this->setError('Spell Tree [' . $spell_type . '] could not be inserted',$roster->db->error());
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1665,7 +1669,7 @@ class update
 			$messages = '<ul><li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('spellbook_pet')."` WHERE `pet_id` = '$petID'";
+			$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `pet_id` = '$petID'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$roster->db->error());
@@ -1697,7 +1701,7 @@ class update
 						$this->add_value('spell_tooltip', $spell . "\n" . $data_spell['Rank'] );
 					}
 
-					$querystr = "INSERT INTO `" . $roster->db->table('spellbook_pet') . "` SET ".$this->assignstr;
+					$querystr = "INSERT INTO `" . $roster->db->table('spellbook_pet') . "` SET " . $this->assignstr;
 					$result = $roster->db->query($querystr);
 					if( !$result )
 					{
@@ -1706,7 +1710,7 @@ class update
 				}
 			}
 
-			$this->setMessage($messages.'</li></ul></li>');
+			$this->setMessage($messages . '</li></ul></li>');
 		}
 		else
 		{
@@ -1735,7 +1739,7 @@ class update
 			$messages = '<li>Updating Talents';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `".$roster->db->table('talents')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Talents could not be deleted',$roster->db->error());
@@ -1743,7 +1747,7 @@ class update
 			}
 
 			// then process Talents
-			$querystr = "DELETE FROM `".$roster->db->table('talenttree')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '$memberId'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Talent Trees could not be deleted',$roster->db->error());
@@ -1794,11 +1798,11 @@ class update
 						$this->add_value('rank', substr($data_talent_skill['Rank'], 0, 1) );
 						$this->add_value('maxrank', substr($data_talent_skill['Rank'], 2, 1) );
 
-						$querystr = "INSERT INTO `".$roster->db->table('talents')."` SET ".$this->assignstr;
+						$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
 						$result = $roster->db->query($querystr);
 						if( !$result )
 						{
-							$this->setError('Talent ['.$talent_skill.'] could not be inserted',$roster->db->error());
+							$this->setError('Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
 						}
 					}
 				}
@@ -1814,14 +1818,14 @@ class update
 				if( !empty($tree_order) )
 					$this->add_value('order', $tree_order );
 
-				$querystr = "INSERT INTO `".$roster->db->table('talenttree')."` SET ".$this->assignstr;
+				$querystr = "INSERT INTO `" . $roster->db->table('talenttree') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
-					$this->setError('Talent Tree ['.$talent_tree.'] could not be inserted',$roster->db->error());
+					$this->setError('Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
 				}
 			}
-			$this->setMessage($messages.'</li>');
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{
@@ -1843,13 +1847,13 @@ class update
 		$messages = '<li>';
 
 		$messages .= 'Character Data..';
-		$querystr = "DELETE FROM `".$roster->db->table('members')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('members') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Member Data could not be deleted',$roster->db->error());
 		}
 
-		$querystr = "DELETE FROM `".$roster->db->table('players')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('players') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Player Data could not be deleted',$roster->db->error());
@@ -1857,7 +1861,7 @@ class update
 
 
 		$messages .= 'Skills..';
-		$querystr = "DELETE FROM `".$roster->db->table('skills')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('skills') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Skill Data could not be deleted',$roster->db->error());
@@ -1865,7 +1869,7 @@ class update
 
 
 		$messages .= 'Items..';
-		$querystr = "DELETE FROM `".$roster->db->table('items')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Items Data could not be deleted',$roster->db->error());
@@ -1873,7 +1877,7 @@ class update
 
 
 		$messages .= 'Quests..';
-		$querystr = "DELETE FROM `".$roster->db->table('quests')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('quests') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Quest Data could not be deleted',$roster->db->error());
@@ -1881,7 +1885,7 @@ class update
 
 
 		$messages .= 'Professions..';
-		$querystr = "DELETE FROM `".$roster->db->table('recipes')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Recipe Data could not be deleted',$roster->db->error());
@@ -1889,13 +1893,13 @@ class update
 
 
 		$messages .= 'Talents..';
-		$querystr = "DELETE FROM `".$roster->db->table('talents')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Talent Data could not be deleted',$roster->db->error());
 		}
 
-		$querystr = "DELETE FROM `".$roster->db->table('talenttree')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Talent Tree Data could not be deleted',$roster->db->error());
@@ -1903,13 +1907,13 @@ class update
 
 
 		$messages .= 'Spellbook..';
-		$querystr = "DELETE FROM `".$roster->db->table('spellbook')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Spell Data could not be deleted',$roster->db->error());
 		}
 
-		$querystr = "DELETE FROM `".$roster->db->table('spellbooktree')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('spellbooktree') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Spell Tree Data could not be deleted',$roster->db->error());
@@ -1917,14 +1921,14 @@ class update
 
 
 		$messages .= 'Pets..';
-		$querystr = "DELETE FROM `".$roster->db->table('pets')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('pets') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Pet Data could not be deleted',$roster->db->error());
 		}
 
 		$messages .= 'Pets Spellbooks..';
-		$querystr = "DELETE FROM `".$roster->db->table('spellbook_pet')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Spell Tree Data could not be deleted',$roster->db->error());
@@ -1932,7 +1936,7 @@ class update
 
 
 		$messages .= 'Reputation..';
-		$querystr = "DELETE FROM `".$roster->db->table('reputation')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('reputation') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Reputation Data could not be deleted',$roster->db->error());
@@ -1940,13 +1944,13 @@ class update
 
 
 		$messages .= 'Mail..';
-		$querystr = "DELETE FROM `".$roster->db->table('mailbox')."` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('mailbox') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Mail Data could not be deleted',$roster->db->error());
 		}
 
-		$this->setMessage($messages.'</li>');
+		$this->setMessage($messages . '</li>');
 	}
 
 
@@ -1960,7 +1964,7 @@ class update
 	{
 		global $roster;
 
-		$querystr = "SELECT * FROM `".$roster->db->table('members')."` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+		$querystr = "SELECT * FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
 
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -1977,14 +1981,16 @@ class update
 			while ( $row = $roster->db->fetch($result) )
 			{
 				if ($inClause != '')
+				{
 					$inClause .= ',';
+				}
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
+				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Deleted</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
 			}
 
-			$this->setMessage('<li><span class="red">Deleted '.$num.' member'.($num > 1 ? 's' : '').'</span>');
+			$this->setMessage('<li><span class="red">Deleted ' . $num . ' member' . ($num > 1 ? 's' : '') . '</span>');
 			$this->setMessage('<ul>');
 
 			// now that we have our inclause, time to do some deletes
@@ -2006,7 +2012,7 @@ class update
 		global $roster;
 
 		// Get a list of guild id's in the guild table to remove
-		$querystr = "SELECT `guild_id`,`guild_name` FROM `".$roster->db->table('guild')."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `guild_id`,`guild_name` FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` != '$guild_id'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2022,26 +2028,28 @@ class update
 			while ( $row = $roster->db->fetch($result) )
 			{
 				if ($inClause != '')
+				{
 					$inClause .= ',';
+				}
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Guild [</span> '.$row[1].' <span class="red">] - Deleted</span></li>');
+				$this->setMessage('<li><span class="red">Guild [</span> ' . $row[1] . ' <span class="red">] - Deleted</span></li>');
 			}
 
 			// now that we have our inclause, time to do some deletes
-			$querystr = "DELETE FROM `".$roster->db->table('guild')."` WHERE `guild_id` IN ($inClause)";
+			$querystr = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` IN ($inClause)";
 			if( !$roster->db->query($querystr) )
 			{
-				$this->setError('Guild'.($num > 1 ? 's' : '').' with ID'.($num > 1 ? 's' : '').' '.$inClause.' could not be deleted',$roster->db->error());
+				$this->setError('Guild' . ($num > 1 ? 's' : '') . ' with ID' . ($num > 1 ? 's' : '') . ' ' . $inClause . ' could not be deleted',$roster->db->error());
 			}
 
-			$this->setMessage('<li><span class="red">Deleted '.$num.' guild'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\s' : '').'</span></li>');
+			$this->setMessage('<li><span class="red">Deleted ' . $num . ' guild' . ($num > 1 ? 's' : '') . ' with mis-matched guild-id' . ($num > 1 ? '\s' : '') . '</span></li>');
 		}
 		$roster->db->free_result($result);
 
 
 		// Get a list of members that don't match current guild id
-		$querystr = "SELECT `member_id`,`name` FROM `".$roster->db->table('members')."` WHERE `guild_id` != '$guild_id'";
+		$querystr = "SELECT `member_id`,`name` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` != '$guild_id'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2057,14 +2065,16 @@ class update
 			while ( $row = $roster->db->fetch($result) )
 			{
 				if ($inClause != '')
+				{
 					$inClause .= ',';
+				}
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">[</span> '.$row[1].' <span class="red">] Deleted since their guild-id does not match</span></li>');
+				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] Deleted since their guild-id does not match</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
 			}
 
-			$this->setMessage('<li><span class="red">Removing '.$num.' member'.($num > 1 ? 's' : '').' with mis-matched guild-id'.($num > 1 ? '\'s' : '').'</span>');
+			$this->setMessage('<li><span class="red">Removing ' . $num . ' member' . ($num > 1 ? 's' : '') . ' with mis-matched guild-id' . ($num > 1 ? '\'s' : '') . '</span>');
 			$this->setMessage('<ul>');
 
 			// now that we have our inclause, time to do some deletes
@@ -2095,8 +2105,8 @@ class update
 			$region = " AND `region` = '" . $roster->db->escape($region) . "'";
 		}
 
-		$querystr = "SELECT * FROM `".$roster->db->table('guild')."` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'$region;";
-		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+		$querystr = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'$region;";
+		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 
 		$retval = $roster->db->fetch( $result );
 		$roster->db->free_result($result);
@@ -2174,20 +2184,20 @@ class update
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `".$roster->db->table('guild')."` SET ".$this->assignstr." WHERE `guild_id` = '".$guildInfo['guild_id']."';";
+			$querystr = "UPDATE `" . $roster->db->table('guild') . "` SET " . $this->assignstr . " WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
 			$output = $guildInfo['guild_id'];
 		}
 		else
 		{
-			$querystr = "INSERT INTO `".$roster->db->table('guild')."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `" . $roster->db->table('guild') . "` SET " . $this->assignstr;
 		}
 
-		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `".$roster->db->table('members')."` SET `active` = '0' WHERE `guild_id` = '".$guildInfo['guild_id']."';";
-			$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__.'<br />Function: '.(__FUNCTION__),__LINE__,$querystr);
+			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `active` = '0' WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
+			$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 		}
 
 		if( !is_array($guildInfo) )
@@ -2216,7 +2226,7 @@ class update
 		$name_escape = $roster->db->escape( $name );
 		$server_escape = $roster->db->escape( $server );
 
-		$querystr = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2278,12 +2288,12 @@ class update
 			#                        - 60 * 60 * $lastOnlineHours;
 			$timeString = '-';
 			if ($lastOnlineYears > 0)
-				$timeString .= $lastOnlineYears.' Years ';
+				$timeString .= $lastOnlineYears . ' Years ';
 			if ($lastOnlineMonths > 0)
-				$timeString .= $lastOnlineMonths.' Months ';
+				$timeString .= $lastOnlineMonths . ' Months ';
 			if ($lastOnlineDays > 0)
-				$timeString .= $lastOnlineDays.' Days ';
-			$timeString .= max($lastOnlineHours,1).' Hours';
+				$timeString .= $lastOnlineDays . ' Days ';
+			$timeString .= max($lastOnlineHours,1) . ' Hours';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
 			$this->add_time( 'last_online', getDate($lastOnlineTime) );
@@ -2291,14 +2301,14 @@ class update
 
 		if( isset($memberId) )
 		{
-			$querystr = "UPDATE `".$roster->db->table('members')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
-			$this->setMessage('<li>[ '.$name.' ]</li>');
+			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
+			$this->setMessage('<li>[ ' . $name . ' ]</li>');
 			$this->membersupdated++;
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
-				$this->setError($name.' could not be inserted',$roster->db->error());
+				$this->setError($name . ' could not be inserted',$roster->db->error());
 				return false;
 			}
 		}
@@ -2310,19 +2320,19 @@ class update
 				$this->add_value( 'guild_id', $guildId);
 			}
 
-			$querystr = "INSERT INTO `".$roster->db->table('members')."` SET ".$this->assignstr;
-			$this->setMessage('<li><span class="green">[</span> '.$name.' <span class="green">] - Added</span></li>');
+			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr;
+			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
-				$this->setError($name_escape.' could not be inserted',$roster->db->error());
+				$this->setError($name_escape . ' could not be inserted',$roster->db->error());
 				return false;
 			}
 
 			$memberId = $roster->db->insert_id();
 
-			$querystr = "SELECT * FROM `".$roster->db->table('members')."` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '".$char['Class']."';";
+			$querystr = "SELECT * FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '" . $char['Class'] . "';";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
@@ -2351,8 +2361,8 @@ class update
 		if (!empty($data['Name']))
 		{
 			$querystr = "SELECT `pet_id`
-				FROM `".$roster->db->table('pets')."`
-				WHERE `member_id` = '$memberId' AND `name` LIKE '".$roster->db->escape($data['Name'])."'";
+				FROM `" . $roster->db->table('pets') . "`
+				WHERE `member_id` = '$memberId' AND `name` LIKE '" . $roster->db->escape($data['Name']) . "'";
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
@@ -2486,14 +2496,14 @@ class update
 
 			if( $update )
 			{
-				$this->setMessage('<li>Updating pet ['.$data['Name'].']');
-				$querystr = "UPDATE `".$roster->db->table('pets')."` SET ".$this->assignstr." WHERE `pet_id` = '$petID'";
+				$this->setMessage('<li>Updating pet [' . $data['Name'] . ']');
+				$querystr = "UPDATE `" . $roster->db->table('pets') . "` SET " . $this->assignstr . " WHERE `pet_id` = '$petID'";
 				$result = $roster->db->query($querystr);
 			}
 			else
 			{
-				$this->setMessage('<li>New pet ['.$data['Name'].']');
-				$querystr = "INSERT INTO `".$roster->db->table('pets')."` SET ".$this->assignstr;
+				$this->setMessage('<li>New pet [' . $data['Name'] . ']');
+				$querystr = "INSERT INTO `" . $roster->db->table('pets') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
 				$petID = $roster->db->insert_id();
 			}
@@ -2522,7 +2532,7 @@ class update
 
 		$name_escape = $roster->db->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2538,12 +2548,12 @@ class update
 		}
 		else
 		{
-			$this->setMessage('<li>'.$name.' is not in the list of guild members so their data will not be inserted.</li>');
+			$this->setMessage('<li>' . $name . ' is not in the list of guild members so their data will not be inserted.</li>');
 			return false;
 		}
 
 		// update level in members table
-		$querystr = "UPDATE `".$roster->db->table('members')."` SET `level` = '".$data['Level']."' WHERE `member_id` = $memberId LIMIT 1 ";
+		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `level` = '" . $data['Level'] . "' WHERE `member_id` = $memberId LIMIT 1 ";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2551,7 +2561,7 @@ class update
 		}
 
 
-		$querystr = "SELECT `member_id` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$memberId'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '$memberId'";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2850,12 +2860,12 @@ class update
 
 		if( $update )
 		{
-			$querystr = "UPDATE `".$roster->db->table('players')."` SET ".$this->assignstr." WHERE `member_id` = '$memberId'";
+			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId'";
 		}
 		else
 		{
 			$this->add_value( 'member_id', $memberId );
-			$querystr = "INSERT INTO `".$roster->db->table('players')."` SET ".$this->assignstr;
+			$querystr = "INSERT INTO `" . $roster->db->table('players') . "` SET " . $this->assignstr;
 		}
 
 		$result = $roster->db->query($querystr);
@@ -2888,14 +2898,14 @@ class update
 		}
 		else
 		{
-			$querystr = "DELETE FROM `".$roster->db->table('pets')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('pets') . "` WHERE `member_id` = '$memberId'";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
 				$this->setError('Cannot delete Pet Data',$roster->db->error());
 			}
 
-			$querystr = "DELETE FROM `".$roster->db->table('spellbook_pet')."` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `member_id` = '$memberId'";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{

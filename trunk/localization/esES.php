@@ -422,84 +422,90 @@ $lang['notatwar']='En Paz';
 
 
 // Quests page external links (on character quests page)
-	// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
-	// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
+// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
+// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
 
-	$lang['questlinks'][0]['name']='Thottbot';
-	$lang['questlinks'][0]['url1']='http://www.thottbot.com/?f=q&amp;title=';
-	$lang['questlinks'][0]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-	$lang['questlinks'][0]['url3']='&amp;maxl=';
+$lang['questlinks'][0]['name']='Thottbot';
+$lang['questlinks'][0]['url1']='http://www.thottbot.com/?f=q&amp;title=';
+$lang['questlinks'][0]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+$lang['questlinks'][0]['url3']='&amp;maxl=';
 
-	$lang['questlinks'][1]['name']='Allakhazam';
-	$lang['questlinks'][1]['url1']='http://wow.allakhazam.com/db/qlookup.html?name=';
-	$lang['questlinks'][1]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-	$lang['questlinks'][1]['url3']='&amp;maxl=';
+$lang['questlinks'][1]['name']='Allakhazam';
+$lang['questlinks'][1]['url1']='http://wow.allakhazam.com/db/qlookup.html?name=';
+$lang['questlinks'][1]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+$lang['questlinks'][1]['url3']='&amp;maxl=';
 
-	$lang['questlinks'][2]['name']='WoW-Lista';
-	$lang['questlinks'][2]['url1']='http://www.wow-lista.com/buscadormision.php?titulo=';
-	$lang['questlinks'][2]['url2']='&amp;descripcion=&amp;nivelde=';
-	$lang['questlinks'][2]['url3']='&amp;nivelhasta=';
+$lang['questlinks'][2]['name']='WoW-Lista';
+$lang['questlinks'][2]['url1']='http://www.wow-lista.com/buscadormision.php?titulo=';
+$lang['questlinks'][2]['url2']='&amp;descripcion=&amp;nivelde=';
+$lang['questlinks'][2]['url3']='&amp;nivelhasta=';
 
-	//$lang['questlinks'][3]['name']='WoWHead';
-	//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
-	//$lang['questlinks'][3]['url2']=';minle=';
-	//$lang['questlinks'][3]['url3']=';maxle=';
+//$lang['questlinks'][3]['name']='WoWHead';
+//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+//$lang['questlinks'][3]['url2']=';minle=';
+//$lang['questlinks'][3]['url3']=';maxle=';
 
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
-	$lang['data_search'] = 'WoW Data Site Search';
-	$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
-	$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
-	$lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
-	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+$lang['data_search'] = 'WoW Data Site Search';
+$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+$lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
+//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
 // Add as many item links as you need
 // Just make sure their names are unique
-	$lang['data_search'] = 'WoW Data Site Search';
-	$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-	$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
-	$lang['data_links']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
-	//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
+$lang['data_search'] = 'WoW Data Site Search';
+$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
+$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+$lang['data_links']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
+//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 
 // Definition for item tooltip coloring
-	$lang['tooltip_use']='Uso:';
-	$lang['tooltip_requires']='Requiere';
-	$lang['tooltip_reinforced']='Reforzado';
-	$lang['tooltip_soulbound']='Ligado';
-	$lang['tooltip_boe']='Se liga al equiparlo';
-	$lang['tooltip_equip']='Equipar:';
-	$lang['tooltip_equip_restores']='Equipar: Restaura';
-	$lang['tooltip_equip_when']='Equipar: Cuando';
-	$lang['tooltip_chance']='Probabilidad';
-	$lang['tooltip_enchant']='Encantar';
-	$lang['tooltip_set']='Set';
-	$lang['tooltip_rank']='Rango';
-	$lang['tooltip_next_rank']='Siguiente Rango';
-	$lang['tooltip_spell_damage']='Daño por Hechizos';
-	$lang['tooltip_school_damage']='\\+.*Daño por Hechizos';
-	$lang['tooltip_healing_power']='Poder de Curación';
-	$lang['tooltip_chance_hit']='Probabilidad al acertar:';
-	$lang['tooltip_reinforced_armor']='Armadura Reforzada';
-	$lang['tooltip_damage_reduction']='Reducción de daño';
+$lang['tooltip_use']='Uso:';
+$lang['tooltip_requires']='Requiere';
+$lang['tooltip_reinforced']='Reforzado';
+$lang['tooltip_soulbound']='Ligado';
+$lang['tooltip_boe']='Se liga al equiparlo';
+$lang['tooltip_equip']='Equipar:';
+$lang['tooltip_equip_restores']='Equipar: Restaura';
+$lang['tooltip_equip_when']='Equipar: Cuando';
+$lang['tooltip_chance']='Probabilidad';
+$lang['tooltip_enchant']='Encantar';
+$lang['tooltip_set']='Set';
+$lang['tooltip_rank']='Rango';
+$lang['tooltip_next_rank']='Siguiente Rango';
+$lang['tooltip_spell_damage']='Daño por Hechizos';
+$lang['tooltip_school_damage']='\\+.*Daño por Hechizos';
+$lang['tooltip_healing_power']='Poder de Curación';
+$lang['tooltip_chance_hit']='Probabilidad al acertar:';
+$lang['tooltip_reinforced_armor']='Armadura Reforzada';
+$lang['tooltip_damage_reduction']='Reducción de daño';
 
 // Warlock pet names for icon displaying
-	$lang['Imp']='Diablillo';
-	$lang['Voidwalker']='Abisario';
-	$lang['Succubus']='Súcubo';
-	$lang['Felhunter']='Manáfago';
-	$lang['Infernal']='Inferno';
-	$lang['Felguard']='Guardia Maldito';
+$lang['Imp']='Diablillo';
+$lang['Voidwalker']='Abisario';
+$lang['Succubus']='Súcubo';
+$lang['Felhunter']='Manáfago';
+$lang['Infernal']='Inferno';
+$lang['Felguard']='Guardia Maldito';
 
 // Max experiance for exp bar on char page
-	$lang['max_exp']='Max XP';
+$lang['max_exp']='Max XP';
 
 // Error messages
-	$lang['CPver_err']='La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
-	$lang['PvPLogver_err']='La versión de PvPLog uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s, y si has actualizado recientemente PvPLog, asegúrate de que has borrado el antiguo fichero PvPLog.lua en la carpeta SavedVariables antes de enviar los datos.';
-	$lang['GPver_err']='La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s';
+$lang['CPver_err']='La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
+$lang['PvPLogver_err']='La versión de PvPLog uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s, y si has actualizado recientemente PvPLog, asegúrate de que has borrado el antiguo fichero PvPLog.lua en la carpeta SavedVariables antes de enviar los datos.';
+$lang['GPver_err']='La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s';
+
+// Menu titles
+$lang['menu_upprofile']='Update Profile|Update your profile on this site';
+$lang['menu_search']='Search|Search items and recipes in the database';
+$lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
+$lang['menu_credits']='Credits|Who made WoW Roster';
 
 $lang['menuconf_sectionselect']='Select Section';
 

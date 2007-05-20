@@ -28,18 +28,18 @@ function rosterLangValue( $values )
 {
 	global $roster;
 
-	$input_field = '<select name="config_'.$values['name'].'">'."\n";
+	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
 	$select_one = 1;
 	foreach( $roster->multilanguages as $value )
 	{
 		if( $value == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$value.'" selected="selected">-[ '.$value.' ]-</option>'."\n";
+			$input_field .= '  <option value="' . $value . '" selected="selected">-[ ' . $value . ' ]-</option>' . "\n";
 			$select_one = 0;
 		}
 		else
 		{
-			$input_field .= '  <option value="'.$value.'">'.$value.'</option>'."\n";
+			$input_field .= '  <option value="' . $value . '">' . $value . '</option>' . "\n";
 		}
 	}
 	$input_field .= '</select>';
@@ -54,13 +54,13 @@ function pageNames( )
 {
 	global $roster;
 
-	$input_field = '<select name="config_default_page">'."\n";
+	$input_field = '<select name="config_default_page">' . "\n";
 	$select_one = 1;
 
 	// --[ Fetch button list from DB ]--
 	$query = "SELECT `mb`.*, `a`.`basename`
-		FROM `".$roster->db->table('menu_button')."` AS mb
-		LEFT JOIN `".$roster->db->table('addon')."` AS a
+		FROM `" . $roster->db->table('menu_button') . "` AS mb
+		LEFT JOIN `" . $roster->db->table('addon') . "` AS a
 		ON `mb`.`addon_id` = `a`.`addon_id`
 		ORDER BY `mb`.`title`;";
 
@@ -76,19 +76,19 @@ function pageNames( )
 			// Include addon's locale files if they exist
 			foreach( $roster->multilanguages as $lang )
 			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS.$row['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 			}
 		}
 
 		list($title) = explode('|',isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title']);
 		if( $row['url'] == $roster->config['default_page'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$row['url'].'" selected="selected">-[ '.$title.' ]-</option>'."\n";
+			$input_field .= '  <option value="' . $row['url'] . '" selected="selected">-[ ' . $title . ' ]-</option>' . "\n";
 			$select_one = 0;
 		}
 		else
 		{
-			$input_field .= '  <option value="'.$row['url'].'">'.$title.'</option>'."\n";
+			$input_field .= '  <option value="' . $row['url'] . '">' . $title . '</option>' ."\n";
 		}
 	}
 
@@ -106,46 +106,49 @@ function pageNames( )
  */
 function fontFiles( $values )
 {
-	$arrFiles = array();
+	static $arrFiles = array();
 
-	// Open the directory
-	$tmp_dir = @opendir( ROSTER_BASE.'fonts' );
-
-	if( !empty($tmp_dir) )
+	if( count($arrFiles) == 0 )
 	{
-		// Read the files
-		while( $file = readdir($tmp_dir) )
+		// Open the directory
+		$tmp_dir = @opendir( ROSTER_BASE . 'fonts' );
+
+		if( !empty($tmp_dir) )
 		{
-			$pfad_info = pathinfo($file);
-
-			if( strtolower($pfad_info['extension']) == strtolower('ttf') )
+			// Read the files
+			while( $file = readdir($tmp_dir) )
 			{
-				$name = str_replace('.'.$pfad_info['extension'],'',$file);
-				$arrFiles += array($file => $name);
-			}
-		}
-		// close the directory
-		closedir($tmp_dir);
+				$pfad_info = pathinfo($file);
 
-		//sort the list
-		asort($arrFiles);
+				if( strtolower($pfad_info['extension']) == strtolower('ttf') )
+				{
+					$name = str_replace('.' . $pfad_info['extension'],'',$file);
+					$arrFiles += array($file => $name);
+				}
+			}
+			// close the directory
+			closedir($tmp_dir);
+
+			//sort the list
+			asort($arrFiles);
+		}
 	}
 
-	$input_field = '<select name="config_'.$values['name'].'">'."\n";
+	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
 	$select_one = 1;
 	foreach( $arrFiles as $file=>$name )
 	{
 		if( $file == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="'.$file.'" selected="selected">-[ '.$name.' ]-</option>'."\n";
+			$input_field .= '  <option value="' . $file . '" selected="selected">-[ ' . $name . ' ]-</option>' . "\n";
 			$select_one = 0;
 		}
 		else
 		{
-			$input_field .= '  <option value="'.$file.'">'.$name.'</option>'."\n";
+			$input_field .= '  <option value="' . $file . '">' . $name . '</option>' . "\n";
 		}
 	}
 	$input_field .= '</select>';
+
 	return $input_field;
 }
-

@@ -422,84 +422,90 @@ $lang['notatwar']='Nicht im Krieg';
 
 
 // Quests page external links (on character quests page)
-	// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
-	// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
+// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
+// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
 
-	$lang['questlinks'][0]['name']='WoW-Handwerk';
-	$lang['questlinks'][0]['url1']='http://www.wow-handwerk.de/search.php?quicksearch=';
-	//$lang['questlinks'][0]['url2']='';
-	//$lang['questlinks'][0]['url3']='&amp;maxl='';
+$lang['questlinks'][0]['name']='WoW-Handwerk';
+$lang['questlinks'][0]['url1']='http://www.wow-handwerk.de/search.php?quicksearch=';
+//$lang['questlinks'][0]['url2']='';
+//$lang['questlinks'][0]['url3']='&amp;maxl='';
 
-	$lang['questlinks'][1]['name']='Buffed DE';
-	$lang['questlinks'][1]['url1']='http://www.buffed.de/?f=';
-	//$lang['questlinks'][1]['url2']='';
-	//$lang['questlinks'][1]['url3']='';
+$lang['questlinks'][1]['name']='Buffed DE';
+$lang['questlinks'][1]['url1']='http://www.buffed.de/?f=';
+//$lang['questlinks'][1]['url2']='';
+//$lang['questlinks'][1]['url3']='';
 
-	$lang['questlinks'][2]['name']='Thottbot';
-	$lang['questlinks'][2]['url1']='http://www.thottbot.com/?f=q&amp;title=';
-	$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-	$lang['questlinks'][2]['url3']='&amp;maxl=';
+$lang['questlinks'][2]['name']='Thottbot';
+$lang['questlinks'][2]['url1']='http://www.thottbot.com/?f=q&amp;title=';
+$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+$lang['questlinks'][2]['url3']='&amp;maxl=';
 
-	//$lang['questlinks'][3]['name']='WoWHead';
-	//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
-	//$lang['questlinks'][3]['url2']=';minle=';
-	//$lang['questlinks'][3]['url3']=';maxle=';
+//$lang['questlinks'][3]['name']='WoWHead';
+//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+//$lang['questlinks'][3]['url2']=';minle=';
+//$lang['questlinks'][3]['url3']=';maxle=';
 
 // Items external link
 // Add as many item links as you need
 // Just make sure their names are unique
-	$lang['itemlink'] = 'Item Links';
-	$lang['itemlinks']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-	$lang['itemlinks']['buffed.de'] = 'http://www.buffed.de/?f=';
-	$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
-	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+$lang['itemlink'] = 'Item Links';
+$lang['itemlinks']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
+$lang['itemlinks']['buffed.de'] = 'http://www.buffed.de/?f=';
+$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
 // Add as many item links as you need
 // Just make sure their names are unique
-	$lang['data_search'] = 'WoW Data Site Search';
-	$lang['data_links']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-	$lang['data_links']['buffed.de'] = 'http://www.buffed.de/?f=';
-	$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-	//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
+$lang['data_search'] = 'WoW Data Site Search';
+$lang['data_links']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
+$lang['data_links']['buffed.de'] = 'http://www.buffed.de/?f=';
+$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
+//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 
 // Definitions for item tooltip coloring
-	$lang['tooltip_use']='Benutzen';
-	$lang['tooltip_requires']='Benötigt';
-	$lang['tooltip_reinforced']='Verstärkte';
-	$lang['tooltip_soulbound']='Seelengebunden';
-	$lang['tooltip_boe']='Wird beim Anlegen gebunden';
-	$lang['tooltip_equip']='Anlegen';
-	$lang['tooltip_equip_restores']='Anlegen: Stellt';
-	$lang['tooltip_equip_when']='Anlegen: Erhöht';
-	$lang['tooltip_chance']='Gewährt';
-	$lang['tooltip_enchant']='Enchant';
-	$lang['tooltip_set']='Set';
-	$lang['tooltip_rank']='Rang';
-	$lang['tooltip_next_rank']='Nächster Rang';
-	$lang['tooltip_spell_damage']='Schaden';
-	$lang['tooltip_school_damage']='\\+.*Schaden';
-	$lang['tooltip_healing_power']='Heilung';
-	$lang['tooltip_chance_hit']='Trefferchance';
-	$lang['tooltip_reinforced_armor']='Verstärkte Rüstung';
-	$lang['tooltip_damage_reduction']='Schadensreduzierung';
+$lang['tooltip_use']='Benutzen';
+$lang['tooltip_requires']='Benötigt';
+$lang['tooltip_reinforced']='Verstärkte';
+$lang['tooltip_soulbound']='Seelengebunden';
+$lang['tooltip_boe']='Wird beim Anlegen gebunden';
+$lang['tooltip_equip']='Anlegen';
+$lang['tooltip_equip_restores']='Anlegen: Stellt';
+$lang['tooltip_equip_when']='Anlegen: Erhöht';
+$lang['tooltip_chance']='Gewährt';
+$lang['tooltip_enchant']='Enchant';
+$lang['tooltip_set']='Set';
+$lang['tooltip_rank']='Rang';
+$lang['tooltip_next_rank']='Nächster Rang';
+$lang['tooltip_spell_damage']='Schaden';
+$lang['tooltip_school_damage']='\\+.*Schaden';
+$lang['tooltip_healing_power']='Heilung';
+$lang['tooltip_chance_hit']='Trefferchance';
+$lang['tooltip_reinforced_armor']='Verstärkte Rüstung';
+$lang['tooltip_damage_reduction']='Schadensreduzierung';
 
 // Warlock pet names for icon displaying
-	$lang['Imp']='Wichtel';
-	$lang['Voidwalker']='Leerwandler';
-	$lang['Succubus']='Sukkubus';
-	$lang['Felhunter']='Teufelsjäger';
-	$lang['Infernal']='Infernal';
-	$lang['Felguard']='Teufelswache';
+$lang['Imp']='Wichtel';
+$lang['Voidwalker']='Leerwandler';
+$lang['Succubus']='Sukkubus';
+$lang['Felhunter']='Teufelsjäger';
+$lang['Infernal']='Infernal';
+$lang['Felguard']='Teufelswache';
 
 // Max experiance for exp bar on char page
-	$lang['max_exp']='Max XP';
+$lang['max_exp']='Max XP';
 
 // Error messages
-	$lang['CPver_err']='Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.';
-	$lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.';
-	$lang['GPver_err']='Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden.';
+$lang['CPver_err']='Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.';
+$lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.';
+$lang['GPver_err']='Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden.';
+
+// Menu titles
+$lang['menu_upprofile']='Update Profile|Update your profile on this site';
+$lang['menu_search']='Search|Search items and recipes in the database';
+$lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
+$lang['menu_credits']='Credits|Who made WoW Roster';
 
 $lang['menuconf_sectionselect']='Select Section';
 

@@ -422,84 +422,90 @@ $lang['notatwar']='Pas en guerre';
 
 
 // Quests page external links (on character quests page)
-	// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
-	// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
+// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
+// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
 
-	$lang['questlinks'][0]['name']='Judgehype FR';
-	$lang['questlinks'][0]['url1']='http://worldofwarcraft.judgehype.com/index.php?page=squete&amp;Ckey=';
-	$lang['questlinks'][0]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-	$lang['questlinks'][0]['url3']='&amp;maxl=';
+$lang['questlinks'][0]['name']='Judgehype FR';
+$lang['questlinks'][0]['url1']='http://worldofwarcraft.judgehype.com/index.php?page=squete&amp;Ckey=';
+$lang['questlinks'][0]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+$lang['questlinks'][0]['url3']='&amp;maxl=';
 
-	$lang['questlinks'][1]['name']='WoWDBU FR';
-	$lang['questlinks'][1]['url1']='http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title=';
-	$lang['questlinks'][1]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-	$lang['questlinks'][1]['url3']='&amp;maxl=';
+$lang['questlinks'][1]['name']='WoWDBU FR';
+$lang['questlinks'][1]['url1']='http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title=';
+$lang['questlinks'][1]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+$lang['questlinks'][1]['url3']='&amp;maxl=';
 
-	$lang['questlinks'][2]['name']='Allakhazam US';
-	$lang['questlinks'][2]['url1']='http://wow.allakhazam.com/db/qlookup.html?name=';
-	$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-	$lang['questlinks'][2]['url3']='&amp;maxl=';
+$lang['questlinks'][2]['name']='Allakhazam US';
+$lang['questlinks'][2]['url1']='http://wow.allakhazam.com/db/qlookup.html?name=';
+$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
+$lang['questlinks'][2]['url3']='&amp;maxl=';
 
-	//$lang['questlinks'][3]['name']='WoWHead';
-	//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
-	//$lang['questlinks'][3]['url2']=';minle=';
-	//$lang['questlinks'][3]['url3']=';maxle=';
+//$lang['questlinks'][3]['name']='WoWHead';
+//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
+//$lang['questlinks'][3]['url2']=';minle=';
+//$lang['questlinks'][3]['url3']=';maxle=';
 
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
-	$lang['itemlink'] = 'Item Links';
-	$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
-	$lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=sobj&amp;Ckey=';
-	$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
-	//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+$lang['itemlink'] = 'Item Links';
+$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
+$lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=sobj&amp;Ckey=';
+$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
 // Add as many item links as you need
 // Just make sure their names are unique
-	$lang['data_search'] = 'WoW Data Site Search';
-	$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-	$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
-	$lang['data_links']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
-	$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
+$lang['data_search'] = 'WoW Data Site Search';
+$lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
+$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+$lang['data_links']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
+$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 
 // Definition for item tooltip coloring
-	$lang['tooltip_use']='Utiliser';
-	$lang['tooltip_requires']='Niveau';
-	$lang['tooltip_reinforced']='renforcée';
-	$lang['tooltip_soulbound']='Lié';
-	$lang['tooltip_boe']='Lié quand équipé';
-	$lang['tooltip_equip']='Équipé';
-	$lang['tooltip_equip_restores']='Équipé : Rend';
-	$lang['tooltip_equip_when']='Équipé : Lorsque';
-	$lang['tooltip_chance']='Chance';
-	$lang['tooltip_enchant']='Enchantement';
-	$lang['tooltip_set']='Set';
-	$lang['tooltip_rank']='Rang';
-	$lang['tooltip_next_rank']='Prochain rang';
-	$lang['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
-	$lang['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
-	$lang['tooltip_healing_power']='les soins prodigués par les sorts et effets';
-	$lang['tooltip_chance_hit']='Chances quand touché :';
-	$lang['tooltip_reinforced_armor']='Armure renforcée';
-	$lang['tooltip_damage_reduction']='Réduit les points de dégâts';
+$lang['tooltip_use']='Utiliser';
+$lang['tooltip_requires']='Niveau';
+$lang['tooltip_reinforced']='renforcée';
+$lang['tooltip_soulbound']='Lié';
+$lang['tooltip_boe']='Lié quand équipé';
+$lang['tooltip_equip']='Équipé';
+$lang['tooltip_equip_restores']='Équipé : Rend';
+$lang['tooltip_equip_when']='Équipé : Lorsque';
+$lang['tooltip_chance']='Chance';
+$lang['tooltip_enchant']='Enchantement';
+$lang['tooltip_set']='Set';
+$lang['tooltip_rank']='Rang';
+$lang['tooltip_next_rank']='Prochain rang';
+$lang['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
+$lang['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
+$lang['tooltip_healing_power']='les soins prodigués par les sorts et effets';
+$lang['tooltip_chance_hit']='Chances quand touché :';
+$lang['tooltip_reinforced_armor']='Armure renforcée';
+$lang['tooltip_damage_reduction']='Réduit les points de dégâts';
 
 // Warlock pet names for icon displaying
-	$lang['Imp']='Diablotin';
-	$lang['Voidwalker']='Marcheur du Vide';
-	$lang['Succubus']='Succube';
-	$lang['Felhunter']='Chasseur corrompu';
-	$lang['Infernal']='Infernal';
-	$lang['Felguard']='Gangregarde';
+$lang['Imp']='Diablotin';
+$lang['Voidwalker']='Marcheur du Vide';
+$lang['Succubus']='Succube';
+$lang['Felhunter']='Chasseur corrompu';
+$lang['Infernal']='Infernal';
+$lang['Felguard']='Gangregarde';
 
 // Max experiance for exp bar on char page
-	$lang['max_exp']='Max XP';
+$lang['max_exp']='Max XP';
 
 // Error messages
-	$lang['CPver_err']='La version du CharacterProfiler utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v%1$s et que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.';
-	$lang['PvPLogver_err']='La version du PvPLog utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v%1$s et, si vous venez de mettre �  jour PvPLog, assurez vous que vous avez supprimé cotre ancien fichier PvPLog.lua contenu dans les SavedVariables avant de le mettre �  jour.';
-	$lang['GPver_err']='La version du GuildProfiler utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v%1$s';
+$lang['CPver_err']='La version du CharacterProfiler utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v%1$s et que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.';
+$lang['PvPLogver_err']='La version du PvPLog utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v%1$s et, si vous venez de mettre �  jour PvPLog, assurez vous que vous avez supprimé cotre ancien fichier PvPLog.lua contenu dans les SavedVariables avant de le mettre �  jour.';
+$lang['GPver_err']='La version du GuildProfiler utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />\nSVP assurez vous que vous fonctionnez avec la v%1$s';
+
+// Menu titles
+$lang['menu_upprofile']='Update Profile|Update your profile on this site';
+$lang['menu_search']='Search|Search items and recipes in the database';
+$lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
+$lang['menu_credits']='Credits|Who made WoW Roster';
 
 $lang['menuconf_sectionselect']='Select Section';
 
