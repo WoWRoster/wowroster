@@ -58,7 +58,7 @@ class keys
 		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
 		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
 
-		$installer->add_menu_button('keys','guild','');
+		$installer->add_menu_button('keys','guild');
 		return true;
 	}
 
