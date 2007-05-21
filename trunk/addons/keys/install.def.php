@@ -7,7 +7,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id: $
+ * @version    SVN: $Id:$
  * @link       http://www.wowroster.net
  * @package    InstanceKeys
  * @subpackage Installer
@@ -34,7 +34,7 @@ class keys
 	var $version = '1.8.0.0';
 
 	var $fullname = 'Instance Keys';
-	var $description = 'Lists Azeroth Dungeon keys for members';
+	var $description = 'Lists Azeroth Dungeon keys for Members';
 	var $credits = array(
 	array(	"name"=>	"WoWRoster Dev Team",
 			"info"=>	"Original Author")
