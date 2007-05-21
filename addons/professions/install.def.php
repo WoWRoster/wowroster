@@ -24,7 +24,7 @@ if ( !defined('ROSTER_INSTALLED') )
  * @package    Professions
  * @subpackage Locale
  */
-class tradeskills
+class professions
 {
 	var $active = true;
 	var $icon = 'trade_leatherworking';
@@ -52,12 +52,12 @@ class tradeskills
 
 		// Master and menu entries
 		$installer->add_config("'1','startpage','tradeskill_conf','display','master'");
-		$installer->add_config("'110','tradeskill_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'110','professions_conf',NULL,'blockframe','menu'");
 
-		$installer->add_config("'1010','show_new_skills','0','radio{No^0|Yes^1','tradeskill_conf'");
-		$installer->add_config("'1020','collapse_list','0','radio{Show^0|Hide^1','tradeskill_conf'");
+		$installer->add_config("'1010','show_new_skills','0','radio{No^0|Yes^1','professions_conf'");
+		$installer->add_config("'1020','collapse_list','0','radio{Show^0|Hide^1','professions_conf'");
 
-		$installer->add_menu_button('professions','guild','');
+		$installer->add_menu_button('professions_menu','guild','');
 		return true;
 	}
 
@@ -84,7 +84,7 @@ class tradeskills
 
 		$installer->remove_all_config();
 
-		$installer->remove_menu_button('professions');
+		$installer->remove_menu_button('professions_menu');
 		return true;
 	}
 }
