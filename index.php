@@ -111,9 +111,10 @@ if( $addon['active'] == '1' )
 	}
 
 	// The addon will now assign its output to $content
+	$content = '';
 	ob_start();
 		require($path);
-	$content = ob_get_clean();
+	$content .= ob_get_clean();
 
 
 	// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines

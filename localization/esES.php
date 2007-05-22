@@ -28,7 +28,7 @@ $lang['lualocation']='Pulsa Examinar y selecciona tus ficheros *.lua para el env
 $lang['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*NOMBRE_DE_CUENTA*</i>\\\\SavedVariables';
 
 $lang['noGuild']='No puedo encontrar la hermandad en la base de datos. Por favor, actualiza primero los miembros.';
-$lang['nodata']='No puedo encontrar la hermandad: <b>\'%1$s\'</b> del servidor <b>\'%2$s\'</b><br />Necesitas <a href="%3$s">incluir tu hermandad</a> y asegurarte de que has <a href="%4$s">terminado la configuración</a><br /><br /><a href="http://www.wowroster.net/wiki/index.php/Roster:Install" target="_blank">Pulsa aquí para las instrucciones de instalación</a>';
+$lang['nodata']='No puedo encontrar la hermandad: <b>\'%1$s\'</b> del servidor <b>\'%2$s\'</b><br />Necesitas <a href="%3$s">incluir tu hermandad</a> y asegurarte de que has <a href="%4$s">terminado la configuración</a><br /><br /><a href="http://www.wowroster.net/wiki/Roster:Install" target="_blank">Pulsa aquí para las instrucciones de instalación</a>';
 $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Actualizar Perfil';

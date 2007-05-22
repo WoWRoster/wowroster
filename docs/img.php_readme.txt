@@ -56,11 +56,11 @@ USAGE:
 
 Link to the file as follows (Charactername must be in the database to work)
 
-<img src="http://yoursite.com/installdir/img.php?name=Charactername">
+<img src="http://yoursite.com/installdir/img.php?Charactername">
 
 or BBcode  (Note: newer versions of phpBB may not allow this type of img call using bbcode so have the board admin add to allowed html codes <img>
 
-[img]http://yoursite.com/installdir/img.php?name=Charactername[/img]
+[img]http://yoursite.com/installdir/img.php?Charactername[/img]
 
 
 If you are using an Apache server with mod_rewrite installed, the .htaccess file will allow users to access their signature by using the following code:

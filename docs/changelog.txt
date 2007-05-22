@@ -7,8 +7,8 @@ You can view the open source project at - http://www.wowroster.net
 
 For corrections and/or suggestions - http://www.wowroster.net
 
-An html version of the Change Log can be found on our WiKi
-http://www.wowroster.net/wiki/index.php/Roster:ChangeLog
+An HTML version of the Change Log can be found on our WiKi
+http://www.wowroster.net/wiki/Roster:ChangeLog
 
 
 ------------------------------------

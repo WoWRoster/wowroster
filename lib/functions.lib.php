@@ -90,7 +90,6 @@ function border( $style , $mode , $header_text=null )
 	}
 }
 
-
 $tooltips = array();
 /**
  * Makes a tootip and places it into the tooltip array
@@ -112,7 +111,6 @@ function setTooltip( $var , $content )
 		$tooltips += array($var=>$content);
 	}
 }
-
 
 /**
  * Gathers all tootips and places them into javascript variables
@@ -140,7 +138,6 @@ function getAllTooltips( )
 		return '';
 	}
 }
-
 
 /**
 * Highlight certain keywords in a SQL query
@@ -173,7 +170,6 @@ function sql_highlight( $sql )
 
 	return $sql;
 }
-
 
 /**
  * Clean replacement for die(), outputs a message with debugging info if needed and ends output
@@ -387,7 +383,7 @@ function stripAllHtml( $string )
  * This will check if the given Filename is an image
  *
  * @param imagefile $file
- * Returns the extentsion if the filetype is an image
+ * @return mixed The extentsion if the filetype is an image, false if it is not
  */
 function check_if_image( $imagefilename )
 {
@@ -423,7 +419,6 @@ function check_if_image( $imagefilename )
 		}
 	}
 }
-
 
 /**
  * Tooltip colorizer function with string cleaning
@@ -548,7 +543,6 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 	return $tooltip_out;
 }
 
-
 /**
  * Cleans up the tooltip and parses an inline_caption if needed
  * Use only with makeOverlib
@@ -634,7 +628,6 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 
 	return $tooltip_out;
 }
-
 
 /**
  * Easy all in one function to make overlib tooltips
@@ -830,7 +823,7 @@ function escape_array( $array )
 }
 
 /**
- * Calculates the last updated value
+ * Converts a datetime field into a readable date
  *
  * @param string $datetime datetime field data in DB
  * @return string formatted date string
@@ -845,72 +838,50 @@ function readbleDate( $datetime )
 	return date($roster->locale->act['phptimeformat'], $localtime);
 }
 
+/**
+ * Gets a file's extention passed as a string
+ *
+ * @param string $filename
+ * @return string
+ */
 function get_file_ext( $filename )
 {
 	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }
 
+/**
+ * Converts seconds to a string delimited by time values
+ * Will show w,d,h,m,s
+ *
+ * @param string $seconds
+ * @return string
+ */
 function seconds_to_time( $seconds )
 {
 	while( $seconds >= 60 )
 	{
-		if( $seconds >= 86400 )	// there is more than 1 day
+		if( $seconds >= 86400 )
 		{
 			$days = floor($seconds / 86400);
-			$seconds = $seconds - ($days * 86400);
+			$seconds -= ($days * 86400);
 		}
 		elseif( $seconds >= 3600 )
 		{
 			$hours = floor($seconds / 3600);
-			$seconds = $seconds - ($hours * 3600);
+			$seconds -= ($hours * 3600);
 		}
 		elseif( $seconds >= 60 )
 		{
 			$minutes = floor($seconds / 60);
-			$seconds = $seconds - ($minutes * 60);
+			$seconds -= ($minutes * 60);
 		}
 	}
 
 	// convert variables into sentence structure components
-	if( !isset($days) )
-	{
-		$days = '';
-	}
-	else
-	{
-		if( $days == 1 )
-		{
-			$days = $days . 'd, ';
-		}
-		else
-		{
-			$days = $days . 'd, ';
-		}
-	}
-	if( !isset($hours) )
-	{
-		$hours = '';
-	}
-	else
-	{
-		$hours = $hours . 'h, ';
-	}
-	if( !isset($minutes) )
-	{
-		$minutes = '';
-	}
-	else
-	{
-		$minutes = $minutes . 'm, ';
-	}
-	if( !isset($seconds) )
-	{
-		$seconds = '';
-	}
-	else
-	{
-		$seconds = $seconds . 's';
-	}
+	$days = ( isset($days) ? $days . 'd, ' : '' );
+	$hours = ( isset($hours) ? $hours . 'h, ' : '' );
+	$minutes = ( isset($minutes) ? $minutes . 'm, ' : '' );
+	$seconds = ( isset($seconds) ? $seconds . 's' : '' );
 
 	return array('days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds);
 }
@@ -969,7 +940,7 @@ function getaddon( $addonname )
 
 	$query = "SELECT `config_name`, `config_value` FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $addon['addon_id'] . "' ORDER BY `id` ASC;";
 
-	$result = $roster->db->query( $query );
+	$result = $roster->db->query($query);
 
 	if ( !$result )
 	{
@@ -978,13 +949,12 @@ function getaddon( $addonname )
 
 	if( $roster->db->num_rows($result) > 0 )
 	{
-		while( $row = $roster->db->fetch($result) )
+		while( $row = $roster->db->fetch($result,SQL_ASSOC) )
 		{
 			$addon['config'][$row['config_name']] = $row['config_value'];
 		}
 		$roster->db->free_result($result);
 	}
-
 
 	return $addon;
 }
@@ -1010,7 +980,7 @@ function active_addon( $name )
 }
 
 /**
- * Handles retrieving a URL multiple ways
+ * Handles retrieving the contents of a URL using multiple methods
  *
  * @param string $url	| URL to retrieve
  * @param int $timeout	| Timeout
@@ -1050,8 +1020,6 @@ function urlgrabber( $url , $timeout = 5 )
 		return false;
 	}
 } //-END function urlgrabber()
-
-
 
 /**
  * Stupid function to create an REQUEST_URI for IIS 5 servers

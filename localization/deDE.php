@@ -28,7 +28,7 @@ $lang['lualocation']='W&auml;hle die Datei "CharacterProfiler.lua" aus';
 $lang['filelocation']='finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zun&auml;chst die Mitgliederliste hoch.';
-$lang['nodata']='Konnte Gilde <b>\'%1$s\'</b> auf dem Server <b>\'%2$s\'</b> nicht finden<br />Du musst erst einmal die <a href="%3$s">Gildendaten hochladen</a> oder die <a href="%4$s">Konfiguration beenden</a><br /><br /><a href="http://www.wowroster.net/wiki/index.php/Roster:Install" target="_blank">Klicke hier um zur Installationsanleitung zu gelangen</a>';
+$lang['nodata']='Konnte Gilde <b>\'%1$s\'</b> auf dem Server <b>\'%2$s\'</b> nicht finden<br />Du musst erst einmal die <a href="%3$s">Gildendaten hochladen</a> oder die <a href="%4$s">Konfiguration beenden</a><br /><br /><a href="http://www.wowroster.net/wiki/Roster:Install" target="_blank">Klicke hier um zur Installationsanleitung zu gelangen</a>';
 $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Gildenmitglied aktualisieren';

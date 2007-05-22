@@ -223,7 +223,7 @@ class roster
 					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
 				}
 
-				$this->menu_select = $this->db->fetch_all($result,MYSQL_NUM);
+				$this->menu_select = $this->db->fetch_all($result,SQL_NUM);
 
 				$this->db->free_result($result);
 
@@ -292,7 +292,7 @@ class roster
 					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
 				}
 
-				$this->menu_select = $this->db->fetch_all($result,MYSQL_NUM);
+				$this->menu_select = $this->db->fetch_all($result,SQL_NUM);
 
 				$this->db->free_result($result);
 
@@ -326,7 +326,7 @@ class roster
 					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
 				}
 
-				$this->menu_select = $this->db->fetch_all($result,MYSQL_NUM);
+				$this->menu_select = $this->db->fetch_all($result,SQL_NUM);
 
 				$this->db->free_result($result);
 
@@ -347,7 +347,7 @@ class roster
 		$query = "SELECT * FROM `" . $this->db->table('addon') . "`;";
 		$result = $this->db->query($query);
 		$this->addon_data = array();
-		while( $row = $this->db->fetch($result) )
+		while( $row = $this->db->fetch($result,SQL_ASSOC) )
 		{
 			$this->addon_data[$row['basename']] = $row;
 		}
