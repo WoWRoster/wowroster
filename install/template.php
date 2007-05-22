@@ -126,14 +126,12 @@ class Template_Wrap
 	 */
 	function set_filename($handle,$filename)
 	{
-		global $roster_root_path;
-
 		if (empty($filename))
 		{
 			trigger_error("Template error - Empty filename specified for $handle", E_USER_ERROR);
 		}
 
-		$filename = $roster_root_path.'install/templates/'.$filename;
+		$filename = ROSTER_BASE.'install/templates/'.$filename;
 
 		$this->template_file[$handle] = $filename;
 
