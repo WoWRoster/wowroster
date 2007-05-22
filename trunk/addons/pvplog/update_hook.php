@@ -23,8 +23,7 @@ if ( !defined('ROSTER_INSTALLED') )
  * This MUST be the same name as the addon basename
  *
  * @package    PvPLog
- * @subpackage Installer
- *
+ * @subpackage UpdateHook
  */
 class pvplogUpdate
 {

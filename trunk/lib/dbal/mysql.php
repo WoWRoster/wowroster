@@ -21,6 +21,10 @@ if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
 	die("You can't access this file directly!");
 }
 
+define('SQL_ASSOC',MYSQL_ASSOC);
+define('SQL_NUM',MYSQL_NUM);
+define('SQL_BOTH',MYSQL_BOTH);
+
 /**
  * SQL_DB class, MySQL version
  * Abstracts MySQL database functions
@@ -245,10 +249,10 @@ class roster_db
 	 * Fetch one record
 	 *
 	 * @param $query_id Query ID
-	 * @param $result_type MYSQL_ASSOC, MYSQL_NUM, or MYSQL_BOTH
+	 * @param $result_type SQL_ASSOC, SQL_NUM, or SQL_BOTH
 	 * @return mixed Record / false
 	 */
-	function fetch( $query_id = 0, $result_type = MYSQL_BOTH)
+	function fetch( $query_id = 0, $result_type = SQL_BOTH)
 	{
 		if( !$query_id )
 		{
@@ -270,9 +274,10 @@ class roster_db
 	 * Fetch all records
 	 *
 	 * @param $query_id Query ID
+	 * @param $result_type SQL_ASSOC, SQL_NUM, or SQL_BOTH
 	 * @return mixed Record Set / false
 	 */
-	function fetch_all( $query_id = 0, $result_type = MYSQL_BOTH )
+	function fetch_all( $query_id = 0, $result_type = SQL_BOTH )
 	{
 		if( !$query_id )
 		{

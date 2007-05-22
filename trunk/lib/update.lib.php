@@ -292,24 +292,25 @@ class update
 
 					// Is this char already in the members table?
 					$query = "SELECT `member_id`"
-						. " FROM `".$roster->db->table('members')."`"
-						. " WHERE `name` = '".$char_name."'"
-						. " AND `server` = '".$realm_name."'"
-						. " AND `region` = '".$region."'"
+						. " FROM `" . $roster->db->table('members') . "`"
+						. " WHERE `name` = '" . $char_name . "'"
+						. " AND `server` = '" . $realm_name . "'"
+						. " AND `region` = '" . $region . "'"
 						. ";";
 
 
-					if(!$roster->db->query_first($query))
+					if( !$roster->db->query_first($query) )
 					{
 						// Allowed char detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-							. " FROM `".$roster->db->table('upload')."`"
+							. " FROM `" . $roster->db->table('upload') . "`"
 							. " WHERE (`type` = 2 OR `type` = 3)"
-							. " AND '".$char_name."' LIKE `name` "
-							. " AND '".$realm_name."' LIKE `server` "
-							. " AND '".$region."' LIKE `region` "
+							. " AND '" . $char_name . "' LIKE `name` "
+							. " AND '" . $realm_name . "' LIKE `server` "
+							. " AND '" . $region."' LIKE `region` "
 							. " GROUP BY `type` "
-							. " ORDER BY `type` DESC;";
+							. " ORDER BY `type` DESC"
+							. ";";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -321,7 +322,7 @@ class update
 						 * the upload.
 						 */
 
-						if($roster->db->query_first($query) !== 2)
+						if( $roster->db->query_first($query) !== 2 )
 						{
 							$output .= "Character ".$char_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
 							continue;
@@ -407,13 +408,14 @@ class update
 
 						// Allowed guild detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-							. " FROM `".$roster->db->table('upload')."`"
+							. " FROM `" . $roster->db->table('upload') . "`"
 							. " WHERE (`type` = 0 OR `type` = 1)"
-							. " AND '".$guild_name."' LIKE `name` "
-							. " AND '".$realm_name."' LIKE `server` "
-							. " AND '".$region."' LIKE `region` "
+							. " AND '" . $guild_name . "' LIKE `name` "
+							. " AND '" . $realm_name . "' LIKE `server` "
+							. " AND '" . $region . "' LIKE `region` "
 							. " GROUP BY `type` "
-							. " ORDER BY `type` DESC;";
+							. " ORDER BY `type` DESC"
+							. ";";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:

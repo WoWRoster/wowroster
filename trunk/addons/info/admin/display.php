@@ -128,7 +128,7 @@ function getCharData( )
 
 	$db_values = false;
 
-	while( $row = $roster->db->fetch($results,MYSQL_ASSOC) )
+	while( $row = $roster->db->fetch($results,SQL_ASSOC) )
 	{
 		$db_values[$row['name']]['member_id'] = $row['member_id'];
 		$db_values[$row['name']]['level'] = $row['level'];
