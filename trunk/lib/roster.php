@@ -36,7 +36,7 @@ class roster
 	var $output = array(
 			'http_header' => true,
 	        'show_header' => true,
-	        'show_menu' => 'main',
+	        'show_menu' => array('main'),
 	        'show_footer' => true,
 
 	        // used on rostercp pages

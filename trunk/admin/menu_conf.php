@@ -120,7 +120,7 @@ $roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_
 
 // --[ Section select. ]--
 $menu .= border('sorange','start',$roster->locale->act['menuconf_sectionselect'])."\n";
-$menu .= '<form action="'.makelink().'" method="post">'."\n";
+$menu .= '<form action="'.makelink().'" method="get">'."\n";
 $menu .= '<select name="section">'."\n";
 
 $query = "SELECT `section` FROM ".$roster->db->table('menu').";";
@@ -135,7 +135,7 @@ while ($row = $roster->db->fetch($result))
 {
 	if ($row['section'] == $section)
 	{
-		$menu .= '<option value="'.$row['section'].'">-'.$row['section'].'-</option>'."\n";
+		$menu .= '<option value="'.$row['section'].'" selected="selected">-'.$row['section'].'-</option>'."\n";
 	}
 	else
 	{
@@ -200,7 +200,7 @@ $menu .= border('syellow','end')."\n";
 
 // --[ Main grid design ]--
 $body .= isset($save_status)?$save_status:'';
-$body .= '<form action="'.makelink().'" method="post" onsubmit="return confirm(\''.$roster->locale->act['confirm_config_submit'].'\') &amp;&amp; writeValue() &amp;&amp; submitonce(this);">'."\n";
+$body .= '<form action="'.makelink('&amp;section='.$section).'" method="post" onsubmit="return confirm(\''.$roster->locale->act['confirm_config_submit'].'\') &amp;&amp; writeValue() &amp;&amp; submitonce(this);">'."\n";
 $body .= '<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="'.$section.'" /><input type="hidden" name="process" value="process" />';
 $body .= '<input type="submit" value="'.$roster->locale->act['config_submit_button'].'" />'."\n";
 $body .= '</form><br />'."\n";

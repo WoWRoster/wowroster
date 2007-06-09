@@ -25,7 +25,6 @@ $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
 
 $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild';
 
-
 // Process a new line
 if( isset($_POST['process']) && $_POST['process'] == 'process')
 {
@@ -212,7 +211,7 @@ function ruletable_line( $row , $type )
 			<td class="membersRow1">' . $row['name'] . '</td>
 			<td class="membersRow1">' . $row['server'] . '</td>
 			<td class="membersRow1">' . $row['region'] . '</td>
-			<td class="membersRowRight1"><button class="input" name="action" value="del_' . $row['rule_id'] . '">' . $roster->locale->act['delete'] . '</button></td>
+			<td class="membersRowRight1"><button type="submit" class="input" name="action" value="del_' . $row['rule_id'] . '">' . $roster->locale->act['delete'] . '</button></td>
 		</tr>' . "\n";
 	return $output;
 }
@@ -231,7 +230,7 @@ function ruletable_foot( $style , $type )
 			<td class="membersRow2"><input class="wowinput128" type="text" name="name" value="" /></td>
 			<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
 			<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
-			<td class="membersRowRight2"><button class="input" name="action" value="add">' . $roster->locale->act['add'] . '</button></td>
+			<td class="membersRowRight2"><button type="submit" class="input" name="action" value="add">' . $roster->locale->act['add'] . '</button></td>
 		</tr>
 	</tbody>
 </table>
