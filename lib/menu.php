@@ -436,12 +436,12 @@ class RosterMenu
 
 		if (is_array($sections))
 		{
-			$section = implode(',',$sections);
+			$section = "'".implode("','",$sections)."'";
 		}
 		else
 		{
-			$section = $sections;
-			$sections = array($section);
+			$section = "'".$sections."'";
+			$sections = array($sections);
 		}
 
 		// --[ Fetch button list from DB ]--
@@ -465,7 +465,7 @@ class RosterMenu
 		$roster->db->free_result($result);
 
 		// --[ Fetch menu configuration from DB ]--
-		$query = "SELECT * FROM `" . $roster->db->table('menu') . "` WHERE `section` IN ('" . $section . "');";
+		$query = "SELECT * FROM `" . $roster->db->table('menu') . "` WHERE `section` IN (" . $section . ");";
 
 		$result = $roster->db->query($query);
 
@@ -485,7 +485,7 @@ class RosterMenu
 
 		foreach( $sections as $id=>$value )
 		{
-			if( isset($data[$section]) )
+			if( isset($data[$value]) )
 			{
 				$page[$id] = $data[$value];
 			}
