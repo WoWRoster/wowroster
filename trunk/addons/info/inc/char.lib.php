@@ -631,7 +631,7 @@ $returnstring .= '  <tr>
 
 		$return_string = '
 <div class="char_panel spell_panel">
-	<img class="panel_icon" src="'.$roster->config['img_url'].'char/menubar/icon_spellbook.gif" alt=""/>
+	<img class="panel_icon" src="'.$roster->config['img_url'].'char/icon_spellbook.gif" alt=""/>
 	<div class="panel_title">'.$this->locale['spellbook'].'</div>
 	<div class="background">&nbsp;</div>
 
@@ -1776,7 +1776,7 @@ $returnstring .= '  <tr>
 			$returndata = '
 <div class="char_panel talent_panel">
 
-	<img class="panel_icon" src="'.$roster->config['img_url'].'char/menubar/icon_talents.gif" alt="" />
+	<img class="panel_icon" src="'.$roster->config['img_url'].'char/icon_talents.gif" alt="" />
 	<div class="panel_title">'.$this->locale['talents'].'</div>
 	<img class="top_bar" src="'.$roster->config['img_url'].'char/talent/bar_top.gif" alt="" />
 	<img class="bot_bar" src="'.$roster->config['img_url'].'char/talent/bar_bottom.gif" alt="" />

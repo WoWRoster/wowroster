@@ -63,7 +63,7 @@ class CharBonus
 		}
 
 		$bt = '<div class="char_panel" style="margin-left:20px;">
-	<img src="' . $roster->config['img_url'] . 'char/menubar/icon_bonuses.gif" class="panel_icon" alt="" />
+	<img src="' . $roster->config['img_url'] . 'char/icon_bonuses.gif" class="panel_icon" alt="" />
 	<div class="panel_title">' . $roster->locale->wordings[$this->lang]['item_bonuses_full'] . '</div>
 	<div class="tab3">
 		<div class="container">

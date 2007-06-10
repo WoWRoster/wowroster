@@ -31,7 +31,7 @@ $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 // Include character class file
 require_once ($addon['dir'] . 'inc/char.lib.php');
 
-$roster->output['show_menu'] = array('main');
+$roster->output['show_menu'] = array('main','char');
 
 // Get Character Info
 $char = new char($roster->data);
