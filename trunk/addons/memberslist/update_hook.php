@@ -56,6 +56,12 @@ class memberslistUpdate
 	 */
 	function reset_messages()
 	{
+		/**
+		 * We display the addon name at the beginning of the output line. If
+		 * the hook doesn't exist on this side, nothing is output. If we don't
+		 * produce any output (update method off) we empty this before returning.
+		 */
+		
 		$this->messages = 'memberslist';
 	}
 
@@ -74,6 +80,8 @@ class memberslistUpdate
 		// --[ Check if this update type is enabled ]--
 		if( !( $this->data['config']['update_type'] & 1 ) )
 		{
+			// prevent the addon name from being displayed
+			$this->messages = '';
 			return true;
 		}
 
@@ -361,6 +369,8 @@ class memberslistUpdate
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 1 ) == 0 )
 		{
+			// prevent the addon name from being displayed
+			$this->messages = '';
 			return true;
 		}
 
@@ -397,6 +407,8 @@ class memberslistUpdate
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
 		{
+			// prevent the addon name from being displayed
+			$this->messages = '';
 			return true;
 		}
 
@@ -458,6 +470,8 @@ class memberslistUpdate
 		// --[ Check if this update type is enables ]--
 		if(( $this->data['config']['update_type'] & 2 ) == 0 )
 		{
+			// prevent the addon name from being displayed
+			$this->messages = '';
 			return true;
 		}
 
