@@ -56,8 +56,8 @@ class Install
 	 */
 	function add_backup($table)
 	{
-		$this->sql[] = 'CREATE TEMPORARY TABLE `backup_'.$table.'` LIKE `'.$table.'`';
-		$this->sql[] = 'INSERT INTO `backup_'.$table.'` SELECT * FROM `'.$table.'`';
+		$this->sql[] = 'CREATE TEMPORARY TABLE `backup_' . $table . '` LIKE `' . $table . '`';
+		$this->sql[] = 'INSERT INTO `backup_' . $table . '` SELECT * FROM `' . $table . '`';
 		$this->tables[$table] = true; // Restore backup on rollback
 	}
 
@@ -82,7 +82,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "INSERT INTO `".$roster->db->table('addon_config')."` VALUES ('".$this->addata['addon_id']."',$sql);";
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('addon_config') . "` VALUES ('" . $this->addata['addon_id'] . "',$sql);";
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "UPDATE `".$roster->db->table('addon_config')."` SET ".$sql." WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
+		$this->sql[] = "UPDATE `" . $roster->db->table('addon_config') . "` SET " . $sql . " WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "DELETE FROM `".$roster->db->table('addon_config')."` WHERE `addon_id` = '".$this->addata['addon_id']."' AND `id` = '".$id."';";
+		$this->sql[] = "DELETE FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = 'DELETE FROM `'.$roster->db->table('addon_config').'` WHERE `addon_id` = "'.$this->addata['addon_id'].'";';
+		$this->sql[] = "DELETE FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
 	}
 
 	/**
@@ -128,12 +128,12 @@ class Install
 	 *
 	 * @param string $title
 	 *		Localization key for the button title
+	 * @param string $scope
+	 *		Scope to link to
 	 * @param string $url
 	 *		URL parameters for the addon function
-	 * @param boolean $active
-	 *		If this button should be active initially. If you specify your
-	 *		addon not to be active on install, this parameter means if this
-	 *		button is active after the addon is enabled.
+	 * @param string $icon
+	 * 		Icon for display
 	 */
 	function add_menu_button($title, $scope='util', $url='', $icon='')
 	{
@@ -144,7 +144,7 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$this->sql[] = 'INSERT INTO `'.$roster->db->table('menu_button').'` VALUES (NULL,"'.$this->addata['addon_id'].'","'.$title.'","'.$scope.'-'.$this->addata['basename'].$url.'","'.$icon.'");';
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . '-' . $this->addata['basename'] . $url . "','" . $icon . "');";
 	}
 
 	/**
@@ -152,12 +152,12 @@ class Install
 	 *
 	 * @param string $title
 	 *		Localization key for the button title
+	 * @param string $scope
+	 *		Scope to link to
 	 * @param string $url
 	 *		URL parameters for the addon function
-	 * @param boolean $active
-	 *		If this button should be active initially. If you specify your
-	 *		addon not to be active on install, this parameter means if this
-	 *		button is active after the addon is enabled.
+	 * @param string $icon
+	 * 		Icon for display
 	 */
 	function update_menu_button($title, $scope='util', $url='', $icon='')
 	{
@@ -168,7 +168,7 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$this->sql[] = 'UPDATE `'.$roster->db->table('menu_button').'` SET `url`="'.$scope.'-'.$this->addata['basename'].$url.'", `icon`="'.$icon.'" WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
+		$this->sql[] = "UPDATE `" . $roster->db->table('menu_button') . "` SET `url`='" . $scope . '-' . $this->addata['basename'] . $url . "', `icon`='" . $icon . "' WHERE `addon_id`='" . $this->addata['addon_id'] . "' AND `title`='" . $title . "';";
 	}
 
 	/**
@@ -182,6 +182,16 @@ class Install
 		global $roster;
 
 		$this->sql[] = 'DELETE FROM `'.$roster->db->table('menu_button').'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
+	}
+
+	/**
+	 * Removes the all the menu buttons for an addon
+	 */
+	function remove_all_menu_button()
+	{
+		global $roster;
+
+		$this->sql[] = "DELETE FROM `" . $roster->db->table('menu_button') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
 	}
 
 	/**

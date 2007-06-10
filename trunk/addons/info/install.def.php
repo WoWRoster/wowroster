@@ -87,6 +87,15 @@ class info
 		  ADD `show_recipes` TINYINT(1) NOT NULL default '3',
 		  ADD `show_item_bonuses` TINYINT(1) NOT NULL default '3';");
 
+		$installer->add_menu_button('character','char','','');
+		$installer->add_menu_button('talents','char','-talents','');
+		$installer->add_menu_button('spellbook','char','-spellbook','');
+		$installer->add_menu_button('mailbox','char','-mailbox','');
+		$installer->add_menu_button('bags','char','-bags','');
+		$installer->add_menu_button('bank','char','-bank','');
+		$installer->add_menu_button('quests','char','-quests','');
+		$installer->add_menu_button('recipes','char','-recipes','');
+
 		return true;
 	}
 
@@ -112,6 +121,7 @@ class info
 		global $installer, $roster;
 
 		$installer->remove_all_config();
+		$installer->remove_all_menu_button();
 
 		$installer->add_backup($roster->db->table('players'));
 
