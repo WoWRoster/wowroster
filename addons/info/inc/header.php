@@ -19,11 +19,11 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-// Check for start for pvp log data
-$start = (isset($_GET['start']) ? $_GET['start'] : 0);
-
 // Get char page mode
 $action = (isset($roster->pages[2]) ? $roster->pages[2] : '' );
+
+// Check for start for pvp log data
+$start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
@@ -31,6 +31,7 @@ $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 // Include character class file
 require_once ($addon['dir'] . 'inc/char.lib.php');
 
+$roster->output['show_menu'] = array('main');
 
 // Get Character Info
 $char = new char($roster->data);
@@ -81,7 +82,7 @@ foreach( $disp_array as $global_setting )
 
 $char->data['char_icon'] = $roster->config['img_url'] . 'char/portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
 
-
+/*
 $char_menu = '<div class="char_menubar">
 
 	<a href="' . makelink('char-info' . $char_url) . '" onmouseover="overlib(\'' . $roster->locale->act['character'] . '\',WRAP);" onmouseout="return nd();">
@@ -114,9 +115,9 @@ if( $addon['config']['show_quests'] )
 if( $addon['config']['show_recipes'] )
 	$char_menu .= '	<a href="'.makelink('char-info-recipes'.$char_url).'" onmouseover="overlib(\''.$roster->locale->act['recipes'].'\',WRAP);" onmouseout="return nd();">
 		<img class="menu_icon" src="'.$roster->config['img_url'].'char/menubar/menu_recipes.jpg" alt="" /></a>';
-
+*/
 $char_menu .= '
-</div>
+
 
 <div class="char_title">'.$char->get('name').' @ '.$char->get('server').(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
 	<div class="lastupdated">'.$roster->locale->act['lastupdate'].': '.$char->data['update_format'].'</div>
