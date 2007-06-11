@@ -59,7 +59,7 @@ $lang['intellect']='Intelligenz';
 $lang['intellect_tooltip']= 'Erhöht deine Manapunkte und die die Chance auf einen kritischen Treffer mit Sprüchen.<br />Erhöht die Rate mit denen du deine Waffenfertigkeiten verbesserst.';
 $lang['spirit']='Willenskraft';
 $lang['spirit_tooltip']= 'Erhöht deine Mana- und Lebens- regenerationsrate.';
-$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s';
+$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
 
 $lang['mainhand']='Waffenhand';
 $lang['offhand']='Off Hand';

@@ -59,7 +59,7 @@ $lang['intellect']='Intellect';
 $lang['intellect_tooltip']= 'Increases your mana points and your chance to score a critical hit with spells.<br />Increases the rate at which you improve weapon skills.';
 $lang['spirit']='Spirit';
 $lang['spirit_tooltip']= 'Increases your health and mana regeneration rates.';
-$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%';
+$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
 
 $lang['mainhand']='Main Hand';
 $lang['offhand']='Off Hand';

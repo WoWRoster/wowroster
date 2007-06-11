@@ -102,20 +102,20 @@ function buildSQL($item,$key,$type)
 	if ($type == 'quest')
 	{
 		++$pcount;
-		$selectq .= ", sum(if(quests.quest_name = '".$iname."', 1, 0)) AS $key";
+		$selectq .= ", SUM(IF(`quests`.`quest_name` = '".$iname."', 1, 0)) AS $key";
 		if ($pcount == 1)
 		{
-			$whereq .= " quests.quest_name = '".$iname."'";
+			$whereq .= " `quests`.`quest_name` = '".$iname."'";
 		}
 		else
 		{
-			$whereq .= " OR quests.quest_name = '".$iname."'";
+			$whereq .= " OR `quests`.`quest_name` = '".$iname."'";
 		}
 	}
 	else
 	{
 		++$qcount;
-		$selectp .= ", sum(if(items.item_name = '".$iname."', 1, 0)) AS $key";
+		$selectp .= ", SUM(IF(items.item_name = '".$iname."', 1, 0)) AS $key";
 		if ($qcount == 1)
 		{
 			$wherep .= " items.item_name = '".$iname."'";
@@ -155,7 +155,7 @@ borderTop();
 print($tableHeader);
 tableHeaderRow($keys);
 
-$query = "SELECT name, level, member_id, class, clientLocale FROM `".$roster->db->table('players')."` GROUP BY name ORDER BY name ASC";
+$query = "SELECT `name`, `level`, `member_id`, `class`, `clientLocale` FROM `".$roster->db->table('players')."` WHERE `guild_id` = '".$roster->data['guild_id']."' GROUP BY `name` ORDER BY `name` ASC;";
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 while ($row = $roster->db->fetch($result))
@@ -176,20 +176,20 @@ while ($row = $roster->db->fetch($result))
 			{
 				++$countk;
 				list($iname, $thottnum) = explode('|', $subitem);
-				$selectk .= ", sum(if(items.item_name = '".$iname."', -1, 0)) as $key";
+				$selectk .= ", SUM(if(`items`.`item_name` = '".$iname."', -1, 0)) AS $key";
 				if ($countk == 1)
 				{
-					$wherek .= " items.item_name = '".$iname."'";
+					$wherek .= " `items`.`item_name` = '".$iname."'";
 				}
 				else
 				{
-					$wherek .= " or items.item_name = '".$iname."'";
+					$wherek .= " OR `items`.`item_name` = '".$iname."'";
 				}
 			}
 		}
 	}
 	// instance key search
-	$kquery = "SELECT members.name".$selectk." FROM `".$roster->db->table('items')."` items LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = items.member_id WHERE items.member_id = '".$row['member_id']."' AND (".$wherek.") GROUP BY members.name";
+	$kquery = "SELECT `members`.`name`".$selectk." FROM `".$roster->db->table('items')."` AS items LEFT JOIN `".$roster->db->table('members')."` AS members ON `members`.`member_id` = `items`.`member_id` WHERE `items`.`member_id` = '".$row['member_id']."' AND (".$wherek.") GROUP BY `members`.`name`;";
 	$kresult = $roster->db->query($kquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$kquery);
 	$krow = $roster->db->fetch($kresult);
 	$kcount = 0; // counts how many keys this player has. if 0 at the end don't display
@@ -214,7 +214,7 @@ while ($row = $roster->db->fetch($result))
 		{
 			if (($row['class'] == $roster->locale->wordings[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
 			{
-				$squery = "SELECT skill_level FROM `".$roster->db->table('skills')."` WHERE member_id = ".$row['member_id']." and skill_name = '".$roster->locale->wordings[$row['clientLocale']]['lockpicking']."'";
+				$squery = "SELECT `skill_level` FROM `".$roster->db->table('skills')."` WHERE `member_id` = ".$row['member_id']." AND `skill_name` = '".$roster->locale->wordings[$row['clientLocale']]['lockpicking']."';";
 				$sresult = $roster->db->query($squery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$squery);
 				$srow = $roster->db->fetch($sresult);
 				list($current_skill,$max_skill) = explode(':',$srow['skill_level']);
@@ -247,7 +247,7 @@ while ($row = $roster->db->fetch($result))
 	if ($selectp != '')
 	{
 		// parts search (only the remaining ones!)
-		$queryp = "SELECT members.name".$selectp." FROM `".$roster->db->table('items')."` items LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = items.member_id WHERE items.member_id = ".$row['member_id']." AND (".$wherep.") GROUP BY members.name ORDER BY members.name ASC";
+		$queryp = "SELECT `members`.`name`".$selectp." FROM `".$roster->db->table('items')."` AS items LEFT JOIN `".$roster->db->table('members')."` AS members ON `members`.`member_id` = `items`.`member_id` WHERE `items`.`member_id` = '".$row['member_id']."' AND (".$wherep.") GROUP BY `members`.`name` ORDER BY `members`.`name` ASC;";
 		$presult = $roster->db->query($queryp) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$queryp);
 		$prow = $roster->db->fetch($presult);
 		if (is_array($prow))
@@ -281,7 +281,7 @@ while ($row = $roster->db->fetch($result))
 	if ($selectq != '')
 	{
 		// quests search (only the remaining ones!)
-		$queryq = "SELECT members.name".$selectq." FROM `".$roster->db->table('quests')."` quests LEFT JOIN `".$roster->db->table('members')."` members ON members.member_id = quests.member_id WHERE quests.member_id = ".$row['member_id']." AND (".$whereq.") GROUP BY members.name ORDER BY members.name ASC";
+		$queryq = "SELECT `members`.`name`".$selectq." FROM `".$roster->db->table('quests')."` AS quests LEFT JOIN `".$roster->db->table('members')."` AS members ON `members`.`member_id` = `quests`.`member_id` WHERE `quests`.`member_id` = '".$row['member_id']."' AND (".$whereq.") GROUP BY `members`.`name` ORDER BY `members`.`name` ASC;";
 		$qresult = $roster->db->query($queryq) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$queryq);
 		$qrow = $roster->db->fetch($qresult);
 		if (is_array($qrow))
@@ -326,7 +326,7 @@ while ($row = $roster->db->fetch($result))
 		if ($krow[$key] == '-2')
 		{
 			$iname = $roster->locale->wordings[$row['clientLocale']]['thievestools'];
-			$iquery = "SELECT * FROM `".$roster->db->table('items')."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
+			$iquery = "SELECT * FROM `".$roster->db->table('items')."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."';";
 			$iresult = $roster->db->query($iquery);
 			$idata = $roster->db->fetch($iresult);
 			$item = new item($idata);
@@ -338,8 +338,10 @@ while ($row = $roster->db->fetch($result))
 			if(isset($$key))
 			{
 				print($$key);
-			} else {
-				$iquery = "SELECT * FROM `".$roster->db->table('items')."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."'";
+			}
+			else
+			{
+				$iquery = "SELECT * FROM `".$roster->db->table('items')."` WHERE `item_name` = '".$iname."' AND `member_id` = '".$row['member_id']."';";
 				$iresult = $roster->db->query($iquery);
 				$idata = $roster->db->fetch($iresult);
 				$item = new item($idata);

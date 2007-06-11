@@ -2863,6 +2863,14 @@ class update
 			$this->add_value( 'spell_damage', $spell['BonusDamage']);
 			$this->add_value( 'spell_healing', $spell['BonusHealing']);
 
+			$this->add_value( 'spell_crit_chance_holy', $spell['SchoolCrit']['Holy']);
+			$this->add_value( 'spell_crit_chance_frost', $spell['SchoolCrit']['Frost']);
+			$this->add_value( 'spell_crit_chance_arcane', $spell['SchoolCrit']['Arcane']);
+			$this->add_value( 'spell_crit_chance_fire', $spell['SchoolCrit']['Fire']);
+			$this->add_value( 'spell_crit_chance_shadow', $spell['SchoolCrit']['Shadow']);
+			$this->add_value( 'spell_crit_chance_nature', $spell['SchoolCrit']['Nature']);
+
+			$this->add_value( 'spell_damage_holy', $spell['School']['Holy']);
 			$this->add_value( 'spell_damage_frost', $spell['School']['Frost']);
 			$this->add_value( 'spell_damage_arcane', $spell['School']['Arcane']);
 			$this->add_value( 'spell_damage_fire', $spell['School']['Fire']);

@@ -85,6 +85,10 @@ class pvplog
 
 		# Roster menu entry
 		$installer->add_menu_button('pvplist','guild');
+
+		$installer->add_menu_button('pvplog','char','-pvp','INV_Banner_03');
+		$installer->add_menu_button('bglog','char','-bg','INV_BannerPVP_03');
+		$installer->add_menu_button('duellog','char','-duel','INV_BRD_Banner');
 		return true;
 	}
 
@@ -109,6 +113,7 @@ class pvplog
 		global $installer, $roster;
 
 		$installer->remove_all_config();
+		$installer->remove_all_menu_button();
 
 		$installer->add_query("DROP TABLE IF EXISTS `" . $roster->db->table('pvp2') . "`;");
 
