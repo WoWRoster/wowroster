@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id$
+ * @version    SVN: $Id: header.php 965 2007-06-10 22:58:50Z Zanix $
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
 */
@@ -19,8 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-// Get char page mode
-$action = (isset($roster->pages[2]) ? $roster->pages[2] : '' );
+include_once($addon['dir'] . 'inc' . DIR_SEP . 'pvp.lib.php');
 
 // Check for start for pvp log data
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
@@ -28,35 +27,18 @@ $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
-// Include character class file
-require_once ($addon['dir'] . 'inc/char.lib.php');
-
 $roster->output['show_menu'] = array('main','char');
 
-// Get Character Info
-$char = new char($roster->data);
-
 // Set <html><title> and <form action=""> and $char_url
-$roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'));
-$char_url = '&amp;member=' . $char->get('member_id');
-$char_url_old = '&amp;member=' . $char->get('name') . '@' . $char->get('server');
+$char_url = '&amp;member=' . $roster->data['member_id'];
+$char_url_old = '&amp;member=' . $roster->data['name'] . '@' . $roster->data['server'];
 
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
 $disp_array = array(
-	'show_money',
-	'show_tab2',
-	'show_tab3',
-	'show_tab4',
-	'show_tab5',
-	'show_talents',
-	'show_spellbook',
-	'show_mail',
-	'show_bags',
-	'show_bank',
-	'show_quests',
-	'show_recipes',
-	'show_item_bonuses'
+	'show_pvp',
+	'show_bg',
+	'show_duel'
 );
 
 // Loop through this array and set display accordingly
@@ -80,21 +62,12 @@ foreach( $disp_array as $global_setting )
 }
 
 
-$char->data['char_icon'] = $roster->config['img_url'] . 'char/portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
-
 $char_menu = '
-<div class="char_title">'.$char->get('name').' @ '.$char->get('server').(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
-	<div class="lastupdated">'.$roster->locale->act['lastupdate'].': '.$char->data['update_format'].'</div>
+<div class="char_title">'.$roster->data['name'].' @ '.$roster->data['server'].(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
+	<div class="lastupdated">'.$roster->locale->act['lastupdate'].': '.$roster->data['update_format'].'</div>
 </div>';
 
 $char_menu .= '<br />'.messagebox(
 	makelink(ROSTER_PAGE_NAME.$char_url,true).'<br />'.
 	makelink(ROSTER_PAGE_NAME.$char_url_old,true)
-	,'','sgreen');
-
-
-$char_page = '<div align="' . $addon['config']['char_bodyalign'] . "\">\n";
-
-$char_page .= '
-<br />
-<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';
+	,'','sgreen').'<br />';

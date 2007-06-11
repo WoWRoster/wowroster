@@ -9,8 +9,9 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id: duels.php 867 2007-04-29 07:41:43Z Zanix $
+ * @version    SVN: $Id: footer.php 938 2007-05-18 16:16:40Z Zanix $
  * @link       http://www.wowroster.net
+ * @package    CharacterInfo
 */
 
 if( !defined('ROSTER_INSTALLED') )
@@ -18,11 +19,8 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-include( $addon['dir'] . 'inc/header.php' );
 
-if( $roster->config['show_duels'] == 1 )
-{
-	$char_page .= $char->show_pvp2('Duel', 'char-info-duels'.$char_url, $sort, $start);
-}
+$char_page .= "\n<br clear=\"all\" />\n";
 
-include( $addon['dir'] . 'inc/footer.php' );
+echo $char_menu;
+echo $char_page;

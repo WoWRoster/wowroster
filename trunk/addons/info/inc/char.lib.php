@@ -80,86 +80,6 @@ class char
 	}
 
 
-	function show_pvp2( $type , $url , $sort , $start )
-	{
-		$pvps = pvp_get_many3( $this->data['member_id'],$type, $sort, -1);
-		$returnstring = '<div align="center">';
-
-		if( is_array($pvps) )
-		{
-			$returnstring .= output_pvp_summary($pvps,$type);
-
-			if( isset( $pvps[0] ) )
-			{
-				switch ($type)
-				{
-					case 'BG':
-						$returnstring .= output_bglog($this->data['member_id']);
-						break;
-
-					case 'PvP':
-						$returnstring .= output_pvplog($this->data['member_id']);
-						break;
-
-					case 'Duel':
-						$returnstring .= output_duellog($this->data['member_id']);
-						break;
-
-					default:
-						break;
-				}
-			}
-
-			$returnstring .= '<br />';
-			$returnstring .= '<br />';
-
-			$max = sizeof($pvps);
-			$sort_part = $sort ? "&amp;s=$sort" : '';
-
-			if ($start > 0)
-				$prev = '<a href="'.makelink($url.'&amp;start=0'.$sort_part).'">&lt;&lt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($start-50).$sort_part).'">&lt;</a> ';
-
-			if (($start+50) < $max)
-			{
-				$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
-				$next = ' <a href="'.makelink($url.'&amp;start='.($start+50).$sort_part).'">&gt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($max-50).$sort_part).'">&gt;&gt;</a>';
-			}
-			else
-				$listing = '<small>['.$start.' - '.($max).'] of '.$max.'</small>';
-
-			$pvps = pvp_get_many3( $this->data['member_id'],$type, $sort, $start);
-
-			if( isset( $pvps[0] ) )
-			{
-				$returnstring .= border('sgray','start',$prev.'Log '.$listing.$next);
-				$returnstring .= output_pvp2($pvps, $url."&amp;start=".$start,$type);
-				$returnstring .= border('sgray','end');
-			}
-
-			$returnstring .= '<br />';
-
-			if ($start > 0)
-				$returnstring .= $prev;
-
-			if (($start+50) < $max)
-			{
-				$returnstring .= '['.$start.' - '.($start+50).'] of '.$max;
-				$returnstring .= $next;
-			}
-			else
-				$returnstring .= '['.$start.' - '.($max).'] of '.$max;
-
-			$returnstring .= '</div><br />';
-
-			return $returnstring;
-		}
-		else
-		{
-			return '';
-		}
-	}
-
-
 	/**
 	 * Build quests
 	 *
@@ -1090,8 +1010,7 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname,$data).'<br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<div style="background:url('.$roster->config['img_url'].'char/resist/'.$resname.'.gif);" class="resist_'.$resname.'" '.makeOverlib($line,'','',2,'','').'>'. $data['res_'.$resname.'_c'] ."</div>\n";
-		$output = '<div style="background-image:url('.$roster->config['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $data['res_'.$resname.'_c'] .'</b><span>'. $data['res_'.$resname.'_c'] ."</span></div>\n";
+		$output = '<div class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $data['res_'.$resname.'_c'] .'</b><span>'. $data['res_'.$resname.'_c'] ."</span></div>\n";
 
 		return $output;
 	}
@@ -1543,8 +1462,7 @@ $returnstring .= '  <tr>
 
 		$tooltipheader = $name.' '.$value;
 
-		$tooltip  = '';
-		//$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
@@ -1572,15 +1490,14 @@ $returnstring .= '  <tr>
 
 		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
 		$tooltip = $this->locale['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
-/*
-		$tooltip  = '';
-		//$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
-*/
+
+		$tooltip  = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_fire']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_nature']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_frost']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_shadow']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_arcane']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
+
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
@@ -1715,7 +1632,7 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname).'<br />';
 		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
 
-		$output = '<div style="background-image:url('.$roster->config['img_url'].'char/resist/'.$resname.'.gif);" class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $this->data['res_'.$resname.'_c'] .'</b><span>'. $this->data['res_'.$resname.'_c'] ."</span></div>\n";
+		$output = '<div class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $this->data['res_'.$resname.'_c'] .'</b><span>'. $this->data['res_'.$resname.'_c'] ."</span></div>\n";
 
 		return $output;
 	}

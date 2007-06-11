@@ -61,16 +61,17 @@ class pvplogUpdate
 		{
 			foreach ($realm as $char_name => $char)
 			{
-				$query = "SELECT `guild_id` FROM `".$roster->db->table('players')."` WHERE `name` = '".addslashes($char_name)."' AND `server` = '".addslashes($realm_name)."'";
+				$query = "SELECT `guild_id`, `region` FROM `".$roster->db->table('players')."` WHERE `name` = '".addslashes($char_name)."' AND `server` = '".addslashes($realm_name)."'";
 				$result = $roster->db->query( $query );
 				if ($roster->db->num_rows($result) > 0)
 				{
 					$row = $roster->db->fetch( $result );
 					$guild_id = $row['guild_id'];
+					$region = $row['region'];
 					$battles = $char['battles'];
 					if( $char['version'] >= $this->data['config']['minPvPLogver'] )
 					{
-						$this->messages .= '<strong>'.sprintf($roster->locale->act['upload_data'],'PvPLog',$char_name,$realm_name)."</strong>\n";
+						$this->messages .= '<strong>'.sprintf($roster->locale->act['upload_data'],'PvPLog',$char_name,$realm_name,$region)."</strong>\n";
 
 						$this->messages .= "<ul>\n";
 						$this->update_pvp($guild_id, $char_name, $battles);

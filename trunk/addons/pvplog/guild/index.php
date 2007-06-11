@@ -50,11 +50,11 @@ foreach( $choiceArray as $item_value )
 		$display = ( isset($roster->locale->act[$item_value]) ? $roster->locale->act[$item_value] : $item_value );
 		if( $type == $item_value )
 		{
-			$choiceForm .= '  <option value="' . makelink('guild-pvplog&amp;type=' . $item_value) . '" selected="selected">' . $display . "</option>\n";
+			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value) . '" selected="selected">' . $display . "</option>\n";
 		}
 		else
 		{
-			$choiceForm .= '  <option value="' . makelink('guild-pvplog&amp;type=' . $item_value) . '">' . $display . "</option>\n";
+			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value) . '">' . $display . "</option>\n";
 		}
 	}
 }
@@ -124,7 +124,7 @@ if( $type == 'guildwins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
+		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
 
 		if( $row['guild'] == '' )
 		{
@@ -167,7 +167,7 @@ elseif( $type == 'guildlosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
+		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
 		if( $row['guild'] == '' )
 		{
 			$guildname = '(' . $roster->locale->act['unknown'] . ')';
@@ -218,7 +218,7 @@ elseif( $type == 'enemywins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
+		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
 		print $row['name'];
 		print "</a></td>\n";
 		rankMid((($striping_counter % 2) +1));
@@ -227,11 +227,11 @@ elseif( $type == 'enemywins' )
 		rankMid((($striping_counter % 2) +1));
 		if ($row['guild'] == '')
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
+			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
 		}
 		else
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
+			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
 		}
 
 		print $guildname;
@@ -280,7 +280,7 @@ elseif( $type == 'enemylosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
+		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
 
 		print $row['name'];
 		print "</a></td>\n";
@@ -290,11 +290,11 @@ elseif( $type == 'enemylosses' )
 		rankMid((($striping_counter % 2) +1));
 		if( $row['guild'] == '' )
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
+			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
 		}
 		else
 		{
-			$guildname = '<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
+			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
 		}
 
 		print $guildname;
@@ -335,7 +335,7 @@ elseif( $type == 'purgewins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
 		rankRight((($striping_counter % 2) +1));
 		print $row['countg'];
 		print "</td>\n</tr>\n";
@@ -366,7 +366,7 @@ elseif( $type == 'purgelosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
 		rankRight((($striping_counter % 2) +1));
 		print $row['countg'];
 		print "</td>\n</tr>\n";
@@ -397,7 +397,7 @@ elseif( $type == 'purgeavewins' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if( $ave > 0 )
@@ -436,7 +436,7 @@ elseif( $type == 'purgeavelosses' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
 		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if( $ave > 0 )
@@ -476,7 +476,7 @@ elseif( $type == 'pvpratio' )
 		++$striping_counter;
 
 		rankLeft((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['name'] . "</a></td>\n";
 		rankRight((($striping_counter % 2) +1));
 		$wins = $row['wtotal'];
 		$battles = $row ['btotal'];
@@ -551,11 +551,11 @@ elseif( $type == 'playerinfo' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		$url = 'guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($player);
+		$url = 'guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($player);
 
 		if( $first )
 		{
-			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>');
+			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>');
 			print '<br /><br />';
 
 			print $tableHeader;
@@ -580,7 +580,7 @@ elseif( $type == 'playerinfo' )
 		print readbleDate($row['date']);
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		if( $row['win'] == '1' )
@@ -628,7 +628,7 @@ elseif( $type == 'guildinfo' )
 
 	print $tableHeader;
 
-	$url = 'guild-pvplog&amp;type=guildinfo&amp;pvpguild=' . urlencode($guild);
+	$url = 'guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($guild);
 
 	print tableHeaderRow(array(
 		'<a href="' . makelink($url . '&amp;s=date') . '">' . $roster->locale->act['when'] . '</a>',
@@ -697,10 +697,10 @@ elseif( $type == 'guildinfo' )
 		print readbleDate($row['date']);
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-pvplog&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">' . $row['name'] . '</a>';
+		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">' . $row['name'] . '</a>';
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
-		print ( active_addon('info') ? '<a href="' . makelink('char-info-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . '</a>' : $row['gn'] ) . "</td>\n";
+		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;member=' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
 		print "</td>\n";
 		rankMid((($striping_counter % 2) +1));
 		if( $row['win'] == '1' )

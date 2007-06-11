@@ -98,6 +98,101 @@ class pvp3
 }
 
 
+function show_pvp2( $type , $url , $sort , $start )
+{
+	global $roster;
+
+	$pvps = pvp_get_many3( $roster->data['member_id'],$type, $sort, -1);
+	$returnstring = '<div align="center">';
+
+	if( is_array($pvps) )
+	{
+		$returnstring .= output_pvp_summary($pvps,$type);
+
+		if( isset( $pvps[0] ) )
+		{
+			switch ($type)
+			{
+				case 'BG':
+					$returnstring .= output_bglog($roster->data['member_id']);
+					break;
+
+				case 'PvP':
+					$returnstring .= output_pvplog($roster->data['member_id']);
+					break;
+
+				case 'Duel':
+					$returnstring .= output_duellog($roster->data['member_id']);
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		$returnstring .= '<br />';
+		$returnstring .= '<br />';
+
+		$max = sizeof($pvps);
+		$sort_part = $sort ? "&amp;s=$sort" : '';
+
+		if ($start > 0)
+		{
+			$prev = '<a href="'.makelink($url.'&amp;start=0'.$sort_part).'">&lt;&lt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($start-50).$sort_part).'">&lt;</a> ';
+		}
+		else
+		{
+			$prev = '';
+		}
+
+		if (($start+50) < $max)
+		{
+			$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
+			$next = ' <a href="'.makelink($url.'&amp;start='.($start+50).$sort_part).'">&gt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($max-50).$sort_part).'">&gt;&gt;</a>';
+		}
+		else
+		{
+			$listing = '<small>['.$start.' - '.($max).'] of '.$max.'</small>';
+			$next = '';
+		}
+
+		$pvps = pvp_get_many3( $roster->data['member_id'],$type, $sort, $start);
+
+		if( isset( $pvps[0] ) )
+		{
+			$returnstring .= border('sgray','start',$prev.'Log '.$listing.$next);
+			$returnstring .= output_pvp2($pvps, $url."&amp;start=".$start,$type);
+			$returnstring .= border('sgray','end');
+		}
+
+		$returnstring .= '<br />';
+
+		if ($start > 0)
+		{
+			$returnstring .= $prev;
+		}
+
+		if (($start+50) < $max)
+		{
+			$returnstring .= '['.$start.' - '.($start+50).'] of '.$max;
+			$returnstring .= $next;
+		}
+		else
+		{
+			$returnstring .= '['.$start.' - '.($max).'] of '.$max;
+		}
+
+		$returnstring .= '</div><br />';
+
+		return $returnstring;
+	}
+	else
+	{
+		return '';
+	}
+}
+
+
 function pvp_get_many3($member_id, $type, $sort, $start)
 {
 	global $roster;
@@ -381,9 +476,13 @@ function output_bglog($member_id)
 				$eclass = $row->data['class'];
 
 				if (empty($eguild) || !isset($eguild) || $eguild == '')
+				{
 					$eguild = 'Unguilded';
+				}
 				if (empty($esub) || !isset($esub) || $esub == '')
+				{
 					$esub = 'None';
+				}
 
 				// Get Class Icon
 				foreach ($roster->multilanguages as $language)
@@ -469,9 +568,13 @@ function output_bglog($member_id)
 		}
 
 		if( ($wins + $loss) != 0 )
+		{
 			$winpercent = round( ($wins / ($wins + $loss)), 2 ) * 100;
+		}
 		else
+		{
 			$winpercent = 0;
+		}
 
 		usort($subs, 'calc_winloss');
 		usort($gwin, 'calc_gwinloss');
@@ -479,23 +582,23 @@ function output_bglog($member_id)
 		usort($gloss, 'calc_gwinloss');
 		usort($ploss, 'calc_pwinloss');
 
-		$best = $subs[0]['Zone'];
-		$worst = $subs[sizeof($subs)-1]['Zone'];
-		$bestNum = $subs[0]['WinLoss'];
-		$worstNum = $subs[sizeof($subs)-1]['WinLoss'];
+		$best = ( isset($subs[0]['Zone']) ? $subs[0]['Zone'] : '' );
+		$worst = ( isset($subs[sizeof($subs)-1]['Zone']) ? $subs[sizeof($subs)-1]['Zone'] : '' );
+		$bestNum = ( isset($subs[0]['WinLoss']) ? $subs[0]['WinLoss'] : '' );
+		$worstNum = ( isset($subs[sizeof($subs)-1]['WinLoss']) ? $subs[sizeof($subs)-1]['WinLoss'] : '' );
 
-		$kills = $pwin[0]['killed'];
-		$killed = $pwin[0]['name'];
-		$killedclass = $pwin[0]['class_icon'];
+		$kills = ( isset($pwin[0]['killed']) ? $pwin[0]['killed'] : '' );
+		$killed = ( isset($pwin[0]['name']) ? $pwin[0]['name'] : '' );
+		$killedclass = ( isset($pwin[0]['class_icon']) ? $pwin[0]['class_icon'] : '' );
 
-		$deaths = $ploss[0]['killed'];
-		$killedBy = $ploss[0]['name'];
-		$killedByclass = $ploss[0]['class_icon'];
+		$deaths = ( isset($ploss[0]['killed']) ? $ploss[0]['killed'] : '' );
+		$killedBy = ( isset($ploss[0]['name']) ? $ploss[0]['name'] : '' );
+		$killedByclass = ( isset($ploss[0]['class_icon']) ? $ploss[0]['class_icon'] : '' );
 
-		$gkills = $gwin[0]['killed'];
-		$gkilled = $gwin[0]['name'];
-		$gdeaths = $gloss[0]['killed'];
-		$gkilledBy = $gloss[0]['name'];
+		$gkills = ( isset($gwin[0]['killed']) ? $gwin[0]['killed'] : '' );
+		$gkilled = ( isset($gwin[0]['name']) ? $gwin[0]['name'] : '' );
+		$gdeaths = ( isset($gloss[0]['killed']) ? $gloss[0]['killed'] : '' );
+		$gkilledBy = ( isset($gloss[0]['name']) ? $gloss[0]['name'] : '' );
 
 		$returnstring .= '
 <div id="'.$bgname.'Col" style="display:inline">
@@ -580,7 +683,7 @@ function output_duellog($member_id)
 		// Get Class Icon
 		foreach ($roster->multilanguages as $language)
 		{
-			$dataset['icon_name'] = $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']];
+			$dataset['icon_name'] = ( isset($roster->locale->wordings[$language]['class_iconArray'][$dataset['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']] : '' );
 			if( strlen($dataset['icon_name']) > 0 ) break;
 		}
 
@@ -792,8 +895,15 @@ function output_pvplog($member_id)
 		// Get Class Icon
 		foreach ($roster->multilanguages as $language)
 		{
-			$dataset['icon_name'] = $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']];
-			if( strlen($dataset['icon_name']) > 0 ) break;
+			if( isset($dataset['class']) )
+			{
+				$dataset['icon_name'] = ( isset($roster->locale->wordings[$language]['class_iconArray'][$dataset['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']] : '' );
+				if( strlen($dataset['icon_name']) > 0 ) break;
+			}
+			else
+			{
+				break;
+			}
 		}
 
 		if( !empty($dataset['icon_name']) )
@@ -917,7 +1027,7 @@ function output_pvp2($pvps,$url,$type)
 		// Get Class Icon
 		foreach ($roster->multilanguages as $language)
 		{
-			$icon_name = $roster->locale->wordings[$language]['class_iconArray'][$row->data['class']];
+			$icon_name = ( isset($roster->locale->wordings[$language]['class_iconArray'][$row->data['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row->data['class']] : '' );
 			if( strlen($icon_name) > 0 ) break;
 		}
 		$icon_name = 'Interface/Icons/'.$icon_name;
