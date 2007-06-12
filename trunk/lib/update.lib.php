@@ -290,11 +290,14 @@ class update
 						$region = '';
 					}
 
+					$char_escape = $roster->db->escape($char_name);
+					$realm_escape = $roster->db->escape($realm_name);
+
 					// Is this char already in the members table?
 					$query = "SELECT `member_id`"
 						. " FROM `" . $roster->db->table('members') . "`"
-						. " WHERE `name` = '" . $char_name . "'"
-						. " AND `server` = '" . $realm_name . "'"
+						. " WHERE `name` = '" . $char_escape . "'"
+						. " AND `server` = '" . $realm_escape . "'"
 						. " AND `region` = '" . $region . "'"
 						. ";";
 
@@ -406,12 +409,15 @@ class update
 							$region = '';
 						}
 
+						$guild_escape = $roster->db->escape($guild_name);
+						$realm_escape = $roster->db->escape($realm_name);
+
 						// Allowed guild detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
 							. " FROM `" . $roster->db->table('upload') . "`"
 							. " WHERE (`type` = 0 OR `type` = 1)"
-							. " AND '" . $guild_name . "' LIKE `name` "
-							. " AND '" . $realm_name . "' LIKE `server` "
+							. " AND '" . $guild_escape . "' LIKE `name` "
+							. " AND '" . $realm_escape . "' LIKE `server` "
 							. " AND '" . $region . "' LIKE `region` "
 							. " GROUP BY `type` "
 							. " ORDER BY `type` DESC"
