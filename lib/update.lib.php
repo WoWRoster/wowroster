@@ -502,6 +502,9 @@ class update
 										 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
 										 . "</ul></li></ul>\n";
 								$output .= $guild_output;
+
+								// Reset these since we might process another guild
+								$this->membersupdated = $this->membersadded = $this->membersremoved = 0;
 							}
 							else
 							{

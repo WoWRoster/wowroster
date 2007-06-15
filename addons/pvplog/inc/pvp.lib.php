@@ -138,7 +138,7 @@ function show_pvp2( $type , $url , $sort , $start )
 
 		if ($start > 0)
 		{
-			$prev = '<a href="'.makelink($url.'&amp;start=0'.$sort_part).'">&lt;&lt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($start-50).$sort_part).'">&lt;</a> ';
+			$prev = '<a href="'.makelink($url.'&amp;start=0'.$sort_part).'">|&lt;&lt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($start-50).$sort_part).'">&lt;</a> ';
 		}
 		else
 		{
@@ -148,7 +148,7 @@ function show_pvp2( $type , $url , $sort , $start )
 		if (($start+50) < $max)
 		{
 			$listing = '<small>['.$start.' - '.($start+50).'] of '.$max.'</small>';
-			$next = ' <a href="'.makelink($url.'&amp;start='.($start+50).$sort_part).'">&gt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($max-50).$sort_part).'">&gt;&gt;</a>';
+			$next = ' <a href="'.makelink($url.'&amp;start='.($start+50).$sort_part).'">&gt;</a>&nbsp;&nbsp;'.'<a href="'.makelink($url.'&amp;start='.($max-50).$sort_part).'">&gt;&gt;|</a>';
 		}
 		else
 		{

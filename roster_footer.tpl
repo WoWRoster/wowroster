@@ -52,12 +52,11 @@ if( $roster->config['debug_mode'] )
 		$debug_php = "<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n";
 		foreach( $error_report as $file => $errors )
 		{
-			$debug_php .= '<tr><th class="membersHeaderRight">' . substr($file, strlen(ROSTER_BASE)) . "\n<th></tr>\n";
+			$debug_php .= '<tr><th class="membersHeaderRight">' . substr($file, strlen(ROSTER_BASE)) . "</th>\n</tr>\n";
 			foreach( $errors as $error )
 			{
 				$debug_php .= '<tr><td class="membersRowRight1" style="font-size:10px;">&nbsp;&nbsp;' . $error . "</td></tr>\n";
 			}
-			//$debug_php .= "\n</ul></li>\n";
 		}
 		$debug_php .= "</table>\n";
 
