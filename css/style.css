@@ -107,7 +107,7 @@ select {
 /* this can be used to ensure checkboxes and radio buttons do not have a border */
 .checkBox { border:0;color:#ffffff;font:10px verdana,arial;background-color:transparent; }
 
-.button_hide { border:0;background-color:transparent;padding:0;margin:0; }
+.button_hide { border:0;background-color:transparent;padding:0;margin:0;cursor:pointer; }
 
 /**
  * Special Radio Buttons and Checkboxes

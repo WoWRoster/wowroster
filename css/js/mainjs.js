@@ -30,6 +30,17 @@ function submitonce(theform)
 	return true;
 }
 
+/* Some cheesy JS code to set a hidden input field
+    because IE doesn't handle the <button> tag like it
+    is supposed to
+*/
+function setvalue(ElementID,ElementVal)
+{
+	if(document.getElementById)
+		if(document.getElementById(ElementID))
+			document.getElementById(ElementID).value = ElementVal;
+}
+
 /* Basic id based show */
 function show(ElementID)
 {

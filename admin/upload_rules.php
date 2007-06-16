@@ -132,17 +132,18 @@ $body .= messageboxtoggle($roster->locale->act['upload_rules_help'],$roster->loc
 
 $body .= "<br />\n";
 
-$body .= '<form action="' . makelink() . '" method="post" id="deny">';
-$body .= '<input type="hidden" name="process" value="process" />';
-$body .= '<input type="hidden" name="block" value="disallow" />';
+$body .= '<form action="' . makelink() . '" method="post" id="deny">
+<input type="hidden" id="denyhide" name="action" value="" />
+<input type="hidden" name="process" value="process" />
+<input type="hidden" name="block" value="disallow" />';
 
-$body .= ruletable_head('sred',$roster->locale->act['disallow'],'deny');
+$body .= ruletable_head('sred',$roster->locale->act['disallow'],'deny',$mode);
 
 foreach( $data['deny'] as $row )
 {
-	$body .= ruletable_line($row,'deny');
+	$body .= ruletable_line($row,'deny',$mode);
 }
-$body .= ruletable_foot('sred','deny');
+$body .= ruletable_foot('sred','deny',$mode);
 
 $body .= '</form>';
 
@@ -150,25 +151,26 @@ $body .= '</form>';
 $body .= "<br />\n";
 
 
-$body .= '<form action="' . makelink() . '" method="post" id="allow">';
-$body .= '<input type="hidden" name="process" value="process" />';
-$body .= '<input type="hidden" name="block" value="allow" />';
+$body .= '<form action="' . makelink() . '" method="post" id="allow">
+<input type="hidden" id="allowhide" name="action" value="" />
+<input type="hidden" name="process" value="process" />
+<input type="hidden" name="block" value="allow" />';
 
-$body .= ruletable_head('sgreen',$roster->locale->act['allow'],'allow');
+$body .= ruletable_head('sgreen',$roster->locale->act['allow'],'allow',$mode);
 
 foreach( $data['allow'] as $row )
 {
-	$body .= ruletable_line($row,'allow');
+	$body .= ruletable_line($row,'allow',$mode);
 }
-$body .= ruletable_foot('sgreen','allow');
+$body .= ruletable_foot('sgreen','allow',$mode);
 
 $body .= '</form>';
 
 
 
-function ruletable_head( $style , $title , $type )
+function ruletable_head( $style , $title , $type , $mode )
 {
-	global $roster, $mode;
+	global $roster;
 
 	$output = border($style,'start',$title) . '
 <table class="bodyline" cellspacing="0">
@@ -190,9 +192,9 @@ function ruletable_head( $style , $title , $type )
 	return $output;
 }
 
-function ruletable_line( $row , $type )
+function ruletable_line( $row , $type , $mode )
 {
-	global $roster, $mode;
+	global $roster;
 
 	$output = "\n\t\t<tr>\n";
 
@@ -204,21 +206,21 @@ function ruletable_line( $row , $type )
 		}
 		else
 		{
-			$output .= '			<td class="membersRow1" style="text-align:center;"><button class="button_hide" style="cursor:pointer;" name="action" value="default_' . $row['rule_id'] . '"><img src="' . $roster->config['img_url'] . 'check_off.png" alt="" /></button></td>';
+			$output .= '			<td class="membersRow1" style="text-align:center;"><button class="button_hide" onclick="setvalue(\'' . $type . 'hide\',\'default_' . $row['rule_id'] . '\');"><img src="' . $roster->config['img_url'] . 'check_off.png" alt="" /></button></td>';
 		}
 	}
 	$output .= '
 			<td class="membersRow1">' . $row['name'] . '</td>
 			<td class="membersRow1">' . $row['server'] . '</td>
 			<td class="membersRow1">' . $row['region'] . '</td>
-			<td class="membersRowRight1"><button type="submit" class="input" name="action" value="del_' . $row['rule_id'] . '">' . $roster->locale->act['delete'] . '</button></td>
+			<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue(\'' . $type . 'hide\',\'del_' . $row['rule_id'] . '\');">' . $roster->locale->act['delete'] . '</button></td>
 		</tr>' . "\n";
 	return $output;
 }
 
-function ruletable_foot( $style , $type )
+function ruletable_foot( $style , $type , $mode )
 {
-	global $roster, $mode;
+	global $roster;
 
 	$output = "\n\t\t<tr>\n";
 
@@ -230,7 +232,7 @@ function ruletable_foot( $style , $type )
 			<td class="membersRow2"><input class="wowinput128" type="text" name="name" value="" /></td>
 			<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
 			<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
-			<td class="membersRowRight2"><button type="submit" class="input" name="action" value="add">' . $roster->locale->act['add'] . '</button></td>
+			<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue(\'' . $type . 'hide\',\'add\');">' . $roster->locale->act['add'] . '</button></td>
 		</tr>
 	</tbody>
 </table>
