@@ -114,6 +114,11 @@ class lua
 			{
 				$line = gzgets($file);
 				$line = trim($line);
+				
+				if( get_magic_quotes_runtime() )
+				{
+					$line = stripslashes($line);
+				}
 
 				if( empty($line) )
 				{

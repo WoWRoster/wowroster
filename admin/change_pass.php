@@ -35,7 +35,7 @@ if( array_key_exists('mode',$_POST) )
 		die_quietly($roster->db->error(), $roster->locale->act['roster_cp'], __FILE__, __LINE__, $query);
 	}
 
-	if( $row = $roster->db->fetch_assoc($result) )
+	if( $row = $roster->db->fetch($result) )
 	{
 		$realhash = $row['hash'];
 	}
