@@ -485,6 +485,23 @@ $lang['tooltip_chance_hit']='Chance to hit:';
 $lang['tooltip_reinforced_armor']='Reinforced Armor';
 $lang['tooltip_damage_reduction']='Damage Reduction';
 
+//CP v2.1.1+ Gems info
+//uses preg_match() to find the type and color of the gem
+$lang['gem_preg_singlecolor'] = '/Matches a (\w+) Socket/';
+$lang['gem_preg_multicolor'] = '/Matches a (\w+) or (\w+) Socket/';
+$lang['gem_preg_meta'] = '/Only fits in a meta gem slot/';
+$lang['gem_preg_prismatic'] = '/Matches a Red, Yellow or Blue Socket/';
+
+//Gems color Array
+$lang['gem_colors'] = array(
+	'red' => 'Red',
+	'blue' => 'Blue',
+	'yellow' => 'Yellow',
+	'green' => 'Green',
+	'orange' => 'Orange',
+	'purple' => 'Purple',
+	'prismatic' => 'Prismatic');
+
 // Warlock pet names for icon displaying
 $lang['Imp']='Imp';
 $lang['Voidwalker']='Voidwalker';

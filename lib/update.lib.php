@@ -37,6 +37,7 @@ class update
 	var $messages = array();
 	var $errors = array();
 	var $assignstr = '';
+	var $assigngem = ''; //2nd tracking property because we build gem list while also building items list.
 
 	var $membersadded = 0;
 	var $membersupdated = 0;
@@ -675,6 +676,25 @@ class update
 		$this->assignstr .= " `$row_name` = $row_data";
 	}
 
+	/**
+      * Add a gem to an INSERT or UPDATE SQL string
+      * (clone of add_value method--this functions as a 2nd SQL insert placeholder)
+      *
+      * @param string $row_name
+      * @param string $row_data
+      */
+	function add_gem( $row_name, $row_data )
+	{
+		global $roster;
+		
+		if( $this->assigngem != '' )
+		$this->assigngem .= ',';
+
+		$row_data = "'" . $roster->db->escape( $row_data ) . "'";
+
+		$this->assigngem .= " `$row_name` = $row_data";
+	}
+
 
 	/**
 	 * Add a time value to an INSERT or UPDATE SQL string
@@ -751,7 +771,7 @@ class update
 
 
 	/**
-	 * Inserts an item into the datbase
+	 * Inserts an item into the database
 	 *
 	 * @param string $item
 	 * @return bool
@@ -783,7 +803,33 @@ class update
 		}
 	}
 
+	/**
+	 * Inserts a gem into the database
+	 *
+	 * @param string $gem
+	 * @return bool | true on success, false of error
+	 */
+	function insert_gem( $gem )
+	{
+		global $roster;
+		
+		$this->assigngem='';
+		$this->add_gem('gem_id', $gem['gem_id']);
+		$this->add_gem('gem_name', $gem['gem_name']);
+		$this->add_gem('gem_color', $gem['gem_color']);
+		$this->add_gem('gem_tooltip', $gem['gem_tooltip']);
+		$this->add_gem('gem_bonus', $gem['gem_bonus']);
+		$this->add_gem('gem_socketid', $gem['gem_socketid']);
+		$this->add_gem('gem_texture', $gem['gem_texture']);
+		$this->add_gem('locale', $this->locale);
 
+		$querystr = "REPLACE INTO `" . $roster->db->table('gems') . "` SET ".$this->assigngem;
+		$result = $roster->db->query($querystr);
+		if ( !$result )
+		return false;
+		else return true; 
+	}
+	
 	/**
 	 * Inserts mail into the Database
 	 *
@@ -962,7 +1008,8 @@ class update
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
-
+		$mail['item_icon'] = $mail['item_name'] = $mail['item_color'] = $mail['item_tooltip'] = '';
+		
 		if( isset($mail_data['Item']) )
 		{
 			$item = $mail_data['Item'];
@@ -1006,18 +1053,81 @@ class update
 		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
 
 		if( isset( $item_data['Quantity'] ) )
-			$item['item_quantity'] = $item_data['Quantity'];
+		$item['item_quantity'] = $item_data['Quantity'];
 		else
-			$item['item_quantity'] = 1;
+		$item['item_quantity'] = 1;
 
 		if( !empty($item_data['Tooltip']) )
-			$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
+		$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
 		else
-			$item['item_tooltip'] = $item_data['Name'];
+		$item['item_tooltip'] = $item_data['Name'];
+
+		if( !empty($item_data['Gem']))
+		$this->do_gems($item_data['Gem'], $item_data['Item']);
 
 		return $item;
 	}
 
+	/**
+	 * Formats gem data to be inserted into the database
+	 *
+	 * @param string $gem_data
+	 * @param int $socket_id
+	 * @return array $gem
+	 */
+	function make_gem($gem_data, $socket_id)
+	{
+		global $roster;
+		
+		$gemtt = explode( '<br>', $gem_data['Tooltip'] );
+
+		if( is_array( $gemtt ) )
+		{
+			foreach( $gemtt as $line )
+			{
+				$line = preg_replace('/\|c[a-f0-9]{2}[a-f0-9]{6}(.+?)\|r/i','$1',$line); //CP error? strip out color
+				// -- start the parsing
+				if( eregi( '\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or the word Chance assume it's bonus line.
+				$gem_bonus = $line;
+
+				elseif( preg_match( $roster->locale->act['gem_preg_meta'], $line ) )
+				$gem_color = 'meta';
+
+				elseif( preg_match( $roster->locale->act['gem_preg_multicolor'], $line, $colors ) )
+				{
+					if( $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['red'] )
+					$gem_color = 'purple';
+					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['red'] || $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
+					$gem_color = 'orange';
+					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
+					$gem_color = 'green';
+				}
+
+				elseif( preg_match( $roster->locale->act['gem_preg_singlecolor'], $line, $color ) )
+				{
+					$tmp = array_flip($roster->locale->act['gem_colors']);
+					$gem_color = $tmp[$color[1]];
+				}
+
+				elseif( preg_match( $roster->locale->act['gem_preg_prismatic'], $line ) )
+				$gem_color = 'prismatic';
+			}
+		}
+
+		//get gemid and remove the junk
+		list($gemid) = explode(':', $gem_data['Item']);
+
+		$gem = array();
+		$gem['gem_name'] = $gem_data['Name'];
+		$gem['gem_tooltip'] = $this->tooltip($gem_data['Tooltip']);
+		$gem['gem_bonus'] 	= $gem_bonus;
+		$gem['gem_socketid']= $socket_id;  // the ID the gem holds when socketed in an item.
+		$gem['gem_id'] 		= $gemid; // the ID of gem when not socketed.
+		$gem['gem_texture'] = 'Interface/Icons/'.$this->fix_icon($gem_data['Icon']);
+		$gem['gem_color'] 	= $gem_color;  //meta, prismatic, red, blue, yellow, purple, green, orange.
+
+		return $gem;
+	}
 
 	/**
 	 * Formats recipe data to be inserted into the db
@@ -1067,6 +1177,14 @@ class update
 	{
 		global $roster;
 
+		// Delete the stale data
+		$querystr = "DELETE FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` = '$memberId'";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Buffs could not be deleted',$roster->db->error());
+			return;
+		}
+		
 		if(isset($data['Attributes']['Buffs']))
 		{
 			$buffs = $data['Attributes']['Buffs'];
@@ -1074,14 +1192,7 @@ class update
 
 		if( !empty($buffs) && is_array($buffs) )
 		{
-			// Delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` = '$memberId'";
-			if( !$roster->db->query($querystr) )
-			{
-				$this->setError('Buffs could not be deleted',$roster->db->error());
-				return;
-			}
-			// Then process quests
+			// Then process buffs
 			$buffsnum = 0;
 			foreach( $buffs as $buff )
 			{
@@ -1898,6 +2009,22 @@ class update
 		}
 	}
 
+	/**
+	 * Formats each gem found in each slot of item and inserts into database.
+	 *
+	 * @param array $gems
+	 * @param string $itemid_data
+	 */
+	function do_gems($gems, $itemid_data)
+	{
+		$itemid = explode(':', $itemid_data);
+		foreach($gems as $key => $val)
+		{
+			$socketid = $itemid[(int)$key+1];
+			$gem = $this->make_gem($val, $socketid);
+			$this->insert_gem($gem);
+		}
+	}
 
 	/**
 	 * Delete Members in database using inClause
@@ -2959,7 +3086,9 @@ class update
 			$this->setError('Cannot update Character Data',$roster->db->error());
 			return false;
 		}
-
+		
+		$this->locale = $data['Locale'];
+		
 		$this->do_equip( $data, $memberId );
 		$this->do_inventory( $data, $memberId );
 		$this->do_bank( $data, $memberId );
