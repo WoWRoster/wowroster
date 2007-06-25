@@ -345,7 +345,11 @@ ALTER TABLE `renprefix_players`
   ADD `classEn` varchar(32) NOT NULL default '' AFTER `class`,
   ADD `sexid` tinyint(1) NOT NULL default '0' AFTER `sex`,
   ADD `power` varchar(32) NOT NULL default '' AFTER `mana`,
-  ADD `region` char(2) NOT NULL default '' AFTER `server`;
+  ADD `region` char(2) NOT NULL default '' AFTER `server`,
+  ADD `DBversion` varchar(6) NOT NULL default '0.0.0' AFTER `CPversion`,
+  CHANGE `CPversion` `CPversion` varchar(6) NOT NULL default '0.0.0',
+  ADD `raceid` tinyint(1) NOT NULL default '0' AFTER `race`,
+  ADD `classid` tinyint(1) NOT NULL default '0' AFTER `class`;
 
 # --------------------------------------------------------
 ### Alter Pets Table
@@ -521,6 +525,8 @@ ALTER TABLE `renprefix_memberlog`
 ### Alter Guild Table
 ALTER TABLE `renprefix_guild`
   CHANGE `faction` `faction` varchar(32) NOT NULL default '',
+  CHANGE `GPversion` `GPversion` varchar(6) NOT NULL default '0.0.0',
+  ADD `DBversion` varchar(6) NOT NULL default '0.0.0' AFTER `GPversion`,
   ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`,
   ADD `region` char(2) NOT NULL default '' AFTER `server`;
 

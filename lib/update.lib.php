@@ -337,7 +337,7 @@ class update
 					}
 
 					// CP Version Detection, don't allow lower than minVer
-					if( $char['DBversion'] >= $roster->config['minCPver'] )
+					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
 					{
 						if( !isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
 						{
@@ -358,7 +358,7 @@ class update
 					}
 					else // CP Version not new enough
 					{
-						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['DBversion']) . "</span><br />\n";
+						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['CPversion']) . "</span><br />\n";
 						$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
 					}
 					$output .= "<br />\n";
@@ -439,7 +439,7 @@ class update
 						}
 
 						// GP Version Detection, don't allow lower than minVer
-						if( $guild['DBversion'] >= $roster->config['minGPver'] )
+						if( version_compare($guild['GPversion'], $roster->config['minGPver'], '>=') )
 						{
 							if( count($guild['Members']) > 0 )
 							{
@@ -481,8 +481,8 @@ class update
 									}
 								}
 								// Remove the members who were not in this list
-//								$this->remove_guild_members($guildId, $currentTimestamp);
-//								$this->remove_guild_members_id($guildId, $currentTimestamp);
+								//$this->remove_guild_members($guildId, $currentTimestamp);
+								//$this->remove_guild_members_id($guildId, $currentTimestamp);
 
 								$guild_output .= $this->getMessages()."</ul></li>\n";
 								$this->resetMessages();
@@ -515,7 +515,7 @@ class update
 						else
 						// GP Version not new enough
 						{
-							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['DBversion']) . "</span><br />\n";
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['GPversion']) . "</span><br />\n";
 							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
 						}
 					}
@@ -2244,7 +2244,9 @@ class update
 
 		$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
 
-		$this->add_value( 'GPversion', $guild['DBversion'] );
+		$this->add_value( 'DBversion', $guild['DBversion'] );
+		$this->add_value( 'GPversion', $guild['GPversion'] );
+
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
 
 		if( is_array($guildInfo) )
@@ -2620,7 +2622,7 @@ class update
 		}
 
 		// update level in members table
-		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `level` = '" . $data['Level'] . "' WHERE `member_id` = $memberId LIMIT 1 ";
+		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `level` = '" . $data['Level'] . "' WHERE `member_id` = '$memberId' LIMIT 1 ";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2628,7 +2630,7 @@ class update
 		}
 
 
-		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '$memberId'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '$memberId';";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2901,8 +2903,10 @@ class update
 
 		$this->add_value( 'exp', $data['Experience'] );
 		$this->add_value( 'race', $data['Race'] );
+		$this->add_value( 'raceid', $data['RaceId'] );
 		$this->add_value( 'raceEn', $data['RaceEn'] );
 		$this->add_value( 'class', $data['Class'] );
+		$this->add_value( 'classid', $data['ClassId'] );
 		$this->add_value( 'classEn', $data['ClassEn'] );
 		$this->add_value( 'health', $data['Health'] );
 		$this->add_value( 'mana', $data['Mana'] );
@@ -2916,13 +2920,18 @@ class update
 			$this->add_value( 'dateupdatedutc', $data['timestamp']['init']['DateUTC'] );
 		}
 
-		$this->add_value( 'CPversion', $data['DBversion'] );
+		$this->add_value( 'DBversion', $data['DBversion'] );
+		$this->add_value( 'CPversion', $data['CPversion'] );
 
 		if (isset($data['TimePlayed']) && $data['TimePlayed'] > 0 )
+		{
 			$this->add_value( 'timeplayed', $data['TimePlayed'] );
+		}
 
 		if (isset($data['TimeLevelPlayed']) && $data['TimeLevelPlayed'] > 0 )
+		{
 			$this->add_value( 'timelevelplayed', $data['TimeLevelPlayed'] );
+		}
 
 
 		// Capture mailbox update time/date

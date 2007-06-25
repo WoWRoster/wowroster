@@ -497,9 +497,8 @@ $lang['Felguard']='Felguard';
 $lang['max_exp']='Max XP';
 
 // Error messages
-$lang['CPver_err']='The version of CharacterProfiler used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v%1$s and have logged onto this character and saved data using this version.';
-$lang['PvPLogver_err']='The version of PvPLog used to capture data for this character is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v%1$s, and if you have just updated your PvPLog, ensure you deleted your old PvPLog.lua SavedVariable file prior to updating.';
-$lang['GPver_err']='The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />\nPlease ensure you are running at least v%1$s';
+$lang['CPver_err']='The version of CharacterProfiler used to capture data for this character is older than the minimum version allowed for upload.<br />Please ensure you are running at least v%1$s and have logged onto this character and saved data using this version.';
+$lang['GPver_err']='The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />Please ensure you are running at least v%1$s';
 
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';
