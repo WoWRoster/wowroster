@@ -65,5 +65,7 @@ $lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
 $lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
 $lang['guildinfo'] = 'Guild Info';
 
+$lang['PvPLogver_err']='La version du PvPLog utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s et, si vous venez de mettre �  jour PvPLog, assurez vous que vous avez supprimé cotre ancien fichier PvPLog.lua contenu dans les SavedVariables avant de le mettre �  jour.';
+
 $lang['admin']['pvpconfig'] = "PvPLog Config|Configure PvPLog main options";
 $lang['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvPLog autorisée";

@@ -497,9 +497,8 @@ $lang['Felguard']='Guardia Maldito';
 $lang['max_exp']='Max XP';
 
 // Error messages
-$lang['CPver_err']='La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
-$lang['PvPLogver_err']='La versión de PvPLog uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s, y si has actualizado recientemente PvPLog, asegúrate de que has borrado el antiguo fichero PvPLog.lua en la carpeta SavedVariables antes de enviar los datos.';
-$lang['GPver_err']='La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />\nPor favor, asegúrate de que estás utilizando al menos la versión %1$s';
+$lang['CPver_err']='La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />Por favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
+$lang['GPver_err']='La versión de GuildProfiler uutilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />Por favor, asegúrate de que estás utilizando al menos la versión %1$s';
 
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';

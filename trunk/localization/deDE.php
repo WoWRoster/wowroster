@@ -497,9 +497,8 @@ $lang['Felguard']='Teufelswache';
 $lang['max_exp']='Max XP';
 
 // Error messages
-$lang['CPver_err']='Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.';
-$lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.';
-$lang['GPver_err']='Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br/> \nBitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden.';
+$lang['CPver_err']='Die verwendete Version des CharacterProfiler, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimal zugelassene Version.<br />Bitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden, und daß Sie diese Version verwendet haben, um die Daten für diesen Charakter zu speichern.';
+$lang['GPver_err']='Die verwendete Version von GuildProfiler, zur Speicherung der Daten für diese Gilde ist &auml;lter als die für den Upload minimal zugelassene Version.<br />Bitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden.';
 
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';
