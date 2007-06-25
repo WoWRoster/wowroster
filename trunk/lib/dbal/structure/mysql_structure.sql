@@ -72,6 +72,24 @@ CREATE TABLE `renprefix_addon_config` (
 ) TYPE=MyISAM;
 
 # --------------------------------------------------------
+### Gems
+
+DROP TABLE IF EXISTS `renprefix_gems`;
+CREATE TABLE `renprefix_gems` (
+  `gem_id` int(11) NOT NULL default '0',
+  `gem_name` varchar(96) NOT NULL default '',
+  `gem_color` varchar(16) NOT NULL default '',
+  `gem_tooltip` mediumtext NOT NULL,
+  `gem_texture` varchar(64) NOT NULL default '',
+  `gem_bonus` varchar(255) NOT NULL default '',
+  `gem_socketid` int(11) NOT NULL default '0',
+  `locale` varchar(16) NOT NULL default '',
+  PRIMARY KEY  (`gem_id`),
+  KEY `gem_socketid` (`gem_socketid`)
+) TYPE=MyISAM;
+
+
+# --------------------------------------------------------
 ### Guild
 
 DROP TABLE IF EXISTS `renprefix_guild`;
