@@ -677,12 +677,12 @@ class update
 	}
 
 	/**
-      * Add a gem to an INSERT or UPDATE SQL string
-      * (clone of add_value method--this functions as a 2nd SQL insert placeholder)
-      *
-      * @param string $row_name
-      * @param string $row_data
-      */
+	 * Add a gem to an INSERT or UPDATE SQL string
+	 * (clone of add_value method--this functions as a 2nd SQL insert placeholder)
+	 *
+	 * @param string $row_name
+	 * @param string $row_data
+	 */
 	function add_gem( $row_name, $row_data )
 	{
 		global $roster;
@@ -826,8 +826,13 @@ class update
 		$querystr = "REPLACE INTO `" . $roster->db->table('gems') . "` SET ".$this->assigngem;
 		$result = $roster->db->query($querystr);
 		if ( !$result )
-		return false;
-		else return true; 
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	/**
@@ -982,9 +987,13 @@ class update
 		$quest['zone'] = $zone;
 
 		if( isset($quest_data['Complete']) )
+		{
 			$quest['is_complete'] = $quest_data['Complete'];
+		}
 		else
+		{
 			$quest['is_complete'] = 0;
+		}
 
 		return $quest;
 	}
@@ -1019,14 +1028,22 @@ class update
 			$mail['item_color'] = $item['Color'];
 
 			if( isset( $item['Quantity'] ) )
+			{
 				$mail['item_quantity'] = $item['Quantity'];
+			}
 			else
+			{
 				$item['item_quantity'] = 1;
+			}
 
 			if( !empty($item['Tooltip']) )
+			{
 				$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
+			}
 			else
+			{
 				$mail['item_tooltip'] = $item['Name'];
+			}
 		}
 		return $mail;
 	}
@@ -1053,17 +1070,27 @@ class update
 		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
 
 		if( isset( $item_data['Quantity'] ) )
-		$item['item_quantity'] = $item_data['Quantity'];
+		{
+			$item['item_quantity'] = $item_data['Quantity'];
+		}
 		else
-		$item['item_quantity'] = 1;
+		{
+			$item['item_quantity'] = 1;
+		}
 
 		if( !empty($item_data['Tooltip']) )
-		$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
+		{
+			$item['item_tooltip'] = $this->tooltip( $item_data['Tooltip'] );
+		}
 		else
-		$item['item_tooltip'] = $item_data['Name'];
+		{
+			$item['item_tooltip'] = $item_data['Name'];
+		}
 
 		if( !empty($item_data['Gem']))
-		$this->do_gems($item_data['Gem'], $item_data['Item']);
+		{
+			$this->do_gems($item_data['Gem'], $item_data['Item']);
+		}
 
 		return $item;
 	}
@@ -1088,11 +1115,13 @@ class update
 				$line = preg_replace('/\|c[a-f0-9]{2}[a-f0-9]{6}(.+?)\|r/i','$1',$line); //CP error? strip out color
 				// -- start the parsing
 				if( eregi( '\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or the word Chance assume it's bonus line.
-				$gem_bonus = $line;
-
+				{
+					$gem_bonus = $line;
+				}
 				elseif( preg_match( $roster->locale->act['gem_preg_meta'], $line ) )
-				$gem_color = 'meta';
-
+				{
+					$gem_color = 'meta';
+				}
 				elseif( preg_match( $roster->locale->act['gem_preg_multicolor'], $line, $colors ) )
 				{
 					if( $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['red'] )
@@ -1102,7 +1131,6 @@ class update
 					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
 					$gem_color = 'green';
 				}
-
 				elseif( preg_match( $roster->locale->act['gem_preg_singlecolor'], $line, $color ) )
 				{
 					$tmp = array_flip($roster->locale->act['gem_colors']);
@@ -1110,7 +1138,9 @@ class update
 				}
 
 				elseif( preg_match( $roster->locale->act['gem_preg_prismatic'], $line ) )
-				$gem_color = 'prismatic';
+				{
+					$gem_color = 'prismatic';
+				}
 			}
 		}
 
@@ -1159,9 +1189,13 @@ class update
 		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
 
 		if( !empty($recipe_data['Tooltip']) )
+		{
 			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
+		}
 		else
+		{
 			$recipe['recipe_tooltip'] = $recipe_name;
+		}
 
 		return $recipe;
 	}
@@ -1206,18 +1240,28 @@ class update
 				$this->add_value('name', $buff['Name'] );
 
 				if( isset( $buff['Icon'] ) )
+				{
 					$this->add_value('icon', $this->fix_icon($buff['Icon']) );
+				}
 
 				if( isset( $buff['Rank'] ) )
+				{
 					$this->add_value('rank', $buff['Rank'] );
+				}
 
 				if( isset( $buff['Count'] ) )
+				{
 					$this->add_value('count', $buff['Count'] );
+				}
 
 				if( !empty($buff['Tooltip']) )
+				{
 					$this->add_value('tooltip', $this->tooltip( $buff['Tooltip'] ) );
+				}
 				else
+				{
 					$this->add_value('tooltip', $buff['Name'] );
+				}
 
 				$querystr = "INSERT INTO `" . $roster->db->table('buffs') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
@@ -1620,11 +1664,17 @@ class update
 					{
 						$this->reset_values();
 						if( !empty($memberId) )
+						{
 							$this->add_value('member_id', $memberId );
+						}
 						if( !empty($factions) )
+						{
 							$this->add_value('faction', $factions );
+						}
 						if( !empty($faction) )
+						{
 							$this->add_value('name', $faction );
+						}
 						if( !empty($repData[$factions][$faction]['Value']) )
 						{
 							list($level, $max) = explode(':',$repData[$factions][$faction]['Value']);
@@ -1632,9 +1682,13 @@ class update
 							$this->add_value('max_rep', $max );
 						}
 						if( !empty($repData[$factions][$faction]['AtWar']) )
+						{
 							$this->add_value('AtWar', $repData[$factions][$faction]['AtWar'] );
+						}
 						if( !empty($repData[$factions][$faction]['Standing']) )
+						{
 							$this->add_value('Standing', $repData[$factions][$faction]['Standing']);
+						}
 
 						$messages .= '.';
 
@@ -1695,15 +1749,29 @@ class update
 					{
 						$this->reset_values();
 						if( !empty($memberId) )
+						{
 							$this->add_value('member_id', $memberId );
+						}
+
 						if( !empty($skill_type) )
+						{
 							$this->add_value('skill_type', $skill_type );
+						}
+
 						if( !empty($skill_name) )
+						{
 							$this->add_value('skill_name', $skill_name );
+						}
+
 						if( !empty($order) )
+						{
 							$this->add_value('skill_order', $order );
+						}
+
 						if( !empty($sub_skill[$skill_name]) )
+						{
 							$this->add_value('skill_level', $sub_skill[$skill_name] );
+						}
 
 						$messages .= '.';
 
@@ -1779,15 +1847,25 @@ class update
 
 							$this->reset_values();
 							if( !empty($memberId) )
+							{
 								$this->add_value('member_id', $memberId );
+							}
 							if( !empty($spell_type) )
+							{
 								$this->add_value('spell_type', $spell_type );
+							}
 							if( !empty($spell_name) )
+							{
 								$this->add_value('spell_name', $spell_name );
+							}
 							if( !empty($data_spell_name['Icon']) )
+							{
 								$this->add_value('spell_texture', $this->fix_icon($data_spell_name['Icon']) );
+							}
 							if( !empty($data_spell_name['Rank']) )
+							{
 								$this->add_value('spell_rank', $data_spell_name['Rank'] );
+							}
 
 							if( !empty($data_spell_name['Tooltip']) )
 							{
@@ -1955,19 +2033,31 @@ class update
 					{
 						$this->reset_values();
 						if( !empty($memberId) )
+						{
 							$this->add_value('member_id', $memberId );
+						}
 						if( !empty($talent_skill) )
+						{
 							$this->add_value('name', $talent_skill );
+						}
 						if( !empty($talent_tree) )
+						{
 							$this->add_value('tree', $talent_tree );
+						}
 
 						if( !empty($data_talent_skill['Tooltip']) )
+						{
 							$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']) );
+						}
 						else
+						{
 							$this->add_value('tooltip', $talent_skill );
+						}
 
 						if( !empty($data_talent_skill['Icon']) )
+						{
 							$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']) );
+						}
 
 						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
 						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
@@ -1984,15 +2074,25 @@ class update
 				}
 				$this->reset_values();
 				if( !empty($memberId) )
+				{
 					$this->add_value('member_id', $memberId );
+				}
 				if( !empty($talent_tree) )
+				{
 					$this->add_value('tree', $talent_tree );
+				}
 				if( !empty($tree_background) )
+				{
 					$this->add_value('background', $this->fix_icon($tree_background) );
+				}
 				if( !empty($tree_pointsspent) )
+				{
 					$this->add_value('pointsspent', $tree_pointsspent );
+				}
 				if( !empty($tree_order) )
+				{
 					$this->add_value('order', $tree_order );
+				}
 
 				$querystr = "INSERT INTO `" . $roster->db->table('talenttree') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
@@ -2444,25 +2544,41 @@ class update
 		$this->add_value( 'class', $char['Class']);
 		$this->add_value( 'level', $char['Level']);
 		if( isset($char['Note']) )
+		{
 			$this->add_value( 'note', $char['Note']);
+		}
 		else
+		{
 			$this->add_value( 'note', '');
+		}
 		$this->add_value( 'guild_rank', $char['Rank']);
 		$this->add_value( 'guild_title', $guildRanks[$char['Rank']]['Title']);
 		if( isset($char['OfficerNote']) )
+		{
 			$this->add_value( 'officer_note', $char['OfficerNote']);
+		}
 		else
+		{
 			$this->add_value( 'officer_note', '');
+		}
 
 		if( isset($char['Zone']) )
+		{
 			$this->add_value( 'zone', $char['Zone']);
+		}
 		else
+		{
 			$this->add_value( 'zone', '');
+		}
 
 		if( isset($char['Status']) )
+		{
 			$this->add_value( 'status', $char['Status']);
+		}
 		else
+		{
 			$this->add_value( 'status', '');
+		}
 
 		$this->add_value( 'active', '1');
 
@@ -2483,11 +2599,17 @@ class update
 			#                        - 60 * 60 * $lastOnlineHours;
 			$timeString = '-';
 			if ($lastOnlineYears > 0)
+			{
 				$timeString .= $lastOnlineYears . ' Years ';
+			}
 			if ($lastOnlineMonths > 0)
+			{
 				$timeString .= $lastOnlineMonths . ' Months ';
+			}
 			if ($lastOnlineDays > 0)
+			{
 				$timeString .= $lastOnlineDays . ' Days ';
+			}
 			$timeString .= max($lastOnlineHours,1) . ' Hours';
 
 			$lastOnlineTime = strtotime($timeString,$currentTimestamp);
@@ -2669,9 +2791,13 @@ class update
 				}
 
 				if( isset($attack['DamageRangeTooltip']) )
+				{
 					$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+				}
 				if( isset($attack['AttackPowerTooltip']) )
+				{
 					$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+				}
 
 				unset($hand, $attack);
 			}
@@ -2779,49 +2905,85 @@ class update
 		{
 			$honor = $data['Honor'];
 			if( isset($honor['Session']['HK']) )
+			{
 				$this->add_value( 'sessionHK',             $honor['Session']['HK'] );
+			}
 			else
+			{
 				$this->add_value( 'sessionHK',0 );
+			}
 
 			if( isset($honor['Session']['CP']) )
+			{
 				$this->add_value( 'sessionCP',             $honor['Session']['CP'] );
+			}
 			else
+			{
 				$this->add_value( 'sessionCP',0 );
+			}
 
 			if( isset($honor['Yesterday']['HK']) )
+			{
 				$this->add_value( 'yesterdayHK',           $honor['Yesterday']['HK'] );
+			}
 			else
+			{
 				$this->add_value( 'yesterdayHK',0 );
+			}
 
 			if( isset($honor['Yesterday']['CP']) )
+			{
 				$this->add_value( 'yesterdayContribution', $honor['Yesterday']['CP'] );
+			}
 			else
+			{
 				$this->add_value( 'yesterdayContribution',0 );
-
+			}
+			
 			if( isset($honor['Lifetime']['HK']) )
+			{
 				$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
+			}
 			else
+			{
 				$this->add_value( 'lifetimeHK',0 );
+			}
 
 			if( isset($honor['Lifetime']['Rank']) )
+			{
 				$this->add_value( 'lifetimeHighestRank',   $honor['Lifetime']['Rank'] );
+			}
 			else
+			{
 				$this->add_value( 'lifetimeHighestRank',0 );
+			}
 
 			if( isset($honor['Lifetime']['Name']) )
+			{
 				$this->add_value( 'lifetimeRankName',      $honor['Lifetime']['Name'] );
+			}
 			else
+			{
 				$this->add_value( 'lifetimeRankName','' );
+			}
 
 			if( isset($honor['Current']['HonorPoints']) )
+			{
 				$this->add_value( 'honorpoints',            $honor['Current']['HonorPoints'] );
+			}
 			else
+			{
 				$this->add_value( 'honorpoints',0 );
+			}
 
 			if( isset($honor['Current']['ArenaPoints']) )
+			{
 				$this->add_value( 'arenapoints',            $honor['Current']['ArenaPoints'] );
+			}
 			else
+			{
 				$this->add_value( 'arenapoints',0 );
+			}
 
 			unset($honor);
 		}
@@ -2940,9 +3102,13 @@ class update
 			}
 
 			if( isset($attack['DamageRangeTooltip']) )
+			{
 				$this->add_value( 'melee_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			}
 			if( isset($attack['AttackPowerTooltip']) )
+			{
 				$this->add_value( 'melee_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			}
 
 			unset($hand, $attack);
 		}
@@ -2973,9 +3139,13 @@ class update
 			$this->add_rating( 'ranged_rating', $attack['AttackRating']);
 
 			if( isset($attack['DamageRangeTooltip']) )
+			{
 				$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+			}
 			if( isset($attack['AttackPowerTooltip']) )
+			{
 				$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+			}
 			unset($attack);
 		}
 		// END RANGED
@@ -3022,7 +3192,9 @@ class update
 		$this->add_value( 'server', $data['Server'] );
 
 		if( isset($data['TalentPoints']) )
+		{
 			$this->add_value( 'talent_points', $data['TalentPoints'] );
+		}
 
 		$this->add_value( 'money_c', $data['Money']['Copper'] );
 		$this->add_value( 'money_s', $data['Money']['Silver'] );
