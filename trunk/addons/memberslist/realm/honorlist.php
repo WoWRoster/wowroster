@@ -167,7 +167,7 @@ if( $addon['config']['honor_update_inst'] )
 
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
+print $roster_menu->makeMenu($roster->output['show_menu']);
 $roster->output['show_menu'] = false;
 
 if( $addon['config']['honor_hslist'] == 1 || $addon['config']['honor_pvplist'] == 1 )

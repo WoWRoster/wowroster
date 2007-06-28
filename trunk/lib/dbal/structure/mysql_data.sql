@@ -150,6 +150,10 @@ INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{
 # --------------------------------------------------------
 ### Menu table entries
 INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3|b4');
+INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
+INSERT INTO `renprefix_menu` VALUES (3, 'guildless', '');
+INSERT INTO `renprefix_menu` VALUES (4, 'guild', '');
+INSERT INTO `renprefix_menu` VALUES (5, 'char', '');
 
 # --------------------------------------------------------
 ### Menu Button entries

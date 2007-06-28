@@ -121,7 +121,7 @@ if ( $addon['config']['log_motd'] == 1 )
 }
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
+print $roster_menu->makeMenu($roster->output['show_menu']);
 $roster->output['show_menu'] = false;
 
 if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 )

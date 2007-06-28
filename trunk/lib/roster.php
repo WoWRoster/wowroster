@@ -34,26 +34,26 @@ class roster
 	var $menu_select = array(); // Menu Select data
 
 	var $output = array(
-			'http_header' => true,
-	        'show_header' => true,
-	        'show_menu' => array('main'),
-	        'show_footer' => true,
+		'http_header' => true,
+		'show_header' => true,
+		'show_menu' => array('main'),
+		'show_footer' => true,
 
-	        // used on rostercp pages
-	        'header' => '',
-	        'menu' => '',
-	        'body' => '',
-	        'pagebar' => '',
-	        'footer' => '',
+		// used on rostercp pages
+		'header' => '',
+		'menu' => '',
+		'body' => '',
+		'pagebar' => '',
+		'footer' => '',
 
-	        // used on other pages
-	        'content' => '',
+		// used on other pages
+		'content' => '',
 
-	        // header stuff
-	        'title' => '',
-	        'html_head' => '',
-	        'body_attr' => '',
-	        'body_onload' => ''
+		// header stuff
+		'title' => '',
+		'html_head' => '',
+		'body_attr' => '',
+		'body_onload' => ''
 	);
 
 	/**
@@ -335,6 +335,21 @@ class roster
 			default:
 				$this->data = array();
 				break;
+		}
+		
+		// Set menu array
+		if( isset($this->data['server']) )
+		{
+			$this->output['show_menu'][] = 'realm';
+			$this->output['show_menu'][] = 'guildless';
+		}
+		if( isset($this->data['guild_id']) )
+		{
+			$this->output['show_menu'][] = 'guild';
+		}
+		if( isset($this->data['member_id']) )
+		{
+			$this->output['show_menu'][] = 'char';
 		}
 	}
 
