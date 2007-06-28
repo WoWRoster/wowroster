@@ -512,8 +512,14 @@ class RosterMenu
 		$html .= '      <table cellspacing="0" cellpadding="0" border="0" width="100%">' . "\n";
 		foreach( $arrayButtons as $id => $page )
 		{
-			$html .= '        <tr><td align="center" colspan="' . count($page) . '"><span style="color:#0099FF;font-weight:bold;">' . $sections[$id] . '</span></td></tr>' . "\n";
-			$html .= "        <tr>\n";
+			$open = true;
+			$html .= '        <tr  style="cursor:pointer;" onclick="showHide(\'menu_'.$sections[$id].'\',\'menuimg_'.$sections[$id].'\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
+			$html .= '          <td align="center" colspan="' . count($page) . '">' . "\n";
+			$html .= '            <span style="color:#0099FF;font-weight:bold;">' . $roster->locale->act[$sections[$id]] . '</span>' . "\n";
+			$html .= '            <img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="menuimg_'.$sections[$id].'"/>' . "\n";
+			$html .= '          </td>' . "\n";
+			$html .= '        </tr>' . "\n";
+			$html .= '        <tr id="menu_'.$sections[$id].'" style="display:' . (($open)?'table-row':'none') . '">'."\n";
 			foreach( $page as $column )
 			{
 				$html .= '          <td valign="top">' . "\n";
@@ -547,7 +553,7 @@ class RosterMenu
 						$button['tooltip'] = '';
 					}
 
-					$html .= '              <li'.$button['tooltip'].'><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
+					$html .= '              <li class="button"'.$button['tooltip'].'><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
 				}
 				$html .= "            </ul>\n";
 				$html .= "          </td>\n";

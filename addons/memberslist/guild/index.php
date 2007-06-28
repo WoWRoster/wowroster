@@ -190,7 +190,7 @@ if ( $addon['config']['member_motd'] == 1 )
 }
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
+print $roster_menu->makeMenu($roster->output['show_menu']);
 $roster->output['show_menu'] = false;
 
 if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist'] == 1 )
