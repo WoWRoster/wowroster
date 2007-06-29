@@ -513,10 +513,10 @@ class RosterMenu
 		foreach( $arrayButtons as $id => $page )
 		{
 			$open = true;
-			$html .= '        <tr  style="cursor:pointer;" onclick="showHide(\'menu_'.$sections[$id].'\',\'menuimg_'.$sections[$id].'\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
-			$html .= '          <td align="center" colspan="' . count($page) . '">' . "\n";
-			$html .= '            <span style="color:#0099FF;font-weight:bold;">' . $roster->locale->act[$sections[$id]] . '</span>' . "\n";
+			$html .= '        <tr style="cursor:pointer;" onclick="showHide(\'menu_'.$sections[$id].'\',\'menuimg_'.$sections[$id].'\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
+			$html .= '          <td align="center" colspan="' . count($page) . '" class="simpleborder_b sgreyborder_b">' . "\n";
 			$html .= '            <img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="menuimg_'.$sections[$id].'"/>' . "\n";
+			$html .= '            <span style="color:#0099FF;font-weight:bold;">' . $roster->locale->act[$sections[$id]] . '</span>' . "\n";
 			$html .= '          </td>' . "\n";
 			$html .= '        </tr>' . "\n";
 			$html .= '        <tr id="menu_'.$sections[$id].'" style="display:' . (($open)?'table-row':'none') . '">'."\n";

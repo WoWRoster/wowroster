@@ -97,28 +97,7 @@ $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu($roster->output['show_menu']);
 $roster->output['show_menu'] = false;
 
-if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist'] == 1 )
-{
-	echo "<table>\n  <tr>\n";
 
-	if ( $addon['config']['member_hslist'] == 1 )
-	{
-		echo '    <td valign="top">';
-		include_once( ROSTER_LIB.'hslist.php');
-		echo generateHsList();
-		echo "    </td>\n";
-	}
-
-	if ( $addon['config']['honor_pvplist'] == 1 && active_addon('pvplog') )
-	{
-		echo '    <td valign="top">';
-		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
-		echo generatePvpList();
-		echo "    </td>\n";
-	}
-
-	echo "  </tr>\n</table>\n";
-}
 
 echo $memberlist->makeFilterBox();
 
