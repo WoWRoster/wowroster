@@ -41,7 +41,7 @@ if( !$result )
 if( $row = $roster->db->fetch($result) )
 {
 	$roster->db->free_result($result);
-	header("Location: ".ROSTER_URL.$roster_rel.sprintf(ROSTER_LINK,'char-char','member='.$row['member_id']));
+	header("Location: ".ROSTER_URL.$roster_rel.sprintf(ROSTER_LINK,'char-info','member='.$row['member_id']));
 	exit();
 }
 
