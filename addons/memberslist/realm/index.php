@@ -263,8 +263,18 @@ function tradeskill_icons ( $row )
 		}
 
 		// Don't add professions we don't have an icon for. This keeps other skills out.
-		if ($icon != '') {
-			$cell_value .= "<img class=\"membersRowimg\" width=\"".$addon['config']['icon_size']."\" height=\"".$addon['config']['icon_size']."\" src=\"".$roster->config['interface_url'].'Interface/Icons/'.$icon.'.'.$roster->config['img_suffix']."\" alt=\"\" ".makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP')." />\n";
+		if ($icon != '')
+		{
+			$icon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].'Interface/Icons/'.$icon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP').' />';
+
+			if( active_addon('info') )
+			{
+				$cell_value .= '<a href="' . makelink('char-info-recipes&amp;member=' . $row['member_id'] . '#' . strtolower(str_replace(' ','',$r_prof[0]))) . '">' . $icon . '</a>';
+			}
+			else
+			{
+				$cell_value .= $icon;
+			}
 		}
 	}
 	return $cell_value;

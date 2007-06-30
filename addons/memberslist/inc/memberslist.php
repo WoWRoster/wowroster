@@ -602,9 +602,9 @@ class memberslist
 		}
 		else
 		{
-			if ( $row['server'] )
+			if ( active_addon('info') && $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-char&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-info&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
 			else
 			{
