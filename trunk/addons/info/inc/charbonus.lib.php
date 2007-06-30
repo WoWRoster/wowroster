@@ -99,7 +99,7 @@ class CharBonus
 	function getStartofModifier( $aString )
 	{
 		$startpos =  strlen($aString);
-
+		$startpos--;
 		//Count back till we get to the first number
 		while( isset($aString[$startpos]) && (is_numeric($aString[$startpos])==FALSE) && ($startpos <> 0) )
 		{
@@ -109,9 +109,9 @@ class CharBonus
 		//Get start position of the number
 		while( isset($aString[$startpos]) && is_numeric($aString[$startpos]) )
 		{
-			$startpos = $startpos-1;
+			$startpos--;
 		}
-		return $startpos + 1;
+		return $startpos++;
 	}
 
 	function getLengthofModifier( $aString )
