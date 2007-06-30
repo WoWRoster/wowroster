@@ -458,6 +458,7 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 	$tooltip_out = '';
 
 	// Color parsing time!
+	$tooltip = str_replace("\n\n", "\n", $tooltip);
 	$tooltip = str_replace('<br>',"\n",$tooltip);
 	$tooltip = str_replace('<br />',"\n",$tooltip);
 	foreach (explode("\n", $tooltip) as $line )
