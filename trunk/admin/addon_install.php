@@ -221,7 +221,7 @@ function getAddonList()
 	{
 		foreach ($addons as $addon)
 		{
-			$installfile = ROSTER_ADDONS.$addon.DIR_SEP.'install.def.php';
+			$installfile = ROSTER_ADDONS.$addon.DIR_SEP.'inc'.DIR_SEP.'install.def.php';
 
 			if (file_exists($installfile))
 			{
@@ -317,13 +317,13 @@ function processAddon()
 
 	// Include addon install definitions
 	$addonDir = ROSTER_ADDONS.$addon_name.DIR_SEP;
-	if (!file_exists($addonDir.'install.def.php'))
+	if (!file_exists($addonDir.'inc'.DIR_SEP.'install.def.php'))
 	{
 		$installer->seterrors(sprintf($roster->locale->act['installer_no_installdef'],$addon_name),$roster->locale->act['installer_error']);
 		return;
 	}
 
-	require($addonDir.'install.def.php');
+	require($addonDir.'inc'.DIR_SEP.'install.def.php');
 
 	$addon = new $addon_name();
 	$addata = escape_array((array)$addon);

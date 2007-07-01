@@ -9,7 +9,7 @@ INSTALL:
 2) Go to the Roster Control Panel, manage addons, and click the SortMember
    installation icon.
 
-3) The addon installs automatically. 
+3) The addon installs automatically.
 
 4) Click the new SortMember button in the pagebar to configure SortMember.
 
@@ -108,7 +108,7 @@ ALTMONITOR VERSION LOG:
 -- Forgot to do that debug mode fix. Done.
 
 1.3.1
--- Added more indentation for alts because the buttons made them harder to 
+-- Added more indentation for alts because the buttons made them harder to
    distinguish
 -- Fixed an issue with database handling that should cause a warning but is
    ignored on some systems and fatal on others (guess which it was on mine).
@@ -214,7 +214,7 @@ ALTMONITOR VERSION LOG:
 -- Forgot to actually add the check if a main has alts
 
 0.5.0
--- Partial rewrite of the addon to remove the dependancy on wowdb.php and the 
+-- Partial rewrite of the addon to remove the dependancy on wowdb.php and the
    roster_accounts table. Changes are in altlist.php and update.php
 
 0.4.3
@@ -274,13 +274,13 @@ SORTMEMBER VERSION LOG:
    AdminPanel branch.
 
 CREDITS / FILE BY FILE FUNCTION INFO
-conf.php
+inc/conf.php
 	Some defines for the alt detection system
-install.def.php
+inc/install.def.php
 	Installer definition file. Read by the roster addon installer
-update_hook.php
+inc/update_hook.php
 	Writes the Main/Alt table.
-	
+
 admin/update.php
 	Wrapper for update_hook.php. Simulates a guild update on current data,
 	so the main/alt relations can be updated.

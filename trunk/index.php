@@ -60,8 +60,7 @@ switch( $roster->pages[0] )
 
 	case 'util':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP .
-			( isset($roster->pages[2]) && !in_array($roster->pages[2],explode(',',ROSTER_NON_ADDON))
-			? $roster->pages[2] : 'index' ). '.php';
+			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
 		break;
 
 	default:
@@ -104,7 +103,7 @@ if( $addon['active'] == '1' )
 		$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php',$lang);
 	}
 
-	// Include addon's conf.php file
+	// Include addon's inc/conf.php file
 	if( file_exists($addon['conf_file']) )
 	{
 		include_once($addon['conf_file']);

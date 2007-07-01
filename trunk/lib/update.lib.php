@@ -62,7 +62,7 @@ class update
 		{
 			foreach( ($roster->addon_data) as $row )
 			{
-				$hookfile = ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'update_hook.php';
+				$hookfile = ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'update_hook.php';
 
 				if( file_exists($hookfile) )
 				{
@@ -686,7 +686,7 @@ class update
 	function add_gem( $row_name, $row_data )
 	{
 		global $roster;
-		
+
 		if( $this->assigngem != '' )
 		$this->assigngem .= ',';
 
@@ -812,7 +812,7 @@ class update
 	function insert_gem( $gem )
 	{
 		global $roster;
-		
+
 		$this->assigngem='';
 		$this->add_gem('gem_id', $gem['gem_id']);
 		$this->add_gem('gem_name', $gem['gem_name']);
@@ -834,7 +834,7 @@ class update
 			return true;
 		}
 	}
-	
+
 	/**
 	 * Inserts mail into the Database
 	 *
@@ -1018,7 +1018,7 @@ class update
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
 		$mail['item_icon'] = $mail['item_name'] = $mail['item_color'] = $mail['item_tooltip'] = '';
-		
+
 		if( isset($mail_data['Item']) )
 		{
 			$item = $mail_data['Item'];
@@ -1105,7 +1105,7 @@ class update
 	function make_gem($gem_data, $socket_id)
 	{
 		global $roster;
-		
+
 		$gemtt = explode( '<br>', $gem_data['Tooltip'] );
 
 		if( is_array( $gemtt ) )
@@ -1218,7 +1218,7 @@ class update
 			$this->setError('Buffs could not be deleted',$roster->db->error());
 			return;
 		}
-		
+
 		if(isset($data['Attributes']['Buffs']))
 		{
 			$buffs = $data['Attributes']['Buffs'];
@@ -2939,7 +2939,7 @@ class update
 			{
 				$this->add_value( 'yesterdayContribution',0 );
 			}
-			
+
 			if( isset($honor['Lifetime']['HK']) )
 			{
 				$this->add_value( 'lifetimeHK',            $honor['Lifetime']['HK'] );
@@ -3258,9 +3258,9 @@ class update
 			$this->setError('Cannot update Character Data',$roster->db->error());
 			return false;
 		}
-		
+
 		$this->locale = $data['Locale'];
-		
+
 		$this->do_equip( $data, $memberId );
 		$this->do_inventory( $data, $memberId );
 		$this->do_bank( $data, $memberId );
