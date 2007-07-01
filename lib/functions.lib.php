@@ -922,7 +922,7 @@ function getaddon( $addonname )
 	}
 
 	// Get the addon's conf file
-	$addon['conf_file'] = $addon['dir'] . 'conf.php';
+	$addon['conf_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'conf.php';
 
 	// Get the addon's locale dir
 	$addon['locale_dir'] = $addon['dir'] . 'locale' . DIR_SEP;
@@ -931,7 +931,7 @@ function getaddon( $addonname )
 	$addon['admin_dir'] = $addon['dir'] . 'admin' . DIR_SEP;
 
 	// Get the addon's trigger file
-	$addon['trigger_file'] = $addon['dir'] . 'update_hook.php';
+	$addon['trigger_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'update_hook.php';
 
 	// Get the addon's ajax functions file
 	$addon['ajax_file'] = $addon['dir'] . 'ajax.php';

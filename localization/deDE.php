@@ -562,7 +562,7 @@ $lang['installer_error'] = 'Install Errors';
 $lang['installer_invalid_type'] = 'Invalid install type';
 $lang['installer_no_success_sql'] = 'Queries were not successfully added to the installer';
 $lang['installer_no_class'] = 'The install definition file for %1$s did not contain a correct installation class';
-$lang['installer_no_installdef'] = 'install.def.php for %1$s was not found';
+$lang['installer_no_installdef'] = 'inc/install.def.php for %1$s was not found';
 
 $lang['installer_no_empty'] = 'Cannot install with an empty addon name';
 $lang['installer_fetch_failed'] = 'Failed to fetch addon data for %1$s';

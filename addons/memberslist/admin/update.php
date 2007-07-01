@@ -34,7 +34,7 @@ $roster->db->free_result($result);
 
 
 // Start the actual update process
-include_once($addon['dir'] . 'update_hook.php');
+include_once($addon['trigger_file']);
 include_once(ROSTER_LIB . 'update.lib.php');
 $update = new update;
 
