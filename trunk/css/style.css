@@ -494,14 +494,17 @@ select {
 }
 
 .divider_gold {
-	background-color: #D3A229;
-	height: 3px;
+	height: 1px;
 	border-top-width: 1px;
-	border-bottom-width: 1px;
 	border-top-style: solid;
-	border-bottom-style: solid;
 	border-top-color: #000000;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
 	border-bottom-color: #000000;
+	overflow: hidden;
+	margin: 0px;
+	padding: 0px;
+	background-color: #D3A229;
 }
 
 .motd_setup {
@@ -527,7 +530,7 @@ select {
 	white-space:nowrap;
 	overflow:hidden;
 	padding-bottom: 1px;
-	background-image: url(../img/borders/rankborder-header.gif);
+	background-image: url(../img/bgheader.gif);
 }
 
 /* Border Colours */
@@ -567,29 +570,6 @@ select {
 .spurpleborder {
 	border-color: #4B0082;
 }
-
-.simpleborder_b {
-	padding:0;
-	margin:0;
-	border:0;
-	background-repeat:repeat-x;
-	height:5px;
-	overflow:hidden;
-}
-
-.syellowborder_b { background-image:url(../img/borders/syellowborder-bot.gif); }
-
-.spurpleborder_b { background-image:url(../img/borders/spurpleborder-bot.gif); }
-
-.sgreenborder_b { background-image:url(../img/borders/sgreenborder-bot.gif); }
-
-.sredborder_b { background-image:url(../img/borders/sredborder-bot.gif); }
-
-.sblueborder_b { background-image:url(../img/borders/sblueborder-bot.gif); }
-
-.sorangeborder_b { background-image:url(../img/borders/sorangeborder-bot.gif); }
-
-.sgrayborder_b { background-image:url(../img/borders/sgrayborder-bot.gif); }
 
 /**
  * Bag Styles
