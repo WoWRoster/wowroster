@@ -167,7 +167,8 @@ class RosterMenu
 
 		return "\n<!-- Begin WoWRoster Menu -->"
 			. border('syellow','start') . "\n"
-			. '<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">' . "\n"
+			. '
+<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">' . "\n"
 			. $topbar
 			. "  <tr>\n"
 			. $left_pane
@@ -575,9 +576,14 @@ class RosterMenu
 		<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1px" height="1px" /></td>
 	</tr>
 	<tr>
-		<td colspan="3" align="center" valign="top" class="header">
+		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
+		
+			<div class="header_text sgoldborder">
+			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;cursor:pointer;" id="data_search_img" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');" alt="+" />Search the Roster
+			</div>
+		
+		<div id="data_search" style="display:none;">
 			<form id="searchformmenu" action="' . makelink('search') . '" method="post">
-				<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:left;cursor:pointer;" id="data_search_img" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');" alt="+" />
 
 				<input type="text" class="wowinput192" name="s" value="" size="30" maxlength="30" />
 				<input type="submit" value="' . $roster->locale->act['search_items'] . '" />
@@ -588,7 +594,7 @@ class RosterMenu
 					<label for="tooltip_m">' . $roster->locale->act['search_tooltips'] . '</label>
 			</form>
 
-			<div id="data_search" style="display:none;">
+			
 				<hr />
 
 				<form id="searchformdata" action="' . makelink('search') . '" method="post">
