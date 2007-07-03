@@ -144,7 +144,7 @@ class RosterMenu
 					. "    </div></td>\n"
 					. "  </tr>\n"
 					. "  <tr>\n"
-					. '    <td colspan="3" class="simpleborder_b syellowborder_b"></td>' . "\n"
+					. '    <td colspan="3" class="divider_gold"></td>' . "\n"
 					. "  </tr>\n";
 		}
 		else
@@ -514,7 +514,7 @@ class RosterMenu
 		{
 			$open = true;
 			$html .= '        <tr style="cursor:pointer;" onclick="showHide(\'menu_'.$sections[$id].'\',\'menuimg_'.$sections[$id].'\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
-			$html .= '          <td align="center" colspan="' . count($page) . '" class="simpleborder_b sgreyborder_b">' . "\n";
+			$html .= '          <td align="center" colspan="' . count($page) . '" >' . "\n";
 			$html .= '            <img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="menuimg_'.$sections[$id].'"/>' . "\n";
 			$html .= '            <span style="color:#0099FF;font-weight:bold;">' . $roster->locale->act[$sections[$id]] . '</span>' . "\n";
 			$html .= '          </td>' . "\n";
@@ -572,7 +572,7 @@ class RosterMenu
 
 		$output = '
 	<tr>
-		<td colspan="3" class="simpleborder_b syellowborder_b"></td>
+		<td colspan="3" class="divider_gold"></td>
 	</tr>
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header">
