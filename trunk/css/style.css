@@ -481,7 +481,7 @@ select {
 }
 
 .border_colour {
-	background-color: #000000;
+	background-color: #1F1E1D;
 	padding: 1px;
 	border-top-width: 1px;
 	border-right-width: 1px;
@@ -493,8 +493,8 @@ select {
 	border-left-style: solid;
 }
 
-.border_divider {
-	background-color: #00FF00;
+.divider_gold {
+	background-color: #D3A229;
 	height: 3px;
 	border-top-width: 1px;
 	border-bottom-width: 1px;
