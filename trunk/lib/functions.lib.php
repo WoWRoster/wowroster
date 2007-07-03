@@ -39,11 +39,7 @@ function border( $style , $mode , $header_text=null )
 
 	if( $header_text != '' && $style != 'end' )
 	{
-		$header_text = '  <tr>
-    <td class="' . $style . '_c_l ' . $backg_css . '_c_l"></td>
-    <th class="' . $style . 'header ' . $backg_css . 'header" align="center" valign="top">' . $header_text . '</th>
-    <td class="' . $style . '_c_r ' . $backg_css . '_c_r"></td>
-  </tr>';
+		$header_text = '  <div class="header_text '. $backg_css .'">' . $header_text . '</div>';
 	}
 	else
 	{
@@ -53,29 +49,13 @@ function border( $style , $mode , $header_text=null )
 	// Dynamic Bordering
 	$start = '
 <!-- START [open-' . $style . '] container -->
-<table cellspacing="0" cellpadding="0" border="0">
-  <tr>
-   <td class="' . $style. '_t_l ' . $backg_css . '_t_l"></td>
-   <td class="' . $style. '_t ' . $backg_css . '_t"></td>
-   <td class="' . $style. '_t_r ' . $backg_css . '_t_r"></td>
-  </tr>
+<table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour '. $backg_css .'">
 '.$header_text.'
-  <tr>
-    <td class="' . $style . '_c_l ' . $backg_css . '_c_l"></td>
-    <td class="' . $style . '_c">
 <!-- END [open-' . $style . '] container -->';
 
 	$end = '
 <!-- START [close-' . $style . '] container -->
-    </td>
-    <td class="' . $style. '_c_r ' . $backg_css . '_c_r"></td>
-  </tr>
-  <tr>
-   <td class="' . $style . '_b_l ' . $backg_css . '_b_l"></td>
-   <td class="' . $style . '_b ' . $backg_css . '_b"></td>
-   <td class="' . $style . '_b_r ' . $backg_css . '_b_r"></td>
-  </tr>
-</table>
+    </td></tr></table>
 <!-- END [close-' . $style . '] container -->';
 
 	switch ($mode)
