@@ -121,6 +121,7 @@ $roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_
 // --[ Section select. ]--
 $menu .= border('sorange','start',$roster->locale->act['menuconf_sectionselect'])."\n";
 $menu .= '<form action="'.makelink().'" method="get">'."\n";
+$menu .= linkform();
 $menu .= '<select name="section">'."\n";
 
 $query = "SELECT `section` FROM ".$roster->db->table('menu').";";
@@ -178,12 +179,12 @@ foreach($palet as $id=>$button)
 	else
 	{
 		$button['tooltip'] = '';
-	}					
-	
+	}
+
 	$button['tooltip'] .= '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$button['titkey'].'</span></span>';
 
 	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'',',WRAP');
-	
+
 	$menu .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
 }
 $menu .= "<br />\n";
@@ -233,12 +234,12 @@ foreach($arrayButtons as $posX=>$column)
 		else
 		{
 			$button['tooltip'] = '';
-		}					
-		
+		}
+
 		$button['tooltip'] .= '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$button['titkey'].'</span></span>';
 
 		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'',',WRAP');
-		
+
 		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
 	}
 }
