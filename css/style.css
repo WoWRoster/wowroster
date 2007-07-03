@@ -159,7 +159,6 @@ select {
  * Misc Defines
  */
 .bodyline { border:1px #212121 solid; }
-.GMOTD { font-size:14px;font-weight:bold;color:#FF0000; }
 
 .GuildInfoText {
 	background:url(../img/paperback.jpg) no-repeat;
@@ -492,6 +491,27 @@ select {
 	border-right-style: solid;
 	border-bottom-style: solid;
 	border-left-style: solid;
+}
+
+.border_divider {
+	background-color: #00FF00;
+	height: 3px;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #000000;
+	border-bottom-color: #000000;
+}
+
+.motd_setup {
+	background-color: #660000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #FFFFFF;
+	font-style: normal;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 /* Header Text */
