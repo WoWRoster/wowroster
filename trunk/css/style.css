@@ -494,14 +494,13 @@ select {
 }
 
 .divider_gold {
-	height: 0px;
+	height: 1px;
 	border-top-width: 1px;
 	border-top-style: solid;
-	border-top-color: #D3A229;
+	border-top-color: #000000;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #000000;
-	overflow: hidden;
 	margin: 0px;
 	padding: 0px;
 	background-color: #D3A229;
