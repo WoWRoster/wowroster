@@ -494,10 +494,10 @@ select {
 }
 
 .divider_gold {
-	height: 1px;
+	height: 0px;
 	border-top-width: 1px;
 	border-top-style: solid;
-	border-top-color: #000000;
+	border-top-color: #D3A229;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #000000;
