@@ -93,7 +93,7 @@ class CharBonus
 
 	function dbl( $frontString, $value )
 	{
-		echo $frontString . ' : ' . $value . '<br />';
+		return $frontString . ' : ' . $value . '<br />';
 	}
 
 	function getStartofModifier( $aString )
@@ -265,10 +265,10 @@ class CharBonus
 	function dumpString( $aString )
 	{
 		//$aString = str_replace( chr(10), 'TWAT', $aString);
-		$this->dbl('STRING', $aString);
+		$output = $this->dbl('STRING', $aString);
 		for ($i = 0; $i < strlen($aString); $i++)
 		{
-			$this->dbl( $aString[$i], ord($aString[$i]));
+			$output .= $this->dbl( $aString[$i], ord($aString[$i]));
 		}
 	}
 }

@@ -192,7 +192,7 @@ class char
 			$returnstring = '';
 
 			// Get char professions for quick links
-			$query = "SELECT `skill_name` FROM `".$roster->db->table('recipes')."` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
+			$query = "SELECT `skill_name` FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
 			$result = $roster->db->query( $query );
 
 			// Set a ank for link to top of page
@@ -216,28 +216,28 @@ class char
 				{
 					$skill_name = $recipe->data['skill_name'];
 					if ( !$first_run )
-						$returnstring .= '</table>'.border('sgray','end')."<br />\n";
+						$returnstring .= '</table>' . border('sgray','end') . "<br />\n";
 					$first_run = 0;
 
 					// Set an link to the top behind the profession image
-					$skill_image = 'Interface/Icons/'.$roster->locale->wordings[$this->data['clientLocale']]['ts_iconArray'][$skill_name];
-					$skill_image = "<img style=\"float:left;\" width=\"17\" height=\"17\" src=\"".$roster->config['interface_url'].$skill_image.'.'.$roster->config['img_suffix']."\" alt=\"\" />\n";
+					$skill_image = 'Interface/Icons/' . $roster->locale->wordings[$this->data['clientLocale']]['ts_iconArray'][$skill_name];
+					$skill_image = "<img style=\"float:left;\" width=\"17\" height=\"17\" src=\"" . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . "\" alt=\"\" />\n";
 
-					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_'.$rc.'\',\'img_'.$rc.'\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');">
-	'.$skill_image.'
-	<div style="display:inline;float:right;"><img id="img_'.$rc.'" src="'.$roster->config['img_url'].'plus.gif" alt="" /></div>
-<a name="'.strtolower(str_replace(' ','',$skill_name)).'"></a>'.$skill_name.'</div>';
+					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_' . $rc . '\',\'img_' . $rc . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+	' . $skill_image . '
+	<div style="display:inline;float:right;"><img id="img_' . $rc . '" src="' . $roster->config['img_url'] . 'plus.gif" alt="" /></div>
+<a name="' . strtolower(str_replace(' ','',$skill_name)) . '"></a>' . $skill_name . '</div>';
 
 
-					$returnstring .= border('sgray','start',$header)."\n<table width=\"100%\" ".($addon['config']['recipe_disp'] == '0' ? 'style="display:none;"' : '').";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
+					$returnstring .= border('sgray','start',$header) . "\n<table width=\"100%\" " . ($addon['config']['recipe_disp'] == '0' ? 'style="display:none;"' : '') . ";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
-    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=item').'">'.$this->locale['item'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=name').'">'.$this->locale['name'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=difficulty').'">'.$this->locale['difficulty'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=type').'">'.$this->locale['type'].'</a></th>
-    <th class="membersHeader"><a href="'.makelink('char-recipes&amp;s=level').'">'.$this->locale['level'].'</a></th>
-    <th class="membersHeaderRight"><a href="'.makelink('char-recipes&amp;s=reagents').'">'.$this->locale['reagents'].'</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=item') . '">' . $this->locale['item'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=name') . '">' . $this->locale['name'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=difficulty') . '">' . $this->locale['difficulty'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=type') . '">' . $this->locale['type'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=level') . '">' . $this->locale['level'] . '</a></th>
+    <th class="membersHeaderRight"><a href="' . makelink('char-recipes&amp;s=reagents') . '">' . $this->locale['reagents'] . '</a></th>
   </tr>
 ';
 				}
@@ -256,20 +256,20 @@ $returnstring .= '  <tr>
 				// Dont' set an CSS class for the image cell - center it
 				$stripe = (($rc%2)+1);
 				$returnstring .= '  <tr>
-    <td class="membersRow'.$stripe.' equip">';
+    <td class="membersRow' . $stripe . ' equip">';
 
 				$returnstring .= $recipe->out();
 				$returnstring .= '</td>
-    <td class="membersRow'.$stripe.'"><span style="color:#'.substr( $recipe->data['item_color'], 2, 6 ).'">&nbsp;'.$recipe->data['recipe_name'].'</span></td>
-    <td class="membersRow'.$stripe.'"><span style="color:#'.$difficultycolor.'">&nbsp;'.$this->locale['recipe_'.$recipe->data['difficulty']].'</span></td>
-    <td class="membersRow'.$stripe.'">&nbsp;'.$recipe->data['recipe_type'].'&nbsp;</td>
-    <td class="membersRow'.$stripe.'">&nbsp;'.$recipe->data['level'].'&nbsp;</td>
-    <td class="membersRowRight'.$stripe.'">&nbsp;'.str_replace('<br>','&nbsp;<br />&nbsp;',$recipe->data['reagents']).'</td>
+    <td class="membersRow' . $stripe . '"><span style="color:#' . substr( $recipe->data['item_color'], 2, 6 ) . '">&nbsp;' . $recipe->data['recipe_name'] . '</span></td>
+    <td class="membersRow' . $stripe . '"><span style="color:#' . $difficultycolor . '">&nbsp;' . $this->locale['recipe_' . $recipe->data['difficulty']] . '</span></td>
+    <td class="membersRow' . $stripe . '">&nbsp;' . $recipe->data['recipe_type'] . '&nbsp;</td>
+    <td class="membersRow' . $stripe . '">&nbsp;' . $recipe->data['level'] . '&nbsp;</td>
+    <td class="membersRowRight' . $stripe . '">&nbsp;' . str_replace('<br>','&nbsp;<br />&nbsp;',$recipe->data['reagents']) . '</td>
   </tr>
 ';
 			$rc++;
 			}
-			$returnstring .= "</table>".border('sgray','end');
+			$returnstring .= "</table>" . border('sgray','end');
 		}
 		return $returnstring;
 	}
@@ -284,15 +284,15 @@ $returnstring .= '  <tr>
 	{
 		global $roster, $tooltips, $addon;
 
-		$sqlquery = "SELECT * FROM `".$roster->db->table('mailbox')."` ".
-			"WHERE `member_id` = '".$this->data['member_id']."' ".
-			"ORDER BY `mailbox_days`;";
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('mailbox') . "` "
+				  . "WHERE `member_id` = '" . $this->data['member_id'] . "' "
+				  . "ORDER BY `mailbox_days`;";
 
 		$result = $roster->db->query($sqlquery);
 
 		if( !$result )
 		{
-			return '<span class="headline_1">'.sprintf($this->locale['no_mail'],$this->data['name']).'</span>';
+			return '<span class="headline_1">' . sprintf($this->locale['no_mail'],$this->data['name']) . '</span>';
 		}
 
 		$content = '';
@@ -300,13 +300,13 @@ $returnstring .= '  <tr>
 		if( $roster->db->num_rows($result) > 0 )
 		{
 			//begin generation of mailbox's output
-			$content .= border('sgray','start',$this->locale['mailbox']).
-				'<table cellpadding="0" cellspacing="0" class="bodyline">'."\n";
+			$content .= border('sgray','start',$this->locale['mailbox'])
+					  . '<table cellpadding="0" cellspacing="0" class="bodyline">' . "\n";
 			$content .= "<tr>\n";
-			$content .= '<th class="membersHeader">'.$this->locale['mail_item'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$this->locale['mail_sender'].'</th>'."\n";
-			$content .= '<th class="membersHeader">'.$this->locale['mail_subject'].'</th>'."\n";
-			$content .= '<th class="membersHeaderRight">'.$this->locale['mail_expires'].'</th>'."\n";
+			$content .= '<th class="membersHeader">' . $this->locale['mail_item'] . "</th>\n";
+			$content .= '<th class="membersHeader">' . $this->locale['mail_sender'] . "</th>\n";
+			$content .= '<th class="membersHeader">' . $this->locale['mail_subject'] . "</th>\n";
+			$content .= '<th class="membersHeaderRight">' . $this->locale['mail_expires'] . "</th>\n";
 			$content .= "</tr>\n";
 
 			$cur_row = 1;
@@ -315,7 +315,7 @@ $returnstring .= '  <tr>
 				$maildateutc = strtotime($this->data['maildateutc']);
 
 				$content .= "<tr>\n";
-				$content .= '<td class="membersRow'.$cur_row.'">'."\n";
+				$content .= '<td class="membersRow' . $cur_row . '">' . "\n";
 
 				// Get money in mail
 				$money_included = '';
@@ -325,33 +325,33 @@ $returnstring .= '  <tr>
 
 					$mail_money['c'] = substr($db_money,-2,2);
 					$db_money = substr($db_money,0,-2);
-					$money_included = $mail_money['c'].'<img src="'.$roster->config['img_url'].'coin_copper.gif" alt="c" />';
+					$money_included = $mail_money['c'] . '<img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" />';
 
 					if( !empty($db_money) )
 					{
 						$mail_money['s'] = substr($db_money,-2,2);
 						$db_money = substr($db_money,0,-2);
-						$money_included = $mail_money['s'].'<img src="'.$roster->config['img_url'].'coin_silver.gif" alt="s" /> '.$money_included;
+						$money_included = $mail_money['s'] . '<img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> ' . $money_included;
 					}
 					if( !empty($db_money) )
 					{
 						$mail_money['g'] = $db_money;
-						$money_included = $mail_money['g'].'<img src="'.$roster->config['img_url'].'coin_gold.gif" alt="g" /> '.$money_included;
+						$money_included = $mail_money['g'] . '<img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> ' . $money_included;
 					}
 				}
 
 				// Fix icon texture
 				if( !empty($row['item_icon']) )
 				{
-					$item_icon = $roster->config['interface_url'].'Interface/Icons/'.$row['item_icon'].'.'.$roster->config['img_suffix'];
+					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['item_icon'] . '.' . $roster->config['img_suffix'];
 				}
 				elseif( !empty($money_included) )
 				{
-					$item_icon = $roster->config['interface_url'].'Interface/Icons/'.$row['mailbox_coin_icon'].'.'.$roster->config['img_suffix'];
+					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['mailbox_coin_icon'] . '.' . $roster->config['img_suffix'];
 				}
 				else
 				{
-					$item_icon = $roster->config['interface_url'].'Interface/Icons/INV_Misc_Note_02.'.$roster->config['img_suffix'];
+					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_note_02.' . $roster->config['img_suffix'];
 				}
 
 
@@ -359,21 +359,24 @@ $returnstring .= '  <tr>
 				$tooltip_h = $row['mailbox_subject'];
 
 				// first line is sender
-				$tooltip = $roster->locale->wordings[$this->data['clientLocale']]['mail_sender'].
-					': '.$row['mailbox_sender'].'<br />';
+				$tooltip = $roster->locale->wordings[$this->data['clientLocale']]['mail_sender'] . ': ' . $row['mailbox_sender'] . '<br />';
 
-				$expires_line = date($roster->locale->wordings[$this->data['clientLocale']]['phptimeformat'],((($row['mailbox_days']*24 + $roster->config['localtimeoffset'])*3600)+$maildateutc)).' '.$roster->config['timezone'];
+				$expires_line = date($roster->locale->wordings[$this->data['clientLocale']]['phptimeformat'],((($row['mailbox_days']*24 + $roster->config['localtimeoffset'])*3600)+$maildateutc)) . ' ' . $roster->config['timezone'];
 				if( (($row['mailbox_days']*24*3600)+$maildateutc) - time() < (3*24*3600) )
+				{
 					$color = 'ff0000;';
+				}
 				else
+				{
 					$color = 'ffffff;';
+				}
 
-				$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_expires'].": <span style=\"color:#$color\">$expires_line</span><br />";
+				$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_expires'] . ": <span style=\"color:#$color\">$expires_line</span><br />";
 
 				// Join money with main tooltip
 				if( !empty($money_included) )
 				{
-					$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_money'].': '.$money_included;
+					$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_money'] . ': ' . $money_included;
 				}
 
 
@@ -383,7 +386,9 @@ $returnstring .= '  <tr>
 
 				// If the tip has no info, at least get the item name in there
 				if( $item_tooltip != '<br />' )
-					$item_tooltip = '<hr />'.$item_tooltip;
+				{
+					$item_tooltip = '<hr />' . $item_tooltip;
+				}
 
 
 				// Join item tooltip with main tooltip
@@ -408,38 +413,40 @@ $returnstring .= '  <tr>
 				$linktip = '';
 				foreach( $roster->locale->wordings[$this->data['clientLocale']]['itemlinks'] as $ikey => $ilink )
 				{
-					$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($row['item_name'])).'" target="_blank">'.$ikey.'</a><br />';
+					$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($row['item_name'])) . '" target="_blank">' . $ikey . '</a><br />';
 				}
 				setTooltip($num_of_tips,$linktip);
 				setTooltip('itemlink',$roster->locale->wordings[$this->data['clientLocale']]['itemlink']);
 
-				$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+				$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 
-				$content .= '<div class="item" style="cursor:pointer;" '.$tooltip.$linktip.'>';
+				$content .= '<div class="item" style="cursor:pointer;" ' . $tooltip . $linktip . '>';
 
-				$content .= '<img src="'.$item_icon.'"'." alt=\"\" />\n";
+				$content .= '<img src="' . $item_icon . '"' . " alt=\"\" />\n";
 
 				if( ($row['item_quantity'] > 1) )
-					$content .= '<span class="quant">'.$row['item_quantity'].'</span>';
+				{
+					$content .= '<span class="quant">' . $row['item_quantity'] . '</span>';
+				}
 				$content .= "</div>\n</td>\n";
 
-				$content .= '<td class="membersRow'.$cur_row.'">'.$row['mailbox_sender'].'</td>'."\n";
-				$content .= '<td class="membersRow'.$cur_row.'">'.$row['mailbox_subject'].'</td>'."\n";
-				$content .= '<td class="membersRowRight'.$cur_row.'">'.$expires_line.'</td>'."\n";
+				$content .= '<td class="membersRow' . $cur_row . '">' . $row['mailbox_sender'] . "</td>\n";
+				$content .= '<td class="membersRow' . $cur_row . '">' . $row['mailbox_subject'] . "</td>\n";
+				$content .= '<td class="membersRowRight' . $cur_row . '">' . $expires_line . "</td>\n";
 
 				$content .= "</tr>\n";
 
 				$cur_row = (($cur_row%2)+1);
 			}
 
-			$content .= "</table>\n".border('sgray','end');
+			$content .= "</table>\n" . border('sgray','end');
 
 			return $content;
 		}
 		else
 		{
-			return '<span class="headline_1">'.sprintf($this->locale['no_mail'],$this->data['name']).'</span>';
+			return '<span class="headline_1">' . sprintf($this->locale['no_mail'],$this->data['name']) . '</span>';
 		}
 	}
 
@@ -454,12 +461,12 @@ $returnstring .= '  <tr>
 		global $roster;
 
 		$query = "SELECT `spelltree`.*, `talenttree`.`order`
-			FROM `".$roster->db->table('spellbooktree')."` AS spelltree
-			LEFT JOIN `".$roster->db->table('talenttree')."` AS talenttree
+			FROM `" . $roster->db->table('spellbooktree') . "` AS spelltree
+			LEFT JOIN `" . $roster->db->table('talenttree') . "` AS talenttree
 				ON `spelltree`.`member_id` = `talenttree`.`member_id`
 				AND `spelltree`.`spell_type` = `talenttree`.`tree`
-			WHERE `spelltree`.`member_id` = ".$this->data['member_id']."
-			ORDER BY `talenttree`.`order` ASC";
+			WHERE `spelltree`.`member_id` = " . $this->data['member_id'] . "
+			ORDER BY `talenttree`.`order` ASC;";
 
 		$result = $roster->db->query($query);
 
@@ -480,7 +487,7 @@ $returnstring .= '  <tr>
 			$treedata = $roster->db->fetch($result);
 
 			$spelltree[$t]['name'] = $treedata['spell_type'];
-			$spelltree[$t]['icon'] = 'Interface/Icons/'.$treedata['spell_texture'];
+			$spelltree[$t]['icon'] = 'Interface/Icons/' . $treedata['spell_texture'];
 			$spelltree[$t]['id'] = $t;
 
 			$name_id[$treedata['spell_type']] = $t;
@@ -489,7 +496,7 @@ $returnstring .= '  <tr>
 		$roster->db->free_result($result);
 
 		// Get the spell data
-		$query = "SELECT * FROM `".$roster->db->table('spellbook')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `spell_name`";
+		$query = "SELECT * FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `spell_name`;";
 
 		$result = $roster->db->query($query);
 
@@ -511,7 +518,7 @@ $returnstring .= '  <tr>
 				}
 				$spelltree[$t]['spells'][$p][$i]['name'] = $spell['spell_name'];
 				$spelltree[$t]['spells'][$p][$i]['type'] = $spell['spell_type'];
-				$spelltree[$t]['spells'][$p][$i]['icon'] = 'Interface/Icons/'.$spell['spell_texture'];
+				$spelltree[$t]['spells'][$p][$i]['icon'] = 'Interface/Icons/' . $spell['spell_texture'];
 				$spelltree[$t]['spells'][$p][$i]['rank'] = $spell['spell_rank'];
 
 				// Parse the tooltip
@@ -525,10 +532,10 @@ $returnstring .= '  <tr>
 
 		// Get the PET spell data
 		$query = "SELECT `spell`.*, `pet`.`name`
-			FROM `".$roster->db->table('spellbook_pet')."` as spell
-			LEFT JOIN `".$roster->db->table('pets')."` AS pet
+			FROM `" . $roster->db->table('spellbook_pet') . "` as spell
+			LEFT JOIN `" . $roster->db->table('pets') . "` AS pet
 			ON `spell`.`pet_id` = `pet`.`pet_id`
-			WHERE `spell`.`member_id` = '".$this->data['member_id']."' ORDER BY `spell`.`spell_name`;";
+			WHERE `spell`.`member_id` = '" . $this->data['member_id'] . "' ORDER BY `spell`.`spell_name`;";
 
 		$result = $roster->db->query($query);
 
@@ -538,7 +545,7 @@ $returnstring .= '  <tr>
 			$petid = $row['pet_id'];
 			$petspells[$petid]['name'] = $row['name'];
 			$petspells[$petid][$i]['name'] = $row['spell_name'];
-			$petspells[$petid][$i]['icon'] = 'Interface/Icons/'.$row['spell_texture'];
+			$petspells[$petid][$i]['icon'] = 'Interface/Icons/' . $row['spell_texture'];
 			$petspells[$petid][$i]['rank'] = $row['spell_rank'];
 
 			// Parse the tooltip
@@ -551,8 +558,8 @@ $returnstring .= '  <tr>
 
 		$return_string = '
 <div class="char_panel spell_panel">
-	<img class="panel_icon" src="'.$roster->config['img_url'].'char/icon_spellbook.gif" alt=""/>
-	<div class="panel_title">'.$this->locale['spellbook'].'</div>
+	<img class="panel_icon" src="' . $roster->config['img_url'] . 'char/icon_spellbook.gif" alt=""/>
+	<div class="panel_title">' . $this->locale['spellbook'] . '</div>
 	<div class="background">&nbsp;</div>
 
 	<div id="main_spells">
@@ -563,7 +570,7 @@ $returnstring .= '  <tr>
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '				<li onclick="return showSpell(\''.$tree['id'].'\');"><img class="icon" src="'.$roster->config['interface_url'].$tree['icon'].'.'.$roster->config['img_suffix'].'" '.$treetip.' alt="" /></li>'."\n";
+			$return_string .= '				<li onclick="return showSpell(\'' . $tree['id'] . '\');"><img class="icon" src="' . $roster->config['interface_url'] . $tree['icon'] . '.' . $roster->config['img_suffix'] . '" ' . $treetip . ' alt="" /></li>' . "\n";
 		}
 		$return_string .= "			</ul>\n		</div>\n";
 
@@ -572,11 +579,11 @@ $returnstring .= '  <tr>
 		{
 			if( $tree['id'] == 0 )
 			{
-				$return_string .= '		<div id="spelltree_'.$tree['id'].'">'."\n";
+				$return_string .= '		<div id="spelltree_' . $tree['id'] . '">' . "\n";
 			}
 			else
 			{
-				$return_string .= '		<div id="spelltree_'.$tree['id'].'" style="display:none;">'."\n";
+				$return_string .= '		<div id="spelltree_' . $tree['id'] . '" style="display:none;">' . "\n";
 			}
 
 			$num_pages = count($tree['spells']);
@@ -588,32 +595,32 @@ $returnstring .= '  <tr>
 				{
 					if( ($num_pages-1) == $page )
 					{
-						$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '				<div class="page_back_off"><img src="'.$roster->config['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$this->locale['prev'].'</div>'."\n";
-						$return_string .= '				<div class="page_forward_off">'.$this->locale['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
+						$return_string .= '				<div class="page_back_off"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+						$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
 						$first_page = false;
 					}
 					else
 					{
-						$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'">'."\n";
-						$return_string .= '				<div class="page_back_off"><img src="'.$roster->config['img_url'].'char/spellbook/pageback_off.gif" class="navicon" alt="" /> '.$this->locale['prev'].'</div>'."\n";
-						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$this->locale['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
+						$return_string .= '				<div class="page_back_off"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
-					$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster->config['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$this->locale['prev'].'</div>'."\n";
-					$return_string .= '				<div class="page_forward_off">'.$this->locale['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+					$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
 				}
 				else
 				{
-					$return_string .= '			<div id="page_'.$page.'_'.$tree['id'].'" style="display:none;">'."\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_'.($page-1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');"><img src="'.$roster->config['img_url'].'char/spellbook/pageback.gif" class="navicon" alt="" /> '.$this->locale['prev'].'</div>'."\n";
-					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_'.($page+1).'_'.$tree['id'].'\',\'page_'.$page.'_'.$tree['id'].'\');">'.$this->locale['next'].' <img src="'.$roster->config['img_url'].'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>'."\n";
+					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
 				}
-				$return_string .= '				<div class="pagenumber">'.$this->locale['page'].' '.($page+1).'</div>'."\n";
+				$return_string .= '				<div class="pagenumber">' . $this->locale['page'] . ' ' . ($page+1) . "</div>\n";
 
 
 				$icon_num = 0;
@@ -621,7 +628,7 @@ $returnstring .= '  <tr>
 				{
 					if( $icon_num == 0 )
 					{
-						$return_string .= '				<div class="container_1">'."\n";
+						$return_string .= '				<div class="container_1">' . "\n";
 					}
 					elseif( $icon_num == 7 )
 					{
@@ -629,11 +636,11 @@ $returnstring .= '  <tr>
 					}
 					$return_string .= '
 				<div class="info_container">
-					<img src="'.$roster->config['interface_url'].$spellicons['icon'].'.'.$roster->config['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
-					<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
+					<img src="' . $roster->config['interface_url'] . $spellicons['icon'] . '.' . $roster->config['img_suffix'] . '" class="icon" ' . $spellicons['tooltip'] . ' alt="" />
+					<span class="text"><span class="yellowB">' . $spellicons['name'] . '</span>';
 					if( $spellicons['rank'] != '' )
 					{
-						$return_string .= '<br /><span class="brownB">'.$spellicons['rank'].'</span>';
+						$return_string .= '<br /><span class="brownB">' . $spellicons['rank'] . '</span>';
 					}
 					$return_string .= "</span>\n					</div>\n";
 					$icon_num++;
@@ -650,9 +657,9 @@ $returnstring .= '  <tr>
 		$pet_tabs = '';
 		foreach( $petspells as $petid => $pet )
 		{
-			$pet_tabs .= '			<li onclick="return displaypage(\'petspell_'.$petid.'\',this);"><div class="text">'.$pet['name']."</div></li>\n";
+			$pet_tabs .= '			<li onclick="return displaypage(\'petspell_' . $petid . '\',this);"><div class="text">' . $pet['name'] . "</div></li>\n";
 
-			$return_string .= '		<div id="petspell_'.$petid.'" style="display:none;">'."\n";
+			$return_string .= '		<div id="petspell_' . $petid . '" style="display:none;">' . "\n";
 
 			$icon_num = 0;
 			foreach( $pet as $arrayname => $spellicons )
@@ -661,7 +668,7 @@ $returnstring .= '  <tr>
 				{
 					if( $icon_num == 0 )
 					{
-						$return_string .= '			<div class="container_1">'."\n";
+						$return_string .= '			<div class="container_1">' . "\n";
 					}
 					elseif( $icon_num == 7 )
 					{
@@ -669,11 +676,11 @@ $returnstring .= '  <tr>
 					}
 					$return_string .= '
 			<div class="info_container">
-				<img src="'.$roster->config['interface_url'].$spellicons['icon'].'.'.$roster->config['img_suffix'].'" class="icon" '.$spellicons['tooltip'].' alt="" />
-				<span class="text"><span class="yellowB">'.$spellicons['name'].'</span>';
+				<img src="' . $roster->config['interface_url'] . $spellicons['icon'] . '.' . $roster->config['img_suffix'] . '" class="icon" ' . $spellicons['tooltip'] . ' alt="" />
+				<span class="text"><span class="yellowB">' . $spellicons['name'] . '</span>';
 					if( $spellicons['rank'] != '' )
 					{
-						$return_string .= '<br /><span class="brownB">'.$spellicons['rank'].'</span>';
+						$return_string .= '<br /><span class="brownB">' . $spellicons['rank'] . '</span>';
 					}
 					$return_string .= "</span>\n				</div>\n";
 					$icon_num++;
@@ -689,8 +696,8 @@ $returnstring .= '  <tr>
 <!-- Begin Navagation Tabs -->
 	<div id="spell_set" class="tab_navagation">
 		<ul>
-			<li onclick="return displaypage(\'main_spells\',this);"><div class="text">'.$this->data['name'].'</div></li>
-'.$pet_tabs.'
+			<li onclick="return displaypage(\'main_spells\',this);"><div class="text">' . $this->data['name'] . '</div></li>
+' . $pet_tabs . '
 		</ul>
 	</div>
 </div>
@@ -699,7 +706,7 @@ $returnstring .= '  <tr>
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
 	window.onload=tab_nav_onload(\'spell_set\',[1, \'main_spells\'])
-</script>'."\n";
+</script>' . "\n";
 
 		return $return_string;
 	}
@@ -714,7 +721,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `".$roster->db->table('pets')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `level` DESC";
+		$query = "SELECT * FROM `" . $roster->db->table('pets') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `level` DESC;";
 		$result = $roster->db->query( $query );
 
 		$output = $icons = '';
@@ -740,7 +747,7 @@ $returnstring .= '  <tr>
 
 						$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
 
-						$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
+						$expbar_text = $xp . '/' . $xplevel . ' (' . $exp_percent . '%)';
 					}
 					else
 					{
@@ -782,62 +789,62 @@ $returnstring .= '  <tr>
 					$row['icon'] = 'inv_misc_questionmark';
 				}
 
-				$icons .= '			<li onclick="return showPet(\''. $petNum .'\');" '.makeOverlib($row['name'],$row['type'],'',2,'',',WRAP').'>
-				<div class="text"><img src="'.$roster->config['interface_url'].'Interface/Icons/'.$row['icon'].'.'.$roster->config['img_suffix'].'" alt="" /></div></li>
+				$icons .= '			<li onclick="return showPet(\'' . $petNum . '\');" ' . makeOverlib($row['name'],$row['type'],'',2,'',',WRAP') . '>
+				<div class="text"><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /></div></li>
 ';
 
 				$output .= '
-		<div id="pet_'.$petNum.'"'. ($petNum == 0 ? '' : ' style="display:none;"') .'>
-			<div class="name">'. stripslashes($row['name']) .'</div>
-			<div class="info">'. $this->locale['level'] .' '. $row['level'] .' '. stripslashes($row['type']) .'</div>
+		<div id="pet_' . $petNum . '"' . ($petNum == 0 ? '' : ' style="display:none;"') . '>
+			<div class="name">' . stripslashes($row['name']) . '</div>
+			<div class="info">' . $this->locale['level'] . ' ' . $row['level'] . ' ' . stripslashes($row['type']) . '</div>
 
-			<div class="loyalty">'. $row['loyalty'] .'</div>
+			<div class="loyalty">' . $row['loyalty'] . '</div>
 
-			<img class="icon" src="'. $roster->config['interface_url'] .'Interface/Icons/'. $row['icon'] .'.'. $roster->config['img_suffix'] .'" alt="" />
+			<img class="icon" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" />
 
-			<div class="health"><span class="yellowB">'. $this->locale['health'] .':</span> '. (isset($row['health']) ? $row['health'] : '0') .'</div>
-			<div class="mana"><span class="yellowB">'. $row['power'] .':</span> '. (isset($row['mana']) ? $row['mana'] : '0') .'</div>
+			<div class="health"><span class="yellowB">' . $this->locale['health'] . ':</span> ' . (isset($row['health']) ? $row['health'] : '0') . '</div>
+			<div class="mana"><span class="yellowB">' . $row['power'] . ':</span> ' . (isset($row['mana']) ? $row['mana'] : '0') . '</div>
 
 			<div class="resist">
-				'. $this->printPetResist('arcane',$row) .'
-				'. $this->printPetResist('fire',$row) .'
-				'. $this->printPetResist('nature',$row) .'
-				'. $this->printPetResist('frost',$row) .'
-				'. $this->printPetResist('shadow',$row) .'
+				' . $this->printPetResist('arcane',$row) . '
+				' . $this->printPetResist('fire',$row) . '
+				' . $this->printPetResist('nature',$row) . '
+				' . $this->printPetResist('frost',$row) . '
+				' . $this->printPetResist('shadow',$row) . '
 			</div>
 ';
 				if( $xpbarshow )
 				{
 					$output .= '
-			<img src="'. $roster->config['img_url'] .'char/expbar_empty.gif" class="xpbar_empty" alt="" />
-			<div class="xpbar" style="clip:rect(0px '. $expbar_width .'px 12px 0px);"><img src="'. $roster->config['img_url'].'char/expbar_full.gif' .'" alt="" /></div>
-			<div class="xpbar_text">'. $expbar_text .'</div>';
+			<img src="' . $roster->config['img_url'] . 'char/expbar_empty.gif" class="xpbar_empty" alt="" />
+			<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $roster->config['img_url'] . 'char/expbar_full.gif" alt="" /></div>
+			<div class="xpbar_text">' . $expbar_text . '</div>';
 				}
 
 				$output .= '
 			<div class="padding">
 				<div class="stats">
-					'. $this->printPetStat('stat_str',$row).'
-					'. $this->printPetStat('stat_agl',$row).'
-					'. $this->printPetStat('stat_sta',$row).'
-					'. $this->printPetStat('stat_int',$row).'
-					'. $this->printPetStat('stat_spr',$row).'
-					'. $this->printPetStat('stat_armor',$row).'
+					' . $this->printPetStat('stat_str',$row) . '
+					' . $this->printPetStat('stat_agl',$row) . '
+					' . $this->printPetStat('stat_sta',$row) . '
+					' . $this->printPetStat('stat_int',$row) . '
+					' . $this->printPetStat('stat_spr',$row) . '
+					' . $this->printPetStat('stat_armor',$row) . '
 				</div>
 				<div class="stats">
-					'. $this->printPetWSkill($row).'
-					'. $this->printPetWDamage($row).'
-					'. $this->printPetStat('melee_power',$row).'
-					'. $this->printPetStat('melee_hit',$row).'
-					'. $this->printPetStat('melee_crit',$row).'
-					'. $this->printPetResilience($row).'
+					' . $this->printPetWSkill($row) . '
+					' . $this->printPetWDamage($row) . '
+					' . $this->printPetStat('melee_power',$row) . '
+					' . $this->printPetStat('melee_hit',$row) . '
+					' . $this->printPetStat('melee_crit',$row) . '
+					' . $this->printPetResilience($row) . '
 				</div>
 			</div>
 ';
 				if( $row['totaltp'] != 0 )
 				{
 					$output .= '
-			<div class="trainingpts">'.$this->locale['unusedtrainingpoints'].': '. $unusedtp .' / '. $row['totaltp'] .'</div>';
+			<div class="trainingpts">' . $this->locale['unusedtrainingpoints'] . ': ' . $unusedtp . ' / ' . $row['totaltp'] . '</div>';
 				}
 				$output .= '
 		</div>
@@ -849,7 +856,7 @@ $returnstring .= '  <tr>
 <!-- Begin Navagation Tabs -->
 	<div class="pet_tabs">
 		<ul>
-'. $icons .'
+' . $icons . '
 		</ul>
 	</div>';
 		}
@@ -912,12 +919,12 @@ $returnstring .= '  <tr>
 		}
 
 		if( isset($lname) )
-			$tooltipheader = $lname.' '.$this->printRatingLong($statname,$data);
+			$tooltipheader = $lname . ' ' . $this->printRatingLong($statname,$data);
 		else
-			$tooltipheader = $name.' '.$this->printRatingLong($statname,$data);
+			$tooltipheader = $name . ' ' . $this->printRatingLong($statname,$data);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 		return $this->printStatLine($name, $this->printRatingShort($statname,$data), $line);
 	}
@@ -933,13 +940,13 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$value = '<strong class="white">'.$data['melee_mhand_skill'].'</strong>';
+		$value = '<strong class="white">' . $data['melee_mhand_skill'] . '</strong>';
 		$name = $this->locale['weapon_skill'];
 		$tooltipheader = $this->locale['mainhand'];
 		$tooltip = sprintf($this->locale['weapon_skill_tooltip'], $data['melee_mhand_skill'], $data['melee_mhand_rating']);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 		return $this->printStatLine($name, $value, $line);
 	}
@@ -955,13 +962,13 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$value = '<strong class="white">'.$data['melee_mhand_mindam'].'</strong>'.'-'.'<strong class="white">'.$data['melee_mhand_maxdam'].'</strong>';
+		$value = '<strong class="white">' . $data['melee_mhand_mindam'] . '</strong>' . '-' . '<strong class="white">' . $data['melee_mhand_maxdam'] . '</strong>';
 		$name = $this->locale['damage'];
 		$tooltipheader = $this->locale['mainhand'];
 		$tooltip = sprintf($this->locale['damage_tooltip'], $data['melee_mhand_speed'], $data['melee_mhand_mindam'], $data['melee_mhand_maxdam'], $data['melee_mhand_dps']);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 		return $this->printStatLine($name, $value, $line);
 	}
@@ -1007,10 +1014,10 @@ $returnstring .= '  <tr>
 			break;
 		}
 
-		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname,$data).'<br />';
-		$line .= '<span style="color:#DFB801;text-align:left;">'.$tooltip.'</span>';
+		$line = '<span style="color:' . $color . ';font-size:11px;font-weight:bold;">' . $name . '</span> ' . $this->printRatingLong('res_' . $resname,$data) . '<br />';
+		$line .= '<span style="color:#DFB801;text-align:left;">' . $tooltip . '</span>';
 
-		$output = '<div class="'.$resname.'" '.makeOverlib($line,'','',2,'','').'><b>'. $data['res_'.$resname.'_c'] .'</b><span>'. $data['res_'.$resname.'_c'] ."</span></div>\n";
+		$output = '<div class="' . $resname . '" ' . makeOverlib($line,'','',2,'','') . '><b>' . $data['res_'.$resname.'_c'] . '</b><span>' . $data['res_' . $resname . '_c'] . "</span></div>\n";
 
 		return $output;
 	}
@@ -1031,15 +1038,15 @@ $returnstring .= '  <tr>
 		$value = min($data['stat_res_melee'],$data['stat_res_ranged'],$data['stat_res_spell']);
 
 		$tooltipheader = $name;
-		$tooltip  = '<div><span style="float:right;">'.$data['stat_res_melee'].'</span>'.$this->locale['melee'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$data['stat_res_ranged'].'</span>'.$this->locale['ranged'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$data['stat_res_spell'].'</span>'.$this->locale['spell'].'</div>';
+		$tooltip  = '<div><span style="float:right;">' . $data['stat_res_melee'] . '</span>' . $this->locale['melee'] . '</div>';
+		$tooltip .= '<div><span style="float:right;">' . $data['stat_res_ranged'] . '</span>' . $this->locale['ranged'] . '</div>';
+		$tooltip .= '<div><span style="float:right;">' . $data['stat_res_spell'] . '</span>' . $this->locale['spell'] . '</div>';
 
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
+		return $this->printStatLine($name, '<strong class="white">' . $value . '%</strong>', $line);
 	}
 
 
@@ -1053,10 +1060,10 @@ $returnstring .= '  <tr>
 	 */
 	function printStatLine( $label , $value , $tooltip )
 	{
-		$output  = '  <div class="statline" '.makeOverlib($tooltip,'','',2,'','').'>'."\n";
-		$output .= '    <span class="value">'.$value.'</span>'."\n";
-		$output .= '    <span class="label">'.$label.':</span>'."\n";
-		$output .= '  </div>'."\n";
+		$output  = '  <div class="statline" ' . makeOverlib($tooltip,'','',2,'','') . ">\n";
+		$output .= '    <span class="value">' . $value . "</span>\n";
+		$output .= '    <span class="label">' . $label . ":</span>\n";
+		$output .= "  </div>\n";
 
 		return $output;
 	}
@@ -1077,9 +1084,9 @@ $returnstring .= '  <tr>
 			$data = $data_or;
 
 		$base = $data[$statname];
-		$current = $data[$statname.'_c'];
-		$buff = $data[$statname.'_b'];
-		$debuff = -$data[$statname.'_d'];
+		$current = $data[$statname . '_c'];
+		$buff = $data[$statname . '_b'];
+		$debuff = -$data[$statname . '_d'];
 
 		if( $buff>0 && $debuff>0 )
 		{
@@ -1098,7 +1105,7 @@ $returnstring .= '  <tr>
 			$color = "white";
 		}
 
-		return '<strong class="'.$color.'">'.$current.'</strong>';
+		return '<strong class="' . $color . '">' . $current . '</strong>';
 	}
 
 
@@ -1117,9 +1124,9 @@ $returnstring .= '  <tr>
 			$data = $data_or;
 
 		$base = $data[$statname];
-		$current = $data[$statname.'_c'];
-		$buff = $data[$statname.'_b'];
-		$debuff = -$data[$statname.'_d'];
+		$current = $data[$statname . '_c'];
+		$buff = $data[$statname . '_b'];
+		$debuff = -$data[$statname . '_d'];
 
 		$tooltipheader = $current;
 
@@ -1150,51 +1157,53 @@ $returnstring .= '  <tr>
 	 */
 	function printBox( $cat , $side , $visible )
 	{
-		print '<div class="stats" id="'.$cat.$side.'" style="display:'.($visible?'block':'none').'">'."\n";
+		$return = '<div class="stats" id="' . $cat . $side . '" style="display:' . ($visible?'block':'none') . '">' . "\n";
 		switch($cat)
 		{
 			case 'stats':
-				print $this->printStat('stat_str');
-				print $this->printStat('stat_agl');
-				print $this->printStat('stat_sta');
-				print $this->printStat('stat_int');
-				print $this->printStat('stat_spr');
-				print $this->printStat('stat_armor');
+				$return .= $this->printStat('stat_str');
+				$return .= $this->printStat('stat_agl');
+				$return .= $this->printStat('stat_sta');
+				$return .= $this->printStat('stat_int');
+				$return .= $this->printStat('stat_spr');
+				$return .= $this->printStat('stat_armor');
 				break;
 			case 'melee':
-				print $this->printWSkill('melee');
-				print $this->printWDamage('melee');
-				print $this->printWSpeed('melee');
-				print $this->printStat('melee_power');
-				print $this->printStat('melee_hit');
-				print $this->printStat('melee_crit');
+				$return .= $this->printWSkill('melee');
+				$return .= $this->printWDamage('melee');
+				$return .= $this->printWSpeed('melee');
+				$return .= $this->printStat('melee_power');
+				$return .= $this->printStat('melee_hit');
+				$return .= $this->printStat('melee_crit');
 				break;
 			case 'ranged':
-				print $this->printWSkill('ranged');
-				print $this->printWDamage('ranged');
-				print $this->printWSpeed('ranged');
-				print $this->printStat('ranged_power');
-				print $this->printStat('ranged_hit');
-				print $this->printStat('ranged_crit');
+				$return .= $this->printWSkill('ranged');
+				$return .= $this->printWDamage('ranged');
+				$return .= $this->printWSpeed('ranged');
+				$return .= $this->printStat('ranged_power');
+				$return .= $this->printStat('ranged_hit');
+				$return .= $this->printStat('ranged_crit');
 				break;
 			case 'spell':
-				print $this->printSpellDamage();
-				print $this->printValue('spell_healing');
-				print $this->printStat('spell_hit');
-				print $this->printSpellCrit();
-				print $this->printValue('spell_penetration');
-				print $this->printValue('mana_regen');
+				$return .= $this->printSpellDamage();
+				$return .= $this->printValue('spell_healing');
+				$return .= $this->printStat('spell_hit');
+				$return .= $this->printSpellCrit();
+				$return .= $this->printValue('spell_penetration');
+				$return .= $this->printValue('mana_regen');
 				break;
 			case 'defense':
-				print $this->printStat('stat_armor');
-				print $this->printDefense();
-				print $this->printDef('dodge');
-				print $this->printDef('parry');
-				print $this->printDef('block');
-				print $this->printResilience();
+				$return .= $this->printStat('stat_armor');
+				$return .= $this->printDefense();
+				$return .= $this->printDef('dodge');
+				$return .= $this->printDef('parry');
+				$return .= $this->printDef('block');
+				$return .= $this->printResilience();
 				break;
 		}
-		print '</div>'."\n";
+		$return .= "</div>\n";
+
+		return $return;
 	}
 
 
@@ -1267,12 +1276,12 @@ $returnstring .= '  <tr>
 		}
 
 		if( isset($lname) )
-			$tooltipheader = $lname.' '.$this->printRatingLong($statname);
+			$tooltipheader = $lname . ' ' . $this->printRatingLong($statname);
 		else
-			$tooltipheader = $name.' '.$this->printRatingLong($statname);
+			$tooltipheader = $name . ' ' . $this->printRatingLong($statname);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 		return $this->printStatLine($name, $this->printRatingShort($statname), $line);
 	}
@@ -1309,10 +1318,10 @@ $returnstring .= '  <tr>
 
 		$tooltipheader = (isset($name) ? $name : '');
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
+		return $this->printStatLine($name, '<strong class="white">' . $value . '</strong>', $line);
 	}
 
 
@@ -1328,32 +1337,32 @@ $returnstring .= '  <tr>
 
 		if( $location == 'ranged' )
 		{
-			$value = '<strong class="white">'.$this->data['ranged_skill'].'</strong>';
+			$value = '<strong class="white">' . $this->data['ranged_skill'] . '</strong>';
 			$name = $this->locale['weapon_skill'];
 			$tooltipheader = $this->locale['ranged'];
 			$tooltip = sprintf($this->locale['weapon_skill_tooltip'], $this->data['ranged_skill'], $this->data['ranged_rating']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-			$line = '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 		else
 		{
-			$value = '<strong class="white">'.$this->data['melee_mhand_skill'].'</strong>';
+			$value = '<strong class="white">' . $this->data['melee_mhand_skill'] . '</strong>';
 			$name = $this->locale['weapon_skill'];
 			$tooltipheader = $this->locale['mainhand'];
 			$tooltip = sprintf($this->locale['weapon_skill_tooltip'], $this->data['melee_mhand_skill'], $this->data['melee_mhand_rating']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+			$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
-				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_skill'].'</strong>';
+				$value .= '/<strong class="white">' . $this->data['melee_ohand_skill'] . '</strong>';
 				$tooltipheader = $this->locale['offhand'];
 				$tooltip = sprintf($this->locale['weapon_skill_tooltip'], $this->data['melee_ohand_skill'], $this->data['melee_ohand_rating']);
 
-				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-				$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+				$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 			}
 		}
 
@@ -1373,32 +1382,32 @@ $returnstring .= '  <tr>
 
 		if( $location == 'ranged' )
 		{
-			$value = '<strong class="white">'.$this->data['ranged_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['ranged_maxdam'].'</strong>';
+			$value = '<strong class="white">' . $this->data['ranged_mindam'] . '</strong>' . '-' . '<strong class="white">' . $this->data['ranged_maxdam'] . '</strong>';
 			$name = $this->locale['damage'];
 			$tooltipheader = $this->locale['ranged'];
 			$tooltip = sprintf($this->locale['damage_tooltip'], $this->data['ranged_speed'], $this->data['ranged_mindam'], $this->data['ranged_maxdam'], $this->data['ranged_dps']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-			$line = '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 		else
 		{
-			$value = '<strong class="white">'.$this->data['melee_mhand_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['melee_mhand_maxdam'].'</strong>';
+			$value = '<strong class="white">' . $this->data['melee_mhand_mindam'] . '</strong>-<strong class="white">' . $this->data['melee_mhand_maxdam'] . '</strong>';
 			$name = $this->locale['damage'];
 			$tooltipheader = $this->locale['mainhand'];
 			$tooltip = sprintf($this->locale['damage_tooltip'], $this->data['melee_mhand_speed'], $this->data['melee_mhand_mindam'], $this->data['melee_mhand_maxdam'], $this->data['melee_mhand_dps']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+			$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
-				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_mindam'].'</strong>'.'-'.'<strong class="white">'.$this->data['melee_ohand_maxdam'].'</strong>';
+				$value .= '/<strong class="white">' . $this->data['melee_ohand_mindam'] . '</strong>-<strong class="white">' . $this->data['melee_ohand_maxdam'] . '</strong>';
 				$tooltipheader = $this->locale['offhand'];
 				$tooltip = sprintf($this->locale['damage_tooltip'], $this->data['melee_ohand_speed'], $this->data['melee_ohand_mindam'], $this->data['melee_ohand_maxdam'], $this->data['melee_ohand_dps']);
 
-				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-				$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+				$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 			}
 		}
 
@@ -1419,29 +1428,29 @@ $returnstring .= '  <tr>
 
 		if( $location == 'ranged' )
 		{
-			$value = '<strong class="white">'.$this->data['ranged_speed'].'</strong>';
+			$value = '<strong class="white">' . $this->data['ranged_speed'] . '</strong>';
 			$name = $this->locale['speed'];
-			$tooltipheader = $this->locale['atk_speed'].' '.$value;
-			$tooltip = $this->locale['haste_tooltip'].$this->printRatingLong('ranged_haste');
+			$tooltipheader = $this->locale['atk_speed'] . ' ' . $value;
+			$tooltip = $this->locale['haste_tooltip'] . $this->printRatingLong('ranged_haste');
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+			$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 		else
 		{
-			$value = '<strong class="white">'.$this->data['melee_mhand_speed'].'</strong>';
+			$value = '<strong class="white">' . $this->data['melee_mhand_speed'] . '</strong>';
 			$name = $this->locale['speed'];
 
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
-				$value .= '/'.'<strong class="white">'.$this->data['melee_ohand_speed'].'</strong>';
+				$value .= '/<strong class="white">' . $this->data['melee_ohand_speed'] . '</strong>';
 			}
 
-			$tooltipheader = $this->locale['atk_speed'].' '.$value;
-			$tooltip = $this->locale['haste_tooltip'].$this->printRatingLong('melee_haste');
+			$tooltipheader = $this->locale['atk_speed'] . ' ' . $value;
+			$tooltip = $this->locale['haste_tooltip'] . $this->printRatingLong('melee_haste');
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
-			$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
+			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+			$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 
 		return $this->printStatLine($name, $value, $line);
@@ -1514,7 +1523,7 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$qry = "SELECT `skill_level` FROM `roster_skills` WHERE `member_id` = ".$this->data['member_id']." AND `skill_name` = '".$this->locale['defense']."'";
+		$qry = "SELECT `skill_level` FROM `" . $roster->db->table('skills') . "` WHERE `member_id` = ".$this->data['member_id']." AND `skill_name` = '".$this->locale['defense']."'";
 		$result = $roster->db->query($qry);
 		if( !$result )
 		{
@@ -2121,18 +2130,19 @@ $returnstring .= '  <tr>
 			$this->fetchEquip();
 			$petTab = $this->printPet();
 
-?>
-
+			$output = '
 <div class="char_panel">
-	<img src="<?php print $this->data['char_icon']; ?>.gif" class="panel_icon" alt="" />
-	<div class="panel_title"><?php print $this->data['name']; ?></div>
-	<div class="infoline_1"><?php print sprintf($this->locale['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']); ?></div>
-<?php
+	<img src="' . $this->data['char_icon'] . '.gif" class="panel_icon" alt="" />
+	<div class="panel_title">' . $this->data['name'] . '</div>
+	<div class="infoline_1">' . sprintf($this->locale['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']) . '</div>
+';
 
-if( isset( $this->data['guild_name'] ) )
-	echo '	<div class="infoline_2">'.sprintf($this->locale['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
+			if( isset( $this->data['guild_name'] ) )
+			{
+				$output .= '	<div class="infoline_2">'.sprintf($this->locale['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
+			}
 
-?>
+			$output .= '
 
 <!-- Begin tab1 -->
 	<div id="tab1" class="tab1" style="display:none;">
@@ -2140,206 +2150,207 @@ if( isset( $this->data['guild_name'] ) )
 
 	<!-- Begin Equipment Items -->
 		<div class="equip">
-			<?php print $this->printEquip('Head'); ?>
-			<?php print $this->printEquip('Neck'); ?>
-			<?php print $this->printEquip('Shoulder'); ?>
-			<?php print $this->printEquip('Back'); ?>
-			<?php print $this->printEquip('Chest'); ?>
-			<?php print $this->printEquip('Shirt'); ?>
-			<?php print $this->printEquip('Tabard'); ?>
-			<?php print $this->printEquip('Wrist'); ?>
+			' . $this->printEquip('Head') . '
+			' . $this->printEquip('Neck') . '
+			' . $this->printEquip('Shoulder') . '
+			' . $this->printEquip('Back') . '
+			' . $this->printEquip('Chest') . '
+			' . $this->printEquip('Shirt') . '
+			' . $this->printEquip('Tabard') . '
+			' . $this->printEquip('Wrist') . '
 
-			<?php print $this->printEquip('MainHand'); ?>
-			<?php print $this->printEquip('SecondaryHand'); ?>
-			<?php print $this->printEquip('Ranged'); ?>
-			<?php print $this->printEquip('Ammo'); ?>
+			' . $this->printEquip('MainHand') . '
+			' . $this->printEquip('SecondaryHand') . '
+			' . $this->printEquip('Ranged') . '
+			' . $this->printEquip('Ammo') . '
 
-			<?php print $this->printEquip('Hands'); ?>
-			<?php print $this->printEquip('Waist'); ?>
-			<?php print $this->printEquip('Legs'); ?>
-			<?php print $this->printEquip('Feet'); ?>
-			<?php print $this->printEquip('Finger0'); ?>
-			<?php print $this->printEquip('Finger1'); ?>
-			<?php print $this->printEquip('Trinket0'); ?>
-			<?php print $this->printEquip('Trinket1'); ?>
+			' . $this->printEquip('Hands') . '
+			' . $this->printEquip('Waist') . '
+			' . $this->printEquip('Legs') . '
+			' . $this->printEquip('Feet') . '
+			' . $this->printEquip('Finger0') . '
+			' . $this->printEquip('Finger1') . '
+			' . $this->printEquip('Trinket0') . '
+			' . $this->printEquip('Trinket1') . '
 		</div>
 	<!-- End Equipment Items -->
 
 	<!-- Begin Resists -->
 		<div class="resist">
-			<?php print $this->printResist('arcane'); ?>
-			<?php print $this->printResist('fire'); ?>
-			<?php print $this->printResist('nature'); ?>
-			<?php print $this->printResist('frost'); ?>
-			<?php print $this->printResist('shadow'); ?>
+			' . $this->printResist('arcane') . '
+			' . $this->printResist('fire') . '
+			' . $this->printResist('nature') . '
+			' . $this->printResist('frost') . '
+			' . $this->printResist('shadow') . '
 		</div>
 	<!-- End Resists -->
 
 	<!-- Begin Advanced Stats -->
-		<img src="<?php print $roster->config['img_url']; ?>char/percentframe.gif" class="percent_frame" alt="" />
+		<img src="' . $roster->config['img_url'] . 'char/percentframe.gif" class="percent_frame" alt="" />
 
-		<div class="health"><span class="yellowB"><?php print $this->locale['health']; ?>:</span> <?php print $this->data['health']; ?></div>
-		<div class="mana"><span class="yellowB"><?php print $this->data['power']; ?>:</span> <?php print $this->data['mana']; ?></div>
+		<div class="health"><span class="yellowB">' . $this->locale['health'] . ':</span> ' . $this->data['health'] . '</div>
+		<div class="mana"><span class="yellowB">' . $this->data['power'] . ':</span> ' . $this->data['mana'] . '</div>
 
 		<div class="info_desc">
-<?php
-
-if($this->data['talent_points'])
-	print '			'.$this->locale['unusedtalentpoints']."<br />\n";
-
-print '			'.$this->locale['timeplayed']."<br />\n";
-print '			'.$this->locale['timelevelplayed']."<br />\n";
-
-?>
-		</div>
-		<div class="info_values">
-<?php
-
-if($this->data['talent_points'])
-	print '			'.$this->data['talent_points']."<br />\n";
-
-$TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
-$TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
-print '			'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds']."<br />\n";
-print '			'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds']."<br />\n";
-?>
-		</div>
-<?php
-
-if( $addon['config']['show_money'] )
-{
-	print '
-		<!-- Money Display -->
-		<div class="money_disp">'."\n";
-	if( $this->data['money_g'] != '0' )
-		print '			'.$this->data['money_g'].'<img src="'.$roster->config['img_url'].'coin_gold.gif" class="coin" alt="g" />'."\n";
-	if( $this->data['money_s'] != '0' )
-		print '			'.$this->data['money_s'].'<img src="'.$roster->config['img_url'].'coin_silver.gif" class="coin" alt="s" />'."\n";
-	if( $this->data['money_c'] != '0' )
-		print '			'.$this->data['money_c'].'<img src="'.$roster->config['img_url'].'coin_copper.gif" class="coin" alt="c" />'."\n";
-print '
-		</div>
 ';
-}
 
-// Code to write a "Max Exp bar" just like in SigGen
-if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
-{
-	$expbar_width = '216';
-	$expbar_text = $this->locale['max_exp'];
-	$expbar_type = 'expbar_full';
-}
-else
-{
-	list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
-	if ($xplevel != '0' && $xplevel != '')
-	{
-		$expbar_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+			if($this->data['talent_points'])
+			{
+				$output .= '			'.$this->locale['unusedtalentpoints']."<br />\n";
+			}
 
-		$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
+			$output .= '			'.$this->locale['timeplayed']."<br />\n";
+			$output .= '			'.$this->locale['timelevelplayed']."<br />\n";
 
-		if( $xprest > 0 )
-		{
-			$expbar_text = $xp.'/'.$xplevel.' : '.$xprest.' ('.$exp_percent.'%)';
-			$expbar_type = 'expbar_full_rested';
-		}
-		else
-		{
-			$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
-			$expbar_type = 'expbar_full';
-		}
-	}
-}
+			$output .= "\n		</div>\n		<div class=\"info_values\">\n";
 
-?>
+			if($this->data['talent_points'])
+			{
+				$output .= '			'.$this->data['talent_points']."<br />\n";
+			}
+
+			$TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
+			$TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
+			$output .= '			'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds']."<br />\n";
+			$output .= '			'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds']."<br />\n";
+
+			$output .= "\n		</div>\n";
+
+			if( $addon['config']['show_money'] )
+			{
+				$output .= "\n		<!-- Money Display -->\n		<div class=\"money_disp\">\n";
+
+				if( $this->data['money_g'] != '0' )
+				{
+					$output .= '			'.$this->data['money_g'].'<img src="'.$roster->config['img_url'].'coin_gold.gif" class="coin" alt="g" />'."\n";
+				}
+				if( $this->data['money_s'] != '0' )
+				{
+					$output .= '			'.$this->data['money_s'].'<img src="'.$roster->config['img_url'].'coin_silver.gif" class="coin" alt="s" />'."\n";
+				}
+				if( $this->data['money_c'] != '0' )
+				{
+					$output .= '			'.$this->data['money_c'].'<img src="'.$roster->config['img_url'].'coin_copper.gif" class="coin" alt="c" />'."\n";
+				}
+				$output .= "\n		</div>\n";
+			}
+
+			// Code to write a "Max Exp bar" just like in SigGen
+			if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
+			{
+				$expbar_width = '216';
+				$expbar_text = $this->locale['max_exp'];
+				$expbar_type = 'expbar_full';
+			}
+			else
+			{
+				list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
+				if ($xplevel != '0' && $xplevel != '')
+				{
+					$expbar_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+
+					$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
+
+					if( $xprest > 0 )
+					{
+						$expbar_text = $xp.'/'.$xplevel.' : '.$xprest.' ('.$exp_percent.'%)';
+						$expbar_type = 'expbar_full_rested';
+					}
+					else
+					{
+						$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
+						$expbar_type = 'expbar_full';
+					}
+				}
+			}
+
+			$output .= '
 	<!-- Begin EXP Bar -->
-		<img src="<?php print $roster->config['img_url']; ?>char/expbar_empty.gif" class="xpbar_empty" alt="" />
-		<div class="xpbar" style="clip:rect(0px <?php print $expbar_width; ?>px 12px 0px);"><img src="<?php print $roster->config['img_url'].'char/'.$expbar_type.'.gif'; ?>" alt="" /></div>
-		<div class="xpbar_text"><?php print $expbar_text; ?></div>
+		<img src="' . $roster->config['img_url'] . 'char/expbar_empty.gif" class="xpbar_empty" alt="" />
+		<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $roster->config['img_url'].'char/'.$expbar_type.'.gif' . '" alt="" /></div>
+		<div class="xpbar_text">' . $expbar_text . '</div>
 	<!-- End EXP Bar -->
+';
 
+			switch( $this->data['class'] )
+			{
+				case $roster->locale->wordings[$this->data['clientLocale']]['Warrior']:
+				case $roster->locale->wordings[$this->data['clientLocale']]['Paladin']:
+				case $roster->locale->wordings[$this->data['clientLocale']]['Rogue']:
+					$rightbox = 'melee';
+					break;
 
-<?php
-	switch( $this->data['class'] )
-	{
-		case $roster->locale->wordings[$this->data['clientLocale']]['Warrior']:
-		case $roster->locale->wordings[$this->data['clientLocale']]['Paladin']:
-		case $roster->locale->wordings[$this->data['clientLocale']]['Rogue']:
-			$rightbox = 'melee';
-			break;
+				case $roster->locale->wordings[$this->data['clientLocale']]['Hunter']:
+					$rightbox = 'ranged';
+					break;
 
-		case $roster->locale->wordings[$this->data['clientLocale']]['Hunter']:
-			$rightbox = 'ranged';
-			break;
+				case $roster->locale->wordings[$this->data['clientLocale']]['Shaman']:
+				case $roster->locale->wordings[$this->data['clientLocale']]['Druid']:
+				case $roster->locale->wordings[$this->data['clientLocale']]['Mage']:
+				case $roster->locale->wordings[$this->data['clientLocale']]['Warlock']:
+				case $roster->locale->wordings[$this->data['clientLocale']]['Priest']:
+					$rightbox = 'spell';
+					break;
+			}
 
-		case $roster->locale->wordings[$this->data['clientLocale']]['Shaman']:
-		case $roster->locale->wordings[$this->data['clientLocale']]['Druid']:
-		case $roster->locale->wordings[$this->data['clientLocale']]['Mage']:
-		case $roster->locale->wordings[$this->data['clientLocale']]['Warlock']:
-		case $roster->locale->wordings[$this->data['clientLocale']]['Priest']:
-			$rightbox = 'spell';
-			break;
-	}
-?>
+			$output .= '
 <script type="text/javascript">
 <!--
-	addLpage('statsleft');
-	addLpage('meleeleft');
-	addLpage('rangedleft');
-	addLpage('spellleft');
-	addLpage('defenseleft');
-	addRpage('statsright');
-	addRpage('meleeright');
-	addRpage('rangedright');
-	addRpage('spellright');
-	addRpage('defenseright');
+	addLpage(\'statsleft\');
+	addLpage(\'meleeleft\');
+	addLpage(\'rangedleft\');
+	addLpage(\'spellleft\');
+	addLpage(\'defenseleft\');
+	addRpage(\'statsright\');
+	addRpage(\'meleeright\');
+	addRpage(\'rangedright\');
+	addRpage(\'spellright\');
+	addRpage(\'defenseright\');
 //-->
 </script>
-		<form action="<?php print makelink(); ?>">
+		<form action="' . makelink() . '">
 			<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
-				<option value="statsleft" selected="selected"><?php print $this->locale['menustats']; ?></option>
-				<option value="meleeleft"><?php print $this->locale['melee']; ?></option>
-				<option value="rangedleft"><?php print $this->locale['ranged']; ?></option>
-				<option value="spellleft"><?php print $this->locale['spell']; ?></option>
-				<option value="defenseleft"><?php print $this->locale['defense']; ?></option>
+				<option value="statsleft" selected="selected">' . $this->locale['menustats'] . '</option>
+				<option value="meleeleft">' . $this->locale['melee'] . '</option>
+				<option value="rangedleft">' . $this->locale['ranged'] . '</option>
+				<option value="spellleft">' . $this->locale['spell'] . '</option>
+				<option value="defenseleft">' . $this->locale['defense'] . '</option>
 			</select>
 			<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
-				<option value="statsright"><?php print $this->locale['menustats']; ?></option>
-				<option value="meleeright"<?php echo ($rightbox == 'melee'?' selected="selected"':'');?>><?php print $this->locale['melee']; ?></option>
-				<option value="rangedright"<?php echo ($rightbox == 'ranged'?' selected="selected"':'');?>><?php print $this->locale['ranged']; ?></option>
-				<option value="spellright"<?php echo ($rightbox == 'spell'?' selected="selected"':'');?>><?php print $this->locale['spell']; ?></option>
-				<option value="defenseright"><?php print $this->locale['defense']; ?></option>
+				<option value="statsright">' . $this->locale['menustats'] . '</option>
+				<option value="meleeright"' . ($rightbox == 'melee'?' selected="selected"':'') . '>' . $this->locale['melee'] . '</option>
+				<option value="rangedright"' . ($rightbox == 'ranged'?' selected="selected"':'') . '>' . $this->locale['ranged'] . '</option>
+				<option value="spellright"' . ($rightbox == 'spell'?' selected="selected"':'') . '>' . $this->locale['spell'] . '</option>
+				<option value="defenseright">' . $this->locale['defense'] . '</option>
 			</select>
 		</form>
 		<div class="padding">
-			<?php print $this->printBox('stats','left',true); ?>
-			<?php print $this->printBox('melee','left',false); ?>
-			<?php print $this->printBox('ranged','left',false); ?>
-			<?php print $this->printBox('spell','left',false); ?>
-			<?php print $this->printBox('defense','left',false); ?>
-			<?php print $this->printBox('stats','right',false); ?>
-			<?php print $this->printBox('melee','right',$rightbox=='melee'); ?>
-			<?php print $this->printBox('ranged','right',$rightbox=='ranged'); ?>
-			<?php print $this->printBox('spell','right',$rightbox=='spell'); ?>
-			<?php print $this->printBox('defense','right',false); ?>
+			' . $this->printBox('stats','left',true) . '
+			' . $this->printBox('melee','left',false) . '
+			' . $this->printBox('ranged','left',false) . '
+			' . $this->printBox('spell','left',false) . '
+			' . $this->printBox('defense','left',false) . '
+			' . $this->printBox('stats','right',false) . '
+			' . $this->printBox('melee','right',$rightbox=='melee') . '
+			' . $this->printBox('ranged','right',$rightbox=='ranged') . '
+			' . $this->printBox('spell','right',$rightbox=='spell') . '
+			' . $this->printBox('defense','right',false) . '
 		</div>
 	</div>
-<?php
+';
 
-if( $addon['config']['show_tab2'] )
-{
-	print '
+			if( $addon['config']['show_tab2'] )
+			{
+				$output .= '
 <!-- Begin tab2 -->
 	<div id="tab2" class="tab2" style="display:none;">
 		<div class="background">&nbsp;</div>
-' . $petTab . '
-	</div>
-';
-}
+' . $petTab . "\n	</div>\n";
+			}
 
-if( $addon['config']['show_tab3'] )
-{
-	print '
+			if( $addon['config']['show_tab3'] )
+			{
+				$output .= '
 <!-- Begin tab3 -->
 	<div id="tab3" class="tab3" style="display:none;">
 		<div class="faction">' . $this->locale['faction'] . '</div>
@@ -2347,50 +2358,50 @@ if( $addon['config']['show_tab3'] )
 		<div class="atwar">' . $this->locale['atwar'] . '</div>
 
 		<div class="container">
-' . $this->printReputation() . '
-		</div>
-	</div>
-';
-}
+' . $this->printReputation() . "\n		</div>\n	</div>\n";
+			}
 
-if( $addon['config']['show_tab4'] )
-{
-	print '
+			if( $addon['config']['show_tab4'] )
+			{
+				$output .= '
 <!-- Begin tab4 -->
 	<div id="tab4" class="tab4" style="display:none;">
 		<div class="container">
-' . $this->printSkills() . '
-		</div>
-	</div>
-';
-}
+' . $this->printSkills() . "\n		</div>\n	</div>\n";
+			}
 
-if( $addon['config']['show_tab5'] )
-{
-	print '
+			if( $addon['config']['show_tab5'] )
+			{
+				$output .= '
 <!-- Begin tab5 -->
 	<div id="tab5" class="tab5" style="display:none;">
 		<div class="background">&nbsp;</div>
-' . $this->printHonor() . '
-	</div>
-';
-}
+' . $this->printHonor() . "\n	</div>\n";
+			}
 
-?>
+			$output .= '
 <!-- Begin Navagation Tabs -->
 	<div id="char_navagation" class="tab_navagation">
 		<ul>
-			<li onclick="return displaypage('tab1',this);"><div class="text"><?php print $this->locale['tab1']; ?></div></li>
-<?php
-if( $addon['config']['show_tab2'] && $petTab != '' )
-	print '			<li onclick="return displaypage(\'tab2\',this);"><div class="text">'.$this->locale['tab2'].'</div></li>'."\n";
-if( $addon['config']['show_tab3'] )
-	print '			<li onclick="return displaypage(\'tab3\',this);"><div class="text">'.$this->locale['tab3'].'</div></li>'."\n";
-if( $addon['config']['show_tab4'] )
-	print '			<li onclick="return displaypage(\'tab4\',this);"><div class="text">'.$this->locale['tab4'].'</div></li>'."\n";
-if( $addon['config']['show_tab5'] )
-	print '			<li onclick="return displaypage(\'tab5\',this);"><div class="text">'.$this->locale['tab5'].'</div></li>'."\n";
-?>
+			<li onclick="return displaypage(\'tab1\',this);"><div class="text">' . $this->locale['tab1'] . '</div></li>
+';
+			if( $addon['config']['show_tab2'] && $petTab != '' )
+			{
+				$output .= '			<li onclick="return displaypage(\'tab2\',this);"><div class="text">' . $this->locale['tab2']."</div></li>\n";
+			}
+			if( $addon['config']['show_tab3'] )
+			{
+				$output .= '			<li onclick="return displaypage(\'tab3\',this);"><div class="text">'.$this->locale['tab3']."</div></li>\n";
+			}
+			if( $addon['config']['show_tab4'] )
+			{
+				$output .= '			<li onclick="return displaypage(\'tab4\',this);"><div class="text">'.$this->locale['tab4']."</div></li>\n";
+			}
+			if( $addon['config']['show_tab5'] )
+			{
+				$output .= '			<li onclick="return displaypage(\'tab5\',this);"><div class="text">'.$this->locale['tab5']."</div></li>\n";
+			}
+			$output .= '
 		</ul>
 	</div>
 
@@ -2400,10 +2411,10 @@ if( $addon['config']['show_tab5'] )
 <script type="text/javascript">
 	//Set tab to intially be selected when page loads:
 	//[which tab (1=first tab), ID of tab content to display]:
-	window.onload=tab_nav_onload('char_navagation',[1, 'tab1'])
+	window.onload=tab_nav_onload(\'char_navagation\',[1, \'tab1\'])
 </script>
-
-<?php
+';
+			return $output;
 
 		}
 		else
