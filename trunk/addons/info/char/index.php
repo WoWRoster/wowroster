@@ -21,10 +21,7 @@ if( !defined('ROSTER_INSTALLED') )
 
 include( $addon['dir'] . 'inc/header.php' );
 
-ob_start();
-	$char->out();
-$char_page .= ob_get_clean();
-
+$char_page .= $char->out();
 
 if( $addon['config']['show_item_bonuses'])
 {
