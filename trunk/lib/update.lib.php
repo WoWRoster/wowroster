@@ -667,7 +667,7 @@ class update
 	function add_value( $row_name , $row_data )
 	{
 		global $roster;
-
+	
 		if( $this->assignstr != '' )
 			$this->assignstr .= ',';
 
@@ -3166,23 +3166,43 @@ class update
 			$this->add_value( 'mana_regen_cast', $cast);
 			unset($not_cast, $cast);
 
+			if(isset($spell['Penetration']))
 			$this->add_value( 'spell_penetration', $spell['Penetration']);
+			if(isset($spell['BonusDamage']))
 			$this->add_value( 'spell_damage', $spell['BonusDamage']);
+			if(isset($spell['BonusHealing']))
 			$this->add_value( 'spell_healing', $spell['BonusHealing']);
+			
+			if(isset($spell['SchoolCrit'])){
+				if(isset($spell['SchoolCrit']['Holy']))
+				$this->add_value( 'spell_crit_chance_holy', $spell['SchoolCrit']['Holy']);
+				if(isset($spell['SchoolCrit']['Frost']))
+				$this->add_value( 'spell_crit_chance_frost', $spell['SchoolCrit']['Frost']);
+				if(isset($spell['SchoolCrit']['Arcane']))
+				$this->add_value( 'spell_crit_chance_arcane', $spell['SchoolCrit']['Arcane']);
+				if(isset($spell['SchoolCrit']['Fire']))
+				$this->add_value( 'spell_crit_chance_fire', $spell['SchoolCrit']['Fire']);
+				if(isset($spell['SchoolCrit']['Shadow']))
+				$this->add_value( 'spell_crit_chance_shadow', $spell['SchoolCrit']['Shadow']);
+				if(isset($spell['SchoolCrit']['Nature']))
+				$this->add_value( 'spell_crit_chance_nature', $spell['SchoolCrit']['Nature']);
+			}
 
-			$this->add_value( 'spell_crit_chance_holy', $spell['SchoolCrit']['Holy']);
-			$this->add_value( 'spell_crit_chance_frost', $spell['SchoolCrit']['Frost']);
-			$this->add_value( 'spell_crit_chance_arcane', $spell['SchoolCrit']['Arcane']);
-			$this->add_value( 'spell_crit_chance_fire', $spell['SchoolCrit']['Fire']);
-			$this->add_value( 'spell_crit_chance_shadow', $spell['SchoolCrit']['Shadow']);
-			$this->add_value( 'spell_crit_chance_nature', $spell['SchoolCrit']['Nature']);
-
-			$this->add_value( 'spell_damage_holy', $spell['School']['Holy']);
-			$this->add_value( 'spell_damage_frost', $spell['School']['Frost']);
-			$this->add_value( 'spell_damage_arcane', $spell['School']['Arcane']);
-			$this->add_value( 'spell_damage_fire', $spell['School']['Fire']);
-			$this->add_value( 'spell_damage_shadow', $spell['School']['Shadow']);
-			$this->add_value( 'spell_damage_nature', $spell['School']['Nature']);
+			if(isset($spell['School']))
+			{
+				if(isset($spell['School']['Holy']))
+				$this->add_value( 'spell_damage_holy', $spell['School']['Holy']);
+				if(isset($spell['School']['Frost']))
+				$this->add_value( 'spell_damage_frost', $spell['School']['Frost']);
+				if(isset($spell['School']['Arcane']))
+				$this->add_value( 'spell_damage_arcane', $spell['School']['Arcane']);
+				if(isset($spell['School']['Fire']))
+				$this->add_value( 'spell_damage_fire', $spell['School']['Fire']);
+				if(isset($spell['School']['Shadow']))
+				$this->add_value( 'spell_damage_shadow', $spell['School']['Shadow']);
+				if(isset($spell['School']['Nature']))
+				$this->add_value( 'spell_damage_nature', $spell['School']['Nature']);
+			}
 
 			unset($spell);
 		}
@@ -3202,9 +3222,11 @@ class update
 
 		$this->add_value( 'exp', $data['Experience'] );
 		$this->add_value( 'race', $data['Race'] );
+		if(isset($data['RaceId']))
 		$this->add_value( 'raceid', $data['RaceId'] );
 		$this->add_value( 'raceEn', $data['RaceEn'] );
 		$this->add_value( 'class', $data['Class'] );
+		if(isset($data['ClassId']))
 		$this->add_value( 'classid', $data['ClassId'] );
 		$this->add_value( 'classEn', $data['ClassEn'] );
 		$this->add_value( 'health', $data['Health'] );

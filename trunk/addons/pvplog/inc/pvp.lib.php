@@ -483,6 +483,32 @@ function output_bglog($member_id)
 				{
 					$esub = 'None';
 				}
+				
+				if(!isset($subs[$esub]))
+				{
+					$subs[$esub] = array('Wins' => 0, 'WinLoss' => 0, 'Zone' => 0, 'Loss' => 0);
+				}
+				
+				if(!isset($gwin[$eguild]))
+				{
+					$gwin[$eguild] = array('killed' => 0, 'name');
+				}
+				
+				if(!isset($pwin[$ename]))
+				{
+					$pwin[$ename] = array('killed' => 0, 'name', 'class', 'class_icon');
+				}
+				
+				if(!isset($gloss[$eguild]))
+				{
+					$gloss[$eguild] = array('killed' => 0, 'name');
+				}
+				
+				if(!isset($ploss[$ename]))
+				{
+					$ploss[$ename] = array('killed' => 0, 'name', 'class', 'class_icon');
+				}
+				
 
 				// Get Class Icon
 				foreach ($roster->multilanguages as $language)
@@ -502,12 +528,13 @@ function output_bglog($member_id)
 				}
 
 				$win_level_diff = $loss_level_diff = 0;
+				
 				if ($row->data['win'] == '1')
 				{
 					$wins++;
 					$win_level_diff += $row->data['leveldiff'];
 					$subs[$esub]['Wins'] += 1;
-					$subs[$esub]['WinLoss'] = $subs[$esub]['WinLoss'] + 1;
+					$subs[$esub]['WinLoss'] += 1;
 					$subs[$esub]['Zone'] = $esub;
 					$gwin[$eguild]['killed'] += 1;
 					$gwin[$eguild]['name'] = $eguild;
