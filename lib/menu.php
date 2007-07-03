@@ -144,7 +144,7 @@ class RosterMenu
 					. "    </div></td>\n"
 					. "  </tr>\n"
 					. "  <tr>\n"
-					. '    <td colspan="3" class="divider_gold"></td>' . "\n"
+					. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1px" height="1px" /></td>' . "\n"
 					. "  </tr>\n";
 		}
 		else
@@ -572,7 +572,7 @@ class RosterMenu
 
 		$output = '
 	<tr>
-		<td colspan="3" class="divider_gold"></td>
+		<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1px" height="1px" /></td>
 	</tr>
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header">
