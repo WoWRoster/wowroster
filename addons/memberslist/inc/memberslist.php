@@ -560,7 +560,7 @@ class memberslist
 		}
 		else
 		{
-			return '<span class="GMOTD">Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'</span><br /><br />';
+			return '<table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour sgoldborder motd_setup">'.htmlspecialchars($roster->data['guild_motd']).'</td></tr></table><br /><br />';
 		}
 	}
 
