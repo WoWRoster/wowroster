@@ -569,7 +569,7 @@ class RosterMenu
 
 	function makeBottom()
 	{
-		global $roster;
+		global $roster, $open;
 
 		$output = '
 	<tr>
