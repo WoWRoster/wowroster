@@ -578,8 +578,8 @@ class RosterMenu
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
 
-			<div class="header_text sgoldborder">
-			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;cursor:pointer;" id="data_search_img" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');" alt="+" />Search the Roster
+			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="data_search_img"/>Search the Roster
 			</div>
 
 		<div id="data_search" style="display:none;">
