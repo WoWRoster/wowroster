@@ -60,12 +60,12 @@ class RosterMenu
 		if( $roster->config['menu_top_locale'] )
 		{
 			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post">
-		' . $roster->locale->act['locale'] . ':
+		' . $roster->locale->act['language'] . ':
 		<select name="locale" onchange="document.locale_select.submit();">
 ';
 			foreach( $roster->multilanguages as $language )
 			{
-				$choiceForm .= '		<option value="' . $language . '"' . ( $language == $roster->config['locale'] ? ' selected="selected"' : '' ) . '>' . $language . "</option>\n";
+				$choiceForm .= '		<option value="' . $language . '"' . ( $language == $roster->config['locale'] ? ' selected="selected"' : '' ) . '>' . $roster->locale->wordings[$language]['langname'] . "</option>\n";
 			}
 			$choiceForm .= "\t\t</select>\n\t</form>";
 		}
@@ -144,7 +144,7 @@ class RosterMenu
 					. "    </div></td>\n"
 					. "  </tr>\n"
 					. "  <tr>\n"
-					. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1px" height="1px" /></td>' . "\n"
+					. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
 					. "  </tr>\n";
 		}
 		else
@@ -573,15 +573,15 @@ class RosterMenu
 
 		$output = '
 	<tr>
-		<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1px" height="1px" /></td>
+		<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>
 	</tr>
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
-		
+
 			<div class="header_text sgoldborder">
 			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;cursor:pointer;" id="data_search_img" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');" alt="+" />Search the Roster
 			</div>
-		
+
 		<div id="data_search" style="display:none;">
 			<form id="searchformmenu" action="' . makelink('search') . '" method="post">
 
@@ -594,7 +594,7 @@ class RosterMenu
 					<label for="tooltip_m">' . $roster->locale->act['search_tooltips'] . '</label>
 			</form>
 
-			
+
 				<hr />
 
 				<form id="searchformdata" action="' . makelink('search') . '" method="post">

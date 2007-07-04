@@ -31,6 +31,7 @@ class roster_locale
 {
 	var $wordings = array();
 	var $creditspage = '';
+	var $langlabel = array();
 
 	function roster_locale()
 	{

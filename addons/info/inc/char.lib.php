@@ -71,12 +71,41 @@ class char
 	 * Array $this->equip
 	 *
 	 */
-	function fetchEquip()
+	function fetchEquip( )
 	{
 		if (!is_array($this->equip))
 		{
 			$this->equip = item_get_many($this->data['member_id'], 'equip');
 		}
+	}
+
+
+	function show_buffs( )
+	{
+		global $roster;
+
+		// Get char professions for quick links
+		$query = "SELECT * FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
+		$result = $roster->db->query($query);
+
+		$return_string = '';
+		if( $roster->db->num_rows($result) > 0 )
+		{
+			$return_string .= "<div class=\"buff_icons\">\n\t\t\t\n";
+			while( $row = $roster->db->fetch($result) )
+			{
+				$tooltip = makeOverlib($row['tooltip'],'','ffdd00',1,'',',RIGHT');
+				$return_string .= '				<div class="buff"><img class="icon" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '" ' . $tooltip . ' alt="" />';
+				if( ($row['count'] > 1) )
+				{
+					$return_string .= '<b>'.$row['count'].'</b>';
+					$return_string .= '<span>'.$row['count'].'</span>';
+				}
+				$return_string .= '</div>' . "\n";
+			}
+			$return_string .= "			\n		</div>\n";
+		}
+		return $return_string;
 	}
 
 
@@ -2404,6 +2433,9 @@ $returnstring .= '  <tr>
 			$output .= '
 		</ul>
 	</div>
+
+<!-- Begin Buff Icons -->
+' . $this->show_buffs() . '
 
 </div>
 
