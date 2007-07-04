@@ -466,46 +466,29 @@ select {
 
 .border_frame {
 	background-color: #000000;
-	border-top-width: 2px;
-	border-right-width: 2px;
-	border-bottom-width: 2px;
-	border-left-width: 2px;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-	border-top-color: #c6c7cb;
-	border-right-color: #5f6060;
-	border-bottom-color: #393939;
-	border-left-color: #696b6e;
+	border-top: 2px solid #c6c7cb;
+	border-right: 2px solid #5f6060;
+	border-bottom: 2px solid #393939;
+	border-left: 2px solid #696b6e;
 }
 
 .border_colour {
 	background-color: #1F1E1D;
 	padding: 1px;
-	border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
 	color: #FFFFFF;
 	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	border-width: 1px;
+	border-style: solid;
 }
 
 .divider_gold {
 	height: 1px;
-	border-top-width: 1px;
-	border-top-style: solid;
-	border-top-color: #000000;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #000000;
 	margin: 0px;
 	padding: 0px;
 	background-color: #D3A229;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
 }
 
 .motd_setup {
@@ -532,8 +515,6 @@ select {
 	overflow:hidden;
 	padding-bottom: 1px;
 	background-image: url(../img/bgheader.gif);
-	
-	
 }
 
 /* Border Colours */
