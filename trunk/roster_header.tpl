@@ -76,10 +76,9 @@ if( $roster->output['http_header'] && !headers_sent() )
 <?php
 if( !empty($roster->config['logo']) )
 {
-	echo '<div style="text-align:center;margin:10px;">
+	echo '<div align="center" style="margin:10px;">
   <table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour sgoldborder">
-  <a href="' . $roster->config['website_address'] . '"><img src="' . $roster->config['logo'] . '" alt="" style="border:0;" /></a>
-  </td></tr></table>
+  <a href="' . $roster->config['website_address'] . '"><img src="' . $roster->config['logo'] . '" alt="" hspace="0" vspace="0" border="0" style="border:0;" /></a></td></tr></table>
 </div>';
 }
 ?>

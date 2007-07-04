@@ -491,6 +491,8 @@ select {
 	border-right-style: solid;
 	border-bottom-style: solid;
 	border-left-style: solid;
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .divider_gold {
@@ -530,6 +532,8 @@ select {
 	overflow:hidden;
 	padding-bottom: 1px;
 	background-image: url(../img/bgheader.gif);
+	
+	
 }
 
 /* Border Colours */
