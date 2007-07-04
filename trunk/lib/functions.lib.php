@@ -49,7 +49,7 @@ function border( $style , $mode , $header_text=null )
 	// Dynamic Bordering
 	$start = '
 <!-- START [open-' . $style . '] container -->
-<table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour '. $backg_css .'">
+<table class="border_frame" cellpadding="0" cellspacing="1" ><tr><td class="border_colour '. $backg_css .'">
 '.$header_text.'
 <!-- END [open-' . $style . '] container -->';
 
@@ -503,7 +503,14 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			if( strpos($line,"\t") )
 			{
 				$line = explode("\t",$line);
-				$line = '<div style="width:100%;"><span style="float:right;">' . $line[0] . '</span>' . $line[1] . '</div>';
+				if( !empty($color) )
+				{
+					$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+				}
+				else
+				{
+					$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+				}
 				$tooltip_out .= $line;
 			}
 			elseif( !empty($color) )
@@ -589,7 +596,14 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 			if( strpos($line,"\t") )
 			{
 				$line = explode("\t",$line);
-				$line = '<div style="width:100%;"><span style="float:right;">' . $line[0] . '</span>' . $line[1] . '</div>';
+				if( !empty($color) )
+				{
+					$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+				}
+				else
+				{
+					$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+				}
 				$tooltip_out .= $line;
 			}
 			elseif( !empty($color) )

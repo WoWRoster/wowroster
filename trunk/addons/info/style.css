@@ -768,6 +768,16 @@
 
 
 /**
+ * Buff Icons
+ */
+.buff_icons { position:absolute;font:12px arial,helvetica,sans-serif;margin:55px 0 0 345px; }
+.buff_icons .buff { position:relative;width:24px;height:24px; }
+.buff_icons .buff span { position:absolute;bottom:-3px;right:1px;color:#fff;font-weight:bold;font-size:10px; }
+.buff_icons .buff b { position:absolute;bottom:-4px;right:0px;color:#000;font-weight:bold;font-size:10px; }
+.buff_icons .buff .icon { float:left;width:24px;height:24px;padding:1px 0 0 0; }
+
+
+/**
  * Talent Page
  */
 .talent_panel .background { position:absolute;margin-top:73px;margin-left:16px;width:318px;height:333px; }

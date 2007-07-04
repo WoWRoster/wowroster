@@ -18,6 +18,7 @@
  * @subpackage Locale
 */
 
+$lang['langname'] = 'French';
 
 //Instructions how to upload, as seen on the mainpage
 $lang['update_link']='Cliquer ici pour les instructions de mise à jour.';
@@ -241,6 +242,7 @@ $lang['kills']='Tués';
 $lang['allow'] = 'Allow';
 $lang['disallow'] = 'Disallow';
 $lang['locale'] = 'Locale';
+$lang['language'] = 'Language';
 $lang['default'] = 'Default';
 
 $lang['rosterdiag'] = 'Diagnostic du Roster';
