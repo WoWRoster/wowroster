@@ -17,8 +17,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-define('IN_SORTMEMBER',true);
-
 // Recreate the CP.lua guild subtree. Or at least the relevant parts.
 $guild = $roster->data;
 
