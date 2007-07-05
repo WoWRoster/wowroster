@@ -17,8 +17,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-define('IN_SORTMEMBER',true);
-
 include_once ($addon['dir'] . 'inc/memberslist.php');
 
 $memberlist = new memberslist;
