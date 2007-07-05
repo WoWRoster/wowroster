@@ -37,51 +37,47 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-include( ROSTER_LIB . 'item.php');
+include( ROSTER_LIB . 'item.php' );
 
 if( isset($_GET['mode']) )
 {
-	$gbank_mode = ( $_GET['mode'] == 'inv' ? 2 : 1);
-	$gbank_mode = ( $_GET['mode'] == 'full' ? 1 : 2);
+	$gbank_mode = ( $_GET['mode'] == 'inv' ? '2' : '1' );
+	$gbank_mode = ( $_GET['mode'] == 'full' ? '1' : '2' );
 }
 else
 {
 	$gbank_mode = $addon['config']['guildbank_ver'];
 }
 
-$columns = ( $gbank_mode == 2 ? 15 : 2 );
+$columns = ( $gbank_mode == '2' ? '15' : '2' );
 
 $roster->output['title'] = $roster->locale->act['guildbank'];
 
-$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper
-FROM `".$roster->db->table('players')."` AS p, `".$roster->db->table('members')."`  AS m
-WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%' AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id'] . "
-ORDER BY m.name";
+$muleNameQuery = "SELECT m.member_id, m.name AS member_name, m.note AS member_note, m.officer_note AS member_officer_note, p.money_g AS gold, p.money_s  AS silver, p.money_c AS copper"
+			   . " FROM `" . $roster->db->table('players') . "` AS p, `" . $roster->db->table('members') . "`  AS m"
+			   . " WHERE m." . $addon['config']['banker_fieldname'] . " LIKE '%" . $addon['config']['banker_rankname'] . "%' AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id']
+			   . " ORDER BY m.name";
 
 $muleNames = $roster->db->query($muleNameQuery);
 
-$bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">'."\n<tr>\n";
+$bank_menu = '<table cellpadding="3" cellspacing="0" class="menubar">' . "\n<tr>\n";
 
-$bank_menu .= '<td class="membersHeader"><a href="'.makelink('&amp;mode=full').'">'.$roster->locale->act['gbank_list'].'</a></td>'."\n";
-$bank_menu .= '<td class="membersHeaderRight"><a href="'.makelink('&amp;mode=inv').'">'.$roster->locale->act['gbank_inv'].'</a></td>'."\n";
+$bank_menu .= '<td class="membersHeader"><a href="' . makelink('&amp;mode=full') . '">' . $roster->locale->act['gbank_list'] . "</a></td>\n";
+$bank_menu .= '<td class="membersHeaderRight"><a href="' . makelink('&amp;mode=inv') . '">' . $roster->locale->act['gbank_inv'] . "</a></td>\n";
 
 $bank_menu .= "</tr>\n</table>\n";
 
-echo messagebox($bank_menu,$roster->locale->act['guildbank'],'sorange');
-
-echo '<br />';
-
-if ( $addon['config']['bank_money'] )
+if( $addon['config']['bank_money'] )
 {
 	$mulemoney = $roster->db->fetch($roster->db->query(
-"SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper
- FROM `".$roster->db->table('players')."` AS p, `".$roster->db->table('members')."` AS m
- WHERE m.".$addon['config']['banker_fieldname']." LIKE '%".$addon['config']['banker_rankname']."%'
- AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id'] . "
- ORDER  BY m.name"
-));
+			   . "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper"
+			   . " FROM `" . $roster->db->table('players') . "` AS p, `" . $roster->db->table('members') . "` AS m"
+			   . " WHERE m." . $addon['config']['banker_fieldname'] . " LIKE '%" . $addon['config']['banker_rankname'] . "%'"
+			   . " AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id']
+			   . " ORDER  BY m.name"
+	));
 	$addsilver=0;
-	if ($mulemoney['copper']>=100)
+	if( $mulemoney['copper']>=100 )
 	{
 		$mulemoney['copper'] = $mulemoney['copper']/100;
 		$addsilver= (int)$mulemoney['copper'];
@@ -90,25 +86,25 @@ if ( $addon['config']['bank_money'] )
 	}
 	$mulemoney['silver'] = $mulemoney['silver'] + $addsilver;
 	$addgold=0;
-	if ($mulemoney['silver']>=100)
+	if( $mulemoney['silver']>=100 )
 	{
 		$mulemoney['silver'] = $mulemoney['silver']/100;
 		$addgold = (int)$mulemoney['silver'];
 		$mulemoney['silver'] = explode ('.', $mulemoney['silver']);
 		$mulemoney['silver'] = $mulemoney['silver'][1];
 	}
-	$mulemoney['gold'] = $mulemoney['gold']+$addgold;
+	$mulemoney['gold'] = $mulemoney['gold'] + $addgold;
 
-	$bank_money = $roster->locale->act['guildbank_totalmoney'].' <div class="money">'.
-	$mulemoney['gold'].' <img src="'.$roster->config['img_url'].'coin_gold.gif" alt="g" /> '.
-	$mulemoney['silver'].' <img src="'.$roster->config['img_url'].'coin_silver.gif" alt="s" /> '.
-	$mulemoney['copper'].' <img src="'.$roster->config['img_url'].'coin_copper.gif" alt="c" /></div>';
+	$bank_money = $roster->locale->act['guildbank_totalmoney'] . ' <div class="money">'
+				. $mulemoney['gold'] . ' <img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> '
+				. $mulemoney['silver'] . ' <img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> '
+				. $mulemoney['copper'] . ' <img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" /></div>';
 }
 
 $bankers = array();
 $bank_print = '';
 
-while ($muleRow = $roster->db->fetch($muleNames))
+while( $muleRow = $roster->db->fetch($muleNames) )
 {
 	$bankers[$muleRow['member_id']] = $muleRow['member_name'];
 
@@ -120,37 +116,37 @@ while ($muleRow = $roster->db->fetch($muleNames))
 
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
 
-	$bank_print_member = ( active_addon('info') ? '<a href="'.makelink('char-info&amp;member='.$muleRow['member_id']).'">'.$muleRow['member_name'].'</a>' : $muleRow['member_name']);
-	$bank_print .= '<a id="c_'.$muleRow['member_id'].'"></a>'.border('sgray','start',$bank_print_member . ' ('.$note.') - <small>'.$roster->locale->act['lastupdate'].': '.$date_char_data_updated.'</small>').
-	'<table class="bodyline" cellspacing="0" cellpadding="0">'.
-		 ( $addon['config']['bank_money'] ?
-		 	  '<tr>
-    <td colspan="'.$columns.'" class="membersRowRight2">'.
-			'<div class="money" align="center">'.
-			$muleRow['gold'].  ' <img src="'.$roster->config['img_url'].'coin_gold.gif" alt="g" /> '.
-			$muleRow['silver'].' <img src="'.$roster->config['img_url'].'coin_silver.gif" alt="s" /> '.
-			$muleRow['copper'].' <img src="'.$roster->config['img_url'].'coin_copper.gif" alt="c" /></div>'.
-		"</td>\n</tr>\n" : '' );
+	$bank_print_member = ( active_addon('info') ? '<a href="' . makelink('char-info&amp;member=' . $muleRow['member_id']) . '">' . $muleRow['member_name'] . '</a>' : $muleRow['member_name']);
+	$bank_print .= '<a id="c_' . $muleRow['member_id'] . '"></a>' . border('sgray','start',$bank_print_member . ' (' . $note . ') - <small>' . $roster->locale->act['lastupdate'] . ': ' . $date_char_data_updated . '</small>')
+				 . '<table class="bodyline" cellspacing="0" cellpadding="0">'
+				 . ( $addon['config']['bank_money'] ?
+				 '<tr>
+    <td colspan="' . $columns . '" class="membersRowRight2">'
+				 . '<div class="money" align="center">'
+				 . $muleRow['gold'] . ' <img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> '
+				 . $muleRow['silver'] . ' <img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> '
+				 . $muleRow['copper'] . ' <img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" /></div>'
+				 . "</td>\n</tr>\n" : '' );
 
-	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity
-		FROM `".$roster->db->table('items')."` as i
-		WHERE ".$muleRow['member_id']."=i.member_id
-		AND i.item_parent!='bags'
-		AND i.item_parent!='equip'
-		AND (i.item_tooltip
-		NOT LIKE '%".$roster->locale->act['tooltip_soulbound']."%'
-		OR i.item_tooltip
-		LIKE '%".$roster->locale->act['tooltip_boe']."%')
-		GROUP BY real_itemid
-		ORDER BY i.item_name";
+	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity"
+					  . " FROM `" . $roster->db->table('items') . "` as i"
+					  . " WHERE " . $muleRow['member_id'] . " = i.member_id"
+					  . " AND i.item_parent!='bags'"
+					  . " AND i.item_parent!='equip'"
+					  . " AND (i.item_tooltip"
+					  . " NOT LIKE '%" . $roster->locale->act['tooltip_soulbound'] . "%'"
+					  . " OR i.item_tooltip"
+					  . " LIKE '%" . $roster->locale->act['tooltip_boe'] . "%')"
+					  . " GROUP BY real_itemid"
+					  . " ORDER BY i.item_name";
 
 	$itemsOnMule = $roster->db->query($itemsOnMuleQuery);
 
 	$itemRow=$roster->db->fetch($itemsOnMule);
-	if ($itemRow==FALSE)
+	if( $itemRow==false )
 	{
 		$bank_print .= '  <tr>
-    <td class="membersRowRight1">'.sprintf($roster->locale->act['gbank_not_loaded'],$muleRow['member_name'])."</td>
+    <td class="membersRowRight1">' . sprintf($roster->locale->act['gbank_not_loaded'],$muleRow['member_name']) . "</td>
   </tr>\n";
 
 	}
@@ -163,39 +159,45 @@ while ($muleRow = $roster->db->fetch($muleNames))
 
 		$striping_counter = 1;
 
-		while ($itemRow)
+		while( $itemRow )
 		{
 			if( $column_counter == 1 )
 			{
 				$striping_counter++;
 			}
 
-			$stripe_class = 'membersRow'.( ( $striping_counter % 2 ) + 1 );
-			$stripe_class_right = 'membersRowRight'.( ( $striping_counter % 2 ) + 1 );
+			$stripe_class = 'membersRow' . ( ( $striping_counter % 2 ) + 1 );
+			$stripe_class_right = 'membersRowRight' . ( ( $striping_counter % 2 ) + 1 );
 
-			if ($column_counter==1)
-				$bank_print .= '  <tr>'."\n";
+			if( $column_counter==1 )
+			{
+				$bank_print .= "  <tr>\n";
+			}
 
 			// Item texture and quantity column
 			if( $gbank_mode == '1' )
-				$bank_print .= '    <td valign="top" align="center" class="'.$stripe_class.'">';
+			{
+				$bank_print .= '    <td valign="top" align="center" class="' . $stripe_class . '">';
+			}
 			else
+			{
 				$bank_print .= '    <td valign="top" align="center">';
+			}
 
 			$itemRow['item_quantity'] = $itemRow['total_quantity'];
 
 			$item = new item($itemRow);
 			$bank_print .= $item->out();
 
-			$bank_print .= '    </td>'."\n";
+			$bank_print .= "    </td>\n";
 			if( $gbank_mode == '1' )
 			{
-				$bank_print .= '    <td valign="top" class="'.$stripe_class_right.' overlib_maintext" style="width:220px;">';
+				$bank_print .= '    <td valign="top" class="' . $stripe_class_right . ' overlib_maintext" style="width:220px;">';
 				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
 				$bank_print .= '    </td>';
 			}
 
-			if ($column_counter==$columns)
+			if( $column_counter==$columns )
 			{
 				$bank_print .= "  </tr>\n";
 				$column_counter=0;
@@ -203,24 +205,27 @@ while ($muleRow = $roster->db->fetch($muleNames))
 			$column_counter++;
 			$itemRow = $roster->db->fetch($itemsOnMule);
 		}
-		if( $column_counter >= 0 && substr($bank_print,-6) != "</tr>\n")
+		if( $column_counter >= 0 && substr($bank_print,-6) != "</tr>\n" )
 		{
 			$bank_print .= "  </tr>\n";
 		}
 		$bank_print .= "</table></td>\n</tr>\n";
 	}
-	$bank_print .= '</table>'.border('sgray','end').'<br />';
+	$bank_print .= '</table>' . border('sgray','end') . '<br />';
 }
 
 
 $banker_list = '- ';
 foreach( $bankers as $banker_id => $banker  )
 {
-	$banker_list .= '<a href="' . makelink('#c_'.$banker_id) . '">'.$banker.'</a> - ';
+	$banker_list .= '<a href="' . makelink('#c_'.$banker_id) . '">' . $banker . '</a> - ';
 }
 
+print messagebox($bank_menu,$roster->locale->act['guildbank'],'sorange');
 
-print $banker_list."\n<br /><br />\n".(isset($bank_money) ? $bank_money : '')."\n<br />\n".$bank_print;
+print '<br />';
+
+print $banker_list . "\n<br /><br />\n" . (isset($bank_money) ? $bank_money : '') . "\n<br />\n" . $bank_print;
 
 /**
  * Gets the last upload date for a character
@@ -232,7 +237,7 @@ function DateCharDataUpdated( $id )
 {
 	global $roster;
 
-	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$id'";
+	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '$id'";
 	$result = $roster->db->query($query);
 	$data = $roster->db->fetch($result);
 	$roster->db->free_result($result);
