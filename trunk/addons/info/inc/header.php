@@ -39,7 +39,7 @@ $char = new char($roster->data);
 // Set <html><title> and <form action=""> and $char_url
 $roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'));
 $char_url = '&amp;member=' . $char->get('member_id');
-$char_url_old = '&amp;member=' . $char->get('name') . '@' . $char->get('server');
+$char_url_old = '&amp;member=' . $char->get('name') . '@' . $char->get('region') . '-' . $char->get('server');
 
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
@@ -83,17 +83,19 @@ foreach( $disp_array as $global_setting )
 $char->data['char_icon'] = $roster->config['img_url'] . 'char/portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
 
 $char_menu = '
-<div class="char_title">'.$char->get('name').' @ '.$char->get('server').(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
-	<div class="lastupdated">'.$roster->locale->act['lastupdate'].': '.$char->data['update_format'].'</div>
+<div class="char_title">' . $char->get('name') . ' @ '.$char->get('region') . '-'.$char->get('server') . (!empty($action) ? ' &gt; '.ucfirst($action) : '') . '
+	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $char->data['update_format'] . '</div>
 </div>';
 
-$char_menu .= '<br />'.messagebox(
-	makelink(ROSTER_PAGE_NAME.$char_url,true).'<br />'.
-	makelink(ROSTER_PAGE_NAME.$char_url_old,true)
-	,'','sgreen');
+if( $addon['config']['char_links'] )
+{
+	$char_menu .= '<br />'.messagebox(
+				makelink(ROSTER_PAGE_NAME.$char_url,true) . '<br />'
+				. makelink(ROSTER_PAGE_NAME.$char_url_old,true)
+				,'','sgreen');
+}
 
-
-$char_page = '<div align="' . $addon['config']['char_bodyalign'] . "\">\n";
+$char_page = '<div align="center">' . "\n";
 
 $char_page .= '
 <br />

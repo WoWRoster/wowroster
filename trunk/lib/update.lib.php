@@ -285,6 +285,7 @@ class update
 					if( isset($char['timestamp']['init']['datakey']) )
 					{
 						list($region) = explode(':',$char['timestamp']['init']['datakey']);
+						$region = strtoupper($region);
 					}
 					else
 					{
@@ -327,7 +328,7 @@ class update
 
 						if( $roster->db->query_first($query) !== 2 )
 						{
-							$output .= "Character ".$char_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
+							$output .= 'Character ' . $char_name . ' @ ' . $region . '-' . $realm_name . " not accepted<br/>\n";
 							continue;
 						}
 						else
@@ -403,6 +404,7 @@ class update
 						if( isset($guild['timestamp']['init']['datakey']) )
 						{
 							list($region) = explode(':',$guild['timestamp']['init']['datakey']);
+							$region = strtoupper($region);
 						}
 						else
 						{
@@ -435,7 +437,7 @@ class update
 
 						if( $roster->db->query_first($query) !== '0' )
 						{
-							$output .= "Guild " . $guild_name . '@' . $region . '-' . $realm_name . " not accepted<br />\n";
+							$output .= "Guild " . $guild_name . ' @ ' . $region . '-' . $realm_name . " not accepted<br />\n";
 							continue;
 						}
 

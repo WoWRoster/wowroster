@@ -46,7 +46,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 
 		$query = "INSERT INTO `" . $roster->db->table('upload') . "`
 				(`name`,`server`,`region`,`type`,`default`) VALUES
-					('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtolower($_POST['region']) . "','" . $type . "','" . $default . "');";
+					('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
 
 		if( !$roster->db->query($query) )
 		{

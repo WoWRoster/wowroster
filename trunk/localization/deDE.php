@@ -713,10 +713,8 @@ $lang['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das Characte
 $lang['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader herunterzuladen";
 
 // realmstatus_conf
-$lang['admin']['realmstatus_url'] = "Realmstatus URL|URL zu Blizzard's Realmstatus Seite";
 $lang['admin']['rs_display'] = "Info Mode|&quot;full&quot; zeigt Status, Name, Population, und Servertyp<br />&quot;half&quot; zeigt nur den Status an";
 $lang['admin']['rs_mode'] = "Display Mode|Wie der Status angezeigt werden soll:<br /><br />&quot;DIV Container&quot; - Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern<br />&quot;Image&quot; - Zeigt Realmstatus als ein Bild (BENÖTIGT GD!)";
-$lang['admin']['realmstatus'] = "Alternativer Servername|Manche Servernamen funktionieren hier nicht richtig, auch wenn der Upload von Profilen geht<br />Der tatsächliche Servername stimmt dann mit dem Namen auf der Statusseite von Blizzard nicht überein.<br />Dann kannst du hier einen anderen Servernamen setzen<br /><br />Leer lassen, um den Namen in der Gildenkonfiguration einzustellen";
 $lang['admin']['rs_timer'] = "Refresh Timer|Set the timeout period for fetching new realmstatus data";
 $lang['admin']['rs_left'] = "Display|";
 $lang['admin']['rs_middle'] = "Type Display Settings|";

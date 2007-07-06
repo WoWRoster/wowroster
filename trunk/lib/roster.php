@@ -176,16 +176,24 @@ class roster
 				// Parse the attribute
 				if( is_numeric($_GET['member']) )
 				{
-					$where = ' `players`.`member_id` = "' . $_GET['member'] . '"';
+					$where = ' `players`.`member_id` = "' . $this->db->escape($_GET['member']) . '"';
 				}
 				elseif( strpos($_GET['member'], '@') !== false )
 				{
-					list($name, $realm) = explode('@',$_GET['member']);
-					$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '"';
+					list($name, $realm) = explode('@',$this->db->escape($_GET['member']));
+					if( strpos($realm,'-') !== false )
+					{
+						list($region, $realm) = explode('-',$realm);
+						$where = ' `players`.`name` = "' . $name . '" AND players`.`server` = "' . $realm . '" AND players`.`region` = "' . strtoupper($region) . '"';
+					}
+					else
+					{
+						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '"';
+					}
 				}
 				else
 				{
-					$where = ' `players`.`name` = "' . $_GET['member'] . '" AND `players`.`server` = "' . $this->config['server_name'] . '"';
+					$where = ' `players`.`name` = "' . $this->db->escape($_GET['member']) . '"';
 				}
 
 				// Get the data
@@ -234,7 +242,7 @@ class roster
 				if( !isset($_GET['guild']) )
 				{
 					// Get the default selected guild from the upload rules
-					$query =  "SELECT `name`, `server`"
+					$query =  "SELECT `name`, `server`, `region`"
 							. " FROM `" . $this->db->table('upload') . "`"
 							. " WHERE `default` = '1' LIMIT 1;";
 
@@ -244,21 +252,30 @@ class roster
 
 					$name = $this->db->escape( $data['name'] );
 					$realm = $this->db->escape( $data['server'] );
-					$where = ' `guild_name` = "'.$name.'" AND `server` = "'.$realm.'"';
+					$region = $this->db->escape( $data['region'] );
+					$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . $region . '"';
 				}
 				// Parse the attribute
 				elseif( is_numeric($_GET['guild']) )
 				{
-					$where = ' `guild_id` = "'.$_GET['guild'].'"';
+					$where = ' `guild_id` = "' . $this->db->escape($_GET['guild']) . '"';
 				}
 				elseif( strpos($_GET['guild'],'@') !== false )
 				{
-					list($name, $realm) = explode('@',$_GET['guild']);
-					$where = ' `guild_name` = "'.$name.'" AND `server` = "'.$realm.'"';
+					list($name, $realm) = explode('@',$this->db->escape($_GET['guild']));
+					if( strpos($realm,'-') !== false )
+					{
+						list($region, $realm) = explode('-',$realm);
+						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
+					}
+					else
+					{
+						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '"';
+					}
 				}
 				else
 				{
-					$where = ' `guild_name` = "'.$_GET['guild'].'" AND `server` = "'.$this->config['server_name'].'"';
+					$where = ' `guild_name` = "' . $this->db->escape($_GET['guild']) . '"';
 				}
 
 				// Get the data
@@ -275,7 +292,7 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server_name'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
+					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
 				$this->db->free_result($result);
@@ -303,20 +320,52 @@ class roster
 				// Check if the realm attribute is set
 				if( !isset($_GET['realm']) )
 				{
-					$realm = $this->db->escape( $this->config['server_name'] );
+					// Get the default selected guild from the upload rules
+					$query =  "SELECT `server`, `region`"
+							. " FROM `" . $this->db->table('upload') . "`"
+							. " WHERE `default` = '1' LIMIT 1;";
+
+					$this->db->query($query);
+
+					$data = $this->db->fetch();
+
+					$realm = $this->db->escape( $data['server'] );
+					$region = $this->db->escape( $data['region'] );
+					$where = ' `server` = "' . $realm . '" AND `region` = "' . $region . '"';
+				}
+				elseif( strpos($_GET['realm'],'-') !== false )
+				{
+					list($region, $realm) = explode('-',$this->db->escape($_GET['realm']));
+					$where = ' `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
-					$realm = $_GET['realm'];
+					$where = ' `realm` = "' . $this->db->escape($_GET['realm']) . '"';
 				}
 
-				$this->data = array('server' => $realm);
+				// Get the selected data
+				$query = "SELECT DISTINCT `server`, `region`"
+					   . " FROM `" . $this->db->table('guild') . "`"
+					   . " UNION SELECT DISTINCT `server`, `region` FROM `" . $this->db->table('players') . "`"
+					   . " WHERE $where"
+					   . " LIMIT 1;";
 
+				$result = $this->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($this->db->error(),'Database Error',__FILE__.'<br />Function: '.__FUNCTION__,__LINE__,$query);
+				}
+
+				if(!( $this->data = $this->db->fetch($result,SQL_ASSOC)) )
+				{
+					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
+				}
 
 				// Get the scope select data
-				$query = "SELECT DISTINCT `server`"
+				$query = "SELECT DISTINCT `server`, `region`"
 					   . " FROM `" . $this->db->table('guild') . "`"
-					   . " UNION SELECT DISTINCT `server` FROM `" . $this->db->table('players') . "`"
+					   . " UNION SELECT DISTINCT `server`, `region` FROM `" . $this->db->table('players') . "`"
 					   . " ORDER BY `server` ASC;";
 
 				$result = $this->db->query($query);
@@ -336,7 +385,7 @@ class roster
 				$this->data = array();
 				break;
 		}
-		
+
 		// Set menu array
 		if( isset($this->data['server']) )
 		{

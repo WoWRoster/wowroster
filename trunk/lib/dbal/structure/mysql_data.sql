@@ -114,11 +114,9 @@ INSERT INTO `renprefix_config` VALUES (8030, 'rs_left', NULL, 'blockframe', 'rs_
 INSERT INTO `renprefix_config` VALUES (8040, 'rs_middle', NULL, 'blockframe', 'rs_wide');
 INSERT INTO `renprefix_config` VALUES (8050, 'rs_right', NULL, 'blockframe', 'rs_wide');
 
-INSERT INTO `renprefix_config` VALUES (8100, 'realmstatus_url', 'http://www.worldofwarcraft.com/realmstatus/status.xml', 'select{US Servers^http://www.worldofwarcraft.com/realmstatus/status.xml|EU Servers^http://www.wow-europe.com/en/serverstatus/index.xml', 'rs_top');
-INSERT INTO `renprefix_config` VALUES (8110, 'rs_display', 'full', 'select{full^full|half^half', 'rs_top');
-INSERT INTO `renprefix_config` VALUES (8120, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'rs_top');
-INSERT INTO `renprefix_config` VALUES (8130, 'realmstatus', '', 'text{50|30', 'rs_top');
-INSERT INTO `renprefix_config` VALUES (8140, 'rs_timer', '10', 'text{5|5', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8100, 'rs_display', 'full', 'select{full^full|half^half', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8110, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8120, 'rs_timer', '10', 'text{5|5', 'rs_top');
 
 INSERT INTO `renprefix_config` VALUES (8200, 'rs_font_server', 'VERANDA.TTF', 'function{fontFiles', 'rs_left');
 INSERT INTO `renprefix_config` VALUES (8210, 'rs_size_server', '7', 'text{5|5', 'rs_left');

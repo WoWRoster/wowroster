@@ -54,7 +54,7 @@ class info
 		$installer->add_config("'110','char_conf',NULL,'blockframe','menu'");
 		$installer->add_config("'120','char_pref','rostercp-addon-info-display','makelink','menu'");
 
-		$installer->add_config("'1000', 'char_bodyalign', 'center', 'select{left^left|center^center|right^right', 'char_conf'");
+		$installer->add_config("'1000', 'char_links', '1', 'radio{show^1|hide^0', 'char_conf'");
 		$installer->add_config("'1010', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
 		$installer->add_config("'1020', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 		$installer->add_config("'1030', 'show_tab2', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
