@@ -125,7 +125,7 @@ class RosterMenu
 			if( isset($roster->data['guild_name']) )
 			{
 				$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
-							. '      <span style="font-size:11px;"> @ ' . $roster->data['server'] . "</span><br />\n"
+							. '      <span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
 							. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
 							. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
 			}
@@ -387,27 +387,38 @@ class RosterMenu
 	{
 		global $roster;
 
-		$realmStatus = '';
+		$realmStatus = '    <td valign="top" class="row">' . "\n";
 
-		if( !empty($roster->config['realmstatus']) )
+		if( isset($roster->data['server']) )
 		{
-			$realmname = utf8_decode($roster->config['realmstatus']);
-		}
-		elseif( isset($roster->data['server']) )
-		{
-			$realmname = utf8_decode($roster->data['server']);
+			$realmname = $roster->data['region'] . '-' . utf8_decode($roster->data['server']);
 		}
 		else
 		{
-			$realmname = '';
+			// Get the default selected guild from the upload rules
+			$query =  "SELECT `name`, `server`, `region`"
+					. " FROM `" . $roster->db->table('upload') . "`"
+					. " WHERE `default` = '1' LIMIT 1;";
+
+			$roster->db->query($query);
+
+			if( $roster->db->num_rows() > 0 )
+			{
+				$data = $roster->db->fetch();
+
+				$realmname = $data['region'] . '-' . utf8_decode($data['server']);
+			}
+			else
+			{
+				$realmname = '';
+			}
 		}
 
 		if( !empty($realmname) )
 		{
-			$realmStatus .= '    <td valign="top" class="row">' . "\n";
 			if( $roster->config['rs_mode'] )
 			{
-				$realmStatus .= '      <img alt="WoW Server Status" src="realmstatus.php?r=' . $realmname . '" />' . "\n";
+				$realmStatus .= '      <img alt="WoW Server Status" src="' . ROSTER_URL . 'realmstatus.php?r=' . urlencode($realmname) . '" />' . "\n";
 			}
 			elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
 			{
@@ -420,8 +431,14 @@ class RosterMenu
 				$realmStatus .= '&nbsp;';
 			}
 
-			$realmStatus .= "    </td>\n";
 		}
+		else
+		{
+			$realmStatus .= '&nbsp;';
+		}
+
+		$realmStatus .= "    </td>\n";
+
 		return $realmStatus;
 	}
 

@@ -606,6 +606,7 @@ CREATE TABLE `renprefix_quests` (
 DROP TABLE IF EXISTS `renprefix_realmstatus`;
 CREATE TABLE `renprefix_realmstatus` (
   `server_name` varchar(20) NOT NULL default '',
+  `server_region` varchar(2) NOT NULL default '',
   `servertype` varchar(20) NOT NULL default '',
   `serverstatus` varchar(20) NOT NULL default '',
   `serverpop` varchar(20) NOT NULL default '',

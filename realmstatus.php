@@ -33,30 +33,55 @@ require_once( ROSTER_LIB . 'minixml.lib.php' );
 
 if( isset($_GET['r']) )
 {
-	$realmname = urldecode($_GET['r']);
+	list($region,$realmname) = explode('-',urldecode(trim(stripslashes($_GET['r']))));
+	$region = strtoupper($region);
 }
-elseif( !empty($roster->config['realmstatus']) )
+elseif( isset($realmname) )
 {
-	$realmname = utf8_decode($roster->config['realmstatus']);
-}
-elseif( isset($roster->data['server']) )
-{
-	$realmname = utf8_decode($roster->data['server']);
+	list($region,$realmname) = explode('-',trim(stripslashes($realmname)));
+	$region = strtoupper($region);
 }
 else
 {
 	$realmname = '';
 }
 
-$realmname = trim($realmname);
-
-if( $roster->config['rs_mode'] )
-	$generate_image = true;
-elseif( !$roster->config['rs_mode'] )
-	$generate_image = false;
+if( isset($_GET['d']) )
+{
+	$generate_image = ( $_GET['d'] == '0' ? false : true );
+}
+elseif( isset($roster->config['rs_mode']) )
+{
+	$generate_image = ( $roster->config['rs_mode'] ? true : false );
+}
 else
+{
 	$generate_image = true;
+}
 
+switch( $region )
+{
+	case 'US':
+		$xmlsource = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
+		$xmlmeta['rootxml'] = 'rs';
+		$xmlmeta['realms'] = 'r';
+		$xmlmeta['name'] = 'n';
+		$xmlmeta['status'] = 's';
+		$xmlmeta['type'] = 't';
+		$xmlmeta['pop'] = 'l';
+		break;
+	case 'EU':
+		$xmlsource = 'http://www.wow-europe.com/en/serverstatus/index.xml';
+		$xmlmeta['rootxml'] = 'status';
+		$xmlmeta['realms'] = 'r';
+		$xmlmeta['name'] = 'n';
+		$xmlmeta['status'] = 's';
+		$xmlmeta['type'] = 't';
+		$xmlmeta['pop'] = 'l';
+		break;
+	default:
+		$xmlsource = '';
+}
 
 //==========[ OTHER SETTINGS ]=========================================================
 
@@ -69,7 +94,7 @@ $font_path = ROSTER_BASE . 'fonts' . DIR_SEP;
 #--[ MYSQL CONNECT AND STORE ]=========================================================
 
 // Read info from Database
-$querystr = "SELECT * FROM `" . $roster->db->table('realmstatus') . "` WHERE `server_name` = '" . $roster->db->escape($realmname) . "';";
+$querystr = "SELECT * FROM `" . $roster->db->table('realmstatus') . "` WHERE `server_region` = '" . $roster->db->escape($region) . "' AND `server_name` = '" . $roster->db->escape($realmname) . "';";
 $sql = $roster->db->query($querystr);
 if( $sql && $roster->db->num_rows($sql) > 0 )
 {
@@ -78,6 +103,7 @@ if( $sql && $roster->db->num_rows($sql) > 0 )
 else
 {
 	$realmData['server_name'] = '';
+	$realmData['server_region'] = '';
 	$realmData['servertype'] = '';
 	$realmData['serverstatus'] = '';
 	$realmData['serverpop'] = '';
@@ -91,21 +117,21 @@ $current_time = date('i')*1;
 
 if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $current_time < $realmData['timestamp'] )
 {
-	$xml = urlgrabber($roster->config['realmstatus_url']);
+	$xmlsource = urlgrabber($xmlsource);
 
-	$xmldoc =& new MiniXMLDoc($xml);
-	$xmlarray = $xmldoc->toArray($xmldoc);
+	$xmldoc =& new MiniXMLDoc($xmlsource);
+	$xmlarray = $xmldoc->toArray();
 
 	$err = 1;
-	if( $xml != FALSE )
+	if( $xmlsource != false )
 	{
-		foreach( $xmlarray['rs']['r'] as $key => $value )
+		foreach( $xmlarray[$xmlmeta['rootxml']][$xmlmeta['realms']] as $key => $value )
 		{
 			$xml_server = $value['_attributes'];
-			if( $xml_server['n'] == $realmname )
+			if( $xml_server[$xmlmeta['name']] == $realmname )
 			{
 				$err = 0;
-				switch( strtoupper($xml_server['s']) )
+				switch( strtoupper($xml_server[$xmlmeta['status']]) )
 				{
 					case '0':
 					case 'DOWN':
@@ -125,7 +151,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 					default:
 						$realmData['serverstatus'] = 'UNKNOWN';
 				}
-				switch( strtoupper($xml_server['t']) )
+				switch( strtoupper($xml_server[$xmlmeta['type']]) )
 				{
 					case '0':
 					case 'RPPVP':
@@ -151,7 +177,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 					default:
 						$realmData['servertype'] = 'UNKNOWN';
 				}
-				switch( strtoupper($xml_server['l']) )
+				switch( strtoupper($xml_server[$xmlmeta['pop']]) )
 				{
 					case '1':
 					case 'LOW':
@@ -197,6 +223,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 		else
 		{
 			$values['server_name'] = $realmname;
+			$values['server_region'] = $region;
 			$querystr = "INSERT INTO `" . $roster->db->table('realmstatus') . "` SET " . $roster->db->build_query('UPDATE',$values) . ";";
 			$realmData['server_name'] = $realmname;
 		}
@@ -264,12 +291,12 @@ function text_output( $realmData )
 	$outtext = '
 <!-- Begin Realmstatus -->
 <div style="width:88px;font-family:arial;font-weight:bold;">
-	<div style="width:88px;height:41px;background-image:url(' . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '.png);"></div>';
+	<div style="width:88px;height:41px;background-image:url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '.png);"></div>';
 
 	if ($roster->config['rs_display'] == 'full')
 	{
 		$outtext .= '
-	<div style="vertical-align:middle;text-align:center;width:88px;height:54px;background-image:url(' . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '2.png);">
+	<div style="vertical-align:middle;text-align:center;width:88px;height:54px;background-image:url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '2.png);">
 		<div style="padding-top:7px;color:' . $roster->config['rs_color_server'] . ';font-size:10px;">' . $realmData['server_name'] . '</div>
 		<div style="color:' . $realmData['serverpopcolor'] . ';font-size:12px;">' . $realmData['serverpop'] . '</div>
 		<div style="color:' . $realmData['servertypecolor'] . ';font-size:9px;">' . $realmData['servertype'] . '</div>

@@ -713,10 +713,8 @@ $lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para d
 $lang['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
 // realmstatus_conf
-$lang['admin']['realmstatus_url'] = "Estado real del reino URL|URL a la p&aacute;gina de Blizzard's Realmstatus ";
 $lang['admin']['rs_display'] = "Mostrar Informaci&oacute;n|&quot;lleno&quot; mostrar&aacute; el estado y el nombre del servidor, poblaci&oacute;n y tipo<br>&quot;medio&quot; mostrar&aacute; el estado del reino";
 $lang['admin']['rs_mode'] = "Modo de mostrar|Como aparecer&aacute; el EstadoReino<br><br>&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br>&quot;Imagen&quot; - Muestra el ReinoEstado como una imagen (REQUERIDO GD!)";
-$lang['admin']['realmstatus'] = "Nombre alternativo del reino|Algunos nombres de los servidores no permiten al ReinoEstado funcionar correctamente<br>A veces el nombre del servidor no es encontrado en la base de datos de la p&aacute;gina de EstadoReino<br>Puedes activar esta opci&oacute;n y as&iacute utilizar otro nombre para tu servidor<br><br>D&eacutejalo en blanco para utilizar el nombre elegido en la configuraci&oacute;n de la hermandad";
 $lang['admin']['rs_timer'] = "Refresh Timer|Set the timeout period for fetching new realmstatus data";
 $lang['admin']['rs_left'] = "Display|";
 $lang['admin']['rs_middle'] = "Type Display Settings|";

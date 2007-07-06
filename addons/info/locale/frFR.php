@@ -136,7 +136,7 @@ $lang['item_bonuses_full'] = 'Bonus dûs à l\'équipement';
 $lang['item_bonuses'] = 'Objets Bonus';
 
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
-$lang['admin']['char_bodyalign'] = "Alignement sur la page des personnages|Alignement des donnes sur la page des personnages";
+$lang['admin']['char_links'] = "Character Page Links|Display the character page quick links on each character page";
 $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
 $lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
