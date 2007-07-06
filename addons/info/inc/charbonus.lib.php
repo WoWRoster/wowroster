@@ -71,15 +71,11 @@ class CharBonus
 		$row = 0;
 		foreach( $this->my_bonus as $key => $value )
 		{
-			$bt .= '		<div class="membersRowRight'.(($row%2)+1).'" style="white-space:normal;" '.makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2).'>'.
-		str_replace('XX', $value, $key).'</div>
-';
+			$bt .= '		<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" ' . makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2) . '>'
+				 . str_replace('XX', $value, $key) . "</div>\n";
 		$row++;
 		}
-		$bt .= '
-		</div>
-	</div>
-</div>';
+		$bt .= "		</div>\n	</div>\n</div>";
 
 		if( !empty($this->my_bonus) )
 		{
@@ -148,7 +144,7 @@ class CharBonus
 	function getStartofModifierMana( $aString )
 	{
 		$startpos = 0;
-		while( (is_numeric($aString[$startpos])==FALSE) and ($startpos <> strlen($aString)) )
+		while( (is_numeric($aString[$startpos])==false) and ($startpos <> strlen($aString)) )
 		{
 			$startpos ++;
 		}
@@ -178,7 +174,7 @@ class CharBonus
 
 	function setBonus( $modifier, $string, $item_name, $item_color )
 	{
-		$full = '<span style="color:#'.$item_color.';">' . $item_name . '</span> : ' . $modifier;
+		$full = '<span style="color:#' . $item_color . ';">' . $item_name . '</span> : ' . $modifier;
 
 		if (array_key_exists($string, $this->my_bonus))
 		{

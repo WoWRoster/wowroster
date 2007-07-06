@@ -27,11 +27,9 @@ $start = (isset($_GET['start']) ? ( $_GET['start'] > 0 ? $_GET['start'] : 0 ) : 
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
-$roster->output['show_menu'] = array('main','char');
-
 // Set <html><title> and <form action=""> and $char_url
 $char_url = '&amp;member=' . $roster->data['member_id'];
-$char_url_old = '&amp;member=' . $roster->data['name'] . '@' . $roster->data['server'];
+$char_url_old = '&amp;member=' . $roster->data['name'] . '@' . $roster->data['region'] . '-' . $roster->data['server'];
 
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
@@ -63,11 +61,11 @@ foreach( $disp_array as $global_setting )
 
 
 $char_menu = '
-<div class="char_title">'.$roster->data['name'].' @ '.$roster->data['server'].(!empty($action) ? ' &gt; '.ucfirst($action) : '').'
-	<div class="lastupdated">'.$roster->locale->act['lastupdate'].': '.$roster->data['update_format'].'</div>
+<div class="char_title">' . $roster->data['name'] . ' @ '.$roster->data['region'] . '-'.$roster->data['server'] . (!empty($action) ? ' &gt; '.ucfirst($action) : '') . '
+	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $char->data['update_format'] . '</div>
 </div>';
 
 $char_menu .= '<br />'.messagebox(
-	makelink(ROSTER_PAGE_NAME.$char_url,true).'<br />'.
-	makelink(ROSTER_PAGE_NAME.$char_url_old,true)
-	,'','sgreen').'<br />';
+			makelink(ROSTER_PAGE_NAME . $char_url,true) . '<br />'
+			. makelink(ROSTER_PAGE_NAME . $char_url_old,true)
+			,'','sgreen').'<br />';

@@ -49,7 +49,7 @@ INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0',
 ### Guild Settings
 
 INSERT INTO `renprefix_config` VALUES (2000, 'default_name', 'WoWRoster', 'text{50|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'THE original Roster for World of Warvraft', 'text{255|30', 'guild_conf');
+INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'THE original Roster for World of Warcraft', 'text{255|30', 'guild_conf');
 INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'guild_conf');
 INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'guild_conf');
 

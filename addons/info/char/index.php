@@ -23,7 +23,7 @@ include( $addon['dir'] . 'inc/header.php' );
 
 $char_page .= $char->out();
 
-if( $addon['config']['show_item_bonuses'])
+if( $addon['config']['show_item_bonuses'] )
 {
 	$char_page .= "</td><td align=\"left\">\n";
 
