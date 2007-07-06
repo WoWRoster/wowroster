@@ -682,6 +682,31 @@ class update
 
 
 	/**
+	 * Verifies existance of variable before attempting add_value
+	 *
+	 * @param array $array
+	 * @param string $key
+	 * @param string $field
+	 * @param string $default
+	 * @return boolean
+	 */	
+	function add_ifvalue( $array, $key, $field, $default=false )
+	{
+		if(isset($array[$key]))
+		{
+			$this->add_value( $field, $array[$key] );
+			return true;
+		}
+		else {
+			if( $default !== false )
+			{
+				$this->add_value( $field, $default );
+			}
+			return false;
+		}
+	}
+	
+	/**
 	 * Add a gem to an INSERT or UPDATE SQL string
 	 * (clone of add_value method--this functions as a 2nd SQL insert placeholder)
 	 *
