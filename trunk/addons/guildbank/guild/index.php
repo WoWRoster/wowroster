@@ -70,7 +70,7 @@ $bank_menu .= "</tr>\n</table>\n";
 if( $addon['config']['bank_money'] )
 {
 	$mulemoney = $roster->db->fetch($roster->db->query(
-			   . "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper"
+			   "SELECT SUM( p.money_g ) AS gold, SUM( p.money_s ) AS silver, SUM( p.money_c ) as copper"
 			   . " FROM `" . $roster->db->table('players') . "` AS p, `" . $roster->db->table('members') . "` AS m"
 			   . " WHERE m." . $addon['config']['banker_fieldname'] . " LIKE '%" . $addon['config']['banker_rankname'] . "%'"
 			   . " AND p.member_id = m.member_id AND m.guild_id = " . $roster->data['guild_id']

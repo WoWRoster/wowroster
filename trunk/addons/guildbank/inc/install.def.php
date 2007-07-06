@@ -52,7 +52,7 @@ class guildbank
 		// Master and menu entries
 		$installer->add_config("'1','startpage','guildbank_conf','display','master'");
 		$installer->add_config("'110','guildbank_conf',NULL,'blockframe','menu'");
-		$installer->add_config("'1000', 'guildbank_ver', '', 'select{Table^|Inventory^2', 'guildbank_conf'");
+		$installer->add_config("'1000', 'guildbank_ver', '1', 'select{Table^1|Inventory^2', 'guildbank_conf'");
 		$installer->add_config("'1100', 'bank_money', '1', 'radio{yes^1|no^0', 'guildbank_conf'");
 		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
 		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
