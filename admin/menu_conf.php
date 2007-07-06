@@ -159,6 +159,11 @@ $menu .= '<br />'."\n";
 $menu .= messagebox('<div id="palet" style="width:'.(125*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
+	// Save current locale array
+	// Since we add all locales for button name localization, we save the current locale array
+	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+	$localestore = $roster->locale->wordings;
+
 	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 	{
 		// Include addon's locale files if they exist
@@ -181,11 +186,15 @@ foreach($palet as $id=>$button)
 		$button['tooltip'] = '';
 	}
 
-	$button['tooltip'] .= '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$button['titkey'].'</span></span>';
+	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' ) . '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br /><span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
-	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'',',WRAP');
+	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
 	$menu .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
+
+	// Restore our locale array
+	$roster->locale->wordings = $localestore;
+	unset($localestore);
 }
 $menu .= "<br />\n";
 
@@ -214,6 +223,11 @@ foreach($arrayButtons as $posX=>$column)
 {
 	foreach($column as $posY=>$button)
 	{
+		// Save current locale array
+		// Since we add all locales for button name localization, we save the current locale array
+		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+		$localestore = $roster->locale->wordings;
+
 		if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 		{
 			// Include addon's locale files if they exist
@@ -236,11 +250,15 @@ foreach($arrayButtons as $posX=>$column)
 			$button['tooltip'] = '';
 		}
 
-		$button['tooltip'] .= '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$button['titkey'].'</span></span>';
+		$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' ) . '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br /><span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
-		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'',',WRAP');
+		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
 		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
+
+		// Restore our locale array
+		$roster->locale->wordings = $localestore;
+		unset($localestore);
 	}
 }
 

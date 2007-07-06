@@ -433,9 +433,9 @@ class update
 						 * the upload.
 						 */
 
-						if($roster->db->query_first($query) !== "0")
+						if( $roster->db->query_first($query) !== '0' )
 						{
-							$output .= "Guild ".$guild_name."@".$region.'-'.$realm_name." not accepted<br/>\n";
+							$output .= "Guild " . $guild_name . '@' . $region . '-' . $realm_name . " not accepted<br />\n";
 							continue;
 						}
 
@@ -667,14 +667,17 @@ class update
 	function add_value( $row_name , $row_data )
 	{
 		global $roster;
-	
+
 		if( $this->assignstr != '' )
+		{
 			$this->assignstr .= ',';
+		}
 
 		$row_data = "'" . $roster->db->escape( $row_data ) . "'";
 
 		$this->assignstr .= " `$row_name` = $row_data";
 	}
+
 
 	/**
 	 * Add a gem to an INSERT or UPDATE SQL string
@@ -683,12 +686,14 @@ class update
 	 * @param string $row_name
 	 * @param string $row_data
 	 */
-	function add_gem( $row_name, $row_data )
+	function add_gem( $row_name , $row_data )
 	{
 		global $roster;
 
 		if( $this->assigngem != '' )
-		$this->assigngem .= ',';
+		{
+			$this->assigngem .= ',';
+		}
 
 		$row_data = "'" . $roster->db->escape( $row_data ) . "'";
 
@@ -760,11 +765,11 @@ class update
 
 		if( is_array( $tipdata ) )
 		{
-			$tooltip = implode("\n",$tipdata);
+			$tooltip = stripslashes(implode("\n",$tipdata));
 		}
 		else
 		{
-			$tooltip = str_replace('<br>',"\n",$tipdata);;
+			$tooltip = stripslashes(str_replace('<br>',"\n",$tipdata));
 		}
 		return $tooltip;
 	}
@@ -791,7 +796,9 @@ class update
 		$this->add_value('item_tooltip', $item['item_tooltip'] );
 
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
+		{
 			$this->add_value('level',$level[1]);
+		}
 
 		$this->add_value('item_quantity', $item['item_quantity'] );
 
@@ -1112,7 +1119,7 @@ class update
 		{
 			foreach( $gemtt as $line )
 			{
-				$line = preg_replace('/\|c[a-f0-9]{2}[a-f0-9]{6}(.+?)\|r/i','$1',$line); //CP error? strip out color
+				$line = preg_replace('/\|c[a-f0-9]{2}[a-f0-9]{6}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
 				if( eregi( '\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or the word Chance assume it's bonus line.
 				{
@@ -1125,11 +1132,17 @@ class update
 				elseif( preg_match( $roster->locale->act['gem_preg_multicolor'], $line, $colors ) )
 				{
 					if( $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['red'] )
-					$gem_color = 'purple';
+					{
+						$gem_color = 'purple';
+					}
 					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['red'] || $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
-					$gem_color = 'orange';
+					{
+						$gem_color = 'orange';
+					}
 					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
-					$gem_color = 'green';
+					{
+						$gem_color = 'green';
+					}
 				}
 				elseif( preg_match( $roster->locale->act['gem_preg_singlecolor'], $line, $color ) )
 				{
@@ -2518,9 +2531,8 @@ class update
 		global $roster;
 
 		$name_escape = $roster->db->escape( $name );
-		$server_escape = $roster->db->escape( $server );
 
-		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId';";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2538,58 +2550,58 @@ class update
 
 		$this->reset_values();
 
-		$this->add_value( 'name', $name_escape);
-		$this->add_value( 'server', $server_escape);
-		$this->add_value( 'region', $region);
-		$this->add_value( 'class', $char['Class']);
-		$this->add_value( 'level', $char['Level']);
+		$this->add_value('name', $name);
+		$this->add_value('server', $server);
+		$this->add_value('region', $region);
+		$this->add_value('class', $char['Class']);
+		$this->add_value('level', $char['Level']);
 		if( isset($char['Note']) )
 		{
-			$this->add_value( 'note', $char['Note']);
+			$this->add_value('note', $char['Note']);
 		}
 		else
 		{
-			$this->add_value( 'note', '');
+			$this->add_value('note', '');
 		}
-		$this->add_value( 'guild_rank', $char['Rank']);
-		$this->add_value( 'guild_title', $guildRanks[$char['Rank']]['Title']);
+		$this->add_value('guild_rank', $char['Rank']);
+		$this->add_value('guild_title', $guildRanks[$char['Rank']]['Title']);
 		if( isset($char['OfficerNote']) )
 		{
-			$this->add_value( 'officer_note', $char['OfficerNote']);
+			$this->add_value('officer_note', $char['OfficerNote']);
 		}
 		else
 		{
-			$this->add_value( 'officer_note', '');
+			$this->add_value('officer_note', '');
 		}
 
 		if( isset($char['Zone']) )
 		{
-			$this->add_value( 'zone', $char['Zone']);
+			$this->add_value('zone', $char['Zone']);
 		}
 		else
 		{
-			$this->add_value( 'zone', '');
+			$this->add_value('zone', '');
 		}
 
 		if( isset($char['Status']) )
 		{
-			$this->add_value( 'status', $char['Status']);
+			$this->add_value('status', $char['Status']);
 		}
 		else
 		{
-			$this->add_value( 'status', '');
+			$this->add_value('status', '');
 		}
 
-		$this->add_value( 'active', '1');
+		$this->add_value('active', '1');
 
 		if( isset($char['Online']) && $char['Online'] == '1' )
 		{
-			$this->add_value( 'online', 1 );
+			$this->add_value('online', 1);
 			$this->add_time('last_online', getDate($currentTimestamp));
 		}
 		else
 		{
-			$this->add_value( 'online', 0 );
+			$this->add_value('online', 0);
 			list($lastOnlineYears,$lastOnlineMonths,$lastOnlineDays,$lastOnlineHours) = explode(':',$char['LastOnline']);
 
 			# use strtotime instead
@@ -2618,7 +2630,7 @@ class update
 
 		if( isset($memberId) )
 		{
-			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId'";
+			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId';";
 			$this->setMessage('<li>[ ' . $name . ' ]</li>');
 			$this->membersupdated++;
 
@@ -2637,13 +2649,13 @@ class update
 				$this->add_value( 'guild_id', $guildId);
 			}
 
-			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr;
+			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr . ';';
 			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
-				$this->setError($name_escape . ' could not be inserted',$roster->db->error());
+				$this->setError($name . ' could not be inserted',$roster->db->error());
 				return false;
 			}
 
@@ -2854,7 +2866,7 @@ class update
 
 		$name_escape = $roster->db->escape( $name );
 
-		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId';";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2875,7 +2887,7 @@ class update
 		}
 
 		// update level in members table
-		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `level` = '" . $data['Level'] . "' WHERE `member_id` = '$memberId' LIMIT 1 ";
+		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `level` = '" . $data['Level'] . "' WHERE `member_id` = '$memberId' LIMIT 1;";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -3172,7 +3184,7 @@ class update
 			$this->add_value( 'spell_damage', $spell['BonusDamage']);
 			if(isset($spell['BonusHealing']))
 			$this->add_value( 'spell_healing', $spell['BonusHealing']);
-			
+
 			if(isset($spell['SchoolCrit'])){
 				if(isset($spell['SchoolCrit']['Holy']))
 				$this->add_value( 'spell_crit_chance_holy', $spell['SchoolCrit']['Holy']);
