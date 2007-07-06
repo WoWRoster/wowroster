@@ -690,8 +690,12 @@ class update
 	 * @param string $default
 	 * @return boolean
 	 */	
-	function add_ifvalue( $array, $key, $field, $default=false )
+	function add_ifvalue( $array, $key, $field=false, $default=false )
 	{
+		if( $field === false )
+		{
+			$field = $key;
+		}
 		if(isset($array[$key]))
 		{
 			$this->add_value( $field, $array[$key] );
@@ -813,21 +817,21 @@ class update
 		global $roster;
 
 		$this->reset_values();
-		$this->add_value('member_id', $item['member_id'] );
-		$this->add_value('item_name', $item['item_name'] );
-		$this->add_value('item_parent', $item['item_parent'] );
-		$this->add_value('item_slot', $item['item_slot'] );
-		$this->add_value('item_color', $item['item_color'] );
-		$this->add_value('item_id', $item['item_id'] );
-		$this->add_value('item_texture', $item['item_texture'] );
-		$this->add_value('item_tooltip', $item['item_tooltip'] );
+		$this->add_ifvalue( $item, 'member_id' );
+		$this->add_ifvalue( $item, 'item_name' );
+		$this->add_ifvalue( $item, 'item_parent' );
+		$this->add_ifvalue( $item, 'item_slot' );
+		$this->add_ifvalue( $item, 'item_color' );
+		$this->add_ifvalue( $item, 'item_id' );
+		$this->add_ifvalue( $item, 'item_texture' );
+		$this->add_ifvalue( $item, 'item_tooltip' );
 
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 		{
 			$this->add_value('level',$level[1]);
 		}
 
-		$this->add_value('item_quantity', $item['item_quantity'] );
+		$this->add_ifvalue( $item, 'item_quantity' );
 
 		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
@@ -879,20 +883,18 @@ class update
 		global $roster;
 
 		$this->reset_values();
-		$this->add_value('member_id', $mail['member_id'] );
-		$this->add_value('mailbox_slot', $mail['mail_slot'] );
-		$this->add_value('mailbox_coin', $mail['mail_coin'] );
-		$this->add_value('mailbox_coin_icon', $mail['mail_coin_icon'] );
-		$this->add_value('mailbox_days', $mail['mail_days'] );
-		$this->add_value('mailbox_sender', $mail['mail_sender'] );
-		$this->add_value('mailbox_subject', $mail['mail_subject'] );
-		$this->add_value('item_icon', $mail['item_icon'] );
-		$this->add_value('item_name', $mail['item_name'] );
-		$this->add_value('item_tooltip', $mail['item_tooltip'] );
-		$this->add_value('item_color', $mail['item_color'] );
-
-		if( isset( $mail['item_quantity'] ) )
-			$this->add_value('item_quantity', $mail['item_quantity'] );
+		$this->add_ifvalue( $mail, 'member_id' );
+		$this->add_ifvalue( $mail, 'mail_slot', 'mailbox_slot' );
+		$this->add_ifvalue( $mail, 'mail_coin', 'mailbox_coin' );
+		$this->add_ifvalue( $mail, 'mail_coin_icon', 'mailbox_coin_icon' );
+		$this->add_ifvalue( $mail, 'mail_days', 'mailbox_days' );
+		$this->add_ifvalue( $mail, 'mail_sender', 'mailbox_sender' );
+		$this->add_ifvalue( $mail, 'mail_subject', 'mailbox_subject' );
+		$this->add_ifvalue( $mail, 'item_icon' );
+		$this->add_ifvalue( $mail, 'item_name' );
+		$this->add_ifvalue( $mail, 'item_tooltip' );
+		$this->add_ifvalue( $mail, 'item_color' );
+		$this->add_ifvalue( $mail, 'item_quantity' );
 
 		$querystr = "INSERT INTO `" . $roster->db->table('mailbox') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
@@ -913,13 +915,13 @@ class update
 		global $roster;
 
 		$this->reset_values();
-		$this->add_value('member_id', $quest['member_id'] );
-		$this->add_value('quest_name', $quest['quest_name'] );
-		$this->add_value('quest_index', $quest['quest_index'] );
-		$this->add_value('quest_level', $quest['quest_level'] );
-		$this->add_value('zone', $quest['zone'] );
-		$this->add_value('quest_tag', $quest['quest_tag'] );
-		$this->add_value('is_complete', $quest['is_complete'] );
+		$this->add_ifvalue( $quest, 'member_id' );
+		$this->add_ifvalue( $quest, 'quest_name' );
+		$this->add_ifvalue( $quest, 'quest_index' );
+		$this->add_ifvalue( $quest, 'quest_level' );
+		$this->add_ifvalue( $quest, 'zone' );
+		$this->add_ifvalue( $quest, 'quest_tag' );
+		$this->add_ifvalue( $quest, 'is_complete' );
 
 		$querystr = "INSERT INTO `" . $roster->db->table('quests') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
