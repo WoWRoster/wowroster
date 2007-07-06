@@ -30,24 +30,24 @@ $char_data = getCharData();
 // Build the character display control
 if( is_array($char_data) )
 {
-	$body = "<div id=\"char_disp\">\n".border('syellow','start',$roster->locale->act['admin']['per_character_display'])."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$body = "<div id=\"char_disp\">\n" . border('syellow','start',$roster->locale->act['admin']['per_character_display']) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	$body .= '
 <tr>
-	<th class="membersHeader">'.$roster->locale->act['name'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['money'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['tab2'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['tab3'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['tab4'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['tab5'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['talents'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['spellbook'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['mailbox'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['bags'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['bank'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['quests'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['recipes'].'</th>
-	<th class="membersHeader">'.$roster->locale->act['item_bonuses'].'</th>
+	<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['money'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['tab2'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['tab3'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['tab4'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['tab5'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['talents'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['spellbook'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['mailbox'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['bags'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['bank'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['quests'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['recipes'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['item_bonuses'] . '</th>
 </tr>
 ';
 
@@ -56,16 +56,16 @@ if( is_array($char_data) )
 	{
 		$body .= '
 <tr>
-	<td class="membersRow'.(($i%2)+1).'"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">'.$name.'</a><br />
+	<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">' . $name . '</a><br />
 		' . $data['level'] . ':' . $data['class'] . '</td>';
 
 		$k=0;
 		foreach( $data['values'] as $val_name => $value )
 		{
 			$body .= '
-	<td class="membersRow'.(($i%2)+1).'">';
-			$body .= '<input type="radio" id="chard_f'.$k.'_'.$data['member_id'].'" name="disp_'.$data['member_id'].':'.$val_name.'" value="1" '.( $value == '1' ? 'checked="checked"' : '' ).' /><label for="chard_f'.$k.'_'.$data['member_id'].'">off</label><br />'."\n";
-			$body .= '<input type="radio" id="chard_n'.$k.'_'.$data['member_id'].'" name="disp_'.$data['member_id'].':'.$val_name.'" value="3" '.( $value == '3' ? 'checked="checked"' : '' ).' /><label for="chard_n'.$k.'_'.$data['member_id'].'">on</label>'."\n";
+	<td class="membersRow' . (($i%2)+1) . '">';
+			$body .= '<input type="radio" id="chard_f' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['member_id'] . '">off</label><br />' . "\n";
+			$body .= '<input type="radio" id="chard_n' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="3" ' . ( $value == '3' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['member_id'] . '">on</label>' . "\n";
 			$body .= '</td>';
 
 			$k++;
@@ -73,7 +73,7 @@ if( is_array($char_data) )
 		$body .= '</tr>';
 		$i++;
 	}
-	$body .= "</table>\n".border('syellow','end')."\n</div>\n";
+	$body .= "</table>\n" . border('syellow','end') . "\n</div>\n";
 }
 else
 {
@@ -82,9 +82,9 @@ else
 
 $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$body = $roster_login->getMessage()."<br />
-<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."');submitonce(this);\">
-<input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
+$body = $roster_login->getMessage() . "<br />
+<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "');submitonce(this);\">
+<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
 	$body
 </form>";
 
@@ -98,26 +98,18 @@ function getCharData( )
 {
 	global $roster;
 
-	$sql = "SELECT ".
-		"`member_id`, ".
-		"`name`, ".
-		"`level`, ".
-		"`class`, ".
-		"`show_money`, ".
-		"`show_tab2`, ".
-		"`show_tab3`, ".
-		"`show_tab4`, ".
-		"`show_tab5`, ".
-		"`show_talents`, ".
-		"`show_spellbook`, ".
-		"`show_mail`, ".
-		"`show_bags`, ".
-		"`show_bank`, ".
-		"`show_quests`, ".
-		"`show_recipes`, ".
-		"`show_item_bonuses` ".
-		"FROM `".$roster->db->table('players')."` ".
-		"ORDER BY `name` ASC;";
+	$sql = "SELECT "
+		 . " `member_id`, `name`,"
+		 . " `level`, `class`,"
+		 . " `show_money`, `show_tab2`,"
+		 . " `show_tab3`, `show_tab4`,"
+		 . " `show_tab5`, `show_talents`,"
+		 . " `show_spellbook`, `show_mail`,"
+		 . " `show_bags`, `show_bank`,"
+		 . " `show_quests`, `show_recipes`,"
+		 . " `show_item_bonuses`"
+		 . " FROM `" . $roster->db->table('players') . "`"
+		 . " ORDER BY `name` ASC;";
 
 	// Get the current config values
 	$results = $roster->db->query($sql);
@@ -168,14 +160,19 @@ function processData( )
 
 			list($member_id,$settingName) = explode(':',$settingName);
 
-			$get_val = "SELECT `$settingName` FROM `".$roster->db->table('players')."` WHERE `member_id` = '$member_id';";
+			$get_val = "SELECT `$settingName`"
+					 . " FROM `" . $roster->db->table('players') . "`"
+					 . " WHERE `member_id` = '$member_id';";
+
 			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 
 			$config = $roster->db->fetch($result);
 
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
-				$update_sql[] = "UPDATE `".$roster->db->table('players')."` SET `$settingName` = '".$roster->db->escape( $settingValue )."' WHERE `member_id` = '$member_id';";
+				$update_sql[] = "UPDATE `" . $roster->db->table('players') . "`"
+							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
+							  . " WHERE `member_id` = '$member_id';";
 			}
 		}
 	}
@@ -188,7 +185,7 @@ function processData( )
 			$result = $roster->db->query($sql);
 			if( !$result )
 			{
-				return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>'.$roster->db->error().'</pre><br />';
+				return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
 			}
 		}
 		return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span>';

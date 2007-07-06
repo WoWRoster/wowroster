@@ -31,8 +31,6 @@ $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 // Include character class file
 require_once ($addon['dir'] . 'inc/char.lib.php');
 
-$roster->output['show_menu'] = array('main','char');
-
 // Get Character Info
 $char = new char($roster->data);
 
@@ -90,8 +88,8 @@ $char_menu = '
 if( $addon['config']['char_links'] )
 {
 	$char_menu .= '<br />'.messagebox(
-				makelink(ROSTER_PAGE_NAME.$char_url,true) . '<br />'
-				. makelink(ROSTER_PAGE_NAME.$char_url_old,true)
+				makelink(ROSTER_PAGE_NAME . $char_url,true) . '<br />'
+				. makelink(ROSTER_PAGE_NAME . $char_url_old,true)
 				,'','sgreen');
 }
 

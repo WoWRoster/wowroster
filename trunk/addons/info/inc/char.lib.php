@@ -98,10 +98,10 @@ class char
 				$return_string .= '				<div class="buff"><img class="icon" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '" ' . $tooltip . ' alt="" />';
 				if( ($row['count'] > 1) )
 				{
-					$return_string .= '<b>'.$row['count'].'</b>';
-					$return_string .= '<span>'.$row['count'].'</span>';
+					$return_string .= '<b>' . $row['count'] . '</b>';
+					$return_string .= '<span>' . $row['count'] . '</span>';
 				}
-				$return_string .= '</div>' . "\n";
+				$return_string .= "</div>\n";
 			}
 			$return_string .= "			\n		</div>\n";
 		}

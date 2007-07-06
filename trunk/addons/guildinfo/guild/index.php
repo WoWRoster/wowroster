@@ -21,7 +21,7 @@ if( !defined('ROSTER_INSTALLED') )
 
 $roster->output['title'] = $roster->locale->act['guildinfo'];
 
-$guild_info_text = empty($roster->data['guild_info_text'])?'&nbsp;':$roster->data['guild_info_text'];
+$guild_info_text = empty($roster->data['guild_info_text']) ? '&nbsp;' : $roster->data['guild_info_text'];
 
-print messagebox('<div class="GuildInfoText">'.nl2br($guild_info_text).'</div>',$roster->locale->act['guildinfo'],'syellow');
+print messagebox('<div class="GuildInfoText">' . nl2br($guild_info_text) . '</div>',$roster->locale->act['guildinfo'],'syellow');
 
