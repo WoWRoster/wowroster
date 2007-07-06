@@ -435,6 +435,11 @@ class RosterMenu
 	{
 		global $roster;
 
+		// Save current locale array
+		// Since we add all locales for button name localization, we save the current locale array
+		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+		$localestore = $roster->locale->wordings;
+
 		if (is_array($sections))
 		{
 			$section = "'".implode("','",$sections)."'";
@@ -563,6 +568,10 @@ class RosterMenu
 		}
 		$html .= "      </table>\n";
 		$html .= "    </td>\n";
+
+		// Restore our locale array
+		$roster->locale->wordings = $localestore;
+		unset($localestore);
 
 		return $html;
 	}
