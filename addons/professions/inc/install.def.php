@@ -57,7 +57,7 @@ class professions
 		$installer->add_config("'1010','show_new_skills','0','radio{No^0|Yes^1','professions_conf'");
 		$installer->add_config("'1020','collapse_list','0','radio{Show^0|Hide^1','professions_conf'");
 
-		$installer->add_menu_button('professions_menu','guild','');
+		$installer->add_menu_button('professions_menu','guild');
 		return true;
 	}
 
