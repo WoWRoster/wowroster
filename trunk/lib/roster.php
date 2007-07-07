@@ -31,7 +31,6 @@ class roster
 	var $data = false; // scope data
 	var $addon_data;
 	var $error; // Error handler class
-	var $menu_select = array(); // Menu Select data
 
 	var $output = array(
 		'http_header' => true,
@@ -217,24 +216,6 @@ class roster
 
 				$this->db->free_result($result);
 
-
-				// Get the scope select data
-				$query = "SELECT `name`, `member_id`"
-					   . " FROM `" . $this->db->table('players') . "`"
-					   . " WHERE `guild_id` = '" . $this->data['guild_id'] . "'"
-					   . " ORDER BY `name` ASC;";
-
-				$result = $this->db->query($query);
-
-				if( !$result )
-				{
-					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
-				}
-
-				$this->menu_select = $this->db->fetch_all($result,SQL_NUM);
-
-				$this->db->free_result($result);
-
 				break;
 
 			case 'guild':
@@ -297,22 +278,6 @@ class roster
 
 				$this->db->free_result($result);
 
-
-				// Get the scope select data
-				$query = "SELECT CONCAT(`guild_name`,'@',`server`), `guild_id` FROM `" . $this->db->table('guild') . "`"
-					   . " ORDER BY `guild_name` ASC;";
-
-				$result = $this->db->query($query);
-
-				if( !$result )
-				{
-					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
-				}
-
-				$this->menu_select = $this->db->fetch_all($result,SQL_NUM);
-
-				$this->db->free_result($result);
-
 				break;
 
 			case 'realm':
@@ -361,23 +326,6 @@ class roster
 				{
 					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
-
-				// Get the scope select data
-				$query = "SELECT DISTINCT `server`, `region`"
-					   . " FROM `" . $this->db->table('guild') . "`"
-					   . " UNION SELECT DISTINCT `server`, `region` FROM `" . $this->db->table('players') . "`"
-					   . " ORDER BY `server` ASC;";
-
-				$result = $this->db->query($query);
-
-				if( !$result )
-				{
-					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
-				}
-
-				$this->menu_select = $this->db->fetch_all($result,SQL_NUM);
-
-				$this->db->free_result($result);
 
 				break;
 

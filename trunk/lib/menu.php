@@ -59,7 +59,7 @@ class RosterMenu
 		// Lets make a list of our current locales
 		if( $roster->config['menu_top_locale'] )
 		{
-			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post">
+			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post" style="margin:0;">
 		' . $roster->locale->act['language'] . ':
 		<select name="locale" onchange="document.locale_select.submit();">
 ';
@@ -73,42 +73,48 @@ class RosterMenu
 		// If we have a guild id, make the guild list
 		if( $roster->config['menu_top_list'] )
 		{
-			$label = $choices = '';
-			switch ($roster->pages[0])
+			// Get the scope select data
+			$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
+				   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+
+			$result = $roster->db->query($query);
+
+			if( !$result )
 			{
-				case 'char':
-					$label = 'character';
-					foreach( $roster->menu_select as $db => $data )
-					{
-						$choices .= '		<option value="' . makelink('&amp;member=' . $data[1]) . '"' . ( $data[1] == $roster->data['member_id'] ? ' selected="selected"' : '' ) . '>' . $data[0] . "</option>\n";
-					}
-					break;
-
-				case 'guild':
-					$label = 'guild';
-					foreach( $roster->menu_select as $db => $data )
-					{
-						$choices .= '		<option value="' . makelink('&amp;guild=' . $data[1]) . '"' . ( $data[1] == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $data[0] . "</option>\n";
-					}
-					break;
-
-				case 'guildless':
-				case 'realm':
-					$label = 'realm';
-					foreach( $roster->menu_select as $db => $data )
-					{
-						$choices .= '		<option value="' . makelink('&amp;realm=' . $data[0]) . '"' . ( $data[0] == $roster->data['server'] ? ' selected="selected"' : '' ) . '>' . $data[0] . "</option>\n";
-					}
-					break;
+				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
 			}
 
-			if( !empty($label) )
+			if( $roster->db->num_rows() )
 			{
-				$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post">
-';
-				$choiceForm .= $roster->locale->act[$label] . ':'
-							 . '			<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">'
-							 . $choices . "\t\t</select>\n\t</form>";
+				$menu_select = array();
+				while( $data = $roster->db->fetch($result,SQL_NUM) )
+				{
+					$menu_select[$data[1]][$data[2]] = $data[0];
+				}
+
+				$roster->db->free_result($result);
+
+				$label = 'guild';
+				$choices = '';
+				foreach( $menu_select as $realm => $guild )
+				{
+					if( count($menu_select) > 1 )
+					{
+						$choices .= '		<option value="" disabled="disabled">' . $realm . "</option>\n";
+					}
+					foreach( $guild as $id => $name )
+					{
+						$choices .= '		<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>&nbsp;&nbsp;&nbsp;' . $name . "</option>\n";
+					}
+				}
+
+				if( !empty($choices) )
+				{
+					$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post" style="margin:0;">' . "\n";
+					$choiceForm .= $roster->locale->act[$label] . ':'
+								 . '			<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">'
+								 . $choices . "\t\t</select>\n\t</form>";
+				}
 			}
 		}
 
@@ -327,9 +333,8 @@ class RosterMenu
 			return '';
 		}
 
-		$output = '	<td valign="top" class="row">
-	      Total: ' . $num_non_alts . ' (+' . $num_alts . ' Alts)' . ($level>0 ? ' Above L' . $level : '').'
-			<br />';
+		$text = 'Total: ' . $num_non_alts . ' (+' . $num_alts . ' Alts)' . ($level>0 ? ' Above L' . $level : '');
+		$output = '	<td valign="top" align="left" class="row">';
 
 		if( $style == 'bar' )
 		{
@@ -373,7 +378,7 @@ class RosterMenu
 			}
 			$output .= '</ul>';
 		}
-		$output .= "</td>\n";
+		$output .= "<br />$text</td>\n";
 
 		return $output;
 	}
