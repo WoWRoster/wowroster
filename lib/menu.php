@@ -141,7 +141,13 @@ class RosterMenu
 
 				foreach( $guild as $id => $name )
 				{
-					$choices .= '			<option value="' . makelink($page . '&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
+					if(isset($roster->data['guild_id']))
+					{
+						$choices .= '			<option value="' . makelink($page . '&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
+					}
+					else {
+						$choices .= '			<option value="' . makelink($page . '&amp;guild=' . $id) . '">' . $name . "</option>\n";
+					}
 				}
 
 				$choices .= ( count($menu_select) > 1 ? "		</optgroup>\n" : '' );
