@@ -144,7 +144,7 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . '","' . $url . "','" . $icon . "');";
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . "','" . $url . "','" . $icon . "');";
 	}
 
 	/**
