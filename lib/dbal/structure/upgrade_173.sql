@@ -580,6 +580,7 @@ CREATE TABLE `renprefix_menu_button` (
 	`button_id` int(11) AUTO_INCREMENT,
 	`addon_id` int(11) NOT NULL COMMENT '0 for main roster',
 	`title` varchar(32),
+	`scope` varchar(16),
 	`url` varchar(128),
 	`icon` varchar(64) NOT NULL DEFAULT '',
 	PRIMARY KEY (`button_id`),
@@ -616,7 +617,7 @@ CREATE TABLE `renprefix_upload` (
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'main', 'b1|b2|b3|b4');
+INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1|b2|b3|b4');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
 INSERT INTO `renprefix_menu` VALUES (3, 'guildless', '');
 INSERT INTO `renprefix_menu` VALUES (4, 'guild', '');
@@ -624,10 +625,10 @@ INSERT INTO `renprefix_menu` VALUES (5, 'char', '');
 
 # --------------------------------------------------------
 ### Menu Button entries
-INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_upprofile', 'update', 'inv_banner_01');
-INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_search', 'search', 'inv_misc_spyglass_02');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_roster_cp', 'rostercp', 'inv_misc_gear_02');
-INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'menu_credits', 'credits', 'inv_egg_05');
+INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_upprofile', NULL, 'update', 'inv_banner_01');
+INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_search', NULL, 'search', 'inv_misc_spyglass_02');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_roster_cp', NULL, 'rostercp', 'inv_misc_gear_02');
+INSERT INTO `renprefix_menu_button` VALUES (4, 0, 'menu_credits', NULL, 'credits', 'inv_egg_05');
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last

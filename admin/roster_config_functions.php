@@ -81,6 +81,12 @@ function pageNames( )
 		}
 
 		list($title) = explode('|',isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title']);
+
+		if( $row['addon_id'] != 0 )
+		{
+			$row['url'] = $row['scope'] . '-' . $row['basename'] . (empty($row['url']) ? '' : '-' . $row['url']);
+		}
+
 		if( $row['url'] == $roster->config['default_page'] && $select_one )
 		{
 			$input_field .= '  <option value="' . $row['url'] . '" selected="selected">-[ ' . $title . ' ]-</option>' . "\n";
