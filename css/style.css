@@ -219,10 +219,10 @@ select {
 
 /* Header Backgrounds */
 
-.menu_bg_01 { background: url(menu_btn_guild.png) no-repeat left center; }
-.menu_bg_02 { background: url(menu_btn_search.png) no-repeat left center; }
-.menu_bg_03 { background: url(menu_btn_update.png) no-repeat left center; }
-.menu_bg_04 { background: url(menu_btn_utilities.png) no-repeat left center; }
+.menu_bg_01 { background: url(../img/menu/menu_btn_guild.png) no-repeat left center; }
+.menu_bg_02 { background: url(../img/menu/menu_btn_search.png) no-repeat left center; }
+.menu_bg_03 { background: url(../img/menu/menu_btn_update.png) no-repeat left center; }
+.menu_bg_04 { background: url(../img/menu/menu_btn_utilities.png) no-repeat left center; }
 
 /* Main Header Block */
 
