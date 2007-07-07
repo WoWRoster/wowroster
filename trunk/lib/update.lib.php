@@ -3093,84 +3093,72 @@ class update
 			$this->add_value( 'mana_regen_cast', $cast);
 			unset($not_cast, $cast);
 
-			if(isset($spell['Penetration']))
-			$this->add_value( 'spell_penetration', $spell['Penetration']);
-			if(isset($spell['BonusDamage']))
-			$this->add_value( 'spell_damage', $spell['BonusDamage']);
-			if(isset($spell['BonusHealing']))
-			$this->add_value( 'spell_healing', $spell['BonusHealing']);
-
+			$this->add_ifvalue( $spell, 'Penetration', 'spell_penetration' );
+			$this->add_ifvalue( $spell, 'BonusDamage', 'spell_damage' );
+			$this->add_ifvalue( $spell, 'BonusHealing', 'spell_healing' );
+			
 			if(isset($spell['SchoolCrit'])){
-				if(isset($spell['SchoolCrit']['Holy']))
-				$this->add_value( 'spell_crit_chance_holy', $spell['SchoolCrit']['Holy']);
-				if(isset($spell['SchoolCrit']['Frost']))
-				$this->add_value( 'spell_crit_chance_frost', $spell['SchoolCrit']['Frost']);
-				if(isset($spell['SchoolCrit']['Arcane']))
-				$this->add_value( 'spell_crit_chance_arcane', $spell['SchoolCrit']['Arcane']);
-				if(isset($spell['SchoolCrit']['Fire']))
-				$this->add_value( 'spell_crit_chance_fire', $spell['SchoolCrit']['Fire']);
-				if(isset($spell['SchoolCrit']['Shadow']))
-				$this->add_value( 'spell_crit_chance_shadow', $spell['SchoolCrit']['Shadow']);
-				if(isset($spell['SchoolCrit']['Nature']))
-				$this->add_value( 'spell_crit_chance_nature', $spell['SchoolCrit']['Nature']);
+				$schoolcrit = $spell['SchoolCrit'];
+				
+				$this->add_ifvalue( $schoolcrit, 'Holy', 'spell_crit_chance_holy' );
+				$this->add_ifvalue( $schoolcrit, 'Frost', 'spell_crit_chance_frost' );
+				$this->add_ifvalue( $schoolcrit, 'Arcane', 'spell_crit_chance_arcane' );
+				$this->add_ifvalue( $schoolcrit, 'Fire', 'spell_crit_chance_fire' );
+				$this->add_ifvalue( $schoolcrit, 'Shadow', 'spell_crit_chance_shadow' );
+				$this->add_ifvalue( $schoolcrit, 'Nature', 'spell_crit_chance_nature' );
+				
+				unset($schoolcrit);
 			}
 
 			if(isset($spell['School']))
 			{
-				if(isset($spell['School']['Holy']))
-				$this->add_value( 'spell_damage_holy', $spell['School']['Holy']);
-				if(isset($spell['School']['Frost']))
-				$this->add_value( 'spell_damage_frost', $spell['School']['Frost']);
-				if(isset($spell['School']['Arcane']))
-				$this->add_value( 'spell_damage_arcane', $spell['School']['Arcane']);
-				if(isset($spell['School']['Fire']))
-				$this->add_value( 'spell_damage_fire', $spell['School']['Fire']);
-				if(isset($spell['School']['Shadow']))
-				$this->add_value( 'spell_damage_shadow', $spell['School']['Shadow']);
-				if(isset($spell['School']['Nature']))
-				$this->add_value( 'spell_damage_nature', $spell['School']['Nature']);
+				$school = $spell['School'];
+				
+				$this->add_ifvalue( $school, 'Holy', 'spell_damage_holy' );
+				$this->add_ifvalue( $school, 'Frost', 'spell_damage_frost' );
+				$this->add_ifvalue( $school, 'Arcane', 'spell_damage_arcane' );
+				$this->add_ifvalue( $school, 'Fire', 'spell_damage_fire' );
+				$this->add_ifvalue( $school, 'Shadow', 'spell_damage_shadow' );
+				$this->add_ifvalue( $school, 'Nature', 'spell_damage_nature' );
+				
+				unset($school);
 			}
 
 			unset($spell);
 		}
 		// END SPELL
 
-		$this->add_value( 'level', $data['Level'] );
-		$this->add_value( 'server', $data['Server'] );
-
-		if( isset($data['TalentPoints']) )
-		{
-			$this->add_value( 'talent_points', $data['TalentPoints'] );
-		}
+		$this->add_ifvalue( $data, 'Level', 'level' );
+		$this->add_ifvalue( $data, 'Server', 'server' );
+		
+		$this->add_ifvalue( $data, 'TalentPoints', 'talent_points' );
 
 		$this->add_value( 'money_c', $data['Money']['Copper'] );
 		$this->add_value( 'money_s', $data['Money']['Silver'] );
 		$this->add_value( 'money_g', $data['Money']['Gold'] );
 
-		$this->add_value( 'exp', $data['Experience'] );
-		$this->add_value( 'race', $data['Race'] );
-		if(isset($data['RaceId']))
-		$this->add_value( 'raceid', $data['RaceId'] );
-		$this->add_value( 'raceEn', $data['RaceEn'] );
-		$this->add_value( 'class', $data['Class'] );
-		if(isset($data['ClassId']))
-		$this->add_value( 'classid', $data['ClassId'] );
-		$this->add_value( 'classEn', $data['ClassEn'] );
-		$this->add_value( 'health', $data['Health'] );
-		$this->add_value( 'mana', $data['Mana'] );
-		$this->add_value( 'power', $data['Power'] );
-		$this->add_value( 'sex', $data['Sex'] );
-		$this->add_value( 'sexid', $data['SexId'] );
-		$this->add_value( 'hearth', $data['Hearth'] );
-
+		$this->add_ifvalue( $data, 'Experience', 'exp' );
+		$this->add_ifvalue( $data, 'Race', 'race' );
+		$this->add_ifvalue( $data, 'RaceId', 'raceid' );
+		$this->add_ifvalue( $data, 'RaceEn', 'raceEn' );
+		$this->add_ifvalue( $data, 'Class', 'class' );
+		$this->add_ifvalue( $data, 'ClassId', 'classid' );
+		$this->add_ifvalue( $data, 'ClassEn', 'classEn' );
+		$this->add_ifvalue( $data, 'Health', 'health' );
+		$this->add_ifvalue( $data, 'Mana', 'mana' );
+		$this->add_ifvalue( $data, 'Power', 'power' );
+		$this->add_ifvalue( $data, 'Sex', 'sex' );
+		$this->add_ifvalue( $data, 'SexId', 'sexid' );
+		$this->add_ifvalue( $data, 'Hearth', 'hearth' );
+		
 		if( !empty($data['timestamp']['init']['DateUTC']) )
 		{
 			$this->add_value( 'dateupdatedutc', $data['timestamp']['init']['DateUTC'] );
 		}
 
-		$this->add_value( 'DBversion', $data['DBversion'] );
-		$this->add_value( 'CPversion', $data['CPversion'] );
-
+		$this->add_ifvalue( $data, 'DBversion' );
+		$this->add_ifvalue( $data, 'CPversion' );
+		
 		if (isset($data['TimePlayed']) && $data['TimePlayed'] > 0 )
 		{
 			$this->add_value( 'timeplayed', $data['TimePlayed'] );
@@ -3187,8 +3175,8 @@ class update
 		$this->add_timestamp( 'maildateutc', $data['timestamp']['MailBox'] );
 
 		// Capture client language
-		$this->add_value( 'clientLocale', $data['Locale'] );
-
+		$this->add_ifvalue( $data, 'Locale', 'clientLocale' );
+		
 		$this->setMessage('<li>About to update player</li>');
 
 		if( $update )
