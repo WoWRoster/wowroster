@@ -36,7 +36,7 @@ class item
 
 		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'];
 
-		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang,$this->data['item_id']);
+		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);

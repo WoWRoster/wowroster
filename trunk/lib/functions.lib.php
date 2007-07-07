@@ -413,7 +413,7 @@ function check_if_image( $imagefilename )
  * Default is true
  * @return string | Formatted tooltip
  */
-function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1 )
+function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1, $item_id='' )
 {
 	global $roster;
 
@@ -678,7 +678,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 	switch ($mode)
 	{
 		case 0:
-			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
+			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode, $item_id);
 			break;
 
 		case 1:
