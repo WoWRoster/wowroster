@@ -16,12 +16,12 @@
 
 if( !defined('ROSTER_INSTALLED') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 class item
 {
-  var $data;
+	var $data;
 
 	function item( $data )
 	{
@@ -36,7 +36,7 @@ class item
 
 		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'];
 
-		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang);
+		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang,$this->data['item_id']);
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
@@ -53,9 +53,9 @@ class item
 		$output = '<div class="item" '.$tooltip.$linktip.'>';
 
 		if ($this->data['item_slot'] == 'Ammo')
-			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
+		$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
 		else
-			$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+		$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
 
 		if( ($this->data['item_quantity'] > 1) )
 		{
@@ -78,9 +78,13 @@ function item_get_one( $member_id , $slot )
 	$result = $roster->db->query( $query );
 	$data = $roster->db->fetch( $result );
 	if( $data )
+	{
 		return new item( $data );
+	}
 	else
+	{
 		return null;
+	}
 
 }
 

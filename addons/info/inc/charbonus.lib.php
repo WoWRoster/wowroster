@@ -107,7 +107,7 @@ class CharBonus
 		{
 			$startpos--;
 		}
-		return $startpos++;
+		return $startpos + 1;
 	}
 
 	function getLengthofModifier( $aString )

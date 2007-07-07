@@ -638,9 +638,10 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  * Only needed when $colorize is true
  * Default is $roster->config['locale']
  * @param string $extra_parameters | (optional) Extra OverLib parameters you wish to pass
+ * @param string $item_id
  * @return unknown
  */
-function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
+function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' , $item_id='' )
 {
 	global $roster, $tooltips;
 
@@ -688,7 +689,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 			break;
 
 		default:
-			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
+			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode,$item_id);
 			break;
 	}
 

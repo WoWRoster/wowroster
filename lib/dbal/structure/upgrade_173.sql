@@ -531,7 +531,7 @@ CREATE TABLE `renprefix_gems` (
   `gem_bonus` varchar(255) NOT NULL default '',
   `gem_socketid` int(11) NOT NULL default '0',
   `locale` varchar(16) NOT NULL default '',
-  PRIMARY KEY  (`gem_id`),
+  PRIMARY KEY  (`gem_id`,`locale`),
   KEY `gem_socketid` (`gem_socketid`)
 ) TYPE=MyISAM;
 
