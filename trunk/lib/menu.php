@@ -98,13 +98,15 @@ class RosterMenu
 				$choices = '';
 				foreach( $menu_select as $realm => $guild )
 				{
+					$padd= '';
 					if( count($menu_select) > 1 )
 					{
 						$choices .= '		<option value="" disabled="disabled">' . $realm . "</option>\n";
+						$padd= '&nbsp;&nbsp;&nbsp;';
 					}
 					foreach( $guild as $id => $name )
 					{
-						$choices .= '		<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>&nbsp;&nbsp;&nbsp;' . $name . "</option>\n";
+						$choices .= '		<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $padd . $name . "</option>\n";
 					}
 				}
 

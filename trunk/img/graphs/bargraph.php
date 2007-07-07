@@ -63,7 +63,7 @@ $count = count($barnames);
 $colh = $h/$count;
 $offset = ($type == 'class') ? $colh : 0;
 $factor = ($w-$offset)/max($barsizes);
-$textheight = .6 * $colh;
+$textheight = .7 * $colh;
 $textbase = .8 * $colh;
 $textoffset = $offset + .2 * $colh;
 
