@@ -165,10 +165,10 @@ class memberslist
 			) TYPE=MyISAM;");
 
 		# Roster menu entry
-		$installer->add_menu_button('memberslist_Members','guild','');
-		$installer->add_menu_button('memberslist_Stats','guild','statslist');
-		$installer->add_menu_button('memberslist_Honor','guild','honorlist');
-		$installer->add_menu_button('memberslist_Log','guild','log');
+		$installer->add_menu_button('memberslist_Members','guild','','spell_holy_prayerofspirit');
+		$installer->add_menu_button('memberslist_Stats','guild','statslist','inv_misc_book_09');
+		$installer->add_menu_button('memberslist_Honor','guild','honorlist','inv_jewelry_necklace_37');
+		$installer->add_menu_button('memberslist_Log','guild','log','inv_misc_symbolofkings_01');
 		return true;
 	}
 
