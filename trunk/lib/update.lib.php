@@ -18,7 +18,7 @@
 
 if ( !defined('ROSTER_INSTALLED') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -199,7 +199,7 @@ class update
 							else
 							{
 								$output .= 'There was an error in addon ' . $addon->data['fullname'] . " in method update<br />\n"
-										 . "Addon messages:<br />\n" . $addon->messages;
+								. "Addon messages:<br />\n" . $addon->messages;
 							}
 						}
 					}
@@ -240,12 +240,12 @@ class update
 						if( $mode == 'guild' )
 						{
 							$output .= '<li>There was an error in addon ' . $addon->data['fullname'] . " in method $mode<br />\n"
-									 . "Addon messages:<br />\n" . $addon->messages . "</li>\n";
+							. "Addon messages:<br />\n" . $addon->messages . "</li>\n";
 						}
 						else
 						{
 							$output .= 'There was an error in addon '.$addon->data['fullname'] . " in method $mode<br />\n"
-									 . "Addon messages:<br />\n" . $addon->messages . "<br />\n";
+							. "Addon messages:<br />\n" . $addon->messages . "<br />\n";
 						}
 					}
 				}
@@ -296,25 +296,25 @@ class update
 
 					// Is this char already in the members table?
 					$query = "SELECT `member_id`"
-						. " FROM `" . $roster->db->table('members') . "`"
-						. " WHERE `name` = '" . $char_name . "'"
-						. " AND `server` = '" . $realm_escape . "'"
-						. " AND `region` = '" . $region . "'"
-						. ";";
+					. " FROM `" . $roster->db->table('members') . "`"
+					. " WHERE `name` = '" . $char_name . "'"
+					. " AND `server` = '" . $realm_escape . "'"
+					. " AND `region` = '" . $region . "'"
+					. ";";
 
 
 					if( !$roster->db->query_first($query) )
 					{
 						// Allowed char detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-							. " FROM `" . $roster->db->table('upload') . "`"
-							. " WHERE (`type` = 2 OR `type` = 3)"
-							. " AND '" . $char_name . "' LIKE `name` "
-							. " AND '" . $realm_escape . "' LIKE `server` "
-							. " AND '" . $region."' LIKE `region` "
-							. " GROUP BY `type` "
-							. " ORDER BY `type` DESC"
-							. ";";
+						. " FROM `" . $roster->db->table('upload') . "`"
+						. " WHERE (`type` = 2 OR `type` = 3)"
+						. " AND '" . $char_name . "' LIKE `name` "
+						. " AND '" . $realm_escape . "' LIKE `server` "
+						. " AND '" . $region."' LIKE `region` "
+						. " GROUP BY `type` "
+						. " ORDER BY `type` DESC"
+						. ";";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -416,14 +416,14 @@ class update
 
 						// Allowed guild detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-							. " FROM `" . $roster->db->table('upload') . "`"
-							. " WHERE (`type` = 0 OR `type` = 1)"
-							. " AND '" . $guild_escape . "' LIKE `name` "
-							. " AND '" . $realm_escape . "' LIKE `server` "
-							. " AND '" . $region . "' LIKE `region` "
-							. " GROUP BY `type` "
-							. " ORDER BY `type` DESC"
-							. ";";
+						. " FROM `" . $roster->db->table('upload') . "`"
+						. " WHERE (`type` = 0 OR `type` = 1)"
+						. " AND '" . $guild_escape . "' LIKE `name` "
+						. " AND '" . $realm_escape . "' LIKE `server` "
+						. " AND '" . $region . "' LIKE `region` "
+						. " GROUP BY `type` "
+						. " ORDER BY `type` DESC"
+						. ";";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -500,10 +500,10 @@ class update
 
 								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
 								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
-										 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
-										 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
-										 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
-										 . "</ul></li></ul>\n";
+								. '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
+								. '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
+								. '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
+								. "</ul></li></ul>\n";
 								$output .= $guild_output;
 
 								// Reset these since we might process another guild
@@ -554,9 +554,9 @@ class update
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-						 . "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2) . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
-						 . "</tr>\n";
+			. "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2) . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+			. "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+			. "</tr>\n";
 		}
 		return $filefields;
 	}
@@ -639,7 +639,7 @@ class update
 					}
 
 					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n"
-							 . "$error</td></tr>\n";
+					. "$error</td></tr>\n";
 				}
 			}
 			$output .= '</table>';
@@ -648,8 +648,8 @@ class update
 	}
 
 	/******************************************************
-	 * DB insert code (former WoWDB)
-	 ******************************************************/
+	* DB insert code (former WoWDB)
+	******************************************************/
 
 	/**
 	 * Resets the SQL insert/update string holder
@@ -709,7 +709,7 @@ class update
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Add a gem to an INSERT or UPDATE SQL string
 	 * (clone of add_value method--this functions as a 2nd SQL insert placeholder)
@@ -844,7 +844,7 @@ class update
 	/**
 	 * Inserts a gem into the database
 	 *
-	 * @param string $gem
+	 * @param array $gem
 	 * @return bool | true on success, false of error
 	 */
 	function insert_gem( $gem )
@@ -954,7 +954,7 @@ class update
 		$this->add_ifvalue( $recipe, 'recipe_tooltip' );
 
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
-			$this->add_value('level',$level[1]);
+		$this->add_value('level',$level[1]);
 
 		$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
@@ -1189,12 +1189,12 @@ class update
 		list($gemid) = explode(':', $gem_data['Item']);
 
 		$gem = array();
-		$gem['gem_name'] = $gem_data['Name'];
+		$gem['gem_name'] 	= $gem_data['Name'];
 		$gem['gem_tooltip'] = $this->tooltip($gem_data['Tooltip']);
 		$gem['gem_bonus'] 	= $gem_bonus;
 		$gem['gem_socketid']= $socket_id;  // the ID the gem holds when socketed in an item.
 		$gem['gem_id'] 		= $gemid; // the ID of gem when not socketed.
-		$gem['gem_texture'] = 'Interface/Icons/'.$this->fix_icon($gem_data['Icon']);
+		$gem['gem_texture'] = $this->fix_icon($gem_data['Icon']);
 		$gem['gem_color'] 	= $gem_color;  //meta, prismatic, red, blue, yellow, purple, green, orange.
 
 		return $gem;
@@ -1307,7 +1307,7 @@ class update
 				$buffsnum++;
 			}
 			$this->setMessage('<li>Updating Buffs: ' . $buffsnum . '</li>');
-	   	}
+		}
 		else
 		{
 			$this->setMessage('<li>No Buffs</li>');
@@ -1357,7 +1357,7 @@ class update
 				}
 			}
 			$this->setMessage('<li>Updating Quests: ' . $questnum . '</li>');
-	   	}
+		}
 		else
 		{
 			$this->setMessage('<li>No Quest Data</li>');
@@ -1630,12 +1630,12 @@ class update
 		// If maildate is newer than the db value, wipe all mail from the db
 		//if(  )
 		//{
-			$querystr = "DELETE FROM `" . $roster->db->table('mailbox') . "` WHERE `member_id` = '$memberId'";
-			if( !$roster->db->query($querystr) )
-			{
-				$this->setError('Mail could not be deleted',$roster->db->error());
-				return;
-			}
+		$querystr = "DELETE FROM `" . $roster->db->table('mailbox') . "` WHERE `member_id` = '$memberId'";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Mail could not be deleted',$roster->db->error());
+			return;
+		}
 		//}
 
 		if( !empty($mailbox) && is_array($mailbox) )
@@ -1942,7 +1942,10 @@ class update
 	{
 		global $roster;
 
-		$spellbook = $data['SpellBook']['Spells'];
+		if( !empty( $data['SpellBook']['Spells'] ) )
+		{
+			$spellbook = $data['SpellBook']['Spells'];
+		}
 
 		if( !empty($spellbook) && is_array($spellbook) )
 		{
@@ -2733,7 +2736,7 @@ class update
 			$this->add_value( 'slot', (isset($data['Slot']) ? $data['Slot'] : '0') );
 
 			// BEGIN STATS
-			if( is_array($data['Attributes']['Stats']) )
+			if( !empty( $data['Attributes']['Stats'] ) )
 			{
 				$main_stats = $data['Attributes']['Stats'];
 
@@ -2748,7 +2751,7 @@ class update
 			// END STATS
 
 			// BEGIN DEFENSE
-			if( is_array($data['Attributes']['Defense']) )
+			if( !empty( $data['Attributes']['Defense'] ) )
 			{
 				$main_stats = $data['Attributes']['Defense'];
 
@@ -2771,7 +2774,7 @@ class update
 			// END DEFENSE
 
 			// BEGIN RESISTS
-			if( is_array($data['Attributes']['Resists']) )
+			if( !empty( $data['Attributes']['Resists'] ) )
 			{
 				$main_res = $data['Attributes']['Resists'];
 
@@ -2787,7 +2790,7 @@ class update
 			// END RESISTS
 
 			// BEGIN MELEE
-			if( is_array($data['Attributes']['Melee']) )
+			if( !empty( $data['Attributes']['Melee'] ) )
 			{
 				$attack = $data['Attributes']['Melee'];
 
@@ -2828,17 +2831,17 @@ class update
 			}
 			// END MELEE
 
-			$this->add_value( 'level', $data['Level'] );
-			$this->add_value( 'health', $data['Health'] );
-			$this->add_value( 'mana', $data['Mana'] );
-			$this->add_value( 'power', $data['Power'] );
+			$this->add_value( 'level', isset( $data['Level'] ) ? $data['Level'] : 0 ) ;
+			$this->add_value( 'health', isset( $data['Health'] ) ? $data['Health'] : 0 );
+			$this->add_value( 'mana', isset( $data['Mana'] ) ? $data['Mana'] : 0 );
+			$this->add_value( 'power', isset( $data['Power'] ) ? $data['Power'] : 0 );
 
-			$this->add_value( 'xp', $data['Experience'] );
-			$this->add_value( 'usedtp', $data['TalentPointsUsed'] );
-			$this->add_value( 'totaltp', $data['TalentPoints'] );
-			$this->add_value( 'type', $data['Type'] );
-			$this->add_value( 'loyalty', (isset($data['Loyalty']) ? $data['Loyalty'] : '') );
-			$this->add_value( 'icon', (isset($data['Icon']) ? $this->fix_icon($data['Icon']) : '') );
+			$this->add_value( 'xp', isset( $data['Experience'] ) ? $data['Experience'] : 0 );
+			$this->add_value( 'usedtp', isset( $data['TalentPointsUsed'] ) ? $data['TalentPointsUsed'] : 0 );
+			$this->add_value( 'totaltp', isset( $data['TalentPoints'] ) ? $data['TalentPoints'] : 0 );
+			$this->add_value( 'type', isset( $data['Type'] ) ? $data['Type'] : '' );
+			$this->add_value( 'loyalty', isset( $data['Loyalty'] ) ? $data['Loyalty'] : '' );
+			$this->add_value( 'icon', isset( $data['Icon'] ) ? $this->fix_icon($data['Icon']) : '' );
 
 			if( $update )
 			{
@@ -3282,7 +3285,7 @@ class update
 
 		// Capture mailbox update time/date
 		if( isset($data['timestamp']['MailBox']) )
-			$this->add_timestamp( 'maildateutc', $data['timestamp']['MailBox'] );
+		$this->add_timestamp( 'maildateutc', $data['timestamp']['MailBox'] );
 
 		// Capture client language
 		$this->add_value( 'clientLocale', $data['Locale'] );
