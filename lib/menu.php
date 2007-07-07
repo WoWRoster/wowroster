@@ -35,6 +35,46 @@ class RosterMenu
 
 		define('ROSTER_MENU_INC',true);
 
+		$topbar = $this->makeTop();
+		$left_pane = $this->makePane('menu_left');
+		$right_pane = $this->makePane('menu_right');
+
+		if( $roster->config['menu_bottom_pane'] )
+		{
+			$bottombar = $this->makeBottom();
+		}
+		else
+		{
+			$bottombar = '';
+		}
+
+
+		$buttonlist = $this->makeButtonList($sections);
+
+		return "\n<!-- Begin WoWRoster Menu -->"
+			. border('syellow','start') . "\n"
+			. '
+<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">' . "\n"
+			. $topbar
+			. "  <tr>\n"
+			. $left_pane
+			. $buttonlist
+			. $right_pane
+			. "  </tr>\n"
+			. $bottombar
+			. '</table>'."\n"
+			. border('syellow','end') . "\n"
+			. "<br />\n"
+			. "<!-- End WoWRoster Menu -->\n";
+	}
+
+	/**
+	 * Build the top pane
+	 */
+	function makeTop( )
+	{
+		global $roster;
+
 		if( $roster->config['menu_top_faction'] )
 		{
 			$faction = ( isset($roster->data['factionEn']) ? $roster->data['factionEn'] : '' );
@@ -121,71 +161,32 @@ class RosterMenu
 			$choiceForm = '<div align="right" style="float:right;">' . "\n" . $choiceForm . "</div>\n";
 		}
 
-		$left_pane = $this->makePane('menu_left');
-		$right_pane = $this->makePane('menu_right');
-
-		if( $roster->config['menu_top_pane'] )
+		if( isset($roster->data['guild_name']) )
 		{
-			if( isset($roster->data['guild_name']) )
-			{
-				$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
-							. '      <span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
-							. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
-							. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
-			}
-			else
-			{
-				$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['default_name'] . '</a></span><br />' . "\n"
-							. ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
-			}
-
-			$topbar = "  <tr>\n"
-					. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
-					. $choiceForm
-					. $icon
-					. '<div style="white-space:nowrap;">'
-					. $menu_text
-					. "    </div></td>\n"
-					. "  </tr>\n"
-					. "  <tr>\n"
-					. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
-					. "  </tr>\n";
+			$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
+						. '      <span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
+						. ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
+						. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
 		}
 		else
 		{
-			$topbar = '';
+			$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['default_name'] . '</a></span><br />' . "\n"
+						. ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
 		}
 
-
-		if( $roster->config['menu_bottom_pane'] )
-		{
-			$bottombar = $this->makeBottom();
-		}
-		else
-		{
-			$bottombar = '';
-		}
-
-
-		$buttonlist = $this->makeButtonList($sections);
-
-		return "\n<!-- Begin WoWRoster Menu -->"
-			. border('syellow','start') . "\n"
-			. '
-<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">' . "\n"
-			. $topbar
-			. "  <tr>\n"
-			. $left_pane
-			. $buttonlist
-			. $right_pane
-			. "  </tr>\n"
-			. $bottombar
-			. '</table>'."\n"
-			. border('syellow','end') . "\n"
-			. "<br />\n"
-			. "<!-- End WoWRoster Menu -->\n";
+		return "  <tr>\n"
+				. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
+				. $choiceForm
+				. $icon
+				. '<div style="white-space:nowrap;">'
+				. $menu_text
+				. "    </div></td>\n"
+				. "  </tr>\n"
+				. "  <tr>\n"
+				. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
+				. "  </tr>\n";
 	}
-
+	
 	/**
 	 * Builds either of the side panes.
 	 *
@@ -533,23 +534,34 @@ class RosterMenu
 			}
 		}
 
+		$html = '    <td valign="top" class="row">' . "\n"
+			. '      <div class="menu_container">' . "\n"
+			. '        <div class="menu_header">' . "\n"
+			. '          <ul>' . "\n"
+			. '            <li><a href="#" class="menu_bg_01" onclick="showHide(\'menu_guild\'); return false;">Guild Information</a></li>' . "\n"
+			. '            <li><a href="' . makelink('search') . '" class="menu_bg_02">Search</a></li>' . "\n"
+			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">Update Profile</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_04" onclick="showHide(\'menu_util\'); return false;">Utilities</a></li>' . "\n"
+			. '          </ul>' . "\n"
+			. '        </div>' . "\n";
 
-		$html  = '    <td valign="top" class="row links">' . "\n";
-		$html .= '      <table cellspacing="0" cellpadding="0" border="0" width="100%">' . "\n";
 		foreach( $arrayButtons as $id => $page )
 		{
-			$open = true;
-			$html .= '        <tr style="cursor:pointer;" onclick="showHide(\'menu_' . $sections[$id] . '\',\'menuimg_' . $sections[$id] . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
-			$html .= '          <td align="center" colspan="' . count($page) . '" >' . "\n";
-			$html .= '            <img src="' . $roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="menuimg_' . $sections[$id] . '"/>' . "\n";
-			$html .= '            <span style="color:#0099FF;font-weight:bold;">' . $roster->locale->act[$sections[$id]] . '</span>' . "\n";
-			$html .= '          </td>' . "\n";
-			$html .= '        </tr>' . "\n";
-			$html .= '        <tr id="menu_' . $sections[$id] . '" style="display:' . (($open)?'table-row':'none') . '">' . "\n";
+			if(( $sections[$id] == $roster->pages[0] ) ||
+				( $id == count($sections) - 1 ))
+			{
+				$open = true;
+			}
+			else
+			{
+				$open = false;
+			}
+
+			$html .= '        <div class="menu_' . ( $sections[$id] == 'util' ? 'utility' : 'scope' ) . '" id="menu_'.$sections[$id].'"' . (($open)?'':' style="display:none"') . '>'."\n"
+				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . $roster->locale->act[$sections[$id]] . '</div>' . "\n"
+				. '          <ul>'."\n";
 			foreach( $page as $column )
 			{
-				$html .= '          <td valign="top">' . "\n";
-				$html .= "            <ul>\n";
 				foreach( $column as $button )
 				{
 					if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
@@ -580,18 +592,17 @@ class RosterMenu
 					}
 					else
 					{
-						$button['tooltip'] = '';
+						$button['tooltip'] = ' ' . makeOverlib($button['title']);
 					}
 
-					$html .= '              <li class="button"' . $button['tooltip'] . '><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
+					$html .= '            <li' . $button['tooltip'] . '><a href="' . $button['url'] . '">' . $button['icon'] . "</a></li>\n";
 				}
-				$html .= "            </ul>\n";
-				$html .= "          </td>\n";
 			}
-			$html .= "        </tr>\n";
+			$html .= '          </ul>' . "\n"
+				. '        </div>' . "\n";
 		}
-		$html .= "      </table>\n";
-		$html .= "    </td>\n";
+		$html .= '      </div>' . "\n"
+			. '    </td>' . "\n";
 
 		// Restore our locale array
 		$roster->locale->wordings = $localestore;
