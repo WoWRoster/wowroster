@@ -43,7 +43,7 @@ if( !$roster_login->getAuthorized() )
 {
 	include_once (ROSTER_BASE . 'roster_header.tpl');
 	$roster_menu = new RosterMenu;
-	print $roster_menu->makeMenu('main');
+	print $roster_menu->makeMenu($roster->output['show_menu']);
 
 	print
 	'<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'.
@@ -144,7 +144,7 @@ if( $addon_pagebar != '' )
 // ----[ Render the page ]----------------------------------
 include_once( ROSTER_BASE . 'roster_header.tpl' );
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
+print $roster_menu->makeMenu($roster->output['show_menu']);
 
 echo
 	$header . "\n".

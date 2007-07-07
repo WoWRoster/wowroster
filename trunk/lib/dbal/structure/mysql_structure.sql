@@ -227,6 +227,7 @@ CREATE TABLE `renprefix_menu_button` (
 	`button_id` int(11) AUTO_INCREMENT,
 	`addon_id` int(11) NOT NULL COMMENT '0 for main roster',
 	`title` varchar(32),
+	`scope` varchar(16),
 	`url` varchar(128),
 	`icon` varchar(64) NOT NULL DEFAULT '',
 	PRIMARY KEY (`button_id`),

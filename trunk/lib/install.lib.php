@@ -144,7 +144,7 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . '-' . $this->addata['basename'] . $url . "','" . $icon . "');";
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . '","' . $url . "','" . $icon . "');";
 	}
 
 	/**
@@ -159,7 +159,7 @@ class Install
 	 * @param string $icon
 	 * 		Icon for display
 	 */
-	function update_menu_button($title, $scope='util', $url='', $icon='')
+	function update_menu_button($title, $url='', $icon='')
 	{
 		global $roster;
 
@@ -168,7 +168,7 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$this->sql[] = "UPDATE `" . $roster->db->table('menu_button') . "` SET `url`='" . $scope . '-' . $this->addata['basename'] . $url . "', `icon`='" . $icon . "' WHERE `addon_id`='" . $this->addata['addon_id'] . "' AND `title`='" . $title . "';";
+		$this->sql[] = "UPDATE `" . $roster->db->table('menu_button') . "` SET `url`='" . $url . "', `icon`='" . $icon . "' WHERE `addon_id`='" . $this->addata['addon_id'] . "' AND `title`='" . $title . "';";
 	}
 
 	/**

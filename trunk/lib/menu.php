@@ -563,9 +563,13 @@ class RosterMenu
 
 					$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
 
-					if( substr($button['url'],0,7) != 'http://')
+					if( $button['addon_id'] == 0 )
 					{
 						$button['url'] = makelink($button['url']);
+					}
+					elseif( substr($button['url'],0,7) != 'http://')
+					{
+						$button['url'] = makelink($button['scope'] . '-' . $button['basename'] . (empty($button['url']) ? '' : '-' . $button['url']));
 					}
 
 					$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];

@@ -24,7 +24,7 @@ if( !defined('ROSTER_INSTALLED') )
 $roster->output['title'] .= $roster->locale->act['pagebar_menuconf'];
 
 // --[ Translate GET data ]--
-$section = (isset($_GET['section']) ? $_GET['section'] : 'main' );
+$section = (isset($_GET['section']) ? $_GET['section'] : 'util' );
 
 // --[ Write submitted menu configuration to DB if applicable ]--
 if (isset($_POST['process']) && $_POST['process'] == 'process')
@@ -111,6 +111,16 @@ foreach(explode('|',$row['config']) AS $posX=>$column)
 }
 $arrayWidth = count($arrayButtons);
 
+// --[ Strip out of scope buttons fromt he palet ]--
+foreach( $palet as $id => $button )
+{
+	if( $button['scope'] != $section )
+	{
+		unset($palet[$id]);
+		continue;
+	}
+}
+
 $paletHeight = count($palet);
 $paletWidth = 1;
 
@@ -186,7 +196,11 @@ foreach($palet as $id=>$button)
 		$button['tooltip'] = '';
 	}
 
-	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' ) . '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br /><span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
+		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
@@ -250,7 +264,11 @@ foreach($arrayButtons as $posX=>$column)
 			$button['tooltip'] = '';
 		}
 
-		$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' ) . '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br /><span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+		$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
+			. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+			. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+			. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+			. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
