@@ -88,13 +88,13 @@ class info
 		  ADD `show_item_bonuses` TINYINT(1) NOT NULL default '3';");
 
 		$installer->add_menu_button('character','char');
-		$installer->add_menu_button('talents','char','-talents','ability_marksmanship');
-		$installer->add_menu_button('spellbook','char','-spellbook','inv_misc_book_09');
-		$installer->add_menu_button('mailbox','char','-mailbox','inv_letter_02');
-		$installer->add_menu_button('bags','char','-bags','inv_misc_bag_08');
-		$installer->add_menu_button('bank','char','-bank','inv_misc_bag_15');
-		$installer->add_menu_button('quests','char','-quests','inv_misc_note_02');
-		$installer->add_menu_button('recipes','char','-recipes','inv_scroll_02');
+		$installer->add_menu_button('talents','char','talents','ability_marksmanship');
+		$installer->add_menu_button('spellbook','char','spellbook','inv_misc_book_09');
+		$installer->add_menu_button('mailbox','char','mailbox','inv_letter_02');
+		$installer->add_menu_button('bags','char','bags','inv_misc_bag_08');
+		$installer->add_menu_button('bank','char','bank','inv_misc_bag_15');
+		$installer->add_menu_button('quests','char','quests','inv_misc_note_02');
+		$installer->add_menu_button('recipes','char','recipes','inv_scroll_02');
 
 		return true;
 	}
