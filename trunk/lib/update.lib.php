@@ -943,16 +943,15 @@ class update
 		global $roster;
 
 		$this->reset_values();
-		$this->add_value('member_id', $recipe['member_id'] );
-		$this->add_value('recipe_name', $recipe['recipe_name'] );
-		$this->add_value('recipe_type', $recipe['recipe_type'] );
-		$this->add_value('skill_name', $recipe['skill_name'] );
-		$this->add_value('difficulty', $recipe['difficulty'] );
-		$this->add_value('item_color', $recipe['item_color'] );
-		$this->add_value('reagents', $recipe['reagents'] );
-		$this->add_value('recipe_texture', $recipe['recipe_texture'] );
-
-		$this->add_value('recipe_tooltip', $recipe['recipe_tooltip'] );
+		$this->add_ifvalue( $recipe, 'member_id' );
+		$this->add_ifvalue( $recipe, 'recipe_name' );
+		$this->add_ifvalue( $recipe, 'recipe_type' );
+		$this->add_ifvalue( $recipe, 'skill_name' );
+		$this->add_ifvalue( $recipe, 'difficulty' );
+		$this->add_ifvalue( $recipe, 'item_color' );
+		$this->add_ifvalue( $recipe, 'reagents' );
+		$this->add_ifvalue( $recipe, 'recipe_texture' );
+		$this->add_ifvalue( $recipe, 'recipe_tooltip' );
 
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 			$this->add_value('level',$level[1]);
@@ -975,17 +974,17 @@ class update
 		global $roster;
 
 		$this->reset_values();
-		$this->add_value('member_id', $data['member_id'] );
-		$this->add_value('name', $data['name'] );
-		$this->add_value('server', $data['server'] );
-		$this->add_value('region', $data['region'] );
-		$this->add_value('guild_id', $data['guild_id'] );
-		$this->add_value('class', $data['class'] );
-		$this->add_value('level', $data['level'] );
-		$this->add_value('note', $data['note'] );
-		$this->add_value('guild_rank', $data['guild_rank'] );
-		$this->add_value('guild_title', $data['guild_title'] );
-		$this->add_value('officer_note', $data['officer_note'] );
+		$this->add_ifvalue( $data, 'member_id' );
+		$this->add_ifvalue( $data, 'name' );
+		$this->add_ifvalue( $data, 'server' );
+		$this->add_ifvalue( $data, 'region' );
+		$this->add_ifvalue( $data, 'guild_id' );
+		$this->add_ifvalue( $data, 'class' );
+		$this->add_ifvalue( $data, 'level' );
+		$this->add_ifvalue( $data, 'note' );
+		$this->add_ifvalue( $data, 'guild_rank' );
+		$this->add_ifvalue( $data, 'guild_title' );
+		$this->add_ifvalue( $data, 'officer_note' );
 		$this->add_time('update_time', getDate($timestamp) );
 		$this->add_value('type', $type );
 
@@ -1279,23 +1278,16 @@ class update
 				$this->reset_values();
 
 				$this->add_value('member_id', $memberId );
-				$this->add_value('name', $buff['Name'] );
-
+				$this->add_ifvalue( $buff, 'Name', 'name' );
+								
 				if( isset( $buff['Icon'] ) )
 				{
 					$this->add_value('icon', $this->fix_icon($buff['Icon']) );
 				}
 
-				if( isset( $buff['Rank'] ) )
-				{
-					$this->add_value('rank', $buff['Rank'] );
-				}
-
-				if( isset( $buff['Count'] ) )
-				{
-					$this->add_value('count', $buff['Count'] );
-				}
-
+				$this->add_ifvalue( $buff, 'Rank', 'rank' );
+				$this->add_ifvalue( $buff, 'Count', 'count' );
+				
 				if( !empty($buff['Tooltip']) )
 				{
 					$this->add_value('tooltip', $this->tooltip( $buff['Tooltip'] ) );
@@ -1723,14 +1715,9 @@ class update
 							$this->add_value('curr_rep', $level );
 							$this->add_value('max_rep', $max );
 						}
-						if( !empty($repData[$factions][$faction]['AtWar']) )
-						{
-							$this->add_value('AtWar', $repData[$factions][$faction]['AtWar'] );
-						}
-						if( !empty($repData[$factions][$faction]['Standing']) )
-						{
-							$this->add_value('Standing', $repData[$factions][$faction]['Standing']);
-						}
+						
+						$this->add_ifvalue( $repDate[$factions][$faction], 'AtWar' );
+						$this->add_ifvalue( $repData[$factions][$faction], 'Standing' );
 
 						$messages .= '.';
 
@@ -1810,10 +1797,7 @@ class update
 							$this->add_value('skill_order', $order );
 						}
 
-						if( !empty($sub_skill[$skill_name]) )
-						{
-							$this->add_value('skill_level', $sub_skill[$skill_name] );
-						}
+						$this->add_ifvalue( $sub_skill, $skill_name, 'skill_level' );
 
 						$messages .= '.';
 
@@ -2502,19 +2486,19 @@ class update
 
 		$this->add_value( 'server', $realmName );
 		$this->add_value( 'region', $region );
-		$this->add_value( 'faction', $guild['Faction'] );
-		$this->add_value( 'factionEn', $guild['FactionEn'] );
-		$this->add_value( 'guild_motd', $guild['Motd'] );
-
-		$this->add_value( 'guild_num_members', $guild['NumMembers'] );
-		$this->add_value( 'guild_num_accounts', $guild['NumAccounts'] );
-
+		$this->add_ifvalue( $guild, 'Faction', 'faction' );
+		$this->add_ifvalue( $guild, 'FactionEn', 'factionEn' );
+		$this->add_ifvalue( $guild, 'Motd', 'guild_motd' );
+		
+		$this->add_ifvalue( $guild, 'NumMembers', 'guild_num_members' );
+		$this->add_ifvalue( $guild, 'NumAccounts', 'guild_num_accounts' );
+		
 		$this->add_timestamp( 'update_time', $currentTime );
 
-		$this->add_value( 'guild_dateupdatedutc', $guild['timestamp']['init']['DateUTC'] );
+		$this->add_ifvalue( $guild['timestamp']['init'], 'DateUTC', 'guild_dateupdateutc' );
 
-		$this->add_value( 'DBversion', $guild['DBversion'] );
-		$this->add_value( 'GPversion', $guild['GPversion'] );
+		$this->add_ifvalue( $guild, 'DBversion' );
+		$this->add_ifvalue( $guild, 'GPVersion' );
 
 		$this->add_value( 'guild_info_text', str_replace('\n',"\n",$guild['Info']) );
 
