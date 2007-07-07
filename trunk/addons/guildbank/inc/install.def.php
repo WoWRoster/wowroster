@@ -57,7 +57,7 @@ class guildbank
 		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
 		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
 
-		$installer->add_menu_button('guildbank','guild','');
+		$installer->add_menu_button('guildbank','guild');
 		return true;
 	}
 

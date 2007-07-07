@@ -93,18 +93,18 @@ class RosterMenu
 
 			$choices = '';
 
-			$padd = ( count($menu_select) > 1 ? '&nbsp;&nbsp;&nbsp;' : '' );
-
 			$page = ( $roster->pages[0] == 'guild' ? '' : $roster->config['default_page']);
 
 			foreach( $menu_select as $realm => $guild )
 			{
-				$choices .= ( $padd != '' ? '		<option value="" disabled="disabled">' . $realm . "</option>\n" : '' );
+				$choices .= ( count($menu_select) > 1 ? '		<optgroup label="' . $realm . '">' . "\n" : '' );
 
 				foreach( $guild as $id => $name )
 				{
-					$choices .= '		<option value="' . makelink($page . '&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $padd . $name . "</option>\n";
+					$choices .= '			<option value="' . makelink($page . '&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
 				}
+
+				$choices .= ( count($menu_select) > 1 ? "		</optgroup>\n" : '' );
 			}
 
 			if( !empty($choices) )
