@@ -55,17 +55,17 @@ if( is_array($bar2sizes) && (count($bar2sizes) != count($barnames)) )
 
 // Hardcoded options
 $w = 150;
-$h = 160;
+$h = 115;
 $font = ROSTER_BASE . 'fonts' . DIR_SEP . $roster->config[$side . '_text'];
 
 // calculate extra attributes
 $count = count($barnames);
 $colh = $h/$count;
-$offset = ($type == 'class')?$colh:0;
+$offset = ($type == 'class') ? $colh : 0;
 $factor = ($w-$offset)/max($barsizes);
-$textheight = .6*$colh;
-$textbase = .8*$colh;
-$textoffset = $offset + .2*$colh;
+$textheight = .6 * $colh;
+$textbase = .8 * $colh;
+$textoffset = $offset + .2 * $colh;
 
 // Initialize image
 $image = imagecreatetruecolor($w,$h);
@@ -85,21 +85,8 @@ for($i=0; $i<$count; $i++)
 	// Get icon
 	if( $type == 'class' )
 	{
-		switch ($roster->config['img_suffix'])
-		{
-			case 'jpg':
-				$icon = @imagecreatefromjpeg($roster->config['interface_url'].'Interface/Icons/'.$roster->locale->act['class_iconArray'][$barnames[$i]].'.jpg');
-				break;
-			case 'png':
-				$icon = @imagecreatefrompng($roster->config['interface_url'].'Interface/Icons/'.$roster->locale->act['class_iconArray'][$barnames[$i]].'.png');
-				break;
-			case 'gif':
-				$icon = @imagecreatefromgif($roster->config['interface_url'].'Interface/Icons/'.$roster->locale->act['class_iconArray'][$barnames[$i]].'.gif');
-				break;
-			default:
-				$icon = false;
-				break;
-		}
+		$icon = imagecreatefromjpeg('../class/' . $roster->locale->act['class_iconArray'][$barnames[$i]].'.jpg');
+
 		$thisbarcolor = $barcolor;
 		$thisbar2color = $bar2color;
 	}
@@ -113,7 +100,7 @@ for($i=0; $i<$count; $i++)
 	// If there was an error $icon will be false, otherwise add the icon
 	if( $icon )
 	{
-		imagecopyresampled($image, $icon, 0, $colh * $i, 0, 0, $colh, $offset, 40, 40);
+		imagecopyresampled($image, $icon, 0, $colh * $i, 0, 0, $colh, $offset, 64, 64);
 		imagedestroy($icon);
 	}
 
@@ -124,7 +111,7 @@ for($i=0; $i<$count; $i++)
 	}
 	if( isset($bar2sizes[$i]) && $bar2sizes[$i] >= 0 )
 	{
-		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.5), $thisbar2color);
+		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.3), $thisbar2color);
 	}
 }
 // Draw the labels
