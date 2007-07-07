@@ -70,53 +70,49 @@ class RosterMenu
 			$choiceForm .= "\t\t</select>\n\t</form>";
 		}
 
-		// If we have a guild id, make the guild list
-		if( $roster->config['menu_top_list'] )
+		// Get the scope select data
+		$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
+			   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+
+		$result = $roster->db->query($query);
+
+		if( !$result )
 		{
-			// Get the scope select data
-			$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
-				   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+			die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+		}
 
-			$result = $roster->db->query($query);
-
-			if( !$result )
+		if( $roster->db->num_rows() > 1 )
+		{
+			$menu_select = array();
+			while( $data = $roster->db->fetch($result,SQL_NUM) )
 			{
-				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+				$menu_select[$data[1]][$data[2]] = $data[0];
 			}
 
-			if( $roster->db->num_rows() )
+			$roster->db->free_result($result);
+
+			$choices = '';
+
+			$padd = ( count($menu_select) > 1 ? '&nbsp;&nbsp;&nbsp;' : '' );
+
+			$page = ( $roster->pages[0] == 'guild' ? '' : $roster->config['default_page']);
+
+			foreach( $menu_select as $realm => $guild )
 			{
-				$menu_select = array();
-				while( $data = $roster->db->fetch($result,SQL_NUM) )
-				{
-					$menu_select[$data[1]][$data[2]] = $data[0];
-				}
+				$choices .= ( $padd != '' ? '		<option value="" disabled="disabled">' . $realm . "</option>\n" : '' );
 
-				$roster->db->free_result($result);
-
-				$label = 'guild';
-				$choices = '';
-				foreach( $menu_select as $realm => $guild )
+				foreach( $guild as $id => $name )
 				{
-					$padd= '';
-					if( count($menu_select) > 1 )
-					{
-						$choices .= '		<option value="" disabled="disabled">' . $realm . "</option>\n";
-						$padd= '&nbsp;&nbsp;&nbsp;';
-					}
-					foreach( $guild as $id => $name )
-					{
-						$choices .= '		<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $padd . $name . "</option>\n";
-					}
+					$choices .= '		<option value="' . makelink($page . '&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $padd . $name . "</option>\n";
 				}
+			}
 
-				if( !empty($choices) )
-				{
-					$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post" style="margin:0;">' . "\n";
-					$choiceForm .= $roster->locale->act[$label] . ':'
-								 . '			<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">'
-								 . $choices . "\t\t</select>\n\t</form>";
-				}
+			if( !empty($choices) )
+			{
+				$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post" style="margin:0;">' . "\n";
+				$choiceForm .= $roster->locale->act['guild'] . ':'
+							 . '			<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">'
+							 . $choices . "\t\t</select>\n\t</form>";
 			}
 		}
 
