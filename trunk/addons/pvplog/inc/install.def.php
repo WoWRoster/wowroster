@@ -86,9 +86,9 @@ class pvplog
 		# Roster menu entry
 		$installer->add_menu_button('pvplist','guild');
 
-		$installer->add_menu_button('pvplog','char','-pvp','inv_banner_03');
-		$installer->add_menu_button('bglog','char','-bg','inv_bannerpvp_03');
-		$installer->add_menu_button('duellog','char','-duel','inv_brd_banner');
+		$installer->add_menu_button('pvplog','char','pvp','inv_banner_03');
+		$installer->add_menu_button('bglog','char','bg','inv_bannerpvp_03');
+		$installer->add_menu_button('duellog','char','duel','inv_brd_banner');
 		return true;
 	}
 
