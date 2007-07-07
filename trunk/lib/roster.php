@@ -35,7 +35,7 @@ class roster
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
-		'show_menu' => array('util'),
+		'show_menu' => array('util','guild'),
 		'show_footer' => true,
 
 		// used on rostercp pages
@@ -273,7 +273,7 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
+					roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
 				$this->db->free_result($result);
@@ -324,7 +324,7 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result,SQL_ASSOC)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], $this->config['guild_name'], $this->config['server'], makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
+					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
 				break;
@@ -339,10 +339,6 @@ class roster
 		{
 			$this->output['show_menu'][] = 'realm';
 			$this->output['show_menu'][] = 'guildless';
-		}
-		if( isset($this->data['guild_id']) )
-		{
-			$this->output['show_menu'][] = 'guild';
 		}
 		if( isset($this->data['member_id']) )
 		{

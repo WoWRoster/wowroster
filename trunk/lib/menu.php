@@ -462,11 +462,11 @@ class RosterMenu
 
 		if (is_array($sections))
 		{
-			$section = "'".implode("','",$sections)."'";
+			$section = "'" . implode("','",$sections) . "'";
 		}
 		else
 		{
-			$section = "'".$sections."'";
+			$section = "'" . $sections . "'";
 			$sections = array($sections);
 		}
 
@@ -539,13 +539,13 @@ class RosterMenu
 		foreach( $arrayButtons as $id => $page )
 		{
 			$open = true;
-			$html .= '        <tr style="cursor:pointer;" onclick="showHide(\'menu_'.$sections[$id].'\',\'menuimg_'.$sections[$id].'\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
+			$html .= '        <tr style="cursor:pointer;" onclick="showHide(\'menu_' . $sections[$id] . '\',\'menuimg_' . $sections[$id] . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">' . "\n";
 			$html .= '          <td align="center" colspan="' . count($page) . '" >' . "\n";
-			$html .= '            <img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="menuimg_'.$sections[$id].'"/>' . "\n";
+			$html .= '            <img src="' . $roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="menuimg_' . $sections[$id] . '"/>' . "\n";
 			$html .= '            <span style="color:#0099FF;font-weight:bold;">' . $roster->locale->act[$sections[$id]] . '</span>' . "\n";
 			$html .= '          </td>' . "\n";
 			$html .= '        </tr>' . "\n";
-			$html .= '        <tr id="menu_'.$sections[$id].'" style="display:' . (($open)?'table-row':'none') . '">'."\n";
+			$html .= '        <tr id="menu_' . $sections[$id] . '" style="display:' . (($open)?'table-row':'none') . '">' . "\n";
 			foreach( $page as $column )
 			{
 				$html .= '          <td valign="top">' . "\n";
@@ -561,7 +561,7 @@ class RosterMenu
 						}
 					}
 
-					$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
+					$button['icon'] = '<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . (empty($button['icon'])?'inv_misc_questionmark':$button['icon']) . '.' . $roster->config['img_suffix'] . '" alt=""/>';
 
 					if( $button['addon_id'] == 0 )
 					{
@@ -576,14 +576,14 @@ class RosterMenu
 					if( strpos($button['title'],'|') )
 					{
 						list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
-						$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
+						$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
 					}
 					else
 					{
 						$button['tooltip'] = '';
 					}
 
-					$html .= '              <li class="button"'.$button['tooltip'].'><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
+					$html .= '              <li class="button"' . $button['tooltip'] . '><a href="' . $button['url'] . '">' . $button['icon'] . $button['title'] . "</a></li>\n";
 				}
 				$html .= "            </ul>\n";
 				$html .= "          </td>\n";

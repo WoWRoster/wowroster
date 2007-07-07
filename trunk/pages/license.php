@@ -26,7 +26,7 @@ include_once (ROSTER_BASE.'roster_header.tpl');
 require_once (ROSTER_LIB.'item.php');
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
+print $roster_menu->makeMenu($roster->output['show_menu']);
 
 print "<br />\n";
 

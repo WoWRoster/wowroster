@@ -17,12 +17,6 @@ if ( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-//---[ Check for Guild Info ]------------
-if( empty($roster->data) )
-{
-	die_quietly( $roster->locale->act['nodata'] );
-}
-
 $mainQuery =
 	'SELECT '.
 	'`members`.`member_id`, '.

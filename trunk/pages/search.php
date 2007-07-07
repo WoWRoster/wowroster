@@ -36,7 +36,7 @@ $roster->output['body_onload'] .= 'initARC(\'searchform\',\'radioOn\',\'radioOff
 include_once (ROSTER_BASE.'roster_header.tpl');
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu('main');
+print $roster_menu->makeMenu($roster->output['show_menu']);
 
 
 $output = "<br />\n";
