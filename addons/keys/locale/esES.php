@@ -14,6 +14,7 @@
 */
 
 $lang['keys'] = 'Llaves';
+$lang['keybutton'] = 'Llaves|Lists Azeroth Dungeon keys for guild members';
 
 $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
 $lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';

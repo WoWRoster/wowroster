@@ -13,6 +13,16 @@
  * @subpackage Locale
 */
 
+// Menu Buttons
+$lang['cb_character'] = 'Personaje|Show character stats, equipment, reputation, skills, and pvp info';
+$lang['cb_talents'] = 'Talentos|Show current talent build';
+$lang['cb_spellbook'] = 'Libro Hechizos|Show available spells, actions, and passive abilities';
+$lang['cb_mailbox'] = 'Buzón|Show the contents of the mailbox';
+$lang['cb_bags'] = 'Bolsas|Shows the contents of this character\'s bags';
+$lang['cb_bank'] = 'Banco|Shows the contents of this character\'s bank';
+$lang['cb_quests'] = 'Misiones|A list of quest this character is currenly on';
+$lang['cb_recipes'] = 'Recetas|Shows what items this character';
+
 $lang['char_stats'] = 'Character Stats for: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s of %2$s';

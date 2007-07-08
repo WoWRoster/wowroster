@@ -60,7 +60,7 @@ class update
 
 		if( !empty($roster->addon_data) )
 		{
-			foreach( ($roster->addon_data) as $row )
+			foreach( $roster->addon_data as $row )
 			{
 				$hookfile = ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'update_hook.php';
 
@@ -181,7 +181,7 @@ class update
 
 		if( is_array($this->addons) && count($this->addons)>0 )
 		{
-			foreach( $this->addons as $basename => $addon )
+			foreach( $this->addons as $addon )
 			{
 				if( count(array_intersect($gotfiles, $addon->files))>0 )
 				{
@@ -199,7 +199,7 @@ class update
 							else
 							{
 								$output .= 'There was an error in addon ' . $addon->data['fullname'] . " in method update<br />\n"
-								. "Addon messages:<br />\n" . $addon->messages;
+										 . "Addon messages:<br />\n" . $addon->messages;
 							}
 						}
 					}
@@ -215,7 +215,7 @@ class update
 	function addon_hook( $mode , $data , $memberid = '0' )
 	{
 		$output = '';
-		foreach( $this->addons as $basename => $addon )
+		foreach( $this->addons as $addon )
 		{
 			if( file_exists($addon->data['trigger_file']) )
 			{
@@ -240,12 +240,12 @@ class update
 						if( $mode == 'guild' )
 						{
 							$output .= '<li>There was an error in addon ' . $addon->data['fullname'] . " in method $mode<br />\n"
-							. "Addon messages:<br />\n" . $addon->messages . "</li>\n";
+									 . "Addon messages:<br />\n" . $addon->messages . "</li>\n";
 						}
 						else
 						{
 							$output .= 'There was an error in addon '.$addon->data['fullname'] . " in method $mode<br />\n"
-							. "Addon messages:<br />\n" . $addon->messages . "<br />\n";
+									 . "Addon messages:<br />\n" . $addon->messages . "<br />\n";
 						}
 					}
 				}
@@ -296,25 +296,23 @@ class update
 
 					// Is this char already in the members table?
 					$query = "SELECT `member_id`"
-					. " FROM `" . $roster->db->table('members') . "`"
-					. " WHERE `name` = '" . $char_name . "'"
-					. " AND `server` = '" . $realm_escape . "'"
-					. " AND `region` = '" . $region . "'"
-					. ";";
+						   . " FROM `" . $roster->db->table('members') . "`"
+						   . " WHERE `name` = '" . $char_name . "'"
+						   . " AND `server` = '" . $realm_escape . "'"
+						   . " AND `region` = '" . $region . "';";
 
 
 					if( !$roster->db->query_first($query) )
 					{
 						// Allowed char detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-						. " FROM `" . $roster->db->table('upload') . "`"
-						. " WHERE (`type` = 2 OR `type` = 3)"
-						. " AND '" . $char_name . "' LIKE `name` "
-						. " AND '" . $realm_escape . "' LIKE `server` "
-						. " AND '" . $region."' LIKE `region` "
-						. " GROUP BY `type` "
-						. " ORDER BY `type` DESC"
-						. ";";
+							   . " FROM `" . $roster->db->table('upload') . "`"
+							   . " WHERE (`type` = 2 OR `type` = 3)"
+							   . " AND '" . $char_name . "' LIKE `name` "
+							   . " AND '" . $realm_escape . "' LIKE `server` "
+							   . " AND '" . $region."' LIKE `region` "
+							   . " GROUP BY `type` "
+							   . " ORDER BY `type` DESC;";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -416,14 +414,13 @@ class update
 
 						// Allowed guild detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-						. " FROM `" . $roster->db->table('upload') . "`"
-						. " WHERE (`type` = 0 OR `type` = 1)"
-						. " AND '" . $guild_escape . "' LIKE `name` "
-						. " AND '" . $realm_escape . "' LIKE `server` "
-						. " AND '" . $region . "' LIKE `region` "
-						. " GROUP BY `type` "
-						. " ORDER BY `type` DESC"
-						. ";";
+							   . " FROM `" . $roster->db->table('upload') . "`"
+							   . " WHERE (`type` = 0 OR `type` = 1)"
+							   . " AND '" . $guild_escape . "' LIKE `name` "
+							   . " AND '" . $realm_escape . "' LIKE `server` "
+							   . " AND '" . $region . "' LIKE `region` "
+							   . " GROUP BY `type` "
+							   . " ORDER BY `type` DESC;";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -500,10 +497,10 @@ class update
 
 								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
 								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
-								. '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
-								. '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
-								. '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
-								. "</ul></li></ul>\n";
+										 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
+										 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
+										 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
+										 . "</ul></li></ul>\n";
 								$output .= $guild_output;
 
 								// Reset these since we might process another guild
@@ -554,9 +551,9 @@ class update
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-			. "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2) . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-			. "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
-			. "</tr>\n";
+						 . "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2) . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+						 . "</tr>\n";
 		}
 		return $filefields;
 	}
@@ -639,7 +636,7 @@ class update
 					}
 
 					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n"
-					. "$error</td></tr>\n";
+							 . "$error</td></tr>\n";
 				}
 			}
 			$output .= '</table>';
@@ -648,8 +645,8 @@ class update
 	}
 
 	/******************************************************
-	* DB insert code (former WoWDB)
-	******************************************************/
+	 * DB insert code (former WoWDB)
+	 ******************************************************/
 
 	/**
 	 * Resets the SQL insert/update string holder
@@ -689,19 +686,20 @@ class update
 	 * @param string $field
 	 * @param string $default
 	 * @return boolean
-	 */	
+	 */
 	function add_ifvalue( $array, $key, $field=false, $default=false )
 	{
 		if( $field === false )
 		{
 			$field = $key;
 		}
-		if(isset($array[$key]))
+		if( isset($array[$key]) )
 		{
 			$this->add_value( $field, $array[$key] );
 			return true;
 		}
-		else {
+		else
+		{
 			if( $default !== false )
 			{
 				$this->add_value( $field, $default );
@@ -954,7 +952,9 @@ class update
 		$this->add_ifvalue( $recipe, 'recipe_tooltip' );
 
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
-		$this->add_value('level',$level[1]);
+		{
+			$this->add_value('level',$level[1]);
+		}
 
 		$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
@@ -1147,7 +1147,7 @@ class update
 		{
 			foreach( $gemtt as $line )
 			{
-				$line = preg_replace('/\|c[a-f0-9]{2}[a-f0-9]{6}(.+?)\|r/i','$1',$line); // CP error? strip out color
+				$line = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
 				if( eregi( '\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or the word Chance assume it's bonus line.
 				{
@@ -1279,7 +1279,7 @@ class update
 
 				$this->add_value('member_id', $memberId );
 				$this->add_ifvalue( $buff, 'Name', 'name' );
-								
+
 				if( isset( $buff['Icon'] ) )
 				{
 					$this->add_value('icon', $this->fix_icon($buff['Icon']) );
@@ -1287,7 +1287,7 @@ class update
 
 				$this->add_ifvalue( $buff, 'Rank', 'rank' );
 				$this->add_ifvalue( $buff, 'Count', 'count' );
-				
+
 				if( !empty($buff['Tooltip']) )
 				{
 					$this->add_value('tooltip', $this->tooltip( $buff['Tooltip'] ) );
@@ -1715,7 +1715,7 @@ class update
 							$this->add_value('curr_rep', $level );
 							$this->add_value('max_rep', $max );
 						}
-						
+
 						$this->add_ifvalue( $repData[$factions][$faction], 'AtWar' );
 						$this->add_ifvalue( $repData[$factions][$faction], 'Standing' );
 
@@ -2492,10 +2492,10 @@ class update
 		$this->add_ifvalue( $guild, 'Faction', 'faction' );
 		$this->add_ifvalue( $guild, 'FactionEn', 'factionEn' );
 		$this->add_ifvalue( $guild, 'Motd', 'guild_motd' );
-		
+
 		$this->add_ifvalue( $guild, 'NumMembers', 'guild_num_members' );
 		$this->add_ifvalue( $guild, 'NumAccounts', 'guild_num_accounts' );
-		
+
 		$this->add_timestamp( 'update_time', $currentTime );
 
 		$this->add_ifvalue( $guild['timestamp']['init'], 'DateUTC', 'guild_dateupdatedutc' );
@@ -2703,7 +2703,7 @@ class update
 
 			$this->add_ifvalue( $data, 'Name', 'name' );
 			$this->add_ifvalue( $data, 'Slot', 'slot', '0' );
-			
+
 			// BEGIN STATS
 			if( !empty( $data['Attributes']['Stats'] ) )
 			{
@@ -2778,7 +2778,7 @@ class update
 					$this->add_ifvalue( $hand, 'AttackSpeed', 'melee_mhand_speed' );
 					$this->add_ifvalue( $hand, 'AttackDPS', 'melee_mhand_dps' );
 					$this->add_ifvalue( $hand, 'AttackSkill', 'melee_mhand_skill' );
-					
+
 					list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
 					$this->add_value( 'melee_mhand_mindam', $mindam);
 					$this->add_value( 'melee_mhand_maxdam', $maxdam);
@@ -2901,7 +2901,7 @@ class update
 		if( isset($data['Honor']) && is_array($data['Honor']) )
 		{
 			$honor = $data['Honor'];
-			
+
 			$this->add_ifvalue( $honor['Session'], 'HK', 'sessionHK', 0 );
 			$this->add_ifvalue( $honor['Session'], 'CP', 'sessionCP', 0 );
 			$this->add_ifvalue( $honor['Yesterday'], 'HK', 'yesterdayHK', 0 );
@@ -2910,8 +2910,8 @@ class update
 			$this->add_ifvalue( $honor['Lifetime'], 'Rank', 'lifetimeHighestRank', 0 );
 			$this->add_ifvalue( $honor['Lifetime'], 'Name', 'lifetimeRankname', '' );
 			$this->add_ifvalue( $honor['Current'], 'HonorPoints', 'honorpoints', 0 );
-			$this->add_ifvalue( $honor['Current'], 'ArenaPoints', 'arenapoints', 0 );		
-			
+			$this->add_ifvalue( $honor['Current'], 'ArenaPoints', 'arenapoints', 0 );
+
 			unset($honor);
 		}
 		// END HONOR VALUES
@@ -2937,7 +2937,7 @@ class update
 		if( is_array($data['Attributes']['Defense']) )
 		{
 			$main_stats = $data['Attributes']['Defense'];
-			
+
 			$this->add_ifvalue( $main_stats, 'DodgeChance', 'dodge' );
 			$this->add_ifvalue( $main_stats, 'ParryChance', 'parry' );
 			$this->add_ifvalue( $main_stats, 'BlockChance', 'block' );
@@ -2949,7 +2949,7 @@ class update
 			$this->add_rating( 'stat_parry', $main_stats['ParryRating']);
 			$this->add_rating( 'stat_defr', $main_stats['DefenseRating']);
 			$this->add_rating( 'stat_dodge', $main_stats['DodgeRating']);
-			
+
 			$this->add_ifvalue( $main_stats['Resilience'], 'Ranged', 'stat_res_ranged' );
 			$this->add_ifvalue( $main_stats['Resilience'], 'Spell', 'stat_res_spell' );
 			$this->add_ifvalue( $main_stats['Resilience'], 'Melee', 'stat_res_melee' );
@@ -3053,11 +3053,11 @@ class update
 
 			$this->add_ifvalue( $attack, 'CritChance', 'ranged_crit_chance' );
 			$this->add_ifvalue( $attack, 'AttackPowerDPS', 'ranged_power_dps', 0 );
-			
+
 			$this->add_ifvalue( $attack, 'AttackSpeed', 'ranged_speed' );
 			$this->add_ifvalue( $attack, 'AttackDPS', 'ranged_dps' );
 			$this->add_ifvalue( $attack, 'AttackSkill', 'ranged_skill' );
-			
+
 			list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
 			$this->add_value( 'ranged_mindam', $mindam);
 			$this->add_value( 'ranged_maxdam', $maxdam);
@@ -3087,7 +3087,7 @@ class update
 			$this->add_rating( 'spell_haste', $spell['HasteRating']);
 
 			$this->add_ifvalue( $spell, 'CritChance', 'spell_crit_chance' );
-			
+
 			list($not_cast, $cast) = explode(':',$spell['ManaRegen']);
 			$this->add_value( 'mana_regen', $not_cast);
 			$this->add_value( 'mana_regen_cast', $cast);
@@ -3096,31 +3096,31 @@ class update
 			$this->add_ifvalue( $spell, 'Penetration', 'spell_penetration' );
 			$this->add_ifvalue( $spell, 'BonusDamage', 'spell_damage' );
 			$this->add_ifvalue( $spell, 'BonusHealing', 'spell_healing' );
-			
+
 			if(isset($spell['SchoolCrit'])){
 				$schoolcrit = $spell['SchoolCrit'];
-				
+
 				$this->add_ifvalue( $schoolcrit, 'Holy', 'spell_crit_chance_holy' );
 				$this->add_ifvalue( $schoolcrit, 'Frost', 'spell_crit_chance_frost' );
 				$this->add_ifvalue( $schoolcrit, 'Arcane', 'spell_crit_chance_arcane' );
 				$this->add_ifvalue( $schoolcrit, 'Fire', 'spell_crit_chance_fire' );
 				$this->add_ifvalue( $schoolcrit, 'Shadow', 'spell_crit_chance_shadow' );
 				$this->add_ifvalue( $schoolcrit, 'Nature', 'spell_crit_chance_nature' );
-				
+
 				unset($schoolcrit);
 			}
 
 			if(isset($spell['School']))
 			{
 				$school = $spell['School'];
-				
+
 				$this->add_ifvalue( $school, 'Holy', 'spell_damage_holy' );
 				$this->add_ifvalue( $school, 'Frost', 'spell_damage_frost' );
 				$this->add_ifvalue( $school, 'Arcane', 'spell_damage_arcane' );
 				$this->add_ifvalue( $school, 'Fire', 'spell_damage_fire' );
 				$this->add_ifvalue( $school, 'Shadow', 'spell_damage_shadow' );
 				$this->add_ifvalue( $school, 'Nature', 'spell_damage_nature' );
-				
+
 				unset($school);
 			}
 
@@ -3130,7 +3130,7 @@ class update
 
 		$this->add_ifvalue( $data, 'Level', 'level' );
 		$this->add_ifvalue( $data, 'Server', 'server' );
-		
+
 		$this->add_ifvalue( $data, 'TalentPoints', 'talent_points' );
 
 		$this->add_value( 'money_c', $data['Money']['Copper'] );
@@ -3150,7 +3150,7 @@ class update
 		$this->add_ifvalue( $data, 'Sex', 'sex' );
 		$this->add_ifvalue( $data, 'SexId', 'sexid' );
 		$this->add_ifvalue( $data, 'Hearth', 'hearth' );
-		
+
 		if( !empty($data['timestamp']['init']['DateUTC']) )
 		{
 			$this->add_value( 'dateupdatedutc', $data['timestamp']['init']['DateUTC'] );
@@ -3158,7 +3158,7 @@ class update
 
 		$this->add_ifvalue( $data, 'DBversion' );
 		$this->add_ifvalue( $data, 'CPversion' );
-		
+
 		if (isset($data['TimePlayed']) && $data['TimePlayed'] > 0 )
 		{
 			$this->add_value( 'timeplayed', $data['TimePlayed'] );
@@ -3172,11 +3172,13 @@ class update
 
 		// Capture mailbox update time/date
 		if( isset($data['timestamp']['MailBox']) )
-		$this->add_timestamp( 'maildateutc', $data['timestamp']['MailBox'] );
+		{
+			$this->add_timestamp( 'maildateutc', $data['timestamp']['MailBox'] );
+		}
 
 		// Capture client language
 		$this->add_ifvalue( $data, 'Locale', 'clientLocale' );
-		
+
 		$this->setMessage('<li>About to update player</li>');
 
 		if( $update )
