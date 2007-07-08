@@ -84,7 +84,7 @@ class professions
 
 		$installer->remove_all_config();
 
-		$installer->remove_menu_button('professions_menu');
+		$installer->remove_all_menu_button();
 		return true;
 	}
 }

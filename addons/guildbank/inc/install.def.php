@@ -83,8 +83,8 @@ class guildbank
 		global $installer;
 
 		$installer->remove_all_config();
+		$installer->remove_all_menu_button();
 
-		$installer->remove_menu_button('gbankbutton');
 		return true;
 	}
 }

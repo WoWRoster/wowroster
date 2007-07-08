@@ -75,7 +75,7 @@ class questlist
 	{
 		global $installer;
 
-		$installer->remove_menu_button('questlistbutton');
+		$installer->remove_all_menu_button();
 		return true;
 	}
 }

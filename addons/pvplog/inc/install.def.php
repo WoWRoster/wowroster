@@ -84,7 +84,7 @@ class pvplog
 			) TYPE=MyISAM;");
 
 		# Roster menu entry
-		$installer->add_menu_button('pvplist','guild');
+		$installer->add_menu_button('button_pvplog','guild');
 
 		$installer->add_menu_button('button_pvp','char','pvp','inv_banner_03');
 		$installer->add_menu_button('button_bg','char','bg','inv_bannerpvp_03');

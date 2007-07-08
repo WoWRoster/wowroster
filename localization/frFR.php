@@ -359,7 +359,7 @@ $lang['class_colorArray'] = array(
 	'Guerrier' => 'C69B6D'
 );
 
-$lang['pvplist']=' Stats JcJ/PvP';
+$lang['pvplist']='Stats JcJ/PvP';
 $lang['pvplist1']='Guilde qui a le plus souffert de nos actions';
 $lang['pvplist2']='Guilde qui nous a le plus fait souffrir';
 $lang['pvplist3']='Joueur qui a le plus souffert de nos actions';

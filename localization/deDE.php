@@ -359,7 +359,7 @@ $lang['class_colorArray'] = array(
 	'Krieger' => 'C69B6D'
 );
 
-$lang['pvplist']=' PvP Statistiken';
+$lang['pvplist']='PvP Statistiken';
 $lang['pvplist1']='Gilde, die am meisten unter uns zu leiden hat';
 $lang['pvplist2']='Gilde, die uns am meisten zu Schaffen macht';
 $lang['pvplist3']='Spieler, der am meisten unter uns zu leiden hat';

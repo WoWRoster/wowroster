@@ -114,10 +114,10 @@ switch ($method)
 		$row = $roster->db->fetch($DBres);
 		$roster->db->free_result($DBres);
 
-		if( $row['addon_id'] == '0' )
+		if( $row['addon_id'] != '-1' )
 		{
 			$status = 105;
-			$errmsg = 'You cannot delete WoWRoster made buttons: ' . $button;
+			$errmsg = 'You cannot delete non-user made buttons: ' . $button;
 			return;
 		}
 
