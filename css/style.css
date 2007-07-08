@@ -864,7 +864,7 @@ select {
 .overlib_fg { background-color:#000000; }
 
 /* Sets the border style - ol_bgclass*/
-.overlib_border { border:1px outset white; }
+.overlib_border { border:1px outset #CCCCCC; }
 
 /* Sets main text style - ol_textfontclass */
 .overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
