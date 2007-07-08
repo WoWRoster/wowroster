@@ -145,6 +145,8 @@ $lang['pointsspent']='Points Utilisés dans';
 $lang['item_bonuses_full'] = 'Bonus dûs à l\'équipement';
 $lang['item_bonuses'] = 'Objets Bonus';
 
+$lang['inactive'] = 'Inactive';
+
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
 $lang['admin']['char_links'] = "Character Page Links|Display the character page quick links on each character page";
 $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
