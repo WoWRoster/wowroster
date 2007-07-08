@@ -14,10 +14,10 @@
 */
 
 // Menu Buttons
-$lang['cb_character'] = 'Personaje|Show character stats, equipment, reputation, skills, and pvp info';
-$lang['cb_talents'] = 'Talentos|Show current talent build';
-$lang['cb_spellbook'] = 'Libro Hechizos|Show available spells, actions, and passive abilities';
-$lang['cb_mailbox'] = 'Buzón|Show the contents of the mailbox';
+$lang['cb_character'] = 'Personaje|Shows character stats, equipment, reputation, skills, and pvp info';
+$lang['cb_talents'] = 'Talentos|Shows current talent build';
+$lang['cb_spellbook'] = 'Libro Hechizos|Shows available spells, actions, and passive abilities';
+$lang['cb_mailbox'] = 'Buzón|Shows the contents of the mailbox';
 $lang['cb_bags'] = 'Bolsas|Shows the contents of this character\'s bags';
 $lang['cb_bank'] = 'Banco|Shows the contents of this character\'s bank';
 $lang['cb_quests'] = 'Misiones|A list of quest this character is currenly on';
