@@ -783,7 +783,7 @@ class update
 	{
 		return strtolower(str_replace(' ','_',$icon_name));
 	}
-
+	
 	/**
 	 * Format tooltips for insertion to the db
 	 *
@@ -2571,6 +2571,12 @@ class update
 		$this->add_value('region', $region);
 		$this->add_ifvalue( $char, 'Class', 'class' );
 		$this->add_ifvalue( $char, 'Level', 'level' );
+		
+		if( isset($char['Note'] ))
+		{
+			$char['Note'] = htmlentities( $char['Note'] );
+		}
+		
 		$this->add_ifvalue( $char, 'Note', 'note', '' );
 		$this->add_ifvalue( $char, 'Rank', 'guild_rank');
 		$this->add_value('guild_title', $guildRanks[$char['Rank']]['Title']);
