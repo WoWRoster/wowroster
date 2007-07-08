@@ -551,7 +551,7 @@ class update
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-						 . "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2) . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+						 . "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
 						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
 						 . "</tr>\n";
 		}
@@ -781,7 +781,7 @@ class update
 	{
 		return strtolower(str_replace(' ','_',$icon_name));
 	}
-	
+
 	/**
 	 * Format tooltips for insertion to the db
 	 *
