@@ -66,7 +66,7 @@ $dhtml_reg = '';
 while ($row = $roster->db->fetch($result))
 {
 	$palet['b'.$row['button_id']] = $row;
-	$dhtml_reg .= ', "b'.$row['button_id'].'"+TRANSPARENT+SCROLL';
+	$dhtml_reg .= ', "b'.$row['button_id'].'"';
 }
 
 $roster->db->free_result($result);
@@ -291,7 +291,7 @@ $footer .=
 '<script type="text/javascript">
 <!--
 
-SET_DHTML(CURSOR_MOVE'.$dhtml_reg.', "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
+SET_DHTML(CURSOR_MOVE,TRANSPARENT,SCROLL'.$dhtml_reg.' "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
 
 var roster_url	= \''.ROSTER_URL.'\';
 
