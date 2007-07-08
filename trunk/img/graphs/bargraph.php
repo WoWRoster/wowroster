@@ -54,7 +54,7 @@ if( is_array($bar2sizes) && (count($bar2sizes) != count($barnames)) )
 }
 
 // Hardcoded options
-$w = 150;
+$w = 130;
 $h = 115;
 $font = ROSTER_BASE . 'fonts' . DIR_SEP . $roster->config[$side . '_text'];
 
