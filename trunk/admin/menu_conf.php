@@ -66,7 +66,7 @@ $dhtml_reg = '';
 while ($row = $roster->db->fetch($result))
 {
 	$palet['b'.$row['button_id']] = $row;
-	$dhtml_reg .= ', "b'.$row['button_id'].'"';
+	$dhtml_reg .= ', "b'.$row['button_id'].'"+TRANSPARENT+SCROLL';
 }
 
 $roster->db->free_result($result);
