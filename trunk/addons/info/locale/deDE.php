@@ -78,9 +78,9 @@ $lang['melee']='Nahkampf';
 $lang['spell']='Zauber';
 
 $lang['weapon_skill']='Waffe';
-$lang['weapon_skill_tooltip']='Waffe %d<br />Waffenfertigkeitswertung %d';
+$lang['weapon_skill_tooltip']='<span style="float:right;color:#fff;">%1$d</span>Waffe<br /><span style="float:right;color:#fff;">%2$d</span>Waffenfertigkeitswertung';
 $lang['damage']='Schaden';
-$lang['damage_tooltip']='<table><tr><td>Angriffstempo (Sekunden):<td>%.2f<tr><td>Schaden:<td>%d-%d<tr><td>Schaden pro Sekunde:<td>%.1f</table>';
+$lang['damage_tooltip']='<span style="float:right;color:#fff;">%.2f</span>Angriffstempo (Sekunden):<br /><span style="float:right;color:#fff;">%d-%d</span>Schaden:<br /><span style="float:right;color:#fff;">%.1f</span>Schaden pro Sekunde:<br />';
 $lang['speed']='Tempo';
 $lang['atk_speed']='Angriffstempo';
 $lang['haste_tooltip']='Tempowertung ';

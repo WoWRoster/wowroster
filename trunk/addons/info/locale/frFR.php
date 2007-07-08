@@ -78,9 +78,9 @@ $lang['melee']='Melee';
 $lang['spell']='Spell';
 
 $lang['weapon_skill']='Skill';
-$lang['weapon_skill_tooltip']='Weapon Skill %d<br />Weapon Skill Rating %d';
+$lang['weapon_skill_tooltip']='<span style="float:right;color:#fff;">%1$d</span>Weapon Skill<br /><span style="float:right;color:#fff;">%2$d</span>Weapon Skill Rating';
 $lang['damage']='Damage';
-$lang['damage_tooltip']='<table><tr><td>Attack speed (seconds):<td>%.2f<tr><td>Damage:<td>%d-%d<tr><td>Damage per second:<td>%.1f</table>';
+$lang['damage_tooltip']='<span style="float:right;color:#fff;">%.2f</span>Attack speed (seconds):<br /><span style="float:right;color:#fff;">%d-%d</span>Damage:<br /><span style="float:right;color:#fff;">%.1f</span>Damage per second:<br />';
 $lang['speed']='Speed';
 $lang['atk_speed']='Attack Speed';
 $lang['haste_tooltip']='Haste Rating ';

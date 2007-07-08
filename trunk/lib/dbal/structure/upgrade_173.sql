@@ -107,6 +107,9 @@ UPDATE `renprefix_config` SET `config_name` = 'locale' WHERE `id` = '1040' LIMIT
 UPDATE `renprefix_config` SET `config_name` = 'default_name' WHERE `id` = '2000' LIMIT 1;
 UPDATE `renprefix_config` SET `config_name` = 'default_desc' WHERE `id` = '2020' LIMIT 1;
 
+UPDATE `renprefix_config` SET `config_value` = '2.1.1' WHERE `id` = '1010' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '2.1.0' WHERE `id` = '1020' LIMIT 1;
+
 
 # --------------------------------------------------------
 ### New master entry: Startpage

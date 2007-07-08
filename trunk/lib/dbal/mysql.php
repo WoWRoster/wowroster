@@ -428,12 +428,12 @@ class roster_db
 	 */
 	function getQueries()
 	{
-		$output = "<ul>\n";
+		$output = "<div style=\"text-align:left;\"><ul>\n";
 		foreach( $this->queries as $query )
 		{
 			$output .= "  <li>".nl2br(htmlentities($query))."</li>\n";
 		}
-		$output .= "</ul>\n";
+		$output .= "</ul></div>\n";
 		return $output;
 	}
 }
