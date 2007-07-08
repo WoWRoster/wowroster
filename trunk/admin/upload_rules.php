@@ -186,7 +186,8 @@ function ruletable_head( $style , $title , $type , $mode )
 	{
 		$name = $roster->locale->act['guildname'];
 	}
-	else {
+	else
+	{
 		$name = $roster->locale->act['charname'];
 	}
 	
