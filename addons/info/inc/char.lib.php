@@ -1108,9 +1108,13 @@ $returnstring .= '  <tr>
 	function printRatingShort( $statname , $data_or=false )
 	{
 		if( $data_or == false )
+		{
 			$data = $this->data;
+		}
 		else
+		{
 			$data = $data_or;
+		}
 
 		$base = $data[$statname];
 		$current = $data[$statname . '_c'];
@@ -1119,19 +1123,19 @@ $returnstring .= '  <tr>
 
 		if( $buff>0 && $debuff>0 )
 		{
-			$color = "purple";
+			$color = 'purple';
 		}
 		elseif( $buff>0 )
 		{
-			$color = "green";
+			$color = 'green';
 		}
 		elseif( $debuff>0 )
 		{
-			$color = "red";
+			$color = 'red';
 		}
 		else
 		{
-			$color = "white";
+			$color = 'white';
 		}
 
 		return '<strong class="' . $color . '">' . $current . '</strong>';
@@ -1148,9 +1152,13 @@ $returnstring .= '  <tr>
 	function printRatingLong( $statname , $data_or=false )
 	{
 		if( $data_or == false )
+		{
 			$data = $this->data;
+		}
 		else
+		{
 			$data = $data_or;
+		}
 
 		$base = $data[$statname];
 		$current = $data[$statname . '_c'];
@@ -1372,7 +1380,7 @@ $returnstring .= '  <tr>
 			$tooltip = sprintf($this->locale['weapon_skill_tooltip'], $this->data['ranged_skill'], $this->data['ranged_rating']);
 
 			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
-			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
+			$line .= '<div style="color:#DFB801;">' . $tooltip . '</div>';
 		}
 		else
 		{
@@ -1390,8 +1398,8 @@ $returnstring .= '  <tr>
 				$tooltipheader = $this->locale['offhand'];
 				$tooltip = sprintf($this->locale['weapon_skill_tooltip'], $this->data['melee_ohand_skill'], $this->data['melee_ohand_rating']);
 
-				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
-				$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
+				$line .= '<br /><span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
+				$line .= '<div style="color:#DFB801;">' . $tooltip . '</div>';
 			}
 		}
 
@@ -1417,7 +1425,7 @@ $returnstring .= '  <tr>
 			$tooltip = sprintf($this->locale['damage_tooltip'], $this->data['ranged_speed'], $this->data['ranged_mindam'], $this->data['ranged_maxdam'], $this->data['ranged_dps']);
 
 			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
-			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
+			$line .= '<div style="color:#DFB801;">' . $tooltip . '</div>';
 		}
 		else
 		{
@@ -1431,12 +1439,16 @@ $returnstring .= '  <tr>
 
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
-				$value .= '/<strong class="white">' . $this->data['melee_ohand_mindam'] . '</strong>-<strong class="white">' . $this->data['melee_ohand_maxdam'] . '</strong>';
+				// This will only print then there is no main hand data because printing both stats is too long for the box
+				if( empty($this->data['melee_mhand_mindam']) )
+				{
+					$value .= '<strong class="white">' . $this->data['melee_ohand_mindam'] . '</strong>-<strong class="white">' . $this->data['melee_ohand_maxdam'] . '</strong>';
+				}
 				$tooltipheader = $this->locale['offhand'];
 				$tooltip = sprintf($this->locale['damage_tooltip'], $this->data['melee_ohand_speed'], $this->data['melee_ohand_mindam'], $this->data['melee_ohand_maxdam'], $this->data['melee_ohand_dps']);
 
 				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
-				$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
+				$line .= '<div style="color:#DFB801;">' . $tooltip . '</div>';
 			}
 		}
 
@@ -1523,13 +1535,12 @@ $returnstring .= '  <tr>
 	{
 		global $roster;
 
-		$name = $this->locale['spell_crit_rating'];
-		$value = $this->printRatingShort('spell_crit');
+		$name = $this->locale['spell_crit_chance'];
+		$value = '<strong class="white">' . $this->data['spell_crit_chance'] . '</strong>';
 
-		$tooltipheader = $name.' '.$this->printRatingLong('spell_crit');
-		$tooltip = $this->locale['spell_crit_chance'].' '.$this->data['spell_crit_chance'];
+		$tooltipheader = $this->locale['spell_crit_rating'].' '.$this->printRatingLong('spell_crit');
 
-		$tooltip  = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_fire']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_nature']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
 		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_frost']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';

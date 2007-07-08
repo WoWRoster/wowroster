@@ -183,7 +183,7 @@ class roster
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm);
-						$where = ' `players`.`name` = "' . $name . '" AND players`.`server` = "' . $realm . '" AND players`.`region` = "' . strtoupper($region) . '"';
+						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '" AND `players`.`region` = "' . strtoupper($region) . '"';
 					}
 					else
 					{
