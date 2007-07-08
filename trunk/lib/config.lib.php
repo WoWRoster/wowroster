@@ -441,13 +441,13 @@ class config
 
 					// Check for directories defined with no '/' at the end
 					// and with a '/' at the beginning
-					if( substr($settingValue, -1, 1) != '/' )
-					{
-						$settingValue .= '/';
-					}
 					if( substr($settingValue, 0, 1) == '/' )
 					{
 						$settingValue = substr($settingValue, 1);
+					}
+					if( substr($settingValue, -1, 1) != '/' )
+					{
+						$settingValue .= '/';
 					}
 				}
 
