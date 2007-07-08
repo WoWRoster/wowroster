@@ -291,7 +291,7 @@ $footer .=
 '<script type="text/javascript">
 <!--
 
-SET_DHTML(CURSOR_MOVE,TRANSPARENT,SCROLL'.$dhtml_reg.' "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
+SET_DHTML(CURSOR_MOVE, TRANSPARENT, SCROLL'.$dhtml_reg.', "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
 
 var roster_url	= \''.ROSTER_URL.'\';
 
