@@ -16,10 +16,10 @@
 // -[ enUS Localization ]-
 
 // Button names
-$lang['memberslist_Members']	= 'Members';
-$lang['memberslist_Stats']		= 'Stats';
-$lang['memberslist_Honor']		= 'Honor';
-$lang['memberslist_Log']		= 'Member Log';
+$lang['memberslist_Members']	= 'Members|Displays the guild member list with player notes, last online time, etc...';
+$lang['memberslist_Stats']		= 'Stats|Displays each guild member\'s stats such as intellect, stamina, etc...';
+$lang['memberslist_Honor']		= 'Honor|Displays each guild member\'s pvp information';
+$lang['memberslist_Log']		= 'Member Log|Displays the upload log for new members and removed members';
 
 // Index: Wrong $roster->pages[2]
 $lang['memberslist_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';

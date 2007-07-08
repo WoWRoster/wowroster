@@ -53,9 +53,13 @@ class item
 		$output = '<div class="item" '.$tooltip.$linktip.'>';
 
 		if ($this->data['item_slot'] == 'Ammo')
-		$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
+		{
+			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
+		}
 		else
-		$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+		{
+			$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+		}
 
 		if( ($this->data['item_quantity'] > 1) )
 		{

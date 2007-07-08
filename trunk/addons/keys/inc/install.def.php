@@ -34,7 +34,7 @@ class keys
 	var $version = '1.8.0.0';
 
 	var $fullname = 'Instance Keys';
-	var $description = 'Lists Azeroth Dungeon keys for Members';
+	var $description = 'Lists Azeroth Dungeon keys for guild members';
 	var $credits = array(
 	array(	"name"=>	"WoWRoster Dev Team",
 			"info"=>	"Original Author")
@@ -58,7 +58,7 @@ class keys
 		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
 		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
 
-		$installer->add_menu_button('keys','guild');
+		$installer->add_menu_button('keybutton','guild');
 		return true;
 	}
 
@@ -85,7 +85,7 @@ class keys
 
 		$installer->remove_all_config();
 
-		$installer->remove_menu_button('keys');
+		$installer->remove_menu_button('keybutton');
 		return true;
 	}
 }

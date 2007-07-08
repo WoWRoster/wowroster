@@ -222,7 +222,9 @@ function makelink( $url='' , $full=false )
 
 function getFormAction( $url='', $full=false )
 {
-	if( isset($roster->config['seo_url']) && $roster->config['seo_url'] )
+	global $roster;
+
+	if( $roster->config['seo_url'] )
 	{
 		return makelink($url, $full);
 	}

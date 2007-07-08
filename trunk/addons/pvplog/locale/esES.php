@@ -13,6 +13,10 @@
  * @subpackage Locale
 */
 
+$lang['button_bg']='Battleground Log|Battleground stats from PvP Log';
+$lang['button_pvp']='PvP Log|World PvP stats from PvP Log';
+$lang['button_duel']='Duel Log|Duel stats from PvP Log';
+
 $lang['bglog']='Registro Batallas';
 $lang['pvplog']='Registro JcJ';
 $lang['duellog']='Registro Duelos';

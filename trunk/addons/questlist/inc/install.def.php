@@ -50,7 +50,7 @@ class questlist
 	{
 		global $installer;
 
-		$installer->add_menu_button('questlist');
+		$installer->add_menu_button('questlistbutton');
 		return true;
 	}
 
@@ -75,7 +75,7 @@ class questlist
 	{
 		global $installer;
 
-		$installer->remove_menu_button('questlist');
+		$installer->remove_menu_button('questlistbutton');
 		return true;
 	}
 }

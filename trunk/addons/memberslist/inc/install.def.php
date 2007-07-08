@@ -86,7 +86,7 @@ class memberslist
 		$installer->add_config("2040,'member_class','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
 		$installer->add_config("2050,'member_level','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
 		$installer->add_config("2060,'member_gtitle','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
-		$installer->add_config("2070,'member_hrank','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
+		$installer->add_config("2070,'member_hrank','0','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
 		$installer->add_config("2080,'member_prof','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
 		$installer->add_config("2090,'member_hearth','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
 		$installer->add_config("2100,'member_zone','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
@@ -196,11 +196,8 @@ class memberslist
 		$installer->remove_all_config();
 
 		$installer->add_query("DROP TABLE IF EXISTS `" . $installer->table('alts') . "`;");
+		$installer->remove_all_menu_button();
 
-		$installer->remove_menu_button('memberslist_Members');
-		$installer->remove_menu_button('memberslist_Stats');
-		$installer->remove_menu_button('memberslist_Honor');
-		$installer->remove_menu_button('memberslist_Log');
 		return true;
 	}
 }

@@ -33,7 +33,7 @@ class guildbank
 	var $version = '1.8.0.0';
 
 	var $fullname = 'Guild Bank';
-	var $description = 'Default Guild Bank display';
+	var $description = 'Shows the inventory of characters marked as the Guild Bank';
 	var $credits = array(
 	array(	"name"=>	"vaccafoeda.hellscream@gmail.com",
 			"info"=>	"Original author")
@@ -57,7 +57,7 @@ class guildbank
 		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
 		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
 
-		$installer->add_menu_button('guildbank','guild');
+		$installer->add_menu_button('gbankbutton','guild');
 		return true;
 	}
 
@@ -84,7 +84,7 @@ class guildbank
 
 		$installer->remove_all_config();
 
-		$installer->remove_menu_button('guildbank');
+		$installer->remove_menu_button('gbankbutton');
 		return true;
 	}
 }

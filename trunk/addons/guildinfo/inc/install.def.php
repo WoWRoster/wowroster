@@ -33,7 +33,7 @@ class guildinfo
 	var $version = '1.8.0.0';
 
 	var $fullname = 'Guild Info';
-	var $description = 'Shows /guildinfo';
+	var $description = 'Shows Guild Info text from WoW';
 	var $credits = array(
 	array(	"name"=>	"WoWRoster Dev Team",
 			"info"=>	"Original Author")
@@ -49,7 +49,7 @@ class guildinfo
 	{
 		global $installer;
 
-		$installer->add_menu_button('guildinfo','guild');
+		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}
 
@@ -74,7 +74,7 @@ class guildinfo
 	{
 		global $installer;
 
-		$installer->remove_menu_button('guildinfo');
+		$installer->remove_menu_button('ginfobutton');
 		return true;
 	}
 }

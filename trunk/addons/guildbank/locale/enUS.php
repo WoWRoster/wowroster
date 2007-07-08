@@ -13,6 +13,7 @@
  * @subpackage Locale
 */
 
+$lang['gbankbutton']='GuildBank|Shows the inventory of characters marked as the Guild Bank';
 $lang['guildbank']='GuildBank';
 $lang['guildbank_totalmoney']='Total bank holdings';
 
