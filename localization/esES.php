@@ -742,3 +742,9 @@ $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Pantalla Per-Character';
+
+//Overlib for Allow/Disallow rules
+$lang['guildname'] = 'Guild name';
+$lang['realmname']  = 'Realm name';
+$lang['regionname']     = 'Region (i.e. US)';
+$lang['charname'] = 'Character name';

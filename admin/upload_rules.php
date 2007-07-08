@@ -181,10 +181,19 @@ function ruletable_head( $style , $title , $type , $mode )
 	{
 		$output .= '			<th class="membersHeader">' . $roster->locale->act['default'] . '</th>';
 	}
+	
+	if( $mode == 'guild' )
+	{
+		$name = $roster->locale->act['guildname'];
+	}
+	else {
+		$name = $roster->locale->act['charname'];
+	}
+	
 	$output .= '
-			<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
-			<th class="membersHeader">' . $roster->locale->act['server'] . '</th>
-			<th class="membersHeader">' . $roster->locale->act['region'] . '</th>
+			<th class="membersHeader" ' . makeOverlib($name) . '> ' . $roster->locale->act['name'] . '</th>
+			<th class="membersHeader" ' . makeOverlib($roster->locale->act['realmname']) . '> ' . $roster->locale->act['server'] . '</th>
+			<th class="membersHeader" ' . makeOverlib($roster->locale->act['regionname']) . '> ' . $roster->locale->act['region'] . '</th>
 			<th class="membersHeaderRight">&nbsp;</th>
 		</tr>
 	</thead>
