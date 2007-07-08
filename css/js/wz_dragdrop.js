@@ -12,15 +12,15 @@
 
 /* This notice must be untouched at all times.
 
-wz_dragdrop.js	v. 4.85
+wz_dragdrop.js	v. 4.89
 The latest version is available at
 http://www.walterzorn.com
 or http://www.devira.com
 or http://www.walterzorn.de
 
-Copyright (c) 2002-2003 Walter Zorn. All rights reserved.
+Copyright (c) 2002-2007 Walter Zorn. All rights reserved.
 Created 26. 8. 2002 by Walter Zorn (Web: http://www.walterzorn.com )
-Last modified: 3. 7. 2006
+Last modified: 28.6.2007
 
 This DHTML & Drag&Drop Library adds Drag&Drop functionality
 to the following types of html-elements:
@@ -44,10 +44,6 @@ For more details on the GNU Lesser General Public License,
 see http://www.gnu.org/copyleft/lesser.html
 */
 
-/*
-Added for roster versioning.
-$Id$
-*/
 
 // PATH TO THE TRANSPARENT 1*1 PX IMAGE (required by NS 4 as spacer)
 var spacer = '../../img/pixel.gif';
@@ -60,25 +56,25 @@ var spacer = '../../img/pixel.gif';
 
 // Optional commands passed to SET_DHTML() on the html-page (g: may be applied globally, i: individually)
 var CLONE			= 'C10nE';   // i  img	  clone image
-var COPY			 = 'C0pY';	// i  img	  create copies
-var DETACH_CHILDREN  = 'd37aCH';  // i  lyr	  detach images
-var HORIZONTAL	   = 'H0r1Z';   // i  img,lyr  horizontally draggable only
+var COPY			= 'C0pY';	// i  img	  create copies
+var DETACH_CHILDREN = 'd37aCH';  // i  lyr	  detach images
+var HORIZONTAL		= 'H0r1Z';   // i  img,lyr  horizontally draggable only
 var MAXHEIGHT		= 'm7x8I';   // i  img,lyr  maximum height limit, "
-var MAXOFFBOTTOM	 = 'm7xd0wN'; // i  img,lyr  downward offset limit
-var MAXOFFLEFT	   = 'm7x23Ft'; // i  img,lyr  leftward offset limit
-var MAXOFFRIGHT	  = 'm7x0Ff8'; // i  img,lyr  rightward offset limit
+var MAXOFFBOTTOM	= 'm7xd0wN'; // i  img,lyr  downward offset limit
+var MAXOFFLEFT		= 'm7x23Ft'; // i  img,lyr  leftward offset limit
+var MAXOFFRIGHT		= 'm7x0Ff8'; // i  img,lyr  rightward offset limit
 var MAXOFFTOP		= 'm7xu9';   // i  img,lyr  upward offset limit
-var MAXWIDTH		 = 'm7xW1';   // i  img,lyr  maximum width limit, use with resizable or scalable
-var MINWIDTH		 = 'm1nw1';   // i  img,lyr  minimum width limit, "
+var MAXWIDTH		= 'm7xW1';   // i  img,lyr  maximum width limit, use with resizable or scalable
+var MINWIDTH		= 'm1nw1';   // i  img,lyr  minimum width limit, "
 var MINHEIGHT		= 'm1n8I';   // i  img,lyr  minimum height limit, "
-var NO_ALT		   = 'no81T';   // gi img	  disable alt and title attributes
-var NO_DRAG		  = 'N0d4Ag';  // i  img,lyr  disable draggability
-var RESET_Z		  = 'r35E7z';  // gi img,lyr  reset z-index when dropped
+var NO_ALT			= 'no81T';   // gi img	  disable alt and title attributes
+var NO_DRAG			= 'N0d4Ag';  // i  img,lyr  disable draggability
+var RESET_Z			= 'r35E7z';  // gi img,lyr  reset z-index when dropped
 var RESIZABLE		= 'r5IZbl';  // gi img,lyr  resizable if <ctrl> or <shift> pressed
-var SCALABLE		 = 'SCLbl';   // gi img,lyr  scalable		   "
-var SCROLL		   = 'sC8lL';   // gi img,lyr  enable auto scroll functionality
-var TRANSPARENT	  = 'dIApHAn'; // gi img,lyr  translucent while dragged
-var VERTICAL		 = 'V3Rt1C';  // i  img,lyr  vertically draggable only
+var SCALABLE		= 'SCLbl';   // gi img,lyr  scalable		   "
+var SCROLL			= 'sC8lL';   // gi img,lyr  enable auto scroll functionality
+var TRANSPARENT		= 'dIApHAn'; // gi img,lyr  translucent while dragged
+var VERTICAL		= 'V3Rt1C';  // i  img,lyr  vertically draggable only
 var dd_cursors = new Array(
 	'c:default',
 	'c:crosshair',
@@ -96,8 +92,10 @@ var dd_cursors = new Array(
 	'c:w-resize',
 	'c:wait'
 );
-var dd_i = dd_cursors.length; while(dd_i--)
+for(var dd_i = dd_cursors.length; dd_i;)
+{--dd_i;
 	eval('var CURSOR_' + (dd_cursors[dd_i].substring(2).toUpperCase().replace('-', '_')) + ' = "' + dd_cursors[dd_i] + '";');
+}
 var dd_u = "undefined";
 function WZDD()
 {
@@ -116,9 +114,10 @@ function WZDD()
 	this.n4 = !!(document.layers && typeof document.classes != dd_u);
 	this.n6 = !!(typeof window.getComputedStyle != dd_u && typeof document.createRange != dd_u);
 	this.w3c = !!(!this.op && !this.ie && !this.n6 && document.getElementById);
-	this.ce = !!(document.captureEvents && document.releaseEvents);
+	this.ce = !!(document.captureEvents && document.releaseEvents && !this.n6);
 	this.px = this.n4? '' : 'px';
-	this.tiv = this.w3c? 40 : 10;
+	this.tWait = this.w3c? 40 : 10;
+	this.noRecalc = false;
 }
 var dd = new WZDD();
 
@@ -249,9 +248,9 @@ dd.getDiv = function(d_x, d_d)
 	if(dd.n4)
 	{
 		if(d_d.layers[d_x]) return d_d.layers[d_x];
-		for(var d_i = d_d.layers.length; d_i--;)
+		for(var d_i = d_d.layers.length; d_i;)
 		{
-			var d_y = dd.getDiv(d_x, d_d.layers[d_i].document);
+			var d_y = dd.getDiv(d_x, d_d.layers[--d_i].document);
 			if(d_y) return d_y;
 		}
 	}
@@ -282,9 +281,9 @@ dd.getImg = function(d_o, d_nm, d_xy, d_w)
 		}
 		return d_img;
 	}
-	if(dd.n4) for(var d_i = d_w.document.layers.length; d_i--;)
+	if(dd.n4) for(var d_i = d_w.document.layers.length; d_i;)
 	{
-		var d_y = dd.getImg(d_o, d_nm, d_xy, d_w.document.layers[d_i]);
+		var d_y = dd.getImg(d_o, d_nm, d_xy, d_w.document.layers[--d_i]);
 		if(d_y) return d_y;
 	}
 	return null;
@@ -293,9 +292,9 @@ dd.getParent = function(d_o, d_p)
 {
 	if(dd.n4)
 	{
-		for(d_p, d_i = dd.elements.length; d_i--;)
+		for(var d_i = dd.elements.length; d_i;)
 		{
-			if(!((d_p = dd.elements[d_i]).is_image) && d_p.div && (d_p.div.document.layers[d_o.name] || d_o.oimg && d_p.div.document.images[d_o.oimg.name]))
+			if(!((d_p = dd.elements[--d_i]).is_image) && d_p.div && (d_p.div.document.layers[d_o.name] || d_o.oimg && d_p.div.document.images[d_o.oimg.name]))
 				d_p.addChild(d_o, d_p.detach, 1);
 		}
 	}
@@ -343,20 +342,21 @@ dd.addElt = function(d_o, d_p)
 };
 dd.mkWzDom = function()
 {
-	var d_o, d_i = dd.elements.length; while(d_i--) dd.getParent(dd.elements[d_i]);
-	d_i = dd.elements.length; while(d_i--)
+	var d_o, d_l = dd.elements.length, d_i;
+	for(d_i = d_l; d_i;) dd.getParent(dd.elements[--d_i]);
+	for(d_i = d_l; d_i;)
 	{
-		d_o = dd.elements[d_i];
-		if(d_o.children && !d_o.parent)
+		if((d_o = dd.elements[--d_i]).children && !d_o.parent)
 		{
-			var d_j = d_o.children.length; while(d_j--)
+			for(var d_j = d_o.children.length; d_j;)
+			{--d_j;
 				d_o.children[d_j].setZ(d_o.z+d_o.children[d_j].z, 1);
+			}
 		}
 	}
 };
 dd.addProps = function(d_o)
 {
-	var d_i, d_c;
 	if(d_o.is_image)
 	{
 		d_o.div = dd.getDiv(d_o.id);
@@ -365,7 +365,9 @@ dd.addProps = function(d_o)
 		if(!d_o.noalt && !dd.noalt && d_o.nimg && d_o.oimg)
 		{
 			d_o.nimg.alt = d_o.oimg.alt || '';
-			if(d_o.oimg.title) d_o.nimg.title = d_o.oimg.title;
+			d_o.nimg.title = d_o.oimg.title;
+			d_o.nimg.onmouseover = d_o.oimg.onmouseover;
+			d_o.nimg.onmouseout = d_o.oimg.onmouseout;
 		}
 		d_o.bgColor = '';
 	}
@@ -374,11 +376,12 @@ dd.addProps = function(d_o)
 		d_o.bgColor = dd.getCssProp(d_o.div, 'background-color','backgroundColor','bgColor').toLowerCase();
 		if(dd.n6 && d_o.div)
 		{
-			if((d_c = d_o.bgColor).indexOf('rgb') >= 0)
+			var d_c = d_o.bgColor.toLowerCase();
+			if(d_c.indexOf('rgb') >= 0)
 			{
 				d_c = d_c.substring(4, d_c.length-1).split(',');
 				d_o.bgColor = '#';
-				for(d_i = 0; d_i < d_c.length; d_i++) d_o.bgColor += parseInt(d_c[d_i]).toString(0x10);
+				for(var d_l = d_c.length, d_i = 0; d_i < d_l; d_i++) d_o.bgColor += parseInt(d_c[d_i]).toString(0x10);
 			}
 			else d_o.bgColor = d_c;
 		}
@@ -408,8 +411,10 @@ dd.finlz = function()
 {
 	if(dd.ie && dd.elements)
 	{
-		var d_i = dd.elements.length; while(d_i--)
-			dd.elements[d_i].del();
+		dd.noRecalc = true;
+		for(var d_i = dd.elements.length; d_i;)
+			dd.elements[--d_i].del();
+		dd.noRecalc = false;
 	}
 	if(dd.uloadFunc) dd.uloadFunc();
 };
@@ -479,9 +484,10 @@ dd.getEventTarget = function(d_e, d_s, d_n)
 };
 dd.recalc = function(d_x)
 {
-	var d_o, d_i = dd.elements.length; while(d_i--)
+	if(dd.noRecalc) return;
+	for(var d_o, d_i = dd.elements.length; d_i;)
 	{
-		if(!(d_o = dd.elements[d_i]).is_image && d_o.div)
+		if(!(d_o = dd.elements[--d_i]).is_image && d_o.div)
 		{
 			dd.getWH(d_o);
 			if(d_o.div.pos_rel)
@@ -492,9 +498,9 @@ dd.recalc = function(d_x)
 				d_o.x += d_dx;
 				d_o.defy += d_dy;
 				d_o.y += d_dy;
-				var d_p, d_j = d_o.children.length; while(d_j--)
+				for(var d_p, d_j = d_o.children.length; d_j;)
 				{
-					if(!(d_p = d_o.children[d_j]).detached && (d_o != d_p.defparent || !(d_p.is_image && dd.getImg(d_p, d_p.oimg.name, 1))))
+					if(!(d_p = d_o.children[--d_j]).detached && (d_o != d_p.defparent || !(d_p.is_image && dd.getImg(d_p, d_p.oimg.name, 1))))
 					{
 						d_p.defx += d_dx;
 						d_p.defy += d_dy;
@@ -625,9 +631,9 @@ DDObj.prototype.moveBy = function(d_x, d_y, d_kds, d_o)
 		(d_o = this.css || this.div).left = (this.cssx += d_x) + dd.px;
 		d_o.top = (this.cssy += d_y) + dd.px;
 	}
-	var d_i = this.children.length; while(d_i--)
+	for(var d_i = this.children.length; d_i;)
 	{
-		if(!(d_o = this.children[d_i]).detached) d_o.moveBy(d_x, d_y, 1);
+		if(!(d_o = this.children[--d_i]).detached) d_o.moveBy(d_x, d_y, 1);
 		d_o.defx += d_x;
 		d_o.defy += d_y;
 	}
@@ -656,8 +662,8 @@ DDObj.prototype.hide = function(d_m, d_o, d_p)
 		else d_p.visibility = "hidden";
 	}
 	this.visible = false;
-	var d_i = this.children.length; while(d_i--)
-		if(!(d_o = this.children[d_i]).detached) d_o.hide(d_m);
+	for(var d_i = this.children.length; d_i;)
+		if(!(d_o = this.children[--d_i]).detached) d_o.hide(d_m);
 };
 DDObj.prototype.show = function(d_o, d_p)
 {
@@ -673,8 +679,8 @@ DDObj.prototype.show = function(d_o, d_p)
 		else d_p.visibility = "visible";
 	}
 	this.visible = true;
-	var d_i = this.children.length; while(d_i--)
-		if(!(d_o = this.children[d_i]).detached) d_o.show();
+	for(var d_i = this.children.length; d_i;)
+		if(!(d_o = this.children[--d_i]).detached) d_o.show();
 };
 DDObj.prototype.resizeTo = function(d_w, d_h, d_o)
 {
@@ -723,8 +729,10 @@ DDObj.prototype.swapImage = function(d_x, d_cp)
 	this.src = this.nimg.src;
 	if(d_cp)
 	{
-		var d_i = this.copies.length; while(d_i--)
+		for(var d_i = this.copies.length; d_i;)
+		{--d_i;
 			this.copies[d_i].src = this.copies[d_i].nimg.src = this.nimg.src;
+		}
 	}
 };
 DDObj.prototype.setBgColor = function(d_x)
@@ -756,8 +764,7 @@ DDObj.prototype.copy = function(d_n, d_p, d_b)
 {
 	if(!this.oimg) return;
 	d_b = (dd.ie && document.all.tags('body'))? document.all.tags('body')[0] : document.getElementsByTagName? (document.getElementsByTagName('body')[0] || dd.db) : dd.db;
-	d_n = d_n || 1;
-	while(d_n--)
+	for(d_n = d_n || 1; d_n > 0; --d_n)
 	{
 		var d_l = this.copies.length,
 		d_o = new DDObj(this.name+this.cmd, d_l+1);
@@ -814,10 +821,10 @@ DDObj.prototype.addChild = function(d_kd, detach, defp)
 		d_kd.defz = d_kd.defz+this.defz-(d_kd.parent? d_kd.parent.defz : 0)+(!d_kd.is_image*1);
 		d_kd.setZ(d_kd.z+this.z-(d_kd.parent? d_kd.parent.z : 0)+(!d_kd.is_image*1), 1);
 	}
-	if(d_kd.parent) d_kd.parent._removeChild(d_kd, 1);
+	if(d_kd.parent) d_kd.parent.removeChild(d_kd, 1);
 	d_kd.parent = this;
 };
-DDObj.prototype._removeChild = function(d_kd, d_newp)
+DDObj.prototype.removeChild = function(d_kd, d_newp)
 {
 	if(typeof d_kd != "object") d_kd = this.children[d_kd];
 	var d_oc = this.children, d_nc = new Array();
@@ -844,9 +851,8 @@ DDObj.prototype.setZ = function(d_x, d_kds, d_o)
 {
 	if(d_kds)
 	{
-		var d_dz = d_x-this.z,
-		d_i = this.children.length; while(d_i--)
-			if(!(d_o = this.children[d_i]).detached) d_o.setZ(d_o.z+d_dz, 1);
+		for(var d_dz = d_x-this.z, d_i = this.children.length; d_i;)
+			if(!(d_o = this.children[--d_i]).detached) d_o.setZ(d_o.z+d_dz, 1);
 	}
 	dd.z = Math.max(dd.z, this.z = this.div? ((this.css || this.div).zIndex = d_x) : 0);
 };
@@ -859,8 +865,8 @@ DDObj.prototype._resetZ = function(d_o)
 	if(this.re_z || dd.re_z)
 	{
 		this.setZ(this.defz);
-		var d_i = this.children.length; while(d_i--)
-			if(!(d_o = this.children[d_i]).detached) d_o.setZ(d_o.defz);
+		for(var d_i = this.children.length; d_i;)
+			if(!(d_o = this.children[--d_i]).detached) d_o.setZ(d_o.defz);
 	}
 };
 DDObj.prototype.setOpacity = function(d_x)
@@ -877,8 +883,8 @@ DDObj.prototype._setOpaRel = function(d_x, d_kd, d_y, d_o)
 		else if(typeof this.css.filter != dd_u)
 			this.css.filter = "Alpha(opacity="+parseInt(100*d_y)+")";
 		else this.css.opacity = d_y;
-		var d_i = this.children.length; while(d_i--)
-			if(!(d_o = this.children[d_i]).detached) d_o._setOpaRel(d_x, 1);
+		for(var d_i = this.children.length; d_i;)
+			if(!(d_o = this.children[--d_i]).detached) d_o._setOpaRel(d_x, 1);
 	}
 };
 DDObj.prototype.setCursor = function(d_x)
@@ -904,6 +910,14 @@ DDObj.prototype.setScalable = function(d_x)
 	this.scalable = d_x*1;
 	if(d_x) this.resizable = 0;
 };
+DDObj.prototype.setHorizontal = function(d_x)
+{
+	this.horizontal = d_x*1;
+};
+DDObj.prototype.setVertical = function(d_x)
+{
+	this.vertical = d_x*1;
+};
 DDObj.prototype.getEltBelow = function(d_ret, d_x, d_y)
 {
 	var d_o, d_cmp = -1, d_i = dd.elements.length; while(d_i--)
@@ -924,15 +938,15 @@ DDObj.prototype.getEltBelow = function(d_ret, d_x, d_y)
 };
 DDObj.prototype.del = function(d_os, d_o)
 {
-	var d_i;
-	if(this.parent && this.parent._removeChild) this.parent._removeChild(this);
+	var d_i, d_l;
+	if(this.parent && this.parent.removeChild) this.parent.removeChild(this);
 	if(this.original)
 	{
 		this.hide();
 		if(this.original.copies)
 		{
 			d_os = new Array();
-			for(d_i = 0; d_i < this.original.copies.length; d_i++)
+			for(d_l = this.original.copies.length, d_i = 0; d_i < d_l; d_i++)
 				if((d_o = this.original.copies[d_i]) != this) d_os[d_o.name] = d_os[d_os.length] = d_o;
 			this.original.copies = d_os;
 		}
@@ -953,7 +967,7 @@ DDObj.prototype.del = function(d_os, d_o)
 		this.resizeTo(this.defw, this.defh);
 	}
 	d_os = new Array();
-	for(d_i = 0; d_i < dd.elements.length; d_i++)
+	for(d_l = dd.elements.length, d_i = 0; d_i < d_l; d_i++)
 	{
 		if((d_o = dd.elements[d_i]) != this) d_os[d_o.name] = d_os[d_o.index = d_os.length] = d_o;
 		else d_o._free();
@@ -969,8 +983,8 @@ DDObj.prototype._free = function()
 };
 dd.n4RectVis = function(vis)
 {
-	for(var d_i = 4; d_i--;)
-	{
+	for(var d_i = 4; d_i;)
+	{--d_i;
 		dd.rectI[d_i].visibility = dd.rectA[d_i].visibility = vis? 'show' : 'hide';
 		if(vis) dd.rectI[d_i].zIndex = dd.rectA[d_i].zIndex = dd.z+2;
 	}
@@ -993,17 +1007,17 @@ dd.n4Rect = function(d_w, d_h)
 	}
 	if(!dd.rectI[0])
 	{
-		for(d_i = 4; d_i--;)
+		for(d_i = 4; d_i;)
 		{
-			(dd.rectI[d_i] = new Layer(1)).bgColor = '#000000';
+			(dd.rectI[--d_i] = new Layer(1)).bgColor = '#000000';
 			(dd.rectA[d_i] = new Layer(1)).bgColor = '#ffffff';
 		}
 	}
 	if(!dd.rectI[0].visibility || dd.rectI[0].visibility == 'hide') dd.n4RectVis(1);
 	dd.obj.w = d_w;
 	dd.obj.h = d_h;
-	for(d_i = 4; d_i--;)
-	{
+	for(d_i = 4; d_i;)
+	{--d_i;
 		dd.n4RectPos(dd.rectI[d_i], dd.obj.x + (!(d_i-1)? (dd.obj.w-1) : 0), dd.obj.y + (!(d_i-2)? (dd.obj.h-1) : 0), d_i&1 || dd.obj.w, !(d_i&1) || dd.obj.h);
 		dd.n4RectPos(dd.rectA[d_i], !(d_i-1)? dd.rectI[1].x+1 : (dd.obj.x-1), !(d_i-2)? dd.rectI[2].y+1 : (dd.obj.y-1), d_i&1 || dd.obj.w+2, !(d_i&1) || dd.obj.h+2);
 	}
@@ -1016,14 +1030,14 @@ dd.reszTo = function(d_w, d_h)
 dd.embedVis = function(d_vis)
 {
 	var d_o = new Array('iframe', 'applet', 'embed', 'object');
-	var d_i = d_o.length; while(d_i--)
-	{
+	for(var d_i = d_o.length; d_i;)
+	{--d_i;
 		var d_p = dd.ie? document.all.tags(d_o[d_i]) : document.getElementsByTagName? document.getElementsByTagName(d_o[d_i]) : null;
 		if(d_p)
 		{
-			var d_j = d_p.length; while(d_j--)
+			for(var d_j = d_p.length; d_j;)
 			{
-				var d_q = d_p[d_j];
+				var d_q = d_p[--d_j];
 				while(d_q.offsetParent || d_q.parentNode)
 				{
 					if((d_q = d_q.parentNode || d_q.offsetParent || null) == dd.obj.div)
@@ -1126,9 +1140,9 @@ function PICK(d_ev)
 {
 	dd.e = new dd.evt(d_ev);
 	if(dd.e.x >= dd.getWndW()+dd.getScrollX() || dd.e.y >= dd.getWndH()+dd.getScrollY()) return true; // on scrollbar
-	var d_o, d_t, d_cmp = -1, d_i = dd.elements.length; while(d_i--)
+	for(var d_o, d_t, d_cmp = -1, d_i = dd.elements.length; d_i;)
 	{
-		d_o = dd.elements[d_i];
+		d_o = dd.elements[--d_i];
 		if(dd.n4 && dd.e.but > 1 && dd.e.src == d_o.oimg && !d_o.clone) return false;
 		if(d_o.visible && dd.e.but <= 1 && dd.e.x >= d_o.x && dd.e.x <= d_o.x+d_o.w && dd.e.y >= d_o.y && dd.e.y <= d_o.y+d_o.h)
 		{
@@ -1215,7 +1229,7 @@ function DRAG(d_ev)
 	{
 		if(dd.wait) return false;
 		dd.wait = 1;
-		setTimeout('dd.wait = 0;', dd.tiv);
+		setTimeout('dd.wait = 0;', dd.tWait);
 	}
 	dd.e = new dd.evt(d_ev);
 	if(dd.ie && !dd.e.but)
@@ -1239,7 +1253,7 @@ function RESIZE(d_ev)
 	if(!dd.obj || !dd.obj.visible) return true;
 	if(dd.wait) return false;
 	dd.wait = 1;
-	setTimeout('dd.wait = 0;', dd.tiv);
+	setTimeout('dd.wait = 0;', dd.tWait);
 	dd.e = new dd.evt(d_ev);
 	if(dd.ie && !dd.e.but)
 	{
@@ -1294,9 +1308,10 @@ function DROP(d_ev)
 }
 function SET_DHTML()
 {
-	var d_a = arguments, d_ai, d_htm = '', d_o, d_i = d_a.length; while(d_i--)
+	var d_a = arguments, d_ai, d_htm = '', d_o, d_i = d_a.length;
+	while(d_i)
 	{
-		if(!(d_ai = d_a[d_i]).indexOf('c:')) dd.cursor = d_ai.substring(2);
+		if(!(d_ai = d_a[--d_i]).indexOf('c:')) dd.cursor = d_ai.substring(2);
 		else if(d_ai == NO_ALT) dd.noalt = 1;
 		else if(d_ai == SCROLL) dd.scroll = 1;
 		else if(d_ai == RESET_Z) dd.re_z = 1;
@@ -1310,7 +1325,7 @@ function SET_DHTML()
 			d_htm += d_o.t_htm || '';
 			if(d_o.oimg && d_o.cpy_n)
 			{
-				var d_j = 0; while(d_j < d_o.cpy_n)
+				for(var d_l = d_o.cpy_n, d_j = 0; d_j < d_l;)
 				{
 					var d_p = new DDObj(d_o.name+d_o.cmd, ++d_j);
 					dd.addElt(d_p, d_o);
@@ -1327,9 +1342,9 @@ function SET_DHTML()
 		: '') + d_htm
 	);
 	dd.z = 0x33;
-	d_i = dd.elements.length; while(d_i--)
+	for(d_i = dd.elements.length; d_i;)
 	{
-		dd.addProps(d_o = dd.elements[d_i]);
+		dd.addProps(d_o = dd.elements[--d_i]);
 		if(d_o.is_image && !d_o.original && !d_o.clone)
 			dd.n4? d_o.oimg.src = spacer : d_o.oimg.style.visibility = 'hidden';
 	}
@@ -1340,11 +1355,14 @@ function SET_DHTML()
 	window.onunload = dd.finlz;
 	dd.setDwnHdl(PICK);
 }
-function ADD_DHTML(d_o) // layers only!
+function ADD_DHTML() // layers only!
 {
-	d_o = new DDObj(d_o);
-	dd.addElt(d_o);
-	dd.addProps(d_o);
+	var d_a = arguments, d_o, d_i = d_a.length; while(d_i)
+	{
+		d_o = new DDObj(d_a[--d_i]);
+		dd.addElt(d_o);
+		dd.addProps(d_o);
+	}
 	dd.mkWzDom();
 }
 
