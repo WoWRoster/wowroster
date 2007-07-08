@@ -85,7 +85,7 @@ class keys
 
 		$installer->remove_all_config();
 
-		$installer->remove_menu_button('keybutton');
+		$installer->remove_all_menu_button();
 		return true;
 	}
 }

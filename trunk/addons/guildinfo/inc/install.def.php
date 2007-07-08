@@ -74,7 +74,7 @@ class guildinfo
 	{
 		global $installer;
 
-		$installer->remove_menu_button('ginfobutton');
+		$installer->remove_all_menu_button();
 		return true;
 	}
 }

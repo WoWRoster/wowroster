@@ -359,7 +359,7 @@ $lang['class_colorArray'] = array(
 	'Warrior' => 'C69B6D'
 );
 
-$lang['pvplist']=' PvP Stats';
+$lang['pvplist']='PvP Stats';
 $lang['pvplist1']='Guild that suffered most at our hands';
 $lang['pvplist2']='Guild that killed us the most';
 $lang['pvplist3']='Player who we killed the most';
