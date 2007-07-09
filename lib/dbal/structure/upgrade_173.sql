@@ -127,7 +127,7 @@ INSERT INTO `renprefix_config` VALUES (160, 'data_links', NULL, 'blockframe', 'm
 INSERT INTO `renprefix_config` VALUES (170, 'update_access', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://www.wowroster.net/wiki.html', 'newlink', 'menu');
 
-INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'guild-memberslist', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '1', 'radio{yes^1|no^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0', 'main_conf');
 
@@ -619,7 +619,7 @@ CREATE TABLE `renprefix_upload` (
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1|b2');
+INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2:b3');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
 INSERT INTO `renprefix_menu` VALUES (3, 'guildless', '');
 INSERT INTO `renprefix_menu` VALUES (4, 'guild', '');
@@ -629,6 +629,7 @@ INSERT INTO `renprefix_menu` VALUES (5, 'char', '');
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_roster_cp', 'util', 'rostercp', 'inv_misc_gear_02');
 INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_credits', 'util', 'credits', 'inv_egg_05');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_search', 'util', 'search', 'inv_misc_spyglass_02');
 
 # --------------------------------------------------------
 ### The roster version and db version MUST be last
