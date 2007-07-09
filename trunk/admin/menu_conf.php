@@ -183,7 +183,7 @@ foreach($palet as $id=>$button)
 		}
 	}
 
-	$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
+	$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
 	$button['titkey'] = $button['title'];
 
 	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
@@ -204,7 +204,7 @@ foreach($palet as $id=>$button)
 
 	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
-	$menu .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
+	$menu .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
 
 	// Restore our locale array
 	$roster->locale->wordings = $localestore;
@@ -230,7 +230,7 @@ $body .= '<input type="submit" value="'.$roster->locale->act['config_submit_butt
 $body .= '</form><br />'."\n";
 
 $body .= border('sgreen','start',$section);
-$body .= '<div id="array" style="width:'.(125*$arrayWidth+10).'px;height:'.(40*$arrayHeight+5).'px;"></div>'."\n";
+$body .= '<div id="array" style="width:'.(40*$arrayWidth+5).'px;height:'.(40*$arrayHeight+5).'px;"></div>'."\n";
 $body .= border('sgreen','end',$section);
 
 foreach($arrayButtons as $posX=>$column)
@@ -251,7 +251,7 @@ foreach($arrayButtons as $posX=>$column)
 			}
 		}
 
-		$button['icon'] = '<img src="'.$roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'].'" alt=""/>';
+		$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
 		$button['titkey'] = $button['title'];
 
 		$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
@@ -272,7 +272,7 @@ foreach($arrayButtons as $posX=>$column)
 
 		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
-		$body .= '<div id="b' . $button['button_id'] . '" class="menu_config_div"'.$button['tooltip'].'>' . $button['icon'] . $button['title'] . '</div>' . "\n";
+		$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
 
 		// Restore our locale array
 		$roster->locale->wordings = $localestore;
@@ -297,7 +297,7 @@ var roster_url	= \''.ROSTER_URL.'\';
 
 var dy		= 40;
 var margTop	= 5;
-var dx		= 125;
+var dx		= 40;
 var margLef	= 5;
 
 var arrayWidth = '.$arrayWidth.';
