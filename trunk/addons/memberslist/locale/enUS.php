@@ -20,6 +20,8 @@ $lang['memberslist_Members']	= 'Members|Displays the guild member list with play
 $lang['memberslist_Stats']		= 'Stats|Displays each guild member\'s stats such as intellect, stamina, etc...';
 $lang['memberslist_Honor']		= 'Honor|Displays each guild member\'s pvp information';
 $lang['memberslist_Log']		= 'Member Log|Displays the upload log for new members and removed members';
+$lang['memberslist_Realm']		= 'Members|Displays the member list for all guilds on the realm';
+$lang['memberslist_RealmGuild']		= 'Guilds|Displays a list of all guilds on the realm';
 
 // Index: Wrong $roster->pages[2]
 $lang['memberslist_NoAction']	= 'Please check if you mistyped the url, as an invalid action was defined. If you got here by a link from within this addon, report the bug on the WoWroster forums.';

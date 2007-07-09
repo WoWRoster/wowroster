@@ -50,7 +50,7 @@ class questlist
 	{
 		global $installer;
 
-		$installer->add_menu_button('questlistbutton');
+		$installer->add_menu_button('questlistbutton','realm');
 		return true;
 	}
 

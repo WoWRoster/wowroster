@@ -545,7 +545,7 @@ class RosterMenu
 			. '        <div class="menu_header">' . "\n"
 			. '          <ul>' . "\n"
 			. '            <li><a href="#" class="menu_bg_01" onclick="showHide(\'menu_guild\'); return false;">Guild Information</a></li>' . "\n"
-			. '            <li><a href="' . makelink('search') . '" class="menu_bg_02">Search</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_02" onclick="showHide(\'menu_realm\'); return false;">Realm Information</a></li>' . "\n"
 			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">Update Profile</a></li>' . "\n"
 			. '            <li><a href="#" class="menu_bg_04" onclick="showHide(\'menu_util\'); return false;">Utilities</a></li>' . "\n"
 			. '          </ul>' . "\n"
@@ -564,7 +564,7 @@ class RosterMenu
 			}
 
 			$html .= '        <div class="menu_' . ( $sections[$id] == 'util' ? 'utility' : 'scope' ) . '" id="menu_'.$sections[$id].'"' . (($open)?'':' style="display:none"') . '>'."\n"
-				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . $roster->locale->act[$sections[$id]] . '</div>' . "\n"
+				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . $roster->locale->act[$sections[$id]] . ' Panel</div>' . "\n"
 				. '          <ul>'."\n";
 			foreach( $page as $column )
 			{
@@ -579,7 +579,7 @@ class RosterMenu
 						}
 					}
 
-					$button['icon'] = '<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . (empty($button['icon'])?'inv_misc_questionmark':$button['icon']) . '.' . $roster->config['img_suffix'] . '" alt=""/>';
+					$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . (empty($button['icon'])?'inv_misc_questionmark':$button['icon']) . '.' . $roster->config['img_suffix'];
 
 					if( $button['addon_id'] == 0 )
 					{
@@ -601,7 +601,7 @@ class RosterMenu
 						$button['tooltip'] = ' ' . makeOverlib($button['title']);
 					}
 
-					$html .= '            <li' . $button['tooltip'] . '><a href="' . $button['url'] . '">' . $button['icon'] . "</a></li>\n";
+					$html .= '            <li' . $button['tooltip'] . ' style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;"><a href="' . $button['url'] . '">' . "</a></li>\n";
 				}
 			}
 			$html .= '          </ul>' . "\n"
