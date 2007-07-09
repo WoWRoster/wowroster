@@ -62,16 +62,16 @@ function my_DropFunc()
 	var arrY = margTop;
 
 	// Check for closest position in the palet
-	var y = dd.obj.y - dd.elements.palet.y + dy/2;
-	var palX = margLef;
-	var palY = Math.max(margTop, Math.min(y - (y-margTop)%dy, margTop + (palet.length)*dy));
+	x = dd.obj.x - dd.elements.palet.x + dx/2;
+	var palX = Math.max(margLef, Math.min(x - (x-margLef)%dx, margLef + (palet.length)*dx));
+	var palY = margTop;
 
 	// Check which is closer: The closest array position or the closest palet position
 	if (sqr(dd.obj.x-dd.elements.palet.x-palX)+sqr(dd.obj.y-dd.elements.palet.y-palY) <
 		sqr(dd.obj.x-dd.elements.array.x-arrX)+sqr(dd.obj.y-dd.elements.array.y-arrY))
 	{
-		posY = (palY-margTop)/dy;
-		insertListElement(posY,dd.obj);
+		posX = (palX-margLef)/dy;
+		insertListElement(posX,dd.obj);
 	}
 	else
 	{
@@ -140,7 +140,7 @@ function removeListElement(pos)
 	}
 
 	palet.length--;
-	dd.elements.palet.resizeBy(0,-dy);
+	dd.elements.palet.resizeBy(-dx,0);
 }
 
 /**
@@ -154,13 +154,13 @@ function removeListElement(pos)
 function insertListElement(pos,obj)
 {
 	palet.length++;
-	for (i=palet.length-1; i>posY; i--)
+	for (i=palet.length-1; i>pos; i--)
 	{
 		palet[i] = palet[i-1];
 	}
 
 	palet[pos] = obj;
-	dd.elements.palet.resizeBy(0,dy);
+	dd.elements.palet.resizeBy(dx,0);
 }
 
 /**
@@ -177,7 +177,7 @@ function updatePositions()
 
 	for (i=0;i<palet.length;i++)
 	{
-		palet[i].moveTo(dd.elements.palet.x+margLef,dd.elements.palet.y+margTop+dy*i);
+		palet[i].moveTo(dd.elements.palet.x+margLef+dx*i,dd.elements.palet.y+margTop);
 	}
 
 }

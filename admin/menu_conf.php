@@ -117,8 +117,8 @@ foreach( $palet as $id => $button )
 	}
 }
 
-$paletHeight = count($palet);
-$paletWidth = 1;
+$paletHeight = 1;
+$paletWidth = count($palet);
 
 // --[ Render configuration screen. ]--
 $roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/wz_dragdrop.js"></script>'."\n";
@@ -159,56 +159,8 @@ $menu .= '<input type="submit" value="Go" />'."\n";
 $menu .= '</form>'."\n";
 $menu .= border('sorange','end')."\n";
 
-$menu .= '<br />'."\n";
-
-// --[ Button palet ]--
-$menu .= messagebox('<div id="palet" style="width:'.(40*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
-foreach($palet as $id=>$button)
-{
-	// Save current locale array
-	// Since we add all locales for button name localization, we save the current locale array
-	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-	$localestore = $roster->locale->wordings;
-
-	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
-	{
-		// Include addon's locale files if they exist
-		foreach( $roster->multilanguages as $lang )
-		{
-			$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
-		}
-	}
-
-	$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
-	$button['titkey'] = $button['title'];
-
-	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
-	if( strpos($button['title'],'|') )
-	{
-		list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
-	}
-	else
-	{
-		$button['tooltip'] = '';
-	}
-
-	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
-		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
-		. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
-		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
-		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
-
-	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
-
-	$menu .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
-
-	// Restore our locale array
-	$roster->locale->wordings = $localestore;
-	unset($localestore);
-}
-$menu .= "<br />\n";
-
 // --[ Add button ]--
+$menu .= "<br />\n";
 $menu .= border('syellow','start','Add button')."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
 $menu .= '<tr><td>title:</td><td><input id="title" type="text" size="16" maxlength="32" /></td></tr>'."\n";
@@ -217,6 +169,12 @@ $menu .= '<tr><td>icon: </td><td><input id="icon"  type="text" size="16" maxleng
 $menu .= '<tr><td colspan="2" align="right"><button onclick="sendAddElement()">Go</button></td></tr>'."\n";
 $menu .= '</table>';
 $menu .= border('syellow','end')."\n";
+
+// --[ Delete box ]--
+$menu .= "<br/>\n";
+$menu .= border('sred','start','Drag here to delete');
+$menu .= '<div id="rec_bin" style="width:135px;height:65px;background-color:black;"></div>'."\n";
+$menu .= border('sred','end');
 
 // --[ Main grid design ]--
 $body .= isset($save_status)?$save_status:'';
@@ -273,11 +231,52 @@ foreach($arrayButtons as $pos=>$button)
 	unset($localestore);
 }
 
-// --[ Delete box ]--
-$body .= "<br/>\n";
-$body .= border('sred','start','Drag here to delete');
-$body .= '<div id="rec_bin" style="width:215px;height:65px;background-color:black;"></div>'."\n";
-$body .= border('sred','end');
+// --[ Button palet ]--
+$body .= '<br />'."\n";
+$body .= messagebox('<div id="palet" style="width:'.(40*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
+foreach($palet as $id=>$button)
+{
+	// Save current locale array
+	// Since we add all locales for button name localization, we save the current locale array
+	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+	$localestore = $roster->locale->wordings;
+
+	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
+	{
+		// Include addon's locale files if they exist
+		foreach( $roster->multilanguages as $lang )
+		{
+			$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
+		}
+	}
+
+	$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
+	$button['titkey'] = $button['title'];
+
+	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+	if( strpos($button['title'],'|') )
+	{
+		list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+	}
+	else
+	{
+		$button['tooltip'] = '';
+	}
+
+	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
+		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+
+	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
+
+	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
+
+	// Restore our locale array
+	$roster->locale->wordings = $localestore;
+	unset($localestore);
+}
 
 // --[ Javascript defines and variable passing ]--
 $footer .=
