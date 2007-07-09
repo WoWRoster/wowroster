@@ -145,7 +145,7 @@ class Install
 		}
 
 		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . "','" . $url . "','" . $icon . "');";
-		// I DONT KNOW THE BUTTON ID TO HAVE THIS ENTERED $this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b67') WHERE `section` = '" . $scope . "' LIMIT 1;";
+		$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $scope . "' LIMIT 1;";
 	}
 
 	/**

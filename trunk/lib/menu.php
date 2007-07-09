@@ -559,6 +559,7 @@ class RosterMenu
 		$roster->db->free_result($result);
 
 		$page = array();
+		$scopes = array();
 
 		foreach( $sections as $id=>$value )
 		{
@@ -579,6 +580,7 @@ class RosterMenu
 					if( isset($palet[$button]) )
 					{
 						$arrayButtons[$id][$posX][$posY] = $palet[$button];
+						$scopes[$sections[$id]] = true;
 					}
 				}
 			}
@@ -588,10 +590,10 @@ class RosterMenu
 			. '      <div class="menu_container">' . "\n"
 			. '        <div class="menu_header">' . "\n"
 			. '          <ul>' . "\n"
-			. '            <li><a href="#" class="menu_bg_01" onclick="showHide(\'menu_guild\');return false;">' . $roster->locale->act['menu_header_01'] . '</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_02" onclick="showHide(\'menu_realm\');return false;">' . $roster->locale->act['menu_header_02'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_01" onclick="' . (isset($scopes['guild']) ? 'showHide(\'menu_guild\');' : '') . 'return false;">' . $roster->locale->act['menu_header_01'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_02" onclick="' . (isset($scopes['realm']) ? 'showHide(\'menu_realm\');"' : '') . 'return false;">' . $roster->locale->act['menu_header_02'] . '</a></li>' . "\n"
 			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">' . $roster->locale->act['menu_header_03'] . '</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_04" onclick="showHide(\'menu_util\');return false;">' . $roster->locale->act['menu_header_04'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_04" onclick="' . (isset($scopes['util']) ? 'showHide(\'menu_util\');"' : '') . 'return false;">' . $roster->locale->act['menu_header_04'] . '</a></li>' . "\n"
 			. '          </ul>' . "\n"
 			. '        </div>' . "\n";
 
