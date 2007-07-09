@@ -95,20 +95,16 @@ else
 // --[ Distribute buttons between the button list and the unused buttons panel ]--
 $arrayHeight = 0;
 $arrayButtons = array();
-foreach(explode('|',$row['config']) AS $posX=>$column)
+foreach(explode(':',$row['config']) as $pos=>$button)
 {
-	$arrayButtons[$posX] = array();
-	foreach(explode(':',$column) as $posY=>$button)
+	if( isset($palet[$button]) )
 	{
-		if( isset($palet[$button]) )
-		{
-			$config[$posX][] = $button;
-			$arrayButtons[$posX][] = $palet[$button];
-			unset($palet[$button]);
-		}
+		$config[] = $button;
+		$arrayButtons[] = $palet[$button];
+		unset($palet[$button]);
 	}
-	$arrayHeight = max($arrayHeight, count($arrayButtons[$posX]));
 }
+$arrayHeight = 1;
 $arrayWidth = count($arrayButtons);
 
 // --[ Strip out of scope buttons fromt he palet ]--
@@ -166,7 +162,7 @@ $menu .= border('sorange','end')."\n";
 $menu .= '<br />'."\n";
 
 // --[ Button palet ]--
-$menu .= messagebox('<div id="palet" style="width:'.(125*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
+$menu .= messagebox('<div id="palet" style="width:'.(40*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
 foreach($palet as $id=>$button)
 {
 	// Save current locale array
@@ -233,51 +229,48 @@ $body .= border('sgreen','start',$section);
 $body .= '<div id="array" style="width:'.(40*$arrayWidth+5).'px;height:'.(40*$arrayHeight+5).'px;"></div>'."\n";
 $body .= border('sgreen','end',$section);
 
-foreach($arrayButtons as $posX=>$column)
+foreach($arrayButtons as $pos=>$button)
 {
-	foreach($column as $posY=>$button)
+	// Save current locale array
+	// Since we add all locales for button name localization, we save the current locale array
+	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+	$localestore = $roster->locale->wordings;
+
+	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 	{
-		// Save current locale array
-		// Since we add all locales for button name localization, we save the current locale array
-		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-		$localestore = $roster->locale->wordings;
-
-		if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
+		// Include addon's locale files if they exist
+		foreach( $roster->multilanguages as $lang )
 		{
-			// Include addon's locale files if they exist
-			foreach( $roster->multilanguages as $lang )
-			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
-			}
+			$roster->locale->add_locale_file(ROSTER_ADDONS.$button['basename'].DIR_SEP.'locale'.DIR_SEP.$lang.'.php',$lang);
 		}
-
-		$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
-		$button['titkey'] = $button['title'];
-
-		$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
-		if( strpos($button['title'],'|') )
-		{
-			list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
-		}
-		else
-		{
-			$button['tooltip'] = '';
-		}
-
-		$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
-			. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
-			. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
-			. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
-			. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
-
-		$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
-
-		$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
-
-		// Restore our locale array
-		$roster->locale->wordings = $localestore;
-		unset($localestore);
 	}
+
+	$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
+	$button['titkey'] = $button['title'];
+
+	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+	if( strpos($button['title'],'|') )
+	{
+		list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+	}
+	else
+	{
+		$button['tooltip'] = '';
+	}
+
+	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
+		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+
+	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
+
+	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
+
+	// Restore our locale array
+	$roster->locale->wordings = $localestore;
+	unset($localestore);
 }
 
 // --[ Delete box ]--
@@ -315,13 +308,9 @@ foreach ($palet as $id => $button)
 	$footer .= 'palet['.$i++.'] = dd.elements.'.$id.';';
 }
 
-foreach ($arrayButtons as $posX => $column)
+foreach ($arrayButtons as $pos => $button)
 {
-	$footer .= 'aElts['.$posX.'] = Array();'."\n";
-	foreach ($column as $posY => $button)
-	{
-		$footer .= 'aElts['.$posX.']['.$posY.'] = dd.elements.b'.$button['button_id'].';'."\n";
-	}
+	$footer .= 'aElts['.$pos.'] = dd.elements.b'.$button['button_id'].';'."\n";
 }
 
 $footer .= '

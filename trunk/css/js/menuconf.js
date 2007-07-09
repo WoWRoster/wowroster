@@ -21,12 +21,9 @@ function my_PickFunc()
 {
 	for (var i=0; i<aElts.length; i++)
 	{
-		for (var j=0; j<aElts[i].length; j++)
+		if (aElts[i] == dd.obj)
 		{
-			if (aElts[i][j] == dd.obj)
-			{
-				removeGridElement(i,j);
-			}
+			removeGridElement(i);
 		}
 	}
 
@@ -48,8 +45,6 @@ function my_PickFunc()
  */
 function my_DropFunc()
 {
-	var mode;
-
 	// Check if the button is fully in the delete box, if so ask for confirm, if confirmed delete
 	if ((dd.obj.x > dd.elements.rec_bin.x) &&
 		(dd.obj.y > dd.elements.rec_bin.y) &&
@@ -63,57 +58,25 @@ function my_DropFunc()
 
 	// Check for closest position in the array
 	var x = dd.obj.x - dd.elements.array.x + dx/2;
-	arrX = Math.max(margLef, Math.min(x - (x-margLef)%dx, margLef + (aElts.length)*dx));
-	var posX = (arrX-margLef)/dx;
-	var y = dd.obj.y - dd.elements.array.y + dy/2;
-	var posY;
-
-	if (posX == aElts.length)
-	{
-		arrY = margTop;
-		posY = 0;
-		mode = 1;
-	}
-	else
-	{
-		arrY = Math.max(margTop, Math.min(y - (y-margTop)%dy, margTop + (aElts[posX].length)*dy));
-		posY = (arrY-margTop)/dy;
-		mode = 2;
-	}
+	var arrX = Math.max(margLef, Math.min(x - (x-margLef)%dx, margLef + (aElts.length)*dx));
+	var arrY = margTop;
 
 	// Check for closest position in the palet
 	var y = dd.obj.y - dd.elements.palet.y + dy/2;
-	palY = Math.max(margTop, Math.min(y - (y-margTop)%dy, margTop + (palet.length)*dy));
-	palPosY = (palY-margTop)/dy;
 	var palX = margLef;
+	var palY = Math.max(margTop, Math.min(y - (y-margTop)%dy, margTop + (palet.length)*dy));
 
 	// Check which is closer: The closest array position or the closest palet position
 	if (sqr(dd.obj.x-dd.elements.palet.x-palX)+sqr(dd.obj.y-dd.elements.palet.y-palY) <
-		sqr(dd.obj.x-dd.elements.array.x-x)+sqr(dd.obj.y-dd.elements.array.y-y))
+		sqr(dd.obj.x-dd.elements.array.x-arrX)+sqr(dd.obj.y-dd.elements.array.y-arrY))
 	{
-		x = palX;
-		y = palY;
 		posY = (palY-margTop)/dy;
-		mode = 3;
+		insertListElement(posY,dd.obj);
 	}
 	else
 	{
-		x = arrX;
-		y = arrY;
-	}
-
-	// Actually do the moving
-	if (mode == 1)
-	{
-		insertGridColumn(posX,dd.obj);
-	}
-	else if (mode == 2)
-	{
-		insertGridElement(posX,posY,dd.obj);
-	}
-	else if (mode == 3)
-	{
-		insertListElement(posY,dd.obj);
+		posX = (arrX-margLef)/dx;
+		insertGridElement(posX,dd.obj);
 	}
 
 	updatePositions();
@@ -123,97 +86,41 @@ function my_DropFunc()
  * Remove a button from the grid. It is assumed the calling code already saved
  * a reference to the object represending the button.
  *
- * @param posX
- * @param posY
+ * @param pos
  *		The grid location that needs to be cleared.
  */
-function removeGridElement(posX,posY)
+function removeGridElement(pos)
 {
 	// Remove the element from the grid
-	for (i=posY+1; i<aElts[posX].length; i++)
+	for (i=pos+1; i<aElts.length; i++)
 	{
-		aElts[posX][i-1] = aElts[posX][i];
+		aElts[i-1] = aElts[i];
 	}
 
-	aElts[posX].length--;
-
-	// Check if it leaves an empty column. If so, fill it up.
-	if (aElts[posX].length == 0)
-	{
-		for (i=posX; i<aElts.length-1; i++)
-		{
-			aElts[i] = aElts[i+1];
-		}
-		aElts.length--;
-		dd.elements.array.resizeBy(-dx,0);
-		arrayWidth--;
-	}
-	// Check if we need to reduce the height of the palet
-	else if (aElts[posX].length == arrayHeight - 1)
-	{
-		var max = 0;
-		for (i=0; i<aElts.length; i++)
-		{
-			max = Math.max(max,aElts[i].length);
-		}
-		if (max < arrayHeight)
-		{
-			dd.elements.array.resizeBy(0,-dy);
-			arrayHeight--;
-		}
-	}
+	aElts.length--;
+	dd.elements.array.resizeBy(-dx,0);
+	arrayWidth--;
 }
 
 /**
  * Insert a button in the menu grid in an existing column
  *
- * @param posX
- * @param posY
+ * @param pos
  *		The grid location the button should be added in
  * @param obj
  *		The object representing the button to be added
  */
-function insertGridElement(posX,posY,obj)
+function insertGridElement(pos,obj)
 {
 	// Insert the element
-	aElts[posX].length++;
-
-	for (i=aElts[posX].length-1; i>posY; i--)
-	{
-		aElts[posX][i] = aElts[posX][i-1];
-	}
-
-	aElts[posX][posY] = obj;
-
-	// Increase the grid height if needed
-	if (aElts[posX].length > arrayHeight)
-	{
-		dd.elements.array.resizeBy(0,dy);
-		arrayHeight++;
-	}
-}
-
-/**
- * Insert a button in a new column in the menu grid.
- *
- * @param posX
- *		The grid location the column should be inserted at.
- * @param obj
- *		The object representing the button to be added in the new column.
- */
-function insertGridColumn(posX,obj)
-{
-	// Create the column and insert the element in it
 	aElts.length++;
-	for (i=aElts.length-1; i>posX; i--)
+
+	for (i=aElts.length-1; i>pos; i--)
 	{
 		aElts[i] = aElts[i-1];
 	}
 
-	aElts[posX] = Array();
-	aElts[posX][0] = obj;
-
-	// increase the grid width
+	aElts[pos] = obj;
 	dd.elements.array.resizeBy(dx,0);
 	arrayWidth++;
 }
@@ -225,9 +132,9 @@ function insertGridColumn(posX,obj)
  * @param posY
  *		The palet location that needs to be cleared.
  */
-function removeListElement(posY)
+function removeListElement(pos)
 {
-	for (i=posY+1; i<palet.length; i++)
+	for (i=pos+1; i<palet.length; i++)
 	{
 		palet[i-1] = palet[i];
 	}
@@ -244,7 +151,7 @@ function removeListElement(posY)
  * @param obj
  *		The dhtml object representing the button to be added
  */
-function insertListElement(posY,obj)
+function insertListElement(pos,obj)
 {
 	palet.length++;
 	for (i=palet.length-1; i>posY; i--)
@@ -252,7 +159,7 @@ function insertListElement(posY,obj)
 		palet[i] = palet[i-1];
 	}
 
-	palet[posY] = obj;
+	palet[pos] = obj;
 	dd.elements.palet.resizeBy(0,dy);
 }
 
@@ -265,10 +172,7 @@ function updatePositions()
 {
 	for (i=0;i<aElts.length;i++)
 	{
-		for (j=0;j<aElts[i].length;j++)
-		{
-			aElts[i][j].moveTo(dd.elements.array.x+margLef+dx*i,dd.elements.array.y+margTop+dy*j);
-		}
+		aElts[i].moveTo(dd.elements.array.x+margLef+dx*i,dd.elements.array.y+margTop);
 	}
 
 	for (i=0;i<palet.length;i++)
@@ -347,12 +251,8 @@ function writeValue()
 
 	for (i=0;i<aElts.length; i++)
 	{
-		if (i>0) value += '|';
-		for (j=0;j<aElts[i].length; j++)
-		{
-			if (j>0) value += ':';
-			value += aElts[i][j].div.id;
-		}
+		if (i>0) value += ':';
+		value += aElts[i].div.id;
 	}
 	document.getElementById('arrayput').value = value;
 
