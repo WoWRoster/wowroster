@@ -36,12 +36,32 @@ if( $roster->output['http_header'] && !headers_sent() )
 	@header('Content-type: text/html; ' . $roster->locale->act['charset']);
 }
 
+if( isset($roster->data['guild_name']) )
+{
+	$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['server'] . ' ] '
+				  . (isset($roster->output['title']) ? $roster->output['title'] : '');
+}
+elseif( isset($roster->data['server']) )
+{
+	$roster_title = ' [ ' . $roster->data['server'] . ' ] '
+				  . (isset($roster->output['title']) ? $roster->output['title'] : '');
+}
+elseif( !empty($roster->config['default_name']) )
+{
+	$roster_title = ' [ ' . $roster->config['default_name'] . ' ] '
+				  . (isset($roster->output['title']) ? $roster->output['title'] : '');
+}
+else
+{
+	$roster_title = (isset($roster->output['title']) ? $roster->output['title'] : '');
+}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>WoWRoster<?php echo ( isset($roster->data['guild_name']) ? ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['server'] . ' ] ' : ' [ ' . $roster->config['default_name'] . ' ] ' ) . (isset($roster->output['title']) ? $roster->output['title'] : ''); ?></title>
+<title>WoWRoster<?php echo $roster_title; ?></title>
 <?php print ( $roster->config['seo_url'] ? '	<base href="' . ROSTER_URL . '" />' : '' ) ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/style.css" />
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>

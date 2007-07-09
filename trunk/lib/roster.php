@@ -313,8 +313,9 @@ class roster
 				}
 				else
 				{
-					$realm = $this->db->escape( $_GET['realm'] );
-					$where = ' `server` = "' . $realm . '"';
+					//$realm = $this->db->escape( $_GET['realm'] );
+					//$where = ' `server` = "' . $realm . '"';
+					roster_die('You must specify a region code in the realm name','Region Code Required');
 				}
 
 				// Get the selected data
@@ -336,7 +337,7 @@ class roster
 					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
-				$this->data = array('server' => $realm);
+				$this->data = array('server' => stripslashes($realm),'region' => $region);
 
 				break;
 

@@ -108,6 +108,11 @@ select {
 
 .button_hide { border:0;background-color:transparent;padding:0;margin:0;cursor:pointer; }
 
+.sqlwindow {
+	text-align:left;
+	font-size:11px;
+}
+
 /**
  * Special Radio Buttons and Checkboxes
  */
@@ -199,7 +204,7 @@ select {
 /**
  * Roster Main Menu
  */
- 
+
 /* Container for the main roster menu */
 
 .menu_container {
@@ -333,9 +338,9 @@ select {
 
 .menu_scope li a:hover { border: 2px solid #0066FF; }
 
- 
-/* Ignore the following options except in the cp */ 
- 
+
+/* Ignore the following options except in the cp */
+
 /* Container for the main roster menu */
 .main_roster_menu { font:11px arial,helvetica,sans-serif; }
 .main_roster_menu span { font:11px arial,helvetica,sans-serif;color:#ffffff; }

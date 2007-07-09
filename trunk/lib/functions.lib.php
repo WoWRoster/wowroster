@@ -819,6 +819,31 @@ function escape_array( $array )
 }
 
 /**
+ * Recursively escape $array
+ *
+ * @param array $array
+ *	The array to escape
+ * @return array
+ *	The same array, escaped
+ */
+function stripslash_array( $array )
+{
+	foreach ($array as $key=>$value)
+	{
+		if( is_array($value) )
+		{
+			$array[$key] = stripslash_array($value);
+		}
+		else
+		{
+			$array[$key] = stripslashes($value);
+		}
+	}
+
+	return $array;
+}
+
+/**
  * Converts a datetime field into a readable date
  *
  * @param string $datetime datetime field data in DB
