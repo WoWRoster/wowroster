@@ -422,18 +422,4 @@ class roster_db
 			return $this->prefix.$table;
 		}
 	}
-
-	/**
-	 * Get the queries for the footer
-	 */
-	function getQueries()
-	{
-		$output = "<div style=\"text-align:left;\"><ul>\n";
-		foreach( $this->queries as $query )
-		{
-			$output .= "  <li>".nl2br(htmlentities($query))."</li>\n";
-		}
-		$output .= "</ul></div>\n";
-		return $output;
-	}
 }

@@ -162,7 +162,7 @@ function makelink( $url='' , $full=false )
 		case 'realm':
 			if( !isset($get['realm']) && isset($roster->data['server']) )
 			{
-				$addget = 'realm=' . $roster->data['server'];
+				$addget = 'realm=' . $roster->data['region'] . '-' . $roster->data['server'];
 			}
 			break;
 	}

@@ -36,6 +36,7 @@ $mainQuery =
 	'`alts`.`main_id`, '.
 
 	'`guild`.`guild_name`, '.
+	'`guild`.`guild_id`, '.
 
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`officer_note`, '.
@@ -102,6 +103,7 @@ $FIELD['guild_name'] = array (
 	'order' => array( '`guild`.`guild_name` ASC' ),
 	'order_d' => array( '`guild`.`guild_name` DESC' ),
 	'js_type' => 'ts_string',
+	'value' => array($memberlist,'guild_name_value'),
 	'display' => 2,
 );
 

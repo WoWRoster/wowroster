@@ -364,8 +364,8 @@ class memberslist
 
 		if( $this->addon['config']['group_alts']==1 )
 		{
-			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="+" />Close all</a></th>';
-			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="-" />Open all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />Close all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />Open all</a></th>';
 			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Hide alts</a></th>';
 		}
 		elseif( $this->addon['config']['group_alts'] == 0 )
@@ -767,6 +767,17 @@ class memberslist
 		{
 			return '&nbsp;';
 		}
+	}
+
+	/**
+	 * Controls Output of the Guild Name Column
+	 *
+	 * @param array $row - of character data
+	 * @return string - Formatted output
+	 */
+	function guild_name_value ( $row, $field )
+	{
+		return '<div style="display:none; ">'.$row['guild_name'].'</div><a href="'.makelink('guild-memberslist&amp;guild='.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
 	}
 }
 

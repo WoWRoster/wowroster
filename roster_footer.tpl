@@ -66,7 +66,16 @@ if( $roster->config['debug_mode'] )
 
 if( $roster->config['sql_window'] )
 {
-	echo "<br /><br />\n".messagebox($roster->db->getQueries(),$roster->locale->act['sql_queries'],'sgreen');
+	if( count($roster->db->queries) > 0 )
+	{
+		$output = "<div class=\"sqlwindow\"><ul>\n";
+		foreach( $roster->db->queries as $query )
+		{
+			$output .= "  <li>".nl2br(htmlentities($query))."</li>\n";
+		}
+		$output .= "</ul></div>\n";
+	}
+	echo "<br /><br />\n".messagebox($output,$roster->locale->act['sql_queries'],'sgreen');
 }
 
 
