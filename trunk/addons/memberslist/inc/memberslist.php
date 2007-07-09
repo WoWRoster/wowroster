@@ -745,11 +745,11 @@ class memberslist
 			{
 				if( $row['lifetimeHighestRank'] < 10 )
 				{
-					$rankicon = 'Interface/PvPRankBadges/PvPRank0'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
+					$rankicon = 'Interface/PvPRankBadges/pvprank0'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
 				}
 				else
 				{
-					$rankicon = 'Interface/PvPRankBadges/PvPRank'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
+					$rankicon = 'Interface/PvPRankBadges/pvprank'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
 				}
 				$rankicon = $roster->config['interface_url'].$rankicon;
 				$rankicon = "<img class=\"membersRowimg\" width=\"".$this->addon['config']['icon_size']."\" height=\"".$this->addon['config']['icon_size']."\" src=\"".$rankicon."\" alt=\"\" />";
