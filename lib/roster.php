@@ -305,7 +305,7 @@ class roster
 				}
 				else
 				{
-					$where = ' `realm` = "' . $this->db->escape($_GET['realm']) . '"';
+					$where = ' `server` = "' . $this->db->escape($_GET['realm']) . '"';
 				}
 
 				// Get the selected data
