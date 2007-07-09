@@ -552,7 +552,7 @@ class Upgrade
 	{
 		global $tpl, $db;
 
-		foreach( explode("\n",$db->getQueries()) as $string )
+		foreach( $db->queries as $string )
 		{
 			$tpl->assign_block_vars('sql_rows', array(
 				'TEXT' => $string
