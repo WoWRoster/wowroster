@@ -27,7 +27,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class professions
 {
 	var $active = true;
-	var $icon = 'trade_leatherworking';
+	var $icon = 'trade_blacksmithing';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 

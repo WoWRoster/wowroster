@@ -27,7 +27,7 @@ if ( !defined('ROSTER_INSTALLED') )
 class questlist
 {
 	var $active = true;
-	var $icon = 'inv_misc_note_02';
+	var $icon = 'spell_holy_surgeoflight';
 
 	var $upgrades = array(); // There are no previous versions to upgrade from
 
