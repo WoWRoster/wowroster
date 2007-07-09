@@ -220,7 +220,7 @@ select {
 /* Header Backgrounds */
 
 .menu_bg_01 { background: url(../img/menu/menu_btn_guild.png) no-repeat left center; }
-.menu_bg_02 { background: url(../img/menu/menu_btn_search.png) no-repeat left center; }
+.menu_bg_02 { background: url(../img/menu/menu_btn_realm.png) no-repeat left center; }
 .menu_bg_03 { background: url(../img/menu/menu_btn_update.png) no-repeat left center; }
 .menu_bg_04 { background: url(../img/menu/menu_btn_utilities.png) no-repeat left center; }
 
@@ -253,22 +253,14 @@ select {
 .menu_header li a {
 	text-align: left;
 	display: block;
-	border: 1px solid #4E4D4C;
-	height: 34px;
+	border: 2px solid #4E4D4C;
+	height: 32px;
 	padding: 2px 2px 2px 34px;
 	color: #FFCC00;
 	text-decoration: none;
 }
 
-.menu_header li a:hover { border: 1px solid #0066FF; }
-
-.menu_header li img {
-	float: left;
-	margin: 0px;
-	height: 34px;
-	width: 34px;
-	border-style: none;
-}
+.menu_header li a:hover { border: 2px solid #0066FF; }
 
 /* Utility Scope Block */
 
@@ -291,26 +283,20 @@ select {
 .menu_utility li {
 	float: right;
 	cursor: pointer;
-	margin: 2px;
+	margin: 3px;
+	background: #2E2D2C;
 }
 
 .menu_utility li a {
 	display: block;
-	border: 1px solid #4E4D4C;
-	height: 34px;
-	width: 34px;
-	padding: 2px;
-	background: #2E2D2C;
-}
-
-.menu_utility li a:hover { border: 1px solid #0066FF; }
-
-.menu_utility li img {
-	margin: 2px;
+	border: 2px solid #4E4D4C;
 	height: 30px;
 	width: 30px;
-	border-style: none;
+	padding: 2px;
 }
+
+.menu_utility li a:hover { border: 2px solid #0066FF; }
+
 
 /* General Scope Block */
 
@@ -333,19 +319,19 @@ select {
 .menu_scope li {
 	float:left;
 	cursor: pointer;
-	margin: 2px;
+	margin: 3px;
+	background: #2E2D2C;
 }
 
 .menu_scope li a {
 	display: block;
-	border: 1px solid #4E4D4C;
-	height: 34px;
-	width: 34px;
+	border: 2px solid #4E4D4C;
+	height: 30px;
+	width: 30px;
 	padding: 2px;
-	background: #2E2D2C;
 }
 
-.menu_scope li a:hover { border: 1px solid #0066FF; }
+.menu_scope li a:hover { border: 2px solid #0066FF; }
 
 .menu_scope li img {
 	margin: 2px;
