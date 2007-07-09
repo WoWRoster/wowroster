@@ -560,6 +560,7 @@ class RosterMenu
 
 		$page = array();
 		$scopes = array();
+		$arrayButtons = array();
 
 		foreach( $sections as $id=>$value )
 		{
@@ -572,17 +573,19 @@ class RosterMenu
 		// --[ Parse DB data ]--
 		foreach( $page as $id => $value )
 		{
-			foreach( explode('|',$value['config']) as $posX=>$column )
+			$config[$id] = explode(':',$value['config']);
+			foreach( $config[$id] as $pos=>$button )
 			{
-				$config[$id][$posX] = explode(':',$column);
-				foreach( $config[$id][$posX] as $posY=>$button )
+				if( isset($palet[$button]) )
 				{
-					if( isset($palet[$button]) )
-					{
-						$arrayButtons[$id][$posX][$posY] = $palet[$button];
-						$scopes[$sections[$id]] = true;
-					}
+					$arrayButtons[$id][$pos] = $palet[$button];
+					$scopes[$sections[$id]] = true;
 				}
+			}
+			
+			if( $sections[$id] == 'util')
+			{
+				$arrayButtons[$id] = array_reverse($arrayButtons[$id]);
 			}
 		}
 
@@ -591,9 +594,9 @@ class RosterMenu
 			. '        <div class="menu_header">' . "\n"
 			. '          <ul>' . "\n"
 			. '            <li><a href="#" class="menu_bg_01" onclick="' . (isset($scopes['guild']) ? 'showHide(\'menu_guild\');' : '') . 'return false;">' . $roster->locale->act['menu_header_01'] . '</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_02" onclick="' . (isset($scopes['realm']) ? 'showHide(\'menu_realm\');"' : '') . 'return false;">' . $roster->locale->act['menu_header_02'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_02" onclick="' . (isset($scopes['realm']) ? 'showHide(\'menu_realm\');' : '') . 'return false;">' . $roster->locale->act['menu_header_02'] . '</a></li>' . "\n"
 			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">' . $roster->locale->act['menu_header_03'] . '</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_04" onclick="' . (isset($scopes['util']) ? 'showHide(\'menu_util\');"' : '') . 'return false;">' . $roster->locale->act['menu_header_04'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_04" onclick="' . (isset($scopes['util']) ? 'showHide(\'menu_util\');' : '') . 'return false;">' . $roster->locale->act['menu_header_04'] . '</a></li>' . "\n"
 			. '          </ul>' . "\n"
 			. '        </div>' . "\n";
 
@@ -611,43 +614,40 @@ class RosterMenu
 			$html .= '        <div class="menu_' . ( $sections[$id] == 'util' ? 'utility' : 'scope' ) . '" id="menu_'.$sections[$id].'"' . (($open)?'':' style="display:none"') . '>'."\n"
 				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act[$sections[$id]]) . '</div>' . "\n"
 				. '          <ul>'."\n";
-			foreach( $page as $column )
+			foreach( $page as  $button )
 			{
-				foreach( $column as $button )
+				if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 				{
-					if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
+					// Include addon's locale files if they exist
+					foreach( $roster->multilanguages as $lang )
 					{
-						// Include addon's locale files if they exist
-						foreach( $roster->multilanguages as $lang )
-						{
-							$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-						}
+						$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 					}
-
-					$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . (empty($button['icon'])?'inv_misc_questionmark':$button['icon']) . '.' . $roster->config['img_suffix'];
-
-					if( $button['addon_id'] == 0 )
-					{
-						$button['url'] = makelink($button['url']);
-					}
-					elseif( substr($button['url'],0,7) != 'http://')
-					{
-						$button['url'] = makelink($button['scope'] . '-' . $button['basename'] . (empty($button['url']) ? '' : '-' . $button['url']));
-					}
-
-					$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
-					if( strpos($button['title'],'|') )
-					{
-						list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
-						$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
-					}
-					else
-					{
-						$button['tooltip'] = ' ' . makeOverlib($button['title']);
-					}
-
-					$html .= '            <li' . $button['tooltip'] . ' style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;"><a href="' . $button['url'] . '">' . "</a></li>\n";
 				}
+
+				$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . (empty($button['icon'])?'inv_misc_questionmark':$button['icon']) . '.' . $roster->config['img_suffix'];
+
+				if( $button['addon_id'] == 0 )
+				{
+					$button['url'] = makelink($button['url']);
+				}
+				elseif( substr($button['url'],0,7) != 'http://')
+				{
+					$button['url'] = makelink($button['scope'] . '-' . $button['basename'] . (empty($button['url']) ? '' : '-' . $button['url']));
+				}
+
+				$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+				if( strpos($button['title'],'|') )
+				{
+					list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+					$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
+				}
+				else
+				{
+					$button['tooltip'] = ' ' . makeOverlib($button['title']);
+				}
+
+				$html .= '            <li' . $button['tooltip'] . ' style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;"><a href="' . $button['url'] . '">' . "</a></li>\n";
 			}
 			$html .= '          </ul>' . "\n"
 				. '        </div>' . "\n";
