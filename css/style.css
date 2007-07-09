@@ -390,26 +390,19 @@ select {
 
 
 .menu_config_div {
-/* The div elements used for the menu config screen */
+	/* The div elements used for the menu config screen */
 	position: absolute;
-	width:120px;
-	height:35px;
+	width:32px;
+	height:32px;
 	display:block;
 	text-align:center;
 	vertical-align:middle;
-	border:solid #5D5D5D;
-	border-width:1px 0px 0px 1px;
+	border:2px solid #5D5D5D;
 	background-color:#2E2D2B;
 	text-decoration:none;
 	color:#EABB00;
 	font-weight:bold;
 	font-size:10px;
-}
-.menu_config_div img {
-	height:32px;
-	width:32px;
-	margin:2px;
-	float:left;
 }
 
 /**
