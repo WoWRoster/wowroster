@@ -277,7 +277,7 @@ select {
 	padding:0px;
 	display: table;
 	width: 100%;
-	border-top: 1px solid #CBA300;
+	border-top: 1px solid #A37300;
 }
 
 .menu_utility li {
@@ -313,7 +313,7 @@ select {
 	padding:0px;
 	display: table;
 	width: 100%;
-	border-top: 1px solid #CBA300;
+	border-top: 1px solid #A37300;
 }
 
 .menu_scope li {
@@ -332,13 +332,6 @@ select {
 }
 
 .menu_scope li a:hover { border: 2px solid #0066FF; }
-
-.menu_scope li img {
-	margin: 2px;
-	height: 30px;
-	width: 30px;
-	border-style: none;
-}
 
  
 /* Ignore the following options except in the cp */ 
