@@ -75,9 +75,9 @@ $lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
 $lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
 $lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old';
 $lang['no_members'] = 'Data does not contain any guild members';
-$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@4$s-%3$s</span>]';
+$lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
-$lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s  Not Scanned';
+$lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s Not Scanned';
 $lang['update_members'] = 'Updating Members';
 $lang['gp_user_only'] = 'GuildProfiler User Only';
 $lang['update_errors'] = 'Update Errors';
@@ -87,6 +87,12 @@ $lang['save_update_log'] = 'Save Update Log';
 
 $lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="%3$s" target="_blank">HERE</a>';
 
+// Menu buttons
+$lang['menu_header_01'] = 'Guild Information';
+$lang['menu_header_02'] = 'Realm Information';
+$lang['menu_header_03'] = 'Update Profile';
+$lang['menu_header_04'] = 'Utilities';
+$lang['menu_header_scope_panel'] = '%s Panel';
 
 // Updating Instructions
 $lang['index_text_uniloader'] = '<b><u>Prérequis à l\'utilisation d\'UniUploader:</b></u><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en">Microsoft .NET Framework</a> installé<br />Pour les utilisateurs d\'OS autres que Windows, utiliser JUniUploader qui vous permettra d\'effectuer les mêmes opérations que UniUploader mais en mode Java.';

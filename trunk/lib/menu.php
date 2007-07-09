@@ -110,30 +110,60 @@ class RosterMenu
 			$choiceForm .= "\t\t</select>\n\t</form>";
 		}
 
-		// Get the scope select data
-		$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
-			   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
 
-		$result = $roster->db->query($query);
 
-		if( !$result )
+		$menu_select = array();
+		if( $roster->scope == 'realm' )
 		{
-			die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+			$label = 'realm';
+
+	        // Get the scope select data
+	        $query = "SELECT DISTINCT `server`, `region`"
+	               . " FROM `" . $roster->db->table('guild') . "`"
+	               . " UNION SELECT DISTINCT `server`, `region` FROM `" . $roster->db->table('players') . "`"
+	               . " ORDER BY `server` ASC;";
+
+	        $result = $roster->db->query($query);
+
+	        if( !$result )
+	        {
+	            die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+	        }
+
+			while( $data = $roster->db->fetch($result,SQL_NUM) )
+			{
+				$realminfo = $data[1] . '-' . $data[0];
+				$menu_select[0][$realminfo] = $realminfo;
+			}
+
+	        $roster->db->free_result($result);
 		}
-
-		if( $roster->db->num_rows() > 1 )
+		elseif( $roster->scope != 'util' )
 		{
-			$menu_select = array();
+			$label = 'guild';
+
+			// Get the scope select data
+			$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
+				   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+
+			$result = $roster->db->query($query);
+
+			if( !$result )
+			{
+				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+			}
+
 			while( $data = $roster->db->fetch($result,SQL_NUM) )
 			{
 				$menu_select[$data[1]][$data[2]] = $data[0];
 			}
 
 			$roster->db->free_result($result);
+		}
 
+		if( count($menu_select) > 0 )
+		{
 			$choices = '';
-
-			$page = ( $roster->pages[0] == 'guild' ? '' : $roster->config['default_page']);
 
 			foreach( $menu_select as $realm => $guild )
 			{
@@ -143,10 +173,11 @@ class RosterMenu
 				{
 					if(isset($roster->data['guild_id']))
 					{
-						$choices .= '			<option value="' . makelink($page . '&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
+						$choices .= '			<option value="' . makelink('&amp;' . $label . '=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
 					}
-					else {
-						$choices .= '			<option value="' . makelink($page . '&amp;guild=' . $id) . '">' . $name . "</option>\n";
+					else
+					{
+						$choices .= '			<option value="' . makelink('&amp;' . $label . '=' . $id) . '">' . $name . "</option>\n";
 					}
 				}
 
@@ -156,8 +187,8 @@ class RosterMenu
 			if( !empty($choices) )
 			{
 				$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post" style="margin:0;">' . "\n";
-				$choiceForm .= $roster->locale->act['guild'] . ':'
-							 . '			<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">'
+				$choiceForm .= $roster->locale->act[$label] . ':'
+							 . '			<select name="' . $label . '" onchange="window.location.href=this.options[this.selectedIndex].value;">'
 							 . $choices . "\t\t</select>\n\t</form>";
 			}
 		}
@@ -192,7 +223,7 @@ class RosterMenu
 				. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
 				. "  </tr>\n";
 	}
-	
+
 	/**
 	 * Builds either of the side panes.
 	 *
@@ -241,7 +272,7 @@ class RosterMenu
 		global $roster;
 
 		// Figure out the scope and limit accordingly.
-		switch( $roster->pages[0] )
+		switch( $roster->scope )
 		{
 			case 'guild':
 				// Restrict on the selected guild
@@ -498,7 +529,7 @@ class RosterMenu
 		$roster->db->free_result($result);
 
 		// --[ Fetch menu configuration from DB ]--
-		$query = "SELECT * FROM `" . $roster->db->table('menu') . "` WHERE `section` IN (" . $section . ");";
+		$query = "SELECT * FROM `" . $roster->db->table('menu') . "` WHERE `section` IN (" . $section . ") ORDER BY `config_id`;";
 
 		$result = $roster->db->query($query);
 
@@ -544,17 +575,16 @@ class RosterMenu
 			. '      <div class="menu_container">' . "\n"
 			. '        <div class="menu_header">' . "\n"
 			. '          <ul>' . "\n"
-			. '            <li><a href="#" class="menu_bg_01" onclick="showHide(\'menu_guild\'); return false;">Guild Information</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_02" onclick="showHide(\'menu_realm\'); return false;">Realm Information</a></li>' . "\n"
-			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">Update Profile</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_04" onclick="showHide(\'menu_util\'); return false;">Utilities</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_01" onclick="showHide(\'menu_guild\');return false;">' . $roster->locale->act['menu_header_01'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_02" onclick="showHide(\'menu_realm\');return false;">' . $roster->locale->act['menu_header_02'] . '</a></li>' . "\n"
+			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">' . $roster->locale->act['menu_header_03'] . '</a></li>' . "\n"
+			. '            <li><a href="#" class="menu_bg_04" onclick="showHide(\'menu_util\');return false;">' . $roster->locale->act['menu_header_04'] . '</a></li>' . "\n"
 			. '          </ul>' . "\n"
 			. '        </div>' . "\n";
 
 		foreach( $arrayButtons as $id => $page )
 		{
-			if(( $sections[$id] == $roster->pages[0] ) ||
-				( $id == count($sections) - 1 ))
+			if( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) )
 			{
 				$open = true;
 			}
@@ -564,7 +594,7 @@ class RosterMenu
 			}
 
 			$html .= '        <div class="menu_' . ( $sections[$id] == 'util' ? 'utility' : 'scope' ) . '" id="menu_'.$sections[$id].'"' . (($open)?'':' style="display:none"') . '>'."\n"
-				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . $roster->locale->act[$sections[$id]] . ' Panel</div>' . "\n"
+				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act[$sections[$id]]) . '</div>' . "\n"
 				. '          <ul>'."\n";
 			foreach( $page as $column )
 			{

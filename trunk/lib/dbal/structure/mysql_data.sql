@@ -33,7 +33,7 @@ INSERT INTO `renprefix_config` VALUES (1002, 'sql_window', '1', 'radio{on^1|off^
 INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.1.1', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.1.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1040, 'locale', 'enUS', 'function{rosterLangValue', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'members', 'function{pageNames', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'guild-memberslist', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|30', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'jpg', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
@@ -146,7 +146,7 @@ INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1|b2');
+INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2:b3');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
 INSERT INTO `renprefix_menu` VALUES (3, 'guildless', '');
 INSERT INTO `renprefix_menu` VALUES (4, 'guild', '');
@@ -156,3 +156,4 @@ INSERT INTO `renprefix_menu` VALUES (5, 'char', '');
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_roster_cp', 'util', 'rostercp', 'inv_misc_gear_02');
 INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_credits', 'util', 'credits', 'inv_egg_05');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_search', 'util', 'search', 'inv_misc_spyglass_02');

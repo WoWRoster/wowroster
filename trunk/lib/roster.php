@@ -28,6 +28,7 @@ class roster
 	var $locale;
 	var $db;
 	var $pages;
+	var $scope;
 	var $data = false; // scope data
 	var $addon_data;
 	var $error; // Error handler class
@@ -35,7 +36,7 @@ class roster
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
-		'show_menu' => array('util','guild'),
+		'show_menu' => array('util','realm','guild'),
 		'show_footer' => true,
 
 		// used on rostercp pages
@@ -166,10 +167,12 @@ class roster
 		switch( $this->pages[0] )
 		{
 			case 'char':
+				$this->scope = 'char';
+
 				// Check if the member attribute is set
 				if( !isset($_GET['member']) )
 				{
-					roster_die('You need to provide a member id or name@server in character scope','WoWRoster');
+					roster_die('You need to provide a member id or name@server','WoWRoster');
 				}
 
 				// Parse the attribute
@@ -192,7 +195,8 @@ class roster
 				}
 				else
 				{
-					$where = ' `players`.`name` = "' . $this->db->escape($_GET['member']) . '"';
+					$name = $this->db->escape($_GET['member']);
+					$where = ' `players`.`name` = "' . $name . '"';
 				}
 
 				// Get the data
@@ -219,6 +223,8 @@ class roster
 				break;
 
 			case 'guild':
+				$this->scope = 'guild';
+
 				// Check if the guild attribute is set
 				if( !isset($_GET['guild']) )
 				{
@@ -256,7 +262,8 @@ class roster
 				}
 				else
 				{
-					$where = ' `guild_name` = "' . $this->db->escape($_GET['guild']) . '"';
+					$name = $this->db->escape( $data['name'] );
+					$where = ' `guild_name` = "' . $name . '"';
 				}
 
 				// Get the data
@@ -281,7 +288,8 @@ class roster
 				break;
 
 			case 'realm':
-			case 'guildless':
+				$this->scope = 'realm';
+
 				// Check if the realm attribute is set
 				if( !isset($_GET['realm']) )
 				{
@@ -305,7 +313,8 @@ class roster
 				}
 				else
 				{
-					$where = ' `server` = "' . $this->db->escape($_GET['realm']) . '"';
+					$realm = $this->db->escape( $_GET['realm'] );
+					$where = ' `server` = "' . $realm . '"';
 				}
 
 				// Get the selected data
@@ -327,19 +336,17 @@ class roster
 					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
+				$this->data = array('server' => $realm);
+
 				break;
 
 			default:
+				$this->scope = 'util';
 				$this->data = array();
 				break;
 		}
 
 		// Set menu array
-		if( isset($this->data['server']) )
-		{
-			$this->output['show_menu'][] = 'realm';
-			$this->output['show_menu'][] = 'guildless';
-		}
 		if( isset($this->data['member_id']) )
 		{
 			$this->output['show_menu'][] = 'char';

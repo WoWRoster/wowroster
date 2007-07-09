@@ -106,7 +106,8 @@ foreach ($config_pages as $pindex => $data)
 {
 	if (!isset($data['special']))
 	{
-		$pagebar .= '<li' . ($roster->pages[0] . '-' . $page == $data['href'] ? ' class="selected"' : '') . '><a href="' . makelink($data['href']) . '">' . $roster->locale->act[$data['title']] . "</a></li>\n";
+		$pagename = $roster->pages[0] . ( $page != 'roster' ? '-' . $page : '' );
+		$pagebar .= '<li' . ($pagename == $data['href'] ? ' class="selected"' : '') . '><a href="' . makelink($data['href']) . '">' . $roster->locale->act[$data['title']] . "</a></li>\n";
 	}
 	elseif ($data['special'] == 'divider')
 	{
@@ -122,6 +123,7 @@ if ($pagebar != '')
 
 // Add addon buttons
 $addon_pagebar = '';
+
 foreach( $roster->addon_data as $row )
 {
 	$addon = getaddon($row['basename']);

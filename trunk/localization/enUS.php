@@ -87,6 +87,12 @@ $lang['save_update_log'] = 'Save Update Log';
 
 $lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="%3$s" target="_blank">HERE</a>';
 
+// Menu buttons
+$lang['menu_header_01'] = 'Guild Information';
+$lang['menu_header_02'] = 'Realm Information';
+$lang['menu_header_03'] = 'Update Profile';
+$lang['menu_header_04'] = 'Utilities';
+$lang['menu_header_scope_panel'] = '%s Panel';
 
 // Updating Instructions
 $lang['index_text_uniloader'] = '(You can download the program from the WoWRoster website, look for the UniUploader Installer for the latest version)';
