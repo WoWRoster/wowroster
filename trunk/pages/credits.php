@@ -31,11 +31,11 @@ echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['top']."\n
 
 
 // format table locations
-echo "<table cellspacing=\"10\"><tr><td valign=\"top\">\n";
+echo "<table cellspacing=\"10\"><tr><td valign=\"top\" width=\"50%\">\n";
 
 
 // Print devs
-echo border('sgreen','start','Active Devs')."<table cellspacing=\"0\">\n";
+echo border('sgreen','start','Active Developers')."<table cellspacing=\"0\">\n";
 echo "<tr>
   <th class=\"membersHeader\">Name</th>
   <th class=\"membersHeaderRight\">Info</th>
@@ -76,11 +76,11 @@ echo "</table>\n".border('spurple','end')."<br />\n";
 
 
 // format table locations
-echo "\n</td><td valign=\"top\">\n";
+echo "\n</td><td valign=\"top\" width=\"50%\">\n";
 
 
 // Print inactive devs
-echo border('sred','start','Inactive Devs')."<table width=\"100%\" cellspacing=\"0\">\n";
+echo border('sred','start','Retired/Inactive Developers')."<table width=\"100%\" cellspacing=\"0\">\n";
 echo "<tr>
   <th class=\"membersHeader\">Name</th>
   <th class=\"membersHeaderRight\">Info</th>
