@@ -626,15 +626,7 @@ select {
 	border-bottom: 1px solid #000000;
 }
 
-.motd_setup {
-	background-color: #660000;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #FFFFFF;
-	font-style: normal;
-	padding-right: 5px;
-	padding-left: 5px;
-}
+.motd_setup { font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #FFFFFF; font-style: normal; padding-right: 8px; padding-left: 23px; background: #660000 url(../img/motd_left.gif) no-repeat left center; height: 21px; }
 
 /* Header Text */
 
