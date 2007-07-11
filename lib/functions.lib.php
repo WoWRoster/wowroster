@@ -28,9 +28,9 @@ if( !defined('ROSTER_INSTALLED') )
  * @param string $header_text Place text in a styled header
  * @return string
  */
-function border( $style , $mode , $header_text=null )
+function border( $style , $mode , $header_text=null , $width='' )
 {
-	$backg_css = $style.'border';
+	$backg_css = $style . 'border';
 	if( substr($style,0,1) == 's' )
 	{
 		$style = 'simple';
@@ -49,7 +49,7 @@ function border( $style , $mode , $header_text=null )
 	// Dynamic Bordering
 	$start = '
 <!-- START [open-' . $style . '] container -->
-<table class="border_frame" cellpadding="0" cellspacing="1" ><tr><td class="border_colour '. $backg_css .'">
+<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_colour ' . $backg_css . '">
 '.$header_text.'
 <!-- END [open-' . $style . '] container -->';
 
@@ -58,7 +58,7 @@ function border( $style , $mode , $header_text=null )
     </td></tr></table>
 <!-- END [close-' . $style . '] container -->';
 
-	switch ($mode)
+	switch( $mode )
 	{
 		case 'start':
 			return $start;
@@ -708,10 +708,10 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
  * @param string $style | The border style
  * @return string $html | The HTML for the messagebox
  */
-function messagebox( $message , $title='Message' , $style='sgray' )
+function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
 {
 	return
-		border($style, 'start', $title).
+		border($style, 'start', $title, $width).
 			$message.
 		border($style, 'end');
 }
@@ -729,8 +729,8 @@ function messagebox( $message , $title='Message' , $style='sgray' )
 function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px' , $height='300px' )
 {
 	return
-		border($style,'start',$title).
-		'<div style="height:' . $height . ';width:' . $width . ';overflow:auto;">'.
+		border($style,'start',$title, $width).
+		'<div style="height:' . $height . ';width:100%;overflow:auto;">'.
 			$message.
 		'</div>'.
 		border($style,'end');
@@ -755,11 +755,11 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
 		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
-		border($style, 'start', $title).
+		border($style, 'start', $title, $width).
 		'<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'.
 			$message.
 		'</div>'.
@@ -782,12 +782,12 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:" . $width . ";\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
 		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
-		border($style,'start',$title).
-		'<div style="height:' . $height . ';width:' . $width . ';overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
+		border($style,'start',$title, $width).
+		'<div style="height:' . $height . ';width:100%;overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
 			$message.
 		'</div>'.
 		border($style,'end');
