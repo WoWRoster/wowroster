@@ -25,7 +25,17 @@ class roster
 {
 	var $config = array();
 	var $multilanguages = array();
+	/**
+	 * Roster Locale Object
+	 *
+	 * @var roster_locale
+	 */
 	var $locale;
+	/**
+	 * Roster database Object
+	 *
+	 * @var roster_db
+	 */
 	var $db;
 	var $pages;
 	var $scope;
