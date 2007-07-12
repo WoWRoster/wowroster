@@ -29,9 +29,24 @@ if ( !defined('ROSTER_INSTALLED') )
  */
 class roster_locale
 {
+	/**
+	 * Array of all localized strings
+	 * $roster->locale->wordings[LANG][STRING]
+	 * $roster->locale->wordings['enUS']['menu_text']
+	 *
+	 * @var array
+	 */
 	var $wordings = array();
 	var $creditspage = '';
 	var $langlabel = array();
+	/**
+	 * Array of locale strings for current language
+	 * Example: 
+	 * $roster->locale->act['menu_text']
+	 * 
+	 * @var array
+	 */
+	var $act;
 
 	function roster_locale()
 	{
