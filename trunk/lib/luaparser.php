@@ -47,7 +47,7 @@ class lua
 		}
 		else
 		{
-			$this->seterror('['.$file_location.'] does not exist or is not readable by PHP');
+			$this->seterror('[' . $file_location . '] does not exist or is not readable by PHP');
 			return false;
 		}
 	}
@@ -114,11 +114,6 @@ class lua
 			{
 				$line = gzgets($file);
 				$line = trim($line);
-				
-				if( get_magic_quotes_runtime() )
-				{
-					$line = stripslashes($line);
-				}
 
 				if( empty($line) )
 				{
@@ -147,12 +142,13 @@ class lua
 							$name = trim($name, '[]"');
 						}
 					}
-					// Otherwise we'll have to make one up for ourselves
+					// If we have nothing, then this isn't a lua data file
 					elseif( $stack_pos == 0 )
 					{
 						$this->seterror('LUA parsing error. Are you sure this is a SavedVariables file?');
 						return false;
 					}
+					// Otherwise we'll have to make one up for ourselves
 					else
 					{
 						$value = $line;
@@ -179,19 +175,19 @@ class lua
 					}
 					else
 					{
-						if(isset($value[0]) && $value[0]=='"')
+						if( isset($value[0]) && $value[0]=='"' )
 						{
 							$value = substr($value,1,-1);
 						}
-						else if($value == 'true')
+						elseif( $value == 'true' )
 						{
 							$value = true;
 						}
-						else if($value == 'false')
+						elseif( $value == 'false' )
 						{
 							$value = false;
 						}
-						else if($value == 'nil')
+						elseif( $value == 'nil' )
 						{
 							$value = NULL;
 						}
@@ -256,13 +252,13 @@ class lua
 
 			if( is_array($value) )
 			{
-				$out .= '{'."\n";
-				$out .= $this->phptolua($value, $indent."\t");
-				$out .= $indent.'}';
+				$out .= '{' . "\n";
+				$out .= $this->phptolua($value, $indent . "\t");
+				$out .= $indent . '}';
 			}
 			elseif( is_string($value) )
 			{
-				$out .= '"'.addcslashes($value,"\n\"\\").'"';
+				$out .= '"' . addcslashes($value,"\n\"\\") . '"';
 			}
 			elseif( is_numeric($value) )
 			{

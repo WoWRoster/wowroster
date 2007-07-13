@@ -101,11 +101,10 @@ class RosterMenu
 		{
 			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post" style="margin:0;">
 		' . $roster->locale->act['language'] . ':
-		<select name="locale" onchange="document.locale_select.submit();">
-';
+		<select name="locale" onchange="document.locale_select.submit();">' . "\n";
 			foreach( $roster->multilanguages as $language )
 			{
-				$choiceForm .= '		<option value="' . $language . '"' . ( $language == $roster->config['locale'] ? ' selected="selected"' : '' ) . '>' . $roster->locale->wordings[$language]['langname'] . "</option>\n";
+				$choiceForm .= '			<option value="' . $language . '"' . ( $language == $roster->config['locale'] ? ' selected="selected"' : '' ) . '>' . $roster->locale->wordings[$language]['langname'] . "</option>\n";
 			}
 			$choiceForm .= "\t\t</select>\n\t</form>\n";
 		}
@@ -181,15 +180,15 @@ class RosterMenu
 			{
 				foreach( $menu_select as $realm => $guild )
 				{
-					$choices .= ( count($menu_select) > 1 ? '			<optgroup label="' . $realm . '">' . "\n" : '' );
+					$choices .= ( count($menu_select) > 1 ? '		<optgroup label="' . $realm . '">' . "\n" : '' );
 
 					foreach( $guild as $id => $name )
 					{
-						$choices .= '				<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
+						$choices .= '			<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
 
 					}
 
-					$choices .= ( count($menu_select) > 1 ? "\t\t\t</optgroup>\n" : '' );
+					$choices .= ( count($menu_select) > 1 ? "\t\t</optgroup>\n" : '' );
 				}
 			}
 		}
@@ -197,7 +196,7 @@ class RosterMenu
 		if( !empty($choices) )
 		{
 			$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post" style="margin:0;">' . "\n";
-			$choiceForm .= $roster->locale->act[$label] . ":\n"
+			$choiceForm .= "\t\t" . $roster->locale->act[$label] . ":\n"
 						 . '		<select name="' . $label . '" onchange="window.location.href=this.options[this.selectedIndex].value;">' . "\n"
 						 . $choices . "\t\t</select>\n\t</form>\n";
 		}
@@ -209,32 +208,32 @@ class RosterMenu
 
 		if( isset($roster->data['guild_name']) )
 		{
-			$menu_text = '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
-					   . '      <span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
+			$menu_text = '	<span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
+					   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
 					   . ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
 					   . ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
 		}
 		elseif( isset($roster->data['server']) )
 		{
-			$menu_text = '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['region'] . '-' . $roster->data['server'] . '</a></span>' . "<br />\n";
+			$menu_text = '	<span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['region'] . '-' . $roster->data['server'] . '</a></span>' . "<br />\n";
 		}
 		else
 		{
-			$menu_text =  '      <span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['default_name'] . '</a></span><br />' . "\n"
+			$menu_text = '	<span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['default_name'] . '</a></span><br />' . "\n"
 								. ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
 		}
 
-		return "  <tr>\n"
-				. '    <td colspan="3" align="center" valign="top" class="header">' . "\n"
+		return "	<tr>\n"
+				. '		<td colspan="3" align="center" valign="top" class="header">' . "\n"
 				. $choiceForm
 				. $icon
-				. '<div style="white-space:nowrap;">'
+				. '<div style="white-space:nowrap;">' . "\n"
 				. $menu_text
-				. "    </div></td>\n"
-				. "  </tr>\n"
-				. "  <tr>\n"
-				. '    <td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
-				. "  </tr>\n";
+				. "</div></td>\n"
+				. "</tr>\n"
+				. "<tr>\n"
+				. '	<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
+				. "</tr>\n";
 	}
 
 	/**
@@ -582,7 +581,7 @@ class RosterMenu
 					$scopes[$sections[$id]] = true;
 				}
 			}
-			
+
 			if( $sections[$id] == 'util')
 			{
 				$arrayButtons[$id] = array_reverse($arrayButtons[$id]);
