@@ -566,10 +566,10 @@ $lang['installer_not_installed'] = 'Not Installed';
 $lang['installer_turn_off'] = 'Click to Deactivate';
 $lang['installer_turn_on'] = 'Click to Activate';
 $lang['installer_click_uninstall'] = 'Click to Uninstall';
-$lang['installer_click_upgrade'] = 'Click to Upgrade';
+$lang['installer_click_upgrade'] = 'Click to Upgrade %1$s to %2$s';
 $lang['installer_click_install'] = 'Click to Install';
 $lang['installer_overwrite'] = 'Old Version Overwrite';
-$lang['installer_replace_files'] = 'Replace files with latest version';
+$lang['installer_replace_files'] = 'You have overwrote your current addon installation with an older version<br />Replace files with latest version';
 
 $lang['installer_error'] = 'Install Errors';
 $lang['installer_invalid_type'] = 'Invalid install type';
