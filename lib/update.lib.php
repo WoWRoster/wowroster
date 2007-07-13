@@ -446,7 +446,13 @@ class update
 								// take the current time and get the offset. Upload must occur same day that roster was obtained
 								$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
 
-								if( $roster->data && ( ( strtotime($roster->data['guild_dateupdatedutc']) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 ) )
+								$time = $roster->db->query_first("SELECT `guild_dateupdatedutc` FROM `" . $roster->db->table('guild')
+									. "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
+									. " AND '" . $realm_escape . "' LIKE `server` "
+									. " AND '" . $region . "' LIKE `region`;");
+
+								// Check if the profile is old
+								if( ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) >= 0 )
 								{
 									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
 									continue;
