@@ -340,7 +340,7 @@ $lang['ts_ridingIcon'] = array(
 	'Orco'=>'ability_mount_blackdirewolf',
 	'Elfo de sangre' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
-	'Palad„≠n'=>'ability_mount_dreadsteed',
+	'PaladÔøΩn'=>'ability_mount_dreadsteed',
 	'Brujo'=>'ability_mount_nightmarehorse'
 );
 
@@ -349,10 +349,10 @@ $lang['class_iconArray'] = array (
 	'Druida'=>'ability_druid_maul',
 	'Cazador'=>'inv_weapon_bow_08',
 	'Mago'=>'inv_staff_13',
-	'Palad„≠n'=>'spell_fire_flametounge',
+	'PaladÔøΩn'=>'spell_fire_flametounge',
 	'Sacerdote'=>'spell_holy_layonhands',
-	'P„≠caro'=>'inv_throwingknife_04',
-	'Cham„°n'=>'spell_nature_bloodlust',
+	'PÔøΩcaro'=>'inv_throwingknife_04',
+	'ChamÔøΩn'=>'spell_nature_bloodlust',
 	'Brujo'=>'spell_shadow_cripple',
 	'Guerrero'=>'inv_sword_25',
 );
@@ -362,10 +362,10 @@ $lang['class_colorArray'] = array(
 	'Druida' => 'FF7C0A',
 	'Cazador' => 'AAD372',
 	'Mago' => '68CCEF',
-	'Palad„≠n' => 'F48CBA',
+	'PaladÔøΩn' => 'F48CBA',
 	'Sacerdote' => 'ffffff',
-	'P„≠caro' => 'FFF468',
-	'Cham„°n' => '00DBBA',
+	'PÔøΩcaro' => 'FFF468',
+	'ChamÔøΩn' => '00DBBA',
 	'Brujo' => '9382C9',
 	'Guerrero' => 'C69B6D'
 );
@@ -500,6 +500,28 @@ $lang['tooltip_healing_power']='Poder de Curaci√≥n';
 $lang['tooltip_chance_hit']='Probabilidad al acertar:';
 $lang['tooltip_reinforced_armor']='Armadura Reforzada';
 $lang['tooltip_damage_reduction']='Reducci√≥n de da√±o';
+//--new
+$lang['tooltip_durability']='Durability';
+$lang['tooltip_unique']='Unique';
+$lang['tooltip_speed']='Speed';
+$lang['tooltip_poisoneffect']='^Each strike has';
+
+$lang['tooltip_preg_armour']='/^(\d+) Armor/';
+$lang['tooltip_preg_durability']='/Durability (\d+) \/ (\d+)/';
+$lang['tooltip_preg_madeby']='/\<Made By (\w+)\>/';
+$lang['tooltip_preg_bags']='/^(\d+) Slot/';
+$lang['tooltip_preg_socketbonus']='/Socket Bonus: (.+)\n/';
+$lang['tooltip_preg_classes']='/^Classes: (.+)/';
+$lang['tooltip_preg_races']='/^Races: (.+)/';
+$lang['tooltip_preg_charges']='/(\d+) Charges/';
+$lang['tooltip_preg_block']='/(\d+) (Block)/';
+$lang['tooltip_preg_emptysocket']='/(Red|Yellow|Blue|Meta) Socket/';
+
+$lang['tooltip_armour_types']='Cloth|Leather|Mail|Plate';
+$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Mace|Polearm|Staff|Sword|Thrown|Wand';
+$lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used';
+$lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
+$lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

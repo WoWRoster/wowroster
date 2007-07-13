@@ -38,6 +38,7 @@ class CharBonus
 	var $my_tooltip = array();
 	var $lang;
 	var $equip;
+	var $item;
 
 	/**
 	 * Constructor
@@ -75,8 +76,9 @@ class CharBonus
 				 . str_replace('XX', $value, $key) . "</div>\n";
 		$row++;
 		}
-		$bt .= "		</div>\n	</div>\n</div>";
 
+		$bt .= "		</div>\n	</div>\n</div>";
+		
 		if( !empty($this->my_bonus) )
 		{
 			return $bt;

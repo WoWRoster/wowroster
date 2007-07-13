@@ -113,7 +113,7 @@ class update
 				$filename = explode('.',$file['name']);
 				$filebase = strtolower($filename[0]);
 
-				if( in_array($filebase,$this->files) )
+				if( in_array($filebase,$this->files) ) 
 				{
 					// Get start of parse time
 					$parse_starttime = explode(' ', microtime() );
@@ -199,7 +199,7 @@ class update
 							else
 							{
 								$output .= 'There was an error in addon ' . $addon->data['fullname'] . " in method update<br />\n"
-										 . "Addon messages:<br />\n" . $addon->messages;
+								. "Addon messages:<br />\n" . $addon->messages;
 							}
 						}
 					}
@@ -240,12 +240,12 @@ class update
 						if( $mode == 'guild' )
 						{
 							$output .= '<li>There was an error in addon ' . $addon->data['fullname'] . " in method $mode<br />\n"
-									 . "Addon messages:<br />\n" . $addon->messages . "</li>\n";
+							. "Addon messages:<br />\n" . $addon->messages . "</li>\n";
 						}
 						else
 						{
 							$output .= 'There was an error in addon '.$addon->data['fullname'] . " in method $mode<br />\n"
-									 . "Addon messages:<br />\n" . $addon->messages . "<br />\n";
+							. "Addon messages:<br />\n" . $addon->messages . "<br />\n";
 						}
 					}
 				}
@@ -296,23 +296,23 @@ class update
 
 					// Is this char already in the members table?
 					$query = "SELECT `member_id`"
-						   . " FROM `" . $roster->db->table('members') . "`"
-						   . " WHERE `name` = '" . $char_name . "'"
-						   . " AND `server` = '" . $realm_escape . "'"
-						   . " AND `region` = '" . $region . "';";
+					. " FROM `" . $roster->db->table('members') . "`"
+					. " WHERE `name` = '" . $char_name . "'"
+					. " AND `server` = '" . $realm_escape . "'"
+					. " AND `region` = '" . $region . "';";
 
 
 					if( !$roster->db->query_first($query) )
 					{
 						// Allowed char detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-							   . " FROM `" . $roster->db->table('upload') . "`"
-							   . " WHERE (`type` = 2 OR `type` = 3)"
-							   . " AND '" . $char_name . "' LIKE `name` "
-							   . " AND '" . $realm_escape . "' LIKE `server` "
-							   . " AND '" . $region."' LIKE `region` "
-							   . " GROUP BY `type` "
-							   . " ORDER BY `type` DESC;";
+						. " FROM `" . $roster->db->table('upload') . "`"
+						. " WHERE (`type` = 2 OR `type` = 3)"
+						. " AND '" . $char_name . "' LIKE `name` "
+						. " AND '" . $realm_escape . "' LIKE `server` "
+						. " AND '" . $region."' LIKE `region` "
+						. " GROUP BY `type` "
+						. " ORDER BY `type` DESC;";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -414,13 +414,13 @@ class update
 
 						// Allowed guild detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-							   . " FROM `" . $roster->db->table('upload') . "`"
-							   . " WHERE (`type` = 0 OR `type` = 1)"
-							   . " AND '" . $guild_escape . "' LIKE `name` "
-							   . " AND '" . $realm_escape . "' LIKE `server` "
-							   . " AND '" . $region . "' LIKE `region` "
-							   . " GROUP BY `type` "
-							   . " ORDER BY `type` DESC;";
+						. " FROM `" . $roster->db->table('upload') . "`"
+						. " WHERE (`type` = 0 OR `type` = 1)"
+						. " AND '" . $guild_escape . "' LIKE `name` "
+						. " AND '" . $realm_escape . "' LIKE `server` "
+						. " AND '" . $region . "' LIKE `region` "
+						. " GROUP BY `type` "
+						. " ORDER BY `type` DESC;";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -503,10 +503,10 @@ class update
 
 								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
 								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
-										 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
-										 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
-										 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
-										 . "</ul></li></ul>\n";
+								. '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
+								. '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
+								. '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
+								. "</ul></li></ul>\n";
 								$output .= $guild_output;
 
 								// Reset these since we might process another guild
@@ -557,9 +557,9 @@ class update
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-						 . "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
-						 . "</tr>\n";
+			. "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+			. "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+			. "</tr>\n";
 		}
 		return $filefields;
 	}
@@ -642,7 +642,7 @@ class update
 					}
 
 					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n"
-							 . "$error</td></tr>\n";
+					. "$error</td></tr>\n";
 				}
 			}
 			$output .= '</table>';
@@ -651,8 +651,8 @@ class update
 	}
 
 	/******************************************************
-	 * DB insert code (former WoWDB)
-	 ******************************************************/
+	* DB insert code (former WoWDB)
+	******************************************************/
 
 	/**
 	 * Resets the SQL insert/update string holder
@@ -1139,9 +1139,9 @@ class update
 	/**
 	 * Formats gem data to be inserted into the database
 	 *
-	 * @param string $gem_data
+	 * @param array $gem_data
 	 * @param int $socket_id
-	 * @return array $gem
+	 * @return array $gem if successful else returns false
 	 */
 	function make_gem($gem_data, $socket_id)
 	{
@@ -1149,7 +1149,7 @@ class update
 
 		$gemtt = explode( '<br>', $gem_data['Tooltip'] );
 
-		if( is_array( $gemtt ) )
+		if( $gemtt[0] !== '' )
 		{
 			foreach( $gemtt as $line )
 			{
@@ -1189,21 +1189,24 @@ class update
 					$gem_color = 'prismatic';
 				}
 			}
+			//get gemid and remove the junk
+			list($gemid) = explode(':', $gem_data['Item']);
+
+			$gem = array();
+			$gem['gem_name'] 	= $gem_data['Name'];
+			$gem['gem_tooltip'] = $this->tooltip($gem_data['Tooltip']);
+			$gem['gem_bonus'] 	= $gem_bonus;
+			$gem['gem_socketid']= $socket_id;  // the ID the gem holds when socketed in an item.
+			$gem['gem_id'] 		= $gemid; // the ID of gem when not socketed.
+			$gem['gem_texture'] = $this->fix_icon($gem_data['Icon']);
+			$gem['gem_color'] 	= $gem_color;  //meta, prismatic, red, blue, yellow, purple, green, orange.
+
+			return $gem;
 		}
-
-		//get gemid and remove the junk
-		list($gemid) = explode(':', $gem_data['Item']);
-
-		$gem = array();
-		$gem['gem_name'] 	= $gem_data['Name'];
-		$gem['gem_tooltip'] = $this->tooltip($gem_data['Tooltip']);
-		$gem['gem_bonus'] 	= $gem_bonus;
-		$gem['gem_socketid']= $socket_id;  // the ID the gem holds when socketed in an item.
-		$gem['gem_id'] 		= $gemid; // the ID of gem when not socketed.
-		$gem['gem_texture'] = $this->fix_icon($gem_data['Icon']);
-		$gem['gem_color'] 	= $gem_color;  //meta, prismatic, red, blue, yellow, purple, green, orange.
-
-		return $gem;
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -2157,7 +2160,10 @@ class update
 		{
 			$socketid = $itemid[(int)$key+1];
 			$gem = $this->make_gem($val, $socketid);
-			$this->insert_gem($gem);
+			if( $gem )
+			{
+				$this->insert_gem($gem);
+			}
 		}
 	}
 
