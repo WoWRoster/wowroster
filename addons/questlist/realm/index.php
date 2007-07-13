@@ -21,8 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
 
 $roster->output['title'] = $roster->locale->act['questlist'];
 
-$zoneidsafe = ( isset($_GET['zoneid']) ? $roster->db->escape($_GET['zoneid']) : '' );
-$questidsafe = ( isset($_GET['questid']) ? $roster->db->escape($_GET['questid']) : '' );
+$zoneidsafe = ( isset($_GET['zoneid']) ? $roster->db->escape(urldecode($_GET['zoneid'])) : '' );
+$questidsafe = ( isset($_GET['questid']) ? $roster->db->escape(urldecode($_GET['questid'])) : '' );
 
 
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
@@ -65,6 +65,8 @@ if( !empty($zoneidsafe) )
 
 		$qresult = $roster->db->query($qquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qquery);
 
+		// Set our questlink caption name
+		setTooltip('questlink',$roster->locale->act['quest_links']);
 		while( $qrow = $roster->db->fetch($qresult) )
 		{
 			$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
@@ -82,17 +84,15 @@ if( !empty($zoneidsafe) )
 				$linktip .= '<a href="' . $link['url1'] . urlencode(utf8_decode($qrow['quest_name'])) . '" target="_blank">' . $link['name'] . '</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
-			setTooltip('questlink',$roster->locale->act['quest_links']);
 
 			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
-			$tableHeader = border('syellow','start','<a href="#"' . $linktip . '>' . $qrow['quest_name'] . '</a>').
-				'<table cellpadding="0" cellspacing="0" width="100%">';
+			$tableHeader = border('syellow','start','<a href="#"' . $linktip . '>' . $qrow['quest_name'] . '</a>')
+						 . '<table cellpadding="0" cellspacing="0" width="100%">';
 
-			$tableHeaderRow = '  <tr>
-    <th class="membersHeader">' . $roster->locale->act['name'] . '</th>
-    <th class="membersHeader">' . $roster->locale->act['quest_data'] . '</th>
-  </tr>';
+			$tableHeaderRow = '<tr>
+	<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['quest_data'] . "</th>\n</tr>\n";
 
 			$tableFooter = '</table>' . border('syellow','end') . '<br />';
 
@@ -131,7 +131,7 @@ if( !empty($zoneidsafe) )
 
 				// Echoing cells w/ data
 				print '<td class="membersRow' . (($striping_counter % 2) +1) . '">';
-				print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '" target="_blank">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
+				print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
 				print '</td>';
 
 				print '<td class="membersRow' . (($striping_counter % 2) +1) . '">' . $row['quest_level'] . $tagstring . '</td>';
@@ -149,6 +149,8 @@ if( !empty($questidsafe) )
 	$qnquery = "SELECT DISTINCT `quest_name` FROM `" . $roster->db->table('quests') . "` WHERE `quest_name` = '" . $questidsafe . "' ORDER BY `quest_name`;";
 	$qnresult = $roster->db->query($qnquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$qnquery);
 
+	// Set our questlink caption name
+	setTooltip('questlink',$roster->locale->act['quest_links']);
 	while( $qnrow = $roster->db->fetch($qnresult) )
 	{
 		// Quest links
@@ -159,7 +161,6 @@ if( !empty($questidsafe) )
 			$linktip .= '<a href="' . $link['url1'] . urlencode(utf8_decode($qnrow['quest_name'])) . '" target="_blank">' . $link['name'] . '</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
-		setTooltip('questlink',$roster->locale->act['quest_links']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
@@ -174,11 +175,10 @@ if( !empty($questidsafe) )
 
 		$tableHeader = border('syellow','start') . '<table cellpadding="0" cellspacing="0">';
 
-		$tableHeaderRow = '  <tr>
-    <th class="membersHeader">' . $roster->locale->act['name'] . '</th>
-    <th class="membersHeader">' . $roster->locale->act['quest_data'] . '</th>
-    <th class="membersHeaderRight">' . $roster->locale->act['zone'] . '</th>
-  </tr>';
+		$tableHeaderRow = '<tr>
+	<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
+	<th class="membersHeader">' . $roster->locale->act['quest_data'] . '</th>
+	<th class="membersHeaderRight">' . $roster->locale->act['zone'] . "</th>\n</tr>\n";
 
 		$tableFooter = '</table>' . border('syellow','end');
 
@@ -217,7 +217,7 @@ if( !empty($questidsafe) )
 
 			// Echoing cells w/ data
 			print '<td class="membersRow' . (($striping_counter % 2) +1) . '">';
-			print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '" target="_blank">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
+			print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
 			print '</td>';
 
 			print '<td class="membersRow'. (($striping_counter % 2) +1) .'">' . $row['quest_level'] . $tagstring . '</td>';
@@ -249,17 +249,17 @@ function selectQuery( $table , $fieldtoget , $field , $current , $fieldid , $url
 	$option_block = '';
 	while( $row = $roster->db->fetch($sql_result) )
 	{
-		$id = $row["$fieldid"]; // must leave double quote
-		$optiontocompare = addslashes($row["$field"]); // must leave double quote
+		$id = rawurlencode($row["$fieldid"]); // must leave double quote
+		$optiontocompare = $row["$field"]; // must leave double quote
 		$optiontodisplay = $row["$field"]; // must leave double quote
 
-		if ($current == $optiontocompare)
+		if( $current == $optiontocompare )
 		{
-			$option_block .= '			<option value="' . makelink("$urltorun=$id") . '" selected="selected">' . $optiontodisplay . "</option>\n";
+			$option_block .= '			<option value="' . makelink("$urltorun=$id") . '" selected="selected">' . htmlentities($optiontodisplay) . "</option>\n";
 		}
 		else
 		{
-			$option_block .= '			<option value="'  .makelink("$urltorun=$id") . '" >' . $optiontodisplay . "</option>\n";
+			$option_block .= '			<option value="'  .makelink("$urltorun=$id") . '" >' . htmlentities($optiontodisplay) . "</option>\n";
 		}
 	}
 	// dump out the list

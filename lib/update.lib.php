@@ -672,7 +672,7 @@ class update
 			$this->assignstr .= ',';
 		}
 
-		$row_data = "'" . $roster->db->escape( $row_data ) . "'";
+		$row_data = "'" . $roster->db->escape( stripslashes($row_data) ) . "'";
 
 		$this->assignstr .= " `$row_name` = $row_data";
 	}
@@ -794,11 +794,11 @@ class update
 
 		if( is_array( $tipdata ) )
 		{
-			$tooltip = stripslashes(implode("\n",$tipdata));
+			$tooltip = implode("\n",$tipdata);
 		}
 		else
 		{
-			$tooltip = stripslashes(str_replace('<br>',"\n",$tipdata));
+			$tooltip = str_replace('<br>',"\n",$tipdata);
 		}
 		return $tooltip;
 	}
@@ -1016,7 +1016,7 @@ class update
 		{
 			$quest['quest_name'] = ltrim(substr($quest['quest_name'],strpos($quest['quest_name'],']')+1));
 		}
-		$quest['quest_tag'] = (isset($quest_data['Tag']) ? $quest_data['Tag'] : '');
+		$quest['quest_tag'] = ( isset($quest_data['Tag']) ? $quest_data['Tag'] : '' );
 		$quest['quest_index'] = $slot;
 		$quest['quest_level'] = $quest_data['Level'];
 		$quest['zone'] = $zone;
@@ -1333,7 +1333,7 @@ class update
 		if( !empty($quests) && is_array($quests) )
 		{
 			// Delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Quests could not be deleted',$roster->db->error());
