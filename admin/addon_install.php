@@ -80,7 +80,7 @@ if( !empty($addons) )
 				</tr>
 			</table></td>
 			<td class="membersRow1">' . ( $addon['install'] == 3 ? '&nbsp;' : activeInactive($addon['active'],$addon['id']) ) . '</td>
-			<td class="membersRowRight1">' . installUpgrade($addon['install'],$addon['basename']) . '</td>
+			<td class="membersRowRight1">' . installUpgrade($addon) . '</td>
 		</tr>
 	';
 	}
@@ -152,13 +152,16 @@ function activeInactive( $mode , $id )
  * @param string $name
  * @return string
  */
-function installUpgrade( $mode , $name )
+function installUpgrade( $addon )
 {
 	global $roster;
 
+	$mode = $addon['install'];
+	$name = $addon['basename'];
+
 	if( $mode == -1 )
 	{
-		$type = '<img ' . makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']) . ' src="' . $roster->config['img_url'] . 'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />';
+		$type = '<img ' . makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']) . ' src="' . $roster->config['img_url'] . 'admin/purple.png" style="height:16px;width:16px;border:0;cursor:help;" alt="" />';
 	}
 	elseif( $mode == 0 )
 	{
@@ -175,7 +178,7 @@ function installUpgrade( $mode , $name )
 		<input type="hidden" name="op" value="process" />
 		<input type="hidden" name="addon" value="' . $name . '" />
 		<input type="hidden" name="type" value="upgrade" />
-		<input ' . makeOverlib($roster->locale->act['installer_click_upgrade'],$roster->locale->act['installer_upgrade_avail']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
+		<input ' . makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
 	</form>';
 	}
 	elseif( $mode == 3 )
@@ -249,6 +252,7 @@ function getAddonList()
 
 					$output[$addon]['id'] = $row['addon_id'];
 					$output[$addon]['active'] = $row['active'];
+					$output[$addon]['oldversion'] = $row['version'];
 
 					// -1 = overwrote newer version
 					//  0 = same version
