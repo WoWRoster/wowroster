@@ -26,8 +26,8 @@ $questidsafe = ( isset($_GET['questid']) ? $roster->db->escape($_GET['questid'])
 
 
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-$option_blockzones = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `members`.`server` = '" . $roster->data['server'] . "' AND `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','&amp;zoneid');
-$option_blockquests = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `members`.`server` = '" . $roster->data['server'] . "' AND `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','&amp;questid');
+$option_blockzones = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `members`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`zone`",'zone',$zoneidsafe,'zone','&amp;zoneid');
+$option_blockquests = selectQuery("`" . $roster->db->table('quests') . "` AS quests,`" . $roster->db->table('members') . "` AS members WHERE `members`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `quests`.`member_id` = `members`.`member_id`","DISTINCT `quests`.`quest_name`",'quest_name',$questidsafe,'quest_name','&amp;questid');
 
 $searchbox = $roster->locale->act['questlist_help'].'<br /><br />
 	<form method="get" action="' . getFormAction() . '">
@@ -69,7 +69,7 @@ if( !empty($zoneidsafe) )
 		{
 			$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
 			       . " FROM `" . $roster->db->table('quests') . "` AS q, `" . $roster->db->table('players') . "` AS p"
-			       . " WHERE `p`.`server` = '" . $roster->data['server'] . "' AND `q`.`zone` = '" .$zoneidsafe . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qrow['quest_name']) . "'"
+			       . " WHERE `p`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `q`.`zone` = '" .$zoneidsafe . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qrow['quest_name']) . "'"
 			       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
 			$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
@@ -167,7 +167,7 @@ if( !empty($questidsafe) )
 
 		$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
 		       . " FROM `" . $roster->db->table('quests') . "` AS q, `" . $roster->db->table('players') . "` AS p"
-		       . " WHERE `p`.`server` = '" . $roster->data['server'] . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qnrow['quest_name'])  . "'"
+		       . " WHERE `p`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qnrow['quest_name'])  . "'"
 		       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
 		$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);

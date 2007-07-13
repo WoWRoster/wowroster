@@ -46,6 +46,12 @@ unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
 
 
 /**
+ * Set magic quotes runtime
+ */
+set_magic_quotes_runtime(0);
+
+
+/**
  * Begin Roster Timing
  */
 $starttime = explode(' ', microtime() );
@@ -83,7 +89,7 @@ $roster = new roster;
  * Roster Error Handler
  */
 include( ROSTER_LIB . 'roster_error.php' );
-$roster->error =& new roster_error(E_ALL);
+$roster->error =& new roster_error();
 
 
 /**
@@ -119,7 +125,6 @@ require_once (ROSTER_LIB . 'functions.lib.php');
 /**
  * Slash global data if magic_quotes_gpc is off.
  */
-set_magic_quotes_runtime(0);
 if( !get_magic_quotes_gpc() )
 {
 	$_GET = escape_array($_GET);
@@ -189,12 +194,7 @@ if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
  */
 if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
 {
-	roster_die('Looks like you\'ve loaded a new version of Roster<br />
-<br />
-Your Version: <span class="red">' . $roster->config['version'] . '</span><br />
-New Version: <span class="green">' . ROSTER_VERSION . '</span><br />
-<br />
-<a href="upgrade.php" style="border:1px outset white;padding:2px 6px 2px 6px;">UPGRADE</a>','Upgrade Roster','sred');
+	roster_die(sprintf($roster->locale->act['upgrade_wowroster_text'],$roster->config['version'], ROSTER_VERSION) . '<br /><br />',$roster->locale->act['upgrade_wowroster'],'sred');
 }
 
 
@@ -205,7 +205,7 @@ if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgra
 {
 	if( !file_exists(ROSTER_BASE . 'version_match.php') )
 	{
-		roster_die('Please remove the <span class="green">install</span> folder and the files <span class="green">install.php</span> and <span class="green">upgrade.php</span> in this directory','Remove Install Files','sred');
+		roster_die($roster->locale->act['remove_install_files_text'],$roster->locale->act['remove_install_files'],'sred');
 	}
 }
 

@@ -25,7 +25,7 @@ $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
 	'FROM `'.$roster->db->table('memberlog').'` AS members '.
-	'WHERE `members`.`server` = "'.$roster->data['server'].'" AND `members`.`guild_id` = "0" '.
+	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" AND `members`.`guild_id` = "0" '.
 	'ORDER BY ';
 
 $always_sort = ' `members`.`update_time` DESC';
