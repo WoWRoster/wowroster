@@ -32,7 +32,7 @@ $mainQuery =
 	'`guild`.`guild_motd` '.
 
 	'FROM `'.$roster->db->table('guild').'` AS guild '.
-	'WHERE `guild`.`server` = "'.$roster->data['server'].'" '.
+	'WHERE `guild`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
 	'ORDER BY ';
 
 $always_sort = ' `guild`.`guild_name` ASC';

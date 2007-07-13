@@ -56,7 +56,7 @@ $mainQuery =
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'WHERE `members`.`server` = "'.$roster->data['server'].'" AND `members`.`guild_id` = "0" '.
+	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" AND `members`.`guild_id` = "0" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
