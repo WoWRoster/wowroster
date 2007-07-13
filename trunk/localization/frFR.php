@@ -285,7 +285,7 @@ $lang['Cooking']='Cuisine';
 $lang['Fishing']='P√™che';
 $lang['First Aid']='Premiers soins';
 $lang['Poisons']='Poisons';
-$lang['backpack']='Sac √  dos';
+$lang['backpack']='Sac ÔøΩ  dos';
 $lang['PvPRankNone']='Rien';
 
 // Uses preg_match() to find required level in recipie tooltip
@@ -341,7 +341,7 @@ $lang['ts_ridingIcon'] = array(
 	'Elfe de sang' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
-	'D„©moniste'=>'ability_mount_nightmarehorse'
+	'DÔøΩmoniste'=>'ability_mount_nightmarehorse'
 );
 
 // Class Icons-Array
@@ -350,10 +350,10 @@ $lang['class_iconArray'] = array (
 	'Chasseur'=>'inv_weapon_bow_08',
 	'Mage'=>'inv_staff_13',
 	'Paladin'=>'spell_fire_flametounge',
-	'Pr„™tre'=>'spell_holy_layonhands',
+	'PrÔøΩtre'=>'spell_holy_layonhands',
 	'Voleur'=>'inv_throwingknife_04',
 	'Chaman'=>'spell_nature_bloodlust',
-	'D„©moniste'=>'spell_shadow_cripple',
+	'DÔøΩmoniste'=>'spell_shadow_cripple',
 	'Guerrier'=>'inv_sword_25',
 );
 
@@ -363,10 +363,10 @@ $lang['class_colorArray'] = array(
 	'Chasseur' => 'AAD372',
 	'Mage' => '68CCEF',
 	'Paladin' => 'F48CBA',
-	'Pr„™tre' => 'ffffff',
+	'PrÔøΩtre' => 'ffffff',
 	'Voleur' => 'FFF468',
 	'Chaman' => '00DBBA',
-	'D„©moniste' => '9382C9',
+	'DÔøΩmoniste' => '9382C9',
 	'Guerrier' => 'C69B6D'
 );
 
@@ -500,6 +500,28 @@ $lang['tooltip_healing_power']='les soins prodigu√©s par les sorts et effets';
 $lang['tooltip_chance_hit']='Chances quand touch√© :';
 $lang['tooltip_reinforced_armor']='Armure renforc√©e';
 $lang['tooltip_damage_reduction']='R√©duit les points de d√©g√¢ts';
+//--new
+$lang['tooltip_durability']='Durability';
+$lang['tooltip_unique']='Unique';
+$lang['tooltip_speed']='Speed';
+$lang['tooltip_poisoneffect']='^Each strike has';
+
+$lang['tooltip_preg_armour']='/^(\d+) Armor/';
+$lang['tooltip_preg_durability']='/Durability (\d+) \/ (\d+)/';
+$lang['tooltip_preg_madeby']='/\<Made By (\w+)\>/';
+$lang['tooltip_preg_bags']='/^(\d+) Slot/';
+$lang['tooltip_preg_socketbonus']='/Socket Bonus: (.+)\n/';
+$lang['tooltip_preg_classes']='/^Classes: (.+)/';
+$lang['tooltip_preg_races']='/^Races: (.+)/';
+$lang['tooltip_preg_charges']='/(\d+) Charges/';
+$lang['tooltip_preg_block']='/(\d+) (Block)/';
+$lang['tooltip_preg_emptysocket']='/(Red|Yellow|Blue|Meta) Socket/';
+
+$lang['tooltip_armour_types']='Cloth|Leather|Mail|Plate';
+$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Mace|Polearm|Staff|Sword|Thrown|Wand';
+$lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used';
+$lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
+$lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

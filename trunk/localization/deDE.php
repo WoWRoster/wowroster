@@ -347,7 +347,7 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druide'=>'ability_druid_maul',
-	'J�ger'=>'inv_weapon_bow_08',
+	'J�ger'=>'inv_weapon_bow_08',
 	'Magier'=>'inv_staff_13',
 	'Paladin'=>'spell_fire_flametounge',
 	'Priester'=>'spell_holy_layonhands',
@@ -360,7 +360,7 @@ $lang['class_iconArray'] = array (
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druide' => 'FF7C0A',
-	'J�ger' => 'AAD372',
+	'J�ger' => 'AAD372',
 	'Magier' => '68CCEF',
 	'Paladin' => 'F48CBA',
 	'Priester' => 'ffffff',
@@ -500,6 +500,17 @@ $lang['tooltip_healing_power']='Heilung';
 $lang['tooltip_chance_hit']='Trefferchance';
 $lang['tooltip_reinforced_armor']='Verstärkte Rüstung';
 $lang['tooltip_damage_reduction']='Schadensreduzierung';
+//--new
+$lang['tooltip_classes']='Classes:';
+$lang['tooltip_durability']='Haltbarkeit';
+$lang['tooltip_unique']='Einzigartig';
+$lang['tooltip_speed']='Tempo';
+$lang['tooltip_back']='/Rücken/'; 
+$lang['tooltip_preg_armour']='/(\d+) Rüstung/';  // 92 R�stung
+$lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/i';
+$lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/i';
+$lang['tooltip_armour_types']='Stoff|Leder|Schwere Rüstung|Platte';
+$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Mace|Polearm|Staff|Sword|Thrown|Wand';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
@@ -510,13 +521,13 @@ $lang['gem_preg_prismatic'] = '/Matches a Red, Yellow or Blue Socket/';
 
 //Gems color Array
 $lang['gem_colors'] = array(
-	'red' => 'Red',
-	'blue' => 'Blue',
-	'yellow' => 'Yellow',
-	'green' => 'Green',
+	'red' => 'Rot',
+	'blue' => 'Blau',
+	'yellow' => 'Gelb',
+	'green' => 'Grün',
 	'orange' => 'Orange',
-	'purple' => 'Purple',
-	'prismatic' => 'Prismatic');
+	'purple' => 'Purpurrot',
+	'prismatic' => 'Prismatisch');
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Wichtel';

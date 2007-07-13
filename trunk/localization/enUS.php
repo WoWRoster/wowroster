@@ -500,6 +500,28 @@ $lang['tooltip_healing_power']='Healing Power';
 $lang['tooltip_chance_hit']='Chance to hit:';
 $lang['tooltip_reinforced_armor']='Reinforced Armor';
 $lang['tooltip_damage_reduction']='Damage Reduction';
+//--new
+$lang['tooltip_durability']='Durability';
+$lang['tooltip_unique']='Unique';
+$lang['tooltip_speed']='Speed';
+$lang['tooltip_poisoneffect']='^Each strike has';
+
+$lang['tooltip_preg_armour']='/^(\d+) Armor/';
+$lang['tooltip_preg_durability']='/Durability (\d+) \/ (\d+)/';
+$lang['tooltip_preg_madeby']='/\<Made by (\w+)\>/';
+$lang['tooltip_preg_bags']='/^(\d+) Slot/';
+$lang['tooltip_preg_socketbonus']='/Socket Bonus: (.+)\n/';
+$lang['tooltip_preg_classes']='/^Classes: (.+)/';
+$lang['tooltip_preg_races']='/^Races: (.+)/';
+$lang['tooltip_preg_charges']='/(\d+) Charges/';
+$lang['tooltip_preg_block']='/(\d+) (Block)/';
+$lang['tooltip_preg_emptysocket']='/(Red|Yellow|Blue|Meta) Socket/';
+
+$lang['tooltip_armour_types']='Cloth|Leather|Mail|Plate';
+$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Mace|Main Hand|Polearm|Staff|Sword|Thrown|Wand';
+$lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used';
+$lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
+$lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
@@ -516,7 +538,8 @@ $lang['gem_colors'] = array(
 	'green' => 'Green',
 	'orange' => 'Orange',
 	'purple' => 'Purple',
-	'prismatic' => 'Prismatic');
+	'prismatic' => 'Prismatic'
+	);
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Imp';

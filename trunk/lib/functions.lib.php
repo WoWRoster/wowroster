@@ -413,7 +413,7 @@ function check_if_image( $imagefilename )
  * Default is true
  * @return string | Formatted tooltip
  */
-function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1, $item_id='' )
+function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1 )
 {
 	global $roster;
 
@@ -641,7 +641,7 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  * @param string $item_id
  * @return unknown
  */
-function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' , $item_id='' )
+function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
 {
 	global $roster, $tooltips;
 
@@ -678,7 +678,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 	switch ($mode)
 	{
 		case 0:
-			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode, $item_id);
+			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
 			break;
 
 		case 1:
@@ -689,7 +689,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 			break;
 
 		default:
-			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode,$item_id);
+			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
 			break;
 	}
 
