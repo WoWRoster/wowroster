@@ -346,7 +346,7 @@ class update
 
 						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name,$region) . "</strong>\n";
 
-						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $char_name, $char );
+						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $realm_name, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
 						$this->resetMessages();
 
@@ -486,9 +486,9 @@ class update
 										$guild_output .= $this->addon_hook('guild', $char, $memberid);
 									}
 								}
+
 								// Remove the members who were not in this list
-								//$this->remove_guild_members($guildId, $currentTimestamp);
-								//$this->remove_guild_members_id($guildId, $currentTimestamp);
+								$this->remove_guild_members($guildId, $currentTimestamp);
 
 								$guild_output .= $this->getMessages()."</ul></li>\n";
 								$this->resetMessages();
@@ -2286,6 +2286,29 @@ class update
 		$this->setMessage($messages . '</li>');
 	}
 
+	/**
+	 * Delete Members in database using inClause
+	 * (comma separated list of member_id's to delete)
+	 *
+	 * @param string $inClause
+	 */
+	function setGuildless( $inClause )
+	{
+		global $roster;
+		
+		$this->reset_values();
+		$this->add_value('guild_id',0);
+		$this->add_value('note','');
+		$this->add_value('guild_rank','');
+		$this->add_value('guild_title','');
+		$this->add_value('officer_note','');
+
+		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Guild members could not be set guildless',$roster->db->error());
+		}
+	}
 
 	/**
 	 * Removes guild members with `active` = 0
@@ -2319,101 +2342,28 @@ class update
 				}
 
 				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Deleted</span></li>');
+				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Removed</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
 			}
 
-			$this->setMessage('<li><span class="red">Deleted ' . $num . ' member' . ($num > 1 ? 's' : '') . '</span>');
-			$this->setMessage('<ul>');
-
 			// now that we have our inclause, time to do some deletes
-			$this->deleteMembers($inClause);
-
-			$this->setMessage('</ul></li>');
-		}
-		$roster->db->free_result($result);
-	}
-
-	/**
-	 * Removes members that do not match current guild_id
-	 *
-	 * @param int $guild_id
-	 * @param string $timestamp
-	 */
-	function remove_guild_members_id( $guild_id , $timestamp )
-	{
-		global $roster;
-
-		// Get a list of guild id's in the guild table to remove
-		$querystr = "SELECT `guild_id`,`guild_name` FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` != '$guild_id'";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('Guild ID\'s could not be selected for deletion',$roster->db->error());
-			return;
-		}
-
-		$num = $roster->db->num_rows($result);
-
-		$inClause = '';
-		if ($num > 0)
-		{
-			while ( $row = $roster->db->fetch($result) )
+			if( $roster->config['delete_removed_members'] )
 			{
-				if ($inClause != '')
-				{
-					$inClause .= ',';
-				}
+				$this->setMessage('<li><span class="red">Deleting ' . $num . ' member' . ($num > 1 ? 's' : '') . '</span>');
+				$this->setMessage('<ul>');
 
-				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">Guild [</span> ' . $row[1] . ' <span class="red">] - Deleted</span></li>');
+				$this->deleteMembers($inClause);
+
+				$this->setMessage('</ul></li>');
 			}
-
-			// now that we have our inclause, time to do some deletes
-			$querystr = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` IN ($inClause)";
-			if( !$roster->db->query($querystr) )
+			else
 			{
-				$this->setError('Guild' . ($num > 1 ? 's' : '') . ' with ID' . ($num > 1 ? 's' : '') . ' ' . $inClause . ' could not be deleted',$roster->db->error());
+				$this->setMessage('<li><span class="red">Setting ' . $num . ' member' . ($num > 1 ? 's' : '') . ' to guildless</span>');
+
+				$this->setGuildless($inClause);
+
+				$this->setMessage('</li>');
 			}
-
-			$this->setMessage('<li><span class="red">Deleted ' . $num . ' guild' . ($num > 1 ? 's' : '') . ' with mis-matched guild-id' . ($num > 1 ? '\s' : '') . '</span></li>');
-		}
-		$roster->db->free_result($result);
-
-
-		// Get a list of members that don't match current guild id
-		$querystr = "SELECT `member_id`,`name` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` != '$guild_id'";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('Members could not be selected for deletion',$roster->db->error());
-			return;
-		}
-
-		$num = $roster->db->num_rows($result);
-
-		$inClause = '';
-		if ($num > 0)
-		{
-			while ( $row = $roster->db->fetch($result) )
-			{
-				if ($inClause != '')
-				{
-					$inClause .= ',';
-				}
-
-				$inClause .= $row[0];
-				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] Deleted since their guild-id does not match</span></li>');
-				$this->setMemberLog($row,0,$timestamp);
-			}
-
-			$this->setMessage('<li><span class="red">Removing ' . $num . ' member' . ($num > 1 ? 's' : '') . ' with mis-matched guild-id' . ($num > 1 ? '\'s' : '') . '</span>');
-			$this->setMessage('<ul>');
-
-			// now that we have our inclause, time to do some deletes
-			$this->deleteMembers($inClause);
-
-			$this->setMessage('</ul></li>');
 		}
 		$roster->db->free_result($result);
 	}
@@ -2559,8 +2509,14 @@ class update
 		global $roster;
 
 		$name_escape = $roster->db->escape( $name );
+		$server_escape = $roster->db->escape( $server );
+		$region_escape = $roster->db->escape( $region );
 
-		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId';";
+		$querystr = "SELECT `member_id` "
+			. "FROM `" . $roster->db->table('members') . "` "
+			. "WHERE `name` = '$name_escape' "
+			. "AND `server` = '$server_escape' "
+			. "AND `region` = '$region_escape';";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2857,13 +2813,20 @@ class update
 	 * @param array $data
 	 * @return mixed False on failure | member_id on success
 	 */
-	function update_char( $guildId , $region , $name , $data )
+	function update_char( $guildId , $region , $server , $name , $data )
 	{
 		global $roster;
 
 		$name_escape = $roster->db->escape( $name );
+		$server_escape = $roster->db->escape( $server );
+		$region_escape = $roster->db->escape( $region );
 
-		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId';";
+		$querystr = "SELECT `member_id` "
+			. "FROM `" . $roster->db->table('members') . "` "
+			. "WHERE `name` = '$name_escape' "
+			. "AND `server` = '$server_escape' "
+			. "AND `region` = '$region_escape';";
+
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2907,7 +2870,10 @@ class update
 
 		$this->add_value( 'name', $name );
 		$this->add_value( 'guild_id', $guildId );
+		$this->add_value( 'server', $server );
 		$this->add_value( 'region', $region );
+
+		$this->add_ifvalue( $data, 'Level', 'level' );
 
 		// BEGIN HONOR VALUES
 		if( isset($data['Honor']) && is_array($data['Honor']) )
@@ -3139,9 +3105,6 @@ class update
 			unset($spell);
 		}
 		// END SPELL
-
-		$this->add_ifvalue( $data, 'Level', 'level' );
-		$this->add_ifvalue( $data, 'Server', 'server' );
 
 		$this->add_ifvalue( $data, 'TalentPoints', 'talent_points' );
 

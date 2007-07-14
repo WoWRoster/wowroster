@@ -143,6 +143,7 @@ INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_error', '#860D02', 'color
 ### Update Access
 
 INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10010, 'delete_removed_members', '0', 'radio{set guildless^0|delete^1', 'update_access');
 
 # --------------------------------------------------------
 ### Menu table entries

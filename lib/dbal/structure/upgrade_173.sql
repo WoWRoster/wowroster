@@ -195,6 +195,7 @@ INSERT INTO `renprefix_config` VALUES (8440, 'rs_color_high', '#660D02', 'color'
 INSERT INTO `renprefix_config` VALUES (8450, 'rs_color_max', '#860D02', 'color', 'rs_right');
 INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_offline', '#860D02', 'color', 'rs_right');
 
+INSERT INTO `renprefix_config` VALUES (10010, 'delete_removed_members', '0', 'radio{set guildless^0|delete^1', 'update_access');
 
 ALTER TABLE `renprefix_realmstatus`
   ADD `server_region` varchar(2) NOT NULL default '' AFTER `server_name`,
