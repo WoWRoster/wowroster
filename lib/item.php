@@ -41,10 +41,10 @@ class item
 		$this->parent = $data['item_parent'];
 		$this->tooltip = $data['item_tooltip'];
 		$this->color = $data['item_color'];
-		$this->locale = $data['clientLocale'];
+//		$this->locale = $data['clientLocale'];
 		$this->quantity = $data['item_quantity'];
 		$this->set_Quality($this->color);
-		$this->parse_tooltip();
+//		$this->parse_tooltip();  // disabled until i finish the support methods.
 	}
 
 	function out( )
@@ -167,7 +167,14 @@ class item
 				{
 					//might need to tighten the replacement of stats?
 					$tt['Attributes']['Gem'.$i]['data'] = $this->getGem($gem);
+					if( !isset ($tt['Attributes']['Gem'.$i]['data']['gem_bonus']) )
+					{
+						trigger_error('Unable to find gem_socketid: '.$gem.' locale: '.$this->locale. ' in Gems table! ['.$this->item_id.']' );
+					}
+					else 
+					{
 					$tooltip = str_replace( $tt['Attributes']['Gem'.$i]['data']['gem_bonus']."\n", '', $tooltip);
+					}
 				}
 				$i++;
 			}
@@ -392,6 +399,7 @@ class item
 //			echo "($idx)".'Failed to Parse: ('.$this->name.') ['.$this->item_id.']<br />';
 //			aprint($unparsed); 
 //			aprint($tt);
+			trigger_error( "Failed to Parse : [$this->item_id] ($this->locale)<br>". implode('<br>', $unparsed) );
 		}
 		else
 		//{
@@ -414,16 +422,16 @@ class item
 
 		global $roster, $gem_cache;
 
-		if( $gem_cache[$gem_id]['locale'] == $locale )
+		if( isset( $gem_cache[$gem_id][$locale] ) )
 		{
-			return $gem_cache[$gem_id];
+			return $gem_cache[$gem_id][$locale];
 		}
 
 		$sql = "SELECT * FROM `" . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
 		$gem['gem_tooltip'] = str_replace("\n", '<br>', $gem['gem_tooltip']);  // -- REMOVE LATER DEBUGGING
-		$gem_cache[$gem_id]=$gem;
+		$gem_cache[$gem_id][$locale]=$gem;
 
 		return $gem;
 	}
@@ -467,7 +475,7 @@ function item_get_many( $member_id , $parent )
 	$query= "SELECT `i`.*, `p`.`clientLocale`
 				FROM
 				`".$roster->db->table('items')."` AS i,
-				`".$roster->db->table('players')."` AS p
+				`".$roster->db->table('players')."` AS p 
 				WHERE `i`.`member_id` = '$member_id'
 				AND `p`.`member_id` = '$member_id'
 				AND `item_parent` = '$parent'";

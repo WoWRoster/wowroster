@@ -41,6 +41,11 @@ class roster
 	var $scope;
 	var $data = false; // scope data
 	var $addon_data;
+	/**
+	 * Roster Error Handler Object
+	 *
+	 * @var roster_error
+	 */
 	var $error; // Error handler class
 
 	var $output = array(
