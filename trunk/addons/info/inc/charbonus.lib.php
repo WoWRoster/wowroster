@@ -78,7 +78,7 @@ class CharBonus
 		}
 
 		$bt .= "		</div>\n	</div>\n</div>";
-		
+
 		if( !empty($this->my_bonus) )
 		{
 			return $bt;

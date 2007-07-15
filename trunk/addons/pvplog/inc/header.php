@@ -63,9 +63,4 @@ foreach( $disp_array as $global_setting )
 $char_menu = '
 <div class="char_title">' . $roster->data['name'] . ' @ '.$roster->data['region'] . '-'.$roster->data['server'] . (!empty($action) ? ' &gt; '.ucfirst($action) : '') . '
 	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $char->data['update_format'] . '</div>
-</div>';
-
-$char_menu .= '<br />'.messagebox(
-			makelink(ROSTER_PAGE_NAME . $char_url,true) . '<br />'
-			. makelink(ROSTER_PAGE_NAME . $char_url_old,true)
-			,'','sgreen').'<br />';
+</div><br />';

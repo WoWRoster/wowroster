@@ -54,21 +54,20 @@ class info
 		$installer->add_config("'110','char_conf',NULL,'blockframe','menu'");
 		$installer->add_config("'120','char_pref','rostercp-addon-info-display','makelink','menu'");
 
-		$installer->add_config("'1000', 'char_links', '1', 'radio{show^1|hide^0', 'char_conf'");
-		$installer->add_config("'1010', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
-		$installer->add_config("'1020', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1030', 'show_tab2', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1040', 'show_tab3', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1050', 'show_tab4', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1060', 'show_tab5', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1070', 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1080', 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1190', 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1100', 'show_bags', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1110', 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1120', 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1130', 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1140', 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1000', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
+		$installer->add_config("'1010', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1020', 'show_tab2', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1030', 'show_tab3', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1040', 'show_tab4', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1050', 'show_tab5', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1060', 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1070', 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1180', 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1090', 'show_bags', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1100', 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1110', 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1120', 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1130', 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 
 		$installer->add_backup($roster->db->table('players'));
 
