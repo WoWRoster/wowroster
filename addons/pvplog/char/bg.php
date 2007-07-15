@@ -22,9 +22,6 @@ $roster->output['title'] = sprintf($roster->locale->act['bglog'],$roster->data['
 
 include( $addon['dir'] . 'inc/header.php' );
 
-//if( $addon['config']['show_bg'] == 1 )
-{
-    $char_page = show_pvp2('BG', 'char-' . $addon['basename'] . '-bg' . $char_url, $sort, $start);
-}
+$char_page = show_pvp2('BG', 'char-' . $addon['basename'] . '-bg' . $char_url, $sort, $start);
 
 include( $addon['dir'] . 'inc/footer.php' );

@@ -21,7 +21,7 @@ if( !defined('ROSTER_INSTALLED') )
 }
 
 require_once (ROSTER_LIB . 'item.php');
-require_once (ROSTER_LIB . 'bag.php');
+require_once ($addon['dir'] . 'inc' . DIR_SEP . 'bag.php');
 require_once (ROSTER_LIB . 'skill.php');
 require_once (ROSTER_LIB . 'quest.php');
 require_once (ROSTER_LIB . 'recipes.php');
@@ -487,7 +487,7 @@ $returnstring .= '  <tr>
 	 */
 	function show_spellbook( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$query = "SELECT `spelltree`.*, `talenttree`.`order`
 			FROM `" . $roster->db->table('spellbooktree') . "` AS spelltree
@@ -587,7 +587,7 @@ $returnstring .= '  <tr>
 
 		$return_string = '
 <div class="char_panel spell_panel">
-	<img class="panel_icon" src="' . $roster->config['img_url'] . 'char/icon_spellbook.gif" alt=""/>
+	<img class="panel_icon" src="' . $addon['image_path'] . 'icon_spellbook.gif" alt=""/>
 	<div class="panel_title">' . $this->locale['spellbook'] . '</div>
 	<div class="background">&nbsp;</div>
 
@@ -625,29 +625,29 @@ $returnstring .= '  <tr>
 					if( ($num_pages-1) == $page )
 					{
 						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
-						$return_string .= '				<div class="page_back_off"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-						$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
+						$return_string .= '				<div class="page_back_off"><img src="' . $addon['image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+						$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
 						$first_page = false;
 					}
 					else
 					{
 						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
-						$return_string .= '				<div class="page_back_off"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
+						$return_string .= '				<div class="page_back_off"><img src="' . $addon['image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
 					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-					$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+					$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
 				}
 				else
 				{
 					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $roster->config['img_url'] . 'char/spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $roster->config['img_url'] . 'char/spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
 				}
 				$return_string .= '				<div class="pagenumber">' . $this->locale['page'] . ' ' . ($page+1) . "</div>\n";
 
@@ -748,7 +748,7 @@ $returnstring .= '  <tr>
 	 */
 	function printPet( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$query = "SELECT * FROM `" . $roster->db->table('pets') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `level` DESC;";
 		$result = $roster->db->query( $query );
@@ -845,8 +845,8 @@ $returnstring .= '  <tr>
 				if( $xpbarshow )
 				{
 					$output .= '
-			<img src="' . $roster->config['img_url'] . 'char/expbar_empty.gif" class="xpbar_empty" alt="" />
-			<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $roster->config['img_url'] . 'char/expbar_full.gif" alt="" /></div>
+			<img src="' . $addon['image_path'] . 'expbar_empty.gif" class="xpbar_empty" alt="" />
+			<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $addon['image_path'] . 'expbar_full.gif" alt="" /></div>
 			<div class="xpbar_text">' . $expbar_text . '</div>';
 				}
 
@@ -1505,19 +1505,19 @@ $returnstring .= '  <tr>
 	 */
 	function printSpellDamage( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$name = $this->locale['spell_damage'];
 		$value = '<strong class="white">'.$this->data['spell_damage'].'</strong>';
 
 		$tooltipheader = $name.' '.$value;
 
-		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="' . $addon['image_path'] . 'resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="' . $addon['image_path'] . 'resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="' . $addon['image_path'] . 'resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="' . $addon['image_path'] . 'resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="' . $addon['image_path'] . 'resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="' . $addon['image_path'] . 'resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1533,19 +1533,19 @@ $returnstring .= '  <tr>
 	 */
 	function printSpellCrit()
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$name = $this->locale['spell_crit_chance'];
 		$value = '<strong class="white">' . $this->data['spell_crit_chance'] . '</strong>';
 
 		$tooltipheader = $this->locale['spell_crit_rating'].' '.$this->printRatingLong('spell_crit');
 
-		$tooltip = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_fire']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_nature']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_frost']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_shadow']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_arcane']).'</span><img src="'.$roster->config['img_url'].'char/resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
+		$tooltip = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="' . $addon['image_path'] . 'resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_fire']).'</span><img src="' . $addon['image_path'] . 'resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_nature']).'</span><img src="' . $addon['image_path'] . 'resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_frost']).'</span><img src="' . $addon['image_path'] . 'resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_shadow']).'</span><img src="' . $addon['image_path'] . 'resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_arcane']).'</span><img src="' . $addon['image_path'] . 'resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1722,7 +1722,7 @@ $returnstring .= '  <tr>
 	 */
 	function printTalents( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$sqlquery = "SELECT * FROM `".$roster->db->table('talenttree')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order`;";
 		$trees = $roster->db->query( $sqlquery );
@@ -1742,10 +1742,10 @@ $returnstring .= '  <tr>
 			$returndata = '
 <div class="char_panel talent_panel">
 
-	<img class="panel_icon" src="'.$roster->config['img_url'].'char/icon_talents.gif" alt="" />
+	<img class="panel_icon" src="' . $addon['image_path'] . 'icon_talents.gif" alt="" />
 	<div class="panel_title">'.$this->locale['talents'].'</div>
-	<img class="top_bar" src="'.$roster->config['img_url'].'char/talent/bar_top.gif" alt="" />
-	<img class="bot_bar" src="'.$roster->config['img_url'].'char/talent/bar_bottom.gif" alt="" />
+	<img class="top_bar" src="' . $addon['image_path'] . 'talent/bar_top.gif" alt="" />
+	<img class="bot_bar" src="' . $addon['image_path'] . 'talent/bar_bottom.gif" alt="" />
 
 	<div class="link"><a href="';
 
@@ -1794,7 +1794,7 @@ $returnstring .= '  <tr>
 							if( $cell['rank'] != 0 )
 							{
 								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="rank_icon" src="'.$roster->config['img_url'].'char/talent/rank.gif" alt="" />
+					<img class="rank_icon" src="' . $addon['image_path'] . 'talent/rank.gif" alt="" />
 					<div class="rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
 					<img src="'.$roster->config['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
@@ -1901,7 +1901,7 @@ $returnstring .= '  <tr>
 	 */
 	function printSkills( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$skillData = $this->getSkillTabValues();
 
@@ -1919,13 +1919,13 @@ $returnstring .= '  <tr>
 				if( $skillbar['maxvalue'] == '1' )
 				{
 					$output .= '
-				<div style="position:absolute;"><img src="'.$roster->config['img_url'].'char/skill/bar_grey.gif" alt="" /></div>
+				<div style="position:absolute;"><img src="' . $addon['image_path'] . 'skill/bar_grey.gif" alt="" /></div>
 				<div class="text">'.$skillbar['name'].'</div>';
 				}
 				else
 				{
 					$output .= '
-				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="'.$roster->config['img_url'].'char/skill/bar.gif" alt="" /></div>
+				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="' . $addon['image_path'] . 'skill/bar.gif" alt="" /></div>
 				<div class="text">'.$skillbar['name'].'<span class="text_num">'.$skillbar['value'].' / '.$skillbar['maxvalue'].'</span></div>';
 				}
 				$output .= "\n			</div>\n";
@@ -2001,7 +2001,7 @@ $returnstring .= '  <tr>
 	 */
 	function printReputation( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$repData = $this->getRepTabValues();
 
@@ -2031,7 +2031,7 @@ $returnstring .= '  <tr>
 				<div class="rep_bar_field"><img class="rep_bar_image" src="' . $roster->config['img_url'] . 'pixel.gif" onmouseout="swapShow(\'rb_' . $repbar['barid'] . '\',\'rbn_' . $repbar['barid'] . '\');" onmouseover="swapShow(\'rb_' . $repbar['barid'] . '\',\'rbn_' . $repbar['barid'] . '\');" alt="" /></div>' . "\n";
 				if( $repbar['atwar'] == 1 )
 				{
-					$output .= '				<img src="' . $roster->config['img_url'] . '/char/rep/atwar.gif" style="float:right;" alt="" />' . "\n";
+					$output .= '				<img src="' . $addon['image_path'] . '/rep/atwar.gif" style="float:right;" alt="" />' . "\n";
 				}
 				$output .= "			</div>\n";
 			}
@@ -2090,20 +2090,20 @@ $returnstring .= '  <tr>
 	{
 		static $repnum = 0;
 
-		global $roster;
+		global $roster, $addon;
 
 		$level = $repdata['curr_rep'];
 		$max = $repdata['max_rep'];
 
 		$img = array(
-			$this->locale['exalted'] => $roster->config['img_url'].'char/rep/green.gif',
-			$this->locale['revered'] => $roster->config['img_url'].'char/rep/green.gif',
-			$this->locale['honored'] => $roster->config['img_url'].'char/rep/green.gif',
-			$this->locale['friendly'] => $roster->config['img_url'].'char/rep/green.gif',
-			$this->locale['neutral'] => $roster->config['img_url'].'char/rep/yellow.gif',
-			$this->locale['unfriendly'] => $roster->config['img_url'].'char/rep/orange.gif',
-			$this->locale['hostile'] => $roster->config['img_url'].'char/rep/red.gif',
-			$this->locale['hated'] => $roster->config['img_url'].'char/rep/red.gif'
+			$this->locale['exalted'] => $addon['image_path'] . 'rep/green.gif',
+			$this->locale['revered'] => $addon['image_path'] . 'rep/green.gif',
+			$this->locale['honored'] => $addon['image_path'] . 'rep/green.gif',
+			$this->locale['friendly'] => $addon['image_path'] . 'rep/green.gif',
+			$this->locale['neutral'] => $addon['image_path'] . 'rep/yellow.gif',
+			$this->locale['unfriendly'] => $addon['image_path'] . 'rep/orange.gif',
+			$this->locale['hostile'] => $addon['image_path'] . 'rep/red.gif',
+			$this->locale['hated'] => $addon['image_path'] . 'rep/red.gif'
 		);
 
 		$returnData['name'] = $repdata['name'];
@@ -2234,7 +2234,7 @@ $returnstring .= '  <tr>
 	<!-- End Resists -->
 
 	<!-- Begin Advanced Stats -->
-		<img src="' . $roster->config['img_url'] . 'char/percentframe.gif" class="percent_frame" alt="" />
+		<img src="' . $addon['image_path'] . 'percentframe.gif" class="percent_frame" alt="" />
 
 		<div class="health"><span class="yellowB">' . $this->locale['health'] . ':</span> ' . $this->data['health'] . '</div>
 		<div class="mana"><span class="yellowB">' . $this->data['power'] . ':</span> ' . $this->data['mana'] . '</div>
@@ -2314,8 +2314,8 @@ $returnstring .= '  <tr>
 
 			$output .= '
 	<!-- Begin EXP Bar -->
-		<img src="' . $roster->config['img_url'] . 'char/expbar_empty.gif" class="xpbar_empty" alt="" />
-		<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $roster->config['img_url'].'char/'.$expbar_type.'.gif' . '" alt="" /></div>
+		<img src="' . $addon['image_path'] . 'expbar_empty.gif" class="xpbar_empty" alt="" />
+		<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $addon['image_path'] . '/' . $expbar_type . '.gif" alt="" /></div>
 		<div class="xpbar_text">' . $expbar_text . '</div>
 	<!-- End EXP Bar -->
 ';

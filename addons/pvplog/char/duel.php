@@ -22,9 +22,6 @@ $roster->output['title'] = sprintf($roster->locale->act['duellog'],$roster->data
 
 include( $addon['dir'] . 'inc/header.php' );
 
-//if( $addon['config']['show_duels'] == 1 )
-{
-	$char_page = show_pvp2('Duel', 'char-' . $addon['basename'] . '-duels' . $char_url, $sort, $start);
-}
+$char_page = show_pvp2('Duel', 'char-' . $addon['basename'] . '-duels' . $char_url, $sort, $start);
 
 include( $addon['dir'] . 'inc/footer.php' );

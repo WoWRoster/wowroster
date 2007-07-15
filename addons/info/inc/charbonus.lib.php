@@ -56,7 +56,7 @@ class CharBonus
 
 	function dumpBonus( )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		foreach( $this->equip as $item )
 		{
@@ -64,7 +64,7 @@ class CharBonus
 		}
 
 		$bt = '<div class="char_panel" style="margin-left:20px;">
-	<img src="' . $roster->config['img_url'] . 'char/icon_bonuses.gif" class="panel_icon" alt="" />
+	<img src="' . $addon['image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
 	<div class="panel_title">' . $roster->locale->wordings[$this->lang]['item_bonuses_full'] . '</div>
 	<div class="tab3">
 		<div class="container">

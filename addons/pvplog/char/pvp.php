@@ -22,9 +22,6 @@ $roster->output['title'] = sprintf($roster->locale->act['pvplog'],$roster->data[
 
 include( $addon['dir'] . 'inc/header.php' );
 
-//if( $addon['config']['show_pvp'] == 1 )
-{
-	$char_page = show_pvp2('PvP', 'char-' . $addon['basename'] . '-pvp' . $char_url, $sort, $start);
-}
+$char_page = show_pvp2('PvP', 'char-' . $addon['basename'] . '-pvp' . $char_url, $sort, $start);
 
 include( $addon['dir'] . 'inc/footer.php' );

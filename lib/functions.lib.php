@@ -929,12 +929,21 @@ function getaddon( $addonname )
 	// Get the addon's location
 	$addon['dir'] = ROSTER_ADDONS . $addon['basename'] . DIR_SEP;
 
+	// Get the addons url
+	$addon['url'] = 'addons/' . $addon['basename'] . '/';
+	$addon['url_full'] = ROSTER_URL . 'addons/' . $addon['basename'] . '/';
+	$addon['url_path'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/';
+
+	// Get addons url to images directory
+	$addon['image_url'] = ROSTER_URL . 'addons/' . $addon['basename'] . '/images/';
+	$addon['image_path'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/';
+
 	// Get the addon's css style
 	$addon['css_file'] = $addon['dir'] . 'style.css';
 
 	if( file_exists($addon['css_file']) )
 	{
-		$addon['css_url'] = 'addons/' . $addon['basename'] . '/style.css';
+		$addon['css_url'] = $addon['url_path'] . 'style.css';
 	}
 	else
 	{

@@ -19,7 +19,7 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-require_once( ROSTER_LIB.'item.php');
+require_once( ROSTER_LIB . 'item.php');
 
 class bag extends item
 {
@@ -33,7 +33,7 @@ class bag extends item
 
 	function out( )
 	{
-		global $roster, $tooltips;
+		global $roster, $addon, $tooltips;
 
 		$lang = $this->data['clientLocale'];
 
@@ -41,8 +41,8 @@ class bag extends item
 		{
 
 			$returnstring = '
-<div class="bankbag" style="background:url('.$roster->config['img_url'].'bags/bank_frame.png);">
-	<div class="bankcont_name">'. $this->data['item_name'] .'</div>
+<div class="bankbag" style="background-image:url(' . $addon['image_path'] . 'bags/bank_frame.png);">
+	<div class="bankcont_name">' . $this->data['item_name'] . '</div>
 	<div class="holder">';
 		}
 		else
@@ -68,22 +68,22 @@ class bag extends item
 			$linktip = '';
 			foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 			{
-				$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
+				$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
 			setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
 
-			$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+			$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 			$returnstring = '
-<div class="bag" style="height:'.$offset.'px;background-image:url('.$roster->config['img_url'].'bags/'.$bag_type.'_top_'.$bag_style.'.png);">
-	<div class="'.$bag_type.'_name">'. $this->data['item_name'] .'</div>
-	<img src="'.$roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'].'" class="bagicon" alt="" />
-	<img src="'.$roster->config['img_url'].'bags/'.$bag_type.'_mask.png" class="bagmask" alt="" '.makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang).' '.$linktip.' />
-	<div class="bottom" style="margin-top:'.$offset.'px;background-image:url('.$roster->config['img_url'].'bags/'.$bag_type.'_bot.png);"></div>
-	<div class="holder'.$bag_style.'">
-			<div class="bagspacer'.$bag_style.'">&nbsp;</div>
-			<div class="bagspacer'.$bag_style.'">&nbsp;</div>
+<div class="bag" style="height:' . $offset . 'px;background-image:url(' . $addon['image_path'] . 'bags/' . $bag_type . '_top_' . $bag_style . '.png);">
+	<div class="' . $bag_type . '_name">' . $this->data['item_name'] . '</div>
+	<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['item_texture'] . '.' . $roster->config['img_suffix'] . '" class="bagicon" alt="" />
+	<img src="' . $addon['image_path'] . 'bags/' . $bag_type . '_mask.png" class="bagmask" alt="" ' . makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang) . ' ' . $linktip . ' />
+	<div class="bottom" style="margin-top:' . $offset . 'px;background-image:url(' . $addon['image_path'] . 'bags/' . $bag_type . '_bot.png);"></div>
+	<div class="holder' . $bag_style . '">
+			<div class="bagspacer' . $bag_style . '">&nbsp;</div>
+			<div class="bagspacer' . $bag_style . '">&nbsp;</div>
 ';
 		}
 
@@ -92,11 +92,11 @@ class bag extends item
 		{
 			if( $slot < 0 )
 			{
-				$returnstring .=  '			<div class="bagitem"><img src="'.$roster->config['img_url'].'pixel.gif" class="noicon" alt="" /></div>'."\n";
+				$returnstring .=  '			<div class="bagitem"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
 			}
 			else
 			{
-				$returnstring .=  '			<div class="bagitem">'."\n";
+				$returnstring .=  '			<div class="bagitem">' . "\n";
 				if( isset($this->contents[$slot+1]) )
 				{
 					$item = $this->contents[$slot+1];
