@@ -659,7 +659,7 @@ $lang['admin']['index_conf'] = 'Indexseite|Einstellen was auf der Hauptseite ang
 $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im Menü gezeigt werden sollen';
 $lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br />css, javascript, motd, etc...';
 $lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br /><br />Um es auszustellen, bitte bei Menüeinstellungen gucken';
-$lang['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
+$lang['admin']['data_links'] = 'Data Links|External links';
 $lang['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update';
 
 $lang['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
@@ -727,9 +727,6 @@ $lang['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (a
 $lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeigt &quot;<i>Diese Seite wurde erzeugt in XXX Sekunden mit XX Datenbankabfragen</i>&quot; im Footer des Rosters an";
 
 // data_links
-$lang['admin']['questlink_1'] = "Quest Link #1|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
-$lang['admin']['questlink_2'] = "Quest Link #2|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
-$lang['admin']['questlink_3'] = "Quest Link #3|Externe Verlinkung der Gegenstände<br />Schau in deine Lokalisations-Datei(en) für weitere Einstellungen";
 $lang['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das CharacterProfiler-Addon herunterzuladen";
 $lang['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader herunterzuladen";
 

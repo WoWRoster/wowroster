@@ -671,7 +671,7 @@ $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Pa
 $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
-$lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$lang['admin']['data_links'] = 'Data Links|External links';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
@@ -739,9 +739,6 @@ $lang['admin']['signaturebackground'] = "img.php Background|Support for legacy s
 $lang['admin']['processtime'] = "Process time|Displays &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; in the footer of roster";
 
 // data_links
-$lang['admin']['questlink_1'] = "Quest Link #1|Item external links<br />Look in your localization-file(s) for link configuration";
-$lang['admin']['questlink_2'] = "Quest Link #2|Item external links<br />Look in your localization-file(s) for link configuration";
-$lang['admin']['questlink_3'] = "Quest Link #3|Item external links<br />Look in your localization-file(s) for link configuration";
 $lang['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";
 $lang['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
 
