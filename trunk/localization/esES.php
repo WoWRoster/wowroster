@@ -664,12 +664,12 @@ $lang['confirm_config_reset'] = 'This will reset the form to how it was when you
 
 
 // Main Menu words
-$lang['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$lang['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br />Including roster URL, Interface Images URL, and other core options';
 $lang['admin']['guild_conf'] = 'Guild Config|Set up your guild info<ul><li>Guild name</li><li>Realm name (server)</li><li>Short guild description</li><li>Server type</li><li>etc...</li></ul>';
 $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
 $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
-$lang['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
@@ -685,14 +685,14 @@ $lang['admin']['minCPver'] = "Min CP versi&oacute;n|M&iacutenima versi&oacute;n 
 $lang['admin']['minGPver'] = "Min GP versi&oacute;n|M&iacutenima versi&oacute;n permitida para usar el GuildProfiler";
 $lang['admin']['locale'] = "Roster Lenguaje principal|Elige el lenguaje del interfaz";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
-$lang['admin']['website_address'] = "Website dirección|Usada para el URL del logo, y para el link del nombre de la hermandad en el menú principal<br>Algunos addons del roster usarán esto";
-$lang['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacute;genes del interfaz<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
+$lang['admin']['website_address'] = "Website dirección|Usada para el URL del logo, y para el link del nombre de la hermandad en el menú principal<br />Algunos addons del roster usarán esto";
+$lang['admin']['interface_url'] = "Directorio del Interfaz|Directorio donde se encuentran las im&aacute;genes del interfaz<br />El predeterminado es &quot;img/&quot;<br /><br />Puedes usar un path relativo o el completo";
 $lang['admin']['img_suffix'] = "Extensi&oacute;n de las im&aacute;genes del interfaz|El tipo de im&aacute;genes que usa tu interfaz";
 $lang['admin']['alt_img_suffix'] = "Extensi&oacute;n de las im&aacute;genes del interfaz Alt|Posibilidad alternativa de los tipos de im&aacute;genes para el interfaz";
-$lang['admin']['img_url'] = "Directorio de im&aacute;genes del Roster|Directorio donde estan localizadas las imagenes del Roster<br>El predeterminado es &quot;img/&quot;<br><br>Puedes usar un path relativo o el completo";
+$lang['admin']['img_url'] = "Directorio de im&aacute;genes del Roster|Directorio donde estan localizadas las imagenes del Roster<br />El predeterminado es &quot;img/&quot;<br /><br />Puedes usar un path relativo o el completo";
 $lang['admin']['timezone'] = "HoraZona|Mostrar&aacute; la hora de tu regi&oacute;n geogr&aacute;fica";
-$lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br>La hora del roster ser&aacute; calculada con esta diferencia";
-$lang['admin']['use_update_triggers'] = "Actualizar Addon Triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad<br>Algunos addons requieren de esto para funcionar correctamente";
+$lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br />La hora del roster ser&aacute; calculada con esta diferencia";
+$lang['admin']['use_update_triggers'] = "Actualizar Addon Triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad<br />Algunos addons requieren de esto para funcionar correctamente";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
@@ -731,22 +731,22 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
 
 // display_conf
-$lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br>Esta imagen ser&aacute; mostrada en la cabecera de la p&aacute;gina";
+$lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br />Esta imagen ser&aacute; mostrada en la cabecera de la p&aacute;gina";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
-$lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute; el texto del mensaje del d&iacutea<br><br>&quot;Texto&quot; - Muestra el MDD en rojo<br>&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";
+$lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute; el texto del mensaje del d&iacutea<br /><br />&quot;Texto&quot; - Muestra el MDD en rojo<br />&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";
 $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fondo de pantalla";
 $lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacute;gina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
 
 // data_links
-$lang['admin']['questlink_1'] = "Enlace para misiones #1|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
-$lang['admin']['questlink_2'] = "Enlace para misiones #2|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
-$lang['admin']['questlink_3'] = "Enlace para misiones #3|Enlace externo para buscar Objetos/Misiones<br>Mira en tu archivo localization para configurar los enlaces.";
+$lang['admin']['questlink_1'] = "Enlace para misiones #1|Enlace externo para buscar Objetos/Misiones<br />Mira en tu archivo localization para configurar los enlaces.";
+$lang['admin']['questlink_2'] = "Enlace para misiones #2|Enlace externo para buscar Objetos/Misiones<br />Mira en tu archivo localization para configurar los enlaces.";
+$lang['admin']['questlink_3'] = "Enlace para misiones #3|Enlace externo para buscar Objetos/Misiones<br />Mira en tu archivo localization para configurar los enlaces.";
 $lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para descargar CharacterProfiler";
 $lang['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
 // realmstatus_conf
-$lang['admin']['rs_display'] = "Mostrar Informaci&oacute;n|&quot;lleno&quot; mostrar&aacute; el estado y el nombre del servidor, poblaci&oacute;n y tipo<br>&quot;medio&quot; mostrar&aacute; el estado del reino";
-$lang['admin']['rs_mode'] = "Modo de mostrar|Como aparecer&aacute; el EstadoReino<br><br>&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br>&quot;Imagen&quot; - Muestra el ReinoEstado como una imagen (REQUERIDO GD!)";
+$lang['admin']['rs_display'] = "Mostrar Informaci&oacute;n|&quot;lleno&quot; mostrar&aacute; el estado y el nombre del servidor, poblaci&oacute;n y tipo<br />&quot;medio&quot; mostrar&aacute; el estado del reino";
+$lang['admin']['rs_mode'] = "Modo de mostrar|Como aparecer&aacute; el EstadoReino<br /><br />&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br />&quot;Imagen&quot; - Muestra el ReinoEstado como una imagen (REQUERIDO GD!)";
 $lang['admin']['rs_timer'] = "Refresh Timer|Set the timeout period for fetching new realmstatus data";
 $lang['admin']['rs_left'] = "Display|";
 $lang['admin']['rs_middle'] = "Type Display Settings|";
@@ -772,6 +772,7 @@ $lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opcion en off desactivas el acceso para todo el mundo.";
+$lang['admin']['delete_removed_members'] = "Delete Removed Members|Controls the action taken during a guild update to members no longer in a guild<ul><li>Set Guildless - This will flag the member guildless and their data will be retained in the Roster<br />Useful for guild name changes</li><li>Delete - This will delete the member from the Roster</li></ul>";
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Pantalla Per-Character';

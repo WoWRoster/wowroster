@@ -665,12 +665,12 @@ $lang['confirm_config_reset'] = 'This will reset the form to how it was when you
 
 
 // Main Menu words
-$lang['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br>Including roster URL, Interface Images URL, and other core options';
+$lang['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br />Including roster URL, Interface Images URL, and other core options';
 $lang['admin']['guild_conf'] = 'Guild Config|Set up your guild info<ul><li>Guild name</li><li>Realm name (server)</li><li>Short guild description</li><li>Server type</li><li>etc...</li></ul>';
 $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
 $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
-$lang['admin']['display_conf'] = 'Display Config|Misc display settings<br>css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br><br>To turn this off, look in the Menu section';
+$lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
@@ -773,6 +773,7 @@ $lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$lang['admin']['delete_removed_members'] = "Delete Removed Members|Controls the action taken during a guild update to members no longer in a guild<ul><li>Set Guildless - This will flag the member guildless and their data will be retained in the Roster<br />Useful for guild name changes</li><li>Delete - This will delete the member from the Roster</li></ul>";
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Per-Character Display';
