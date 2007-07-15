@@ -206,22 +206,36 @@ class RosterMenu
 			$choiceForm = '<div align="right" style="float:right;">' . "\n" . $choiceForm . "</div>\n";
 		}
 
-		if( isset($roster->data['guild_name']) )
+		switch( $roster->scope )
 		{
-			$menu_text = '	<span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['guild_name'] . '</a></span>' . "\n"
-					   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
-					   . ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
-					   . ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
+			case 'util':
+				$menu_text = '	<span style="font-size:18px;">' . $roster->config['default_name'] . '</span><br />' . "\n"
+						   . ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
+				break;
+
+			case 'realm':
+				$menu_text = '	<span style="font-size:18px;">' . $roster->data['region'] . '-' . $roster->data['server'] . '</span>' . "<br />\n";
+				break;
+
+			case 'guild':
+				$menu_text = '	<span style="font-size:18px;">' . $roster->data['guild_name'] . '</span>' . "\n"
+						   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
+						   . ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
+						   . ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
+				break;
+
+			case 'char':
+				$menu_text = '	<span style="font-size:18px;">' . $roster->data['name'] . '</span>' . "\n"
+						   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
+						   . $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . $roster->data['update_format'] . "</span>\n";
+				break;
+
 		}
-		elseif( isset($roster->data['server']) )
-		{
-			$menu_text = '	<span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->data['region'] . '-' . $roster->data['server'] . '</a></span>' . "<br />\n";
-		}
-		else
-		{
-			$menu_text = '	<span style="font-size:18px;"><a href="' . $roster->config['website_address'] . '">' . $roster->config['default_name'] . '</a></span><br />' . "\n"
-								. ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
-		}
+
+$char_menu = '
+<div class="char_title">' . $roster->data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server'] . (!empty($action) ? ' &gt; ' . ucfirst($action) : '') . '
+	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $roster->data['update_format'] . '</div>
+</div><br />';
 
 		return "	<tr>\n"
 				. '		<td colspan="3" align="center" valign="top" class="header">' . "\n"

@@ -19,12 +19,6 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
-// Get char page mode
-$action = (isset($roster->pages[2]) ? $roster->pages[2] : '' );
-
-// Check for start for pvp log data
-$start = (isset($_GET['start']) ? $_GET['start'] : 0);
-
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
@@ -37,7 +31,6 @@ $char = new char($roster->data);
 // Set <html><title> and <form action=""> and $char_url
 $roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'));
 $char_url = '&amp;member=' . $char->get('member_id');
-$char_url_old = '&amp;member=' . $char->get('name') . '@' . $char->get('region') . '-' . $char->get('server');
 
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
@@ -80,11 +73,4 @@ foreach( $disp_array as $global_setting )
 
 $char->data['char_icon'] = $addon['image_path'] . 'portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
 
-$char_menu = '
-<div class="char_title">' . $char->get('name') . ' @ '.$char->get('region') . '-'.$char->get('server') . (!empty($action) ? ' &gt; '.ucfirst($action) : '') . '
-	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $char->data['update_format'] . '</div>
-</div>';
-
-$char_page = '
-<br />
-<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';
+$char_page = '<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';

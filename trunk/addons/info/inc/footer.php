@@ -22,4 +22,4 @@ if( !defined('ROSTER_INSTALLED') )
 
 $char_page .= "</td></tr></table>\n<br clear=\"all\" />\n";
 
-echo $char_menu . $char_page;
+echo $char_page;
