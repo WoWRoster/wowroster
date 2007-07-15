@@ -22,5 +22,4 @@ if( !defined('ROSTER_INSTALLED') )
 
 $char_page .= "\n<br clear=\"all\" />\n";
 
-echo $char_menu;
 echo $char_page;

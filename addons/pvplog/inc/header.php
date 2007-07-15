@@ -29,9 +29,3 @@ $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 // Set <html><title> and <form action=""> and $char_url
 $char_url = '&amp;member=' . $roster->data['member_id'];
-$char_url_old = '&amp;member=' . $roster->data['name'] . '@' . $roster->data['region'] . '-' . $roster->data['server'];
-
-$char_menu = '
-<div class="char_title">' . $roster->data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server'] . (!empty($action) ? ' &gt; ' . ucfirst($action) : '') . '
-	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $roster->data['update_format'] . '</div>
-</div><br />';
