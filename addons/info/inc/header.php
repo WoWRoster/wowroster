@@ -85,16 +85,6 @@ $char_menu = '
 	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $char->data['update_format'] . '</div>
 </div>';
 
-if( $addon['config']['char_links'] )
-{
-	$char_menu .= '<br />'.messagebox(
-				makelink(ROSTER_PAGE_NAME . $char_url,true) . '<br />'
-				. makelink(ROSTER_PAGE_NAME . $char_url_old,true)
-				,'','sgreen');
-}
-
-$char_page = '<div align="center">' . "\n";
-
-$char_page .= '
+$char_page = '
 <br />
 <table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';

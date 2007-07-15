@@ -73,7 +73,7 @@ class char
 	 */
 	function fetchEquip( )
 	{
-		if (!is_array($this->equip))
+		if( !is_array($this->equip) )
 		{
 			$this->equip = item_get_many($this->data['member_id'], 'equip');
 		}
