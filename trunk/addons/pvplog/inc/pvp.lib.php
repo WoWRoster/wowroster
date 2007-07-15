@@ -441,9 +441,10 @@ function output_bglog($member_id)
 	global $roster;
 
 	$bg_array = array(
-		'alterac_valley',
-		'arathi_basin',
-		'warsong_gulch',
+		'eye_of_the_storm'=>'spurple',
+		'alterac_valley'=>'sblue',
+		'arathi_basin'=>'sgreen',
+		'warsong_gulch'=>'sorange',
 	);
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".$roster->db->table('pvp2')."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` >= '1'";
@@ -460,7 +461,7 @@ function output_bglog($member_id)
 	$returnstring = "<br /><br />\n";
 
 
-	foreach ($bg_array as $bgname)
+	foreach( $bg_array as $bgname => $bgcolor )
 	{
 		$wins=0;
 		$loss=0;
@@ -477,38 +478,38 @@ function output_bglog($member_id)
 
 				if (empty($eguild) || !isset($eguild) || $eguild == '')
 				{
-					$eguild = 'Unguilded';
+					$eguild = '--';
 				}
 				if (empty($esub) || !isset($esub) || $esub == '')
 				{
 					$esub = 'None';
 				}
-				
+
 				if(!isset($subs[$esub]))
 				{
 					$subs[$esub] = array('Wins' => 0, 'WinLoss' => 0, 'Zone' => 0, 'Loss' => 0);
 				}
-				
+
 				if(!isset($gwin[$eguild]))
 				{
 					$gwin[$eguild] = array('killed' => 0, 'name');
 				}
-				
+
 				if(!isset($pwin[$ename]))
 				{
 					$pwin[$ename] = array('killed' => 0, 'name', 'class', 'class_icon');
 				}
-				
+
 				if(!isset($gloss[$eguild]))
 				{
 					$gloss[$eguild] = array('killed' => 0, 'name');
 				}
-				
+
 				if(!isset($ploss[$ename]))
 				{
 					$ploss[$ename] = array('killed' => 0, 'name', 'class', 'class_icon');
 				}
-				
+
 
 				// Get Class Icon
 				foreach ($roster->multilanguages as $language)
@@ -528,7 +529,7 @@ function output_bglog($member_id)
 				}
 
 				$win_level_diff = $loss_level_diff = 0;
-				
+
 				if ($row->data['win'] == '1')
 				{
 					$wins++;
@@ -627,60 +628,54 @@ function output_bglog($member_id)
 		$gdeaths = ( isset($gloss[0]['killed']) ? $gloss[0]['killed'] : '' );
 		$gkilledBy = ( isset($gloss[0]['name']) ? $gloss[0]['name'] : '' );
 
-		$returnstring .= '
-<div id="'.$bgname.'Col" style="display:inline">
-'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster->config['img_url'].'plus.gif" style="float:right;" alt="+" />'.$roster->locale->act[$bgname].'</div>').
-border('sorange','end').
-'</div>
-<div id="'.$bgname.'" style="display:none">
-'.border('sorange','start','<div style="cursor:pointer;width:400px;" onclick="swapShow(\''.$bgname.'Col\',\''.$bgname.'\')"><img src="'.$roster->config['img_url'].'minus.gif" style="float:right;" alt="-" />'.$roster->locale->act[$bgname].'</div>').
-"			<table width='100%' cellpadding='0' cellspacing='0' class='bodyline'>
+		$bgtable = '			<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">
 				<tr>
-					<td class='membersRow2'>".$roster->locale->act['wins']."</td>
-					<td class='membersRowRight2' style='white-space:normal;'>".$wins."</td>
+					<td class="membersRow2">' . $roster->locale->act['wins'] . '</td>
+					<td class="membersRowRight2" style="white-space:normal;">' . $wins . '</td>
 				</tr>
 				<tr>
-					<td class='membersRow1'>".$roster->locale->act['losses']."</td>
-					<td class='membersRowRight1' style='white-space:normal;'>".$loss."</td>
+					<td class="membersRow1">' . $roster->locale->act['losses'] . '</td>
+					<td class="membersRowRight1" style="white-space:normal;">' . $loss . '</td>
 				</tr>
 				<tr>
-					<td class='membersRow2'>".$roster->locale->act['overall']."</td>
-					<td class='membersRowRight2' style='white-space:normal;'>".$total." (".$winpercent."%)</td>
+					<td class="membersRow2">' . $roster->locale->act['overall'] . '</td>
+					<td class="membersRowRight2" style="white-space:normal;">' . $total . ' (' . $winpercent . '%)</td>
 				</tr>
 				<tr>
-					<td class='membersRow1'>".$roster->locale->act['win_average']."</td>
-					<td class='membersRowRight1' style='white-space:normal;'>".$win_level_diff."</td>
+					<td class="membersRow1">' . $roster->locale->act['win_average'] . '</td>
+					<td class="membersRowRight1" style="white-space:normal;">' . $win_level_diff . '</td>
 				</tr>
 				<tr>
-					<td class='membersRow2'>".$roster->locale->act['loss_average']."</td>
-					<td class='membersRowRight2' style='white-space:normal;'>".$loss_level_diff."</td>
+					<td class="membersRow2">' . $roster->locale->act['loss_average'] . '</td>
+					<td class="membersRowRight2" style="white-space:normal;">' . $loss_level_diff . '</td>
 				</tr>
 				<tr>
-					<td class='membersRow1'>".$roster->locale->act['bestsub']."</td>
-					<td class='membersRowRight1' style='white-space:normal;'>".$best." (".$bestNum.")</td>
+					<td class="membersRow1">' . $roster->locale->act['bestsub'] . '</td>
+					<td class="membersRowRight1" style="white-space:normal;">' . $best . ' (' . $bestNum . ')</td>
 				</tr>
 				<tr>
-					<td class='membersRow2'>".$roster->locale->act['worstsub']."</td>
-					<td class='membersRowRight2' style='white-space:normal;'>".$worst." (".$worstNum.")</td>
+					<td class="membersRow2">' . $roster->locale->act['worstsub'] . '</td>
+					<td class="membersRowRight2" style="white-space:normal;">' . $worst . ' (' . $worstNum . ')</td>
 				</tr>
 				<tr>
-					<td class='membersRow1'>".$roster->locale->act['killedmost']."</td>
-					<td class='membersRowRight1' style='white-space:normal;'>".$killedclass."".$killed." (".$kills.")</td>
+					<td class="membersRow1">' . $roster->locale->act['killedmost'] . '</td>
+					<td class="membersRowRight1" style="white-space:normal;">' . $killedclass . $killed . ' (' . $kills . ')</td>
 				</tr>
 				<tr>
-					<td class='membersRow2'>".$roster->locale->act['killedmostby']."</td>
-					<td class='membersRowRight2' style='white-space:normal;'>".$killedByclass."".$killedBy." (".$deaths.")</td>
+					<td class="membersRow2">' . $roster->locale->act['killedmostby'] . '</td>
+					<td class="membersRowRight2" style="white-space:normal;">' . $killedByclass . $killedBy . ' (' . $deaths . ')</td>
 				</tr>
 				<tr>
-					<td class='membersRow1'>".$roster->locale->act['gkilledmost']."</td>
-					<td class='membersRowRight1' style='white-space:normal;'>".$gkilled." (".$gkills.")</td>
+					<td class="membersRow1">' . $roster->locale->act['gkilledmost'] . '</td>
+					<td class="membersRowRight1" style="white-space:normal;">' . $gkilled . ' (' . $gkills . ')</td>
 				</tr>
 				<tr>
-					<td class='membersRow2'>".$roster->locale->act['gkilledmostby']."</td>
-					<td class='membersRowRight2' style='white-space:normal;'>".$gkilledBy." (".$gdeaths.")</td>
+					<td class="membersRow2">' . $roster->locale->act['gkilledmostby'] . '</td>
+					<td class="membersRowRight2" style="white-space:normal;">' . $gkilledBy . ' (' . $gdeaths . ')</td>
 				</tr>
-			</table>
-".border('sorange','end')."\n</div><br />\n";
+			</table>';
+
+		$returnstring .= messageboxtoggle($bgtable,$roster->locale->act[$bgname],$bgcolor,false,'400px') . "<br />\n";
 	}
 
 	return $returnstring;

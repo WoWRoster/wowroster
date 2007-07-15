@@ -30,6 +30,7 @@ $lang['win_average']='Average Level Diff (Wins)';
 $lang['loss_average']='Average Level Diff (Losses)';
 
 // These need to be EXACTLY what PvPLog stores them as
+$lang['eye_of_the_storm']='Eye of the Storm';
 $lang['alterac_valley']='Alterac Valley';
 $lang['arathi_basin']='Arathi Basin';
 $lang['warsong_gulch']='Warsong Gulch';
