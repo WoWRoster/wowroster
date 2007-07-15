@@ -670,7 +670,7 @@ $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Pa
 $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
-$lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$lang['admin']['data_links'] = 'Data Links|External links';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
@@ -738,9 +738,6 @@ $lang['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l
 $lang['admin']['processtime'] = "Temps de génération de la page|Affiche &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; en bas de page du roster";
 
 // data_links
-$lang['admin']['questlink_1'] = "Lien de quête n°1|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";
-$lang['admin']['questlink_2'] = "Lien de quête n°2|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";
-$lang['admin']['questlink_3'] = "Lien de quête n°3|Lien externe sur des base de données<br />Regardez dans votre (vos) fichier(s) de localisation pour la configuration de ces liens";
 $lang['admin']['profiler'] = "Lien de téléchargement du CharacterProfiler|URL de téléchargement de CharacterProfiler";
 $lang['admin']['uploadapp'] = "Lien de téléchargement d'UniUploader|URL de téléchargement d'UniUploader";
 

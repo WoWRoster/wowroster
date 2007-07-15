@@ -650,7 +650,7 @@ select {
 	border-color: #FFFFFF;
 }
 
-.sgreyborder {
+.sgreyborder, .sgrayborder {
 	border-color: #999999;
 }
 

@@ -670,7 +670,7 @@ $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Pa
 $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
-$lang['admin']['data_links'] = 'Item/Quest Data Links|External links for item and quest data';
+$lang['admin']['data_links'] = 'Data Links|External links';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
@@ -738,9 +738,6 @@ $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fo
 $lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Mostrar &quot;Esta p&aacute;gina fue creada en XXX segundos con XX preguntas ejecutadas&quot; en el pie del roster";
 
 // data_links
-$lang['admin']['questlink_1'] = "Enlace para misiones #1|Enlace externo para buscar Objetos/Misiones<br />Mira en tu archivo localization para configurar los enlaces.";
-$lang['admin']['questlink_2'] = "Enlace para misiones #2|Enlace externo para buscar Objetos/Misiones<br />Mira en tu archivo localization para configurar los enlaces.";
-$lang['admin']['questlink_3'] = "Enlace para misiones #3|Enlace externo para buscar Objetos/Misiones<br />Mira en tu archivo localization para configurar los enlaces.";
 $lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para descargar CharacterProfiler";
 $lang['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
