@@ -769,7 +769,6 @@ $lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Accès à Update.php|Contrôle l'accès à update.php<br /><br />Passer ce paramètre à off désactive l'accès à TOUT LE MONDE";
-$lang['admin']['delete_removed_members'] = "Delete Removed Members|Controls the action taken during a guild update to members no longer in a guild<ul><li>Set Guildless - This will flag the member guildless and their data will be retained in the Roster<br />Useful for guild name changes</li><li>Delete - This will delete the member from the Roster</li></ul>";
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Affichage par personnage';
