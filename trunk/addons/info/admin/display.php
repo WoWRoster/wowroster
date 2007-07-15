@@ -30,47 +30,43 @@ $char_data = getCharData();
 // Build the character display control
 if( is_array($char_data) )
 {
-	$body = "<div id=\"char_disp\">\n" . border('syellow','start',$roster->locale->act['admin']['per_character_display']) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$body = "<div id=\"char_disp\">\n" . border('sblue','start',$roster->locale->act['admin']['per_character_display']) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	$body .= '
-<tr>
-	<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['money'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['tab2'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['tab3'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['tab4'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['tab5'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['talents'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['spellbook'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['mailbox'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['bags'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['bank'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['quests'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['recipes'] . '</th>
-	<th class="membersHeader">' . $roster->locale->act['item_bonuses'] . '</th>
-</tr>
-';
+	<tr>
+		<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['money'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['tab2'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['tab3'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['tab4'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['tab5'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['talents'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['spellbook'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['mailbox'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['bags'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['bank'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['quests'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['recipes'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['item_bonuses'] . "</th>\n\t</tr>\n";
 
 	$i=0;
 	foreach($char_data as $name => $data)
 	{
-		$body .= '
-<tr>
-	<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">' . $name . '</a><br />
-		' . $data['level'] . ':' . $data['class'] . '</td>';
+		$body .= '	<tr>
+		<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">' . $name . '</a><br />
+			' . $data['level'] . ':' . $data['class'] . "</td>\n";
 
 		$k=0;
 		foreach( $data['values'] as $val_name => $value )
 		{
-			$body .= '
-	<td class="membersRow' . (($i%2)+1) . '">';
-			$body .= '<input type="radio" id="chard_f' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['member_id'] . '">off</label><br />' . "\n";
-			$body .= '<input type="radio" id="chard_n' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="3" ' . ( $value == '3' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['member_id'] . '">on</label>' . "\n";
-			$body .= '</td>';
+			$body .= '		<td class="membersRow' . (($i%2)+1) . '">' . "\n";
+			$body .= '			<input type="radio" id="chard_f' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['member_id'] . '">off</label><br />' . "\n";
+			$body .= '			<input type="radio" id="chard_n' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="3" ' . ( $value == '3' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['member_id'] . '">on</label>' . "\n";
+			$body .= "\t\t</td>\n";
 
 			$k++;
 		}
-		$body .= '</tr>';
+		$body .= "\t</tr>\n";
 		$i++;
 	}
 	$body .= "</table>\n" . border('syellow','end') . "\n</div>\n";

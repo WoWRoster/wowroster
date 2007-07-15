@@ -155,8 +155,8 @@ select {
 /* use CSS to full effect with hover states. Ohhh, perty! */
 .checkboxOn:hover { background-image:url(../img/check_on_hover.png); }
 .checkboxOff:hover { background-image:url(../img/check_off_hover.png); }
-.radioOn:hover { background-image:url(../img/radio_hover.png); }
-.radioOff:hover { background-image:url(../img/radio_hover.png); }
+.radioOn:hover { background-image:url(../img/radio_on_hover.png); }
+.radioOff:hover { background-image:url(../img/radio_off_hover.png); }
 
 
 /**
@@ -818,11 +818,11 @@ select {
 **/
 .tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;margin:428px 0 0 17px;line-height:normal; }
 .tab_navagation ul { margin:0;padding:0;list-style:none; }
-.tab_navagation li { float:left;background:url(../img/char/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer; }
-.tab_navagation .text { display:block;background:url(../img/char/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;color:#FFDD00; }
+.tab_navagation li { float:left;background:url(../img/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer; }
+.tab_navagation .text { display:block;background:url(../img/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;color:#FFDD00; }
 .tab_navagation .text:hover { color:#ffffff; }
-.tab_navagation .current_tab { background-image:url(../img/char/tabs/active_left.gif);cursor:default; }
-.tab_navagation .current_tab .text { background-image:url(../img/char/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
+.tab_navagation .current_tab { background-image:url(../img/tabs/active_left.gif);cursor:default; }
+.tab_navagation .current_tab .text { background-image:url(../img/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
 
 
 /**

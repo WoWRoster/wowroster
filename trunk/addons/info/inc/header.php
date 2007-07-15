@@ -78,7 +78,7 @@ foreach( $disp_array as $global_setting )
 }
 
 
-$char->data['char_icon'] = $roster->config['img_url'] . 'char/portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
+$char->data['char_icon'] = $addon['image_path'] . 'portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
 
 $char_menu = '
 <div class="char_title">' . $char->get('name') . ' @ '.$char->get('region') . '-'.$char->get('server') . (!empty($action) ? ' &gt; '.ucfirst($action) : '') . '
