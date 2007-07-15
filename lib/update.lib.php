@@ -2287,30 +2287,6 @@ class update
 	}
 
 	/**
-	 * Delete Members in database using inClause
-	 * (comma separated list of member_id's to delete)
-	 *
-	 * @param string $inClause
-	 */
-	function setGuildless( $inClause )
-	{
-		global $roster;
-		
-		$this->reset_values();
-		$this->add_value('guild_id',0);
-		$this->add_value('note','');
-		$this->add_value('guild_rank','');
-		$this->add_value('guild_title','');
-		$this->add_value('officer_note','');
-
-		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause)";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('Guild members could not be set guildless',$roster->db->error());
-		}
-	}
-
-	/**
 	 * Removes guild members with `active` = 0
 	 *
 	 * @param int $guild_id
@@ -2331,41 +2307,31 @@ class update
 
 		$num = $roster->db->num_rows($result);
 
-		$inClause = '';
 		if ($num > 0)
 		{
 			while ( $row = $roster->db->fetch($result) )
 			{
-				if ($inClause != '')
-				{
-					$inClause .= ',';
-				}
-
-				$inClause .= $row[0];
 				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Removed</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
 			}
 
-			// now that we have our inclause, time to do some deletes
-			if( $roster->config['delete_removed_members'] )
-			{
-				$this->setMessage('<li><span class="red">Deleting ' . $num . ' member' . ($num > 1 ? 's' : '') . '</span>');
-				$this->setMessage('<ul>');
-
-				$this->deleteMembers($inClause);
-
-				$this->setMessage('</ul></li>');
-			}
-			else
-			{
-				$this->setMessage('<li><span class="red">Setting ' . $num . ' member' . ($num > 1 ? 's' : '') . ' to guildless</span>');
-
-				$this->setGuildless($inClause);
-
-				$this->setMessage('</li>');
-			}
+			// now that we have our inclause, set them guildless
+			$this->setMessage('<li><span class="red">Setting ' . $num . ' member' . ($num > 1 ? 's' : '') . ' to guildless</span></li>');
 		}
 		$roster->db->free_result($result);
+
+		$this->reset_values();
+		$this->add_value('guild_id',0);
+		$this->add_value('note','');
+		$this->add_value('guild_rank','');
+		$this->add_value('guild_title','');
+		$this->add_value('officer_note','');
+
+		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Guild members could not be set guildless',$roster->db->error());
+		}
 	}
 
 	/**
