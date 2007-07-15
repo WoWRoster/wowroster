@@ -505,7 +505,7 @@ $lang['tooltip_classes']='Classes:';
 $lang['tooltip_durability']='Haltbarkeit';
 $lang['tooltip_unique']='Einzigartig';
 $lang['tooltip_speed']='Tempo';
-$lang['tooltip_back']='/Rücken/'; 
+$lang['tooltip_back']='/Rücken/';
 $lang['tooltip_preg_armour']='/(\d+) Rüstung/';  // 92 R�stung
 $lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/i';
 $lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/i';
@@ -653,12 +653,12 @@ $lang['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurückse
 
 
 // Main Menu words
-$lang['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br>Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
+$lang['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br />Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
 $lang['admin']['guild_conf'] = 'Gildenkonfiguration|Gib deine Gildeninfos ein<ul><li>Gildenname</li><li>Realmname (Server)</li><li>Eine kurze Beschreibung</li><li>Servertyp</li><li>etc...</li></ul>';
 $lang['admin']['index_conf'] = 'Indexseite|Einstellen was auf der Hauptseite angezeigt werden soll';
 $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im Menü gezeigt werden sollen';
-$lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br>css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br><br>Um es auszustellen, bitte bei Menüeinstellungen gucken';
+$lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br />css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br /><br />Um es auszustellen, bitte bei Menüeinstellungen gucken';
 $lang['admin']['data_links'] = 'Item/Quest Data Links|Externe Links für Gegenstände und Quests';
 $lang['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für update';
 
@@ -761,6 +761,7 @@ $lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
+$lang['admin']['delete_removed_members'] = "Delete Removed Members|Controls the action taken during a guild update to members no longer in a guild<ul><li>Set Guildless - This will flag the member guildless and their data will be retained in the Roster<br />Useful for guild name changes</li><li>Delete - This will delete the member from the Roster</li></ul>";
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
