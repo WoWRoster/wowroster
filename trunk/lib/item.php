@@ -21,14 +21,19 @@ if( !defined('ROSTER_INSTALLED') )
 
 class item
 {
-	var $data;
+	var $data = array(); // raw data from database
+	var $item_id, $name, $level, $icon;
+	var $slot, $parent, $tooltip, $html_tooltip;
+	var $quality_id, $quality, $locale, $quantity;
+	var $attributes = array(); // holds all parsed item attributes
+	var $effects = array(); // holds passive bonus effects of the item
+	var $isSetPiece, $isSocketable, $isEnchant, $isArmor, $isWeapon, $isPoison = false; // item flags for parsing
+	var $enchantment;
+	var $parsed_item = array();  // fully parsed item array
 
-	var $item_id, $name, $level, $icon, $slot, $parent, $tooltip, $html_tooltip, $quality_id, $quality, $locale, $quantity;
-	var $attributes;
-	var $bonus;
-	var $enchantments;
-	var $info = array();  // parsed item info array
-
+	var $DEBUG = false;
+	
+	
 	function item( $data )
 	{
 		$this->data = $data;
@@ -41,10 +46,13 @@ class item
 		$this->parent = $data['item_parent'];
 		$this->tooltip = $data['item_tooltip'];
 		$this->color = $data['item_color'];
-//		$this->locale = $data['clientLocale'];
+		$this->locale = $data['clientLocale'];
 		$this->quantity = $data['item_quantity'];
-		$this->set_Quality($this->color);
-//		$this->parse_tooltip();  // disabled until i finish the support methods.
+		$this->setQuality($this->color);
+		//maybe make a method to decide how to parse, full parse, simple, webdb (wowhead, itemstats, etc) oldschool (ie colortooltip?)
+		$this->doParseTooltip();
+		$this->setBaseStats();
+		$this->makeTooltipHTML();
 	}
 
 	function out( )
@@ -90,7 +98,343 @@ class item
 		return $output;
 	}
 
-	function set_Quality( $color )
+	/**
+	 * private function to validate property data
+	 *
+	 * @param string $attribute
+	 * @return string | returns the value of passed $attribute. Will return null if attribute is empty
+	 */
+	function _val( $attribute )
+	{
+		if( !empty($attribute) )
+		{
+			return $attribute;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+// -- makeTooltipHTML() tooltip methods start here //
+	
+	/**
+	 * Private function to return item caption in formated HTML
+	 *
+	 * @return string $html 
+	 */
+	function _getCaption()
+	{
+		$html = '<span style="color:#' . $this->color . ';font-size:14px;font-weight:bold;">' . $this->name . '</span><br />';
+		return $html;
+	}
+
+	function _getBindType()
+	{
+		global $roster;
+
+		$bindtype = $this->attributes['BindType'];
+
+		if( ereg('^' . $roster->locale->wordings[$this->locale]['tooltip_soulbound'], $bindtype) )
+		{
+			$color = '00bbff';
+		}
+		else
+		{
+			$color = 'ffffff';
+		}
+
+		$html = '<span style="color:#' . $color . ';">' . $bindtype . '</span><br />';
+
+		return $html;
+	}
+
+	function _getUnique()
+	{
+		$html = '<span style="color:#ffffff;">' . $this->attributes['Unique'] . '</span><br />';
+		return $html;
+	}
+
+	function _getArmor()
+	{
+		$html = '<div style="width:100%;"><span style="float:right;">'
+			  . $this->_val($this->attributes['ArmorSlot']) . '</span>'
+			  . $this->_val($this->attributes['ArmorType']) . '</div>';
+		
+		return $html;
+	}
+
+	function _getWeapon()
+	{
+		$html = '<div style="width:100%;"><span style="float:right;">'
+			  . $this->_val($this->attributes['WeaponType']) . '</span>'
+			  . $this->_val($this->attributes['WeaponSlot']) . '</div>';
+
+		if( isset($this->attributes['WeaponDamage']) )
+		{
+			$html  .= '<div style="width:100%;"><span style="float:right;">'
+					. $this->_val($this->attributes['WeaponSpeed']) . '</span>'
+					. $this->_val($this->attributes['WeaponDamage']) . '</div>'
+					. $this->_val($this->attributes['WeaponDPS']) . '<br />';
+		}
+		return $html;
+	}
+
+	function _getArmorClass()
+	{
+		$html = $this->attributes['ArmorClass']['Line'] . '<br />';
+		return $html;
+	}
+
+	function _getBaseStats()
+	{
+		$html = '';
+		$stats = array();
+		$stats = $this->attributes['BaseStats'];
+
+		foreach( $stats as $stat )
+		{
+			$html .= '<span style="color:#fffff0;">' . $stat . '</span><br />';
+		}
+		return $html;
+	}
+
+	function _getEnchantment()
+	{
+		$html = '<span style="color:#00ff00;">' . $this->attributes['Enchantment'] . '</span><br />';
+
+		return $html;
+	}
+
+	/**
+	 * Helper function that returns the localized color in english
+	 *
+	 * @param string $socket_color
+	 * @return string $color
+	 */
+	function _socketColorEn( $socket_color )
+	{
+		if( $this->locale == 'enUS' )
+		{
+			return strtolower($socket_color);
+		}
+
+		global $roster;
+
+		$colorArr = array_flip($roster->locale->wordings[$this->locale]['gem_colors']);
+		return (string)strtolower($colorArr[$socket_color]);
+	}
+
+	function _getSockets()
+	{
+		global $roster;
+
+		$html = '';
+
+		//first lets do empty sockets
+		if( isset($this->attributes['Sockets']) )
+		{
+			$emptysockets = $this->attributes['Sockets'];
+			foreach( $emptysockets as $socket_color => $socket_line )
+			{
+				$img = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/UI-EmptySocket-'
+					 . _socketColorEn($socket_color) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;' . $socket_line . '<br />';
+			}
+			$html .= $img;
+		}
+		//now lets do sockets with gems
+		if( isset($this->attributes['Gems']) )
+		{
+			$gems = $this->attributes['Gems'];
+			foreach( $gems as $gem )
+			{
+				$img = '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+					 . $gem['data']['gem_texture'] . '.' . $roster->config['img_suffix'] . '"/>'
+					 . '<span style="color:#00ff00;">&nbsp;&nbsp;' . $gem['data']['gem_bonus'] . '</span><br />';
+			}
+			$html .= $img;
+		}
+		return $html;
+	}
+
+	function _getSocketBonus()
+	{
+		if( isset($this->attributes['SocketBonus']) )
+		{
+			//at some point I need to evaluate if this bonus is in effect or not.  color grey for the time being
+			$html = '<span style="color:#9d9d9d;">' . $this->attributes['SocketBonus'] . '</span><br />';
+			return $html;
+		}
+		return null;
+	}
+
+	function _getDurability()
+	{
+		// $this->attributes['Durability']['Min']; $this->attributes['Durability']['Max']; also avaible for use if we want to get fancy
+		$html = $this->attributes['Durability']['Line'] . '<br />';
+		return $html;
+	}
+
+	function _getRequiredLevel()
+	{
+		global $roster;
+
+		$requires = array();
+		$requires = $this->attributes['Requires'];
+		foreach( $requires as $val )
+		{
+			if( preg_match($roster->locale->wordings[$this->locale]['requires_level'], $val) )
+			{
+				$html = '<span style="color:#ff0000;">' . $val . '</span><br />';
+				return $html;
+			}
+		}
+	}
+
+	function _getPassiveBonus()
+	{
+		$html = '';
+		$effects = array();
+		$effects = $this->effects;
+
+		foreach( $effects as $type )
+		{
+			foreach( $type as $effect)
+			{
+				$html .= '<span style="color:#00ff00;">' . $effect . '</span><br />';
+			}
+		}
+		return $html;
+	}
+
+	function _getSetPiece()
+	{
+		$html = 'insert code for _getSetPiece()<br />';
+		return $html;
+	}
+
+	function _getInactiveSetBonus()
+	{
+		$html = 'insert code for _getInactiveSetBonus()<br />';
+		return $html;
+	}
+
+	function _getCrafter()
+	{
+		$html = '<span style="color:#00ff00;font-weight:bold;">' . htmlentities($this->attributes['MadeBy']['Line']) . '</span><br />';
+		return $html;
+	}
+
+	function _getItemNote()
+	{
+		$html = '<span style="color:#ffd517;">' . $this->attributes['ItemNote'] . '</span><br />';
+		return $html;
+	}
+
+	/**
+	 * Reconstructs item's tooltip from parsed information.
+	 * All HTML Styling is done in the private getXX() methods
+	 *
+	 */
+	function makeTooltipHTML()
+	{
+		$html_tt = $this->_getCaption();
+		if( isset($this->attributes['BindType']) )
+		{
+			$html_tt .= $this->_getBindType();
+		}
+		if( isset($this->attributes['Unique']) )
+		{
+			$html_tt .= $this->_getUnique();
+		}
+		if( $this->isArmor )
+		{
+			$html_tt .= $this->_getArmor();
+		}
+		elseif( $this->isWeapon )
+		{
+			$html_tt .= $this->_getWeapon();
+		}
+		else
+		{
+			// not an Weapon or Armor... Treat as Item
+		}
+		if( isset($this->attributes['ArmorClass']) )
+		{
+			$html_tt .= $this->_getArmorClass();
+		}
+		if( isset($this->attributes['BaseStats']) )
+		{
+			$html_tt .= $this->_getBaseStats();
+		}
+		if( isset($this->attributes['Enchantment']) )
+		{
+			$html_tt .= $this->_getEnchantment();
+		}
+		if( $this->isSocketable )
+		{
+			$html_tt .= $this->_getSockets();
+			$html_tt .= $this->_getSocketBonus();
+		}
+		if( isset($this->attributes['Durability']) )
+		{
+			$html_tt .= $this->_getDurability();
+		}
+		if( isset($this->attributes['Requires']) )
+		{
+			$html_tt .= $this->_getRequiredLevel();
+		}
+		if( isset($this->effects) )
+		{
+			$html_tt .= $this->_getPassiveBonus();
+		}
+		if( $this->isSetPiece )
+		{
+			$html_tt .= $this->_getSetPiece();
+			$html_tt .= $this->_getInactiveSetBonus();
+		}
+		if( isset($this->attributes['MadeBy']['Line']) )
+		{
+			$html_tt .= $this->_getCrafter();
+		}
+		if( isset($this->attributes['ItemNote']) )
+		{
+			$html_tt .= $this->_getItemNote();
+		}
+
+		if( $this->DEBUG )
+		{
+			echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
+			. $html_tt
+			. '</td></tr></table><br />';
+		}
+		$this->html_tooltip = $html_tt;
+	}
+
+	/**
+	 * set the BaseStats property of the item if it has any otherwise sets to false.
+	 *
+	 * @return void
+	 */
+	function setBaseStats()
+	{
+		if( isset($this->parsed_item['Attributes']['BaseStats']) )
+		{
+			$this->basestats = $this->parsed_item['Attributes']['BaseStats'];
+		}
+		else
+		{
+			$this->basestats = false;
+		}
+	}
+
+	/**
+	 * Sets the $quality and $quality_id property
+	 * Takes the color of the item
+	 *
+	 * @param string $color | color of item
+	 */
+	function setQuality( $color )
 	{
 		switch( strtolower( $color ) )
 		{
@@ -118,10 +462,12 @@ class item
 				$this->quality_id = '1';
 				$this->quality = 'poor';
 				break;
+			default:
+				break;
 		}
 	}
 
-	function parse_tooltip()
+	function doParseTooltip()
 	{
 		global $roster;
 
@@ -142,7 +488,7 @@ class item
 
 		//
 		//need a better pattern for poisons! this sucks badly.  <--
-		if( preg_match('/\n(.+[VI].\(.+\))/i', $tooltip, $matches) )
+		if( preg_match('/\n(.+[VI].\(.+\))\n/i', $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
 			$tt['Poisons'][] = $matches[1];
@@ -153,7 +499,7 @@ class item
 		if( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_socketbonus'], $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
-			$tt['UNKNOWN'][] = $matches[0];
+			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
 		//
 		// get gem infomation, put into tracking array, remove bonus string for further parsing
@@ -166,18 +512,19 @@ class item
 				if( $gem )
 				{
 					//might need to tighten the replacement of stats?
-					$tt['Attributes']['Gem'.$i]['data'] = $this->getGem($gem);
-					if( !isset ($tt['Attributes']['Gem'.$i]['data']['gem_bonus']) )
+					$tt['Attributes']['Gems'][$i]['data'] = $this->getGem($gem);
+					if( !isset ($tt['Attributes']['Gems'][$i]['data']['gem_bonus']) )
 					{
-						trigger_error('Unable to find gem_socketid: '.$gem.' locale: '.$this->locale. ' in Gems table! ['.$this->item_id.']' );
+						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
 					}
-					else 
+					else
 					{
-					$tooltip = str_replace( $tt['Attributes']['Gem'.$i]['data']['gem_bonus']."\n", '', $tooltip);
+						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['data']['gem_bonus'] . "\n", '', $tooltip);
 					}
 				}
 				$i++;
 			}
+			$this->isSocketable = true;
 		}
 
 		//
@@ -187,16 +534,32 @@ class item
 		// string above that string it must be the enchant.  Remove the line from further parsing.
 		if( $enchant )
 		{
+			$this->isEnchant = true;
+
 			if( preg_match('/\n(.+)\n'.$roster->locale->wordings[$locale]['tooltip_durability'].'/i', $tooltip, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
-				$tt['Bonus']['Enchantment'] = $matches[1];
+				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match( '/\n(.+)\n'.$roster->locale->wordings[$locale]['tooltip_requires'].'/i', $tooltip, $matches) )
+			elseif( preg_match( '/\n(.+)\n'.$roster->locale->wordings[$locale]['tooltip_reg_requires'].'/i', $tooltip, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
-				$tt['Bonus']['Enchantment'] = $matches[1];
+				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
+			elseif( preg_match_all('/\+\d+.+/', $tooltip, $matches) )
+			{
+				//last chance.. lets grab the last + stat in the tooltip and call that the enchantment.
+				//this should be ok, because the item most likely is a cloak 
+				$tooltip = str_replace($matches[0][count($matches[0])-1], '', $tooltip);
+				$tt['Attributes']['Enchantment'] = $matches[0][count($matches[0])-1];
+			}
+			else
+			{
+				//still failed to find the enchantment.  Report an error.
+				trigger_error("Unable to parse the Enchantment! ($this->name) [ $this->item_id ]");
+				$this->isEnchant = false;
+			}
+
 		}
 
 		$tooltip = explode("\n", $tooltip);
@@ -216,24 +579,23 @@ class item
 
 		foreach( $tooltip as $line )
 		{
-			if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'], $line ) )
+			//
+			// at this point any line prefixed with a + must be a White Stat (or base stat).
+			if( preg_match('/^\+(\d+) (.+)/', $line, $matches) )
+			{
+				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+			}
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'], $line) )
 			{
 				//Use:
 				$tt['Effects']['Use'][] = $line;
 			}
-			//
-			// at this point any line prefixed with a + must be a White Stat (or base stat).
-			// also look for shield block ratings for basestats
-			elseif( preg_match('/^\+(\d+) (.+)/i', $line, $matches))
-			{
-				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
-			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'], $line ) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_requires'], $line) )
 			{
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line ) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line) )
 			{
 				//Equip:
 				$tt['Effects']['Equip'][] = $line;
@@ -253,48 +615,38 @@ class item
 				//set piece bonus
 				$tt['Effects']['SetBonus'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_misc_types'], $line ) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_misc_types'], $line) )
 			{
 				$tt['Attributes']['ArmorSlot'] = $line;
 			}
-			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_durability'], $line, $matches ) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_durability'], $line, $matches) )
 			{
 				$tt['Attributes']['Durability']['Line']= $matches[0];
 				$tt['Attributes']['Durability']['Current'] = $matches[1];
 				$tt['Attributes']['Durability']['Max'] = $matches[2];
 			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches ) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 			{
 				$tt['Attributes']['Class'] = explode(', ', $matches[1]);
 			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_races'], $line, $matches ) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_races'], $line, $matches) )
 			{
 				$tt['Attributes']['Race'] = explode(', ', $matches[1]);
 			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_charges'], $line ) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches) )
 			{
-				$tt['Attributes']['Charges'] = $line;
+				// match[1] = color, match[0] full line  Red Socket
+				$tt['Attributes']['Sockets'][$matches[1]] = $matches[0];
+				$this->isSocketable = true;
 			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_block'], $line, $matches ) )
-			{
-				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
-			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches ) )
-			{
-				$tt['Attributes']['Sockets'][] = $matches[1];
-			}
-			elseif( ereg( $roster->locale->wordings[$locale]['tooltip_poisoneffect'], $line ) )
-			{
-				$tt['Poison']['Effect'][] = $line;
-			}
-//			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'], $line ) )
-//			{
-//				$tt['Attributes']['Rank'] = $line;
-//			}
-//			elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
-//			{
-//				$tt['Attributes']['NextRank'] = $line;
-//			}
+			//			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'], $line ) )
+			//			{
+			//				$tt['Attributes']['Rank'] = $line;
+			//			}
+			//			elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
+			//			{
+			//				$tt['Attributes']['NextRank'] = $line;
+			//			}
 			elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
 			{
 				$tt['Attributes']['InactiveSet'][] = $line;
@@ -310,36 +662,43 @@ class item
 			}
 			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_armour'], $line, $matches ) )
 			{
-				$tt['Attributes']['ArmorClass'] = $matches[1];
+				$tt['Attributes']['ArmorClass']['Line'] = $matches[0];
+				$tt['Attributes']['ArmorClass']['Rating'] = $matches[1];
+				// dont flag as armor here because weapons can have Armor too
 			}
 			elseif( strpos($line,"\t") )
 			{
 				$line = explode("\t",$line);
 
-				if( ereg($roster->locale->wordings[$locale]['tooltip_armour_types'], $line[1] ) )
+				if( ereg($roster->locale->wordings[$locale]['tooltip_armor_types'], $line[1] ) )
 				{
 					$tt['Attributes']['ArmorType'] = $line[1];
 					$tt['Attributes']['ArmorSlot'] = $line[0];
+					$this->isArmor = true;
 				}
 				elseif( ereg($roster->locale->wordings[$locale]['tooltip_weapon_types'], $line[1] ) )
 				{
 					$tt['Attributes']['WeaponType'] = $line[1];
 					$tt['Attributes']['WeaponSlot'] = $line[0];
+					$this->isWeapon = true;
 				}
 				elseif( ereg($roster->locale->wordings[$locale]['tooltip_speed'], $line[1]) )
 				{
 					$tt['Attributes']['WeaponSpeed'] = $line[1];
 					$tt['Attributes']['WeaponDamage'] = $line[0];
+					$this->isWeapon = true;
 				}
 
 			}
 			elseif( ereg('^\(|^Adds ', $line))  // -- work on this LOCALIZE ME!
 			{
 				$tt['Attributes']['WeaponDPS'] = $line;
+				$this->isWeapon = true;
 			}
 			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_madeby'], $line, $matches ) )
 			{
-				$tt['Attributes']['CraftedBy'] = $matches[1];
+				$tt['Attributes']['MadeBy']['Name'] = $matches[1];
+				$tt['Attributes']['MadeBy']['Line'] = $matches[0];
 			}
 			elseif( preg_match('/^(.+) \(\d+\/\d+\)$/', $line, $matches ) )
 			{
@@ -358,54 +717,78 @@ class item
 					$setpiece=false;
 				}
 			}
-			//
-			//check if its a bag
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_bags'], $line, $matches ) )
-			{
-				$tt['General']['BagSize'] = $matches[1];
-				$tt['General']['BagDesc'] = $line;
-			}
 			else
 			{
 				//
 				// pass 2
+				// check for less common strings here. this will only get called if pass1 has failed to match anything on the current line
 				if( $line !== '' && $line !== ' ' && !ereg( $roster->locale->wordings[$locale]['tooltip_garbage'], $line ) )
 				{
 					//
 					// check to match more simpler items
-					// can put less common searches in pass 2 like bags?
+					// also could have fell through the line split in pass1
 					if( ereg( $roster->locale->wordings[$locale]['tooltip_weapon_types'], $line ) )
 					{
 						$tt['Attributes']['WeaponSlot'] = $line;
+						$this->isWeapon = true;
 					}
-					else 
-					{					
+					//
+					//check if its a bag
+					elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_bags'], $line, $matches ) )
+					{
+						$tt['General']['BagSize'] = $matches[1];
+						$tt['General']['BagDesc'] = $line;
+						$this->isBag = true;
+					}
+					//
+					//check if its a shield
+					elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_block'], $line, $matches ) )
+					{
+						$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+						$this->isArmor = true;
+					}
+					//
+					//check if item has charges
+					elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_charges'], $line ) )
+					{
+						$tt['Attributes']['Charges'] = $line;
+					}
+					//
+					//check if item is a poison
+					elseif( ereg( $roster->locale->wordings[$locale]['tooltip_poisoneffect'], $line ) )
+					{
+						$tt['Poison']['Effect'][] = $line;
+						$this->isPoison = true;
+					}
+					else
+					{
 						//
 						//if all else fails its an unexpected line
 						$unparsed[]=$line;
 					}
-				}
-			}
+				} // end pass2 if
+			} // closed else pass1
+		} // end foreach
 
-		}
-
-//		echo '<hr><br />';
-//		aprint($tt);
-//
+		//echo '<hr><br />';
+		//aprint($tt);
+		//
 		if( isset( $unparsed ) )
 		{
-//			global $idx;
-//			$idx++;
-//			echo "($idx)".'Failed to Parse: ('.$this->name.') ['.$this->item_id.']<br />';
-//			aprint($unparsed); 
-//			aprint($tt);
-			trigger_error( "Failed to Parse : [$this->item_id] ($this->locale)<br>". implode('<br>', $unparsed) );
+			//global $idx;
+			//$idx++;
+			//echo "($idx)".'Failed to Parse: ('.$this->name.') ['.$this->item_id.']<br />';
+			//aprint($unparsed);
+			//aprint($tt);
+			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale)<br>". implode('<br>', $unparsed) );
 		}
 		else
 		//{
 		//echo 'Fully Parsed! <br />';
 		//}
-		$this->info = $tt;
+		$this->parsedItem = $tt;
+		$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
+		$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
 	}
 
 	function getGem($gem_id, $locale=false)
@@ -414,7 +797,7 @@ class item
 		{
 			return false;
 		}
-		
+
 		if( !$locale )
 		{
 			$locale = $this->locale;
@@ -422,7 +805,7 @@ class item
 
 		global $roster, $gem_cache;
 
-		if( isset( $gem_cache[$gem_id][$locale] ) )
+		if( isset($gem_cache[$gem_id][$locale]) )
 		{
 			return $gem_cache[$gem_id][$locale];
 		}
@@ -437,7 +820,7 @@ class item
 	}
 } //end class item
 
-function item_get_one( $member_id , $slot )
+function item_get_one( $member_id, $slot )
 {
 	global $roster;
 
@@ -472,30 +855,29 @@ function item_get_many( $member_id , $parent )
 	*/	//AND `i`.`item_id` = '25689:2792:2698:2698:2698:0:0:1979837656'";
 	// -- REPLACE WITH COMMENTED DUMPS ALL ITEMS FROM CHAR
 
-	$query= "SELECT `i`.*, `p`.`clientLocale`
-				FROM
-				`".$roster->db->table('items')."` AS i,
-				`".$roster->db->table('players')."` AS p 
-				WHERE `i`.`member_id` = '$member_id'
-				AND `p`.`member_id` = '$member_id'
-				AND `item_parent` = '$parent'";
+	$query  = "SELECT `i`.*, `p`.`clientLocale` "
+			. "FROM "
+			. "`".$roster->db->table('items')."` AS i, "
+			. "`".$roster->db->table('players')."` AS p "
+			. "WHERE `i`.`member_id` = '$member_id' "
+			. "AND `p`.`member_id` = '$member_id' "
+			. "AND `item_parent` = '$parent' ";
 
 	$result = $roster->db->query( $query );
-//echo "Number of items parsed: ". $roster->db->num_rows( $result ) . "!! <br /><br />";
+	//echo "Number of items parsed: ". $roster->db->num_rows( $result ) . "!! <br /><br />";
 	$items = array();
 	while( $data = $roster->db->fetch( $result ) )
 	{
 		$item = new item( $data );
 
 		$items[$data['item_slot']] = $item;
-		$items['Info'] = $item->info;
 	}
 	return $items;
 }
 
 //
 // [ Debugging function dumps arrays/object formatted
-// not sure who the author is or where i got the function... can remove later
+// not sure who the author is or where I got the function... can remove later
 
 function _aprint($arr, $tab = 1) // similar to print_r()
 {

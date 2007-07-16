@@ -500,24 +500,35 @@ $lang['tooltip_healing_power']='Heilung';
 $lang['tooltip_chance_hit']='Trefferchance';
 $lang['tooltip_reinforced_armor']='Verstärkte Rüstung';
 $lang['tooltip_damage_reduction']='Schadensreduzierung';
-//--new
-$lang['tooltip_classes']='Classes:';
-$lang['tooltip_durability']='Haltbarkeit';
-$lang['tooltip_unique']='Einzigartig';
+//--Tooltip Parsing -- Translated by Jellow
+$lang['tooltip_durability']='Haltbarkeit';  
+$lang['tooltip_unique']='Einzigartig'; 
 $lang['tooltip_speed']='Tempo';
-$lang['tooltip_back']='/Rücken/';
-$lang['tooltip_preg_armour']='/(\d+) Rüstung/';  // 92 R�stung
-$lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/i';
-$lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/i';
+$lang['tooltip_poisoneffect']='^Bei jedem Schlag';
+
+$lang['tooltip_preg_armour']='/^(\d+) Rüstung/';
+$lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/'; 
+$lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/';
+$lang['tooltip_preg_bags']='/^(\d+) Platz/';
+$lang['tooltip_preg_socketbonus']='/Sockelbonus: (.+)\n/';
+$lang['tooltip_preg_classes']='/^Klassen: (.+)/';
+$lang['tooltip_preg_races']='/^Völker: (.+)/';
+$lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
+$lang['tooltip_preg_block']='/(\d+) (Blocken)/';
+$lang['tooltip_preg_emptysocket']='/(((Roter|Gelber|Blauer) Sockel)|Metasockel)/';
+
 $lang['tooltip_armour_types']='Stoff|Leder|Schwere Rüstung|Platte';
-$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Mace|Polearm|Staff|Sword|Thrown|Wand';
+$lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab';
+$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden';
+$lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust';
+$lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
-$lang['gem_preg_singlecolor'] = '/Matches a (\w+) Socket/';
-$lang['gem_preg_multicolor'] = '/Matches a (\w+) or (\w+) Socket/';
-$lang['gem_preg_meta'] = '/Only fits in a meta gem slot/';
-$lang['gem_preg_prismatic'] = '/Matches a Red, Yellow or Blue Socket/';
+$lang['gem_preg_singlecolor'] = '/Am besten für einen (\w+) Sockel geeignet/';
+$lang['gem_preg_multicolor'] = '/Am besten für einen (\w+) oder (\w+) Sockel geeignet/';
+$lang['gem_preg_meta'] = '/Passt nur in einen Sockel der Kategorie Meta/';
+$lang['gem_preg_prismatic'] = '/Am besten für einen roten, gelben oder blauen Sockel geeignet/';
 
 //Gems color Array
 $lang['gem_colors'] = array(
@@ -526,8 +537,10 @@ $lang['gem_colors'] = array(
 	'yellow' => 'Gelb',
 	'green' => 'Grün',
 	'orange' => 'Orange',
-	'purple' => 'Purpurrot',
-	'prismatic' => 'Prismatisch');
+	'purple' => 'Violett',
+	'prismatic' => 'Prismatisch'
+	);
+//-- end tooltip parsing
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Wichtel';
