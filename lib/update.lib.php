@@ -849,7 +849,7 @@ class update
 	 * Inserts a gem into the database
 	 *
 	 * @param array $gem
-	 * @return bool | true on success, false of error
+	 * @return bool | true on success, false if error
 	 */
 	function insert_gem( $gem )
 	{
@@ -1155,7 +1155,7 @@ class update
 			{
 				$line = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
-				if( eregi( '\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or the word Chance assume it's bonus line.
+				if( eregi( '\%|\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or % or the word Chance assume it's bonus line.
 				{
 					$gem_bonus = $line;
 				}

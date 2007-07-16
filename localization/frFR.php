@@ -350,10 +350,10 @@ $lang['class_iconArray'] = array (
 	'Chasseur'=>'inv_weapon_bow_08',
 	'Mage'=>'inv_staff_13',
 	'Paladin'=>'spell_fire_flametounge',
-	'Pr�tre'=>'spell_holy_layonhands',
+	'Prêtre'=>'spell_holy_layonhands',
 	'Voleur'=>'inv_throwingknife_04',
 	'Chaman'=>'spell_nature_bloodlust',
-	'D�moniste'=>'spell_shadow_cripple',
+	'Démoniste'=>'spell_shadow_cripple',
 	'Guerrier'=>'inv_sword_25',
 );
 
@@ -363,10 +363,10 @@ $lang['class_colorArray'] = array(
 	'Chasseur' => 'AAD372',
 	'Mage' => '68CCEF',
 	'Paladin' => 'F48CBA',
-	'Pr�tre' => 'ffffff',
+	'Prêtre' => 'ffffff',
 	'Voleur' => 'FFF468',
 	'Chaman' => '00DBBA',
-	'D�moniste' => '9382C9',
+	'Démoniste' => '9382C9',
 	'Guerrier' => 'C69B6D'
 );
 
@@ -500,45 +500,47 @@ $lang['tooltip_healing_power']='les soins prodigués par les sorts et effets';
 $lang['tooltip_chance_hit']='Chances quand touché :';
 $lang['tooltip_reinforced_armor']='Armure renforcée';
 $lang['tooltip_damage_reduction']='Réduit les points de dégâts';
-//--new
-$lang['tooltip_durability']='Durability';
-$lang['tooltip_unique']='Unique';
-$lang['tooltip_speed']='Speed';
-$lang['tooltip_poisoneffect']='^Each strike has';
+//--Tooltip Parsing -- Translated by Kalia
+$lang['tooltip_durability']='Durabilité';  
+$lang['tooltip_unique']='Unique'; 
+$lang['tooltip_speed']='Vitesse';
+$lang['tooltip_poisoneffect']='^Chaque coup a';  // this is found in poison tooltips  I need the common text that decribes the poison. 
 
-$lang['tooltip_preg_armour']='/^(\d+) Armor/';
-$lang['tooltip_preg_durability']='/Durability (\d+) \/ (\d+)/';
-$lang['tooltip_preg_madeby']='/\<Made By (\w+)\>/';
-$lang['tooltip_preg_bags']='/^(\d+) Slot/';
-$lang['tooltip_preg_socketbonus']='/Socket Bonus: (.+)\n/';
-$lang['tooltip_preg_classes']='/^Classes: (.+)/';
-$lang['tooltip_preg_races']='/^Races: (.+)/';
-$lang['tooltip_preg_charges']='/(\d+) Charges/';
-$lang['tooltip_preg_block']='/(\d+) (Block)/';
-$lang['tooltip_preg_emptysocket']='/(Red|Yellow|Blue|Meta) Socket/';
+$lang['tooltip_preg_armour']='/^(\d+) Armure/';
+$lang['tooltip_preg_durability']='/Durabilité (\d+) \/ (\d+)/'; 
+$lang['tooltip_preg_madeby']='/\<Artisan (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
+$lang['tooltip_preg_bags']='/^(\d+) emplacements/';  // text for bags, ie '16 slot bag'
+$lang['tooltip_preg_socketbonus']='/Bonus de sertissage: (.+)\n/';
+$lang['tooltip_preg_classes']='/^Classes: (.+)/'; // text for class restricted items
+$lang['tooltip_preg_races']='/^Races: (.+)/'; // test for race restricted items
+$lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
+$lang['tooltip_preg_block']='/(\d+) (Bloquer)/';  // text for shield blocking values
+$lang['tooltip_preg_emptysocket']='/Châsse (Rouge|Jaune|Bleue|Meta)/'; // text shown if the item has empty sockets.
 
-$lang['tooltip_armour_types']='Cloth|Leather|Mail|Plate';
-$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Mace|Polearm|Staff|Sword|Thrown|Wand';
-$lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used';
-$lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
-$lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>';
+$lang['tooltip_armour_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
+$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette'; // the types of weapons as shown in the tooltip
+$lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé';
+$lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse';
+$lang['tooltip_garbage']='<Maj clic-droit pour sertir>|<Clic-droit pour lire>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
-$lang['gem_preg_singlecolor'] = '/Matches a (\w+) Socket/';
-$lang['gem_preg_multicolor'] = '/Matches a (\w+) or (\w+) Socket/';
-$lang['gem_preg_meta'] = '/Only fits in a meta gem slot/';
-$lang['gem_preg_prismatic'] = '/Matches a Red, Yellow or Blue Socket/';
+$lang['gem_preg_singlecolor'] = '/Correspond à une chasse (\+)\./';
+$lang['gem_preg_multicolor'] = '/Correspond à une chasse (\+) ou (\+)\./';
+$lang['gem_preg_meta'] = '/Ne peut être serti que dans une châsse de méta-gemme\./';
+$lang['gem_preg_prismatic'] = '/Correspond à une chasse rouge, jaune ou bleue\./';
 
 //Gems color Array
 $lang['gem_colors'] = array(
-	'red' => 'Red',
-	'blue' => 'Blue',
-	'yellow' => 'Yellow',
-	'green' => 'Green',
+	'red' => 'Rouge',
+	'blue' => 'Bleue',
+	'yellow' => 'Jaune',
+	'green' => 'Verte',
 	'orange' => 'Orange',
-	'purple' => 'Purple',
-	'prismatic' => 'Prismatic');
+	'purple' => 'Pourpre',
+	'prismatic' => 'Prismatique'
+	);
+// -- end tooltip parsing
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Diablotin';
