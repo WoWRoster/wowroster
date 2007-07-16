@@ -232,11 +232,6 @@ class RosterMenu
 
 		}
 
-$char_menu = '
-<div class="char_title">' . $roster->data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server'] . (!empty($action) ? ' &gt; ' . ucfirst($action) : '') . '
-	<div class="lastupdated">' . $roster->locale->act['lastupdate'] . ': ' . $roster->data['update_format'] . '</div>
-</div><br />';
-
 		return "	<tr>\n"
 				. '		<td colspan="3" align="center" valign="top" class="header">' . "\n"
 				. $choiceForm
