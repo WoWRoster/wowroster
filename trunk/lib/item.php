@@ -158,8 +158,8 @@ class item
 	function _getArmor()
 	{
 		$html = '<div style="width:100%;"><span style="float:right;">'
-			  . $this->_val($this->attributes['ArmorSlot']) . '</span>'
-			  . $this->_val($this->attributes['ArmorType']) . '</div>';
+			  . $this->_val($this->attributes['ArmorType']) . '</span>'
+			  . $this->_val($this->attributes['ArmorSlot']) . '</div>';
 		
 		return $html;
 	}
@@ -180,6 +180,12 @@ class item
 		return $html;
 	}
 
+	function _getBag()
+	{
+		$html = $this->attributes['BagDesc'] . '<br />';
+		return $html;
+	}
+	
 	function _getArmorClass()
 	{
 		$html = $this->attributes['ArmorClass']['Line'] . '<br />';
@@ -202,7 +208,6 @@ class item
 	function _getEnchantment()
 	{
 		$html = '<span style="color:#00ff00;">' . $this->attributes['Enchantment'] . '</span><br />';
-
 		return $html;
 	}
 
@@ -237,10 +242,9 @@ class item
 			$emptysockets = $this->attributes['Sockets'];
 			foreach( $emptysockets as $socket_color => $socket_line )
 			{
-				$img = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/UI-EmptySocket-'
-					 . $this->_socketColorEn($socket_color) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;' . $socket_line . '<br />';
+				$html .= '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
+					   . $this->_socketColorEn($socket_color) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;' . $socket_line . '<br />';
 			}
-			$html .= $img;
 		}
 		//now lets do sockets with gems
 		if( isset($this->attributes['Gems']) )
@@ -248,11 +252,10 @@ class item
 			$gems = $this->attributes['Gems'];
 			foreach( $gems as $gem )
 			{
-				$img = '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-					 . $gem['data']['gem_texture'] . '.' . $roster->config['img_suffix'] . '"/>'
-					 . '<span style="color:#00ff00;">&nbsp;&nbsp;' . $gem['data']['gem_bonus'] . '</span><br />';
+				$html .= '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+					   . $gem['data']['gem_texture'] . '.' . $roster->config['img_suffix'] . '"/>'
+					   . '<span style="color:#00ff00;">&nbsp;&nbsp;' . $gem['data']['gem_bonus'] . '</span><br />';
 			}
-			$html .= $img;
 		}
 		return $html;
 	}
@@ -275,6 +278,48 @@ class item
 		return $html;
 	}
 
+	function _getRequiredClasses()
+	{
+		global $roster;
+		
+		$html = $this->attributes['Class_Text'] . '&nbsp;';
+		$count = count($this->attributes['Class']);
+		
+		$i = 0;
+		foreach( $this->attributes['Class'] as $class )
+		{
+			$i++;
+			$html .= '<span style="color:#'. $roster->locale->act['class_colorArray'][$class] . ';">' . $class . '</span>';
+			if( $count > $i )
+			{
+				$html .= ', ';
+			}
+		}
+		$html .= '<br />';
+		return $html;
+	}
+	
+	function _getRequiredRaces()
+	{
+		global $roster;
+		
+		$html = $this->attributes['Race_Text'] . '&nbsp;';
+		$count = count($this->attributes['Race']);
+
+		$i = 0;
+		foreach( $this->attributes['Race'] as $race )
+		{
+			$i++;
+			$html .= $race;
+			if( $count > $i )
+			{
+				$html .= ', ';
+			}
+		}
+		$html .= '<br />';
+		return $html;
+	}
+	
 	function _getRequiredLevel()
 	{
 		global $roster;
@@ -333,7 +378,7 @@ class item
 
 	/**
 	 * Reconstructs item's tooltip from parsed information.
-	 * All HTML Styling is done in the private getXX() methods
+	 * All HTML Styling is done in the private _getXX() methods
 	 *
 	 */
 	function makeTooltipHTML()
@@ -355,9 +400,10 @@ class item
 		{
 			$html_tt .= $this->_getWeapon();
 		}
-		else
+		elseif( $this->isBag )
 		{
 			// not an Weapon or Armor... Treat as Item
+			$html_tt .= $this->_getBag();
 		}
 		if( isset($this->attributes['ArmorClass']) )
 		{
@@ -375,6 +421,14 @@ class item
 		{
 			$html_tt .= $this->_getSockets();
 			$html_tt .= $this->_getSocketBonus();
+		}
+		if( isset($this->attributes['Class']) )
+		{
+			$html_tt .= $this->_getRequiredClasses();
+		}
+		if( isset($this->attributes['Race']) )
+		{
+			$html_tt .= $this->_getRequiredRaces();
 		}
 		if( isset($this->attributes['Durability']) )
 		{
@@ -406,6 +460,8 @@ class item
 		{
 			echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
 			. $html_tt
+			. '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
+			. '<hr width="80%"> ' . aprint($this->attributes)
 			. '</td></tr></table><br />';
 		}
 		$this->html_tooltip = $html_tt;
@@ -615,10 +671,6 @@ class item
 				//set piece bonus
 				$tt['Effects']['SetBonus'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_misc_types'], $line) )
-			{
-				$tt['Attributes']['ArmorSlot'] = $line;
-			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_durability'], $line, $matches) )
 			{
 				$tt['Attributes']['Durability']['Line']= $matches[0];
@@ -627,11 +679,13 @@ class item
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 			{
-				$tt['Attributes']['Class'] = explode(', ', $matches[1]);
+				$tt['Attributes']['Class'] = explode(', ', $matches[2]);
+				$tt['Attributes']['Class_Text'] = $matches[1];
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_races'], $line, $matches) )
 			{
-				$tt['Attributes']['Race'] = explode(', ', $matches[1]);
+				$tt['Attributes']['Race'] = explode(', ', $matches[2]);
+				$tt['Attributes']['Race_Text'] = $matches[1];
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches) )
 			{
@@ -702,14 +756,14 @@ class item
 			}
 			elseif( preg_match('/^(.+) \(\d+\/\d+\)$/', $line, $matches ) )
 			{
-				$tt['ArmorSet']['Name'] = $matches[1];
+				$tt['Attributes']['ArmorSet']['Name'] = $matches[1];
 				$setpiece = 1;
 			}
 			elseif( $setpiece )
 			{
 				if( strlen($line) > 4)
 				{
-					$tt['ArmorSet'][$setpiece] = trim($line);
+					$tt['Attributes']['ArmorSet'][$setpiece] = trim($line);
 					$setpiece++;
 				}
 				else
@@ -736,8 +790,8 @@ class item
 					//check if its a bag
 					elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_bags'], $line, $matches ) )
 					{
-						$tt['General']['BagSize'] = $matches[1];
-						$tt['General']['BagDesc'] = $line;
+						$tt['Attributes']['BagSize'] = $matches[1];
+						$tt['Attributes']['BagDesc'] = $line;
 						$this->isBag = true;
 					}
 					//
@@ -759,6 +813,11 @@ class item
 					{
 						$tt['Poison']['Effect'][] = $line;
 						$this->isPoison = true;
+					}
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_misc_types'], $line) )
+					{
+						$tt['Attributes']['ArmorSlot'] = $line;
+						$this->isArmor = true;
 					}
 					else
 					{
