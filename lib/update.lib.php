@@ -2802,7 +2802,7 @@ class update
 
 		$memberInfo = $roster->db->fetch( $result );
 		$roster->db->free_result($result);
-		if ($memberInfo)
+		if (is_set($memberInfo) && is_array($memberInfo))
 		{
 			$memberId = $memberInfo['member_id'];
 		}
