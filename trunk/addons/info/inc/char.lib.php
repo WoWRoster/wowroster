@@ -261,12 +261,12 @@ class char
 					$returnstring .= border('sgray','start',$header) . "\n<table width=\"100%\" " . ($addon['config']['recipe_disp'] == '0' ? 'style="display:none;"' : '') . ";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
 
 $returnstring .= '  <tr>
-    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=item') . '">' . $this->locale['item'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=name') . '">' . $this->locale['name'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=difficulty') . '">' . $this->locale['difficulty'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=type') . '">' . $this->locale['type'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-recipes&amp;s=level') . '">' . $this->locale['level'] . '</a></th>
-    <th class="membersHeaderRight"><a href="' . makelink('char-recipes&amp;s=reagents') . '">' . $this->locale['reagents'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=item') . '">' . $this->locale['item'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=name') . '">' . $this->locale['name'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=difficulty') . '">' . $this->locale['difficulty'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=type') . '">' . $this->locale['type'] . '</a></th>
+    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=level') . '">' . $this->locale['level'] . '</a></th>
+    <th class="membersHeaderRight"><a href="' . makelink('char-info-recipes&amp;s=reagents') . '">' . $this->locale['reagents'] . '</a></th>
   </tr>
 ';
 				}
