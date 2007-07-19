@@ -849,12 +849,14 @@ function stripslash_array( $array )
  * @param string $datetime datetime field data in DB
  * @return string formatted date string
  */
-function readbleDate( $datetime )
+function readbleDate( $datetime , $offset=null )
 {
 	global $roster;
 
+	$offset = ( is_null($offset) ? $roster->config['localtimeoffset'] : $offset );
+
 	list($year,$month,$day,$hour,$minute,$second) = sscanf($datetime,"%d-%d-%d %d:%d:%d");
-	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
+	$localtime = mktime($hour+$offset ,$minute, $second, $month, $day, $year, -1);
 
 	return date($roster->locale->act['phptimeformat'], $localtime);
 }

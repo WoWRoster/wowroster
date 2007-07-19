@@ -167,4 +167,4 @@ $lang['admin']['show_pvp'] = "PvPLog Daten|Anzeige der PvPLog Daten<br />Benöti
 $lang['admin']['show_duels'] = "Duell PvPLog Daten|Anzeige der Duell PvPLog Data<br />Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_item_bonuses'] = "Gegenstands Boni|Anzeige der Boni durch angelegte Gegenstände<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 
-$lang['admin']['char_pref'] = 'Preferences|Control what is displayed in the character pages per character';
+$lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';

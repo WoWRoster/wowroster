@@ -694,7 +694,7 @@ $lang['admin']['img_suffix'] = "Interface Image Extension|The image type of the 
 $lang['admin']['alt_img_suffix'] = "Alt Interface Image Extension|The alternate possible image type of the Interface images";
 $lang['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $lang['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
-$lang['admin']['localtimeoffset'] = "Time Offest|The timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
+$lang['admin']['localtimeoffset'] = "Time Offest|Your timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";

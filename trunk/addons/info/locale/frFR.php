@@ -167,4 +167,4 @@ $lang['admin']['show_pvp'] = "Joueur contre joueur|Visualisation des données jo
 $lang['admin']['show_duels'] = "Duel|Visualisation des données de duel<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_item_bonuses'] = "Bonus d'équipement|Visualisation des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 
-$lang['admin']['char_pref'] = 'Preferences|Control what is displayed in the character pages per character';
+$lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';

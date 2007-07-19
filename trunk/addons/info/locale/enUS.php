@@ -167,4 +167,4 @@ $lang['admin']['show_pvp'] = "PvPLog Data|Controls the display of PvPLog Data<br
 $lang['admin']['show_duels'] = "Duel PvPLog Data|Controls the display of Duel PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_item_bonuses'] = "Item Bonuses|Controls the display of Item Bonuses<br /><br />Setting is global and overrides per-user setting";
 
-$lang['admin']['char_pref'] = 'Preferences|Control what is displayed in the character pages per character';
+$lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';

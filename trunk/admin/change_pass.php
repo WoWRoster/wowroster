@@ -93,8 +93,7 @@ if( array_key_exists('mode',$_POST) )
 	$body .= '<br />';
 }
 
-$body .= $roster_login->getMessage().'<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
+$body .= '<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Admin" />
 	'.border('sred','start',$roster->locale->act['changeadminpass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">

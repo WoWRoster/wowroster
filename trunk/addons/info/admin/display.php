@@ -80,9 +80,22 @@ $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\
 
 $body = $roster_login->getMessage() . "<br />
 <form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "');submitonce(this);\">
-<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n<br /><br />\n
 	$body
+<br /><br />\n<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n
 </form>";
+
+$tab1 = explode('|',$roster->locale->act['admin']['char_conf']);
+$tab2 = explode('|',$roster->locale->act['admin']['char_pref']);
+
+$menu = messagebox('
+<ul class="tab_menu">
+	<li><a href="' . makelink('rostercp-addon-info') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
+	<li class="selected"><a href="' . makelink('rostercp-addon-info-display') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
+</ul>
+',$roster->locale->act['roster_config_menu'],'sgray','145px');
+
+
+
 
 
 /**
