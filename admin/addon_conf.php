@@ -23,7 +23,7 @@ if( !defined('ROSTER_INSTALLED') )
 
 if( !isset($roster->pages[2]) )
 {
-	$body = messagebox($roster->locale->act['specify_addon'],$roster->locale->act['addon_error'],'sred');
+	$body .= messagebox($roster->locale->act['specify_addon'],$roster->locale->act['addon_error'],'sred');
 	return;
 }
 
@@ -69,11 +69,11 @@ if( $addon['active'] = '1' )
 			include($addon['dir'].'admin/config.func.php');
 			if( function_exists('topBox') )
 			{
-				$body = topBox();
+				$body .= topBox();
 			}
 			else
 			{
-				$body = '';
+				$body .= '';
 			}
 		}
 
@@ -94,20 +94,20 @@ if( $addon['active'] = '1' )
 
 		$body .= $config->form_start.
 			$save_message.
-			$config->submit_button.
 			$config->formpages.
+			$config->submit_button.
 			$config->form_end.
 			$config->nonformpages.
 			$config->jscript;
 	}
 	else
 	{
-		$body =  messagebox(sprintf($roster->locale->act['addon_no_config'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
+		$body .=  messagebox(sprintf($roster->locale->act['addon_no_config'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
 	}
 }
 else
 {
-	$body =  messagebox(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
+	$body .=  messagebox(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
 }
 
 // Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines

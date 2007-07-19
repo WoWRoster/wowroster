@@ -109,7 +109,7 @@ if( !empty($messagestringout) )
 	$message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow');
 }
 
-$body = $roster_login->getMessage() . '<br />' . ($message != '' ? $message . '<br />' : '') . ((isset($output) && !empty($output)) ? messagebox($output,$roster->locale->act['pagebar_addoninst'],'sblue') : '');
+$body .= ($message != '' ? $message . '<br />' : '') . ((isset($output) && !empty($output)) ? messagebox($output,$roster->locale->act['pagebar_addoninst'],'sblue') : '');
 
 return;
 

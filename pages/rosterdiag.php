@@ -234,7 +234,7 @@ $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu($roster->output['show_menu']);
 
 // Diplay Password Box
-if ( $roster_login->getAuthorized() )
+if ( $roster_login->getAuthorized() < 3 )
 {
 	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage());
 }
@@ -416,7 +416,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 	VerifyVersions();
 
 	// Make a post form for the download of a Zip Package
-	if ( $roster_login->getAuthorized() )
+	if ( $roster_login->getAuthorized() < 3 )
 	{
 		$zippackage_files = '';
 		foreach ($directories as $directory => $filecount)

@@ -39,7 +39,7 @@ if( !defined('ROSTER_INSTALLED') )
 $roster_login = new RosterLogin();
 
 // Disallow viewing of the page
-if( !$roster_login->getAuthorized() )
+if( $roster_login->getAuthorized() < 3 )
 {
 	include_once (ROSTER_BASE . 'roster_header.tpl');
 	$roster_menu = new RosterMenu;
@@ -53,18 +53,22 @@ if( !$roster_login->getAuthorized() )
 	include_once (ROSTER_BASE . 'roster_footer.tpl');
 	exit();
 }
+else
+{
+	$body = $roster_login->getMessage() . '<br />';
+}
 // ----[ End Check log-in ]---------------------------------
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $body = $pagebar = $footer = '';
+$header = $menu = $pagebar = $footer = '';
 
 // ----[ Check for latest UniAdmin Version ]------------------
 if( $roster->config['check_updates'] )
 {
 	$roster_ver_latest = $roster_ver_info = '';
 
-	$content = urlgrabber('http://wowroster.net/roster_updater/version.txt');
+	$content = urlgrabber('http://www.wowroster.net/roster_updater/version.txt');
 
 	if( preg_match('#<version>(.+)</version>#i',$content,$version) )
 	{
@@ -93,12 +97,12 @@ if( isset($config_pages[$page]['file']) )
 	}
 	else
 	{
-		$body .= $roster_login->getMessage() . '<br />' . messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
+		$body .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
 	}
 }
 else
 {
-	$body .= $roster_login->getMessage() . '<br />' . messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
+	$body .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
 }
 
 // Build the pagebar from admin/pages.php

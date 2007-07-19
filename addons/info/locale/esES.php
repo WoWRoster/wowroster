@@ -167,4 +167,4 @@ $lang['admin']['show_pvp'] = "Informaci&oacuten del PVPlog|Controla el modo de m
 $lang['admin']['show_duels'] = "Informaci&oacuten de duelos del PVPlog|Controla el modo de mostrar la informaci&oacuten de los duelos del PVPlog<br>Requiere subir la informaci&oacuten del addon PvPLog<br><br>Las opciones son globales y afectan a todos los usuarios";
 $lang['admin']['show_item_bonuses'] = "Bonus de objetos|Controla el modo de mostrar los Bonus de objetos<br><br>Las opciones son globales y afectan a todos los usuarios";
 
-$lang['admin']['char_pref'] = 'Preferences|Control what is displayed in the character pages per character';
+$lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';
