@@ -516,6 +516,7 @@
 	/* Reputation headers for each faction group */
 	font-size:12px;
 	font-weight:bold;
+	text-align:left;
 	width:265px;
 	color:#FFDD00;
 }
@@ -572,6 +573,7 @@
 .char_panel .tab4 .header {
 	font-size:12px;
 	font-weight:bold;
+	text-align:left;
 	width:265px;
 	color:#FFDD00;
 }
