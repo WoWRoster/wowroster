@@ -340,7 +340,7 @@ $lang['ts_ridingIcon'] = array(
 	'Orco'=>'ability_mount_blackdirewolf',
 	'Elfo de sangre' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
-	'Palad�n'=>'ability_mount_dreadsteed',
+	'Paladín'=>'ability_mount_dreadsteed',
 	'Brujo'=>'ability_mount_nightmarehorse'
 );
 
@@ -349,10 +349,10 @@ $lang['class_iconArray'] = array (
 	'Druida'=>'ability_druid_maul',
 	'Cazador'=>'inv_weapon_bow_08',
 	'Mago'=>'inv_staff_13',
-	'Palad�n'=>'spell_fire_flametounge',
 	'Sacerdote'=>'spell_holy_layonhands',
-	'P�caro'=>'inv_throwingknife_04',
-	'Cham�n'=>'spell_nature_bloodlust',
+	'Paladín'=>'spell_fire_flametounge',
+	'Pícaro'=>'inv_throwingknife_04',
+	'Chamán'=>'spell_nature_bloodlust',
 	'Brujo'=>'spell_shadow_cripple',
 	'Guerrero'=>'inv_sword_25',
 );
@@ -362,10 +362,10 @@ $lang['class_colorArray'] = array(
 	'Druida' => 'FF7C0A',
 	'Cazador' => 'AAD372',
 	'Mago' => '68CCEF',
-	'Palad�n' => 'F48CBA',
 	'Sacerdote' => 'ffffff',
-	'P�caro' => 'FFF468',
-	'Cham�n' => '00DBBA',
+	'Paladín' => 'F48CBA',
+	'Pícaro' => 'FFF468',
+	'Chamán' => '00DBBA',
 	'Brujo' => '9382C9',
 	'Guerrero' => 'C69B6D'
 );
@@ -464,7 +464,7 @@ $lang['questlinks'][2]['url3']='&amp;nivelhasta=';
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
-$lang['data_search'] = 'WoW Data Site Search';
+$lang['itemlink'] = 'Item Links';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 $lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
@@ -491,7 +491,7 @@ $lang['tooltip_equip_restores']='Equipar: Restaura';
 $lang['tooltip_equip_when']='Equipar: Cuando';
 $lang['tooltip_chance']='Probabilidad';
 $lang['tooltip_enchant']='Encantar';
-$lang['tooltip_set']='Set';
+$lang['tooltip_set']='Bonif';
 $lang['tooltip_rank']='Rango';
 $lang['tooltip_next_rank']='Siguiente Rango';
 $lang['tooltip_spell_damage']='Daño por Hechizos';
@@ -506,10 +506,10 @@ $lang['tooltip_unique']='Único';
 $lang['tooltip_speed']='Veloc.';
 $lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison tooltips  I need the common text that decribes the poison. 
 
-$lang['tooltip_preg_armour']='/^(\d+) de armadura/';
+$lang['tooltip_preg_armour']='/^(\d+) armadura/';
 $lang['tooltip_preg_durability']='/Durabilidad (\d+) \/ (\d+)/'; 
 $lang['tooltip_preg_madeby']='/\<Hecho por (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
-$lang['tooltip_preg_bags']='/^(\d+) casillas/';  // text for bags, ie '16 slot bag'
+$lang['tooltip_preg_bags']='/(\d+) de casillas/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus ranura: (.+)\n/';
 $lang['tooltip_preg_classes']='/^(Clases:) (.+)/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted items
@@ -517,18 +517,20 @@ $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
 
-$lang['tooltip_armour_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita'; // the types of weapons as shown in the tooltip
+$lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
+
+$lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
+$lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Misión|Se liga al recogerlo';
-$lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho';
+$lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda';
 $lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
-$lang['gem_preg_singlecolor'] = '/Encaja en una ranura de color (\w+)./';
-$lang['gem_preg_multicolor'] = '/Encaja en una ranura de color (\w+) o (\w+)./';
-$lang['gem_preg_meta'] = '/Solo encaja en una ranura de gema meta./';
-$lang['gem_preg_prismatic'] = '/Encaja con un hueco azul amarillo rojo./';
+$lang['gem_preg_singlecolor'] = '/Encaja en una ranura de color (.+)\./i';
+$lang['gem_preg_multicolor'] = '/Encaja en una ranura de color (.+) o (.+)\./i';
+$lang['gem_preg_meta'] = '/Solo encaja en una ranura de gema meta\./i';
+$lang['gem_preg_prismatic'] = '/Encaja con un hueco azul amarillo rojo\./i';
 
 //Gems color Array
 $lang['gem_colors'] = array(

@@ -120,24 +120,6 @@ class item
 		return $output;
 	}
 
-	/**
-	 * private function to validate property data
-	 *
-	 * @param string $attribute
-	 * @return string | returns the value of passed $attribute. Will return null if attribute is empty
-	 */
-	function _val( $attribute )
-	{
-		if( !is_null($attribute) )
-		{
-			return $attribute;
-		}
-		else
-		{
-			return null;
-		}
-	}
-
 // -- makeTooltipHTML() tooltip methods start here //
 	
 	/**
@@ -215,8 +197,8 @@ class item
 		if( isset($this->attributes['WeaponDamage']) )
 		{
 			$html  .= '<div style="width:100%;"><span style="float:right;">'
-					. $this->_val($this->attributes['WeaponSpeed']) . '</span>'
-					. $this->_val($this->attributes['WeaponDamage']) . '</div>';
+					. $this->attributes['WeaponSpeed'] . '</span>'
+					. $this->attributes['WeaponDamage'] . '</div>';
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
@@ -335,7 +317,7 @@ class item
 		foreach( $this->attributes['Class'] as $class )
 		{
 			$i++;
-			$html .= '<span style="color:#'. $roster->locale->act['class_colorArray'][$class] . ';">' . $class . '</span>';
+			$html .= '<span style="color:#'. $roster->locale->wordings[$this->locale]['class_colorArray'][$class] . ';">' . $class . '</span>';
 			if( $count > $i )
 			{
 				$html .= ', ';
@@ -546,7 +528,6 @@ class item
 			if( $this->isSetPiece )
 			{
 				$html_tt .= $this->_getSetPiece();
-
 				$html_tt .= $this->_getSetBonus();
 				$html_tt .= $this->_getInactiveSetBonus();
 			}
@@ -631,7 +612,7 @@ class item
 		$tooltip = str_replace("\n\n", "\n", $tooltip);
 		$tooltip = str_replace('<br>',"\n",$tooltip);
 		$tooltip = str_replace('<br />',"\n",$tooltip);
-		$tooltip = preg_replace( '/\|c[a-f0-9]{2}[a-f0-9]{6}(.+?)\|r/', '$1', $tooltip );
+		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
 
 		//
 		//need a better pattern for poisons! this sucks badly.  <--
@@ -663,6 +644,7 @@ class item
 					if( !isset ($tt['Attributes']['Gems'][$i]['data']['gem_bonus']) )
 					{
 						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
+						$this->isParseError = true;
 					}
 					else
 					{
@@ -682,8 +664,15 @@ class item
 		if( $enchant )
 		{
 			$this->isEnchant = true;
-
-			if( preg_match('/\n(.+)\n'.$roster->locale->wordings[$locale]['tooltip_durability'].'/i', $tooltip, $matches) )
+			
+			//
+			// Check for 'Reinforced (+32 Armor)' enchant types first.
+			if( $enchant < 2000 && preg_match('/(Reinforced\s\(\+\d+\sArmor\))/i', $tooltip, $matches) )
+			{
+				$tooltip = str_replace( $matches[1], '', $tooltip );
+				$tt['Attributes']['Enchantment'] = $matches[1];
+			}
+			elseif( preg_match('/\n(.+)\n'.$roster->locale->wordings[$locale]['tooltip_durability'].'/i', $tooltip, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
@@ -834,7 +823,7 @@ class item
 					$this->isWeapon = true;
 				}
 			}
-			elseif( ereg('^\(|^Adds ', $line))  // -- work on this LOCALIZE ME!
+			elseif( !$this->isArmor && ereg('^\(|^Adds ', $line) )  // -- work on this LOCALIZE ME!
 			{
 				$tt['Attributes']['WeaponDPS'] = $line;
 				$this->isWeapon = true;
@@ -972,6 +961,14 @@ class item
 		$sql = "SELECT * FROM `" . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
+		
+		if( !$gem )
+		{
+			$this->isParseError = true;
+			trigger_error("Failed to find gemid: $gem_id in gems table!");
+			return false;
+		}
+		
 		$gem['gem_tooltip'] = str_replace("\n", '<br>', $gem['gem_tooltip']);  // -- REMOVE LATER DEBUGGING
 		$gem_cache[$gem_id][$locale]=$gem;
 
@@ -984,9 +981,17 @@ class item
 		{
 			return false;
 		}
+		//
+		// sanity check for odd issue with esES locale, seems not to save set information in tooltip check CP.lua file
+		$armor_pieces = ( isset($this->attributes['Set']['ArmorSet']['Piece']) ? $this->attributes['Set']['ArmorSet']['Piece'] : null );
 
-		$armor_pieces = $this->attributes['Set']['ArmorSet']['Piece'];
-
+		if( $armor_pieces == null)
+		{
+			$this->isParseError = true;
+			trigger_error("Unable to retieve Set Information, bad upload? Falling back to colorTooltip() [$this->item_id]");
+			return false;
+		}
+		
 		$data = $this->_fetchArmorSet( $armor_pieces );
 
 		$equip = ( isset($data['equip']) ? $data['equip'] : null );

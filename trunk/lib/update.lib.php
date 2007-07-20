@@ -33,6 +33,7 @@ class update
 	var $uploadData;
 	var $addons = array();
 	var $files = array();
+	var $locale;
 
 	var $messages = array();
 	var $errors = array();
@@ -1155,36 +1156,36 @@ class update
 			{
 				$line = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
-				if( eregi( '\%|\+|'.$roster->locale->act['tooltip_chance'], $line))  // if the line has a + or % or the word Chance assume it's bonus line.
+				if( eregi( '\%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'], $line))  // if the line has a + or % or the word Chance assume it's bonus line.
 				{
 					$gem_bonus = $line;
 				}
-				elseif( preg_match( $roster->locale->act['gem_preg_meta'], $line ) )
+				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_meta'], $line ) )
 				{
 					$gem_color = 'meta';
 				}
-				elseif( preg_match( $roster->locale->act['gem_preg_multicolor'], $line, $colors ) )
+				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_multicolor'], $line, $colors ) )
 				{
-					if( $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['red'] )
+					if( $colors[1] == $roster->locale->wordings[$this->locale]['gem_colors']['red'] && $colors[2] == $roster->locale->wordings[$this->locale]['gem_colors']['blue'] || $colors[1] == $roster->locale->wordings[$this->locale]['gem_colors']['blue'] && $colors[2] == $roster->locale->wordings[$this->locale]['gem_colors']['red'] )
 					{
 						$gem_color = 'purple';
 					}
-					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['red'] || $colors[1] == $roster->locale->act['gem_colors']['red'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
+					elseif( $colors[1] == $roster->locale->wordings[$this->locale]['gem_colors']['yellow'] && $colors[2] == $roster->locale->wordings[$this->locale]['gem_colors']['red'] || $colors[1] == $roster->locale->wordings[$this->locale]['gem_colors']['red'] && $colors[2] == $roster->locale->wordings[$this->locale]['gem_colors']['yellow'] )
 					{
 						$gem_color = 'orange';
 					}
-					elseif( $colors[1] == $roster->locale->act['gem_colors']['yellow'] && $colors[2] == $roster->locale->act['gem_colors']['blue'] || $colors[1] == $roster->locale->act['gem_colors']['blue'] && $colors[2] == $roster->locale->act['gem_colors']['yellow'] )
+					elseif( $colors[1] == $roster->locale->wordings[$this->locale]['gem_colors']['yellow'] && $colors[2] == $roster->locale->wordings[$this->locale]['gem_colors']['blue'] || $colors[1] == $roster->locale->wordings[$this->locale]['gem_colors']['blue'] && $colors[2] == $roster->locale->wordings[$this->locale]['gem_colors']['yellow'] )
 					{
 						$gem_color = 'green';
 					}
 				}
-				elseif( preg_match( $roster->locale->act['gem_preg_singlecolor'], $line, $color ) )
+				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_singlecolor'], $line, $color ) )
 				{
-					$tmp = array_flip($roster->locale->act['gem_colors']);
+					$tmp = array_flip($roster->locale->wordings[$this->locale]['gem_colors']);
 					$gem_color = $tmp[$color[1]];
 				}
 
-				elseif( preg_match( $roster->locale->act['gem_preg_prismatic'], $line ) )
+				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_prismatic'], $line ) )
 				{
 					$gem_color = 'prismatic';
 				}
