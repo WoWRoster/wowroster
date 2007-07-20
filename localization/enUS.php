@@ -515,12 +515,12 @@ $lang['tooltip_preg_classes']='/^(Classes:) (.+)/';
 $lang['tooltip_preg_races']='/^(Races:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Charges/';
 $lang['tooltip_preg_block']='/(\d+) (Block)/';
-$lang['tooltip_preg_emptysocket']='/(Red|Yellow|Blue|Meta) Socket/';
+$lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 
 $lang['tooltip_reg_requires']='Requires';
 
 $lang['tooltip_armor_types']='Cloth|Leather|Mail|Plate';
-$lang['tooltip_weapon_types']='Axe|Bow|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand';
+$lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand';
 $lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used|Binds when picked up|This Item Begins a Quest';
 $lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
 $lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>';
