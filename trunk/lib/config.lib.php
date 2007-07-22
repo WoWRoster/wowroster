@@ -282,7 +282,7 @@ class config
 					break;
 
 				case 'function':
-					$html .= $type[1]();
+					$html .= $type[1]($values);
 					break;
 
 				default:
@@ -375,7 +375,7 @@ class config
 					break;
 
 				case 'access':
-					$input_field = $roster_login->accessConfig($values);
+					$input_field = $roster_login->rosterAccess($values);
 					break;
 
 				case 'function':

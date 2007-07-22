@@ -114,7 +114,7 @@ class update
 				$filename = explode('.',$file['name']);
 				$filebase = strtolower($filename[0]);
 
-				if( in_array($filebase,$this->files) ) 
+				if( in_array($filebase,$this->files) )
 				{
 					// Get start of parse time
 					$parse_starttime = explode(' ', microtime() );
@@ -163,44 +163,51 @@ class update
 		{
 			return '';
 		}
-		$output = "Processing files<br />\n";
+		$output = $roster->locale->act['processing_files'] . "<br />\n";
+
+		$roster_login = new RosterLogin();
 
 		$gotfiles = array_keys($this->uploadData);
 		if( in_array('characterprofiler',$gotfiles) )
 		{
-			$roster_login = new RosterLogin();
 
-			if( $roster_login->getAuthorized(2) )
+			if( $roster_login->getAuthorized() >= $roster->config['gp_user_level'] )
 			{
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";
 			}
 
-			$output .= $this->processMyProfile();
-			$output .= "<br />\n";
+			if( $roster_login->getAuthorized() >= $roster->config['cp_user_level'] )
+			{
+				$output .= $this->processMyProfile();
+				$output .= "<br />\n";
+			}
 		}
 
-		if( is_array($this->addons) && count($this->addons)>0 )
+		if( $roster_login->getAuthorized() >= $roster->config['lua_user_level'] )
 		{
-			foreach( $this->addons as $addon )
+			if( is_array($this->addons) && count($this->addons)>0 )
 			{
-				if( count(array_intersect($gotfiles, $addon->files))>0 )
+				foreach( $this->addons as $addon )
 				{
-					if( file_exists($addon->data['trigger_file']) )
+					if( count(array_intersect($gotfiles, $addon->files))>0 )
 					{
-						$addon->reset_messages();
-						if( method_exists($addon, 'update') )
+						if( file_exists($addon->data['trigger_file']) )
 						{
-							$result = $addon->update();
+							$addon->reset_messages();
+							if( method_exists($addon, 'update') )
+							{
+								$result = $addon->update();
 
-							if( $result )
-							{
-								$output .= $addon->messages;
-							}
-							else
-							{
-								$output .= 'There was an error in addon ' . $addon->data['fullname'] . " in method update<br />\n"
-								. "Addon messages:<br />\n" . $addon->messages;
+								if( $result )
+								{
+									$output .= $addon->messages;
+								}
+								else
+								{
+									$output .= sprintf($roster->locale->act['error_addon'],$addon->data['fullname'],'update') . "<br />\n"
+									. $roster->locale->act['addon_messages'] . "<br />\n" . $addon->messages;
+								}
 							}
 						}
 					}
@@ -240,13 +247,13 @@ class update
 					{
 						if( $mode == 'guild' )
 						{
-							$output .= '<li>There was an error in addon ' . $addon->data['fullname'] . " in method $mode<br />\n"
-							. "Addon messages:<br />\n" . $addon->messages . "</li>\n";
+							$output .= '<li>' . sprintf($roster->locale->act['error_addon'],$addon->data['fullname'],$mode) . "<br />\n"
+							. $roster->locale->act['addon_messages'] . "<br />\n" . $addon->messages . "</li>\n";
 						}
 						else
 						{
-							$output .= 'There was an error in addon '.$addon->data['fullname'] . " in method $mode<br />\n"
-							. "Addon messages:<br />\n" . $addon->messages . "<br />\n";
+							$output .= sprintf($roster->locale->act['error_addon'],$addon->data['fullname'],$mode) . "<br />\n"
+							. $roster->locale->act['addon_messages'] . "<br />\n" . $addon->messages . "<br />\n";
 						}
 					}
 				}
@@ -327,7 +334,7 @@ class update
 
 						if( $roster->db->query_first($query) !== 2 )
 						{
-							$output .= 'Character ' . $char_name . ' @ ' . $region . '-' . $realm_name . " not accepted<br/>\n";
+							$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['char'],$char_name,$region,$realm_name) . "<br />\n";
 							continue;
 						}
 						else
@@ -345,7 +352,7 @@ class update
 							continue;
 						}
 
-						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Character',$char_name,$realm_name,$region) . "</strong>\n";
+						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale['char'],$char_name,$realm_name,$region) . "</strong>\n";
 
 						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $realm_name, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
@@ -435,7 +442,7 @@ class update
 
 						if( $roster->db->query_first($query) !== '0' )
 						{
-							$output .= "Guild " . $guild_name . ' @ ' . $region . '-' . $realm_name . " not accepted<br />\n";
+							$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['guild'],$guild_name,$region,$realm_name) . "<br />\n";
 							continue;
 						}
 
@@ -502,7 +509,7 @@ class update
 									$guild_output .= $this->addon_hook('guild_post', $guild);
 								}
 
-								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],'Guild',$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
+								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale['guild'],$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
 								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
 								. '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
 								. '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
@@ -515,7 +522,7 @@ class update
 							}
 							else
 							{
-								$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name) . "</span><br />\n";
+								$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name,$realm_name,$region) . "</span><br />\n";
 								$output .= $roster->locale->act['no_members'] . "<br />\n";
 							}
 						}
