@@ -131,7 +131,7 @@ class item
 	 */
 	function _getCaption()
 	{
-		$html = '<span style="color:#' . $this->color . ';font-size:14px;font-weight:bold;">' . $this->name . '</span><br />';
+		$html = '<span style="color:#' . $this->color . ';font-size:11px;font-weight:bold;">' . $this->name . '</span><br />';
 		return $html;
 	}
 
@@ -1045,11 +1045,11 @@ class item
 
 					if( strlen($this->color) > 6 )
 					{
-						$color = substr( $this->color, 2, 6 ) . ';font-size:14px;font-weight:bold';
+						$color = substr( $this->color, 2, 6 ) . ';font-size:11px;font-weight:bold';
 					}
 					else
 					{
-						$color = $this->color . ';font-size:14px;font-weight:bold';
+						$color = $this->color . ';font-size:11px;font-weight:bold';
 					}
 
 					$first_line = false;
