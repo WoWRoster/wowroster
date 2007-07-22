@@ -22,40 +22,40 @@ if( !defined('ROSTER_INSTALLED') )
 class item
 {
 	var $data = array(); // raw data from database
-	
+
 	var $member_id, $item_id, $name, $level, $icon;
 	var $slot, $parent, $tooltip, $quantity, $locale;
-	
+
 	// 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary
 	var $quality_id; //holds numerical value of item quality
 	var $quality; // holds string value of item quality
-	
+
 	// parsing flags
 	var $isBag = false, $isSetPiece = false, $isSocketable = false, $isEnchant = false, $isArmor = false;
 	var $isWeapon = false, $isPoison = false, $isParseError = false, $isParseMode = false;
 
 	// parsing counters
-	var $setItemEquiped = 0; 
-	var $setItemOwned = 0; 
+	var $setItemEquiped = 0;
+	var $setItemOwned = 0;
 	var $setItemTotal = 0;
-	
+
 	// parsed arrays/strings
 	var $parsed_item = array();  // fully parsed item array
 	var $attributes = array(); // holds all parsed item attributes
 	var $effects = array(); // holds passive bonus effects of the item
 	var $enchantment;
 	var $html_tooltip;
-	
+
 	// developer debugging only
 	var $DEBUG = false;
 	var $DEBUG_garbage = '';
-	
+
 	/**
 	 * Constructor
 	 *
 	 * @param array $data
 	 * @param string $parse_mode | accepts 'full' full item parsing, 'simple' for simple item coloring only.  Defaults to auto detect
-	 * 
+	 *
 	 * @return item
 	 */
 	function item( $data, $parse_mode=false )
@@ -123,11 +123,11 @@ class item
 	}
 
 // -- makeTooltipHTML() tooltip methods start here //
-	
+
 	/**
 	 * Private function to return item caption in formated HTML
 	 *
-	 * @return string $html 
+	 * @return string $html
 	 */
 	function _getCaption()
 	{
@@ -177,7 +177,7 @@ class item
 		{
 			$html = $this->attributes['ArmorType'] . '<br />';
 		}
-		else 
+		else
 		{
 			return null;
 		}
@@ -192,7 +192,7 @@ class item
 				  . $this->attributes['WeaponType'] . '</span>'
 				  . $this->attributes['WeaponSlot'] . '</div>';
 		}
-		else 
+		else
 		{
 			$html = $this->attributes['WeaponSlot'] . '<br />';
 		}
@@ -206,7 +206,7 @@ class item
 		{
 			$html .= $this->attributes['WeaponDPS'] . '<br />';
 		}
-		
+
 		return $html;
 	}
 
@@ -215,7 +215,7 @@ class item
 		$html = $this->attributes['BagDesc'] . '<br />';
 		return $html;
 	}
-	
+
 	function _getArmorClass()
 	{
 		$html = $this->attributes['ArmorClass']['Line'] . '<br />';
@@ -311,10 +311,10 @@ class item
 	function _getRequiredClasses()
 	{
 		global $roster;
-		
+
 		$html = $this->attributes['Class_Text'] . '&nbsp;';
 		$count = count($this->attributes['Class']);
-		
+
 		$i = 0;
 		foreach( $this->attributes['Class'] as $class )
 		{
@@ -328,11 +328,11 @@ class item
 		$html .= '<br />';
 		return $html;
 	}
-	
+
 	function _getRequiredRaces()
 	{
 		global $roster;
-		
+
 		$html = $this->attributes['Race_Text'] . '&nbsp;';
 		$count = count($this->attributes['Race']);
 
@@ -349,7 +349,7 @@ class item
 		$html .= '<br />';
 		return $html;
 	}
-	
+
 	function _getRequired()
 	{
 		global $roster;
@@ -403,13 +403,13 @@ class item
 		$html = '<span style="color:#ffffff;">' . $this->attributes['Charges'] . '</span><br />';
 		return $html;
 	}
-	
+
 	function _getSetPiece()
 	{
-		$html = '<br /><span style="color:#ffd517;font-size:11px;font-weight:bold">' . $this->attributes['Set']['ArmorSet']['Name'] 
+		$html = '<br /><span style="color:#ffd517;font-size:11px;font-weight:bold">' . $this->attributes['Set']['ArmorSet']['Name']
 			  . ' ( ' . $this->setItemEquiped . ' / ' . $this->setItemOwned . ' / ' . $this->setItemTotal . ' )'
 			  . '</span><br />';
-		
+
 		foreach( $this->attributes['Set']['ArmorSet']['Piece'] as $piece )
 		{
 			if( isset($piece['Equip']) )
@@ -420,7 +420,7 @@ class item
 			{
 				$html .= '<span style="color:#787880;font-style:italic;">&nbsp;&nbsp;' . $piece['Name'] . '</span><br />';
 			}
-			else 
+			else
 			{
 				$html .= '<span style="color:#787880;">&nbsp;&nbsp;' . $piece['Name'] . '</span><br />';
 			}
@@ -428,7 +428,7 @@ class item
 		$html .= '<br />';
 		return $html;
 	}
-	
+
 	function _getSetBonus()
 	{
 		if( isset($this->attributes['Set']['SetBonus']) )
@@ -450,7 +450,7 @@ class item
 			return false;
 		}
 		$html = '';
-		
+
 		foreach( $this->attributes['Set']['InactiveSet'] as $piece )
 		{
 			$html .= '<span style="color:#9d9d9d;">' . $piece . '</span><br />';
@@ -625,19 +625,19 @@ class item
 	/**
 	 * Decides the best way to parse the item
 	 *
-	 * @return call 
+	 * @return call
 	 */
 	function doParseTooltip()
 	{
-		// look at check $parseMode variable and call parse method "simple" or "full" 
+		// look at check $parseMode variable and call parse method "simple" or "full"
 		// // TODO // "webdb" tie into failed parsing too?
 		// if no $parseMode is defined then try and figure the best method to parse.
 		// -- if item has gems or enchants send to full parsing
 		// -- if the item is a tradeskill do simple coloring
 		// -- if the item has less then 2 lines of text do simple coloring
-		
+
 		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
-				
+
 		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 && !$this->isParseMode == 'simple')
 		{
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
@@ -649,12 +649,12 @@ class item
 		// who knows.. lets parse it fully
 		return $this->_parseTooltipFull($itemid);
 	}
-	
+
 	function _parseTooltipSimple()
 	{
 		$this->isParseMode = 'simple';
 	}
-	
+
 	function _parseTooltipFull( $itemid, $enchant=false, $gem1=false, $gem2=false, $gem3=false)
 	{
 		global $roster;
@@ -673,8 +673,8 @@ class item
 		$tooltip = str_replace('<br />',"\n",$tooltip);
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
 
-		// 
-		// -- TODO -- 
+		//
+		// -- TODO --
 		//need a better pattern for poisons! this sucks badly.  <--
 		if( preg_match('/\n(.+[VI].\(.+\))\n/i', $tooltip, $matches) )
 		{
@@ -720,17 +720,17 @@ class item
 		// if itemid shows an enchant on the item parse for it.
 		// First check for special enchants that do not follow the general rules.
 		// If none then find 'durability' and the line above that is the enchantment.
-		// if the tooltip does not have 'durability' then the item might be a cloak, and cloaks do not have 'durability' 
+		// if the tooltip does not have 'durability' then the item might be a cloak, and cloaks do not have 'durability'
 		//   so look for 'Requires Level' and the line above should be the enchant.
 		// if the item does not have 'durability' and a 'required level' then it is a quest cloak
-		// // TODO // then check for any cloak enchants that do not start with a plus sign 
+		// // TODO // then check for any cloak enchants that do not start with a plus sign
 		//                "Increased Stealth" and "Subtlety" are known. need enchant IDs to make it efficent localize txts? or static?
 		// find the last line that starts with a + (plus) sign and assume that is the enchantment
 		// in all cases Remove the line from the stack
 		if( $enchant )
 		{
 			$this->isEnchant = true;
-			
+
 			//
 			// Check for 'Reinforced (+32 Armor)' enchant types first.
 			if( $enchant < 2000 && preg_match($roster->locale->wordings[$locale]['tooltip_preg_reinforcedarmor'], $tooltip, $matches) )
@@ -1005,9 +1005,9 @@ class item
 	{
 
 		global $roster;
-		
+
 		$first_line = true;
-		
+
 		// Use main locale if one is not specified
 		if( $this->locale == '' )
 		{
@@ -1018,8 +1018,8 @@ class item
 		$tooltip_out = '';
 		$tooltip = $this->tooltip;
 		$locale = $this->locale;
-		
-		
+
+
 		// Color parsing time!
 		$tooltip = str_replace("\n\n", "\n", $tooltip);
 		$tooltip = str_replace('<br>',"\n",$tooltip);
@@ -1065,17 +1065,17 @@ class item
 					$color = 'ff0000';
 					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'],$line) )
-					
+
 					$color = '00ff00';
-					
+
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'],$line) )
-					
+
 					$color = '00ff00';
-					
+
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
-					
+
 					$color = '00ff00';
-					
+
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'],$line) )
 					$color = '00ff00';
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'],$line) )
@@ -1153,20 +1153,20 @@ class item
 		$sql = "SELECT * FROM `" . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
-		
+
 		if( !$gem )
 		{
 			$this->isParseError = true;
 			trigger_error("Failed to find gemid: $gem_id in gems table!");
 			return false;
 		}
-		
+
 		$gem['gem_tooltip'] = str_replace("\n", '<br>', $gem['gem_tooltip']);  // -- REMOVE LATER DEBUGGING
 		$gem_cache[$gem_id][$locale]=$gem;
 
 		return $gem;
 	}
-	
+
 	function setArmorSets()
 	{
 		if( !$this->isSetPiece )
@@ -1183,12 +1183,12 @@ class item
 			trigger_error("Unable to retieve Set Information, bad upload? Falling back to colorTooltip() [$this->item_id]");
 			return false;
 		}
-		
+
 		$data = $this->_fetchArmorSet( $armor_pieces );
 
 		$equip = ( isset($data['equip']) ? $data['equip'] : null );
 		$owned = ( isset($data['owned']) ? $data['owned'] : null );
-		
+
 		foreach( $armor_pieces as $key => $val )
 		{
 			if( isset($equip) && in_array($val['Name'], $equip) )
@@ -1212,11 +1212,11 @@ class item
 	{
 		$count = count($pieces);
 		$member_id = ( is_numeric($member_id) ? $member_id : $this->member_id );
-		
+
 		if( $count && is_array($pieces) )
 		{
 			global $roster;
-			
+
 			$i = 1; // loop count
 			$sql_in = "('";
 			foreach( $pieces as $item )
@@ -1229,19 +1229,19 @@ class item
 				$i++;
 			}
 			$sql_in .= "')";
-			
+
 			$sql = "SELECT item_name, item_parent FROM `" . $roster->db->table('items') . "` "
 				 . "WHERE `member_id` = '$member_id' "
 				 . "AND `item_name` IN $sql_in";
 			$result = $roster->db->query($sql);
-			
+
 			while( $data = $roster->db->fetch( $result ) )
 			{
 				if( $data['item_parent'] == 'equip')
 				{
 					$armor_set['equip'][] = $data['item_name'];
 				}
-				else 
+				else
 				{
 					$armor_set['owned'][] = $data['item_name'];
 				}
@@ -1258,7 +1258,7 @@ function item_get_one( $member_id, $slot )
 
 	$slot = $roster->db->escape( $slot );
 	$query 	= "SELECT `i`.*, `p`.`clientLocale` "
-			. "FROM `" . $roster->db->table('items') . "` AS i, `" 
+			. "FROM `" . $roster->db->table('items') . "` AS i, `"
 			. $roster->db->table('players') . "` AS p "
 			. "WHERE `i`.`member_id` = '$member_id' "
 			. "AND `p`.`member_id` = '$member_id' "
@@ -1312,39 +1312,3 @@ function item_get_many( $member_id, $parent )
 	}
 	return $items;
 }
-
-//
-// [ Debugging function dumps arrays/object formatted
-// not sure who the author is or where I got the function... can remove later
-
-function _aprint($arr, $tab = 1) // similar to print_r()
-{
-	if( !is_array($arr) ) return " <span style=\"color:#3366FF\">".ucfirst(gettype($arr))."</span> ".$arr;
-
-	$space = str_repeat("\t", $tab);
-	$out = " <span style=\"color:#3366FF\">array(</span>\n";
-	end($arr); $end = key($arr);
-
-	if( count($arr) == 0 )
-	return "<span style=\"color:#3366FF\">array()</span>";
-
-	foreach( $arr  as $key=>$val ){
-		if( $key == $end ) $colon = ''; else $colon = ',';
-		if( !is_numeric($key) ) $key = "<span style=\"color:#FFFFFF\">'".str_replace( array("\\","'"), array("\\\\","\'"), htmlspecialchars($key) )."'</span>";
-		if(  is_array($val)   ) $val = _aprint($val, ($tab+1)); else
-		if( !is_numeric($val) ) $val = "<span style=\"color:#FFFFFF\">'".str_replace( array("\\","'"), array("\\\\","\'"), htmlspecialchars($val) )."'</span>";
-		$out .= "$space$key => $val$colon\n";
-	}
-
-	if( $tab == 1 )
-	return "$out$space<span style=\"color:#3366ff\">)</span>;"; else
-	return "$out$space<span style=\"color:#3366ff\">)</span>";
-}
-
-
-function aprint( $arr, $prefix=''){
-	if( ltrim($prefix) != '' ) $prefix = '<span style="color:#3366ff">'.$prefix.'</span> =';
-	echo "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
-<tbody><tr><td><pre style=\"color:#000000;\">$prefix"._aprint($arr)."</pre></td></tr></tbody></table>\n\n";
-}
-
