@@ -496,13 +496,13 @@ class memberslist
 			// Group alts off
 			if( $this->addon['config']['group_alts'] <= 0 )
 			{
-				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell" style="display:none;"></td>'.$block['main'].'</tr></tbody>';
+				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell" style="display:none;">&nbsp;</td>'.$block['main'].'</tr></tbody>';
 				continue;
 			}
 			// Main, or no alt data
 			if( !isset($block['alts']) || 0 == count($block['alts']) )
 			{
-				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell"></td>'.$block['main'].'</tr></tbody>';
+				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell">&nbsp;</td>'.$block['main'].'</tr></tbody>';
 				continue;
 			}
 			// Mainless alt.
@@ -529,7 +529,7 @@ class memberslist
 			{
 				$alt_counter = ($alt_counter % 2) + 1;
 				$stripe_class = ' class="membersRowAltColor'.$alt_counter.'"';
-				$output .= '<tr'.$stripe_class.'><td class="membersRowCell"></td>'."\n".$line."\n".'</tr>'."\n";
+				$output .= '<tr'.$stripe_class.'><td class="membersRowCell">&nbsp;</td>'."\n".$line."\n".'</tr>'."\n";
 			}
 			$output .= '</tbody>'."\n";
 		}
