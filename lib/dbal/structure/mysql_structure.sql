@@ -128,6 +128,7 @@ CREATE TABLE `renprefix_items` (
   `item_tooltip` mediumtext NOT NULL,
   `level` INT( 11 ) default NULL,
   `item_level` INT( 11 ) default NULL,
+  `locale` varchar(4) default NULL,
   PRIMARY KEY  (`member_id`,`item_parent`,`item_slot`),
   KEY `parent` (`item_parent`),
   KEY `slot` (`item_slot`),

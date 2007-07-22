@@ -644,3 +644,5 @@ UPDATE `renprefix_config` SET `config_value` = '1.8.0dev' WHERE `id` = '4' LIMIT
 UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
 
 ALTER TABLE `renprefix_config` ORDER BY `id`;
+
+ALTER TABLE `renprefix_items` ADD `locale` varchar(4) default NULL AFTER 'item_level';
