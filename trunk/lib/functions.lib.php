@@ -462,11 +462,11 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 
 				if( strlen($caption_color) > 6 )
 				{
-					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
+					$color = substr( $caption_color, 2, 6 ) . ';font-size:12px;font-weight:bold';
 				}
 				else
 				{
-					$color = $caption_color . ';font-size:11px;font-weight:bold';
+					$color = $caption_color . ';font-size:12px;font-weight:bold';
 				}
 
 				$first_line = false;

@@ -352,7 +352,7 @@ class update
 							continue;
 						}
 
-						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale['char'],$char_name,$realm_name,$region) . "</strong>\n";
+						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['char'],$char_name,$realm_name,$region) . "</strong>\n";
 
 						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $realm_name, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
@@ -509,7 +509,7 @@ class update
 									$guild_output .= $this->addon_hook('guild_post', $guild);
 								}
 
-								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale['guild'],$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
+								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['guild'],$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
 								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
 								. '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
 								. '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
@@ -837,7 +837,8 @@ class update
 		$this->add_ifvalue( $item, 'item_id' );
 		$this->add_ifvalue( $item, 'item_texture' );
 		$this->add_ifvalue( $item, 'item_tooltip' );
-
+		$this->add_value( 'locale', $locale );
+		
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 		{
 			$this->add_value('level',$level[1]);

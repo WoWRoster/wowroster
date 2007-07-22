@@ -60,8 +60,6 @@ class item
 	 */
 	function item( $data, $parse_mode=false )
 	{
-		global $roster;
-		
 		$this->isParseMode = ( isset($parse_mode) ? $parse_mode : false );
 		$this->data = $data;
 		$this->member_id = $data['member_id'];
@@ -73,7 +71,7 @@ class item
 		$this->parent = $data['item_parent'];
 		$this->tooltip = $data['item_tooltip'];
 		$this->color = $data['item_color'];
-		$this->locale = ( isset($data['clientLocale']) ? $data['clientLocale'] : $roster->config['locale'] ); // work-a-round make locale info in items table
+		$this->locale = $data['locale'];
 		$this->quantity = $data['item_quantity'];
 		$this->setQuality($this->color);
 		$this->doParseTooltip();
@@ -84,7 +82,7 @@ class item
 	{
 		global $roster, $tooltips;
 
-		$lang = ( isset($this->data['clientLocale']) ? $this->data['clientLocale'] : $roster->config['locale']);
+		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
 
 		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'];
 
@@ -133,7 +131,7 @@ class item
 	 */
 	function _getCaption()
 	{
-		$html = '<span style="color:#' . $this->color . ';font-size:14px;font-weight:bold;">' . $this->name . '</span><br />';
+		$html = '<span style="color:#' . $this->color . ';font-size:12px;font-weight:bold;">' . $this->name . '</span><br />';
 		return $html;
 	}
 
@@ -1044,11 +1042,11 @@ class item
 
 					if( strlen($this->color) > 6 )
 					{
-						$color = substr( $this->color, 2, 6 ) . ';font-size:14px;font-weight:bold';
+						$color = substr( $this->color, 2, 6 ) . ';font-size:12px;font-weight:bold';
 					}
 					else
 					{
-						$color = $this->color . ';font-size:14px;font-weight:bold';
+						$color = $this->color . ';font-size:12px;font-weight:bold';
 					}
 
 					$first_line = false;
@@ -1243,9 +1241,10 @@ class item
 			}
 			$sql_in .= "')";
 
-			$sql = "SELECT item_name, item_parent FROM `" . $roster->db->table('items') . "` "
-				 . "WHERE `member_id` = '$member_id' "
-				 . "AND `item_name` IN $sql_in";
+			$sql = "SELECT item_name, item_parent FROM" 
+				 . " `" . $roster->db->table('items') . "`"
+				 . " WHERE `member_id` = '$member_id'"
+				 . " AND `item_name` IN $sql_in ";
 			$result = $roster->db->query($sql);
 
 			while( $data = $roster->db->fetch( $result ) )
@@ -1270,12 +1269,10 @@ function item_get_one( $member_id, $slot )
 	global $roster;
 
 	$slot = $roster->db->escape( $slot );
-	$query 	= "SELECT `i`.*, `p`.`clientLocale` "
-			. "FROM `" . $roster->db->table('items') . "` AS i, `"
-			. $roster->db->table('players') . "` AS p "
-			. "WHERE `i`.`member_id` = '$member_id' "
-			. "AND `p`.`member_id` = '$member_id' "
-			. "AND `item_slot` = '$slot'";
+	$query 	= " SELECT *"
+			. " FROM `" . $roster->db->table('items') . "`"
+			. " WHERE `member_id` = '$member_id' "
+			. " AND `item_slot` = '$slot'";
 
 	$result = $roster->db->query( $query );
 	$data = $roster->db->fetch( $result );
@@ -1295,27 +1292,15 @@ function item_get_many( $member_id, $parent )
 	global $roster;
 
 	$parent = $roster->db->escape( $parent );
-//	$query= "SELECT `i`.*, `p`.`clientLocale`
-//	FROM
-//	`".$roster->db->table('items')."` AS i,
-//	`".$roster->db->table('players')."` AS p
-//	WHERE `p`.`clientLocale` = 'enUS' ";
-//	WHERE `i`.`member_id` = '$member_id'
-//	AND `p`.`member_id` = '$member_id' ";
 
-		//AND `i`.`item_id` = '25689:2792:2698:2698:2698:0:0:1979837656'";
-	// -- REPLACE WITH COMMENTED DUMPS ALL ITEMS FROM CHAR
-
-	$query  = "SELECT `i`.*, `p`.`clientLocale` "
-			. "FROM "
-			. "`" . $roster->db->table('items') . "` AS i, "
-			. "`" . $roster->db->table('players') . "` AS p "
-			. "WHERE `i`.`member_id` = '$member_id' "
-			. "AND `p`.`member_id` = '$member_id' "
-			. "AND `item_parent` = '$parent' ";
+	$query  = " SELECT * "
+			. " FROM "
+			. " `" . $roster->db->table('items') . "`"
+			. " WHERE `member_id` = '$member_id' "
+			. " AND `item_parent` = '$parent' ";
 
 	$result = $roster->db->query( $query );
-//	echo "Number of items parsed: ". $roster->db->num_rows( $result ) . "!! <br /><br />";
+//	temp debug // echo "Number of items parsed: ". $roster->db->num_rows( $result ) . "!! <br /><br />";
 	$items = array();
 	while( $data = $roster->db->fetch( $result ) )
 	{
