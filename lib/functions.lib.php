@@ -1081,3 +1081,83 @@ function request_uri( )
 
 	return $REQUEST_URI;
 }
+
+/**
+ * Debugging function dumps arrays/object formatted
+ * Do Not call this, call aprint()
+ *
+ * @param array $arr
+ * @param int $tab
+ * @return string
+ */
+function _aprint( $arr , $tab=1 )
+{
+	if( !is_array($arr) )
+	{
+		return " <span style=\"color:#3366FF\">" . ucfirst(gettype($arr)) . "</span> " . $arr;
+	}
+
+	$space = str_repeat("\t", $tab);
+	$out = " <span style=\"color:#3366FF\">array(</span>\n";
+	end($arr); $end = key($arr);
+
+	if( count($arr) == 0 )
+	{
+		return "<span style=\"color:#3366FF\">array()</span>";
+	}
+
+	foreach( $arr  as $key=>$val )
+	{
+		if( $key == $end )
+		{
+			$colon = '';
+		}
+		else
+		{
+			$colon = ',';
+		}
+		if( !is_numeric($key) )
+		{
+			$key = "<span style=\"color:#FFFFFF\">'" . str_replace( array("\\","'"), array("\\\\","\'"), htmlspecialchars($key) ) . "'</span>";
+		}
+		if( is_array($val) )
+		{
+			$val = _aprint($val, ($tab+1));
+		}
+		else
+		{
+			if( !is_numeric($val) )
+			{
+				$val = "<span style=\"color:#FFFFFF\">'" . str_replace( array("\\","'"), array("\\\\","\'"), htmlspecialchars($val) ) . "'</span>";
+			}
+		}
+		$out .= "$space$key => $val$colon\n";
+	}
+
+	if( $tab == 1 )
+	{
+		return "$out$space<span style=\"color:#3366ff\">)</span>;";
+	}
+	else
+	{
+		return "$out$space<span style=\"color:#3366ff\">)</span>";
+	}
+}
+
+/**
+ * Debugging function dumps arrays/object formatted
+ * Do Not call this, call aprint()
+ *
+ * @param array $arr
+ * @param int $tab
+ * @return string
+ */
+function aprint( $arr , $prefix='' )
+{
+	if( ltrim($prefix) != '' )
+	{
+		$prefix = '<span style="color:#3366ff">' . $prefix . '</span> =';
+	}
+	echo "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
+<tbody><tr><td><pre style=\"color:#000000;\">$prefix" . _aprint($arr) . "</pre></td></tr></tbody></table>\n\n";
+}
