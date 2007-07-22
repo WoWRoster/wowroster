@@ -70,16 +70,23 @@ $lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials
 $lang['parsing_files'] = 'Parsing files';
 $lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';
 $lang['error_parsed_time'] = 'Error while parsing %1$s after %2$s seconds';
-$lang['upload_not_accept'] = 'Did not accept %1$s';
+$lang['upload_not_accept'] = '%1$s is not allowed for upload';
+
+$lang['processing_files'] = 'Processing Files';
+$lang['error_addon'] = 'There was an error in addon %1$s in method %2$s';
+$lang['addon_messages'] = 'Addon Messages:';
+
+$lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s not accepted';
+
 $lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
-$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
+$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s@%3$s-%2$s';
 $lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old';
 $lang['no_members'] = 'Data does not contain any guild members';
 $lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
 $lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s Not Scanned';
 $lang['update_members'] = 'Updating Members';
-$lang['gp_user_only'] = 'GuildProfiler User Only';
+$lang['gp_user_only'] = 'GuildProfiler Users Only';
 $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
@@ -501,13 +508,13 @@ $lang['tooltip_chance_hit']='Probabilidad al acertar:';
 $lang['tooltip_reinforced_armor']='Armadura Reforzada';
 $lang['tooltip_damage_reduction']='Reducción de daño';
 //--Tooltip Parsing -- Translated by Subxero
-$lang['tooltip_durability']='Durabilidad';  
-$lang['tooltip_unique']='Único'; 
+$lang['tooltip_durability']='Durabilidad';
+$lang['tooltip_unique']='Único';
 $lang['tooltip_speed']='Veloc.';
-$lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison tooltips  I need the common text that decribes the poison. 
+$lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison tooltips  I need the common text that decribes the poison.
 
 $lang['tooltip_preg_armor']='/^(\d+) armadura/';
-$lang['tooltip_preg_durability']='/Durabilidad (\d+) \/ (\d+)/'; 
+$lang['tooltip_preg_durability']='/Durabilidad (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hecho por (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
 $lang['tooltip_preg_bags']='/(\d+) de casillas/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus ranura: (.+)\n/';
@@ -516,6 +523,7 @@ $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted item
 $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
+//$lang['tooltip_preg_reinforcedarmor']='//';
 
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
 
@@ -542,7 +550,7 @@ $lang['gem_colors'] = array(
 	'purple' => 'lila',
 	'prismatic' => 'centelleante'
 	);
-//-- end tooltip parsing
+// -- end tooltip parsing
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Diablillo';
@@ -773,6 +781,9 @@ $lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opcion en off desactivas el acceso para todo el mundo.";
+$lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process GuildProfiler Data";
+$lang['admin']['cp_user_level'] = "Character Data Level|Level required to process CharacterProfiler Data";
+$lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Pantalla Per-Character';

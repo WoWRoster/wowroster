@@ -164,6 +164,10 @@ INSERT INTO `renprefix_config` VALUES (4370, 'menu_right_text', 'VERANDA.TTF', '
 
 INSERT INTO `renprefix_config` VALUES (4400, 'menu_bottom_pane', '1', 'radio{on^1|off^0', 'menu_conf_bottom');
 
+INSERT INTO `renprefix_config` VALUES (10010, 'gp_user_level', '2', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10020, 'cp_user_level', '0', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'lua_user_level', '0', 'access', 'update_access');
+
 # --------------------------------------------------------
 ### Realmstatus Settings
 

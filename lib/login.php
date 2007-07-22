@@ -26,6 +26,7 @@ class RosterLogin
 	var $allow_login;
 	var $message;
 	var $script_filename;
+	var $levels = array();
 
 	/**
 	 * Constructor for Roster Login class
@@ -147,5 +148,45 @@ class RosterLogin
 			'.border('sred','end').'
 			</form>
 			<!-- End Password Input Box -->';
+	}
+
+	function rosterAccess( $values )
+	{
+		global $roster;
+
+		if( count($this->levels) == 0 )
+		{
+			$query = "SELECT `account_id`, `name` FROM `".$roster->db->table('account')."`;";
+			$result = $roster->db->query($query);
+
+			if( !$result )
+			{
+				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
+			}
+
+			$this->levels[0] = 'Public';
+			while( $row = $roster->db->fetch($result) )
+			{
+				$this->levels[$row['account_id']] = $row['name'];
+			}
+		}
+
+		$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
+		$select_one = 1;
+		foreach( $this->levels as $level => $name )
+		{
+			if( $level == $values['value'] && $select_one )
+			{
+				$input_field .= '  <option value="' . $level . '" selected="selected">-[ ' . $name . ' ]-</option>' . "\n";
+				$select_one = 0;
+			}
+			else
+			{
+				$input_field .= '  <option value="' . $level . '">' . $name . '</option>' . "\n";
+			}
+		}
+		$input_field .= '</select>';
+
+		return $input_field;
 	}
 }

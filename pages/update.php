@@ -38,7 +38,7 @@ if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 $messages = $update->fetchAddonData();
 
 // Has data been uploaded?
-if ((isset($_POST['process']) && $_POST['process'] == 'process') || $update->textmode)
+if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->textmode )
 {
 	$messages .= $update->parseFiles();
 	$messages .= $update->processFiles();

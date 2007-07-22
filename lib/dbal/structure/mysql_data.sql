@@ -140,6 +140,9 @@ INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_error', '#860D02', 'color
 ### Update Access
 
 INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10010, 'gp_user_level', '2', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10020, 'cp_user_level', '0', 'access', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10030, 'lua_user_level', '0', 'access', 'update_access');
 
 # --------------------------------------------------------
 ### Menu table entries

@@ -70,16 +70,23 @@ $lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials
 $lang['parsing_files'] = 'Parsing files';
 $lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';
 $lang['error_parsed_time'] = 'Error while parsing %1$s after %2$s seconds';
-$lang['upload_not_accept'] = 'Did not accept %1$s';
+$lang['upload_not_accept'] = '%1$s is not allowed for upload';
+
+$lang['processing_files'] = 'Processing Files';
+$lang['error_addon'] = 'There was an error in addon %1$s in method %2$s';
+$lang['addon_messages'] = 'Addon Messages:';
+
+$lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s not accepted';
+
 $lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
-$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s';
+$lang['not_update_guild'] = 'NOT Updating Guild List for %1$s@%3$s-%2$s';
 $lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old';
 $lang['no_members'] = 'Data does not contain any guild members';
 $lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
 $lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s Not Scanned';
 $lang['update_members'] = 'Updating Members';
-$lang['gp_user_only'] = 'GuildProfiler User Only';
+$lang['gp_user_only'] = 'GuildProfiler Users Only';
 $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
@@ -543,6 +550,7 @@ $lang['gem_colors'] = array(
 	'purple' => 'Purple',
 	'prismatic' => 'Prismatic'
 	);
+// -- end tooltip parsing
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Imp';
@@ -773,6 +781,9 @@ $lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process GuildProfiler Data";
+$lang['admin']['cp_user_level'] = "Character Data Level|Level required to process CharacterProfiler Data";
+$lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Per-Character Display';
