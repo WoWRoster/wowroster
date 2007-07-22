@@ -329,7 +329,7 @@ while ($row = $roster->db->fetch($result))
 			$iquery = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
 			$iresult = $roster->db->query($iquery);
 			$idata = $roster->db->fetch($iresult);
-			$item = new item($idata);
+			$item = new item($idata, 'simple');
 			print $item->out($key);
 		}
 		else if ($krow[$key] == '-1')
@@ -344,7 +344,7 @@ while ($row = $roster->db->fetch($result))
 				$iquery = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
 				$iresult = $roster->db->query($iquery);
 				$idata = $roster->db->fetch($iresult);
-				$item = new item($idata);
+				$item = new item($idata, 'simple');
 				$$key = $item->out();
 				print $$key;
 			}

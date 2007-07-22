@@ -60,6 +60,8 @@ class item
 	 */
 	function item( $data, $parse_mode=false )
 	{
+		global $roster;
+		
 		$this->isParseMode = ( isset($parse_mode) ? $parse_mode : false );
 		$this->data = $data;
 		$this->member_id = $data['member_id'];
@@ -71,7 +73,7 @@ class item
 		$this->parent = $data['item_parent'];
 		$this->tooltip = $data['item_tooltip'];
 		$this->color = $data['item_color'];
-		$this->locale = $data['clientLocale'];
+		$this->locale = ( isset($data['clientLocale']) ? $data['clientLocale'] : $roster->config['locale'] ); // work-a-round make locale info in items table
 		$this->quantity = $data['item_quantity'];
 		$this->setQuality($this->color);
 		$this->doParseTooltip();
@@ -131,7 +133,7 @@ class item
 	 */
 	function _getCaption()
 	{
-		$html = '<span style="color:#' . $this->color . ';font-size:11px;font-weight:bold;">' . $this->name . '</span><br />';
+		$html = '<span style="color:#' . $this->color . ';font-size:14px;font-weight:bold;">' . $this->name . '</span><br />';
 		return $html;
 	}
 
@@ -982,9 +984,6 @@ class item
 			} // end pass1
 		} // end foreach
 
-		//echo '<hr><br />';
-		//aprint($tt);
-		//
 		if( isset( $unparsed ) )
 		{
 			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br>". implode('<br>', $unparsed) );
@@ -1045,11 +1044,11 @@ class item
 
 					if( strlen($this->color) > 6 )
 					{
-						$color = substr( $this->color, 2, 6 ) . ';font-size:11px;font-weight:bold';
+						$color = substr( $this->color, 2, 6 ) . ';font-size:14px;font-weight:bold';
 					}
 					else
 					{
-						$color = $this->color . ';font-size:11px;font-weight:bold';
+						$color = $this->color . ';font-size:14px;font-weight:bold';
 					}
 
 					$first_line = false;
@@ -1058,38 +1057,52 @@ class item
 				{
 					if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'],$line) )
 					{
-					$color = '00ff00';
+						$color = '00ff00';
 					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'],$line) )
 					{
-					$color = 'ff0000';
+						$color = 'ff0000';
 					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'],$line) )
-
-					$color = '00ff00';
-
+					{
+						$color = '00ff00';
+					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'],$line) )
-
-					$color = '00ff00';
-
+					{
+						$color = '00ff00';
+					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
-
-					$color = '00ff00';
-
+					{
+						$color = '00ff00';
+					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'],$line) )
-					$color = '00ff00';
+					{
+						$color = '00ff00';
+					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'],$line) )
-					$color = '00bbff';
+					{
+						$color = '00bbff';
+					}
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'],$line) )
-					$color = '00ff00';
+					{
+						$color = '00ff00';
+					}
 					elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'],$line) )
-					$color = '00ff00;font-weight:bold';
+					{
+						$color = '00ff00;font-weight:bold';
+					}
 					elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
-					$color = 'ffffff;font-weight:bold';
+					{
+						$color = 'ffffff;font-weight:bold';
+					}
 					elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
-					$color = '666666';
+					{
+						$color = '666666';
+					}
 					elseif( ereg('^"',$line) )
-					$color = 'ffd517';
+					{
+						$color = 'ffd517';
+					}
 				}
 
 				// Convert tabs to a formated table
