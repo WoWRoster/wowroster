@@ -506,22 +506,25 @@ $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Vitesse';
 $lang['tooltip_poisoneffect']='^Chaque coup a';  // this is found in poison tooltips  I need the common text that decribes the poison. 
 
-$lang['tooltip_preg_armour']='/^(\d+) Armure/';
+$lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
 $lang['tooltip_preg_durability']='/Durabilité (\d+) \/ (\d+)/'; 
-$lang['tooltip_preg_madeby']='/\<Artisan (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
-$lang['tooltip_preg_bags']='/^(\d+) emplacements/';  // text for bags, ie '16 slot bag'
+$lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
+$lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus de sertissage: (.+)\n/';
-$lang['tooltip_preg_classes']='/^(Classes:) (.+)/'; // text for class restricted items
+$lang['tooltip_preg_classes']='/^(Classes.+) (.+)/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Races:) (.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloquer)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Châsse (Rouge|Jaune|Bleue|Meta)/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 
-$lang['tooltip_armour_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
-$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette'; // the types of weapons as shown in the tooltip
+$lang['tooltip_reg_requires']='Niveau|requis'; // À une main
+
+$lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
+$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé';
 $lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse';
-$lang['tooltip_garbage']='<Maj clic-droit pour sertir>|<Clic-droit pour lire>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+$lang['tooltip_garbage']='Maj clic-droit pour sertir';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

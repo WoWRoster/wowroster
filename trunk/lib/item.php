@@ -31,9 +31,9 @@ class item
 	var $quality; // holds string value of item quality
 	
 	// parsing flags
-	var $isBag = false, $isSetPiece = false, $isSocketable = false, $isEnchant = false;
-	var $isArmor = false, $isWeapon = false, $isPoison = false, $isParseError = false;
-	
+	var $isBag = false, $isSetPiece = false, $isSocketable = false, $isEnchant = false, $isArmor = false;
+	var $isWeapon = false, $isPoison = false, $isParseError = false, $isParseMode = false;
+
 	// parsing counters
 	var $setItemEquiped = 0; 
 	var $setItemOwned = 0; 
@@ -48,18 +48,21 @@ class item
 	
 	// developer debugging only
 	var $DEBUG = false;
+	var $DEBUG_garbage = '';
 	
 	/**
 	 * Constructor
 	 *
 	 * @param array $data
+	 * @param string $parse_mode | accepts 'full' full item parsing, 'simple' for simple item coloring only.  Defaults to auto detect
+	 * 
 	 * @return item
 	 */
-	function item( $data )
+	function item( $data, $parse_mode=false )
 	{
+		$this->isParseMode = ( isset($parse_mode) ? $parse_mode : false );
 		$this->data = $data;
 		$this->member_id = $data['member_id'];
-
 		$this->item_id = $data['item_id'];
 		$this->name = $data['item_name'];
 		$this->level = $data['item_level'];
@@ -71,7 +74,6 @@ class item
 		$this->locale = $data['clientLocale'];
 		$this->quantity = $data['item_quantity'];
 		$this->setQuality($this->color);
-		//maybe make a method to decide how to parse, full parse, simple, webdb (wowhead, itemstats, etc) oldschool (ie colortooltip?)
 		$this->doParseTooltip();
 		$this->makeTooltipHTML();
 	}
@@ -356,7 +358,7 @@ class item
 		$requires = $this->attributes['Requires'];
 		$html = '';
 
-		//
+		// -- TODO --
 		// this needs to make a check for Crafting Requires and move
 		// the required line to the item set area of the tooltip
 		foreach( $requires as $val )
@@ -386,9 +388,22 @@ class item
 				$html .= '<span style="color:#00ff00;">' . $effect . '</span><br />';
 			}
 		}
+		if( $this->isPoison && isset($this->parsed_item['Poison']['Effect']) )
+		{
+			foreach( $this->parsed_item['Poison']['Effect'] as $poison )
+			{
+				$html .= '<span style="color:#ff3333;">' . $poison . '</span><br />';
+			}
+		}
 		return $html;
 	}
 
+	function _getItemCharges()
+	{
+		$html = '<span style="color:#ffffff;">' . $this->attributes['Charges'] . '</span><br />';
+		return $html;
+	}
+	
 	function _getSetPiece()
 	{
 		$html = '<br /><span style="color:#ffd517;font-size:11px;font-weight:bold">' . $this->attributes['Set']['ArmorSet']['Name'] 
@@ -464,7 +479,19 @@ class item
 	{
 		//
 		// if Parse Error fall back to colorToolTip() for tooltip parsing.
-		if( !$this->isParseError )
+		if( $this->isParseError || $this->isParseMode == 'simple' )
+		{
+			if( $this->DEBUG && $this->isParseError )
+			{
+				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
+				. implode("<br>", $this->DEBUG_junk)
+				. '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
+				. '<hr width="80%"> ' . aprint($this->parsed_item)
+				. '</td></tr></table><br />';
+			}
+			$this->html_tooltip = $this->_colorTooltip();
+		}
+		else
 		{
 			$html_tt = $this->_getCaption();
 			if( isset($this->attributes['BindType']) )
@@ -525,6 +552,10 @@ class item
 			{
 				$html_tt .= $this->_getPassiveBonus();
 			}
+			if( isset($this->attributes['Charges']) )
+			{
+				$html_tt .= $this->_getItemCharges();
+			}
 			if( $this->isSetPiece )
 			{
 				$html_tt .= $this->_getSetPiece();
@@ -549,10 +580,6 @@ class item
 				. '</td></tr></table><br />';
 			}
 			$this->html_tooltip = $html_tt;
-		}
-		else 
-		{
-			$this->html_tooltip = colorTooltip($this->tooltip, $this->color, $this->locale);
 		}
 	}
 
@@ -595,7 +622,40 @@ class item
 		}
 	}
 
+	/**
+	 * Decides the best way to parse the item
+	 *
+	 * @return call 
+	 */
 	function doParseTooltip()
+	{
+		// look at check $parseMode variable and call parse method "simple" or "full" 
+		// // TODO // "webdb" tie into failed parsing too?
+		// if no $parseMode is defined then try and figure the best method to parse.
+		// -- if item has gems or enchants send to full parsing
+		// -- if the item is a tradeskill do simple coloring
+		// -- if the item has less then 2 lines of text do simple coloring
+		
+		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
+				
+		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 && !$this->isParseMode == 'simple')
+		{
+			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
+		}
+		elseif( $this->isParseMode == 'simple' || strpos($this->name, ':') || strlen($this->tooltip) < 60 )
+		{
+			return $this->_parseTooltipSimple();
+		}
+		// who knows.. lets parse it fully
+		return $this->_parseTooltipFull($itemid);
+	}
+	
+	function _parseTooltipSimple()
+	{
+		$this->isParseMode = 'simple';
+	}
+	
+	function _parseTooltipFull( $itemid, $enchant=false, $gem1=false, $gem2=false, $gem3=false)
 	{
 		global $roster;
 
@@ -603,7 +663,6 @@ class item
 
 		$locale = $this->locale;
 		$tooltip = $this->tooltip;
-		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
 
 		$tt = array();
 		$setpiece = null; //flag for parsing
@@ -614,7 +673,8 @@ class item
 		$tooltip = str_replace('<br />',"\n",$tooltip);
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
 
-		//
+		// 
+		// -- TODO -- 
 		//need a better pattern for poisons! this sucks badly.  <--
 		if( preg_match('/\n(.+[VI].\(.+\))\n/i', $tooltip, $matches) )
 		{
@@ -630,7 +690,7 @@ class item
 			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
 		//
-		// get gem infomation, put into tracking array, remove bonus string for further parsing
+		// get gem infomation, put into tracking array, remove bonus string from further parsing
 		if( $gem1 || $gem2 || $gem3 )
 		{
 			$gems = array($gem1,$gem2,$gem3);
@@ -658,16 +718,22 @@ class item
 
 		//
 		// if itemid shows an enchant on the item parse for it.
-		// First find 'durability' and the line above that is the enchantment.
-		// if the tooltip does not have 'durability' then the item must be a cloak, if thats true look for 'Requires Level'
-		// string above that string it must be the enchant.  Remove the line from further parsing.
+		// First check for special enchants that do not follow the general rules.
+		// If none then find 'durability' and the line above that is the enchantment.
+		// if the tooltip does not have 'durability' then the item might be a cloak, and cloaks do not have 'durability' 
+		//   so look for 'Requires Level' and the line above should be the enchant.
+		// if the item does not have 'durability' and a 'required level' then it is a quest cloak
+		// // TODO // then check for any cloak enchants that do not start with a plus sign 
+		//                "Increased Stealth" and "Subtlety" are known. need enchant IDs to make it efficent localize txts? or static?
+		// find the last line that starts with a + (plus) sign and assume that is the enchantment
+		// in all cases Remove the line from the stack
 		if( $enchant )
 		{
 			$this->isEnchant = true;
 			
 			//
 			// Check for 'Reinforced (+32 Armor)' enchant types first.
-			if( $enchant < 2000 && preg_match('/(Reinforced\s\(\+\d+\sArmor\))/i', $tooltip, $matches) )
+			if( $enchant < 2000 && preg_match($roster->locale->wordings[$locale]['tooltip_preg_reinforcedarmor'], $tooltip, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
@@ -682,10 +748,12 @@ class item
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
+			//
+			// add check for "Increased Stealth" and "Subtlety" cloak enchants otherwise could fail
+			//
 			elseif( preg_match_all('/\+\d+.+/', $tooltip, $matches) )
 			{
 				//last chance.. lets grab the last + stat in the tooltip and call that the enchantment.
-				//this should be ok, because the item most likely is a cloak 
 				$tooltip = str_replace($matches[0][count($matches[0])-1], '', $tooltip);
 				$tt['Attributes']['Enchantment'] = $matches[0][count($matches[0])-1];
 			}
@@ -794,7 +862,7 @@ class item
 			{
 				$tt['Attributes']['Unique'] = $line;
 			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_armour'], $line, $matches ) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_armor'], $line, $matches) )
 			{
 				$tt['Attributes']['ArmorClass']['Line'] = $matches[0];
 				$tt['Attributes']['ArmorClass']['Rating'] = $matches[1];
@@ -921,6 +989,7 @@ class item
 		{
 			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br>". implode('<br>', $unparsed) );
 			$this->isParseError = true;
+			$this->DEBUG_junk = $unparsed;
 		}
 
 		$this->parsed_item = $tt;
@@ -931,6 +1000,129 @@ class item
 			$this->setArmorSets();
 		}
 	}
+
+	function _colorTooltip()
+	{
+
+		global $roster;
+		
+		$first_line = true;
+		
+		// Use main locale if one is not specified
+		if( $this->locale == '' )
+		{
+			$this->locale = $roster->config['locale'];
+		}
+
+		// Initialize tooltip_out
+		$tooltip_out = '';
+		$tooltip = $this->tooltip;
+		$locale = $this->locale;
+		
+		
+		// Color parsing time!
+		$tooltip = str_replace("\n\n", "\n", $tooltip);
+		$tooltip = str_replace('<br>',"\n",$tooltip);
+		$tooltip = str_replace('<br />',"\n",$tooltip);
+		foreach (explode("\n", $tooltip) as $line )
+		{
+			$color = '';
+
+			if( !empty($line) )
+			{
+				$line = preg_replace('|\\>|','&#8250;', $line );
+				$line = preg_replace('|\\<|','&#8249;', $line );
+				$line = preg_replace('/\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r/i','<span style="color:#$1;">$2</span>',$line);
+
+				// Do this on the first line
+				// This is performed when $caption_color is set
+				if( $first_line )
+				{
+					if( $this->color == '' )
+					{
+						$$this->color = 'ffffff';
+					}
+
+					if( strlen($this->color) > 6 )
+					{
+						$color = substr( $this->color, 2, 6 ) . ';font-size:14px;font-weight:bold';
+					}
+					else
+					{
+						$color = $this->color . ';font-size:14px;font-weight:bold';
+					}
+
+					$first_line = false;
+				}
+				else
+				{
+					if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'],$line) )
+					{
+					$color = '00ff00';
+					}
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'],$line) )
+					{
+					$color = 'ff0000';
+					}
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'],$line) )
+					
+					$color = '00ff00';
+					
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'],$line) )
+					
+					$color = '00ff00';
+					
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
+					
+					$color = '00ff00';
+					
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'],$line) )
+					$color = '00ff00';
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'],$line) )
+					$color = '00bbff';
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'],$line) )
+					$color = '00ff00';
+					elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'],$line) )
+					$color = '00ff00;font-weight:bold';
+					elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
+					$color = 'ffffff;font-weight:bold';
+					elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
+					$color = '666666';
+					elseif( ereg('^"',$line) )
+					$color = 'ffd517';
+				}
+
+				// Convert tabs to a formated table
+				if( strpos($line,"\t") )
+				{
+					$line = explode("\t",$line);
+					if( !empty($color) )
+					{
+						$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+					}
+					else
+					{
+						$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+					}
+					$tooltip_out .= $line;
+				}
+				elseif( !empty($color) )
+				{
+					$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
+				}
+				else
+				{
+					$tooltip_out .= "$line<br />";
+				}
+			}
+			else
+			{
+				$tooltip_out .= '<br />';
+			}
+		}
+		return $tooltip_out;
+	}
+
 
 	/**
 	 * Fetches Gem information from the gems table
@@ -1065,7 +1257,12 @@ function item_get_one( $member_id, $slot )
 	global $roster;
 
 	$slot = $roster->db->escape( $slot );
-	$query = "SELECT `i`.*, `p`.`clientLocale` FROM `".$roster->db->table('items')."` AS i, `".$roster->db->table('players')."` AS p WHERE `i`.`member_id` = '$member_id' AND `item_slot` = '$slot';";
+	$query 	= "SELECT `i`.*, `p`.`clientLocale` "
+			. "FROM `" . $roster->db->table('items') . "` AS i, `" 
+			. $roster->db->table('players') . "` AS p "
+			. "WHERE `i`.`member_id` = '$member_id' "
+			. "AND `p`.`member_id` = '$member_id' "
+			. "AND `item_slot` = '$slot'";
 
 	$result = $roster->db->query( $query );
 	$data = $roster->db->fetch( $result );
