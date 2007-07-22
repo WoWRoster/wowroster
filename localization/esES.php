@@ -506,7 +506,7 @@ $lang['tooltip_unique']='Único';
 $lang['tooltip_speed']='Veloc.';
 $lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison tooltips  I need the common text that decribes the poison. 
 
-$lang['tooltip_preg_armour']='/^(\d+) armadura/';
+$lang['tooltip_preg_armor']='/^(\d+) armadura/';
 $lang['tooltip_preg_durability']='/Durabilidad (\d+) \/ (\d+)/'; 
 $lang['tooltip_preg_madeby']='/\<Hecho por (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
 $lang['tooltip_preg_bags']='/(\d+) de casillas/';  // text for bags, ie '16 slot bag'

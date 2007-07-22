@@ -506,20 +506,23 @@ $lang['tooltip_unique']='Einzigartig';
 $lang['tooltip_speed']='Tempo';
 $lang['tooltip_poisoneffect']='^Bei jedem Schlag';
 
-$lang['tooltip_preg_armour']='/^(\d+) Rüstung/';
+$lang['tooltip_preg_armor']='/^(\d+) Rüstung/'; //
 $lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/'; 
 $lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/';
-$lang['tooltip_preg_bags']='/^(\d+) Platz/';
+$lang['tooltip_preg_bags']='/(\d+) Platz/';
 $lang['tooltip_preg_socketbonus']='/Sockelbonus: (.+)\n/';
 $lang['tooltip_preg_classes']='/^(Klassen:) (.+)/';
 $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(((Roter|Gelber|Blauer) Sockel)|Metasockel)/';
+//$lang['tooltip_preg_reinforcedarmor']='//';
 
-$lang['tooltip_armour_types']='Stoff|Leder|Schwere Rüstung|Platte';
-$lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab';
-$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden';
+$lang['tooltip_reg_requires']='Benötigt';
+
+$lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
+$lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig';
+$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest';
 $lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust';
 $lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>';
 
