@@ -507,7 +507,7 @@ $lang['tooltip_healing_power']='les soins prodigués par les sorts et effets';
 $lang['tooltip_chance_hit']='Chances quand touché :';
 $lang['tooltip_reinforced_armor']='Armure renforcée';
 $lang['tooltip_damage_reduction']='Réduit les points de dégâts';
-//--Tooltip Parsing -- Translated by Kalia
+ //--Tooltip Parsing -- Translated by Kalia
 $lang['tooltip_durability']='Durabilité';
 $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Vitesse';
