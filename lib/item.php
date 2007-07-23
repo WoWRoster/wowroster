@@ -1084,7 +1084,8 @@ class item
 
 		$equip = ( isset($data['equip']) ? $data['equip'] : null );
 		$owned = ( isset($data['owned']) ? $data['owned'] : null );
-
+		$this->setItemTotal = count($armor_pieces);
+		
 		foreach( $armor_pieces as $key => $val )
 		{
 			if( isset($equip) && in_array($val['Name'], $equip) )
@@ -1092,14 +1093,14 @@ class item
 				$this->attributes['Set']['ArmorSet']['Piece'][$key]['Equip'] = true;
 				$this->parsed_item['Attributes']['Set']['ArmorSet']['Piece'][$key]['Equip'] = true;
 				$this->setItemEquiped++;
-				$this->setItemTotal++;
+				//$this->setItemTotal++;
 			}
 			if( isset($owned) && in_array($val['Name'], $owned) )
 			{
 				$this->attributes['Set']['ArmorSet']['Piece'][$key]['Owned'] = true;
 				$this->parsed_item['Attributes']['Set']['ArmorSet']['Piece'][$key]['Owned'] = true;
 				$this->setItemOwned++;
-				$this->setItemTotal++;
+				//$this->setItemTotal++;
 			}
 		}
 	}
