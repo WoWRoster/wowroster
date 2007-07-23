@@ -523,9 +523,11 @@ $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(((Roter|Gelber|Blauer) Sockel)|Metasockel)/';
-//$lang['tooltip_preg_reinforcedarmor']='//';
+$lang['tooltip_preg_reinforcedarmor']='';
 
 $lang['tooltip_reg_requires']='Benötigt';
+$lang['tooltip_reg_onlyworksinside']='Only works inside';
+$lang['tooltip_reg_conjureditems']='Conjured items disappear';
 
 $lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
 $lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig';

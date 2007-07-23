@@ -526,6 +526,8 @@ $lang['tooltip_preg_emptysocket']='/Châsse (Rouge|Jaune|Bleue|Meta)/'; // text 
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 
 $lang['tooltip_reg_requires']='Niveau|requis'; // À une main
+$lang['tooltip_reg_onlyworksinside']='Only works inside';
+$lang['tooltip_reg_conjureditems']='Conjured items disappear';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
 $lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette'; // the types of weapons as shown in the tooltip

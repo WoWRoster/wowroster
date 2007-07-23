@@ -413,7 +413,7 @@ function check_if_image( $imagefilename )
  * Default is true
  * @return string | Formatted tooltip
  */
-function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_caption=1 )
+function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=1 )
 {
 	global $roster;
 
@@ -433,7 +433,6 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 		$first_line = false;
 	}
 
-
 	// Initialize tooltip_out
 	$tooltip_out = '';
 
@@ -447,8 +446,6 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 
 		if( !empty($line) )
 		{
-			$line = preg_replace('|\\>|','&#8250;', $line );
-			$line = preg_replace('|\\<|','&#8249;', $line );
 			$line = preg_replace('/\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r/i','<span style="color:#$1;">$2</span>',$line);
 
 			// Do this on the first line
@@ -473,30 +470,63 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			}
 			else
 			{
-				if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'],$line) )
+				if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'], $line) )
+				{
 					$color = '00ff00';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'], $line) )
+				{
 					$color = 'ff0000';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'], $line) )
+				{
 					$color = '00ff00';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line) )
+				{
 					$color = '00ff00';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'], $line) )
+				{
 					$color = '00ff00';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'], $line) )
+				{
 					$color = '00ff00';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'], $line) )
+				{
 					$color = '00bbff';
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'],$line) )
+				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'], $line) )
+				{
 					$color = '00ff00';
-				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'],$line) )
+				}
+				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'], $line) )
+				{
 					$color = '00ff00;font-weight:bold';
-				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
+				}
+				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'], $line) )
+				{
 					$color = 'ffffff;font-weight:bold';
+				}
 				elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
+				{
 					$color = '666666';
+				}
 				elseif( ereg('^"',$line) )
+				{
 					$color = 'ffd517';
+				}
+				elseif( ereg($roster->locale->wordings[$locale]['tooltip_garbage'], $line) )
+				{
+					$line = '';
+				}
+				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches) )
+				{
+					$line = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
+						  . socketColorEn($matches[1], $locale) . '.' . $roster->config['img_suffix'] . '">&nbsp;&nbsp;' . $matches[0];
+				}
 			}
 
 			// Convert tabs to a formated table
@@ -527,7 +557,6 @@ function colorTooltip( $tooltip , $caption_color='' , $locale='' , $inline_capti
 			$tooltip_out .= '<br />';
 		}
 	}
-
 	return $tooltip_out;
 }
 
@@ -1160,4 +1189,23 @@ function aprint( $arr , $prefix='' )
 	}
 	echo "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
 <tbody><tr><td><pre style=\"color:#000000;\">$prefix" . _aprint($arr) . "</pre></td></tr></tbody></table>\n\n";
+}
+
+/**
+ * Helper function that returns the localized gem color in english
+ *
+ * @param string $socket_color
+ * @return string $color
+ */
+function socketColorEn( $socket_color, $locale )
+{
+	if( $locale == 'enUS' )
+	{
+		return strtolower($socket_color);
+	}
+
+	global $roster;
+
+	$colorArr = array_flip($roster->locale->wordings[$locale]['gem_colors']);
+	return (string)strtolower($colorArr[$socket_color]);
 }

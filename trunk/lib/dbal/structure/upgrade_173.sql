@@ -638,11 +638,13 @@ INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_credits', 'util', 'credi
 INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_search', 'util', 'search', 'inv_misc_spyglass_02');
 
 # --------------------------------------------------------
+### Items table
+ALTER TABLE `renprefix_items` ADD `locale` varchar(4) default NULL AFTER `item_level`;
+
+# --------------------------------------------------------
 ### The roster version and db version MUST be last
 
 UPDATE `renprefix_config` SET `config_value` = '1.8.0dev' WHERE `id` = '4' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '6' WHERE `id` = '3' LIMIT 1;
 
 ALTER TABLE `renprefix_config` ORDER BY `id`;
-
-ALTER TABLE `renprefix_items` ADD `locale` varchar(4) default NULL AFTER 'item_level';

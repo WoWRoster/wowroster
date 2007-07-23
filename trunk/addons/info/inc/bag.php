@@ -35,7 +35,7 @@ class bag extends item
 	{
 		global $roster, $addon, $tooltips;
 
-		$lang = $this->data['clientLocale'];
+		$lang = $this->data['locale'];
 
 		if( $this->data['item_slot'] == 'Bank Bag0' )
 		{
