@@ -60,6 +60,8 @@ class item
 	 */
 	function item( $data, $parse_mode=false )
 	{
+		global $roster;
+		
 		$this->isParseMode = ( isset($parse_mode) ? $parse_mode : false );
 		$this->data = $data;
 		$this->member_id = $data['member_id'];
@@ -71,7 +73,7 @@ class item
 		$this->parent = $data['item_parent'];
 		$this->tooltip = $data['item_tooltip'];
 		$this->color = $data['item_color'];
-		$this->locale = $data['locale'];
+		$this->locale = ( isset($data['locale']) ? $data['locale'] : $roster->config['locale'] );
 		$this->quantity = $data['item_quantity'];
 		$this->setQuality($this->color);
 		$this->doParseTooltip();
@@ -96,8 +98,8 @@ class item
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
 		}
-		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
+		setTooltip($num_of_tips, $linktip);
+		setTooltip('itemlink', $roster->locale->wordings[$lang]['itemlink']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
@@ -242,7 +244,7 @@ class item
 	}
 
 	/**
-	 * Helper function that returns the localized color in english
+	 * Helper function that returns the localized gem color in english
 	 *
 	 * @param string $socket_color
 	 * @return string $color
@@ -284,7 +286,7 @@ class item
 			{
 				$html .= '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 					   . $gem['data']['gem_texture'] . '.' . $roster->config['img_suffix'] . '"/>'
-					   . '<span style="color:#00ff00;">&nbsp;&nbsp;' . $gem['data']['gem_bonus'] . '</span><br />';
+					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['data']['gem_bonus'] . '</span><br />';
 			}
 		}
 		return $html;
@@ -464,6 +466,17 @@ class item
 		return $html;
 	}
 
+	function _getItemRestrictions()
+	{
+		$html = '';
+		
+		foreach( $this->attributes['Restrictions'] as $val )
+		{
+			$html .= '<span style="color:#ffffff;">' . $val . '</span><br />';
+		}
+		return $html;
+	}
+	
 	function _getItemNote()
 	{
 		$html = '<span style="color:#ffd517;">' . $this->attributes['ItemNote'] . '</span><br />';
@@ -489,7 +502,7 @@ class item
 				. '<hr width="80%"> ' . aprint($this->parsed_item)
 				. '</td></tr></table><br />';
 			}
-			$this->html_tooltip = $this->_colorTooltip();
+			$this->html_tooltip = colorTooltip($this->tooltip . '<br>parsed simple', $this->color, $this->locale);
 		}
 		else
 		{
@@ -566,6 +579,10 @@ class item
 			{
 				$html_tt .= $this->_getCrafter();
 			}
+			if( isset($this->attributes['Restrictions']) )
+			{
+				$html_tt .= $this->_getItemRestrictions();
+			}
 			if( isset($this->attributes['ItemNote']) )
 			{
 				$html_tt .= $this->_getItemNote();
@@ -579,7 +596,7 @@ class item
 				. '<hr width="80%"> ' . aprint($this->parsed_item)
 				. '</td></tr></table><br />';
 			}
-			$this->html_tooltip = $html_tt;
+			$this->html_tooltip = $html_tt . '<br>parsed full';
 		}
 	}
 
@@ -633,21 +650,19 @@ class item
 		// // TODO // "webdb" tie into failed parsing too?
 		// if no $parseMode is defined then try and figure the best method to parse.
 		// -- if item has gems or enchants send to full parsing
-		// -- if the item is a tradeskill do simple coloring
-		// -- if the item has less then 2 lines of text do simple coloring
-
+		// otherwise do simple parsing
 		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
 
 		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 && !$this->isParseMode == 'simple')
 		{
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
 		}
-		elseif( $this->isParseMode == 'simple' || strpos($this->name, ':') || strlen($this->tooltip) < 60 )
+		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) )
 		{
-			return $this->_parseTooltipSimple();
+			// could be a set piece parse full
+			return $this->_parseTooltipFull($itemid);
 		}
-		// who knows.. lets parse it fully
-		return $this->_parseTooltipFull($itemid);
+		return $this->_parseTooltipSimple();
 	}
 
 	function _parseTooltipSimple()
@@ -689,8 +704,9 @@ class item
 			$tooltip = str_replace( $matches[0], '', $tooltip );
 			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
+
 		//
-		// get gem infomation, put into tracking array, remove bonus string from further parsing
+		// if any gems get the data for them, remove lines from stack.
 		if( $gem1 || $gem2 || $gem3 )
 		{
 			$gems = array($gem1,$gem2,$gem3);
@@ -779,7 +795,6 @@ class item
 		$tt['Attributes']['Quality']['id']=$this->quality_id;
 		$tt['Attributes']['Quality']['name']=$this->quality;
 		$tt['Attributes']['Quantity']=$this->quantity;
-
 
 		foreach( $tooltip as $line )
 		{
@@ -967,15 +982,22 @@ class item
 						$tt['Poison']['Effect'][] = $line;
 						$this->isPoison = true;
 					}
+					//
+					//is this needed?
 					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_armor_types'], $line) )
 					{
 						$tt['Attributes']['ArmorSlot'] = $line;
 						$this->isArmor = true;
 					}
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_onlyworksinside'] . '|' 
+									 . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems'], $line) )
+					{
+						$tt['Attributes']['Restrictions'][] = $line;
+					}
 					else
 					{
 						//
-						//if all else fails its an unexpected/unparsed line
+						//if all else fails its an unexpected/unparsed line perhaps "extra" ? 
 						$unparsed[]=$line;
 					}
 				} // end pass2 if
@@ -997,143 +1019,6 @@ class item
 			$this->setArmorSets();
 		}
 	}
-
-	function _colorTooltip()
-	{
-
-		global $roster;
-
-		$first_line = true;
-
-		// Use main locale if one is not specified
-		if( $this->locale == '' )
-		{
-			$this->locale = $roster->config['locale'];
-		}
-
-		// Initialize tooltip_out
-		$tooltip_out = '';
-		$tooltip = $this->tooltip;
-		$locale = $this->locale;
-
-
-		// Color parsing time!
-		$tooltip = str_replace("\n\n", "\n", $tooltip);
-		$tooltip = str_replace('<br>',"\n",$tooltip);
-		$tooltip = str_replace('<br />',"\n",$tooltip);
-		foreach (explode("\n", $tooltip) as $line )
-		{
-			$color = '';
-
-			if( !empty($line) )
-			{
-				$line = preg_replace('|\\>|','&#8250;', $line );
-				$line = preg_replace('|\\<|','&#8249;', $line );
-				$line = preg_replace('/\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r/i','<span style="color:#$1;">$2</span>',$line);
-
-				// Do this on the first line
-				// This is performed when $caption_color is set
-				if( $first_line )
-				{
-					if( $this->color == '' )
-					{
-						$$this->color = 'ffffff';
-					}
-
-					if( strlen($this->color) > 6 )
-					{
-						$color = substr( $this->color, 2, 6 ) . ';font-size:12px;font-weight:bold';
-					}
-					else
-					{
-						$color = $this->color . ';font-size:12px;font-weight:bold';
-					}
-
-					$first_line = false;
-				}
-				else
-				{
-					if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'],$line) )
-					{
-						$color = '00ff00';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'],$line) )
-					{
-						$color = 'ff0000';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'],$line) )
-					{
-						$color = '00ff00';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'],$line) )
-					{
-						$color = '00ff00';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
-					{
-						$color = '00ff00';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'],$line) )
-					{
-						$color = '00ff00';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'],$line) )
-					{
-						$color = '00bbff';
-					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'],$line) )
-					{
-						$color = '00ff00';
-					}
-					elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'],$line) )
-					{
-						$color = '00ff00;font-weight:bold';
-					}
-					elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'],$line) )
-					{
-						$color = 'ffffff;font-weight:bold';
-					}
-					elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
-					{
-						$color = '666666';
-					}
-					elseif( ereg('^"',$line) )
-					{
-						$color = 'ffd517';
-					}
-				}
-
-				// Convert tabs to a formated table
-				if( strpos($line,"\t") )
-				{
-					$line = explode("\t",$line);
-					if( !empty($color) )
-					{
-						$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
-					}
-					else
-					{
-						$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
-					}
-					$tooltip_out .= $line;
-				}
-				elseif( !empty($color) )
-				{
-					$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
-				}
-				else
-				{
-					$tooltip_out .= "$line<br />";
-				}
-			}
-			else
-			{
-				$tooltip_out .= '<br />';
-			}
-		}
-		return $tooltip_out;
-	}
-
 
 	/**
 	 * Fetches Gem information from the gems table

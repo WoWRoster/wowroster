@@ -526,6 +526,8 @@ $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 
 $lang['tooltip_reg_requires']='Requires';
+$lang['tooltip_reg_onlyworksinside']='Only works inside';
+$lang['tooltip_reg_conjureditems']='Conjured items disappear';
 
 $lang['tooltip_armor_types']='Cloth|Leather|Mail|Plate';
 $lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand';
