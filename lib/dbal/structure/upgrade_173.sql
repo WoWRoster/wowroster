@@ -641,8 +641,8 @@ INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_search', 'util', 'search
 ### Items table
 ALTER TABLE `renprefix_items` ADD `locale` varchar(4) default NULL AFTER `item_level`;
 
-UPDATE `roster_items` items
-INNER JOIN `roster_players` players USING (`member_id`)
+UPDATE `renprefix_items` items
+INNER JOIN `renprefix_players` players USING (`member_id`)
 SET `items`.`locale` = `players`.`clientLocale`;
 
 # --------------------------------------------------------
