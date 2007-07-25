@@ -160,7 +160,7 @@ else {
 			<img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="data_search_img"/>'  . $search->basename . ' (' .$search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
 			</div>'; 
 										echo '<div id="'  . $search->basename . '" >';
-										echo '<table>';
+										echo '<table width="100%" cellspacing="0" cellpadding="0">';
                                         
 										$alt_counter = 0;
                                         foreach ($search->result as $result) {
