@@ -209,6 +209,19 @@ $lang['byclass']='Par Classe';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honneur';
 $lang['search']='Rechercher';
+//start search engine
+$lang['search']='Rechercher';
+$lang['search_onlyin']='Rechercher Only with in these addons';
+$lang['search_advancedoptionsfor']='Advanced Options For:';
+$lang['search_results']='Rechercher Results For';
+$lang['search_results_from']='Here are your Rechercher Results for';
+$lang['search_momatches']='Sorry there were No Matches for this Rechercher';
+$lang['search_didnotfind']='Did you not find what you were looking for? Try here!';
+$lang['search_for']='Rechercher Roster For:';
+$lang['search_next_matches'] = 'Next matches for: ';
+$lang['search_previous_matches'] = 'Previous matches for: ';
+$lang['search_results_count'] = 'Results';
+//end search engine
 $lang['update']='Update';
 $lang['credit']='Crédits';
 $lang['members']='Membres';
