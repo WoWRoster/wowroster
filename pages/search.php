@@ -201,11 +201,10 @@ else {
 					//if there are previous/next links set in the addon search class the pagnation will be displayed
 					if ($search->link_prev || $search->link_next) {
 
-						echo '<div align="center" >'.
+						echo '<div class="SearchNextPrev" align="center" >'.
 						($search->link_prev ? ' [ ' . $search->link_prev . ' ] ' : '').
 						($search->link_next ? ' [ ' . $search->link_next . ' ] ' : '').
 						'</div>';
-						echo '<br />';
 
 					}
 

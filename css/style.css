@@ -56,6 +56,28 @@ select {
 	padding:3px 6px 3px 6px;
 }
 
+.SearchNextPrev {
+	border-left: 1px solid #4e4d4c;
+	border-top: 1px solid #1e1d1c;
+	border-bottom: 1px solid #4e4d4c;
+	padding: 3px 5px;
+	font-size: 11px;
+}
+
+.search-other td {
+	text-align: left;
+	border-left: 1px solid #4e4d4c;
+	padding: 3px 5px;
+	font-size: 13px;
+}
+
+.search-other ul {
+	padding: 0px;
+	margin: 0px 0px;
+	list-style: inside;
+	font-size: 11px;
+}
+
 /**
  * Custom Text Input Boxes
  */
