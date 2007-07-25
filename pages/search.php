@@ -224,7 +224,7 @@ else {
 
 		}
 
-		echo '<table><div class="header_text sgoldborder">'. $roster->locale->act['search_didnotfind'] .'</div><div><br />';
+		echo '<table cellspacing="0" cellpadding="0"><div class="header_text sgoldborder">'. $roster->locale->act['search_didnotfind'] .'</div><div>';
 		foreach ($addonlist as $leftover) {
 			if (class_exists($leftover['search_class'])) {
 				$search = new $leftover['search_class'];
@@ -244,8 +244,10 @@ else {
 		$url_query = urlencode($query);
 		//this section we can have links like armory, ala, wowhead, thottbot etc...
 		//wow data sites
-		echo '<tr><td>';
-		echo '<div ><strong>' . $roster->locale->act['data_search'] . '</strong></div><div align="left">';
+		echo '<tr class="search-other"><td valign="top">';
+		echo '
+	    <div ><strong>' . $roster->locale->act['data_search'] . '</strong></div>
+	    <div align="left">';
 		echo '<ul>';
 		echo '<li><a href="http://www.wowhead.com/?search='.$url_query.'" target="new">WoWHead</a></li>';
 		echo '<li><a href="http://wow.allakhazam.com/search.html?q='.$url_query.'" target="new">Allakhazam</a></li>';
@@ -253,18 +255,20 @@ else {
 		echo '<li><a href="http://wwndata.worldofwar.net/search.php?search='.$url_query.'" target="new">WWN Data</a></li>';
 		echo '</ul></div></td>';
 		//wow data sites
-		echo '<td><div ><strong>' . $roster->locale->act['itemlink'] . '</strong></div><div align="left">';
+		echo '<td valign="top"><div ><strong>' . $roster->locale->act['itemlink'] . '</strong></div><div align="left">';
 		echo '<ul>';
-		echo '<li><a href="http://www.wowhead.com/?items&amp;filter=na='.$url_query.'" target="new">WoWHead</a></li>';
+		echo '<li><a href="http://www.wowhead.com/?items&amp;filter=na='.$url_query.'" target="new">WoWHead</a></li>
+		';
 		echo '<li><a href="http://wow.allakhazam.com/search.html?q='.$url_query.'" target="new">Allakhazam</a></li>';
 		echo '<li><a href="http://www.thottbot.com/index.cgi?i='.$url_query.'" target="new">Thottbot</a></li>';
 		echo '<li><a href="http://wwndata.worldofwar.net/search.php?search='.$url_query.'" target="new">WWN Data</a></li>';
 		echo '</ul></div></td>';
 		//google links
-		echo '<td><div ><strong>Google</strong></div><div align="left">';
+		echo '<td valign="top"><div ><strong>Google</strong></div><div align="left">';
 		echo '<ul>';
 		echo '<li><a href="http://www.google.com/search?q='.$url_query.'" target="new">Google</a></li>';
-		echo '<li><a href="http://groups.google.com/groups?q='.$url_query.'" target="new">Google Groups</a></li>';
+		echo '<li><a href="http://groups.google.com/groups?q='.$url_query.'" target="new">Google Groups</a></li>
+		';
 		echo '<li><a href="http://images.google.com/images?q='.$url_query.'" target="new">Google Images</a></li>';
 		echo '<li><a href="http://news.google.com/news?q='.$url_query.'" target="new">Google News</a></li>';
 		echo '<li><a href="http://froogle.google.com/froogle?q='.$url_query.'" target="new">Froogle</a></li>';
