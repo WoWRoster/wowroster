@@ -672,12 +672,12 @@ class RosterMenu
 	/**
 	 * Builds The search feilds
 	 *
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	function makeBottom()
 	{
-		global $roster, $open;
+		global $roster;
 
 		$addonlist = array();
 		foreach( $roster->addon_data as $name => $data )
@@ -690,7 +690,6 @@ class RosterMenu
 				$basename = $data['basename'];
 				if( class_exists($sclass) )
 				{
-
 					$addonlist[$basename]['search_class'] = $sclass;
 					$addonlist[$basename]['addon'] = $data['basename'];
 					$addonlist[$basename]['basename'] = ($data['fullname'] != '') ? $data['fullname'] : $data['basename'];
@@ -699,12 +698,6 @@ class RosterMenu
 		}
 		asort($addonlist);
 
-
-
-
-
-
-
 		$output = '
 	<tr>
 		<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>
@@ -712,38 +705,36 @@ class RosterMenu
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
 
-			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'data_search\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="data_search_img"/>Search the Roster
+			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'data_search\',\'menu_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="'.$roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="menu_search_img"/>' . $roster->locale->act['search_roster'] . '
 			</div>
 
 		<div id="data_search" style="display:none;">';
-		$output .=  '<br /><form id="s_addon" action="' . makelink('search') . '" method="post" enctype="multipart/form-data" >'
-		.'<input size="25" type="text" name="search" value="" class="wowinput192" />'
-		.'   '.'<input type="submit" value="' . $roster->locale->act['search'] . '" /><br />'
-		.'<br />';
+		$output .= '<br /><form id="menu_search" name="menu_search" action="' . makelink('search') . '" method="post" enctype="multipart/form-data" >'
+				 . '<input size="25" type="text" name="search" value="" class="wowinput192" />'
+				 . '<input type="submit" value="' . $roster->locale->act['search'] . '" /><br />'
+				 . '<br />';
 
 
-		$output .=  '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'sonly\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="sonly_img"/>' . $roster->locale->act['search_onlyin'] . '
+		$output .=  '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'menu_sonly\',\'menu_sonly_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="'.$roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="menu_sonly_search_img" />' . $roster->locale->act['search_onlyin'] . '
 			</div>';
-		$output .= '<div id="sonly" >';
-		$output .=  '<table border="0" ><tr>';
-
-
+		$output .= '<div id="menu_sonly">';
+		$output .=  '<table border="0"><tr>';
 
 		$i = 0;
 		//this is set to show a checkbox for all installed and active addons with search.inc files
 		//it is set to only show 4 addon check boxes per row and allows for the search only in feature
-		foreach ($addonlist as $s_addon) {
-			if ($i && ($i % 4 == 0)) {
+		foreach( $addonlist as $s_addon )
+		{
+			if( $i && ($i % 4 == 0) )
+			{
 				$output .= '</tr><tr>';
 				$output .= "\n";
 			}
 
-			$output .=  '<td><input type="checkbox"  id="menu_'. $s_addon['addon'] .'" name="$s_addon[]" value="'. $s_addon['addon'] .'" /></td>'.
-			'<td><label for="menu_' . $s_addon['addon'] . '">' . $s_addon['basename'] . '</label></td>';
-
-
+			$output .= '<td><input type="checkbox"  id="menu_'. $s_addon['addon'] .'" name="s_addon[]" value="'. $s_addon['addon'] .'" />'
+					 . '<label for="menu_' . $s_addon['addon'] . '">' . $s_addon['basename'] . '</label></td>';
 			$i++;
 		}
 
@@ -751,16 +742,18 @@ class RosterMenu
 		$output .=  '</div>';
 		//include advanced search options
 		//the advanced options are defined in the addon search class using $search->options = then build your form/s
-		foreach ($addonlist as $s_addon) {
-			if (class_exists($s_addon['search_class'])) {
+		foreach( $addonlist as $s_addon )
+		{
+			if( class_exists($s_addon['search_class']) )
+			{
 				$search = new $s_addon['search_class'];
-				if ($search->options) {
-
-					$output .= '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['basename'] . '\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="'.$roster->config['img_url'] . (($open)?'minus':'plus') . '.gif" style="float:right;" alt="" id="data_search_img"/>' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['basename'] . ':
-			</div>'; 
+				if( $search->options )
+				{
+					$output .= '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['addon'] . '\',\'' . $s_addon['addon'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="'.$roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="' . $s_addon['addon'] . '_search_img"/>' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['basename'] . ':
+			</div>';
 					$output .= '<div id="' . $s_addon['basename'] . '" style="display:none;">';
-					$output .=  '<table width="100%" ><tr><td><br />' . $search->options . '<br /></td></tr></table>';
+					$output .= '<table width="100%" ><tr><td><br />' . $search->options . '<br /></td></tr></table>';
 					$output .= '</div>';
 				}
 			}
@@ -769,7 +762,7 @@ class RosterMenu
 				</form>
 			</div>
 
-			<script type="text/javascript">initARC(\'s_addon\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');initARC(\'searchformdata\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');</script></td>
+			<script type="text/javascript">initARC(\'menu_search\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');</script></td>
 	</tr>';
 
 		return $output;

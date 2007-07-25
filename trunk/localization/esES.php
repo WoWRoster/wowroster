@@ -210,13 +210,14 @@ $lang['menustats']='Estadísticas';
 $lang['menuhonor']='Honor';
 //start search engine
 $lang['search']='Búsqueda';
+$lang['search_roster']='Search Roster';
 $lang['search_onlyin']='Búsqueda Only with in these addons';
 $lang['search_advancedoptionsfor']='Advanced Options For:';
 $lang['search_results']='Búsqueda Results For';
 $lang['search_results_from']='Here are your Búsqueda Results for';
 $lang['search_momatches']='Sorry there were No Matches for this Búsqueda';
 $lang['search_didnotfind']='Did you not find what you were looking for? Try here!';
-$lang['search_for']='Búsqueda Roster For:';
+$lang['search_for']='Búsqueda Roster For';
 $lang['search_next_matches'] = 'Next matches for: ';
 $lang['search_previous_matches'] = 'Previous matches for: ';
 $lang['search_results_count'] = 'Results';
