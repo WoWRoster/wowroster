@@ -197,7 +197,7 @@ else {
 						echo '</td></tr></tbody>';
 					}
 					echo '</table>';
-					echo '</div>';
+					
 					//if there are previous/next links set in the addon search class the pagnation will be displayed
 					if ($search->link_prev || $search->link_next) {
 
@@ -208,6 +208,7 @@ else {
 
 					}
 
+				echo '</div>';
 
 				}
 				unset($search);
