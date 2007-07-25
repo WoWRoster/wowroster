@@ -166,7 +166,7 @@ else {
                                         foreach ($search->result as $result) {
 										//my attempt to add style
 										$alt_counter = ($alt_counter % 2) + 1;
-										$stripe_class = ' class="membersRowAltColor'.$alt_counter.'"';
+										$stripe_class = ' class="SearchRowAltColor'.$alt_counter.'"';
 												
 												echo '<tbody><tr '. $stripe_class .'><td  class="membersRowCell" width="100%">';
                                                 if (isset($result['results_header'])) echo $result['results_header'];
