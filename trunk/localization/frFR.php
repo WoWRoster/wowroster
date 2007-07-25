@@ -208,7 +208,6 @@ $lang['alternate']='Alternate';
 $lang['byclass']='Par Classe';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honneur';
-$lang['search']='Rechercher';
 //start search engine
 $lang['search']='Rechercher';
 $lang['search_onlyin']='Rechercher Only with in these addons';
