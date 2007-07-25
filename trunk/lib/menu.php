@@ -735,8 +735,8 @@ asort($addonlist);
                          $output .= "\n";
                 }
 				
-                $output .=  '<td><input type="checkbox"  id="'. $s_addon['addon'] .'" name="$s_addon[]" value="'. $s_addon['addon'] .'" /></td>'.
-                         '<td><label for="' . $s_addon['addon'] . '">' . $s_addon['basename'] . '</label></td>';
+                $output .=  '<td><input type="checkbox"  id="menu_'. $s_addon['addon'] .'" name="$s_addon[]" value="'. $s_addon['addon'] .'" /></td>'.
+                         '<td><label for="menu_' . $s_addon['addon'] . '">' . $s_addon['basename'] . '</label></td>';
 
 
                 $i++;
