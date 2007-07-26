@@ -158,7 +158,6 @@ function makelink( $url='' , $full=false )
 			}
 			break;
 
-		case 'guildless':
 		case 'realm':
 			if( !isset($get['realm']) && isset($roster->data['server']) )
 			{
