@@ -26,6 +26,7 @@ if( !defined('ROSTER_INSTALLED') )
  * @param string $style What bordering style to use
  * @param string $mode ( start | end )
  * @param string $header_text Place text in a styled header
+ * @param string $hwidth Set a fixed width for the box
  * @return string
  */
 function border( $style , $mode , $header_text=null , $width='' )
@@ -735,6 +736,7 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
  * @param string $message | The message to display inside the box
  * @param string $title | The box title
  * @param string $style | The border style
+ * @param string $width | Set a fixed width
  * @return string $html | The HTML for the messagebox
  */
 function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
@@ -876,6 +878,7 @@ function stripslash_array( $array )
  * Converts a datetime field into a readable date
  *
  * @param string $datetime datetime field data in DB
+ * @param string $offset Offset in hours to calcuate time returned
  * @return string formatted date string
  */
 function readbleDate( $datetime , $offset=null )
