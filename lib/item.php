@@ -84,16 +84,14 @@ class item
 		global $roster, $tooltips;
 
 		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
-
 		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['item_texture'] . '.' . $roster->config['img_suffix'];
-
-//		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang, '');
 		$tooltip = makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
-
+		list($item_id) = explode(':', $this->item_id);
+		
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		list($item_id) = explode(':', $this->item_id);
+		
 		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
 			//$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
@@ -503,7 +501,7 @@ class item
 					 . '<hr width="80%"> ' . aprint($this->parsed_item)
 					 . '</td></tr></table><br />';
 			}
-			$this->html_tooltip = colorTooltip($this->tooltip . '<br>parsed simple', $this->color, $this->locale);
+			$this->html_tooltip = colorTooltip($this->tooltip . ( $this->DEBUG ? '<br />Parsed Simple' : '' ), $this->color, $this->locale);
 		}
 		else
 		{
@@ -597,7 +595,7 @@ class item
 				. '<hr width="80%"> ' . aprint($this->parsed_item)
 				. '</td></tr></table><br />';
 			}
-			$this->html_tooltip = $html_tt . '<br>parsed full';
+			$this->html_tooltip = $html_tt . ( $this->DEBUG ? '<br />Parsed Full' : '' );
 		}
 	}
 
