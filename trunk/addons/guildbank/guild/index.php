@@ -193,7 +193,8 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 			if( $gbank_mode == '1' )
 			{
 				$bank_print .= '    <td valign="top" class="' . $stripe_class_right . ' overlib_maintext" style="width:220px;">';
-				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
+				$bank_print .= $item->html_tooltip;
+//				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
 				$bank_print .= '    </td>';
 			}
 
