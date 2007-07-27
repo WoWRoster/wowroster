@@ -47,7 +47,7 @@ class item
 	var $html_tooltip;
 
 	// developer debugging only
-	var $DEBUG = false;
+	var $DEBUG = true;
 	var $DEBUG_garbage = '';
 
 	/**
@@ -56,7 +56,6 @@ class item
 	 * @param array $data
 	 * @param string $parse_mode | accepts 'full' full item parsing, 'simple' for simple item coloring only.  Defaults to auto detect
 	 *
-	 * @return item
 	 */
 	function item( $data, $parse_mode=false )
 	{
@@ -86,7 +85,7 @@ class item
 
 		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
 
-		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['item_texture'].'.'.$roster->config['img_suffix'];
+		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['item_texture'] . '.' . $roster->config['img_suffix'];
 
 //		$tooltip = makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang, '');
 		$tooltip = makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
@@ -94,30 +93,32 @@ class item
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
+		list($item_id) = explode(':', $this->item_id);
 		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
-			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['item_name'])).'" target="_blank">'.$key.'</a><br />';
+			//$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
+			$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
 		}
 		setTooltip($num_of_tips, $linktip);
 		setTooltip('itemlink', $roster->locale->wordings[$lang]['itemlink']);
 
-		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
-		$output = '<div class="item" '.$tooltip.$linktip.'>';
+		$output = '<div class="item" ' . $tooltip . $linktip . '>';
 
-		if ($this->data['item_slot'] == 'Ammo')
+		if( $this->data['item_slot'] == 'Ammo' )
 		{
-			$output .= '<img src="'.$path.'" class="iconsmall"'." alt=\"\" />\n";
+			$output .= '<img src="' . $path . '" class="iconsmall" alt="" />' . "\n";
 		}
 		else
 		{
-			$output .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+			$output .= '<img src="' . $path . '" class="icon" alt="" />' . "\n";
 		}
 
 		if( ($this->data['item_quantity'] > 1) )
 		{
-			$output .= '<b>'.$this->data['item_quantity'].'</b>';
-			$output .= '<span>'.$this->data['item_quantity'].'</span>';
+			$output .= '<b>' . $this->data['item_quantity'] . '</b>';
+			$output .= '<span>' . $this->data['item_quantity'] . '</span>';
 		}
 		$output .= '</div>';
 
@@ -285,8 +286,8 @@ class item
 			foreach( $gems as $gem )
 			{
 				$html .= '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-					   . $gem['data']['gem_texture'] . '.' . $roster->config['img_suffix'] . '"/>'
-					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['data']['gem_bonus'] . '</span><br />';
+					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '"/>'
+					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
 			}
 		}
 		return $html;
@@ -314,7 +315,7 @@ class item
 	{
 		global $roster;
 
-		$html = $this->attributes['Class_Text'] . '&nbsp;';
+		$html = $this->attributes['ClassText'] . '&nbsp;';
 		$count = count($this->attributes['Class']);
 
 		$i = 0;
@@ -335,7 +336,7 @@ class item
 	{
 		global $roster;
 
-		$html = $this->attributes['Race_Text'] . '&nbsp;';
+		$html = $this->attributes['RaceText'] . '&nbsp;';
 		$count = count($this->attributes['Race']);
 
 		$i = 0;
@@ -497,10 +498,10 @@ class item
 			if( $this->DEBUG && $this->isParseError )
 			{
 				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
-				. implode("<br>", $this->DEBUG_junk)
-				. '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
-				. '<hr width="80%"> ' . aprint($this->parsed_item)
-				. '</td></tr></table><br />';
+					 . implode("<br>", $this->DEBUG_junk)
+					 . '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
+					 . '<hr width="80%"> ' . aprint($this->parsed_item)
+					 . '</td></tr></table><br />';
 			}
 			$this->html_tooltip = colorTooltip($this->tooltip . '<br>parsed simple', $this->color, $this->locale);
 		}
@@ -588,7 +589,7 @@ class item
 				$html_tt .= $this->_getItemNote();
 			}
 
-			if( $this->DEBUG )
+			if( $this->DEBUG && $this->isParseError )
 			{
 				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
 				. $html_tt
@@ -682,7 +683,7 @@ class item
 		$tt = array();
 		$setpiece = null; //flag for parsing
 
-		//cleanup tooltip for array conversion and parsing
+		//cleanup tooltip for parsing
 		$tooltip = str_replace("\n\n", "\n", $tooltip);
 		$tooltip = str_replace('<br>',"\n",$tooltip);
 		$tooltip = str_replace('<br />',"\n",$tooltip);
@@ -716,15 +717,15 @@ class item
 				if( $gem )
 				{
 					//might need to tighten the replacement of stats?
-					$tt['Attributes']['Gems'][$i]['data'] = $this->fetchGem($gem);
-					if( !isset ($tt['Attributes']['Gems'][$i]['data']['gem_bonus']) )
+					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
+					if( !isset ($tt['Attributes']['Gems'][$i]['Bonus']) )
 					{
 						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
 						$this->isParseError = true;
 					}
 					else
 					{
-						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['data']['gem_bonus'] . "\n", '', $tooltip);
+						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
 					}
 				}
 				$i++;
@@ -778,22 +779,26 @@ class item
 				//still failed to find the enchantment.  Report an error.
 				trigger_error("Unable to parse the Enchantment! ( $this->name ) [ $this->item_id ]");
 				$this->isEnchant = false;
+				$this->isParseError = true;
 			}
-
+			if( $this->isEnchant )
+			{
+				$this->enchantment = $tt['Attributes']['Enchantment'];
+			}
 		}
 
 		$tooltip = explode("\n", $tooltip);
 
 		$tt['General']['Name'] = array_shift($tooltip);
-		$tt['General']['ItemID'] = $this->item_id;
+		$tt['General']['ItemId'] = $this->item_id;
 		$tt['General']['ItemColor'] = $this->color;
 		$tt['General']['Icon'] = $this->icon;
 		$tt['General']['Slot'] = $this->slot;
 		$tt['General']['Parent'] = $this->parent;
 		$tt['General']['Tooltip'] = str_replace("\n", '<br>', $this->tooltip);
 		$tt['General']['Locale']=$this->locale;
-		$tt['Attributes']['Quality']['id']=$this->quality_id;
-		$tt['Attributes']['Quality']['name']=$this->quality;
+		$tt['Attributes']['Quality']['Id']=$this->quality_id;
+		$tt['Attributes']['Quality']['Name']=$this->quality;
 		$tt['Attributes']['Quantity']=$this->quantity;
 
 		foreach( $tooltip as $line )
@@ -843,12 +848,12 @@ class item
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 			{
 				$tt['Attributes']['Class'] = explode(', ', $matches[2]);
-				$tt['Attributes']['Class_Text'] = $matches[1];
+				$tt['Attributes']['ClassText'] = $matches[1];
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_races'], $line, $matches) )
 			{
 				$tt['Attributes']['Race'] = explode(', ', $matches[2]);
-				$tt['Attributes']['Race_Text'] = $matches[1];
+				$tt['Attributes']['RaceText'] = $matches[1];
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches) )
 			{
@@ -998,6 +1003,7 @@ class item
 					{
 						//
 						//if all else fails its an unexpected/unparsed line perhaps "extra" ? 
+						$tt['Attributes']['ItemText'] = $line;
 						$unparsed[]=$line;
 					}
 				} // end pass2 if
@@ -1046,7 +1052,9 @@ class item
 			return $gem_cache[$gem_id][$locale];
 		}
 
-		$sql = "SELECT * FROM `" . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
+		$sql = "SELECT gem_id as GemId, gem_name as Name, gem_color as Color, gem_tooltip as Tooltip, "
+			 . "gem_texture as Icon, gem_bonus as Bonus, gem_socketid as SocketId, locale FROM `" 
+			 . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
 
@@ -1057,7 +1065,7 @@ class item
 			return false;
 		}
 
-		$gem['gem_tooltip'] = str_replace("\n", '<br>', $gem['gem_tooltip']);  // -- REMOVE LATER DEBUGGING
+		$gem['Tooltip'] = str_replace("\n", '<br>', $gem['Tooltip']);
 		$gem_cache[$gem_id][$locale]=$gem;
 
 		return $gem;
@@ -1093,14 +1101,12 @@ class item
 				$this->attributes['Set']['ArmorSet']['Piece'][$key]['Equip'] = true;
 				$this->parsed_item['Attributes']['Set']['ArmorSet']['Piece'][$key]['Equip'] = true;
 				$this->setItemEquiped++;
-				//$this->setItemTotal++;
 			}
 			if( isset($owned) && in_array($val['Name'], $owned) )
 			{
 				$this->attributes['Set']['ArmorSet']['Piece'][$key]['Owned'] = true;
 				$this->parsed_item['Attributes']['Set']['ArmorSet']['Piece'][$key]['Owned'] = true;
 				$this->setItemOwned++;
-				//$this->setItemTotal++;
 			}
 		}
 	}
@@ -1148,8 +1154,79 @@ class item
 		}
 		return false;
 	}
+	
+	function showBaseStats()
+	{
+		return $this->attributes['BaseStats'];
+	}
+
+	function fetchOneItem( $member_id, $slot, $parse_mode=false )
+	{
+		global $roster;
+
+		$slot = $roster->db->escape( $slot );
+		$query 	= " SELECT *"
+				. " FROM `" . $roster->db->table('items') . "`"
+				. " WHERE `member_id` = '$member_id'"
+				. " AND `item_slot` = '$slot'";
+
+		$result = $roster->db->query( $query );
+		$data = $roster->db->fetch( $result );
+		if( $data )
+		{
+			return new item( $data, $parse_mode );
+		}
+		else
+		{
+			return null;
+		}
+
+	}
+	/**
+	 * fetch all $parent items on $member_id
+	 * returns object array keyed by item_slot
+	 *
+	 * @param int $member_id
+	 * @param string $parent
+	 * @param string $parse_mode
+	 * @return object[]   
+	 */
+	function fetchManyItems( $member_id, $parent, $parse_mode=false )
+	{
+		global $roster;
+
+		$parent = $roster->db->escape( $parent );
+		$items = array();
+		
+		$query  = " SELECT *"
+				. " FROM `" . $roster->db->table('items') . "`"
+				. " WHERE `member_id` = '$member_id'"
+				. " AND `item_parent` = '$parent'";
+
+		$result = $roster->db->query( $query );
+		
+		while( $data = $roster->db->fetch( $result ) )
+		{
+			$item = new item( $data, $parse_mode );
+			$items[$data['item_slot']] = $item;
+		}
+		return $items;
+	}
+	
+	function debugPrintAttributes()
+	{
+		return aprint($this->parsed_item['Attributes']);
+	}
+	
+	function debugPrintAll()
+	{
+		return aprint($this->parsed_item);
+	}
+	
 } //end class item
 
+/*
+// todo remove
 function item_get_one( $member_id, $slot )
 {
 	global $roster;
@@ -1173,26 +1250,28 @@ function item_get_one( $member_id, $slot )
 
 }
 
+
 function item_get_many( $member_id, $parent )
 {
 	global $roster;
 
 	$parent = $roster->db->escape( $parent );
 
-	$query  = " SELECT * "
-			. " FROM "
+	$query  = " SELECT *"
+			. " FROM"
 			. " `" . $roster->db->table('items') . "`"
 			. " WHERE `member_id` = '$member_id' "
 			. " AND `item_parent` = '$parent' ";
 
 	$result = $roster->db->query( $query );
-//	temp debug // echo "Number of items parsed: ". $roster->db->num_rows( $result ) . "!! <br /><br />";
+
 	$items = array();
 	while( $data = $roster->db->fetch( $result ) )
 	{
-		$item = new item( $data );
+		$item = new item( $data, 'full' );
 
 		$items[$data['item_slot']] = $item;
 	}
 	return $items;
 }
+*/

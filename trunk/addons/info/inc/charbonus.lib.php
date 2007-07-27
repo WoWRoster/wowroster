@@ -32,7 +32,7 @@ if( !defined('ROSTER_INSTALLED') )
  * @package    CharacterInfo
  * @subpackage ItemBonuses
  */
-class CharBonus
+class CharBonus extends item 
 {
 	var $my_bonus = array();
 	var $my_tooltip = array();
@@ -48,47 +48,216 @@ class CharBonus
 	 */
 	function CharBonus( $char )
 	{
-		$char->fetchEquip();
-
-		$this->lang = $char->data['clientLocale'];
-		$this->equip = $char->equip;
+		/* @var $char char */
+		$this->equip = $this->fetchManyItems($char->data['member_id'], 'equip', 'full');
+		
+//		$this->lang = 
+//		$this->equip = $char->equip;
+//		$basestats = array();
+//		/* @var $item item */
+//		foreach( $this->equip as $item )
+//		{
+//			$basestats + $item->showBaseStats();
+//		}
+//		aprint($basestats);
+//		aprint($this->equip);
 	}
 
 	function dumpBonus( )
 	{
 		global $roster, $addon;
 
-		foreach( $this->equip as $item )
-		{
-			$this->sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], $item->data['item_color'] );
-		}
-
 		$bt = '<div class="char_panel" style="margin-left:20px;">
 	<img src="' . $addon['image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
-	<div class="panel_title">' . $roster->locale->wordings[$this->lang]['item_bonuses_full'] . '</div>
+	<div class="panel_title">' . $roster->locale->act['item_bonuses_full'] . '</div>
 	<div class="tab3">
-		<div class="container">
-';
-		$row = 0;
-		foreach( $this->my_bonus as $key => $value )
-		{
-			$bt .= '		<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" ' . makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2) . '>'
-				 . str_replace('XX', $value, $key) . "</div>\n";
-		$row++;
-		}
+		<div class="container">';
 
+		/* @var $item item */
+		foreach( $this->equip as $item )
+		{
+//			$item->debugPrintAll();
+			$this->getBonus($item);
+		}
+		
+		$bt .= $this->printBonus();
+//		$bt .= 'Enchantments';
+//		$row = 0;
+//		foreach( $this->my_bonus as $key => $value )
+//		{
+//			$bt .= '		<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" ' 
+//				 . makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2) . '>'
+//				 . str_replace('XX', $value, $key) . "</div>\n";
+//		$row++;
+//		}
+//aprint($this->my_bonus);
+//aprint($this->my_tooltip);
+//aprint($this->failed);
 		$bt .= "		</div>\n	</div>\n</div>";
 
-		if( !empty($this->my_bonus) )
-		{
+//		if( !empty($this->my_bonus) )
+//		{
 			return $bt;
+//		}
+//		else
+//		{
+//			return;
+//		}
+	}
+	
+
+//	}	function dumpBonus( )
+//	{
+//		global $roster, $addon;
+//
+//		foreach( $this->equip as $item )
+//		{
+//			$this->sortOutTooltip($item->data['item_tooltip'], $item->data['item_name'], $item->data['item_color'] );
+//		}
+//
+//		$bt = '<div class="char_panel" style="margin-left:20px;">
+//	<img src="' . $addon['image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
+//	<div class="panel_title">' . $roster->locale->wordings[$this->lang]['item_bonuses_full'] . '</div>
+//	<div class="tab3">
+//		<div class="container">
+//';
+//		$row = 0;
+//		foreach( $this->my_bonus as $key => $value )
+//		{
+//			$bt .= '		<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" ' 
+//				 . makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2) . '>'
+//				 . str_replace('XX', $value, $key) . "</div>\n";
+//		$row++;
+//		}
+//
+//		$bt .= "		</div>\n	</div>\n</div>";
+//
+//		if( !empty($this->my_bonus) )
+//		{
+//			return $bt;
+//		}
+//		else
+//		{
+//			return;
+//		}
+//	}
+
+	function printBonus( )
+	{
+		$row = 0;
+		$out = '';
+		
+		foreach( $this->my_bonus as $key => $value )
+		{
+			$out .= '		<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" '
+				  . makeOverlib($this->my_tooltip[$key],str_replace('XX', $value, $key),'',2) . '>'
+				  . str_replace('XX', $value, $key) . "</div>\n";
+			$row++;
+		}
+		//reset the trackers
+//		$this->my_bonus = array();
+//		$this->my_tooltip = array();
+		return $out;
+	}
+
+	function getBonus( $item )
+	{
+		$data = array();
+		
+		$data[] = ( isset($item->attributes['BaseStats']) ? $item->attributes['BaseStats'] : null);
+		$data[] = ( isset($item->attributes['Enchantment']) ? $item->attributes['Enchantment'] : null);
+		$data[] = ( isset($item->attributes['Gems'][1]['Bonus']) ? $item->attributes['Gems'][1]['Bonus'] : null );
+		$data[] = ( isset($item->attributes['Gems'][2]['Bonus']) ? $item->attributes['Gems'][2]['Bonus'] : null );
+		$data[] = ( isset($item->attributes['Gems'][3]['Bonus']) ? $item->attributes['Gems'][3]['Bonus'] : null );
+		$data[] = ( isset($item->attributes['Effects']['Equip']) ? $item->attributes['Effects']['Equip'] : null );
+		$data[] = ( isset($item->attributes['Effects']['Set']) ? $item->attributes['Effects']['Set'] : null );
+		
+		foreach( $data as $bonus )
+		{
+			$this->addBonus( $bonus, $item->name, $item->color );
+		}
+				
+	}
+		
+	function addBonus( $bonus, $item, $color )
+	{
+		if( is_array($bonus) )
+		{
+			foreach( $bonus as $line )
+			{
+				if( strstr($line, " and ") )
+				{
+					$lines = explode(" and ", $line);
+				
+					foreach( $lines as $innerline )
+					{
+						$this->processBonus( trim($innerline), $item, $color );
+						//aprint($innerline);
+					}
+				}
+				else 
+				{
+					$this->processBonus( trim($line), $item, $color );
+				}
+			}
+		}
+		else 
+		{
+			if( strstr($bonus, " and ") )
+			{
+				$lines = explode(" and ", $bonus);
+				
+				foreach( $lines as $innerline )
+				{
+					$this->processBonus( trim($innerline), $item, $color );
+				}
+			}
+			else 
+			{
+				$this->processBonus( trim($bonus), $item, $color );
+			}
+		}
+	}		
+
+	function processBonus( $bonus, $item, $color )
+	{
+		if( preg_match('/^\+(\d+) .+$/', $bonus, $matches) )
+		{
+			$modifier = $matches[1];
+			$bonus_string = str_replace($modifier, 'XX', $bonus);
+			$this->setBonus( $modifier, $bonus_string, $item, $color );
+//			aprint($bonus_string);
+		}
+		else 
+		{
+			//aprint($bonus);
+		}
+	}
+	
+	/**
+	 * setBonus sets up the tooltips
+	 *
+	 * @param int $modifier |   12
+	 * @param string $string |  XX Strength
+	 * @param string $item_name |   name
+	 * @param string $item_color |   color
+	 */
+	function setBonus( $modifier, $string, $item_name, $item_color )
+	{
+		$full = '<span style="color:#' . $item_color . ';">' . $item_name . '</span> : ' . $modifier;
+
+		if (array_key_exists($string, $this->my_bonus))
+		{
+			$this->my_bonus[$string] = $this->my_bonus[$string] + $modifier;
+			$this->my_tooltip[$string] = $this->my_tooltip[$string] . '<br />' . $full;
 		}
 		else
 		{
-			return;
+			$this->my_bonus[$string] = $modifier;
+			$this->my_tooltip[$string] = $full;
 		}
 	}
-
+	
 	function dbl( $frontString, $value )
 	{
 		return $frontString . ' : ' . $value . '<br />';
@@ -173,22 +342,7 @@ class CharBonus
 	{
 		return subStr($aString, $this->getStartofModifierMana($aString), $this->getLengthofModifierMana($aString));
 	}
-
-	function setBonus( $modifier, $string, $item_name, $item_color )
-	{
-		$full = '<span style="color:#' . $item_color . ';">' . $item_name . '</span> : ' . $modifier;
-
-		if (array_key_exists($string, $this->my_bonus))
-		{
-			$this->my_bonus[$string] = $this->my_bonus[$string] + $modifier;
-			$this->my_tooltip[$string] = $this->my_tooltip[$string] . '<br />' . $full;
-		}
-		else
-		{
-			$this->my_bonus[$string] = $modifier;
-			$this->my_tooltip[$string] = $full;
-		}
-	}
+	
 
 	function hasNumeric( $aString )
 	{

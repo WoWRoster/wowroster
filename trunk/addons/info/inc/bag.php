@@ -28,7 +28,7 @@ class bag extends item
 	function bag( $data )
 	{
 		parent::item( $data );
-		$this->contents = item_get_many( $this->data['member_id'], $this->data['item_slot'] );
+		$this->contents = parent::fetchManyItems($this->data['member_id'], $this->data['item_slot']);
 	}
 
 	function out( )
@@ -115,9 +115,9 @@ class bag extends item
 	}
 }
 
-function bag_get( $member_id , $slot )
+function bag_get( $member_id, $slot )
 {
-	$item = item_get_one( $member_id, $slot );
+	$item = item::fetchOneItem( $member_id, $slot );
 	if( $item )
 	{
 		return new bag( $item->data );
