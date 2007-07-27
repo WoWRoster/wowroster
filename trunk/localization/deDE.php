@@ -34,7 +34,6 @@ $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Gildenmitglied aktualisieren';
 
-$lang['guild_nameNotFound']='&quot;%s&quot; nicht gefunden. Stimmt er mit dem konfigurierten Namen &uuml;berein?';
 $lang['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
 
 $lang['ignored']='Ignoriert';
@@ -81,6 +80,7 @@ $lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s not accepted';
 $lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
 $lang['not_update_guild'] = 'NOT Updating Guild List for %1$s@%3$s-%2$s';
 $lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old';
+$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile is too old';
 $lang['no_members'] = 'Data does not contain any guild members';
 $lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
@@ -367,7 +367,7 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druide'=>'ability_druid_maul',
-	'J�ger'=>'inv_weapon_bow_08',
+	'Jäger'=>'inv_weapon_bow_08',
 	'Magier'=>'inv_staff_13',
 	'Paladin'=>'spell_fire_flametounge',
 	'Priester'=>'spell_holy_layonhands',
@@ -380,7 +380,7 @@ $lang['class_iconArray'] = array (
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druide' => 'FF7C0A',
-	'J�ger' => 'AAD372',
+	'Jäger' => 'AAD372',
 	'Magier' => '68CCEF',
 	'Paladin' => 'F48CBA',
 	'Priester' => 'ffffff',
@@ -388,6 +388,19 @@ $lang['class_colorArray'] = array(
 	'Schamane' => '00DBBA',
 	'Hexenmeister' => '9382C9',
 	'Krieger' => 'C69B6D'
+);
+
+// Class To English Translation
+$lang['class_to_en'] = array(
+	'Druide' => 'Druid',
+	'Jäger' => 'Hunter',
+	'Magier' => 'Mage',
+	'Paladin' => 'Paladin',
+	'Priester' => 'Priest',
+	'Schurke' => 'Rogue',
+	'Schamane' => 'Shaman',
+	'Hexenmeister' => 'Warlock',
+	'Krieger' => 'Warrior'
 );
 
 $lang['pvplist']='PvP Statistiken';
@@ -651,6 +664,7 @@ $lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> 
 $lang['auth_req'] = 'Authorization Required';
 
 // Upload Rules
+$lang['upload_rules_error'] = 'You cannot leave one of the fields empty when adding a rule';
 $lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.';
 
 /******************************

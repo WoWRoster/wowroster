@@ -300,6 +300,9 @@ class update
 						$region = '';
 					}
 
+					// take the current time
+					$timestamp = $char['timestamp']['init']['DateUTC'];
+
 					$realm_escape = $roster->db->escape($realm_name);
 
 					// Is this char already in the members table?
@@ -332,6 +335,7 @@ class update
 						 * the upload.
 						 */
 
+
 						if( $roster->db->query_first($query) !== 2 )
 						{
 							$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['char'],$char_name,$region,$realm_name) . "<br />\n";
@@ -339,22 +343,45 @@ class update
 						}
 						else
 						{
-							$output .= "Guildless character insertion currently not supported";
-							continue;
+							//$output .= "Guildless character insertion currently not supported";
+
+							// Copy the array so we can set Online to 1 untill I can find a better way to set last online time
+							// We could prbably get away with just setting 'Online' in the $char array, but I dont wanna risk tainting the data
+							$chartemp = $char;
+							$chartemp['Online'] = '1';
+							$this->update_guild_member(0,$char_name,$realm_name,$region,$chartemp,strtotime($timestamp),array());
+							unset($chartemp);
+							array_pop($this->messages);
 						}
 					}
 
 					// CP Version Detection, don't allow lower than minVer
 					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
 					{
-						if( !isset($char['Guild']['Name']) || !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
+						if( !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
 						{
+							$guildId = 0;
+						}
+						else
+						{
+							$guildId = $guildInfo['guild_id'];
+						}
+
+						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players')
+							. "` WHERE	'" . $char_name . "' LIKE `name` "
+							. " AND '" . $realm_escape . "' LIKE `server` "
+							. " AND '" . $region . "' LIKE `region`;");
+
+						// Check if the profile is old
+						if( ( strtotime($time) - strtotime($timestamp) ) > 0 )
+						{
+							$output .= sprintf($roster->locale->act['not_update_char_time'],$char_name) . "<br />\n";
 							continue;
 						}
 
 						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['char'],$char_name,$realm_name,$region) . "</strong>\n";
 
-						$memberid = $this->update_char( $guildInfo['guild_id'], $region, $realm_name, $char_name, $char );
+						$memberid = $this->update_char( $guildId, $region, $realm_name, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
 						$this->resetMessages();
 
@@ -452,15 +479,15 @@ class update
 							if( count($guild['Members']) > 0 )
 							{
 								// take the current time and get the offset. Upload must occur same day that roster was obtained
-								$currentTimestamp = $guild['timestamp']['init']['TimeStamp'];
+								$currentTimestamp = strtotime($guild['timestamp']['init']['DateUTC']);
 
-								$time = $roster->db->query_first("SELECT `guild_dateupdatedutc` FROM `" . $roster->db->table('guild')
+								$time = $roster->db->query_first("SELECT `update_time` FROM `" . $roster->db->table('guild')
 									. "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
 									. " AND '" . $realm_escape . "' LIKE `server` "
 									. " AND '" . $region . "' LIKE `region`;");
 
 								// Check if the profile is old
-								if( ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) >= 0 )
+								if( ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
 								{
 									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
 									continue;
@@ -533,11 +560,6 @@ class update
 							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
 						}
 					}
-					if( !isset($guild) )
-					{
-						$output .= sprintf($roster->locale->act['guild_nameNotFound'],$guild_name)."<br />\n";
-					}
-
 				}
 				else
 				{
@@ -838,7 +860,7 @@ class update
 		$this->add_ifvalue( $item, 'item_texture' );
 		$this->add_ifvalue( $item, 'item_tooltip' );
 		$this->add_value( 'locale', $locale );
-		
+
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 		{
 			$this->add_value('level',$level[1]);
@@ -2366,10 +2388,17 @@ class update
 		$querystr = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'$region;";
 		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 
-		$retval = $roster->db->fetch( $result );
-		$roster->db->free_result($result);
+		if( $roster->db->num_rows() > 0 )
+		{
+			$retval = $roster->db->fetch( $result );
+			$roster->db->free_result($result);
 
-		return $retval;
+			return $retval;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 
@@ -2434,8 +2463,6 @@ class update
 		$this->add_ifvalue( $guild, 'NumAccounts', 'guild_num_accounts' );
 
 		$this->add_timestamp( 'update_time', $currentTime );
-
-		$this->add_ifvalue( $guild['timestamp']['init'], 'DateUTC', 'guild_dateupdatedutc' );
 
 		$this->add_ifvalue( $guild, 'DBversion' );
 		$this->add_ifvalue( $guild, 'GPversion' );
@@ -2516,7 +2543,10 @@ class update
 		$this->add_ifvalue( $char, 'Level', 'level' );
 		$this->add_ifvalue( $char, 'Note', 'note', '' );
 		$this->add_ifvalue( $char, 'Rank', 'guild_rank');
-		$this->add_value('guild_title', $guildRanks[$char['Rank']]['Title']);
+		if( isset($guildRanks[$char['Rank']]['Title']) )
+		{
+			$this->add_value('guild_title', $guildRanks[$char['Rank']]['Title']);
+		}
 		$this->add_ifvalue( $char, 'OfficerNote', 'officer_note', '' );
 		$this->add_ifvalue( $char, 'Zone', 'zone', '' );
 		$this->add_ifvalue( $char, 'Status', 'status', '' );
@@ -2574,7 +2604,7 @@ class update
 			// Add the guild Id first
 			if( !empty($guildId) )
 			{
-				$this->add_value( 'guild_id', $guildId);
+				$this->add_value('guild_id', $guildId);
 			}
 
 			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr . ';';
@@ -2811,13 +2841,14 @@ class update
 
 		$memberInfo = $roster->db->fetch( $result );
 		$roster->db->free_result($result);
+
 		if (isset($memberInfo) && is_array($memberInfo))
 		{
 			$memberId = $memberInfo['member_id'];
 		}
 		else
 		{
-			$this->setMessage('<li>' . $name . ' is not in the list of guild members so their data will not be inserted.</li>');
+			$this->setMessage('<li>Missing member id for ' . $name . '</li>');
 			return false;
 		}
 
@@ -2838,7 +2869,7 @@ class update
 			return false;
 		}
 
-		$update = $roster->db->num_rows( $result ) == 1;
+		$update = $roster->db->num_rows($result) == 1;
 		$roster->db->free_result($result);
 
 		$this->reset_values();
@@ -2894,7 +2925,7 @@ class update
 			$this->add_ifvalue( $main_stats, 'DodgeChance', 'dodge' );
 			$this->add_ifvalue( $main_stats, 'ParryChance', 'parry' );
 			$this->add_ifvalue( $main_stats, 'BlockChance', 'block' );
-			$this->add_ifvalue( $main_stats, 'ArmorReducton', 'mitigatin' );
+			$this->add_ifvalue( $main_stats, 'ArmorReduction', 'mitigation' );
 
 			$this->add_rating( 'stat_armor', $main_stats['Armor']);
 			$this->add_rating( 'stat_def', $main_stats['Defense']);

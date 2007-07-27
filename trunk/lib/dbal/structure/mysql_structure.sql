@@ -104,7 +104,6 @@ CREATE TABLE `renprefix_guild` (
   `guild_num_members` int(11) NOT NULL default '0',
   `guild_num_accounts` int(11) NOT NULL default '0',
   `update_time` datetime default NULL,
-  `guild_dateupdatedutc` datetime default NULL,
   `GPversion` varchar(6) NOT NULL default '0.0.0',
   `DBversion` varchar(6) NOT NULL default '0.0.0',
   `guild_info_text` mediumtext,

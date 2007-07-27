@@ -335,7 +335,13 @@ function armor_value( $row )
 
 		$name = $roster->locale->wordings[$lang]['armor'];
 		if( !empty($row['mitigation']) )
-			$tooltip = '<span class="red">'.$roster->locale->wordings[$lang]['tooltip_damage_reduction'].': '.$row['mitigation'].'%</span>';
+		{
+			$tooltip = sprintf($roster->locale->wordings[$lang]['armor_tooltip'],$row['mitigation']);
+		}
+		else
+		{
+			$tooltip = '';
+		}
 
 		if( $mod_symbol == '' )
 		{
