@@ -528,6 +528,24 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 					$line = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
 						  . socketColorEn($matches[1], $locale) . '.' . $roster->config['img_suffix'] . '">&nbsp;&nbsp;' . $matches[0];
 				}
+				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
+				{
+					$classes = explode(', ', $matches[2]);
+					$count = count($classes);
+					$class_text = $matches[1];
+
+					$line = $class_text . '&nbsp;';
+					$i = 0;
+					foreach( $classes as $class )
+					{
+						$i++;
+						$line .= '<span style="color:#'. $roster->locale->wordings[$locale]['class_colorArray'][$class] . ';">' . $class . '</span>';
+						if( $count > $i )
+						{
+							$line .= ', ';
+						}
+					}
+				}
 			}
 
 			// Convert tabs to a formated table
@@ -1178,10 +1196,9 @@ function _aprint( $arr , $tab=1 )
 
 /**
  * Debugging function dumps arrays/object formatted
- * Do Not call this, call aprint()
- *
+ * 
  * @param array $arr
- * @param int $tab
+ * @param string $prefix
  * @return string
  */
 function aprint( $arr , $prefix='' )

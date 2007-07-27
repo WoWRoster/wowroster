@@ -497,15 +497,18 @@ $lang['questlinks'][3]['url3']=';maxle=';
 // Items external link
 // Add as many item links as you need
 // Just make sure their names are unique
+// uses the 'item_id' for data
 $lang['itemlink'] = 'Item Links';
-$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
-$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
-$lang['itemlinks']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
-$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?item=';
+$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
+$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?witem=';
+$lang['itemlinks']['WoW Digger'] = 'http://www.wowdigger.com/item/view/';
+
 
 // WoW Data Site Search
 // Add as many item links as you need
 // Just make sure their names are unique
+// use these locales for data searches
 $lang['data_search'] = 'WoW Data Site Search';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
 $lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
@@ -559,7 +562,7 @@ $lang['tooltip_armor_types']='Cloth|Leather|Mail|Plate';
 $lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand';
 $lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used|Binds when picked up|This Item Begins a Quest';
 $lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
-$lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>|Duration';
+$lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>|Duration|Cooldown remaining';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
