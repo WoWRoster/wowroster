@@ -135,6 +135,7 @@ class lua
 					if( strpos($line,'=') )
 					{
 						list($name, $value) = explode( '=', $line, 2 );
+						//list($name, $value) = explode( '=', utf8_decode($line), 2 );
 						$name = trim($name);
 						$value = trim($value,', ');
 						if($name[0]=='[')
@@ -152,6 +153,7 @@ class lua
 					else
 					{
 						$value = $line;
+						//$value = utf8_decode($line);
 						if( empty($stack[$stack_pos][1]) )
 						{
 							$name = 1;

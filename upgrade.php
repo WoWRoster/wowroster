@@ -221,16 +221,6 @@ class Upgrade
 		$query_string = "ALTER TABLE `" . $db->table('players') . "` CHANGE `maildateutc` `maildateutc` DATETIME NULL DEFAULT NULL;";
 		$result = $db->query($query_string);
 
-		// Change guild update time to datetime
-		$query_string = "ALTER TABLE `" . $db->table('guild') . "` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` VARCHAR( 19 ) NULL DEFAULT NULL;";
-		$result = $db->query($query_string);
-
-		$query_string = "UPDATE `" . $db->table('guild') . "` SET `guild_dateupdatedutc` = CONCAT('20', MID(`guild_dateupdatedutc`, 7, 2), '-', MID(`guild_dateupdatedutc`, 1, 2), '-', MID(`guild_dateupdatedutc`, 4, 2), ' ', MID(`guild_dateupdatedutc`, 10, 8));";
-		$result = $db->query($query_string);
-
-		$query_string = "ALTER TABLE `" . $db->table('guild') . "` CHANGE `guild_dateupdatedutc` `guild_dateupdatedutc` DATETIME NULL DEFAULT NULL;";
-		$result = $db->query($query_string);
-
 
 		$this->standard_upgrader('173');
 		$this->finalize($index);

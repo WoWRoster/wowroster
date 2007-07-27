@@ -28,6 +28,7 @@ $mainQuery =
 	'`members`.`class`, '.
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
+	'`members`.`online`, '.
 	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster->config['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
 	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
 	'`members`.`note`, '.

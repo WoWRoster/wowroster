@@ -551,7 +551,8 @@ ALTER TABLE `renprefix_guild`
   CHANGE `GPversion` `GPversion` varchar(6) NOT NULL default '0.0.0',
   ADD `DBversion` varchar(6) NOT NULL default '0.0.0' AFTER `GPversion`,
   ADD `factionEn` varchar(32) NOT NULL default '' AFTER `faction`,
-  ADD `region` char(2) NOT NULL default '' AFTER `server`;
+  ADD `region` char(2) NOT NULL default '' AFTER `server`,
+  DROP `guild_dateupdatedutc`;
 
 # --------------------------------------------------------
 ### Addon table

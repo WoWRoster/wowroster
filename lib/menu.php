@@ -220,7 +220,7 @@ class RosterMenu
 			case 'guild':
 				$menu_text = '	<span style="font-size:18px;">' . $roster->data['guild_name'] . '</span>' . "\n"
 						   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
-						   . ( isset($roster->data['guild_dateupdatedutc']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['guild_dateupdatedutc'])
+						   . ( isset($roster->data['update_time']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['update_time'])
 						   . ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
 				break;
 
@@ -371,17 +371,34 @@ class RosterMenu
 		// Fetch results
 		while( $row = $roster->db->fetch($result) )
 		{
+			if( $type == 'class' )
+			{
+				// Find the english name, so we can store all the class in different locales
+				foreach ($roster->multilanguages as $language)
+				{
+					$label = isset($roster->locale->wordings[$language]['class_to_en'][$row['label']]) ? $roster->locale->wordings[$language]['class_to_en'][$row['label']] : '';
+					if( strlen($label) > 0 ) break;
+				}
+				// Set the label to the current language
+				$label = $roster->locale->act[$label];
+			}
+			else
+			{
+				$label = $row['label'];
+			}
+
 			if( $row['isalt'] )
 			{
 				$num_alts += $row['amount'];
-				$dat[$row['label']]['alt'] += $row['amount'];
+				$dat[$label]['alt'] += $row['amount'];
 			}
 			else
 			{
 				$num_non_alts += $row['amount'];
-				$dat[$row['label']]['nonalt'] += $row['amount'];
+				$dat[$label]['nonalt'] += $row['amount'];
 			}
 		}
+		//aprint($dat);die();
 
 		// No entries at all? Then there's no data uploaded, so there's no use
 		// rendering the panel.

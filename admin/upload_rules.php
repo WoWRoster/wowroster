@@ -32,25 +32,32 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 	{
 		$type = ($mode == 'guild'?0:2) + ($_POST['block'] == 'allow'?0:1);
 
-		$default = ( (isset($_POST['defaultchk']) && $_POST['defaultchk'] == '1') ? '1' : '0' );
-
-		if( $default == '1' )
+		if( !empty($_POST['name']) || !empty($_POST['server']) || !empty($_POST['region']) )
 		{
-			$query = "UPDATE `" . $roster->db->table('upload') . "` SET `default` = '0';";
+			$default = ( (isset($_POST['defaultchk']) && $_POST['defaultchk'] == '1') ? '1' : '0' );
+
+			if( $default == '1' )
+			{
+				$query = "UPDATE `" . $roster->db->table('upload') . "` SET `default` = '0';";
+
+				if( !$roster->db->query($query) )
+				{
+					die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+				}
+			}
+
+			$query = "INSERT INTO `" . $roster->db->table('upload') . "`
+					(`name`,`server`,`region`,`type`,`default`) VALUES
+						('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
 
 			if( !$roster->db->query($query) )
 			{
 				die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 			}
 		}
-
-		$query = "INSERT INTO `" . $roster->db->table('upload') . "`
-				(`name`,`server`,`region`,`type`,`default`) VALUES
-					('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
-
-		if( !$roster->db->query($query) )
+		else
 		{
-			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+			$body .= messagebox($roster->locale->act['upload_rules_error'],'','sred') . "<br />\n";
 		}
 	}
 	elseif( substr($_POST['action'],0,4) == 'del_' )
@@ -128,10 +135,6 @@ $menu .= border('syellow','start','Menu') . "\n"
 
 $roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$body .= messageboxtoggle($roster->locale->act['upload_rules_help'],$roster->locale->act['pagebar_uploadrules'],'sgray');
-
-$body .= "<br />\n";
-
 $body .= '<form action="' . makelink() . '" method="post" id="deny">
 <input type="hidden" id="denyhide" name="action" value="" />
 <input type="hidden" name="process" value="process" />
@@ -166,6 +169,8 @@ $body .= ruletable_foot('sgreen','allow',$mode);
 
 $body .= '</form>';
 
+$body .= "<br />\n";
+$body .= messagebox($roster->locale->act['upload_rules_help'],'<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />' . $roster->locale->act['pagebar_uploadrules'],'sgray');
 
 
 function ruletable_head( $style , $title , $type , $mode )
@@ -181,7 +186,7 @@ function ruletable_head( $style , $title , $type , $mode )
 	{
 		$output .= '			<th class="membersHeader">' . $roster->locale->act['default'] . '</th>';
 	}
-	
+
 	if( $mode == 'guild' )
 	{
 		$name = $roster->locale->act['guildname'];
@@ -190,7 +195,7 @@ function ruletable_head( $style , $title , $type , $mode )
 	{
 		$name = $roster->locale->act['charname'];
 	}
-	
+
 	$output .= '
 			<th class="membersHeader" ' . makeOverlib($name) . '> ' . $roster->locale->act['name'] . '</th>
 			<th class="membersHeader" ' . makeOverlib($roster->locale->act['realmname']) . '> ' . $roster->locale->act['server'] . '</th>
