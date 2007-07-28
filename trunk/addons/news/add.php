@@ -12,5 +12,7 @@
  * @package    News
 */
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'add.tpl' );
+include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
+
+include_template( 'add.tpl' );
 

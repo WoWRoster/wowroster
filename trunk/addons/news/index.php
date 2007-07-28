@@ -12,8 +12,10 @@
  * @package    News
 */
 
+include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
+
 // Add news if any was POSTed
-if( $_POST['process'] == 'process' )
+if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( isset($_POST['author']) && !empty($_POST['author'])
 		&& isset($_POST['title']) && !empty($_POST['title'])
@@ -52,12 +54,12 @@ if( $roster->db->num_rows($result) == 0 )
 	echo messagebox($roster->locale->act['no_news']);
 }
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'news_head.tpl' );
+include_template( 'news_head.tpl' );
 
 while( $news = $roster->db->fetch($result) )
 {
-	include( $addon['dir'] . 'template' . DIR_SEP . 'news.tpl' );
+	include_template( 'news.tpl', $news );
 }
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'news_foot.tpl' );
+include_template( 'news_foot.tpl' );
 

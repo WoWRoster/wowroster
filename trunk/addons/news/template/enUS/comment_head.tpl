@@ -13,7 +13,9 @@
  * @subpackage Templates
 */
 ?>
-(<?php echo $comment['author'] ?> - <?php echo $comment['date_format'] ?>)
+<h1><?php echo $data['title']?></h1>
+(<?php echo $data['author'] ?> - <?php echo $data['date_format'] ?>)
 <hr />
-<?php echo $comment['content']?>
+<?php echo $data['content']?>
+<hr />
 
