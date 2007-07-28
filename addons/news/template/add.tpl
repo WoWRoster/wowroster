@@ -13,10 +13,12 @@
  * @subpackage Templates
 */
 ?>
-<form method="post" action="<?php echo makelink('util-news-comment') ?>">
+<form method="post" action="<?php echo makelink('util-news')?>">
 <label for="author">Name: </label><input name="author" id="author" type="text" maxlength="16" size="16" value="" />
 <br />
-<textarea name="comment" id="comment" cols="60" rows="20"></textarea>
+<label for="title">Title: </label><input name="title" id="title" type="text" size="32" value="" />
+<br />
+<textarea name="news" id="news" cols="60" rows="20"></textarea>
 <input type="hidden" name="process" value="process" />
-<input type="submit" value="Add comment"/>
+<input type="submit" value="Add news"/>
 </form>

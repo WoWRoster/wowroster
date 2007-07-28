@@ -45,7 +45,7 @@ $result = $roster->db->query($query);
 
 if( $roster->db->num_rows($result) == 0 )
 {
-	echo $roster->locale->act['bad_news_id'];
+	echo messagebox($roster->locale->act['bad_news_id']);
 }
 
 $news = $roster->db->fetch($result);

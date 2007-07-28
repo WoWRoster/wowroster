@@ -10,13 +10,7 @@
  * @version    SVN: $Id: enUS.php 1126 2007-07-27 05:14:27Z Zanix $
  * @link       http://www.wowroster.net
  * @package    News
- * @subpackage Templates
 */
-?>
-<form method="post" action="<?php echo makelink('util-news-comment') ?>">
-<label for="author">Name: </label><input name="author" id="author" type="text" maxlength="16" size="16" value="" />
-<br />
-<textarea name="comment" id="comment" cols="60" rows="20"></textarea>
-<input type="hidden" name="process" value="process" />
-<input type="submit" value="Add comment"/>
-</form>
+
+include( $addon['dir'] . 'template' . DIR_SEP . 'add.tpl' );
+

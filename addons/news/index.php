@@ -12,6 +12,31 @@
  * @package    News
 */
 
+// Add news if any was POSTed
+if( $_POST['process'] == 'process' )
+{
+	if( isset($_POST['author']) && !empty($_POST['author'])
+		&& isset($_POST['title']) && !empty($_POST['title'])
+		&& isset($_POST['news']) && !empty($_POST['news']) )
+	{
+		$query = "INSERT INTO `" . $roster->db->table('news','news') . "` SET "
+				. "`author` = '" . $_POST['author'] . "', "
+				. "`title` = '" . $_POST['title'] . "', "
+				. "`content` = '" . $_POST['news'] . "', "
+				. "`date` = NOW();";
+				
+		if( $roster->db->query($query) )
+		{
+			echo messagebox("News added successfully");
+		}
+		else
+		{
+			echo messagebox($wowdb->db->error(),"Failed to add news");
+		}
+	}
+}
+
+// Display news
 $query = "SELECT `news`.*, "
 		. "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', "
 		. "COUNT(`comments`.`comment_id`) comm_count "
@@ -24,7 +49,7 @@ $result = $roster->db->query($query);
 
 if( $roster->db->num_rows($result) == 0 )
 {
-	echo $roster->locale->act['no_news'];
+	echo messagebox($roster->locale->act['no_news']);
 }
 
 include( $addon['dir'] . 'template' . DIR_SEP . 'news_head.tpl' );
