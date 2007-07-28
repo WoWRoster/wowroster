@@ -10,7 +10,7 @@ class questlist_search
 	var $link_prev;
 
 	// class constructor
-
+	
 	function questlist_search()
 	{
 		global $roster, $addon;
@@ -25,6 +25,8 @@ class questlist_search
 		$roster->db->free_result($quest_list);
 
 		$this->basename = 'Quests List';
+		$this->icon = $roster->config['interface_url'] . 'Interface/Icons/spell_holy_surgeoflight.jpg';
+	
 	}
 
 	function search( $search , $url_search , $limit=10 , $page=0 )
