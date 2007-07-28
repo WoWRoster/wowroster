@@ -12,8 +12,10 @@
  * @package    News
 */
 
+include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
+
 // Add the comment if one was POSTed
-if( $_POST['process'] == 'process' )
+if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( isset($_POST['author']) && !empty($_POST['author'])
 		&& isset($_POST['comment']) && !empty($_POST['comment']) )
@@ -49,7 +51,7 @@ if( $roster->db->num_rows($result) == 0 )
 }
 
 $news = $roster->db->fetch($result);
-include( $addon['dir'] . 'template' . DIR_SEP . 'comment_head.tpl' );
+include_template( 'comment_head.tpl', $news);
 
 // Get the comments
 $query = "SELECT `comments`.*, "
@@ -62,7 +64,7 @@ $result = $roster->db->query($query);
 
 while( $comment = $roster->db->fetch($result) )
 {
-	include( $addon['dir'] . 'template' . DIR_SEP . 'comment.tpl' );
+	include_template( 'comment.tpl', $comment );
 }
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'comment_foot.tpl' );
+include_template( 'comment_foot.tpl' );
