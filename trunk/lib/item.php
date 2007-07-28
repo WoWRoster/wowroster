@@ -155,6 +155,16 @@ class item
 
 		return $html;
 	}
+	
+	function _getConjures()
+	{
+		$html = '';
+		foreach( $this->attributes['Conjured'] as $conjured )
+		{
+			$html .= $conjured . '<br />';
+		}
+		return $html;
+	}
 
 	function _getUnique()
 	{
@@ -465,7 +475,7 @@ class item
 		return $html;
 	}
 
-	function _getItemRestrictions()
+	function _getRestrictions()
 	{
 		$html = '';
 		
@@ -506,6 +516,10 @@ class item
 		else
 		{
 			$html_tt = $this->_getCaption();
+			if( isset($this->attributes['Conjured']) )
+			{
+				$html_tt .= $this->_getConjures();
+			}
 			if( isset($this->attributes['BindType']) )
 			{
 				$html_tt .= $this->_getBindType();
@@ -580,7 +594,7 @@ class item
 			}
 			if( isset($this->attributes['Restrictions']) )
 			{
-				$html_tt .= $this->_getItemRestrictions();
+				$html_tt .= $this->_getRestrictions();
 			}
 			if( isset($this->attributes['ItemNote']) )
 			{
@@ -656,7 +670,7 @@ class item
 		{
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
 		}
-		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) )
+		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) && !strstr($this->name, ':') )
 		{
 			// could be a set piece parse full
 			return $this->_parseTooltipFull($itemid);
@@ -992,10 +1006,13 @@ class item
 						$tt['Attributes']['ArmorSlot'] = $line;
 						$this->isArmor = true;
 					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_onlyworksinside'] . '|' 
-									 . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems'], $line) )
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_onlyworksinside'], $line) )
 					{
 						$tt['Attributes']['Restrictions'][] = $line;
+					}
+					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems'], $line) )
+					{
+						$tt['Attributes']['Conjured'][] = $line;
 					}
 					else
 					{
@@ -1007,7 +1024,7 @@ class item
 				} // end pass2 if
 			} // end pass1
 		} // end foreach
-
+		
 		if( isset( $unparsed ) )
 		{
 			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br>". implode('<br>', $unparsed) );

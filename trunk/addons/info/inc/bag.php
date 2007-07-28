@@ -27,8 +27,8 @@ class bag extends item
 
 	function bag( $data )
 	{
-		parent::item( $data );
-		$this->contents = parent::fetchManyItems($this->data['member_id'], $this->data['item_slot']);
+		$this->item( $data );
+		$this->contents = $this->fetchManyItems($this->data['member_id'], $this->data['item_slot'], 'full');
 	}
 
 	function out( )
