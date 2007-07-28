@@ -306,24 +306,24 @@ class update
 					$realm_escape = $roster->db->escape($realm_name);
 
 					// Is this char already in the members table?
-					$query = "SELECT `member_id`"
-					. " FROM `" . $roster->db->table('members') . "`"
-					. " WHERE `name` = '" . $char_name . "'"
-					. " AND `server` = '" . $realm_escape . "'"
-					. " AND `region` = '" . $region . "';";
+					$query = "SELECT `guild_id`, `member_id`"
+						   . " FROM `" . $roster->db->table('members') . "`"
+						   . " WHERE `name` = '" . $char_name . "'"
+						   . " AND `server` = '" . $realm_escape . "'"
+						   . " AND `region` = '" . $region . "';";
 
 
 					if( !$roster->db->query_first($query) )
 					{
 						// Allowed char detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-						. " FROM `" . $roster->db->table('upload') . "`"
-						. " WHERE (`type` = 2 OR `type` = 3)"
-						. " AND '" . $char_name . "' LIKE `name` "
-						. " AND '" . $realm_escape . "' LIKE `server` "
-						. " AND '" . $region."' LIKE `region` "
-						. " GROUP BY `type` "
-						. " ORDER BY `type` DESC;";
+							   . " FROM `" . $roster->db->table('upload') . "`"
+							   . " WHERE (`type` = 2 OR `type` = 3)"
+							   . " AND '" . $char_name . "' LIKE `name` "
+							   . " AND '" . $realm_escape . "' LIKE `server` "
+							   . " AND '" . $region."' LIKE `region` "
+							   . " GROUP BY `type` "
+							   . " ORDER BY `type` DESC;";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -335,42 +335,41 @@ class update
 						 * the upload.
 						 */
 
-
-						if( $roster->db->query_first($query) !== 2 )
+						if( $roster->db->query_first($query) !== '2' )
 						{
 							$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['char'],$char_name,$region,$realm_name) . "<br />\n";
 							continue;
 						}
 						else
 						{
-							//$output .= "Guildless character insertion currently not supported";
+							// Fabricate a guild update
+							$guilddata['Faction'] = $char['FactionEn'];
+							$guilddata['FactionEn'] = $char['FactionEn'];
+							$guilddata['Info'] = '';
+							$guildId = $this->update_guild($realm_name,'GuildLess-' . substr($char['FactionEn'],0,1),strtotime($timestamp),$guilddata,$region);
+							unset($guilddata);
 
-							// Copy the array so we can set Online to 1 untill I can find a better way to set last online time
-							// We could prbably get away with just setting 'Online' in the $char array, but I dont wanna risk tainting the data
+							// Copy the array so we can set Online to 1 until I can find a better way to set last online time
+							// We could probably get away with just setting 'Online' in the $char array, but I dont wanna risk tainting the data
 							$chartemp = $char;
 							$chartemp['Online'] = '1';
-							$this->update_guild_member(0,$char_name,$realm_name,$region,$chartemp,strtotime($timestamp),array());
+							$this->update_guild_member($guildId,$char_name,$realm_name,$region,$chartemp,strtotime($timestamp),array());
 							unset($chartemp);
 							array_pop($this->messages);
 						}
+					}
+					else
+					{
+						$guildId = $roster->db->query_first($query);
 					}
 
 					// CP Version Detection, don't allow lower than minVer
 					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
 					{
-						if( !($guildInfo = $this->get_guild_info($realm_name, $char['Guild']['Name'])) )
-						{
-							$guildId = 0;
-						}
-						else
-						{
-							$guildId = $guildInfo['guild_id'];
-						}
-
 						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players')
-							. "` WHERE	'" . $char_name . "' LIKE `name` "
-							. " AND '" . $realm_escape . "' LIKE `server` "
-							. " AND '" . $region . "' LIKE `region`;");
+							  . "` WHERE	'" . $char_name . "' LIKE `name` "
+							  . " AND '" . $realm_escape . "' LIKE `server` "
+							  . " AND '" . $region . "' LIKE `region`;");
 
 						// Check if the profile is old
 						if( ( strtotime($time) - strtotime($timestamp) ) > 0 )
@@ -449,13 +448,13 @@ class update
 
 						// Allowed guild detection
 						$query = "SELECT `type`, COUNT(`rule_id`)"
-						. " FROM `" . $roster->db->table('upload') . "`"
-						. " WHERE (`type` = 0 OR `type` = 1)"
-						. " AND '" . $guild_escape . "' LIKE `name` "
-						. " AND '" . $realm_escape . "' LIKE `server` "
-						. " AND '" . $region . "' LIKE `region` "
-						. " GROUP BY `type` "
-						. " ORDER BY `type` DESC;";
+							   . " FROM `" . $roster->db->table('upload') . "`"
+							   . " WHERE (`type` = 0 OR `type` = 1)"
+							   . " AND '" . $guild_escape . "' LIKE `name` "
+							   . " AND '" . $realm_escape . "' LIKE `server` "
+							   . " AND '" . $region . "' LIKE `region` "
+							   . " GROUP BY `type` "
+							   . " ORDER BY `type` DESC;";
 
 						/**
 						 * This might need explaining. The query potentially returns 2 rows:
@@ -482,9 +481,9 @@ class update
 								$currentTimestamp = strtotime($guild['timestamp']['init']['DateUTC']);
 
 								$time = $roster->db->query_first("SELECT `update_time` FROM `" . $roster->db->table('guild')
-									. "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
-									. " AND '" . $realm_escape . "' LIKE `server` "
-									. " AND '" . $region . "' LIKE `region`;");
+									  . "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
+									  . " AND '" . $realm_escape . "' LIKE `server` "
+									  . " AND '" . $region . "' LIKE `region`;");
 
 								// Check if the profile is old
 								if( ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
@@ -538,10 +537,10 @@ class update
 
 								$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['guild'],$guild_name,$realm_name,$region) . "</strong>\n<ul>\n";
 								$output .= '<li><strong>' . $roster->locale->act['memberlog'] . "</strong>\n<ul>\n"
-								. '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
-								. '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
-								. '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
-								. "</ul></li></ul>\n";
+										 . '<li>' . $roster->locale->act['updated'] . ': ' . $this->membersupdated . "</li>\n"
+										 . '<li>' . $roster->locale->act['added'] . ': ' . $this->membersadded . "</li>\n"
+										 . '<li>' . $roster->locale->act['removed'] . ': ' . $this->membersremoved . "</li>\n"
+										 . "</ul></li></ul>\n";
 								$output .= $guild_output;
 
 								// Reset these since we might process another guild
