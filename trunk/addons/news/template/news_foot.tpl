@@ -13,4 +13,4 @@
  * @subpackage Templates
 */
 ?>
-
+<a href="<?php echo makelink('util-news-add') ?>">Add news</a>
