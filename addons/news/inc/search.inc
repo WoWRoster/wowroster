@@ -8,7 +8,7 @@ class news_search
         var $result_count = 0;
         var $link_next;
         var $link_prev;
-
+		var $icon;
         // class constructor
 
         function news_search()
@@ -16,6 +16,7 @@ class news_search
                 global $roster, $addon;
 
                 $this->basename = 'News';
+				
         }
 
         function search( $search , $url_search , $limit=10 , $page=0 )
@@ -24,7 +25,7 @@ class news_search
 
                 $first = $page*$limit;
 
-               
+               $this->icon = $roster->config['interface_url'] . 'Interface/Icons/ability_warrior_rallyingcry.jpg';
 				
 				 
                              
