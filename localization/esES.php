@@ -221,6 +221,8 @@ $lang['search_for']='Búsqueda Roster For';
 $lang['search_next_matches'] = 'Next matches for: ';
 $lang['search_previous_matches'] = 'Previous matches for: ';
 $lang['search_results_count'] = 'Results';
+$lang['submited_author'] = 'Submited by';
+$lang['submited_date'] = 'Date submited';
 //end search engine
 $lang['update']='Update';
 $lang['credit']='Créditos';
