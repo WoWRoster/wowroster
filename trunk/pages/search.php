@@ -175,7 +175,7 @@ else
 					$total_search_results += $search->result_count;
 					//I added this to save space on the page but when closed the size of the results table gets very small
 					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['addon'] . '\',\''  . $addon['addon'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $item['image'] . '" style="float:left;" alt="" id="'  . $addon['addon'] . '_item_img"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['addon'] . '_search_img"/>' . $search->basename . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
+			<img src="' . (isset($search->icon) ? $search->icon  : $roster->config['img_url'] . 'blue-question-mark.gif') . '" style="float:left;" alt="" id="'  . $addon['addon'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['addon'] . '_search_img"/>' . $search->basename . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
 			</div>';
 					echo '<div id="'  . $addon['addon'] . '" >';
 					echo '<table width="100%" cellspacing="0" cellpadding="0">';
