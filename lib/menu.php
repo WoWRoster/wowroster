@@ -154,7 +154,7 @@ class RosterMenu
 				}
 			}
 		}
-		elseif( $roster->scope != 'util' )
+		elseif( $roster->scope == 'guild' )
 		{
 			$label = 'guild';
 

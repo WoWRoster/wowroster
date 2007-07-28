@@ -549,13 +549,16 @@ class memberslist
 	{
 		global $roster;
 
-		if( $roster->config['motd_display_mode'] )
+		if( $roster->data['guild_motd'] != '' )
 		{
-			return '<img src="motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
-		}
-		else
-		{
-			return '<table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour sgoldborder motd_setup">'.htmlspecialchars($roster->data['guild_motd']).'</td></tr></table><br /><br />';
+			if( $roster->config['motd_display_mode'] )
+			{
+				return '<img src="motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
+			}
+			else
+			{
+				return '<table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour sgoldborder motd_setup">'.htmlspecialchars($roster->data['guild_motd']).'</td></tr></table><br /><br />';
+			}
 		}
 	}
 

@@ -2189,7 +2189,7 @@ $returnstring .= '  <tr>
 	<div class="infoline_1">' . sprintf($this->locale['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']) . '</div>
 ';
 
-			if( isset( $this->data['guild_name'] ) )
+			if( isset($this->data['guild_title']) && isset($this->data['guild_name']) )
 			{
 				$output .= '	<div class="infoline_2">'.sprintf($this->locale['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
 			}
