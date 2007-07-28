@@ -32,7 +32,8 @@ print $roster_menu->makeMenu($roster->output['show_menu']);
 
 $output = "<br />\n";
 
-// Create an array of active addons with search.inc capabilities.
+
+/*Create an array of active addons with search.inc capabilities*/
 $addonlist = array();
 foreach( $roster->addon_data as $name => $data )
 {
@@ -53,12 +54,12 @@ foreach( $roster->addon_data as $name => $data )
 }
 asort($addonlist);
 
-
+//this is the start of the main form
 if( !isset($_POST['search']) && !isset($_GET['search']) )
 {
 	$addon_icon = $roster->config['img_url'] . 'blue-question-mark.gif';
 
-	//this is the start of the main form
+	
 	print   border('sgreen','start', $roster->locale->act['search_for'] . '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />');
 	echo  '<br /><form id="search" name="search" action="' . makelink() . '" method="post" enctype="multipart/form-data" >'
 		. '<input size="25" type="text" name="search" value="" class="wowinput192" />'
@@ -174,7 +175,7 @@ else
 					$total_search_results += $search->result_count;
 					//I added this to save space on the page but when closed the size of the results table gets very small
 					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['addon'] . '\',\''  . $addon['addon'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['addon'] . '_search_img"/>' . $search->basename . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
+			<img src="' . $item['image'] . '" style="float:left;" alt="" id="'  . $addon['addon'] . '_item_img"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['addon'] . '_search_img"/>' . $search->basename . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
 			</div>';
 					echo '<div id="'  . $addon['addon'] . '" >';
 					echo '<table width="100%" cellspacing="0" cellpadding="0">';
@@ -206,11 +207,16 @@ else
 							{
 								echo $result['header'] . '<br />';
 							}
-
+							//we will display the author name and date submited if it is set in the addon search class
+							if (isset($result['author'])) echo $roster->locale->act['submited_author'] .' '. $result['author'];
+							if (isset($result['date'])) echo  ' '. $roster->locale->act['submited_date']. ' '. $result['date'];
+							if (isset($result['author']) || isset($result['date'])) echo '<br />';
+							
 							//this is the url link for each result should link to an addon installed and actiaved with in roster
 							echo '<a href="' . $result['url'] . '"><strong>' . $result['title'] . '</strong></a><br />';
-
-
+							
+							//we will display a short desc. if it is set in the addon search class
+							if (isset($result['short_text'])) echo $result['short_text'] . '...<br />';
 							//if isset stuff that can be added as addons get more advanced
 							//this is set to allow a footer for each result in the addon query
 							//could be good for external links or footer display code
@@ -272,7 +278,7 @@ else
 		}
 		//section for predefined if addon
 
-		//$url_query = urlencode("$sitename $query");
+		
 
 		$url_query = urlencode($query);
 		//this section we can have links like armory, ala, wowhead, thottbot etc...
