@@ -13,7 +13,9 @@
  * @subpackage Templates
 */
 ?>
-(<?php echo $data['author'] ?> - <?php echo $data['date_format'] ?>)
-<hr />
-<?php echo $data['content']?>
-
+<div class="header_text sgrayborder"><span style="float:right;">
+<a href="<?php echo makelink('util-news-comment_edit&amp;id=' . $data['news_id']) ?>">Edit</a></span>
+<?php echo $data['author']; ?> - <?php echo $data['date_format']; ?></div>
+<?php echo $data['content']; ?>
+<br />
+<br />

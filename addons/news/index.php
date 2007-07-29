@@ -21,28 +21,50 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		&& isset($_POST['title']) && !empty($_POST['title'])
 		&& isset($_POST['news']) && !empty($_POST['news']) )
 	{
-		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon->config['news_html'] >= 0)
+		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon['config']['news_html'] >= 0 )
 		{
-			$news = nl2br($_POST['news']);
+			$html = 1;
 		}
 		else
 		{
-			$news = nl2br(htmlentities($_POST['news']));
+			$html = 0;
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('news','news') . "` SET "
-				. "`author` = '" . $_POST['author'] . "', "
-				. "`title` = '" . $_POST['title'] . "', "
-				. "`content` = '" . $news . "', "
-				. "`date` = NOW();";
-				
-		if( $roster->db->query($query) )
+		if( isset($_POST['id']) )
 		{
-			echo messagebox("News added successfully");
+			$query = "UPDATE `" . $roster->db->table('news','news') . "` SET "
+					. "`author` = '" . $_POST['author'] . "', "
+					. "`title` = '" . $_POST['title'] . "', "
+					. "`content` = '" . $_POST['news'] . "', "
+					. "`html` = '" . $html . "' "
+					. "WHERE `news_id` = '" . $_POST['id'] . "';";
+
+			if( $roster->db->query($query) )
+			{
+				echo messagebox("News edited successfully");
+			}
+			else
+			{
+				echo messagebox("There was a DB error while editing the article. MySQL said: " . $wowdb->db->error());
+			}
 		}
 		else
 		{
-			echo messagebox("There was a DB error while adding the article. MySQL said: " . $wowdb->db->error());
+			$query = "INSERT INTO `" . $roster->db->table('news','news') . "` SET "
+					. "`author` = '" . $_POST['author'] . "', "
+					. "`title` = '" . $_POST['title'] . "', "
+					. "`content` = '" . $_POST['news'] . "', "
+					. "`html` = '" . $html . "', "
+					. "`date` = NOW();";
+
+			if( $roster->db->query($query) )
+			{
+				echo messagebox("News added successfully");
+			}
+			else
+			{
+				echo messagebox("There was a DB error while adding the article. MySQL said: " . $wowdb->db->error());
+			}
 		}
 	}
 	else
@@ -71,6 +93,15 @@ include_template( 'news_head.tpl' );
 
 while( $news = $roster->db->fetch($result) )
 {
+	if( isset($news['html']) && $news['html'] == 1 && $addon['config']['news_html'] >= 0 )
+	{
+		$news['content'] = nl2br($news['content']);
+	}
+	else
+	{
+		$news['content'] = nl2br(htmlentities($news['content']));
+	}
+
 	include_template( 'news.tpl', $news );
 }
 

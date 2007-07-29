@@ -22,7 +22,7 @@
 function include_template( $file, $data = array() )
 {
 	global $roster, $addon;
-	
+
 	if( file_exists($file = $addon['dir'] . DIR_SEP . 'template' . DIR_SEP . $roster->config['locale'] . DIR_SEP . $file) )
 	{
 		include( $file );

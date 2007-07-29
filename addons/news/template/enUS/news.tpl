@@ -12,11 +12,15 @@
  * @package    News
  * @subpackage Templates
 */
-?>
-<h1><?php echo $data['title']?></h1>
-(<?php echo $data['author'] ?> - <?php echo $data['date_format'] ?>)
+
+print border('sorange','start',$data['title'],'60%');
+echo $data['content']; ?>
 <hr />
-<?php echo $data['content']?>
-<hr />
-<a href="<?php echo makelink('util-news-comment&amp;id=' . $data['news_id']) ?>">
-<?php echo $data['comm_count'] == 0?'no':$data['comm_count']?> comment<?php echo $data['comm_count'] != 1?'s':''?></a>
+<div style="text-align:left;">
+<span style="float:right;">
+<a href="<?php echo makelink('util-news-comment&amp;id=' . $data['news_id']) ?>"><?php echo $data['comm_count'] == 0?'0':$data['comm_count']?> comment<?php echo $data['comm_count'] != 1?'s':''?></a> |
+<a href="<?php echo makelink('util-news-edit&amp;id=' . $data['news_id']) ?>">Edit</a></span>
+Posted by: <?php echo $data['author'] ?> - <?php echo $data['date_format'] ?>
+</div>
+<?php print border('sorange','end'); ?>
+<br />
