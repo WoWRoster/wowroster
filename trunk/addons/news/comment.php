@@ -21,28 +21,49 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		&& isset($_POST['comment']) && !empty($_POST['comment'])
 		&& isset($_GET['id']) && is_numeric($_GET['id']) )
 	{
-		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon->config['comm_html'] >= 0)
+		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon['config']['comm_html'] >= 0)
 		{
-			$comment = nl2br($_POST['comment']);
+			$html = 1;
 		}
 		else
 		{
-			$comment = nl2br(htmlentities($_POST['comment']));
+			$html = 0;
 		}
-		
-		$query = "INSERT INTO `" . $roster->db->table('comments','news') . "` SET "
-				. "`news_id` = '" . $_GET['id'] . "', "
-				. "`author` = '" . $_POST['author'] . "', "
-				. "`content` = '" . $comment . "', "
-				. "`date` = NOW();";
-				
-		if( $roster->db->query($query) )
+
+		if( isset($_POST['comment_id']) )
 		{
-			echo messagebox("Comment added successfully");
+			$query = "UPDATE `" . $roster->db->table('comments','news') . "` SET "
+					. "`author` = '" . $_POST['author'] . "', "
+					. "`content` = '" . $_POST['comment'] . "', "
+					. "`html` = '" . $html . "' "
+					. "WHERE `comment_id` = '" . $_POST['comment_id'] . "';";
+
+			if( $roster->db->query($query) )
+			{
+				echo messagebox("Comment edited successfully");
+			}
+			else
+			{
+				echo messagebox("There was a DB error while editing your comment. MySQL said: " . $wowdb->db->error());
+			}
 		}
 		else
 		{
-			echo messagebox("There was a DB error while adding your comment. MySQL said: " . $wowdb->db->error());
+			$query = "INSERT INTO `" . $roster->db->table('comments','news') . "` SET "
+					. "`news_id` = '" . $_GET['id'] . "', "
+					. "`author` = '" . $_POST['author'] . "', "
+					. "`content` = '" . $_POST['comment'] . "', "
+					. "`html` = '" . $html . "', "
+					. "`date` = NOW();";
+
+			if( $roster->db->query($query) )
+			{
+				echo messagebox("Comment added successfully");
+			}
+			else
+			{
+				echo messagebox("There was a DB error while adding your comment. MySQL said: " . $wowdb->db->error());
+			}
 		}
 	}
 	else
@@ -53,9 +74,12 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 // Get the article to display at the head of the page
 $query = "SELECT `news`.*, "
-		. "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format' "
+		. "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', "
+		. "COUNT(`comments`.`comment_id`) comm_count "
 		. "FROM `" . $roster->db->table('news','news') . "` news "
-		. "WHERE `news`.`news_id` = '" . $_GET['id'] . "';";
+		. "LEFT JOIN `" . $roster->db->table('comments','news') . "` comments USING (`news_id`) "
+		. "WHERE `news`.`news_id` = '" . $_GET['id'] . "' "
+		. "GROUP BY `news`.`news_id`";
 
 $result = $roster->db->query($query);
 
@@ -65,7 +89,15 @@ if( $roster->db->num_rows($result) == 0 )
 }
 
 $news = $roster->db->fetch($result);
-include_template( 'comment_head.tpl', $news);
+if( isset($news['html']) && $news['html'] == 1 && $addon['config']['news_html'] >= 0 )
+{
+	$news['content'] = nl2br($news['content']);
+}
+else
+{
+	$news['content'] = nl2br(htmlentities($news['content']));
+}
+include_template( 'news.tpl', $news);
 
 // Get the comments
 $query = "SELECT `comments`.*, "
@@ -76,9 +108,14 @@ $query = "SELECT `comments`.*, "
 
 $result = $roster->db->query($query);
 
-while( $comment = $roster->db->fetch($result) )
+if( $roster->db->num_rows() > 0 )
 {
-	include_template( 'comment.tpl', $comment );
+	print border('swhite','start','Comments','60%');
+	while( $comment = $roster->db->fetch($result) )
+	{
+		include_template( 'comment.tpl', $comment );
+	}
+	print border('swhite','end');
 }
 
-include_template( 'comment_foot.tpl' );
+include_template( 'comment_foot.tpl', array('news_id'=>$_GET['id']) );

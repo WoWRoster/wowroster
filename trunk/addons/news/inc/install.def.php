@@ -69,10 +69,11 @@ class news
 				`date` datetime,
 				`title` mediumtext,
 				`content` longtext,
+				`html` tinyint(1),
 				PRIMARY KEY (`news_id`)
 			) TYPE=MyISAM;
 		");
-		
+
 		$installer->add_query("
 			DROP TABLE IF EXISTS `" . $installer->table('comments') . "`;
 		");
@@ -83,10 +84,11 @@ class news
 				`author` varchar(16) NOT NULL DEFAULT '',
 				`date` datetime,
 				`content` longtext,
+				`html` tinyint(1),
 				PRIMARY KEY (`comment_id`)
 			) TYPE=MyISAM;
 		");
-				
+
 
 		$installer->add_menu_button('news_button','util');
 		return true;
@@ -119,8 +121,8 @@ class news
 		$installer->add_query("
 			DROP TABLE IF EXISTS `" . $installer->table('comments') . "`;
 		");
-		
-		
+
+
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 
