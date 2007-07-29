@@ -193,11 +193,11 @@ class roster
 				// Parse the attribute
 				if( is_numeric($_GET['member']) )
 				{
-					$where = ' `players`.`member_id` = "' . $this->db->escape($_GET['member']) . '"';
+					$where = ' `players`.`member_id` = "' . $_GET['member'] . '"';
 				}
 				elseif( strpos($_GET['member'], '@') !== false )
 				{
-					list($name, $realm) = explode('@',$this->db->escape($_GET['member']));
+					list($name, $realm) = explode('@',$_GET['member']);
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm);
@@ -210,7 +210,7 @@ class roster
 				}
 				else
 				{
-					$name = $this->db->escape($_GET['member']);
+					$name = $_GET['member'];
 					$where = ' `players`.`name` = "' . $name . '"';
 				}
 
@@ -260,11 +260,11 @@ class roster
 				// Parse the attribute
 				elseif( is_numeric($_GET['guild']) )
 				{
-					$where = ' `guild_id` = "' . $this->db->escape($_GET['guild']) . '"';
+					$where = ' `guild_id` = "' . $_GET['guild'] . '"';
 				}
 				elseif( strpos($_GET['guild'],'@') !== false )
 				{
-					list($name, $realm) = explode('@',$this->db->escape($_GET['guild']));
+					list($name, $realm) = explode('@',$_GET['guild']);
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm);
@@ -323,12 +323,12 @@ class roster
 				}
 				elseif( strpos($_GET['realm'],'-') !== false )
 				{
-					list($region, $realm) = explode('-',$this->db->escape($_GET['realm']));
+					list($region, $realm) = explode('-',$_GET['realm']);
 					$where = ' `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
-					//$realm = $this->db->escape( $_GET['realm'] );
+					//$realm = $_GET['realm'];
 					//$where = ' `server` = "' . $realm . '"';
 					roster_die('You must specify a region code in the realm name','Region Code Required');
 				}

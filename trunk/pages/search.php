@@ -59,8 +59,8 @@ if( !isset($_POST['search']) && !isset($_GET['search']) )
 {
 	$addon_icon = $roster->config['img_url'] . 'blue-question-mark.gif';
 
-	
-	print   border('sgreen','start', $roster->locale->act['search_for'] . '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />');
+
+	print   border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />' . $roster->locale->act['search_for']);
 	echo  '<br /><form id="search" name="search" action="' . makelink() . '" method="post" enctype="multipart/form-data" >'
 		. '<input size="25" type="text" name="search" value="" class="wowinput192" />'
 		. '<input type="submit" value="' . $roster->locale->act['search'] . '" /><br />'
@@ -211,10 +211,10 @@ else
 							if (isset($result['author'])) echo $roster->locale->act['submited_author'] .' '. $result['author'];
 							if (isset($result['date'])) echo  ' '. $roster->locale->act['submited_date']. ' '. $result['date'];
 							if (isset($result['author']) || isset($result['date'])) echo '<br />';
-							
+
 							//this is the url link for each result should link to an addon installed and actiaved with in roster
 							echo '<a href="' . $result['url'] . '"><strong>' . $result['title'] . '</strong></a><br />';
-							
+
 							//we will display a short desc. if it is set in the addon search class
 							if (isset($result['short_text'])) echo $result['short_text'] . '...<br />';
 							//if isset stuff that can be added as addons get more advanced
@@ -278,7 +278,7 @@ else
 		}
 		//section for predefined if addon
 
-		
+
 
 		$url_query = urlencode($query);
 		//this section we can have links like armory, ala, wowhead, thottbot etc...

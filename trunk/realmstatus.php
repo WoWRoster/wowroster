@@ -26,7 +26,7 @@
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once( $roster_root_path . 'settings.php' );
-require_once( ROSTER_LIB . 'minixml.lib.php' );
+require_once( ROSTER_LIB . 'xmlparse.class.php' );
 
 
 //==========[ GET FROM CONF.PHP ]====================================================
@@ -119,15 +119,16 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 {
 	$xmlsource = urlgrabber($xmlsource);
 
-	$xmldoc =& new MiniXMLDoc($xmlsource);
-	$xmlarray = $xmldoc->toArray();
+	$xmlParser =& new XmlParser();
+	$xmlParser->Parse($xmlsource);
 
 	$err = 1;
 	if( $xmlsource != false )
 	{
-		foreach( $xmlarray[$xmlmeta['rootxml']][$xmlmeta['realms']] as $key => $value )
+		foreach( $xmlParser->data[$xmlmeta['rootxml']][0]['child'][$xmlmeta['realms']] as $key => $value )
 		{
-			$xml_server = $value['_attributes'];
+			$xml_server = $value['attribs'];
+
 			if( $xml_server[$xmlmeta['name']] == $realmname )
 			{
 				$err = 0;

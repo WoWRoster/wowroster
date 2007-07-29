@@ -26,7 +26,7 @@ elseif( isset($_GET['id']) )
 {
 	include( $roster_root_path . 'settings.php' );
 
-	$guild_escape = $roster->db->escape( $_GET['id'] );
+	$guild_escape = $_GET['id'];
 
 	$query = "SELECT `guild_motd` "
 		   . "FROM `" . $roster->db->table('guild') . "` "

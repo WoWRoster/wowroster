@@ -473,32 +473,42 @@ $lang['notatwar']='Pas en guerre';
 
 
 // Quests page external links (on character quests page)
-// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
-// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
+// $lang['questlinks'][][] = array(
+// 		'name'=> 'Name',  //This is the name displayed on the quests page
+// 		'url#'=> 'url',  //This is the URL used for the quest lookup
 
-$lang['questlinks'][0]['name']='Judgehype FR';
-$lang['questlinks'][0]['url1']='http://worldofwarcraft.judgehype.com/index.php?page=squete&amp;Ckey=';
-$lang['questlinks'][0]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-$lang['questlinks'][0]['url3']='&amp;maxl=';
+$lang['questlinks'][] = array(
+	'name'=>'Judgehype FR',
+	'url1'=>'http://worldofwarcraft.judgehype.com/index.php?page=squete&amp;Ckey=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
 
-$lang['questlinks'][1]['name']='WoWDBU FR';
-$lang['questlinks'][1]['url1']='http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title=';
-$lang['questlinks'][1]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-$lang['questlinks'][1]['url3']='&amp;maxl=';
+$lang['questlinks'][] = array(
+	'name'=>'WoWDBU FR',
+	'url1'=>'http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
 
-$lang['questlinks'][2]['name']='Allakhazam US';
-$lang['questlinks'][2]['url1']='http://wow.allakhazam.com/db/qlookup.html?name=';
-$lang['questlinks'][2]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-$lang['questlinks'][2]['url3']='&amp;maxl=';
+$lang['questlinks'][] = array(
+	'name'=>'Allakhazam US',
+	'url1'=>'http://wow.allakhazam.com/db/qlookup.html?name=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
 
-//$lang['questlinks'][3]['name']='WoWHead';
-//$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
-//$lang['questlinks'][3]['url2']=';minle=';
-//$lang['questlinks'][3]['url3']=';maxle=';
+/*$lang['questlinks'][] = array(
+	'name'=>'WoWHead',
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=ti=',
+	'url2'=>';minle=',
+	'url3'=>';maxle='
+);*/
 
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
+// uses the 'item_id' for data
 $lang['itemlink'] = 'Item Links';
 $lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
 $lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=sobj&amp;Ckey=';
@@ -508,6 +518,7 @@ $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 // WoW Data Site Search
 // Add as many item links as you need
 // Just make sure their names are unique
+// use these locales for data searches
 $lang['data_search'] = 'WoW Data Site Search';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
 $lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
@@ -822,5 +833,5 @@ $lang['admin']['per_character_display'] = 'Affichage par personnage';
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Guild name';
 $lang['realmname']  = 'Realm name';
-$lang['regionname']     = 'Region (i.e. US)';
+$lang['regionname'] = 'Region (i.e. US)';
 $lang['charname'] = 'Character name';

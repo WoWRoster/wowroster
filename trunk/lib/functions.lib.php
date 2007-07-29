@@ -20,6 +20,13 @@ if( !defined('ROSTER_INSTALLED') )
     exit('Detected invalid access to this file!');
 }
 
+// Global variables this file uses
+
+// Index to generate unique toggle IDs
+$toggleboxes = 0;
+// Array of Tooltips
+$tooltips = array();
+
 /**
  * Starts or ends fancy bodering containers
  *
@@ -50,7 +57,7 @@ function border( $style , $mode , $header_text=null , $width='' )
 	// Dynamic Bordering
 	$start = '
 <!-- START [open-' . $style . '] container -->
-<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_colour ' . $backg_css . '">
+<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_color ' . $backg_css . '">
 '.$header_text.'
 <!-- END [open-' . $style . '] container -->';
 
@@ -71,7 +78,6 @@ function border( $style , $mode , $header_text=null , $width='' )
 	}
 }
 
-$tooltips = array();
 /**
  * Makes a tootip and places it into the tooltip array
  *
@@ -785,9 +791,6 @@ function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px
 		border($style,'end');
 }
 
-// Index to generate unique toggle IDs
-$toggleboxes = 0;
-
 /**
  * Draw a message box with the specified border color.
  *
@@ -868,7 +871,7 @@ function escape_array( $array )
 }
 
 /**
- * Recursively escape $array
+ * Recursively stripslash $array
  *
  * @param array $array
  *	The array to escape
@@ -1168,7 +1171,7 @@ function _aprint( $arr , $tab=1 )
 		}
 		if( !is_numeric($key) )
 		{
-			$key = "<span style=\"color:#FFFFFF\">'" . str_replace( array("\\","'"), array("\\\\","\'"), htmlspecialchars($key) ) . "'</span>";
+			$key = "<span style=\"color:#FFFFFF\">'" . htmlspecialchars($key) . "'</span>";
 		}
 		if( is_array($val) )
 		{
@@ -1178,7 +1181,7 @@ function _aprint( $arr , $tab=1 )
 		{
 			if( !is_numeric($val) )
 			{
-				$val = "<span style=\"color:#FFFFFF\">'" . str_replace( array("\\","'"), array("\\\\","\'"), htmlspecialchars($val) ) . "'</span>";
+				$val = "<span style=\"color:#FFFFFF\">'" . htmlspecialchars($val) . "'</span>";
 			}
 		}
 		$out .= "$space$key => $val$colon\n";
@@ -1196,7 +1199,7 @@ function _aprint( $arr , $tab=1 )
 
 /**
  * Debugging function dumps arrays/object formatted
- * 
+ *
  * @param array $arr
  * @param string $prefix
  * @return string
