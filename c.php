@@ -28,8 +28,32 @@ include('.'.$roster_rel.'/settings.php');
 // possible, we don't use member= or anything like that
 $char = $roster->db->escape(urldecode($_SERVER['QUERY_STRING']));
 
+if( is_numeric($char) )
+{
+	$where = ' `member_id` = "' . $char . '"';
+}
+elseif( strpos($char, '@') !== false )
+{
+	list($name, $realm) = explode('@',$char);
+	if( strpos($realm,'-') !== false )
+	{
+		list($region, $realm) = explode('-',$realm);
+		$where = ' `name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
+	}
+	else
+	{
+		$where = ' `name` = "' . $name . '" AND `server` = "' . $realm . '"';
+	}
+}
+else
+{
+	$name = $char;
+	$where = ' `name` = "' . $name . '"';
+}
+
+
 // Check if there's a character with this name
-$query = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '$char' OR `member_id` = '$char';";
+$query = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE $where;";
 
 $result = $roster->db->query($query);
 
@@ -41,7 +65,7 @@ if( !$result )
 if( $row = $roster->db->fetch($result) )
 {
 	$roster->db->free_result($result);
-	header("Location: ".ROSTER_URL.$roster_rel.sprintf(ROSTER_LINK,'char-info','member='.$row['member_id']));
+	header("Location: ".str_replace('&amp;','&',makelink('char-info&amp;member='.$row['member_id'],true)));
 	exit();
 }
 

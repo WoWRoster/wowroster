@@ -46,7 +46,7 @@ unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
 
 
 /**
- * Set magic quotes runtime
+ * Set magic quotes runtime off
  */
 set_magic_quotes_runtime(0);
 

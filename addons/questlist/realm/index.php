@@ -21,8 +21,8 @@ if( !defined('ROSTER_INSTALLED') )
 
 $roster->output['title'] = $roster->locale->act['questlist'];
 
-$zoneidsafe = ( isset($_GET['zoneid']) ? $roster->db->escape(urldecode($_GET['zoneid'])) : '' );
-$questidsafe = ( isset($_GET['questid']) ? $roster->db->escape(urldecode($_GET['questid'])) : '' );
+$zoneidsafe = ( isset($_GET['zoneid']) ? $roster->db->escape(urldecode(stripslashes($_GET['zoneid']))) : '' );
+$questidsafe = ( isset($_GET['questid']) ? $roster->db->escape(urldecode(stripslashes($_GET['questid']))) : '' );
 
 
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones

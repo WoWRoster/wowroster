@@ -473,28 +473,37 @@ $lang['notatwar']='Not at War';
 
 
 // Quests page external links (on character quests page)
-// $lang['questlinks'][#]['name']  This is the name displayed on the quests page
-// $lang['questlinks'][#]['url#']  This is the URL used for the quest lookup
+// $lang['questlinks'][][] = array(
+// 		'name'=> 'Name',  //This is the name displayed on the quests page
+// 		'url#'=> 'url',  //This is the URL used for the quest lookup
 
-$lang['questlinks'][0]['name']='Thottbot';
-$lang['questlinks'][0]['url1']='http://www.thottbot.com/?f=q&amp;title=';
-$lang['questlinks'][0]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-$lang['questlinks'][0]['url3']='&amp;maxl=';
+$lang['questlinks'][] = array(
+	'name'=>'WoWHead',
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=ti=',
+	'url2'=>';minle=',
+	'url3'=>';maxle='
+);
 
-$lang['questlinks'][1]['name']='Allakhazam';
-$lang['questlinks'][1]['url1']='http://wow.allakhazam.com/db/qlookup.html?name=';
-$lang['questlinks'][1]['url2']='&amp;obj=&amp;desc=&amp;minl=';
-$lang['questlinks'][1]['url3']='&amp;maxl=';
+$lang['questlinks'][] = array(
+	'name'=>'Thottbot',
+	'url1'=>'http://www.thottbot.com/?f=q&amp;title=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
 
-$lang['questlinks'][2]['name']='WWN Data';
-$lang['questlinks'][2]['url1']='http://wwndata.worldofwar.net/search.php?q=on&amp;search=';
-//$lang['questlinks'][2]['url2']='&amp;levelmin=';
-//$lang['questlinks'][2]['url3']='&amp;levelmax=';
+$lang['questlinks'][] = array(
+	'name'=>'Allakhazam',
+	'url1'=>'http://wow.allakhazam.com/db/qlookup.html?name=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
 
-$lang['questlinks'][3]['name']='WoWHead';
-$lang['questlinks'][3]['url1']='http://www.wowhead.com/?quests&amp;filter=ti=';
-$lang['questlinks'][3]['url2']=';minle=';
-$lang['questlinks'][3]['url3']=';maxle=';
+$lang['questlinks'][] = array(
+	'name'=>'WoW Digger',
+	'url1'=>'http://wowdigger.com/?c=quest&amp;m=filter&amp;title=',
+	//'url2'=>'&amp;levelmin=',
+	//'url3'=>'&amp;levelmax='
+);
 
 // Items external link
 // Add as many item links as you need
@@ -505,7 +514,6 @@ $lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?item=';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?witem=';
 $lang['itemlinks']['WoW Digger'] = 'http://www.wowdigger.com/item/view/';
-
 
 // WoW Data Site Search
 // Add as many item links as you need
