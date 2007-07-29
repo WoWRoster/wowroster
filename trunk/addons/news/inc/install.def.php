@@ -52,7 +52,16 @@ class news
 		// Master and menu entries
 		$installer->add_config("'1','startpage','news_conf','display','master'");
 		$installer->add_config("'110','news_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'1000','news_add','2','access','news_conf'");
+		$installer->add_config("'1010','news_edit','2','access','news_conf'");
+		$installer->add_config("'1020','comm_add','0','access','news_conf'");
+		$installer->add_config("'1030','comm_edit','2','access','news_conf'");
+		$installer->add_config("'1040','news_html','1','radio{enabled^1|disabled^0|forbidden^-1','news_conf'");
+		$installer->add_config("'1050','comm_html','-1','radio{enabled^1|disabled^0|forbidden^-1','news_conf'");
 
+		$installer->add_query("
+			DROP TABLE IF EXISTS `" . $installer->table('news') . "`;
+		");
 		$installer->add_query("
 			CREATE TABLE `" . $installer->table('news') . "` (
 				`news_id` int(11) unsigned AUTO_INCREMENT,
@@ -64,6 +73,9 @@ class news
 			) TYPE=MyISAM;
 		");
 		
+		$installer->add_query("
+			DROP TABLE IF EXISTS `" . $installer->table('comments') . "`;
+		");
 		$installer->add_query("
 			CREATE TABLE `" . $installer->table('comments') . "` (
 				`comment_id` int(11) unsigned AUTO_INCREMENT,
