@@ -16,7 +16,7 @@
 <h1><?php echo $data['title']?></h1>
 (<?php echo $data['author'] ?> - <?php echo $data['date_format'] ?>)
 <hr />
-<?php echo nl2br(htmlentities($data['content']))?>
+<?php echo $data['content']?>
 <hr />
 <a href="<?php echo makelink('util-news-comment&amp;id=' . $data['news_id']) ?>">
 <?php echo $data['comm_count'] == 0?'no':$data['comm_count']?> comment<?php echo $data['comm_count'] != 1?'s':''?></a>

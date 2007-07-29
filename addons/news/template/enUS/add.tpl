@@ -18,6 +18,11 @@
 <br />
 <label for="title">Title: </label><input name="title" id="title" type="text" size="32" value="" />
 <br />
+<?php if($addon->config['news_html']>=0) {?>
+<input type="radio" id="html_on" name="html" value="1"<?php echo $addon->config['news_html']?' checked="checked"':''?>/><label for="html_on">Enable HTML</label>
+<input type="radio" id="html_off" name="html" value="0"<?php echo $addon->config['news_html']?'':' checked="checked"'?>/><label for="html_off">Disable HTML</label>
+<br />
+<?php } ?>
 <textarea name="news" id="news" cols="60" rows="20"></textarea>
 <input type="hidden" name="process" value="process" />
 <input type="submit" value="Add news"/>

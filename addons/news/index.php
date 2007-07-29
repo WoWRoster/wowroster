@@ -21,10 +21,19 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		&& isset($_POST['title']) && !empty($_POST['title'])
 		&& isset($_POST['news']) && !empty($_POST['news']) )
 	{
+		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon->config['news_html'] >= 0)
+		{
+			$news = nl2br($_POST['news']);
+		}
+		else
+		{
+			$news = nl2br(htmlentities($_POST['news']));
+		}
+
 		$query = "INSERT INTO `" . $roster->db->table('news','news') . "` SET "
 				. "`author` = '" . $_POST['author'] . "', "
 				. "`title` = '" . $_POST['title'] . "', "
-				. "`content` = '" . $_POST['news'] . "', "
+				. "`content` = '" . $news . "', "
 				. "`date` = NOW();";
 				
 		if( $roster->db->query($query) )
@@ -33,8 +42,12 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		}
 		else
 		{
-			echo messagebox($wowdb->db->error(),"Failed to add news");
+			echo messagebox("There was a DB error while adding the article. MySQL said: " . $wowdb->db->error());
 		}
+	}
+	else
+	{
+		echo messagebox("There was a problem processing the article.");
 	}
 }
 

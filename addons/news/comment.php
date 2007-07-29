@@ -18,12 +18,22 @@ include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( isset($_POST['author']) && !empty($_POST['author'])
-		&& isset($_POST['comment']) && !empty($_POST['comment']) )
+		&& isset($_POST['comment']) && !empty($_POST['comment'])
+		&& isset($_GET['id']) && is_numeric($_GET['id']) )
 	{
+		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon->config['comm_html'] >= 0)
+		{
+			$comment = nl2br($_POST['comment']);
+		}
+		else
+		{
+			$comment = nl2br(htmlentities($_POST['comment']));
+		}
+		
 		$query = "INSERT INTO `" . $roster->db->table('comments','news') . "` SET "
 				. "`news_id` = '" . $_GET['id'] . "', "
 				. "`author` = '" . $_POST['author'] . "', "
-				. "`content` = '" . $_POST['comment'] . "', "
+				. "`content` = '" . $comment . "', "
 				. "`date` = NOW();";
 				
 		if( $roster->db->query($query) )
@@ -32,8 +42,12 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		}
 		else
 		{
-			echo messagebox($wowdb->db->error(),"Failed to add comment");
+			echo messagebox("There was a DB error while adding your comment. MySQL said: " . $wowdb->db->error());
 		}
+	}
+	else
+	{
+		echo messagebox("There was a problem processing your comment.");
 	}
 }
 
