@@ -576,12 +576,12 @@ $lang['tooltip_garbage']='Maj clic-droit pour sertir';  // these are texts that 
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
-$lang['gem_preg_singlecolor'] = '/Correspond à une chasse (\+)\./';
-$lang['gem_preg_multicolor'] = '/Correspond à une chasse (\+) ou (\+)\./';
+$lang['gem_preg_singlecolor'] = '/Correspond à une chasse (.+)\./';
+$lang['gem_preg_multicolor'] = '/Correspond à une chasse (.+) ou (.+)\./';
 $lang['gem_preg_meta'] = '/Ne peut être serti que dans une châsse de méta-gemme\./';
 $lang['gem_preg_prismatic'] = '/Correspond à une chasse rouge, jaune ou bleue\./';
 
-//Gems color Array
+//Gem color Array
 $lang['gem_colors'] = array(
 	'red' => 'Rouge',
 	'blue' => 'Bleue',
@@ -589,7 +589,8 @@ $lang['gem_colors'] = array(
 	'green' => 'Verte',
 	'orange' => 'Orange',
 	'purple' => 'Pourpre',
-	'prismatic' => 'Prismatique'
+	'prismatic' => 'Prismatique',
+	'meta' => 'méta-gemme' //verify translation
 	);
 // -- end tooltip parsing
 
