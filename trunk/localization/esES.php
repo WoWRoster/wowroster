@@ -589,7 +589,8 @@ $lang['gem_colors'] = array(
 	'green' => 'verde',
 	'orange' => 'naranja',
 	'purple' => 'lila',
-	'prismatic' => 'centelleante'
+	'prismatic' => 'centelleante',
+	'meta' => 'meta' //verify translation
 	);
 // -- end tooltip parsing
 

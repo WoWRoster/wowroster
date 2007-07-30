@@ -23,7 +23,7 @@ class item
 {
 	var $data = array(); // raw data from database
 
-	var $member_id, $item_id, $name, $level, $icon;
+	var $member_id, $item_id, $name, $level, $icon, $color;
 	var $slot, $parent, $tooltip, $quantity, $locale;
 
 	// 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary
@@ -74,9 +74,9 @@ class item
 		$this->color = $data['item_color'];
 		$this->locale = ( isset($data['locale']) ? $data['locale'] : $roster->config['locale'] );
 		$this->quantity = $data['item_quantity'];
-		$this->setQuality($this->color);
-		$this->doParseTooltip();
-		$this->makeTooltipHTML();
+		$this->_setQuality($this->color);
+		$this->_doParseTooltip();
+		$this->_makeTooltipHTML();
 	}
 
 	function out( )
@@ -252,6 +252,17 @@ class item
 		return $html;
 	}
 
+	function _getPoisons()
+	{
+		$html = '';
+
+		foreach( $this->parsed_item['Poison']['Effect'] as $poison )
+		{
+			$html .= '<span style="color:#ff4242;">' . $poison . '</span><br />';
+		}
+		return $html;
+	}
+	
 	/**
 	 * Helper function that returns the localized gem color in english
 	 *
@@ -314,8 +325,27 @@ class item
 
 	function _getDurability()
 	{
-		// $this->attributes['Durability']['Min']; $this->attributes['Durability']['Max']; also avaible for use if we want to get fancy
-		$html = $this->attributes['Durability']['Line'] . '<br />';
+		global $roster;
+		
+		$current = $this->attributes['Durability']['Current'];;
+		$max = $this->attributes['Durability']['Max'];
+		$percent = (($current / $max) * 100);
+		$html = $roster->locale->wordings[$this->locale]['tooltip_durability'] . '&nbsp;';
+		
+		if( $percent == 0 )
+		{
+			$html .= '<span style="color:#ff0000;">' . $current . '</span>';
+		}
+		elseif( $percent <= 25)
+		{
+			$html .= '<span style="color:gold;">' . $current . '</span>';
+		}	
+		else 
+		{
+			$html .= '<span style="color:#ffffff;">' . $current . '</span>';
+		}
+		$html .= '<span style="color:#ffffff;"> / ' . $max . '</span><br />';
+		
 		return $html;
 	}
 
@@ -397,13 +427,6 @@ class item
 			foreach( $type as $effect)
 			{
 				$html .= '<span style="color:#00ff00;">' . $effect . '</span><br />';
-			}
-		}
-		if( $this->isPoison && isset($this->parsed_item['Poison']['Effect']) )
-		{
-			foreach( $this->parsed_item['Poison']['Effect'] as $poison )
-			{
-				$html .= '<span style="color:#ff3333;">' . $poison . '</span><br />';
 			}
 		}
 		return $html;
@@ -497,7 +520,7 @@ class item
 	 * All HTML Styling is done in the private _getXX() methods
 	 *
 	 */
-	function makeTooltipHTML()
+	function _makeTooltipHTML()
 	{
 		//
 		// if Parse Error fall back to colorToolTip() for tooltip parsing.
@@ -552,6 +575,10 @@ class item
 			if( isset($this->attributes['Enchantment']) )
 			{
 				$html_tt .= $this->_getEnchantment();
+			}
+			if( $this->isPoison )
+			{
+				$html_tt .= $this->_getPoisons();
 			}
 			if( $this->isSocketable )
 			{
@@ -619,7 +646,7 @@ class item
 	 *
 	 * @param string $color | color of item
 	 */
-	function setQuality( $color )
+	function _setQuality( $color )
 	{
 		switch( strtolower( $color ) )
 		{
@@ -657,7 +684,7 @@ class item
 	 *
 	 * @return call
 	 */
-	function doParseTooltip()
+	function _doParseTooltip()
 	{
 		// look at check $parseMode variable and call parse method "simple" or "full"
 		// // TODO // "webdb" tie into failed parsing too?
@@ -687,8 +714,6 @@ class item
 	{
 		global $roster;
 
-		//ini_set('default_charset', 'UTF-8');  // -- debugging only REMOVE ME!
-
 		$locale = $this->locale;
 		$tooltip = $this->tooltip;
 
@@ -703,16 +728,18 @@ class item
 
 		//
 		// -- TODO --
-		//need a better pattern for poisons! this sucks badly.  <--
-		if( preg_match('/\n(.+[VI].\(.+\))\n/i', $tooltip, $matches) )
+		// pattern still can be better need to localize
+		//if( preg_match('/(.+[VI].\(.+\))\n/i', $tooltip, $matches) )
+		if( preg_match('/(.+ \(\d+ min\))\n/', $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
-			$tt['Poisons'][] = $matches[1];
+			$tt['Poison']['Effect'][] = $matches[1];
+			$this->isPoison = true;
 		}
 		//
 		// need a way to find out if this bonus is in effect or not
 		// perhaps pull base stat info from a db.. check into itemstats mod?
-		if( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_socketbonus'], $tooltip, $matches) )
+		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_socketbonus'], $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
 			$tt['Attributes']['SocketBonus'] = $matches[0];
@@ -728,16 +755,15 @@ class item
 			{
 				if( $gem )
 				{
-					//might need to tighten the replacement of stats?
 					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
-					if( !isset ($tt['Attributes']['Gems'][$i]['Bonus']) )
+					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
 					{
-						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
-						$this->isParseError = true;
+						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
 					}
 					else
 					{
-						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
+						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
+						$this->isParseError = true;		
 					}
 				}
 				$i++;
@@ -1037,7 +1063,7 @@ class item
 		$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
 		if( $this->isSetPiece )
 		{
-			$this->setArmorSets();
+			$this->_setArmorSets();
 		}
 	}
 
@@ -1086,7 +1112,7 @@ class item
 		return $gem;
 	}
 
-	function setArmorSets()
+	function _setArmorSets()
 	{
 		if( !$this->isSetPiece )
 		{
@@ -1175,6 +1201,34 @@ class item
 		return $this->attributes['BaseStats'];
 	}
 
+	/**
+	 * Fetches passed named item from the database. First Match is used.
+	 *
+	 * @param unknown_type $item_name
+	 * @param unknown_type $parse_mode
+	 * @return unknown
+	 */
+	function fetchNamedItem( $name, $parse_mode=false )
+	{
+		global $roster;
+		
+		$name = $roster->db->escape( $name );
+		$sql = " SELECT *"
+			 . " FROM `" . $roster->db->table('items') . "`"
+			 . " WHERE `item_name` LIKE '%$name%'"
+			 . " LIMIT 1";
+		$result = $roster->db->query( $sql );
+		$data = $roster->db->fetch( $result );
+		if( $data )
+		{
+			return new item( $data, $parse_mode );
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	function fetchOneItem( $member_id, $slot, $parse_mode=false )
 	{
 		global $roster;
@@ -1238,55 +1292,22 @@ class item
 		return aprint($this->parsed_item);
 	}
 	
-} //end class item
-
-/*
-// todo remove
-function item_get_one( $member_id, $slot )
-{
-	global $roster;
-
-	$slot = $roster->db->escape( $slot );
-	$query 	= " SELECT *"
-			. " FROM `" . $roster->db->table('items') . "`"
-			. " WHERE `member_id` = '$member_id' "
-			. " AND `item_slot` = '$slot'";
-
-	$result = $roster->db->query( $query );
-	$data = $roster->db->fetch( $result );
-	if( $data )
+	/**
+	 * Returns an Icon with Mouse over Tooltip text of the passed item if found
+	 * otherwise return null
+	 *
+	 * @param string $name
+	 * @param string $parse_mode  | accepts 'full' 'simple' by default will do best guess parsing
+	 * @return string | html also sets makeOverlib()'s tooltip of successful otherwise returns null
+	 */
+	function printTooltipIcon( $name, $parse_mode=false )
 	{
-		return new item( $data );
-	}
-	else
-	{
+		if( !is_numeric($name) )
+		{
+			$item = self::fetchNamedItem( $name );
+			return $item->out();
+		}
 		return null;
 	}
-
-}
-
-
-function item_get_many( $member_id, $parent )
-{
-	global $roster;
-
-	$parent = $roster->db->escape( $parent );
-
-	$query  = " SELECT *"
-			. " FROM"
-			. " `" . $roster->db->table('items') . "`"
-			. " WHERE `member_id` = '$member_id' "
-			. " AND `item_parent` = '$parent' ";
-
-	$result = $roster->db->query( $query );
-
-	$items = array();
-	while( $data = $roster->db->fetch( $result ) )
-	{
-		$item = new item( $data, 'full' );
-
-		$items[$data['item_slot']] = $item;
-	}
-	return $items;
-}
-*/
+	
+} //end class item

@@ -32,11 +32,13 @@ if( !defined('ROSTER_INSTALLED') )
  * @package    CharacterInfo
  * @subpackage ItemBonuses
  */
-class CharBonus extends item 
+class CharBonus 
 {
-	var $my_bonus = array();
-	var $my_tooltip = array();
-	var $lang;
+	var $bonus = array();
+	var $bonus_tooltip = array();
+	var $locale;
+	var $color;
+	var $name;
 	var $equip;
 	var $item;
 
@@ -48,19 +50,7 @@ class CharBonus extends item
 	 */
 	function CharBonus( $char )
 	{
-		/* @var $char char */
-		$this->equip = $this->fetchManyItems($char->data['member_id'], 'equip', 'full');
-		
-//		$this->lang = 
-//		$this->equip = $char->equip;
-//		$basestats = array();
-//		/* @var $item item */
-//		foreach( $this->equip as $item )
-//		{
-//			$basestats + $item->showBaseStats();
-//		}
-//		aprint($basestats);
-//		aprint($this->equip);
+		$this->equip = item::fetchManyItems($char->data['member_id'], 'equip', 'full');
 	}
 
 	function dumpBonus( )
@@ -76,11 +66,15 @@ class CharBonus extends item
 		/* @var $item item */
 		foreach( $this->equip as $item )
 		{
-//			$item->debugPrintAll();
-			$this->getBonus($item);
+			// set basic item info
+			$this->name = $item->name;
+			$this->color = $item->color;
+		//	$this->item = $item;
+		//	$this->getBonus();
 		}
 		
-		$bt .= $this->printBonus();
+//		$bt .= $this->printBonus();
+//		$bt .= item::printTooltipIcon("Wristguards of Stability");
 //		$bt .= 'Enchantments';
 //		$row = 0;
 //		foreach( $this->my_bonus as $key => $value )
@@ -154,23 +148,34 @@ class CharBonus extends item
 				  . str_replace('XX', $value, $key) . "</div>\n";
 			$row++;
 		}
-		//reset the trackers
-//		$this->my_bonus = array();
-//		$this->my_tooltip = array();
+
 		return $out;
 	}
 
 	function getBonus( $item )
 	{
-		$data = array();
+		//todo make userconfig on types to display/process 
+		$bonus_types = array(
+							'Enchantments' => 'Items with Enchantments',
+							'BaseStats' => 'White Stats from Armor and Weapons',
+							'Gems' => 'Gem Bonus',
+							'Effects' => 'Passive Bonus for Equiped Items',
+							'Set' => 'Bonus from Armor or Weapon Sets',
+							'Use' => 'On Use Bonus',
+							'ChanceOnHit' => 'Chance on Hit Bonus'
+							);
 		
-		$data[] = ( isset($item->attributes['BaseStats']) ? $item->attributes['BaseStats'] : null);
-		$data[] = ( isset($item->attributes['Enchantment']) ? $item->attributes['Enchantment'] : null);
-		$data[] = ( isset($item->attributes['Gems'][1]['Bonus']) ? $item->attributes['Gems'][1]['Bonus'] : null );
-		$data[] = ( isset($item->attributes['Gems'][2]['Bonus']) ? $item->attributes['Gems'][2]['Bonus'] : null );
-		$data[] = ( isset($item->attributes['Gems'][3]['Bonus']) ? $item->attributes['Gems'][3]['Bonus'] : null );
-		$data[] = ( isset($item->attributes['Effects']['Equip']) ? $item->attributes['Effects']['Equip'] : null );
-		$data[] = ( isset($item->attributes['Effects']['Set']) ? $item->attributes['Effects']['Set'] : null );
+
+							  
+//		$data = array();
+//		
+//		$data[] = ( isset($item->attributes['BaseStats']) ? $item->attributes['BaseStats'] : null);
+//		$data[] = ( isset($item->attributes['Enchantment']) ? $item->attributes['Enchantment'] : null);
+//		$data[] = ( isset($item->attributes['Gems'][1]['Bonus']) ? $item->attributes['Gems'][1]['Bonus'] : null );
+//		$data[] = ( isset($item->attributes['Gems'][2]['Bonus']) ? $item->attributes['Gems'][2]['Bonus'] : null );
+//		$data[] = ( isset($item->attributes['Gems'][3]['Bonus']) ? $item->attributes['Gems'][3]['Bonus'] : null );
+//		$data[] = ( isset($item->attributes['Effects']['Equip']) ? $item->attributes['Effects']['Equip'] : null );
+//		$data[] = ( isset($item->attributes['Effects']['Set']) ? $item->attributes['Effects']['Set'] : null );
 		
 		foreach( $data as $bonus )
 		{
@@ -244,125 +249,20 @@ class CharBonus extends item
 	 */
 	function setBonus( $modifier, $string, $item_name, $item_color )
 	{
-		$full = '<span style="color:#' . $item_color . ';">' . $item_name . '</span> : ' . $modifier;
+		$html = '<span style="color:#' . $item_color . ';">' . $item_name . '</span> : ' . $modifier;
 
-		if (array_key_exists($string, $this->my_bonus))
+		if ( array_key_exists($string, $this->my_bonus['Totals']) )
 		{
-			$this->my_bonus[$string] = $this->my_bonus[$string] + $modifier;
-			$this->my_tooltip[$string] = $this->my_tooltip[$string] . '<br />' . $full;
+			$this->my_bonus['Totals'][$string] = $this->my_bonus['Totals'][$string] + $modifier;
+			$this->my_tooltip['Totals'][$string] = $this->my_tooltip['Totals'][$string] . '<br />' . $html;
 		}
 		else
 		{
-			$this->my_bonus[$string] = $modifier;
-			$this->my_tooltip[$string] = $full;
+			$this->my_bonus['Totals'][$string] = $modifier;
+			$this->my_tooltip['Totals'][$string] = $html;
 		}
 	}
 	
-	function dbl( $frontString, $value )
-	{
-		return $frontString . ' : ' . $value . '<br />';
-	}
-
-	function getStartofModifier( $aString )
-	{
-		$startpos =  strlen($aString);
-		$startpos--;
-		//Count back till we get to the first number
-		while( isset($aString[$startpos]) && (is_numeric($aString[$startpos])==FALSE) && ($startpos <> 0) )
-		{
-			$startpos--;
-		}
-
-		//Get start position of the number
-		while( isset($aString[$startpos]) && is_numeric($aString[$startpos]) )
-		{
-			$startpos--;
-		}
-		return $startpos + 1;
-	}
-
-	function getLengthofModifier( $aString )
-	{
-		$startpos = $this->getStartofModifier($aString);
-		$length = 0;
-		while( isset($aString[$startpos+$length]) && is_numeric($aString[$startpos+$length]) )
-		{
-			//$startpos ++;
-			$length ++;
-		}
-		return $length;
-	}
-
-	function getModifier( $aString )
-	{
-		$startpos = $this->getStartofModifier($aString);
-		$modifier = '';
-
-		// Extract the number
-		while( isset($aString[$startpos]) && is_numeric($aString[$startpos]) )
-		{
-			$modifier .= $aString[$startpos];
-			$startpos++;
-		}
-		return $modifier;
-	}
-
-	function getString( $aString )
-	{
-		return substr_replace($aString, 'XX',$this->getStartofModifier($aString), $this->getLengthofModifier($aString));
-	}
-
-	function getStartofModifierMana( $aString )
-	{
-		$startpos = 0;
-		while( (is_numeric($aString[$startpos])==false) and ($startpos <> strlen($aString)) )
-		{
-			$startpos ++;
-		}
-		return $startpos;
-	}
-
-	function getLengthofModifierMana( $aString )
-	{
-		$startpos = $this->getStartofModifierMana( $aString );
-		$length = 0;
-		while( is_numeric($aString[$startpos+$length]) )
-		{
-			$length ++;
-		}
-		return $length;
-	}
-
-	function getModifierString( $aString )
-	{
-		return substr_replace($aString, 'XX',$this->getStartofModifierMana($aString), $this->getLengthofModifierMana($aString));
-	}
-
-	function getModifierMana( $aString )
-	{
-		return subStr($aString, $this->getStartofModifierMana($aString), $this->getLengthofModifierMana($aString));
-	}
-	
-
-	function hasNumeric( $aString )
-	{
-		$pos = 0;
-
-		while( ($pos <= strlen($aString)) and (is_numeric($aString[$pos])==FALSE) )
-		{
-			$pos++;
-		}
-
-		if( $pos < strlen($aString) )
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
 	function sortOutTooltip( $tooltip, $item_name, $item_color )
 	{
 		global $roster;
@@ -414,13 +314,5 @@ class CharBonus extends item
 		}
 	}
 
-	function dumpString( $aString )
-	{
-		//$aString = str_replace( chr(10), 'TWAT', $aString);
-		$output = $this->dbl('STRING', $aString);
-		for ($i = 0; $i < strlen($aString); $i++)
-		{
-			$output .= $this->dbl( $aString[$i], ord($aString[$i]));
-		}
-	}
+
 }

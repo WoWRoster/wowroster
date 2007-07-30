@@ -552,7 +552,7 @@ $lang['tooltip_unique']='Einzigartig';
 $lang['tooltip_speed']='Tempo';
 $lang['tooltip_poisoneffect']='^Bei jedem Schlag';
 
-$lang['tooltip_preg_armor']='/^(\d+) Rüstung/'; //
+$lang['tooltip_preg_armor']='/^(\d+) Rüstung/';
 $lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/';
 $lang['tooltip_preg_bags']='/(\d+) Platz/';
@@ -576,8 +576,8 @@ $lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklick
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
-$lang['gem_preg_singlecolor'] = '/Am besten für einen (\w+) Sockel geeignet/';
-$lang['gem_preg_multicolor'] = '/Am besten für einen (\w+) oder (\w+) Sockel geeignet/';
+$lang['gem_preg_singlecolor'] = '/Am besten für einen (.+) Sockel geeignet/';
+$lang['gem_preg_multicolor'] = '/Am besten für einen (.+) oder (.+) Sockel geeignet/';
 $lang['gem_preg_meta'] = '/Passt nur in einen Sockel der Kategorie Meta/';
 $lang['gem_preg_prismatic'] = '/Am besten für einen roten, gelben oder blauen Sockel geeignet/';
 
@@ -589,7 +589,8 @@ $lang['gem_colors'] = array(
 	'green' => 'Grün',
 	'orange' => 'Orange',
 	'purple' => 'Violett',
-	'prismatic' => 'Prismatisch'
+	'prismatic' => 'Prismatisch',
+	'meta' => 'Meta' //verify translation
 	);
 // -- end tooltip parsing
 
