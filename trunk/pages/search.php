@@ -209,7 +209,7 @@ else
 							}
 							//we will display the author name and date submited if it is set in the addon search class
 							if (isset($result['author'])) echo $roster->locale->act['submited_author'] .' '. $result['author'];
-							if (isset($result['date'])) echo  ' '. $roster->locale->act['submited_date']. ' '. $result['date'];
+							if (isset($result['date'])) echo  ' '. $roster->locale->act['submited_date']. ' '.readbleDate( $result['date']);
 							if (isset($result['author']) || isset($result['date'])) echo '<br />';
 
 							//this is the url link for each result should link to an addon installed and actiaved with in roster
@@ -217,6 +217,7 @@ else
 
 							//we will display a short desc. if it is set in the addon search class
 							if (isset($result['short_text'])) echo $result['short_text'] . '...<br />';
+							
 							//if isset stuff that can be added as addons get more advanced
 							//this is set to allow a footer for each result in the addon query
 							//could be good for external links or footer display code
