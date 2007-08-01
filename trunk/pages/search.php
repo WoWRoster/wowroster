@@ -34,31 +34,24 @@ $output = "<br />\n";
 
 
 /*Create an array of active addons with search.inc capabilities*/
-$addonlist = array();
 foreach( $roster->addon_data as $name => $data )
 {
-	$addon_search_file = ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'search.inc';
-	if( file_exists($addon_search_file) )
+	$roster->addon_data[$name] = getaddon($data['basename']);
+	if( file_exists($roster->addon_data[$name]['search_file']) )
 	{
-		include_once($addon_search_file);
+		include_once($roster->addon_data[$name]['search_file']);
 		$sclass = $data['basename'] . '_search';
-		$basename = $data['basename'];
 		if( class_exists($sclass) )
 		{
-
-			$addonlist[$basename]['search_class'] = $sclass;
-			$addonlist[$basename]['addon'] = $data['basename'];
-			$addonlist[$basename]['basename'] = ($data['fullname'] != '') ? $data['fullname'] : $data['basename'];
+			$roster->addon_data[$name]['search_class'] = $sclass;
 		}
 	}
 }
-asort($addonlist);
 
 //this is the start of the main form
 if( !isset($_POST['search']) && !isset($_GET['search']) )
 {
 	$addon_icon = $roster->config['img_url'] . 'blue-question-mark.gif';
-
 
 	print   border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />' . $roster->locale->act['search_for']);
 	echo  '<br /><form id="search" name="search" action="' . makelink() . '" method="post" enctype="multipart/form-data" >'
@@ -74,37 +67,39 @@ if( !isset($_POST['search']) && !isset($_GET['search']) )
 	echo  '<table border="0" ><tr>';
 
 
-
 	$i = 0;
 	//this is set to show a checkbox for all installed and active addons with search.inc files
 	//it is set to only show 4 addon check boxes per row and allows for the search only in feature
-	foreach( $addonlist as $s_addon )
+	foreach( $roster->addon_data as $s_addon )
 	{
-		if( $i && ($i % 4 == 0) )
+		if( isset($s_addon['search_class']) )
 		{
-			echo '</tr><tr>';
-			echo "\n";
+			if( $i && ($i % 4 == 0) )
+			{
+				echo '</tr><tr>';
+				echo "\n";
+			}
+
+			echo  '<td><input type="checkbox"  id="' . $s_addon['basename'] . '" name="s_addon[]" value="' . $s_addon['basename'] . '" /></td>'
+				. '<td><label for="' . $s_addon['basename'] . '">' . $s_addon['fullname'] . '</label></td>';
+
+			$i++;
 		}
-
-		echo  '<td><input type="checkbox"  id="' . $s_addon['addon'] . '" name="s_addon[]" value="' . $s_addon['addon'] . '" /></td>'
-			. '<td><label for="' . $s_addon['addon'] . '">' . $s_addon['basename'] . '</label></td>';
-
-		$i++;
 	}
 
 	echo  '</tr></table>';
 	echo  '</div>';
 	//include advanced search options
 	//the advanced options are defined in the addon search class using $search->options = then build your form/s
-	foreach( $addonlist as $s_addon )
+	foreach( $roster->addon_data as $s_addon )
 	{
-		if( class_exists($s_addon['search_class']) )
+		if( isset($s_addon['search_class']) )
 		{
 			$search = new $s_addon['search_class'];
 			if( $search->options )
 			{
 				echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['basename'] . '\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="data_search_img" />' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['basename'] . ':
+			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="data_search_img" />' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['fullname'] . ':
 			</div>';
 				echo '<div id="' . $s_addon['basename'] . '" style="display:none;">';
 				echo  '<table width="100%"><tr><td><br />' . $search->options . '<br /></td></tr></table>';
@@ -135,24 +130,23 @@ else
 	{
 		foreach( $_POST['s_addon'] as $s_addon )
 		{
-			if( isset($addonlist[$s_addon]) )
+			if( isset($roster->addon_data[$s_addon]) )
 			{
-				$addons[$s_addon] = $addonlist[$s_addon];
+				$addons[$s_addon] = $roster->addon_data[$s_addon];
 			}
 		}
 	}
 	elseif( isset($_GET['s_addon']) )
 	{
-		if( isset($addonlist[$_GET['s_addon']]) )
+		if( isset($roster->addon_data[$_GET['s_addon']]) )
 		{
-			$addons[$_GET['s_addon']] = $addonlist[$_GET['s_addon']];
+			$addons[$_GET['s_addon']] = $roster->addon_data[$_GET['s_addon']];
 		}
 	}
 	else
 	{
-		$addons = $addonlist;
+		$addons = $roster->addon_data;
 	}
-
 
 	echo '<br />';
 	// process all searches
@@ -162,22 +156,21 @@ else
 		//this is the main border for the search results which also displays the search key words
 		print border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif' . '" alt="" style="float:right;" />&nbsp;' . $roster->locale->act['search_results'] . ': ' . $the_query . '&nbsp;');
 
-
-
 		foreach ($addons as $addon)
 		{
-			if( class_exists($addon['search_class']) )
+			if( isset($addon['search_class']) )
 			{
 				$search = new $addon['search_class'];
+				$search->data = $addon;
 				$search->search($sql_query, $url_query, $limit, $page);
 				if( $search->result_count > 0 )
 				{
 					$total_search_results += $search->result_count;
 					//I added this to save space on the page but when closed the size of the results table gets very small
-					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['addon'] . '\',\''  . $addon['addon'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . (isset($search->icon) ? $search->icon  : $roster->config['img_url'] . 'blue-question-mark.gif') . '" style="float:left;" alt="" id="'  . $addon['addon'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['addon'] . '_search_img"/>' . $search->basename . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
+					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['basename'] . '\',\''  . $addon['basename'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="' . (isset($addon['icon']) ? $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix']  : $roster->config['img_url'] . 'blue-question-mark.gif') . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
 			</div>';
-					echo '<div id="'  . $addon['addon'] . '" >';
+					echo '<div id="'  . $addon['basename'] . '" >';
 					echo '<table width="100%" cellspacing="0" cellpadding="0">';
 
 					$alt_counter = 0;
@@ -251,7 +244,7 @@ else
 				}
 				unset($search);
 			}
-			unset($addonlist[$addon['addon']]);
+			unset($roster->addon_data[$addon['basename']]);
 
 		}
 		$addon = '';
@@ -264,15 +257,15 @@ else
 		}
 
 		echo '<div class="header_text sgoldborder">' . $roster->locale->act['search_didnotfind'] . '</div><table cellspacing="0" cellpadding="0">';
-		foreach( $addonlist as $leftover )
+		foreach( $roster->addon_data as $leftover )
 		{
-			if( class_exists($leftover['search_class']) )
+			if( isset($leftover['search_class']) )
 			{
 				$search = new $leftover['search_class'];
 				$search->search($sql_query, $url_query, 64, 0);
 				if( $search->result_count > 0 )
 				{
-					echo '<li><a href="' . makelink("search&amp;search=$url_query&amp;s_addon=" . $leftover['addon']) . '">' . $search->basename . '</a> (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')</li>';
+					echo '<li><a href="' . makelink("search&amp;search=$url_query&amp;s_addon=" . $leftover['basename']) . '">' . $leftover['fullname'] . '</a> (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')</li>';
 				}
 				unset($search);
 			}
@@ -280,14 +273,13 @@ else
 		//section for predefined if addon
 
 
-
 		$url_query = urlencode($query);
 		//this section we can have links like armory, ala, wowhead, thottbot etc...
 		//wow data sites
 		echo '<tr class="search-other"><td valign="top">';
 		echo '
-	    <div ><strong>' . $roster->locale->act['data_search'] . '</strong></div>
-	    <div align="left">';
+		<div ><strong>' . $roster->locale->act['data_search'] . '</strong></div>
+		<div align="left">';
 		echo '<ul>';
 		echo '<li><a href="http://www.wowhead.com/?search=' . $url_query . '" target="_blank">WoWHead</a></li>';
 		echo '<li><a href="http://wow.allakhazam.com/search.html?q=' . $url_query . '" target="_blank">Allakhazam</a></li>';
