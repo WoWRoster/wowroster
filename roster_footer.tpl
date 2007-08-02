@@ -68,12 +68,14 @@ if( $roster->config['sql_window'] )
 {
 	if( count($roster->db->queries) > 0 )
 	{
-		$output = "<div class=\"sqlwindow\"><ul>\n";
+		$output = "<div class=\"sqlwindow\">\n";
+		$output .= "  <table>";
+		$output .= "    <tr><th>Time</th><th>Query</th></tr>";
 		foreach( $roster->db->queries as $query )
 		{
-			$output .= "  <li>".nl2br(htmlentities($query))."</li>\n";
+			$output .= "    <tr><th>".$query['time']."</th><th>".nl2br(htmlentities($query['query']))."</th></tr>\n";
 		}
-		$output .= "</ul></div>\n";
+		$output .= "</table></div>\n";
 	}
 	echo "<br /><br />\n".messagebox($output,$roster->locale->act['sql_queries'],'sgreen');
 }
