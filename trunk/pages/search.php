@@ -210,7 +210,9 @@ else
 							echo '<a href="' . $result['url'] . '"><strong>' . $result['title'] . '</strong></a><br />';
 
 							//we will display a short desc. if it is set in the addon search class
-							if (isset($result['short_text'])) echo $result['short_text'] . '...<br />';
+							if (isset($result['short_text'])) echo '<span style="white-space:normal">' . $result['short_text']
+								. ((isset($result['more_text']) && $result['more_text'])?' <a href="' . $result['url'] . '"><strong>(more)</strong></a>':'')
+								. '</span><br />';
 
 							//if isset stuff that can be added as addons get more advanced
 							//this is set to allow a footer for each result in the addon query

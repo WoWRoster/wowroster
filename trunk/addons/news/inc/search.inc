@@ -45,7 +45,6 @@ class news_search
 				$item['title'] = $title;
 				$item['url'] = makelink('util-news-comment&amp;id=' . $news_id);
 
-				$content = str_replace("\n",'<br />',$content);
 				if( $html == '1' && $this->data['config']['news_html'] >= 0 )
 				{
 					$content = $content;
@@ -54,9 +53,18 @@ class news_search
 				{
 					$content = htmlentities($content);
 				}
+				$content = nl2br($content);
 
 				$array = explode(' ',$content,101);
-				unset($array[100]);
+				if( isset($array[100]) )
+				{
+					unset($array[100]);
+					$item['more_text'] = true;
+				}
+				else
+				{
+					$item['more_text'] = false;
+				}
 				$item['short_text'] = implode(' ',$array);
 
 				$item['footer'] = ($comments == 0?'No':$comments) . ' comment' . ($comments == 1?'':'s');
