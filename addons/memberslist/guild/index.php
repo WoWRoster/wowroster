@@ -56,13 +56,19 @@ $mainQuery =
 	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
 	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
-	'`proftable`.`professions` '.
+	'`proftable`.`professions`, '.
+	'`talenttable`.`talents` '.
 
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ) AS 'professions' ".
+	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ORDER BY `skill_order`) AS 'professions' ".
 		'FROM `'.$roster->db->table('skills').'` '.
 		'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
+
+	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `tree` , '|', `pointsspent` , '|', `background` ) ORDER BY `order`) AS 'talents' ".
+		'FROM `'.$roster->db->table('talenttree').'` '.
+		'GROUP BY `member_id`) AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
+
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
@@ -118,6 +124,13 @@ $FIELD['professions'] = array (
 	'value' => 'tradeskill_icons',
 	'js_type' => '',
 	'display' => $addon['config']['member_prof'],
+);
+
+$FIELD['talents'] = array (
+	'lang_field' => 'talents',
+	'value' => 'spec_icon',
+	'js_type' => '',
+	'display' => 3,
 );
 
 $FIELD['hearth'] = array (
@@ -290,6 +303,57 @@ function tradeskill_icons ( $row )
 				$cell_value .= $icon;
 			}
 		}
+	}
+	return $cell_value;
+}
+
+/**
+ * Controls Output of the Talent Spec Column
+ *
+ * @param array $row - of character data
+ * @return string - Formatted output
+ */
+function spec_icon ( $row )
+{
+	global $roster, $addon;
+
+	$cell_value ='';
+
+	// Don't proceed for characters without data
+	if ($row['talents'] == '')
+	{
+		return '&nbsp;';
+	}
+
+	$lang = $row['clientLocale'];
+
+	$talents = explode(',',$row['talents']);
+
+	$spec = $specicon = '';
+	$tooltip = array();
+	$specpoint = 0;
+	foreach( $talents as $talent )
+	{
+		list($name, $points, $icon) = explode('|',$talent);
+		$tooltip[] = $points;
+		if( $points > $specpoint )
+		{
+			$specpoint = $points;
+			$spec = $name;
+			$specicon = $icon;
+		}
+	}
+	$tooltip = implode(' / ', $tooltip);
+
+	$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP').' />';
+
+	if( active_addon('info') )
+	{
+		$cell_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
+	}
+	else
+	{
+		$cell_value .= $specicon;
 	}
 	return $cell_value;
 }

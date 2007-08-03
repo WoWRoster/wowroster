@@ -1207,14 +1207,22 @@ function _aprint( $arr , $tab=1 )
  * @param string $prefix
  * @return string
  */
-function aprint( $arr , $prefix='' )
+function aprint( $arr , $prefix='' , $return=false )
 {
 	if( ltrim($prefix) != '' )
 	{
 		$prefix = '<span style="color:#3366ff">' . $prefix . '</span> =';
 	}
-	echo "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
+	if ($return)
+	{
+		return "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
 <tbody><tr><td><pre style=\"color:#000000;\">$prefix" . _aprint($arr) . "</pre></td></tr></tbody></table>\n\n";
+	}
+	else
+	{
+		echo "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
+<tbody><tr><td><pre style=\"color:#000000;\">$prefix" . _aprint($arr) . "</pre></td></tr></tbody></table>\n\n";
+	}
 }
 
 /**
