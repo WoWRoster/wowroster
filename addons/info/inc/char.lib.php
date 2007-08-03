@@ -686,7 +686,7 @@ $returnstring .= '  <tr>
 		$pet_tabs = '';
 		foreach( $petspells as $petid => $pet )
 		{
-			$pet_tabs .= '			<li onclick="return displaypage(\'petspell_' . $petid . '\',this);"><div class="text">' . $pet['name'] . "</div></li>\n";
+			$pet_tabs .= '			<li><a rel="petspell_' . $petid . '" class="text">' . $pet['name'] . "</a></li>\n";
 
 			$return_string .= '		<div id="petspell_' . $petid . '" style="display:none;">' . "\n";
 
@@ -718,23 +718,19 @@ $returnstring .= '  <tr>
 			$return_string .= "			</div>\n		</div>\n";
 		}
 
-		//$return_string .= "	</div>\n";
-
 
 		$return_string .= '
 <!-- Begin Navagation Tabs -->
-	<div id="spell_set" class="tab_navagation">
-		<ul>
-			<li onclick="return displaypage(\'main_spells\',this);"><div class="text">' . $this->data['name'] . '</div></li>
+	<div class="tab_navagation" style="margin:428px 0 0 17px;">
+		<ul id="spell_set">
+			<li class="selected"><a rel="main_spells" class="text">' . $this->data['name'] . '</a></li>
 ' . $pet_tabs . '
 		</ul>
 	</div>
 </div>
 
 <script type="text/javascript">
-	//Set tab to intially be selected when page loads:
-	//[which tab (1=first tab), ID of tab content to display]:
-	window.onload=tab_nav_onload(\'spell_set\',[1, \'main_spells\'])
+	initializetabcontent(\'spell_set\');
 </script>' . "\n";
 
 		return $return_string;
@@ -818,8 +814,8 @@ $returnstring .= '  <tr>
 					$row['icon'] = 'inv_misc_questionmark';
 				}
 
-				$icons .= '			<li onclick="return showPet(\'' . $petNum . '\');" ' . makeOverlib($row['name'],$row['type'],'',2,'',',WRAP') . '>
-				<div class="text"><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /></div></li>
+				$icons .= '			<li ' . makeOverlib($row['name'],$row['type'],'',2,'',',WRAP') . ' style="background-image:url(\'' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '\');">
+				<a rel="pet_' . $petNum . '" class="text"></a></li>
 ';
 
 				$output .= '
@@ -884,10 +880,14 @@ $returnstring .= '  <tr>
 			$output .= '
 <!-- Begin Navagation Tabs -->
 	<div class="pet_tabs">
-		<ul>
+		<ul id="pet_tabs">
 ' . $icons . '
 		</ul>
-	</div>';
+	</div>
+<script type="text/javascript">
+	initializetabcontent(\'pet_tabs\');
+</script>
+';
 		}
 
 		return $output;
@@ -1779,8 +1779,12 @@ $returnstring .= '  <tr>
 			$returndata .= strtolower($this->data['classEn']).'/talents.html?'.$this->talent_build.'" target="_blank">'.$roster->locale->wordings[$this->data['clientLocale']]['talentexport'].'</a></div>
 	<div class="points_unused"><span class="label">'.$roster->locale->wordings[$this->data['clientLocale']]['unusedtalentpoints'].':</span> '.$this->data['talent_points'].'</div>'."\n";
 
+			$treeshow = 0;
+			$treeshowp = 0;
 			foreach( $treelayer as $treeindex => $tree )
 			{
+				$treeshow = ( $tree['points'] > $treeshowp ? $tree['points'] : $treeshowp);
+
 				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
 
 		<div class="points"><span style="color:#ffdd00">'.$roster->locale->wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
@@ -1819,20 +1823,18 @@ $returnstring .= '  <tr>
 				$returndata .= "		</div>\n	</div>\n";
 			}
 			$returndata .= '
-	<div id="talent_navagation" class="tab_navagation">
-		<ul>
-			<li onclick="return displaypage(\'treetab0\',this);"><div class="text">'.$treelayer[0]['name'].'</div></li>
-			<li onclick="return displaypage(\'treetab1\',this);"><div class="text">'.$treelayer[1]['name'].'</div></li>
-			<li onclick="return displaypage(\'treetab2\',this);"><div class="text">'.$treelayer[2]['name'].'</div></li>
+	<div class="tab_navagation" style="margin:428px 0 0 17px;">
+		<ul id="talent_navagation">
+			<li' . ($treeshow==0?' class="selected"':'') . '><a rel="treetab0" class="text">'.$treelayer[0]['name'].'</a></li>
+			<li' . ($treeshow==0?' class="selected"':'') . '><a rel="treetab1" class="text">'.$treelayer[1]['name'].'</a></li>
+			<li' . ($treeshow==0?' class="selected"':'') . '><a rel="treetab2" class="text">'.$treelayer[2]['name'].'</a></li>
 		</ul>
 	</div>
 
 </div>
 
 <script type="text/javascript">
-	//Set tab to intially be selected when page loads:
-	//[which tab (1=first tab), ID of tab content to display]:
-	window.onload=tab_nav_onload(\'talent_navagation\',[1, \'treetab0\'])
+	initializetabcontent(\'talent_navagation\')
 </script>';
 			return $returndata;
 		}
@@ -2433,25 +2435,25 @@ $returnstring .= '  <tr>
 
 			$output .= '
 <!-- Begin Navagation Tabs -->
-	<div id="char_navagation" class="tab_navagation">
-		<ul>
-			<li onclick="return displaypage(\'tab1\',this);"><div class="text">' . $this->locale['tab1'] . '</div></li>
+	<div class="tab_navagation" style="margin:428px 0 0 17px;">
+		<ul id="char_navagation">
+			<li class="selected"><a rel="tab1" class="text">' . $this->locale['tab1'] . '</a></li>
 ';
 			if( $addon['config']['show_tab2'] && $petTab != '' )
 			{
-				$output .= '			<li onclick="return displaypage(\'tab2\',this);"><div class="text">' . $this->locale['tab2']."</div></li>\n";
+				$output .= '			<li><a rel="tab2" class="text">' . $this->locale['tab2']."</a></li>\n";
 			}
 			if( $addon['config']['show_tab3'] )
 			{
-				$output .= '			<li onclick="return displaypage(\'tab3\',this);"><div class="text">'.$this->locale['tab3']."</div></li>\n";
+				$output .= '			<li><a rel="tab3" class="text">'.$this->locale['tab3']."</a></li>\n";
 			}
 			if( $addon['config']['show_tab4'] )
 			{
-				$output .= '			<li onclick="return displaypage(\'tab4\',this);"><div class="text">'.$this->locale['tab4']."</div></li>\n";
+				$output .= '			<li><a rel="tab4" class="text">'.$this->locale['tab4']."</a></li>\n";
 			}
 			if( $addon['config']['show_tab5'] )
 			{
-				$output .= '			<li onclick="return displaypage(\'tab5\',this);"><div class="text">'.$this->locale['tab5']."</div></li>\n";
+				$output .= '			<li><a rel="tab5" class="text">'.$this->locale['tab5']."</a></li>\n";
 			}
 			$output .= '
 		</ul>
@@ -2462,11 +2464,8 @@ $returnstring .= '  <tr>
 
 </div>
 
-
 <script type="text/javascript">
-	//Set tab to intially be selected when page loads:
-	//[which tab (1=first tab), ID of tab content to display]:
-	window.onload=tab_nav_onload(\'char_navagation\',[1, \'tab1\'])
+	initializetabcontent(\'char_navagation\');
 </script>
 ';
 			return $output;

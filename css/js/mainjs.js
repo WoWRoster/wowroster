@@ -372,49 +372,6 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 }
 
 
-
-
-/* Tab control */
-var previoustab=''
-function displaypage(cid, aobject)
-{
-	if (document.getElementById)
-	{
-		changetab(aobject)
-		if (previoustab!='')
-			document.getElementById(previoustab).style.display='none'
-		document.getElementById(cid).style.display=''
-		previoustab=cid
-		if (aobject.blur)
-			aobject.blur()
-		return false
-	}
-	else
-		return true
-}
-
-function changetab(aobject)
-{
-	if (typeof tabobjlinks=='undefined')
-		collecttablinks()
-	for (i=0; i<tabobjlinks.length; i++)
-		tabobjlinks[i].className=''
-	aobject.className='current_tab'
-}
-
-function collecttablinks(elemID)
-{
-	var tabobj=document.getElementById(elemID)
-	tabobjlinks=tabobj.getElementsByTagName('li')
-}
-
-function tab_nav_onload(elemID,FirstTab)
-{
-	collecttablinks(elemID)
-
-	displaypage(FirstTab[1], tabobjlinks[FirstTab[0]-1])
-}
-
 function showPet(num)
 {
 	for (i = 0; i <= 5; i++)
