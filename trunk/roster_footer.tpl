@@ -69,11 +69,10 @@ if( $roster->config['sql_window'] )
 	if( count($roster->db->queries) > 0 )
 	{
 		$output = "<div class=\"sqlwindow\">\n";
-		$output .= "  <table>";
-		$output .= "    <tr><th>Time</th><th>Query</th></tr>";
+		$output .= "	<table cellspacing=\"0\">";
 		foreach( $roster->db->queries as $query )
 		{
-			$output .= "    <tr><th>".$query['time']."</th><th>".nl2br(htmlentities($query['query']))."</th></tr>\n";
+			$output .= "    <tr><td>".$query['time']."</td><td>".nl2br(htmlentities($query['query']))."</td></tr>\n";
 		}
 		$output .= "</table></div>\n";
 	}
