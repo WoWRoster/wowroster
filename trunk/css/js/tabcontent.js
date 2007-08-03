@@ -91,7 +91,6 @@ function initializetabcontent()
 	} //end outer for loop
 }
 
-
 function getCookie(Name)
 {
 	var re=new RegExp(Name+"=[^;]+", "i"); //construct RE to search for target name/value pair

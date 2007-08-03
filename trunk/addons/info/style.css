@@ -464,8 +464,10 @@
 }
 .pet_tabs { position:absolute;font:11px arial,helvetica,sans-serif;margin:360px 0 0 17px;line-height:normal; }
 .pet_tabs ul { margin:0;padding:0;list-style:none; }
-.pet_tabs li { float:left;margin:0;padding-left:7px;cursor:pointer; }
-.pet_tabs .current_tab { cursor:default; }
+.pet_tabs li { float:left;margin:3px;cursor:pointer;background-position:center;background-repeat:no-repeat; }
+.pet_tabs li a { border:2px solid #4E4D4C;display:block;height:30px;width:30px;padding:2px; }
+.pet_tabs li a:hover, .pet_tabs li.selected a:hover { border:2px solid #0066FF; }
+.pet_tabs li.selected a { border:2px solid #FFFF00; }
 
 
 /*********** Reputation Page Tab(3) ***********/

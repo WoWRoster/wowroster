@@ -2782,7 +2782,10 @@ class update
 			$this->add_ifvalue( $data, 'TalentPoints', 'totaltp', 0 );
 			$this->add_ifvalue( $data, 'Type', 'type', '' );
 			$this->add_ifvalue( $data, 'Loyalty', 'loyalty', '' );
-			$this->add_ifvalue( $data, 'Icon', 'icon', '' );
+			if( !empty($data['Icon']) )
+			{
+				$this->add_value('icon', $this->fix_icon($data['Icon']) );
+			}
 
 			if( $update )
 			{
