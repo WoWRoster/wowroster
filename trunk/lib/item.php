@@ -46,9 +46,9 @@ class item
 	var $enchantment;
 	var $html_tooltip;
 
-	// developer debugging only
-	var $DEBUG = true;
-	var $DEBUG_garbage = '';
+	// item debugging. debug level 0, 1, 2
+	var $DEBUG = 1; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
+	var $DEBUG_junk = '';
 
 	/**
 	 * Constructor
@@ -59,8 +59,6 @@ class item
 	 */
 	function item( $data, $parse_mode=false )
 	{
-		global $roster;
-		
 		$this->isParseMode = ( isset($parse_mode) ? $parse_mode : false );
 		$this->data = $data;
 		$this->member_id = $data['member_id'];
@@ -168,7 +166,7 @@ class item
 
 	function _getUnique()
 	{
-		$html = '<span style="color:#ffffff;">' . $this->attributes['Unique'] . '</span><br />';
+		$html = $this->attributes['Unique'] . '<br />';
 		return $html;
 	}
 
@@ -202,6 +200,10 @@ class item
 			$html = '<div style="width:100%;"><span style="float:right;">'
 				  . $this->attributes['WeaponType'] . '</span>'
 				  . $this->attributes['WeaponSlot'] . '</div>';
+		}
+		elseif( isset($this->attributes['WeaponType']) )
+		{
+			$html = $this->attributes['WeaponType'] . '<br />';
 		}
 		else
 		{
@@ -241,7 +243,7 @@ class item
 
 		foreach( $stats as $stat )
 		{
-			$html .= '<span style="color:#fffff0;">' . $stat . '</span><br />';
+			$html .= '<span style="color:#ffffff;">' . $stat . '</span><br />';
 		}
 		return $html;
 	}
@@ -526,10 +528,10 @@ class item
 		// if Parse Error fall back to colorToolTip() for tooltip parsing.
 		if( $this->isParseError || $this->isParseMode == 'simple' )
 		{
-			if( $this->DEBUG && $this->isParseError )
+			if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
 			{
 				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
-					 . implode("<br>", $this->DEBUG_junk)
+					 . ( !empty($this->DEBUG_junk) ? implode("<br>", $this->DEBUG_junk) : '' )
 					 . '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
 					 . '<hr width="80%"> ' . aprint($this->parsed_item)
 					 . '</td></tr></table><br />';
@@ -628,7 +630,7 @@ class item
 				$html_tt .= $this->_getItemNote();
 			}
 
-			if( $this->DEBUG && $this->isParseError )
+			if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
 			{
 				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
 				. $html_tt
@@ -808,7 +810,7 @@ class item
 			//
 			elseif( preg_match_all('/\+\d+.+/', $tooltip, $matches) )
 			{
-				//last chance.. lets grab the last + stat in the tooltip and call that the enchantment.
+				//grab the last + stat in the tooltip and call that the enchantment.
 				$tooltip = str_replace($matches[0][count($matches[0])-1], '', $tooltip);
 				$tt['Attributes']['Enchantment'] = $matches[0][count($matches[0])-1];
 			}
