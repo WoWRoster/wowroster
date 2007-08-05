@@ -141,10 +141,21 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 
 $lang['empty_equip']='No item equipped';
 $lang['pointsspent']='Points Spent in';
-
+// item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonuses For Equipped Items';
 $lang['item_bonuses'] = 'Item Bonuses';
-
+$lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
+$lang['item_bonuses_remap']=array( // key must be lowercase!		// standardized bonus
+								  '+xx healing' 				=> '+XX to Healing Spells',
+								  '+xx healing spells'			=> '+XX to Healing Spells',
+								  '+xx mana every 5 sec.' 		=> '+XX Mana per 5 Seconds',
+								  '+xx mana every 5 sec'  		=> '+XX Mana per 5 Seconds',
+								  '+xx mana regen' 		 		=> '+XX Mana per 5 Seconds',
+								  '+xx mana regen' 		 		=> '+XX Mana per 5 Seconds',
+								  'restores xx mana per 5 sec.' => '+XX Mana per 5 Seconds',
+								  'restores xx mana per 5 sec' 	=> '+XX Mana per 5 Seconds',
+								  );
+// item_bonus end //
 $lang['inactive'] = 'Inactive';
 
 $lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
