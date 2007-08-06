@@ -75,7 +75,7 @@ if( $roster->config['sql_window'] )
 		{
 			$row = 'membersRow' . ( ( $i % 2 ) + 1 );
 			$rowr = 'membersRowRight' . ( ( $i % 2 ) + 1 );
-			$output .= "    <tr><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
+			$output .= "    <tr><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\" style=\"white-space:normal;\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
 			$i++;
 		}
 		$output .= "</table></div>\n";
