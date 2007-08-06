@@ -859,22 +859,30 @@ class item
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
 			}
+//			elseif( eregi($roster->locale->wordings[$locale]['tooltip_chance'], $line) )
+//			{
+//				//Chance
+//				$tt['Effects']['ChanceOnHit'][] = $line;
+//			}
 			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line) )
 			{
-				//Equip:
-				$tt['Effects']['Equip'][] = $line;
+				if( eregi($roster->locale->wordings[$locale]['tooltip_chance'], $line) )
+				{
+					//Chance
+					$tt['Effects']['ChanceOnHit'][] = $line;
+				}
+				else
+				{
+					//Equip:
+					$tt['Effects']['Equip'][] = $line;
+				}
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'],$line) )
-			{
-				//Chance
-				$tt['Effects']['ChanceOnHit'][] = $line;
-			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_bind_types'],$line) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_bind_types'], $line) )
 			{
 				//soulbound, bop, quest item etc
 				$tt['Attributes']['BindType'] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'],$line) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'], $line) )
 			{
 				//set piece bonus
 				$tt['Attributes']['Set']['SetBonus'][] = $line;
