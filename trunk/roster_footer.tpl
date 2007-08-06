@@ -68,11 +68,15 @@ if( $roster->config['sql_window'] )
 {
 	if( count($roster->db->queries) > 0 )
 	{
+		$i = 1;
 		$output = "<div class=\"sqlwindow\">\n";
 		$output .= "	<table cellspacing=\"0\">";
 		foreach( $roster->db->queries as $query )
 		{
-			$output .= "    <tr><td>".$query['time']."</td><td>".nl2br(htmlentities($query['query']))."</td></tr>\n";
+			$row = 'membersRow' . ( ( $i % 2 ) + 1 );
+			$rowr = 'membersRowRight' . ( ( $i % 2 ) + 1 );
+			$output .= "    <tr><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
+			$i++;
 		}
 		$output .= "</table></div>\n";
 	}
