@@ -26,9 +26,11 @@ if( !defined('ROSTER_INSTALLED') )
 /**
  * Code originally from cybrey's 'Bonuses/Advanced Stats' addon
  * output formatting originally by dehoskins
- *
+ * tabs formatting added by Zanix
+ * 
  * Modified by the roster dev team
- *
+ * Rewritten by ds to use new item class
+ * 
  * @package    CharacterInfo
  * @subpackage ItemBonuses
  */
@@ -66,7 +68,6 @@ class CharBonus
 		$out = '<div class="char_panel" style="margin-left:20px;">
 	<img src="' . $addon['image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
 	<div class="panel_title">' . $roster->locale->act['item_bonuses_full'] . '</div>';
-		//start content here..move to foreach dynamic building of tabs move this to the printBonus() method
 
 		/* @var $item item */
 		foreach( $this->equip as $item )
@@ -135,26 +136,28 @@ class CharBonus
 		// first key will be the default tab on inital load up
 		$catagory = array('Totals' => 'Totals',
 						  'Enchantment' => 'Enchantments',
-						  'BaseStats' => 'White Stats from Armor and Weapons',
-						  'Gems' => 'Gem Bonus',
-						  'Effects' => 'Passive Bonus for Equiped Items',
-						  'Set' => 'Bonus from Armor or Weapon Sets',
-						  'Use' => 'On Use Bonus',
-						  'ChanceOnHit' => 'Chance on Hit Bonus',
+						  'BaseStats' => 'Base Stats',
+						  'Gems' => 'Gems',
+						  'Effects' => 'Passive',
+						  'Set' => 'Sets',
+						  'Use' => 'Use',
+						  'ChanceOnHit' => 'On Hit',
 						  );
 		
 		$row = 0;
 		$out = '';
+		$tabs = array();
 		
 		foreach( $catagory as $catkey => $catval )
 		{
-			// check to see if the catagory has data don't display is none
+			// check to see if the catagory has data don't display if none
 			if( isset($this->bonus[$catkey]) )
 			{
 				//$out .= $catval;
 				$cat = $this->bonus[$catkey];
 				$out .= '<div class="tab3" id="' . $catkey . '"><div class="container">';
-				$tabs[] = $catkey;
+				$tabs += array($catkey => $catval);
+				//$tt = '';
 				
 				foreach( $cat as $key => $value )
 				{
@@ -164,6 +167,14 @@ class CharBonus
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}
+//				foreach( $cat as $key => $value )
+//				{
+//					$value = explode(':', $value);
+//					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" '
+//						  . makeOverlib($this->bonus_tooltip[$catkey][$key], str_replace(array( 'XX', 'YY' ), $value, $key), '', 2) . '>'
+//						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
+//					$row++;
+//				}
 			$out .= '</div> </div>';
 			}
 		}
@@ -173,16 +184,16 @@ class CharBonus
 		<ul id="bonus_navagation">';
 		$first_tab = true;
 
-		foreach( $tabs as $tab )
+		foreach( $tabs as $tab_id => $tab_txt )
 		{
 			if( $first_tab )
 			{
-				$out .= '<li class="selected"><a rel="' . $tab . '" class="text">' . $tab . '</a></li>';
+				$out .= '<li class="selected"><a rel="' . $tab_id . '" class="text">' . $tab_txt . '</a></li>';
 				$first_tab = false;
 			}
 			else 
 			{
-				$out .= '<li><a rel="' . $tab . '" class="text">' . $tab . '</a></li>';
+				$out .= '<li><a rel="' . $tab_id . '" class="text">' . $tab_txt . '</a></li>';
 			}
 		}
 
@@ -192,8 +203,8 @@ class CharBonus
 	initializetabcontent(\'bonus_navagation\')
 </script>';
 		
-//		echo "bonus";
-//		aprint($this->bonus);
+		echo "bonus";
+		aprint($this->bonus);
 
 		return $out;
 	}
@@ -262,6 +273,13 @@ class CharBonus
 			{
 				$this->addBonus($bonus, 'Use', false, 'Use:');
 			}
+		}		
+		if( isset($this->item->effects['ChanceOnHit']) )
+		{
+			foreach( $this->item->effects['ChanceOnHit'] as $bonus )
+			{
+				$this->addBonus($bonus, 'ChanceOnHit', false, 'Equip:');
+			}
 		}
 	}
 	
@@ -270,7 +288,15 @@ class CharBonus
 	//and process them as two or more buffs
 	//ZG enchants can have 3 bonus
 	// if $strip_string is set remove string from bonus string
-	
+	/**
+	 * Calculate the passed $bonus string. split the bonus line if $split_bonus is true
+	 * strip out passed $strip_string from $bonus 
+	 *
+	 * @param string $bonus
+	 * @param string $catagory
+	 * @param bool $split_bonus
+	 * @param string $strip_string
+	 */
 	function addBonus( $bonus, $catagory, $split_bonus=false, $strip_string=false )
 	{
 		global $roster;
@@ -285,6 +311,8 @@ class CharBonus
 		// Warning: do not set $split_bonus true inside this if
 		if( $split_bonus )
 		{
+//			global $tooltips;
+//			aprint($tooltips);
 			if( preg_match($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_linesplits'], $bonus, $matches) )
 			{
 				$lines = explode($matches[1], $bonus);
@@ -309,13 +337,13 @@ class CharBonus
 			{
 				case 1:
 					$modifier = $matches[0][0];
-					$bonus_string = str_replace($modifier, 'XX', $bonus);
+					$bonus_string = $this->replaceOne($modifier, 'XX', $bonus);
 					$this->setBonus( $modifier, $bonus_string, $catagory );
 					return;					
 				case 2:
 					$modifier = $matches[0][0] . ':' . $matches[0][1];
-					$bonus_string = str_replace($matches[0][0], 'XX', $bonus);
-					$bonus_string = str_replace($matches[0][1], 'YY', $bonus_string);
+					$bonus_string = $this->replaceOne($matches[0][0], 'XX', $bonus);
+					$bonus_string = $this->replaceOne($matches[0][1], 'YY', $bonus_string);
 					$this->setBonus( $modifier, $bonus_string, $catagory );
 					return;
 					
@@ -334,10 +362,10 @@ class CharBonus
 	}
 	
 	/**
-	 * setBonus sets up the tooltips
+	 * standardize Bonus $string and calculate bonus and set tooltip
 	 *
 	 * @param int $modifier |   12
-	 * @param string $string |  XX Strength
+	 * @param string $string |  +XX Strength
 	 * @param string $catagory | Catagory this bonus belongs
 	 */
 	function setBonus( $modifier, $string, $catagory)
@@ -415,12 +443,11 @@ class CharBonus
 	}
 
 	/**
-	 * Helper function that will add values paired together with a colen.
-	 * 200:100 + 200:100 = 400:200
+	 * Helper function that will add values paired together with a :
 	 *
-	 * @param string $value1
-	 * @param string $value2
-	 * @return string
+	 * @param string $value1	| 10:10
+	 * @param string $value2	| 20:5
+	 * @return string	| 30:15
 	 */
 	function doubleAdd( $value1, $value2 )
 	{
@@ -431,7 +458,13 @@ class CharBonus
 		return $return;
 	}
 	
-
+	/**
+	 * if $bonus is found in $lang['item_bonuses_remap'] return standardized string
+	 * otherwise return unmodified $bonus string
+	 *
+	 * @param string $bonus
+	 * @return string
+	 */
 	function standardizeBonus( $bonus )
 	{
 		global $roster;
@@ -448,6 +481,18 @@ class CharBonus
 		}
 	}
 
+	// by: Dmitry Fedotov box at neting dot ru
+	function replaceOne( $in, $out, $content )
+	{
+		if( $pos = strpos($content, $in) )
+		{
+			return substr($content, 0, $pos) . $out . substr($content, $pos+strlen($in));
+		} 
+		else 
+		{
+			return $content;
+		}
+	}
 } // end class CharBonus
 
 
