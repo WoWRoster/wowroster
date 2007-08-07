@@ -89,7 +89,7 @@ class roster_db
 	{
 		if( $this->link_id )
 		{
-			if( $this->query_id )
+			if( $this->query_id && is_resource($this->query_id) )
 			{
 				@mysql_free_result($this->query_id);
 			}
