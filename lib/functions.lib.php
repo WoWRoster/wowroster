@@ -323,6 +323,18 @@ function backtrace()
 				{
 					$output .= '<li>' . print_r($bt[$i]['args'][$j],true) . "</li>\n";
 				}
+				elseif( is_object($bt[$i]['args'][$j]) )
+				{
+					$output .= '<li>' . 'object' . "</li>\n";
+				}
+				elseif( is_null($bt[$i]['args'][$j]) )
+				{
+					$output .= "<li><i>NULL</i></li>\n";
+				}
+				elseif( empty($bt[$i]['args'][$j]) )
+				{
+					$output .= "<li>&nbsp;</li>\n";
+				}
 				else
 				{
 					$output .= '<li>' . $bt[$i]['args'][$j] . "</li>\n";
