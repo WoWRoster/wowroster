@@ -14,6 +14,16 @@
 
 include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
 
+$roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
+
+if( $roster_login->getAuthorized() < $addon['config']['news_edit'] )
+{
+	print $roster_login->getMessage().
+	$roster_login->getLoginForm($addon['config']['news_edit']);
+
+	return; //To the addon framework
+}
+
 // Display news
 $query = "SELECT * "
 		. "FROM `" . $roster->db->table('news','news') . "` news "
