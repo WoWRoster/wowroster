@@ -34,3 +34,4 @@ print border('sblue','start','Add Comment');
 <input type="submit" value="Add Comment"/>
 </form>
 <?php print border('sblue','end'); ?>
+
