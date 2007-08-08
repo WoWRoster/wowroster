@@ -14,5 +14,16 @@
 
 include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
 
+$roster_login = new RosterLogin();
+
+if( $roster_login->getAuthorized() < $addon['config']['news_add'] )
+{
+	print $roster_login->getMessage().
+	$roster_login->getLoginForm($addon['config']['news_add']);
+
+	return; //To the addon framework
+}
+
 include_template( 'add.tpl' );
+
 

@@ -14,9 +14,25 @@
 
 include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
 
+$roster_login = new RosterLogin();
+
 // Add news if any was POSTed
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
+	if( $roster_login->getAuthorized() < $addon['config']['news_add'] && !isset($_POST['id']) )
+	{
+		print $roster_login->getMessage().
+		$roster_login->getLoginForm($addon['config']['news_add']);
+		
+		return; //To the addon framework
+	}
+	if( $roster_login->getAuthorized() < $addon['config']['news_edit'] && isset($_POST['id']) )
+	{
+		print $roster_login->getMessage().
+		$roster_login->getLoginForm($addon['config']['news_edit']);
+		
+		return; //To the addon framework
+	}
 	if( isset($_POST['author']) && !empty($_POST['author'])
 		&& isset($_POST['title']) && !empty($_POST['title'])
 		&& isset($_POST['news']) && !empty($_POST['news']) )

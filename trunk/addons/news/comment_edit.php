@@ -14,7 +14,17 @@
 
 include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
 
-// Display news
+$roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
+
+if( $roster_login->getAuthorized() < $addon['config']['comm_edit'] )
+{
+	print $roster_login->getMessage().
+	$roster_login->getLoginForm($addon['config']['comm_edit']);
+
+	return; //To the addon framework
+}
+
+// Display comment
 $query = "SELECT * "
 		. "FROM `" . $roster->db->table('comments','news') . "` news "
 		. "WHERE `comment_id` = '" . $_GET['id'] . "';";

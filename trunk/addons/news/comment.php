@@ -14,9 +14,25 @@
 
 include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
 
+$roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
+
 // Add the comment if one was POSTed
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
+	if( $roster_login->getAuthorized() < $addon['config']['comm_add'] && !isset($_POST['comment_id']) )
+	{
+		print $roster_login->getMessage().
+		$roster_login->getLoginForm($addon['config']['comm_add']);
+		
+		return; //To the addon framework
+	}
+	if( $roster_login->getAuthorized() < $addon['config']['comm_edit'] && isset($_POST['comment_id']) )
+	{
+		print $roster_login->getMessage().
+		$roster_login->getLoginForm($addon['config']['comm_edit']);
+		
+		return; //To the addon framework
+	}
 	if( isset($_POST['author']) && !empty($_POST['author'])
 		&& isset($_POST['comment']) && !empty($_POST['comment'])
 		&& isset($_GET['id']) && is_numeric($_GET['id']) )
@@ -118,4 +134,12 @@ if( $roster->db->num_rows() > 0 )
 	print border('swhite','end');
 }
 
-include_template( 'comment_foot.tpl', array('news_id'=>$_GET['id']) );
+if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
+{
+	print $roster_login->getMessage().
+	$roster_login->getLoginForm($addon['config']['comm_add']);
+}
+else
+{
+	include_template( 'comment_add.tpl', array('news_id'=>$_GET['id']) );
+}
