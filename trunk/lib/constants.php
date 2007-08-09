@@ -33,6 +33,16 @@ define('ROSTER_ADMIN',ROSTER_BASE . 'admin' . DIR_SEP);
 define('ROSTER_AJAX',ROSTER_BASE . 'ajax' . DIR_SEP);
 
 /**
+ * Cache directory
+ */
+define('ROSTER_CACHEDIR',ROSTER_BASE . 'cache' . DIR_SEP);
+
+/**
+ * Template directory
+ */
+define('ROSTER_TPLDIR',ROSTER_BASE . 'templates' . DIR_SEP);
+
+/**
  * Base, absolute roster addons directory
  */
 define('ROSTER_ADDONS',ROSTER_BASE . 'addons' . DIR_SEP);

@@ -77,6 +77,19 @@ define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
 
 
 /**
+ * Check PHP version
+ */
+$phpver = explode('.', phpversion());
+$phpver = "$phpver[0]$phpver[1]";
+
+if( $phpver < 43 )
+{
+	die('You must have at least PHP version 4.3 and higher to run WoWRoster');
+}
+unset($phpver);
+
+
+/**
  * Base, absolute roster library directory
  */
 define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
@@ -96,6 +109,13 @@ $roster->error =& new roster_error();
  * Load the dbal
  */
 $roster->load_dbal();
+
+
+/**
+ * Load the Template Parser
+ */
+include( ROSTER_LIB . 'template.php' );
+$roster->tpl = new Template;
 
 
 /**
@@ -224,20 +244,20 @@ function changeDBEncoding()
 
 	if( $roster->db->num_rows() > 0 )
 	{
-		$roster->db->query('ALTER DATABASE `' . $db_name . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci');
+		$roster->db->query('ALTER DATABASE `' . $db_name . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 
 		while( $table = $roster->db->fetch($tableResult) )
 		{
 			$tableName = $table[key($table)];
 
-			$roster->db->query('ALTER TABLE `' . $tableName . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci');
+			$roster->db->query('ALTER TABLE `' . $tableName . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 
-			$columnResult = $roster->db->query('SHOW COLUMNS FROM `' . $tableName . '`');
+			$columnResult = $roster->db->query('SHOW COLUMNS FROM `' . $tableName . '`;');
 			while( $column = $roster->db->fetch($columnResult) )
 			{
 				if ( ( substr( $column['Type'], 0, 7 ) == 'varchar' ) || ( substr( $column['Type'], 0, 4 ) == 'char' ) || ( substr( $column['Type'], 0, 4 ) == 'text' ) || ( substr( $column['Type'], 0, 10 ) == 'mediumtext' ) || ( substr( $column['Type'], 0, 8 ) == 'tinytext' ) )
 				{
-					$roster->db->query('ALTER TABLE `' . $tableName . '` CHANGE `' . $column['Field'] . '` `' . $column['Field'] . '` ' . $column['Type'] . ' CHARACTER SET utf8 COLLATE utf8_general_ci');
+					$roster->db->query('ALTER TABLE `' . $tableName . '` CHANGE `' . $column['Field'] . '` `' . $column['Field'] . '` ' . $column['Type'] . ' CHARACTER SET utf8 COLLATE utf8_general_ci;');
 				}
 			}
 		}
