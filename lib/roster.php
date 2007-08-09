@@ -70,6 +70,17 @@ class roster
 		'body_attr' => '',
 		'body_onload' => ''
 	);
+	/**
+	 * Roster Template Object
+	 *
+	 * @var roster_tpl
+	 */
+	var $tpl;								// Template object
+	var $row_class         = 1;				// For row striping in templates
+
+	// Output vars
+    var $template_file     = '';			// Template file to parse
+    var $template_path     = '';			// Path to template_file
 
 	/**
 	 * Load the DBAL
@@ -93,18 +104,18 @@ class roster
 			header('Location: install.php');
 		}
 
-/*		switch ( $this->config['dbtype'] )
+		$dbtype = ( isset($dbtype) ? $dbtype : 'mysql' );
+
+		switch( $dbtype )
 		{
 			case 'mysql':
-				include_once(UA_INCLUDEDIR . 'dbal' . DIR_SEP . 'mysql.php');
+				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 
 			default:
-				include_once(UA_INCLUDEDIR . 'dbal' . DIR_SEP . 'mysql.php');
+				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
-		}*/
-
-		include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
+		}
 
 		$this->db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
 
@@ -382,5 +393,122 @@ class roster
 		{
 			$this->addon_data[$row['basename']] = $row;
 		}
+	}
+
+
+
+
+
+
+
+
+	/**
+	 * Switches the class for row coloring
+	 *
+	 * @param bool $set_new
+	 * @return int
+	 */
+	function switch_row_class( $set_new = true )
+	{
+		$row_class = ( $this->row_class == 1 ) ? 2 : 1;
+
+		if( $set_new )
+		{
+			$this->row_class = $row_class;
+		}
+
+		return $row_class;
+	}
+
+	/**
+	 * Set object variables
+	 * NOTE: If the last var is 'display' and the val is TRUE, EQdkp::display() is called
+	 *   automatically
+	 *
+	 * @var $var Var to set
+	 * @var $val Value for Var
+	 * @return bool
+	 */
+	function set_vars($var, $val = '', $append = false)
+	{
+		if ( is_array($var) )
+		{
+			foreach ( $var as $d_var => $d_val )
+			{
+				$this->set_vars($d_var, $d_val);
+			}
+		}
+		else
+		{
+			if ( empty($val) )
+			{
+				return false;
+			}
+			if ( ($var == 'display') && ($val === true) )
+			{
+				$this->display();
+			}
+			else
+			{
+				if ( $append )
+				{
+					if ( is_array($this->$var) )
+					{
+						$this->{$var}[] = $val;
+					}
+					elseif ( is_string($this->$var) )
+					{
+						$this->$var .= $val;
+					}
+					else
+					{
+						$this->$var = $val;
+					}
+				}
+				else
+				{
+					$this->$var = $val;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	function display()
+	{
+		// Assign global template variables
+		$this->tpl->assign_vars(array(
+			'SUB_TITLE'        => $this->page_title,
+			'URL_FULL'         => ROSTER_URL,
+			'URL_PATH'         => ROSTER_PATH,
+			'TEMPLATE_PATH'    => $this->url_path . 'styles/' . $user->style,
+			'ROSTER_VER'       => ROSTER_VERSION,
+			'UA_FORMACTION'    => UA_FORMACTION,
+
+			'IMG_URL'          => $this->config['img_url'],
+			'INTERFACE_URL'    => $this->config['interface_url'],
+			)
+		);
+
+		if ( !empty($this->template_path) )
+		{
+			$this->tpl->set_template($user->style['template_path'], $this->template_path);
+		}
+
+		if ( empty($this->template_file) )
+		{
+			trigger_error('Template file is empty.', E_USER_ERROR);
+			return false;
+		}
+
+		$this->tpl->set_filenames(array(
+			'body' => $this->template_file
+			)
+		);
+
+		// Get rid of our template data
+		$this->tpl->display('body');
+		$this->tpl->destroy();
 	}
 }

@@ -65,7 +65,6 @@ else
 <?php print ( $roster->config['seo_url'] ? '	<base href="' . ROSTER_URL . '" />' : '' ) ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo ROSTER_PATH ?>css/style.css" />
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/mainjs.js"></script>
-	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/scrollbar.js"></script>
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/tabcontent.js">
 		/**
 		 * Tab Content script- Dynamic Drive DHTML code library (www.dynamicdrive.com)

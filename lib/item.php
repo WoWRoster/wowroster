@@ -59,6 +59,8 @@ class item
 	 */
 	function item( $data, $parse_mode=false )
 	{
+		global $roster;
+
 		$this->isParseMode = ( isset($parse_mode) ? $parse_mode : false );
 		$this->data = $data;
 		$this->member_id = $data['member_id'];

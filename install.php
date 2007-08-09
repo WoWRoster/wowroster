@@ -737,10 +737,10 @@ function parse_sql($sql, $delim)
 
 function sql_output(&$tpl, &$db)
 {
-	foreach( $db->queries as $string )
+	foreach( $db->queries as $query )
 	{
 		$tpl->assign_block_vars('sql_rows', array(
-			'TEXT' => $string
+			'TEXT' => $query['query']
 			)
 		);
 	}
