@@ -12,7 +12,10 @@
  * @package    News
 */
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
+if( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
 
@@ -23,14 +26,14 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	{
 		print $roster_login->getMessage().
 		$roster_login->getLoginForm($addon['config']['comm_add']);
-		
+
 		return; //To the addon framework
 	}
 	if( $roster_login->getAuthorized() < $addon['config']['comm_edit'] && isset($_POST['comment_id']) )
 	{
 		print $roster_login->getMessage().
 		$roster_login->getLoginForm($addon['config']['comm_edit']);
-		
+
 		return; //To the addon framework
 	}
 	if( isset($_POST['author']) && !empty($_POST['author'])
@@ -56,7 +59,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 			if( $roster->db->query($query) )
 			{
-				echo messagebox("Comment edited successfully");
+				echo messagebox($roster->locale->act['comment_edit_success']);
 			}
 			else
 			{
@@ -74,7 +77,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 			if( $roster->db->query($query) )
 			{
-				echo messagebox("Comment added successfully");
+				echo messagebox($roster->locale->act['comment_add_success']);
 			}
 			else
 			{
@@ -84,7 +87,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	}
 	else
 	{
-		echo messagebox("There was a problem processing your comment.");
+		echo messagebox($roster->locale->act['comment_error_process']);
 	}
 }
 
@@ -113,7 +116,52 @@ else
 {
 	$news['content'] = nl2br(htmlentities($news['content']));
 }
-include_template( 'news.tpl', $news);
+
+// Assign template vars
+$roster->tpl->assign_vars(array(
+	'L_POSTEDBY'     => $roster->locale->act['posted_by'],
+	'L_EDIT'         => $roster->locale->act['edit'],
+	'L_NAME'         => $roster->locale->act['name'],
+	'L_ADD_COMMENT'  => $roster->locale->act['add_comment'],
+	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
+	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
+
+	'S_ADD_NEWS'       => false,
+	'S_ADD_COMMENT'    => false,
+	'S_HTML_ENABLE'    => false,
+	'S_COMMENT_HTML'   => $addon['config']['comm_html'],
+
+	'U_COMMENT_BORDER_S' => border('swhite','start',$roster->locale->act['comments'],'60%'),
+	'U_COMMENT_BORDER_E' => border('swhite','end'),
+	'U_COMMENT_ADD_B_S'  => border('sblue','start',$roster->locale->act['add_comment']),
+	'U_COMMENT_ADD_B_E'  => border('sblue','end'),
+	'U_ADD_FORMACTION'   => makelink('util-news-comment&amp;id=' . $_GET['id']),
+	'U_NEWS_ID'          => $news['news_id'],
+	)
+);
+
+if($addon['config']['comm_html'] >= 0)
+{
+	$roster->tpl->assign_var('S_HTML_ENABLE',true);
+}
+
+$roster->tpl->assign_block_vars('news_row', array(
+	'TITLE'         => $news['title'],
+	'ID'            => $news['news_id'],
+	'CONTENT'       => $news['content'],
+	'COMMENT_COUNT' => $news['comm_count'],
+	'AUTHOR'        => $news['author'],
+	'DATE'          => $news['date_format'],
+
+	'U_BORDER_S' => border('sorange','start',$news['title'],'60%'),
+	'U_BORDER_E' => border('sorange','end'),
+	'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
+	'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
+
+	'L_COMMENT' => ($news['comm_count'] != 1 ? sprintf($roster->locale->act['n_comments'],$news['comm_count']) : sprintf($roster->locale->act['n_comment'],$news['comm_count'])),
+	)
+);
+
 
 // Get the comments
 $query = "SELECT `comments`.*, "
@@ -126,13 +174,33 @@ $result = $roster->db->query($query);
 
 if( $roster->db->num_rows() > 0 )
 {
-	print border('swhite','start','Comments','60%');
 	while( $comment = $roster->db->fetch($result) )
 	{
-		include_template( 'comment.tpl', $comment );
+		if( isset($news['html']) && $news['html'] == 1 && $addon['config']['news_html'] >= 0 )
+		{
+			$comment['content'] = nl2br($comment['content']);
+		}
+		else
+		{
+			$comment['content'] = nl2br(htmlentities($comment['content']));
+		}
+		$roster->tpl->assign_block_vars('comment_row', array(
+			'CONTENT'       => $comment['content'],
+			'AUTHOR'        => $comment['author'],
+			'DATE'          => $comment['date_format'],
+			'U_COMMENT_ID'  => $comment['comment_id'],
+
+			'U_EDIT'     => makelink('util-news-comment_edit&amp;id=' . $comment['comment_id']),
+			)
+		);
 	}
-	print border('swhite','end');
 }
+
+$roster->set_vars(array(
+	'template_file' => 'comment.html',
+	'display'       => true
+	)
+);
 
 if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
 {
@@ -141,5 +209,7 @@ if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
 }
 else
 {
-	include_template( 'comment_add.tpl', array('news_id'=>$_GET['id']) );
+	$roster->output['body_onload'] .= 'initARC(\'addcomment\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+	$roster->tpl->assign_var('S_ADD_COMMENT',true);
 }
+

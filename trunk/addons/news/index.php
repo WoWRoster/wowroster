@@ -12,7 +12,10 @@
  * @package    News
 */
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
+if( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $roster_login = new RosterLogin();
 
@@ -23,14 +26,14 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	{
 		print $roster_login->getMessage().
 		$roster_login->getLoginForm($addon['config']['news_add']);
-		
+
 		return; //To the addon framework
 	}
 	if( $roster_login->getAuthorized() < $addon['config']['news_edit'] && isset($_POST['id']) )
 	{
 		print $roster_login->getMessage().
 		$roster_login->getLoginForm($addon['config']['news_edit']);
-		
+
 		return; //To the addon framework
 	}
 	if( isset($_POST['author']) && !empty($_POST['author'])
@@ -57,7 +60,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 			if( $roster->db->query($query) )
 			{
-				echo messagebox("News edited successfully");
+				echo messagebox($roster->locale->act['news_edit_success']);
 			}
 			else
 			{
@@ -75,7 +78,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 			if( $roster->db->query($query) )
 			{
-				echo messagebox("News added successfully");
+				echo messagebox($roster->locale->act['news_add_success']);
 			}
 			else
 			{
@@ -85,7 +88,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	}
 	else
 	{
-		echo messagebox("There was a problem processing the article.");
+		echo messagebox($roster->locale->act['news_error_process']);
 	}
 }
 
@@ -105,7 +108,17 @@ if( $roster->db->num_rows($result) == 0 )
 	echo messagebox($roster->locale->act['no_news']);
 }
 
-include_template( 'news_head.tpl' );
+
+// Assign template vars
+$roster->tpl->assign_vars(array(
+	'L_POSTEDBY' => $roster->locale->act['posted_by'],
+	'L_EDIT'     => $roster->locale->act['edit'],
+	'L_ADD_NEWS' => $roster->locale->act['add_news'],
+
+	'U_ADD_NEWS'  => makelink('util-news-add'),
+	'S_ADD_NEWS' => true,
+	)
+);
 
 while( $news = $roster->db->fetch($result) )
 {
@@ -118,8 +131,26 @@ while( $news = $roster->db->fetch($result) )
 		$news['content'] = nl2br(htmlentities($news['content']));
 	}
 
-	include_template( 'news.tpl', $news );
+	$roster->tpl->assign_block_vars('news_row', array(
+		'TITLE'         => $news['title'],
+		'ID'            => $news['news_id'],
+		'CONTENT'       => $news['content'],
+		'COMMENT_COUNT' => $news['comm_count'],
+		'AUTHOR'        => $news['author'],
+		'DATE'          => $news['date_format'],
+
+		'U_BORDER_S' => border('sorange','start',$news['title'],'60%'),
+		'U_BORDER_E' => border('sorange','end'),
+		'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
+		'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
+
+	'L_COMMENT' => ($news['comm_count'] != 1 ? sprintf($roster->locale->act['n_comments'],$news['comm_count']) : sprintf($roster->locale->act['n_comment'],$news['comm_count'])),
+		)
+	);
 }
 
-include_template( 'news_foot.tpl' );
-
+$roster->set_vars(array(
+	'template_file' => 'news.html',
+	'display'       => true
+	)
+);
