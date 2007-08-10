@@ -80,7 +80,6 @@ class roster
 
 	// Output vars
     var $template_file     = '';			// Template file to parse
-    var $template_path     = '';			// Path to template_file
 
 	/**
 	 * Load the DBAL
@@ -395,13 +394,6 @@ class roster
 		}
 	}
 
-
-
-
-
-
-
-
 	/**
 	 * Switches the class for row coloring
 	 *
@@ -479,21 +471,27 @@ class roster
 	{
 		// Assign global template variables
 		$this->tpl->assign_vars(array(
-			'SUB_TITLE'        => $this->page_title,
 			'URL_FULL'         => ROSTER_URL,
 			'URL_PATH'         => ROSTER_PATH,
-			'TEMPLATE_PATH'    => $this->url_path . 'styles/' . $user->style,
+			'TEMPLATE_PATH'    => ROSTER_URL . 'addons/' . $this->pages[1] . '/templates',
 			'ROSTER_VER'       => ROSTER_VERSION,
-			'UA_FORMACTION'    => UA_FORMACTION,
 
 			'IMG_URL'          => $this->config['img_url'],
 			'INTERFACE_URL'    => $this->config['interface_url'],
 			)
 		);
 
-		if ( !empty($this->template_path) )
+		switch( $this->pages[0] )
 		{
-			$this->tpl->set_template($user->style['template_path'], $this->template_path);
+			case 'char':
+			case 'guild':
+			case 'realm':
+			case 'util':
+				$this->tpl->set_template('default',$this->pages[1]);
+				break;
+
+			default:
+				$this->tpl->set_template('default');
 		}
 
 		if ( empty($this->template_file) )

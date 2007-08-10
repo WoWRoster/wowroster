@@ -12,7 +12,10 @@
  * @package    News
 */
 
-include( $addon['dir'] . 'template' . DIR_SEP . 'template.php' );
+if( !defined('ROSTER_INSTALLED') )
+{
+    exit('Detected invalid access to this file!');
+}
 
 $roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
 
@@ -36,8 +39,43 @@ if( $roster->db->num_rows($result) == 0 )
 	echo messagebox($roster->locale->act['no_news']);
 }
 
-include_template( 'news_head.tpl' );
+$roster->output['body_onload'] .= 'initARC(\'editnews\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
 $news = $roster->db->fetch($result);
 
-include_template( 'edit.tpl', $news );
+// Assign template vars
+$roster->tpl->assign_vars(array(
+	'L_EDIT_NEWS'    => $roster->locale->act['edit_news'],
+	'L_NAME'         => $roster->locale->act['name'],
+	'L_TITLE'        => $roster->locale->act['title'],
+	'L_EDIT_COMMENT' => $roster->locale->act['edit_comment'],
+	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
+	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
+
+	'S_ADD_NEWS'       => false,
+	'S_ADD_COMMENT'    => false,
+	'S_HTML_ENABLE'    => false,
+	'S_COMMENT_HTML'   => (bool)$news['html'],
+
+	'U_NEWS_EDIT_B_S'  => border('sgreen','start',$roster->locale->act['edit_news']),
+	'U_NEWS_EDIT_B_E'  => border('sgreen','end'),
+	'U_EDIT_FORMACTION'  => makelink('util-news'),
+	'U_NEWS_ID'          => $news['news_id'],
+
+	'CONTENT'       => $news['content'],
+	'AUTHOR'        => $news['author'],
+	'TITLE'         => $news['title'],
+	'DATE'          => $news['date_format'],
+	)
+);
+
+if($addon['config']['news_html'] >= 0)
+{
+	$roster->tpl->assign_var('S_HTML_ENABLE',true);
+}
+
+$roster->set_vars(array(
+	'template_file' => 'edit.html',
+	'display'       => true
+	)
+);

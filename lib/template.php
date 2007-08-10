@@ -118,18 +118,21 @@ class Template
 	var $include_counter = 1;
 	var $block_nesting_level = 0;
 
-	function set_template($template = '', $root_dir = '')
+	var $file_prefix = '';
+
+	function set_template($template = '', $addon = '')
 	{
-		if ( $root_dir == '' )
+		if ( $addon == '' )
 		{
 			$this->root = ROSTER_TPLDIR . $template;
-			$this->cachedir = ROSTER_CACHEDIR . $template . DIR_SEP;
 		}
 		else
 		{
-			$this->root = ROSTER_BASE . $root_dir . $template;
-			$this->cachedir = ROSTER_CACHEDIR . $root_dir . DIR_SEP;
+			$this->file_prefix = $addon;
+			$this->root = ROSTER_ADDONS . $addon . DIR_SEP . 'templates' . DIR_SEP . $template;
 		}
+
+		$this->cachedir = ROSTER_CACHEDIR . $template . DIR_SEP;
 
 		if (!file_exists($this->cachedir))
 		{
@@ -199,16 +202,19 @@ class Template
 		// If we don't have a file assigned to this handle, die.
 		if (!isset($this->files[$handle]))
 		{
-			trigger_error("Template->loadfile(): No file specified for handle $handle", E_USER_ERROR);
+			trigger_error("Template->loadfile(): No file specified for handle " . $this->files[$handle], E_USER_ERROR);
 		}
 
 		if (!($fp = @fopen($this->files[$handle], 'r')))
 		{
-			trigger_error("Template->loadfile(): Error - file $handle does not exist or is empty", E_USER_ERROR);
+			trigger_error("Template->loadfile(): Error - file '" . $this->files[$handle] . "' does not exist or is empty", E_USER_ERROR);
 		}
 
 		$str = '';
-		$str = fread($fp, filesize($this->files[$handle]));
+		if( filesize($this->files[$handle]) > 0 )
+		{
+			$str = fread($fp, filesize($this->files[$handle]));
+		}
 		@fclose($fp);
 
 		$this->uncompiled_code[$handle] = trim($str);
@@ -394,6 +400,7 @@ class Template
 
 		preg_match_all('#<!-- (.*?) (.*?)?[ ]?-->#s', $code, $blocks);
 		$text_blocks = preg_split('#<!-- (.*?) (.*?)?[ ]?-->#s', $code);
+
 		for($i = 0; $i < count($text_blocks); $i++)
 		{
 			$this->compile_var_tags($text_blocks[$i]);
@@ -752,7 +759,7 @@ class Template
 	//
 	function compile_load(&$_str, &$handle, $do_echo)
 	{
-		$filename = $this->cachedir . $this->filename[$handle] . '.php';
+		$filename = $this->cachedir . $this->file_prefix . '_' . $this->filename[$handle] . '.php';
 
 		// Recompile page if the original template is newer, otherwise load the compiled version
 		if (file_exists($filename) && @filemtime($filename) >= @filemtime($this->files[$handle]))
@@ -780,7 +787,7 @@ class Template
 			$handle_filename = $handle_filename_array[ count($handle_filename_array) - 1 ];
 		}
 
-		$filename = $this->cachedir . $handle_filename . '.php';
+		$filename = $this->cachedir . $this->file_prefix . '_' . $handle_filename . '.php';
 
 		$data = '<?php' . "\nif (\$this->security()) {\n" . $data . "\n}\n?".">";
 
