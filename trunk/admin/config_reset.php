@@ -16,7 +16,7 @@
  * @subpackage RosterCP
 */
 
-if( !defined('ROSTER_INSTALLED') )
+if( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -43,11 +43,6 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     for ( $i = 0; $i < $sql_count; $i++ )
     {
         $roster->db->query($sql[$i]);
-		// Added failure checks to the database transactions
-		/*if ( !($roster->db->query($sql[$i])) )
-		{
-			$tpl->message_die('Install Failed <b>' . $db_name . '</b> as <b>' . $db_user . '@' . $db_host . '</b><br /><br /><a href="install.php">Restart Installation</a>', 'Database Error');
-		}*/
     }
     unset($sql);
 

@@ -16,7 +16,7 @@
  * @subpackage Locale
 */
 
-if ( !defined('ROSTER_INSTALLED') )
+if ( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -41,9 +41,9 @@ class roster_locale
 	var $langlabel = array();
 	/**
 	 * Array of locale strings for current language
-	 * Example: 
+	 * Example:
 	 * $roster->locale->act['menu_text']
-	 * 
+	 *
 	 * @var array
 	 */
 	var $act;

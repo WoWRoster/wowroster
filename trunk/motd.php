@@ -14,6 +14,8 @@
  * @since      File available since Release 1.6.0
 */
 
+define('IN_ROSTER',true);
+
 //==========[ SETTINGS ]========================================================
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;

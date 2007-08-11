@@ -13,7 +13,7 @@
  * @subpackage UpdateHook
 */
 
-if ( !defined('ROSTER_INSTALLED') )
+if ( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -61,7 +61,7 @@ class memberslistUpdate
 		 * the hook doesn't exist on this side, nothing is output. If we don't
 		 * produce any output (update method off) we empty this before returning.
 		 */
-		
+
 		$this->messages = 'memberslist';
 	}
 

@@ -16,7 +16,7 @@
  * @subpackage ItemBonuses
 */
 
-if( !defined('ROSTER_INSTALLED') )
+if( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -27,14 +27,14 @@ if( !defined('ROSTER_INSTALLED') )
  * Code originally from cybrey's 'Bonuses/Advanced Stats' addon
  * output formatting originally by dehoskins
  * tabs formatting added by Zanix
- * 
+ *
  * Modified by the roster dev team
  * Rewritten by ds to use new item class
- * 
+ *
  * @package    CharacterInfo
  * @subpackage ItemBonuses
  */
-class CharBonus 
+class CharBonus
 {
 	var $bonus = array();
 	var $bonus_tooltip = array();
@@ -79,8 +79,8 @@ class CharBonus
 			$this->item = $item;
 			$this->getBonus();
 		}
-		
-		$out .= $this->printBonus();		
+
+		$out .= $this->printBonus();
 		return $out;
 	}
 
@@ -124,12 +124,12 @@ class CharBonus
 //	initializetabcontent(\'bonus_navagation\')
 //</script>';
 
-	
+
 
 	// prints out all status based on array of catagories
 	function printBonus( )
 	{
-		//todo make userconfig on types to display/process 
+		//todo make userconfig on types to display/process
 		// can add Temp Enchants, Perm Enchants?
 		// make array vals into tooltips for tabs?
 		// localize this.
@@ -143,11 +143,11 @@ class CharBonus
 						  'Use' => 'Use',
 						  'ChanceOnHit' => 'On Hit',
 						  );
-		
+
 		$row = 0;
 		$out = '';
 		$tabs = array();
-		
+
 		foreach( $catagory as $catkey => $catval )
 		{
 			// check to see if the catagory has data don't display if none
@@ -158,7 +158,7 @@ class CharBonus
 				$out .= '<div class="tab3" id="' . $catkey . '"><div class="container">';
 				$tabs += array($catkey => $catval);
 				//$tt = '';
-				
+
 				foreach( $cat as $key => $value )
 				{
 					$value = explode(':', $value);
@@ -191,7 +191,7 @@ class CharBonus
 				$out .= '<li class="selected"><a rel="' . $tab_id . '" class="text">' . $tab_txt . '</a></li>';
 				$first_tab = false;
 			}
-			else 
+			else
 			{
 				$out .= '<li><a rel="' . $tab_id . '" class="text">' . $tab_txt . '</a></li>';
 			}
@@ -202,7 +202,7 @@ class CharBonus
 <script type="text/javascript">
 	initializetabcontent(\'bonus_navagation\')
 </script>';
-		
+
 		echo "bonus";
 		aprint($this->bonus);
 
@@ -221,7 +221,7 @@ class CharBonus
 					$this->addBonus($bonus, 'BaseStats', false);
 				}
 			}
-			else 
+			else
 			{
 				$this->addBonus($this->item->attributes['BaseStats'], 'BaseStats', false);
 			}
@@ -235,7 +235,7 @@ class CharBonus
 					$this->addBonus($bonus, 'Enchantment', true);
 				}
 			}
-			else 
+			else
 			{
 				$this->addBonus($this->item->attributes['Enchantment'], 'Enchantment', true);
 			}
@@ -273,7 +273,7 @@ class CharBonus
 			{
 				$this->addBonus($bonus, 'Use', false, 'Use:');
 			}
-		}		
+		}
 		if( isset($this->item->effects['ChanceOnHit']) )
 		{
 			foreach( $this->item->effects['ChanceOnHit'] as $bonus )
@@ -282,7 +282,7 @@ class CharBonus
 			}
 		}
 	}
-	
+
 	//starts processing the passed in string
 	//if $split_bonus is true will look for localized break string
 	//and process them as two or more buffs
@@ -290,7 +290,7 @@ class CharBonus
 	// if $strip_string is set remove string from bonus string
 	/**
 	 * Calculate the passed $bonus string. split the bonus line if $split_bonus is true
-	 * strip out passed $strip_string from $bonus 
+	 * strip out passed $strip_string from $bonus
 	 *
 	 * @param string $bonus
 	 * @param string $catagory
@@ -300,12 +300,12 @@ class CharBonus
 	function addBonus( $bonus, $catagory, $split_bonus=false, $strip_string=false )
 	{
 		global $roster;
-		
+
 		if( $strip_string )
 		{
 			$bonus = str_replace($strip_string, '', $bonus);
 		}
-		
+
 		$bonus = trim($bonus);
 		//
 		// Warning: do not set $split_bonus true inside this if
@@ -322,7 +322,7 @@ class CharBonus
 				}
 				return;
 			}
-			else 
+			else
 			{
 				$this->addBonus( $bonus, $catagory );
 			}
@@ -330,23 +330,23 @@ class CharBonus
 		}
 		//
 		//
-		
+
 		if( preg_match_all('/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/', $bonus, $matches) )
-		{		
+		{
 			switch( count($matches[0]) )
 			{
 				case 1:
 					$modifier = $matches[0][0];
 					$bonus_string = $this->replaceOne($modifier, 'XX', $bonus);
 					$this->setBonus( $modifier, $bonus_string, $catagory );
-					return;					
+					return;
 				case 2:
 					$modifier = $matches[0][0] . ':' . $matches[0][1];
 					$bonus_string = $this->replaceOne($matches[0][0], 'XX', $bonus);
 					$bonus_string = $this->replaceOne($matches[0][1], 'YY', $bonus_string);
 					$this->setBonus( $modifier, $bonus_string, $catagory );
 					return;
-					
+
 				default:
 				case 3:
 				case 4:
@@ -360,7 +360,7 @@ class CharBonus
 		}
 		return;
 	}
-	
+
 	/**
 	 * standardize Bonus $string and calculate bonus and set tooltip
 	 *
@@ -378,19 +378,19 @@ class CharBonus
 		}
 		if( $catagory == 'Set' )
 		{
-			$html = '<span style="color:#ffd517;font-size:11px;font-weight:bold;">' 
+			$html = '<span style="color:#ffd517;font-size:11px;font-weight:bold;">'
 				  . $this->item->attributes['Set']['ArmorSet']['Name'] . '</span>';
-			
+
 			$this->bonus['Totals'][$string] = $modifier;
 			$this->bonus_tooltip['Totals'][$string] = $html;
 			$this->bonus[$catagory][$string] = $modifier;
 			$this->bonus_tooltip[$catagory][$string] = $html;
-			
+
 			return;
 		}
 
 		$html = '<span style="color:#' . $this->item->color . ';">' . $this->item->name . '</span> : ' . $modifier;
-		
+
 		if( strchr($modifier, ':') === true )
 		{
 			if( isset($this->bonus['Totals'][$string]) )
@@ -427,7 +427,7 @@ class CharBonus
 				$this->bonus[$catagory][$string] = $this->bonus[$catagory][$string] + $modifier;
 				$this->bonus_tooltip[$catagory][$string] = $this->bonus_tooltip[$catagory][$string] . '<br />' . $html;
 			}
-			else 
+			else
 			{
 				$this->bonus[$catagory][$string] = $modifier;
 				$this->bonus_tooltip[$catagory][$string] = $html;
@@ -453,11 +453,11 @@ class CharBonus
 	{
 		$value1 = explode(':', $value1);
 		$value2 = explode(':', $value2);
-		
+
 		(string)$return = $value1[0] + $value2[0] . ':' . $value1[1] + $value2[1];
 		return $return;
 	}
-	
+
 	/**
 	 * if $bonus is found in $lang['item_bonuses_remap'] return standardized string
 	 * otherwise return unmodified $bonus string
@@ -487,8 +487,8 @@ class CharBonus
 		if( $pos = strpos($content, $in) )
 		{
 			return substr($content, 0, $pos) . $out . substr($content, $pos+strlen($in));
-		} 
-		else 
+		}
+		else
 		{
 			return $content;
 		}

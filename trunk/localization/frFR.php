@@ -29,7 +29,7 @@ $lang['lualocation']='Cliquer parcourir (browse) et télécharger les fichiers *
 $lang['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['noGuild']='Impossible de trouver la guilde dans la base de données. Mettre à jour la liste des membres.';
-$lang['nodata']='Impossible de trouver la guilde: <b>\'%1$s\'</b> du serveur <b>\'%2$s\'</b><br />Vous devez préalablement<a href="%3$s">charger votre guilde</a> et <a href="%4$s">finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/wiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles</a>';
+$lang['nodata']='Impossible de trouver la guilde: <b>\'%1$s\'</b> du serveur <b>\'%2$s\'</b><br />Vous devez préalablement<a href="%3$s">charger votre guilde</a> et <a href="%4$s">finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles</a>';
 $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Mise à jour du profil';

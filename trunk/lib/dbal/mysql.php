@@ -16,9 +16,9 @@
  * @subpackage MySQL
 */
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
+if( !defined('IN_ROSTER') )
 {
-	die("You can't access this file directly!");
+    exit('Detected invalid access to this file!');
 }
 
 define('SQL_ASSOC',MYSQL_ASSOC);
@@ -40,6 +40,7 @@ class roster_db
 	var $error_die   = false;               // Die on errors?           @var error_die
 
 	var $prefix      = '';
+	var $dbname      = '';
 	/**
 	 * Constructor
 	 *
@@ -55,6 +56,7 @@ class roster_db
 	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix)
 	{
 		$this->prefix = $prefix;
+		$this->dbname = $dbname;
 
 		if( empty($dbpass) )
 		{
@@ -395,9 +397,13 @@ class roster_db
 	function escape( $string )
 	{
 		if( version_compare( phpversion(), '4.3.0', '>' ) )
+		{
 			return mysql_real_escape_string( $string );
+		}
 		else
+		{
 			return mysql_escape_string( $string );
+		}
 	}
 
 	/**

@@ -15,6 +15,8 @@
  * @since      File available since Release 1.03
 */
 
+define('IN_ROSTER',true);
+
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once($roster_root_path . 'settings.php');     ##  Uses the same settings.php as WoWProfiler

@@ -16,9 +16,9 @@
  * @subpackage RosterClass
 */
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
+if( !defined('IN_ROSTER') )
 {
-	die("You can't access this file directly!");
+    exit('Detected invalid access to this file!');
 }
 
 class roster
@@ -86,26 +86,9 @@ class roster
 	 */
 	function load_dbal()
 	{
-		define('ROSTER_CONF_FILE',ROSTER_BASE . 'conf.php');
+		global $db_config;
 
-		// --[ Get the config file for the DB info. ]--
-		if( !file_exists(ROSTER_CONF_FILE) )
-		{
-			header('Location: install.php');
-		}
-		else
-		{
-			require_once (ROSTER_CONF_FILE);
-		}
-
-		if( !defined('ROSTER_INSTALLED') )
-		{
-			header('Location: install.php');
-		}
-
-		$dbtype = ( isset($dbtype) ? $dbtype : 'mysql' );
-
-		switch( $dbtype )
+		switch( $db_config['dbtype'] )
 		{
 			case 'mysql':
 				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
@@ -116,11 +99,11 @@ class roster
 				break;
 		}
 
-		$this->db = new roster_db($db_host, $db_name, $db_user, $db_passwd, $db_prefix);
+		$this->db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
 
 		if ( !$this->db->link_id )
 		{
-			die(__FILE__ . ': line[' . __LINE__ . ']<br />Could not connect to database "' . $db_name . '"<br />MySQL said:<br />' . $this->db->connect_error());
+			die(__FILE__ . ': line[' . __LINE__ . ']<br />Could not connect to database "' . $db_config['database'] . '"<br />MySQL said:<br />' . $this->db->connect_error());
 		}
 	}
 
@@ -473,7 +456,6 @@ class roster
 		$this->tpl->assign_vars(array(
 			'URL_FULL'         => ROSTER_URL,
 			'URL_PATH'         => ROSTER_PATH,
-			'TEMPLATE_PATH'    => ROSTER_URL . 'addons/' . $this->pages[1] . '/templates',
 			'ROSTER_VER'       => ROSTER_VERSION,
 
 			'IMG_URL'          => $this->config['img_url'],
@@ -487,10 +469,12 @@ class roster
 			case 'guild':
 			case 'realm':
 			case 'util':
+				$this->tpl->assign_var('TEMPLATE_PATH', ROSTER_URL . 'addons/' . $this->pages[1] . '/templates');
 				$this->tpl->set_template('default',$this->pages[1]);
 				break;
 
 			default:
+				$this->tpl->assign_var('TEMPLATE_PATH', ROSTER_URL . 'templates');
 				$this->tpl->set_template('default');
 		}
 
