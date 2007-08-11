@@ -79,14 +79,10 @@ define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
 /**
  * Check PHP version
  */
-$phpver = explode('.', phpversion());
-$phpver = "$phpver[0]$phpver[1]";
-
-if( $phpver < 43 )
+if( version_compare(phpversion(), '4.3.0','<') )
 {
-	die('You must have at least PHP version 4.3 and higher to run WoWRoster');
+	die('You must have PHP version 4.3 or later to run WoWRoster');
 }
-unset($phpver);
 
 
 /**
