@@ -14,7 +14,7 @@
  * @since      File available since Release 1.03
 */
 
-if( !defined('ROSTER_INSTALLED') )
+if( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }

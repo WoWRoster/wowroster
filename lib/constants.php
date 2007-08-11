@@ -15,12 +15,18 @@
  * @package    WoWRoster
 */
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
+if( !defined('IN_ROSTER') )
 {
-	die("You can't access this file directly!");
+    exit('Detected invalid access to this file!');
 }
 
 define('ROSTER_VERSION','1.8.0dev');
+
+/**
+ * Roster Conf File
+ *
+ */
+define('ROSTER_CONF_FILE',ROSTER_BASE . 'conf.php');
 
 /**
  * Base, absolute roster admin directory

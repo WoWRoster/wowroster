@@ -14,6 +14,7 @@
  * @since      File available since Release 1.8.0
 */
 
+define('IN_ROSTER',true);
 include('../../settings.php');
 
 // Parameter fetching and checking

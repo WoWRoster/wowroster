@@ -15,7 +15,7 @@
  * @subpackage PvPLog Library
 */
 
-if( !defined('ROSTER_INSTALLED') )
+if( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }

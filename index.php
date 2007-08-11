@@ -28,6 +28,8 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 	exit;
 }
 
+define('IN_ROSTER',true);
+
 require_once( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php' );
 
 // --[ Get path info based on scope ]--

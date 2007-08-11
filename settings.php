@@ -15,9 +15,9 @@
  * @since      File available since Release 1.7.0
 */
 
-if( eregi(basename(__FILE__),$_SERVER['PHP_SELF']) )
+if( !defined('IN_ROSTER') )
 {
-	die("You can't access this file directly!");
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -94,46 +94,11 @@ unset($phpver);
  */
 define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 
-include( ROSTER_LIB . 'roster.php' );
-$roster = new roster;
-
-
-/**
- * Roster Error Handler
- */
-include( ROSTER_LIB . 'roster_error.php' );
-$roster->error =& new roster_error();
-
-
-/**
- * Load the dbal
- */
-$roster->load_dbal();
-
-
-/**
- * Load the Template Parser
- */
-include( ROSTER_LIB . 'template.php' );
-$roster->tpl = new Template;
-
 
 /**
  * Include constants file
  */
 require_once (ROSTER_LIB . 'constants.php');
-
-
-/**
- * Load the config
- */
-$roster->load_config();
-
-
-/**
- * Cache addon data
- */
-$roster->get_addon_data();
 
 
 /**
@@ -152,6 +117,60 @@ if( !get_magic_quotes_gpc() )
 	$_COOKIE = escape_array($_COOKIE);
 	$_REQUEST = escape_array($_REQUEST);
 }
+
+// --[ Check to see if we need to install ]--
+if( !file_exists(ROSTER_CONF_FILE) )
+{
+    require(ROSTER_BASE . 'install.php');
+    die();
+}
+else
+{
+	require_once (ROSTER_CONF_FILE);
+}
+
+if( !defined('ROSTER_INSTALLED') )
+{
+    require(ROSTER_BASE . 'install.php');
+    die();
+}
+
+include( ROSTER_LIB . 'roster.php' );
+$roster = new roster;
+
+
+/**
+ * Roster Error Handler
+ */
+include( ROSTER_LIB . 'roster_error.php' );
+$roster->error =& new roster_error();
+
+
+/**
+ * Load the dbal
+ */
+$roster->load_dbal();
+
+unset($db_config);
+
+
+/**
+ * Load the Template Parser
+ */
+include( ROSTER_LIB . 'template.php' );
+$roster->tpl = new Template;
+
+
+/**
+ * Load the config
+ */
+$roster->load_config();
+
+
+/**
+ * Cache addon data
+ */
+$roster->get_addon_data();
 
 
 /**
@@ -244,7 +263,7 @@ function changeDBEncoding()
 
 	if( $roster->db->num_rows() > 0 )
 	{
-		$roster->db->query('ALTER DATABASE `' . $db_name . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
+		$roster->db->query('ALTER DATABASE `' . $roster->db->dbname . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 
 		while( $table = $roster->db->fetch($tableResult) )
 		{

@@ -14,6 +14,8 @@
  * @since      File available since Release 1.7.2
 */
 
+define('IN_ROSTER',true);
+
 // Set the relative URL here. Use slashes, not backslashes. Use slash in front
 // and omit the one at the end. If your windows server does not accept slashes
 // in pathnames set the include statement seperately.

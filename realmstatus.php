@@ -20,8 +20,9 @@
 // http://53x11.com
 
 // EDITED BY: http://wowroster.net for use in wowroster
-// XML parsing by minixml
 // Most other changes by Zanix
+
+define('IN_ROSTER',true);
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 

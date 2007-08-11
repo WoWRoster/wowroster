@@ -18,7 +18,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 
 // Needed so files think we are in Roster =P
-define('ROSTER_INSTALLED',true);
+define('IN_ROSTER',true);
 
 // This file is for on the SVN only, so this should NOT be shipped to the clients!!!
 require_once 'lib/functions.lib.php';

@@ -14,7 +14,7 @@
  * @since      File available since Release 1.03
 */
 
-if( !defined('ROSTER_INSTALLED') )
+if( !defined('IN_ROSTER') )
 {
 	exit('Detected invalid access to this file!');
 }
@@ -87,11 +87,11 @@ class item
 		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['item_texture'] . '.' . $roster->config['img_suffix'];
 		$tooltip = makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
 		list($item_id) = explode(':', $this->item_id);
-		
+
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		
+
 		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
 			//$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
@@ -155,7 +155,7 @@ class item
 
 		return $html;
 	}
-	
+
 	function _getConjures()
 	{
 		$html = '';
@@ -266,7 +266,7 @@ class item
 		}
 		return $html;
 	}
-	
+
 	/**
 	 * Helper function that returns the localized gem color in english
 	 *
@@ -330,12 +330,12 @@ class item
 	function _getDurability()
 	{
 		global $roster;
-		
+
 		$current = $this->attributes['Durability']['Current'];;
 		$max = $this->attributes['Durability']['Max'];
 		$percent = (($current / $max) * 100);
 		$html = $roster->locale->wordings[$this->locale]['tooltip_durability'] . '&nbsp;';
-		
+
 		if( $percent == 0 )
 		{
 			$html .= '<span style="color:#ff0000;">' . $current . '</span>';
@@ -343,13 +343,13 @@ class item
 		elseif( $percent <= 25)
 		{
 			$html .= '<span style="color:gold;">' . $current . '</span>';
-		}	
-		else 
+		}
+		else
 		{
 			$html .= '<span style="color:#ffffff;">' . $current . '</span>';
 		}
 		$html .= '<span style="color:#ffffff;"> / ' . $max . '</span><br />';
-		
+
 		return $html;
 	}
 
@@ -505,14 +505,14 @@ class item
 	function _getRestrictions()
 	{
 		$html = '';
-		
+
 		foreach( $this->attributes['Restrictions'] as $val )
 		{
 			$html .= '<span style="color:#ffffff;">' . $val . '</span><br />';
 		}
 		return $html;
 	}
-	
+
 	function _getItemNote()
 	{
 		$html = '<span style="color:#ffd517;">' . $this->attributes['ItemNote'] . '</span><br />';
@@ -767,7 +767,7 @@ class item
 					else
 					{
 						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
-						$this->isParseError = true;		
+						$this->isParseError = true;
 					}
 				}
 				$i++;
@@ -1055,14 +1055,14 @@ class item
 					else
 					{
 						//
-						//if all else fails its an unexpected/unparsed line perhaps "extra" ? 
+						//if all else fails its an unexpected/unparsed line perhaps "extra" ?
 						$tt['Attributes']['ItemText'] = $line;
 						$unparsed[]=$line;
 					}
 				} // end pass2 if
 			} // end pass1
 		} // end foreach
-		
+
 		if( isset( $unparsed ) )
 		{
 			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br>". implode('<br>', $unparsed) );
@@ -1106,7 +1106,7 @@ class item
 		}
 
 		$sql = "SELECT gem_id as GemId, gem_name as Name, gem_color as Color, gem_tooltip as Tooltip, "
-			 . "gem_texture as Icon, gem_bonus as Bonus, gem_socketid as SocketId, locale FROM `" 
+			 . "gem_texture as Icon, gem_bonus as Bonus, gem_socketid as SocketId, locale FROM `"
 			 . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
@@ -1146,7 +1146,7 @@ class item
 		$equip = ( isset($data['equip']) ? $data['equip'] : null );
 		$owned = ( isset($data['owned']) ? $data['owned'] : null );
 		$this->setItemTotal = count($armor_pieces);
-		
+
 		foreach( $armor_pieces as $key => $val )
 		{
 			if( isset($equip) && in_array($val['Name'], $equip) )
@@ -1186,7 +1186,7 @@ class item
 			}
 			$sql_in .= "')";
 
-			$sql = "SELECT item_name, item_parent FROM" 
+			$sql = "SELECT item_name, item_parent FROM"
 				 . " `" . $roster->db->table('items') . "`"
 				 . " WHERE `member_id` = '$member_id'"
 				 . " AND `item_name` IN $sql_in ";
@@ -1207,7 +1207,7 @@ class item
 		}
 		return false;
 	}
-	
+
 	function showBaseStats()
 	{
 		return $this->attributes['BaseStats'];
@@ -1223,7 +1223,7 @@ class item
 	function fetchNamedItem( $name, $parse_mode=false )
 	{
 		global $roster;
-		
+
 		$name = $roster->db->escape( $name );
 		$sql = " SELECT *"
 			 . " FROM `" . $roster->db->table('items') . "`"
@@ -1240,7 +1240,7 @@ class item
 			return false;
 		}
 	}
-	
+
 	function fetchOneItem( $member_id, $slot, $parse_mode=false )
 	{
 		global $roster;
@@ -1270,7 +1270,7 @@ class item
 	 * @param int $member_id
 	 * @param string $parent
 	 * @param string $parse_mode
-	 * @return object[]   
+	 * @return object[]
 	 */
 	function fetchManyItems( $member_id, $parent, $parse_mode=false )
 	{
@@ -1278,14 +1278,14 @@ class item
 
 		$parent = $roster->db->escape( $parent );
 		$items = array();
-		
+
 		$query  = " SELECT *"
 				. " FROM `" . $roster->db->table('items') . "`"
 				. " WHERE `member_id` = '$member_id'"
 				. " AND `item_parent` = '$parent'";
 
 		$result = $roster->db->query( $query );
-		
+
 		while( $data = $roster->db->fetch( $result ) )
 		{
 			$item = new item( $data, $parse_mode );
@@ -1293,17 +1293,17 @@ class item
 		}
 		return $items;
 	}
-	
+
 	function debugPrintAttributes()
 	{
 		return aprint($this->parsed_item['Attributes']);
 	}
-	
+
 	function debugPrintAll()
 	{
 		return aprint($this->parsed_item);
 	}
-	
+
 	/**
 	 * Returns an Icon with Mouse over Tooltip text of the passed item if found
 	 * otherwise return null
@@ -1321,5 +1321,5 @@ class item
 		}
 		return null;
 	}
-	
+
 } //end class item
