@@ -16,7 +16,7 @@
 
 //REMOVE THIS PRIOR TO GO-LIVE
 require_once("../settings.php");
-//* 
+//*
 
 require_once( ROSTER_LIB . 'functions.lib.php' );
 require_once( ROSTER_LIB . 'minixml.lib.php' );
