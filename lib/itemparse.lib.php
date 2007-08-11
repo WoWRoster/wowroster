@@ -15,11 +15,11 @@
 */
 
 //REMOVE THIS PRIOR TO GO-LIVE
-require_once("../settings.php");
+require_once ("../settings.php");
 //*
 
-require_once( ROSTER_LIB . 'functions.lib.php' );
-require_once( ROSTER_LIB . 'minixml.lib.php' );
+require_once ( ROSTER_LIB . 'functions.lib.php' );
+require_once ( ROSTER_LIB . 'minixml.lib.php' );
 
 
 //REMOVE THIS PRIOR TO GO-LIVE
@@ -35,8 +35,8 @@ $webitemdb = new webitemdb();
 $itemarray = $webitemdb->getItem( $id );
 //*
 
-class webitemdb 
-{	
+class webitemdb
+{
 	var $item = array();
 
 	/**
@@ -55,7 +55,7 @@ class webitemdb
 		else {
 			return false;
 		}
-		
+
 		if( $this->xml == false)
 		{
 			return false;
@@ -64,7 +64,7 @@ class webitemdb
 			return $this->parseItem( $this->xml );
 		}
 	}
-	
+
 	/**
 	 * Parses out item information using MiniXML
 	 *
@@ -73,29 +73,29 @@ class webitemdb
 	function parseItem( $xml )
 	{
 		$this->parsedDoc = new MiniXMLDoc();
-		
+
 		$this->parsedDoc->fromString( $xml );
 		$this->rootEL = $this->parsedDoc->getRoot( $this->parsedDoc );
-		
+
 		$this->getStat( 'name1' );
 		$this->getStat( 'armor' );
 		$this->getSubStat( 'agility', 'stats' );
-				
+
 		echo("<pre>");
 		print_r($this->item);
-		
+
 	}
-	
+
 	/**
 	 * Gets a first-level element from the XML
 	 *
 	 * @param var $stat
 	 */
 	function getStat( $stat )
-	{	
+	{
 		$this->item[$stat] = $this->rootEL->getElement( $stat )->getValue();
 	}
-	
+
 	/**
 	 * Gets a second-level element from the XML
 	 *
@@ -103,7 +103,7 @@ class webitemdb
 	 * @param var $element
 	 */
 	function getSubStat( $stat, $element )
-	{	
+	{
 		$this->element =& $this->rootEL->getElement( $element );
 		$this->item[$stat] = $this->element->getElement( $stat )->getValue();
 	}
