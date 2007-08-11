@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id: realmstatus.php 1147 2007-07-29 21:34:20Z Zanix $
+ * @version    
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
