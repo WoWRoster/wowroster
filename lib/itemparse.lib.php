@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    $Id: $
+ * @version    $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
