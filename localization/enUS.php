@@ -221,8 +221,8 @@ $lang['search_for']='Search Roster For';
 $lang['search_next_matches'] = 'Next matches for: ';
 $lang['search_previous_matches'] = 'Previous matches for: ';
 $lang['search_results_count'] = 'Results';
-$lang['submited_author'] = 'Submited by';
-$lang['submited_date'] = 'Date submited';
+$lang['submited_author'] = 'Posted by:';
+$lang['submited_date'] = 'On';
 //end search engine
 $lang['update']='Update';
 $lang['credit']='Credits';
@@ -526,6 +526,16 @@ $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
 $lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 $lang['data_links']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
 $lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
+
+// Google Search
+// Add as many item links as you need
+// Just make sure their names are unique
+// use these locales for data searches
+$lang['google_search'] = 'Google';
+$lang['google_links']['Google'] = 'http://www.google.com/search?q=';
+$lang['google_links']['Google Groups'] = 'http://groups.google.com/groups?q=';
+$lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
+$lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
 
 // Definition for item tooltip coloring
