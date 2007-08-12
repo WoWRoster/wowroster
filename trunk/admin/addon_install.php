@@ -66,8 +66,24 @@ if( !empty($addons) )
 	';
 	foreach( $addons as $addon )
 	{
+		if( !empty($addon['icon']) )
+		{
+			if( strpos($addon['icon'],'.') !== false )
+			{
+				$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
+			}
+			else
+			{
+				$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
+			}
+		}
+		else
+		{
+			$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+		}
+
 		$output .= '	<tr>
-			<td class="membersRow1"><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'] . '" alt="[icon]" /></td>
+			<td class="membersRow1"><img src="' . $addon['icon'] . '" alt="[icon]" /></td>
 			<td class="membersRow1"><table cellpadding="0" cellspacing="0">
 				<tr>
 					<td><span style="font-size:18px;" class="green">' . ucfirst($addon['fullname']) . '</span> v' . $addon['version'] . '</td>

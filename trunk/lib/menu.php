@@ -650,7 +650,21 @@ class RosterMenu
 					}
 				}
 
-				$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . (empty($button['icon'])?'inv_misc_questionmark':$button['icon']) . '.' . $roster->config['img_suffix'];
+				if( !empty($button['icon']) )
+				{
+					if( strpos($button['icon'],'.') !== false )
+					{
+						$button['icon'] = ROSTER_PATH . 'addons/' . $button['basename'] . '/images/' . $button['icon'];
+					}
+					else
+					{
+						$button['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $button['icon'] . '.' . $roster->config['img_suffix'];
+					}
+				}
+				else
+				{
+					$button['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+				}
 
 				if( $button['addon_id'] == 0 )
 				{

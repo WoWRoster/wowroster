@@ -141,9 +141,6 @@ World of Warcraft and Blizzard Entertainment are trademarks or registered tradem
 <a href="%1$s">Additional Credits</a>';
 
 
-//Charset
-$lang['charset']="charset=utf-8";
-
 $lang['timeformat'] = '%d.%m. %k:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
 $lang['phptimeformat'] = 'd.m. G:i';  // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
@@ -741,7 +738,7 @@ $lang['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurückse
 
 // Main Menu words
 $lang['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br />Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
-$lang['admin']['guild_conf'] = 'Gildenkonfiguration|Gib deine Gildeninfos ein<ul><li>Gildenname</li><li>Realmname (Server)</li><li>Eine kurze Beschreibung</li><li>Servertyp</li><li>etc...</li></ul>';
+$lang['admin']['defaults_conf'] = 'Defaults Config|Set up your Roster defaults';
 $lang['admin']['index_conf'] = 'Indexseite|Einstellen was auf der Hauptseite angezeigt werden soll';
 $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen welche Elemente im Menü gezeigt werden sollen';
 $lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br />css, javascript, motd, etc...';
@@ -772,7 +769,7 @@ $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Trig
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
-// guild_conf
+// defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
 $lang['admin']['default_desc'] = "Description|Enter a short description to be displayed when not in the guild or char scope";
 $lang['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur Anzeige der Anzahl der 2.-Charaktere auf der Hautpseite benutzt wird";

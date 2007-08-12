@@ -203,7 +203,22 @@ foreach($arrayButtons as $pos=>$button)
 		}
 	}
 
-	$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
+	if( !empty($button['icon']) )
+	{
+		if( strpos($button['icon'],'.') !== false )
+		{
+			$button['icon'] = ROSTER_PATH . 'addons/' . $button['basename'] . '/images/' . $button['icon'];
+		}
+		else
+		{
+			$button['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $button['icon'] . '.' . $roster->config['img_suffix'];
+		}
+	}
+	else
+	{
+		$button['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+	}
+
 	$button['titkey'] = $button['title'];
 
 	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
@@ -250,7 +265,22 @@ foreach($palet as $id=>$button)
 		}
 	}
 
-	$button['icon'] = $roster->config['interface_url'].'Interface/Icons/'.(empty($button['icon'])?'inv_misc_questionmark':$button['icon']).'.'.$roster->config['img_suffix'];
+	if( !empty($button['icon']) )
+	{
+		if( strpos($button['icon'],'.') !== false )
+		{
+			$button['icon'] = ROSTER_PATH . 'addons/' . $button['basename'] . '/images/' . $button['icon'];
+		}
+		else
+		{
+			$button['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $button['icon'] . '.' . $roster->config['img_suffix'];
+		}
+	}
+	else
+	{
+		$button['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+	}
+
 	$button['titkey'] = $button['title'];
 
 	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
