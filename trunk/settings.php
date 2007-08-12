@@ -54,8 +54,7 @@ set_magic_quotes_runtime(0);
 /**
  * Begin Roster Timing
  */
-$starttime = explode(' ', microtime() );
-define('ROSTER_STARTTIME',$starttime[1] + $starttime[0]);
+define('ROSTER_STARTTIME',format_microtime());
 
 
 /**
@@ -249,36 +248,3 @@ if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgra
  * Include roster Login class
  */
 require_once(ROSTER_LIB . 'login.php');
-
-
-function changeDBEncoding()
-{
-	global $roster;
-
-	$tableResult = $roster->db->query("SHOW TABLES LIKE '" . $roster->db->prefix . "%'");
-
-	if( $roster->db->num_rows() > 0 )
-	{
-		$roster->db->query('ALTER DATABASE `' . $roster->db->dbname . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
-
-		while( $table = $roster->db->fetch($tableResult) )
-		{
-			$tableName = $table[key($table)];
-
-			$roster->db->query('ALTER TABLE `' . $tableName . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
-
-			$columnResult = $roster->db->query('SHOW COLUMNS FROM `' . $tableName . '`;');
-			while( $column = $roster->db->fetch($columnResult) )
-			{
-				if ( ( substr( $column['Type'], 0, 7 ) == 'varchar' ) || ( substr( $column['Type'], 0, 4 ) == 'char' ) || ( substr( $column['Type'], 0, 4 ) == 'text' ) || ( substr( $column['Type'], 0, 10 ) == 'mediumtext' ) || ( substr( $column['Type'], 0, 8 ) == 'tinytext' ) )
-				{
-					$roster->db->query('ALTER TABLE `' . $tableName . '` CHANGE `' . $column['Field'] . '` `' . $column['Field'] . '` ' . $column['Type'] . ' CHARACTER SET utf8 COLLATE utf8_general_ci;');
-				}
-			}
-		}
-		return true;
-	}
-}
-
-//changeDBEncoding();
-//die();

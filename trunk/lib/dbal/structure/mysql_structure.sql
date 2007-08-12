@@ -12,23 +12,37 @@ CREATE TABLE `renprefix_account` (
   `name` varchar(30) NOT NULL default '',
   `hash` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`account_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Addon table
+### Addon
 
 DROP TABLE IF EXISTS `renprefix_addon`;
 CREATE TABLE `renprefix_addon` (
-	`addon_id` int(11) NOT NULL AUTO_INCREMENT,
-	`basename` varchar(16) NOT NULL DEFAULT '',
-	`version` varchar(16) NOT NULL DEFAULT '0',
-	`active` int(1) NOT NULL DEFAULT '1',
-	`fullname` tinytext NOT NULL,
-	`description` mediumtext NOT NULL,
-	`credits` mediumtext NOT NULL,
-	`icon` varchar(64) NOT NULL DEFAULT '',
-	PRIMARY KEY (`addon_id`)
-) TYPE=MyISAM;
+  `addon_id` int(11) NOT NULL auto_increment,
+  `basename` varchar(16) NOT NULL default '',
+  `version` varchar(16) NOT NULL default '0',
+  `active` int(1) NOT NULL default '1',
+  `fullname` tinytext NOT NULL,
+  `description` mediumtext NOT NULL,
+  `credits` mediumtext NOT NULL,
+  `icon` varchar(64) NOT NULL default '',
+  PRIMARY KEY  (`addon_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
+### Addon Config
+
+DROP TABLE IF EXISTS `renprefix_addon_config`;
+CREATE TABLE `renprefix_addon_config` (
+  `addon_id` int(11) NOT NULL default '0',
+  `id` int(11) unsigned NOT NULL,
+  `config_name` varchar(255) default NULL,
+  `config_value` tinytext,
+  `form_type` mediumtext,
+  `config_type` varchar(255) default NULL,
+  PRIMARY KEY  (`id`,`addon_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Buffs
@@ -41,8 +55,8 @@ CREATE TABLE `renprefix_buffs` (
   `count` int(11) unsigned NOT NULL default '0',
   `icon` varchar(64) NOT NULL default '',
   `tooltip` mediumtext NOT NULL,
-  PRIMARY KEY (`member_id`,`name`)
-) TYPE=MyISAM;
+  PRIMARY KEY  (`member_id`,`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Config
@@ -55,21 +69,7 @@ CREATE TABLE `renprefix_config` (
   `form_type` mediumtext,
   `config_type` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Addon Config
-
-DROP TABLE IF EXISTS `renprefix_addon_config`;
-CREATE TABLE `renprefix_addon_config` (
-  `addon_id` int(11),
-  `id` int(11) unsigned NOT NULL,
-  `config_name` varchar(255) default NULL,
-  `config_value` tinytext,
-  `form_type` mediumtext,
-  `config_type` varchar(255) default NULL,
-  PRIMARY KEY (`id`,`addon_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Gems
@@ -86,7 +86,7 @@ CREATE TABLE `renprefix_gems` (
   `locale` varchar(16) NOT NULL default '',
   PRIMARY KEY  (`gem_id`,`locale`),
   KEY `gem_socketid` (`gem_socketid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 # --------------------------------------------------------
@@ -109,7 +109,7 @@ CREATE TABLE `renprefix_guild` (
   `guild_info_text` mediumtext,
   PRIMARY KEY  (`guild_id`),
   KEY `guild` (`guild_name`,`server`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Items
@@ -125,14 +125,14 @@ CREATE TABLE `renprefix_items` (
   `item_texture` varchar(64) NOT NULL default '',
   `item_quantity` int(11) default NULL,
   `item_tooltip` mediumtext NOT NULL,
-  `level` INT( 11 ) default NULL,
-  `item_level` INT( 11 ) default NULL,
+  `level` int(11) default NULL,
+  `item_level` int(11) default NULL,
   `locale` varchar(4) default NULL,
   PRIMARY KEY  (`member_id`,`item_parent`,`item_slot`),
   KEY `parent` (`item_parent`),
   KEY `slot` (`item_slot`),
   KEY `name` (`item_name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Mailbox
@@ -152,7 +152,29 @@ CREATE TABLE `renprefix_mailbox` (
   `item_tooltip` mediumtext NOT NULL,
   `item_color` varchar(16) NOT NULL default '',
   PRIMARY KEY  (`member_id`,`mailbox_slot`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
+### Member Log
+
+DROP TABLE IF EXISTS `renprefix_memberlog`;
+CREATE TABLE `renprefix_memberlog` (
+  `log_id` int(11) unsigned NOT NULL auto_increment,
+  `member_id` int(11) unsigned NOT NULL,
+  `name` varchar(64) NOT NULL default '',
+  `server` varchar(32) NOT NULL default '',
+  `region` char(2) NOT NULL default '',
+  `guild_id` int(11) unsigned NOT NULL default '0',
+  `class` varchar(32) NOT NULL default '',
+  `level` int(11) NOT NULL default '0',
+  `note` varchar(255) NOT NULL default '',
+  `guild_rank` int(11) default '0',
+  `guild_title` varchar(64) default NULL,
+  `officer_note` varchar(255) NOT NULL default '',
+  `update_time` datetime default NULL,
+  `type` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`log_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Members
@@ -175,7 +197,7 @@ CREATE TABLE `renprefix_members` (
   `online` int(1) default '0',
   `last_online` datetime default NULL,
   `account_id` smallint(6) NOT NULL default '0',
-  `active` tinyint( 1 ) NOT NULL default '1',
+  `active` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),
   KEY `name` (`name`),
@@ -184,55 +206,33 @@ CREATE TABLE `renprefix_members` (
   KEY `level` (`level`),
   KEY `guild_rank` (`guild_rank`),
   KEY `last_online` (`last_online`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Member Log
-
-DROP TABLE IF EXISTS `renprefix_memberlog`;
-CREATE TABLE `renprefix_memberlog` (
-  `log_id` int(11) unsigned NOT NULL auto_increment,
-  `member_id` int(11) unsigned NOT NULL,
-  `name` varchar(64) NOT NULL default '',
-  `server` varchar(32) NOT NULL default '',
-  `region` char(2) NOT NULL default '',
-  `guild_id` int(11) unsigned NOT NULL default '0',
-  `class` varchar(32) NOT NULL default '',
-  `level` int(11) NOT NULL default '0',
-  `note` varchar(255) NOT NULL default '',
-  `guild_rank` int(11) default '0',
-  `guild_title` varchar(64) default NULL,
-  `officer_note` varchar(255) NOT NULL default '',
-  `update_time` datetime default NULL,
-  `type` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`log_id`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Menu config table
+### Menu
 
 DROP TABLE IF EXISTS `renprefix_menu`;
 CREATE TABLE `renprefix_menu` (
-	`config_id` int(11) AUTO_INCREMENT,
-	`section` varchar(16),
-	`config` mediumtext,
-	PRIMARY KEY (`config_id`)
-) TYPE=MyISAM;
+  `config_id` int(11) NOT NULL auto_increment,
+  `section` varchar(16) default NULL,
+  `config` mediumtext,
+  PRIMARY KEY  (`config_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Menu button table
+### Menu Button
 
 DROP TABLE IF EXISTS `renprefix_menu_button`;
 CREATE TABLE `renprefix_menu_button` (
-	`button_id` int(11) AUTO_INCREMENT,
-	`addon_id` int(11) NOT NULL COMMENT '0 for main roster',
-	`title` varchar(32),
-	`scope` varchar(16),
-	`url` varchar(128),
-	`icon` varchar(64) NOT NULL DEFAULT '',
-	PRIMARY KEY (`button_id`),
-	KEY `idtitle` (`addon_id`,`title`)
-) TYPE=MyISAM;
+  `button_id` int(11) NOT NULL auto_increment,
+  `addon_id` int(11) NOT NULL COMMENT '0 for main roster',
+  `title` varchar(32) default NULL,
+  `scope` varchar(16) default NULL,
+  `url` varchar(128) default NULL,
+  `icon` varchar(64) NOT NULL default '',
+  PRIMARY KEY  (`button_id`),
+  KEY `idtitle` (`addon_id`,`title`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Pets
@@ -358,7 +358,7 @@ CREATE TABLE `renprefix_pets` (
   `block` float NOT NULL default '0',
   `mitigation` float NOT NULL default '0',
   PRIMARY KEY  (`pet_id`,`member_id`,`name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Players
@@ -578,10 +578,23 @@ CREATE TABLE `renprefix_players` (
   `clientLocale` varchar(4) NOT NULL default '',
   `timeplayed` int(11) NOT NULL default '0',
   `timelevelplayed` int(11) NOT NULL default '0',
+  `show_money` tinyint(1) NOT NULL default '3',
+  `show_tab2` tinyint(1) NOT NULL default '3',
+  `show_tab3` tinyint(1) NOT NULL default '3',
+  `show_tab4` tinyint(1) NOT NULL default '3',
+  `show_tab5` tinyint(1) NOT NULL default '3',
+  `show_talents` tinyint(1) NOT NULL default '3',
+  `show_spellbook` tinyint(1) NOT NULL default '3',
+  `show_mail` tinyint(1) NOT NULL default '3',
+  `show_bags` tinyint(1) NOT NULL default '3',
+  `show_bank` tinyint(1) NOT NULL default '3',
+  `show_quests` tinyint(1) NOT NULL default '3',
+  `show_recipes` tinyint(1) NOT NULL default '3',
+  `show_item_bonuses` tinyint(1) NOT NULL default '3',
   PRIMARY KEY  (`member_id`),
   KEY `name` (`name`,`server`),
   KEY `char` (`region`,`server`,`name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Quests
@@ -599,7 +612,7 @@ CREATE TABLE `renprefix_quests` (
   KEY `quest_index` (`quest_index`,`quest_level`,`quest_tag`),
   FULLTEXT KEY `quest_name` (`quest_name`),
   FULLTEXT KEY `zone` (`zone`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Realmstatus
@@ -613,7 +626,7 @@ CREATE TABLE `renprefix_realmstatus` (
   `serverpop` varchar(20) NOT NULL default '',
   `timestamp` tinyint(2) NOT NULL default '0',
   UNIQUE KEY `server_name` (`server_name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Recipes
@@ -631,13 +644,13 @@ CREATE TABLE `renprefix_recipes` (
   `recipe_tooltip` mediumtext NOT NULL,
   `categories` varchar(64) NOT NULL default '',
   `level` int(11) default NULL,
-  `item_level` INT( 11 ) default NULL,
+  `item_level` int(11) default NULL,
   PRIMARY KEY  (`member_id`,`skill_name`,`recipe_name`,`categories`),
   KEY `skill_nameI` (`skill_name`),
   KEY `recipe_nameI` (`recipe_name`),
   KEY `categoriesI` (`categories`),
   KEY `levelI` (`level`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Reputation
@@ -647,12 +660,12 @@ CREATE TABLE `renprefix_reputation` (
   `member_id` int(10) unsigned NOT NULL default '0',
   `faction` varchar(32) NOT NULL default '',
   `name` varchar(32) NOT NULL default '',
-  `curr_rep` int(8) NULL,
-  `max_rep` int(8) NULL,
+  `curr_rep` int(8) default NULL,
+  `max_rep` int(8) default NULL,
   `AtWar` int(11) NOT NULL default '0',
   `Standing` varchar(32) default '',
   PRIMARY KEY  (`member_id`,`name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Skills
@@ -668,7 +681,7 @@ CREATE TABLE `renprefix_skills` (
   KEY `skill_type` (`skill_type`),
   KEY `skill_name` (`skill_name`),
   KEY `skill_order` (`skill_order`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Spellbook
@@ -681,22 +694,11 @@ CREATE TABLE `renprefix_spellbook` (
   `spell_texture` varchar(64) NOT NULL default '',
   `spell_rank` varchar(64) NOT NULL default '',
   `spell_tooltip` mediumtext NOT NULL,
-  PRIMARY KEY (`member_id`,`spell_name`,`spell_rank`)
-) TYPE=MyISAM;
+  PRIMARY KEY  (`member_id`,`spell_name`,`spell_rank`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Spellbook Tree
-
-DROP TABLE IF EXISTS `renprefix_spellbooktree`;
-CREATE TABLE `renprefix_spellbooktree` (
-  `member_id` int(11) unsigned NOT NULL default '0',
-  `spell_type` varchar(64) NOT NULL default '',
-  `spell_texture` varchar(64) NOT NULL default '',
-  PRIMARY KEY (`member_id`,`spell_type`)
-) TYPE=MyISAM;
-
-# --------------------------------------------------------
-### Pet Spellbook
+### Spellbook Pet
 
 DROP TABLE IF EXISTS `renprefix_spellbook_pet`;
 CREATE TABLE `renprefix_spellbook_pet` (
@@ -706,8 +708,19 @@ CREATE TABLE `renprefix_spellbook_pet` (
   `spell_texture` varchar(64) NOT NULL default '',
   `spell_rank` varchar(64) NOT NULL default '',
   `spell_tooltip` mediumtext NOT NULL,
-  PRIMARY KEY (`member_id`,`pet_id`,`spell_name`,`spell_rank`)
-) TYPE=MyISAM;
+  PRIMARY KEY  (`member_id`,`pet_id`,`spell_name`,`spell_rank`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
+### Spellbook Tree
+
+DROP TABLE IF EXISTS `renprefix_spellbooktree`;
+CREATE TABLE `renprefix_spellbooktree` (
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `spell_type` varchar(64) NOT NULL default '',
+  `spell_texture` varchar(64) NOT NULL default '',
+  PRIMARY KEY  (`member_id`,`spell_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Talents
@@ -723,8 +736,8 @@ CREATE TABLE `renprefix_talents` (
   `maxrank` tinyint(4) NOT NULL default '0',
   `tooltip` mediumtext NOT NULL,
   `texture` varchar(64) NOT NULL default '',
-  PRIMARY KEY (`member_id`,`tree`,`row`,`column`)
-) TYPE=MyISAM;
+  PRIMARY KEY  (`member_id`,`tree`,`row`,`column`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Talent Tree
@@ -736,8 +749,8 @@ CREATE TABLE `renprefix_talenttree` (
   `background` varchar(64) NOT NULL default '',
   `order` tinyint(4) NOT NULL default '0',
   `pointsspent` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY (`member_id`,`tree`)
-) TYPE=MyISAM;
+  PRIMARY KEY  (`member_id`,`tree`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Upload rules
@@ -750,5 +763,5 @@ CREATE TABLE `renprefix_upload` (
   `region` char(2) NOT NULL default '',
   `type` tinyint(4) NOT NULL default '0',
   `default` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY (`rule_id`)
-) TYPE=MyISAM;
+  PRIMARY KEY  (`rule_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

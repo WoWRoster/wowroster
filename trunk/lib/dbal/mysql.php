@@ -41,6 +41,38 @@ class roster_db
 
 	var $prefix      = '';
 	var $dbname      = '';
+
+	var $querytime   = 0;
+	var $file;
+	var $line;
+
+	function _log( $query , $failed=false )
+	{
+		$this->_backtrace();
+
+		$this->queries[$this->file][$this->query_count]['query'] = $query;
+		$this->queries[$this->file][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
+		$this->queries[$this->file][$this->query_count]['line'] = $this->line;
+	}
+	function _backtrace()
+	{
+		$this->file = 'unknown';
+		$this->line = 0;
+		if( version_compare(phpversion(), '4.3.0','>=') )
+		{
+			$tmp = debug_backtrace();
+			for ($i=0; $i<count($tmp); ++$i)
+			{
+				if (!preg_match('#[\\\/]{1}lib[\\\/]{1}dbal[\\\/]{1}[a-z_]+.php$#', $tmp[$i]['file']))
+				{
+					$this->file = $tmp[$i]['file'];
+					$this->line = $tmp[$i]['line'];
+					break;
+				}
+			}
+		}
+	}
+
 	/**
 	 * Constructor
 	 *
@@ -66,6 +98,9 @@ class roster_db
 		{
 			$this->link_id = @mysql_connect($dbhost, $dbuser, $dbpass);
 		}
+
+		mysql_query("SET NAMES 'utf8'");
+		mysql_query("SET CHARACTER SET 'utf8'");
 
 		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($dbname != '') )
 		{
@@ -148,21 +183,16 @@ class roster_db
 
 		//$query = preg_replace('/;.*$/', '', $query);
 
+		$this->querytime = format_microtime();
+
 		if( $query != '' )
 		{
-			$starttime = explode(' ', microtime() );
-			$starttime = $starttime[1] + $starttime[0];
 			$this->query_count++;
 			$this->query_id = @mysql_query($query, $this->link_id);
-			$endtime = explode(' ', microtime() );
-			$endtime = $endtime[1] + $endtime[0];
-			$time = round($endtime - $starttime, 4);
 		}
 		if( !empty($this->query_id) )
 		{
-			$this->queries[$this->query_count]['query'] = $query;
-			$this->queries[$this->query_count]['time'] = $time;
-
+			$this->_log($query);
 			unset($this->record[$this->query_id]);
 			unset($this->record_set[$this->query_id]);
 			return $this->query_id;

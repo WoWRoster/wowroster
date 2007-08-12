@@ -21,9 +21,7 @@ if( !defined('IN_ROSTER') )
 
 define('ROSTER_FOOTER_INC',true);
 
-$endtime = explode(' ', microtime() );
-$endtime = $endtime[1] + $endtime[0];
-$totaltime = round($endtime - ROSTER_STARTTIME, 2);
+$totaltime = round(format_microtime() - ROSTER_STARTTIME, 2);
 
 $error_report = $roster->error->stop();
 
@@ -68,15 +66,19 @@ if( $roster->config['sql_window'] )
 {
 	if( count($roster->db->queries) > 0 )
 	{
-		$i = 1;
 		$output = "<div class=\"sqlwindow\">\n";
 		$output .= "	<table cellspacing=\"0\">";
-		foreach( $roster->db->queries as $query )
+		foreach( $roster->db->queries as $file => $queries )
 		{
-			$row = 'membersRow' . ( ( $i % 2 ) + 1 );
-			$rowr = 'membersRowRight' . ( ( $i % 2 ) + 1 );
-			$output .= "    <tr><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\" style=\"white-space:normal;\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
-			$i++;
+			$i = 0;
+			$output .= '<tr><th colspan="3" class="membersHeaderRight">' . substr($file, strlen(ROSTER_BASE)) . "</th>\n</tr>\n";
+			foreach( $queries as $query )
+			{
+				$row = 'membersRow' . ( ( $i % 2 ) + 1 );
+				$rowr = 'membersRowRight' . ( ( $i % 2 ) + 1 );
+				$output .= "    <tr><td class=\"$row\">&nbsp;&nbsp;".$query['line']."</td><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\" style=\"white-space:normal;\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
+				$i++;
+			}
 		}
 		$output .= "</table></div>\n";
 	}

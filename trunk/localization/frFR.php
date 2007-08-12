@@ -277,6 +277,8 @@ $lang['disallow'] = 'Disallow';
 $lang['locale'] = 'Locale';
 $lang['language'] = 'Language';
 $lang['default'] = 'Default';
+$lang['proceed'] = 'Proceed';
+$lang['submit'] = 'Submit';
 
 $lang['rosterdiag'] = 'Diagnostic du Roster';
 $lang['difficulty'] = 'Difficultée';
@@ -307,7 +309,7 @@ $lang['Cooking']='Cuisine';
 $lang['Fishing']='Pêche';
 $lang['First Aid']='Premiers soins';
 $lang['Poisons']='Poisons';
-$lang['backpack']='Sac �  dos';
+$lang['backpack']='Sac ?  dos';
 $lang['PvPRankNone']='Rien';
 
 // Uses preg_match() to find required level in recipie tooltip
@@ -363,7 +365,7 @@ $lang['ts_ridingIcon'] = array(
 	'Elfe de sang' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
-	'D�moniste'=>'ability_mount_nightmarehorse'
+	'D?moniste'=>'ability_mount_nightmarehorse'
 );
 
 // Class Icons-Array
@@ -680,6 +682,16 @@ $lang['auth_req'] = 'Authorization Required';
 // Upload Rules
 $lang['upload_rules_error'] = 'You cannot leave one of the fields empty when adding a rule';
 $lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.';
+
+// Config Reset
+$lang['config_is_reset'] = 'Configuration has been reset. Please remember to re-configure ALL your settings before attempting to upload data';
+$lang['config_reset_confirm'] = 'This is irreversible. Do you really want to continue?';
+$lang['config_reset_help'] = 'This will completely reset your Roster configuration.<br />
+All data in the Roster configuration table will be permanently removed, and the default values will be restored.<br />
+Guild data, Character data, Addon config, Addon data, menu buttons, and upload rules will be saved.<br />
+The guild, officer, and admin passwords will also be saved.<br />
+<br />
+To continue, enter your admin password below and click on \'Proceed\'.';
 
 /******************************
  * Roster Admin Strings

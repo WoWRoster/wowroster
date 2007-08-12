@@ -96,7 +96,7 @@ else
 if( !empty($roster->config['logo']) )
 {
 	echo '<div align="center" style="margin:10px;">
-  <table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour sgoldborder">
+  <table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_color sgoldborder">
   <a href="' . $roster->config['website_address'] . '"><img src="' . $roster->config['logo'] . '" alt="" hspace="0" vspace="0" border="0" style="border:0;" /></a></td></tr></table>
 </div>';
 }
