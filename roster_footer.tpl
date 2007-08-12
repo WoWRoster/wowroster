@@ -68,19 +68,20 @@ if( $roster->config['sql_window'] )
 	{
 		$output = "<div class=\"sqlwindow\">\n";
 		$output .= "	<table cellspacing=\"0\">";
+		$output .= '		<tr><th class="membersHeader">Line</th><th class="membersHeader">Time</th><th class="membersHeaderRight">Query' . "</th>\n\t\t\t</tr>\n";
 		foreach( $roster->db->queries as $file => $queries )
 		{
 			$i = 0;
-			$output .= '<tr><th colspan="3" class="membersHeaderRight">' . substr($file, strlen(ROSTER_BASE)) . "</th>\n</tr>\n";
+			$output .= '			<tr><th colspan="3" class="membersHeaderRight">' . substr($file, strlen(ROSTER_BASE)) . "</th>\n\t\t\t</tr>\n";
 			foreach( $queries as $query )
 			{
 				$row = 'membersRow' . ( ( $i % 2 ) + 1 );
 				$rowr = 'membersRowRight' . ( ( $i % 2 ) + 1 );
-				$output .= "    <tr><td class=\"$row\">&nbsp;&nbsp;".$query['line']."</td><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\" style=\"white-space:normal;\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
+				$output .= "\t\t\t<tr><td class=\"$row\">&nbsp;&nbsp;".$query['line']."</td><td class=\"$row\">".$query['time']."</td><td class=\"$rowr\" style=\"white-space:normal;\">".nl2br(htmlentities($query['query']))."</td></tr>\n";
 				$i++;
 			}
 		}
-		$output .= "</table></div>\n";
+		$output .= "\t</table></div>\n";
 	}
 	echo "<br /><br />\n".messagebox($output,$roster->locale->act['sql_queries'],'sgreen');
 }

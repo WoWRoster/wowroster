@@ -277,7 +277,9 @@ else
 
 
 		$url_query = urlencode($query);
+
 		//this section we can have links like armory, ala, wowhead, thottbot etc...
+
 		//wow data sites
 		echo '<tr class="search-other"><td valign="top">';
 		echo '
@@ -289,6 +291,7 @@ else
 		echo '<li><a href="http://www.thottbot.com/index.cgi?s=' . $url_query . '" target="_blank">Thottbot</a></li>';
 		echo '<li><a href="http://wwndata.worldofwar.net/search.php?search=' . $url_query . '" target="_blank">WWN Data</a></li>';
 		echo '</ul></div></td>';
+
 		//wow data sites
 		echo '<td valign="top"><strong>' . $roster->locale->act['itemlink'] . '</strong><div align="left">';
 		echo '<ul>';
@@ -298,6 +301,7 @@ else
 		echo '<li><a href="http://www.thottbot.com/index.cgi?i=' . $url_query . '" target="_blank">Thottbot</a></li>';
 		echo '<li><a href="http://wwndata.worldofwar.net/search.php?search=' . $url_query . '" target="_blank">WWN Data</a></li>';
 		echo '</ul></div></td>';
+
 		//google links
 		echo '<td valign="top"><div ><strong>Google</strong></div><div align="left">';
 		echo '<ul>';
