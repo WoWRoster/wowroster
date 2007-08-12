@@ -145,17 +145,17 @@ th a:hover {
  * Overlib Tooltip Styles
  **/
 
-/* Sets main text background - ol_fgclass*/
-.overlib_fg { background-color:#000000; }
+/* Sets main text background  ol_fgclass */
+.overlib_fg { background-color:#EDEDFF; }
 
-/* Sets the border style - ol_bgclass*/
-.overlib_border { border:1px outset #CCCCCC; }
+/* Sets the border style  ol_bgclass */
+.overlib_border { border:1px solid #00487D; }
 
-/* Sets main text style - ol_textfontclass */
-.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
+/* Sets main text style  ol_textfontclass */
+.overlib_maintext { color:#000;font:10px verdana, arial, helvetica, geneva, sans-serif; }
 
-/* Sets Caption Text - ol_captionfontclass */
-.overlib_captiontext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+/* Sets cpation text ol_captionfontclass */
+.overlib_captiontext { color:#FFF;background:#0066B3;font:bold 10px verdana, arial, helvetica, geneva, sans-serif; }
 
-/* Sets Close Text - ol_closefontclass */
-.overlib_closetext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+/* Sets the 'close' text ol_closefontclass */
+.overlib_closetext { color:#FFF;background:#0066B3;font:bold 10px verdana, arial, helvetica, geneva, sans-serif; }
