@@ -253,7 +253,7 @@ select {
 
 .menu_container {
 	background: #1F1E1D;
-	width: 536px;
+	width: 528px;
 /*	padding: 2px; */
 /*	border: 1px solid #CBA300; */
 	color: #FFFFFF;
@@ -305,6 +305,7 @@ select {
 	border: 2px solid #4E4D4C;
 	height: 32px;
 	padding: 2px 2px 2px 34px;
+	margin: 0px;
 	color: #FFCC00;
 	text-decoration: none;
 }
