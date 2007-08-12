@@ -54,7 +54,9 @@ set_magic_quotes_runtime(0);
 /**
  * Begin Roster Timing
  */
-define('ROSTER_STARTTIME',format_microtime());
+$sec = explode(' ', microtime());
+define('ROSTER_STARTTIME',$sec[0] + $sec[1]);
+unset($sec);
 
 
 /**
