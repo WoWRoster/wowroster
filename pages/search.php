@@ -166,9 +166,26 @@ else
 				if( $search->result_count > 0 )
 				{
 					$total_search_results += $search->result_count;
+
+					if( !empty($addon['icon']) )
+					{
+						if( strpos($addon['icon'],'.') !== false )
+						{
+							$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
+						}
+						else
+						{
+							$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
+						}
+					}
+					else
+					{
+						$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+					}
+
 					//I added this to save space on the page but when closed the size of the results table gets very small
 					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['basename'] . '\',\''  . $addon['basename'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . (isset($addon['icon']) ? $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix']  : $roster->config['img_url'] . 'blue-question-mark.gif') . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
+			<img src="' . $addon['icon'] . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
 			</div>';
 					echo '<div id="'  . $addon['basename'] . '" >';
 					echo '<table width="100%" cellspacing="0" cellpadding="0">';
@@ -214,7 +231,7 @@ else
 								. ((isset($result['more_text']) && $result['more_text'])?' <a href="' . $result['url'] . '"><strong>(more)</strong></a>':'')
 								. '</span><br />';
 
-							
+
 							//if isset stuff that can be added as addons get more advanced
 							//this is set to allow a footer for each result in the addon query
 							//could be good for external links or footer display code
@@ -290,7 +307,7 @@ else
 		$data_link = '';
 		foreach( $roster->locale->act['data_links'] as $name => $dlink )
 		{
-			
+
 			$data_link .= '<li><a href="' . $dlink . $url_query . '" target="_blank">' . $name . '</a></li>';
 		}
 		echo $data_link;
@@ -302,7 +319,7 @@ else
 		$item_link = '';
 		foreach( $roster->locale->act['itemlinks'] as $name => $ilink )
 		{
-			
+
 			$item_link .= '<li><a href="' . $ilink . $url_query . '" target="_blank">' . $name . '</a></li>';
 		}
 		echo $item_link;
@@ -314,7 +331,7 @@ else
 		$google_link = '';
 		foreach( $roster->locale->act['google_links'] as $name => $glink )
 		{
-			
+
 			$google_link .= '<li><a href="' . $glink . $url_query . '" target="_blank">' . $name . '</a></li>';
 		}
 		echo $google_link;

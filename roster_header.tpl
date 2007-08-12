@@ -33,7 +33,7 @@ if( $roster->output['http_header'] && !headers_sent() )
 	@header('Cache-Control: no-store, no-cache, must-revalidate');
 	@header('Cache-Control: post-check=0, pre-check=0', false);
 	@header('Pragma: no-cache');
-	@header('Content-type: text/html; ' . $roster->locale->act['charset']);
+	@header('Content-type: text/html; charset=utf-8');
 }
 
 if( isset($roster->data['guild_name']) )

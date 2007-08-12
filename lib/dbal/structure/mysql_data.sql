@@ -16,7 +16,7 @@ INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', '
 # --------------------------------------------------------
 ### Menu Entries
 INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (120, 'guild_conf', NULL, 'blockframe', 'menu');
+INSERT INTO `renprefix_config` VALUES (120, 'defaults_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (150, 'realmstatus_conf', NULL, 'page{1', 'menu');
@@ -48,10 +48,10 @@ INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0',
 # --------------------------------------------------------
 ### Guild Settings
 
-INSERT INTO `renprefix_config` VALUES (2000, 'default_name', 'WoWRoster', 'text{50|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'THE original Roster for World of Warcraft', 'text{255|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'guild_conf');
-INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'guild_conf');
+INSERT INTO `renprefix_config` VALUES (2000, 'default_name', 'WoWRoster', 'text{50|30', 'defaults_conf');
+INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'THE original Roster for World of Warcraft', 'text{255|30', 'defaults_conf');
+INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'defaults_conf');
+INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'defaults_conf');
 
 # --------------------------------------------------------
 ### Roster Menu Settings
@@ -148,9 +148,8 @@ INSERT INTO `renprefix_config` VALUES (10030, 'lua_user_level', '0', 'access', '
 ### Menu table entries
 INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2:b3');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
-INSERT INTO `renprefix_menu` VALUES (3, 'guildless', '');
-INSERT INTO `renprefix_menu` VALUES (4, 'guild', '');
-INSERT INTO `renprefix_menu` VALUES (5, 'char', '');
+INSERT INTO `renprefix_menu` VALUES (3, 'guild', '');
+INSERT INTO `renprefix_menu` VALUES (4, 'char', '');
 
 # --------------------------------------------------------
 ### Menu Button entries

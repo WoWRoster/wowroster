@@ -141,9 +141,6 @@ World of Warcraft y Blizzard Entertainment son marcas registradas de Blizzard En
 <a href="%1$s">Créditos Adicionales</a>';
 
 
-//Charset
-$lang['charset']="charset=utf-8";
-
 $lang['timeformat'] = '%a %d %b, %H:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
 $lang['phptimeformat'] = 'D d M, H:i';    // PHP date() Time format (example - 'D M jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
@@ -741,7 +738,7 @@ $lang['confirm_config_reset'] = 'This will reset the form to how it was when you
 
 // Main Menu words
 $lang['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br />Including roster URL, Interface Images URL, and other core options';
-$lang['admin']['guild_conf'] = 'Guild Config|Set up your guild info<ul><li>Guild name</li><li>Realm name (server)</li><li>Short guild description</li><li>Server type</li><li>etc...</li></ul>';
+$lang['admin']['defaults_conf'] = 'Defaults Config|Set up your Roster defaults';
 $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
 $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
@@ -772,7 +769,7 @@ $lang['admin']['use_update_triggers'] = "Actualizar Addon Triggers|Esto se utili
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 
-// guild_conf
+// defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
 $lang['admin']['default_desc'] = "Description|Enter a short description to be displayed when not in the guild or char scope";
 $lang['admin']['alt_type'] = "Alt-Texto b&uacute;squeda|Asignamos un texto a cada uno de los alts de la gente, para su siguiente localizaci&oacute;n";
