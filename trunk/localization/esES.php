@@ -527,6 +527,15 @@ $lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 $lang['data_links']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
 //$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
+// Google Search
+// Add as many item links as you need
+// Just make sure their names are unique
+// use these locales for data searches
+$lang['google_search'] = 'Google';
+$lang['google_links']['Google'] = 'http://www.google.com/search?q=';
+$lang['google_links']['Google Groups'] = 'http://groups.google.com/groups?q=';
+$lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
+$lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
 // Definition for item tooltip coloring
 $lang['tooltip_use']='Uso:';
