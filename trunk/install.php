@@ -51,8 +51,10 @@ class Template_Wrap extends Template
 		$this->file_prefix = 'install';
 
 		$this->assign_vars(array(
-			'MSG_TITLE' => '',
-			'MSG_TEXT'  => ''
+			'MSG_TITLE'    => '',
+			'MSG_TEXT'     => '',
+			'S_SQL'        => false,
+			'U_QUERYCOUNT' => 0
 			)
 		);
 
