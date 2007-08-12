@@ -552,7 +552,6 @@ $lang['tooltip_next_rank']='Next rank';
 $lang['tooltip_spell_damage']='Spell Damage';
 $lang['tooltip_school_damage']='\\+.*Spell Damage';
 $lang['tooltip_healing_power']='Healing Power';
-$lang['tooltip_chance_hit']='Chance to hit:';
 $lang['tooltip_reinforced_armor']='Reinforced Armor';
 $lang['tooltip_damage_reduction']='Damage Reduction';
 //--new
@@ -572,10 +571,13 @@ $lang['tooltip_preg_charges']='/(\d+) Charges/';
 $lang['tooltip_preg_block']='/(\d+) (Block)/';
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
+$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
 
+$lang['tooltip_chance_hit']='Chance to|on hit:';
 $lang['tooltip_reg_requires']='Requires';
 $lang['tooltip_reg_onlyworksinside']='Only works inside';
 $lang['tooltip_reg_conjureditems']='Conjured Item';
+$lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Cloth|Leather|Mail|Plate';
 $lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged';

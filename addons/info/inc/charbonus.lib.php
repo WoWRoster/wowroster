@@ -84,76 +84,21 @@ class CharBonus
 		return $out;
 	}
 
-//		$bt .= '
-//
-//	<div class="tab3" id="tab2b">
-//		<div class="container">BaseStats
-//		</div>
-//	</div>
-//	<div class="tab3" id="tab3b">
-//		<div class="container">Enchantment
-//		</div>
-//	</div>
-//	<div class="tab3" id="tab4b">
-//		<div class="container">Effects
-//		</div>
-//	</div>
-//	<div class="tab3" id="tab5b">
-//		<div class="container">Gems
-//		</div>
-//	</div>
-//	<div class="tab3" id="tab6b">
-//		<div class="container">Set
-//		</div>
-//	</div>
-//	<div class="tab3" id="tab7b">
-//		<div class="container">Use';
-//		$bt .= '		</div>	</div>
-//	<div class="tab_navagation" style="margin:428px 0 0 17px;">
-//		<ul id="bonus_navagation">
-//			<li class="selected"><a rel="tab1b" class="text">Totals</a></li>
-//			<li><a rel="tab2b" class="text">BaseStats</a></li>
-//			<li><a rel="tab3b" class="text">Enchantment</a></li>
-//			<li><a rel="tab4b" class="text">Effects</a></li>
-//			<li><a rel="tab5b" class="text">Gems</a></li>
-//			<li><a rel="tab6b" class="text">Set</a></li>
-//			<li><a rel="tab7b" class="text">Use</a></li>
-//		</ul>
-//	</div></div>
-//<script type="text/javascript">
-//	initializetabcontent(\'bonus_navagation\')
-//</script>';
-
-
 
 	// prints out all status based on array of catagories
 	function printBonus( )
 	{
-		//todo make userconfig on types to display/process
-		// can add Temp Enchants, Perm Enchants?
-		// make array vals into tooltips for tabs?
-		// localize this.
-		// first key will be the default tab on inital load up
-		$catagory = array('Totals' => 'Totals',
-						  'Enchantment' => 'Enchantments',
-						  'BaseStats' => 'Base Stats',
-						  'Gems' => 'Gems',
-						  'Effects' => 'Passive',
-						  'Set' => 'Sets',
-						  'Use' => 'Use',
-						  'ChanceOnHit' => 'On Hit',
-						  );
+		global $roster;
 
 		$row = 0;
 		$out = '';
 		$tabs = array();
 
-		foreach( $catagory as $catkey => $catval )
+		foreach( $roster->locale->act['item_bonuses_tabs'] as $catkey => $catval )
 		{
 			// check to see if the catagory has data don't display if none
 			if( isset($this->bonus[$catkey]) )
 			{
-				//$out .= $catval;
 				$cat = $this->bonus[$catkey];
 				$out .= '<div class="tab3" id="' . $catkey . '"><div class="container">';
 				$tabs += array($catkey => $catval);
@@ -167,20 +112,12 @@ class CharBonus
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}
-//				foreach( $cat as $key => $value )
-//				{
-//					$value = explode(':', $value);
-//					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" '
-//						  . makeOverlib($this->bonus_tooltip[$catkey][$key], str_replace(array( 'XX', 'YY' ), $value, $key), '', 2) . '>'
-//						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
-//					$row++;
-//				}
 			$out .= '</div> </div>';
 			}
 		}
 		// build tabs
 		$out .= '		</div>	</div>
-	<div class="tab_navagation" style="margin:-6px 0 0 32px;">
+	<div class="tab_navagation" style="margin:-6px 0px 0px 32px;">
 		<ul id="bonus_navagation">';
 		$first_tab = true;
 
@@ -203,8 +140,8 @@ class CharBonus
 	initializetabcontent(\'bonus_navagation\')
 </script>';
 
-		echo "bonus";
-		aprint($this->bonus);
+//		echo "bonus";
+//		aprint($this->bonus);
 
 		return $out;
 	}
@@ -212,6 +149,8 @@ class CharBonus
 	// gets all the bonus from the item and sets the tooltips
 	function getBonus()
 	{
+		global $roster;
+		
 		if( isset($this->item->attributes['BaseStats']) )
 		{
 			if( is_array($this->item->attributes['BaseStats']) )
@@ -257,37 +196,39 @@ class CharBonus
 		{
 			foreach( $this->item->effects['Equip'] as $bonus )
 			{
-				$this->addBonus($bonus, 'Effects', false, 'Equip:');
+				$this->addBonus($bonus, 'Effects', false, $roster->locale->wordings[$this->item_locale]['tooltip_equip']);
 			}
 		}
 		if( isset($this->item->attributes['Set']['SetBonus']) )
 		{
 			foreach( $this->item->attributes['Set']['SetBonus'] as $bonus )
 			{
-				$this->addBonus($bonus, 'Set', false, 'Set:');
+				$this->addBonus($bonus, 'Set', false, $roster->locale->wordings[$this->item_locale]['tooltip_set']);
 			}
 		}
 		if( isset($this->item->effects['Use']) )
 		{
 			foreach( $this->item->effects['Use'] as $bonus )
 			{
-				$this->addBonus($bonus, 'Use', false, 'Use:');
+				$this->addBonus($bonus, 'Use', false, $roster->locale->wordings[$this->item_locale]['tooltip_use']);
 			}
 		}
-		if( isset($this->item->effects['ChanceOnHit']) )
+		if( isset($this->item->effects['ChanceToProc']) )
 		{
-			foreach( $this->item->effects['ChanceOnHit'] as $bonus )
+			foreach( $this->item->effects['ChanceToProc'] as $bonus )
 			{
-				$this->addBonus($bonus, 'ChanceOnHit', false, 'Equip:');
+				$this->addBonus($bonus, 'ChanceToProc', false, $roster->locale->wordings[$this->item_locale]['tooltip_equip']);
+			}
+		}
+		if( isset($this->item->attributes['TempEnchantment']) )
+		{
+			foreach( $this->item->attributes['TempEnchantment'] as $bonus )
+			{
+				$this->addBonus($bonus, 'TempEnchantment', false);
 			}
 		}
 	}
 
-	//starts processing the passed in string
-	//if $split_bonus is true will look for localized break string
-	//and process them as two or more buffs
-	//ZG enchants can have 3 bonus
-	// if $strip_string is set remove string from bonus string
 	/**
 	 * Calculate the passed $bonus string. split the bonus line if $split_bonus is true
 	 * strip out passed $strip_string from $bonus
@@ -311,8 +252,6 @@ class CharBonus
 		// Warning: do not set $split_bonus true inside this if
 		if( $split_bonus )
 		{
-//			global $tooltips;
-//			aprint($tooltips);
 			if( preg_match($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_linesplits'], $bonus, $matches) )
 			{
 				$lines = explode($matches[1], $bonus);
@@ -331,7 +270,7 @@ class CharBonus
 		//
 		//
 
-		if( preg_match_all('/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/', $bonus, $matches) )
+		if( preg_match_all($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_main'], $bonus, $matches) )
 		{
 			switch( count($matches[0]) )
 			{
@@ -368,14 +307,14 @@ class CharBonus
 	 * @param string $string |  +XX Strength
 	 * @param string $catagory | Catagory this bonus belongs
 	 */
-	function setBonus( $modifier, $string, $catagory)
+	function setBonus( $modifier, $string, $catagory )
 	{
-		$orgStr = $string;
+//		$orgStr = $string;
 		$string = $this->standardizeBonus($string);
-		if( $orgStr !== $string )
-		{
-			echo $orgStr . '<br>converted to: <br>' . $string . '<br><br><br>';
-		}
+//		if( $orgStr !== $string )
+//		{
+//			echo $orgStr . '<br>converted to: <br>' . $string . '<br><br><br>';
+//		}
 		if( $catagory == 'Set' )
 		{
 			$html = '<span style="color:#ffd517;font-size:11px;font-weight:bold;">'
@@ -395,11 +334,11 @@ class CharBonus
 		{
 			if( isset($this->bonus['Totals'][$string]) )
 			{
-				$this->bonus['Totals'][$string] = $this->doubleAdd($this->bonus['Totals'][$string], $modifier);
+				$this->bonus['Totals'][$string] = $this->_doubleAdd($this->bonus['Totals'][$string], $modifier);
 				$this->bonus_tooltip['Totals'][$string] = $this->bonus_tooltip['Totals'][$string] . '<br />' . $html;
 				if( isset($this->bonus[$catagory][$string]) )
 				{
-					$this->bonus[$catagory][$string] = $this->doubleAdd($this->bonus[$catagory][$string], $modifier);
+					$this->bonus[$catagory][$string] = $this->_doubleAdd($this->bonus[$catagory][$string], $modifier);
 					$this->bonus_tooltip[$catagory][$string] = $this->bonus_tooltip[$catagory][$string] . '<br />' . $html;
 				}
 				else
@@ -449,7 +388,7 @@ class CharBonus
 	 * @param string $value2	| 20:5
 	 * @return string	| 30:15
 	 */
-	function doubleAdd( $value1, $value2 )
+	function _doubleAdd( $value1, $value2 )
 	{
 		$value1 = explode(':', $value1);
 		$value2 = explode(':', $value2);

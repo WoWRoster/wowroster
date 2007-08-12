@@ -551,7 +551,6 @@ $lang['tooltip_next_rank']='Prochain rang';
 $lang['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
 $lang['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
 $lang['tooltip_healing_power']='les soins prodigués par les sorts et effets';
-$lang['tooltip_chance_hit']='Chances quand touché :';
 $lang['tooltip_reinforced_armor']='Armure renforcée';
 $lang['tooltip_damage_reduction']='Réduit les points de dégâts';
 //--Tooltip Parsing -- Translated by Kalia
@@ -571,10 +570,13 @@ $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloquer)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Châsse (Rouge|Jaune|Bleue|Meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
+$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
 
+$lang['tooltip_chance_hit']='Chances quand touché :'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Niveau|requis'; // À une main
 $lang['tooltip_reg_onlyworksinside']='Only works inside';
 $lang['tooltip_reg_conjureditems']='Conjured items disappear';
+$lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
 $lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette'; // the types of weapons as shown in the tooltip

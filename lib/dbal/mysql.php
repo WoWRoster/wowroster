@@ -82,7 +82,7 @@ class roster_db
 	 * @param $dbname Database name
 	 * @param $dbuser Database username
 	 * @param $dbpass Database password
-	 * @param $pconnect Use persistent connection
+	 * @param $prefix Database prefix
 	 * @return mixed Link ID / false
 	 */
 	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix)
