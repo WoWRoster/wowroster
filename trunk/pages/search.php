@@ -214,6 +214,7 @@ else
 								. ((isset($result['more_text']) && $result['more_text'])?' <a href="' . $result['url'] . '"><strong>(more)</strong></a>':'')
 								. '</span><br />';
 
+							
 							//if isset stuff that can be added as addons get more advanced
 							//this is set to allow a footer for each result in the addon query
 							//could be good for external links or footer display code
@@ -286,31 +287,37 @@ else
 		<div ><strong>' . $roster->locale->act['data_search'] . '</strong></div>
 		<div align="left">';
 		echo '<ul>';
-		echo '<li><a href="http://www.wowhead.com/?search=' . $url_query . '" target="_blank">WoWHead</a></li>';
-		echo '<li><a href="http://wow.allakhazam.com/search.html?q=' . $url_query . '" target="_blank">Allakhazam</a></li>';
-		echo '<li><a href="http://www.thottbot.com/index.cgi?s=' . $url_query . '" target="_blank">Thottbot</a></li>';
-		echo '<li><a href="http://wwndata.worldofwar.net/search.php?search=' . $url_query . '" target="_blank">WWN Data</a></li>';
+		$data_link = '';
+		foreach( $roster->locale->act['data_links'] as $name => $dlink )
+		{
+			
+			$data_link .= '<li><a href="' . $dlink . $url_query . '" target="_blank">' . $name . '</a></li>';
+		}
+		echo $data_link;
 		echo '</ul></div></td>';
 
 		//wow data sites
 		echo '<td valign="top"><strong>' . $roster->locale->act['itemlink'] . '</strong><div align="left">';
 		echo '<ul>';
-		echo '<li><a href="http://www.wowhead.com/?items&amp;filter=na=' . $url_query . '" target="_blank">WoWHead</a></li>
-		';
-		echo '<li><a href="http://wow.allakhazam.com/search.html?q=' . $url_query . '" target="_blank">Allakhazam</a></li>';
-		echo '<li><a href="http://www.thottbot.com/index.cgi?i=' . $url_query . '" target="_blank">Thottbot</a></li>';
-		echo '<li><a href="http://wwndata.worldofwar.net/search.php?search=' . $url_query . '" target="_blank">WWN Data</a></li>';
+		$item_link = '';
+		foreach( $roster->locale->act['itemlinks'] as $name => $ilink )
+		{
+			
+			$item_link .= '<li><a href="' . $ilink . $url_query . '" target="_blank">' . $name . '</a></li>';
+		}
+		echo $item_link;
 		echo '</ul></div></td>';
 
 		//google links
-		echo '<td valign="top"><div ><strong>Google</strong></div><div align="left">';
+		echo '<td valign="top"><div ><strong>'. $roster->locale->act['google_search'] .'</strong></div><div align="left">';
 		echo '<ul>';
-		echo '<li><a href="http://www.google.com/search?q=' . $url_query . '" target="_blank">Google</a></li>';
-		echo '<li><a href="http://groups.google.com/groups?q=' . $url_query . '" target="_blank">Google Groups</a></li>
-		';
-		echo '<li><a href="http://images.google.com/images?q=' . $url_query . '" target="_blank">Google Images</a></li>';
-		echo '<li><a href="http://news.google.com/news?q=' . $url_query . '" target="_blank">Google News</a></li>';
-		echo '<li><a href="http://froogle.google.com/froogle?q=' . $url_query . '" target="_blank">Froogle</a></li>';
+		$google_link = '';
+		foreach( $roster->locale->act['google_links'] as $name => $glink )
+		{
+			
+			$google_link .= '<li><a href="' . $glink . $url_query . '" target="_blank">' . $name . '</a></li>';
+		}
+		echo $google_link;
 		echo '</ul></div></td>';
 		echo '</tr></table>';
 		//close the main search results table
