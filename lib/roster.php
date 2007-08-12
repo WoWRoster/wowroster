@@ -288,6 +288,11 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
+					// These are set for the roster menu
+					$this->data['guild_name'] = $name;
+					$this->data['region'] = $region;
+					$this->data['server'] = $realm;
+					$this->data['guild_id'] = '';
 					roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 

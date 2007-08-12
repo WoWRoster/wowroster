@@ -645,10 +645,10 @@ select {
 
 .border_frame {
 	background-color: #000000;
-	border-top: 2px solid #c6c7cb;
-	border-right: 2px solid #5f6060;
-	border-bottom: 2px solid #393939;
-	border-left: 2px solid #696b6e;
+	border-top: 1px solid #c6c7cb;
+	border-right: 1px solid #5f6060;
+	border-bottom: 1px solid #393939;
+	border-left: 1px solid #696b6e;
 }
 
 .border_color {

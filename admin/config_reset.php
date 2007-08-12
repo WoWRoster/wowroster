@@ -28,10 +28,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 	$query = "TRUNCATE `roster_config`;";
 	$roster->db->query($query);
 
-	$query = "TRUNCATE `roster_menu`;";
-	$roster->db->query($query);
-
-    $db_data_file      = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_data.sql';
+    $db_data_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_data.sql';
 
     // Parse the data file and populate the database tables
     $sql = @fread(@fopen($db_data_file, 'r'), @filesize($db_data_file));
@@ -46,30 +43,28 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     }
     unset($sql);
 
-	$body .= messagebox('Configuration has been reset. Please remember to configure the guild name and server before attempting to upload guild data',$roster->locale->act['roster_cp']);
+	$body .= messagebox($roster->locale->act['config_is_reset'],$roster->locale->act['roster_cp']);
 	return;
 }
 
-$body .= '<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="return confirm(\'This is irreversible. Do you really want to continue?\') &amp;&amp; submitonce(this)">
+$body .= '<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="return confirm(\'' . $roster->locale->act['config_reset_confirm'] . '\') &amp;&amp; submitonce(this);">
 <input type="hidden" name="doit" value="doit" />
-	'.border('sred','start','Config Reset').'
-	  <table class="bodyline" cellspacing="0" cellpadding="0">
-	    <tr>
-	      <td class="membersRowRight1" colspan="2"><div style="white-space:normal;">
-			This will completely reset your roster configuration. All data in the roster configuration table, including your menu configuration, will be permanently removed, and the default values will be restored. Only the guild, officer, and admin passwords will be saved. To proceed, enter your admin password below and click on \'Proceed\'.
-		  </div></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow2">Password:</td>
-	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="password" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td colspan="2" class="membersRowRight1" valign="bottom"><div align="center">
-		    <input type="submit" value="Proceed" /></div></td>
-	    </tr>
-	  </table>
-	'.border('sred','end').'
-	</form>';
+' . border('sred','start',$roster->locale->act['pagebar_configreset']) . '
+	<table class="bodyline" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="membersRowRight1" colspan="2"><div style="white-space:normal;">' . $roster->locale->act['config_reset_help'] . '</div></td>
+		</tr>
+		<tr>
+			<td class="membersRow2">' . $roster->locale->act['password'] . ':</td>
+			<td class="membersRowRight2"><input class="wowinput192" type="password" name="password" value="" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="membersRowRight1" valign="bottom"><div align="center">
+				<input type="submit" value="' . $roster->locale->act['proceed'] . '" /></div></td>
+		</tr>
+	</table>
+' . border('sred','end') . '
+</form>';
 
 
 

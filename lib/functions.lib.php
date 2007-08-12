@@ -1255,3 +1255,9 @@ function socketColorEn( $socket_color, $locale )
 	$colorArr = array_flip($roster->locale->wordings[$locale]['gem_colors']);
 	return (string)strtolower($colorArr[$socket_color]);
 }
+
+function format_microtime( )
+{
+	list($usec, $sec) = explode(' ', microtime());
+	return ($usec + $sec);
+}

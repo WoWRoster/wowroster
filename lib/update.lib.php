@@ -117,16 +117,13 @@ class update
 				if( in_array($filebase,$this->files) )
 				{
 					// Get start of parse time
-					$parse_starttime = explode(' ', microtime() );
-					$parse_starttime = $parse_starttime[1] + $parse_starttime[0];
+					$parse_starttime = format_microtime();
 
 					$luahandler = new lua();
 					$data = $luahandler->luatophp( $file['tmp_name'] );
 
 					// Calculate parse time
-					$parse_endtime = explode(' ', microtime() );
-					$parse_endtime = $parse_endtime[1] + $parse_endtime[0];
-					$parse_totaltime = round(($parse_endtime - $parse_starttime), 2);
+					$parse_totaltime = round((format_microtime() - $parse_starttime), 2);
 
 					if( $data )
 					{

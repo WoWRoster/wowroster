@@ -167,13 +167,9 @@ class Template_Wrap extends Template
 			$this->error_out(false);
 		}
 
-		$mc_split = split(' ', microtime());
-		$timer_end = $mc_split[0] + $mc_split[1];
-		unset($mc_split);
-
 		$this->assign_vars(array(
 			'S_SHOW_DEBUG'   => true,
-			'U_RENDERTIME'   => substr($timer_end - ROSTER_STARTTIME, 0, 5),
+			'U_RENDERTIME'   => substr(format_microtime() - ROSTER_STARTTIME, 0, 5),
 			'ROSTER_VERSION' => $DEFAULTS['version'],
 			)
 		);
@@ -853,13 +849,16 @@ function sql_output(&$tpl, $db=NULL)
 
 	if( is_object($db) )
 	{
-		foreach( $db->queries as $query )
+		foreach( $db->queries as $file => $queries )
 		{
-			$tpl->assign_block_vars('sql_row', array(
-				'TIME' => $query['time'],
-				'TEXT' => $query['query']
-				)
-			);
+			foreach( $queries as $query )
+			{
+				$tpl->assign_block_vars('sql_row', array(
+					'TIME' => $query['time'],
+					'TEXT' => $query['query']
+					)
+				);
+			}
 		}
 	}
 }
