@@ -126,13 +126,6 @@ $FIELD['professions'] = array (
 	'display' => $addon['config']['member_prof'],
 );
 
-$FIELD['talents'] = array (
-	'lang_field' => 'talents',
-	'value' => 'spec_icon',
-	'js_type' => '',
-	'display' => 3,
-);
-
 $FIELD['hearth'] = array (
 	'lang_field' => 'hearthed',
 	'order' => array( 'hisnull', 'hearth ASC' ),
@@ -303,57 +296,6 @@ function tradeskill_icons ( $row )
 				$cell_value .= $icon;
 			}
 		}
-	}
-	return $cell_value;
-}
-
-/**
- * Controls Output of the Talent Spec Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function spec_icon ( $row )
-{
-	global $roster, $addon;
-
-	$cell_value ='';
-
-	// Don't proceed for characters without data
-	if ($row['talents'] == '')
-	{
-		return '&nbsp;';
-	}
-
-	$lang = $row['clientLocale'];
-
-	$talents = explode(',',$row['talents']);
-
-	$spec = $specicon = '';
-	$tooltip = array();
-	$specpoint = 0;
-	foreach( $talents as $talent )
-	{
-		list($name, $points, $icon) = explode('|',$talent);
-		$tooltip[] = $points;
-		if( $points > $specpoint )
-		{
-			$specpoint = $points;
-			$spec = $name;
-			$specicon = $icon;
-		}
-	}
-	$tooltip = implode(' / ', $tooltip);
-
-	$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP').' />';
-
-	if( active_addon('info') )
-	{
-		$cell_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
-	}
-	else
-	{
-		$cell_value .= $specicon;
 	}
 	return $cell_value;
 }

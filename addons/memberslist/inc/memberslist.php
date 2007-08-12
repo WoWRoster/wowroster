@@ -623,6 +623,13 @@ class memberslist
 
 		if( $row['class'] != '' )
 		{
+			$icon_value = '';
+
+			// Spec icon
+			if( $this->addon['config']['spec_icon'] == 1 )
+			{
+				$icon_value .= $this->spec_icon($row);
+			}
 			// Class Icon
 			if( $this->addon['config']['class_icon'] == 1 )
 			{
@@ -633,11 +640,7 @@ class memberslist
 				}
 				$icon_name = 'Interface/Icons/'.$icon_name;
 
-				$icon_value = '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
-			}
-			else
-			{
-				$icon_value = '';
+				$icon_value .= '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 			}
 
 			// Class name coloring
@@ -654,9 +657,13 @@ class memberslist
 				}
 
 				if( $class_color != '' )
+				{
 					return '<div style="display:none; ">'.$row['class'].'</div>'.$icon_value.'<span class="class'.$class_color.'txt">'.$row['class'].'</span>';
+				}
 				else
+				{
 					return '<div style="display:none; ">'.$row['class'].'</div>'.$icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
+				}
 			}
 			else
 			{
@@ -781,6 +788,57 @@ class memberslist
 	function guild_name_value ( $row, $field )
 	{
 		return '<div style="display:none; ">'.$row['guild_name'].'</div><a href="'.makelink('guild-memberslist&amp;guild='.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
+	}
+
+	/**
+	 * Controls Output of the Talent Spec Column
+	 *
+	 * @param array $row - of character data
+	 * @return string - Formatted output
+	 */
+	function spec_icon( $row )
+	{
+		global $roster, $addon;
+
+		$cell_value ='';
+
+		// Don't proceed for characters without data
+		if ($row['talents'] == '')
+		{
+			return '&nbsp;';
+		}
+
+		$lang = $row['clientLocale'];
+
+		$talents = explode(',',$row['talents']);
+
+		$spec = $specicon = '';
+		$tooltip = array();
+		$specpoint = 0;
+		foreach( $talents as $talent )
+		{
+			list($name, $points, $icon) = explode('|',$talent);
+			$tooltip[] = $points;
+			if( $points > $specpoint )
+			{
+				$specpoint = $points;
+				$spec = $name;
+				$specicon = $icon;
+			}
+		}
+		$tooltip = implode(' / ', $tooltip);
+
+		$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP').' />';
+
+		if( active_addon('info') )
+		{
+			$cell_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
+		}
+		else
+		{
+			$cell_value .= $specicon;
+		}
+		return $cell_value . '&nbsp;';
 	}
 }
 
