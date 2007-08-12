@@ -732,7 +732,7 @@ function process_step4()
 		$tpl->message_append('<span style="font-weight:bold;font-size:14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <strong>admin</strong><br />You can change it by logging in and going to your account settings.');
 	}
 
-	$tpl->message_append('Your administrator account has been created, log in above to be taken to the UniAdmin configuration page.');
+	$tpl->message_append('Your administrator account has been created, log in above to be taken to the Roster configuration page.');
 
 	sql_output($tpl,$db);
 	$tpl->page_header();

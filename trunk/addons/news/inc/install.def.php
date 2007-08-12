@@ -35,7 +35,7 @@ class news
 	var $fullname = 'News';
 	var $description = 'News system, with comments';
 	var $credits = array(
-	array(	"name"=>	"PleegWat",
+	array(	"name"=>	"WoWRoster Dev Team",
 			"info"=>	"Original author")
 	);
 
