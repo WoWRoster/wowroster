@@ -59,7 +59,7 @@ else
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>WoWRoster<?php echo $roster_title; ?></title>
 <?php print ( $roster->config['seo_url'] ? '	<base href="' . ROSTER_URL . '" />' : '' ) ?>
@@ -83,7 +83,7 @@ else
 	<script type="text/javascript" src="<?php echo ROSTER_PATH ?>css/js/overlib_hideform.js"></script>
 <?php echo (!empty($roster->output['html_head']) ? $roster->output['html_head'] : ''); ?>
 </head>
-<body<?php print( !empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '' ); echo (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''); echo (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''); ?>>
+<body<?php print( !empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '' ); echo (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''); echo (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''); ?>> 
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 <script type="text/javascript">
 <!--
