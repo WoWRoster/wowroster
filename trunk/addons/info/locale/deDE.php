@@ -145,15 +145,59 @@ $lang['pointsspent']='Punkte verteilt in';
 $lang['item_bonuses_full'] = 'Boni f&uuml;r angelegte Gegenst&auml;nde';
 $lang['item_bonuses'] = 'Gegenstand Boni';
 $lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
-$lang['item_bonuses_remap']=array(// key must be lowercase!		// standardized bonus
-								  '+xx healing' 				=> '+XX to Healing Spells',
-								  '+xx mana every 5 sec.' 		=> '+XX Mana per 5 Seconds',
-								  '+xx mana every 5 sec'  		=> '+XX Mana per 5 Seconds',
-								  '+xx mana regen' 		 		=> '+XX Mana per 5 Seconds',
-								  '+xx mana regen' 		 		=> '+XX Mana per 5 Seconds',
-								  'restores xx mana per 5 sec.' => '+XX Mana per 5 Seconds',
-								  'restores xx mana per 5 sec' 	=> '+XX Mana per 5 Seconds',
-								  );
+$lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
+
+// note to translators ** do not worry about translating this yet.. this will change SOON -ds
+$lang['item_bonuses_remap']=
+	array( // key must be lowercase!											// standardized bonus
+		'+xx healing'                   												=> '+XX to Healing Spells',
+		'+xx healing spells'															=> '+XX to Healing Spells',
+		'increases healing done by spells and effects by up to xx.'						=> '+XX to Healing Spells',
+		'restores xx health per 5 sec.'													=> '+XX Health per 5 Seconds',
+		'+xx mana every 5 sec.'         												=> '+XX Mana per 5 Seconds',
+		'+xx mana every 5 sec'															=> '+XX Mana per 5 Seconds',
+		'+xx mana every 5 seconds'														=> '+XX Mana per 5 Seconds',
+		'xx mana per 5 sec.'															=> '+XX Mana per 5 Seconds',
+		'+xx mana regen'																=> '+XX Mana per 5 Seconds',
+		'restores xx mana per 5 sec.'													=> '+XX Mana per 5 Seconds',
+		'restores xx mana per 5 sec'													=> '+XX Mana per 5 Seconds',
+		'+xx spell critical rating'														=> '+XX Spell Critical Strike Rating',
+		'improves spell critical strike rating by xx.'									=> '+XX Spell Critical Strike Rating',
+		'+xx spell damage'																=> '+XX Spell Damage and Heal',
+		'+xx spell power'																=> '+XX Spell Damage and Heal',
+		'increases damage and healing done by magical spells and effects by up to xx.'	=> '+XX Spell Damage and Heal',
+		'improves spell hit rating by xx.'												=> '+XX Spell Hit Rating',
+		'increases your spell hit rating by xx.'										=> '+XX Spell Hit Rating',
+		'increases your dodge rating by xx.'											=> '+XX Dodge Rating',
+		'increases defense rating by xx.'												=> '+XX Defense Rating',
+		'increases your parry rating by xx.'											=> '+XX Parry Rating',
+//		'xx block'																		=> '+XX Shield Block Rating',
+		'increases the block value of your shield by xx.'								=> '+XX Shield Block Rating',
+		'increases your shield block rating by xx.'										=> '+XX Shield Block Rating',
+		'improves hit rating by xx.'													=> '+XX Hit Rating',
+		'improves your resilience rating by xx.'										=> '+XX Resilience Rating',
+		'increases damage done by fire spells and effects by up to xx.'					=> '+XX Fire Spell Damage',
+		'increases damage done by frost spells and effects by up to xx.'				=> '+XX Frost Spell Damage',
+		'increases damage done by shadow spells and effects by up to xx.'				=> '+XX Shadow Spell Damage',
+//
+		'increases attack power by xx.'													=> '+XX Attack Power',
+		'improves critical strike rating by xx.'										=> '+XX Critical Strike Rating',
+		'increases your hit rating by xx.'												=> '+XX Hit Rating',
+		'scope (+xx damage)'															=> '+XX Ranged Damage (Scope)'
+		);
+$lang['item_bonuses_tabs'] = array(
+		//key				//translate this
+		'Totals' 			=> 'Totals',
+		'Enchantment' 		=> 'Enchantments',
+		'BaseStats' 		=> 'Base Stats',
+		'Gems' 				=> 'Gems',
+		'Effects' 			=> 'Passive',
+		'Set' 				=> 'Sets',
+		'Use' 				=> 'Use',
+		'ChanceToProc' 		=> 'Procs',
+		'TempEnchantment'	=> 'Temp Effects'
+		);
+
 // item_bonus end //
 $lang['inactive'] = 'Inactive';
 

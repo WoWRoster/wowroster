@@ -551,7 +551,6 @@ $lang['tooltip_next_rank']='Siguiente Rango';
 $lang['tooltip_spell_damage']='Daño por Hechizos';
 $lang['tooltip_school_damage']='\\+.*Daño por Hechizos';
 $lang['tooltip_healing_power']='Poder de Curación';
-$lang['tooltip_chance_hit']='Probabilidad al acertar:';
 $lang['tooltip_reinforced_armor']='Armadura Reforzada';
 $lang['tooltip_damage_reduction']='Reducción de daño';
 //--Tooltip Parsing -- Translated by Subxero
@@ -571,10 +570,13 @@ $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='';
+$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
 
+$lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
 $lang['tooltip_reg_onlyworksinside']='Only works inside';
 $lang['tooltip_reg_conjureditems']='Conjured items disappear';
+$lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
 $lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda'; // the types of weapons as shown in the tooltip

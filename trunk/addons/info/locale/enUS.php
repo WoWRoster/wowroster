@@ -145,16 +145,9 @@ $lang['pointsspent']='Points Spent in';
 $lang['item_bonuses_full'] = 'Bonuses For Equipped Items';
 $lang['item_bonuses'] = 'Item Bonuses';
 $lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
-//$lang['item_bonuses_remap']=array( // key must be lowercase!		// standardized bonus
-//								  '+xx healing' 				=> '+XX to Healing Spells',
-//								  '+xx healing spells'			=> '+XX to Healing Spells',
-//								  '+xx mana every 5 sec.' 		=> '+XX Mana per 5 Seconds',
-//								  '+xx mana every 5 sec'  		=> '+XX Mana per 5 Seconds',
-//								  '+xx mana regen' 		 		=> '+XX Mana per 5 Seconds',
-//								  '+xx mana regen' 		 		=> '+XX Mana per 5 Seconds',
-//								  'restores xx mana per 5 sec.' => '+XX Mana per 5 Seconds',
-//								  'restores xx mana per 5 sec' 	=> '+XX Mana per 5 Seconds',
-//								  );
+$lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
+
+// note to translators ** do not worry about translating this yet.. this will change SOON -ds
 $lang['item_bonuses_remap']=
 	array( // key must be lowercase!											// standardized bonus
 		'+xx healing'                   												=> '+XX to Healing Spells',
@@ -192,6 +185,19 @@ $lang['item_bonuses_remap']=
 		'increases your hit rating by xx.'												=> '+XX Hit Rating',
 		'scope (+xx damage)'															=> '+XX Ranged Damage (Scope)'
 		);
+$lang['item_bonuses_tabs'] = array(
+		//key				//translate this
+		'Totals' 			=> 'Totals',
+		'Enchantment' 		=> 'Enchantments',
+		'BaseStats' 		=> 'Base Stats',
+		'Gems' 				=> 'Gems',
+		'Effects' 			=> 'Passive',
+		'Set' 				=> 'Sets',
+		'Use' 				=> 'Use',
+		'ChanceToProc' 		=> 'Procs',
+		'TempEnchantment'	=> 'Temp Effects'
+		);
+
 // item_bonus end //
 $lang['inactive'] = 'Inactive';
 

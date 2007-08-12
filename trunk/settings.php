@@ -159,6 +159,12 @@ $roster->tpl = new Template;
 
 
 /**
+ * Include cache class
+ */
+require_once(ROSTER_LIB . 'cache.php');
+$roster->cache = new cache();
+
+/**
  * Load the config
  */
 $roster->load_config();

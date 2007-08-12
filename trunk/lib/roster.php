@@ -47,7 +47,13 @@ class roster
 	 * @var roster_error
 	 */
 	var $error; // Error handler class
-
+	/**
+	 * Roster Cache Class Object
+	 *
+	 * @var cache
+	 */
+	var $cache;
+	
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
@@ -208,11 +214,12 @@ class roster
 				}
 
 				// Get the data
-				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '.$this->config['localtimeoffset'].' HOUR ), "'.$this->locale->act['timeformat'].'" ) AS "update_format"'.
-					'FROM `'.$this->db->table('players').'` players '.
-					'LEFT JOIN `'.$this->db->table('members').'` members ON `players`.`member_id` = `members`.`member_id` '.
-					'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '.
-					'WHERE'.$where.';';
+				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ' 
+					   . $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
+					   . 'FROM `' . $this->db->table('players') . '` players ' 
+					   . 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` ' 
+					   . 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
+					   . 'WHERE ' . $where;
 
 				$result = $this->db->query($query);
 
@@ -307,7 +314,7 @@ class roster
 				if( !isset($_GET['realm']) )
 				{
 					// Get the default selected guild from the upload rules
-					$query =  "SELECT `server`, `region`"
+					$query  =  "SELECT `server`, `region`"
 							. " FROM `" . $this->db->table('upload') . "`"
 							. " WHERE `default` = '1' LIMIT 1;";
 
@@ -342,7 +349,7 @@ class roster
 
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database Error',__FILE__.'<br />Function: '.__FUNCTION__,__LINE__,$query);
+					die_quietly($this->db->error(), 'Database Error', __FILE__ . '<br />Function: ' . __FUNCTION__, __LINE__, $query);
 				}
 
 				if(!( $this->data = $this->db->fetch($result,SQL_ASSOC)) )
