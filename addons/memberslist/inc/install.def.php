@@ -37,8 +37,10 @@ class memberslist
 	var $fullname = 'Members List';
 	var $description = 'A sortable, filterable member list.';
 	var $credits = array(
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Now maintained by the whole team"),
 		array(	"name"=>	"PleegWat",
-				"info"=>	"Sortable/filterable member list"),
+				"info"=>	"Original Author")
 	);
 
 

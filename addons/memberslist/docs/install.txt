@@ -4,17 +4,17 @@ NOTES:
 -- Displays the main members list, but sortable and filterable using JS.
 
 INSTALL:
-1) Extract the SortMember archive to the roster/addons/ directory on your site.
+1) Extract the MembersList archive to the roster/addons/ directory on your site.
 
-2) Go to the Roster Control Panel, manage addons, and click the SortMember
+2) Go to the Roster Control Panel, manage addons, and click the MembersList
    installation icon.
 
 3) The addon installs automatically.
 
-4) Click the new SortMember button in the pagebar to configure SortMember.
+4) Click the new MembersList button in the pagebar to configure MembersList.
 
 CONFIGURE:
-1) Go to the SortMember configuration panel using the link in the Roster Control
+1) Go to the MembersList configuration panel using the link in the Roster Control
    Panel
 
 2) Change any options you want. Use the buttons on the left side to see more
@@ -30,7 +30,7 @@ UNINSTALL:
 
 2) Click OK to confirm the uninstall.
 
-3) Delete the SortMember folder from your webserver.
+3) Delete the MembersList folder from your webserver.
 
 USE:
 Click one of this addon's buttons in the menu to view the sortable list.
@@ -39,8 +39,12 @@ is faster.
 
 MEMBERSLIST VERSION LOG:
 1.8.0-0
--- Merged AltMonitor, SortMember, and the built-in memberslist and memberlog
+-- Merged AltMonitor, SortMembers, and the built-in memberslist and memberlog
    into a single roster addon
+-- Roster 1.8.0 compatibility
+-- Extra pages for all characters in a realm
+-- Talent icons/specs column
+-- Column show/hide configuration for all columns on all pages
 
 ALTMONITOR VERSION LOG:
 2.0.2
@@ -286,7 +290,6 @@ admin/update.php
 	so the main/alt relations can be updated.
 
 docs/install.txt
-	by PleegWat.
 	This file. Installation instructions, usage instructions, version log,
 	todo info, credits/file overview.
 
@@ -328,16 +331,20 @@ If you want to add more, similar member listings, or you want to change the
 displays in the existing listings beyond what is possible from the config,
 the following points are interesting:
 
-- To create a new page, copy one of the memberlist/statslist/honorlist to a
-  new file in the SortMembers directory. A file called mylist.php will be
-  accessible as ?p=addon-SortMember-mylist
+- To create a new page, copy one of the existing pages to a new file.
+  A file called mylist.php in one of these folders will be accessible like this:
+  Directory	Scope name	Url (normal)				Url (alternate)
+  /			Util		?p=util-memberslist-mylist	/util/memberslist/mylist.html
+  /char/	Character	?p=char-memberslist-mylist	/char/memberslist/mylist.html
+  /guild/	Guild		?p=guild-memberslist-mylist	/guild/memberslist/mylist.html
+  /realm/	Realm		?p=realm-memberslist-mylist	/realm/memberslist/mylist.html
+
 - The MOTD, honor/pvp overviews, and update info are all included from this
   list file.
 - The query is fully defined in the list file, except for the order part.
   Delete the fields you don't use and add those you want to use additionally.
   Remember some of the fields are still used in the name popup.
 - The columns are defined as elements of the FIELD array. This is the syntax:
-
 
 $FIELD['name'] = array (
 		// The FIELD key is the DB field to be displayed
