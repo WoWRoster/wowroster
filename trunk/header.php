@@ -75,6 +75,7 @@ $roster->tpl->assign_vars(array(
 	'INTERFACE_URL'      => $roster->config['interface_url'],
 	'ROSTER_VERSION'     => $roster->config['version'],
 	'ROSTER_CREDITS'     => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
+	'XML_LANG'           => substr($roster->config['locale'],0,2)
 	)
 );
 
