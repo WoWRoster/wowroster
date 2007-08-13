@@ -706,7 +706,7 @@ class item
 		// otherwise do simple parsing
 		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
 
-		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 && !$this->isParseMode == 'simple')
+		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 && !$this->isParseMode == 'simple' && !strstr($this->name, ':'))
 		{
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
 		}
