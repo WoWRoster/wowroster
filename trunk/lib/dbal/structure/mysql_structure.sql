@@ -752,3 +752,22 @@ CREATE TABLE `renprefix_upload` (
   `default` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`rule_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
+### Web Data table
+
+DROP TABLE IF EXISTS `renprefix_webdb_cache`;
+CREATE TABLE `renprefix_webdb_cache` (
+  `item_id` int(11) NOT NULL,
+  `texture` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `item_level` int(11) NOT NULL,
+  `required_level` int(11) NOT NULL,
+  `locale` varchar(4) NOT NULL,
+  `timestamp` int(8) NOT NULL,
+  `tooltip_html` varchar(255) NOT NULL COMMENT 'passed from web db, not roster parsed tooltip_html',
+  `basestats` mediumtext NOT NULL,
+  `sockets` varchar(32) default NULL,
+  `source_id` smallint(8) NOT NULL COMMENT 'source data was collected from',
+  PRIMARY KEY  (`item_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
