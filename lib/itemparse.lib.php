@@ -13,36 +13,11 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
 */
-$starttime = explode(' ', microtime() );
-$starttime = $starttime[1] + $starttime[0];
 
-//REMOVE THIS PRIOR TO GO-LIVE
-define('IN_ROSTER', true);
-//require_once("../settings.php");
-//*
-
-require_once( '../lib/functions.lib.php' );
-require_once( '../lib/minixml.lib.php' );
-
-
-//REMOVE THIS PRIOR TO GO-LIVE
-if(isset($_GET['id']))
+if( !defined('IN_ROSTER') )
 {
-	$id = $_GET['id'];
-} else {
-	$id = '28963';
+    exit('Detected invalid access to this file!');
 }
-
-$webitemdb = new webitemdb();
-
-$itemarray = $webitemdb->getItem( $id );
-
-//*
-$endtime = explode(' ', microtime() );
-$endtime = $endtime[1] + $endtime[0];
-
-$totaltime = round($endtime - $starttime, 3);
-echo "time: ". $totaltime;
 
 class webitemdb 
 {	

@@ -753,7 +753,7 @@ $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the
 // main_conf
 $lang['admin']['roster_dbver'] = "Version de la base de données Roster|La version de la base de données";
 $lang['admin']['version'] = "Version du Roster|Version actuelle du Roster";
-$lang['admin']['sqldebug'] = "Affichage SQL de debug|Afficher les informations de contrôles de MySQL en format HTML";
+//$lang['admin']['sqldebug'] = "Affichage SQL de debug|Afficher les informations de contrôles de MySQL en format HTML";
 $lang['admin']['debug_mode'] = "Debuggage|Debug complet en cas d'erreur";
 $lang['admin']['sql_window'] = "Affichage SQL|Affiche les requêtes SQL dans le pied de page";
 $lang['admin']['minCPver'] = "Version CP Minimum|Version minimale de CharacterProfiler autorisée";
@@ -770,6 +770,7 @@ $lang['admin']['localtimeoffset'] = "Décalage horaire|Le décalage horaire par 
 $lang['admin']['use_update_triggers'] = "Permettre le déclenchement de mise à jour d'AddOn|Le déclenchement de mise à jour d'AddOn est nécessaire pour les AddOns qui ont besoin de fonctionner lors d'une mise à jour d'un profil<br />Quelques AddOns ont besoin de ce paramètre à on pour fonctionner correctement";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
+$lang['admin']['local_cache']= "File System Cache|Use server local file system to cache some files to increase performance.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";

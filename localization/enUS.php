@@ -753,7 +753,7 @@ $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the
 // main_conf
 $lang['admin']['roster_dbver'] = "Roster Database Version|The version of the database";
 $lang['admin']['version'] = "Roster Version|Current version of Roster";
-$lang['admin']['sqldebug'] = "SQL Debug Output|Print MySQL Debug Statements in html comments";
+//$lang['admin']['sqldebug'] = "SQL Debug Output|Print MySQL Debug Statements in html comments";
 $lang['admin']['debug_mode'] = "Debug Mode|Full debug trace in error messages";
 $lang['admin']['sql_window'] = "SQL Window|Displays SQL Queries in a window in the footer";
 $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler version allowed to upload";
@@ -770,6 +770,7 @@ $lang['admin']['localtimeoffset'] = "Time Offest|Your timezone offset from UTC/G
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
+$lang['admin']['local_cache']= "File System Cache|Use server local file system to cache some files to increase performance.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
