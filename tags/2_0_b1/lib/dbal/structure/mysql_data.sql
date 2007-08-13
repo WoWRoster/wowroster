@@ -10,7 +10,7 @@
 ### Master Values
 
 INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '6', 'display', 'master');
-INSERT INTO `renprefix_config` VALUES (4, 'version', '1.9.9', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (4, 'version', '1.9.9-b1', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
 
 # --------------------------------------------------------
