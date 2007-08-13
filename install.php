@@ -41,14 +41,15 @@ class Template_Wrap extends Template
 	var $install_message = array();           // Array of messages    @var $install_message
 	var $header_inc      = false;             // Printed header?      @var $header_inc
 	var $tail_inc        = false;             // Printed footer?      @var $tail_inc
-	var $template_file   = '';                // Template filename    @var $template_file
 
-	function template_wrap($template_file)
+	function Template_Wrap()
 	{
-		$this->template_file = $template_file;
+		if( !is_dir(ROSTER_TPLDIR . 'install') )
+		{
+			trigger_error("'install' theme does not exist", E_USER_ERROR);
+		}
 
-		$this->set_template('install');
-		$this->file_prefix = 'install';
+		$this->tpl = 'install';
 
 		$this->assign_vars(array(
 			'MSG_TITLE'    => '',
@@ -58,18 +59,13 @@ class Template_Wrap extends Template
 			)
 		);
 
-		$this->set_filenames(array(
-			'body' => $this->template_file
-			)
-		);
+		//$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(),strlen(ROSTER_PATH)));
+		$this->root = 'templates/' . $this->tpl;
 	}
 
-	function message_die($text = '', $title = '')
+	function message_die( $text = '' , $title = '' )
 	{
-		$this->set_filenames(array(
-			'body' => 'install_error.html'
-			)
-		);
+		$this->set_filenames(array('body' => 'install_error.html'));
 
 		$this->assign_vars(array(
 			'MSG_TITLE' => ( $title != '' ) ? $title : '&nbsp;',
@@ -182,7 +178,6 @@ class Template_Wrap extends Template
 		}
 
 		$this->display('body');
-		$this->destroy();
 
 		exit;
 	}
@@ -193,9 +188,9 @@ $STEP = ( isset($_POST['install_step']) ? $_POST['install_step'] : '1' );
 // If Roster is already installed, don't let them install it again
 if( defined('ROSTER_INSTALLED') )
 {
-	$tpl = new Template_Wrap('install_error.html');
+	$tpl = new Template_Wrap();
+	$tpl->set_filenames(array('body' => 'install_error.html'));
 	$tpl->message_die('WoWRoster is already installed - please remove the files <strong>install.php</strong> and <strong>upgrade.php</strong>', 'Installation Error');
-	exit();
 }
 
 // View phpinfo() if requested
@@ -273,7 +268,8 @@ function process_step1()
 {
 	global $DEFAULTS;
 
-	$tpl = new Template_Wrap('install_step1.html');
+	$tpl = new Template_Wrap();
+	$tpl->set_filenames(array('body' => 'install_step1.html'));
 
 	/**
 	 * Check to make sure conf.php exists and is readable / writeable
@@ -420,7 +416,8 @@ function process_step2()
 {
 	global $DEFAULTS, $DBALS, $LOCALES;
 
-	$tpl = new Template_Wrap('install_step2.html');
+	$tpl = new Template_Wrap();
+	$tpl->set_filenames(array('body' => 'install_step2.html'));
 
 	/**
 	 * Build the default language drop-down
@@ -486,7 +483,8 @@ function process_step3()
 {
 	global $DEFAULTS, $DBALS, $LOCALES;
 
-	$tpl = new Template_Wrap('install_step3.html');
+	$tpl = new Template_Wrap();
+	$tpl->set_filenames(array('body' => 'install_step3.html'));
 
 	/**
 	 * Get our posted data
@@ -646,7 +644,8 @@ function process_step4()
 {
 	global $DEFAULTS;
 
-	$tpl = new Template_Wrap('install_step4.html');
+	$tpl = new Template_Wrap();
+	$tpl->set_filenames(array('body' => 'install_step4.html'));
 
 	/**
 	 * Get our posted data
