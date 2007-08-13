@@ -20,8 +20,8 @@ $lang['cb_spellbook'] = 'Zauberspr&uuml;che|Shows available spells, actions, and
 $lang['cb_mailbox'] = 'Postfach|Shows the contents of the mailbox';
 $lang['cb_bags'] = 'Taschen|Shows the contents of this character\'s bags';
 $lang['cb_bank'] = 'Bank|Shows the contents of this character\'s bank';
-$lang['cb_quests'] = 'Quests|A list of quest this character is currenly on';
-$lang['cb_recipes'] = 'Rezepte|Shows what items this character';
+$lang['cb_quests'] = 'Quests|A list of quest this character is currently on';
+$lang['cb_recipes'] = 'Rezepte|Shows what items this character can make';
 
 $lang['char_stats'] = 'Character Stats for: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';

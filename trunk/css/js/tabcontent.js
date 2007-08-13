@@ -77,14 +77,14 @@ function initializetabcontent()
 					return false
 				}
 				if (ulist[x].className=="selected" && clickedontab=="") //if a tab is set to be selected by default
-					expandcontent(ulistlink) //auto load currenly selected tab content
+					expandcontent(ulistlink) //auto load currently selected tab content
 			}
 		} //end inner for loop
 		if (clickedontab!="")
 		{ //if a tab has been previously clicked on per the cookie value
 			var culistlink=getullistlinkbyId(arguments[i], clickedontab)
 			if (typeof culistlink!="undefined") //if match found between tabcontent id and rel attribute value
-				expandcontent(culistlink) //auto load currenly selected tab content
+				expandcontent(culistlink) //auto load currently selected tab content
 			else //else if no match found between tabcontent id and rel attribute value (cookie mis-association)
 				expandcontent(ulist[0].getElementsByTagName("a")[0]) //just auto load first tab instead
 		}
