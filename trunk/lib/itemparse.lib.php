@@ -83,11 +83,11 @@ class webitemdb
 		$this->getStat( 'socket_1' );
 		$this->getStat( 'socket_2' );
 		$this->getStat( 'socket_3' );
-		$this->getSubStat( 'agility', 'stats' );
-		$this->getSubStat( 's_blue', 'stats' );
-		$this->getSubStat( 's_meta', 'stats' );
-		$this->getSubStat( 's_red', 'stats' );
-		$this->getSubStat( 's_yellow', 'stats' );
+		$this->getSubStat( 'agility' );
+		$this->getSubStat( 's_blue' );
+		$this->getSubStat( 's_meta' );
+		$this->getSubStat( 's_red' );
+		$this->getSubStat( 's_yellow' );
 				
 		echo("<pre>");
 		print_r($this->item);
@@ -110,7 +110,7 @@ class webitemdb
 	 * @param var $stat
 	 * @param var $element
 	 */
-	function getSubStat( $stat, $element )
+	function getSubStat( $stat, $element = 'stats' )
 	{	
 		$this->element =& $this->rootEL->getElement( $element );
 		$this->item[$stat] = $this->element->getElement( $stat )->getValue();
