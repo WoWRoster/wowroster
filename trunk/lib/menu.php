@@ -357,7 +357,7 @@ class RosterMenu
 				. "IF(`" . $roster->config['alt_location'] . "` LIKE '%" . $roster->config['alt_type'] . "%',1,0) AS 'isalt', "
 				. $qrypart . " AS label "
 				. "FROM `" . $roster->db->table('members') . "` "
-				. "WHERE `level` > $level "
+				. "WHERE `level` >= $level "
 				. $where
 				. "GROUP BY isalt, label;";
 
@@ -407,7 +407,7 @@ class RosterMenu
 			return '';
 		}
 
-		$text = 'Total: ' . $num_non_alts . ' (+' . $num_alts . ' Alts)' . ($level>0 ? ' Above L' . $level : '');
+		$text = 'Total: ' . $num_non_alts . ' (+' . $num_alts . ' Alts)' . ($level>0 ? ' At least L' . $level : '');
 		$output = '	<td valign="top" align="left" class="row">';
 
 		if( $style == 'bar' )
