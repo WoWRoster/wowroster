@@ -534,7 +534,6 @@ $lang['google_links']['Google Groups'] = 'http://groups.google.com/groups?q=';
 $lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
 $lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
-
 // Definition for item tooltip coloring
 $lang['tooltip_use']='Use:';
 $lang['tooltip_requires']='Requires';
@@ -600,7 +599,8 @@ $lang['gem_colors'] = array(
 	'green' => 'Green',
 	'orange' => 'Orange',
 	'purple' => 'Purple',
-	'prismatic' => 'Prismatic'
+	'prismatic' => 'Prismatic',
+	'meta' => 'Meta'
 	);
 // -- end tooltip parsing
 

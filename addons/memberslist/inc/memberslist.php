@@ -803,7 +803,7 @@ class memberslist
 		$cell_value ='';
 
 		// Don't proceed for characters without data
-		if ($row['talents'] == '')
+		if( !isset($row['talents']) || $row['talents'] == '' )
 		{
 			return '&nbsp;';
 		}
