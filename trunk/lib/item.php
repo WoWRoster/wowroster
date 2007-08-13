@@ -709,7 +709,6 @@ class item
 		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 
 			&& !$this->isParseMode == 'simple' && !strstr($this->name, ':') )
 		{
-			echo "i sent $this->name to full parsing.<br>";
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
 		}
 		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) && !strstr($this->name, ':') )
