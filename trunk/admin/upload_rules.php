@@ -46,9 +46,13 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 				}
 			}
 
+			$name = $roster->db->escape($_POST['name']);
+			$server = $roster->db->escape($_POST['server']);
+			$region = strtoupper($roster->db->escape($_POST['region']));
+			
 			$query = "INSERT INTO `" . $roster->db->table('upload') . "`
 					(`name`,`server`,`region`,`type`,`default`) VALUES
-						('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
+						('" . $name . "','" . $server . "','" . $region . "','" . $type . "','" . $default . "');";
 
 			if( !$roster->db->query($query) )
 			{
