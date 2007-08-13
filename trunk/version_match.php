@@ -92,7 +92,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster->config['roster_bg'] = 'img/wowroster_bg.jpg';
 
 
-	include_once ('roster_header.tpl');
+	include_once(ROSTER_BASE . 'header.php');
 	$temp_array = split("&", $_SERVER['QUERY_STRING']);
 	foreach($temp_array as $key=>$value)
 	{

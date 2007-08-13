@@ -41,7 +41,7 @@ $roster_login = new RosterLogin();
 // Disallow viewing of the page
 if( $roster_login->getAuthorized() < 3 )
 {
-	include_once (ROSTER_BASE . 'roster_header.tpl');
+	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;
 	print $roster_menu->makeMenu($roster->output['show_menu']);
 
@@ -50,7 +50,7 @@ if( $roster_login->getAuthorized() < 3 )
 	$roster_login->getMessage().
 	$roster_login->getLoginForm();
 
-	include_once (ROSTER_BASE . 'roster_footer.tpl');
+	include_once(ROSTER_BASE . 'footer.php');
 	exit();
 }
 else
@@ -148,7 +148,7 @@ if( $addon_pagebar != '' )
 }
 
 // ----[ Render the page ]----------------------------------
-include_once( ROSTER_BASE . 'roster_header.tpl' );
+include_once(ROSTER_BASE . 'header.php');
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu($roster->output['show_menu']);
 
@@ -164,4 +164,4 @@ echo
 	"</tr></table>\n".
 	$footer;
 
-include_once( ROSTER_BASE . 'roster_footer.tpl' );
+include_once(ROSTER_BASE . 'footer.php');

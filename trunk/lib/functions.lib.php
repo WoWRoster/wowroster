@@ -195,7 +195,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'roster_header.tpl');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
@@ -241,7 +241,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'roster_footer.tpl');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -260,7 +260,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'roster_header.tpl');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
@@ -278,7 +278,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'roster_footer.tpl');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -1148,6 +1148,39 @@ function request_uri( )
 	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen(stristr($REQUEST_URI, '&CMSSESSID')));
 
 	return $REQUEST_URI;
+}
+
+
+function file_writer( $filename , &$content , $mode='wb' )
+{
+	if(!$fp = fopen($filename, $mode))
+	{
+		trigger_error("Cannot open file ($filename)", E_USER_WARNING);
+		return false;
+	}
+	flock($fp, LOCK_EX);
+	$bytes_written = fwrite($fp, $content);
+	flock($fp, LOCK_UN);
+	fclose($fp);
+	if($bytes_written === FALSE)
+	{
+		trigger_error("Couldn't write to file ($filename)", E_USER_WARNING);
+		return false;
+	}
+	if( !defined('PHP_AS_NOBODY') )
+	{
+		php_as_nobody($filename);
+	}
+	chmod($filename, (PHP_AS_NOBODY ? 0666 : 0644));
+	return true;
+}
+
+function php_as_nobody( $file )
+{
+	if( !defined('PHP_AS_NOBODY') )
+	{
+		define('PHP_AS_NOBODY', (ROSTER_PROCESS_OWNER == 'nobody' || getmyuid() != fileowner($file)));
+	}
 }
 
 /**

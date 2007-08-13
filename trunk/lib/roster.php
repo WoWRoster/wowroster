@@ -53,7 +53,7 @@ class roster
 	 * @var cache
 	 */
 	var $cache;
-	
+
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
@@ -82,10 +82,7 @@ class roster
 	 * @var roster_tpl
 	 */
 	var $tpl;								// Template object
-	var $row_class         = 1;				// For row striping in templates
-
-	// Output vars
-    var $template_file     = '';			// Template file to parse
+	var $row_class         = 2;				// For row striping in templates
 
 	/**
 	 * Load the DBAL
@@ -214,10 +211,10 @@ class roster
 				}
 
 				// Get the data
-				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ' 
+				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
 					   . $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
-					   . 'FROM `' . $this->db->table('players') . '` players ' 
-					   . 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` ' 
+					   . 'FROM `' . $this->db->table('players') . '` players '
+					   . 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
 					   . 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
 					   . 'WHERE ' . $where;
 
@@ -405,104 +402,5 @@ class roster
 		}
 
 		return $row_class;
-	}
-
-	/**
-	 * Set object variables
-	 * NOTE: If the last var is 'display' and the val is TRUE, EQdkp::display() is called
-	 *   automatically
-	 *
-	 * @var $var Var to set
-	 * @var $val Value for Var
-	 * @return bool
-	 */
-	function set_vars($var, $val = '', $append = false)
-	{
-		if ( is_array($var) )
-		{
-			foreach ( $var as $d_var => $d_val )
-			{
-				$this->set_vars($d_var, $d_val);
-			}
-		}
-		else
-		{
-			if ( empty($val) )
-			{
-				return false;
-			}
-			if ( ($var == 'display') && ($val === true) )
-			{
-				$this->display();
-			}
-			else
-			{
-				if ( $append )
-				{
-					if ( is_array($this->$var) )
-					{
-						$this->{$var}[] = $val;
-					}
-					elseif ( is_string($this->$var) )
-					{
-						$this->$var .= $val;
-					}
-					else
-					{
-						$this->$var = $val;
-					}
-				}
-				else
-				{
-					$this->$var = $val;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	function display()
-	{
-		// Assign global template variables
-		$this->tpl->assign_vars(array(
-			'URL_FULL'         => ROSTER_URL,
-			'URL_PATH'         => ROSTER_PATH,
-			'ROSTER_VER'       => ROSTER_VERSION,
-
-			'IMG_URL'          => $this->config['img_url'],
-			'INTERFACE_URL'    => $this->config['interface_url'],
-			)
-		);
-
-		switch( $this->pages[0] )
-		{
-			case 'char':
-			case 'guild':
-			case 'realm':
-			case 'util':
-				$this->tpl->assign_var('TEMPLATE_PATH', ROSTER_URL . 'addons/' . $this->pages[1] . '/templates');
-				$this->tpl->set_template('default',$this->pages[1]);
-				break;
-
-			default:
-				$this->tpl->assign_var('TEMPLATE_PATH', ROSTER_URL . 'templates');
-				$this->tpl->set_template('default');
-		}
-
-		if ( empty($this->template_file) )
-		{
-			trigger_error('Template file is empty.', E_USER_ERROR);
-			return false;
-		}
-
-		$this->tpl->set_filenames(array(
-			'body' => $this->template_file
-			)
-		);
-
-		// Get rid of our template data
-		$this->tpl->display('body');
-		$this->tpl->destroy();
 	}
 }

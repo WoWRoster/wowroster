@@ -196,11 +196,6 @@ if( $roster->db->num_rows() > 0 )
 	}
 }
 
-$roster->set_vars(array(
-	'template_file' => 'comment.html',
-	'display'       => true
-	)
-);
 
 if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
 {
@@ -213,3 +208,5 @@ else
 	$roster->tpl->assign_var('S_ADD_COMMENT',true);
 }
 
+$roster->tpl->set_filenames(array('body' => 'news/comment.html'));
+$roster->tpl->display('body');

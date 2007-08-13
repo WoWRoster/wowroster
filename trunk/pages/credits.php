@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 }
 
 $roster->output['title'] = $roster->locale->act['credit'];
-include_once (ROSTER_BASE.'roster_header.tpl');
+include_once(ROSTER_BASE . 'header.php');
 
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu($roster->output['show_menu']);
@@ -142,7 +142,7 @@ if($AddonCredits != '')
 
 echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['bottom']."\n</div>\n";
 
-include_once (ROSTER_BASE.'roster_footer.tpl');
+include_once(ROSTER_BASE . 'footer.php');
 
 /**
  * Gets the list of currently installed roster addons

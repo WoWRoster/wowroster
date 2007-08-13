@@ -24,7 +24,7 @@ require_once ROSTER_BASE . 'settings.php';
 $roster->output['title'] = $roster->locale->act['search'];
 $roster->output['body_onload'] .= 'initARC(\'search\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-include_once (ROSTER_BASE . 'roster_header.tpl');
+include_once(ROSTER_BASE . 'header.php');
 
 $roster_menu = new RosterMenu;
 print $roster_menu->makeMenu($roster->output['show_menu']);
@@ -344,4 +344,4 @@ else
 	echo '<br />';
 	//if there are no results let them know
 }
-include_once (ROSTER_BASE.'roster_footer.tpl');
+include_once(ROSTER_BASE . 'footer.php');

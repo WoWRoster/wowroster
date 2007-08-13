@@ -121,7 +121,7 @@ if( $addon['active'] == '1' )
 
 	if( $roster->output['show_header'] )
 	{
-		include_once(ROSTER_BASE . 'roster_header.tpl');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	if( $roster->output['show_menu'] )
@@ -134,7 +134,7 @@ if( $addon['active'] == '1' )
 
 	if( $roster->output['show_footer'] )
 	{
-		include_once(ROSTER_BASE . 'roster_footer.tpl');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 }
 else
