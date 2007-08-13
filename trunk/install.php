@@ -239,9 +239,9 @@ $LOCALES = array(
 		)
 	);
 
-// ---------------------------------------------------------
-// Figure out what we're doing...
-// ---------------------------------------------------------
+/**
+ * Figure out what we're doing...
+ */
 switch ( $STEP )
 {
 	case 1:
@@ -261,9 +261,9 @@ switch ( $STEP )
 		break;
 }
 
-// ---------------------------------------------------------
-// And do it
-// ---------------------------------------------------------
+/**
+ * And do it
+ */
 function process_step1()
 {
 	global $DEFAULTS;
@@ -390,9 +390,9 @@ function process_step1()
 		$tpl->message_append('Roster has scanned your server and determined that it meets the minimum requirements.');
 	}
 
-	//
-	// Output the page
-	//
+	/**
+	 * Output the page
+	 */
 	$tpl->assign_vars(array(
 		'OUR_ROSTER_VERSION'   => $our_roster_version,
 		'THEIR_ROSTER_VERSION' => $their_roster_version,
@@ -446,9 +446,9 @@ function process_step2()
 		);
 	}
 
-    //
-    // Determine server settings
-    //
+    /**
+     * Determine server settings
+     */
 	if( !empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']) )
 	{
 		$server_name = 'http://' . ((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']);
@@ -507,9 +507,9 @@ function process_step3()
 		$tpl->message_die('Unable to find the database abstraction layer for <strong>' . $db_config['dbtype'] . '</strong>, check to make sure ' . $dbal_file . ' exists.');
 	}
 
-	//
-	// Database population
-	//
+	/**
+	 * Database population
+	 */
 	include_once($dbal_file);
 	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], false);
 
@@ -538,6 +538,17 @@ function process_step3()
 			</ul>
 			MySQL versions less than 4.1.0 may experience data corruption and are not supported.<br />
 			We will not provide support for these types of installations.');
+
+		if( version_compare($server_version,'4.1','<') || version_compare($client_version,'4.1','<') )
+		{
+			$tpl->message_die('MySQL client <strong>and</strong> server version 4.1.0 or higher is required for Roster.<br /><br />
+				<strong>You are running:</strong>
+				<ul>
+					<li><strong>Your server version: ' . $server_version . '</strong></li>
+					<li><strong>Your client version: ' . $client_version . '</strong></li>
+				</ul>
+				We are sorry, your MySQL version is not high enough to install Roster, please upgrade MySQL.');
+		}
 	}
 	else
 	{
