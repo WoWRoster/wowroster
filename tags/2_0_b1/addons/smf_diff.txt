@@ -1,0 +1,871 @@
+diff -r SMF2/index.php SMF/index.php
+24a25,28
+> if ( !defined('ROSTER_INSTALLED') )
+> {
+>     exit('Detected invalid access to this file!');
+> }
+63,72d66
+< // Connect to the MySQL database.
+< if (empty($db_persist))
+< 	$db_connection = @mysql_connect($db_server, $db_user, $db_passwd);
+< else
+< 	$db_connection = @mysql_pconnect($db_server, $db_user, $db_passwd);
+< 
+< // Show an error if the connection couldn't be made.
+< if (!$db_connection || !@mysql_select_db($db_name, $db_connection))
+< 	db_fatal_error();
+< 
+338c332
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/install_1-1.sql SMF/install_1-1.sql
+1065c1065
+< 	('smileys_url', '{$boardurl}/Smileys'),
+---
+> 	('smileys_url', '{$boardurl}/addons/{$addonname}/Smileys'),
+1067c1067
+< 	('avatar_url', '{$boardurl}/avatars'),
+---
+> 	('avatar_url', '{$boardurl}/addons/{$addonname}/avatars'),
+1200,1201c1200,1201
+< 	(1, 'theme_url', '{$boardurl}/Themes/default'),
+< 	(1, 'images_url', '{$boardurl}/Themes/default/images'),
+---
+> 	(1, 'theme_url', '{$boardurl}/addons/{$addonname}/Themes/default'),
+> 	(1, 'images_url', '{$boardurl}/addons/{$addonname}/Themes/default/images'),
+1224,1225c1224,1225
+< 	(2, 'theme_url', '{$boardurl}/Themes/classic'),
+< 	(2, 'images_url', '{$boardurl}/Themes/classic/images'),
+---
+> 	(2, 'theme_url', '{$boardurl}/addons/{$addonname}/Themes/classic'),
+> 	(2, 'images_url', '{$boardurl}/addons/{$addonname}/Themes/classic/images'),
+1228,1229c1228,1229
+< 	(3, 'theme_url', '{$boardurl}/Themes/babylon'),
+< 	(3, 'images_url', '{$boardurl}/Themes/babylon/images'),
+---
+> 	(3, 'theme_url', '{$boardurl}/addons/{$addonname}/Themes/babylon'),
+> 	(3, 'images_url', '{$boardurl}/addons/{$addonname}/Themes/babylon/images'),
+Only in SMF: install.def.php
+diff -r SMF2/install.php SMF/install.php
+24a25,47
+> // We're needing roster admins here.
+> // ----[ Check log-in ]-------------------------------------
+> $roster_login = new RosterLogin();
+> 
+> // Disallow viewing of the page
+> if( !$roster_login->getAuthorized(2) )
+> {
+> 	include_once (ROSTER_BASE.'roster_header.tpl');
+> 
+> 	$roster_menu = new RosterMenu;
+> 	print $roster_menu->makeMenu('main');
+> 
+> 	print
+> 	'<span class="title_text">SMF Installer</span><br />'.
+> 	$roster_login->getMessage().
+> 	$roster_login->getLoginForm();
+> 
+> 	include_once (ROSTER_BASE.'roster_footer.tpl');
+> 
+> 	exit();
+> }
+> // ----[ End Check log-in ]---------------------------------
+> 
+40,45c63,65
+< echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+< <html xmlns="http://www.w3.org/1999/xhtml"', !empty($txt['lang_rtl']) ? ' dir="rtl"' : '', '>
+< 	<head>
+< 		<meta http-equiv="Content-Type" content="text/html; charset=', isset($txt['lang_character_set']) ? $txt['lang_character_set'] : 'ISO-8859-1', '" />
+< 		<title>', $txt['smf_installer'], '</title>
+< 		<script language="JavaScript" type="text/javascript" src="Themes/default/script.js"></script>
+---
+> // A bunch of roster changes here for visuals
+> $header_title = $txt['smf_installer'];
+> $html_head = '	<script language="JavaScript" type="text/javascript" src="Themes/default/script.js"></script>
+47,53c67
+< 			body
+< 			{
+< 				background-color: #E5E5E8;
+< 				margin: 0px;
+< 				padding: 0px;
+< 			}
+< 			body, td
+---
+> 			div#content
+114c128
+< 				padding-', empty($txt['lang_rtl']) ? 'right' : 'left', ': 2ex;
+---
+> 				padding-'. (empty($txt['lang_rtl']) ? 'right' : 'left'). ': 2ex;
+116,118c130,132
+< 		</style>
+< 	</head>
+< 	<body>
+---
+> 		</style>';
+> 
+> echo '
+120c134
+< 			<a href="http://www.simplemachines.org/" target="_blank"><img src="Themes/default/images/smflogo.gif" style="width: 258px; float: ', empty($txt['lang_rtl']) ? 'right' : 'left', ';" alt="Simple Machines" border="0" /></a>
+---
+> 			<a href="http://www.simplemachines.org/" target="_blank"><img src="addons/'.$addon['basename'].'/Themes/default/images/smflogo.gif" style="width: 258px; float: ', empty($txt['lang_rtl']) ? 'right' : 'left', ';" alt="Simple Machines" border="0" /></a>
+130,131c144
+< 	</body>
+< </html>';
+---
+> ';
+176,210d188
+< 	// Add slashes, as long as they aren't already being added.
+< 	if (get_magic_quotes_gpc() == 0)
+< 	{
+< 		foreach ($_POST as $k => $v)
+< 			$_POST[$k] = addslashes($v);
+< 	}
+< 
+< 	// This is really quite simple; if ?delete is on the URL, delete the installer...
+< 	if (isset($_GET['delete']))
+< 	{
+< 		if (isset($_SESSION['installer_temp_ftp']))
+< 		{
+< 			$ftp = new ftp_connection($_SESSION['installer_temp_ftp']['server'], $_SESSION['installer_temp_ftp']['port'], $_SESSION['installer_temp_ftp']['username'], $_SESSION['installer_temp_ftp']['password']);
+< 			$ftp->chdir($_SESSION['installer_temp_ftp']['path']);
+< 
+< 			$ftp->unlink('install.php');
+< 			$ftp->unlink('webinstall.php');
+< 			$ftp->unlink('install_1-1.sql');
+< 
+< 			$ftp->close();
+< 
+< 			unset($_SESSION['installer_temp_ftp']);
+< 		}
+< 		else
+< 		{
+< 			@unlink(__FILE__);
+< 			@unlink(dirname(__FILE__) . '/webinstall.php');
+< 			@unlink(dirname(__FILE__) . '/install_1-1.sql');
+< 		}
+< 
+< 		// Now just redirect to a blank.gif...
+< 		header('Location: http://' . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT']) . dirname($_SERVER['PHP_SELF']) . '/Themes/default/images/blank.gif');
+< 		exit;
+< 	}
+< 
+288c266
+< 	global $txt;
+---
+> 	global $txt, $roster;
+371,389d348
+< 
+< 	// Set up the defaults.
+< 	$db_server = @ini_get('mysql.default_host') or $db_server = 'localhost';
+< 	$db_user = isset($_POST['ftp_username']) ? $_POST['ftp_username'] : @ini_get('mysql.default_user');
+< 	$db_name = isset($_POST['ftp_username']) ? $_POST['ftp_username'] : @ini_get('mysql.default_user');
+< 	$db_passwd = @ini_get('mysql.default_password');
+< 
+< 	// This is just because it makes it easier for people on Lycos/Tripod UK :P.
+< 	if (isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] == 'members.lycos.co.uk' && defined('LOGIN'))
+< 	{
+< 		$db_user = LOGIN;
+< 		$db_name = LOGIN . '_uk_db';
+< 	}
+< 
+< 	// Should we use a non standard port?
+< 	$db_port = @ini_get('mysql.default_port');
+< 	if (!empty($db_port))
+< 		$db_server .= ':' . $db_port;
+< 
+401c360
+< 					<form action="' . $_SERVER['PHP_SELF'] . '?step=1" method="post">
+---
+> 					<form action="?'.ROSTER_PAGE.'='.ROSTER_PAGE_NAME.'&amp;step=1" method="post">
+409c368
+< 									<input type="text" name="mbname" id="mbname_input" value="', $txt['install_settings_name_default'], '" size="65" />
+---
+> 									<input type="text" name="mbname" id="mbname_input" value="'.$roster->config['guild_name'].'" size="65" />
+450,487d408
+< 
+< 						<h2>', $txt['mysql_settings'], '</h2>
+< 						<h3>', $txt['mysql_settings_info'], '</h3>
+< 
+< 						<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 2ex;">
+< 							<tr>
+< 								<td width="20%" valign="top" class="textbox"><label for="db_server_input">', $txt['mysql_settings_server'], ':</label></td>
+< 								<td>
+< 									<input type="text" name="db_server" id="db_server_input" value="', $db_server, '" size="30" /><br />
+< 									<div style="font-size: smaller; margin-bottom: 2ex;">', $txt['mysql_settings_server_info'], '</div>
+< 								</td>
+< 							</tr><tr>
+< 								<td valign="top" class="textbox"><label for="db_user_input">', $txt['mysql_settings_username'], ':</label></td>
+< 								<td>
+< 									<input type="text" name="db_user" id="db_user_input" value="', $db_user, '" size="30" /><br />
+< 									<div style="font-size: smaller; margin-bottom: 2ex;">', $txt['mysql_settings_username_info'], '</div>
+< 								</td>
+< 							</tr><tr>
+< 								<td valign="top" class="textbox"><label for="db_passwd_input">', $txt['mysql_settings_password'], ':</label></td>
+< 								<td>
+< 									<input type="password" name="db_passwd" id="db_passwd_input" value="', $db_passwd, '" size="30" /><br />
+< 									<div style="font-size: smaller; margin-bottom: 2ex;">', $txt['mysql_settings_password_info'], '</div>
+< 								</td>
+< 							</tr><tr>
+< 								<td valign="top" class="textbox"><label for="db_name_input">', $txt['mysql_settings_database'], ':</label></td>
+< 								<td>
+< 									<input type="text" name="db_name" id="db_name_input" value="', empty($db_name) ? 'smf' : $db_name, '" size="30" /><br />
+< 									<div style="font-size: smaller; margin-bottom: 2ex;">', $txt['mysql_settings_database_info'], '</div>
+< 								</td>
+< 							</tr><tr>
+< 								<td valign="top" class="textbox"><label for="db_prefix_input">', $txt['mysql_settings_prefix'], ':</label></td>
+< 								<td>
+< 									<input type="text" name="db_prefix" id="db_prefix_input" value="smf_" size="30" /><br />
+< 									<div style="font-size: smaller; margin-bottom: 2ex;">', $txt['mysql_settings_prefix_info'], '</div>
+< 								</td>
+< 							</tr>
+< 						</table>
+< 
+498c419
+< 	global $txt, $db_connection;
+---
+> 	global $txt, $roster, $addon;
+510,516d430
+< 		'boarddir' => addslashes(dirname(__FILE__)),
+< 		'sourcedir' => addslashes(dirname(__FILE__)) . '/Sources',
+< 		'db_name' => $_POST['db_name'],
+< 		'db_user' => $_POST['db_user'],
+< 		'db_passwd' => isset($_POST['db_passwd']) ? $_POST['db_passwd'] : '',
+< 		'db_server' => $_POST['db_server'],
+< 		'db_prefix' => preg_replace('~[^A-Za-z0-9_$]~', '', $_POST['db_prefix']),
+520c434
+< 		'cookiename' => 'SMFCookie' . abs(crc32($_POST['db_name'] . preg_replace('~[^A-Za-z0-9_$]~', '', $_POST['db_prefix'])) % 1000),
+---
+> 		'cookiename' => 'SMFCookie' . abs(crc32(preg_replace('~[^A-Za-z0-9_$]~', '', $addon['basename'])) % 1000),
+540,614d453
+< 	// Attempt a connection.
+< 	$db_connection = @mysql_connect($db_server, $db_user, $db_passwd);
+< 
+< 	// No dice?  Let's try adding the prefix they specified, just in case they misread the instructions ;).
+< 	if (!$db_connection)
+< 	{
+< 		$mysql_error = mysql_error();
+< 
+< 		$db_connection = @mysql_connect($db_server, $_POST['db_prefix'] . $db_user, $db_passwd);
+< 		if ($db_connection != false)
+< 		{
+< 			$db_user = $_POST['db_prefix'] . $db_user;
+< 			updateSettingsFile(array('db_user' => $db_user));
+< 		}
+< 	}
+< 
+< 	// Still no connection?  Big fat error message :P.
+< 	if (!$db_connection)
+< 	{
+< 		echo '
+< 				<div class="error_message">
+< 					<div style="color: red;">', $txt['error_mysql_connect'], '</div>
+< 
+< 					<div style="margin: 2.5ex; font-family: monospace;"><b>', $mysql_error, '</b></div>
+< 
+< 					<a href="', $_SERVER['PHP_SELF'], '?step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+< 				</div>';
+< 		return false;
+< 	}
+< 
+< 	// Do they meet the install requirements?
+< 	// !!! Old client, new server?
+< 	if (version_compare($GLOBALS['required_mysql_version'], preg_replace('~\-.+?$~', '', min(mysql_get_server_info(), mysql_get_client_info()))) > 0)
+< 	{
+< 		echo '
+< 				<div class="error_message">
+< 					<div style="color: red;">', $txt['error_mysql_too_low'], '</div>
+< 					<br />
+< 					<a href="', $_SERVER['PHP_SELF'], '?step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+< 				</div>';
+< 
+< 		return false;
+< 	}
+< 
+< 	// Let's try that database on for size...
+< 	if ($db_name != '')
+< 		mysql_query("
+< 			CREATE DATABASE IF NOT EXISTS `$db_name`", $db_connection);
+< 
+< 	// Okay, let's try the prefix if it didn't work...
+< 	if (!mysql_select_db($db_name, $db_connection) && $db_name != '')
+< 	{
+< 		mysql_query("
+< 			CREATE DATABASE IF NOT EXISTS `$_POST[db_prefix]$db_name`", $db_connection);
+< 
+< 		if (mysql_select_db($_POST['db_prefix'] . $db_name, $db_connection))
+< 		{
+< 			$db_name = $_POST['db_prefix'] . $db_name;
+< 			updateSettingsFile(array('db_name' => $db_name));
+< 		}
+< 	}
+< 
+< 	// Okay, now let's try to connect...
+< 	if (!mysql_select_db($db_name, $db_connection))
+< 	{
+< 		echo '
+< 				<div class="error_message">
+< 					<div style="color: red;">', sprintf($txt['error_mysql_database'], $db_name), '</div>
+< 					<br />
+< 					<a href="', $_SERVER['PHP_SELF'], '?step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+< 				</div>';
+< 
+< 		return false;
+< 	}
+< 
+616c455
+< 	$result = mysql_query("
+---
+> 	$result = $roster->db->query("
+657c496
+< 			mysql_query("
+---
+> 			$roster->db->query("
+665a505
+> 		'{$addonname}' => $addon['basename'],
+705c545
+< 		if (mysql_query($current_statement) === false)
+---
+> 		if ($roster->db->query($current_statement) === false)
+708c548
+< 			if (mysql_errno($db_connection) === 1050 && preg_match('~^\s*CREATE TABLE ([^\s\n\r]+?)~', $current_statement, $match) == 1)
+---
+> 			if ($roster->db->errno() === 1050 && preg_match('~^\s*CREATE TABLE ([^\s\n\r]+?)~', $current_statement, $match) == 1)
+711c551
+< 				$failures[$count] = mysql_error();
+---
+> 				$failures[$count] = $roster->db->error();
+719c559
+< 		mysql_query("
+---
+> 		$roster->db->query("
+746c586
+< 			mysql_query("
+---
+> 			$roster->db->query("
+775c615
+< 				mysql_query("
+---
+> 				$roster->db->query("
+789c629
+< 			mysql_query("
+---
+> 			$roster->db->query("
+797c637
+< 	$tables = mysql_list_tables($db_name);
+---
+> 	$tables = $roster->db->query("SHOW TABLES");
+803c643
+< 	mysql_query('
+---
+> 	$roster->db->query('
+821c661
+< 					<a href="', $_SERVER['PHP_SELF'], '?step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+---
+> 					<a href="?'.ROSTER_PAGE.'='.ROSTER_PAGE_NAME.'&amp;step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+828c668
+< 	if (mysql_query("ALTER TABLE {$db_prefix}boards ORDER BY ID_BOARD") === false)
+---
+> 	if ($roster->db->query("ALTER TABLE {$db_prefix}boards ORDER BY ID_BOARD") === false)
+834c674
+< 					<a href="', $_SERVER['PHP_SELF'], '?step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+---
+> 					<a href="?'.ROSTER_PAGE.'='.ROSTER_PAGE_NAME.'&amp;step=0&amp;overphp=true">', $txt['error_message_click'], '</a> ', $txt['error_message_try_again'], '
+862c702
+< 					<form action="' . $_SERVER['PHP_SELF'] . '?step=2" method="post" onsubmit="if (this.password1.value == this.password2.value) return true; else {alert(\'', $txt['error_user_settings_again_match'], '\'); return false;}">
+---
+> 					<form action="?'.ROSTER_PAGE.'='.ROSTER_PAGE_NAME.'&amp;step=2" method="post" onsubmit="if (this.password1.value == this.password2.value) return true; else {alert(\'', $txt['error_user_settings_again_match'], '\'); return false;}">
+893,900d732
+< 
+< 						<h2>', $txt['user_settings_database'], '</h2>
+< 						<h3>', $txt['user_settings_database_info'], '</h3>
+< 
+< 						<div style="margin-bottom: 2ex; padding-', empty($txt['lang_rtl']) ? 'left' : 'right', ': 17%;">
+< 							<input type="password" name="password3" size="30" />
+< 						</div>
+< 
+911c743
+< 	global $txt, $db_prefix, $db_connection, $HTTP_SESSION_VARS, $cookiename;
+---
+> 	global $txt, $db_prefix, $HTTP_SESSION_VARS, $cookiename;
+913c745
+< 	global $current_smf_version;
+---
+> 	global $current_smf_version, $roster, $addon;
+918,941d749
+< 	if (!isset($_POST['password3']))
+< 		return doStep2a();
+< 
+< 	$db_connection = @mysql_connect($db_server, $db_user, $_POST['password3']);
+< 	if (!$db_connection)
+< 	{
+< 		echo '
+< 				<div class="error_message">
+< 					<div style="color: red;">', $txt['error_mysql_connect'], '</div>
+< 				</div>';
+< 
+< 		return doStep2a();
+< 	}
+< 	if (!mysql_select_db($db_name, $db_connection))
+< 	{
+< 		echo '
+< 				<div class="error_message">
+< 					<div style="color: red;">', sprintf($txt['error_mysql_database'], $db_name), '</div>
+< 				</div>
+< 				<br />';
+< 
+< 		return doStep2a();
+< 	}
+< 
+980c788
+< 		mysql_query("
+---
+> 		$roster->db->query("
+983c791
+< 	$result = mysql_query("
+---
+> 	$result = $roster->db->query("
+1011c819
+< 		$scripturl = $boardurl . '/index.php';
+---
+> 		$scripturl = $boardurl . '/?p='.ROSTER_PAGE_NAME.'&;';
+1035c843
+< 		$scripturl = $boardurl . '/index.php';
+---
+> 		$scripturl = $boardurl . '/?p='.ROSTER_PAGE_NAME.'&;';
+1056c864
+< 		$request = mysql_query("
+---
+> 		$request = $roster->db->query("
+1083c891
+< 	$result = mysql_query("
+---
+> 	$result = $roster->db->query("
+1101c909
+< 		mysql_query("
+---
+> 		$roster->db->query("
+1115c923
+< 	$request = mysql_query("
+---
+> 	$request = $roster->db->query("
+1137,1155d944
+< 	// Don't show the box if it's like 99% sure it won't work :P.
+< 	if (isset($_SESSION['installer_temp_ftp']) || is_writable(dirname(__FILE__)) || is_writable(__FILE__))
+< 		echo '
+< 					<div style="margin: 1ex; font-weight: bold;">
+< 						<label for="delete_self"><input type="checkbox" id="delete_self" onclick="doTheDelete();" /> ', $txt['delete_installer'], !isset($_SESSION['installer_temp_ftp']) ? ' ' . $txt['delete_installer_maybe'] : '', '</label>
+< 					</div>
+< 					<script language="JavaScript" type="text/javascript"><!-- // --><![CDATA[
+< 						function doTheDelete()
+< 						{
+< 							var theCheck = document.getElementById ? document.getElementById("delete_self") : document.all.delete_self;
+< 							var tempImage = new Image();
+< 
+< 							tempImage.src = "', $_SERVER['PHP_SELF'], '?delete=1&ts=" + (new Date().getTime());
+< 							tempImage.width = 0;
+< 							theCheck.disabled = true;
+< 						}
+< 					// ]]></script>
+< 					<br />';
+< 
+1157c946
+< 					', sprintf($txt['go_to_your_forum'], $boardurl . '/index.php'), '<br />
+---
+> 					', sprintf($txt['go_to_your_forum'], '?'.ROSTER_PAGE.'='.$addon['basename']), '<br />
+1850c1639
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/Settings.php SMF/Settings.php
+33c33
+< $mbname = 'My Community';		# The name of your forum.
+---
+> $mbname = 'the everlasting wind';		# The name of your forum.
+35,37c35,37
+< $boardurl = 'http://127.0.0.1/smf';		# URL to your forum's folder. (without the trailing /!)
+< $webmaster_email = 'noreply@myserver.com';		# Email address to send emails from. (like noreply@yourdomain.com.)
+< $cookiename = 'SMFCookie11';		# Name of the cookie to set for authentication.
+---
+> $boardurl = 'http://leegwater-68.demon.nl/Roster';		# URL to your forum's folder. (without the trailing /!)
+> $webmaster_email = 'pleegwat@wowroster.net';		# Email address to send emails from. (like noreply@yourdomain.com.)
+> $cookiename = 'SMFCookie254';		# Name of the cookie to set for authentication.
+40,46c40,47
+< $db_server = 'localhost';
+< $db_name = 'smf';
+< $db_user = 'root';
+< $db_passwd = '';
+< $db_prefix = 'smf_';
+< $db_persist = 0;
+< $db_error_send = 1;
+---
+> # All replaced by the wowroster layer
+> # $db_server = 'localhost';
+> # $db_name = 'smf';
+> # $db_user = 'root';
+> # $db_passwd = '';
+> # $db_prefix = 'smf_';
+> # $db_persist = 0;
+> # $db_error_send = 1;
+50,51c51,53
+< $boarddir = dirname(__FILE__);		# The absolute path to the forum's folder. (not just '.'!)
+< $sourcedir = dirname(__FILE__) . '/Sources';		# Path to the Sources directory.
+---
+> # No longer configurable for the wowroster port. The autodetect below works fine.
+> # $boarddir = 'C:\\Program Files\\xampp\\htdocs\\RosterSVN\\roster1\\trunk\\addons\\SMF';		# The absolute path to the forum's folder. (not just '.'!)
+> # $sourcedir = 'C:\\Program Files\\xampp\\htdocs\\RosterSVN\\roster1\\trunk\\addons\\SMF/Sources';		# Path to the Sources directory.
+55c57
+< $db_last_error = 0;
+---
+> $db_last_error = 1176571500;
+57,61c59,60
+< if (file_exists(dirname(__FILE__) . '/install.php'))
+< 	header('Location: http://' . (empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] . (empty($_SERVER['SERVER_PORT']) || $_SERVER['SERVER_PORT'] == '80' ? '' : ':' . $_SERVER['SERVER_PORT']) : $_SERVER['HTTP_HOST']) . (strtr(dirname($_SERVER['PHP_SELF']), '\\', '/') == '/' ? '' : strtr(dirname($_SERVER['PHP_SELF']), '\\', '/')) . '/install.php');
+< 
+< # Make sure the paths are correct... at least try to fix them.
+< if (!file_exists($boarddir) && file_exists(dirname(__FILE__) . '/agreement.txt'))
+---
+> # Autodetect board/source dirs and db prefix
+> 	$db_prefix = $roster->db->table('',$addon['basename']).'_';
+63d61
+< if (!file_exists($sourcedir) && file_exists($boarddir . '/Sources'))
+66c64,65
+< ?>
+\ No newline at end of file
+---
+> $db_character_set = 'utf8';
+> ?>
+diff -r SMF2/Sources/Errors.php SMF/Sources/Errors.php
+120a121
+> 	global $roster;
+123,124c124,125
+< 	$query_error = mysql_error($db_connection);
+< 	$query_errno = mysql_errno($db_connection);
+---
+> 	$query_error = $roster->db->error();
+> 	$query_errno = $roster->db->errno();
+425c426
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/Sources/LogInOut.php SMF/Sources/LogInOut.php
+482c482
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/Sources/ManageServer.php SMF/Sources/ManageServer.php
+153,160d152
+< 		array('db_server', &$txt['smf5'], 'text'),
+< 		array('db_user', &$txt['smf6'], 'text'),
+< 		array('db_passwd', &$txt['smf7'], 'password'),
+< 		array('db_name', &$txt['smf8'], 'text'),
+< 		array('db_prefix', &$txt['smf54'], 'text'),
+< 		array('db_persist', &$txt['db_persist'], 'check', null, 'db_persist'),
+< 		array('db_error_send', &$txt['db_error_send'], 'check'),
+< 		'',
+171,172d162
+< 		array('boarddir', &$txt[356], 'text', 36),
+< 		array('sourcedir', &$txt[360], 'text', 36),
+diff -r SMF2/Sources/QueryString.php SMF/Sources/QueryString.php
+88c88,89
+< 	$scripturl = $boardurl . '/index.php';
+---
+> 	// Roster integration note: I'm not using makelink. That'd mean changing everything all over SMF.
+> 	$scripturl = $boardurl . '/?p='.ROSTER_PAGE_NAME.'&amp;;';
+143a145,148
+> // Roster integration: Get rid of the ? properly
+> 					if( strpos($key, '?') === 0 )
+> 						$key = substr($key,1);
+> 
+148,154d152
+< 
+< 			// This helps a lot with integration!
+< 			if (strpos($k, '?') === 0)
+< 			{
+< 				$_GET[substr($k, 1)] = $v;
+< 				unset($_GET[$k]);
+< 			}
+174a173
+> /* Roster does this
+187c186
+< 
+---
+> */
+454c453
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/Sources/Subs.php SMF/Sources/Subs.php
+240a241,242
+> 	// For roster integration
+> 	global $roster;
+321c323
+< 	$ret = mysql_query($db_string, $db_connection);
+---
+> 	$ret = $roster->db->query($db_string);
+2626a2629,2631
+> 	// For wowroster
+> 	global $roster;
+> 	
+2698,2700c2703,2708
+< 	// Don't exit if we're coming from index.php; that will pass through normally.
+< 	if (!$from_index || WIRELESS)
+< 		exit;
+---
+> 	$content = ob_get_contents();
+> 	ob_end_clean();
+> 	include_once(ROSTER_BASE.'roster_header.tpl');
+> 	echo $content;
+> 	include_once(ROSTER_BASE.'roster_footer.tpl');
+> 	exit;
+3211,3233d3218
+< 			$securityFiles = array('install.php', 'webinstall.php', 'upgrade.php', 'convert.php', 'repair_paths.php', 'repair_settings.php');
+< 			foreach ($securityFiles as $i => $securityFile)
+< 			{
+< 				if (!file_exists($boarddir . '/' . $securityFile))
+< 					unset($securityFiles[$i]);
+< 			}
+< 
+< 			if (!empty($securityFiles))
+< 			{
+< 				echo '
+< 		<div style="margin: 2ex; padding: 2ex; border: 2px dashed #cc3344; color: black; background-color: #ffe4e9;">
+< 			<div style="float: left; width: 2ex; font-size: 2em; color: red;">!!</div>
+< 			<b style="text-decoration: underline;">', $txt['smf299'], '</b><br />
+< 			<div style="padding-left: 6ex;">';
+< 
+< 				foreach ($securityFiles as $securityFile)
+< 					echo '
+< 			', $txt['smf300'], '<b>', $securityFile, '</b>!<br />';
+< 
+< 				echo '
+< 			</div>
+< 		</div>';
+< 			}
+3570c3555
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/SSI.php SMF/SSI.php
+42a43,46
+> // Get some roster stuff
+> require_once(dirname(__FILE__) . '/../../settings.php');
+> $addon = getaddon('smf');
+> 
+66,79d69
+< // Connect to the MySQL database.
+< if (empty($db_persist))
+< 	$db_connection = @mysql_connect($db_server, $db_user, $db_passwd);
+< else
+< 	$db_connection = @mysql_pconnect($db_server, $db_user, $db_passwd);
+< if ($db_connection === false)
+< 	return false;
+< 
+< // Add the database onto the prefix to avoid conflicts with other scripts.
+< if (strpos($db_prefix, '.') === false)
+< 	$db_prefix = is_numeric(substr($db_prefix, 0, 1)) ? $db_name . '.' . $db_prefix : '`' . $db_name . '`.' . $db_prefix;
+< else
+< 	@mysql_select_db($db_name, $db_connection);
+< 
+diff -r SMF2/Themes/default/index.template.php SMF/Themes/default/index.template.php
+62a63,64
+> 	// wowroster globals
+> 	global $roster;
+65,71c67,68
+< 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+< <html xmlns="http://www.w3.org/1999/xhtml"', $context['right_to_left'] ? ' dir="rtl"' : '', '><head>
+< 	<meta http-equiv="Content-Type" content="text/html; charset=', $context['character_set'], '" />
+< 	<meta name="description" content="', $context['page_title'], '" />', empty($context['robot_no_index']) ? '' : '
+< 	<meta name="robots" content="noindex" />', '
+< 	<meta name="keywords" content="PHP, MySQL, bulletin, board, free, open, source, smf, simple, machines, forum" />
+< 	<script language="JavaScript" type="text/javascript" src="', $settings['default_theme_url'], '/script.js?fin11"></script>
+---
+> 	$roster->output['html_head'] .= '
+> 	<script language="JavaScript" type="text/javascript" src="'. $settings['default_theme_url']. '/script.js?fin11"></script>
+73,79c70,76
+< 		var smf_theme_url = "', $settings['theme_url'], '";
+< 		var smf_images_url = "', $settings['images_url'], '";
+< 		var smf_scripturl = "', $scripturl, '";
+< 		var smf_iso_case_folding = ', $context['server']['iso_case_folding'] ? 'true' : 'false', ';
+< 		var smf_charset = "', $context['character_set'], '";
+< 	// ]]></script>
+< 	<title>', $context['page_title'], '</title>';
+---
+> 		var smf_theme_url = "'. $settings['theme_url']. '";
+> 		var smf_images_url = "'. $settings['images_url']. '";
+> 		var smf_scripturl = "'. $scripturl. '";
+> 		var smf_iso_case_folding = '. ($context['server']['iso_case_folding'] ? 'true' : 'false'). ';
+> 		var smf_charset = "'. $context['character_set']. '";
+> 	// ]]></script>';
+> 	$roster->output['title'] = $context['page_title'];
+82,84c79,81
+< 	echo '
+< 	<link rel="stylesheet" type="text/css" href="', $settings['theme_url'], '/style.css?fin11" />
+< 	<link rel="stylesheet" type="text/css" href="', $settings['default_theme_url'], '/print.css?fin11" media="print" />';
+---
+> 	$roster->output['html_head'] .= '
+> 	<link rel="stylesheet" type="text/css" href="'. $settings['theme_url']. '/style.css?fin11" />
+> 	<link rel="stylesheet" type="text/css" href="'. $settings['default_theme_url']. '/print.css?fin11" media="print" />';
+91,92c88,89
+< 		echo '
+< 	<link rel="stylesheet" type="text/css" href="', $settings['default_theme_url'], '/fonts-compat.css" />';
+---
+> 		$roster->output['html_head'] .= '
+> 	<link rel="stylesheet" type="text/css" href="'. $settings['default_theme_url']. '/fonts-compat.css" />';
+95,96c92,93
+< 	echo '
+< 	<link rel="help" href="', $scripturl, '?action=help" target="_blank" />
+---
+> 	$roster->output['html_head'] .= '
+> 	<link rel="help" href="'. $scripturl. '?action=help" target="_blank" />
+98c95
+< 	<link rel="contents" href="', $scripturl, '" />';
+---
+> 	<link rel="contents" href="'. $scripturl. '" />';
+102,103c99,100
+< 		echo '
+< 	<link rel="alternate" type="application/rss+xml" title="', $context['forum_name'], ' - RSS" href="', $scripturl, '?type=rss;action=.xml" />';
+---
+> 		$roster->output['html_head'] .= '
+> 	<link rel="alternate" type="application/rss+xml" title="'. $context['forum_name']. ' - RSS" href="'. $scripturl. '?type=rss;action=.xml" />';
+107,109c104,106
+< 		echo '
+< 	<link rel="prev" href="', $scripturl, '?topic=', $context['current_topic'], '.0;prev_next=prev" />
+< 	<link rel="next" href="', $scripturl, '?topic=', $context['current_topic'], '.0;prev_next=next" />';
+---
+> 		$roster->output['html_head'] .= '
+> 	<link rel="prev" href="'. $scripturl. '?topic='. $context['current_topic']. '.0;prev_next=prev" />
+> 	<link rel="next" href="'. $scripturl. '?topic='. $context['current_topic']. '.0;prev_next=next" />';
+113c110
+< 		echo '
+---
+> 		$roster->output['html_head'] .= '
+121c118
+< 	echo $context['html_headers'], '
+---
+> 	$roster->output['html_head'] .= $context['html_headers']. '
+124c121
+< 		var current_header = ', empty($options['collapse_header']) ? 'false' : 'true', ';
+---
+> 		var current_header = '. (empty($options['collapse_header']) ? 'false' : 'true'). ';
+131c128
+< 		echo '
+---
+> 		$roster->output['html_head'] .= '
+134,135c131,132
+< 		echo '
+< 			smf_setThemeOption("collapse_header", mode ? 1 : 0, null, "', $context['session_id'], '");';
+---
+> 		$roster->output['html_head'] .= '
+> 			smf_setThemeOption("collapse_header", mode ? 1 : 0, null, "'. $context['session_id']. '");';
+137c134
+< 	echo '
+---
+> 	$roster->output['html_head'] .= '
+148c145
+< 	echo '
+---
+> 	$roster->output['html_head'] .= '
+150c147
+< 			var current_header_ic = ', empty($options['collapse_header_ic']) ? 'false' : 'true', ';
+---
+> 			var current_header_ic = '. (empty($options['collapse_header_ic']) ? 'false' : 'true'). ';
+156c153
+< 		echo '
+---
+> 		$roster->output['html_head'] .= '
+159,160c156,157
+< 		echo '
+< 				smf_setThemeOption("collapse_header_ic", mode ? 1 : 0, null, "', $context['session_id'], '");';
+---
+> 		$roster->output['html_head'] .= '
+> 				smf_setThemeOption("collapse_header_ic", mode ? 1 : 0, null, "'. $context['session_id']. '");';
+162c159
+< 	echo '
+---
+> 	$roster->output['html_head'] .= '
+169,171c166,186
+< 		// ]]></script>
+< </head>
+< <body>';
+---
+> 		// ]]></script>';
+> 
+> 	// MOTD
+> 	if( isset($roster->data['guild_motd']) )
+> 	{
+> 		if( $roster->config['motd_display_mode'] )
+> 		{
+> 			echo '<img src="motd.php" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
+> 		}
+> 		else
+> 		{
+> 			echo '<span class="GMOTD">Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'</span><br /><br />';
+> 		}
+> 	}
+> 	else
+> 	{
+> 		echo '<img src="motd.php" alt="" /><br /><br />';
+> 	}
+> 
+> $roster_menu = new RosterMenu;
+> print $roster_menu->makeMenu('main');
+172a188
+> 	// Start the visible SMF part
+450,451c466
+< 	<div id="ajax_in_progress" style="display: none;', $context['browser']['is_ie'] && !$context['browser']['is_ie7'] ? 'position: absolute;' : '', '">', $txt['ajax_in_progress'], '</div>
+< </body></html>';
+---
+> 	<div id="ajax_in_progress" style="display: none;', $context['browser']['is_ie'] && !$context['browser']['is_ie7'] ? 'position: absolute;' : '', '">', $txt['ajax_in_progress'], '</div>';
+631c646
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/Themes/default/languages/Install.english.php SMF/Themes/default/languages/Install.english.php
+77,78c77,78
+< $txt['install_settings_url'] = 'Forum URL';
+< $txt['install_settings_url_info'] = 'This is the URL to your forum <b>without the trailing \'/\'!</b>.<br />In most cases, you can leave the default value in this box alone - it is usually right.';
+---
+> $txt['install_settings_url'] = 'WoWRoster URL';
+> $txt['install_settings_url_info'] = 'This is the URL to your roster install <b>without the trailing \'/\'!</b>.<br />In most cases, you can leave the default value in this box alone - it is usually right.';
+82c82
+< $txt['install_settings_compress_info'] = 'This function does not work properly on all servers, but can save you a lot of bandwidth.<br />Click <a href="install.php?obgz=1&amp;pass_string=PASS" onclick="return reqWin(this.href, 200, 60);" target="_blank">here</a> to test it. (it should just say "PASS".)';
+---
+> $txt['install_settings_compress_info'] = 'This function does not work properly on all servers, but can save you a lot of bandwidth.<br />Click <a href="?'.ROSTER_PAGE.'='.ROSTER_PAGE_NAME.'&amp;obgz=1&amp;pass_string=PASS" onclick="return reqWin(this.href, 200, 60);" target="_blank">here</a> to test it. (it should just say "PASS".)';
+diff -r SMF2/Themes/default/Printpage.template.php SMF/Themes/default/Printpage.template.php
+111c111
+< ?>
+\ No newline at end of file
+---
+> ?>
+diff -r SMF2/Themes/default/style.css SMF/Themes/default/style.css
+1c1
+< /* Normal, standard links. */
+---
+> /* Normal, standard links. 
+20c20
+< 	color: #000000;
+---
+> /*	color: #000000; */
+38c38
+< 	color: #000000;
+---
+> /*	color: #000000; */
+55a56,57
+> 	background-color: #FFFFFF;
+> 	border-color: #476C8E;
+79a82,83
+> 	background-color: #FFFFFF;
+> 	border-color: #476C8E;
+451c455
+< }
+\ No newline at end of file
+---
+> }

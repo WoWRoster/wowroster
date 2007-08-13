@@ -1,0 +1,89 @@
+CHANGE NOTES
+$Id$
+
+----
+fixed typo in readme file that incorrectly showed the variable name as Name in the url
+updated readme to include alternate url links to images
+added an .htaccess file which allows users to call their signatures in an alternate method (see Usage section for details)
+
+FILE INFO
+-----
+Code written by Tony Fontaine, aka Reolus, tonyfontaine@knightraven.net  www.gnomishmarinecorps.com
+Inspired by the WoWSigCreator by Ashenfield ( ashenfield@gmail.com )  http://www.dizzarian.com
+
+Included files:
+
+.htaccess
+img.php
+readme
+
+img folder
+-- background.png
+
+imgsrc folder
+-- template.psd  (photoshop template for the background image)
+
+fonts folder
+-- COURIER.TTF
+-- GREY.TTF
+-- OLDENGL.TTF
+-- VERANDA.TTF
+
+
+REQUIREMENTS:
+-------------
+WoW Profiler
+PHP 4 or better with GD and TTF support
+
+
+INSTALLATION:
+-------------
+
+Extract the zip to your desktop.
+Copy the contents of the WoWSigCreator directory to the directory you installed WoW Profiler into on your web server.
+
+WoWSigCreator will use the WoW Profiler config file to get your database information.
+
+If your installation directory is
+http://mysite/wowprofiler
+Goto
+http://mysite/wowprofiler/img.php to test or use the script.
+If you see "Level -" it's working.
+
+
+USAGE:
+------
+
+Link to the file as follows (Charactername must be in the database to work)
+
+<img src="http://yoursite.com/installdir/img.php?Charactername">
+
+or BBcode  (Note: newer versions of phpBB may not allow this type of img call using bbcode so have the board admin add to allowed html codes <img>
+
+[img]http://yoursite.com/installdir/img.php?Charactername[/img]
+
+
+If you are using an Apache server with mod_rewrite installed, the .htaccess file will allow users to access their signature by using the following code:
+
+<img src="http://yoursite.com/installdir/sig/Charactername.png">
+
+or BBcode
+[img]http://yoursite.com/installdir/sig/Charactername.png[/img]
+
+
+NOTES:
+------
+
+This generator was inspired by the sig generator that Ashenfield released ( ashenfield@gmail.com ) and since I wanted to have an image for a background instead of just text I originally expanded on his code and eventually replaced it all with my own code to have what I'm releasing here.  This is my first ever attempt at this type of code and I feel it came out quite nicely and it is by no means complete.
+
+Any suggestions, requests are appreciated.  This software is available for use and edit by anyone.  If you wish to share your modifications or suggestions, send me an email at tonyfontaine@knightraven.net  or  come visit my guild/clan website and post in the forums
+
+http://www.gnomishmarinecorps.com
+
+
+TODO:
+------
+
+- Create optional, limited signature for characters on the guild roster but do not have profiles uploaded
+- Allow web admins to setup a logo that will show up on the image without having to edit the backgrounds in photoshop (almost completed)
+- Clean up the database code so instead of relying on the installer to comment and comment out various lines depending on the database version using, it is done automatically
