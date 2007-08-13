@@ -33,7 +33,7 @@ include_once(ROSTER_LIB.'rosterdiag.lib.php');
 $roster_login = new RosterLogin();
 
 
-include_once (ROSTER_BASE.'roster_header.tpl');
+include_once(ROSTER_BASE . 'header.php');
 
 // If the entire config page is requested, display only THAT
 if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
@@ -42,7 +42,7 @@ if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 	print_r($roster->config);
 	print '</pre></div>';
 
-	include_once(ROSTER_BASE.'roster_footer.tpl');
+	include_once(ROSTER_BASE . 'footer.php');
 	exit();
 }
 
@@ -225,7 +225,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		print(border('sred','start','ERROR').'<div class="membersRow1">UNSPECIFIED ACTION<br />If you get this page, you probably are trying to exploit the system!</div>'.border('sred','end'));
 	}
 
-	include_once(ROSTER_BASE.'roster_footer.tpl');
+	include_once(ROSTER_BASE . 'footer.php');
 	exit();
 }
 
@@ -363,14 +363,8 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">use_update_triggers</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['use_update_triggers']).'</td></tr>
-	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">realmstatus_url</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['realmstatus_url'].'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['use_update_triggers']).'</td>
 	</tr>
-	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">realmstatus</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.($roster->config['realmstatus'] != '' ? $roster->config['realmstatus'] : 'Uses server_name').'</td></tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">rs_mode</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['rs_mode']).'</td>
@@ -613,4 +607,4 @@ else
 
 
 
-include_once(ROSTER_BASE.'roster_footer.tpl');
+include_once(ROSTER_BASE . 'footer.php');

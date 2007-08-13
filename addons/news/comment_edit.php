@@ -62,8 +62,5 @@ $roster->tpl->assign_vars(array(
 	)
 );
 
-$roster->set_vars(array(
-	'template_file' => 'comment_edit.html',
-	'display'       => true
-	)
-);
+$roster->tpl->set_filenames(array('body' => 'news/comment_edit.html'));
+$roster->tpl->display('body');

@@ -64,6 +64,20 @@ unset($sec);
  */
 define('CAN_INI_SET', !ereg('ini_set', ini_get('disable_functions')));
 
+define('WIN', (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'));
+
+if( !function_exists('posix_getpwuid') || WIN )
+{
+	define('ROSTER_PROCESS_UID', '0');
+	define('ROSTER_PROCESS_OWNER', 'nobody');
+}
+else
+{
+	define('ROSTER_PROCESS_UID', posix_geteuid());
+	$processUser = posix_getpwuid(ROSTER_PROCESS_UID);
+	define('ROSTER_PROCESS_OWNER', $processUser['name']);
+}
+
 
 /**
  * OS specific Directory Seperator
@@ -84,7 +98,6 @@ if( version_compare(phpversion(), '4.3.0','<') )
 {
 	die('You must have PHP version 4.3 or later to run WoWRoster');
 }
-
 
 /**
  * Base, absolute roster library directory
@@ -152,13 +165,6 @@ unset($db_config);
 
 
 /**
- * Load the Template Parser
- */
-include( ROSTER_LIB . 'template.php' );
-$roster->tpl = new Template;
-
-
-/**
  * Include cache class
  */
 require_once(ROSTER_LIB . 'cache.php');
@@ -171,15 +177,22 @@ $roster->load_config();
 
 
 /**
- * Cache addon data
- */
-$roster->get_addon_data();
-
-
-/**
  * Include linking file
  */
 require_once (ROSTER_LIB . 'cmslink.lib.php');
+
+
+/**
+ * Load the Template Parser
+ */
+include( ROSTER_LIB . 'template.php' );
+$roster->tpl = new Template;
+
+
+/**
+ * Cache addon data
+ */
+$roster->get_addon_data();
 
 
 /**

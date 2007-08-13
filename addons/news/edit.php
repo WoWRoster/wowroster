@@ -74,8 +74,5 @@ if($addon['config']['news_html'] >= 0)
 	$roster->tpl->assign_var('S_HTML_ENABLE',true);
 }
 
-$roster->set_vars(array(
-	'template_file' => 'edit.html',
-	'display'       => true
-	)
-);
+$roster->tpl->set_filenames(array('body' => 'news/edit.html'));
+$roster->tpl->display('body');

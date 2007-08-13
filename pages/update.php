@@ -48,7 +48,7 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 	// Normal upload results
 	if( !$update->textmode )
 	{
-		include_once(ROSTER_BASE.'roster_header.tpl');
+		include_once(ROSTER_BASE . 'header.php');
 		$roster_menu = new RosterMenu;
 		print $roster_menu->makeMenu($roster->output['show_menu']);
 
@@ -79,7 +79,7 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 		print '</form>';
 		print "<br />\n";
 
-		include_once(ROSTER_BASE.'roster_footer.tpl');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 	else
 	{ // No-HTML result page for UU
@@ -89,7 +89,7 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 else
 {
 	// No data uploaded, so return upload form
-	include_once(ROSTER_BASE.'roster_header.tpl');
+	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;
 	print $roster_menu->makeMenu($roster->output['show_menu']);
 
@@ -121,5 +121,5 @@ else
 		print scrollbox($messages,'Messages','syellow');
 	}
 
-	include_once(ROSTER_BASE.'roster_footer.tpl');
+	include_once(ROSTER_BASE . 'footer.php');
 }

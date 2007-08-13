@@ -149,8 +149,5 @@ while( $news = $roster->db->fetch($result) )
 	);
 }
 
-$roster->set_vars(array(
-	'template_file' => 'news.html',
-	'display'       => true
-	)
-);
+$roster->tpl->set_filenames(array('body' => 'news/news.html'));
+$roster->tpl->display('body');
