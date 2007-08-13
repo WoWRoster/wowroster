@@ -161,3 +161,54 @@ function fontFiles( $values )
 
 	return $input_field;
 }
+
+/**
+ * Get a list of themes from the templates directory
+ *
+ * @return array | $file => $name
+ */
+function templateList( $values )
+{
+	static $arrFiles = array();
+
+	if( count($arrFiles) == 0 )
+	{
+		// Open the directory
+		$tmp_dir = @opendir( ROSTER_TPLDIR );
+
+		if( !empty($tmp_dir) )
+		{
+			// Read the files
+			while( $file = readdir($tmp_dir) )
+			{
+				if( is_dir(ROSTER_TPLDIR . $file) && $file != '.' && $file != '..' && $file != '.svn' && $file != 'install' )
+				{
+					$arrFiles[] = ($file);
+				}
+			}
+			// close the directory
+			closedir($tmp_dir);
+
+			//sort the list
+			asort($arrFiles);
+		}
+	}
+
+	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
+	$select_one = 1;
+	foreach( $arrFiles as $file )
+	{
+		if( $file == $values['value'] && $select_one )
+		{
+			$input_field .= '  <option value="' . $file . '" selected="selected">-[ ' . ucfirst($file) . ' ]-</option>' . "\n";
+			$select_one = 0;
+		}
+		else
+		{
+			$input_field .= '  <option value="' . $file . '">' . ucfirst($file) . '</option>' . "\n";
+		}
+	}
+	$input_field .= '</select>';
+
+	return $input_field;
+}

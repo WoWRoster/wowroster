@@ -42,7 +42,6 @@ class Template
 	function Template()
 	{
 		global $roster;
-		$roster->config['theme'] = 'default';
 
 		if( !is_dir(ROSTER_TPLDIR . 'default') )
 		{
