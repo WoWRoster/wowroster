@@ -21,7 +21,7 @@ For corrections and/or suggestions - http://www.wowroster.net
 * Decompress the downloads on your local machine, then upload the expanded files to your site
    o Most commonly, it ends up living in "www.[domain].com/roster"
 
-* Browse to the roster install file, www.[domain].com/roster/install.php
+* Browse to the roster install file, www.[domain].com/roster/
    o Follow on-screen instructions
    o Roster is now installed...
 
