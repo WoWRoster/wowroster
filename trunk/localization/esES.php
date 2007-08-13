@@ -806,6 +806,7 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
 
 // display_conf
+$lang['admin']['theme'] = "Roster Theme|Choose the overall look of Roster<br /><span style=\"color:red;\">NOTE:</span> Not all of Roster is currently templated<br />and using themes other than the default may have unexpected results";
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br />Esta imagen ser&aacute; mostrada en la cabecera de la p&aacute;gina";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
 $lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como aparecer&aacute; el texto del mensaje del d&iacutea<br /><br />&quot;Texto&quot; - Muestra el MDD en rojo<br />&quot;Imagen&quot; - Muestra el MDD en una imagen (REQUERIDO GD!)";
