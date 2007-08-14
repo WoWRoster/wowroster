@@ -499,7 +499,7 @@ $lang['questlinks'][] = array(
 
 /*$lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url1'=>'http://www.wowhead.com/?quests&amp;filter=ti=',
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
 	'url2'=>';minle=',
 	'url3'=>';maxle='
 );*/
