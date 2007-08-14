@@ -35,37 +35,24 @@ class RosterMenu
 
 		define('ROSTER_MENU_INC',true);
 
-		$topbar = $this->makeTop();
-		$left_pane = $this->makePane('menu_left');
-		$right_pane = $this->makePane('menu_right');
+		$this->makeTop();
+		$roster->tpl->assign_vars(array(
+			'MENU_LEFT'     => $this->makePane('menu_left'),
+			'MENU_RIGHT'    => $this->makePane('menu_right'),
+			'S_MENU_BOTTOM' => false
+			)
+		);
 
 		if( $roster->config['menu_bottom_pane'] )
 		{
-			$bottombar = $this->makeBottom();
-		}
-		else
-		{
-			$bottombar = '';
+			$roster->tpl->assign_var('S_MENU_BOTTOM',true);
+			$this->makeBottom();
 		}
 
+		$this->makeButtonList($sections);
 
-		$buttonlist = $this->makeButtonList($sections);
-
-		return "\n<!-- Begin WoWRoster Menu -->"
-			. border('syellow','start') . "\n"
-			. '
-<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">' . "\n"
-			. $topbar
-			. "  <tr>\n"
-			. $left_pane
-			. $buttonlist
-			. $right_pane
-			. "  </tr>\n"
-			. $bottombar
-			. '</table>'."\n"
-			. border('syellow','end') . "\n"
-			. "<br />\n"
-			. "<!-- End WoWRoster Menu -->\n";
+		$roster->tpl->set_filenames(array('roster_menu' => 'menu.html'));
+		$roster->tpl->display('roster_menu');
 	}
 
 	/**
@@ -75,6 +62,17 @@ class RosterMenu
 	{
 		global $roster;
 
+		$roster->tpl->assign_vars(array(
+			'S_MENU_TOP_LOCALE' => (bool)$roster->config['menu_top_locale'],
+			'S_MENU_ICON'       => $roster->config['menu_top_faction'],
+
+			'L_LANGUAGE'        => $roster->locale->act['language'],
+			'L_MENU_LABEL'      => $roster->scope,
+			'L_MENU_LABEL_NAME' => $roster->locale->act[$roster->scope],
+			)
+		);
+
+
 		if( $roster->config['menu_top_faction'] )
 		{
 			$faction = ( isset($roster->data['factionEn']) ? $roster->data['factionEn'] : '' );
@@ -82,41 +80,38 @@ class RosterMenu
 			switch( substr($faction,0,1) )
 			{
 				case 'A':
-					$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" style="float:left;" alt="" />';
+					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_alliance.png');
 					break;
 				case 'H':
-					$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" style="float:left;" alt="" />';
+					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_horde.png"');
 					break;
 				default:
-					$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" style="float:left;" alt="" />';
+					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_neutral.png"');
 					break;
 			}
 		}
 
-		// Time to generate some select lists
-		$choiceForm = '';
 
 		// Lets make a list of our current locales
 		if( $roster->config['menu_top_locale'] )
 		{
-			$choiceForm .= '	<form action="' . makelink() . '" name="locale_select" method="post" style="margin:0;">
-		' . $roster->locale->act['language'] . ':
-		<select name="locale" onchange="document.locale_select.submit();">' . "\n";
 			foreach( $roster->multilanguages as $language )
 			{
-				$choiceForm .= '			<option value="' . $language . '"' . ( $language == $roster->config['locale'] ? ' selected="selected"' : '' ) . '>' . $roster->locale->wordings[$language]['langname'] . "</option>\n";
+				$roster->tpl->assign_block_vars('menu_locale_select', array(
+					'LOCALE'      => $language,
+					'LOCALE_NAME' => $roster->locale->wordings[$language]['langname'],
+					'S_SELECTED'  => ( $language == $roster->config['locale'] ? true : false ),
+					)
+				);
 			}
-			$choiceForm .= "\t\t</select>\n\t</form>\n";
 		}
 
 
-
 		$menu_select = array();
-		$choices = '';
+		$roster->tpl->assign_var('S_MENU_SELECT',false);
+
 		if( $roster->scope == 'realm' )
 		{
-			$label = 'realm';
-
 	        // Get the scope select data
 	        $query = "SELECT DISTINCT `server`, `region`"
 	               . " FROM `" . $roster->db->table('guild') . "`"
@@ -130,34 +125,38 @@ class RosterMenu
 	            die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
 	        }
 
-	        $realms = 0;
 			while( $data = $roster->db->fetch($result,SQL_NUM) )
 			{
 				$menu_select[$data[1]][] = $data[0];
-				$realms++;
 			}
 
 	        $roster->db->free_result($result);
 
-			if( $realms > 1 )
+	        $roster->tpl->assign_var('S_MENU_SELECT',( count($menu_select) > 1 ? true : false ));
+
+			if( count($menu_select) > 1 )
 			{
 				foreach( $menu_select as $region => $realmsArray )
 				{
-					$choices .= ( count($menu_select) > 1 ? '			<optgroup label="' . $region . '">' . "\n" : '' );
+					$roster->tpl->assign_block_vars('menu_select_group', array(
+						'U_VALUE'      => $region,
+						)
+					);
 
 					foreach( $realmsArray as $name )
 					{
-						$choices .= '				<option value="' . makelink("&amp;realm=$region-$name") . '"' . ( $name == $roster->data['server'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
+						$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
+							'TEXT'       => $name,
+							'U_VALUE'    => makelink("&amp;realm=$region-$name"),
+							'S_SELECTED' => ( $name == $roster->data['server'] ? true : false )
+							)
+						);
 					}
-
-					$choices .= ( count($menu_select) > 1 ? "\t\t\t</optgroup>\n" : '' );
 				}
 			}
 		}
 		elseif( $roster->scope == 'guild' )
 		{
-			$label = 'guild';
-
 			// Get the scope select data
 			$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
 				   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
@@ -176,73 +175,81 @@ class RosterMenu
 
 			$roster->db->free_result($result);
 
+	        $guilds=0;
 			if( count($menu_select) > 0 )
 			{
 				foreach( $menu_select as $realm => $guild )
 				{
-					$choices .= ( count($menu_select) > 1 ? '		<optgroup label="' . $realm . '">' . "\n" : '' );
+					$roster->tpl->assign_block_vars('menu_select_group', array(
+						'U_VALUE'      => $realm,
+						)
+					);
 
 					foreach( $guild as $id => $name )
 					{
-						$choices .= '			<option value="' . makelink('&amp;guild=' . $id) . '"' . ( $id == $roster->data['guild_id'] ? ' selected="selected"' : '' ) . '>' . $name . "</option>\n";
-
+						$guilds++;
+						$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
+							'TEXT'       => $name,
+							'U_VALUE'    => makelink('&amp;guild=' . $id),
+							'S_SELECTED' => ( $id == $roster->data['guild_id'] ? true : false )
+							)
+						);
 					}
-
-					$choices .= ( count($menu_select) > 1 ? "\t\t</optgroup>\n" : '' );
 				}
+		        $roster->tpl->assign_var('S_MENU_SELECT',( $guilds > 1 ? true : false ));
 			}
 		}
 
-		if( !empty($choices) )
-		{
-			$choiceForm .= '	<form action="' . makelink() . '" name="list_select" method="post" style="margin:0;">' . "\n";
-			$choiceForm .= "\t\t" . $roster->locale->act[$label] . ":\n"
-						 . '		<select name="' . $label . '" onchange="window.location.href=this.options[this.selectedIndex].value;">' . "\n"
-						 . $choices . "\t\t</select>\n\t</form>\n";
-		}
-
-		if( !empty($choiceForm) )
-		{
-			$choiceForm = '<div align="right" style="float:right;">' . "\n" . $choiceForm . "</div>\n";
-		}
 
 		switch( $roster->scope )
 		{
 			case 'util':
-				$menu_text = '	<span style="font-size:18px;">' . $roster->config['default_name'] . '</span><br />' . "\n"
-						   . ( isset($roster->config['default_desc']) ? '      <span style="font-size:11px;">' . $roster->config['default_desc'] . "</span>\n" : '' );
+				$roster->tpl->assign_vars(array(
+					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
+					'S_MENU_3RDTITLE'   => false,
+					'ROSTER_MENU_TITLE' => $roster->config['default_name'],
+					'ROSTER_MENU_SUBTITLE' => isset($roster->config['default_desc']) ? '<br />' . $roster->config['default_desc'] : '',
+					)
+				);
 				break;
 
 			case 'realm':
-				$menu_text = '	<span style="font-size:18px;">' . $roster->data['region'] . '-' . $roster->data['server'] . '</span>' . "<br />\n";
+				$roster->tpl->assign_vars(array(
+					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
+					'S_MENU_3RDTITLE'   => false,
+					'ROSTER_MENU_TITLE' => $roster->data['region'] . '-' . $roster->data['server'],
+					'ROSTER_MENU_SUBTITLE' => '',
+					)
+				);
 				break;
 
 			case 'guild':
-				$menu_text = '	<span style="font-size:18px;">' . $roster->data['guild_name'] . '</span>' . "\n"
-						   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
-						   . ( isset($roster->data['update_time']) ? $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . readbleDate($roster->data['update_time'])
-						   . ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')</span>' : '</span>') : '' ) . "\n";
+				$roster->tpl->assign_vars(array(
+					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
+					'S_MENU_3RDTITLE'   => isset($roster->data['update_time']) ? true : false,
+					'ROSTER_MENU_TITLE' => $roster->data['guild_name'],
+					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
+					'ROSTER_MENU_3RDTITLE' => ( isset($roster->data['update_time']) ? readbleDate($roster->data['update_time'])
+							. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '' ),
+
+					'L_LAST_UPDATE' => $roster->locale->act['lastupdate'],
+					)
+				);
 				break;
 
 			case 'char':
-				$menu_text = '	<span style="font-size:18px;">' . $roster->data['name'] . '</span>' . "\n"
-						   . '	<span style="font-size:11px;"> @ ' . $roster->data['region'] . '-' . $roster->data['server'] . "</span><br />\n"
-						   . $roster->locale->act['lastupdate'] . ': <span style="color:#0099FF;">' . $roster->data['update_format'] . "</span>\n";
+				$roster->tpl->assign_vars(array(
+					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
+					'S_MENU_3RDTITLE'   => isset($roster->data['update_time']) ? true : false,
+					'ROSTER_MENU_TITLE' => $roster->data['name'],
+					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
+					'ROSTER_MENU_3RDTITLE' => $roster->data['update_format'],
+
+					'L_LAST_UPDATE' => $roster->locale->act['lastupdate'],
+					)
+				);
 				break;
-
 		}
-
-		return "	<tr>\n"
-				. '		<td colspan="3" align="center" valign="top" class="header">' . "\n"
-				. $choiceForm
-				. $icon
-				. '<div style="white-space:nowrap;">' . "\n"
-				. $menu_text
-				. "</div></td>\n"
-				. "</tr>\n"
-				. "<tr>\n"
-				. '	<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>' . "\n"
-				. "</tr>\n";
 	}
 
 	/**
@@ -614,32 +621,32 @@ class RosterMenu
 			}
 		}
 
-		$html = '    <td valign="top" class="row">' . "\n"
-			. '      <div class="menu_container">' . "\n"
-			. '        <div class="menu_header">' . "\n"
-			. '          <ul>' . "\n"
-			. '            <li><a href="#" class="menu_bg_01" onclick="' . (isset($scopes['guild']) ? 'showHide(\'menu_guild\');' : '') . 'return false;">' . $roster->locale->act['menu_header_01'] . '</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_02" onclick="' . (isset($scopes['realm']) ? 'showHide(\'menu_realm\');' : '') . 'return false;">' . $roster->locale->act['menu_header_02'] . '</a></li>' . "\n"
-			. '            <li><a href="' . makelink('update') . '" class="menu_bg_03">' . $roster->locale->act['menu_header_03'] . '</a></li>' . "\n"
-			. '            <li><a href="#" class="menu_bg_04" onclick="' . (isset($scopes['util']) ? 'showHide(\'menu_util\');' : '') . 'return false;">' . $roster->locale->act['menu_header_04'] . '</a></li>' . "\n"
-			. '          </ul>' . "\n"
-			. '        </div>' . "\n";
+		$roster->tpl->assign_vars(array(
+			'L_MENU_HEADER_01' => $roster->locale->act['menu_header_01'],
+			'L_MENU_HEADER_02' => $roster->locale->act['menu_header_02'],
+			'L_MENU_HEADER_03' => $roster->locale->act['menu_header_03'],
+			'L_MENU_HEADER_04' => $roster->locale->act['menu_header_04'],
+
+			'S_MENU_HEADER_01' => isset($scopes['guild']) ? true : false,
+			'S_MENU_HEADER_02' => isset($scopes['realm']) ? true : false,
+			'S_MENU_HEADER_04' => isset($scopes['util']) ? true : false,
+
+			'U_MENU_HEADER_03' => makelink('update'),
+			)
+		);
 
 		foreach( $arrayButtons as $id => $page )
 		{
-			if( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) )
-			{
-				$open = true;
-			}
-			else
-			{
-				$open = false;
-			}
+			$roster->tpl->assign_block_vars('menu_button_section', array(
+				'CLASS' => ( $sections[$id] == 'util' ? 'utility' : 'scope' ),
+				'ID' => $sections[$id],
+				'OPEN' => ( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) ) ? false : true,
+				'ALIGN' => ( $sections[$id] == 'util' ? 'right' : 'left' ),
+				'LABEL' => sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act[$sections[$id]])
+				)
+			);
 
-			$html .= '        <div class="menu_' . ( $sections[$id] == 'util' ? 'utility' : 'scope' ) . '" id="menu_'.$sections[$id].'"' . (($open)?'':' style="display:none"') . '>'."\n"
-				. '          <div align="'. ( $sections[$id] == 'util' ? 'right' : 'left' ) . '">' . sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act[$sections[$id]]) . '</div>' . "\n"
-				. '          <ul>'."\n";
-			foreach( $page as  $button )
+			foreach( $page as $button )
 			{
 				if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 				{
@@ -686,19 +693,18 @@ class RosterMenu
 					$button['tooltip'] = ' ' . makeOverlib($button['title']);
 				}
 
-				$html .= '            <li' . $button['tooltip'] . ' style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;"><a href="' . $button['url'] . '">' . "</a></li>\n";
+				$roster->tpl->assign_block_vars('menu_button_section.menu_buttons', array(
+					'TOOLTIP' => $button['tooltip'],
+					'ICON'    => $button['icon'],
+					'U_LINK'  => $button['url']
+					)
+				);
 			}
-			$html .= '          </ul>' . "\n"
-				. '        </div>' . "\n";
 		}
-		$html .= '      </div>' . "\n"
-			. '    </td>' . "\n";
 
 		// Restore our locale array
 		$roster->locale->wordings = $localestore;
 		unset($localestore);
-
-		return $html;
 	}
 	/**
 	 * Builds The search feilds
@@ -722,55 +728,37 @@ class RosterMenu
 				if( class_exists($sclass) )
 				{
 					$addonlist[$basename]['search_class'] = $sclass;
-					$addonlist[$basename]['addon'] = $data['basename'];
-					$addonlist[$basename]['basename'] = ($data['fullname'] != '') ? $data['fullname'] : $data['basename'];
+					$addonlist[$basename]['basename'] = $data['basename'];
+					$addonlist[$basename]['fullname'] = ($data['fullname'] != '') ? $data['fullname'] : $data['basename'];
 				}
 			}
 		}
 		asort($addonlist);
 
-		$output = '
-	<tr>
-		<td colspan="3" class="divider_gold"><img src="' . $roster->config['img_url'] . 'pixel.gif" width="1" height="1" alt="" /></td>
-	</tr>
-	<tr>
-		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
+		$roster->tpl->assign_vars(array(
+			'L_SEARCH'        => $roster->locale->act['search'],
+			'L_SEARCH_ROSTER' => $roster->locale->act['search_roster'],
+			'L_SEARCH_ONLYIN' => $roster->locale->act['search_onlyin'],
+			'L_SEARCH_ADVANCED' => $roster->locale->act['search_advancedoptionsfor'],
 
-			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'data_search\',\'menu_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="'.$roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="menu_search_img"/>' . $roster->locale->act['search_roster'] . '
-			</div>
-
-		<div id="data_search" style="display:none;">';
-		$output .= '<br /><form id="menu_search" name="menu_search" action="' . makelink('search') . '" method="post" enctype="multipart/form-data" >'
-				 . '<input size="25" type="text" name="search" value="" class="wowinput192" />'
-				 . '<input type="submit" value="' . $roster->locale->act['search'] . '" /><br />'
-				 . '<br />';
-
-
-		$output .=  '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'menu_sonly\',\'menu_sonly_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="'.$roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="menu_sonly_search_img" />' . $roster->locale->act['search_onlyin'] . '
-			</div>';
-		$output .= '<div id="menu_sonly">';
-		$output .=  '<table border="0"><tr>';
+			'U_SEARCH_FORM_ACTION' => makelink('search')
+			)
+		);
 
 		$i = 0;
 		//this is set to show a checkbox for all installed and active addons with search.inc files
 		//it is set to only show 4 addon check boxes per row and allows for the search only in feature
 		foreach( $addonlist as $s_addon )
 		{
-			if( $i && ($i % 4 == 0) )
-			{
-				$output .= '</tr><tr>';
-				$output .= "\n";
-			}
-
-			$output .= '<td><input type="checkbox"  id="menu_'. $s_addon['addon'] .'" name="s_addon[]" value="'. $s_addon['addon'] .'" />'
-					 . '<label for="menu_' . $s_addon['addon'] . '">' . $s_addon['basename'] . '</label></td>';
+			$roster->tpl->assign_block_vars('menu_only_search', array(
+				'BASENAME' => $s_addon['basename'],
+				'FULLNAME' => $s_addon['fullname'],
+				'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false )
+				)
+			);
 			$i++;
 		}
 
-		$output .=  '</tr></table>';
-		$output .=  '</div>';
 		//include advanced search options
 		//the advanced options are defined in the addon search class using $search->options = then build your form/s
 		foreach( $addonlist as $s_addon )
@@ -778,24 +766,15 @@ class RosterMenu
 			if( class_exists($s_addon['search_class']) )
 			{
 				$search = new $s_addon['search_class'];
-				if( $search->options )
-				{
-					$output .= '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['addon'] . '\',\'' . $s_addon['addon'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="'.$roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="' . $s_addon['addon'] . '_search_img"/>' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['basename'] . ':
-			</div>';
-					$output .= '<div id="' . $s_addon['basename'] . '" style="display:none;">';
-					$output .= '<table width="100%" ><tr><td><br />' . $search->options . '<br /></td></tr></table>';
-					$output .= '</div>';
-				}
+				$roster->tpl->assign_block_vars('menu_addon_search', array(
+					'BASENAME' => $s_addon['basename'],
+					'FULLNAME' => $s_addon['fullname'],
+					'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false ),
+					'S_SEARCH_OPTIONS' => (bool)$search->options,
+					'SEARCH_OPTIONS' => ( $search->options ? $search->options : $search->options )
+					)
+				);
 			}
 		}
-		$output .= '
-				</form>
-			</div>
-
-			<script type="text/javascript">initARC(\'menu_search\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');</script></td>
-	</tr>';
-
-		return $output;
 	}
 }

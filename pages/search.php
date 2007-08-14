@@ -27,7 +27,7 @@ $roster->output['body_onload'] .= 'initARC(\'search\',\'radioOn\',\'radioOff\',\
 include_once(ROSTER_BASE . 'header.php');
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu($roster->output['show_menu']);
+$roster_menu->makeMenu($roster->output['show_menu']);
 
 
 $output = "<br />\n";

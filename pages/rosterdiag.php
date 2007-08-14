@@ -231,7 +231,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 // Include the menu-box
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu($roster->output['show_menu']);
+$roster_menu->makeMenu($roster->output['show_menu']);
 
 // Diplay Password Box
 if ( $roster_login->getAuthorized() < 3 )

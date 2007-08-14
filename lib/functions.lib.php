@@ -201,7 +201,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
 		$roster_menu = new RosterMenu;
-		print $roster_menu->makeMenu($roster->output['show_menu']);
+		$roster_menu->makeMenu($roster->output['show_menu']);
 	}
 
 	if( is_object($roster->db) )
@@ -266,7 +266,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
 		$roster_menu = new RosterMenu;
-		print $roster_menu->makeMenu($roster->output['show_menu']);
+		$roster_menu->makeMenu($roster->output['show_menu']);
 	}
 
 	if( is_object($roster->db) )
