@@ -116,8 +116,8 @@ class CharBonus
 			}
 		}
 		// build tabs
-		$out .= '		</div>	</div>
-	<div class="tab_navagation" style="margin:-6px 0px 0px 32px;">
+		$out .= '		<!-- </div>	</div> -->
+	<div class="tab_navagation" style="margin:428px 0 0 17px;">
 		<ul id="bonus_navagation">';
 		$first_tab = true;
 
@@ -150,7 +150,7 @@ class CharBonus
 	function getBonus()
 	{
 		global $roster;
-		
+
 		if( isset($this->item->attributes['BaseStats']) )
 		{
 			if( is_array($this->item->attributes['BaseStats']) )

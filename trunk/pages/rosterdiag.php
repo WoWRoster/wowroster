@@ -38,9 +38,9 @@ include_once(ROSTER_BASE . 'header.php');
 // If the entire config page is requested, display only THAT
 if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 {
-	print '<div align="left"><pre>';
-	print_r($roster->config);
-	print '</pre></div>';
+	print '<div align="left">';
+	aprint($roster->config);
+	print '</div>';
 
 	include_once(ROSTER_BASE . 'footer.php');
 	exit();
@@ -340,11 +340,6 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">debug_mode</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['debug_mode']).'</td>
-	</tr>
-	<tr>
-		<td class="membersRow'.(((++$rowstripe)%2)+1).'">sqldebug</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['sqldebug']).'</td>
-	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_lang</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['locale'].'</td>
