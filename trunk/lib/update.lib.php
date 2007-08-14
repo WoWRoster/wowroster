@@ -801,9 +801,9 @@ class update
 		$data[1] = ( isset($data[1]) ? $data[1] : 0 );
 		$data[2] = ( isset($data[2]) ? $data[2] : 0 );
 		$this->add_value( $row_name, $data[0] );
-		$this->add_value( $row_name . '_c', $data[0]+$data[1]+$data[2] );
-		$this->add_value( $row_name . '_b', $data[1] );
-		$this->add_value( $row_name . '_d', $data[2] );
+		$this->add_value( $row_name . '_c', round( $data[0]+$data[1]+$data[2] ) );
+		$this->add_value( $row_name . '_b', round( $data[1] ) );
+		$this->add_value( $row_name . '_d', round( $data[2] ) );
 	}
 
 	/**
