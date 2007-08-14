@@ -570,7 +570,7 @@ $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(((Roter|Gelber|Blauer) Sockel)|Metasockel)/';
 $lang['tooltip_preg_reinforcedarmor']='';
-$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';

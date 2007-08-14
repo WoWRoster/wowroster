@@ -570,7 +570,7 @@ $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='';
-$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc

@@ -570,7 +570,7 @@ $lang['tooltip_preg_charges']='/(\d+) Charges/';
 $lang['tooltip_preg_block']='/(\d+) (Block)/';
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
-$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Chance to|on hit:';
 $lang['tooltip_reg_requires']='Requires';

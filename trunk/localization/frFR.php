@@ -570,7 +570,7 @@ $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloquer)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Châsse (Rouge|Jaune|Bleue|Meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
-$lang['tooltip_preg_tempenchants']='/(.+ \(\d+ min\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Chances quand touché :'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Niveau|requis'; // À une main
