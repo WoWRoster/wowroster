@@ -509,7 +509,7 @@ $lang['questlinks'][] = array(
 // Just make sure their names are unique
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Item Links';
-$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 $lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
 //$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';

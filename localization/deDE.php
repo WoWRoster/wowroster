@@ -509,9 +509,9 @@ $lang['questlinks'][] = array(
 // Just make sure their names are unique
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Item Links';
-$lang['itemlinks']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
-$lang['itemlinks']['Buffed DE'] = 'http://www.buffed.de/?f=';
-$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/index.cgi?i=';
+$lang['itemlinks']['WoW-Handwerk'] = 'http://wowhandwerk.onlinewelten.com/item.php?id=';
+$lang['itemlinks']['Buffed DE'] = 'http://www.buffed.de/?i=';
+$lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
 //$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
