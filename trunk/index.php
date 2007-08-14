@@ -127,7 +127,7 @@ if( $addon['active'] == '1' )
 	if( $roster->output['show_menu'] )
 	{
 		$roster_menu = new RosterMenu;
-		print $roster_menu->makeMenu($roster->output['show_menu']);
+		$roster_menu->makeMenu($roster->output['show_menu']);
 	}
 
 	echo $content;

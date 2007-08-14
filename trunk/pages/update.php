@@ -50,7 +50,7 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 	{
 		include_once(ROSTER_BASE . 'header.php');
 		$roster_menu = new RosterMenu;
-		print $roster_menu->makeMenu($roster->output['show_menu']);
+		$roster_menu->makeMenu($roster->output['show_menu']);
 
 		// print the error messages
 		if( !empty($errors) )
@@ -91,7 +91,7 @@ else
 	// No data uploaded, so return upload form
 	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;
-	print $roster_menu->makeMenu($roster->output['show_menu']);
+	$roster_menu->makeMenu($roster->output['show_menu']);
 
 	print '<form action="'.makelink().'" enctype="multipart/form-data" method="post" onsubmit="submitonce(this);">'."\n";
 

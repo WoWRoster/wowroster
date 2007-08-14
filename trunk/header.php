@@ -63,6 +63,8 @@ $roster->tpl->assign_vars(array(
 	'S_SEO_URL'     => $roster->config['seo_url'],
 	'S_HEADER_LOGO' => ( !empty($roster->config['logo']) ? true : false ),
 
+	'U_MAKELINK' => makelink(),
+
 	'ROSTER_HEAD'        => $roster->output['html_head'],
 	'ROSTER_URL'         => ROSTER_URL,
 	'ROSTER_PATH'        => ROSTER_PATH,
@@ -75,7 +77,17 @@ $roster->tpl->assign_vars(array(
 	'INTERFACE_URL'      => $roster->config['interface_url'],
 	'ROSTER_VERSION'     => $roster->config['version'],
 	'ROSTER_CREDITS'     => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
-	'XML_LANG'           => substr($roster->config['locale'],0,2)
+	'XML_LANG'           => substr($roster->config['locale'],0,2),
+
+	'T_BORDER_WHITE'  => border('swhite','start'),
+	'T_BORDER_GRAY'   => border('sgray','start'),
+	'T_BORDER_GOLD'   => border('sgold','start'),
+	'T_BORDER_RED'    => border('sred','start'),
+	'T_BORDER_ORANGE' => border('sorange','start'),
+	'T_BORDER_YELLOW' => border('syellow','start'),
+	'T_BORDER_GREEN'  => border('sgreen','start'),
+	'T_BORDER_PURPLE' => border('spurple','start'),
+	'T_BORDER_END'    => border('sgray','end'),
 	)
 );
 

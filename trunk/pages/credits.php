@@ -24,7 +24,7 @@ $roster->output['title'] = $roster->locale->act['credit'];
 include_once(ROSTER_BASE . 'header.php');
 
 $roster_menu = new RosterMenu;
-print $roster_menu->makeMenu($roster->output['show_menu']);
+$roster_menu->makeMenu($roster->output['show_menu']);
 
 
 echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['top']."\n</div>\n";

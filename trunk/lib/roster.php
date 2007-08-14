@@ -25,12 +25,14 @@ class roster
 {
 	var $config = array();
 	var $multilanguages = array();
+
 	/**
 	 * Roster Locale Object
 	 *
 	 * @var roster_locale
 	 */
 	var $locale;
+
 	/**
 	 * Roster database Object
 	 *
@@ -41,12 +43,14 @@ class roster
 	var $scope;
 	var $data = false; // scope data
 	var $addon_data;
+
 	/**
 	 * Roster Error Handler Object
 	 *
 	 * @var roster_error
 	 */
 	var $error; // Error handler class
+
 	/**
 	 * Roster Cache Class Object
 	 *
@@ -76,10 +80,11 @@ class roster
 		'body_attr' => '',
 		'body_onload' => ''
 	);
+
 	/**
 	 * Roster Template Object
 	 *
-	 * @var roster_tpl
+	 * @var Template
 	 */
 	var $tpl;								// Template object
 	var $row_class         = 2;				// For row striping in templates
