@@ -83,10 +83,10 @@ class RosterMenu
 					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_alliance.png');
 					break;
 				case 'H':
-					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_horde.png"');
+					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_horde.png');
 					break;
 				default:
-					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_neutral.png"');
+					$roster->tpl->assign_var('ROSTER_MENU_ICON','icon_neutral.png');
 					break;
 			}
 		}

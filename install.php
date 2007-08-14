@@ -145,6 +145,8 @@ class Template_Wrap extends Template
 			'FORMACTION'    => ''
 			)
 		);
+
+		$this->set_filenames(array('header' => 'install_header.html'));
 	}
 
 	function page_tail()
@@ -177,7 +179,11 @@ class Template_Wrap extends Template
 			$db->close_db();
 		}
 
+		$this->set_filenames(array('footer' => 'install_tail.html'));
+
+		$this->display('header');
 		$this->display('body');
+		$this->display('footer');
 
 		exit;
 	}
