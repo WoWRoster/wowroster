@@ -305,55 +305,84 @@ function checkfilter(row)
 		text = ts_getInnerText(row.cells[j+1]);
 		op = FILTER[j].value.substr(0,2);
 
+		// Equals
 		if( op[0] == '=' )
 		{
 			if (text != FILTER[j].value.substr(1)) return false;
 			continue;
 		}
+		// Not equals
+		else if( op == '!=' || op == '<>' )
+		{
+			if (text == FILTER[j].value.substr(2)) return false;
+			continue;
+		}
+		// Regexp match
+		else if( op[0] == '~' )
+		{
+			if (!(new RegExp(FILTER[j].value.substr(1)).test(text))) return false;
+			continue;
+		}
+		// Regexp match
+		else if( op == '!~' )
+		{
+			if (new RegExp(FILTER[j].value.substr(2)).test(text)) return false;
+			continue;
+		}
+		// Number comparisons
 		else if( TYPES[j] == 'number' )
 		{
 			text = Number(text);
 
+			// Lte Number
 			if( op == '<=' || op == '=<' )
 			{
 				if (text > Number(FILTER[j].value.substr(2))) return false;
 				continue;
 			}
+			// Gte Number
 			else if( op == '>=' || op == '>=' )
 			{
 				if (text < Number(FILTER[j].value.substr(2))) return false;
 				continue;
 			}
+			// Lt Number
 			else if( op[0] == '<' )
 			{
 				if (text >= Number(FILTER[j].value.substr(1))) return false;
 				continue;
 			}
+			// Gt Number
 			else if( op[0] == '>' )
 			{
 				if (text <= Number(FILTER[j].value.substr(1))) return false;
 				continue;
 			}
 		}
+		// Date comparisons
 		else if( TYPES[j] == 'date' )
 		{
 			text = Number(text);
 
+			// Lte Date
 			if( op == '<=' || op == '=<' )
 			{
 				if (text > Date.parse(FILTER[j].value.substr(2))) return false;
 				continue;
 			}
+			// Gte Date
 			else if( op == '>=' || op == '>=' )
 			{
 				if (text < Date.parse(FILTER[j].value.substr(2))) return false;
 				continue;
 			}
+			// Lt Date
 			else if( op[0] == '<' )
 			{
 				if (text >= Date.parse(FILTER[j].value.substr(1))) return false;
 				continue;
 			}
+			// Gt Date
 			else if( op[0] == '>' )
 			{
 				if (text <= Date.parse(FILTER[j].value.substr(1))) return false;
@@ -361,6 +390,7 @@ function checkfilter(row)
 			}
 		}
 
+		// Substring on whole field
 		if( row.cells[j+1].innerHTML.toLowerCase().indexOf(FILTER[j].value.toLowerCase()) == -1 )
 		{
 			return false;
