@@ -249,7 +249,8 @@ if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
  */
 if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
 {
-	roster_die(sprintf($roster->locale->act['upgrade_wowroster_text'],$roster->config['version'], ROSTER_VERSION) . '<br /><br />',$roster->locale->act['upgrade_wowroster'],'sred');
+	//roster_die(sprintf($roster->locale->act['upgrade_wowroster_text'],$roster->config['version'], ROSTER_VERSION) . '<br /><br />',$roster->locale->act['upgrade_wowroster'],'sred');
+	roster_die('There is no upgrade for this version, sorry.',$roster->locale->act['upgrade_wowroster'],'sred');
 }
 
 
