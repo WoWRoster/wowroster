@@ -367,15 +367,15 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
-	'Druida'=>'ability_druid_maul',
-	'Cazador'=>'inv_weapon_bow_08',
-	'Mago'=>'inv_staff_13',
-	'Sacerdote'=>'spell_holy_layonhands',
-	'Paladín'=>'spell_fire_flametounge',
-	'Pícaro'=>'inv_throwingknife_04',
-	'Chamán'=>'spell_nature_bloodlust',
-	'Brujo'=>'spell_shadow_cripple',
-	'Guerrero'=>'inv_sword_25',
+	'Druida'=>'druid_icon',
+	'Cazador'=>'hunter_icon',
+	'Mago'=>'mage_icon',
+	'Sacerdote'=>'priest_icon',
+	'Paladín'=>'paladin_icon',
+	'Pícaro'=>'rogue_icon',
+	'Chamán'=>'shaman_icon',
+	'Brujo'=>'warlock_icon',
+	'Guerrero'=>'warrior_icon',
 );
 
 // Class Color-Array

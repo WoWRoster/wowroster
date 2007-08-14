@@ -638,7 +638,7 @@ class memberslist
 					$icon_name = isset($roster->locale->wordings[$language]['class_iconArray'][$row['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row['class']] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
-				$icon_name = 'Interface/Icons/'.$icon_name;
+				$icon_name = 'class/'.$icon_name;
 
 				$icon_value .= '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 			}

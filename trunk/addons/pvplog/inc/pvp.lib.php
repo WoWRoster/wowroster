@@ -711,7 +711,7 @@ function output_duellog($member_id)
 
 		if( !empty($dataset['icon_name']) )
 		{
-			$dataset['icon_name'] = 'Interface/Icons/'.$dataset['icon_name'];
+			$dataset['icon_name'] = 'class'.$dataset['icon_name'];
 			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$dataset['icon_name'].'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
 		}
 		else
