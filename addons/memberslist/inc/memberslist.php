@@ -364,13 +364,13 @@ class memberslist
 
 		if( $this->addon['config']['group_alts']==1 )
 		{
-			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />Close all</a></th>';
-			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />Open all</a></th>';
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Hide alts</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />Close all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />Open all</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Ungroup alts</a></th>';
 		}
 		elseif( $this->addon['config']['group_alts'] == 0 )
 		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">Show alts</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">Group alts</a></th>';
 		}
 		if( $this->addon['config']['nojs'] )
 		{
