@@ -723,12 +723,16 @@ function difffile($old,$new)
 		while (($s1+$s2-$a1-$a2) < ($best1+$best2-$a1-$a2))
 		{
 			$d = -1;
-			foreach((array)@$r1[$t2[$s2]] as $n)
+			
+			if(isset($s2) && isset($t2) && isset($t2[$s2]) && isset($r1) && isset($r1[$t2[$s2]]))
 			{
-				if ($n>=$s1)
+				foreach((array)@$r1[$t2[$s2]] as $n)
 				{
-					$d=$n;
-					break;
+					if ($n>=$s1)
+					{
+						$d=$n;
+						break;
+					}
 				}
 			}
 			if ($d>=$s1 && ($d+$s2-$a1-$a2) < ($best1+$best2-$a1-$a2))
@@ -736,12 +740,16 @@ function difffile($old,$new)
 				$best1=$d; $best2=$s2;
 			}
 			$d = -1;
-			foreach ((array)@$r2[$t1[$s1]] as $n)
+			
+			if(isset($s1) && isset($t1) && isset($t1[$s1]) && isset($r2) && isset($r2[$t1[$s1]]))
 			{
-				if ($n >= $s2)
+				foreach ((array)@$r2[$t1[$s1]] as $n)
 				{
-					$d = $n;
-					break;
+					if ($n >= $s2)
+					{
+						$d = $n;
+						break;
+					}
 				}
 			}
 			if ($d>=$s2 && ($s1+$d-$a1-$a2) < ($best1+$best2-$a1-$a2))
