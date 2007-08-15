@@ -61,24 +61,25 @@ class roster
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
-		'show_menu' => array('util','realm','guild'),
+		'show_menu'   => array('util','realm','guild'),
 		'show_footer' => true,
 
 		// used on rostercp pages
-		'header' => '',
-		'menu' => '',
-		'body' => '',
+		'header'  => '',
+		'menu'    => '',
+		'body'    => '',
 		'pagebar' => '',
-		'footer' => '',
+		'footer'  => '',
 
 		// used on other pages
 		'content' => '',
 
 		// header stuff
-		'title' => '',
-		'html_head' => '',
-		'body_attr' => '',
-		'body_onload' => ''
+		'title'       => '',
+		'html_head'   => '',
+		'body_attr'   => '',
+		'body_onload' => '',
+		'before_menu' => ''
 	);
 
 	/**

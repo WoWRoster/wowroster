@@ -105,23 +105,19 @@ $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
 
-include(ROSTER_BASE . 'header.php');
-$roster->output['show_header'] = false;
-
+$menu = '';
 // Start output
 if( $addon['config']['log_update_inst'] )
 {
-	print '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
+	$menu .= '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
 if ( $addon['config']['log_motd'] == 1 )
 {
-	print $memberlist->makeMotd();
+	$menu .= $memberlist->makeMotd();
 }
 
-$roster_menu = new RosterMenu;
-print $roster_menu->makeMenu($roster->output['show_menu']);
-$roster->output['show_menu'] = false;
+$roster->output['before_menu'] .= $menu;
 
 if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 )
 {
