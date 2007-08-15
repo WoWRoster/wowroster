@@ -354,7 +354,7 @@ function process_step1()
 	$sh = @fsockopen('wowroster.net', 80, $errno, $error, 5);
 	if ( !$sh )
 	{
-		$their_roster_version = 'Connection to wowroster.com failed.';
+		$their_roster_version = 'Connection to wowroster.net failed.';
 	}
 	else
 	{

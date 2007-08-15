@@ -535,17 +535,17 @@ $lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
 $lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
 // Definition for item tooltip coloring
-$lang['tooltip_use']='Utiliser';
+$lang['tooltip_use']='Utiliser..';
 $lang['tooltip_requires']='Niveau';
 $lang['tooltip_reinforced']='renforcée';
 $lang['tooltip_soulbound']='Lié';
 $lang['tooltip_boe']='Lié quand équipé';
-$lang['tooltip_equip']='Équipé';
+$lang['tooltip_equip']='Équipé..';
 $lang['tooltip_equip_restores']='Équipé : Rend';
 $lang['tooltip_equip_when']='Équipé : Lorsque';
 $lang['tooltip_chance']='Chance';
 $lang['tooltip_enchant']='Enchantement';
-$lang['tooltip_set']='Set';
+$lang['tooltip_set']='Complet..|Ensemble..|Set..';
 $lang['tooltip_rank']='Rang';
 $lang['tooltip_next_rank']='Prochain rang';
 $lang['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
@@ -563,44 +563,44 @@ $lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
 $lang['tooltip_preg_durability']='/Durabilité (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
 $lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
-$lang['tooltip_preg_socketbonus']='/Bonus de sertissage: (.+)\n/';
+$lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)\n/';
 $lang['tooltip_preg_classes']='/^(Classes.+) (.+)/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Races:) (.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloquer)/';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/Châsse (Rouge|Jaune|Bleue|Meta)/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_emptysocket']='/(?:Châsse )?((Méta-(?=châsse))|((?<=Châsse )(rouge|jaune|bleue)))(châsse)?/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Chances quand touché :'; // needs to find 'chance on|to hit:'
-$lang['tooltip_reg_requires']='Niveau|requis'; // À une main
+$lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
 $lang['tooltip_reg_onlyworksinside']='Only works inside';
 $lang['tooltip_reg_conjureditems']='Conjured items disappear';
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
-$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé';
 $lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse';
 $lang['tooltip_garbage']='Maj clic-droit pour sertir';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
-$lang['gem_preg_singlecolor'] = '/Correspond à une chasse (.+)\./';
-$lang['gem_preg_multicolor'] = '/Correspond à une chasse (.+) ou (.+)\./';
+$lang['gem_preg_singlecolor'] = '/Correspond à une châsse (.+)\./';
+$lang['gem_preg_multicolor'] = '/Correspond à une châsse (.+) ou (.+)\./';
 $lang['gem_preg_meta'] = '/Ne peut être serti que dans une châsse de méta-gemme\./';
-$lang['gem_preg_prismatic'] = '/Correspond à une chasse rouge, jaune ou bleue\./';
+$lang['gem_preg_prismatic'] = '/Correspond à une châsse rouge, jaune ou bleue\./';
 
 //Gem color Array
 $lang['gem_colors'] = array(
-	'red' => 'Rouge',
-	'blue' => 'Bleue',
-	'yellow' => 'Jaune',
-	'green' => 'Verte',
-	'orange' => 'Orange',
-	'purple' => 'Pourpre',
-	'prismatic' => 'Prismatique',
-	'meta' => 'méta-gemme' //verify translation
+	'red' => 'rouge',
+	'blue' => 'bleue',
+	'yellow' => 'jaune',
+	'green' => 'verte',
+	'orange' => 'orange',
+	'purple' => 'pourpre',
+	'prismatic' => 'prismatique',
+	'meta' => 'Méta-' //verify translation
 	);
 // -- end tooltip parsing
 
