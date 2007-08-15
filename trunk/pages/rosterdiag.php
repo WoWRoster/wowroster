@@ -236,11 +236,11 @@ $roster_menu->makeMenu($roster->output['show_menu']);
 // Diplay Password Box
 if ( $roster_login->getAuthorized() < 3 )
 {
-	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage());
+	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage().$roster_login->getLoginForm());
 }
 else
 {
-	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage().$roster_login->getLoginForm());
+	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage());
 }
 
 echo "<br />\n";
@@ -404,32 +404,38 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 	//GrabRemoteVersions();
 	VerifyVersions();
 
+	$zippackage_files = '';
+
 	// Make a post form for the download of a Zip Package
-	if ( $roster_login->getAuthorized() < 3 )
+	foreach ($directories as $directory => $filecount)
 	{
-		$zippackage_files = '';
-		foreach ($directories as $directory => $filecount)
+		if (isset($files[$directory]))
 		{
-			if (isset($files[$directory]))
+			foreach ($files[$directory] as $file => $filedata)
 			{
-				foreach ($files[$directory] as $file => $filedata)
+				if($filedata['update'])
 				{
-					if($filedata['update'])
+					if (isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'missing')
 					{
-						if (isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'missing')
+						if ($zippackage_files != '')
 						{
-							if ($zippackage_files != '')
-							{
-								$zippackage_files .= ';';
-							}
-							$zippackage_files .= $directory.'/'.$file;
+							$zippackage_files .= ';';
 						}
+						$zippackage_files .= $directory.'/'.$file;
 					}
 				}
 			}
 		}
+	}
 
-		if ($zippackage_files != '')
+	if( $zippackage_files != '' )
+	{
+		if( $roster_login->getAuthorized() < 3 )
+		{
+			echo messagebox('Log in as Roster Admin to download update files','Updates Available!','spurple');
+			echo '<br />';
+		}
+		else
 		{
 			echo border('spurple', 'start', '<span class="blue">Download Update Package</span>');
 			echo '<div align="center" style="background-color:#1F1E1D;"><form method="post" action="'.ROSTER_SVNREMOTE.'">';
