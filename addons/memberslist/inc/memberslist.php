@@ -640,7 +640,7 @@ class memberslist
 				}
 				$icon_name = 'class/'.$icon_name;
 
-				$icon_value .= '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
+				$icon_value .= '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['img_url'].$icon_name.'.jpg" alt="" />&nbsp;';
 			}
 
 			// Class name coloring
