@@ -520,8 +520,8 @@ function output_bglog($member_id)
 
 				if( !empty($icon_name) )
 				{
-					$icon_name = 'Interface/Icons/'.$icon_name;
-					$class_icon = '<img style="cursor:help;" '.makeOverlib($eclass,'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
+					$icon_name = 'class/'.$icon_name;
+					$class_icon = '<img style="cursor:help;" '.makeOverlib($eclass,'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['img_url'].$icon_name.'.jpg" alt="" />&nbsp;';
 				}
 				else
 				{
@@ -711,8 +711,8 @@ function output_duellog($member_id)
 
 		if( !empty($dataset['icon_name']) )
 		{
-			$dataset['icon_name'] = 'class'.$dataset['icon_name'];
-			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$dataset['icon_name'].'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
+			$dataset['icon_name'] = 'class/' . $dataset['icon_name'];
+			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['img_url'].$dataset['icon_name'].'.jpg" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -930,8 +930,8 @@ function output_pvplog($member_id)
 
 		if( !empty($dataset['icon_name']) )
 		{
-			$dataset['icon_name'] = 'Interface/Icons/'.$dataset['icon_name'];
-			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$dataset['icon_name'].'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
+			$dataset['icon_name'] = 'class/'.$dataset['icon_name'];
+			$data[$datakey]['class_icon'] = '<img style="cursor:help;" '.makeOverlib($dataset['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['img_url'].$dataset['icon_name'].'.jpg" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -1052,8 +1052,8 @@ function output_pvp2($pvps,$url,$type)
 			$icon_name = ( isset($roster->locale->wordings[$language]['class_iconArray'][$row->data['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row->data['class']] : '' );
 			if( strlen($icon_name) > 0 ) break;
 		}
-		$icon_name = 'Interface/Icons/'.$icon_name;
-		$class_icon = '<img style="cursor:help;" '.makeOverlib($row->data['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['interface_url'].$icon_name.'.'.$roster->config['img_suffix'].'" alt="" />&nbsp;';
+		$icon_name = 'class/'.$icon_name;
+		$class_icon = '<img style="cursor:help;" '.makeOverlib($row->data['class'],'','',2,'',',WRAP').' class="membersRowimg" width="16" height="16" src="'.$roster->config['img_url'].$icon_name.'.jpg" alt="" />&nbsp;';
 
 		$row_st = (($rc%2)+1);
 		$returnstring .= '
