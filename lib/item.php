@@ -85,7 +85,7 @@ class item
 		global $roster, $tooltips;
 
 		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
-		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['item_texture'] . '.' . $roster->config['img_suffix'];
+		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->icon . '.' . $roster->config['img_suffix'];
 		$tooltip = makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
 		list($item_id) = explode(':', $this->item_id);
 
@@ -105,7 +105,7 @@ class item
 
 		$output = '<div class="item" ' . $tooltip . $linktip . '>';
 
-		if( $this->data['item_slot'] == 'Ammo' )
+		if( $this->slot == 'Ammo' )
 		{
 			$output .= '<img src="' . $path . '" class="iconsmall" alt="" />' . "\n";
 		}
@@ -114,10 +114,10 @@ class item
 			$output .= '<img src="' . $path . '" class="icon" alt="" />' . "\n";
 		}
 
-		if( ($this->data['item_quantity'] > 1) )
+		if( ($this->quantity > 1) )
 		{
-			$output .= '<b>' . $this->data['item_quantity'] . '</b>';
-			$output .= '<span>' . $this->data['item_quantity'] . '</span>';
+			$output .= '<b>' . $this->quantity . '</b>';
+			$output .= '<span>' . $this->quantity . '</span>';
 		}
 		$output .= '</div>';
 

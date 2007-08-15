@@ -144,12 +144,15 @@ $lang['pointsspent']='Points Utilisés dans';
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonus dûs à l\'équipement';
 $lang['item_bonuses'] = 'Objets Bonus';
-$lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
+$lang['item_bonuses_preg_linesplits']='/(et|\/|&)/';
 $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 // note to translators ** do not worry about translating this yet.. this will change SOON -ds
 $lang['item_bonuses_remap']=
-	array( // key must be lowercase!											// standardized bonus
+	array( // key must be lowercase!													// standardized bonus
+		'+xx à la puissance des sorts' 													=> '+XX aux dégâts des sorts', 
+		'endurance +xx'																	=> '+XX Endurance',
+		'score de toucher des sorts +xx'												=> '+XX au score de toucher des sorts',
 		'+xx healing'                   												=> '+XX to Healing Spells',
 		'+xx healing spells'															=> '+XX to Healing Spells',
 		'increases healing done by spells and effects by up to xx.'						=> '+XX to Healing Spells',
