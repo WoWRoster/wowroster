@@ -95,9 +95,11 @@ $lang['save_update_log'] = 'Save Update Log';
 $lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="%3$s" target="_blank">HERE</a>';
 
 $lang['upgrade_wowroster'] = 'Upgrade WoWRoster';
+$lang['upgrade'] = 'Upgrade';
+$lang['select_version'] = 'Select Version';
 $lang['upgrade_wowroster_text'] = "Looks like you've loaded a new version of Roster<br /><br />\nYour Version: <span class=\"red\">%1\$s</span><br />\nNew Version: <span class=\"green\">%2\$s</span><br /><br />\n<a href=\"upgrade.php\" style=\"border:1px outset white;padding:2px 6px 2px 6px;\">UPGRADE</a>";
-$lang['remove_install_files'] = 'Remove Install Files';
-$lang['remove_install_files_text'] = 'Please remove the <span class="green">install/</span> folder and the files <span class="green">install.php</span> and <span class="green">upgrade.php</span> in this directory';
+$lang['no_upgrade'] = 'You have already upgraded Roster<br />Or you have a newer version than this upgrader';
+$lang['upgrade_complete'] = 'Your WoWRoster installation has been successfully upgraded';
 
 // Menu buttons
 $lang['menu_header_01'] = 'Guild Information';

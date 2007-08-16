@@ -840,5 +840,87 @@ class memberslist
 		}
 		return $cell_value . '&nbsp;';
 	}
+
+
+	/**
+	 * Controls Output of the Last Online Column
+	 *
+	 * @param array $row - of character data
+	 * @return string - Formatted output
+	 */
+	function last_online_value ( $row )
+	{
+		global $roster;
+
+		if ( $row['last_online'] != '')
+		{
+			$guild_time = strtotime($roster->data['update_time']);
+			$update_time = $row['last_online_stamp'];
+
+			$difference = $guild_time - $update_time;
+
+			$realtime = '<div style="display:none;">' . $update_time . '</div>';
+
+			if( isset($row['online']) && $row['online'] == '1' || $difference < 0 )
+			{
+				return $realtime . $roster->locale->act['online_at_update'];
+			}
+
+			if( $difference < 60 )
+			{
+				return $realtime . sprintf(($difference == '1' ? $roster->locale->act['second'] : $roster->locale->act['seconds']),$difference);
+			}
+			else
+			{
+				$difference = round($difference / 60);
+				if( $difference < 60 )
+				{
+					return $realtime . sprintf(($difference == '1' ? $roster->locale->act['minute'] : $roster->locale->act['minutes']),$difference);
+				}
+				else
+				{
+					$difference = round($difference / 60);
+					if( $difference < 24 )
+					{
+						return $realtime . sprintf(($difference == '1' ? $roster->locale->act['hour'] : $roster->locale->act['hours']),$difference);
+					}
+					else
+					{
+						$difference = round($difference / 24);
+						if( $difference < 7 )
+						{
+							return $realtime . sprintf(($difference == '1' ? $roster->locale->act['day'] : $roster->locale->act['days']),$difference);
+						}
+						else
+						{
+							$difference = round($difference / 7);
+							if( $difference < 4 )
+							{
+								return $realtime . sprintf(($difference == '1' ? $roster->locale->act['week'] : $roster->locale->act['weeks']),$difference);
+							}
+							else
+							{
+								$difference = round($difference / 4);
+								if( $difference < 12 )
+								{
+									return $realtime . sprintf(($difference == '1' ? $roster->locale->act['month'] : $roster->locale->act['months']),$difference);
+								}
+								else
+								{
+									$difference = round($difference / 12);
+									return $realtime . sprintf(($difference == '1' ? $roster->locale->act['year'] : $roster->locale->act['years']),$difference);
+								}
+
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			return '&nbsp;';
+		}
+	}
 }
 
