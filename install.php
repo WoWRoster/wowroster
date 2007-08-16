@@ -619,6 +619,7 @@ function process_step3()
 	 * Update some config settings
 	 */
     $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value` = '$default_locale' WHERE `config_name` = 'locale';");
+    $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `config_name` = 'version';");
     $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value` = '$server_name' WHERE `config_name` = 'website_address';");
 
 	/**

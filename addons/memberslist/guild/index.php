@@ -29,8 +29,9 @@ $mainQuery =
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
 	'`members`.`online`, '.
-	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster->config['localtimeoffset']*3600000).") AS 'last_online_stamp', ".
-	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online', ".
+	'`members`.`last_online`, '.
+	"UNIX_TIMESTAMP(`members`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online_format', ".
 	'`members`.`note`, '.
 	'`members`.`guild_title`, '.
 
@@ -146,7 +147,7 @@ $FIELD['last_online'] = array (
 	'lang_field' => 'lastonline',
 	'order' => array( '`members`.`last_online` DESC' ),
 	'order_d' => array( '`members`.`last_online` ASC' ),
-	'value' => 'last_online_value',
+	'value' => array($memberlist,'last_online_value'),
 	'js_type' => 'ts_date',
 	'display' => $addon['config']['member_online'],
 );
@@ -327,86 +328,4 @@ function note_value ( $row, $field )
 	}
 
 	return '<div style="display:none; ">'.$row['note'].'</div>'.$note;
-}
-
-
-/**
- * Controls Output of the Last Online Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function last_online_value ( $row )
-{
-	global $roster;
-
-	if ( $row['last_online'] != '')
-	{
-		$guild_time = strtotime($roster->data['update_time']);
-		$update_time = strtotime($row['last_online']);
-
-		$difference = $guild_time - $update_time;
-
-		$realtime = '<div style="display:none;">' . $update_time . '</div>';
-
-		if( isset($row['online']) && $row['online'] == '1' || $difference < 0 )
-		{
-			return $realtime . $roster->locale->act['online_at_update'];
-		}
-
-		if( $difference < 60 )
-		{
-			return $realtime . sprintf(($difference == '1' ? $roster->locale->act['second'] : $roster->locale->act['seconds']),$difference);
-		}
-		else
-		{
-			$difference = round($difference / 60);
-			if( $difference < 60 )
-			{
-				return $realtime . sprintf(($difference == '1' ? $roster->locale->act['minute'] : $roster->locale->act['minutes']),$difference);
-			}
-			else
-			{
-				$difference = round($difference / 60);
-				if( $difference < 24 )
-				{
-					return $realtime . sprintf(($difference == '1' ? $roster->locale->act['hour'] : $roster->locale->act['hours']),$difference);
-				}
-				else
-				{
-					$difference = round($difference / 24);
-					if( $difference < 7 )
-					{
-						return $realtime . sprintf(($difference == '1' ? $roster->locale->act['day'] : $roster->locale->act['days']),$difference);
-					}
-					else
-					{
-						$difference = round($difference / 7);
-						if( $difference < 4 )
-						{
-							return $realtime . sprintf(($difference == '1' ? $roster->locale->act['week'] : $roster->locale->act['weeks']),$difference);
-						}
-						else
-						{
-							$difference = round($difference / 4);
-							if( $difference < 12 )
-							{
-								return $realtime . sprintf(($difference == '1' ? $roster->locale->act['month'] : $roster->locale->act['months']),$difference);
-							}
-							else
-							{
-								$difference = round($difference / 12);
-								return $realtime . sprintf(($difference == '1' ? $roster->locale->act['year'] : $roster->locale->act['years']),$difference);
-							}
-
-						}
-					}
-				}
-			}
-		}
-	}
-	else
-	{
-		return '&nbsp;';
-	}
 }

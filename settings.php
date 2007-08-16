@@ -245,41 +245,22 @@ if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
 
 
 /**
- * If the version doesnt match the one in constants, redirect to upgrader
+ * Assign initial template vars
  */
-if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
-{
-	//roster_die(sprintf($roster->locale->act['upgrade_wowroster_text'],$roster->config['version'], ROSTER_VERSION) . '<br /><br />',$roster->locale->act['upgrade_wowroster'],'sred');
-	roster_die('There is no upgrade for this version, sorry.',$roster->locale->act['upgrade_wowroster'],'sred');
-}
-
-
-/**
- * If the install directory or files exist, die()
- */
-if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgrade.php')  || file_exists(ROSTER_BASE . 'install') )
-{
-	if( !file_exists(ROSTER_BASE . 'version_match.php') )
-	{
-		roster_die($roster->locale->act['remove_install_files_text'],$roster->locale->act['remove_install_files'],'sred');
-	}
-}
-
-// Assign initial template vars
 $roster->tpl->assign_vars(array(
 	'S_SEO_URL'          => $roster->config['seo_url'],
 	'S_HEADER_LOGO'      => ( !empty($roster->config['logo']) ? true : false ),
 
-	'U_MAKELINK' => makelink(),
-	'ROSTER_URL'         => ROSTER_URL,
-	'ROSTER_PATH'        => ROSTER_PATH,
-	'WEBSITE_ADDRESS'    => $roster->config['website_address'],
-	'HEADER_LOGO'        => $roster->config['logo'],
-	'IMG_URL'            => $roster->config['img_url'],
-	'INTERFACE_URL'      => $roster->config['interface_url'],
-	'ROSTER_VERSION'     => $roster->config['version'],
-	'ROSTER_CREDITS'     => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
-	'XML_LANG'           => substr($roster->config['locale'],0,2),
+	'U_MAKELINK'      => makelink(),
+	'ROSTER_URL'      => ROSTER_URL,
+	'ROSTER_PATH'     => ROSTER_PATH,
+	'WEBSITE_ADDRESS' => $roster->config['website_address'],
+	'HEADER_LOGO'     => $roster->config['logo'],
+	'IMG_URL'         => $roster->config['img_url'],
+	'INTERFACE_URL'   => $roster->config['interface_url'],
+	'ROSTER_VERSION'  => $roster->config['version'],
+	'ROSTER_CREDITS'  => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
+	'XML_LANG'        => substr($roster->config['locale'],0,2),
 
 	'T_BORDER_WHITE'  => border('swhite','start'),
 	'T_BORDER_GRAY'   => border('sgray','start'),
@@ -298,6 +279,28 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_MENU_BEFORE' => '',
 	)
 );
+
+
+/**
+ * If the version doesnt match the one in constants, redirect to upgrader
+ */
+if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
+{
+    require(ROSTER_PAGES . 'upgrade.php');
+    die();
+}
+
+
+/**
+ * If the install directory or files exist, die()
+ */
+if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgrade.php')  || file_exists(ROSTER_BASE . 'install') )
+{
+	if( !file_exists(ROSTER_BASE . 'version_match.php') )
+	{
+		roster_die($roster->locale->act['remove_install_files_text'],$roster->locale->act['remove_install_files'],'sred');
+	}
+}
 
 
 /**
