@@ -1021,7 +1021,7 @@ function getaddon( $addonname )
 	$addon['conf_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'conf.php';
 
 	// Get the addon's search file
-	$addon['search_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'search.inc';
+	$addon['search_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'search.inc.php';
 
 	// Get the addon's locale dir
 	$addon['locale_dir'] = $addon['dir'] . 'locale' . DIR_SEP;
