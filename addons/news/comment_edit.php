@@ -46,8 +46,6 @@ $roster->tpl->assign_vars(array(
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
 
-	'S_ADD_NEWS'       => false,
-	'S_ADD_COMMENT'    => false,
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$comment['html'],
 

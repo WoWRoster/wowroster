@@ -116,7 +116,6 @@ $roster->tpl->assign_vars(array(
 	'L_ADD_NEWS' => $roster->locale->act['add_news'],
 
 	'U_ADD_NEWS'  => makelink('util-news-add'),
-	'S_ADD_NEWS' => true,
 	)
 );
 
@@ -149,5 +148,11 @@ while( $news = $roster->db->fetch($result) )
 	);
 }
 
+$roster->tpl->set_filenames(array('head' => 'news/news_head.html'));
+$roster->tpl->display('head');
+
 $roster->tpl->set_filenames(array('body' => 'news/news.html'));
 $roster->tpl->display('body');
+
+$roster->tpl->set_filenames(array('foot' => 'news/news_foot.html'));
+$roster->tpl->display('foot');
