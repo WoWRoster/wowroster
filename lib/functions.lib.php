@@ -1102,7 +1102,7 @@ function urlgrabber( $url , $timeout = 5 )
 		// If there were errors
 		if( curl_errno($ch) )
 		{
-//			$this->error('Error: ' . curl_error($ch));
+			trigger_error('UrlGrabber Error: ' . curl_error($ch), E_USER_WARNING);
 			return false;
 		}
 
@@ -1116,7 +1116,7 @@ function urlgrabber( $url , $timeout = 5 )
 	}
 	else
 	{
-		die_quietly('Could not retrieve URL','URL Grabber');
+		trigger_error('Urlgrabber: Could not retrieve URL', E_USER_WARNING);
 		return false;
 	}
 } //-END function urlgrabber()
