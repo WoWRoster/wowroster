@@ -126,8 +126,6 @@ $roster->tpl->assign_vars(array(
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
 
-	'S_ADD_NEWS'       => false,
-	'S_ADD_COMMENT'    => false,
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => $addon['config']['comm_html'],
 
@@ -197,6 +195,12 @@ if( $roster->db->num_rows() > 0 )
 }
 
 
+$roster->tpl->set_filenames(array('head' => 'news/news.html'));
+$roster->tpl->display('head');
+
+$roster->tpl->set_filenames(array('body' => 'news/comment.html'));
+$roster->tpl->display('body');
+
 if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
 {
 	print $roster_login->getMessage().
@@ -205,8 +209,6 @@ if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
 else
 {
 	$roster->output['body_onload'] .= 'initARC(\'addcomment\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-	$roster->tpl->assign_var('S_ADD_COMMENT',true);
+	$roster->tpl->set_filenames(array('foot' => 'news/comment_add.html'));
+	$roster->tpl->display('foot');
 }
-
-$roster->tpl->set_filenames(array('body' => 'news/comment.html'));
-$roster->tpl->display('body');

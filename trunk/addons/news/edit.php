@@ -52,8 +52,6 @@ $roster->tpl->assign_vars(array(
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
 
-	'S_ADD_NEWS'       => false,
-	'S_ADD_COMMENT'    => false,
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$news['html'],
 
@@ -73,6 +71,9 @@ if($addon['config']['news_html'] >= 0)
 {
 	$roster->tpl->assign_var('S_HTML_ENABLE',true);
 }
+
+$roster->tpl->set_filenames(array('head' => 'news/news_head.html'));
+$roster->tpl->display('head');
 
 $roster->tpl->set_filenames(array('body' => 'news/edit.html'));
 $roster->tpl->display('body');
