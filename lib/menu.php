@@ -719,7 +719,7 @@ class RosterMenu
 		$addonlist = array();
 		foreach( $roster->addon_data as $name => $data )
 		{
-			$addon_search_file = ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'search.inc';
+			$addon_search_file = ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'search.inc.php';
 			if( file_exists($addon_search_file) )
 			{
 				include_once($addon_search_file);
@@ -746,7 +746,7 @@ class RosterMenu
 		);
 
 		$i = 0;
-		//this is set to show a checkbox for all installed and active addons with search.inc files
+		//this is set to show a checkbox for all installed and active addons with search.inc.php files
 		//it is set to only show 4 addon check boxes per row and allows for the search only in feature
 		foreach( $addonlist as $s_addon )
 		{

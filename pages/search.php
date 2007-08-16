@@ -33,7 +33,7 @@ $roster_menu->makeMenu($roster->output['show_menu']);
 $output = "<br />\n";
 
 
-/*Create an array of active addons with search.inc capabilities*/
+/*Create an array of active addons with search.inc.php capabilities*/
 foreach( $roster->addon_data as $name => $data )
 {
 	$roster->addon_data[$name] = getaddon($data['basename']);
@@ -68,7 +68,7 @@ if( !isset($_POST['search']) && !isset($_GET['search']) )
 
 
 	$i = 0;
-	//this is set to show a checkbox for all installed and active addons with search.inc files
+	//this is set to show a checkbox for all installed and active addons with search.inc.php files
 	//it is set to only show 4 addon check boxes per row and allows for the search only in feature
 	foreach( $roster->addon_data as $s_addon )
 	{
