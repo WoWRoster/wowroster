@@ -121,8 +121,8 @@ $paletHeight = 1;
 $paletWidth = count($palet);
 
 // --[ Render configuration screen. ]--
-$roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/wz_dragdrop.js"></script>'."\n";
-$roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'css/js/menuconf.js"></script>'."\n";
+$roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'js/wz_dragdrop.js"></script>'."\n";
+$roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_PATH.'js/menuconf.js"></script>'."\n";
 
 // --[ Section select. ]--
 $menu .= border('sorange','start',$roster->locale->act['menuconf_sectionselect'])."\n";

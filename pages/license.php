@@ -74,28 +74,28 @@ that are not included under the main WoWRoster license</span></p>
 <ul>
 	<li><a href=\"http://www.dynamicdrive.com\" target=\"_blank\">http://www.dynamicdrive.com</a></li>
 	<li>DynamicDrive Terms of Use <a href=\"http://www.dynamicdrive.com/notice.htm\" target=\"_blank\">http://www.dynamicdrive.com/notice.htm</a></li>
-	<li>File located at [css/js/tabcontent.js]</li>
+	<li>File located at [js/tabcontent.js]</li>
 </ul>
 
 <strong>Color Pallet Script</strong> - DhtmlGoodies
 <ul>
 	<li><a href=\"http://www.dynamicdrive.com\" target=\"_blank\">http://www.dynamicdrive.com</a></li>
 	<li>DynamicDrive Terms of Use <a href=\"http://www.dynamicdrive.com/notice.htm\" target=\"_blank\">http://www.dynamicdrive.com/notice.htm</a></li>
-	<li>File located at [css/js/color_functions.js]</li>
+	<li>File located at [js/color_functions.js]</li>
 </ul>
 
 <strong>Overlib tooltip library</strong> - Erik Bosrup
 <ul>
 	<li><a href=\"http://www.bosrup.com/web/overlib\" target=\"_blank\">http://www.bosrup.com/web/overlib</a></li>
 	<li>Overlib License: <a href=\"http://www.bosrup.com/web/overlib/?License\" target=\"_blank\">http://www.bosrup.com/web/overlib/?License</a></li>
-	<li>File located at [css/js/overlib.js]</li>
+	<li>File located at [js/overlib.js]</li>
 </ul>
 
 <strong>DHTML Drag & Drop library</strong> - Walter Zorn
 <ul>
 	<li><a href=\"http://www.walterzorn.com/dragdrop/dragdrop_e.htm\" target=\"_blank\">http://www.walterzorn.com/dragdrop/dragdrop_e.htm</a></li>
 	<li>GNU Lesser General Public License: <a href=\"http://gnu.org/copyleft/lesser.html\" target=\"_blank\">http://gnu.org/copyleft/lesser.html</a></li>
-	<li>File located at [css/js/wz_dragdrop.js]</li>
+	<li>File located at [js/wz_dragdrop.js]</li>
 </ul>
 
 <strong>Modified EQdkp installer</strong>
