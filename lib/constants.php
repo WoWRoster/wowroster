@@ -68,7 +68,7 @@ define('ROSTER_LOCALE_DIR',ROSTER_BASE . 'localization' . DIR_SEP);
  * Please make a page on the web where you place the most rescent version of the files, including this file.
  * The webpage must be entered below without a trailing slash
  */
-define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_updater/version_match.php');
+define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_beta/version_match.php');
 
 /**
  * Some static and semi-static game data.
