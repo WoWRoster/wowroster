@@ -208,7 +208,7 @@ function GetFileVersionInfo($directory, $file)
 	}
 	// Example of the SVN $Id string:
 	//   * $Id$
-	//        ~|Descr         |Ver|Date               |Author|~
+	//         ~|Descr            |Ver |Date                |Author|~
 	if (check_if_image($file))
 	{
 		$files[$directory][$file]['local']['versionDesc'] = 'N/A';
@@ -359,7 +359,7 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisionsmaller']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisionsmaller']]['color'].';">Local Version: '.$file['local']['versionRev'].' is LOWER than SVN Version: '.$file['remote']['versionRev'].'</span><br />';
-					$files[$directory][$filename]['rev'] = ''.$file['local']['versionRev'].' < '.$file['remote']['versionRev'];
+					$files[$directory][$filename]['rev'] = $file['local']['versionRev'].' < '.$file['remote']['versionRev'];
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -367,12 +367,12 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisiongreater']]['color'].';">Local Version: '.$file['local']['versionRev'].' is HIGHER than SVN Version: '.$file['remote']['versionRev'].'</span><br />';
-					$files[$directory][$filename]['rev'] = ''.$file['local']['versionRev'].' > '.$file['remote']['versionRev'];
+					$files[$directory][$filename]['rev'] = $file['local']['versionRev'].' > '.$file['remote']['versionRev'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) == 0)
 				{
-					$files[$directory][$filename]['rev'] = ''.$file['local']['versionRev'];
+					$files[$directory][$filename]['rev'] = $file['local']['versionRev'];
 				}
 
 				// Check if the local date matches the SVN date
@@ -380,7 +380,7 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateolder']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateolder']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is OLDER than SVN Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
-					$files[$directory][$filename]['date'] = ''.gmdate('Y/m/d H:i', $file['local']['versionDate']).' < '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
+					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']).' < '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -388,24 +388,24 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateyounger']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateyounger']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is NEWER than SVN Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
-					$files[$directory][$filename]['date'] = ''.gmdate('Y/m/d H:i', $file['local']['versionDate']).' > '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
+					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']).' > '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				elseif (($file['local']['versionDate'] == $file['remote']['versionDate']) || check_if_image($filename))
 				{
-					$files[$directory][$filename]['date'] = ''.gmdate('Y/m/d H:i', $file['local']['versionDate']);
+					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']);
 				}
 				// Check if the local author matches the SVN author
 				if (strcmp($file['local']['versionAuthor'], $file['remote']['versionAuthor']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['author']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['author']]['color'].';">Local Author does NOT match with SVN</span><br />';
-					$files[$directory][$filename]['author'] = ''.$file['local']['versionAuthor'].' != '.$file['remote']['versionAuthor'];
+					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'].' != '.$file['remote']['versionAuthor'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				else
 				{
-					$files[$directory][$filename]['author'] = ''.$file['local']['versionAuthor'];
+					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'];
 				}
 				// Check if the local MD5 matches the SVN MD5
 				if (strcmp($file['local']['versionMD5'], $file['remote']['versionMD5']))
@@ -434,6 +434,9 @@ function VerifyVersions()
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nosvn']]['weight'];
 				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nosvn']]['color'].';">Local file does not exist in SVN</span><br />';
 				$files[$directory][$filename]['rogue'] = 1;
+				$files[$directory][$filename]['rev'] = $file['local']['versionRev'];
+				$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']);
+				$files[$directory][$filename]['author'] = $file['local']['versionAuthor'];
 			}
 			elseif (!isset($file['local']) && isset($file['remote']))
 			{
