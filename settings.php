@@ -236,7 +236,8 @@ $roster->get_scope_data();
 /**
  * Inject some different settings if the debug url switch is set
  */
-if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
+// Beta only: force these on
+//if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
 {
 	$roster->config['sqldebug'] = 1;
 	$roster->config['debug_mode'] = 1;
