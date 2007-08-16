@@ -182,6 +182,12 @@ class Template_Wrap extends Template
 		$this->set_filenames(array('footer' => 'install_tail.html'));
 
 		$this->display('header');
+
+		if( file_exists(ROSTER_BASE . 'valid.inc') )
+		{
+			include(ROSTER_BASE . 'valid.inc');
+		}
+
 		$this->display('body');
 		$this->display('footer');
 
