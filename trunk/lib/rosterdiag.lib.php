@@ -27,7 +27,7 @@ if( !defined('IN_ROSTER') )
 // As a NON-Developer, please do not modify any content of this file, or the version check might fail!!!
 
 // Ignored Directories
-$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'addons');
+$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface');
 
 // Files to check with extension:
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
@@ -723,7 +723,7 @@ function difffile($old,$new)
 		while (($s1+$s2-$a1-$a2) < ($best1+$best2-$a1-$a2))
 		{
 			$d = -1;
-			
+
 			if(isset($s2) && isset($t2) && isset($t2[$s2]) && isset($r1) && isset($r1[$t2[$s2]]))
 			{
 				foreach((array)@$r1[$t2[$s2]] as $n)
@@ -740,7 +740,7 @@ function difffile($old,$new)
 				$best1=$d; $best2=$s2;
 			}
 			$d = -1;
-			
+
 			if(isset($s1) && isset($t1) && isset($t1[$s1]) && isset($r2) && isset($r2[$t1[$s1]]))
 			{
 				foreach ((array)@$r2[$t1[$s1]] as $n)
