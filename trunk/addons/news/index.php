@@ -139,7 +139,6 @@ while( $news = $roster->db->fetch($result) )
 		'DATE'          => $news['date_format'],
 
 		'U_BORDER_S' => border('sorange','start',$news['title'],'60%'),
-		'U_BORDER_E' => border('sorange','end'),
 		'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
 		'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
 

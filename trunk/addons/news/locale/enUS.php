@@ -30,6 +30,7 @@ $lang['edit']                   = 'Edit';
 $lang['edit_news']              = 'Edit News';
 $lang['comments']               = 'Comments';
 $lang['add_comment']            = 'Add Comment';
+$lang['edit_comment']           = 'Edit Comment';
 $lang['n_comment']              = '%s comment';
 $lang['n_comments']             = '%s comments';
 
