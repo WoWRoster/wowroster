@@ -51,7 +51,7 @@ class config
 		$this->submit_button = "<br /><br />\n<input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n";
 		$this->form_end = "</form>\n";
 		$this->jscript  = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
-		$this->jscript .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."css/js/color_functions.js\"></script>\n";
+		$this->jscript .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."js/color_functions.js\"></script>\n";
 	}
 
 	/**
