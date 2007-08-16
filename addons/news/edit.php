@@ -48,22 +48,19 @@ $roster->tpl->assign_vars(array(
 	'L_EDIT_NEWS'    => $roster->locale->act['edit_news'],
 	'L_NAME'         => $roster->locale->act['name'],
 	'L_TITLE'        => $roster->locale->act['title'],
-	'L_EDIT_COMMENT' => $roster->locale->act['edit_comment'],
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
 
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$news['html'],
 
-	'U_NEWS_EDIT_B_S'  => border('sgreen','start',$roster->locale->act['edit_news']),
-	'U_NEWS_EDIT_B_E'  => border('sgreen','end'),
+	'U_NEWS_EDIT_BORDER' => border('sgreen','start',$roster->locale->act['edit_news']),
 	'U_EDIT_FORMACTION'  => makelink('util-news'),
 	'U_NEWS_ID'          => $news['news_id'],
 
 	'CONTENT'       => $news['content'],
 	'AUTHOR'        => $news['author'],
 	'TITLE'         => $news['title'],
-	'DATE'          => $news['date_format'],
 	)
 );
 

@@ -130,9 +130,7 @@ $roster->tpl->assign_vars(array(
 	'S_COMMENT_HTML'   => $addon['config']['comm_html'],
 
 	'U_COMMENT_BORDER_S' => border('swhite','start',$roster->locale->act['comments'],'60%'),
-	'U_COMMENT_BORDER_E' => border('swhite','end'),
 	'U_COMMENT_ADD_B_S'  => border('sblue','start',$roster->locale->act['add_comment']),
-	'U_COMMENT_ADD_B_E'  => border('sblue','end'),
 	'U_ADD_FORMACTION'   => makelink('util-news-comment&amp;id=' . $_GET['id']),
 	'U_NEWS_ID'          => $news['news_id'],
 	)
@@ -152,7 +150,6 @@ $roster->tpl->assign_block_vars('news_row', array(
 	'DATE'          => $news['date_format'],
 
 	'U_BORDER_S' => border('sorange','start',$news['title'],'60%'),
-	'U_BORDER_E' => border('sorange','end'),
 	'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
 	'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
 
