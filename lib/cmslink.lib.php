@@ -88,6 +88,12 @@ function parse_params()
 				$_GET[$var] = $val;
 			}
 		}
+		// Needed in case someone specified www.example.com/roster/index.php.
+		// That format is the only one that works in IIS
+		if( $pages == array('index') )
+		{
+			$pages = array();
+		}
 		$_GET[ROSTER_PAGE] = implode('-',$pages);
 	}
 }
