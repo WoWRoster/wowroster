@@ -93,13 +93,6 @@ class Upgrade
 		$this->finalize();
 	}
 
-	function upgrade_199b1()
-	{
-		$this->beta_upgrade();
-
-		$this->finalize();
-	}
-
 	function beta_upgrade()
 	{
 		global $roster;
