@@ -736,8 +736,8 @@ class item
 
 		//cleanup tooltip for parsing
 		$tooltip = str_replace("\n\n", "\n", $tooltip);
-		$tooltip = str_replace('<br>',"\n",$tooltip);
-		$tooltip = str_replace('<br />',"\n",$tooltip);
+		$tooltip = str_replace('<br>', "\n",$tooltip);
+		$tooltip = str_replace('<br />', "\n",$tooltip);
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
 		
 		// tries to capture temp enchants based on the pattern (20min)
@@ -1094,11 +1094,11 @@ class item
 			$locale = $this->locale;
 		}
 
-		global $roster, $gem_cache;
+		global $roster;
 
-		if( isset($gem_cache[$gem_id][$locale]) )
+		if( $roster->cache->check($gem_id.$locale) )
 		{
-			return $gem_cache[$gem_id][$locale];
+			return $roster->cache->get($gem_id.$locale);
 		}
 
 		$sql = "SELECT gem_id as GemId, gem_name as Name, gem_color as Color, gem_tooltip as Tooltip, "
@@ -1115,8 +1115,8 @@ class item
 		}
 
 		$gem['Tooltip'] = str_replace("\n", '<br>', $gem['Tooltip']);
-		$gem_cache[$gem_id][$locale]=$gem;
-
+		$roster->cache->put( $gem, $gem_id.$locale );
+		
 		return $gem;
 	}
 
@@ -1162,10 +1162,16 @@ class item
 
 	function _fetchArmorSet( $pieces=array(), $member_id='' )
 	{
+		global $roster;
+		
 		$count = count($pieces);
 		$member_id = ( is_numeric($member_id) ? $member_id : $this->member_id );
 
-		if( $count && is_array($pieces) )
+		if( $roster->cache->check($pieces.$member_id) )
+		{
+			return $roster->cache->get($pieces.$member_id);
+		}
+		elseif( $count && is_array($pieces) )
 		{
 			global $roster;
 
@@ -1199,6 +1205,7 @@ class item
 					$armor_set['owned'][] = $data['item_name'];
 				}
 			}
+			$roster->cache->put($armor_set, $pieces.$member_id);
 			return $armor_set;
 		}
 		return false;
