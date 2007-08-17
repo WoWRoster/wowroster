@@ -251,7 +251,7 @@ class Install
 					}
 					else
 					{
-						$this->seterrors('Rollback error while reinserting data in '.$table.'. MySQL said: '.$roster->error());
+						$this->seterrors('Rollback error while reinserting data in '.$table.'. MySQL said: '.$roster->db->error());
 						$retval = 2;
 					}
 				}
