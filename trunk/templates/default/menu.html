@@ -82,11 +82,9 @@
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
 			<form id="menu_search" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post" enctype="multipart/form-data" >
-				<div style="cursor:pointer;" onclick="showHide('data_search','menu_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
-					<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="menu_search_img" />
-					<input size="25" type="text" name="search" value="" class="wowinput192" />
-					<input type="submit" value="{L_SEARCH}" />
-				</div>
+				<img src="{IMG_URL}plus.gif" style="float:right;cursor:pointer;" alt="" id="menu_search_img" onclick="showHide('data_search','menu_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');" />
+				<input size="25" type="text" name="search" value="" class="wowinput192" />
+				<input type="submit" value="{L_SEARCH}" />
 				<div id="data_search" style="display:none;">
 					<!-- BEGIN menu_only_search -->
 					<input type="checkbox"  id="menu_{menu_only_search.BASENAME}" name="s_addon[]" value="{menu_only_search.BASENAME}" />

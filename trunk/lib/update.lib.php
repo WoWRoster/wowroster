@@ -316,9 +316,9 @@ class update
 						$query = "SELECT `type`, COUNT(`rule_id`)"
 							   . " FROM `" . $roster->db->table('upload') . "`"
 							   . " WHERE (`type` = 2 OR `type` = 3)"
-							   . " AND '" . $char_name . "' LIKE `name` "
-							   . " AND '" . $realm_escape . "' LIKE `server` "
-							   . " AND '" . $region."' LIKE `region` "
+							   . " AND '" . $char_name . "' = `name` "
+							   . " AND '" . $realm_escape . "' = `server` "
+							   . " AND '" . $region."' = `region` "
 							   . " GROUP BY `type` "
 							   . " ORDER BY `type` DESC;";
 
@@ -364,9 +364,9 @@ class update
 					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
 					{
 						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players')
-							  . "` WHERE	'" . $char_name . "' LIKE `name` "
-							  . " AND '" . $realm_escape . "' LIKE `server` "
-							  . " AND '" . $region . "' LIKE `region`;");
+							  . "` WHERE	'" . $char_name . "' = `name` "
+							  . " AND '" . $realm_escape . "' = `server` "
+							  . " AND '" . $region . "' = `region`;");
 
 						// Check if the profile is old
 						if( ( strtotime($time) - strtotime($timestamp) ) > 0 )
@@ -447,9 +447,9 @@ class update
 						$query = "SELECT `type`, COUNT(`rule_id`)"
 							   . " FROM `" . $roster->db->table('upload') . "`"
 							   . " WHERE (`type` = 0 OR `type` = 1)"
-							   . " AND '" . $guild_escape . "' LIKE `name` "
-							   . " AND '" . $realm_escape . "' LIKE `server` "
-							   . " AND '" . $region . "' LIKE `region` "
+							   . " AND '" . $guild_escape . "' = `name` "
+							   . " AND '" . $realm_escape . "' = `server` "
+							   . " AND '" . $region . "' = `region` "
 							   . " GROUP BY `type` "
 							   . " ORDER BY `type` DESC;";
 
@@ -478,9 +478,9 @@ class update
 								$currentTimestamp = strtotime($guild['timestamp']['init']['DateUTC']);
 
 								$time = $roster->db->query_first("SELECT `update_time` FROM `" . $roster->db->table('guild')
-									  . "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
-									  . " AND '" . $realm_escape . "' LIKE `server` "
-									  . " AND '" . $region . "' LIKE `region`;");
+									  . "` WHERE	'" . $guild_escape . "' = `guild_name` "
+									  . " AND '" . $realm_escape . "' = `server` "
+									  . " AND '" . $region . "' = `region`;");
 
 								// Check if the profile is old
 								if( ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
