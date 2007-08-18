@@ -94,6 +94,9 @@ $lang['save_update_log'] = 'Save Update Log';
 
 $lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Get it <a href="%3$s" target="_blank">HERE</a>';
 
+$lang['remove_install_files'] = 'Remove Install Files';
+$lang['remove_install_files_text'] = 'Please remove <span class="green">install.php</span> in this directory';
+
 $lang['upgrade_wowroster'] = 'Upgrade WoWRoster';
 $lang['upgrade'] = 'Upgrade';
 $lang['select_version'] = 'Select Version';
