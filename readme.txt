@@ -1,10 +1,9 @@
-WoWRoster v1.8.0
+WoWRoster v2.0.0
 Copyright (C) 2002-2007 The WoWRoster Dev Team
-Package updated February 14, 2007
+Package updated Month DD, YYYY
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
-
 For corrections and/or suggestions - http://www.wowroster.net
 
 
@@ -23,7 +22,7 @@ Introduction
 
 Information
 ------------
-	Check out our WiKi - http://www.wowroster.net/wiki
+	Check out our WiKi - http://www.wowroster.net/MediaWiki
 
 
 Contact
@@ -38,7 +37,7 @@ Contact
 Donations
 ------------
 	We only accept donations for hosting/bandwidth costs for http://www.wowroster.net
-	WE do this out of the kindness of our hearts and your happiness is enough payment :)
+	We do this out of the kindness of our hearts and your happiness is enough payment :)
 
 Installation
 ------------
@@ -51,16 +50,12 @@ Licensing
 
 Credits
 ------------
-	Props to Celandro, Paleblackness, Pytte, and Rubricsinger for the original code used for this site
-	Special Thanks to calvin from rpgoutfitter for sharing his icons
+	Props to Celandro, Paleblackness, Pytte, Rubricsinger, and Konkers for the original code used for this site
+	Special thanks to calvin from rpgoutfitter.com for his wonderfull addons CharacterProfiler and GuildProfiler
 
-	Special Thanks to the DEVs of Roster for helping to build and maintain the package
+	To the DEVs of Roster, for helping to build and maintain the package. You Rock!
 
-	Advanced Stats & Bonuses, Thanks to Cybrey (original author) and dehoskins (for additional output formatting).
-	Thanks to Nick Schaffner from 53x11 for WoW Server Status used in Roster
-	Thanks to Averen for Member Log
-
-	Thanks to all the coders who have contributed their code, bug fixes, time, and testing of roster.
+	Thanks to all the coders who have contributed code, bug fixes, time, and testing of WoWRoster
 
 
 --------------------------------------

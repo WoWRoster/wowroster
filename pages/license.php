@@ -106,8 +106,19 @@ that are not included under the main WoWRoster license</span></p>
 	<li>This concerns the files:
 		<ul>
 			<li>install.php</li>
-			<li>update.php</li>
-			<li>install/template.php</li>
+			<li>pages/upgrade.php</li>
+		</ul>
+	</li>
+</ul>
+
+<strong>DragonFly CMS Template Engine</strong>
+<ul>
+	<li><a href=\"http://www.dragonflycms.org\" target=\"_blank\">http://www.dragonflycms.org</a></li>
+	<li>GNU General Public License: <a href=\"http://gnu.org/copyleft/gpl.html\" target=\"_blank\">http://gnu.org/copyleft/gpl.html</a></li>
+	<li>This concerns the files:
+		<ul>
+			<li>lib/template.php</li>
+			<li>lib/template_enc.php</li>
 		</ul>
 	</li>
 </ul>

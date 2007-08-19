@@ -1,4 +1,6 @@
-
+WoWRoster v2.0.0
+Copyright (C) 2002-2007 The WoWRoster Dev Team
+Package updated Month DD, YYYY
 $Id$
 
 WoWRoster is licensed under a Creative Commons
@@ -52,8 +54,14 @@ Modified EQdkp installer
   * GNU General Public License: http://gnu.org/copyleft/gpl.html
   * This concerns the files:
       o install.php
-      o update.php
-      o install/template.php
+      o pages/upgrade.php
+
+DragonFly CMS Template Engine
+  * http://www.dragonflycms.org
+  * GNU General Public License: http://gnu.org/copyleft/gpl.html
+  * This concerns the files:
+      o lib/template.php
+      o lib/template_enc.php
 
 MiniXML Library
   * http://minixml.psychogenic.com

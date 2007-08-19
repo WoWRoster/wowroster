@@ -1,3 +1,5 @@
+# WoWRoster .htaccess file
+# $Id: $
 
 # ONLY IF MOD_REWRITE IS INSTALLED
 <IfModule mod_rewrite.c>
