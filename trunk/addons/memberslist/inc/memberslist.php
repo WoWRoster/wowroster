@@ -624,27 +624,27 @@ class memberslist
 		if( $row['class'] != '' )
 		{
 			$icon_value = '';
-
-			// Spec icon
-			if( $this->addon['config']['spec_icon'] == 1 )
-			{
-				$icon_value .= $this->spec_icon($row);
-			}
 			// Class Icon
-			if( $this->addon['config']['class_icon'] == 1 )
+			if( $this->addon['config']['class_icon'] >= 1 )
 			{
 				foreach ($roster->multilanguages as $language)
 				{
 					$icon_name = isset($roster->locale->wordings[$language]['class_iconArray'][$row['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row['class']] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
-				$icon_name = 'class/'.$icon_name;
+				$icon_name = 'class/' . $icon_name;
 
-				$icon_value .= '<img class="membersRowimg" width="'.$this->addon['config']['icon_size'].'" height="'.$this->addon['config']['icon_size'].'" src="'.$roster->config['img_url'].$icon_name.'.jpg" alt="" />&nbsp;';
+				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . $icon_name . '.jpg" alt="" />';
+			}
+
+			// Spec icon
+			if( $this->addon['config']['class_icon'] == 2 )
+			{
+				$icon_value .= $this->spec_icon($row);
 			}
 
 			// Class name coloring
-			if ( $this->addon['config']['class_color'] == 1 )
+			if( $this->addon['config']['class_text'] == 2 )
 			{
 				foreach( $roster->multilanguages as $language )
 				{
@@ -658,16 +658,20 @@ class memberslist
 
 				if( $class_color != '' )
 				{
-					return '<div style="display:none; ">'.$row['class'].'</div>'.$icon_value.'<span class="class'.$class_color.'txt">'.$row['class'].'</span>';
+					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $class_color . 'txt">' . $row['class'] . '</span>';
 				}
 				else
 				{
-					return '<div style="display:none; ">'.$row['class'].'</div>'.$icon_value.'<span class="class'.$row['class'].'txt">'.$row['class'].'</span>';
+					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $row['class'] . 'txt">' . $row['class'] . '</span>';
 				}
+			}
+			elseif( $this->addon['config']['class_text'] == 1 )
+			{
+			    return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . $row['class'];
 			}
 			else
 			{
-			    return '<div style="display:none; ">'.$row['class'].'</div>'.$icon_value.$row['class'];
+				return ($icon_value != '' ? '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value : '&nbsp;');
 			}
 		}
 		else
@@ -805,7 +809,7 @@ class memberslist
 		// Don't proceed for characters without data
 		if( !isset($row['talents']) || $row['talents'] == '' )
 		{
-			return '&nbsp;';
+			return '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'pixel.gif" alt="" />';
 		}
 
 		$lang = $row['clientLocale'];
@@ -838,7 +842,7 @@ class memberslist
 		{
 			$cell_value .= $specicon;
 		}
-		return $cell_value . '&nbsp;';
+		return $cell_value;
 	}
 
 

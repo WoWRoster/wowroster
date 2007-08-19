@@ -106,18 +106,18 @@ $lang['admin']['updMainAlt']    = 'Update Relations|Update the Main/Alt relation
 $lang['admin']['page_size']		= 'Page size|Configure the number of items per page, or 0 for no pagination';
 
 // Settings names on display page
-$lang['admin']['openfilter']	= 'Open filterbox|Specify if you want the filterbox open or closed by default.';
-$lang['admin']['nojs']          = 'List type|Specify if you want to use serverside sorting or clientside sorting+filtering.';
-$lang['admin']['def_sort']		= 'Default sort|Specify the default sort method.';
-$lang['admin']['member_tooltip']= 'Member tooltip|Turn the info tooltips on the member names on or off.';
-$lang['admin']['group_alts']    = 'Group alts|Goup alts under their main, rather than sorting them separately.';
-$lang['admin']['icon_size']     = 'Icon size|Set the size for the class/honor/profession icons.';
+$lang['admin']['openfilter']	= 'Open Filterbox|Specify if you want the filterbox open or closed by default.';
+$lang['admin']['nojs']          = 'List Type|Specify if you want to use serverside sorting or clientside sorting+filtering.';
+$lang['admin']['def_sort']		= 'Default Sort|Specify the default sort method.';
+$lang['admin']['member_tooltip']= 'Member Tooltip|Turn the info tooltips on the member names on or off.';
+$lang['admin']['group_alts']    = 'Group Alts|Goup alts under their main, rather than sorting them separately.';
+$lang['admin']['icon_size']     = 'Icon Size|Set the size for the class/honor/profession icons.';
 $lang['admin']['spec_icon']		= 'Talent Spec icon|Turn the talent spec icon on or off.';
-$lang['admin']['class_icon']    = 'Class icon|Turn the class icon on or off.';
-$lang['admin']['class_color']   = 'Class colors|Turn the coloring of class names on or off.';
-$lang['admin']['level_bar']     = 'Level bars|Display level bars instead of just numbers.';
-$lang['admin']['honor_icon']    = 'Honor icon|Display honor rank icon.';
-$lang['admin']['compress_note'] = 'Compress note|Show guild note in a tooltip instead of in the column.';
+$lang['admin']['class_icon']    = 'Class Icon|Controls the class/talent spec icon display.<br />Full - Display Talent Spec and Class Icon<br />On - Display only class icon<br />Off- Hide icons';
+$lang['admin']['class_text']    = 'Class Text|Controls the class text display.<br />Color - Class text with coloring<br />On - Display class text<br />Off - Hide class text';
+$lang['admin']['level_bar']     = 'Level Bars|Display level bars instead of just numbers.';
+$lang['admin']['honor_icon']    = 'Honor Icon|Display honor rank icon.';
+$lang['admin']['compress_note'] = 'Compress Note|Show guild note in a tooltip instead of in the column.';
 
 // Settings on Members page
 $lang['admin']['member_update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the members page';
