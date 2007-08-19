@@ -115,6 +115,7 @@ $lang['admin']['icon_size']     = 'Icon Size|Set the size for the class/honor/pr
 $lang['admin']['spec_icon']		= 'Talent Spec icon|Turn the talent spec icon on or off.';
 $lang['admin']['class_icon']    = 'Class Icon|Controls the class/talent spec icon display.<br />Full - Display Talent Spec and Class Icon<br />On - Display only class icon<br />Off- Hide icons';
 $lang['admin']['class_text']    = 'Class Text|Controls the class text display.<br />Color - Class text with coloring<br />On - Display class text<br />Off - Hide class text';
+$lang['admin']['talent_text']   = 'Talent Text|Shows talent spec instead of class name.';
 $lang['admin']['level_bar']     = 'Level Bars|Display level bars instead of just numbers.';
 $lang['admin']['honor_icon']    = 'Honor Icon|Display honor rank icon.';
 $lang['admin']['compress_note'] = 'Compress Note|Show guild note in a tooltip instead of in the column.';

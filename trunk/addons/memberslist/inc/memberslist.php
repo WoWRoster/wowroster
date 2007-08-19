@@ -619,7 +619,7 @@ class memberslist
 	 */
 	function class_value ( $row, $field )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		if( $row['class'] != '' )
 		{
@@ -637,12 +637,50 @@ class memberslist
 				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . $icon_name . '.jpg" alt="" />';
 			}
 
-			// Spec icon
-			if( $this->addon['config']['class_icon'] == 2 )
+			// Don't proceed for characters without data
+			if( isset($row['talents']) && !empty( $row['talents']) )
 			{
-				$icon_value .= $this->spec_icon($row);
+				$lang = $row['clientLocale'];
+
+				$talents = explode(',',$row['talents']);
+
+				$spec = $specicon = '';
+				$tooltip = array();
+				$specpoint = 0;
+				foreach( $talents as $talent )
+				{
+					list($name, $points, $icon) = explode('|',$talent);
+					$tooltip[] = $points;
+					if( $points > $specpoint )
+					{
+						$specpoint = $points;
+						$spec = $name;
+						$specicon = $icon;
+					}
+				}
+				$specline = implode(' / ', $tooltip);
+
+				$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP').' />';
+
+				if( active_addon('info') )
+				{
+					$icon_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
+				}
+				else
+				{
+					$icon_value .= $specicon;
+				}
 			}
 
+			// Talent or class text
+			if( $this->addon['config']['talent_text'] && isset($specline) )
+			{
+				$fieldtext = $specline;
+			}
+			else
+			{
+				$fieldtext = $row['class'];
+			}
 			// Class name coloring
 			if( $this->addon['config']['class_text'] == 2 )
 			{
@@ -658,16 +696,16 @@ class memberslist
 
 				if( $class_color != '' )
 				{
-					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $class_color . 'txt">' . $row['class'] . '</span>';
+					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $class_color . 'txt">' . $fieldtext . '</span>';
 				}
 				else
 				{
-					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $row['class'] . 'txt">' . $row['class'] . '</span>';
+					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $row['class'] . 'txt">' . $fieldtext . '</span>';
 				}
 			}
 			elseif( $this->addon['config']['class_text'] == 1 )
 			{
-			    return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . $row['class'];
+				return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . $fieldtext;
 			}
 			else
 			{
