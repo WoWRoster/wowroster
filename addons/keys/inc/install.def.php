@@ -29,15 +29,13 @@ class keys
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0.0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'Instance Keys';
 	var $description = 'Lists Azeroth Dungeon keys for guild members';
 	var $credits = array(
-	array(	"name"=>	"WoWRoster Dev Team",
-			"info"=>	"Original Author")
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
 
 
@@ -71,7 +69,7 @@ class keys
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**

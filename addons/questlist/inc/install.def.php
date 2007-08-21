@@ -29,15 +29,13 @@ class questlist
 	var $active = true;
 	var $icon = 'spell_holy_surgeoflight';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0.0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'Quest List';
 	var $description = 'Search for quests other guild members are on';
 	var $credits = array(
-	array(	"name"=>	"WoWRoster Dev Team",
-			"info"=>	"Original Author")
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
 
 
@@ -63,7 +61,7 @@ class questlist
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**

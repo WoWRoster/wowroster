@@ -29,15 +29,13 @@ class professions
 	var $active = true;
 	var $icon = 'trade_blacksmithing';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0.0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'Professions';
 	var $description = 'Lists tradeskills for everyone in the guild';
 	var $credits = array(
-	array(	"name"=>	"vgjunkie",
-			"info"=>	"Original Author")
+		array(	"name"=>	"vgjunkie",
+				"info"=>	"Original Author")
 	);
 
 
@@ -70,7 +68,7 @@ class professions
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**

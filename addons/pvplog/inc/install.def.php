@@ -29,9 +29,7 @@ class pvplog
 	var $active = true;
 	var $icon = 'inv_banner_03';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0.0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'PvPLog';
 	var $description = 'Displays data collected by the PvPLog WoW addon';
@@ -60,7 +58,10 @@ class pvplog
 		$installer->add_config("'1000','minPvPLogver','2.0.0','text{10|10','pvpconfig'");
 
 		$installer->add_query("
-			CREATE TABLE IF NOT EXISTS `" . $roster->db->table('pvp2') . "` (
+			DROP TABLE IF EXISTS `" . $roster->db->table('pvp2') . "`;
+		");
+		$installer->add_query("
+			CREATE TABLE `" . $roster->db->table('pvp2') . "` (
 			  `member_id` int(11) unsigned NOT NULL default '0',
 			  `index` int(11) unsigned NOT NULL default '0',
 			  `date` datetime default NULL,
@@ -100,7 +101,7 @@ class pvplog
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**

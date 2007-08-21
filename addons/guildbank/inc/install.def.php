@@ -28,15 +28,13 @@ class guildbank
 	var $active = true;
 	var $icon = 'inv_misc_bag_15';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0.0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'Guild Bank';
 	var $description = 'Shows the inventory of characters marked as the Guild Bank';
 	var $credits = array(
-	array(	"name"=>	"vaccafoeda.hellscream@gmail.com",
-			"info"=>	"Original author")
+		array(	"name"=>	"vaccafoeda.hellscream@gmail.com",
+				"info"=>	"Original author")
 	);
 
 
@@ -70,7 +68,7 @@ class guildbank
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**
