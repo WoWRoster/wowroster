@@ -28,15 +28,13 @@ class guildinfo
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0.0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'Guild Info';
 	var $description = 'Shows Guild Info text from WoW';
 	var $credits = array(
-	array(	"name"=>	"WoWRoster Dev Team",
-			"info"=>	"Original Author")
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
 
 
@@ -62,7 +60,7 @@ class guildinfo
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**

@@ -20,19 +20,15 @@ if ( !defined('IN_ROSTER') )
 
 /**
  * Installer for MembersList Addon
- *
  * @package    MembersList
  * @subpackage Installer
- *
  */
 class memberslist
 {
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '2.0.0-0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'Members List';
 	var $description = 'A sortable, filterable member list.';
@@ -75,11 +71,11 @@ class memberslist
 		$installer->add_config("1050,'icon_size','16','select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20','display'");
 		$installer->add_config("1060,'class_icon','2','radio{Full^2|On^1|Off^0','display'");
 		$installer->add_config("1070,'class_text','0','radio{Color^2|On^1|Off^0','display'");
-		$installer->add_config("1075,'talent_text','0','radio{On^1|Off^0','display'");
-		$installer->add_config("1080,'level_bar','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1090,'honor_icon','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1100,'compress_note','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1110,'page_size','0','text{4|30','display'");
+		$installer->add_config("1080,'talent_text','0','radio{On^1|Off^0','display'");
+		$installer->add_config("1090,'level_bar','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1100,'honor_icon','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1110,'compress_note','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1120,'page_size','0','text{4|30','display'");
 
 		# Per page settings: Memberlist
 		$installer->add_config("2000,'member_update_inst','1','radio{Off^0|On^1','members'");
@@ -186,7 +182,7 @@ class memberslist
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**

@@ -415,13 +415,15 @@ function processAddon()
 				$installer->seterrors(sprintf($roster->locale->act['installer_no_upgrade'],$installer->addata['basename']));
 				break;
 			}
+			/* Carry Over from AP branch
 			if( !in_array($previous['basename'],$addon->upgrades) )
 			{
 				$installer->seterrors(sprintf($roster->locale->act['installer_not_upgradable'],$addon->fullname,$previous['fullname'],$previous['basename']));
 				break;
 			}
+			*/
 
-			$query = 'UPDATE `' . $roster->db->table('addon') . '` SET `basename`="' . $installer->addata['basename'] . '", `version`="' . $installer->addata['version'] . '", `active`=' . $installer->addata['active'] . ', `fullname`="' . $installer->addata['fullname'] . '", `description`="' . $installer->addata['description'] . '", `credits`="' . serialize($installer->addata['credits']) . '", `icon`="' . $installer->addata['icon'] . '" WHERE `addon_id`=' . $previous['addon_id'] . ';';
+			$query = "UPDATE `" . $roster->db->table('addon') . "` SET `basename`='" . $installer->addata['basename'] . "', `version`='" . $installer->addata['version'] . "', `active`=" . $installer->addata['active'] . ", `fullname`='" . $installer->addata['fullname'] . "', `description`='" . $installer->addata['description'] . "', `credits`='" . serialize($installer->addata['credits']) . "', `icon`='" . $installer->addata['icon'] . "' WHERE `addon_id`=" . $previous['addon_id'] . ';';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{

@@ -28,15 +28,13 @@ class news
 	var $active = true;
 	var $icon = 'ability_warrior_rallyingcry';
 
-	var $upgrades = array(); // There are no previous versions to upgrade from
-
-	var $version = '1.8.0-0';
+	var $version = '2.0.0.0';
 
 	var $fullname = 'News';
 	var $description = 'News system, with comments';
 	var $credits = array(
-	array(	"name"=>	"WoWRoster Dev Team",
-			"info"=>	"Original author")
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original author")
 	);
 
 
@@ -103,7 +101,7 @@ class news
 	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
-		return false;
+		return true;
 	}
 
 	/**
