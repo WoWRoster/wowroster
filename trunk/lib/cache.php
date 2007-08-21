@@ -15,11 +15,11 @@
  * @package    WoWRoster
  * @subpackage RosterClass
 */
-//
-//if( !defined('ROSTER_INSTALLED') )
-//{
-//	exit('Detected invalid access to this file!');
-//}
+
+if( !defined('IN_ROSTER') )
+{
+	exit('Detected invalid access to this file!');
+}
 
 class cache
 {

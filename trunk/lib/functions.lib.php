@@ -1084,9 +1084,10 @@ function active_addon( $name )
  *
  * @param string $url	| URL to retrieve
  * @param int $timeout	| Timeout for curl
+ * @param  string $user_agent	| Useragent to use for connection
  * @return mixed		| False on error, contents on success
  */
-function urlgrabber( $url , $timeout = 5 )
+function urlgrabber( $url, $timeout = 5, $user_agent=false )
 {
 	$contents = '';
 
@@ -1096,7 +1097,10 @@ function urlgrabber( $url , $timeout = 5 )
 
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
+		if( $user_agent )
+		{
+			curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+		}
 		$contents = curl_exec($ch);
 
 		// If there were errors

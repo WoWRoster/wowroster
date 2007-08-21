@@ -22,7 +22,10 @@
 // EDITED BY: http://wowroster.net for use in wowroster
 // Most other changes by Zanix
 
-define('IN_ROSTER',true);
+if( !defined('IN_ROSTER') )
+{
+	define('IN_ROSTER',true);
+}
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 

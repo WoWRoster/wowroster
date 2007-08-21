@@ -83,4 +83,9 @@ class XmlParser
 		$this->data = & $this->datas[count($this->datas)-1];
 		array_pop($this->datas);
 	}
+	
+	function getParsedData()
+	{
+		return $this->data;
+	}
 }

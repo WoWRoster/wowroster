@@ -38,7 +38,14 @@ class item
 	var $setItemEquiped = 0;
 	var $setItemOwned = 0;
 	var $setItemTotal = 0;
-
+	
+	/**
+	 * Armory Lookup Object
+	 *
+	 * @var lib_armory
+	 */
+	var $armory_db;
+	
 	// parsed arrays/strings
 	var $parsed_item = array();  // fully parsed item array
 	var $attributes = array(); // holds all parsed item attributes
@@ -706,6 +713,11 @@ class item
 		// otherwise do simple parsing
 		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
 
+//		if( $this->isParseMode == 'web' || $gem2 )
+//		{
+//			return $this->_parseTooltipArmory($itemid);
+//		}
+		
 		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 
 			&& !$this->isParseMode == 'simple' && !strstr($this->name, ':') )
 		{
@@ -724,6 +736,127 @@ class item
 		$this->isParseMode = 'simple';
 	}
 
+	function _parseTooltipArmory( $itemid )
+	{
+		global $roster;
+		
+		// check for armory object
+		if( !is_object($this->armory_db) )
+		{
+			$this->initArmoryDb();
+		}
+		$data = $this->armory_db->fetchItemTooltip($itemid, $this->locale);
+//		$data = $this->armory_db->fetchItemTooltip($itemid, 'deDE');
+		//trim the fat
+		$data = $data['page'][0]['child']['itemTooltips'][0]['child']['itemTooltip'][0]['child'];
+aprint($data);		
+		if( !empty($data) )
+		{
+			//assign data structure
+			$tt['Attributes']['TempEnchantment'][] = $matches[1];
+//			$tt['Attributes']['SocketBonus'] = $data[];
+//			$tt['Attributes']['Enchantment'] = $matches[1];
+			$tt['General']['Name'] = $data['name'][0]['data'];
+			$tt['General']['ItemId'] = $this->item_id;
+			$tt['General']['ItemColor'] = $this->color;
+			$tt['General']['Icon'] = $this->icon;
+			$tt['General']['Slot'] = $this->slot;
+			$tt['General']['Parent'] = $this->parent;
+			$tt['General']['Tooltip'] = str_replace("\n", '<br>', $this->tooltip);
+			$tt['General']['Locale']=$this->locale;
+	
+			//foreach( $data[] )
+			$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+			
+			
+			$tt['Effects']['Use'][] = $line;
+			$tt['Attributes']['Requires'][] = $line;
+			$tt['Effects']['ChanceToProc'][] = $line;
+			$tt['Effects']['Equip'][] = $line;
+			$tt['Effects']['ChanceToProc'][] = $line;
+			$tt['Attributes']['BindType'] = $line;
+			$tt['Attributes']['Set']['SetBonus'][] = $line;
+
+			$tt['Attributes']['Durability']['Line']= 'Durability ';
+			$tt['Attributes']['Durability']['Current'] = $matches[1];
+			$tt['Attributes']['Durability']['Max'] = $matches[2];
+			$tt['Attributes']['Class'] = explode(', ', $matches[2]);
+			$tt['Attributes']['ClassText'] = $matches[1];
+			$tt['Attributes']['Race'] = explode(', ', $matches[2]);
+			$tt['Attributes']['RaceText'] = $matches[1];
+			$tt['Attributes']['Sockets'][$matches[1]] = $matches[0];
+			$this->isSocketable = true;
+
+			$tt['Attributes']['Set']['InactiveSet'][] = $line;
+			$tt['Attributes']['ItemNote'] = $line;
+			$tt['Attributes']['Unique'] = $line;
+			$tt['Attributes']['ArmorClass']['Line'] = $matches[0];
+			$tt['Attributes']['ArmorClass']['Rating'] = $matches[1];
+			$tt['Attributes']['ArmorType'] = $line[1];
+			$tt['Attributes']['ArmorSlot'] = $line[0];
+			$this->isArmor = true;
+			$tt['Attributes']['WeaponType'] = $line[1];
+			$tt['Attributes']['WeaponSlot'] = $line[0];
+			$this->isWeapon = true;
+			$tt['Attributes']['WeaponSpeed'] = $line[1];
+			$tt['Attributes']['WeaponDamage'] = $line[0];
+			$this->isWeapon = true;
+			$tt['Attributes']['WeaponDPS'] = $line;
+			$this->isWeapon = true;
+			$tt['Attributes']['MadeBy']['Name'] = $matches[1];
+			$tt['Attributes']['MadeBy']['Line'] = $matches[0];
+			$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
+			$this->isSetPiece = true;
+			$setpiece = 1;
+			$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);
+
+			$tt['Attributes']['WeaponSlot'] = $line;
+			$this->isWeapon = true;
+			$tt['Attributes']['ArmorSlot'] = $line;
+			$this->isArmor = true;
+			$tt['Attributes']['BagSize'] = $matches[1];
+			$tt['Attributes']['BagDesc'] = $line;
+			$this->isBag = true;
+			$tt['Attributes']['Charges'] = $line;
+
+			$tt['Poison']['Effect'][] = $line;
+			$this->isPoison = true;
+			$tt['Attributes']['Conjured'][] = $line;
+			$this->parsed_item = $tt;
+			$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
+			$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
+
+						
+/**			
+		if( $gem1 || $gem2 || $gem3 )
+		{
+			$gems = array($gem1,$gem2,$gem3);
+			$i = 1;
+			foreach( $gems as $gem )
+			{
+				if( $gem )
+				{
+					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
+					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
+					{
+						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
+					}
+					else
+					{
+						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
+						$this->isParseError = true;
+					}
+				}
+				$i++;
+			}
+			$this->isSocketable = true;
+		}
+*/	
+//			aprint($tt);
+			
+		}
+	}
+	
 	function _parseTooltipFull( $itemid, $enchant=false, $gem1=false, $gem2=false, $gem3=false)
 	{
 		global $roster;
@@ -1328,5 +1461,11 @@ class item
 	function _addSocketColor( $socket_color, $amount=1 )
 	{
 		$this->sockets[$socket_color] = $this->sockets[$socket_color] + $amount;
+	}
+	
+	function initArmoryDb()
+	{
+		require_once(ROSTER_LIB.'armory.class.php');
+		$this->armory_db = new lib_armory();
 	}
 } //end class item
