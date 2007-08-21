@@ -36,7 +36,7 @@ if( $roster->config['seo_url'] )
 }
 else
 {
-	define('ROSTER_LINK', '?' . ROSTER_PAGE . '=%1$s');
+	define('ROSTER_LINK', 'index.php?' . ROSTER_PAGE . '=%1$s');
 }
 
 /**

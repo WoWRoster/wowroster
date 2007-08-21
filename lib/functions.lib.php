@@ -1083,7 +1083,7 @@ function active_addon( $name )
  * Handles retrieving the contents of a URL using multiple methods
  *
  * @param string $url	| URL to retrieve
- * @param int $timeout	| Timeout
+ * @param int $timeout	| Timeout for curl
  * @return mixed		| False on error, contents on success
  */
 function urlgrabber( $url , $timeout = 5 )

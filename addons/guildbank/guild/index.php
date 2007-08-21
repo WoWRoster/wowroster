@@ -128,15 +128,18 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 				 . $muleRow['copper'] . ' <img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" /></div>'
 				 . "</td>\n</tr>\n" : '' );
 
+	$localeQuery = "SELECT `clientLocale` FROM `" . $roster->db->table('players') . "` WHERE  member_id = " . $muleRow['member_id'] ;
+	$mulelocale = $roster->db->query_first($localeQuery);
+
 	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity"
 					  . " FROM `" . $roster->db->table('items') . "` as i"
 					  . " WHERE " . $muleRow['member_id'] . " = i.member_id"
 					  . " AND i.item_parent!='bags'"
 					  . " AND i.item_parent!='equip'"
 					  . " AND (i.item_tooltip"
-					  . " NOT LIKE '%" . $roster->locale->act['tooltip_soulbound'] . "%'"
+					  . " NOT LIKE '%" . $roster->locale->wordings[$mulelocale]['tooltip_soulbound'] . "%'"
 					  . " OR i.item_tooltip"
-					  . " LIKE '%" . $roster->locale->act['tooltip_boe'] . "%')"
+					  . " LIKE '%" . $roster->locale->wordings[$mulelocale]['tooltip_boe'] . "%')"
 					  . " GROUP BY real_itemid"
 					  . " ORDER BY i.item_name";
 
