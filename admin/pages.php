@@ -41,15 +41,15 @@ $config_pages['upload'] = array(
 	'title'=>	'pagebar_uploadrules',
 	'file'=>	'upload_rules.php',
 	);
-$config_pages['menu'] = array(
-	'href'=>	$roster->pages[0].'-menu',
-	'title'=>	'pagebar_menuconf',
-	'file'=>	'menu_conf.php',
-	);
 $config_pages['install'] = array(
 	'href'=>	$roster->pages[0].'-install',
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
+	);
+$config_pages['menu'] = array(
+	'href'=>	$roster->pages[0].'-menu',
+	'title'=>	'pagebar_menuconf',
+	'file'=>	'menu_conf.php',
 	);
 $config_pages['change_pass'] = array(
 	'href'=>	$roster->pages[0].'-change_pass',

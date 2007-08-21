@@ -557,7 +557,9 @@ class RosterMenu
 		$query = "SELECT `mb`.*, `a`.`basename` "
 			   . "FROM `" . $roster->db->table('menu_button') . "` AS mb "
 			   . "LEFT JOIN `" . $roster->db->table('addon') . "` AS a "
-			   . "ON `mb`.`addon_id` = `a`.`addon_id`;";
+			   . "ON `mb`.`addon_id` = `a`.`addon_id` "
+			   . "WHERE `a`.`addon_id` IS NULL "
+			   . "OR `a`.`active` = 1;";
 
 		$result = $roster->db->query($query);
 
