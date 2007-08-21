@@ -2535,6 +2535,7 @@ class update
 		$this->add_value('name', $name);
 		$this->add_value('server', $server);
 		$this->add_value('region', $region);
+		$this->add_value('guild_id', $guildId);
 		$this->add_ifvalue( $char, 'Class', 'class' );
 		$this->add_ifvalue( $char, 'Level', 'level' );
 		$this->add_ifvalue( $char, 'Note', 'note', '' );
@@ -2584,7 +2585,7 @@ class update
 
 		if( isset($memberId) )
 		{
-			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId' AND `guild_id` = '$guildId';";
+			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId';";
 			$this->setMessage('<li>[ ' . $name . ' ]</li>');
 			$this->membersupdated++;
 
@@ -2597,12 +2598,6 @@ class update
 		}
 		else
 		{
-			// Add the guild Id first
-			if( !empty($guildId) )
-			{
-				$this->add_value('guild_id', $guildId);
-			}
-
 			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr . ';';
 			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
 
