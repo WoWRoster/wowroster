@@ -15,14 +15,38 @@
  * @since      File available since Release 1.7.0
 */
 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
+//error_reporting(E_ALL ^ E_NOTICE);
 
 // Needed so files think we are in Roster =P
 define('IN_ROSTER',true);
 
+/**
+ * OS specific Directory Seperator
+ */
+define('DIR_SEP',DIRECTORY_SEPARATOR);
+
+
+/**
+ * Base, absolute roster directory
+ */
+define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
+define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
+
 // This file is for on the SVN only, so this should NOT be shipped to the clients!!!
-require_once 'lib/functions.lib.php';
-require_once 'lib/rosterdiag.lib.php';
+require_once ROSTER_BASE . 'lib/constants.php';
+require_once ROSTER_LIB . 'functions.lib.php';
+require_once ROSTER_LIB . 'roster.php';
+$roster = new roster;
+define('ROSTER_PAGE_NAME', '');
+
+$roster->config['seo_url'] = false;
+
+require_once ROSTER_LIB . 'cmslink.lib.php';
+
+$roster->config['img_url'] = ROSTER_PATH . 'img/';
+
+require_once ROSTER_LIB . 'rosterdiag.lib.php';
 
 if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 {
@@ -83,20 +107,56 @@ if(isset($_GET['getfile']) && $_GET['getfile'] != '')
 }
 elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 {
+	$roster->config['theme'] = 'default';
 	$roster->config['default_name'] = $_POST['guildname'];
 	$roster->output['title'] = 'Remote Diagnostics';
-	$roster->config['img_url'] = ROSTER_PATH.'img/';
 	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
-	//ROSTER_SVNREMOTE = $_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]; // This is an optional variable.....in case the SVN temporarily changes.....Normally the value will come from the local (SVN) lib/rosterdiag.lib.php
-	$roster->config['logo'] = 'img/wowroster_logo.jpg';
-	$roster->config['roster_bg'] = 'img/wowroster_bg.jpg';
+	$roster->config['logo'] = $roster->config['img_url'] . 'wowroster_logo.jpg';
+	$roster->config['roster_bg'] = $roster->config['img_url'] . 'wowroster_bg.jpg';
 
+	require_once ROSTER_LIB . 'template.php';
+	$roster->tpl = new Template;
+
+	/**
+	 * Assign initial template vars
+	 */
+	$roster->tpl->assign_vars(array(
+		'S_SEO_URL'          => false,
+		'S_HEADER_LOGO'      => ( !empty($roster->config['logo']) ? true : false ),
+
+		'U_MAKELINK'      => makelink(),
+		'ROSTER_URL'      => ROSTER_URL,
+		'ROSTER_PATH'     => ROSTER_PATH,
+		'THEME_PATH'      => ROSTER_PATH . $roster->config['theme'],
+		'WEBSITE_ADDRESS' => $roster->config['website_address'],
+		'HEADER_LOGO'     => $roster->config['logo'],
+		'IMG_URL'         => $roster->config['img_url'],
+		'INTERFACE_URL'   => '',
+		'ROSTER_VERSION'  => ROSTER_VERSION,
+		'ROSTER_CREDITS'  => '',
+		'XML_LANG'        => 'en',
+
+		'T_BORDER_WHITE'  => border('swhite','start'),
+		'T_BORDER_GRAY'   => border('sgray','start'),
+		'T_BORDER_GOLD'   => border('sgold','start'),
+		'T_BORDER_RED'    => border('sred','start'),
+		'T_BORDER_ORANGE' => border('sorange','start'),
+		'T_BORDER_YELLOW' => border('syellow','start'),
+		'T_BORDER_GREEN'  => border('sgreen','start'),
+		'T_BORDER_PURPLE' => border('spurple','start'),
+		'T_BORDER_END'    => border('sgray','end'),
+
+		'ROSTER_HEAD'        => '',
+		'ROSTER_BODY'        => '',
+		'ROSTER_MENU_BEFORE' => '',
+		)
+	);
 
 	include_once(ROSTER_BASE . 'header.php');
-	$temp_array = split("&", $_SERVER['QUERY_STRING']);
+	$temp_array = split('&', $_SERVER['QUERY_STRING']);
 	foreach($temp_array as $key=>$value)
 	{
-		if(substr($value, 0, 15) == "files")
+		if(substr($value, 0, 15) == 'files')
 		{
   			$_POST['files'][] = substr($value, 15, strlen($value));
 		}
@@ -162,7 +222,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	if ($zippackage_files != '')
 	{
 		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
-		echo '<div align="center"><form method="POST" action="'.ROSTER_SVNREMOTE.'">';
+		echo '<div align="center"><form method="post" action="'.ROSTER_SVNREMOTE.'">';
 		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
 		echo '<input type="hidden" name="guildname" value="'.$roster->config['default_name'].'">';
 		echo '<input type="hidden" name="website" value="'.$roster->config['website_address'].'">';
@@ -192,11 +252,11 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'plus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'plus.gif" alt="+" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'minus.gif" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'minus.gif" alt="-" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
@@ -210,9 +270,13 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			foreach ($files[$directory] as $file => $filedata)
 			{
 				if ($row==1)
+				{
 					$row=2;
+				}
 				else
+				{
 					$row=1;
+				}
 
 				if (isset($filedata['tooltip']))
 				{
@@ -270,7 +334,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 					echo '<td class="membersRowRight'.$row.'">'."\n";
 					if($filedata['diff'] || $filedata['missing'])
 					{
-						echo '<form method="POST" action="'.makelink('rosterdiag').'">'."\n";
+						echo '<form method="post" action="'.makelink('rosterdiag').'">'."\n";
 						echo "<input type=\"hidden\" name=\"filename\" value=\"".$directory.'/'.$file."\">\n";
 						echo "<input type=\"hidden\" name=\"downloadsvn\" value=\"confirmation\">\n";
 						if (isset($filedata['diff']) && $filedata['diff'])
@@ -284,7 +348,6 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 							echo "<input type=\"submit\" value=\"Show File\">\n";
 						}
 						echo '</form>';
-
 					}
 					else
 					{
@@ -306,8 +369,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	echo border('sgray', 'end');
 
 	echo '<!-- Begin Roster Footer -->';
-	echo '</div><!-- End roster main area -->';
-	echo '</div><!-- End main border -->';
+	echo '</div>';
 	echo '</body>';
 	echo '</html>';
 
@@ -315,24 +377,17 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 }
 elseif (isset($_POST['filestoget']) && isset($_POST['ziptype']))
 {
-
-	$roster->config['default_name'] = $_POST['guildname'];
-	$roster->output['title'] = 'Remote Diagnostics';
-	$roster->config['website_address'] = $_SERVER['HTTP_REFERER'];
-	$roster->config['logo'] = 'img/wowroster_logo.jpg';
-	$roster->config['logo'] = 'img/wowroster_bg.jpg';
-
 	$filesarray = explode(';', $_POST['filestoget']);
 	$ziptype = $_POST['ziptype']; // targz  or  zip
 	$errors = '';
 
 	if ($ziptype == 'targz')
 	{
-		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.$roster->config['default_name'].'_'.date("Ymd_Hi").'.tar.gz');
+		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.date('Ymd_Hi').'.tar.gz');
 	}
 	else
 	{
-		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.$roster->config['default_name'].'_'.date("Ymd_Hi").'.zip');
+		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.date('Ymd_Hi').'.zip');
 	}
 
 	$downloadpackage->set_options(array('inmemory' => 1, 'recurse' => 0, 'storepaths' => 1));
