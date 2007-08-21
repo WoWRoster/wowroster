@@ -28,7 +28,7 @@ class bag extends item
 	function bag( $data )
 	{
 		$this->item( $data );
-		$this->contents = $this->fetchManyItems($this->data['member_id'], $this->data['item_slot']);
+		$this->contents = $this->fetchManyItems($this->data['member_id'], $this->data['item_slot'], 'full');
 	}
 
 	function out( )

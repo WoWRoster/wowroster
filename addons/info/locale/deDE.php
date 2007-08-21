@@ -144,8 +144,8 @@ $lang['pointsspent']='Punkte verteilt in';
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Boni f&uuml;r angelegte Gegenst&auml;nde';
 $lang['item_bonuses'] = 'Gegenstand Boni';
-$lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
-$lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
+$lang['item_bonuses_preg_linesplits']='/(und|\/|&)/';
+$lang['item_bonuses_preg_main']='/(?!\d*\s(sek|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 // note to translators ** do not worry about translating this yet.. this will change SOON -ds
 $lang['item_bonuses_remap']=

@@ -573,9 +573,9 @@ $lang['tooltip_preg_classes']='/^(Klassen:) (.+)/';
 $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
-$lang['tooltip_preg_emptysocket']='/(((Roter|Gelber|Blauer) Sockel)|Metasockel)/';
+$lang['tooltip_preg_emptysocket']='/(Roter|Gelber|Blauer|Meta)/i';
 $lang['tooltip_preg_reinforcedarmor']='';
-$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\))\n/';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';
@@ -592,19 +592,19 @@ $lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklick
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
 $lang['gem_preg_singlecolor'] = '/Am besten für einen (.+) Sockel geeignet/';
-$lang['gem_preg_multicolor'] = '/Am besten für einen (.+) oder (.+) Sockel geeignet/';
+$lang['gem_preg_multicolor'] = '/Am besten für einen (.+) oder (.+) Sockel geeignet\./';
 $lang['gem_preg_meta'] = '/Passt nur in einen Sockel der Kategorie Meta/';
 $lang['gem_preg_prismatic'] = '/Am besten für einen roten, gelben oder blauen Sockel geeignet/';
 
 //Gems color Array
 $lang['gem_colors'] = array(
-	'red' => 'Rot',
-	'blue' => 'Blau',
-	'yellow' => 'Gelb',
-	'green' => 'Grün',
-	'orange' => 'Orange',
-	'purple' => 'Violett',
-	'prismatic' => 'Prismatisch',
+	'red' => 'roten',
+	'blue' => 'blauen',
+	'yellow' => 'gelben',
+	'green' => 'grün',
+	'orange' => 'orange',
+	'purple' => 'violett',
+	'prismatic' => 'prismatisch',
 	'meta' => 'Meta' //verify translation
 	);
 // -- end tooltip parsing
