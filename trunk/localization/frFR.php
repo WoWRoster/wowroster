@@ -581,7 +581,7 @@ $lang['tooltip_chance_hit']='Chances quand touché :'; // needs to find 'chance 
 $lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
 $lang['tooltip_reg_onlyworksinside']='Utilisable uniquement dans'; // cas des potions de néangond par exemple qui ne sont utilisables qu'au donjon de la tempête
 $lang['tooltip_reg_conjureditems']='Objet invoqué disparaissant'; // cas d'un objet invoqué qui disparait après 15 minutes de déconnexion
-$lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
+$lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
 $lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche'; // the types of weapons as shown in the tooltip
