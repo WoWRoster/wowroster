@@ -125,16 +125,18 @@ class RosterMenu
 	            die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
 	        }
 
+	        $realms=0;
 			while( $data = $roster->db->fetch($result,SQL_NUM) )
 			{
 				$menu_select[$data[1]][] = $data[0];
+				$realms++;
 			}
 
 	        $roster->db->free_result($result);
 
-	        $roster->tpl->assign_var('S_MENU_SELECT',( count($menu_select) > 1 ? true : false ));
+	        $roster->tpl->assign_var('S_MENU_SELECT',( $realms > 1 ? true : false ));
 
-			if( count($menu_select) > 1 )
+			if( $realms > 1 )
 			{
 				foreach( $menu_select as $region => $realmsArray )
 				{
@@ -168,14 +170,17 @@ class RosterMenu
 				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
 			}
 
+	        $guilds=0;
 			while( $data = $roster->db->fetch($result,SQL_NUM) )
 			{
 				$menu_select[$data[1]][$data[2]] = $data[0];
+				$guilds++;
 			}
 
 			$roster->db->free_result($result);
 
-	        $guilds=0;
+	        $roster->tpl->assign_var('S_MENU_SELECT',( $guilds > 1 ? true : false ));
+
 			if( count($menu_select) > 0 )
 			{
 				foreach( $menu_select as $realm => $guild )
@@ -187,7 +192,6 @@ class RosterMenu
 
 					foreach( $guild as $id => $name )
 					{
-						$guilds++;
 						$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
 							'TEXT'       => $name,
 							'U_VALUE'    => makelink('&amp;guild=' . $id),
@@ -196,7 +200,6 @@ class RosterMenu
 						);
 					}
 				}
-		        $roster->tpl->assign_var('S_MENU_SELECT',( $guilds > 1 ? true : false ));
 			}
 		}
 
