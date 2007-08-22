@@ -551,7 +551,7 @@ function process_step3()
 			MySQL versions less than 4.1.0 may experience data corruption and are not supported.<br />
 			We will not provide support for these types of installations.');
 
-		if( version_compare($server_version,'4.1','<') || version_compare($client_version,'4.1','<') )
+		if( version_compare($server_version,'4.1','<') )
 		{
 			$tpl->message_die('MySQL client <strong>and</strong> server version 4.1.0 or higher is required for Roster.<br /><br />
 				<strong>You are running:</strong>
@@ -559,7 +559,7 @@ function process_step3()
 					<li><strong>Your server version: ' . $server_version . '</strong></li>
 					<li><strong>Your client version: ' . $client_version . '</strong></li>
 				</ul>
-				We are sorry, your MySQL version is not high enough to install Roster, please upgrade MySQL.');
+				We are sorry, your MySQL server version is not high enough to install Roster, please upgrade MySQL.');
 		}
 	}
 	else
