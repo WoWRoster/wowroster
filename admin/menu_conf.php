@@ -49,7 +49,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 }
 
 // --[ Fetch button list from DB ]--
-$query = "SELECT `mb`.*, `a`.`basename`
+$query = "SELECT `mb`.*, `a`.`basename`, `a`.`active`
 	FROM `".$roster->db->table('menu_button')."` AS mb
 	LEFT JOIN `".$roster->db->table('addon')."` AS a
 	ON `mb`.`addon_id` = `a`.`addon_id`;";
@@ -237,9 +237,19 @@ foreach($arrayButtons as $pos=>$button)
 		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
 		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
+	if( $button['active'] == '0' )
+	{
+		$buttonclass = 'menu_config_div_disabled';
+		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">Addon is inacvtive</span></span>';
+	}
+	else
+	{
+		$buttonclass = 'menu_config_div';
+	}
+
 	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
-	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
+	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="' . $buttonclass . '"'.$button['tooltip'].'></div>' . "\n";
 
 	// Restore our locale array
 	$roster->locale->wordings = $localestore;
@@ -299,9 +309,19 @@ foreach($palet as $id=>$button)
 		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
 		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
+	if( $button['active'] == '0' )
+	{
+		$buttonclass = 'menu_config_div_disabled';
+		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">Addon is inacvtive</span></span>';
+	}
+	else
+	{
+		$buttonclass = 'menu_config_div';
+	}
+
 	$button['tooltip'] = ' '.makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
-	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="menu_config_div"'.$button['tooltip'].'></div>' . "\n";
+	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="' . $buttonclass . '"'.$button['tooltip'].'></div>' . "\n";
 
 	// Restore our locale array
 	$roster->locale->wordings = $localestore;
