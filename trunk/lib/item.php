@@ -718,8 +718,8 @@ class item
 //			return $this->_parseTooltipArmory($itemid);
 //		}
 		
-		if( $this->isParseMode == 'full' || $enchant || $gem1 || $gem2 || $gem3 
-			&& !$this->isParseMode == 'simple' && !strstr($this->name, ':') )
+		if( $this->isParseMode == 'full' && !strstr($this->name, ':') || $enchant || $gem1 || $gem2 || $gem3 
+			&& !$this->isParseMode == 'simple'  )
 		{
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
 		}
