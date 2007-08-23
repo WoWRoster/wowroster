@@ -35,7 +35,7 @@ if( !include_once(ROSTER_LIB . 'template.php') )
 	die('Could not include lib/template.php - check to make sure that the file exists!');
 }
 
-class Template_Wrap extends Template
+class Template_Wrap extends RosterTemplate
 {
 	var $error_message   = array();           // Array of errors      @var $error_message
 	var $install_message = array();           // Array of messages    @var $install_message
@@ -324,13 +324,13 @@ function process_step1()
 	{
 		if( !@mkdir(ROSTER_CACHEDIR, 0777) )
 		{
-			$tpl->error_append('The template cache directory could not be created, create &quot;cache&quot;one manually in the root directory');
+			$tpl->error_append('The cache directory could not be created, create &quot;cache&quot;one manually in the root directory');
 			$cache_write = 'red';
 			$cache_write_t = 'Write access denied, read the info above';
 		}
 		else
 		{
-			$tpl->message_append('A template cache directory was created');
+			$tpl->message_append('A cache directory was created');
 		}
 	}
 	else
@@ -339,13 +339,13 @@ function process_step1()
 		{
 			if( !@chmod(ROSTER_CACHEDIR, 0777) )
 			{
-				$tpl->error_append('The template cache directory exists, but is not set to be writeable and could not be changed automatically.<br />Please change the permissions to 0777 manually by executing <strong>chmod 0777 cache</strong> on your server.');
+				$tpl->error_append('The cache directory exists, but is not set to be writeable and could not be changed automatically.<br />Please change the permissions to 0777 manually by executing <strong>chmod 0777 cache</strong> on your server.');
 				$cache_write = 'red';
 				$cache_write_t = 'Write access denied, read the info above';
 			}
 			else
 			{
-				$tpl->message_append('The template cache directory has been set to be writeable in order to let the Templating engine to function');
+				$tpl->message_append('The cache directory has been set to be writeable in order to let the Templating engine to function');
 			}
 		}
 		// Cache directory exists and is writeable, we're good to go

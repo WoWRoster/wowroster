@@ -22,7 +22,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-class Template
+class RosterTemplate
 {
 	// variable that holds all the data we'll be substituting into
 	// the compiled templates. Takes form:
@@ -39,7 +39,7 @@ class Template
 	// this will hash handle names to the compiled/uncompiled code for that handle.
 	var $compiled_code = array();
 
-	function Template()
+	function RosterTemplate()
 	{
 		global $roster;
 
@@ -171,10 +171,10 @@ class Template
 			trigger_error("template->_tpl_load_file(): File ".$this->files[$handle]." does not exist or is empty", E_USER_ERROR);
 		}
 		require_once(ROSTER_LIB.'template_enc.php');
-		$this->compiled_code[$handle] = tpl_encode::compile(trim(fread($fp, filesize($this->files[$handle]))));
+		$this->compiled_code[$handle] = RosterTplEncode::compile(trim(fread($fp, filesize($this->files[$handle]))));
 		fclose($fp);
 		// Actually compile the code now.
-		tpl_encode::compile_write($handle, $this->compiled_code[$handle]);
+		RosterTplEncode::compile_write($handle, $this->compiled_code[$handle]);
 	}
 
 	// Assign key variable pairs from an array

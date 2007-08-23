@@ -115,7 +115,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster->config['roster_bg'] = $roster->config['img_url'] . 'wowroster_bg.jpg';
 
 	require_once ROSTER_LIB . 'template.php';
-	$roster->tpl = new Template;
+	$roster->tpl = new RosterTemplate;
 
 	/**
 	 * Assign initial template vars
