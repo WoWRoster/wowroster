@@ -2540,7 +2540,7 @@ class update
 		$this->add_ifvalue( $char, 'Level', 'level' );
 		$this->add_ifvalue( $char, 'Note', 'note', '' );
 		$this->add_ifvalue( $char, 'Rank', 'guild_rank');
-		if( isset($guildRanks[$char['Rank']]['Title']) )
+		if( isset($char['Rank']) && isset($guildRanks[$char['Rank']]['Title']) )
 		{
 			$this->add_value('guild_title', $guildRanks[$char['Rank']]['Title']);
 		}
