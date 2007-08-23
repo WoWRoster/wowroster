@@ -22,7 +22,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-class tpl_encode
+class RosterTplEncode
 {
 	// The all seeing all doing compile method. Parts are inspired by or directly
 	// from Smarty

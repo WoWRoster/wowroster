@@ -85,7 +85,7 @@ class roster
 	/**
 	 * Roster Template Object
 	 *
-	 * @var Template
+	 * @var RosterTemplate
 	 */
 	var $tpl;								// Template object
 	var $row_class         = 2;				// For row striping in templates

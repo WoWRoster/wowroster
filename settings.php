@@ -186,7 +186,7 @@ require_once (ROSTER_LIB . 'cmslink.lib.php');
  * Load the Template Parser
  */
 include( ROSTER_LIB . 'template.php' );
-$roster->tpl = new Template;
+$roster->tpl = new RosterTemplate;
 
 
 /**
