@@ -168,7 +168,7 @@ unset($db_config);
  * Include cache class
  */
 require_once(ROSTER_LIB . 'cache.php');
-$roster->cache = new cache();
+$roster->cache = new RosterCache();
 
 /**
  * Load the config
