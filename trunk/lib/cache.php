@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-class cache
+class RosterCache
 {
 	var $cache_suffix;
 	var $object_ttl;
@@ -37,7 +37,7 @@ class cache
 	 *
 	 * @return cache
 	 */
-	function cache()
+	function RosterCache()
 	{
 		$this->cache_suffix = '.inc'; 
 		$this->object_ttl = '10800'; //3 hours

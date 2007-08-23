@@ -54,7 +54,7 @@ class roster
 	/**
 	 * Roster Cache Class Object
 	 *
-	 * @var cache
+	 * @var RosterCache
 	 */
 	var $cache;
 
