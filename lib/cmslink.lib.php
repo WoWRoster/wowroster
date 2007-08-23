@@ -263,7 +263,10 @@ function linkform( $url='' )
 	$url = makelink($url,false);
 
 	// Cut off the ? at the start
-	$url = substr($url,1);
+	if( strpos($url,'?') !==false )
+	{
+		$url = substr($url,strpos($url,'?')+1);
+	}
 
 	$return = '';
 
