@@ -372,27 +372,27 @@ while ($row = $roster->db->fetch($result))
 			}
 
 			$tooltip_h = $key . ' ' . $roster->locale->act['key'] . ' Status';
-			$tooltip = '<span style="color:#' . $addon->config['colorcmp'] . ';">' . $roster->locale->act['completedsteps'] . '</span><br />';
+			$tooltip = '<span style="color:#' . $addon['config']['colorcmp'] . ';">' . $roster->locale->act['completedsteps'] . '</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
-				$tooltip .= '<span style="color:#' . $addon->config['colorcur'] . ';">' . $roster->locale->act['currentstep'] . '</span><br />';
+				$tooltip .= '<span style="color:#' . $addon['config']['colorcur'] . ';">' . $roster->locale->act['currentstep'] . '</span><br />';
 			}
-			$tooltip .= '<span style="color:#' . $addon->config['colorno'] . ';">' . $roster->locale->act['uncompletedsteps'] . '</span><br /><br />';
+			$tooltip .= '<span style="color:#' . $addon['config']['colorno'] . ';">' . $roster->locale->act['uncompletedsteps'] . '</span><br /><br />';
 			if ($items[$key][0] == 'Quests')
 			{
 				for ($i=1;$i<count($items[$key])-1;$i++)
 				{
 					if ($krow[$key]>$i)
 					{
-						$color = $addon->config['colorcmp'];
+						$color = $addon['config']['colorcmp'];
 					}
 					else if ($krow[$key]==$i)
 					{
-						$color = $addon->config['colorcur'];
+						$color = $addon['config']['colorcur'];
 					}
 					else
 					{
-						$color = $addon->config['colorno'];
+						$color = $addon['config']['colorno'];
 					}
 					list($qname,$junk) = explode('|',$items[$key][$i]);
 					$qname = preg_replace('/\\\/', '', $qname);
@@ -406,12 +406,12 @@ while ($row = $roster->db->fetch($result))
 				{
 					if ($j < count($parray) && $parray[$j] == $i)
 					{
-						$color = $addon->config['colorcmp'];
+						$color = $addon['config']['colorcmp'];
 						$j++;
 					}
 					else
 					{
-						$color = $addon->config['colorno'];
+						$color = $addon['config']['colorno'];
 					}
 					list($pname,$junk) = explode('|',$items[$key][$i]);
 					$pname = preg_replace('/\\\/', '', $pname);
