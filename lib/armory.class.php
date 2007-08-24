@@ -55,7 +55,7 @@ class RosterArmory
 	 */
 	function RosterArmory( $character=false, $guild=false, $realm=false, $locale=false )
 	{
-		$this->_initXmlParser();
+		$this->_initXmlParser();  // remove from here and call when _getXml() gets called
 		
 		$this->character 	= ( isset($character) ? $character : '' );
 		$this->guild 		= ( isset($guild) ? $guild : '' );
@@ -154,11 +154,7 @@ class RosterArmory
 				$mode = '?item-info.xml';
 		}
 		
-		if( $char )
-		{
-			$char = str_replace(' ', '+', $char); // not needed eh?
-		}
-		elseif( $this->character ) 
+		if( !$char ) 
 		{
 			$char = $this->character;
 		}
@@ -167,10 +163,18 @@ class RosterArmory
 		{
 			$realm = str_replace(' ', '+', $realm);
 		}
+		elseif( $this->realm )
+		{
+			$realm = str_replace(' ', '+', $this->realm);
+		}
 		
 		if( $guild )
 		{
 			$guild = str_replace(' ', '+', $guild);
+		}
+		elseif( $this->guild )
+		{
+			$guild = str_replace(' ', '+', $this->guild);
 		}
 		
 		$url = $base_url . $mode . '&locale=' . $locale;
