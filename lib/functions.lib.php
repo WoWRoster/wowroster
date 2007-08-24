@@ -1114,44 +1114,44 @@ function urlgrabber( $url, $timeout = 5, $user_agent=false )
 
 		return $contents;
 	}
-	elseif( function_exists('fsockopen') )
+	
+	if(preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches))
 	{
-		if(preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches))
+		// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
+		$host = $matches[1];
+		$port = (($matches[2] == '') ? 80 : $matches[2]);
+		$page = $matches[3];
+		$page_params = $matches[4];
+
+		$file = fsockopen($host, $port, $errno, $errstr, $timeout);
+		if (!$file)
 		{
-			// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
-			$host = $matches[1];
-			$port = (($matches[2] == '') ? 80 : $matches[2]);
-			$page = $matches[3];
-			$page_params = $matches[4];
-			
-			$file = fsockopen($host, $port, $errno, $errstr, $timeout);
-			if (!$file)
-			{
-				trigger_error("$errstr ($errno)", E_USER_WARNING);
-				return false;
-			}
-			else
-			{
-				$header = "GET $page$page_params HTTP/1.1\r\n";
-				$header .= "Host: $host\r\n";
-				$header .= "User-Agent: $user_agent\r\n";
-				$header .= "Connection: Close\r\n\r\n";
-				
-				fwrite($file, $header);
-				while (!feof($file)) {
-					$contents .= fgets($file, 128);
-				}
-				fclose($file);
-				return $contents;
-			}
-		}
-		else 
-		{
-			trigger_error('Urlgrabber: Could not parse Url', E_USER_WARNING);
+			trigger_error("$errstr ($errno)", E_USER_WARNING);
 			return false;
 		}
+		else
+		{
+			$header = "GET $page$page_params HTTP/1.1\r\n";
+			$header .= "Host: $host\r\n";
+			$header .= "User-Agent: $user_agent\r\n";
+			$header .= "Connection: Close\r\n\r\n";
+
+			fwrite($file, $header);
+			while( !feof($file) )
+			{
+				$contents .= fgets($file, 128);
+			}
+			fclose($file);
+			return $contents;
+		}
 	}
-	elseif( $contents = file_get_contents($url) )
+	else
+	{
+		trigger_error('Urlgrabber: Could not parse Url', E_USER_WARNING);
+		return false;
+	}
+	
+	if( $contents = file_get_contents($url) )
 	{
 		return $contents;
 	}
