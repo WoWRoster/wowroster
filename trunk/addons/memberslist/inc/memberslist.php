@@ -638,7 +638,7 @@ class memberslist
 			}
 
 			// Don't proceed for characters without data
-			if( isset($row['talents']) && !empty( $row['talents']) )
+			if( $this->addon['config']['class_icon'] == 2 && isset($row['talents']) && !empty( $row['talents']) )
 			{
 				$lang = $row['clientLocale'];
 
