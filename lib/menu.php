@@ -544,7 +544,7 @@ class RosterMenu
 		// Save current locale array
 		// Since we add all locales for button name localization, we save the current locale array
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-		$roster->locale->backupLocale();
+		$localetemp = $roster->locale->wordings;
 
 		if (is_array($sections))
 		{
@@ -708,7 +708,8 @@ class RosterMenu
 		}
 
 		// Restore our locale array
-		$roster->locale->restoreLocale();
+		$roster->locale->wordings = $localetemp;
+		unset($localetemp);
 	}
 	/**
 	 * Builds The search feilds
@@ -734,7 +735,7 @@ class RosterMenu
 					// Save current locale array
 					// Since we add all locales for localization, we save the current locale array
 					// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-					$roster->locale->backupLocale();
+					$localetemp = $roster->locale->wordings;
 
 					foreach( $roster->multilanguages as $lang )
 					{
@@ -746,7 +747,8 @@ class RosterMenu
 					$addonlist[$basename]['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
 
 					// Restore our locale array
-					$roster->locale->restoreLocale();
+					$roster->locale->wordings = $localetemp;
+					unset($localetemp);
 				}
 			}
 		}

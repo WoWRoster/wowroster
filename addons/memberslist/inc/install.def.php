@@ -59,7 +59,7 @@ class memberslist
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
 		$installer->add_config("150,'log',NULL,'blockframe','menu'");
 		$installer->add_config("160,'build',NULL,'blockframe','menu'");
-		$installer->add_config("170,'documentation','http://www.wowroster.net/MediaWiki/SortMember','newlink','menu'");
+		$installer->add_config("170,'ml_wiki','http://www.wowroster.net/MediaWiki/SortMember','newlink','menu'");
 		$installer->add_config("180,'updMainAlt','rostercp-addon-memberslist-update','makenewlink','menu'");
 
 		# Generic display settings

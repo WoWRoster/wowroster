@@ -237,6 +237,8 @@ function getAddonList()
 		}
 	}
 
+	sort($addons);
+
 	if( is_array($addons) )
 	{
 		foreach( $addons as $addon )
@@ -282,10 +284,12 @@ function getAddonList()
 					$output[$addon]['install'] = 3;
 				}
 
+				$localetemp = $roster->locale->wordings;
+
 				// Save current locale array
 				// Since we add all locales for localization, we save the current locale array
 				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-				$roster->locale->backupLocale();
+				$localetemp = $roster->locale->wordings;
 
 				foreach( $roster->multilanguages as $lang )
 				{
@@ -302,7 +306,8 @@ function getAddonList()
 				unset($addonstuff);
 
 				// Restore our locale array
-				$roster->locale->restoreLocale();
+				$roster->locale->wordings = $localetemp;
+				unset($localetemp);
 			}
 		}
 	}

@@ -34,39 +34,8 @@ $lang['memberscolshow']			= 'Show/Hide Columns';
 $lang['membersfilter']			= 'Filter rows';
 
 // Column headers
-$lang['name']                   = 'Name';
-$lang['class']                  = 'Class';
-$lang['level']                  = 'Level';
-$lang['title']                  = 'Title';
-$lang['currenthonor']           = 'Current Honor Rank';
-$lang['professions']            = 'Professions';
-$lang['hearthed']               = 'Hearthed';
-$lang['lastzone']               = 'Last Zone';
-$lang['lastonline']             = 'Last Online';
-$lang['lastupdate']             = 'Last Updated';
-$lang['note']                   = 'Note';
 $lang['onote']                  = 'Officer Note';
 
-$lang['strength']               = 'Strength';
-$lang['agility']                = 'Agility';
-$lang['stamina']                = 'Stamina';
-$lang['intellect']              = 'Intellect';
-$lang['spirit']                 = 'Spirit';
-$lang['total']                  = 'Total';
-$lang['health']                 = 'Health';
-$lang['mana']                   = 'Mana';
-$lang['armor']                  = 'Armor';
-$lang['dodge']                  = 'Dodge';
-$lang['parry']                  = 'Parry';
-$lang['block']                  = 'Block';
-$lang['crit']                   = 'Crit';
-
-$lang['todayhk']                = 'Today HK';
-$lang['todaycp']                = 'Today CP';
-$lang['yesthk']                 = 'Yest HK';
-$lang['yestcp']                 = 'Yest CP';
-$lang['lifehk']                 = 'Life HK';
-$lang['highestrank']            = 'Highest Rank';
 $lang['honorpoints']            = 'Honor Points';
 $lang['arenapoints']            = 'Arena Points';
 
@@ -105,7 +74,7 @@ $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list
 $lang['admin']['honor']         = 'Honor List|Configure visibility of honor list columns.';
 $lang['admin']['log']           = 'Member Log|Configure visibility of member log columns.';
 $lang['admin']['build']         = 'Main/Alt Relations|Configure how the Main/Alt relations are detected.';
-$lang['admin']['documentation'] = 'Documentation|memberslist documentation on the WoWRoster wiki.';
+$lang['admin']['ml_wiki']       = 'Documentation|Members List documentation on the WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Update Relations|Update the Main/Alt relations using the data already in the DB.';
 $lang['admin']['page_size']		= 'Page size|Configure the number of items per page, or 0 for no pagination';
 

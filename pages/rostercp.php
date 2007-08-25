@@ -137,7 +137,7 @@ foreach( $roster->addon_data as $row )
 		// Save current locale array
 		// Since we add all locales for localization, we save the current locale array
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-		$roster->locale->backupLocale();
+		$localetemp = $roster->locale->wordings;
 
 		foreach( $roster->multilanguages as $lang )
 		{
@@ -147,7 +147,8 @@ foreach( $roster->addon_data as $row )
 		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ) . "</a></li>\n";
 
 		// Restore our locale array
-		$roster->locale->restoreLocale();
+		$roster->locale->wordings = $localetemp;
+		unset($localetemp);
 	}
 }
 

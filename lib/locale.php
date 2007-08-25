@@ -39,7 +39,6 @@ class roster_locale
 	var $wordings = array();
 	var $creditspage;
 	var $langlabel;
-	var $backup = array();
 	var $curlocale;
 	/**
 	 * Array of locale strings for current language
@@ -103,16 +102,7 @@ class roster_locale
 		{
 			if( isset($this->wordings[$locale]) )
 			{
-				/*if( isset($lang['admin']) && isset($this->wordings[$locale]['admin']) )
-				{
-					$admin = array_merge($lang['admin'], $this->wordings[$locale]['admin']);
-					$this->wordings[$locale] = array_merge($lang, $this->wordings[$locale]);
-					$this->wordings[$locale]['admin'] = $admin;
-				}
-				else*/
-				{
-					$this->wordings[$locale] = array_overlay($lang, $this->wordings[$locale]);
-				}
+				$this->wordings[$locale] = array_overlay($lang, $this->wordings[$locale]);
 			}
 			else
 			{
@@ -121,23 +111,5 @@ class roster_locale
 
 			unset($lang);
 		}
-	}
-
-	/**
-	 * Store current locale array
-	 */
-	function backupLocale()
-	{
-		$this->backup = $this->wordings;
-	}
-
-	/**
-	 * Restore locale array from backup
-	 * And clear the backup
-	 */
-	function restoreLocale()
-	{
-		$this->wordings = $this->backup;
-		$this->backup = '';
 	}
 }

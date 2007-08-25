@@ -169,7 +169,7 @@ function makeAddonCredits()
 		// Save current locale array
 		// Since we add all locales for localization, we save the current locale array
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-		$roster->locale->backupLocale();
+		$localetemp = $roster->locale->wordings;
 
 		foreach( $roster->multilanguages as $lang )
 		{
@@ -179,7 +179,8 @@ function makeAddonCredits()
 		$addonName = ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] );
 
 		// Restore our locale array
-		$roster->locale->restoreLocale();
+		$roster->locale->wordings = $localetemp;
+		unset($localetemp);
 
 		$AddOnArray = unserialize($row['credits']);
 		foreach( $AddOnArray as $addonDev )
