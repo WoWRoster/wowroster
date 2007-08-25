@@ -32,7 +32,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 	{
 		$type = ($mode == 'guild'?0:2) + ($_POST['block'] == 'allow'?0:1);
 
-		if( !empty($_POST['name']) || !empty($_POST['server']) || !empty($_POST['region']) )
+		if( !empty($_POST['value']) || !empty($_POST['server']) || !empty($_POST['region']) )
 		{
 			$default = ( (isset($_POST['defaultchk']) && $_POST['defaultchk'] == '1') ? '1' : '0' );
 
@@ -48,7 +48,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 
 			$query = "INSERT INTO `" . $roster->db->table('upload') . "`
 					(`name`,`server`,`region`,`type`,`default`) VALUES
-						('" . $_POST['name'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
+						('" . $_POST['value'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
 
 			if( !$roster->db->query($query) )
 			{
@@ -244,7 +244,7 @@ function ruletable_foot( $style , $type , $mode )
 		$output .= '			<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label><input type="checkbox" name="defaultchk" id="defaultchk" value="1" /></td>';
 	}
 	$output .= '
-			<td class="membersRow2"><input class="wowinput128" type="text" name="name" value="" /></td>
+			<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
 			<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
 			<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
 			<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue(\'' . $type . 'hide\',\'add\');">' . $roster->locale->act['add'] . '</button></td>

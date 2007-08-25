@@ -1087,7 +1087,7 @@ function active_addon( $name )
  * @param  string $user_agent	| Useragent to use for connection
  * @return mixed		| False on error, contents on success
  */
-function urlgrabber( $url, $timeout = 5, $user_agent=false )
+function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 {
 	$contents = '';
 
@@ -1106,7 +1106,7 @@ function urlgrabber( $url, $timeout = 5, $user_agent=false )
 		// If there were errors
 		if( curl_errno($ch) )
 		{
-			trigger_error('UrlGrabber Error: ' . curl_error($ch), E_USER_WARNING);
+			trigger_error('UrlGrabber Error [CURL]: ' . curl_error($ch), E_USER_WARNING);
 			return false;
 		}
 
@@ -1114,9 +1114,22 @@ function urlgrabber( $url, $timeout = 5, $user_agent=false )
 
 		return $contents;
 	}
-	
-	if(preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches))
+	elseif( $contents = file_get_contents($url) )
 	{
+		return $contents;
+	}
+	else
+	{
+		if( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
+		{
+
+		}
+		else
+		{
+			trigger_error('UrlGrabber Error [fsock]: Could not parse URL', E_USER_WARNING);
+			return false;
+		}
+
 		// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
 		$host = $matches[1];
 		$port = (($matches[2] == '') ? 80 : $matches[2]);
@@ -1124,9 +1137,9 @@ function urlgrabber( $url, $timeout = 5, $user_agent=false )
 		$page_params = $matches[4];
 
 		$file = fsockopen($host, $port, $errno, $errstr, $timeout);
-		if (!$file)
+		if( !$file )
 		{
-			trigger_error("$errstr ($errno)", E_USER_WARNING);
+			trigger_error("UrlGrabber Error: $errstr ($errno)", E_USER_WARNING);
 			return false;
 		}
 		else
@@ -1144,21 +1157,6 @@ function urlgrabber( $url, $timeout = 5, $user_agent=false )
 			fclose($file);
 			return $contents;
 		}
-	}
-	else
-	{
-		trigger_error('Urlgrabber: Could not parse Url', E_USER_WARNING);
-		return false;
-	}
-	
-	if( $contents = file_get_contents($url) )
-	{
-		return $contents;
-	}
-	else
-	{
-		trigger_error('Urlgrabber: Could not retrieve URL', E_USER_WARNING);
-		return false;
 	}
 } //-END function urlgrabber()
 
