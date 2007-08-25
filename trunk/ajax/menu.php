@@ -112,6 +112,7 @@ switch ($method)
 		}
 
 		$row = $roster->db->fetch($DBres);
+
 		$roster->db->free_result($DBres);
 
 		if( $row['addon_id'] != '-1' )

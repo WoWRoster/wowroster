@@ -47,7 +47,7 @@ $lang['comment_add_success']    = 'Comment added successfully';
 $lang['comment_error_process']  = 'There was a problem processing your comment';
 
 // Config strings
-$lang['admin']['news_conf']		= 'News config';
+$lang['admin']['news_conf']		= 'News config|Basic news configuration';
 $lang['admin']['news_add']		= 'Add news|Minimum login level needed to add news.';
 $lang['admin']['news_edit']		= 'Edit news|Minimum login level needed to edit news.';
 $lang['admin']['comm_add']		= 'Add comments|Minimum login level needed to add comments.';

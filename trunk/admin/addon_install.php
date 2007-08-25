@@ -237,7 +237,7 @@ function getAddonList()
 		}
 	}
 
-	sort($addons);
+	usort($addons, 'strnatcasecmp');
 
 	if( is_array($addons) )
 	{

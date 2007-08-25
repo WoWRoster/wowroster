@@ -21,6 +21,7 @@ if( !isset($_GET[ROSTER_PAGE]) )
 	$_GET[ROSTER_PAGE] = 'ajax';
 }
 // Initialization
+define('IN_ROSTER',true);
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
 
 include(ROSTER_AJAX . 'functions.php');
