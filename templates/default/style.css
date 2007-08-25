@@ -762,7 +762,7 @@ select {
 .bag .bagitem .icon { margin-left:2px;width:37px;height:37px;border-width:0;cursor:pointer; }
 .bag .bagitem .noicon { margin-left:2px;width:38px;height:38px;border-width:0; }
 .bag .bagmask { position:absolute;width:39px;height:39px;cursor:pointer; }
-.bag .bagicon { position:absolute;width:40px;height:40px;clip:rect(5px 37px 37px 5px); }
+.bag .bagicon { position:absolute;width:40px;height:40px;clip:rect(5px, 37px, 37px, 5px); }
 
 .bag_name, .key_name, .bank_name {
 	margin-top:9px;
