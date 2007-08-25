@@ -1144,15 +1144,29 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 		}
 		else
 		{
-			$header = "GET $page$page_params HTTP/1.1\r\n";
-			$header .= "Host: $host\r\n";
-			$header .= "User-Agent: $user_agent\r\n";
-			$header .= "Connection: Close\r\n\r\n";
+			$header = "GET $page$page_params HTTP/1.1\r\n"
+					. "Host: $host\r\n"
+					. "User-Agent: $user_agent\r\n"
+					. "Connection: Close\r\n\r\n";
 
 			fwrite($file, $header);
+
+			$inHeader = true;
+
 			while( !feof($file) )
 			{
-				$contents .= fgets($file, 128);
+				$chunk = fgets($file, 128);
+				if( $inHeader )
+				{
+					$pos = strpos($chunk, '<');
+					if( $pos !== false )
+					{
+						$contents .= substr( $chunk, $pos, strlen($chunk) );
+						$inHeader = false;
+					}
+					continue;
+				}
+				$contents .= $chunk;
 			}
 			fclose($file);
 			return $contents;
