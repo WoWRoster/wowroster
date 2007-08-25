@@ -15,6 +15,10 @@
 
 // -[ enUS Localization ]-
 
+// Installer names
+$lang['news']			        = 'News';
+$lang['news_desc']			    = 'News system, with comments';
+
 // Button names
 $lang['news_button']			= 'News|Post articles and other items of interest';
 

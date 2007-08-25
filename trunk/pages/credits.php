@@ -166,7 +166,21 @@ function makeAddonCredits()
 	$strip_count = 1;
 	while( $row = $roster->db->fetch($result) )
 	{
-		$addonName = $row['fullname'];
+		// Save current locale array
+		// Since we add all locales for localization, we save the current locale array
+		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+		$roster->locale->backupLocale();
+
+		foreach( $roster->multilanguages as $lang )
+		{
+			$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+		}
+
+		$addonName = ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] );
+
+		// Restore our locale array
+		$roster->locale->restoreLocale();
+
 		$AddOnArray = unserialize($row['credits']);
 		foreach( $AddOnArray as $addonDev )
 		{

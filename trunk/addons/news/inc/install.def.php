@@ -30,8 +30,8 @@ class news
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'News';
-	var $description = 'News system, with comments';
+	var $fullname = 'news';
+	var $description = 'news_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Original author")

@@ -31,8 +31,8 @@ class questlist
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Quest List';
-	var $description = 'Search for quests other guild members are on';
+	var $fullname = 'questlist';
+	var $description = 'questlist_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Original Author")

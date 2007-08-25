@@ -134,7 +134,20 @@ foreach( $roster->addon_data as $row )
 
 	if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
 	{
-		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . $row['fullname'] . "</a></li>\n";
+		// Save current locale array
+		// Since we add all locales for localization, we save the current locale array
+		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+		$roster->locale->backupLocale();
+
+		foreach( $roster->multilanguages as $lang )
+		{
+			$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+		}
+
+		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ) . "</a></li>\n";
+
+		// Restore our locale array
+		$roster->locale->restoreLocale();
 	}
 }
 

@@ -14,6 +14,7 @@
 */
 
 $lang['keys'] = 'Llaves';
+$lang['keys_desc'] = 'Lists Azeroth Dungeon keys for guild members';
 $lang['keybutton'] = 'Llaves|Lists Azeroth Dungeon keys for guild members';
 
 $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';

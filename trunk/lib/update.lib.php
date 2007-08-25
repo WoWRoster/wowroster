@@ -73,6 +73,18 @@ class update
 
 					$updateclass = $row['basename'] . 'Update';
 
+					// Save current locale array
+					// Since we add all locales for localization, we save the current locale array
+					// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+					$roster->locale->backupLocale();
+
+					foreach( $roster->multilanguages as $lang )
+					{
+						$roster->locale->add_locale_file(ROSTER_ADDONS . $addon['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+					}
+
+					$addon['fullname'] = ( isset($roster->locale->act[$addon['fullname']]) ? $roster->locale->act[$addon['fullname']] : $addon['fullname'] );
+
 					if( class_exists($updateclass) )
 					{
 						$this->addons[$row['basename']] = new $updateclass($addon);
@@ -82,6 +94,8 @@ class update
 					{
 						$this->setError('Failed to load update trigger for ' . $row['basename'] . ': Update class did not exist','');
 					}
+					// Restore our locale array
+					$roster->locale->restoreLocale();
 				}
 			}
 		}

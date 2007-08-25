@@ -25,7 +25,7 @@ require_once(ROSTER_LIB . 'xmlparse.class.php');  // move to xmlInit method?
 
 /**
  * Armory Query Class
- * 
+ *
  * This will connect to the correct WoW Roster Site depending on locale information
  * and return requested info in XML or Array depending on the request
  * WIP
@@ -40,14 +40,14 @@ class RosterArmory
 	var $xml;
 	var $user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
 	var $xml_timeout = 5;  // seconds to pass for timeout
-	
+
 	/**
 	 * xmlParsing object
 	 *
 	 * @var XmlParser
 	 */
 	var $xmlParser;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -56,15 +56,15 @@ class RosterArmory
 	function RosterArmory( $character=false, $guild=false, $realm=false, $locale=false )
 	{
 		$this->_initXmlParser();  // remove from here and call when _getXml() gets called
-		
+
 		$this->character 	= ( isset($character) ? $character : '' );
 		$this->guild 		= ( isset($guild) ? $guild : '' );
 		$this->server		= ( isset($realm) ? $realm : '' );
 		$this->locale		= ( isset($locale) ? $locale : '' );
 	}
-	
+
 	/**
-	 * requests item-tooltip.xml from armory for $item_id 
+	 * requests item-tooltip.xml from armory for $item_id
 	 *
 	 * @param string $item_id
 	 */
@@ -74,42 +74,42 @@ class RosterArmory
 		$id = $item_id;
 		$locale = substr($locale, 0, 2);
 		$u_agent = '';
-		
+
 		if( $roster->cache->check($id.$locale) )
 		{
 			return $roster->cache->get($id.$locale);
 		}
-		else 
+		else
 		{
-		$this->xml = urlgrabber('http://armory.worldofwarcraft.com/item-tooltip.xml?i=' . $id . '&locale=' . $locale, 5, $this->user_agent );
-		$this->xmlParser->Parse($this->xml);
-		$item = $this->xmlParser->getParsedData();
-		$roster->cache->put($item, $id.$locale);
-		return $item;
+			$this->xml = urlgrabber('http://www.wowarmory.com/item-tooltip.xml?i=' . $id . '&locale=' . $locale, 5, $this->user_agent );
+			$this->xmlParser->Parse($this->xml);
+			$item = $this->xmlParser->getParsedData();
+			$roster->cache->put($item, $id.$locale);
+			return $item;
 		}
-	}	
-	
+	}
+
 	function fetchItemInfo( $item_id, $locale )
 	{
 		global $roster;
 		$id = $item_id;
 		$locale = substr($locale, 0, 2);
 		$u_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
-		
+
 		if( $roster->cache->check($id.$locale) )
 		{
 			return $roster->cache->get($id.$locale);
 		}
-		else 
+		else
 		{
-		$this->xml = urlgrabber('http://www.worldofwarcraft.com/item-info.xml?i=' . $id . '&locale=' . $locale, 5, $u_agent );
-		$this->xmlParser->Parse($this->xml);
-		$item = $this->xmlParser->getParsedData();
-		$roster->cache->put($item, $id.$locale);
-		return $item;
+			$this->xml = urlgrabber('http://www.wowarmory.com/item-info.xml?i=' . $id . '&locale=' . $locale, 5, $u_agent );
+			$this->xmlParser->Parse($this->xml);
+			$item = $this->xmlParser->getParsedData();
+			$roster->cache->put($item, $id.$locale);
+			return $item;
 		}
 	}
-	
+
 	/**
 	 * Private funtion to generate the URL urlgrabber tries to retrive
 	 * Based on locale uses eu or us wow armory
@@ -130,19 +130,20 @@ class RosterArmory
 		{
 			$locale = substr($locale, 0, 2);
 		}
-		else 
+		else
 		{
 			$locale = substr($this->locale, 0, 2);
 		}
+
 		if( $locale == 'en' )
 		{
 			$base_url = 'http://www.wowarmory.com/';
 		}
-		else 
+		else
 		{
 			$base_url = 'http://eu.wowarmory.com/';
 		}
-		
+
 		// get request mode
 		switch( $mode )
 		{
@@ -153,12 +154,12 @@ class RosterArmory
 			case 'item-info':
 				$mode = '?item-info.xml';
 		}
-		
-		if( !$char ) 
+
+		if( !$char )
 		{
 			$char = $this->character;
 		}
-		
+
 		if( $realm )
 		{
 			$realm = str_replace(' ', '+', $realm);
@@ -167,7 +168,7 @@ class RosterArmory
 		{
 			$realm = str_replace(' ', '+', $this->realm);
 		}
-		
+
 		if( $guild )
 		{
 			$guild = str_replace(' ', '+', $guild);
@@ -176,7 +177,7 @@ class RosterArmory
 		{
 			$guild = str_replace(' ', '+', $this->guild);
 		}
-		
+
 		$url = $base_url . $mode . '&locale=' . $locale;
 		if( $char )
 		{
@@ -184,12 +185,12 @@ class RosterArmory
 		}
 		return $url;
 	}
-	
+
 	/**
 	 * Private call to populate the xml property.
 	 * returns true on successful request
 	 * false otherwise
-	 * 
+	 *
 	 * @param string $url
 	 * @param int $timeout
 	 * @param string $user_agent
@@ -198,7 +199,7 @@ class RosterArmory
 	function _requestXml( $url, $timeout=false, $user_agent=false )
 	{
 		$this->xml = ''; // clear xml if any
-		
+
 		if( $timeout === false )
 		{
 			$timeout = $this->xml_timeout;
@@ -207,19 +208,19 @@ class RosterArmory
 		{
 			$user_agent = $this->user_agent;
 		}
-		
+
 		$this->xml = urlgrabber($url, $timeout, $user_agent);
-		
+
 		if( !empty($this->xml) )
 		{
 			return true;
 		}
-		else 
+		else
 		{
 			return false;
 		}
 	}
-	
+
 	function _initXmlParser()
 	{
 		if( !is_object($this->xmlParser) )

@@ -30,8 +30,8 @@ class info
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Character Information';
-	var $description = 'Displays info about characters uploaded to Roster';
+	var $fullname = 'char_info';
+	var $description = 'char_info_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Original Author")

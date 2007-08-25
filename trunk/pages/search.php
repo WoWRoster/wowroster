@@ -34,7 +34,6 @@ $roster_menu->makeMenu($roster->output['show_menu']);
 
 $output = "<br />\n";
 
-
 /*Create an array of active addons with search.inc.php capabilities*/
 foreach( $roster->addon_data as $name => $data )
 {
@@ -47,6 +46,21 @@ foreach( $roster->addon_data as $name => $data )
 		{
 			$roster->addon_data[$name]['search_class'] = $sclass;
 		}
+
+		// Save current locale array
+		// Since we add all locales for localization, we save the current locale array
+		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+		$roster->locale->backupLocale();
+
+		foreach( $roster->multilanguages as $lang )
+		{
+			$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+		}
+
+		$roster->addon_data[$name]['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
+
+		// Restore our locale array
+		$roster->locale->restoreLocale();
 	}
 }
 
@@ -279,7 +293,7 @@ else
 			echo '<div class="header_text sredborder">' . $message . '</div>';
 		}
 
-		echo '<div class="header_text sgoldborder">' . $roster->locale->act['search_didnotfind'] . '</div><table cellspacing="0" cellpadding="0">';
+		echo '<div class="header_text sgoldborder">' . $roster->locale->act['search_didnotfind'] . '</div><table cellspacing="0" cellpadding="0" width="100%">';
 		foreach( $roster->addon_data as $leftover )
 		{
 			if( isset($leftover['search_class']) )
@@ -301,9 +315,9 @@ else
 		//this section we can have links like armory, ala, wowhead, thottbot etc...
 
 		//wow data sites
-		echo '<tr class="search-other"><td valign="top">';
+		echo '<tr class="search-other"><td valign="top" width="33%">';
 		echo '
-		<div ><strong>' . $roster->locale->act['data_search'] . '</strong></div>
+		<strong>' . $roster->locale->act['data_search'] . '</strong>
 		<div align="left">';
 		echo '<ul>';
 		$data_link = '';
@@ -316,7 +330,7 @@ else
 		echo '</ul></div></td>';
 
 		//wow data sites
-		echo '<td valign="top"><strong>' . $roster->locale->act['itemlink'] . '</strong><div align="left">';
+		echo '<td valign="top" width="34%"><strong>' . $roster->locale->act['itemlink'] . '</strong><div align="left">';
 		echo '<ul>';
 		$item_link = '';
 		foreach( $roster->locale->act['itemlinks'] as $name => $ilink )
@@ -328,7 +342,7 @@ else
 		echo '</ul></div></td>';
 
 		//google links
-		echo '<td valign="top"><div ><strong>'. $roster->locale->act['google_search'] .'</strong></div><div align="left">';
+		echo '<td valign="top" width="33%"><strong>'. $roster->locale->act['google_search'] .'</strong><div align="left">';
 		echo '<ul>';
 		$google_link = '';
 		foreach( $roster->locale->act['google_links'] as $name => $glink )

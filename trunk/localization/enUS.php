@@ -41,7 +41,7 @@ $lang['update_disabled']='Update.php access has been disabled';
 
 $lang['nofileUploaded']='UniUploader did not upload any file(s), or uploaded the wrong file(s).';
 $lang['roster_upd_pwLabel']='Roster Update Password';
-$lang['roster_upd_pw_help']='(This is required when doing a guild update)';
+$lang['roster_upd_pw_help']='(Some lua updates may require a password)';
 
 
 $lang['roster_error'] = 'Roster Error';
@@ -86,7 +86,6 @@ $lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';
 $lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s Not Scanned';
 $lang['update_members'] = 'Updating Members';
-$lang['gp_user_only'] = 'GuildProfiler Users Only';
 $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Save Error Log';
@@ -679,7 +678,7 @@ $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must b
 // Password Stuff
 $lang['password'] = 'Password';
 $lang['changeadminpass'] = 'Change Admin Password';
-$lang['changeupdatepass'] = 'Change Update Password';
+$lang['changeofficerpass'] = 'Change Officer Password';
 $lang['changeguildpass'] = 'Change Guild Password';
 $lang['old_pass'] = 'Old Password';
 $lang['new_pass'] = 'New Password';

@@ -1347,3 +1347,31 @@ function format_microtime( )
 	list($usec, $sec) = explode(' ', microtime());
 	return ($usec + $sec);
 }
+
+/**
+ * A better array_merge
+ *
+ * @param array $skel
+ * @param array $arr
+ * @return array
+ */
+function array_overlay( $skel , $arr )
+{
+	foreach ($skel as $key => $val)
+	{
+		if( !isset($arr[$key]) )
+		{
+			$arr[$key] = $val;
+		}
+		elseif( is_array($val) )
+		{
+			$arr[$key] = array_overlay($val, $arr[$key]);
+		}
+		else
+		{
+			//trigger_error('Locale key is already set: ' . $key . '->' . $arr[$key] . '<br />&nbsp;&nbsp;New value tried: ' . $skel[$key]);
+		}
+	}
+
+	return $arr;
+}

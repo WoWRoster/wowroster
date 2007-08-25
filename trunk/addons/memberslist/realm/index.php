@@ -195,8 +195,6 @@ $FIELD['officer_note'] = array (
 
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
-$roster->output['html_head'] .= '<script type="text/javascript" src="addons/'.$addon['basename'].'/js/sorttable.js"></script>';
-
 $menu = '';
 // Start output
 if( $addon['config']['member_update_inst'] )

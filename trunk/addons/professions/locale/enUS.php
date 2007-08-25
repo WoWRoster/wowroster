@@ -13,6 +13,8 @@
  * @subpackage Locale
 */
 
+$lang['professions_desc'] = 'Lists tradeskills for everyone in the guild';
+
 $lang['professions_menu'] = 'Professions|Display a List of professions for all members';
 
 $lang['admin']['professions_conf'] = 'Professions|Control professions config options';

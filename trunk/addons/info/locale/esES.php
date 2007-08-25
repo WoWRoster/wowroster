@@ -13,6 +13,9 @@
  * @subpackage Locale
 */
 
+$lang['char_info'] = 'Character Information';
+$lang['char_info_desc'] = 'Displays info about characters uploaded to Roster';
+
 // Menu Buttons
 $lang['cb_character'] = 'Personaje|Shows character stats, equipment, reputation, skills, and pvp info';
 $lang['cb_talents'] = 'Talentos|Shows current talent build';

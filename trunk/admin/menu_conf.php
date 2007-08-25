@@ -192,7 +192,7 @@ foreach($arrayButtons as $pos=>$button)
 	// Save current locale array
 	// Since we add all locales for button name localization, we save the current locale array
 	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-	$localestore = $roster->locale->wordings;
+	$roster->locale->backupLocale();
 
 	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 	{
@@ -252,8 +252,7 @@ foreach($arrayButtons as $pos=>$button)
 	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="' . $buttonclass . '"'.$button['tooltip'].'></div>' . "\n";
 
 	// Restore our locale array
-	$roster->locale->wordings = $localestore;
-	unset($localestore);
+	$roster->locale->restoreLocale();
 }
 
 // --[ Button palet ]--
@@ -264,7 +263,7 @@ foreach($palet as $id=>$button)
 	// Save current locale array
 	// Since we add all locales for button name localization, we save the current locale array
 	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-	$localestore = $roster->locale->wordings;
+	$roster->locale->backupLocale();
 
 	if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
 	{
@@ -324,8 +323,7 @@ foreach($palet as $id=>$button)
 	$body .= '<div id="b' . $button['button_id'] . '" style="background-image:url(' . $button['icon'] . '); background-position:center; background-repeat:no-repeat;" class="' . $buttonclass . '"'.$button['tooltip'].'></div>' . "\n";
 
 	// Restore our locale array
-	$roster->locale->wordings = $localestore;
-	unset($localestore);
+	$roster->locale->restoreLocale();
 }
 
 // --[ Javascript defines and variable passing ]--

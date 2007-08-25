@@ -37,8 +37,10 @@ class roster_locale
 	 * @var array
 	 */
 	var $wordings = array();
-	var $creditspage = '';
-	var $langlabel = array();
+	var $creditspage;
+	var $langlabel;
+	var $backup = array();
+	var $curlocale;
 	/**
 	 * Array of locale strings for current language
 	 * Example:
@@ -65,7 +67,10 @@ class roster_locale
 		{
 			$roster->config['locale'] = $_SESSION['locale'];
 		}
-		$this->act = &$this->wordings[$roster->config['locale']];
+
+		$this->curlocale = $roster->config['locale'];
+
+		$this->act =& $this->wordings[$this->curlocale];
 	}
 
 	/**
@@ -90,7 +95,7 @@ class roster_locale
 			else
 			{
 				// Do nothing for now. Nothing wrong with an addon not having any of its own localization
-//				die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
+				//die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
 			}
 		}
 
@@ -98,15 +103,15 @@ class roster_locale
 		{
 			if( isset($this->wordings[$locale]) )
 			{
-				if( isset($lang['admin']) && isset($this->wordings[$locale]['admin']) )
+				/*if( isset($lang['admin']) && isset($this->wordings[$locale]['admin']) )
 				{
 					$admin = array_merge($lang['admin'], $this->wordings[$locale]['admin']);
 					$this->wordings[$locale] = array_merge($lang, $this->wordings[$locale]);
 					$this->wordings[$locale]['admin'] = $admin;
 				}
-				else
+				else*/
 				{
-					$this->wordings[$locale] = array_merge($lang, $this->wordings[$locale]);
+					$this->wordings[$locale] = array_overlay($lang, $this->wordings[$locale]);
 				}
 			}
 			else
@@ -116,5 +121,23 @@ class roster_locale
 
 			unset($lang);
 		}
+	}
+
+	/**
+	 * Store current locale array
+	 */
+	function backupLocale()
+	{
+		$this->backup = $this->wordings;
+	}
+
+	/**
+	 * Restore locale array from backup
+	 * And clear the backup
+	 */
+	function restoreLocale()
+	{
+		$this->wordings = $this->backup;
+		$this->backup = '';
 	}
 }

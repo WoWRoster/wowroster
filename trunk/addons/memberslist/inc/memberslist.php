@@ -49,6 +49,10 @@ class memberslist
 	 */
 	function memberslist($options = array(), $addon = array())
 	{
+		global $roster;
+
+		$basename = basename(dirname(dirname(__FILE__)));
+
 		// --[ Get addon array only if not passed ]--
 		if( !empty($addon) )
 		{
@@ -57,9 +61,11 @@ class memberslist
 		else
 		{
 			// Get our addon name using our file loc.
-			$basename = basename(dirname(dirname(__FILE__)));
 			$this->addon = getaddon($basename);
 		}
+
+		// Set the js in the roster header
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/sorttable.js"></script>';
 
 		// Merge in the override options from the calling file
 		if( !empty($options) )
