@@ -30,8 +30,8 @@ class guildinfo
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Guild Info';
-	var $description = 'Shows Guild Info text from WoW';
+	var $fullname = 'guildinfo';
+	var $description = 'guildinfo_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Original Author")

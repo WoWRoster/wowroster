@@ -31,8 +31,8 @@ class professions
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Professions';
-	var $description = 'Lists tradeskills for everyone in the guild';
+	var $fullname = 'professions';
+	var $description = 'professions_desc';
 	var $credits = array(
 		array(	"name"=>	"vgjunkie",
 				"info"=>	"Original Author")

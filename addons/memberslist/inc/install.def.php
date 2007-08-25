@@ -30,8 +30,8 @@ class memberslist
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Members List';
-	var $description = 'A sortable, filterable member list.';
+	var $fullname = 'memberslist';
+	var $description = 'memberslist_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Now maintained by the whole team"),

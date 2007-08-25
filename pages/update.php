@@ -99,11 +99,11 @@ else
 
 	print "<br />\n";
 
-	print border('sgray','start',$roster->locale->act['gp_user_only']);
+	print border('sgray','start',$roster->locale->act['roster_upd_pwLabel']);
 	print '
                   <table class="bodyline" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td class="membersRow1" style="cursor:help;" onmouseover="overlib(\''.$roster->locale->act['roster_upd_pw_help'].'\',CAPTION,\''.$roster->locale->act['roster_upd_pwLabel'].'\',WRAP,RIGHT);" onmouseout="return nd();"><img src="'.$roster->config['img_url'].'blue-question-mark.gif" alt="?" /> '.$roster->locale->act['roster_upd_pwLabel'].'</td>
+                      <td class="membersRow1" style="cursor:help;" onmouseover="overlib(\''.$roster->locale->act['roster_upd_pw_help'].'\',CAPTION,\''.$roster->locale->act['password'].'\',WRAP,RIGHT);" onmouseout="return nd();"><img src="'.$roster->config['img_url'].'blue-question-mark.gif" alt="?" /> '.$roster->locale->act['password'].'</td>
                       <td class="membersRowRight1"><input class="wowinput128" type="password" name="password" /></td>
                     </tr>
                   </table>'."\n";

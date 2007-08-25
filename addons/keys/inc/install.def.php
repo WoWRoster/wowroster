@@ -31,8 +31,8 @@ class keys
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Instance Keys';
-	var $description = 'Lists Azeroth Dungeon keys for guild members';
+	var $fullname = 'keys';
+	var $description = 'keys_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Original Author")

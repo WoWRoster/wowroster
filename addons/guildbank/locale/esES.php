@@ -15,6 +15,7 @@
 
 $lang['gbankbutton']='GuildBank|Shows the inventory of characters marked as the Guild Bank';
 $lang['guildbank']='Banco Clan';
+$lang['guildbank_desc']='Shows the inventory of characters marked as the Guild Bank';
 $lang['guildbank_totalmoney']='Fondos Totales Banco';
 
 $lang['gbank_list'] = 'Full Listing';

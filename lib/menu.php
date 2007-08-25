@@ -544,7 +544,7 @@ class RosterMenu
 		// Save current locale array
 		// Since we add all locales for button name localization, we save the current locale array
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-		$localestore = $roster->locale->wordings;
+		$roster->locale->backupLocale();
 
 		if (is_array($sections))
 		{
@@ -708,8 +708,7 @@ class RosterMenu
 		}
 
 		// Restore our locale array
-		$roster->locale->wordings = $localestore;
-		unset($localestore);
+		$roster->locale->restoreLocale();
 	}
 	/**
 	 * Builds The search feilds
@@ -732,9 +731,22 @@ class RosterMenu
 				$basename = $data['basename'];
 				if( class_exists($sclass) )
 				{
+					// Save current locale array
+					// Since we add all locales for localization, we save the current locale array
+					// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+					$roster->locale->backupLocale();
+
+					foreach( $roster->multilanguages as $lang )
+					{
+						$roster->locale->add_locale_file(ROSTER_ADDONS . $basename . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+					}
+
 					$addonlist[$basename]['search_class'] = $sclass;
 					$addonlist[$basename]['basename'] = $data['basename'];
-					$addonlist[$basename]['fullname'] = ($data['fullname'] != '') ? $data['fullname'] : $data['basename'];
+					$addonlist[$basename]['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
+
+					// Restore our locale array
+					$roster->locale->restoreLocale();
 				}
 			}
 		}

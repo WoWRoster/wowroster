@@ -13,6 +13,8 @@
  * @subpackage Locale
 */
 
+$lang['pvplog_desc'] = 'Displays data collected by the PvPLog WoW addon';
+
 $lang['button_pvplog']='PvP Stats|Shows PvP Log stats for this guild';
 $lang['button_bg']='Battleground Log|Battleground stats from PvP Log';
 $lang['button_pvp']='PvP Log|World PvP stats from PvP Log';

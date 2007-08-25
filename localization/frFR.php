@@ -41,7 +41,7 @@ $lang['update_disabled']='L\'accès à Update.php a été désactivé';
 
 $lang['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
 $lang['roster_upd_pwLabel']='Mot de passe du Roster';
-$lang['roster_upd_pw_help']='(Requis lors d\'une mise à jour de la Guilde)';
+$lang['roster_upd_pw_help']='(Some lua updates may require a password)';
 
 
 $lang['roster_error'] = 'Erreur lié au Roster';
@@ -86,7 +86,6 @@ $lang['upload_data'] = 'Mise à jour des données de %1$s pour [<span class="ora
 $lang['realm_ignored'] = 'Royaume : %1$s non traité';
 $lang['guild_realm_ignored'] = 'Guilde : %1$s @ Royaume : %2$s non traitée';
 $lang['update_members'] = 'Mise à jour des membres de la guilde';
-$lang['gp_user_only'] = 'Utilisateurs de GuildProfiler uniquement';
 $lang['update_errors'] = 'Erreurs de mise à jour';
 $lang['update_log'] = 'Journal des mises à jour';
 $lang['save_error_log'] = 'Sauver le journal des erreurs';
@@ -679,7 +678,7 @@ $lang['installer_not_uninstallable'] = '%1$s contient le greffon %2$s qui doit �
 // Password Stuff
 $lang['password'] = 'Mot de passe';
 $lang['changeadminpass'] = 'Changer le mot de passe administrateur';
-$lang['changeupdatepass'] = 'Changer le mot de passe de mise à jour';
+$lang['changeofficerpass'] = 'Changer le mot de passe de mise à jour';
 $lang['changeguildpass'] = 'Changer le mot de passe de guilde';
 $lang['old_pass'] = 'Ancien mot de passe';
 $lang['new_pass'] = 'Nouveau mot de passe';

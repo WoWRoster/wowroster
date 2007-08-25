@@ -201,7 +201,6 @@ $roster->get_addon_data();
 $locale = (isset($_GET['locale']) ? $_GET['locale'] : isset($_POST['locale']) ? $_POST['locale'] : '');
 if( $locale != '' )
 {
-
 	$_SESSION['locale'] = $locale;
 	$roster->config['locale'] = $locale;
 }

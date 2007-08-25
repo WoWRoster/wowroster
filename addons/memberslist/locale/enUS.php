@@ -15,6 +15,10 @@
 
 // -[ enUS Localization ]-
 
+// Installer names
+$lang['memberslist']            = 'Members List';
+$lang['memberslist_desc']       = 'A sortable, filterable member list';
+
 // Button names
 $lang['memberslist_Members']	= 'Members|Displays the guild member list with player notes, last online time, etc...';
 $lang['memberslist_Stats']		= 'Stats|Displays each guild member\'s stats such as intellect, stamina, etc...';

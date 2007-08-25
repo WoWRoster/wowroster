@@ -31,8 +31,8 @@ class pvplog
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'PvPLog';
-	var $description = 'Displays data collected by the PvPLog WoW addon';
+	var $fullname = 'pvplog';
+	var $description = 'pvplog_desc';
 	var $credits = array(
 		array(	"name"=>	"WoWRoster Dev Team",
 				"info"=>	"Sortable/filterable member list"),

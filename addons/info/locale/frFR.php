@@ -13,6 +13,9 @@
  * @subpackage Locale
 */
 
+$lang['char_info'] = 'Character Information';
+$lang['char_info_desc'] = 'Displays info about characters uploaded to Roster';
+
 // Menu Buttons
 $lang['cb_character'] = 'Personnage|Shows character stats, equipment, reputation, skills, and pvp info';
 $lang['cb_talents'] = 'Talents|Shows current talent build';
@@ -150,7 +153,7 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 // note to translators ** do not worry about translating this yet.. this will change SOON -ds
 $lang['item_bonuses_remap']=
 	array( // key must be lowercase!													// standardized bonus
-		'+xx à la puissance des sorts' 													=> '+XX aux dégâts des sorts', 
+		'+xx à la puissance des sorts' 													=> '+XX aux dégâts des sorts',
 		'endurance +xx'																	=> '+XX Endurance',
 		'score de toucher des sorts +xx'												=> '+XX au score de toucher des sorts',
 		'+xx healing'                   												=> '+XX to Healing Spells',

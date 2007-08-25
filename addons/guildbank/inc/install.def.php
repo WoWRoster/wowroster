@@ -30,8 +30,8 @@ class guildbank
 
 	var $version = '2.0.0.0';
 
-	var $fullname = 'Guild Bank';
-	var $description = 'Shows the inventory of characters marked as the Guild Bank';
+	var $fullname = 'guildbank';
+	var $description = 'guildbank_desc';
 	var $credits = array(
 		array(	"name"=>	"vaccafoeda.hellscream@gmail.com",
 				"info"=>	"Original author")

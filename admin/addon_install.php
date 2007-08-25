@@ -64,6 +64,7 @@ if( !empty($addons) )
 			<th class="membersHeaderRight">' . $roster->locale->act['installer_installation'] . '</th>
 		</tr>
 	';
+
 	foreach( $addons as $addon )
 	{
 		if( !empty($addon['icon']) )
@@ -74,7 +75,7 @@ if( !empty($addons) )
 			}
 			else
 			{
-				$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
+				$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
 			}
 		}
 		else
@@ -86,7 +87,7 @@ if( !empty($addons) )
 			<td class="membersRow1"><img src="' . $addon['icon'] . '" alt="[icon]" /></td>
 			<td class="membersRow1"><table cellpadding="0" cellspacing="0">
 				<tr>
-					<td><span style="font-size:18px;" class="green">' . ucfirst($addon['fullname']) . '</span> v' . $addon['version'] . '</td>
+					<td><span style="font-size:18px;" class="green">' . $addon['fullname'] . '</span> v' . $addon['version'] . '</td>
 				</tr>
 				<tr>
 					<td>' . $addon['description'] . '</td>
@@ -100,6 +101,7 @@ if( !empty($addons) )
 		</tr>
 	';
 	}
+
 	$output .= '</table>';
 }
 else
@@ -261,7 +263,6 @@ function getAddonList()
 					return;
 				}
 
-
 				if( $roster->db->num_rows($result) > 0 )
 				{
 					$row = $roster->db->fetch($result);
@@ -281,14 +282,27 @@ function getAddonList()
 					$output[$addon]['install'] = 3;
 				}
 
+				// Save current locale array
+				// Since we add all locales for localization, we save the current locale array
+				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+				$roster->locale->backupLocale();
+
+				foreach( $roster->multilanguages as $lang )
+				{
+					$roster->locale->add_locale_file(ROSTER_ADDONS . $addon . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+				}
+
 				$output[$addon]['basename'] = $addon;
-				$output[$addon]['fullname'] = $addonstuff->fullname;
+				$output[$addon]['fullname'] = ( isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname );
 				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
 				$output[$addon]['version'] = $addonstuff->version;
 				$output[$addon]['icon'] = $addonstuff->icon;
-				$output[$addon]['description'] = $addonstuff->description;
+				$output[$addon]['description'] = ( isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description );
 
 				unset($addonstuff);
+
+				// Restore our locale array
+				$roster->locale->restoreLocale();
 			}
 		}
 	}

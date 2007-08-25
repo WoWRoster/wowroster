@@ -14,4 +14,5 @@
 */
 
 $lang['guildinfo'] = 'Info Clan';
+$lang['guildinfo_desc'] = 'Shows Guild Info text from WoW';
 $lang['ginfobutton'] = 'Info Clan|Shows Guild Info text from WoW';

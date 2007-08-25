@@ -122,7 +122,7 @@ $body .= '<form action="'.makelink().'" method="post" enctype="multipart/form-da
 $body .= '<br />
 <form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_officer_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Officer" />
-	'.border('syellow','start',$roster->locale->act['changeupdatepass']).'
+	'.border('syellow','start',$roster->locale->act['changeofficerpass']).'
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
 	      <td class="membersRow1">'.$roster->locale->act['old_pass'].':</td>
