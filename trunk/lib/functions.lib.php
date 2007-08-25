@@ -1369,7 +1369,8 @@ function array_overlay( $skel , $arr )
 		}
 		else
 		{
-			//trigger_error('Locale key is already set: ' . $key . '->' . $arr[$key] . '<br />&nbsp;&nbsp;New value tried: ' . $skel[$key]);
+			// UnComment if you want to know if you are overwritting a locale variable
+			//trigger_error('Key already set: ' . $key . '->' . $arr[$key] . '<br />&nbsp;&nbsp;New value tried: ' . $skel[$key]);
 		}
 	}
 

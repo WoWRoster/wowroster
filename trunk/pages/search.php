@@ -50,7 +50,7 @@ foreach( $roster->addon_data as $name => $data )
 		// Save current locale array
 		// Since we add all locales for localization, we save the current locale array
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-		$roster->locale->backupLocale();
+		$localetemp = $roster->locale->wordings;
 
 		foreach( $roster->multilanguages as $lang )
 		{
@@ -60,7 +60,8 @@ foreach( $roster->addon_data as $name => $data )
 		$roster->addon_data[$name]['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
 
 		// Restore our locale array
-		$roster->locale->restoreLocale();
+		$roster->locale->wordings = $localetemp;
+		unset($localetemp);
 	}
 }
 
