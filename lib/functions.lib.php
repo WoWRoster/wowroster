@@ -1269,7 +1269,7 @@ function _aprint( $arr , $tab=1 )
 		return "<span style=\"color:#3366FF\">array()</span>";
 	}
 
-	foreach( $arr  as $key=>$val )
+	foreach( $arr as $key=>$val )
 	{
 		if( $key == $end )
 		{
@@ -1279,11 +1279,17 @@ function _aprint( $arr , $tab=1 )
 		{
 			$colon = ',';
 		}
+
 		if( !is_numeric($key) )
 		{
 			$key = "<span style=\"color:#FFFFFF\">'" . htmlspecialchars($key) . "'</span>";
 		}
-		if( is_array($val) )
+
+		if( is_object($val) )
+		{
+			$val = "<span style=\"color:#3366FF\">object</span>";
+		}
+		elseif( is_array($val) )
 		{
 			$val = _aprint($val, ($tab+1));
 		}
@@ -1320,15 +1326,13 @@ function aprint( $arr , $prefix='' , $return=false )
 	{
 		$prefix = '<span style="color:#3366ff">' . $prefix . '</span> =';
 	}
-	if ($return)
+	if( $return )
 	{
-		return "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
-<tbody><tr><td><pre style=\"color:#000000;\">$prefix" . _aprint($arr) . "</pre></td></tr></tbody></table>\n\n";
+		return "\n\n<pre style=\"color:#000000;margin:1px; background:#555555; border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
 	}
 	else
 	{
-		echo "\n\n<table style=\"width:50%; margin:1px; background:#555555; border:1px solid #D8DDE6;\">
-<tbody><tr><td><pre style=\"color:#000000;\">$prefix" . _aprint($arr) . "</pre></td></tr></tbody></table>\n\n";
+		echo "\n\n<pre style=\"color:#000000;margin:1px; background:#555555; border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
 	}
 }
 

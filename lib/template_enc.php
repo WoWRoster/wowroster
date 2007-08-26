@@ -57,7 +57,7 @@ class RosterTplEncode
 		}
 		for( $i = 0; $i < count($text_blocks); $i++ )
 		{
-			self::compile_var_tags($text_blocks[$i]);
+			RosterTplEncode::compile_var_tags($text_blocks[$i]);
 		}
 
 		$compile_blocks = array();
@@ -71,7 +71,7 @@ class RosterTplEncode
 				{
 					case 'BEGIN':
 						$block_else_level[] = false;
-						$compile_blocks[] = '<?php ' . self::compile_tag_block($blocks[2][$curr_tb]) . ' ?>';
+						$compile_blocks[] = '<?php ' . RosterTplEncode::compile_tag_block($blocks[2][$curr_tb]) . ' ?>';
 						break;
 
 					case 'BEGINELSE':
@@ -85,7 +85,7 @@ class RosterTplEncode
 						break;
 
 					case 'IF':
-						$compile_blocks[] = '<?php ' . self::compile_tag_if($blocks[2][$curr_tb], false) . ' ?>';
+						$compile_blocks[] = '<?php ' . RosterTplEncode::compile_tag_if($blocks[2][$curr_tb], false) . ' ?>';
 						break;
 
 					case 'ELSE':
@@ -93,7 +93,7 @@ class RosterTplEncode
 						break;
 
 					case 'ELSEIF':
-						$compile_blocks[] = '<?php ' . self::compile_tag_if($blocks[2][$curr_tb], true) . ' ?>';
+						$compile_blocks[] = '<?php ' . RosterTplEncode::compile_tag_if($blocks[2][$curr_tb], true) . ' ?>';
 						break;
 
 					case 'ENDIF':
@@ -101,11 +101,11 @@ class RosterTplEncode
 						break;
 
 					case 'DEFINE':
-						$compile_blocks[] = '<?php ' . self::compile_tag_define($blocks[2][$curr_tb], true) . ' ?>';
+						$compile_blocks[] = '<?php ' . RosterTplEncode::compile_tag_define($blocks[2][$curr_tb], true) . ' ?>';
 						break;
 
 					case 'UNDEFINE':
-						$compile_blocks[] = '<?php ' . self::compile_tag_define($blocks[2][$curr_tb], false) . ' ?>';
+						$compile_blocks[] = '<?php ' . RosterTplEncode::compile_tag_define($blocks[2][$curr_tb], false) . ' ?>';
 						break;
 
 					case 'INCLUDE':
@@ -123,7 +123,7 @@ class RosterTplEncode
 						break;
 
 					default:
-						self::compile_var_tags($blocks[0][$curr_tb]);
+						RosterTplEncode::compile_var_tags($blocks[0][$curr_tb]);
 						$trim_check = trim($blocks[0][$curr_tb]);
 						$compile_blocks[] = (!$no_echo) ? ((!empty($trim_check)) ? $blocks[0][$curr_tb] : '') : ((!empty($trim_check)) ? $blocks[0][$curr_tb] : '');
 						break;
@@ -154,7 +154,7 @@ class RosterTplEncode
 		{
 			$namespace = $varrefs[1][$j];
 			$varname = $varrefs[4][$j];
-			$new = self::generate_block_varref($namespace, $varname, true, $varrefs[3][$j]);
+			$new = RosterTplEncode::generate_block_varref($namespace, $varname, true, $varrefs[3][$j]);
 			$text_blocks = str_replace($varrefs[0][$j], $new, $text_blocks);
 		}
 		// This will handle the remaining root-level varrefs
@@ -196,7 +196,7 @@ class RosterTplEncode
 			$namespace = implode('.', $this->block_names);
 			// Get a reference to the data array for this block that depends on the
 			// current indices of all parent blocks.
-			$varref = self::generate_block_data_ref($namespace, false, false);
+			$varref = RosterTplEncode::generate_block_data_ref($namespace, false, false);
 			// Create the for loop code to iterate over this block.
 			$tag_template_php = '$_' . $tag_args . '_count = (isset(' . $varref . ')) ? count(' . $varref . ') : 0;';
 		}
@@ -302,14 +302,14 @@ class RosterTplEncode
 				case 'is':
 					$is_arg_start = ($tokens[$i-1] == ')') ? array_pop($is_arg_stack) : $i-1;
 					$is_arg	   = implode('	', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
-					$new_tokens   = self::_parse_is_expr($is_arg, array_slice($tokens, $i+1));
+					$new_tokens   = RosterTplEncode::_parse_is_expr($is_arg, array_slice($tokens, $i+1));
 					array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
 					$i = $is_arg_start;
 
 				default:
 					if( preg_match('#^(([a-z0-9\-_]+?\.)+?)?(\$)?([A-Z]+[A-Z0-9\-_]+)$#s', $token, $varrefs) )
 					{
-						$token = (!empty($varrefs[1])) ? self::generate_block_data_ref(substr($varrefs[1], 0, -1), true, $varrefs[3]) . '[\'' . $varrefs[4] . '\']' : (($varrefs[3]) ? '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $varrefs[4] . '\']' : '$this->_tpldata[\'.\'][0][\'' . $varrefs[4] . '\']');
+						$token = (!empty($varrefs[1])) ? RosterTplEncode::generate_block_data_ref(substr($varrefs[1], 0, -1), true, $varrefs[3]) . '[\'' . $varrefs[4] . '\']' : (($varrefs[3]) ? '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $varrefs[4] . '\']' : '$this->_tpldata[\'.\'][0][\'' . $varrefs[4] . '\']');
 					}
 					break;
 			}
@@ -353,11 +353,11 @@ class RosterTplEncode
 
 		if( $option )
 		{
-			return (($match[1]) ? self::generate_block_data_ref(substr($match[1], 0, -1), true, true) . '[\'' . $match[3] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[3] . '\']') . ' = ' . $match[5] . ';';
+			return (($match[1]) ? RosterTplEncode::generate_block_data_ref(substr($match[1], 0, -1), true, true) . '[\'' . $match[3] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[3] . '\']') . ' = ' . $match[5] . ';';
 		}
 		else
 		{
-			return 'unset(' . (($match[1]) ? self::generate_block_data_ref(substr($match[1], 0, -1), true, true) . '[\'' . $match[3] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[3] . '\']') . ');';
+			return 'unset(' . (($match[1]) ? RosterTplEncode::generate_block_data_ref(substr($match[1], 0, -1), true, true) . '[\'' . $match[3] . '\']' : '$this->_tpldata[\'DEFINE\'][\'.\'][\'' . $match[3] . '\']') . ');';
 		}
 	}
 
@@ -435,7 +435,7 @@ class RosterTplEncode
 		# Strip the trailing period.
 		$namespace = substr($namespace, 0, strlen($namespace) - 1);
 		# Get a reference to the data block for this namespace.
-		$varref = self::generate_block_data_ref($namespace, true, $defop);
+		$varref = RosterTplEncode::generate_block_data_ref($namespace, true, $defop);
 		# Append the variable reference.
 		$varref .= "['$varname']";
 		return (($echo) ? "<?php echo $varref; ?>" : $varref);
