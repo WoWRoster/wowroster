@@ -359,7 +359,7 @@ function stripAllHtml( $string )
 {
 	$search = array ('@<script[^>]*?>.*?</script>@si', // Strip out javascript
 					'@<[\/\!]*?[^<>]*?>@si',           // Strip out HTML tags
-					'@([\r\n])[\s]+@',               // Strip out white space
+					'@([\r\n])[\s]+@',                 // Strip out white space
 					'@&(quot|#34);@i',                 // Replace HTML entities
 					'@&(amp|#38);@i',
 					'@&(lt|#60);@i',
@@ -369,7 +369,7 @@ function stripAllHtml( $string )
 					'@&(cent|#162);@i',
 					'@&(pound|#163);@i',
 					'@&(copy|#169);@i',
-					'@&#(\d+);@e');                     // evaluate as php
+					'@&#(\d+);@e');                    // evaluate as php
 
 	$replace = array ('','',"\n",'"','&','<','>',' ',chr(161),chr(162),chr(163),chr(169),'chr(\1)');
 
@@ -975,7 +975,7 @@ function seconds_to_time( $seconds )
 }
 
 /**
- * Includes an addon's files to create the addon framework for that addon.
+ * Sets up addon data for use in the addon framework
  *
  * @param string $addonname | The name of the addon
  * @return array $addon  | The addon's database record
@@ -1080,7 +1080,8 @@ function active_addon( $name )
 }
 
 /**
- * Handles retrieving the contents of a URL using multiple methods
+ * Handles retrieving the contents of a URL trying multiple methods
+ * Current methods are curl, file_get_contents, fsockopen and will try each in that order
  *
  * @param string $url	| URL to retrieve
  * @param int $timeout	| Timeout for curl
@@ -1181,10 +1182,10 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
  */
 function request_uri( )
 {
-	if (ereg('IIS', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']))
+	if( ereg('IIS', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']) )
 	{
 		$REQUEST_URI = $_SERVER['SCRIPT_NAME'];
-		if (isset($_SERVER['QUERY_STRING']))
+		if( isset($_SERVER['QUERY_STRING']) )
 		{
 			$REQUEST_URI .= '?' . $_SERVER['QUERY_STRING'];
 		}
@@ -1198,12 +1199,20 @@ function request_uri( )
 	# encode the url " %22 and <> %3C%3E
 	$REQUEST_URI = str_replace('"', '%22', $REQUEST_URI);
 	$REQUEST_URI = preg_replace('#([\x3C\x3E])#e', '"%".bin2hex(\'\\1\')', $REQUEST_URI);
-	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen(stristr($REQUEST_URI, '&CMSSESSID')));
+	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen($REQUEST_URI));
 
 	return $REQUEST_URI;
 }
 
 
+/**
+ * Attempts to write a file to the file system
+ *
+ * @param string $filename
+ * @param string $content
+ * @param string $mode
+ * @return bool
+ */
 function file_writer( $filename , &$content , $mode='wb' )
 {
 	if(!$fp = fopen($filename, $mode))
@@ -1349,7 +1358,7 @@ function format_microtime( )
 }
 
 /**
- * A better array_merge
+ * A better array_merge()
  *
  * @param array $skel
  * @param array $arr
