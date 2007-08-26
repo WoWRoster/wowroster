@@ -38,6 +38,8 @@ class memberslistUpdate
 	// Character data cache
 	var $chars = array();
 
+	// Officer note flag. Default true, because manual update bypasses the check.
+	var $hasONotes=true;
 	/**
 	 * Constructor
 	 *
@@ -66,6 +68,30 @@ class memberslistUpdate
 	}
 
 	/**
+	 * Guild_pre trigger, set a flag if officer note data is not available
+	 *
+	 * @param array $guild
+	 * 		CP.lua guild data
+	 */
+	function guild_pre($guild)
+	{
+		if( isset($guild['ScanInfo']) && is_array($guild['ScanInfo'])
+			&& isset($guild['ScanInfo']['HasOfficerNote']) 
+			|| $this->data['config']['getmain_field'] != 'OfficerNote' )
+		{
+			$this->passedCheck = true;
+			$this->messages = '';
+			return true;
+		}
+		else
+		{
+			$this->passedCheck = false;
+			$this->messages = '- <span style="color:red;">Not updating alt data: Officer notes needed but not available in update</span>';
+			return false;
+		}
+		return true;
+	}
+	/**
 	 * Guild trigger, the regex-based alt detection
 	 *
 	 * @param array $char
@@ -81,6 +107,13 @@ class memberslistUpdate
 		if( !( $this->data['config']['update_type'] & 1 ) )
 		{
 			// prevent the addon name from being displayed
+			$this->messages = '';
+			return true;
+		}
+
+		// --[ If we failed the check in guild_pre, fail siltently here ]--
+		if( !($this->passedCheck) )
+		{
 			$this->messages = '';
 			return true;
 		}
@@ -370,6 +403,13 @@ class memberslistUpdate
 		if(( $this->data['config']['update_type'] & 1 ) == 0 )
 		{
 			// prevent the addon name from being displayed
+			$this->messages = '';
+			return true;
+		}
+
+		// --[ If we failed the check in guild_pre, fail siltently here ]--
+		if( !($this->passedCheck) )
+		{
 			$this->messages = '';
 			return true;
 		}
