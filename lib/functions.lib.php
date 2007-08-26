@@ -1199,7 +1199,7 @@ function request_uri( )
 	# encode the url " %22 and <> %3C%3E
 	$REQUEST_URI = str_replace('"', '%22', $REQUEST_URI);
 	$REQUEST_URI = preg_replace('#([\x3C\x3E])#e', '"%".bin2hex(\'\\1\')', $REQUEST_URI);
-	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen($REQUEST_URI));
+	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen(stristr($REQUEST_URI, '&CMSSESSID')));
 
 	return $REQUEST_URI;
 }
