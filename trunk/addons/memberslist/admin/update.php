@@ -38,6 +38,8 @@ $update = new update;
 
 $memberslist = new memberslistUpdate($addon);
 
+// We skip the guild_pre. This way the hasONotes check stays on the default value (true).
+
 // Loop over all members
 foreach($guild['Members'] as $member_name => $char)
 {
