@@ -234,6 +234,8 @@ class update
 	 */
 	function addon_hook( $mode , $data , $memberid = '0' )
 	{
+		global $roster;
+
 		$output = '';
 		foreach( $this->addons as $addon )
 		{
@@ -522,7 +524,7 @@ class update
 								foreach(array_keys($guildMembers) as $char_name)
 								{
 									$char = $guildMembers[$char_name];
-									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $region, $char, $currentTimestamp, $guild['Ranks']);
+									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $region, $char, $currentTimestamp, $guild);
 									$guild_output .= $this->getMessages();
 									$this->resetMessages();
 
@@ -740,6 +742,7 @@ class update
 		{
 			$field = $key;
 		}
+
 		if( isset($array[$key]) )
 		{
 			$this->add_value( $field, $array[$key] );
@@ -872,6 +875,7 @@ class update
 		$this->add_ifvalue( $item, 'item_tooltip' );
 		$this->add_value( 'locale', $locale );
 
+		$level = array();
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 		{
 			$this->add_value('level',$level[1]);
@@ -999,6 +1003,7 @@ class update
 		$this->add_ifvalue( $recipe, 'recipe_texture' );
 		$this->add_ifvalue( $recipe, 'recipe_tooltip' );
 
+		$level = array();
 		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$recipe['recipe_tooltip'],$level))
 		{
 			$this->add_value('level',$level[1]);
@@ -1195,6 +1200,7 @@ class update
 		{
 			foreach( $gemtt as $line )
 			{
+				$colors = array();
 				$line = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
 				if( eregi( '\%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'], $line))  // if the line has a + or % or the word Chance assume it's bonus line.
@@ -1220,12 +1226,11 @@ class update
 						$gem_color = 'green';
 					}
 				}
-				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_singlecolor'], $line, $color ) )
+				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_singlecolor'], $line, $colors ) )
 				{
 					$tmp = array_flip($roster->locale->wordings[$this->locale]['gem_colors']);
-					$gem_color = $tmp[$color[1]];
+					$gem_color = $tmp[$colors[1]];
 				}
-
 				elseif( preg_match( $roster->locale->wordings[$this->locale]['gem_preg_prismatic'], $line ) )
 				{
 					$gem_color = 'prismatic';
@@ -2349,9 +2354,9 @@ class update
 
 		$num = $roster->db->num_rows($result);
 
-		if ($num > 0)
+		if( $num > 0 )
 		{
-			while ( $row = $roster->db->fetch($result) )
+			while( $row = $roster->db->fetch($result) )
 			{
 				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Removed</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
@@ -2517,7 +2522,7 @@ class update
 	 * @param array $currentTimestamp
 	 * @return mixed		| False on error, memberid on success
 	 */
-	function update_guild_member( $guildId, $name, $server, $region, $char, $currentTimestamp, $guildRanks )
+	function update_guild_member( $guildId, $name, $server, $region, $char, $currentTimestamp, $guilddata )
 	{
 		global $roster;
 
@@ -2555,11 +2560,16 @@ class update
 		$this->add_ifvalue( $char, 'Level', 'level' );
 		$this->add_ifvalue( $char, 'Note', 'note', '' );
 		$this->add_ifvalue( $char, 'Rank', 'guild_rank');
-		if( isset($char['Rank']) && isset($guildRanks[$char['Rank']]['Title']) )
+		if( isset($char['Rank']) && isset($guilddata['Ranks'][$char['Rank']]['Title']) )
 		{
-			$this->add_value('guild_title', $guildRanks[$char['Rank']]['Title']);
+			$this->add_value('guild_title', $guilddata['Ranks'][$char['Rank']]['Title']);
 		}
-		$this->add_ifvalue( $char, 'OfficerNote', 'officer_note', '' );
+
+		if( isset($guilddata['ScanInfo']) && $guilddata['ScanInfo']['HasOfficerNote'] )
+		{
+			$this->add_ifvalue( $char, 'OfficerNote', 'officer_note', '' );
+		}
+
 		$this->add_ifvalue( $char, 'Zone', 'zone', '' );
 		$this->add_ifvalue( $char, 'Status', 'status', '' );
 		$this->add_value('active', '1');

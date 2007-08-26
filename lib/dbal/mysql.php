@@ -46,7 +46,7 @@ class roster_db
 	var $file;
 	var $line;
 
-	function _log( $query , $failed=false )
+	function _log( $query )
 	{
 		$this->_backtrace();
 
@@ -190,6 +190,7 @@ class roster_db
 			$this->query_count++;
 			$this->query_id = @mysql_query($query, $this->link_id);
 		}
+
 		if( !empty($this->query_id) )
 		{
 			$this->_log($query);
