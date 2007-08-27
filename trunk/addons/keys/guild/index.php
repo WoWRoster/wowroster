@@ -259,8 +259,8 @@ while ($row = $roster->db->fetch($result))
 					++$kcount;
 					$key = preg_replace('/[0-9]/', '', $pkey);
 					$step = preg_replace('/[A-Za-z]/', '', $pkey);
-					if( isset($items[$key]) ) { continue; }
-					list($junk,$milestone) = explode('||',$items[$key][$step]);
+					if( !isset($items[$key]) ) { continue; }
+					list($junk,$milestone) = explode('|',$items[$key][$step]);
 					if ($milestone == 'MS')
 					{
 						$krow[$key] = '0';
@@ -372,12 +372,12 @@ while ($row = $roster->db->fetch($result))
 			}
 
 			$tooltip_h = $key . ' ' . $roster->locale->act['key'] . ' Status';
-			$tooltip = '<span style="color:#' . $addon['config']['colorcmp'] . ';">' . $roster->locale->act['completedsteps'] . '</span><br />';
+			$tooltip = '<span style="color:' . $addon['config']['colorcmp'] . ';">' . $roster->locale->act['completedsteps'] . '</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
-				$tooltip .= '<span style="color:#' . $addon['config']['colorcur'] . ';">' . $roster->locale->act['currentstep'] . '</span><br />';
+				$tooltip .= '<span style="color:' . $addon['config']['colorcur'] . ';">' . $roster->locale->act['currentstep'] . '</span><br />';
 			}
-			$tooltip .= '<span style="color:#' . $addon['config']['colorno'] . ';">' . $roster->locale->act['uncompletedsteps'] . '</span><br /><br />';
+			$tooltip .= '<span style="color:' . $addon['config']['colorno'] . ';">' . $roster->locale->act['uncompletedsteps'] . '</span><br /><br />';
 			if ($items[$key][0] == 'Quests')
 			{
 				for ($i=1;$i<count($items[$key])-1;$i++)
@@ -396,7 +396,7 @@ while ($row = $roster->db->fetch($result))
 					}
 					list($qname,$junk) = explode('|',$items[$key][$i]);
 					$qname = preg_replace('/\\\/', '', $qname);
-					$tooltip .= '<span style="color:#' . $color . ';">' . $i . ': ' . $qname . '</span><br />';
+					$tooltip .= '<span style="color:' . $color . ';">' . $i . ': ' . $qname . '</span><br />';
 				}
 			}
 			else
@@ -415,7 +415,7 @@ while ($row = $roster->db->fetch($result))
 					}
 					list($pname,$junk) = explode('|',$items[$key][$i]);
 					$pname = preg_replace('/\\\/', '', $pname);
-					$tooltip .= '<span style="color:#' . $color . ';">' . $i . ': ' . $pname . '</span><br />';
+					$tooltip .= '<span style="color:' . $color . ';">' . $i . ': ' . $pname . '</span><br />';
 				}
 			}
 
