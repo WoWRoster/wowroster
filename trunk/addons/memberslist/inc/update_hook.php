@@ -38,8 +38,8 @@ class memberslistUpdate
 	// Character data cache
 	var $chars = array();
 
-	// Officer note flag. Default true, because manual update bypasses the check.
-	var $hasONotes=true;
+	// Officer note check. Default true, because manual update bypasses the check.
+	var $passedCheck=true;
 	/**
 	 * Constructor
 	 *
