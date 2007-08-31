@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.7.0
  * @package    WoWRoster
- * @subpackage Install
+ * @subpackage Upgrader
 */
 
 if( !defined('IN_ROSTER') )
@@ -28,9 +28,9 @@ if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
 
 
 /**
- * UniAdmin Upgrader
+ * WoWRoster Upgrader
  *
- * @package    UniAdmin
+ * @package    WoWRoster
  * @subpackage Upgrader
  */
 class Upgrade

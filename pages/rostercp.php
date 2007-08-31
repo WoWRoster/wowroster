@@ -63,7 +63,7 @@ include_once(ROSTER_ADMIN . 'pages.php');
 
 $header = $menu = $pagebar = $footer = '';
 
-// ----[ Check for latest UniAdmin Version ]------------------
+// ----[ Check for latest WoWRoster Version ]------------------
 if( $roster->config['check_updates'] )
 {
 	$roster_ver_latest = $roster_ver_info = '';
