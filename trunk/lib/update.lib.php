@@ -600,7 +600,7 @@ class update
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-			. "\t" . '<td class="membersRow1" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+			. "\t" . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
 			. "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
 			. "</tr>\n";
 		}
