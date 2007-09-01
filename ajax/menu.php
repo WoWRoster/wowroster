@@ -66,7 +66,18 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $title . "','" . $url . "','" . $icon . "')";
+		if( isset($_POST['scope']) )
+		{
+			$scope = $_POST['scope'];
+		}
+		else
+		{
+			$status = 104;
+			$errmsg = 'Failed to insert button: Not enough data (no scope given)';
+			return;
+		}
+
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $title . "','" . $url . "','" . $icon . "','" . $scope . "')";
 
 		$DBres = $roster->db->query($query);
 

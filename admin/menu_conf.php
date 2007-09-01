@@ -128,7 +128,7 @@ $roster->output['html_head'] .= '  <script type="text/javascript" src="'.ROSTER_
 $menu .= border('sorange','start',$roster->locale->act['menuconf_sectionselect'])."\n";
 $menu .= '<form action="'.makelink().'" method="get">'."\n";
 $menu .= linkform();
-$menu .= '<select name="section">'."\n";
+$menu .= '<select name="section" id="section">'."\n";
 
 $query = "SELECT `section` FROM ".$roster->db->table('menu').";";
 $result = $roster->db->query($query);
