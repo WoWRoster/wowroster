@@ -42,7 +42,7 @@ class item
 	/**
 	 * Armory Lookup Object
 	 *
-	 * @var lib_armory
+	 * @var RosterArmory
 	 */
 	var $armory_db;
 
@@ -55,7 +55,7 @@ class item
 	var $html_tooltip;
 
 	// item debugging. debug level 0, 1, 2
-	var $DEBUG = 1; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
+	var $DEBUG = 2; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
 	var $DEBUG_junk = '';
 
 	/**
@@ -654,8 +654,10 @@ class item
 				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
 				. $html_tt
 				. '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
-				. '<hr width="80%"> ' . aprint($this->parsed_item)
+//				. '<hr width="80%"><div align="left"> ' . aprint($this->parsed_item) . '</div>'
 				. '</td></tr></table><br />';
+				echo '</div>';
+				aprint($this->parsed_item);
 			}
 			$this->html_tooltip = $html_tt . ( $this->DEBUG ? '<br />Parsed Full' : '' );
 		}
@@ -874,7 +876,7 @@ aprint($data);
 		$tooltip = str_replace('<br />', "\n",$tooltip);
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
 
-		// tries to capture temp enchants based on the pattern (20min)
+		// tries to capture temp enchants based on pattern
 		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_tempenchants'], $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
@@ -987,7 +989,7 @@ aprint($data);
 		{
 			//
 			// at this point any line prefixed with a + must be a White Stat (or base stat).
-			if( preg_match('/^\+(\d+) (.+)/', $line, $matches) )
+			if( preg_match('/(-?\d+)\s(.+)/', $line, $matches) )
 			{
 				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 			}
@@ -1050,7 +1052,7 @@ aprint($data);
 				$tt['Attributes']['Sockets'][$matches[1]] = $matches[0];
 				$this->isSocketable = true;
 			}
-			elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
+			elseif( preg_match('/\([0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'] . '/', $line) )
 			{
 				$tt['Attributes']['Set']['InactiveSet'][] = $line;
 			}
@@ -1151,7 +1153,15 @@ aprint($data);
 					//check if its a shield
 					elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_block'], $line, $matches ) )
 					{
-						$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+						// sometimes these are reversed so check for it
+						if( is_numeric($matches[1]) )
+						{
+							$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+						}
+						else 
+						{
+							$tt['Attributes']['BaseStats'][$matches[1]] = $matches[0];
+						}
 						$this->isArmor = true;
 					}
 					//
@@ -1178,7 +1188,7 @@ aprint($data);
 					{
 						$tt['Attributes']['Restrictions'][] = $line;
 					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems'], $line) )
+					elseif( eregi('^' . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems'], $line) )
 					{
 						$tt['Attributes']['Conjured'][] = $line;
 					}
@@ -1453,7 +1463,7 @@ aprint($data);
 	{
 		if( !is_numeric($name) )
 		{
-			$item = self::fetchNamedItem( $name );
+			$item = $this->fetchNamedItem( $name );
 			return $item->out();
 		}
 		return null;

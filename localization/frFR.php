@@ -539,17 +539,17 @@ $lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
 $lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
 // Definition for item tooltip coloring
-$lang['tooltip_use']='Utiliser..';
+$lang['tooltip_use']='Utiliser...';
 $lang['tooltip_requires']='Niveau';
 $lang['tooltip_reinforced']='renforcée';
 $lang['tooltip_soulbound']='Lié';
 $lang['tooltip_boe']='Lié quand équipé';
-$lang['tooltip_equip']='Équipé..';
-$lang['tooltip_equip_restores']='Équipé : Rend';
+$lang['tooltip_equip']='Équipé...';
+$lang['tooltip_equip_restores']='Équipé.:.Rend';
 $lang['tooltip_equip_when']='Équipé : Lorsque';
 $lang['tooltip_chance']='Chance';
 $lang['tooltip_enchant']='Enchantement';
-$lang['tooltip_set']='Complet..|Ensemble..|Set..';
+$lang['tooltip_set']='Ensemble...|Complet...|Set...';
 $lang['tooltip_rank']='Rang';
 $lang['tooltip_next_rank']='Prochain rang';
 $lang['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
@@ -561,17 +561,17 @@ $lang['tooltip_damage_reduction']='Réduit les points de dégâts';
 $lang['tooltip_durability']='Durabilité';
 $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Vitesse';
-$lang['tooltip_poisoneffect']='^Chaque coup a';  // this is found in poison tooltips  I need the common text that decribes the poison.
+$lang['tooltip_poisoneffect']='^Chaque coup a';
 
 $lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
 $lang['tooltip_preg_durability']='/Durabilité (\d+) \/ (\d+)/';
-$lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
+$lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.
 $lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)\n/';
-$lang['tooltip_preg_classes']='/^(Classes.+) (.+)/'; // text for class restricted items
-$lang['tooltip_preg_races']='/^(Races:) (.+)/'; // test for race restricted items
+$lang['tooltip_preg_classes']='/^(Classes)...(.+)/'; // text for class restricted items
+$lang['tooltip_preg_races']='/^(Races)...(.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
-$lang['tooltip_preg_block']='/(\d+) (Bloquer)/';  // text for shield blocking values
+$lang['tooltip_preg_block']='/(Bloquer).:.(\d+)/i';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/(?:Châsse )?((Méta-(?=châsse))|((?<=Châsse )(rouge|jaune|bleue)))(châsse)?/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
@@ -583,10 +583,10 @@ $lang['tooltip_reg_conjureditems']='Objet invoqué disparaissant'; // cas d'un o
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
-$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé';
-$lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse';
-$lang['tooltip_garbage']='Maj clic-droit pour sertir';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+$lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
+$lang['tooltip_garbage']='Maj clic-droit pour sertir|Temps de recharge';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

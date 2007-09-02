@@ -544,7 +544,7 @@ $lang['tooltip_requires']='Requires';
 $lang['tooltip_reinforced']='Reinforced';
 $lang['tooltip_soulbound']='Soulbound';
 $lang['tooltip_boe']='Binds when equipped';
-$lang['tooltip_equip']='Equip:';
+$lang['tooltip_equip']='Equip:';  
 $lang['tooltip_equip_restores']='Equip: Restores';
 $lang['tooltip_equip_when']='Equip: When';
 $lang['tooltip_chance']='Chance';
@@ -574,7 +574,7 @@ $lang['tooltip_preg_charges']='/(\d+) Charges/';
 $lang['tooltip_preg_block']='/(\d+) (Block)/';
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
-$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
 
 $lang['tooltip_chance_hit']='Chance to|on hit:';
 $lang['tooltip_reg_requires']='Requires';
@@ -583,9 +583,9 @@ $lang['tooltip_reg_conjureditems']='Conjured Item';
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Cloth|Leather|Mail|Plate';
-$lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged';
+$lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand';
 $lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used|Binds when picked up|This Item Begins a Quest';
-$lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest';
+$lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest|Legs|Feet';
 $lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>|Duration|Cooldown remaining|<Right Click to Open>';
 
 //CP v2.1.1+ Gems info

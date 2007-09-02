@@ -1084,7 +1084,7 @@ function active_addon( $name )
  * Current methods are curl, file_get_contents, fsockopen and will try each in that order
  *
  * @param string $url	| URL to retrieve
- * @param int $timeout	| Timeout for curl
+ * @param int $timeout	| Timeout for curl, socket connection timeout for fsock
  * @param  string $user_agent	| Useragent to use for connection
  * @return mixed		| False on error, contents on success
  */
@@ -1119,18 +1119,8 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 	{
 		return $contents;
 	}
-	else
+	elseif( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
 	{
-		if( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
-		{
-
-		}
-		else
-		{
-			trigger_error('UrlGrabber Error [fsock]: Could not parse URL', E_USER_WARNING);
-			return false;
-		}
-
 		// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
 		$host = $matches[1];
 		$port = (($matches[2] == '') ? 80 : $matches[2]);
@@ -1140,7 +1130,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 		$file = fsockopen($host, $port, $errno, $errstr, $timeout);
 		if( !$file )
 		{
-			trigger_error("UrlGrabber Error: $errstr ($errno)", E_USER_WARNING);
+			trigger_error("UrlGrabber Error [fsock]: $errstr ($errno)", E_USER_WARNING);
 			return false;
 		}
 		else
@@ -1172,6 +1162,11 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 			fclose($file);
 			return $contents;
 		}
+	}
+	else 
+	{
+		trigger_error("UrlGrabber Error: Unable to grab URL ($url)", E_USER_WARNING);
+		return false;
 	}
 } //-END function urlgrabber()
 

@@ -21,8 +21,6 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-require_once(ROSTER_LIB . 'xmlparse.class.php');  // move to xmlInit method?
-
 /**
  * Armory Query Class
  *
@@ -51,7 +49,7 @@ class RosterArmory
 	/**
 	 * Constructor
 	 *
-	 * @return lib_armory
+	 * @return RosterArmory
 	 */
 	function RosterArmory( $character=false, $guild=false, $realm=false, $locale=false )
 	{
@@ -198,6 +196,8 @@ class RosterArmory
 	 */
 	function _requestXml( $url, $timeout=false, $user_agent=false )
 	{
+		$this->_initXmlParser();
+		
 		$this->xml = ''; // clear xml if any
 
 		if( $timeout === false )
@@ -208,7 +208,7 @@ class RosterArmory
 		{
 			$user_agent = $this->user_agent;
 		}
-
+		
 		$this->xml = urlgrabber($url, $timeout, $user_agent);
 
 		if( !empty($this->xml) )
@@ -225,6 +225,7 @@ class RosterArmory
 	{
 		if( !is_object($this->xmlParser) )
 		{
+			require_once(ROSTER_LIB . 'xmlparse.class.php');
 			$this->xmlParser = new XmlParser();
 		}
 	}

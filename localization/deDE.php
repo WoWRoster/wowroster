@@ -573,8 +573,8 @@ $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(Roter|Gelber|Blauer|Meta)/i';
-$lang['tooltip_preg_reinforcedarmor']='';
-$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\))\n/';
+$lang['tooltip_preg_reinforcedarmor']='(Verstärkt \(\+\d+ Rüstung\))';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';
@@ -583,9 +583,9 @@ $lang['tooltip_reg_conjureditems']='Conjured items disappear';
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
-$lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig';
+$lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig|Kugel|Pfeil';
 $lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest';
-$lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust';
+$lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust|Beine|Füße';
 $lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>';
 
 //CP v2.1.1+ Gems info

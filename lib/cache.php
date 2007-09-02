@@ -29,8 +29,8 @@ class RosterCache
 	var $cache_dir;
 	var $sql_link_id;
 	var $sql_query;
-	var $cache_data;
-	var $cache_index=0;
+	var $sql_cache_data;
+	var $sql_cache_rows=-1;
 
 	/**
 	 * Constructor
@@ -41,7 +41,7 @@ class RosterCache
 	{
 		$this->cache_suffix = '.inc'; 
 		$this->object_ttl = '10800'; //3 hours
-		$this->sql_ttl = '600';
+		$this->sql_ttl = '60';
 		$this->cache_dir = ROSTER_CACHEDIR;
 	}
 	
@@ -89,7 +89,7 @@ class RosterCache
 	
 	/**
 	 * returns contains of $cache_file if cache file exists
-	 *
+	 * 
 	 * @param string $cache_file
 	 * @return bool
 	 */
@@ -142,49 +142,58 @@ class RosterCache
 		{
 			return false;
 		}
-		
 	}
 		
-	function fetchCache( $result_type='SQL_BOTH' )
+	function sqlFetch()
 	{
-		if( !empty($this->cache_data) )
+		if( !empty($this->sql_cache_data) )
 		{
-			return array_shift($this->cache_index);
-		}
-		
-		$cache_file = $this->cache_dir . $query_id . $this->cache_suffix;
-		// reads in the cache file if found else makes the cache and reads in
-		if( file_exists($cache_file) )
-		{
-			$this->cache_data = $this->readCache($cache_file);
-			return array_shift($this->cache_data);
+			$this->sql_cache_rows--;
+			return array_shift($this->sql_cache_data);
 		}
 		else
 		{
-			//SQL not cached. populate the cache_data property
-			if( $this->sql_link_id )
-			{
-				$result = array();
-				while( $this->record_set[$query_id] = @mysql_fetch_array($this->sql_link_id, $result_type) )
-				{
-					$result[] = $this->record_set[$query_id];
-				}
-				return $result;
-			}
-			else
-			{
-				return false;
-			}
+			return false;
 		}
 	}
-
-	function getSqlId( $sql, $link_id )
+	
+	/**
+	 * preps the cache object to handle requests on cached object
+	 *
+	 * @param unknown_type $sql
+	 * @param unknown_type $link_id
+	 * @return unknown
+	 */
+	function sqlCache( $sql, $link_id )
 	{
+		$cache_file = $this->cache_dir . 'sql_' . md5($sql) . $this->cache_suffix;
+				
 		$this->sql_link_id = $link_id;
 		$this->sql_query = $sql;
-		
+		$this->sql_cache_rows = -1;
+
+		if( file_exists($cache_file) && filemtime($cache_file) > (time() - $this->sql_ttl) )
+		{
+			echo "Cache Hit!<br>";
+			$this->sql_cache_data = $this->_readCache($cache_file);
+			$this->sql_cache_rows = count($this->sql_cache_data);
+		}
+		else 
+		{
+			echo "Cache Created!<br>";
+			$result = @mysql_query($sql, $link_id);
+			
+			$data = array();
+			while( $data = @mysql_fetch_array($result) )
+			{
+				$this->sql_cache_data[] = $data;
+			}
+			$this->_writeCache($this->sql_cache_data, $cache_file);
+			$this->sql_cache_rows = count($this->sql_cache_data);
+			unset($data);
+		}
 		return md5($sql);
-	}
+	}	
 	
 	/**
 	 * writes serialized $data to $cache_file

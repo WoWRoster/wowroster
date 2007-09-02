@@ -583,9 +583,9 @@ $lang['tooltip_reg_conjureditems']='Conjured items disappear';
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Una mano'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Misión|Se liga al recogerlo';
-$lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda';
+$lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Piernas|Pies';
 $lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
