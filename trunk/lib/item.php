@@ -55,7 +55,7 @@ class item
 	var $html_tooltip;
 
 	// item debugging. debug level 0, 1, 2
-	var $DEBUG = 2; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
+	var $DEBUG = 1; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
 	var $DEBUG_junk = '';
 
 	/**
@@ -654,9 +654,9 @@ class item
 				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
 				. $html_tt
 				. '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
-//				. '<hr width="80%"><div align="left"> ' . aprint($this->parsed_item) . '</div>'
+//				. '<hr width="80%"> ' . aprint($this->parsed_item)
 				. '</td></tr></table><br />';
-				echo '</div>';
+//				echo '</div>';
 				aprint($this->parsed_item);
 			}
 			$this->html_tooltip = $html_tt . ( $this->DEBUG ? '<br />Parsed Full' : '' );
@@ -746,13 +746,14 @@ class item
 		// check for armory object
 		if( !is_object($this->armory_db) )
 		{
-			$this->initArmoryDb();
+			$this->_initArmoryDb();
 		}
 		$data = $this->armory_db->fetchItemTooltip($itemid, $this->locale);
 //		$data = $this->armory_db->fetchItemTooltip($itemid, 'deDE');
 		//trim the fat
 		$data = $data['page'][0]['child']['itemTooltips'][0]['child']['itemTooltip'][0]['child'];
 aprint($data);
+exit;
 		if( !empty($data) )
 		{
 			//assign data structure
@@ -989,7 +990,7 @@ aprint($data);
 		{
 			//
 			// at this point any line prefixed with a + must be a White Stat (or base stat).
-			if( preg_match('/(-?\d+)\s(.+)/', $line, $matches) )
+			if( preg_match('/([+-]\d+)\s(.+)/u', $line, $matches) )
 			{
 				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 			}
@@ -1474,9 +1475,9 @@ aprint($data);
 		$this->sockets[$socket_color] = $this->sockets[$socket_color] + $amount;
 	}
 
-	function initArmoryDb()
+	function _initArmoryDb()
 	{
-		require_once(ROSTER_LIB.'armory.class.php');
-		$this->armory_db = new lib_armory();
+		require_once(ROSTER_LIB . 'armory.class.php');
+		$this->armory_db = new RosterArmory();
 	}
 } //end class item

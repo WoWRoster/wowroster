@@ -35,9 +35,11 @@ class RosterArmory
 	var $guild;
 	var $realm;
 	var $locale;
+	
 	var $xml;
+	var $xml_timeout = 8;  // seconds to pass for timeout
 	var $user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
-	var $xml_timeout = 5;  // seconds to pass for timeout
+	
 
 	/**
 	 * xmlParsing object
@@ -51,14 +53,12 @@ class RosterArmory
 	 *
 	 * @return RosterArmory
 	 */
-	function RosterArmory( $character=false, $guild=false, $realm=false, $locale=false )
+	function RosterArmory( $locale=false, $realm=false, $guild=false )
 	{
-		$this->_initXmlParser();  // remove from here and call when _getXml() gets called
-
-		$this->character 	= ( isset($character) ? $character : '' );
-		$this->guild 		= ( isset($guild) ? $guild : '' );
-		$this->server		= ( isset($realm) ? $realm : '' );
-		$this->locale		= ( isset($locale) ? $locale : '' );
+		$this->locale = ( isset($locale) ? $locale : '' );		
+		$this->guild = ( isset($guild) ? $guild : '' );
+		$this->realm = ( isset($realm) ? $realm : '' );
+		
 	}
 
 	/**
@@ -66,62 +66,197 @@ class RosterArmory
 	 *
 	 * @param string $item_id
 	 */
-	function fetchItemTooltip( $item_id, $locale )
+	function fetchItemTooltip( $item_id, $locale, $character=false, $realm=false, $guild=false, $is_XML=false )
 	{
 		global $roster;
-		$id = $item_id;
 		$locale = substr($locale, 0, 2);
-		$u_agent = '';
-
-		if( $roster->cache->check($id.$locale) )
+		
+		if( $roster->cache->check($item_id.$locale.$character.$is_XML) )
 		{
-			return $roster->cache->get($id.$locale);
+			return $roster->cache->get($item_id.$locale.$character.$is_XML);
 		}
 		else
 		{
-			$this->xml = urlgrabber('http://www.wowarmory.com/item-tooltip.xml?i=' . $id . '&locale=' . $locale, 5, $this->user_agent );
-			$this->xmlParser->Parse($this->xml);
-			$item = $this->xmlParser->getParsedData();
-			$roster->cache->put($item, $id.$locale);
-			return $item;
+			$url = $this->_makeUrl( 0, $locale, $item_id, $character, $realm, $guild );
+			if( $this->_requestXml($url) )
+			{
+				// if true return unparsed xml page
+				if( $is_XML )
+				{
+					$roster->cache->put($this->xml, $item_id.$locale.$character.$is_XML);
+					return $this->xml;
+				}
+				// otherwise parse and return array
+				$this->xmlParser->Parse($this->xml);
+				$item = $this->xmlParser->getParsedData();
+				$roster->cache->put($item, $item_id.$locale.$character.$is_XML);
+				return $item;
+			}
+			else 
+			{
+				trigger_error('RosterArmory Class: Failed to fetch' . $url);
+				return false;
+			}
 		}
 	}
+	
+	function fetchItemTooltipXML( $item_id, $locale, $character=false, $realm=false, $guild=false )
+	{
+		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, $guild, true);
+	}
 
-	function fetchItemInfo( $item_id, $locale )
+	function fetchItemInfo( $item_id, $locale, $is_XML=false )
 	{
 		global $roster;
-		$id = $item_id;
+		
 		$locale = substr($locale, 0, 2);
-		$u_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
-
-		if( $roster->cache->check($id.$locale) )
+		
+		if( $roster->cache->check($item_id.$locale.$is_XML) )
 		{
-			return $roster->cache->get($id.$locale);
+			return $roster->cache->get($item_id.$locale.$is_XML);
 		}
 		else
 		{
-			$this->xml = urlgrabber('http://www.wowarmory.com/item-info.xml?i=' . $id . '&locale=' . $locale, 5, $u_agent );
-			$this->xmlParser->Parse($this->xml);
-			$item = $this->xmlParser->getParsedData();
-			$roster->cache->put($item, $id.$locale);
-			return $item;
+			$url = $this->_makeUrl( 1, $locale, $item_id );
+			if( $this->_requestXml($url) )
+			{
+				if( $is_XML )
+				{
+					$roster->cache->put($this->xml, $item_id.$locale.$is_XML);
+					return $this->xml;
+				}
+				$this->xmlParser->Parse($this->xml);
+				$item = $this->xmlParser->getParsedData();
+				$roster->cache->put($item, $id.$locale.$is_XML);
+				return $item;
+			}
 		}
 	}
+	
+	function fetchItemInfoXML( $item_id, $locale )
+	{
+		return $this->fetchItemInfo($item_id, $locale, true);
+	}
 
+	
+	function fetchCharacter( $character, $locale, $realm, $is_XML=false )
+	{
+		global $roster;
+		
+		$locale = substr($locale, 0, 2);
+		$cache_tag = $character.$locale.$realm.$is_XML;
+		
+		if( $roster->cache->check($cache_tag) )
+		{
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 2, $locale, false, $character, $realm );
+			if( $this->_requestXml($url) )
+			{
+				if( $is_XML )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				$this->xmlParser->Parse($this->xml);
+				$char = $this->xmlParser->getParsedData();
+				$roster->cache->put($char, $cache_tag);
+				return $char;
+			}
+		}
+	}
+	
+	function fetchCharacterXML( $character, $locale, $realm )
+	{
+		return $this->fetchCharacter($character, $locale, $realm, true);
+	}
+
+
+	function fetchGuild( $guild, $locale, $realm, $is_XML=false )
+	{
+		global $roster;
+		
+		$locale = substr($locale, 0, 2);
+		$cache_tag = $guild.$locale.$realm.$is_XML;
+		
+		if( $roster->cache->check($cache_tag) )
+		{
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 3, $locale, false, false, $realm, $guild );
+			if( $this->_requestXml($url) )
+			{
+				if( $is_XML )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				$this->xmlParser->Parse($this->xml);
+				$guild = $this->xmlParser->getParsedData();
+				$roster->cache->put($guild, $cache_tag);
+				return $guild;
+			}
+		}
+	}
+	
+	function fetchCharacterXML( $character, $locale, $realm )
+	{
+		return $this->fetchCharacter($character, $locale, $realm, true);
+	}
+
+	function fetchCharacterTalents( $character, $locale, $realm, $is_XML=false )
+	{
+		global $roster;
+		
+		$locale = substr($locale, 0, 2);
+		$cache_tag = $character.$locale.$realm.$is_XML;
+		
+		if( $roster->cache->check($cache_tag) )
+		{
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 4, $locale, false, $character, $realm );
+			if( $this->_requestXml($url) )
+			{
+				if( $is_XML )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				$this->xmlParser->Parse($this->xml);
+				$talents = $this->xmlParser->getParsedData();
+				$roster->cache->put($talents, $cache_tag);
+				return $talents;
+			}
+		}
+	}
+	
+	function fetchCharacterTalentsXML( $character, $locale, $realm )
+	{
+		return $this->fetchCharacterTalents($character, $locale, $realm, true);
+	}
+	
 	/**
-	 * Private funtion to generate the URL urlgrabber tries to retrive
+	 * Private funtion to make the URL urlgrabber tries to retrive
 	 * Based on locale uses eu or us wow armory
 	 * Based on mode requests proper xml
-	 * if passed will append user, server, guild information to the mode request
+	 * if passed will append user, realm and guild information to the mode request
 	 * locale will always be used, enUS if non passed
 	 *
-	 * @param mixed $mode	| string or int of data to request
-	 * @param unknown_type $id
-	 * @param unknown_type $char
-	 * @param unknown_type $server
-	 * @param unknown_type $locale
+	 * @param string $mode	| string or int of data to request
+	 * @param string $locale
+	 * @param string $id
+	 * @param string $char
+	 * @param string $realm
+	 * @param string $guild
 	 */
-	function _generateUrl($mode, $id=false, $char=false, $guild=false, $realm=false, $locale=false)
+	function _makeUrl($mode, $locale, $id=false, $char=false, $realm=false, $guild=false )
 	{
 		//build base url
 		if( $locale )
@@ -148,39 +283,41 @@ class RosterArmory
 			case 0:
 			case 'item-tooltip':
 				$mode = '?item-tooltip.xml';
+				break;
 			case 1:
 			case 'item-info':
 				$mode = '?item-info.xml';
-		}
-
-		if( !$char )
-		{
-			$char = $this->character;
-		}
-
-		if( $realm )
-		{
-			$realm = str_replace(' ', '+', $realm);
-		}
-		elseif( $this->realm )
-		{
-			$realm = str_replace(' ', '+', $this->realm);
-		}
-
-		if( $guild )
-		{
-			$guild = str_replace(' ', '+', $guild);
-		}
-		elseif( $this->guild )
-		{
-			$guild = str_replace(' ', '+', $this->guild);
+				break;
+			case 2:
+			case 'character-sheet':
+				$mode = '?character-sheet.xml';
+				break;
+			case 3:
+			case 'guild-info':
+				$mode = '?guild-info.xml';
+				break;
+			case 4:
+			case 'character-talents':
+				$mode = '?character-talents.xml';
+				break;
 		}
 
 		$url = $base_url . $mode . '&locale=' . $locale;
+
+		// if char is passed always expect to pass realm name
 		if( $char )
 		{
-			$url .= '&n=' . $char . '&r=' . $realm . '&g=' . $guild;
+			$url .= '&n=' . $char;
 		}
+		if( $realm )
+		{
+			$url .= '&r=' . str_replace(' ', '+', $realm);
+		}
+		if( $guild )
+		{
+			$url .= '&g=' . str_replace(' ', '+', $guild);
+		}
+		
 		return $url;
 	}
 
@@ -229,4 +366,5 @@ class RosterArmory
 			$this->xmlParser = new XmlParser();
 		}
 	}
+
 }
