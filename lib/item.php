@@ -276,25 +276,6 @@ class item
 		return $html;
 	}
 
-	/**
-	 * Helper function that returns the localized gem color in english
-	 *
-	 * @param string $socket_color
-	 * @return string $color
-	 */
-	function _socketColorEn( $socket_color )
-	{
-		if( $this->locale == 'enUS' )
-		{
-			return strtolower($socket_color);
-		}
-
-		global $roster;
-
-		$colorArr = array_flip($roster->locale->wordings[$this->locale]['gem_colors']);
-		return (string)strtolower($colorArr[$socket_color]);
-	}
-
 	function _getSockets()
 	{
 		global $roster;
@@ -308,7 +289,8 @@ class item
 			foreach( $emptysockets as $socket_color => $socket_line )
 			{
 				$html .= '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
-					   . $this->_socketColorEn($socket_color) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;' . $socket_line . '<br />';
+					   . socketColorEn($socket_color, $this->locale) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;' 
+					   . $socket_line . '<br />';
 			}
 		}
 		//now lets do sockets with gems

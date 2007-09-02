@@ -569,21 +569,21 @@ $lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that s
 $lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)\n/';
 $lang['tooltip_preg_classes']='/^(Classes)...(.+)/'; // text for class restricted items
-$lang['tooltip_preg_races']='/^(Races)...(.+)/'; // test for race restricted items
+$lang['tooltip_preg_races']='/^(Races)...(.+)/'; // text for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
-$lang['tooltip_preg_block']='/(Bloquer).:.(\d+)/i';  // text for shield blocking values
+$lang['tooltip_preg_block']='/(Bloquer)...(\d+)/i';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/(?:Châsse )?((Méta-(?=châsse))|((?<=Châsse )(rouge|jaune|bleue)))(châsse)?/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
-$lang['tooltip_chance_hit']='Chances quand touché :'; // needs to find 'chance on|to hit:'
+$lang['tooltip_chance_hit']='Chances quand vous touchez...'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
-$lang['tooltip_reg_onlyworksinside']='Utilisable uniquement dans'; // cas des potions de néangond par exemple qui ne sont utilisables qu'au donjon de la tempête
+$lang['tooltip_reg_onlyworksinside']='Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête'; 
 $lang['tooltip_reg_conjureditems']='Objet invoqué disparaissant'; // cas d'un objet invoqué qui disparait après 15 minutes de déconnexion
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
-$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Armes à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Arme à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|Flèche|Balle';
 $lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé';
 $lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
 $lang['tooltip_garbage']='Maj clic-droit pour sertir|Temps de recharge';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out

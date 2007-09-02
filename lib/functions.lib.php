@@ -1146,7 +1146,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 
 			while( !feof($file) )
 			{
-				$chunk = fgets($file, 128);
+				$chunk = fgets($file, 256);
 				if( $inHeader )
 				{
 					$pos = strpos($chunk, '<');
@@ -1339,12 +1339,26 @@ function aprint( $arr , $prefix='' , $return=false )
  */
 function socketColorEn( $socket_color, $locale )
 {
+	global $roster;
+
 	if( $locale == 'enUS' )
 	{
 		return strtolower($socket_color);
 	}
-
-	global $roster;
+	elseif( $locale == 'deDE' )
+	{
+		switch( trim($socket_color) )
+		{
+			case 'Roter':
+				return 'red';
+			case 'Blauer':
+				return 'blue';
+			case 'Gelber':
+				return 'yellow';
+			default:
+				break;
+		}
+	}
 
 	$colorArr = array_flip($roster->locale->wordings[$locale]['gem_colors']);
 	return (string)strtolower($colorArr[$socket_color]);

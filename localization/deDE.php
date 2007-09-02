@@ -539,17 +539,17 @@ $lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
 $lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
 // Definitions for item tooltip coloring
-$lang['tooltip_use']='Benutzen';
+$lang['tooltip_use']='Benutzen.';
 $lang['tooltip_requires']='Benötigt';
 $lang['tooltip_reinforced']='Verstärkte';
 $lang['tooltip_soulbound']='Seelengebunden';
 $lang['tooltip_boe']='Wird beim Anlegen gebunden';
-$lang['tooltip_equip']='Anlegen';
+$lang['tooltip_equip']='Anlegen.';
 $lang['tooltip_equip_restores']='Anlegen: Stellt';
 $lang['tooltip_equip_when']='Anlegen: Erhöht';
 $lang['tooltip_chance']='Gewährt';
 $lang['tooltip_enchant']='Enchant';
-$lang['tooltip_set']='Set';
+$lang['tooltip_set']='Set.';
 $lang['tooltip_rank']='Rang';
 $lang['tooltip_next_rank']='Nächster Rang';
 $lang['tooltip_spell_damage']='Schaden';
@@ -578,15 +578,15 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';
-$lang['tooltip_reg_onlyworksinside']='Only works inside';
+$lang['tooltip_reg_onlyworksinside']='Wirkt nur in der Festung der Stürme';
 $lang['tooltip_reg_conjureditems']='Conjured items disappear';
-$lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
+$lang['tooltip_reg_weaponorbulletdps']='^\(|^Verursacht ';
 
 $lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
 $lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig|Kugel|Pfeil';
 $lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest';
 $lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust|Beine|Füße';
-$lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>';
+$lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>|Verbleibende Abklingzeit';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
