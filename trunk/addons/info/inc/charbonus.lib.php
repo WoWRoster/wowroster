@@ -244,7 +244,7 @@ class CharBonus
 
 		if( $strip_string )
 		{
-			$bonus = str_replace($strip_string, '', $bonus);
+			$bonus = preg_replace('/' . $strip_string . '/i', '', $bonus);
 		}
 
 		$bonus = trim($bonus);
