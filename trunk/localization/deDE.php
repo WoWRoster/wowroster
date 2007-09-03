@@ -572,7 +572,7 @@ $lang['tooltip_preg_classes']='/^(Klassen:) (.+)/';
 $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
-$lang['tooltip_preg_emptysocket']='/(Roter|Gelber|Blauer|Meta)/i';
+$lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='(Verstärkt \(\+\d+ Rüstung\))';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 
