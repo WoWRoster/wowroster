@@ -568,11 +568,11 @@ $lang['tooltip_preg_durability']='/Durabilité (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.
 $lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)\n/';
-$lang['tooltip_preg_classes']='/^(Classes)...(.+)/'; // text for class restricted items
+$lang['tooltip_preg_classes']='/^(Classes.+) (.+)/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Races)...(.+)/'; // text for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/'; // text for items with charges
 $lang['tooltip_preg_block']='/(Bloquer)...(\d+)/i';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/(?:Châsse )?((Méta-(?=châsse))|((?<=Châsse )(rouge|jaune|bleue)))(châsse)?/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_emptysocket']='/(?:-?châsse ?)?(rouge|jaune|bleue|Méta)/i'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
@@ -604,7 +604,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'orange',
 	'purple' => 'pourpre',
 	'prismatic' => 'prismatique',
-	'meta' => 'Méta-' //verify translation
+	'meta' => 'Méta' //verify translation
 	);
 // -- end tooltip parsing
 
