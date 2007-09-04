@@ -150,12 +150,32 @@ $lang['item_bonuses'] = 'Objets Bonus';
 $lang['item_bonuses_preg_linesplits']='/(et|\/|&)/';
 $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
-// note to translators ** do not worry about translating this yet.. this will change SOON -ds
+//
+// patterns to standardize bonus string
+$lang['item_bonuses_preg_patterns'] = 
+	array('/increases the block value of your shield by xx\.?/i',	//1
+		  '/(?:increases|improves) (?:your )?(.+) by xx\.?/i',	//2
+		  '/increases (damage) and (Healing) done by magical spells and effects by up to xx\.?$/i',	//3
+		  '/(?:restores|\+)?\s?xx (mana|health) (?:per|every|regen).*$/i',	//4
+		  '/increases damage done by (.+) and.*$/i',	//5
+		  '/^\+?xx (Healing)(?: Spells)?\.?$/',	//6
+		  '/^scope \(\+xx damage\)$/i',	//7
+		  '/^\+?xx (?:shield )?block$/i',	//8
+		 );
+$lang['item_bonuses_preg_replacements'] =
+	array('+XX Shield Block',  //1
+		  '+XX $1', //2
+		  '+XX Spell $1:+XX $2 Spells', //3
+		  '+XX $1 Per 5 Seconds', //4
+		  '+XX $1 Damage', //5
+		  '+XX $1 Spells', //6
+		  '+XX Ranged Damage (Scope)', //7
+		  '+XX Shield Block', //8
+		 );
+
+/*
 $lang['item_bonuses_remap']=
-	array( // key must be lowercase!													// standardized bonus
-		'+xx à la puissance des sorts' 													=> '+XX aux dégâts des sorts',
-		'endurance +xx'																	=> '+XX Endurance',
-		'score de toucher des sorts +xx'												=> '+XX au score de toucher des sorts',
+	array( // key must be lowercase!											// standardized bonus
 		'+xx healing'                   												=> '+XX to Healing Spells',
 		'+xx healing spells'															=> '+XX to Healing Spells',
 		'increases healing done by spells and effects by up to xx.'						=> '+XX to Healing Spells',
@@ -177,7 +197,7 @@ $lang['item_bonuses_remap']=
 		'increases your dodge rating by xx.'											=> '+XX Dodge Rating',
 		'increases defense rating by xx.'												=> '+XX Defense Rating',
 		'increases your parry rating by xx.'											=> '+XX Parry Rating',
-//		'xx block'																		=> '+XX Shield Block Rating',
+//		'xx block'																		=> '+XX Shield Block',
 		'increases the block value of your shield by xx.'								=> '+XX Shield Block Rating',
 		'increases your shield block rating by xx.'										=> '+XX Shield Block Rating',
 		'improves hit rating by xx.'													=> '+XX Hit Rating',
@@ -191,6 +211,8 @@ $lang['item_bonuses_remap']=
 		'increases your hit rating by xx.'												=> '+XX Hit Rating',
 		'scope (+xx damage)'															=> '+XX Ranged Damage (Scope)'
 		);
+*/
+
 $lang['item_bonuses_tabs'] = array(
 		//key				//translate this
 		'Totals' 			=> 'Totals',

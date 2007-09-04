@@ -268,25 +268,25 @@ class CharBonus
 			return;
 		}
 		//
-		//
-
+		// Replace Keys
 		if( preg_match_all($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_main'], $bonus, $matches) )
 		{
 			switch( count($matches[0]) )
 			{
+				default:
+				case 0:
+					break;
 				case 1:
 					$modifier = $matches[0][0];
-					$bonus_string = $this->replaceOne($modifier, 'XX', $bonus);
-					$this->setBonus( $modifier, $bonus_string, $catagory );
+					$bonus = $this->replaceOne($modifier, 'XX', $bonus);
+					$this->setBonus( $modifier, $bonus, $catagory );
 					return;
 				case 2:
 					$modifier = $matches[0][0] . ':' . $matches[0][1];
-					$bonus_string = $this->replaceOne($matches[0][0], 'XX', $bonus);
-					$bonus_string = $this->replaceOne($matches[0][1], 'YY', $bonus_string);
-					$this->setBonus( $modifier, $bonus_string, $catagory );
+					$bonus = $this->replaceOne($matches[0][0], 'XX', $bonus);
+					$bonus = $this->replaceOne($matches[0][1], 'YY', $bonus);
+					$this->setBonus( $modifier, $bonus, $catagory );
 					return;
-
-				default:
 				case 3:
 				case 4:
 					$this->setBonus( '', $bonus, $catagory );
@@ -306,11 +306,16 @@ class CharBonus
 	 * @param int $modifier |   12
 	 * @param string $string |  +XX Strength
 	 * @param string $catagory | Catagory this bonus belongs
+	 * @param bool $is_standardized | true to bypass bonus standardizing
 	 */
-	function setBonus( $modifier, $string, $catagory )
+	function setBonus( $modifier, $string, $catagory, $is_standardized=false )
 	{
 //		$orgStr = $string;
-		$string = $this->standardizeBonus($string);
+		if( !$is_standardized )
+		{
+			// pass modifier and $catagory in case two bonuses come of the function
+			$string = $this->standardizeBonus($string, $modifier, $catagory);	
+		}
 //		if( $orgStr !== $string )
 //		{
 //			echo $orgStr . '<br>converted to: <br>' . $string . '<br><br><br>';
@@ -404,22 +409,35 @@ class CharBonus
 	 * @param string $bonus
 	 * @return string
 	 */
-	function standardizeBonus( $bonus )
+	function standardizeBonus( $bonus, $modifier, $catagory )
 	{
 		global $roster;
 
-		$bonus_map = $roster->locale->wordings[$this->item->locale]['item_bonuses_remap'];
+		//
+		// use preg matches to replace variations on bonus text
 
-		if( isset($bonus_map[strtolower($bonus)]) )
+		$bonus = preg_replace($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_patterns'], $roster->locale->wordings[$this->item_locale]['item_bonuses_preg_replacements'], ucwords($bonus));
+		
+		if( strpos($bonus, ':') )
 		{
-			return $bonus_map[strtolower($bonus)];
+			$return = explode(':', $bonus);
+			//Set the first bonus, then return the second part
+			$this->setBonus($modifier, $return[0], $catagory, true);
+			return $return[1];
 		}
-		else
-		{
-			return $bonus;
-		}
+		return $bonus;
+		
+//		$bonus_map = $roster->locale->wordings[$this->item->locale]['item_bonuses_remap'];
+//		if( isset($bonus_map[strtolower($bonus)]) )
+//		{
+//			return $bonus_map[strtolower($bonus)];
+//		}
+//		else
+//		{
+//			return $bonus;
+//		}
 	}
-
+	
 	// by: Dmitry Fedotov box at neting dot ru
 	function replaceOne( $in, $out, $content )
 	{
