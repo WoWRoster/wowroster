@@ -544,7 +544,7 @@ $lang['tooltip_requires']='Requires';
 $lang['tooltip_reinforced']='Reinforced';
 $lang['tooltip_soulbound']='Soulbound';
 $lang['tooltip_boe']='Binds when equipped';
-$lang['tooltip_equip']='Equip:';  
+$lang['tooltip_equip']='Equip:';
 $lang['tooltip_equip_restores']='Equip: Restores';
 $lang['tooltip_equip_when']='Equip: When';
 $lang['tooltip_chance']='Chance';
@@ -630,6 +630,12 @@ $lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
 $lang['menu_credits']='Credits|Who made WoW Roster';
 
 $lang['menuconf_sectionselect']='Select Section';
+$lang['menuconf_changes_saved']='Changes to %1$s saved';
+$lang['menuconf_no_changes_saved']='No changes saved';
+$lang['menuconf_add_button']='Add button';
+$lang['menuconf_drag_delete']='Drag here to delete';
+$lang['menuconf_addon_inactive']='Addon is inactive';
+$lang['menuconf_unused_buttons']='Unused Buttons';
 
 $lang['installer_install_0']='Installation of %1$s successful';
 $lang['installer_install_1']='Installation of %1$s failed, but rollback successful';

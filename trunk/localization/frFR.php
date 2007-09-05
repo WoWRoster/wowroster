@@ -578,7 +578,7 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Chances quand vous touchez...'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
-$lang['tooltip_reg_onlyworksinside']='Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête'; 
+$lang['tooltip_reg_onlyworksinside']='Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête';
 $lang['tooltip_reg_conjureditems']='Objet invoqué disparaissant'; // cas d'un objet invoqué qui disparait après 15 minutes de déconnexion
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
@@ -630,6 +630,12 @@ $lang['menu_roster_cp']='PC Roster|Panneau de configuration du Roster';
 $lang['menu_credits']='Crédits|Les artisans du projet WoW Roster';
 
 $lang['menuconf_sectionselect']='Zone de sélection';
+$lang['menuconf_changes_saved']='Changes to %1$s saved';
+$lang['menuconf_no_changes_saved']='No changes saved';
+$lang['menuconf_add_button']='Add button';
+$lang['menuconf_drag_delete']='Drag here to delete';
+$lang['menuconf_addon_inactive']='Addon is inactive';
+$lang['menuconf_unused_buttons']='Unused Buttons';
 
 $lang['installer_install_0']='L\'installation de %1$s a réussi';
 $lang['installer_install_1']='L\'installation de %1$s a échoué mais le retour à l\'état précédent a réussi';

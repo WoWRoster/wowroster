@@ -40,11 +40,11 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 
 	if ($roster->db->affected_rows()>0) // the config row was actually changed
 	{
-		$save_status = '<span style="color:#0099FF;font-size:11px;">Changes to '.$section.' saved</span>';
+		$save_status = '<span style="color:#0099FF;font-size:11px;">'.sprintf($roster->locale->act['menuconf_changes_saved'],$section).'</span>';
 	}
 	else
 	{
-		$save_status = '<span style="color:#0099FF;font-size:11px;">No changes saved</span>';
+		$save_status = '<span style="color:#0099FF;font-size:11px;">'.$roster->locale->act['menuconf_no_changes_saved'].'</span>';
 	}
 }
 
@@ -142,7 +142,7 @@ while ($row = $roster->db->fetch($result))
 {
 	if ($row['section'] == $section)
 	{
-		$menu .= '<option value="'.$row['section'].'" selected="selected">-'.$row['section'].'-</option>'."\n";
+		$menu .= '<option value="'.$row['section'].'" selected="selected">-['.$row['section'].']-</option>'."\n";
 	}
 	else
 	{
@@ -161,18 +161,18 @@ $menu .= border('sorange','end')."\n";
 
 // --[ Add button ]--
 $menu .= "<br />\n";
-$menu .= border('syellow','start','Add button')."\n";
+$menu .= border('syellow','start',$roster->locale->act['menuconf_add_button'])."\n";
 $menu .= '<table cellspacing="0" cellpadding="0" border="0">';
 $menu .= '<tr><td>title:</td><td><input id="title" type="text" size="16" maxlength="32" /></td></tr>'."\n";
 $menu .= '<tr><td>url:  </td><td><input id="url"   type="text" size="16" maxlength="128"/></td></tr>'."\n";
 $menu .= '<tr><td>icon: </td><td><input id="icon"  type="text" size="16" maxlength="64" /></td></tr>'."\n";
-$menu .= '<tr><td colspan="2" align="right"><button onclick="sendAddElement()">Go</button></td></tr>'."\n";
+$menu .= '<tr><td colspan="2" align="right"><button class="input" onclick="sendAddElement()">Go</button></td></tr>'."\n";
 $menu .= '</table>';
 $menu .= border('syellow','end')."\n";
 
 // --[ Delete box ]--
 $menu .= "<br/>\n";
-$menu .= border('sred','start','Drag here to delete');
+$menu .= border('sred','start',$roster->locale->act['menuconf_drag_delete']);
 $menu .= '<div id="rec_bin" style="width:135px;height:65px;background-color:black;"></div>'."\n";
 $menu .= border('sred','end');
 
@@ -233,14 +233,14 @@ foreach($arrayButtons as $pos=>$button)
 
 	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
 		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
-		. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
 		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
 		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	if( $button['active'] == '0' )
 	{
 		$buttonclass = 'menu_config_div_disabled';
-		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">Addon is inacvtive</span></span>';
+		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">'.$roster->locale->act['menuconf_addon_inactive'].'</span></span>';
 	}
 	else
 	{
@@ -258,7 +258,7 @@ foreach($arrayButtons as $pos=>$button)
 
 // --[ Button palet ]--
 $body .= '<br />'."\n";
-$body .= messagebox('<div id="palet" style="width:'.(40*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>','Unused buttons','sblue');
+$body .= messagebox('<div id="palet" style="width:'.(40*$paletWidth+5).'px;height:'.(40*$paletHeight+5).'px;"></div>',$roster->locale->act['menuconf_unused_buttons'],'sblue');
 foreach($palet as $id=>$button)
 {
 	// Save current locale array
@@ -305,14 +305,14 @@ foreach($palet as $id=>$button)
 
 	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
 		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
-		. '<span style="font-size:10px;">addon basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
 		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
 		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	if( $button['active'] == '0' )
 	{
 		$buttonclass = 'menu_config_div_disabled';
-		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">Addon is inacvtive</span></span>';
+		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">'.$roster->locale->act['menuconf_addon_inactive'].'</span></span>';
 	}
 	else
 	{

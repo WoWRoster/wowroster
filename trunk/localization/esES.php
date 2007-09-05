@@ -630,6 +630,12 @@ $lang['menu_roster_cp']='Panel de control|Abre el panel de configuración de Ros
 $lang['menu_credits']='Créditos|Creadores de WoWRoster';
 
 $lang['menuconf_sectionselect']='Selecciona apartado';
+$lang['menuconf_changes_saved']='Changes to %1$s saved';
+$lang['menuconf_no_changes_saved']='No changes saved';
+$lang['menuconf_add_button']='Add button';
+$lang['menuconf_drag_delete']='Drag here to delete';
+$lang['menuconf_addon_inactive']='Addon is inactive';
+$lang['menuconf_unused_buttons']='Unused Buttons';
 
 $lang['installer_install_0']='La instalación de %1$s se ha completado satisfactoriamente';
 $lang['installer_install_1']='La instalación de %1$s falló, pero se ha recuperado la versión anterior satisfactoriamente';
