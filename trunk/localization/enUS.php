@@ -212,6 +212,9 @@ $lang['alternate']='Alternate';
 $lang['byclass']='By Class';
 $lang['menustats']='Stats';
 $lang['menuhonor']='Honor';
+$lang['basename']='Basename';
+$lang['scope']='Scope';
+
 //start search engine
 $lang['search']='Search';
 $lang['search_roster']='Search Roster';
@@ -274,6 +277,8 @@ $lang['add'] = 'Add';
 $lang['delete'] = 'Delete';
 $lang['updated'] = 'Updated';
 $lang['no_info'] = 'No Information';
+$lang['info'] = 'Info';
+$lang['url'] = 'URL';
 $lang['none']='None';
 $lang['kills']='Kills';
 $lang['allow'] = 'Allow';
