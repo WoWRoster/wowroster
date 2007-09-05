@@ -110,6 +110,9 @@ $lang['menu_header_03'] = 'Actualizar Perfil';
 $lang['menu_header_04'] = 'Utilidades';
 $lang['menu_header_scope_panel'] = 'Panel de %s';
 
+$lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
+$lang['menu_totals_level'] = ' At least L%1$s';
+
 // Updating Instructions
 $lang['index_text_uniloader'] = "(Puedes descargar este programa desde la web de WoWRoster, busca el instalador de UniUploader para obtener la última versión)";
 

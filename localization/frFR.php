@@ -110,6 +110,9 @@ $lang['menu_header_03'] = 'Mise à jour';
 $lang['menu_header_04'] = 'Utilitaires';
 $lang['menu_header_scope_panel'] = 'Panneau de contrôle : %s';
 
+$lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
+$lang['menu_totals_level'] = ' At least L%1$s';
+
 // Updating Instructions
 $lang['index_text_uniloader'] = '<b><u>Prérequis à l\'utilisation d\'UniUploader:</b></u><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en">Microsoft .NET Framework</a> installé<br />Pour les utilisateurs d\'OS autres que Windows, utiliser JUniUploader qui vous permettra d\'effectuer les mêmes opérations que UniUploader mais en mode Java.';
 
