@@ -417,7 +417,7 @@ class RosterMenu
 			return '';
 		}
 
-		$text = 'Total: ' . $num_non_alts . ' (+' . $num_alts . ' Alts)' . ($level>0 ? ' At least L' . $level : '');
+		$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
 		$output = '	<td valign="top" align="left" class="row">';
 
 		if( $style == 'bar' )

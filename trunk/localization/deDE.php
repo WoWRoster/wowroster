@@ -110,6 +110,9 @@ $lang['menu_header_03'] = 'Update Profile';
 $lang['menu_header_04'] = 'Einstellungen';
 $lang['menu_header_scope_panel'] = '%s Panel';
 
+$lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
+$lang['menu_totals_level'] = ' At least L%1$s';
+
 // Updating Instructions
 $lang['index_text_uniloader'] = '(Du kannst dieses Programm von der WoW-Roster-Webseite herunterladen, schaue nach dem "UniUploader Installer" für die aktuellste Version)';
 
