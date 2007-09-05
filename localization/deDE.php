@@ -212,6 +212,9 @@ $lang['alternate']='Alternative Ansicht';
 $lang['byclass']='Nach Klasse';
 $lang['menustats']='Grundwerte';
 $lang['menuhonor']='Ehre';
+$lang['basename']='Basename';
+$lang['scope']='Scope';
+
 //start search engine
 $lang['search']='Suche';
 $lang['search_roster']='Suche im Roster';
@@ -274,6 +277,8 @@ $lang['add'] = 'Hinzufügen';
 $lang['delete'] = 'Löschen';
 $lang['updated'] = 'geändert';
 $lang['no_info'] = 'Keine Information';
+$lang['info'] = 'Info';
+$lang['url'] = 'URL';
 $lang['none']='Keine';
 $lang['kills']='Kills';
 $lang['allow'] = 'Erlauben';

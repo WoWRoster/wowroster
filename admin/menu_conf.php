@@ -232,15 +232,15 @@ foreach($arrayButtons as $pos=>$button)
 	}
 
 	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
-		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
-		. '<span style="font-size:10px;">basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
-		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
-		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+		. '<span style="font-size:10px;">' . $roster->locale->act['scope'] . ': <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['basename'] . ': <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['url'] . ': <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['title'] . ': <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	if( $button['active'] == '0' )
 	{
 		$buttonclass = 'menu_config_div_disabled';
-		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">'.$roster->locale->act['menuconf_addon_inactive'].'</span></span>';
+		$button['tooltip'] .= '<br /><span style="font-size:10px;">' . $roster->locale->act['info'] . ': <span style="color:#FF3300;">'.$roster->locale->act['menuconf_addon_inactive'].'</span></span>';
 	}
 	else
 	{
@@ -304,15 +304,15 @@ foreach($palet as $id=>$button)
 	}
 
 	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
-		. '<span style="font-size:10px;">scope: <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
-		. '<span style="font-size:10px;">basename: <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
-		. '<span style="font-size:10px;">url: <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
-		. '<span style="font-size:10px;">title key: <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+		. '<span style="font-size:10px;">' . $roster->locale->act['scope'] . ': <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['basename'] . ': <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['url'] . ': <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['title'] . ': <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	if( $button['active'] == '0' )
 	{
 		$buttonclass = 'menu_config_div_disabled';
-		$button['tooltip'] .= '<br /><span style="font-size:10px;">info: <span style="color:#FF3300;">'.$roster->locale->act['menuconf_addon_inactive'].'</span></span>';
+		$button['tooltip'] .= '<br /><span style="font-size:10px;">' . $roster->locale->act['info'] . ': <span style="color:#FF3300;">'.$roster->locale->act['menuconf_addon_inactive'].'</span></span>';
 	}
 	else
 	{
