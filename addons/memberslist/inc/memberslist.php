@@ -370,21 +370,21 @@ class memberslist
 
 		if( $this->addon['config']['group_alts']==1 )
 		{
-			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />Close all</a></th>';
-			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />Open all</a></th>';
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">Ungroup alts</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />'.$roster->locale->act['closeall'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />'.$roster->locale->act['openall'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">'.$roster->locale->act['ungroupalts'].'</a></th>';
 		}
 		elseif( $this->addon['config']['group_alts'] == 0 )
 		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">Group alts</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">'.$roster->locale->act['groupalts'].'</a></th>';
 		}
 		if( $this->addon['config']['nojs'] )
 		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=client'.$alts).'">Client sorting</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=client'.$alts).'">'.$roster->locale->act['clientsort'].'</a></th>';
 		}
 		else
 		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=server'.$alts.$get).'">Server sorting</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=server'.$alts.$get).'">'.$roster->locale->act['serversort'].'</a></th>';
 		}
 
 		if( $dir == 'horizontal' )

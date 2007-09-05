@@ -33,6 +33,13 @@ $lang['memberssort']			= 'Sort';
 $lang['memberscolshow']			= 'Show/Hide Columns';
 $lang['membersfilter']			= 'Filter rows';
 
+$lang['openall']                = 'Open all';
+$lang['closeall']               = 'Close all';
+$lang['ungroupalts']            = 'Ungroup alts';
+$lang['groupalts']              = 'Group alts';
+$lang['clientsort']             = 'Client sorting';
+$lang['serversort']             = 'Server sorting';
+
 // Column headers
 $lang['onote']                  = 'Officer Note';
 
