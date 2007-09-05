@@ -62,15 +62,10 @@ $lang['tab3']='Reputation';
 $lang['tab4']='Comp';
 $lang['tab5']='JcJ';
 
-$lang['strength']='Force';
 $lang['strength_tooltip']='Augmente la puissance d\'attaque avec arme de mêlée.<br />Augmente le nombre de points de dégâts bloqués par le bouclier.';
-$lang['agility']='Agilité';
 $lang['agility_tooltip']= 'Augmente votre puissance d\'attaque avec arme de jet.<br />Améliore vos change de réaliser une attaque critique avec toutes les armes.<br />Augmente votre armure et votre change d\'esquiver les attaques.';
-$lang['stamina']='Endurance';
 $lang['stamina_tooltip']= 'Augmente vos points de vie.';
-$lang['intellect']='Intelligence';
 $lang['intellect_tooltip']= 'Augmente vos points de mana et vos chances de réaliser une attaque critique aux moyens de sorts.<br />Augmente la vitesse d\'apprentissage des compétences en arme.';
-$lang['spirit']='Esprit';
 $lang['spirit_tooltip']= 'Augmente la vitesse de régénération de vos points de vie et de mana.';
 $lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
 
@@ -152,7 +147,7 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 //
 // patterns to standardize bonus string
-$lang['item_bonuses_preg_patterns'] = 
+$lang['item_bonuses_preg_patterns'] =
 	array('/increases the block value of your shield by xx\.?/i',	//1
 		  '/(?:increases|improves) (?:your )?(.+) by xx\.?/i',	//2
 		  '/increases (damage) and (Healing) done by magical spells and effects by up to xx\.?$/i',	//3

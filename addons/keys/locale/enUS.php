@@ -26,6 +26,10 @@ $lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Q
 $lang['thievestools']='Thieves\\\' Tools';
 $lang['lockpicking']='Lockpicking';
 
+$lang['Quests'] = 'Quests';
+$lang['Parts'] = 'Parts';
+$lang['key_status'] = '%1$s %2$s Status';
+
 
 /*
 Instance Keys

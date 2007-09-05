@@ -72,7 +72,7 @@ $FIELD['guild_num_accounts'] = array (
 );
 
 $FIELD['guild_motd'] = array (
-	'lang_field' => 'MOTD',
+	'lang_field' => 'motd',
 	'order' => array( '`guild`.`guild_motd` ASC' ),
 	'order_d' => array( '`guild`.`guild_motd` DESC' ),
 	'value' => 'note_value',

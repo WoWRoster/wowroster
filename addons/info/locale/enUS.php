@@ -62,15 +62,10 @@ $lang['tab3']='Reputation';
 $lang['tab4']='Skills';
 $lang['tab5']='PvP';
 
-$lang['strength']='Strength';
 $lang['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
-$lang['agility']='Agility';
 $lang['agility_tooltip']= 'Increases your attack power with ranged weapons.<br />Improves your chance to score a critcal hit with all weapons.<br />Increases your armor and your chance to dodge attacks.';
-$lang['stamina']='Stamina';
 $lang['stamina_tooltip']= 'Increases your health points.';
-$lang['intellect']='Intellect';
 $lang['intellect_tooltip']= 'Increases your mana points and your chance to score a critical hit with spells.<br />Increases the rate at which you improve weapon skills.';
-$lang['spirit']='Spirit';
 $lang['spirit_tooltip']= 'Increases your health and mana regeneration rates.';
 $lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
 
@@ -152,7 +147,7 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 //
 // patterns to standardize bonus string
-$lang['item_bonuses_preg_patterns'] = 
+$lang['item_bonuses_preg_patterns'] =
 	array('/increases the block value of your shield by XX\.?/i',	//1
 		  '/(?:increases|improves) (?:your )?(.+) by XX\.?/i',	//2
 		  '/increases (Damage) and (Healing) done by magical spells and effects by up to XX\.?$/i',	//3

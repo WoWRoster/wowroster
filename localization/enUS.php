@@ -283,6 +283,11 @@ $lang['language'] = 'Language';
 $lang['default'] = 'Default';
 $lang['proceed'] = 'Proceed';
 $lang['submit'] = 'Submit';
+$lang['strength']='Strength';
+$lang['agility']='Agility';
+$lang['stamina']='Stamina';
+$lang['intellect']='Intellect';
+$lang['spirit']='Spirit';
 
 $lang['rosterdiag'] = 'Roster Diag.';
 $lang['difficulty'] = 'Difficulty';

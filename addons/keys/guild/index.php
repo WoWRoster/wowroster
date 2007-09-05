@@ -371,7 +371,8 @@ while ($row = $roster->db->fetch($result))
 				$bcount = count($parray)-1;
 			}
 
-			$tooltip_h = $key . ' ' . $roster->locale->act['key'] . ' Status';
+			$tooltip_h = sprintf($roster->locale->act['key_status'],$key,$roster->locale->act['key']);
+
 			$tooltip = '<span style="color:' . $addon['config']['colorcmp'] . ';">' . $roster->locale->act['completedsteps'] . '</span><br />';
 			if ($items[$key][0] == 'Quests')
 			{
@@ -434,7 +435,7 @@ while ($row = $roster->db->fetch($result))
 			$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 			echo '<div style="cursor:pointer;" ' . makeOverlib($tooltip,$tooltip_h,'',2) . $linktip . ">\n";
-			print '<span class="name">' . $items[$key][0] . "</span>\n";
+			print '<span class="name">' . $roster->locale->act[$items[$key][0]] . "</span>\n";
 
 			print '<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $bcount . '/' . $qcount . '</div></div>' . "\n";
 			print '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">' . "\n";
