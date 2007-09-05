@@ -110,9 +110,6 @@ $lang['menu_header_03'] = 'Actualizar Perfil';
 $lang['menu_header_04'] = 'Utilidades';
 $lang['menu_header_scope_panel'] = 'Panel de %s';
 
-$lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
-$lang['menu_totals_level'] = ' At least L%1$s';
-
 // Updating Instructions
 $lang['index_text_uniloader'] = "(Puedes descargar este programa desde la web de WoWRoster, busca el instalador de UniUploader para obtener la última versión)";
 
@@ -576,7 +573,7 @@ $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted item
 $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (Bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
-$lang['tooltip_preg_reinforcedarmor']='';
+$lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
@@ -633,12 +630,6 @@ $lang['menu_roster_cp']='Panel de control|Abre el panel de configuración de Ros
 $lang['menu_credits']='Créditos|Creadores de WoWRoster';
 
 $lang['menuconf_sectionselect']='Selecciona apartado';
-$lang['menuconf_changes_saved']='Changes to %1$s saved';
-$lang['menuconf_no_changes_saved']='No changes saved';
-$lang['menuconf_add_button']='Add button';
-$lang['menuconf_drag_delete']='Drag here to delete';
-$lang['menuconf_addon_inactive']='Addon is inactive';
-$lang['menuconf_unused_buttons']='Unused Buttons';
 
 $lang['installer_install_0']='La instalación de %1$s se ha completado satisfactoriamente';
 $lang['installer_install_1']='La instalación de %1$s falló, pero se ha recuperado la versión anterior satisfactoriamente';

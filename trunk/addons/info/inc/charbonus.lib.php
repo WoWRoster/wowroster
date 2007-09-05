@@ -415,15 +415,29 @@ class CharBonus
 
 		//
 		// use preg matches to replace variations on bonus text
-
 		$bonus = preg_replace($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_patterns'], $roster->locale->wordings[$this->item_locale]['item_bonuses_preg_replacements'], ucwords($bonus));
 		
 		if( strpos($bonus, ':') )
 		{
 			$return = explode(':', $bonus);
+			//
+			// loop through the array recursing into setBonus()
+			// until last index then return out
+			
+			for( $idx=(count($return)-1);;$idx-- )  
+			{
+				if( $idx != 1 )
+				{
+					$this->setBonus($modifier, $return[$idx], $catagory, true);
+				}
+				else 
+				{
+					return $return[0];
+				}
+			}
 			//Set the first bonus, then return the second part
-			$this->setBonus($modifier, $return[0], $catagory, true);
-			return $return[1];
+			//$this->setBonus($modifier, $return[0], $catagory, true);
+			//return $return[1];
 		}
 		return $bonus;
 		
@@ -439,9 +453,12 @@ class CharBonus
 	}
 	
 	// by: Dmitry Fedotov box at neting dot ru
+	// edited by ds
 	function replaceOne( $in, $out, $content )
 	{
-		if( $pos = strpos($content, $in) )
+		$pos = strpos($content, $in);
+		
+		if( $pos !== false )
 		{
 			return substr($content, 0, $pos) . $out . substr($content, $pos+strlen($in));
 		}
