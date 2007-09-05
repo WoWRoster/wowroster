@@ -62,15 +62,10 @@ $lang['tab3']='Ruf';
 $lang['tab4']='Fertigk.';
 $lang['tab5']='PvP';
 
-$lang['strength']='Stärke';
 $lang['strength_tooltip']='Erhöht deine Angriffskraft mit Nahkampfwaffen.<br />Erhöht die Menge an Schaden, die mit einem Schild geblockt werden kann.';
-$lang['agility']='Beweglichkeit';
 $lang['agility_tooltip']= 'Erhöht deine Angriffskraft mit Fernkampfwaffen.<br />Verbessert deine Chance auf einen kritischen Treffer mit allen Waffen.<br />Erhöht deine Rüstung und deine Chance Angriffen auszuweichen.';
-$lang['stamina']='Ausdauer';
 $lang['stamina_tooltip']= 'Erhöht deine Lebenspunkte.';
-$lang['intellect']='Intelligenz';
 $lang['intellect_tooltip']= 'Erhöht deine Manapunkte und die die Chance auf einen kritischen Treffer mit Sprüchen.<br />Erhöht die Rate mit denen du deine Waffenfertigkeiten verbesserst.';
-$lang['spirit']='Willenskraft';
 $lang['spirit_tooltip']= 'Erhöht deine Mana- und Lebens- regenerationsrate.';
 $lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
 
@@ -152,7 +147,7 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sek|min)\.?)(-{0,1}\d*\.{0,1}\d+)/i';
 
 //
 // patterns to standardize bonus string
-$lang['item_bonuses_preg_patterns'] = 
+$lang['item_bonuses_preg_patterns'] =
 	array('/increases the block value of your shield by xx\.?/i',	//1
 		  '/(?:increases|improves) (?:your )?(.+) by xx\.?/i',	//2
 		  '/increases (damage) and (Healing) done by magical spells and effects by up to xx\.?$/i',	//3

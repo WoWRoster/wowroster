@@ -283,6 +283,11 @@ $lang['language'] = 'Language';
 $lang['default'] = 'Standart';
 $lang['proceed'] = 'weiter';
 $lang['submit'] = 'senden';
+$lang['strength']='Stärke';
+$lang['agility']='Beweglichkeit';
+$lang['stamina']='Ausdauer';
+$lang['intellect']='Intelligenz';
+$lang['spirit']='Willenskraft';
 
 $lang['rosterdiag'] = 'Roster Diagnose Seite';
 $lang['difficulty'] = 'Schwierigkeit';
