@@ -653,6 +653,7 @@ class memberslist
 				$spec = $specicon = '';
 				$tooltip = array();
 				$specpoint = 0;
+				$notalent = true;
 				foreach( $talents as $talent )
 				{
 					list($name, $points, $icon) = explode('|',$talent);
@@ -662,12 +663,15 @@ class memberslist
 						$specpoint = $points;
 						$spec = $name;
 						$specicon = $icon;
+						$notalent = false;
 					}
 				}
 				$specline = implode(' / ', $tooltip);
-
-				$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP').' />';
-
+				if( !$notalent )
+				{
+					$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP').' />';
+				}
+				
 				if( active_addon('info') )
 				{
 					$icon_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';

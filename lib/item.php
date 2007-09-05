@@ -873,8 +873,7 @@ exit;
 			$tooltip = str_replace( $matches[0], '', $tooltip );
 			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
-
-		//
+		
 		// if any gems get the data for them, remove lines from stack.
 		if( $gem1 || $gem2 || $gem3 )
 		{
@@ -922,7 +921,7 @@ exit;
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match('/\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_durability'] . '/i', $tooltip, $matches) )
+			elseif( preg_match('/(?:.+socket*\n)?\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_durability'] . '/i', $tooltip, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
