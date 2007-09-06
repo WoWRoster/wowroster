@@ -1115,10 +1115,6 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 
 		return $contents;
 	}
-	elseif( $contents = file_get_contents($url) )
-	{
-		return $contents;
-	}
 	elseif( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
 	{
 		// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
@@ -1135,15 +1131,12 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 		}
 		else
 		{
-			$header = "GET $page$page_params HTTP/1.1\r\n"
+			$header = "GET $page$page_params HTTP/1.0\r\n"
 					. "Host: $host\r\n"
 					. "User-Agent: $user_agent\r\n"
 					. "Connection: Close\r\n\r\n";
-
 			fwrite($file, $header);
-
 			$inHeader = true;
-
 			while( !feof($file) )
 			{
 				$chunk = fgets($file, 256);
@@ -1163,6 +1156,10 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 			return $contents;
 		}
 	}
+	elseif( $contents = file_get_contents($url) )
+	{
+		return $contents;
+	}	
 	else 
 	{
 		trigger_error("UrlGrabber Error: Unable to grab URL ($url)", E_USER_WARNING);
