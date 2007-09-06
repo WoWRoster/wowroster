@@ -2,7 +2,7 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * cache class
+ * WoWRoster Armory Class
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -22,25 +22,19 @@ if( !defined('IN_ROSTER') )
 }
 
 /**
- * Armory Query Class
+ * WoWRoster Armory Class
  *
- * This will connect to the correct WoW Roster Site depending on locale information
- * and return requested info in XML or Array depending on the request
- * WIP
+ * Allows easy access to the WoW Armory database
+ * Returns pre-parsed XML as an Array or
+ * returns unparsed XML page as a string
  *
  */
 class RosterArmory
 {
-	var $character;
-	var $guild;
-	var $realm;
-	var $locale;
-	
 	var $xml;
 	var $xml_timeout = 8;  // seconds to pass for timeout
 	var $user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
 	
-
 	/**
 	 * xmlParsing object
 	 *
@@ -53,67 +47,84 @@ class RosterArmory
 	 *
 	 * @return RosterArmory
 	 */
-	function RosterArmory( $locale=false, $realm=false, $guild=false )
+	function RosterArmory( )
 	{
-		$this->locale = ( isset($locale) ? $locale : '' );		
-		$this->guild = ( isset($guild) ? $guild : '' );
-		$this->realm = ( isset($realm) ? $realm : '' );
-		
+		// notta
 	}
 
 	/**
-	 * requests item-tooltip.xml from armory for $item_id
-	 *
+	 * Fetches $item_id Tooltip from the Armory
+	 * Accepts optional $character if used $realm is also required
+	 * Returns Array of the parsed XML page
+	 * 
 	 * @param string $item_id
+	 * @return array 
 	 */
-	function fetchItemTooltip( $item_id, $locale, $character=false, $realm=false, $guild=false, $is_XML=false )
+	function fetchItemTooltip( $item_id, $locale, $character=false, $realm=false, $is_XML=false )
 	{
 		global $roster;
 		$locale = substr($locale, 0, 2);
+		$cache_tag = $item_id.$locale.$character.$is_XML;
 		
-		if( $roster->cache->check($item_id.$locale.$character.$is_XML) )
+		if( $roster->cache->check($cache_tag) )
 		{
-			return $roster->cache->get($item_id.$locale.$character.$is_XML);
+			return $roster->cache->get($cache_tag);
 		}
 		else
 		{
-			$url = $this->_makeUrl( 0, $locale, $item_id, $character, $realm, $guild );
+			$url = $this->_makeUrl( 0, $locale, $item_id, $character, $realm );
 			if( $this->_requestXml($url) )
 			{
 				// if true return unparsed xml page
 				if( $is_XML )
 				{
-					$roster->cache->put($this->xml, $item_id.$locale.$character.$is_XML);
+					$roster->cache->put($this->xml, $cache_tag);
 					return $this->xml;
 				}
 				// otherwise parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$item = $this->xmlParser->getParsedData();
-				$roster->cache->put($item, $item_id.$locale.$character.$is_XML);
+				$roster->cache->put($item, $cache_tag);
 				return $item;
 			}
 			else 
 			{
-				trigger_error('RosterArmory Class: Failed to fetch' . $url);
+				trigger_error('RosterArmory Class: Failed to fetch ' . $url);
 				return false;
 			}
 		}
 	}
 	
-	function fetchItemTooltipXML( $item_id, $locale, $character=false, $realm=false, $guild=false )
+	/**
+	 * Fetches $item_id Tooltip from the Armory
+	 * Accepts optional $character if used $realm is also required
+	 * Returns XML string
+	 * 
+	 * @param string $item_id
+	 * @return string 
+	 */
+	function fetchItemTooltipXML( $item_id, $locale, $character=false, $realm=false )
 	{
-		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, $guild, true);
+		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, true);
 	}
-
+	
+	/**
+	 * Fetches $item_id General Information from the Armory
+	 * Accepts optional $character if used $realm is also required
+	 * Returns Array of the parsed XML page
+	 * 
+	 * @param string $item_id
+	 * @return string 
+	 */
 	function fetchItemInfo( $item_id, $locale, $is_XML=false )
 	{
 		global $roster;
-		
 		$locale = substr($locale, 0, 2);
+		$cache_tag = $item_id.$locale.$is_XML;
 		
-		if( $roster->cache->check($item_id.$locale.$is_XML) )
+		if( $roster->cache->check($cache_tag) )
 		{
-			return $roster->cache->get($item_id.$locale.$is_XML);
+			return $roster->cache->get($cache_tag);
 		}
 		else
 		{
@@ -123,23 +134,41 @@ class RosterArmory
 			{
 				if( $is_XML )
 				{
-					$roster->cache->put($this->xml, $item_id.$locale.$is_XML);
+					$roster->cache->put($this->xml, $cache_tag);
 					return $this->xml;
 				}
 				$this->xmlParser->Parse($this->xml);
 				$item = $this->xmlParser->getParsedData();
-				$roster->cache->put($item, $id.$locale.$is_XML);
+				$roster->cache->put($item, $cache_tag);
 				return $item;
 			}
 		}
 	}
-	
+
+	/**
+	 * Fetches $item_id General Information from the Armory
+	 * Accepts optional $character if used $realm is also required
+	 * Returns XML string
+	 * 
+	 * @param string $item_id
+	 * @return string 
+	 */
 	function fetchItemInfoXML( $item_id, $locale )
 	{
 		return $this->fetchItemInfo($item_id, $locale, true);
 	}
 
-	
+	/**
+	 * Fetch $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @param bool $is_XML
+	 * @return array
+	 */
 	function fetchCharacter( $character, $locale, $realm, $is_XML=false )
 	{
 		global $roster;
@@ -169,12 +198,33 @@ class RosterArmory
 		}
 	}
 	
+	/**
+	 * Fetch $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 * Returns XML string
+	 * 
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */	
 	function fetchCharacterXML( $character, $locale, $realm )
 	{
 		return $this->fetchCharacter($character, $locale, $realm, true);
 	}
 
-
+	/**
+	 * Fetch $guild from the Armory
+	 * $guild should be passed as-is
+	 * $realm is required
+	 *
+	 * @param string $guild
+	 * @param string $locale
+	 * @param string $realm
+	 * @param bool $is_XML
+	 * @return array
+	 */
 	function fetchGuild( $guild, $locale, $realm, $is_XML=false )
 	{
 		global $roster;
@@ -204,11 +254,32 @@ class RosterArmory
 		}
 	}
 	
+	/**
+	 * Fetch $guild from the Armory
+	 * $guild should be passed as-is
+	 * $realm is required
+	 * Returns XML string
+	 * 
+	 * @param string $guild
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */	
 	function fetchGuildXML( $guild, $locale, $realm )
 	{
 		return $this->fetchGuild($guild, $locale, $realm, true);
 	}
 
+	/**
+	 * Fetch Character Talents for $character from the Armory
+	 * $character, $locale, $realm are required to be passed
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @param bool $is_XML
+	 * @return array
+	 */
 	function fetchCharacterTalents( $character, $locale, $realm, $is_XML=false )
 	{
 		global $roster;
@@ -237,25 +308,53 @@ class RosterArmory
 			}
 		}
 	}
-	
+
+	/**
+	 * Fetch Character Talents for $character from the Armory
+	 * $character, $locale, $realm are required to be passed
+	 * Returns XML string
+	 * 
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */
 	function fetchCharacterTalentsXML( $character, $locale, $realm )
 	{
 		return $this->fetchCharacterTalents($character, $locale, $realm, true);
 	}
 	
 	/**
-	 * Private funtion to make the URL urlgrabber tries to retrive
-	 * Based on locale uses eu or us wow armory
-	 * Based on mode requests proper xml
-	 * if passed will append user, realm and guild information to the mode request
-	 * locale will always be used, enUS if non passed
+	 * Sets $user_agent 
+	 * Use to override default useragent
+	 * 
+	 * @param string $user_agent
+	 */
+	function setUserAgent( $user_agent )
+	{
+		$this->user_agent = $user_agent;
+	}
+	
+	/**
+	 * Sets socket connection time out
+	 * Use to override default of 8 seconds
 	 *
+	 * @param int $time_out | timeout in seconds
+	 * @return void
+	 */
+	function setTimeOut( $time_out )
+	{
+		$this->xml_timeout = $time_out;
+	}
+	/**
+	 * Private function to build the armory URL
+	  *
 	 * @param string $mode	| string or int of data to request
-	 * @param string $locale
-	 * @param string $id
-	 * @param string $char
-	 * @param string $realm
-	 * @param string $guild
+	 * @param string $locale | required
+	 * @param string $id | 
+	 * @param string $char | 
+	 * @param string $realm |
+	 * @param string $guild |
 	 */
 	function _makeUrl($mode, $locale, $id=false, $char=false, $realm=false, $guild=false )
 	{
@@ -312,8 +411,7 @@ class RosterArmory
 		}
 
 		$url = $base_url . $mode . '&locale=' . $locale;
-		
-		echo $url;
+//		echo $url;
 		return $url;
 	}
 
@@ -354,6 +452,12 @@ class RosterArmory
 		}
 	}
 
+	/**
+	 * Private function that includes xmlparser class if needed and then creates
+	 * a new XmlParser() object if needed
+	 * 
+	 * @return void
+	 */
 	function _initXmlParser()
 	{
 		if( !is_object($this->xmlParser) )
