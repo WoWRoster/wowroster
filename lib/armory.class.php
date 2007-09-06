@@ -118,6 +118,7 @@ class RosterArmory
 		else
 		{
 			$url = $this->_makeUrl( 1, $locale, $item_id );
+			echo $url;
 			if( $this->_requestXml($url) )
 			{
 				if( $is_XML )
@@ -203,9 +204,9 @@ class RosterArmory
 		}
 	}
 	
-	function fetchCharacterXML( $character, $locale, $realm )
+	function fetchGuildXML( $guild, $locale, $realm )
 	{
-		return $this->fetchCharacter($character, $locale, $realm, true);
+		return $this->fetchGuild($guild, $locale, $realm, true);
 	}
 
 	function fetchCharacterTalents( $character, $locale, $realm, $is_XML=false )
@@ -282,42 +283,37 @@ class RosterArmory
 		{
 			case 0:
 			case 'item-tooltip':
-				$mode = '?item-tooltip.xml';
+				$mode = 'item-tooltip.xml?i=' . $id;
+				if( $char )
+				{
+					$mode .= '&n=' . $char . '&r=' . urlencode($realm);
+				}
 				break;
 			case 1:
 			case 'item-info':
-				$mode = '?item-info.xml';
+				$mode = 'item-info.xml?i=' . $id;
+				if( $char )
+				{
+					$mode .= '&n=' . $char . '&r=' . urlencode($realm);
+				}
 				break;
 			case 2:
 			case 'character-sheet':
-				$mode = '?character-sheet.xml';
+				$mode = 'character-sheet.xml?n=' . $char . '&r=' . urlencode($realm);
 				break;
 			case 3:
 			case 'guild-info':
-				$mode = '?guild-info.xml';
+				$mode = 'guild-info.xml?r=' . urlencode($realm) . '&n=' . urlencode($guild);
 				break;
 			case 4:
 			case 'character-talents':
-				$mode = '?character-talents.xml';
+				$mode = 'character-talents.xml?n=' . $char . '&r=' . urlencode($realm);
 				break;
 		}
 
 		$url = $base_url . $mode . '&locale=' . $locale;
-
-		// if char is passed always expect to pass realm name
-		if( $char )
-		{
-			$url .= '&n=' . $char;
-		}
-		if( $realm )
-		{
-			$url .= '&r=' . str_replace(' ', '+', $realm);
-		}
-		if( $guild )
-		{
-			$url .= '&g=' . str_replace(' ', '+', $guild);
-		}
 		
+		echo $url;
 		return $url;
 	}
 
