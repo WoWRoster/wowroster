@@ -27,7 +27,7 @@ if( !defined('IN_ROSTER') )
 // As a NON-Developer, please do not modify any content of this file, or the version check might fail!!!
 
 // Ignored Directories
-$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface');
+$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'cache');
 
 // Files to check with extension:
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
