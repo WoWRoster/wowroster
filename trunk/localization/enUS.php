@@ -642,7 +642,7 @@ $lang['menu_search']='Search|Search items and recipes in the database';
 $lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
 $lang['menu_credits']='Credits|Who made WoW Roster';
 
-$lang['menuconf_sectionselect']='Select Section';
+$lang['menuconf_sectionselect']='Select Panel';
 $lang['menuconf_changes_saved']='Changes to %1$s saved';
 $lang['menuconf_no_changes_saved']='No changes saved';
 $lang['menuconf_add_button']='Add button';

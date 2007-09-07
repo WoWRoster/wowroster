@@ -111,7 +111,7 @@ $lang['menu_header_04'] = 'Utilidades';
 $lang['menu_header_scope_panel'] = 'Panel de %s';
 
 $lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
-$lang['menu_totals_level'] = ' At least L%1$s';
+$lang['menu_totals_level'] = ' al menos L%1$s';
 
 // Updating Instructions
 $lang['index_text_uniloader'] = "(Puedes descargar este programa desde la web de WoWRoster, busca el instalador de UniUploader para obtener la última versión)";
@@ -431,11 +431,11 @@ $lang['pvplist6']='Miembro que más ha muerto';
 $lang['pvplist7']='Miembro con la mejor media de muertes';
 $lang['pvplist8']='Miembro con la mejor media de derrotas';
 
-$lang['hslist']=' Estadísticas Sistema Honor';
-$lang['hslist1']='Miembro con Mayor Rango';
-$lang['hslist2']='Máximo Rango';
-$lang['hslist3']='Mayores Muertes con Honor';
-$lang['hslist4']='Mejor Clasificado';
+$lang['hslist']=' Estadísticas de honor';
+$lang['hslist1']='Personaje con mayor rango';
+$lang['hslist2']='Mayor número de puntos de honor';
+$lang['hslist3']='Mayor número de muertes con honor';
+$lang['hslist4']='Mayor puntuación de arenas';
 
 $lang['Druid']='Druida';
 $lang['Hunter']='Cazador';
@@ -448,20 +448,20 @@ $lang['Warlock']='Brujo';
 $lang['Warrior']='Guerrero';
 
 $lang['today']='Hoy';
-$lang['todayhk']='Hoy HK';
-$lang['todaycp']='Hoy CP';
+$lang['todayhk']='Hoy MH';
+$lang['todaycp']='Hoy MP';
 $lang['yesterday']='Ayer';
-$lang['yesthk']='Ayer HK';
-$lang['yestcp']='Ayer CP';
-$lang['thisweek']='Esta Semana';
-$lang['lastweek']='Semana Pasada';
-$lang['lifehk']='Semana HK';
+$lang['yesthk']='Ayer MH';
+$lang['yestcp']='Ayer MP';
+$lang['thisweek']='Esta semana';
+$lang['lastweek']='Semana pasada';
+$lang['lifehk']='Semana MH';
 $lang['alltime']='Vida';
-$lang['honorkills']='Muertes con Honor';
-$lang['dishonorkills']='Muertes sin Honor';
+$lang['honorkills']='Muertes con honor';
+$lang['dishonorkills']='Muertes sin honor';
 $lang['honor']='Honor';
 $lang['standing']='Prestigio';
-$lang['highestrank']='Máximo Rango';
+$lang['highestrank']='Máximo rango';
 $lang['arena']='Arena';
 
 $lang['when']='Fecha';
@@ -478,10 +478,10 @@ $lang['unknown']='Desconocido';
 //strings for Rep-tab
 $lang['exalted']='Exaltado';
 $lang['revered']='Reverenciado';
-$lang['honored']='Honrado';
+$lang['honored']='Honorable';
 $lang['friendly']='Amistoso';
 $lang['neutral']='Neutral';
-$lang['unfriendly']='Antipático';
+$lang['unfriendly']='Enemigo';
 $lang['hostile']='Hostil';
 $lang['hated']='Odiado';
 $lang['atwar']='En Guerra';
@@ -579,21 +579,21 @@ $lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison t
 $lang['tooltip_preg_armor']='/^(\d+) armadura/';
 $lang['tooltip_preg_durability']='/Durabilidad (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hecho por (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
-$lang['tooltip_preg_bags']='/(\d+) de casillas/';  // text for bags, ie '16 slot bag'
+$lang['tooltip_preg_bags']='/de (\d+) casillas/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus ranura: (.+)\n/';
 $lang['tooltip_preg_classes']='/^(Clases:) (.+)/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
-$lang['tooltip_preg_block']='/(\d+) (Bloqueo)/';  // text for shield blocking values
+$lang['tooltip_preg_block']='/(\d+) (bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
-$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
+$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
-$lang['tooltip_reg_onlyworksinside']='Solo funciona dentro del Castillo de la Tempestad';
+$lang['tooltip_reg_onlyworksinside']='Only works inside';
 $lang['tooltip_reg_conjureditems']='Conjured items disappear';
-$lang['tooltip_reg_weaponorbulletdps']='^\(|^Añade ';
+$lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
 $lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda'; // the types of weapons as shown in the tooltip
@@ -642,13 +642,13 @@ $lang['menu_search']='Buscar|Busca objetos y recetas en la base de datos';
 $lang['menu_roster_cp']='Panel de control|Abre el panel de configuración de Roster';
 $lang['menu_credits']='Créditos|Creadores de WoWRoster';
 
-$lang['menuconf_sectionselect']='Selecciona apartado';
-$lang['menuconf_changes_saved']='Changes to %1$s saved';
-$lang['menuconf_no_changes_saved']='No changes saved';
-$lang['menuconf_add_button']='Add button';
-$lang['menuconf_drag_delete']='Drag here to delete';
-$lang['menuconf_addon_inactive']='Addon is inactive';
-$lang['menuconf_unused_buttons']='Unused Buttons';
+$lang['menuconf_sectionselect']='Selecciona panel';
+$lang['menuconf_changes_saved']='Los cambios a %1$s se han guardado';
+$lang['menuconf_no_changes_saved']='No se han guardado los cambios';
+$lang['menuconf_add_button']='Añadir botón';
+$lang['menuconf_drag_delete']='Arrastrar aquí para borrar';
+$lang['menuconf_addon_inactive']='El addon está inactivo';
+$lang['menuconf_unused_buttons']='Botones sin usar';
 
 $lang['installer_install_0']='La instalación de %1$s se ha completado satisfactoriamente';
 $lang['installer_install_1']='La instalación de %1$s falló, pero se ha recuperado la versión anterior satisfactoriamente';
