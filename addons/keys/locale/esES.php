@@ -5,6 +5,8 @@
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
+ * esES Locale Translation by maqjav
+ *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
@@ -14,17 +16,17 @@
 */
 
 $lang['keys'] = 'Llaves';
-$lang['keys_desc'] = 'Lists Azeroth Dungeon keys for guild members';
-$lang['keybutton'] = 'Llaves|Lists Azeroth Dungeon keys for guild members';
+$lang['keys_desc'] = 'Muestra un listado con las llaves de las mazmorras de Azeroth que tienen los jugadores';
+$lang['keybutton'] = 'Llaves|Muestra un listado con las llaves de las mazmorras de Azeroth que tienen los jugadores';
 
-$lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
-$lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
-$lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
-$lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
+$lang['admin']['keys_conf'] = 'Opciones|Muestra las opciones para el addon llaves';
+$lang['admin']['colorcmp'] = 'Color completo|Para aquellas llaves que requieren de una serie de misiones o partes para conseguirla, indica el color para especificar estas partes';
+$lang['admin']['colorcur'] = 'Color actual|Indica el color de la parte actual para conseguir la llave';
+$lang['admin']['colorno'] = 'Color incompleto|Indica el color de las partes incompletas para conseguir la llave';
 
 // language definitions for the rogue instance keys 'fix'
-$lang['thievestools']='Thieves\\\' Tools';
-$lang['lockpicking']='Lockpicking';
+$lang['thievestools']='Herramientas de ladrón';
+$lang['lockpicking']='Ganzúa';
 
 $lang['Quests'] = 'Quests';
 $lang['Parts'] = 'Parts';
@@ -42,14 +44,14 @@ you have this one part it will mark all other parts lower than this one as compl
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 'Quests',
 		'SG' => 'Llave de la Garganta de Fuego|4826',
-			'The Horn of the Beast|',
-			'Proof of Deed|',
-			'At Last!|'
+			'El cuerno de la bestia|',
+			'Certificado de autenticidad|',
+			'Al fin!|'
 		),
-	'Gnome' => array( 'Key-Only',
+	'Gnome' => array( 'Key-only',
 		'Gnome' => 'Llave de taller|2288'
 		),
-	'SM' => array( 'Key-Only',
+	'SM' => array( 'Key-only',
 		'SM' => 'La llave Escarlata|4445'
 		),
 	'ZF' => array( 'Parts',
@@ -61,29 +63,29 @@ $lang['inst_keys']['A'] = array(
 			'Vara de Celebras|19549',
 			'Diamante de Celebras|19545'
 		),
-	'BRDp' => array( 'Key-Only',
+	'BRDp' => array( 'Key-only',
 		'BRDp' => 'Llave de celda de prisión|15545'
 		),
-	'BRDs' => array( 'Parts',
+	'BRDs' => array( 'Partes',
 		'BRDs' => 'Llave Sombratiniebla|2966',
 			'Ferrovil|9673'
 		),
-	'DM' => array( 'Key-Only',
+	'DM' => array( 'Key-only',
 		'DM' => 'Llave creciente|35607'
 		),
 	'Scholo' => array( 'Quests',
 		'Scholo' => 'Llave esqueleto|16854',
 			'Scholomance|',
-			'Skeletal Fragments|',
-			'Mold Rhymes With...|',
-			'Fire Plume Forged|',
-			'Araj\\\'s Scarab|',
-			'The Key to Scholomance|'
+			'Trozos esqueléticos|',
+			'Molde rima con... ¿oro?|',
+			'La forja del Penacho en Llamas|',
+			'El escarabajo de Araj|',
+			'La llave de Scholomance|'
 		),
-	'Strath' => array( 'Key-Only',
+	'Strath' => array( 'Key-only',
 		'Strath' => 'Llave de la ciudad|13146'
 		),
-	'UBRS' => array( 'Parts',
+	'UBRS' => array( 'Partes',
 		'UBRS' => 'Lacre de ascensión|17057',
 			'Sello de ascensión sin adornar|5370',
 			'Gema de Cumbrerroca|5379',
@@ -94,19 +96,19 @@ $lang['inst_keys']['A'] = array(
 		),
 	'Onyxia' => array( 'Quests',
 		'Onyxia' => 'Amuleto de Pirodraco|4829',
-			'Dragonkin Menace|',
-			'The True Masters|',
-			'Marshal Windsor|',
-			'Abandoned Hope|',
-			'A Crumpled Up Note|',
-			'A Shred of Hope|',
-			'Jail Break!|',
-			'Stormwind Rendezvous|',
-			'The Great Masquerade|',
-			'The Dragon\\\'s Eye|',
-			'Amuleto de Pirodraco|'
+			'La amenaza de los dragonantes|',
+			'Los verdaderos maestros|',
+			'El alguacil Windsor|',
+			'Esperanza perdida|',
+			'Una nota arrugada|',
+			'Una esperanza hecha trizas|',
+			'La fuga de la prisión|',
+			'Tienes un cita en Ventormenta|',
+			'La gran farsa|',
+			'El Ojo del dragón|',
+			'Amuleto Pirodraco|'
 		),
-	'MC' => array( 'Key-Only',
+	'MC' => array( 'Key-only',
 		'MC' => 'Quintaesencia eterna|22754'
 		),
 );
@@ -114,13 +116,13 @@ $lang['inst_keys']['A'] = array(
 
 // HORDE KEYS
 $lang['inst_keys']['H'] = array(
-	'SG' => array( 'Key-Only',
+	'SG' => array( 'Solo llave',
 		'SG' => 'Llave de la Garganta de Fuego|4826'
 		),
-	'Gnome' => array( 'Key-Only',
+	'Gnome' => array( 'Key-only',
 		'Gnome' => 'Llave de taller|2288'
 		),
-	'SM' => array( 'Key-Only',
+	'SM' => array( 'Key-only',
 		'SM' => 'La llave Escarlata|4445'
 		),
 	'ZF' => array( 'Parts',
@@ -132,26 +134,26 @@ $lang['inst_keys']['H'] = array(
 			'Vara de Celebras|19549',
 			'Diamante de Celebras|19545'
 		),
-	'BRDp' => array( 'Key-Only',
+	'BRDp' => array( 'Key-only',
 		'BRDp' => 'Llave de celda de prisión|15545'
 		),
 	'BRDs' => array( 'Parts',
 		'BRDs' => 'Llave Sombratiniebla|2966',
 			'Ferrovil|9673'
 		),
-	'DM' => array( 'Key-Only',
+	'DM' => array( 'Key-only',
 		'DM' => 'Llave creciente|35607'
 		),
 	'Scholo' => array( 'Quests',
 		'Scholo' => 'Llave esqueleto|16854',
 			'Scholomance|',
-			'Skeletal Fragments|',
-			'Mold Rhymes With...|',
-			'Fire Plume Forged|',
-			'Araj\\\'s Scarab|',
-			'The Key to Scholomance|'
+			'Trozos esqueléticos|',
+			'Molde rima con... ¿oro?|',
+			'La forja del Penacho en Llamas|',
+			'El escarabajo de Araj|',
+			'La llave de Scholomance|'
 		),
-	'Strath' => array( 'Key-Only',
+	'Strath' => array( 'Key-only',
 		'Strath' => 'Llave de la ciudad|13146'
 		),
 	'UBRS' => array( 'Parts',
@@ -165,22 +167,22 @@ $lang['inst_keys']['H'] = array(
 		),
 	'Onyxia' => array( 'Quests',
 		'Onyxia' => 'Amuleto de Pirodraco|4829',
-			'Warlord\\\'s Command|',
-			'Eitrigg\\\'s Wisdom|',
-			'For The Horde!|',
-			'What the Wind Carries|',
-			'The Champion of the Horde|',
-			'The Testament of Rexxar|',
-			'Oculus Illusions|',
-			'Emberstrife|',
-			'The Test of Skulls, Scryer|',
-			'The Test of Skulls, Somnus|',
-			'The Test of Skulls, Chronalis|',
-			'The Test of Skulls, Axtroz|',
-			'Ascension...|',
-			'Blood of the Black Dragon Champion|'
+			'La orden del Señor de la Guerra|',
+			'La sabiduría de Eitrigg|',
+			'¡Por la Horda!|',
+			'Lo que trae el viento|',
+			'El Campeón de la Horda|',
+			'Profesora del engaño|',
+			'Ilusiones oculares|',
+			'Brasaliza|',
+			'La prueba de las calaveras, Arúspice|',
+			'La prueba de las calaveras, Somnus|',
+			'La prueba de las calaveras, Chronalis|',
+			'La prueba de las calaveras, Axtroz|',
+			'El ascenso|',
+			'La sangre de campeón dragón negro|'
 		),
-	'MC' => array( 'Key-Only',
+	'MC' => array( 'Key-only',
 		'MC' => 'Quintaesencia eterna|22754'
 		),
 );

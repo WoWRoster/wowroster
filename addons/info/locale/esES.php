@@ -5,6 +5,8 @@
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
+ * esES Locale Translation by maqjav
+ *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
@@ -13,37 +15,37 @@
  * @subpackage Locale
 */
 
-$lang['char_info'] = 'Character Information';
-$lang['char_info_desc'] = 'Displays info about characters uploaded to Roster';
+$lang['char_info'] = 'Información de personaje';
+$lang['char_info_desc'] = 'Muestra información sobre los personajes subidos al Roster';
 
 // Menu Buttons
-$lang['cb_character'] = 'Personaje|Shows character stats, equipment, reputation, skills, and pvp info';
-$lang['cb_talents'] = 'Talentos|Shows current talent build';
-$lang['cb_spellbook'] = 'Libro Hechizos|Shows available spells, actions, and passive abilities';
-$lang['cb_mailbox'] = 'Buzón|Shows the contents of the mailbox';
-$lang['cb_bags'] = 'Bolsas|Shows the contents of this character\'s bags';
-$lang['cb_bank'] = 'Banco|Shows the contents of this character\'s bank';
-$lang['cb_quests'] = 'Misiones|A list of quest this character is currently on';
-$lang['cb_recipes'] = 'Recetas|Shows what items this character can make';
+$lang['cb_character'] = 'Personaje|Muestra las estadísticas del personaje, equipamiento, reputación, habilidades e información de JcJ';
+$lang['cb_talents'] = 'Talentos|Muestra la construcción actual de talentos';
+$lang['cb_spellbook'] = 'Libro de hechizos|Muestra el libro de hechizos del personaje';
+$lang['cb_mailbox'] = 'Buzón|Muestra el contenido del buzón';
+$lang['cb_bags'] = 'Bolsas|Muestra el contenido de las bolsas del personaje';
+$lang['cb_bank'] = 'Banco|Muestra el contenido del banco del personaje';
+$lang['cb_quests'] = 'Misiones|Muestra el listado de misiones actuales del personaje';
+$lang['cb_recipes'] = 'Recetas|Muestra los objetos que puede hacer el personaje';
 
-$lang['char_stats'] = 'Character Stats for: %1$s';
-$lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
-$lang['char_guildline'] = '%1$s of %2$s';
+$lang['char_stats'] = 'Estadísticas del personaje: %1$s';
+$lang['char_level_race_class'] = 'Nivel %1$s %2$s %3$s';
+$lang['char_guildline'] = '%1$s de %2$s';
 $lang['talents'] = 'Talentos';
 
 // Spellbook
-$lang['spellbook'] = 'Libro Hechizos';
-$lang['no_spellbook'] = 'No Spellbook for %1$s';
+$lang['spellbook'] = 'Libro de hechizos';
+$lang['no_spellbook'] = 'No hay libro de hechizos para %1$s';
 
 // Mailbox
 $lang['mailbox'] = 'Buzón';
-$lang['maildateutc'] = 'Fecha Correo';
+$lang['maildateutc'] = 'Fecha del correo';
 $lang['mail_item'] = 'Objeto';
 $lang['mail_sender'] = 'Remitente';
 $lang['mail_subject'] = 'Asunto';
-$lang['mail_expires'] = 'Correo Caduca';
-$lang['mail_money'] = 'Dinero Incluído';
-$lang['no_mail'] = 'No Mail for %1$s';
+$lang['mail_expires'] = 'Caducidad';
+$lang['mail_money'] = 'Dinero incluído';
+$lang['no_mail'] = 'No hay correo para %1$s';
 
 //skills
 $lang['skilltypes'] = array(
@@ -52,14 +54,14 @@ $lang['skilltypes'] = array(
 	3 => 'Habilidades secundarias',
 	4 => 'Armas disponibles',
 	5 => 'Armaduras disponibles',
-	6 => 'Lenguas'
+	6 => 'Idiomas'
 );
 
 //tabs
-$lang['tab1']='Persj';
+$lang['tab1']='Personaje';
 $lang['tab2']='Mascota';
-$lang['tab3']='Reputation';
-$lang['tab4']='Habilid';
+$lang['tab3']='Reputación';
+$lang['tab4']='Habilidades';
 $lang['tab5']='JcJ';
 
 $lang['strength_tooltip']='Aumenta tu poder de ataque con armas cuerpo a cuerpo.<br />Aumenta la cantidad de daño que puedes bloquear con un escudo.';
@@ -67,31 +69,31 @@ $lang['agility_tooltip']= 'Aumenta tu poder de ataque con armas a distancia.<br 
 $lang['stamina_tooltip']= 'Aumenta tus puntos de salud.';
 $lang['intellect_tooltip']= 'Aumenta tus puntos de maná y la probabilidad de asestar un impacto crítico con hechizos.<br />Aumenta la velocidad a la que mejora tu habilidad con las armas.';
 $lang['spirit_tooltip']= 'Aumenta tu velocidad de regeneración de salud y maná.';
-$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
+$lang['armor_tooltip']= 'Reduce daño físico hecho por %1$s%%';
 
-$lang['mainhand']='Main Hand';
-$lang['offhand']='Off Hand';
-$lang['ranged']='Ranged';
-$lang['melee']='Melee';
-$lang['spell']='Spell';
+$lang['mainhand']='Mano principal';
+$lang['offhand']='Una mano';
+$lang['ranged']='A distancia';
+$lang['melee']='Cuerpo a cuerpo';
+$lang['spell']='Hechizo';
 
-$lang['weapon_skill']='Skill';
-$lang['weapon_skill_tooltip']='<span style="float:right;color:#fff;">%1$d</span>Weapon Skill<br /><span style="float:right;color:#fff;">%2$d</span>Weapon Skill Rating';
-$lang['damage']='Damage';
-$lang['damage_tooltip']='<span style="float:right;color:#fff;">%.2f</span>Attack speed (seconds):<br /><span style="float:right;color:#fff;">%d-%d</span>Damage:<br /><span style="float:right;color:#fff;">%.1f</span>Damage per second:<br />';
-$lang['speed']='Speed';
-$lang['atk_speed']='Attack Speed';
-$lang['haste_tooltip']='Haste Rating ';
+$lang['weapon_skill']='Habilidad';
+$lang['weapon_skill_tooltip']='<span style="float:right;color:#fff;">%1$d</span>Hab. arma<br /><span style="float:right;color:#fff;">%2$d</span>Indice de habilidad con arma';
+$lang['damage']='Daño';
+$lang['damage_tooltip']='<span style="float:right;color:#fff;">%.2f</span>Velocidad de ataque (segundos):<br /><span style="float:right;color:#fff;">%d-%d</span>Daño:<br /><span style="float:right;color:#fff;">%.1f</span>Daño por segundo:<br />';
+$lang['speed']='Veloc.';
+$lang['atk_speed']='Velocidad de ataque';
+$lang['haste_tooltip']='Indice de celeridad ';
 
 $lang['melee_att_power']='Poder de ataque cuerpo a cuerpo';
-$lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
+$lang['melee_att_power_tooltip']='Aumenta el daño que causas con armas cuerpo a cuerpo en %.1f puntos de daño por segundo.';
 $lang['ranged_att_power']='Poder de ataque a distancia';
-$lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
+$lang['ranged_att_power_tooltip']='Aumenta el daño con armas de ataque a distancia en %.1f puntos de dañor por segundo.';
 
-$lang['weapon_hit_rating']='Hit Rating';
-$lang['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
-$lang['weapon_crit_rating']='Crit Rating';
-$lang['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
+$lang['weapon_hit_rating']='Ind. golpe';
+$lang['weapon_hit_rating_tooltip']='Aumenta tu probabilidad de acierto cuerpo a cuerpo cuando golpeas a un enemigo.';
+$lang['weapon_crit_rating']='Pro. Crit.';
+$lang['weapon_crit_rating_tooltip']='Indice de golpe crítico %.2f%%.';
 
 $lang['damage']='Daño';
 $lang['energy']='Energía';
@@ -103,69 +105,69 @@ $lang['melee_rating_tooltip']='Tu velocidad de ataque afecta a las probabilidade
 $lang['range_rating']='Tasa de ataque a distancia';
 $lang['range_rating_tooltip']='Tu velocidad de ataque afecta a las probabilidades de acertar a un enemigo<br /> y se mide por la habilidad con el arma que equipes en cada momento.';
 
-$lang['spell_damage']='+Damage';
-$lang['holy']='Holy';
-$lang['fire']='Fire';
-$lang['nature']='Nature';
-$lang['frost']='Frost';
-$lang['shadow']='Shadow';
-$lang['arcane']='Arcane';
+$lang['spell_damage']='+Daño';
+$lang['holy']='Sagrado';
+$lang['fire']='Fuego';
+$lang['nature']='Naturaleza';
+$lang['frost']='Hielo';
+$lang['shadow']='Sombras';
+$lang['arcane']='Arcano';
 
-$lang['spell_healing']='+Healing';
-$lang['spell_healing_tooltip']='Increases your healing by up to %d';
-$lang['spell_hit_rating']='Hit Rating';
-$lang['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
-$lang['spell_crit_rating']='Crit Rating';
-$lang['spell_crit_chance']='Crit Chance';
-$lang['spell_penetration']='Penetration';
-$lang['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
-$lang['mana_regen']='Mana Regen';
-$lang['mana_regen_tooltip']='%1$d mana regenerated every 5 seconds while not casting<br />%2$d mana regenerated every 5 seconds while casting';
+$lang['spell_healing']='+Salud';
+$lang['spell_healing_tooltip']='Incrementa tus hechizos de sanazión en %d';
+$lang['spell_hit_rating']='Ind. golpe';
+$lang['spell_hit_rating_tooltip']='Aumenta tu probabilidad de golpear con hechizos a tu objetivo.';
+$lang['spell_crit_rating']='Ind. Crit.';
+$lang['spell_crit_chance']='Prob. Crit.';
+$lang['spell_penetration']='Penetración';
+$lang['spell_penetration_tooltip']='Reduce la resistencia del objetivo a tus hechizos';
+$lang['mana_regen']='Reg. Maná';
+$lang['mana_regen_tooltip']='%1$d maná que regeneras cada 5 segundos cuando no lanzas hechizos<br />%2$d maná que regeneras cada 5 segundos cuando lanzas hechizos';
 
-$lang['defense_rating']='Defense Rating ';
-$lang['def_tooltip']='Increases your chance to %s';
-$lang['resilience']='Resilience';
+$lang['defense_rating']='Defensa ';
+$lang['def_tooltip']='Incrementa tu indice de defensa en %s';
+$lang['resilience']='Resistencia';
 
-$lang['res_arcane']='Resistencia a lo Arcano';
-$lang['res_arcane_tooltip']='Increases your ability to resist Arcane Resistance-based attacks, spells, and abilities.';
-$lang['res_fire']='Resistencia al Fuego';
-$lang['res_fire_tooltip']='Increases your ability to resist Fire Resistance-based attacks, spells, and abilities.';
-$lang['res_nature']='Resistencia a la Naturaleza';
-$lang['res_nature_tooltip']='Increases your ability to resist Nature Resistance-based attacks, spells, and abilities.';
-$lang['res_frost']='Resistencia a la Escarcha';
-$lang['res_frost_tooltip']='Increases your ability to resist Frost Resistance-based attacks, spells, and abilities.';
-$lang['res_shadow']='Resistencia a las Sombras';
-$lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
+$lang['res_arcane']='Resistencia a lo arcano';
+$lang['res_arcane_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de arcano.';
+$lang['res_fire']='Resistencia al fuego';
+$lang['res_fire_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de fuego.';
+$lang['res_nature']='Resistencia a la naturaleza';
+$lang['res_nature_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de naturaleza.';
+$lang['res_frost']='Resistencia a la escarcha';
+$lang['res_frost_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de escarcha.';
+$lang['res_shadow']='Resistencia a las sombras';
+$lang['res_shadow_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de sombras.';
 
-$lang['empty_equip']='No hay objeto equipado';
-$lang['pointsspent']='Puntos Gastados en';
+$lang['empty_equip']='No hay objetos equipados';
+$lang['pointsspent']='Puntos gastados en';
 // item_bonus locales //
-$lang['item_bonuses_full'] = 'Bonificaciones para objetos equipados';
+$lang['item_bonuses_full'] = 'Bonificaciones de objetos equipados';
 $lang['item_bonuses'] = 'Bonificaciones de objetos';
 $lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
 $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 //
-// patterns to standardize bonus string
+// patterns to standardize bonus string (NOTE: Not all the translations to spanish are exactly, we have to probe them)
 $lang['item_bonuses_preg_patterns'] =
-	array('/increases the block value of your shield by xx\.?/i',	//1
-		  '/(?:increases|improves) (?:your )?(.+) by xx\.?/i',	//2
-		  '/increases (damage) and (Healing) done by magical spells and effects by up to xx\.?$/i',	//3
-		  '/(?:restores|\+)?\s?xx (mana|health) (?:per|every|regen).*$/i',	//4
-		  '/increases damage done by (.+) and.*$/i',	//5
-		  '/^\+?xx (Healing)(?: Spells)?\.?$/',	//6
-		  '/^scope \(\+xx damage\)$/i',	//7
-		  '/^\+?xx (?:shield )?block$/i',	//8
+	array('/Aumenta el valor de bloqueo de tu escudo en xx\.?/i',	//1
+		  '/(?:incrementa|decrementa) (?:tu )?(.+) en xx\.?/i',	//2
+		  '/Aumenta el daño y la sanación de los hechizos mágicos y los efectos hasta en xx\.?$/i',	//3
+		  '/(?:Restaura|\+)?\s?xx de (maná|salud) (?:cada|durante|regen).*$/i',	//4
+		  '/Aumenta el daño hecho en (.+) y.*$/i',	//5
+		  '/^\+?xx (sanación)(?: hechizos)?\.?$/',	//6
+		  '/^alcance \(\+xx daño\)$/i',	//7
+		  '/^\+?xx (?:escudo )?bloquear$/i',	//8
 		 );
 $lang['item_bonuses_preg_replacements'] =
-	array('+XX Shield Block',  //1
+	array('+XX Bloqueo de escudo',  //1
 		  '+XX $1', //2
-		  '+XX Spell $1:+XX $2 Spells', //3
-		  '+XX $1 Per 5 Seconds', //4
-		  '+XX $1 Damage', //5
-		  '+XX $1 Spells', //6
-		  '+XX Ranged Damage (Scope)', //7
-		  '+XX Shield Block', //8
+		  '+XX Hechizo $1:+XX $2 Hechizos', //3
+		  '+XX $1 Cada 5 segundos', //4
+		  '+XX $1 Daño', //5
+		  '+XX $1 Hechizos', //6
+		  '+XX Daño a distancia (Alcance)', //7
+		  '+XX Bloqueo de escudo', //8
 		 );
 
 /*
@@ -209,38 +211,38 @@ $lang['item_bonuses_remap']=
 */
 $lang['item_bonuses_tabs'] = array(
 		//key				//translate this
-		'Totals' 			=> 'Totals',
-		'Enchantment' 		=> 'Enchantments',
-		'BaseStats' 		=> 'Base Stats',
-		'Gems' 				=> 'Gems',
-		'Effects' 			=> 'Passive',
-		'Set' 				=> 'Sets',
-		'Use' 				=> 'Use',
+		'Totals' 			=> 'Totales',
+		'Enchantment' 		=> 'Encantamientos',
+		'BaseStats' 		=> 'Estadísticas base',
+		'Gems' 				=> 'Gemas',
+		'Effects' 			=> 'Pasivo',
+		'Set' 				=> 'Equipos',
+		'Use' 				=> 'Uso',
 		'ChanceToProc' 		=> 'Procs',
-		'TempEnchantment'	=> 'Temp Effects'
+		'TempEnchantment'	=> 'Efectos temporales'
 		);
 
 // item_bonus end //
-$lang['inactive'] = 'Inactive';
+$lang['inactive'] = 'Inactivo';
 
-$lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
-$lang['admin']['char_links'] = "Character Page Links|Display the character page quick links on each character page";
-$lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
-$lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_talents'] = "Talentos|Controla el modo de mostrar los talentos<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_spellbook'] = "Libro de hechizos|Controla el modo de mostrar el libro de hechizos<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_mail'] = "Correo|Controla el modo de mostrar el correo<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_bags'] = "Bolsas|Controla el modo de mostrar las bolsas <br><br>opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_money'] = "Dinero|Controla el modo de mostrar el dinero<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_bank'] = "Banco|Controla el modo de mostrar el banco<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_recipes'] = "Recetas|Controla el modo de mostrar las recetas<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_quests'] = "Quests|Controla el modo de mostrar las quests<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_bg'] = "Informaci&oacuten del CampoBatalla del PVPlog|Controla el modo de mostrar la informaci&oacuten del Campo de Batalla del PVPlog<br>Requiere subir la informaci&oacuten del addon PvPLog<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_pvp'] = "Informaci&oacuten del PVPlog|Controla el modo de mostrar la informaci&oacuten del PVPlog<br>Requiere subir la informaci&oacuten del addon PvPLog<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_duels'] = "Informaci&oacuten de duelos del PVPlog|Controla el modo de mostrar la informaci&oacuten de los duelos del PVPlog<br>Requiere subir la informaci&oacuten del addon PvPLog<br><br>Las opciones son globales y afectan a todos los usuarios";
-$lang['admin']['show_item_bonuses'] = "Bonus de objetos|Controla el modo de mostrar los Bonus de objetos<br><br>Las opciones son globales y afectan a todos los usuarios";
+$lang['admin']['char_conf'] = 'Página de personaje|Elige que mostrar en la página de personaje';
+$lang['admin']['char_links'] = "Enlaces de la página de personaje|Muestra enlaces rápidos en la página de cada personaje";
+$lang['admin']['recipe_disp'] = "Mostrar recetas|Elige si mostrar el listado de recetas en la página.<br />Las listas pueden minimizarse y abrirse pinchando en la cabecera.<br /><br />&quot;show&quot; mostrará los listados abiertos en la página.<br />&quot;collapse&quot; mostrará las listas minimizadas.";
+$lang['admin']['show_tab2'] = "Mascotas|Elige si mostrar las mascotas<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_tab3'] = "Reputación|Elige si mostrar las reputaciones.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_tab4'] = "Habilidades|Elige si mostrar las habilidades.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_tab5'] = "JcJ|Elige si mostrar los datos de JcJ.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_talents'] = "Talentos|Elige si mostrar los talentos.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_spellbook'] = "Libro de hechizos|Elige si mostrar el libro de hechizos.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_mail'] = "Correo|Elige si mostrar el correo.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_bags'] = "Bolsas|Elige si mostrar las bolsas-<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_money'] = "Dinero|Elige si mostrar el dinero.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_bank'] = "Banco|Elige si mostrar el banco.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_recipes'] = "Recetas|Elige si mostrar las recetas.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_quests'] = "Misiones|Elige si mostrar las misiones.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_bg'] = "Información de campos de batalla|Elige si mostrar la información de los campos de batalla.<br>Requiere subir la información del addon PvPLog.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_pvp'] = "Información de JcJ|Elige si mostrar la información de JcJ.<br>Requiere subir la información del addon PvPLog.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_duels'] = "Información de duelos|Elige si mostrar la información sobre duelos.<br>Requiere subir la información del addon PvPLog.<br><br>La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_item_bonuses'] = "Bonificaciones de objetos|Elige si mostrar las bonificaciones de los objetos.<br><br>La configuración es global y afectará a todos los personajes";
 
-$lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';
+$lang['admin']['char_pref'] = 'Mostrar preferencias|Controla que mostrar en la página de personajes para cada personaje';
