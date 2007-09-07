@@ -671,7 +671,7 @@ class memberslist
 				{
 					$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP').' />';
 				}
-				
+
 				if( active_addon('info') )
 				{
 					$icon_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
@@ -906,7 +906,7 @@ class memberslist
 
 		if ( $row['last_online'] != '')
 		{
-			$guild_time = strtotime($roster->data['update_time']);
+			$guild_time = strtotime($row['update_time']);
 			$update_time = $row['last_online_stamp'];
 
 			$difference = $guild_time - $update_time;
