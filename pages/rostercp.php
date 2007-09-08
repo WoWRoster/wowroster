@@ -128,6 +128,9 @@ if ($pagebar != '')
 // Add addon buttons
 $addon_pagebar = '';
 
+// Added to get the newest addon list because we may have installed/uninstalled something
+$roster->get_addon_data();
+
 foreach( $roster->addon_data as $row )
 {
 	$addon = getaddon($row['basename']);

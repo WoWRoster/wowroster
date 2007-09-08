@@ -1121,7 +1121,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 		$host = $matches[1];
 		$port = (($matches[2] == '') ? 80 : $matches[2]);
 		$page = $matches[3];
-		$page_params = $matches[4];
+		$page_params = ( isset($matches[4]) ? $matches[4] : '' );
 
 		$file = fsockopen($host, $port, $errno, $errstr, $timeout);
 		if( !$file )
@@ -1159,8 +1159,8 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 	elseif( $contents = file_get_contents($url) )
 	{
 		return $contents;
-	}	
-	else 
+	}
+	else
 	{
 		trigger_error("UrlGrabber Error: Unable to grab URL ($url)", E_USER_WARNING);
 		return false;
