@@ -2370,7 +2370,7 @@ class update
 		$this->reset_values();
 		$this->add_value('guild_id',0);
 		$this->add_value('note','');
-		$this->add_value('guild_rank','');
+		$this->add_value('guild_rank',0);
 		$this->add_value('guild_title','');
 		$this->add_value('officer_note','');
 
