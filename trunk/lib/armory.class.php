@@ -285,7 +285,7 @@ class RosterArmory
 		global $roster;
 		
 		$locale = substr($locale, 0, 2);
-		$cache_tag = $character.$locale.$realm.$is_XML;
+		$cache_tag = $character.$locale.$realm.'talents'.$is_XML;
 		
 		if( $roster->cache->check($cache_tag) )
 		{
@@ -324,6 +324,118 @@ class RosterArmory
 		return $this->fetchCharacterTalents($character, $locale, $realm, true);
 	}
 	
+	/**
+	 * Fetch skills of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @param bool $is_XML
+	 * @return array
+	 */
+	function fetchCharacterSkills( $character, $locale, $realm, $is_XML=false )
+	{
+		global $roster;
+		
+		$locale = substr($locale, 0, 2);
+		$cache_tag = $character.$locale.$realm.'skills'.$is_XML;
+		
+		if( $roster->cache->check($cache_tag) )
+		{
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 5, $locale, false, $character, $realm );
+			if( $this->_requestXml($url) )
+			{
+				if( $is_XML )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				$this->xmlParser->Parse($this->xml);
+				$char = $this->xmlParser->getParsedData();
+				$roster->cache->put($char, $cache_tag);
+				return $char;
+			}
+		}
+	}
+	
+	/**
+	 * Fetch skills of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 * Returns XML string
+	 * 
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */	
+	function fetchCharacterSkillsXML( $character, $locale, $realm )
+	{
+		return $this->fetchCharacterSkills($character, $locale, $realm, true);
+	}
+
+	/**
+	 * Fetch reputation of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @param bool $is_XML
+	 * @return array
+	 */
+	function fetchCharacterReputation( $character, $locale, $realm, $is_XML=false )
+	{
+		global $roster;
+		
+		$locale = substr($locale, 0, 2);
+		$cache_tag = $character.$locale.$realm.'reputation'.$is_XML;
+		
+		if( $roster->cache->check($cache_tag) )
+		{
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 6, $locale, false, $character, $realm );
+			if( $this->_requestXml($url) )
+			{
+				if( $is_XML )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				$this->xmlParser->Parse($this->xml);
+				$char = $this->xmlParser->getParsedData();
+				$roster->cache->put($char, $cache_tag);
+				return $char;
+			}
+		}
+	}
+	
+	/**
+	 * Fetch reputation of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 * Returns XML string
+	 * 
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */	
+	function fetchCharacterReputationXML( $character, $locale, $realm )
+	{
+		return $this->fetchCharacterReputation($character, $locale, $realm, true);
+	}
+
 	/**
 	 * Sets $user_agent 
 	 * Use to override default useragent
@@ -407,6 +519,14 @@ class RosterArmory
 			case 4:
 			case 'character-talents':
 				$mode = 'character-talents.xml?n=' . $char . '&r=' . urlencode($realm);
+				break;
+			case 5:
+			case 'character-skills':
+				$mode = 'character-skills.xml?n=' . $char . '&r=' . urlencode($realm);
+				break;
+			case 6:
+			case 'character-reputation':
+				$mode = 'character-reputation.xml?n=' . $char . '&r=' . urlencode($realm);
 				break;
 		}
 
