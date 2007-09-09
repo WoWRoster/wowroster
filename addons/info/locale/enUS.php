@@ -158,6 +158,7 @@ $lang['item_bonuses_preg_patterns'] =
 		  '/(?:restores|\+)?\s?XX (mana|health) (?:per|every|regen).*$/i',	//6
 		  '/increases damage done by (.+) and.*$/i',	//7
 		  '/^\+?XX (Healing)(?: Spells)?\.?$/',	//8
+		  '/^\+XX Spell Damage and Healing/i', //8.5
 		  '/^scope \(\+XX damage\)$/i',	//9
 		  '/^\+?XX (?:shield )?block$/i',	//10
 		  '/^\+XX All Stats/i' //11
@@ -171,6 +172,7 @@ $lang['item_bonuses_preg_replacements'] =
 		  '+XX $1 Per 5 Seconds', //6
 		  '+XX $1 Damage', //7
 		  '+XX $1 Spells', //8
+		  '+XX Spell Damage:+XX Healing Spells', //8.5
 		  '+XX Ranged Damage (Scope)', //9
 		  '+XX Shield Block', //10
 		  '+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit' //11
