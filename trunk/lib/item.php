@@ -734,8 +734,9 @@ class item
 //		$data = $this->armory_db->fetchItemTooltip($itemid, 'deDE');
 		//trim the fat
 		$data = $data['page'][0]['child']['itemTooltips'][0]['child']['itemTooltip'][0]['child'];
-aprint($data);
-exit;
+//aprint($data);
+//exit;
+/*
 		if( !empty($data) )
 		{
 			//assign data structure
@@ -772,7 +773,6 @@ exit;
 			$tt['Attributes']['RaceText'] = $matches[1];
 			$tt['Attributes']['Sockets'][$matches[1]] = $matches[0];
 			$this->isSocketable = true;
-
 			$tt['Attributes']['Set']['InactiveSet'][] = $line;
 			$tt['Attributes']['ItemNote'] = $line;
 			$tt['Attributes']['Unique'] = $line;
@@ -795,7 +795,6 @@ exit;
 			$this->isSetPiece = true;
 			$setpiece = 1;
 			$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);
-
 			$tt['Attributes']['WeaponSlot'] = $line;
 			$this->isWeapon = true;
 			$tt['Attributes']['ArmorSlot'] = $line;
@@ -804,13 +803,13 @@ exit;
 			$tt['Attributes']['BagDesc'] = $line;
 			$this->isBag = true;
 			$tt['Attributes']['Charges'] = $line;
-
 			$tt['Poison']['Effect'][] = $line;
 			$this->isPoison = true;
 			$tt['Attributes']['Conjured'][] = $line;
 			$this->parsed_item = $tt;
 			$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
 			$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
+*/
 
 
 /**
@@ -840,7 +839,7 @@ exit;
 */
 //			aprint($tt);
 
-		}
+//		}
 	}
 
 	function _parseTooltipFull( $itemid, $enchant=false, $gem1=false, $gem2=false, $gem3=false)

@@ -79,7 +79,7 @@ class CharBonus
 			$this->item = $item;
 			$this->getBonus();
 		}
-
+		$this->_formatTooltip(); // call this to format bonus tooltip html
 		$out .= $this->printBonus();
 		return $out;
 	}
@@ -102,13 +102,12 @@ class CharBonus
 				$cat = $this->bonus[$catkey];
 				$out .= '<div class="tab3" id="' . $catkey . '"><div class="container">';
 				$tabs += array($catkey => $catval);
-				//$tt = '';
 
 				foreach( $cat as $key => $value )
 				{
 					$value = explode(':', $value);
 					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" '
-						  . makeOverlib($this->bonus_tooltip[$catkey][$key], str_replace(array( 'XX', 'YY' ), $value, $key), '', 2) . '>'
+						  . makeOverlib($this->bonus_tooltip[$catkey][$key]['html'], str_replace(array( 'XX', 'YY' ), $value, $key), '', 2, '', ',WIDTH,325') . '>'
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}
@@ -142,6 +141,8 @@ class CharBonus
 
 //		echo "bonus";
 //		aprint($this->bonus);
+//		echo "bonus HTML:";
+//		aprint($this->bonus_tooltip);
 
 		return $out;
 	}
@@ -230,6 +231,7 @@ class CharBonus
 	}
 
 	/**
+	 * Recursing Method:
 	 * Calculate the passed $bonus string. split the bonus line if $split_bonus is true
 	 * strip out passed $strip_string from $bonus
 	 *
@@ -310,95 +312,133 @@ class CharBonus
 	 */
 	function setBonus( $modifier, $string, $catagory, $is_standardized=false )
 	{
-//		$orgStr = $string;
-		if( !$is_standardized )
+		if( !$is_standardized && $catagory != 'Use' && $catagory != 'ChanceToProc' && $catagory != 'Set' )
 		{
-			// pass modifier and $catagory in case two bonuses come of the function
+			// pass modifier and $catagory in case two or more bonuses come of the function
 			$string = $this->standardizeBonus($string, $modifier, $catagory);	
 		}
-//		if( $orgStr !== $string )
-//		{
-//			echo $orgStr . '<br>converted to: <br>' . $string . '<br><br><br>';
-//		}
+
+		$this->_makeTooltip($string, $modifier, $catagory);
+		
+	}
+	
+	function _makeTooltip( $string, $modifier, $catagory )
+	{
+		global $roster;
+		
 		if( $catagory == 'Set' )
 		{
 			$html = '<span style="color:#ffd517;font-size:11px;font-weight:bold;">'
 				  . $this->item->attributes['Set']['ArmorSet']['Name'] . '</span>';
 
 			$this->bonus['Totals'][$string] = $modifier;
-			$this->bonus_tooltip['Totals'][$string] = $html;
 			$this->bonus[$catagory][$string] = $modifier;
-			$this->bonus_tooltip[$catagory][$string] = $html;
-
+			$this->bonus_tooltip['Totals'][$string]['html'] = $html;
+			$this->bonus_tooltip[$catagory][$string]['html'] = $html;
 			return;
 		}
 
-		$html = '<span style="color:#' . $this->item->color . ';">' . $this->item->name . '</span> : ' . $modifier;
-
-		if( strchr($modifier, ':') === true )
-		{
-			if( isset($this->bonus['Totals'][$string]) )
-			{
-				$this->bonus['Totals'][$string] = $this->_doubleAdd($this->bonus['Totals'][$string], $modifier);
-				$this->bonus_tooltip['Totals'][$string] = $this->bonus_tooltip['Totals'][$string] . '<br />' . $html;
-				if( isset($this->bonus[$catagory][$string]) )
-				{
-					$this->bonus[$catagory][$string] = $this->_doubleAdd($this->bonus[$catagory][$string], $modifier);
-					$this->bonus_tooltip[$catagory][$string] = $this->bonus_tooltip[$catagory][$string] . '<br />' . $html;
-				}
-				else
-				{
-					$this->bonus[$catagory][$string] = $modifier;
-					$this->bonus_tooltip[$catagory][$string] = $html;
-				}
-			}
-			else
-			{
-				$this->bonus['Totals'][$string] = $modifier;
-				$this->bonus_tooltip['Totals'][$string] = $html;
-				$this->bonus[$catagory][$string] = $modifier;
-				$this->bonus_tooltip[$catagory][$string] = $html;
-			}
-			return;
-		}
-
+		//
+		// if set this is an existing bonus
 		if( isset($this->bonus['Totals'][$string]) )
 		{
-			$this->bonus['Totals'][$string] = $this->bonus['Totals'][$string] + $modifier;
-			$this->bonus_tooltip['Totals'][$string] = $this->bonus_tooltip['Totals'][$string] . '<br />' . $html;
+			$this->bonus['Totals'][$string] = $this->_add($this->bonus['Totals'][$string], $modifier);
+//			$this->bonus_tooltip['Totals'][$string] = $this->bonus_tooltip['Totals'][$string] . '<br />' . $html;
+//move			$this->bonus_tooltip['Totals'][$string][$this->item->name] = $this->bonus_tooltip['Totals'][$string][$this->item->name] . ', ' . $modifier;
 			if( isset($this->bonus[$catagory][$string]) )
 			{
-				$this->bonus[$catagory][$string] = $this->bonus[$catagory][$string] + $modifier;
-				$this->bonus_tooltip[$catagory][$string] = $this->bonus_tooltip[$catagory][$string] . '<br />' . $html;
+				$this->bonus[$catagory][$string] = $this->_add($this->bonus[$catagory][$string], $modifier);
+//				$this->bonus_tooltip[$catagory][$string] = $this->bonus_tooltip[$catagory][$string] . '<br />' . $html;
+//move				$this->bonus_tooltip[$catagory][$string][$this->item->name] = $this->bonus_tooltip[$catagory][$string][$this->item->name] . ', ' . $modifier;
 			}
 			else
 			{
 				$this->bonus[$catagory][$string] = $modifier;
-				$this->bonus_tooltip[$catagory][$string] = $html;
+//move				$this->bonus_tooltip[$catagory][$string] = $html;
 			}
 		}
-		else
+		else // new bonus
 		{
 			$this->bonus['Totals'][$string] = $modifier;
-			$this->bonus_tooltip['Totals'][$string] = $html;
 			$this->bonus[$catagory][$string] = $modifier;
-			$this->bonus_tooltip[$catagory][$string] = $html;
+			
+//move			$this->bonus_tooltip['Totals'][$string] = $html . $modifier;
+//move			$this->bonus_tooltip[$catagory][$string][$this->item->name] = $html . '&nbsp;&nbsp;' . $modifier;
+		}
+
+		$html = '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+			  . $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
+			  . ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier;
+		
+		if( isset($this->bonus_tooltip['Totals'][$string][$this->item->name]) )
+		{
+			$this->bonus_tooltip['Totals'][$string][$this->item->name] = $this->bonus_tooltip['Totals'][$string][$this->item->name] . ',&nbsp;' . $modifier;
+		}
+		else 
+		{
+			$this->bonus_tooltip['Totals'][$string][$this->item->name] = $html;
+		}
+		
+		if( isset($this->bonus_tooltip[$catagory][$string][$this->item->name]) )
+		{
+			$this->bonus_tooltip[$catagory][$string][$this->item->name] = $this->bonus_tooltip[$catagory][$string][$this->item->name] . ',&nbsp;' . $modifier;
+		}
+		else 
+		{
+			$this->bonus_tooltip[$catagory][$string][$this->item->name] = $html;
+		}
+
+	}
+	
+	function _formatTooltip( )
+	{
+		foreach( $this->bonus_tooltip as $catagory => $catagory_value )
+		{
+			if( !is_array($this->bonus_tooltip[$catagory]) )
+			{
+				continue;
+			}
+			foreach( $this->bonus_tooltip[$catagory] as $bonus => $bonus_value )
+			{
+				if( !is_array($this->bonus_tooltip[$catagory][$bonus]) )
+				{
+					continue;
+				}
+				foreach( $this->bonus_tooltip[$catagory][$bonus] as $val ) 
+				{
+					if( isset($this->bonus_tooltip[$catagory][$bonus]['html']) )
+					{
+						$this->bonus_tooltip[$catagory][$bonus]['html'] = $this->bonus_tooltip[$catagory][$bonus]['html'] . $val . '<br />';
+					}
+					else 
+					{
+						$this->bonus_tooltip[$catagory][$bonus]['html'] = $val . '<br />';
+					}
+				}
+			}
 		}
 	}
 
 	/**
 	 * Helper function that will add values paired together with a :
-	 *
-	 * @param string $value1	| 10:10
-	 * @param string $value2	| 20:5
+	 * will add single pair if a ':' is not found
+	 * @param mixed $value1	| 10:10
+	 * @param mixed $value2	| 20:5
 	 * @return string	| 30:15
 	 */
-	function _doubleAdd( $value1, $value2 )
+	function _add( $value1, $value2 )
 	{
-		$value1 = explode(':', $value1);
-		$value2 = explode(':', $value2);
+		if( strpos($value1, ':') !== false )
+		{
+			$value1 = explode(':', $value1);
+			$value2 = explode(':', $value2);	
 
-		(string)$return = $value1[0] + $value2[0] . ':' . $value1[1] + $value2[1];
+			(string)$return = ($value1[0] + $value2[0]) . ':' . ($value1[1] + $value2[1]);
+		}
+		else 
+		{
+			(string)$return = ($value1 + $value2);
+		}
 		return $return;
 	}
 
@@ -412,7 +452,6 @@ class CharBonus
 	function standardizeBonus( $bonus, $modifier, $catagory )
 	{
 		global $roster;
-
 		//
 		// use preg matches to replace variations on bonus text
 		$bonus = preg_replace($roster->locale->wordings[$this->item_locale]['item_bonuses_preg_patterns'], $roster->locale->wordings[$this->item_locale]['item_bonuses_preg_replacements'], ucwords($bonus));
@@ -422,11 +461,10 @@ class CharBonus
 			$return = explode(':', $bonus);
 			//
 			// loop through the array recursing into setBonus()
-			// until last index then return out
-			
+			// until 0 index then return out	
 			for( $idx=(count($return)-1);;$idx-- )  
 			{
-				if( $idx != 1 )
+				if( $idx != 0 )
 				{
 					$this->setBonus($modifier, $return[$idx], $catagory, true);
 				}
@@ -435,21 +473,8 @@ class CharBonus
 					return $return[0];
 				}
 			}
-			//Set the first bonus, then return the second part
-			//$this->setBonus($modifier, $return[0], $catagory, true);
-			//return $return[1];
 		}
 		return $bonus;
-		
-//		$bonus_map = $roster->locale->wordings[$this->item->locale]['item_bonuses_remap'];
-//		if( isset($bonus_map[strtolower($bonus)]) )
-//		{
-//			return $bonus_map[strtolower($bonus)];
-//		}
-//		else
-//		{
-//			return $bonus;
-//		}
 	}
 	
 	// by: Dmitry Fedotov box at neting dot ru
