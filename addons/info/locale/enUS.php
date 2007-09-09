@@ -161,7 +161,9 @@ $lang['item_bonuses_preg_patterns'] =
 		  '/^\+XX Spell Damage and Healing/i', //8.5
 		  '/^scope \(\+XX damage\)$/i',	//9
 		  '/^\+?XX (?:shield )?block$/i',	//10
-		  '/^\+XX All Stats/i' //11
+		  '/^\+XX All Stats/i', //11
+		  '/^\+XX All Resistances/i', //12
+		  '/^\+XX Spell Critical Rating/i', //13
 		 );
 $lang['item_bonuses_preg_replacements'] =
 	array('+XX Shield Block',  //1
@@ -175,7 +177,9 @@ $lang['item_bonuses_preg_replacements'] =
 		  '+XX Spell Damage:+XX Healing Spells', //8.5
 		  '+XX Ranged Damage (Scope)', //9
 		  '+XX Shield Block', //10
-		  '+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit' //11
+		  '+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit', //11
+		  '+XX Arcane Resistance:+XX Fire Resistance:+XX Nature Resistance:+XX Frost Resistance:+XX Shadow Resistance', //12
+		  '+XX Spell Critical Strike Rating', //13
 		 );
 
 /*
