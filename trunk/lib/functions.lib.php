@@ -1136,6 +1136,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 					. "User-Agent: $user_agent\r\n"
 					. "Connection: Close\r\n\r\n";
 			fwrite($file, $header);
+			stream_set_timeout($file, $timeout);
 			$inHeader = true;
 			while( !feof($file) )
 			{
