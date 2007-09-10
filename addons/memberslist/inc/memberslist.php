@@ -522,8 +522,16 @@ class memberslist
 			}
 
 			// Main with alts
-			$openimg = 'minus.gif';
-			$openalt = '-';
+			if( $this->addon['config']['group_alts'] == 2 )
+			{
+				$openimg = 'minus.gif';
+				$openalt = '-';
+			}
+			else
+			{
+				$openimg = 'plus.gif';
+				$openalt = '+';
+			}
 
 			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'.
 				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\'); return false;">'.
@@ -535,6 +543,10 @@ class memberslist
 			{
 				$alt_counter = ($alt_counter % 2) + 1;
 				$stripe_class = ' class="membersRowAltColor'.$alt_counter.'"';
+				if( $this->addon['config']['group_alts'] == 1 )
+				{
+					$stripe_class .= ' style="display:none;"';
+				}
 				$output .= '<tr'.$stripe_class.'><td class="membersRowCell">&nbsp;</td>'."\n".$line."\n".'</tr>'."\n";
 			}
 			$output .= '</tbody>'."\n";

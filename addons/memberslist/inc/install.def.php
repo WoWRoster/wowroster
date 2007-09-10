@@ -67,7 +67,7 @@ class memberslist
 		$installer->add_config("1010,'nojs','0','radio{Server^1|Client^0','display'");
 		$installer->add_config("1020,'def_sort','','select{Default Sort^|Name^name|Class^class|Level^level|Guild Title^guild_title|Highest Rank^lifetimeHighestRank|Note^note|Hearthstone Location^hearth|Zone Location^zone|Last Online^last_online_f|Last Updated^last_update','display'");
 		$installer->add_config("1030,'member_tooltip','1','radio{On^1|Off^0','display'");
-		$installer->add_config("1040,'group_alts','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1040,'group_alts','1','radio{Open^2|Closed^1|Ungrouped^0','display'");
 		$installer->add_config("1050,'icon_size','16','select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20','display'");
 		$installer->add_config("1060,'class_icon','2','radio{Full^2|On^1|Off^0','display'");
 		$installer->add_config("1070,'class_text','0','radio{Color^2|On^1|Off^0','display'");
