@@ -34,7 +34,8 @@ class RosterArmory
 	var $xml;
 	var $xml_timeout = 8;  // seconds to pass for timeout
 	var $user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
-	
+	var $debug_url = false;
+	var $debug_cachehits = false;
 	/**
 	 * xmlParsing object
 	 *
@@ -68,10 +69,15 @@ class RosterArmory
 	{
 		global $roster;
 		$locale = substr($locale, 0, 2);
-		$cache_tag = $item_id.$locale.$character.$fetch_type;
+		$cache_tag = $item_id.$locale.$character.$realm.$fetch_type;
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				echo __FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]";
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -134,6 +140,10 @@ class RosterArmory
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -209,6 +219,10 @@ class RosterArmory
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -258,7 +272,7 @@ class RosterArmory
 	 * $character is required
 	 * $realm is required
 	 * $locale is reqired
-	 * Returns XML string
+	 * Returns HTML string
 	 * 
 	 * @param string $character
 	 * @param string $locale
@@ -291,6 +305,10 @@ class RosterArmory
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -338,7 +356,7 @@ class RosterArmory
 	 * Fetch $guild from the Armory
 	 * $guild should be passed as-is
 	 * $realm is required
-	 * Returns XML string
+	 * Returns HTML string
 	 * 
 	 * @param string $guild
 	 * @param string $locale
@@ -370,6 +388,10 @@ class RosterArmory
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -448,6 +470,10 @@ class RosterArmory
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -528,6 +554,10 @@ class RosterArmory
 		
 		if( $roster->cache->check($cache_tag) )
 		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
 			return $roster->cache->get($cache_tag);
 		}
 		else
@@ -606,9 +636,37 @@ class RosterArmory
 	 * @param int $time_out | timeout in seconds
 	 * @return void
 	 */
-	function setTimeOut( $time_out )
+	function setTimeOut( $timeout )
 	{
-		$this->xml_timeout = $time_out;
+		$this->xml_timeout = $timeout;
+	}
+	
+	/**
+	 * Enables Echoing of $url created.
+	 *
+	 */
+	function setDebugUrl( )
+	{
+		$this->debug_url = true;
+	}
+	
+	/**
+	 * Enables Cache Hit Notices
+	 *
+	 */
+	function setDebugCache( )
+	{
+		$this->debug_cachehits = true;
+	}
+	
+	/**
+	 * Enables all debugging
+	 *
+	 */
+	function setDebugAll( )
+	{
+		$this->debug_url = true;
+		$this->debug_cachehits = true;
 	}
 	/**
 	 * Private function to build the armory URL
@@ -649,7 +707,7 @@ class RosterArmory
 				$mode = 'item-tooltip.xml?i=' . $id;
 				if( $char )
 				{
-					$mode .= '&n=' . $char . '&r=' . urlencode($realm);
+					$mode .= '&n=' . urlencode($char) . '&r=' . urlencode($realm);
 				}
 				break;
 			case 1:
@@ -657,12 +715,12 @@ class RosterArmory
 				$mode = 'item-info.xml?i=' . $id;
 				if( $char )
 				{
-					$mode .= '&n=' . $char . '&r=' . urlencode($realm);
+					$mode .= '&n=' . urlencode($char) . '&r=' . urlencode($realm);
 				}
 				break;
 			case 2:
 			case 'character-sheet':
-				$mode = 'character-sheet.xml?n=' . $char . '&r=' . urlencode($realm);
+				$mode = 'character-sheet.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
 				break;
 			case 3:
 			case 'guild-info':
@@ -670,20 +728,25 @@ class RosterArmory
 				break;
 			case 4:
 			case 'character-talents':
-				$mode = 'character-talents.xml?n=' . $char . '&r=' . urlencode($realm);
+				$mode = 'character-talents.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
 				break;
 			case 5:
 			case 'character-skills':
-				$mode = 'character-skills.xml?n=' . $char . '&r=' . urlencode($realm);
+				$mode = 'character-skills.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
 				break;
 			case 6:
 			case 'character-reputation':
-				$mode = 'character-reputation.xml?n=' . $char . '&r=' . urlencode($realm);
+				$mode = 'character-reputation.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
 				break;
 		}
 
 		$url = $base_url . $mode . '&locale=' . $locale;
-//		echo $url;
+		
+		if( $this->debug_url )
+		{
+			echo $url;
+			trigger_error('Debug: Sending [' . $url . '] to urlgrabber()', E_NOTICE);
+		}
 		return $url;
 	}
 
