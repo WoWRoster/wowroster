@@ -674,10 +674,12 @@
 }
 .char_panel .tab5 .lifetime {
 	position:absolute;
-	margin:57px 0 0 270px;
+	margin:57px 0 0 215px;
 	font-size:13px;
 	color:#999;
 	font-weight:bold;
+	text-align:right;
+	width:120px;
 	overflow:hidden;
 }
 .char_panel .tab5 .divider {
