@@ -28,9 +28,9 @@ $lang['admin']['colorno'] = 'Color incompleto|Indica el color de las partes inco
 $lang['thievestools']='Herramientas de ladrón';
 $lang['lockpicking']='Ganzúa';
 
-$lang['Quests'] = 'Quests';
-$lang['Parts'] = 'Parts';
-$lang['key_status'] = '%1$s %2$s Status';
+$lang['Quests'] = 'Misiones';
+$lang['Parts'] = 'Partes';
+$lang['key_status'] = 'Estado %2$s de %1$s';
 
 
 /*

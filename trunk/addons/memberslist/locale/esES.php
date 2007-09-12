@@ -68,8 +68,8 @@ $lang['years']                  = 'hace %s años';
 
 $lang['armor_tooltip']			= 'Reduce el daño físico hecho por %1$s%%';
 
-$lang['motd']                   = 'MOTD';
-$lang['accounts']               = 'Accounts';
+$lang['motd']                   = 'MDD';
+$lang['accounts']               = 'Cuentas';
 
 // Configuration
 $lang['memberslist_config']		= 'Ves a la configuración del listado de miembros';
