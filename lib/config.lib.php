@@ -345,7 +345,7 @@ class config
 						$text_class = '';
 					}
 
-					$input_field = '<input class="wowinput'.$text_class.'" name="config_'.$values['name'].'" type="text" value="'.$values['value'].'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+					$input_field = '<input class="wowinput'.$text_class.'" name="config_'.$values['name'].'" type="text" value="'.htmlentities($values['value']).'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 					break;
 
 				case 'radio':
