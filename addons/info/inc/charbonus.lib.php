@@ -416,7 +416,7 @@ class CharBonus
 					}
 				}
 			}
-		}
+		}		
 	}
 
 	/**
