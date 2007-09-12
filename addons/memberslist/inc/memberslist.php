@@ -416,6 +416,10 @@ class memberslist
 			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$this->query);
 		}
 
+		// --[ Cache arrays for main/alt ordering ]--
+		$lines = array();
+		$lookup = array();
+
 		// --[ Actual list ]--
 		while ( $row = $roster->db->fetch( $result ) )
 		{
