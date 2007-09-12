@@ -480,10 +480,12 @@ class memberslist
 			// Cache lines for main/alt stuff
 			if( $this->addon['config']['group_alts'] <= 0 )
 			{
+				$lookup[] = $row['member_id'];
 				$lines[]['main'] = $line;
 			}
 			elseif( $row['main_id'] == $row['member_id'] )
 			{
+				$lookup[] = $row['member_id'];
 				$lines[$row['member_id']]['main'] = $line;
 			}
 			else
@@ -494,8 +496,14 @@ class memberslist
 
 		$stripe_counter = 0;
 		// Main/Alt block
-		foreach($lines as $member_id => $block)
+		foreach(array_diff(array_keys($lines),$lookup) as $member_id)
 		{
+			$lookup[] = $member_id;
+		}
+		for($i=0; $i<count($lookup); $i++)
+		{
+			$member_id = $lookup[$i];
+			$block = $lines[$member_id];
 			$stripe_counter = ($stripe_counter % 2) + 1;
 			$stripe_class = ' class="membersRowColor'.$stripe_counter.'"';
 
