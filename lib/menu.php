@@ -202,6 +202,47 @@ class RosterMenu
 				}
 			}
 		}
+		elseif( $roster->scope == 'char' )
+		{
+			// Get the scope select data
+			$query = "SELECT `name`, `member_id` FROM `" . $roster->db->table('players') . "`"
+				   . " WHERE `guild_id` = '" . $roster->data['guild_id'] . "'"
+				   . " ORDER BY `name` ASC;";
+
+			$result = $roster->db->query($query);
+
+			if( !$result )
+			{
+				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+			}
+
+			while( $data = $roster->db->fetch($result,SQL_NUM) )
+			{
+				$menu_select[$data[1]] = $data[0];
+			}
+
+	        $roster->tpl->assign_var('S_MENU_SELECT',( $roster->db->num_rows() > 1 ? true : false ));
+
+			$roster->db->free_result($result);
+
+			if( count($menu_select) > 0 )
+			{
+				$roster->tpl->assign_block_vars('menu_select_group', array(
+					'U_VALUE'      => $roster->data['guild_name'],
+					)
+				);
+
+				foreach( $menu_select as $id => $name )
+				{
+					$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
+						'TEXT'       => $name,
+						'U_VALUE'    => makelink('&amp;member=' . $id),
+						'S_SELECTED' => ( $id == $roster->data['member_id'] ? true : false )
+						)
+					);
+				}
+			}
+		}
 
 
 		switch( $roster->scope )
