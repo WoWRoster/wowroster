@@ -205,7 +205,7 @@ function dosort(count,listname)
 		else
 		{
 			SORT_COLUMNS[i] = parseFloat(cs.value);
-			var itm = table.rows[0].cells[SORT_COLUMNS[i]].className.split(' ');
+			var itm = table.rows[0].cells[SORT_COLUMNS[i]].className;
 			if (itm.indexOf('ts_string') >= 0)
 			{
 				SORTERS[i] = ts_sort_caseinsensitive;
@@ -225,7 +225,7 @@ function dosort(count,listname)
 	{
 		FILTER[i] = document.getElementById(listname +'_filter_'+(i+1));
 
-		var itm = table.rows[0].cells[i+1].className.split(' ');
+		var itm = table.rows[0].cells[i+1].className;
 		if (itm.indexOf('ts_string') >= 0)
 		{
 			TYPES[i] = 'string';
