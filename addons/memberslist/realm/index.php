@@ -236,7 +236,7 @@ function tradeskill_icons ( $row )
 	// Don't proceed for characters without data
 	if ($row['clientLocale'] == '')
 	{
-		return '&nbsp;';
+		return '<div>&nbsp;</div>';
 	}
 
 	$lang = $row['clientLocale'];
@@ -298,7 +298,7 @@ function note_value ( $row, $field )
 
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster->config['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
+			$value = '<img src="'.$roster->config['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 	}
 	else
@@ -306,9 +306,9 @@ function note_value ( $row, $field )
 		$note = '&nbsp;';
 		if( $addon['config']['compress_note'] )
 		{
-			$note = '<img src="'.$roster->config['img_url'].'no_note.gif" alt="[]" />';
+			$value = '<img src="'.$roster->config['img_url'].'no_note.gif" alt="[]" />';
 		}
 	}
 
-	return '<div style="display:none; ">'.htmlentities($row['note']).'</div>'.$note;
+	return '<div style="display:none; ">'.$note.'</div>'.$value;
 }
