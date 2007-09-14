@@ -95,7 +95,6 @@ class item
 		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->icon . '.' . $roster->config['img_suffix'];
 		$tooltip = makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
 		list($item_id) = explode(':', $this->item_id);
-
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
