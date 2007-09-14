@@ -144,7 +144,7 @@ $lang['pointsspent']='Points Utilisés dans';
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonus dûs à l\'équipement';
 $lang['item_bonuses'] = 'Objets Bonus';
-$lang['item_bonuses_preg_linesplits']='/(et|\/|&)/';
+$lang['item_bonuses_preg_linesplits']='/(et|\/|&)/i';
 $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 //

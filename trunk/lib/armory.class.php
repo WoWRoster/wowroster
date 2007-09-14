@@ -34,8 +34,10 @@ class RosterArmory
 	var $xml;
 	var $xml_timeout = 8;  // seconds to pass for timeout
 	var $user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
+	var $region;
 	var $debug_url = false;
 	var $debug_cachehits = false;
+	
 	/**
 	 * xmlParsing object
 	 *
@@ -48,9 +50,9 @@ class RosterArmory
 	 *
 	 * @return RosterArmory
 	 */
-	function RosterArmory( )
+	function RosterArmory( $region=false )
 	{
-		// notta
+		$this->region = ( isset($region) ? strtoupper($region) : 'US' );
 	}
 
 	/**
@@ -668,6 +670,18 @@ class RosterArmory
 		$this->debug_url = true;
 		$this->debug_cachehits = true;
 	}
+	
+	/**
+	 * Sets Region
+	 * US = www.wowarmory.com
+	 * EU = eu.wowarmory.com
+	 * @param string $region
+	 */
+	function setRegion( $region )
+	{
+		$this->region = strtoupper($region);
+	}
+	
 	/**
 	 * Private function to build the armory URL
 	  *
@@ -690,7 +704,7 @@ class RosterArmory
 			$locale = substr($this->locale, 0, 2);
 		}
 
-		if( $locale == 'en' )
+		if( $this->region == 'US' )
 		{
 			$base_url = 'http://www.wowarmory.com/';
 		}

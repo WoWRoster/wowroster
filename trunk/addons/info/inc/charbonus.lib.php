@@ -88,7 +88,7 @@ class CharBonus
 	// prints out all status based on array of catagories
 	function printBonus( )
 	{
-		global $roster;
+		global $roster, $tooltips;
 
 		$row = 0;
 		$out = '';
@@ -106,8 +106,13 @@ class CharBonus
 				foreach( $cat as $key => $value )
 				{
 					$value = explode(':', $value);
-					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;" '
-						  . makeOverlib($this->bonus_tooltip[$catkey][$key]['html'], str_replace(array( 'XX', 'YY' ), $value, $key), '', 2, '', ',WIDTH,325') . '>'
+					$idx = count($tooltips)+1; 
+					setTooltip( $idx, $this->bonus_tooltip[$catkey][$key]['html'] );
+					setTooltip( 'cap_' . $idx, str_replace(array( 'XX', 'YY' ), $value, $key) );
+					
+					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;"'
+						  . ' onmouseover="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH, 325, HAUTO);" onmouseout="return nd();"'
+						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,400,HAUTO,STICKY,OFFSETX,-50,OFFSETY,-30);">' 	
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}
@@ -343,32 +348,20 @@ class CharBonus
 		if( isset($this->bonus['Totals'][$string]) )
 		{
 			$this->bonus['Totals'][$string] = $this->_add($this->bonus['Totals'][$string], $modifier);
-//			$this->bonus_tooltip['Totals'][$string] = $this->bonus_tooltip['Totals'][$string] . '<br />' . $html;
-//move			$this->bonus_tooltip['Totals'][$string][$this->item->name] = $this->bonus_tooltip['Totals'][$string][$this->item->name] . ', ' . $modifier;
 			if( isset($this->bonus[$catagory][$string]) )
 			{
 				$this->bonus[$catagory][$string] = $this->_add($this->bonus[$catagory][$string], $modifier);
-//				$this->bonus_tooltip[$catagory][$string] = $this->bonus_tooltip[$catagory][$string] . '<br />' . $html;
-//move				$this->bonus_tooltip[$catagory][$string][$this->item->name] = $this->bonus_tooltip[$catagory][$string][$this->item->name] . ', ' . $modifier;
 			}
 			else
 			{
 				$this->bonus[$catagory][$string] = $modifier;
-//move				$this->bonus_tooltip[$catagory][$string] = $html;
 			}
 		}
 		else // new bonus
 		{
 			$this->bonus['Totals'][$string] = $modifier;
 			$this->bonus[$catagory][$string] = $modifier;
-			
-//move			$this->bonus_tooltip['Totals'][$string] = $html . $modifier;
-//move			$this->bonus_tooltip[$catagory][$string][$this->item->name] = $html . '&nbsp;&nbsp;' . $modifier;
 		}
-
-		$html = '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-			  . $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-			  . ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier;
 		
 		if( isset($this->bonus_tooltip['Totals'][$string][$this->item->name]) )
 		{
@@ -376,7 +369,7 @@ class CharBonus
 		}
 		else 
 		{
-			$this->bonus_tooltip['Totals'][$string][$this->item->name] = $html;
+			$this->bonus_tooltip['Totals'][$string][$this->item->name] = $this->_setNewBonusHTML($modifier);
 		}
 		
 		if( isset($this->bonus_tooltip[$catagory][$string][$this->item->name]) )
@@ -385,9 +378,33 @@ class CharBonus
 		}
 		else 
 		{
-			$this->bonus_tooltip[$catagory][$string][$this->item->name] = $html;
+			$this->bonus_tooltip[$catagory][$string][$this->item->name] = $this->_setNewBonusHTML($modifier);
 		}
 
+	}
+	
+	/**
+	 * Search and find $this->item->name in the global $tooltips.
+	 * Make subtooltip with the existing javascript variable
+	 * 
+	 * Returns html string
+	 *
+	 * @return string
+	 */
+	function _setNewBonusHTML( $modifier )
+	{
+		global $roster, $tooltips;
+		
+		foreach( $tooltips as $key => $value )
+		{
+			if( strpos($value, addslashes($this->item->name)) )
+			{
+				return 	'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
+				  	   	. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
+				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>&nbsp;:&nbsp;' . $modifier;
+			}
+		}
 	}
 	
 	function _formatTooltip( )
