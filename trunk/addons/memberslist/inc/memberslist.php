@@ -484,7 +484,7 @@ class memberslist
 			// Cache lines for main/alt stuff
 			if( $this->addon['config']['group_alts'] <= 0 )
 			{
-				$lookup[] = $row['member_id'];
+				$lookup[] = count($lines);
 				$lines[]['main'] = $line;
 			}
 			elseif( $row['main_id'] == $row['member_id'] )
