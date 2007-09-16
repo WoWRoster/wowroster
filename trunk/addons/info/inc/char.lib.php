@@ -2171,6 +2171,59 @@ $returnstring .= '  <tr>
 		return $output;
 	}
 
+	function _altNameHover()
+	{
+		global $roster;
+		// check if memberlist addon is installed if it is continue
+		// look up alt names in SQL -- if names continue -- otherwise return $this->name 
+		// return a <span> tag if alts with overlib sticky click to switch to alt
+		if( active_addon('memberslist') )
+		{
+			$sql = "SELECT main_id FROM "
+				 . $roster->db->table('alts', 'memberslist')
+				 . " WHERE member_id = " . $this->data['member_id'];
+
+			$main_id = $roster->db->query_first($sql);
+			if( $main_id != 0 ) 
+			{
+				// we know the main, get alt info
+				$sql = "SELECT m.name, m.level, m.class, a.* FROM "
+					 . $roster->db->table('alts', 'memberslist') . " AS a, "
+					 . $roster->db->table('players') . " AS m "
+					 . " WHERE a.member_id = m.member_id "
+					 . " AND a.main_id = $main_id";
+				$qry = $roster->db->query($sql);
+				$alts = $roster->db->fetch_all($qry, SQL_ASSOC);
+
+				if( isset($alts[0]) )
+				{
+					$html = '';
+
+					foreach( $alts as $alt )
+					{
+						if( $alt['main_id'] == $alt['member_id'] )
+						{
+							$caption = '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">' 
+								     . $alt['name'] . '&nbsp;(' . $roster->locale->act['level'] 
+								     . '&nbsp;' . $alt['level'] . '&nbsp;' . $alt['class'] . ')</a>';
+						}
+						else
+						{
+							$html .= '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">' 
+								   . $alt['name'] . '&nbsp;(' . $roster->locale->act['level'] 
+								   . '&nbsp;' . $alt['level'] . '&nbsp;' . $alt['class'] . ')</a><br />';
+						}
+					}
+					setTooltip('alt_html', $html);
+					setTooltip('alt_cap', $caption);
+					return '<span onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);"
+						onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-30,OFFSETY,-30,NOCLOSE);" 
+						onmouseout="return nd();">' . $this->data['name'] . '</span>';
+				}
+			}
+		}
+		return $this->data['name'];
+	}
 
 	/**
 	 * Main output function
@@ -2187,7 +2240,7 @@ $returnstring .= '  <tr>
 			$output = '
 <div class="char_panel">
 	<img src="' . $this->data['char_icon'] . '.gif" class="panel_icon" alt="" />
-	<div class="panel_title">' . $this->data['name'] . '</div>
+	<div class="panel_title">' . $this->_altNameHover() . '</div>
 	<div class="infoline_1">' . sprintf($this->locale['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']) . '</div>
 ';
 

@@ -91,7 +91,7 @@ class CharBonus
 		global $roster, $tooltips;
 
 		$row = 0;
-		$out = '';
+		$out = '<div id="overDiv2" style="position:absolute;visibility:hidden;z-index:1000;"></div>';
 		$tabs = array();
 
 		foreach( $roster->locale->act['item_bonuses_tabs'] as $catkey => $catval )
