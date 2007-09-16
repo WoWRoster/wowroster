@@ -116,7 +116,7 @@ if( $addon['active'] == '1' )
 	// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 	if( $addon['css_url'] != '' )
 	{
-		$roster->output['html_head'] .= '	<link rel="stylesheet" type="text/css" href="' . $addon['css_url'] . '" />' . "\n";
+		$roster->output['html_head'] .= "\n" . '<link rel="stylesheet" type="text/css" href="' . $addon['css_url'] . '" />' . "\n";
 	}
 
 	if( $roster->output['show_header'] )
