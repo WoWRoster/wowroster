@@ -585,7 +585,7 @@ $lang['tooltip_preg_classes']='/^(Clases:) (.+)/'; // text for class restricted 
 $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/(\d+) (bloqueo)/';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/Hueco (rojo|amarillo|azul|meta)/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_emptysocket']='/Ranura (roja|amarilla|azul|meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
 
@@ -610,14 +610,14 @@ $lang['gem_preg_prismatic'] = '/Encaja con un hueco azul amarillo rojo\./i';
 
 //Gems color Array
 $lang['gem_colors'] = array(
-	'red' => 'rojo',
+	'red' => 'roja', 
 	'blue' => 'azul',
-	'yellow' => 'amarillo',
+	'yellow' => 'amarilla',
 	'green' => 'verde',
 	'orange' => 'naranja',
 	'purple' => 'lila',
 	'prismatic' => 'centelleante',
-	'meta' => 'Meta' //verify translation
+	'meta' => 'Meta'
 	);
 // -- end tooltip parsing
 

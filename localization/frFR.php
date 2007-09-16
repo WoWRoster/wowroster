@@ -584,15 +584,15 @@ $lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)\n/';
 $lang['tooltip_preg_classes']='/^(Classes..:.)(.+)$/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Races..:.)(.+)$/'; // text for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/i'; // text for items with charges
-$lang['tooltip_preg_block']='/(Bloquer).?..(\d+)/i';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/(?:-?châsse ?)?(rouge|jaune|bleue|Méta)/i'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_block']='/(Bloquer).+?(\d+)/i';  // text for shield blocking values
+$lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge|jaune|bleue|Méta)(?:-Châsse)?/i'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 
 $lang['tooltip_chance_hit']='Chances quand vous touchez...'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
 $lang['tooltip_reg_onlyworksinside']='Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête';
-$lang['tooltip_reg_conjureditems']='Objet invoqué disparaissant'; // cas d'un objet invoqué qui disparait après 15 minutes de déconnexion
+$lang['tooltip_reg_conjureditems']='Objet invoqué'; 
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
@@ -617,7 +617,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'orange',
 	'purple' => 'pourpre',
 	'prismatic' => 'prismatique',
-	'meta' => 'Méta' //verify translation
+	'meta' => 'Méta'
 	);
 // -- end tooltip parsing
 
