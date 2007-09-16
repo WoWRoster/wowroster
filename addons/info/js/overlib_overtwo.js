@@ -74,7 +74,7 @@ function overlib2() {
 	resetDefaults();
 	parseTokens('o3_',args);
 	if(!o3_puid) o3_puid='overDiv2';
-	dispSecondPU(o3_puid);	
+	dispSecondPU(o3_puid);
 }
 function nd2() {
 	if(over2) hideSecondObject(over2);
@@ -112,7 +112,7 @@ function resetDefaults(){
 	o3_hauto=ol_hauto;
 	o3_vauto=ol_vauto;
 	o3_wrap=ol_wrap;
-	setSecondPUVariables();	
+	setSecondPUVariables();
 }
 function dispSecondPU(theDiv) {
 	var args=dispSecondPU.arguments, styleType, layerHtml, l, iLetter=['f','b'], cStr, colors=new Array();
@@ -122,17 +122,17 @@ function dispSecondPU(theDiv) {
 	if (o3_css == CSSOFF || o3_css == CSSCLASS) {
 		for(var i=0; i<iLetter.length; i++) {
 			cStr=eval('o3_'+iLetter[i]+'gcolor');
-			if(/bgcolor/.test(cStr)){ 
+			if(/bgcolor/.test(cStr)){
 				l=cStr.indexOf('#')
 			  cStr=cStr.substring(l,cStr.length-1);
 			}
 			colors[i]=cStr;
 			cStr=eval('o3_'+iLetter[i]+'gbackground');
-			if(/background/.test(cStr)){ 
+			if(/background/.test(cStr)){
 				l=cStr.indexOf('=')
 			  cStr=cStr.substring(l+1,cStr.length-1);
 			}
-			colors[i+2]=cStr;			
+			colors[i+2]=cStr;
 		}
 		if(colors[0]) o3_fgcolor=colors[0];
 		if(colors[1]) o3_bgcolor=colors[1];

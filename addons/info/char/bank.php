@@ -64,6 +64,12 @@ if( $addon['config']['show_bank'] == 1 )
 	{
 		$char_page .= $bag6->out();
 	}
+
+	$bag7 = bag_get( $char->get('member_id'), 'Bank Bag7' );
+	if( !is_null( $bag7 ) )
+	{
+		$char_page .= $bag7->out();
+	}
 }
 
 include( $addon['dir'] . 'inc/footer.php' );
