@@ -110,9 +110,9 @@ class CharBonus
 					setTooltip( $idx, $this->bonus_tooltip[$catkey][$key]['html'] );
 					setTooltip( 'cap_' . $idx, str_replace(array( 'XX', 'YY' ), $value, $key) );
 
-					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;"'
+					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;cursor:pointer;"'
 						  . ' onmouseover="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,HAUTO);" onmouseout="return nd();"'
-						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,STICKY,OFFSETX,0,OFFSETY,0,HAUTO);">'
+						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,STICKY,OFFSETX,-30,OFFSETY,-30,HAUTO);">'
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}

@@ -38,6 +38,7 @@ class char
 	var $equip;
 	var $talent_build;
 	var $locale;
+	var $alt_hover;
 
 	/**
 	 * Constructor
@@ -2216,13 +2217,14 @@ $returnstring .= '  <tr>
 					}
 					setTooltip('alt_html', $html);
 					setTooltip('alt_cap', $caption);
-					return '<span onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);"
+					$this->alt_hover = 'style="cursor: pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);"
 						onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-30,OFFSETY,-30,NOCLOSE);" 
-						onmouseout="return nd();">' . $this->data['name'] . '</span>';
+						onmouseout="return nd();"';
+					return;
 				}
 			}
 		}
-		return $this->data['name'];
+		$this->alt_hover = '';
 	}
 
 	/**
@@ -2236,17 +2238,18 @@ $returnstring .= '  <tr>
 		{
 			$this->fetchEquip();
 			$petTab = $this->printPet();
-
+			$this->_altNameHover();
+			
 			$output = '
 <div class="char_panel">
-	<img src="' . $this->data['char_icon'] . '.gif" class="panel_icon" alt="" />
-	<div class="panel_title">' . $this->_altNameHover() . '</div>
-	<div class="infoline_1">' . sprintf($this->locale['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']) . '</div>
+	<img src="' . $this->data['char_icon'] . '.gif" class="panel_icon" alt="" '. $this->alt_hover . '/>
+	<div class="panel_title" ' . $this->alt_hover . '>' . $this->data['name'] . '</div>
+	<div class="infoline_1" ' . $this->alt_hover . '>' . sprintf($this->locale['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']) . '</div>
 ';
 
 			if( isset($this->data['guild_title']) && isset($this->data['guild_name']) )
 			{
-				$output .= '	<div class="infoline_2">'.sprintf($this->locale['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
+				$output .= '	<div class="infoline_2"' . $this->alt_hover . '>'.sprintf($this->locale['char_guildline'],$this->data['guild_title'],$this->data['guild_name'])."</div>\n";
 			}
 
 			$output .= '
