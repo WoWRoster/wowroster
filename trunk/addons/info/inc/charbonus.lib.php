@@ -338,8 +338,8 @@ class CharBonus
 
 			$this->bonus['Totals'][$string] = $modifier;
 			$this->bonus[$catagory][$string] = $modifier;
-			$this->bonus_tooltip['Totals'][$string]['html'] = $html;
-			$this->bonus_tooltip[$catagory][$string]['html'] = $html;
+			$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] = $html;
+			$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] = $html;
 			return;
 		}
 
