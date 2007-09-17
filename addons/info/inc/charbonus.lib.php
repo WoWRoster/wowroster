@@ -333,13 +333,25 @@ class CharBonus
 
 		if( $catagory == 'Set' )
 		{
-			$html = '<span style="color:#ffd517;font-size:11px;font-weight:bold;">'
+			$html = '<span style="color:#ffd517;font-size:13px;font-weight:bold;">'
 				  . $this->item->attributes['Set']['ArmorSet']['Name'] . '</span>';
 
 			$this->bonus['Totals'][$string] = $modifier;
 			$this->bonus[$catagory][$string] = $modifier;
-			$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] = $html;
-			$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] = $html;
+			if( empty($this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]) )
+			{
+				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]   = 
+					$html . '<br /><br />' . $this->_setNewSetBonusHTML();
+				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  = 
+					$html . '<br /><br />' . $this->_setNewSetBonusHTML();
+			}
+			else 
+			{
+				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  = 
+					$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] . '<br />' . $this->_setNewSetBonusHTML();
+				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] =
+					$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] . '<br />' . $this->_setNewSetBonusHTML();
+			}
 			return;
 		}
 
@@ -403,6 +415,22 @@ class CharBonus
 				  	   	. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
 				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>&nbsp;:&nbsp;' . $modifier;
+			}
+		}
+	}
+
+	function _setNewSetBonusHTML( )
+	{
+		global $roster, $tooltips;
+
+		foreach( $tooltips as $key => $value )
+		{
+			if( strpos($value, addslashes($this->item->name)) )
+			{
+				return 	'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
+				  	   	. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
+				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>';
 			}
 		}
 	}
