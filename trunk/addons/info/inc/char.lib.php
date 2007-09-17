@@ -2175,9 +2175,7 @@ $returnstring .= '  <tr>
 	function _altNameHover()
 	{
 		global $roster;
-		// check if memberlist addon is installed if it is continue
-		// look up alt names in SQL -- if names continue -- otherwise return $this->name 
-		// return a <span> tag if alts with overlib sticky click to switch to alt
+
 		if( active_addon('memberslist') )
 		{
 			$sql = "SELECT main_id FROM "
@@ -2196,7 +2194,7 @@ $returnstring .= '  <tr>
 				$qry = $roster->db->query($sql);
 				$alts = $roster->db->fetch_all($qry, SQL_ASSOC);
 
-				if( isset($alts[0]) )
+				if( isset($alts[1]) )
 				{
 					$html = '';
 
@@ -2217,14 +2215,15 @@ $returnstring .= '  <tr>
 					}
 					setTooltip('alt_html', $html);
 					setTooltip('alt_cap', $caption);
-					$this->alt_hover = 'style="cursor: pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);"
-						onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-30,OFFSETY,-30,NOCLOSE);" 
-						onmouseout="return nd();"';
+					$this->alt_hover = 'style="cursor: pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);" '
+									 . 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-30,OFFSETY,-30,NOCLOSE);" '
+									 . 'onmouseout="return nd();"';
 					return;
 				}
 			}
 		}
 		$this->alt_hover = '';
+		return;
 	}
 
 	/**
