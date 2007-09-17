@@ -969,7 +969,7 @@ class item
 		{
 			//
 			// at this point any line prefixed with a + must be a White Stat (or base stat).
-			if( preg_match('/([+-]\d+)\s(.+)/u', $line, $matches) )
+			if( preg_match('/^([+-]\d+)\s(.+)/u', $line, $matches) )
 			{
 				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 			}
