@@ -421,6 +421,20 @@ $lang['class_to_en'] = array(
 	'Guerrero' => 'Warrior'
 );
 
+// Race to English Translation
+$lang['race_to_en'] = array(
+	'Elfo de sangre' => 'Blood Elf',
+	'Draenei'   => 'Draenei',
+	'Elfo de la noche' => 'Night Elf',
+	'Enano'     => 'Dwarf',
+	'Gnomo'     => 'Gnome',
+	'Humano'    => 'Human',
+	'Orco'      => 'Orc',
+	'No-muerto' => 'Undead',
+	'Trol'      => 'Troll',
+	'Tauren'    => 'Tauren'
+);
+
 $lang['pvplist'] ='Estadísticas JcJ';
 $lang['pvplist1']='Hermandad a la que más hemos hecho sufrir';
 $lang['pvplist2']='Hermandad que más nos ha hecho sufrir';

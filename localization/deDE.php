@@ -421,6 +421,20 @@ $lang['class_to_en'] = array(
 	'Krieger' => 'Warrior'
 );
 
+// Race to English Translation
+$lang['race_to_en'] = array(
+	'Blutelf'  => 'Blood Elf',
+	'Draenei'  => 'Draenei',
+	'Nachtelf' => 'Night Elf',
+	'Zwerg'    => 'Dwarf',
+	'Gnom'     => 'Gnome',
+	'Mensch'   => 'Human',
+	'Orc'      => 'Orc',
+	'Untoter'  => 'Undead',
+	'Troll'    => 'Troll',
+	'Tauren'   => 'Tauren'
+);
+
 $lang['pvplist']='PvP Statistiken';
 $lang['pvplist1']='Gilde, die am meisten unter uns zu leiden hat';
 $lang['pvplist2']='Gilde, die uns am meisten zu Schaffen macht';
