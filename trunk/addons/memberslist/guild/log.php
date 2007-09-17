@@ -28,7 +28,7 @@ $mainQuery =
 	'WHERE `guild_id` = "'.$roster->data['guild_id'].'"'.
 	'ORDER BY ';
 
-$always_sort = ' `members`.`update_time` DESC';
+$always_sort = ' `date_stamp` DESC';
 
 
 $FIELD['name'] = array(
@@ -50,6 +50,7 @@ $FIELD['class'] = array(
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
+	'order'    => array( '`level` DESC' ),
 	'order_d'    => array( '`level` ASC' ),
 	'value' => array($memberlist,'level_value'),
 	'js_type' => 'ts_number',
@@ -76,8 +77,8 @@ $FIELD['type'] = array (
 
 $FIELD['date'] = array (
 	'lang_field' => 'date',
-	'order' => array( 'date DESC' ),
-	'order_d' => array( 'date ASC' ),
+	'order' => array( '`date_stamp` DESC' ),
+	'order_d' => array( '`date_stamp` ASC' ),
 	'jsort' => 'date_stamp',
 	'js_type' => 'ts_date',
 	'display' => $addon['config']['log_date'],
