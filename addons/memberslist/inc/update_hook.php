@@ -523,7 +523,7 @@ class memberslistUpdate
 
 		foreach($this->chars as $char)
 		{
-			if( $char['Guild']['Rank'] < $maxrank )
+			if( isset( $char['Guild'] ) && isset( $char['Guild']['Rank'] ) && $char['Guild']['Rank'] < $maxrank )
 			{
 				$maxrank = $char['Guild']['Rank'];
 			}
@@ -546,7 +546,7 @@ class memberslistUpdate
 			$query = "UPDATE `".$roster->db->table('alts',$this->data['basename'])."` SET `main_id` = '".$mainid."', `alt_type` = '".ALTMONITOR_MAIN_MANUAL_NO_ALTS."' WHERE `member_id` = '".$mainid."'";
 			if( $roster->db->query($query) )
 			{
-				$this->messages .= ' - '.$this->chars[$mainid]['name'].' written as main without alts<br/>'."\n";
+				$this->messages .= ' - '.$this->chars[$mainid]['Name'].' written as main without alts<br/>'."\n";
 			}
 			else
 			{
