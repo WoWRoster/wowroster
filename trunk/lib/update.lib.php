@@ -386,7 +386,7 @@ class update
 							  . " AND '" . $region . "' LIKE `region`;");
 
 						// Check if the profile is old
-						if( ( strtotime($time) - strtotime($timestamp) ) > 0 )
+						if( $time != '' && ( strtotime($time) - strtotime($timestamp) ) > 0 )
 						{
 							$output .= sprintf($roster->locale->act['not_update_char_time'],$char_name) . "<br />\n";
 							continue;
@@ -500,7 +500,7 @@ class update
 									  . " AND '" . $region . "' LIKE `region`;");
 
 								// Check if the profile is old
-								if( ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
+								if( $time != '' && ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
 								{
 									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
 									continue;
