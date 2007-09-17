@@ -2352,6 +2352,12 @@ $returnstring .= '  <tr>
 				$expbar_text = $this->locale['max_exp'];
 				$expbar_type = 'expbar_full';
 			}
+			elseif( $this->data['exp'] == '0' )
+			{
+				$expbar_width = 0;
+				$expbar_type = 'expbar_full';
+				$expbar_text = '';
+			}
 			else
 			{
 				list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);

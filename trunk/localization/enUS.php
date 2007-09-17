@@ -421,6 +421,20 @@ $lang['class_to_en'] = array(
 	'Warrior' => 'Warrior'
 );
 
+// Race to English Translation
+$lang['race_to_en'] = array(
+	'Blood Elf' => 'Blood Elf',
+	'Draenei'   => 'Draenei',
+	'Night Elf' => 'Night Elf',
+	'Dwarf'     => 'Dwarf',
+	'Gnome'     => 'Gnome',
+	'Human'     => 'Human',
+	'Orc'       => 'Orc',
+	'Undead'    => 'Undead',
+	'Troll'     => 'Troll',
+	'Tauren'    => 'Tauren'
+);
+
 $lang['pvplist']='PvP Stats';
 $lang['pvplist1']='Guild that suffered most at our hands';
 $lang['pvplist2']='Guild that killed us the most';
