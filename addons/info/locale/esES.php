@@ -140,7 +140,7 @@ $lang['res_shadow']='Resistencia a las sombras';
 $lang['res_shadow_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de sombras.';
 
 $lang['empty_equip']='No hay objetos equipados';
-$lang['pointsspent']='Puntos gastados en';
+$lang['pointsspent']='Puntos gastados en %1$s Talents';
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonificaciones de objetos equipados';
 $lang['item_bonuses'] = 'Bonificaciones de objetos';

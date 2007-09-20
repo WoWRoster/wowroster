@@ -1788,7 +1788,7 @@ $returnstring .= '  <tr>
 
 				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
 
-		<div class="points"><span style="color:#ffdd00">'.$roster->locale->wordings[$this->data['clientLocale']]['pointsspent'].' '.$tree['name'].' Talents:</span> '.$tree['points'].'</div>
+		<div class="points"><span style="color:#ffdd00">'.sprintf($roster->locale->wordings[$this->data['clientLocale']]['pointsspent'],$tree['name']).':</span> '.$tree['points'].'</div>
 		<img class="background" src="'.$roster->config['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
 
 		<div class="container">'."\n";
@@ -2183,7 +2183,7 @@ $returnstring .= '  <tr>
 				 . " WHERE member_id = " . $this->data['member_id'];
 
 			$main_id = $roster->db->query_first($sql);
-			if( $main_id != 0 ) 
+			if( $main_id != 0 )
 			{
 				// we know the main, get alt info
 				$sql = "SELECT m.name, m.level, m.class, a.* FROM "
@@ -2202,14 +2202,14 @@ $returnstring .= '  <tr>
 					{
 						if( $alt['main_id'] == $alt['member_id'] )
 						{
-							$caption = '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">' 
-								     . $alt['name'] . '&nbsp;(' . $roster->locale->act['level'] 
+							$caption = '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">'
+								     . $alt['name'] . '&nbsp;(' . $roster->locale->act['level']
 								     . '&nbsp;' . $alt['level'] . '&nbsp;' . $alt['class'] . ')</a>';
 						}
 						else
 						{
-							$html .= '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">' 
-								   . $alt['name'] . '&nbsp;(' . $roster->locale->act['level'] 
+							$html .= '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">'
+								   . $alt['name'] . '&nbsp;(' . $roster->locale->act['level']
 								   . '&nbsp;' . $alt['level'] . '&nbsp;' . $alt['class'] . ')</a><br />';
 						}
 					}
@@ -2238,7 +2238,7 @@ $returnstring .= '  <tr>
 			$this->fetchEquip();
 			$petTab = $this->printPet();
 			$this->_altNameHover();
-			
+
 			$output = '
 <div class="char_panel">
 	<img src="' . $this->data['char_icon'] . '.gif" class="panel_icon" alt="" '. $this->alt_hover . '/>
