@@ -140,7 +140,7 @@ $lang['res_shadow']='Schatten Widerstand';
 $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
 
 $lang['empty_equip']='Kein Gegenstand angelegt';
-$lang['pointsspent']='Punkte verteilt in';
+$lang['pointsspent']='Punkte verteilt in %1$s Talents';
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Boni f&uuml;r angelegte Gegenst&auml;nde';
 $lang['item_bonuses'] = 'Gegenstand Boni';

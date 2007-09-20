@@ -140,7 +140,7 @@ $lang['res_shadow']='Shadow Resistance';
 $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
 
 $lang['empty_equip']='No item equipped';
-$lang['pointsspent']='Points Spent in';
+$lang['pointsspent']='Points Spent in %1$s Talents';
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonuses For Equipped Items';
 $lang['item_bonuses'] = 'Item Bonuses';
