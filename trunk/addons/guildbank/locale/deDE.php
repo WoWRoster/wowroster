@@ -15,19 +15,19 @@
  * @subpackage Locale
 */
 
-$lang['gbankbutton']='GuildBank|Shows the inventory of characters marked as the Guild Bank';
+$lang['gbankbutton']='Gildenbank|Zeigt das Inventar von Charakteren, die als Gildenbank markiert sind';
 $lang['guildbank']='Gildenbank';
-$lang['guildbank_desc']='Shows the inventory of characters marked as the Guild Bank';
+$lang['guildbank_desc']='Zeigt das Inventar von Charakteren, die als Gildenbank markiert sind';
 $lang['guildbank_totalmoney']='Gesamt Ersparnisse';
 
-$lang['gbank_list'] = 'Full Listing';
-$lang['gbank_inv'] = 'Inventory';
-$lang['gbank_not_loaded'] = '<strong>%1$s</strong> has not uploaded an inventory yet';
+$lang['gbank_list'] = 'Komplette Auflistung';
+$lang['gbank_inv'] = 'Inventar';
+$lang['gbank_not_loaded'] = '<strong>%1$s</strong> hat noch kein Inventar hochgeladen';
 $lang['guildbankcontact']='Im Besitz von (Kontakt)';
 $lang['guildbankitem']='Gegenstand und Beschreibung';
 
 $lang['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gildenbank';
 $lang['admin']['guildbank_ver'] = "Gildenbank Anzeigeeinstellung|Gildenbank Anzeigeeinstellung:<br /><br />&quot;Table&quot; ist eine einfache Ansicht die eine Liste aller Sachen der Banker anzeigt<br />&quot;Inventory&quot; zeigt eine eigene Tabelle für jeden Banker";
 $lang['admin']['bank_money'] = "Goldanzeige|Steuert die Anzeige der Goldmenge in der Gildenbank";
-$lang['admin']['banker_rankname'] = "Banker Suchtext|Text um den Banker zu finden";
-$lang['admin']['banker_fieldname'] = "Banker Suchfeld|In diesem Tabellenfeld wird nach dem Banker Suchtext gesucht";
+$lang['admin']['banker_rankname'] = "Bankchar Suchtext|Text um den Bankchar zu finden";
+$lang['admin']['banker_fieldname'] = "Bankchar Suchfeld|In diesem Tabellenfeld wird nach dem Bankchar Suchtext gesucht";
