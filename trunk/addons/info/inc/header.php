@@ -70,7 +70,13 @@ foreach( $disp_array as $global_setting )
 	}
 }
 
-
-$char->data['char_icon'] = $addon['image_path'] . 'portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
+if( $char->data['raceEn'] == '' || $char->data['sexid'] == '' )
+{
+	$char->data['char_icon'] = $addon['image_path'] . 'portrait/unknown';
+}
+else
+{
+	$char->data['char_icon'] = $addon['image_path'] . 'portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
+}
 
 $char_page = '<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';

@@ -288,7 +288,7 @@ class item
 			foreach( $emptysockets as $socket_color => $socket_line )
 			{
 				$html .= '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
-					   . socketColorEn($socket_color, $this->locale) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;' 
+					   . socketColorEn($socket_color, $this->locale) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;'
 					   . $socket_line . '<br />';
 			}
 		}
@@ -871,7 +871,7 @@ class item
 			$tooltip = str_replace( $matches[0], '', $tooltip );
 			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
-		
+
 		// if any gems get the data for them, remove lines from stack.
 		if( $gem1 || $gem2 || $gem3 )
 		{
@@ -1138,7 +1138,7 @@ class item
 						{
 							$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 						}
-						else 
+						else
 						{
 							$tt['Attributes']['BaseStats'][$matches[1]] = $matches[0];
 						}
