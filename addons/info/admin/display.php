@@ -24,13 +24,59 @@ if( isset($_POST['process']) && $_POST['process'] != '' )
 	$roster_config_message = processData();
 }
 
+$menu_select = array();
+
+// Get the scope select data
+$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
+	   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+
+$result = $roster->db->query($query);
+
+if( !$result )
+{
+    die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
+}
+
+$guilds=0;
+while( $data = $roster->db->fetch($result,SQL_NUM) )
+{
+	$menu_select[$data[1]][$data[2]] = $data[0];
+	$guilds++;
+}
+
+$options='';
+
+if( $guilds > 1 )
+{
+	foreach( $menu_select as $realm => $guild )
+	{
+		$options .= '		<optgroup label="' . $realm . '">'. "\n";
+		foreach( $guild as $id => $name )
+		{
+			$options .= '			<option value="' . makelink("&amp;guild=$id") . '"' . ( $id == $_GET['guild'] ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+		}
+		$options .= '		</optgroup>';
+	}
+}
+
+$body = '<form action="' . makelink() . '" name="realm_select" method="post">
+	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
+		<option>' . $roster->locale->act['select_filter'] . '</option>
+' . $options . '
+	</select>
+</form>';
+
+$body = messagebox($body,'','sgreen');
+
+$listing = $next = $prev = '';
+
 $char_data = getCharData();
-//echo '<pre style="text-align:left">';print_r($char_data);echo '</pre>';
+
 
 // Build the character display control
 if( is_array($char_data) )
 {
-	$body = "<div id=\"char_disp\">\n" . border('sblue','start',$roster->locale->act['admin']['per_character_display']) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$body .= "<br /><div id=\"char_disp\">\n" . border('sblue','start',$prev . $roster->locale->act['admin']['per_character_display'] . $listing . $next) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
 	$body .= '
 	<tr>
@@ -70,6 +116,8 @@ if( is_array($char_data) )
 		$i++;
 	}
 	$body .= "</table>\n" . border('syellow','end') . "\n</div>\n";
+
+	$body .= $prev . $listing . $next;
 }
 else
 {
@@ -105,7 +153,39 @@ $menu = messagebox('
  */
 function getCharData( )
 {
-	global $roster;
+	global $roster, $listing, $next, $prev;
+
+	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
+
+	$sql = "SELECT "
+		 . " `member_id`"
+		 . " FROM `" . $roster->db->table('players') . "`"
+		 . " WHERE `guild_id` = " . $_GET['guild'] . ";";
+
+	// Get the number of rows
+	$results = $roster->db->query($sql);
+
+	$max = $roster->db->num_rows();
+
+	if ($start > 0)
+	{
+		$prev = '<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($start-15)) . '">&lt;</a> ';
+	}
+	else
+	{
+		$prev = '';
+	}
+
+	if (($start+15) < $max)
+	{
+		$listing = ' <small>[' . $start . ' - ' . ($start+15) . '] of ' . $max . '</small>';
+		$next = ' <a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($start+15)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($max-15)) . '">&gt;&gt;|</a>';
+	}
+	else
+	{
+		$listing = ' <small>[' . $start . ' - ' . ($max) . '] of ' . $max . '</small>';
+		$next = '';
+	}
 
 	$sql = "SELECT "
 		 . " `member_id`, `name`,"
@@ -118,7 +198,18 @@ function getCharData( )
 		 . " `show_quests`, `show_recipes`,"
 		 . " `show_item_bonuses`"
 		 . " FROM `" . $roster->db->table('players') . "`"
-		 . " ORDER BY `name` ASC;";
+		 . " WHERE `guild_id` = " . $_GET['guild']
+		 . " ORDER BY `name` ASC";
+
+
+	if( $start != -1 )
+	{
+		$sql .= ' LIMIT ' . $start . ', 15;';
+	}
+	else
+	{
+		$sql .= ' LIMIT 0, 15;';
+	}
 
 	// Get the current config values
 	$results = $roster->db->query($sql);
