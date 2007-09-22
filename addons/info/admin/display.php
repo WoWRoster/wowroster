@@ -61,7 +61,7 @@ if( $guilds > 1 )
 
 $body = '<form action="' . makelink() . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
-		<option>' . $roster->locale->act['select_filter'] . '</option>
+		<option>----------</option>
 ' . $options . '
 	</select>
 </form>';
