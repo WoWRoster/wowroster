@@ -73,6 +73,28 @@ class Install
 	}
 
 	/**
+	 * Drops if exists then creates a new table with the correct charset
+	 *
+	 * @param string $name
+	 * @param string $query
+	 */
+	function create_table( $name , $query )
+	{
+		$this->sql[] = 'DROP TABLE IF EXISTS `' . $name . '`;';
+		$this->sql[] = 'CREATE TABLE `' . $name . '` ' . $query . ' ENGINE=MyISAM DEFAULT CHARSET=utf8;';
+	}
+
+	/**
+	 * Drops a table, if it exists
+	 *
+	 * @param string $name
+	 */
+	function drop_table($name)
+	{
+		$this->sql[] = 'DROP TABLE IF EXISTS `' . $name . '`;';
+	}
+
+	/**
 	 * Add config sql to roster_addon_config
 	 *
 	 * @param string $sql

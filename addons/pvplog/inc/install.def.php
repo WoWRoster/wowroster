@@ -57,32 +57,27 @@ class pvplog
 		# Generic display settings
 		$installer->add_config("'1000','minPvPLogver','2.0.0','text{10|10','pvpconfig'");
 
-		$installer->add_query("
-			DROP TABLE IF EXISTS `" . $roster->db->table('pvp2') . "`;
-		");
-		$installer->add_query("
-			CREATE TABLE `" . $roster->db->table('pvp2') . "` (
-			  `member_id` int(11) unsigned NOT NULL default '0',
-			  `index` int(11) unsigned NOT NULL default '0',
-			  `date` datetime default NULL,
-			  `name` varchar(32) NOT NULL default '',
-			  `guild` varchar(32) NOT NULL default '',
-			  `realm` varchar(96) NOT NULL default '',
-			  `race` varchar(32) NOT NULL default '',
-			  `class` varchar(32) NOT NULL default '',
-			  `zone` varchar(32) NOT NULL default '',
-			  `subzone` varchar(32) NOT NULL default '',
-			  `enemy` tinyint(4) NOT NULL default '0',
-			  `win` tinyint(4) NOT NULL default '0',
-			  `rank` varchar(32) NOT NULL default '',
-			  `bg` tinyint(3) unsigned NOT NULL default '0',
-			  `leveldiff` tinyint(4) NOT NULL default '0',
-			  `honor` smallint(6) NOT NULL default '0',
-			  `column_id` mediumint(9) NOT NULL auto_increment,
-			  PRIMARY KEY  (`column_id`),
-			  KEY `date` (`date`,`guild`,`class`),
-			  KEY `member_id` (`member_id`,`index`)
-			) TYPE=MyISAM;");
+		$installer->create_table($roster->db->table('pvp2'),"
+		  `member_id` int(11) unsigned NOT NULL default '0',
+		  `index` int(11) unsigned NOT NULL default '0',
+		  `date` datetime default NULL,
+		  `name` varchar(32) NOT NULL default '',
+		  `guild` varchar(32) NOT NULL default '',
+		  `realm` varchar(96) NOT NULL default '',
+		  `race` varchar(32) NOT NULL default '',
+		  `class` varchar(32) NOT NULL default '',
+		  `zone` varchar(32) NOT NULL default '',
+		  `subzone` varchar(32) NOT NULL default '',
+		  `enemy` tinyint(4) NOT NULL default '0',
+		  `win` tinyint(4) NOT NULL default '0',
+		  `rank` varchar(32) NOT NULL default '',
+		  `bg` tinyint(3) unsigned NOT NULL default '0',
+		  `leveldiff` tinyint(4) NOT NULL default '0',
+		  `honor` smallint(6) NOT NULL default '0',
+		  `column_id` mediumint(9) NOT NULL auto_increment,
+		  PRIMARY KEY  (`column_id`),
+		  KEY `date` (`date`,`guild`,`class`),
+		  KEY `member_id` (`member_id`,`index`)");
 
 		# Roster menu entry
 		$installer->add_menu_button('button_pvplog','guild');
@@ -116,7 +111,7 @@ class pvplog
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 
-		$installer->add_query("DROP TABLE IF EXISTS `" . $roster->db->table('pvp2') . "`;");
+		$installer->drop_table($roster->db->table('pvp2'));
 
 		$installer->remove_menu_button('pvplist');
 
