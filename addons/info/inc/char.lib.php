@@ -2178,45 +2178,45 @@ $returnstring .= '  <tr>
 
 		if( active_addon('memberslist') )
 		{
-			$sql = "SELECT main_id FROM "
+			$sql = "SELECT `main_id` FROM `"
 				 . $roster->db->table('alts', 'memberslist')
-				 . " WHERE member_id = " . $this->data['member_id'];
+				 . "` WHERE `member_id` = " . $this->data['member_id'] . ";";
 
 			$main_id = $roster->db->query_first($sql);
 			if( $main_id != 0 )
 			{
 				// we know the main, get alt info
-				$sql = "SELECT m.name, m.level, m.class, a.* FROM "
-					 . $roster->db->table('alts', 'memberslist') . " AS a, "
-					 . $roster->db->table('players') . " AS m "
-					 . " WHERE a.member_id = m.member_id "
-					 . " AND a.main_id = $main_id";
+				$sql = "SELECT `m`.`name`, `m`.`level`, `m`.`class`, `a`.* FROM `"
+					 . $roster->db->table('alts', 'memberslist') . "` AS a, `"
+					 . $roster->db->table('players') . "` AS m "
+					 . " WHERE `a`.`member_id` = `m`.`member_id` "
+					 . " AND `a`.`main_id` = $main_id;";
 				$qry = $roster->db->query($sql);
 				$alts = $roster->db->fetch_all($qry, SQL_ASSOC);
 
 				if( isset($alts[1]) )
 				{
-					$html = '';
+					$html = $caption = '';
 
 					foreach( $alts as $alt )
 					{
 						if( $alt['main_id'] == $alt['member_id'] )
 						{
 							$caption = '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">'
-								     . $alt['name'] . '&nbsp;(' . $roster->locale->act['level']
-								     . '&nbsp;' . $alt['level'] . '&nbsp;' . $alt['class'] . ')</a>';
+								     . $alt['name'] . ' (' . $roster->locale->act['level']
+								     . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a>';
 						}
 						else
 						{
 							$html .= '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">'
-								   . $alt['name'] . '&nbsp;(' . $roster->locale->act['level']
-								   . '&nbsp;' . $alt['level'] . '&nbsp;' . $alt['class'] . ')</a><br />';
+								   . $alt['name'] . ' (' . $roster->locale->act['level']
+								   . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a><br />';
 						}
 					}
 					setTooltip('alt_html', $html);
 					setTooltip('alt_cap', $caption);
-					$this->alt_hover = 'style="cursor: pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);" '
-									 . 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-30,OFFSETY,-30,NOCLOSE);" '
+					$this->alt_hover = 'style="cursor:pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);" '
+									 . 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-5,OFFSETY,-5,NOCLOSE);" '
 									 . 'onmouseout="return nd();"';
 					return;
 				}

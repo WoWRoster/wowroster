@@ -2343,7 +2343,7 @@ class update
 	{
 		global $roster;
 
-		$querystr = "SELECT * FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0'";
+		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0';";
 
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -2356,28 +2356,42 @@ class update
 
 		if( $num > 0 )
 		{
+			$inClause = '';
 			while( $row = $roster->db->fetch($result) )
 			{
 				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Removed</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
+
+				$inClause .= ',' . $row[0];
 			}
+			$inClause = substr($inClause,1);
 
 			// now that we have our inclause, set them guildless
 			$this->setMessage('<li><span class="red">Setting ' . $num . ' member' . ($num > 1 ? 's' : '') . ' to guildless</span></li>');
-		}
-		$roster->db->free_result($result);
 
-		$this->reset_values();
-		$this->add_value('guild_id',0);
-		$this->add_value('note','');
-		$this->add_value('guild_rank',0);
-		$this->add_value('guild_title','');
-		$this->add_value('officer_note','');
+			$roster->db->free_result($result);
 
-		$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `guild_id` = '$guild_id' AND `active` = '0'";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('Guild members could not be set guildless',$roster->db->error());
+			$this->reset_values();
+			$this->add_value('guild_id',0);
+			$this->add_value('note','');
+			$this->add_value('guild_rank',0);
+			$this->add_value('guild_title','');
+			$this->add_value('officer_note','');
+
+			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause);";
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError('Guild members could not be set guildless',$roster->db->error());
+			}
+
+			$this->reset_values();
+			$this->add_value('guild_id',0);
+
+			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause)';";
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError('Guild members could not be set guildless',$roster->db->error());
+			}
 		}
 	}
 

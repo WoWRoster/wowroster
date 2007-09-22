@@ -900,4 +900,4 @@
 /* Spell Icon */
 .spell_panel .info_container .icon { width:40px;height:40px; }
 /* Spell Icon text */
-.spell_panel .info_container .text { font:10px arial,helvetica,sans-serif;text-align:left;position:absolute;margin-top:4px;margin-left:4px; }
+.spell_panel .info_container .text { width:115px;font:10px arial,helvetica,sans-serif;text-align:left;position:absolute;margin-top:4px;margin-left:4px;white-space:normal; }

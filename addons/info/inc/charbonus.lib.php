@@ -112,7 +112,7 @@ class CharBonus
 
 					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;cursor:pointer;"'
 						  . ' onmouseover="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,HAUTO);" onmouseout="return nd();"'
-						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,STICKY,OFFSETX,-30,OFFSETY,-30,HAUTO);">'
+						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">'
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}
@@ -340,14 +340,14 @@ class CharBonus
 			$this->bonus[$catagory][$string] = $modifier;
 			if( empty($this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]) )
 			{
-				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]   = 
+				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]   =
 					$html . '<br /><br />' . $this->_setNewSetBonusHTML();
-				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  = 
+				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  =
 					$html . '<br /><br />' . $this->_setNewSetBonusHTML();
 			}
-			else 
+			else
 			{
-				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  = 
+				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  =
 					$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] . '<br />' . $this->_setNewSetBonusHTML();
 				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] =
 					$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] . '<br />' . $this->_setNewSetBonusHTML();
