@@ -154,14 +154,11 @@ class memberslist
 		$installer->add_config("6060,'altofalt','alt','select{Try to resolve^resolve|Leave in table^leave|Set as main^main|Set as mainless alt^alt','build'");
 		$installer->add_config("6070,'update_type','1','select{None^0|Guild^1|Character^2|Both^3','build'");
 
-		$installer->add_query("DROP TABLE IF EXISTS `" . $installer->table('alts') . "`;");
-		$installer->add_query("
-			CREATE TABLE `" . $installer->table('alts') . "` (
-				`member_id` int(11)    unsigned NOT NULL default '0',
-				`main_id`   int(11)    unsigned NOT NULL default '0',
-				`alt_type`  tinyint(3) unsigned NOT NULL default '0',
-				PRIMARY KEY (`member_id`)
-			) TYPE=MyISAM;");
+		$installer->create_table($installer->table('alts'),"
+			`member_id` int(11)    unsigned NOT NULL default '0',
+			`main_id`   int(11)    unsigned NOT NULL default '0',
+			`alt_type`  tinyint(3) unsigned NOT NULL default '0',
+			PRIMARY KEY (`member_id`)");
 
 		# Roster menu entry
 		$installer->add_menu_button('memberslist_Members','guild','','spell_holy_prayerofspirit');
@@ -196,7 +193,7 @@ class memberslist
 
 		$installer->remove_all_config();
 
-		$installer->add_query("DROP TABLE IF EXISTS `" . $installer->table('alts') . "`;");
+		$installer->drop_table($installer->table('alts'));
 		$installer->remove_all_menu_button();
 
 		return true;
