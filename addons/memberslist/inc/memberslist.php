@@ -772,8 +772,7 @@ class memberslist
 			{
 				$rested = ' : '.$rested;
 			}
-			$togo = $max - $current;
-			$togo .= ' XP until level '.($row['level']+1);
+			$togo = sprintf($roster->locale->act['xp_to_go'], $max - $current, ($row['level']+1));
 
 			$percent_exp = ($max > 0 ? round(($current/$max)*100) : 0);
 
