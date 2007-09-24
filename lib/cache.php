@@ -27,10 +27,11 @@ class RosterCache
 	var $object_ttl;
 	var $sql_ttl;
 	var $cache_dir;
-	var $sql_link_id;
-	var $sql_query;
-	var $sql_cache_data;
-	var $sql_cache_rows=-1;
+	var $cache_data = array();
+//	var $sql_link_id;
+//	var $sql_query;
+//	var $sql_cache_data;
+//	var $sql_cache_rows=-1;
 
 	/**
 	 * Constructor
@@ -87,6 +88,20 @@ class RosterCache
 		}
 	}
 	
+	function mcheck( $cache_name )
+	{
+		$cache_name = md5($cache_name);
+
+		if( isset($this->cache_data[$cache_name]) )
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	
 	/**
 	 * returns contains of $cache_file if cache file exists
 	 * 
@@ -105,6 +120,13 @@ class RosterCache
 		{
 			return false;
 		}		
+	}
+	
+	function mget( $cache_name )
+	{
+		$cache_name = md5($cache_name);
+		
+		return $this->cache_data[$cache_name];
 	}
 	
 	/**
@@ -143,7 +165,14 @@ class RosterCache
 			return false;
 		}
 	}
-		
+
+	function mput( $data, $cache_name )
+	{
+		$cache_name = md5($cache_name);
+		$this->cache_data[$cache_name] = $data;
+		return;
+	}
+	
 	function sqlFetch()
 	{
 		if( !empty($this->sql_cache_data) )

@@ -1220,13 +1220,13 @@ class item
 
 		global $roster;
 
-		if( $roster->cache->check($gem_id.$locale) )
+		if( $roster->cache->mcheck($gem_id.$locale) )
 		{
-			return $roster->cache->get($gem_id.$locale);
+			return $roster->cache->mget($gem_id.$locale);
 		}
 
-		$sql = "SELECT gem_id as GemId, gem_name as Name, gem_color as Color, gem_tooltip as Tooltip, "
-			 . "gem_texture as Icon, gem_bonus as Bonus, gem_socketid as SocketId, locale FROM `"
+		$sql = "SELECT `gem_id` AS GemId, `gem_name` AS Name, `gem_color` AS Color, `gem_tooltip` AS Tooltip, "
+			 . "`gem_texture` AS Icon, `gem_bonus` AS Bonus, `gem_socketid` AS SocketId, `locale` FROM `"
 			 . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
@@ -1239,7 +1239,7 @@ class item
 		}
 
 		$gem['Tooltip'] = str_replace("\n", '<br>', $gem['Tooltip']);
-		$roster->cache->put( $gem, $gem_id.$locale );
+		$roster->cache->mput( $gem, $gem_id.$locale );
 
 		return $gem;
 	}
@@ -1291,11 +1291,7 @@ class item
 		$count = count($pieces);
 		$member_id = ( is_numeric($member_id) ? $member_id : $this->member_id );
 
-		if( $roster->cache->check($pieces.$member_id) )
-		{
-			return $roster->cache->get($pieces.$member_id);
-		}
-		elseif( $count && is_array($pieces) )
+		if( $count && is_array($pieces) )
 		{
 			global $roster;
 
@@ -1312,7 +1308,12 @@ class item
 			}
 			$sql_in .= "')";
 
-			$sql = "SELECT item_name, item_parent FROM"
+			if( $roster->cache->mcheck($sql_in) )
+			{
+				return $roster->cache->mget($sql_in);
+			}
+			
+			$sql = "SELECT `item_name`, `item_parent` FROM"
 				 . " `" . $roster->db->table('items') . "`"
 				 . " WHERE `member_id` = '$member_id'"
 				 . " AND `item_name` IN $sql_in ";
@@ -1329,7 +1330,7 @@ class item
 					$armor_set['owned'][] = $data['item_name'];
 				}
 			}
-			$roster->cache->put($armor_set, $pieces.$member_id);
+			$roster->cache->mput($armor_set, $sql_in);
 			return $armor_set;
 		}
 		return false;

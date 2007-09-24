@@ -52,7 +52,7 @@ class RosterArmory
 	 */
 	function RosterArmory( $region=false )
 	{
-		$this->region = ( isset($region) ? strtoupper($region) : 'US' );
+		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
 	}
 
 	/**
@@ -620,6 +620,46 @@ class RosterArmory
 		return $this->fetchCharacterReputation($character, $locale, $realm, 'html');
 	}
 
+	function fetchStrings( $locale, $fetch_type='array' )
+	{
+		global $roster;
+		
+		$locale = substr($locale, 0, 2);
+		$cache_tag = 'stings'.$locale;
+		
+		if( $roster->cache->check($cache_tag) )
+		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 7, $locale );
+			if( $this->_requestXml($url) )
+			{
+				// unparsed fetches
+				if( $fetch_type != 'array' )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				// else parse and return array
+				$this->xmlParser->Parse($this->xml);
+				$strings = $this->xmlParser->getParsedData();
+				$roster->cache->put($strings, $cache_tag);
+				return $strings;
+			}
+			else 
+			{
+				trigger_error('RosterArmory:: Failed to fetch ' . $url);
+				return false;				
+			}
+		}
+	}
+	
 	/**
 	 * Sets $user_agent 
 	 * Use to override default useragent
@@ -752,8 +792,27 @@ class RosterArmory
 			case 'character-reputation':
 				$mode = 'character-reputation.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
 				break;
+			case 7:
+			case 'strings':
+				switch( $locale )
+				{
+					case 'en':
+						$val = 'en_us';
+						break;
+					case 'fr':
+						$val = 'fr_fr';
+						break;
+					case 'de':
+						$val = 'de_de';
+						break;
+					case 'es':
+						$val = 'es_es';
+						break;
+				}
+				$mode = 'strings/' . $val . '/strings.xml?';
+				break;
 		}
-
+		
 		$url = $base_url . $mode . '&locale=' . $locale;
 		
 		if( $this->debug_url )
