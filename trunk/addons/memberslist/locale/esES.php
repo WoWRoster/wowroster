@@ -49,6 +49,8 @@ $lang['arenapoints']            = 'Puntos de arena';
 $lang['main_name']              = 'Personaje principal';
 $lang['alt_type']               = 'Personaje Alt';
 
+$lang['xp_to_go']               = '%1$s XP until level %2$s';
+
 // Last Online words
 $lang['online_at_update']       = 'Conectado en la actualización';
 $lang['second']                 = 'hace %s segundo';
