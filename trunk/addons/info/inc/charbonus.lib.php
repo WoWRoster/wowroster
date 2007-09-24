@@ -338,19 +338,16 @@ class CharBonus
 
 			$this->bonus['Totals'][$string] = $modifier;
 			$this->bonus[$catagory][$string] = $modifier;
-			if( empty($this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]) )
+			$setName = addslashes($this->item->attributes['Set']['ArmorSet']['Name']);
+			if( empty($this->bonus_tooltip['Totals'][$string][$setName]) )
 			{
-				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]   =
-					$html . '<br /><br />' . $this->_setNewSetBonusHTML();
-				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  =
-					$html . '<br /><br />' . $this->_setNewSetBonusHTML();
+				$this->bonus_tooltip['Totals'][$string][$setName] = $html . '<br /><br />' . $this->_setNewSetBonusHTML();
+				$this->bonus_tooltip[$catagory][$string][$setName] = $html . '<br /><br />' . $this->_setNewSetBonusHTML();
 			}
 			else
 			{
-				$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])]  =
-					$this->bonus_tooltip['Totals'][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] . '<br />' . $this->_setNewSetBonusHTML();
-				$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] =
-					$this->bonus_tooltip[$catagory][$string][addslashes($this->item->attributes['Set']['ArmorSet']['Name'])] . '<br />' . $this->_setNewSetBonusHTML();
+				$this->bonus_tooltip['Totals'][$string][$setName] = $this->bonus_tooltip['Totals'][$string][$setName] . '<br />' . $this->_setNewSetBonusHTML();
+				$this->bonus_tooltip[$catagory][$string][$setName] = $this->bonus_tooltip[$catagory][$string][$setName] . '<br />' . $this->_setNewSetBonusHTML();
 			}
 			return;
 		}
@@ -425,7 +422,7 @@ class CharBonus
 
 		foreach( $tooltips as $key => $value )
 		{
-			if( strpos($value, addslashes($this->item->name)) )
+			if( strpos(substr($value, 0, 256), addslashes($this->item->name)) ) //search the first 256 characters only
 			{
 				return 	'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
 				  	   	. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
@@ -488,11 +485,13 @@ class CharBonus
 	}
 
 	/**
-	 * if $bonus is found in $lang['item_bonuses_remap'] return standardized string
-	 * otherwise return unmodified $bonus string
+	 * Runs $bonus through a set of localized patterns to standerize the bonus
+	 * Recursing if resulting bonus is split into multiple bonus strings
 	 *
 	 * @param string $bonus
-	 * @return string
+	 * @param int $modifier
+	 * @param string $catagory
+	 * @return string 
 	 */
 	function standardizeBonus( $bonus, $modifier, $catagory )
 	{
@@ -522,7 +521,7 @@ class CharBonus
 		return $bonus;
 	}
 
-	// by: Dmitry Fedotov box at neting dot ru
+	// by: Dmitry Fedotov box@neting.ru
 	// edited by ds
 	function replaceOne( $in, $out, $content )
 	{
