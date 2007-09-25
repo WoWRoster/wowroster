@@ -18,7 +18,7 @@
  * @subpackage Locale
 */
 
-$lang['langname'] = 'French';
+$lang['langname'] = 'Français';
 
 //Instructions how to upload, as seen on the mainpage
 $lang['update_link']='Cliquer ici pour les instructions de mise à jour.';
@@ -725,7 +725,7 @@ $lang['pass_changed'] = 'Le mot de passe a été modifié. Votre nouveau mot de 
 $lang['auth_req'] = 'Autorisation requise';
 
 // Upload Rules
-$lang['upload_rules_error'] = 'Vous ne pouvez pas laisser un des champs vide quand vous ajouter une règle.';
+$lang['upload_rules_error'] = 'Vous ne pouvez pas laisser un des champs vide quand vous ajoutez une règle.';
 $lang['upload_rules_help'] = 'Les règles sont séparées en deux blocs.<br />Pour chaque guilde/personnage envoyé, le premier bloc est pris en compte en premier.<br />Si le couple nom@serveur correspond à l\'une des règles de rejet, celui-ci sera rejeté.<br />Ensuite le second bloc est vérifié.<br />Si le couple nom@serveur correspond à l\'une des règles d\'acceptation, celui-ci sera accepté.<br />Si aucune règle n\'est vérifiée, celui-ci est alors rejeté.';
 
 // Config Reset
