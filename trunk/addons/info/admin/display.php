@@ -74,7 +74,7 @@ $char_data = getCharData();
 
 
 // Build the character display control
-if( is_array($char_data) )
+if( is_array($char_data) && count($char_data) > 0 )
 {
 	$body .= "<br /><div id=\"char_disp\">\n" . border('sblue','start',$prev . $roster->locale->act['admin']['per_character_display'] . $listing . $next) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
@@ -121,7 +121,7 @@ if( is_array($char_data) )
 }
 else
 {
-	$body = 'No Data';
+	$body .= 'No Data';
 }
 
 $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
@@ -151,12 +151,16 @@ $menu = messagebox('
  *
  * @return array on success, error string on failure
  */
-function getCharData( )
+function getCharData()
 {
 	global $roster, $listing, $next, $prev;
 
 	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
+	if( !isset($_GET['guild']) )
+	{
+		return;
+	}
 	$sql = "SELECT "
 		 . " `member_id`"
 		 . " FROM `" . $roster->db->table('players') . "`"
