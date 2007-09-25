@@ -182,7 +182,7 @@ class Install
 	 * @param string $icon
 	 * 		Icon for display
 	 */
-	function update_menu_button($title, $url='', $icon='')
+	function update_menu_button($title, $scope='util', $url='', $icon='')
 	{
 		global $roster;
 
@@ -191,7 +191,7 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$this->sql[] = "UPDATE `" . $roster->db->table('menu_button') . "` SET `url`='" . $url . "', `icon`='" . $icon . "' WHERE `addon_id`='" . $this->addata['addon_id'] . "' AND `title`='" . $title . "';";
+		$this->sql[] = "UPDATE `" . $roster->db->table('menu_button') . "` SET `scope` = '" . $scope . "', `url`='" . $url . "', `icon`='" . $icon . "' WHERE `addon_id`='" . $this->addata['addon_id'] . "' AND `title`='" . $title . "';";
 	}
 
 	/**
