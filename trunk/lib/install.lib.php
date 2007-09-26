@@ -81,7 +81,7 @@ class Install
 	function create_table( $name , $query )
 	{
 		$this->sql[] = 'DROP TABLE IF EXISTS `' . $name . '`;';
-		$this->sql[] = 'CREATE TABLE `' . $name . '` ' . $query . ' ENGINE=MyISAM DEFAULT CHARSET=utf8;';
+		$this->sql[] = 'CREATE TABLE `' . $name . '` (' . $query . ') ENGINE=MyISAM DEFAULT CHARSET=utf8;';
 	}
 
 	/**
