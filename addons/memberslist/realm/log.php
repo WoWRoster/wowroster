@@ -23,6 +23,7 @@ $memberlist = new memberslist(array('group_alts'=>-1, 'page_size'=>25));
 
 $mainQuery =
 	'SELECT `members`.*, `guild`.`guild_name`, DATE_FORMAT( `members`.`update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
+	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'UNIX_TIMESTAMP(`members`.`update_time`) AS date_stamp '.
 	'FROM `'.$roster->db->table('memberlog').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
