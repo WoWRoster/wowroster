@@ -78,9 +78,9 @@ class memberslist
 		{
 			$this->addon['config']['nojs'] = ($_GET['style'] == 'server')?1:0;
 		}
-		if( $this->addon['config']['group_alts'] >= 0 && isset($_GET['alts']) )
+		if( isset($_GET['alts']) )
 		{
-			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'show')?1:0;
+			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open')?2:($_GET['alts'] == 'close')?1:0;
 		}
 	}
 
@@ -147,7 +147,7 @@ class memberslist
 			$pages[$num_pages - 1] = true;
 
 			$params = '&amp;style='.($this->addon['config']['nojs']?'server':'client').
-				'&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide');
+				'&amp;alts='.($this->addon['config']['group_alts']==2?'open':$this->addon['config']['group_alts']==1?'close':'ungroup');
 
 			$this->tableHeaderRow = "<thead>\n  <tr>\n" . '    <th colspan="'.($cols+1).'" class="membersHeader" style="text-align:center;color:#ffffff">';
 
@@ -223,7 +223,7 @@ class memberslist
 		$this->query = $query.';';
 
 		// If group alts is off, hide the column for it
-		$style = ($this->addon['config']['group_alts']==1)?'':' style="display:none;"';
+		$style = ($this->addon['config']['group_alts']>=1)?'':' style="display:none;"';
 
 		// header row
 		$this->tableHeaderRow .= "<tr>\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
@@ -262,7 +262,7 @@ class memberslist
 					$desc = '';
 				}
 
-				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide').'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;alts='.($this->addon['config']['group_alts']==2?'open':($this->addon['config']['group_alts']==1)?'close':'ungroup').'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
 			}
 			else
 			{
@@ -368,15 +368,16 @@ class memberslist
 		$style = '&amp;style='.($this->addon['config']['nojs']?'server':'client');
 		$alts = '&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide');
 
-		if( $this->addon['config']['group_alts']==1 )
+		if( $this->addon['config']['group_alts']>=1 )
 		{
 			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />'.$roster->locale->act['closeall'].'</a></th>';
 			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />'.$roster->locale->act['openall'].'</a></th>';
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=hide'.$get).'">'.$roster->locale->act['ungroupalts'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=ungroup'.$get).'">'.$roster->locale->act['ungroupalts'].'</a></th>';
 		}
 		elseif( $this->addon['config']['group_alts'] == 0 )
 		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=show'.$get).'">'.$roster->locale->act['groupalts'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=open'.$get).'">'.$roster->locale->act['openalts'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=close'.$get).'">'.$roster->locale->act['closealts'].'</a></th>';
 		}
 		if( $this->addon['config']['nojs'] )
 		{
