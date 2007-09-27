@@ -36,7 +36,8 @@ $lang['membersfilter']			= 'Filtrar filas';
 $lang['openall']                = 'Abrir todo';
 $lang['closeall']               = 'Cerrar todo';
 $lang['ungroupalts']            = 'Desagrupar alts';
-$lang['groupalts']              = 'Agrupar alts';
+$lang['openalts']               = 'Agrupar alts (Open)';
+$lang['closealts']              = 'Agrupar alts (Closed)';
 $lang['clientsort']             = 'Orden del cliente';
 $lang['serversort']             = 'Orden del servidor';
 

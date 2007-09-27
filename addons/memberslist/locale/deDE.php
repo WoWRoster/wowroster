@@ -36,7 +36,8 @@ $lang['membersfilter']			= 'Zeilenfilter';
 $lang['openall']                = 'Öffne alle';
 $lang['closeall']               = 'Schließe alle';
 $lang['ungroupalts']            = 'Twinkgruppen auflösen';
-$lang['groupalts']              = 'Gruppiere Twinks';
+$lang['openalts']               = 'Gruppiere Twinks (Open)';
+$lang['closealts']              = 'Gruppiere Twinks (Closed)';
 $lang['clientsort']             = 'Clientsortierung';
 $lang['serversort']             = 'Serversortierung';
 
