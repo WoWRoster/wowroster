@@ -2387,7 +2387,7 @@ class update
 			$this->reset_values();
 			$this->add_value('guild_id',0);
 
-			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause)';";
+			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause);";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Guild members could not be set guildless',$roster->db->error());
