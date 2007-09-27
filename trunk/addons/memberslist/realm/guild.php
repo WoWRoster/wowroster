@@ -125,6 +125,10 @@ function note_value ( $row, $field )
 		{
 			$note = '<img src="'.$roster->config['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
+		else
+		{
+			$value = $note;
+		}
 	}
 	else
 	{
@@ -132,6 +136,10 @@ function note_value ( $row, $field )
 		if( $addon['config']['compress_note'] )
 		{
 			$note = '<img src="'.$roster->config['img_url'].'no_note.gif" alt="[]" />';
+		}
+		else
+		{
+			$value = $note;
 		}
 	}
 
