@@ -25,9 +25,6 @@ if( !defined('IN_ROSTER') )
 require_once(ROSTER_LIB.'update.lib.php');
 $update = new update;
 
-// login class for guild update pass check
-$roster_login = new RosterLogin();
-
 // See if UU is requesting this page
 if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 {
