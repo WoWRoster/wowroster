@@ -242,7 +242,7 @@ class roster_db
 		{
 			foreach( $array as $field => $value )
 			{
-				$fields[] = $field;
+				$fields[] = "`$field`";
 
 				if( is_null($value) )
 				{
@@ -266,15 +266,15 @@ class roster_db
 			{
 				if( is_null($value) )
 				{
-					$values[] = "$field = NULL";
+					$values[] = "`$field` = NULL";
 				}
 				elseif( is_string($value) )
 				{
-					$values[] = "$field = '" . $this->escape($value) . "'";
+					$values[] = "`$field` = '" . $this->escape($value) . "'";
 				}
 				else
 				{
-					$values[] = ( is_bool($value) ) ? "$field = " . intval($value) : "$field = $value";
+					$values[] = ( is_bool($value) ) ? "`$field` = " . intval($value) : "`$field` = $value";
 				}
 			}
 

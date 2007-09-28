@@ -2915,7 +2915,7 @@ class update
 		$this->add_ifvalue( $data, 'Level', 'level' );
 
 		// BEGIN HONOR VALUES
-		if( isset($data['Honor']) && is_array($data['Honor']) )
+		if( isset($data['Honor']) && is_array($data['Honor']) && count($data['Honor']) > 0 )
 		{
 			$honor = $data['Honor'];
 
