@@ -2343,7 +2343,7 @@ class update
 	{
 		global $roster;
 
-		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0';";
+		$querystr = "SELECT `member_id`, `name` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0';";
 
 		$result = $roster->db->query($querystr);
 		if( !$result )
