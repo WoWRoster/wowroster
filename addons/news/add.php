@@ -50,5 +50,5 @@ if($addon['config']['news_html'] >= 0)
 	$roster->tpl->assign_var('S_HTML_ENABLE',true);
 }
 
-$roster->tpl->set_filenames(array('body' => 'news/add.html'));
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/add.html'));
 $roster->tpl->display('body');

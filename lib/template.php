@@ -133,11 +133,12 @@ class RosterTemplate
 
 		if (!file_exists(ROSTER_BASE.$this->files[$handle]))
 		{
-			trigger_error('template->_tpl_load(): '.($this->files[$handle]).' does not exist', E_USER_NOTICE);
+			//trigger_error('template->_tpl_load(): '.($this->files[$handle]).' does not exist', E_USER_NOTICE);
 			$this->files[$handle] = 'templates/default/'.$this->filename[$handle];
 			$this->_tpldata['.'][0]['THEME_PATH'] = 'templates/default';
 			$this->cachepath = 'cache/tpl_default_';
-			if( !file_exists(ROSTER_BASE.$this->files[$handle]) && $pos = strpos($this->filename[$handle], '/') && is_dir(ROSTER_BASE.'addons/'.substr($this->filename[$handle],0,$pos).'/templates') )
+			$pos = strpos($this->filename[$handle], '/');
+			if( !file_exists(ROSTER_BASE.$this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS.substr($this->filename[$handle],0,$pos).'/templates') )
 			{
 				$this->files[$handle] = 'addons/'.substr($this->filename[$handle],0,$pos).'/templates/'.substr($this->filename[$handle],$pos+1);
 				$this->_tpldata['.'][0]['THEME_PATH'] = 'addons/'.substr($this->filename[$handle],0,$pos);

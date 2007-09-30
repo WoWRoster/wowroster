@@ -69,8 +69,8 @@ if($addon['config']['news_html'] >= 0)
 	$roster->tpl->assign_var('S_HTML_ENABLE',true);
 }
 
-$roster->tpl->set_filenames(array('head' => 'news/news_head.html'));
+$roster->tpl->set_filenames(array('head' => $addon['basename'] . '/news_head.html'));
 $roster->tpl->display('head');
 
-$roster->tpl->set_filenames(array('body' => 'news/edit.html'));
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/edit.html'));
 $roster->tpl->display('body');

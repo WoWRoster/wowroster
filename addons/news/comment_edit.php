@@ -59,5 +59,5 @@ $roster->tpl->assign_vars(array(
 	)
 );
 
-$roster->tpl->set_filenames(array('body' => 'news/comment_edit.html'));
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/comment_edit.html'));
 $roster->tpl->display('body');

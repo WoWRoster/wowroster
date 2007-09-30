@@ -147,11 +147,11 @@ while( $news = $roster->db->fetch($result) )
 	);
 }
 
-$roster->tpl->set_filenames(array('head' => 'news/news_head.html'));
+$roster->tpl->set_filenames(array('head' => $addon['basename'] . '/news_head.html'));
 $roster->tpl->display('head');
 
-$roster->tpl->set_filenames(array('body' => 'news/news.html'));
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/news.html'));
 $roster->tpl->display('body');
 
-$roster->tpl->set_filenames(array('foot' => 'news/news_foot.html'));
+$roster->tpl->set_filenames(array('foot' => $addon['basename'] . '/news_foot.html'));
 $roster->tpl->display('foot');
