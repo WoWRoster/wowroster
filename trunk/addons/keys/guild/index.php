@@ -97,7 +97,9 @@ function buildSQL($item,$key,$type)
 {
 	global $selectp, $wherep, $pcount, $selectq, $whereq, $qcount;
 
-	list($iname, $thottnum) = explode('|', $item);
+	$alist = explode('|', $item);
+
+	$iname = isset($alist[0]) ? $alist[0] : '';
 
 	if ($type == 'quest')
 	{
@@ -206,7 +208,7 @@ while ($row = $roster->db->fetch($result))
 	// ==============================
 	foreach ($items as $key => $item)
 	{
-		if ($krow[$key] == '-1')
+		if ( isset($krow[$key]) && $krow[$key] == '-1')
 		{
 			++$kcount;
 		}
@@ -219,7 +221,13 @@ while ($row = $roster->db->fetch($result))
 				$srow = $roster->db->fetch($sresult);
 				list($current_skill,$max_skill) = explode(':',$srow['skill_level']);
 				$roster->db->free_result($sresult);
-				if ($current_skill >= $min_skill_for_lock[$key])
+
+				// This is for armory uploads where rouges have the skill, but not the item
+				$iname = $roster->locale->wordings[$row['clientLocale']]['thievestools'];
+				$iquery = "SELECT `item_name` FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
+				$iresult = $roster->db->query($iquery);
+
+				if ( $roster->db->num_rows() > 0 && $current_skill >= $min_skill_for_lock[$key])
 				{
 					$krow[$key] = '-2';
 					++$kcount;
@@ -238,7 +246,8 @@ while ($row = $roster->db->fetch($result))
 			{
 				continue;
 			}
-			for ($acount=1;$acount<count($items[$key])-1;$acount++) {
+			for ($acount=1;$acount<count($items[$key])-1;$acount++)
+			{
 				buildSQL($items[$key][$acount], "${key}$acount", $type);
 			}
 		}
@@ -259,7 +268,10 @@ while ($row = $roster->db->fetch($result))
 					++$kcount;
 					$key = preg_replace('/[0-9]/', '', $pkey);
 					$step = preg_replace('/[A-Za-z]/', '', $pkey);
-					if( !isset($items[$key]) ) { continue; }
+					if( !isset($items[$key]) )
+					{
+						continue;
+					}
 					list($junk,$milestone) = explode('|',$items[$key][$step]);
 					if ($milestone == 'MS')
 					{
@@ -323,7 +335,7 @@ while ($row = $roster->db->fetch($result))
 		{
 			rankMid((($striping_counter % 2) +1));
 		}
-		if ($krow[$key] == '-2')
+		if (isset($krow[$key]) && $krow[$key] == '-2')
 		{
 			$iname = $roster->locale->wordings[$row['clientLocale']]['thievestools'];
 			$iquery = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
@@ -332,7 +344,7 @@ while ($row = $roster->db->fetch($result))
 			$item = new item($idata, 'simple');
 			print $item->out($key);
 		}
-		else if ($krow[$key] == '-1')
+		elseif (isset($krow[$key]) && $krow[$key] == '-1')
 		{
 			list($iname, $thottnum) = explode('|', $data[$key]);
 			if(isset($$key))
@@ -349,11 +361,11 @@ while ($row = $roster->db->fetch($result))
 				print $$key;
 			}
 		}
-		else if ($krow[$key] == '0')
+		elseif (isset($krow[$key]) && $krow[$key] == '0')
 		{
 			print '&nbsp;';
 		}
-		else if ($krow[$key] == '')
+		elseif (!isset($krow[$key]) || $krow[$key] == '')
 		{
 			print '&nbsp;';
 		}
