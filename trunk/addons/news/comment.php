@@ -192,10 +192,10 @@ if( $roster->db->num_rows() > 0 )
 }
 
 
-$roster->tpl->set_filenames(array('head' => 'news/news.html'));
+$roster->tpl->set_filenames(array('head' => $addon['basename'] . '/news.html'));
 $roster->tpl->display('head');
 
-$roster->tpl->set_filenames(array('body' => 'news/comment.html'));
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/comment.html'));
 $roster->tpl->display('body');
 
 if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
@@ -206,6 +206,6 @@ if( $roster_login->getAuthorized() < $addon['config']['comm_add'] )
 else
 {
 	$roster->output['body_onload'] .= 'initARC(\'addcomment\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-	$roster->tpl->set_filenames(array('foot' => 'news/comment_add.html'));
+	$roster->tpl->set_filenames(array('foot' => $addon['basename'] . '/comment_add.html'));
 	$roster->tpl->display('foot');
 }
