@@ -165,21 +165,19 @@ function skill_value( $row )
 	$skill_name = $row['skill_name'];
 	$barwidth = ceil($value/$maxvalue*273);
 
-	$output = '
-	<div class="skill_bar">';
+	$output = '<div style="display:none;">'.$value.'</div>';
+	$output = '<div class="skill_bar">'."\n";
 	if( $maxvalue == '1' )
 	{
-		$output .= '
-	<div style="position:absolute;"><img src="'.$addon['image_url'].'skill/bar_grey.gif" alt="" /></div>
-	<div class="text">'.$row['skill_name'].'</div>';
+		$output .= '  <div style="position:absolute;"><img src="'.$addon['image_url'].'skill/bar_grey.gif" alt="" /></div>'."\n";
+		$output .= '  <div class="text">'.$row['skill_name'].'</div>';
 	}
 	else
 	{
-		$output .= '
-	<div style="position:absolute;clip:rect(0px '.$barwidth.'px 15px 0px);"><img src="'.$addon['image_url'].'skill/bar.gif" alt="" /></div>
-	<div class="text">'.$skill_name.'<span class="text_num">'.$value.' / '.$maxvalue.'</span></div>';
+		$output .= '  <div style="position:absolute;clip:rect(0px '.$barwidth.'px 15px 0px);"><img src="'.$addon['image_url'].'skill/bar.gif" alt="" /></div>'."\n";
+		$output .= '  <div class="text">'.$skill_name.'<span class="text_num">'.$value.' / '.$maxvalue.'</span></div>'."\n";
 	}
-	$output .= "\n			</div>\n";
+	$output .= '</div>'."\n";
 
 	return $output;
 }
