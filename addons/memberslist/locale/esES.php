@@ -50,7 +50,7 @@ $lang['arenapoints']            = 'Puntos de arena';
 $lang['main_name']              = 'Personaje principal';
 $lang['alt_type']               = 'Personaje Alt';
 
-$lang['xp_to_go']               = '%1$s XP until level %2$s';
+$lang['xp_to_go']               = '%1$s PE hasta nivel %2$s';
 
 $lang['skill_level']		= 'Skill level';
 
