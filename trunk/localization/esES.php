@@ -576,7 +576,7 @@ $lang['tooltip_equip_restores']='Equipar: Restaura';
 $lang['tooltip_equip_when']='Equipar: Cuando';
 $lang['tooltip_chance']='Probabilidad';
 $lang['tooltip_enchant']='Encantar';
-$lang['tooltip_set']='Bonif';
+$lang['tooltip_set']='Conjunto';
 $lang['tooltip_rank']='Rango';
 $lang['tooltip_next_rank']='Siguiente Rango';
 $lang['tooltip_spell_damage']='Daño por Hechizos';
@@ -624,9 +624,9 @@ $lang['gem_preg_prismatic'] = '/Encaja con un hueco azul amarillo rojo\./i';
 
 //Gems color Array
 $lang['gem_colors'] = array(
-	'red' => 'roja', 
+	'red' => 'rojo', 
 	'blue' => 'azul',
-	'yellow' => 'amarilla',
+	'yellow' => 'amarillo',
 	'green' => 'verde',
 	'orange' => 'naranja',
 	'purple' => 'lila',

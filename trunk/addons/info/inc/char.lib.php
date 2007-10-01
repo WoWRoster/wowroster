@@ -1705,14 +1705,14 @@ $returnstring .= '  <tr>
 		}
 		else
 		{
-			$output = '<div class="item" '.makeOverlib($this->locale['empty_equip'],$slot,'',2,'',',WRAP').'>'."\n";
+			$output = '<div class="item" '.makeOverlib($this->locale['empty_equip'],$this->locale[$slot],'',2,'',',WRAP').">\n";
 			if ($slot == 'Ammo')
 			{
-				$output .= '<img src="'.$roster->config['img_url'].'pixel.gif" class="iconsmall"'." alt=\"\" />\n";
+				$output .= '<img src="'.$roster->config['img_url'].'pixel.gif" class="iconsmall" alt="" />'."\n";
 			}
 			else
 			{
-				$output .= '<img src="'.$roster->config['img_url'].'pixel.gif" class="icon"'." alt=\"\" />\n";
+				$output .= '<img src="'.$roster->config['img_url'].'pixel.gif" class="icon" alt="" />'."\n";
 			}
 			$output .= "</div>\n";
 		}

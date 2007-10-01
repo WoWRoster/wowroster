@@ -377,9 +377,9 @@ $lang['ts_ridingIcon'] = array(
 	'Tauren'=>'ability_mount_kodo_03',
 	'Orc'=>'ability_mount_blackdirewolf',
 	'Elfe de sang' => 'ability_mount_cockatricemount',
-	'Draenei' => 'ability_mount_ridingelekk',
+	'Draeneï' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
-	'D?moniste'=>'ability_mount_nightmarehorse'
+	'Démoniste'=>'ability_mount_nightmarehorse'
 );
 
 // Class Icons-Array
