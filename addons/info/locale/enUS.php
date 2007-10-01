@@ -57,6 +57,28 @@ $lang['skilltypes'] = array(
 	6 => 'Languages'
 );
 
+// item slots, for missing items on characters
+$lang['Head']          = 'Head';
+$lang['Neck']          = 'Neck';
+$lang['Shoulder']      = 'Shoulder';
+$lang['Back']          = 'Back';
+$lang['Chest']         = 'Chest';
+$lang['Shirt']         = 'Shirt';
+$lang['Tabard']        = 'Tabard';
+$lang['Wrist']         = 'Wrist';
+$lang['MainHand']      = 'Main Hand';
+$lang['SecondaryHand'] = 'Secondary Hand';
+$lang['Ranged']        = 'Ranged';
+$lang['Ammo']          = 'Ammo';
+$lang['Hands']         = 'Hands';
+$lang['Waist']         = 'Waist';
+$lang['Legs']          = 'Legs';
+$lang['Feet']          = 'Feet';
+$lang['Finger0']       = 'Finger 0';
+$lang['Finger1']       = 'Finger 1';
+$lang['Trinket0']      = 'Trinket 0';
+$lang['Trinket1']      = 'Trinket 1';
+
 //tabs
 $lang['tab1']='Character';
 $lang['tab2']='Pet';

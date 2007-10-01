@@ -26,8 +26,10 @@ if( !defined('IN_ROSTER') )
 //error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(E_ALL);
 
-
-session_start();
+if( session_id() == '' )
+{
+	session_start();
+}
 
 
 // Be paranoid with passed vars
