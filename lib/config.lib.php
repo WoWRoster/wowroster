@@ -412,12 +412,19 @@ class config
 
 	/**
 	 * Process Data for entry to the database
+	 *
+	 * @param string $where
+	 * 	Additional WHERE clause to use on the update
 	 */
-	function processData()
+	function processData( &$config=null, $where='1')
 	{
 		global $queries, $roster, $addon;
 
-		if( !is_array($addon) )
+		if( is_array( $config ) )
+		{
+			// Do nothing
+		}
+		elseif( !is_array($addon) )
 		{
 			$config = &$roster->config;
 		}
@@ -480,7 +487,7 @@ class config
 
 				if( $config[$settingName] != $settingValue && $settingName != 'process' )
 				{
-					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE `config_name` = '".$roster->db->escape($settingName)."';";
+					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE ($where) AND `config_name` = '".$roster->db->escape($settingName)."';";
 					$config[$settingName] = $settingValue;
 				}
 			}
@@ -513,18 +520,11 @@ class config
 	 * @param string WHERE clause for SQL
 	 * @return error string on failure
 	 */
-	function getConfigData ( $addon='' )
+	function getConfigData ( $where='1' )
 	{
 		global $roster;
 
-		if( $addon == '' )
-		{
-			$sql = "SELECT * FROM `".$this->tablename."` ORDER BY `id` ASC;";
-		}
-		else
-		{
-			$sql = "SELECT * FROM `".$this->tablename."` WHERE `addon_id` = '$addon' ORDER BY `id` ASC;";
-		}
+		$sql = "SELECT * FROM `".$this->tablename."` WHERE $where ORDER BY `id` ASC;";
 
 		// Get the current config values
 		$results = $roster->db->query($sql);
