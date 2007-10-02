@@ -176,7 +176,7 @@ function makeAddonCredits()
 			$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 		}
 
-		$addonName = ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] );
+		$addonName = ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ) . ' v' . $row['version'];
 
 		// Restore our locale array
 		$roster->locale->wordings = $localetemp;
