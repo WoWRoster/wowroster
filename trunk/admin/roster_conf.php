@@ -31,7 +31,7 @@ include(ROSTER_LIB.'config.lib.php');
 include(ROSTER_ADMIN.'roster_config_functions.php');
 
 // ----[ Process data if available ]------------------------
-$save_message = $config->processData();
+$save_message = $config->processData( $roster->config );
 
 // ----[ Get configuration data ]---------------------------
 $config->getConfigData();
