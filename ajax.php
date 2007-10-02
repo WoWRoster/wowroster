@@ -40,6 +40,12 @@ if( isset($_GET['addon']) )
 	// Check if addon is active
 	if( $addon['active'] == '1' )
 	{
+		// Include addon's locale files if they exist
+		foreach( $roster->multilanguages as $lang )
+		{
+			$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php',$lang);
+		}
+
 		// Include addon's conf.php file
 		if( file_exists($addon['conf_file']) )
 		{
