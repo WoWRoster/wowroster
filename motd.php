@@ -65,17 +65,21 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 {
 	$guildMOTD = html_entity_decode($guildMOTD);
 
+	$maxw = 550;
+	$vadj = 0;
+
 	// Set ttf font
 	$visitor = $font_path . 'VERANDA.TTF';
 
 	// Get sizes of text
-	$dimensions = imagettfbbox( 11, 0, $visitor, $guildMOTD );
-	$text_length = $dimensions[2] - $dimensions[6];
+	$box = imagettfbbox( 11, 0, $visitor, $guildMOTD );
+	$text_length = $box[2] - $box[6];
 
 	// Get how many times to print center
-	$image_size = ceil($text_length/198);
+	$image_size = ( $text_length < $maxw ? ceil($text_length/198) : ceil($maxw/198) );
 	$final_size = 54 + ($image_size*198);
-	$text_loc = ($final_size/2) - ($dimensions[2]/2);
+
+	$text_loc = ($final_size/2) - ($box[2]/2);
 
 	// Create new image
 	$img = imagecreatetruecolor( $final_size,38 );
@@ -97,7 +101,37 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 
 	$textcolor = imagecolorallocate( $img, 255, 255, 255 );
 
-	imagettftext( $img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD );
+	if( $text_length > $maxw )
+	{
+		$i = $text_length;
+		$t = strlen($guildMOTD);
+		while( $i > $maxw )
+		{
+			$t--;
+			$box = imagettfbbox(11, 0,$visitor,substr($guildMOTD,0,$t));
+			$i = abs($box[0]) + abs($box[2]);
+		}
+		$t = strrpos(substr($guildMOTD, 0, $t), ' ');
+		$output[0] = substr($guildMOTD, 0, $t);
+		$output[1] = ltrim(substr($guildMOTD, $t));
+		$vadj = -6;
+	}
+	else
+	{
+		$output[0] = $guildMOTD;
+	}
+
+	$i = 0;
+	foreach( $output as $value )
+	{
+		$box = imagettfbbox(11,0,$visitor,$value);
+		$text_length = abs($box[0]) + abs($box[2]);
+		imagettftext( $img, 11, 0, round(($final_size-$text_length)/2), 23+($i*14)+$vadj, $textcolor, $visitor, $value );
+		$i++;
+	}
+
+
+	//imagettftext( $img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD );
 
 	header('Content-type: image/png');
 	imagepng($img);
