@@ -416,7 +416,7 @@ class config
 	 * @param string $where
 	 * 	Additional WHERE clause to use on the update
 	 */
-	function processData( &$config=null, $where='1')
+	function processData( $config=null, $where='1')
 	{
 		global $queries, $roster, $addon;
 
