@@ -15,6 +15,6 @@
  * @subpackage Locale
 */
 
-$lang['guildinfo'] = 'Info Guilde';
-$lang['guildinfo_desc'] = 'Shows Guild Info text from WoW';
-$lang['ginfobutton'] = 'Info Guilde|Shows Guild Info text from WoW';
+$lang['guildinfo'] = 'Infos Guilde';
+$lang['guildinfo_desc'] = 'Affiche le contenu de la boîte infos guilde du jeu';
+$lang['ginfobutton'] = 'Infos Guilde|Affiche les infos guilde';
