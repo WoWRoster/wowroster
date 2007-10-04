@@ -140,7 +140,7 @@ $lang['spell_healing_tooltip']='Erhöht die Heilung um bis zu %d';
 $lang['spell_hit_rating']='Trefferwertung';
 $lang['spell_hit_rating_tooltip']='Erhöht die Trefferchance mit Zaubern gegen ein Ziel.';
 $lang['spell_crit_rating']='Kritisch';
-$lang['spell_crit_chance']='Kritische Chance';
+$lang['spell_crit_chance']='Krit. Chance';
 $lang['spell_penetration']='Durchschlag';
 $lang['spell_penetration_tooltip']='Verringert den Widerstand des Ziels gegen Eure Zauber.';
 $lang['mana_regen']='Regeneration';
@@ -233,13 +233,13 @@ $lang['item_bonuses_remap']=
 */
 $lang['item_bonuses_tabs'] = array(
 		//key				//translate this
-		'Totals' 			=> 'Totals',
-		'Enchantment' 		=> 'Enchantments',
-		'BaseStats' 		=> 'Base Stats',
-		'Gems' 				=> 'Gems',
-		'Effects' 			=> 'Passive',
+		'Totals' 			=> 'Gesamt',
+		'Enchantment' 		=> 'Verzauberungen',
+		'BaseStats' 		=> 'Basiswerte',
+		'Gems' 				=> 'Edelsteine',
+		'Effects' 			=> 'Passiv',
 		'Set' 				=> 'Sets',
-		'Use' 				=> 'Use',
+		'Use' 				=> 'Benutzen',
 		'ChanceToProc' 		=> 'Procs',
 		'TempEnchantment'	=> 'Temp Effects'
 		);
