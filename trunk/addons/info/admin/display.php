@@ -53,13 +53,14 @@ if( $guilds > 1 )
 		$options .= '		<optgroup label="' . $realm . '">'. "\n";
 		foreach( $guild as $id => $name )
 		{
-			$options .= '			<option value="' . makelink("&amp;guild=$id") . '"' . ( $id == $_GET['guild'] ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+			$options .= '			<option value="' . makelink("&amp;guild=$id",true) . '"' . ( $id == $_GET['guild'] ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
 		}
 		$options .= '		</optgroup>';
 	}
 }
 
-$body = '<form action="' . makelink() . '" name="realm_select" method="post">
+$body = 'Select A Guild
+<form action="' . makelink() . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
 		<option>----------</option>
 ' . $options . '
@@ -76,9 +77,9 @@ $char_data = getCharData();
 // Build the character display control
 if( is_array($char_data) && count($char_data) > 0 )
 {
-	$body .= "<br /><div id=\"char_disp\">\n" . border('sblue','start',$prev . $roster->locale->act['admin']['per_character_display'] . $listing . $next) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$formbody = "<br /><div id=\"char_disp\">\n" . border('sblue','start',$prev . $roster->locale->act['admin']['per_character_display'] . $listing . $next) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 
-	$body .= '
+	$formbody .= '
 	<tr>
 		<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
 		<th class="membersHeader">' . $roster->locale->act['money'] . '</th>
@@ -98,37 +99,37 @@ if( is_array($char_data) && count($char_data) > 0 )
 	$i=0;
 	foreach($char_data as $name => $data)
 	{
-		$body .= '	<tr>
+		$formbody .= '	<tr>
 		<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">' . $name . '</a><br />
 			' . $data['level'] . ':' . $data['class'] . "</td>\n";
 
 		$k=0;
 		foreach( $data['values'] as $val_name => $value )
 		{
-			$body .= '		<td class="membersRow' . (($i%2)+1) . '">' . "\n";
-			$body .= '			<input type="radio" id="chard_f' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['member_id'] . '">off</label><br />' . "\n";
-			$body .= '			<input type="radio" id="chard_n' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="3" ' . ( $value == '3' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['member_id'] . '">on</label>' . "\n";
-			$body .= "\t\t</td>\n";
+			$formbody .= '		<td class="membersRow' . (($i%2)+1) . '">' . "\n";
+			$formbody .= '			<input type="radio" id="chard_f' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['member_id'] . '">off</label><br />' . "\n";
+			$formbody .= '			<input type="radio" id="chard_n' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="3" ' . ( $value == '3' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['member_id'] . '">on</label>' . "\n";
+			$formbody .= "\t\t</td>\n";
 
 			$k++;
 		}
-		$body .= "\t</tr>\n";
+		$formbody .= "\t</tr>\n";
 		$i++;
 	}
-	$body .= "</table>\n" . border('syellow','end') . "\n</div>\n";
+	$formbody .= "</table>\n" . border('syellow','end') . "\n</div>\n";
 
-	$body .= $prev . $listing . $next;
+	$formbody .= $prev . $listing . $next;
 }
 else
 {
-	$body .= 'No Data';
+	$formbody = 'No Data';
 }
 
 $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$body = $roster_login->getMessage() . "<br />
+$body .= $roster_login->getMessage() . "<br />
 <form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "');submitonce(this);\">
-	$body
+	$formbody
 <br /><br />\n<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n
 </form>";
 
