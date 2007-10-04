@@ -15,18 +15,18 @@
  * @subpackage Locale
 */
 
-$lang['char_info'] = 'Character Information';
-$lang['char_info_desc'] = 'Displays info about characters uploaded to Roster';
+$lang['char_info'] = 'Informations des personnages';
+$lang['char_info_desc'] = 'Affiche les informations relatives aux personnages qui ont été téléchargées sur le roster';
 
 // Menu Buttons
-$lang['cb_character'] = 'Personnage|Shows character stats, equipment, reputation, skills, and pvp info';
-$lang['cb_talents'] = 'Talents|Shows current talent build';
-$lang['cb_spellbook'] = 'Livre de sorts|Shows available spells, actions, and passive abilities';
-$lang['cb_mailbox'] = 'Boîte aux lettres|Shows the contents of the mailbox';
-$lang['cb_bags'] = 'Sacs|Shows the contents of this character\'s bags';
-$lang['cb_bank'] = 'Banque|Shows the contents of this character\'s bank';
-$lang['cb_quests'] = 'Quêtes|A list of quest this character is currently on';
-$lang['cb_recipes'] = 'Recettes|Shows what items this character can make';
+$lang['cb_character'] = 'Personnage|Affichage des statistiques, équipements, réputations, talents, informations JcJ du personnage';
+$lang['cb_talents'] = 'Talents|Affichage de l\'arbre de talents actuel';
+$lang['cb_spellbook'] = 'Livre de sorts|Affichage des sorts, actions et capacités passives disponibles';
+$lang['cb_mailbox'] = 'Boîte aux lettres|Affichage du contenu de la boîte aux lettres';
+$lang['cb_bags'] = 'Sacs|Affichage du contenu des sacs du personnage';
+$lang['cb_bank'] = 'Banque|Affichage du contenu de la banque du personnage';
+$lang['cb_quests'] = 'Quêtes|Affichage de la liste des quêtes en cours du personnage';
+$lang['cb_recipes'] = 'Recettes|Affichages des objets que le personnage sait confectionner';
 
 $lang['char_stats'] = 'Character Stats for: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
@@ -34,8 +34,8 @@ $lang['char_guildline'] = '%1$s of %2$s';
 $lang['talents'] = 'Talents';
 
 // Spellbook
-$lang['spellbook'] = 'Livre de sorts';
-$lang['no_spellbook'] = 'No Spellbook for %1$s';
+$lang['spellbook'] = 'Grimoire';
+$lang['no_spellbook'] = 'Pas de grimoire pour %1$s';
 
 // Mailbox
 $lang['mailbox'] = 'Boîte aux lettres';
@@ -45,7 +45,7 @@ $lang['mail_sender'] = 'Expéditeur';
 $lang['mail_subject'] = 'Sujet';
 $lang['mail_expires'] = 'Messages expirés';
 $lang['mail_money'] = 'Argent Inclus';
-$lang['no_mail'] = 'No Mail for %1$s';
+$lang['no_mail'] = 'Pas de courrier pour %1$s';
 
 //skills
 $lang['skilltypes'] = array(
@@ -58,32 +58,32 @@ $lang['skilltypes'] = array(
 );
 
 // item slots, for missing items on characters
-$lang['Head']          = 'Head';
-$lang['Neck']          = 'Neck';
-$lang['Shoulder']      = 'Shoulder';
-$lang['Back']          = 'Back';
-$lang['Chest']         = 'Chest';
-$lang['Shirt']         = 'Shirt';
+$lang['Head']          = 'Tête';
+$lang['Neck']          = 'Cou';
+$lang['Shoulder']      = 'Épaules';
+$lang['Back']          = 'Dos';
+$lang['Chest']         = 'Torse';
+$lang['Shirt']         = 'Chemise';
 $lang['Tabard']        = 'Tabard';
-$lang['Wrist']         = 'Wrist';
-$lang['MainHand']      = 'Main Hand';
-$lang['SecondaryHand'] = 'Secondary Hand';
-$lang['Ranged']        = 'Ranged';
-$lang['Ammo']          = 'Ammo';
-$lang['Hands']         = 'Hands';
-$lang['Waist']         = 'Waist';
-$lang['Legs']          = 'Legs';
-$lang['Feet']          = 'Feet';
-$lang['Finger0']       = 'Finger 0';
-$lang['Finger1']       = 'Finger 1';
-$lang['Trinket0']      = 'Trinket 0';
-$lang['Trinket1']      = 'Trinket 1';
+$lang['Wrist']         = 'Poignets';
+$lang['MainHand']      = 'Main driote';
+$lang['SecondaryHand'] = 'Main gauche';
+$lang['Ranged']        = 'À distance';
+$lang['Ammo']          = 'Munitions';
+$lang['Hands']         = 'Mains';
+$lang['Waist']         = 'Taille';
+$lang['Legs']          = 'Jambes';
+$lang['Feet']          = 'Pieds';
+$lang['Finger0']       = 'Doigt 0';
+$lang['Finger1']       = 'Doigt 1';
+$lang['Trinket0']      = 'Bijou 0';
+$lang['Trinket1']      = 'Bijou 1';
 
 //tabs
-$lang['tab1']='Character';
-$lang['tab2']='Pet';
-$lang['tab3']='Reputation';
-$lang['tab4']='Comp';
+$lang['tab1']='Personnage';
+$lang['tab2']='Familier';
+$lang['tab3']='Réputation';
+$lang['tab4']='Compétences';
 $lang['tab5']='JcJ';
 
 $lang['strength_tooltip']='Augmente la puissance d\'attaque avec arme de mêlée.<br />Augmente le nombre de points de dégâts bloqués par le bouclier.';
@@ -248,24 +248,24 @@ $lang['item_bonuses_tabs'] = array(
 // item_bonus end //
 $lang['inactive'] = 'Inactive';
 
-$lang['admin']['char_conf'] = 'Character Page|Control what is displayed in the Character pages';
-$lang['admin']['char_links'] = "Character Page Links|Display the character page quick links on each character page";
-$lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists display on page load<br />The lists can be collapsed and opened by clicking on the header<br /><br />&quot;show&quot; will fully display the lists when the page loads<br />&quot;hide&quot; will show the lists collapsed";
-$lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_talents'] = "Talents|Visualisation des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_spellbook'] = "Livre des sorts|Visualisation du livres des sorts<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_mail'] = "Courrier|Visualisation du courrier<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_bags'] = "Sacs|Visualisation des sacs<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_money'] = "Argent|Visualisation de l'argent<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_bank'] = "Banque|Visualisation du contenu de la banque<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_recipes'] = "Recettes|Visualisation des recettes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_quests'] = "Quêtes|Visualisation des quêtes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_bg'] = "Champs de bataille|Visualisation des données de champs de bataille<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_pvp'] = "Joueur contre joueur|Visualisation des données joueur contre joueur<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_duels'] = "Duel|Visualisation des données de duel<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_item_bonuses'] = "Bonus d'équipement|Visualisation des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['char_conf'] = 'Page de Personnage|Définir ce qui est affiché sur la page de personnage';
+$lang['admin']['char_links'] = "Liens de la page de personnage|Afficher le lien rapide vers la page de personnage sur chaque page de personnage";
+$lang['admin']['recipe_disp'] = "Affichage des recettes|Contrôle la façon dont la page des recettes est affichée à son chargement<br />Les listes peuvent être repliées ou ouvertes en cliquant sur l'en-tête du tableau<br /><br />&quot;show&quot; laissera apparaître les listes au chargement<br />&quot;collapse&quot; laissera les listes repliées";
+$lang['admin']['show_tab2'] = "Familiers|Affichage des familiers<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_tab3'] = "Réputation|Affichage des réputations<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_tab4'] = "Compétences|Affichage des compétences<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_tab5'] = "JcJ|Affichage du JcJ<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_talents'] = "Talents|Affichage des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_spellbook'] = "Grimoire|Affichage du grimoire<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_mail'] = "Courrier|Affichage du courrier<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_bags'] = "Sacs|Affichage des sacs<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_money'] = "Argent|Affichage de l'argent<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_bank'] = "Banque|Affichage du contenu de la banque<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_recipes'] = "Recettes|Affichage des recettes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_quests'] = "Quêtes|Affichage des quêtes<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_bg'] = "Champs de bataille|Affichage des données de champs de bataille<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_pvp'] = "Joueur contre joueur|Affichage des données joueur contre joueur<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_duels'] = "Duel|Affichage des données de duel<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_item_bonuses'] = "Bonus d'équipement|Affichage des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 
-$lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';
+$lang['admin']['char_pref'] = 'Préférences d\'affichage|Définir ce qui est affiché sur la page de personnage pour chacun d\'eux';

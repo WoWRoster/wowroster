@@ -16,21 +16,21 @@
 */
 
 $lang['keys'] = 'Clefs';
-$lang['keys_desc'] = 'Lists Azeroth Dungeon keys for guild members';
-$lang['keybutton'] = 'Clefs|Lists Azeroth Dungeon keys for guild members';
+$lang['keys_desc'] = 'Liste les clefs des donjons d\'Azeroth que possèdent les membres de la guilde';
+$lang['keybutton'] = 'Clefs|Liste les clefs des donjons d\'Azeroth que possèdent les membres de la guilde';
 
-$lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
-$lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
-$lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
-$lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
+$lang['admin']['keys_conf'] = 'Paramètres principaux|Paramètres principaux pour les clefs d\'instance';
+$lang['admin']['colorcmp'] = 'Couleur étape achevée|Couleur pour les étapes achevées apparaissant dans l\'infobulle de suivi de quête/partie';
+$lang['admin']['colorcur'] = 'Couleur étape en cours|Couleur pour l\'étape en cours apparaissant dans l\'infobulle de suivi de quête/partie';
+$lang['admin']['colorno'] = 'Couleur étape à venir|Couleur pour les étapes à venir apparaissant dans l\'infobulle de suivi des étapes pour l\'acquisition de la clef (quêtes ou parties)';
 
 // language definitions for the rogue instance keys 'fix'
 $lang['thievestools']='Outils de Voleur';
 $lang['lockpicking']='Crochetage';
 
-$lang['Quests'] = 'Quests';
-$lang['Parts'] = 'Parts';
-$lang['key_status'] = '%1$s %2$s Status';
+$lang['Quests'] = 'Quêtes';
+$lang['Parts'] = 'Parties';
+$lang['key_status'] = 'Progression pour la %2$s %1$s';
 
 
 /*
