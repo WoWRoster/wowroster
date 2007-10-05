@@ -416,22 +416,10 @@ class config
 	 * @param string $where
 	 * 	Additional WHERE clause to use on the update
 	 */
-	function processData( $config=null, $where='1')
+	function processData( &$config, $where='1')
 	{
 		global $queries, $roster, $addon;
 
-		if( is_array( $config ) )
-		{
-			// Do nothing
-		}
-		elseif( !is_array($addon) )
-		{
-			$config = &$roster->config;
-		}
-		else
-		{
-			$config = &$addon['config'];
-		}
 		if( !(array_key_exists('process',$_POST) && ($_POST['process'] == 'process')) )
 		{
 			return '';
