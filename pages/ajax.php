@@ -16,27 +16,18 @@
  * @subpackage Ajax
 */
 
-if( !isset($_GET[ROSTER_PAGE]) )
-{
-	$_GET[ROSTER_PAGE] = 'ajax';
-}
-// Initialization
-define('IN_ROSTER',true);
-include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
-
 include(ROSTER_AJAX . 'functions.php');
-include(ROSTER_LIB . 'minixml.lib.php');
 
-$method = (isset($_GET['method']) ? $_GET['method'] : '');
+$method = (isset($roster->pages[1]) ? $roster->pages[1] : '');
 
 $cont = (isset($_GET['cont']) ? $_GET['cont'] : '');
 
 $errmsg = $result = '';
 
 
-if( isset($_GET['addon']) )
+if( $roster->pages[1] == 'addon' )
 {
-	$addon = getaddon($_GET['addon']);
+	$addon = getaddon($pages[2]);
 	// Check if addon is active
 	if( $addon['active'] == '1' )
 	{
@@ -52,7 +43,17 @@ if( isset($_GET['addon']) )
 			include_once( $addon['conf_file'] );
 		}
 
+		$status = 2;
 		include_once( $addon['ajax_file'] );
+		if( $status == 2 )
+		{
+			$errmsg = 'No result status set';
+		}
+	}
+	else
+	{
+		$status = 1;
+		
 	}
 }
 

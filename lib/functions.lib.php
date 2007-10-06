@@ -171,6 +171,10 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 {
 	global $roster;
 
+	if( $roster->pages[0] == 'ajax' )
+	{
+		ajax_die($text, $title, $file, $line, $sql);
+	}
 	// die_quitely died quietly
 	if(defined('ROSTER_DIED') )
 	{
@@ -258,6 +262,11 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 {
 	global $roster;
 
+	if( $roster->pages[0] == 'ajax' )
+	{
+		ajax_die($message, $title, null, null, null );
+	}
+
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'header.php');
@@ -283,6 +292,34 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	exit();
 }
+
+/**
+ * Print a roster-ajax XML error message
+ */
+function ajax_die($text, $title, $file, $line, $sql)
+{
+	if( $file )
+	{
+		$text .= "\n" . 'FILE: ' . $file;
+	}
+	if( $line )
+	{
+		$text .= "\n" . 'LINE: ' . $line;
+	}
+	if( $sql )
+	{
+		$text .= "\n" . 'SQL: ' . $sql;
+	}
+	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
+		'<response>'."\n".
+		'  <method/>'."\n".
+		'  <cont/>'."\n".
+		'  <result/>'."\n".
+		'  <status>255</status>'."\n".
+		'  <errmsg>'.$text.'</errmsg>'."\n".
+		'</response>'."\n";
+}
+
 
 /**
  * Print a debug backtrace. This works in PHP4.3.x+, there is an integrated
