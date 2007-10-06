@@ -192,7 +192,7 @@ function updatePositions()
  */
 function sendDeleteElement(obj)
 {
-	loadXMLDoc(roster_url+'ajax/menu_button_del/cont=doDeleteElement.html','button='+obj.name);
+	loadXMLDoc(roster_url+'index.php?p=ajax-menu_button_del&cont=doDeleteElement','button='+obj.name);
 }
 
 function doDeleteElement(result)
@@ -214,7 +214,7 @@ function sendAddElement()
 	var url   = document.getElementById('url'          ).value;
 	var icon  = document.getElementById('icon'         ).value;
 	var scope = document.getElementById('section'      ).value;
-	loadXMLDoc(roster_url+'ajax/menu_button_add/cont=doAddElement.html','title='+escape(title)+'&url='+escape(url)+'&icon='+escape(icon)+'&scope='+escape(scope));
+	loadXMLDoc(roster_url+'index.php?p=ajax-menu_button_add&cont=doAddElement','title='+escape(title)+'&url='+escape(url)+'&icon='+escape(icon)+'&scope='+escape(scope));
 }
 
 /**
