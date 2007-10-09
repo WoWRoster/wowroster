@@ -37,12 +37,12 @@ require_once( ROSTER_LIB . 'xmlparse.class.php' );
 
 if( isset($_GET['r']) )
 {
-	list($region,$realmname) = explode('-',urldecode(trim(stripslashes($_GET['r']))));
+	list($region,$realmname) = explode('-',urldecode(trim(stripslashes($_GET['r']))),2);
 	$region = strtoupper($region);
 }
 elseif( isset($realmname) )
 {
-	list($region,$realmname) = explode('-',trim(stripslashes($realmname)));
+	list($region,$realmname) = explode('-',trim(stripslashes($realmname)),2);
 	$region = strtoupper($region);
 }
 else
