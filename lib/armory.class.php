@@ -37,7 +37,7 @@ class RosterArmory
 	var $region;
 	var $debug_url = false;
 	var $debug_cachehits = false;
-	
+
 	/**
 	 * xmlParsing object
 	 *
@@ -72,7 +72,7 @@ class RosterArmory
 		global $roster;
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $item_id.$locale.$character.$realm.$fetch_type;
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -99,27 +99,27 @@ class RosterArmory
 				$roster->cache->put($item, $cache_tag);
 				return $item;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
 				return false;
 			}
 		}
 	}
-	
+
 	/**
 	 * Fetches $item_id Tooltip from the Armory
 	 * Accepts optional $character if used $realm is also required
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $item_id
-	 * @return string 
+	 * @return string
 	 */
 	function fetchItemTooltipXML( $item_id, $locale, $character=false, $realm=false )
 	{
 		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, 'xml' );
 	}
-	
+
 	function fetchItemTooltipHTML( $item_id, $locale, $character=false, $realm=false )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
@@ -128,18 +128,18 @@ class RosterArmory
 	/**
 	 * Fetches $item_id General Information from the Armory
 	 * Returns Array of the parsed XML page
-	 * 
+	 *
 	 * @param string $item_id
 	 * @param string $locale
 	 * @param string $fetch_type
-	 * @return string 
+	 * @return string
 	 */
 	function fetchItemInfo( $item_id, $locale, $fetch_type='array' )
 	{
 		global $roster;
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $item_id.$locale.$fetch_type;
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -165,10 +165,10 @@ class RosterArmory
 				$roster->cache->put($item, $cache_tag);
 				return $item;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;				
+				return false;
 			}
 		}
 	}
@@ -176,30 +176,30 @@ class RosterArmory
 	/**
 	 * Fetches $item_id General Information from the Armory
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $item_id
 	 * @param string $locale
-	 * @return string 
+	 * @return string
 	 */
 	function fetchItemInfoXML( $item_id, $locale )
 	{
 		return $this->fetchItemInfo($item_id, $locale, 'xml');
 	}
-	
+
 	/**
 	 * Fetches $item_id General Information from the Armory
 	 * Returns HTML string
-	 * 
+	 *
 	 * @param string $item_id
 	 * @param string $locale
-	 * @return string 
+	 * @return string
 	 */
 	function fetchItemInfoHTML( $item_id, $locale )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchItemInfo($item_id, $locale, 'html');
 	}
-	
+
 	/**
 	 * Fetch $character from the Armory
 	 * $character is required
@@ -215,10 +215,10 @@ class RosterArmory
 	function fetchCharacter( $character, $locale, $realm, $fetch_type='array' )
 	{
 		global $roster;
-		
+
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $character.$locale.$realm.$fetch_type;
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -244,43 +244,43 @@ class RosterArmory
 				$roster->cache->put($char, $cache_tag);
 				return $char;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
 				return false;
 			}
 		}
 	}
-	
+
 	/**
 	 * Fetch $character from the Armory
 	 * $character is required
 	 * $realm is required
 	 * $locale is reqired
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | xml string
-	 */	
+	 */
 	function fetchCharacterXML( $character, $locale, $realm )
 	{
 		return $this->fetchCharacter($character, $locale, $realm, 'xml');
 	}
-	
+
 	/**
 	 * Fetch $character from the Armory
 	 * $character is required
 	 * $realm is required
 	 * $locale is reqired
 	 * Returns HTML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | html string
-	 */	
+	 */
 	function fetchCharacterHTML( $character, $locale, $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
@@ -301,10 +301,10 @@ class RosterArmory
 	function fetchGuild( $guild, $locale, $realm, $fetch_type='array' )
 	{
 		global $roster;
-		
+
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $guild.$locale.$realm.$fetch_type;
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -330,25 +330,25 @@ class RosterArmory
 				$roster->cache->put($guild, $cache_tag);
 				return $guild;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;				
+				return false;
 			}
 		}
 	}
-	
+
 	/**
 	 * Fetch $guild from the Armory
 	 * $guild should be passed as-is
 	 * $realm is required
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $guild
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | xml string
-	 */	
+	 */
 	function fetchGuildXML( $guild, $locale, $realm )
 	{
 		return $this->fetchGuild($guild, $locale, $realm, 'xml');
@@ -359,12 +359,12 @@ class RosterArmory
 	 * $guild should be passed as-is
 	 * $realm is required
 	 * Returns HTML string
-	 * 
+	 *
 	 * @param string $guild
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | html string
-	 */	
+	 */
 	function fetchGuildHTML( $guild, $locale, $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
@@ -384,10 +384,10 @@ class RosterArmory
 	function fetchCharacterTalents( $character, $locale, $realm, $fetch_type='array' )
 	{
 		global $roster;
-		
+
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $character.$locale.$realm.$fetch_type.'talents';
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -413,7 +413,7 @@ class RosterArmory
 				$roster->cache->put($talents, $cache_tag);
 				return $talents;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
 				return false;
@@ -425,7 +425,7 @@ class RosterArmory
 	 * Fetch Character Talents for $character from the Armory
 	 * $character, $locale, $realm are required to be passed
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
@@ -435,12 +435,12 @@ class RosterArmory
 	{
 		return $this->fetchCharacterTalents($character, $locale, $realm, 'xml');
 	}
-	
+
 	/**
 	 * Fetch Character Talents for $character from the Armory
 	 * $character, $locale, $realm are required to be passed
 	 * Returns HTML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
@@ -451,7 +451,7 @@ class RosterArmory
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacterTalents($character, $locale, $realm, 'html');
 	}
-	
+
 	/**
 	 * Fetch skills of $character from the Armory
 	 * $realm is required
@@ -466,10 +466,10 @@ class RosterArmory
 	function fetchCharacterSkills( $character, $locale, $realm, $fetch_type='array' )
 	{
 		global $roster;
-		
+
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $character.$locale.$realm.$fetch_type.'skills';
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -495,25 +495,25 @@ class RosterArmory
 				$roster->cache->put($char, $cache_tag);
 				return $char;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;				
+				return false;
 			}
 		}
 	}
-	
+
 	/**
 	 * Fetch skills of $character from the Armory
 	 * $realm is required
 	 * $locale is reqired
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | xml string
-	 */	
+	 */
 	function fetchCharacterSkillsXML( $character, $locale, $realm )
 	{
 		return $this->fetchCharacterSkills($character, $locale, $realm, 'xml');
@@ -524,12 +524,12 @@ class RosterArmory
 	 * $realm is required
 	 * $locale is reqired
 	 * Returns HTML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | html string
-	 */	
+	 */
 	function fetchCharacterSkillsHTML( $character, $locale, $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
@@ -550,10 +550,10 @@ class RosterArmory
 	function fetchCharacterReputation( $character, $locale, $realm, $fetch_type='array' )
 	{
 		global $roster;
-		
+
 		$locale = substr($locale, 0, 2);
 		$cache_tag = $character.$locale.$realm.$fetch_type.'reputation';
-		
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -579,25 +579,25 @@ class RosterArmory
 				$roster->cache->put($char, $cache_tag);
 				return $char;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;				
+				return false;
 			}
 		}
 	}
-	
+
 	/**
 	 * Fetch reputation of $character from the Armory
 	 * $realm is required
 	 * $locale is reqired
 	 * Returns XML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | xml string
-	 */	
+	 */
 	function fetchCharacterReputationXML( $character, $locale, $realm )
 	{
 		return $this->fetchCharacterReputation($character, $locale, $realm, 'xml');
@@ -608,25 +608,36 @@ class RosterArmory
 	 * $realm is required
 	 * $locale is reqired
 	 * Returns HTML string
-	 * 
+	 *
 	 * @param string $character
 	 * @param string $locale
 	 * @param string $realm
 	 * @return string | html string
-	 */	
+	 */
 	function fetchCharacterReputationHTML( $character, $locale, $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacterReputation($character, $locale, $realm, 'html');
 	}
 
-	function fetchStrings( $locale, $fetch_type='array' )
+	/**
+	 * Fetch arena teams of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @param bool $fetch_type
+	 * @return array
+	 */
+	function fetchCharacterArenaTeams( $character, $locale, $realm, $fetch_type='array' )
 	{
 		global $roster;
-		
+
 		$locale = substr($locale, 0, 2);
-		$cache_tag = 'stings'.$locale;
-		
+		$cache_tag = $character.$locale.$realm.$fetch_type.'arenateams';
+
 		if( $roster->cache->check($cache_tag) )
 		{
 			if( $this->debug_cachehits )
@@ -637,7 +648,80 @@ class RosterArmory
 		}
 		else
 		{
-			$url = $this->_makeUrl( 7, $locale );
+			$url = $this->_makeUrl( 7, $locale, false, $character, $realm );
+			if( $this->_requestXml($url) )
+			{
+				// unparsed fetches
+				if( $fetch_type != 'array' )
+				{
+					$roster->cache->put($cache_tag);
+					return $this->xml;
+				}
+				// else parse and return array
+				$this->xmlParser->Parse($this->xml);
+				$char = $this->xmlParser->getParsedData();
+				$roster->cache->put($char, $cache_tag);
+				return $char;
+			}
+			else
+			{
+				trigger_error('RosterArmory:: Failed to fetch ' . $url);
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Fetch arena teams of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 * Returns XML string
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */
+	function fetchCharacterArenaTeamsXML( $character, $locale, $realm )
+	{
+		return $this->fetchCharacterArenaTeams($character, $locale, $realm, 'xml');
+	}
+
+	/**
+	 * Fetch arena teams of $character from the Armory
+	 * $realm is required
+	 * $locale is reqired
+	 * Returns HTML string
+	 *
+	 * @param string $character
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | html string
+	 */
+	function fetchCharacterArenaTeamsHTML( $character, $locale, $realm )
+	{
+		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
+		return $this->fetchCharacterArenaTeams($character, $locale, $realm, 'html');
+	}
+
+	function fetchStrings( $locale, $fetch_type='array' )
+	{
+		global $roster;
+
+		$locale = substr($locale, 0, 2);
+		$cache_tag = 'stings'.$locale;
+
+		if( $roster->cache->check($cache_tag) )
+		{
+			if( $this->debug_cachehits )
+			{
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
+			return $roster->cache->get($cache_tag);
+		}
+		else
+		{
+			$url = $this->_makeUrl( 8, $locale );
 			if( $this->_requestXml($url) )
 			{
 				// unparsed fetches
@@ -652,25 +736,25 @@ class RosterArmory
 				$roster->cache->put($strings, $cache_tag);
 				return $strings;
 			}
-			else 
+			else
 			{
 				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;				
+				return false;
 			}
 		}
 	}
-	
+
 	/**
-	 * Sets $user_agent 
+	 * Sets $user_agent
 	 * Use to override default useragent
-	 * 
+	 *
 	 * @param string $user_agent
 	 */
 	function setUserAgent( $user_agent )
 	{
 		$this->user_agent = $user_agent;
 	}
-	
+
 	/**
 	 * Sets socket connection time out
 	 * Use to override default of 8 seconds
@@ -682,7 +766,7 @@ class RosterArmory
 	{
 		$this->xml_timeout = $timeout;
 	}
-	
+
 	/**
 	 * Enables Echoing of $url created.
 	 *
@@ -691,7 +775,7 @@ class RosterArmory
 	{
 		$this->debug_url = true;
 	}
-	
+
 	/**
 	 * Enables Cache Hit Notices
 	 *
@@ -700,7 +784,7 @@ class RosterArmory
 	{
 		$this->debug_cachehits = true;
 	}
-	
+
 	/**
 	 * Enables all debugging
 	 *
@@ -710,7 +794,7 @@ class RosterArmory
 		$this->debug_url = true;
 		$this->debug_cachehits = true;
 	}
-	
+
 	/**
 	 * Sets Region
 	 * US = www.wowarmory.com
@@ -721,14 +805,14 @@ class RosterArmory
 	{
 		$this->region = strtoupper($region);
 	}
-	
+
 	/**
 	 * Private function to build the armory URL
 	  *
 	 * @param string $mode	| string or int of data to request
 	 * @param string $locale | required
-	 * @param string $id | 
-	 * @param string $char | 
+	 * @param string $id |
+	 * @param string $char |
 	 * @param string $realm |
 	 * @param string $guild |
 	 */
@@ -793,6 +877,10 @@ class RosterArmory
 				$mode = 'character-reputation.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
 				break;
 			case 7:
+			case 'character-arenateams':
+				$mode = 'character-arenateams.xml?n=' . urlencode($char) . '&r=' . urlencode($realm);
+				break;
+			case 8:
 			case 'strings':
 				switch( $locale )
 				{
@@ -812,9 +900,9 @@ class RosterArmory
 				$mode = 'strings/' . $val . '/strings.xml?';
 				break;
 		}
-		
+
 		$url = $base_url . $mode . '&locale=' . $locale;
-		
+
 		if( $this->debug_url )
 		{
 			echo $url;
@@ -836,7 +924,7 @@ class RosterArmory
 	function _requestXml( $url, $timeout=false, $user_agent=false )
 	{
 		$this->_initXmlParser();
-		
+
 		$this->xml = ''; // clear xml if any
 
 		if( $timeout === false )
@@ -847,7 +935,7 @@ class RosterArmory
 		{
 			$user_agent = $this->user_agent;
 		}
-		
+
 		$this->xml = urlgrabber($url, $timeout, $user_agent);
 
 		if( !empty($this->xml) )
@@ -863,7 +951,7 @@ class RosterArmory
 	/**
 	 * Private function that includes xmlparser class if needed and then creates
 	 * a new XmlParser() object if needed
-	 * 
+	 *
 	 * @return void
 	 */
 	function _initXmlParser()
