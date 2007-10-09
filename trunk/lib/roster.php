@@ -202,7 +202,7 @@ class roster
 					list($name, $realm) = explode('@',$_GET['member']);
 					if( strpos($realm,'-') !== false )
 					{
-						list($region, $realm) = explode('-',$realm);
+						list($region, $realm) = explode('-',$realm,2);
 						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '" AND `players`.`region` = "' . strtoupper($region) . '"';
 					}
 					else
@@ -270,7 +270,7 @@ class roster
 					list($name, $realm) = explode('@',$_GET['guild']);
 					if( strpos($realm,'-') !== false )
 					{
-						list($region, $realm) = explode('-',$realm);
+						list($region, $realm) = explode('-',$realm,2);
 						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
 					}
 					else
@@ -331,7 +331,7 @@ class roster
 				}
 				elseif( strpos($_GET['realm'],'-') !== false )
 				{
-					list($region, $realm) = explode('-',$_GET['realm']);
+					list($region, $realm) = explode('-',$_GET['realm'],2);
 					$where = ' `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
