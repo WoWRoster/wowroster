@@ -58,26 +58,26 @@ $lang['skilltypes'] = array(
 );
 
 // item slots, for missing items on characters
-$lang['Head']          = 'Head';
-$lang['Neck']          = 'Neck';
-$lang['Shoulder']      = 'Shoulder';
-$lang['Back']          = 'Back';
-$lang['Chest']         = 'Chest';
-$lang['Shirt']         = 'Shirt';
-$lang['Tabard']        = 'Tabard';
-$lang['Wrist']         = 'Wrist';
-$lang['MainHand']      = 'Main Hand';
-$lang['SecondaryHand'] = 'Secondary Hand';
-$lang['Ranged']        = 'Ranged';
-$lang['Ammo']          = 'Ammo';
-$lang['Hands']         = 'Hands';
-$lang['Waist']         = 'Waist';
-$lang['Legs']          = 'Legs';
-$lang['Feet']          = 'Feet';
-$lang['Finger0']       = 'Finger 0';
-$lang['Finger1']       = 'Finger 1';
-$lang['Trinket0']      = 'Trinket 0';
-$lang['Trinket1']      = 'Trinket 1';
+$lang['Head']          = 'Cabeza';
+$lang['Neck']          = 'Cuello';
+$lang['Shoulder']      = 'Hombros';
+$lang['Back']          = 'Espalda';
+$lang['Chest']         = 'Pecho';
+$lang['Shirt']         = 'Camisa';
+$lang['Tabard']        = 'Tabardo';
+$lang['Wrist']         = 'Muñeca';
+$lang['MainHand']      = 'Mano derecha';
+$lang['SecondaryHand'] = 'Mano izquierda';
+$lang['Ranged']        = 'A distancia';
+$lang['Ammo']          = 'Munición';
+$lang['Hands']         = 'Manos';
+$lang['Waist']         = 'Cintura';
+$lang['Legs']          = 'Piernas';
+$lang['Feet']          = 'Pies';
+$lang['Finger0']       = 'Dedo 0';
+$lang['Finger1']       = 'Dedo 1';
+$lang['Trinket0']      = 'Abalorio 0';
+$lang['Trinket1']      = 'Abalorio 1';
 
 //tabs
 $lang['tab1']='Personaje';
