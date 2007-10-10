@@ -28,6 +28,7 @@ $errmsg = $result = '';
 if( $roster->pages[1] == 'addon' )
 {
 	$addon = getaddon($pages[2]);
+	$method = $roster->pages[3];
 	// Check if addon is active
 	if( $addon['active'] == '1' )
 	{
