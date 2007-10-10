@@ -1070,7 +1070,7 @@ function getaddon( $addonname )
 	$addon['trigger_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'update_hook.php';
 
 	// Get the addon's ajax functions file
-	$addon['ajax_file'] = $addon['dir'] . 'ajax.php';
+	$addon['ajax_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'ajax.php';
 
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';
