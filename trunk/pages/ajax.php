@@ -16,6 +16,11 @@
  * @subpackage Ajax
 */
 
+if( !defined('IN_ROSTER') )
+{
+    exit('Detected invalid access to this file!');
+}
+
 include(ROSTER_AJAX . 'functions.php');
 
 $method = (isset($roster->pages[1]) ? $roster->pages[1] : '');
@@ -27,7 +32,7 @@ $errmsg = $result = '';
 
 if( $roster->pages[1] == 'addon' )
 {
-	$addon = getaddon($pages[2]);
+	$addon = getaddon($roster->pages[2]);
 	$method = $roster->pages[3];
 	// Check if addon is active
 	if( $addon['active'] == '1' )
@@ -54,7 +59,6 @@ if( $roster->pages[1] == 'addon' )
 	else
 	{
 		$status = 1;
-		
 	}
 }
 
@@ -82,12 +86,11 @@ else
 header('Content-Type: text/xml');
 
 // Output XML
-echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
-	'<response>'."\n".
-	'  <method>'.$method.'</method>'."\n".
-	'  <cont>'.$cont.'</cont>'."\n".
-	'  <result>'.$result.'</result>'."\n".
-	'  <status>'.(int)$status.'</status>'."\n".
-	'  <errmsg>'.$errmsg.'</errmsg>'."\n".
-	'</response>'."\n";
-
+echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n"
+	. "<response>\n"
+	. '  <method>' . $method . "</method>\n"
+	. '  <cont>' . $cont . "</cont>\n"
+	. '  <result>' . $result . "</result>\n"
+	. '  <status>' . (int)$status . "</status>\n"
+	. '  <errmsg>' . $errmsg . "</errmsg>\n"
+	. "</response>\n";
