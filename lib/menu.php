@@ -405,7 +405,7 @@ class RosterMenu
 
 		// Build query
 		$query  = "SELECT count(`member_id`) AS `amount`, "
-				. "IF(`" . $roster->config['alt_location'] . "` LIKE '%" . $roster->config['alt_type'] . "%',1,0) AS 'isalt', "
+				. "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS 'isalt', "
 				. $qrypart . " AS label "
 				. "FROM `" . $roster->db->table('members') . "` "
 				. "WHERE `level` >= $level "
