@@ -37,16 +37,14 @@ if( !$result )
     die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
 }
 
-$guilds=0;
 while( $data = $roster->db->fetch($result,SQL_NUM) )
 {
 	$menu_select[$data[1]][$data[2]] = $data[0];
-	$guilds++;
 }
 
 $options='';
 
-if( $guilds > 1 )
+if( $roster->db->num_rows($result) > 0 )
 {
 	foreach( $menu_select as $realm => $guild )
 	{
@@ -58,6 +56,8 @@ if( $guilds > 1 )
 		$options .= '		</optgroup>';
 	}
 }
+
+$roster->db->free_result($result);
 
 $body = 'Select A Guild
 <form action="' . makelink() . '" name="realm_select" method="post">
