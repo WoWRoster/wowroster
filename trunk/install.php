@@ -142,7 +142,7 @@ class Template_Wrap extends RosterTemplate
 		$this->assign_vars(array(
 			'INSTALL_STEP'  => $STEP,
 			'TEMPLATE_PATH' => 'templates/install',
-			'FORMACTION'    => ''
+			'FORMACTION'    => 'index.php'
 			)
 		);
 
