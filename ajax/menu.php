@@ -77,7 +77,7 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $title . "','" . $url . "','" . $icon . "','" . $scope . "')";
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $title . "','" . $scope . "','" . $url . "','" . $icon . "')";
 
 		$DBres = $roster->db->query($query);
 
