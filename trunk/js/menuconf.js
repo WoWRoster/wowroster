@@ -238,7 +238,7 @@ function doAddElement(result)
 	// And add it to the bottom palet position
 	palet.length++;
 	palet[palet.length-1] = dd.elements[button.id];
-	dd.elements.palet.resizeBy(0,dy);
+	dd.elements.palet.resizeBy(dx,0);
 
 	updatePositions();
 }

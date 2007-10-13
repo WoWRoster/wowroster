@@ -21,7 +21,6 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include(ROSTER_AJAX . 'functions.php');
 
 $method = (isset($roster->pages[1]) ? $roster->pages[1] : '');
 
@@ -49,28 +48,22 @@ if( $roster->pages[1] == 'addon' )
 			include_once( $addon['conf_file'] );
 		}
 
-		$status = 2;
 		include_once( $addon['ajax_file'] );
-		if( $status == 2 )
-		{
-			$errmsg = 'No result status set';
-		}
 	}
 	else
 	{
 		$status = 1;
 	}
 }
+else
+{
+	include(ROSTER_AJAX . 'functions.php');
+}
 
 // Check if the function is valid, if so run it, else error
 if( isset($ajaxfuncs[$method]) )
 {
-	$status = 2;
 	include($ajaxfuncs[$method]['file']);
-	if( $status == 2 )
-	{
-		$errmsg = 'No result status set';
-	}
 }
 elseif( $method == '')
 {
