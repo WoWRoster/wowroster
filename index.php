@@ -43,21 +43,37 @@ switch( $roster->pages[0] )
 	case 'char':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		if( !file_exists($path) )
+		{
+			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP . 'index.php';
+		}
 		break;
 
 	case 'guild':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		if( !file_exists($path) )
+		{
+			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP . 'index.php';
+		}
 		break;
 
 	case 'realm':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'realm' . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		if( !file_exists($path) )
+		{
+			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'realm' . DIR_SEP . 'index.php';
+		}
 		break;
 
 	case 'util':
 		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP .
 			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		if( !file_exists($path) )
+		{
+			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'index.php';
+		}
 		break;
 
 	default:
