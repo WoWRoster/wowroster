@@ -576,7 +576,7 @@ $lang['tooltip_equip_restores']='Equipar: Restaura';
 $lang['tooltip_equip_when']='Equipar: Cuando';
 $lang['tooltip_chance']='Probabilidad';
 $lang['tooltip_enchant']='Encantar';
-$lang['tooltip_set']='Conjunto';
+$lang['tooltip_set']='Conjunto|Bonif.';
 $lang['tooltip_rank']='Rango';
 $lang['tooltip_next_rank']='Siguiente Rango';
 $lang['tooltip_spell_damage']='Daño por Hechizos';
@@ -605,15 +605,15 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
-$lang['tooltip_reg_onlyworksinside']='Only works inside';
-$lang['tooltip_reg_conjureditems']='Conjured items disappear';
+$lang['tooltip_reg_onlyworksinside']='Solo funciona dentro';
+$lang['tooltip_reg_conjureditems']='Los objetos creados mágicamente desaparecen';
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Añade ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Hacha|Arco|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Maza|Mano principal|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda'; // the types of weapons as shown in the tooltip
-$lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Misión|Se liga al recogerlo';
-$lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda';
-$lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Ídolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
+$lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Objeto de misión|Se liga al recogerlo|Este objeto inicia una misión';
+$lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Pies';
+$lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
@@ -629,9 +629,9 @@ $lang['gem_colors'] = array(
 	'yellow' => 'amarillo',
 	'green' => 'verde',
 	'orange' => 'naranja',
-	'purple' => 'lila',
+	'purple' => 'morada',
 	'prismatic' => 'centelleante',
-	'meta' => 'Meta'
+	'meta' => 'meta'
 	);
 // -- end tooltip parsing
 
