@@ -1312,7 +1312,7 @@ class item
 			{
 				return $roster->cache->mget($sql_in);
 			}
-			
+
 			$sql = "SELECT `item_name`, `item_parent` FROM"
 				 . " `" . $roster->db->table('items') . "`"
 				 . " WHERE `member_id` = '$member_id'"
