@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','1.9.9.1404');
+define('ROSTER_VERSION','1.9.9.1407');
 
 /**
  * Roster Conf File
@@ -69,6 +69,8 @@ define('ROSTER_LOCALE_DIR',ROSTER_BASE . 'localization' . DIR_SEP);
  * The webpage must be entered below without a trailing slash
  */
 define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_beta/version_match.php');
+define('ROSTER_UPDATECHECK', 'http://www.wowroster.net/roster_beta/version.txt');
+define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%1$s');
 
 /**
  * Some static and semi-static game data.

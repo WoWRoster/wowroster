@@ -12,6 +12,7 @@
 INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '6', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (4, 'version', '', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
+INSERT INTO `renprefix_config` VALUES (6, 'versioncache', '', 'hidden', 'master');
 
 # --------------------------------------------------------
 ### Menu Entries
@@ -41,7 +42,7 @@ INSERT INTO `renprefix_config` VALUES (1100, 'img_url', 'img/', 'text{128|30', '
 INSERT INTO `renprefix_config` VALUES (1110, 'timezone', 'PST', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1120, 'localtimeoffset', '0', 'select{-12^-12|-11^-11|-10^-10|-9^-9|-8^-8|-7^-7|-6^-6|-5^-5|-4^-4|-3.5^-3.5|-3^-3|-2^-2|-1^-1|0^0|+1^1|+2^2|+3^3|+3.5^3.5|+4^4|+4.5^4.5|+5^5|+5.5^5.5|+6^6|+6.5^6.5|+7^7|+8^8|+9^9|+9.5^9.5|+10^10|+11^11|+12^12|+13^13', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1140, 'use_update_triggers', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '1', 'radio{yes^1|no^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '168', 'select{Do Not check^0|Once a Day^24|Once a Week^168|Once a Month^720', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1170, 'local_cache', '1', 'radio{on^1|off^0', 'main_conf');
 

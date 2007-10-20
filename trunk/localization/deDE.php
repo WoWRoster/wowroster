@@ -91,7 +91,7 @@ $lang['update_log'] = 'Update Log';
 $lang['save_error_log'] = 'Speichere Fehler Log';
 $lang['save_update_log'] = 'Speichere Update Log';
 
-$lang['new_version_available'] = 'Eine neue Version von %1$s ist verfügbar <span class="green">v%2$s</span><br />Download <a href="%3$s" target="_blank">HIER</a>';
+$lang['new_version_available'] = 'Eine neue Version von %1$s ist verfügbar <span class="green">v%2$s</span><br />Released: %3$s<br />Download <a href="%4$s" target="_blank">HIER</a>';
 
 $lang['remove_install_files'] = 'Entferne Installationsdateien';
 $lang['remove_install_files_text'] = 'Bitte entferne <span class="green">install.php</span> in diesem Verzeichnis';

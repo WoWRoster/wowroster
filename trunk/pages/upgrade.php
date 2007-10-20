@@ -88,6 +88,15 @@ class Upgrade
 
 	function upgrade_199b1()
 	{
+		global $roster;
+
+		if( version_compare($roster->config['version'],'1.9.9.1407','<') )
+		{
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (6, 'versioncache', '', 'hidden', 'master');");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '168', `form_type` = 'select{Do Not check^0|Once a Day^24|Once a Week^168|Once a Month^720' WHERE `id` = 1150 LIMIT 1;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `wrnet_id` int(4) NOT NULL DEFAULT '0';");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

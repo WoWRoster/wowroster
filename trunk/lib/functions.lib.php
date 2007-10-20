@@ -1433,3 +1433,77 @@ function array_overlay( $skel , $arr )
 
 	return $arr;
 }
+
+/**
+ * Checks an addon download id on the wowroster.net rss feed
+ * And informs if there is an update
+ *
+ * @param string $name | name of the download
+ * @param string $url | url
+ */
+function updateCheck( $addon )
+{
+	global $roster;
+
+	$ver_latest = $ver_info = $ver_link = $ver_date = $return = '';
+
+	if( isset($addon['wrnet_id']) && !empty($addon['wrnet_id']) && isset($roster->config['versioncache']) )
+	{
+		$cache = unserialize($roster->config['versioncache']);
+		if( !isset($cache[$addon['basename']]) )
+		{
+			$cache[$addon['basename']] = time();
+			$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+		}
+
+		if( ($cache[$addon['basename']] + (60 * 60 * $roster->config['check_updates'])) <= time() )
+		{
+			$cache[$addon['basename']] = time();
+			$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+
+			$content = urlgrabber(sprintf(ROSTER_ADDONUPDATEURL,$addon['wrnet_id']));
+
+			if( preg_match('#<version>(.+)</version>#i',$content,$info) )
+			{
+				$ver_latest = $info[1];
+			}
+
+			if( preg_match('#<info>(.+)</info>#i',$content,$info) )
+			{
+				$ver_info = '<br />' . $info[1];
+			}
+
+			if( preg_match('#<link>(.+)</link>#i',$content,$info) )
+			{
+				$ver_link = '<br />' . $info[1];
+			}
+
+			if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
+			{
+				$ver_date = date($roster->locale->act['phptimeformat'], strtotime($info[1]));
+			}
+
+			if( version_compare($ver_latest,$addon['version'],'>') )
+			{
+				// Save current locale array
+				// Since we add all locales for localization, we save the current locale array
+				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+				$localetemp = $roster->locale->wordings;
+
+				foreach( $roster->multilanguages as $lang )
+				{
+					$roster->locale->add_locale_file(ROSTER_ADDONS . $addon['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+				}
+
+				$name = ( isset($roster->locale->act[$addon['fullname']]) ? $roster->locale->act[$addon['fullname']] : $addon['fullname'] );
+
+				// Restore our locale array
+				$roster->locale->wordings = $localetemp;
+				unset($localetemp);
+
+				$return = messagebox(sprintf($roster->locale->act['new_version_available'],$name,$ver_latest,$ver_date,$ver_link) . $ver_info,$roster->locale->act['update']);
+			}
+		}
+	}
+	return $return;
+}

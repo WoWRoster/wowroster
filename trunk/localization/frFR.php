@@ -91,7 +91,7 @@ $lang['update_log'] = 'Journal des mises à jour';
 $lang['save_error_log'] = 'Sauver le journal des erreurs';
 $lang['save_update_log'] = 'Sauver le journal des mises à jour';
 
-$lang['new_version_available'] = 'Une nouvelle version de %1$s est disponible <span class="green">v%2$s</span><br />vous pouvez la récupérer <a href="%3$s" target="_blank">ICI</a>';
+$lang['new_version_available'] = 'Une nouvelle version de %1$s est disponible <span class="green">v%2$s</span><br />Released: %3$s<br />vous pouvez la récupérer <a href="%4$s" target="_blank">ICI</a>';
 
 $lang['remove_install_files'] = 'Supprimez les fichiers d\'installation';
 $lang['remove_install_files_text'] = 'Merci de supprimer <span class="green">install.php</span> de ce répertoire';
@@ -606,7 +606,7 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 $lang['tooltip_chance_hit']='Chances quand vous touchez...'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
 $lang['tooltip_reg_onlyworksinside']='Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête';
-$lang['tooltip_reg_conjureditems']='Objet invoqué'; 
+$lang['tooltip_reg_conjureditems']='Objet invoqué';
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
