@@ -91,7 +91,7 @@ $lang['update_log'] = 'Registro de actualización';
 $lang['save_error_log'] = 'Registro de errores';
 $lang['save_update_log'] = 'Registro de actualizaciones';
 
-$lang['new_version_available'] = 'Existe una nueva versión de %1$s disponible <span class="green">v%2$s</span><br />Descargalo <a href="%3$s" target="_blank">AQUI</a>';
+$lang['new_version_available'] = 'Existe una nueva versión de %1$s disponible <span class="green">v%2$s</span><br />Released: %3$s<br />Descargalo <a href="%4$s" target="_blank">AQUI</a>';
 
 $lang['remove_install_files'] = 'Borrar archivos de instalación';
 $lang['remove_install_files_text'] = 'Por favor, elimina <span class="green">install.php</span> de este directorio';
@@ -610,7 +610,7 @@ $lang['tooltip_reg_conjureditems']='Los objetos creados mágicamente desaparecen
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Añade ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Ídolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Objeto de misión|Se liga al recogerlo|Este objeto inicia una misión';
 $lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Pies';
 $lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
@@ -624,7 +624,7 @@ $lang['gem_preg_prismatic'] = '/Encaja con un hueco azul amarillo rojo\./i';
 
 //Gems color Array
 $lang['gem_colors'] = array(
-	'red' => 'rojo', 
+	'red' => 'rojo',
 	'blue' => 'azul',
 	'yellow' => 'amarillo',
 	'green' => 'verde',

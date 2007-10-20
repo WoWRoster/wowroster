@@ -27,6 +27,7 @@ CREATE TABLE `renprefix_addon` (
   `description` mediumtext NOT NULL,
   `credits` mediumtext NOT NULL,
   `icon` varchar(64) NOT NULL default '',
+  `wrnet_id` int(4) NOT NULL default '',
   PRIMARY KEY  (`addon_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

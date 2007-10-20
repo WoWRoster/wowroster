@@ -64,25 +64,45 @@ include_once(ROSTER_ADMIN . 'pages.php');
 $header = $menu = $pagebar = $footer = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
-if( $roster->config['check_updates'] )
+
+if( isset($roster->config['versioncache']) )
 {
-	$roster_ver_latest = $roster_ver_info = '';
+	$roster_ver_latest = $roster_ver_info = $roster_ver_date = '';
 
-	$content = urlgrabber('http://www.wowroster.net/roster_updater/version.txt');
+	$cache = unserialize($roster->config['versioncache']);
 
-	if( preg_match('#<version>(.+)</version>#i',$content,$version) )
+	if( !isset($cache['WoWRoster']) )
 	{
-		$roster_ver_latest = $version[1];
+		$cache['WoWRoster'] = time();
+		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
 	}
 
-	if( preg_match('#<info>(.+)</info>#i',$content,$info) )
+	if( ($cache['WoWRoster'] + (60 * 60 * $roster->config['check_updates'])) <= time() )
 	{
-		$roster_ver_info = '<br />' . $info[1];
-	}
+		$cache['WoWRoster'] = time();
+		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
 
-	if( version_compare($roster_ver_latest,ROSTER_VERSION,'>') )
-	{
-		$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$roster_ver_latest,'http://www.wowroster.net') . $roster_ver_info,$roster->locale->act['update']);
+		$content = urlgrabber(ROSTER_UPDATECHECK);
+
+		if( preg_match('#<version>(.+)</version>#i',$content,$version) )
+		{
+			$roster_ver_latest = $version[1];
+		}
+
+		if( preg_match('#<info>(.+)</info>#i',$content,$info) )
+		{
+			$roster_ver_info = '<br />' . $info[1];
+		}
+
+		if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
+		{
+			$roster_ver_date = date($roster->locale->act['phptimeformat'], strtotime($info[1]));
+		}
+
+		if( version_compare($roster_ver_latest,ROSTER_VERSION,'>') )
+		{
+			$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$roster_ver_latest,$roster_ver_date,'http://www.wowroster.net') . $roster_ver_info,$roster->locale->act['update']);
+		}
 	}
 }
 
@@ -134,6 +154,8 @@ $roster->get_addon_data();
 foreach( $roster->addon_data as $row )
 {
 	$addon = getaddon($row['basename']);
+
+	$header .= updateCheck($addon);
 
 	if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
 	{

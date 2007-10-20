@@ -383,7 +383,7 @@ class roster
 	 */
 	function get_addon_data()
 	{
-		$query = "SELECT * FROM `" . $this->db->table('addon') . "`;";
+		$query = "SELECT * FROM `" . $this->db->table('addon') . "` ORDER BY `basename`;";
 		$result = $this->db->query($query);
 		$this->addon_data = array();
 		while( $row = $this->db->fetch($result,SQL_ASSOC) )
