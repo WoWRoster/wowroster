@@ -31,6 +31,74 @@ class lua
 {
 	var $file_location = '';
 	var $errormessage = '';
+	var $type = 'gz';
+	var $handle;
+	var $line;
+
+	function lua()
+	{
+		if( !function_exists('gzopen') )
+		{
+			$this->type = 'file';
+			$this->seterror('zlib not available, falling back to normal file functions');
+		}
+	}
+
+	function __openfile($mode)
+	{
+		switch( $this->type )
+		{
+			case 'gz':
+				$this->handle = gzopen($this->file_location,$mode);
+				break;
+
+			case 'file':
+				$this->handle = fopen($this->file_location,$mode);
+				break;
+		}
+	}
+
+	function __getline()
+	{
+		switch( $this->type )
+		{
+			case 'gz':
+				$this->line = trim(gzgets($this->handle));
+				break;
+
+			case 'file':
+				$this->line = trim(fgets($this->handle));
+				break;
+		}
+	}
+
+	function __endoffile()
+	{
+		switch( $this->type )
+		{
+			case 'gz':
+				return gzeof($this->handle);
+				break;
+
+			case 'file':
+				return feof($this->handle);
+				break;
+		}
+	}
+
+	function __closefile()
+	{
+		switch( $this->type )
+		{
+			case 'gz':
+				gzclose($this->handle);
+				break;
+
+			case 'file':
+				fclose($this->handle);
+				break;
+		}
+	}
 
 	/**
 	 * Set the location of the lua file to handle
@@ -108,19 +176,18 @@ class lua
 			$stack = array( array( '',  array() ) );
 			$stack_pos = 0;
 
-			$file = gzopen($this->file_location,'r');
+			$this->__openfile('r');
 
-			while( !gzeof($file) )
+			while( !$this->__endoffile() )
 			{
-				$line = gzgets($file);
-				$line = trim($line);
+				$this->__getline();
 
-				if( empty($line) )
+				if( empty($this->line) )
 				{
 					continue;
 				}
 				// Look for end of an array
-				if( isset($line[0]) && $line[0] == '}' )
+				if( isset($this->line[0]) && $this->line[0] == '}' )
 				{
 					$hash = $stack[$stack_pos];
 					unset($stack[$stack_pos]);
@@ -132,9 +199,9 @@ class lua
 				else
 				{
 					// Check if the key is given
-					if( strpos($line,'=') )
+					if( strpos($this->line,'=') )
 					{
-						list($name, $value) = explode( '=', $line, 2 );
+						list($name, $value) = explode( '=', $this->line, 2 );
 						$name = trim($name);
 						$value = trim($value,', ');
 						if($name[0]=='[')
@@ -151,7 +218,7 @@ class lua
 					// Otherwise we'll have to make one up for ourselves
 					else
 					{
-						$value = $line;
+						$value = $this->line;
 						if( empty($stack[$stack_pos][1]) )
 						{
 							$name = 1;
@@ -160,7 +227,7 @@ class lua
 						{
 							$name = max(array_keys($stack[$stack_pos][1]))+1;
 						}
-						if( strpos($line,'-- [') )
+						if( strpos($this->line,'-- [') )
 						{
 							$value = explode('-- [',$value);
 							array_pop($value);
@@ -196,7 +263,7 @@ class lua
 				}
 			}
 
-			gzclose($file);
+			$this->__closefile();
 			return($stack[0][1]);
 		}
 		else
