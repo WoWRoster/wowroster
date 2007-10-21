@@ -1473,14 +1473,14 @@ function updateCheck( $addon )
 				$ver_info = '<br />' . $info[1];
 			}
 
-			if( preg_match('#<link>(.+)</link>#i',$content,$info) )
+			if( preg_match_all('#<link>(.+)</link>#i',$content,$info) )
 			{
-				$ver_link = '<br />' . $info[1];
+				$ver_link = $info[1][2];
 			}
 
 			if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
 			{
-				$ver_date = date($roster->locale->act['phptimeformat'], strtotime($info[1]));
+				$ver_date = date($roster->locale->act['phptimeformat'], $info[1]);
 			}
 
 			if( version_compare($ver_latest,$addon['version'],'>') )
