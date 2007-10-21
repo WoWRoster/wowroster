@@ -29,6 +29,7 @@ class news
 	var $icon = 'ability_warrior_rallyingcry';
 
 	var $version = '2.0.0.0';
+	var $wrnet_id = '0';
 
 	var $fullname = 'news';
 	var $description = 'news_desc';
