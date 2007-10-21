@@ -30,6 +30,7 @@ class pvplog
 	var $icon = 'inv_banner_03';
 
 	var $version = '2.0.0.0';
+	var $wrnet_id = '0';
 
 	var $fullname = 'pvplog';
 	var $description = 'pvplog_desc';

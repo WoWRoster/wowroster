@@ -29,6 +29,7 @@ class info
 	var $icon = 'inv_misc_grouplooking';
 
 	var $version = '2.0.0.0';
+	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
 	var $description = 'char_info_desc';

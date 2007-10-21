@@ -30,6 +30,7 @@ class keys
 	var $icon = 'inv_misc_key_06';
 
 	var $version = '2.0.0.0';
+	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
 	var $description = 'keys_desc';

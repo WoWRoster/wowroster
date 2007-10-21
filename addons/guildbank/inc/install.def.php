@@ -29,6 +29,7 @@ class guildbank
 	var $icon = 'inv_misc_bag_15';
 
 	var $version = '2.0.0.0';
+	var $wrnet_id = '0';
 
 	var $fullname = 'guildbank';
 	var $description = 'guildbank_desc';

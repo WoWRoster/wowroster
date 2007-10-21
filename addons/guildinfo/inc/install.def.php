@@ -29,6 +29,7 @@ class guildinfo
 	var $icon = 'inv_misc_note_06';
 
 	var $version = '2.0.0.0';
+	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
 	var $description = 'guildinfo_desc';
