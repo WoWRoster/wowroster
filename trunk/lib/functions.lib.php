@@ -1358,11 +1358,11 @@ function aprint( $arr , $prefix='' , $return=false )
 	}
 	if( $return )
 	{
-		return "\n\n<pre style=\"text-align: left;color:#000000;margin:1px; background:#555555; border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
+		return "\n\n<pre style=\"text-align:left;color:#000000;margin:1px;background:#555555;border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
 	}
 	else
 	{
-		echo "\n\n<pre style=\"text-align: left;color:#000000;margin:1px; background:#555555; border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
+		echo "\n\n<pre style=\"text-align:left;color:#000000;margin:1px;background:#555555;border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
 	}
 }
 
