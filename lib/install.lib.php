@@ -56,6 +56,8 @@ class Install
 	 */
 	function add_backup($table)
 	{
+		global $roster;
+
 		$this->sql[] = 'CREATE TEMPORARY TABLE `backup_' . $table . '` LIKE `' . $table . '`';
 		$this->sql[] = 'INSERT INTO `backup_' . $table . '` SELECT * FROM `' . $table . '`';
 		$this->tables[$table] = true; // Restore backup on rollback
@@ -82,6 +84,7 @@ class Install
 	{
 		$this->sql[] = 'DROP TABLE IF EXISTS `' . $name . '`;';
 		$this->sql[] = 'CREATE TABLE `' . $name . '` (' . $query . ') ENGINE=MyISAM DEFAULT CHARSET=utf8;';
+		$this->add_drop($name);
 	}
 
 	/**
@@ -157,7 +160,7 @@ class Install
 	 * @param string $icon
 	 * 		Icon for display
 	 */
-	function add_menu_button($title, $scope='util', $url='', $icon='')
+	function add_menu_button($title, $scope='util', $url='', $icon='', $section='')
 	{
 		global $roster;
 
@@ -166,8 +169,20 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
+		$invalid = array('util','realm','guild','char');
+
+		if( empty($section) )
+		{
+			$section = $scope;
+		}
+		elseif( in_array($section,$invalid) )
+		{
+			$section = $scope;
+			$this->seterrors('Section can only be set for custom panes. Section reset to scope name.');
+		}
+
 		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . "','" . $url . "','" . $icon . "');";
-		$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $scope . "' LIMIT 1;";
+		$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $section . "' LIMIT 1;";
 	}
 
 	/**
@@ -215,6 +230,32 @@ class Install
 		global $roster;
 
 		$this->sql[] = "DELETE FROM `" . $roster->db->table('menu_button') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
+	}
+
+	/**
+	 * Adds a new menu pane below all the default Roster panes
+	 *
+	 * @param string $name
+	 * 		Name of the pane, this will be prefixed with the addon's basename
+	 */
+	function add_menu_pane($name)
+	{
+		global $roster;
+
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu') . "` VALUES (NULL, '" . $this->addata['basename'] . '_' . $roster->db->escape($name) . "', '');";
+	}
+
+	/**
+	 * Removes a menu pane
+	 * Roster panes cannot be deleted
+	 *
+	 * @param string $name
+	 */
+	function remove_menu_pane($name)
+	{
+		global $roster;
+
+		$this->sql[] = "DELETE FROM `" . $roster->db->table('menu') . "` WHERE `section` = '" . $this->addata['basename'] . '_' . $roster->db->escape($name) . "' LIMIT 1;";
 	}
 
 	/**
