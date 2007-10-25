@@ -529,11 +529,13 @@ class item
 		{
 			if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
 			{
-				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
-					 . ( !empty($this->DEBUG_junk) ? implode("<br>", $this->DEBUG_junk) : '' )
-					 . '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
-					 . '<hr width="80%"> ' . aprint($this->parsed_item)
-					 . '</td></tr></table><br />';
+				trigger_error('Item parser data'
+					 . '<table class="border_frame" cellpadding="0" cellspacing="1" width="350"><tr><td>'
+					 . ( !empty($this->DEBUG_junk) ? implode('<br>', $this->DEBUG_junk) : '' )
+					 . '<hr width="80%" /> ' . str_replace("\n", '<br />', $this->tooltip)
+					 . '<hr width="80%" /> '
+					 . '</td></tr></table><br />'
+					 . aprint($this->parsed_item,'',true));
 			}
 			$this->html_tooltip = colorTooltip($this->tooltip . ( $this->DEBUG ? '<br />Parsed Simple' : '' ), $this->color, $this->locale);
 		}
@@ -632,13 +634,11 @@ class item
 
 			if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
 			{
-				echo '<table class="border_frame" cellpadding="0" cellspacing="1" width="350px"> <tr> <td>'
+				trigger_error('<table class="border_frame" cellpadding="0" cellspacing="1" width="350"><tr><td>'
 				. $html_tt
-				. '<hr width="80%"> ' . str_replace("\n", '<br />', $this->tooltip)
-//				. '<hr width="80%"> ' . aprint($this->parsed_item)
-				. '</td></tr></table><br />';
-//				echo '</div>';
-				aprint($this->parsed_item);
+				. '<hr width="80%" /> ' . str_replace("\n", '<br />', $this->tooltip)
+				. '</td></tr></table><br />'
+				. aprint($this->parsed_item,'',true));
 			}
 			$this->html_tooltip = $html_tt . ( $this->DEBUG ? '<br />Parsed Full' : '' );
 		}
