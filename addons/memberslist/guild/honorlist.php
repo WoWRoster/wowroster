@@ -36,7 +36,7 @@ $mainQuery =
 
 	'`alts`.`main_id`, '.
 
-	'`players`.`server`, '.
+	'`players`.`server_id`, '.
 	'`players`.`race`, '.
 	'`players`.`sex`, '.
 	'`players`.`exp`, '.

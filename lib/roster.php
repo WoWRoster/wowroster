@@ -180,6 +180,8 @@ class roster
 	 */
 	function get_scope_data()
 	{
+		global $roster;
+
 		// --[ Fetch the right data for the scope ]--
 		switch( $this->pages[0] )
 		{
@@ -203,12 +205,16 @@ class roster
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm,2);
-						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '" AND `players`.`region` = "' . strtoupper($region) . '"';
+						$querystr = "SELECT `server_id` FROM `" . $roster->db->table('realms') . "` WHERE `server_name` = '$realm' AND `server_region` = '" . $roster->db->escape($region) . "';";
 					}
 					else
 					{
-						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '"';
+						$querystr = "SELECT `server_id` FROM `" . $roster->db->table('realms') . "` WHERE `server_name` = '$realm';";
 					}
+
+					$server_id = $roster->db->query_first($querystr);
+
+					$where = ' `players`.`name` = "' . $name . '" AND `players`.`server_id` = "' . $server_id . '"';
 				}
 				else
 				{
@@ -222,6 +228,7 @@ class roster
 					   . 'FROM `' . $this->db->table('players') . '` players '
 					   . 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
 					   . 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
+					   . 'LEFT JOIN `'.$this->db->table('realms').'` realm ON `players`.`server_id` = `realm`.`server_id` '
 					   . 'WHERE ' . $where;
 
 				$result = $this->db->query($query);
@@ -258,7 +265,10 @@ class roster
 					$name = $this->db->escape( $data['name'] );
 					$realm = $this->db->escape( $data['server'] );
 					$region = $this->db->escape( $data['region'] );
-					$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . $region . '"';
+					$querystr = "SELECT `server_id` FROM `" . $roster->db->table('realms') . "` WHERE `server_name` = '$realm' AND `server_region` = '" . $roster->db->escape($region) . "';";
+					$server_id = $roster->db->query_first($querystr);
+
+					$where = ' `guild`.`guild_name` = "' . $name . '" AND `guild`.`server_id` = "' . $server_id . '"';
 				}
 				// Parse the attribute
 				elseif( is_numeric($_GET['guild']) )
@@ -271,12 +281,16 @@ class roster
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm,2);
-						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
+						$querystr = "SELECT `server_id` FROM `" . $roster->db->table('realms') . "` WHERE `server_name` = '$realm' AND `server_region` = '" . $roster->db->escape($region) . "';";
 					}
 					else
 					{
-						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '"';
+						$querystr = "SELECT `server_id` FROM `" . $roster->db->table('realms') . "` WHERE `server_name` = '$realm';";
 					}
+
+					$server_id = $roster->db->query_first($querystr);
+
+					$where = ' `guild_name` = "' . $name . '" AND `server_id` = "' . $server_id . '"';
 				}
 				else
 				{
@@ -285,9 +299,10 @@ class roster
 				}
 
 				// Get the data
-				$query = "SELECT * ".
-					"FROM `" . $this->db->table('guild') . "` ".
-					"WHERE " . $where . ";";
+				$query = "SELECT *"
+					   . " FROM `" . $this->db->table('guild') . "` AS guild"
+					   . " LEFT JOIN `" . $this->db->table('realms') . "` AS realm ON `guild`.`server_id` = `realm`.`server_id`"
+					   . " WHERE " . $where . ";";
 
 				$result = $this->db->query($query);
 
@@ -327,12 +342,12 @@ class roster
 
 					$realm = $this->db->escape( $data['server'] );
 					$region = $this->db->escape( $data['region'] );
-					$where = ' `server` = "' . $realm . '" AND `region` = "' . $region . '"';
+					$where = ' `server_name` = "' . $realm . '" AND `server_region` = "' . $region . '"';
 				}
 				elseif( strpos($_GET['realm'],'-') !== false )
 				{
 					list($region, $realm) = explode('-',$_GET['realm'],2);
-					$where = ' `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
+					$where = ' `server_name` = "' . $realm . '" AND `server_region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
@@ -342,9 +357,8 @@ class roster
 				}
 
 				// Get the selected data
-				$query = "SELECT DISTINCT `server`, `region`"
-					   . " FROM `" . $this->db->table('guild') . "`"
-					   . " UNION SELECT DISTINCT `server`, `region` FROM `" . $this->db->table('players') . "`"
+				$query = "SELECT *"
+					   . " FROM `" . $this->db->table('realms') . "`"
 					   . " WHERE $where"
 					   . " LIMIT 1;";
 
@@ -359,8 +373,6 @@ class roster
 				{
 					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
-
-				$this->data = array('server' => stripslashes($realm),'region' => $region);
 
 				break;
 

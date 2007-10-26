@@ -36,7 +36,7 @@ $mainQuery =
 
 	'`alts`.`main_id`, '.
 
-	'`players`.`server`, '.
+	'`players`.`server_id`, '.
 	'`players`.`race`, '.
 	'`players`.`sex`, '.
 	'`players`.`exp`, '.
@@ -63,7 +63,7 @@ $mainQuery =
 		'FROM `'.$roster->db->table('talenttree').'` '.
 		'GROUP BY `member_id`) AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 
-	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
+	'WHERE `members`.`server_id` = "'.$roster->db->escape($roster->data['server_id']).'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';

@@ -27,7 +27,7 @@ $mainQuery =
 	'UNIX_TIMESTAMP(`members`.`update_time`) AS date_stamp '.
 	'FROM `'.$roster->db->table('memberlog').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
-	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
+	'WHERE `members`.`server_id` = "'.$roster->db->escape($roster->data['server_id']).'" '.
 	'ORDER BY ';
 
 $always_sort = ' `date_stamp` DESC';
