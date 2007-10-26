@@ -46,7 +46,7 @@ $mainQuery =
 	"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
 	'`members`.`guild_rank`, '.
 
-	'`players`.`server`, '.
+	'`players`.`server_id`, '.
 	'`players`.`race`, '.
 	'`players`.`sex`, '.
 	'`players`.`exp`, '.
@@ -77,7 +77,7 @@ $mainQuery =
 
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
-	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
+	'WHERE `members`.`server_id` = "'.$roster->db->escape($roster->data['server_id']).'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';

@@ -38,7 +38,7 @@ $mainQuery =
 
 	'`alts`.`main_id`, '.
 
-	'`players`.`server`, '.
+	'`players`.`server_id`, '.
 	'`players`.`race`, '.
 	'`players`.`sex`, '.
 	'`players`.`exp`, '.
@@ -58,7 +58,7 @@ $mainQuery =
 		'FROM `'.$roster->db->table('talenttree').'` '.
 		'GROUP BY `member_id`) AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 
-	'WHERE `members`.`server` = "'.$roster->data['server'].'" '.
+	'WHERE `members`.`server_id` = "'.$roster->data['server_id'].'" '.
 		'AND `skills`.`skill_name` = "'.$skill_name.'" '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 

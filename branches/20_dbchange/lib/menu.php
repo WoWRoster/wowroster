@@ -113,10 +113,9 @@ class RosterMenu
 		if( $roster->scope == 'realm' )
 		{
 	        // Get the scope select data
-	        $query = "SELECT DISTINCT `server`, `region`"
-	               . " FROM `" . $roster->db->table('guild') . "`"
-	               . " UNION SELECT DISTINCT `server`, `region` FROM `" . $roster->db->table('players') . "`"
-	               . " ORDER BY `server` ASC;";
+	        $query = "SELECT `server_name`, `server_region`"
+	               . " FROM `" . $roster->db->table('realms') . "`"
+	               . " ORDER BY `server_name` ASC;";
 
 	        $result = $roster->db->query($query);
 
@@ -150,7 +149,7 @@ class RosterMenu
 						$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
 							'TEXT'       => $name,
 							'U_VALUE'    => makelink("&amp;realm=$region-$name"),
-							'S_SELECTED' => ( $name == $roster->data['server'] ? true : false )
+							'S_SELECTED' => ( $name == $roster->data['server_name'] ? true : false )
 							)
 						);
 					}
@@ -160,8 +159,11 @@ class RosterMenu
 		elseif( $roster->scope == 'guild' )
 		{
 			// Get the scope select data
-			$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
-				   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+			$query = "SELECT `guild`.`guild_name`, CONCAT(`realm`.`server_region`,'-',`realm`.`server_name`), `guild`.`guild_id`"
+				   . " FROM `" . $roster->db->table('guild') . "` AS guild"
+				   . " LEFT JOIN `".$roster->db->table('realms')."` AS realm"
+				   . " ON `guild`.`server_id` = `realm`.`server_id` "
+				   . " ORDER BY `realm`.`server_region` ASC, `realm`.`server_name` ASC, `guild`.`guild_name` ASC;";
 
 			$result = $roster->db->query($query);
 
@@ -261,7 +263,7 @@ class RosterMenu
 				$roster->tpl->assign_vars(array(
 					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
 					'S_MENU_3RDTITLE'   => false,
-					'ROSTER_MENU_TITLE' => $roster->data['region'] . '-' . $roster->data['server'],
+					'ROSTER_MENU_TITLE' => $roster->data['server_region'] . '-' . $roster->data['server_name'],
 					'ROSTER_MENU_SUBTITLE' => '',
 					)
 				);
@@ -272,7 +274,7 @@ class RosterMenu
 					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
 					'S_MENU_3RDTITLE'   => isset($roster->data['update_time']) ? true : false,
 					'ROSTER_MENU_TITLE' => $roster->data['guild_name'],
-					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
+					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['server_region'] . '-' . $roster->data['server_name'],
 					'ROSTER_MENU_3RDTITLE' => ( isset($roster->data['update_time']) ? readbleDate($roster->data['update_time'])
 							. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '' ),
 
@@ -286,7 +288,7 @@ class RosterMenu
 					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
 					'S_MENU_3RDTITLE'   => isset($roster->data['update_time']) ? true : false,
 					'ROSTER_MENU_TITLE' => $roster->data['name'],
-					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
+					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['server_region'] . '-' . $roster->data['server_name'],
 					'ROSTER_MENU_3RDTITLE' => $roster->data['update_format'],
 
 					'L_LAST_UPDATE' => $roster->locale->act['lastupdate'],
@@ -519,9 +521,9 @@ class RosterMenu
 
 		$realmStatus = '    <td valign="top" class="row">' . "\n";
 
-		if( isset($roster->data['server']) )
+		if( isset($roster->data['server_name']) )
 		{
-			$realmname = $roster->data['region'] . '-' . utf8_decode($roster->data['server']);
+			$realmname = $roster->data['server_region'] . '-' . utf8_decode($roster->data['server_name']);
 		}
 		else
 		{
