@@ -185,13 +185,13 @@ class update
 
 			if( $roster_login->getAuthorized() >= $roster->config['gp_user_level'] )
 			{
-				$output .= $this->processGuildRoster();
+				$output .= $this->process_guild_roster();
 				$output .= "<br />\n";
 			}
 
 			if( $roster_login->getAuthorized() >= $roster->config['cp_user_level'] )
 			{
-				$output .= $this->processMyProfile();
+				$output .= $this->process_my_profile();
 				$output .= "<br />\n";
 			}
 		}
@@ -280,7 +280,7 @@ class update
 	/**
 	 * Process character data
 	 */
-	function processMyProfile()
+	function process_my_profile()
 	{
 		global $roster;
 
@@ -322,12 +322,15 @@ class update
 
 						$realm_escape = $roster->db->escape($realm_name);
 
-						// Is this char already in the members table?
+						$server_id = $this->get_realm_info($realm_name, $region);
+						$server_id = $server_id['server_id'];
+
+						// Is this char already in the members table and still active?
 						$query = "SELECT `guild_id`, `member_id`"
 							   . " FROM `" . $roster->db->table('members') . "`"
 							   . " WHERE `name` = '" . $char_name . "'"
-							   . " AND `server` = '" . $realm_escape . "'"
-							   . " AND `region` = '" . $region . "';";
+							   . " AND `active` = '1'"
+							   . " AND `server_id` = '" . $server_id . "';";
 
 
 						if( !$roster->db->query_first($query) )
@@ -359,18 +362,13 @@ class update
 							}
 							else
 							{
-								// Fabricate a guild update
-								$guilddata['Faction'] = $char['FactionEn'];
-								$guilddata['FactionEn'] = $char['FactionEn'];
-								$guilddata['Info'] = '';
-								$guildId = $this->update_guild($realm_name,'GuildLess-' . substr($char['FactionEn'],0,1),strtotime($timestamp),$guilddata,$region);
-								unset($guilddata);
+								$server_id = $this->update_realm($realm_name, $region);
 
 								// Copy the array so we can set Online to 1 until I can find a better way to set last online time
 								// We could probably get away with just setting 'Online' in the $char array, but I dont wanna risk tainting the data
 								$chartemp = $char;
 								$chartemp['Online'] = '1';
-								$this->update_guild_member($guildId,$char_name,$realm_name,$region,$chartemp,strtotime($timestamp),array());
+								$this->update_member(0,$char_name,$server_id,$chartemp,strtotime($timestamp),array());
 								unset($chartemp);
 								array_pop($this->messages);
 							}
@@ -382,8 +380,7 @@ class update
 
 						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players')
 							  . "` WHERE	'" . $char_name . "' LIKE `name` "
-							  . " AND '" . $realm_escape . "' LIKE `server` "
-							  . " AND '" . $region . "' LIKE `region`;");
+							  . " AND '" . $server_id . "' = `server_id`;");
 
 						// Check if the profile is old
 						if( $time != '' && ( strtotime($time) - strtotime($timestamp) ) > 0 )
@@ -394,7 +391,7 @@ class update
 
 						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['char'],$char_name,$realm_name,$region) . "</strong>\n";
 
-						$memberid = $this->update_char( $guildId, $region, $realm_name, $char_name, $char );
+						$memberid = $this->update_char( $guildId, $server_id, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
 						$this->resetMessages();
 
@@ -429,7 +426,7 @@ class update
 	/**
 	 * Process guild data
 	 */
-	function processGuildRoster()
+	function process_guild_roster()
 	{
 		global $roster;
 
@@ -489,6 +486,8 @@ class update
 								continue;
 							}
 
+							$server_id = $this->update_realm($realm_name, $region);
+
 							if( count($guild['Members']) > 0 )
 							{
 								// take the current time and get the offset. Upload must occur same day that roster was obtained
@@ -496,8 +495,7 @@ class update
 
 								$time = $roster->db->query_first("SELECT `update_time` FROM `" . $roster->db->table('guild')
 									  . "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
-									  . " AND '" . $realm_escape . "' LIKE `server` "
-									  . " AND '" . $region . "' LIKE `region`;");
+									  . " AND `server_id` = '" . $server_id . "';");
 
 								// Check if the profile is old
 								if( $time != '' && ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
@@ -507,7 +505,7 @@ class update
 								}
 
 								// Update the guild
-								$guildId = $this->update_guild($realm_name, $guild_name, $currentTimestamp, $guild, $region);
+								$guildId = $this->update_guild($server_id, $guild_name, $currentTimestamp, $guild);
 								$guildMembers = $guild['Members'];
 
 								$guild_output = '';
@@ -524,7 +522,7 @@ class update
 								foreach(array_keys($guildMembers) as $char_name)
 								{
 									$char = $guildMembers[$char_name];
-									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $region, $char, $currentTimestamp, $guild);
+									$memberid = $this->update_member($guildId, $char_name, $server_id, $char, $currentTimestamp, $guild);
 									$guild_output .= $this->getMessages();
 									$this->resetMessages();
 
@@ -1029,8 +1027,7 @@ class update
 		$this->reset_values();
 		$this->add_ifvalue( $data, 'member_id' );
 		$this->add_ifvalue( $data, 'name' );
-		$this->add_ifvalue( $data, 'server' );
-		$this->add_ifvalue( $data, 'region' );
+		$this->add_ifvalue( $data, 'server_id' );
 		$this->add_ifvalue( $data, 'guild_id' );
 		$this->add_ifvalue( $data, 'class' );
 		$this->add_ifvalue( $data, 'level' );
@@ -2220,7 +2217,7 @@ class update
 	 *
 	 * @param string $inClause
 	 */
-	function deleteMembers( $inClause )
+	function delete_member_data( $inClause )
 	{
 		global $roster;
 
@@ -2343,7 +2340,7 @@ class update
 	{
 		global $roster;
 
-		$querystr = "SELECT `member_id`, `name` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0';";
+		$querystr = "SELECT * FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id' AND `active` = '0';";
 
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -2356,18 +2353,18 @@ class update
 
 		if( $num > 0 )
 		{
-			$inClause = '';
+			$inClause = array();
 			while( $row = $roster->db->fetch($result) )
 			{
 				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Removed</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
 
-				$inClause .= ',' . $row[0];
+				$inClause[] = $row[0];
 			}
-			$inClause = substr($inClause,1);
+			$inClause = "'" . implode("','", $inClause) . "'";
 
 			// now that we have our inclause, set them guildless
-			$this->setMessage('<li><span class="red">Setting ' . $num . ' member' . ($num > 1 ? 's' : '') . ' to guildless</span></li>');
+			$this->setMessage('<li><span class="red">Removing ' . $num . ' member' . ($num > 1 ? 's' : '') . ' from guild</span></li>');
 
 			$roster->db->free_result($result);
 
@@ -2399,28 +2396,62 @@ class update
 	 * Gets guild info from database
 	 * Returns info as an array
 	 *
-	 * @param string $realmName
 	 * @param string $guildName
+	 * @param string $server_id
 	 * @return array
 	 */
-	function get_guild_info( $realmName , $guildName , $region='' )
+	function get_guild_info( $guildName , $server_id='' )
 	{
 		global $roster;
 
 		$guild_name_escape = $roster->db->escape($guildName);
-		$server_escape = $roster->db->escape($realmName);
 
-		if( !empty($region) )
+		if( $server_id != '' )
 		{
-			$region = " AND `region` = '" . $roster->db->escape($region) . "'";
+			$server_id = " AND `server_id` = '" . $server_id . "'";
 		}
 
-		$querystr = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_name` = '$guild_name_escape' AND `server` = '$server_escape'$region;";
+		$querystr = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_name` = '$guild_name_escape'$server_id;";
 		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 
 		if( $roster->db->num_rows() > 0 )
 		{
 			$retval = $roster->db->fetch( $result );
+			$roster->db->free_result($result);
+
+			return $retval;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Gets realm info from database
+	 * Returns info as an array
+	 *
+	 * @param string $realm
+	 * @param string $region
+	 * @return array
+	 */
+	function get_realm_info( $realm , $region='' )
+	{
+		global $roster;
+
+		$realm_escape = $roster->db->escape($realm);
+
+		if( !empty($region) )
+		{
+			$region = " AND `server_region` = '" . $roster->db->escape($region) . "'";
+		}
+
+		$querystr = "SELECT * FROM `" . $roster->db->table('realms') . "` WHERE `server_name` = '$realm_escape'$region;";
+		$result = $roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
+
+		if( $roster->db->num_rows() > 0 )
+		{
+			$retval = $roster->db->fetch($result);
 			$roster->db->free_result($result);
 
 			return $retval;
@@ -2467,24 +2498,23 @@ class update
 	 * Updates or creates an entry in the guild table in the database
 	 * Then returns the guild ID
 	 *
-	 * @param string $realmName
+	 * @param string $server_id
 	 * @param string $guildName
 	 * @param array $currentTime
 	 * @param array $guild
-	 * @return string
+	 * @return int
 	 */
-	function update_guild( $realmName , $guildName , $currentTime , $guild , $region )
+	function update_guild( $server_id , $guildName , $currentTime , $guild )
 	{
 		global $roster;
 
-		$guildInfo = $this->get_guild_info($realmName,$guildName,$region);
+		$guildInfo = $this->get_guild_info($guildName,$server_id);
 
 		$this->reset_values();
 
 		$this->add_value( 'guild_name', $guildName );
 
-		$this->add_value( 'server', $realmName );
-		$this->add_value( 'region', $region );
+		$this->add_value( 'server_id', $server_id );
 		$this->add_ifvalue( $guild, 'Faction', 'faction' );
 		$this->add_ifvalue( $guild, 'FactionEn', 'factionEn' );
 		$this->add_ifvalue( $guild, 'Motd', 'guild_motd' );
@@ -2516,13 +2546,50 @@ class update
 			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET `active` = '0' WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
 			$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 		}
-
-		if( !is_array($guildInfo) )
+		else
 		{
-			$guildInfo = $this->get_guild_info($realmName,$guildName);
-			$output = $guildInfo['guild_id'];
+			$output = $roster->db->insert_id();
 		}
 
+		return $output;
+	}
+
+
+	/**
+	 * Updates or creates an entry in the realms table in the database
+	 * Then returns the realm ID
+	 *
+	 * @param string $realm
+	 * @param string $region
+	 * @return int
+	 */
+	function update_realm( $realm , $region )
+	{
+		global $roster;
+
+		$realmInfo = $this->get_realm_info($realm,$region);
+
+		$this->reset_values();
+
+		$this->add_value( 'server_name', $realm );
+		$this->add_value( 'server_region', $region );
+
+		if( is_array($realmInfo) )
+		{
+			$querystr = "UPDATE `" . $roster->db->table('realms') . "` SET " . $this->assignstr . " WHERE `server_id` = '" . $realmInfo['server_id'] . "';";
+			$output = $realmInfo['server_id'];
+		}
+		else
+		{
+			$querystr = "INSERT INTO `" . $roster->db->table('realms') . "` SET " . $this->assignstr . ";";
+		}
+
+		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
+
+		if( !is_array($realmInfo) )
+		{
+			$output = $roster->db->insert_id();
+		}
 		return $output;
 	}
 
@@ -2532,23 +2599,22 @@ class update
 	 *
 	 * @param int $guildId	| Character's guild id
 	 * @param string $name	| Character's name
+	 * @param int $server_id| Character's Server id
 	 * @param array $char	| LUA data
 	 * @param array $currentTimestamp
 	 * @return mixed		| False on error, memberid on success
 	 */
-	function update_guild_member( $guildId, $name, $server, $region, $char, $currentTimestamp, $guilddata )
+	function update_member( $guildId, $name, $server_id, $char, $currentTimestamp, $guilddata )
 	{
 		global $roster;
 
 		$name_escape = $roster->db->escape( $name );
-		$server_escape = $roster->db->escape( $server );
-		$region_escape = $roster->db->escape( $region );
 
 		$querystr = "SELECT `member_id` "
 			. "FROM `" . $roster->db->table('members') . "` "
 			. "WHERE `name` = '$name_escape' "
-			. "AND `server` = '$server_escape' "
-			. "AND `region` = '$region_escape';";
+			. "AND `server_id` = '$server_id';";
+
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -2567,8 +2633,7 @@ class update
 		$this->reset_values();
 
 		$this->add_value('name', $name);
-		$this->add_value('server', $server);
-		$this->add_value('region', $region);
+		$this->add_value('server_id', $server_id);
 		$this->add_value('guild_id', $guildId);
 		$this->add_ifvalue( $char, 'Class', 'class' );
 		$this->add_ifvalue( $char, 'Level', 'level' );
@@ -2846,24 +2911,21 @@ class update
 	 * Handles formatting an insertion of Character Data
 	 *
 	 * @param int $guildId
-	 * @param string $region
+	 * @param string $server_id
 	 * @param string $name
 	 * @param array $data
 	 * @return mixed False on failure | member_id on success
 	 */
-	function update_char( $guildId , $region , $server , $name , $data )
+	function update_char( $guildId , $server_id , $name , $data )
 	{
 		global $roster;
 
 		$name_escape = $roster->db->escape( $name );
-		$server_escape = $roster->db->escape( $server );
-		$region_escape = $roster->db->escape( $region );
 
 		$querystr = "SELECT `member_id` "
 			. "FROM `" . $roster->db->table('members') . "` "
 			. "WHERE `name` = '$name_escape' "
-			. "AND `server` = '$server_escape' "
-			. "AND `region` = '$region_escape';";
+			. "AND `server_id` = '$server_id';";
 
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -2909,8 +2971,7 @@ class update
 
 		$this->add_value( 'name', $name );
 		$this->add_value( 'guild_id', $guildId );
-		$this->add_value( 'server', $server );
-		$this->add_value( 'region', $region );
+		$this->add_value( 'server_id', $server_id );
 
 		$this->add_ifvalue( $data, 'Level', 'level' );
 
@@ -3158,6 +3219,8 @@ class update
 		$this->add_ifvalue( $data, 'Class', 'class' );
 		$this->add_ifvalue( $data, 'ClassId', 'classid' );
 		$this->add_ifvalue( $data, 'ClassEn', 'classEn' );
+		$this->add_ifvalue( $data, 'Faction', 'faction' );
+		$this->add_ifvalue( $data, 'FactionEn', 'factionEn' );
 		$this->add_ifvalue( $data, 'Health', 'health' );
 		$this->add_ifvalue( $data, 'Mana', 'mana' );
 		$this->add_ifvalue( $data, 'Power', 'power' );

@@ -44,7 +44,7 @@ $mainQuery =
 	"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
 	'`members`.`guild_rank`, '.
 
-	'`players`.`server`, '.
+	'`players`.`server_id`, '.
 	'`players`.`race`, '.
 	'`players`.`sex`, '.
 	'`players`.`exp`, '.

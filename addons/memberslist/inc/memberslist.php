@@ -620,7 +620,7 @@ class memberslist
 			$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
 
 
-			if( active_addon('info') && $row['server'] )
+			if( active_addon('info') && $row['server_id'] != '' )
 			{
 				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-info&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
@@ -631,7 +631,7 @@ class memberslist
 		}
 		else
 		{
-			if ( active_addon('info') && $row['server'] )
+			if ( active_addon('info') && $row['server_id'] != '' )
 			{
 				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-info&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}

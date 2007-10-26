@@ -85,7 +85,7 @@ class roster_db
 	 * @param $prefix Database prefix
 	 * @return mixed Link ID / false
 	 */
-	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix)
+	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix )
 	{
 		$this->prefix = $prefix;
 		$this->dbname = $dbname;

@@ -27,7 +27,7 @@ CREATE TABLE `renprefix_addon` (
   `description` mediumtext NOT NULL,
   `credits` mediumtext NOT NULL,
   `icon` varchar(64) NOT NULL default '',
-  `wrnet_id` int(4) NOT NULL default '',
+  `wrnet_id` int(4) NOT NULL default '0',
   PRIMARY KEY  (`addon_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -96,9 +96,8 @@ CREATE TABLE `renprefix_gems` (
 DROP TABLE IF EXISTS `renprefix_guild`;
 CREATE TABLE `renprefix_guild` (
   `guild_id` int(11) unsigned NOT NULL auto_increment,
+  `server_id` int(11) NOT NULL default '0',
   `guild_name` varchar(64) NOT NULL default '',
-  `server` varchar(32) NOT NULL default '',
-  `region` char(2) NOT NULL default '',
   `faction` varchar(32) NOT NULL default '',
   `factionEn` varchar(32) NOT NULL default '',
   `guild_motd` varchar(255) NOT NULL default '',
@@ -109,7 +108,7 @@ CREATE TABLE `renprefix_guild` (
   `DBversion` varchar(6) NOT NULL default '0.0.0',
   `guild_info_text` mediumtext,
   PRIMARY KEY  (`guild_id`),
-  KEY `guild` (`guild_name`,`server`)
+  KEY `guild` (`guild_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -161,10 +160,9 @@ CREATE TABLE `renprefix_mailbox` (
 DROP TABLE IF EXISTS `renprefix_memberlog`;
 CREATE TABLE `renprefix_memberlog` (
   `log_id` int(11) unsigned NOT NULL auto_increment,
-  `member_id` int(11) unsigned NOT NULL,
+  `member_id` int(11) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL default '',
-  `server` varchar(32) NOT NULL default '',
-  `region` char(2) NOT NULL default '',
+  `server_id` int(11) NOT NULL default '0',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
@@ -184,8 +182,7 @@ DROP TABLE IF EXISTS `renprefix_members`;
 CREATE TABLE `renprefix_members` (
   `member_id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(64) NOT NULL default '',
-  `server` varchar(32) NOT NULL default '',
-  `region` char(2) NOT NULL default '',
+  `server_id` int(11) NOT NULL default '0',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `class` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
@@ -202,7 +199,7 @@ CREATE TABLE `renprefix_members` (
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),
   KEY `name` (`name`),
-  KEY `char` (`region`,`server`,`name`),
+  KEY `char` (`server_id`,`name`),
   KEY `class` (`class`),
   KEY `level` (`level`),
   KEY `guild_rank` (`guild_rank`),
@@ -368,7 +365,10 @@ DROP TABLE IF EXISTS `renprefix_players`;
 CREATE TABLE `renprefix_players` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL default '',
+  `server_id` int(11) unsigned NOT NULL default '0',
   `guild_id` int(11) unsigned NOT NULL default '0',
+  `faction` varchar(32) NOT NULL default '',
+  `factionEn` varchar(32) NOT NULL default '',
   `dateupdatedutc` datetime default NULL,
   `CPversion` varchar(6) NOT NULL default '0.0.0',
   `DBversion` varchar(6) NOT NULL default '0.0.0',
@@ -379,8 +379,6 @@ CREATE TABLE `renprefix_players` (
   `sexid` tinyint(1) NOT NULL default '0',
   `hearth` varchar(32) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
-  `server` varchar(32) NOT NULL default '',
-  `region` char(2) NOT NULL default '',
   `talent_points` int(11) NOT NULL default '0',
   `money_c` int(11) NOT NULL default '0',
   `money_s` int(11) NOT NULL default '0',
@@ -580,8 +578,7 @@ CREATE TABLE `renprefix_players` (
   `timeplayed` int(11) NOT NULL default '0',
   `timelevelplayed` int(11) NOT NULL default '0',
   PRIMARY KEY  (`member_id`),
-  KEY `name` (`name`,`server`),
-  KEY `char` (`region`,`server`,`name`)
+  KEY `char` (`server_id`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -600,6 +597,18 @@ CREATE TABLE `renprefix_quests` (
   KEY `quest_index` (`quest_index`,`quest_level`,`quest_tag`),
   FULLTEXT KEY `quest_name` (`quest_name`),
   FULLTEXT KEY `zone` (`zone`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
+### Realm
+
+DROP TABLE IF EXISTS `renprefix_realms`;
+CREATE TABLE `renprefix_realms` (
+  `server_id` int(11) NOT NULL auto_increment,
+  `server_name` varchar(20) NOT NULL default '',
+  `server_region` varchar(2) NOT NULL default '',
+  PRIMARY KEY  (`server_id`),
+  UNIQUE KEY `realm` (`server_name`,`server_region`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------

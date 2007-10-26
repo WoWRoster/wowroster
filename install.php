@@ -523,7 +523,7 @@ function process_step3()
 	 * Database population
 	 */
 	include_once($dbal_file);
-	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], false);
+	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
 
 	// Check to make sure a connection was made
 	if ( !is_resource($db->link_id) )
@@ -542,7 +542,7 @@ function process_step3()
 
 	if ( (isset($server_version) && isset($client_version)) )
 	{
-		$tpl->message_append('MySQL client <strong>and</strong> server version 4.1.0 or higher is required for Roster.<br /><br />
+		$tpl->message_append('MySQL server version 4.1.0 or higher is required for Roster.<br /><br />
 			<strong>You are running:</strong>
 			<ul>
 				<li><strong>Your server version: ' . $server_version . '</strong></li>
@@ -553,7 +553,7 @@ function process_step3()
 
 		if( version_compare($server_version,'4.1','<') )
 		{
-			$tpl->message_die('MySQL client <strong>and</strong> server version 4.1.0 or higher is required for Roster.<br /><br />
+			$tpl->message_die('MySQL server version 4.1.0 or higher is required for Roster.<br /><br />
 				<strong>You are running:</strong>
 				<ul>
 					<li><strong>Your server version: ' . $server_version . '</strong></li>
@@ -588,7 +588,6 @@ function process_step3()
 					Error: ' . $db->error() . '<br />
 					<a href="index.php">Restart Installation</a>');
 			}
-
 		}
 		$i++;
 	}
@@ -696,7 +695,7 @@ function process_step4()
 			break;
 	}
 
-	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], false);
+	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
 
 	if ( !is_resource($db->link_id) )
 	{
