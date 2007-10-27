@@ -107,7 +107,7 @@ if( $type == 'guildwins' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`guild`"
@@ -150,7 +150,7 @@ elseif( $type == 'guildlosses' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`guild`"
@@ -201,7 +201,7 @@ elseif( $type == 'enemywins' )
 	));
 
 	$query = "SELECT `pvp`.`name`, `pvp`.`guild`, `pvp`.`race`, `pvp`.`class`, `pvp`.`leveldiff`, COUNT(`pvp`.`name`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`name`"
@@ -263,7 +263,7 @@ elseif( $type == 'enemylosses' )
 	));
 
 	$query = "SELECT `pvp`.`name`, `pvp`.`guild`, `pvp`.`race`, `pvp`.`class`, `pvp`.`leveldiff`, COUNT(`pvp`.`name`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`name`"
@@ -318,7 +318,7 @@ elseif( $type == 'purgewins' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id`"
@@ -349,7 +349,7 @@ elseif( $type == 'purgelosses' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id`"
@@ -380,7 +380,7 @@ elseif( $type == 'purgeavewins' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id`"
@@ -419,7 +419,7 @@ elseif( $type == 'purgeavelosses' )
 	print $tableHeader;
 
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id`"
@@ -459,7 +459,7 @@ elseif( $type == 'pvpratio' )
 	print $tableHeader;
 
 	$query = "SELECT `members`.`name`, `members`.`member_id`, IF(`pvp`.`win` = '1', 1, 0) AS win, SUM(`pvp`.`win`) AS wtotal, COUNT(`pvp`.`win`) AS btotal"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`leveldiff` < 8 AND `pvp`.`leveldiff` > -8 AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `members`.`name`"
@@ -506,7 +506,7 @@ elseif( $type == 'playerinfo' )
 
 	$first = true;
 	$query = "SELECT `pvp`.*, `members`.`name` AS gn"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `pvp`.`name` = '" . $roster->db->escape($player) . "'";
 
@@ -642,7 +642,7 @@ elseif( $type == 'guildinfo' )
 
 
 	$query = "SELECT `pvp`.*, `members`.`name` AS gn"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `pvp`.`guild` = '" . $roster->db->escape($guild) . "'";
 

@@ -246,8 +246,8 @@ $lang['item_bonuses_remap']=
 $lang['item_bonuses_tabs'] = array(
 		//key				//translate this
 		'Totals' 			=> 'Totals',
-		'Enchantment' 		=> 'Enchantments',
-		'BaseStats' 		=> 'Base Stats',
+		'Enchantment' 		=> 'Enchants',
+		'BaseStats' 		=> 'Base',
 		'Gems' 				=> 'Gems',
 		'Effects' 			=> 'Passive',
 		'Set' 				=> 'Sets',

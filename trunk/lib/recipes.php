@@ -46,12 +46,12 @@ class recipe
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
+		foreach( $roster->locale->wordings[$lang]['data_links'] as $key => $ilink )
 		{
 			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
+		setTooltip('itemlink',$roster->locale->wordings[$lang]['data_search']);
 
 		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 

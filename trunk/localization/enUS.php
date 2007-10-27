@@ -550,10 +550,10 @@ $lang['itemlinks']['WoW Digger'] = 'http://www.wowdigger.com/item/view/';
 // Just make sure their names are unique
 // use these locales for data searches
 $lang['data_search'] = 'WoW Data Site Search';
+$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
 $lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
-$lang['data_links']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
-$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
+$lang['data_links']['WoW Digger'] = 'http://wowdigger.com/?c=search&amp;keywords=';
 
 // Google Search
 // Add as many item links as you need

@@ -67,24 +67,7 @@ class info
 		$installer->add_config("'1110', 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 		$installer->add_config("'1120', 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 		$installer->add_config("'1130', 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-/*
-		$installer->create_table($installer->table('display'),"
-		  `member_id` int(11) unsigned NOT NULL default '0',
-		  `show_money` tinyint(1) NOT NULL default '3',
-		  `show_tab2` tinyint(1) NOT NULL default '3',
-		  `show_tab3` tinyint(1) NOT NULL default '3',
-		  `show_tab4` tinyint(1) NOT NULL default '3',
-		  `show_tab5` tinyint(1) NOT NULL default '3',
-		  `show_talents` tinyint(1) NOT NULL default '3',
-		  `show_spellbook` tinyint(1) NOT NULL default '3',
-		  `show_mail` tinyint(1) NOT NULL default '3',
-		  `show_bags` tinyint(1) NOT NULL default '3',
-		  `show_bank` tinyint(1) NOT NULL default '3',
-		  `show_quests` tinyint(1) NOT NULL default '3',
-		  `show_recipes` tinyint(1) NOT NULL default '3',
-		  `show_item_bonuses` tinyint(1) NOT NULL default '3';
-		  KEY  (`member_id`)");
-*/
+
 		$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
 		  ADD `show_money` TINYINT(1) NOT NULL default '3',
 		  ADD `show_tab2` TINYINT(1) NOT NULL default '3',
@@ -135,8 +118,6 @@ class info
 
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
-
-		//$installer->drop_table($installer->table('display'));
 
 		$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
 		  DROP `show_money`,

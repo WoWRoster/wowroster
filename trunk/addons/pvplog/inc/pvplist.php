@@ -37,7 +37,7 @@ function generatePvpList( )
 
 	// Guild that suffered most at our hands
 	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`guild` != '' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`guild` ORDER BY countg DESC";
@@ -72,7 +72,7 @@ function generatePvpList( )
 
 	// Guild that killed us the most
 	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`guild` != '' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`guild` ORDER BY countg DESC";
@@ -107,7 +107,7 @@ function generatePvpList( )
 
 	// Player who we killed the most
 	$query = "SELECT `pvp`.`name`, COUNT(`pvp`.`name`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`guild` != '' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`name` ORDER BY countg DESC";
@@ -134,7 +134,7 @@ function generatePvpList( )
 
 	// Player who killed us the most
 	$query = "SELECT `pvp`.`name`, COUNT(`pvp`.`name`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`name` ORDER BY countg DESC";
@@ -161,7 +161,7 @@ function generatePvpList( )
 
 	// Member with the most kills
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id` ORDER BY countg DESC;";
@@ -189,7 +189,7 @@ function generatePvpList( )
 
 	// Member who has died the most
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id` ORDER BY countg DESC;";
@@ -218,7 +218,7 @@ function generatePvpList( )
 
 	// Member with best kill average
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '1' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id` ORDER BY ave DESC";
@@ -254,7 +254,7 @@ function generatePvpList( )
 
 	// Member with best loss average
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
-		   . " FROM `" . $roster->db->table('pvp2') . "` AS pvp"
+		   . " FROM `" . $roster->db->table('pvp2','pvplog') . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
 		   . " WHERE `members`.`guild_id` = '" . $roster->data['guild_id'] . "' AND `pvp`.`win` = '0' AND `pvp`.`enemy` = '1'"
 		   . " GROUP BY `pvp`.`member_id` ORDER BY ave DESC";
