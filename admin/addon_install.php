@@ -284,8 +284,6 @@ function getAddonList()
 					$output[$addon]['install'] = 3;
 				}
 
-				$localetemp = $roster->locale->wordings;
-
 				// Save current locale array
 				// Since we add all locales for localization, we save the current locale array
 				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
@@ -392,6 +390,17 @@ function processAddon()
 	$installer->addata = $addata;
 
 	$success = false;
+
+
+	// Save current locale array
+	// Since we add all locales for localization, we save the current locale array
+	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+	$localetemp = $roster->locale->wordings;
+
+	foreach( $roster->multilanguages as $lang )
+	{
+		$roster->locale->add_locale_file(ROSTER_ADDONS . $addata['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+	}
 
 	// Collect data for this install type
 	switch( $_POST['type'] )
@@ -503,6 +512,11 @@ function processAddon()
 		$success = $installer->install();
 		$installer->setmessages(sprintf($roster->locale->act['installer_' . $_POST['type'] . '_' . $success],$installer->addata['basename']));
 	}
+
+	// Restore our locale array
+	$roster->locale->wordings = $localetemp;
+	unset($localetemp);
+
 	return true;
 }
 

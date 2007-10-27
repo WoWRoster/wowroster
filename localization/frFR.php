@@ -849,7 +849,7 @@ $lang['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'ima
 $lang['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolue de l'image pour le fond principal<br />Ou en laissant &quot;img/&quot; devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";
 $lang['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
-$lang['admin']['processtime'] = "Temps de génération de la page|Affiche &quot;<i>This page was created in XXX seconds with XX queries executed</i>&quot; en bas de page du roster";
+$lang['admin']['processtime'] = "Temps de génération de la page|Displays renter time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
 $lang['admin']['profiler'] = "Lien de téléchargement du CharacterProfiler|URL de téléchargement de CharacterProfiler";
