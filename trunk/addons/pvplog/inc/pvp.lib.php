@@ -195,7 +195,7 @@ function show_pvp2( $type , $url , $sort , $start )
 
 function pvp_get_many3($member_id, $type, $sort, $start)
 {
-	global $roster;
+	global $roster, $addon;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".$roster->db->table('pvp2',$addon['basename'])."` WHERE `member_id` = '".$member_id."' AND ";
 
@@ -438,7 +438,7 @@ function calc_pwinloss($a, $b)
 
 function output_bglog($member_id)
 {
-	global $roster;
+	global $roster, $addon;
 
 	$bg_array = array(
 		'eye_of_the_storm'=>'spurple',
@@ -684,7 +684,7 @@ function output_bglog($member_id)
 
 function output_duellog($member_id)
 {
-	global $roster;
+	global $roster, $addon;
 
 	$data = array();
 
@@ -773,7 +773,7 @@ function output_duellog($member_id)
 
 function output_pvplog($member_id)
 {
-	global $roster;
+	global $roster, $addon;
 
 	$query= "SELECT *, DATE_FORMAT(date, '".$roster->locale->act['timeformat']."') AS date2 FROM `".$roster->db->table('pvp2',$addon['basename'])."` WHERE `member_id` = '".$member_id."' AND `enemy` = '1' AND `bg` = '0'";
 

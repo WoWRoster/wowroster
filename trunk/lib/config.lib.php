@@ -129,7 +129,7 @@ class config
 
 				$type[1] = ( isset($type[1]) ? $type[1] : '');
 
-				$header_text = explode('|',$roster->locale->act['admin'][$values['name']]);
+				$header_text = explode('|',$roster->locale->act['admin'][$values['name']],2);
 				$header_text = $header_text[0];
 
 				switch ($type[0])
@@ -222,7 +222,7 @@ class config
 		{
 			if( isset($roster->locale->act['admin'][$values['name']]) )
 			{
-				$header_text = explode('|',$roster->locale->act['admin'][$values['name']]);
+				$header_text = explode('|',$roster->locale->act['admin'][$values['name']],2);
 				$header_text = $header_text[0];
 			}
 			else
@@ -534,7 +534,7 @@ class config
 				// Get description and tooltip
 				if( isset($roster->locale->act['admin'][$row['config_name']]) )
 				{
-					$desc_tip = explode('|',$roster->locale->act['admin'][$row['config_name']]);
+					$desc_tip = explode('|',$roster->locale->act['admin'][$row['config_name']],2);
 					$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
 					$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
 				}
