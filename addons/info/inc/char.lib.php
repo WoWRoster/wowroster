@@ -2191,6 +2191,7 @@ $returnstring .= '  <tr>
 					 . $roster->db->table('players') . "` AS m "
 					 . " WHERE `a`.`member_id` = `m`.`member_id` "
 					 . " AND `a`.`main_id` = $main_id;";
+
 				$qry = $roster->db->query($sql);
 				$alts = $roster->db->fetch_all($qry, SQL_ASSOC);
 

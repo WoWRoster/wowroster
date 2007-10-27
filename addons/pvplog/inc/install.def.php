@@ -47,7 +47,7 @@ class pvplog
 	 */
 	function install()
 	{
-		global $roster, $installer;
+		global $installer;
 
 		# Master data for the config file
 		$installer->add_config("1,'startpage','pvpconfig','display','master'");
@@ -58,7 +58,7 @@ class pvplog
 		# Generic display settings
 		$installer->add_config("'1000','minPvPLogver','2.0.0','text{10|10','pvpconfig'");
 
-		$installer->create_table($roster->db->table('pvp2'),"
+		$installer->create_table($installer->table('pvp2'),"
 		  `member_id` int(11) unsigned NOT NULL default '0',
 		  `index` int(11) unsigned NOT NULL default '0',
 		  `date` datetime default NULL,
@@ -107,12 +107,12 @@ class pvplog
 	 */
 	function uninstall()
 	{
-		global $installer, $roster;
+		global $installer;
 
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 
-		$installer->drop_table($roster->db->table('pvp2'));
+		$installer->drop_table($installer->table('pvp2'));
 
 		$installer->remove_menu_button('pvplist');
 

@@ -38,12 +38,12 @@ if( $roster->output['http_header'] && !headers_sent() )
 
 if( isset($roster->data['guild_name']) )
 {
-	$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['server'] . ' ] '
+	$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server'] . ' ] '
 				  . (isset($roster->output['title']) ? $roster->output['title'] : '');
 }
 elseif( isset($roster->data['server']) )
 {
-	$roster_title = ' [ ' . $roster->data['server'] . ' ] '
+	$roster_title = ' [ ' . $roster->data['region'] . '-' . $roster->data['server'] . ' ] '
 				  . (isset($roster->output['title']) ? $roster->output['title'] : '');
 }
 elseif( !empty($roster->config['default_name']) )
