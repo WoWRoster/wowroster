@@ -173,6 +173,8 @@ $lang['rs'] = array(
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['guildless']='Guildless'; //Need to translate
+$lang['util']='Utilidades';
+$lang['char']='Personaje';
 $lang['upload']='Enviar';
 $lang['required']='Requerido';
 $lang['optional']='Opcional';
