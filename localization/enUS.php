@@ -173,8 +173,6 @@ $lang['rs'] = array(
 
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['guildless']='Guildless';
-$lang['util']='Utilities';
-$lang['char']='Character';
 $lang['upload']='Upload';
 $lang['required']='Required';
 $lang['optional']='Optional';
@@ -655,6 +653,10 @@ $lang['menu_upprofile']='Update Profile|Update your profile on this site';
 $lang['menu_search']='Search|Search items and recipes in the database';
 $lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
 $lang['menu_credits']='Credits|Who made WoW Roster';
+$lang['menupanel_util']  = 'Utilities';
+$lang['menupanel_realm'] = 'Realm';
+$lang['menupanel_guild'] = 'Guild';
+$lang['menupanel_char']  = 'Character';
 
 $lang['menuconf_sectionselect']='Select Panel';
 $lang['menuconf_changes_saved']='Changes to %1$s saved';

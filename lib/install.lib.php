@@ -160,7 +160,7 @@ class Install
 	 * @param string $icon
 	 * 		Icon for display
 	 */
-	function add_menu_button($title, $scope='util', $url='', $icon='', $section='')
+	function add_menu_button($title, $scope='util', $url='', $icon='')
 	{
 		global $roster;
 
@@ -169,20 +169,8 @@ class Install
 			$icon = $this->addata['icon'];
 		}
 
-		$invalid = array('util','realm','guild','char');
-
-		if( empty($section) )
-		{
-			$section = $scope;
-		}
-		elseif( in_array($section,$invalid) )
-		{
-			$section = $scope;
-			$this->seterrors('Section can only be set for custom panes. Section reset to scope name.');
-		}
-
 		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . "','" . $url . "','" . $icon . "');";
-		$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $section . "' LIMIT 1;";
+		$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $scope . "' LIMIT 1;";
 	}
 
 	/**
@@ -242,7 +230,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu') . "` VALUES (NULL, '" . $this->addata['basename'] . '_' . $roster->db->escape($name) . "', '');";
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu') . "` VALUES (NULL, '" . $roster->db->escape($name) . "', '');";
 	}
 
 	/**
@@ -255,7 +243,14 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "DELETE FROM `" . $roster->db->table('menu') . "` WHERE `section` = '" . $this->addata['basename'] . '_' . $roster->db->escape($name) . "' LIMIT 1;";
+		if( !in_array($name,array('util','realm','guild','char')) )
+		{
+			$this->sql[] = "DELETE FROM `" . $roster->db->table('menu') . "` WHERE `section` = '" . $roster->db->escape($name) . "' LIMIT 1;";
+		}
+		else
+		{
+			$this->seterrors('You cannot remove a Roster made menu section!');
+		}
 	}
 
 	/**

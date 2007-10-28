@@ -35,8 +35,7 @@ if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
  */
 class Upgrade
 {
-	var $ver_find = array('.','-');
-	var $versions = array('1.9.9-b1');
+	var $versions = array('1.9.9');
 	var $index = null;
 
 	function Upgrade()
@@ -52,7 +51,7 @@ class Upgrade
 			foreach( $this->versions as $index => $version )
 			{
 				$this->index = $index;
-				if( str_replace($this->ver_find, '', $version) == $version_from )
+				if( str_replace('.', '', $version) == $version_from )
 				{
 					$method = 'upgrade_' . $version_from;
 					$this->$method();
@@ -73,7 +72,7 @@ class Upgrade
 
 		if( isset($this->versions[$this->index]) )
 		{
-			$method = 'upgrade_' . str_replace($this->ver_find, '', $this->versions[$this->index]);
+			$method = 'upgrade_' . str_replace('.', '', $this->versions[$this->index]);
 			$this->$method();
 		}
 		else
@@ -86,7 +85,7 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
-	function upgrade_199b1()
+	function upgrade_199()
 	{
 		global $roster;
 
@@ -95,6 +94,12 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (6, 'versioncache', '', 'hidden', 'master');");
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '168', `form_type` = 'select{Do Not check^0|Once a Day^24|Once a Week^168|Once a Month^720' WHERE `id` = 1150 LIMIT 1;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `wrnet_id` int(4) NOT NULL DEFAULT '0';");
+		}
+
+		if( version_compare($roster->config['version'],'1.9.9.1417','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('menu') . "` CHANGE `section` `section` varchar(64) NULL DEFAULT NULL;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('menu') . "` ADD UNIQUE `section` ( `section` ) ");
 		}
 
 		$this->beta_upgrade();
@@ -118,7 +123,7 @@ class Upgrade
 	{
 		global $roster;
 
-		$ver = str_replace($this->ver_find,'',$this->versions[$this->index]);
+		$ver = str_replace('.','',$this->versions[$this->index]);
 
 		$db_structure_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'upgrade_' . $ver . '.sql';
 
@@ -155,7 +160,7 @@ class Upgrade
 			$selected = ( $version == $roster->config['version'] ) ? ' selected="selected"' : '';
 
 			$roster->tpl->assign_block_vars('version_row', array(
-				'VALUE'    => str_replace($this->ver_find, '', $version),
+				'VALUE'    => str_replace('.', '', $version),
 				'SELECTED' => $selected,
 				'OPTION'   => 'WoWRoster ' . $version
 				)
