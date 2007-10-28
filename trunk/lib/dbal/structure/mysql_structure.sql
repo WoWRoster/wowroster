@@ -215,9 +215,10 @@ CREATE TABLE `renprefix_members` (
 DROP TABLE IF EXISTS `renprefix_menu`;
 CREATE TABLE `renprefix_menu` (
   `config_id` int(11) NOT NULL auto_increment,
-  `section` varchar(16) default NULL,
+  `section` varchar(64) default NULL,
   `config` mediumtext,
-  PRIMARY KEY  (`config_id`)
+  PRIMARY KEY  (`config_id`),
+  UNIQUE KEY `section` (`section`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------

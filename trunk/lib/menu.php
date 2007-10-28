@@ -587,14 +587,23 @@ class RosterMenu
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
 		$localetemp = $roster->locale->wordings;
 
+		// Add all addon locale files
+		foreach( $roster->addon_data as $data )
+		{
+			foreach( $roster->multilanguages as $lang )
+			{
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+			}
+		}
+
 		if (is_array($sections))
 		{
 			$section = "'" . implode("','",$sections) . "'";
 		}
 		else
 		{
-			$section = "'" . $sections . "'";
-			$sections = array($sections);
+			$sections = explode(',',$sections);
+			$section = "'" . implode("','",$sections) . "'";
 		}
 
 		// --[ Fetch button list from DB ]--
@@ -612,7 +621,7 @@ class RosterMenu
 			die_quietly('Could not fetch buttons from database .  MySQL said: <br />' . $roster->db->error(),'Roster',__FILE__,__LINE__,$query);
 		}
 
-		while ($row = $roster->db->fetch($result))
+		while ($row = $roster->db->fetch($result,SQL_ASSOC))
 		{
 			$palet['b' . $row['button_id']] = $row;
 		}
@@ -629,7 +638,7 @@ class RosterMenu
 			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />' . $roster->db->error(),'Roster',__FILE__,__LINE__,$query);
 		}
 
-		while($row = $roster->db->fetch($result))
+		while($row = $roster->db->fetch($result,SQL_ASSOC))
 		{
 			$data[$row['section']] = $row;
 		}
@@ -688,21 +697,12 @@ class RosterMenu
 				'ID' => $sections[$id],
 				'OPEN' => ( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) ) ? false : true,
 				'ALIGN' => ( $sections[$id] == 'util' ? 'right' : 'left' ),
-				'LABEL' => sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act[$sections[$id]])
+				'LABEL' => ( isset($roster->locale->act['menupanel_' . $sections[$id]]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $sections[$id]]) : '' )
 				)
 			);
 
 			foreach( $page as $button )
 			{
-				if( $button['addon_id'] != '0' && !isset($roster->locale->act[$button['title']]) )
-				{
-					// Include addon's locale files if they exist
-					foreach( $roster->multilanguages as $lang )
-					{
-						$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-					}
-				}
-
 				if( !empty($button['icon']) )
 				{
 					if( strpos($button['icon'],'.') !== false )
@@ -719,7 +719,7 @@ class RosterMenu
 					$button['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 				}
 
-				if( $button['addon_id'] == 0 )
+				if( !in_array($button['scope'],array('util','realm','guild','char')) || $button['addon_id'] == 0 )
 				{
 					$button['url'] = makelink($button['url']);
 				}

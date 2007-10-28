@@ -354,7 +354,7 @@ class update
 
 							if( $roster->db->query_first($query) !== '2' )
 							{
-								$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['char'],$char_name,$region,$realm_name) . "<br />\n";
+								$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['character'],$char_name,$region,$realm_name) . "<br />\n";
 								continue;
 							}
 							else
@@ -392,7 +392,7 @@ class update
 							continue;
 						}
 
-						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['char'],$char_name,$realm_name,$region) . "</strong>\n";
+						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['character'],$char_name,$realm_name,$region) . "</strong>\n";
 
 						$memberid = $this->update_char( $guildId, $region, $realm_name, $char_name, $char );
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
