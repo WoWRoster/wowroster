@@ -240,7 +240,6 @@ $roster->get_scope_data();
 // Beta only: force these on
 //if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
 {
-	$roster->config['sqldebug'] = 1;
 	$roster->config['debug_mode'] = 1;
 	$roster->config['sql_window'] = 1;
 }

@@ -193,12 +193,15 @@ class roster_db
 
 		if( !empty($this->query_id) )
 		{
-			$this->_log($query);
+			if( is_object($roster) && $roster->config['debug_mode'] )
+			{
+				$this->_log($query);
+			}
 			unset($this->record[$this->query_id]);
 			unset($this->record_set[$this->query_id]);
 			return $this->query_id;
 		}
-		elseif( isset($roster) && $roster->config['debug_mode'] || $this->error_die )
+		elseif( is_object($roster) && $roster->config['debug_mode'] || $this->error_die )
 		{
 			die_quietly($this->error(), 'Database Error',__FILE__,__LINE__,$query);
 		}
