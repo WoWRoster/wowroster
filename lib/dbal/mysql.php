@@ -54,6 +54,7 @@ class roster_db
 		$this->queries[$this->file][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
 		$this->queries[$this->file][$this->query_count]['line'] = $this->line;
 	}
+
 	function _backtrace()
 	{
 		$this->file = 'unknown';
@@ -99,8 +100,8 @@ class roster_db
 			$this->link_id = @mysql_connect($dbhost, $dbuser, $dbpass);
 		}
 
-		mysql_query("SET NAMES 'utf8'");
-		mysql_query("SET CHARACTER SET 'utf8'");
+		@mysql_query("SET NAMES 'utf8'");
+		@mysql_query("SET CHARACTER SET 'utf8'");
 
 		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($dbname != '') )
 		{
@@ -193,7 +194,7 @@ class roster_db
 
 		if( !empty($this->query_id) )
 		{
-			if( is_object($roster) && $roster->config['debug_mode'] )
+			if( is_object($roster) && isset($roster->config['sql_window']) && $roster->config['sql_window'] )
 			{
 				$this->_log($query);
 			}

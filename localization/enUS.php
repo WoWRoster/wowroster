@@ -853,7 +853,7 @@ $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or 
 $lang['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
 $lang['admin']['signaturebackground'] = "img.php Background|Support for legacy signature creator";
-$lang['admin']['processtime'] = "Process time|Displays renter time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
+$lang['admin']['processtime'] = "Process time|Displays render time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
 $lang['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";

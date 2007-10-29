@@ -853,7 +853,7 @@ $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL complet
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
 $lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como mostrar el texto del mensaje del día<br /><br />&quot;Texto&quot; - Muestra el MDD en rojo<br />&quot;Imagen&quot; - Muestra el MDD en una imagen (¡REQUERIDO GD!)";
 $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fondo de pantalla";
-$lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Displays renter time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
+$lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Displays render time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
 $lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para descargar CharacterProfiler";
