@@ -1054,11 +1054,14 @@ function getaddon( $addonname )
 		$addon['css_url'] = '';
 	}
 
+	// Get the addon's inc dir
+	$addon['inc_dir'] = $addon['dir'] . 'inc' . DIR_SEP;
+
 	// Get the addon's conf file
-	$addon['conf_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'conf.php';
+	$addon['conf_file'] = $addon['inc_dir'] . DIR_SEP . 'conf.php';
 
 	// Get the addon's search file
-	$addon['search_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'search.inc.php';
+	$addon['search_file'] = $addon['inc_dir'] . DIR_SEP . 'search.inc.php';
 
 	// Get the addon's locale dir
 	$addon['locale_dir'] = $addon['dir'] . 'locale' . DIR_SEP;
@@ -1067,10 +1070,10 @@ function getaddon( $addonname )
 	$addon['admin_dir'] = $addon['dir'] . 'admin' . DIR_SEP;
 
 	// Get the addon's trigger file
-	$addon['trigger_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'update_hook.php';
+	$addon['trigger_file'] = $addon['inc_dir'] . 'update_hook.php';
 
 	// Get the addon's ajax functions file
-	$addon['ajax_file'] = $addon['dir'] . 'inc' . DIR_SEP . 'ajax.php';
+	$addon['ajax_file'] = $addon['inc_dir'] . 'ajax.php';
 
 	// Get config values for the default profile and insert them into the array
 	$addon['config'] = '';
