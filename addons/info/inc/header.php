@@ -36,6 +36,7 @@ $char_url = '&amp;member=' . $char->get('member_id');
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
 $disp_array = array(
 	'show_money',
+	'show_played',
 	'show_tab2',
 	'show_tab3',
 	'show_tab4',

@@ -2309,8 +2309,11 @@ $returnstring .= '  <tr>
 				$output .= '			'.$this->locale['unusedtalentpoints']."<br />\n";
 			}
 
-			$output .= '			'.$this->locale['timeplayed']."<br />\n";
-			$output .= '			'.$this->locale['timelevelplayed']."<br />\n";
+			if( $addon['config']['show_played'] )
+			{
+				$output .= '			'.$this->locale['timeplayed']."<br />\n";
+				$output .= '			'.$this->locale['timelevelplayed']."<br />\n";
+			}
 
 			$output .= "\n		</div>\n		<div class=\"info_values\">\n";
 
@@ -2319,10 +2322,13 @@ $returnstring .= '  <tr>
 				$output .= '			'.$this->data['talent_points']."<br />\n";
 			}
 
-			$TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
-			$TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
-			$output .= '			'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds']."<br />\n";
-			$output .= '			'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds']."<br />\n";
+			if( $addon['config']['show_played'] )
+			{
+				$TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
+				$TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
+				$output .= '			'.$TimePlayedConverted['days'].$TimePlayedConverted['hours'].$TimePlayedConverted['minutes'].$TimePlayedConverted['seconds']."<br />\n";
+				$output .= '			'.$TimeLevelPlayedConverted['days'].$TimeLevelPlayedConverted['hours'].$TimeLevelPlayedConverted['minutes'].$TimeLevelPlayedConverted['seconds']."<br />\n";
+			}
 
 			$output .= "\n		</div>\n";
 

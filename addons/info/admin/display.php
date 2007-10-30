@@ -51,7 +51,7 @@ if( $roster->db->num_rows($result) > 0 )
 		$options .= '		<optgroup label="' . $realm . '">'. "\n";
 		foreach( $guild as $id => $name )
 		{
-			$options .= '			<option value="' . makelink("&amp;guild=$id",true) . '"' . ( $id == $_GET['guild'] ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+			$options .= '			<option value="' . makelink("&amp;guild=$id",true) . '"' . ( ( isset($_GET['guild']) && $id == $_GET['guild']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
 		}
 		$options .= '		</optgroup>';
 	}
@@ -83,6 +83,7 @@ if( is_array($char_data) && count($char_data) > 0 )
 	<tr>
 		<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
 		<th class="membersHeader">' . $roster->locale->act['money'] . '</th>
+		<th class="membersHeader">' . $roster->locale->act['timeplayed'] . '</th>
 		<th class="membersHeader">' . $roster->locale->act['tab2'] . '</th>
 		<th class="membersHeader">' . $roster->locale->act['tab3'] . '</th>
 		<th class="membersHeader">' . $roster->locale->act['tab4'] . '</th>
@@ -195,13 +196,13 @@ function getCharData()
 	$sql = "SELECT "
 		 . " `member_id`, `name`,"
 		 . " `level`, `class`,"
-		 . " `show_money`, `show_tab2`,"
-		 . " `show_tab3`, `show_tab4`,"
-		 . " `show_tab5`, `show_talents`,"
-		 . " `show_spellbook`, `show_mail`,"
-		 . " `show_bags`, `show_bank`,"
-		 . " `show_quests`, `show_recipes`,"
-		 . " `show_item_bonuses`"
+		 . " `show_money`, `show_played`,"
+		 . " `show_tab2`, `show_tab3`,"
+		 . " `show_tab4`, `show_tab5`,"
+		 . " `show_talents`, `show_spellbook`,"
+		 . " `show_mail`, `show_bags`,"
+		 . " `show_bank`, `show_quests`,"
+		 . " `show_recipes`, `show_item_bonuses`"
 		 . " FROM `" . $roster->db->table('players') . "`"
 		 . " WHERE `guild_id` = " . $_GET['guild']
 		 . " ORDER BY `name` ASC";
