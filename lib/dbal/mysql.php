@@ -146,7 +146,7 @@ class roster_db
 	 */
 	function error()
 	{
-		$result = @mysql_errno($this->link_id).': '.mysql_error($this->link_id);
+		$result = @mysql_errno($this->link_id) . ': ' . mysql_error($this->link_id);
 		return $result;
 	}
 
@@ -166,7 +166,7 @@ class roster_db
 	 */
 	function connect_error()
 	{
-		return @mysql_errno().': '.mysql_error();
+		return @mysql_errno() . ': ' . mysql_error();
 	}
 
 	/**
@@ -344,6 +344,32 @@ class roster_db
 	}
 
 	/**
+	 * Get result data
+	 *
+	 * @param $query_id Query ID
+	 * @param $row The row number from the result that's being retrieved. Row numbers start at 0
+	 * @param $field The name or offset of the field being retrieved
+	 * @return mixed Record / false
+	 */
+	function result( $query_id = 0, $row = 0, $field = '' )
+	{
+		if( !$query_id )
+		{
+			$query_id = $this->query_id;
+		}
+
+		if( $query_id )
+		{
+			$this->record[$query_id] = @mysql_result($query_id, $row, $field);
+			return $this->record[$query_id];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * Find the number of returned rows
 	 *
 	 * @param $query_id Query ID
@@ -462,11 +488,11 @@ class roster_db
 	{
 		if( $addon)
 		{
-			return $this->prefix.'addons_'.$addon.($table != '' ? '_'.$table : '');
+			return $this->prefix . 'addons_' . $addon . ($table != '' ? '_' . $table : '');
 		}
 		else
 		{
-			return $this->prefix.$table;
+			return $this->prefix . $table;
 		}
 	}
 }
