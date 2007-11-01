@@ -815,10 +815,10 @@ class update
 	function add_rating( $row_name, $data )
 	{
 		$data = explode(':',$data);
-		$data[0] = ( isset($data[0]) ? $data[0] : 0 );
-		$data[1] = ( isset($data[1]) ? $data[1] : 0 );
-		$data[2] = ( isset($data[2]) ? $data[2] : 0 );
-		$this->add_value( $row_name, $data[0] );
+		$data[0] = ( isset($data[0]) && $data[0] != '' ? $data[0] : 0 );
+		$data[1] = ( isset($data[1]) && $data[1] != '' ? $data[1] : 0 );
+		$data[2] = ( isset($data[2]) && $data[2] != '' ? $data[2] : 0 );
+		$this->add_value( $row_name, round($data[0]) );
 		$this->add_value( $row_name . '_c', round( $data[0]+$data[1]+$data[2] ) );
 		$this->add_value( $row_name . '_b', round( $data[1] ) );
 		$this->add_value( $row_name . '_d', round( $data[2] ) );
@@ -2766,10 +2766,22 @@ class update
 			{
 				$attack = $data['Attributes']['Melee'];
 
-				$this->add_rating( 'melee_power', $attack['AttackPower']);
-				$this->add_rating( 'melee_hit', $attack['HitRating']);
-				$this->add_rating( 'melee_crit', $attack['CritRating']);
-				$this->add_rating( 'melee_haste', $attack['HasteRating']);
+				if( isset( $attack['AttackPower'] ) )
+				{
+					$this->add_rating( 'melee_power', $attack['AttackPower']);
+				}
+				if( isset( $attack['HitRating'] ) )
+				{
+					$this->add_rating( 'melee_hit', $attack['HitRating']);
+				}
+				if( isset( $attack['CritRating'] ) )
+				{
+					$this->add_rating( 'melee_crit', $attack['CritRating']);
+				}
+				if( isset( $attack['HasteRating'] ) )
+				{
+					$this->add_rating( 'melee_haste', $attack['HasteRating']);
+				}
 
 				$this->add_ifvalue( $attack, 'CritChance', 'melee_crit_chance' );
 				$this->add_ifvalue( $attack, 'AttackPowerDPS', 'melee_power_dps' );
