@@ -569,7 +569,7 @@ class update
 						else
 						// GP Version not new enough
 						{
-							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$char_name,$guild['GPversion']) . "</span><br />\n";
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$guild_name,$guild['GPversion']) . "</span><br />\n";
 							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
 						}
 					}
