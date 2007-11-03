@@ -81,11 +81,11 @@ if( $addon['active'] = '1' )
 		$tablename = $roster->db->table('addon_config');
 		include(ROSTER_LIB.'config.lib.php');
 
-		// ----[ Process data if available ]------------------------
-		$save_message = $config->processData($addon['config'], '`addon_id` = "' . $addon['addon_id'] . '"');
-
 		// ----[ Get configuration data ]---------------------------
 		$config->getConfigData('`addon_id` = "' . $addon['addon_id'] . '"');
+
+		// ----[ Process data if available ]------------------------
+		$save_message = $config->processData($addon['config'], '`addon_id` = "' . $addon['addon_id'] . '"');
 
 		// ----[ Build the page items using lib functions ]---------
 		$menu = $config->buildConfigMenu();
