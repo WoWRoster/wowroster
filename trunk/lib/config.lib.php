@@ -473,10 +473,17 @@ class config
 					}
 				}
 
-				if( $config[$settingName] != $settingValue && $settingName != 'process' )
+				if( !empty($this->db_values) && isset($this->db_values['all']) && isset($this->db_values['all'][$settingName]))
 				{
-					$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE ($where) AND `config_name` = '".$roster->db->escape($settingName)."';";
-					$config[$settingName] = $settingValue;
+					if( $this->db_values['all'][$settingName]['value'] != $settingValue )
+					{
+						$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE ($where) AND `config_name` = '".$roster->db->escape($settingName)."';";
+					}
+					if( $this->db_values['all'][$settingName]['value'] == $config[$settingName] )
+					{
+						$config[$settingName] = $settingValue;
+					}
+					$this->db_values['all'][$settingName]['value'] = $settingValue;
 				}
 			}
 		}
@@ -544,6 +551,7 @@ class config
 					$this->db_values[$setitem][$arrayitem]['description'] = '';
 					$this->db_values[$setitem][$arrayitem]['tooltip'] = $db_val_line;
 				}
+				$this->db_values['all'][$arrayitem] =& $this->db_values[$setitem][$arrayitem];
 			}
 
 			$roster->db->free_result($results);

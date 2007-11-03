@@ -30,11 +30,11 @@ include(ROSTER_LIB.'config.lib.php');
 // ----[ Include special functions file ]-------------------
 include(ROSTER_ADMIN.'roster_config_functions.php');
 
-// ----[ Process data if available ]------------------------
-$save_message = $config->processData( $roster->config );
-
 // ----[ Get configuration data ]---------------------------
 $config->getConfigData();
+
+// ----[ Process data if available ]------------------------
+$save_message = $config->processData( $roster->config );
 
 // ----[ Build the page items using lib functions ]---------
 $menu = $config->buildConfigMenu();
