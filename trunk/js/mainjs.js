@@ -335,7 +335,12 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 			//initialise element
 			inputs[i].label.className=offClassRadio;
 			//when the label is clicked, call toggleLabelStyle and toggle the label
-			inputs[i].label.onclick = function (){ toggleLabelStyle(formId, this, onClassRadio, offClassRadio); return false; };
+			if(inputs[i].label.onclick){
+				var originalOnclick = inputs[i].label.onclick;
+				inputs[i].label.onclick = function (){ toggleLabelStyle(formId, this, onClassRadio, offClassRadio); originalOnclick(); return false; };
+			}else{
+				inputs[i].label.onclick = function (){ toggleLabelStyle(formId, this, onClassRadio, offClassRadio); return false; };
+			}
 			//enable keyboard navigation
 			inputs[i].onclick = function (){ toggleLabelStyle(formId, this.label, onClassRadio, offClassRadio); };
 			//if the radio was checked by default, change this label's style to checked
@@ -350,7 +355,12 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 			inputs[i].label.className=offClassCheckbox;
 			inputs[i].checked = false;
 			//when the label is clicked, call toggleLabelStyle and toggle the label
-			inputs[i].label.onclick = function (){ toggleLabelStyle(formId, this, onClassCheckbox, offClassCheckbox); return false; };
+			if(inputs[i].label.onclick){
+				var originalOnclick = inputs[i].label.onclick;
+				inputs[i].label.onclick = function (){ toggleLabelStyle(formId, this, onClassCheckbox, offClassCheckbox); originalOnclick(); return false; };
+			}else{
+				inputs[i].label.onclick = function (){ toggleLabelStyle(formId, this, onClassCheckbox, offClassCheckbox); return false; };
+			}
 			//enable keyboard navigation
 			inputs[i].onclick = function (){ toggleLabelStyle(formId, this.label, onClassCheckbox, offClassCheckbox); };
 			//if the radio was checked by default, change this label's style to checked
