@@ -2354,6 +2354,24 @@ class update
 
 		$num = $roster->db->num_rows($result);
 
+		// Get guildless guild for this realm
+		$query = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '$guild_id';";
+		$result = $roster->db->query($query);
+		$row = $roster->db->fetch($result);
+		$roster->db->free_result($result);
+
+		$query = "SELECT `guild_id` FROM `" . $roster->db->table('guild') . "` WHERE `server` = '" . $row['server'] . "' AND `region` = '" . $row['region'] . "' AND `factionEn` = '" . $row['factionEn'] . "' AND `guild_name` LIKE 'guildless-%';";
+		$guild_id = $roster->db->query_first($query);
+
+		if( !$guild_id )
+		{
+			$guilddata['Faction'] = $row['FactionEn'];
+			$guilddata['FactionEn'] = $row['FactionEn'];
+			$guilddata['Info'] = '';
+			$guild_id = $this->update_guild($row['server'],'GuildLess-' . substr($row['FactionEn'],0,1),strtotime($timestamp),$guilddata,$row['region']);
+			unset($guilddata);
+		}
+
 		if( $num > 0 )
 		{
 			$inClause = '';
@@ -2372,7 +2390,7 @@ class update
 			$roster->db->free_result($result);
 
 			$this->reset_values();
-			$this->add_value('guild_id',0);
+			$this->add_value('guild_id',$guild_id);
 			$this->add_value('note','');
 			$this->add_value('guild_rank',0);
 			$this->add_value('guild_title','');
@@ -2385,7 +2403,7 @@ class update
 			}
 
 			$this->reset_values();
-			$this->add_value('guild_id',0);
+			$this->add_value('guild_id',$guild_id);
 
 			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` IN ($inClause);";
 			if( !$roster->db->query($querystr) )
