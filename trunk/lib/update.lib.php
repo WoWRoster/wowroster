@@ -2215,6 +2215,84 @@ class update
 	}
 
 	/**
+	 * Delete Members in database not matching the upload rules
+	 */
+	function enforceRules( $timestamp )
+	{
+		global $roster;
+
+		// Select and delete all non-matching guilds
+		$query = "SELECT *"
+			. " FROM `" . $roster->db->table('guild') . "` guild"
+			. " WHERE `guild_name` NOT LIKE 'guildless-_';";
+		$result = $roster->db->query($query);
+		while( $row = $roster->db->fetch($result) )
+		{
+			$query = "SELECT `type`, COUNT(`rule_id`)"
+				   . " FROM `" . $roster->db->table('upload') . "`"
+				   . " WHERE (`type` = 0 OR `type` = 1)"
+				   . " AND '" . $roster->db->escape( $row['guild_name'] ) . "' LIKE `name` "
+				   . " AND '" . $roster->db->escape( $row['realm'] ) . "' LIKE `server` "
+				   . " AND '" . $roster->db->escape( $row['region'] ) . "' LIKE `region` "
+				   . " GROUP BY `type` "
+				   . " ORDER BY `type` DESC;";
+			if( $roster->db->query_first($query) !== '0' )
+			{
+				// Does not match rules
+				$this->deleteGuild( $row['guild_id'], $timestamp );
+			}
+		}
+
+		// Select and delete all non-matching guildless members
+		$inClause='0';
+
+		$query = "SELECT *"
+			. " FROM `" . $roster->db->table('members') . "` members"
+			. " INNER JOIN `" . $roster->db->table('guild') . "` guild"
+				. " USING (`guild_id`)"
+			. " WHERE `guild_name` LIKE 'guildless-_';";
+		$result = $roster->db->query($query);
+		while( $row = $roster->db->fetch($result) )
+		{
+			$query = "SELECT `type`, COUNT(`rule_id`)"
+				   . " FROM `" . $roster->db->table('upload') . "`"
+				   . " WHERE (`type` = 2 OR `type` = 3)"
+				   . " AND '" . $roster->db->escape( $row['name'] ) . "' LIKE `name` "
+				   . " AND '" . $roster->db->escape( $row['realm'] ) . "' LIKE `server` "
+				   . " AND '" . $roster->db->escape( $row['region'] ) . "' LIKE `region` "
+				   . " GROUP BY `type` "
+				   . " ORDER BY `type` DESC;";
+			if( $roster->db->query_first($query) !== '2' )
+			{
+				// Does not match rules
+				$inClause .= ',' . $row['member_id'];
+			}
+		}
+		$this->deleteMembers( $inClause );
+	}
+
+	/** 
+	 * Delete Guild from database
+	 *
+	 * @param int $guild_id
+	 * @param string $timestamp
+	 */
+	function deleteGuild( $guild_id, $timestamp )
+	{
+		global $roster;
+
+		// Set all members as left
+		$query = "UPDATE `" . $roster->db->table('members') . "` SET `active` = 0 WHERE `guild_id` = '" . $guild_id . "';";
+		$roster->db->query($query);
+
+		// Process that
+		$this->remove_guild_members( $guild_id, $timestamp );
+		
+		// Remove the guild
+		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
+		$roster->db->query($query);
+	}
+	/**
 	 * Delete Members in database using inClause
 	 * (comma separated list of member_id's to delete)
 	 *
@@ -2365,10 +2443,10 @@ class update
 
 		if( !$guild_id )
 		{
-			$guilddata['Faction'] = $row['FactionEn'];
-			$guilddata['FactionEn'] = $row['FactionEn'];
+			$guilddata['Faction'] = $row['factionEn'];
+			$guilddata['FactionEn'] = $row['factionEn'];
 			$guilddata['Info'] = '';
-			$guild_id = $this->update_guild($row['server'],'GuildLess-' . substr($row['FactionEn'],0,1),strtotime($timestamp),$guilddata,$row['region']);
+			$guild_id = $this->update_guild($row['server'],'GuildLess-' . substr($row['factionEn'],0,1),strtotime($timestamp),$guilddata,$row['region']);
 			unset($guilddata);
 		}
 
