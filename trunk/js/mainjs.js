@@ -188,7 +188,7 @@ USAGE:
  In your main HTML body use onLoad() to call initARC(), passing in the form id
  and on/off class names you wish to use to customise your radio buttons.
  e.g. <body onLoad="initARC('myform','radioOn', 'radioOff');">
-
+ 
 PARAMS:
  formId   - The ID of the form you wish to customise
  onClass  - The CSS class name for the radio button's on style
@@ -216,12 +216,12 @@ function initARC(formId,onClassRadio,offClassRadio,onClassCheckbox,offClassCheck
 function addLabelProperties(f){
 	if(typeof f.getElementsByTagName == 'undefined') return;
 	var labels = f.getElementsByTagName("label"), label, elem, i = j = 0;
-
+	
 	while (label = labels[i++]){
 		if(typeof label.htmlFor == 'undefined') return;
-		//elem = document.getElementById(label.htmlFor);
-		elem = f.elements[label.htmlFor]; /* old method */
-
+		elem = document.getElementById(label.htmlFor);
+		//elem = f.elements[label.htmlFor]; /* old method */
+		
 		if(typeof elem == 'undefined'){
 			//no label defined, find first sub-input
 			var inputs = label.getElementsByTagName("input");
@@ -239,7 +239,7 @@ function addLabelProperties(f){
 		}
 		elem.label = label;
 	}
-}
+} 
 
 
 
@@ -257,7 +257,7 @@ USAGE:
  valid form of a label is <label>text <input /></label> - while it is possible
  to modify this code to allow for this form I have left this as an exercise for
  the reader.
-
+ 
 PARAMS:
  formId   - Parent form of this label
  label    - The label for a radio button we wish to toggle
@@ -266,21 +266,21 @@ PARAMS:
 */
 function toggleLabelStyle(formId, label, onClass, offClass){
 	if(!document.getElementById || !label) return;
-
+		
 	var form = document.getElementById(formId); //label.form;
 	if(!form) return;
-
+	
 	//find radio associated with label (if in htmlFor form)
 	if(label.htmlFor) {
 		var e = document.getElementById(label.htmlFor);
-
+		
 		if(e.type=="checkbox"){
 			e.label.className = (e.label.className==onClass) ? offClass : onClass;
 			e.checked = (e.label.className==onClass);
 		} else if(e.type=="radio"){
 			var radioGroup = form.elements[e.name];
 			if(!radioGroup) return;
-
+			
 			for(var i=0; i<radioGroup.length; i++){
 				if(radioGroup[i].label){
 					radioGroup[i].label.className = ((radioGroup[i].checked=(radioGroup[i].id == e.id))
@@ -305,7 +305,7 @@ ABOUT:
 
 USAGE:
  Called from initARC()
-
+ 
 PARAMS:
  formId   - The form we're customising
  onClass  - The CSS class name for the radio button's on style
@@ -316,10 +316,10 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 
 	var prettyForm = document.getElementById(formId);
 	if(!prettyForm) return;
-
+		
 	//onReset, reset radios to initial values
 	prettyForm.onreset = function() { customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, offClassCheckbox); }
-
+	
 	//attach an easy to access .label reference to form elements
 	addLabelProperties(prettyForm);
 
@@ -327,7 +327,7 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 	for (var i=0; i < inputs.length; i++) {
 		/* NB: Yeah, i know this code is duplicated - I can't figure out how to create a local, persistent
 			variable within the anonymous function calls. Fix it if you can, and let me know. */
-
+			
 		//RADIO ONLY
 		if( (inputs[i].type=="radio") && inputs[i].label && onClassRadio && offClassRadio){
 			//hide element
@@ -346,7 +346,7 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 			//if the radio was checked by default, change this label's style to checked
 			if(inputs[i].defaultChecked || inputs[i].checked){ toggleLabelStyle(formId, inputs[i].label, onClassRadio, offClassRadio); }
 		}
-
+		
 		//CHECKBOX ONLY
 		if( (inputs[i].type=="checkbox") && inputs[i].label && onClassCheckbox && offClassCheckbox){
 			//hide element

@@ -64,11 +64,13 @@ class bag extends item
 			}
 
 			// Item links
+			list($item_id) = explode(':', $this->item_id);
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
 			foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 			{
-				$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
+				//$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
+				$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
 			setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
