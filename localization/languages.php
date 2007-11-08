@@ -33,21 +33,21 @@ $creditspage['top']='Props to <a href="http://www.poseidonguild.com" target="_bl
 <br />
 Special thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter.com</a> for his wonderfull addons CharacterProfiler and GuildProfiler
 <br /><br />
-To the DEVs of Roster, for helping to build and maintain the package. You Rock!
+To the Devs of Roster, for helping to build and maintain the package. You Rock!
 <br /><br />
 Thanks to all the coders who have contributed code, bug fixes, time, and testing of WoWRoster
 <br /><br />';
 
-// This is an array of the dev team
-$creditspage['devs'] = array(
+// This is an array of the Dev team
+$creditspage['Devs'] = array(
 		'active'=>array(
-			array(	"name"=>	"zanix",
-					"info"=>	"Site Admin, WoWRoster Coordinator<br />Author of SigGen, UniAdmin"),
+			array(	"name"=>	"Zanix",
+					"info"=>	"Coordinator, Site Admin<br />Author of SigGen, UniAdmin"),
 			array(	"name"=>	"Adric",
 					"info"=>	"WoWRoster Dev<br />Interface Specialist"),
 			array(	"name"=>	"Anaxent",
 					"info"=>	"WoWRoster Dev<br />WoWRosterDF Author (DragonflyCMS Port)"),
-			array(	"name"=>	"ds",
+			array(	"name"=>	"DS",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"mathos",
 					"info"=>	"WoWRoster Dev"),
@@ -56,13 +56,13 @@ $creditspage['devs'] = array(
 			array(	"name"=>	"Sphinx",
 					"info"=>	"WoWRoster Dev<br />German Translator"),
 			array(	"name"=>	"Zeryl",
-					"info"=>	"WoWRoster Dev<br />Missing Recipes Author"),
+					"info"=>	"WoWRoster Dev<br />Author of Missing Recipes"),
 			array(	"name"=>	"Matt Miller",
-					"info"=>	"Gimpy DEV<br />Author of UniAdmin, UniUploader"),
+					"info"=>	"Gimpy Dev<br />Author of UniUploader, UniAdmin"),
 			array(	"name"=>	"calvin",
-					"info"=>	"Gimpy DEV<br />Author of CharacterProfiler, GuildProfiler"),
+					"info"=>	"Gimpy Dev<br />Author of CharacterProfiler, GuildProfiler"),
 			array(	"name"=>	"bsmorgan",
-					"info"=>	"Gimpy DEV<br />Author of PvPLog"),
+					"info"=>	"Gimpy Dev<br />Author of PvPLog"),
 		),
 
 		'library'=>array(
@@ -95,17 +95,17 @@ $creditspage['devs'] = array(
 
 		'inactive'=>array(
 			array(	"name"=>	"AnthonyB",
-					"info"=>	"Retired DEV<br />Site Admin and Coordinator<br />v1.04 to v1.7.0"),
+					"info"=>	"Retired Dev<br />Site Admin and Coordinator<br />v1.04 to v1.7.0"),
 			array(	"name"=>	"Airor/Chris",
 					"info"=>	"Inactive Dev<br />Coded new lua parser for v1.7.0"),
 			array(	"name"=>	"dsrbo",
-					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
+					"info"=>	"Retired Dev<br />Retired PvPLog Author"),
 			array(	"name"=>	"Guppy",
-					"info"=>	"Retired DEV"),
+					"info"=>	"Retired Dev"),
 			array(	"name"=>	"Mordon",
-					"info"=>	"Retired Dev<br />Head Dev v1.03 and lower"),
+					"info"=>	"Retired Dev<br />Head Dev up to v1.03"),
 			array(	"name"=>	"mrmuskrat",
-					"info"=>	"Retired DEV<br />Retired PvPLog Author"),
+					"info"=>	"Retired Dev<br />Retired PvPLog Author"),
 			array(	"name"=>	"Nemm",
 					"info"=>	"Inactive Dev"),
 			array(	"name"=>	"nerk01",
@@ -135,4 +135,4 @@ Serveral javascript files are libraries that are under their own licenses.
 <br />
 The installer was derived from the EQdkp installer and is licensed under the GNU General Public License
 <br /><br />
-See <a href="'.makelink('license').'">license</a> for more details';
+See <a href="' . makelink('license') . '">license</a> for more details';
