@@ -29,7 +29,7 @@ class questlist
 	var $active = true;
 	var $icon = 'spell_holy_surgeoflight';
 
-	var $version = '2.0.0.0';
+	var $version = '1.9.9.1431';
 	var $wrnet_id = '0';
 
 	var $fullname = 'questlist';

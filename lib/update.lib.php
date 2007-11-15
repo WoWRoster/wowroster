@@ -44,6 +44,11 @@ class update
 	var $membersupdated = 0;
 	var $membersremoved = 0;
 
+	var $current_region = '';
+	var $current_realm = '';
+	var $current_guild = '';
+	var $current_member = '';
+
 	/**
 	 * Collect info on what files are used
 	 */
@@ -291,6 +296,8 @@ class update
 
 		foreach( $myProfile as $realm_name => $realm)
 		{
+			$this->current_realm = $realm_name;
+
 			if( isset($realm['Character']) && is_array($realm['Character']) )
 			{
 				$characters = $realm['Character'];
@@ -303,6 +310,8 @@ class update
 
 				foreach( $characters as $char_name => $char)
 				{
+					$this->current_member = $char_name;
+
 					// CP Version Detection, don't allow lower than minVer
 					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
 					{
@@ -316,6 +325,7 @@ class update
 						{
 							$region = '';
 						}
+						$this->current_region = $region;
 
 						// take the current time
 						$timestamp = $char['timestamp']['init']['DateUTC'];
@@ -442,10 +452,14 @@ class update
 		{
 			foreach( $myProfile as $realm_name => $realm )
 			{
+				$this->current_realm = $realm_name;
+
 				if( isset($realm['Guild']) && is_array($realm['Guild']) )
 				{
 					foreach( $realm['Guild'] as $guild_name => $guild )
 					{
+						$this->current_guild = $guild_name;
+
 						// GP Version Detection, don't allow lower than minVer
 						if( version_compare($guild['GPversion'], $roster->config['minGPver'], '>=') )
 						{
@@ -459,6 +473,7 @@ class update
 							{
 								$region = '';
 							}
+							$this->current_region = $region;
 
 							$guild_escape = $roster->db->escape($guild_name);
 							$realm_escape = $roster->db->escape($realm_name);
@@ -523,6 +538,8 @@ class update
 
 								foreach(array_keys($guildMembers) as $char_name)
 								{
+									$this->current_member = $char_name;
+
 									$char = $guildMembers[$char_name];
 									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $region, $char, $currentTimestamp, $guild);
 									$guild_output .= $this->getMessages();
@@ -829,6 +846,7 @@ class update
 	 */
 	function fix_icon( $icon_name )
 	{
+		$icon_name = str_replace('Interface\\\\Icons\\\\','',$icon_name);
 		return strtolower(str_replace(' ','_',$icon_name));
 	}
 
@@ -2271,7 +2289,7 @@ class update
 		$this->deleteMembers( $inClause );
 	}
 
-	/** 
+	/**
 	 * Delete Guild from database
 	 *
 	 * @param int $guild_id
@@ -2287,7 +2305,7 @@ class update
 
 		// Process that
 		$this->remove_guild_members( $guild_id, $timestamp );
-		
+
 		// Remove the guild
 		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
@@ -2434,9 +2452,9 @@ class update
 
 		// Get guildless guild for this realm
 		$query = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '$guild_id';";
-		$result = $roster->db->query($query);
-		$row = $roster->db->fetch($result);
-		$roster->db->free_result($result);
+		$result2 = $roster->db->query($query);
+		$row = $roster->db->fetch($result2);
+		$roster->db->free_result($result2);
 
 		$query = "SELECT `guild_id` FROM `" . $roster->db->table('guild') . "` WHERE `server` = '" . $row['server'] . "' AND `region` = '" . $row['region'] . "' AND `factionEn` = '" . $row['factionEn'] . "' AND `guild_name` LIKE 'guildless-%';";
 		$guild_id = $roster->db->query_first($query);
