@@ -29,7 +29,7 @@ class keys
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '2.0.0.0';
+	var $version = '1.9.9.1431';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
