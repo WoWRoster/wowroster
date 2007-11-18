@@ -958,11 +958,6 @@ class update
 		$this->add_ifvalue( $mail, 'mail_days', 'mailbox_days' );
 		$this->add_ifvalue( $mail, 'mail_sender', 'mailbox_sender' );
 		$this->add_ifvalue( $mail, 'mail_subject', 'mailbox_subject' );
-		$this->add_ifvalue( $mail, 'item_icon' );
-		$this->add_ifvalue( $mail, 'item_name' );
-		$this->add_ifvalue( $mail, 'item_tooltip' );
-		$this->add_ifvalue( $mail, 'item_color' );
-		$this->add_ifvalue( $mail, 'item_quantity' );
 
 		$querystr = "INSERT INTO `" . $roster->db->table('mailbox') . "` SET " . $this->assignstr;
 		$result = $roster->db->query($querystr);
@@ -1123,34 +1118,7 @@ class update
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
-		$mail['item_icon'] = $mail['item_name'] = $mail['item_color'] = $mail['item_tooltip'] = '';
 
-		if( isset($mail_data['Item']) )
-		{
-			$item = $mail_data['Item'];
-
-			$mail['item_icon'] = $this->fix_icon($item['Icon']);
-			$mail['item_name'] = $item['Name'];
-			$mail['item_color'] = $item['Color'];
-
-			if( isset( $item['Quantity'] ) )
-			{
-				$mail['item_quantity'] = $item['Quantity'];
-			}
-			else
-			{
-				$item['item_quantity'] = 1;
-			}
-
-			if( !empty($item['Tooltip']) )
-			{
-				$mail['item_tooltip'] = $this->tooltip( $item['Tooltip'] );
-			}
-			else
-			{
-				$mail['item_tooltip'] = $item['Name'];
-			}
-		}
 		return $mail;
 	}
 
@@ -1712,17 +1680,37 @@ class update
 		}
 		//}
 
+		// Delete any attachments too
+		$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'MAIL%' ";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Mail could not be deleted',$roster->db->error());
+			return;
+		}
+
 		if( !empty($mailbox) && is_array($mailbox) )
 		{
-			foreach( array_keys($mailbox) as $slot_num )
+			foreach( $mailbox as $mail_num => $mail )
 			{
-				$slot = $mailbox[$slot_num];
-				if( is_null($slot) || !is_array($slot) || empty($slot) )
+				if( is_null($mail) || !is_array($mail) || empty($mail) )
 				{
 					continue;
 				}
-				$mail = $this->make_mail( $slot, $memberId, $slot_num );
-				$this->insert_mail( $mail );
+				$dbmail = $this->make_mail( $mail, $memberId, $mail_num );
+				$this->insert_mail( $dbmail );
+
+				if( isset( $mail['Contents'] ) && is_array( $mail['Contents'] ) )
+				{
+					foreach( $mail['Contents'] as $attach_num => $attach )
+					{
+						if( is_null($attach) || !is_array($attach) || empty($attach) )
+						{
+							continue;
+						}
+						$item = $this->make_item( $attach, $memberId, 'Mail ' . $attach_num, $mail_num );
+						$this->insert_item( $item,$data['Locale'] );
+					}
+				}
 			}
 			$this->setMessage('<li>Updating Mailbox: ' . count($mailbox) . '</li>');
 		}

@@ -102,6 +102,12 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('menu') . "` ADD UNIQUE `section` ( `section` ) ");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1438','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('mailbox') . "` DROP `item_icon`, DROP `item_name`, DROP `item_quantity`, DROP `item_tooltip`, DROP `item_color`;");
+		}
+
+
 		$this->beta_upgrade();
 
 		$this->finalize();
