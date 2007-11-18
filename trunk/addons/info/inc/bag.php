@@ -36,6 +36,10 @@ class bag extends item
 			{
 				$this->data['item_quantity']++;
 			}
+			if( $this->data['item_quantity'] < 4 )
+			{
+				$this->data['item_quantity'] = 4;
+			}
 		}
 	}
 
