@@ -147,11 +147,6 @@ CREATE TABLE `renprefix_mailbox` (
   `mailbox_days` float NOT NULL default '0',
   `mailbox_sender` varchar(30) NOT NULL default '',
   `mailbox_subject` mediumtext NOT NULL,
-  `item_icon` varchar(64) NOT NULL default '',
-  `item_name` varchar(96) NOT NULL default '',
-  `item_quantity` int(11) default NULL,
-  `item_tooltip` mediumtext NOT NULL,
-  `item_color` varchar(16) NOT NULL default '',
   PRIMARY KEY  (`member_id`,`mailbox_slot`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

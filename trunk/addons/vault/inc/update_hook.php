@@ -193,6 +193,8 @@ class vaultUpdate
 		{
 			$this->messages .= '<li>No Vault Funds</li>';
 		}
+
+		$this->messages .= '</ul>';
 		return true;
 	}
 
