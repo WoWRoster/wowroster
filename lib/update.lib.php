@@ -953,6 +953,7 @@ class update
 		$this->reset_values();
 		$this->add_ifvalue( $mail, 'member_id' );
 		$this->add_ifvalue( $mail, 'mail_slot', 'mailbox_slot' );
+		$this->add_ifvalue( $mail, 'mail_icon', 'mailbox_icon' );
 		$this->add_ifvalue( $mail, 'mail_coin', 'mailbox_coin' );
 		$this->add_ifvalue( $mail, 'mail_coin_icon', 'mailbox_coin_icon' );
 		$this->add_ifvalue( $mail, 'mail_days', 'mailbox_days' );
@@ -1113,6 +1114,7 @@ class update
 		$mail = array();
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
+		$mail['mail_icon'] = $this->fix_icon($mail_data['MailIcon']);
 		$mail['mail_coin'] = $mail_data['Coin'];
 		$mail['mail_coin_icon'] = $this->fix_icon($mail_data['CoinIcon']);
 		$mail['mail_days'] = $mail_data['Days'];

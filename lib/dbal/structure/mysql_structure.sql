@@ -142,6 +142,7 @@ DROP TABLE IF EXISTS `renprefix_mailbox`;
 CREATE TABLE `renprefix_mailbox` (
   `member_id` int(11) unsigned NOT NULL default '0',
   `mailbox_slot` int(11) NOT NULL default '0',
+  `mailbox_icon` varchar(64) NOT NULL default '',
   `mailbox_coin` int(11) NOT NULL default '0',
   `mailbox_coin_icon` varchar(64) NOT NULL default '',
   `mailbox_days` float NOT NULL default '0',

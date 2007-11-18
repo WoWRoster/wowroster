@@ -107,6 +107,10 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('mailbox') . "` DROP `item_icon`, DROP `item_name`, DROP `item_quantity`, DROP `item_tooltip`, DROP `item_color`;");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1439','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('mailbox') . "` ADD `mailbox_icon` varchar(64) NOT NULL DEFAULT '';");
+		}
 
 		$this->beta_upgrade();
 
