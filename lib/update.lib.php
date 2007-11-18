@@ -1709,7 +1709,7 @@ class update
 						{
 							continue;
 						}
-						$item = $this->make_item( $attach, $memberId, 'Mail ' . $attach_num, $mail_num );
+						$item = $this->make_item( $attach, $memberId, 'Mail ' . $mail_num, $attach_num );
 						$this->insert_item( $item,$data['Locale'] );
 					}
 				}
