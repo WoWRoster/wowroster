@@ -326,6 +326,7 @@ $returnstring .= '  <tr>
 		}
 
 		$content = '';
+		$boxes = '';
 
 		if( $roster->db->num_rows($result) > 0 )
 		{
@@ -353,14 +354,14 @@ $returnstring .= '  <tr>
 				{
 					$db_money = $row['mailbox_coin'];
 
-					$mail_money['c'] = substr($db_money,-2,2);
-					$db_money = substr($db_money,0,-2);
+					$mail_money['c'] = $db_money % 100;
+					$db_money = floor( $db_money / 100 );
 					$money_included = $mail_money['c'] . '<img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" />';
 
 					if( !empty($db_money) )
 					{
-						$mail_money['s'] = substr($db_money,-2,2);
-						$db_money = substr($db_money,0,-2);
+						$mail_money['s'] = $db_money % 100;
+						$db_money = floor( $db_money / 100 );
 						$money_included = $mail_money['s'] . '<img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> ' . $money_included;
 					}
 					if( !empty($db_money) )
@@ -371,19 +372,7 @@ $returnstring .= '  <tr>
 				}
 
 				// Fix icon texture
-				if( !empty($row['item_icon']) )
-				{
-					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['item_icon'] . '.' . $roster->config['img_suffix'];
-				}
-				elseif( !empty($money_included) )
-				{
-					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['mailbox_coin_icon'] . '.' . $roster->config['img_suffix'];
-				}
-				else
-				{
-					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_note_02.' . $roster->config['img_suffix'];
-				}
-
+					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['mailbox_icon'] . '.' . $roster->config['img_suffix'];
 
 				// Start the tooltips
 				$tooltip_h = $row['mailbox_subject'];
@@ -410,55 +399,12 @@ $returnstring .= '  <tr>
 				}
 
 
-				// Get item tooltip
-				$item_tooltip = colorTooltip($row['item_tooltip'],$row['item_color'],$this->data['clientLocale']);
+				$tooltipcode = makeOverlib($tooltip,$tooltip_h,'',2,$this->data['clientLocale']);
 
-
-				// If the tip has no info, at least get the item name in there
-				if( $item_tooltip != '<br />' )
-				{
-					$item_tooltip = '<hr />' . $item_tooltip;
-				}
-
-
-				// Join item tooltip with main tooltip
-				$tooltip .= $item_tooltip;
-
-				if ($tooltip == '')
-				{
-					if ($row['item_name'] != '')
-					{
-						$tooltip = $row['item_name'];
-					}
-					else
-					{
-						$tooltip = $this->locale['no_info'];
-					}
-				}
-
-				$tooltip = makeOverlib($tooltip,$tooltip_h,'',2,$this->data['clientLocale']);
-
-				// Item links
-				$num_of_tips = (count($tooltips)+1);
-				$linktip = '';
-				foreach( $roster->locale->wordings[$this->data['clientLocale']]['itemlinks'] as $ikey => $ilink )
-				{
-					$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($row['item_name'])) . '" target="_blank">' . $ikey . '</a><br />';
-				}
-				setTooltip($num_of_tips,$linktip);
-				setTooltip('itemlink',$roster->locale->wordings[$this->data['clientLocale']]['itemlink']);
-
-				$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
-
-				$content .= '<div class="item" style="cursor:pointer;" ' . $tooltip . $linktip . '>';
+				$content .= '<div ' . $tooltipcode . '>';
 
 				$content .= '<img src="' . $item_icon . '"' . " alt=\"\" />\n";
 
-				if( ($row['item_quantity'] > 1) )
-				{
-					$content .= '<span class="quant">' . $row['item_quantity'] . '</span>';
-				}
 				$content .= "</div>\n</td>\n";
 
 				$content .= '<td class="membersRow' . $cur_row . '">' . $row['mailbox_sender'] . "</td>\n";
@@ -468,11 +414,26 @@ $returnstring .= '  <tr>
 				$content .= "</tr>\n";
 
 				$cur_row = (($cur_row%2)+1);
+
+				// Set up box display
+				$row['item_slot'] = 'Mail ' . $row['mailbox_slot'];
+				$row['item_id'] = '0:0:0:0:0';
+				$row['item_name'] = $row['mailbox_subject'];
+				$row['item_level'] = 0;
+				$row['item_texture'] = $row['mailbox_icon'];
+				$row['item_parent'] = 'Mail';
+				$row['item_tooltip'] = $tooltip;
+				$row['item_color'] = '';
+				$row['item_quantity'] = 0;
+				$row['locale'] = $this->data['clientLocale'];
+
+				$attach = new bag( $row );
+				$boxes .= $attach->out();
 			}
 
 			$content .= "</table>\n" . border('sgray','end');
 
-			return $content;
+			return $content.$boxes;
 		}
 		else
 		{

@@ -29,6 +29,14 @@ class bag extends item
 	{
 		$this->item( $data );
 		$this->contents = $this->fetchManyItems($this->data['member_id'], $this->data['item_slot'], 'simple');
+		if( $this->data['item_quantity'] < count($this->contents) )
+		{
+			$this->data['item_quantity'] = count($this->contents);
+			if( $this->data['item_quantity'] % 2 )
+			{
+				$this->data['item_quantity']++;
+			}
+		}
 	}
 
 	function out( )
