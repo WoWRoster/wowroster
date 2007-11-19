@@ -142,7 +142,7 @@ while( $news = $roster->db->fetch($result) )
 		'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
 		'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
 
-	'L_COMMENT' => ($news['comm_count'] != 1 ? sprintf($roster->locale->act['n_comments'],$news['comm_count']) : sprintf($roster->locale->act['n_comment'],$news['comm_count'])),
+		'L_COMMENT' => ($news['comm_count'] != 1 ? sprintf($roster->locale->act['n_comments'],$news['comm_count']) : sprintf($roster->locale->act['n_comment'],$news['comm_count'])),
 		)
 	);
 }

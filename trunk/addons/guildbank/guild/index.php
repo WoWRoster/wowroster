@@ -222,7 +222,7 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 $banker_list = '- ';
 foreach( $bankers as $banker_id => $banker  )
 {
-	$banker_list .= '<a href="' . makelink('#c_'.$banker_id) . '">' . $banker . '</a> - ';
+	$banker_list .= '<a href="' . makelink('#c_' . $banker_id) . '">' . $banker . '</a> - ';
 }
 
 print messagebox($bank_menu,$roster->locale->act['guildbank'],'sorange');
