@@ -18,3 +18,5 @@
 $lang['vault']='Guild Vault';
 $lang['vault_desc']='Shows the contents of the Guild Vault';
 $lang['vault_menu']='Guild Vault|Shows the contents of the Guild Vault';
+$lang['vault_log']='Vault Log';
+$lang['vault_money_log']='Vault Money Log';

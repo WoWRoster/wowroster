@@ -1389,8 +1389,8 @@ class item
 		{
 			return null;
 		}
-
 	}
+
 	/**
 	 * fetch all $parent items on $member_id
 	 * returns object array keyed by item_slot

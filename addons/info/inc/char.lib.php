@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 }
 
 require_once (ROSTER_LIB . 'item.php');
-require_once ($addon['dir'] . 'inc' . DIR_SEP . 'bag.php');
+require_once ($addon['inc_dir'] . 'bag.php');
 require_once (ROSTER_LIB . 'skill.php');
 require_once (ROSTER_LIB . 'quest.php');
 require_once (ROSTER_LIB . 'recipes.php');
