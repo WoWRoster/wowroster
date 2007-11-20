@@ -25,7 +25,7 @@ $roster->output['title'] .= $roster->locale->act['pagebar_configreset'];
 
 if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 {
-	$query = "TRUNCATE `roster_config`;";
+	$query = 'TRUNCATE `' . $roster->db->table('config') . '`;';
 	$roster->db->query($query);
 
     $db_data_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'mysql_data.sql';
@@ -37,7 +37,7 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     $sql = parse_sql($sql, ';');
 
     $sql_count = count($sql);
-    for ( $i = 0; $i < $sql_count; $i++ )
+    for( $i = 0; $i < $sql_count; $i++ )
     {
         $roster->db->query($sql[$i]);
     }
@@ -75,9 +75,11 @@ $body .= '<form action="' . makelink() . '" method="post" enctype="multipart/for
 * @param    char    $delim  End-of-statement SQL delimiter
 * @return   array
 */
-function parse_sql($sql, $delim)
+function parse_sql( $sql , $delim )
 {
-    if ( $sql == '' )
+	global $roster;
+
+    if( $sql == '' )
     {
         die('Could not obtain SQL structure/data');
     }
@@ -87,17 +89,22 @@ function parse_sql($sql, $delim)
     unset($sql);
 
     $linecount = count($statements);
-    for ( $i = 0; $i < $linecount; $i++ )
+    for( $i = 0; $i < $linecount; $i++ )
     {
-        if ( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
+        if( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
         {
             $statements[$i] = trim($statements[$i]);
-            $statements[$i] = str_replace("\r\n", '', $statements[$i]) . "\n";
 
-            // Remove 2 or more spaces
-            $statements[$i] = preg_replace('#\s{2,}#', ' ', $statements[$i]);
+			if( (strpos($statements[$i], $roster->db->table('menu'))===false)
+				&& (strpos($statements[$i], $roster->db->table('menu_button'))===false) )
+			{
+				$statements[$i] = str_replace("\r\n", '', $statements[$i]) . "\n";
 
-            $retval[] = trim($statements[$i]);
+				// Remove 2 or more spaces
+				$statements[$i] = preg_replace('#\s{2,}#', ' ', $statements[$i]);
+
+				$retval[] = trim($statements[$i]);
+			}
         }
     }
     unset($statements);
