@@ -112,6 +112,14 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('mailbox') . "` ADD `mailbox_icon` varchar(64) NOT NULL DEFAULT '';");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1443','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('players') . "` ADD `melee_expertise` int(11) NOT NULL default '0' AFTER `melee_haste_d`,"
+				. " ADD `melee_expertise_c` int(11) NOT NULL default '0' AFTER `melee_expertise`,"
+				. " ADD `melee_expertise_b` int(11) NOT NULL default '0' AFTER `melee_expertise_c`,"
+				. " ADD `melee_expertise_d` int(11) NOT NULL default '0' AFTER `melee_expertise_b`;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
