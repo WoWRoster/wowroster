@@ -2446,7 +2446,7 @@ class update
 		$row = $roster->db->fetch($result2);
 		$roster->db->free_result($result2);
 
-		$query = "SELECT `guild_id` FROM `" . $roster->db->table('guild') . "` WHERE `server` = '" . $row['server'] . "' AND `region` = '" . $row['region'] . "' AND `factionEn` = '" . $row['factionEn'] . "' AND `guild_name` LIKE 'guildless-%';";
+		$query = "SELECT `guild_id` FROM `" . $roster->db->table('guild') . "` WHERE `server` = '" . $roster->db->escape($row['server']) . "' AND `region` = '" . $roster->db->escape($row['region']) . "' AND `factionEn` = '" . $roster->db->escape($row['factionEn']) . "' AND `guild_name` LIKE 'guildless-%';";
 		$guild_id = $roster->db->query_first($query);
 
 		if( !$guild_id )
