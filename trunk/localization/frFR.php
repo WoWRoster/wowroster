@@ -732,6 +732,9 @@ $lang['auth_req'] = 'Autorisation requise';
 $lang['upload_rules_error'] = 'Vous ne pouvez pas laisser un des champs vide quand vous ajoutez une règle.';
 $lang['upload_rules_help'] = 'Les règles sont séparées en deux blocs.<br />Pour chaque guilde/personnage envoyé, le premier bloc est pris en compte en premier.<br />Si le couple nom@serveur correspond à l\'une des règles de rejet, celui-ci sera rejeté.<br />Ensuite le second bloc est vérifié.<br />Si le couple nom@serveur correspond à l\'une des règles d\'acceptation, celui-ci sera accepté.<br />Si aucune règle n\'est vérifiée, celui-ci est alors rejeté.';
 
+// Data Manager
+$lang['clean'] = 'Clean up entries based on rules';
+
 // Config Reset
 $lang['config_is_reset'] = 'La configuration a été remise à zéro. Merci de ne pas oublier de re-configurer tous vos paramètres avant de renvoyer vos données.';
 $lang['config_reset_confirm'] = 'Cette action est irréversible. Êtes-vous sûr de vouloir continuer ?';
@@ -749,6 +752,7 @@ Afin de continuer, saisissez votre mot de passe administrateur et cliquez sur \'
 $lang['pagebar_function'] = 'Fonctions';
 $lang['pagebar_rosterconf'] = 'Configuration principale du Roster';
 $lang['pagebar_uploadrules'] = 'Règles de mise à jour';
+$lang['pagebar_dataman'] = 'Data Manager';
 $lang['pagebar_changepass'] = 'Changer le mot de passe';
 $lang['pagebar_addoninst'] = 'Gestion des greffons';
 $lang['pagebar_update'] = 'Mise à jour';

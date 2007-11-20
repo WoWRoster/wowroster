@@ -41,6 +41,11 @@ $config_pages['upload'] = array(
 	'title'=>	'pagebar_uploadrules',
 	'file'=>	'upload_rules.php',
 	);
+$config_pages['dataman'] = array(
+	'href'=>	$roster->pages[0].'-dataman',
+	'title'=>	'pagebar_dataman',
+	'file'=>	'data_manager.php',
+	);
 $config_pages['install'] = array(
 	'href'=>	$roster->pages[0].'-install',
 	'title'=>	'pagebar_addoninst',

@@ -732,6 +732,9 @@ $lang['auth_req'] = 'Authorization Required';
 $lang['upload_rules_error'] = 'You cannot leave one of the fields empty when adding a rule';
 $lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.';
 
+// Data Manager
+$lang['clean'] = 'Clean up entries based on rules';
+
 // Config Reset
 $lang['config_is_reset'] = 'Configuration has been reset. Please remember to re-configure ALL your settings before attempting to upload data';
 $lang['config_reset_confirm'] = 'This is irreversible. Do you really want to continue?';
@@ -749,6 +752,7 @@ To continue, enter your admin password below and click on \'Proceed\'.';
 $lang['pagebar_function'] = 'Function';
 $lang['pagebar_rosterconf'] = 'Configure Main Roster';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
+$lang['pagebar_dataman'] = 'Data Manager';
 $lang['pagebar_changepass'] = 'Change Password';
 $lang['pagebar_addoninst'] = 'Manage Addons';
 $lang['pagebar_update'] = 'Upload Profile';
