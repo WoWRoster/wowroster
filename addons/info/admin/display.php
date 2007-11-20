@@ -62,7 +62,7 @@ $roster->db->free_result($result);
 $body = 'Select A Guild
 <form action="' . makelink() . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
-		<option>----------</option>
+		<option value="' . makelink() . '">----------</option>
 ' . $options . '
 	</select>
 </form>';
