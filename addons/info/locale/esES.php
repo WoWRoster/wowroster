@@ -114,6 +114,8 @@ $lang['ranged_att_power_tooltip']='Aumenta el daño con armas de ataque a distan
 
 $lang['weapon_hit_rating']='Ind. golpe';
 $lang['weapon_hit_rating_tooltip']='Aumenta tu probabilidad de acierto cuerpo a cuerpo cuando golpeas a un enemigo.';
+$lang['weapon_expertise']='Expertise';
+$lang['weapon_expertise_tooltip']='Reduces chance to be dodged or parried.';
 $lang['weapon_crit_rating']='Pro. Crit.';
 $lang['weapon_crit_rating_tooltip']='Indice de golpe crítico %.2f%%.';
 

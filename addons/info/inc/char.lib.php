@@ -1168,12 +1168,12 @@ $returnstring .= '  <tr>
 				$return .= $this->printStat('stat_armor');
 				break;
 			case 'melee':
-				$return .= $this->printWSkill('melee');
 				$return .= $this->printWDamage('melee');
 				$return .= $this->printWSpeed('melee');
 				$return .= $this->printStat('melee_power');
 				$return .= $this->printStat('melee_hit');
 				$return .= $this->printStat('melee_crit');
+				$return .= $this->printStat('melee_expertise');
 				break;
 			case 'ranged':
 				$return .= $this->printWSkill('ranged');
@@ -1251,6 +1251,10 @@ $returnstring .= '  <tr>
 				$name = $this->locale['weapon_hit_rating'];
 				$tooltip = $this->locale['weapon_hit_rating_tooltip'];
 				break;
+			case 'melee_expertise':
+				$name = $this->locale['weapon_expertise'];
+				$tooltip = $this->locale['weapon_expertise_tooltip'];
+				break;
 			case 'melee_crit':
 				$name = $this->locale['weapon_crit_rating'];
 				$tooltip = sprintf($this->locale['weapon_crit_rating_tooltip'], $this->data['melee_crit_chance']);
@@ -1275,9 +1279,13 @@ $returnstring .= '  <tr>
 		}
 
 		if( isset($lname) )
+		{
 			$tooltipheader = $lname . ' ' . $this->printRatingLong($statname);
+		}
 		else
+		{
 			$tooltipheader = $name . ' ' . $this->printRatingLong($statname);
+		}
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
 		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
