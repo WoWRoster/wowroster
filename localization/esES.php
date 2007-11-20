@@ -732,6 +732,9 @@ $lang['auth_req'] = 'introduce contraseña';
 $lang['upload_rules_error'] = 'No puedes dejar ningún campo vacío cuando añades una hermandad/personaje';
 $lang['upload_rules_help'] = 'En este apartado puedes configurar las hermandades/personajes excluidos y permitidos.<br />Cada vez que se sube una hermandad/personaje, se comprueba el bloque de arriba.<br />Si el nombre@servidor concuerda con los \'no permitidos\', directamente se rechaza.<br />Después se comprueba el segundo bloque.<br />Si el nombre@servidor concuerda con los \'permitidos\', entonces los datos se graban en la base de datos.<br />Si no concuerda con ningún bloque, los datos se descartan.';
 
+// Data Manager
+$lang['clean'] = 'Clean up entries based on rules';
+
 // Config Reset
 $lang['config_is_reset'] = 'La configuración ha sido restaurada. Por favor, recuerda re-configurar TODAS tus opciones antes de pasar a subir datos';
 $lang['config_reset_confirm'] = 'Esto es irreversible. ¿Estas seguro de continuar?';
@@ -749,6 +752,7 @@ Para continuar, introduce tu contraseña de administrador debajo y haz click en 
 $lang['pagebar_function'] = 'Funciones';
 $lang['pagebar_rosterconf'] = 'Configuración de Roster';
 $lang['pagebar_uploadrules'] = 'Exclusiones';
+$lang['pagebar_dataman'] = 'Data Manager';
 $lang['pagebar_changepass'] = 'Cambiar contraseña';
 $lang['pagebar_addoninst'] = 'Instalar addons';
 $lang['pagebar_update'] = 'Subir perfil';

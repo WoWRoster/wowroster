@@ -732,6 +732,9 @@ $lang['auth_req'] = 'Anmeldung erforderlich';
 $lang['upload_rules_error'] = 'Du kannst beim hinzufügen einer Regel kein Feld leer lassen';
 $lang['upload_rules_help'] = 'Die Regeln sind in zwei Blöcke unterteilt.<br />Für jeden hochgeladene Gilde/Charakter wird zuerst die oberste Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Verbieten\' Regeln, wird er abgewiesen.<br />Anschließend wird der zweite Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Erlauben\' Regeln, wird er akzeptiert.<br />Wenn er mit keiner Regel übereinstimmt, wird er abgewiesen.';
 
+// Data Manager
+$lang['clean'] = 'Clean up entries based on rules';
+
 // Config Reset
 $lang['config_is_reset'] = 'Konfiguration wurde zurückgesetzt. Bitte vergiss nicht ALLE deine Einstellung erneut einzugeben, bevor du versuchst deine Daten hochzuladen';
 $lang['config_reset_confirm'] = 'Dies ist unumkehrbar. Willst du wirklich fortfahren?';
@@ -749,6 +752,7 @@ Um fortzufahren gibt dein Admin-Passwort unten ein und klicke auf \'weiter\'.';
 $lang['pagebar_function'] = 'Aufgaben';
 $lang['pagebar_rosterconf'] = 'Konfiguriere Roster';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
+$lang['pagebar_dataman'] = 'Data Manager';
 $lang['pagebar_changepass'] = 'Passwort ändern';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';
 $lang['pagebar_update'] = 'Upload Profil';

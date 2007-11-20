@@ -2240,19 +2240,22 @@ class update
 				   . " FROM `" . $roster->db->table('upload') . "`"
 				   . " WHERE (`type` = 0 OR `type` = 1)"
 				   . " AND '" . $roster->db->escape( $row['guild_name'] ) . "' LIKE `name` "
-				   . " AND '" . $roster->db->escape( $row['realm'] ) . "' LIKE `server` "
+				   . " AND '" . $roster->db->escape( $row['server'] ) . "' LIKE `server` "
 				   . " AND '" . $roster->db->escape( $row['region'] ) . "' LIKE `region` "
 				   . " GROUP BY `type` "
 				   . " ORDER BY `type` DESC;";
 			if( $roster->db->query_first($query) !== '0' )
 			{
+				$this->setMessage('<ul><li>Deleting guild "' . $row['guild_name'] . '" and setting its members guildless.</li>');
 				// Does not match rules
 				$this->deleteGuild( $row['guild_id'], $timestamp );
+				$this->setMessage('</ul>');
 			}
 		}
 
 		// Select and delete all non-matching guildless members
-		$inClause='0';
+		$this->setMessage('<ul>');
+		$inClause='';
 
 		$query = "SELECT *"
 			. " FROM `" . $roster->db->table('members') . "` members"
@@ -2266,17 +2269,27 @@ class update
 				   . " FROM `" . $roster->db->table('upload') . "`"
 				   . " WHERE (`type` = 2 OR `type` = 3)"
 				   . " AND '" . $roster->db->escape( $row['name'] ) . "' LIKE `name` "
-				   . " AND '" . $roster->db->escape( $row['realm'] ) . "' LIKE `server` "
+				   . " AND '" . $roster->db->escape( $row['server'] ) . "' LIKE `server` "
 				   . " AND '" . $roster->db->escape( $row['region'] ) . "' LIKE `region` "
 				   . " GROUP BY `type` "
 				   . " ORDER BY `type` DESC;";
 			if( $roster->db->query_first($query) !== '2' )
 			{
+				$this->setMessage('<li>Deleting member "' . $row['name'] . '".</li>');
 				// Does not match rules
 				$inClause .= ',' . $row['member_id'];
 			}
 		}
-		$this->deleteMembers( $inClause );
+
+		if( empty($inClause) )
+		{
+			$this->setMessage('<li>No members deleted.</li>');
+		}
+		else
+		{
+			$this->deleteMembers( '0'.$inClause );
+		}
+		$this->setMessage('</ul>');
 	}
 
 	/**
