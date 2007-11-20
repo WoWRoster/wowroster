@@ -3114,6 +3114,7 @@ class update
 			$this->add_rating( 'melee_hit', $attack['HitRating']);
 			$this->add_rating( 'melee_crit', $attack['CritRating']);
 			$this->add_rating( 'melee_haste', $attack['HasteRating']);
+			$this->add_rating( 'melee_expertise', $attack['Expertise']);
 
 			$this->add_ifvalue( $attack, 'CritChance', 'melee_crit_chance' );
 			$this->add_ifvalue( $attack, 'AttackPowerDPS', 'melee_power_dps' );
