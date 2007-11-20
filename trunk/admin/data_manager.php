@@ -101,7 +101,7 @@ if( $roster->db->num_rows($result) > 0 )
 		$options .= '		<optgroup label="' . $realm . '">'. "\n";
 		foreach( $guild as $id => $name )
 		{
-			$options .= '			<option value="' . makelink("&amp;guild=$id",true) . '"' . ( ( isset($_GET['guild']) && $id == $_GET['guild']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+			$options .= '			<option value="' . makelink("&amp;guild=$id") . '"' . ( ( isset($_GET['guild']) && $id == $_GET['guild']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
 		}
 		$options .= '		</optgroup>';
 	}
@@ -112,7 +112,7 @@ $roster->db->free_result($result);
 $body = 'Select A Guild
 <form action="' . makelink() . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
-		<option>----------</option>
+		<option value="' . makelink() . '">----------</option>
 ' . $options . '
 	</select>
 </form>';
