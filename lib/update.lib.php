@@ -2313,6 +2313,7 @@ class update
 		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
 	}
+
 	/**
 	 * Delete Members in database using inClause
 	 * (comma separated list of member_id's to delete)
