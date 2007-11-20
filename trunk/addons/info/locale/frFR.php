@@ -114,6 +114,8 @@ $lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f 
 
 $lang['weapon_hit_rating']='Hit Rating';
 $lang['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
+$lang['weapon_expertise']='Expertise';
+$lang['weapon_expertise_tooltip']='Reduces chance to be dodged or parried.';
 $lang['weapon_crit_rating']='Crit Rating';
 $lang['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
 

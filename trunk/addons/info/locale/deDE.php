@@ -114,6 +114,8 @@ $lang['ranged_att_power_tooltip']='Erhöht die Angriffskraft mit Distanzwaffen u
 
 $lang['weapon_hit_rating']='Trefferwert.';
 $lang['weapon_hit_rating_tooltip']='Erhöht die Trefferchance im Nahkampf gegen ein Ziel.';
+$lang['weapon_expertise']='Expertise';
+$lang['weapon_expertise_tooltip']='Reduces chance to be dodged or parried.';
 $lang['weapon_crit_rating']='Kritisch';
 $lang['weapon_crit_rating_tooltip']='Kritische Trefferchance %.2f%%.';
 
