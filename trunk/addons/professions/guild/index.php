@@ -119,7 +119,7 @@ if( $roster->db->num_rows($result) )
 			</table>
 		</td>
 		<td class="' . $stripe_class_right . '">
-			' . ( active_addon('info') ? '<a href="' . makelink('char-info-recipes&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '
+			' . ( active_addon('info') ? '<a href="' . makelink('char-info-recipes&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '
 		</td>
 	</tr>
 ';

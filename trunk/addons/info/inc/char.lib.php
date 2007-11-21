@@ -2172,13 +2172,13 @@ $returnstring .= '  <tr>
 					{
 						if( $alt['main_id'] == $alt['member_id'] )
 						{
-							$caption = '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">'
+							$caption = '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
 								     . $alt['name'] . ' (' . $roster->locale->act['level']
 								     . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a>';
 						}
 						else
 						{
-							$html .= '<a href="' . makelink('char-info&amp;member=' . $alt['member_id']) . '">'
+							$html .= '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
 								   . $alt['name'] . ' (' . $roster->locale->act['level']
 								   . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a><br />';
 						}

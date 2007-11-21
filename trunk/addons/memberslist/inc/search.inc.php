@@ -67,7 +67,7 @@ class memberslist_search
 
 				$item['title'] = $name;
 				$item['date'] = $last_online;
-				$item['url'] = 	 makelink("char-info&amp;member=$member_id");
+				$item['url'] = 	 makelink("char-info&amp;a=c:$member_id");
 
 				$this->add_result($item);
 				unset($item);

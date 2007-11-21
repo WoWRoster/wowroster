@@ -158,7 +158,7 @@ function guild_value ( $row, $field )
 
 	if( $row['guild_id'] )
 	{
-		return '<div style="display:none; ">' . $row['guild_name'] . '</div><a href="' . makelink('guild-memberslist&amp;guild=' . $row['guild_id']) . '">' . $row['guild_name'] . '</a></div>';
+		return '<div style="display:none; ">' . $row['guild_name'] . '</div><a href="' . makelink('guild-memberslist&amp;a=g:' . $row['guild_id']) . '">' . $row['guild_name'] . '</a></div>';
 	}
 	else
 	{

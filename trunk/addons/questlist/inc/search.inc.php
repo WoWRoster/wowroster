@@ -71,7 +71,7 @@ class questlist_search
 				$item['title'] = $quest_name;
 				$item['image'] = 'inv_misc_note_02';
 
-				$item['url'] = makelink('realm-questlist&amp;realm=' . $region . '-' . urlencode($server) . '&amp;questid=' . urlencode($quest_name));
+				$item['url'] = makelink('realm-questlist&amp;a=r:' . $region . '-' . urlencode($server) . '&amp;questid=' . urlencode($quest_name));
 
 				//$item['footer'] = 'this is a custom footer section great place for credits';
 

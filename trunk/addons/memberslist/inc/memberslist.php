@@ -622,7 +622,7 @@ class memberslist
 
 			if( active_addon('info') && $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-info&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-info&amp;a=c:'.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
 			else
 			{
@@ -633,7 +633,7 @@ class memberslist
 		{
 			if ( active_addon('info') && $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-info&amp;member='.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-info&amp;a=c:'.$row['member_id']).'">'.$row['name'].'</a></div>';
 			}
 			else
 			{
@@ -863,7 +863,7 @@ class memberslist
 	 */
 	function guild_name_value ( $row, $field )
 	{
-		return '<div style="display:none; ">'.$row['guild_name'].'</div><a href="'.makelink('guild-memberslist&amp;guild='.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
+		return '<div style="display:none; ">'.$row['guild_name'].'</div><a href="'.makelink('guild-memberslist&amp;a=g:'.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
 	}
 
 	/**

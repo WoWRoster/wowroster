@@ -30,7 +30,7 @@ $char = new char($roster->data);
 
 // Set <html><title> and <form action=""> and $char_url
 $roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'));
-$char_url = '&amp;member=' . $char->get('member_id');
+$char_url = '&amp;a=c:' . $char->get('member_id');
 
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )

@@ -28,4 +28,4 @@ $start = (isset($_GET['start']) ? ( $_GET['start'] > 0 ? $_GET['start'] : 0 ) : 
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 // Set <html><title> and <form action=""> and $char_url
-$char_url = '&amp;member=' . $roster->data['member_id'];
+$char_url = '&amp;a=c:' . $roster->data['member_id'];

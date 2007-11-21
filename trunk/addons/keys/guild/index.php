@@ -323,7 +323,7 @@ while ($row = $roster->db->fetch($result))
 	print "<tr>\n";
 	$acount = 0;
 	rankLeft((($striping_counter % 2) +1));
-	print ( active_addon('info') ? '<a href="' . makelink('char-info&amp;member=' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '<br />' . $row['class'] . ' (' . $row['level'] . ')</td>' . "\n";
+	print ( active_addon('info') ? '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '<br />' . $row['class'] . ' (' . $row['level'] . ')</td>' . "\n";
 	foreach ($items as $key => $data)
 	{
 		++$acount;

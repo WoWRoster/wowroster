@@ -289,7 +289,7 @@ function tradeskill_icons ( $row )
 
 			if( active_addon('info') )
 			{
-				$cell_value .= '<a href="' . makelink('char-info-recipes&amp;member=' . $row['member_id'] . '#' . strtolower(str_replace(' ','',$r_prof[0]))) . '">' . $icon . '</a>';
+				$cell_value .= '<a href="' . makelink('char-info-recipes&amp;a=c:' . $row['member_id'] . '#' . strtolower(str_replace(' ','',$r_prof[0]))) . '">' . $icon . '</a>';
 			}
 			else
 			{
