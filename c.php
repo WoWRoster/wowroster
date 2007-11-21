@@ -67,7 +67,7 @@ if( !$result )
 if( $row = $roster->db->fetch($result) )
 {
 	$roster->db->free_result($result);
-	header("Location: ".str_replace('&amp;','&',makelink('char-info&amp;member='.$row['member_id'],true)));
+	header("Location: ".str_replace('&amp;','&',makelink('char-info&amp;a=c:'.$row['member_id'],true)));
 	exit();
 }
 

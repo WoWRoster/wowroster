@@ -244,10 +244,9 @@ class RosterMenu
 			}
 		}
 
-
 		switch( $roster->scope )
 		{
-			case 'util':
+			case 'util': case 'page':
 				$roster->tpl->assign_vars(array(
 					'S_MENU_SUBTITLE'   => isset($roster->config['default_desc']),
 					'S_MENU_3RDTITLE'   => false,
