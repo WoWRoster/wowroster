@@ -116,7 +116,7 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 
 	$date_char_data_updated = DateCharDataUpdated($muleRow['member_id']);
 
-	$bank_print_member = ( active_addon('info') ? '<a href="' . makelink('char-info&amp;member=' . $muleRow['member_id']) . '">' . $muleRow['member_name'] . '</a>' : $muleRow['member_name']);
+	$bank_print_member = ( active_addon('info') ? '<a href="' . makelink('char-info&amp;a=c:' . $muleRow['member_id']) . '">' . $muleRow['member_name'] . '</a>' : $muleRow['member_name']);
 	$bank_print .= '<a id="c_' . $muleRow['member_id'] . '"></a>' . border('sgray','start',$bank_print_member . ' (' . $note . ') - <small>' . $roster->locale->act['lastupdate'] . ': ' . $date_char_data_updated . '</small>')
 				 . '<table class="bodyline" cellspacing="0" cellpadding="0">'
 				 . ( $addon['config']['bank_money'] ?

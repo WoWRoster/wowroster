@@ -131,7 +131,7 @@ if( !empty($zoneidsafe) )
 
 				// Echoing cells w/ data
 				print '<td class="membersRow' . (($striping_counter % 2) +1) . '">';
-				print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
+				print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;a=c:' . $row['member_id']) . '">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
 				print '</td>';
 
 				print '<td class="membersRow' . (($striping_counter % 2) +1) . '">' . $row['quest_level'] . $tagstring . '</td>';
@@ -217,7 +217,7 @@ if( !empty($questidsafe) )
 
 			// Echoing cells w/ data
 			print '<td class="membersRow' . (($striping_counter % 2) +1) . '">';
-			print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;member=' . $row['member_id']) . '">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
+			print ( active_addon('info') ? '<a href="'.makelink('char-info-quests&amp;a=c:' . $row['member_id']) . '">' . $row['level'] . ':' . $row['name'] . '</a>' : $row['level'] . ':' . $row['name'] );
 			print '</td>';
 
 			print '<td class="membersRow'. (($striping_counter % 2) +1) .'">' . $row['quest_level'] . $tagstring . '</td>';

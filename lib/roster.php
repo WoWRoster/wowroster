@@ -40,6 +40,8 @@ class roster
 	 */
 	var $db;
 	var $pages;
+	var $atype;
+	var $anchor;
 	var $scope;
 	var $data = false; // scope data
 	var $addon_data;
@@ -180,49 +182,135 @@ class roster
 	 */
 	function get_scope_data()
 	{
-		// --[ Fetch the right data for the scope ]--
-		switch( $this->pages[0] )
+		if( in_array( $this->pages[0], array('util','realm','guild','char') ) )
+		{
+			$this->scope = $this->pages[0];
+		}
+		else
+		{
+			$this->scope = 'page';
+		}
+
+		// --[ Resolve the anchor ]--
+		$this->anchor = isset($_GET['a'])?$_GET['a']:'';
+
+		if( empty($this->anchor) )
+		{
+			$this->atype = 'none';
+		}
+		elseif( strpos($this->anchor, ':') !== FALSE )
+		{
+			list($this->atype, $this->anchor) = explode(':', $this->anchor);
+			switch( $this->atype )
+			{
+			case 'r': case 'realm':
+				$this->atype = 'realm';
+				break;
+			case 'g': case 'guild':
+				$this->atype = 'guild';
+				break;
+			case 'c': case 'char':
+				$this->atype = 'char';
+				break;
+			default:
+				$this->atype = 'none';
+				break;
+			}
+		}
+		elseif( strpos( $this->anchor, '@' ) === FALSE )
+		{
+			$this->atype = 'realm';
+		}
+		else
+		{
+			// There is no way to see from the anchor if this is a guild anchor or a char anchor. To keep
+			// it simple, we'll just assume it's an anchor for the current scope.
+			$this->atype = $this->scope;
+		}
+
+		// --[ Build the select part of the query, and validate the anchor is accurate enough ]--
+		switch( $this->scope )
+		{
+		case 'char':
+			if( !in_array( $this->atype, array('char') ) )
+			{
+				roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+			}
+			$query = 'SELECT guild.*, members.*, players.*, '
+				. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
+				. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" ';
+			break;
+		case 'guild':
+			if( !in_array( $this->atype, array('char','guild','none') ) )
+			{
+				roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+			}
+			$query = 'SELECT guild.* ';
+			break;
+		case 'realm':
+			$query = 'SELECT `region`,`server` ';
+			break;
+		default:
+			// Util doesn't load any data.
+			$query = 'SELECT 1';
+			break;
+		}
+
+		if( $this->atype == 'none' && in_array($this->scope, array('guild','realm')) )
+		{
+			// No anchor at all. 
+			$defquery =  "SELECT `name`, `server`, `region`"
+				. " FROM `" . $this->db->table('upload') . "`"
+				. " WHERE `default` = '1' LIMIT 1;";
+
+			$this->db->query($defquery);
+
+			$data = $this->db->fetch();
+
+			$name = $this->db->escape( $data['name'] );
+			$realm = $this->db->escape( $data['server'] );
+			$region = $this->db->escape( $data['region'] );
+
+			$this->atype = 'default';
+			$this->anchor = $name . '@' . $region . '-' . $realm;
+		}
+
+		// --[ Build the from and where parts of the query ]--
+		switch( $this->atype )
 		{
 			case 'char':
-				$this->scope = 'char';
-
-				// Check if the member attribute is set
-				if( !isset($_GET['member']) )
-				{
-					roster_die('You need to provide a member id or name@server','WoWRoster');
-				}
-
 				// Parse the attribute
-				if( is_numeric($_GET['member']) )
+				if( is_numeric($this->anchor) )
 				{
-					$where = ' `players`.`member_id` = "' . $_GET['member'] . '"';
+					$where = ' `players`.`member_id` = "' . $this->anchor . '"';
 				}
-				elseif( strpos($_GET['member'], '@') !== false )
+				elseif( strpos($this->anchor, '@') !== false )
 				{
-					list($name, $realm) = explode('@',$_GET['member']);
+					list($name, $realm) = explode('@',$this->anchor);
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm,2);
-						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '" AND `players`.`region` = "' . strtoupper($region) . '"';
+						$where = ' `players`.`name` = "' . $name . '" '
+							. 'AND `players`.`server` = "' . $realm . '" '
+						        . 'AND `players`.`region` = "' . strtoupper($region) . '" ';
 					}
 					else
 					{
-						$where = ' `players`.`name` = "' . $name . '" AND `players`.`server` = "' . $realm . '"';
+						$where = ' `players`.`name` = "' . $name . '" '
+						       . 'AND `players`.`server` = "' . $realm . '" ';
 					}
 				}
 				else
 				{
-					$name = $_GET['member'];
+					$name = $this->anchor;
 					$where = ' `players`.`name` = "' . $name . '"';
 				}
 
 				// Get the data
-				$query = 'SELECT *, DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
-					   . $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
-					   . 'FROM `' . $this->db->table('players') . '` players '
-					   . 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
-					   . 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
-					   . 'WHERE ' . $where;
+				$query .= 'FROM `' . $this->db->table('players') . '` players '
+					. 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
+					. 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
+					. 'WHERE ' . $where . ";";
 
 				$result = $this->db->query($query);
 
@@ -233,61 +321,45 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					roster_die('This member is not in the database',$this->locale->act['roster_error']);
+					roster_die('The member ' . $this->anchor . ' is not in the database',$this->locale->act['roster_error']);
 				}
 
 				$this->db->free_result($result);
 
 				break;
 
-			case 'guild':
-				$this->scope = 'guild';
-
-				// Check if the guild attribute is set
-				if( !isset($_GET['guild']) )
-				{
-					// Get the default selected guild from the upload rules
-					$query =  "SELECT `name`, `server`, `region`"
-							. " FROM `" . $this->db->table('upload') . "`"
-							. " WHERE `default` = '1' LIMIT 1;";
-
-					$this->db->query($query);
-
-					$data = $this->db->fetch();
-
-					$name = $this->db->escape( $data['name'] );
-					$realm = $this->db->escape( $data['server'] );
-					$region = $this->db->escape( $data['region'] );
-					$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . $region . '"';
-				}
+			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
+			case 'guild': case 'default':
 				// Parse the attribute
-				elseif( is_numeric($_GET['guild']) )
+				if( is_numeric($this->anchor) )
 				{
-					$where = ' `guild_id` = "' . $_GET['guild'] . '"';
+					$where = ' `guild_id` = "' . $this->anchor . '"';
 				}
-				elseif( strpos($_GET['guild'],'@') !== false )
+				elseif( strpos($this->anchor, '@') !== false )
 				{
-					list($name, $realm) = explode('@',$_GET['guild']);
+					list($name, $realm) = explode('@', $this->anchor);
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm,2);
-						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
+						$where = ' `guild_name` = "' . $name . '" '
+							. 'AND `server` = "' . $realm . '" '
+							. 'AND `region` = "' . strtoupper($region) . '" ';
 					}
 					else
 					{
-						$where = ' `guild_name` = "' . $name . '" AND `server` = "' . $realm . '"';
+						$where = ' `guild_name` = "' . $name . '" '
+							. 'AND `server` = "' . $realm . '" ';
 					}
 				}
 				else
 				{
-					$name = $this->db->escape( $data['name'] );
+					$name = $this->anchor;
 					$where = ' `guild_name` = "' . $name . '"';
 				}
 
 				// Get the data
-				$query = "SELECT * ".
-					"FROM `" . $this->db->table('guild') . "` ".
-					"WHERE " . $where . ";";
+				$query .= "FROM `" . $this->db->table('guild') . "` guild "
+					. "WHERE " . $where . ";";
 
 				$result = $this->db->query($query);
 
@@ -298,11 +370,6 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					// These are set for the roster menu
-					$this->data['guild_name'] = $name;
-					$this->data['region'] = $region;
-					$this->data['server'] = $realm;
-					$this->data['guild_id'] = '';
 					roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
@@ -311,37 +378,19 @@ class roster
 				break;
 
 			case 'realm':
-				$this->scope = 'realm';
-
-				// Check if the realm attribute is set
-				if( !isset($_GET['realm']) )
-				{
-					// Get the default selected guild from the upload rules
-					$query  =  "SELECT `server`, `region`"
-							. " FROM `" . $this->db->table('upload') . "`"
-							. " WHERE `default` = '1' LIMIT 1;";
-
-					$this->db->query($query);
-
-					$data = $this->db->fetch();
-
-					$realm = $this->db->escape( $data['server'] );
-					$region = $this->db->escape( $data['region'] );
-					$where = ' `server` = "' . $realm . '" AND `region` = "' . $region . '"';
-				}
-				elseif( strpos($_GET['realm'],'-') !== false )
+				if( strpos($this->anchor,'-') !== false )
 				{
 					list($region, $realm) = explode('-',$_GET['realm'],2);
-					$where = ' `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
+					$where = ' `server` = "' . $realm . '" '
+						. 'AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
-					//$realm = $_GET['realm'];
-					//$where = ' `server` = "' . $realm . '"';
-					roster_die('You must specify a region code in the realm name','Region Code Required');
+					$realm = $_GET['realm'];
+					$where = ' `server` = "' . $realm . '" ';
 				}
 
-				// Get the selected data
+				// Check if there's data for this realm
 				$query = "SELECT DISTINCT `server`, `region`"
 					   . " FROM `" . $this->db->table('guild') . "`"
 					   . " UNION SELECT DISTINCT `server`, `region` FROM `" . $this->db->table('players') . "`"
@@ -360,14 +409,10 @@ class roster
 					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
 				}
 
-				$this->data = array('server' => stripslashes($realm),'region' => $region);
-
 				break;
-
 			default:
-				$this->scope = 'util';
+				// no anchor passed, and we didn't load defaults so we're in util or page scope. No data needed.
 				$this->data = array();
-				break;
 		}
 
 		// Set menu array

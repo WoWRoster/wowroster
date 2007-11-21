@@ -113,7 +113,7 @@ function makelink( $url='' , $full=false )
 {
 	global $roster;
 
-	// Filter out anchor
+	// Filter out html anchor
 	if( ($pos = strpos($url,'#')) !== false )
 	{
 		$anchor = substr($url,$pos);
@@ -140,46 +140,14 @@ function makelink( $url='' , $full=false )
 		$url = '';
 	}
 
-	// Get target scope
-	list($scope) = explode('-',$page);
-
-	// Get the target GET vars
-	parse_str(html_entity_decode($url), $get);
-
-	// Add the scope param if it isn't in yet
-	$addget = '';
-	switch( $scope )
+	// Add the anchor param if it isn't in yet
+	if( empty($url) )
 	{
-		case 'char':
-			if( !isset($get['member']) && isset($roster->data['member_id']) )
-			{
-				$addget = 'member=' . $roster->data['member_id'];
-			}
-			break;
-
-		case 'guild':
-			if( !isset($get['guild']) && isset($roster->data['guild_id']) )
-			{
-				$addget = 'guild=' . $roster->data['guild_id'];
-			}
-			break;
-
-		case 'realm':
-			if( !isset($get['realm']) && isset($roster->data['server']) )
-			{
-				$addget = 'realm=' . $roster->data['region'] . '-' . $roster->data['server'];
-			}
-			break;
+		$url = 'a=' . $roster->anchor;
 	}
-
-	// Put the url back together again
-	if( empty($addget) || empty($url) )
+	elseif( substr($url,0,2) != 'a=' && FALSE == strpos( $url, '&amp;a=' ) )
 	{
-		$url = $addget . $url;
-	}
-	else
-	{
-		$url = $addget . '&amp;' . $url;
+		$url = 'a=' . $roster->anchor . '&amp;' . $url;
 	}
 
 	// SEO magic
