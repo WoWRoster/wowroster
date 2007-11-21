@@ -143,7 +143,7 @@ function makelink( $url='' , $full=false )
 	// Add the anchor param if it isn't in yet
 	if( empty($url) )
 	{
-		$url = 'a=' . $roster->anchor;
+		$url = 'a=' . $roster->atype[0] . ':' . $roster->anchor;
 	}
 	elseif( substr($url,0,2) != 'a=' && FALSE == strpos( $url, '&amp;a=' ) )
 	{
